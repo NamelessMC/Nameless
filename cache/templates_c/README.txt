@@ -1,0 +1,1 @@
+Do not clear out the cache manually; visit the AdminCP's "Misc" tab and click "Clear Cache".

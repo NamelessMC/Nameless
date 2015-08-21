@@ -1,0 +1,1738 @@
+<?php
+/* 
+ *	Made by Samerton
+ *  http://worldscapemc.co.uk
+ *
+ *  License: MIT
+ */
+ 
+require('core/includes/password.php'); // Require password compatibility
+require('core/integration/uuid.php'); // Require UUID integration
+ 
+if(isset($_GET["step"])){
+	$step = strtolower(htmlspecialchars($_GET["step"]));
+} else {
+	$step = "start";
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="NamelessMC installer">
+    <meta name="author" content="Samerton">
+	<meta name="robots" content="noindex">
+
+    <title>NamelessMC &bull; Install</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/core/assets/css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+	<div class="container">
+	  <br />
+	  <ul class="nav nav-tabs">
+	    <li <?php if($step == "start"){ ?>class="active"<?php } else { ?>class="disabled"<?php } ?>><a>Start</a></li>
+		<li <?php if($step == "requirements" || $step == "upgrade_requirements"){ ?>class="active"<?php } else { ?>class="disabled"<?php } ?>><a>Requirements</a></li>
+		<li <?php if($step == "upgrade"){ ?>class="active"<?php } else { ?>class="disabled"<?php } ?>><a>Upgrade</a></li>
+		<li <?php if($step == "configuration"){ ?>class="active"<?php } else { ?>class="disabled"<?php } ?>><a>Configuration</a></li>
+	    <li <?php if($step == "database"){ ?>class="active"<?php } else { ?>class="disabled"<?php } ?>><a>Database</a></li>
+		<li <?php if($step == "settings" || $step == "settings_extra"){ ?>class="active"<?php } else { ?>class="disabled"<?php } ?>><a>Settings</a></li>
+		<li <?php if($step == "account"){ ?>class="active"<?php } else { ?>class="disabled"<?php } ?>><a>Account</a></li>
+		<li <?php if($step == "convert"){ ?>class="active"<?php } else { ?>class="disabled"<?php } ?>><a>Convert</a></li>
+		<li <?php if($step == "finish"){ ?>class="active"<?php } else { ?>class="disabled"<?php } ?>><a>Finish</a></li>
+	  </ul>
+
+	  <?php
+	  if($step === "start"){
+	  ?>
+	  <h2>Welcome to NamelessMC</h2>
+	  This page will guide you through the process of installing the NamelessMC website package.<br /><br />
+	  You will need the following:
+	  <ul>
+	    <li>A MySQL database on the webserver</li>
+		<li>PHP version 5.3+</li>
+	  </ul>
+	  <br />
+	  The following are not required, but are recommended:
+	  <ul>
+	    <li>A MySQL database for a Bungee instance <a data-toggle="modal" href="#bungee_plugins">(Supported Plugins)</a></li>
+		<li>A MySQL database for your Minecraft servers <a data-toggle="modal" href="#mc_plugins">(Supported Plugins)</a></li>
+	  </ul>
+	  <br />
+	  We can convert from:
+	  <ul>
+	    <li>ModernBB</li>
+		<li>Wordpress and bbPress</li>
+		<li>XenForo</li>
+	  </ul>
+	  Coming soon:
+	  <ul>
+		<li>phpBB</li>
+		<li>IPBoard</li>
+		<li>MyBB</li>
+		<li>Vanilla</li>
+	  </ul>
+	  <br />
+	  
+	  <strong>Do you want to upgrade from a previous version of NamelessMC?</strong><br /><br />
+	  <button type="button" onclick="location.href='/install/?step=upgrade_requirements'" class="btn btn-success">Yes &raquo;</button>
+	  <button type="button" onclick="location.href='/install/?step=requirements'" class="btn btn-primary">No &raquo;</button>
+	  
+	  <?php 
+	  } else if($step === "requirements"){
+		$error = '<p style="display: inline;" class="text-danger"><span class="glyphicon glyphicon-remove-sign"></span></p><br />';
+		$success = '<p style="display: inline;" class="text-success"><span class="glyphicon glyphicon-ok-sign"></span></p><br />';
+	  ?>
+	  <h2>Requirements</h2>
+	  <?php
+		if(version_compare(phpversion(), '5.3', '<')){
+			echo 'PHP 5.3 - ' . $error;
+			$php_error = true;
+		} else {
+			echo 'PHP 5.3 - ' . $success;
+		}
+		if(!extension_loaded('gd')){
+			echo 'PHP GD Extension - ' . $error;
+			$php_error = true;
+		} else {
+			echo 'PHP GD Extension - ' . $success;
+		}
+		if(!extension_loaded('PDO')){
+			echo 'PHP PDO Extension - ' . $error;
+			$php_error = true;
+		} else {
+			echo 'PHP PDO Extension - ' . $success;
+		}
+		if(!function_exists("mcrypt_encrypt")) {
+			echo 'PHP mcrypt Extension - ' . $error;
+			$php_error = true;
+		} else {
+			echo 'PHP mcrypt Extension - ' . $success;
+		}
+		if(!function_exists('curl_version')){
+			echo 'PHP cURL Extension - ' . $error;
+			$php_error = true;
+		} else {
+			echo 'PHP cURL Extension - ' . $success;
+		}
+		if(!class_exists("DOMDocument")){ // if there is a fatal error on the Requirements step, this is missing
+			echo 'PHP DOMDocument Class - ' . $error;
+			$php_error = true;
+		} else {
+			echo 'PHP DOMDocument Class - ' . $success;
+		}
+	  ?>
+	  <br />
+	  <?php
+	    if(isset($php_error)){
+	  ?>
+	  <div class="alert alert-danger">You must be running at least PHP version 5.3 with the required extensions enabled in order to proceed with installation.</div>
+	  <?php
+		} else {
+	  ?>
+	  <button type="button" onclick="location.href='/install/?step=configuration'" class="btn btn-primary">Proceed &raquo;</button>
+	  <?php
+		}
+	  } else if($step === "upgrade_requirements"){
+		$error = '<p style="display: inline;" class="text-danger"><span class="glyphicon glyphicon-remove-sign"></span></p><br />';
+		$success = '<p style="display: inline;" class="text-success"><span class="glyphicon glyphicon-ok-sign"></span></p><br />';
+	  ?>
+	  <h2>Requirements</h2>
+	  <?php
+		if(version_compare(phpversion(), '5.3', '<')){
+			echo 'PHP 5.3 - ' . $error;
+			$php_error = true;
+		} else {
+			echo 'PHP 5.3 - ' . $success;
+		}
+		if(!extension_loaded('gd')){
+			echo 'PHP GD Extension - ' . $error;
+			$php_error = true;
+		} else {
+			echo 'PHP GD Extension - ' . $success;
+		}
+		if(!extension_loaded('PDO')){
+			echo 'PHP PDO Extension - ' . $error;
+			$php_error = true;
+		} else {
+			echo 'PHP PDO Extension - ' . $success;
+		}
+		if(!function_exists("mcrypt_encrypt")) {
+			echo 'PHP mcrypt Extension - ' . $error;
+			$php_error = true;
+		} else {
+			echo 'PHP mcrypt Extension - ' . $success;
+		}
+		if(!function_exists('curl_version')){
+			echo 'PHP cURL Extension - ' . $error;
+			$php_error = true;
+		} else {
+			echo 'PHP cURL Extension - ' . $success;
+		}
+		if(!class_exists("DOMDocument")){ // if there is a fatal error on the Requirements step, this is missing
+			echo 'PHP DOMDocument Class - ' . $error;
+			$php_error = true;
+		} else {
+			echo 'PHP DOMDocument Class - ' . $success;
+		}
+	  ?>
+	  <br />
+	  <?php
+	    if(isset($php_error)){
+	  ?>
+	  <div class="alert alert-danger">You must be running at least PHP version 5.3 with the required extensions enabled in order to proceed with installation.</div>
+	  <?php
+		} else {
+	  ?>
+	  <button type="button" onclick="location.href='/install/?step=upgrade'" class="btn btn-primary">Proceed &raquo;</button>
+	  <?php
+		}
+	  } else if($step === "upgrade"){
+		  if(Input::exists()){
+			if(isset($_POST['submitted'])){
+				$validate = new Validate();
+				$validation = $validate->check($_POST, array(
+					'db_address' => array(
+						'required' => true
+					),
+					'db_username' => array(
+						'required' => true
+					),
+					'db_name' => array(
+						'required' => true
+					)
+				));
+
+				if($validation->passed()) {
+					$db_password = Input::get('password');
+					if(!empty($db_password)){
+						$db_password = Input::get('db_password');
+					} else {
+						$db_password = '';
+					}
+					
+					$prefix = Input::get('prefix');
+					if(empty($prefix)){
+						$prefix = '';
+					}
+					
+					$prefix = htmlspecialchars($prefix);
+					
+					$db_prefix = "nl1_";
+					$cookie_name = "nlmc";
+					
+					/*
+					 *  Test connection - use MySQLi here, as the config for PDO is not written
+					 */
+					$mysqli = new mysqli(Input::get('db_address'), Input::get('db_username'), $db_password, Input::get('db_name'));
+					if($mysqli->connect_errno) {
+						$mysql_error = $mysqli->connect_errno . ' - ' . $mysqli->connect_error;
+					} else {
+						/*
+						 *  Write to config file
+						 */
+						$insert = 	'<?php' . PHP_EOL . 
+									'$GLOBALS[\'config\'] = array(' . PHP_EOL . 
+									'	"mysql" => array(' . PHP_EOL . 
+									'		"host" => "' . Input::get('db_address') . '", // Web server database IP (Likely to be 127.0.0.1)' . PHP_EOL . 
+									'		"username" => "' . Input::get('db_username') . '", // Web server database username' . PHP_EOL . 
+									'		"password" => "' . $db_password . '", // Web server database password' . PHP_EOL . 
+									'		"db" => "' . Input::get('db_name') . '", // Web server database name' . PHP_EOL .
+									'		"prefix" => "' . $db_prefix . '" // Web server table prefix' . PHP_EOL .
+									'	),' . PHP_EOL . 
+									'	"remember" => array(' . PHP_EOL . 
+									'		"cookie_name" => "' . $cookie_name . '", // Name for website cookies' . PHP_EOL . 
+									'		"cookie_expiry" => 604800' . PHP_EOL . 
+									'	),' . PHP_EOL . 
+									'	"session" => array(' . PHP_EOL . 
+									'		"session_name" => "user",' . PHP_EOL . 
+									'		"admin_name" => "admin",' . PHP_EOL .
+									'		"token_name" => "token"' . PHP_EOL . 
+									'	)' . PHP_EOL . 
+									');';
+						
+						if(is_writable('core/config.php')){
+							$file = fopen('core/config.php','w');
+							fwrite($file, $insert);
+							fclose($file);
+
+							$queries = new Queries();
+							$queries->dbInitialise($db_prefix); // Initialise the database
+							
+							$query = $mysqli->query("SELECT * FROM {$prefix}custom_pages");
+							while($row = $query->fetch_assoc()){
+								$queries->create('custom_pages', array(
+									'url' => $row['url'],
+									'title' => $row['title'],
+									'content' => $row['content'],
+									'link_location' => 1
+								));
+							}
+							
+							$query = $mysqli->query("INSERT nl1_forums SELECT * FROM {$prefix}forums");
+
+							$query = $mysqli->query("INSERT nl1_forums_permissions SELECT * FROM {$prefix}forums_permissions");
+							
+							$query = $mysqli->query("INSERT nl1_friends SELECT * FROM {$prefix}friends");
+							
+							$query = $mysqli->query("SELECT * FROM {$prefix}groups");
+							while($row = $query->fetch_assoc()){
+								$mod_cp = 0;
+								$admin_cp = 0;
+								$staff = 0;
+								
+								if($row['id'] == 2){
+									$mod_cp = 1;
+									$admin_cp = 1;
+									$staff = 1;
+								} else if($row['id'] == 3){
+									$mod_cp = 1;
+									$staff = 1;
+								}
+								
+								$queries->create('groups', array(
+									'id' => $row['id'],
+									'name' => $row['name'],
+									'buycraft_id' => $row['buycraft_id'],
+									'group_html' => $row['group_html'],
+									'group_html_lg' => $row['group_html_lg'],
+									'mod_cp' => $mod_cp,
+									'admin_cp' => $admin_cp,
+									'staff' => $staff
+								));
+							}
+							
+							$query = $mysqli->query("INSERT nl1_infractions SELECT * FROM {$prefix}infractions");
+							
+							$query = $mysqli->query("SELECT * FROM {$prefix}mc_servers");
+							while($row = $query->fetch_assoc()){
+								if(isset($row['pre'])){
+									$pre = $row['pre'];
+								} else {
+									$pre = 0;
+								}
+								
+								if(isset($row['player_list'])){
+									$player_list = $row['player_list'];
+								} else {
+									$player_list = 0;
+								}
+								
+								$queries->create('mc_servers', array(
+									'ip' => $row['ip'],
+									'name' => $row['name'],
+									'is_default' => $row['is_default'],
+									'display' => $row['display'],
+									'pre' => $pre,
+									'player_list' => $player_list
+								));
+							}
+							
+							$query = $mysqli->query("INSERT nl1_posts SELECT * FROM {$prefix}posts");
+							
+							$query = $mysqli->query("INSERT nl1_private_messages SELECT * FROM {$prefix}private_messages");
+							
+							$query = $mysqli->query("INSERT nl1_private_messages_users SELECT * FROM {$prefix}private_messages_users");
+							
+							$query = $mysqli->query("INSERT nl1_reports SELECT * FROM {$prefix}reports");
+							
+							$query = $mysqli->query("INSERT nl1_reports_comments SELECT * FROM {$prefix}reports_comments");
+							
+							$query = $mysqli->query("INSERT nl1_reputation SELECT * FROM {$prefix}reputation");
+							
+							$query = $mysqli->query("INSERT nl1_settings SELECT * FROM {$prefix}settings");
+							
+							$query = $mysqli->query("INSERT nl1_topics SELECT * FROM {$prefix}topics");
+							
+							$query = $mysqli->query("INSERT nl1_users SELECT * FROM {$prefix}users");
+							
+							$query = $mysqli->query("INSERT nl1_users_admin_session SELECT * FROM {$prefix}users_admin_session");
+							
+							$query = $mysqli->query("INSERT nl1_users_session SELECT * FROM {$prefix}users_session");
+							
+							$query = $mysqli->query("INSERT nl1_uuid_cache SELECT * FROM {$prefix}uuid_cache");
+							
+							// Core Modules
+							$queries->create('core_modules', array(
+								'name' => 'Google_Analytics',
+								'enabled' => 0
+							));
+							$queries->create('core_modules', array(
+								'name' => 'Social_Media',
+								'enabled' => 1
+							));
+							$queries->create('core_modules', array(
+								'name' => 'Registration',
+								'enabled' => 1
+							));
+							$queries->create('core_modules', array(
+								'name' => 'Voice_Server_Module',
+								'enabled' => 0
+							));
+							
+							// Themes
+							$themes = array(
+								1 => array(
+									'name' => 'Bootstrap',
+									'enabled' => 1
+								),
+								2 => array(
+									'name' => 'Cerulean',
+									'enabled' => 0
+								),
+								3 => array(
+									'name' => 'Cosmo',
+									'enabled' => 0
+								),
+								4 => array(
+									'name' => 'Cyborg',
+									'enabled' => 0
+								),
+								5 => array(
+									'name' => 'Darkly',
+									'enabled' => 0
+								),
+								6 => array(
+									'name' => 'Flatly',
+									'enabled' => 0
+								),
+								7 => array(
+									'name' => 'Journal',
+									'enabled' => 0
+								),
+								8 => array(
+									'name' => 'Lumen',
+									'enabled' => 0
+								),
+								9 => array(
+									'name' => 'Paper',
+									'enabled' => 0
+								),
+								10 => array(
+									'name' => 'Readable',
+									'enabled' => 0
+								),
+								11 => array(
+									'name' => 'Sandstone',
+									'enabled' => 0
+								),
+								12 => array(
+									'name' => 'Simplex',
+									'enabled' => 0
+								),
+								13 => array(
+									'name' => 'Slate',
+									'enabled' => 0
+								),
+								14 => array(
+									'name' => 'Spacelab',
+									'enabled' => 0
+								),
+								15 => array(
+									'name' => 'Superhero',
+									'enabled' => 0
+								),
+								16 => array(
+									'name' => 'United',
+									'enabled' => 0
+								),
+								17 => array(
+									'name' => 'Yeti',
+									'enabled' => 0
+								)
+							);
+							
+							foreach($themes as $theme){
+								$queries->create('themes', array(
+									'enabled' => $theme['enabled'],
+									'name' => $theme['name']
+								));
+							}
+							
+							// Templates
+							$queries->create('templates', array(
+								'enabled' => 1,
+								'name' => 'Default'
+							));
+							
+							// Cache
+							$c = new Cache();
+							$c->setCache('themecache');
+							$c->store('theme', 'Bootstrap');
+							$c->store('inverse_navbar', '0');
+							
+							$c->setCache('templatecache');
+							$c->store('template', 'Default');
+							
+							$c->setCache('languagecache');
+							$c->store('language', 'EnglishUK');
+							
+							$c->setCache('page_load_cache');
+							$c->store('page_load', 0);
+							
+							$plugin_key = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 32);
+							
+							// New settings
+							$queries->update('settings', 13, array(
+								'value' => 'By registering on our website, you agree to the following:<p>This website uses "Nameless" website software. The "Nameless" software creators will not be held responsible for any content that may be experienced whilst browsing this site, nor are they responsible for any loss of data which may come about, for example a hacking attempt. The website is run independently from the software creators, and any content is the responsibility of the website administration.</p>'
+							));
+							
+							$queries->create('settings', array(
+								'name' => 'mc_api_key',
+								'value' => $plugin_key
+							));
+							
+							$queries->create('settings', array(
+								'name' => 'phpmailer',
+								'value' => '0'
+							));
+							
+							$queries->create('settings', array(
+								'name' => 'phpmailer_type',
+								'value' => 'smtp'
+							));
+							
+							$external_query = $queries->getWhere('settings', array('name', '=', 'external_query'));
+							if(!count($external_query)){
+								$queries->create('settings', array(
+									'name' => 'external_query',
+									'value' => 'false'
+								));
+							}
+							
+							$queries->create('settings', array(
+								'name' => 'use_plugin',
+								'value' => '0'
+							));
+							
+							$queries->create('settings', array(
+								'name' => 'uuid_linking',
+								'value' => '1'
+							));
+							
+							$queries->create('settings', array(
+								'name' => 'inverse_navbar',
+								'value' => '0'
+							));
+							
+							$queries->create('settings', array(
+								'name' => 'error_reporting',
+								'value' => '0'
+							));
+							
+							$queries->create('settings', array(
+								'name' => 'ga_script',
+								'value' => 'null'
+							));
+							
+							$queries->create('settings', array(
+								'name' => 'avatar_api',
+								'value' => 'cravatar'
+							));
+							
+							$queries->create('settings', array(
+								'name' => 'language',
+								'value' => 'EnglishUK'
+							));
+							
+							$queries->create('settings', array(
+								'name' => 't_and_c_site',
+								'value' => '<p>You agree to be bound by our website rules and any laws which may apply to this website and your participation.</p><p>The website administration have the right to terminate your account at any time, delete any content you may have posted, and your IP address and any data you input to the website is recorded to assist the site staff with their moderation duties.</p><p>The site administration have the right to change these terms and conditions, and any site rules, at any point without warning. Whilst you may be informed of any changes, it is your responsibility to check these terms and the rules at any point.</p>'
+							));
+							
+							$queries->create('settings', array(
+								'name' => 'incoming_email',
+								'value' => ''
+							));
+							
+							// Close connections
+							$mysqli->close();
+							
+							echo '<script>window.location.replace("/install/?step=finish&from=upgrade");</script>';
+							die();
+							
+						} else {
+							/*
+							 *  File not writeable
+							 */
+							?>
+		  Your <strong>core/config.php</strong> file is not writeable. Please ensure permissions are set correctly.
+							<?php
+							die();
+						}
+					}
+				} else {
+					$mysql_error = 'Please input correct details';
+				}
+			}
+		  }
+	  ?>
+	  <h2>Upgrade</h2>
+	  <p>Please enter your database details.</p>
+	  <?php if(isset($mysql_error)){ ?>
+	  <div class="alert alert-danger">
+	    <?php echo $mysql_error; ?>
+	  </div>
+	  <?php } ?>
+	  <form action="" method="post">
+	    <div class="form-group">
+	      <label for="InputDBIP">Database Address</label>
+		  <input type="text" class="form-control" name="db_address" id="InputDBIP" value="<?php echo Input::get('db_address'); ?>" placeholder="Database Address">
+	    </div>
+	    <div class="form-group">
+		  <label for="InputDBUser">Database Username</label>
+		  <input type="text" class="form-control" name="db_username" id="InputDBUser" value="<?php echo Input::get('db_username'); ?>" placeholder="Database Username">
+	    </div>
+	    <div class="form-group">
+		  <label for="InputDBPass">Database Password</label>
+		  <input type="password" class="form-control" name="db_password" id="InputDBPass" placeholder="Database Password">
+	    </div>
+	    <div class="form-group">
+		  <label for="InputDBName">Database Name</label>
+		  <input type="text" class="form-control" name="db_name" id="InputDBName" value="<?php echo Input::get('db_name'); ?>" placeholder="Database Name">
+	    </div>
+	    <div class="form-group">
+		  <label for="InputPrefix">Previous Table Prefix with following '_' <em>(can be left empty)</em></label>
+		  <input id="InputPrefix" name="prefix" class="form-control" placeholder="Previous table prefix">
+		</div>
+		<input type="hidden" name="submitted" value="1">
+	    <input type="submit" class="btn btn-primary" value="Submit">
+	  </form>
+	  <?php
+	  } else if($step === "configuration"){
+		if(Input::exists()){
+			$validate = new Validate();
+			$validation = $validate->check($_POST, array(
+				'db_address' => array(
+					'required' => true
+				),
+				'db_username' => array(
+					'required' => true
+				),
+				'db_name' => array(
+					'required' => true
+				)
+			));
+
+			if($validation->passed()) {
+				$db_password = "";
+				$db_prefix = "nl1_";
+				$cookie_name = "nlmc";
+				
+				$db_password = Input::get('db_password');
+				
+				if(!empty($db_password)){
+					$db_password = Input::get('db_password');
+				}
+
+				/*
+				 *  Test connection - use MySQLi here, as the config for PDO is not written
+				 */
+				$mysqli = new mysqli(Input::get('db_address'), Input::get('db_username'), $db_password, Input::get('db_name'));
+				if($mysqli->connect_errno) {
+					$mysql_error = $mysqli->connect_errno . ' - ' . $mysqli->connect_error;
+				} else {
+					/*
+					 *  Write to config file
+					 */
+					$insert = 	'<?php' . PHP_EOL . 
+								'$GLOBALS[\'config\'] = array(' . PHP_EOL . 
+								'	"mysql" => array(' . PHP_EOL . 
+								'		"host" => "' . Input::get('db_address') . '", // Web server database IP (Likely to be 127.0.0.1)' . PHP_EOL . 
+								'		"username" => "' . Input::get('db_username') . '", // Web server database username' . PHP_EOL . 
+								'		"password" => "' . $db_password . '", // Web server database password' . PHP_EOL . 
+								'		"db" => "' . Input::get('db_name') . '", // Web server database name' . PHP_EOL .
+								'		"prefix" => "' . $db_prefix . '" // Web server table prefix' . PHP_EOL .
+								'	),' . PHP_EOL . 
+								'	"remember" => array(' . PHP_EOL . 
+								'		"cookie_name" => "' . $cookie_name . '", // Name for website cookies' . PHP_EOL . 
+								'		"cookie_expiry" => 604800' . PHP_EOL . 
+								'	),' . PHP_EOL . 
+								'	"session" => array(' . PHP_EOL . 
+								'		"session_name" => "user",' . PHP_EOL . 
+								'		"admin_name" => "admin",' . PHP_EOL .
+								'		"token_name" => "token"' . PHP_EOL . 
+								'	)' . PHP_EOL . 
+								');';
+					
+					if(is_writable('core/config.php')){
+						$file = fopen('core/config.php','w');
+						fwrite($file, $insert);
+						fclose($file);
+						
+						echo '<script>window.location.replace("/install/?step=database");</script>';
+						die();
+						
+					} else {
+						/*
+						 *  File not writeable
+						 */
+						?>
+	  Your <strong>core/config.php</strong> file is not writeable. Please ensure permissions are set correctly.
+						<?php
+						die();
+					}
+				}
+			} else {
+				$errors = "";
+				
+				foreach($validation->errors() as $error){
+					if(strstr($error, 'db_address')){
+						$errors .= "Please input a database address<br />";
+					}
+					if(strstr($error, "db_username")){
+						$errors .= "Please input a database username<br />";
+					}
+					if(strstr($error, "db_name")){
+						$errors .= "Please input a database name<br />";
+					}
+				}
+			}
+		}
+	  ?>
+	  <h2>Configuration</h2>
+	  <?php
+		if(isset($errors)){
+	  ?>
+	  <div class="alert alert-danger">
+	  <?php
+		echo $errors;
+	  ?>
+	  </div>
+	  <?php
+		}
+		if(isset($mysql_error)){
+	  ?>
+	  <div class="alert alert-danger">
+	  <?php
+		echo $mysql_error;
+	  ?>
+	  </div>
+	  <?php
+		}
+	  ?>
+	  <small><em>Fields marked with a * are required</em></small>
+	  <form action="" method="post">
+	    <div class="form-group">
+	      <label for="InputDBIP">Database Address * </label>
+		  <input type="text" class="form-control" name="db_address" id="InputDBIP" value="<?php echo Input::get('db_address'); ?>" placeholder="Database Address">
+	    </div>
+	    <div class="form-group">
+		  <label for="InputDBUser">Database Username *</label>
+		  <input type="text" class="form-control" name="db_username" id="InputDBUser" value="<?php echo Input::get('db_username'); ?>" placeholder="Database Username">
+	    </div>
+	    <div class="form-group">
+		  <label for="InputDBPass">Database Password</label>
+		  <input type="password" class="form-control" name="db_password" id="InputDBPass" placeholder="Database Password">
+	    </div>
+	    <div class="form-group">
+		  <label for="InputDBName">Database Name *</label>
+		  <input type="text" class="form-control" name="db_name" id="InputDBName" value="<?php echo Input::get('db_name'); ?>" placeholder="Database Name">
+	    </div>
+	    <input type="submit" class="btn btn-default" value="Submit">
+	  </form>
+	  <?php
+	  } else if($step === "database"){
+	  ?>
+	  <h2>Database Initialisation</h2>
+	  The installer will now initialise the database. This may take a while.<br /><br />
+	  
+	  <?php
+		if(!isset($queries)){
+			$queries = new Queries(); // Initialise queries
+		}
+		$prefix = Config::get('mysql/prefix');
+		
+		$queries->dbInitialise($prefix); // Initialise the database
+		
+	  ?>
+	  <button type="button" onclick="location.href='/install/?step=settings'" class="btn btn-primary">Proceed &raquo;</button>
+	  <?php
+	  } else if($step === "settings"){
+		if(Input::exists()){
+			$validate = new Validate();
+			$validation = $validate->check($_POST, array(
+				'site_name' => array(
+					'required' => true,
+					'min' => 2,
+					'max' => 1024
+				),
+				'outgoing_email' => array(
+					'required' => true,
+					'min' => 2,
+					'max' => 1024
+				),
+				'incoming_email' => array(
+					'required' => true,
+					'min' => 2,
+					'max' => 1024
+				)
+			));
+			
+			if($validation->passed()) {
+			
+				if(!isset($queries)){
+					$queries = new Queries(); // Initialise queries
+				}
+				
+				$plugin_key = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 32);
+				$uid = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 62);
+				// Get current unix time
+				$date = new DateTime();
+				$date = $date->getTimestamp();
+				
+				$data = array(
+					0 => array(
+						'name' => 'sitename',
+						'value' => htmlspecialchars(Input::get('site_name'))
+					),
+					1 => array(
+						'name' => 'maintenance',
+						'value' => 'false'
+					),
+					2 => array(
+						'name' => 'outgoing_email',
+						'value' => htmlspecialchars(Input::get('outgoing_email'))
+					),
+					3 => array(
+						'name' => 'incoming_email',
+						'value' => htmlspecialchars(Input::get('incoming_email'))
+					),
+					4 => array(
+						'name' => 'youtube_url',
+						'value' => 'null'
+					),
+					5 => array(
+						'name' => 'twitter_url',
+						'value' => 'null'
+					),
+					6 => array(
+						'name' => 'gplus_url',
+						'value' => 'null'
+					),
+					7 => array(
+						'name' => 'fb_url',
+						'value' => 'null'
+					),
+					8 => array(
+						'name' => 'twitter_feed_id',
+						'value' => 'null'
+					),
+					9 => array(
+						'name' => 'recaptcha',
+						'value' => 'false'
+					),
+					10 => array(
+						'name' => 'recaptcha_key',
+						'value' => 'null'
+					),
+					11 => array(
+						'name' => 't_and_c',
+						'value' => 'By registering on our website, you agree to the following:<p>This website uses "Nameless" website software. The "Nameless" software creators will not be held responsible for any content that may be experienced whilst browsing this site, nor are they responsible for any loss of data which may come about, for example a hacking attempt. The website is run independently from the software creators, and any content is the responsibility of the website administration.</p>'
+					),
+					12 => array(
+						'name' => 't_and_c_site',
+						'value' => '<p>You agree to be bound by our website rules and any laws which may apply to this website and your participation.</p><p>The website administration have the right to terminate your account at any time, delete any content you may have posted, and your IP address and any data you input to the website is recorded to assist the site staff with their moderation duties.</p><p>The site administration have the right to change these terms and conditions, and any site rules, at any point without warning. Whilst you may be informed of any changes, it is your responsibility to check these terms and the rules at any point.</p>'
+					),
+					13 => array(
+						'name' => 'displaynames',
+						'value' => 'false'
+					),
+					14 => array(
+						'name' => 'ga_script',
+						'value' => 'null'
+					),
+					15 => array(
+						'name' => 'avatar_api',
+						'value' => 'cravatar'
+					),
+					16 => array(
+						'name' => 'language',
+						'value' => 'EnglishUK'
+					),
+					17 => array(
+						'name' => 'forum_layout',
+						'value' => '1'
+					),
+					18 => array(
+						'name' => 'error_reporting',
+						'value' => '0'
+					),
+					19 => array(
+						'name' => 'inverse_navbar',
+						'value' => '0'
+					),
+					20 => array(
+						'name' => 'unique_id',
+						'value' => $uid
+					),
+					21 => array(
+						'name' => 'uuid_linking',
+						'value' => '1'
+					),
+					22 => array(
+						'name' => 'custom_avatars',
+						'value' => '0'
+					),
+					23 => array(
+						'name' => 'use_plugin',
+						'value' => '0'
+					),
+					24 => array(
+						'name' => 'external_query',
+						'value' => 'false'
+					),
+					25 => array(
+						'name' => 'phpmailer',
+						'value' => '0'
+					),
+					26 => array(
+						'name' => 'phpmailer_type',
+						'value' => 'smtp'
+					),
+					27 => array(
+						'name' => 'mc_api_key',
+						'value' => $plugin_key
+					),
+					28 => array(
+						'name' => 'version',
+						'value' => '1.0.0'
+					),
+					29 => array(
+						'name' => 'version_checked',
+						'value' => $date
+					),
+					30 => array(
+						'name' => 'version_update',
+						'value' => 'false'
+					)
+				);
+				
+				$youtube_url = Input::get('youtube_url');
+				if(!empty($youtube_url)){
+					$data[4]["value"] = htmlspecialchars($youtube_url);
+				}
+				$twitter_url = Input::get('twitter_url');
+				if(!empty($twitter_url)){
+					$data[5]["value"] = htmlspecialchars($twitter_url);
+				}
+				$twitter_feed = Input::get('twitter_feed');
+				if(!empty($twitter_feed)){
+					$data[8]["value"] = htmlspecialchars($twitter_feed);
+				}
+				$gplus_url = Input::get('gplus_url');
+				if(!empty($gplus_url)){
+					$data[6]["value"] = htmlspecialchars($gplus_url);
+				}
+				$fb_url = Input::get('fb_url');
+				if(!empty($fb_url)){
+					$data[7]["value"] = htmlspecialchars($fb_url);
+				}
+				if(Input::get('user_usernames') == 1){
+					$data[13]["value"] = "true";
+				}
+				if(Input::get('user_avatars') == 1){
+					$data[22]["value"] = "true";
+				}
+				
+				try {
+					foreach($data as $setting){
+						$queries->create("settings", array(
+							'name' => $setting["name"],
+							'value' => $setting["value"]
+						));
+					}
+
+					$queries->create('custom_pages', array(
+						'url' => '/help/',
+						'title' => 'Help',
+						'content' => 'Default help page. Customise in the admin panel.',
+						'link_location' => 3
+					));
+					
+					// Core Modules
+					$queries->create('core_modules', array(
+						'name' => 'Google_Analytics',
+						'enabled' => 0
+					));
+					$queries->create('core_modules', array(
+						'name' => 'Social_Media',
+						'enabled' => 1
+					));
+					$queries->create('core_modules', array(
+						'name' => 'Registration',
+						'enabled' => 1
+					));
+					$queries->create('core_modules', array(
+						'name' => 'Voice_Server_Module',
+						'enabled' => 0
+					));
+					
+					// Themes
+					$themes = array(
+						1 => array(
+							'name' => 'Bootstrap',
+							'enabled' => 1
+						),
+						2 => array(
+							'name' => 'Cerulean',
+							'enabled' => 0
+						),
+						3 => array(
+							'name' => 'Cosmo',
+							'enabled' => 0
+						),
+						4 => array(
+							'name' => 'Cyborg',
+							'enabled' => 0
+						),
+						5 => array(
+							'name' => 'Darkly',
+							'enabled' => 0
+						),
+						6 => array(
+							'name' => 'Flatly',
+							'enabled' => 0
+						),
+						7 => array(
+							'name' => 'Journal',
+							'enabled' => 0
+						),
+						8 => array(
+							'name' => 'Lumen',
+							'enabled' => 0
+						),
+						9 => array(
+							'name' => 'Paper',
+							'enabled' => 0
+						),
+						10 => array(
+							'name' => 'Readable',
+							'enabled' => 0
+						),
+						11 => array(
+							'name' => 'Sandstone',
+							'enabled' => 0
+						),
+						12 => array(
+							'name' => 'Simplex',
+							'enabled' => 0
+						),
+						13 => array(
+							'name' => 'Slate',
+							'enabled' => 0
+						),
+						14 => array(
+							'name' => 'Spacelab',
+							'enabled' => 0
+						),
+						15 => array(
+							'name' => 'Superhero',
+							'enabled' => 0
+						),
+						16 => array(
+							'name' => 'United',
+							'enabled' => 0
+						),
+						17 => array(
+							'name' => 'Yeti',
+							'enabled' => 0
+						)
+					);
+					
+					foreach($themes as $theme){
+						$queries->create('themes', array(
+							'enabled' => $theme['enabled'],
+							'name' => $theme['name']
+						));
+					}
+					
+					// Templates
+					$queries->create('templates', array(
+						'enabled' => 1,
+						'name' => 'Default'
+					));
+					
+					// Cache
+					$c = new Cache();
+					$c->setCache('themecache');
+					$c->store('theme', 'Bootstrap');
+					$c->store('inverse_navbar', '0');
+					
+					$c->setCache('templatecache');
+					$c->store('template', 'Default');
+					
+					$c->setCache('languagecache');
+					$c->store('language', 'EnglishUK');
+					
+					$c->setCache('page_load_cache');
+					$c->store('page_load', 0);
+					
+					echo '<script>window.location.replace("/install/?step=account");</script>';
+					die();
+					
+				} catch(Exception $e){
+					die($e->getMessage());
+				}
+				
+			} else {
+				$errors = "";
+				
+				foreach($validation->errors() as $error){
+					if(strstr($error, 'site_name')){
+						$errors .= "Please input a site name<br />";
+					}
+					if(strstr($error, "outgoing_email")){
+						$errors .= "Please input an outgoing email address<br />";
+					}
+					if(strstr($error, "incoming_email")){
+						$errors .= "Please input an incoming email address<br />";
+					}
+				}
+			}
+		}
+	  ?>
+	  <h2>Settings</h2>
+	  <?php
+	    if(isset($errors)){
+	  ?>
+	  <div class="alert alert-danger">
+	  <?php
+	    echo $errors;
+	  ?>
+	  </div>
+	  <?php
+		}
+	  ?>
+	  <small><em>Fields marked with a * are required</em></small>
+	  <form action="?step=settings" method="post">
+	    <h3>General</h3>
+	    <div class="form-group">
+	      <label for="InputSiteName">Site Name * </label>
+		  <input type="text" class="form-control" name="site_name" id="InputSiteName" value="<?php echo Input::get('site_name'); ?>" placeholder="Site Name">
+	    </div>
+	    <div class="form-group">
+	      <label for="InputICEmail">Incoming Email Address * </label>
+		  <input type="email" class="form-control" name="incoming_email" id="InputICEmail" value="<?php echo Input::get('incoming_email'); ?>" placeholder="Incoming Email">
+	    </div>
+	    <div class="form-group">
+	      <label for="InputOGEmail">Outgoing Email Address * </label>
+		  <input type="email" class="form-control" name="outgoing_email" id="InputOGEmail" value="<?php echo Input::get('outgoing_email'); ?>" placeholder="Outgoing Email">
+	    </div>
+	    <div class="form-group">
+	      <label for="InputYT">Youtube URL</label>
+		  <input type="text" class="form-control" name="youtube_url" id="InputYT" value="<?php echo Input::get('youtube_url'); ?>" placeholder="Youtube URL">
+	    </div>
+	    <div class="form-group">
+	      <label for="InputTwitter">Twitter URL</label>
+		  <input type="text" class="form-control" name="twitter_url" id="InputTwitter" value="<?php echo Input::get('twitter_url'); ?>" placeholder="Twitter URL">
+	    </div>
+	    <div class="form-group">
+	      <label for="InputTwitterFeed">Twitter Feed ID <a data-toggle="modal" href="#twitter_id"><span class="label label-info">?</span></a></label>
+		  <input type="text" class="form-control" name="twitter_feed" id="InputTwitterFeed" value="<?php echo Input::get('twitter_feed'); ?>" placeholder="Twitter Feed ID">
+	    </div>
+	    <div class="form-group">
+	      <label for="InputGPlus">Google+ URL</label>
+		  <input type="text" class="form-control" name="gplus_url" id="InputGPlus" value="<?php echo Input::get('gplus_url'); ?>" placeholder="Google+ URL">
+	    </div>
+	    <div class="form-group">
+	      <label for="InputFB">Facebook URL</label>
+		  <input type="text" class="form-control" name="fb_url" id="InputFB" value="<?php echo Input::get('fb_url'); ?>" placeholder="Facebook URL">
+	    </div>
+	    <h3>User Accounts</h3>
+		<input type="hidden" name="user_usernames" value="0" />
+	    <div class="checkbox">
+		  <label>
+		    <input type="checkbox" name="user_usernames" value="1"> Allow registering with non-Minecraft display names
+		  </label>
+	    </div>
+		<input type="hidden" name="user_avatars" value="0" />
+	    <div class="checkbox">
+		  <label>
+		    <input type="checkbox" name="user_avatars" value="1"> Allow custom user avatars
+		  </label>
+	    </div>
+		<br />
+		<input type="submit" class="btn btn-primary" value="Submit">
+	  </form>
+	  <?php
+	  } else if($step === "account"){
+		if(!isset($queries)){
+			$queries = new Queries(); // Initialise queries 
+		}
+		$allow_mcnames = $queries->getWhere("settings", array("name", "=", "displaynames"));
+		$allow_mcnames = $allow_mcnames[0]->value; // Can the user register with a non-Minecraft username?
+		
+		if(Input::exists()){
+			$validate = new Validate();
+			
+			$data = array(
+				'email' => array(
+					'required' => true,
+					'min' => 2,
+					'max' => 64
+				),
+				'password' => array(
+					'required' => true,
+					'min' => 6,
+					'max' => 64
+				),
+				'password_again' => array(
+					'required' => true,
+					'matches' => 'password'
+				)
+			);
+			
+			if($allow_mcnames === "false"){ // Custom usernames are disabled
+				$data['username'] = array(
+					'min' => 2,
+					'max' => 20,
+					'isvalid' => true
+				);
+			} else { // Custom usernames are enabled
+				$data['username'] = array(
+					'min' => 2,
+					'max' => 20
+				);
+				$data['mcname'] = array(
+					'min' => 2,
+					'max' => 20,
+					'isvalid' => true
+				);
+			}
+			
+			$validation = $validate->check($_POST, $data); // validate
+			
+			if($validation->passed()){
+				$user = new User();
+				
+				// Get Minecraft UUID of user
+				if($allow_mcnames !== "false"){
+					$mcname = Input::get('mcname');
+					$profile = ProfileUtils::getProfile($mcname);
+				} else {
+					$mcname = Input::get('username');
+					$profile = ProfileUtils::getProfile(Input::get('username'));
+				}
+				
+				if(!empty($profile)){
+					$uuid = $profile->getProfileAsArray();
+					$uuid = $uuid['uuid']; 
+					if(empty($uuid)){
+						$uuid = '';
+					}
+				} else {
+					$uuid = '';
+				}
+				
+				if($uuid == ''){
+					// Error getting UUID, display an error asking user to update manually
+					$uuid_error = true;
+				}
+				
+				// Hash password
+				$password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
+				
+				// Get current unix time
+				$date = new DateTime();
+				$date = $date->getTimestamp();
+				
+				try {
+					// Create groups
+					$queries->create("groups", array(
+						'id' => 1,
+						'name' => 'Standard',
+						'group_html' => '<span class="label label-success">Member</span>',
+						'group_html_lg' => '<span class="label label-success">Member</span>'
+					));
+					$queries->create("groups", array(
+						'id' => 2,
+						'name' => 'Admin',
+						'group_html' => '<span class="label label-danger">Admin</span>',
+						'group_html_lg' => '<span class="label label-danger">Admin</span>',
+						'mod_cp' => 1,
+						'admin_cp' => 1,
+						'staff' => 1
+					));
+					$queries->create("groups", array(
+						'id' => 3,
+						'name' => 'Moderator',
+						'group_html' => '<span class="label label-info">Moderator</span>',
+						'group_html_lg' => '<span class="label label-info">Moderator</span>',
+						'mod_cp' => 1,
+						'staff' => 1
+					));
+				
+					// Create admin account
+					$user->create(array(
+						'username' => Input::get('username'),
+						'password' => $password,
+						'pass_method' => 'default',
+						'mcname' => $mcname,
+						'uuid' => $uuid,
+						'joined' => $date,
+						'group_id' => 2,
+						'email' => Input::get('email'),
+						'lastip' => "",
+						'active' => 1
+					));
+					
+					$login = $user->login(Input::get('username'), Input::get('password'), true);
+					if($login) {					
+						if(!isset($uuid_error)){
+							echo '<script>window.location.replace("/install/?step=convert");</script>';
+						} else {
+							echo '<script>window.location.replace("/install/?step=convert&error=uuid");</script>';
+						}
+						die();
+					} else {
+						echo '<p>Sorry, there was an unknown error logging you in. <a href="/install/?step=account">Try again</a></p>';
+						die();
+					}
+				
+				} catch(Exception $e){
+					die($e->getMessage());
+				}
+				
+				
+			} else {
+				Session::flash('admin-acc-error', '
+						<div class="alert alert-danger">
+							Unable to create account. Please check:<br />
+							- You have entered a username between 4 and 20 characters long<br />
+							- Your Minecraft username is a valid account<br />
+							- Your passwords are at between 6 and 64 characters long and they match<br />
+							- Your email address is between 4 and 64 characters<br />
+						</div>');
+			}
+		}
+	  ?>
+	  <h2>Admin Account</h2>
+	  <?php
+		if(Session::exists('admin-acc-error')){
+			echo Session::flash('admin-acc-error');
+		}
+	  ?>
+	  <p>Please enter the admin account details.</p>
+	  <form role="form" action="?step=account" method="post">
+	    <div class="form-group">
+	  	  <label for="InputUsername">Username</label>
+		  <input type="text" class="form-control" id="InputUsername" name="username" placeholder="Username" tabindex="1">
+	    </div>
+		<?php
+		if($allow_mcnames !== "false"){
+		?>
+	    <div class="form-group">
+		  <label for="InputMCUsername">Minecraft Username</label>
+		  <input type="text" class="form-control" id="InputMCUsername" name="mcname" placeholder="Minecraft Username" tabindex="2">
+	    </div>
+		<?php
+		}
+		?>
+	    <div class="form-group">
+		  <label for="InputEmail">Email</label>
+		  <input type="email" name="email" id="InputEmail" class="form-control" placeholder="Email Address" tabindex="3">
+	    </div>
+	    <div class="row">
+		  <div class="col-xs-12 col-sm-6 col-md-6">
+			  <div class="form-group">
+				<label for="InputPassword">Password</label>
+				<input type="password" class="form-control" id="InputPassword" name="password" placeholder="Password" tabindex="4">
+			  </div>
+		  </div>
+		  <div class="col-xs-12 col-sm-6 col-md-6">
+			  <div class="form-group">
+				<label for="InputConfirmPassword">Confirm Password</label>
+				<input type="password" class="form-control" id="InputConfirmPassword" name="password_again" placeholder="Confirm Password" tabindex="5">
+			  </div>
+		  </div>
+	    </div>
+	    <button type="submit" class="btn btn-default">Submit</button>
+	  </form>
+	  <?php 
+	  } else if($_GET['step'] === "convert"){
+		if(!isset($user)){
+			$user = new User();
+		}
+		if(!$user->isLoggedIn() || $user->data()->group_id != 2){
+			echo '<script>window.location.replace("/install/?step=account");</script>';
+			die();
+		}
+		if(isset($_GET["convert"]) && !isset($_GET["from"])){
+			// COMING SOON
+	  ?>
+		<div class="well">
+			<h4>Which forum software are you converting from?</h4>
+			<a href="#" onclick="location.href='/install/?step=convert&convert=yes&from=modernbb'">ModernBB</a><br />
+			<a href="#" onclick="location.href='/install/?step=convert&convert=yes&from=phpbb'">phpBB</a><br />
+			<a href="#" onclick="location.href='/install/?step=convert&convert=yes&from=mybb'">MyBB</a><br />
+			<a href="#" onclick="location.href='/install/?step=convert&convert=yes&from=wordpress'">WordPress</a><br />
+			<a href="#" onclick="location.href='/install/?step=convert&convert=yes&from=xenforo'">XenForo</a><br /><br />
+			<button class="btn btn-danger" onclick="location.href='/install/?step=convert'">Cancel</button>
+		</div>
+	  <?php
+		} else if(isset($_GET["convert"]) && isset($_GET["from"])){
+	  ?>
+		<div class="well">
+	  <?php
+		if(strtolower($_GET["from"]) === "modernbb"){
+			if(!Input::exists()){
+	  ?>
+			<h4>Converting from ModernBB:</h4>
+			
+	  <?php
+				if(isset($_GET["error"])){
+	  ?>
+			<div class="alert alert-danger">
+			  Error connecting to the database. Are you sure you entered the correct credentials?
+			</div>
+	  <?php
+				}
+	  ?>
+			
+			<form action="?step=convert&convert=yes&from=modernbb" method="post">
+			  <div class="form-group">
+			    <label for="InputDBAddress">ModernBB Database Address</label>
+				<input class="form-control" type="text" id="InputDBAddress" name="db_address" placeholder="Database address">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBName">ModernBB Database Name</label>
+				<input class="form-control" type="text" id="InputDBName" name="db_name" placeholder="Database name">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBUsername">ModernBB Database Username</label>
+				<input class="form-control" type="text" id="InputDBUsername" name="db_username" placeholder="Database username">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBPassword">ModernBB Database Password</label>
+				<input class="form-control" type="password" id="InputDBPassword" name="db_password" placeholder="Database password">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBPrefix">ModernBB Table Prefix (blank for none)</label>
+				<input class="form-control" type="text" id="InputDBPrefix" name="db_prefix" placeholder="Table prefix">
+			  </div>
+			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+			  <input type="hidden" name="action" value="convert">
+			  <input class="btn btn-primary" type="submit" value="Convert">
+			  <a href="#" class="btn btn-danger" onclick="location.href='/install/?step=convert&convert=yes'">Cancel</a>
+			</form>
+			
+	  <?php
+			} else {
+				require 'converters/modernbb.php';
+	  ?>
+			<div class="alert alert-success">
+				Successfully imported ModernBB data. <strong>Important:</strong> Please redefine any private categories in the Admin panel.<br />
+				<center><button class="btn btn-primary"  onclick="location.href='/install/?step=finish'">Proceed</button></center>
+			</div>
+	  <?php
+			}
+		} else if(strtolower($_GET["from"]) === "phpbb"){
+			if(!Input::exists()){
+	  ?>
+			<h4>Converting from phpBB:</h4>
+			Coming soon. This won't work yet!
+			
+	  <?php
+				if(isset($_GET["error"])){
+	  ?>
+			<div class="alert alert-danger">
+			  Error connecting to the database. Are you sure you entered the correct credentials?
+			</div>
+	  <?php
+				}
+	  ?>
+			
+			<form action="?step=convert&convert=yes&from=phpbb" method="post">
+			  <div class="form-group">
+			    <label for="InputDBAddress">phpBB Database Address</label>
+				<input class="form-control" type="text" id="InputDBAddress" name="db_address" placeholder="Database address">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBName">phpBB Database Name</label>
+				<input class="form-control" type="text" id="InputDBName" name="db_name" placeholder="Database name">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBUsername">phpBB Database Username</label>
+				<input class="form-control" type="text" id="InputDBUsername" name="db_username" placeholder="Database username">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBPassword">phpBB Database Password</label>
+				<input class="form-control" type="password" id="InputDBPassword" name="db_password" placeholder="Database password">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBPrefix">phpBB Table Prefix (blank for none)</label>
+				<input class="form-control" type="text" id="InputDBPrefix" name="db_prefix" placeholder="Table prefix">
+			  </div>
+			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+			  <input type="hidden" name="action" value="convert">
+			  <input class="btn btn-primary" type="submit" value="Convert">
+			  <a href="#" class="btn btn-danger" onclick="location.href='/install/?step=convert&convert=yes'">Cancel</a>
+			</form>
+			
+	  <?php
+			} else {
+				require 'converters/phpbb.php';
+	  ?>
+			<div class="alert alert-success">
+				Successfully imported phpBB data. <strong>Important:</strong> Please redefine any private categories in the Admin panel.<br />
+				<center><button class="btn btn-primary"  onclick="location.href='/install/?step=finish'">Proceed</button></center>
+			</div>
+	  <?php
+			}
+/* 
+ * ---- NEW, By dwilson390 -----
+ */
+		} else if(strtolower($_GET["from"]) === "wordpress"){
+			if(!Input::exists()){
+	  ?>
+			<h4>Converting from WordPress:</h4>
+			
+	  <?php
+				if(isset($_GET["error"])){
+	  ?>
+			<div class="alert alert-danger">
+			  Error connecting to the database. Are you sure you entered the correct credentials?
+			</div>
+	  <?php
+				}
+	  ?>
+			<div class="alert alert-success">
+				WordPress conversion script created by dwilson390.<br />
+			</div>	
+			<form action="?step=convert&convert=yes&from=wordpress" method="post">
+			  <div class="form-group">
+			    <label for="InputDBAddress">Wordpress Database Address</label>
+				<input class="form-control" type="text" id="InputDBAddress" name="db_address" placeholder="Database address">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBName">Wordpress Database Name</label>
+				<input class="form-control" type="text" id="InputDBName" name="db_name" placeholder="Database name">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBUsername">Wordpress Database Username</label>
+				<input class="form-control" type="text" id="InputDBUsername" name="db_username" placeholder="Database username">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBPassword">Wordpress Database Password</label>
+				<input class="form-control" type="password" id="InputDBPassword" name="db_password" placeholder="Database password">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBPrefix">Wordpress Table Prefix (blank for none) (<strong>Remember the '_'</strong>)</label>
+				<input class="form-control" type="text" id="InputDBPrefix" name="db_prefix" placeholder="Table prefix">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBCheckbox">I have bbPress installed (selecting this option will also import your forums and topics)</label>
+				<input class="form-control" type="checkbox" id="InputDBCheckbox" name="db_checkbox" placeholder="Table prefix">
+			  </div>
+			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+			  <input type="hidden" name="action" value="convert">
+			  <input class="btn btn-primary" type="submit" value="Convert">
+			  <a href="#" class="btn btn-danger" onclick="location.href='/install/?step=convert&convert=yes'">Cancel</a>
+			</form>
+			
+	  <?php
+			} else {
+				require 'converters/wordpress.php';
+	  ?>
+			<div class="alert alert-success">
+				Successfully imported Wordpress data. <strong>Important:</strong> Please redefine any private categories in the Admin panel.<br />
+				<center><button class="btn btn-primary"  onclick="location.href='/install/?step=finish'">Proceed</button></center>
+			</div>
+	  <?php
+			}
+		
+/*
+ * ---- END, By dwilson390 -----
+ */
+		} else if(strtolower($_GET["from"]) === "mybb"){
+	?>
+			<h4>Converting from MyBB:</h4>
+			Coming Soon
+	<?php
+		} else if(strtolower($_GET["from"]) === "xenforo"){
+			if(!Input::exists()){
+	  ?>
+			<h4>Converting from XenForo:</h4>
+			
+	  <?php
+				if(isset($_GET["error"])){
+	  ?>
+			<div class="alert alert-danger">
+			  Error connecting to the database. Are you sure you entered the correct credentials?
+			</div>
+	  <?php
+				}
+	  ?>
+			
+			<form action="?step=convert&convert=yes&from=xenforo" method="post">
+			  <div class="form-group">
+			    <label for="InputDBAddress">XenForo Database Address</label>
+				<input class="form-control" type="text" id="InputDBAddress" name="db_address" placeholder="Database address">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBName">XenForo Database Name</label>
+				<input class="form-control" type="text" id="InputDBName" name="db_name" placeholder="Database name">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBUsername">XenForo Database Username</label>
+				<input class="form-control" type="text" id="InputDBUsername" name="db_username" placeholder="Database username">
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDBPassword">XenForo Database Password</label>
+				<input class="form-control" type="password" id="InputDBPassword" name="db_password" placeholder="Database password">
+			  </div>
+			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+			  <input type="hidden" name="action" value="convert">
+			  <input class="btn btn-primary" type="submit" value="Convert">
+			  <a href="#" class="btn btn-danger" onclick="location.href='/install/?step=convert&convert=yes'">Cancel</a>
+			</form>
+			
+	  <?php
+			} else {
+				require 'converters/xenforo.php';
+	  ?>
+			<div class="alert alert-success">
+				Successfully imported XenForo data. <strong>Important:</strong> Please redefine any private categories and update all users' Minecraft usernames in the Admin panel.<br />
+				<center><button class="btn btn-primary"  onclick="location.href='/install/?step=finish'">Proceed</button></center>
+			</div>
+	  <?php
+			}
+		}
+	?>
+		</div>
+	<?php
+		} else if(!isset($_GET["convert"]) && !isset($_GET["from"]) && !isset($_GET["action"])){
+	?>
+	  <h2>Convert</h2>
+	  <?php
+	    if(isset($_GET['error']) && $_GET['error'] == 'uuid'){
+	  ?>
+	  <div class="alert alert-danger">
+	    Notice: There was an error querying the Minecraft API to retrieve the admin account's UUID. Please update this manually from the AdminCP's users section.
+	  </div>
+	  <?php
+		}
+	  ?>
+	  <p>Convert from another forum software?</p>
+	  <div class="btn-group">
+		<!--<button class="btn btn-success" onclick="location.href='/install/?step=convert&convert=yes'">Yes</button>-->
+		<button class="btn btn-success" disabled">Coming Soon</button>
+		<button class="btn btn-primary" onclick="location.href='/install/?step=finish'">No</button>
+	  </div>
+	<?php
+		}
+	  } else if($step === "finish"){
+	  ?>
+	  <h2>Finish</h2>
+	  <p>Thanks for using NamelessMC website software.</p>
+	  <p>Before you start using the website, please configure the forums and Minecraft servers via the AdminCP.</p>
+	  <?php if(isset($_GET['from']) && $_GET['from'] == 'upgrade'){ ?>
+	  <div class="alert alert-info">
+	    <p>Upgrade complete. Please note that tables from your old NamelessMC installation have <strong>not</strong> been deleted.</p>
+		<p>If you'd like to delete the old tables, you can manually delete the tables with your old prefix. The new tables have the prefix <strong>nl1_</strong>.</p>
+	  </div>
+	  <?php } ?>
+	  <p>Links:
+	  <ul>
+	    <li><a target="_blank"href="https://github.com/NamelessMC/Nameless">GitHub</a></li>
+	    <li><a target="_blank" href="http://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/">SpigotMC thread</a></li>
+	  </ul>
+	  </p>
+	  <button type="button" onclick="location.href='/admin/?from=install'" class="btn btn-primary">Finish &raquo;</button>
+	  <?php
+	  }
+	  ?>
+      <hr>
+
+      <footer>
+        <p>&copy; NamelessMC <?php echo date("Y"); ?></p>
+      </footer>
+    </div> <!-- /container -->
+
+	<?php 
+	if($step === "start"){ 
+	?>
+	
+    <div class="modal fade" id="bungee_plugins" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Bungee Plugins</h4>
+          </div>
+          <div class="modal-body">
+            NamelessMC includes support for the following BungeeCord plugins:
+			<ul>
+			  <li><a target="_blank" href="http://www.spigotmc.org/resources/bungee-admin-tools.444/">BungeeAdminTools</a> (for infractions)</li>
+			</ul>
+          </div>
+          <div class="modal-footer">
+		    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+    <div class="modal fade" id="mc_plugins" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Minecraft Plugins</h4>
+          </div>
+          <div class="modal-body">
+            NamelessMC includes support for the following Bukkit/Spigot plugins:
+			<ul>
+			  <li><a target="_blank" href="http://dev.bukkit.org/bukkit-plugins/buycraft/">Buycraft</a></li>
+			  <li><a target="_blank" href="http://dev.bukkit.org/bukkit-plugins/ban-management/">Ban Management</a></li>
+			  <li><a target="_blank" href="http://dev.bukkit.org/bukkit-plugins/maxbans/">MaxBans</a></li>
+			</ul>
+			Coming soon:
+			<ul>
+			  <li><a target="_blank" href="http://www.spigotmc.org/resources/mcmmo.2445/">McMMO</a></li>
+			  <li><a target="_blank" href="http://dev.bukkit.org/bukkit-plugins/lolmewnstats/">Stats</a></li>
+			  <li><a target="_blank" href="http://www.spigotmc.org/resources/bukkitgames-hungergames.279/">BukkitGames</a></li>
+			</ul>
+          </div>
+          <div class="modal-footer">
+		    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	<?php
+	}
+	if($step === "settings"){
+	?>
+    <div class="modal fade" id="twitter_id" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Twitter Feed ID</h4>
+          </div>
+          <div class="modal-body">
+			To find your Twitter feed ID, first head into the <a target="_blank" href="https://twitter.com/settings/widgets">Twitter Widgets tab</a> in your settings. Click the "Create new" button in the top right corner of the panel, set the "Height" to "500", and then click Create Widget.<br /><br />Underneath the Preview, a new textarea will appear with some HTML code. You need to find <code>data-widget-id=</code> and copy the number between the "". <br /><br />This is your Twitter feed ID.
+          </div>
+          <div class="modal-footer">
+		    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+	<?php
+	}
+	?>
+	
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/core/assets/js/jquery.min.js"></script>
+    <script src="/core/assets/js/bootstrap.min.js"></script>
+  </body>
+</html>
