@@ -1,0 +1,300 @@
+<?php 
+/* 
+ *	Made by Samerton
+ *  http://worldscapemc.co.uk
+ *
+ *  License: MIT
+ */
+
+// Set the page name for the active link in navbar
+$page = "forum";
+
+// Initialise
+$forum = new Forum();
+$timeago = new Timeago();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="<?php echo $sitename; ?> Forum Index">
+    <meta name="author" content="Samerton">
+	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
+
+    <title><?php echo $sitename; ?> &bull; <?php echo $navbar_language['forum']; ?></title>
+	
+	<?php
+	// Generate header and navbar content
+	require('core/includes/template/generate.php');
+	?>
+	
+	<!-- Custom style -->
+	<style>
+	html {
+		overflow-y: scroll;
+	}
+	</style>
+	
+  </head>
+
+  <body>
+
+	<?php
+	// Load navbar
+	$smarty->display('styles/templates/' . $template . '/navbar.tpl');
+
+	// Get forum layout (latest discussions or table view)
+	$forum_layout = $queries->getWhere("settings", array("name", "=", "forum_layout"));
+	$forum_layout = $forum_layout[0]->value;
+	if($forum_layout == '1'){
+		// Generate latest posts to pass to template
+		$discussions = $forum->getLatestDiscussions($user->data()->group_id);
+
+		$n = 0;
+		// Calculate the number of discussions to display (10 max)
+		if(count($discussions) <= 10){
+			$limit = count($discussions);
+		} else {
+			$limit = 10;
+		}
+
+		$template_array = array();
+		
+		// Generate an array to pass to template
+		while($n < $limit){
+			// Get the name of the forum from the ID
+			$forum_name = $queries->getWhere('forums', array('id', '=', $discussions[$n]['forum_id']));
+			$forum_name = htmlspecialchars($forum_name[0]->forum_title);
+			
+			// Get the number of replies
+			$posts = $queries->getWhere('posts', array('topic_id', '=', $discussions[$n]['id']));
+			$posts = count($posts);
+			
+			// Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
+			$last_user_avatar = $queries->getWhere('users', array("id", "=", $discussions[$n]['topic_last_user']));
+			$last_user_avatar = $last_user_avatar[0]->has_avatar;
+			if($last_user_avatar == '0'){ 
+				$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($discussions[$n]['topic_last_user']) . '/30.png" />';
+			} else { 
+				$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($discussions[$n]['topic_last_user'], "../") . '" />';
+			}
+			
+			// Is there a label?
+			if($discussions[$n]['label'] !== null && $discussions[$n]['label'] !== ''){ // yes
+				// Get label
+				$label = $queries->getWhere('forums_topic_labels', array('id', '=', $discussions[$n]['label']));
+				$label = '<span class="label label-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
+			} else { // no
+				$label = '';
+			}
+			
+			// Add to array
+			$template_array[] = array(
+				'topic_title' => htmlspecialchars($discussions[$n]['topic_title']),
+				'topic_id' => $discussions[$n]['id'],
+				'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $discussions[$n]['topic_date']), $time_language),
+				'topic_created' => date('d M Y, H:i', $discussions[$n]['topic_date']),
+				'topic_created_username' => htmlspecialchars($user->IdToName($discussions[$n]['topic_last_user'])),
+				'topic_created_mcname' => htmlspecialchars($user->IdToMCName($discussions[$n]['topic_last_user'])),
+				'locked' => $discussions[$n]['locked'],
+				'forum_name' => $forum_name,
+				'forum_id' => $discussions[$n]['forum_id'],
+				'views' => $discussions[$n]['topic_views'],
+				'posts' => $posts,
+				'last_reply_avatar' => $last_reply_avatar,
+				'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $discussions[$n]['topic_reply_date']), $time_language),
+				'last_reply' => date('d M Y, H:i', $discussions[$n]['topic_reply_date']),
+				'last_reply_username' => htmlspecialchars($user->IdToName($discussions[$n]['topic_last_user'])),
+				'last_reply_mcname' => htmlspecialchars($user->IdToMCName($discussions[$n]['topic_last_user'])),
+				'label' => $label
+			);
+			
+			$n++;
+		}
+		
+		// Assign to Smarty variable
+		$smarty->assign('LATEST_DISCUSSIONS', $template_array);
+		
+		// Assign language variables
+		$smarty->assign('FORUMS', $forum_language['forums']);
+		$smarty->assign('DISCUSSION', $forum_language['discussion']);
+		$smarty->assign('STATS', $forum_language['stats']);
+		$smarty->assign('LAST_REPLY', $forum_language['last_reply']);
+		$smarty->assign('AGO', $forum_language['ago']);
+		$smarty->assign('BY', $forum_language['by']);
+		$smarty->assign('IN', $forum_language['in']);
+		$smarty->assign('VIEWS', $forum_language['views']);
+		$smarty->assign('POSTS', $forum_language['posts']);
+		$smarty->assign('STATISTICS', $forum_language['statistics']);
+		$smarty->assign('OVERVIEW', $forum_language['overview']);
+		$smarty->assign('LATEST_DISCUSSIONS_TITLE', $forum_language['latest_discussions']);
+		
+		// Forums sidebar
+		$forums = $forum->listAllForums($user->data()->group_id, true); // second parameter states we're in latest discussions view
+		$sidebar_forums = array();
+		foreach($forums as $key => $item){
+			$item = array_filter($item);
+			if(!empty($item)){
+				foreach($item as $sub_forum){
+					// Get forum ID
+					$forum_id = $queries->getWhere('forums', array('forum_title', '=', $sub_forum));
+					$forum_id = $forum_id[0]->id;
+					
+					$sidebar_forums[$key][] = array(
+						'id' => $forum_id,
+						'title' => $sub_forum
+					);
+				}
+			}
+		}
+		
+		$smarty->assign('SIDEBAR_FORUMS', $sidebar_forums);
+		
+		// Statistics
+		$users_query = $queries->orderAll('users', 'joined', 'DESC');
+		$users_registered = '<strong>' . $forum_language['users_registered'] . '</strong> ' . count($users_query);
+		$latest_member = '<strong>' . $forum_language['latest_member'] . '</strong> <a href="/profile/' . htmlspecialchars($users_query[0]->mcname) . '">' . htmlspecialchars($users_query[0]->username) . '</a>';
+		$users_query = null;
+		
+		$smarty->assign('USERS_REGISTERED', $users_registered);
+		$smarty->assign('LATEST_MEMBER', $latest_member);
+		
+		// Load Smarty template
+		$smarty->display('styles/templates/' . $template . '/forum_index_latest_discussions.tpl');
+		
+	} else {
+		// Table view - generate to pass to template
+		$forums = $forum->orderAllForums($user->data()->group_id);
+		
+		// Loop through forums, get stats and return an array to pass to the template
+		$template_array = array();
+		foreach($forums as $item){
+			// Check it's not a subforum first
+			$parent_forum = $queries->getWhere('forums', array('id', '=', $item['parent']));
+			if($parent_forum[0]->parent == 0){ // not a subforum, continue
+				// Stats
+				$topics_count = $queries->getWhere("topics", array("forum_id", "=", $item["id"]));
+				$topics_count = count($topics_count);
+				$posts_count = $queries->getWhere("posts", array("forum_id", "=", $item["id"]));
+				$posts_count = count($posts_count);
+				
+				// Get avatar of user who last posted
+				$last_user_avatar = '';
+				if($item['last_user_posted'] != null){
+					$last_user_avatar = $queries->getWhere('users', array('id', '=', $item['last_user_posted']));
+					$last_user_avatar = $last_user_avatar[0]->has_avatar;
+					if($last_user_avatar == '0'){ 
+						$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($item['last_user_posted']) . '/30.png" />';
+					} else { 
+						$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($item['last_user_posted'], "../") . '" />';
+					}
+				}
+				
+				// Get the last topic posted in
+				if($item['last_topic_posted'] !== null){
+					$last_topic = $queries->getWhere('topics', array('id', '=', $item['last_topic_posted']));
+					$last_topic = $last_topic[0]->topic_title;
+				}
+				
+				// Subforums?
+				$subforums = $queries->getWhere('forums', array('parent', '=', $item['id']));
+				$subforum_string = '';
+				if(count($subforums)){
+					foreach($subforums as $subforum){
+						if($forum->forumExist($subforum->id, $user->data()->group_id)){
+							$subforum_string .= '<i class="fa fa-folder"></i> <a href="/forum/view_forum/?fid=' . $subforum->id . '">' . htmlspecialchars($subforum->forum_title) . '</a>&nbsp;&nbsp';
+						}
+					}
+				}
+				
+				$template_array[] = array(
+					'forum_id' => $item['id'],
+					'forum_title' => htmlspecialchars($item['forum_title']),
+					'forum_description' => htmlspecialchars($item['forum_description']),
+					'forum_topics' => $topics_count,
+					'forum_posts' => $posts_count,
+					'last_reply_avatar' => $last_reply_avatar,
+					'last_reply_username' => htmlspecialchars($user->idToName($item['last_user_posted'])),
+					'last_reply_mcname' => htmlspecialchars($user->idToMCName($item['last_user_posted'])),
+					'last_topic_id' => $item['last_topic_posted'],
+					'last_topic_name' => htmlspecialchars($last_topic),
+					'last_topic_time' => date('jS M Y, g:iA', strtotime($item['last_post_date'])),
+					'subforums' => $subforum_string
+				);
+			}
+		}
+		
+		// Assign forums to variable
+		$smarty->assign('FORUMS', $template_array);
+		
+		// Assign language variables
+		$smarty->assign('FORUM', $forum_language['forum']);
+		$smarty->assign('STATS', $forum_language['stats']);
+		$smarty->assign('STATISTICS', $forum_language['statistics']);
+		$smarty->assign('LAST_POST', $forum_language['last_post']);
+		$smarty->assign('POSTS', $forum_language['posts']);
+		$smarty->assign('TOPICS', $forum_language['topics']);
+		$smarty->assign('NO_TOPICS', $forum_language['no_topics']);
+		$smarty->assign('LATEST_POSTS', $forum_language['latest_posts']);
+		$smarty->assign('BY', $forum_language['by']);
+		$smarty->assign('AGO', $forum_language['ago']);
+		
+		$latest = $forum->getLatestDiscussions($user->data()->group_id);
+		$latest_posts = array();
+		
+		$n = 0;
+		foreach($latest as $item){
+			if($n >= 5){
+				break;
+			}
+
+			// Get avatar of user
+			$last_user_avatar = '';
+			if($item['topic_last_user'] != null){
+				$last_user_avatar = $queries->getWhere('users', array('id', '=', $item['topic_last_user']));
+				$last_user_avatar = $last_user_avatar[0]->has_avatar;
+				if($last_user_avatar == '0'){ 
+					$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($item['topic_last_user']) . '/30.png" />';
+				} else { 
+					$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($item['topic_last_user'], "../") . '" />';
+				}
+			}
+			
+			$latest_posts[] = array(
+				'topic_id' => $item['id'],
+				'topic_title' => htmlspecialchars($item['topic_title']),
+				'topic_reply_rough' => $timeago->inWords(date('d M Y, H:i', $item['topic_reply_date']), $time_language),
+				'topic_reply_date' => date('d M Y, H:i', $item['topic_reply_date']),
+				'topic_last_user_avatar' => $last_reply_avatar,
+				'topic_last_user_username' => htmlspecialchars($user->idToName($item['topic_last_user'])),
+				'topic_last_user_mcname' => htmlspecialchars($user->idToMCName($item['topic_last_user']))
+			);
+			$n++;
+		}
+		// Assign to Smarty variable
+		$smarty->assign('postsArray', $latest_posts);
+		
+		// Statistics
+		$users_query = $queries->orderAll('users', 'joined', 'DESC');
+		$users_registered = '<strong>' . $forum_language['users_registered'] . '</strong> ' . count($users_query);
+		$latest_member = '<strong>' . $forum_language['latest_member'] . '</strong> <a href="/profile/' . htmlspecialchars($users_query[0]->mcname) . '">' . htmlspecialchars($users_query[0]->username) . '</a>';
+		$users_query = null;
+		
+		$smarty->assign('USERS_REGISTERED', $users_registered);
+		$smarty->assign('LATEST_MEMBER', $latest_member);
+		
+		// Load Smarty template
+		$smarty->display('styles/templates/' . $template . '/forum_index_table.tpl');
+	}
+	// Footer
+	require('core/includes/template/footer.php');
+	$smarty->display('styles/templates/' . $template . '/footer.tpl');
+	
+	// Scripts 
+	require('core/includes/template/scripts.php');
+	?>
+  </body>
+</html>
