@@ -41,3 +41,6 @@ if($fb_url[0]->value !== 'null'){
 	// Enabled
 		$social_media_icons .= '<a href="' . htmlspecialchars($fb_url[0]->value) . '"><i id="social" class="fa fa-facebook-square fa-3x social-fb"></i></a>';
 }
+
+// Twitter feed
+$twitter_feed_query = $queries->getWhere('settings', array('name', '=', 'twitter_feed_id'));

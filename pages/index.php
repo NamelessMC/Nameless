@@ -178,16 +178,13 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 	$smarty->assign('newsArray', $news);
 
 	// Twitter feed
-	if(isset($social_media_query) && $social_media_query[5]->value !== 'null'){
-		$twitter_feed = $queries->getWhere('settings', array('name', '=', 'twitter_feed_id'));
-		$twitter_feed = $twitter_feed[0]->value;
-		
-		if($twitter_feed == '0'){
+	if(isset($twitter_feed_query) && $twitter_feed_query[0]->value !== 'null'){
+		if($twitter_feed_query[0]->value == '0'){
 			// Disabled
 			$twitter = '';
 		} else {
 			// Enabled
-			$twitter = '<a class="twitter-timeline" data-dnt="true" href="' . htmlspecialchars($social_media_query[5]->value) . '"  data-widget-id="' . htmlspecialchars($twitter_feed) . '">Tweets</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+			$twitter = '<a class="twitter-timeline" data-dnt="true" href="' . htmlspecialchars($twitter_url[0]->value) . '"  data-widget-id="' . htmlspecialchars($twitter_feed_query[0]->value) . '">Tweets</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
 		}
 	}
 	
