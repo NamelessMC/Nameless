@@ -348,7 +348,22 @@ if(isset($_GET["step"])){
 							
 							$query = $mysqli->query("INSERT nl1_settings SELECT * FROM {$prefix}settings");
 							
-							$query = $mysqli->query("INSERT nl1_topics SELECT * FROM {$prefix}topics");
+							$query = $mysqli->query("SELECT * FROM {$prefix}topics");
+							while($row = $query->fetch_assoc()){
+								$queries->create('topics', array(
+									'id' => $row['id'],
+									'forum_id' => $row['forum_id'],
+									'topic_title' => $row['topic_title'],
+									'topic_creator' => $row['topic_creator'],
+									'topic_last_user' => $row['topic_last_user'],
+									'topic_date' => $row['topic_date'],
+									'topic_reply_date' => $row['topic_reply_date'],
+									'topic_views' => $row['topic_views'],
+									'locked' => $row['locked'],
+									'sticky' => $row['sticky'],
+									'label' => null
+								));
+							}
 							
 							$query = $mysqli->query("INSERT nl1_users SELECT * FROM {$prefix}users");
 							
