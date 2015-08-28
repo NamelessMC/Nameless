@@ -37,7 +37,7 @@ if(count($parts) == 1){
 }
 
 // IP to display
-if(!isset($port)){
+if((!isset($port))||($port == "25565")){
 	$address = $domain;
 } else {
 	$address = $domain . ':' . $port;
