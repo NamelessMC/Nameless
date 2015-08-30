@@ -146,9 +146,9 @@ class Queries {
 			echo '<strong>Topics</strong> table successfully initialised<br />';
 			$data = $this->_db->createTable("users", " `id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `password` varchar(255) NOT NULL, `pass_method` varchar(12) NOT NULL DEFAULT 'default', `mcname` varchar(20) NOT NULL, `uuid` varchar(32) NOT NULL, `joined` int(11) NOT NULL, `group_id` int(11) NOT NULL, `email` varchar(64) NOT NULL, `isbanned` tinyint(4) NOT NULL DEFAULT '0', `lastip` varchar(45) NOT NULL, `active` tinyint(4) NOT NULL DEFAULT '0', `signature` varchar(1024) DEFAULT NULL, `reputation` int(11) NOT NULL DEFAULT '0', `reset_code` varchar(60) DEFAULT NULL, `has_avatar` tinyint(4) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 			echo '<strong>Users</strong> table successfully initialised<br />';
-			$data = $this->_db->createTable("users_admin_session", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `hash` varchar(50) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
+			$data = $this->_db->createTable("users_admin_session", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `hash` varchar(64) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 			echo '<strong>Users Admin Session</strong> table successfully initialised<br />';
-			$data = $this->_db->createTable("users_session", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `hash` varchar(50) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
+			$data = $this->_db->createTable("users_session", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `hash` varchar(64) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 			echo '<strong>Users Session</strong> table successfully initialised<br />';
 			$data = $this->_db->createTable("uuid_cache", " `id` int(11) NOT NULL AUTO_INCREMENT, `mcname` varchar(20) NOT NULL, `uuid` varchar(64) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 			echo '<strong>UUID Cache</strong> table successfully initialised<br />';
