@@ -39,3 +39,19 @@ Planned available addons (these will need to be downloaded separately):
 * [Issue Tracker](https://github.com/NamelessMC/Nameless/issues)
 * [Support](http://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
 * [Download (v0.4.0)](https://github.com/samerton/NamelessMC) 
+
+# Full contributor list:
+**Main repository**
+* @Samerton
+* @j0ach1mmall3
+* @dwilson390
+* @Root3287
+* @TheMeq
+* @fetch404
+
+**[NamelessMC Website](http://namelessmc.github.io/)**
+* @Samerton
+* @SystemUpdate
+
+**[NamelessMC Plugin](https://github.com/NamelessMC/Plugin)**
+* @SystemUpdate
