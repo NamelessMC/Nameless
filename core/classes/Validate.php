@@ -55,7 +55,9 @@ class Validate {
 							}
 						break;
 						case 'isvalid';
-							$check_mcUser = file_get_contents('http://www.minecraft.net/haspaid.jsp?user='.escape($value).'');
+							$username = escape($value);
+							$username = str_replace(' ', '%20', $username);
+							$check_mcUser = file_get_contents('http://www.minecraft.net/haspaid.jsp?user='.($username).'');
 							if ($check_mcUser == 'false') {
 								$this->addError("Your Minecraft name is not a valid Minecraft account.");
 							}
