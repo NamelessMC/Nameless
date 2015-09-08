@@ -96,7 +96,7 @@ $timeago = new Timeago();
 			<div class="row">
 			  <div class="col-md-2"><a href="<?php echo $alert->url; ?>"><?php echo htmlspecialchars($alert->type); ?></a></div>
 			  <div class="col-md-5"><?php echo $alert->content; ?></div>
-			  <div class="col-md-3"><span rel="tooltip" data-trigger="hover" data-original-title="<?php echo date('d M Y, H:i', $alert->created); ?>"><?php echo $timeago->inWords(date('d M Y, H:i', $alert->created), $time_language) . ' ' . $forum_language['ago']; ?></span></div>
+			  <div class="col-md-3"><span rel="tooltip" data-trigger="hover" data-original-title="<?php echo date('d M Y, H:i', $alert->created); ?>"><?php echo $timeago->inWords(date('d M Y, H:i', $alert->created), $time_language); ?></span></div>
 			  <div class="col-md-2"><a href="/user/alerts/?action=read&amp;aid=<?php echo $alert->id; ?>"><span class="label label-success">Mark as Read</span></a></div>
 			</div>
 			<br />
@@ -124,7 +124,7 @@ $timeago = new Timeago();
 			<div class="row">
 			  <div class="col-md-2"><a href="<?php echo $alert->url; ?>"><?php echo htmlspecialchars($alert->type); ?></a></div>
 			  <div class="col-md-5"><?php echo $alert->content; ?></div>
-			  <div class="col-md-3"><span rel="tooltip" data-trigger="hover" data-original-title="<?php echo date('d M Y, H:i', $alert->created); ?>"><?php echo $timeago->inWords(date('d M Y, H:i', $alert->created), $time_language) . ' ' . $forum_language['ago']; ?></span></div>
+			  <div class="col-md-3"><span rel="tooltip" data-trigger="hover" data-original-title="<?php echo date('d M Y, H:i', $alert->created); ?>"><?php echo $timeago->inWords(date('d M Y, H:i', $alert->created), $time_language); ?></span></div>
 			  <div class="col-md-2"><a href="/user/alerts/?action=delete&amp;aid=<?php echo $alert->id; ?>"><span class="label label-danger"><?php echo $user_language['delete']; ?></span></a></div>
 			</div>
 			<br />

@@ -343,7 +343,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			$smarty->assign('DISCUSSION', $forum_language['discussion']);
 			$smarty->assign('STATS', $forum_language['stats']);
 			$smarty->assign('LAST_REPLY', $forum_language['last_reply']);
-			$smarty->assign('AGO', $forum_language['ago']);
+			$smarty->assign('AGO', ''); // to be removed
 			$smarty->assign('BY', $forum_language['by']);
 			$smarty->assign('VIEWS', $forum_language['views']);
 			$smarty->assign('POSTS', $forum_language['posts']);
@@ -495,7 +495,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			
 			$smarty->assign('LATEST_POSTS', $forum_language['latest_posts']);
 			$smarty->assign('BY', $forum_language['by']);
-			$smarty->assign('AGO', $forum_language['ago']);
+			$smarty->assign('AGO', ''); // to be removed
 			$smarty->assign('USERS_REGISTERED', $users_registered);
 			$smarty->assign('LATEST_MEMBER', $latest_member);
 			
@@ -620,7 +620,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			$smarty->assign('VIEWS', $forum_language['views']);
 			$smarty->assign('LATEST_POSTS', $forum_language['latest_posts']);
 			$smarty->assign('BY', $forum_language['by']);
-			$smarty->assign('AGO', $forum_language['ago']);
+			$smarty->assign('AGO', ''); // to be removed
 			
 			$latest = $forum->getLatestDiscussions($user->data()->group_id);
 			$latest_posts = array();

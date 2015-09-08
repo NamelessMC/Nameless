@@ -123,7 +123,7 @@ $timeago = new Timeago();
 		$smarty->assign('DISCUSSION', $forum_language['discussion']);
 		$smarty->assign('STATS', $forum_language['stats']);
 		$smarty->assign('LAST_REPLY', $forum_language['last_reply']);
-		$smarty->assign('AGO', $forum_language['ago']);
+		$smarty->assign('AGO', ''); // to be removed
 		$smarty->assign('BY', $forum_language['by']);
 		$smarty->assign('IN', $forum_language['in']);
 		$smarty->assign('VIEWS', $forum_language['views']);
@@ -240,7 +240,7 @@ $timeago = new Timeago();
 		$smarty->assign('NO_TOPICS', $forum_language['no_topics']);
 		$smarty->assign('LATEST_POSTS', $forum_language['latest_posts']);
 		$smarty->assign('BY', $forum_language['by']);
-		$smarty->assign('AGO', $forum_language['ago']);
+		$smarty->assign('AGO', ''); // to be removed
 		
 		$latest = $forum->getLatestDiscussions($user->data()->group_id);
 		$latest_posts = array();
