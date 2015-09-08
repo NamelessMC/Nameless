@@ -516,7 +516,7 @@ if(!Cookie::exists('nl-topic-' . $tid)) {
 	$smarty->assign('POSTS', $forum_language['posts']);
 	$smarty->assign('REPUTATION', $forum_language['reputation']);
 	$smarty->assign('BY', ucfirst($forum_language['by']));
-	$smarty->assign('AGO', $forum_language['ago']);
+	$smarty->assign('AGO', ''); // to be removed
 	
 	// Display page template
 	$smarty->display('styles/templates/' . $template . '/view_topic.tpl'); 

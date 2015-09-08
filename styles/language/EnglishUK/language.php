@@ -534,20 +534,21 @@ $email_language = array(
 
 /*
  *  Time language, eg "1 minute ago"
+ *  DON'T replace "{x}" in any translations
  */
 $time_language = array(
 	'seconds_short' => 's', // Shortened "seconds", eg "s"
-	'less_than_a_minute' => 'less than a minute',
-	'1_minute' => '1 minute',
-	'_minutes' => ' minutes',
-	'about_1_hour' => 'about 1 hour',
-	'_hours' => ' hours',
-	'1_day' => '1 day',
-	'_days' => ' days',
-	'about_1_month' => 'about 1 month',
-	'_months' => ' months',
-	'about_1_year' => 'about 1 year',
-	'over_x_years' => 'over {x} years' // Don't replace "{x}"
+	'less_than_a_minute' => 'less than a minute ago',
+	'1_minute' => '1 minute ago',
+	'_minutes' => '{x} minutes ago',
+	'about_1_hour' => 'about 1 hour ago',
+	'_hours' => '{x} hours ago',
+	'1_day' => '1 day ago',
+	'_days' => '{x} days ago',
+	'about_1_month' => 'about 1 month ago',
+	'_months' => '{x} months ago',
+	'about_1_year' => 'about 1 year ago',
+	'over_x_years' => 'over {x} years ago'
 );
  
 /*

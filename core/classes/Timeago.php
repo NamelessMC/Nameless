@@ -92,7 +92,8 @@ class TimeAgo {
       $timeDifference <= (($this->secondsPerMinute * 44) + 29)
     ) {
       $minutes = floor($timeDifference / $this->secondsPerMinute);
-      $timeAgo = $minutes . $time_language['_minutes'];
+      //$timeAgo = $minutes . $time_language['_minutes'];
+	  $timeAgo = str_replace('{x}', $minutes, $time_language['_minutes']);
     }
     // between 44mins30secs and 1hour29mins29secs
     else if(
@@ -116,7 +117,8 @@ class TimeAgo {
       )
     ) {
       $hours = floor($timeDifference / $this->secondsPerHour);
-      $timeAgo = $hours . $time_language['_hours'];
+      //$timeAgo = $hours . $time_language['_hours'];
+	  $timeAgo = str_replace('{x}', $hours, $time_language['_hours']);
     }
     // between 23hours59mins30secs and 47hours59mins29secs
     else if(
@@ -150,7 +152,8 @@ class TimeAgo {
       )
     ) {
       $days = floor($timeDifference / $this->secondsPerDay);
-      $timeAgo = $days . $time_language['_days'];
+      //$timeAgo = $days . $time_language['_days'];
+	  $timeAgo = str_replace('{x}', $days, $time_language['_days']);
     }
     // between 29days23hours59mins30secs and 59days23hours59mins29secs
     else if(
@@ -187,7 +190,8 @@ class TimeAgo {
         $months = 2;
       }
       
-      $timeAgo = $months . $time_language['_months'];
+      //$timeAgo = $months . $time_language['_months'];
+	  $timeAgo = str_replace('{x}', $months, $time_language['_months']);
     }
     // between 1year and 2years (minus 1sec)
     else if(
