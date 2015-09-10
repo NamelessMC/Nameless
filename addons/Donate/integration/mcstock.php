@@ -9,7 +9,7 @@
 $API = $queries->getWhere('donation_settings', array("name", "=", "api_key"));
 $API = $API[0]->value;
  
-$mcs_payments = file_get_contents('https://mcstock.net/api/v1/?key_type=server&key=' . $API . '&action=get_sales');
+$mcs_payments = file_get_contents('https://mcstock.net/api/v1/?key_type=server&key=' . $API . '&action=get_orders');
 $mcs_payments = json_decode($mcs_payments, true);
 
 if(isset($mcs_payments['result']) && $mcs_payments['result'] == 'success'){
