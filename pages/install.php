@@ -551,9 +551,14 @@ if(isset($_GET["step"])){
 								'value' => 'cravatar'
 							));
 							
+							// Languages
 							$queries->create('settings', array(
 								'name' => 'language',
 								'value' => 'EnglishUK'
+							));
+							$queries->create('settings', array(
+								'name' => 'language',
+								'value' => 'German'
 							));
 							
 							$queries->create('settings', array(
