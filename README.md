@@ -55,3 +55,7 @@ Planned available addons (these will need to be downloaded separately):
 
 **[NamelessMC Plugin](https://github.com/NamelessMC/Plugin)**
 * @SystemUpdate
+
+**NamelessMC Translations**
+* English: @Samerton
+* German: @LPkkjHD
