@@ -581,5 +581,3 @@ $table_language = array(
 );
 
 ?>
-
-?>
