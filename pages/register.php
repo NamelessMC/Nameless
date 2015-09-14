@@ -64,13 +64,13 @@ if(Input::exists()){
 			$to_validation['mcname'] = array(
 				'required' => true,
 				'isvalid' => true,
-				'min' => 4,
+				'min' => 3,
 				'max' => 20,
 				'unique' => 'users'
 			);
 			$to_validation['username'] = array(
 				'required' => true,
-				'min' => 4,
+				'min' => 3,
 				'max' => 20,
 				'unique' => 'users'
 			);
@@ -79,7 +79,7 @@ if(Input::exists()){
 			$to_validation['username'] = array(
 				'required' => true,
 				'isvalid' => true,
-				'min' => 4,
+				'min' => 3,
 				'max' => 20,
 				'unique' => 'users'
 			);
@@ -202,12 +202,20 @@ if(Input::exists()){
 			} catch(Exception $e){
 				die($e->getMessage());
 			}
+		} else {
+			$error = '<div class="alert alert-danger">' . $user_language['registration_error'] . '</div>';
 		}
 		
 	} else {
 		// Invalid token
 		Session::flash('register', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
 	}
+}
+
+if(isset($error)){
+	$smarty->assign('REGISTRATION_ERROR', $error);
+} else {
+	$smarty->assign('REGISTRATION_ERROR', '');
 }
 
 // Generate code for page
