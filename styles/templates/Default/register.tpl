@@ -5,6 +5,7 @@
 			<form role="form" action="" method="post">
 				<h2>{$CREATE_AN_ACCOUNT}</h2>
 				{$SESSION_FLASH}
+				{$REGISTRATION_ERROR}
 				<hr class="colorgraph">
 				{$FORM_CONTENT}
 				<hr class="colorgraph">

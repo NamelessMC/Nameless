@@ -282,6 +282,7 @@ $user_language = array(
 	'unknown_login_error' => 'Sorry, there was an unknown error whilst logging you in. Please try again later.',
 	'validation_complete' => 'Thanks for registering! You can now log in.',
 	'validation_error' => 'Error processing your request. Please try clicking the link again.',
+	'registration_error' => 'Please ensure you have filled out all fields, and that your username is between 3 and 20 characters long and your password is between 6 and 30 characters long.',
 	
 	// UserCP
 	'user_cp' => 'UserCP',
