@@ -282,7 +282,7 @@ $user_language = array(
 	'unknown_login_error' => 'Entschuldigung, während du dich einloggen wollstest ist ein unbekannter Fehler aufgetreten. Bitte Versuche es später erneut.',
 	'validation_complete' => 'Danke für\'s Registrieren! Du kannst dich nun Anmelden',
 	'validation_error' => 'Fehler beim Bearbeiten deiner Anfrage. Versuche den link später noch einmal zu klicken.',
-	'registration_error' => 'Please ensure you have filled out all fields, and that your username is between 3 and 20 characters long and your password is between 6 and 30 characters long.', // todo
+	'registration_error' => 'Bitte Stelle sicher, dass du alle Felder ausgefüllt hast, wobei der Benutzername zwischen 3 und 20 Zeichen und das Passwort zwischen 6 und 30 Zeichen lang sein muss.', // todo
 
 	// UserCP
 	'user_cp' => 'User Panel',
