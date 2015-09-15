@@ -129,7 +129,7 @@ $admin_language = array(
 	'update_uuid' => 'Actulaizar UUID',
 	'unable_to_update_uuid' => 'No se puede actualizar UUID.',
 	'update_mc_name' => 'Actualizar nombre de Minecraft',
-	'reset_password' => 'Borrar Clave',
+	'reset_password' => 'Borrar Contraseña',
 	'punish_user' => 'Castgar Usuario',
 	'delete_user' => 'Borrar Usuario',
 	'minecraft_uuid' => 'UUID de Minecraft',
@@ -161,93 +161,93 @@ $admin_language = array(
 	'minecraft_settings' => 'Configuración de Minecraft',
 	'use_plugin' => '¿Usar el plugin Nameless de Minecraft?',
 	'force_avatars' => '¿Forzar las imagenes Minecraft?',
-	'uuid_linking' => 'Enable UUID linking?',
-	'use_plugin_help' => 'Using the plugin allows for rank synchronisation and also ingame registration and ticket submission.',
-	'uuid_linking_help' => 'If disabled, user accounts won\'t be linked with UUIDs. It is highly recommended you keep this as enabled.',
-	'plugin_settings' => 'Plugin Settings',
-	'confirm_api_regen' => 'Are you sure you want to generate a new API key?',
-	'servers' => 'Servers',
-	'new_server' => 'New Server',
-	'confirm_server_deletion' => 'Are you sure you want to delete this server?',
-	'main_server' => 'Main Server',
-	'main_server_help' => 'The server players connect through. Normally this will be the Bungee instance.',
-	'choose_a_main_server' => 'Choose a main server..',
-	'external_query' => 'Use external query?',
-	'external_query_help' => 'Use an external API to query the Minecraft server? Only use this if the built in query doesn\'t work; it\'s highly recommended that this is unticked.',
-	'editing_server' => 'Editing server {x}', // Don't replace "{x}"
-	'server_ip_with_port' => 'Server IP (with port)',
-	'show_on_play_page' => 'Show on Play page?',
-	'pre_17' => 'Pre 1.7 Minecraft version?',
-	'server_name' => 'Server Name',
-	'invalid_server_id' => 'Invalid server ID',
-	'show_players' => 'Show player list on Play page?',
-	'server_edited' => 'Server edited successfully',
-	'server_created' => 'Server created successfully',
-	'query_errors' => 'Query Errors',
-	'query_errors_info' => 'The following errors allow you to diagnose issues with your internal server query.',
-	'no_query_errors' => 'No query errors logged',
-	'date' => 'Date:',
-	'port' => 'Port:',
-	'viewing_error' => 'Viewing Error',
-	'confirm_error_deletion' => 'Are you sure you want to delete this error?',
+	'uuid_linking' => '¿Activar enlaces al UUID?',
+	'use_plugin_help' => 'utilizando el módulo permite sincronizar el nivel, registarse en el juego y generar incidencias.',
+	'uuid_linking_help' => 'Si se deshabilita la cuenta del usuario no se enlazará con en UUID. Es muy recomendable que esté activado.',
+	'plugin_settings' => 'Configuración de Plugins',
+	'confirm_api_regen' => '¿Quiere generar una nueva cadena para la API?',
+	'servers' => 'Servidores',
+	'new_server' => 'Nuevo Servidor',
+	'confirm_server_deletion' => '¿Seguro que quiere eleminar este servidor?',
+	'main_server' => 'Servidor Principal',
+	'main_server_help' => 'El servidor al que se conectan los jugadores. Por lo general, se trata de la instancia BungeeCord.',
+	'choose_a_main_server' => 'Elegir servidor principal..',
+	'external_query' => '¿Usar consulta externa?',
+	'external_query_help' => '¿Utilice una API externa para consultar el servidor de Minecraft? Sólo utilice esto si la consulta interna no funciona. Es muy recomendable que no esté activada.',
+	'editing_server' => 'Editar servidor {x}', // Don't replace "{x}"
+	'server_ip_with_port' => 'Dirección IP (con puerto)',
+	'show_on_play_page' => '¿Mostar en la página de Juegos?',
+	'pre_17' => 'Anterior a la versón 1.7 de Minecraft?',
+	'server_name' => 'Nombre del servidor',
+	'invalid_server_id' => 'ID del servidor errónea',
+	'show_players' => '¿Mostar la lista de jugadore en página de Juegos?',
+	'server_edited' => 'Servidor editado correctamente',
+	'server_created' => 'Servidor creado correctamente',
+	'query_errors' => 'Error de peticiones',
+	'query_errors_info' => 'Los siguientes errores le ayudarán de diagnosticar la versión interna de la consulta al servidor.',
+	'no_query_errors' => 'No hay registro de errores',
+	'date' => 'Fecha:',
+	'port' => 'Puerto:',
+	'viewing_error' => 'Ver Error',
+	'confirm_error_deletion' => '¿Seguro que quiere eliminar este error?',
 	
 	// Admin Themes, Templates and Addons
-	'themes' => 'Themes',
-	'templates' => 'Templates',
-	'installed_themes' => 'Installed themes',
-	'installed_templates' => 'Installed templates',
-	'installed_addons' => 'Installed addons',
-	'install_theme' => 'Install Theme',
-	'install_template' => 'Install Template',
-	'install_addon' => 'Install Addon',
-	'install_a_theme' => 'Install a theme',
-	'install_a_template' => 'Install a template',
-	'install_an_addon' => 'Install an addon',
-	'active' => 'Active',
-	'activate' => 'Activate',
-	'deactivate' => 'Deactivate',
-	'theme_install_instructions' => 'Please upload themes to the <strong>styles/themes</strong> directory. Then, click the "scan" button below.',
-	'template_install_instructions' => 'Please upload templates to the <strong>styles/templates</strong> directory. Then, click the "scan" button below.',
-	'addon_install_instructions' => 'Please upload addons to the <strong>addons</strong> directory. Then, click the "scan" button below.',
-	'addon_install_warning' => 'Addons are installed at your own risk. Please back up your files and the database before proceeding',
-	'scan' => 'Scan',
-	'theme_not_exist' => 'That theme doesn\'t exist!',
-	'template_not_exist' => 'That template doesn\'t exist!',
-	'addon_not_exist' => 'That addon doesn\'t exist!',
-	'style_scan_complete' => 'Completed, any new styles have been installed.',
-	'addon_scan_complete' => 'Completed, any new addons have been installed.',
-	'theme_enabled' => 'Theme enabled.',
-	'template_enabled' => 'Template enabled.',
-	'addon_enabled' => 'Addon enabled.',
-	'theme_deleted' => 'Theme deleted.',
-	'template_deleted' => 'Template deleted.',
-	'addon_disabled' => 'Addon disabled.',
-	'inverse_navbar' => 'Inverse Navbar',
-	'confirm_theme_deletion' => 'Are you sure you wish to delete the theme <strong>{x}</strong>?<br /><br />The theme will be deleted from your <strong>styles/themes</strong> directory.', // Don't replace {x}
-	'confirm_template_deletion' => 'Are you sure you wish to delete the template <strong>{x}</strong>?<br /><br />The template will be deleted from your <strong>styles/templates</strong> directory.', // Don't replace {x}
+	'themes' => 'Temas',
+	'templates' => 'Plantillas',
+	'installed_themes' => 'Temas instalados',
+	'installed_templates' => 'Plantillas instaladas',
+	'installed_addons' => 'Añaidos Instalados',
+	'install_theme' => 'Instalar tema',
+	'install_template' => 'Instalar plantilla',
+	'install_addon' => 'Instalar añadido',
+	'install_a_theme' => 'Instalar un tema',
+	'install_a_template' => 'Instalar una plantilla',
+	'install_an_addon' => 'Instalar un añadido',
+	'active' => 'Activo',
+	'activate' => 'Activado',
+	'deactivate' => 'Desactivado',
+	'theme_install_instructions' => 'Por favor, suba los temas en el directorio <strong>styles/themes</strong>. Luego presione el botón de "Buscar".',
+	'template_install_instructions' => 'Por favor, suba las plantilas en el directorio <strong>styles/templates</strong>. Luego presione el botón de "Buscar".',
+	'addon_install_instructions' => 'Por favor, suba los añadidos en el directorio <strong>addons</strong>. Luego presione el botón de "Buscar".',
+	'addon_install_warning' => 'Los añadidos se instalar por su cuenta y riesgo. Haga una copia de seguridad antes de proceder',
+	'scan' => 'Buscar',
+	'theme_not_exist' => '¡El tema no existe!',
+	'template_not_exist' => '¡La plantalla no existe!',
+	'addon_not_exist' => '¡El añadido no existe!',
+	'style_scan_complete' => 'Finalizado. Los nuevos estilos se han instalado.',
+	'addon_scan_complete' => 'Finalizado, todos los añadidos se han instalado.',
+	'theme_enabled' => 'Tema actviado.',
+	'template_enabled' => 'Plantilla activada.',
+	'addon_enabled' => 'Añadido activado.',
+	'theme_deleted' => 'Tema borrado.',
+	'template_deleted' => 'Plantilla borrada.',
+	'addon_disabled' => 'Añadido desactivado.',
+	'inverse_navbar' => 'Barra de navegación inversa',
+	'confirm_theme_deletion' => '¿Seguro que desea borrar el tema <strong>{x}</strong>?<br /><br />El tema se eliminará de su directorio <strong>styles/themes</strong>.', // Don't replace {x}
+	'confirm_template_deletion' => '¿Seguro que desea borrar la plantilla <strong>{x}</strong>?<br /><br />La plantilla se eliminará de su directorio <strong>styles/templates</strong>.', // Don't replace {x}
 	
 	// Admin Misc page
-	'other_settings' => 'Other Settings',
-	'enable_error_reporting' => 'Enable error reporting?',
-	'error_reporting_description' => 'This should only be used for debugging purposes, it\'s highly recommended this is left as disabled.',
-	'display_page_load_time' => 'Display page loading time?',
-	'page_load_time_description' => 'Having this enabled will display a speedometer in the footer which will display the page loading time.',
-	'reset_website' => 'Reset Website',
-	'reset_website_info' => 'This will reset your website settings. <strong>Addons will be disabled but not removed, and their settings will not change.</strong> Your defined Minecraft servers will also remain.',
-	'confirm_reset_website' => 'Are you sure you want to reset your website settings?'
+	'other_settings' => 'Otra configuración',
+	'enable_error_reporting' => '¿Activar reporte de errores?',
+	'error_reporting_description' => 'Esto sólo debe ser usado para depuración, Es muy recomendable que esté desactivado.',
+	'display_page_load_time' => '¿Mostar el tiempo de carga de la página?',
+	'page_load_time_description' => 'Activándolo mostrará el medidor de velocidad a pié de página indicando el tiempo en cargar.',
+	'reset_website' => 'Reiniciar sitio',
+	'reset_website_info' => 'Se reiniciará su sitio Web y se eliminará su configuración. <strong>Los añadidos serán desactivados pero no eliminados. Su configuración permanecerá sin cambios.</strong> Sus servidores de Minecraft se conservarán.',
+	'confirm_reset_website' => '¿Seguro que queire reiniciar la configuración del sitio web?'
 );
 
 /*
  *  Navbar
  */
 $navbar_language = array(
-	'home' => 'Home',
-	'play' => 'Play',
-	'forum' => 'Forum',
-	'vote' => 'Vote',
-	'donate' => 'Donate',
-	'more' => 'More',
-	'staff_apps' => 'Staff Applications'
+	'home' => 'Principal',
+	'play' => 'Juegos',
+	'forum' => 'Foro',
+	'vote' => 'Votar',
+	'donate' => 'Donar',
+	'more' => 'Mas',
+	'staff_apps' => 'Administración'
 );
 
 /*
@@ -255,142 +255,142 @@ $navbar_language = array(
  */
 $user_language = array(
 	// Registration
-	'create_an_account' => 'Create an Account',
-	'username' => 'Username',
-	'minecraft_username' => 'Minecraft Username',
-	'email' => 'Email',
-	'email_address' => 'Email Address',
-	'password' => 'Password',
-	'confirm_password' => 'Confirm Password',
-	'i_agree' => 'I Agree',
-	'agree_t_and_c' => 'By clicking <strong class="label label-primary">Register</strong>, you agree to our <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a>.',
-	'register' => 'Register',
-	'sign_in' => 'Sign In',
-	'sign_out' => 'Sign Out',
-	'terms_and_conditions' => 'Terms and Conditions',
-	'successful_signin' => 'You have been signed in successfully',
-	'incorrect_details' => 'Incorrect details',
-	'remember_me' => 'Remember me',
-	'forgot_password' => 'Forgot Password',
-	'must_input_username' => 'You must insert a username.',
-	'must_input_password' => 'You must insert a password.',
-	'inactive_account' => 'Your account is currently inactive. Did you request a password reset?',
-	'account_banned' => 'Your account has been banned.',
-	'successfully_logged_out' => 'You have been successfully logged out.',
-	'signature' => 'Signature',
-	'registration_check_email' => 'Please check your emails for a validation link. You won\'t be able to log in until this is clicked.',
-	'unknown_login_error' => 'Sorry, there was an unknown error whilst logging you in. Please try again later.',
-	'validation_complete' => 'Thanks for registering! You can now log in.',
-	'validation_error' => 'Error processing your request. Please try clicking the link again.',
-	'registration_error' => 'Please ensure you have filled out all fields, and that your username is between 3 and 20 characters long and your password is between 6 and 30 characters long.',
+	'create_an_account' => 'Crear una cuenta',
+	'username' => 'Usuario',
+	'minecraft_username' => 'usuario de Minecraft',
+	'email' => 'Correo',
+	'email_address' => 'Dirección de correo',
+	'password' => 'Contraseña',
+	'confirm_password' => 'Confirnar la contraseña',
+	'i_agree' => 'Acepto',
+	'agree_t_and_c' => 'Seleccionando el <strong class="label label-primary">Registro</strong>, acepta nuestros <a href="#" data-toggle="modal" data-target="#t_and_c_m">Términos y condiciones</a>.',
+	'register' => 'Registro',
+	'sign_in' => 'Acceder',
+	'sign_out' => 'Salir',
+	'terms_and_conditions' => 'Terminos y condiciones',
+	'successful_signin' => 'Se ha registrado correctamente',
+	'incorrect_details' => 'Detalles erróneos',
+	'remember_me' => 'Recuérdame',
+	'forgot_password' => 'Contraseña olvidada',
+	'must_input_username' => 'Debe poner un usuario.',
+	'must_input_password' => 'Debe poner una contraseña.',
+	'inactive_account' => 'La cuenta está inactiva. ¿Ha pedido un reincio de contraseña?',
+	'account_banned' => 'Su cuenta ha sido inhabilitada.',
+	'successfully_logged_out' => 'Ha salido correctamente.',
+	'signature' => 'Firma',
+	'registration_check_email' => 'Por favor, verifique que ha recibido en el correo un enlace para poder validarse. No podrá acceder hasta que lo pulse.',
+	'unknown_login_error' => 'Lo sentimos, ha sucedido un error inesperado al intentar acceder. Inténtelo mas tarde.',
+	'validation_complete' => '¡Gracias por registrarse! Ya puede acceder.',
+	'validation_error' => 'No hemos podido procesar su petición. Por favor, pulse el enlace de nuevo.',
+	'registration_error' => 'Por favor, asegúrese que ha rellenado todos los campos y el usuario tiene entre 3 y 20 caracteres y su contraseña tiene entre 3 y 30.',
 	
 	// UserCP
-	'user_cp' => 'UserCP',
-	'no_file_chosen' => 'No file chosen',
-	'private_messages' => 'Private Messages',
-	'profile_settings' => 'Profile Settings',
-	'your_profile' => 'Your Profile',
-	'topics' => 'Topics',
-	'posts' => 'Posts',
-	'reputation' => 'Reputation',
-	'friends' => 'Friends',
-	'alerts' => 'Alerts',
+	'user_cp' => 'Panel Usuario',
+	'no_file_chosen' => 'No se ha selecionado archivo',
+	'private_messages' => 'Mensaje privado',
+	'profile_settings' => 'Configuración del perfil',
+	'your_profile' => 'Su perfil',
+	'topics' => 'Temas',
+	'posts' => 'Mensaje',
+	'reputation' => 'Reputación',
+	'friends' => 'Amigos',
+	'alerts' => 'Alertas',
 	
 	// Messaging
-	'new_message' => 'New Message',
-	'no_messages' => 'No messages',
-	'and_x_more' => 'and {x} more', // Don't replace "{x}"
-	'system' => 'System',
-	'message_title' => 'Message Title',
-	'message' => 'Message',
-	'to' => 'To:',
-	'separate_users_with_comma' => 'Separate users with a comma (",")',
-	'viewing_message' => 'Viewing Message',
-	'delete_message' => 'Delete Message',
-	'confirm_message_deletion' => 'Are you sure you want to delete this message?',
+	'new_message' => 'Nuevo mensaje',
+	'no_messages' => 'Sin mensajes',
+	'and_x_more' => 'y {x} mas', // Don't replace "{x}"
+	'system' => 'Sistema',
+	'message_title' => 'Título del mensaje',
+	'message' => 'Mensaje',
+	'to' => 'Para:',
+	'separate_users_with_comma' => 'Separe los usuarios con una coma (",")',
+	'viewing_message' => 'Ver mensaje',
+	'delete_message' => 'Borarr mensaje',
+	'confirm_message_deletion' => '¿Seguro que desea borrar este mensaje?',
 	
 	// Profile settings
-	'display_name' => 'Display name',
-	'upload_an_avatar' => 'Upload an avatar (.jpg, .png or .gif only):',
+	'display_name' => 'Mostar nombre',
+	'upload_an_avatar' => 'Subir avatar (solo .jpg, .png o .gif):',
 	
 	// Alerts
-	'viewing_unread_alerts' => 'Viewing unread alerts. Change to <a href="/user/alerts/?view=read"><span class="label label-success">read</span></a>.',
-	'viewing_read_alerts' => 'Viewing read alerts. Change to <a href="/user/alerts/"><span class="label label-warning">unread</span></a>.',
-	'no_unread_alerts' => 'You have no unread alerts.',
-	'no_read_alerts' => 'You have no read alerts.',
-	'view' => 'View',
-	'alert' => 'Alert',
-	'when' => 'When',
-	'delete' => 'Delete',
-	'tag' => 'User Tag',
-	'report' => 'Report',
-	'deleted_alert' => 'Alert successfully deleted',
+	'viewing_unread_alerts' => 'Viendo las alertas no leídas. Cambiar a <a href="/user/alerts/?view=read"><span class="label label-success">leidas</span></a>.',
+	'viewing_read_alerts' => 'Viendo las alertas ya lídas. Cambiar a <a href="/user/alerts/"><span class="label label-warning">no leídas</span></a>.',
+	'no_unread_alerts' => 'No tiene alertas sin leer.',
+	'no_read_alerts' => 'No tiene alertas leídas.',
+	'view' => 'Ver',
+	'alert' => 'Alerta',
+	'when' => 'Cuando',
+	'delete' => 'Borrar',
+	'tag' => 'Marcar usuario',
+	'report' => 'Informe',
+	'deleted_alert' => 'Alerta borrada correctamente',
 	
 	// Warnings
-	'you_have_received_a_warning' => 'You have received a warning from {x} dated {y}.', // Don't replace "{x}" or "{y}"
-	'acknowledge' => 'Acknowledge',
+	'you_have_received_a_warning' => 'Ha recibido una advertencia de {x} el {y}.', // Don't replace "{x}" or "{y}"
+	'acknowledge' => 'Informado',
 	
 	// Forgot password
-	'password_reset' => 'Password Reset',
-	'email_body' => 'You are receiving this email because you requested a password reset. In order to reset your password, please use the following link:', // Body for the password reset email
-	'email_body_2' => 'If you did not request the password reset, you can ignore this email.',
-	'password_email_set' => 'Success. Please check your emails for further instructions.',
-	'username_not_found' => 'That username does not exist.',
-	'change_password' => 'Change Password',
-	'your_password_has_been_changed' => 'Your password has been changed.',
+	'password_reset' => 'Reiniciar contraseña',
+	'email_body' => 'Ha recibido este correo porque ha pedido un reinicio de contraseña. Para proceder con el reinicio de la contraseña seleccione el siguiente enlace:', // Body for the password reset email
+	'email_body_2' => 'Si no ha pedido un reinicio de contraseña, puede ignorar este correo.',
+	'password_email_set' => 'Correcto. Verifique su correo para mas indicaciones.',
+	'username_not_found' => 'El usuario no existe.',
+	'change_password' => 'Cambiar contraseña',
+	'your_password_has_been_changed' => 'Su contraseña se ha cambiado.',
 	
 	// Profile page
-	'profile' => 'Profile',
-	'player' => 'Player',
-	'offline' => 'Offline',
-	'online' => 'Online',
-	'pf_registered' => 'Registered:',
-	'pf_posts' => 'Posts:',
-	'pf_reputation' => 'Reputation:',
-	'user_hasnt_registered' => 'This user hasn\'t registered on our website yet',
-	'user_no_friends' => 'This user has not added any friends',
-	'send_message' => 'Send Message',
-	'remove_friend' => 'Remove Friend',
-	'add_friend' => 'Add Friend'
+	'profile' => 'Perfil',
+	'player' => 'Jugador',
+	'offline' => 'Desconectado',
+	'online' => 'Conectado',
+	'pf_registered' => 'Registrado:',
+	'pf_posts' => 'Mensajes:',
+	'pf_reputation' => 'Reputación:',
+	'user_hasnt_registered' => 'Este usario no se ha registrado ene este sitio todavía',
+	'user_no_friends' => 'El usuario no ha añadido amigos',
+	'send_message' => 'Mandar mensaje',
+	'remove_friend' => 'Eliminar amigo',
+	'add_friend' => 'Añadir amigo'
 );
 
 /*
  *  Moderation related
  */
 $mod_language = array(
-	'mod_cp' => 'ModCP',
-	'overview' => 'Overview',
-	'reports' => 'Reports',
-	'punishments' => 'Punishments',
-	'staff_applications' => 'Staff Applications',
+	'mod_cp' => 'Panel de Moderacón',
+	'overview' => 'Información general',
+	'reports' => 'Informes',
+	'punishments' => 'Castigos',
+	'staff_applications' => 'Administración',
 	
 	// Punishments
-	'ban' => 'Ban',
-	'unban' => 'Unban',
-	'warn' => 'Warn',
-	'search_for_a_user' => 'Search for a user',
-	'user' => 'User:',
-	'ip_lookup' => 'IP Lookup:',
-	'registered' => 'Registered',
-	'reason' => 'Reason:',
+	'ban' => 'Inhabilitar',
+	'unban' => 'Habilitar',
+	'warn' => 'Avisar',
+	'search_for_a_user' => 'Buscar usuario',
+	'user' => 'Usuario:',
+	'ip_lookup' => 'Dirección IP:',
+	'registered' => 'Registrado',
+	'reason' => 'Razón:',
 	
 	// Reports
-	'report_closed' => 'Report closed.',
-	'new_comment' => 'New comment',
-	'comments' => 'Comments',
-	'only_viewed_by_staff' => 'Can only be viewed by staff',
-	'reported_by' => 'Reported by',
-	'close_issue' => 'Close issue',
-	'report' => 'Report:',
-	'view_reported_content' => 'View reported content',
-	'no_open_reports' => 'No open reports',
-	'user_reported' => 'User Reported',
-	'type' => 'Type',
-	'updated_by' => 'Updated By',
-	'forum_post' => 'Forum Post',
-	'user_profile' => 'User Profile',
-	'comment_added' => 'Comment added.',
-	'new_report_submitted_alert' => 'New report submitted by {x} regarding user {y}' // Don't replace "{x}" or "{y}"
+	'report_closed' => 'Informe cerrado.',
+	'new_comment' => 'Nuevo comentario',
+	'comments' => 'Comentarios',
+	'only_viewed_by_staff' => 'Sólo puede ser visto por los administradores',
+	'reported_by' => 'Informado por',
+	'close_issue' => 'Cerrar tema',
+	'report' => 'Informe:',
+	'view_reported_content' => 'Ver contenido del informe',
+	'no_open_reports' => 'No hay informes abiertos',
+	'user_reported' => 'usuarios notificados',
+	'type' => 'Tipo',
+	'updated_by' => 'Actualizado por',
+	'forum_post' => 'Mensaje en el foro',
+	'user_profile' => 'Perfil del usuario',
+	'comment_added' => 'Comentario añadido.',
+	'new_report_submitted_alert' => 'Nuevo informe presentado por {x} especto al usuario {y}' // Don't replace "{x}" or "{y}"
 );
 
 /* 
@@ -398,39 +398,39 @@ $mod_language = array(
  */
 $general_language = array(
 	// Homepage
-	'news' => 'News',
+	'news' => 'Noticias',
 	'social' => 'Social',
 	
 	// General terms
-	'submit' => 'Submit',
-	'close' => 'Close',
-	'cookie_message' => '<strong>This site uses cookies to enhance your experience.</strong><p>By continuing to browse and interact with this website, you agree with their use.</p>',
-	'theme_not_exist' => 'The selected theme does not exist.',
-	'confirm' => 'Confirm',
-	'cancel' => 'Cancel',
-	'guest' => 'Guest',
-	'guests' => 'Guests',
-	'back' => 'Back',
-	'search' => 'Search',
-	'help' => 'Help',
-	'success' => 'Success',
+	'submit' => 'Enviar',
+	'close' => 'Cerrar',
+	'cookie_message' => '<strong>Este sitio utiliza <i>cookies</i> para una mejor experiencia.</strong><p>Si continua navengado por nuestro sitio está aceptado el uso de elllas.</p>',
+	'theme_not_exist' => 'El tema seleccionado no existe.',
+	'confirm' => 'Confirmar',
+	'cancel' => 'Camcelar',
+	'guest' => 'Invitado',
+	'guests' => 'invitados',
+	'back' => 'Volver',
+	'search' => 'Buscar',
+	'help' => 'Ayuda',
+	'success' => 'Correcto',
 	'error' => 'Error',
-	'view' => 'View',
+	'view' => 'Ver',
 	
 	// Play page
-	'connect_with' => 'Connect to the server with the IP {x}', // Don't replace {x}
-	'online' => 'Online',
-	'offline' => 'Offline',
-	'status' => 'Status:',
-	'players_online' => 'Players Online:',
-	'queried_in' => 'Queried In:',
-	'server_status' => 'Server Status',
-	'no_players_online' => 'There are no players online!',
-	'x_players_online' => 'There are {x} players online.', // Don't replace {x}
+	'connect_with' => 'Conectado al servidor desde la IP {x}', // Don't replace {x}
+	'online' => 'Conectado',
+	'offline' => 'Desconectado',
+	'status' => 'Esado:',
+	'players_online' => 'Jugadores conectados:',
+	'queried_in' => 'Peticiones:',
+	'server_status' => 'Estado del servidor',
+	'no_players_online' => '¡No hay jugadores conectados!',
+	'x_players_online' => 'Hay {x} jugadores conectados.', // Don't replace {x}
 	
 	// Other
-	'page_loaded_in' => 'Page loaded in {x}s', // Don't replace {x}; 's' stands for 'seconds'
-	'none' => 'None'
+	'page_loaded_in' => 'Página cargada en {x}s', // Don't replace {x}; 's' stands for 'seconds'
+	'none' => 'Nada'
 );
 
 /* 
@@ -438,89 +438,89 @@ $general_language = array(
  */
 $forum_language = array(
 	// Latest discussions view
-	'forums' => 'Forums',
-	'discussion' => 'Discussion',
-	'stats' => 'Stats',
-	'last_reply' => 'Last Reply',
-	'ago' => 'ago',
-	'by' => 'by',
-	'in' => 'in',
-	'views' => 'views',
-	'posts' => 'posts',
-	'topics' => 'topics',
-	'topic' => 'Topic',
-	'statistics' => 'Statistics',
-	'overview' => 'Overview',
-	'latest_discussions' => 'Latest Discussions',
-	'latest_posts' => 'Latest Posts',
-	'users_registered' => 'Users registered:',
-	'latest_member' => 'Latest member:',
-	'forum' => 'Forum',
-	'last_post' => 'Last Post',
-	'no_topics' => 'No topics here yet',
-	'new_topic' => 'New Topic',
-	'subforums' => 'Subforums:',
+	'forums' => 'Foros',
+	'discussion' => 'Conversación',
+	'stats' => 'Estadísticas',
+	'last_reply' => 'Última respuesta',
+	'ago' => 'hace',
+	'by' => 'por',
+	'in' => 'en',
+	'views' => 'vistas',
+	'posts' => 'mensaje',
+	'topics' => 'temas',
+	'topic' => 'Tema',
+	'statistics' => 'Estadísticas',
+	'overview' => 'Información general',
+	'latest_discussions' => 'Últimas conversaciones',
+	'latest_posts' => 'Últimos temas',
+	'users_registered' => 'Usuario registrados:',
+	'latest_member' => 'Último miembro:',
+	'forum' => 'Foro',
+	'last_post' => 'Ultima publicación',
+	'no_topics' => 'No hay temas todavía',
+	'new_topic' => 'Nuevo tema',
+	'subforums' => 'Sub-foro:',
 	
 	// View topic view
-	'home' => 'Home',
-	'topic_locked' => 'Topic Locked',
-	'new_reply' => 'New Reply',
-	'mod_actions' => 'Mod Actions',
-	'lock_thread' => 'Lock Thread',
-	'unlock_thread' => 'Unlock Thread',
-	'merge_thread' => 'Merge Thread',
-	'delete_thread' => 'Delete Thread',
-	'confirm_thread_deletion' => 'Are you sure you want to delete this thread?',
-	'move_thread' => 'Move Thread',
-	'sticky_thread' => 'Sticky Thread',
-	'report_post' => 'Report Post',
-	'quote_post' => 'Quote Post',
-	'delete_post' => 'Delete Post',
-	'edit_post' => 'Edit Post',
-	'reputation' => 'reputation',
-	'confirm_post_deletion' => 'Are you sure you want to delete this post?',
-	'give_reputation' => 'Give reputation',
-	'remove_reputation' => 'Remove reputation',
-	'post_reputation' => 'Post Reputation',
-	'no_reputation' => 'No reputation for this post yet',
+	'home' => 'Inicio',
+	'topic_locked' => 'Tema cerrado',
+	'new_reply' => 'Nueva respuesta',
+	'mod_actions' => 'Moderar',
+	'lock_thread' => 'Cerrar tema',
+	'unlock_thread' => 'Abrir tema',
+	'merge_thread' => 'Combiar temas',
+	'delete_thread' => 'Borrar tema',
+	'confirm_thread_deletion' => '¿Seguro que desea borrar este tema?',
+	'move_thread' => 'Mover tema',
+	'sticky_thread' => 'Fijar tema',
+	'report_post' => 'Informar mensaje',
+	'quote_post' => 'Citar',
+	'delete_post' => 'Borar mensaje',
+	'edit_post' => 'Editar mensaje',
+	'reputation' => 'reputación',
+	'confirm_post_deletion' => '¿Seguro que desea borrar este mensaje?',
+	'give_reputation' => 'Dar reputación',
+	'remove_reputation' => 'Quitar reputación',
+	'post_reputation' => 'Mostar reputación',
+	'no_reputation' => 'No hay reputación para este tema',
 	're' => 'RE:',
 	
 	// Create post view
-	'create_post' => 'Create post',
-	'post_submitted' => 'Post submitted',
-	'creating_post_in' => 'Creating post in: ',
-	'topic_locked_permission_post' => 'This topic is locked, however your permissions allow you to post',
+	'create_post' => 'Crear mensaje',
+	'post_submitted' => 'Mensaje publicado',
+	'creating_post_in' => 'Creado mensaje en: ',
+	'topic_locked_permission_post' => 'Este tema está cerrado, sin embargo pude publicar',
 	
 	// Edit post view
-	'editing_post' => 'Editing post',
+	'editing_post' => 'Editando tema',
 	
 	// Sticky threads
-	'thread_is_' => 'Thread is ',
-	'now_sticky' => 'now a sticky thread',
-	'no_longer_sticky' => 'no longer a sticky thread',
+	'thread_is_' => 'El hilo es ',
+	'now_sticky' => 'el tema es fijo',
+	'no_longer_sticky' => 'el tema no es fijo',
 	
 	// Create topic
-	'topic_created' => 'Topic created.',
-	'creating_topic_in_' => 'Creating topic in forum ',
-	'thread_title' => 'Thread Title',
-	'confirm_cancellation' => 'Are you sure?',
-	'label' => 'Label',
+	'topic_created' => 'Tema creado.',
+	'creating_topic_in_' => 'Creando tema en el foro ',
+	'thread_title' => 'Título del tema',
+	'confirm_cancellation' => '¿seguro?',
+	'label' => 'Etiqueta',
 	
 	// Reports
-	'report_submitted' => 'Report submitted.',
-	'view_post_content' => 'View post content',
-	'report_reason' => 'Report Reason',
+	'report_submitted' => 'Informe subido.',
+	'view_post_content' => 'Ver contenido publicado',
+	'report_reason' => 'Razón del informe',
 	
 	// Move thread
-	'move_to' => 'Move to:',
+	'move_to' => 'Mover a:',
 	
 	// Merge threads
-	'merge_instructions' => 'The thread to merge with <strong>must</strong> be within the same forum. Move a thread if necessary.',
-	'merge_with' => 'Merge with:',
+	'merge_instructions' => 'El tema a combinar <strong>debe</strong> estar en el mismo foro. Mueva el tema si es necesario.',
+	'merge_with' => 'Combinar con:',
 	
 	// Other
-	'forum_error' => 'Sorry, we couldn\'t find that forum or topic.',
-	'are_you_logged_in' => 'Are you logged in?'
+	'forum_error' => 'Lo sentimos, pero no se encontró en los foros o los temas.',
+	'are_you_logged_in' => '¿Se ha registrado?'
 );
 
 /*
@@ -528,9 +528,9 @@ $forum_language = array(
  */
 $email_language = array(
 	// Registration email
-	'greeting' => 'Hi',
-	'message' => 'Thanks for registering! In order to complete your registration, please click the following link:',
-	'thanks' => 'Thanks,'
+	'greeting' => 'Hola',
+	'message' => '¡Gracias por registrarse! Para finalizar el regsitro es necesario que pulse sobre el siguiente enlace:',
+	'thanks' => 'Gracias,'
 );
 
 /*
@@ -539,28 +539,28 @@ $email_language = array(
  */
 $time_language = array(
 	'seconds_short' => 's', // Shortened "seconds", eg "s"
-	'less_than_a_minute' => 'less than a minute ago',
-	'1_minute' => '1 minute ago',
-	'_minutes' => '{x} minutes ago',
-	'about_1_hour' => 'about 1 hour ago',
-	'_hours' => '{x} hours ago',
-	'1_day' => '1 day ago',
-	'_days' => '{x} days ago',
-	'about_1_month' => 'about 1 month ago',
-	'_months' => '{x} months ago',
-	'about_1_year' => 'about 1 year ago',
-	'over_x_years' => 'over {x} years ago'
+	'less_than_a_minute' => 'hace menos de un minuto',
+	'1_minute' => 'hace 1 minuto',
+	'_minutes' => 'hace {x} minutos',
+	'about_1_hour' => 'hace 1 hora',
+	'_hours' => 'hace {x} horas',
+	'1_day' => 'hace 1 día',
+	'_days' => 'hace {x} días',
+	'about_1_month' => 'hace 1 mes',
+	'_months' => 'hace {x} meses',
+	'about_1_year' => 'hace 1 año',
+	'over_x_years' => 'hace más {x} años'
 );
  
 /*
  *  Table language; used for "DataTables" Javascript tables
  */
 $table_language = array(
-	'display_records_per_page' => 'Display _MENU_ records per page', // Don't replace "_MENU_"
-	'nothing_found' => 'No results found',
-	'page_x_of_y' => 'Showing page _PAGE_ of _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
-	'no_records' => 'No records available',
-	'filtered' => '(filtered from _MAX_ total records)' // Don't replace "_MAX_"
+	'display_records_per_page' => 'Mostar entradas _MENU_ por página', // Don't replace "_MENU_"
+	'nothing_found' => 'Sin resultados',
+	'page_x_of_y' => 'Mostrando página _PAGE_ de _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
+	'no_records' => 'No hay entradas',
+	'filtered' => '(entradas filtrado un total de _MAX_)' // Don't replace "_MAX_"
 );
- 
+
 ?>
