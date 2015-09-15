@@ -59,3 +59,4 @@ Planned available addons (these will need to be downloaded separately):
 **NamelessMC Translations**
 * English: @Samerton
 * German: @LPkkjHD
+* Spanish: @paloke
