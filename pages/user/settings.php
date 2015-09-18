@@ -160,7 +160,7 @@ $token = Token::generate();
 			<br />
 			<?php
 			// Is avatar uploading enabled?
-			$avatar_enabled = $queries->getWhere('settings', array('name', '=', 'custom_avatars'));
+			$avatar_enabled = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
 			$avatar_enabled = $avatar_enabled[0]->value;
 
 			if($avatar_enabled === '1'){

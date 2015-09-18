@@ -897,7 +897,7 @@ if(isset($_GET["step"])){
 						'value' => '1'
 					),
 					22 => array(
-						'name' => 'custom_avatars',
+						'name' => 'user_avatars',
 						'value' => '0'
 					),
 					23 => array(
