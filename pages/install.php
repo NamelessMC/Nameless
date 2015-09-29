@@ -210,7 +210,7 @@ if(isset($_GET["step"])){
 				));
 
 				if($validation->passed()) {
-					$db_password = Input::get('password');
+					$db_password = Input::get('db_password');
 					if(!empty($db_password)){
 						$db_password = Input::get('db_password');
 					} else {
