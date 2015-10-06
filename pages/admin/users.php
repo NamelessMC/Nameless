@@ -507,7 +507,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 						$avatar_enabled = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
 						$avatar_enabled = $avatar_enabled[0]->value;
 
-						if($avatar_enabled === "true"){
+						if($avatar_enabled === "1"){
 						?>
 						<strong><?php echo $admin_language['other_actions']; ?></strong><br />
 						<form role="form" action="" method="post">

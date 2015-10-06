@@ -11,7 +11,8 @@
 $avatar_enabled = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
 $avatar_enabled = $avatar_enabled[0]->value;
 
-if($avatar_enabled === "true"){
+
+if($avatar_enabled === "1"){
 	$image = new SimpleImage();
 
 	if(!$user->isLoggedIn()){
