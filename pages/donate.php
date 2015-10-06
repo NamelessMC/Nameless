@@ -188,7 +188,10 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 						$categories_content .= '<div class="col-md-3">
 												  <div class="panel panel-primary">
 													<div class="panel-heading">
-													  
+													  ' . htmlspecialchars($packages[$i]->name) . '
+													  <span class="pull-right">
+														' . $currency . htmlspecialchars($packages[$i]->cost) . '
+													  </span>
 													</div>
 													<div class="panel-body">
 													  ' . $purifier->purify(htmlspecialchars_decode($packages[$i]->description)) . '
@@ -203,21 +206,26 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 					$categories_content .= '</div><br />
 					<div class="row">';
 					$i = 0;
+					$n = 4;
 					while($i < $second_row){
 						$categories_content .= '<div class="col-md-' . $col . '">
 												  <div class="panel panel-primary">
 													<div class="panel-heading">
-													  
+													  ' . htmlspecialchars($packages[$n]->name) . '
+													  <span class="pull-right">
+														' . $currency . htmlspecialchars($packages[$n]->cost) . '
+													  </span>
 													</div>
 													<div class="panel-body">
-													  ' . $purifier->purify(htmlspecialchars_decode($packages[$i]->description)) . '
+													  ' . $purifier->purify(htmlspecialchars_decode($packages[$n]->description)) . '
 													  <center>
-														<a data-toggle="modal" href="#package' . $packages[$i]->id . '" class="btn btn-primary">' . $donate_language['select'] . '</a>
+														<a data-toggle="modal" href="#package' . $packages[$n]->id . '" class="btn btn-primary">' . $donate_language['select'] . '</a>
 													  </center>
 													</div>
 												  </div>
 												</div>';
 						$i++;
+						$n++;
 					}
 					$categories_content .= '</div>';
 				}
