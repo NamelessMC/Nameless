@@ -55,6 +55,8 @@ if(count($individual)){
 			$mail->Username = $GLOBALS['email']['username'];
 			$mail->Password = $GLOBALS['email']['password'];
 			$mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
+			$mail->From = $GLOBALS['email']['username'];
+			$mail->FromName = $GLOBALS['email']['name'];
 			$mail->addAddress(htmlspecialchars($individual[0]->email), htmlspecialchars($individual[0]->username));
 			$mail->Subject = $sitename . ' - ' . $user_language['password_reset'];
 			
