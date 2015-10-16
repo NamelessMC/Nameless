@@ -438,8 +438,17 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 								<?php echo $admin_language['actions']; ?> <span class="caret"></span>
 							  </button>
 							  <ul class="dropdown-menu" role="menu">
+							    <?php
+								// Is UUID linking enabled?
+								$uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
+								$uuid_linking = $uuid_linking[0]->value;
+								if($uuid_linking == '1'){
+								?>
 								<li><a href="/admin/update_uuids/?uid=<?php echo $individual[0]->id; ?>"><?php echo $admin_language['update_uuid']; ?></a></li>
 								<li><a href="/admin/update_mcnames/?uid=<?php echo $individual[0]->id; ?>"><?php echo $admin_language['update_mc_name']; ?></a></li>
+								<?php
+								}
+								?>
 								<li><a href="/admin/reset_password/?uid=<?php echo $individual[0]->id; ?>"><?php echo $admin_language['reset_password']; ?></a></li>
 								<li><a href="/mod/punishments/?uid=<?php echo $individual[0]->id; ?>"><?php echo $admin_language['punish_user']; ?></a></li>
 								<li><a href="/admin/users/?action=delete&uid=<?php echo $individual[0]->id; ?>"><?php echo $admin_language['delete_user']; ?></a></li>
@@ -469,11 +478,15 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 						  <input type="hidden" name="MCUsername" value="<?php echo htmlspecialchars($individual[0]->username); ?>">
 						  <?php
 						  }
+						  if($uuid_linking == '1'){
 						  ?>
 						  <div class="form-group">
 							<label for="InputUUID"><?php echo $admin_language['minecraft_uuid']; ?></label>
 							<input type="text" name="UUID" class="form-control" id="InputUUID" placeholder="<?php echo $admin_language['minecraft_uuid']; ?>" value="<?php echo htmlspecialchars($individual[0]->uuid); ?>">
 						  </div>
+						  <?php
+						  }
+						  ?>
 						  <div class="form-group">
 							<label for="InputSignature"><?php echo $user_language['signature']; ?></label>
 							<textarea class="signature" rows="10" name="signature" id="InputSignature"><?php echo $signature; ?></textarea>

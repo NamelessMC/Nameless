@@ -21,6 +21,10 @@ require('core/includes/password.php'); // For password hashing
 $custom_usernames = $queries->getWhere("settings", array("name", "=", "displaynames"));
 $custom_usernames = $custom_usernames[0]->value;
 
+// Is UUID linking enabled?
+$uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
+$uuid_linking = $uuid_linking[0]->value;
+
 // Use recaptcha?
 $recaptcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
 $recaptcha = $recaptcha[0]->value;
@@ -89,10 +93,14 @@ if(Input::exists()){
 		$validation = $validate->check($_POST, $to_validation); // Execute validation
 		
 		if($validation->passed()){
-			$profile = ProfileUtils::getProfile($mcname);
-			$result = $profile->getProfileAsArray();
-			if(isset($result["uuid"]) && !empty($result['uuid'])){
-				$uuid = $result['uuid'];
+			if($uuid_linking == '1'){
+				$profile = ProfileUtils::getProfile($mcname);
+				$result = $profile->getProfileAsArray();
+				if(isset($result["uuid"]) && !empty($result['uuid'])){
+					$uuid = $result['uuid'];
+				} else {
+					$uuid = '';
+				}
 			} else {
 				$uuid = '';
 			}

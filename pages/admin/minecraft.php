@@ -85,10 +85,6 @@ $adm_page = "minecraft";
 					} else {
 						$uuids = 0;
 					}
-					
-					// TEMP
-					$uuids = 1;
-					
 					if(Input::get('avatars') == 'on'){
 						$avatars = 0;
 					} else {
@@ -151,7 +147,7 @@ $adm_page = "minecraft";
 				  <div class="form-group">
 					<label for="uuids"><?php echo $admin_language['uuid_linking']; ?></label> <a class="btn btn-info btn-xs" href="#" data-toggle="popover" data-content="<?php echo $admin_language['uuid_linking_help']; ?>"><i class="fa fa-question-circle"></i></a>
 					<span class="pull-right">
-					  <input id="uuids" name="uuids" type="checkbox" class="js-switch" <?php if($link_uuids[0]->value == '1'){ ?>checked <?php } ?> disabled/>
+					  <input id="uuids" name="uuids" type="checkbox" class="js-switch" <?php if($link_uuids[0]->value == '1'){ ?>checked <?php } ?>/>
 					</span>
 				  </div>
 				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">

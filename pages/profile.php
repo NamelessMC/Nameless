@@ -9,6 +9,10 @@
 require_once('core/integration/uuid.php'); // For UUID stuff
 require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifier
 
+// Is UUID linking enabled?
+$uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
+$uuid_linking = $uuid_linking[0]->value;
+
 $profile_user = $queries->getWhere("users", array("username", "=", $profile)); // Is it their username?
 if(!count($profile_user)){ // No..
 	$profile_user = $queries->getWhere("users", array("mcname", "=", $profile)); // Is it their Minecraft username?
@@ -16,23 +20,27 @@ if(!count($profile_user)){ // No..
 		$exists = false;
 		$uuid = $queries->getWhere("uuid_cache", array("mcname", "=", $profile)); // Get the UUID, maybe they haven't registered yet
 		if(!count($uuid)){
-			$profile_utils = ProfileUtils::getProfile($profile);
-			if(empty($profile)){ // Not a Minecraft user, end the page
-				Redirect::to('/404.php');
-				die();
-			}
-			// A valid Minecraft user..
-			$result = $profile_utils->getProfileAsArray(); 
-			$uuid = $result["uuid"];
-			$mcname = htmlspecialchars($profile);
-			// Cache the UUID so we don't have to keep looking it up via Mojang's servers
-			try {
-				$queries->create("uuid_cache", array(
-					'mcname' => $mcname,
-					'uuid' => $uuid
-				));
-			} catch(Exception $e){
-				die($e->getMessage());
+			if($uuid_linking == '1'){ // is UUID linking enabled?
+				$profile_utils = ProfileUtils::getProfile($profile);
+				if(empty($profile_utils)){ // Not a Minecraft user, end the page
+					Redirect::to('/404.php');
+					die();
+				}
+				// A valid Minecraft user..
+				$result = $profile_utils->getProfileAsArray(); 
+				$uuid = $result["uuid"];
+				$mcname = htmlspecialchars($profile);
+				// Cache the UUID so we don't have to keep looking it up via Mojang's servers
+				try {
+					$queries->create("uuid_cache", array(
+						'mcname' => $mcname,
+						'uuid' => $uuid
+					));
+				} catch(Exception $e){
+					die($e->getMessage());
+				}
+			} else {
+				$mcname = htmlspecialchars($profile);
 			}
 		} else {
 			$uuid = $uuid[0]->uuid;
