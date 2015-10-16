@@ -70,14 +70,18 @@ if($page !== 'install'){
 	}
 }
 
-if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install'){
+if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $page !== 'api'){
 	// Set path for Smarty
 	$smarty->setCompileDir('cache/templates_c');
 
 	// Language
 	$c->setCache('languagecache');
 	$language = $c->retrieve('language');
-	require('styles/language/' . $language . '/language.php');
+	if(file_exists('styles/language/' . $language . '/language.php')){
+		require('styles/language/' . $language . '/language.php');
+	} else {
+		require('styles/language/EnglishUK/language.php');
+	}
 
 	// Theme
 	$c->setCache('themecache');
