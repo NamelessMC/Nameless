@@ -76,6 +76,7 @@ $timeago = new Timeago();
 			// Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
 			$last_user_avatar = $queries->getWhere('users', array("id", "=", $discussions[$n]['topic_last_user']));
 			$last_user_avatar = $last_user_avatar[0]->has_avatar;
+			$last_reply_avatar = '';
 			if($last_user_avatar == '0'){ 
 				$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($discussions[$n]['topic_last_user']) . '/30.png" />';
 			} else { 
@@ -183,6 +184,7 @@ $timeago = new Timeago();
 				
 				// Get avatar of user who last posted
 				$last_user_avatar = '';
+				$last_reply_avatar = '';
 				if($item['last_user_posted'] != null){
 					$last_user_avatar = $queries->getWhere('users', array('id', '=', $item['last_user_posted']));
 					$last_user_avatar = $last_user_avatar[0]->has_avatar;
@@ -194,6 +196,7 @@ $timeago = new Timeago();
 				}
 				
 				// Get the last topic posted in
+				$last_topic = '';
 				if($item['last_topic_posted'] !== null){
 					$last_topic = $queries->getWhere('topics', array('id', '=', $item['last_topic_posted']));
 					$last_topic = $last_topic[0]->topic_title;
@@ -253,6 +256,7 @@ $timeago = new Timeago();
 
 			// Get avatar of user
 			$last_user_avatar = '';
+			$last_reply_avatar = '';
 			if($item['topic_last_user'] != null){
 				$last_user_avatar = $queries->getWhere('users', array('id', '=', $item['topic_last_user']));
 				$last_user_avatar = $last_user_avatar[0]->has_avatar;
