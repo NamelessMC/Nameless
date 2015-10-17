@@ -30,7 +30,7 @@ if(isset($_GET["tid"])){
 	die();
 }
 
-if($user->data()->group_id == 2 || $user->data()->group_id == 3){
+if($user->canViewMCP($user->data()->id)){
 	// Does the thread exist?
 	$topic = $queries->getWhere("topics", array("id", "=", $topic_id));
 	if(count($topic)){

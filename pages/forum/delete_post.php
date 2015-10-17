@@ -13,7 +13,7 @@ if(!$user->isLoggedIn()){
 
 $forum = new Forum();
 
-if($user->data()->group_id == 2 || $user->data()->group_id == 3){
+if($user->canViewMCP($user->data()->id)){
 	if(Input::exists()) {
 		if(Token::check(Input::get('token'))) {
 			// Is it the OP?

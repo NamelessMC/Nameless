@@ -14,7 +14,7 @@ if($user->isLoggedIn()){
 		$topic_id = $_GET["tid"];
 	}
 
-	if($user->data()->group_id == 2 || $user->data()->group_id == 3){
+	if($user->canViewMCP($user->data()->id)){
 		$locked_status = $queries->getWhere('topics', array('id', '=', $topic_id));
 		$locked_status = $locked_status[0]->locked;
 		if($locked_status == 1){
