@@ -20,7 +20,7 @@ if(!isset($_GET["tid"]) || !is_numeric($_GET["tid"])){
 	$topic_id = $_GET["tid"];
 }
 
-if($user->data()->group_id == 2 || $user->data()->group_id == 3){
+if($user->canViewMCP($user->data()->id)){
 	try {
 		//$queries->delete('posts', array('topic_id', '=' , $topic_id));
 		// Keep posts for archival reasons

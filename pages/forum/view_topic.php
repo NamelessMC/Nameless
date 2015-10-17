@@ -256,7 +256,7 @@ if(!Cookie::exists('nl-topic-' . $tid)) {
 		if($topic->locked != 1){ // Not locked
 			$buttons .= '<a href="/forum/create_post/?tid=' . $tid . '&amp;fid=' .  $topic->forum_id . '" class="btn btn-primary">' . $forum_language['new_reply'] . '</a>';
 		} else { // Locked
-			if($user->data()->group_id == 2 || $user->data()->group_id == 3){
+			if($user->canViewMCP($user->data()->id)){
 				// can post anyway
 				// TODO: change IF statement so it's permission based, not group based
 				$buttons .= '<a href="/forum/create_post/?tid=' . $tid . '&amp;fid=' .  $topic->forum_id . '" class="btn btn-primary">' . $forum_language['new_reply'] . '</a>';
@@ -269,7 +269,7 @@ if(!Cookie::exists('nl-topic-' . $tid)) {
 	
 	// TODO: Change this so this is permission based instead of group based
 	// Is the user a moderator?
-	if($user->isLoggedIn() && ($user->data()->group_id == 2 || $user->data()->group_id == 3)){
+	if($user->isLoggedIn() && $user->canViewMCP($user->data()->id)){
 	  $buttons .= '
 	  <span class="pull-right">
 		<div class="btn-group">
@@ -349,7 +349,7 @@ if(!Cookie::exists('nl-topic-' . $tid)) {
 		if($user->isLoggedIn()) { 
 			$buttons .= '<span class="pull-right">';
 			// Edit button
-			if($user->data()->group_id == 2 || $user->data()->group_id == 3){ // Admins and moderators
+			if($user->canViewMCP($user->data()->id)){ // Admins and moderators
 				$buttons .= '<a rel="tooltip" title="' . $forum_language['edit_post'] . '" href="/forum/edit_post/?pid=' . $posts[$n]->id . '&amp;tid=' . $tid . '" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>';
 			} else if($user->data()->id == $posts[$n]->post_creator) { 
 				if($topic->locked != 1){ // Can't edit if topic is locked
@@ -358,7 +358,7 @@ if(!Cookie::exists('nl-topic-' . $tid)) {
 			} 
 
 			// Delete button
-			if($user->data()->group_id == 2 || $user->data()->group_id == 3){ // Mods/admins only
+			if($user->canViewMCP($user->data()->id)){ // Mods/admins only
 				$buttons .= '
 				<form onsubmit="return confirm(\'' . $forum_language['confirm_post_deletion'] . '\');" style="display: inline;" action="/forum/delete_post/" method="post">
 					<input type="hidden" name="pid" value="' . $posts[$n]->id . '" />
@@ -377,7 +377,7 @@ if(!Cookie::exists('nl-topic-' . $tid)) {
 
 			// Quote button
 			if($can_reply){
-				if($user->data()->group_id == 2 || $user->data()->group_id == 3){ 
+				if($user->canViewMCP($user->data()->id)){ 
 					$buttons .= ' <a rel="tooltip" title="' . $forum_language['quote_post'] . '" href="/forum/create_post/?tid=' . $tid . '&amp;qid=' . $posts[$n]->id . '&amp;fid=' . $topic->forum_id . '" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-share"></span></a>';
 				} else { 
 					if($topic->locked != 1){ 

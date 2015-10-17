@@ -60,7 +60,7 @@ if($post_editing[0]->id == $post_id){
 $post_editing = $queries->getWhere("posts", array("id", "=", $post_id));
 
 
-if($user->data()->id === $post_editing[0]->post_creator || $user->data()->group_id == 2 || $user->data()->group_id == 3){ // TODO: Change to permission based if statement
+if($user->data()->id === $post_editing[0]->post_creator || $user->canViewMCP($user->data()->id)){ // TODO: Change to permission based if statement
 	if(Input::exists()) {
 		if(Token::check(Input::get('token'))) {
 			$validate = new Validate();

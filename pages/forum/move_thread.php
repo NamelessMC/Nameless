@@ -27,7 +27,7 @@ if(!isset($_GET["tid"]) || !is_numeric($_GET["tid"])){
 	$forum_id = $forum_id[0]->forum_id;
 }
 
-if($user->data()->group_id == 2 || $user->data()->group_id == 3){ // TODO: Change to permission based if statement
+if($user->canViewMCP($user->data()->id)){ // TODO: Change to permission based if statement
 	if(Input::exists()) {
 		if(Token::check(Input::get('token'))) {
 			$validate = new Validate();
