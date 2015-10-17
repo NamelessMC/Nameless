@@ -63,15 +63,17 @@ if(Input::exists()) {
 				
 				// Alert for moderators
 				$mod_groups = $queries->getWhere('groups', array('mod_cp', '=', 1));
-				$mod_users = $queries->getWhere('users', array('group_id', '=', $mod_groups[0]->id));
-				foreach($mod_users as $individual){
-					$queries->create('alerts', array(
-						'user_id' => $individual->id,
-						'type' => $user_language['report'],
-						'url' => '/mod/reports/?rid=' . $report_id,
-						'content' => str_replace(array('{x}', '{y}'), array(htmlspecialchars($user->data()->username), htmlspecialchars($user->idToName(Input::get('reported_user')))), $mod_language['new_report_submitted_alert']),
-						'created' => date('U')
-					));
+				foreach($mod_groups as $mod_group){
+					$mod_users = $queries->getWhere('users', array('group_id', '=', $mod_group->id));
+					foreach($mod_users as $individual){
+						$queries->create('alerts', array(
+							'user_id' => $individual->id,
+							'type' => $user_language['report'],
+							'url' => '/mod/reports/?rid=' . $report_id,
+							'content' => str_replace(array('{x}', '{y}'), array(htmlspecialchars($user->data()->username), htmlspecialchars($user->idToName(Input::get('reported_user')))), $mod_language['new_report_submitted_alert']),
+							'created' => date('U')
+						));
+					}
 				}
 				
 				Session::flash('success_post', '<div class="alert alert-info alert-dismissable"> <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $forum_language['report_submitted'] . '</div>');
