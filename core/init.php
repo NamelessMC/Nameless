@@ -9,7 +9,7 @@ if(!isset($page)){
 if(!isset($path)){
 	require('core/config.php');
 } else {
-	require($path . 'config.php');
+	require($path . 'core/config.php');
 }
 
 /*
@@ -70,7 +70,7 @@ if($page !== 'install'){
 	}
 }
 
-if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $page !== 'api'){
+if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $page !== 'api' && $page !== 'query_apps' && $page !== 'banner'){
 	// Set path for Smarty
 	$smarty->setCompileDir('cache/templates_c');
 
