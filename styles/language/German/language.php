@@ -351,7 +351,12 @@ $user_language = array(
 	'user_no_friends' => 'Dieser Benutzer hat noch keine Freunde hinzugefügt',
 	'send_message' => 'Nachicht senden',
 	'remove_friend' => 'Freund entfernen',
-	'add_friend' => 'Freund hinzufügen'
+	'add_friend' => 'Freund hinzufügen',
+	
+	// Staff applications
+	'staff_application' => 'Staff Application',
+	'application_submitted' => 'Application submitted successfully.',
+	'application_already_submitted' => 'You\'ve already submitted an application. Please wait until it is complete before submitting another.'
 );
 
 /*
@@ -390,7 +395,22 @@ $mod_language = array(
 	'forum_post' => 'Foren Beitrag',
 	'user_profile' => 'Benutzer Profil',
 	'comment_added' => 'Kommentar hinzugefügt.',
-	'new_report_submitted_alert' => 'Neue Meldung von {x} betreffend {y}' // Don't replace "{x}" or "{y}"
+	'new_report_submitted_alert' => 'Neue Meldung von {x} betreffend {y}', // Don't replace "{x}" or "{y}"
+	
+	// Staff applications
+	'comment_error' => 'Please ensure your comment is between 2 and 2048 characters long.',
+	'viewing_open_applications' => 'Viewing <span class="label label-info">open</span> applications. Change to <a href="/mod/applications/?view=accepted"><span class="label label-success">accepted</span></a> or <a href="/mod/applications/?view=declined"><span class="label label-danger">declined</span></a>.',
+	'viewing_accepted_applications' => 'Viewing <span class="label label-success">accepted</span> applications. Change to <a href="/mod/applications/"><span class="label label-info">open</span></a> or <a href="/mod/applications/?view=declined"><span class="label label-danger">declined</span></a>.',
+	'viewing_declined_applications' => 'Viewing <span class="label label-danger">declined</span> applications. Change to <a href="/mod/applications/"><span class="label label-info">open</span></a> or <a href="/mod/applications/?view=accepted"><span class="label label-success">accepted</span></a>.',
+	'time_applied' => 'Time Applied',
+	'no_applications' => 'No applications in this category',
+	'viewing_app_from' => 'Viewing application from {x}', // Don't replace "{x}"
+	'open' => 'Open',
+	'accepted' => 'Accepted',
+	'declined' => 'Declined',
+	'accept' => 'Accept',
+	'decline' => 'Decline',
+	'new_app_submitted_alert' => 'New application submitted by {x}' // Don't replace "{x}"
 );
 
 /*

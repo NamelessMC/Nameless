@@ -1,5 +1,5 @@
 <?php
-$path = '../';
+$path = '../../';
 $page = 'query_pms';
 require_once('../init.php');
 

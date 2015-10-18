@@ -390,6 +390,10 @@ if(isset($_GET["step"])){
 								'name' => 'Voice_Server_Module',
 								'enabled' => 0
 							));
+							$queries->create('core_modules', array(
+								'name' => 'Staff_Applications',
+								'enabled' => 0
+							));
 							
 							// Themes
 							$themes = array(
@@ -555,10 +559,6 @@ if(isset($_GET["step"])){
 							$queries->create('settings', array(
 								'name' => 'language',
 								'value' => 'EnglishUK'
-							));
-							$queries->create('settings', array(
-								'name' => 'language',
-								'value' => 'German'
 							));
 							
 							$queries->create('settings', array(
@@ -991,6 +991,10 @@ if(isset($_GET["step"])){
 					));
 					$queries->create('core_modules', array(
 						'name' => 'Voice_Server_Module',
+						'enabled' => 0
+					));
+					$queries->create('core_modules', array(
+						'name' => 'Staff_Applications',
 						'enabled' => 0
 					));
 					
