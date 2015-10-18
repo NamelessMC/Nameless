@@ -665,4 +665,46 @@ class User {
 		}
 		return false;
 	}
+	
+	// Can the specified user view staff applications?
+	public function canViewApps($user_id = null){
+		if($user_id){
+			$data = $this->_db->get('users', array('id', '=', $user_id));
+			if($data->count()){
+				$user_group = $data->results();
+				$user_group = $user_group[0]->group_id;
+				// Get whether the user can view applications from the groups table
+				$data = $this->_db->get('groups', array('id', '=', $user_group));
+				if($data->count()){
+					$data = $data->results();
+					if($data[0]->staff_apps == 1){
+						// Can view
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	// Can the specified user accept staff applications?
+	public function canAcceptApps($user_id = null){
+		if($user_id){
+			$data = $this->_db->get('users', array('id', '=', $user_id));
+			if($data->count()){
+				$user_group = $data->results();
+				$user_group = $user_group[0]->group_id;
+				// Get whether the user can accept applications from the groups table
+				$data = $this->_db->get('groups', array('id', '=', $user_group));
+				if($data->count()){
+					$data = $data->results();
+					if($data[0]->accept_staff_apps == 1){
+						// Can view
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 }

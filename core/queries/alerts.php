@@ -1,5 +1,5 @@
 <?php
-$path = '../';
+$path = '../../';
 $page = 'query_alerts';
 require_once('../init.php');
 

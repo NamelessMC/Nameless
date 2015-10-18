@@ -114,7 +114,7 @@ class Queries {
 			echo '<strong>Forum Topic Labels</strong> table successfully initialised<br />';
 			$data = $this->_db->createTable("friends", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `friend_id` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 			echo '<strong>Friends</strong> table successfully initialised<br />';
-			$data = $this->_db->createTable("groups", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `buycraft_id` varchar(64) DEFAULT NULL, `group_html` varchar(1024) NOT NULL, `group_html_lg` varchar(1024) NOT NULL, `mod_cp` tinyint(1) NOT NULL DEFAULT '0', `admin_cp` tinyint(1) NOT NULL DEFAULT '0', `staff` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
+			$data = $this->_db->createTable("groups", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `buycraft_id` varchar(64) DEFAULT NULL, `group_html` varchar(1024) NOT NULL, `group_html_lg` varchar(1024) NOT NULL, `mod_cp` tinyint(1) NOT NULL DEFAULT '0', `admin_cp` tinyint(1) NOT NULL DEFAULT '0', `staff` tinyint(1) NOT NULL DEFAULT '0', `staff_apps` tinyint(1) NOT NULL DEFAULT '0', `accept_staff_apps` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 			echo '<strong>Groups</strong> table successfully initialised<br />';
 			$data = $this->_db->createTable("infractions", " `id` int(11) NOT NULL AUTO_INCREMENT, `type` int(11) NOT NULL, `punished` int(11) NOT NULL, `staff` int(11) NOT NULL, `reason` text NOT NULL, `infraction_date` datetime NOT NULL, `acknowledged` tinyint(1) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 			echo '<strong>Infractions</strong> table successfully initialised<br />';
@@ -138,6 +138,12 @@ class Queries {
 			echo '<strong>Reputation</strong> table successfully initialised<br />';
 			$data = $this->_db->createTable("settings", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `value` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 			echo '<strong>Settings</strong> table successfully initialised<br />';
+			$data = $this->_db->createTable("staff_apps_comments", " `id` int(11) NOT NULL AUTO_INCREMENT, `aid` int(11) NOT NULL, `uid` int(11) NOT NULL, `time` int(11) NOT NULL, `content` mediumtext NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
+			echo '<strong>Staff Applications Comments</strong> table successfully initialised<br />';
+			$data = $this->_db->createTable("staff_apps_questions", " `id` int(11) NOT NULL AUTO_INCREMENT, `type` int(11) NOT NULL, `name` varchar(16) NOT NULL, `question` varchar(256) NOT NULL, `options` text NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
+			echo '<strong>Staff Applications Questions</strong> table successfully initialised<br />';
+			$data = $this->_db->createTable("staff_apps_replies", " `id` int(11) NOT NULL AUTO_INCREMENT, `uid` int(11) NOT NULL, `time` int(11) NOT NULL, `content` mediumtext NOT NULL, `status` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
+			echo '<strong>Staff Applications Replies</strong> table successfully initialised<br />';
 			$data = $this->_db->createTable("templates", " `id` int(11) NOT NULL AUTO_INCREMENT, `enabled` tinyint(1) NOT NULL DEFAULT '0', `name` varchar(64) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 			echo '<strong>Templates</strong> table successfully initialised<br />';
 			$data = $this->_db->createTable("themes", " `id` int(11) NOT NULL AUTO_INCREMENT, `enabled` tinyint(1) NOT NULL DEFAULT '0', `name` varchar(64) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
