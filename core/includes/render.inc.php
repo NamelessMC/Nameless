@@ -28,7 +28,7 @@
             array('', '&'),
             $href
         );
-        if ($current === 1) {
+        if ($current == 1) {
             $href = '#';
             array_push($classes, 'disabled');
         }
@@ -117,7 +117,7 @@
             array('', '&'),
             $href
         );
-        if ($current === $pages) {
+        if ($current == $pages) {
             $href = '#';
             array_push($classes, 'disabled');
         }
