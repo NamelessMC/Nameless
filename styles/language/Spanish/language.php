@@ -356,7 +356,8 @@ $user_language = array(
 	// Staff applications
 	'staff_application' => 'Staff Application',
 	'application_submitted' => 'Application submitted successfully.',
-	'application_already_submitted' => 'You\'ve already submitted an application. Please wait until it is complete before submitting another.'
+	'application_already_submitted' => 'You\'ve already submitted an application. Please wait until it is complete before submitting another.',
+	'not_logged_in' => 'Please log in to view that page.'
 );
 
 /*
