@@ -13,6 +13,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
  *  User must be logged in
  */
 if(!$user->isLoggedIn()){
+	Session::flash('home', '<div class="alert alert-warning">' . $user_language['not_logged_in'] . '</div>');
 	Redirect::to('/');
 	die();
 }
