@@ -84,7 +84,7 @@ $timeago = new Timeago();
 			}
 			
 			// Is there a label?
-			if($discussions[$n]['label'] !== null && $discussions[$n]['label'] !== ''){ // yes
+			if($discussions[$n]['label'] != 0){ // yes
 				// Get label
 				$label = $queries->getWhere('forums_topic_labels', array('id', '=', $discussions[$n]['label']));
 				$label = '<span class="label label-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
