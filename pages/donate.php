@@ -155,7 +155,8 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 				$config->set('URI.DisableResources', false);
 				$config->set('HTML.Allowed', 'u,a,p,b,i,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
 				$config->set('CSS.AllowedProperties', array('float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
-				$config->set('HTML.AllowedAttributes', 'src, height, width, alt, class, *.style');
+				$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style');
+				$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 				$purifier = new HTMLPurifier($config);
 				
 				if(isset($top_row)){
