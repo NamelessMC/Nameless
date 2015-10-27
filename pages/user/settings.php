@@ -132,7 +132,8 @@ $token = Token::generate();
 			$config->set('URI.DisableResources', false);
 			$config->set('HTML.Allowed', 'u,p,b,a,i,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
 			$config->set('CSS.AllowedProperties', array('float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
-			$config->set('HTML.AllowedAttributes', 'src, height, href, width, alt, class, *.style');
+			$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style');
+			$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 			$purifier = new HTMLPurifier($config);
 			
 			$signature = $purifier->purify(htmlspecialchars_decode($user->data()->signature));

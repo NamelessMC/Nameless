@@ -345,6 +345,8 @@ $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 $config->set('URI.DisableExternalResources', false);
 $config->set('URI.DisableResources', false);
 $config->set('HTML.Allowed', 'u,p,b,i,a,s');
+$config->set('HTML.AllowedAttributes', 'target, href');
+$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 $purifier = new HTMLPurifier($config);
 ?>
 <!-- Modal -->

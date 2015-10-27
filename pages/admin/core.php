@@ -402,6 +402,8 @@ $adm_page = "core";
 							$config->set('URI.DisableExternalResources', false);
 							$config->set('URI.DisableResources', false);
 							$config->set('HTML.Allowed', 'u,p,b,i,a,s');
+							$config->set('HTML.AllowedAttributes', 'target, href');
+							$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 							$purifier = new HTMLPurifier($config);
 						?>
 						<h4>Registration</h4>
