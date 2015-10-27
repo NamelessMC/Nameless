@@ -229,7 +229,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 				}
 				
 				// Is there a label?
-				if($sticky->label !== null && $sticky->label !== ''){ // yes
+				if($sticky->label != 0){ // yes
 					// Get label
 					$label = $queries->getWhere('forums_topic_labels', array('id', '=', $sticky->label));
 					$label = '<span class="label label-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
@@ -298,7 +298,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 				}
 				
 				// Is there a label?
-				if($topics[$n]->label !== null && $topics[$n]->label !== ''){ // yes
+				if($topics[$n]->label != 0){ // yes
 					// Get label
 					$label = $queries->getWhere('forums_topic_labels', array('id', '=', $topics[$n]->label));
 					$label = '<span class="label label-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
