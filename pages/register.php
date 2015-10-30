@@ -49,8 +49,8 @@ if(Input::exists()){
 			'email' => array(
 				'required' => true,
 				'min' => 4,
-				'max' => 64
-				//'unique' => 'users'
+				'max' => 64,
+				'unique' => 'users'
 			),
 			't_and_c' => array(
 				'required' => true,
