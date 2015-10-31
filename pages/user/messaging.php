@@ -98,7 +98,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 					}
 				?>
 				<div class="row">
-				  <div class="col-md-3"><a href="/user/messaging/?mid=<?php echo $pm['id']; ?>"><?php echo htmlspecialchars($pm['title']); ?></a></div>
+				  <div class="col-md-3"><a href="/user/messaging/?mid=<?php echo $pm['id']; ?>"><?php echo $pm['title']; ?></a></div>
 				  <div class="col-md-5"><?php echo $user_string; ?></div>
 				  <div class="col-md-4"><?php echo date('d M Y, H:i', strtotime($pm['date'])); ?></div>
 				</div>
@@ -334,7 +334,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 		  ?>
 		  <h2 style="display: inline;"><?php echo $user_language['viewing_message']; ?></h2><span class="pull-right"><a href="/user/messaging/?action=delete&amp;mid=<?php echo $pm[0]->id; ?>" class="btn btn-danger" onclick="return confirm('<?php echo $user_language['confirm_message_deletion']; ?>');"><?php echo $user_language['delete_message']; ?></a></span>
 		  <br /><br />
-		  <h4><?php echo htmlspecialchars($pm[0]->title); ?></h4>
+		  <h4><?php echo $pm[0]->title; ?></h4>
 		  <?php echo $user_string; ?>
 		  <br /><br />
 		  <div class="panel panel-primary">
