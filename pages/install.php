@@ -109,6 +109,13 @@ if(isset($_GET["step"])){
 		} else {
 			echo 'PHP PDO Extension - ' . $success;
 		}
+                if(!extension_loaded('mysqlnd')){
+                        echo 'PHP mysqlnd Extension - ' . $error;
+                        $php_error = true;
+                } else {
+                        echo 'PHP mysqlnd Extension - ' . $success;
+                }
+
 		if(!function_exists("mcrypt_encrypt")) {
 			echo 'PHP mcrypt Extension - ' . $error;
 			$php_error = true;
@@ -162,6 +169,12 @@ if(isset($_GET["step"])){
 			$php_error = true;
 		} else {
 			echo 'PHP PDO Extension - ' . $success;
+		}
+		if(!extension_loaded('mysqlnd')){
+			echo 'PHP mysqlnd Extension - ' . $error;
+			$php_error = true;
+		}else{
+			echo 'PHP mysqlnd Extension - ' .$success;
 		}
 		if(!function_exists("mcrypt_encrypt")) {
 			echo 'PHP mcrypt Extension - ' . $error;
@@ -582,7 +595,7 @@ if(isset($_GET["step"])){
 							 *  File not writeable
 							 */
 							?>
-		  Your <strong>core/config.php</strong> file is not writeable. Please ensure permissions are set correctly.
+		  					<div class="alert alert-danger">Your <b>core/config.php</b> file is not writeable. Please check your file permissions.</div>
 							<?php
 							die();
 						}
@@ -694,7 +707,7 @@ if(isset($_GET["step"])){
 						 *  File not writeable
 						 */
 						?>
-	  Your <strong>core/config.php</strong> file is not writeable. Please ensure permissions are set correctly.
+	   					<br><div class="alert alert-danger">Your <b>core/config.php</b> file is not writeable. Please check your file permissions.</div>
 						<?php
 						die();
 					}
@@ -1102,7 +1115,8 @@ if(isset($_GET["step"])){
 					die();
 					
 				} catch(Exception $e){
-					die($e->getMessage());
+					echo "<br><div class='alert alert-danger'>".$e->getMessage()."</div>";
+                                        die();
 				}
 				
 			} else {
@@ -1321,7 +1335,8 @@ if(isset($_GET["step"])){
 					}
 				
 				} catch(Exception $e){
-					die($e->getMessage());
+					echo "<br><div class='alert alert-danger'>".$e->getMessage()."</div>";				
+					die();
 				}
 				
 				
@@ -1656,7 +1671,7 @@ if(isset($_GET["step"])){
 	  ?>
 	  <h2>Finish</h2>
 	  <p>Thanks for using NamelessMC website software.</p>
-	  <p>Before you start using the website, please configure the forums and Minecraft servers via the AdminCP.</p>
+	  <p>Before you start using your new website, please configure your forums and Minecraft servers via the AdminCP.</p>
 	  <?php if(isset($_GET['from']) && $_GET['from'] == 'upgrade'){ ?>
 	  <div class="alert alert-info">
 	    <p>Upgrade complete. Please note that tables from your old NamelessMC installation have <strong>not</strong> been deleted.</p>
@@ -1669,7 +1684,7 @@ if(isset($_GET["step"])){
 	    <li><a target="_blank" href="http://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/">SpigotMC thread</a></li>
 	  </ul>
 	  </p>
-	  <button type="button" onclick="location.href='/admin/?from=install'" class="btn btn-primary">Finish &raquo;</button>
+	  <br><button type="button" onclick="location.href='/admin/?from=install'" class="btn btn-primary">Finish &raquo;</button>
 	  <?php
 	  }
 	  ?>
