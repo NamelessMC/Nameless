@@ -234,13 +234,12 @@ $token = Token::generate(); // generate token
 				  $config = HTMLPurifier_Config::createDefault();
 				  $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 				  $config->set('URI.DisableExternalResources', false);
-				  $config->set('URI.DisableResources', false);
 				  $config->set('HTML.Allowed', 'u,p,b,i,a,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
 				  $config->set('CSS.AllowedProperties', array('text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
 				  $config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style');
 				  $config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 				  $config->set('HTML.SafeIframe', true);
-				  $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
+				  $config->set('URI.SafeIframeRegexp', '%%');
 				  $purifier = new HTMLPurifier($config);
 				  echo $purifier->purify(htmlspecialchars_decode($page[0]->content)); 
 				  ?>
@@ -289,7 +288,7 @@ $token = Token::generate(); // generate token
 				  $config->set('CSS.AllowedProperties', array('text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
 				  $config->set('HTML.AllowedAttributes', 'href, src, height, width, alt, class, *.style');
 				  $config->set('HTML.SafeIframe', true);
-				  $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
+				  $config->set('URI.SafeIframeRegexp', '%%');
 				  $purifier = new HTMLPurifier($config);
 				  echo $purifier->purify(Input::get('content')); 
 				  ?>
@@ -342,10 +341,11 @@ $token = Token::generate(); // generate token
 				{"name":"paragraph","groups":["list","align"]},
 				{"name":"insert","groups":["insert"]},
 				{"name":"styles","groups":["styles"]},
-				{"name":"about","groups":["about"]}
+				{"name":"about","groups":["about"]},
+				{"name":"mode","groups":["mode"]}
 			],
 			// Remove the redundant buttons from toolbar groups defined above.
-			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash,Iframe'
+			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash'
 		} );
 	</script>
 
