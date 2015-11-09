@@ -499,6 +499,10 @@ if(isset($_GET["step"])){
 							$c->store('theme', 'Bootstrap');
 							$c->store('inverse_navbar', '0');
 							
+							// Todo: update site name
+							//$c->setCache('sitenamecache');
+							//$c->store('sitename', htmlspecialchars(Input::get('sitename')));
+							
 							$c->setCache('templatecache');
 							$c->store('template', 'Default');
 							
@@ -1101,6 +1105,9 @@ if(isset($_GET["step"])){
 					$c->setCache('themecache');
 					$c->store('theme', 'Bootstrap');
 					$c->store('inverse_navbar', '0');
+					
+					$c->setCache('sitenamecache');
+					$c->store('sitename', htmlspecialchars(Input::get('site_name')));
 					
 					$c->setCache('templatecache');
 					$c->store('template', 'Default');
