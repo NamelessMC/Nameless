@@ -83,6 +83,7 @@ $admin_language = array(
 	'page_link_navbar' => 'Navigationsleiste',
 	'page_link_more' => 'Navigationsleiste -> "Mehr" Menü',
 	'page_link_footer' => 'Fußleiste',
+	'page_link_none' => 'No page link',
 
 	// Admin forum page
 	'labels' => 'Themen Label',
@@ -541,7 +542,10 @@ $forum_language = array(
 
 	// Other
 	'forum_error' => 'Sorry, es wurde kein Forum oder Beitrag gefunden.',
-	'are_you_logged_in' => 'Bist du eingeloggt?'
+	'are_you_logged_in' => 'Bist du eingeloggt?',
+	
+	// Search
+	'search_error' => 'Please input a search query between 1 and 32 characters long.'
 );
 
 /*
