@@ -101,11 +101,11 @@ $admin_language = array(
 	'label_success' => 'Erfolgreich',
 	'label_info' => 'Info',
 	'label_warning' => 'Warnung',
-	'label_danger' => 'Gefahr',
+	'label_danger' => 'Achtung',
 	'new_forum' => 'Neues Forum',
 	'forum_layout' => 'Foren Layout',
 	'table_view' => 'Tabellen Ansicht',
-	'latest_discussions_view' => 'Neuste Diskussion Ansicht',
+	'latest_discussions_view' => '"Neuste Diskussion" Ansicht',
 	'create_forum' => 'Forum erstellen',
 	'forum_name' => 'Foren Name',
 	'forum_description' => 'Foren Beschreibung',
@@ -315,8 +315,8 @@ $user_language = array(
 	'upload_an_avatar' => 'Lade einen Avatar hoch (.jpg, .png or .gif only):',
 
 	// Alerts
-	'viewing_unread_alerts' => 'Viewing unread alerts. Change to <a href="/user/alerts/?view=read"><span class="label label-success">read</span></a>.',
-	'viewing_read_alerts' => 'Viewing read alerts. Change to <a href="/user/alerts/"><span class="label label-warning">unread</span></a>.',
+	'viewing_unread_alerts' => 'Zeigt ungelesene Nachichten. Wechsele zu <a href="/user/alerts/?view=read"><span class="label label-success">gelesen</span></a>.',
+	'viewing_read_alerts' => 'Zeigt gelesene Nachichten. Wechsele zu<a href="/user/alerts/"><span class="label label-warning">ungelesenen</span></a>.',
 	'no_unread_alerts' => 'Du hast keine ungelesenen Benachichtungen.',
 	'no_read_alerts' => 'Du hast keine "read" Benachichtungen.',  //unsure if "read" means "lesen"
 	'view' => 'Anzeigen',
@@ -356,9 +356,9 @@ $user_language = array(
 	
 	// Staff applications
 	'staff_application' => 'Staff Application',
-	'application_submitted' => 'Application submitted successfully.',
-	'application_already_submitted' => 'You\'ve already submitted an application. Please wait until it is complete before submitting another.',
-	'not_logged_in' => 'Please log in to view that page.'
+	'application_submitted' => 'Die Bewerbung wurde erfolgreich abgeschickt.',
+	'application_already_submitted' => 'Du hast bereits eine Bewerbung eingesendet. Bitte warte bis diese bearbeitet wurde bevor du eine neue Bewerbung einsendest.',
+	'not_logged_in' => 'Bitte melde dich an um Zugriff auf diese Seite zu bekommen.'
 );
 
 /*
@@ -400,19 +400,19 @@ $mod_language = array(
 	'new_report_submitted_alert' => 'Neue Meldung von {x} betreffend {y}', // Don't replace "{x}" or "{y}"
 	
 	// Staff applications
-	'comment_error' => 'Please ensure your comment is between 2 and 2048 characters long.',
-	'viewing_open_applications' => 'Viewing <span class="label label-info">open</span> applications. Change to <a href="/mod/applications/?view=accepted"><span class="label label-success">accepted</span></a> or <a href="/mod/applications/?view=declined"><span class="label label-danger">declined</span></a>.',
-	'viewing_accepted_applications' => 'Viewing <span class="label label-success">accepted</span> applications. Change to <a href="/mod/applications/"><span class="label label-info">open</span></a> or <a href="/mod/applications/?view=declined"><span class="label label-danger">declined</span></a>.',
-	'viewing_declined_applications' => 'Viewing <span class="label label-danger">declined</span> applications. Change to <a href="/mod/applications/"><span class="label label-info">open</span></a> or <a href="/mod/applications/?view=accepted"><span class="label label-success">accepted</span></a>.',
+	'comment_error' => 'Bitte stelle sicher, dass dein Kommentar aus zwischen 2 und 2048 Zeichen lang ist.',
+	'viewing_open_applications' => 'Zeigt <span class="label label-info">offene</span> Bewerbungen. Zeige stattdessen <a href="/mod/applications/?view=accepted"><span class="label label-success">angenommene</span></a> oder <a href="/mod/applications/?view=declined"><span class="label label-danger">abgelehnte</span></a> Bewerbungen.',
+	'viewing_accepted_applications' => 'Zeigt <span class="label label-success">angenommene</span> Bewerbungen. Zeige stattdessen <a href="/mod/applications/"><span class="label label-info">offene</span></a> oder <a href="/mod/applications/?view=declined"><span class="label label-danger">abgelehnte</span></a>.',
+	'viewing_declined_applications' => 'Zeigt <span class="label label-danger">abgelehnte</span> Bewerbungen. Zeige stattdessen <a href="/mod/applications/"><span class="label label-info">offene</span></a> oder <a href="/mod/applications/?view=accepted"><span class="label label-success">angenommene</span></a>.',
 	'time_applied' => 'Time Applied',
-	'no_applications' => 'No applications in this category',
-	'viewing_app_from' => 'Viewing application from {x}', // Don't replace "{x}"
-	'open' => 'Open',
-	'accepted' => 'Accepted',
-	'declined' => 'Declined',
-	'accept' => 'Accept',
-	'decline' => 'Decline',
-	'new_app_submitted_alert' => 'New application submitted by {x}' // Don't replace "{x}"
+	'no_applications' => 'Keine Bewerbungen in dieser Kategorie',
+	'viewing_app_from' => 'Zeigt die Bewerbung von {x}', // Don't replace "{x}"
+	'open' => 'Offen',
+	'accepted' => 'Angenommen',
+	'declined' => 'Abgelehnt',
+	'accept' => 'Annehmen',
+	'decline' => 'Ablehnen',
+	'new_app_submitted_alert' => 'Neue Bewerbung von {x}' // Don't replace "{x}"
 );
 
 /*
