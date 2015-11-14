@@ -301,6 +301,19 @@ if(Session::exists('register')){
 	$smarty->assign('SESSION_FLASH', '');
 }
 
+$authme_form = "";
+if(false){ //Check if authme is enabled via settings?
+	$authme_form = '
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-6">
+			<div class="form-group">
+				<input type="text" name="authmepassword" id="authme" class="form-control input-lg" placeholder="' . $user_language['authme_password'] . '" tabindex="4">
+			</div>
+		</div>
+	</div>';
+}
+
+$smarty->assign('AUTHME_INTERGRATION', $authme_form);
 $smarty->assign('CREATE_AN_ACCOUNT', $user_language['create_an_account']);
 $smarty->assign('FORM_CONTENT', $form_content);
 $smarty->assign('FORM_SUBMIT', $form_submit);

@@ -256,6 +256,7 @@ $navbar_language = array(
  */
 $user_language = array(
 	// Registration
+	'authme_password' => 'AuthMe contraseña',
 	'create_an_account' => 'Crear una cuenta',
 	'username' => 'Usuario',
 	'minecraft_username' => 'usuario de Minecraft',
