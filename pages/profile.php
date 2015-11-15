@@ -140,7 +140,31 @@ if($query_to_use == 'false'){
 	  <?php if(isset($profile)){ ?>
 	  <div class="row">
 		<div class="col-md-9">
-			<div class="jumbotron"><h2><img class="img-rounded" src="https://cravatar.eu/avatar/<?php echo $mcname; ?>/60.png" /> <strong><?php echo $mcname; ?></strong> <?php if($exists == true){ echo $user->getGroup($profile_user[0]->id, null, "true"); } else { echo '<span class="label label-default">' . $user_language['player'] . '</span>'; } ?> <?php if($query_to_use == 'false'){ ?><span class="label label-<?php if(!isset($is_online)){ echo 'danger">' . $user_language['offline']; } else { echo 'success" rel="tooltip" data-trigger="hover" data-original-title="' . htmlspecialchars($is_online) . '">' . $user_language['online']; }?></span><?php } ?></h2></div>
+			<div class="jumbotron">
+			  <h2>
+			    <img class="img-rounded" src="https://cravatar.eu/avatar/<?php echo $mcname; ?>/60.png" />
+				<strong><?php echo $mcname; ?></strong> 
+				<?php 
+				if($exists == true){ 
+					echo $user->getGroup($profile_user[0]->id, null, "true"); 
+				} else { 
+					echo '<span class="label label-default">' . $user_language['player'] . '</span>';
+				}
+				if($query_to_use == 'false'){ 
+				?>
+				<span class="label label-<?php 
+					if(!isset($is_online)){ 
+						echo 'danger">' . $user_language['offline']; 
+					} else { 
+						echo 'success" rel="tooltip" data-trigger="hover" data-original-title="' . htmlspecialchars($is_online) . '">' . $user_language['online']; 
+					}
+				?>
+				</span>
+				<?php
+				}
+				?>
+			  </h2>
+			</div>
 		    <br />
 		    <div role="tabpanel">
 			  <!-- Nav tabs -->
