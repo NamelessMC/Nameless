@@ -174,7 +174,6 @@ $token = Token::generate(); // generate token
 		<div class="col-md-9">
 			<div class="well">
 				<?php if(!isset($_GET["page"]) && !isset($_GET['action'])) { ?>
-				<br />
 				<h2 style="display:inline;"><?php echo $admin_language['custom_pages']; ?></h2>
 				<span class="pull-right"><a href="/admin/pages/?action=new" class="btn btn-primary"><?php echo $admin_language['new_page']; ?></a></span>
 				<br /><br />
@@ -200,7 +199,6 @@ $token = Token::generate(); // generate token
 						die();
 					}
 				?>
-				<br />
 				<h2 style="display:inline;"><?php echo $admin_language['page']; ?> <?php echo htmlspecialchars($page[0]->title); ?></h2>
 				<span class="pull-right"><a onclick="return confirm('<?php echo $admin_language['confirm_delete_page']; ?>');" href="/admin/pages/?action=delete&amp;pid=<?php echo $page[0]->id; ?>" class="btn btn-danger"><?php echo $admin_language['delete_page']; ?></a></span>
 				<br /><br />
