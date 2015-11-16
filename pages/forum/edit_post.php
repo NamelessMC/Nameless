@@ -173,7 +173,7 @@ $token = Token::generate();
 			$forum_id = $queries->getWhere('topics', array('id', '=', $topic_id));
 			$forum_id = $forum_id[0]->forum_id;
 			
-			$edit_labels_form = '<div class="well well-sm"><input type="radio" name="topic_label" value=""';
+			$edit_labels_form = '<div class="well well-sm"><input type="radio" name="topic_label" value="0"';
 			
 			if($post_label == '' || $post_label == null){
 				$edit_labels_form .= ' checked';
