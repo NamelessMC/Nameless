@@ -176,7 +176,7 @@ $token = Token::generate();
 					'  <div class="form-group">' . PHP_EOL .
 					'    <input type="text" class="form-control input-lg" name="title" placeholder="' . $forum_language['thread_title'] . '">' . PHP_EOL .
 					'  </div>' . PHP_EOL .
-					'  <div class="well well-sm"><strong>' . $forum_language['label'] . '</strong><br /><input type="radio" name="topic_label" value="" checked>' . $general_language['none'] . ' ' . $labels . '</div>' . PHP_EOL .
+					'  <div class="well well-sm"><strong>' . $forum_language['label'] . '</strong><br /><input type="radio" name="topic_label" value="0" checked>' . $general_language['none'] . ' ' . $labels . '</div>' . PHP_EOL .
 					'  <div class="form-group">' . PHP_EOL .
 					'    <textarea name="content" id="reply" rows="3">' . htmlspecialchars(Input::get('content')) . '</textarea>' . PHP_EOL .
 					'  </div>' . PHP_EOL .
