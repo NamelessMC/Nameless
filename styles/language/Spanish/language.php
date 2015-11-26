@@ -36,7 +36,7 @@ $admin_language = array(
 	'forums' => 'Foros',
 	'users_and_groups' => 'Usuarios y Grupos',
 	'minecraft' => 'Minecraft',
-	'style' => 'Stilo',
+	'style' => 'Estilo',
 	'addons' => 'Complementos',
 	'update' => 'Actualizar',
 	'misc' => 'Misceláneo',
@@ -60,7 +60,7 @@ $admin_language = array(
 	'use_php_mail' => '¿Usar la función mail() de PHP?',
 	'use_php_mail_help' => 'Recomendado: activar. Si su sitio envia correos electrónicos, por favor, desactívelo y edite core/email.php con la configuración del corero.',
 	'use_gmail' => '¿Usar Gmail para enviar correo?',
-	'use_gmail_help' => 'Sólo disponible si la funcion de correo de PHP está desactivada. Si elije no usar Gmail, se usuará el protocolo SMTP. De todas formas, edite la configuración en core/email.php.',
+	'use_gmail_help' => 'Sólo disponible si la función de correo de PHP está desactivada. Si elije no usar Gmail, se usará el protocolo SMTP. De todas formas, edite la configuración en core/email.php.',
 	
 	// Admin custom pages page
 	'click_on_page_to_edit' => 'Seleccione una página para editarla.',
@@ -75,7 +75,7 @@ $admin_language = array(
 	'page_successfully_edited' => 'Página editada correctamente',
 	'unable_to_create_page' => 'No se ha podido crear la página.',
 	'unable_to_edit_page' => 'No se ha podido editar la página.',
-	'create_page_error' => 'Por favor, asegúrese que ha introducido una URL entre 1 y 20 caracteres, un títlo entre 1 y 30, y el contenido de la página tener entre 5 y 20480 caracteres.',
+	'create_page_error' => 'Por favor, asegúrese que ha introducido una URL entre 1 y 20 caracteres, un título entre 1 y 30, y el contenido de la página tener entre 5 y 20480 caracteres.',
 	'delete_page' => 'Borrar página',
 	'confirm_delete_page' => '¿Seguro que quiere borrar la página?',
 	'page_deleted_successfully' => 'Página borrada.',
@@ -102,7 +102,7 @@ $admin_language = array(
 	'label_success' => 'Correcto',
 	'label_info' => 'Información',
 	'label_warning' => 'Aviso',
-	'label_danger' => 'Peligo',
+	'label_danger' => 'Peligro',
 	'new_forum' => 'Nuevo foro',
 	'forum_layout' => 'Características del Foro',
 	'table_view' => 'Vista de tabla',
@@ -127,11 +127,11 @@ $admin_language = array(
 	'created' => 'Creado',
 	'user_deleted' => 'usuario borrado',
 	'validate_user' => 'Usuario validado',
-	'update_uuid' => 'Actulaizar UUID',
+	'update_uuid' => 'Actualizar UUID',
 	'unable_to_update_uuid' => 'No se puede actualizar UUID.',
 	'update_mc_name' => 'Actualizar nombre de Minecraft',
 	'reset_password' => 'Borrar Contraseña',
-	'punish_user' => 'Castgar Usuario',
+	'punish_user' => 'Castigar Usuario',
 	'delete_user' => 'Borrar Usuario',
 	'minecraft_uuid' => 'UUID de Minecraft',
 	'ip_address' => 'Dirección IP',
@@ -149,39 +149,39 @@ $admin_language = array(
 	'group_html' => 'HTML del Grupo',
 	'group_html_lg' => 'HTML extendido del Grupo',
 	'donor_group_id' => 'ID Paquete de compra',
-	'donor_group_id_help' => '<p>Este es el ID del paquete en Buycraft, MinecraftMarket or MCStock.</p><p>Puede estar vacio.</p>',
-	'donor_group_instructions' => 	'<p>Los grupos de paquetes deben ser creados en orden inverso, <strong>de menor vaolr a mayor valor</strong>.</p>
+	'donor_group_id_help' => '<p>Este es el ID del paquete en Buycraft, MinecraftMarket or MCStock.</p><p>Puede estar vacío.</p>',
+	'donor_group_instructions' => 	'<p>Los grupos de paquetes deben ser creados en orden inverso, <strong>de menor valor a mayor valor</strong>.</p>
 									<p>Por ejemplo. Un paquete de 10€ debe ser creado antes que uno de 20€.</p>',
 	'delete_group' => 'Borrar grupo',
-	'confirm_group_deletion' => 'Seguro que desea borar el grupo {x}?', // Don't replace "{x}"
+	'confirm_group_deletion' => 'Seguro que desea borrar el grupo {x}?', // Don't replace "{x}"
 	'group_staff' => '¿Es un grupo de administración?',
-	'group_modcp' => '¿Puede el grupo ver ModCP?',
+	'group_modcp' => '¿Puede el grupo ver el panel de moderación?',
 	'group_admincp' => '¿Puede el grupo ver AdminCP?',
 	
 	// Admin Minecraft page
 	'minecraft_settings' => 'Configuración de Minecraft',
 	'use_plugin' => '¿Usar el plugin Nameless de Minecraft?',
-	'force_avatars' => '¿Forzar las imagenes Minecraft?',
+	'force_avatars' => '¿Forzar los avatares de Minecraft?',
 	'uuid_linking' => '¿Activar enlaces al UUID?',
-	'use_plugin_help' => 'utilizando el módulo permite sincronizar el nivel, registarse en el juego y generar incidencias.',
+	'use_plugin_help' => 'utilizando el módulo permite sincronizar el nivel, registrarse en el juego y generar incidencias.',
 	'uuid_linking_help' => 'Si se deshabilita la cuenta del usuario no se enlazará con en UUID. Es muy recomendable que esté activado.',
 	'plugin_settings' => 'Configuración de Plugins',
 	'confirm_api_regen' => '¿Quiere generar una nueva cadena para la API?',
 	'servers' => 'Servidores',
 	'new_server' => 'Nuevo Servidor',
-	'confirm_server_deletion' => '¿Seguro que quiere eleminar este servidor?',
+	'confirm_server_deletion' => '¿Seguro que quiere eliminar este servidor?',
 	'main_server' => 'Servidor Principal',
 	'main_server_help' => 'El servidor al que se conectan los jugadores. Por lo general, se trata de la instancia BungeeCord.',
-	'choose_a_main_server' => 'Elegir servidor principal..',
+	'choose_a_main_server' => 'Elegir servidor principal.',
 	'external_query' => '¿Usar consulta externa?',
 	'external_query_help' => '¿Utilice una API externa para consultar el servidor de Minecraft? Sólo utilice esto si la consulta interna no funciona. Es muy recomendable que no esté activada.',
 	'editing_server' => 'Editar servidor {x}', // Don't replace "{x}"
 	'server_ip_with_port' => 'Dirección IP (con puerto)',
 	'show_on_play_page' => '¿Mostar en la página de Juegos?',
-	'pre_17' => 'Anterior a la versón 1.7 de Minecraft?',
+	'pre_17' => 'Anterior a la versión 1.7 de Minecraft?',
 	'server_name' => 'Nombre del servidor',
 	'invalid_server_id' => 'ID del servidor errónea',
-	'show_players' => '¿Mostar la lista de jugadore en página de Juegos?',
+	'show_players' => '¿Mostrar la lista de jugadores en la página de Juegos?',
 	'server_edited' => 'Servidor editado correctamente',
 	'server_created' => 'Servidor creado correctamente',
 	'query_errors' => 'Error de peticiones',
@@ -197,32 +197,32 @@ $admin_language = array(
 	'templates' => 'Plantillas',
 	'installed_themes' => 'Temas instalados',
 	'installed_templates' => 'Plantillas instaladas',
-	'installed_addons' => 'Añaidos Instalados',
+	'installed_addons' => 'Complementos instalados',
 	'install_theme' => 'Instalar tema',
 	'install_template' => 'Instalar plantilla',
-	'install_addon' => 'Instalar añadido',
+	'install_addon' => 'Instalar complemento',
 	'install_a_theme' => 'Instalar un tema',
 	'install_a_template' => 'Instalar una plantilla',
-	'install_an_addon' => 'Instalar un añadido',
+	'install_an_addon' => 'Instalar un complemento',
 	'active' => 'Activo',
-	'activate' => 'Activado',
-	'deactivate' => 'Desactivado',
+	'activate' => 'Activar',
+	'deactivate' => 'Desactivar',
 	'theme_install_instructions' => 'Por favor, suba los temas en el directorio <strong>styles/themes</strong>. Luego presione el botón de "Buscar".',
 	'template_install_instructions' => 'Por favor, suba las plantilas en el directorio <strong>styles/templates</strong>. Luego presione el botón de "Buscar".',
-	'addon_install_instructions' => 'Por favor, suba los añadidos en el directorio <strong>addons</strong>. Luego presione el botón de "Buscar".',
-	'addon_install_warning' => 'Los añadidos se instalar por su cuenta y riesgo. Haga una copia de seguridad antes de proceder',
+	'addon_install_instructions' => 'Por favor, suba los complementos en el directorio <strong>addons</strong>. Luego presione el botón de "Buscar".',
+	'addon_install_warning' => 'Los complementos se instalaran por su cuenta y riesgo. Haga una copia de seguridad antes de proceder',
 	'scan' => 'Buscar',
 	'theme_not_exist' => '¡El tema no existe!',
 	'template_not_exist' => '¡La plantalla no existe!',
 	'addon_not_exist' => '¡El añadido no existe!',
 	'style_scan_complete' => 'Finalizado. Los nuevos estilos se han instalado.',
-	'addon_scan_complete' => 'Finalizado, todos los añadidos se han instalado.',
-	'theme_enabled' => 'Tema actviado.',
+	'addon_scan_complete' => 'Finalizado, todos los complementos se han instalado.',
+	'theme_enabled' => 'Tema activado.',
 	'template_enabled' => 'Plantilla activada.',
-	'addon_enabled' => 'Añadido activado.',
+	'addon_enabled' => 'Complemento activado.',
 	'theme_deleted' => 'Tema borrado.',
 	'template_deleted' => 'Plantilla borrada.',
-	'addon_disabled' => 'Añadido desactivado.',
+	'addon_disabled' => 'Complemento desactivado.',
 	'inverse_navbar' => 'Barra de navegación inversa',
 	'confirm_theme_deletion' => '¿Seguro que desea borrar el tema <strong>{x}</strong>?<br /><br />El tema se eliminará de su directorio <strong>styles/themes</strong>.', // Don't replace {x}
 	'confirm_template_deletion' => '¿Seguro que desea borrar la plantilla <strong>{x}</strong>?<br /><br />La plantilla se eliminará de su directorio <strong>styles/templates</strong>.', // Don't replace {x}
@@ -234,8 +234,8 @@ $admin_language = array(
 	'display_page_load_time' => '¿Mostar el tiempo de carga de la página?',
 	'page_load_time_description' => 'Activándolo mostrará el medidor de velocidad a pié de página indicando el tiempo en cargar.',
 	'reset_website' => 'Reiniciar sitio',
-	'reset_website_info' => 'Se reiniciará su sitio Web y se eliminará su configuración. <strong>Los añadidos serán desactivados pero no eliminados. Su configuración permanecerá sin cambios.</strong> Sus servidores de Minecraft se conservarán.',
-	'confirm_reset_website' => '¿Seguro que queire reiniciar la configuración del sitio web?'
+	'reset_website_info' => 'Se reiniciará su sitio Web y se eliminará su configuración. <strong>Los complementos serán desactivados pero no eliminados. Su configuración permanecerá sin cambios.</strong> Sus servidores de Minecraft se conservarán.',
+	'confirm_reset_website' => '¿Seguro que quiere reiniciar la configuración del sitio web?'
 );
 
 /*
@@ -247,8 +247,8 @@ $navbar_language = array(
 	'forum' => 'Foro',
 	'vote' => 'Votar',
 	'donate' => 'Donar',
-	'more' => 'Mas',
-	'staff_apps' => 'Administración'
+	'more' => 'Más',
+	'staff_apps' => 'Solicitud Staff'
 );
 
 /*
@@ -263,13 +263,13 @@ $user_language = array(
 	'email' => 'Correo',
 	'email_address' => 'Dirección de correo',
 	'password' => 'Contraseña',
-	'confirm_password' => 'Confirnar la contraseña',
+	'confirm_password' => 'Confirmar la contraseña',
 	'i_agree' => 'Acepto',
 	'agree_t_and_c' => 'Seleccionando el <strong class="label label-primary">Registro</strong>, acepta nuestros <a href="#" data-toggle="modal" data-target="#t_and_c_m">Términos y condiciones</a>.',
 	'register' => 'Registro',
 	'sign_in' => 'Acceder',
 	'sign_out' => 'Salir',
-	'terms_and_conditions' => 'Terminos y condiciones',
+	'terms_and_conditions' => 'Términos y condiciones',
 	'successful_signin' => 'Se ha registrado correctamente',
 	'incorrect_details' => 'Detalles erróneos',
 	'remember_me' => 'Recuérdame',
@@ -280,8 +280,8 @@ $user_language = array(
 	'account_banned' => 'Su cuenta ha sido inhabilitada.',
 	'successfully_logged_out' => 'Ha salido correctamente.',
 	'signature' => 'Firma',
-	'registration_check_email' => 'Por favor, verifique que ha recibido en el correo un enlace para poder validarse. No podrá acceder hasta que lo pulse.',
-	'unknown_login_error' => 'Lo sentimos, ha sucedido un error inesperado al intentar acceder. Inténtelo mas tarde.',
+	'registration_check_email' => 'Por favor, verifique que ha recibido en el correo un enlace para poder validar su cuenta. No podrá acceder hasta que lo pulse.',
+	'unknown_login_error' => 'Lo sentimos, ha sucedido un error inesperado al intentar acceder. Inténtelo más tarde.',
 	'validation_complete' => '¡Gracias por registrarse! Ya puede acceder.',
 	'validation_error' => 'No hemos podido procesar su petición. Por favor, pulse el enlace de nuevo.',
 	'registration_error' => 'Por favor, asegúrese que ha rellenado todos los campos y el usuario tiene entre 3 y 20 caracteres y su contraseña tiene entre 3 y 30.',
@@ -308,11 +308,11 @@ $user_language = array(
 	'to' => 'Para:',
 	'separate_users_with_comma' => 'Separe los usuarios con una coma (",")',
 	'viewing_message' => 'Ver mensaje',
-	'delete_message' => 'Borarr mensaje',
+	'delete_message' => 'Borrar mensaje',
 	'confirm_message_deletion' => '¿Seguro que desea borrar este mensaje?',
 	
 	// Profile settings
-	'display_name' => 'Mostar nombre',
+	'display_name' => 'Mostrar nombre',
 	'upload_an_avatar' => 'Subir avatar (solo .jpg, .png o .gif):',
 	
 	// Alerts
@@ -349,28 +349,28 @@ $user_language = array(
 	'pf_registered' => 'Registrado:',
 	'pf_posts' => 'Mensajes:',
 	'pf_reputation' => 'Reputación:',
-	'user_hasnt_registered' => 'Este usario no se ha registrado ene este sitio todavía',
+	'user_hasnt_registered' => 'Este usuario no se ha registrado en este sitio todavía',
 	'user_no_friends' => 'El usuario no ha añadido amigos',
-	'send_message' => 'Mandar mensaje',
+	'send_message' => 'Enviar mensaje',
 	'remove_friend' => 'Eliminar amigo',
 	'add_friend' => 'Añadir amigo',
 	
 	// Staff applications
-	'staff_application' => 'Staff Application',
-	'application_submitted' => 'Application submitted successfully.',
-	'application_already_submitted' => 'You\'ve already submitted an application. Please wait until it is complete before submitting another.',
-	'not_logged_in' => 'Please log in to view that page.'
+	'staff_application' => 'Solicitud de staff',
+	'application_submitted' => 'Solicitud enviada correctamente.',
+	'application_already_submitted' => 'Ya has enviado una solicitud. Espera a que finalice antes de enviar otra.',
+	'not_logged_in' => 'Por favor inicia sesión para ver esta página.'
 );
 
 /*
  *  Moderation related
  */
 $mod_language = array(
-	'mod_cp' => 'Panel de Moderacón',
+	'mod_cp' => 'Panel de Moderación',
 	'overview' => 'Información general',
 	'reports' => 'Informes',
 	'punishments' => 'Castigos',
-	'staff_applications' => 'Administración',
+	'staff_applications' => 'Solicitud de staff',
 	
 	// Punishments
 	'ban' => 'Inhabilitar',
@@ -401,19 +401,19 @@ $mod_language = array(
 	'new_report_submitted_alert' => 'Nuevo informe presentado por {x} especto al usuario {y}', // Don't replace "{x}" or "{y}"
 	
 	// Staff applications
-	'comment_error' => 'Please ensure your comment is between 2 and 2048 characters long.',
-	'viewing_open_applications' => 'Viewing <span class="label label-info">open</span> applications. Change to <a href="/mod/applications/?view=accepted"><span class="label label-success">accepted</span></a> or <a href="/mod/applications/?view=declined"><span class="label label-danger">declined</span></a>.',
-	'viewing_accepted_applications' => 'Viewing <span class="label label-success">accepted</span> applications. Change to <a href="/mod/applications/"><span class="label label-info">open</span></a> or <a href="/mod/applications/?view=declined"><span class="label label-danger">declined</span></a>.',
-	'viewing_declined_applications' => 'Viewing <span class="label label-danger">declined</span> applications. Change to <a href="/mod/applications/"><span class="label label-info">open</span></a> or <a href="/mod/applications/?view=accepted"><span class="label label-success">accepted</span></a>.',
+	'comment_error' => 'Tu comentario debe tener entre 2 y 2048 caracteres.',
+	'viewing_open_applications' => 'Viendo solicitudes <span class="label label-info">abiertas</span>. Cambiar a <a href="/mod/applications/?view=accepted"><span class="label label-success">aceptadas</span></a> o <a href="/mod/applications/?view=declined"><span class="label label-danger">denegadas</span></a>.',
+	'viewing_accepted_applications' => 'Viendo solicitudes <span class="label label-success">aceptadas</span>. Cambiar a <a href="/mod/applications/"><span class="label label-info">abiertas</span></a> o <a href="/mod/applications/?view=declined"><span class="label label-danger">denegadas</span></a>.',
+	'viewing_declined_applications' => 'Viendo solicitudes <span class="label label-danger">denegadas</span>. Cambiar a <a href="/mod/applications/"><span class="label label-info">abiertas</span></a> o <a href="/mod/applications/?view=accepted"><span class="label label-success">aceptadas</span></a>.',
 	'time_applied' => 'Time Applied',
-	'no_applications' => 'No applications in this category',
-	'viewing_app_from' => 'Viewing application from {x}', // Don't replace "{x}"
-	'open' => 'Open',
-	'accepted' => 'Accepted',
-	'declined' => 'Declined',
-	'accept' => 'Accept',
-	'decline' => 'Decline',
-	'new_app_submitted_alert' => 'New application submitted by {x}' // Don't replace "{x}"
+	'no_applications' => 'No hay solicitudes en esta categoría.',
+	'viewing_app_from' => 'Viendo solicitudes de {x}', // Don't replace "{x}"
+	'open' => 'Abierta',
+	'accepted' => 'Aceptada',
+	'declined' => 'Denegada',
+	'accept' => 'Aceptar',
+	'decline' => 'Denegar',
+	'new_app_submitted_alert' => 'Nueva solicitud enviada por {x}' // Don't replace "{x}"
 );
 
 /* 
@@ -441,12 +441,12 @@ $general_language = array(
 	'view' => 'Ver',
 	
 	// Play page
-	'connect_with' => 'Conectado al servidor desde la IP {x}', // Don't replace {x}
+	'connect_with' => 'Conéctate al servidor desde la IP <b>{x}</b>', // Don't replace {x}
 	'online' => 'Conectado',
 	'offline' => 'Desconectado',
-	'status' => 'Esado:',
+	'status' => 'Estado:',
 	'players_online' => 'Jugadores conectados:',
-	'queried_in' => 'Peticiones:',
+	'queried_in' => 'Ping:',
 	'server_status' => 'Estado del servidor',
 	'no_players_online' => '¡No hay jugadores conectados!',
 	'x_players_online' => 'Hay {x} jugadores conectados.', // Don't replace {x}
@@ -468,7 +468,7 @@ $forum_language = array(
 	'ago' => 'hace',
 	'by' => 'por',
 	'in' => 'en',
-	'views' => 'vistas',
+	'views' => 'visitas',
 	'posts' => 'mensaje',
 	'topics' => 'temas',
 	'topic' => 'Tema',
@@ -476,10 +476,10 @@ $forum_language = array(
 	'overview' => 'Información general',
 	'latest_discussions' => 'Últimas conversaciones',
 	'latest_posts' => 'Últimos temas',
-	'users_registered' => 'Usuario registrados:',
+	'users_registered' => 'Usuarios registrados:',
 	'latest_member' => 'Último miembro:',
 	'forum' => 'Foro',
-	'last_post' => 'Ultima publicación',
+	'last_post' => 'Última publicación',
 	'no_topics' => 'No hay temas todavía',
 	'new_topic' => 'Nuevo tema',
 	'subforums' => 'Sub-foro:',
@@ -491,28 +491,28 @@ $forum_language = array(
 	'mod_actions' => 'Moderar',
 	'lock_thread' => 'Cerrar tema',
 	'unlock_thread' => 'Abrir tema',
-	'merge_thread' => 'Combiar temas',
+	'merge_thread' => 'Combinar temas',
 	'delete_thread' => 'Borrar tema',
 	'confirm_thread_deletion' => '¿Seguro que desea borrar este tema?',
 	'move_thread' => 'Mover tema',
 	'sticky_thread' => 'Fijar tema',
-	'report_post' => 'Informar mensaje',
+	'report_post' => 'Reportar mensaje',
 	'quote_post' => 'Citar',
-	'delete_post' => 'Borar mensaje',
+	'delete_post' => 'Borrar mensaje',
 	'edit_post' => 'Editar mensaje',
 	'reputation' => 'reputación',
 	'confirm_post_deletion' => '¿Seguro que desea borrar este mensaje?',
 	'give_reputation' => 'Dar reputación',
 	'remove_reputation' => 'Quitar reputación',
-	'post_reputation' => 'Mostar reputación',
+	'post_reputation' => 'Mostrar reputación',
 	'no_reputation' => 'No hay reputación para este tema',
 	're' => 'RE:',
 	
 	// Create post view
 	'create_post' => 'Crear mensaje',
 	'post_submitted' => 'Mensaje publicado',
-	'creating_post_in' => 'Creado mensaje en: ',
-	'topic_locked_permission_post' => 'Este tema está cerrado, sin embargo pude publicar',
+	'creating_post_in' => 'Creando mensaje en: ',
+	'topic_locked_permission_post' => 'Este tema está cerrado, sin embargo puede publicar',
 	
 	// Edit post view
 	'editing_post' => 'Editando tema',
@@ -546,7 +546,7 @@ $forum_language = array(
 	'are_you_logged_in' => '¿Se ha registrado?',
 	
 	// Search
-	'search_error' => 'Please input a search query between 1 and 32 characters long.'
+	'search_error' => 'Por favor, introduce una búsqueda entre 1 y 32 caracteres.'
 );
 
 /*
@@ -555,7 +555,7 @@ $forum_language = array(
 $email_language = array(
 	// Registration email
 	'greeting' => 'Hola',
-	'message' => '¡Gracias por registrarse! Para finalizar el regsitro es necesario que pulse sobre el siguiente enlace:',
+	'message' => '¡Gracias por registrarte! Para finalizar el registro es necesario que pulse sobre el siguiente enlace:',
 	'thanks' => 'Gracias,'
 );
 
