@@ -43,6 +43,7 @@ $admin_language = array(
 	
 	// Admin index page
 	'statistics' => 'Estadísticas',
+	'registrations_per_day' => 'Registros por día (últimos 7 días)',
 	
 	// Admin core page
 	'general_settings' => 'Configuración General',
@@ -106,7 +107,7 @@ $admin_language = array(
 	'new_forum' => 'Nuevo foro',
 	'forum_layout' => 'Características del Foro',
 	'table_view' => 'Vista de tabla',
-	'latest_discussions_view' => 'Ver último mentasaje',
+	'latest_discussions_view' => 'Ver último mensaje',
 	'create_forum' => 'Crear foro',
 	'forum_name' => 'Nombre del foro',
 	'forum_description' => 'Descripción del foro',
@@ -185,7 +186,7 @@ $admin_language = array(
 	'server_edited' => 'Servidor editado correctamente',
 	'server_created' => 'Servidor creado correctamente',
 	'query_errors' => 'Error de peticiones',
-	'query_errors_info' => 'Los siguientes errores le ayudarán de diagnosticar la versión interna de la consulta al servidor.',
+	'query_errors_info' => 'Los siguientes errores le ayudarán a diagnosticar problemas con su servidor.',
 	'no_query_errors' => 'No hay registro de errores',
 	'date' => 'Fecha:',
 	'port' => 'Puerto:',
@@ -259,7 +260,7 @@ $user_language = array(
 	'authme_password' => 'AuthMe contraseña',
 	'create_an_account' => 'Crear una cuenta',
 	'username' => 'Usuario',
-	'minecraft_username' => 'usuario de Minecraft',
+	'minecraft_username' => 'Usuario de Minecraft',
 	'email' => 'Correo',
 	'email_address' => 'Dirección de correo',
 	'password' => 'Contraseña',
@@ -291,7 +292,7 @@ $user_language = array(
 	'no_file_chosen' => 'No se ha selecionado archivo',
 	'private_messages' => 'Mensaje privado',
 	'profile_settings' => 'Configuración del perfil',
-	'your_profile' => 'Su perfil',
+	'your_profile' => 'Mi perfil',
 	'topics' => 'Temas',
 	'posts' => 'Mensaje',
 	'reputation' => 'Reputación',

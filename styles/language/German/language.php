@@ -43,6 +43,7 @@ $admin_language = array(
 
 	// Admin index page
 	'statistics' => 'Statistiken',
+	'registrations_per_day' => 'Registrations per day (last 7 days)',
 
 	// Admin core page
 	'general_settings' => 'Allgemeine Einstellungen',
