@@ -175,7 +175,7 @@ $adm_page = "index";
 			<strong>NamelessMC version 1.0</strong><br />
 			<strong>Running PHP <?php echo phpversion(); ?></strong> <a href="/admin/phpinfo.php" target="_blank">(Full PHP information)</a><br />
 			<h3><?php echo $admin_language['statistics']; ?></h3>
-			<strong>Registrations per day (last 7 days)</strong>
+			<strong><?php echo $admin_language['registrations_per_day']; ?></strong>
 			<div class="graph-container">
 			  <div id="placeholder" class="graph-placeholder"></div>
 			</div>

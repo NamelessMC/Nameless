@@ -73,7 +73,7 @@ if($user->isLoggedIn()){
 	<li class="dropdown">
 	  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img class="img-rounded" style="margin: -10px 0px;" src="https://cravatar.eu/avatar/' . $user->data()->mcname . '/25.png">&nbsp;&nbsp;' . $user->data()->username . ' <span class="caret"></span></a>
 	  <ul class="dropdown-menu" role="menu">
-		<li><a href="/profile/' . $user->data()->mcname . '">Profile</a></li>
+		<li><a href="/profile/' . $user->data()->mcname . '">'. $user_language['profile'] .'</a></li>
 		<li class="divider"></li>
 		<li><a href="/user">' . $user_language['user_cp'] . '</a></li>';
 		if($user->canViewMCP($user->data()->id)){
