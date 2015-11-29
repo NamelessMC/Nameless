@@ -364,22 +364,15 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 						if(Token::check(Input::get('token'))) {
 							if(Input::get('action') === "update"){
 								$validate = new Validate();
-								$validation = $validate->check($_POST, array(
+								
+								$to_validation = array(
 									'email' => array(
 										'required' => true,
-										'min' => 2,
+										'min' => 4,
 										'max' => 50
 									),
 									'group' => array(
 										'required' => true
-									),
-									'username' => array(
-										'required' => true,
-										'min' => 2,
-										'max' => 20
-									),
-									'MCUsername' => array(
-										'isvalid' => true
 									),
 									'UUID' => array(
 										'max' => 32
@@ -390,7 +383,55 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 									'ip' => array(
 										'max' => 256
 									)
-								));
+								);
+								
+								if($uuid_linking == '1'){
+									if($displaynames == "true"){
+										$to_validation['MCUsername'] = array(
+											'required' => true,
+											'isvalid' => true,
+											'min' => 4,
+											'max' => 20
+										);
+										$to_validation['username'] = array(
+											'required' => true,
+											'min' => 4,
+											'max' => 20
+										);
+										$mcname = htmlspecialchars(Input::get('MCUsername'));
+									} else {
+										$to_validation['username'] = array(
+											'required' => true,
+											'isvalid' => true,
+											'min' => 4,
+											'max' => 20
+										);
+										$mcname = htmlspecialchars(Input::get('username'));
+									}
+								} else {
+									if($displaynames == "true"){
+										$to_validation['MCUsername'] = array(
+											'required' => true,
+											'min' => 4,
+											'max' => 20
+										);
+										$to_validation['username'] = array(
+											'required' => true,
+											'min' => 4,
+											'max' => 20
+										);
+										$mcname = htmlspecialchars(Input::get('MCUsername'));
+									} else {
+										$to_validation['username'] = array(
+											'required' => true,
+											'min' => 4,
+											'max' => 20
+										);
+										$mcname = htmlspecialchars(Input::get('username'));
+									}
+								}
+								
+								$validation = $validate->check($_POST, $to_validation);
 								
 								if($validation->passed()){
 									try {
