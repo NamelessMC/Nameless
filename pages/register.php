@@ -64,30 +64,56 @@ if(Input::exists()){
 			);
 		}
 		
-		if($custom_usernames == "true"){ // validate username and Minecraft name
-			$to_validation['mcname'] = array(
-				'required' => true,
-				'isvalid' => true,
-				'min' => 3,
-				'max' => 20,
-				'unique' => 'users'
-			);
-			$to_validation['username'] = array(
-				'required' => true,
-				'min' => 3,
-				'max' => 20,
-				'unique' => 'users'
-			);
-			$mcname = htmlspecialchars(Input::get('mcname'));
-		} else { // only validate Minecraft name
-			$to_validation['username'] = array(
-				'required' => true,
-				'isvalid' => true,
-				'min' => 3,
-				'max' => 20,
-				'unique' => 'users'
-			);
-			$mcname = htmlspecialchars(Input::get('username'));
+		if($uuid_linking == '1'){
+			if($custom_usernames == "true"){ // validate username and Minecraft name
+				$to_validation['mcname'] = array(
+					'required' => true,
+					'isvalid' => true,
+					'min' => 3,
+					'max' => 20,
+					'unique' => 'users'
+				);
+				$to_validation['username'] = array(
+					'required' => true,
+					'min' => 3,
+					'max' => 20,
+					'unique' => 'users'
+				);
+				$mcname = htmlspecialchars(Input::get('mcname'));
+			} else { // only validate Minecraft name
+				$to_validation['username'] = array(
+					'required' => true,
+					'isvalid' => true,
+					'min' => 3,
+					'max' => 20,
+					'unique' => 'users'
+				);
+				$mcname = htmlspecialchars(Input::get('username'));
+			}
+		} else {
+			if($custom_usernames == "true"){ // validate username and Minecraft name
+				$to_validation['mcname'] = array(
+					'required' => true,
+					'min' => 3,
+					'max' => 20,
+					'unique' => 'users'
+				);
+				$to_validation['username'] = array(
+					'required' => true,
+					'min' => 3,
+					'max' => 20,
+					'unique' => 'users'
+				);
+				$mcname = htmlspecialchars(Input::get('mcname'));
+			} else { // only validate Minecraft name
+				$to_validation['username'] = array(
+					'required' => true,
+					'min' => 3,
+					'max' => 20,
+					'unique' => 'users'
+				);
+				$mcname = htmlspecialchars(Input::get('username'));
+			}
 		}
 		
 		$validation = $validate->check($_POST, $to_validation); // Execute validation
