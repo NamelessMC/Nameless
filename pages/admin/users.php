@@ -30,7 +30,11 @@ $adm_page = "users";
 // Custom usernames?
 $displaynames = $queries->getWhere("settings", array("name", "=", "displaynames"));
 $displaynames = $displaynames[0]->value;
-					  
+		
+// Is UUID linking enabled?
+$uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
+$uuid_linking = $uuid_linking[0]->value;
+			  
 require('core/includes/password.php'); // Password compat library
 require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifier
 
@@ -174,29 +178,54 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 								)
 							);
 							
-							if($displaynames == "true"){
-								$to_validation['mcname'] = array(
-									'required' => true,
-									'isvalid' => true,
-									'min' => 4,
-									'max' => 20
-								);
-								$to_validation['username'] = array(
-									'required' => true,
-									'min' => 4,
-									'max' => 20,
-									'unique' => 'users'
-								);
-								$mcname = htmlspecialchars(Input::get('mcname'));
+							if($uuid_linking == '1'){
+								if($displaynames == "true"){
+									$to_validation['mcname'] = array(
+										'required' => true,
+										'isvalid' => true,
+										'min' => 4,
+										'max' => 20
+									);
+									$to_validation['username'] = array(
+										'required' => true,
+										'min' => 4,
+										'max' => 20,
+										'unique' => 'users'
+									);
+									$mcname = htmlspecialchars(Input::get('mcname'));
+								} else {
+									$to_validation['username'] = array(
+										'required' => true,
+										'isvalid' => true,
+										'min' => 4,
+										'max' => 20,
+										'unique' => 'users'
+									);
+									$mcname = htmlspecialchars(Input::get('username'));
+								}
 							} else {
-								$to_validation['username'] = array(
-									'required' => true,
-									'isvalid' => true,
-									'min' => 4,
-									'max' => 20,
-									'unique' => 'users'
-								);
-								$mcname = htmlspecialchars(Input::get('username'));
+								if($displaynames == "true"){
+									$to_validation['mcname'] = array(
+										'required' => true,
+										'min' => 4,
+										'max' => 20
+									);
+									$to_validation['username'] = array(
+										'required' => true,
+										'min' => 4,
+										'max' => 20,
+										'unique' => 'users'
+									);
+									$mcname = htmlspecialchars(Input::get('mcname'));
+								} else {
+									$to_validation['username'] = array(
+										'required' => true,
+										'min' => 4,
+										'max' => 20,
+										'unique' => 'users'
+									);
+									$mcname = htmlspecialchars(Input::get('username'));
+								}
 							}
 							
 							$validation = $validate->check($_POST, $to_validation);
