@@ -59,11 +59,16 @@ if(!count($profile_user)){ // No..
 
 if($user->isLoggedIn()){
 	if(isset($_POST['AddFriend'])) {
-		$user->addfriend($user->data()->id, $profile_user[0]->id);
+		if(Token::check(Input::get('token'))){
+			$user->addfriend($user->data()->id, $profile_user[0]->id);
+		}
 	}
 	if(isset($_POST['RemoveFriend'])){
-		$user->removefriend($user->data()->id, $profile_user[0]->id);
+		if(Token::check(Input::get('token'))){
+			$user->removefriend($user->data()->id, $profile_user[0]->id);
+		}
 	}
+	$token = Token::generate();
 }
 
 $servers = $queries->getWhere("mc_servers", array("display", "=", "1"));
@@ -212,6 +217,7 @@ if($query_to_use == 'false'){
 							} else {
 								echo '<center>
 								<form style="display: inline"; method="post">
+								<input type="hidden" name="token" value="' . $token . '">
 								<input type="submit" class="btn btn-success" name="AddFriend" value="' . $user_language['add_friend'] . '">
 								</form>
 								<a href="/user/messaging/?action=new&uid=' . $profile_user[0]->id . '" class="btn btn-primary">' . $user_language['send_message'] . '</a>
@@ -223,6 +229,7 @@ if($query_to_use == 'false'){
 							} else {
 								echo '<center>
 								<form style="display: inline"; method="post">
+								<input type="hidden" name="token" value="' . $token . '">
 								<input type="submit" class="btn btn-danger" name="RemoveFriend" value="' . $user_language['remove_friend'] . '">
 								</form>
 								<a href="/user/messaging/?action=new&uid=' . $profile_user[0]->id . '" class="btn btn-primary">' . $user_language['send_message'] . '</a>
