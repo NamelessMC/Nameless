@@ -315,6 +315,12 @@ $user_language = array(
 	// Profile settings
 	'display_name' => 'Mostrar nombre',
 	'upload_an_avatar' => 'Subir avatar (solo .jpg, .png o .gif):',
+	'change_password' => 'Change password',
+	'current_password' => 'Current password',
+	'new_password' => 'New password',
+	'repeat_new_password' => 'Repeat new password',
+	'password_changed_successfully' => 'Password changed successfully',
+	'incorrect_password' => 'Your current password is incorrect',
 	
 	// Alerts
 	'viewing_unread_alerts' => 'Viendo las alertas no leídas. Cambiar a <a href="/user/alerts/?view=read"><span class="label label-success">leidas</span></a>.',
