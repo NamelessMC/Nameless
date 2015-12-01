@@ -192,6 +192,7 @@ if(Input::exists()){
 					$html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array($sitename, $user_language['register'], $email_language['greeting'], $email_language['message'], $link, $email_language['thanks']), $html);
 					
 					$mail->msgHTML($html);
+					$mail->Body = $html;
 					$mail->AltBody = 'Click the following link to complete registration: ' . $link;
 					
 					if(!$mail->send()) {
