@@ -24,49 +24,105 @@ if(Input::exists()){
 	if(Token::check(Input::get('token'))) {
 		$validate = new Validate();
 		
-		$validate_array = array(
-			'signature' => array(
-				'max' => 256
-			)
-		);
-		
-		if($custom_usernames == 'true'){
-			$validate_array['screenname'] = array(
-				'required' => true,
-				'min' => 2,
-				'max' => 20
+		if(Input::get('action') == 'settings'){
+			$validate_array = array(
+				'signature' => array(
+					'max' => 256
+				)
 			);
-		}
-		
-		$validation = $validate->check($_POST, $validate_array);
-		
-		if($validation->passed()){
+			
 			if($custom_usernames == 'true'){
-				$username = Input::get('screenname');
+				$validate_array['screenname'] = array(
+					'required' => true,
+					'min' => 2,
+					'max' => 20
+				);
+			}
+			
+			$validation = $validate->check($_POST, $validate_array);
+			
+			if($validation->passed()){
+				if($custom_usernames == 'true'){
+					$username = Input::get('screenname');
+				} else {
+					$username = $user->data()->mcname;
+				}
+				
+				// update database value
+				try {
+					$queries->update('users', $user->data()->id, array(
+						'username' => htmlspecialchars($username),
+						'signature' => htmlspecialchars(Input::get('signature'))
+					));
+					Redirect::to('/user/settings');
+					die();
+				} catch(Exception $e) {
+					die($e->getMessage());
+				}
+				
 			} else {
-				$username = $user->data()->mcname;
-			}
 			
-			// update database value
-			try {
-				$queries->update('users', $user->data()->id, array(
-					'username' => htmlspecialchars($username),
-					'signature' => htmlspecialchars(Input::get('signature'))
-				));
-				Redirect::to('/user/settings');
-				die();
-			} catch(Exception $e) {
-				die($e->getMessage());
-			}
+				$error_string = "";
+				foreach($validation->errors() as $error){
+					$error_string .= ucfirst($error) . '<br />';
+				}
 			
-		} else {
-		
-			$error_string = "";
-			foreach($validation->errors() as $error){
-				$error_string .= ucfirst($error) . '<br />';
+				Session::flash('usercp_settings', '<div class="alert alert-danger">' . $error_string . '</div>');
 			}
-		
-			Session::flash('usercp_settings', '<div class="alert alert-danger">' . $error_string . '</div>');
+		} else if(Input::get('action') == 'password'){
+			$validate_array = array(
+				'old_password' => array(
+					'required' => true,
+					'min' => 6,
+					'max' => 30
+				),
+				'new_password' => array(
+					'required' => true,
+					'min' => 6,
+					'max' => 30
+				),
+				'new_password_again' => array(
+					'required' => true,
+					'matches' => 'new_password'
+				)
+			);
+			
+			$validation = $validate->check($_POST, $validate_array);
+			
+			if($validation->passed()){
+				// update password
+				// Check old password matches 
+				$old_password = Input::get('old_password');
+				if(password_verify($old_password, $user->data()->password)){
+					try {
+						// Hash new password
+						$new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, array("cost" => 13));
+						
+						// Update password
+						$queries->update('users', $user->data()->id, array(
+							'password' => $new_password
+						));
+						
+						Session::flash('usercp_settings', '<div class="alert alert-success">' . $user_language['password_changed_successfully'] . '</div>');
+						Redirect::to('/user/settings');
+						die();
+					} catch(Exception $e) {
+						die($e->getMessage());
+					}
+				} else {
+					// Invalid current password
+					Session::flash('usercp_settings', '<div class="alert alert-danger">' . $user_language['incorrect_password'] . '</div>');
+				}
+				
+			} else {
+			
+				$error_string = "";
+				foreach($validation->errors() as $error){
+					$error_string .= ucfirst($error) . '<br />';
+				}
+			
+				Session::flash('usercp_settings', '<div class="alert alert-danger">' . $error_string . '</div>');
+			}
 		}
 	}
 }
@@ -156,6 +212,26 @@ $token = Token::generate();
 				</textarea>
 			  </div>
 			  <input type="hidden" name="token" value="<?php echo $token; ?>" />
+			  <input type="hidden" name="action" value="settings" />
+			  <input class="btn btn-primary" type="submit" name="submit" value="<?php echo $general_language['submit']; ?>" />
+			</form>
+			<br />
+			<form action="" method="post">
+			  <h4><?php echo $user_language['change_password']; ?></h4>
+			  <div class="form-group">
+				<label for="InputOldPassword"><?php echo $user_language['current_password']; ?></label>
+				<input type="password" name="old_password" class="form-control" id="InputOldPassword" placeholder="<?php echo $user_language['current_password']; ?>">
+			  </div>
+			  <div class="form-group">
+				<label for="InputNewPassword"><?php echo $user_language['new_password']; ?></label>
+				<input type="password" name="new_password" class="form-control" id="InputNewPassword" placeholder="<?php echo $user_language['new_password']; ?>">
+			  </div>
+			  <div class="form-group">
+				<label for="InputNewPasswordAgain"><?php echo $user_language['repeat_new_password']; ?></label>
+				<input type="password" name="new_password_again" class="form-control" id="InputNewPasswordAgain" placeholder="<?php echo $user_language['repeat_new_password']; ?>">
+			  </div>
+			  <input type="hidden" name="token" value="<?php echo $token; ?>" />
+			  <input type="hidden" name="action" value="password" />
 			  <input class="btn btn-primary" type="submit" name="submit" value="<?php echo $general_language['submit']; ?>" />
 			</form>
 			<br />
