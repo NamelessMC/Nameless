@@ -193,7 +193,7 @@ if(Input::exists()){
 					
 					$mail->msgHTML($html);
 					$mail->Body = $html;
-					$mail->AltBody = 'Click the following link to complete registration: ' . $link;
+					//$mail->AltBody = 'Click the following link to complete registration: ' . $link;
 					
 					if(!$mail->send()) {
 						echo "Mailer Error: " . $mail->ErrorInfo;
