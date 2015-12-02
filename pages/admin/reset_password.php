@@ -69,7 +69,7 @@ if(count($individual)){
 			
 			$mail->msgHTML($html);
 			$mail->Body = $html;
-			$mail->AltBody = 'Click the following link to change your password: ' . $link;
+			//$mail->AltBody = 'Click the following link to change your password: ' . $link;
 			
 			if(!$mail->send()) {
 				echo "Mailer Error: " . $mail->ErrorInfo;
