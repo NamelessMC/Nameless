@@ -52,6 +52,7 @@ if(Input::exists()) {
 					$html = str_replace(array('[Sitename]', '[ChangePassword]', '[Greeting]', '[Message]', '[Message2]', '[Link]', '[Thanks]'), array($sitename, $user_language['change_password'], $email_language['greeting'], $user_language['email_body'], $user_language['email_body_2'], $link, $email_language['thanks']), $html);
 					
 					$mail->msgHTML($html);
+					$mail->IsHTML(true);
 					$mail->Body = $html;
 					//$mail->AltBody = 'Click the following link to change your password: ' . $link;
 					
