@@ -555,6 +555,8 @@ $forum_language = array(
 	// Other
 	'forum_error' => 'Lo sentimos, pero no se encontró en los foros o los temas.',
 	'are_you_logged_in' => '¿Se ha registrado?',
+	'online_users' => 'Online Users',
+	'no_users_online' => 'There are no users online.',
 	
 	// Search
 	'search_error' => 'Por favor, introduce una búsqueda entre 1 y 32 caracteres.'

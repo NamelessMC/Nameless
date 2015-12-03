@@ -555,6 +555,8 @@ $forum_language = array(
 	// Other
 	'forum_error' => 'Sorry, es wurde kein Forum oder Beitrag gefunden.',
 	'are_you_logged_in' => 'Bist du eingeloggt?',
+	'online_users' => 'Online Users',
+	'no_users_online' => 'There are no users online.',
 	
 	// Search
 	'search_error' => 'Please input a search query between 1 and 32 characters long.'

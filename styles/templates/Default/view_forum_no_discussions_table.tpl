@@ -1,11 +1,26 @@
-<br /><br />
+<br />
 <div class="container">
   <div class="row">
     <div class="col-md-9">
+	  <ol class="breadcrumb">
+	    {$BREADCRUMBS}
+	  </ol>
 	  <h3 style="display: inline;">{$FORUM_TITLE}</h3><span class="pull-right">{$NEW_TOPIC_BUTTON}</span><br /><br />
 	  {$NO_TOPICS}
+	  <br /><br /><br />
+	  <div class="panel panel-default">
+	    <div class="panel-heading">{$STATISTICS}</div>
+		<div class="panel-body">
+		  {$USERS_REGISTERED}<br />{$LATEST_MEMBER}
+		  <hr>
+		  <strong>{$ONLINE_USERS}</strong><br />
+		  {$ONLINE_USERS_LIST}
+		</div>
+	  </div>
 	</div>
 	<div class="col-md-3">
+	  {$SEARCH_FORM}
+	  <br />
 	  <div class="panel panel-default">
 	    <div class="panel-heading">
 		  {$LATEST_POSTS}

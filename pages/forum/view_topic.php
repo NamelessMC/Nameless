@@ -210,12 +210,10 @@ if(!Cookie::exists('nl-topic-' . $tid)) {
 	  <li><a href="/forum">' . $forum_language['home'] . '</a></li>';
 	
 	foreach(array_reverse($forum_parents) as $parent){
-		$breadcrumbs .= '
-	  <li><a href="/forum/view_forum/?fid=' . $parent['id'] . '">' . $parent['name'] . '</a></li>';
+		$breadcrumbs .= '<li><a href="/forum/view_forum/?fid=' . $parent['id'] . '">' . $parent['name'] . '</a></li>';
 	}
 	
-	$breadcrumbs .= '
-	  <li class="active">' . htmlspecialchars($topic->topic_title) . '</li>
+	$breadcrumbs .= '<li class="active">' . htmlspecialchars($topic->topic_title) . '</li>
 	</ol>';
 	
 	$smarty->assign('BREADCRUMBS', $breadcrumbs);

@@ -49,6 +49,44 @@ $timeago = new Timeago();
 	// Get forum layout (latest discussions or table view)
 	$forum_layout = $queries->getWhere("settings", array("name", "=", "forum_layout"));
 	$forum_layout = $forum_layout[0]->value;
+	
+	// Breadcrumbs and search bar - same for latest discussions view + table view
+	$breadcrumbs = '
+	<ol class="breadcrumb">
+	  <li><a href="/forum">' . $forum_language['home'] . '</a></li>
+	</ol>';
+	$smarty->assign('BREADCRUMBS', $breadcrumbs);
+	
+	// Search bar
+	$search = '
+	<form class="form-horizontal" role="form" method="post" action="/forum/search/">
+	  <div class="input-group">
+	    <input type="text" class="form-control input-sm" name="forum_search" placeholder="' . $general_language['search'] . '">
+		<input type="hidden" name="token" value="' . Token::generate() . '">
+	    <span class="input-group-btn">
+		  <button type="submit" class="btn btn-default btn-sm">
+            <i class="fa fa-search"></i>
+          </button>
+	    </span>
+	  </div>
+	</form>
+	';
+	$smarty->assign('SEARCH_FORM', $search);
+	
+    // List online users
+    $online_users = $queries->getWhere('users', array('last_online', '>', strtotime("-10 minutes")));
+    if(count($online_users)){
+	    $online_users_string = '';
+	    foreach($online_users as $online_user){
+		    $online_users_string .= '<a href="/profile/' . htmlspecialchars($online_user->username) . '">' . htmlspecialchars($online_user->username) . '</a>, ';
+	    }
+	    $smarty->assign('ONLINE_USERS_LIST', rtrim($online_users_string, ', '));
+    } else {
+	    // Nobody online
+	    $smarty->assign('ONLINE_USERS_LIST', $forum_language['no_users_online']);
+    }
+	$smarty->assign('ONLINE_USERS', $forum_language['online_users']);
+	
 	if($forum_layout == '1'){
 		// Generate latest posts to pass to template
 		$discussions = $forum->getLatestDiscussions($user->data()->group_id);
