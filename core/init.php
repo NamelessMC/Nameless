@@ -137,6 +137,9 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 		// Insert column for Minecraft query IP
 		$data = $queries->alterTable("mc_servers", "query_ip", "varchar(64) NOT NULL");
 		
+		// Insert column for Gravatar in users table
+		$data = $queries->alterTable("users", "gravatar", "tinyint(1) NOT NULL DEFAULT '0'");
+		
 		// Input data into settings so this step doesn't happen again
 		$queries->create('settings', array(
 			'name' => 'query_update',

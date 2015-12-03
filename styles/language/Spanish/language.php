@@ -318,6 +318,7 @@ $user_language = array(
 	// Profile settings
 	'display_name' => 'Mostrar nombre',
 	'upload_an_avatar' => 'Subir avatar (solo .jpg, .png o .gif):',
+	'use_gravatar' => 'Use Gravatar?',
 	'change_password' => 'Change password',
 	'current_password' => 'Current password',
 	'new_password' => 'New password',
