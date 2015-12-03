@@ -309,7 +309,12 @@ $adm_page = "minecraft";
 								'required' => true,
 								'min' => 2,
 								'max' => 64
-							)				
+							),
+							'queryip' => array(
+								'required' => true,
+								'min' => 2,
+								'max' => 64
+							)							
 						));
 						
 						if($validation->passed()){
@@ -319,7 +324,8 @@ $adm_page = "minecraft";
 									'name' => htmlspecialchars(Input::get('servername')),
 									'display' => Input::get('display'),
 									'pre' => Input::get('pre'),
-									'player_list' => Input::get('show_players')
+									'player_list' => Input::get('show_players'),
+									'query_ip' => htmlspecialchars(Input::get('queryip'))
 								));
 								
 								Session::flash('admin_servers', '<div class="alert alert-info">' . $admin_language['server_edited'] . '</div>');
@@ -351,10 +357,16 @@ $adm_page = "minecraft";
 					<h2><?php echo str_replace('{x}', htmlspecialchars($server[0]->name), $admin_language['editing_server']); ?></h2>
 					<form action="" method="post">
 						<div class="form-group">
+							<label for="servername"><?php echo $admin_language['server_name']; ?></label>
 							<input class="form-control" type="text" name="servername" id="servername" value="<?php echo htmlspecialchars($server[0]->name); ?>" autocomplete="off">
 						</div>
 						<div class="form-group">
+							<label for="serverip"><?php echo $admin_language['server_ip_with_port']; ?> <a class="btn btn-info btn-xs" data-toggle="popover" data-content="<?php echo $admin_language['server_ip_with_port_help']; ?>"><span class="glyphicon glyphicon-question-sign"></span></a></label>
 							<input class="form-control" type="text" name="serverip" id="serverip" value="<?php echo htmlspecialchars($server[0]->ip); ?>" placeholder="<?php echo $admin_language['server_ip_with_port']; ?>" autocomplete="off">
+						</div>
+						<div class="form-group">
+							<label for="queryip"><?php echo $admin_language['server_ip_numeric']; ?> <a class="btn btn-info btn-xs" data-toggle="popover" data-content="<?php echo $admin_language['server_ip_numeric_help']; ?>"><span class="glyphicon glyphicon-question-sign"></span></a></label>
+							<input class="form-control" type="text" name="queryip" id="queryip" value="<?php echo htmlspecialchars($server[0]->query_ip); ?>" placeholder="<?php echo $admin_language['server_ip_numeric']; ?>" autocomplete="off">
 						</div>
 						<input type="hidden" name="display" value="0" />
 						<label for="InputDisplay"><?php echo $admin_language['show_on_play_page']; ?></label>
@@ -387,7 +399,12 @@ $adm_page = "minecraft";
 									'required' => true,
 									'min' => 2,
 									'max' => 64
-								)				
+								),
+								'queryip' => array(
+									'required' => true,
+									'min' => 2,
+									'max' => 64
+								)
 							));
 							
 							if($validation->passed()){
@@ -397,7 +414,8 @@ $adm_page = "minecraft";
 										'name' => htmlspecialchars(Input::get('servername')),
 										'display' => Input::get('display'),
 										'pre' => Input::get('pre'),
-										'player_list' => Input::get('show_players')
+										'player_list' => Input::get('show_players'),
+										'query_ip' => htmlspecialchars(Input::get('queryip'))
 									));
 									Session::flash('admin_servers', '<div class="alert alert-info">' . $admin_language['server_created'] . '</div>');
 									echo '<script>window.location.replace("/admin/minecraft/?view=servers");</script>';
@@ -428,10 +446,16 @@ $adm_page = "minecraft";
 						<form action="" method="post">
 							<h2><?php echo $admin_language['new_server']; ?></h2>
 							<div class="form-group">
+								<label for="servername"><?php echo $admin_language['server_name']; ?></label>
 								<input class="form-control" type="text" name="servername" id="servername" value="<?php echo htmlspecialchars(Input::get('servername')); ?>" placeholder="<?php echo $admin_language['server_name']; ?>" autocomplete="off">
 							</div>
 							<div class="form-group">
+								<label for="serverip"><?php echo $admin_language['server_ip_with_port']; ?> <a class="btn btn-info btn-xs" data-toggle="popover" data-content="<?php echo $admin_language['server_ip_with_port_help']; ?>"><span class="glyphicon glyphicon-question-sign"></span></a></label>
 								<input class="form-control" type="text" name="serverip" id="serverip" value="<?php echo htmlspecialchars(Input::get('serverip')); ?>" placeholder="<?php echo $admin_language['server_ip_with_port']; ?>" autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label for="queryip"><?php echo $admin_language['server_ip_numeric']; ?> <a class="btn btn-info btn-xs" data-toggle="popover" data-content="<?php echo $admin_language['server_ip_numeric_help']; ?>"><span class="glyphicon glyphicon-question-sign"></span></a></label>
+								<input class="form-control" type="text" name="queryip" id="queryip" value="<?php echo htmlspecialchars($server[0]->query_ip); ?>" placeholder="<?php echo $admin_language['server_ip_numeric']; ?>" autocomplete="off">
 							</div>
 							<input type="hidden" name="display" value="0" />
 							<label for="InputDisplay"><?php echo $admin_language['show_on_play_page']; ?></label>
