@@ -14,11 +14,9 @@ if(!in_array("init.php", get_included_files())){
 	require('../../init.php');
 	require('../status/MinecraftServerPing.php');
 	require('../../includes/motd_format.php');
-	require('../status/SRVResolver.php');
 } else {
 	require('core/integration/status/MinecraftServerPing.php');
 	require('core/includes/motd_format.php');
-	require('core/integration/status/SRVResolver.php');
 }
 
 // Are we using the built-in query or an external API?
@@ -27,33 +25,43 @@ $query_to_use = $query_to_use[0]->value;
 
 $default_server = $queries->getWhere("mc_servers", array("is_default", "=", "1"));
 $server_name = htmlspecialchars($default_server[0]->name);
+$query_ip = htmlspecialchars($default_server[0]->query_ip);
 $default_server = htmlspecialchars($default_server[0]->ip);
 
 /*
- *  Resolve real IP address (to support SRV records)
+ *  Get port of Minecraft server
  */
-$parts = explode(':', $default_server);
+$parts = explode(':', $query_ip);
 if(count($parts) == 1){
 	$domain = $parts[0];
-	$query_ip = SRVResolver($domain);
-	$parts = explode(':', $query_ip);
 	$default_ip = $parts[0];
-	$default_port = $parts[1];
+	$default_port = 25565;
 } else if(count($parts) == 2){
 	$domain = $parts[0];
 	$default_ip = $parts[0];
 	$default_port = $parts[1];
 	$port = $parts[1];
 } else {
-	echo 'Invalid IP';
+	echo 'Invalid Query IP';
 	die();
 }
 
-// IP to display
-if(!isset($port)){
-	$address = $domain;
+// Get IP to display
+$parts = explode(':', $default_server);
+if(count($parts) == 1){
+	$display_domain = $parts[0];
+} else if(count($parts) == 2){
+	$display_domain = $parts[0];
+	$display_port = $parts[1];
 } else {
-	$address = $domain . ':' . $port;
+	echo 'Invalid Display IP';
+	die();
+}
+
+if((!isset($dsplay_port))||($display_port == "25565")){
+	$address = $display_domain;
+} else {
+	$address = $display_domain . ':' . $port;
 }
 
 if($query_to_use == "false"){
