@@ -8,6 +8,7 @@
 				{$REGISTRATION_ERROR}
 				<hr class="colorgraph">
 				{$FORM_CONTENT}
+				{$AUTHME_INTERGRATION}
 				<hr class="colorgraph">
 				{$FORM_SUBMIT}
 			</form>

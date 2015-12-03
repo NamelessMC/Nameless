@@ -36,6 +36,8 @@ if(Input::exists()){
 		// Validate
 		$validate = new Validate();
 		
+		//TODO deal and validate authme stuff. not familiar
+		
 		$to_validation = array( // Base field validation
 			'password' => array(
 				'required' => true,
