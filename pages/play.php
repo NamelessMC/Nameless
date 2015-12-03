@@ -44,38 +44,46 @@ $page = 'play'; // for navbar
 	// Get the main IP
 	$main_ip = $queries->getWhere('mc_servers', array('is_default', '=', 1));
 	$pre17 	 = $main_ip[0]->pre;
+	$query_ip = htmlspecialchars($main_ip[0]->query_ip);
 	$main_ip = htmlspecialchars($main_ip[0]->ip);
 	
 	/*
-	 *  Resolve real IP address (to support SRV records)
+	 *  Get port of Minecraft server
 	 */
-	require('core/integration/status/SRVResolver.php');
-	$parts = explode(':', $main_ip);
+	$parts = explode(':', $query_ip);
 	if(count($parts) == 1){
 		$domain = $parts[0];
-		$query_ip = SRVResolver($domain);
-		$parts = explode(':', $query_ip);
 		$default_ip = $parts[0];
-		$default_port = $parts[1];
+		$default_port = 25565;
 	} else if(count($parts) == 2){
 		$domain = $parts[0];
 		$default_ip = $parts[0];
 		$default_port = $parts[1];
 		$port = $parts[1];
 	} else {
-		echo 'Invalid IP';
+		echo 'Invalid Query IP';
 		die();
 	}
-	
-	// IP to display
-	if(!isset($port)){
-		$address = $domain;
+
+	// Get IP to display
+	$parts = explode(':', $main_ip);
+	if(count($parts) == 1){
+		$display_domain = $parts[0];
+	} else if(count($parts) == 2){
+		$display_domain = $parts[0];
+		$display_port = $parts[1];
 	} else {
-		$address = $domain . ':' . $port;
+		echo 'Invalid Display IP';
+		die();
 	}
-	
-	
-	$connect_with = str_replace('{x}', htmlspecialchars($domain), $general_language['connect_with']);
+
+	if((!isset($dsplay_port))||($display_port == "25565")){
+		$address = $display_domain;
+	} else {
+		$address = $display_domain . ':' . $port;
+	}
+
+	$connect_with = str_replace('{x}', htmlspecialchars($display_domain), $general_language['connect_with']);
 	$smarty->assign('CONNECT_WITH', $connect_with);
 	
 	// Query the main IP
@@ -141,18 +149,17 @@ $page = 'play'; // for navbar
 	
 	foreach($servers as $server){
 		$pre17 = $server->pre;
-		$parts = explode(':', $server->ip);
+		
+		$parts = explode(':', $server->query_ip);
 		if(count($parts) == 1){
 			$domain = $parts[0];
-			$query_ip = SRVResolver($domain);
-			$parts = explode(':', $query_ip);
 			$server_ip = $parts[0];
-			$server_port = $parts[1];
+			$server_port = 25565;
 		} else if(count($parts) == 2){
 			$server_ip = $parts[0];
 			$server_port = $parts[1];
 		} else {
-			echo 'Invalid IP';
+			echo 'Invalid Query IP';
 			die();
 		}
 		

@@ -129,6 +129,22 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 		$data = $queries->createTable("staff_apps_replies", " `id` int(11) NOT NULL AUTO_INCREMENT, `uid` int(11) NOT NULL, `time` int(11) NOT NULL, `content` mediumtext NOT NULL, `status` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 	}
 	
+	/*
+	 *  TEMPORARY - MINECRAFT SERVER TABLE QUERY
+	 */
+	$mc_servers_col_exists = $queries->getWhere('settings', array('name', '=', 'query_update'));
+	if(!count($mc_servers_col_exists)){
+		// Insert column for Minecraft query IP
+		$data = $queries->alterTable("mc_servers", "query_ip", "varchar(64) NOT NULL");
+		
+		// Input data into settings so this step doesn't happen again
+		$queries->create('settings', array(
+			'name' => 'query_update',
+			'value' => 'false'
+		));
+	}
+	$mc_servers_col_exists = null;
+	
 	// Get enabled modules
 	$modules = $queries->getWhere('core_modules', array('enabled', '=', 1));
 	foreach($modules as $module){

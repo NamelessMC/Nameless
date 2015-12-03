@@ -105,6 +105,10 @@ if($user->isLoggedIn()){
 }
 
 $adm_page = "index";
+
+// Get NamelessMC Version
+$version = $queries->getWhere('settings', array('name', '=', 'version'));
+$version = htmlspecialchars($version[0]->value);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -172,13 +176,16 @@ $adm_page = "index";
 		</div>
 		<div class="col-md-9">
 		  <div class="well">
-			<strong>NamelessMC version 1.0</strong><br />
+			<strong>NamelessMC version <?php echo $version; ?></strong><br />
 			<strong>Running PHP <?php echo phpversion(); ?></strong> <a href="/admin/phpinfo.php" target="_blank">(Full PHP information)</a><br />
 			<h3><?php echo $admin_language['statistics']; ?></h3>
 			<strong><?php echo $admin_language['registrations_per_day']; ?></strong>
 			<div class="graph-container">
 			  <div id="placeholder" class="graph-placeholder"></div>
 			</div>
+			<h3>Banner</h3>
+			<img src="/core/integration/banner/banner.png"><br />
+			URL: <code>http://<?php echo $_SERVER['SERVER_NAME']; ?>/core/integration/banner/banner.png</code>
 		  </div>
 		</div>
 	  </div>
