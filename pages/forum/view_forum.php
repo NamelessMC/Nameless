@@ -104,6 +104,80 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 	// Get forum layout (latest discussions or table view)
 	$forum_layout = $queries->getWhere("settings", array("name", "=", "forum_layout"));
 	$forum_layout = $forum_layout[0]->value;
+	
+	// Breadcrumbs and search bar - same for latest discussions view + table view
+	$parent_category = $queries->getWhere('forums', array('id', '=', $forum_query->parent));
+	$breadcrumbs = array(0 => array(
+		'id' => $forum_query->id,
+		'forum_title' => htmlspecialchars($forum_query->forum_title),
+		'active' => 1
+	));
+	if(!empty($parent_category) && $parent_category[0]->parent == 0){
+		// Category
+		$breadcrumbs[] = array(
+			'id' => $parent_category[0]->id,
+			'forum_title' => $parent_category[0]->forum_title
+		);
+	} else if(!empty($parent_category)){
+		// Parent forum, get its category
+		$breadcrumbs[] = array(
+			'id' => $parent_category[0]->id,
+			'forum_title' => $parent_category[0]->forum_title
+		);
+		$parent = false;
+		while($parent == false){
+			$parent_category = $queries->getWhere('forums', array('id', '=', $parent_category[0]->parent));
+			$breadcrumbs[] = array(
+				'id' => $parent_category[0]->id,
+				'forum_title' => $parent_category[0]->forum_title
+			);
+			if($parent_category[0]->parent == 0){
+				$parent = true;
+			}
+		}
+	}
+	
+	$breadcrumbs_string = '<li><a href="/forum">' . $forum_language['home'] . '</a></li>';
+	foreach(array_reverse($breadcrumbs) as $breadcrumb){
+		if(isset($breadcrumb['active'])){
+			$breadcrumbs_string .= '<li class="active">' . htmlspecialchars($breadcrumb['forum_title']) . '</li>';
+		} else {
+			$breadcrumbs_string .= '<li><a href="/forum/view_forum/?fid=' . $breadcrumb['id'] . '">' . htmlspecialchars($breadcrumb['forum_title']) . '</a></li>';
+		}
+	}
+	
+	$smarty->assign('BREADCRUMBS', $breadcrumbs_string);
+	
+	// Search bar
+	$search = '
+	<form class="form-horizontal" role="form" method="post" action="/forum/search/">
+	  <div class="input-group">
+	    <input type="text" class="form-control input-sm" name="forum_search" placeholder="' . $general_language['search'] . '">
+		<input type="hidden" name="token" value="' . Token::generate() . '">
+	    <span class="input-group-btn">
+		  <button type="submit" class="btn btn-default btn-sm">
+            <i class="fa fa-search"></i>
+          </button>
+	    </span>
+	  </div>
+	</form>
+	';
+	$smarty->assign('SEARCH_FORM', $search);
+	
+    // List online users
+    $online_users = $queries->getWhere('users', array('last_online', '>', strtotime("-10 minutes")));
+    if(count($online_users)){
+	    $online_users_string = '';
+	    foreach($online_users as $online_user){
+		    $online_users_string .= '<a href="/profile/' . htmlspecialchars($online_user->username) . '">' . htmlspecialchars($online_user->username) . '</a>, ';
+	    }
+	    $smarty->assign('ONLINE_USERS_LIST', rtrim($online_users_string, ', '));
+    } else {
+	    // Nobody online
+	    $smarty->assign('ONLINE_USERS_LIST', $forum_language['no_users_online']);
+    }
+	$smarty->assign('ONLINE_USERS', $forum_language['online_users']);
+	
 	if($forum_layout == '1'){
 		if(!count($stickies) && !count($topics)){
 			// Any subforums?
@@ -488,6 +562,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			$smarty->assign('postsArray', $latest_posts);
 			
 			// Statistics
+			$smarty->assign('STATISTICS', $forum_language['statistics']);
 			$users_query = $queries->orderAll('users', 'joined', 'DESC');
 			$users_registered = '<strong>' . $forum_language['users_registered'] . '</strong> ' . count($users_query);
 			$latest_member = '<strong>' . $forum_language['latest_member'] . '</strong> <a href="/profile/' . htmlspecialchars($users_query[0]->mcname) . '">' . htmlspecialchars($users_query[0]->username) . '</a>';

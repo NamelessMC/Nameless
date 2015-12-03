@@ -173,6 +173,12 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 				'lastip' => $ip
 			));
 		}
+		
+		// Update user last online
+		$queries->update('users', $user->data()->id, array(
+			'last_online' => date('U')
+		));
+		
 		// Perform moderator actions
 		if($user->canViewMCP($user->data()->id)){
 			// Are there any open reports for moderators?

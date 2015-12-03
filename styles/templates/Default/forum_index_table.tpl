@@ -2,6 +2,7 @@
 <div class="container">
   <div class="row">
 	<div class="col-md-9">
+	  {$BREADCRUMBS}
 	  <table class="table table-bordered" style="table-layout:fixed;">
 		<colgroup>
 		  <col style="width:50%">
@@ -54,10 +55,15 @@
 	    <div class="panel-heading">{$STATISTICS}</div>
 		<div class="panel-body">
 		  {$USERS_REGISTERED}<br />{$LATEST_MEMBER}
+		  <hr>
+		  <strong>{$ONLINE_USERS}</strong><br />
+		  {$ONLINE_USERS_LIST}
 		</div>
 	  </div>
 	</div>
 	<div class="col-md-3">
+	  {$SEARCH_FORM}
+	  <br />
 	  <div class="panel panel-default">
 	    <div class="panel-heading">
 		  {$LATEST_POSTS}

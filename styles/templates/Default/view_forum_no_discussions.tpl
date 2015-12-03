@@ -1,7 +1,10 @@
-<br /><br />
+<br />
 <div class="container">
   <div class="row">
     <div class="col-md-9">
+	  <ol class="breadcrumb">
+	    {$BREADCRUMBS}
+	  </ol>
 	  <h3 style="display: inline;">{$FORUM_TITLE}</h3><span class="pull-right">{$NEW_TOPIC_BUTTON}</span><br /><br />
 	  {if !empty($SUBFORUMS)}
 	  <div class="well well-sm">
@@ -11,6 +14,8 @@
 	  {$NO_TOPICS}
 	</div>
 	<div class="col-md-3">
+	  {$SEARCH_FORM}
+	  <br />
 	  <div class="well">
 	    <h4>{$FORUMS}</h4>
 		<ul class="nav nav-list">
@@ -25,6 +30,10 @@
 			{/if}
 		  {/foreach}
 		</ul>
+	  </div>
+	  <div class="well">
+	  <h4>{$ONLINE_USERS}</h4>
+	  {$ONLINE_USERS_LIST}
 	  </div>
 	  <div class="well">
 	    <h4>{$STATISTICS}</h4>

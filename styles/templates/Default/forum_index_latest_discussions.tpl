@@ -1,7 +1,8 @@
-<br /><br />
+<br />
 <div class="container">
   <div class="row">
     <div class="col-md-9">
+	  {$BREADCRUMBS}
 	  <table class="table table-striped">
 		<tr>
 		  <th>{$DISCUSSION}</th>
@@ -35,6 +36,8 @@
 	  </table>
 	</div>
 	<div class="col-md-3">
+	  {$SEARCH_FORM}
+	  <br />
 	  <div class="well">
 	    <h4>{$FORUMS}</h4>
 		<ul class="nav nav-list">
@@ -49,6 +52,10 @@
 			{/if}
 		  {/foreach}
 		</ul>
+	  </div>
+	  <div class="well">
+	  <h4>{$ONLINE_USERS}</h4>
+	  {$ONLINE_USERS_LIST}
 	  </div>
 	  <div class="well">
 	    <h4>{$STATISTICS}</h4>
