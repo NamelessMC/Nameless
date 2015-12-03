@@ -366,17 +366,31 @@ class User {
 	
 	// Get a user's avatar, based on user ID
 	public function getAvatar($id, $path = null) {
-		$exts = array('gif','png','jpg');
-		foreach($exts as $ext) {
-			if(file_exists(ROOT_PATH . "/avatars/" . $id . "." . $ext)){
-				$avatar_path = "/avatars/" . $id . "." . $ext;
-				break;
-			}
-		}
-		if(isset($avatar_path)){
-			return $avatar_path;
-		} else {
+		// Do they have an avatar?
+		$data = $this->_db->get('users', array('id', '=', $id))->results();
+		if(empty($data)){
+			// User doesn't exist
 			return false;
+		} else {
+			// Gravatar?
+			if($data[0]->gravatar == 1){
+				// Gravatar
+				return "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $data[0]->email ) ) ) . "?d=" . urlencode( 'https://cravatar.eu/avatar/Steve/200.png' ) . "&s=200";
+			} else {
+				// Custom avatar
+				$exts = array('gif','png','jpg');
+				foreach($exts as $ext) {
+					if(file_exists(ROOT_PATH . "/avatars/" . $id . "." . $ext)){
+						$avatar_path = "/avatars/" . $id . "." . $ext;
+						break;
+					}
+				}
+				if(isset($avatar_path)){
+					return $avatar_path;
+				} else {
+					return false;
+				}
+			}
 		}
 	}
 	

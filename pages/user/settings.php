@@ -20,6 +20,10 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 $custom_usernames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
 $custom_usernames = $custom_usernames[0]->value;
 
+// Is avatar uploading enabled?
+$avatar_enabled = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
+$avatar_enabled = $avatar_enabled[0]->value;
+
 if(Input::exists()){
 	if(Token::check(Input::get('token'))) {
 		$validate = new Validate();
@@ -48,11 +52,26 @@ if(Input::exists()){
 					$username = $user->data()->mcname;
 				}
 				
+				if($avatar_enabled == '1'){
+					if(Input::get('gravatar') == 'on'){
+						$gravatar = 1;
+						$has_avatar = 1;
+					} else {
+						$gravatar = 0;
+						$has_avatar = 0;
+					}
+				} else {
+					$gravatar = 0;
+					$has_avatar = 0;
+				}
+				
 				// update database value
 				try {
 					$queries->update('users', $user->data()->id, array(
 						'username' => htmlspecialchars($username),
-						'signature' => htmlspecialchars(Input::get('signature'))
+						'signature' => htmlspecialchars(Input::get('signature')),
+						'gravatar' => $gravatar,
+						'has_avatar' => $has_avatar
 					));
 					Redirect::to('/user/settings');
 					die();
@@ -148,6 +167,7 @@ $token = Token::generate();
 	// Generate header and navbar content
 	require('core/includes/template/generate.php');
 	?>
+	<link href="/core/assets/plugins/switchery/switchery.min.css" rel="stylesheet">	
 	
 	<!-- Custom style -->
 	<style>
@@ -211,6 +231,17 @@ $token = Token::generate();
 					<?php echo $signature; ?>
 				</textarea>
 			  </div>
+			  <?php
+			  // Gravatar
+			  if($avatar_enabled === '1'){
+			  ?>
+			  <div class="form-group">
+				<label for="gravatar"><?php echo $user_language['use_gravatar']; ?></label>
+				<input id="gravatar" name="gravatar" type="checkbox" class="js-switch" <?php if($user->data()->gravatar == 1){ ?>checked <?php } ?>/>
+			  </div>
+			  <?php
+			  }
+			  ?>
 			  <input type="hidden" name="token" value="<?php echo $token; ?>" />
 			  <input type="hidden" name="action" value="settings" />
 			  <input class="btn btn-primary" type="submit" name="submit" value="<?php echo $general_language['submit']; ?>" />
@@ -236,10 +267,6 @@ $token = Token::generate();
 			</form>
 			<br />
 			<?php
-			// Is avatar uploading enabled?
-			$avatar_enabled = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
-			$avatar_enabled = $avatar_enabled[0]->value;
-
 			if($avatar_enabled === '1'){
 			?>
 			<form action="/user/avatar_upload/" method="post" enctype="multipart/form-data">
@@ -263,6 +290,14 @@ $token = Token::generate();
 	// Scripts 
 	require('core/includes/template/scripts.php');
 	?>
+	<script src="/core/assets/plugins/switchery/switchery.min.js"></script>
+	<script>
+	var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+	elems.forEach(function(html) {
+	  var switchery = new Switchery(html, {size: 'small'});
+	});
+	</script>
 	<script src="/core/assets/js/ckeditor.js"></script>
 	<script type="text/javascript">
 		CKEDITOR.replace( 'signature', {
