@@ -140,6 +140,9 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 		// Insert column for Gravatar in users table
 		$data = $queries->alterTable("users", "gravatar", "tinyint(1) NOT NULL DEFAULT '0'");
 		
+		// Also for last online column
+		$data = $queries->alterTable("users", "last_online", "int(11) DEFAULT NULL");
+		
 		// Input data into settings so this step doesn't happen again
 		$queries->create('settings', array(
 			'name' => 'query_update',
