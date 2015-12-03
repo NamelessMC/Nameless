@@ -50,7 +50,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 	    $config->set('URI.DisableExternalResources', false);
 	    $config->set('HTML.Allowed', 'u,p,b,i,a,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
 	    $config->set('CSS.AllowedProperties', array('text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
-		$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style');
+		$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style, frameborder');
 		$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 	    $config->set('HTML.SafeIframe', true);
 	    $config->set('URI.SafeIframeRegexp', '%%');
