@@ -588,6 +588,11 @@ if(isset($_GET["step"])){
 								'value' => ''
 							));
 							
+							$queries->create('settings', array(
+								'name' => 'query_update',
+								'value' => 'false'
+							));
+							
 							// Close connections
 							$mysqli->close();
 							
@@ -947,6 +952,10 @@ if(isset($_GET["step"])){
 					),
 					30 => array(
 						'name' => 'version_update',
+						'value' => 'false'
+					),
+					31 => array(
+						'name' => 'query_update',
 						'value' => 'false'
 					)
 				);
