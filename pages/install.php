@@ -1290,29 +1290,41 @@ if(isset($_GET["step"])){
 				
 				try {
 					// Create groups
-					$queries->create("groups", array(
-						'id' => 1,
-						'name' => 'Standard',
-						'group_html' => '<span class="label label-success">Member</span>',
-						'group_html_lg' => '<span class="label label-success">Member</span>'
-					));
-					$queries->create("groups", array(
-						'id' => 2,
-						'name' => 'Admin',
-						'group_html' => '<span class="label label-danger">Admin</span>',
-						'group_html_lg' => '<span class="label label-danger">Admin</span>',
-						'mod_cp' => 1,
-						'admin_cp' => 1,
-						'staff' => 1
-					));
-					$queries->create("groups", array(
-						'id' => 3,
-						'name' => 'Moderator',
-						'group_html' => '<span class="label label-info">Moderator</span>',
-						'group_html_lg' => '<span class="label label-info">Moderator</span>',
-						'mod_cp' => 1,
-						'staff' => 1
-					));
+					// Only create if they don't already exist for some reason
+					$group_exists = $queries->getWhere("groups", array("id", "=", 1));
+					if(count($group_exists)){
+						$queries->create("groups", array(
+							'id' => 1,
+							'name' => 'Standard',
+							'group_html' => '<span class="label label-success">Member</span>',
+							'group_html_lg' => '<span class="label label-success">Member</span>'
+						));
+					}
+					
+					$group_exists = $queries->getWhere("groups", array("id", "=", 2));
+					if(count($group_exists)){
+						$queries->create("groups", array(
+							'id' => 2,
+							'name' => 'Admin',
+							'group_html' => '<span class="label label-danger">Admin</span>',
+							'group_html_lg' => '<span class="label label-danger">Admin</span>',
+							'mod_cp' => 1,
+							'admin_cp' => 1,
+							'staff' => 1
+						));
+					}
+					
+					$group_exists = $queries->getWhere("groups", array("id", "=", 3));
+					if(count($group_exists)){
+						$queries->create("groups", array(
+							'id' => 3,
+							'name' => 'Moderator',
+							'group_html' => '<span class="label label-info">Moderator</span>',
+							'group_html_lg' => '<span class="label label-info">Moderator</span>',
+							'mod_cp' => 1,
+							'staff' => 1
+						));
+					}
 				
 					// Create admin account
 					$user->create(array(
