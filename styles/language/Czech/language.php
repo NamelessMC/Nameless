@@ -317,6 +317,7 @@ $user_language = array(
 	// Profile settings
 	'display_name' => 'Jméno zobrazováno jako',
 	'upload_an_avatar' => 'Uploadni avatara (.jpg, .png or .gif only):',
+	'use_gravatar' => 'Use Gravatar?',
 	'change_password' => 'Change password',
 	'current_password' => 'Current password',
 	'new_password' => 'New password',
