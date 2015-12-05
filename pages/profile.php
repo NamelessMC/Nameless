@@ -22,12 +22,21 @@ if(!count($profile_user)){ // No..
 		if(!count($uuid)){
 			if($uuid_linking == '1'){ // is UUID linking enabled?
 				$profile_utils = ProfileUtils::getProfile($profile);
-				if(empty($profile_utils)){ // Not a Minecraft user, end the page
-					Redirect::to('/404.php');
+				
+				if($profile_utils == null){ // Not a Minecraft user, end the page
+					Redirect::to('/404');
 					die();
 				}
-				// A valid Minecraft user..
+				
+				// Get results as array
 				$result = $profile_utils->getProfileAsArray(); 
+				
+				if(empty($result['uuid'])){ // Not a Minecraft user, end the page
+					Redirect::to('/404');
+					die();
+					
+				}
+				
 				$uuid = $result["uuid"];
 				$mcname = htmlspecialchars($profile);
 				// Cache the UUID so we don't have to keep looking it up via Mojang's servers
