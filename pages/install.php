@@ -1301,7 +1301,7 @@ if(isset($_GET["step"])){
 					// Create groups
 					// Only create if they don't already exist for some reason
 					$group_exists = $queries->getWhere("groups", array("id", "=", 1));
-					if(count($group_exists)){
+					if(!count($group_exists)){
 						$queries->create("groups", array(
 							'id' => 1,
 							'name' => 'Standard',
@@ -1311,7 +1311,7 @@ if(isset($_GET["step"])){
 					}
 					
 					$group_exists = $queries->getWhere("groups", array("id", "=", 2));
-					if(count($group_exists)){
+					if(!count($group_exists)){
 						$queries->create("groups", array(
 							'id' => 2,
 							'name' => 'Admin',
@@ -1324,7 +1324,7 @@ if(isset($_GET["step"])){
 					}
 					
 					$group_exists = $queries->getWhere("groups", array("id", "=", 3));
-					if(count($group_exists)){
+					if(!count($group_exists)){
 						$queries->create("groups", array(
 							'id' => 3,
 							'name' => 'Moderator',
