@@ -26,7 +26,7 @@ if($user->isLoggedIn()){ // User must be logged in to search
 			if($validation->passed()){
 				$search = str_replace(' ', '+', htmlspecialchars(Input::get('forum_search')));
 				$search = preg_replace("/[^a-zA-Z0-9 +]+/", "", $search); // alphanumeric only
-				echo '<script>window.location.replace(\'/forum/search/?s=' . $search . '&p=1\');</script>';
+				echo '<script type="text/javascript">window.location.replace(\'/forum/search/?s=' . $search . '&p=1\');</script>';
 				die();
 				
 			} else {
@@ -57,7 +57,7 @@ if($user->isLoggedIn()){ // User must be logged in to search
 					$input = true;
 				}
 			} else {
-				echo '<script>window.location.replace(\'/forum/search/?p=1&s=' . $search . '\');</script>';
+				echo '<script type="text/javascript">window.location.replace(\'/forum/search/?p=1&s=' . $search . '\');</script>';
 				die();
 			}
 		}
