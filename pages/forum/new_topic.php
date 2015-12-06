@@ -35,7 +35,7 @@ if(!$list){
 // Can the user post a topic in this forum?
 $can_reply = $forum->canPostTopic($fid, $user->data()->group_id);
 if(!$can_reply){
-	Redirect::to('/forum/view_topic/?tid=' . $tid);
+	Redirect::to('/forum/view_forum/?fid=' . $fid);
 	die();
 }
 
@@ -77,7 +77,7 @@ if(Input::exists()) {
 				
 				// Get last post ID
 				$last_post_id = $queries->getLastId();
-				$content = $mentionsParser->parse(Input::get('content'), $tid, $last_post_id, $user_language);
+				$content = $mentionsParser->parse(Input::get('content'), $topic_id, $last_post_id, $user_language);
 				
 				$queries->update("posts", $last_post_id, array(
 					'post_content' => $content
