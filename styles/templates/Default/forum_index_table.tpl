@@ -41,7 +41,7 @@
 					  </div>
 					</div>
 					<div class="col-md-9">
-					  <a href="/forum/view_topic/?tid={$forum.last_topic_id}">{$forum.last_topic_name}</a><br />
+					  {$forum.label} <a href="/forum/view_topic/?tid={$forum.last_topic_id}">{$forum.last_topic_name}</a><br />
 					  {$BY} <a href="/profile/{$forum.last_reply_mcname}">{$forum.last_reply_username}</a><br />{$forum.last_topic_time}
 					</div>
 				  </div>

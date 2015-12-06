@@ -459,6 +459,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			$smarty->display('styles/templates/' . $template . '/view_forum_latest_discussions.tpl');
 		}
 	} else {
+		// Table view
 		// Any subforums?
 		$subforums = $queries->getWhere('forums', array('parent', '=', $forum_query->id));
 		if(count($subforums)){
@@ -483,8 +484,18 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 						$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($subforum->last_user_posted, "../") . '" />';
 					}
 					
-					// Get last topic name
+					// Get last topic name and label
 					$last_topic = $queries->getWhere('topics', array('id', '=', $subforum->last_topic_posted));
+
+					// Is there a label?
+					if($last_topic[0]->label != 0){ // yes
+						// Get label
+						$label = $queries->getWhere('forums_topic_labels', array('id', '=', $last_topic[0]->label));
+						$label = '<span class="label label-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
+					} else { // no
+						$label = '';
+					}
+					
 					$last_topic = $last_topic[0]->topic_title;
 					
 					$subforums_exist = 1;
@@ -499,7 +510,8 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 						'last_reply_mcname' => htmlspecialchars($user->idToMCName($subforum->last_user_posted)),
 						'last_topic_id' => $subforum->last_topic_posted,
 						'last_topic_name' => htmlspecialchars($last_topic),
-						'last_topic_time' => date('jS M Y, g:iA', strtotime($subforum->last_post_date))
+						'last_topic_time' => date('jS M Y, g:iA', strtotime($subforum->last_post_date)),
+						'label' => $label
 					);
 				}
 			}
@@ -604,6 +616,15 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 					}
 				}
 				
+				// Is there a label?
+				if($item->label != 0){ // yes
+					// Get label
+					$label = $queries->getWhere('forums_topic_labels', array('id', '=', $item->label));
+					$label = '<span class="label label-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
+				} else { // no
+					$label = '';
+				}
+				
 				$sticky_template_array[] = array(
 					'topic_id' => $item->id,
 					'topic_title' => htmlspecialchars($item->topic_title),
@@ -618,7 +639,8 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 					'last_post_created' => date('d M Y, H:i', $item->topic_reply_date),
 					'views' => $item->topic_views,
 					'posts' => $replies,
-					'locked' => $item->locked
+					'locked' => $item->locked,
+					'label' => $label
 				);
 			}
 			
@@ -661,6 +683,15 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 					}
 				}
 				
+				// Is there a label?
+				if($topics[$n]->label != 0){ // yes
+					// Get label
+					$label = $queries->getWhere('forums_topic_labels', array('id', '=', $topics[$n]->label));
+					$label = '<span class="label label-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
+				} else { // no
+					$label = '';
+				}
+				
 				$template_array[] = array(
 					'topic_id' => $topics[$n]->id,
 					'topic_title' => htmlspecialchars($topics[$n]->topic_title),
@@ -675,7 +706,8 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 					'last_post_created' => date('d M Y, H:i', $topics[$n]->topic_reply_date),
 					'views' => $topics[$n]->topic_views,
 					'posts' => $replies,
-					'locked' => $topics[$n]->locked
+					'locked' => $topics[$n]->locked,
+					'label' => $label
 				);
 				
 				$n++;

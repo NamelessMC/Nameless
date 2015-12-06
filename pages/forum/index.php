@@ -237,6 +237,16 @@ $timeago = new Timeago();
 				$last_topic = '';
 				if($item['last_topic_posted'] !== null){
 					$last_topic = $queries->getWhere('topics', array('id', '=', $item['last_topic_posted']));
+					
+					// Is there a label?
+					if($last_topic[0]->label != 0){ // yes
+						// Get label
+						$label = $queries->getWhere('forums_topic_labels', array('id', '=', $last_topic[0]->label));
+						$label = '<span class="label label-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
+					} else { // no
+						$label = '';
+					}
+					
 					$last_topic = $last_topic[0]->topic_title;
 				}
 				
@@ -263,7 +273,8 @@ $timeago = new Timeago();
 					'last_topic_id' => $item['last_topic_posted'],
 					'last_topic_name' => htmlspecialchars($last_topic),
 					'last_topic_time' => date('jS M Y, g:iA', strtotime($item['last_post_date'])),
-					'subforums' => $subforum_string
+					'subforums' => $subforum_string,
+					'label' => $label
 				);
 			}
 		}

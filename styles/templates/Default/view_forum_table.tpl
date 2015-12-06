@@ -46,7 +46,7 @@
 					  </div>
 					</div>
 					<div class="col-md-9">
-					  <a href="/forum/view_topic/?tid={$subforum.last_topic_id}">{$subforum.last_topic_name}</a><br />
+					  {$subforum.label}  <a href="/forum/view_topic/?tid={$subforum.last_topic_id}">{$subforum.last_topic_name}</a><br />
 					  {$BY} <a href="/profile/{$subforum.last_reply_mcname}">{$subforum.last_reply_username}</a><br />{$subforum.last_topic_time}
 					</div>
 				  </div>
@@ -74,7 +74,7 @@
 	      {foreach from=$STICKIES item=topic}
 			<tr>
 			  <td>
-			    <i class="fa fa-thumb-tack"></i> {if $topic.locked == 1}<i class="fa fa-lock"></i> {/if}<a href="/forum/view_topic/?tid={$topic.topic_id}">{$topic.topic_title}</a>
+			    <i class="fa fa-thumb-tack"></i> {if $topic.locked == 1}<i class="fa fa-lock"></i> {/if}{$topic.label} <a href="/forum/view_topic/?tid={$topic.topic_id}">{$topic.topic_title}</a>
 				<br />
 				{$BY} <a href="/profile/{$topic.topic_poster_mcname}">{$topic.topic_poster}</a> | <span rel="tooltip" data-trigger="hover" data-original-title="{$topic.topic_created}">{$topic.topic_created_rough} {$AGO}</span>
 			  </td>
@@ -100,7 +100,7 @@
 	      {foreach from=$TOPICS item=topic}
 			<tr>
 			  <td>
-			    {if $topic.locked == 1}<i class="fa fa-lock"></i> {/if}<a href="/forum/view_topic/?tid={$topic.topic_id}">{$topic.topic_title}</a>
+			    {if $topic.locked == 1}<i class="fa fa-lock"></i> {/if}{$topic.label} <a href="/forum/view_topic/?tid={$topic.topic_id}">{$topic.topic_title}</a>
 				<br />
 				{$BY} <a href="/profile/{$topic.topic_poster_mcname}">{$topic.topic_poster}</a> | <span rel="tooltip" data-trigger="hover" data-original-title="{$topic.topic_created}">{$topic.topic_created_rough} {$AGO}</span>
 			  </td>
