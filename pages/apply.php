@@ -86,6 +86,9 @@ if(!isset($completed)){
 	}
 	$already_submitted = null;
 }
+
+$page = $navbar_language['staff_apps'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -7,7 +7,7 @@
  */
 
 // Donation addon page
-$page = 'Vote'; // for navbar
+$page = $vote_language['vote']; // for navbar
 
 // Ensure the addon is enabled
 if(!in_array($page, $enabled_addon_pages)){
