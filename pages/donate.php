@@ -7,7 +7,7 @@
  */
 
 // Donation addon page
-$page = 'Donate'; // for navbar
+$page = $donate_language['donate']; // for navbar
 
 // Ensure the addon is enabled
 if(!in_array($page, $enabled_addon_pages)){
