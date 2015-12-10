@@ -273,6 +273,7 @@ $token = Token::generate(); // generate token
 					  <option value="1" selected><?php echo $admin_language['page_link_navbar']; ?></option>
 					  <!--<option value="2"><?php //echo $admin_language['page_link_more']; ?></option>-->
 					  <option value="3"><?php echo $admin_language['page_link_footer']; ?></option>
+					  <option value="4"><?php echo $admin_language['page_link_none']; ?></option>
 					</select>
 				  </div>
 				  <strong><?php echo $admin_language['page_content']; ?></strong><br />
