@@ -91,6 +91,10 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 	// Template
 	$c->setCache('templatecache');
 	$template = $c->retrieve('template');
+	if(!is_dir('styles/templates/' . $template)){
+		$template = 'Default';
+	}
+	
 	
 	// Display page load time?
 	$c->setCache('page_load_cache');
