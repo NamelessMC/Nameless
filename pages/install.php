@@ -375,104 +375,112 @@ if(isset($_GET["step"])){
 							$query = $mysqli->query("INSERT nl1_uuid_cache SELECT * FROM {$prefix}uuid_cache");
 							
 							// Core Modules
-							$queries->create('core_modules', array(
-								'name' => 'Google_Analytics',
-								'enabled' => 0
-							));
-							$queries->create('core_modules', array(
-								'name' => 'Social_Media',
-								'enabled' => 1
-							));
-							$queries->create('core_modules', array(
-								'name' => 'Registration',
-								'enabled' => 1
-							));
-							$queries->create('core_modules', array(
-								'name' => 'Voice_Server_Module',
-								'enabled' => 0
-							));
-							$queries->create('core_modules', array(
-								'name' => 'Staff_Applications',
-								'enabled' => 0
-							));
+							$modules_initialised = $queries->getWhere('core_modules', array('id', '<>', 0));
+							
+							if(!count($modules_initialised)){
+								$queries->create('core_modules', array(
+									'name' => 'Google_Analytics',
+									'enabled' => 0
+								));
+								$queries->create('core_modules', array(
+									'name' => 'Social_Media',
+									'enabled' => 1
+								));
+								$queries->create('core_modules', array(
+									'name' => 'Registration',
+									'enabled' => 1
+								));
+								$queries->create('core_modules', array(
+									'name' => 'Voice_Server_Module',
+									'enabled' => 0
+								));
+								$queries->create('core_modules', array(
+									'name' => 'Staff_Applications',
+									'enabled' => 0
+								));
+							}
 							
 							// Themes
-							$themes = array(
-								1 => array(
-									'name' => 'Bootstrap',
-									'enabled' => 1
-								),
-								2 => array(
-									'name' => 'Cerulean',
-									'enabled' => 0
-								),
-								3 => array(
-									'name' => 'Cosmo',
-									'enabled' => 0
-								),
-								4 => array(
-									'name' => 'Cyborg',
-									'enabled' => 0
-								),
-								5 => array(
-									'name' => 'Darkly',
-									'enabled' => 0
-								),
-								6 => array(
-									'name' => 'Flatly',
-									'enabled' => 0
-								),
-								7 => array(
-									'name' => 'Journal',
-									'enabled' => 0
-								),
-								8 => array(
-									'name' => 'Lumen',
-									'enabled' => 0
-								),
-								9 => array(
-									'name' => 'Paper',
-									'enabled' => 0
-								),
-								10 => array(
-									'name' => 'Readable',
-									'enabled' => 0
-								),
-								11 => array(
-									'name' => 'Sandstone',
-									'enabled' => 0
-								),
-								12 => array(
-									'name' => 'Simplex',
-									'enabled' => 0
-								),
-								13 => array(
-									'name' => 'Slate',
-									'enabled' => 0
-								),
-								14 => array(
-									'name' => 'Spacelab',
-									'enabled' => 0
-								),
-								15 => array(
-									'name' => 'Superhero',
-									'enabled' => 0
-								),
-								16 => array(
-									'name' => 'United',
-									'enabled' => 0
-								),
-								17 => array(
-									'name' => 'Yeti',
-									'enabled' => 0
-								)
-							);
+							$themes_initialised = $queries->getWhere('themes', array('id', '<>', 0));
 							
-							foreach($themes as $theme){
-								$queries->create('themes', array(
-									'enabled' => $theme['enabled'],
-									'name' => $theme['name']
-								));
+							if(!count($themes_initialised)){
+								$themes = array(
+									1 => array(
+										'name' => 'Bootstrap',
+										'enabled' => 1
+									),
+									2 => array(
+										'name' => 'Cerulean',
+										'enabled' => 0
+									),
+									3 => array(
+										'name' => 'Cosmo',
+										'enabled' => 0
+									),
+									4 => array(
+										'name' => 'Cyborg',
+										'enabled' => 0
+									),
+									5 => array(
+										'name' => 'Darkly',
+										'enabled' => 0
+									),
+									6 => array(
+										'name' => 'Flatly',
+										'enabled' => 0
+									),
+									7 => array(
+										'name' => 'Journal',
+										'enabled' => 0
+									),
+									8 => array(
+										'name' => 'Lumen',
+										'enabled' => 0
+									),
+									9 => array(
+										'name' => 'Paper',
+										'enabled' => 0
+									),
+									10 => array(
+										'name' => 'Readable',
+										'enabled' => 0
+									),
+									11 => array(
+										'name' => 'Sandstone',
+										'enabled' => 0
+									),
+									12 => array(
+										'name' => 'Simplex',
+										'enabled' => 0
+									),
+									13 => array(
+										'name' => 'Slate',
+										'enabled' => 0
+									),
+									14 => array(
+										'name' => 'Spacelab',
+										'enabled' => 0
+									),
+									15 => array(
+										'name' => 'Superhero',
+										'enabled' => 0
+									),
+									16 => array(
+										'name' => 'United',
+										'enabled' => 0
+									),
+									17 => array(
+										'name' => 'Yeti',
+										'enabled' => 0
+									)
+								);
+								
+								foreach($themes as $theme){
+									$queries->create('themes', array(
+										'enabled' => $theme['enabled'],
+										'name' => $theme['name']
+									));
+								}
 							}
 							
 							// Templates
@@ -1005,104 +1013,112 @@ if(isset($_GET["step"])){
 					));
 					
 					// Core Modules
-					$queries->create('core_modules', array(
-						'name' => 'Google_Analytics',
-						'enabled' => 0
-					));
-					$queries->create('core_modules', array(
-						'name' => 'Social_Media',
-						'enabled' => 1
-					));
-					$queries->create('core_modules', array(
-						'name' => 'Registration',
-						'enabled' => 1
-					));
-					$queries->create('core_modules', array(
-						'name' => 'Voice_Server_Module',
-						'enabled' => 0
-					));
-					$queries->create('core_modules', array(
-						'name' => 'Staff_Applications',
-						'enabled' => 0
-					));
+					$modules_initialised = $queries->getWhere('core_modules', array('id', '<>', 0));
+					
+					if(!count($modules_initialised)){
+						$queries->create('core_modules', array(
+							'name' => 'Google_Analytics',
+							'enabled' => 0
+						));
+						$queries->create('core_modules', array(
+							'name' => 'Social_Media',
+							'enabled' => 1
+						));
+						$queries->create('core_modules', array(
+							'name' => 'Registration',
+							'enabled' => 1
+						));
+						$queries->create('core_modules', array(
+							'name' => 'Voice_Server_Module',
+							'enabled' => 0
+						));
+						$queries->create('core_modules', array(
+							'name' => 'Staff_Applications',
+							'enabled' => 0
+						));
+					}
 					
 					// Themes
-					$themes = array(
-						1 => array(
-							'name' => 'Bootstrap',
-							'enabled' => 1
-						),
-						2 => array(
-							'name' => 'Cerulean',
-							'enabled' => 0
-						),
-						3 => array(
-							'name' => 'Cosmo',
-							'enabled' => 0
-						),
-						4 => array(
-							'name' => 'Cyborg',
-							'enabled' => 0
-						),
-						5 => array(
-							'name' => 'Darkly',
-							'enabled' => 0
-						),
-						6 => array(
-							'name' => 'Flatly',
-							'enabled' => 0
-						),
-						7 => array(
-							'name' => 'Journal',
-							'enabled' => 0
-						),
-						8 => array(
-							'name' => 'Lumen',
-							'enabled' => 0
-						),
-						9 => array(
-							'name' => 'Paper',
-							'enabled' => 0
-						),
-						10 => array(
-							'name' => 'Readable',
-							'enabled' => 0
-						),
-						11 => array(
-							'name' => 'Sandstone',
-							'enabled' => 0
-						),
-						12 => array(
-							'name' => 'Simplex',
-							'enabled' => 0
-						),
-						13 => array(
-							'name' => 'Slate',
-							'enabled' => 0
-						),
-						14 => array(
-							'name' => 'Spacelab',
-							'enabled' => 0
-						),
-						15 => array(
-							'name' => 'Superhero',
-							'enabled' => 0
-						),
-						16 => array(
-							'name' => 'United',
-							'enabled' => 0
-						),
-						17 => array(
-							'name' => 'Yeti',
-							'enabled' => 0
-						)
-					);
-					
-					foreach($themes as $theme){
-						$queries->create('themes', array(
-							'enabled' => $theme['enabled'],
-							'name' => $theme['name']
-						));
+					$themes_initialised = $queries->getWhere('themes', array('id', '<>', 0));
+							
+					if(!count($themes_initialised)){
+						$themes = array(
+							1 => array(
+								'name' => 'Bootstrap',
+								'enabled' => 1
+							),
+							2 => array(
+								'name' => 'Cerulean',
+								'enabled' => 0
+							),
+							3 => array(
+								'name' => 'Cosmo',
+								'enabled' => 0
+							),
+							4 => array(
+								'name' => 'Cyborg',
+								'enabled' => 0
+							),
+							5 => array(
+								'name' => 'Darkly',
+								'enabled' => 0
+							),
+							6 => array(
+								'name' => 'Flatly',
+								'enabled' => 0
+							),
+							7 => array(
+								'name' => 'Journal',
+								'enabled' => 0
+							),
+							8 => array(
+								'name' => 'Lumen',
+								'enabled' => 0
+							),
+							9 => array(
+								'name' => 'Paper',
+								'enabled' => 0
+							),
+							10 => array(
+								'name' => 'Readable',
+								'enabled' => 0
+							),
+							11 => array(
+								'name' => 'Sandstone',
+								'enabled' => 0
+							),
+							12 => array(
+								'name' => 'Simplex',
+								'enabled' => 0
+							),
+							13 => array(
+								'name' => 'Slate',
+								'enabled' => 0
+							),
+							14 => array(
+								'name' => 'Spacelab',
+								'enabled' => 0
+							),
+							15 => array(
+								'name' => 'Superhero',
+								'enabled' => 0
+							),
+							16 => array(
+								'name' => 'United',
+								'enabled' => 0
+							),
+							17 => array(
+								'name' => 'Yeti',
+								'enabled' => 0
+							)
+						);
+						
+						foreach($themes as $theme){
+							$queries->create('themes', array(
+								'enabled' => $theme['enabled'],
+								'name' => $theme['name']
+							));
+						}
 					}
 					
 					// Templates
