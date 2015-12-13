@@ -24,12 +24,21 @@ if(isset($_GET["step"])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="NamelessMC installer">
     <meta name="author" content="Samerton">
-	<meta name="robots" content="noindex">
+    <meta name="robots" content="noindex">
 
     <title>NamelessMC &bull; Install</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/core/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./core/assets/css/bootstrap.min.css" rel="stylesheet"> 
+    <style type="text/css">
+      .small-margin {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .page-header {
+        margin: 12px 0px;
+      }
+    </style>
 
   </head>
 
@@ -51,45 +60,78 @@ if(isset($_GET["step"])){
 	  <?php
 	  if($step === "start"){
 	  ?>
-	  <h2>Welcome to NamelessMC</h2>
-	  This page will guide you through the process of installing the NamelessMC website package.<br /><br />
-	  You will need the following:
-	  <ul>
-	    <li>A MySQL database on the webserver</li>
-		<li>PHP version 5.3+</li>
-	  </ul>
-	  <br />
-	  The following are not required, but are recommended:
-	  <ul>
-	    <li>A MySQL database for a Bungee instance <a data-toggle="modal" href="#bungee_plugins">(Supported Plugins)</a></li>
-		<li>A MySQL database for your Minecraft servers <a data-toggle="modal" href="#mc_plugins">(Supported Plugins)</a></li>
-	  </ul>
-	  <br />
-	  We can convert from:
-	  <ul>
-	    <li>ModernBB</li>
-		<li>Wordpress and bbPress</li>
-		<li>XenForo</li>
-	  </ul>
-	  Coming soon:
-	  <ul>
-		<li>phpBB</li>
-		<li>IPBoard</li>
-		<li>MyBB</li>
-		<li>Vanilla</li>
-	  </ul>
-	  <br />
-	  
-	  <strong>Do you want to upgrade from a previous version of NamelessMC?</strong><br /><br />
-	  <button type="button" onclick="location.href='/install/?step=upgrade_requirements'" class="btn btn-success">Yes &raquo;</button>
-	  <button type="button" onclick="location.href='/install/?step=requirements'" class="btn btn-primary">No &raquo;</button>
+          <div class="row page-header">
+            <h3>Welcome to NamelessMC <small>BETA</small></h3>
+            <hr class="small-margin">
+            <p>This installer will guide you through the process of installing the NamelessMC website package.</p>
+          </div>
+          
+          <h4>Would you like to upgrade from a previous installation?</h4>
+          <p>
+            <button type="button" onclick="location.href='./install.php?step=upgrade_requirements'" class="btn btn-success">Yes, upgrade from previous &raquo;</button>
+	    <button type="button" onclick="location.href='./install.php?step=requirements'" class="btn btn-primary">No, this is a new install &raquo;</button>
+          </p>
+
+          <hr>
+          
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#requirements">Requirements</a>
+                </h4>
+              </div>
+              <div id="requirements" class="panel-collapse collapse">
+                <div class="panel-body">
+                  You will need the following:
+	          <ul>
+	            <li>A MySQL database on the webserver</li>
+		    <li>PHP version 5.3+</li>
+	          </ul>
+                  The following are not required, but are recommended:
+	          <ul>
+	            <li>A MySQL database for a Bungee instance <a data-toggle="modal" href="#bungee_plugins">(Supported Plugins)</a></li>
+		    <li>A MySQL database for your Minecraft servers <a data-toggle="modal" href="#mc_plugins">(Supported Plugins)</a></li>
+	          </ul>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#conversion">Converting from other software</a>
+                </h4>
+              </div>
+              <div id="conversion" class="panel-collapse collapse">
+                <div class="panel-body">
+                Currently data may be imported from:
+                <ul>
+                  <li>ModernBB</li>
+                  <li>Wordpress (with optional support for bbPress)</li>
+                  <li>XenForo</li>
+                </ul>
+                Support for the following is planned:
+                <ul>
+                  <li>phpBB</li>
+                  <li>IPBoard</li>
+                  <li>MyBB</li>
+                  <li>Vanilla</li>
+                </ul>
+                </div>
+              </div>
+            </div>
+          </div>
 	  
 	  <?php 
-	  } else if($step === "requirements"){
+	  } else if($step === "requirements" || $step === "upgrade_requirements") {
 		$error = '<p style="display: inline;" class="text-danger"><span class="glyphicon glyphicon-remove-sign"></span></p><br />';
 		$success = '<p style="display: inline;" class="text-success"><span class="glyphicon glyphicon-ok-sign"></span></p><br />';
 	  ?>
-	  <h2>Requirements</h2>
+          <div class="row page-header">
+            <h3>Requirements</h3>
+            <hr class="small-margin">
+            <p>Before you begin with the installation, the installer will verify your current setup is compatible.</p>
+          </div>
 	  <?php
 		if(version_compare(phpversion(), '5.3', '<')){
 			echo 'PHP 5.3 - ' . $error;
@@ -142,71 +184,17 @@ if(isset($_GET["step"])){
 	  <div class="alert alert-danger">You must be running at least PHP version 5.3 with the required extensions enabled in order to proceed with installation.</div>
 	  <?php
 		} else {
-	  ?>
-	  <button type="button" onclick="location.href='/install/?step=configuration'" class="btn btn-primary">Proceed &raquo;</button>
-	  <?php
+                    if($step === "requirements") {
+          ?>
+          <button type="button" onclick="location.href='./install.php?step=configuration'" class="btn btn-primary">Proceed &raquo;</button>
+          <?php
+                    } else {
+          ?>
+          <button type="button" onclick="location.href='./install.php?step=upgrade'" class="btn btn-primary">Proceed &raquo;</button>
+          <?php
+                    }
 		}
-	  } else if($step === "upgrade_requirements"){
-		$error = '<p style="display: inline;" class="text-danger"><span class="glyphicon glyphicon-remove-sign"></span></p><br />';
-		$success = '<p style="display: inline;" class="text-success"><span class="glyphicon glyphicon-ok-sign"></span></p><br />';
-	  ?>
-	  <h2>Requirements</h2>
-	  <?php
-		if(version_compare(phpversion(), '5.3', '<')){
-			echo 'PHP 5.3 - ' . $error;
-			$php_error = true;
-		} else {
-			echo 'PHP 5.3 - ' . $success;
-		}
-		if(!extension_loaded('gd')){
-			echo 'PHP GD Extension - ' . $error;
-			$php_error = true;
-		} else {
-			echo 'PHP GD Extension - ' . $success;
-		}
-		if(!extension_loaded('PDO')){
-			echo 'PHP PDO Extension - ' . $error;
-			$php_error = true;
-		} else {
-			echo 'PHP PDO Extension - ' . $success;
-		}
-		if(!extension_loaded('mysqlnd')){
-			echo 'PHP mysqlnd Extension - ' . $error;
-			$php_error = true;
-		}else{
-			echo 'PHP mysqlnd Extension - ' .$success;
-		}
-		if(!function_exists("mcrypt_encrypt")) {
-			echo 'PHP mcrypt Extension - ' . $error;
-			$php_error = true;
-		} else {
-			echo 'PHP mcrypt Extension - ' . $success;
-		}
-		if(!function_exists('curl_version')){
-			echo 'PHP cURL Extension - ' . $error;
-			$php_error = true;
-		} else {
-			echo 'PHP cURL Extension - ' . $success;
-		}
-		if(!class_exists("DOMDocument")){ // if there is a fatal error on the Requirements step, this is missing
-			echo 'PHP DOMDocument Class - ' . $error;
-			$php_error = true;
-		} else {
-			echo 'PHP DOMDocument Class - ' . $success;
-		}
-	  ?>
-	  <br />
-	  <?php
-	    if(isset($php_error)){
-	  ?>
-	  <div class="alert alert-danger">You must be running at least PHP version 5.3 with the required extensions enabled in order to proceed with installation.</div>
-	  <?php
-		} else {
-	  ?>
-	  <button type="button" onclick="location.href='/install/?step=upgrade'" class="btn btn-primary">Proceed &raquo;</button>
-	  <?php
-		}
-	  } else if($step === "upgrade"){
+          } else if($step === "upgrade"){
 		  if(Input::exists()){
 			if(isset($_POST['submitted'])){
 				$validate = new Validate();
@@ -596,7 +584,7 @@ if(isset($_GET["step"])){
 							// Close connections
 							$mysqli->close();
 							
-							echo '<script>window.location.replace("/install/?step=finish&from=upgrade");</script>';
+							echo '<script>window.location.replace("./install.php?step=finish&from=upgrade");</script>';
 							die();
 							
 						} else {
@@ -615,8 +603,11 @@ if(isset($_GET["step"])){
 			}
 		  }
 	  ?>
-	  <h2>Upgrade</h2>
-	  <p>Please enter your database details.</p>
+          <div class="row page-header">
+            <h3>Upgrade</h3>
+            <hr class="small-margin">
+            <p>The data of your old installation will now be retrieved and converted.</p>
+          </div>
 	  <?php if(isset($mysql_error)){ ?>
 	  <div class="alert alert-danger">
 	    <?php echo $mysql_error; ?>
@@ -644,6 +635,7 @@ if(isset($_GET["step"])){
 		  <input id="InputPrefix" name="prefix" class="form-control" placeholder="Previous table prefix">
 		</div>
 		<input type="hidden" name="submitted" value="1">
+                <hr>
 	    <input type="submit" class="btn btn-primary" value="Submit">
 	  </form>
 	  <?php
@@ -708,7 +700,7 @@ if(isset($_GET["step"])){
 						fwrite($file, $insert);
 						fclose($file);
 						
-						echo '<script>window.location.replace("/install/?step=database");</script>';
+						echo '<script>window.location.replace("./install.php?step=database");</script>';
 						die();
 						
 					} else {
@@ -738,8 +730,12 @@ if(isset($_GET["step"])){
 			}
 		}
 	  ?>
-	  <h2>Configuration</h2>
-	  <?php
+          <div class="row page-header">
+            <h3>Configuration</h3>
+            <hr class="small-margin">
+            <p>Please provide your database details that NamelessMC may connect to.  Please ensure the database has already been created.</p>
+          </div>
+          <?php
 		if(isset($errors)){
 	  ?>
 	  <div class="alert alert-danger">
@@ -759,43 +755,49 @@ if(isset($_GET["step"])){
 	  <?php
 		}
 	  ?>
-	  <small><em>Fields marked with a * are required</em></small>
 	  <form action="" method="post">
 	    <div class="form-group">
-	      <label for="InputDBIP">Database Address * </label>
-		  <input type="text" class="form-control" name="db_address" id="InputDBIP" value="<?php echo Input::get('db_address'); ?>" placeholder="Database Address">
+	      <label for="InputDBIP">Database Address <strong class="text-danger">*</strong></label>
+              <input type="text" class="form-control" name="db_address" id="InputDBIP" value="<?php echo Input::get('db_address'); ?>" placeholder="Database Address">
 	    </div>
 	    <div class="form-group">
-		  <label for="InputDBUser">Database Username *</label>
-		  <input type="text" class="form-control" name="db_username" id="InputDBUser" value="<?php echo Input::get('db_username'); ?>" placeholder="Database Username">
+	      <label for="InputDBUser">Database Username <strong class="text-danger">*</strong></label>
+	      <input type="text" class="form-control" name="db_username" id="InputDBUser" value="<?php echo Input::get('db_username'); ?>" placeholder="Database Username">
 	    </div>
 	    <div class="form-group">
-		  <label for="InputDBPass">Database Password</label>
-		  <input type="password" class="form-control" name="db_password" id="InputDBPass" placeholder="Database Password">
+	      <label for="InputDBPass">Database Password</label>
+	      <input type="password" class="form-control" name="db_password" id="InputDBPass" placeholder="Database Password">
 	    </div>
 	    <div class="form-group">
-		  <label for="InputDBName">Database Name *</label>
-		  <input type="text" class="form-control" name="db_name" id="InputDBName" value="<?php echo Input::get('db_name'); ?>" placeholder="Database Name">
+	      <label for="InputDBName">Database Name <strong class="text-danger">*</strong></label>
+	      <input type="text" class="form-control" name="db_name" id="InputDBName" value="<?php echo Input::get('db_name'); ?>" placeholder="Database Name">
 	    </div>
+            <small><em>Fields marked <strong class="text-danger">*</strong> are required</em></small>
+            <hr>
 	    <input type="submit" class="btn btn-default" value="Submit">
 	  </form>
 	  <?php
 	  } else if($step === "database"){
 	  ?>
-	  <h2>Database Initialisation</h2>
-	  The installer will now initialise the database. This may take a while.<br /><br />
-	  
+          <div class="row page-header">
+            <h3>Database initialisation</h3>
+            <hr class="small-margin">
+            <p>The installer is now attempting to create the necessary tables in the database.</p>
+          </div>
 	  <?php
 		if(!isset($queries)){
 			$queries = new Queries(); // Initialise queries
 		}
 		$prefix = Config::get('mysql/prefix');
 		
-		$queries->dbInitialise($prefix); // Initialise the database
-		
-	  ?>
-	  <button type="button" onclick="location.href='/install/?step=settings'" class="btn btn-primary">Proceed &raquo;</button>
-	  <?php
+                if($queries->dbInitialise($prefix)) {
+                    ?>
+           <div class="alert alert-success">The database was initialised successfully, and you may now progress with the installation.</div>
+           <button type='button' onclick="location.href='./install.php?step=settings'" class='btn btn-primary'>Continue &raquo;</button>
+                    <?php                    
+                } else {
+                    echo '<div class="alert alert-danger">Database initialisation failed.</div>';
+                }
 	  } else if($step === "settings"){
 		if(Input::exists()){
 			$validate = new Validate();
@@ -1127,7 +1129,7 @@ if(isset($_GET["step"])){
 					$c->setCache('page_load_cache');
 					$c->store('page_load', 0);
 					
-					echo '<script>window.location.replace("/install/?step=account");</script>';
+					echo '<script>window.location.replace("./install.php?step=account");</script>';
 					die();
 					
 				} catch(Exception $e){
@@ -1152,7 +1154,11 @@ if(isset($_GET["step"])){
 			}
 		}
 	  ?>
-	  <h2>Settings</h2>
+          <div class="row page-header">
+            <h3>Settings</h3>
+            <hr class="small-margin">
+            <p>Please fill out the form below to set your basic settings, these can be changed later.</p>
+          </div>
 	  <?php
 	    if(isset($errors)){
 	  ?>
@@ -1164,19 +1170,18 @@ if(isset($_GET["step"])){
 	  <?php
 		}
 	  ?>
-	  <small><em>Fields marked with a * are required</em></small>
 	  <form action="?step=settings" method="post">
-	    <h3>General</h3>
+            <h4>General</h4>
 	    <div class="form-group">
-	      <label for="InputSiteName">Site Name * </label>
+	      <label for="InputSiteName">Site Name <strong class="text-danger">*</strong></label>
 		  <input type="text" class="form-control" name="site_name" id="InputSiteName" value="<?php echo Input::get('site_name'); ?>" placeholder="Site Name">
 	    </div>
 	    <div class="form-group">
-	      <label for="InputICEmail">Incoming Email Address * </label>
+	      <label for="InputICEmail">Incoming Email Address <strong class="text-danger">*</strong></label>
 		  <input type="email" class="form-control" name="incoming_email" id="InputICEmail" value="<?php echo Input::get('incoming_email'); ?>" placeholder="Incoming Email">
 	    </div>
 	    <div class="form-group">
-	      <label for="InputOGEmail">Outgoing Email Address * </label>
+	      <label for="InputOGEmail">Outgoing Email Address <strong class="text-danger">*</strong></label>
 		  <input type="email" class="form-control" name="outgoing_email" id="InputOGEmail" value="<?php echo Input::get('outgoing_email'); ?>" placeholder="Outgoing Email">
 	    </div>
 	    <div class="form-group">
@@ -1199,8 +1204,10 @@ if(isset($_GET["step"])){
 	      <label for="InputFB">Facebook URL</label>
 		  <input type="text" class="form-control" name="fb_url" id="InputFB" value="<?php echo Input::get('fb_url'); ?>" placeholder="Facebook URL">
 	    </div>
-	    <h3>User Accounts</h3>
-		<input type="hidden" name="user_usernames" value="0" />
+            <small><em>Fields marked <strong class="text-danger">*</strong> are required</em></small>
+            <hr>
+            <h4>User Accounts</h4>
+	    <input type="hidden" name="user_usernames" value="0" />
 	    <div class="checkbox">
 		  <label>
 		    <input type="checkbox" name="user_usernames" value="1"> Allow registering with non-Minecraft display names
@@ -1211,9 +1218,9 @@ if(isset($_GET["step"])){
 		  <label>
 		    <input type="checkbox" name="user_avatars" value="1"> Allow custom user avatars
 		  </label>
-	    </div>
-		<br />
-		<input type="submit" class="btn btn-primary" value="Submit">
+            </div>
+            <hr>
+	    <input type="submit" class="btn btn-primary" value="Submit">
 	  </form>
 	  <?php
 	  } else if($step === "account"){
@@ -1352,9 +1359,9 @@ if(isset($_GET["step"])){
 					$login = $user->login(Input::get('username'), Input::get('password'), true);
 					if($login) {					
 						if(!isset($uuid_error)){
-							echo '<script>window.location.replace("/install/?step=convert");</script>';
+							echo '<script>window.location.replace("./install.php?step=convert");</script>';
 						} else {
-							echo '<script>window.location.replace("/install/?step=convert&error=uuid");</script>';
+							echo '<script>window.location.replace("./install.php?step=convert&error=uuid");</script>';
 						}
 						die();
 					} else {
@@ -1380,47 +1387,52 @@ if(isset($_GET["step"])){
 			}
 		}
 	  ?>
-	  <h2>Admin Account</h2>
+          <div class="row page-header">
+            <h3>Admin Account</h3>
+            <hr class="small-margin">
+            <p>Time to create the first account, this user will be an admin.</p>
+          </div>
 	  <?php
 		if(Session::exists('admin-acc-error')){
 			echo Session::flash('admin-acc-error');
 		}
 	  ?>
-	  <p>Please enter the admin account details.</p>
 	  <form role="form" action="?step=account" method="post">
 	    <div class="form-group">
-	  	  <label for="InputUsername">Username</label>
+	  	  <label for="InputUsername">Username <strong class="text-danger">*</strong></label>
 		  <input type="text" class="form-control" id="InputUsername" name="username" placeholder="Username" tabindex="1">
 	    </div>
 		<?php
 		if($allow_mcnames !== "false"){
 		?>
 	    <div class="form-group">
-		  <label for="InputMCUsername">Minecraft Username</label>
+		  <label for="InputMCUsername">Minecraft Username <strong class="text-danger">*</strong></label>
 		  <input type="text" class="form-control" id="InputMCUsername" name="mcname" placeholder="Minecraft Username" tabindex="2">
 	    </div>
 		<?php
 		}
 		?>
 	    <div class="form-group">
-		  <label for="InputEmail">Email</label>
+		  <label for="InputEmail">Email <strong class="text-danger">*</strong></label>
 		  <input type="email" name="email" id="InputEmail" class="form-control" placeholder="Email Address" tabindex="3">
 	    </div>
 	    <div class="row">
 		  <div class="col-xs-12 col-sm-6 col-md-6">
 			  <div class="form-group">
-				<label for="InputPassword">Password</label>
+				<label for="InputPassword">Password <strong class="text-danger">*</strong></label>
 				<input type="password" class="form-control" id="InputPassword" name="password" placeholder="Password" tabindex="4">
 			  </div>
 		  </div>
 		  <div class="col-xs-12 col-sm-6 col-md-6">
 			  <div class="form-group">
-				<label for="InputConfirmPassword">Confirm Password</label>
+				<label for="InputConfirmPassword">Confirm Password <strong class="text-danger">*</strong></label>
 				<input type="password" class="form-control" id="InputConfirmPassword" name="password_again" placeholder="Confirm Password" tabindex="5">
 			  </div>
 		  </div>
 	    </div>
-	    <button type="submit" class="btn btn-default">Submit</button>
+            <small><em>Fields marked <strong class="text-danger">*</strong> are required</em></small>
+            <hr>
+            <button type="submit" class="btn btn-default">Submit</button>
 	  </form>
 	  <?php 
 	  } else if($_GET['step'] === "convert"){
@@ -1436,12 +1448,12 @@ if(isset($_GET["step"])){
 	  ?>
 		<div class="well">
 			<h4>Which forum software are you converting from?</h4>
-			<a href="#" onclick="location.href='/install/?step=convert&convert=yes&from=modernbb'">ModernBB</a><br />
-			<a href="#" onclick="location.href='/install/?step=convert&convert=yes&from=phpbb'">phpBB</a><br />
-			<a href="#" onclick="location.href='/install/?step=convert&convert=yes&from=mybb'">MyBB</a><br />
-			<a href="#" onclick="location.href='/install/?step=convert&convert=yes&from=wordpress'">WordPress</a><br />
-			<a href="#" onclick="location.href='/install/?step=convert&convert=yes&from=xenforo'">XenForo</a><br /><br />
-			<button class="btn btn-danger" onclick="location.href='/install/?step=convert'">Cancel</button>
+			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=modernbb'">ModernBB</a><br />
+			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=phpbb'">phpBB</a><br />
+			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=mybb'">MyBB</a><br />
+			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=wordpress'">WordPress</a><br />
+			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=xenforo'">XenForo</a><br /><br />
+			<button class="btn btn-danger" onclick="location.href='./install.php?step=convert'">Cancel</button>
 		</div>
 	  <?php
 		} else if(isset($_GET["convert"]) && isset($_GET["from"])){
@@ -1487,7 +1499,7 @@ if(isset($_GET["step"])){
 			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 			  <input type="hidden" name="action" value="convert">
 			  <input class="btn btn-primary" type="submit" value="Convert">
-			  <a href="#" class="btn btn-danger" onclick="location.href='/install/?step=convert&convert=yes'">Cancel</a>
+			  <a href="#" class="btn btn-danger" onclick="location.href='./install.php?step=convert&convert=yes'">Cancel</a>
 			</form>
 			
 	  <?php
@@ -1496,7 +1508,7 @@ if(isset($_GET["step"])){
 	  ?>
 			<div class="alert alert-success">
 				Successfully imported ModernBB data. <strong>Important:</strong> Please redefine any private categories in the Admin panel.<br />
-				<center><button class="btn btn-primary"  onclick="location.href='/install/?step=finish'">Proceed</button></center>
+				<center><button class="btn btn-primary"  onclick="location.href='./install.php?step=finish'">Proceed</button></center>
 			</div>
 	  <?php
 			}
@@ -1540,7 +1552,7 @@ if(isset($_GET["step"])){
 			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 			  <input type="hidden" name="action" value="convert">
 			  <input class="btn btn-primary" type="submit" value="Convert">
-			  <a href="#" class="btn btn-danger" onclick="location.href='/install/?step=convert&convert=yes'">Cancel</a>
+			  <a href="#" class="btn btn-danger" onclick="location.href='./install.php?step=convert&convert=yes'">Cancel</a>
 			</form>
 			
 	  <?php
@@ -1549,7 +1561,7 @@ if(isset($_GET["step"])){
 	  ?>
 			<div class="alert alert-success">
 				Successfully imported phpBB data. <strong>Important:</strong> Please redefine any private categories in the Admin panel.<br />
-				<center><button class="btn btn-primary"  onclick="location.href='/install/?step=finish'">Proceed</button></center>
+				<center><button class="btn btn-primary"  onclick="location.href='./install.php?step=finish'">Proceed</button></center>
 			</div>
 	  <?php
 			}
@@ -1601,7 +1613,7 @@ if(isset($_GET["step"])){
 			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 			  <input type="hidden" name="action" value="convert">
 			  <input class="btn btn-primary" type="submit" value="Convert">
-			  <a href="#" class="btn btn-danger" onclick="location.href='/install/?step=convert&convert=yes'">Cancel</a>
+			  <a href="#" class="btn btn-danger" onclick="location.href='./install.php?step=convert&convert=yes'">Cancel</a>
 			</form>
 			
 	  <?php
@@ -1610,7 +1622,7 @@ if(isset($_GET["step"])){
 	  ?>
 			<div class="alert alert-success">
 				Successfully imported Wordpress data. <strong>Important:</strong> Please redefine any private categories in the Admin panel.<br />
-				<center><button class="btn btn-primary"  onclick="location.href='/install/?step=finish'">Proceed</button></center>
+				<center><button class="btn btn-primary"  onclick="location.href='./install.php?step=finish'">Proceed</button></center>
 			</div>
 	  <?php
 			}
@@ -1658,7 +1670,7 @@ if(isset($_GET["step"])){
 			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 			  <input type="hidden" name="action" value="convert">
 			  <input class="btn btn-primary" type="submit" value="Convert">
-			  <a href="#" class="btn btn-danger" onclick="location.href='/install/?step=convert&convert=yes'">Cancel</a>
+			  <a href="#" class="btn btn-danger" onclick="location.href='./install.php?step=convert&convert=yes'">Cancel</a>
 			</form>
 			
 	  <?php
@@ -1667,7 +1679,7 @@ if(isset($_GET["step"])){
 	  ?>
 			<div class="alert alert-success">
 				Successfully imported XenForo data. <strong>Important:</strong> Please redefine any private categories and update all users' Minecraft usernames in the Admin panel.<br />
-				<center><button class="btn btn-primary"  onclick="location.href='/install/?step=finish'">Proceed</button></center>
+				<center><button class="btn btn-primary"  onclick="location.href='./install.php?step=finish'">Proceed</button></center>
 			</div>
 	  <?php
 			}
@@ -1689,30 +1701,26 @@ if(isset($_GET["step"])){
 	  ?>
 	  <p>Convert from another forum software?</p>
 	  <div class="btn-group">
-		<!--<button class="btn btn-success" onclick="location.href='/install/?step=convert&convert=yes'">Yes</button>-->
+		<!--<button class="btn btn-success" onclick="location.href='./install.php?step=convert&convert=yes'">Yes</button>-->
 		<button class="btn btn-success" disabled">Coming Soon</button>
-		<button class="btn btn-primary" onclick="location.href='/install/?step=finish'">No</button>
+		<button class="btn btn-primary" onclick="location.href='./install.php?step=finish'">No</button>
 	  </div>
 	<?php
 		}
 	  } else if($step === "finish"){
 	  ?>
-	  <h2>Finish</h2>
-	  <p>Thanks for using NamelessMC website software.</p>
-	  <p>Before you start using your new website, please configure your forums and Minecraft servers via the AdminCP.</p>
+          <div class="row page-header">
+            <h3>Finish</h3>
+            <hr class="small-margin">
+            <p>Great!  NamelessMC has successfully been installed, you can now configure your site to your liking via the admin panel.</p>
+          </div>
 	  <?php if(isset($_GET['from']) && $_GET['from'] == 'upgrade'){ ?>
 	  <div class="alert alert-info">
-	    <p>Upgrade complete. Please note that tables from your old NamelessMC installation have <strong>not</strong> been deleted.</p>
-		<p>If you'd like to delete the old tables, you can manually delete the tables with your old prefix. The new tables have the prefix <strong>nl1_</strong>.</p>
+	    <p>Please note that tables from your old NamelessMC installation have <strong>not</strong> been deleted.  If you'd like to delete the old tables, you can manually delete the tables with your old prefix. The new tables have the prefix <strong>nl1_</strong>.</p>
 	  </div>
 	  <?php } ?>
-	  <p>Links:
-	  <ul>
-	    <li><a target="_blank"href="https://github.com/NamelessMC/Nameless">GitHub</a></li>
-	    <li><a target="_blank" href="http://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/">SpigotMC thread</a></li>
-	  </ul>
-	  </p>
-	  <br><button type="button" onclick="location.href='/admin/?from=install'" class="btn btn-primary">Finish &raquo;</button>
+          <p>Thanks for using NamelessMC for your servers website.  If you need support you can visit the support forums <a target="_blank" href="https://namelessmc.com">here</a> or you can visit also the offical repository <a target="_blank"href="https://github.com/NamelessMC/Nameless">here</a>.</p>
+	  <button type="button" onclick="location.href='./admin/?from=install'" class="btn btn-primary">Proceed to the Admin Panel &raquo;</button>
 	  <?php
 	  }
 	  ?>
@@ -1799,7 +1807,7 @@ if(isset($_GET["step"])){
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/core/assets/js/jquery.min.js"></script>
-    <script src="/core/assets/js/bootstrap.min.js"></script>
+    <script src="./core/assets/js/jquery.min.js"></script>
+    <script src="./core/assets/js/bootstrap.min.js"></script>
   </body>
 </html>
