@@ -10,7 +10,7 @@
  */
 
 // Members addon page
-$page = 'members'; // for navbar
+$page = 'Members'; // for navbar
 
 ?>
 <!DOCTYPE html>
