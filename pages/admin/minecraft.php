@@ -455,7 +455,7 @@ $adm_page = "minecraft";
 							</div>
 							<div class="form-group">
 								<label for="queryip"><?php echo $admin_language['server_ip_numeric']; ?> <a class="btn btn-info btn-xs" data-toggle="popover" data-content="<?php echo $admin_language['server_ip_numeric_help']; ?>"><span class="glyphicon glyphicon-question-sign"></span></a></label>
-								<input class="form-control" type="text" name="queryip" id="queryip" value="<?php echo htmlspecialchars($server[0]->query_ip); ?>" placeholder="<?php echo $admin_language['server_ip_numeric']; ?>" autocomplete="off">
+								<input class="form-control" type="text" name="queryip" id="queryip" value="<?php echo htmlspecialchars(Input::get('queryip')); ?>" placeholder="<?php echo $admin_language['server_ip_numeric']; ?>" autocomplete="off">
 							</div>
 							<input type="hidden" name="display" value="0" />
 							<label for="InputDisplay"><?php echo $admin_language['show_on_play_page']; ?></label>
