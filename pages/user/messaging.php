@@ -14,6 +14,9 @@ if(!$user->isLoggedIn()){
 // page for UserCP sidebar
 $user_page = 'messaging';
 
+// Generate token
+$token = Token::generate();
+
 require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifier
 ?>
 <!DOCTYPE html>
@@ -290,7 +293,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 				<?php echo $message; ?>
 			  </textarea>
 			</div>
-			<input type="hidden" name="token" value="<?php echo Token::generate(); ?>" />
+			<input type="hidden" name="token" value="<?php echo $token; ?>" />
 			<input class="btn btn-primary" type="submit" name="submit" value="<?php echo $general_language['submit']; ?>" />
 		  </form>
 		  <?php
