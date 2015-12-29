@@ -91,7 +91,7 @@ $adm_page = "addons";
 			<?php if($addon->enabled == 1){ ?>
 			<span class="pull-right"><a href="/admin/addons/?deactivate=<?php echo htmlspecialchars($addon->name); ?>" style="width: 100px;" class="btn btn-danger"><?php echo $admin_language['deactivate']; ?></a> <a href="/admin/addons/?action=edit&addon=<?php echo htmlspecialchars($addon->name); ?>" class="btn btn-info"><i class="fa fa-cog"></i></a> <a href="#" class="btn btn-danger" disabled><i class="fa fa-trash-o"></i></a></span>
 			<?php } else { ?>
-			<span class="pull-right"><a href="/admin/addons/?activate=<?php echo htmlspecialchars($addon->name); ?>" style="width: 100px;" class="btn btn-success"><?php echo $admin_language['activate']; ?></a> <a href="/admin/addons/?action=edit&addon=<?php echo htmlspecialchars($addon->name); ?>" class="btn btn-info"><i class="fa fa-cog"></i></a> <a href="/admin/addons/?action=delete&addon=<?php echo htmlspecialchars($addon->name); ?>" class="btn btn-danger"><i class="fa fa-trash-o"></i></a></span>
+			<span class="pull-right"><a href="/admin/addons/?activate=<?php echo htmlspecialchars($addon->name); ?>" style="width: 100px;" class="btn btn-success"><?php echo $admin_language['activate']; ?></a> <a href="/admin/addons/?action=edit&addon=<?php echo htmlspecialchars($addon->name); ?>" class="btn btn-info"><i class="fa fa-cog"></i></a> <a href="/admin/addons/?action=delete&addon=<?php echo htmlspecialchars($addon->name); ?>" class="btn btn-danger" disabled><i class="fa fa-trash-o"></i></a></span>
 			<?php } ?>
 			<hr>
 			</div>
