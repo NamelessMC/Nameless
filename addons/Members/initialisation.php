@@ -9,7 +9,7 @@
 // Initialise the members addon
 // We've already checked to see if it's enabled
 
-require('addons/members/language.php');
+require('addons/Members/language.php');
 
 // Enabled, add links to navbar
 $navbar_array[] = array('members' => $members_language['members']);
