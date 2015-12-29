@@ -364,6 +364,7 @@ $user_language = array(
 	'send_message' => 'Poslat zprávu',
 	'remove_friend' => 'Vymazat přítele',
 	'add_friend' => 'Přidat přítele',
+	'last_online' => 'Last Online:',
 	
 	// Staff applications
 	'staff_application' => 'Staff Application',
