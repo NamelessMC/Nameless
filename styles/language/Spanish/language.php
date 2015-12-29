@@ -365,6 +365,7 @@ $user_language = array(
 	'send_message' => 'Enviar mensaje',
 	'remove_friend' => 'Eliminar amigo',
 	'add_friend' => 'Añadir amigo',
+	'last_online' => 'Last Online:',
 	
 	// Staff applications
 	'staff_application' => 'Solicitud de staff',
