@@ -363,6 +363,10 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 					if(Input::exists()) {
 						if(Token::check(Input::get('token'))) {
 							if(Input::get('action') === "update"){
+								
+								$signature = Input::get('signature');
+								$_POST['signature'] = strip_tags(Input::get('signature'));
+								
 								$validate = new Validate();
 								
 								$to_validation = array(
@@ -378,7 +382,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 										'max' => 32
 									),
 									'signature' => array(
-										'max' => 256
+										'max' => 900
 									),
 									'ip' => array(
 										'max' => 256
@@ -441,7 +445,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 											'group_id' => Input::get('group'),
 											'mcname' => htmlspecialchars(Input::get('MCUsername')),
 											'uuid' => htmlspecialchars(Input::get('UUID')),
-											'signature' => htmlspecialchars(Input::get('signature')),
+											'signature' => htmlspecialchars($signature),
 											'lastip' => Input::get('ip')
 										));
 										echo '<script>window.location.replace("/admin/users/?user=' . $_GET['user'] . '");</script>';
