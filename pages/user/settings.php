@@ -29,9 +29,12 @@ if(Input::exists()){
 		$validate = new Validate();
 		
 		if(Input::get('action') == 'settings'){
+			$signature = Input::get('signature');
+			$_POST['signature'] = strip_tags(Input::get('signature'));
+			
 			$validate_array = array(
 				'signature' => array(
-					'max' => 256
+					'max' => 900
 				)
 			);
 			
@@ -69,7 +72,7 @@ if(Input::exists()){
 				try {
 					$queries->update('users', $user->data()->id, array(
 						'username' => htmlspecialchars($username),
-						'signature' => htmlspecialchars(Input::get('signature')),
+						'signature' => htmlspecialchars($signature),
 						'gravatar' => $gravatar,
 						'has_avatar' => $has_avatar
 					));
