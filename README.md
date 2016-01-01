@@ -2,7 +2,7 @@
 
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
-Version 1.0 coming soon. Features:
+Version 1.0 features:
 
 - Template and theme system
 - Languages
@@ -12,33 +12,34 @@ Version 1.0 coming soon. Features:
 - Subforums
 - Alerts system, including popup notifications upon user tagging or a new staff application
 - Small additions including page loading time and the ability to enable/disable error reporting from the AdminCP
-- New email system
-- API and plugin support
+- New optional email system
+- Upcoming API
 - Ability to disable UUID linking, allowing support for offline mode servers
 - Completion of custom page system
 - Server statistics integration
 - Staff and member lists
 
-Planned included addons:
+Included addons:
 - Donate
-- Infractions
+- Member list
 - Voting
 
-Planned core modules:
+Core modules:
 - Google Analytics
 - Social media
 - Registration
 - Voice server status
 
-Planned available addons (these will need to be downloaded separately): 
+Upcoming addons (these will need to be downloaded separately): 
 - PermissionsEX control panel
 - Stats
 - Tickets
+- Infractions
 
 # Downloads & Support
 * [Issue Tracker](https://github.com/NamelessMC/Nameless/issues)
 * [Support](http://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
-* [Download (v0.4.0)](https://github.com/samerton/NamelessMC) 
+* [Download](https://github.com/NamelessMC/Nameless/releases) 
 
 # Full contributor list:
 **Main repository**
@@ -48,6 +49,9 @@ Planned available addons (these will need to be downloaded separately):
 * @Root3287
 * @TheMeq
 * @fetch404
+* @MrHodge
+* @oliverdunk
+* @talkahe
 
 **[NamelessMC Website](http://namelessmc.github.io/)**
 * @Samerton
@@ -60,3 +64,4 @@ Planned available addons (these will need to be downloaded separately):
 * English: @Samerton
 * German: @LPkkjHD
 * Spanish: @paloke and @mrlost
+* Czech: SnooWiK
