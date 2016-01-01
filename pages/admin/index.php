@@ -109,6 +109,20 @@ $adm_page = "index";
 // Get NamelessMC Version
 $version = $queries->getWhere('settings', array('name', '=', 'version'));
 $version = htmlspecialchars($version[0]->value);
+
+// Update check
+
+$uid = $queries->getWhere('settings', array('name', '=', 'unique_id'));
+$uid = $uid[0]->value;
+
+
+if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/stats.php?uid=' . $uid . '&version=' . $version)){
+	if($update_check == 'Failed'){
+		$update_check = 'error';
+	}
+} else {
+	$update_check = 'error';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -176,6 +190,13 @@ $version = htmlspecialchars($version[0]->value);
 		</div>
 		<div class="col-md-9">
 		  <div class="well">
+			<?php if($update_check != 'None' && $update_check != 'error'){ ?>
+			<div class="alert alert-warning">
+			  <p><strong>A new update is available.</strong></p>
+			  <br />
+			  <a href="/admin/update" class="btn btn-danger"><?php echo $admin_language['update']; ?></a>
+			</div>
+			<?php } ?>
 			<strong>NamelessMC version <?php echo $version; ?></strong><br />
 			<strong>Running PHP <?php echo phpversion(); ?></strong> <a href="/admin/phpinfo.php" target="_blank">(Full PHP information)</a><br />
 			<h3><?php echo $admin_language['statistics']; ?></h3>
