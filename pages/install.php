@@ -126,6 +126,7 @@ if(isset($_GET["step"])){
 	  } else if($step === "requirements" || $step === "upgrade_requirements") {
 		$error = '<p style="display: inline;" class="text-danger"><span class="glyphicon glyphicon-remove-sign"></span></p><br />';
 		$success = '<p style="display: inline;" class="text-success"><span class="glyphicon glyphicon-ok-sign"></span></p><br />';
+	    $warning = '<p style="display: inline;" class="text-warning"><span class="glyphicon glyphicon-remove-sign"></span></p><br />';
 	  ?>
           <div class="row page-header">
             <h3>Requirements</h3>
@@ -152,8 +153,10 @@ if(isset($_GET["step"])){
 			echo 'PHP PDO Extension - ' . $success;
 		}
                 if(!extension_loaded('mysqlnd')){
-                        echo 'PHP mysqlnd Extension - ' . $error;
-                        $php_error = true;
+                        echo 'PHP mysqlnd Extension - ' . $warning;
+						echo 'You may experience issues without the mysqlnd extension.<br />';
+                        // Remove error temporarily
+						//$php_error = true;
                 } else {
                         echo 'PHP mysqlnd Extension - ' . $success;
                 }
