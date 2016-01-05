@@ -30,6 +30,7 @@ $recaptcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
 $recaptcha = $recaptcha[0]->value;
 
 $recaptcha_key = $queries->getWhere("settings", array("name", "=", "recaptcha_key"));
+$recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
 
 // Deal with any input
 if(Input::exists()){
@@ -40,7 +41,7 @@ if(Input::exists()){
 			// Check reCAPCTHA
 			$url = 'https://www.google.com/recaptcha/api/siteverify';
 			
-			$post_data = 'secret=' . $recaptcha_key[0]->value . '&response=' . Input::get('g-recaptcha-response');
+			$post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . Input::get('g-recaptcha-response');
 			
 			$ch = curl_init($url);
 			curl_setopt($ch, CURLOPT_POST, 1);
@@ -58,7 +59,6 @@ if(Input::exists()){
 				'success' => 'true'
 			);
 		}
-		
 		
 		if(isset($result['success']) && $result['success'] == 'true'){
 			// Validate
