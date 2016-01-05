@@ -17,7 +17,6 @@
 		    <td><b>{$QUERIED_IN}</b></td>
 			<td>{$TIMER}</td>
 		  </tr>
-	  </tr>
 		</table>
 	  </div>
 	</div>
