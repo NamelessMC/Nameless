@@ -14,6 +14,136 @@ if(!$user->isLoggedIn()){
 // page for UserCP sidebar
 $user_page = 'messaging';
 
+// Deal with input
+if(Input::exists()){
+	// Input into database
+	if(Token::check(Input::get('token'))) {
+		$validate = new Validate();
+		if(!isset($_GET['mid'])){
+			$validation = $validate->check($_POST, array(
+				'title' => array(
+					'required' => true,
+					'min' => 2,
+					'max' => 64
+				),
+				'message' => array(
+					'required' => true,
+					'min' => 2,
+					'max' => 10000
+				),
+				'to' => array(
+					'required' => true
+				)
+			));
+		} else {
+			$validation = $validate->check($_POST, array(
+				'message' => array(
+					'required' => true,
+					'min' => 2,
+					'max' => 10000
+				)
+			));
+		}
+		
+		if($validation->passed()){
+			if(!isset($_GET['mid'])){
+				$users = Input::get('to');
+				$users = explode(',', $users);
+				$n = 0;
+				
+				// Replace white space at start of username, also limit to 10 users
+				foreach($users as $item){
+					if($item[0] === ' '){
+						$users[$n] = substr($item, 1);
+					}
+					if($n == 10){
+						$max_users = true;
+						break;
+					}
+					$n++;
+				}
+				
+				$title = htmlspecialchars(Input::get('title'));
+			} else {
+				$author = $queries->getWhere("private_messages", array("id", "=", $_GET["mid"]));
+				$title = $author[0]->title;
+				$author = $author[0]->author_id;
+				
+				$users_query = $queries->getWhere("private_messages_users", array("pm_id", "=", $_GET["mid"]));
+				foreach($users_query as $item){
+					$users[] = $item->user_id;
+				}
+				
+				$users[] = $author;
+				
+				// Prefix with "RE:"
+				if(substr($title, 0, 3) == $forum_language['re']){
+					$title = htmlspecialchars($title);
+				} else {
+					$title = htmlspecialchars($forum_language['re'] . ' ' . $title);
+				}
+				
+			}
+			
+			// Ensure people haven't been added twice
+			$users = array_unique($users);
+			
+			// Ensure the person who actually created the PM hasn't been added
+			foreach($users as $key => $item){
+				if($item == $user->data()->username){
+					unset($users[$key]);
+				}
+			}
+			
+			if(!isset($max_users)){
+				try {
+					// Input the content
+					$queries->create("private_messages", array(
+						'author_id' => $user->data()->id,
+						'title' => $title,
+						'content' => htmlspecialchars(Input::get('message')),
+						'sent_date' => date('Y-m-d H:i:s')
+					));
+					
+					// Get the PM ID
+					$last_id = $queries->getLastId();
+					
+					// Loop through the users and give them access to the message
+					foreach($users as $item){
+						if(!isset($_GET['mid'])){
+							// Get ID
+							$user_id = $user->NameToId($item);
+						} else {
+							$user_id = $item;
+						}
+						
+						if($user_id){
+							if($user_id !== $user->data()->id){
+								// Not the author
+								$queries->create("private_messages_users", array(
+									'pm_id' => $last_id,
+									'user_id' => $user_id
+								));
+							} else {
+								// Is the author, automatically set as read
+								$queries->create("private_messages_users", array(
+									'pm_id' => $last_id,
+									'user_id' => $user_id,
+									'read' => 1
+								));
+							}
+						}
+					}
+					echo '<script>window.location.replace("/user/messaging");</script>';
+					die();
+				} catch(Exception $e){
+					die($e->getMessage());
+				}
+			}
+		}
+	}
+}
+
 // Generate token
 $token = Token::generate();
 
@@ -122,135 +252,6 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 						die();
 					}
 					$to_user = htmlspecialchars($to_user[0]->username);
-				}
-				if(Input::exists()){
-					// Input into database
-					if(Token::check(Input::get('token'))) {
-						$validate = new Validate();
-						if(!isset($_GET['mid'])){
-							$validation = $validate->check($_POST, array(
-								'title' => array(
-									'required' => true,
-									'min' => 2,
-									'max' => 64
-								),
-								'message' => array(
-									'required' => true,
-									'min' => 2,
-									'max' => 10000
-								),
-								'to' => array(
-									'required' => true
-								)
-							));
-						} else {
-							$validation = $validate->check($_POST, array(
-								'message' => array(
-									'required' => true,
-									'min' => 2,
-									'max' => 10000
-								)
-							));
-						}
-						
-						if($validation->passed()){
-							if(!isset($_GET['mid'])){
-								$users = Input::get('to');
-								$users = explode(',', $users);
-								$n = 0;
-								
-								// Replace white space at start of username, also limit to 10 users
-								foreach($users as $item){
-									if($item[0] === ' '){
-										$users[$n] = substr($item, 1);
-									}
-									if($n == 10){
-										$max_users = true;
-										//echo "true";
-										break;
-									}
-									$n++;
-								}
-								
-								$title = htmlspecialchars(Input::get('title'));
-							} else {
-								$author = $queries->getWhere("private_messages", array("id", "=", $_GET["mid"]));
-								$title = $author[0]->title;
-								$author = $author[0]->author_id;
-								
-								$users_query = $queries->getWhere("private_messages_users", array("pm_id", "=", $_GET["mid"]));
-								foreach($users_query as $item){
-									$users[] = $item->user_id;
-								}
-								
-								$users[] = $author;
-								
-								// Prefix with "RE:"
-								if(substr($title, 0, 3) == $forum_language['re']){
-									$title = htmlspecialchars($title);
-								} else {
-									$title = htmlspecialchars($forum_language['re'] . ' ' . $title);
-								}
-								
-							}
-							
-							// Ensure people haven't been added twice
-							$users = array_unique($users);
-							
-							// Ensure the person who actually created the PM hasn't been added
-							foreach($users as $key => $item){
-								if($item == $user->data()->username){
-									unset($users[$key]);
-								}
-							}
-							
-							if(!isset($max_users)){
-								try {
-									// Input the content
-									$queries->create("private_messages", array(
-										'author_id' => $user->data()->id,
-										'title' => $title,
-										'content' => htmlspecialchars(Input::get('message')),
-										'sent_date' => date('Y-m-d H:i:s')
-									));
-									
-									// Get the PM ID
-									$last_id = $queries->getLastId();
-									
-									// Loop through the users and give them access to the message
-									foreach($users as $item){
-										if(!isset($_GET['mid'])){
-											// Get ID
-											$user_id = $user->NameToId($item);
-										} else {
-											$user_id = $item;
-										}
-										
-										if($user_id){
-											if($user_id !== $user->data()->id){
-												// Not the author
-												$queries->create("private_messages_users", array(
-													'pm_id' => $last_id,
-													'user_id' => $user_id
-												));
-											} else {
-												// Is the author, automatically set as read
-												$queries->create("private_messages_users", array(
-													'pm_id' => $last_id,
-													'user_id' => $user_id,
-													'read' => 1
-												));
-											}
-										}
-									}
-									echo '<script>window.location.replace("/user/messaging");</script>';
-									die();
-								} catch(Exception $e){
-									die($e->getMessage());
-								}
-							}
-						}
-					}
 				}
 		  ?>
 		  <h2 style="display: inline;"><?php echo $user_language['new_message']; ?></h2>
