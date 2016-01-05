@@ -290,7 +290,23 @@ $user_language = array(
 	'validation_complete' => 'Danke für\'s Registrieren! Du kannst dich nun Anmelden',
 	'validation_error' => 'Fehler beim Bearbeiten deiner Anfrage. Versuche den link später noch einmal zu klicken.',
 	'registration_error' => 'Bitte Stelle sicher, dass du alle Felder ausgefüllt hast, wobei der Benutzername zwischen 3 und 20 Zeichen und das Passwort zwischen 6 und 30 Zeichen lang sein muss.', // todo
-
+	'username_required' => 'Please enter a username.',
+	'password_required' => 'Please enter a password.',
+	'email_required' => 'Please enter an email address.',
+	'mcname_required' => 'Please enter a Minecraft username.',
+	'accept_terms' => 'You must accept the terms and conditions before registering.',
+	'invalid_recaptcha' => 'Invalid reCAPTCHA response.',
+	'username_minimum_3' => 'Your username must be a minimum of 3 characters long.',
+	'username_maximum_20' => 'Your username must be a maximum of 20 characters long.',
+	'mcname_minimum_3' => 'Your Minecraft username must be a minimum of 3 characters long.',
+	'mcname_maximum_20' => 'Your Minecraft username must be a maximum of 20 characters long.',
+	'password_minimum_6' => 'Your password must be at least 6 characters long.',
+	'password_maximum_30' => 'Your password must be a maximum of 30 characters long.',
+	'passwords_dont_match' => 'Your passwords do not match.',
+	'username_mcname_email_exists' => 'Your username, Minecraft username or email address already exists. Have you already created an account?',
+	'invalid_mcname' => 'Your Minecraft username is not a valid account',
+	'mcname_lookup_error' => 'There was an error contacting Mojang\'s servers. Please try again later.',
+	
 	// UserCP
 	'user_cp' => 'User Panel',
 	'no_file_chosen' => 'Keine Datei ausgewählt',
