@@ -374,6 +374,12 @@ $adm_page = "core";
 									$queries->update('settings', $recaptcha_id, array(
 										'value' => htmlspecialchars(Input::get('recaptcha'))
 									));
+									// reCAPTCHA secret key
+									$recaptcha_secret_id = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
+									$recaptcha_secret_id = $recaptcha_secret_id[0]->id;
+									$queries->update('settings', $recaptcha_secret_id, array(
+										'value' => htmlspecialchars(Input::get('recaptcha_secret'))
+									));
 									// Terms and Conditions
 									$t_and_c_id = $queries->getWhere('settings', array('name', '=', 't_and_c_site'));
 									$t_and_c_id = $t_and_c_id[0]->id;
@@ -390,6 +396,7 @@ $adm_page = "core";
 							// Get settings
 							$recaptcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha'));
 							$recaptcha_key = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
+							$recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
 							$t_and_c_id = $queries->getWhere('settings', array('name', '=', 't_and_c_site'));
 							
 							// We generate the token here as it clashes with HTMLPurifier
@@ -420,8 +427,12 @@ $adm_page = "core";
 								<input id="InputEnableRecaptcha" name="enable_recaptcha" type="checkbox" class="js-switch" value="1"<?php if($recaptcha_id[0]->value == 'true'){ ?> checked<?php } ?> />
 							</div>
 							<div class="form-group">
-								<label for="InputRecaptcha">reCAPTCHA Key</label>
+								<label for="InputRecaptcha">reCAPTCHA Site Key</label>
 								<input type="text" name="recaptcha" class="form-control" id="InputRecaptcha" placeholder="Recaptcha Key" value="<?php echo htmlspecialchars($recaptcha_key[0]->value); ?>">
+							</div>
+							<div class="form-group">
+							    <label for="InputRecaptchaSecret">reCAPTCHA Secret Key</label>
+								<input type="text" name="recaptcha_secret" class="form-control" id="InputRecaptchaSecret" placeholder="Recaptcha Secret Key" value="<?php echo htmlspecialchars($recaptcha_secret[0]->value); ?>">
 							</div>
 							<div class="form-group">
 							    <label for="InputTandC">Registration Terms and Conditions</label>

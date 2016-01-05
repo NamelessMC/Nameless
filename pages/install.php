@@ -597,6 +597,11 @@ if(isset($_GET["step"])){
 								'value' => 'false'
 							));
 							
+							$queries->create('settings', array(
+								'name' => 'recaptcha_secret',
+								'value' => 'null'
+							));
+							
 							// Close connections
 							$mysqli->close();
 							
@@ -979,6 +984,10 @@ if(isset($_GET["step"])){
 					32 => array(
 						'name' => 'mc_status_module',
 						'value' => 'false'
+					),
+					33 => array(
+						'name' => 'recaptcha_secret',
+						'value' => 'null'
 					)
 				);
 				
