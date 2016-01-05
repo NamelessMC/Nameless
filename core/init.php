@@ -126,6 +126,13 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 		require('addons/' . htmlspecialchars($addon->name) . '/initialisation.php');
 		$enabled_addon_pages[] = $addon->name;
 	}
+	
+	/*
+	 *  Todo: cache whether the status module is enabled 
+	 */
+	$status_enabled = $queries->getWhere('settings', array('name', '=', 'mc_status_module'));
+	$status_enabled = $status_enabled[0];
+	
 
 	/* 
 	 *  TEMPORARY - STAFF APPLICATION QUERY

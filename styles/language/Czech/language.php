@@ -195,6 +195,7 @@ $admin_language = array(
 	'port' => 'Port:',
 	'viewing_error' => 'Viewing Error',
 	'confirm_error_deletion' => 'Are you sure you want to delete this error?',
+	'display_server_status' => 'Display server status module?',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Témy',
