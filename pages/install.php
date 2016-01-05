@@ -592,6 +592,11 @@ if(isset($_GET["step"])){
 								'value' => 'false'
 							));
 							
+							$queries->create('settings', array(
+								'name' => 'mc_status_module',
+								'value' => 'false'
+							));
+							
 							// Close connections
 							$mysqli->close();
 							
@@ -969,6 +974,10 @@ if(isset($_GET["step"])){
 					),
 					31 => array(
 						'name' => 'query_update',
+						'value' => 'false'
+					),
+					32 => array(
+						'name' => 'mc_status_module',
 						'value' => 'false'
 					)
 				);

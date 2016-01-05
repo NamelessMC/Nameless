@@ -95,6 +95,11 @@ $adm_page = "minecraft";
 					} else {
 						$plugin = 0;
 					}
+					if(Input::get('status_module') == 'on'){
+						$status_module = 'true';
+					} else {
+						$status_module = 'false';
+					}
 					
 					// Update values
 					$uuids_id = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
@@ -114,6 +119,13 @@ $adm_page = "minecraft";
 					$queries->update('settings', $plugin_id, array(
 						'value' => $plugin
 					));
+					
+					$status_id = $queries->getWhere('settings', array('name', '=', 'mc_status_module'));
+					$status_id = $status_id[0]->id;
+					$queries->update('settings', $status_id, array(
+						'value' => $status_module
+					));
+					
 				} else {
 					// Invalid token
 					Session::flash('mc_settings', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
@@ -124,6 +136,7 @@ $adm_page = "minecraft";
 			$use_plugin = $queries->getWhere('settings', array('name', '=', 'use_plugin'));
 			$user_avatars = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
 			$link_uuids = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
+			$server_status = $queries->getWhere('settings', array('name', '=', 'mc_status_module'));
 			
 			if(Session::exists('mc_settings')){
 				echo Session::flash('mc_settings');
@@ -148,6 +161,12 @@ $adm_page = "minecraft";
 					<label for="uuids"><?php echo $admin_language['uuid_linking']; ?></label> <a class="btn btn-info btn-xs" href="#" data-toggle="popover" data-content="<?php echo $admin_language['uuid_linking_help']; ?>"><i class="fa fa-question-circle"></i></a>
 					<span class="pull-right">
 					  <input id="uuids" name="uuids" type="checkbox" class="js-switch" <?php if($link_uuids[0]->value == '1'){ ?>checked <?php } ?>/>
+					</span>
+				  </div>
+				  <div class="form-group">
+				    <label for="status_module"><?php echo $admin_language['display_server_status']; ?></label>
+					<span class="pull-right">
+					  <input id="status_module" name="status_module" type="checkbox" class="js-switch" <?php if($server_status[0]->value == 'true'){ ?>checked <?php } ?>/>
 					</span>
 				  </div>
 				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">

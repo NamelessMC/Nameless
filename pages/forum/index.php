@@ -73,6 +73,108 @@ $timeago = new Timeago();
 	';
 	$smarty->assign('SEARCH_FORM', $search);
 	
+	// Server status module
+	if(isset($status_enabled->value) && $status_enabled->value == 'true'){
+		// Query the server
+		// Get the main IP
+		$main_ip = $queries->getWhere('mc_servers', array('is_default', '=', 1));
+		$pre17 	 = $main_ip[0]->pre;
+		$query_ip = htmlspecialchars($main_ip[0]->query_ip);
+		$main_ip = htmlspecialchars($main_ip[0]->ip);
+		
+		/*
+		 *  Get port of Minecraft server
+		 */
+		$parts = explode(':', $query_ip);
+		if(count($parts) == 1){
+			$domain = $parts[0];
+			$default_ip = $parts[0];
+			$default_port = 25565;
+		} else if(count($parts) == 2){
+			$domain = $parts[0];
+			$default_ip = $parts[0];
+			$default_port = $parts[1];
+			$port = $parts[1];
+		} else {
+			echo 'Invalid Query IP';
+			die();
+		}
+
+		// Get IP to display
+		$parts = explode(':', $main_ip);
+		if(count($parts) == 1){
+			$display_domain = $parts[0];
+		} else if(count($parts) == 2){
+			$display_domain = $parts[0];
+			$display_port = $parts[1];
+		} else {
+			echo 'Invalid Display IP';
+			die();
+		}
+
+		if((!isset($dsplay_port))||($display_port == "25565")){
+			$address = $display_domain;
+		} else {
+			$address = $display_domain . ':' . $port;
+		}
+		
+		// Query the main IP
+		// Are we using the built-in query or an external API?
+		$external_query = $queries->getWhere('settings', array('name', '=', 'external_query'));
+		$external_query = $external_query[0]->value;
+		
+		if($external_query == 'false'){
+			// Built in query, continue as normal
+			require('core/integration/status/global.php'); 
+		} else {
+			// External query
+			$cache = new Cache();
+			require('core/integration/status/global_external.php');
+		}
+		
+		if(empty($Info)){
+			// Unable to query, offline
+			$smarty->assign('MAIN_ONLINE', 0);
+		} else {
+			// Able to query, online
+			$smarty->assign('MAIN_ONLINE', 1);
+		}
+		
+		// Player count
+		if($pre17 == 0){
+			if(empty($Info['players']['max'])){
+				$player_count = $Info['players']['online'];
+			} else {
+				$player_count = $Info['players']['online'] . ' / ' . $Info['players']['max'];
+			}
+		} else {
+			if(empty($Info['MaxPlayers'])){
+				$player_count = $Info['Players'];
+			} else {
+				$player_count = $Info['Players'] . ' / ' . $Info['MaxPlayers'];
+			}
+		}
+		$smarty->assign('PLAYER_COUNT', htmlspecialchars($player_count));
+		
+		// Assign timer to variable
+		if(isset($Timer)){
+			$smarty->assign('TIMER', $Timer . $time_language['seconds_short']);
+		} else {
+			$smarty->assign('TIMER', 'n/a');
+		}
+		
+		$smarty->assign('SERVER_STATUS', $general_language['server_status']);
+		$smarty->assign('STATUS', $general_language['status']);
+		$smarty->assign('ONLINE', $general_language['online']);
+		$smarty->assign('OFFLINE', $general_language['offline']);
+		$smarty->assign('PLAYERS_ONLINE', $general_language['players_online']);
+		$smarty->assign('QUERIED_IN', $general_language['queried_in']);
+		
+	} else {
+		// Module disabled, assign empty values
+		$smarty->assign('SERVER_STATUS', '');
+	}
+	
     // List online users
     $online_users = $queries->getWhere('users', array('last_online', '>', strtotime("-10 minutes")));
     if(count($online_users)){

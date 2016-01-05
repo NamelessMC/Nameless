@@ -36,8 +36,11 @@
 	  </table>
 	</div>
 	<div class="col-md-3">
+	
 	  {$SEARCH_FORM}
+	  
 	  <br />
+	  
 	  <div class="well">
 	    <h4>{$FORUMS}</h4>
 		<ul class="nav nav-list">
@@ -53,15 +56,38 @@
 		  {/foreach}
 		</ul>
 	  </div>
+	  
+	  {if !empty($SERVER_STATUS)}
+	  <div class="well">
+	    <h4>{$SERVER_STATUS}</h4>
+	    <table class="table">
+		  <tr class="{if $MAIN_ONLINE == 1}success{else}danger{/if}">
+			<td><b>{$STATUS}</b></td>
+			<td>{if $MAIN_ONLINE == 1}{$ONLINE}{else}{$OFFLINE}{/if}</td>
+		  </tr>
+		  <tr>
+		    <td><b>{$PLAYERS_ONLINE}</b></td>
+			<td>{$PLAYER_COUNT}</td>
+		  </tr>
+		  <tr>
+		    <td><b>{$QUERIED_IN}</b></td>
+			<td>{$TIMER}</td>
+		  </tr>
+		</table>
+	  </div>
+	  {/if}
+	  
 	  <div class="well">
 	  <h4>{$ONLINE_USERS}</h4>
 	  {$ONLINE_USERS_LIST}
 	  </div>
+	  
 	  <div class="well">
 	    <h4>{$STATISTICS}</h4>
 		{$USERS_REGISTERED}<br />
 		{$LATEST_MEMBER}
 	  </div>
+	  
 	</div>
   </div>
 </div>
