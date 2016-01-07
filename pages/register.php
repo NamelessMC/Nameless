@@ -95,7 +95,7 @@ if(Input::exists()){
 				if($custom_usernames == "true"){ // validate username and Minecraft name
 					$to_validation['mcname'] = array(
 						'required' => true,
-						'isvalid' => true,
+						//'isvalid' => true,
 						'min' => 3,
 						'max' => 20,
 						'unique' => 'users'
@@ -107,15 +107,39 @@ if(Input::exists()){
 						'unique' => 'users'
 					);
 					$mcname = htmlspecialchars(Input::get('mcname'));
+					
+					// Perform validation on Minecraft name
+					$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
+					$result = $profile->getProfileAsArray();
+					
+					if(isset($result['username']) && !empty($result['username'])){
+						// Valid
+					} else {
+						// Invalid
+						$invalid_mcname = true;
+					}
+					
 				} else { // only validate Minecraft name
 					$to_validation['username'] = array(
 						'required' => true,
-						'isvalid' => true,
+						//'isvalid' => true,
 						'min' => 3,
 						'max' => 20,
 						'unique' => 'users'
 					);
 					$mcname = htmlspecialchars(Input::get('username'));
+					
+					// Perform validation on Minecraft name
+					$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
+					$result = $profile->getProfileAsArray();
+					
+					if(isset($result['username']) && !empty($result['username'])){
+						// Valid
+					} else {
+						// Invalid
+						$invalid_mcname = true;
+					}
+					
 				}
 			} else {
 				if($custom_usernames == "true"){ // validate username and Minecraft name
@@ -143,202 +167,209 @@ if(Input::exists()){
 				}
 			}
 			
-			$validation = $validate->check($_POST, $to_validation); // Execute validation
-			
-			if($validation->passed()){
-				if($uuid_linking == '1'){
-					$profile = ProfileUtils::getProfile($mcname);
-					$result = $profile->getProfileAsArray();
-					if(isset($result["uuid"]) && !empty($result['uuid'])){
-						$uuid = $result['uuid'];
+			// Check to see if the Minecraft username was valid
+			if(!isset($invalid_mcname)){
+				// Valid, continue with validation
+				$validation = $validate->check($_POST, $to_validation); // Execute validation
+				
+				if($validation->passed()){
+					if($uuid_linking == '1'){
+						$profile = ProfileUtils::getProfile($mcname);
+						$result = $profile->getProfileAsArray();
+						if(isset($result["uuid"]) && !empty($result['uuid'])){
+							$uuid = $result['uuid'];
+						} else {
+							$uuid = '';
+						}
 					} else {
 						$uuid = '';
 					}
-				} else {
-					$uuid = '';
-				}
-			
-				$user = new User();
 				
-				$ip = $user->getIP();
-				if(filter_var($ip, FILTER_VALIDATE_IP)){
-					// Valid IP
-				} else {
-					// TODO: Invalid IP, do something else
-				}
-				
-				$password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
-				// Get current unix time
-				$date = new DateTime();
-				$date = $date->getTimestamp();
-				
-				try {
-					$code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
-					$user->create(array(
-						'username' => htmlspecialchars(Input::get('username')),
-						'mcname' => $mcname,
-						'uuid' => $uuid,
-						'password' => $password,
-						'pass_method' => 'default',
-						'joined' => $date,
-						'group_id' => 1,
-						'email' => htmlspecialchars(Input::get('email')),
-						'reset_code' => $code,
-						'lastip' => htmlspecialchars($ip)
-					));
+					$user = new User();
 					
-					$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
-					$php_mailer = $php_mailer[0]->value;
-					
-					if($php_mailer == '1'){
-						// PHP Mailer
-						require('core/includes/phpmailer/PHPMailerAutoload.php');
-						require('core/email.php');
-						
-						$mail = new PHPMailer;
-						$mail->IsSMTP(); 
-						$mail->SMTPDebug = 0;
-						$mail->Debugoutput = 'html';
-						$mail->Host = $GLOBALS['email']['host'];
-						$mail->Port = $GLOBALS['email']['port'];
-						$mail->SMTPSecure = $GLOBALS['email']['secure'];
-						$mail->SMTPAuth = true;
-						$mail->Username = $GLOBALS['email']['username'];
-						$mail->Password = $GLOBALS['email']['password'];
-						$mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
-						$mail->From = $GLOBALS['email']['username'];
-						$mail->FromName = $GLOBALS['email']['name'];
-						$mail->addAddress(htmlspecialchars(Input::get('email')), htmlspecialchars(Input::get('username')));
-						$mail->Subject = $sitename . ' - ' . $user_language['register'];
-						
-						// HTML to display in message
-						$html = file_get_contents(ROOT_PATH . '\styles\templates\\' . $template . '\email\register.html');
-						
-						$link = 'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code;
-						
-						$html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array($sitename, $user_language['register'], $email_language['greeting'], $email_language['message'], $link, $email_language['thanks']), $html);
-						
-						$mail->msgHTML($html);
-						$mail->IsHTML(true);
-						$mail->Body = $html;
-						//$mail->AltBody = 'Click the following link to complete registration: ' . $link;
-						
-						if(!$mail->send()) {
-							echo "Mailer Error: " . $mail->ErrorInfo;
-							die();
-						} else {
-							echo "Message sent!";
-						}
+					$ip = $user->getIP();
+					if(filter_var($ip, FILTER_VALIDATE_IP)){
+						// Valid IP
 					} else {
-						// PHP mail function
-						$siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
-						$siteemail = $siteemail[0]->value;
-						
-						$to      = Input::get('email');
-						$subject = $sitename . ' - ' . $user_language['register'];
-						
-						$message = 	$email_language['greeting'] . PHP_EOL .
-									$email_language['message'] . PHP_EOL . PHP_EOL . 
-									'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code . PHP_EOL . PHP_EOL .
-									$email_language['thanks'] . PHP_EOL .
-									$sitename;
-						
-						/*
-						$message = 'Hello, ' . htmlspecialchars(Input::get('username')) . '
-									Thanks for registering!
-									In order to complete your registration, please click the following link:
-									http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code . '
-									Please note that your account will not be accessible until this action is complete.
-									
-									Thanks,
-									' . $sitename . ' staff.';
-						*/
-						
-						$headers = 'From: ' . $siteemail . "\r\n" .
-							'Reply-To: ' . $siteemail . "\r\n" .
-							'X-Mailer: PHP/' . phpversion();
-						mail($to, $subject, $message, $headers);
+						// TODO: Invalid IP, do something else
 					}
 					
-					Session::flash('home', '<div class="alert alert-info alert-dismissible">  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $user_language['registration_check_email'] . '</div>');
-					Redirect::to('/');
-					die();
-				
-				} catch(Exception $e){
-					die($e->getMessage());
+					$password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
+					// Get current unix time
+					$date = new DateTime();
+					$date = $date->getTimestamp();
+					
+					try {
+						$code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+						$user->create(array(
+							'username' => htmlspecialchars(Input::get('username')),
+							'mcname' => $mcname,
+							'uuid' => $uuid,
+							'password' => $password,
+							'pass_method' => 'default',
+							'joined' => $date,
+							'group_id' => 1,
+							'email' => htmlspecialchars(Input::get('email')),
+							'reset_code' => $code,
+							'lastip' => htmlspecialchars($ip)
+						));
+						
+						$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+						$php_mailer = $php_mailer[0]->value;
+						
+						if($php_mailer == '1'){
+							// PHP Mailer
+							require('core/includes/phpmailer/PHPMailerAutoload.php');
+							require('core/email.php');
+							
+							$mail = new PHPMailer;
+							$mail->IsSMTP(); 
+							$mail->SMTPDebug = 0;
+							$mail->Debugoutput = 'html';
+							$mail->Host = $GLOBALS['email']['host'];
+							$mail->Port = $GLOBALS['email']['port'];
+							$mail->SMTPSecure = $GLOBALS['email']['secure'];
+							$mail->SMTPAuth = true;
+							$mail->Username = $GLOBALS['email']['username'];
+							$mail->Password = $GLOBALS['email']['password'];
+							$mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
+							$mail->From = $GLOBALS['email']['username'];
+							$mail->FromName = $GLOBALS['email']['name'];
+							$mail->addAddress(htmlspecialchars(Input::get('email')), htmlspecialchars(Input::get('username')));
+							$mail->Subject = $sitename . ' - ' . $user_language['register'];
+							
+							// HTML to display in message
+							$html = file_get_contents(ROOT_PATH . '\styles\templates\\' . $template . '\email\register.html');
+							
+							$link = 'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code;
+							
+							$html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array($sitename, $user_language['register'], $email_language['greeting'], $email_language['message'], $link, $email_language['thanks']), $html);
+							
+							$mail->msgHTML($html);
+							$mail->IsHTML(true);
+							$mail->Body = $html;
+							//$mail->AltBody = 'Click the following link to complete registration: ' . $link;
+							
+							if(!$mail->send()) {
+								echo "Mailer Error: " . $mail->ErrorInfo;
+								die();
+							} else {
+								echo "Message sent!";
+							}
+						} else {
+							// PHP mail function
+							$siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
+							$siteemail = $siteemail[0]->value;
+							
+							$to      = Input::get('email');
+							$subject = $sitename . ' - ' . $user_language['register'];
+							
+							$message = 	$email_language['greeting'] . PHP_EOL .
+										$email_language['message'] . PHP_EOL . PHP_EOL . 
+										'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code . PHP_EOL . PHP_EOL .
+										$email_language['thanks'] . PHP_EOL .
+										$sitename;
+							
+							/*
+							$message = 'Hello, ' . htmlspecialchars(Input::get('username')) . '
+										Thanks for registering!
+										In order to complete your registration, please click the following link:
+										http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code . '
+										Please note that your account will not be accessible until this action is complete.
+										
+										Thanks,
+										' . $sitename . ' staff.';
+							*/
+							
+							$headers = 'From: ' . $siteemail . "\r\n" .
+								'Reply-To: ' . $siteemail . "\r\n" .
+								'X-Mailer: PHP/' . phpversion();
+							mail($to, $subject, $message, $headers);
+						}
+						
+						Session::flash('home', '<div class="alert alert-info alert-dismissible">  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $user_language['registration_check_email'] . '</div>');
+						Redirect::to('/');
+						die();
+					
+					} catch(Exception $e){
+						die($e->getMessage());
+					}
+				} else {
+					// Errors
+					$error = '<div class="alert alert-danger">';
+					foreach($validation->errors() as $validation_error){
+						
+						if(strpos($validation_error, 'is required') !== false){
+							// x is required
+							switch($validation_error){
+								case (strpos($validation_error, 'username') !== false):
+									$error .= $user_language['username_required'] . '<br />';
+								break;
+								case (strpos($validation_error, 'email') !== false):
+									$error .= $user_language['email_required'] . '<br />';
+								break;
+								case (strpos($validation_error, 'password') !== false):
+									$error .= $user_language['password_required'] . '<br />';
+								break;
+								case (strpos($validation_error, 'mcname') !== false):
+									$error .= $user_language['mcname_required'] . '<br />';
+								break;
+								case (strpos($validation_error, 't_and_c') !== false):
+									$error .= $user_language['accept_terms'] . '<br />';
+								break;
+							}
+							
+						} else if(strpos($validation_error, 'minimum') !== false){
+							// x must be a minimum of y characters long
+							switch($validation_error){
+								case (strpos($validation_error, 'username') !== false):
+									$error .= $user_language['username_minimum_3'] . '<br />';
+								break;
+								case (strpos($validation_error, 'mcname') !== false):
+									$error .= $user_language['mcname_minimum_3'] . '<br />';
+								break;
+								case (strpos($validation_error, 'password') !== false):
+									$error .= $user_language['password_minimum_6'] . '<br />';
+								break;
+							}
+							
+						} else if(strpos($validation_error, 'maximum') !== false){
+							// x must be a maximum of y characters long
+							switch($validation_error){
+								case (strpos($validation_error, 'username') !== false):
+									$error .= $user_language['username_maximum_20'] . '<br />';
+								break;
+								case (strpos($validation_error, 'mcname') !== false):
+									$error .= $user_language['mcname_maximum_20'] . '<br />';
+								break;
+								case (strpos($validation_error, 'password') !== false):
+									$error .= $user_language['password_maximum_30'] . '<br />';
+								break;
+							}
+							
+						} else if(strpos($validation_error, 'must match') !== false){
+							// password must match password again
+							$error .= $user_language['passwords_dont_match'] . '<br />';
+							
+						} else if(strpos($validation_error, 'already exists') !== false){
+							// already exists
+							$error .= $user_language['username_mcname_email_exists'] . '<br />';
+						} else if(strpos($validation_error, 'not a valid Minecraft account') !== false){
+							// Invalid Minecraft username
+							$error .= $user_language['invalid_mcname'] . '<br />';
+							
+						} else if(strpos($validation_error, 'Mojang communication error') !== false){
+							// Mojang server error
+							$error .= $user_language['mcname_lookup_error'] . '<br />';
+							
+						}
+					}
+					$error .= '</div>';
+					//$error = '<div class="alert alert-danger">' . $user_language['registration_error'] . '</div>';
 				}
 			} else {
-				// Errors
-				$error = '<div class="alert alert-danger">';
-				foreach($validation->errors() as $validation_error){
-					
-					if(strpos($validation_error, 'is required') !== false){
-						// x is required
-						switch($validation_error){
-							case (strpos($validation_error, 'username') !== false):
-								$error .= $user_language['username_required'] . '<br />';
-							break;
-							case (strpos($validation_error, 'email') !== false):
-								$error .= $user_language['email_required'] . '<br />';
-							break;
-							case (strpos($validation_error, 'password') !== false):
-								$error .= $user_language['password_required'] . '<br />';
-							break;
-							case (strpos($validation_error, 'mcname') !== false):
-								$error .= $user_language['mcname_required'] . '<br />';
-							break;
-							case (strpos($validation_error, 't_and_c') !== false):
-								$error .= $user_language['accept_terms'] . '<br />';
-							break;
-						}
-						
-					} else if(strpos($validation_error, 'minimum') !== false){
-						// x must be a minimum of y characters long
-						switch($validation_error){
-							case (strpos($validation_error, 'username') !== false):
-								$error .= $user_language['username_minimum_3'] . '<br />';
-							break;
-							case (strpos($validation_error, 'mcname') !== false):
-								$error .= $user_language['mcname_minimum_3'] . '<br />';
-							break;
-							case (strpos($validation_error, 'password') !== false):
-								$error .= $user_language['password_minimum_6'] . '<br />';
-							break;
-						}
-						
-					} else if(strpos($validation_error, 'maximum') !== false){
-						// x must be a maximum of y characters long
-						switch($validation_error){
-							case (strpos($validation_error, 'username') !== false):
-								$error .= $user_language['username_maximum_20'] . '<br />';
-							break;
-							case (strpos($validation_error, 'mcname') !== false):
-								$error .= $user_language['mcname_maximum_20'] . '<br />';
-							break;
-							case (strpos($validation_error, 'password') !== false):
-								$error .= $user_language['password_maximum_30'] . '<br />';
-							break;
-						}
-						
-					} else if(strpos($validation_error, 'must match') !== false){
-						// password must match password again
-						$error .= $user_language['passwords_dont_match'] . '<br />';
-						
-					} else if(strpos($validation_error, 'already exists') !== false){
-						// already exists
-						$error .= $user_language['username_mcname_email_exists'] . '<br />';
-					} else if(strpos($validation_error, 'not a valid Minecraft account') !== false){
-						// Invalid Minecraft username
-						$error .= $user_language['invalid_mcname'] . '<br />';
-						
-					} else if(strpos($validation_error, 'Mojang communication error') !== false){
-						// Mojang server error
-						$error .= $user_language['mcname_lookup_error'] . '<br />';
-						
-					}
-				}
-				$error .= '</div>';
-				//$error = '<div class="alert alert-danger">' . $user_language['registration_error'] . '</div>';
+				// Invalid Minecraft name
+				$error = '<div class="alert alert-danger">' . $user_language['invalid_mcname'] . '</div>';
 			}
 		
 		} else {
