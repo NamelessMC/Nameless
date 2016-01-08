@@ -136,3 +136,15 @@
 - Allow border-style, border-width, height and width CSS attributes in custom pages
 - Fix images contributing to signature character limit
 - New updater
+
+1.0.1
+- Remove mysqlnd requirement
+- Fix issue where, instead of the topic author, the last user to post in the topic was shown in the latest discussions view.
+- Fix invalid token on creating a new private message
+- Fix "remember me" on signin not actually remembering the user
+- Prevent users navigating to /pages directory manually
+- Remove unnecessary tr tag from the play page template 
+- Add Minecraft status module to forum 
+- Add better registration error messages 
+- Add reCAPTCHA secret key field to AdminCP 
+- Change method of checking to see if a Minecraft username is valid 
