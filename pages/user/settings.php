@@ -15,6 +15,7 @@ if(!$user->isLoggedIn()){
 $user_page = 'settings';
 
 require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifier
+require('core/includes/password.php'); // For password hashing
 
 // Are custom usernames enabled?
 $custom_usernames = $queries->getWhere('settings', array('name', '=', 'displaynames'));

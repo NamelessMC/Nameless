@@ -100,7 +100,7 @@ if(count($individual)){
 		mail($to, $subject, $message, $headers);
 	}
 	
-	$queries->update('users', $check[0]->id, array(
+	$queries->update('users', $individual[0]->id, array(
 		'reset_code' => $code
 	));
 	
