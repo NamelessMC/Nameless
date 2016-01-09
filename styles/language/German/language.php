@@ -2,6 +2,9 @@
 /*
  *	Translation created by LPkkjHD
  *  https://www.spigotmc.org/members/lpkkjhd.31564/
+ *	Translation finished and modified by manuelgu
+ *  https://www.spigotmc.org/members/manuelgu.32316/
+ *
  *
  *  License: MIT
  */
@@ -26,7 +29,7 @@ $admin_language = array(
 	'task_successful' => 'Aufgabe wurde erfolgreich ausgeführt',
 
 	// Admin login
-	're-authenticate' => 'Neuanmeldung Erforderlich',
+	're-authenticate' => 'Neuanmeldung erforderlich',
 
 	// Admin sidebar
 	'index' => 'Übersicht',
@@ -43,7 +46,7 @@ $admin_language = array(
 
 	// Admin index page
 	'statistics' => 'Statistiken',
-	'registrations_per_day' => 'Registrations per day (last 7 days)',
+	'registrations_per_day' => 'Registrationen pro Tag (letzten 7 Tage)',
 
 	// Admin core page
 	'general_settings' => 'Allgemeine Einstellungen',
@@ -51,32 +54,32 @@ $admin_language = array(
 	'module_not_exist' => 'Dieses Modul existiert nicht!',
 	'module_enabled' => 'Modul angeschaltet.',
 	'module_disabled' => 'Modul ausgeschaltet.',
-	'site_name' => 'Seiten Name',
+	'site_name' => 'Seitenname',
 	'language' => 'Sprache',
 	'voice_server_not_writable' => 'core/voice_server.php ist nicht beschreibbar. Bitte überprüfe die Berechtigungen',
 	'email' => 'E-Mail',
 	'incoming_email' => 'Eingehende E-Mail Adresse',
 	'outgoing_email' => 'Ausgehende E-Mail Adresse',
-	'outgoing_email_help' => 'Nur benötigt wenn die PHP Mail funktion angeschaltet ist',
-	'use_php_mail' => 'Verwende PHP mail() funktion?',
-	'use_php_mail_help' => 'Empfohlen: eingeschalted. Wenn diese Website keine E-Mails versendet, deaktiviere es und ändere in core/email.php deine E-Mail Einstellungen.',
+	'outgoing_email_help' => 'Nur benötigt, wenn die PHP Mail Funktion angeschaltet ist',
+	'use_php_mail' => 'Verwende PHP mail() Funktion?',
+	'use_php_mail_help' => 'Empfohlen: Eingeschalted. Wenn diese Website keine E-Mails versendet, deaktiviere es und ändere in core/email.php deine E-Mail Einstellungen.',
 	'use_gmail' => 'Verwende GoogleMail (Gmail) um E-Mails zu versenden?',
-	'use_gmail_help' => 'Diese Funktion ist nur möglich wenn die PHP mail Funktion deaktiviert ist. Wenn du nicht GoogleMail verwendest wird SMTP verwendet. Beide wege müssen manuell in core/mail.php gesetzt werden.',
+	'use_gmail_help' => 'Diese Funktion ist nur möglich, wenn die PHP mail() Funktion deaktiviert ist. Wenn du nicht GoogleMail verwendest, wird SMTP verwendet. Beide Wege müssen manuell in core/mail.php gesetzt werden.',
 
 	// Admin custom pages page
-	'click_on_page_to_edit' => 'Klicke auf eine Seite um sie zu bearbeiten.',
+	'click_on_page_to_edit' => 'Klicke auf eine Seite, um sie zu bearbeiten.',
 	'page' => 'Seite:',
 	'url' => 'URL:',
 	'page_url' => 'Seiten URL',
 	'page_url_example' => '(Mit vorstehendem "/". Beispiel: /help/)',
-	'page_title' => 'Seiten Titel',
-	'page_content' => 'Seiten Inhalt',
+	'page_title' => 'Seitentitel',
+	'page_content' => 'Seiteninhalt',
 	'new_page' => 'Neue Seite',
 	'page_successfully_created' => 'Seite erfolgreich erstellt',
 	'page_successfully_edited' => 'Seite erfolgreich bearbeitet',
-	'unable_to_create_page' => 'Auserstande die Seite zu erstellen.',
-	'unable_to_edit_page' => 'Auserstande die Seite zu bearbeiten.',
-	'create_page_error' => 'Stelle sicher, dass die eingegebene URL zwischen 1 und 20 Zeichen, der Seiten Titel zwischen 1 und 30 Zeichen und der Seiteninhalt zwischen 5 und 20480 Zeichen lang ist.',
+	'unable_to_create_page' => 'Fehler bei der Erstellung der Seite.',
+	'unable_to_edit_page' => 'Fehler bei der Bearbeitung der Seite.',
+	'create_page_error' => 'Stelle sicher, dass die eingegebene URL zwischen 1 und 20 Zeichen, der Seitentitel zwischen 1 und 30 Zeichen und der Seiteninhalt zwischen 5 und 20480 Zeichen lang ist.',
 	'delete_page' => 'Seite löschen',
 	'confirm_delete_page' => 'Bist du sicher, dass du diese Seite löschen willst?',
 	'page_deleted_successfully' => 'Seite wurde gelöscht',
@@ -84,7 +87,7 @@ $admin_language = array(
 	'page_link_navbar' => 'Navigationsleiste',
 	'page_link_more' => 'Navigationsleiste -> "Mehr" Menü',
 	'page_link_footer' => 'Fußleiste',
-	'page_link_none' => 'No page link',
+	'page_link_none' => 'Kein Seitenlink',
 
 	// Admin forum page
 	'labels' => 'Themen Label',
@@ -93,8 +96,8 @@ $admin_language = array(
 	'label_name' => 'Label Name',
 	'label_type' => 'Label Typ',
 	'label_forums' => 'Label Foren',
-	'label_creation_error' => 'Fehler beim erstellen des Labels. Bitte stelle sicher, dass der Name nicht länger als 32 Zeichen lang ist und ein Typ zugewiesen ist.',
-	'confirm_label_deletion' => 'Bist du dir sicher, dass du dieses Label entfernen willst?',
+	'label_creation_error' => 'Fehler beim Erstellen des Labels. Bitte stelle sicher, dass der Name nicht länger als 32 Zeichen ist und ein Typ zugewiesen ist.',
+	'confirm_label_deletion' => 'Bist du sicher, dass du dieses Label entfernen willst?',
 	'editing_label' => 'Label bearbeiten',
 	'label_creation_success' => 'Label wurde erstellt',
 	'label_edit_success' => 'Label wurde bearbeitet',
@@ -105,22 +108,22 @@ $admin_language = array(
 	'label_warning' => 'Warnung',
 	'label_danger' => 'Achtung',
 	'new_forum' => 'Neues Forum',
-	'forum_layout' => 'Foren Layout',
-	'table_view' => 'Tabellen Ansicht',
+	'forum_layout' => 'Forenlayout',
+	'table_view' => 'Tabellenansicht',
 	'latest_discussions_view' => '"Neuste Diskussion" Ansicht',
 	'create_forum' => 'Forum erstellen',
-	'forum_name' => 'Foren Name',
-	'forum_description' => 'Foren Beschreibung',
+	'forum_name' => 'Forenname',
+	'forum_description' => 'Forenbeschreibung',
 	'delete_forum' => 'Forum löschen',
 	'move_topics_and_posts_to' => 'Verschiebe Themen und Beiträge nach',
 	'delete_topics_and_posts' => 'Lösche Themen und Beiträge',
 	'parent_forum' => 'Übergeordnetes Forum',
-	'has_no_parent' => 'Hat kein Übergeordnetes Forum',
-	'forum_permissions' => 'Foren Berechtigungen',
+	'has_no_parent' => 'Hat kein übergeordnetes Forum',
+	'forum_permissions' => 'Forenberechtigungen',
 	'can_view_forum' => 'Dürfen Forum sehen:',
 	'can_create_topic' => 'Dürfen Themen erstellen:',
 	'can_post_reply' => 'Dürfen in Themen antworten:',
-	'display_threads_as_news' => 'Stelle Themen als News auf der Front Seite dar?',
+	'display_threads_as_news' => 'Stelle Themen als News auf der Frontseite dar?',
 
 	// Admin Users and Groups page
 	'users' => 'Benutzer',
@@ -129,7 +132,7 @@ $admin_language = array(
 	'user_deleted' => 'Benutzer gelöscht',
 	'validate_user' => 'Benutzer bestätigen',
 	'update_uuid' => 'Aktualisiere die UUID',
-	'unable_to_update_uuid' => 'Unmöglich die UUID zu Aktualisieren.',
+	'unable_to_update_uuid' => 'Unmöglich die UUID zu aktualisieren.',
 	'update_mc_name' => 'Aktualisiere Minecraft Name',
 	'reset_password' => 'Passwort zurücksetzen',
 	'punish_user' => 'Benutzer bestrafen',
@@ -146,56 +149,56 @@ $admin_language = array(
 	'id' => 'ID',
 	'name' => 'Name',
 	'create_group' => 'Gruppe erstellen',
-	'group_name' => 'Gruppen Name',
-	'group_html' => 'Gruppen HTML',
+	'group_name' => 'Gruppenname',
+	'group_html' => 'Gruppen-HTML',
 	'group_html_lg' => 'Gruppen HTML lang',
 	'donor_group_id' => 'Spender Paket-ID',
-	'donor_group_id_help' => '<p>Die Paket-ID ist die ID des Gruppen Packetes von Buycraft, MinecraftMarket oder MCStock.</p><p>Dieses Feld darf Freigelassen bleiben.</p>',
-	'donor_group_instructions' => 	'<p>Spender Gruppen müssen in der Reihenfolge von dem <strong>kleinsten zum größten Wert</strong> erstellt werden.</p>
+	'donor_group_id_help' => '<p>Die Paket-ID ist die ID des Gruppenpacketes von Buycraft, MinecraftMarket oder MCStock.</p><p>Dieses Feld darf freigelassen werden.</p>',
+	'donor_group_instructions' => 	'<p>Spendergruppen müssen in der Reihenfolge von dem <strong>kleinsten zum größten Wert</strong> erstellt werden.</p>
 									<p>Beispiel: ein Paket für 10€ muss vor einem Paket das 20€ kostet erstellt werden.</p>',
 	'delete_group' => 'Gruppe löschen',
-	'confirm_group_deletion' => 'Bist du dir sicher, dass du die Gruppe {x} löschen willst?', // Don't replace "{x}"
+	'confirm_group_deletion' => 'Bist du sicher, dass du die Gruppe {x} löschen willst?', // Don't replace "{x}"
 	'group_staff' => 'Ist diese Gruppe eine Staff Gruppe?',
 	'group_modcp' => 'Können Benutzer der Gruppe das Moderatoren Panel sehen?',
 	'group_admincp' => 'Können Benutzer der Gruppe das Admin Panel sehen?',
 
 	// Admin Minecraft page
 	'minecraft_settings' => 'Minecraft Einstellungen',
-	'use_plugin' => 'Verwende das Nameless Minecraft plugin?',
-	'force_avatars' => 'Erzwige die Venwendung von Minecraft Avataren?',
-	'uuid_linking' => 'Erlaube UUID kopplung?',
-	'use_plugin_help' => 'Das verwenden des Plugins erlaubt die Ränge Synchronisierung, ingame Registrierungen und Ticket einreichung.',
-	'uuid_linking_help' => 'Wenn diese Funktion aktiviert ist werden die Benutzer Accounts nicht mit den Minecraft UUIDs verknüpft. Es wird sehr Empfohlen diese Funktion aktiviert zu lassen.',
-	'plugin_settings' => 'Plugin Einstellungen',
+	'use_plugin' => 'Verwende das Nameless Minecraft Plugin?',
+	'force_avatars' => 'Erzwinge die Verwendung von Minecraft Avataren?',
+	'uuid_linking' => 'Erlaube UUID Kopplung?',
+	'use_plugin_help' => 'Das verwenden des Plugins erlaubt die Ränge-Synchronisierung, InGame-Registrierungen und Einreichung von Tickets.',
+	'uuid_linking_help' => 'Wenn diese Funktion aktiviert ist, werden die Benutzeraccounts nicht mit den Minecraft UUIDs verknüpft. Es wird sehr empfohlen diese Funktion aktiviert zu lassen.',
+	'plugin_settings' => 'Plugineinstellungen',
 	'confirm_api_regen' => 'Bist du sicher, dass du einen neuen API-Schlüssel generieren willst?',
 	'servers' => 'Server',
 	'new_server' => 'Neuer Server',
 	'confirm_server_deletion' => 'Bist du sicher, dass du diesen Server löschen willst?',
-	'main_server' => 'Haupt Server',
-	'main_server_help' => 'Der Server durch den die Spieler connecten. Normalerweise ist dies die BungeeCord instanz.',
+	'main_server' => 'Hauptserver',
+	'main_server_help' => 'Der Server durch den die Spieler connecten. Normalerweise ist dies die BungeeCord Instanz.',
 	'choose_a_main_server' => 'Wähle einen Hauptserver..',
 	'external_query' => 'Verwende external query?',
-	'external_query_help' => 'Verwendet eine externe API um den Minecraft Server abzufragen. Verwende dies nur wenn die eingebaute Abfrage nicht funktioniert. Es wird sehr Empfohlen diese Funktion deaktiviert zu lassen.',
+	'external_query_help' => 'Verwendet eine externe API um den Minecraft Server abzufragen. Verwende dies nur, wenn die eingebaute Abfrage nicht funktioniert. Es wird sehr empfohlen diese Funktion deaktiviert zu lassen.',
 	'editing_server' => 'Bearbeite den Server {x}', // Don't replace "{x}"
-	'server_ip_with_port' => 'Server IP (mit port) (numeric or domain)',
-	'server_ip_with_port_help' => 'This is the IP which will be displayed to users. It will not be queried.',
-	'server_ip_numeric' => 'Server IP (with port) (numeric only)',
-	'server_ip_numeric_help' => 'This is the IP which will be queried, please ensure it is numeric only. It will not be displayed to users.',
-	'show_on_play_page' => 'Zeite auf der Spielen Seite?',
+	'server_ip_with_port' => 'Server IP (mit Port)',
+	'server_ip_with_port_help' => 'Dies ist die IP-Adresse, die den Nutzern angezeigt wird..',
+	'server_ip_numeric' => 'Server IP (mit Port) (nur numerisch)',
+	'server_ip_numeric_help' => 'Dies ist die IP-Adresse, die abgefragt wird. Sie wird den Nutzern nicht angezeigt',
+	'show_on_play_page' => 'Zeite auf der Spieleseite?',
 	'pre_17' => 'Vor 1.7 Minecraft Version?',
-	'server_name' => 'Server Name',
+	'server_name' => 'Servername',
 	'invalid_server_id' => 'Unbekannte Server ID',
-	'show_players' => 'Zeige Player Liste auf der Spielen Seite?',
+	'show_players' => 'Zeige Spielerliste auf der Spieleseite?',
 	'server_edited' => 'Server wurde erfolgreich bearbeitet',
 	'server_created' => 'Server wurde erfolgreich erstellt',
-	'query_errors' => 'Abfrage Fehler',
-	'query_errors_info' => 'Die Folgenden Fehlermeldungen lassen dich Fehlfunktionen an dem Internen Serverabfrager diagnostizieren.',
+	'query_errors' => 'Abfragefehler',
+	'query_errors_info' => 'Die folgenden Fehlermeldungen lassen dich Fehlfunktionen an dem internen Serverabfrager diagnostizieren.',
 	'no_query_errors' => 'Keine Abfrage aufgezeichnet',
 	'date' => 'Datum:',
 	'port' => 'Port:',
-	'viewing_error' => 'Anzeige Fehler',
+	'viewing_error' => 'Anzeigefehler',
 	'confirm_error_deletion' => 'Bist du sicher, dass du diese Fehlermeldung löschen willst?',
-	'display_server_status' => 'Display server status module?',
+	'display_server_status' => 'Zeige Serverstatus Modul?',
 
 	// Admin Themes, Templates and Addons
 	'themes' => 'Themen',
@@ -215,7 +218,7 @@ $admin_language = array(
 	'theme_install_instructions' => 'Bitte lade die Themen nach <strong>styles/themes</strong> hoch. Wenn dies geschehen ist klicke auf "Scannen".',
 	'template_install_instructions' => 'Bitte lade Vorlagen nach <strong>styles/templates</strong> hoch. Wenn dies geschehen ist klicke auf "Scannen".',
 	'addon_install_instructions' => 'Bitte lade Addons nach <strong>addons</strong> hoch. Wenn dies geschehen ist klicke auf "Scannen".',
-	'addon_install_warning' => 'Addons zu installieren erfolgt auf eigene Gefahr. Bitte lege ein Backup von deinen Daten und der Datenbank an bevor du fortfährst',
+	'addon_install_warning' => 'Die Installation von Addons ist auf eigene Gefahr. Bitte lege ein Backup von deinen Daten und der Datenbank an, bevor du fortfährst',
 	'scan' => 'Scannen',
 	'theme_not_exist' => 'Dieses Theme existiert nicht!',
 	'template_not_exist' => 'Dieses Template existiert nicht!',
@@ -234,12 +237,12 @@ $admin_language = array(
 
 	// Admin Misc page
 	'other_settings' => 'Andere Einstellungen',
-	'enable_error_reporting' => 'Aktiviere Fehler Rückmeldungen?',
-	'error_reporting_description' => 'Fehler Rückmeldungen sollten nur für debugging Zwecke verwendet werden, es wird dringend Empfohlen diese Option deaktiviert zu lassen!',
+	'enable_error_reporting' => 'Aktiviere Fehlerrückmeldungen?',
+	'error_reporting_description' => 'Fehlerrückmeldungen sollten nur für debugging Zwecke verwendet werden. Es wird dringend empfohlen, diese Option deaktiviert zu lassen!',
 	'display_page_load_time' => 'Zeige Seitenladezeit?',
-	'page_load_time_description' => 'Wenn diese Aktion aktiviert ist wird in der Fußzeile ein Speedometer angezeigt welches die Ladezeit anzeigt.',
+	'page_load_time_description' => 'Wenn diese Aktion aktiviert ist, wird in der Fußzeile ein Speedometer angezeigt, welches die Ladezeit anzeigt.',
 	'reset_website' => 'Website zurücksetzen',
-	'reset_website_info' => 'Mit dieser Funktion wird die Website zurückgesetzt. <strong>Addons werden deaktiviert aber nicht gelöscht und Einstellungen, die am Addon vorgenommen wurden sind immer noch present.</strong> Die definierten Minecraft Server werden auch bleiben.',
+	'reset_website_info' => 'Mit dieser Funktion wird die Website zurückgesetzt. <strong>Addons werden deaktiviert, aber nicht gelöscht, und Einstellungen, die am Addon vorgenommen wurden, sind immer noch present.</strong> Die definierten Minecraft Server werden auch bleiben.',
 	'confirm_reset_website' => 'Bist du sicher, dass du die Website zurücksetzen willst?'
 );
 
@@ -269,15 +272,15 @@ $user_language = array(
 	'email_address' => 'E-Mail Adresse',
 	'password' => 'Passwort',
 	'confirm_password' => 'Passwort bestätigen',
-	'i_agree' => 'Ich Stimme zu',
-	'agree_t_and_c' => 'Mit dem Klicken auf <strong class="label label-primary">Registrieren</strong>, Stimmst du unseren <a href="#" data-toggle="modal" data-target="#t_and_c_m">Bedingungen und Konditionen</a> zu.',
+	'i_agree' => 'Ich stimme zu',
+	'agree_t_and_c' => 'Mit dem Klicken auf <strong class="label label-primary">Registrieren</strong>, stimmst du unseren <a href="#" data-toggle="modal" data-target="#t_and_c_m">Bedingungen und Konditionen</a> zu.',
 	'register' => 'Registrieren',
 	'sign_in' => 'Anmelden',
 	'sign_out' => 'Abmelden',
 	'terms_and_conditions' => 'Bedingungen und Konditionen',
 	'successful_signin' => 'Du wurdest erfolgreich angemeldet',
 	'incorrect_details' => 'Falsche Details',
-	'remember_me' => 'Login Merken',
+	'remember_me' => 'Login merken',
 	'forgot_password' => 'Passwort vergessen',
 	'must_input_username' => 'Du musst einen Benutzername angeben.',
 	'must_input_password' => 'Du musst ein Passwort angeben.',
@@ -285,33 +288,33 @@ $user_language = array(
 	'account_banned' => 'Dein Account wurde gebannt.',
 	'successfully_logged_out' => 'Du wurdest erfolgreich ausgeloggt.',
 	'signature' => 'Signatur',
-	'registration_check_email' => 'Bitte überprüfe deine E-Mails auf einen Bestätigungslink. Du wirst dich nicht Anmelden können, bist dieser geklickt wurde.',
-	'unknown_login_error' => 'Entschuldigung, während du dich einloggen wollstest ist ein unbekannter Fehler aufgetreten. Bitte Versuche es später erneut.',
-	'validation_complete' => 'Danke für\'s Registrieren! Du kannst dich nun Anmelden',
-	'validation_error' => 'Fehler beim Bearbeiten deiner Anfrage. Versuche den link später noch einmal zu klicken.',
-	'registration_error' => 'Bitte Stelle sicher, dass du alle Felder ausgefüllt hast, wobei der Benutzername zwischen 3 und 20 Zeichen und das Passwort zwischen 6 und 30 Zeichen lang sein muss.', // todo
-	'username_required' => 'Please enter a username.',
-	'password_required' => 'Please enter a password.',
-	'email_required' => 'Please enter an email address.',
-	'mcname_required' => 'Please enter a Minecraft username.',
-	'accept_terms' => 'You must accept the terms and conditions before registering.',
+	'registration_check_email' => 'Bitte überprüfe deine E-Mails auf einen Bestätigungslink. Du wirst dich nicht anmelden können, bis dieser geklickt wurde.',
+	'unknown_login_error' => 'Entschuldigung, während du dich einloggen wollstest ist ein unbekannter Fehler aufgetreten. Bitte versuche es später erneut.',
+	'validation_complete' => 'Danke für\'s registrieren! Du kannst dich nun anmelden',
+	'validation_error' => 'Fehler beim bearbeiten deiner Anfrage. Versuche den Link später noch einmal zu klicken.',
+	'registration_error' => 'Bitte stelle sicher, dass du alle Felder ausgefüllt hast, wobei der Benutzername zwischen 3 und 20 Zeichen und das Passwort zwischen 6 und 30 Zeichen lang sein muss.', // todo
+	'username_required' => 'Bitte gebe einen Nutzernamen an.',
+	'password_required' => 'Bitte gebe ein Passwort an.',
+	'email_required' => 'Bitte gebe eine gültige E-Mail-Adresse an.',
+	'mcname_required' => 'Bitte gebe einen Minecraft Namen an.',
+	'accept_terms' => 'Du musst unsere AGBs akzeptieren, um dich zu registrieren.',
 	'invalid_recaptcha' => 'Invalid reCAPTCHA response.',
-	'username_minimum_3' => 'Your username must be a minimum of 3 characters long.',
-	'username_maximum_20' => 'Your username must be a maximum of 20 characters long.',
-	'mcname_minimum_3' => 'Your Minecraft username must be a minimum of 3 characters long.',
-	'mcname_maximum_20' => 'Your Minecraft username must be a maximum of 20 characters long.',
-	'password_minimum_6' => 'Your password must be at least 6 characters long.',
-	'password_maximum_30' => 'Your password must be a maximum of 30 characters long.',
-	'passwords_dont_match' => 'Your passwords do not match.',
-	'username_mcname_email_exists' => 'Your username, Minecraft username or email address already exists. Have you already created an account?',
-	'invalid_mcname' => 'Your Minecraft username is not a valid account',
-	'mcname_lookup_error' => 'There was an error contacting Mojang\'s servers. Please try again later.',
+	'username_minimum_3' => 'Dein Nutzername muss mindestens 3 Zeichen lang sein.',
+	'username_maximum_20' => 'Dein Nutzername darf nicht länger als 20 Zeichen sein.',
+	'mcname_minimum_3' => 'Dein Minecraftname muss mindestens 3 Zeichen lang sein.',
+	'mcname_maximum_20' => 'Dein Minecraftname darf nicht länger als 20 Zeichen sein..',
+	'password_minimum_6' => 'Dein Passwort muss mindestens 6 Zeichen haben..',
+	'password_maximum_30' => 'Dein Passwort darf nicht länger als 30 Zeichen sein.',
+	'passwords_dont_match' => 'Deine Passwörter stimmen nicht überein.',
+	'username_mcname_email_exists' => 'Dein Nutzername, Minecraftname oder deine E-Mail-Adresse sind bereits registriert. Hast du schon ein Konto eingerichtet?',
+	'invalid_mcname' => 'Dein Minecraftname ist ungültig.',
+	'mcname_lookup_error' => 'Es gab einen Fehler bei der Anfrage zu Mojang\'s Servern. Bitte versuche es später noch einmal.',
 	
 	// UserCP
-	'user_cp' => 'User Panel',
+	'user_cp' => 'Userpanel',
 	'no_file_chosen' => 'Keine Datei ausgewählt',
-	'private_messages' => 'Private Nachichten',
-	'profile_settings' => 'Profil Einstellungen',
+	'private_messages' => 'Private Nachrichten',
+	'profile_settings' => 'Profileinstellungen',
 	'your_profile' => 'Dein Profil',
 	'topics' => 'Themen',
 	'posts' => 'Beiträge',
@@ -320,41 +323,41 @@ $user_language = array(
 	'alerts' => 'Alarme',
 
 	// Messaging
-	'new_message' => 'Neue Nachicht',
-	'no_messages' => 'Keine Nachichten',
+	'new_message' => 'Neue Nachricht',
+	'no_messages' => 'Keine Nachrichten',
 	'and_x_more' => 'und {x} mehr', // Don't replace "{x}"
 	'system' => 'System',
-	'message_title' => 'Nachichten Titel',
-	'message' => 'Nachicht',
+	'message_title' => 'Nachrichtentitel',
+	'message' => 'Nachricht',
 	'to' => 'An:',
 	'separate_users_with_comma' => 'Trenne verschiedene Namen mit Komma (",")',
-	'viewing_message' => 'Lese Nachicht',
-	'delete_message' => 'Lösche Nachicht',
-	'confirm_message_deletion' => 'Bist du dir sicher, dass du diese Nachicht löschen willst?',
+	'viewing_message' => 'Lese Nachricht',
+	'delete_message' => 'Lösche Nachricht',
+	'confirm_message_deletion' => 'Bist du sicher, dass du diese Nachricht löschen willst?',
 
 	// Profile settings
-	'display_name' => 'Anzeige Name',
-	'upload_an_avatar' => 'Lade einen Avatar hoch (.jpg, .png or .gif only):',
-	'use_gravatar' => 'Use Gravatar?',
-	'change_password' => 'Change password',
-	'current_password' => 'Current password',
-	'new_password' => 'New password',
-	'repeat_new_password' => 'Repeat new password',
-	'password_changed_successfully' => 'Password changed successfully',
-	'incorrect_password' => 'Your current password is incorrect',
+	'display_name' => 'Anzeigename',
+	'upload_an_avatar' => 'Lade einen Avatar hoch (.jpg, .png oder .gif):',
+	'use_gravatar' => 'Nutze Gravatar?',
+	'change_password' => 'Ändere Passwort',
+	'current_password' => 'Aktuelles Passwort',
+	'new_password' => 'Neues Passwort',
+	'repeat_new_password' => 'Wiederhole neues Passwort',
+	'password_changed_successfully' => 'Passwort wurde erfolgreich geändert',
+	'incorrect_password' => 'Dein aktuelles Passwort ist ungültig',
 
 	// Alerts
-	'viewing_unread_alerts' => 'Zeigt ungelesene Nachichten. Wechsele zu <a href="/user/alerts/?view=read"><span class="label label-success">gelesen</span></a>.',
-	'viewing_read_alerts' => 'Zeigt gelesene Nachichten. Wechsele zu<a href="/user/alerts/"><span class="label label-warning">ungelesenen</span></a>.',
-	'no_unread_alerts' => 'Du hast keine ungelesenen Benachichtungen.',
-	'no_read_alerts' => 'Du hast keine "read" Benachichtungen.',  //unsure if "read" means "lesen"
+	'viewing_unread_alerts' => 'Zeigt ungelesene Nachrichten. Wechsele zu <a href="/user/alerts/?view=read"><span class="label label-success">gelesen</span></a>.',
+	'viewing_read_alerts' => 'Zeigt gelesene Nachrichten. Wechsele zu<a href="/user/alerts/"><span class="label label-warning">ungelesenen</span></a>.',
+	'no_unread_alerts' => 'Du hast keine ungelesenen Benachrichtigungen.',
+	'no_read_alerts' => 'Du hast keine "read" Benachrichtigungen.',  //unsure if "read" means "lesen"
 	'view' => 'Anzeigen',
-	'alert' => 'Benachichtigen',
+	'alert' => 'Benachrichtigungen',
 	'when' => 'Wann',
 	'delete' => 'Löschen',
-	'tag' => 'Benutzer tag',
+	'tag' => 'Benutzer Tag',
 	'report' => 'Melden',
-	'deleted_alert' => 'Benachichtig erfolgreich gelöscht',
+	'deleted_alert' => 'Benachrichtigung erfolgreich gelöscht',
 
 	// Warnings
 	'you_have_received_a_warning' => 'Du hast eine Warnung von {x} vom {y}.', // Don't replace "{x}" or "{y}"
@@ -362,8 +365,8 @@ $user_language = array(
 
 	// Forgot password
 	'password_reset' => 'Passwort zurücksetzen',
-	'email_body' => 'Du bekommst diese Mail, da du dein Passwort zurücksetzen lassen willst. Um dein Passwort zurückzusetzen klicke Bitte auf den Link unten:', // Body for the password reset email
-	'email_body_2' => 'Wenn du dein Passwort nicht zurücksetzen willst dann kannst du diese Mail ignorieren.',
+	'email_body' => 'Du bekommst diese E-Mail, da du dein Passwort zurücksetzen lassen möchtest. Um dein Passwort zurückzusetzen, klicke bitte auf den Link unten:', // Body for the password reset email
+	'email_body_2' => 'Wenn du dein Passwort nicht zurücksetzen willst, dann kannst du diese E-Mail einfach ignorieren.',
 	'password_email_set' => 'Erfolgreich. Bitte prüfe dein E-Mail Postfach für weitere Instruktionen.',
 	'username_not_found' => 'Dieser Benutzername existiert nicht.',
 	'change_password' => 'Passwort ändern',
@@ -377,18 +380,18 @@ $user_language = array(
 	'pf_registered' => 'Registriert seit:',
 	'pf_posts' => 'Beiträge:',
 	'pf_reputation' => 'Ansehen:',
-	'user_hasnt_registered' => 'Dieser Benutzer ist noch nicht auf unserer Website Registriert',
+	'user_hasnt_registered' => 'Dieser Benutzer ist noch nicht auf unserer Website registriert',
 	'user_no_friends' => 'Dieser Benutzer hat noch keine Freunde hinzugefügt',
-	'send_message' => 'Nachicht senden',
+	'send_message' => 'Nachricht senden',
 	'remove_friend' => 'Freund entfernen',
 	'add_friend' => 'Freund hinzufügen',
-	'last_online' => 'Last Online:',
+	'last_online' => 'Zuletzt Online:',
 	
 	// Staff applications
-	'staff_application' => 'Staff Application',
+	'staff_application' => 'Staff Bewerbung',
 	'application_submitted' => 'Die Bewerbung wurde erfolgreich abgeschickt.',
-	'application_already_submitted' => 'Du hast bereits eine Bewerbung eingesendet. Bitte warte bis diese bearbeitet wurde bevor du eine neue Bewerbung einsendest.',
-	'not_logged_in' => 'Bitte melde dich an um Zugriff auf diese Seite zu bekommen.'
+	'application_already_submitted' => 'Du hast bereits eine Bewerbung eingesendet. Bitte warte bis diese bearbeitet wurde, bevor du eine neue Bewerbung einsendest.',
+	'not_logged_in' => 'Bitte melde dich an, um Zugriff auf diese Seite zu bekommen.'
 );
 
 /*
@@ -430,11 +433,11 @@ $mod_language = array(
 	'new_report_submitted_alert' => 'Neue Meldung von {x} betreffend {y}', // Don't replace "{x}" or "{y}"
 	
 	// Staff applications
-	'comment_error' => 'Bitte stelle sicher, dass dein Kommentar aus zwischen 2 und 2048 Zeichen lang ist.',
+	'comment_error' => 'Bitte stelle sicher, dass dein Kommentar zwischen 2 und 2048 Zeichen lang ist.',
 	'viewing_open_applications' => 'Zeigt <span class="label label-info">offene</span> Bewerbungen. Zeige stattdessen <a href="/mod/applications/?view=accepted"><span class="label label-success">angenommene</span></a> oder <a href="/mod/applications/?view=declined"><span class="label label-danger">abgelehnte</span></a> Bewerbungen.',
 	'viewing_accepted_applications' => 'Zeigt <span class="label label-success">angenommene</span> Bewerbungen. Zeige stattdessen <a href="/mod/applications/"><span class="label label-info">offene</span></a> oder <a href="/mod/applications/?view=declined"><span class="label label-danger">abgelehnte</span></a>.',
 	'viewing_declined_applications' => 'Zeigt <span class="label label-danger">abgelehnte</span> Bewerbungen. Zeige stattdessen <a href="/mod/applications/"><span class="label label-info">offene</span></a> oder <a href="/mod/applications/?view=accepted"><span class="label label-success">angenommene</span></a>.',
-	'time_applied' => 'Time Applied',
+	'time_applied' => 'Uhrzeit der Bewerbung',
 	'no_applications' => 'Keine Bewerbungen in dieser Kategorie',
 	'viewing_app_from' => 'Zeigt die Bewerbung von {x}', // Don't replace "{x}"
 	'open' => 'Offen',
@@ -454,9 +457,9 @@ $general_language = array(
 	'social' => 'Soziales',
 
 	// General terms
-	'submit' => 'Submit',
+	'submit' => 'Absenden',
 	'close' => 'Schließen',
-	'cookie_message' => '<strong>Diese Website verwendet cookies um deine Erfahrung zu Verbessern.</strong><p>Mit dem weiteren Verwenden dieser Website stimmst du der Verwendung zu.</p>',
+	'cookie_message' => '<strong>Diese Website verwendet Cookies um deine Erfahrung zu verbessern.</strong><p>Mit dem weiteren Verwenden dieser Website stimmst du der Verwendung zu.</p>',
 	'theme_not_exist' => 'Das ausgewählte Theme existiert nicht.',
 	'confirm' => 'Bestätigen',
 	'cancel' => 'Abbrechen',
@@ -477,7 +480,7 @@ $general_language = array(
 	'players_online' => 'Spieler Online:',
 	'queried_in' => 'Abgefragt in:',
 	'server_status' => 'Server Status',
-	'no_players_online' => 'Es sind keine Spieler online!',
+	'no_players_online' => 'Es sind aktuell keine Spieler online!',
 	'x_players_online' => 'Es sind {x} Spieler online.', // Don't replace {x}
 
 	// Other
@@ -497,7 +500,7 @@ $forum_language = array(
 	'ago' => 'ago',
 	'by' => 'von',
 	'in' => 'in',
-	'views' => 'views',
+	'views' => 'Aufrufe',
 	'posts' => 'Beiträge',
 	'topics' => 'Themen',
 	'topic' => 'Thema',
@@ -517,7 +520,7 @@ $forum_language = array(
 	'home' => 'Home',
 	'topic_locked' => 'Thema geschossen',
 	'new_reply' => 'neue Antwort',
-	'mod_actions' => 'Moderations Aktionen',
+	'mod_actions' => 'Moderationsaktionen',
 	'lock_thread' => 'Thema schließen',
 	'unlock_thread' => 'Thema öffnen',
 	'merge_thread' => 'Themen zusammenführen',
@@ -534,17 +537,17 @@ $forum_language = array(
 	'give_reputation' => 'Bewerten',
 	'remove_reputation' => 'Bewertung entfernen',
 	'post_reputation' => 'Beitragsbewertung',
-	'no_reputation' => 'dieser Beitrag wurde noch nicht bewertet',
+	'no_reputation' => 'Dieser Beitrag wurde noch nicht bewertet',
 	're' => 'RE:',
 
 	// Create post view
 	'create_post' => 'Beitrag erstellen',
 	'post_submitted' => 'Beitrag eingereicht',
 	'creating_post_in' => 'Beitrag wird erstellt in: ',
-	'topic_locked_permission_post' => 'Dieses Thema ist geschlossen, Deine Berechtigungen erlauben es dir aber hier zu Posten',
+	'topic_locked_permission_post' => 'Dieses Thema ist geschlossen, deine Berechtigungen erlauben es dir aber hier zu posten',
 
 	// Edit post view
-	'editing_post' => 'Beitrag Bearbeiten',
+	'editing_post' => 'Beitrag bearbeiten',
 
 	// Sticky threads
 	'thread_is_' => 'Thema ist ',
@@ -567,17 +570,17 @@ $forum_language = array(
 	'move_to' => 'Verschieben nach:',
 
 	// Merge threads
-	'merge_instructions' => 'Die Themen, die Zusammengeführt werden sollen <strong>müssen</strong> im sich im selben Forum befinden. Verschiebe das Thema falls nötig.',
+	'merge_instructions' => 'Die Themen, die Zusammengeführt werden sollen <strong>müssen</strong> sich im selben Forum befinden. Verschiebe das Thema falls nötig.',
 	'merge_with' => 'Zusammenführen mit:',
 
 	// Other
-	'forum_error' => 'Sorry, es wurde kein Forum oder Beitrag gefunden.',
+	'forum_error' => 'Entschuldigung, es wurde kein Forum oder Beitrag gefunden.',
 	'are_you_logged_in' => 'Bist du eingeloggt?',
-	'online_users' => 'Online Users',
-	'no_users_online' => 'There are no users online.',
+	'online_users' => 'Benutzer online',
+	'no_users_online' => 'Es sind keine Benutzer online.',
 	
 	// Search
-	'search_error' => 'Please input a search query between 1 and 32 characters long.'
+	'search_error' => 'Die Suchanfrage muss zwischen 1 und 32 Zeichen lang sein.'
 );
 
 /*
@@ -586,7 +589,7 @@ $forum_language = array(
 $email_language = array(
 	// Registration email
 	'greeting' => 'Hallo,',
-	'message' => 'Danke für deine Registrierung! Um deine Registration abzuschliesen klicke bitte auf den folgenden Link:',
+	'message' => 'Danke für deine Registrierung! Um deine Registration abzuschließen klicke bitte auf den folgenden Link:',
 	'thanks' => 'Danke,'
 );
 
@@ -633,7 +636,7 @@ $time_language = array(
 $table_language = array(
 	'display_records_per_page' => 'Zeige _MENU_ einträge pro Seite', // Don't replace "_MENU_"
 	'nothing_found' => 'Keine Ergebnisse gefunden',
-	'page_x_of_y' => 'Zeige seite _PAGE_ von _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
+	'page_x_of_y' => 'Zeige Seite _PAGE_ von _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
 	'no_records' => 'Keine Einträge',
 	'filtered' => '(gefiltert aus _MAX_ Einträgen)' // Don't replace "_MAX_"
 );
