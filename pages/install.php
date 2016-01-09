@@ -602,6 +602,13 @@ if(isset($_GET["step"])){
 								'value' => 'null'
 							));
 							
+							// Version update
+							$version_id = $queries->getWhere('settings', array('name', '=', 'version'));
+							$queries->update('settings', $version_id[0]->id, array(
+								'value' => '1.0.1'
+							));
+							
+							
 							// Close connections
 							$mysqli->close();
 							
@@ -967,7 +974,7 @@ if(isset($_GET["step"])){
 					),
 					28 => array(
 						'name' => 'version',
-						'value' => '1.0.0'
+						'value' => '1.0.1'
 					),
 					29 => array(
 						'name' => 'version_checked',
