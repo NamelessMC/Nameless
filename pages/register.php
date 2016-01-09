@@ -110,9 +110,9 @@ if(Input::exists()){
 					
 					// Perform validation on Minecraft name
 					$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-					$result = $profile->getProfileAsArray();
+					$mcname_result = $profile->getProfileAsArray();
 					
-					if(isset($result['username']) && !empty($result['username'])){
+					if(isset($mcname_result['username']) && !empty($mcname_result['username'])){
 						// Valid
 					} else {
 						// Invalid
@@ -131,9 +131,9 @@ if(Input::exists()){
 					
 					// Perform validation on Minecraft name
 					$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-					$result = $profile->getProfileAsArray();
+					$mcname_result = $profile->getProfileAsArray();
 					
-					if(isset($result['username']) && !empty($result['username'])){
+					if(isset($mcname_result['username']) && !empty($mcname_result['username'])){
 						// Valid
 					} else {
 						// Invalid
@@ -174,10 +174,12 @@ if(Input::exists()){
 				
 				if($validation->passed()){
 					if($uuid_linking == '1'){
-						$profile = ProfileUtils::getProfile($mcname);
-						$result = $profile->getProfileAsArray();
-						if(isset($result["uuid"]) && !empty($result['uuid'])){
-							$uuid = $result['uuid'];
+						if(!isset($mcname_result)){
+							$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
+							$mcname_result = $profile->getProfileAsArray();
+						}
+						if(isset($mcname_result["uuid"]) && !empty($mcname_result['uuid'])){
+							$uuid = $mcname_result['uuid'];
 						} else {
 							$uuid = '';
 						}
