@@ -148,3 +148,9 @@
 - Add better registration error messages 
 - Add reCAPTCHA secret key field to AdminCP 
 - Change method of checking to see if a Minecraft username is valid 
+
+1.0.2
+- Update German translation (thanks to @manuelgu)
+- Fix issue with resetting passwords on servers running PHP < 5.5
+- Fix issue where UUID would return empty during registration
+- Fix Buycraft API query
