@@ -845,6 +845,12 @@ $adm_page = "core";
 								$queries->update('settings', $phpmailer_id, array(
 									'value' => Input::get('use_external')
 								));
+								
+								$verification_id = $queries->getWhere('settings', array('name', '=', 'email_verification'));
+								$verification_id = $verification_id[0]->id;
+								$queries->update('settings', $verification_id, array(
+									'value' => Input::get('enable_verification')
+								));
 							} else {
 								// Validation errors
 								
@@ -858,9 +864,15 @@ $adm_page = "core";
 					$outgoing_email = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
 					$incoming_email = $queries->getWhere('settings', array('name', '=', 'incoming_email'));
 					$phpmailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+					$verification = $queries->getWhere('settings', array('name', '=', 'email_verification'));
 				?>
 			  <h3><?php echo $admin_language['email']; ?></h3>
 			  <form action="" method="post">
+				<div class="form-group">
+				  <input type="hidden" name="enable_verification" value="0" />
+				  <label for="InputEnableVerification"><?php echo $admin_language['enable_mail_verification']; ?></label> <a class="btn btn-info btn-xs" data-toggle="popover" data-content="<?php echo $admin_language['enable_email_verification_help']; ?>"><span class="glyphicon glyphicon-question-sign"></span></a>
+				  <input id="InputEnableVerification" name="enable_verification" type="checkbox" class="js-switch" value="1"<?php if($verification[0]->value == '1'){ ?> checked<?php } ?> />
+				</div>
 			    <div class="form-group">
 				  <label for="InputIncomingEmail"><?php echo $admin_language['incoming_email']; ?></label>
 				  <input id="InputIncomingEmail" name="incoming_email" value="<?php echo htmlspecialchars($incoming_email[0]->value); ?>" class="form-control">

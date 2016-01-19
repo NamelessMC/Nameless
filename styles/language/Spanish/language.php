@@ -62,6 +62,8 @@ $admin_language = array(
 	'use_php_mail_help' => 'Recomendado: activar. Si su sitio envia correos electrónicos, por favor, desactívelo y edite core/email.php con la configuración del corero.',
 	'use_gmail' => '¿Usar Gmail para enviar correo?',
 	'use_gmail_help' => 'Sólo disponible si la función de correo de PHP está desactivada. Si elije no usar Gmail, se usará el protocolo SMTP. De todas formas, edite la configuración en core/email.php.',
+	'enable_mail_verification' => 'Enable email account verification?',
+	'enable_email_verification_help' => 'Having this enabled will ask newly registered users to verify their account via email before completing registration.',
 	
 	// Admin custom pages page
 	'click_on_page_to_edit' => 'Seleccione una página para editarla.',

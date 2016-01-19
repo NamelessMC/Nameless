@@ -32,6 +32,10 @@ $recaptcha = $recaptcha[0]->value;
 $recaptcha_key = $queries->getWhere("settings", array("name", "=", "recaptcha_key"));
 $recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
 
+// Is email verification enabled?
+$email_verification = $queries->getWhere('settings', array('name', '=', 'email_verification'));
+$email_verification = $email_verification[0]->value;
+
 // Deal with any input
 if(Input::exists()){
 	if(Token::check(Input::get('token'))){
@@ -216,77 +220,84 @@ if(Input::exists()){
 							'lastip' => htmlspecialchars($ip)
 						));
 						
-						$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
-						$php_mailer = $php_mailer[0]->value;
-						
-						if($php_mailer == '1'){
-							// PHP Mailer
-							require('core/includes/phpmailer/PHPMailerAutoload.php');
-							require('core/email.php');
+						if($email_verification == '1'){
+							$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+							$php_mailer = $php_mailer[0]->value;
 							
-							$mail = new PHPMailer;
-							$mail->IsSMTP(); 
-							$mail->SMTPDebug = 0;
-							$mail->Debugoutput = 'html';
-							$mail->Host = $GLOBALS['email']['host'];
-							$mail->Port = $GLOBALS['email']['port'];
-							$mail->SMTPSecure = $GLOBALS['email']['secure'];
-							$mail->SMTPAuth = true;
-							$mail->Username = $GLOBALS['email']['username'];
-							$mail->Password = $GLOBALS['email']['password'];
-							$mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
-							$mail->From = $GLOBALS['email']['username'];
-							$mail->FromName = $GLOBALS['email']['name'];
-							$mail->addAddress(htmlspecialchars(Input::get('email')), htmlspecialchars(Input::get('username')));
-							$mail->Subject = $sitename . ' - ' . $user_language['register'];
-							
-							// HTML to display in message
-							$html = file_get_contents(ROOT_PATH . '\styles\templates\\' . $template . '\email\register.html');
-							
-							$link = 'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code;
-							
-							$html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array($sitename, $user_language['register'], $email_language['greeting'], $email_language['message'], $link, $email_language['thanks']), $html);
-							
-							$mail->msgHTML($html);
-							$mail->IsHTML(true);
-							$mail->Body = $html;
-							//$mail->AltBody = 'Click the following link to complete registration: ' . $link;
-							
-							if(!$mail->send()) {
-								echo "Mailer Error: " . $mail->ErrorInfo;
-								die();
+							if($php_mailer == '1'){
+								// PHP Mailer
+								require('core/includes/phpmailer/PHPMailerAutoload.php');
+								require('core/email.php');
+								
+								$mail = new PHPMailer;
+								$mail->IsSMTP(); 
+								$mail->SMTPDebug = 0;
+								$mail->Debugoutput = 'html';
+								$mail->Host = $GLOBALS['email']['host'];
+								$mail->Port = $GLOBALS['email']['port'];
+								$mail->SMTPSecure = $GLOBALS['email']['secure'];
+								$mail->SMTPAuth = true;
+								$mail->Username = $GLOBALS['email']['username'];
+								$mail->Password = $GLOBALS['email']['password'];
+								$mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
+								$mail->From = $GLOBALS['email']['username'];
+								$mail->FromName = $GLOBALS['email']['name'];
+								$mail->addAddress(htmlspecialchars(Input::get('email')), htmlspecialchars(Input::get('username')));
+								$mail->Subject = $sitename . ' - ' . $user_language['register'];
+								
+								// HTML to display in message
+								$html = file_get_contents(ROOT_PATH . '\styles\templates\\' . $template . '\email\register.html');
+								
+								$link = 'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code;
+								
+								$html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array($sitename, $user_language['register'], $email_language['greeting'], $email_language['message'], $link, $email_language['thanks']), $html);
+								
+								$mail->msgHTML($html);
+								$mail->IsHTML(true);
+								$mail->Body = $html;
+								//$mail->AltBody = 'Click the following link to complete registration: ' . $link;
+								
+								if(!$mail->send()) {
+									echo "Mailer Error: " . $mail->ErrorInfo;
+									die();
+								} else {
+									echo "Message sent!";
+								}
 							} else {
-								echo "Message sent!";
+								// PHP mail function
+								$siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
+								$siteemail = $siteemail[0]->value;
+								
+								$to      = Input::get('email');
+								$subject = $sitename . ' - ' . $user_language['register'];
+								
+								$message = 	$email_language['greeting'] . PHP_EOL .
+											$email_language['message'] . PHP_EOL . PHP_EOL . 
+											'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code . PHP_EOL . PHP_EOL .
+											$email_language['thanks'] . PHP_EOL .
+											$sitename;
+								
+								/*
+								$message = 'Hello, ' . htmlspecialchars(Input::get('username')) . '
+											Thanks for registering!
+											In order to complete your registration, please click the following link:
+											http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code . '
+											Please note that your account will not be accessible until this action is complete.
+											
+											Thanks,
+											' . $sitename . ' staff.';
+								*/
+								
+								$headers = 'From: ' . $siteemail . "\r\n" .
+									'Reply-To: ' . $siteemail . "\r\n" .
+									'X-Mailer: PHP/' . phpversion();
+								mail($to, $subject, $message, $headers);
 							}
 						} else {
-							// PHP mail function
-							$siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
-							$siteemail = $siteemail[0]->value;
-							
-							$to      = Input::get('email');
-							$subject = $sitename . ' - ' . $user_language['register'];
-							
-							$message = 	$email_language['greeting'] . PHP_EOL .
-										$email_language['message'] . PHP_EOL . PHP_EOL . 
-										'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code . PHP_EOL . PHP_EOL .
-										$email_language['thanks'] . PHP_EOL .
-										$sitename;
-							
-							/*
-							$message = 'Hello, ' . htmlspecialchars(Input::get('username')) . '
-										Thanks for registering!
-										In order to complete your registration, please click the following link:
-										http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code . '
-										Please note that your account will not be accessible until this action is complete.
-										
-										Thanks,
-										' . $sitename . ' staff.';
-							*/
-							
-							$headers = 'From: ' . $siteemail . "\r\n" .
-								'Reply-To: ' . $siteemail . "\r\n" .
-								'X-Mailer: PHP/' . phpversion();
-							mail($to, $subject, $message, $headers);
+							// Email verification disabled
+							// Redirect straight to verification link
+							echo '<script>window.location.replace("/validate/?c=' . $code . '");</script>';
+							die();
 						}
 						
 						Session::flash('home', '<div class="alert alert-info alert-dismissible">  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $user_language['registration_check_email'] . '</div>');
