@@ -602,6 +602,11 @@ if(isset($_GET["step"])){
 								'value' => 'null'
 							));
 							
+							$queries->create('settings', array(
+								'name' => 'email_verification',
+								'value' => '1'
+							));
+							
 							// Version update
 							$version_id = $queries->getWhere('settings', array('name', '=', 'version'));
 							$queries->update('settings', $version_id[0]->id, array(
@@ -995,6 +1000,10 @@ if(isset($_GET["step"])){
 					33 => array(
 						'name' => 'recaptcha_secret',
 						'value' => 'null'
+					),
+					34 => array(
+						'name' => 'email_verification',
+						'value' => '1'
 					)
 				);
 				

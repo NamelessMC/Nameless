@@ -65,7 +65,9 @@ $admin_language = array(
 	'use_php_mail_help' => 'Empfohlen: Eingeschalted. Wenn diese Website keine E-Mails versendet, deaktiviere es und ändere in core/email.php deine E-Mail Einstellungen.',
 	'use_gmail' => 'Verwende GoogleMail (Gmail) um E-Mails zu versenden?',
 	'use_gmail_help' => 'Diese Funktion ist nur möglich, wenn die PHP mail() Funktion deaktiviert ist. Wenn du nicht GoogleMail verwendest, wird SMTP verwendet. Beide Wege müssen manuell in core/mail.php gesetzt werden.',
-
+	'enable_mail_verification' => 'Enable email account verification?',
+	'enable_email_verification_help' => 'Having this enabled will ask newly registered users to verify their account via email before completing registration.',
+	
 	// Admin custom pages page
 	'click_on_page_to_edit' => 'Klicke auf eine Seite, um sie zu bearbeiten.',
 	'page' => 'Seite:',
