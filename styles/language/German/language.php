@@ -393,7 +393,9 @@ $user_language = array(
 	'staff_application' => 'Staff Bewerbung',
 	'application_submitted' => 'Die Bewerbung wurde erfolgreich abgeschickt.',
 	'application_already_submitted' => 'Du hast bereits eine Bewerbung eingesendet. Bitte warte bis diese bearbeitet wurde, bevor du eine neue Bewerbung einsendest.',
-	'not_logged_in' => 'Bitte melde dich an, um Zugriff auf diese Seite zu bekommen.'
+	'not_logged_in' => 'Bitte melde dich an, um Zugriff auf diese Seite zu bekommen.',
+	'application_accepted' => 'Your staff application has been accepted.',
+	'application_rejected' => 'Your staff application has been rejected.'
 );
 
 /*
