@@ -390,7 +390,9 @@ $user_language = array(
 	'staff_application' => 'Solicitud de staff',
 	'application_submitted' => 'Solicitud enviada correctamente.',
 	'application_already_submitted' => 'Ya has enviado una solicitud. Espera a que finalice antes de enviar otra.',
-	'not_logged_in' => 'Por favor inicia sesión para ver esta página.'
+	'not_logged_in' => 'Por favor inicia sesión para ver esta página.',
+	'application_accepted' => 'Your staff application has been accepted.',
+	'application_rejected' => 'Your staff application has been rejected.'
 );
 
 /*

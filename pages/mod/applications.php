@@ -71,14 +71,36 @@ if(isset($_GET['app'])){
 		} else {
 			// Can the user actually accept an application?
 			if($user->canAcceptApps($user->data()->id)){
+				// Who posted the app?
+				$user_posted = $application->uid;
+				
 				if($_GET['action'] == 'accept'){
 					$queries->update('staff_apps_replies', $application->id, array(
 						'status' => 1
 					));
+					// Add alert to tell user that it's been accepted
+					$queries->create('alerts', array(
+						'user_id' => $user_posted,
+						'type' => $user_language['staff_application'],
+						'url' => '#',
+						'content' => str_replace('{x}', htmlspecialchars($user->data()->username), $user_language['application_accepted']),
+						'created' => date('U')
+					));
+					
+					
 				} else if($_GET['action'] == 'reject'){
 					$queries->update('staff_apps_replies', $application->id, array(
 						'status' => 2
 					));
+					// Add alert to tell user that it's been rejected
+					$queries->create('alerts', array(
+						'user_id' => $user_posted,
+						'type' => $user_language['staff_application'],
+						'url' => '#',
+						'content' => str_replace('{x}', htmlspecialchars($user->data()->username), $user_language['application_rejected']),
+						'created' => date('U')
+					));
+					
 				}
 			}
 			Redirect::to('/mod/applications/?app=' . $application->id);
