@@ -255,7 +255,9 @@ $navbar_language = array(
 	'vote' => 'Vote',
 	'donate' => 'Donate',
 	'more' => 'More',
-	'staff_apps' => 'Staff Applications'
+	'staff_apps' => 'Staff Applications',
+	'view_messages' => 'View Messages',
+	'view_alerts' => 'View Alerts'
 );
 
 /*
@@ -349,12 +351,14 @@ $user_language = array(
 	'viewing_unread_alerts' => 'Viewing unread alerts. Change to <a href="/user/alerts/?view=read"><span class="label label-success">read</span></a>.',
 	'viewing_read_alerts' => 'Viewing read alerts. Change to <a href="/user/alerts/"><span class="label label-warning">unread</span></a>.',
 	'no_unread_alerts' => 'You have no unread alerts.',
+	'no_alerts' => 'No alerts',
 	'no_read_alerts' => 'You have no read alerts.',
 	'view' => 'View',
 	'alert' => 'Alert',
 	'when' => 'When',
 	'delete' => 'Delete',
 	'tag' => 'User Tag',
+	'tagged_in_post' => 'You have been tagged in a post',
 	'report' => 'Report',
 	'deleted_alert' => 'Alert successfully deleted',
 	

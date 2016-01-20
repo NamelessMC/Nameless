@@ -255,7 +255,9 @@ $navbar_language = array(
 	'vote' => 'Votar',
 	'donate' => 'Donar',
 	'more' => 'Más',
-	'staff_apps' => 'Solicitud Staff'
+	'staff_apps' => 'Solicitud Staff',
+	'view_messages' => 'View Messages',
+	'view_alerts' => 'View Alerts'
 );
 
 /*
@@ -349,12 +351,14 @@ $user_language = array(
 	'viewing_unread_alerts' => 'Viendo las alertas no leídas. Cambiar a <a href="/user/alerts/?view=read"><span class="label label-success">leidas</span></a>.',
 	'viewing_read_alerts' => 'Viendo las alertas ya lídas. Cambiar a <a href="/user/alerts/"><span class="label label-warning">no leídas</span></a>.',
 	'no_unread_alerts' => 'No tiene alertas sin leer.',
+	'no_alerts' => 'No alerts',
 	'no_read_alerts' => 'No tiene alertas leídas.',
 	'view' => 'Ver',
 	'alert' => 'Alerta',
 	'when' => 'Cuando',
 	'delete' => 'Borrar',
 	'tag' => 'Marcar usuario',
+	'tagged_in_post' => 'You have been tagged in a post',
 	'report' => 'Informe',
 	'deleted_alert' => 'Alerta borrada correctamente',
 	
