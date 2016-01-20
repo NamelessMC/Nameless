@@ -66,4 +66,11 @@ foreach($custom_js as $item){
 	?>
 	var timer = 'Page loaded in <?php echo round($page_load, 3); ?>s';
 	$('#page_load_tooltip').attr('title', timer).tooltip('fixTitle');
+	
+    $(function() {
+        $(".alert-dropdown").hover(
+            function(){ $(this).addClass('open') },
+            function(){ $(this).removeClass('open') }
+        );
+    });	
 	</script>

@@ -68,8 +68,44 @@ $navbar_links .= '</ul>';
 // User area
 if($user->isLoggedIn()){
 	$user_area = '
-	<li><a href="/user/messaging"><span style="margin: -10px 0px; font-size: 16px;"><i class="fa fa-envelope"></i> <div style="display: inline;" id="pms"></div></span></a></li>
-	<li><a href="/user/alerts"><span style="margin: -10px 0px; font-size: 16px;"><i class="fa fa-flag"></i> <div style="display: inline;" id="alerts"></div></span></a></li>
+	<li class="dropdown alert-dropdown">
+	  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span style="margin: -10px 0px; font-size: 16px;"><i class="fa fa-envelope"></i> <div style="display: inline;" id="pms"></div></span></a>
+	  <ul class="dropdown-menu">';
+	  if(count($unread_pms)){
+		foreach($unread_pms as $pm){
+			$user_area .= '<li><a href="/user/messaging/?mid=' . $pm->id . '">' . htmlspecialchars($pm->title) . '</a></li>';
+		}
+	  } else {
+		  $user_area .= '<li><a href="#">' . $user_language['no_messages'] . '</a></li>';
+	  }
+	  $user_area .= '
+		<li role="separator" class="divider"></li>
+		<li><a href="/user/messaging">' . $navbar_language['view_messages'] . '</a></li>
+	  </ul>
+	</li>	
+	
+	<li class="dropdown alert-dropdown">
+	  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span style="margin: -10px 0px; font-size: 16px;"><i class="fa fa-flag"></i> <div style="display: inline;" id="alerts"></div></span></a>
+	  <ul class="dropdown-menu">';
+	  if(count($unread_alerts)){
+		foreach($unread_alerts as $alert){
+			$user_area .= '<li><a href="' . $alert->url . '">';
+			if($alert->type == $user_language['tag']){
+				$user_area .= $user_language['tagged_in_post'];
+			} else {
+				$user_area .= htmlspecialchars($alert->content);
+			}
+			$user_area .= '</a></li>';
+		}
+	  } else {
+		  $user_area .= '<li><a href="#">' . $user_language['no_alerts'] . '</a></li>';
+	  }
+	  $user_area .= '
+		<li role="separator" class="divider"></li>
+		<li><a href="/user/alerts">' . $navbar_language['view_alerts'] . '</a></li>
+	  </ul>
+	</li>
+	
 	<li class="dropdown">
 	  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img class="img-rounded" style="margin: -10px 0px;" src="https://cravatar.eu/avatar/' . $user->data()->mcname . '/25.png">&nbsp;&nbsp;' . $user->data()->username . ' <span class="caret"></span></a>
 	  <ul class="dropdown-menu" role="menu">

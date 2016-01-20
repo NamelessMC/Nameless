@@ -211,5 +211,26 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 				$reports = false; // No open reports
 			}
 		}
+
+		// Initial private message and alert check
+		$pms = $queries->getWhere('private_messages_users', array('user_id', '=', $user->data()->id));
+
+		$unread_pms = array();
+		foreach($pms as $pm){
+			if($pm->read != 1){
+				$pm_query = $queries->getWhere('private_messages', array('id', '=', $pm->pm_id));
+				$unread_pms[] = $pm_query[0];
+			}
+		}
+		
+		$alerts = $queries->getWhere('alerts', array('user_id', '=', $user->data()->id));
+
+		$unread_alerts = array();
+		foreach($alerts as $alert){
+			if($alert->read != 1){
+				$unread_alerts[] = $alert;
+			}
+		}
+		
 	}
 }
