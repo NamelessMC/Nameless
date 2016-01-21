@@ -45,7 +45,8 @@ if(Input::exists()) {
 					$mail->Subject = $sitename . ' - ' . $user_language['password_reset'];
 					
 					// HTML to display in message
-					$html = file_get_contents(ROOT_PATH . '\styles\templates\\' . $template . '\email\change_password.html');
+					$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'styles', 'templates', $template, 'email', 'change_password.html'));
+					$html = file_get_contents($path);
 					
 					$link = 'http://' . $_SERVER['SERVER_NAME'] . '/change_password/?c=' . $code;
 					
