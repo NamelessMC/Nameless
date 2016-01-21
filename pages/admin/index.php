@@ -201,9 +201,9 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 			<strong>Running PHP <?php echo phpversion(); ?></strong> <a href="/admin/phpinfo.php" target="_blank">(Full PHP information)</a><br />
 			<h3><?php echo $admin_language['statistics']; ?></h3>
 			<strong><?php echo $admin_language['registrations_per_day']; ?></strong>
-			<div class="graph-container">
-			  <div id="placeholder" class="graph-placeholder"></div>
-			</div>
+			
+			<canvas id="registrationChart" width="100%" height="40"></canvas>
+			
 			<h3>Banner</h3>
 			<img src="/core/integration/banner/banner.png"><br />
 			URL: <code>http://<?php echo $_SERVER['SERVER_NAME']; ?>/core/integration/banner/banner.png</code>
@@ -219,10 +219,10 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 	// Scripts 
 	require('core/includes/template/scripts.php');
 	?>
+
+	<script src="<?php echo PATH; ?>core/assets/js/moment.js"></script>
+	<script src="<?php echo PATH; ?>core/assets/js/charts/Chart.min.js"></script>
 	
-	<script src="<?php echo PATH; ?>core/assets/js/charts/jquery.flot.min.js"></script>
-	<script src="<?php echo PATH; ?>core/assets/js/charts/jquery.flot.time.min.js"></script>
-	<script src="<?php echo PATH; ?>core/assets/js/charts/jquery.flot.tooltip.min.js"></script>
 	<?php
 	// Get data for members statistics graph
 	$latest_members = $queries->orderWhere('users', 'joined > ' . strtotime("-1 week"), 'joined', 'ASC');
@@ -259,31 +259,38 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 	ksort($output);
 	
 	// Turn into string for graph
-	$member_data = '';
+	$labels = '';
+	$registration_data = '';
 	foreach($output as $date => $member){
-		$member_data .= '[' . (($date + 86400) * 1000) . ', ' . $member . '], ';
+		$labels .= '"' . date('D', $date) . '", ';
+		$registration_data .= $member . ', ';
 	}
-	$member_data = rtrim($member_data, ', ');
+	$labels = '[' . rtrim($labels, ', ') . ']';
+	$registration_data = '[' . rtrim($registration_data, ', ') . ']';
 	?>
 	
 	<script type="text/javascript">
 	$(document).ready(function() {
-		var member_data = [[<?php echo $member_data; ?>]];
-		$.plot("#placeholder", member_data, { 
-			xaxis: { 
-				mode: "time" 
-			},
-			yaxis: {
-				min: 0
-			},
-			grid: {
-				hoverable: true 
-			},
-			tooltip: true,
-			tooltipOpts: {
-				content: "%x : %y registrations",
-				onHover: function(flotItem, $tooltipEl) {} 
-			}
+		var ctx = $("#registrationChart").get(0).getContext("2d");
+
+		var data = {
+			labels: <?php echo $labels; ?>,
+			datasets: [
+				{
+					label: "Registrations",
+					fill: false,
+					borderColor: "rgba(255,12,0,0.5)",
+					pointBorderColor: "rgba(255,0,5,0.5)",
+					pointBackgroundColor: "#fff",
+					tension: 0.1,
+					data: <?php echo $registration_data; ?>
+				}
+			]
+		}
+		
+		var registrationLineChart = new Chart(ctx, {
+			type: 'line',
+			data: data
 		});
 	});
 	</script>
