@@ -246,7 +246,8 @@ if(Input::exists()){
 								$mail->Subject = $sitename . ' - ' . $user_language['register'];
 								
 								// HTML to display in message
-								$html = file_get_contents(ROOT_PATH . '\styles\templates\\' . $template . '\email\register.html');
+								$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'styles', 'templates', $template, 'email', 'register.html'));
+								$html = file_get_contents($path);
 								
 								$link = 'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code;
 								
@@ -255,7 +256,6 @@ if(Input::exists()){
 								$mail->msgHTML($html);
 								$mail->IsHTML(true);
 								$mail->Body = $html;
-								//$mail->AltBody = 'Click the following link to complete registration: ' . $link;
 								
 								if(!$mail->send()) {
 									echo "Mailer Error: " . $mail->ErrorInfo;
@@ -276,17 +276,6 @@ if(Input::exists()){
 											'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code . PHP_EOL . PHP_EOL .
 											$email_language['thanks'] . PHP_EOL .
 											$sitename;
-								
-								/*
-								$message = 'Hello, ' . htmlspecialchars(Input::get('username')) . '
-											Thanks for registering!
-											In order to complete your registration, please click the following link:
-											http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code . '
-											Please note that your account will not be accessible until this action is complete.
-											
-											Thanks,
-											' . $sitename . ' staff.';
-								*/
 								
 								$headers = 'From: ' . $siteemail . "\r\n" .
 									'Reply-To: ' . $siteemail . "\r\n" .
