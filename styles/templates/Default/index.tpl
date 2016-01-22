@@ -37,6 +37,7 @@
 	  {if !empty($VOICE_VIEWER)}
 	  <div class="well well-sm">
 	  <h4>{$VOICE_VIEWER_TITLE}</h4>
+	  <strong>{$VOICE_VIEWER_IP}</strong><br />
 	  {$VOICE_VIEWER}
 	  </div>
 	  {/if}
