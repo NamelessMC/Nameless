@@ -218,9 +218,12 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 		} catch(Exception $e) {
 			$viewer = '<div class="alert alert-warning">' . $e->getMessage() . '</div>';
 		}
+	} else {
+		$voice_server_ip = '';
 	}
 	
 	$smarty->assign('VOICE_VIEWER_TITLE', 'TeamSpeak');
+	$smarty->assign('VOICE_VIEWER_IP', $voice_server_ip);
 	$smarty->assign('VOICE_VIEWER', $viewer);
 	
 	$smarty->display('styles/templates/' . $template . '/index.tpl');
