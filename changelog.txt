@@ -154,3 +154,11 @@
 - Fix issue with resetting passwords on servers running PHP < 5.5
 - Fix issue where UUID would return empty during registration
 - Fix Buycraft API query
+
+1.0.3
+- Add option to disable email verification
+- Alert user on application completion
+- View messages and alerts in navbar dropdown
+- Update Chart.js and registrations chart in AdminCP
+- Fix mailer "message body empty" error
+- Add TeamSpeak IP to voice server viewer
