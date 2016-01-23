@@ -90,7 +90,7 @@ if(Input::exists()) {
 				));
 				Session::flash('success_post', '<div class="alert alert-info alert-dismissable"> <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $forum_language['topic_created'] . '</div>');
 				
-				echo '<script>window.location.replace("/forum/view_topic/?tid=' . $topic_id . '");</script>';
+				echo '<script data-cfasync="false">window.location.replace("/forum/view_topic/?tid=' . $topic_id . '");</script>';
 				die();
 			} catch(Exception $e){
 				die($e->getMessage());
