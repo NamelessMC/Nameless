@@ -134,7 +134,7 @@ if(Input::exists()){
 							}
 						}
 					}
-					echo '<script>window.location.replace("/user/messaging");</script>';
+					echo '<script data-cfasync="false">window.location.replace("/user/messaging");</script>';
 					die();
 				} catch(Exception $e){
 					die($e->getMessage());
@@ -243,12 +243,12 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 		    } else if(isset($_GET['action']) && $_GET['action'] === 'new'){
 				if(isset($_GET['uid'])){
 					if(!is_numeric($_GET['uid'])){
-						echo '<script>window.location.replace(\'/user/messaging/?action=new\');</script>';
+						echo '<script data-cfasync="false">window.location.replace(\'/user/messaging/?action=new\');</script>';
 						die();
 					}
 					$to_user = $queries->getWhere('users', array('id', '=', $_GET['uid']));
 					if(!count($to_user)){
-						echo '<script>window.location.replace(\'/user/messaging/?action=new\');</script>';
+						echo '<script data-cfasync="false">window.location.replace(\'/user/messaging/?action=new\');</script>';
 						die();
 					}
 					$to_user = htmlspecialchars($to_user[0]->username);
@@ -300,18 +300,18 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 		  <?php
 		    } else if(isset($_GET['action']) && $_GET['action'] === 'delete'){
 				if(!isset($_GET['mid'])){
-					echo '<script>window.location.replace("/user/messaging");</script>';
+					echo '<script data-cfasync="false">window.location.replace("/user/messaging");</script>';
 					die();
 				}
 				
 				$delete_pm = $user->deletePM($_GET['mid'], $user->data()->id); // Checks to see if the user is part of conversation, and deletes it accordingly
-				echo '<script>window.location.replace("/user/messaging");</script>';
+				echo '<script data-cfasync="false">window.location.replace("/user/messaging");</script>';
 				die();
 			
 			} else if(isset($_GET['mid']) && !isset($_GET['action'])){
 				$pm = $user->getPM($_GET["mid"], $user->data()->id); // Get the PM - this also handles setting it as "read" 
 				if($pm == false){ // Either PM doesn't exist, or the user doesn't have permission to view it
-					echo '<script>window.location.replace("/user/messaging");</script>';
+					echo '<script data-cfasync="false">window.location.replace("/user/messaging");</script>';
 					die();
 				}
 				
