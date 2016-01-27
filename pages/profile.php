@@ -194,7 +194,7 @@ if($query_to_use == 'false'){
 					if($exists == true){
 					?>
 					<strong><?php echo $user_language['pf_registered']; ?></strong> <?php echo date("d M Y, G:i", $profile_user[0]->joined); ?><br />
-					<strong><?php echo $user_language['last_online']; ?></strong> <?php echo date("d M Y, G:i", $profile_user[0]->last_online); ?><br />
+					<strong><?php echo $user_language['last_online']; ?></strong> <?php if($profile_user[0]->last_online){ echo date("d M Y, G:i", $profile_user[0]->last_online); } else { echo 'n/a'; } ?><br />
 					<strong><?php echo $user_language['pf_posts']; ?></strong> <?php echo count($queries->getWhere("posts", array("post_creator", "=", $profile_user[0]->id))); ?><br />
 					<strong><?php echo $user_language['pf_reputation']; ?></strong> <?php echo count($queries->getWhere("reputation", array("user_received", "=", $profile_user[0]->id))); ?><br />
 					<?php 
