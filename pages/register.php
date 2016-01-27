@@ -217,7 +217,8 @@ if(Input::exists()){
 							'group_id' => 1,
 							'email' => htmlspecialchars(Input::get('email')),
 							'reset_code' => $code,
-							'lastip' => htmlspecialchars($ip)
+							'lastip' => htmlspecialchars($ip),
+							'last_online' => $date
 						));
 						
 						if($email_verification == '1'){
