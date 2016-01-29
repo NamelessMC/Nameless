@@ -99,12 +99,12 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 			if(!isset($_GET["action"]) && !isset($_GET["user"])){
 				if(isset($_GET['p'])){
 					if(!is_numeric($_GET['p'])){
-						echo '<script>window.location.replace("/admin/users/");</script>';
+						echo '<script data-cfasync="false">window.location.replace("/admin/users/");</script>';
 						die();
 					} else {
 						if($_GET['p'] == 1){ 
 							// Avoid bug in pagination class
-							echo '<script>window.location.replace("/admin/users/");</script>';
+							echo '<script data-cfasync="false">window.location.replace("/admin/users/");</script>';
 							die();
 						}
 						$p = $_GET['p'];
@@ -250,7 +250,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 										'email' => htmlspecialchars(Input::get('email')),
 										'active' => 1
 									));
-									echo '<script>window.location.replace("/admin/users/");</script>';
+									echo '<script data-cfasync="false">window.location.replace("/admin/users/");</script>';
 									die();
 								} catch(Exception $e){
 									die($e->getMessage());
@@ -315,15 +315,22 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 					// Check for a valid UID
 					if(!isset($_GET["uid"]) || !is_numeric($_GET["uid"])){
 						// Invalid, redirect
-						echo '<script>window.location.replace("/admin/users/");</script>';
+						echo '<script data-cfasync="false">window.location.replace("/admin/users/");</script>';
 						die();
 					} else {
 						// Valid, has the admin confirmed deletion?
 						if(isset($_GET["confirm"])){
 							// Delete the user
 							$queries->delete('users', array('id', '=', $_GET["uid"]));
+							
+							// Delete the user's posts
+							$queries->delete('posts', array('post_creator', '=', $_GET["uid"]));
+							
+							// Delete the user's topics
+							$queries->delete('topics', array('topic_creator', '=', $_GET["uid"]));
+							
 							Session::flash('adm-users', '<div class="alert alert-info alert-dismissible">  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $admin_language['user_deleted'] . '</div>');
-							echo '<script>window.location.replace("/admin/users/");</script>';
+							echo '<script data-cfasync="false">window.location.replace("/admin/users/");</script>';
 							die();
 						} else {
 							// Confirm
@@ -338,7 +345,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 							<?php
 							} else {
 								// No user exists with that ID
-								echo '<script>window.location.replace("/admin/users/");</script>';
+								echo '<script data-cfasync="false">window.location.replace("/admin/users/");</script>';
 								die();
 							}
 						}
@@ -352,11 +359,11 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 						$queries->update('users', $_GET['user'], array(
 							'active' => 1
 						));
-						echo '<script>window.location.replace(\'/admin/users/?user=' . $_GET['user'] . '\')</script>';
+						echo '<script data-cfasync="false">window.location.replace(\'/admin/users/?user=' . $_GET['user'] . '\')</script>';
 						die();
 					} else {
 						// already active
-						echo '<script>window.location.replace(\'/admin/users/?user=' . $_GET['user'] . '\')</script>';
+						echo '<script data-cfasync="false">window.location.replace(\'/admin/users/?user=' . $_GET['user'] . '\')</script>';
 						die();
 					}
 				} else {
@@ -448,7 +455,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 											'signature' => htmlspecialchars($signature),
 											'lastip' => Input::get('ip')
 										));
-										echo '<script>window.location.replace("/admin/users/?user=' . $_GET['user'] . '");</script>';
+										echo '<script data-cfasync="false">window.location.replace("/admin/users/?user=' . $_GET['user'] . '");</script>';
 										die();
 									} catch(Exception $e) {
 										die($e->getMessage());
@@ -468,7 +475,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 								} catch(Exception $e) {
 									die($e->getMessage());
 								}
-								echo '<script>window.location.replace("/admin/users/");</script>';
+								echo '<script data-cfasync="false">window.location.replace("/admin/users/");</script>';
 								die();
 							} else if(Input::get('action') == "avatar_disable"){
 								try {
