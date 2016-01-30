@@ -202,6 +202,8 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 		    $pms = $user->listPMs($user->data()->id);
 			if(count($pms)){
 				foreach($pms as $pm){ 
+					$pm['users'] = array_unique($pm['users']);
+				
 					// Get the first 4 users who have access to the PM, then display a "and x more" label
 					$user_string = '';
 					$n = 1;
@@ -209,19 +211,18 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 					foreach($pm['users'] as $item){
 						if($n == 5){
 							$user_string .= ' <span class="label label-info">' . str_replace('{x}', (count($pm['users']) - $n), $user_language['and_x_more']) . '</span>';
-							//$user_string .= ' <span class="label label-info">and ' . (count($pm['users']) - $n) . ' more</span>';
 							break;
 						} else {
 							if($n == count($pm['users'])){
 								if($item != 0){
-									$user_string .= '<a href="/profile/' . $user->idToMCName($item) . '">' . $user->idToName($item) . '</a>';
+									$user_string .= '<a href="/profile/' . htmlspecialchars($user->idToMCName($item)) . '">' . htmlspecialchars($user->idToName($item)) . '</a>';
 								} else {
 									$user_string .= $user_language['system'];
 								}
 								break;
 							} else {
 								if($item != 0){
-									$user_string .= '<a href="/profile/' . $user->idToMCName($item) . '">' . $user->idToName($item) . '</a>, ';
+									$user_string .= '<a href="/profile/' . htmlspecialchars($user->idToMCName($item)) . '">' . htmlspecialchars($user->idToName($item)) . '</a>, ';
 								} else {
 									$user_string .= $user_language['system'] . ', ';
 								}
