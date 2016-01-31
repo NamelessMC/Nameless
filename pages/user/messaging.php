@@ -320,6 +320,8 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 				$user_string = '';
 				$n = 1;
 				
+				$pm[1] = array_unique($pm[1]);
+				
 				foreach($pm[1] as $item){
 					if($n == count($pm[1])){
 						if($item != 0){
