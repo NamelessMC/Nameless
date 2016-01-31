@@ -10,9 +10,9 @@
 $page = $donate_language['donate']; // for navbar
 
 // Ensure the addon is enabled
-if(!in_array($page, $enabled_addon_pages)){
+if(!in_array('Donate', $enabled_addon_pages)){
 	// Not enabled, redirect to homepage
-	echo '<script>window.location.replace(\'/\');</script>';
+	echo '<script data-cfasync="false">window.location.replace(\'/\');</script>';
 	die();
 }
 
@@ -59,7 +59,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 	// Can guests view?
 	if($settings[2]->value == 0 && !$user->isLoggedIn()){
 		// User needs to log in
-		echo '<script>window.location.replace(\'/signin\');</script>';
+		echo '<script data-cfasync="false">window.location.replace(\'/signin\');</script>';
 		die();
 		
 	} else {
