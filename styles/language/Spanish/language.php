@@ -119,9 +119,9 @@ $admin_language = array(
 	'parent_forum' => 'Foro padre',
 	'has_no_parent' => 'No tiene padre',
 	'forum_permissions' => 'Permisos del foro',
-	'can_view_forum' => 'No puede ver el foro:',
-	'can_create_topic' => 'No crear mensaje en:',
-	'can_post_reply' => 'No puede responder:',
+	'can_view_forum' => 'Puede ver el foro:',
+	'can_create_topic' => 'Crear mensaje en:',
+	'can_post_reply' => 'Puede responder:',
 	'display_threads_as_news' => '¿Mostrar hilos y noticias en la página principal?',
 	
 	// Admin Users and Groups page
