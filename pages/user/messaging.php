@@ -347,8 +347,8 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 		  <div class="panel panel-primary">
 		    <div class="panel-heading">
 			  <?php 
-			  if($item != 0){
-				echo '<a class="white-text" href="/profile/' . htmlspecialchars($user->idToMCName($item)) . '">' . htmlspecialchars($user->idToName($item)) . '</a>'; 
+			  if($pm[0]->author_id != 0){
+				echo '<a class="white-text" href="/profile/' . htmlspecialchars($user->idToMCName($pm[0]->author_id)) . '">' . htmlspecialchars($user->idToName($pm[0]->author_id)) . '</a>'; 
 			  } else {
 				echo '<span class="white-text">' . $user_language['system'] . '</span>';
 			  }
