@@ -341,6 +341,7 @@ $token = Token::generate(); // generate token
 				{"name":"paragraph","groups":["list","align"]},
 				{"name":"insert","groups":["insert"]},
 				{"name":"styles","groups":["styles"]},
+				{"name":"colors","groups":["colors"]},
 				{"name":"about","groups":["about"]},
 				{"name":"mode","groups":["mode"]}
 			],
