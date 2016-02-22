@@ -203,6 +203,12 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 			'last_online' => date('U')
 		));
 		
+		// Is user banned?
+		if($user->data()->isbanned == 1){
+			// Yes, log them out
+			$user->logout();
+		}
+		
 		// Perform moderator actions
 		if($user->canViewMCP($user->data()->id)){
 			// Are there any open reports for moderators?
