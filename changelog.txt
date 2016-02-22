@@ -162,3 +162,16 @@
 - Update Chart.js and registrations chart in AdminCP
 - Fix mailer "message body empty" error
 - Add TeamSpeak IP to voice server viewer
+
+1.0.4
+- Fix potential fatal error during installation
+- Start to fix JavaScript for CloudFlare (thanks to @computerwizjared)
+- Set last online date upon registration
+- Delete user's topics and posts on user deletion
+- Fix duplicate user in PM listing and PM view
+- Fix Donate page redirecting with a custom language
+- Fix error on post deletion
+- Fix Spanish translation (thanks to @lockerecca)
+- Fix incorrect PM author
+- Allow changing font colour in custom pages
+- Fix punishments
