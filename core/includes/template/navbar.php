@@ -142,6 +142,24 @@ $global_messages = '';
 if(Session::exists('global')){
 	$global_messages = '<br /><div class="container">' . Session::flash('global') . '</div>';
 }
+
+if($user->isLoggedIn()){
+	if($infraction = $user->hasInfraction($user->data()->id)){
+		$global_messages .= '
+		<div class="container">
+			<div class="alert alert-danger">
+			  <center>';
+			  
+			  $global_messages .= str_replace(array('{x}', '{y}'), array(htmlspecialchars($user->IdToName($infraction[0]["staff"])), date("jS F Y", strtotime($infraction[0]["date"]))), $user_language['you_have_received_a_warning']);
+			 
+			  $global_messages .= '<br /><br />
+			  "' . htmlspecialchars($infraction[0]["reason"]) . '"<br /><br />
+			  <a href="/user/acknowledge/?iid=' . $infraction[0]["id"] . '" class="btn btn-primary">' . $user_language['acknowledge'] . '</a>
+			  </center>
+			</div>
+		</div>';
+	}
+}
  
 /*
  *  Assign to Smarty variables
