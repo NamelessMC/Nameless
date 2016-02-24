@@ -64,6 +64,12 @@ $admin_language = array(
 	'use_gmail_help' => 'Only available if the PHP mail function is disabled. If you choose not to use Gmail, SMTP will be used. Either way, this will need configuring in core/email.php.',
 	'enable_mail_verification' => 'Enable email account verification?',
 	'enable_email_verification_help' => 'Having this enabled will ask newly registered users to verify their account via email before completing registration.',
+	'pages' => 'Pages',
+	'enable_or_disable_pages' => 'Enable or disable pages here.',
+	'enable' => 'Enable',
+	'disable' => 'Disable',
+	'maintenance_mode' => 'Forum maintenance mode',
+	'forum_in_maintenance' => 'Forum is in maintenance mode.',
 	
 	// Admin custom pages page
 	'click_on_page_to_edit' => 'Click on a page to edit it.',

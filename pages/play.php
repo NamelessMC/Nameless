@@ -6,6 +6,12 @@
  *  License: MIT
  */
 
+if(isset($play_enabled) && $play_enabled == '0'){
+	// Page is disabled
+	echo '<script data-cfasync="false">window.location.replace(\'/\');</script>';
+	die();
+}
+ 
 // Index page
 $page = 'play'; // for navbar
 ?>
