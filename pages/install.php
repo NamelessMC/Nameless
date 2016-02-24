@@ -607,6 +607,11 @@ if(isset($_GET["step"])){
 								'value' => '1'
 							));
 							
+							$queries->create('settings', array(
+								'name' => 'play_page_enabled',
+								'value' => '1'
+							));
+							
 							// Version update
 							$version_id = $queries->getWhere('settings', array('name', '=', 'version'));
 							$queries->update('settings', $version_id[0]->id, array(
@@ -1003,6 +1008,10 @@ if(isset($_GET["step"])){
 					),
 					34 => array(
 						'name' => 'email_verification',
+						'value' => '1'
+					),
+					35 => array(
+						'name' => 'play_page_enabled',
 						'value' => '1'
 					)
 				);

@@ -71,6 +71,7 @@ $adm_page = "core";
 			<li<?php if(!isset($_GET['view'])){ ?> class="active"<?php } ?>><a href="/admin/core"><?php echo $admin_language['general_settings']; ?></a></li>
 			<li<?php if(isset($_GET['view']) && $_GET['view'] == 'modules'){ ?> class="active"<?php } ?>><a href="/admin/core/?view=modules"><?php echo $admin_language['modules']; ?></a></li>
 			<li<?php if(isset($_GET['view']) && $_GET['view'] == 'email'){ ?> class="active"<?php } ?>><a href="/admin/core/?view=email"><?php echo $admin_language['email']; ?></a></li>
+		    <li<?php if(isset($_GET['view']) && $_GET['view'] == 'pages'){ ?> class="active"<?php } ?>><a href="/admin/core/?view=pages"><?php echo $admin_language['pages']; ?></a></li>
 		 </ul>
 		  <hr>
 		  <div class="well">
@@ -889,6 +890,72 @@ $adm_page = "core";
 				<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 				<input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
 			  </form>
+				<?php
+				} else if($_GET['view'] == 'pages'){
+					// Pages
+					if(Input::exists()){
+						if(Token::check(Input::get('token'))){
+							if(Input::get('action') == 'play'){
+								$play_page_enabled = $queries->getWhere('settings', array('name', '=', 'play_page_enabled'));
+								$play_page_enabled_id = $play_page_enabled[0]->id;
+								$play_page_enabled = $play_page_enabled[0]->value;
+								
+								if($play_page_enabled == '1'){
+									$play_page_enabled = '0';
+								} else {
+									$play_page_enabled = '1';
+								}
+								
+								$queries->update('settings', $play_page_enabled_id, array(
+									'value' => $play_page_enabled
+								));
+								
+								echo '<script data-cfasync="false">window.location.replace(\'/admin/core/?view=pages\');</script>';
+								die();
+								
+							} else if(Input::get('action') == 'maintenance'){
+								$maintenance_enabled = $queries->getWhere('settings', array('name', '=', 'maintenance'));
+								$maintenance_enabled_id = $maintenance_enabled[0]->id;
+								$maintenance_enabled = $maintenance_enabled[0]->value;
+								
+								if($maintenance_enabled == 'true'){
+									$maintenance_enabled = 'false';
+								} else {
+									$maintenance_enabled = 'true';
+								}
+								
+								$queries->update('settings', $maintenance_enabled_id, array(
+									'value' => $maintenance_enabled
+								));
+							}
+						}
+					}
+					
+					$play_page_enabled = $queries->getWhere('settings', array('name', '=', 'play_page_enabled'));
+					$play_page_enabled = $play_page_enabled[0]->value;
+				
+					$maintenance_enabled = $queries->getWhere('settings', array('name', '=', 'maintenance'));
+					$maintenance_enabled = $maintenance_enabled[0]->value;
+					
+					// Generate token
+					$token = Token::generate();
+				?>
+			  <h3><?php echo $admin_language['pages']; ?></h3>
+			  <p><?php echo $admin_language['enable_or_disable_pages']; ?></p>
+			  <strong><?php echo $navbar_language['play']; ?>:</strong>
+			  <form name="play" style="display: inline;" action="" method="post">
+			    <input type="hidden" name="action" value="play" />
+				<input type="hidden" name="token" value="<?php echo $token; ?>" />
+				<a href="#" onclick="document.forms['play'].submit();"><?php if($play_page_enabled != '1') echo $admin_language['enable']; else echo $admin_language['disable']; ?></a>
+			  </form>
+			  <br />
+			  <strong><?php echo $admin_language['maintenance_mode']; ?>:</strong>
+			  <form name="maintenance" style="display: inline;" action="" method="post">
+			    <input type="hidden" name="action" value="maintenance" />
+				<input type="hidden" name="token" value="<?php echo $token; ?>" />
+				<a href="#" onclick="document.forms['maintenance'].submit();"><?php if($maintenance_enabled != 'true') echo $admin_language['enable']; else echo $admin_language['disable']; ?></a>
+			  </form>
+				
 				<?php
 				}
 			}

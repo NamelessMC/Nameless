@@ -135,45 +135,12 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 	$status_enabled = $queries->getWhere('settings', array('name', '=', 'mc_status_module'));
 	$status_enabled = $status_enabled[0];
 	
-
-	/* 
-	 *  TEMPORARY - STAFF APPLICATION QUERY
-	 */
-	$staff_applications = $queries->getWhere('core_modules', array('name', '=', 'Staff_Applications'));
-	// for upgrade purposes, can be deleted in the future
-	if(!count($staff_applications)){
-		$queries->create('core_modules', array(
-			'name' => 'Staff_Applications',
-			'enabled' => 0
-		));
-		$data = $queries->alterTable("groups", "staff_apps", "tinyint(1) NOT NULL DEFAULT '0'");
-		$data = $queries->alterTable("groups", "accept_staff_apps", "tinyint(1) NOT NULL DEFAULT '0'");
-		$data = $queries->createTable("staff_apps_comments", " `id` int(11) NOT NULL AUTO_INCREMENT, `aid` int(11) NOT NULL, `uid` int(11) NOT NULL, `time` int(11) NOT NULL, `content` mediumtext NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
-		$data = $queries->createTable("staff_apps_questions", " `id` int(11) NOT NULL AUTO_INCREMENT, `type` int(11) NOT NULL, `name` varchar(16) NOT NULL, `question` varchar(256) NOT NULL, `options` text NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
-		$data = $queries->createTable("staff_apps_replies", " `id` int(11) NOT NULL AUTO_INCREMENT, `uid` int(11) NOT NULL, `time` int(11) NOT NULL, `content` mediumtext NOT NULL, `status` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
-	}
-	
 	/*
-	 *  TEMPORARY - MINECRAFT SERVER TABLE QUERY
-	 */
-	$mc_servers_col_exists = $queries->getWhere('settings', array('name', '=', 'query_update'));
-	if(!count($mc_servers_col_exists)){
-		// Insert column for Minecraft query IP
-		$data = $queries->alterTable("mc_servers", "query_ip", "varchar(64) NOT NULL");
-		
-		// Insert column for Gravatar in users table
-		$data = $queries->alterTable("users", "gravatar", "tinyint(1) NOT NULL DEFAULT '0'");
-		
-		// Also for last online column
-		$data = $queries->alterTable("users", "last_online", "int(11) DEFAULT NULL");
-		
-		// Input data into settings so this step doesn't happen again
-		$queries->create('settings', array(
-			'name' => 'query_update',
-			'value' => 'false'
-		));
-	}
-	$mc_servers_col_exists = null;
+	 *  Todo: cache whether the Play page is enabled
+	 */ 
+	$play_enabled = $queries->getWhere('settings', array('name', '=', 'play_page_enabled'));
+	$play_enabled = $play_enabled[0]->value;
+
 	
 	// Get enabled modules
 	$modules = $queries->getWhere('core_modules', array('enabled', '=', 1));

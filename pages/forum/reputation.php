@@ -6,6 +6,17 @@
  *  License: MIT
  */
 
+// Maintenance mode?
+// Todo: cache this
+$maintenance_mode = $queries->getWhere('settings', array('name', '=', 'maintenance'));
+if($maintenance_mode[0]->value == 'true'){
+	// Maintenance mode is enabled, only admins can view
+	if(!$user->isLoggedIn() || !$user->canViewACP($user->data()->id)){
+		echo $admin_language['forum_in_maintenance'] . '. <a href="/">' . $navbar_language['home'] . '</a>';
+		die();
+	}
+}
+ 
 // User must be logged in to proceed
 if(!$user->isLoggedIn()){
 	Redirect::to('/forum');
