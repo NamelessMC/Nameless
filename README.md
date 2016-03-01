@@ -1,8 +1,8 @@
-# NamelessMC - version 1.0
+# NamelessMC - version 1.0.4
 
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
-Version 1.0 features:
+Version 1.0.4 features:
 
 - Template and theme system
 - Languages
@@ -18,6 +18,9 @@ Version 1.0 features:
 - Completion of custom page system
 - Server statistics integration
 - Staff and member lists
+- Minecraft status
+- reCAPTCHA option
+- Voice server viewer
 
 Included addons:
 - Donate
@@ -37,6 +40,7 @@ Upcoming addons (these will need to be downloaded separately):
 - Infractions
 
 # Downloads & Support
+* [Changelog](https://github.com/NamelessMC/Nameless/blob/master/changelog.txt)
 * [Issue Tracker](https://github.com/NamelessMC/Nameless/issues)
 * [Support](http://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
 * [Download](https://github.com/NamelessMC/Nameless/releases) 
@@ -52,6 +56,7 @@ Upcoming addons (these will need to be downloaded separately):
 * @MrHodge
 * @oliverdunk
 * @talkahe
+* @IMmmKI
 
 **[NamelessMC Website](http://namelessmc.github.io/)**
 * @Samerton
