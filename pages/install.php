@@ -66,11 +66,14 @@ if(isset($_GET["step"])){
             <p>This installer will guide you through the process of installing the NamelessMC website package.</p>
           </div>
           
-          <h4>Would you like to upgrade from a previous installation?</h4>
+          <h4>Are you upgrading from 0.4.1?</h4>
+		  
           <p>
-            <button type="button" onclick="location.href='./install.php?step=upgrade_requirements'" class="btn btn-success">Yes, upgrade from previous &raquo;</button>
+            <button type="button" onclick="location.href='./install.php?step=upgrade_requirements'" class="btn btn-success">Yes, upgrade from 0.4.1 &raquo;</button>
 	    <button type="button" onclick="location.href='./install.php?step=requirements'" class="btn btn-primary">No, this is a new install &raquo;</button>
           </p>
+		  
+		  <div class="alert alert-info">Note: if you're upgrading from a 1.x version to another 1.x version, you will need to follow the instructions from within the AdminCP's Update tab, rather than running through the installer again.</div>
 
           <hr>
           
