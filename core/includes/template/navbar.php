@@ -50,7 +50,7 @@ foreach($navbar_array as $item){
 		if(isset($page) && $page == $text){
 			$navbar_links .= ' class="active"';
 		}
-		$navbar_links .= '><a href="/' . htmlspecialchars($key) . '">' . htmlspecialchars($text) . '</a></li>';
+		$navbar_links .= '><a href="/' . htmlspecialchars($key) . '">' . $text . '</a></li>';
 	}
 }
 
@@ -62,7 +62,7 @@ foreach($custom_pages as $item){
 		if(isset($page) && $page == $item->title){
 			$navbar_links .= ' class="active"';
 		}
-		$navbar_links .= '><a href="' . htmlspecialchars($item->url) . '">' . htmlspecialchars($item->title) . '</a></li>';
+		$navbar_links .= '><a href="' . htmlspecialchars($item->url) . '">' . $item->title . '</a></li>';
 	}
 }
 
