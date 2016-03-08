@@ -175,3 +175,13 @@
 - Fix incorrect PM author
 - Allow changing font colour in custom pages
 - Fix punishments
+
+1.0.5
+- Allow disabling Play and Forums
+- Add Slovak language
+- Add Norsk language
+- Add update notice to installer
+- Don't escape navbar item text
+- Prevent requiring pages outside the Nameless directory
+- Change input type submit to buttons
+- Display staff applications in wells
