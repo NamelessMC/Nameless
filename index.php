@@ -17,8 +17,11 @@ define('PATH', '/');
 define('ROOT_PATH', dirname(__FILE__));
 $page = 'Home';
 
+ini_set('open_basedir', ROOT_PATH);
+
 // Get the directory the user is trying to access
 $directory = $_SERVER['REQUEST_URI'];
+
 $directories = explode("/", $directory);
 $lim = count($directories);
 
