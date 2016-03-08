@@ -10,9 +10,9 @@
 $page = $vote_language['vote']; // for navbar
 
 // Ensure the addon is enabled
-if(!in_array($page, $enabled_addon_pages)){
+if(!in_array('Vote', $enabled_addon_pages)){
 	// Not enabled, redirect to homepage
-	echo '<script>window.location.replace(\'/\');</script>';
+	echo '<script data-cfasync="false">window.location.replace(\'/\');</script>';
 	die();
 }
 ?>
