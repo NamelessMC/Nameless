@@ -227,6 +227,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 					<?php 
 				} 
 				?>
+			<div class="well well-sm">
 			<span class="pull-right">
 			  <?php 
 			  // Can the user accept applications?
@@ -302,6 +303,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 						</button>
 					</form>
 				</div>
+			</div>
 			</div>
 			<?php
 			}

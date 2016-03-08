@@ -129,7 +129,7 @@ $page = $navbar_language['staff_apps'];
 		  echo Session::flash('staff_app');
 	    }
 	?>
-		<br />
+	  <div class="well">
 		<h2><?php echo $user_language['staff_application']; ?></h2>
 		<?php
 		if(!isset($completed)){
@@ -191,6 +191,7 @@ $page = $navbar_language['staff_apps'];
 			}
 		}
 		?>
+	  </div>
     </div>
     <?php
 	// Footer
