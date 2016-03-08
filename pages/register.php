@@ -452,7 +452,11 @@ $form_content .= '
 $form_submit = '
 <div class="row">
 	<input type="hidden" name="token" value="' .  Token::generate() . '">
-	<div class="col-xs-12 col-md-6"><input type="submit" value="' . $user_language['register'] . '" class="btn btn-primary btn-block btn-lg" tabindex="8"></div>
+	<div class="col-xs-12 col-md-6">
+	  <button type="submit" class="btn btn-primary btn-block btn-lg">
+		' . $user_language['register'] . '
+	  </button>
+	</div>
 	<div class="col-xs-12 col-md-6"><a href="/signin" class="btn btn-success btn-block btn-lg">' . $user_language['sign_in'] . '</a></div>
 </div>
 ';
