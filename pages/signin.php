@@ -88,7 +88,7 @@ $form_content .= '" tabindex="1">
 </div>' . PHP_EOL . 
 '<input type="hidden" name="token" value="' .  Token::generate() . '">';
 
-$submit = '<input type="submit" value="' . $user_language['sign_in'] . '" class="btn btn-primary btn-block btn-lg">';
+$submit = '<button type="submit" class="btn btn-primary btn-block btn-lg">' . $user_language['sign_in'] . '</button>';
 
 // Smarty variables
 $smarty->assign('SIGNIN', $user_language['sign_in']);
