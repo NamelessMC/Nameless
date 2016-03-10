@@ -70,3 +70,6 @@ Upcoming addons (these will need to be downloaded separately):
 * German: @LPkkjHD & @manuelgu
 * Spanish: @paloke and @mrlost
 * Czech: SnooWiK
+* Norsk: @partydragen
+* Slovak: @Marki35
+* French: @CreaModZ
