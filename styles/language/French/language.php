@@ -20,7 +20,7 @@ $admin_language = array(
 	'invalid_action' => 'Action invalide',
 	'successfully_updated' => 'Mis à jour avec succès !',
 	'settings' => 'Réglages',
-	'confirm_action' => 'Confirmer l'action',
+	'confirm_action' => 'Confirmer l\'action',
 	'edit' => 'Editer',
 	'actions' => 'Actions',
 	'task_successful' => 'Tâche effectuée avec succès !',
@@ -72,7 +72,7 @@ $admin_language = array(
 	'forum_in_maintenance' => 'Le Forum est actuellement en Mode de Maintenance.',
 	
 	// Admin custom pages page
-	'click_on_page_to_edit' => 'Cliquez sur une page pour l'éditer.',
+	'click_on_page_to_edit' => 'Cliquez sur une page pour l\'éditer.',
 	'page' => 'Page:',
 	'url' => 'URL:',
 	'page_url' => 'URL de la Page',
