@@ -73,3 +73,4 @@ Upcoming addons (these will need to be downloaded separately):
 * Norsk: @partydragen
 * Slovak: @Marki35
 * French: @CreaModZ
+* Dutch: Sander Jochems
