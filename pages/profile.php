@@ -80,35 +80,8 @@ if($user->isLoggedIn()){
 	$token = Token::generate();
 }
 
-$servers = $queries->getWhere("mc_servers", array("display", "=", "1"));
-
-// Are we using the built-in query or an external API?
-$query_to_use = $queries->getWhere('settings', array('name', '=', 'external_query'));
-$query_to_use = $query_to_use[0]->value;
-
-if($query_to_use == 'false'){
-	define( 'MQ_TIMEOUT', 1 );
-	require('core/integration/status/MinecraftServerPing.php');
-	require('core/integration/status/server.php');
-	$serverStatus = new ServerStatus();
-	foreach($servers as $server){
-		$parts = explode(':', $server->ip);
-		if(count($parts) == 1){
-			$server_ip = htmlspecialchars($parts[0]);
-			$server_port = 25565;
-		} else if(count($parts) == 2){
-			$server_ip = htmlspecialchars($parts[0]);
-			$server_port = htmlspecialchars($parts[1]);
-		} else {
-			echo 'Invalid IP</div>';
-			die();
-		}
-		if($serverStatus->isOnline($server_ip, $server_port, $mcname) === true){
-			$is_online = $server->name;
-			break;
-		}
-	}
-}
+// Is the user online?
+if(strtotime("-10 minutes") < $profile_user[0]->last_online) $is_online = true;
 ?>
 
 <!DOCTYPE html>
@@ -164,19 +137,15 @@ if($query_to_use == 'false'){
 				} else { 
 					echo '<span class="label label-default">' . $user_language['player'] . '</span>';
 				}
-				if($query_to_use == 'false'){ 
 				?>
 				<span class="label label-<?php 
 					if(!isset($is_online)){ 
 						echo 'danger">' . $user_language['offline']; 
 					} else { 
-						echo 'success" rel="tooltip" data-trigger="hover" data-original-title="' . htmlspecialchars($is_online) . '">' . $user_language['online']; 
+						echo 'success">' . $user_language['online']; 
 					}
 				?>
 				</span>
-				<?php
-				}
-				?>
 			  </h2>
 			</div>
 		    <br />
