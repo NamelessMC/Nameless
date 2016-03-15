@@ -323,72 +323,81 @@ $timeago = new Timeago();
 		
 		// Loop through forums, get stats and return an array to pass to the template
 		$template_array = array();
-		foreach($forums as $item){
-			// Check it's not a subforum first
-			$parent_forum = $queries->getWhere('forums', array('id', '=', $item['parent']));
-			if($parent_forum[0]->parent == 0){ // not a subforum, continue
-				// Stats
-				$topics_count = $queries->getWhere("topics", array("forum_id", "=", $item["id"]));
-				$topics_count = count($topics_count);
-				$posts_count = $queries->getWhere("posts", array("forum_id", "=", $item["id"]));
-				$posts_count = count($posts_count);
-				
-				// Get avatar of user who last posted
-				$last_user_avatar = '';
-				$last_reply_avatar = '';
-				if($item['last_user_posted'] != null){
-					$last_user_avatar = $queries->getWhere('users', array('id', '=', $item['last_user_posted']));
-					$last_user_avatar = $last_user_avatar[0]->has_avatar;
-					if($last_user_avatar == '0'){ 
-						$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($item['last_user_posted']) . '/30.png" />';
-					} else { 
-						$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($item['last_user_posted'], "../") . '" />';
-					}
-				}
-				
-				// Get the last topic posted in
-				$last_topic = '';
-				if($item['last_topic_posted'] !== null){
-					$last_topic = $queries->getWhere('topics', array('id', '=', $item['last_topic_posted']));
+		
+		foreach($forums['parents'] as $parent){
+			if(!isset($template_array[$parent['id']])) $template_array[$parent['id']] = $parent;
+			
+			foreach($forums['forums'] as $item){
+				if($item['parent'] == $parent['id']){
+					// Check it't not a subforum
+					$parent_forum = $queries->getWhere('forums', array('id', '=', $item['parent']));
+					if($parent_forum[0]->parent != 0) continue;
 					
-					// Is there a label?
-					if($last_topic[0]->label != 0){ // yes
-						// Get label
-						$label = $queries->getWhere('forums_topic_labels', array('id', '=', $last_topic[0]->label));
-						$label = '<span class="label label-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
-					} else { // no
-						$label = '';
-					}
-					
-					$last_topic = $last_topic[0]->topic_title;
-				}
+					// Not a subforum
+					// Get stats
+					$topics_count = $queries->getWhere("topics", array("forum_id", "=", $item["id"]));
+					$topics_count = count($topics_count);
+					$posts_count = $queries->getWhere("posts", array("forum_id", "=", $item["id"]));
+					$posts_count = count($posts_count);
 				
-				// Subforums?
-				$subforums = $queries->getWhere('forums', array('parent', '=', $item['id']));
-				$subforum_string = '';
-				if(count($subforums)){
-					foreach($subforums as $subforum){
-						if($forum->forumExist($subforum->id, $user->data()->group_id)){
-							$subforum_string .= '<i class="fa fa-folder"></i> <a href="/forum/view_forum/?fid=' . $subforum->id . '">' . htmlspecialchars($subforum->forum_title) . '</a>&nbsp;&nbsp';
+					// Get avatar of user who last posted
+					$last_user_avatar = '';
+					$last_reply_avatar = '';
+					if($item['last_user_posted'] != null){
+						$last_user_avatar = $queries->getWhere('users', array('id', '=', $item['last_user_posted']));
+						$last_user_avatar = $last_user_avatar[0]->has_avatar;
+						if($last_user_avatar == '0'){ 
+							$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($item['last_user_posted']) . '/30.png" />';
+						} else { 
+							$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($item['last_user_posted'], "../") . '" />';
 						}
 					}
-				}
-				
-				$template_array[] = array(
-					'forum_id' => $item['id'],
-					'forum_title' => htmlspecialchars($item['forum_title']),
-					'forum_description' => htmlspecialchars($item['forum_description']),
-					'forum_topics' => $topics_count,
-					'forum_posts' => $posts_count,
-					'last_reply_avatar' => $last_reply_avatar,
-					'last_reply_username' => htmlspecialchars($user->idToName($item['last_user_posted'])),
-					'last_reply_mcname' => htmlspecialchars($user->idToMCName($item['last_user_posted'])),
-					'last_topic_id' => $item['last_topic_posted'],
-					'last_topic_name' => htmlspecialchars($last_topic),
-					'last_topic_time' => date('jS M Y, g:iA', strtotime($item['last_post_date'])),
-					'subforums' => $subforum_string,
-					'label' => $label
-				);
+					
+					// Get the last topic posted in
+					$last_topic = '';
+					if($item['last_topic_posted'] !== null){
+						$last_topic = $queries->getWhere('topics', array('id', '=', $item['last_topic_posted']));
+						
+						// Is there a label?
+						if($last_topic[0]->label != 0){ // yes
+							// Get label
+							$label = $queries->getWhere('forums_topic_labels', array('id', '=', $last_topic[0]->label));
+							$label = '<span class="label label-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
+						} else { // no
+							$label = '';
+						}
+						
+						$last_topic = $last_topic[0]->topic_title;
+					}
+					
+					// Subforums?
+					$subforums = $queries->getWhere('forums', array('parent', '=', $item['id']));
+					$subforum_string = '';
+					if(count($subforums)){
+						foreach($subforums as $subforum){
+							if($forum->forumExist($subforum->id, $user->data()->group_id)){
+								$subforum_string .= '<i class="fa fa-folder"></i> <a href="/forum/view_forum/?fid=' . $subforum->id . '">' . htmlspecialchars($subforum->forum_title) . '</a>&nbsp;&nbsp';
+							}
+						}
+					}
+					
+					$template_array[$parent['id']]['forums'][] = array(
+						'forum_id' => $item['id'],
+						'forum_title' => htmlspecialchars($item['forum_title']),
+						'forum_description' => htmlspecialchars($item['forum_description']),
+						'forum_topics' => $topics_count,
+						'forum_posts' => $posts_count,
+						'last_reply_avatar' => $last_reply_avatar,
+						'last_reply_username' => htmlspecialchars($user->idToName($item['last_user_posted'])),
+						'last_reply_mcname' => htmlspecialchars($user->idToMCName($item['last_user_posted'])),
+						'last_topic_id' => $item['last_topic_posted'],
+						'last_topic_name' => htmlspecialchars($last_topic),
+						'last_topic_time' => date('jS M Y, g:iA', strtotime($item['last_post_date'])),
+						'subforums' => $subforum_string,
+						'label' => $label
+					);
+					
+				} else continue;
 			}
 		}
 		

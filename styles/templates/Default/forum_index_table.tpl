@@ -3,54 +3,53 @@
   <div class="row">
 	<div class="col-md-9">
 	  {$BREADCRUMBS}
-	  <table class="table table-bordered" style="table-layout:fixed;">
-		<colgroup>
-		  <col style="width:50%">
-		  <col style="width:10%">
-		  <col style="width:40%">
-		</colgroup>
-		<thead>
-		  <tr>
-			<th>{$FORUM}</th>
-			<th>{$STATS}</th>
-			<th>{$LAST_POST}</th>
-		  </tr>
-		</thead>
-		<tbody>
-	      {foreach from=$FORUMS item=forum}
-			<tr>
-			  <td>
-			    <a href="/forum/view_forum/?fid={$forum.forum_id}">{$forum.forum_title}</a>
-				<br />
-				{$forum.forum_description}<br />
-				{$forum.subforums}
-			  </td>
-			  <td>
-			    <strong>{$forum.forum_topics}</strong> {$TOPICS}<br />
-				<strong>{$forum.forum_posts}</strong> {$POSTS}<br />
-			  </td>
-			  <td>
-			    {if $forum.forum_topics eq 0}
+	  {foreach from=$FORUMS item=parent}
+	    {assign var=counter value=1}
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+			<a href="/forum/view_forum/?fid={$parent.id}"><strong>{$parent.forum_title}</strong></a>
+		  </div>
+		  <div class="panel-body">
+			{foreach from=$parent.forums item=forum}
+		    <div class="row">
+			  <div class="col-md-6">
+				  <a href="/forum/view_forum/?fid={$forum.forum_id}">{$forum.forum_title}</a>
+				  <br />
+				  {$forum.forum_description}<br />
+				  {$forum.subforums}
+			  </div>
+			  <div class="col-md-2">
+				  <strong>{$forum.forum_topics}</strong> {$TOPICS}<br />
+				  <strong>{$forum.forum_posts}</strong> {$POSTS}<br />
+			  </div>
+			  <div class="col-md-4">
+				{if $forum.forum_topics eq 0}
 				  {$NO_TOPICS}
 				{else}
 				  {* There are topics, display the latest *}
 				  <div class="row">
 					<div class="col-md-2">
-					  <div class="frame">
+					  <div class="frame" style="position:static !important;">
 						<a href="/profile/{$forum.last_reply_mcname}">{$forum.last_reply_avatar}</a>
 					  </div>
 					</div>
 					<div class="col-md-9">
+					  {$LAST_POST}:
 					  {$forum.label} <a href="/forum/view_topic/?tid={$forum.last_topic_id}">{$forum.last_topic_name}</a><br />
 					  {$BY} <a href="/profile/{$forum.last_reply_mcname}">{$forum.last_reply_username}</a><br />{$forum.last_topic_time}
 					</div>
 				  </div>
 				{/if}
-			  </td>
-			</tr>
-		  {/foreach}
-		</tbody>
-	  </table>
+			  </div>
+			</div>
+			{if ($parent.forums|@count) != $counter}
+			<hr>
+			{/if}
+			{assign var=counter value=$counter+1}
+		    {/foreach}
+		  </div>
+		</div>
+	  {/foreach}
 	  <div class="panel panel-default">
 	    <div class="panel-heading">{$STATISTICS}</div>
 		<div class="panel-body">

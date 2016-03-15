@@ -98,12 +98,20 @@ class Forum {
 
 				// Is it a parent category?
 				if($forum_query[0]->parent != 0){ // No
-					$return[] = (array) $forum_query[0];
+					$return['forums'][] = (array) $forum_query[0];
+				} else { // Yes
+					$return['parents'][] = (array) $forum_query[0];
 				}
 			}
 		}
 		
-		usort($return, function($a, $b) {
+		// Sort forums
+		usort($return['forums'], function($a, $b) {
+			return $a['forum_order'] - $b['forum_order'];
+		});
+		
+		// Sort parent forums
+		usort($return['parents'], function($a, $b) {
 			return $a['forum_order'] - $b['forum_order'];
 		});
 		

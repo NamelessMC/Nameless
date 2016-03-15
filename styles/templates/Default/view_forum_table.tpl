@@ -9,6 +9,7 @@
 	  <span class="pull-right">{$NEW_TOPIC_BUTTON}</span>
 	  <br /><br />
 	  {if $SUBFORUMS_EXIST == 1}
+	  <strong>{$SUBFORUMS_LANGUAGE}</strong>
 	  <table class="table table-bordered" style="table-layout:fixed;">
 		<colgroup>
 		  <col style="width:50%">

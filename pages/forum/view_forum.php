@@ -62,12 +62,6 @@ if(isset($_GET['p'])){
 $forum_query = $queries->getWhere("forums", array("id", "=", $fid));
 $forum_query = $forum_query[0];
 
-// Is it a parent forum? If so, the user shouldn't be browsing it
-if($forum_query->parent == 0){
-	Redirect::to('/forum/error/?error=not_exist');
-	die();
-}
-
 // Get all topics
 $topics = $queries->orderWhere("topics", "forum_id = ". $fid . " AND sticky = 0", "topic_reply_date", "DESC");
 
@@ -637,8 +631,19 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			$smarty->assign('SUBFORUMS', '');
 		}
 		
+		// Assign language variables
+		$smarty->assign('FORUM', $forum_language['forum']);
+		$smarty->assign('STATS', $forum_language['stats']);
+		$smarty->assign('STATISTICS', $forum_language['statistics']);
+		$smarty->assign('LAST_POST', $forum_language['last_post']);
+		$smarty->assign('POSTS', $forum_language['posts']);
+		$smarty->assign('TOPIC', $forum_language['topic']);
+		$smarty->assign('VIEWS', $forum_language['views']);
+		$smarty->assign('LATEST_POSTS', $forum_language['latest_posts']);
+		$smarty->assign('BY', $forum_language['by']);
 		$smarty->assign('TOPICS_LANGUAGE', $forum_language['topics']);
 		$smarty->assign('NO_TOPICS', $forum_language['no_topics']);
+		$smarty->assign('SUBFORUMS_LANGUAGE', $forum_language['subforums']);
 		
 		if(!count($stickies) && !count($topics)){
 			// No topics yet
@@ -829,18 +834,6 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			// Assign topics to variables
 			$smarty->assign('STICKIES', $sticky_template_array);
 			$smarty->assign('TOPICS', $template_array);
-			
-			// Assign language variables
-			$smarty->assign('FORUM', $forum_language['forum']);
-			$smarty->assign('STATS', $forum_language['stats']);
-			$smarty->assign('STATISTICS', $forum_language['statistics']);
-			$smarty->assign('LAST_POST', $forum_language['last_post']);
-			$smarty->assign('POSTS', $forum_language['posts']);
-			$smarty->assign('TOPIC', $forum_language['topic']);
-			$smarty->assign('VIEWS', $forum_language['views']);
-			$smarty->assign('LATEST_POSTS', $forum_language['latest_posts']);
-			$smarty->assign('BY', $forum_language['by']);
-			$smarty->assign('AGO', ''); // to be removed
 			
 			$latest = $forum->getLatestDiscussions($user->data()->group_id);
 			$latest_posts = array();

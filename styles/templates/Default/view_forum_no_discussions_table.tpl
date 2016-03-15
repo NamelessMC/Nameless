@@ -5,8 +5,61 @@
 	  <ol class="breadcrumb">
 	    {$BREADCRUMBS}
 	  </ol>
-	  <h3 style="display: inline;">{$FORUM_TITLE}</h3><span class="pull-right">{$NEW_TOPIC_BUTTON}</span><br /><br />
-	  {$NO_TOPICS}
+	  <h3 style="display:inline;">{$FORUM_TITLE}</h3>
+	  <span class="pull-right">{$NEW_TOPIC_BUTTON}</span>
+	  <br /><br />
+	  {if $SUBFORUMS_EXIST == 1}
+	  <strong>{$SUBFORUMS_LANGUAGE}</strong>
+	  <table class="table table-bordered" style="table-layout:fixed;">
+		<colgroup>
+		  <col style="width:50%">
+		  <col style="width:10%">
+		  <col style="width:40%">
+		</colgroup>
+		<thead>
+		  <tr>
+			<th>{$FORUM}</th>
+			<th>{$STATS}</th>
+			<th>{$LAST_POST}</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  {foreach from=$SUBFORUMS item=subforum}
+		    <tr>
+			  <td>
+			    <a href="/forum/view_forum/?fid={$subforum.forum_id}">{$subforum.forum_title}</a>
+				<br />
+				{$subforum.forum_description}<br />
+			  </td>
+			  <td>
+			    <strong>{$subforum.forum_topics}</strong> {$TOPICS_LANGUAGE}<br />
+				<strong>{$subforum.forum_posts}</strong> {$POSTS}<br />
+			  </td>
+			  <td>
+			    {if $subforum.forum_topics eq 0}
+				  {$NO_TOPICS}
+				{else}
+				  {* There are topics, display the latest *}
+				  <div class="row">
+					<div class="col-md-2">
+					  <div class="frame">
+						<a href="/profile/{$subforum.last_reply_mcname}">{$subforum.last_reply_avatar}</a>
+					  </div>
+					</div>
+					<div class="col-md-9">
+					  {$subforum.label}  <a href="/forum/view_topic/?tid={$subforum.last_topic_id}">{$subforum.last_topic_name}</a><br />
+					  {$BY} <a href="/profile/{$subforum.last_reply_mcname}">{$subforum.last_reply_username}</a><br />{$subforum.last_topic_time}
+					</div>
+				  </div>
+				{/if}
+			  </td>
+			</tr>
+		  {/foreach}
+		</tbody>
+	  </table>
+	  {/if}
+	  <hr>
+	  <strong>{$NO_TOPICS}</strong>
 	  <br /><br /><br />
 	  <div class="panel panel-default">
 	    <div class="panel-heading">{$STATISTICS}</div>
