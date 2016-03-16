@@ -12,4 +12,4 @@
 require('addons/Vote/language.php');
 
 // Enabled, add links to navbar
-$navbar_array[] = array('vote' => $vote_language['vote']);
+$navbar_array[] = array('vote' => $vote_language['vote_icon'] . $vote_language['vote']);

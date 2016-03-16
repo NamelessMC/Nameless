@@ -326,12 +326,16 @@ $navbar_language = array(
 	'home' => 'Accueil',
 	'play' => 'Jouer',
 	'forum' => 'Forum',
-	'vote' => 'Voter',
-	'donate' => 'Boutique',
 	'more' => 'Plus',
 	'staff_apps' => 'Recrutement',
 	'view_messages' => 'Voir les Messages',
-	'view_alerts' => 'Voir les Alertes'
+	'view_alerts' => 'Voir les Alertes',
+	
+	// Icons - will display before the text
+	'home_icon' => '',
+	'play_icon' => '',
+	'forum_icon' => '',
+	'staff_apps_icon' => ''
 );
 /*
  * User Related

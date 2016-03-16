@@ -324,12 +324,16 @@ $navbar_language = array(
 	'home' => 'Domů',
 	'play' => 'Hrát',
 	'forum' => 'Forum',
-	'vote' => 'Hlasovat',
-	'donate' => 'Donate',
 	'more' => 'Další',
 	'staff_apps' => 'Staff Applications',
 	'view_messages' => 'View Messages',
-	'view_alerts' => 'View Alerts'
+	'view_alerts' => 'View Alerts',
+	
+	// Icons - will display before the text
+	'home_icon' => '',
+	'play_icon' => '',
+	'forum_icon' => '',
+	'staff_apps_icon' => ''
 );
 
 /*
