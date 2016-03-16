@@ -68,7 +68,7 @@ Upcoming addons (these will need to be downloaded separately):
 **NamelessMC Translations**
 * English: @Samerton
 * German: @LPkkjHD & @manuelgu
-* Spanish: @paloke and @mrlost
+* Spanish: @paloke, @mrlost and Dexkum
 * Czech: SnooWiK
 * Norsk: @partydragen
 * Slovak: @Marki35
