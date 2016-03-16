@@ -92,7 +92,7 @@ $adm_page = "forums";
 							$queries->update("settings", $forum_layout_id, array(
 								'value' => Input::get('layout')
 							));
-							echo '<script>window.location.replace("/admin/forums");</script>';
+							echo '<script data-cfasync="false">window.location.replace("/admin/forums");</script>';
 							die();
 						} catch(Exception $e){
 							die($e->getMessage());
@@ -100,7 +100,7 @@ $adm_page = "forums";
 					} else {
 						// Invalid token
 						Session::flash('adm-forums', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
-						echo '<script>window.location.replace("/admin/forums");</script>';
+						echo '<script data-cfasync="false">window.location.replace("/admin/forums");</script>';
 						die();
 					}
 				}
@@ -127,9 +127,9 @@ $adm_page = "forums";
 						</div>
 						<div class="col-md-2">
 							<span class="pull-right">
-								<?php if($i !== 1){ ?><a href="/admin/forums/?action=order&dir=up&fid=<?php echo $forum->id;?>" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-arrow-up"></span></a><?php } ?>
-								<?php if($i !== $number){ ?><a href="/admin/forums/?action=order&dir=down&fid=<?php echo $forum->id;?>" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-arrow-down"></span></a><?php } ?>
-								<a href="/admin/forums/?action=delete&fid=<?php echo $forum->id;?>" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+								<?php if($i !== 1){ ?><a href="/admin/forums/?action=order&amp;dir=up&amp;fid=<?php echo $forum->id;?>" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-arrow-up"></span></a><?php } ?>
+								<?php if($i !== $number){ ?><a href="/admin/forums/?action=order&amp;dir=down&amp;fid=<?php echo $forum->id;?>" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-arrow-down"></span></a><?php } ?>
+								<a href="/admin/forums/?action=delete&amp;fid=<?php echo $forum->id;?>" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
 							</span>
 						</div>
 					</div>
@@ -183,14 +183,14 @@ $adm_page = "forums";
 										'forum_order' => $last_forum_order + 1
 									));
 									$forum_id = $queries->getLastId();
-									echo '<script>window.location.replace("/admin/forums/?forum=' . $forum_id . '");</script>';
+									echo '<script data-cfasync="false">window.location.replace("/admin/forums/?forum=' . $forum_id . '");</script>';
 									die();
 								} catch(Exception $e){
 									die($e->getMessage());
 								}
 							}
 						} else {
-							echo 'Invalid token - <a href="/admin/forums">Back</a>';
+							echo $admin_language['invalid_token'] . ' - <a href="/admin/forums">' . $general_language['back'] . '</a>';
 							die();
 						}
 					}
@@ -198,11 +198,38 @@ $adm_page = "forums";
 						if(!$validation->passed()){
 					?>
 					<div class="alert alert-danger">
-						<?php
-						foreach($validation->errors() as $error) {
-							echo $error, '<br />';
-						}
-						?>
+					  <?php
+					  foreach($validation->errors() as $error) {
+						  if(strpos($error, 'is required') !== false){
+							switch($error){
+								case (strpos($error, 'forumname') !== false):
+									echo $admin_language['input_forum_title'] . '<br />';
+								break;
+								case (strpos($error, 'forumdesc') !== false):
+									echo $admin_language['input_forum_description'] . '<br />';
+								break;
+							}
+						  } else if(strpos($error, 'minimum') !== false){
+							switch($error){
+								case (strpos($error, 'forumname') !== false):
+									echo $admin_language['forum_name_minimum'] . '<br />';
+								break;
+								case (strpos($error, 'forumdesc') !== false):
+									echo $admin_language['forum_description_minimum'] . '<br />';
+								break;
+							}
+						  } else if(strpos($error, 'maximum') !== false){
+							switch($error){
+								case (strpos($error, 'forumname') !== false):
+									echo $admin_language['forum_name_maximum'] . '<br />';
+								break;
+								case (strpos($error, 'forumdesc') !== false):
+									echo $admin_language['forum_description_maximum'] . '<br />';
+								break;
+							}
+						  }
+					  }
+					  ?>
 					</div>
 					<?php 
 						}
@@ -261,7 +288,7 @@ $adm_page = "forums";
 						} catch(Exception $e){
 							die($e->getMessage());
 						}
-						echo '<script>window.location.replace("/admin/forums");</script>';
+						echo '<script data-cfasync="false">window.location.replace("/admin/forums");</script>';
 						die();
 
 					} else if($dir == "down"){
@@ -284,7 +311,7 @@ $adm_page = "forums";
 						} catch(Exception $e){
 							die($e->getMessage());
 						}
-						echo '<script>window.location.replace("/admin/forums");</script>';
+						echo '<script data-cfasync="false">window.location.replace("/admin/forums");</script>';
 						die();
 						
 					}
@@ -315,7 +342,7 @@ $adm_page = "forums";
 											$queries->delete('forums_permissions', array('id', '=', $perm->id));
 										}
 										
-										echo '<script>window.location.replace("/admin/forums");</script>';
+										echo '<script data-cfasync="false">window.location.replace("/admin/forums");</script>';
 										die();
 									} catch(Exception $e) {
 										die($e->getMessage());
@@ -340,7 +367,7 @@ $adm_page = "forums";
 										foreach($forum_perms as $perm){
 											$queries->delete('forums_permissions', array('id', '=', $perm->id));
 										}
-										echo '<script>window.location.replace("/admin/forums");</script>';
+										echo '<script data-cfasync="false">window.location.replace("/admin/forums");</script>';
 										die();
 									} catch(Exception $e) {
 										die($e->getMessage());
@@ -492,13 +519,40 @@ $adm_page = "forums";
 									}
 								}
 								
-								echo '<script>window.location.replace("/admin/forums");</script>';
+								echo '<script data-cfasync="false">window.location.replace("/admin/forums");</script>';
 								die();
 								
 							} else {
 								echo '<div class="alert alert-danger">';
 								foreach($validation->errors() as $error) {
-									echo $error, '<br>';
+								  if(strpos($error, 'is required') !== false){
+									switch($error){
+										case (strpos($error, 'title') !== false):
+											echo $admin_language['input_forum_title'] . '<br />';
+										break;
+										case (strpos($error, 'description') !== false):
+											echo $admin_language['input_forum_description'] . '<br />';
+										break;
+									}
+								  } else if(strpos($error, 'minimum') !== false){
+									switch($error){
+										case (strpos($error, 'title') !== false):
+											echo $admin_language['forum_name_minimum'] . '<br />';
+										break;
+										case (strpos($error, 'description') !== false):
+											echo $admin_language['forum_description_minimum'] . '<br />';
+										break;
+									}
+								  } else if(strpos($error, 'maximum') !== false){
+									switch($error){
+										case (strpos($error, 'title') !== false):
+											echo $admin_language['forum_name_maximum'] . '<br />';
+										break;
+										case (strpos($error, 'description') !== false):
+											echo $admin_language['forum_description_maximum'] . '<br />';
+										break;
+									}
+								  }
 								}
 								echo '</div>';
 							}
@@ -693,7 +747,7 @@ $adm_page = "forums";
 									));
 									
 									Session::flash('forum_labels', '<div class="alert alert-info">' . $admin_language['label_creation_success'] . '</div>');
-									echo '<script>window.location.replace("/admin/forums/?view=labels");</script>';
+									echo '<script data-cfasync="false">window.location.replace("/admin/forums/?view=labels");</script>';
 									die();
 								} catch(Exception $e){
 									die($e->getMessage());
@@ -766,7 +820,7 @@ $adm_page = "forums";
 					// Editing a label
 					if(!isset($_GET['lid']) || !is_numeric($_GET['lid'])){
 						// Check the label ID is valid
-						echo '<script>window.location.replace("/admin/forums/?view=labels");</script>';
+						echo '<script data-cfasync="false">window.location.replace("/admin/forums/?view=labels");</script>';
 						die();
 					}
 					
@@ -774,7 +828,7 @@ $adm_page = "forums";
 					$label = $queries->getWhere('forums_topic_labels', array('id', '=', $_GET['lid']));
 					if(!count($label)){
 						// No, it doesn't exist
-						echo '<script>window.location.replace("/admin/forums/?view=labels");</script>';
+						echo '<script data-cfasync="false">window.location.replace("/admin/forums/?view=labels");</script>';
 						die();
 					} else {
 						$label = $label[0];
@@ -817,7 +871,7 @@ $adm_page = "forums";
 									));
 									
 									Session::flash('forum_labels', '<div class="alert alert-info">' . $admin_language['label_edit_success'] . '</div>');
-									echo '<script>window.location.replace("/admin/forums/?view=labels");</script>';
+									echo '<script data-cfasync="false">window.location.replace("/admin/forums/?view=labels");</script>';
 									die();
 								} catch(Exception $e){
 									die($e->getMessage());
@@ -895,13 +949,13 @@ $adm_page = "forums";
 					// Label deletion
 					if(!isset($_GET['lid']) || !is_numeric($_GET['lid'])){
 						// Check the label ID is valid
-						echo '<script>window.location.replace("/admin/forums/?view=labels");</script>';
+						echo '<script data-cfasync="false">window.location.replace("/admin/forums/?view=labels");</script>';
 						die();
 					}
 					try {
 						// Delete the label
 						$queries->delete('forums_topic_labels', array('id', '=', $_GET['lid']));
-						echo '<script>window.location.replace("/admin/forums/?view=labels");</script>';
+						echo '<script data-cfasync="false">window.location.replace("/admin/forums/?view=labels");</script>';
 						die();
 					} catch(Exception $e){
 						die($e->getMessage());

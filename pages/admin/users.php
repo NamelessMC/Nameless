@@ -264,7 +264,70 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 					<div class="alert alert-danger">
 						<?php
 						foreach($validation->errors() as $error) {
-							echo $error, '<br />';
+							if(strpos($error, 'is required') !== false){
+								// x is required
+								switch($error){
+									case (strpos($error, 'username') !== false):
+										echo $user_language['username_required'] . '<br />';
+									break;
+									case (strpos($error, 'email') !== false):
+										echo $user_language['email_required'] . '<br />';
+									break;
+									case (strpos($error, 'password') !== false):
+										echo $user_language['password_required'] . '<br />';
+									break;
+									case (strpos($error, 'mcname') !== false):
+										echo $user_language['mcname_required'] . '<br />';
+									break;
+									case (strpos($error, 'group') !== false):
+										echo $admin_language['select_user_group'] . '<br />';
+									break;
+								}
+								
+							} else if(strpos($error, 'minimum') !== false){
+								// x must be a minimum of y characters long
+								switch($error){
+									case (strpos($error, 'username') !== false):
+										echo $user_language['username_minimum_3'] . '<br />';
+									break;
+									case (strpos($error, 'mcname') !== false):
+										echo $user_language['mcname_minimum_3'] . '<br />';
+									break;
+									case (strpos($error, 'password') !== false):
+										echo $user_language['password_minimum_6'] . '<br />';
+									break;
+								}
+								
+							} else if(strpos($error, 'maximum') !== false){
+								// x must be a maximum of y characters long
+								switch($error){
+									case (strpos($error, 'username') !== false):
+										echo $user_language['username_maximum_20'] . '<br />';
+									break;
+									case (strpos($error, 'mcname') !== false):
+										echo $user_language['mcname_maximum_20'] . '<br />';
+									break;
+									case (strpos($error, 'password') !== false):
+										echo $user_language['password_maximum_30'] . '<br />';
+									break;
+								}
+								
+							} else if(strpos($error, 'must match') !== false){
+								// password must match password again
+								echo $user_language['passwords_dont_match'] . '<br />';
+								
+							} else if(strpos($error, 'already exists') !== false){
+								// already exists
+								echo $user_language['username_mcname_email_exists'] . '<br />';
+							} else if(strpos($error, 'not a valid Minecraft account') !== false){
+								// Invalid Minecraft username
+								echo $user_language['invalid_mcname'] . '<br />';
+								
+							} else if(strpos($error, 'Mojang communication error') !== false){
+								// Mojang server error
+								echo $user_language['mcname_lookup_error'] . '<br />';
+								
+							}
 						}
 						?>
 					</div>
@@ -464,7 +527,73 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 								} else {
 									echo '<div class="alert alert-danger">';
 									foreach($validation->errors() as $error) {
-										echo $error, '<br>';
+										if(strpos($error, 'is required') !== false){
+											// x is required
+											switch($error){
+												case (strpos($error, 'username') !== false):
+													echo $user_language['username_required'] . '<br />';
+												break;
+												case (strpos($error, 'email') !== false):
+													echo $user_language['email_required'] . '<br />';
+												break;
+												case (strpos($error, 'password') !== false):
+													echo $user_language['password_required'] . '<br />';
+												break;
+												case (strpos($error, 'MCUsername') !== false):
+													echo $user_language['mcname_required'] . '<br />';
+												break;
+												case (strpos($error, 'group') !== false):
+													echo $admin_language['select_user_group'] . '<br />';
+												break;
+											}
+											
+										} else if(strpos($error, 'minimum') !== false){
+											// x must be a minimum of y characters long
+											switch($error){
+												case (strpos($error, 'username') !== false):
+													echo $user_language['username_minimum_3'] . '<br />';
+												break;
+												case (strpos($error, 'MCUsername') !== false):
+													echo $user_language['mcname_minimum_3'] . '<br />';
+												break;
+												case (strpos($error, 'password') !== false):
+													echo $user_language['password_minimum_6'] . '<br />';
+												break;
+											}
+											
+										} else if(strpos($error, 'maximum') !== false){
+											// x must be a maximum of y characters long
+											switch($error){
+												case (strpos($error, 'username') !== false):
+													echo $user_language['username_maximum_20'] . '<br />';
+												break;
+												case (strpos($error, 'MCUsername') !== false):
+													echo $user_language['mcname_maximum_20'] . '<br />';
+												break;
+												case (strpos($error, 'password') !== false):
+													echo $user_language['password_maximum_30'] . '<br />';
+												break;
+												case (strpos($error, 'UUID') !== false):
+													echo $user_language['uuid_max_32'] . '<br />';
+												break;
+											}
+											
+										} else if(strpos($error, 'must match') !== false){
+											// password must match password again
+											echo $user_language['passwords_dont_match'] . '<br />';
+											
+										} else if(strpos($error, 'already exists') !== false){
+											// already exists
+											echo $user_language['username_mcname_email_exists'] . '<br />';
+										} else if(strpos($error, 'not a valid Minecraft account') !== false){
+											// Invalid Minecraft username
+											echo $user_language['invalid_mcname'] . '<br />';
+											
+										} else if(strpos($error, 'Mojang communication error') !== false){
+											// Mojang server error
+											echo $user_language['mcname_lookup_error'] . '<br />';
+											
+										}
 									}
 									echo '</div>';
 								}

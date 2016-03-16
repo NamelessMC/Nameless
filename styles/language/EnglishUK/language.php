@@ -70,6 +70,45 @@ $admin_language = array(
 	'disable' => 'Disable',
 	'maintenance_mode' => 'Forum maintenance mode',
 	'forum_in_maintenance' => 'Forum is in maintenance mode.',
+	'unable_to_update_settings' => 'Unable to update settings. Please ensure no fields are left empty.',
+	'editing_google_analytics_module' => 'Editing Google Analytics module',
+	'tracking_code' => 'Tracking Code',
+	'tracking_code_help' => 'Insert the tracking code for Google Analytics here, including the surrounding script tags.',
+	'google_analytics_help' => 'See <a href="https://support.google.com/analytics/answer/1008080?hl=en#GA" target="_blank">this guide</a> for more information, following steps 1 to 3.',
+	'social_media_links' => 'Social Media Links',
+	'youtube_url' => 'YouTube URL',
+	'twitter_url' => 'Twitter URL',
+	'twitter_widget_id' => 'Twitter Widget ID',
+	'google_plus_url' => 'Google Plus URL',
+	'facebook_url' => 'Facebook URL',
+	'registration' => 'Registration',
+	'registration_warning' => 'Having this module disabled will also disable new members registering on your site.',
+	'google_recaptcha' => 'Enable Google reCAPTCHA',
+	'recaptcha_site_key' => 'reCAPTCHA Site Key',
+	'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
+	'registration_terms_and_conditions' => 'Registration Terms and Conditions',
+	'voice_server_module' => 'Voice Server Module',
+	'only_works_with_teamspeak' => 'This module currently only works with TeamSpeak',
+	'voice_server_help' => 'Please enter the details for the ServerQuery user',
+	'ip_without_port' => 'IP (without port)',
+	'voice_server_port' => 'Port (usually 10011)',
+	'virtual_port' => 'Virtual Port (usually 9987)',
+	'permissions' => 'Permissions:',
+	'view_applications' => 'View Applications?',
+	'accept_reject_applications' => 'Accept/Reject Applications?',
+	'questions' => 'Questions:',
+	'question' => 'Question',
+	'type' => 'Type',
+	'options' => 'Options',
+	'options_help' => 'Each option on a new line; can be left empty (dropdowns only)',
+	'no_questions' => 'No questions added yet.',
+	'new_question' => 'New Question',
+	'editing_question' => 'Editing Question',
+	'delete_question' => 'Delete Question',
+	'dropdown' => 'Dropdown',
+	'text' => 'Text',
+	'textarea' => 'Text Area',
+	'question_deleted' => 'Question Deleted',
 	
 	// Admin custom pages page
 	'click_on_page_to_edit' => 'Click on a page to edit it.',
@@ -129,6 +168,12 @@ $admin_language = array(
 	'can_create_topic' => 'Can create topic:',
 	'can_post_reply' => 'Can post reply:',
 	'display_threads_as_news' => 'Display threads as news on front page?',
+	'input_forum_title' => 'Input a forum title.',
+	'input_forum_description' => 'Input a forum description.',
+	'forum_name_minimum' => 'The forum name must be a minimum of 2 characters.',
+	'forum_description_minimum' => 'The forum description must be a minimum of 2 characters.',
+	'forum_name_maximum' => 'The forum name must be a maximum of 150 characters.',
+	'forum_description_maximum' => 'The forum description must be a maximum of 255 characters.',
 	
 	// Admin Users and Groups page
 	'users' => 'Users',
@@ -166,6 +211,12 @@ $admin_language = array(
 	'group_staff' => 'Is the group a staff group?',
 	'group_modcp' => 'Can the group view the ModCP?',
 	'group_admincp' => 'Can the group view the AdminCP?',
+	'group_name_required' => 'You must insert a group name.',
+	'group_name_minimum' => 'The group name must be a minimum of 2 characters.',
+	'group_name_maximum' => 'The group name must be a maximum of 20 characters.',
+	'html_maximum' => 'The group HTML must be a maximum of 1024 characters.',
+	'select_user_group' => 'The user must be in a group.',
+	'uuid_max_32' => 'The UUID must be a maximum of 32 characters.',
 	
 	// Admin Minecraft page
 	'minecraft_settings' => 'Minecraft Settings',
@@ -204,6 +255,12 @@ $admin_language = array(
 	'viewing_error' => 'Viewing Error',
 	'confirm_error_deletion' => 'Are you sure you want to delete this error?',
 	'display_server_status' => 'Display server status module?',
+	'server_name_required' => 'You must insert a server name.',
+	'server_ip_required' => 'You must insert the server\'s IP.',
+	'server_name_minimum' => 'The server name must be a minimum of 2 characters.',
+	'server_ip_minimum' => 'The server IP must be a minimum of 2 characters.',
+	'server_name_maximum' => 'The server name must be a maximum of 20 characters.',
+	'server_ip_maximum' => 'The server IP must be a maximum of 64 characters.',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Themes',
@@ -248,7 +305,16 @@ $admin_language = array(
 	'page_load_time_description' => 'Having this enabled will display a speedometer in the footer which will display the page loading time.',
 	'reset_website' => 'Reset Website',
 	'reset_website_info' => 'This will reset your website settings. <strong>Addons will be disabled but not removed, and their settings will not change.</strong> Your defined Minecraft servers will also remain.',
-	'confirm_reset_website' => 'Are you sure you want to reset your website settings?'
+	'confirm_reset_website' => 'Are you sure you want to reset your website settings?',
+	
+	// Admin Update page
+	'installation_up_to_date' => 'Your installation is up to date.',
+	'update_check_error' => 'Unable to check for updates. Please try again later.',
+	'new_update_available' => 'A new update is available.',
+	'your_version' => 'Your version:',
+	'new_version' => 'New version:',
+	'download' => 'Download',
+	'update_warning' => 'Warning: Ensure you have downloaded the package and uploaded the contained files first!'
 );
 
 /*
@@ -316,6 +382,7 @@ $user_language = array(
 	'username_mcname_email_exists' => 'Your username, Minecraft username or email address already exists. Have you already created an account?',
 	'invalid_mcname' => 'Your Minecraft username is not a valid account',
 	'mcname_lookup_error' => 'There was an error contacting Mojang\'s servers. Please try again later.',
+	'signature_maximum_900' => 'Your signature must be a maximum of 900 characters.',
 	
 	// UserCP
 	'user_cp' => 'UserCP',
@@ -496,7 +563,8 @@ $general_language = array(
 	
 	// Other
 	'page_loaded_in' => 'Page loaded in {x}s', // Don't replace {x}; 's' stands for 'seconds'
-	'none' => 'None'
+	'none' => 'None',
+	'404' => 'Sorry, we couldn\'t find that page.'
 );
 
 /* 

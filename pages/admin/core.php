@@ -120,7 +120,7 @@ $adm_page = "core";
 							die();
 							
 						} else {
-							Session::flash('general_settings', '<div class="alert alert-danger">Unable to update settings. Please ensure no fields are left empty.</div>');
+							Session::flash('general_settings', '<div class="alert alert-danger">' . $admin_language['unable_to_update_settings'] . '</div>');
 						}
 					} else {
 						// invalid token
@@ -176,9 +176,9 @@ $adm_page = "core";
 			  <div class="row">
 				&nbsp;&nbsp;&nbsp;&nbsp;<strong><?php echo htmlspecialchars(str_replace('_', ' ', $module->name)); ?></strong>
 						<?php if($module->enabled == 1){ ?>
-				<span class="pull-right"><a href="/admin/core/?view=modules&deactivate=<?php echo htmlspecialchars($module->name); ?>" style="width: 100px;" class="btn btn-danger"><?php echo $admin_language['deactivate']; ?></a> <a href="/admin/core/?view=modules&action=edit&module=<?php echo htmlspecialchars($module->name); ?>" class="btn btn-info"><i class="fa fa-cog"></i></a></span>
+				<span class="pull-right"><a href="/admin/core/?view=modules&amp;deactivate=<?php echo htmlspecialchars($module->name); ?>" style="width: 100px;" class="btn btn-danger"><?php echo $admin_language['deactivate']; ?></a> <a href="/admin/core/?view=modules&action=edit&module=<?php echo htmlspecialchars($module->name); ?>" class="btn btn-info"><i class="fa fa-cog"></i></a></span>
 						<?php } else { ?>
-				<span class="pull-right"><a href="/admin/core/?view=modules&activate=<?php echo htmlspecialchars($module->name); ?>" style="width: 100px;" class="btn btn-success"><?php echo $admin_language['activate']; ?></a> <a href="/admin/core/?view=modules&action=edit&module=<?php echo htmlspecialchars($module->name); ?>" class="btn btn-info"><i class="fa fa-cog"></i></a></span>
+				<span class="pull-right"><a href="/admin/core/?view=modules&amp;activate=<?php echo htmlspecialchars($module->name); ?>" style="width: 100px;" class="btn btn-success"><?php echo $admin_language['activate']; ?></a> <a href="/admin/core/?view=modules&action=edit&module=<?php echo htmlspecialchars($module->name); ?>" class="btn btn-info"><i class="fa fa-cog"></i></a></span>
 						<?php } ?>
 				<hr>
 			  </div>
@@ -190,7 +190,7 @@ $adm_page = "core";
 						$module = $queries->getWhere('core_modules', array('name', '=', htmlspecialchars($_GET['activate'])));
 						if(!count($module)){
 							Session::flash('core_modules', '<div class="alert alert-danger">' . $admin_language['module_not_exist'] . '</div>');
-							echo '<script>window.location.replace(\'/admin/core/?view=modules\');</script>';
+							echo '<script data-cfasync="false">window.location.replace(\'/admin/core/?view=modules\');</script>';
 							die();
 						}
 						$module_name = $module[0]->name;
@@ -204,7 +204,7 @@ $adm_page = "core";
 						));
 						
 						Session::flash('core_modules', '<div class="alert alert-success">' . $admin_language['module_enabled'] . '</div>');
-						echo '<script>window.location.replace(\'/admin/core/?view=modules\');</script>';
+						echo '<script data-cfasync="false">window.location.replace(\'/admin/core/?view=modules\');</script>';
 						die();
 					} else if(isset($_GET['deactivate'])){
 						// Disable a module
@@ -212,7 +212,7 @@ $adm_page = "core";
 						$module = $queries->getWhere('core_modules', array('name', '=', htmlspecialchars($_GET['deactivate'])));
 						if(!count($module)){
 							Session::flash('core_modules', '<div class="alert alert-danger">' . $admin_language['module_not_exist'] . '</div>');
-							echo '<script>window.location.replace(\'/admin/core/?view=modules\');</script>';
+							echo '<script data-cfasync="false">window.location.replace(\'/admin/core/?view=modules\');</script>';
 							die();
 						}
 						$module_name = $module[0]->name;
@@ -226,7 +226,7 @@ $adm_page = "core";
 						));
 						
 						Session::flash('core_modules', '<div class="alert alert-success">' . $admin_language['module_disabled'] . '</div>');
-						echo '<script>window.location.replace(\'/admin/core/?view=modules\');</script>';
+						echo '<script data-cfasync="false">window.location.replace(\'/admin/core/?view=modules\');</script>';
 						die();
 					} else if(isset($_GET['action'])){
 						if($_GET['module'] == 'Google_Analytics'){
@@ -240,7 +240,7 @@ $adm_page = "core";
 									$queries->update('settings', $ga_setting_id, array(
 										'value' => Input::get('tracking')
 									));
-									Session::flash('google_analytics_settings', '<div class="alert alert-success">Successfully updated.</div>');
+									Session::flash('google_analytics_settings', '<div class="alert alert-success">' . $admin_language['successfully_updated'] . '</div>');
 								} else {
 									// Invalid token
 									Session::flash('google_analytics_settings', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
@@ -252,21 +252,21 @@ $adm_page = "core";
 							
 							// Show settings for Google Analytics
 						?>
-						<h4>Editing Google Analytics module</h4>
+						<h4><?php echo $admin_language['editing_google_analytics_module']; ?></h4>
 						<?php
 						if(Session::exists('google_analytics_settings')){
 							echo Session::flash('google_analytics_settings');
 						}
 						?>
 						<form action="" method="post">
-						  <label for="tracking">Tracking Code</label> <a class="btn btn-info btn-xs" data-toggle="popover" data-content="Insert the tracking code for Google Analytics here, including the surrounding script tags."><span class="glyphicon glyphicon-question-sign"></span></a>
+						  <label for="tracking"><?php echo $admin_language['tracking_code']; ?></label> <a class="btn btn-info btn-xs" data-toggle="popover" data-content="<?php echo $admin_language['tracking_code_help']; ?>"><span class="glyphicon glyphicon-question-sign"></span></a>
 						  <textarea id="tracking" name="tracking" class="form-control" rows="5"><?php echo $settings[0]->value; ?></textarea>
 						  <br />
 						  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 						  <input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
 						</form>
 						<br />
-						<em>See <a href="https://support.google.com/analytics/answer/1008080?hl=en#GA" target="_blank">this guide</a> for more information, following steps 1 to 3.</em>
+						<em><?php echo $admin_language['google_analytics_help']; ?></em>
 						<?php
 						} else if($_GET['module'] == 'Social_Media'){
 							// Deal with input
@@ -307,7 +307,7 @@ $adm_page = "core";
 									$queries->update('settings', $fb_url_id, array(
 										'value' => htmlspecialchars(Input::get('fburl'))
 									));
-									Session::flash('social_media_links', '<div class="alert alert-success">Successfully updated.</div>');
+									Session::flash('social_media_links', '<div class="alert alert-success">' . $admin_language['successfully_updated'] . '</div>');
 								} else {
 									// Invalid token
 									Session::flash('social_media_links', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
@@ -322,7 +322,7 @@ $adm_page = "core";
 							$gplus_url = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
 							$fb_url = $queries->getWhere('settings', array('name', '=', 'fb_url'));
 						?>
-						<h4>Social Media Links</h4>
+						<h4><?php echo $admin_language['social_media_links']; ?></h4>
 						<?php
 						if(Session::exists('social_media_links')){
 							echo Session::flash('social_media_links');
@@ -330,24 +330,24 @@ $adm_page = "core";
 						?>
 						<form action="" method="post">
 							<div class="form-group">
-								<label for="InputYoutube">YouTube URL</label>
-								<input type="text" name="youtubeurl" class="form-control" id="InputYoutube" placeholder="YouTube URL (with preceding http)" value="<?php echo htmlspecialchars($youtube_url[0]->value); ?>">
+								<label for="InputYoutube"><?php echo $admin_language['youtube_url']; ?></label>
+								<input type="text" name="youtubeurl" class="form-control" id="InputYoutube" placeholder="<?php echo $admin_language['youtube_url']; ?>" value="<?php echo htmlspecialchars($youtube_url[0]->value); ?>">
 							</div>
 							<div class="form-group">
-								<label for="InputTwitter">Twitter URL</label>
-								<input type="text" name="twitterurl" class="form-control" id="InputTwitter" placeholder="Twitter URL (with preceding http)" value="<?php echo htmlspecialchars($twitter_url[0]->value); ?>">
+								<label for="InputTwitter"><?php echo $admin_language['twitter_url']; ?></label>
+								<input type="text" name="twitterurl" class="form-control" id="InputTwitter" placeholder="<?php echo $admin_language['twitter_url']; ?>" value="<?php echo htmlspecialchars($twitter_url[0]->value); ?>">
 							</div>
 							<div class="form-group">
-								<label for="InputTwitterID">Twitter Widget ID</label>
-								<input type="text" name="twitter_id" class="form-control" id="InputTwitterID" placeholder="Twitter Widget ID" value="<?php echo htmlspecialchars($twitter_wid_id[0]->value); ?>">
+								<label for="InputTwitterID"><?php echo $admin_language['twitter_widget_id']; ?></label>
+								<input type="text" name="twitter_id" class="form-control" id="InputTwitterID" placeholder="<?php echo $admin_language['twitter_widget_id']; ?>" value="<?php echo htmlspecialchars($twitter_wid_id[0]->value); ?>">
 							</div>
 							<div class="form-group">
-								<label for="InputGPlus">Google Plus URL</label>
-								<input type="text" name="gplusurl" class="form-control" id="InputGPlus" placeholder="Google Plus URL (with preceding http)" value="<?php echo htmlspecialchars($gplus_url[0]->value); ?>">
+								<label for="InputGPlus"><?php echo $admin_language['google_plus_url']; ?></label>
+								<input type="text" name="gplusurl" class="form-control" id="InputGPlus" placeholder="<?php echo $admin_language['google_plus_url']; ?>" value="<?php echo htmlspecialchars($gplus_url[0]->value); ?>">
 							</div>
 							<div class="form-group">
-								<label for="InputFacebook">Facebook URL</label>
-								<input type="text" name="fburl" class="form-control" id="InputFacebook" placeholder="Facebook URL (with preceding http)" value="<?php echo htmlspecialchars($fb_url[0]->value); ?>">
+								<label for="InputFacebook"><?php echo $admin_language['facebook_url']; ?></label>
+								<input type="text" name="fburl" class="form-control" id="InputFacebook" placeholder="<?php echo $admin_language['facebook_url']; ?>" value="<?php echo htmlspecialchars($fb_url[0]->value); ?>">
 							</div>
 							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 							<input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
@@ -387,7 +387,7 @@ $adm_page = "core";
 									$queries->update('settings', $t_and_c_id, array(
 										'value' => htmlspecialchars(Input::get('terms_and_conditions'))
 									));
-									Session::flash('registration_settings', '<div class="alert alert-success">Successfully updated.</div>');
+									Session::flash('registration_settings', '<div class="alert alert-success">' . $admin_language['successfully_updated'] . '</div>');
 								} else {
 									// Invalid token
 									Session::flash('registration_settings', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
@@ -414,29 +414,29 @@ $adm_page = "core";
 							$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 							$purifier = new HTMLPurifier($config);
 						?>
-						<h4>Registration</h4>
+						<h4><?php echo $admin_language['registration']; ?></h4>
 						<?php
 						if(Session::exists('registration_settings')){
 							echo Session::flash('registration_settings');
 						}
 						?>
-						<em>Having this module disabled will also disable new members registering on your site.</em><hr>
+						<em><?php echo $admin_language['registration_warning']; ?></em><hr>
 						<form action="" method="post">
 							<div class="form-group">
 							    <input type="hidden" name="enable_recaptcha" value="0" />
-								<label for="InputEnableRecaptcha">Enable Google reCAPTCHA</label>
+								<label for="InputEnableRecaptcha"><?php echo $admin_language['google_recaptcha']; ?></label>
 								<input id="InputEnableRecaptcha" name="enable_recaptcha" type="checkbox" class="js-switch" value="1"<?php if($recaptcha_id[0]->value == 'true'){ ?> checked<?php } ?> />
 							</div>
 							<div class="form-group">
-								<label for="InputRecaptcha">reCAPTCHA Site Key</label>
-								<input type="text" name="recaptcha" class="form-control" id="InputRecaptcha" placeholder="Recaptcha Key" value="<?php echo htmlspecialchars($recaptcha_key[0]->value); ?>">
+								<label for="InputRecaptcha"><?php echo $admin_language['recaptcha_site_key']; ?></label>
+								<input type="text" name="recaptcha" class="form-control" id="InputRecaptcha" placeholder="<?php echo $admin_language['recaptcha_site_key']; ?>" value="<?php echo htmlspecialchars($recaptcha_key[0]->value); ?>">
 							</div>
 							<div class="form-group">
-							    <label for="InputRecaptchaSecret">reCAPTCHA Secret Key</label>
-								<input type="text" name="recaptcha_secret" class="form-control" id="InputRecaptchaSecret" placeholder="Recaptcha Secret Key" value="<?php echo htmlspecialchars($recaptcha_secret[0]->value); ?>">
+							    <label for="InputRecaptchaSecret"><?php echo $admin_language['recaptcha_secret_key']; ?></label>
+								<input type="text" name="recaptcha_secret" class="form-control" id="InputRecaptchaSecret" placeholder="<?php echo $admin_language['recaptcha_secret_key']; ?>" value="<?php echo htmlspecialchars($recaptcha_secret[0]->value); ?>">
 							</div>
 							<div class="form-group">
-							    <label for="InputTandC">Registration Terms and Conditions</label>
+							    <label for="InputTandC"><?php echo $admin_language['registration_terms_and_conditions']; ?></label>
 								<textarea class="form-control" rows="8" name="terms_and_conditions" id="InputTandC"><?php echo $purifier->purify(htmlspecialchars_decode($t_and_c_id[0]->value)); ?></textarea>
 							</div>
 							<input type="hidden" name="token" value="<?php echo $token; ?>" />
@@ -471,33 +471,35 @@ $adm_page = "core";
 							
 							require_once('core/voice_server.php'); // for credentials
 						?>
-						<h4>Voice Server Module</h4>
+						<h4><?php echo $admin_language['voice_server_module']; ?></h4>
 						<?php
 						if(Session::exists('voice_server_settings')){
 							echo Session::flash('voice_server_settings');
 						}
 						?>
-						<div class="alert alert-info">This module currently only works with TeamSpeak</div>
+						<div class="alert alert-info"><?php echo $admin_language['only_works_with_teamspeak']; ?></div>
+						<strong><?php echo $admin_language['voice_server_help']; ?></strong>
+						<br /><br />
 						<form action="" method="post">
 						  <div class="form-group">
-						    <label for="username">Username</label>
-							<input type="text" class="form-control" name="username" id="username" value="<?php echo htmlspecialchars($voice_server_username); ?>" placeholder="Voice server username">
+						    <label for="username"><?php echo $user_language['username']; ?></label>
+							<input type="text" class="form-control" name="username" id="username" value="<?php echo htmlspecialchars($voice_server_username); ?>" placeholder="<?php echo $user_language['username']; ?>">
 						  </div>
 						  <div class="form-group">
-						    <label for="password">Password</label>
-							<input type="password" class="form-control" name="password" id="password" value="<?php echo htmlspecialchars($voice_server_password); ?>" placeholder="Voice server password">
+						    <label for="password"><?php echo $user_language['password']; ?></label>
+							<input type="password" class="form-control" name="password" id="password" value="<?php echo htmlspecialchars($voice_server_password); ?>" placeholder="<?php echo $user_language['password']; ?>">
 						  </div>
 						  <div class="form-group">
-						    <label for="ip">IP (without port)</label>
-							<input type="text" class="form-control" name="ip" id="ip" value="<?php echo htmlspecialchars($voice_server_ip); ?>" placeholder="Voice server IP">
+						    <label for="ip"><?php echo $admin_language['ip_without_port']; ?></label>
+							<input type="text" class="form-control" name="ip" id="ip" value="<?php echo htmlspecialchars($voice_server_ip); ?>" placeholder="<?php echo $admin_language['ip_without_port']; ?>">
 						  </div>
 						  <div class="form-group">
-						    <label for="port">Port (usually 10011)</label>
-							<input type="text" class="form-control" name="port" id="port" value="<?php echo htmlspecialchars($voice_server_port); ?>" placeholder="Voice server port">
+						    <label for="port"><?php echo $admin_language['voice_server_port']; ?></label>
+							<input type="text" class="form-control" name="port" id="port" value="<?php echo htmlspecialchars($voice_server_port); ?>" placeholder="<?php echo $admin_language['voice_server_port']; ?>">
 						  </div>
 						  <div class="form-group">
-						    <label for="virtual_port">Virtual Port (usually 9987)</label>
-							<input type="text" class="form-control" name="virtual_port" id="virtual_port" value="<?php echo htmlspecialchars($voice_virtual_server_port); ?>" placeholder="Voice server virtual port">
+						    <label for="virtual_port"><?php echo $admin_language['virtual_port']; ?></label>
+							<input type="text" class="form-control" name="virtual_port" id="virtual_port" value="<?php echo htmlspecialchars($voice_virtual_server_port); ?>" placeholder="<?php echo $admin_language['virtual_port']; ?>">
 						  </div>
 						  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 						  <input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
@@ -505,7 +507,7 @@ $adm_page = "core";
 						<?php
 						} else if($_GET['module'] == 'Staff_Applications'){
 						?>
-						<h4>Staff Applications</h4>
+						<h4><?php echo $navbar_language['staff_apps']; ?></h4>
 						<?php 
 							if(!isset($_GET['module_action']) && !isset($_GET['question'])){
 								if(Session::exists('apps_post_success')){
@@ -540,7 +542,7 @@ $adm_page = "core";
 										}
 									} else {
 										Session::flash('apps_post_success', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
-										echo '<script>window.location.replace("/admin/core/?view=modules&action=edit&module=Staff_Applications")</script>';
+										echo '<script data-cfasync="false">window.location.replace("/admin/core/?view=modules&action=edit&module=Staff_Applications")</script>';
 										die();
 									}
 								}
@@ -549,17 +551,17 @@ $adm_page = "core";
 								$groups = $queries->getWhere('groups', array('id', '<>', '0'));
 						?>
 						<form role="form" action="" method="post">
-						  <strong>Permissions:</strong><br /><br />
+						  <strong><?php echo $admin_language['permissions']; ?></strong><br /><br />
 						  <div class="row">
 						    <div class="col-md-8">
 							  <div class="col-md-6">
-							    Group
+							    <?php echo $admin_language['group']; ?>
 							  </div>
 							  <div class="col-md-3">
-							    View applications?
+							    <?php echo $admin_language['view_applications']; ?>
 							  </div>
 							  <div class="col-md-3">
-							    Accept/reject applications?
+							    <?php echo $admin_language['accept_reject_applications']; ?>
 							  </div>
 							</div>
 						  </div>
@@ -593,7 +595,7 @@ $adm_page = "core";
 						</form>
 						
 						<br /><br />
-						<strong>Questions:</strong> <span class="pull-right"><a href="/admin/core/?view=modules&amp;action=edit&amp;module=Staff_Applications&amp;module_action=new" class="btn btn-primary">New Question</a></span><br />
+						<strong><?php echo $admin_language['questions']; ?></strong> <span class="pull-right"><a href="/admin/core/?view=modules&amp;action=edit&amp;module=Staff_Applications&amp;module_action=new" class="btn btn-primary"><?php echo $admin_language['new_question']; ?></a></span><br />
 						<?php 
 						// Get a list of questions
 						$questions = $queries->getWhere('staff_apps_questions', array('id', '<>', 0));
@@ -601,10 +603,10 @@ $adm_page = "core";
 						?>
 						<table class="table table-striped">
 						  <tr>
-							<th>Name</th>
-							<th>Question</th>
-							<th>Type</th>
-							<th>Options</th>
+							<th><?php echo $admin_language['name']; ?></th>
+							<th><?php echo $admin_language['question']; ?></th>
+							<th><?php echo $admin_language['type']; ?></th>
+							<th><?php echo $admin_language['options']; ?></th>
 						  </tr>
 						<?php
 							foreach($questions as $question){
@@ -624,7 +626,7 @@ $adm_page = "core";
 								echo '<a href="/admin/core/?view=modules&action=edit&module=Staff_Applications&question=' . $question->id . '"></a><br />';
 							}
 						} else {
-							echo 'No questions defined yet.';
+							echo $admin_language['no_questions'];
 						}
 						?>
 						</table>
@@ -632,7 +634,7 @@ $adm_page = "core";
 							} else if(isset($_GET['question']) && !isset($_GET['module_action'])) { 
 								// Get the question
 								if(!is_numeric($_GET['question'])){
-									echo '<script>window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
+									echo '<script data-cfasync="false">window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
 									die();
 								}
 								$question_id = $_GET['question'];
@@ -640,7 +642,7 @@ $adm_page = "core";
 								
 								// Does the question exist?
 								if(!count($question)){
-									echo '<script>window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
+									echo '<script data-cfasync="false">window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
 									die();
 								}
 						
@@ -672,8 +674,8 @@ $adm_page = "core";
 												'options' => htmlspecialchars($options)
 											));
 
-											Session::flash('apps_post_success', '<div class="alert alert-info">Question successfully edited</div>');
-											echo '<script>window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
+											Session::flash('apps_post_success', '<div class="alert alert-info">' . $admin_language['successfully_updated'] . '</div>');
+											echo '<script data-cfasync="false">window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
 											die();
 										}
 								
@@ -684,25 +686,25 @@ $adm_page = "core";
 						
 								$question = $question[0];
 						?>
-						<strong>Editing question '<?php echo htmlspecialchars($question->name); ?>'</strong>
-						<span class="pull-right"><a href="/admin/core/?view=modules&amp;action=edit&amp;module=Staff_Applications&amp;question=<?php echo $question->id; ?>&amp;module_action=delete" onclick="return confirm('Are you sure you want to delete this question?');" class="btn btn-danger">Delete question</a></span>
+						<strong><?php echo $admin_language['editing_question']; ?></strong>
+						<span class="pull-right"><a href="/admin/core/?view=modules&amp;action=edit&amp;module=Staff_Applications&amp;question=<?php echo $question->id; ?>&amp;module_action=delete" onclick="return confirm('<?php echo $forum_language['confirm_cancellation']; ?>');" class="btn btn-danger"><?php echo $admin_language['delete_question']; ?></a></span>
 						<br /><br />
 						
 						<form method="post" action="">
-						  <label for="name">Question Name</label>
-						  <input class="form-control" type="text" name="name" id="name" placeholder="Name" value="<?php echo htmlspecialchars($question->name); ?>">
+						  <label for="name"><?php echo $admin_language['name']; ?></label>
+						  <input class="form-control" type="text" name="name" id="name" placeholder="<?php echo $admin_language['name']; ?>" value="<?php echo htmlspecialchars($question->name); ?>">
 						  <br />
-						  <label for="question">Question</label>
-						  <input class="form-control" type="text" name="question" id="question" placeholder="Question" value="<?php echo htmlspecialchars($question->question); ?>">
+						  <label for="question"><?php echo $admin_language['question']; ?></label>
+						  <input class="form-control" type="text" name="question" id="question" placeholder="<?php echo $admin_language['question']; ?>" value="<?php echo htmlspecialchars($question->question); ?>">
 						  <br />
-						  <label for="type">Type</label>
+						  <label for="type"><?php echo $admin_language['type']; ?></label>
 						  <select name="type" id="type" class="form-control">
-							<option value="1"<?php if($question->type == 1){ ?> selected<?php } ?>>Dropdown</option>
-							<option value="2"<?php if($question->type == 2){ ?> selected<?php } ?>>Text</option>
-							<option value="3"<?php if($question->type == 3){ ?> selected<?php } ?>>Text Area</option>
+							<option value="1"<?php if($question->type == 1){ ?> selected<?php } ?>><?php echo $admin_language['dropdown']; ?></option>
+							<option value="2"<?php if($question->type == 2){ ?> selected<?php } ?>><?php echo $admin_language['text']; ?></option>
+							<option value="3"<?php if($question->type == 3){ ?> selected<?php } ?>><?php echo $admin_language['textarea']; ?></option>
 						  </select>
 						  <br />
-						  <label for="options">Options - <em>Each option on a new line; can be left empty (dropdowns only)</em></label>
+						  <label for="options"><?php echo $admin_language['options']; ?> - <em><?php echo $admin_language['options_help']; ?></em></label>
 						  <?php
 						  // Get already inputted options
 						  if($question->options == null){
@@ -711,10 +713,10 @@ $adm_page = "core";
 							  $options = str_replace(',', "\n", htmlspecialchars($question->options));
 						  }
 						  ?>
-						  <textarea rows="5" class="form-control" name="options" id="options" placeholder="Options"><?php echo $options; ?></textarea>
+						  <textarea rows="5" class="form-control" name="options" id="options" placeholder="<?php echo $admin_language['options']; ?>"><?php echo $options; ?></textarea>
 						  <br />
 						  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-						  <input type="submit" class="btn btn-primary" value="Edit">
+						  <input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
 						</form>
 						
 						
@@ -748,8 +750,8 @@ $adm_page = "core";
 												'options' => htmlspecialchars($options)
 											));
 
-											Session::flash('apps_post_success', '<div class="alert alert-info">Question successfully created</div>');
-											echo '<script>window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
+											Session::flash('apps_post_success', '<div class="alert alert-info">' . $admin_language['successfully_updated'] . '</div>');
+											echo '<script data-cfasync="false">window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
 											die();
 										} else {
 											// errors
@@ -761,33 +763,33 @@ $adm_page = "core";
 								}
 
 						?>
-						<strong>New Question</strong><br /><br />
+						<strong><?php echo $admin_language['new_question']; ?></strong><br /><br />
 						
 						<form method="post" action="">
-						  <label for="name">Question Name</label>
-						  <input class="form-control" type="text" name="name" id="name" placeholder="Name">
+						  <label for="name"><?php echo $admin_language['name']; ?></label>
+						  <input class="form-control" type="text" name="name" id="name" placeholder="<?php echo $admin_language['name']; ?>">
 						  <br />
-						  <label for="question">Question</label>
-						  <input class="form-control" type="text" name="question" id="question" placeholder="Question">
+						  <label for="question"><?php echo $admin_language['question']; ?></label>
+						  <input class="form-control" type="text" name="question" id="question" placeholder="<?php echo $admin_language['question']; ?>">
 						  <br />
-						  <label for="type">Type</label>
+						  <label for="type"><?php echo $admin_language['type']; ?></label>
 						  <select name="type" id="type" class="form-control">
-							<option value="1">Dropdown</option>
-							<option value="2">Text</option>
-							<option value="3">Text Area</option>
+							<option value="1"><?php echo $admin_language['dropdown']; ?></option>
+							<option value="2"><?php echo $admin_language['text']; ?></option>
+							<option value="3"><?php echo $admin_language['textarea']; ?></option>
 						  </select>
 						  <br />
-						  <label for="options">Options - <em>Each option on a new line; can be left empty (dropdowns only)</em></label>
-						  <textarea rows="5" class="form-control" name="options" id="options" placeholder="Options"></textarea>
+						  <label for="options"><?php echo $admin_language['options']; ?> - <em><?php echo $admin_language['options_help']; ?></em></label>
+						  <textarea rows="5" class="form-control" name="options" id="options" placeholder="<?php echo $admin_language['options']; ?>"></textarea>
 						  <br />
 						  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-						  <input type="submit" class="btn btn-primary" value="Create">
+						  <input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
 						</form>
 						<?php 
 							} else if(isset($_GET['module_action']) && $_GET['module_action'] == 'delete' && isset($_GET['question'])) {
 								// Get the question
 								if(!is_numeric($_GET['question'])){
-									echo '<script>window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
+									echo '<script data-cfasync="false">window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
 									die();
 								}
 								$question_id = $_GET['question'];
@@ -795,15 +797,15 @@ $adm_page = "core";
 								
 								// Does the question exist?
 								if(!count($question)){
-									echo '<script>window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
+									echo '<script data-cfasync="false">window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
 									die();
 								}
 								
 								// Exists, we can delete it
 								$queries->delete('staff_apps_questions', array('id', '=', $question_id));
 								
-								Session::flash('apps_post_success', '<div class="alert alert-info">Question successfully deleted</div>');
-								echo '<script>window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
+								Session::flash('apps_post_success', '<div class="alert alert-info">' . $admin_language['question_deleted'] . '</div>');
+								echo '<script data-cfasync="false">window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
 								die();
 							}
 						}						

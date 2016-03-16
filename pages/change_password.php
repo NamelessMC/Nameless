@@ -43,11 +43,25 @@ if(!isset($_GET['c'])){
 					die();
 					
 				} else {
-					echo '<div class="alert alert-danger">';
-					foreach($validation->errors() as $error) {
-						echo $error, '<br />';
+					$error_message = '<div class="alert alert-danger">';
+					foreach($validation->errors() as $error){
+						if(strpos($error, 'is required') !== false){
+							// empty input
+							$error_message .= $user_language['password_required'] . '<br />';
+						} else if(strpos($error, 'password_new must be a minimum') !== false){
+							// below the minimum 6 chars
+							$error_message .= $user_language['password_minimum_6'] . '<br />';
+						} else if(strpos($error, 'password_new must be a maximum') !== false){
+							// above the maximum 30 chars
+							$error_message .= $user_language['password_maximum_30'] . '<br />';
+						} else if(strpos($error, 'must match') !== false){
+							// password must match password again
+							$error_message .= $user_language['passwords_dont_match'] . '<br />';
+							
+						}
 					}
-					echo '</div>';
+					$error_message .= '</div>';
+					Session::flash('error', $error_message);
 				}
 				
 			}
@@ -88,6 +102,7 @@ if(!isset($_GET['c'])){
 	// Load navbar
 	$smarty->display('styles/templates/' . $template . '/navbar.tpl');
 	?>
+	<br /><br />
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">

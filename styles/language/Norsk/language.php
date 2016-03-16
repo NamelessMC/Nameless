@@ -64,6 +64,51 @@ $admin_language = array(
 	'use_gmail_help' => 'Bare tilgjengelig hvis PHP-postfunksjonen er deaktivert. Hvis du velger å ikke bruke Gmail, vil SMTP brukes. Uansett må dette konfigurere i core/email.php.',
 	'enable_mail_verification' => 'Aktiver e-postkonto verifisering?',
 	'enable_email_verification_help' => 'Å ha denne aktivert vil be nyregistrerte brukere å verifisere sin konto via e-post før brukeren er fullført registreringen.',
+	'pages' => 'Pages',
+	'enable_or_disable_pages' => 'Enable or disable pages here.',
+	'enable' => 'Enable',
+	'disable' => 'Disable',
+	'maintenance_mode' => 'Forum maintenance mode',
+	'forum_in_maintenance' => 'Forum is in maintenance mode.',
+	'unable_to_update_settings' => 'Unable to update settings. Please ensure no fields are left empty.',
+	'editing_google_analytics_module' => 'Editing Google Analytics module',
+	'tracking_code' => 'Tracking Code',
+	'tracking_code_help' => 'Insert the tracking code for Google Analytics here, including the surrounding script tags.',
+	'google_analytics_help' => 'See <a href="https://support.google.com/analytics/answer/1008080?hl=en#GA" target="_blank">this guide</a> for more information, following steps 1 to 3.',
+	'social_media_links' => 'Social Media Links',
+	'youtube_url' => 'YouTube URL',
+	'twitter_url' => 'Twitter URL',
+	'twitter_widget_id' => 'Twitter Widget ID',
+	'google_plus_url' => 'Google Plus URL',
+	'facebook_url' => 'Facebook URL',
+	'registration' => 'Registration',
+	'registration_warning' => 'Having this module disabled will also disable new members registering on your site.',
+	'google_recaptcha' => 'Enable Google reCAPTCHA',
+	'recaptcha_site_key' => 'reCAPTCHA Site Key',
+	'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
+	'registration_terms_and_conditions' => 'Registration Terms and Conditions',
+	'voice_server_module' => 'Voice Server Module',
+	'only_works_with_teamspeak' => 'This module currently only works with TeamSpeak',
+	'voice_server_help' => 'Please enter the details for the ServerQuery user',
+	'ip_without_port' => 'IP (without port)',
+	'voice_server_port' => 'Port (usually 10011)',
+	'virtual_port' => 'Virtual Port (usually 9987)',
+	'permissions' => 'Permissions:',
+	'view_applications' => 'View Applications?',
+	'accept_reject_applications' => 'Accept/Reject Applications?',
+	'questions' => 'Questions:',
+	'question' => 'Question',
+	'type' => 'Type',
+	'options' => 'Options',
+	'options_help' => 'Each option on a new line; can be left empty (dropdowns only)',
+	'no_questions' => 'No questions added yet.',
+	'new_question' => 'New Question',
+	'editing_question' => 'Editing Question',
+	'delete_question' => 'Delete Question',
+	'dropdown' => 'Dropdown',
+	'text' => 'Text',
+	'textarea' => 'Text Area',
+	'question_deleted' => 'Question Deleted',
 	
 	// Admin custom pages page
 	'click_on_page_to_edit' => 'Klikk på en side for å redigere det.',
@@ -123,6 +168,12 @@ $admin_language = array(
 	'can_create_topic' => 'Kan lage emne:',
 	'can_post_reply' => 'Kan legge inn svar:',
 	'display_threads_as_news' => 'Vis emner som nyheter på forsiden?',
+	'input_forum_title' => 'Input a forum title.',
+	'input_forum_description' => 'Input a forum description.',
+	'forum_name_minimum' => 'The forum name must be a minimum of 2 characters.',
+	'forum_description_minimum' => 'The forum description must be a minimum of 2 characters.',
+	'forum_name_maximum' => 'The forum name must be a maximum of 150 characters.',
+	'forum_description_maximum' => 'The forum description must be a maximum of 255 characters.',
 	
 	// Admin Users and Groups page
 	'users' => 'Brukere',
@@ -160,6 +211,12 @@ $admin_language = array(
 	'group_staff' => 'Er gruppen en stab gruppe?',
 	'group_modcp' => 'Kan gruppen se ModCP?',
 	'group_admincp' => 'Kan gruppen se AdminCP?',
+	'group_name_required' => 'You must insert a group name.',
+	'group_name_minimum' => 'The group name must be a minimum of 2 characters.',
+	'group_name_maximum' => 'The group name must be a maximum of 20 characters.',
+	'html_maximum' => 'The group HTML must be a maximum of 1024 characters.',
+	'select_user_group' => 'The user must be in a group.',
+	'uuid_max_32' => 'The UUID must be a maximum of 32 characters.',
 	
 	// Admin Minecraft page
 	'minecraft_settings' => 'Minecraft Innstillinger',
@@ -198,6 +255,12 @@ $admin_language = array(
 	'viewing_error' => 'Vis Feil',
 	'confirm_error_deletion' => 'Er du sikker på at du vil slette denne feilen?',
 	'display_server_status' => 'Vis server status modul?',
+	'server_name_required' => 'You must insert a server name.',
+	'server_ip_required' => 'You must insert the server\'s IP.',
+	'server_name_minimum' => 'The server name must be a minimum of 2 characters.',
+	'server_ip_minimum' => 'The server IP must be a minimum of 2 characters.',
+	'server_name_maximum' => 'The server name must be a maximum of 20 characters.',
+	'server_ip_maximum' => 'The server IP must be a maximum of 64 characters.',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Temaer',
@@ -242,7 +305,16 @@ $admin_language = array(
 	'page_load_time_description' => 'Å ha denne aktivert vil vise et speedometer i bunnteksten som vil vise siden lasting tid.',
 	'reset_website' => 'Reset Hjemmeside',
 	'reset_website_info' => 'Dette vil tilbakestille ditt nettsted innstillinger. <strong>Addons vil bli deaktivert, men ikke fjernet, og deres innstillinger endres ikke.</strong> De angitte Minecraft servere vil også forbli.',
-	'confirm_reset_website' => 'Er du sikker på at du vil tilbakestille ditt nettsted innstillinger?'
+	'confirm_reset_website' => 'Er du sikker på at du vil tilbakestille ditt nettsted innstillinger?',
+	
+	// Admin Update page
+	'installation_up_to_date' => 'Your installation is up to date.',
+	'update_check_error' => 'Unable to check for updates. Please try again later.',
+	'new_update_available' => 'A new update is available.',
+	'your_version' => 'Your version:',
+	'new_version' => 'New version:',
+	'download' => 'Download',
+	'update_warning' => 'Warning: Ensure you have downloaded the package and uploaded the contained files first!'
 );
 
 /*
@@ -310,6 +382,7 @@ $user_language = array(
 	'username_mcname_email_exists' => 'Brukernavnet eksisterer allerede Minecraft brukernavn eller e-postadresse. Har du allerede opprettet en bruker?',
 	'invalid_mcname' => 'Minecraft brukernavn er ikke en gyldig bruker',
 	'mcname_lookup_error' => 'Det oppstod en feil med å kontakte Mojang servere. Prøv igjen senere.',
+	'signature_maximum_900' => 'Your signature must be a maximum of 900 characters.',
 	
 	// UserCP
 	'user_cp' => 'BrukerCP',
@@ -490,7 +563,8 @@ $general_language = array(
 	
 	// Other
 	'page_loaded_in' => 'Siden lastet på {x}s', // Don't replace {x}; 's' stands for 'seconds'
-	'none' => 'Ingen'
+	'none' => 'Ingen',
+	'404' => 'Sorry, we couldn\'t find that page.'
 );
 
 /* 

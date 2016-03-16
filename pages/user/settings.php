@@ -85,19 +85,36 @@ if(Input::exists()){
 				
 			} else {
 			
-				$error_string = "";
+				$error_string = '<div class="alert alert-danger">';
 				foreach($validation->errors() as $error){
-					$error_string .= ucfirst($error) . '<br />';
+					if(strpos($error, 'is required') !== false){
+						// Empty display name field
+						$error_string .= $user_language['username_required'] . '<br />';
+					} else if(strpos($error, 'minimum') !== false){
+						// Username under 3 chars
+						$error_string .= $user_language['username_minimum_3'] . '<br />';
+					} else if(strpos($error, 'maximum') !== false){
+						// Field passes maximum value
+						switch($error){
+							case (strpos($error, 'username') !== false):
+								// Username is over 20 chars
+								$error_string .= $user_language['username_maximum_20'] . '<br />';
+							break;
+							case (strpos($error, 'signature') !== false):
+								// Signature is over 900 chars
+								$error_string .= $user_language['signature_maximum_900'] . '<br />';
+							break;
+						}
+					}
 				}
+				$error_string .= '</div>';
 			
-				Session::flash('usercp_settings', '<div class="alert alert-danger">' . $error_string . '</div>');
+				Session::flash('usercp_settings', $error_string);
 			}
 		} else if(Input::get('action') == 'password'){
 			$validate_array = array(
 				'old_password' => array(
-					'required' => true,
-					'min' => 6,
-					'max' => 30
+					'required' => true
 				),
 				'new_password' => array(
 					'required' => true,
@@ -139,12 +156,38 @@ if(Input::exists()){
 				
 			} else {
 			
-				$error_string = "";
+				$error_string = '<div class="alert alert-danger">';
 				foreach($validation->errors() as $error){
-					$error_string .= ucfirst($error) . '<br />';
+					if(strpos($error, 'is required') !== false){
+						// Empty field
+						if(strpos($error_string, $user_language['password_required']) !== false){
+							// Only add error once
+						} else {
+							$error_string .= $user_language['password_required'] . '<br />';
+						}
+					} else if(strpos($error, 'minimum') !== false){
+						// Field under 6 chars
+						if(strpos($error_string, $user_language['password_minimum_6']) !== false){
+							// Only add error once
+						} else {
+							$error_string .= $user_language['password_minimum_6'] . '<br />';
+						}
+					} else if(strpos($error, 'maximum') !== false){
+						// Field under 6 chars
+						if(strpos($error_string, $user_language['password_maximum_30']) !== false){
+							// Only add error once
+						} else {
+							$error_string .= $user_language['password_maximum_30'] . '<br />';
+						}
+					} else if(strpos($error, 'must match') !== false){
+						// Password must match password again
+						$error_string .= $user_language['passwords_dont_match'] . '<br />';
+							
+					}
 				}
+				$error_string .= '</div>';
 			
-				Session::flash('usercp_settings', '<div class="alert alert-danger">' . $error_string . '</div>');
+				Session::flash('usercp_settings', $error_string);
 			}
 		}
 	}

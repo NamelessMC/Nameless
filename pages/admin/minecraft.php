@@ -207,7 +207,7 @@ $adm_page = "minecraft";
 				));
 				
 				// Redirect
-				echo '<script>window.location.replace("/admin/minecraft/?settings=plugin");</script>';
+				echo '<script data-cfasync="false">window.location.replace("/admin/minecraft/?settings=plugin");</script>';
 				die();
 			} else if(!isset($_GET['settings']) && isset($_GET['view']) && $_GET['view'] == 'servers'){ 
 				if(!isset($_GET["action"]) && !isset($_GET["sid"])){ 
@@ -235,7 +235,7 @@ $adm_page = "minecraft";
 								$queries->update('settings', $external_query_id, array(
 									'value' => $external_query
 								));
-								echo '<script>window.location.replace("/admin/minecraft/?view=servers");</script>';
+								echo '<script data-cfasync="false">window.location.replace("/admin/minecraft/?view=servers");</script>';
 								die();
 							} catch(Exception $e){
 								die($e->getMessage());
@@ -348,7 +348,7 @@ $adm_page = "minecraft";
 								));
 								
 								Session::flash('admin_servers', '<div class="alert alert-info">' . $admin_language['server_edited'] . '</div>');
-								echo '<script>window.location.replace("/admin/minecraft/?view=servers");</script>';
+								echo '<script data-cfasync="false">window.location.replace("/admin/minecraft/?view=servers");</script>';
 								die();
 							} catch(Exception $e){
 								die($e->getMessage());
@@ -365,7 +365,34 @@ $adm_page = "minecraft";
 					<div class="alert alert-danger">
 						<?php
 						foreach($validation->errors() as $error) {
-							echo $error, '<br />';
+						    if(strpos($error, 'is required') !== false){
+								switch($error){
+									case (strpos($error, 'servername') !== false):
+										echo $admin_language['server_name_required'] . '<br />';
+									break;
+									case (strpos($error, 'ip') !== false):
+										echo $admin_language['server_ip_required'] . '<br />';
+									break;
+								}
+							} else if(strpos($error, 'minimum') !== false){
+								switch($error){
+									case (strpos($error, 'servername') !== false):
+										echo $admin_language['server_name_minimum'] . '<br />';
+									break;
+									case (strpos($error, 'ip') !== false):
+										echo $admin_language['server_ip_minimum'] . '<br />';
+									break;
+								}
+							} else if(strpos($error, 'maximum') !== false){
+								switch($error){
+									case (strpos($error, 'servername') !== false):
+										echo $admin_language['server_name_maximum'] . '<br />';
+									break;
+									case (strpos($error, 'ip') !== false):
+										echo $admin_language['server_ip_maximum'] . '<br />';
+									break;
+								}
+							}
 						}
 						?>
 					</div>
@@ -437,7 +464,7 @@ $adm_page = "minecraft";
 										'query_ip' => htmlspecialchars(Input::get('queryip'))
 									));
 									Session::flash('admin_servers', '<div class="alert alert-info">' . $admin_language['server_created'] . '</div>');
-									echo '<script>window.location.replace("/admin/minecraft/?view=servers");</script>';
+									echo '<script data-cfasync="false">window.location.replace("/admin/minecraft/?view=servers");</script>';
 									die();
 								} catch(Exception $e){
 									die($e->getMessage());
@@ -454,7 +481,34 @@ $adm_page = "minecraft";
 						<div class="alert alert-danger">
 							<?php
 							foreach($validation->errors() as $error) {
-								echo $error, '<br />';
+								if(strpos($error, 'is required') !== false){
+									switch($error){
+										case (strpos($error, 'servername') !== false):
+											echo $admin_language['server_name_required'] . '<br />';
+										break;
+										case (strpos($error, 'ip') !== false):
+											echo $admin_language['server_ip_required'] . '<br />';
+										break;
+									}
+								} else if(strpos($error, 'minimum') !== false){
+									switch($error){
+										case (strpos($error, 'servername') !== false):
+											echo $admin_language['server_name_minimum'] . '<br />';
+										break;
+										case (strpos($error, 'ip') !== false):
+											echo $admin_language['server_ip_minimum'] . '<br />';
+										break;
+									}
+								} else if(strpos($error, 'maximum') !== false){
+									switch($error){
+										case (strpos($error, 'servername') !== false):
+											echo $admin_language['server_name_maximum'] . '<br />';
+										break;
+										case (strpos($error, 'ip') !== false):
+											echo $admin_language['server_ip_maximum'] . '<br />';
+										break;
+									}
+								}
 							}
 							?>
 						</div>
@@ -500,7 +554,7 @@ $adm_page = "minecraft";
 						$server_id = $_GET["sid"];
 						try {
 							$queries->delete('mc_servers', array('id', '=', $server_id));
-							echo '<script>window.location.replace("/admin/minecraft/?view=servers");</script>';
+							echo '<script data-cfasync="false">window.location.replace("/admin/minecraft/?view=servers");</script>';
 							die();
 						} catch(Exception $e) {
 							die($e->getMessage());
@@ -547,20 +601,20 @@ $adm_page = "minecraft";
 				} else {
 					if(!is_numeric($_GET['error'])){
 						// Not a valid error ID
-						echo '<script>window.location.replace("/admin/minecraft/?view=errors");</script>';
+						echo '<script data-cfasync="false">window.location.replace("/admin/minecraft/?view=errors");</script>';
 						die();
 					}
 					// Check the error actually exists
 					$query_error = $queries->getWhere('query_errors', array('id', '=', $_GET['error']));
 					if(!count($query_error)){
-						echo '<script>window.location.replace("/admin/minecraft/?view=errors");</script>';
+						echo '<script data-cfasync="false">window.location.replace("/admin/minecraft/?view=errors");</script>';
 						die();
 					}
 					// Error exists
 					if(isset($_GET['action']) && $_GET['action'] == 'delete'){
 						// Delete
 						$queries->delete('query_errors', array('id', '=', $_GET['error']));
-						echo '<script>window.location.replace("/admin/minecraft/?view=errors");</script>';
+						echo '<script data-cfasync="false">window.location.replace("/admin/minecraft/?view=errors");</script>';
 						die();
 						
 					} else {

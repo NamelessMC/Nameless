@@ -67,7 +67,7 @@ if(!isset($_GET['action'])){
 				}
 				
 				Session::flash('custom-pages', '<div class="alert alert-info">' . $admin_language['page_successfully_edited'] . '</div>');
-				echo '<script>window.location.replace(\'/admin/pages\');</script>';
+				echo '<script data-cfasync="false">window.location.replace(\'/admin/pages\');</script>';
 				die();
 				
 			} else {
@@ -118,7 +118,7 @@ if(!isset($_GET['action'])){
 				}
 				
 				Session::flash('custom-pages', '<div class="alert alert-info">' . $admin_language['page_successfully_created'] . '</div>');
-				echo '<script>window.location.replace(\'/admin/pages\');</script>';
+				echo '<script data-cfasync="false">window.location.replace(\'/admin/pages\');</script>';
 				die();
 			} else {
 				$error = '<div class="alert alert-warning"><p><strong>' . $admin_language['unable_to_create_page'] . '</strong></p><p>' . $admin_language['create_page_error'] . '</p></div>';
@@ -195,7 +195,7 @@ $token = Token::generate(); // generate token
 				} else if(isset($_GET['page']) && !isset($_GET['action'])) {
 					$page = $queries->getWhere("custom_pages", array("id", "=", $_GET["page"]));
 					if(!count($page)){
-						echo '<script>window.location.replace(\'/admin/pages\');</script>';
+						echo '<script data-cfasync="false">window.location.replace(\'/admin/pages\');</script>';
 						die();
 					}
 				?>
@@ -302,7 +302,7 @@ $token = Token::generate(); // generate token
 						// Delete a page
 						// Check the page exists
 						if(!isset($_GET['pid']) || !is_numeric($_GET['pid'])){
-							echo '<script>window.location.replace(\'/admin/pages\');</script>';
+							echo '<script data-cfasync="false">window.location.replace(\'/admin/pages\');</script>';
 							die();
 						}
 						
@@ -314,7 +314,7 @@ $token = Token::generate(); // generate token
 						}
 						
 						Session::flash('custom-pages', '<div class="alert alert-info">' . $admin_language['page_deleted_successfully'] . '</div>');
-						echo '<script>window.location.replace(\'/admin/pages\');</script>';
+						echo '<script data-cfasync="false">window.location.replace(\'/admin/pages\');</script>';
 						die();
 					}
 				}

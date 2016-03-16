@@ -41,44 +41,44 @@ if(count($individual)){
 	
 	if($php_mailer == '1'){
 		// PHP mailer
-			require('core/includes/phpmailer/PHPMailerAutoload.php');
-			require('core/email.php');
-			
-			$mail = new PHPMailer;
-			$mail->IsSMTP(); 
-			$mail->SMTPDebug = 0;
-			$mail->Debugoutput = 'html';
-			$mail->Host = $GLOBALS['email']['host'];
-			$mail->Port = $GLOBALS['email']['port'];
-			$mail->SMTPSecure = $GLOBALS['email']['secure'];
-			$mail->SMTPAuth = true;
-			$mail->Username = $GLOBALS['email']['username'];
-			$mail->Password = $GLOBALS['email']['password'];
-			$mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
-			$mail->From = $GLOBALS['email']['username'];
-			$mail->FromName = $GLOBALS['email']['name'];
-			$mail->addAddress(htmlspecialchars($individual[0]->email), htmlspecialchars($individual[0]->username));
-			$mail->Subject = $sitename . ' - ' . $user_language['password_reset'];
-			
-			// HTML to display in message
-			$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'styles', 'templates', $template, 'email', 'change_password.html'));
-			$html = file_get_contents($path);
-			
-			$link = 'http://' . $_SERVER['SERVER_NAME'] . '/change_password/?c=' . $code;
-			
-			$html = str_replace(array('[Sitename]', '[ChangePassword]', '[Greeting]', '[Message]', '[Message2]', '[Link]', '[Thanks]'), array($sitename, $user_language['change_password'], $email_language['greeting'], $user_language['email_body'], $user_language['email_body_2'], $link, $email_language['thanks']), $html);
-			
-			$mail->msgHTML($html);
-			$mail->IsHTML(true);
-			$mail->Body = $html;
-			//$mail->AltBody = 'Click the following link to change your password: ' . $link;
-			
-			if(!$mail->send()) {
-				echo "Mailer Error: " . $mail->ErrorInfo;
-				die();
-			} else {
-				echo "Message sent!";
-			}
+		require('core/includes/phpmailer/PHPMailerAutoload.php');
+		require('core/email.php');
+		
+		$mail = new PHPMailer;
+		$mail->IsSMTP(); 
+		$mail->SMTPDebug = 0;
+		$mail->Debugoutput = 'html';
+		$mail->Host = $GLOBALS['email']['host'];
+		$mail->Port = $GLOBALS['email']['port'];
+		$mail->SMTPSecure = $GLOBALS['email']['secure'];
+		$mail->SMTPAuth = true;
+		$mail->Username = $GLOBALS['email']['username'];
+		$mail->Password = $GLOBALS['email']['password'];
+		$mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
+		$mail->From = $GLOBALS['email']['username'];
+		$mail->FromName = $GLOBALS['email']['name'];
+		$mail->addAddress(htmlspecialchars($individual[0]->email), htmlspecialchars($individual[0]->username));
+		$mail->Subject = $sitename . ' - ' . $user_language['password_reset'];
+		
+		// HTML to display in message
+		$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'styles', 'templates', $template, 'email', 'change_password.html'));
+		$html = file_get_contents($path);
+		
+		$link = 'http://' . $_SERVER['SERVER_NAME'] . '/change_password/?c=' . $code;
+		
+		$html = str_replace(array('[Sitename]', '[ChangePassword]', '[Greeting]', '[Message]', '[Message2]', '[Link]', '[Thanks]'), array($sitename, $user_language['change_password'], $email_language['greeting'], $user_language['email_body'], $user_language['email_body_2'], $link, $email_language['thanks']), $html);
+		
+		$mail->msgHTML($html);
+		$mail->IsHTML(true);
+		$mail->Body = $html;
+		//$mail->AltBody = 'Click the following link to change your password: ' . $link;
+		
+		if(!$mail->send()) {
+			echo "Mailer Error: " . $mail->ErrorInfo;
+			die();
+		} else {
+			echo "Message sent!";
+		}
 	} else {
 		// PHP mail function
 		$to      = $individual[0]->email;
