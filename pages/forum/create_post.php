@@ -203,6 +203,9 @@ $token = Token::generate();
 	$smarty->assign('CREATING_POST_IN', $creating_post_in);
 	$smarty->assign('LOCKED_MESSAGE', $locked_message);
 	$smarty->assign('FORM_CONTENT', $form_content);
+	$smarty->assign('TOPIC_ID', $tid);
+	$smarty->assign('CANCEL', $general_language['cancel']);
+	$smarty->assign('CONFIRM', $forum_language['confirm_cancellation']);
 	
 	$smarty->display('styles/templates/' . $template . '/forum_create_post.tpl');
 		
