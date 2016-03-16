@@ -137,7 +137,7 @@ $adm_page = "users";
 										'buycraft_id' => htmlspecialchars(Input::get('buycraft_id'))
 									));
 
-									echo '<script>window.location.replace("/admin/groups");</script>';
+									echo '<script data-cfasync="false">window.location.replace("/admin/groups");</script>';
 									die();
 								
 								} catch(Exception $e){
@@ -155,8 +155,14 @@ $adm_page = "users";
 					?>
 					<div class="alert alert-danger">
 						<?php
-						foreach($validation->errors() as $error) {
-							echo $error, '<br />';
+						foreach($validation->errors() as $error){
+							if(strpos($error, 'is required') !== false){
+								echo $admin_language['group_name_required'];
+							} else if(strpos($error, 'minimum') !== false){
+								echo $admin_language['group_name_minimum'];
+							} else if(strpos($error, 'maximum') !== false){
+								echo $admin_language['group_name_maximum'];
+							}
 						}
 						?>
 					</div>
@@ -210,13 +216,9 @@ $adm_page = "users";
 									'max' => 20
 								),
 								'html' => array(
-									'required' => true,
-									'min' => 2,
 									'max' => 1024
 								),
 								'html_lg' => array(
-									'required' => true,
-									'min' => 2,
 									'max' => 1024
 								)
 							));
@@ -233,7 +235,7 @@ $adm_page = "users";
 										'staff' => Input::get('staff')
 									));
 									
-									echo '<script>window.location.replace("/admin/groups/?group=' . $_GET['group'] . '");</script>';
+									echo '<script data-cfasync="false">window.location.replace("/admin/groups/?group=' . $_GET['group'] . '");</script>';
 									die();
 								} catch(Exception $e) {
 									die($e->getMessage());
@@ -242,14 +244,27 @@ $adm_page = "users";
 							} else {
 								echo '<div class="alert alert-danger">';
 								foreach($validation->errors() as $error) {
-									echo $error, '<br />';
+									if(strpos($error, 'is required') !== false){
+										echo $admin_language['group_name_required'];
+									} else if(strpos($error, 'minimum') !== false){
+										echo $admin_language['group_name_minimum'];
+									} else if(strpos($error, 'maximum') !== false){
+										switch($error){
+											case (strpos($error, 'groupname') !== false):
+												echo $admin_language['group_name_maximum'] . '<br />';
+											break;
+											case (strpos($error, 'html') !== false):
+												echo $admin_language['html_maximum'] . '<br />';
+											break;
+										}
+									}
 								}
 								echo '</div>';
 							}
 						} else if(Input::get('action') == "delete"){
 							try {
 								$queries->delete('groups', array('id', '=' , Input::get('id')));
-								echo '<script>window.location.replace("/admin/groups/");</script>';
+								echo '<script data-cfasync="false">window.location.replace("/admin/groups/");</script>';
 								die();
 							} catch(Exception $e) {
 								die($e->getMessage());
@@ -325,7 +340,7 @@ $adm_page = "users";
 					}
 				} else {
 					Session::flash('adm-groups', '<div class="alert alert-info">' . $admin_language['group_not_exist'] . '</div>');
-					echo '<script>window.location.replace("/admin/groups/");</script>';
+					echo '<script data-cfasync="false">window.location.replace("/admin/groups/");</script>';
 					die();
 				}
 			}

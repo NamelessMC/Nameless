@@ -95,9 +95,9 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 		  <div class="well">
 			<h2><?php echo $admin_language['update']; ?></h2>
 			<?php if($update_check == 'None'){ ?>
-			<div class="alert alert-success">Your installation is up to date!</div>
+			<div class="alert alert-success"><?php echo $admin_language['installation_up_to_date']; ?></div>
 			<?php } else if($update_check == 'error'){ ?>
-			<div class="alert alert-warning">Unable to check for updates. Please try again later.</div>
+			<div class="alert alert-warning"><?php echo $admin_language['update_check_error']; ?></div>
 			<?php 
 			} else { 
 				// Update database values to say we need a version update
@@ -115,11 +115,11 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 				));
 			?>
 			<div class="alert alert-info">
-			  <p><strong>A new update is available.</strong></p>
+			  <p><strong><?php echo $admin_language['new_update_available']; ?></strong></p>
 			</div>
 			  <p>
-			    Your version: <strong><?php echo htmlspecialchars($current_version); ?></strong><br />
-			    New version: <strong><?php echo htmlspecialchars($update_check); ?></strong>
+			    <?php echo $admin_language['your_version']; ?> <strong><?php echo htmlspecialchars($current_version); ?></strong><br />
+			    <?php echo $admin_language['new_version']; ?> <strong><?php echo htmlspecialchars($update_check); ?></strong>
 			  </p>
 			  <p>
 			  Update instructions:
@@ -140,8 +140,8 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 			  ?>
 			  </p>
 			  <hr>
-			  <a class="btn btn-success" target="blank" href="https://worldscapemc.co.uk/nl_core/nl1/updates/<?php echo htmlspecialchars(str_replace('.', '', $update_check)); ?>.zip">Download</a> 
-			  <a class="btn btn-info" href="/admin/update_execute" onclick="return confirm('Warning: Ensure you have downloaded the package and uploaded the contained files first!')">Update</a>
+			  <a class="btn btn-success" target="blank" href="https://worldscapemc.co.uk/nl_core/nl1/updates/<?php echo htmlspecialchars(str_replace('.', '', $update_check)); ?>.zip"><?php echo $admin_language['download']; ?></a> 
+			  <a class="btn btn-info" href="/admin/update_execute" onclick="return confirm('<?php echo $admin_language['update_warning']; ?>')"><?php echo $admin_language['update']; ?></a>
 			<?php } ?>
 		  </div>
 		</div>

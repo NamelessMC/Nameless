@@ -107,7 +107,7 @@ $adm_page = "styles";
 						$c->store('inverse_navbar', $inverse_navbar);
 						
 						Session::flash('themes', '<div class="alert alert-success">' . $admin_language['successfully_updated'] . '</div>');
-						echo '<script>window.location.reload();</script>';
+						echo '<script data-cfasync="false">window.location.reload();</script>';
 						die();
 						
 					} else {
@@ -199,7 +199,7 @@ $adm_page = "styles";
 					}
 				}
 				Session::flash('scan_complete', '<div class="alert alert-success">' . $admin_language['style_scan_complete'] . '</div>');
-				echo '<script>window.location.replace(\'/admin/styles\');</script>';
+				echo '<script data-cfasync="false">window.location.replace(\'/admin/styles\');</script>';
 				die();
 			} else if(isset($_GET['activate']) && !isset($_GET['type'])){
 				// Make a theme active
@@ -207,7 +207,7 @@ $adm_page = "styles";
 				$theme = $queries->getWhere('themes', array('name', '=', htmlspecialchars($_GET['activate'])));
 				if(!count($theme)){
 					Session::flash('scan_complete', '<div class="alert alert-danger">' . $admin_language['theme_not_exist'] . '</div>');
-					echo '<script>window.location.replace(\'/admin/styles\');</script>';
+					echo '<script data-cfasync="false">window.location.replace(\'/admin/styles\');</script>';
 					die();
 				}
 				$theme_name = $theme[0]->name;
@@ -231,7 +231,7 @@ $adm_page = "styles";
 				$c->store('theme', htmlspecialchars($theme_name));
 				
 				Session::flash('scan_complete', '<div class="alert alert-success">' . $admin_language['theme_enabled'] . '</div>');
-				echo '<script>window.location.replace(\'/admin/styles\');</script>';
+				echo '<script data-cfasync="false">window.location.replace(\'/admin/styles\');</script>';
 				die();
 			} else if(isset($_GET['action']) && $_GET['action'] == 'delete' && !isset($_GET['type'])){
 				// Delete template
@@ -244,7 +244,7 @@ $adm_page = "styles";
 				$queries->delete('themes', array('name', '=', $item));
 				
 				Session::flash('themes', '<div class="alert alert-success">' . $admin_language['theme_deleted'] . '</div>');
-				echo '<script>window.location.replace(\'/admin/styles/\');</script>';
+				echo '<script data-cfasync="false">window.location.replace(\'/admin/styles/\');</script>';
 				die();
 			} else if(!isset($_GET['action']) && isset($_GET['type']) && $_GET['type'] == 'templates' && !isset($_GET['activate'])){ 
 				if(Session::exists('templates')){
@@ -318,7 +318,7 @@ $adm_page = "styles";
 					}
 				}
 				Session::flash('scan_complete', '<div class="alert alert-success">' . $admin_language['style_scan_complete'] . '</div>');
-				echo '<script>window.location.replace(\'/admin/styles/?type=templates\');</script>';
+				echo '<script data-cfasync="false">window.location.replace(\'/admin/styles/?type=templates\');</script>';
 				die();
 			} else if(isset($_GET['activate']) && isset($_GET['type']) && $_GET['type'] == 'templates'){
 				// Make a template active
@@ -326,7 +326,7 @@ $adm_page = "styles";
 				$template_query = $queries->getWhere('templates', array('name', '=', htmlspecialchars($_GET['activate'])));
 				if(!count($template_query)){
 					Session::flash('scan_complete', '<div class="alert alert-danger">' . $admin_language['template_not_exist'] . '</div>');
-					echo '<script>window.location.replace(\'/admin/styles/?type=templates\');</script>';
+					echo '<script data-cfasync="false">window.location.replace(\'/admin/styles/?type=templates\');</script>';
 					die();
 				}
 				$template_name = $template_query[0]->name;
@@ -350,7 +350,7 @@ $adm_page = "styles";
 				$c->store('template', htmlspecialchars($template_name));
 				
 				Session::flash('scan_complete', '<div class="alert alert-success">' . $admin_language['template_enabled'] . '</div>');
-				echo '<script>window.location.replace(\'/admin/styles/?type=templates\');</script>';
+				echo '<script data-cfasync="false">window.location.replace(\'/admin/styles/?type=templates\');</script>';
 				die();
 			} else if(isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['type']) && $_GET['type'] == 'templates'){
 				// Delete template
@@ -363,7 +363,7 @@ $adm_page = "styles";
 				$queries->delete('templates', array('name', '=', $item));
 				
 				Session::flash('templates', '<div class="alert alert-success">' . $admin_language['template_deleted'] . '</div>');
-				echo '<script>window.location.replace(\'/admin/styles/?type=templates\');</script>';
+				echo '<script data-cfasync="false">window.location.replace(\'/admin/styles/?type=templates\');</script>';
 				die();
 			}
 			?>
