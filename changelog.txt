@@ -185,3 +185,19 @@
 - Prevent requiring pages outside the Nameless directory
 - Change input type submit to buttons
 - Display staff applications in wells
+
+1.0.6
+- Fix Vote page redirecting with a custom language
+- Add French language
+- Add Maintenance page
+- Add Dutch language
+- Add missing language support to 404 page and forum maintenance page
+- Change "Online" status on profiles from server status to forum status
+- Display Parent forums in table view
+- Allow cancelling new replies
+- Allow changing font colours in signatures
+- Update Spanish translation
+- Fix quoting posts containing apostrophes
+- Add missing translations
+- Allow custom icons in navbar
+- Add code insertion to editor
