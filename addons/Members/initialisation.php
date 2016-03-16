@@ -3,6 +3,9 @@
  *	Made by Partydragen
  *  http://partydragen.com/
  *
+ *  Modified by Samerton
+ *  https://worldscapemc.co.uk
+ *
  *  License: MIT
  */
 
@@ -12,4 +15,4 @@
 require('addons/Members/language.php');
 
 // Enabled, add links to navbar
-$navbar_array[] = array('members' => $members_language['members']);
+$navbar_array[] = array('members' => $members_language['members_icon'] . $members_language['members']);

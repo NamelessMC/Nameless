@@ -324,12 +324,16 @@ $navbar_language = array(
 	'home' => 'Hjem',
 	'play' => 'Spill',
 	'forum' => 'Forum',
-	'vote' => 'Stem',
-	'donate' => 'Donere',
 	'more' => 'Mer',
 	'staff_apps' => 'Stabb Applications',
 	'view_messages' => 'Vis Meldinger',
-	'view_alerts' => 'Vis Varsler'
+	'view_alerts' => 'Vis Varsler',
+	
+	// Icons - will display before the text
+	'home_icon' => '',
+	'play_icon' => '',
+	'forum_icon' => '',
+	'staff_apps_icon' => ''
 );
 
 /*

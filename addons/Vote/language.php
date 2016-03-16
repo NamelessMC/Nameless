@@ -10,5 +10,6 @@
 
 $vote_language = array(
 	'vote' => 'Vote',
+	'vote_icon' => '', // Icon to display in navbar before text
 	'top_voters' => 'Top voters list coming soon'
 );

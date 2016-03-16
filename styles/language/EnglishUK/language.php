@@ -321,15 +321,20 @@ $admin_language = array(
  *  Navbar
  */
 $navbar_language = array(
+	// Text only
 	'home' => 'Home',
 	'play' => 'Play',
 	'forum' => 'Forum',
-	'vote' => 'Vote',
-	'donate' => 'Donate',
 	'more' => 'More',
 	'staff_apps' => 'Staff Applications',
 	'view_messages' => 'View Messages',
-	'view_alerts' => 'View Alerts'
+	'view_alerts' => 'View Alerts',
+	
+	// Icons - will display before the text
+	'home_icon' => '',
+	'play_icon' => '',
+	'forum_icon' => '',
+	'staff_apps_icon' => ''
 );
 
 /*
