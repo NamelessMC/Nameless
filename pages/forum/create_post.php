@@ -238,7 +238,7 @@ $token = Token::generate();
 	  	  $clean = $purifier->purify(htmlspecialchars_decode($quoted_post->post_content));
 	    ?>
 		CKEDITOR.on('instanceReady', function(ev) {
-		     CKEDITOR.instances.reply.insertHtml('<blockquote><small><a href="/forum/view_topic/?tid=<?php echo $tid; ?>&amp;pid=<?php echo $_GET["qid"]; ?>"><?php echo htmlspecialchars($user->IdToName($quoted_post->post_creator)); ?> said:<\/a> <?php echo str_replace(array("\r", "\n"), '', $clean); ?><\/small></blockquote>');
+		    CKEDITOR.instances.reply.insertHtml('<blockquote><small><a href="/forum/view_topic/?tid=<?php echo $tid; ?>&amp;pid=<?php echo $_GET["qid"]; ?>"><?php echo htmlspecialchars($user->IdToName($quoted_post->post_creator)); ?> said:<\/a> <?php echo str_replace(array("\r", "\n", "'"), array("", "", "\'"), $clean); ?><\/small></blockquote>');
 		});
 		<?php
 		}
