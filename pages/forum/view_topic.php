@@ -332,6 +332,7 @@ if(!Cookie::exists('nl-topic-' . $tid)) {
 	$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 	$config->set('HTML.SafeIframe', true);
 	$config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
+	$config->set('Core.EscapeInvalidTags', true);
 	$purifier = new HTMLPurifier($config);
 	
 	// Replies

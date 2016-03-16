@@ -208,6 +208,7 @@ $token = Token::generate();
 							$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style');
 							$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 							$config->set('HTML.SafeIframe', true);
+							$config->set('Core.EscapeInvalidTags', true);
 							$config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
 							$purifier = new HTMLPurifier($config);
 							
