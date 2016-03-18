@@ -1318,8 +1318,7 @@ if(isset($_GET["step"])){
 			if($allow_mcnames === "false"){ // Custom usernames are disabled
 				$data['username'] = array(
 					'min' => 2,
-					'max' => 20,
-					'isvalid' => true
+					'max' => 20
 				);
 			} else { // Custom usernames are enabled
 				$data['username'] = array(
@@ -1328,8 +1327,7 @@ if(isset($_GET["step"])){
 				);
 				$data['mcname'] = array(
 					'min' => 2,
-					'max' => 20,
-					'isvalid' => true
+					'max' => 20
 				);
 			}
 			
