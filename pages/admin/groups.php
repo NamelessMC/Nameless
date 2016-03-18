@@ -134,6 +134,8 @@ $adm_page = "users";
 								try {
 									$queries->create("groups", array(
 										'name' => htmlspecialchars(Input::get('groupname')),
+										'group_html' => '',
+										'group_html_lg' => '',
 										'buycraft_id' => htmlspecialchars(Input::get('buycraft_id'))
 									));
 
