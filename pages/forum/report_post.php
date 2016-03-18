@@ -194,7 +194,7 @@ $token = Token::generate();
 				    '  <input type="hidden" name="post_id" value="' . $_GET["pid"] . '">' . PHP_EOL . 
 					'  <input type="hidden" name="reported_user" value="' . $reported_post[0][0] . '">' . PHP_EOL . 
 					'  <input type="hidden" name="topic_id" value="' . $_GET["tid"] . '">' . PHP_EOL . 
-					'  <button type="submit" class="btn btn-danger">' . $general_language['submit'] . '</button>' . PHP_EOL . 
+					'  <button type="submit" class="btn btn-primary">' . $general_language['submit'] . '</button> <a href="/forum/view_topic/?tid=' . $_GET['tid'] . '" class="btn btn-danger" onclick="return confirm(\'' . $forum_language['confirm_cancellation'] . '\');">' . $general_language['cancel'] . '</a>' . PHP_EOL . 
 					'</form>';
 	
 	$smarty->assign('FORM_CONTENT', $form_content);
