@@ -182,7 +182,6 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 								if($displaynames == "true"){
 									$to_validation['mcname'] = array(
 										'required' => true,
-										'isvalid' => true,
 										'min' => 4,
 										'max' => 20
 									);
@@ -196,7 +195,6 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 								} else {
 									$to_validation['username'] = array(
 										'required' => true,
-										'isvalid' => true,
 										'min' => 4,
 										'max' => 20,
 										'unique' => 'users'
@@ -463,7 +461,6 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 									if($displaynames == "true"){
 										$to_validation['MCUsername'] = array(
 											'required' => true,
-											'isvalid' => true,
 											'min' => 4,
 											'max' => 20
 										);
@@ -476,7 +473,6 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 									} else {
 										$to_validation['username'] = array(
 											'required' => true,
-											'isvalid' => true,
 											'min' => 4,
 											'max' => 20
 										);
