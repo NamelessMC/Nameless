@@ -186,7 +186,7 @@ $token = Token::generate();
 			
 			$edit_labels_form = '<div class="well well-sm"><input type="radio" name="topic_label" value="0"';
 			
-			if($post_label == '' || $post_label == null){
+			if($post_label == 0 || $post_label == null){
 				$edit_labels_form .= ' checked';
 			}
 			
