@@ -21,7 +21,7 @@
 		<tr>
 		  <td>
 		    <i class="fa fa-thumb-tack"></i> {if $sticky.locked == 1}<i class="fa fa-lock"></i> {/if}{$sticky.label} <a href="/forum/view_topic/?tid={$sticky.topic_id}">{$sticky.topic_title}</a><br />
-			<small><span rel="tooltip" data-trigger="hover" data-original-title="{$sticky.topic_created}">{$sticky.topic_created_rough} {$AGO}</span> {$BY} <a href="/profile/{$sticky.topic_created_mcname}">{$sticky.topic_created_username}</a></small>
+			<small><span rel="tooltip" data-trigger="hover" data-original-title="{$sticky.topic_created}">{$sticky.topic_created_rough}</span> {$BY} <a href="/profile/{$sticky.topic_created_mcname}">{$sticky.topic_created_username}</a></small>
 		  </td>
 		  <td>
 		    <strong>{$sticky.views}</strong> {$VIEWS}<br />
@@ -35,7 +35,7 @@
 				</div>
 			  </div>
 			  <div class="col-md-9">
-				<span rel="tooltip" data-trigger="hover" data-original-title="{$sticky.last_reply}">{$sticky.last_reply_rough} {$AGO}</span><br />{$BY} <a href="/profile/{$sticky.last_reply_mcname}">{$sticky.last_reply_username}</a>
+				<span rel="tooltip" data-trigger="hover" data-original-title="{$sticky.last_reply}">{$sticky.last_reply_rough}</span><br />{$BY} <a href="/profile/{$sticky.last_reply_mcname}">{$sticky.last_reply_username}</a>
 			  </div>
 			</div>
 		  </td>
@@ -45,7 +45,7 @@
 	    <tr>
 		  <td>
 		    {if $discussion.locked == 1}<i class="fa fa-lock"></i> {/if}<h4 style="display:inline;">{$discussion.label}</h4> <a href="/forum/view_topic/?tid={$discussion.topic_id}">{$discussion.topic_title}</a><br />
-			<small><span rel="tooltip" data-trigger="hover" data-original-title="{$discussion.topic_created}">{$discussion.topic_created_rough} {$AGO}</span> {$BY} <a href="/profile/{$discussion.topic_created_mcname}">{$discussion.topic_created_username}</a></small>
+			<small><span rel="tooltip" data-trigger="hover" data-original-title="{$discussion.topic_created}">{$discussion.topic_created_rough}</span> {$BY} <a href="/profile/{$discussion.topic_created_mcname}">{$discussion.topic_created_username}</a></small>
 		  </td>
 		  <td>
 		    <strong>{$discussion.views}</strong> {$VIEWS}<br />
@@ -59,7 +59,7 @@
 				</div>
 			  </div>
 			  <div class="col-md-9">
-				<span rel="tooltip" data-trigger="hover" data-original-title="{$discussion.last_reply}">{$discussion.last_reply_rough} {$AGO}</span><br />{$BY} <a href="/profile/{$discussion.last_reply_mcname}">{$discussion.last_reply_username}</a>
+				<span rel="tooltip" data-trigger="hover" data-original-title="{$discussion.last_reply}">{$discussion.last_reply_rough}</span><br />{$BY} <a href="/profile/{$discussion.last_reply_mcname}">{$discussion.last_reply_username}</a>
 			  </div>
 			</div>
 		  </td>
