@@ -68,6 +68,7 @@ $topics = $queries->orderWhere("topics", "forum_id = ". $fid . " AND sticky = 0"
 // Get sticky topics
 $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky = 1", "topic_reply_date", "DESC");
 
+require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purifier
 ?>
 
 <!DOCTYPE html>
@@ -110,6 +111,26 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 	$forum_layout = $queries->getWhere("settings", array("name", "=", "forum_layout"));
 	$forum_layout = $forum_layout[0]->value;
 	
+	// Search bar
+	$search = '
+	<form class="form-horizontal" role="form" method="post" action="/forum/search/">
+	  <div class="input-group">
+	    <input type="text" class="form-control input-sm" name="forum_search" placeholder="' . $general_language['search'] . '">
+		<input type="hidden" name="token" value="' . Token::generate() . '">
+	    <span class="input-group-btn">
+		  <button type="submit" class="btn btn-default btn-sm">
+            <i class="fa fa-search"></i>
+          </button>
+	    </span>
+	  </div>
+	</form>
+	';
+	$smarty->assign('SEARCH_FORM', $search);
+	
+	// Initialise HTMLPurifier
+	$config = HTMLPurifier_Config::createDefault();
+	$purifier = new HTMLPurifier($config);
+	
 	// Breadcrumbs and search bar - same for latest discussions view + table view
 	$parent_category = $queries->getWhere('forums', array('id', '=', $forum_query->parent));
 	$breadcrumbs = array(0 => array(
@@ -145,29 +166,13 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 	$breadcrumbs_string = '<li><a href="/forum">' . $forum_language['home'] . '</a></li>';
 	foreach(array_reverse($breadcrumbs) as $breadcrumb){
 		if(isset($breadcrumb['active'])){
-			$breadcrumbs_string .= '<li class="active">' . htmlspecialchars($breadcrumb['forum_title']) . '</li>';
+			$breadcrumbs_string .= '<li class="active">' . $purifier->purify(htmlspecialchars_decode($breadcrumb['forum_title'])) . '</li>';
 		} else {
-			$breadcrumbs_string .= '<li><a href="/forum/view_forum/?fid=' . $breadcrumb['id'] . '">' . htmlspecialchars($breadcrumb['forum_title']) . '</a></li>';
+			$breadcrumbs_string .= '<li><a href="/forum/view_forum/?fid=' . $breadcrumb['id'] . '">' . $purifier->purify(htmlspecialchars_decode($breadcrumb['forum_title'])) . '</a></li>';
 		}
 	}
 	
 	$smarty->assign('BREADCRUMBS', $breadcrumbs_string);
-	
-	// Search bar
-	$search = '
-	<form class="form-horizontal" role="form" method="post" action="/forum/search/">
-	  <div class="input-group">
-	    <input type="text" class="form-control input-sm" name="forum_search" placeholder="' . $general_language['search'] . '">
-		<input type="hidden" name="token" value="' . Token::generate() . '">
-	    <span class="input-group-btn">
-		  <button type="submit" class="btn btn-default btn-sm">
-            <i class="fa fa-search"></i>
-          </button>
-	    </span>
-	  </div>
-	</form>
-	';
-	$smarty->assign('SEARCH_FORM', $search);
 	
 	// Server status module
 	if(isset($status_enabled->value) && $status_enabled->value == 'true'){
@@ -300,7 +305,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 					$subforum_topics = count($subforum_topics);
 					
 					if($forum->forumExist($subforum->id, $user->data()->group_id)){
-						$subforum_string .= '<a href="/forum/view_forum/?fid=' . $subforum->id . '">' . htmlspecialchars($subforum->forum_title) . '</a> <span class="badge" rel="tooltip" data-trigger="hover" data-original-title="' . $subforum_topics . ' ' . $forum_language['topics'] . '">' . $subforum_topics . '</span>, ';
+						$subforum_string .= '<a href="/forum/view_forum/?fid=' . $subforum->id . '">' . $purifier->purify(htmlspecialchars_decode($subforum->forum_title)) . '</a> <span class="badge" rel="tooltip" data-trigger="hover" data-original-title="' . $subforum_topics . ' ' . $forum_language['topics'] . '">' . $subforum_topics . '</span>, ';
 					}
 					
 					$subforum_string = rtrim($subforum_string, ", "); // remove the last comma
@@ -314,7 +319,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			$smarty->assign('SUBFORUMS_LANGUAGE', $forum_language['subforums']);
 			
 			// No topics yet
-			$smarty->assign('FORUM_TITLE', htmlspecialchars($forum_query->forum_title));
+			$smarty->assign('FORUM_TITLE', $purifier->purify(htmlspecialchars_decode($forum_query->forum_title)));
 			$smarty->assign('NO_TOPICS', $forum_language['no_topics']);
 			
 			if($user->isLoggedIn() && $forum->canPostTopic($fid, $user->data()->group_id)){ 
@@ -373,7 +378,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 					$subforum_topics = count($subforum_topics);
 					
 					if($forum->forumExist($subforum->id, $user->data()->group_id)){
-						$subforum_string .= '<a href="/forum/view_forum/?fid=' . $subforum->id . '">' . htmlspecialchars($subforum->forum_title) . '</a> <span class="badge" rel="tooltip" data-trigger="hover" data-original-title="' . $subforum_topics . ' ' . $forum_language['topics'] . '">' . $subforum_topics . '</span>, ';
+						$subforum_string .= '<a href="/forum/view_forum/?fid=' . $subforum->id . '">' . $purifier->purify(htmlspecialchars_decode($subforum->forum_title)) . '</a> <span class="badge" rel="tooltip" data-trigger="hover" data-original-title="' . $subforum_topics . ' ' . $forum_language['topics'] . '">' . $subforum_topics . '</span>, ';
 					}
 				}
 				
@@ -513,7 +518,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			$smarty->assign('PAGINATION', $pagination->parse());
 			
 			// Assign forum title to variable
-			$smarty->assign('FORUM_TITLE', htmlspecialchars($forum_query->forum_title));
+			$smarty->assign('FORUM_TITLE', $purifier->purify(htmlspecialchars_decode($forum_query->forum_title)));
 		
 			// Assign to Smarty variable
 			$smarty->assign('STICKY_DISCUSSIONS', $sticky_array);
@@ -608,8 +613,8 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 					$subforums_exist = 1;
 					$subforum_array[] = array(
 						'forum_id' => $subforum->id,
-						'forum_title' => htmlspecialchars($subforum->forum_title),
-						'forum_description' => htmlspecialchars($subforum->forum_description),
+						'forum_title' => $purifier->purify(htmlspecialchars_decode($subforum->forum_title)),
+						'forum_description' => $purifier->purify(htmlspecialchars_decode($subforum->forum_description)),
 						'forum_topics' => $topics_count,
 						'forum_posts' => $posts_count,
 						'last_reply_avatar' => $last_reply_avatar,
@@ -647,7 +652,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 		
 		if(!count($stickies) && !count($topics)){
 			// No topics yet
-			$smarty->assign('FORUM_TITLE', htmlspecialchars($forum_query->forum_title));
+			$smarty->assign('FORUM_TITLE', $purifier->purify(htmlspecialchars_decode($forum_query->forum_title)));
 			$smarty->assign('NO_TOPICS', $forum_language['no_topics']);
 			
 			if($user->isLoggedIn() && $forum->canPostTopic($fid, $user->data()->group_id)){ 
@@ -879,7 +884,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			$smarty->assign('USERS_REGISTERED', $users_registered);
 			$smarty->assign('LATEST_MEMBER', $latest_member);
 			
-			$smarty->assign('FORUM_TITLE', htmlspecialchars($forum_query->forum_title));
+			$smarty->assign('FORUM_TITLE', $purifier->purify(htmlspecialchars_decode($forum_query->forum_title)));
 			$smarty->assign('PAGINATION', $pagination->parse());
 			
 			// Load Smarty template

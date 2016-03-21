@@ -168,6 +168,8 @@ if(!Cookie::exists('nl-topic-' . $tid)) {
 	Cookie::put("nl-topic-" . $tid, "true", 3600);
 }
 
+$config = HTMLPurifier_Config::createDefault();
+$purifier = new HTMLPurifier($config);
 ?>
 
 <!DOCTYPE html>
@@ -208,7 +210,7 @@ if(!Cookie::exists('nl-topic-' . $tid)) {
 	$forum_parent = $queries->getWhere('forums', array('id', '=', $topic->forum_id));
 	
 	while($stop == 0){
-		$forum_parents[] = array('id' => htmlspecialchars($forum_parent[0]->id), 'name' => htmlspecialchars($forum_parent[0]->forum_title));
+		$forum_parents[] = array('id' => htmlspecialchars($forum_parent[0]->id), 'name' => $purifier->purify(htmlspecialchars_decode($forum_parent[0]->forum_title)));
 		if($forum_parent[0]->parent == 0){
 			$stop = 1;
 		} else {
