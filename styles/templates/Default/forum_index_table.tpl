@@ -105,7 +105,7 @@
 			  <div class="col-md-9">
 			    <a href="/forum/view_topic/?tid={$post.topic_id}">{$post.topic_title}</a><br />
 			    {$BY} <a href="/profile/{$post.topic_last_user_mcname}">{$post.topic_last_user_username}</a><br />
-				<span rel="tooltip" data-trigger="hover" data-original-title="{$post.topic_reply_date}">{$post.topic_reply_rough} {$AGO}</span>
+				<span rel="tooltip" data-trigger="hover" data-original-title="{$post.topic_reply_date}">{$post.topic_reply_rough}</span>
 			  </div>
 		    </div>
 			<br />

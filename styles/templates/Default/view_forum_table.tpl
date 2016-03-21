@@ -77,7 +77,7 @@
 			  <td>
 			    <i class="fa fa-thumb-tack"></i> {if $topic.locked == 1}<i class="fa fa-lock"></i> {/if}{$topic.label} <a href="/forum/view_topic/?tid={$topic.topic_id}">{$topic.topic_title}</a>
 				<br />
-				{$BY} <a href="/profile/{$topic.topic_poster_mcname}">{$topic.topic_poster}</a> | <span rel="tooltip" data-trigger="hover" data-original-title="{$topic.topic_created}">{$topic.topic_created_rough} {$AGO}</span>
+				{$BY} <a href="/profile/{$topic.topic_poster_mcname}">{$topic.topic_poster}</a> | <span rel="tooltip" data-trigger="hover" data-original-title="{$topic.topic_created}">{$topic.topic_created_rough}</span>
 			  </td>
 			  <td>
 			    <strong>{$topic.views}</strong> {$VIEWS}<br />
@@ -92,7 +92,7 @@
 				  </div>
 				  <div class="col-md-9">
 					<a href="/profile/{$topic.last_reply_mcname}">{$topic.last_reply_username}</a><br />
-					<span rel="tooltip" data-trigger="hover" data-original-title="{$topic.last_post_created}">{$topic.last_post_rough} {$AGO}</span>
+					<span rel="tooltip" data-trigger="hover" data-original-title="{$topic.last_post_created}">{$topic.last_post_rough}</span>
 				  </div>
 				</div>
 			  </td>
@@ -103,7 +103,7 @@
 			  <td>
 			    {if $topic.locked == 1}<i class="fa fa-lock"></i> {/if}{$topic.label} <a href="/forum/view_topic/?tid={$topic.topic_id}">{$topic.topic_title}</a>
 				<br />
-				{$BY} <a href="/profile/{$topic.topic_poster_mcname}">{$topic.topic_poster}</a> | <span rel="tooltip" data-trigger="hover" data-original-title="{$topic.topic_created}">{$topic.topic_created_rough} {$AGO}</span>
+				{$BY} <a href="/profile/{$topic.topic_poster_mcname}">{$topic.topic_poster}</a> | <span rel="tooltip" data-trigger="hover" data-original-title="{$topic.topic_created}">{$topic.topic_created_rough}</span>
 			  </td>
 			  <td>
 			    <strong>{$topic.views}</strong> {$VIEWS}<br />
@@ -118,7 +118,7 @@
 				  </div>
 				  <div class="col-md-9">
 					<a href="/profile/{$topic.last_reply_mcname}">{$topic.last_reply_username}</a><br />
-					<span rel="tooltip" data-trigger="hover" data-original-title="{$topic.last_post_created}">{$topic.last_post_rough} {$AGO}</span>
+					<span rel="tooltip" data-trigger="hover" data-original-title="{$topic.last_post_created}">{$topic.last_post_rough}</span>
 				  </div>
 				</div>
 			  </td>
@@ -182,7 +182,7 @@
 			  <div class="col-md-9">
 			    <a href="/forum/view_topic/?tid={$post.topic_id}">{$post.topic_title}</a><br />
 			    {$BY} <a href="/profile/{$post.topic_last_user_mcname}">{$post.topic_last_user_username}</a><br />
-				<span rel="tooltip" data-trigger="hover" data-original-title="{$post.topic_reply_date}">{$post.topic_reply_rough} {$AGO}</span>
+				<span rel="tooltip" data-trigger="hover" data-original-title="{$post.topic_reply_date}">{$post.topic_reply_rough}</span>
 			  </div>
 		    </div>
 			<br />

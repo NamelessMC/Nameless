@@ -13,7 +13,7 @@
 	    <tr>
 		  <td>
 		    {if $discussion.locked == 1}<i class="fa fa-lock"></i> {/if}{$discussion.label} <a href="/forum/view_topic/?tid={$discussion.topic_id}">{$discussion.topic_title}</a><br />
-			<small><span rel="tooltip" data-trigger="hover" data-original-title="{$discussion.topic_created}">{$discussion.topic_created_rough} {$AGO}</span> {$BY} <a href="/profile/{$discussion.topic_created_mcname}">{$discussion.topic_created_username}</a> {$IN} <a href="/forum/view_forum/?fid={$discussion.forum_id}">{$discussion.forum_name}</a></small>
+			<small><span rel="tooltip" data-trigger="hover" data-original-title="{$discussion.topic_created}">{$discussion.topic_created_rough}</span> {$BY} <a href="/profile/{$discussion.topic_created_mcname}">{$discussion.topic_created_username}</a> {$IN} <a href="/forum/view_forum/?fid={$discussion.forum_id}">{$discussion.forum_name}</a></small>
 		  </td>
 		  <td>
 		    <strong>{$discussion.views}</strong> {$VIEWS}<br />
@@ -27,7 +27,7 @@
 				</div>
 			  </div>
 			  <div class="col-md-9">
-				<span rel="tooltip" data-trigger="hover" data-original-title="{$discussion.last_reply}">{$discussion.last_reply_rough} {$AGO}</span><br />{$BY} <a href="/profile/{$discussion.last_reply_mcname}">{$discussion.last_reply_username}</a>
+				<span rel="tooltip" data-trigger="hover" data-original-title="{$discussion.last_reply}">{$discussion.last_reply_rough}</span><br />{$BY} <a href="/profile/{$discussion.last_reply_mcname}">{$discussion.last_reply_username}</a>
 			  </div>
 			</div>
 		  </td>
