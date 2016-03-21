@@ -111,6 +111,14 @@ $adm_page = "forums";
 			$forums = $queries->orderAll("forums", "forum_order", "ASC");
 			$forum_layout = $queries->getWhere("settings", array("name", "=", "forum_layout"));
 			$forum_layout = $forum_layout[0]->value;
+			
+			// Form token
+			$token = Token::generate();
+			
+			// HTMLPurifier
+			require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
+			$config = HTMLPurifier_Config::createDefault();
+			$purifier = new HTMLPurifier($config);
 			?>
 
 			<div class="panel panel-default">
@@ -123,7 +131,7 @@ $adm_page = "forums";
 					?>
 					<div class="row">
 						<div class="col-md-10">
-							<?php echo '<a href="/admin/forums/?forum=' . $forum->id . '">' . htmlspecialchars($forum->forum_title) . '</a><br />' . htmlspecialchars($forum->forum_description); ?>
+							<?php echo '<a href="/admin/forums/?forum=' . $forum->id . '">' . $purifier->purify(htmlspecialchars_decode($forum->forum_title)) . '</a><br />' . $purifier->purify(htmlspecialchars_decode($forum->forum_description)); ?>
 						</div>
 						<div class="col-md-2">
 							<span class="pull-right">
@@ -150,7 +158,7 @@ $adm_page = "forums";
 					<option value="1" <?php if($forum_layout == 1){ echo ' selected="selected"'; } ?>><?php echo $admin_language['latest_discussions_view']; ?></option>
 				  </select>
 				</div>
-				<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+				<input type="hidden" name="token" value="<?php echo $token; ?>">
 				<input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>" />
 			</form>
 			
@@ -562,6 +570,15 @@ $adm_page = "forums";
 						die();
 					}
 				}
+				
+				// Form token
+				$token = Token::generate();
+				
+				// HTMLPurifier
+				require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
+				$config = HTMLPurifier_Config::createDefault();
+				$purifier = new HTMLPurifier($config);
+				
 				if(!is_numeric($_GET["forum"])){
 					die();
 				} else {
@@ -574,11 +591,11 @@ $adm_page = "forums";
 					<form role="form" action="" method="post">
 					  <div class="form-group">
 						<label for="InputTitle"><?php echo $admin_language['forum_name']; ?></label>
-						<input type="text" name="title" class="form-control" id="InputTitle" placeholder="<?php echo $admin_language['forum_name']; ?>" value="<?php echo htmlspecialchars($forum[0]->forum_title); ?>">
+						<input type="text" name="title" class="form-control" id="InputTitle" placeholder="<?php echo $admin_language['forum_name']; ?>" value="<?php echo $purifier->purify(htmlspecialchars_decode($forum[0]->forum_title)); ?>">
 					  </div>
 					  <div class="form-group">
 					    <label for="InputDescription"><?php echo $admin_language['forum_description']; ?></label>
-						<textarea name="description" id="InputDescription" placeholder="<?php echo $admin_language['forum_description']; ?>" class="form-control" rows="3"><?php echo htmlspecialchars($forum[0]->forum_description); ?></textarea>
+						<textarea name="description" id="InputDescription" placeholder="<?php echo $admin_language['forum_description']; ?>" class="form-control" rows="3"><?php echo $purifier->purify(htmlspecialchars_decode($forum[0]->forum_description)); ?></textarea>
 				      </div>
 					  <div class="form-group">
 						<label for="InputParentForum"><?php echo $admin_language['parent_forum']; ?></label>
@@ -588,7 +605,7 @@ $adm_page = "forums";
 							foreach($available_forums as $available_forum){
 							  if($available_forum->id !== $forum[0]->id){
 							?>
-						  <option value="<?php echo $available_forum->id; ?>" <?php if($available_forum->id == $forum[0]->parent){ ?> selected="selected"<?php } ?>><?php echo htmlspecialchars($available_forum->forum_title); ?></option>
+						  <option value="<?php echo $available_forum->id; ?>" <?php if($available_forum->id == $forum[0]->parent){ ?> selected="selected"<?php } ?>><?php echo $purifier->purify(htmlspecialchars_decode($available_forum->forum_title)); ?></option>
 							<?php 
 							  }
 							}
@@ -655,7 +672,7 @@ $adm_page = "forums";
 					  <label for="InputDisplay"><?php echo $admin_language['display_threads_as_news']; ?></label>
 					  <input name="display" id="InputDisplay" value="1" type="checkbox"<?php if($forum[0]->news == 1){ echo ' checked'; } ?>>
 					  <br /><br />
-					  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+					  <input type="hidden" name="token" value="<?php echo $token; ?>">
 					  <input type="hidden" name="action" value="update">
 					  <input type="submit" value="<?php echo $general_language['submit']; ?>" class="btn btn-default">
 					</form>

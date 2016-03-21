@@ -23,6 +23,8 @@ $page = "forum";
 // Initialise
 $forum = new Forum();
 $timeago = new Timeago();
+
+require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purifier
 ?>
 
 <!DOCTYPE html>
@@ -214,11 +216,15 @@ $timeago = new Timeago();
 
 		$template_array = array();
 		
+		// Initialise HTMLPurifier
+		$config = HTMLPurifier_Config::createDefault();
+		$purifier = new HTMLPurifier($config);
+		
 		// Generate an array to pass to template
 		while($n < $limit){
 			// Get the name of the forum from the ID
 			$forum_name = $queries->getWhere('forums', array('id', '=', $discussions[$n]['forum_id']));
-			$forum_name = htmlspecialchars($forum_name[0]->forum_title);
+			$forum_name = $purifier->purify(htmlspecialchars_decode($forum_name[0]->forum_title));
 			
 			// Get the number of replies
 			$posts = $queries->getWhere('posts', array('topic_id', '=', $discussions[$n]['id']));
@@ -324,6 +330,10 @@ $timeago = new Timeago();
 		// Loop through forums, get stats and return an array to pass to the template
 		$template_array = array();
 		
+		// Initialise HTMLPurifier
+		$config = HTMLPurifier_Config::createDefault();
+		$purifier = new HTMLPurifier($config);
+		
 		foreach($forums['parents'] as $parent){
 			if(!isset($template_array[$parent['id']])) $template_array[$parent['id']] = $parent;
 			
@@ -383,8 +393,8 @@ $timeago = new Timeago();
 					
 					$template_array[$parent['id']]['forums'][] = array(
 						'forum_id' => $item['id'],
-						'forum_title' => htmlspecialchars($item['forum_title']),
-						'forum_description' => htmlspecialchars($item['forum_description']),
+						'forum_title' => $purifier->purify(htmlspecialchars_decode($item['forum_title'])),
+						'forum_description' => $purifier->purify(htmlspecialchars_decode($item['forum_description'])),
 						'forum_topics' => $topics_count,
 						'forum_posts' => $posts_count,
 						'last_reply_avatar' => $last_reply_avatar,
