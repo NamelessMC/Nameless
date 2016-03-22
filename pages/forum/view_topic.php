@@ -42,6 +42,23 @@ if(!$list){
 	die();
 }
 
+// Get page
+if(isset($_GET['p'])){
+	if(!is_numeric($_GET['p'])){
+		Redirect::to("/forum");
+		die();
+	} else {
+		if($_GET['p'] == 1){ 
+			// Avoid bug in pagination class
+			Redirect::to('/forum/view_topic/?tid=' . $tid);
+			die();
+		}
+		$p = $_GET['p'];
+	}
+} else {
+	$p = 1;
+}
+
 // Is the URL pointing to a specific post?
 if(isset($_GET['pid'])){
 	$posts = $queries->getWhere("posts", array("topic_id", "=", $tid));
@@ -66,23 +83,6 @@ if(isset($_GET['pid'])){
 		Redirect::to('/forum/error/?error=not_exist');
 		die();
 	}
-}
-
-// Get page
-if(isset($_GET['p'])){
-	if(!is_numeric($_GET['p'])){
-		Redirect::to("/forum");
-		die();
-	} else {
-		if($_GET['p'] == 1){ 
-			// Avoid bug in pagination class
-			Redirect::to('/forum/view_topic/?tid=' . $tid);
-			die();
-		}
-		$p = $_GET['p'];
-	}
-} else {
-	$p = 1;
 }
 
 // Get the topic information
