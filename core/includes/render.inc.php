@@ -65,7 +65,7 @@
             $trailing = $max - $leading - 1;
 
             // generate/render leading crumbs
-            for ($x = 0; $x < $leading; ++$x) {
+            for ($x = 1; $x < $leading; ++$x) {
 
                 // class/href setup
                 $params = $get;
