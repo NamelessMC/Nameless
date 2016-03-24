@@ -85,22 +85,25 @@
 ?>
     <li class="number active"><a data-pagenumber="<?= ($current) ?>" href="#"><?= ($current) ?></a></li>
 <?php
-            // generate/render trailing crumbs
-            for ($x = 0; $x < $trailing; ++$x) {
+			// Prevent displaying any extra crumbs
+			if($current != $max){
+				// generate/render trailing crumbs
+				for ($x = 0; $x < $trailing; ++$x) {
 
-                // class/href setup
-                $params = $get;
-                $params[$key] = ($current + $x + 1);
-                $href = ($target) . '?' . http_build_query($params);
-                $href = preg_replace(
-                    array('/=$/', '/=&/'),
-                    array('', '&'),
-                    $href
-                );
+					// class/href setup
+					$params = $get;
+					$params[$key] = ($current + $x + 1);
+					$href = ($target) . '?' . http_build_query($params);
+					$href = preg_replace(
+						array('/=$/', '/=&/'),
+						array('', '&'),
+						$href
+					);
 ?>
     <li class="number"><a data-pagenumber="<?= ($current + $x + 1) ?>" href="<?= ($href) ?>"><?= ($current + $x + 1) ?></a></li>
 <?php
-            }
+				}
+			}
         }
 
         /**
