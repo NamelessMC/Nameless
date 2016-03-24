@@ -249,7 +249,7 @@ if(isset($_GET["step"])){
 									'	"mysql" => array(' . PHP_EOL . 
 									'		"host" => "' . Input::get('db_address') . '", // Web server database IP (Likely to be 127.0.0.1)' . PHP_EOL . 
 									'		"username" => "' . Input::get('db_username') . '", // Web server database username' . PHP_EOL . 
-									'		"password" => "' . $db_password . '", // Web server database password' . PHP_EOL . 
+									'		"password" => \'' . $db_password . '\', // Web server database password' . PHP_EOL . 
 									'		"db" => "' . Input::get('db_name') . '", // Web server database name' . PHP_EOL .
 									'		"prefix" => "' . $db_prefix . '" // Web server table prefix' . PHP_EOL .
 									'	),' . PHP_EOL . 
@@ -721,7 +721,7 @@ if(isset($_GET["step"])){
 								'	"mysql" => array(' . PHP_EOL . 
 								'		"host" => "' . Input::get('db_address') . '", // Web server database IP (Likely to be 127.0.0.1)' . PHP_EOL . 
 								'		"username" => "' . Input::get('db_username') . '", // Web server database username' . PHP_EOL . 
-								'		"password" => "' . $db_password . '", // Web server database password' . PHP_EOL . 
+								'		"password" => \'' . $db_password . '\', // Web server database password' . PHP_EOL . 
 								'		"db" => "' . Input::get('db_name') . '", // Web server database name' . PHP_EOL .
 								'		"prefix" => "' . $db_prefix . '" // Web server table prefix' . PHP_EOL .
 								'	),' . PHP_EOL . 
