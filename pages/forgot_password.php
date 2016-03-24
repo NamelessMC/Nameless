@@ -75,7 +75,7 @@ if(Input::exists()) {
 							
 							' . $user_language['email_body_2'] . '
 							
-							' . $user_language['thanks'] . '
+							' . $email_language['thanks'] . '
 							
 							' . $sitename . ' staff.';
 				$headers = 'From: ' . $siteemail . "\r\n" .
