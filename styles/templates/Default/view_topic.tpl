@@ -39,7 +39,9 @@
 		    {$BY} <a href="/profile/{$reply.mcname}">{$reply.username}</a> &raquo; <span rel="tooltip" data-trigger="hover" data-original-title="{$reply.post_date}">{$reply.post_date_rough} {$AGO}</span>
 		    {$reply.buttons}
 			<hr>
-			{$reply.content}
+			<div class="forum_post">
+			  {$reply.content}
+			</div>
 			<br /><br />
 			<span class="pull-right">
 			  {$reply.reputation}

@@ -27,3 +27,7 @@
 	font-size: 14px;
 	line-height: 1.2em;
 }
+.forum_post {
+	overflow: auto;
+	width: 100%
+}
