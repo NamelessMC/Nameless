@@ -423,6 +423,8 @@ $user_language = array(
 	'repeat_new_password' => 'Gjenta nytt passord',
 	'password_changed_successfully' => 'Passord er endret',
 	'incorrect_password' => 'Din nåværende passord er feil',
+	'update_minecraft_name_help' => 'This will update your website username to your current Minecraft username. You can only perform this action once every 30 days.',
+	'unable_to_update_mcname' => 'Unable to update Minecraft username.',
 	
 	// Alerts
 	'viewing_unread_alerts' => 'Viser uleste varsler. Endre til <a href="/user/alerts/?view=read"><span class="label label-success">Lest</span></a>.',
@@ -553,6 +555,7 @@ $general_language = array(
 	'success' => 'Suksess',
 	'error' => 'Feil',
 	'view' => 'Vis',
+	'info' => 'Info',
 	
 	// Play page
 	'connect_with' => 'Koble til serveren med IP {x}', // Don't replace {x}

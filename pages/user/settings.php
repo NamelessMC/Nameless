@@ -21,6 +21,51 @@ require('core/includes/password.php'); // For password hashing
 $custom_usernames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
 $custom_usernames = $custom_usernames[0]->value;
 
+// Is UUID linking enabled?
+$uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
+$uuid_linking = $uuid_linking[0]->value;
+
+if(isset($_GET['action']) && $_GET['action'] == 'update_mcname'){
+	// Update Minecraft username
+	if($uuid_linking == '1'){
+		if(strtotime("-30 days") > $user->data()->last_username_update){
+			require('core/integration/uuid.php');
+			
+			$uuid = $user->data()->uuid;
+			
+			$profile = ProfileUtils::getProfile($uuid);
+			
+			$result = $profile->getUsername();
+			
+			$result = htmlspecialchars($result);
+			
+			if(!empty($result)){
+				$queries->update("users", $user->data()->id, array(
+					"mcname" => $result,
+					"last_username_update" => date('U')
+				));
+				
+				if($custom_usernames == "false"){
+					$queries->update("users", $user->data()->id, array(
+						"username" => $result
+					));
+				}
+				
+				Session::flash('usercp_settings', '<div class="alert alert-info">' . $admin_language['task_successful'] . '</div>');
+			} else {
+				// Error
+				Session::flash('usercp_settings', '<div class="alert alert-warning">' . $user_language['unable_to_update_mcname'] . '</div>');
+			}
+		} else {
+			Session::flash('usercp_settings', '<div class="alert alert-warning">' . $user_language['unable_to_update_mcname'] . '</div>');
+		}
+	}
+	
+	// Finished, redirect
+	echo '<script data-cfasync="false">window.location.replace("/user/settings");</script>';
+	die();
+}
+
 // Is avatar uploading enabled?
 $avatar_enabled = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
 $avatar_enabled = $avatar_enabled[0]->value;
@@ -238,7 +283,18 @@ $token = Token::generate();
 		</div>
 		<div class="col-md-9">
 		  <div class="well">
-			<h2><?php echo $user_language['profile_settings']; ?></h2>
+		    <br />
+			<h3 style="display:inline;"><?php echo $user_language['profile_settings']; ?></h3>
+			<span class="pull-right">
+			  <?php
+			  if($uuid_linking == '1' && (strtotime("-30 days") > $user->data()->last_username_update)){
+			  ?>
+			  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#usernameModal"><?php echo $admin_language['update_mc_name']; ?></a>
+			  <?php 
+			  }
+			  ?>
+			</span>
+			<br /><br />
 			<?php 
 			if(Session::exists('settings_avatar_error')){
 				echo Session::flash('settings_avatar_error');
@@ -329,6 +385,26 @@ $token = Token::generate();
 		</div>
       </div>
     </div>
+	
+	<!-- Update username modal -->
+	<div class="modal fade" id="usernameModal" tabindex="-1" role="dialog" aria-labelledby="usernameModalLabel">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="usernameModalLabel"><span class="glyphicon glyphicon-info-sign"></span> <?php echo $general_language['info']; ?></h4>
+		  </div>
+		  <div class="modal-body">
+			<?php echo $user_language['update_minecraft_name_help']; ?>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $general_language['cancel']; ?></button>
+			<a href="/user/settings/?action=update_mcname" class="btn btn-primary"><?php echo $general_language['confirm']; ?></a>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
 	<?php
 	// Footer
 	require('core/includes/template/footer.php');

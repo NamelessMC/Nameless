@@ -421,6 +421,8 @@ $user_language = array(
     'repeat_new_password' => 'Herhaal nieuw wachtwoord',
     'password_changed_successfully' => 'Wachtwoord succesvol veranderd',
     'incorrect_password' => 'Uw huidige wachtwoord is onjuist',
+	'update_minecraft_name_help' => 'This will update your website username to your current Minecraft username. You can only perform this action once every 30 days.',
+	'unable_to_update_mcname' => 'Unable to update Minecraft username.',
      
     // Alerts
     'viewing_unread_alerts' => 'Bekijk ongelezen alerts. Verander naar <a href="/user/alerts/?view=read"><span class="label label-success">gelezen</span></a>.',
@@ -551,6 +553,7 @@ $general_language = array(
     'success' => 'Succes',
     'error' => 'Error',
     'view' => 'Bekijk',
+	'info' => 'Info',
      
     // Play page
     'connect_with' => 'Server IP: <b>{x}<b>', // Don't replace {x}
