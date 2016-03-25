@@ -422,6 +422,8 @@ $user_language = array(
 	'repeat_new_password' => 'Zopakuj nové heslo',
 	'password_changed_successfully' => 'Heslo úspešne zmenené.',
 	'incorrect_password' => 'Vaše aktuálne heslo ste zadali nesprávne.',
+	'update_minecraft_name_help' => 'This will update your website username to your current Minecraft username. You can only perform this action once every 30 days.',
+	'unable_to_update_mcname' => 'Unable to update Minecraft username.',
 	
 	// Alerts
 	'viewing_unread_alerts' => 'Zobraziť neprečítané upozornenia. Zmeniť na <a href="/user/alerts/?view=read"><span class="label label-success">čitať</span></a>.',
@@ -552,6 +554,7 @@ $general_language = array(
 	'success' => 'Úspešne',
 	'error' => 'Chyba',
 	'view' => 'Zobraziť',
+	'info' => 'Info',
 	
 	// Play page
 	'connect_with' => 'Pripoj sa cez IP {x}.', // Don't replace {x}

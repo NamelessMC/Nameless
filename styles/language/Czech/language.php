@@ -422,6 +422,8 @@ $user_language = array(
 	'repeat_new_password' => 'Repeat new password',
 	'password_changed_successfully' => 'Password changed successfully',
 	'incorrect_password' => 'Your current password is incorrect',
+	'update_minecraft_name_help' => 'This will update your website username to your current Minecraft username. You can only perform this action once every 30 days.',
+	'unable_to_update_mcname' => 'Unable to update Minecraft username.',
 	
 	// Alerts
 	'viewing_unread_alerts' => 'Viewing unread alerts. Change to <a href="/user/alerts/?view=read"><span class="label label-success">read</span></a>.',
@@ -552,6 +554,7 @@ $general_language = array(
 	'success' => 'Ůspěšně',
 	'error' => 'Chyba',
 	'view' => 'Zobrazit',
+	'info' => 'Info',
 	
 	// Play page
 	'connect_with' => 'Připoj se přes IP {x}.', // Don't replace {x}
