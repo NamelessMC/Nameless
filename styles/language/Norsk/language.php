@@ -325,7 +325,7 @@ $navbar_language = array(
 	'play' => 'Spill',
 	'forum' => 'Forum',
 	'more' => 'Mer',
-	'staff_apps' => 'Stabb Applications',
+	'staff_apps' => 'Staff Applications',
 	'view_messages' => 'Vis Meldinger',
 	'view_alerts' => 'Vis Varsler',
 	
@@ -423,8 +423,8 @@ $user_language = array(
 	'repeat_new_password' => 'Gjenta nytt passord',
 	'password_changed_successfully' => 'Passord er endret',
 	'incorrect_password' => 'Din nåværende passord er feil',
-	'update_minecraft_name_help' => 'This will update your website username to your current Minecraft username. You can only perform this action once every 30 days.',
-	'unable_to_update_mcname' => 'Unable to update Minecraft username.',
+	'update_minecraft_name_help' => 'Dette vil oppdatere ditt nettsted brukernavn til din nåværende Minecraft brukernavn. Du kan bare utføre denne handlingen en gang hver 30. dag.',
+	'unable_to_update_mcname' => 'Kan ikke oppdatere Minecraft brukernavn.',
 	
 	// Alerts
 	'viewing_unread_alerts' => 'Viser uleste varsler. Endre til <a href="/user/alerts/?view=read"><span class="label label-success">Lest</span></a>.',
@@ -541,7 +541,7 @@ $general_language = array(
 	'social' => 'Sosial',
 	
 	// General terms
-	'submit' => 'Sende inn',
+	'submit' => 'Send inn',
 	'close' => 'Lukke',
 	'cookie_message' => '<strong>Dette nettstedet bruker cookies for å forbedre din opplevelse.</strong><p>Ved å fortsette å bla gjennom og samhandle med dette nettstedet, samtykker du med deres bruk.</p>',
 	'theme_not_exist' => 'Den valgte temaet finnes ikke.',
