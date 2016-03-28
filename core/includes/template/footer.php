@@ -25,8 +25,8 @@ if(isset($page_loading) && $page_loading == '1'){
 }
 
 if(isset($footer_nav_array)){
-	foreach($footer_nav_array as $item){
-		$footer_nav .= '<li><a href="/infractions">Infractions</a></li>';
+	foreach($footer_nav_array as $key => $item){
+		$footer_nav .= '<li><a href="/' . $key . '">' . $item . '</a></li>';
 	}
 }
 
