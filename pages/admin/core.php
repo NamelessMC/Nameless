@@ -116,7 +116,7 @@ $adm_page = "core";
 							$c->store('language', htmlspecialchars(Input::get('language')));
 							
 							Session::flash('general_settings', '<div class="alert alert-success">' . $admin_language['successfully_updated'] . '</div>');
-							Redirect::to('/admin/core');
+							echo '<script data-cfasync="false">window.location.replace("/admin/core");</script>';
 							die();
 							
 						} else {
