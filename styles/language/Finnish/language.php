@@ -16,7 +16,7 @@
 $admin_language = array(
 	// General terms
 	'admin_cp' => 'AdminCP', 
-	'invalid_token' => 'Virheellinen merkki, yritä uudelleen pian.',
+	'invalid_token' => 'Erääntynyt istunto, yritä uudelleen.',
 	'invalid_action' => 'Virheellinen toiminto',
 	'successfully_updated' => 'Päivitetty onnistuneesti',
 	'settings' => 'Asetukset',
@@ -56,7 +56,7 @@ $admin_language = array(
 	'voice_server_not_writable' => 'core/voice_server.php ei ole muokattava. Tarkista tiedosto-oikeudet.',
 	'email' => 'Sähköposti',
 	'incoming_email' => 'Saapuva sähköpostiosoite',
-	'outgoing_email' => 'Lähtevä sägköpostiosoite',
+	'outgoing_email' => 'Lähtevä sähköpostiosoite',
 	'outgoing_email_help' => 'Vaadittu vain jos php mail on käytössä',
 	'use_php_mail' => 'Käytä PHP_mail() funktiota?',
 	'use_php_mail_help' => 'Suositeltu: käytössä. Jos sivustosi ei lähetä sähköpostia, muokkaa ja poista käytöstä core/email.php sähköpostiasetuksista.',
@@ -466,8 +466,8 @@ $user_language = array(
 	'user_hasnt_registered' => 'Tämä käyttäjä ei ole vielä rekisteröitynyt',
 	'user_no_friends' => 'Tämä käyttäjä ei ole lisännyt ystäviä',
 	'send_message' => 'Lähetä viesti',
-	'remove_friend' => 'Poista ystävä',
-	'add_friend' => 'Lisää ystävä',
+	'remove_friend' => 'Poista ystävistä',
+	'add_friend' => 'Lisää ystäväksi',
 	'last_online' => 'Viimeksi online:',
 	
 	// Staff applications
@@ -539,7 +539,7 @@ $mod_language = array(
 $general_language = array(
 	// Homepage
 	'news' => 'Uutiset',
-	'social' => 'Some',
+	'social' => 'Sosiaaliset',
 	
 	// General terms
 	'submit' => 'Lähetä',
@@ -591,7 +591,7 @@ $forum_language = array(
 	'posts' => 'viestejä',
 	'topics' => 'ketjuja',
 	'topic' => 'Ketju',
-	'statistics' => 'Statistiikat',
+	'statistics' => 'Tilastot',
 	'overview' => 'Yleisnäkymä',
 	'latest_discussions' => 'Viimeisimmät keskustelut',
 	'latest_posts' => 'Viimeisimmät viestit',
@@ -705,7 +705,7 @@ $time_language = array(
 $table_language = array(
 	'display_records_per_page' => 'Näytä _MENU_ kappaletta per sivu', // Don't replace "_MENU_"
 	'nothing_found' => 'Ei tuloksia',
-	'page_x_of_y' => 'Näytetään sivu _PAGE_  _PAGES_ sivusta', // Don't replace "_PAGE_" or "_PAGES_"
+	'page_x_of_y' => 'Näytetään sivu _PAGE_  _PAGES_:sta sivusta', // Don't replace "_PAGE_" or "_PAGES_"
 	'no_records' => 'Ei saatavilla',
 	'filtered' => '(suodatettiin _MAX_ tuloksesta yhteensä)' // Don't replace "_MAX_"
 );
