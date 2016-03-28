@@ -93,7 +93,7 @@ if($user->isLoggedIn()){
 	  if(count($unread_alerts)){
 		foreach($unread_alerts as $alert){
 			$user_area .= '<li><a href="' . $alert->url . '">';
-			if($alert->type == $user_language['tag']){
+			if($alert->type == 'tag'){
 				$user_area .= $user_language['tagged_in_post'];
 			} else {
 				$user_area .= htmlspecialchars($alert->content);
