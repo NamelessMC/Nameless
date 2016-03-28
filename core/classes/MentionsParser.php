@@ -50,7 +50,7 @@ class MentionsParser
 						// Create alert for user
 						$this->_db->insert('alerts', array(
 							'user_id' => $user->id,
-							'type' => $user_language['tag'],
+							'type' => 'tag',
 							'url' => '/forum/view_topic/?tid=' . $topic_id . '&amp;pid=' . $post_id,
 							'content' => 'You have been tagged in a post. Click <a href="/forum/view_topic/?tid=' . $topic_id . '&amp;pid=' . $post_id . '">here</a> to view.',
 							'created' => date('U')
