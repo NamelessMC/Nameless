@@ -221,7 +221,7 @@ $token = Token::generate(); // generate token
 				    <label for="link_location"><?php echo $admin_language['page_link_location']; ?></label>
 					<select class="form-control" id="link_location" name="link_location">
 					  <option value="1" <?php if($page[0]->link_location == 1){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_navbar']; ?></option>
-					  <!--<option value="2" <?php //if($page[0]->link_location == 2){ echo 'selected="selected"'; } ?>><?php //echo $admin_language['page_link_more']; ?></option>-->
+					  <option value="2" <?php if($page[0]->link_location == 2){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_more']; ?></option>
 					  <option value="3" <?php if($page[0]->link_location == 3){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_footer']; ?></option>
 					  <option value="4" <?php if($page[0]->link_location == 4){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_none']; ?></option>
 					</select>
