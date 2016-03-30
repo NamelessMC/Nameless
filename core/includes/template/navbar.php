@@ -86,6 +86,13 @@ $navbar_links .= '</ul>';
  
 // User area
 if($user->isLoggedIn()){
+	// Get avatar
+	if($user->data()->has_avatar == 1){
+		$avatar = '<img class="img-rounded" style="margin: -10px 0px; width:25px; height:25px;" src="' .  $user->getAvatar($user->data()->id, "../") . '" />';
+	} else {
+		$avatar = '<img class="img-rounded" style="margin: -10px 0px;" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->data()->mcname) . '/25.png">';
+	}
+	
 	$user_area = '
 	<li class="dropdown alert-dropdown">
 	  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span style="margin: -10px 0px; font-size: 16px;"><i class="fa fa-envelope"></i> <div style="display: inline;" id="pms"></div></span></a>
@@ -126,9 +133,9 @@ if($user->isLoggedIn()){
 	</li>
 	
 	<li class="dropdown">
-	  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img class="img-rounded" style="margin: -10px 0px;" src="https://cravatar.eu/avatar/' . $user->data()->mcname . '/25.png">&nbsp;&nbsp;' . $user->data()->username . ' <span class="caret"></span></a>
+	  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">' . $avatar . '&nbsp;&nbsp;' . htmlspecialchars($user->data()->username) . ' <span class="caret"></span></a>
 	  <ul class="dropdown-menu" role="menu">
-		<li><a href="/profile/' . $user->data()->mcname . '">'. $user_language['profile'] .'</a></li>
+		<li><a href="/profile/' . htmlspecialchars($user->data()->mcname) . '">'. $user_language['profile'] .'</a></li>
 		<li class="divider"></li>
 		<li><a href="/user">' . $user_language['user_cp'] . '</a></li>';
 		if($user->canViewMCP($user->data()->id)){
