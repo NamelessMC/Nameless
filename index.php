@@ -17,7 +17,13 @@ define('PATH', '/');
 define('ROOT_PATH', dirname(__FILE__));
 $page = 'Home';
 
-ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR  . ini_get('upload_tmp_dir'));
+if(!ini_get('upload_tmp_dir')){
+	$tmp_dir = sys_get_temp_dir();
+} else {
+	$tmp_dir = ini_get('upload_tmp_dir');
+}
+
+ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR  . $tmp_dir);
 
 // Get the directory the user is trying to access
 $directory = $_SERVER['REQUEST_URI'];
