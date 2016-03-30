@@ -38,7 +38,7 @@ if($avatar_enabled === "1"){
 			}
 			
 			$image->load($_FILES['uploaded_avatar']['tmp_name']);
-			$image->resize('100', '100');
+			$image->resize('300', '300');
 			$image->save("avatars/" . $user->data()->id);
 
 			$queries->update("users", $user->data()->id, array(
