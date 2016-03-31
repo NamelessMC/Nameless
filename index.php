@@ -34,7 +34,7 @@ $lim = count($directories);
 // Installer?
 if(is_file('pages/install.php')){
 	if(isset($_GET['from']) && $_GET['from'] == 'install'){
-		unlink('pages/install.php');
+		if(!unlink('pages/install.php')) die('Please delete <strong>pages/install.php</strong> before continuing.');
 	} else {
 		$page = 'install';
 		
