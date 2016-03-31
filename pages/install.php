@@ -1776,6 +1776,7 @@ if(isset($_GET["step"])){
             <h3>Finish</h3>
             <hr class="small-margin">
             <p>Great!  NamelessMC has successfully been installed, you can now configure your site to your liking via the admin panel.</p>
+            <p><strong>Please remove the installer file to proceed to use Nameless outside of the AdminCP.</button></p>
           </div>
 	  <?php if(isset($_GET['from']) && $_GET['from'] == 'upgrade'){ ?>
 	  <div class="alert alert-info">
