@@ -73,14 +73,14 @@ $page = 'Members'; // for navbar
 				  	$user_group = "";
 					  foreach($groups as $group){
 						if($group->id === $individual->group_id){
-						  $user_group = $group->name;
+						  $user_group = $group->group_html;
 						  break;
 						}
 					  }
 				  ?>
 				  <tr>
 				    <td><img class="img-rounded" style="margin: -10px 0px;" src="https://cravatar.eu/avatar/<?php echo htmlspecialchars($individual->mcname); ?>"> <a href="/profile/<?php echo htmlspecialchars($individual->mcname); ?>"><?php echo htmlspecialchars($individual->username); ?></a></td>
-				    <td><?php echo htmlspecialchars($user_group); ?></td>
+				    <td><?php echo $user_group; ?></td>
 				    <td><?php echo date('d M Y', $individual->joined); ?></td>
 				  </tr>
 				  <?php
