@@ -67,10 +67,6 @@ class User {
 			'user_id' => $user1id,
 			'friend_id' => $user2id
 		));
-		$this->_db->insert('friends', array(
-			'user_id' => $user2id,
-			'friend_id' => $user1id
-		));
 	}
 	
 	// Remove another user as a friend
@@ -92,25 +88,6 @@ class User {
 			}
 		}
 		$this->_db->delete('friends', array('id', '=', $finalno));
-		
-		$data = $this->_db->get('friends', array('user_id', '=', $user2));
-		if($data->count()) {
-			$numrows = (count($data->results()));
-			$no = 0;
-			$finalno = 0;
-			while ($no < $numrows) {
-				$results = $data->results();
-				$isfriend = $results[$no]->friend_id;
-					if ($isfriend == $user1) {
-						$results = $data->results();
-						$finalno = $results[$no]->id;
-						$no = ($numrows + 1);
-					}
-				$no = ($no + 1);
-			}
-		}
-		$this->_db->delete('friends', array('id', '=', $finalno));
-
 	}
 	
 	// Is the specified user (user 2) the friend of user 1?
