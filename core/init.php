@@ -99,12 +99,14 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 	// Theme
 	$c->setCache('themecache');
 	$theme_result = $c->retrieve('theme');
+	if(!($theme_result)) $theme_result = 'Bootstrap';
+	
 	$inverse_navbar = $c->retrieve('inverse_navbar');
 
 	// Template
 	$c->setCache('templatecache');
 	$template = $c->retrieve('template');
-	if(!is_dir('styles/templates/' . $template)){
+	if(!($template) || !is_dir('styles/templates/' . $template)){
 		$template = 'Default';
 	}
 	
