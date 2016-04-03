@@ -129,7 +129,15 @@ if(strtotime("-10 minutes") < $profile_user[0]->last_online) $is_online = true;
 		<div class="col-md-9">
 			<div class="jumbotron">
 			  <h2>
-			    <img class="img-rounded" src="https://cravatar.eu/avatar/<?php echo $mcname; ?>/60.png" />
+				<?php
+					// Get avatar
+					if($profile_user[0]->has_avatar == 1){
+						$avatar = '<img class="img-rounded" style="margin: -10px 0px; width:60px; height:60px;" src="' .  $user->getAvatar($profile_user[0]->id, "../") . '" />';
+					} else {
+						$avatar = '<img class="img-rounded" style="margin: -10px 0px;" src="https://cravatar.eu/avatar/' . htmlspecialchars($profile_user[0]->mcname) . '/60.png">';
+					}
+ 	
+				echo ($avatar)?>
 				<strong><?php echo $mcname; ?></strong> 
 				<?php 
 				if($exists == true){ 
