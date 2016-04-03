@@ -148,3 +148,10 @@ a {
   white-space:nowrap;
   max-width:none;
 }
+
+/*
+ *  Jumbotron fix
+ */
+.jumbotron h1 {
+	color: #fff !important;
+}
