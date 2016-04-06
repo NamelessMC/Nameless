@@ -201,3 +201,36 @@
 - Add missing translations
 - Allow custom icons in navbar
 - Add code insertion to editor
+
+1.0.7
+- Fix null Group HTML error
+- Don't check if admin account is valid MC account
+- Allow cancelling reporting posts
+- Remove Minecraft username check in Admin Users tab
+- Fix editing posts not having any labels selected
+- Fix undefined Smarty variable
+- Fix ampersand not displaying correctly
+- Change config double quotes to single quotes
+- Fix undefined language variable in password reset
+- Fix extra pagination page being displayed
+- Fix 0th page displaying in pagination
+- Fix display issues with floating content
+- Set email charset as UTF-8
+- Add Finnish language
+- Allow users to update their Minecraft usernames
+- Update Norsk language
+- Fix Admin core page redirect
+- Fix tagging alert issue
+- Fix footer navigation array for addons
+- Enable "More" dropdown in navbar
+- Fix avatars not uploading
+- Change profile image size to 300x300
+- Display custom avatars in navbar
+- Update base directory setting
+- Display group HTML in memberlist
+- Display message if installer couldn't delete itself
+- Modify friend system
+- Display custom avatars in Members list
+- Allow functionality if cache is not present
+- Fix Paper theme Jumbotron font colour
+- Update profile system
