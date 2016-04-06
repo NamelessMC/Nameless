@@ -24,13 +24,13 @@ if($inverse_navbar == 1){
  
 // Main navbar
 $main_navbar = array(
-	'/' => array(1 => $navbar_language['home'], 2 => 'index'),
-	'/forum' => array(1 => $navbar_language['forum'], 2 => 'forum')
+	'/' => array(1 => $navbar_language['home_icon'] . $navbar_language['home'], 2 => 'index'),
+	'/forum' => array(1 => $navbar_language['forum_icon'] . $navbar_language['forum'], 2 => 'forum')
 );
 
 // Is the play page enabled?
 if(isset($play_enabled) && $play_enabled == '1'){
-	$main_navbar['/play'] = array(1 => $navbar_language['play'], 2 => 'play');
+	$main_navbar['/play'] = array(1 => $navbar_language['play_icon'] . $navbar_language['play'], 2 => 'play');
 }
 
 $navbar_links = '<ul class="nav navbar-nav">';
