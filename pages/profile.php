@@ -315,13 +315,14 @@ if(isset($profile)){
 			  <?php
 			    // Follower system or friend system?
 				$followers = $queries->getWhere('settings', array('name', '=', 'followers'));
+				$followers = $followers[0]->value;
 				if($followers == '1'){
 					// Followers
 					if($exists == true) $followers = $user->listFollowers($profile_user[0]->id);
 				?>
               <div class="panel panel-info">
                 <div class="panel-heading">
-                  <h4 style="display: inline-block;"><?php echo $user_language['following']; ?></h4>
+                  <h4 style="display: inline-block;"><?php echo $user_language['followers']; ?></h4>
                   <h4 style="display: inline-block; float: right; text-align: right;">(<?php if($followers == false) echo '0'; else echo count($followers); ?>)</h4>
                 </div>
                 <div class="panel-body">
@@ -329,35 +330,41 @@ if(isset($profile)){
                         if($exists == true){
                            if($followers !== false){
                               foreach($followers as $follower){
-                                 echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($follower->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($follower->friend_id)) . '"><img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($follower->friend_id)) . '/40.png" /></a></span>&nbsp;';
-                              }
-                           } else {
-                              echo $user_language['user_not_following'];
-                           }
-                        } else {
-                           echo $user_language['user_not_following'];
-                        }
-                        ?>
-                </div>
-              </div>
-              <div class="panel panel-info">
-                  <div class="panel-heading">
-                     <h4 style="display: inline-block;"><?php echo $user_language['followers']; ?></h4>
-                     <h4 style="display: inline-block; float: right; text-align: right;">(1)</h4>
-                  </div>
-                  <div class="panel-body">
-                     <?php
-                        if($exists == true){
-                           $friends = $user->listFriends($profile_user[0]->id);
-                           if($friends !== false){
-                              foreach($friends as $friend){
-                                 echo '<span rel="tooltip" title="' . $user->IdToName($friend->friend_id) . '"><a href="/profile/' . $user->IdToMCName($friend->friend_id) . '"><img class="img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($friend->friend_id) . '/40.png" /></a></span>&nbsp;';
+								 $has_avatar = $queries->getWhere('users', array('id', '=', $follower->user_id));
+								 $has_avatar = $has_avatar[0]->has_avatar;
+                                 echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($follower->user_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($follower->user_id)) . '">'; if($has_avatar == 1) echo '<img class="img-rounded" style="vertical-align: middle; height: 40px; width: 40px;" src="' .  $user->getAvatar($follower->user_id, "../") . '" />'; else echo '<img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($follower->user_id)) . '/40.png" />'; echo '</a></span>&nbsp;';
                               }
                            } else {
                               echo $user_language['user_no_followers'];
                            }
                         } else {
                            echo $user_language['user_no_followers'];
+                        }
+                        ?>
+                </div>
+              </div>
+			  <?php
+				if($exists == true) $following = $user->listFriends($profile_user[0]->id); // Same method as listing friends
+			  ?>
+              <div class="panel panel-info">
+                  <div class="panel-heading">
+                     <h4 style="display: inline-block;"><?php echo $user_language['following']; ?></h4>
+                     <h4 style="display: inline-block; float: right; text-align: right;">(<?php if($following == false) echo '0'; else echo count($following); ?>)</h4>
+                  </div>
+                  <div class="panel-body">
+                     <?php
+                        if($exists == true){
+                           if($following !== false){
+                              foreach($following as $item){
+								 $has_avatar = $queries->getWhere('users', array('id', '=', $item->friend_id));
+								 $has_avatar = $has_avatar[0]->has_avatar;
+                                 echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($item->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($item->friend_id)) . '">'; if($has_avatar == 1) echo '<img class="img-rounded" style="vertical-align: middle;" src="' .  $user->getAvatar($item->friend_id, "../") . '" />'; else echo '<img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($item->friend_id)) . '/40.png" />'; echo '</a></span>&nbsp;';
+                              }
+                           } else {
+                              echo $user_language['user_not_following'];
+                           }
+                        } else {
+                           echo $user_language['user_not_following'];
                         }
                         ?>
                   </div>
@@ -378,7 +385,9 @@ if(isset($profile)){
 						$friends = $user->listFriends($profile_user[0]->id);
 						if($friends !== false){
 							foreach($friends as $friend){
-								echo '<span rel="tooltip" title="' . $user->IdToName($friend->friend_id) . '"><a href="/profile/' . $user->IdToMCName($friend->friend_id) . '"><img class="img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($friend->friend_id) . '/40.png" /></a></span>&nbsp;';
+								$has_avatar = $queries->getWhere('users', array('id', '=', $friend->friend_id));
+								$has_avatar = $has_avatar[0]->has_avatar;
+								echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($friend->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($friend->friend_id)) . '">'; if($has_avatar == 1) echo '<img class="img-rounded" style="vertical-align: middle;" src="' .  $user->getAvatar($friend->friend_id, "../") . '" />'; else echo '<img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($friend->friend_id)) . '/40.png" />'; echo '</a></span>&nbsp;';
 							}
 						} else {
 							echo $user_language['user_no_friends'];
@@ -548,7 +557,7 @@ if(isset($profile)){
 							 <?php echo $purifier->purify($profile_posts[$n]->content); ?>
 						   </p>
                            <p style="float:right; width:93%;" type="text">
-						     <?php if($user->isLoggedIn()){ ?><a href="#" data-toggle="modal" data-target="#replyModal<?php echo $n; ?>"><?php echo $user_language['reply']; ?></a> | <?php } ?><a class="pop" href="/profile/<?php echo $mcname; ?>/?action=like&amp;post=<?php echo $profile_posts[$n]->id; ?>" title="<?php echo $user_language['likes']; ?>" data-content="<?php if($likes_count){ foreach($likes as $like){ echo '<a href=\'/profile/' . htmlspecialchars($user->idToMCName($like->user_id)) . '\'>' . htmlspecialchars($user->idToName($like->user_id)) . '</a>'; } } else { echo $user_language['no_likes']; } ?>"><?php echo str_replace('{x}', $likes_count, $user_language['x_likes']); ?></a><?php if($user->isLoggedIn() && $user->canViewMCP($user->data()->id)){ ?> | <a onclick="return confirm('<?php echo $forum_language['confirm_post_deletion']; ?>');" href="/profile/<?php echo $mcname; ?>/?action=delete&amp;pid=<?php echo $profile_posts[$n]->id; ?>"><?php echo $user_language['delete']; ?></a><?php } ?>
+						     <?php if($user->isLoggedIn()){ ?><a href="#" data-toggle="modal" data-target="#replyModal<?php echo $n; ?>"><?php echo $user_language['reply']; ?></a> | <?php } ?><a class="pop" href="<?php if($user->isLoggedIn()){ ?>/profile/<?php echo $mcname; ?>/?action=like&amp;post=<?php echo $profile_posts[$n]->id; } else echo '#'; ?>" title="<?php echo $user_language['likes']; ?>" data-content="<?php if($likes_count){ foreach($likes as $like){ echo '<a href=\'/profile/' . htmlspecialchars($user->idToMCName($like->user_id)) . '\'>' . htmlspecialchars($user->idToName($like->user_id)) . '</a>'; } } else { echo $user_language['no_likes']; } ?>"><?php echo str_replace('{x}', $likes_count, $user_language['x_likes']); ?></a><?php if($user->isLoggedIn() && $user->canViewMCP($user->data()->id)){ ?> | <a onclick="return confirm('<?php echo $forum_language['confirm_post_deletion']; ?>');" href="/profile/<?php echo $mcname; ?>/?action=delete&amp;pid=<?php echo $profile_posts[$n]->id; ?>"><?php echo $user_language['delete']; ?></a><?php } ?>
 						   </p>
 						   <?php
 						   // Replies
