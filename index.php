@@ -82,7 +82,7 @@ if(is_file($page_path)){
 		} else {
 			// Profile page?
 			if($directories[1] == 'profile'){
-				$profile = htmlspecialchars($directories[2]);
+				if(isset($directories[2])) $profile = htmlspecialchars($directories[2]);
 				require('pages/profile.php');
 				// Kill the script
 				die();

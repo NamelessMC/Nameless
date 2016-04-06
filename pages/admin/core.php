@@ -115,6 +115,19 @@ $adm_page = "core";
 							$c->setCache('languagecache');
 							$c->store('language', htmlspecialchars(Input::get('language')));
 							
+							if(Input::get('followers') == 'on'){
+								$followers = 1;
+							} else {
+								$followers = 0;
+							}
+							
+							$followers_id = $queries->getWhere('settings', array('name', '=', 'followers'));
+							$followers_id = $followers_id[0]->id;
+							
+							$queries->update('settings', $followers_id, array(
+								'value' => $followers
+							));
+							
 							Session::flash('general_settings', '<div class="alert alert-success">' . $admin_language['successfully_updated'] . '</div>');
 							echo '<script data-cfasync="false">window.location.replace("/admin/core");</script>';
 							die();
@@ -155,6 +168,14 @@ $adm_page = "core";
 					}
 				  ?>
 				</select>
+			  </div>
+			  <?php
+			  $followers = $queries->getWhere('settings', array('name', '=', 'followers'));
+			  $followers = $followers[0]->value;
+			  ?>
+			  <div class="form-group">
+				<label for="followers"><?php echo $admin_language['use_followers']; ?></label> <a class="btn btn-info btn-xs" data-toggle="popover" data-content="<?php echo $admin_language['use_followers_help']; ?>"><span class="glyphicon glyphicon-question-sign"></span></a>
+				<input id="followers" name="followers" type="checkbox" class="js-switch" <?php if($followers == 1){ ?>checked <?php } ?>/>
 			  </div>
 			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 			  <input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">

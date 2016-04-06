@@ -16,6 +16,7 @@ if(!isset($registration_enabled)){
 
 require('core/integration/uuid.php'); // For UUID stuff
 require('core/includes/password.php'); // For password hashing
+require('core/includes/validate_date.php'); // For date validation
 
 // Are custom usernames enabled?
 $custom_usernames = $queries->getWhere("settings", array("name", "=", "displaynames"));
@@ -86,6 +87,14 @@ if(Input::exists()){
 				't_and_c' => array(
 					'required' => true,
 					'agree' => true
+				),
+				'birthday' => array(
+					'required' => true
+				),
+				'location' => array(
+					'required' => true,
+					'min' => 2,
+					'max' => 128
 				)
 			);
 			
@@ -95,286 +104,301 @@ if(Input::exists()){
 				);
 			}
 			
-			if($uuid_linking == '1'){
-				if($custom_usernames == "true"){ // validate username and Minecraft name
-					$to_validation['mcname'] = array(
-						'required' => true,
-						//'isvalid' => true,
-						'min' => 3,
-						'max' => 20,
-						'unique' => 'users'
-					);
-					$to_validation['username'] = array(
-						'required' => true,
-						'min' => 3,
-						'max' => 20,
-						'unique' => 'users'
-					);
-					$mcname = htmlspecialchars(Input::get('mcname'));
-					
-					// Perform validation on Minecraft name
-					$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-					$mcname_result = $profile->getProfileAsArray();
-					
-					if(isset($mcname_result['username']) && !empty($mcname_result['username'])){
-						// Valid
-					} else {
-						// Invalid
-						$invalid_mcname = true;
-					}
-					
-				} else { // only validate Minecraft name
-					$to_validation['username'] = array(
-						'required' => true,
-						//'isvalid' => true,
-						'min' => 3,
-						'max' => 20,
-						'unique' => 'users'
-					);
-					$mcname = htmlspecialchars(Input::get('username'));
-					
-					// Perform validation on Minecraft name
-					$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-					$mcname_result = $profile->getProfileAsArray();
-					
-					if(isset($mcname_result['username']) && !empty($mcname_result['username'])){
-						// Valid
-					} else {
-						// Invalid
-						$invalid_mcname = true;
-					}
-					
-				}
+			// Validate date of birth
+			if(!validateDate(Input::get('birthday')) || strtotime(Input::get('birthday')) > strtotime('now')){
+				// Invalid
+				$error = '<div class="alert alert-danger">' . $user_language['invalid_date_of_birth'] . '</div>';
 			} else {
-				if($custom_usernames == "true"){ // validate username and Minecraft name
-					$to_validation['mcname'] = array(
-						'required' => true,
-						'min' => 3,
-						'max' => 20,
-						'unique' => 'users'
-					);
-					$to_validation['username'] = array(
-						'required' => true,
-						'min' => 3,
-						'max' => 20,
-						'unique' => 'users'
-					);
-					$mcname = htmlspecialchars(Input::get('mcname'));
-				} else { // only validate Minecraft name
-					$to_validation['username'] = array(
-						'required' => true,
-						'min' => 3,
-						'max' => 20,
-						'unique' => 'users'
-					);
-					$mcname = htmlspecialchars(Input::get('username'));
-				}
-			}
-			
-			// Check to see if the Minecraft username was valid
-			if(!isset($invalid_mcname)){
-				// Valid, continue with validation
-				$validation = $validate->check($_POST, $to_validation); // Execute validation
-				
-				if($validation->passed()){
-					if($uuid_linking == '1'){
-						if(!isset($mcname_result)){
-							$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-							$mcname_result = $profile->getProfileAsArray();
+				// Valid date of birth
+				if($uuid_linking == '1'){
+					if($custom_usernames == "true"){ // validate username and Minecraft name
+						$to_validation['mcname'] = array(
+							'required' => true,
+							//'isvalid' => true,
+							'min' => 3,
+							'max' => 20,
+							'unique' => 'users'
+						);
+						$to_validation['username'] = array(
+							'required' => true,
+							'min' => 3,
+							'max' => 20,
+							'unique' => 'users'
+						);
+						$mcname = htmlspecialchars(Input::get('mcname'));
+						
+						// Perform validation on Minecraft name
+						$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
+						$mcname_result = $profile->getProfileAsArray();
+						
+						if(isset($mcname_result['username']) && !empty($mcname_result['username'])){
+							// Valid
+						} else {
+							// Invalid
+							$invalid_mcname = true;
 						}
-						if(isset($mcname_result["uuid"]) && !empty($mcname_result['uuid'])){
-							$uuid = $mcname_result['uuid'];
+						
+					} else { // only validate Minecraft name
+						$to_validation['username'] = array(
+							'required' => true,
+							'min' => 3,
+							'max' => 20,
+							'unique' => 'users'
+						);
+						$mcname = htmlspecialchars(Input::get('username'));
+						
+						// Perform validation on Minecraft name
+						$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
+						$mcname_result = $profile->getProfileAsArray();
+						
+						if(isset($mcname_result['username']) && !empty($mcname_result['username'])){
+							// Valid
+						} else {
+							// Invalid
+							$invalid_mcname = true;
+						}
+						
+					}
+				} else {
+					if($custom_usernames == "true"){ // validate username and Minecraft name
+						$to_validation['mcname'] = array(
+							'required' => true,
+							'min' => 3,
+							'max' => 20,
+							'unique' => 'users'
+						);
+						$to_validation['username'] = array(
+							'required' => true,
+							'min' => 3,
+							'max' => 20,
+							'unique' => 'users'
+						);
+						$mcname = htmlspecialchars(Input::get('mcname'));
+					} else { // only validate Minecraft name
+						$to_validation['username'] = array(
+							'required' => true,
+							'min' => 3,
+							'max' => 20,
+							'unique' => 'users'
+						);
+						$mcname = htmlspecialchars(Input::get('username'));
+					}
+				}
+				
+				// Check to see if the Minecraft username was valid
+				if(!isset($invalid_mcname)){
+					// Valid, continue with validation
+					$validation = $validate->check($_POST, $to_validation); // Execute validation
+					
+					if($validation->passed()){
+						if($uuid_linking == '1'){
+							if(!isset($mcname_result)){
+								$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
+								$mcname_result = $profile->getProfileAsArray();
+							}
+							if(isset($mcname_result["uuid"]) && !empty($mcname_result['uuid'])){
+								$uuid = $mcname_result['uuid'];
+							} else {
+								$uuid = '';
+							}
 						} else {
 							$uuid = '';
 						}
-					} else {
-						$uuid = '';
-					}
-				
-					$user = new User();
 					
-					$ip = $user->getIP();
-					if(filter_var($ip, FILTER_VALIDATE_IP)){
-						// Valid IP
-					} else {
-						// TODO: Invalid IP, do something else
-					}
-					
-					$password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
-					// Get current unix time
-					$date = new DateTime();
-					$date = $date->getTimestamp();
-					
-					try {
-						$code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
-						$user->create(array(
-							'username' => htmlspecialchars(Input::get('username')),
-							'mcname' => $mcname,
-							'uuid' => $uuid,
-							'password' => $password,
-							'pass_method' => 'default',
-							'joined' => $date,
-							'group_id' => 1,
-							'email' => htmlspecialchars(Input::get('email')),
-							'reset_code' => $code,
-							'lastip' => htmlspecialchars($ip),
-							'last_online' => $date
-						));
+						$user = new User();
 						
-						if($email_verification == '1'){
-							$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
-							$php_mailer = $php_mailer[0]->value;
+						$ip = $user->getIP();
+						if(filter_var($ip, FILTER_VALIDATE_IP)){
+							// Valid IP
+						} else {
+							// TODO: Invalid IP, do something else
+						}
+						
+						$password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
+						// Get current unix time
+						$date = new DateTime();
+						$date = $date->getTimestamp();
+						
+						try {
+							$code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+							$user->create(array(
+								'username' => htmlspecialchars(Input::get('username')),
+								'mcname' => $mcname,
+								'uuid' => $uuid,
+								'password' => $password,
+								'pass_method' => 'default',
+								'joined' => $date,
+								'group_id' => 1,
+								'email' => htmlspecialchars(Input::get('email')),
+								'reset_code' => $code,
+								'lastip' => htmlspecialchars($ip),
+								'last_online' => $date,
+								'birthday' => date('Y-m-d', strtotime(str_replace('-', '/', htmlspecialchars(Input::get('birthday'))))),
+								'location' => htmlspecialchars(Input::get('location'))
+							));
 							
-							if($php_mailer == '1'){
-								// PHP Mailer
-								require('core/includes/phpmailer/PHPMailerAutoload.php');
-								require('core/email.php');
+							if($email_verification == '1'){
+								$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+								$php_mailer = $php_mailer[0]->value;
 								
-								$mail = new PHPMailer;
-								$mail->IsSMTP(); 
-								$mail->SMTPDebug = 0;
-								$mail->Debugoutput = 'html';
-								$mail->Host = $GLOBALS['email']['host'];
-								$mail->Port = $GLOBALS['email']['port'];
-								$mail->SMTPSecure = $GLOBALS['email']['secure'];
-								$mail->SMTPAuth = true;
-								$mail->Username = $GLOBALS['email']['username'];
-								$mail->Password = $GLOBALS['email']['password'];
-								$mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
-								$mail->From = $GLOBALS['email']['username'];
-								$mail->FromName = $GLOBALS['email']['name'];
-								$mail->addAddress(htmlspecialchars(Input::get('email')), htmlspecialchars(Input::get('username')));
-								$mail->Subject = $sitename . ' - ' . $user_language['register'];
-								
-								// HTML to display in message
-								$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'styles', 'templates', $template, 'email', 'register.html'));
-								$html = file_get_contents($path);
-								
-								$link = 'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code;
-								
-								$html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array($sitename, $user_language['register'], $email_language['greeting'], $email_language['message'], $link, $email_language['thanks']), $html);
-								
-								$mail->msgHTML($html);
-								$mail->IsHTML(true);
-								$mail->Body = $html;
-								
-								if(!$mail->send()) {
-									echo "Mailer Error: " . $mail->ErrorInfo;
-									die();
+								if($php_mailer == '1'){
+									// PHP Mailer
+									require('core/includes/phpmailer/PHPMailerAutoload.php');
+									require('core/email.php');
+									
+									$mail = new PHPMailer;
+									$mail->IsSMTP(); 
+									$mail->SMTPDebug = 0;
+									$mail->Debugoutput = 'html';
+									$mail->Host = $GLOBALS['email']['host'];
+									$mail->Port = $GLOBALS['email']['port'];
+									$mail->SMTPSecure = $GLOBALS['email']['secure'];
+									$mail->SMTPAuth = true;
+									$mail->Username = $GLOBALS['email']['username'];
+									$mail->Password = $GLOBALS['email']['password'];
+									$mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
+									$mail->From = $GLOBALS['email']['username'];
+									$mail->FromName = $GLOBALS['email']['name'];
+									$mail->addAddress(htmlspecialchars(Input::get('email')), htmlspecialchars(Input::get('username')));
+									$mail->Subject = $sitename . ' - ' . $user_language['register'];
+									
+									// HTML to display in message
+									$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'styles', 'templates', $template, 'email', 'register.html'));
+									$html = file_get_contents($path);
+									
+									$link = 'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code;
+									
+									$html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array($sitename, $user_language['register'], $email_language['greeting'], $email_language['message'], $link, $email_language['thanks']), $html);
+									
+									$mail->msgHTML($html);
+									$mail->IsHTML(true);
+									$mail->Body = $html;
+									
+									if(!$mail->send()) {
+										echo "Mailer Error: " . $mail->ErrorInfo;
+										die();
+									} else {
+										echo "Message sent!";
+									}
 								} else {
-									echo "Message sent!";
+									// PHP mail function
+									$siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
+									$siteemail = $siteemail[0]->value;
+									
+									$to      = Input::get('email');
+									$subject = $sitename . ' - ' . $user_language['register'];
+									
+									$message = 	$email_language['greeting'] . PHP_EOL .
+												$email_language['message'] . PHP_EOL . PHP_EOL . 
+												'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code . PHP_EOL . PHP_EOL .
+												$email_language['thanks'] . PHP_EOL .
+												$sitename;
+									
+									$headers = 'From: ' . $siteemail . "\r\n" .
+										'Reply-To: ' . $siteemail . "\r\n" .
+										'X-Mailer: PHP/' . phpversion();
+									mail($to, $subject, $message, $headers);
 								}
 							} else {
-								// PHP mail function
-								$siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
-								$siteemail = $siteemail[0]->value;
-								
-								$to      = Input::get('email');
-								$subject = $sitename . ' - ' . $user_language['register'];
-								
-								$message = 	$email_language['greeting'] . PHP_EOL .
-											$email_language['message'] . PHP_EOL . PHP_EOL . 
-											'http://' . $_SERVER['SERVER_NAME'] . '/validate/?c=' . $code . PHP_EOL . PHP_EOL .
-											$email_language['thanks'] . PHP_EOL .
-											$sitename;
-								
-								$headers = 'From: ' . $siteemail . "\r\n" .
-									'Reply-To: ' . $siteemail . "\r\n" .
-									'X-Mailer: PHP/' . phpversion() . "\r\n" .
-									'MIME-Version: 1.0' . "\r\n" . 
-									'Content-type: text/plain; charset=UTF-8' . "\r\n";
-								mail($to, $subject, $message, $headers);
+								// Email verification disabled
+								// Redirect straight to verification link
+								echo '<script>window.location.replace("/validate/?c=' . $code . '");</script>';
+								die();
 							}
-						} else {
-							// Email verification disabled
-							// Redirect straight to verification link
-							echo '<script>window.location.replace("/validate/?c=' . $code . '");</script>';
+							
+							Session::flash('home', '<div class="alert alert-info alert-dismissible">  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $user_language['registration_check_email'] . '</div>');
+							Redirect::to('/');
 							die();
-						}
 						
-						Session::flash('home', '<div class="alert alert-info alert-dismissible">  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $user_language['registration_check_email'] . '</div>');
-						Redirect::to('/');
-						die();
-					
-					} catch(Exception $e){
-						die($e->getMessage());
+						} catch(Exception $e){
+							die($e->getMessage());
+						}
+					} else {
+						// Errors
+						$error = '<div class="alert alert-danger">';
+						foreach($validation->errors() as $validation_error){
+							
+							if(strpos($validation_error, 'is required') !== false){
+								// x is required
+								switch($validation_error){
+									case (strpos($validation_error, 'username') !== false):
+										$error .= $user_language['username_required'] . '<br />';
+									break;
+									case (strpos($validation_error, 'email') !== false):
+										$error .= $user_language['email_required'] . '<br />';
+									break;
+									case (strpos($validation_error, 'password') !== false):
+										$error .= $user_language['password_required'] . '<br />';
+									break;
+									case (strpos($validation_error, 'mcname') !== false):
+										$error .= $user_language['mcname_required'] . '<br />';
+									break;
+									case (strpos($validation_error, 't_and_c') !== false):
+										$error .= $user_language['accept_terms'] . '<br />';
+									break;
+									case (strpos($validation_error, 'location') !== false):
+										$error .= $user_language['location_required'] . '<br />';
+									break;
+								}
+								
+							} else if(strpos($validation_error, 'minimum') !== false){
+								// x must be a minimum of y characters long
+								switch($validation_error){
+									case (strpos($validation_error, 'username') !== false):
+										$error .= $user_language['username_minimum_3'] . '<br />';
+									break;
+									case (strpos($validation_error, 'mcname') !== false):
+										$error .= $user_language['mcname_minimum_3'] . '<br />';
+									break;
+									case (strpos($validation_error, 'password') !== false):
+										$error .= $user_language['password_minimum_6'] . '<br />';
+									break;
+									case (strpos($validation_error, 'location') !== false):
+										$error .= $user_language['location_minimum_2'] . '<br />';
+									break;
+								}
+								
+							} else if(strpos($validation_error, 'maximum') !== false){
+								// x must be a maximum of y characters long
+								switch($validation_error){
+									case (strpos($validation_error, 'username') !== false):
+										$error .= $user_language['username_maximum_20'] . '<br />';
+									break;
+									case (strpos($validation_error, 'mcname') !== false):
+										$error .= $user_language['mcname_maximum_20'] . '<br />';
+									break;
+									case (strpos($validation_error, 'password') !== false):
+										$error .= $user_language['password_maximum_30'] . '<br />';
+									break;
+									case (strpos($validation_error, 'location') !== false):
+										$error .= $user_language['location_maximum_128'] . '<br />';
+									break;
+								}
+								
+							} else if(strpos($validation_error, 'must match') !== false){
+								// password must match password again
+								$error .= $user_language['passwords_dont_match'] . '<br />';
+								
+							} else if(strpos($validation_error, 'already exists') !== false){
+								// already exists
+								$error .= $user_language['username_mcname_email_exists'] . '<br />';
+							} else if(strpos($validation_error, 'not a valid Minecraft account') !== false){
+								// Invalid Minecraft username
+								$error .= $user_language['invalid_mcname'] . '<br />';
+								
+							} else if(strpos($validation_error, 'Mojang communication error') !== false){
+								// Mojang server error
+								$error .= $user_language['mcname_lookup_error'] . '<br />';
+								
+							}
+						}
+						$error .= '</div>';
+						//$error = '<div class="alert alert-danger">' . $user_language['registration_error'] . '</div>';
 					}
 				} else {
-					// Errors
-					$error = '<div class="alert alert-danger">';
-					foreach($validation->errors() as $validation_error){
-						
-						if(strpos($validation_error, 'is required') !== false){
-							// x is required
-							switch($validation_error){
-								case (strpos($validation_error, 'username') !== false):
-									$error .= $user_language['username_required'] . '<br />';
-								break;
-								case (strpos($validation_error, 'email') !== false):
-									$error .= $user_language['email_required'] . '<br />';
-								break;
-								case (strpos($validation_error, 'password') !== false):
-									$error .= $user_language['password_required'] . '<br />';
-								break;
-								case (strpos($validation_error, 'mcname') !== false):
-									$error .= $user_language['mcname_required'] . '<br />';
-								break;
-								case (strpos($validation_error, 't_and_c') !== false):
-									$error .= $user_language['accept_terms'] . '<br />';
-								break;
-							}
-							
-						} else if(strpos($validation_error, 'minimum') !== false){
-							// x must be a minimum of y characters long
-							switch($validation_error){
-								case (strpos($validation_error, 'username') !== false):
-									$error .= $user_language['username_minimum_3'] . '<br />';
-								break;
-								case (strpos($validation_error, 'mcname') !== false):
-									$error .= $user_language['mcname_minimum_3'] . '<br />';
-								break;
-								case (strpos($validation_error, 'password') !== false):
-									$error .= $user_language['password_minimum_6'] . '<br />';
-								break;
-							}
-							
-						} else if(strpos($validation_error, 'maximum') !== false){
-							// x must be a maximum of y characters long
-							switch($validation_error){
-								case (strpos($validation_error, 'username') !== false):
-									$error .= $user_language['username_maximum_20'] . '<br />';
-								break;
-								case (strpos($validation_error, 'mcname') !== false):
-									$error .= $user_language['mcname_maximum_20'] . '<br />';
-								break;
-								case (strpos($validation_error, 'password') !== false):
-									$error .= $user_language['password_maximum_30'] . '<br />';
-								break;
-							}
-							
-						} else if(strpos($validation_error, 'must match') !== false){
-							// password must match password again
-							$error .= $user_language['passwords_dont_match'] . '<br />';
-							
-						} else if(strpos($validation_error, 'already exists') !== false){
-							// already exists
-							$error .= $user_language['username_mcname_email_exists'] . '<br />';
-						} else if(strpos($validation_error, 'not a valid Minecraft account') !== false){
-							// Invalid Minecraft username
-							$error .= $user_language['invalid_mcname'] . '<br />';
-							
-						} else if(strpos($validation_error, 'Mojang communication error') !== false){
-							// Mojang server error
-							$error .= $user_language['mcname_lookup_error'] . '<br />';
-							
-						}
-					}
-					$error .= '</div>';
-					//$error = '<div class="alert alert-danger">' . $user_language['registration_error'] . '</div>';
+					// Invalid Minecraft name
+					$error = '<div class="alert alert-danger">' . $user_language['invalid_mcname'] . '</div>';
 				}
-			} else {
-				// Invalid Minecraft name
-				$error = '<div class="alert alert-danger">' . $user_language['invalid_mcname'] . '</div>';
 			}
 		
 		} else {
@@ -417,12 +441,24 @@ $form_content .= '
 <div class="row">
 	<div class="col-xs-12 col-sm-6 col-md-6">
 		<div class="form-group">
-			<input type="password" name="password" id="password" class="form-control input-lg" placeholder="' . $user_language['password'] . '" tabindex="4">
+			<input type="text" class="form-control input-lg datepicker" name="birthday" id="birthday" placeholder="' . $user_language['date_of_birth'] . '" tabindex="4">
 		</div>
 	</div>
 	<div class="col-xs-12 col-sm-6 col-md-6">
 		<div class="form-group">
-			<input type="password" name="password_again" id="password_again" class="form-control input-lg" placeholder="' . $user_language['confirm_password'] . '" tabindex="5">
+			<input type="text" name="location" id="location" class="form-control input-lg" placeholder="' . $user_language['location'] . '" tabindex="5">
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-6 col-md-6">
+		<div class="form-group">
+			<input type="password" name="password" id="password" class="form-control input-lg" placeholder="' . $user_language['password'] . '" tabindex="6">
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6">
+		<div class="form-group">
+			<input type="password" name="password_again" id="password_again" class="form-control input-lg" placeholder="' . $user_language['confirm_password'] . '" tabindex="7">
 		</div>
 	</div>
 </div>
@@ -491,6 +527,7 @@ $smarty->assign('FORM_SUBMIT', $form_submit);
 	require('core/includes/template/generate.php');
 	?>
 	
+	<link href="/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet">
 	<!-- Custom style -->
 	<style>
 	html {
@@ -555,7 +592,11 @@ if($recaptcha === "true"){
 <?php 
 }
 ?>
+	<script src="/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
 	<script>
+	$('.datepicker').datepicker();
+	
 	$(function () {
 		$('.button-checkbox').each(function () {
 			// Settings

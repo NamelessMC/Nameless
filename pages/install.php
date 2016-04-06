@@ -614,6 +614,11 @@ if(isset($_GET["step"])){
 								'name' => 'play_page_enabled',
 								'value' => '1'
 							));
+						
+							$queries->create('settings', array(
+								'name' => 'followers',
+								'value' => '0'
+							));
 							
 							// Version update
 							$version_id = $queries->getWhere('settings', array('name', '=', 'version'));
@@ -1016,6 +1021,10 @@ if(isset($_GET["step"])){
 					35 => array(
 						'name' => 'play_page_enabled',
 						'value' => '1'
+					),
+					36 => array(
+						'name' => 'followers',
+						'value' => '0'
 					)
 				);
 				
