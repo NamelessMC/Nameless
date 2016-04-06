@@ -1,8 +1,8 @@
-# NamelessMC - version 1.0.6
+# NamelessMC - version 1.0.7
 
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
-Version 1.0.6 features:
+Version 1.0.7 features:
 
 - Template and theme system
 - Languages
@@ -74,3 +74,4 @@ Upcoming addons (these will need to be downloaded separately):
 * Slovak: @Marki35
 * French: @CreaModZ
 * Dutch: Sander Jochems
+* Finnish: -kakara-
