@@ -110,13 +110,23 @@ class User {
 		return $returnbool;
 	}
 	
-	// List a user's friends
+	// List a user's friends/following
 	public function listFriends($user_id) {
 		$data = $this->_db->get('friends', array('user_id', '=', $user_id));
 		if($data->count()) {
 			return $data->results();
 		} else { 
-		return false;
+			return false;
+		}
+	}
+	
+	// List who followers the user
+	public function listFollowers($user_id) {
+		$data = $this->_db->get('friends', array('friend_id', '=', $user_id));
+		if($data->count()) {
+			return $data->results();
+		} else { 
+			return false;
 		}
 	}
 	

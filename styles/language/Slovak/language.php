@@ -109,6 +109,8 @@ $admin_language = array(
 	'text' => 'Text',
 	'textarea' => 'Text Area',
 	'question_deleted' => 'Question Deleted',
+	'use_followers' => 'Use followers?',
+	'use_followers_help' => 'If disabled, the friends system will be used.',
 	
 	// Admin custom pages page
 	'click_on_page_to_edit' => 'Kliknutím na stránku ju upravíte.',
@@ -346,6 +348,8 @@ $user_language = array(
 	'minecraft_username' => 'Minecraft nick',
 	'email' => 'Email',
 	'email_address' => 'Emailová adresa',
+	'date_of_birth' => 'Date of Birth',
+	'location' => 'Location',
 	'password' => 'Heslo',
 	'confirm_password' => 'Potvrdiť heslo',
 	'i_agree' => 'Suhlasím',
@@ -386,6 +390,10 @@ $user_language = array(
 	'invalid_mcname' => 'Vaše zadané minecraft meno nieje platné',
 	'mcname_lookup_error' => 'Došlo k chybe pri kontaktovaní mojang serveru.Skús to prosím neskôr.',
 	'signature_maximum_900' => 'Your signature must be a maximum of 900 characters.',
+	'invalid_date_of_birth' => 'Invalid date of birth.',
+	'location_required' => 'Please enter a location.',
+	'location_minimum_2' => 'Your location must be a minimum of 2 characters.',
+	'location_maximum_128' => 'Your location must be a maximum of 128 characters.',
 	
 	// UserCP
 	'user_cp' => 'Uživ. menu',
@@ -424,6 +432,7 @@ $user_language = array(
 	'incorrect_password' => 'Vaše aktuálne heslo ste zadali nesprávne.',
 	'update_minecraft_name_help' => 'This will update your website username to your current Minecraft username. You can only perform this action once every 30 days.',
 	'unable_to_update_mcname' => 'Unable to update Minecraft username.',
+	'display_age_on_profile' => 'Display age on profile?',
 	
 	// Alerts
 	'viewing_unread_alerts' => 'Zobraziť neprečítané upozornenia. Zmeniť na <a href="/user/alerts/?view=read"><span class="label label-success">čitať</span></a>.',
@@ -467,6 +476,27 @@ $user_language = array(
 	'remove_friend' => 'Vymazať priateľa',
 	'add_friend' => 'Pridať priateľa',
 	'last_online' => 'Naposledy Online:',
+	'find_a_user' => 'Find a user',
+	'user_not_following' => 'This user does not follow anyone.',
+	'user_no_followers' => 'This user has no followers.',
+	'following' => 'FOLLOWING',
+	'followers' => 'FOLLOWERS',
+	'display_location' => 'From {x}.', // Don't replace {x}, which will be the user's location
+	'display_age_and_location' => '{x}, from {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
+	'write_on_user_profile' => 'Write something on {x}\'s profile...', // Don't replace {x}
+	'write_on_own_profile' => 'Write something on your profile...',
+	'profile_posts' => 'Profile Posts',
+	'no_profile_posts' => 'No profile posts yet.',
+	'invalid_wall_post' => 'Invalid wall post. Please ensure your post is between 2 and 2048 characters.',
+	'about' => 'About',
+	'reply' => 'Reply',
+	'x_likes' => '{x} likes', // Don't replace {x}
+	'likes' => 'Likes',
+	'no_likes' => 'No likes.',
+	'post_liked' => 'Post liked.',
+	'post_unliked' => 'Post unliked.',
+	'no_posts' => 'No posts.',
+	'last_5_posts' => 'Last 5 posts',
 	
 	// Staff applications
 	'staff_application' => 'StaffApp',

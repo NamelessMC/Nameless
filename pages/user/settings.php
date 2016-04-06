@@ -16,6 +16,7 @@ $user_page = 'settings';
 
 require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifier
 require('core/includes/password.php'); // For password hashing
+require('core/includes/validate_date.php'); // For date validation
 
 // Are custom usernames enabled?
 $custom_usernames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
@@ -81,6 +82,11 @@ if(Input::exists()){
 			$validate_array = array(
 				'signature' => array(
 					'max' => 900
+				),
+				'location' => array(
+					'required' => true,
+					'min' => 2,
+					'max' => 128
 				)
 			);
 			
@@ -92,69 +98,109 @@ if(Input::exists()){
 				);
 			}
 			
-			$validation = $validate->check($_POST, $validate_array);
-			
-			if($validation->passed()){
-				if($custom_usernames == 'true'){
-					$username = Input::get('screenname');
-				} else {
-					$username = $user->data()->mcname;
-				}
+			// Validate date of birth
+			if(isset($_POST['birthday']) && (!validateDate(Input::get('birthday')) || strtotime(Input::get('birthday')) > strtotime('now'))){
+				// Invalid
+				Session::flash('usercp_settings', '<div class="alert alert-danger">' . $user_language['invalid_date_of_birth'] . '</div>');
+			} else {
+				// Valid
+				$validation = $validate->check($_POST, $validate_array);
 				
-				if($avatar_enabled == '1'){
-					if(Input::get('gravatar') == 'on'){
-						$gravatar = 1;
-						$has_avatar = 1;
+				if($validation->passed()){
+					if($custom_usernames == 'true'){
+						$username = Input::get('screenname');
+					} else {
+						$username = $user->data()->mcname;
+					}
+					
+					if($avatar_enabled == '1'){
+						if(Input::get('gravatar') == 'on'){
+							$gravatar = 1;
+							$has_avatar = 1;
+						} else {
+							$gravatar = 0;
+							$has_avatar = 0;
+						}
 					} else {
 						$gravatar = 0;
 						$has_avatar = 0;
 					}
+					
+					if(Input::get('display_age') == 'on'){
+						$display_age = 1;
+					} else {
+						$display_age = 0;
+					}
+					
+					// update database value
+					try {
+						$queries->update('users', $user->data()->id, array(
+							'username' => htmlspecialchars($username),
+							'signature' => htmlspecialchars($signature),
+							'gravatar' => $gravatar,
+							'has_avatar' => $has_avatar,
+							'display_age' => $display_age,
+							'location' => htmlspecialchars(Input::get('location'))
+						));
+						
+						if(isset($_POST['birthday'])){
+							$queries->update('users', $user->data()->id, array(
+								'birthday' => date('Y-m-d', strtotime(str_replace('-', '/', htmlspecialchars(Input::get('birthday')))))
+							));
+						}
+						
+						Redirect::to('/user/settings');
+						die();
+					} catch(Exception $e) {
+						die($e->getMessage());
+					}
+					
 				} else {
-					$gravatar = 0;
-					$has_avatar = 0;
-				}
 				
-				// update database value
-				try {
-					$queries->update('users', $user->data()->id, array(
-						'username' => htmlspecialchars($username),
-						'signature' => htmlspecialchars($signature),
-						'gravatar' => $gravatar,
-						'has_avatar' => $has_avatar
-					));
-					Redirect::to('/user/settings');
-					die();
-				} catch(Exception $e) {
-					die($e->getMessage());
-				}
-				
-			} else {
-			
-				$error_string = '<div class="alert alert-danger">';
-				foreach($validation->errors() as $error){
-					if(strpos($error, 'is required') !== false){
-						// Empty display name field
-						$error_string .= $user_language['username_required'] . '<br />';
-					} else if(strpos($error, 'minimum') !== false){
-						// Username under 3 chars
-						$error_string .= $user_language['username_minimum_3'] . '<br />';
-					} else if(strpos($error, 'maximum') !== false){
-						// Field passes maximum value
-						switch($error){
-							case (strpos($error, 'username') !== false):
-								// Username is over 20 chars
-								$error_string .= $user_language['username_maximum_20'] . '<br />';
-							break;
-							case (strpos($error, 'signature') !== false):
-								// Signature is over 900 chars
-								$error_string .= $user_language['signature_maximum_900'] . '<br />';
-							break;
+					$error_string = '<div class="alert alert-danger">';
+					foreach($validation->errors() as $error){
+						if(strpos($error, 'is required') !== false){
+							// Empty display name or location field
+							switch($error){
+								case (strpos($error, 'username') !== false):
+									$error_string .= $user_language['username_required'] . '<br />';
+								break;
+								case (strpos($error, 'location') !== false):
+									$error_string .= $user_language['location_required'] . '<br />';
+								break;
+							}
+						} else if(strpos($error, 'minimum') !== false){
+							// Username under 3 chars/location under 2 chars
+							switch($error){
+								case (strpos($error, 'username') !== false):
+									$error_string .= $user_language['username_minimum_3'] . '<br />';
+								break;
+								case (strpos($error, 'location') !== false):
+									$error_string .= $user_language['location_minimum_2'] . '<br />';
+								break;
+							}
+						} else if(strpos($error, 'maximum') !== false){
+							// Field passes maximum value
+							switch($error){
+								case (strpos($error, 'username') !== false):
+									// Username is over 20 chars
+									$error_string .= $user_language['username_maximum_20'] . '<br />';
+								break;
+								case (strpos($error, 'signature') !== false):
+									// Signature is over 900 chars
+									$error_string .= $user_language['signature_maximum_900'] . '<br />';
+								break;
+								case (strpos($error, 'location') !== false):
+									// Location is over 128 chars
+									$error_string .= $user_language['location_maximum_128'] . '<br />';
+								break;
+							}
 						}
 					}
+					$error_string .= '</div>';
+				
+					Session::flash('usercp_settings', $error_string);
 				}
-				$error_string .= '</div>';
-			
-				Session::flash('usercp_settings', $error_string);
 			}
 		} else if(Input::get('action') == 'password'){
 			$validate_array = array(
@@ -200,7 +246,6 @@ if(Input::exists()){
 				}
 				
 			} else {
-			
 				$error_string = '<div class="alert alert-danger">';
 				foreach($validation->errors() as $error){
 					if(strpos($error, 'is required') !== false){
@@ -260,6 +305,7 @@ $token = Token::generate();
 	require('core/includes/template/generate.php');
 	?>
 	<link href="/core/assets/plugins/switchery/switchery.min.css" rel="stylesheet">	
+	<link href="/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet">
 	
 	<!-- Custom style -->
 	<style>
@@ -328,6 +374,25 @@ $token = Token::generate();
 			  <?php
 			  }
 			  ?>
+			  <div class="form-group">
+				<label for="InputLocation"><?php echo $user_language['location']; ?></label>
+				<input type="text" name="location" class="form-control" id="InputLocation" value="<?php echo htmlspecialchars($user->data()->location); ?>">
+			  </div>
+			  <?php
+			  // Birthday - only if not already inputted
+			  if(!$user->data()->birthday){
+			  ?>
+			  <div class="form-group">
+			    <label for="birthday"><?php echo $user_language['date_of_birth']; ?></label>
+				<input type="text" class="form-control datepicker" name="birthday" id="birthday" placeholder="<?php echo $user_language['date_of_birth']; ?>">
+			  </div>
+			  <?php
+			  }
+			  ?>
+			  <div class="form-group">
+				<label for="display_age"><?php echo $user_language['display_age_on_profile']; ?></label>
+				<input id="display_age" name="display_age" type="checkbox" class="js-switch" <?php if($user->data()->display_age == 1){ ?>checked <?php } ?>/>
+			  </div>
 			  <div class="form-group">
 				<label for="signature"><?php echo $user_language['signature']; ?></label>
 				<textarea rows="10" name="signature" id="signature">
@@ -422,7 +487,12 @@ $token = Token::generate();
 	});
 	</script>
 	<script src="/core/assets/js/ckeditor.js"></script>
+	
+	<script src="/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
 	<script type="text/javascript">
+		$('.datepicker').datepicker();
+	
 		CKEDITOR.replace( 'signature', {
 			// Define the toolbar groups as it is a more accessible solution.
 			toolbarGroups: [
