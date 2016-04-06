@@ -332,7 +332,7 @@ if(isset($profile)){
                               foreach($followers as $follower){
 								 $has_avatar = $queries->getWhere('users', array('id', '=', $follower->user_id));
 								 $has_avatar = $has_avatar[0]->has_avatar;
-                                 echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($follower->user_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($follower->user_id)) . '">'; if($has_avatar == 1) echo '<img class="img-rounded" style="vertical-align: middle; height: 40px; width: 40px;" src="' .  $user->getAvatar($follower->user_id, "../") . '" />'; else echo '<img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($follower->user_id)) . '/40.png" />'; echo '</a></span>&nbsp;';
+                                 echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($follower->user_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($follower->user_id)) . '">'; if($has_avatar == 1) echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 40px; width: 40px;" src="' .  $user->getAvatar($follower->user_id, "../") . '" />'; else echo '<img class="img-rounded" style="padding-bottom:2.5px;" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($follower->user_id)) . '/40.png" />'; echo '</a></span>&nbsp;';
                               }
                            } else {
                               echo $user_language['user_no_followers'];
@@ -358,7 +358,7 @@ if(isset($profile)){
                               foreach($following as $item){
 								 $has_avatar = $queries->getWhere('users', array('id', '=', $item->friend_id));
 								 $has_avatar = $has_avatar[0]->has_avatar;
-                                 echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($item->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($item->friend_id)) . '">'; if($has_avatar == 1) echo '<img class="img-rounded" style="vertical-align: middle;" src="' .  $user->getAvatar($item->friend_id, "../") . '" />'; else echo '<img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($item->friend_id)) . '/40.png" />'; echo '</a></span>&nbsp;';
+                                 echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($item->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($item->friend_id)) . '">'; if($has_avatar == 1) echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 40px; width: 40px;" src="' .  $user->getAvatar($item->friend_id, "../") . '" />'; else echo '<img class="img-rounded" style="padding-bottom:2.5px;" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($item->friend_id)) . '/40.png" />'; echo '</a></span>&nbsp;';
                               }
                            } else {
                               echo $user_language['user_not_following'];
@@ -387,7 +387,7 @@ if(isset($profile)){
 							foreach($friends as $friend){
 								$has_avatar = $queries->getWhere('users', array('id', '=', $friend->friend_id));
 								$has_avatar = $has_avatar[0]->has_avatar;
-								echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($friend->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($friend->friend_id)) . '">'; if($has_avatar == 1) echo '<img class="img-rounded" style="vertical-align: middle;" src="' .  $user->getAvatar($friend->friend_id, "../") . '" />'; else echo '<img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($friend->friend_id)) . '/40.png" />'; echo '</a></span>&nbsp;';
+								echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($friend->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($friend->friend_id)) . '">'; if($has_avatar == 1) echo '<img class="img-rounded" style="padding-bottom: 2.5px;" src="' .  $user->getAvatar($friend->friend_id, "../") . '" />'; else echo '<img class="img-rounded" style="padding-bottom:2.5px;" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($friend->friend_id)) . '/40.png" />'; echo '</a></span>&nbsp;';
 							}
 						} else {
 							echo $user_language['user_no_friends'];
