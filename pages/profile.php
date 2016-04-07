@@ -323,7 +323,7 @@ if(isset($profile)){
               <div class="panel panel-info">
                 <div class="panel-heading">
                   <h4 style="display: inline-block;"><?php echo $user_language['followers']; ?></h4>
-                  <h4 style="display: inline-block; float: right; text-align: right;">(<?php if($followers == false) echo '0'; else echo count($followers); ?>)</h4>
+                  <h4 style="display: inline-block; float: right; text-align: right;">(<?php if(!$exists || $followers == false) echo '0'; else echo count($followers); ?>)</h4>
                 </div>
                 <div class="panel-body">
                      <?php
@@ -349,7 +349,7 @@ if(isset($profile)){
               <div class="panel panel-info">
                   <div class="panel-heading">
                      <h4 style="display: inline-block;"><?php echo $user_language['following']; ?></h4>
-                     <h4 style="display: inline-block; float: right; text-align: right;">(<?php if($following == false) echo '0'; else echo count($following); ?>)</h4>
+                     <h4 style="display: inline-block; float: right; text-align: right;">(<?php if(!$exists || $following == false) echo '0'; else echo count($following); ?>)</h4>
                   </div>
                   <div class="panel-body">
                      <?php
@@ -377,7 +377,7 @@ if(isset($profile)){
               <div class="panel panel-info">
                   <div class="panel-heading">
                      <h4 style="display: inline-block;"><?php echo $user_language['friends']; ?></h4>
-                     <h4 style="display: inline-block; float: right; text-align: right;">(<?php if($friends == false) echo '0'; else echo count($friends); ?>)</h4>
+                     <h4 style="display: inline-block; float: right; text-align: right;">(<?php if(!$exists || $friends == false) echo '0'; else echo count($friends); ?>)</h4>
                   </div>
                   <div class="panel-body">
 					<?php
