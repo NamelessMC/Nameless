@@ -563,8 +563,17 @@ $adm_page = "minecraft";
 				}
 			} else if(!isset($_GET['settings']) && isset($_GET['view']) && $_GET['view'] == 'errors'){
 				if(!isset($_GET['error'])){
+					if(isset($_GET['action']) && $_GET['action'] == 'purge'){
+						// Purge all errors
+						$queries->delete('query_errors', array('id', '<>', 0));
+						echo '<script data-cfasync="false">window.location.replace("/admin/minecraft/?view=errors");</script>';
+						die();
+					}
 			?>
-			<h3><?php echo $admin_language['query_errors']; ?></h3>
+			<br />
+			<h3 style="display:inline;"><?php echo $admin_language['query_errors']; ?></h3>
+			<span class="pull-right"><a href="/admin/minecraft/?view=errors&amp;action=purge" class="btn btn-danger" onclick="return confirm('<?php echo $admin_language['confirm_purge_errors']; ?>');"><?php echo $admin_language['purge_errors']; ?></a></span>
+			<br /><br />
 			<p><?php echo $admin_language['query_errors_info']; ?></p>
 				<?php
 					$query_errors = $queries->orderWhere('query_errors', 'id <> 0', 'DATE', 'DESC');

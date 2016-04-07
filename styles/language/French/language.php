@@ -266,6 +266,8 @@ $admin_language = array(
 	'server_ip_minimum' => 'The server IP must be a minimum of 2 characters.',
 	'server_name_maximum' => 'The server name must be a maximum of 20 characters.',
 	'server_ip_maximum' => 'The server IP must be a maximum of 64 characters.',
+	'purge_errors' => 'Purge Errors',
+	'confirm_purge_errors' => 'Are you sure you want to purge all query errors?',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Themes',

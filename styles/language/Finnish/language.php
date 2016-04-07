@@ -263,6 +263,8 @@ $admin_language = array(
 	'server_ip_minimum' => 'Palvelimen IP täytyy olla väh. 2 merkkiä.',
 	'server_name_maximum' => 'Palvelimen nimi voi olla enintään 20 merkkiä.',
 	'server_ip_maximum' => 'Palvelimen nimi voi olla enintään 64 merkkiä.',
+	'purge_errors' => 'Purge Errors',
+	'confirm_purge_errors' => 'Are you sure you want to purge all query errors?',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Teemat',
