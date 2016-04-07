@@ -649,13 +649,34 @@ if(isset($profile)){
                      <div role="tabpanel" class="tab-pane" id="topics-and-comments">
 					    <?php
 						// Get latest posts
-						$latest_posts = $queries->orderWhere('posts', 'post_creator = ' . $profile_user[0]->id, 'post_date', 'DESC LIMIT 5');
+						$latest_posts = $queries->orderWhere('posts', 'post_creator = ' . $profile_user[0]->id, 'post_date', 'DESC LIMIT 15');
 						
 						if(!count($latest_posts)) echo '<br /><p>' . $user_language['no_posts'] . '</p>';
 						
 						else {
 							echo '<h3>' . $user_language['last_5_posts'] . '</h3>';
+							$n = 0;
+							
+							if(!$user->isLoggedIn()) $group_id = 0;
+							else $group_id = $user->data()->group_id;
+							
 							foreach($latest_posts as $latest_post){
+								if($n == 5) break;
+								
+								// Is the post somewhere the user can view?
+								$permission = false;
+								$forum_permissions = $queries->getWhere('forums_permissions', array('forum_id', '=', $latest_post->forum_id));
+								foreach($forum_permissions as $forum_permission){
+									if($forum_permission->group_id == $group_id){
+										if($forum_permission->view == 1){
+											$permission = true;
+											break;
+										}
+									}
+								}
+								
+								if($permission != true) continue;
+								
 								// Get topic title
 								$topic_title = $queries->getWhere('topics', array('id', '=', $latest_post->topic_id));
 								$topic_title = htmlspecialchars($topic_title[0]->topic_title);
@@ -674,6 +695,7 @@ if(isset($profile)){
 						  </div>
 						</div>
 							<?php
+								$n++;
 							}
 						}
 						?>
