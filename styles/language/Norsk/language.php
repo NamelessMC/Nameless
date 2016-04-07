@@ -263,6 +263,8 @@ $admin_language = array(
 	'server_ip_minimum' => 'Serveren IP må være minst 2 tegn.',
 	'server_name_maximum' => 'Servernavnet må være maksimalt 20 tegn.',
 	'server_ip_maximum' => 'Serveren IP må være maksimalt 64 tegn.',
+	'purge_errors' => 'Purge Errors',
+	'confirm_purge_errors' => 'Are you sure you want to purge all query errors?',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Temaer',
