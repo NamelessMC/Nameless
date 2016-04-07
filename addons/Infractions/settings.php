@@ -32,7 +32,7 @@ Author: Samerton<br />
 Version: 1.0.0<br />
 Description: Integrate your server infractions with your website<br />
 
-<h3>Donation Store</h3>
+<h3>Infractions Settings</h3>
 <?php
 $infractions_settings = $queries->tableExists('infractions_settings');
 if(empty($infractions_settings)){
