@@ -26,6 +26,7 @@ Included addons:
 - Donate
 - Member list
 - Voting
+- Infractions
 
 Core modules:
 - Google Analytics
@@ -37,7 +38,6 @@ Upcoming addons (these will need to be downloaded separately):
 - PermissionsEX control panel
 - Stats
 - Tickets
-- Infractions
 
 # Downloads & Support
 * [Changelog](https://github.com/NamelessMC/Nameless/blob/master/changelog.txt)
