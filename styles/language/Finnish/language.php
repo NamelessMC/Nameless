@@ -219,6 +219,8 @@ $admin_language = array(
 	'html_maximum' => 'Ryhmän HTML voi olla enintään 1024 merkkiä pitkä.',
 	'select_user_group' => 'Käyttäjän pitää olla ryhmässä.',
 	'uuid_max_32' => 'UUID:n täytyy olla enintään 32 merkkiä pitkä.',
+	'cant_delete_root_user' => 'Can\'t delete the root user!',
+	'cant_modify_root_user' => 'Can\'t modify the root user\'s group.',
 	
 	// Admin Minecraft page
 	'minecraft_settings' => 'Minecraft asetukset',

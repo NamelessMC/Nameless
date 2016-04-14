@@ -379,6 +379,13 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 						echo '<script data-cfasync="false">window.location.replace("/admin/users/");</script>';
 						die();
 					} else {
+						// Can't delete first user
+						if($_GET['uid'] == 1){
+							Session::flash('adm-users', '<div class="alert alert-info alert-danger">  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $admin_language['cant_delete_root_user'] . '</div>');
+							echo '<script data-cfasync="false">window.location.replace("/admin/users/");</script>';
+							die();
+						}
+						
 						// Valid, has the admin confirmed deletion?
 						if(isset($_GET["confirm"])){
 							// Delete the user
@@ -707,7 +714,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 						  ?>
 						  <div class="form-group">
 							 <label for="InputGroup"><?php echo $admin_language['group']; ?></label>
-							 <select class="form-control" id="InputGroup" name="group">
+							 <select class="form-control" id="InputGroup" name="group"<?php if($_GET['user'] == 1){ ?> disabled<?php } ?>>
 							<?php 
 							foreach($groups as $group){ 
 							?>
@@ -717,6 +724,11 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 							?>
 							</select> 
 						  </div>
+						  <?php if($_GET['user'] == 1){ ?>
+						  <div class="alert alert-warning">
+						    <?php echo $admin_language['cant_modify_root_user']; ?>
+						  </div>
+						  <?php } ?>
 						  <input type="hidden" name="token" value="<?php echo $token; ?>">
 						  <input type="hidden" name="action" value="update">
 						  <input type="submit" value="<?php echo $general_language['submit']; ?>" class="btn btn-default">

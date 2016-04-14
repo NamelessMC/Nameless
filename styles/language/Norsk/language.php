@@ -219,6 +219,8 @@ $admin_language = array(
 	'html_maximum' => 'Gruppen HTML skal være maksimalt 1024 tegn.',
 	'select_user_group' => 'Brukeren må være i en gruppe.',
 	'uuid_max_32' => 'UUID må være maksimalt 32 tegn.',
+	'cant_delete_root_user' => 'Can\'t delete the root user!',
+	'cant_modify_root_user' => 'Can\'t modify the root user\'s group.',
 	
 	// Admin Minecraft page
 	'minecraft_settings' => 'Minecraft Innstillinger',
