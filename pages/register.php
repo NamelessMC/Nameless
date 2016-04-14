@@ -88,12 +88,7 @@ if(Input::exists()){
 					'required' => true,
 					'agree' => true
 				),
-				'birthday' => array(
-					'required' => true
-				),
 				'location' => array(
-					'required' => true,
-					'min' => 2,
 					'max' => 128
 				)
 			);
@@ -105,7 +100,7 @@ if(Input::exists()){
 			}
 			
 			// Validate date of birth
-			if(!validateDate(Input::get('birthday')) || strtotime(Input::get('birthday')) > strtotime('now')){
+			if(Input::get('birthday') && (!validateDate(Input::get('birthday')) || strtotime(Input::get('birthday')) > strtotime('now'))){
 				// Invalid
 				$error = '<div class="alert alert-danger">' . $user_language['invalid_date_of_birth'] . '</div>';
 			} else {
