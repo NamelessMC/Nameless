@@ -35,11 +35,15 @@
 	  {/if}
 	  
 	  {if !empty($VOICE_VIEWER)}
+	  {if {$VOICE_VIEWER_TITLE} != 'Discord'}
 	  <div class="well well-sm">
 	  <h4>{$VOICE_VIEWER_TITLE}</h4>
 	  <strong>{$VOICE_VIEWER_IP}</strong><br />
 	  {$VOICE_VIEWER}
 	  </div>
+	  {else}
+	  {$VOICE_VIEWER}
+	  {/if}
 	  {/if}
 	</div>
   </div>

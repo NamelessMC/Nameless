@@ -206,23 +206,34 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 	$viewer = '';
 
 	if(isset($voice_server_enabled) && $voice_server_enabled == 'teamspeak'){
-		// Teamspeak module
-		require_once('core/includes/TeamSpeak3/TeamSpeak3.php');
+		// Check if Discord
+		$discord_id = $queries->getWhere('settings', array('name', '=', 'discord'));
+		$discord_id = $discord_id[0]->value;
 		
-		try {
-			// connect to local server, authenticate and spawn an object for the virtual server on a defined port
-			$ts3_VirtualServer = TeamSpeak3::factory('serverquery://' . $voice_server_username . ':' . $voice_server_password . '@' . $voice_server_ip . ':' . $voice_server_port . '/?server_port=' . $voice_virtual_server_port . '&nickname=Query');
+		if($discord_id != 0){
+			$smarty->assign('VOICE_VIEWER_TITLE', 'Discord');
+			$voice_server_ip = '';
+			$viewer = '<iframe src="https://discordapp.com/widget?id=' . $discord_id . '&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe>';
+		} else {
+			// Teamspeak module
+			require_once('core/includes/TeamSpeak3/TeamSpeak3.php');
+			
+			$smarty->assign('VOICE_VIEWER_TITLE', 'TeamSpeak');
+			
+			try {
+				// connect to local server, authenticate and spawn an object for the virtual server on a defined port
+				$ts3_VirtualServer = TeamSpeak3::factory('serverquery://' . $voice_server_username . ':' . $voice_server_password . '@' . $voice_server_ip . ':' . $voice_server_port . '/?server_port=' . $voice_virtual_server_port . '&nickname=Query');
 
-			// build and display HTML treeview using custom image paths (remote icons will be embedded using data URI sheme)
-			$viewer = $ts3_VirtualServer->getViewer(new TeamSpeak3_Viewer_Html("core/assets/img/ts3/viewer/", "core/assets/img/ts3/flags/", "data:image"));
-		} catch(Exception $e) {
-			$viewer = '<div class="alert alert-warning">' . $e->getMessage() . '</div>';
+				// build and display HTML treeview using custom image paths (remote icons will be embedded using data URI sheme)
+				$viewer = $ts3_VirtualServer->getViewer(new TeamSpeak3_Viewer_Html("core/assets/img/ts3/viewer/", "core/assets/img/ts3/flags/", "data:image"));
+			} catch(Exception $e) {
+				$viewer = '<div class="alert alert-warning">' . $e->getMessage() . '</div>';
+			}
 		}
 	} else {
 		$voice_server_ip = '';
 	}
 	
-	$smarty->assign('VOICE_VIEWER_TITLE', 'TeamSpeak');
 	$smarty->assign('VOICE_VIEWER_IP', $voice_server_ip);
 	$smarty->assign('VOICE_VIEWER', $viewer);
 	
