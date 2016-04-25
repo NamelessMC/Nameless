@@ -213,7 +213,7 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 		if($discord_id != 0){
 			$smarty->assign('VOICE_VIEWER_TITLE', 'Discord');
 			$voice_server_ip = '';
-			$viewer = '<iframe src="https://discordapp.com/widget?id=' . $discord_id . '&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe>';
+			$viewer = '<iframe src="https://discordapp.com/widget?id=' . htmlspecialchars($discord_id) . '&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe>';
 		} else {
 			// Teamspeak module
 			require_once('core/includes/TeamSpeak3/TeamSpeak3.php');
