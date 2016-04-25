@@ -234,3 +234,18 @@
 - Allow functionality if cache is not present
 - Fix Paper theme Jumbotron font colour
 - Update profile system
+
+1.0.8
+- Add missing icons to navbar
+- Update friend/follower avatars on profile page
+- Add thumbs up icon to likes on profile page
+- Add permission check to latest profile posts
+- Fix profile issue for unregistered users
+- Add custom DB class
+- Add Infractions addon
+- Allow deleting all server query errors
+- Remove requirement for location and birthday
+- Separate user likes on profile pages
+- Prevent modifying root user
+- Add support for Discord widget
+- Fix infinite loop on profile pages
