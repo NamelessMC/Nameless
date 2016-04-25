@@ -89,6 +89,7 @@ $admin_language = array(
 	'registration_terms_and_conditions' => 'Registrering Betingelser',
 	'voice_server_module' => 'Voice Server Modul',
 	'only_works_with_teamspeak' => 'Denne modulen foreløpig bare fungerer med Teamspeak',
+	'discord_id' => 'Discord Server ID',
 	'voice_server_help' => 'Fyll inn detaljene for ServerQuery brukeren',
 	'ip_without_port' => 'IP (uten port)',
 	'voice_server_port' => 'Port (vanligvis 10 011)',

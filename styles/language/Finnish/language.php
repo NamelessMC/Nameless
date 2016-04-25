@@ -89,6 +89,7 @@ $admin_language = array(
 	'registration_terms_and_conditions' => 'Rekisteröitymisen käyttöehdot ja säännöt',
 	'voice_server_module' => 'Äänipalvelin moduuli',
 	'only_works_with_teamspeak' => 'Tämä moduuli toimii tällähetkellä vain TeamSpeakin kanssa.',
+	'discord_id' => 'Discord Server ID',
 	'voice_server_help' => 'Kirjoita yksityiskohdat käyttäjän ServerQuerya varten.',
 	'ip_without_port' => 'IP (ilman porttia)',
 	'voice_server_port' => 'Portti (yleensä 10011)',

@@ -468,27 +468,42 @@ $adm_page = "core";
 							// Deal with input
 							if(Input::exists()){
 								if(Token::check(Input::get('token'))){
-									if(is_writable('core/voice_server.php')){
-										// "generate" string to input into config
-										$insert = 	'<?php' . PHP_EOL .
-													'$voice_server_enabled = \'teamspeak\';' . PHP_EOL .
-													'$voice_server_username = \'' . htmlspecialchars(Input::get('username')) . '\';' . PHP_EOL .
-													'$voice_server_password = \'' . htmlspecialchars(Input::get('password')) . '\';' . PHP_EOL .
-													'$voice_server_ip = \'' . htmlspecialchars(Input::get('ip')) . '\';' . PHP_EOL .
-													'$voice_server_port = \'' . htmlspecialchars(Input::get('port')) . '\';' . PHP_EOL .
-													'$voice_virtual_server_port = \'' . htmlspecialchars(Input::get('virtual_port')) . '\';';
-										
-										$file = fopen('core/voice_server.php', 'w');
-										fwrite($file, $insert);
-										fclose($file);
+									if(Input::get('action') == 'discord'){
+										// Update Discord ID
+										$discord_id = Input::get('discord_id');
+										if(isset($discord_id)){
+											$discord_update_id = $queries->getWhere('settings', array('name', '=', 'discord'));
+											$discord_update_id = $discord_update_id[0]->id;
+											$queries->update('settings', $discord_update_id, array(
+												'value' => $discord_id
+											));
+										}
 									} else {
-										Session::flash('voice_server_settings', '<div class="alert alert-danger">' . $admin_language['voice_server_not_writable'] . '</div>');
+										if(is_writable('core/voice_server.php')){
+											// "generate" string to input into config
+											$insert = 	'<?php' . PHP_EOL .
+														'$voice_server_enabled = \'teamspeak\';' . PHP_EOL .
+														'$voice_server_username = \'' . htmlspecialchars(Input::get('username')) . '\';' . PHP_EOL .
+														'$voice_server_password = \'' . htmlspecialchars(Input::get('password')) . '\';' . PHP_EOL .
+														'$voice_server_ip = \'' . htmlspecialchars(Input::get('ip')) . '\';' . PHP_EOL .
+														'$voice_server_port = \'' . htmlspecialchars(Input::get('port')) . '\';' . PHP_EOL .
+														'$voice_virtual_server_port = \'' . htmlspecialchars(Input::get('virtual_port')) . '\';';
+											
+											$file = fopen('core/voice_server.php', 'w');
+											fwrite($file, $insert);
+											fclose($file);
+										} else {
+											Session::flash('voice_server_settings', '<div class="alert alert-danger">' . $admin_language['voice_server_not_writable'] . '</div>');
+										}
 									}
 								} else {
 									// Invalid token
 									Session::flash('voice_server_settings', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
 								}
 							}
+							
+							// XSS token
+							$token = Token::generate();
 							
 							require_once('core/voice_server.php'); // for credentials
 						?>
@@ -497,8 +512,25 @@ $adm_page = "core";
 						if(Session::exists('voice_server_settings')){
 							echo Session::flash('voice_server_settings');
 						}
+						// Get Discord ID
+						$discord_id = $queries->getWhere('settings', array('name', '=', 'discord'));
+						$discord_id = htmlspecialchars($discord_id[0]->value);
 						?>
 						<div class="alert alert-info"><?php echo $admin_language['only_works_with_teamspeak']; ?></div>
+						<h3>Discord</h3>
+						<form action="" method="post">
+						  <div class="form-group">
+						    <label for="discord_id"><?php echo $admin_language['discord_id']; ?></label>
+							<input type="text" class="form-control" name="discord_id" id="discord_id" value="<?php echo $discord_id; ?>" placeholder="<?php echo $admin_language['discord_id']; ?>" />
+						  </div>
+						  <div class="form-group">
+						    <input type="hidden" name="action" value="discord">
+							<input type="hidden" name="token" value="<?php echo $token; ?>">
+							<input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
+						  </div>
+						</form>
+						<hr />
+						<h3>TeamSpeak</h3>
 						<strong><?php echo $admin_language['voice_server_help']; ?></strong>
 						<br /><br />
 						<form action="" method="post">
@@ -522,7 +554,8 @@ $adm_page = "core";
 						    <label for="virtual_port"><?php echo $admin_language['virtual_port']; ?></label>
 							<input type="text" class="form-control" name="virtual_port" id="virtual_port" value="<?php echo htmlspecialchars($voice_virtual_server_port); ?>" placeholder="<?php echo $admin_language['virtual_port']; ?>">
 						  </div>
-						  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+						  <input type="hidden" name="action" value="teamspeak">
+						  <input type="hidden" name="token" value="<?php echo $token; ?>">
 						  <input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
 						</form>
 						<?php

@@ -620,6 +620,11 @@ if(isset($_GET["step"])){
 								'value' => '0'
 							));
 							
+							$queries->create('settings', array(
+								'name' => 'discord',
+								'value' => '0'
+							));
+							
 							// Version update
 							$version_id = $queries->getWhere('settings', array('name', '=', 'version'));
 							$queries->update('settings', $version_id[0]->id, array(
@@ -1024,6 +1029,10 @@ if(isset($_GET["step"])){
 					),
 					36 => array(
 						'name' => 'followers',
+						'value' => '0'
+					),
+					37 => array(
+						'name' => 'discord',
 						'value' => '0'
 					)
 				);
