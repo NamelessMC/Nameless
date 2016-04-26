@@ -105,6 +105,7 @@ if(empty($infractions_settings)){
 						
 					} else {
 						// Not writable
+						Session::flash('admin_infractions', '<div class="alert alert-danger">Your <strong>addons/Infractions/settings.php</strong> file is not writable. Please check file permissions.</div>');
 					}
 				}
 				
