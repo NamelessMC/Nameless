@@ -151,28 +151,36 @@ if(isset($_GET['p'])){
 				} else {
 					$infractions_query = $queries->getWhere('users', array('uuid', '=', $infraction["uuid"]));
 					if(empty($infractions_query)){
-						$infractions_query = $queries->getWhere('uuid_cache', array('uuid', '=', $infraction["uuid"]));
-						if(empty($infractions_query)){
-							$profile = ProfileUtils::getProfile($infraction["uuid"]);
-							if(empty($profile)){
-								echo 'Could not find that player';
-								die();
-							} else {
-								$result = $profile->getProfileAsArray();
-								$mcname = htmlspecialchars($result["username"]);
-								$uuid = htmlspecialchars($infraction["uuid"]);
-								try {
-									$queries->create("uuid_cache", array(
-										'mcname' => $mcname,
-										'uuid' => $uuid
-									));
-								} catch(Exception $e){
-									die($e->getMessage());
+						
+						if($inf_plugin == 'bat') $mcname = $infractions->bat_getUsernameFromUUID($infraction['uuid']);
+						
+						if($inf_plugin != 'bat' || !count($mcname)){
+							$infractions_query = $queries->getWhere('uuid_cache', array('uuid', '=', $infraction["uuid"]));
+							if(empty($infractions_query)){
+								$profile = ProfileUtils::getProfile($infraction["uuid"]);
+								if(empty($profile)){
+									echo 'Could not find that player';
+									die();
+								} else {
+									$result = $profile->getProfileAsArray();
+									$mcname = htmlspecialchars($result["username"]);
+									$uuid = htmlspecialchars($infraction["uuid"]);
+									try {
+										$queries->create("uuid_cache", array(
+											'mcname' => $mcname,
+											'uuid' => $uuid
+										));
+									} catch(Exception $e){
+										die($e->getMessage());
+									}
 								}
 							}
+							$mcname = $queries->getWhere('uuid_cache', array('uuid', '=', $infraction["uuid"]));
+							$mcname = $mcname[0]->mcname;
+						
+						} else {
+							$mcname = $mcname[0]->BAT_player;
 						}
-						$mcname = $queries->getWhere('uuid_cache', array('uuid', '=', $infraction["uuid"]));
-						$mcname = $mcname[0]->mcname;
 					} else {
 						$mcname = $queries->getWhere('users', array('uuid', '=', $infraction["uuid"]));
 						$mcname = $mcname[0]->mcname;
