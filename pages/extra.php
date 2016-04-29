@@ -18,11 +18,12 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
     <meta name="description" content="">
     <meta name="author" content="Samerton">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $sitename; ?> &bull; <?php echo htmlspecialchars($page_title); ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = htmlspecialchars($page_title);
+	
 	require('core/includes/template/generate.php');
 	?>
 	

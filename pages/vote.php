@@ -26,10 +26,11 @@ if(!in_array('Vote', $enabled_addon_pages)){
     <meta name="author" content="Samerton">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 
-    <title><?php echo $sitename; ?> &bull; <?php echo $vote_language['vote']; ?></title>
-
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $vote_language['vote'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	

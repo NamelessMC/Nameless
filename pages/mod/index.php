@@ -30,11 +30,12 @@ $mod_page = 'index';
     <meta name="author" content="Samerton">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $sitename; ?> &bull; <?php echo $mod_language['mod_cp']; ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $mod_language['mod_cp'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	

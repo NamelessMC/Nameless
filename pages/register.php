@@ -514,11 +514,12 @@ $smarty->assign('FORM_SUBMIT', $form_submit);
     <meta name="description" content="<?php echo $sitename; ?> registration form">
     <meta name="author" content="Samerton">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $sitename; ?> &bull; <?php echo $user_language['register']; ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $user_language['register'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	

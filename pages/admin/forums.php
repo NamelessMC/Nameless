@@ -36,11 +36,12 @@ $adm_page = "forums";
     <meta name="author" content="Samerton">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $admin_language['admin_cp']; ?> &bull; <?php echo $admin_language['forums']; ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $admin_language['forums'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	

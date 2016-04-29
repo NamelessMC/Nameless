@@ -10,6 +10,9 @@
  *  Create page header (which css to load)
  */
 
+// Page title first
+echo '<title>' . $title . ' &bull; ' . $sitename . '</title>';
+ 
 /*
  *  Check to see if the theme actually exists..
  */

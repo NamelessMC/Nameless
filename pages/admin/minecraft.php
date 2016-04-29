@@ -37,13 +37,15 @@ $adm_page = "minecraft";
     <meta name="author" content="Samerton">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $admin_language['admin_cp']; ?> &bull; <?php echo $admin_language['minecraft']; ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $admin_language['minecraft'];
+	
 	require('core/includes/template/generate.php');
 	?>
+	
 	<link href="/core/assets/plugins/switchery/switchery.min.css" rel="stylesheet">	
 	
 	<!-- Custom style -->

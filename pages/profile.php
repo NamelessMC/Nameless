@@ -265,11 +265,15 @@ if(isset($profile)){
       <meta name="description" content="User profile page &bull; <?php echo $sitename; ?>">
       <meta name="author" content="Samerton">
       <?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-      <title><?php echo $sitename; ?> &bull; <?php echo $user_language['profile']; if(isset($profile)) echo ' - ' . $profile; ?></title>
-      <?php
-         // Generate header and navbar content
-         require('core/includes/template/generate.php');
-         ?>
+
+	  <?php
+	  // Generate header and navbar content
+	  // Page title
+	  $title = $user_language['profile'] . (isset($profile) ? ' - ' . $profile : '');
+	  
+	  require('core/includes/template/generate.php');
+	  
+	  ?>
       <!-- Custom style -->
       <style>
         html {

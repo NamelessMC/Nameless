@@ -118,11 +118,12 @@ $token = Token::generate();
     <meta name="description" content="<?php echo $sitename; ?> Forum - <?php echo htmlspecialchars($forum_query->forum_title); ?>">
     <meta name="author" content="Samerton">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $sitename; ?> &bull; <?php echo $navbar_language['forum'] . ' - ' . $forum_language['report_post']; ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $navbar_language['forum'] . ' - ' . $forum_language['report_post'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	

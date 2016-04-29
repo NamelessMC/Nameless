@@ -138,11 +138,12 @@ $token = Token::generate();
     <meta name="author" content="Samerton">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $sitename; ?> &bull; <?php echo $navbar_language['forum']; ?> - <?php echo $forum_language['create_post']; ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $forum_language['create_post'];
+	
 	require('core/includes/template/generate.php');
 	?>
 
