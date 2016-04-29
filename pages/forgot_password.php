@@ -111,12 +111,13 @@ if(Input::exists()) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Forgot password? &bull; <?php echo $sitename; ?>">
     <meta name="author" content="Samerton">
-	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-	
-    <title><?php echo $sitename; ?> &bull; <?php echo $user_language['forgot_password']; ?></title> 
+	<?php if(isset($custom_meta)){ echo $custom_meta; } ?> 
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $user_language['forgot_password'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	

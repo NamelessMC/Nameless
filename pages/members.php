@@ -23,10 +23,11 @@ $page = 'Members'; // for navbar
     <meta name="author" content="Partydragen, Samerton">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 
-    <title><?php echo $sitename; ?> &bull; <?php echo $members_language['members']; ?></title>
-
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $members_language['members'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	

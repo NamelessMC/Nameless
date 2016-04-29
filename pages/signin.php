@@ -112,11 +112,12 @@ if(isset($return_error)){
     <meta name="description" content="<?php echo $sitename; ?> sign in page">
     <meta name="author" content="Samerton">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $sitename; ?> &bull; <?php echo $user_language['sign_in']; ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $user_language['sign_in'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	

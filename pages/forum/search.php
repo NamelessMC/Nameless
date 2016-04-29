@@ -86,10 +86,14 @@ if($user->isLoggedIn()){ // User must be logged in to search
     <meta name="author" content="Samerton">
 	<meta name="robots" content="noindex">
     <?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $sitename; ?> &bull; <?php echo $navbar_language['forum']; ?></title>
 	
-	<?php require('core/includes/template/generate.php'); ?>
+	<?php
+	// Generate header and navbar content
+	// Page title
+	$title = $navbar_language['forum'];
+	
+	require('core/includes/template/generate.php');
+	?>
 	
 	<!-- Custom style -->
 	<style>

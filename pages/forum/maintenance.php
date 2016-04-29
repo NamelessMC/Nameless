@@ -29,10 +29,11 @@ $page = 'forum'; // for navbar
     <meta name="author" content="Partydragen">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 
-    <title><?php echo $sitename; ?> &bull; <?php echo $admin_language['maintenance_mode']; ?></title>
-
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $admin_language['maintenance_mode'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	

@@ -181,11 +181,12 @@ $purifier = new HTMLPurifier($config);
     <meta name="description" content="<?php echo $sitename; ?> Forum - Topic: <?php echo htmlspecialchars($topic->topic_title); ?>">
     <meta name="author" content="Samerton">
     <?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-	<title><?php echo $sitename; ?> &bull; <?php echo $navbar_language['forum'] . ' - ' . htmlspecialchars($topic->topic_title); ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = htmlspecialchars($topic->topic_title);
+	
 	require('core/includes/template/generate.php');
 	?>
 	

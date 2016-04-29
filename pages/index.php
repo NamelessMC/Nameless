@@ -96,11 +96,12 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
     <meta name="description" content="The homepage for the <?php echo $sitename; ?> community">
     <meta name="author" content="Samerton">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $sitename; ?> &bull; <?php echo $navbar_language['home']; ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $navbar_language['home'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	

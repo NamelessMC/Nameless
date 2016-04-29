@@ -136,15 +136,16 @@ $token = Token::generate();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo $sitename; ?> - edit post">
+    <meta name="description" content="<?php echo $sitename; ?> - editing post">
     <meta name="author" content="Samerton">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $sitename; ?> &bull; <?php echo $navbar_language['forum']; ?> - <?php echo $forum_language['edit_post']; ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $navbar_language['forum'] . ' - ' . $forum_language['edit_post'];
+	
 	require('core/includes/template/generate.php');
 	?>
 

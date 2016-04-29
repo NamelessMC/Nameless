@@ -24,11 +24,12 @@ $page = 'play'; // for navbar
     <meta name="description" content="Server status for the <?php echo $sitename; ?> community">
     <meta name="author" content="Samerton">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $sitename; ?> &bull; <?php echo $navbar_language['play']; ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $navbar_language['play'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	

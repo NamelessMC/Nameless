@@ -82,10 +82,11 @@ if(!isset($_GET['c'])){
     <meta name="author" content="Samerton">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 	
-    <title><?php echo $sitename; ?> &bull; <?php echo $user_language['change_password']; ?></title> 
-	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $user_language['change_password'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	

@@ -28,11 +28,12 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
     <meta name="description" content="Donation page for the <?php echo $sitename; ?> community">
     <meta name="author" content="Samerton">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $sitename; ?> &bull; <?php echo $donate_language['donate']; ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $donate_language['donate'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	

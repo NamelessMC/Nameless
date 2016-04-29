@@ -52,11 +52,12 @@ if($user->isLoggedIn()){
     <meta name="author" content="Samerton">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $admin_language['admin_cp']; ?> &bull; <?php echo $admin_language['index']; ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $admin_language['index'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	
@@ -134,11 +135,12 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
     <meta name="author" content="Samerton">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title><?php echo $admin_language['admin_cp']; ?> &bull; <?php echo $admin_language['index']; ?></title>
 	
 	<?php
 	// Generate header and navbar content
+	// Page title
+	$title = $admin_language['index'];
+	
 	require('core/includes/template/generate.php');
 	?>
 	
