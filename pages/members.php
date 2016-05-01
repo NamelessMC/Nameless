@@ -12,6 +12,12 @@
 // Members addon page
 $page = 'Members'; // for navbar
 
+// Ensure the addon is enabled
+if(!in_array('Members', $enabled_addon_pages)){
+	// Not enabled, redirect to homepage
+	echo '<script data-cfasync="false">window.location.replace(\'/\');</script>';
+	die();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
