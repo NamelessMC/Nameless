@@ -12,7 +12,7 @@
     // if there are pages to be shown
     if ($pages > 1 || $alwaysShowPagination === true) {
 ?>
-<ul class="<?= implode(' ', $classes) ?>">
+<ul class="<?php echo implode(' ', $classes); ?>">
 <?php
         /**
          * Previous Link
@@ -33,7 +33,7 @@
             array_push($classes, 'disabled');
         }
 ?>
-    <li class="<?= implode(' ', $classes) ?>"><a href="<?= ($href) ?>"><?= ($previous) ?></a></li>
+    <li class="<?php echo implode(' ', $classes); ?>"><a href="<?php echo $href; ?>"><?php echo $previous; ?></a></li>
 <?php
         /**
          * if this isn't a clean output for pagination (eg. show numerical
@@ -77,13 +77,13 @@
                     $href
                 );
 ?>
-    <li class="number"><a data-pagenumber="<?= ($current + $x - $leading) ?>" href="<?= ($href) ?>"><?= ($current + $x - $leading) ?></a></li>
+    <li class="number"><a data-pagenumber="<?php echo ($current + $x - $leading); ?>" href="<?php echo $href; ?>"><?php echo ($current + $x - $leading); ?></a></li>
 <?php
             }
 
             // print current page
 ?>
-    <li class="number active"><a data-pagenumber="<?= ($current) ?>" href="#"><?= ($current) ?></a></li>
+    <li class="number active"><a data-pagenumber="<?php echo $current; ?>" href="#"><?php echo $current; ?></a></li>
 <?php
 			// Prevent displaying any extra crumbs
 			if($current != $max){
@@ -100,7 +100,7 @@
 						$href
 					);
 ?>
-    <li class="number"><a data-pagenumber="<?= ($current + $x + 1) ?>" href="<?= ($href) ?>"><?= ($current + $x + 1) ?></a></li>
+    <li class="number"><a data-pagenumber="<?php echo ($current + $x + 1); ?>" href="<?php echo $href; ?>"><?php echo ($current + $x + 1); ?></a></li>
 <?php
 				}
 			}
@@ -125,7 +125,7 @@
             array_push($classes, 'disabled');
         }
 ?>
-    <li class="<?= implode(' ', $classes) ?>"><a href="<?= ($href) ?>"><?= ($next) ?></a></li>
+    <li class="<?php echo implode(' ', $classes); ?>"><a href="<?php echo $href; ?>"><?php echo $next; ?></a></li>
 </ul>
 <?php
     }
