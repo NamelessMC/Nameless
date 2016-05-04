@@ -109,8 +109,6 @@ if(isset($_GET["step"])){
                 <div class="panel-body">
                 Currently data may be imported from:
                 <ul>
-                  <li>ModernBB</li>
-                  <li>Wordpress (with optional support for bbPress)</li>
                   <li>XenForo</li>
                 </ul>
                 Support for the following is planned:
@@ -119,6 +117,8 @@ if(isset($_GET["step"])){
                   <li>IPBoard</li>
                   <li>MyBB</li>
                   <li>Vanilla</li>
+                  <li>ModernBB</li>
+                  <li>Wordpress (with optional support for bbPress)</li>
                 </ul>
                 </div>
               </div>
@@ -1525,14 +1525,13 @@ if(isset($_GET["step"])){
 			die();
 		}
 		if(isset($_GET["convert"]) && !isset($_GET["from"])){
-			// COMING SOON
 	  ?>
 		<div class="well">
 			<h4>Which forum software are you converting from?</h4>
-			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=modernbb'">ModernBB</a><br />
+			<!--<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=modernbb'">ModernBB</a><br />
 			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=phpbb'">phpBB</a><br />
 			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=mybb'">MyBB</a><br />
-			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=wordpress'">WordPress</a><br />
+			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=wordpress'">WordPress</a><br />-->
 			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=xenforo'">XenForo</a><br /><br />
 			<button class="btn btn-danger" onclick="location.href='./install.php?step=convert'">Cancel</button>
 		</div>
@@ -1585,7 +1584,7 @@ if(isset($_GET["step"])){
 			
 	  <?php
 			} else {
-				require 'converters/modernbb.php';
+				require 'core/converters/modernbb.php';
 	  ?>
 			<div class="alert alert-success">
 				Successfully imported ModernBB data. <strong>Important:</strong> Please redefine any private categories in the Admin panel.<br />
@@ -1638,7 +1637,7 @@ if(isset($_GET["step"])){
 			
 	  <?php
 			} else {
-				require 'converters/phpbb.php';
+				require 'core/converters/phpbb.php';
 	  ?>
 			<div class="alert alert-success">
 				Successfully imported phpBB data. <strong>Important:</strong> Please redefine any private categories in the Admin panel.<br />
@@ -1699,7 +1698,7 @@ if(isset($_GET["step"])){
 			
 	  <?php
 			} else {
-				require 'converters/wordpress.php';
+				require 'core/converters/wordpress.php';
 	  ?>
 			<div class="alert alert-success">
 				Successfully imported Wordpress data. <strong>Important:</strong> Please redefine any private categories in the Admin panel.<br />
@@ -1756,10 +1755,10 @@ if(isset($_GET["step"])){
 			
 	  <?php
 			} else {
-				require 'converters/xenforo.php';
+				require 'core/converters/xenforo.php';
 	  ?>
 			<div class="alert alert-success">
-				Successfully imported XenForo data. <strong>Important:</strong> Please redefine any private categories and update all users' Minecraft usernames in the Admin panel.<br />
+				Successfully imported XenForo data. <strong>Important:</strong> Please check your forum and group permissions, and update users' Minecraft usernames and UUID through the AdminCP.<br />
 				<center><button class="btn btn-primary"  onclick="location.href='./install.php?step=finish'">Proceed</button></center>
 			</div>
 	  <?php
@@ -1782,8 +1781,7 @@ if(isset($_GET["step"])){
 	  ?>
 	  <p>Convert from another forum software?</p>
 	  <div class="btn-group">
-		<!--<button class="btn btn-success" onclick="location.href='./install.php?step=convert&convert=yes'">Yes</button>-->
-		<button class="btn btn-success" disabled">Coming Soon</button>
+		<button class="btn btn-success" onclick="location.href='./install.php?step=convert&convert=yes'">Yes</button>
 		<button class="btn btn-primary" onclick="location.href='./install.php?step=finish'">No</button>
 	  </div>
 	<?php
