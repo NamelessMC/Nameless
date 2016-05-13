@@ -521,6 +521,12 @@ class User {
 					$return[$pm->id]['users'] = $users;
 				}
 			}
+			
+			// Order the PMs by date - most recent first
+			usort($return, function($a, $b) {
+				return $b['date'] - $a['date'];
+			});
+			
 			return $return;
 		}
 		return false;

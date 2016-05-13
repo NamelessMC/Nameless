@@ -65,6 +65,13 @@ if(Input::exists()){
 				
 				$title = htmlspecialchars(Input::get('title'));
 			} else {
+				// Can the user view the PM?
+				$pm = $user->getPM($_GET['mid'], $user->data()->id); // Get the PM - this also handles setting it as "read" 
+				if($pm == false){ // Either PM doesn't exist, or the user doesn't have permission to view it
+					echo '<script data-cfasync="false">window.location.replace("/user/messaging");</script>';
+					die();
+				}
+				
 				$author = $queries->getWhere("private_messages", array("id", "=", $_GET["mid"]));
 				$title = $author[0]->title;
 				$author = $author[0]->author_id;
@@ -75,13 +82,6 @@ if(Input::exists()){
 				}
 				
 				$users[] = $author;
-				
-				// Prefix with "RE:"
-				if(substr($title, 0, 3) == $forum_language['re']){
-					$title = htmlspecialchars($title);
-				} else {
-					$title = htmlspecialchars($forum_language['re'] . ' ' . $title);
-				}
 				
 			}
 			
@@ -98,42 +98,56 @@ if(Input::exists()){
 			if(!isset($max_users)){
 				try {
 					// Input the content
-					$queries->create("private_messages", array(
-						'author_id' => $user->data()->id,
-						'title' => $title,
+					if(!isset($_GET['mid'])){
+						$queries->create('private_messages', array(
+							'author_id' => $user->data()->id,
+							'title' => $title,
+							'sent_date' => date('U'),
+							'updated' => date('U')
+						));
+						
+						// Get the PM ID
+						$last_id = $queries->getLastId();
+						
+					} else {
+						$queries->update('private_messages', $_GET['mid'], array(
+							'updated' => date('U')
+						));
+						$last_id = $_GET['mid'];
+					}
+					
+					$queries->create('private_messages_replies', array(
+						'pm_id' => $last_id,
 						'content' => htmlspecialchars(Input::get('message')),
-						'sent_date' => date('Y-m-d H:i:s')
+						'user_id' => $user->data()->id,
+						'created' => date('U')
 					));
 					
-					// Get the PM ID
-					$last_id = $queries->getLastId();
-					
 					// Loop through the users and give them access to the message
-					foreach($users as $item){
-						if(!isset($_GET['mid'])){
+					if(!isset($_GET['mid'])){
+						foreach($users as $item){
 							// Get ID
 							$user_id = $user->NameToId($item);
-						} else {
-							$user_id = $item;
-						}
-						
-						if($user_id){
-							if($user_id !== $user->data()->id){
-								// Not the author
-								$queries->create("private_messages_users", array(
-									'pm_id' => $last_id,
-									'user_id' => $user_id
-								));
-							} else {
-								// Is the author, automatically set as read
-								$queries->create("private_messages_users", array(
-									'pm_id' => $last_id,
-									'user_id' => $user_id,
-									'read' => 1
-								));
+							
+							if($user_id){
+								if($user_id !== $user->data()->id){
+									// Not the author
+									$queries->create("private_messages_users", array(
+										'pm_id' => $last_id,
+										'user_id' => $user_id
+									));
+								} else {
+									// Is the author, automatically set as read
+									$queries->create("private_messages_users", array(
+										'pm_id' => $last_id,
+										'user_id' => $user_id,
+										'read' => 1
+									));
+								}
 							}
 						}
 					}
+					
 					echo '<script data-cfasync="false">window.location.replace("/user/messaging");</script>';
 					die();
 				} catch(Exception $e){
@@ -235,7 +249,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 				<div class="row">
 				  <div class="col-md-3"><a href="/user/messaging/?mid=<?php echo $pm['id']; ?>"><?php echo $pm['title']; ?></a></div>
 				  <div class="col-md-5"><?php echo $user_string; ?></div>
-				  <div class="col-md-4"><?php echo date('d M Y, H:i', strtotime($pm['date'])); ?></div>
+				  <div class="col-md-4"><?php echo date('d M Y, H:i', $pm['date']); ?></div>
 				</div>
 				<?php 
 				} 
@@ -317,6 +331,9 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 					die();
 				}
 				
+				// Get all PM replies
+				$pm_replies = $queries->getWhere('private_messages_replies', array('pm_id', '=', $_GET['mid']));
+				
 				// Format the users into a string
 				$user_string = '';
 				$n = 1;
@@ -354,7 +371,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 				echo '<span class="white-text">' . $user_language['system'] . '</span>';
 			  }
 			  ?>
-			  <span class="pull-right"><?php echo date('d M Y, H:i', strtotime($pm[0]->sent_date)); ?></span>
+			  <span class="pull-right"><?php echo date('d M Y, H:i', $pm[0]->sent_date); ?></span>
 			</div>
 			<div class="panel-body">
 			  <?php
@@ -367,10 +384,45 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 				$config->set('HTML.AllowedAttributes', 'src, href, height, width, alt, class, *.style');
 				$purifier = new HTMLPurifier($config);
 				
-				echo $purifier->purify(htmlspecialchars_decode($pm[0]->content));
+				echo $purifier->purify(htmlspecialchars_decode($pm_replies[0]->content));
+				
+				unset($pm_replies[0]);
 			  ?>
 			</div>
 		  </div>
+		  
+		  <?php
+		  foreach($pm_replies as $reply){
+		      ?>
+		  <div class="panel panel-primary">
+		    <div class="panel-heading">
+			  <?php 
+			  if($pm[0]->author_id != 0){
+				echo '<a class="white-text" href="/profile/' . htmlspecialchars($user->idToMCName($reply->user_id)) . '">' . htmlspecialchars($user->idToName($reply->user_id)) . '</a>'; 
+			  } else {
+				echo '<span class="white-text">' . $user_language['system'] . '</span>';
+			  }
+			  ?>
+			  <span class="pull-right"><?php echo date('d M Y, H:i', $reply->created); ?></span>
+			</div>
+			<div class="panel-body">
+			  <?php
+				$config = HTMLPurifier_Config::createDefault();
+				$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
+				$config->set('URI.DisableExternalResources', false);
+				$config->set('URI.DisableResources', false);
+				$config->set('HTML.Allowed', 'u,p,a,b,i,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
+				$config->set('CSS.AllowedProperties', array('float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
+				$config->set('HTML.AllowedAttributes', 'src, href, height, width, alt, class, *.style');
+				$purifier = new HTMLPurifier($config);
+				
+				echo $purifier->purify(htmlspecialchars_decode($reply->content));
+			  ?>
+			</div>
+		  </div>
+			  <?php
+		  }
+		  ?>
 		  
 		  <a href="/user/messaging/?action=new&amp;mid=<?php echo $pm[0]->id; ?>" class="btn btn-primary"><?php echo $forum_language['new_reply']; ?></a>
 		  <?php
