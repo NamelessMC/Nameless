@@ -115,7 +115,7 @@ if($user->isLoggedIn()){
 	  <ul class="dropdown-menu">';
 	  if(count($unread_alerts)){
 		foreach($unread_alerts as $alert){
-			$user_area .= '<li><a href="' . $alert->url . '">';
+			$user_area .= '<li><a href="/user/alerts/?a=' . $alert->id . '">';
 			if($alert->type == 'tag'){
 				$user_area .= $user_language['tagged_in_post'];
 			} else {
