@@ -10,6 +10,25 @@ if(!$user->isLoggedIn()){
 	Redirect::to('/');
 	die();
 }
+
+// Check if we're viewing an alert
+if(isset($_GET['a']) && is_numeric($_GET['a'])){
+	// Get the alert, check the user can actually view it
+	$alert = $queries->getWhere('alerts', array('id', '=', $_GET['a']));
+	
+	if(count($alert)){
+		if($alert[0]->user_id == $user->data()->id){
+			// Mark the alert as read
+			$queries->update('alerts', $alert[0]->id, array(
+				'`read`' => 1
+			));
+			// Redirect
+			echo '<script data-cfasync="false">window.location.replace(\'' . str_replace('&amp;', '&', $alert[0]->url) . '\');</script>';
+			die();
+		}
+	}
+}
+
 // page for UserCP sidebar
 $user_page = 'alerts';
 
