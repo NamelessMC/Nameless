@@ -36,6 +36,12 @@ if(!count($inf_plugin)){
 
 $inf_plugin = $inf_plugin[0]->value;
 
+// Redirect to fix pagination if URL does not end in /
+if(substr($_SERVER['REQUEST_URI'], -1) !== '/' && !strpos($_SERVER['REQUEST_URI'], '?')){
+	echo '<script data-cfasync="false">window.location.replace(\'/infractions/\');</script>';
+	die();
+}
+
 // Get page number
 if(isset($_GET['p'])){
 	if(!is_numeric($_GET['p'])){
@@ -44,7 +50,7 @@ if(isset($_GET['p'])){
 	} else {
 		if($_GET['p'] == 1){ 
 			// Avoid bug in pagination class
-			Redirect::to('/infractions');
+			Redirect::to('/infractions/');
 			die();
 		}
 		$p = $_GET['p'];
