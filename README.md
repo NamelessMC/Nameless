@@ -75,6 +75,7 @@ Upcoming addons (these will need to be downloaded separately):
 * French: @CreaModZ
 * Dutch: Sander Jochems
 * Finnish: -kakara-
+* Portuguese: @dgateles
 
 **NamelessMC On Spigot**
 * Resource: @Saphiria
