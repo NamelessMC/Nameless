@@ -465,7 +465,7 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = $username[0]->name;
+			if(count($username)) $username = $username[0]->name; else $username = 'Unknown';
 
 			$results[$i]["username"] = htmlspecialchars($username);
 			$results[$i]["id"] = $ban->id;
@@ -520,7 +520,7 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = $username[0]->name;
+			if(count($username)) $username = $username[0]->name; else $username = 'Unknown';
 			
 			$results[$i]["username"] = htmlspecialchars($username);
 			$results[$i]["id"] = $mute->id;
@@ -573,7 +573,7 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = $username[0]->name;
+			if(count($username)) $username = $username[0]->name; else $username = 'Unknown';
 			
 			$results[$i]["username"] = htmlspecialchars($username);
 			$results[$i]["id"] = $warning->id;
@@ -607,7 +607,7 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = $username[0]->name;
+			if(count($username)) $username = $username[0]->name; else $username = 'Unknown';
 			
 			$results[$i]["username"] = htmlspecialchars($username);
 			$results[$i]["id"] = $kick->id;
@@ -655,7 +655,7 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = htmlspecialchars($username[0]->name);
+			if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 			
 			return array($results[0], $username);
 		} else if($type === "mute"){
@@ -669,7 +669,7 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = htmlspecialchars($username[0]->name);
+			if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 			
 			return array($results[0], $username);
 		} else if($type === "warning"){
@@ -683,7 +683,7 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = htmlspecialchars($username[0]->name);
+			if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 			
 			return array($results[0], $username);
 		} else if($type === "kick"){
@@ -697,7 +697,7 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = htmlspecialchars($username[0]->name);
+			if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 			
 			return array($results[0], $username);
 		}
