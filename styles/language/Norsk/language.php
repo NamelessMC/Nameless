@@ -439,6 +439,19 @@ $user_language = array(
 	'update_minecraft_name_help' => 'Dette vil oppdatere ditt nettsted brukernavn til din nåværende Minecraft brukernavn. Du kan bare utføre denne handlingen en gang hver 30. dag.',
 	'unable_to_update_mcname' => 'Kan ikke oppdatere Minecraft brukernavn.',
 	'display_age_on_profile' => 'Vis alder på profilen?',
+	'two_factor_authentication' => 'Two Factor Authentication',
+	'enable_tfa' => 'Enable Two Factor Authentication',
+	'tfa_type' => 'Two Factor Authentication type:',
+	'authenticator_app' => 'Authentication App',
+	'tfa_scan_code' => 'Please scan the following code within your authentication app:',
+	'tfa_code' => 'If your device does not have a camera, or you are unable to scan the QR code, please input the following code:',
+	'tfa_enter_code' => 'Please enter the code displaying within your authentication app:',
+	'invalid_tfa' => 'Invalid code, please try again.',
+	'tfa_successful' => 'Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.',
+	'confirm_tfa_disable' => 'Are you sure you wish to disable two factor authentication?',
+	'tfa_disabled' => 'Two factor authentication disabled.',
+	'tfa_enter_email_code' => 'We have sent you a code within an email for verification. Please enter the code now:',
+	'tfa_email_contents' => 'A login attempt has been made to your account. If this was you, please input the following two factor authentication code when asked to do so. If this was not you, you can ignore this email, however a password reset is advised. The code is only valid for 10 minutes.',
 	
 	// Alerts
 	'viewing_unread_alerts' => 'Viser uleste varsler. Endre til <a href="/user/alerts/?view=read"><span class="label label-success">Lest</span></a>.',
@@ -591,6 +604,7 @@ $general_language = array(
 	'error' => 'Feil',
 	'view' => 'Vis',
 	'info' => 'Info',
+	'next' => 'Next',
 	
 	// Play page
 	'connect_with' => 'Koble til serveren med IP {x}', // Don't replace {x}
