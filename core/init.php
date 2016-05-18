@@ -23,6 +23,7 @@ if(!isset($path)){
 	// Normal autoloader
 	spl_autoload_register(function($class) {
 		if(strpos($class, 'TeamSpeak3') === false){
+			require_once 'core/classes/' . $class . '.php';
 		}
 	});
 	
@@ -31,12 +32,14 @@ if(!isset($path)){
 	require_once '../../includes/smarty/Smarty.class.php';
 	require_once '../../includes/sanitize.php';
 	spl_autoload_register(function($class) {
+		require_once '../../classes/' . $class . '.php';
 	});
 } else if($path === "../../"){
 	// For alerts/PMs
 	require_once '../includes/smarty/Smarty.class.php';
 	require_once '../includes/sanitize.php';
 	spl_autoload_register(function($class) {
+		require_once '../classes/' . $class . '.php';
 	});
 }
 
