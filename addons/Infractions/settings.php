@@ -29,7 +29,7 @@ if($user->isLoggedIn()){
 
 <h3>Addon: Infractions</h3>
 Author: Samerton<br />
-Version: 1.0.0<br />
+Version: 1.0.1<br />
 Description: Integrate your server infractions with your website<br />
 
 <h3>Infractions Settings</h3>

@@ -249,3 +249,25 @@
 - Prevent modifying root user
 - Add support for Discord widget
 - Fix infinite loop on profile pages
+
+1.0.9
+- Fix $p undefined error when pointing to a specific post
+- Display Infractions config permissions error
+- Fix Infractions usernames not displaying
+- Move page title to header
+- Check if Members addon is enabled before displaying the member list
+- Add XenForo converter
+- Remove PHP short tags from pagination rendering
+- Fix oversized friend avatars
+- Add continuous private message system
+- Fix Infractions pagination issue
+- Automatically mark alerts as read
+- Fix Donate sync issue
+- Update Norsk language
+- Add Portuguese translation
+- Fix Infractions undefined offset error
+- Fix potential directory separator issues
+- Add two factor authentication
+- Add custom infraction database prefixes
+- Fix private messaging date issues
+- Fix QR cURL error
