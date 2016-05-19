@@ -10,11 +10,13 @@
 class Infractions {
 	private $_db,
 			$_data,
-			$_language;
+			$_language,
+			$_prefix;
 	
 	// Connect to database
 	public function __construct($inf_db, $language) {
 		$this->_db = DB_Custom::getInstance($inf_db['address'], $inf_db['name'], $inf_db['username'], $inf_db['password']);
+		$this->_prefix = $inf_db['prefix'];
 		$this->_language = $language;
 	}
 	
@@ -30,9 +32,9 @@ class Infractions {
 			$symbol = "<>";
 			$equals = "0";
 		}
-		$bans = $this->_db->get('bat_ban', array($field, $symbol, $equals))->results();
-		$kicks = $this->_db->get('bat_kick', array($field, $symbol, $equals))->results();
-		$mutes = $this->_db->get('bat_mute', array($field, $symbol, $equals))->results();
+		$bans = $this->_db->get($this->_prefix . 'ban', array($field, $symbol, $equals))->results();
+		$kicks = $this->_db->get($this->_prefix . 'kick', array($field, $symbol, $equals))->results();
+		$mutes = $this->_db->get($this->_prefix . 'mute', array($field, $symbol, $equals))->results();
 		
 		$results = array();
 		$i = 0;
@@ -145,13 +147,13 @@ class Infractions {
 	// Params: $type (string), either ban, kick or mute; $id (int), ID of infraction
 	public function bat_getInfraction($type, $id) {
 		if($type === "ban" || $type === "temp_ban"){
-			$result = $this->_db->get('bat_ban', array("ban_id", "=", $id))->results();
+			$result = $this->_db->get($this->_prefix . 'ban', array("ban_id", "=", $id))->results();
 			return $result;
 		} else if($type === "kick"){
-			$result = $this->_db->get('bat_kick', array("kick_id", "=", $id))->results();
+			$result = $this->_db->get($this->_prefix . 'kick', array("kick_id", "=", $id))->results();
 			return $result;
 		} else if($type === "mute"){
-			$result = $this->_db->get('bat_mute', array("mute_id", "=", $id))->results();
+			$result = $this->_db->get($this->_prefix . 'mute', array("mute_id", "=", $id))->results();
 			return $result;
 		}
 		return false;
@@ -161,7 +163,7 @@ class Infractions {
 	// Params: $uuid (string) - UUID of user
 	public function bat_getUsernameFromUUID($uuid){
 		// Query database
-		$results = $this->_db->get('bat_players', array('uuid', '=', $uuid))->results();
+		$results = $this->_db->get($this->_prefix . 'players', array('uuid', '=', $uuid))->results();
 		return $results;
 	}
 
@@ -178,10 +180,10 @@ class Infractions {
 			$symbol = "<>";
 			$equals = "0";
 		}
-		$bans = $this->_db->get('bm_player_bans', array($field, $symbol, $equals))->results();
-		$kicks = $this->_db->get('bm_player_kicks', array($field, $symbol, $equals))->results();
-		$mutes = $this->_db->get('bm_player_mutes', array($field, $symbol, $equals))->results();
-		$warnings = $this->_db->get('bm_player_warnings', array($field, $symbol, $equals))->results();
+		$bans = $this->_db->get($this->_prefix . 'player_bans', array($field, $symbol, $equals))->results();
+		$kicks = $this->_db->get($this->_prefix . 'player_kicks', array($field, $symbol, $equals))->results();
+		$mutes = $this->_db->get($this->_prefix . 'player_mutes', array($field, $symbol, $equals))->results();
+		$warnings = $this->_db->get($this->_prefix . 'player_warnings', array($field, $symbol, $equals))->results();
 		
 		$results = array();
 		$i = 0;
@@ -196,7 +198,7 @@ class Infractions {
 				$results[$i]["staff"] = 'Console';
 			} else {
 				// We need to get the player's username first
-				$username = $this->_db->get('bm_players', array('id', '=', $ban->actor_id))->results();
+				$username = $this->_db->get($this->_prefix . 'players', array('id', '=', $ban->actor_id))->results();
 				$username = htmlspecialchars($username[0]->name);
 				$results[$i]["staff"] = $username;
 			}
@@ -225,7 +227,7 @@ class Infractions {
 			$i++;
 		}
 		// Bans - next, previous bans
-		$bans = $this->_db->get('bm_player_ban_records', array($field, $symbol, $equals))->results();
+		$bans = $this->_db->get($this->_prefix . 'player_ban_records', array($field, $symbol, $equals))->results();
 		foreach($bans as $ban){
 			$results[$i]["id"] = $ban->id;
 			$results[$i]["uuid"] = bin2hex($ban->player_id);
@@ -236,7 +238,7 @@ class Infractions {
 				$results[$i]["staff"] = 'Console';
 			} else {
 				// We need to get the player's username first
-				$username = $this->_db->get('bm_players', array('id', '=', $ban->pastActor_id))->results();
+				$username = $this->_db->get($this->_prefix . 'players', array('id', '=', $ban->pastActor_id))->results();
 				$username = htmlspecialchars($username[0]->name);
 				$results[$i]["staff"] = $username;
 			}
@@ -275,7 +277,7 @@ class Infractions {
 				$results[$i]["staff"] = 'Console';
 			} else {
 				// We need to get the player's username first
-				$username = $this->_db->get('bm_players', array('id', '=', $kick->actor_id))->results();
+				$username = $this->_db->get($this->_prefix . 'players', array('id', '=', $kick->actor_id))->results();
 				$username = htmlspecialchars($username[0]->name);
 				$results[$i]["staff"] = $username;
 			}
@@ -299,7 +301,7 @@ class Infractions {
 				$results[$i]["staff"] = 'Console';
 			} else {
 				// We need to get the player's username first
-				$username = $this->_db->get('bm_players', array('id', '=', $mute->actor_id))->results();
+				$username = $this->_db->get($this->_prefix . 'players', array('id', '=', $mute->actor_id))->results();
 				$username = htmlspecialchars($username[0]->name);
 				$results[$i]["staff"] = $username;
 			}
@@ -329,7 +331,7 @@ class Infractions {
 		}
 		
 		// Mutes - next, previous mutes
-		$mutes = $this->_db->get('bm_player_mute_records', array($field, $symbol, $equals))->results();
+		$mutes = $this->_db->get($this->_prefix . 'player_mute_records', array($field, $symbol, $equals))->results();
 		foreach($mutes as $mute){
 			$results[$i]["id"] = $mute->id;
 			$results[$i]["uuid"] = bin2hex($mute->player_id);
@@ -340,7 +342,7 @@ class Infractions {
 				$results[$i]["staff"] = 'Console';
 			} else {
 				// We need to get the player's username first
-				$username = $this->_db->get('bm_players', array('id', '=', $mute->pastActor_id))->results();
+				$username = $this->_db->get($this->_prefix . 'players', array('id', '=', $mute->pastActor_id))->results();
 				$username = htmlspecialchars($username[0]->name);
 				$results[$i]["staff"] = $username;
 			}
@@ -407,18 +409,18 @@ class Infractions {
 	// Params: $type (string), either ban, kick or mute; $id (int), ID of infraction
 	public function bm_getInfraction($type, $id, $past = false) {
 		if($type === "ban" || $type === "temp_ban"){
-			if(!$past) $result = $this->_db->get('bm_player_bans', array("id", "=", $id))->results();
-			else $result = $this->_db->get('bm_player_ban_records', array("id", "=", $id))->results();
+			if(!$past) $result = $this->_db->get($this->_prefix . 'player_bans', array("id", "=", $id))->results();
+			else $result = $this->_db->get($this->_prefix . 'player_ban_records', array("id", "=", $id))->results();
 			return $result;
 		} else if($type === "kick"){
-			$result = $this->_db->get('bm_player_kicks', array("id", "=", $id))->results();
+			$result = $this->_db->get($this->_prefix . 'player_kicks', array("id", "=", $id))->results();
 			return $result;
 		} else if($type === "mute"){
-			if(!$past) $result = $this->_db->get('bm_player_mutes', array("id", "=", $id))->results();
-			else $result = $this->_db->get('bm_player_mute_records', array("id", "=", $id))->results();
+			if(!$past) $result = $this->_db->get($this->_prefix . 'player_mutes', array("id", "=", $id))->results();
+			else $result = $this->_db->get($this->_prefix . 'player_mute_records', array("id", "=", $id))->results();
 			return $result;
 		} else if($type === "warning"){
-			$result = $this->_db->get('bm_player_warnings', array("id", "=", $id))->results();
+			$result = $this->_db->get($this->_prefix . 'player_warnings', array("id", "=", $id))->results();
 			return $result;
 		}
 		return false;
@@ -427,7 +429,7 @@ class Infractions {
 	// Receive the username from an ID (Ban Management)
 	// Params: $id (string (binary)), player_id of user to lookup
 	public function bm_getUsernameFromID($id) {
-		$result = $this->_db->get('bm_players', array('id', '=', $id))->results();
+		$result = $this->_db->get($this->_prefix . 'players', array('id', '=', $id))->results();
 		if(count($result)){
 			return htmlspecialchars($result[0]->name);
 		}
@@ -447,17 +449,17 @@ class Infractions {
 			$equals = "0";
 		}
 
-		$bans = $this->_db->get('litebans_bans', array($field, $symbol, $equals))->results();
-		$kicks = $this->_db->get('litebans_kicks', array($field, $symbol, $equals))->results();
-		$mutes = $this->_db->get('litebans_mutes', array($field, $symbol, $equals))->results();
-		$warnings = $this->_db->get('litebans_warnings', array($field, $symbol, $equals))->results();
+		$bans = $this->_db->get($this->_prefix . 'bans', array($field, $symbol, $equals))->results();
+		$kicks = $this->_db->get($this->_prefix . 'kicks', array($field, $symbol, $equals))->results();
+		$mutes = $this->_db->get($this->_prefix . 'mutes', array($field, $symbol, $equals))->results();
+		$warnings = $this->_db->get($this->_prefix . 'warnings', array($field, $symbol, $equals))->results();
 		
 		$results = array();
 		$i = 0;
 
 		// Bans
 		foreach($bans as $ban){
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($ban->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($ban->uuid)))->results();
 			
 			if(count($username) > 1){
 				// get most recent name
@@ -512,7 +514,7 @@ class Infractions {
 		
 		// Mutes
 		foreach($mutes as $mute){
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($mute->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($mute->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name
@@ -565,7 +567,7 @@ class Infractions {
 		
 		// Warnings
 		foreach($warnings as $warning){
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($warning->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($warning->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name
@@ -599,7 +601,7 @@ class Infractions {
 		
 		// Kicks
 		foreach($kicks as $kick){
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($kick->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($kick->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name
@@ -645,9 +647,9 @@ class Infractions {
 	// Params: $type (string), either ban, kick or mute; $id (int), ID of infraction
 	public function lb_getInfraction($type, $id) {
 		if($type === "ban" || $type === "temp_ban"){
-			$results = $this->_db->get('litebans_bans', array("id", "=", $id))->results();
+			$results = $this->_db->get($this->_prefix . 'bans', array("id", "=", $id))->results();
 			
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name
@@ -659,9 +661,9 @@ class Infractions {
 			
 			return array($results[0], $username);
 		} else if($type === "mute"){
-			$results = $this->_db->get('litebans_mutes', array("id", "=", $id))->results();
+			$results = $this->_db->get($this->_prefix . 'mutes', array("id", "=", $id))->results();
 			
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name
@@ -673,9 +675,9 @@ class Infractions {
 			
 			return array($results[0], $username);
 		} else if($type === "warning"){
-			$results = $this->_db->get('litebans_warnings', array("id", "=", $id))->results();
+			$results = $this->_db->get($this->_prefix . 'warnings', array("id", "=", $id))->results();
 			
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name
@@ -687,9 +689,9 @@ class Infractions {
 			
 			return array($results[0], $username);
 		} else if($type === "kick"){
-			$results = $this->_db->get('litebans_kicks', array("id", "=", $id))->results();
+			$results = $this->_db->get($this->_prefix . 'kicks', array("id", "=", $id))->results();
 			
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name

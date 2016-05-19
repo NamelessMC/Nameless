@@ -96,7 +96,8 @@ if(empty($infractions_settings)){
 										'    \'address\' => \'' . str_replace('\'', '\\\'', Input::get('dbaddress')) . '\',' . PHP_EOL .
 										'    \'name\' => \'' . str_replace('\'', '\\\'', Input::get('dbname')) . '\',' . PHP_EOL .
 										'    \'username\' => \'' . str_replace('\'', '\\\'', Input::get('dbusername')) . '\',' . PHP_EOL .
-										'    \'password\' => \'' . str_replace('\'', '\\\'', Input::get('dbpassword')) . '\'' . PHP_EOL .
+										'    \'password\' => \'' . str_replace('\'', '\\\'', Input::get('dbpassword')) . '\',' . PHP_EOL .
+										'    \'prefix\' => \'' . str_replace('\'', '\\\'', Input::get('dbprefix')) . '\'' . PHP_EOL .
 										');';
 						
 						$file = fopen($config_path, 'w');
@@ -123,6 +124,8 @@ if(empty($infractions_settings)){
 	
 	// Generate token
 	$token = Token::generate();
+	
+	require(join(DIRECTORY_SEPARATOR, array('addons', 'Infractions', 'config.php')));
 ?>
 <form action="" method="post">
   <strong>Infractions Plugin</strong><br />
@@ -147,11 +150,15 @@ if(empty($infractions_settings)){
   <strong>Update Database Settings</strong><br /><br />
   <div class="form-group">
     <label for="InputDatabaseAddress">Database Address</label>
-	<input type="text" id="InputDatabaseAddress" name="dbaddress" class="form-control" placeholder="Hidden">
+	<input type="text" id="InputDatabaseAddress" name="dbaddress" class="form-control" placeholder="Address" value="<?php echo $inf_db['address']; ?>">
   </div>
   <div class="form-group">
     <label for="InputDatabaseName">Database Name</label>
-	<input type="text" id="InputDatabaseName" name="dbname" class="form-control" placeholder="Hidden">
+	<input type="text" id="InputDatabaseName" name="dbname" class="form-control" placeholder="Name" value="<?php echo $inf_db['name']; ?>">
+  </div>
+  <div class="form-group">
+    <label for="InputTablePrefix">Table Prefix (with trailing _)</label>
+	<input type="text" id="InputTablePrefix" name="dbprefix" class="form-control" placeholder="Prefix" value="<?php echo $inf_db['prefix']; ?>">
   </div>
   <div class="form-group">
     <label for="InputDatabaseUsername">Database Username</label>
