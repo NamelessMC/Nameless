@@ -524,7 +524,7 @@ class User {
 			
 			// Order the PMs by date - most recent first
 			usort($return, function($a, $b) {
-				return $b['date'] - $a['date'];
+				return strtotime($b['date']) - strtotime($a['date']);
 			});
 			
 			return $return;

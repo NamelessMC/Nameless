@@ -102,7 +102,7 @@ if(Input::exists()){
 						$queries->create('private_messages', array(
 							'author_id' => $user->data()->id,
 							'title' => $title,
-							'sent_date' => date('U'),
+							'sent_date' => date('Y-m-d H:i:s'),
 							'updated' => date('U')
 						));
 						
@@ -249,7 +249,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 				<div class="row">
 				  <div class="col-md-3"><a href="/user/messaging/?mid=<?php echo $pm['id']; ?>"><?php echo $pm['title']; ?></a></div>
 				  <div class="col-md-5"><?php echo $user_string; ?></div>
-				  <div class="col-md-4"><?php echo date('d M Y, H:i', $pm['date']); ?></div>
+				  <div class="col-md-4"><?php echo date('d M Y, H:i', strtotime($pm['date'])); ?></div>
 				</div>
 				<?php 
 				} 
@@ -371,7 +371,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 				echo '<span class="white-text">' . $user_language['system'] . '</span>';
 			  }
 			  ?>
-			  <span class="pull-right"><?php echo date('d M Y, H:i', $pm[0]->sent_date); ?></span>
+			  <span class="pull-right"><?php echo date('d M Y, H:i', strtotime($pm[0]->sent_date)); ?></span>
 			</div>
 			<div class="panel-body">
 			  <?php
