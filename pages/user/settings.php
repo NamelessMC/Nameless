@@ -309,12 +309,20 @@ if(Input::exists()){
 				try {
 					if(Input::get('tfa_enabled') == 'on') $tfa = 1; else $tfa = 0;
 					
-					if(Input::get('tfa_type') == '0') $tfa_type = 0; else $tfa_type = 1;
+					if(Input::get('tfa_type') == '2'){
+						$tfa_type = 0; 
+						$tfa_complete = 1;
+					} else {
+						$tfa_type = 1;
+						$tfa_complete = 0;
+					}
 					
 					// Update
 					$queries->update('users', $user->data()->id, array(
 						'tfa_enabled' => $tfa,
-						'tfa_type' => $tfa_type
+						'tfa_type' => $tfa_type,
+						'tfa_secret' => null,
+						'tfa_complete' => $tfa_complete
 					));
 					
 					// Do we need to generate a secret key for the app?
@@ -511,7 +519,7 @@ $token = Token::generate();
 			  <div class="form-group">
 			    <label for="tfa_type"><?php echo $user_language['tfa_type']; ?></label>
 			    <select class="form-control" name="tfa_type" id="tfa_type">
-				  <option value="0"<?php if($user->data()->tfa_type == 0) echo ' selected'; ?>><?php echo $user_language['email']; ?></option>
+				  <option value="2"<?php if($user->data()->tfa_type == 0) echo ' selected'; ?>><?php echo $user_language['email']; ?></option>
 				  <option value="1"<?php if($user->data()->tfa_type == 1) echo ' selected'; ?>><?php echo $user_language['authenticator_app']; ?></option>
 				</select>
 			  </div>
