@@ -240,6 +240,7 @@ $token = Token::generate(); // generate token
 				  $config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 				  $config->set('HTML.SafeIframe', true);
 				  $config->set('URI.SafeIframeRegexp', '%%');
+				  $config->set('URI.AllowedSchemes', array('http' => true, 'https' => true, 'ts3server' => true));
 				  $purifier = new HTMLPurifier($config);
 				  echo $purifier->purify(htmlspecialchars_decode($page[0]->content)); 
 				  ?>
