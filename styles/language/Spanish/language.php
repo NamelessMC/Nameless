@@ -4,6 +4,9 @@
  *  http://worldscapemc.co.uk
  *
  *  License: MIT
+ *
+ *  Translation created by @paloke, @mrlost, @Legomix13 and Dexkum
+ *
  */
 
 /*
@@ -354,8 +357,8 @@ $user_language = array(
 	'minecraft_username' => 'Usuario de Minecraft',
 	'email' => 'Correo',
 	'email_address' => 'Dirección de correo',
-	'date_of_birth' => 'Date of Birth',
-	'location' => 'Location',
+	'date_of_birth' => 'Fecha de Cumpleaños',
+	'location' => 'Localización',
 	'password' => 'Contraseña',
 	'confirm_password' => 'Confirmar la contraseña',
 	'i_agree' => 'Acepto',
@@ -395,11 +398,11 @@ $user_language = array(
 	'username_mcname_email_exists' => 'Tu usuario, usuario de minecraft o email ya existe. Ya te has creado una cuenta?',
 	'invalid_mcname' => 'Tu usuario de Minecraft no es válido.',
 	'mcname_lookup_error' => 'Hubo un error contactando a los servidores de Mojang. Por favor intenta más tarde.',
-	'signature_maximum_900' => 'Your signature must be a maximum of 900 characters.',
-	'invalid_date_of_birth' => 'Invalid date of birth.',
-	'location_required' => 'Please enter a location.',
-	'location_minimum_2' => 'Your location must be a minimum of 2 characters.',
-	'location_maximum_128' => 'Your location must be a maximum of 128 characters.',
+	'signature_maximum_900' => 'Su firma debe ser de un máximo de 900 caracteres.',
+	'invalid_date_of_birth' => 'Fecha de nacimiento invalida.',
+	'location_required' => 'Por favor, introduzca una ubicación.',
+	'location_minimum_2' => 'Su ubicación debe ser de un mínimo de 2 caracteres.',
+	'location_maximum_128' => 'Su ubicación debe ser un máximo de 128 caracteres.',
 	
 	// UserCP
 	'user_cp' => 'Panel Usuario',
@@ -429,42 +432,42 @@ $user_language = array(
 	// Profile settings
 	'display_name' => 'Mostrar nombre',
 	'upload_an_avatar' => 'Subir avatar (solo .jpg, .png o .gif):',
-	'use_gravatar' => 'Use Gravatar?',
-	'change_password' => 'Change password',
-	'current_password' => 'Current password',
-	'new_password' => 'New password',
-	'repeat_new_password' => 'Repeat new password',
-	'password_changed_successfully' => 'Password changed successfully',
-	'incorrect_password' => 'Your current password is incorrect',
-	'update_minecraft_name_help' => 'This will update your website username to your current Minecraft username. You can only perform this action once every 30 days.',
-	'unable_to_update_mcname' => 'Unable to update Minecraft username.',
-	'display_age_on_profile' => 'Display age on profile?',
-	'two_factor_authentication' => 'Two Factor Authentication',
-	'enable_tfa' => 'Enable Two Factor Authentication',
-	'tfa_type' => 'Two Factor Authentication type:',
-	'authenticator_app' => 'Authentication App',
-	'tfa_scan_code' => 'Please scan the following code within your authentication app:',
-	'tfa_code' => 'If your device does not have a camera, or you are unable to scan the QR code, please input the following code:',
-	'tfa_enter_code' => 'Please enter the code displaying within your authentication app:',
-	'invalid_tfa' => 'Invalid code, please try again.',
-	'tfa_successful' => 'Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.',
-	'confirm_tfa_disable' => 'Are you sure you wish to disable two factor authentication?',
-	'tfa_disabled' => 'Two factor authentication disabled.',
-	'tfa_enter_email_code' => 'We have sent you a code within an email for verification. Please enter the code now:',
-	'tfa_email_contents' => 'A login attempt has been made to your account. If this was you, please input the following two factor authentication code when asked to do so. If this was not you, you can ignore this email, however a password reset is advised. The code is only valid for 10 minutes.',
+	'use_gravatar' => '¿Usar Gravatar?',
+	'change_password' => 'Cambia la contraseña',
+	'current_password' => 'Contraseña actual',
+	'new_password' => 'Nueva contraseña',
+	'repeat_new_password' => 'Repita la nueva contraseña',
+	'password_changed_successfully' => 'Contraseña cambiada con éxito',
+	'incorrect_password' => 'Su contraseña actual es incorrecta',
+	'update_minecraft_name_help' => 'Esto actualizará su nombre de usuario sitio web a su nombre de usuario actual de Minecraft. Sólo puede realizar esta acción una vez cada 30 días.',
+	'unable_to_update_mcname' => 'No se puede actualizar Minecraft nombre de usuario.',
+	'display_age_on_profile' => '¿Visualizar de la edad en el perfil?',
+	'two_factor_authentication' => 'Autenticación de dos factores',
+	'enable_tfa' => 'Habilitar la autenticación de dos factores',
+	'tfa_type' => 'Tipo de autenticación de dos factores:',
+	'authenticator_app' => 'Aplicación de Autenticación',
+	'tfa_scan_code' => 'Por favor, escanear el siguiente código de autenticación dentro de su aplicación:',
+	'tfa_code' => 'Si su dispositivo no dispone de una cámara, o que no son capaces de escanear el código QR, por favor, introduzca el siguiente código:',
+	'tfa_enter_code' => 'Por favor, introduzca el código donde se presentan dentro de su aplicación de autenticación:',
+	'invalid_tfa' => 'Código no válido, por favor vuelva a intentarlo.',
+	'tfa_successful' => 'Configuración de la autenticación de dos factores con éxito. Usted tendrá que autenticarse cada vez que se conecte a partir de ahora.',
+	'confirm_tfa_disable' => '¿Está seguro de que desea desactivar la autenticación de dos factores?',
+	'tfa_disabled' => 'La autenticación de dos factores deshabilitado.',
+	'tfa_enter_email_code' => 'Te hemos enviado un código dentro de un correo electrónico para la verificación. Por favor, introduzca el código de ahora:',
+	'tfa_email_contents' => 'Un intento de conexión se ha realizado en su cuenta. Si esto era que, de entrada por favor el siguiente código de autenticación de dos factores cuando se le preguntó a hacerlo. Si esto no era usted, puede ignorar este mensaje, sin embargo se recomienda un restablecimiento de contraseña. El código sólo es válido durante 10 minutos.',
 	
 	// Alerts
 	'viewing_unread_alerts' => 'Viendo las alertas no leídas. Cambiar a <a href="/user/alerts/?view=read"><span class="label label-success">leidas</span></a>.',
 	'viewing_read_alerts' => 'Viendo las alertas ya lídas. Cambiar a <a href="/user/alerts/"><span class="label label-warning">no leídas</span></a>.',
 	'no_unread_alerts' => 'No tiene alertas sin leer.',
-	'no_alerts' => 'No alerts',
+	'no_alerts' => 'No hay alertas',
 	'no_read_alerts' => 'No tiene alertas leídas.',
 	'view' => 'Ver',
 	'alert' => 'Alerta',
 	'when' => 'Cuando',
 	'delete' => 'Borrar',
 	'tag' => 'Marcar usuario',
-	'tagged_in_post' => 'You have been tagged in a post',
+	'tagged_in_post' => 'Se le ha etiquetado en una publicación',
 	'report' => 'Informe',
 	'deleted_alert' => 'Alerta borrada correctamente',
 	
@@ -494,21 +497,21 @@ $user_language = array(
 	'send_message' => 'Enviar mensaje',
 	'remove_friend' => 'Eliminar amigo',
 	'add_friend' => 'Añadir amigo',
-	'last_online' => 'Last Online:',
-	'find_a_user' => 'Find a user',
-	'user_not_following' => 'This user does not follow anyone.',
-	'user_no_followers' => 'This user has no followers.',
+	'last_online' => 'Ultima sesión:',
+	'find_a_user' => 'Encuentra un usuario',
+	'user_not_following' => 'Este usuario no sigue a nadie.',
+	'user_no_followers' => 'Este usuario no tiene seguidores.',
 	'following' => 'FOLLOWING',
 	'followers' => 'FOLLOWERS',
-	'display_location' => 'From {x}.', // Don't replace {x}, which will be the user's location
-	'display_age_and_location' => '{x}, from {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
-	'write_on_user_profile' => 'Write something on {x}\'s profile...', // Don't replace {x}
-	'write_on_own_profile' => 'Write something on your profile...',
-	'profile_posts' => 'Profile Posts',
-	'no_profile_posts' => 'No profile posts yet.',
-	'invalid_wall_post' => 'Invalid wall post. Please ensure your post is between 2 and 2048 characters.',
-	'about' => 'About',
-	'reply' => 'Reply',
+	'display_location' => 'De {x}.', // Don't replace {x}, which will be the user's location
+	'display_age_and_location' => '{x}, De {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
+	'write_on_user_profile' => 'Escribir algo en el perfil de {x} ...', // Don't replace {x}
+	'write_on_own_profile' => 'Escriba algo en su perfil ...',
+	'profile_posts' => 'Mensajes del perfil',
+	'no_profile_posts' => 'No hay ninguna entrada del perfil.',
+	'invalid_wall_post' => 'Publicación en el muro no válida. Asegúrese de que su mensaje es de entre 2 y 2.048 caracteres.',
+	'about' => 'Acerca de',
+	'reply' => 'Respuesta',
 	'x_likes' => '{x} likes', // Don't replace {x}
 	'likes' => 'Likes',
 	'no_likes' => 'No likes.',
@@ -620,7 +623,7 @@ $general_language = array(
 	// Other
 	'page_loaded_in' => 'Página cargada en {x}s', // Don't replace {x}; 's' stands for 'seconds'
 	'none' => 'Nada',
-	'404' => 'Sorry, we couldn\'t find that page.'
+	'404' => 'Lo sentimos, esa página no existe.'
 );
 
 /* 
