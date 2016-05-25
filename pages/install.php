@@ -69,8 +69,8 @@ if(isset($_GET["step"])){
           <h4>Are you upgrading from 0.4.1?</h4>
 		  
           <p>
-            <button type="button" onclick="location.href='./install.php?step=upgrade_requirements'" class="btn btn-success">Yes, upgrade from 0.4.1 &raquo;</button>
-	    <button type="button" onclick="location.href='./install.php?step=requirements'" class="btn btn-primary">No, this is a new install &raquo;</button>
+            <button type="button" onclick="location.href='./install?step=upgrade_requirements'" class="btn btn-success">Yes, upgrade from 0.4.1 &raquo;</button>
+	    <button type="button" onclick="location.href='./install?step=requirements'" class="btn btn-primary">No, this is a new install &raquo;</button>
           </p>
 		  
 		  <div class="alert alert-info">Note: if you're upgrading from a 1.x version to another 1.x version, you will need to follow the instructions from within the AdminCP's Update tab, rather than running through the installer again.</div>
@@ -192,11 +192,11 @@ if(isset($_GET["step"])){
 		} else {
                     if($step === "requirements") {
           ?>
-          <button type="button" onclick="location.href='./install.php?step=configuration'" class="btn btn-primary">Proceed &raquo;</button>
+          <button type="button" onclick="location.href='./install?step=configuration'" class="btn btn-primary">Proceed &raquo;</button>
           <?php
                     } else {
           ?>
-          <button type="button" onclick="location.href='./install.php?step=upgrade'" class="btn btn-primary">Proceed &raquo;</button>
+          <button type="button" onclick="location.href='./install?step=upgrade'" class="btn btn-primary">Proceed &raquo;</button>
           <?php
                     }
 		}
@@ -635,7 +635,7 @@ if(isset($_GET["step"])){
 							// Close connections
 							$mysqli->close();
 							
-							echo '<script>window.location.replace("./install.php?step=finish&from=upgrade");</script>';
+							echo '<script>window.location.replace("./install?step=finish&from=upgrade");</script>';
 							die();
 							
 						} else {
@@ -751,7 +751,7 @@ if(isset($_GET["step"])){
 						fwrite($file, $insert);
 						fclose($file);
 						
-						echo '<script>window.location.replace("./install.php?step=database");</script>';
+						echo '<script>window.location.replace("./install?step=database");</script>';
 						die();
 						
 					} else {
@@ -844,7 +844,7 @@ if(isset($_GET["step"])){
                 if($queries->dbInitialise($prefix)) {
                     ?>
            <div class="alert alert-success">The database was initialised successfully, and you may now progress with the installation.</div>
-           <button type='button' onclick="location.href='./install.php?step=settings'" class='btn btn-primary'>Continue &raquo;</button>
+           <button type='button' onclick="location.href='./install?step=settings'" class='btn btn-primary'>Continue &raquo;</button>
                     <?php                    
                 } else {
                     echo '<div class="alert alert-danger">Database initialisation failed.</div>';
@@ -1212,7 +1212,7 @@ if(isset($_GET["step"])){
 					$c->setCache('page_load_cache');
 					$c->store('page_load', 0);
 					
-					echo '<script>window.location.replace("./install.php?step=account");</script>';
+					echo '<script>window.location.replace("./install?step=account");</script>';
 					die();
 					
 				} catch(Exception $e){
@@ -1440,9 +1440,9 @@ if(isset($_GET["step"])){
 					$login = $user->login(Input::get('username'), Input::get('password'), true);
 					if($login) {					
 						if(!isset($uuid_error)){
-							echo '<script>window.location.replace("./install.php?step=convert");</script>';
+							echo '<script>window.location.replace("./install?step=convert");</script>';
 						} else {
-							echo '<script>window.location.replace("./install.php?step=convert&error=uuid");</script>';
+							echo '<script>window.location.replace("./install?step=convert&error=uuid");</script>';
 						}
 						die();
 					} else {
@@ -1532,8 +1532,8 @@ if(isset($_GET["step"])){
 			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=phpbb'">phpBB</a><br />
 			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=mybb'">MyBB</a><br />
 			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=wordpress'">WordPress</a><br />-->
-			<a href="#" onclick="location.href='./install.php?step=convert&convert=yes&from=xenforo'">XenForo</a><br /><br />
-			<button class="btn btn-danger" onclick="location.href='./install.php?step=convert'">Cancel</button>
+			<a href="#" onclick="location.href='./install?step=convert&convert=yes&from=xenforo'">XenForo</a><br /><br />
+			<button class="btn btn-danger" onclick="location.href='./install?step=convert'">Cancel</button>
 		</div>
 	  <?php
 		} else if(isset($_GET["convert"]) && isset($_GET["from"])){
@@ -1579,7 +1579,7 @@ if(isset($_GET["step"])){
 			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 			  <input type="hidden" name="action" value="convert">
 			  <input class="btn btn-primary" type="submit" value="Convert">
-			  <a href="#" class="btn btn-danger" onclick="location.href='./install.php?step=convert&convert=yes'">Cancel</a>
+			  <a href="#" class="btn btn-danger" onclick="location.href='./install?step=convert&convert=yes'">Cancel</a>
 			</form>
 			
 	  <?php
@@ -1588,7 +1588,7 @@ if(isset($_GET["step"])){
 	  ?>
 			<div class="alert alert-success">
 				Successfully imported ModernBB data. <strong>Important:</strong> Please redefine any private categories in the Admin panel.<br />
-				<center><button class="btn btn-primary"  onclick="location.href='./install.php?step=finish'">Proceed</button></center>
+				<center><button class="btn btn-primary"  onclick="location.href='./install?step=finish'">Proceed</button></center>
 			</div>
 	  <?php
 			}
@@ -1632,7 +1632,7 @@ if(isset($_GET["step"])){
 			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 			  <input type="hidden" name="action" value="convert">
 			  <input class="btn btn-primary" type="submit" value="Convert">
-			  <a href="#" class="btn btn-danger" onclick="location.href='./install.php?step=convert&convert=yes'">Cancel</a>
+			  <a href="#" class="btn btn-danger" onclick="location.href='./install?step=convert&convert=yes'">Cancel</a>
 			</form>
 			
 	  <?php
@@ -1641,7 +1641,7 @@ if(isset($_GET["step"])){
 	  ?>
 			<div class="alert alert-success">
 				Successfully imported phpBB data. <strong>Important:</strong> Please redefine any private categories in the Admin panel.<br />
-				<center><button class="btn btn-primary"  onclick="location.href='./install.php?step=finish'">Proceed</button></center>
+				<center><button class="btn btn-primary"  onclick="location.href='./install?step=finish'">Proceed</button></center>
 			</div>
 	  <?php
 			}
@@ -1693,7 +1693,7 @@ if(isset($_GET["step"])){
 			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 			  <input type="hidden" name="action" value="convert">
 			  <input class="btn btn-primary" type="submit" value="Convert">
-			  <a href="#" class="btn btn-danger" onclick="location.href='./install.php?step=convert&convert=yes'">Cancel</a>
+			  <a href="#" class="btn btn-danger" onclick="location.href='./install?step=convert&convert=yes'">Cancel</a>
 			</form>
 			
 	  <?php
@@ -1702,7 +1702,7 @@ if(isset($_GET["step"])){
 	  ?>
 			<div class="alert alert-success">
 				Successfully imported Wordpress data. <strong>Important:</strong> Please redefine any private categories in the Admin panel.<br />
-				<center><button class="btn btn-primary"  onclick="location.href='./install.php?step=finish'">Proceed</button></center>
+				<center><button class="btn btn-primary"  onclick="location.href='./install?step=finish'">Proceed</button></center>
 			</div>
 	  <?php
 			}
@@ -1750,7 +1750,7 @@ if(isset($_GET["step"])){
 			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 			  <input type="hidden" name="action" value="convert">
 			  <input class="btn btn-primary" type="submit" value="Convert">
-			  <a href="#" class="btn btn-danger" onclick="location.href='./install.php?step=convert&convert=yes'">Cancel</a>
+			  <a href="#" class="btn btn-danger" onclick="location.href='./install?step=convert&convert=yes'">Cancel</a>
 			</form>
 			
 	  <?php
@@ -1759,7 +1759,7 @@ if(isset($_GET["step"])){
 	  ?>
 			<div class="alert alert-success">
 				Successfully imported XenForo data. <strong>Important:</strong> Please check your forum and group permissions, and update users' Minecraft usernames and UUID through the AdminCP.<br />
-				<center><button class="btn btn-primary"  onclick="location.href='./install.php?step=finish'">Proceed</button></center>
+				<center><button class="btn btn-primary"  onclick="location.href='./install?step=finish'">Proceed</button></center>
 			</div>
 	  <?php
 			}
@@ -1781,8 +1781,8 @@ if(isset($_GET["step"])){
 	  ?>
 	  <p>Convert from another forum software?</p>
 	  <div class="btn-group">
-		<button class="btn btn-success" onclick="location.href='./install.php?step=convert&convert=yes'">Yes</button>
-		<button class="btn btn-primary" onclick="location.href='./install.php?step=finish'">No</button>
+		<button class="btn btn-success" onclick="location.href='./install?step=convert&convert=yes'">Yes</button>
+		<button class="btn btn-primary" onclick="location.href='./install?step=finish'">No</button>
 	  </div>
 	<?php
 		}
