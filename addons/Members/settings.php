@@ -3,7 +3,7 @@
  *	Made by Partydragen
  *  http://partydragen.com/
  *
- *  Modified by Samerton
+ *  and Samerton
  *  http://worldscapemc.co.uk
  *
  *  License: MIT
@@ -32,6 +32,6 @@ if($user->isLoggedIn()){
 // Display information first
 ?>
 <h3>Addon: Members List</h3>
-Authors: Partydragen, modified by Samerton<br />
-Version: 1.1.2<br />
-Description: Adds a page where users can check all registered members<br />
+Authors: Partydragen and Samerton<br />
+Version: 1.2.0<br />
+Description: Adds a page where users can check all registered members along with staff groups<br />

@@ -55,14 +55,44 @@ if(!in_array('Members', $enabled_addon_pages)){
     <div class="container">	
 	  <div class="row">
 		<div class="col-md-13">
+		  <br />
+		
+		  <ul class="nav nav-pills">
+		    <li<?php if(!isset($_GET['v'])) echo ' class="active"'; ?>><a href="/members"><?php echo $members_language['members']; ?></a></li>
+			<?php
+			// Staff groups
+			$staff_groups = $queries->getWhere('groups', array('staff', '=', 1));
+			foreach($staff_groups as $staff_group){
+			?>
+		    <li<?php if(isset($_GET['v']) && $_GET['v'] == $staff_group->name) echo ' class="active"'; ?>><a href="/members/?v=<?php echo htmlspecialchars($staff_group->name); ?>"><?php echo htmlspecialchars($staff_group->name); ?></a></li>
+			<?php
+				if(isset($_GET['v']) && $staff_group->name == $_GET['v']) $selected_staff_group = $staff_group;
+			}
+			// Ensure selected group exists
+			if(isset($_GET['v']) && !isset($selected_staff_group)){
+				echo '<script data-cfasync="false">window.location.replace(\'/\');</script>';
+				die();
+			}
+			?>
+		  </ul>
+		  
+		  <hr />
+		  
 		  <?php
-		  $users = $queries->orderAll("users", "USERNAME", "ASC");
-		  $groups = $queries->getAll("groups", array("id", "<>", 0));
+		  // Get members/staff members
+		  if(!isset($_GET['v'])){
+			  // All users/groups
+			  $users = $queries->orderAll("users", "USERNAME", "ASC");
+			  $groups = $queries->getAll("groups", array("id", "<>", 0));
+		  } else {
+			  // Just get users in the selected group
+			  $users = $queries->orderWhere('users', 'group_id = ' . htmlspecialchars($selected_staff_group->id), 'USERNAME', 'ASC');
+		  }
 		  ?>
-		  </br>
+		  
 		  <div class="panel panel-primary">
 			<div class="panel-heading">
-			  <h3 class="panel-title"><?php echo $members_language['members']; ?></h3>
+			  <h3 class="panel-title"><?php if(!isset($_GET['v'])) echo $members_language['members']; else echo htmlspecialchars($_GET['v']); ?></h3>
 			</div>
 
 			<div class="panel-body">
@@ -77,13 +107,17 @@ if(!in_array('Members', $enabled_addon_pages)){
 			    <tbody>
 				  <?php
 				  foreach($users as $individual){
-				  	$user_group = "";
-					  foreach($groups as $group){
-						if($group->id === $individual->group_id){
-						  $user_group = $group->group_html;
-						  break;
+					if(isset($selected_staff_group)){
+						$user_group = $selected_staff_group->group_html;
+					} else {
+						$user_group = "";
+						foreach($groups as $group){
+							if($group->id === $individual->group_id){
+							  $user_group = $group->group_html;
+							  break;
+							}
 						}
-					  }
+					}
 					// Get avatar
 					if($individual->has_avatar == 1){
 						$avatar = '<img class="img-rounded" style="margin: -10px 0px; width:35px; height:35px;" src="' .  $user->getAvatar($individual->id) . '" />';
