@@ -181,7 +181,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 				    <tr>
 				      <th></th>
 					  <th><?php echo $user_language['minecraft_username']; ?></th>
-					  <th><?php echo $user_language['time_applied']; ?></th>
+					  <th><?php echo $mod_language['time_applied']; ?></th>
 				    </tr>
 				  </thead>
 				  <?php 
@@ -265,7 +265,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 			?>
 			<div class="panel panel-primary">
 			  <div class="panel-heading">
-				<a href="/profile/<?php echo $mcusername; ?>"><?php echo $username; ?></a>
+				<a class="white-text" href="/profile/<?php echo $mcusername; ?>"><?php echo $username; ?></a>
 				<span class="pull-right">
 				  <?php echo date('jS M Y , g:ia', $comment->time); ?>
 				</span>
