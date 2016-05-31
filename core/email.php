@@ -5,5 +5,6 @@ $GLOBALS['email'] = array(
 	'name' => '',
 	'host' => '',
 	'port' => 587,
-	'secure' => 'tls'
+	'secure' => 'tls',
+	'smtp_auth' => true
 );
