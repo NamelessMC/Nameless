@@ -11,7 +11,7 @@
  */
 
 // Page title first
-echo '<title>' . $title . ' &bull; ' . $sitename . '</title>';
+echo '<title>' . str_replace('&amp;', '&', $title) . ' &bull; ' . $sitename . '</title>';
  
 /*
  *  Check to see if the theme actually exists..
