@@ -36,7 +36,7 @@ $adm_page = "forums";
     <meta name="author" content="Samerton">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-	
+	<script>var groups = [];</script>
 	<?php
 	// Generate header and navbar content
 	// Page title
@@ -628,10 +628,26 @@ $adm_page = "forums";
 							}
 						}
 						?>
-					    <input type="hidden" name="perm-view-0" value="0" />
-					    <label for="Input-view-0"><?php echo $admin_language['can_view_forum']; ?></label>
-					    <input name="perm-view-0" id="Input-view-0" value="1" type="checkbox"<?php if(isset($view) && $view == 1){ echo ' checked'; } ?>><br />
-					    
+						<div class="row">
+							<div class="col-md-8">
+								<table class="table">
+								    <thead>
+								      <tr>
+								      	<th></th>
+								        <th></th>
+								      </tr>
+								    </thead>
+								    <tbody>
+								      <tr>
+								        <td><input type="hidden" name="perm-view-0" value="0" />
+					    					<label for="Input-view-0"><?php echo $admin_language['can_view_forum']; ?></label></td>
+								        <td class="info"> <input onclick="colourUpdate(this);" name="perm-view-0" id="Input-view-0" value="1" type="checkbox"<?php if(isset($view) && $view == 1){ echo ' checked'; } ?>></td>
+								      </tr>
+								    </tbody>
+								</table>
+							</div>
+						</div>
+					    <script>groups.push("0");</script>
 						<input type="hidden" name="perm-topic-0" value="0" />
 						<input type="hidden" name="perm-post-0" value="0" />
 						<br />
@@ -651,20 +667,37 @@ $adm_page = "forums";
 								}
 							}
 						?>
-						<strong><?php echo htmlspecialchars($group->name); ?>:</strong><br />
-						
-					    <input type="hidden" name="perm-view-<?php echo $group->id; ?>" value="0" />
-					    <label for="Input-view-<?php echo $group->id; ?>"><?php echo $admin_language['can_view_forum']; ?></label>
-					    <input name="perm-view-<?php echo $group->id; ?>" id="Input-view-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($view) && $view == 1){ echo ' checked'; } ?>><br />
-					    
-						<input type="hidden" name="perm-topic-<?php echo $group->id; ?>" value="0" />
-						<label for="Input-topic-<?php echo $group->id; ?>"><?php echo $admin_language['can_create_topic']; ?></label>
-					    <input name="perm-topic-<?php echo $group->id; ?>" id="Input-topic-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($topic) && $topic == 1){ echo ' checked'; } ?>><br />
-						
-						<input type="hidden" name="perm-post-<?php echo $group->id; ?>" value="0" />
-						<label for="Input-post-<?php echo $group->id; ?>"><?php echo $admin_language['can_post_reply']; ?></label>
-					    <input name="perm-post-<?php echo $group->id; ?>" id="Input-post-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($post) && $post == 1){ echo ' checked'; } ?>><br />
-						<br />
+							<strong onclick="toggle(<?php echo "'" . $group->id . "'"; ?>)"><?php echo htmlspecialchars($group->name); ?>:</strong><br />
+						<div class="row">
+							<div class="col-md-8">
+								<table class="table">
+								    <thead>
+								      <tr>
+								      	<th></th>
+								        <th></th>
+								      </tr>
+								    </thead>
+								    <tbody>
+								      <tr>
+								        <td><input type="hidden" name="perm-view-<?php echo $group->id; ?>" value="0" />
+						    				<label for="Input-view-<?php echo $group->id; ?>"><?php echo $admin_language['can_view_forum']; ?></label></td>
+								        <td class="info"> <input onclick="colourUpdate(this);" name="perm-view-<?php echo $group->id; ?>" id="Input-view-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($view) && $view == 1){ echo ' checked'; } ?>></td>
+								      </tr>
+								      <tr>
+								        <td><input type="hidden" name="perm-topic-<?php echo $group->id; ?>" value="0" />
+											<label for="Input-topic-<?php echo $group->id; ?>"><?php echo $admin_language['can_create_topic']; ?></label></td>
+								        <td class="info"><input onclick="colourUpdate(this);" name="perm-topic-<?php echo $group->id; ?>" id="Input-topic-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($topic) && $topic == 1){ echo ' checked'; } ?>></td>
+								      </tr>
+								      <tr>
+								        <td><input type="hidden" name="perm-post-<?php echo $group->id; ?>" value="0" />
+											<label for="Input-post-<?php echo $group->id; ?>"><?php echo $admin_language['can_post_reply']; ?></label></td>
+								        <td class="info"><input onclick="colourUpdate(this);" name="perm-post-<?php echo $group->id; ?>" id="Input-post-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($post) && $post == 1){ echo ' checked'; } ?>></td>
+								      </tr>
+								    </tbody>
+								</table>
+							</div>
+						</div>
+						<script>groups.push("<?php echo $group->id; ?>");</script>
 						<?php
 						}
 						?>
@@ -994,4 +1027,42 @@ $adm_page = "forums";
 	require('core/includes/template/scripts.php'); 
 	?>
   </body>
+  <script type="text/javascript">
+  	function colourUpdate(that) {
+    	var x = that.parentElement;
+    	if(that.checked) {
+    		x.className = "success";
+    	} else {
+    		x.className = "danger";
+    	}
+	}
+	function toggle(group) {
+		if(document.getElementById('Input-view-' + group).checked) {
+			document.getElementById('Input-view-' + group).checked = false;
+		} else {
+			document.getElementById('Input-view-' + group).checked = true;
+		}
+		if(document.getElementById('Input-topic-' + group).checked) {
+			document.getElementById('Input-topic-' + group).checked = false;
+		} else {
+			document.getElementById('Input-topic-' + group).checked = true;
+		}
+		if(document.getElementById('Input-post-' + group).checked) {
+			document.getElementById('Input-post-' + group).checked = false;
+		} else {
+			document.getElementById('Input-post-' + group).checked = true;
+		}
+
+		colourUpdate(document.getElementById('Input-view-' + group));
+		colourUpdate(document.getElementById('Input-topic-' + group));
+		colourUpdate(document.getElementById('Input-post-' + group));
+	}
+	for(var g in groups) {
+		colourUpdate(document.getElementById('Input-view-' + groups[g]));
+		if(groups[g] != "0") {
+			colourUpdate(document.getElementById('Input-topic-' + groups[g]));
+			colourUpdate(document.getElementById('Input-post-' + groups[g]));
+		}
+	}
+  </script>
 </html>
