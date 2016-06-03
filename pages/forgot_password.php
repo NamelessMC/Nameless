@@ -35,7 +35,7 @@ if(Input::exists()) {
 					$mail->Host = $GLOBALS['email']['host'];
 					$mail->Port = $GLOBALS['email']['port'];
 					$mail->SMTPSecure = $GLOBALS['email']['secure'];
-					$mail->SMTPAuth = true;
+					$mail->SMTPAuth = $GLOBALS['email']['smtp_auth'];
 					$mail->Username = $GLOBALS['email']['username'];
 					$mail->Password = $GLOBALS['email']['password'];
 					$mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
