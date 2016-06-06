@@ -394,6 +394,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 					
 					$template_array[$parent['id']]['forums'][] = array(
 						'forum_id' => $item['id'],
+						'forum_type' => htmlspecialchars_decode($item['forum_type']),
 						'forum_title' => $purifier->purify(htmlspecialchars_decode($item['forum_title'])),
 						'forum_description' => $purifier->purify(htmlspecialchars_decode($item['forum_description'])),
 						'forum_topics' => $topics_count,
