@@ -52,7 +52,15 @@ Upcoming addons (these will need to be downloaded separately):
 * @j0ach1mmall3
 * @dwilson390
 * @Root3287
+* @HexaCubist
 * @TheMeq
+* @partydragen
+* @IonLogic
+* @nfell2009
+* @computerwizjared
+* @mentimjojo
+* @jesseke55
+* @MistriHD
 * @fetch404
 * @MrHodge
 * @oliverdunk
@@ -69,7 +77,7 @@ Upcoming addons (these will need to be downloaded separately):
 **NamelessMC Translations**
 * English: @Samerton
 * German: @LPkkjHD & @manuelgu
-* Spanish: @paloke, @mrlost and Dexkum
+* Spanish: @paloke, @lockerecca, @talkahe, @mrlost and Dexkum
 * Czech: SnooWiK
 * Norsk: @partydragen
 * Slovak: @Marki35
