@@ -6,8 +6,12 @@
 	  {foreach from=$FORUMS item=parent}
 	    {assign var=counter value=1}
 		<div class="panel panel-default">
-		  <div class="panel-heading">
-			<a href="/forum/view_forum/?fid={$parent.id}"><strong>{$parent.forum_title}</strong></a>
+		  <div class="panel-heading" id="{$parent.forum_title}">
+              {if $parent.forum_type == "category"}
+                  <strong>{$parent.forum_title}</strong>
+              {else}
+                  <a href="/forum/view_forum/?fid={$parent.id}"><strong>{$parent.forum_title}</strong></a>
+              {/if}
 		  </div>
 		  <div class="panel-body">
 			{foreach from=$parent.forums item=forum}

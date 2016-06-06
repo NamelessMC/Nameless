@@ -62,6 +62,11 @@ if(isset($_GET['p'])){
 $forum_query = $queries->getWhere("forums", array("id", "=", $fid));
 $forum_query = $forum_query[0];
 
+if($forum_query->forum_type == 'category') {
+	Redirect::to('/forum#' . $forum_query->forum_title);
+	die();
+}
+
 // Get all topics
 $topics = $queries->orderWhere("topics", "forum_id = ". $fid . " AND sticky = 0", "topic_reply_date", "DESC");
 

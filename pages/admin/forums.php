@@ -189,6 +189,7 @@ $adm_page = "forums";
 									$queries->create("forums", array(
 										'forum_title' => htmlspecialchars(Input::get('forumname')),
 										'forum_description' => htmlspecialchars(Input::get('forumdesc')),
+										'forum_type' => Input::get('forum_type'),
 										'forum_order' => $last_forum_order + 1
 									));
 									$forum_id = $queries->getLastId();
@@ -251,6 +252,10 @@ $adm_page = "forums";
 						</div>
 						<div class="form-group">
 							<textarea name="forumdesc" placeholder="<?php echo $admin_language['forum_description']; ?>" class="form-control" rows="3"></textarea>
+						</div>
+						<div class="form-group">
+							<input type="radio" name="forum_type" value="forum" checked> <span class="label label-default"><?php echo $admin_language['forum_type_forum']; ?></span>
+							<input type="radio" name="forum_type" value="category"> <span class="label label-default"><?php echo $admin_language['forum_type_category']; ?></span>
 						</div>
 						<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 						<input class="btn btn-success" type="submit" value="<?php echo $general_language['submit']; ?>">	
@@ -598,21 +603,21 @@ $adm_page = "forums";
 					    <label for="InputDescription"><?php echo $admin_language['forum_description']; ?></label>
 						<textarea name="description" id="InputDescription" placeholder="<?php echo $admin_language['forum_description']; ?>" class="form-control" rows="3"><?php echo $purifier->purify(htmlspecialchars_decode($forum[0]->forum_description)); ?></textarea>
 				      </div>
-					  <div class="form-group">
-						<label for="InputParentForum"><?php echo $admin_language['parent_forum']; ?></label>
-						<select class="form-control" id="InputParentForum" name="parent_forum">
-						  <option value="0" <?php if($forum[0]->parent == 0){ echo ' selected="selected"'; } ?>><?php echo $admin_language['has_no_parent']; ?></option>
-						  <?php
-							foreach($available_forums as $available_forum){
-							  if($available_forum->id !== $forum[0]->id){
-							?>
-						  <option value="<?php echo $available_forum->id; ?>" <?php if($available_forum->id == $forum[0]->parent){ ?> selected="selected"<?php } ?>><?php echo $purifier->purify(htmlspecialchars_decode($available_forum->forum_title)); ?></option>
-							<?php 
-							  }
-							}
-						  ?>
-						</select>
-					  </div>
+						<div class="form-group" <?php if($forum[0]->forum_type == 'category') { echo'style="display:none;"'; } ?>>
+							<label for="InputParentForum"><?php echo $admin_language['parent_forum']; ?></label>
+							<select class="form-control" id="InputParentForum" name="parent_forum">
+								<option value="0" <?php if($forum[0]->parent == 0){ echo ' selected="selected"'; } ?>><?php echo $admin_language['has_no_parent']; ?></option>
+								<?php
+								foreach($available_forums as $available_forum){
+									if($available_forum->id !== $forum[0]->id){
+										?>
+										<option value="<?php echo $available_forum->id; ?>" <?php if($available_forum->id == $forum[0]->parent){ ?> selected="selected"<?php } ?>><?php echo $purifier->purify(htmlspecialchars_decode($available_forum->forum_title)); ?></option>
+										<?php
+									}
+								}
+								?>
+							</select>
+						</div>
 					  <div class="form-group">
 						<strong><?php echo $admin_language['forum_permissions']; ?></strong><br />
 						<?php
@@ -683,12 +688,12 @@ $adm_page = "forums";
 						    				<label for="Input-view-<?php echo $group->id; ?>"><?php echo $admin_language['can_view_forum']; ?></label></td>
 								        <td class="info"> <input onclick="colourUpdate(this);" name="perm-view-<?php echo $group->id; ?>" id="Input-view-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($view) && $view == 1){ echo ' checked'; } ?>></td>
 								      </tr>
-								      <tr>
+								      <tr <?php if($forum[0]->forum_type == 'category') { echo'style="display:none;"'; } ?>>
 								        <td><input type="hidden" name="perm-topic-<?php echo $group->id; ?>" value="0" />
 											<label for="Input-topic-<?php echo $group->id; ?>"><?php echo $admin_language['can_create_topic']; ?></label></td>
 								        <td class="info"><input onclick="colourUpdate(this);" name="perm-topic-<?php echo $group->id; ?>" id="Input-topic-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($topic) && $topic == 1){ echo ' checked'; } ?>></td>
 								      </tr>
-								      <tr>
+								      <tr <?php if($forum[0]->forum_type == 'category') { echo'style="display:none;"'; } ?>>
 								        <td><input type="hidden" name="perm-post-<?php echo $group->id; ?>" value="0" />
 											<label for="Input-post-<?php echo $group->id; ?>"><?php echo $admin_language['can_post_reply']; ?></label></td>
 								        <td class="info"><input onclick="colourUpdate(this);" name="perm-post-<?php echo $group->id; ?>" id="Input-post-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($post) && $post == 1){ echo ' checked'; } ?>></td>

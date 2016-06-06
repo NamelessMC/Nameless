@@ -316,6 +316,13 @@ class Forum {
 		return $data[0]->forum_title;
 	}
 
+	// Returns a string containing the type of forum
+	// Params: $forum_id (integer) - forum id to check
+	public function getForumType($forum_id) {
+		$data = $this->_db->get('forums', array('id', '=', $forum_id))->results();
+		return $data[0]->forum_type;
+	}
+
 	// Returns database entries containing the reputation of a specified post
 	// Params: $post_id (integer) - post id to check
 	public function getReputation($post_id) {

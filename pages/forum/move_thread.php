@@ -134,9 +134,11 @@ $token = Token::generate();
 		  <select class="form-control" id="InputMove" name="move">
 		  <?php 
 		  foreach($forums as $forum){
-		  ?>
-		  <option value="<?php echo $forum->id; ?>"><?php echo str_replace("&amp;", "&", htmlspecialchars($forum->forum_title)); ?></option>
-		  <?php 
+			  if($forum->forum_type != 'category') {
+				  ?>
+				  <option value="<?php echo $forum->id; ?>"><?php echo str_replace("&amp;", "&", htmlspecialchars($forum->forum_title)); ?></option>
+				  <?php
+			  }
 		  } 
 		  ?>
 		  </select> 
