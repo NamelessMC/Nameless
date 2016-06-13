@@ -59,7 +59,7 @@ Upcoming addons (these will need to be downloaded separately):
 * @nfell2009
 * @computerwizjared
 * @mentimjojo
-* @jesseke55
+* @jesseke55 (On SpigotMC: Headhunterz_)
 * @MistriHD
 * @fetch404
 * @MrHodge
