@@ -309,7 +309,7 @@ if(isset($profile)){
 			  <?php
 			  // User avatar	
 		      if(!($exists) || $profile_user[0]->has_avatar == '0'){ 
-				  echo '<img class="img-rounded" src="https://cravatar.eu/avatar/' . $mcname . '/300.png" />';
+				  echo '<img class="img-rounded" src="https://cravatar.eu/helmavatar/' . $mcname . '/300.png" />';
 			  } else { 
 				  echo '<img class="img-rounded" style="vertical-align: middle;" src="' .  $user->getAvatar($profile_user[0]->id, "../") . '" />';
 			  }
