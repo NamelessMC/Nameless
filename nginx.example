@@ -41,6 +41,7 @@ server {
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
+        #Make sure that cgi.fix_pathinfo=0 in php.ini of the fpm configuration folder instead of cgi.fix_pathinfo=1 .
     }
 
 	error_page 404 /404.php;
