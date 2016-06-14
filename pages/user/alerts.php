@@ -22,9 +22,15 @@ if(isset($_GET['a']) && is_numeric($_GET['a'])){
 			$queries->update('alerts', $alert[0]->id, array(
 				'`read`' => 1
 			));
-			// Redirect
-			echo '<script data-cfasync="false">window.location.replace(\'' . str_replace('&amp;', '&', $alert[0]->url) . '\');</script>';
-			die();
+			
+			if($alert[0]->url != '#'){
+				// Redirect
+				echo '<script data-cfasync="false">window.location.replace(\'' . str_replace('&amp;', '&', $alert[0]->url) . '\');</script>';
+				die();
+			} else {
+				echo '<script data-cfasync="false">window.location.replace(\'/user/alerts\');</script>';
+				die();
+			}
 		}
 	}
 }
