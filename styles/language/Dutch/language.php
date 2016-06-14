@@ -507,15 +507,15 @@ $user_language = array(
 	'write_on_own_profile' => 'Plaats iets op je profiel...',
 	'profile_posts' => 'Profiel Berichten.',
 	'no_profile_posts' => 'Er zijn nog geen profiel berichten.',
-	'invalid_wall_post' => 'Invalid wall post. Please ensure your post is between 2 and 2048 characters.',
-	'about' => 'About',
-	'reply' => 'Reply',
+	'invalid_wall_post' => 'Ongeldige muur post. Verzorg ervoor dat je post tussen de 2 en 2048 tekens is.',
+	'about' => 'Over',
+	'reply' => 'Antwoord',
 	'x_likes' => '{x} likes', // Don't replace {x}
 	'likes' => 'Likes',
-	'no_likes' => 'No likes.',
+	'no_likes' => 'Geen likes.',
 	'post_liked' => 'Post liked.',
 	'post_unliked' => 'Post unliked.',
-	'no_posts' => 'No posts.',
+	'no_posts' => 'Geen posts.',
 	'last_5_posts' => 'Last 5 posts',
      
     // Staff applications
@@ -532,15 +532,15 @@ $user_language = array(
  */
 $mod_language = array(
     'mod_cp' => 'ModCP',
-    'overview' => 'Overview',
+    'overview' => 'Overzicht',
     'reports' => 'Reports',
-    'punishments' => 'Punishments',
+    'punishments' => 'Straffen',
     'staff_applications' => 'Staff Applications',
      
     // Punishments
     'ban' => 'Ban',
     'unban' => 'Unban',
-    'warn' => 'Warn',
+    'warn' => 'Waarschuwen',
     'search_for_a_user' => 'Zoek voor een speler',
     'user' => 'Gebruiker:',
     'ip_lookup' => 'IP Lookup:',
@@ -602,10 +602,10 @@ $general_language = array(
     'search' => 'Zoeken',
     'help' => 'Help',
     'success' => 'Succes',
-    'error' => 'Error',
+    'error' => 'Fout',
     'view' => 'Bekijk',
 	'info' => 'Info',
-	'next' => 'Next',
+	'next' => 'Volgende',
      
     // Play page
     'connect_with' => 'Server IP: <b>{x}<b>', // Don't replace {x}
@@ -621,7 +621,7 @@ $general_language = array(
     // Other
     'page_loaded_in' => 'Pagina geladen in {x} seconden', // Don't replace {x}; 's' stands for 'seconds'
     'none' => 'Geen',
-	'404' => 'Sorry, we couldn\'t find that page.'
+	'404' => 'Sorry, we konden deze pagina niet vinden.'
 );
  
 /* 
@@ -632,11 +632,11 @@ $forum_language = array(
     'forums' => 'Forums',
     'discussion' => 'Discussie',
     'stats' => 'Stats',
-    'last_reply' => 'Laatste Reply',
+    'last_reply' => 'Recentste antwoord.',
     'ago' => 'geleden',
     'by' => 'door',
     'in' => 'in',
-    'views' => 'views',
+    'views' => 'bekeken',
     'posts' => 'posts',
     'topics' => 'topics',
     'topic' => 'topic',
@@ -655,11 +655,11 @@ $forum_language = array(
     // View topic view
     'home' => 'Home',
     'topic_locked' => 'Topic Gesloten',
-    'new_reply' => 'Nieuw Reply',
-    'mod_actions' => 'Mod Actions',
-    'lock_thread' => 'Sluit Thread',
-    'unlock_thread' => 'Ontsluiten Thread',
-    'merge_thread' => 'Smelt Thread Samen',
+    'new_reply' => 'Nieuwe Antwoord',
+    'mod_actions' => 'Mod Acties',
+    'lock_thread' => 'Sluit Topic',
+    'unlock_thread' => 'Ontgrendel topic',
+    'merge_thread' => 'Smelt een topic Samen',
     'delete_thread' => 'Verwijder Thread',
     'confirm_thread_deletion' => 'Weet u zeker dat u deze thread wilt verwijderen?',
     'move_thread' => 'Verplaats Thread',
