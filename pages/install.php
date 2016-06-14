@@ -1061,7 +1061,7 @@ if(isset($_GET["step"])){
 					$data[13]["value"] = "true";
 				}
 				if(Input::get('user_avatars') == 1){
-					$data[22]["value"] = "true";
+					$data[22]["value"] = "1";
 				}
 				
 				try {
