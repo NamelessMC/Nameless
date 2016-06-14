@@ -318,7 +318,7 @@ $admin_language = array(
 	// Admin Update page
 	'installation_up_to_date' => 'Je installatie is up to date',
 	'update_check_error' => 'Helaas konden we niet controleren of er updates zijn. Probeer het later nog eens.',
-	'new_update_available' => 'A new update is available. Er is een update beschikbaar.',
+	'new_update_available' => 'Er is een update beschikbaar.',
 	'your_version' => 'Jouw versie:',
 	'new_version' => 'Nieuwe versie:',
 	'download' => 'Download',
@@ -400,7 +400,7 @@ $user_language = array(
 	'invalid_date_of_birth' => 'Ongeldige geboortedatum ingevuld.',
 	'location_required' => 'Vul een locatie in.',
 	'location_minimum_2' => 'Je locatie moet minstens uit 2 tekens bestaan.',
-	'location_maximum_128' => 'Je locatie mag maar uit 120 tekens bestaan.',
+	'location_maximum_128' => 'Je locatie mag maar uit 128 tekens bestaan.',
      
     // UserCP
     'user_cp' => 'UserCP',
@@ -659,7 +659,7 @@ $forum_language = array(
     'mod_actions' => 'Mod Acties',
     'lock_thread' => 'Sluit Topic',
     'unlock_thread' => 'Ontgrendel topic',
-    'merge_thread' => 'Smelt een topic Samen',
+    'merge_thread' => 'Voeg een topic samen',
     'delete_thread' => 'Verwijder Thread',
     'confirm_thread_deletion' => 'Weet u zeker dat u deze thread wilt verwijderen?',
     'move_thread' => 'Verplaats Thread',
