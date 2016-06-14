@@ -3,7 +3,10 @@
  *  Made by Sander Jochems
  *  http://sanderjochems.r4u.nl
  */
- 
+ /*
+ *  Updated by jesseke55/Headhunterz_
+ *  http://headhunterz.pw
+ */
 /*
  *  Dutch Language
  */
@@ -170,11 +173,11 @@ $admin_language = array(
     'can_post_reply' => 'Kan een antwoord plaatsen:',
     'display_threads_as_news' => 'Vertoon topics als nieuws op de voorpagina?',
 	'input_forum_title' => 'Input a forum title.',
-	'input_forum_description' => 'Input a forum description.',
-	'forum_name_minimum' => 'The forum name must be a minimum of 2 characters.',
-	'forum_description_minimum' => 'The forum description must be a minimum of 2 characters.',
-	'forum_name_maximum' => 'The forum name must be a maximum of 150 characters.',
-	'forum_description_maximum' => 'The forum description must be a maximum of 255 characters.',
+	'input_forum_description' => 'Vul een forum beschrijving in (HTML codes mogen worden gebruikt).',
+	'forum_name_minimum' => 'De forum naam moet minstens uit 2 tekens bestaan.',
+	'forum_description_minimum' => 'The forum description must be a minimum of 2 characters. De forum beschrijving moet minstens uit 2 tekens bestaan.',
+	'forum_name_maximum' => 'De forum naam mag maar maximaal 150 tekens bevatten.',
+	'forum_description_maximum' => 'De forum beschrijving mag maar uit 255 tekens bestaan.',
      
     // Admin Users and Groups page
     'users' => 'Gebruikers',
@@ -183,7 +186,7 @@ $admin_language = array(
     'user_deleted' => 'Gebruiker Verwijderd',
     'validate_user' => 'Bevestigde Gebruiker',
     'update_uuid' => 'Update UUID',
-    'unable_to_update_uuid' => 'Kan de UUID niet bewerken.',
+    'unable_to_update_uuid' => 'De UUID kan niet worden bijgewerkt.',
     'update_mc_name' => 'Update Minecraft Naam',
     'reset_password' => 'Reset Wachtwoord',
     'punish_user' => 'Straf Gebruiker',
@@ -254,18 +257,18 @@ $admin_language = array(
     'query_errors_info' => 'De volgende fouten kunt u problemen diagnosticeren met uw interne server query.',
     'no_query_errors' => 'Geen query fouten gevonden',
     'date' => 'Datum:',
-    'port' => 'Port:',
-    'viewing_error' => 'Bekijk Error',
-    'confirm_error_deletion' => 'Bent u zeker dat u deze error wilt verwijderen?',
+    'port' => 'Poort:',
+    'viewing_error' => 'Bekijk melding',
+    'confirm_error_deletion' => 'Weet u hey zeker dat u deze error wilt verwijderen?',
     'display_server_status' => 'Laat Server Status module zien',
-	'server_name_required' => 'You must insert a server name.',
-	'server_ip_required' => 'You must insert the server\'s IP.',
-	'server_name_minimum' => 'The server name must be a minimum of 2 characters.',
-	'server_ip_minimum' => 'The server IP must be a minimum of 2 characters.',
-	'server_name_maximum' => 'The server name must be a maximum of 20 characters.',
-	'server_ip_maximum' => 'The server IP must be a maximum of 64 characters.',
-	'purge_errors' => 'Purge Errors',
-	'confirm_purge_errors' => 'Are you sure you want to purge all query errors?',
+	'server_name_required' => 'Je moet een server naam invullen.',
+	'server_ip_required' => 'Je moet een server IP invullen.',
+	'server_name_minimum' => 'De server naam moet minstens uit 2 tekens bestaan.',
+	'server_ip_minimum' => 'De server IP moet minstens uit 2 tekens bestaan.',
+	'server_name_maximum' => 'De server naam mag maar maximaal uit 20 tekens bestaan.',
+	'server_ip_maximum' => 'De server IP mag maar uit 64 tekens bestaan.',
+	'purge_errors' => 'Verwijder foutmeldingen',
+	'confirm_purge_errors' => 'Weet je het zeker dat je de foutmeldingen wilt verwijderen>',
      
     // Admin Themes, Templates and Addons
     'themes' => 'Thema\'s',
@@ -313,13 +316,13 @@ $admin_language = array(
     'confirm_reset_website' => 'Weet u zeker dat u uw website wilt resetten?',
 	
 	// Admin Update page
-	'installation_up_to_date' => 'Your installation is up to date.',
-	'update_check_error' => 'Unable to check for updates. Please try again later.',
-	'new_update_available' => 'A new update is available.',
-	'your_version' => 'Your version:',
-	'new_version' => 'New version:',
+	'installation_up_to_date' => 'Je installatie is up to date',
+	'update_check_error' => 'Helaas konden we niet controleren of er updates zijn. Probeer het later nog eens.',
+	'new_update_available' => 'A new update is available. Er is een update beschikbaar.',
+	'your_version' => 'Jouw versie:',
+	'new_version' => 'Nieuwe versie:',
 	'download' => 'Download',
-	'update_warning' => 'Warning: Ensure you have downloaded the package and uploaded the contained files first!'
+	'update_warning' => 'Waarschuwing: Verzeker jezelf van dat je de zip hebt gedownload en de bestanden die daarin zitten hebt geupload voordat je de update start!'
 );
  
 /*
@@ -393,11 +396,11 @@ $user_language = array(
     'username_mcname_email_exists' => 'Uw gebruikersnaam, Minecraft gebruikersnaam of e-mailadres bestaat al. Heeft u al een account aangemaakt?',
     'invalid_mcname' => 'Uw Minecraft gebruikersnaam is geen geldige account',
     'mcname_lookup_error' => 'Er is een fout opgetreden bij het verbinden met de Mojang servers. Probeer het later opnieuw.',
-	'signature_maximum_900' => 'Your signature must be a maximum of 900 characters.',
-	'invalid_date_of_birth' => 'Invalid date of birth.',
-	'location_required' => 'Please enter a location.',
-	'location_minimum_2' => 'Your location must be a minimum of 2 characters.',
-	'location_maximum_128' => 'Your location must be a maximum of 128 characters.',
+	'signature_maximum_900' => 'Je handtekening mag maar uit 900 tekens bestaan.',
+	'invalid_date_of_birth' => 'Ongeldige geboortedatum ingevuld.',
+	'location_required' => 'Vul een locatie in.',
+	'location_minimum_2' => 'Je locatie moet minstens uit 2 tekens bestaan.',
+	'location_maximum_128' => 'Je locatie mag maar uit 120 tekens bestaan.',
      
     // UserCP
     'user_cp' => 'UserCP',
@@ -434,22 +437,22 @@ $user_language = array(
     'repeat_new_password' => 'Herhaal nieuw wachtwoord',
     'password_changed_successfully' => 'Wachtwoord succesvol veranderd',
     'incorrect_password' => 'Uw huidige wachtwoord is onjuist',
-	'update_minecraft_name_help' => 'This will update your website username to your current Minecraft username. You can only perform this action once every 30 days.',
-	'unable_to_update_mcname' => 'Unable to update Minecraft username.',
-	'display_age_on_profile' => 'Display age on profile?',
-	'two_factor_authentication' => 'Two Factor Authentication',
-	'enable_tfa' => 'Enable Two Factor Authentication',
-	'tfa_type' => 'Two Factor Authentication type:',
-	'authenticator_app' => 'Authentication App',
-	'tfa_scan_code' => 'Please scan the following code within your authentication app:',
-	'tfa_code' => 'If your device does not have a camera, or you are unable to scan the QR code, please input the following code:',
-	'tfa_enter_code' => 'Please enter the code displaying within your authentication app:',
-	'invalid_tfa' => 'Invalid code, please try again.',
-	'tfa_successful' => 'Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.',
-	'confirm_tfa_disable' => 'Are you sure you wish to disable two factor authentication?',
-	'tfa_disabled' => 'Two factor authentication disabled.',
-	'tfa_enter_email_code' => 'We have sent you a code within an email for verification. Please enter the code now:',
-	'tfa_email_contents' => 'A login attempt has been made to your account. If this was you, please input the following two factor authentication code when asked to do so. If this was not you, you can ignore this email, however a password reset is advised. The code is only valid for 10 minutes.',
+	'update_minecraft_name_help' => 'Dit zal je website gebruikersnaam veranderen naar je Minecraft gebruikersnaam die je nu hebt. Je kan dit maar 1x per 30 dagen uitvoeren.',
+	'unable_to_update_mcname' => 'De Minecraft gebruikersnaam kan niet worden bijgewerkt.',
+	'display_age_on_profile' => 'Laat je leeftijd zien op je profiel?',
+	'two_factor_authentication' => 'Twee Staps Authenticatie',
+	'enable_tfa' => 'Schakel Twee Staps Authenticatie in.',
+	'tfa_type' => 'Twee Staps Authenticate type:',
+	'authenticator_app' => 'Authenticate Applicatie',
+	'tfa_scan_code' => 'Scan de volgende code in je authenticate app:',
+	'tfa_code' => ' Als je apparaat geen camera heeft, of je bent niet in staat om de QR code uit te lezen, vul dan de volgende code in de app:',
+	'tfa_enter_code' => 'Vul de volgende code in die je ziet in de authenticatie app:',
+	'invalid_tfa' => 'Ongeldige code, probeer het nog eens.',
+	'tfa_successful' => 'Twee Staps authenticate is met success ingesteld. Iedere keer als je inlogd moet je jezelf verifieren met een code.',
+	'confirm_tfa_disable' => 'Weet je het zeker dat je Twee Staps Authenticatie wilt uitschakelen?',
+	'tfa_disabled' => 'wee Staps Authenticate is uitgeschakeld.',
+	'tfa_enter_email_code' => 'We hebben je een verificatie code gestuurd in een email. Vul de code in:',
+	'tfa_email_contents' => 'Er is  een login poging gemaakt tot je account. Als je dit bent, vul dan de volgende code in als dat word gevraagd. Als je dit niet bent dan kan je de email negeren, hoe dan ook een wachtwoord reset word aangeraden. De code is voor 10 minuten geldig.',
 
     // Alerts
     'viewing_unread_alerts' => 'Bekijk ongelezen alerts. Verander naar <a href="/user/alerts/?view=read"><span class="label label-success">gelezen</span></a>.',
@@ -493,17 +496,17 @@ $user_language = array(
     'remove_friend' => 'Verwijder Vriend',
     'add_friend' => 'Vriend Toevoegen',
     'last_online' => 'Laatst Online:',
-	'find_a_user' => 'Find a user',
-	'user_not_following' => 'This user does not follow anyone.',
-	'user_no_followers' => 'This user has no followers.',
+	'find_a_user' => 'Zoek een gebruiker.',
+	'user_not_following' => 'Deze gebruiker volgt niemand.',
+	'user_no_followers' => 'Deze gebruiker heeft geen volgers.',
 	'following' => 'FOLLOWING',
 	'followers' => 'FOLLOWERS',
-	'display_location' => 'From {x}.', // Don't replace {x}, which will be the user's location
-	'display_age_and_location' => '{x}, from {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
-	'write_on_user_profile' => 'Write something on {x}\'s profile...', // Don't replace {x}
-	'write_on_own_profile' => 'Write something on your profile...',
-	'profile_posts' => 'Profile Posts',
-	'no_profile_posts' => 'No profile posts yet.',
+	'display_location' => 'Van {x}.', // Don't replace {x}, which will be the user's location
+	'display_age_and_location' => '{x}, van {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
+	'write_on_user_profile' => 'Plaats iets op {x}\'s profiel...', // Don't replace {x}
+	'write_on_own_profile' => 'Plaats iets op je profiel...',
+	'profile_posts' => 'Profiel Berichten.',
+	'no_profile_posts' => 'Er zijn nog geen profiel berichten.',
 	'invalid_wall_post' => 'Invalid wall post. Please ensure your post is between 2 and 2048 characters.',
 	'about' => 'About',
 	'reply' => 'Reply',
