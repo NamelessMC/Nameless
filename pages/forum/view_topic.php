@@ -493,7 +493,7 @@ $purifier = new HTMLPurifier($config);
 			'avatar' => $avatar,
 			'username' => htmlspecialchars($post_user[0]->username),
 			'mcname' => htmlspecialchars($post_user[0]->mcname),
-			'user_group' => $purifier->purify($user_group),
+			'user_group' => $user_group,
 			'user_posts_count' => count($queries->getWhere('posts', array('post_creator', '=', $posts[$n]->post_creator))),
 			'user_reputation' => $post_user[0]->reputation,
 			'post_date_rough' => $timeago->inWords($posts[$n]->post_date, $time_language),
