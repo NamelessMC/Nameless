@@ -29,7 +29,7 @@ if($user->isLoggedIn()){
 
 <h3>Addon: Infractions</h3>
 Author: Samerton<br />
-Version: 1.0.1<br />
+Version: 1.0.2<br />
 Description: Integrate your server infractions with your website<br />
 
 <h3>Infractions Settings</h3>
@@ -128,7 +128,7 @@ if(empty($infractions_settings)){
 	require(join(DIRECTORY_SEPARATOR, array('addons', 'Infractions', 'config.php')));
 ?>
 <form action="" method="post">
-  <strong>Infractions Plugin</strong><br />
+  <strong>Infractions Plugin</strong> <a href="#" data-toggle="modal" data-target="#helpModal"><span class="label label-info"><i class="fa fa-question-circle" aria-hidden="true"></i></span></a><br /><br />
   <div class="btn-group" data-toggle="buttons">
     <label class="btn btn-primary<?php if($infractions_settings[0]->value == 'bat'){ ?> active<?php } ?>">
 	  <input type="radio" name="plugin_type" id="InputPluginType1" value="bat" autocomplete="off"<?php if($infractions_settings[0]->value == 'bat'){ ?> checked<?php } ?>> Bungee Admin Tools
@@ -138,6 +138,9 @@ if(empty($infractions_settings)){
     </label>
     <label class="btn btn-primary<?php if($infractions_settings[0]->value == 'lb'){ ?> active<?php } ?>">
 	  <input type="radio" name="plugin_type" id="InputPluginType3" value="lb" autocomplete="off"<?php if($infractions_settings[0]->value == 'lb'){ ?> checked<?php } ?>> LiteBans
+    </label>
+    <label class="btn btn-primary<?php if($infractions_settings[0]->value == 'bam'){ ?> active<?php } ?>">
+	  <input type="radio" name="plugin_type" id="InputPluginType3" value="bam" autocomplete="off"<?php if($infractions_settings[0]->value == 'bam'){ ?> checked<?php } ?>> Ban and Mute Plugin
     </label>
   </div>
   <br /><br />
@@ -172,5 +175,29 @@ if(empty($infractions_settings)){
   <input type="hidden" name="token" value="<?php echo $token; ?>">
   <input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
 </form>
+
+<!-- Help Modal -->
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="helpModalLabel">Help</h4>
+      </div>
+      <div class="modal-body">
+        <strong>Links:</strong><hr />
+		<ul>
+		  <li><a href="https://www.spigotmc.org/resources/bungee-admin-tools-basics-edition.444/" target="_blank">Bungee Admin Tools</a></li>
+		  <li><a href="http://dev.bukkit.org/bukkit-plugins/ban-management/" target="_blank">Ban Management</a></li>
+		  <li><a href="https://www.spigotmc.org/resources/litebans.3715/" target="_blank">LiteBans</a></li>
+		  <li><a href="https://www.spigotmc.org/resources/bansystem-chatban-mute-report-system-chatfilter-bungeecord-mysql.17875/" target="_blank">Ban and Mute Plugin</a></li>
+		</ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <?php
 }

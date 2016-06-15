@@ -110,6 +110,9 @@ if(isset($_GET['p'])){
 				case 'lb':
 					$all_infractions = $infractions->lb_getAllInfractions();
 				break;
+				case 'bam':
+					$all_infractions = $infractions->bam_getAllInfractions();
+				break;
 			}
 
 			// Pagination
@@ -199,7 +202,7 @@ if(isset($_GET['p'])){
 			  <td><?php if(strtolower($infraction["staff"]) !== "console"){?><a href="/profile/<?php echo htmlspecialchars($infraction["staff"]); ?>"><?php if($inf_plugin !== "mb"){ echo htmlspecialchars($infraction["staff"]); } else { echo htmlspecialchars($infractions->mb_getUsernameFromName($infraction["staff"])); }?></a><?php } else { echo 'Console'; } ?></td>
 			  <td><?php echo $infraction["type_human"]; ?> <?php echo $infraction["expires_human"]; ?></td>
 			  <td><?php echo htmlspecialchars($infraction["reason"]); ?></td>
-			  <td><span rel="tooltip" data-placement="top" title="<?php echo $infraction["issued_human"]; ?>"><?php echo $timeago->inWords(date('d M Y, H:i', $infraction["issued"]), $time_language); ?></span></td>
+			  <td><?php if(isset($infraction['issued'])){ ?><span rel="tooltip" data-placement="top" title="<?php echo $infraction["issued_human"]; ?>"><?php echo $timeago->inWords(date('d M Y, H:i', $infraction["issued"]), $time_language); ?></span><?php } else echo '-'; ?></td>
 			  <td><a class="btn btn-primary btn-sm" href="/infractions/?type=<?php echo $infraction["type"]; ?>&amp;id=<?php echo $infraction["id"]; if(isset($infraction['past'])){ ?>&amp;past=true<?php } ?>"><?php echo $infractions_language['view']; ?></a></td>
 		    </tr>
 			<?php
@@ -221,7 +224,7 @@ if(isset($_GET['p'])){
 				die();
 			}
 			
-			if(!isset($_GET['id']) || !is_numeric($_GET['id'])){
+			if(!isset($_GET['id'])){
 				Redirect::to('/infractions');
 				die();
 			}
@@ -473,6 +476,35 @@ if(isset($_GET['p'])){
 						$staff = 'Console';
 					}
 				break;
+				case 'bam':
+					$infraction = $infractions->bam_getInfraction($_GET["type"], $_GET["id"]);
+					
+					// Get username
+					$username = htmlspecialchars($infraction->name);
+					
+					// Reason
+					if($infraction->cause) $reason = htmlspecialchars($infraction->cause); else $reason = $infractions_language['no_reason']; 
+					
+					// Expires/expired?
+					switch($_GET['type']){
+						case 'ban':
+						case 'temp_ban':
+							// Get date of infraction
+							$created = '<span rel="tooltip" data-placement="top" title="' . date('jS M Y, H:i', strtotime($infraction->time)) . '">' . $timeago->inWords(date('d M Y, H:i', strtotime($infraction->time)), $time_language) . '</span>';
+						break;
+						case 'mute':
+							if($infraction->time !== null){
+								$expires = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", strtotime($infraction->time)), $infractions_language['expires_x']) . '">' . $infractions_language['active'] . '</span>';
+							} else {
+								$expires = '<span class="label label-danger">' . $infractions_language['permanent'] . '</span>';
+							}
+						break;
+					}
+					
+					// Staff
+					$staff = htmlspecialchars($infraction->banner);
+					
+				break;
 			}
 			?>
 			<hr />
@@ -482,7 +514,7 @@ if(isset($_GET['p'])){
 			<?php echo $infractions_language['user'] . ' <strong><a href="/profile/' . $username . '">' . $username . '</a></strong>'; ?><br />
 			<?php echo $infractions_language['staff_member'] . ': ' . (strtolower($staff) == 'console' ? $staff : '<a href="/profile/' . $staff . '">' . $staff . '</a>'); ?><br />
 			<?php echo $infractions_language['action'] . ': <strong>' . $action . '</strong>'; ?><br />
-			<?php echo $infractions_language['created'] . ': ' . $created; ?><br />
+			<?php if(isset($created)) echo $infractions_language['created'] . ': ' . $created . '<br />'; ?>
 			<?php if(isset($expires)) echo $infractions_language['status'] . ' ' . $expires . '<br />'; ?>
 			<?php echo $infractions_language['reason'] . ': '; ?><pre><?php echo $reason; ?></pre><br />
 			<hr />
