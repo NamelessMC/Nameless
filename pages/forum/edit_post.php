@@ -231,6 +231,7 @@ $token = Token::generate();
 					'  <textarea name="content" id="editor" rows="3"></textarea><br />' . PHP_EOL .
 					'  <input type="hidden" name="token" value="' . $token . '">' . PHP_EOL .
 					'  <input type="submit" class="btn btn-primary" value="' . $general_language['submit'] . '">' . PHP_EOL .
+					'  <a class="btn btn-danger" href="/forum/view_topic/?tid=' . $topic_id . '" onclick="return confirm(\'' . $forum_language['confirm_cancellation'] . '\')">' . $general_language['cancel'] . '</a>' . PHP_EOL .
 					'</form>';
 	
 	$smarty->assign('FORM_CONTENT', $form_content);
