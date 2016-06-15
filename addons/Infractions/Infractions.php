@@ -706,4 +706,123 @@ class Infractions {
 		return false;
 	}
 	
+	// Receive a list of all infractions for Ban and Mute Plugin, either for a single user or for all users
+	// Params: $uuid (string), UUID of a user. If null, will list all infractions
+	public function bam_getAllInfractions($uuid = null) {
+		if($uuid !== null){
+			$field = "UUID";
+			$symbol = "=";
+			$equals = $uuid;
+		} else {
+			$field = "UUID";
+			$symbol = "<>";
+			$equals = "0";
+		}
+		$bans = $this->_db->get('history', array($field, $symbol, $equals))->results();
+		$mutes = $this->_db->get('mutes', array($field, $symbol, $equals))->results();
+		
+		$results = array();
+		$i = 0;
+		
+		foreach($bans as $ban){
+			$results[$i]["id"] = htmlspecialchars($ban->name) . ';' . strtotime($ban->time);
+			$results[$i]["uuid"] = str_replace('-', '', $ban->UUID);
+			$results[$i]["staff"] = htmlspecialchars($ban->banner);
+			$results[$i]["issued"] = strtotime($ban->time);
+			$results[$i]["issued_human"] = date("jS M Y, H:i", strtotime($ban->time));
+			if($ban->cause !== null){
+				$results[$i]["reason"] = htmlspecialchars($ban->cause);
+			} else {
+				$results[$i]["reason"] = "-";
+			}
+			
+			if($ban->dauer !== 'Permanent'){
+				$results[$i]["type"] = "temp_ban";
+				$results[$i]["type_human"] = '<span class="label label-danger">' . $this->_language['temp_ban'] . '</span>';
+				
+				// Todo: determine expire time
+				$results[$i]["expires"] = '';
+				$results[$i]["expires_human"] = '';
+			} else {
+				$results[$i]["type"] = "ban";
+				$results[$i]["type_human"] = '<span class="label label-danger">' . $this->_language['ban'] . '</span>';
+				$results[$i]["expires_human"] = '<span class="label label-danger">' . $this->_language['permanent'] . '</span>';
+				
+				// Todo: determine if revoked or not
+			}
+
+			$i++;
+		}
+		
+		foreach($mutes as $mute){
+			$results[$i]["id"] = htmlspecialchars($mute->name) . ';' . strtotime($mute->time);
+			$results[$i]["uuid"] = str_replace('-', '', $mute->UUID);
+			$results[$i]["staff"] = htmlspecialchars($mute->banner);
+			if($mute->cause !== null){
+				$results[$i]["reason"] = htmlspecialchars($mute->cause);
+			} else {
+				$results[$i]["reason"] = "-";
+			}
+			$results[$i]["type"] = "mute";
+			$results[$i]["type_human"] = '<span class="label label-warning">' . $this->_language['mute'] . '</span>';
+
+			if($mute->time !== null){
+				$results[$i]["expires"] = strtotime($mute->time);
+				$results[$i]["expires_human"] = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", strtotime($mute->time)), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
+			} else {
+				$results[$i]['expires'] = 0;
+				$results[$i]["expires_human"] = '<span class="label label-danger">' . $this->_language['permanent'] . '</span>';
+			}
+			$i++;
+		}
+		
+		// Sort by date
+		function date_compare($a, $b)
+		{
+			if(isset($a['issued'])){
+				$t1 = $a['issued'];
+			} else {
+				$t1 = $a['expires'];
+			}
+			if(isset($b['issued'])){
+				$t2 = $b['issued'];
+			} else {
+				$t2 = $b['expires'];
+			}
+			return $t2 - $t1;
+		}    
+		usort($results, 'date_compare');
+		return $results;
+	}
+	
+	// Receive an object containing infraction information for a specified infraction ID and type (Ban and Mute plugin)
+	// Params: $type (string), either ban, kick or mute; $id (int), ID of infraction
+	public function bam_getInfraction($type, $id) {
+		$ids = explode(';', $id);
+		$name = $ids[0];
+		if($ids[1]) $time = date('Y-m-d H:i:s', $ids[1]);
+		else $time = null;
+		
+		if($type === "ban" || $type === "temp_ban"){
+			$results = $this->_db->get('history', array("time", "=", $time))->results();
+			foreach($results as $result){
+				if($result->name == $name) return $result;
+			}
+		} else if($type === "mute"){
+			if($time){
+				$results = $this->_db->get('mutes', array("time", "=", $time))->results();
+				foreach($results as $result){
+					if($result->name == $name) return $result;
+				}
+			} else {
+				$results = $this->_db->get('mutes', array('name', '=', htmlspecialchars($name)))->results();
+				foreach($results as $result){
+					if($result->time == null) return $result;
+				}
+			}
+		}
+
+		return false;
+	}
+	
 }
