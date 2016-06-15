@@ -194,7 +194,7 @@ $token = Token::generate();
 					'  </div>' . PHP_EOL .
 					'  <input type="hidden" name="token" value="' . $token . '">' . PHP_EOL .
 					'  <input type="submit" class="btn btn-primary" value="' . $general_language['submit'] . '">' . PHP_EOL .
-					'  <a class="btn btn-danger" href="/forum" onclick="return confirm(\'Are you sure?\')">Cancel</a>' . PHP_EOL . 
+					'  <a class="btn btn-danger" href="/forum" onclick="return confirm(\'' . $forum_language['confirm_cancellation'] . '\')">' . $general_language['cancel'] . '</a>' . PHP_EOL . 
 					'</form>';
 	$smarty->assign('FORM_CONTENT', $form_content);
 	
