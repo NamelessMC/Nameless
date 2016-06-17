@@ -137,7 +137,7 @@ $admin_language = array(
 	'page_link_navbar' => 'Barra de navegación',
 	'page_link_more' => 'Barra de navegación con menú "Mas"',
 	'page_link_footer' => 'Pie de página',
-	'page_link_none' => 'No page link',
+	'page_link_none' => 'No hay un link de la pagina',
 	
 	// Admin forum page
 	'labels' => 'Etiquetas de tema',
@@ -219,14 +219,14 @@ $admin_language = array(
 	'group_staff' => '¿Es un grupo de administración?',
 	'group_modcp' => '¿Puede el grupo ver el panel de moderación?',
 	'group_admincp' => '¿Puede el grupo ver AdminCP?',
-	'group_name_required' => 'You must insert a group name.',
-	'group_name_minimum' => 'The group name must be a minimum of 2 characters.',
-	'group_name_maximum' => 'The group name must be a maximum of 20 characters.',
-	'html_maximum' => 'The group HTML must be a maximum of 1024 characters.',
-	'select_user_group' => 'The user must be in a group.',
-	'uuid_max_32' => 'The UUID must be a maximum of 32 characters.',
-	'cant_delete_root_user' => 'Can\'t delete the root user!',
-	'cant_modify_root_user' => 'Can\'t modify the root user\'s group.',
+	'group_name_required' => 'Debe insertar un nombre de grupo .',
+	'group_name_minimum' => 'El nombre del grupo debe tener un minimo de 2 caracteres.',
+	'group_name_maximum' => 'El nombre del grupo debe tener un máximo de 20 caracteres.',
+	'html_maximum' => 'El grupo HTML debe tener un máximo de 1024 caracteres.',
+	'select_user_group' => 'El usuario tiene que estar en un grupo.',
+	'uuid_max_32' => 'El UUID debe tener un maximo de 32 caracteres.',
+	'cant_delete_root_user' => 'No se puede eliminar el usuario principal!',
+	'cant_modify_root_user' => 'No se puede modificar el usuario principal o su grupos.',
 	
 	// Admin Minecraft page
 	'minecraft_settings' => 'Configuración de Minecraft',
@@ -265,14 +265,14 @@ $admin_language = array(
 	'viewing_error' => 'Ver Error',
 	'confirm_error_deletion' => '¿Seguro que quiere eliminar este error?',
 	'display_server_status' => 'Mostrar modulo de estado del servidor?',
-	'server_name_required' => 'You must insert a server name.',
-	'server_ip_required' => 'You must insert the server\'s IP.',
-	'server_name_minimum' => 'The server name must be a minimum of 2 characters.',
-	'server_ip_minimum' => 'The server IP must be a minimum of 2 characters.',
-	'server_name_maximum' => 'The server name must be a maximum of 20 characters.',
-	'server_ip_maximum' => 'The server IP must be a maximum of 64 characters.',
-	'purge_errors' => 'Purge Errors',
-	'confirm_purge_errors' => 'Are you sure you want to purge all query errors?',
+	'server_name_required' => 'Debes ingresar el nombre del servidor.',
+	'server_ip_required' => 'Debes ingresar la IP del servidor/s.',
+	'server_name_minimum' => 'El nombre del servidor debe tener un minimo de 2 caracteres.',
+	'server_ip_minimum' => 'La IP del servidor debe tener un minimo de 2 caracteres.',
+	'server_name_maximum' => 'El nombre del servidor debe tener un máximo de 20 caracteres.',
+	'server_ip_maximum' => 'La IP del servidor debe tener un máximo de 64 caracteres.',
+	'purge_errors' => 'Arreglar Errores',
+	'confirm_purge_errors' => '¿Está seguro de que desea limpiar todos los errores?',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Temas',
@@ -320,13 +320,13 @@ $admin_language = array(
 	'confirm_reset_website' => '¿Seguro que quiere reiniciar la configuración del sitio web?',
 	
 	// Admin Update page
-	'installation_up_to_date' => 'Your installation is up to date.',
-	'update_check_error' => 'Unable to check for updates. Please try again later.',
-	'new_update_available' => 'A new update is available.',
-	'your_version' => 'Your version:',
-	'new_version' => 'New version:',
-	'download' => 'Download',
-	'update_warning' => 'Warning: Ensure you have downloaded the package and uploaded the contained files first!'
+	'installation_up_to_date' => 'Su instalación esta en fecha.',
+	'update_check_error' => 'Imposible buscar actualizaciones. Por favor, prueba luego.',
+	'new_update_available' => 'Una nueva actualización esta disponible.',
+	'your_version' => 'Tu versión:',
+	'new_version' => 'Nueva versión:',
+	'download' => 'Descargar',
+	'update_warning' => 'Advertencia: Asegúrese de que ha descargado el paquete y subido los archivos primero!'
 );
 
 /*
@@ -503,8 +503,8 @@ $user_language = array(
 	'find_a_user' => 'Encuentra un usuario',
 	'user_not_following' => 'Este usuario no sigue a nadie.',
 	'user_no_followers' => 'Este usuario no tiene seguidores.',
-	'following' => 'FOLLOWING',
-	'followers' => 'FOLLOWERS',
+	'following' => 'SIGUIENDO',
+	'followers' => 'SEGUIDORES',
 	'display_location' => 'De {x}.', // Don't replace {x}, which will be the user's location
 	'display_age_and_location' => '{x}, De {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
 	'write_on_user_profile' => 'Escribir algo en el perfil de {x} ...', // Don't replace {x}
@@ -514,13 +514,13 @@ $user_language = array(
 	'invalid_wall_post' => 'Publicación en el muro no válida. Asegúrese de que su mensaje es de entre 2 y 2.048 caracteres.',
 	'about' => 'Acerca de',
 	'reply' => 'Respuesta',
-	'x_likes' => '{x} likes', // Don't replace {x}
-	'likes' => 'Likes',
-	'no_likes' => 'No likes.',
-	'post_liked' => 'Post liked.',
-	'post_unliked' => 'Post unliked.',
-	'no_posts' => 'No posts.',
-	'last_5_posts' => 'Last 5 posts',
+	'x_likes' => '{x} Me gustas', // Don't replace {x}
+	'likes' => 'Me gustas',
+	'no_likes' => 'Sin me gustas.',
+	'post_liked' => 'Mensajes asociados.',
+	'post_unliked' => 'Mensajes no asociados.',
+	'no_posts' => 'No hay mensajes.',
+	'last_5_posts' => 'Últimos 5 mensajes.',
 	
 	// Staff applications
 	'staff_application' => 'Solicitud de staff',
@@ -609,7 +609,7 @@ $general_language = array(
 	'error' => 'Error',
 	'view' => 'Ver',
 	'info' => 'Información',
-	'next' => 'Next',
+	'next' => 'Siguiente',
 	
 	// Play page
 	'connect_with' => 'Conéctate al servidor desde la IP <b>{x}</b>', // Don't replace {x}
