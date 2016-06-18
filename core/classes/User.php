@@ -476,7 +476,7 @@ class User {
 			$return = array(); // Array to return containing info of PMs
 			
 			// First, get a list of PMs the user has created themselves
-			$data = $this->_db->orderWhere('private_messages', 'author_id = ' . $user_id, 'sent_date', 'DESC');
+			$data = $this->_db->orderWhere('private_messages', 'author_id = ' . $user_id, 'updated', 'DESC');
 			
 			if($data->count()){
 				$data = $data->results();
@@ -491,7 +491,7 @@ class User {
 					
 					$return[$result->id]['id'] = $result->id;
 					$return[$result->id]['title'] = $result->title;
-					$return[$result->id]['date'] = $result->sent_date;
+					$return[$result->id]['date'] = $result->updated;
 					$return[$result->id]['users'] = $users;
 				}
 			}
@@ -517,14 +517,14 @@ class User {
 					
 					$return[$pm->id]['id'] = $pm->id;
 					$return[$pm->id]['title'] = $pm->title;
-					$return[$pm->id]['date'] = $pm->sent_date;
+					$return[$pm->id]['date'] = $pm->updated;
 					$return[$pm->id]['users'] = $users;
 				}
 			}
-			
+
 			// Order the PMs by date - most recent first
 			usort($return, function($a, $b) {
-				return strtotime($b['date']) - strtotime($a['date']);
+				return $b['date'] - $a['date'];
 			});
 			
 			return $return;
@@ -559,6 +559,20 @@ class User {
 						$this->_db->update('private_messages_users', $pm_user_id, array(
 							'`read`' => 1
 						));
+					}
+				} else {
+					// Check if the PM is read or not for the author
+					$is_read = $this->_db->get('private_messages_users', array('pm_id', '=', $pm_id))->results();
+					
+					foreach($is_read as $item){
+						if($item->user_id == $data->author_id){
+							if($item->read == 0){
+								$this->_db->update('private_messages_users', $item->id, array(
+									'`read`' => 1
+								));
+							}
+							break;
+						}
 					}
 				}
 				// User has permission, return the PM information
