@@ -130,19 +130,40 @@ if(Input::exists()){
 							$user_id = $user->NameToId($item);
 							
 							if($user_id){
-								if($user_id !== $user->data()->id){
-									// Not the author
-									$queries->create("private_messages_users", array(
-										'pm_id' => $last_id,
-										'user_id' => $user_id
-									));
-								} else {
-									// Is the author, automatically set as read
-									$queries->create("private_messages_users", array(
-										'pm_id' => $last_id,
-										'user_id' => $user_id,
-										'read' => 1
-									));
+								// Not the author
+								$queries->create("private_messages_users", array(
+									'pm_id' => $last_id,
+									'user_id' => $user_id
+								));
+							}
+						}
+						
+						// Add the author to the list of users
+						$queries->create('private_messages_users', array(
+							'pm_id' => $last_id,
+							'user_id' => $user->data()->id,
+							'read' => 1
+						));
+						
+					} else {	
+						// Loop through the users and set the conversation as unread
+						foreach($users as $item){
+							if($item !== $user->data()->id){
+								// Not the reply author
+								// Get the private messages users entry ID
+								$pm_users_ids = $queries->getWhere('private_messages_users', array('pm_id', '=', $last_id));
+
+								foreach($pm_users_ids as $pm_users_id){	
+									if($pm_users_id->user_id == $item){
+										$pm_users_id = $pm_users_id->id;
+										
+										// Update the message to unread
+										$queries->update("private_messages_users", $pm_users_id, array(
+											'`read`' => 0
+										));
+										
+										break;
+									}
 								}
 							}
 						}
@@ -249,7 +270,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 				<div class="row">
 				  <div class="col-md-3"><a href="/user/messaging/?mid=<?php echo $pm['id']; ?>"><?php echo $pm['title']; ?></a></div>
 				  <div class="col-md-5"><?php echo $user_string; ?></div>
-				  <div class="col-md-4"><?php echo date('d M Y, H:i', strtotime($pm['date'])); ?></div>
+				  <div class="col-md-4"><?php echo date('d M Y, H:i', $pm['date']); ?></div>
 				</div>
 				<?php 
 				} 
