@@ -19,6 +19,7 @@
 
 server {
 	listen 80;
+	listen [::]:80;
 	
 	root /var/www;
 	index index.php index.html;
