@@ -177,6 +177,8 @@ $admin_language = array(
 	'forum_description_minimum' => 'Forumet Beskrivelsen må være minst 2 tegn.',
 	'forum_name_maximum' => 'Forumet Navnet må være maksimalt 150 tegn.',
 	'forum_description_maximum' => 'Forumet Beskrivelsen må være maksimalt 255 tegn',
+	'forum_type_forum' => 'Diskusjon Forum',
+	'forum_type_category' => 'Kategori',
 	
 	// Admin Users and Groups page
 	'users' => 'Brukere',
@@ -328,6 +330,7 @@ $admin_language = array(
  *  Navbar
  */
 $navbar_language = array(
+	// Text only
 	'home' => 'Hjem',
 	'play' => 'Spill',
 	'forum' => 'Forum',
