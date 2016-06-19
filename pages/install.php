@@ -1078,7 +1078,7 @@ if(isset($_GET["step"])){
 						'content' => 'Default help page. Customise in the admin panel.',
 						'link_location' => 3,
 						'url' => '/credits/',
-						'title' => 'Credits',
+						'title' => 'Credits - BY REMOVING THIS YOU ARE A BAD PERSON!',
 						'content' => '&lt;p&gt;This software was originally made by &lt;a href=&quot;https://www.github.com/samerton&quot;&gt;@Samerton&lt;/a&gt;&amp;nbsp;so please leave this page in the footer otherwise you shouldn`t use this software.&lt;/p&gt;',
 						'link_location' => '4'
 					));
