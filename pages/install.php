@@ -1083,7 +1083,7 @@ error_reporting(E_ALL);
 						'content' => 'Default help page. Customise in the admin panel.',
 						'link_location' => 3,
 					));
-					$queries->add('custom_pages', array(						'url' => '/credits/',
+					$queries->create('custom_pages', array(						'url' => '/credits/',
 						'title' => 'Credits - Remove=bad guy',
 						'content' => '&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
