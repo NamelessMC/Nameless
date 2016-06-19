@@ -29,7 +29,7 @@ if($user->isLoggedIn()){
 
 <h3>Addon: Infractions</h3>
 Author: Samerton<br />
-Version: 1.0.2<br />
+Version: 1.0.3<br />
 Description: Integrate your server infractions with your website<br />
 
 <h3>Infractions Settings</h3>
@@ -106,7 +106,7 @@ if(empty($infractions_settings)){
 						
 					} else {
 						// Not writable
-						Session::flash('admin_infractions', '<div class="alert alert-danger">Your <strong>addons/Infractions/settings.php</strong> file is not writable. Please check file permissions.</div>');
+						Session::flash('admin_infractions', '<div class="alert alert-danger">Your <strong>addons/Infractions/config.php</strong> file is not writable. Please check file permissions.</div>');
 					}
 				}
 				
