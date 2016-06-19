@@ -1082,7 +1082,8 @@ error_reporting(E_ALL);
 						'title' => 'Help',
 						'content' => 'Default help page. Customise in the admin panel.',
 						'link_location' => 3,
-						'url' => '/credits/',
+					));
+					$queries->add('custom_pages', array(						'url' => '/credits/',
 						'title' => 'Credits - Remove=bad guy',
 						'content' => '&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
@@ -1094,8 +1095,7 @@ error_reporting(E_ALL);
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 ',
-						'link_location' => '4'
-					));
+						'link_location' => '4'));
 					
 					// Core Modules
 					$modules_initialised = $queries->getWhere('core_modules', array('id', '<>', 0));
