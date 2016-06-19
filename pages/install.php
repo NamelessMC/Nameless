@@ -13,6 +13,11 @@ if(isset($_GET["step"])){
 	$step = strtolower(htmlspecialchars($_GET["step"]));
 } else {
 	$step = "start";
+	
+	
+	ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 }
 ?>
 
