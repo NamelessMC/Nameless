@@ -329,13 +329,13 @@ $admin_language = array(
  *  Navbar
  */
 $navbar_language = array(
-    'home' => 'Home',
-    'play' => 'Play',
+    'home' => 'Start',
+    'play' => 'Speel',
     'forum' => 'Forum',
     'more' => 'Meer',
     'staff_apps' => 'Staff Applications',
     'view_messages' => 'Bekijk Berichten',
-    'view_alerts' => 'Bekijk Alerts',
+    'view_alerts' => 'Bekijk Meldingen',
 	
 	// Icons - will display before the text
 	'home_icon' => '',
@@ -706,7 +706,7 @@ $forum_language = array(
     'move_to' => 'Verplaats naar:',
      
     // Merge threads
-    'merge_instructions' => 'De thread <strong>moet</strong> binnen hetzelfde forum zijn. Het verplaats van de thread is nodig.',
+    'merge_instructions' => 'De thread <strong>moet</strong> binnen hetzelfde forum zijn. Het verplaatsen van de topic is nodig.',
     'merge_with' => 'Samensmelten met:',
      
     // Other
