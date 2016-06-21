@@ -31,7 +31,7 @@ if(!isset($_GET['do']) && !isset($_GET['vid'])){
 ?>
 <h3>Addon: Vote</h3>
 Author: Samerton<br />
-Version: 1.0.1<br />
+Version: 1.0.2<br />
 Description: Adds a page where users can vote for your server<br />
 
 <?php

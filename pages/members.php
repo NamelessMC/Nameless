@@ -10,7 +10,7 @@
  */
 
 // Members addon page
-$page = 'Members'; // for navbar
+$page = $members_language['members_icon'] . $members_language['members']; // for navbar
 
 // Ensure the addon is enabled
 if(!in_array('Members', $enabled_addon_pages)){

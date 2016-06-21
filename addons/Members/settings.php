@@ -33,5 +33,5 @@ if($user->isLoggedIn()){
 ?>
 <h3>Addon: Members List</h3>
 Authors: Partydragen and Samerton<br />
-Version: 1.2.0<br />
+Version: 1.2.1<br />
 Description: Adds a page where users can check all registered members along with staff groups<br />
