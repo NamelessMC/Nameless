@@ -200,7 +200,7 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 			</div>
 			<?php } ?>
 			<strong>NamelessMC version <?php echo $version; ?></strong><br />
-			<strong>Running PHP <?php echo phpversion(); ?></strong> <a href="/admin/phpinfo.php" target="_blank">(Full PHP information)</a><br />
+			<strong>Running PHP <?php echo phpversion(); ?></strong> <a href="/admin/phpinfo" target="_blank">(Full PHP information)</a><br />
 			<h3><?php echo $admin_language['statistics']; ?></h3>
 			<strong><?php echo $admin_language['registrations_per_day']; ?></strong>
 			
