@@ -134,13 +134,7 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 	}
 	
 	// Generate code for page
-	$jumbotron_content = '
-	<h1>WorldscapeMC</h1>
-	<p>There are currently 2 players online</p>
-	<p>Join with <strong>play.worldscapemc.com</strong></p>
-	';
 	$smarty->assign('SITENAME', $sitename);
-	$smarty->assign('JUMBOTRON_CONTENT', $jumbotron_content);
 	$smarty->assign('NEWS', $general_language['news']);
 	$smarty->assign('SOCIAL', $general_language['social']);
 
