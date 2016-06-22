@@ -594,6 +594,7 @@ $general_language = array(
 	// Homepage
 	'news' => 'Notícias',
 	'social' => 'Social',
+	'join' => 'Join',
 	
 	// General terms
 	'submit' => 'Enviar',

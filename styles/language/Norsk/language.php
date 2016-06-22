@@ -590,6 +590,7 @@ $general_language = array(
 	// Homepage
 	'news' => 'Nyheter',
 	'social' => 'Sosial',
+	'join' => 'Join',
 	
 	// General terms
 	'submit' => 'Send inn',

@@ -590,6 +590,7 @@ $general_language = array(
 	// Homepage
 	'news' => 'Uutiset',
 	'social' => 'Sosiaaliset',
+	'join' => 'Join',
 	
 	// General terms
 	'submit' => 'Lähetä',
