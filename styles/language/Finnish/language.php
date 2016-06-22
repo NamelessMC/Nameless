@@ -64,6 +64,8 @@ $admin_language = array(
 	'use_gmail_help' => 'Saatavilla vain, jos PHP_mail() funktio ei ole käytössä. Jos et valitse käytettäväksi Gmailia, käytetään SMTP. Joka tapauksessa tämä tarvitsee konfiguroinnin core/email.php.',
 	'enable_mail_verification' => 'Ota sähköpostivarmistus käyttöön?',
 	'enable_email_verification_help' => 'Tämä lähettää sähköpostin käyttäjän valitsemaan sähköpostiin, joka tulee vahvistaa suorittaakseen rekisteröinnin kokonaan.',
+	'explain_email_settings' => 'The following is required if the "Use PHP mail() function" option is <strong>disabled</strong>. You can find documentation on these settings <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">on our wiki</a>.',
+	'email_config_not_writable' => 'Your <strong>core/email.php</strong> file is not writable. Please check file permissions.',
 	'pages' => 'Sivut',
 	'enable_or_disable_pages' => 'Ota käyttöön/poista käytöstä sivut täällä.',
 	'enable' => 'Ota käyttöön',

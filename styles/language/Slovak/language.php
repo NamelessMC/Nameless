@@ -64,6 +64,8 @@ $admin_language = array(
 	'use_gmail_help' => 'K dispozícii je iba ak je funkcia php mail vypnutá. Pokiaľ sa rozhodnete gmail nepoužívať, bude použitý SMTP. Tak či onak, to bude vyžadovať zodpovedajúce konfigúrácie: core/email.php.',
 	'enable_mail_verification' => 'Povoliť overovanie účtu cez e-mail?',
 	'enable_email_verification_help' => 'Pokiaľ bude toto povolené, bude požadované od novo registrovaných uživateľov overenie e-mailu pred dokončením registracie.',
+	'explain_email_settings' => 'The following is required if the "Use PHP mail() function" option is <strong>disabled</strong>. You can find documentation on these settings <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">on our wiki</a>.',
+	'email_config_not_writable' => 'Your <strong>core/email.php</strong> file is not writable. Please check file permissions.',
 	'pages' => 'Pages',
 	'enable_or_disable_pages' => 'Enable or disable pages here.',
 	'enable' => 'Enable',

@@ -909,6 +909,41 @@ $adm_page = "core";
 								$queries->update('settings', $verification_id, array(
 									'value' => Input::get('enable_verification')
 								));
+								
+								// Email setings
+								if($_POST['username'] || $_POST['password'] || $_POST['name'] || $_POST['host']){
+									// Update config
+									// Check config is writable
+									// Generate config path
+									$config_path = join(DIRECTORY_SEPARATOR, array('core', 'email.php'));
+									
+									if(is_writable($config_path)){
+										// Writable
+										require('core/email.php');
+										
+										// Make string to input
+										$input_string = '<?php' . PHP_EOL . 
+														'$GLOBALS[\'email\'] = array(' . PHP_EOL .
+														'    \'username\' => \'' . str_replace('\'', '\\\'', (isset($_POST['username']) ? $_POST['username'] : $GLOBALS['email']['username'])) . '\',' . PHP_EOL .
+														'    \'password\' => \'' . str_replace('\'', '\\\'', (isset($_POST['password']) ? $_POST['password'] : $GLOBALS['email']['password'])) . '\',' . PHP_EOL .
+														'    \'name\' => \'' . str_replace('\'', '\\\'', (isset($_POST['name']) ? $_POST['name'] : $GLOBALS['email']['name'])) . '\',' . PHP_EOL .
+														'    \'host\' => \'' . str_replace('\'', '\\\'', (isset($_POST['host']) ? $_POST['host'] : $GLOBALS['email']['host'])) . '\',' . PHP_EOL .
+														'    \'port\' => ' . str_replace('\'', '\\\'', $GLOBALS['email']['port']) . ',' . PHP_EOL .
+														'    \'secure\' => \'' . str_replace('\'', '\\\'', $GLOBALS['email']['secure']) . '\',' . PHP_EOL .
+														'    \'smtp_auth\' => ' . $GLOBALS['email']['smtp_auth'] . '' . PHP_EOL .
+														');';
+										
+										$file = fopen($config_path, 'w');
+										fwrite($file, $input_string);
+										fclose($file);
+										
+									} else {
+										// Not writable
+										echo '<div class="alert alert-danger">' . $admin_language['email_config_not_writable'] . '</div>';
+									}
+								}
+								
+								
 							} else {
 								// Validation errors
 								
@@ -923,6 +958,9 @@ $adm_page = "core";
 					$incoming_email = $queries->getWhere('settings', array('name', '=', 'incoming_email'));
 					$phpmailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
 					$verification = $queries->getWhere('settings', array('name', '=', 'email_verification'));
+					
+					// Require email settings
+					require('core/email.php');
 				?>
 			  <h3><?php echo $admin_language['email']; ?></h3>
 			  <form action="" method="post">
@@ -944,6 +982,25 @@ $adm_page = "core";
 				  <label for="InputOutgoingEmail"><?php echo $admin_language['outgoing_email']; ?></label> <a class="btn btn-info btn-xs" data-toggle="popover" data-content="<?php echo $admin_language['outgoing_email_help']; ?>"><span class="glyphicon glyphicon-question-sign"></span></a>
 				  <input id="InputOutgoingEmail" name="outgoing_email" value="<?php echo htmlspecialchars($outgoing_email[0]->value); ?>" class="form-control">
 				</div>
+				<hr />
+				<p><?php echo $admin_language['explain_email_settings']; ?></p>
+				<div class="form-group">
+				  <label for="inputUsername">Username</label>
+				  <input class="form-control" type="text" name="username" value="<?php echo htmlspecialchars($GLOBALS['email']['username']); ?>" id="inputUsername">
+				</div>
+				<div class="form-group">
+				  <label for="inputPassword">Password</label>
+				  <input class="form-control" type="password" name="password" id="inputPassword">
+				</div>
+				<div class="form-group">
+				  <label for="inputName">Name</label>
+				  <input class="form-control" type="text" name="name" value="<?php echo htmlspecialchars($GLOBALS['email']['name']); ?>" id="inputName">
+				</div>
+				<div class="form-group">
+				  <label for="inputHost">Host</label>
+				  <input class="form-control" type="text" name="host" value="<?php echo htmlspecialchars($GLOBALS['email']['host']); ?>" id="inputHost">
+				</div>
+				<hr />
 				<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 				<input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
 			  </form>
