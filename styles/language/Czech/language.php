@@ -588,6 +588,7 @@ $general_language = array(
 	// Homepage
 	'news' => 'Novinky',
 	'social' => 'Social',
+	'join' => 'Join',
 	
 	// General terms
 	'submit' => 'Odelsat',

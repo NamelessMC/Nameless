@@ -211,18 +211,27 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 			$viewer = '<iframe src="https://discordapp.com/widget?id=' . htmlspecialchars($discord_id) . '&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe>';
 		} else {
 			// Teamspeak module
-			require_once('core/includes/TeamSpeak3/TeamSpeak3.php');
-			
+			// Check cache first
+			$c->setCache('teamspeak');
 			$smarty->assign('VOICE_VIEWER_TITLE', 'TeamSpeak');
-			
-			try {
-				// connect to local server, authenticate and spawn an object for the virtual server on a defined port
-				$ts3_VirtualServer = TeamSpeak3::factory('serverquery://' . $voice_server_username . ':' . $voice_server_password . '@' . $voice_server_ip . ':' . $voice_server_port . '/?server_port=' . $voice_virtual_server_port . '&nickname=Query');
+			if(!$c->isCached('ts')){
+				require_once('core/includes/TeamSpeak3/TeamSpeak3.php');
+				
+				try {
+					// connect to local server, authenticate and spawn an object for the virtual server on a defined port
+					$ts3_VirtualServer = TeamSpeak3::factory('serverquery://' . $voice_server_username . ':' . $voice_server_password . '@' . $voice_server_ip . ':' . $voice_server_port . '/?server_port=' . $voice_virtual_server_port . '&nickname=Query');
 
-				// build and display HTML treeview using custom image paths (remote icons will be embedded using data URI sheme)
-				$viewer = $ts3_VirtualServer->getViewer(new TeamSpeak3_Viewer_Html("core/assets/img/ts3/viewer/", "core/assets/img/ts3/flags/", "data:image"));
-			} catch(Exception $e) {
-				$viewer = '<div class="alert alert-warning">' . $e->getMessage() . '</div>';
+					// build and display HTML treeview using custom image paths (remote icons will be embedded using data URI sheme)
+					$viewer = $ts3_VirtualServer->getViewer(new TeamSpeak3_Viewer_Html("core/assets/img/ts3/viewer/", "core/assets/img/ts3/flags/", "data:image"));
+					$viewer .= '<br /><center><a href="ts3server://' . htmlspecialchars($voice_server_ip) . '" class="btn btn-primary">' . $general_language['join'] . '</a></center>';
+				
+					// Cache
+					$c->store('ts', $viewer, 300); // cache for 5 mins
+				} catch(Exception $e) {
+					$viewer = '<div class="alert alert-warning">' . $e->getMessage() . '</div>';
+				}
+			} else {
+				$viewer = $c->retrieve('ts');
 			}
 		}
 	} else {
