@@ -181,6 +181,8 @@ $admin_language = array(
 	'forum_description_minimum' => 'A descrição do fórum deve ser um mínimo de 2 caracteres.',
 	'forum_name_maximum' => 'O nome do fórum deve ser um máximo de 150 caracteres.',
 	'forum_description_maximum' => 'A descrição do fórum deve ser um máximo de 255 caracteres.',
+	'forum_type_forum' => 'Discussion Forum',
+	'forum_type_category' => 'Category',
 	
 	// Admin Users and Groups page
 	'users' => 'Usuários',
