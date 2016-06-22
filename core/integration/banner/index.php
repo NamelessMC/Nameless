@@ -154,23 +154,81 @@ if($query_to_use == "false"){
 
 if($Info){ // If the server's up..
 	// Parse the MOTD to make it colourful
-	$motd = MC_parseMotdColors(nl2br($Info['description']));
-	$replace = array(
-		'<span style="color:',
-		'">',
-		'</span>',
-		'<br />'
-	);
-	$motd = str_replace($replace, '', $motd);
-	$motd = preg_split('/(?=\n)/', $motd);
-	foreach($motd as $item){
-		$motd_explode = explode('`', $item);
-		
-		foreach($motd_explode as $exploded){
-			$motd_formatted[] = $exploded;
+	if(isset($Info['description']['text']) && !empty($Info['description']['text'])){	
+		$motd = MC_parseMotdColors(nl2br($Info['description']['text']));
+		$replace = array(
+			'<span style="color:',
+			'">',
+			'</span>',
+			'<br />'
+		);
+		$motd = str_replace($replace, '', $motd);
+		$motd = preg_split('/(?=\n)/', $motd);
+		foreach($motd as $item){
+			$motd_explode = explode('`', $item);
+			
+			foreach($motd_explode as $exploded){
+				$motd_formatted[] = $exploded;
+			}
+			
 		}
-		
+	} else if(isset($Info['description']['extra']) && !empty($Info['description']['extra'])){
+		foreach($Info['description']['extra'] as $item){
+			switch($item['color']){
+				case 'black':
+					$motd_formatted[] = '#000000;' . $item['text'];
+				break;
+				case 'dark_blue':
+					$motd_formatted[] = '#0000aa;' . $item['text'];
+				break;
+				case 'dark_green':
+					$motd_formatted[] = '#00aa00;' . $item['text'];
+				break;
+				case 'dark_aqua':
+					$motd_formatted[] = '#00aaaa;' . $item['text'];
+				break;
+				case 'dark_red':
+					$motd_formatted[] = '#aa0000;' . $item['text'];
+				break;
+				case 'dark_purple':
+					$motd_formatted[] = '#aa00aa;' . $item['text'];
+				break;
+				case 'gold':
+					$motd_formatted[] = '#ffaa00;' . $item['text'];
+				break;
+				case 'gray':
+					$motd_formatted[] = '#aaaaaa;' . $item['text'];
+				break;
+				case 'dark_gray':
+					$motd_formatted[] = '#555555;' . $item['text'];
+				break;
+				case 'indigo':
+					$motd_formatted[] = '#5555ff;' . $item['text'];
+				break;
+				case 'green':
+					$motd_formatted[] = '#55ff55;' . $item['text'];
+				break;
+				case 'aqua':
+					$motd_formatted[] = '#55ffff;' . $item['text'];
+				break;
+				case 'red':
+					$motd_formatted[] = '#ff5555;' . $item['text'];
+				break;
+				case 'pink':
+					$motd_formatted[] = '#ff55ff;' . $item['text'];
+				break;
+				case 'yellow':
+					$motd_formatted[] = '#ffff55;' . $item['text'];
+				break;
+				default:
+					$motd_formatted[] = '#ffffff;' . $item['text'];
+				break;
+			}
+		}
+	} else {
+		$motd_formatted = array();
 	}
+
 
 	// Set the content-type
 	header('Content-Type: image/png');
@@ -202,7 +260,8 @@ if($Info){ // If the server's up..
 
 	// Make the image!
 	if($query_to_use == "false"){
-		$serverpic = imagecreatefrompng($Info['favicon']);
+		if(isset($Info['favicon']) && $Info['favicon']) $serverpic = imagecreatefrompng($Info['favicon']);
+		else $serverpic = imagecreatefrompng("favicon.png");
 	} else {
 		$serverpic = imagecreatefrompng("favicon.png");
 	}
