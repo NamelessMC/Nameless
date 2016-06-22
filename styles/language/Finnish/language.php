@@ -177,6 +177,8 @@ $admin_language = array(
 	'forum_description_minimum' => 'Foorumin kuvaus pitää olla vähintään 2 merkkiä pitkä.',
 	'forum_name_maximum' => 'Foorumin nimi voi olla korkeintaan 150 merkkiä.',
 	'forum_description_maximum' => 'Foorumin kuvaus voi olla korkeintaan 255 merkkiä.',
+	'forum_type_forum' => 'Discussion Forum',
+	'forum_type_category' => 'Category',
 	
 	// Admin Users and Groups page
 	'users' => 'Käyttäjät',

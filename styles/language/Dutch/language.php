@@ -178,7 +178,9 @@ $admin_language = array(
 	'forum_description_minimum' => 'The forum description must be a minimum of 2 characters. De forum beschrijving moet minstens uit 2 tekens bestaan.',
 	'forum_name_maximum' => 'De forum naam mag maar maximaal 150 tekens bevatten.',
 	'forum_description_maximum' => 'De forum beschrijving mag maar uit 255 tekens bestaan.',
-     
+	'forum_type_forum' => 'Discussion Forum',
+	'forum_type_category' => 'Category',
+
     // Admin Users and Groups page
     'users' => 'Gebruikers',
     'new_user' => 'Nieuwe Gebruiker',
