@@ -3,7 +3,11 @@
 
 // Database changes:
 // Forum types
-$queries->alterTable('forums', 'forum_type', "varchar(255) NOT NULL DEFAULT 'forum'");
+try {
+	$queries->alterTable('forums', 'forum_type', "varchar(255) NOT NULL DEFAULT 'forum'");
+} catch(Exception $e){
+	// Unable to alter table, must already exist
+}
 
 // Convert avatar types from true/false to 1/0
 $avatars = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
