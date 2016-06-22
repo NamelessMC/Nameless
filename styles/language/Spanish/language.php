@@ -67,6 +67,8 @@ $admin_language = array(
 	'use_gmail_help' => 'Sólo disponible si la función de correo de PHP está desactivada. Si elije no usar Gmail, se usará el protocolo SMTP. De todas formas, edite la configuración en core/email.php.',
 	'enable_mail_verification' => '¿Habilitar verificación de cuenta vía e-mail?',
 	'enable_email_verification_help' => 'Habilitando esto hara que los usuarios nuevos tengan que verificar su cuenta vía email para completar el registro.',
+	'explain_email_settings' => 'The following is required if the "Use PHP mail() function" option is <strong>disabled</strong>. You can find documentation on these settings <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">on our wiki</a>.',
+	'email_config_not_writable' => 'Your <strong>core/email.php</strong> file is not writable. Please check file permissions.',
 	'pages' => 'Páginas',
 	'enable_or_disable_pages' => 'Páginas para Habilitar/Deshabilitar aquí.',
 	'enable' => 'Habilitar',
