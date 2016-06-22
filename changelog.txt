@@ -271,3 +271,35 @@
 - Add custom infraction database prefixes
 - Fix private messaging date issues
 - Fix QR cURL error
+
+1.0.10
+- Allow TeamSpeak links
+- Add staff list to Members addon-
+- Update translations
+- Remove .php extension from installer URL
+- Fix staff app language and CSS issue
+- Allow configuring PHPMailer SMTPAuth variable
+- Fix ampersand page title issue
+- Fix variable typo on index page
+- Improve appearance of forum permissions
+- System to support different types of forums, currently categories and discussion forums
+- Update readme contributors
+- Fix inconsistent Minecraft avatar variable value
+- Allow custom mod sidebar links
+- Fix SQL error whilst editing posts
+- Fix installer issue
+- Issue template added
+- Fix alerts redirecting to white screen
+- Don't purify user group HTML field
+- Add support for Ban and Mute plugin for Infractions
+- Add instructions within email.php
+- Add cancel button whilst editing a post
+- Fix no PM alerts for replies
+- Fix incorrect warning on Infractions settings page
+- Fix addon nav tabs not displaying as active
+- Fix potential 404 error on phpinfo page
+- Allow use of colours in private messages
+- Fix issues with Minecraft banner
+- Remove unnecessary Smarty variable from homepage
+- Cache TeamSpeak query and add Join button
+- Allow editing email settings from AdminCP
