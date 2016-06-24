@@ -575,7 +575,9 @@ $token = Token::generate();
 	<script src="/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
 	<script type="text/javascript">
-		$('.datepicker').datepicker();
+		$('.datepicker').datepicker({
+			orientation: 'bottom'
+		});
 	
 		CKEDITOR.replace( 'signature', {
 			// Define the toolbar groups as it is a more accessible solution.
