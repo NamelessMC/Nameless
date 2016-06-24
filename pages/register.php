@@ -591,7 +591,9 @@ if($recaptcha === "true"){
 	<script src="/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
 	<script>
-	$('.datepicker').datepicker();
+	$('.datepicker').datepicker({
+		orientation: 'bottom'
+	});
 	
 	$(function () {
 		$('.button-checkbox').each(function () {
