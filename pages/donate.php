@@ -80,6 +80,8 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 				$currency = '£';
 			} else if($currency[0]->value == "2"){
 				$currency = '€';
+			} else if($currency[0]->value == "3"){
+				$currency = 'R$';
 			}
 			
 			$latest_donors_string = '';

@@ -96,6 +96,9 @@ if(is_file($page_path)){
 			if(count($custom_pages)){
 				$page_title = $custom_pages[0]->title;
 				$page_content = $custom_pages[0]->content;
+				$page_id = $custom_pages[0]->id;
+				
+				if($custom_pages[0]->redirect == 1) $redirect_page = htmlspecialchars($custom_pages[0]->link);
 				
 				// For navbar
 				$page = $custom_pages[0]->title;
@@ -113,6 +116,9 @@ if(is_file($page_path)){
 			if(count($custom_pages)){
 				$page_title = $custom_pages[0]->title;
 				$page_content = $custom_pages[0]->content;
+				$page_id = $custom_pages[0]->id;
+				
+				if($custom_pages[0]->redirect == 1) $redirect_page = htmlspecialchars($custom_pages[0]->link);
 				
 				// For navbar
 				$page = $custom_pages[0]->title;

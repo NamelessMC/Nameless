@@ -672,7 +672,7 @@ $adm_page = "forums";
 								}
 							}
 						?>
-							<strong onclick="toggle(<?php echo "'" . $group->id . "'"; ?>)"><?php echo htmlspecialchars($group->name); ?>:</strong><br />
+						<strong onclick="toggle(<?php echo "'" . $group->id . "'"; ?>)"><?php echo htmlspecialchars($group->name); ?>:</strong><br />
 						<div class="row">
 							<div class="col-md-8">
 								<table class="table">

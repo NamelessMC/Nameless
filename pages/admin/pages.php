@@ -29,6 +29,9 @@ $adm_page = "custom_pages"; // For admin sidebar
 require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purifier
 
 if(!isset($_GET['action'])){
+	// Get a list of all groups
+	$groups = $queries->getWhere('groups', array('id', '<>', '0'));
+	
 	// Deal with input for editing pages only
 	if(Input::exists()) {
 		if(Token::check(Input::get('token'))) {
@@ -45,23 +48,95 @@ if(!isset($_GET['action'])){
 					'max' => 30
 				),
 				'content' => array(
-					'required' => true,
-					'min' => 5,
 					'max' => 20480
 				),
 				'link_location' => array(
 					'required' => true
+				),
+				'redirect_link' => array(
+					'max' => 512
 				)
 			));
 			
 			if($validation->passed()){
 				try {
+					// Is redirect enabled, and is a link set?
+					if(isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') $redirect = 1;
+					else $redirect = 0;
+					
+					if(isset($_POST['redirect_link'])) $link = $_POST['redirect_link'];
+					else $link = '';
+					
 					$queries->update("custom_pages", $_GET["page"], array(
 						"url" => htmlspecialchars(Input::get('url')),
 						"title" => htmlspecialchars(Input::get('title')),
 						"content" => htmlspecialchars(Input::get('content')),
-						"link_location" => Input::get('link_location')
+						"link_location" => Input::get('link_location'),
+						'redirect' => $redirect,
+						'link' => htmlspecialchars($link)
 					));
+					
+					// Permissions
+					// Guests first
+					$view = Input::get('perm-view-0');
+					
+					$page_perm_exists = 0;
+					
+					$page_perm_query = $queries->getWhere('custom_pages_permissions', array('page_id', '=', $_GET["page"]));
+					if(count($page_perm_query)){ 
+						foreach($page_perm_query as $query){
+							if($query->group_id == 0){
+								$page_perm_exists = 1;
+								$update_id = $query->id;
+								break;
+							}
+						}
+					}
+
+					if($page_perm_exists != 0){ // Permission already exists, update
+						// Update the permission
+						$queries->update('custom_pages_permissions', $update_id, array(
+							'view' => $view
+						));
+					} else { // Permission doesn't exist, create
+						$queries->create('custom_pages_permissions', array(
+							'group_id' => 0,
+							'page_id' => $_GET["page"],
+							'view' => $view
+						));
+					}
+					
+					// Groups
+					foreach($groups as $group){ 
+						$view = Input::get('perm-view-' . $group->id);
+						
+						$page_perm_exists = 0;
+
+						if(count($page_perm_query)){ 
+							foreach($page_perm_query as $query){
+								if($query->group_id == $group->id){
+									$page_perm_exists = 1;
+									$update_id = $query->id;
+									break;
+								}
+							}
+						}
+						
+						if($page_perm_exists != 0){ // Permission already exists, update
+							// Update the forum
+							$queries->update('custom_pages_permissions', $update_id, array(
+								'view' => $view
+							));
+							
+						} else { // Permission doesn't exist, create
+							$queries->create('custom_pages_permissions', array(
+								'group_id' => $group->id,
+								'page_id' => $_GET["page"],
+								'view' => $view
+							));
+						}
+					}
+					
 				} catch(Exception $e){
 					die($e->getMessage());
 				}
@@ -95,30 +170,43 @@ if(!isset($_GET['action'])){
 					'max' => 30
 				),
 				'content' => array(
-					'required' => true,
-					'min' => 5,
 					'max' => 20480
 				),
 				'link_location' => array(
 					'required' => true
+				),
+				'redirect_link' => array(
+					'max' => 512
 				)
 			));
 			
 			if($validation->passed()){
 				// Go ahead and input the page data
 				try {
+					// Is redirect enabled, and is a link set?
+					if(isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') $redirect = 1;
+					else $redirect = 0;
+					
+					if(isset($_POST['redirect_link'])) $link = $_POST['redirect_link'];
+					else $link = '';
+					
 					$queries->create("custom_pages", array(
 						"url" => htmlspecialchars(Input::get('url')),
 						"title" => htmlspecialchars(Input::get('title')),
 						"content" => htmlspecialchars(Input::get('content')),
-						"link_location" => Input::get('link_location')
+						"link_location" => Input::get('link_location'),
+						'redirect' => $redirect,
+						'link' => htmlspecialchars($link)
 					));
+					
+					$page_id = $queries->getLastId();
+					
 				} catch(Exception $e){
 					die($e->getMessage());
 				}
 				
 				Session::flash('custom-pages', '<div class="alert alert-info">' . $admin_language['page_successfully_created'] . '</div>');
-				echo '<script data-cfasync="false">window.location.replace(\'/admin/pages\');</script>';
+				echo '<script data-cfasync="false">window.location.replace(\'/admin/pages/?page=' . $page_id . '\');</script>';
 				die();
 			} else {
 				$error = '<div class="alert alert-warning"><p><strong>' . $admin_language['unable_to_create_page'] . '</strong></p><p>' . $admin_language['create_page_error'] . '</p></div>';
@@ -142,6 +230,7 @@ $token = Token::generate(); // generate token
     <meta name="description" content="Admin panel">
     <meta name="author" content="Samerton">
 	<meta name="robots" content="noindex">
+	<script>var groups = [];</script>
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 	
 	<?php
@@ -151,6 +240,8 @@ $token = Token::generate(); // generate token
 	
 	require('core/includes/template/generate.php');
 	?>
+	
+	<link href="/core/assets/plugins/switchery/switchery.min.css" rel="stylesheet">	
 	
 	<!-- Custom style -->
 	<style>
@@ -205,6 +296,9 @@ $token = Token::generate(); // generate token
 				<br /><br />
 				<strong><?php echo $admin_language['url']; ?></strong> http://<?php echo $_SERVER['SERVER_NAME'] . htmlspecialchars($page[0]->url); ?><br /><br />
 				<?php
+				if(Session::exists('custom-pages')){
+					echo Session::flash('custom-pages');
+				}
 				if(isset($error)){
 					echo $error;	
 				}
@@ -245,6 +339,88 @@ $token = Token::generate(); // generate token
 				  echo $purifier->purify(htmlspecialchars_decode($page[0]->content)); 
 				  ?>
 				  </textarea>
+				  <br />
+				  <div class="form-group">
+				    <label for="InputRedirectPage"><?php echo $admin_language['redirect_page']; ?></label>
+					<input id="InputRedirectPage" name="redirect_page" type="checkbox" class="js-switch"<?php if($page[0]->redirect == 1){ ?> checked<?php } ?> />
+				  </div>
+				  <div class="form-group">
+					<label for="InputRedirectLink"><?php echo $admin_language['redirect_link']; ?></label>
+					<input type="text" class="form-control" name="redirect_link" id="InputRedirectLink" value="<?php echo htmlspecialchars($page[0]->link); ?>">
+				  </div>
+				  <div class="form-group">
+					<strong><?php echo $admin_language['page_permissions']; ?></strong><br />
+					<?php
+					// Get all forum permissions
+					$group_perms = $queries->getWhere('custom_pages_permissions', array('page_id', '=', $_GET["page"]));
+					?>
+					<strong><?php echo $general_language['guests']; ?>:</strong><br />
+					<?php
+					foreach($group_perms as $group_perm){
+						if($group_perm->group_id == 0){
+							$view = $group_perm->view;
+							break;
+						}
+					}
+					?>
+					<div class="row">
+						<div class="col-md-8">
+							<table class="table">
+								<thead>
+								  <tr>
+									<th></th>
+									<th></th>
+								  </tr>
+								</thead>
+								<tbody>
+								  <tr>
+									<td><input type="hidden" name="perm-view-0" value="0" />
+										<label for="Input-view-0"><?php echo $admin_language['can_view_page']; ?></label></td>
+									<td class="info"> <input onclick="colourUpdate(this);" name="perm-view-0" id="Input-view-0" value="1" type="checkbox"<?php if(isset($view) && $view == 1){ echo ' checked'; } ?>></td>
+								  </tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<script>groups.push("0");</script>
+					<br />
+					<?php
+					foreach($groups as $group){
+						// Get the existing group permissions
+						$view = 0;
+						
+						foreach($group_perms as $group_perm){
+							if($group_perm->group_id == $group->id){
+								$view = $group_perm->view;
+								break;
+							}
+						}
+					?>
+					<strong onclick="toggle(<?php echo "'" . $group->id . "'"; ?>)"><?php echo htmlspecialchars($group->name); ?>:</strong><br />
+					<div class="row">
+						<div class="col-md-8">
+							<table class="table">
+								<thead>
+								  <tr>
+									<th></th>
+									<th></th>
+								  </tr>
+								</thead>
+								<tbody>
+								  <tr>
+									<td><input type="hidden" name="perm-view-<?php echo $group->id; ?>" value="0" />
+										<label for="Input-view-<?php echo $group->id; ?>"><?php echo $admin_language['can_view_page']; ?></label></td>
+									<td class="info"> <input onclick="colourUpdate(this);" name="perm-view-<?php echo $group->id; ?>" id="Input-view-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($view) && $view == 1){ echo ' checked'; } ?>></td>
+								  </tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<script>groups.push("<?php echo $group->id; ?>");</script>
+					<?php
+					}
+					?>
+				  </div>
 				  <input type="hidden" name="token" value="<?php echo $token; ?>">
 				  <br /><br />
 				  <input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
@@ -295,6 +471,15 @@ $token = Token::generate(); // generate token
 				  echo $purifier->purify(Input::get('content')); 
 				  ?>
 				  </textarea>
+				  <br />
+				  <div class="form-group">
+				    <label for="InputRedirectPage"><?php echo $admin_language['redirect_page']; ?></label>
+					<input id="InputRedirectPage" name="redirect_page" type="checkbox" class="js-switch" />
+				  </div>
+				  <div class="form-group">
+					<label for="InputRedirectLink"><?php echo $admin_language['redirect_link']; ?></label>
+					<input type="text" class="form-control" name="redirect_link" id="InputRedirectLink">
+				  </div>
 				  <input type="hidden" name="token" value="<?php echo $token; ?>">
 				  <br /><br />
 				  <input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
@@ -351,6 +536,35 @@ $token = Token::generate(); // generate token
 			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash'
 		} );
 	</script>
+    <script type="text/javascript">
+		function colourUpdate(that) {
+			var x = that.parentElement;
+			if(that.checked) {
+				x.className = "success";
+			} else {
+				x.className = "danger";
+			}
+		}
+		function toggle(group) {
+			if(document.getElementById('Input-view-' + group).checked) {
+				document.getElementById('Input-view-' + group).checked = false;
+			} else {
+				document.getElementById('Input-view-' + group).checked = true;
+			}
 
+			colourUpdate(document.getElementById('Input-view-' + group));
+		}
+		for(var g in groups) {
+			colourUpdate(document.getElementById('Input-view-' + groups[g]));
+		}
+    </script>
+	<script src="/core/assets/plugins/switchery/switchery.min.js"></script>
+	<script>
+		var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+		elems.forEach(function(html) {
+		  var switchery = new Switchery(html, {size: 'small'});
+		});
+	</script>
   </body>
 </html>
