@@ -208,6 +208,9 @@ $adm_page = "minecraft";
 					'value' => $new_api_key
 				));
 				
+				// Cache
+				file_put_contents('cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $new_api_key);
+				
 				// Redirect
 				echo '<script data-cfasync="false">window.location.replace("/admin/minecraft/?settings=plugin");</script>';
 				die();

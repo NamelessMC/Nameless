@@ -137,6 +137,10 @@ $admin_language = array(
 	'page_link_more' => 'Navbar "Mer" dropdown',
 	'page_link_footer' => 'Side footer',
 	'page_link_none' => 'Ingen lenke',
+	'page_permissions' => 'Page Permissions',
+	'can_view_page' => 'Can view page:',
+	'redirect_page' => 'Redirect page?',
+	'redirect_link' => 'Redirect link',
 	
 	// Admin forum page
 	'labels' => 'Emne etiketter',
@@ -762,6 +766,13 @@ $table_language = array(
 	'page_x_of_y' => 'Viser side _PAGE_ av _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
 	'no_records' => 'Ingen poster tilgjengelig',
 	'filtered' => '(filtrert fra _MAX_ total rekord)' // Don't replace "_MAX_"
+);
+ 
+/*
+ *  API language
+ */
+$api_language = array(
+	'register' => 'Complete Registration'
 );
  
 ?>

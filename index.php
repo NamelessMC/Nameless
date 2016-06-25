@@ -88,6 +88,14 @@ if(is_file($page_path)){
 				die();
 			}
 			
+			// API?
+			if($directories[1] == 'api'){
+				if(is_file('pages' . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . $directories[2] . DIRECTORY_SEPARATOR . 'index.php')){
+					require('pages' . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . $directories[2] . DIRECTORY_SEPARATOR . 'index.php');
+					die();
+				}
+			}
+			
 			// Custom page?
 			$page_path = explode('/', $page_path);
 			

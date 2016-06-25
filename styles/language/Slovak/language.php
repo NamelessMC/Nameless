@@ -137,6 +137,10 @@ $admin_language = array(
 	'page_link_more' => '"Viac" rozbaľovacie sa hlavné menu',
 	'page_link_footer' => 'Päta stránky',
 	'page_link_none' => 'Žiadny odkaz na stránku na webe',
+	'page_permissions' => 'Page Permissions',
+	'can_view_page' => 'Can view page:',
+	'redirect_page' => 'Redirect page?',
+	'redirect_link' => 'Redirect link',
 	
 	// Admin forum page
 	'labels' => 'Štítky témy',
@@ -760,6 +764,13 @@ $table_language = array(
 	'page_x_of_y' => 'stránka _PAGE_ z _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
 	'no_records' => 'K dispozícii niesu žiadné záznami',
 	'filtered' => '(filtered from _MAX_ total records)' // Don't replace "_MAX_"
+);
+ 
+/*
+ *  API language
+ */
+$api_language = array(
+	'register' => 'Complete Registration'
 );
  
 ?>
