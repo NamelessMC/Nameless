@@ -337,8 +337,8 @@ $admin_language = array(
  */
 $navbar_language = array(
 	// Text only
-	'home' => 'Home',
-	'play' => 'Play',
+	'home' => 'Início',
+	'play' => 'Jogar',
 	'forum' => 'Fórum',
 	'more' => 'Mais',
 	'staff_apps' => 'Recrutamentos',
@@ -510,7 +510,7 @@ $user_language = array(
 	'following' => 'SEGUINDO',
 	'followers' => 'SEGUIDORES',
 	'display_location' => 'De {x}.', // Don't replace {x}, which will be the user's location
-	'display_age_and_location' => '{x}, de {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
+	'display_age_and_location' => '{x} anos, de {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
 	'write_on_user_profile' => 'Escreva algo no perfil de {x}...', // Don't replace {x}
 	'write_on_own_profile' => 'Escreva alguma coisa no seu perfil...',
 	'profile_posts' => 'Postagens no Perfil',
