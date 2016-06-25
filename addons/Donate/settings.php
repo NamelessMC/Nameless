@@ -193,6 +193,7 @@ if(empty($donation_settings)){
 	  <option value="0" <?php if($donation_settings[5]->value == '0'){ echo ' selected="selected"'; } ?>>$</option>
 	  <option value="1" <?php if($donation_settings[5]->value == '1'){ echo ' selected="selected"'; } ?>>£</option>
 	  <option value="2" <?php if($donation_settings[5]->value == '2'){ echo ' selected="selected"'; } ?>>€</option>
+	  <option value="3" <?php if($donation_settings[5]->value == '3'){ echo ' selected="selected"'; } ?>>R$</option>
 	</select>
   </div>
   <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">

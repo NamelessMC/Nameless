@@ -98,11 +98,11 @@ $admin_language = array(
 	'voice_server_port' => 'Poort (Gewoonlijk 10011)',
 	'virtual_port' => 'Virtuele Poort (Gewoonlijk 9987)',
 	'permissions' => 'Toestemmingen:',
-	'view_applications' => 'View Applications?',
-	'accept_reject_applications' => 'Accept/Reject Applications?',
+	'view_applications' => 'Bekijk Aanvragen?',
+	'accept_reject_applications' => 'Accepteer/Weiger Aanvragen?',
 	'questions' => 'Vragen:',
 	'question' => 'Vraag',
-	'type' => 'Type',
+	'type' => 'Soort',
 	'options' => 'Opties',
 	'options_help' => 'Elke optie op een nieuwe regel; mag leeg zijn (Alleen voor lijst opties)',
 	'no_questions' => 'Er zijn geen vragen toegevoegd.',
@@ -181,7 +181,7 @@ $admin_language = array(
 	'forum_name_maximum' => 'De forum naam mag maar maximaal 150 tekens bevatten.',
 	'forum_description_maximum' => 'De forum beschrijving mag maar uit 255 tekens bestaan.',
 	'forum_type_forum' => 'Discussion Forum',
-	'forum_type_category' => 'Category',
+	'forum_type_category' => 'Categorie',
 
     // Admin Users and Groups page
     'users' => 'Gebruikers',
@@ -503,8 +503,8 @@ $user_language = array(
 	'find_a_user' => 'Zoek een gebruiker.',
 	'user_not_following' => 'Deze gebruiker volgt niemand.',
 	'user_no_followers' => 'Deze gebruiker heeft geen volgers.',
-	'following' => 'FOLLOWING',
-	'followers' => 'FOLLOWERS',
+	'following' => 'Volgend',
+	'followers' => 'Volgers',
 	'display_location' => 'Van {x}.', // Don't replace {x}, which will be the user's location
 	'display_age_and_location' => '{x}, van {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
 	'write_on_user_profile' => 'Plaats iets op {x}\'s profiel...', // Don't replace {x}
@@ -517,8 +517,8 @@ $user_language = array(
 	'x_likes' => '{x} likes', // Don't replace {x}
 	'likes' => 'Likes',
 	'no_likes' => 'Geen likes.',
-	'post_liked' => 'Post liked.',
-	'post_unliked' => 'Post unliked.',
+	'post_liked' => 'Bericht liked.',
+	'post_unliked' => 'Bericht unliked.',
 	'no_posts' => 'Geen posts.',
 	'last_5_posts' => 'Last 5 posts',
      
@@ -658,23 +658,23 @@ $forum_language = array(
     'subforums' => 'Subforums:',
      
     // View topic view
-    'home' => 'Home',
+    'home' => 'Start',
     'topic_locked' => 'Topic Gesloten',
     'new_reply' => 'Nieuwe Antwoord',
     'mod_actions' => 'Mod Acties',
     'lock_thread' => 'Sluit Topic',
     'unlock_thread' => 'Ontgrendel topic',
     'merge_thread' => 'Voeg een topic samen',
-    'delete_thread' => 'Verwijder Thread',
-    'confirm_thread_deletion' => 'Weet u zeker dat u deze thread wilt verwijderen?',
-    'move_thread' => 'Verplaats Thread',
-    'sticky_thread' => 'Sticky Thread',
-    'report_post' => 'Report Post',
-    'quote_post' => 'Quote Post',
-    'delete_post' => 'Verwijder Post',
-    'edit_post' => 'Bewerk Post',
+    'delete_thread' => 'Verwijder topic',
+    'confirm_thread_deletion' => 'Weet u zeker dat u dit topic wilt verwijderen?',
+    'move_thread' => 'Verplaats topic',
+    'sticky_thread' => 'Sticky topic',
+    'report_post' => 'Reporteer bericht',
+    'quote_post' => 'Citeer bericht',
+    'delete_post' => 'Verwijder bericht',
+    'edit_post' => 'Bewerk bericht',
     'reputation' => 'reputatie',
-    'confirm_post_deletion' => 'Weet u zeker dat u deze post wilt verwijderen?',
+    'confirm_post_deletion' => 'Weet u zeker dat u dit bericht wilt verwijderen?',
     'give_reputation' => 'Geef Reputatie',
     'remove_reputation' => 'Verwijder Reputatie',
     'post_reputation' => 'Post Reputatie',
@@ -691,9 +691,9 @@ $forum_language = array(
     'editing_post' => 'Post Bewerken',
      
     // Sticky threads
-    'thread_is_' => 'Thread is ',
-    'now_sticky' => 'nu een sticky thread',
-    'no_longer_sticky' => 'niet langer een sticky thread',
+    'thread_is_' => 'Topic is ',
+    'now_sticky' => 'nu een sticky topic',
+    'no_longer_sticky' => 'niet langer een sticky topic',
      
     // Create topic
     'topic_created' => 'Topic Gemaakt.',
