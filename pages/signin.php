@@ -63,7 +63,7 @@ if(Input::exists()){
 								
 								$mail = new PHPMailer;
 								$mail->IsSMTP(); 
-								$mail->SMTPDebug = 2;
+								$mail->SMTPDebug = 0;
 								$mail->Debugoutput = 'html';
 								$mail->Host = $GLOBALS['email']['host'];
 								$mail->Port = $GLOBALS['email']['port'];
