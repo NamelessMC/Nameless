@@ -728,4 +728,28 @@ class User {
 		}
 		return false;
 	}
+	
+	// Can the current user view a custom page?
+	public function canViewPage($page_id){
+		if($this->_isLoggedIn){
+			$group_id = $this->data()->group_id;
+		} else {
+			// Guest
+			$group_id = 0;
+		}
+		
+		// Check the database
+		$permissions = $this->_db->get('custom_pages_permissions', array('page_id', '=', $page_id));
+		$permissions = $permissions->results();
+		if(count($permissions)){
+			foreach($permissions as $permission){
+				if($permission->group_id == $group_id && $permission->view == 1){
+					$can_view = 1;
+					break;
+				}
+			}
+		}
+		
+		return isset($can_view);
+	}
 }

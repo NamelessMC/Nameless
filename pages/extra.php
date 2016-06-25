@@ -7,6 +7,20 @@
  */
 
 require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purifier
+
+// Can the user view the page?
+if(!$user->canViewPage($page_id)){
+	echo '<script>window.location.replace(\'/\');</script>';
+	die();
+}
+
+// Redirect page?
+if(isset($redirect_page)){
+	if(!is_null($redirect_page) && $redirect_page != ''){
+		echo '<script>window.location.replace(\'' . $redirect_page . '\');</script>';
+		die();
+	} else die();
+}
 ?>
 
 <!DOCTYPE html>
