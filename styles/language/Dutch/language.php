@@ -138,7 +138,11 @@ $admin_language = array(
     'page_link_more' => 'Navbar "More" dropdown',
     'page_link_footer' => 'Pagina Onderkant',
     'page_link_none' => 'Geen pagina link',
-     
+	'page_permissions' => 'Page Permissions',
+	'can_view_page' => 'Can view page:',
+	'redirect_page' => 'Redirect page?',
+	'redirect_link' => 'Redirect link',
+
     // Admin forum page
     'labels' => 'Topic Labels',
     'new_label' => 'Nieuw Label',
@@ -762,6 +766,13 @@ $table_language = array(
     'page_x_of_y' => 'pagina _PAGE_ van de _PAGES_ wordt weergegeven', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Geen gegevens beschikbaar',
     'filtered' => '(gefilterd van de _MAX_ gegevens)' // Don't replace "_MAX_"
+);
+
+/*
+ *  API language
+ */
+$api_language = array(
+	'register' => 'Complete Registration'
 );
   
 ?>

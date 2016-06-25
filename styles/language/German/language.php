@@ -140,6 +140,10 @@ $admin_language = array(
 	'page_link_more' => 'Navigationsleiste -> "Mehr" Menü',
 	'page_link_footer' => 'Fußleiste',
 	'page_link_none' => 'Kein Seitenlink',
+	'page_permissions' => 'Page Permissions',
+	'can_view_page' => 'Can view page:',
+	'redirect_page' => 'Redirect page?',
+	'redirect_link' => 'Redirect link',
 
 	// Admin forum page
 	'labels' => 'Themen Label',
@@ -782,6 +786,13 @@ $table_language = array(
 	'page_x_of_y' => 'Zeige Seite _PAGE_ von _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
 	'no_records' => 'Keine Einträge',
 	'filtered' => '(gefiltert aus _MAX_ Einträgen)' // Don't replace "_MAX_"
+);
+
+/*
+ *  API language
+ */
+$api_language = array(
+	'register' => 'Complete Registration'
 );
 
 ?>

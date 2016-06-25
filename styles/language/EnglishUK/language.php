@@ -137,6 +137,10 @@ $admin_language = array(
 	'page_link_more' => 'Navbar "More" dropdown',
 	'page_link_footer' => 'Page footer',
 	'page_link_none' => 'No page link',
+	'page_permissions' => 'Page Permissions',
+	'can_view_page' => 'Can view page:',
+	'redirect_page' => 'Redirect page?',
+	'redirect_link' => 'Redirect link',
 	
 	// Admin forum page
 	'labels' => 'Topic Labels',
@@ -762,6 +766,13 @@ $table_language = array(
 	'page_x_of_y' => 'Showing page _PAGE_ of _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
 	'no_records' => 'No records available',
 	'filtered' => '(filtered from _MAX_ total records)' // Don't replace "_MAX_"
+);
+ 
+/*
+ *  API language
+ */
+$api_language = array(
+	'register' => 'Complete Registration'
 );
  
 ?>

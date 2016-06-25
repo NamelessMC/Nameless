@@ -137,6 +137,10 @@ $admin_language = array(
 	'page_link_more' => 'Navigaatiopalkki "Lisää" pudotusvalikko',
 	'page_link_footer' => 'Sivun alatunniste',
 	'page_link_none' => 'Sivulla ei ole linkkiä',
+	'page_permissions' => 'Page Permissions',
+	'can_view_page' => 'Can view page:',
+	'redirect_page' => 'Redirect page?',
+	'redirect_link' => 'Redirect link',
 	
 	// Admin forum page
 	'labels' => 'Aiheleima',
@@ -762,6 +766,13 @@ $table_language = array(
 	'page_x_of_y' => 'Näytetään sivu _PAGE_  _PAGES_:sta sivusta', // Don't replace "_PAGE_" or "_PAGES_"
 	'no_records' => 'Ei saatavilla',
 	'filtered' => '(suodatettiin _MAX_ tuloksesta yhteensä)' // Don't replace "_MAX_"
+);
+ 
+/*
+ *  API language
+ */
+$api_language = array(
+	'register' => 'Complete Registration'
 );
  
 ?>
