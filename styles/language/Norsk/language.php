@@ -97,7 +97,7 @@ $admin_language = array(
 	'voice_server_port' => 'Port (vanligvis 10 011)',
 	'virtual_port' => 'Virtual Port (vanligvis 9987)',
 	'permissions' => 'Tillatelser:',
-	'view_applications' => 'Se søkenader?',
+	'view_applications' => 'Se søknader?',
 	'accept_reject_applications' => 'Aksepter / avslå søknader?',
 	'questions' => 'Spørsmåler:',
 	'question' => 'Spørsmål',
@@ -137,10 +137,10 @@ $admin_language = array(
 	'page_link_more' => 'Navbar "Mer" dropdown',
 	'page_link_footer' => 'Side footer',
 	'page_link_none' => 'Ingen lenke',
-	'page_permissions' => 'Page Permissions',
-	'can_view_page' => 'Can view page:',
-	'redirect_page' => 'Redirect page?',
-	'redirect_link' => 'Redirect link',
+	'page_permissions' => 'Side Tillatelser',
+	'can_view_page' => 'Kan vise side:',
+	'redirect_page' => 'Omdirigerings side?',
+	'redirect_link' => 'Omdirigere lenke',
 	
 	// Admin forum page
 	'labels' => 'Emne etiketter',
@@ -543,7 +543,7 @@ $mod_language = array(
 	'overview' => 'Oversikt',
 	'reports' => 'Reports',
 	'punishments' => 'Straff',
-	'staff_applications' => 'Staff Søkenader',
+	'staff_applications' => 'Staff Søknader',
 	
 	// Punishments
 	'ban' => 'Utesteng',
@@ -575,7 +575,7 @@ $mod_language = array(
 	
 	// Staff applications
 	'comment_error' => 'Sørg for din kommentar er mellom 2 og 2048 tegn.',
-	'viewing_open_applications' => 'Viser <span class="label label-info">Åpne</span> søkenader. Bytt til <a href="/mod/applications/?view=accepted"><span class="label label-success">aksepterte</span></a> eller <a href="/mod/applications/?view=declined"><span class="label label-danger">Avslått</span></a>.',
+	'viewing_open_applications' => 'Viser <span class="label label-info">Åpne</span> søknader. Bytt til <a href="/mod/applications/?view=accepted"><span class="label label-success">aksepterte</span></a> eller <a href="/mod/applications/?view=declined"><span class="label label-danger">Avslått</span></a>.',
 	'viewing_accepted_applications' => 'Viser <span class="label label-success">akseptert</span> applications. Bytt til <a href="/mod/applications/"><span class="label label-info">Åpne</span></a> eller <a href="/mod/applications/?view=declined"><span class="label label-danger">avslått</span></a>.',
 	'viewing_declined_applications' => 'Viser <span class="label label-danger">Avslått</span> applications. Bytt til <a href="/mod/applications/"><span class="label label-info">Åpne</span></a> eller <a href="/mod/applications/?view=accepted"><span class="label label-success">akseptert</span></a>.',
 	'time_applied' => 'tid Applied',
@@ -586,7 +586,7 @@ $mod_language = array(
 	'declined' => 'avvist',
 	'accept' => 'Aksepterer',
 	'decline' => 'Avslå',
-	'new_app_submitted_alert' => 'Ny søkenad innsendt av {x}' // Don't replace "{x}"
+	'new_app_submitted_alert' => 'Ny søknad innsendt av {x}' // Don't replace "{x}"
 );
 
 /* 
@@ -772,7 +772,7 @@ $table_language = array(
  *  API language
  */
 $api_language = array(
-	'register' => 'Complete Registration'
+	'register' => 'Registrering Fullført'
 );
  
 ?>
