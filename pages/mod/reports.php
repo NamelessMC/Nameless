@@ -192,7 +192,17 @@ $token = Token::generate();
 							<?php echo '<input type="hidden" name="type" value="update_status">'; ?>
 							<?php echo '<input type="hidden" name="token" value="' .  $token . '">'; ?>
 							<?php echo '<input type="hidden" name="report_id" value="' . $_GET["rid"] . '">'; ?>
-							<button style="display: inline;" type="submit" class="btn btn-danger"><?php echo $mod_language['close_issue']; ?></button>
+							<?php
+								if($report[0]->status == 0) {
+									?>
+									<button style="display: inline;" type="submit" class="btn btn-danger"><?php echo $mod_language['close_issue']; ?></button>
+									<?php
+								} else {
+									?>
+									<span class="label label-danger"><?php echo $mod_language['report_closed']; ?></span>
+									<?php
+								}
+								?>
 						</form>
 					</span>
 					<br /><br />

@@ -82,7 +82,7 @@ Upcoming addons (these will need to be downloaded separately):
 * Norsk: @partydragen
 * Slovak: @Marki35
 * French: @CreaModZ
-* Dutch: Sander Jochems, @Azoraqua and @jesseke55
+* Dutch: Sander Jochems, @Azoraqua, @jesseke55 and @melerpe
 * Finnish: -kakara-
 * Portuguese: @dgateles
 
