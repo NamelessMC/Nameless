@@ -140,10 +140,10 @@ $admin_language = array(
 	'page_link_more' => 'Barra de navegación con menú "Mas"',
 	'page_link_footer' => 'Pie de página',
 	'page_link_none' => 'No hay un link de la pagina',
-	'page_permissions' => 'Page Permissions',
-	'can_view_page' => 'Can view page:',
-	'redirect_page' => 'Redirect page?',
-	'redirect_link' => 'Redirect link',
+	'page_permissions' => 'Permisos de página',
+	'can_view_page' => 'Puede ver la pagina:',
+	'redirect_page' => '¿Página redirigida?',
+	'redirect_link' => 'Link de redirección',
 	
 	// Admin forum page
 	'labels' => 'Etiquetas de tema',
@@ -598,7 +598,7 @@ $general_language = array(
 	// Homepage
 	'news' => 'Noticias',
 	'social' => 'Social',
-	'join' => 'Join',
+	'join' => 'Unirse',
 	
 	// General terms
 	'submit' => 'Enviar',
@@ -723,8 +723,8 @@ $forum_language = array(
 	// Other
 	'forum_error' => 'Lo sentimos, pero no se encontró en los foros o los temas.',
 	'are_you_logged_in' => '¿Se ha registrado?',
-	'online_users' => 'Online Users',
-	'no_users_online' => 'There are no users online.',
+	'online_users' => 'Usuarios en linea',
+	'no_users_online' => 'No hay usuarios en línea.',
 	
 	// Search
 	'search_error' => 'Por favor, introduce una búsqueda entre 1 y 32 caracteres.'
@@ -774,7 +774,7 @@ $table_language = array(
  *  API language
  */
 $api_language = array(
-	'register' => 'Complete Registration'
+	'register' => 'Registro completo'
 );
 
 ?>
