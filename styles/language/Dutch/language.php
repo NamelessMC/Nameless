@@ -7,6 +7,10 @@
  *  Updated by jesseke55/Headhunterz_
  *  http://headhunterz.pw
  */
+  /*
+ *  Updated by melerpe
+ *
+ */
 /*
  *  Dutch Language
  */
@@ -337,7 +341,7 @@ $admin_language = array(
  *  Navbar
  */
 $navbar_language = array(
-    'home' => 'Start',
+    'home' => 'Home',
     'play' => 'Speel',
     'forum' => 'Forum',
     'more' => 'Meer',
@@ -427,7 +431,7 @@ $user_language = array(
     'no_messages' => 'Geen Berichten',
     'and_x_more' => 'en {x} meer', // Don't replace "{x}"
     'system' => 'Systeem',
-    'message_title' => 'Bercith Titel',
+    'message_title' => 'Bericht Titel',
     'message' => 'Bericht',
     'to' => 'Aan:',
     'separate_users_with_comma' => 'Meerde gebruikers tegelijk een bericht sturen? Plaats er een komma ertussen (",")',
@@ -662,7 +666,7 @@ $forum_language = array(
     'subforums' => 'Subforums:',
      
     // View topic view
-    'home' => 'Start',
+    'home' => 'Home',
     'topic_locked' => 'Topic Gesloten',
     'new_reply' => 'Nieuwe Antwoord',
     'mod_actions' => 'Mod Acties',
