@@ -102,7 +102,6 @@ if(Input::exists()){
 						$queries->create('private_messages', array(
 							'author_id' => $user->data()->id,
 							'title' => $title,
-							'sent_date' => date('Y-m-d H:i:s'),
 							'updated' => date('U')
 						));
 						
@@ -383,35 +382,6 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 		  <h4><?php echo $pm[0]->title; ?></h4>
 		  <?php echo $user_string; ?>
 		  <br /><br />
-		  <div class="panel panel-primary">
-		    <div class="panel-heading">
-			  <?php 
-			  if($pm[0]->author_id != 0){
-				echo '<a class="white-text" href="/profile/' . htmlspecialchars($user->idToMCName($pm[0]->author_id)) . '">' . htmlspecialchars($user->idToName($pm[0]->author_id)) . '</a>'; 
-			  } else {
-				echo '<span class="white-text">' . $user_language['system'] . '</span>';
-			  }
-			  ?>
-			  <span class="pull-right"><?php echo date('d M Y, H:i', strtotime($pm[0]->sent_date)); ?></span>
-			</div>
-			<div class="panel-body">
-			  <?php
-				$config = HTMLPurifier_Config::createDefault();
-				$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
-				$config->set('URI.DisableExternalResources', false);
-				$config->set('URI.DisableResources', false);
-				$config->set('HTML.Allowed', 'u,p,a,b,i,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
-				$config->set('CSS.AllowedProperties', array('float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
-				$config->set('HTML.AllowedAttributes', 'src, href, height, width, alt, class, *.style');
-				$purifier = new HTMLPurifier($config);
-				
-				echo $purifier->purify(htmlspecialchars_decode($pm_replies[0]->content));
-				
-				unset($pm_replies[0]);
-			  ?>
-			</div>
-		  </div>
-		  
 		  <?php
 		  foreach($pm_replies as $reply){
 		      ?>
