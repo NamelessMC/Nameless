@@ -281,9 +281,9 @@ $purifier = new HTMLPurifier($config);
 	
 	// TODO: Change this so this is permission based instead of group based
 	// Is the user a moderator?
+	$buttons .= '<span class="pull-right">';
 	if($user->isLoggedIn() && $user->canViewMCP($user->data()->id)){
 	  $buttons .= '
-	  <span class="pull-right">
 		<div class="btn-group">
 		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 			' . $forum_language['mod_actions'] . ' <span class="caret"></span>
@@ -296,8 +296,19 @@ $purifier = new HTMLPurifier($config);
 			<li><a href="/forum/sticky_thread/?tid=' . $tid . '">' . $forum_language['sticky_thread'] . '</a></li>
 		  </ul>
 		</div>
-	  </span>';
+	  <br>';
 	}
+		$buttons .= '
+		<div class="btn-group">
+		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			 '.$forum_language["sm-share"];.'<span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" role="menu">
+			<li><a target="_blank" href="https://twitter.com/intent/tweet?text='.getSelfURL().'forum/view_topic/?tid='.$tid.'>'.$forum_language["sm-share-twitter"].'</a></li>
+			<li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u='.getSelfURL().'forum/view_topic/?tid='.$tid.'>'.$forum_language["sm-share-facebook"].'</a></li>
+		  </ul>
+		</div>
+		</span>';
 	
 	$smarty->assign('BUTTONS', $buttons);
 	

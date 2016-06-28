@@ -725,7 +725,12 @@ $forum_language = array(
 	'no_users_online' => 'Det er ingen brukere i online',
 	
 	// Search
-	'search_error' => 'Vennligst skriv inn et søk på mellom 1 og 32 tegn.'
+	'search_error' => 'Vennligst skriv inn et søk på mellom 1 og 32 tegn.',
+	
+	//Share on a social-media.
+	'sm-share' => 'Dele',
+	'sm-share-facebook' => 'Del på Facebook',
+	'sm-share-twitter' => 'Del på Twitter',
 );
 
 /*

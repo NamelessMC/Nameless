@@ -729,7 +729,12 @@ $forum_language = array(
     'no_users_online' => 'Er zijn geen gebruikers online.',
      
     // Search
-    'search_error' => 'Voer een zoekopdracht in die tussen 1 en 32 tekens lang is.'
+    'search_error' => 'Voer een zoekopdracht in die tussen 1 en 32 tekens lang is.',
+    
+    //Share on a social-media.
+	'sm-share' => 'Delen',
+	'sm-share-facebook' => 'Delen op Facebook',
+	'sm-share-twitter' => 'Delen op Twitter',
 );
  
 /*
