@@ -727,7 +727,12 @@ $forum_language = array(
 	'no_users_online' => 'No hay usuarios en línea.',
 	
 	// Search
-	'search_error' => 'Por favor, introduce una búsqueda entre 1 y 32 caracteres.'
+	'search_error' => 'Por favor, introduce una búsqueda entre 1 y 32 caracteres.',
+	
+	//Share on a social-media.
+	'sm-share' => 'Compartir',
+	'sm-share-facebook' => 'Compartir en Facebook',
+	'sm-share-twitter' => 'Compartir en Twitter',
 );
 
 /*
