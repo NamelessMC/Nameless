@@ -725,7 +725,12 @@ $forum_language = array(
 	'no_users_online' => 'Käyttäjiä ei ole paikalla.',
 	
 	// Search
-	'search_error' => 'Laita hakukyselyyn 1-20 merkkiä.'
+	'search_error' => 'Laita hakukyselyyn 1-20 merkkiä.',
+	
+	//Share on a social-media.
+	'sm-share' => 'Jakaa',
+	'sm-share-facebook' => 'Jaa Facebookissa',
+	'sm-share-twitter' => 'Jaa Twitterissä',
 );
 
 /*
