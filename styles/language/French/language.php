@@ -722,7 +722,12 @@ $forum_language = array(
 	'no_users_online' => 'Il n\'y a pas d\'utilisateurs connectés.',
 	
 	// Search
-	'search_error' => 'Merci d\'entrer une recherche comprise entre 1 et 32 caractères de longueur.'
+	'search_error' => 'Merci d\'entrer une recherche comprise entre 1 et 32 caractères de longueur.',
+	
+	//Share on a social-media.
+	'sm-share' => 'Partager',
+	'sm-share-facebook' => 'Partager sur Facebook',
+	'sm-share-twitter' => 'Partager sur Twitter',
 );
 /*
  *  Emails
