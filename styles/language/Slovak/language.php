@@ -723,7 +723,12 @@ $forum_language = array(
 	'no_users_online' => 'Žiadny uživateľ není online.',
 	
 	// Search
-	'search_error' => 'Zadajte prosím vyhľadávací dotaz medzi 1 az 32 znakov.'
+	'search_error' => 'Zadajte prosím vyhľadávací dotaz medzi 1 az 32 znakov.',
+	
+	//Share on a social-media.
+	'sm-share' => 'podiel',
+	'sm-share-facebook' => 'Zdielať na Facebook-u',
+	'sm-share-twitter' => 'Zdieľať na Twitter',
 );
 
 /*

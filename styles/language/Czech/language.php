@@ -723,7 +723,12 @@ $forum_language = array(
 	'no_users_online' => 'There are no users online.',
 	
 	// Search
-	'search_error' => 'Please input a search query between 1 and 32 characters long.'
+	'search_error' => 'Please input a search query between 1 and 32 characters long.',
+	
+	// Podíl na sociálním-médií.
+	'sm-share' => 'Share',
+	'sm-share-facebook' => 'Podělte se na Facebooku',
+	'sm-share-twitter'=> 'Podělte se na Twitteru',
 );
 
 /*
