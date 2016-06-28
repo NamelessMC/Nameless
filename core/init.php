@@ -19,7 +19,6 @@ if(!isset($path)){
 if(!isset($path)){
 	require_once 'core/includes/smarty/Smarty.class.php'; // Smarty
 	require_once 'core/includes/sanitize.php'; // Sanitisation
-	require_once 'core/includes/getSelfURL.php'; //get our own url
 	
 	// Normal autoloader
 	spl_autoload_register(function($class) {
