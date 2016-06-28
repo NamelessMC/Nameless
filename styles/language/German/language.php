@@ -727,7 +727,12 @@ $forum_language = array(
 	'no_users_online' => 'Es sind keine Benutzer online.',
 	
 	// Search
-	'search_error' => 'Die Suchanfrage muss zwischen 1 und 32 Zeichen lang sein.'
+	'search_error' => 'Die Suchanfrage muss zwischen 1 und 32 Zeichen lang sein.',
+	
+	//Share on a social-media.
+	'sm-share' => 'Aktie',
+	'sm-share-facebook' => 'Auf Facebook teilen',
+	'sm-share-twitter' => 'Auf Twitter teilen',
 );
 
 /*
