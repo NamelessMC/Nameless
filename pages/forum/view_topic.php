@@ -27,6 +27,7 @@ $mentionsParser = new MentionsParser();
 
 require('core/includes/paginate.php'); // Get number of replies on a page
 require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purifier
+require('core/includes/getSelfURL.php'); // getSelfURL function
 
 if(!isset($_GET['tid']) || !is_numeric($_GET['tid'])){
 	Redirect::to('/forum/error/?error=not_exist');
@@ -295,20 +296,19 @@ $purifier = new HTMLPurifier($config);
 			<li><a href="/forum/move_thread/?tid=' . $tid . '">' . $forum_language['move_thread'] . '</a></li>
 			<li><a href="/forum/sticky_thread/?tid=' . $tid . '">' . $forum_language['sticky_thread'] . '</a></li>
 		  </ul>
-		</div>
-	  <br>';
+		</div>';
 	}
-		$buttons .= '
-		<div class="btn-group">
-		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-			 '.$forum_language["sm-share"];.'<span class="caret"></span>
-		  </button>
-		  <ul class="dropdown-menu" role="menu">
-			<li><a target="_blank" href="https://twitter.com/intent/tweet?text='.getSelfURL().'forum/view_topic/?tid='.$tid.'>'.$forum_language["sm-share-twitter"].'</a></li>
-			<li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u='.getSelfURL().'forum/view_topic/?tid='.$tid.'>'.$forum_language["sm-share-facebook"].'</a></li>
-		  </ul>
-		</div>
-		</span>';
+	$buttons .= '
+	<div class="btn-group">
+	  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+	    ' . $forum_language["sm-share"] . ' <span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu" role="menu">
+		<li><a target="_blank" href="https://twitter.com/intent/tweet?text=' . getSelfURL() . 'forum/view_topic/?tid='.$tid.'">'.$forum_language["sm-share-twitter"].'</a></li>
+		<li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u='.getSelfURL().'forum/view_topic/?tid='.$tid.'">'.$forum_language["sm-share-facebook"].'</a></li>
+	  </ul>
+	</div>
+	</span>';
 	
 	$smarty->assign('BUTTONS', $buttons);
 	
