@@ -301,11 +301,11 @@ $purifier = new HTMLPurifier($config);
 		$buttons .= '
 		<div class="btn-group">
 		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-			Sharing <span class="caret"></span>
+			 '.$forum_language["sm-share"];.'<span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu" role="menu">
-			<li><a target="_blank" href="https://twitter.com/intent/tweet?text='.getSelfURL().'forum/view_topic/?tid='.$tid.'>Share on Twitter</a></li>
-			<li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u='.getSelfURL().'forum/view_topic/?tid='.$tid'>Share on Facebook</a></li>
+			<li><a target="_blank" href="https://twitter.com/intent/tweet?text='.getSelfURL().'forum/view_topic/?tid='.$tid.'>'.$forum_language["sm-share-twitter"].'</a></li>
+			<li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u='.getSelfURL().'forum/view_topic/?tid='.$tid.'>'.$forum_language["sm-share-facebook"].'</a></li>
 		  </ul>
 		</div>
 		</span>';
