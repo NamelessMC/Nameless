@@ -728,7 +728,9 @@ $forum_language = array(
 	'search_error' => 'Please input a search query between 1 and 32 characters long.',
 	
 	//Share on a social-media.
-	'sm-share' => 'Share on a social-media.',
+	'sm-share' => 'Share',
+	'sm-share-facebook' => 'Share on Facebook',
+	'sm-share-twitter' => 'Share on Twitter',
 );
 
 /*
