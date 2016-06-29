@@ -207,7 +207,7 @@ $token = Token::generate();
 					</span>
 					<br /><br />
 					<div class="panel panel-primary">
-						<div class="panel-heading"><?php echo $mod_language['reported_by']; ?> <a href="/profile/<?php echo htmlspecialchars($user->idToMCName($report[0]->reporter_id));?>"><?php echo htmlspecialchars($user->idToName($report[0]->reporter_id));?></a><span class="pull-right"><?php echo date("jS M Y , g:ia", strtotime($report[0]->date_reported)); ?></span></div>
+						<div class="panel-heading"><?php echo $mod_language['reported_by']; ?> <a class="white-text" href="/profile/<?php echo htmlspecialchars($user->idToMCName($report[0]->reporter_id));?>"><?php echo htmlspecialchars($user->idToName($report[0]->reporter_id));?></a><span class="pull-right"><?php echo date("jS M Y , g:ia", strtotime($report[0]->date_reported)); ?></span></div>
 						<div class="panel-body">
 							<?php
 							$config = HTMLPurifier_Config::createDefault();
@@ -234,7 +234,7 @@ $token = Token::generate();
 						foreach($comments as $comment){
 					?>
 					<div class="panel panel-primary">
-						<div class="panel-heading"><a href="/profile/<?php echo htmlspecialchars($user->idToMCName($comment->commenter_id));?>"><?php echo htmlspecialchars($user->idToName($comment->commenter_id));?></a><span class="pull-right"><?php echo date("jS M Y , g:ia", strtotime($comment->comment_date)); ?></span></div>
+						<div class="panel-heading"><a class="white-text" href="/profile/<?php echo htmlspecialchars($user->idToMCName($comment->commenter_id));?>"><?php echo htmlspecialchars($user->idToName($comment->commenter_id));?></a><span class="pull-right"><?php echo date("jS M Y , g:ia", strtotime($comment->comment_date)); ?></span></div>
 						<div class="panel-body">
 							<?php
 							echo $purifier->purify(htmlspecialchars_decode($comment->comment_content));
