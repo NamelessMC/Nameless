@@ -28,7 +28,7 @@ if($user->isLoggedIn()){
 ?>
 <ul class="nav nav-pills">
   <li<?php if(!isset($_GET['view'])){ ?> class="active"<?php } ?>><a href="/admin/addons/?action=edit&amp;addon=Donate">Settings</a></li>
-  <li<?php if(isset($_GET['view']) && $_GET['view'] == 'mcstock'){ ?> class="active"<?php } ?>><a href="/admin/addons/?action=edit&amp;addon=Donate&amp;view=mcstock">MCStock</a></li>
+  <!--<li<?php //if(isset($_GET['view']) && $_GET['view'] == 'mcstock'){ ?> class="active"<?php //} ?>><a href="/admin/addons/?action=edit&amp;addon=Donate&amp;view=mcstock">MCStock</a></li>-->
 </ul>
 
 <?php if(!isset($_GET['view']) && !isset($_GET['do'])){ ?>  
@@ -156,9 +156,9 @@ if(empty($donation_settings)){
     <label class="btn btn-primary<?php if($donation_settings[0]->value == 'mm'){ ?> active<?php } ?>">
 	  <input type="radio" name="store_type" id="InputStoreType2" value="mm" autocomplete="off"<?php if($donation_settings[0]->value == 'mm'){ ?> checked<?php } ?>> Minecraft Market
     </label>
-    <label class="btn btn-primary<?php if($donation_settings[0]->value == 'mcs'){ ?> active<?php } ?>">
-	  <input type="radio" name="store_type" id="InputStoreType3" value="mcs" autocomplete="off"<?php if($donation_settings[0]->value == 'mcs'){ ?> checked<?php } ?>> MCStock
-    </label>
+    <!--<label class="btn btn-primary<?php //if($donation_settings[0]->value == 'mcs'){ ?> active<?php //} ?>">
+	  <input type="radio" name="store_type" id="InputStoreType3" value="mcs" autocomplete="off"<?php //if($donation_settings[0]->value == 'mcs'){ ?> checked<?php //} ?>> MCStock
+    </label>-->
   </div>
   <br /><br />
   <div class="form-group">
