@@ -21,7 +21,7 @@ $footer_nav = '
 
 if(isset($page_loading) && $page_loading == '1'){
 	$footer_nav .= '
-    <li><a href="#" data-toggle="tooltip" id="page_load_tooltip" title="Page loading.."><i class="fa fa-tachometer fa-fw"></i></a></li>';
+    <li><a data-toggle="tooltip" id="page_load_tooltip" title="Page loading.."><i class="fa fa-tachometer fa-fw"></i></a></li>';
 }
 
 if(isset($footer_nav_array)){
