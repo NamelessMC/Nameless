@@ -84,13 +84,13 @@ $page = 'play'; // for navbar
 		die();
 	}
 
-	if((!isset($dsplay_port))||($display_port == "25565")){
+	if((!isset($display_port)) || ($display_port == "25565")){
 		$address = $display_domain;
 	} else {
 		$address = $display_domain . ':' . $port;
 	}
 
-	$connect_with = str_replace('{x}', htmlspecialchars($display_domain), $general_language['connect_with']);
+	$connect_with = str_replace('{x}', htmlspecialchars($address), $general_language['connect_with']);
 	$smarty->assign('CONNECT_WITH', $connect_with);
 	
 	// Query the main IP
