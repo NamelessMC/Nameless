@@ -176,7 +176,7 @@ $admin_language = array(
 	'can_view_forum' => 'Kan vise forum:',
 	'can_create_topic' => 'Kan lage emne:',
 	'can_post_reply' => 'Kan legge inn svar:',
-	'display_threads_as_news' => 'Vis emner som nyheter på forsiden?',
+	'display_threads_as_news' => 'Vis tråder som nyheter på forsiden?',
 	'input_forum_title' => 'Skriv inn forum tittel',
 	'input_forum_description' => 'Skriv inn forum beskrivelse.',
 	'forum_name_minimum' => 'Forumet Navnet må være minst 2 tegn.',
@@ -666,16 +666,16 @@ $forum_language = array(
 	'topic_locked' => 'Emne Låst',
 	'new_reply' => 'Ny Svar',
 	'mod_actions' => 'Mod Handlinger',
-	'lock_thread' => 'Look Thread',
-	'unlock_thread' => 'Unlokk Thread',
-	'merge_thread' => 'Flett Thread',
-	'delete_thread' => 'Slett Thread',
-	'confirm_thread_deletion' => 'Er du sikker på at du vil slette denne thread?',
-	'move_thread' => 'Flytt Thread',
-	'sticky_thread' => 'Klistret Thread',
+	'lock_thread' => 'Lås Tråd',
+	'unlock_thread' => 'Åpne Tråd',
+	'merge_thread' => 'Flett Tråd',
+	'delete_thread' => 'Slett Tråd',
+	'confirm_thread_deletion' => 'Er du sikker på at du vil slette denne tråden?',
+	'move_thread' => 'Flytt Tråd',
+	'sticky_thread' => 'Klistret Tråd',
 	'report_post' => 'Rapporter Innlegg',
 	'quote_post' => 'Svar',
-	'delete_post' => 'Slett Innleggt',
+	'delete_post' => 'Slett Innlegg',
 	'edit_post' => 'Rediger Innlegg',
 	'reputation' => 'rykte',
 	'confirm_post_deletion' => 'Er du sikker på at du vil slette dette innlegget?',
@@ -695,14 +695,14 @@ $forum_language = array(
 	'editing_post' => 'Redigerer innlegg',
 	
 	// Sticky threads
-	'thread_is_' => 'Thread er ',
-	'now_sticky' => 'Nå er en klisstrert thread',
-	'no_longer_sticky' => 'ikke lenger en klistret thread',
+	'thread_is_' => 'Tråd er ',
+	'now_sticky' => 'Nå er en klisstrert tråd',
+	'no_longer_sticky' => 'ikke lenger en klistret tråd',
 	
 	// Create topic
 	'topic_created' => 'Emne opprettet.',
 	'creating_topic_in_' => 'Opprette tema i forumet ',
-	'thread_title' => 'Thread Tittel',
+	'thread_title' => ' Tråd Tittel',
 	'confirm_cancellation' => 'Er du sikker?',
 	'label' => 'Merkelapp',
 	
@@ -728,7 +728,7 @@ $forum_language = array(
 	'search_error' => 'Vennligst skriv inn et søk på mellom 1 og 32 tegn.',
 	
 	//Share on a social-media.
-	'sm-share' => 'Dele',
+	'sm-share' => 'Del',
 	'sm-share-facebook' => 'Del på Facebook',
 	'sm-share-twitter' => 'Del på Twitter',
 );
