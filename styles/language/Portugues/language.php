@@ -187,8 +187,8 @@ $admin_language = array(
 	'forum_description_minimum' => 'A descrição do fórum deve ser um mínimo de 2 caracteres.',
 	'forum_name_maximum' => 'O nome do fórum deve ser um máximo de 150 caracteres.',
 	'forum_description_maximum' => 'A descrição do fórum deve ser um máximo de 255 caracteres.',
-	'forum_type_forum' => 'Discussion Forum',
-	'forum_type_category' => 'Category',
+	'forum_type_forum' => 'Fórum de Discussão',
+	'forum_type_category' => 'Categoria',
 	
 	// Admin Users and Groups page
 	'users' => 'Usuários',
@@ -439,7 +439,7 @@ $user_language = array(
 	'delete_message' => 'Excluir Mensagem',
 	'confirm_message_deletion' => 'Você tem certeza de que deseja excluir essa mensagem?',
 	
-	// Profile settings
+        // Profile settings
 	'display_name' => 'Nome de exibição',
 	'upload_an_avatar' => 'Enviar um avatar (somente .jpg, .png ou .gif):',
 	'use_gravatar' => 'Usar Gravatar?',
@@ -452,19 +452,19 @@ $user_language = array(
 	'update_minecraft_name_help' => 'Isto irá atualizar o seu nome de usuário no site para o seu atual nome de usuário Minecraft. Você só pode executar esta ação uma vez a cada 30 dias.',
 	'unable_to_update_mcname' => 'Não foi possível atualizar seu nome de usuário Minecraft',
 	'display_age_on_profile' => 'Exibir idade no perfil?',
-	'two_factor_authentication' => 'Autenticação de Duas Etapas',
-	'enable_tfa' => 'Ativar a Autenticação de Duas Etapas',
-	'tfa_type' => 'Tipo da Autenticação de Duas Etapas:',
-	'authenticator_app' => 'Aplicativo de Autenticação',
-	'tfa_scan_code' => 'Por favor, escaneia o QR code abaixo em seu aplicativo de autenticação:',
-	'tfa_code' => 'Se o seu dispositivo não tiver uma câmera, ou você não consegue ler o QR code, por favor insira o seguinte código:',
-	'tfa_enter_code' => 'Digite o código exibido em seu aplicativo de autenticação:',
-	'invalid_tfa' => 'Código inválido, por favor tente de novo.',
-	'tfa_successful' => 'Autenticação de Duas Etapas configurada com sucesso. Você vai precisar do aplicado para autenticar toda vez que você acessar a partir de agora.',
-	'confirm_tfa_disable' => 'Tem certeza de que deseja desativar autenticação de duas etapas?',
-	'tfa_disabled' => 'Autenticação de duas etapas desativada.',
-	'tfa_enter_email_code' => 'Nós enviado um código dentro de um e-mail para verificação. Digite o código de agora:',
-	'tfa_email_contents' => 'Uma tentativa de login foi feita em conta. Se foi você, por favor, coloque o seguinte código de autenticação de duas etapas quando solicitado. Se não foi você, você pode ignorar este e-mail, no entanto, uma redefinição de senha é aconselhada. O código é válido apenas por 10 minutos.',
+	'two_factor_authentication' => 'Dupla Autenticação',
+	'enable_tfa' => 'Ativar Dupla Autenticação',
+	'tfa_type' => 'Tipo da Autenticação Dupla:',
+	'authenticator_app' => 'App de Autenticação',
+	'tfa_scan_code' => 'Por favor verificar o seguinte código no seu aplicativo de autenticação:',
+	'tfa_code' => 'Se o seu dispositivo não tiver uma câmera, ou você não consegue ler o código QR, por favor insira o seguinte código:',
+	'tfa_enter_code' => 'Por favor entre com o código em exibição com o seu aplicativo de autenticação:',
+	'invalid_tfa' => 'Código inválido, tente novamente.',
+	'tfa_successful' => 'Dupla Autenticação configurada com êxito. Você vai precisar se autenticar toda vez que você entrar a partir de agora em diante.',
+	'confirm_tfa_disable' => 'Você tem certeza que deseja desativar a dupla autenticação?',
+	'tfa_disabled' => 'Dupla autenticação desativada.',
+	'tfa_enter_email_code' => 'Nós enviamos um código com um email para verificação. Por favor digite o código agora:',
+	'tfa_email_contents' => 'Uma tentativa de login foi feita em sua conta. Se foi você, por favor informe a dupla autenticação quando for solicitada. Se não foi você, você pode ignorar este e-mail, no entanto, uma redefinição de senha é aconselhada. O código é válido apenas por 10 minutos.',
 	
 	// Alerts
 	'viewing_unread_alerts' => 'Visualizando alertas não lidos. Alterar para <a href="/user/alerts/?view=read"><span class="label label-success">lido</span></a>.',
@@ -600,7 +600,7 @@ $general_language = array(
 	// Homepage
 	'news' => 'Notícias',
 	'social' => 'Social',
-	'join' => 'Join',
+	'join' => 'Entrar',
 	
 	// General terms
 	'submit' => 'Enviar',
@@ -618,7 +618,7 @@ $general_language = array(
 	'error' => 'Error',
 	'view' => 'Ver',
 	'info' => 'Info',
-	'next' => 'Next',
+	'next' => 'Próximo',
 	
 	// Play page
 	'connect_with' => 'Junte-se aos nossos jogadores: {x}', // Don't replace {x}
@@ -781,7 +781,7 @@ $table_language = array(
  *  API language
  */
 $api_language = array(
-	'register' => 'Complete Registration'
+	'register' => 'Cadastro Completo'
 );
  
 ?>
