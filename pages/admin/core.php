@@ -930,7 +930,7 @@ $adm_page = "core";
 														'    \'host\' => \'' . str_replace('\'', '\\\'', (isset($_POST['host']) ? $_POST['host'] : $GLOBALS['email']['host'])) . '\',' . PHP_EOL .
 														'    \'port\' => ' . str_replace('\'', '\\\'', $GLOBALS['email']['port']) . ',' . PHP_EOL .
 														'    \'secure\' => \'' . str_replace('\'', '\\\'', $GLOBALS['email']['secure']) . '\',' . PHP_EOL .
-														'    \'smtp_auth\' => ' . $GLOBALS['email']['smtp_auth'] . '' . PHP_EOL .
+														'    \'smtp_auth\' => \'' . $GLOBALS['email']['smtp_auth'] . '\',' . PHP_EOL .
 														');';
 										
 										$file = fopen($config_path, 'w');
