@@ -10,8 +10,8 @@
  *  Linguagem: Português-BR
  *  Por: www.craftalizar.com
  *  Tradutor: Douglas Teles
- *  Versão: 0.1.5
- *  Última revisão: 10/05/2016
+ *  Versão: 0.2.0
+ *  Última revisão: 08/07/2016
  */
  
 /*
@@ -68,8 +68,8 @@ $admin_language = array(
 	'use_gmail_help' => 'Somente requerido se a função PHP Mail estiver desativa. Se você optar por não usar o Gmail, SMTP será usado. De qualquer maneira você precisará editar o core/email.php.',
 	'enable_mail_verification' => 'Ativar a verificação da conta de e-mail?',
 	'enable_email_verification_help' => 'Ativando esse recurso, novos usuários precisarão verificar via e-mail para completarem seus cadastrados.',
-	'explain_email_settings' => 'The following is required if the "Use PHP mail() function" option is <strong>disabled</strong>. You can find documentation on these settings <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">on our wiki</a>.',
-	'email_config_not_writable' => 'Your <strong>core/email.php</strong> file is not writable. Please check file permissions.',
+	'explain_email_settings' => 'O seguinte é necessário se a opção "Usar função PHP mail()" está <strong>desativada</strong>. Você poderá encontrar a documentação dessa configuração <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">na nossa Wiki</a>.',
+	'email_config_not_writable' => 'Seu arquivo <strong>core/email.php</strong> não é gravável. Por favor, verifique as permissões.',
 	'pages' => 'Páginas',
 	'enable_or_disable_pages' => 'Ative ou desativas suas páginas aqui.',
 	'enable' => 'Ativar',
@@ -141,10 +141,10 @@ $admin_language = array(
 	'page_link_more' => '"Mais" dropdown',
 	'page_link_footer' => 'Rodapé da página',
 	'page_link_none' => 'Não adicionar link',
-	'page_permissions' => 'Page Permissions',
-	'can_view_page' => 'Can view page:',
-	'redirect_page' => 'Redirect page?',
-	'redirect_link' => 'Redirect link',
+	'page_permissions' => 'Permissões da Página',
+	'can_view_page' => 'Pode visualizar a página:',
+	'redirect_page' => 'Redirecionar página?',
+	'redirect_link' => 'Redirecionar link',
 	
 	// Admin forum page
 	'labels' => 'Rótulos de tópico',
@@ -201,7 +201,7 @@ $admin_language = array(
 	'update_mc_name' => 'Atualizar Nome Minecraft',
 	'reset_password' => 'Redefinir senha',
 	'punish_user' => 'Punir Usuário',
-	'delete_user' => 'Exluir Usuário',
+	'delete_user' => 'Excluir Usuário',
 	'minecraft_uuid' => 'Minecraft UUID',
 	'ip_address' => 'Endereço IP',
 	'ip' => 'IP:',
@@ -241,7 +241,7 @@ $admin_language = array(
 	'force_avatars' => 'Forçar uso de avatares Minecraft?',
 	'uuid_linking' => 'Ativar vinculação UUID?',
 	'use_plugin_help' => 'Usando o plugin você terá a sincronização com o ranking, cadastro in-game e envios de tickets.',
-	'uuid_linking_help' => 'Se desativado, os usuários cadastrados não terão vinculo com suas UUIDs. É altamente recomendado que você deixe essa opção ativada.',
+	'uuid_linking_help' => 'Se desativado, os usuários cadastrados não terão vínculo com suas UUIDs. É altamente recomendado que você deixe essa opção ativada.',
 	'plugin_settings' => 'Configurações do Plugin',
 	'confirm_api_regen' => 'Você tem certeza de que deseja gerar uma nova API key?',
 	'servers' => 'Servidores',
@@ -381,8 +381,8 @@ $user_language = array(
 	'incorrect_details' => 'Informações incorretas',
 	'remember_me' => 'Lembrar-me',
 	'forgot_password' => 'Esqueci minha senha',
-	'must_input_username' => 'Você precisa iformar um usuário.',
-	'must_input_password' => 'Você precisa iformar uma senha.',
+	'must_input_username' => 'Você precisa informar um usuário.',
+	'must_input_password' => 'Você precisa informar uma senha.',
 	'inactive_account' => 'Sua conta atualmente está inativa. Você solicitou um reset de senha?',
 	'account_banned' => 'Sua conta está banida.',
 	'successfully_logged_out' => 'Você se deslogou com sucesso. Até mais!',
@@ -546,7 +546,7 @@ $mod_language = array(
 	'mod_cp' => 'ModCP',
 	'overview' => 'Visão Geral',
 	'reports' => 'Relatórios',
-	'punishments' => 'Punimentos',
+	'punishments' => 'Punições',
 	'staff_applications' => 'Recrutamentos para Staff',
 	
 	// Punishments
@@ -572,7 +572,7 @@ $mod_language = array(
 	'user_reported' => 'Usuário Reportado',
 	'type' => 'Tipo',
 	'updated_by' => 'Atualizado Por',
-	'forum_post' => 'Forum Post',
+	'forum_post' => 'Postagem do Fórum',
 	'user_profile' => 'Perfil de Usuário',
 	'comment_added' => 'Comentário Add.',
 	'new_report_submitted_alert' => 'Novo parecer enviado por {x} em relação ao usuário {y}', // Don't replace "{x}" or "{y}"
@@ -634,7 +634,7 @@ $general_language = array(
 	// Other
 	'page_loaded_in' => 'Página carregada em {x}s', // Don't replace {x}; 's' stands for 'seconds'
 	'none' => 'Nenhum',
-	'404' => 'Desculpe, nós não encontramos esssa página.'
+	'404' => 'Desculpe, nós não encontramos essa página.'
 );
 
 /* 
@@ -642,7 +642,7 @@ $general_language = array(
  */
 $forum_language = array(
 	// Latest discussions view
-	'forums' => 'Forums',
+	'forums' => 'Fóruns',
 	'discussion' => 'Tópicos',
 	'stats' => 'Estatísticas',
 	'last_reply' => 'Última Resposta',
