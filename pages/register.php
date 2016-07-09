@@ -193,11 +193,17 @@ if(Input::exists()){
 							}
 							if(isset($mcname_result["uuid"]) && !empty($mcname_result['uuid'])){
 								$uuid = $mcname_result['uuid'];
+								$uuid_formatted = substr_replace($uuid, '-', 8, 0);
+								$uuid_formatted = substr_replace($uuid_formatted, '-', 13, 0);
+								$uuid_formatted = substr_replace($uuid_formatted, '-', 18, 0);
+								$uuid_formatted = substr_replace($uuid_formatted, '-', 23, 0);
 							} else {
 								$uuid = '';
+								$uuid_formatted = '';
 							}
 						} else {
 							$uuid = '';
+							$uuid_formatted = '';
 						}
 					
 						$user = new User();
@@ -220,6 +226,7 @@ if(Input::exists()){
 								'username' => htmlspecialchars(Input::get('username')),
 								'mcname' => $mcname,
 								'uuid' => $uuid,
+								'uuid_formatted' => $uuid_formatted,
 								'password' => $password,
 								'pass_method' => 'default',
 								'joined' => $date,
