@@ -194,7 +194,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
     if(count($online_users)){
 	    $online_users_string = '';
 	    foreach($online_users as $online_user){
-		    $online_users_string .= '<a href="/profile/' . htmlspecialchars($online_user->username) . '">' . htmlspecialchars($online_user->username) . '</a>, ';
+		    $online_users_string .= '<a href="/profile/' . htmlspecialchars($online_user->mcname) . '">' . htmlspecialchars($online_user->username) . '</a>, ';
 	    }
 	    $smarty->assign('ONLINE_USERS_LIST', rtrim($online_users_string, ', '));
     } else {
