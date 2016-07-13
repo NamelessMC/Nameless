@@ -624,7 +624,7 @@ $adm_page = "forums";
 						// Get all forum permissions
 						$group_perms = $queries->getWhere('forums_permissions', array('forum_id', '=', $_GET["forum"]));
 						?>
-						<strong><?php echo $general_language['guests']; ?>:</strong><br />
+
 						<?php
 						foreach($group_perms as $group_perm){
 							if($group_perm->group_id == 0){
@@ -633,79 +633,56 @@ $adm_page = "forums";
 							}
 						}
 						?>
-						<div class="row">
-							<div class="col-md-8">
-								<table class="table">
-								    <thead>
-								      <tr>
-								      	<th></th>
-								        <th></th>
-								      </tr>
-								    </thead>
-								    <tbody>
-								      <tr>
-								        <td><input type="hidden" name="perm-view-0" value="0" />
-					    					<label for="Input-view-0"><?php echo $admin_language['can_view_forum']; ?></label></td>
-								        <td class="info"> <input onclick="colourUpdate(this);" name="perm-view-0" id="Input-view-0" value="1" type="checkbox"<?php if(isset($view) && $view == 1){ echo ' checked'; } ?>></td>
-								      </tr>
-								    </tbody>
-								</table>
-							</div>
-						</div>
+
 					    <script>groups.push("0");</script>
 						<input type="hidden" name="perm-topic-0" value="0" />
 						<input type="hidden" name="perm-post-0" value="0" />
-						<br />
-						<?php
-						foreach($groups as $group){
-							// Get the existing group permissions
-							$view = 0;
-							$topic = 0;
-							$post = 0;
-							
-							foreach($group_perms as $group_perm){
-								if($group_perm->group_id == $group->id){
-									$view = $group_perm->view;
-									$topic = $group_perm->create_topic;
-									$post = $group_perm->create_post;
-									break;
+						
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Group</th>
+									<th><?php echo $admin_language['can_view_forum']; ?></th>
+									<th><?php echo $admin_language['can_create_topic']; ?></th>
+									<th><?php echo $admin_language['can_post_reply']; ?></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Guest</td>
+									<td><input type="hidden" name="perm-view-0" value="0" /><input name="perm-view-0" id="Input-view-0" value="1" type="checkbox"<?php if(isset($view) && $view == 1){ echo ' checked'; } ?>></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+
+								<?php
+								foreach($groups as $group){
+									// Get the existing group permissions
+									$view = 0;
+									$topic = 0;
+									$post = 0;
+									
+									foreach($group_perms as $group_perm){
+										if($group_perm->group_id == $group->id){
+											$view = $group_perm->view;
+											$topic = $group_perm->create_topic;
+											$post = $group_perm->create_post;
+											break;
+										}
+									}
+								?>
+								<tr>
+									<td><?php echo htmlspecialchars($group->name); ?></td>
+									<td><input type="hidden" name="perm-view-<?php echo $group->id; ?>" value="0" /> <input onclick="colourUpdate(this);" name="perm-view-<?php echo $group->id; ?>" id="Input-view-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($view) && $view == 1){ echo ' checked'; } ?>></td>
+									<td><input type="hidden" name="perm-topic-<?php echo $group->id; ?>" value="0" /><input onclick="colourUpdate(this);" name="perm-topic-<?php echo $group->id; ?>" id="Input-topic-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($topic) && $topic == 1){ echo ' checked'; } ?>></td>
+									<td><input type="hidden" name="perm-post-<?php echo $group->id; ?>" value="0" /><input onclick="colourUpdate(this);" name="perm-post-<?php echo $group->id; ?>" id="Input-post-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($post) && $post == 1){ echo ' checked'; } ?>></td>
+								</tr>
+								<script>groups.push("<?php echo $group->id; ?>");</script>
+								<?php
 								}
-							}
-						?>
-						<strong onclick="toggle(<?php echo "'" . $group->id . "'"; ?>)"><?php echo htmlspecialchars($group->name); ?>:</strong><br />
-						<div class="row">
-							<div class="col-md-8">
-								<table class="table">
-								    <thead>
-								      <tr>
-								      	<th></th>
-								        <th></th>
-								      </tr>
-								    </thead>
-								    <tbody>
-								      <tr>
-								        <td><input type="hidden" name="perm-view-<?php echo $group->id; ?>" value="0" />
-						    				<label for="Input-view-<?php echo $group->id; ?>"><?php echo $admin_language['can_view_forum']; ?></label></td>
-								        <td class="info"> <input onclick="colourUpdate(this);" name="perm-view-<?php echo $group->id; ?>" id="Input-view-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($view) && $view == 1){ echo ' checked'; } ?>></td>
-								      </tr>
-								      <tr <?php if($forum[0]->forum_type == 'category') { echo'style="display:none;"'; } ?>>
-								        <td><input type="hidden" name="perm-topic-<?php echo $group->id; ?>" value="0" />
-											<label for="Input-topic-<?php echo $group->id; ?>"><?php echo $admin_language['can_create_topic']; ?></label></td>
-								        <td class="info"><input onclick="colourUpdate(this);" name="perm-topic-<?php echo $group->id; ?>" id="Input-topic-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($topic) && $topic == 1){ echo ' checked'; } ?>></td>
-								      </tr>
-								      <tr <?php if($forum[0]->forum_type == 'category') { echo'style="display:none;"'; } ?>>
-								        <td><input type="hidden" name="perm-post-<?php echo $group->id; ?>" value="0" />
-											<label for="Input-post-<?php echo $group->id; ?>"><?php echo $admin_language['can_post_reply']; ?></label></td>
-								        <td class="info"><input onclick="colourUpdate(this);" name="perm-post-<?php echo $group->id; ?>" id="Input-post-<?php echo $group->id; ?>" value="1" type="checkbox"<?php if(isset($post) && $post == 1){ echo ' checked'; } ?>></td>
-								      </tr>
-								    </tbody>
-								</table>
-							</div>
-						</div>
-						<script>groups.push("<?php echo $group->id; ?>");</script>
-						<?php
-						}
-						?>
+								?>
+							</tbody>	
+						</table>
 					  </div>
 					  <input type="hidden" name="display" value="0" />
 					  <label for="InputDisplay"><?php echo $admin_language['display_threads_as_news']; ?></label>
