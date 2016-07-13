@@ -66,6 +66,7 @@ Upcoming addons (these will need to be downloaded separately):
 * @oliverdunk
 * @talkahe
 * @IMmmKI
+* @ConnorLinfoot
 
 **[NamelessMC Website](http://namelessmc.github.io/)**
 * @Samerton
