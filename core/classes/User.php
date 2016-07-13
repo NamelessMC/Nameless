@@ -475,28 +475,7 @@ class User {
 		if($user_id){
 			$return = array(); // Array to return containing info of PMs
 			
-			// First, get a list of PMs the user has created themselves
-			$data = $this->_db->orderWhere('private_messages', 'author_id = ' . $user_id, 'updated', 'DESC');
-			
-			if($data->count()){
-				$data = $data->results();
-				foreach($data as $result){
-					// Get a list of users who are in this conversation and return them as an array
-					$pms = $this->_db->get('private_messages_users', array('pm_id', '=', $result->id))->results();
-					$users = array(); // Array containing users with permission
-					foreach($pms as $pm){
-						$users[] = $pm->user_id;
-					}
-					$users[] = $result->author_id; // Don't forget the author!
-					
-					$return[$result->id]['id'] = $result->id;
-					$return[$result->id]['title'] = $result->title;
-					$return[$result->id]['date'] = $result->updated;
-					$return[$result->id]['users'] = $users;
-				}
-			}
-			
-			// Next, get a list of PMs which the user has been added to
+			// Get a list of PMs which the user is in
 			$data = $this->_db->get('private_messages_users', array('user_id', '=', $user_id));
 			
 			if($data->count()){
@@ -595,30 +574,36 @@ class User {
 		return false;
 	}
 	
-	// Delete a user's access to view the PM, or if they're the author, the PM itself
+	// Delete a user's access to view the PM, or if they're the last user, the PM itself
 	public function deletePM($pm_id = null, $user_id = null){
 		if($user_id && $pm_id){
-			// Is the user the author?
+			// Check the PM exists
 			$data = $this->_db->get('private_messages', array('id', '=', $pm_id));
 			if($data->count()){
-				$data = $data->results();
-				$data = $data[0];
-				if($data->author_id != $user_id){
-					// User is not the author, only delete 
-					$pms = $this->_db->get('private_messages_users', array('pm_id', '=', $pm_id))->results();
+				// PM exists
+				$pms = $this->_db->get('private_messages_users', array('pm_id', '=', $pm_id))->results();
+				
+				if(count($pms > 1)){
+					// More than 1 user left, just remove this user from the conversation
 					foreach($pms as $pm){
 						if($pm->user_id == $user_id){
-							// get the ID and delete
+							// Get the ID and delete
 							$id = $pm->id;
 							$this->_db->delete('private_messages_users', array('id', '=', $id));
 							return true;
 						}
 					}
+					
 				} else {
-					// User is the author, delete the PM altogether
-					$this->_db->delete('private_messages_users', array('pm_id', '=', $pm_id));
-					$this->_db->delete('private_messages', array('id', '=', $pm_id));
-					return true;
+					// Ensure the user actually has access to this PM
+					if($pms[0]->user_id == $user_id){
+						// Has access, delete altogether
+						$this->_db->delete('private_messages_users', array('pm_id', '=', $pm_id));
+						$this->_db->delete('private_messages', array('id', '=', $pm_id));
+						$this->_db->delete('private_messages_replies', array('pm_id', '=', $pm_id));	
+						
+						return true;
+					}
 				}
 			}
 		}
