@@ -442,7 +442,6 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 				{"name":"paragraph","groups":["list","align"]},
 				{"name":"insert","groups":["insert"]},
 				{"name":"styles","groups":["styles"]},
-				{"name":"colors","groups":["colors"]},
 				{"name":"about","groups":["about"]}
 			],
 			// Remove the redundant buttons from toolbar groups defined above.
