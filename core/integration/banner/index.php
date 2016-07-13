@@ -58,7 +58,7 @@ if(count($parts) == 1){
 	die();
 }
 
-if((!isset($dsplay_port))||($display_port == "25565")){
+if((!isset($display_port))||($display_port == "25565")){
 	$address = $display_domain;
 } else {
 	$address = $display_domain . ':' . $port;
