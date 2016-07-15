@@ -89,3 +89,6 @@ Upcoming addons (these will need to be downloaded separately):
 
 **NamelessMC On Spigot**
 * Resource: @Saphiria
+
+## IRC
+NamelessMC on irc.spi.gt
