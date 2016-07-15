@@ -264,6 +264,7 @@ if(isset($profile)){
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="description" content="User profile page &bull; <?php echo $sitename; ?>">
       <meta name="author" content="Samerton">
+      <meta name="theme-color" content="#454545" />
       <?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 
 	  <?php
