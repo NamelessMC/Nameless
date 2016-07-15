@@ -23,7 +23,7 @@ $admin_language = array(
     'admin_cp' => 'AdminCP', 
     'invalid_token' => 'Ongeldige token, probeer het opnieuw',
     'invalid_action' => 'Ongeldige Actie',
-    'successfully_updated' => 'Succesvol geupdate',
+    'successfully_updated' => 'Succesvol bijgewerkt',
     'settings' => 'Instellingen',
     'confirm_action' => 'Bevestig actie',
     'edit' => 'Bewerk',
@@ -69,7 +69,7 @@ $admin_language = array(
     'use_gmail_help' => 'Alleen beschikbaar als de PHP mail() functie is uitgeschakeld. Als u ervoor kiest om Gmail te gebruiken, zal SMTP worden gebruikt, dit zal de configuratie in core/email.php nodig hebben.',
     'enable_mail_verification' => 'Schakel e-mail account verificatie in?',
     'enable_email_verification_help' => 'Nadat deze geactiveerd is zullen nieuwe geregistreerde gebruikers gevraagt worden om hun account via de e-mail te verifiëren voordat de registratie voltooid wordt.',
-   	'explain_email_settings' => 'The following is required if the "Use PHP mail() function" option is <strong>disabled</strong>. You can find documentation on these settings <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">on our wiki</a>.',
+   	'explain_email_settings' => 'Het volgende is benodigd als de functie: "Gebruik PHP mail()" is <strong>uitgeschakeld</strong>.Je kan de documentatie over de instellingen vinden <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">op onze wiki</a>.',
 	'email_config_not_writable' => 'Your <strong>core/email.php</strong> file is not writable. Please check file permissions.',
     'pages' => 'Pagina\'s',
     'enable_or_disable_pages' => 'Schakel pagina\'s hier in en uit .',
@@ -527,8 +527,8 @@ $user_language = array(
 	'no_likes' => 'Geen likes.',
 	'post_liked' => 'Bericht liked.',
 	'post_unliked' => 'Bericht unliked.',
-	'no_posts' => 'Geen posts.',
-	'last_5_posts' => 'Last 5 posts',
+	'no_posts' => 'Geen berichten.',
+	'last_5_posts' => 'Recentste 5 berichten',
      
     // Staff applications
     'staff_application' => 'Staff Application',
@@ -781,7 +781,7 @@ $table_language = array(
  *  API language
  */
 $api_language = array(
-	'register' => 'Complete Registration'
+	'register' => 'Voltooi registratie'
 );
   
 ?>
