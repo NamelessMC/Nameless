@@ -31,6 +31,7 @@ if(isset($redirect_page)){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Samerton">
+    <meta name="theme-color" content="#454545" />
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 	
 	<?php
