@@ -90,6 +90,13 @@ if(isset($_GET['pid'])){
 $topic = $queries->getWhere("topics", array("id", "=", $tid));
 $topic = $topic[0];
 
+// Assign author + title to Smarty variables
+$smarty->assign(array(
+	'TOPIC_TITLE' => htmlspecialchars($topic->topic_title),
+	'TOPIC_AUTHOR_USERNAME' => htmlspecialchars($user->idToName($topic->topic_creator)),
+	'TOPIC_AUTHOR_MCNAME' => htmlspecialchars($user->idToMCName($topic->topic_creator))
+));
+
 // Get all posts in the topic
 $posts = $queries->getWhere("posts", array("topic_id", "=", $tid));
 
