@@ -115,7 +115,7 @@ $admin_language = array(
 	'delete_question' => 'Vraag verwijderen',
 	'dropdown' => 'Lijst',
 	'text' => 'Tekst',
-	'textarea' => 'Tekst Gebied',
+	'textarea' => 'Tekstgebied',
 	'question_deleted' => 'Vraag verwijderd',
 	'use_followers' => 'Gebruik volgers?',
 	'use_followers_help' => 'Als dit is uitgeschakeld dan word de vrienden systeem ingeschakeld',
@@ -142,13 +142,13 @@ $admin_language = array(
     'page_link_more' => 'Navbar "More" dropdown',
     'page_link_footer' => 'Pagina Onderkant',
     'page_link_none' => 'Geen pagina link',
-	'page_permissions' => 'Page Permissions',
-	'can_view_page' => 'Can view page:',
-	'redirect_page' => 'Redirect page?',
-	'redirect_link' => 'Redirect link',
+	'page_permissions' => 'Paginarechten',
+	'can_view_page' => 'Kan pagina bekijken:',
+	'redirect_page' => 'Doorstuurpagina?',
+	'redirect_link' => 'Doorstuurlink',
 
     // Admin forum page
-    'labels' => 'Topic Labels',
+    'labels' => 'Onderwerp Labels',
     'new_label' => 'Nieuw Label',
     'no_labels_defined' => 'Geen labels gedefinieerd',
     'label_name' => 'Label Naam',
@@ -159,12 +159,12 @@ $admin_language = array(
     'editing_label' => 'Label bewerken',
     'label_creation_success' => 'Label succesvol gemaakt',
     'label_edit_success' => 'Label succesvol bewerkt',
-    'label_default' => 'Default',
-    'label_primary' => 'Primary',
-    'label_success' => 'Success',
-    'label_info' => 'Info',
-    'label_warning' => 'Warning',
-    'label_danger' => 'Danger',
+    'label_default' => 'Standaard',
+    'label_primary' => 'Primair',
+    'label_success' => 'Succes',
+    'label_info' => 'Informatie',
+    'label_warning' => 'Waarschuwing',
+    'label_danger' => 'Gevaar',
     'new_forum' => 'Nieuwe Forum',
     'forum_layout' => 'Forum Layout',
     'table_view' => 'Table view',
@@ -239,7 +239,7 @@ $admin_language = array(
     // Admin Minecraft page
     'minecraft_settings' => 'Minecraft Instellingen',
     'use_plugin' => 'Gebruik Nameless Minecraft plugin?',
-    'force_avatars' => 'Force Minecraft avatars?',
+    'force_avatars' => 'Forceer het gebruik van Minecraft avatars?',
     'uuid_linking' => 'Schakel UUID koppelen in?',
     'use_plugin_help' => 'Gebruik de plugin voor rank synchronisatie en ook in het spel registreren en ticket indienen.',
     'uuid_linking_help' => 'Indien uitgeschakeld, zullen gebruikersaccounts niet worden gekoppeld aan UUID. Het wordt aanbevolen dat u dit als ingeschakeld laat.',
@@ -434,14 +434,14 @@ $user_language = array(
     'message_title' => 'Bericht Titel',
     'message' => 'Bericht',
     'to' => 'Aan:',
-    'separate_users_with_comma' => 'Meerde gebruikers tegelijk een bericht sturen? Plaats er een komma ertussen (",")',
+    'separate_users_with_comma' => 'Meerde gebruikers tegelijk een bericht sturen? Plaats er een komma tussen (",")',
     'viewing_message' => 'Bekijk Bericht',
     'delete_message' => 'Verwijder Bericht',
     'confirm_message_deletion' => 'Weet u zeker dat u dit bericht wilt verwijderen?',
      
     // Profile settings
     'display_name' => 'Weergavenaam',
-    'upload_an_avatar' => 'Upload een avatar (.jpg, .png or .gif only):',
+    'upload_an_avatar' => 'Upload een avatar (.jpg, .png or .gif):',
     'use_gravatar' => 'Gebruik Gravatar?',
     'change_password' => 'Verander wachtwoord',
     'current_password' => 'Huidig wachtwoord',
@@ -486,7 +486,7 @@ $user_language = array(
     'acknowledge' => 'Dit Klopt',
      
     // Forgot password
-    'password_reset' => 'Wachtwoord Reset',
+    'password_reset' => 'Wachtwoord Herstellen',
     'email_body' => 'U ontvangt deze e-mail omdat u een wachtwoord reset heeft gevraagd. Om uw wachtwoord te resetten, gebruik dan de volgende link:', // Body for the password reset email
     'email_body_2' => 'Als u het wachtwoord reset niet heeft aangevraagd, kunt u deze e-mail negeren.',
     'password_email_set' => 'Controleer uw e-mail voor verdere instructies.',
@@ -525,14 +525,14 @@ $user_language = array(
 	'x_likes' => '{x} likes', // Don't replace {x}
 	'likes' => 'Likes',
 	'no_likes' => 'Geen likes.',
-	'post_liked' => 'Bericht liked.',
+	'post_liked' => 'Bericht geliked.',
 	'post_unliked' => 'Bericht unliked.',
 	'no_posts' => 'Geen posts.',
 	'last_5_posts' => 'Last 5 posts',
      
     // Staff applications
     'staff_application' => 'Staff Application',
-    'application_submitted' => 'Application succesvol ingediend.',
+    'application_submitted' => 'Aanvraag succesvol ingediend.',
     'application_already_submitted' => 'U heeft al een aanvraag ingediend. U moet wachten totdat hij beantwoord is voordat u een andere kan maken.',
     'not_logged_in' => 'U moet inloggen om deze pagina te bekijken.',
     'application_accepted' => 'Uw staff aanvraag is geaccepteerd.',
@@ -574,7 +574,7 @@ $mod_language = array(
     'updated_by' => 'Bijgewerkt Door',
     'forum_post' => 'Forum Post',
     'user_profile' => 'Speler Profiel',
-    'comment_added' => 'Comment added.',
+    'comment_added' => 'Opmerking toegevoegd.',
     'new_report_submitted_alert' => 'Nieuw report ingediend door {x} over {y}', // Don't replace "{x}" or "{y}"
      
     // Staff applications
@@ -590,7 +590,7 @@ $mod_language = array(
     'declined' => 'Afgewezen',
     'accept' => 'Accepteer',
     'decline' => 'Afwijzen',
-    'new_app_submitted_alert' => 'Nieuwe application ingediend door {x}' // Don't replace "{x}"
+    'new_app_submitted_alert' => 'Nieuwe sollicitatie ingediend door {x}' // Don't replace "{x}"
 );
  
 /* 
@@ -781,7 +781,7 @@ $table_language = array(
  *  API language
  */
 $api_language = array(
-	'register' => 'Complete Registration'
+	'register' => 'Registratie voltooien'
 );
   
 ?>
