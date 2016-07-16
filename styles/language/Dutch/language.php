@@ -529,6 +529,8 @@ $user_language = array(
 	'post_unliked' => 'Bericht unliked.',
 	'no_posts' => 'Geen berichten.',
 	'last_5_posts' => 'Recentste 5 berichten',
+	'follow' => 'Follow',
+	'unfollow' => 'Unfollow',
      
     // Staff applications
     'staff_application' => 'Staff Application',
