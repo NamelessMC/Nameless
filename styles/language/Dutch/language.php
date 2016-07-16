@@ -434,14 +434,14 @@ $user_language = array(
     'message_title' => 'Bericht Titel',
     'message' => 'Bericht',
     'to' => 'Aan:',
-    'separate_users_with_comma' => 'Meerde gebruikers tegelijk een bericht sturen? Plaats er een komma ertussen (",")',
+    'separate_users_with_comma' => 'Meerde gebruikers tegelijk een bericht sturen? Plaats er een komma tussen (",")',
     'viewing_message' => 'Bekijk Bericht',
     'delete_message' => 'Verwijder Bericht',
     'confirm_message_deletion' => 'Weet u zeker dat u dit bericht wilt verwijderen?',
      
     // Profile settings
     'display_name' => 'Weergavenaam',
-    'upload_an_avatar' => 'Upload een avatar (.jpg, .png or .gif only):',
+    'upload_an_avatar' => 'Upload een avatar (.jpg, .png or .gif):',
     'use_gravatar' => 'Gebruik Gravatar?',
     'change_password' => 'Verander wachtwoord',
     'current_password' => 'Huidig wachtwoord',
@@ -486,7 +486,7 @@ $user_language = array(
     'acknowledge' => 'Dit Klopt',
      
     // Forgot password
-    'password_reset' => 'Wachtwoord Reset',
+    'password_reset' => 'Wachtwoord Herstellen',
     'email_body' => 'U ontvangt deze e-mail omdat u een wachtwoord reset heeft gevraagd. Om uw wachtwoord te resetten, gebruik dan de volgende link:', // Body for the password reset email
     'email_body_2' => 'Als u het wachtwoord reset niet heeft aangevraagd, kunt u deze e-mail negeren.',
     'password_email_set' => 'Controleer uw e-mail voor verdere instructies.',
@@ -532,7 +532,7 @@ $user_language = array(
      
     // Staff applications
     'staff_application' => 'Staff Application',
-    'application_submitted' => 'Application succesvol ingediend.',
+    'application_submitted' => 'Aanvraag succesvol ingediend.',
     'application_already_submitted' => 'U heeft al een aanvraag ingediend. U moet wachten totdat hij beantwoord is voordat u een andere kan maken.',
     'not_logged_in' => 'U moet inloggen om deze pagina te bekijken.',
     'application_accepted' => 'Uw staff aanvraag is geaccepteerd.',
