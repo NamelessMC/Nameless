@@ -98,6 +98,7 @@ $page = $navbar_language['staff_apps'];
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Staff application page for the <?php echo $sitename; ?> community">
     <meta name="author" content="Samerton">
+    <meta name="theme-color" content="#454545" />
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 	
