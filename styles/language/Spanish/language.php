@@ -527,6 +527,8 @@ $user_language = array(
 	'post_unliked' => 'Mensajes no asociados.',
 	'no_posts' => 'No hay mensajes.',
 	'last_5_posts' => 'Últimos 5 mensajes.',
+	'follow' => 'Follow',
+	'unfollow' => 'Unfollow',
 	
 	// Staff applications
 	'staff_application' => 'Solicitud de staff',

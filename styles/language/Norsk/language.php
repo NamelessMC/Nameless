@@ -525,6 +525,8 @@ $user_language = array(
 	'post_unliked' => 'Innlegg unliked.',
 	'no_posts' => 'Ingen innlegg.',
 	'last_5_posts' => 'Last 5 posts',
+	'follow' => 'Follow',
+	'unfollow' => 'Unfollow',
 	
 	// Staff applications
 	'staff_application' => 'Staff Application',
