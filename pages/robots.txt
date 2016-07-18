@@ -1,0 +1,3 @@
+# Deny Robots
+User-agent: *
+Disallow: /
