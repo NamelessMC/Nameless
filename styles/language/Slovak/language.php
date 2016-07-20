@@ -203,6 +203,7 @@ $admin_language = array(
 	'ip' => 'IP:',
 	'other_actions' => 'Ďalšie akcie:',
 	'disable_avatar' => 'Vypnuť avatary',
+	'enable_avatar' => 'Enable avatar',
 	'confirm_user_deletion' => 'Vážne chceš vymazať účet {x}?', // Don't replace "{x}"
 	'groups' => 'Skupiny',
 	'group' => 'Skupina',
