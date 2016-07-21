@@ -67,6 +67,12 @@ if(isset($profile)){
 		$mcname = htmlspecialchars($profile_user[0]->mcname);
 	}
 
+	// Redirect to fix pagination if URL does not end in /
+	if(substr($_SERVER['REQUEST_URI'], -1) !== '/' && !strpos($_SERVER['REQUEST_URI'], '?')){
+		echo '<script data-cfasync="false">window.location.replace(\'/profile/' . $mcname . '/\');</script>';
+		die();
+	}
+	
 	if($user->isLoggedIn()){
 		if(!isset($_POST['action'])){
 			if(isset($_POST['AddFriend'])) {
