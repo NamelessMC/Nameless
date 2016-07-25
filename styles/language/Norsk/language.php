@@ -203,6 +203,7 @@ $admin_language = array(
 	'ip' => 'IP:',
 	'other_actions' => 'Andre handlinger:',
 	'disable_avatar' => 'Deaktiver avatar',
+	'enable_avatar' => 'Enable avatar',
 	'confirm_user_deletion' => 'Er du sikker på at du vil slette brukeren {x}?', // Don't replace "{x}"
 	'groups' => 'Grupper',
 	'group' => 'Gruppe',
