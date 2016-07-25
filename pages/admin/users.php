@@ -618,6 +618,14 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 								} catch(Exception $e) {
 									die($e->getMessage());
 								}
+							} else if(Input::get('action') == "avatar_enable"){ 
+								try {
+									$queries->update('users', $_GET["user"], array(
+										"has_avatar" => "1"
+									));
+								} catch(Exception $e) {
+									die($e->getMessage());
+								}
 							}
 						}
 					}
@@ -742,14 +750,31 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 						$avatar_enabled = $avatar_enabled[0]->value;
 
 						if($avatar_enabled === "1"){
-						?>
-						<strong><?php echo $admin_language['other_actions']; ?></strong><br />
-						<form role="form" action="" method="post">
-						  <input type="hidden" name="token" value="<?php echo $token; ?>">
-						  <input type="hidden" name="action" value="avatar_disable">
-						  <input type="submit" value="<?php echo $admin_language['disable_avatar']; ?>" class="btn btn-danger">
-						</form>
-						<?php 
+							// Does the user have an avatar enabled?
+							$avatar_enabled = $queries->getWhere('users', array('id', '=', $_GET['user']));
+							$avatar_enabled = $avatar_enabled[0]->has_avatar;
+
+							if($avatar_enabled === "1"){ // Yes
+							?>
+							<strong><?php echo $admin_language['other_actions']; ?></strong><br />
+							<form role="form" action="" method="post">
+							  <input type="hidden" name="token" value="<?php echo $token; ?>">
+							  <input type="hidden" name="action" value="avatar_disable">
+							  <input type="submit" value="<?php echo $admin_language['disable_avatar']; ?>" class="btn btn-danger">
+							</form>
+							<?php 
+							
+							// Doesn't have an avatar enabled, but does one exist? If so, let the admin choose to enable it
+							} else if (count(glob(__DIR__ . '/../../avatars/' . $_GET["user"] . '.*'))) { 
+							?>
+							<strong><?php echo $admin_language['other_actions']; ?></strong><br />
+							<form role="form" action="" method="post">
+							  <input type="hidden" name="token" value="<?php echo $token; ?>">
+							  <input type="hidden" name="action" value="avatar_enable">
+							  <input type="submit" value="<?php echo $admin_language['enable_avatar']; ?>" class="btn btn-success">
+							</form>
+							<?php
+							}
 						}
 					}
 				}

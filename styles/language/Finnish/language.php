@@ -203,6 +203,7 @@ $admin_language = array(
 	'ip' => 'IP:',
 	'other_actions' => 'Muut toiminnot:',
 	'disable_avatar' => 'Ota avatar pois käytöstä',
+	'enable_avatar' => 'Enable avatar',
 	'confirm_user_deletion' => 'Oletko varma, että haluat poistaa käyttäjän {x}?', // Don't replace "{x}"
 	'groups' => 'Käyttäjäryhmät',
 	'group' => 'Ryhmä',

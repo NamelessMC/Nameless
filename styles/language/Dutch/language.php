@@ -208,6 +208,7 @@ $admin_language = array(
     'ip' => 'IP:',
     'other_actions' => 'Andere Actie\'s:',
     'disable_avatar' => 'Schakel avatar uit',
+    'enable_avatar' => 'Enable avatar',
     'confirm_user_deletion' => 'Weet u zeker dat u de gebruiker <b>{x}</b> wilt verwijderen?', // Don't replace "{x}"
     'groups' => 'Groepen',
     'group' => 'Groep',
