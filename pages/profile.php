@@ -5,15 +5,12 @@
  *
  *  License: MIT
  */
-
 if(isset($profile)){
 	require_once('core/integration/uuid.php'); // For UUID stuff
 	require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifier
-
 	// Is UUID linking enabled?
 	$uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
 	$uuid_linking = $uuid_linking[0]->value;
-
 	$profile_user = $queries->getWhere("users", array("username", "=", $profile)); // Is it their username?
 	if(!count($profile_user)){ // No..
 		$profile_user = $queries->getWhere("users", array("mcname", "=", $profile)); // Is it their Minecraft username?
@@ -66,7 +63,6 @@ if(isset($profile)){
 		$uuid = htmlspecialchars($profile_user[0]->uuid);
 		$mcname = htmlspecialchars($profile_user[0]->mcname);
 	}
-
 	// Redirect to fix pagination if URL does not end in /
 	if(substr($_SERVER['REQUEST_URI'], -1) !== '/' && !strpos($_SERVER['REQUEST_URI'], '?')){
 		echo '<script data-cfasync="false">window.location.replace(\'/profile/' . $mcname . '/\');</script>';
@@ -221,7 +217,6 @@ if(isset($profile)){
 		
 		$token = Token::generate();
 	}
-
 	// Is the user online?
 	if($exists == true && strtotime("-10 minutes") < $profile_user[0]->last_online) $is_online = true;
 	
@@ -229,7 +224,6 @@ if(isset($profile)){
 	require('core/includes/paginate.php');
 	$pagination = new Pagination();
 	
-
 	// Get page
 	if(isset($_GET['p'])){
 		if(!is_numeric($_GET['p'])){
@@ -485,6 +479,7 @@ if(isset($profile)){
 					<li class="active"><a href="#profile-posts" role="tab" data-toggle="tab"><?php echo $user_language['profile_posts']; ?></a></li>
                     <li><a href="#forum" role="tab" data-toggle="tab"><?php echo $user_language['about']; ?></a></li>
                     <li><a href="#topics-and-comments" role="tab" data-toggle="tab"><?php echo ucfirst($forum_language['posts']); ?></a></li>
+					<li><a href="#name_history" role="tab" data-toggle="tab"><?php echo ucfirst($user_language['name_history']); ?></a></li>
 				  </ul>
                   <!-- Tab panes -->
                   <div class="tab-content">
@@ -525,10 +520,8 @@ if(isset($profile)){
 							$pagination->setCurrent($p);
 							$pagination->setTotal(count($profile_posts));
 							$pagination->alwaysShowPagination();
-
 							// Get number of users we should display on the page
 							$paginate = PaginateArray($p);
-
 							$n = $paginate[0];
 							$f = $paginate[1];
 							
@@ -709,6 +702,28 @@ if(isset($profile)){
 								$n++;
 							}
 						}
+						?>
+                     </div>
+                     <div role="tabpanel" class="tab-pane" id="name_history">
+						<?php
+							echo "<b>" . $user_language['name_history'] . "</b></p>
+							<ul>";
+							//get name
+							$name = file_get_contents("https://api.mojang.com/user/profiles/$uuid/names");
+							$namehistory = json_decode($name, true);
+							//show username
+							for($i = 0; $i < count($namehistory); $i++){
+								if(array_key_exists("changedToAt", $namehistory[$i])){
+										echo "<li class='name'>" . $user_language['changed_name_to'] . " <b>" . $namehistory[$i]["name"] . "</b>";
+									echo " " . $user_language['on'] . " " . date('dS M Y', ($namehistory[$i]["changedToAt"] / 1000)) . "";
+								}
+									else {
+									echo "
+											<li class='name'>" . $user_language['original_name'] . " <b>" . $namehistory[$i]["name"] . "</b>";
+								}
+								echo "<br /></li>";
+							}
+							echo "</ul>";
 						?>
                      </div>
                   </div>
