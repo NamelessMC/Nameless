@@ -526,8 +526,12 @@ $user_language = array(
 	'post_unliked' => 'Innlegg unliked.',
 	'no_posts' => 'Ingen innlegg.',
 	'last_5_posts' => 'Last 5 posts',
-	'follow' => 'Follow',
-	'unfollow' => 'Unfollow',
+	'follow' => 'Følg',
+	'unfollow' => 'Unfølg',
+	'name_history' => 'Navn Historie',
+ 	'changed_name_to' => 'Endret navn til:',
+ 	'original_name' => 'Opprinnelig navn:',
+ 	'on' => 'på',
 	
 	// Staff applications
 	'staff_application' => 'Staff Application',
