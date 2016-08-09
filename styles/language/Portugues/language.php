@@ -207,6 +207,7 @@ $admin_language = array(
 	'ip' => 'IP:',
 	'other_actions' => 'Outras Ações:',
 	'disable_avatar' => 'Desativar avatar',
+	'enable_avatar' => 'Enable avatar',
 	'confirm_user_deletion' => 'Você tem certeza de que deseja excluir o usuário {x}?', // Don't replace "{x}"
 	'groups' => 'Grupos',
 	'group' => 'Grupo',
