@@ -190,7 +190,7 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 			$twitter = '';
 		} else {
 			// Enabled
-			$twitter = '<a class="twitter-timeline" data-dnt="true" href="' . htmlspecialchars($twitter_url[0]->value) . '"  data-widget-id="' . htmlspecialchars($twitter_feed_query[0]->value) . '">Tweets</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+			$twitter = '<a class="twitter-timeline" data-height="600" href="' . htmlspecialchars($twitter_url[0]->value) . '">Tweets</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
 		}
 	} else {
 		$twitter = '';
