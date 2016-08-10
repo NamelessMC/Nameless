@@ -285,7 +285,7 @@ $admin_language = array(
 	'confirm_purge_errors' => 'Weet je het zeker dat je de foutmeldingen wilt verwijderen>',
      
     // Admin Themes, Templates and Addons
-    'themes' => 'Thema/'s',
+    'themes' => 'Thema\'s',
     'templates' => 'Templates',
     'installed_themes' => 'Geinstaleerde Thema\'s',
     'installed_templates' => 'Geinstaleerde templates',
