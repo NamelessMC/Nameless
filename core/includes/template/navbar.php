@@ -144,6 +144,9 @@ if($user->isLoggedIn()){
 		if($user->canViewACP($user->data()->id)){
 			$user_area .= '<li><a href="/admin">' . $admin_language['admin_cp'] . '</a></li>';
 		}
+		if($user->canViewACP($user->data()->id)){
+			$user_area .= '<li class="divider"></li><li><a href="/infractions">' . $admin_language['infractions'] . '</a></li>';
+		}
 		$user_area .= '<li class="divider"></li>
 		<li><a href="/signout">' . $user_language['sign_out'] . '</a></li>
 	  </ul>
