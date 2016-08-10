@@ -16,6 +16,7 @@
 $admin_language = array(
 	// General terms
 	'admin_cp' => 'AdminCP', 
+	'infractions' => 'Rikkomuksista',
 	'invalid_token' => 'Erääntynyt istunto, yritä uudelleen.',
 	'invalid_action' => 'Virheellinen toiminto',
 	'successfully_updated' => 'Päivitetty onnistuneesti',
