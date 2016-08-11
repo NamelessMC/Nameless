@@ -96,10 +96,10 @@ if(isset($_GET['p'])){
 	<br />
 	
     <div class="container">	
-      <h2><?php echo $infractions_language['infractions']; ?></h2>
-
-	  <?php
-	    if(!isset($_GET['type']) && !isset($_GET['id'])){
+	  <div class="well">
+        <h2><?php echo $infractions_language['infractions']; ?></h2>
+		<?php
+		if(!isset($_GET['type']) && !isset($_GET['id'])){
 			// Get all infractions, depending on plugin
 			switch($inf_plugin){
 				case 'bat':
@@ -128,28 +128,28 @@ if(isset($_GET['p'])){
 				$d = count($all_infractions) - $n;
 				$d = $d + $n;
 			}
-	  ?>
-	  <div class="table-responsive">
-		<table class="table table-bordered">
-		  <colgroup>
-		   <col span="1" style="width: 15%;">
-		   <col span="1" style="width: 15%;">
-		   <col span="1" style="width: 15%">
-		   <col span="1" style="width: 30%">
-		   <col span="1" style="width: 15%">
-		   <col span="1" style="width: 10%">
-		  </colgroup>
-		  <thead>
-		    <tr>
-			  <td><?php echo $user_language['username']; ?></td>
-			  <td><?php echo $infractions_language['staff_member']; ?></td>
-			  <td><?php echo $infractions_language['action']; ?></td>
-			  <td><?php echo $infractions_language['reason']; ?></td>
-			  <td><?php echo $infractions_language['created']; ?></td>
-			  <td><?php echo $infractions_language['actions']; ?></td>
-		    </tr>
-		  </thead>
-		  <tbody>
+		?>
+	    <div class="table-responsive">
+		  <table class="table table-bordered">
+		    <colgroup>
+		      <col span="1" style="width: 15%;">
+		      <col span="1" style="width: 15%;">
+		      <col span="1" style="width: 15%">
+		      <col span="1" style="width: 30%">
+		      <col span="1" style="width: 15%">
+		      <col span="1" style="width: 10%">
+		    </colgroup>
+		    <thead>
+		      <tr>
+			    <td><?php echo $user_language['username']; ?></td>
+			    <td><?php echo $infractions_language['staff_member']; ?></td>
+			    <td><?php echo $infractions_language['action']; ?></td>
+			    <td><?php echo $infractions_language['reason']; ?></td>
+			    <td><?php echo $infractions_language['created']; ?></td>
+			    <td><?php echo $infractions_language['actions']; ?></td>
+		      </tr>
+		    </thead>
+		    <tbody>
 			<?php 
 			while($n < $d){
 				$infraction = $all_infractions[$n];
@@ -198,20 +198,21 @@ if(isset($_GET['p'])){
 					}
 				}
 			?>
-		    <tr>
-			  <td><a href="/profile/<?php echo htmlspecialchars($mcname); ?>"><?php echo htmlspecialchars($mcname); ?></a></td>
-			  <td><?php if(strtolower($infraction["staff"]) !== "console"){?><a href="/profile/<?php echo htmlspecialchars($infraction["staff"]); ?>"><?php if($inf_plugin !== "mb"){ echo htmlspecialchars($infraction["staff"]); } else { echo htmlspecialchars($infractions->mb_getUsernameFromName($infraction["staff"])); }?></a><?php } else { echo 'Console'; } ?></td>
-			  <td><?php echo $infraction["type_human"]; ?> <?php echo $infraction["expires_human"]; ?></td>
-			  <td><?php echo htmlspecialchars($infraction["reason"]); ?></td>
-			  <td><?php if(isset($infraction['issued'])){ ?><span rel="tooltip" data-placement="top" title="<?php echo $infraction["issued_human"]; ?>"><?php echo $timeago->inWords(date('d M Y, H:i', $infraction["issued"]), $time_language); ?></span><?php } else echo '-'; ?></td>
-			  <td><a class="btn btn-primary btn-sm" href="/infractions/?type=<?php echo $infraction["type"]; ?>&amp;id=<?php echo $infraction["id"]; if(isset($infraction['past'])){ ?>&amp;past=true<?php } ?>"><?php echo $infractions_language['view']; ?></a></td>
-		    </tr>
+		      <tr>
+			    <td><a href="/profile/<?php echo htmlspecialchars($mcname); ?>"><?php echo htmlspecialchars($mcname); ?></a></td>
+			    <td><?php if(strtolower($infraction["staff"]) !== "console"){?><a href="/profile/<?php echo htmlspecialchars($infraction["staff"]); ?>"><?php if($inf_plugin !== "mb"){ echo htmlspecialchars($infraction["staff"]); } else { echo htmlspecialchars($infractions->mb_getUsernameFromName($infraction["staff"])); }?></a><?php } else { echo 'Console'; } ?></td>
+			    <td><?php echo $infraction["type_human"]; ?> <?php echo $infraction["expires_human"]; ?></td>
+			    <td><?php echo htmlspecialchars($infraction["reason"]); ?></td>
+			    <td><?php if(isset($infraction['issued'])){ ?><span rel="tooltip" data-placement="top" title="<?php echo $infraction["issued_human"]; ?>"><?php echo $timeago->inWords(date('d M Y, H:i', $infraction["issued"]), $time_language); ?></span><?php } else echo '-'; ?></td>
+			    <td><a class="btn btn-primary btn-sm" href="/infractions/?type=<?php echo $infraction["type"]; ?>&amp;id=<?php echo $infraction["id"]; if(isset($infraction['past'])){ ?>&amp;past=true<?php } ?>"><?php echo $infractions_language['view']; ?></a></td>
+		      </tr>
 			<?php
 				$n++;
 			}
 			?>
-		  </tbody>
-		</table>
+		    </tbody>
+		  </table>
+		</div>
 			<?php
 			$pagination->setCurrent($p);
 			$pagination->setTotal(count($all_infractions));
@@ -508,18 +509,18 @@ if(isset($_GET['p'])){
 				break;
 			}
 			?>
-			<hr />
-			<h4 style="display:inline;"><?php echo $infractions_language['viewing_infraction']; ?></h4>
-			<span class="pull-right"><a href="/infractions"><?php echo $general_language['back']; ?></a></span>
-			<br /><br />
-			<?php echo $infractions_language['user'] . ' <strong><a href="/profile/' . $username . '">' . $username . '</a></strong>'; ?><br />
-			<?php echo $infractions_language['staff_member'] . ': ' . (strtolower($staff) == 'console' ? $staff : '<a href="/profile/' . $staff . '">' . $staff . '</a>'); ?><br />
-			<?php echo $infractions_language['action'] . ': <strong>' . $action . '</strong>'; ?><br />
-			<?php if(isset($created)) echo $infractions_language['created'] . ': ' . $created . '<br />'; ?>
-			<?php if(isset($expires)) echo $infractions_language['status'] . ' ' . $expires . '<br />'; ?>
-			<?php echo $infractions_language['reason'] . ': '; ?><pre><?php echo $reason; ?></pre><br />
-			<hr />
-			<?php
+		  <hr />
+		  <h4 style="display:inline;"><?php echo $infractions_language['viewing_infraction']; ?></h4>
+		  <span class="pull-right"><a href="/infractions"><?php echo $general_language['back']; ?></a></span>
+		  <br /><br />
+		  <?php echo $infractions_language['user'] . ' <strong><a href="/profile/' . $username . '">' . $username . '</a></strong>'; ?><br />
+		  <?php echo $infractions_language['staff_member'] . ': ' . (strtolower($staff) == 'console' ? $staff : '<a href="/profile/' . $staff . '">' . $staff . '</a>'); ?><br />
+		  <?php echo $infractions_language['action'] . ': <strong>' . $action . '</strong>'; ?><br />
+		  <?php if(isset($created)) echo $infractions_language['created'] . ': ' . $created . '<br />'; ?>
+		  <?php if(isset($expires)) echo $infractions_language['status'] . ' ' . $expires . '<br />'; ?>
+		  <?php echo $infractions_language['reason'] . ': '; ?><pre><?php echo $reason; ?></pre><br />
+		  <hr />
+		  <?php
 		}
 		?>
 	  </div>
