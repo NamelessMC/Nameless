@@ -102,6 +102,11 @@ $adm_page = "minecraft";
 					} else {
 						$status_module = 'false';
 					}
+					if(Input::get('usernames') == 'on'){
+						$usernames = 'false';
+					} else {
+						$usernames = 'true';
+					}
 					
 					// Update values
 					$uuids_id = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
@@ -128,6 +133,19 @@ $adm_page = "minecraft";
 						'value' => $status_module
 					));
 					
+					$username_id = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+					$username_id = $username_id[0]->id;
+					$queries->update('settings', $username_id, array(
+						'value' => $usernames
+					));
+					
+					$avatar_id = $queries->getWhere('settings', array('name', '=', 'avatar_type'));
+					$avatar_id = $avatar_id[0]->id;
+					
+					$queries->update('settings', $avatar_id, array(
+						'value' => htmlspecialchars(Input::get('avatar_type'))
+					));
+					
 				} else {
 					// Invalid token
 					Session::flash('mc_settings', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
@@ -139,6 +157,8 @@ $adm_page = "minecraft";
 			$user_avatars = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
 			$link_uuids = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
 			$server_status = $queries->getWhere('settings', array('name', '=', 'mc_status_module'));
+			$usernames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+			$avatar_type = $queries->getWhere('settings', array('name', '=', 'avatar_type'));
 			
 			if(Session::exists('mc_settings')){
 				echo Session::flash('mc_settings');
@@ -170,6 +190,19 @@ $adm_page = "minecraft";
 					<span class="pull-right">
 					  <input id="status_module" name="status_module" type="checkbox" class="js-switch" <?php if($server_status[0]->value == 'true'){ ?>checked <?php } ?>/>
 					</span>
+				  </div>
+				  <div class="form-group">
+				    <label for="usernames"><?php echo $admin_language['custom_usernames']; ?></label>
+					<span class="pull-right">
+					  <input id="usernames" name="usernames" type="checkbox" class="js-switch" <?php if($usernames[0]->value == 'false'){ ?>checked <?php } ?>/>
+					</span>
+				  </div>
+				  <div class="form-group">
+			        <label for="avatar_type"><?php echo $admin_language['avatar_type']; ?></label>
+				    <select id="avatar_type" name="avatar_type" class="form-control">
+					  <option value="helmavatar"<?php if($avatar_type[0]->value == 'helmavatar') echo ' selected'; ?>>helmavatar</option>
+					  <option value="avatar"<?php if($avatar_type[0]->value == 'avatar') echo ' selected'; ?>>avatar</option>
+					</select>
 				  </div>
 				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 				  <input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">

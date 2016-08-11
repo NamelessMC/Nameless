@@ -279,6 +279,7 @@ $admin_language = array(
 	'purge_errors' => 'Sleep feil medlingene',
 	'confirm_purge_errors' => 'Er du sikker på at du vil slette alle feil meldingene?',
 	'avatar_type' => 'Avatar type',
+	'custom_usernames' => 'Force Minecraft usernames?',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Temaer',
