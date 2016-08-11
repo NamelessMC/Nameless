@@ -339,7 +339,7 @@
 - Fix syntax error in language file
 - Add Infractions link for admins to dropdown
 - Prevent banning root user
-- Add well element to Infractijons page
+- Add well element to Infractions page
 - Allow changing Minecraft avatar type
 - Alert profile owners on wall posts
 - Add drop column function
