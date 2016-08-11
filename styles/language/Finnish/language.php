@@ -529,9 +529,9 @@ $user_language = array(
 	'follow' => 'Follow',
 	'unfollow' => 'Unfollow',
 	'name_history' => 'Name History',
-	'changed_name_to' => 'Changed name to:',
+	'changed_name_to' => 'Changed name to: {x} on {y}', // Don't replace {x} or {y}
 	'original_name' => 'Original name:',
-	'on' => 'on',
+	'name_history_error' => 'Unable to retrieve username history.',
 	
 	// Staff applications
 	'staff_application' => 'Ylläpitohakemus',
