@@ -110,6 +110,28 @@ if(isset($profile)){
 							'content' => htmlspecialchars(Input::get('post_reply'))
 						));
 						
+						// Alert profile user
+						$queries->create('alerts', array(
+							'user_id' => $profile_user[0]->id,
+							'type' => 'Profile Post',
+							'url' => '/profile/' . $mcname,
+							'content' => htmlspecialchars($user->data()->username) . ' has replied to a post on your profile.',
+							'created' => date('U')
+						));
+						
+						// Alert original post user
+						$original_post_id = $queries->getWhere('user_profile_wall_posts', array('id', '=', Input::get('pid')));
+						$original_post_id = $original_post_id[0]->author_id;
+						
+						$queries->create('alerts', array(
+							'user_id' => $original_post_id,
+							'type' => 'Profile Post',
+							'url' => '/profile/' . $mcname,
+							'content' => htmlspecialchars($user->data()->username) . ' has replied to your post on ' . htmlspecialchars($mcname) . '\'s profile.',
+							'created' => date('U')
+						));
+						
+						
 						// Redirect to clear input
 						echo '<script data-cfasync="false">window.location.replace("/profile/' . $mcname . '");</script>';
 						die();
@@ -146,6 +168,15 @@ if(isset($profile)){
 							'author_id' => $user->data()->id,
 							'time' => date('U'),
 							'content' => htmlspecialchars(Input::get('wall_post'))
+						));
+						
+						// Alert user
+						$queries->create('alerts', array(
+							'user_id' => $profile_user[0]->id,
+							'type' => 'Profile Post',
+							'url' => '/profile/' . $mcname,
+							'content' => htmlspecialchars($user->data()->username) . ' has posted on your profile.',
+							'created' => date('U')
 						));
 						
 						// Redirect to clear input
@@ -555,7 +586,7 @@ if(isset($profile)){
                            <label style="float:left; width:6%;">
 						    <?php
 						    // User avatar
-							echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 50px; width: 50px;" src="' . $user->getAvatar($post_user[$n]->id, "../", 50) . '" />';
+							echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 50px; width: 50px;" src="' . $user->getAvatar($post_user[0]->id, "../", 50) . '" />';
 						    ?>
 						   </label>&nbsp;
                            <p style="float:right; width:93%;" type="text">
