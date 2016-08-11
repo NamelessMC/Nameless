@@ -11,6 +11,9 @@
  *  built for NamelessMC version 1.0.10
  */
  
+ //Headers
+ header("Content-Type: application/json; charset=UTF-8");
+ 
 // Get API key
 if(!isset($directories[3]) || (isset($directories[3]) && empty($directories[3]))){
 	$api_key = null;

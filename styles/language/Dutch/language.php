@@ -283,7 +283,8 @@ $admin_language = array(
 	'server_ip_maximum' => 'De server IP mag maar uit 64 tekens bestaan.',
 	'purge_errors' => 'Verwijder foutmeldingen',
 	'confirm_purge_errors' => 'Weet je het zeker dat je de foutmeldingen wilt verwijderen>',
-     
+	'avatar_type' => 'Avatar type',
+
     // Admin Themes, Templates and Addons
     'themes' => 'Thema\'s',
     'templates' => 'Templates',
@@ -533,7 +534,11 @@ $user_language = array(
 	'last_5_posts' => 'Recentste 5 berichten',
 	'follow' => 'Follow',
 	'unfollow' => 'Unfollow',
-     
+	'name_history' => 'Name History',
+	'changed_name_to' => 'Changed name to: {x} on {y}', // Don't replace {x} or {y}
+	'original_name' => 'Original name:',
+	'name_history_error' => 'Unable to retrieve username history.',
+
     // Staff applications
     'staff_application' => 'Staff Application',
     'application_submitted' => 'Application succesvol ingediend.',
@@ -562,7 +567,10 @@ $mod_language = array(
     'ip_lookup' => 'IP Lookup:',
     'registered' => 'Geregistreerd',
     'reason' => 'Reden:',
-     
+	'cant_ban_root_user' => 'Can\'t punish the root user!',
+	'invalid_reason' => 'Please enter a valid reason between 2 and 256 characters long.',
+	'punished_successfully' => 'Punishment added successfully.',
+
     // Reports
     'report_closed' => 'Report Gesloten.',
     'new_comment' => 'Nieuw Comment',

@@ -278,6 +278,7 @@ $admin_language = array(
 	'server_ip_maximum' => 'Serveren IP må være maksimalt 64 tegn.',
 	'purge_errors' => 'Sleep feil medlingene',
 	'confirm_purge_errors' => 'Er du sikker på at du vil slette alle feil meldingene?',
+	'avatar_type' => 'Avatar type',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Temaer',
@@ -527,8 +528,12 @@ $user_language = array(
 	'post_unliked' => 'Innlegg unliked.',
 	'no_posts' => 'Ingen innlegg.',
 	'last_5_posts' => 'Last 5 posts',
-	'follow' => 'Follow',
-	'unfollow' => 'Unfollow',
+	'follow' => 'Følg',
+	'unfollow' => 'Unfølg',
+	'name_history' => 'Navn Historie',
+ 	'changed_name_to' => 'Endret navn til: {x} på {y}', // Don't replace {x} or {y}
+ 	'original_name' => 'Opprinnelig navn:',
+	'name_history_error' => 'Unable to retrieve username history.',
 	
 	// Staff applications
 	'staff_application' => 'Staff Application',
@@ -558,6 +563,9 @@ $mod_language = array(
 	'ip_lookup' => 'IP Lookup:',
 	'registered' => 'Registrert',
 	'reason' => 'Grunn:',
+	'cant_ban_root_user' => 'Can\'t punish the root user!',
+	'invalid_reason' => 'Please enter a valid reason between 2 and 256 characters long.',
+	'punished_successfully' => 'Punishment added successfully.',
 	
 	// Reports
 	'report_closed' => 'Rapporter lukket.',

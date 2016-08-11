@@ -120,11 +120,7 @@ if(!in_array('Members', $enabled_addon_pages)){
 						}
 					}
 					// Get avatar
-					if($individual->has_avatar == 1){
-						$avatar = '<img class="img-rounded" style="margin: -10px 0px; width:35px; height:35px;" src="' .  $user->getAvatar($individual->id) . '" />';
-					} else {
-						$avatar = '<img class="img-rounded" style="margin: -10px 0px;" src="https://cravatar.eu/avatar/' . htmlspecialchars($individual->mcname) . '/35.png">';
-					}
+					$avatar = '<img class="img-rounded" style="width:35px; height:35px;" src="' . $user->getAvatar($individual->id, "../", 35) . '" />';
 				  ?>
 				  <tr>
 				    <td><?php echo ($avatar) ?> <a href="/profile/<?php echo htmlspecialchars($individual->mcname); ?>"><?php echo htmlspecialchars($individual->username); ?></a></td>

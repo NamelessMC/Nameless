@@ -281,6 +281,7 @@ $admin_language = array(
 	'server_ip_maximum' => 'The server IP must be a maximum of 64 characters.',
 	'purge_errors' => 'Purge Errors',
 	'confirm_purge_errors' => 'Are you sure you want to purge all query errors?',
+	'avatar_type' => 'Avatar type',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Themes',
@@ -529,6 +530,10 @@ $user_language = array(
 	'last_5_posts' => 'Last 5 posts',
 	'follow' => 'Follow',
 	'unfollow' => 'Unfollow',
+	'name_history' => 'Name History',
+	'changed_name_to' => 'Changed name to: {x} on {y}', // Don't replace {x} or {y}
+	'original_name' => 'Original name:',
+	'name_history_error' => 'Unable to retrieve username history.',
 	
 	// Staff applications
 	'staff_application' => 'Staff Application',
@@ -557,6 +562,9 @@ $mod_language = array(
 	'ip_lookup' => 'IP Lookup:',
 	'registered' => 'Registered',
 	'reason' => 'Reason:',
+	'cant_ban_root_user' => 'Can\'t punish the root user!',
+	'invalid_reason' => 'Please enter a valid reason between 2 and 256 characters long.',
+	'punished_successfully' => 'Punishment added successfully.',
 	
 	// Reports
 	'report_closed' => 'Report closed.',
