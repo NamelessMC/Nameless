@@ -303,3 +303,44 @@
 - Remove unnecessary Smarty variable from homepage
 - Cache TeamSpeak query and add Join button
 - Allow editing email settings from AdminCP
+
+1.0.11
+- Move datepicker to below input box
+- Fix Darkly theme category dark text
+- Fix inability to edit root user in AdminCP
+- Disable debug messages from mailer
+- Update translations
+- Add BRL currency to Donate addon
+- Update custom pages system
+- Release first API
+- Add a "report closed" label
+- Remove unnecessary database columns
+- Add share social media buttons
+- Fix blue name on blue background on reports page
+- Disable MCStock option in Donate addon
+- Modify tachometer function
+- Decrease minimum username length in AdminCP to 3 characters
+- Fix non-25565 port not showing on Play page
+- Fix link issue with usernames containing spaces
+- Improvements to forum permissions
+- Fix non-25565 port not showing on banner
+- Don't delete PM altogether if author
+- Assign more topic related Smarty variables
+- Add theme-color meta tag
+- Add IRC to readme
+- Change add/remove friend button to follow/unfollow
+- Add JSON headers to API
+- Make the disable avatar button more intuitive
+- Fix profile pagination issue
+- Remove successful email confirmation
+- Add Name History to profile pages
+- Update to new Twitter widget system
+- Remove Twitter widget ID input
+- Fix syntax error in language file
+- Add Infractions link for admins to dropdown
+- Prevent banning root user
+- Add well element to Infractijons page
+- Allow changing Minecraft avatar type
+- Alert profile owners on wall posts
+- Add drop column function
+- Allow enabling/disabling custom usernames
