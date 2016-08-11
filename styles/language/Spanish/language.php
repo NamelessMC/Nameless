@@ -283,6 +283,14 @@ $admin_language = array(
 	'confirm_purge_errors' => '¿Está seguro de que desea limpiar todos los errores?',
 	'avatar_type' => 'Avatar type',
 	'custom_usernames' => 'Force Minecraft usernames?',
+	'mcassoc' => 'mcassoc',
+	'use_mcassoc' => 'Use mcassoc?',
+	'use_mcassoc_help' => 'mcassoc ensures users own the Minecraft account they\'re registering with',
+	'mcassoc_key' => 'mcassoc Shared Key',
+	'invalid_mcassoc_key' => 'Invalid mcassoc key.',
+	'mcassoc_instance' => 'mcassoc Instance',
+	'mcassoc_instance_help' => 'Generate an instance code <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">here</a>',
+	'mcassoc_key_help' => 'Get your mcassoc key <a href="https://mcassoc.lukegb.com/" target="_blank">here</a>',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Temas',
@@ -415,6 +423,10 @@ $user_language = array(
 	'location_required' => 'Por favor, introduzca una ubicación.',
 	'location_minimum_2' => 'Su ubicación debe ser de un mínimo de 2 caracteres.',
 	'location_maximum_128' => 'Su ubicación debe ser un máximo de 128 caracteres.',
+	'verify_account' => 'Verify account',
+	'verify_account_help' => 'Please follow the instructions below so we can verify you own the Minecraft account in question.',
+	'verification_failed' => 'Verification failed, please try again.',
+	'verification_success' => 'Successfully validated! You can now log in.',
 	
 	// UserCP
 	'user_cp' => 'Panel Usuario',

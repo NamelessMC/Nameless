@@ -630,6 +630,21 @@ if(isset($_GET["step"])){
 								'value' => 'helmavatar'
 							));
 							
+							$queries->create('settings', array(
+								'name' => 'mcassoc',
+								'value' => '0'
+							));
+							
+							$queries->create('settings', array(
+								'name' => 'mcassoc_key',
+								'value' => ''
+							));
+
+							$queries->create('settings', array(
+								'name' => 'mcassoc_instance',
+								'value' => ''
+							));
+							
 							// Version update
 							$version_id = $queries->getWhere('settings', array('name', '=', 'version'));
 							$queries->update('settings', $version_id[0]->id, array(
@@ -1043,6 +1058,18 @@ if(isset($_GET["step"])){
 					38 => array(
 						'name' => 'avatar_type',
 						'value' => 'helmavatar'
+					),
+					39 => array(
+						'name' => 'mcassoc',
+						'value' => '0'
+					),
+					40 => array(
+						'name' => 'mcassoc_key',
+						'value' => ''
+					),
+					41 => array(
+						'name' => 'mcassoc_instance',
+						'value' => ''
 					)
 				);
 				
