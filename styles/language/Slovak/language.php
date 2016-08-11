@@ -16,6 +16,7 @@
 $admin_language = array(
 	// General terms
 	'admin_cp' => 'Administrácia', 
+	'infractions' => 'Priestupky',
 	'invalid_token' => 'Zle dáta, skúste to prosím znovu.',
 	'invalid_action' => 'Zlá akcia',
 	'successfully_updated' => 'Úspešne aktualizované',
