@@ -283,9 +283,10 @@ $admin_language = array(
 	'server_ip_maximum' => 'De server IP mag maar uit 64 tekens bestaan.',
 	'purge_errors' => 'Verwijder foutmeldingen',
 	'confirm_purge_errors' => 'Weet je het zeker dat je de foutmeldingen wilt verwijderen>',
-     
+	'avatar_type' => 'Avatar type',
+
     // Admin Themes, Templates and Addons
-    'themes' => 'Thema/'s',
+    'themes' => 'Thema\'s',
     'templates' => 'Templates',
     'installed_themes' => 'Geinstaleerde Thema\'s',
     'installed_templates' => 'Geinstaleerde templates',

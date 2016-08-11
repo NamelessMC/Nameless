@@ -352,7 +352,7 @@ class User {
 	}
 	
 	// Get a user's avatar, based on user ID
-	public function getAvatar($id, $path = null) {
+	public function getAvatar($id, $path = null, $size = 50) {
 		// Do they have an avatar?
 		$data = $this->_db->get('users', array('id', '=', $id))->results();
 		if(empty($data)){
@@ -363,7 +363,7 @@ class User {
 			if($data[0]->gravatar == 1){
 				// Gravatar
 				return "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $data[0]->email ) ) ) . "?d=" . urlencode( 'https://cravatar.eu/avatar/Steve/200.png' ) . "&s=200";
-			} else {
+			} else if($data[0]->has_avatar == 1){
 				// Custom avatar
 				$exts = array('gif','png','jpg');
 				foreach($exts as $ext) {
@@ -376,6 +376,26 @@ class User {
 					return $avatar_path;
 				} else {
 					return false;
+				}
+			} else {
+				// Minecraft avatar
+				$avatar_type = $this->_db->get('settings', array('name', '=', 'avatar_type'))->results();
+				
+				if(count($avatar_type)){
+					$avatar_type = $avatar_type[0]->value;
+					switch($avatar_type){
+						case 'avatar':
+							return 'https://cravatar.eu/avatar/' . htmlspecialchars($data[0]->mcname) . '/' . $size . '.png';
+						break;
+						case 'helmavatar':
+							return 'https://cravatar.eu/helmavatar/' . htmlspecialchars($data[0]->mcname) . '/' . $size . '.png';
+						break;
+						default:
+							return 'https://cravatar.eu/avatar/' . htmlspecialchars($data[0]->mcname) . '/' . $size . '.png';
+						break;
+					}
+				} else {
+					return 'https://cravatar.eu/avatar/' . htmlspecialchars($data[0]->mcname) . '/' . $size . '.png';
 				}
 			}
 		}

@@ -314,12 +314,15 @@ if(isset($profile)){
             <div class="col-md-3">
 			  <div class="image_container">
 			  <?php
-			  // User avatar	
-		      if(!($exists) || $profile_user[0]->has_avatar == '0'){ 
-				  echo '<img class="img-rounded" src="https://cravatar.eu/avatar/' . $mcname . '/300.png" />';
-			  } else { 
-				  echo '<img class="img-rounded" style="vertical-align: middle;" src="' .  $user->getAvatar($profile_user[0]->id, "../") . '" />';
+			  // User avatar
+			  if(!($exists)){
+				// Get the avatar type in use
+				$avatar_type = $queries->getWhere('settings', array('name', '=', 'avatar_type'));
+				$avatar_type = $avatar_type[0]->value;
+				
+				echo '<img class="img-rounded" src="https://cravatar.eu/' . htmlspecialchars($avatar_type) . '/' . $mcname . '/300.png" />';
 			  }
+			  else echo '<img class="img-rounded" style="vertical-align: middle;" src="' . $user->getAvatar($profile_user[0]->id, "../", 300) . '" />';
 			  ?>
 			  </div>
 			  <br />
@@ -341,9 +344,9 @@ if(isset($profile)){
                         if($exists == true){
                            if($followers !== false){
                               foreach($followers as $follower){
-								 $has_avatar = $queries->getWhere('users', array('id', '=', $follower->user_id));
-								 $has_avatar = $has_avatar[0]->has_avatar;
-                                 echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($follower->user_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($follower->user_id)) . '">'; if($has_avatar == 1) echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 40px; width: 40px;" src="' .  $user->getAvatar($follower->user_id, "../") . '" />'; else echo '<img class="img-rounded" style="padding-bottom:2.5px;" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($follower->user_id)) . '/40.png" />'; echo '</a></span>&nbsp;';
+                                  echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($follower->user_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($follower->user_id)) . '">'; 
+								  echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 40px; width: 40px;" src="' . $user->getAvatar($follower->user_id, "../", 40) . '" />';
+								  echo '</a></span>&nbsp;';
                               }
                            } else {
                               echo $user_language['user_no_followers'];
@@ -367,9 +370,9 @@ if(isset($profile)){
                         if($exists == true){
                            if($following !== false){
                               foreach($following as $item){
-								 $has_avatar = $queries->getWhere('users', array('id', '=', $item->friend_id));
-								 $has_avatar = $has_avatar[0]->has_avatar;
-                                 echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($item->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($item->friend_id)) . '">'; if($has_avatar == 1) echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 40px; width: 40px;" src="' .  $user->getAvatar($item->friend_id, "../") . '" />'; else echo '<img class="img-rounded" style="padding-bottom:2.5px;" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($item->friend_id)) . '/40.png" />'; echo '</a></span>&nbsp;';
+                                  echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($item->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($item->friend_id)) . '">'; 
+								  echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 40px; width: 40px;" src="' . $user->getAvatar($item->friend_id, "../", 40) . '" />';
+								  echo '</a></span>&nbsp;';
                               }
                            } else {
                               echo $user_language['user_not_following'];
@@ -396,9 +399,9 @@ if(isset($profile)){
 						$friends = $user->listFriends($profile_user[0]->id);
 						if($friends !== false){
 							foreach($friends as $friend){
-								$has_avatar = $queries->getWhere('users', array('id', '=', $friend->friend_id));
-								$has_avatar = $has_avatar[0]->has_avatar;
-								echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($friend->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($friend->friend_id)) . '">'; if($has_avatar == 1) echo '<img class="img-rounded" style="height:40px; width=40px; padding-bottom: 2.5px;" src="' .  $user->getAvatar($friend->friend_id, "../") . '" />'; else echo '<img class="img-rounded" style="padding-bottom:2.5px;" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($friend->friend_id)) . '/40.png" />'; echo '</a></span>&nbsp;';
+								echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($friend->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($friend->friend_id)) . '">'; 
+								echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 40px; width: 40px;" src="' . $user->getAvatar($friend->friend_id, "../", 40) . '" />';
+								echo '</a></span>&nbsp;';
 							}
 						} else {
 							echo $user_language['user_no_friends'];
@@ -501,12 +504,8 @@ if(isset($profile)){
 						  <form action="" method="post">
                             <label style="float:left; width:6%;">
 						    <?php
-						    // User avatar	
-						    if($user->data()->has_avatar == '0'){ 
-							  echo '<img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->data()->mcname) . '/100.png" />';
-						    } else { 
-							  echo '<img class="img-rounded" style="height:50px; width=50px; " src="' .  $user->getAvatar($user->data()->id, "../") . '" />';
-						    }
+						    // User avatar
+							echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 50px; width: 50px;" src="' . $user->getAvatar($user->data()->id, "../", 50) . '" />';
 						    ?>
 						    </label>&nbsp;
                             <textarea name="wall_post" class="form-control input-lg" style="float:right; width:93%;" type="text" placeholder="<?php if($user->data()->id !== $profile_user[0]->id) echo str_replace('{x}', $mcname, $user_language['write_on_user_profile']); else echo $user_language['write_on_own_profile']; ?>"><?php echo Input::get('wall_post'); ?></textarea>
@@ -555,12 +554,8 @@ if(isset($profile)){
                         <div class="row">
                            <label style="float:left; width:6%;">
 						    <?php
-						    // User avatar	
-						    if($post_user[0]->has_avatar == '0'){ 
-							  echo '<img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($post_user[0]->mcname) . '/100.png" />';
-						    } else { 
-							  echo '<img class="img-rounded" style="height:50px; width=50px; " src="' .  $user->getAvatar($profile_posts[$n]->author_id, "../") . '" />';
-						    }
+						    // User avatar
+							echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 50px; width: 50px;" src="' . $user->getAvatar($post_user[$n]->id, "../", 50) . '" />';
 						    ?>
 						   </label>&nbsp;
                            <p style="float:right; width:93%;" type="text">
@@ -583,11 +578,7 @@ if(isset($profile)){
 							   <div class="col-md-1 col-md-offset-1">
 								<?php
 								// User avatar	
-								if($reply_user[0]->has_avatar == '0'){ 
-								  echo '<img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->idToMCName($reply->author_id)) . '/100.png" />';
-								} else { 
-								  echo '<img class="img-rounded" style="height:50px; width=50px; " src="' .  $user->getAvatar($reply->author_id, "../") . '" />';
-								}
+								echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 50px; width: 50px;" src="' . $user->getAvatar($reply->author_id, "../", 50) . '" />';
 								?>
 							   </div>
 							   <div class="col-md-10">
@@ -817,21 +808,7 @@ if(isset($profile)){
 											echo '<li class="name">' . str_replace(array('{x}', '{y}'), array(htmlspecialchars($history->changed_to), date('dS M Y', $history->changed_at)), $user_language['changed_name_to']) . '</li>';
 										}
 									}
-									
-									/*
-									for($i = 0; $i < count($namehistory); $i++){
-										if(array_key_exists("changedToAt", $namehistory[$i])){
-												echo "<li class='name'>" . $user_language['changed_name_to'] . " <b>" . $namehistory[$i]["name"] . "</b>";
-											echo " " . $user_language['on'] . " " . date('dS M Y', ($namehistory[$i]["changedToAt"] / 1000)) . "";
-										}
-											else {
-											echo "
-													<li class='name'>" . $user_language['original_name'] . " <b>" . $namehistory[$i]["name"] . "</b>";
-										}
-										echo "<br /></li>";
-									}
-									*/
-									
+
 									echo '</ul>';
 								} else {
 									// Nothing stored in database

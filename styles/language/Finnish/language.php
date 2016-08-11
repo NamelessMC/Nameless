@@ -278,6 +278,7 @@ $admin_language = array(
 	'server_ip_maximum' => 'Palvelimen nimi voi olla enintään 64 merkkiä.',
 	'purge_errors' => 'Purge Errors',
 	'confirm_purge_errors' => 'Are you sure you want to purge all query errors?',
+	'avatar_type' => 'Avatar type',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Teemat',

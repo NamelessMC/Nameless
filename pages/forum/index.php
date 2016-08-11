@@ -232,14 +232,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 			$posts = count($posts);
 			
 			// Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
-			$last_user_avatar = $queries->getWhere('users', array("id", "=", $discussions[$n]['topic_last_user']));
-			$last_user_avatar = $last_user_avatar[0]->has_avatar;
-			$last_reply_avatar = '';
-			if($last_user_avatar == '0'){ 
-				$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($discussions[$n]['topic_last_user']) . '/30.png" />';
-			} else { 
-				$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($discussions[$n]['topic_last_user'], "../") . '" />';
-			}
+			$last_reply_avatar = '<img class="img-centre img-rounded" style="width:27.7px; height:27.7px;" src="' .  $user->getAvatar($discussions[$n]['topic_last_user'], "../", 30) . '" />';
 			
 			// Is there a label?
 			if($discussions[$n]['label'] != 0){ // yes
@@ -352,17 +345,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 					$posts_count = count($posts_count);
 				
 					// Get avatar of user who last posted
-					$last_user_avatar = '';
-					$last_reply_avatar = '';
-					if($item['last_user_posted'] != null){
-						$last_user_avatar = $queries->getWhere('users', array('id', '=', $item['last_user_posted']));
-						$last_user_avatar = $last_user_avatar[0]->has_avatar;
-						if($last_user_avatar == '0'){ 
-							$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($item['last_user_posted']) . '/30.png" />';
-						} else { 
-							$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($item['last_user_posted'], "../") . '" />';
-						}
-					}
+					$last_reply_avatar = '<img class="img-centre img-rounded" style="width:27.7px; height:27.7px;" src="' .  $user->getAvatar($item['last_user_posted'], "../", 30) . '" />';
 					
 					// Get the last topic posted in
 					$last_topic = '';
@@ -438,17 +421,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 			}
 
 			// Get avatar of user
-			$last_user_avatar = '';
-			$last_reply_avatar = '';
-			if($item['topic_last_user'] != null){
-				$last_user_avatar = $queries->getWhere('users', array('id', '=', $item['topic_last_user']));
-				$last_user_avatar = $last_user_avatar[0]->has_avatar;
-				if($last_user_avatar == '0'){ 
-					$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($item['topic_last_user']) . '/30.png" />';
-				} else { 
-					$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($item['topic_last_user'], "../") . '" />';
-				}
-			}
+			$last_reply_avatar = '<img class="img-centre img-rounded" style="width:27.7px; height:27.7px;" src="' .  $user->getAvatar($item['topic_last_user'], "../", 30) . '" />';
 			
 			$latest_posts[] = array(
 				'topic_id' => $item['id'],

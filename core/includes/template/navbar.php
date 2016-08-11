@@ -87,11 +87,7 @@ $navbar_links .= '</ul>';
 // User area
 if($user->isLoggedIn()){
 	// Get avatar
-	if($user->data()->has_avatar == 1){
-		$avatar = '<img class="img-rounded" style="margin: -10px 0px; width:25px; height:25px;" src="' .  $user->getAvatar($user->data()->id, "../") . '" />';
-	} else {
-		$avatar = '<img class="img-rounded" style="margin: -10px 0px;" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->data()->mcname) . '/25.png">';
-	}
+	$avatar = '<img class="img-rounded" style="margin: -10px 0px; width:25px; height:25px;" src="' . $user->getAvatar($user->data()->id, "../", 25) . '" />';
 	
 	$user_area = '
 	<li class="dropdown alert-dropdown">

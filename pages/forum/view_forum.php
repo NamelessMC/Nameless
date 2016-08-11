@@ -412,13 +412,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 				$replies = count($replies);
 				
 				// Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
-				$last_user_avatar = $queries->getWhere('users', array("id", "=", $sticky->topic_last_user));
-				$last_user_avatar = $last_user_avatar[0]->has_avatar;
-				if($last_user_avatar == '0'){ 
-					$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($sticky->topic_last_user)) . '/30.png" />';
-				} else { 
-					$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($sticky->topic_last_user, "../") . '" />';
-				}
+				$last_reply_avatar = '<img class="img-rounded img-centre" style="width:30px; height:30px;" src="' . $user->getAvatar($sticky->topic_last_user, "../", 30) . '" />';
 				
 				// Is there a label?
 				if($sticky->label != 0){ // yes
@@ -481,13 +475,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 				$replies = count($replies);
 				
 				// Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
-				$last_user_avatar = $queries->getWhere('users', array("id", "=", $topics[$n]->topic_last_user));
-				$last_user_avatar = $last_user_avatar[0]->has_avatar;
-				if($last_user_avatar == '0'){ 
-					$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($topics[$n]->topic_last_user)) . '/30.png" />';
-				} else { 
-					$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($topics[$n]->topic_last_user, "../") . '" />';
-				}
+				$last_reply_avatar = '<img class="img-rounded img-centre" style="width:30px; height:30px;" src="' . $user->getAvatar($topics[$n]->topic_last_user, "../", 30) . '" />';
 				
 				// Is there a label?
 				if($topics[$n]->label != 0){ // yes
@@ -594,13 +582,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 					$posts_count = count($posts_count);
 					
 					// Get last user avatar
-					$last_user_avatar = $queries->getWhere('users', array("id", "=", $subforum->last_user_posted));
-					$last_user_avatar = $last_user_avatar[0]->has_avatar;
-					if($last_user_avatar == '0'){ 
-						$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($subforum->last_user_posted)) . '/30.png" />';
-					} else { 
-						$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($subforum->last_user_posted, "../") . '" />';
-					}
+					$last_reply_avatar = '<img class="img-rounded img-centre" style="width:30px; height:30px;" src="' . $user->getAvatar($subforum->last_user_posted, "../", 30) . '" />';
 					
 					// Get last topic name and label
 					$last_topic = $queries->getWhere('topics', array('id', '=', $subforum->last_topic_posted));
@@ -677,16 +659,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 				}
 
 				// Get avatar of user
-				$last_user_avatar = '';
-				if($item['topic_last_user'] != null){
-					$last_user_avatar = $queries->getWhere('users', array('id', '=', $item['topic_last_user']));
-					$last_user_avatar = $last_user_avatar[0]->has_avatar;
-					if($last_user_avatar == '0'){ 
-						$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($item['topic_last_user']) . '/30.png" />';
-					} else { 
-						$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($item['topic_last_user'], "../") . '" />';
-					}
-				}
+				$last_reply_avatar = '<img class="img-rounded img-centre" style="width:30px; height:30px;" src="' . $user->getAvatar($item['topic_last_user'], "../", 30) . '" />';
 				
 				$latest_posts[] = array(
 					'topic_id' => $item['id'],
@@ -734,15 +707,8 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 				$replies = count($replies);
 				
 				// Get avatar of user who last posted
-				$last_user_avatar = '';
 				if($item->topic_last_user != null){
-					$last_user_avatar = $queries->getWhere('users', array('id', '=', $item->topic_last_user));
-					$last_user_avatar = $last_user_avatar[0]->has_avatar;
-					if($last_user_avatar == '0'){ 
-						$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($item->topic_last_user) . '/30.png" />';
-					} else { 
-						$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($item->topic_last_user, "../") . '" />';
-					}
+					$last_reply_avatar = '<img class="img-rounded img-centre" style="width:30px; height:30px;" src="' . $user->getAvatar($item->topic_last_user, "../", 30) . '" />';
 				}
 				
 				// Is there a label?
@@ -801,15 +767,8 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 				$replies = count($replies);
 				
 				// Get avatar of user who last posted
-				$last_user_avatar = '';
 				if($topics[$n]->topic_last_user != null){
-					$last_user_avatar = $queries->getWhere('users', array('id', '=', $topics[$n]->topic_last_user));
-					$last_user_avatar = $last_user_avatar[0]->has_avatar;
-					if($last_user_avatar == '0'){ 
-						$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($topics[$n]->topic_last_user) . '/30.png" />';
-					} else { 
-						$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($topics[$n]->topic_last_user, "../") . '" />';
-					}
+					$last_reply_avatar = '<img class="img-rounded img-centre" style="width:30px; height:30px;" src="' . $user->getAvatar($topics[$n]->topic_last_user, "../", 30) . '" />';
 				}
 				
 				// Is there a label?
@@ -856,15 +815,8 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 				}
 
 				// Get avatar of user
-				$last_user_avatar = '';
 				if($item['topic_last_user'] != null){
-					$last_user_avatar = $queries->getWhere('users', array('id', '=', $item['topic_last_user']));
-					$last_user_avatar = $last_user_avatar[0]->has_avatar;
-					if($last_user_avatar == '0'){ 
-						$last_reply_avatar = '<img class="img-centre img-rounded" src="https://cravatar.eu/avatar/' . $user->IdToMCName($item['topic_last_user']) . '/30.png" />';
-					} else { 
-						$last_reply_avatar = '<img class="img-centre img-rounded" style="width:30px; height:30px;" src="' .  $user->getAvatar($item['topic_last_user'], "../") . '" />';
-					}
+					$last_reply_avatar = '<img class="img-rounded img-centre" style="width:30px; height:30px;" src="' . $user->getAvatar($item['topic_last_user'], "../", 30) . '" />';
 				}
 				
 				$latest_posts[] = array(

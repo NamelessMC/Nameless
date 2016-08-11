@@ -152,7 +152,7 @@ $token = Token::generate();
 					  }
 					  ?></td>
 					  <td><?php echo(count($queries->getWhere("reports_comments", array('report_id' , '=', $report->id)))); ?></td>
-					  <td><a href="/profile/<?php echo htmlspecialchars($user->idToMCName($report->updated_by)); ?>"><img class="img-rounded" src="https://cravatar.eu/avatar/<?php echo htmlspecialchars($user->idToMCName($report->updated_by)); ?>/30.png" /></a>&nbsp;&nbsp;&nbsp;<a href="/profile/<?php echo htmlspecialchars($user->idToName($report->updated_by)); ?>"><?php echo htmlspecialchars($user->idToName($report->updated_by)); ?></a></td>
+					  <td><a href="/profile/<?php echo htmlspecialchars($user->idToMCName($report->updated_by)); ?>"><img class="img-rounded" style="height:30px; width:30px;" src="<?php echo $user->getAvatar($report->updated_by, '../', 30); ?>" /></a>&nbsp;&nbsp;&nbsp;<a href="/profile/<?php echo htmlspecialchars($user->idToName($report->updated_by)); ?>"><?php echo htmlspecialchars($user->idToName($report->updated_by)); ?></a></td>
 					</tr>				
 					<?php
 					}

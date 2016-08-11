@@ -278,6 +278,7 @@ $admin_language = array(
 	'server_ip_maximum' => 'Serveren IP må være maksimalt 64 tegn.',
 	'purge_errors' => 'Sleep feil medlingene',
 	'confirm_purge_errors' => 'Er du sikker på at du vil slette alle feil meldingene?',
+	'avatar_type' => 'Avatar type',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Temaer',
