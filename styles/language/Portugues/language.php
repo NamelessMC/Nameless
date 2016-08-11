@@ -283,6 +283,7 @@ $admin_language = array(
 	'purge_errors' => 'Eliminar Erros',
 	'confirm_purge_errors' => 'Você tem certeza de que deseja eliminar todos os erros de query?',
 	'avatar_type' => 'Avatar type',
+	'custom_usernames' => 'Force Minecraft usernames?',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Temas',

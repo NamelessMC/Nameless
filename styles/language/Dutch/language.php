@@ -284,6 +284,7 @@ $admin_language = array(
 	'purge_errors' => 'Verwijder foutmeldingen',
 	'confirm_purge_errors' => 'Weet je het zeker dat je de foutmeldingen wilt verwijderen>',
 	'avatar_type' => 'Avatar type',
+	'custom_usernames' => 'Force Minecraft usernames?',
 
     // Admin Themes, Templates and Addons
     'themes' => 'Thema\'s',
