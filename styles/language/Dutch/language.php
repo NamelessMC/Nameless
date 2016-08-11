@@ -284,7 +284,7 @@ $admin_language = array(
 	'confirm_purge_errors' => 'Weet je het zeker dat je de foutmeldingen wilt verwijderen>',
      
     // Admin Themes, Templates and Addons
-    'themes' => 'Thema\'s',
+    'themes' => 'Thema/'s',
     'templates' => 'Templates',
     'installed_themes' => 'Geinstaleerde Thema\'s',
     'installed_templates' => 'Geinstaleerde templates',
@@ -532,6 +532,10 @@ $user_language = array(
 	'last_5_posts' => 'Recentste 5 berichten',
 	'follow' => 'Follow',
 	'unfollow' => 'Unfollow',
+	'name_history' => 'Name History',
+	'changed_name_to' => 'Changed name to:',
+	'original_name' => 'Original name:',
+	'on' => 'on',
      
     // Staff applications
     'staff_application' => 'Staff Application',

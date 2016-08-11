@@ -532,6 +532,10 @@ $user_language = array(
 	'last_5_posts' => 'Últimas 5 Postagens',
 	'follow' => 'Follow',
 	'unfollow' => 'Unfollow',
+	'name_history' => 'Name History',
+	'changed_name_to' => 'Changed name to:',
+	'original_name' => 'Original name:',
+	'on' => 'on',
 	
 	// Staff applications
 	'staff_application' => 'Entre na Staff',
