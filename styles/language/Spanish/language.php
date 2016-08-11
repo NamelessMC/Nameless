@@ -563,6 +563,9 @@ $mod_language = array(
 	'ip_lookup' => 'Dirección IP:',
 	'registered' => 'Registrado',
 	'reason' => 'Razón:',
+	'cant_ban_root_user' => 'Can\'t punish the root user!',
+	'invalid_reason' => 'Please enter a valid reason between 2 and 256 characters long.',
+	'punished_successfully' => 'Punishment added successfully.',
 	
 	// Reports
 	'report_closed' => 'Informe cerrado.',
