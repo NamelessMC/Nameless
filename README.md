@@ -69,6 +69,8 @@ Upcoming addons (these will need to be downloaded separately):
 * @ConnorLinfoot
 * @RobinMCNetwork
 * @PugaBear
+* @Tim-NL
+* @godleydemon
 
 **[NamelessMC Website](http://namelessmc.github.io/)**
 * @Samerton
