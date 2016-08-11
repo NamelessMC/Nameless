@@ -63,6 +63,10 @@ $mod_page = 'punishments';
 			<div class="well well-sm">
 				<h2><?php echo $mod_language['punishments']; ?></h2>
 				<?php 
+				if(Session::exists('punishment_error')){
+					echo Session::flash('punishment_error');
+				}
+				
 				if(isset($_GET["action"]) && isset($_GET["uid"]) && !isset($_GET["ip"])){
 					if(!is_numeric($_GET["uid"])){
 						echo '<script>window.location.replace("/mod/punishments");</script>';
@@ -74,6 +78,12 @@ $mod_page = 'punishments';
 						die();
 					}
 					if($_GET['action'] !== 'unban'){
+						if($_GET['uid'] == 1){
+							// Can't ban root user
+							Session::flash('punishment_error', '<div class="alert alert-danger">' . $mod_language['cant_ban_root_user'] . '</div>');
+							echo '<script>window.location.replace("/mod/punishments");</script>';
+							die();
+						}
 						if(Input::exists()){
 							if(Token::check(Input::get('token'))) {
 								$validate = new Validate();
@@ -85,7 +95,9 @@ $mod_page = 'punishments';
 									)
 								));
 								if(!$validation->passed()){
-									Session::flash('punishment_error', '<div class="alert alert-danger">Please enter a valid reason between 2 and 256 characters</div>');
+									Session::flash('punishment_error', '<div class="alert alert-danger">' . $mod_language['invalid_reason'] . '</div>');
+									echo '<script>window.location.replace("/mod/punishments/?action=warn&uid=' . $_GET['uid'] . '");</script>';
+									die();
 								} else {
 									if(Input::get('punishment') === "ban"){
 										$type = 1;
@@ -109,6 +121,7 @@ $mod_page = 'punishments';
 											));
 											$queries->delete("users_session", array("user_id", "=", $_GET["uid"]));
 										}
+										Session::flash('punishment_error', '<div class="alert alert-success">' . $mod_language['punished_successfully'] . '</div>');
 										echo '<script>window.location.replace("/mod/punishments");</script>';
 										die();
 									} catch(Exception $e) {
@@ -116,9 +129,6 @@ $mod_page = 'punishments';
 									}
 								}
 							}
-						}
-						if(Session::exists('punishment_error')){
-							echo Session::flash('punishment_error');
 						}
 					?>
 						<h4><?php echo $mod_language['reason']; ?></h4>
