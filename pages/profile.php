@@ -714,24 +714,130 @@ if(isset($profile)){
                      </div>
                      <div role="tabpanel" class="tab-pane" id="name_history">
 						<?php
-							echo "<b>" . $user_language['name_history'] . "</b></p>
-							<ul>";
-							//get name
-							$name = file_get_contents("https://api.mojang.com/user/profiles/$uuid/names");
-							$namehistory = json_decode($name, true);
-							//show username
-							for($i = 0; $i < count($namehistory); $i++){
-								if(array_key_exists("changedToAt", $namehistory[$i])){
-										echo "<li class='name'>" . $user_language['changed_name_to'] . " <b>" . $namehistory[$i]["name"] . "</b>";
-									echo " " . $user_language['on'] . " " . date('dS M Y', ($namehistory[$i]["changedToAt"] / 1000)) . "";
+							// Name history
+							// Check database
+							$user_history = $queries->getWhere('users_username_history', array('user_id', '=', $profile_user[0]->id));
+							if(!count($user_history)){
+								// Not stored yet, get username history now
+								$name = file_get_contents('https://api.mojang.com/user/profiles/' . htmlspecialchars($uuid) . '/names');
+								if($name){
+									$namehistory = json_decode($name, true);
+									
+									for($i = 0; $i < count($namehistory); $i++){
+										if(array_key_exists("changedToAt", $namehistory[$i])){
+											// Not the original username
+											$queries->create('users_username_history', array(
+												'user_id' => $profile_user[0]->id,
+												'changed_to' => htmlspecialchars($namehistory[$i]["name"]),
+												'changed_at' => ($namehistory[$i]["changedToAt"] / 1000)
+											));
+										} else {
+											// Original username
+											$queries->create('users_username_history', array(
+												'user_id' => $profile_user[0]->id,
+												'changed_to' => htmlspecialchars($namehistory[$i]["name"]),
+												'changed_at' => 0,
+												'original' => 1
+											));
+										}
+									}
+									
+									// Refresh user history query
+									$user_history = $queries->getWhere('users_username_history', array('user_id', '=', $profile_user[0]->id));
+									
+								} else {
+									// Unable to retrieve list of past names
+									$history_error = true;
 								}
-									else {
-									echo "
-											<li class='name'>" . $user_language['original_name'] . " <b>" . $namehistory[$i]["name"] . "</b>";
+								
+								// Cache for 6 hours
+								$c->setCache('user_history_' . htmlspecialchars($uuid));
+								$c->store('cached', 'true', 21600);
+								
+							} else {
+								// Already stored, see if it needs updating by checking cache
+								$c->setCache('user_history_' . htmlspecialchars($uuid));
+								
+								if(!$c->isCached('cached')){
+									// Needs updating
+									$name = file_get_contents('https://api.mojang.com/user/profiles/' . htmlspecialchars($uuid) . '/names');
+									if($name){
+										$namehistory = json_decode($name, true);
+										
+										$queries->delete('users_username_history', array('user_id', '=', $profile_user[0]->id));
+										
+										for($i = 0; $i < count($namehistory); $i++){
+											if(array_key_exists("changedToAt", $namehistory[$i])){
+												// Not the original username
+												$queries->create('users_username_history', array(
+													'user_id' => $profile_user[0]->id,
+													'changed_to' => htmlspecialchars($namehistory[$i]["name"]),
+													'changed_at' => ($namehistory[$i]["changedToAt"] / 1000)
+												));
+											} else {
+												// Original username
+												$queries->create('users_username_history', array(
+													'user_id' => $profile_user[0]->id,
+													'changed_to' => htmlspecialchars($namehistory[$i]["name"]),
+													'changed_at' => 0,
+													'original' => 1
+												));
+											}
+										}
+										
+										// Refresh user history query
+										$user_history = $queries->orderWhere('users_username_history', 'user_id = ' . $profile_user[0]->id, 'changed_at', 'ASC');
+										
+									} else {
+										// Unable to retrieve list of past names
+										$history_error = true;
+									}
+									
+									// Cache for 6 hours
+									$c->store('cached', 'true', 21600);
 								}
-								echo "<br /></li>";
 							}
-							echo "</ul>";
+
+							// Display username history
+							echo '<h3>' . $user_language['name_history'] . '</h3>';
+							
+							if(isset($history_error)){
+								// Error querying Mojang API
+								echo $user_language['name_history_error'];
+							} else {
+								if(count($user_history)){
+									echo '<ul>';
+									
+									foreach($user_history as $history){
+										if($history->original == 1){
+											// Original username
+											echo '<li class="name">' . $user_language['original_name'] . ' <b>' . htmlspecialchars($history->changed_to) . '</b>';
+											
+										} else {
+											echo '<li class="name">' . str_replace(array('{x}', '{y}'), array(htmlspecialchars($history->changed_to), date('dS M Y', $history->changed_at)), $user_language['changed_name_to']) . '</li>';
+										}
+									}
+									
+									/*
+									for($i = 0; $i < count($namehistory); $i++){
+										if(array_key_exists("changedToAt", $namehistory[$i])){
+												echo "<li class='name'>" . $user_language['changed_name_to'] . " <b>" . $namehistory[$i]["name"] . "</b>";
+											echo " " . $user_language['on'] . " " . date('dS M Y', ($namehistory[$i]["changedToAt"] / 1000)) . "";
+										}
+											else {
+											echo "
+													<li class='name'>" . $user_language['original_name'] . " <b>" . $namehistory[$i]["name"] . "</b>";
+										}
+										echo "<br /></li>";
+									}
+									*/
+									
+									echo '</ul>';
+								} else {
+									// Nothing stored in database
+									echo $user_language['name_history_error'];
+								}
+							}
 						?>
                      </div>
                   </div>
