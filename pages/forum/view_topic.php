@@ -369,12 +369,7 @@ $purifier = new HTMLPurifier($config);
 		
 		// Avatar
 		$post_user = $queries->getWhere('users', array('id', '=', $posts[$n]->post_creator));
-		$has_avatar = $post_user[0]->has_avatar;
-		if($has_avatar == '0'){ 
-			$avatar = '<img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($post_user[0]->mcname) . '/100.png" />';
-		} else { 
-			$avatar = '<img class="img-rounded" style="width:100px; height:100px;" src="' . $user->getAvatar($posts[$n]->post_creator) . '" />';
-		}
+		$avatar = '<img class="img-rounded" style="width:100px; height:100px;" src="' . $user->getAvatar($posts[$n]->post_creator, '../', 100) . '" />';
 		
 		// Which buttons do we need to display?
 		$buttons = '';
@@ -491,7 +486,7 @@ $purifier = new HTMLPurifier($config);
 					foreach($reputation as $rep){
 						$post_reputation .= '
 						  <tr>
-							<td style="width:40px"><a href="/profile/' . htmlspecialchars($user->IdToMCName($rep->user_given)) . '"><img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->IdToMCName($rep->user_given)) . '/30.png" /></a></td>
+							<td style="width:40px"><a href="/profile/' . htmlspecialchars($user->IdToMCName($rep->user_given)) . '"><img class="img-rounded" style="height:30px; width:30px;" src="' . $user->getAvatar($rep->user_given, '../', 30) . '" /></a></td>
 							<td style="width:100px"><a href="/profile/' . htmlspecialchars($user->IdToMCName($rep->user_given)) . '">' . htmlspecialchars($user->IdToName($rep->user_given)) . '</a></td>
 						  </tr>';
 				    }

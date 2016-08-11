@@ -150,13 +150,7 @@ $token = Token::generate();
 	$reported_post = $forum->getIndividualPost($post_id); // Get an array containing information about the post
 	
 	// Avatar
-	$post_user = $queries->getWhere('users', array('id', '=', $reported_post[0][0]));
-	$has_avatar = $post_user[0]->has_avatar;
-	if($has_avatar == '0'){ 
-		$avatar = '<img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($post_user[0]->mcname) . '/100.png" />';
-	} else { 
-		$avatar = '<img class="img-rounded" style="width:100px; height:100px;" src="' . $user->getAvatar($reported_post[0][0]) . '" />';
-	}
+	$avatar = '<img class="img-rounded" style="width:100px; height:100px;" src="' . $user->getAvatar($reported_post[0][0], "../", 100) . '" />';
 	
 	// Initialise HTML Purifier
 	$config = HTMLPurifier_Config::createDefault();

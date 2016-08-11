@@ -225,7 +225,7 @@ if($user->isLoggedIn()){ // User must be logged in to search
 	    <div class="panel-heading">
 		  <a href="/forum/view_topic/?tid=<?php echo $merged_results[$n][$topic]['topic_id']; ?>&amp;pid=<?php echo $merged_results[$n][$post]['post_id']; ?>" class="white-text"><?php echo htmlspecialchars($merged_results[$n][$topic]['topic_title']); ?></a>
 		  <span class="pull-right">
-		    <a class="white-text" href="/profile/<?php echo htmlspecialchars($user->idToMCName($merged_results[$n][$post]['post_creator'])); ?>"><?php echo htmlspecialchars($user->idToName($merged_results[$n][$post]['post_creator'])); ?></a> <img class="img-rounded" src="https://cravatar.eu/avatar/<?php echo htmlspecialchars($user->idToMCName($merged_results[$n][$post]['post_creator'])); ?>/25.png" />
+		    <a class="white-text" href="/profile/<?php echo htmlspecialchars($user->idToMCName($merged_results[$n][$post]['post_creator'])); ?>"><?php echo htmlspecialchars($user->idToName($merged_results[$n][$post]['post_creator'])); ?></a> <img class="img-rounded" style="height:25px; width:25px;" src="<?php echo $user->getAvatar($merged_results[$n][$post]['post_creator'], '../', 25); ?>" />
 		  </span>
 		</div>
 		<div class="panel-body">

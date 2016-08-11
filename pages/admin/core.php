@@ -352,6 +352,10 @@ $adm_page = "core";
 								<input type="text" name="twitterurl" class="form-control" id="InputTwitter" placeholder="<?php echo $admin_language['twitter_url']; ?>" value="<?php echo htmlspecialchars($twitter_url[0]->value); ?>">
 							</div>
 							<div class="form-group">
+								<label for="InputTwitterID"><?php echo $admin_language['twitter_widget_id']; ?></label>
+								<input type="text" name="twitter_id" class="form-control" id="InputTwitterID" placeholder="<?php echo $admin_language['twitter_widget_id']; ?>" value="<?php echo htmlspecialchars($twitter_wid_id[0]->value); ?>">
+							</div>
+							<div class="form-group">
 								<label for="InputGPlus"><?php echo $admin_language['google_plus_url']; ?></label>
 								<input type="text" name="gplusurl" class="form-control" id="InputGPlus" placeholder="<?php echo $admin_language['google_plus_url']; ?>" value="<?php echo htmlspecialchars($gplus_url[0]->value); ?>">
 							</div>

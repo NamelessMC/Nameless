@@ -282,6 +282,7 @@ $admin_language = array(
 	'server_ip_maximum' => 'O IP do servidor precisa ter no máximo 64 caracteres',
 	'purge_errors' => 'Eliminar Erros',
 	'confirm_purge_errors' => 'Você tem certeza de que deseja eliminar todos os erros de query?',
+	'avatar_type' => 'Avatar type',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Temas',

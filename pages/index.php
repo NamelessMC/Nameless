@@ -160,13 +160,7 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 	$news = array();
 	foreach($latest_news as $item){
 		// Get poster's avatar
-		$post_user = $queries->getWhere("users", array("id", "=", $item["author"]));
-		$has_avatar = $post_user[0]->has_avatar;
-		if($has_avatar == '0'){ 
-			$avatar = '<img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($user->idToMCName($item["author"])) . '/25.png" />';
-		} else {
-			$avatar = '<img class="img-rounded" style="width:25px; height:25px;" src="' . $user->getAvatar($item["author"], "../") . '" />';
-		}
+		$avatar = '<img class="img-rounded" style="width:25px; height:25px;" src="' . $user->getAvatar($item["author"], "../", 25) . '" />';
 		
 		$news[] = array(
 			'id' => $item['topic_id'],
