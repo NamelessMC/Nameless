@@ -17,7 +17,7 @@ $queries->create('settings', array(
 
 // Name history
 try {
-	$data = $queries->createTable("nl1_users_username_history", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `changed_to` varchar(64) NOT NULL, `changed_at` int(11) NOT NULL, `original` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
+	$data = $queries->createTable("users_username_history", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `changed_to` varchar(64) NOT NULL, `changed_at` int(11) NOT NULL, `original` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 	echo '<strong>Users username history</strong> table successfully initialised<br />';
 } catch(Exception $e){
 	// Unable to add table
