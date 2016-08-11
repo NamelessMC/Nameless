@@ -88,6 +88,12 @@ class Queries {
 		}
 	}
 	
+	public function removeColumn($table, $column){
+		if($this->_db->removeColumn($table, $column){
+			throw new Exception('Unable to drop column.');
+		}
+	}
+	
 	public function tableExists($table){
 		return $this->_db->showTables($table);
 	}
