@@ -19,6 +19,7 @@
 $admin_language = array(
 	// General terms
 	'admin_cp' => 'AdminCP', 
+	'infractions' => 'Las infracciones',
 	'invalid_token' => 'Token no válido, inténtelo de nuevo.',
 	'invalid_action' => 'Acción no válida',
 	'successfully_updated' => 'Actualizado correctamente',
