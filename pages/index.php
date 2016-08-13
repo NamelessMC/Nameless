@@ -178,14 +178,9 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 	$smarty->assign('newsArray', $news);
 
 	// Twitter feed
-	if(isset($twitter_feed_query) && $twitter_feed_query[0]->value !== 'null'){
-		if($twitter_feed_query[0]->value == '0'){
-			// Disabled
-			$twitter = '';
-		} else {
-			// Enabled
-			$twitter = '<a class="twitter-timeline" data-height="600" href="' . htmlspecialchars($twitter_url[0]->value) . '">Tweets</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
-		}
+	if(isset($use_twitter_feed) && $use_twitter_feed == true){
+		// Enabled
+		$twitter = '<a class="twitter-timeline" data-height="600" href="' . htmlspecialchars($twitter_url[0]->value) . '">Tweets</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
 	} else {
 		$twitter = '';
 	}

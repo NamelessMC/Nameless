@@ -28,19 +28,17 @@ if($youtube_url[0]->value !== 'null'){
 if($twitter_url[0]->value !== 'null'){
 	// Enabled
 	$social_media_icons .= '<a href="' . htmlspecialchars($twitter_url[0]->value) . '"><i id="social" class="fa fa-twitter-square fa-3x social-tw"></i></a>';
+	$use_twitter_feed = true;
 }
 
 // Google Plus
 if($gplus_url[0]->value !== 'null'){
 	// Enabled
-		$social_media_icons .= '<a href="' . htmlspecialchars($gplus_url[0]->value) . '"><i id="social" class="fa fa-google-plus-square fa-3x social-gp"></i></a>';
+	$social_media_icons .= '<a href="' . htmlspecialchars($gplus_url[0]->value) . '"><i id="social" class="fa fa-google-plus-square fa-3x social-gp"></i></a>';
 }
 
 // Facebook
 if($fb_url[0]->value !== 'null'){
 	// Enabled
-		$social_media_icons .= '<a href="' . htmlspecialchars($fb_url[0]->value) . '"><i id="social" class="fa fa-facebook-square fa-3x social-fb"></i></a>';
+	$social_media_icons .= '<a href="' . htmlspecialchars($fb_url[0]->value) . '"><i id="social" class="fa fa-facebook-square fa-3x social-fb"></i></a>';
 }
-
-// Twitter feed
-$twitter_feed_query = $queries->getWhere('settings', array('name', '=', 'twitter_feed_id'));
