@@ -209,5 +209,15 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 			}
 		}
 		
+	} else {
+		// User not logged in
+		// Display cookie and log in/register notice
+		$cookie_message = '
+		<div class="alert alert-cookie alert-info alert-dismissible" role="alert">
+          <button type="button" class="close close-cookie" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">' . $general_language['close'] . '</span></button>
+	      ' . $general_language['cookie_message'] . '
+	    </div>';
+		
+		Session::flash('global', $cookie_message);
 	}
 }
