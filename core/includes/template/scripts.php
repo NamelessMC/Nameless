@@ -15,6 +15,35 @@ echo '	<script src="' . PATH . 'styles/themes/' . $theme_result . '/js/bootstrap
 echo '	<script src="' . PATH . 'core/assets/js/jquery.cookie.js"></script>' . PHP_EOL;
 echo '	<script src="' . PATH . 'core/assets/js/toastr.js"></script>' . PHP_EOL;
 
+if(!$user->isLoggedIn()){
+?>
+	<script type="text/javascript">
+	jQuery(function( $ ){
+
+		// Check if alert has been closed
+		if( $.cookie('alert-box') === 'closed' ){
+
+			$('.alert-cookie').hide();
+
+		}
+
+		 // Grab your button (based on your posted html)
+		$('.close-cookie').click(function( e ){
+
+			// Do not perform default action when button is clicked
+			e.preventDefault();
+
+			/* If you just want the cookie for a session don't provide an expires
+			 Set the path as root, so the cookie will be valid across the whole site */
+			$.cookie('alert-box', 'closed', { path: '/' });
+
+		});
+
+	});
+	</script>
+<?php
+}
+
 foreach($custom_js as $item){
 	echo $item;
 }

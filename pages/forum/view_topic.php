@@ -171,9 +171,11 @@ if($user->isLoggedIn()){
 }
 
 // View count
-if(!Cookie::exists('nl-topic-' . $tid)) {
-	$queries->increment("topics", $tid, "topic_views");
-	Cookie::put("nl-topic-" . $tid, "true", 3600);
+if(Cookie::exists('alert-box')){
+	if(!Cookie::exists('nl-topic-' . $tid)) {
+		$queries->increment("topics", $tid, "topic_views");
+		Cookie::put("nl-topic-" . $tid, "true", 3600);
+	}
 }
 
 $config = HTMLPurifier_Config::createDefault();
@@ -254,18 +256,8 @@ $purifier = new HTMLPurifier($config);
 		$smarty->assign('SESSION_FAILURE_POST', '');
 	}
 	
-	// Display cookie message if the user's not logged in
-	$cookie_message = '';
-	if(!$user->isLoggedIn()) {
-		$cookie_message = '
-	  <div class="alert alert-cookie alert-info alert-dismissible" role="alert">
-        <button type="button" class="close close-cookie" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">' . $general_language['close'] . '</span></button>
-	    ' . $general_language['cookie_message'] . '
-	  </div>
-	  ';
-	}
-	
-	$smarty->assign('COOKIE_MESSAGE', $cookie_message);
+	// TODO: remove
+	$smarty->assign('COOKIE_MESSAGE', '');
 	
 	// Display "new reply" button and "mod actions" if the user has access to them
 	$buttons = '';
@@ -557,30 +549,6 @@ $purifier = new HTMLPurifier($config);
 	?>
 	<script src="/core/assets/js/ckeditor.js"></script>
 	<script src="/core/assets/js/jquery-ui.min.js"></script>
-	<script type="text/javascript">
-	jQuery(function( $ ){
-
-		// Check if alert has been closed
-		if( $.cookie('alert-box') === 'closed' ){
-
-			$('.alert-cookie').hide();
-
-		}
-
-		 // Grab your button (based on your posted html)
-		$('.close-cookie').click(function( e ){
-
-			// Do not perform default action when button is clicked
-			e.preventDefault();
-
-			/* If you just want the cookie for a session don't provide an expires
-			 Set the path as root, so the cookie will be valid across the whole site */
-			$.cookie('alert-box', 'closed', { path: '/' });
-
-		});
-
-	});
-	</script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("[rel=tooltip]").tooltip({ placement: 'top'});
