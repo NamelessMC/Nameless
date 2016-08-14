@@ -425,10 +425,10 @@ $user_language = array(
 	'location_required' => 'Vul een locatie in.',
 	'location_minimum_2' => 'Je locatie moet minstens uit 2 tekens bestaan.',
 	'location_maximum_128' => 'Je locatie mag maar uit 128 tekens bestaan.',
-	'verify_account' => 'Verify account',
-	'verify_account_help' => 'Please follow the instructions below so we can verify you own the Minecraft account in question.',
-	'verification_failed' => 'Verification failed, please try again.',
-	'verification_success' => 'Successfully validated! You can now log in.',
+	'verify_account' => 'Verifieer account',
+	'verify_account_help' => 'Volg a.u.b. de stappen zodat wij kunnen zie of u eigenaar bent van het account,
+	'verification_failed' => 'Verificatie mislukt. Probeer a.u.b. Opnieuw',
+	'verification_success' => 'Verificatie gelukt! Je kan nu inloggen.',
 
     // UserCP
     'user_cp' => 'UserCP',
@@ -580,9 +580,9 @@ $mod_language = array(
     'ip_lookup' => 'IP Lookup:',
     'registered' => 'Geregistreerd',
     'reason' => 'Reden:',
-	'cant_ban_root_user' => 'Can\'t punish the root user!',
-	'invalid_reason' => 'Please enter a valid reason between 2 and 256 characters long.',
-	'punished_successfully' => 'Punishment added successfully.',
+	'cant_ban_root_user' => 'Je kan de hoofdgebruiker niet straffen!',
+	'invalid_reason' => 'Maak a.u.b. Een goede reden tussen de 2 en 256 tekens lang.',
+	'punished_successfully' => 'Straf succesvol toegevoegd.',
 
     // Reports
     'report_closed' => 'Report Gesloten.',
