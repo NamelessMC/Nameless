@@ -186,7 +186,7 @@ $admin_language = array(
 	'input_forum_title' => 'Input a forum title.',
 	'input_forum_description' => 'Vul een forum beschrijving in (HTML codes mogen worden gebruikt).',
 	'forum_name_minimum' => 'De forum naam moet minstens uit 2 tekens bestaan.',
-	'forum_description_minimum' => 'The forum description must be a minimum of 2 characters. De forum beschrijving moet minstens uit 2 tekens bestaan.',
+	'forum_description_minimum' => 'De forum beschrijving moet minstens uit 2 tekens bestaan.',
 	'forum_name_maximum' => 'De forum naam mag maar maximaal 150 tekens bevatten.',
 	'forum_description_maximum' => 'De forum beschrijving mag maar uit 255 tekens bestaan.',
 	'forum_type_forum' => 'Discussion Forum',
@@ -615,7 +615,7 @@ $mod_language = array(
     'declined' => 'Afgewezen',
     'accept' => 'Accepteer',
     'decline' => 'Afwijzen',
-    'new_app_submitted_alert' => 'Nieuwe application ingediend door {x}' // Don't replace "{x}"
+    'new_app_submitted_alert' => 'Nieuwe applicatie ingediend door {x}' // Don't replace "{x}"
 );
  
 /* 
