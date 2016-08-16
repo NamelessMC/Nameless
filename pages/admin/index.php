@@ -207,8 +207,8 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 			<canvas id="registrationChart" width="100%" height="40"></canvas>
 
 			<h3>Banner</h3>
-			<img src="/core/integration/banner/banner/"><br />
-			URL: <code>http://<?php echo $_SERVER['SERVER_NAME']; ?>/core/integration/banner/banner/</code>
+			<img src="/core/integration/banner/"><br />
+			URL: <code>http://<?php echo $_SERVER['SERVER_NAME']; ?>/core/integration/banner/</code>
 		  </div>
 		</div>
 	  </div>
