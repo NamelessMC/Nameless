@@ -1,12 +1,10 @@
 <?php
 /*
- *	Translation created by LPkkjHD
- *  https://www.spigotmc.org/members/lpkkjhd.31564/
- *	Translation finished and modified by manuelgu
- *  https://www.spigotmc.org/members/manuelgu.32316/
+ *                               Translation created by LPkkjHD & BukkitTNT
+ *                             https://www.spigotmc.org/members/bukkittnt.71804/
+ *                              https://www.spigotmc.org/members/lpkkjhd.31564/
  *
- *
- *  License: MIT
+ *                                              License: MIT
  */
 
 /*
@@ -66,18 +64,18 @@ $admin_language = array(
 	'use_php_mail_help' => 'Empfohlen: Eingeschalted. Wenn diese Website keine E-Mails versendet, deaktiviere es und ändere in core/email.php deine E-Mail Einstellungen.',
 	'use_gmail' => 'Verwende GoogleMail (Gmail) um E-Mails zu versenden?',
 	'use_gmail_help' => 'Diese Funktion ist nur möglich, wenn die PHP mail() Funktion deaktiviert ist. Wenn du nicht GoogleMail verwendest, wird SMTP verwendet. Beide Wege müssen manuell in core/mail.php gesetzt werden.',
-	'enable_mail_verification' => 'Enable email account verification?',
-	'enable_email_verification_help' => 'Having this enabled will ask newly registered users to verify their account via email before completing registration.',
+	'enable_mail_verification' => 'Aktiviere Email verifikation?',
+	'enable_email_verification_help' => 'Wenn dies aktiviert ist, müssen sich neue Nutzer per Email freischalten.',
 	'explain_email_settings' => 'The following is required if the "Use PHP mail() function" option is <strong>disabled</strong>. You can find documentation on these settings <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">on our wiki</a>.',
-	'email_config_not_writable' => 'Your <strong>core/email.php</strong> file is not writable. Please check file permissions.',
+	'email_config_not_writable' => 'Bitte gibt <strong>core/email.php</strong> schreib-Rechte. Wir können auf die Datei nicht zugreifen.',
 	'pages' => 'Pages',
-	'enable_or_disable_pages' => 'Enable or disable pages here.',
-	'enable' => 'Enable',
-	'disable' => 'Disable',
-	'maintenance_mode' => 'Forum maintenance mode',
-	'forum_in_maintenance' => 'Forum is in maintenance mode.',
-	'unable_to_update_settings' => 'Unable to update settings. Please ensure no fields are left empty.',
-	'editing_google_analytics_module' => 'Editing Google Analytics module',
+	'enable_or_disable_pages' => 'Aktiviere oder deaktiviere hier Seiten.',
+	'enable' => 'Aktivieren',
+	'disable' => 'Deaktivieren',
+	'maintenance_mode' => 'Forum Wartungsmodus',
+	'forum_in_maintenance' => 'Das Forum befindet sich im Wartungsmodus.',
+	'unable_to_update_settings' => 'Fehler beim Updaten der Einstellungen, stelle sicher, dass alle Felder ausgefüllt sind.',
+	'editing_google_analytics_module' => 'Editiere Google Analytics Einstellungen',
 	'tracking_code' => 'Tracking Code',
 	'tracking_code_help' => 'Insert the tracking code for Google Analytics here, including the surrounding script tags.',
 	'google_analytics_help' => 'See <a href="https://support.google.com/analytics/answer/1008080?hl=en#GA" target="_blank">this guide</a> for more information, following steps 1 to 3.',
@@ -88,36 +86,36 @@ $admin_language = array(
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'registration' => 'Registration',
-	'registration_warning' => 'Having this module disabled will also disable new members registering on your site.',
-	'google_recaptcha' => 'Enable Google reCAPTCHA',
+	'registration_warning' => 'Wenn dieses Option aktiviert ist können sich keine neuen Nutzer registrieren.',
+	'google_recaptcha' => 'Aktiviere Google reCAPTCHA',
 	'recaptcha_site_key' => 'reCAPTCHA Site Key',
 	'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
-	'registration_terms_and_conditions' => 'Registration Terms and Conditions',
-	'voice_server_module' => 'Voice Server Module',
-	'only_works_with_teamspeak' => 'This module currently only works with TeamSpeak and Discord',
+	'registration_terms_and_conditions' => 'Geschäftsbedingungen',
+	'voice_server_module' => 'Voice-Server Modul',
+	'only_works_with_teamspeak' => 'Dieses Modul funktioniert nur mit Teamspeak & Discord',
 	'discord_id' => 'Discord Server ID',
-	'voice_server_help' => 'Please enter the details for the ServerQuery user',
-	'ip_without_port' => 'IP (without port)',
-	'voice_server_port' => 'Port (usually 10011)',
-	'virtual_port' => 'Virtual Port (usually 9987)',
-	'permissions' => 'Permissions:',
-	'view_applications' => 'View Applications?',
-	'accept_reject_applications' => 'Accept/Reject Applications?',
-	'questions' => 'Questions:',
-	'question' => 'Question',
-	'type' => 'Type',
-	'options' => 'Options',
-	'options_help' => 'Each option on a new line; can be left empty (dropdowns only)',
-	'no_questions' => 'No questions added yet.',
-	'new_question' => 'New Question',
-	'editing_question' => 'Editing Question',
-	'delete_question' => 'Delete Question',
+	'voice_server_help' => 'Bitte gib die ServerQuerry Daten ein.',
+	'ip_without_port' => 'IP (ohne Port)',
+	'voice_server_port' => 'Port (standart 10011)',
+	'virtual_port' => 'Virtual Port (standart 9987)',
+	'permissions' => 'Berechtigungen:',
+	'view_applications' => 'Bewerbungen ansehen?',
+	'accept_reject_applications' => 'Bewerbungen akzeptieren/ablehnen?',
+	'questions' => 'Fragen:',
+	'question' => 'Frage',
+	'type' => 'Typ',
+	'options' => 'Optionen',
+	'options_help' => 'Jede Option in einer neuen Zeile; (Nur bei Dropdown)',
+	'no_questions' => 'Bisher keine Fragen hinzugefügt.',
+	'new_question' => 'Neue Frage',
+	'editing_question' => 'Frage editieren',
+	'delete_question' => 'Frage löschen',
 	'dropdown' => 'Dropdown',
 	'text' => 'Text',
 	'textarea' => 'Text Area',
-	'question_deleted' => 'Question Deleted',
-	'use_followers' => 'Use followers?',
-	'use_followers_help' => 'If disabled, the friends system will be used.',
+	'question_deleted' => 'Frage gelöscht',
+	'use_followers' => 'FollowerSystem nutzen?',
+	'use_followers_help' => 'Wenn dies nicht aktiv ist, wird das FreundeSystem genutzt.',
 	
 	// Admin custom pages page
 	'click_on_page_to_edit' => 'Klicke auf eine Seite, um sie zu bearbeiten.',
@@ -141,8 +139,8 @@ $admin_language = array(
 	'page_link_more' => 'Navigationsleiste -> "Mehr" Menü',
 	'page_link_footer' => 'Fußleiste',
 	'page_link_none' => 'Kein Seitenlink',
-	'page_permissions' => 'Page Permissions',
-	'can_view_page' => 'Can view page:',
+	'page_permissions' => 'Seiten Permissions',
+	'can_view_page' => 'Kann Seite sehen:',
 	'redirect_page' => 'Redirect page?',
 	'redirect_link' => 'Redirect link',
 
@@ -181,14 +179,14 @@ $admin_language = array(
 	'can_create_topic' => 'Dürfen Themen erstellen',
 	'can_post_reply' => 'Dürfen in Themen antworten',
 	'display_threads_as_news' => 'Stelle Themen als News auf der Frontseite dar?',
-	'input_forum_title' => 'Input a forum title.',
-	'input_forum_description' => 'Input a forum description.',
-	'forum_name_minimum' => 'The forum name must be a minimum of 2 characters.',
-	'forum_description_minimum' => 'The forum description must be a minimum of 2 characters.',
-	'forum_name_maximum' => 'The forum name must be a maximum of 150 characters.',
-	'forum_description_maximum' => 'The forum description must be a maximum of 255 characters.',
-	'forum_type_forum' => 'Discussion Forum',
-	'forum_type_category' => 'Category',
+	'input_forum_title' => 'Gib einen Foren-Titel an.',
+	'input_forum_description' => 'Gib eine Foren-Beschreibung an.',
+	'forum_name_minimum' => 'Der Foren-Name muss mindestens 2 Zeichen lang sein.',
+	'forum_description_minimum' => 'Die Foren-Beshcreibung muss mindestens 2 Zeichen lang sein.',
+	'forum_name_maximum' => 'Der Foren-Name darf maximal 150 Zeichen lang sein.',
+	'forum_description_maximum' => 'Die Foren-Beschreibung darf maximal 150 Zeichen lang sein.',
+	'forum_type_forum' => 'Diskussions Forum',
+	'forum_type_category' => 'Kategorie',
 
 	// Admin Users and Groups page
 	'users' => 'Benutzer',
@@ -227,14 +225,14 @@ $admin_language = array(
 	'group_staff' => 'Ist diese Gruppe eine Staff Gruppe?',
 	'group_modcp' => 'Können Benutzer der Gruppe das Moderatoren Panel sehen?',
 	'group_admincp' => 'Können Benutzer der Gruppe das Admin Panel sehen?',
-	'group_name_required' => 'You must insert a group name.',
-	'group_name_minimum' => 'The group name must be a minimum of 2 characters.',
-	'group_name_maximum' => 'The group name must be a maximum of 20 characters.',
+	'group_name_required' => 'Du musst einen Gruppennamen angeben.',
+	'group_name_minimum' => 'Der Name muss mindestens 2 Zeichen lang sein.',
+	'group_name_maximum' => 'Der Name darf maximal 20 Zeichen lang sein.',
 	'html_maximum' => 'The group HTML must be a maximum of 1024 characters.',
-	'select_user_group' => 'The user must be in a group.',
-	'uuid_max_32' => 'The UUID must be a maximum of 32 characters.',
-	'cant_delete_root_user' => 'Can\'t delete the root user!',
-	'cant_modify_root_user' => 'Can\'t modify the root user\'s group.',
+	'select_user_group' => 'Der User muss in einer Gruppe sein.',
+	'uuid_max_32' => 'Die UUID kann maximal 32 Zeichen lang sein.',
+	'cant_delete_root_user' => 'Du kannst den Root-Benutzer nicht löschen!',
+	'cant_modify_root_user' => 'Du kannst die Gruppe des Root-Benutzers nicht ändern.',
 
 	// Admin Minecraft page
 	'minecraft_settings' => 'Minecraft Einstellungen',
@@ -273,16 +271,16 @@ $admin_language = array(
 	'viewing_error' => 'Anzeigefehler',
 	'confirm_error_deletion' => 'Bist du sicher, dass du diese Fehlermeldung löschen willst?',
 	'display_server_status' => 'Zeige Serverstatus Modul?',
-	'server_name_required' => 'You must insert a server name.',
-	'server_ip_required' => 'You must insert the server\'s IP.',
-	'server_name_minimum' => 'The server name must be a minimum of 2 characters.',
-	'server_ip_minimum' => 'The server IP must be a minimum of 2 characters.',
-	'server_name_maximum' => 'The server name must be a maximum of 20 characters.',
-	'server_ip_maximum' => 'The server IP must be a maximum of 64 characters.',
-	'purge_errors' => 'Purge Errors',
-	'confirm_purge_errors' => 'Are you sure you want to purge all query errors?',
-	'avatar_type' => 'Avatar type',
-	'custom_usernames' => 'Force Minecraft usernames?',
+	'server_name_required' => 'Du musst einen Servernamen angeben.',
+	'server_ip_required' => 'Du musst eine ServerIP angeben.',
+	'server_name_minimum' => 'Der Servername muss mindestens 2 Zeichen lang sein.',
+	'server_ip_minimum' => 'Die ServerIP muss mindestens 2 Zeichen lang sein.',
+	'server_name_maximum' => 'Der Servername darf maximal 20 Zeichen lang sein.',
+	'server_ip_maximum' => 'Die Server IP darf maximal 64 Zeichen lang sein.',
+	'purge_errors' => 'Fehler Löschen',
+	'confirm_purge_errors' => 'Bist du sicher, dass du alle Fehler löschen willst?',
+	'avatar_type' => 'Avatar Typ',
+	'custom_usernames' => 'Nur Minecarftnamen?',
 	'mcassoc' => 'mcassoc',
 	'use_mcassoc' => 'Use mcassoc?',
 	'use_mcassoc_help' => 'mcassoc ensures users own the Minecraft account they\'re registering with',
@@ -338,26 +336,26 @@ $admin_language = array(
 	'confirm_reset_website' => 'Bist du sicher, dass du die Website zurücksetzen willst?',
 	
 	// Admin Update page
-	'installation_up_to_date' => 'Your installation is up to date.',
-	'update_check_error' => 'Unable to check for updates. Please try again later.',
-	'new_update_available' => 'A new update is available.',
-	'your_version' => 'Your version:',
-	'new_version' => 'New version:',
+	'installation_up_to_date' => 'Du nutzt die neueste Version.',
+	'update_check_error' => 'Fehler beim abfragen der neuesten Version.',
+	'new_update_available' => 'Ein neues Update ist verfügbar.',
+	'your_version' => 'Deine Version:',
+	'new_version' => 'Neue Version:',
 	'download' => 'Download',
-	'update_warning' => 'Warning: Ensure you have downloaded the package and uploaded the contained files first!'
+	'update_warning' => 'Warnung: Lade zuerst das Update hoch!'
 );
 
 /*
  *  Navbar
  */
 $navbar_language = array(
-	'home' => 'Home',
-	'play' => 'Spielen',
+	'home' => 'Start',
+	'play' => 'Server',
 	'forum' => 'Forum',
 	'more' => 'Mehr',
 	'staff_apps' => 'Bewerbungen',
-	'view_messages' => 'View Messages',
-	'view_alerts' => 'View Alerts',
+	'view_messages' => 'Nachrichten anzeigen',
+	'view_alerts' => 'Benachrichtigungen anzeigen',
 	
 	// Icons - will display before the text
 	'home_icon' => '',
@@ -377,8 +375,8 @@ $user_language = array(
 	'minecraft_username' => 'Minecraft Benutzername',
 	'email' => 'E-Mail',
 	'email_address' => 'E-Mail Adresse',
-	'date_of_birth' => 'Date of Birth',
-	'location' => 'Location',
+	'date_of_birth' => 'Geburtsdatum',
+	'location' => 'Standort',
 	'password' => 'Passwort',
 	'confirm_password' => 'Passwort bestätigen',
 	'i_agree' => 'Ich stimme zu',
@@ -386,10 +384,10 @@ $user_language = array(
 	'register' => 'Registrieren',
 	'sign_in' => 'Anmelden',
 	'sign_out' => 'Abmelden',
-	'terms_and_conditions' => 'Bedingungen und Konditionen',
+	'terms_and_conditions' => 'Allgemeine Geschäftsbedingungen',
 	'successful_signin' => 'Du wurdest erfolgreich angemeldet',
-	'incorrect_details' => 'Falsche Details',
-	'remember_me' => 'Login merken',
+	'incorrect_details' => 'Falscher Benutzername/Falsches Passwort',
+	'remember_me' => 'Angemeldet bleiben',
 	'forgot_password' => 'Passwort vergessen',
 	'must_input_username' => 'Du musst einen Benutzername angeben.',
 	'must_input_password' => 'Du musst ein Passwort angeben.',
@@ -418,18 +416,18 @@ $user_language = array(
 	'username_mcname_email_exists' => 'Dein Nutzername, Minecraftname oder deine E-Mail-Adresse sind bereits registriert. Hast du schon ein Konto eingerichtet?',
 	'invalid_mcname' => 'Dein Minecraftname ist ungültig.',
 	'mcname_lookup_error' => 'Es gab einen Fehler bei der Anfrage zu Mojang\'s Servern. Bitte versuche es später noch einmal.',
-	'signature_maximum_900' => 'Your signature must be a maximum of 900 characters.',
-	'invalid_date_of_birth' => 'Invalid date of birth.',
-	'location_required' => 'Please enter a location.',
-	'location_minimum_2' => 'Your location must be a minimum of 2 characters.',
-	'location_maximum_128' => 'Your location must be a maximum of 128 characters.',
-	'verify_account' => 'Verify account',
-	'verify_account_help' => 'Please follow the instructions below so we can verify you own the Minecraft account in question.',
-	'verification_failed' => 'Verification failed, please try again.',
-	'verification_success' => 'Successfully validated! You can now log in.',
+	'signature_maximum_900' => 'Deine Signatur darf maximal 900 Zeichen enthalten.',
+	'invalid_date_of_birth' => 'Dein Geburtsdatum ist ungültig.',
+	'location_required' => 'Gib bitte deinen Standort an.',
+	'location_minimum_2' => 'Dein Standort muss mindestens 2 Zeichen enthalten.',
+	'location_maximum_128' => 'Dein Standort darf maximal 128 Zeichen enthalten.',
+	'verify_account' => 'Account verifizieren',
+	'verify_account_help' => 'Bitte führe die angegeben Schritte durch um deinen Account zu verifizieren.',
+	'verification_failed' => 'Verifikation fehlgeschlagen.',
+	'verification_success' => 'Erfolgreich freigeschaltet.',
 	
 	// UserCP
-	'user_cp' => 'Userpanel',
+	'user_cp' => 'Benutzer Panel',
 	'no_file_chosen' => 'Keine Datei ausgewählt',
 	'private_messages' => 'Private Nachrichten',
 	'profile_settings' => 'Profileinstellungen',
@@ -438,7 +436,7 @@ $user_language = array(
 	'posts' => 'Beiträge',
 	'reputation' => 'Ansehen',
 	'friends' => 'Freunde',
-	'alerts' => 'Alarme',
+	'alerts' => 'Benachrichtigungen',
 
 	// Messaging
 	'new_message' => 'Neue Nachricht',
@@ -463,35 +461,35 @@ $user_language = array(
 	'repeat_new_password' => 'Wiederhole neues Passwort',
 	'password_changed_successfully' => 'Passwort wurde erfolgreich geändert',
 	'incorrect_password' => 'Dein aktuelles Passwort ist ungültig',
-	'update_minecraft_name_help' => 'This will update your website username to your current Minecraft username. You can only perform this action once every 30 days.',
-	'unable_to_update_mcname' => 'Unable to update Minecraft username.',
-	'display_age_on_profile' => 'Display age on profile?',
-	'two_factor_authentication' => 'Two Factor Authentication',
-	'enable_tfa' => 'Enable Two Factor Authentication',
-	'tfa_type' => 'Two Factor Authentication type:',
-	'authenticator_app' => 'Authentication App',
-	'tfa_scan_code' => 'Please scan the following code within your authentication app:',
-	'tfa_code' => 'If your device does not have a camera, or you are unable to scan the QR code, please input the following code:',
-	'tfa_enter_code' => 'Please enter the code displaying within your authentication app:',
-	'invalid_tfa' => 'Invalid code, please try again.',
-	'tfa_successful' => 'Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.',
-	'confirm_tfa_disable' => 'Are you sure you wish to disable two factor authentication?',
-	'tfa_disabled' => 'Two factor authentication disabled.',
-	'tfa_enter_email_code' => 'We have sent you a code within an email for verification. Please enter the code now:',
-	'tfa_email_contents' => 'A login attempt has been made to your account. If this was you, please input the following two factor authentication code when asked to do so. If this was not you, you can ignore this email, however a password reset is advised. The code is only valid for 10 minutes.',
+	'update_minecraft_name_help' => 'Dies wird deinen Namen auf deinen Aktuellen Minecraftnamen ändern. Diese Aktion lässt dich nur alle 30 Tage ausführen.',
+	'unable_to_update_mcname' => 'Fehler beim updaten den MC-Namen.',
+	'display_age_on_profile' => 'Zeige das Alter im Profil?',
+	'two_factor_authentication' => '2Step Authentication',
+	'enable_tfa' => 'Aktiviere 2Step Authentication',
+	'tfa_type' => '2Step Authentication Typ:',
+	'authenticator_app' => 'App',
+	'tfa_scan_code' => 'Bitte Scanne folgenden Code:',
+	'tfa_code' => 'Wenn dein Gerät keine Kamera besitzt gib folgenden Code ein:',
+	'tfa_enter_code' => 'Gib bitte den Code ein, welcher dir angezeigt wird:',
+	'invalid_tfa' => 'Ungültiger Code, versuche es erneut.',
+	'tfa_successful' => '2Step Authentication erfolgreich eingerichtet.',
+	'confirm_tfa_disable' => 'Willst du die 2Step Authentication deaktivieren?',
+	'tfa_disabled' => 'Du hast die 2Step Authentication deaktiviert.',
+	'tfa_enter_email_code' => 'Gib den dir per Email zugeschickten Code ein:',
+	'tfa_email_contents' => 'Jemand hat sich versucht mit deinem Konto anzumelden, warst dies du, gib folgenden Code ein:',
 
 	// Alerts
 	'viewing_unread_alerts' => 'Zeigt ungelesene Nachrichten. Wechsele zu <a href="/user/alerts/?view=read"><span class="label label-success">gelesen</span></a>.',
 	'viewing_read_alerts' => 'Zeigt gelesene Nachrichten. Wechsele zu<a href="/user/alerts/"><span class="label label-warning">ungelesenen</span></a>.',
 	'no_unread_alerts' => 'Du hast keine ungelesenen Benachrichtigungen.',
-	'no_alerts' => 'No alerts',
+	'no_alerts' => 'Keine Benachrichtigungen',
 	'no_read_alerts' => 'Du hast keine "read" Benachrichtigungen.',  //unsure if "read" means "lesen"
 	'view' => 'Anzeigen',
 	'alert' => 'Benachrichtigungen',
 	'when' => 'Wann',
 	'delete' => 'Löschen',
 	'tag' => 'Benutzer Tag',
-	'tagged_in_post' => 'You have been tagged in a post',
+	'tagged_in_post' => 'Du wurdest in einem Post erwähnt',
 	'report' => 'Melden',
 	'deleted_alert' => 'Benachrichtigung erfolgreich gelöscht',
 
@@ -522,41 +520,41 @@ $user_language = array(
 	'remove_friend' => 'Freund entfernen',
 	'add_friend' => 'Freund hinzufügen',
 	'last_online' => 'Zuletzt Online:',
-	'find_a_user' => 'Find a user',
-	'user_not_following' => 'This user does not follow anyone.',
-	'user_no_followers' => 'This user has no followers.',
-	'following' => 'FOLLOWING',
-	'followers' => 'FOLLOWERS',
-	'display_location' => 'From {x}.', // Don't replace {x}, which will be the user's location
-	'display_age_and_location' => '{x}, from {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
-	'write_on_user_profile' => 'Write something on {x}\'s profile...', // Don't replace {x}
-	'write_on_own_profile' => 'Write something on your profile...',
-	'profile_posts' => 'Profile Posts',
-	'no_profile_posts' => 'No profile posts yet.',
-	'invalid_wall_post' => 'Invalid wall post. Please ensure your post is between 2 and 2048 characters.',
-	'about' => 'About',
-	'reply' => 'Reply',
+	'find_a_user' => 'Finde eine Nutzer',
+	'user_not_following' => 'Dieser Benutzer folgt niemandem.',
+	'user_no_followers' => 'Dieser Benutzer hat keine Follower.',
+	'following' => 'Folgt',
+	'followers' => 'Follower',
+	'display_location' => 'Aus {x}.', // Don't replace {x}, which will be the user's location
+	'display_age_and_location' => '{x}, aus {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
+	'write_on_user_profile' => 'Schreibe etwas unter {x}\'s Profil...', // Don't replace {x}
+	'write_on_own_profile' => 'Schreibe etwas unter dein Profil...',
+	'profile_posts' => 'Profil Nachrichten',
+	'no_profile_posts' => 'Es existieren kien Profilnachrichten.',
+	'invalid_wall_post' => 'Die Nachricht muss zwichen 2 und 2048 Zeichen lang sein.',
+	'about' => 'Über',
+	'reply' => 'Antworten',
 	'x_likes' => '{x} likes', // Don't replace {x}
 	'likes' => 'Likes',
-	'no_likes' => 'No likes.',
-	'post_liked' => 'Post liked.',
-	'post_unliked' => 'Post unliked.',
-	'no_posts' => 'No posts.',
-	'last_5_posts' => 'Last 5 posts',
-	'follow' => 'Follow',
-	'unfollow' => 'Unfollow',
+	'no_likes' => 'Keine likes.',
+	'post_liked' => 'Post geliket.',
+	'post_unliked' => 'Post gedisliket.',
+	'no_posts' => 'Keine Posts.',
+	'last_5_posts' => 'Letzten 5 Posts',
+	'follow' => 'Folgen',
+	'unfollow' => 'Nicht mehr Folgen',
 	'name_history' => 'Name History',
-	'changed_name_to' => 'Changed name to: {x} on {y}', // Don't replace {x} or {y}
-	'original_name' => 'Original name:',
-	'name_history_error' => 'Unable to retrieve username history.',
+	'changed_name_to' => 'Hat am {y}  seinen Namen zu {x} geändert.', // Don't replace {x} or {y}
+	'original_name' => 'Original Name:',
+	'name_history_error' => 'Fehler beim abrufen der Name-History.',
 	
 	// Staff applications
-	'staff_application' => 'Staff Bewerbung',
+	'staff_application' => 'Team Bewerbung',
 	'application_submitted' => 'Die Bewerbung wurde erfolgreich abgeschickt.',
 	'application_already_submitted' => 'Du hast bereits eine Bewerbung eingesendet. Bitte warte bis diese bearbeitet wurde, bevor du eine neue Bewerbung einsendest.',
 	'not_logged_in' => 'Bitte melde dich an, um Zugriff auf diese Seite zu bekommen.',
-	'application_accepted' => 'Your staff application has been accepted.',
-	'application_rejected' => 'Your staff application has been rejected.'
+	'application_accepted' => 'Deine Bewerbung wurde akzeptiert.',
+	'application_rejected' => 'Deine Bewerbung wurd abgelehnt.'
 );
 
 /*
@@ -579,8 +577,8 @@ $mod_language = array(
 	'registered' => 'Registriert',
 	'reason' => 'Grund:',
 	'cant_ban_root_user' => 'Can\'t punish the root user!',
-	'invalid_reason' => 'Please enter a valid reason between 2 and 256 characters long.',
-	'punished_successfully' => 'Punishment added successfully.',
+	'invalid_reason' => 'Gib bitte einen gültigen Grund an.',
+	'punished_successfully' => 'Der Nutzer wurde erfolgreich bestraft.',
 
 	// Reports
 	'report_closed' => 'Meldung geschlossen.',
@@ -622,8 +620,8 @@ $mod_language = array(
 $general_language = array(
 	// Homepage
 	'news' => 'Neues',
-	'social' => 'Soziales',
-	'join' => 'Join',
+	'social' => 'Soziale Netzwerke',
+	'join' => 'Beitreten',
 
 	// General terms
 	'submit' => 'Absenden',
@@ -641,7 +639,7 @@ $general_language = array(
 	'error' => 'Fehler',
 	'view' => 'Zeige',
 	'info' => 'Info',
-	'next' => 'Next',
+	'next' => 'Nächste',
 
 	// Play page
 	'connect_with' => 'Verbinde zu dem Server mit der IP {x}', // Don't replace {x}
@@ -657,7 +655,7 @@ $general_language = array(
 	// Other
 	'page_loaded_in' => 'Seite geladen in {x}s', // Don't replace {x}; 's' stands for 'seconds'
 	'none' => 'Nichts',
-	'404' => 'Sorry, we couldn\'t find that page.'
+	'404' => 'Wir konnten diese Seite nicht finden.'
 );
 
 /*
@@ -669,7 +667,7 @@ $forum_language = array(
 	'discussion' => 'Diskussion',
 	'stats' => 'Statistiken',
 	'last_reply' => 'Letzte Antwort',
-	'ago' => 'ago',
+	'ago' => 'her',
 	'by' => 'von',
 	'in' => 'in',
 	'views' => 'Aufrufe',
@@ -689,7 +687,7 @@ $forum_language = array(
 	'subforums' => 'Unterforen:',
 
 	// View topic view
-	'home' => 'Home',
+	'home' => 'Start',
 	'topic_locked' => 'Thema geschossen',
 	'new_reply' => 'neue Antwort',
 	'mod_actions' => 'Moderationsaktionen',
@@ -822,7 +820,7 @@ $table_language = array(
  *  API language
  */
 $api_language = array(
-	'register' => 'Complete Registration'
+	'register' => 'Registration abschließen.'
 );
 
 ?>
