@@ -2,6 +2,7 @@
   <div class="nav nav-pills nav-stacked">
     <li<?php if($adm_page == "index"){ ?> class="active"<?php } ?>><a href="/admin"><?php echo $admin_language['index']; ?></a></li>
 	<li<?php if($adm_page == "addons"){ ?> class="active"<?php } ?>><a href="/admin/addons"><?php echo $admin_language['addons']; ?></a></li>
+	<li<?php if($adm_page == "announcements"){ ?> class="active"<?php } ?>><a href="/admin/announcements"><?php echo $admin_language['announcements']; ?></a></li>
 	<li<?php if($adm_page == "core"){ ?> class="active"<?php } ?>><a href="/admin/core"><?php echo $admin_language['core']; ?></a></li>
 	<li<?php if($adm_page == "custom_pages"){ ?> class="active"<?php } ?>><a href="/admin/pages"><?php echo $admin_language['custom_pages']; ?></a></li>
     <li<?php if($adm_page == "forums"){ ?> class="active"<?php } ?>><a href="/admin/forums"><?php echo $admin_language['forums']; ?></a></li>

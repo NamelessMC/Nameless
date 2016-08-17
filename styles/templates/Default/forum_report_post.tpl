@@ -1,4 +1,3 @@
-<br />
 <div class="container">
   <h3>{$REPORT_POST}</h3>
   <center>{$SESSION}</center>

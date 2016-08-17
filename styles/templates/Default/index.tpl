@@ -1,5 +1,4 @@
 <div class="container">
-  <br /><br />
   {$SESSION_FLASH}
   <div class="jumbotron jumbotron-homepage">
     <h1>{$SITENAME}</h1>
