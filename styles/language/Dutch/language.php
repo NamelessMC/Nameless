@@ -401,6 +401,7 @@ $user_language = array(
     'email_address' => 'Email Adres',
 	'date_of_birth' => 'Geboortedatum',
 	'location' => 'Locatie',
+    'user_title' => 'Titel',
     'password' => 'Wachtwoord',
     'confirm_password' => 'Bevestig Wachtwoord',
     'i_agree' => 'Ik Accepteer',
