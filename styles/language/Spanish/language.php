@@ -396,6 +396,7 @@ $user_language = array(
 	'username' => 'Usuario',
 	'minecraft_username' => 'Usuario de Minecraft',
 	'email' => 'Correo',
+	'user_title' => 'Title',
 	'email_address' => 'Dirección de correo',
 	'date_of_birth' => 'Fecha de Cumpleaños',
 	'location' => 'Localización',
