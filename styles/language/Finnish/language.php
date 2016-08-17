@@ -46,6 +46,26 @@ $admin_language = array(
 	'statistics' => 'Statistiikat',
 	'registrations_per_day' => 'Rekisteröinnit päivässä (viimeiset 7 päivää)',
 	
+	// Admin announcements page
+	'current_announcements' => 'Current Announcements',
+	'create_announcement' => 'Create Announcement',
+	'announcement_content' => 'Announcement Content',
+	'announcement_location' => 'Announcement Location',
+	'announcement_can_close' => 'Can close announcement?',
+	'announcement_permissions' => 'Announcement Permissions',
+	'no_announcements' => 'No announcements created yet.',
+	'confirm_cancel_announcement' => 'Are you sure you want to cancel this announcement?',
+	'announcement_location_help' => 'Ctrl-click to select multiple pages',
+	'select_all' => 'Select All',
+	'deselect_all' => 'Deselect All',
+	'announcement_created' => 'Announcement successfully created',
+	'please_input_announcement_content' => 'Please input announcement content and select a type',
+	'confirm_delete_announcement' => 'Are you sure you want to delete this announcement?',
+	'announcement_actions' => 'Announcement Actions',
+	'announcement_deleted' => 'Announcement successfully deleted',
+	'announcement_type' => 'Announcement Type',
+	'can_view_announcement' => 'Can view announcement?',
+	
 	// Admin core page
 	'general_settings' => 'Pääasetukset',
 	'modules' => 'Moduulit',

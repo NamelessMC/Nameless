@@ -1,5 +1,4 @@
 <div class="container">
-  <br />
   {$BREADCRUMBS}
   
   {$SESSION_SUCCESS_POST}

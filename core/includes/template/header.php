@@ -48,3 +48,34 @@ foreach($custom_css as $item){
 if(isset($ga_script)){
 	echo $ga_script;
 }
+
+// Announcements
+if(isset($page)){
+	$page_announcements = $queries->getWhere('announcements_pages', array('page', '=', $page));
+	if(count($page_announcements)){
+		if($user->isLoggedIn()) $group_id = $user->data()->group_id;
+		else $group_id = 0;
+		
+		$announcements = array();
+		
+		foreach($page_announcements as $page_announcement){
+			// Permissions
+			$permissions = $queries->getWhere('announcements_permissions', array('announcement_id', '=', $page_announcement->announcement_id));
+			foreach($permissions as $permission){
+				if($permission->view == 1 && $permission->group_id == $group_id){
+					$announcement = $queries->getWhere('announcements', array('id', '=', $page_announcement->announcement_id));
+					$announcement = $announcement[0];
+					
+					$announcements[] = array(
+						'type' => htmlspecialchars($announcement->type),
+						'content' => Output::getPurified(htmlspecialchars_decode($announcement->content)),
+						'can_close' => $announcement->can_close,
+						'id' => $announcement->id
+					);
+				}
+			}
+		}
+		
+		$smarty->assign('ANNOUNCEMENTS', $announcements);
+	}
+}

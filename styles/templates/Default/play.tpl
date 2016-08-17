@@ -1,5 +1,4 @@
 <div class="container">
-  <br />
   <div class="alert alert-info"><center>{$CONNECT_WITH}</center></div>
   <div class="row">
     <div class="col-md-3">

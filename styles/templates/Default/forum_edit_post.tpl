@@ -1,4 +1,3 @@
-<br />
 <div class="container">
   <h3>{$EDITING_POST}</h3>
   {$SESSION}

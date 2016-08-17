@@ -144,7 +144,7 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 	$latest_news = $forum->getLatestNews(5); // Get latest 5 items
 	
 	// HTML Purifier
-	require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
+	require_once('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 	$config = HTMLPurifier_Config::createDefault();
 	$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 	$config->set('URI.DisableExternalResources', false);
