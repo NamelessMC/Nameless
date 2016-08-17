@@ -522,7 +522,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 											'group_id' => Input::get('group'),
 											'mcname' => htmlspecialchars(Input::get('MCUsername')),
 											'uuid' => htmlspecialchars(Input::get('UUID')),
-											'user_title' => Input::get('title')
+											'user_title' => Input::get('title'),
 											'signature' => htmlspecialchars($signature),
 											'lastip' => Input::get('ip')
 										));
