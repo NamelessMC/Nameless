@@ -394,6 +394,7 @@ $user_language = array(
 	'username' => 'Käyttäjänimi',
 	'minecraft_username' => 'Minecraft -nimi',
 	'email' => 'Sähköposti',
+	'user_title' => 'otsikko',
 	'email_address' => 'Sähköpostiosoite',
 	'date_of_birth' => 'Date of Birth',
 	'location' => 'Location',
