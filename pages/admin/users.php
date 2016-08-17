@@ -457,6 +457,9 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 									'UUID' => array(
 										'max' => 32
 									),
+									'title' => array(
+										'max' => 64
+									),
 									'signature' => array(
 										'max' => 900
 									),
@@ -519,6 +522,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 											'group_id' => Input::get('group'),
 											'mcname' => htmlspecialchars(Input::get('MCUsername')),
 											'uuid' => htmlspecialchars(Input::get('UUID')),
+											'user_title' => Input::get('title')
 											'signature' => htmlspecialchars($signature),
 											'lastip' => Input::get('ip')
 										));
@@ -707,6 +711,10 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 							<label for="InputUUID"><?php echo $admin_language['minecraft_uuid']; ?></label>
 							<input type="text" name="UUID" class="form-control" id="InputUUID" placeholder="<?php echo $admin_language['minecraft_uuid']; ?>" value="<?php echo htmlspecialchars($individual[0]->uuid); ?>">
 						  </div>
+                                                  <div class="form-group">
+                                                        <label for="InputTitle"><?php echo $user_language['user_title']; ?></label>
+                                                        <input type="text" class="form-control" name="title" id="InputTitle"  value="<?php echo htmlspecialchars($individual[0]->user_title);?>"></input>
+                                                  </div>
 						  <?php
 						  }
 						  ?>
