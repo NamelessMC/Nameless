@@ -309,6 +309,18 @@ $adm_page = "core";
 									$queries->update('settings', $twitter_url_id, array(
 										'value' => htmlspecialchars(Input::get('twitterurl'))
 									));
+									
+									// Twitter dark theme
+									$twitter_dark_theme = $queries->getWhere('settings', array('name', '=', 'twitter_style'));
+									$twitter_dark_theme = $twitter_dark_theme[0]->id;
+									
+									if(isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) $theme = 'dark';
+									else $theme = 'light';
+									
+									$queries->update('settings', $twitter_dark_theme, array(
+										'value' => $theme
+									));
+									
 									// Google Plus URL
 									$gplus_url_id = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
 									$gplus_url_id = $gplus_url_id[0]->id;
@@ -333,6 +345,7 @@ $adm_page = "core";
 							// Get values from database
 							$youtube_url = $queries->getWhere('settings', array('name', '=', 'youtube_url'));
 							$twitter_url = $queries->getWhere('settings', array('name', '=', 'twitter_url'));
+							$twitter_style = $queries->getWhere('settings', array('name', '=', 'twitter_style'));
 							$gplus_url = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
 							$fb_url = $queries->getWhere('settings', array('name', '=', 'fb_url'));
 						?>
@@ -350,6 +363,10 @@ $adm_page = "core";
 							<div class="form-group">
 								<label for="InputTwitter"><?php echo $admin_language['twitter_url']; ?></label>
 								<input type="text" name="twitterurl" class="form-control" id="InputTwitter" placeholder="<?php echo $admin_language['twitter_url']; ?>" value="<?php echo htmlspecialchars($twitter_url[0]->value); ?>">
+							</div>
+							<div class="form-group">
+							  <label for="InputTwitterStyle"><?php echo $admin_language['twitter_dark_theme']; ?></label>
+							  <input id="InputTwitterStyle" name="twitter_dark_theme" type="checkbox" class="js-switch" value="1" <?php if($twitter_style[0]->value == 'dark') echo 'checked'; ?>/>
 							</div>
 							<div class="form-group">
 								<label for="InputGPlus"><?php echo $admin_language['google_plus_url']; ?></label>

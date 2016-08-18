@@ -645,6 +645,11 @@ if(isset($_GET["step"])){
 								'value' => ''
 							));
 							
+							$queries->create('settings', array(
+								'name' => 'twitter_style',
+								'value' => 'light'
+							));
+							
 							// Version update
 							$version_id = $queries->getWhere('settings', array('name', '=', 'version'));
 							$queries->update('settings', $version_id[0]->id, array(
@@ -1070,6 +1075,10 @@ if(isset($_GET["step"])){
 					41 => array(
 						'name' => 'mcassoc_instance',
 						'value' => ''
+					),
+					42 => array(
+						'name' => 'twitter_style',
+						'value' => 'light'
 					)
 				);
 				
