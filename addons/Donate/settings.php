@@ -47,7 +47,7 @@ if(empty($donation_settings)){
 	echo '<strong>Donation Cache</strong> table successfully initialised<br />';
 	$data = $queries->createTable("donation_categories", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `cid` varchar(64) NOT NULL, `order` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 	echo '<strong>Donation Categories</strong> table successfully initialised<br />';
-	$data = $queries->createTable("donation_packages", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `description` varchar(2048) NOT NULL, `cost` varchar(10) NOT NULL, `package_id` varchar(64) NOT NULL, `active` tinyint(4) NOT NULL, `package_order` int(11) NOT NULL, `category` varchar(64) NOT NULL, `url` varchar(512) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
+	$data = $queries->createTable("donation_packages", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `description` mediumtext, `cost` varchar(10) NOT NULL, `package_id` varchar(64) NOT NULL, `active` tinyint(4) NOT NULL, `package_order` int(11) NOT NULL, `category` varchar(64) NOT NULL, `url` varchar(512) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 	echo '<strong>Donation Packages</strong> table successfully initialised<br />';
 	$data = $queries->createTable("donation_settings", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(32) NOT NULL, `value` varchar(128) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 	echo '<strong>Donation Settings</strong> table successfully initialised<br />';
