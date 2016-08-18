@@ -31,6 +31,7 @@ $admin_language = array(
 	
 	// Admin sidebar
 	'index' => 'Oversikt',
+	'announcements' => 'Announcements',
 	'core' => 'Kjerne',
 	'custom_pages' => 'Custom Sider',
 	'general' => 'General',

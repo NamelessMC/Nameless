@@ -31,6 +31,7 @@ $admin_language = array(
 	
 	// Admin sidebar
 	'index' => 'Yleisnäkymä',
+	'announcements' => 'Announcements',
 	'core' => 'Ydin',
 	'custom_pages' => 'Omat sivut',
 	'general' => 'Yleinen',

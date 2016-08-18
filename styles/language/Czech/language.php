@@ -31,6 +31,7 @@ $admin_language = array(
 	
 	// Admin sidebar
 	'index' => 'Přehled',
+	'announcements' => 'Announcements',
 	'core' => 'Core',
 	'custom_pages' => 'Stránky',
 	'general' => 'Hlavní',
