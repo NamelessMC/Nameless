@@ -592,7 +592,44 @@ if(isset($profile)){
                            <p style="float:right; width:93%;" type="text">
 						     <a href="/profile/<?php echo htmlspecialchars($user->idToMCName($profile_posts[$n]->author_id)); ?>"><strong><?php echo htmlspecialchars($user->idToName($profile_posts[$n]->author_id)); ?></strong></a> | <?php echo date('M j, Y', $profile_posts[$n]->time); ?>
 							 <br /><br />
-							 <?php echo $purifier->purify($profile_posts[$n]->content); ?>
+							 <!-- 
+								Begin code to convert image links to visual images
+								@author ElectronicWizard
+							 -->
+							 <?php 
+							 $p = $purifier->purify($profile_posts[$n]->content);
+							 $b = false;
+							 if (strpos($p, 'http') !== false) {
+								  if (strpos($p, 'png') !== false) {
+								  $b = true;
+								  }
+								  if (strpos($p, 'jpg') !== false) {
+								  $b = true;
+								  }
+								  if (strpos($p, 'gif') !== false) {
+								  $b = true;
+								  }
+							 }
+							 if ($b == true) {
+								 if (strpos($p, 'https') === false) {
+									 if (strpos($p, 'http') === false) {
+									 $p = "http" . $p;
+									 }
+									 $h = str_replace("http", "https", $p);
+								 } else {
+									 $h = $p;
+								 }
+								 
+								 ?>
+								  <a href = "<?php echo $h; ?>"><img src= "<?php echo $h; ?>" width = "250px" height = "250px"></a>
+								  <?php
+							 } else {
+							 echo $p;
+							 }
+							?>
+							<!--
+								End image conversion code
+							-->
 						   </p>
                            <p style="float:right; width:93%;" type="text">
 						     <?php if($user->isLoggedIn()){ ?><a href="#" data-toggle="modal" data-target="#replyModal<?php echo $n; ?>"><?php echo $user_language['reply']; ?></a> | <?php } ?><a class="pop" href="<?php if($user->isLoggedIn()){ ?>/profile/<?php echo $mcname; ?>/?action=like&amp;post=<?php echo $profile_posts[$n]->id; } else echo '#'; ?>" title="<?php echo $user_language['likes']; ?>" data-content="<?php if($likes_count){ $i = 1; foreach($likes as $like){ echo '<a href=\'/profile/' . htmlspecialchars($user->idToMCName($like->user_id)) . '\'>' . htmlspecialchars($user->idToName($like->user_id)); if($i != $likes_count) echo ', '; echo '</a>'; $i++; } } else { echo $user_language['no_likes']; } ?>"><i class="fa fa-thumbs-o-up"></i> <?php echo str_replace('{x}', $likes_count, $user_language['x_likes']); ?></a><?php if($user->isLoggedIn() && $user->canViewMCP($user->data()->id)){ ?> | <a onclick="return confirm('<?php echo $forum_language['confirm_post_deletion']; ?>');" href="/profile/<?php echo $mcname; ?>/?action=delete&amp;pid=<?php echo $profile_posts[$n]->id; ?>"><?php echo $user_language['delete']; ?></a><?php } ?>
