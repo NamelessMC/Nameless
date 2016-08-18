@@ -36,6 +36,7 @@ $admin_language = array(
      
     // Admin sidebar
     'index' => 'Overzicht',
+	'announcements' => 'Announcements',
     'core' => 'Kern',
     'custom_pages' => 'Aangepaste pagina\'s',
     'general' => 'Algemeen',

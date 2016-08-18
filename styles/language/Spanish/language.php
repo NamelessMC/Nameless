@@ -34,6 +34,7 @@ $admin_language = array(
 	
 	// Admin sidebar
 	'index' => 'Información general',
+	'announcements' => 'Announcements',
 	'core' => 'Principal',
 	'custom_pages' => 'Páginas Personalizadas',
 	'general' => 'General',

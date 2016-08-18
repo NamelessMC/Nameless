@@ -31,6 +31,7 @@ $admin_language = array(
 	
 	// Admin sidebar
 	'index' => 'Overview',
+	'announcements' => 'Announcements',
 	'core' => 'Core',
 	'custom_pages' => 'Custom Pages',
 	'general' => 'General',
