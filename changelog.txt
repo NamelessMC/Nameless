@@ -344,3 +344,21 @@
 - Alert profile owners on wall posts
 - Add drop column function
 - Allow enabling/disabling custom usernames
+
+1.0.12
+- Add wells to profile page tabs
+- Add Minecraft account association
+- Allow use of wells on custom pages
+- Fix Twitter feed issues
+- Fix email config issue
+- Reinstate cookie notice
+- Update issue template to 1.0.12
+- Update translations
+- Add announcement system
+- Add user titles
+- Add option to change Twitter feed style
+- Add BungeeUtilisals support
+- Prevent users from liking their own profile wall posts
+- Allow HTML use in profile wall posts
+- Fix database issues with donate addon
+- Add modify column function
