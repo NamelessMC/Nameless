@@ -92,8 +92,6 @@ if(isset($_GET['p'])){
 	// Load navbar
 	$smarty->display('styles/templates/' . $template . '/navbar.tpl');
 	?>
-
-	<br />
 	
     <div class="container">	
 	  <div class="well">
@@ -113,6 +111,9 @@ if(isset($_GET['p'])){
 				break;
 				case 'bam':
 					$all_infractions = $infractions->bam_getAllInfractions();
+				break;
+				case 'bu':
+					$all_infractions = $infractions->bu_getAllInfractions();
 				break;
 			}
 
@@ -135,8 +136,12 @@ if(isset($_GET['p'])){
 		      <col span="1" style="width: 15%;">
 		      <col span="1" style="width: 15%;">
 		      <col span="1" style="width: 15%">
+			  <?php if($inf_plugin != 'bu'){ ?>
 		      <col span="1" style="width: 30%">
 		      <col span="1" style="width: 15%">
+			  <?php } else { ?>
+		      <col span="1" style="width: 45%">
+			  <?php } ?>
 		      <col span="1" style="width: 10%">
 		    </colgroup>
 		    <thead>
@@ -145,7 +150,9 @@ if(isset($_GET['p'])){
 			    <td><?php echo $infractions_language['staff_member']; ?></td>
 			    <td><?php echo $infractions_language['action']; ?></td>
 			    <td><?php echo $infractions_language['reason']; ?></td>
+				<?php if($inf_plugin != 'bu'){ ?>
 			    <td><?php echo $infractions_language['created']; ?></td>
+				<?php } ?>
 			    <td><?php echo $infractions_language['actions']; ?></td>
 		      </tr>
 		    </thead>
@@ -160,22 +167,22 @@ if(isset($_GET['p'])){
 				} else if($inf_plugin == "lb"){
 					$mcname = $infraction["username"];
 				} else {
-					$infractions_query = $queries->getWhere('users', array('uuid', '=', $infraction["uuid"]));
+					$infractions_query = $queries->getWhere('users', array('uuid', '=', str_replace('-', '', $infraction["uuid"])));
 					if(empty($infractions_query)){
 						
 						if($inf_plugin == 'bat') $mcname = $infractions->bat_getUsernameFromUUID($infraction['uuid']);
 						
 						if($inf_plugin != 'bat' || !count($mcname)){
-							$infractions_query = $queries->getWhere('uuid_cache', array('uuid', '=', $infraction["uuid"]));
+							$infractions_query = $queries->getWhere('uuid_cache', array('uuid', '=', str_replace('-', '', $infraction["uuid"])));
 							if(empty($infractions_query)){
-								$profile = ProfileUtils::getProfile($infraction["uuid"]);
+								$profile = ProfileUtils::getProfile(str_replace('-', '', $infraction["uuid"]));
 								if(empty($profile)){
 									echo 'Could not find that player';
 									die();
 								} else {
 									$result = $profile->getProfileAsArray();
 									$mcname = htmlspecialchars($result["username"]);
-									$uuid = htmlspecialchars($infraction["uuid"]);
+									$uuid = htmlspecialchars(str_replace('-', '', $infraction["uuid"]));
 									try {
 										$queries->create("uuid_cache", array(
 											'mcname' => $mcname,
@@ -186,15 +193,14 @@ if(isset($_GET['p'])){
 									}
 								}
 							}
-							$mcname = $queries->getWhere('uuid_cache', array('uuid', '=', $infraction["uuid"]));
+							$mcname = $queries->getWhere('uuid_cache', array('uuid', '=', str_replace('-', '', $infraction["uuid"])));
 							$mcname = $mcname[0]->mcname;
 						
 						} else {
 							$mcname = $mcname[0]->BAT_player;
 						}
 					} else {
-						$mcname = $queries->getWhere('users', array('uuid', '=', $infraction["uuid"]));
-						$mcname = $mcname[0]->mcname;
+						$mcname = $infractions_query[0]->mcname;
 					}
 				}
 			?>
@@ -203,7 +209,7 @@ if(isset($_GET['p'])){
 			    <td><?php if(strtolower($infraction["staff"]) !== "console"){?><a href="/profile/<?php echo htmlspecialchars($infraction["staff"]); ?>"><?php if($inf_plugin !== "mb"){ echo htmlspecialchars($infraction["staff"]); } else { echo htmlspecialchars($infractions->mb_getUsernameFromName($infraction["staff"])); }?></a><?php } else { echo 'Console'; } ?></td>
 			    <td><?php echo $infraction["type_human"]; ?> <?php echo $infraction["expires_human"]; ?></td>
 			    <td><?php echo htmlspecialchars($infraction["reason"]); ?></td>
-			    <td><?php if(isset($infraction['issued'])){ ?><span rel="tooltip" data-placement="top" title="<?php echo $infraction["issued_human"]; ?>"><?php echo $timeago->inWords(date('d M Y, H:i', $infraction["issued"]), $time_language); ?></span><?php } else echo '-'; ?></td>
+			    <?php if($inf_plugin != 'bu') { ?><td><?php if(isset($infraction['issued'])){ ?><span rel="tooltip" data-placement="top" title="<?php echo $infraction["issued_human"]; ?>"><?php echo $timeago->inWords(date('d M Y, H:i', $infraction["issued"]), $time_language); ?></span><?php } else echo '-'; ?></td><?php } ?>
 			    <td><a class="btn btn-primary btn-sm" href="/infractions/?type=<?php echo $infraction["type"]; ?>&amp;id=<?php echo $infraction["id"]; if(isset($infraction['past'])){ ?>&amp;past=true<?php } ?>"><?php echo $infractions_language['view']; ?></a></td>
 		      </tr>
 			<?php
@@ -221,7 +227,7 @@ if(isset($_GET['p'])){
 			echo $pagination->parse();
 		} else {
 			// Viewing infraction
-			if(isset($_GET['type']) && $_GET["type"] !== "ban" && $_GET["type"] !== "kick" && $_GET["type"] !== "mute" && $_GET["type"] !== "temp_ban" && $_GET["type"] !== "warning"){
+			if(isset($_GET['type']) && $_GET["type"] !== "ban" && $_GET["type"] !== "kick" && $_GET["type"] !== "mute" && $_GET["type"] !== "temp_ban" && $_GET["type"] !== "warning" && $_GET['type'] !== 'temp_mute'){
 				Redirect::to('/infractions');
 				die();
 			}
@@ -240,6 +246,7 @@ if(isset($_GET['p'])){
 					$action = '<span class="label label-danger">' . $infractions_language['temp_ban'] . '</span>';
 				break;
 				case 'mute':
+				case 'temp_mute':
 					$action = '<span class="label label-warning">' . $infractions_language['mute'] . '</span>';
 				break;
 				case 'warning':
@@ -505,6 +512,67 @@ if(isset($_GET['p'])){
 					
 					// Staff
 					$staff = htmlspecialchars($infraction->banner);
+					
+				break;
+				case 'bu':
+					$infraction = $infractions->bu_getInfraction($_GET["type"], $_GET["id"]);
+					
+					// Get username
+					if($_GET['type'] == 'ban' || $_GET['type'] == 'temp_ban') $uuid = str_replace('-', '', htmlspecialchars($infraction->Banned));
+					else $uuid = str_replace('-', '', htmlspecialchars($infraction->Muted));
+					$infractions_query = $queries->getWhere('users', array('uuid', '=', $uuid));
+					if(empty($infractions_query)){
+						$infractions_query = $queries->getWhere('uuid_cache', array('uuid', '=', $uuid));
+						if(empty($infractions_query)){
+							$profile = ProfileUtils::getProfile($uuid);
+							if(empty($profile)){
+								echo 'Could not find that player';
+								die();
+							} else {
+								$result = $profile->getProfileAsArray();
+								$username = htmlspecialchars($result["username"]);
+								try {
+									$queries->create("uuid_cache", array(
+										'mcname' => $username,
+										'uuid' => $uuid
+									));
+								} catch(Exception $e){
+									die($e->getMessage());
+								}
+							}
+						}
+						$username = $queries->getWhere('uuid_cache', array('uuid', '=', $uuid));
+						$username = htmlspecialchars($username[0]->mcname);
+					} else {
+						$username = htmlspecialchars($infractions_query[0]->mcname);
+					}
+					
+					// Reason
+					if($infraction->Reason) $reason = htmlspecialchars($infraction->Reason); else $reason = $infractions_language['no_reason']; 
+					
+					// Expires/expired?
+					switch($_GET['type']){
+						case 'ban':
+						case 'temp_ban':
+							if($infraction->BanTime !== '-1'){
+								$expires = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", ($infraction->BanTime / 1000)), $infractions_language['expires_x']) . '">' . $infractions_language['active'] . '</span>';
+							} else {
+								$expires = '<span class="label label-danger">' . $infractions_language['permanent'] . '</span>';
+							}
+							
+							$staff = htmlspecialchars($infraction->BannedBy);
+						break;
+						case 'mute':
+						case 'temp_mute':
+							if($infraction->MuteTime !== '-1'){
+								$expires = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", ($infraction->MuteTime / 1000)), $infractions_language['expires_x']) . '">' . $infractions_language['active'] . '</span>';
+							} else {
+								$expires = '<span class="label label-danger">' . $infractions_language['permanent'] . '</span>';
+							}
+							
+							$staff = htmlspecialchars($infraction->MutedBy);
+						break;
+					}
 					
 				break;
 			}
