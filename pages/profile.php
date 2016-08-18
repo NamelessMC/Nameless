@@ -582,6 +582,7 @@ if(isset($profile)){
 								$likes = $queries->getWhere('user_profile_wall_posts_likes', array('post_id', '=', $profile_posts[$n]->id));
 								$likes_count = count($likes);
 						?>
+						<div class="well">
                         <div class="row">
                            <label style="float:left; width:6%;">
 						    <?php
@@ -625,6 +626,7 @@ if(isset($profile)){
 						   }
 						   ?>
                         </div>
+						</div>
 						<hr />
 						<?php
 								// Reply modal
@@ -666,6 +668,7 @@ if(isset($profile)){
                      </div>
                      <div role="tabpanel" class="tab-pane" id="forum">
                         <br />
+				    <div class="well">
                         <?php 
                            // Check if the user has registered on the website
                            if($exists == true){
@@ -679,6 +682,7 @@ if(isset($profile)){
                               echo $user_language['user_hasnt_registered'];
                            } 
                            ?>
+				     </div>
                      </div>
                      <div role="tabpanel" class="tab-pane" id="topics-and-comments">
 					    <?php
@@ -735,6 +739,7 @@ if(isset($profile)){
 						?>
                      </div>
                      <div role="tabpanel" class="tab-pane" id="name_history">
+					 <div class="well">
 						<?php
 							// Name history
 							// Check database
@@ -847,6 +852,7 @@ if(isset($profile)){
 								}
 							}
 						?>
+				   </div>
                      </div>
                   </div>
                 </div>
