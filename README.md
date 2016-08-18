@@ -1,8 +1,8 @@
-# NamelessMC - version 1.0.11
+# NamelessMC - version 1.0.12
 
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
-Version 1.0.11 features:
+Version 1.0.12 features:
 
 - Template and theme system
 - Languages
@@ -11,17 +11,18 @@ Version 1.0.11 features:
 - Forum topic labels (not yet permission based, working on that)
 - Subforums
 - Alerts system, including popup notifications upon user tagging or a new staff application
-- Small additions including page loading time and the ability to enable/disable error reporting from the AdminCP
-- New optional email system
-- Upcoming API
+- Email configuration
+- API
 - Ability to disable UUID linking, allowing support for offline mode servers
-- Completion of custom page system
+- Custom page system
 - Server statistics integration
 - Staff and member lists
 - Minecraft status
 - reCAPTCHA option
 - Voice server viewer
 - Two factor authentication
+- Minecraft account verification
+- Announcements
 
 Included addons:
 - Donate
@@ -71,6 +72,8 @@ Upcoming addons (these will need to be downloaded separately):
 * @PugaBear
 * @Tim-NL
 * @godleydemon
+* @yshf9
+* @Saphiria
 
 **[NamelessMC Website](http://namelessmc.github.io/)**
 * @Samerton
@@ -87,12 +90,9 @@ Upcoming addons (these will need to be downloaded separately):
 * Norsk: @partydragen
 * Slovak: @Marki35
 * French: @CreaModZ
-* Dutch: Sander Jochems, @Azoraqua, @Headhunterzpw and @melerpe
+* Dutch: Sander Jochems, @Azoraqua, @Headhunterzpw, @melerpe and @aycgit
 * Finnish: -kakara-
-* Portuguese: @dgateles
-
-**NamelessMC On Spigot**
-* Resource: @Saphiria
+* Portuguese: @dgateles, @dasilvaj4
 
 ## IRC
 \#NamelessMC on irc.spi.gt
