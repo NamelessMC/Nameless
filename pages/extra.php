@@ -56,15 +56,14 @@ if(isset($redirect_page)){
 	// Load navbar
 	$smarty->display('styles/templates/' . $template . '/navbar.tpl');
 	?>
-	
-	<br /><br />
+
 	<div class="container">
 	  <?php 
 	    // Initialise HTML Purifier
 	    $config = HTMLPurifier_Config::createDefault();
 	    $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 	    $config->set('URI.DisableExternalResources', false);
-	    $config->set('HTML.Allowed', 'u,p,b,i,a,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
+	    $config->set('HTML.Allowed', 'u,p,b,i,a,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img,div[well]');
 	    $config->set('CSS.AllowedProperties', array('text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size', 'border-style', 'border-width', 'height', 'width'));
 		$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style, frameborder');
 		$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
