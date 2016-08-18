@@ -88,6 +88,12 @@ class Queries {
 		}
 	}
 	
+	public function modifyColumn($table, $column, $attributes){
+		if(!$this->_db->modifyColumn($table, $column, $attributes)) {
+			throw new Exception('There was a problem modifying the column ' . htmlspecialchars($column));
+		}
+	}
+	
 	public function removeColumn($table, $column){
 		if($this->_db->removeColumn($table, $column)){
 			throw new Exception('Unable to drop column.');
