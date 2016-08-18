@@ -711,13 +711,13 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 							<label for="InputUUID"><?php echo $admin_language['minecraft_uuid']; ?></label>
 							<input type="text" name="UUID" class="form-control" id="InputUUID" placeholder="<?php echo $admin_language['minecraft_uuid']; ?>" value="<?php echo htmlspecialchars($individual[0]->uuid); ?>">
 						  </div>
-                                                  <div class="form-group">
-                                                        <label for="InputTitle"><?php echo $user_language['user_title']; ?></label>
-                                                        <input type="text" class="form-control" name="title" id="InputTitle"  value="<?php echo htmlspecialchars($individual[0]->user_title);?>"></input>
-                                                  </div>
 						  <?php
 						  }
 						  ?>
+						  <div class="form-group">
+							<label for="InputTitle"><?php echo $user_language['user_title']; ?></label>
+							<input type="text" class="form-control" name="title" id="InputTitle"  value="<?php echo htmlspecialchars($individual[0]->user_title);?>"></input>
+						  </div>
 						  <div class="form-group">
 							<label for="InputSignature"><?php echo $user_language['signature']; ?></label>
 							<textarea class="signature" rows="10" name="signature" id="InputSignature"><?php echo $signature; ?></textarea>
