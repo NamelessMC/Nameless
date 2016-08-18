@@ -101,6 +101,7 @@ $admin_language = array(
 	'social_media_links' => 'Sosial Media Linker',
 	'youtube_url' => 'YouTube URL',
 	'twitter_url' => 'Twitter URL',
+	'twitter_dark_theme' => 'Use dark Twitter theme?',
 	'twitter_widget_id' => 'Twitter Widget ID',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
