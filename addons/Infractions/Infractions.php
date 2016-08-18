@@ -825,4 +825,100 @@ class Infractions {
 		return false;
 	}
 	
+	// Receive a list of all infractions for BungeeUtilisals, either for a single user or for all users
+	// Params: $uuid (string), UUID of a user. If null, will list all infractions
+	public function bu_getAllInfractions($uuid = null) {
+		if($uuid !== null){
+			$ban_field = "Banned";
+			$mute_field = "Muted";
+			$symbol = "=";
+			$equals = $uuid;
+		} else {
+			$ban_field = "Banned";
+			$mute_field = "Muted";
+			$symbol = "<>";
+			$equals = "0";
+		}
+		$bans = $this->_db->get('bans', array($ban_field, $symbol, $equals))->results();
+		$mutes = $this->_db->get('mutes', array($mute_field, $symbol, $equals))->results();
+		
+		$results = array();
+		$i = 0;
+		
+		foreach($bans as $ban){
+			$results[$i]["id"] = htmlspecialchars($ban->Banned);
+			$results[$i]["uuid"] = htmlspecialchars($ban->Banned);
+			$results[$i]["staff"] = htmlspecialchars($ban->BannedBy);
+
+			if($ban->Reason !== null){
+				$results[$i]["reason"] = htmlspecialchars($ban->Reason);
+			} else {
+				$results[$i]["reason"] = "-";
+			}
+			
+			if($ban->BanTime != '-1'){
+				$results[$i]["type"] = "temp_ban";
+				$results[$i]["type_human"] = '<span class="label label-danger">' . $this->_language['temp_ban'] . '</span>';
+				
+				// Convert expiry date
+				$date = $ban->BanTime / 1000;
+				
+				$results[$i]["expires"] = strtotime($ban->BanTime);
+				$results[$i]["expires_human"] = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", $date), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
+			} else {
+				$results[$i]["type"] = "ban";
+				$results[$i]["type_human"] = '<span class="label label-danger">' . $this->_language['ban'] . '</span>';
+				$results[$i]["expires_human"] = '<span class="label label-danger">' . $this->_language['permanent'] . '</span>';
+			}
+
+			$i++;
+		}
+		
+		foreach($mutes as $mute){
+			$results[$i]["id"] = htmlspecialchars($mute->Muted);
+			$results[$i]["uuid"] = htmlspecialchars($mute->Muted);
+			$results[$i]["staff"] = htmlspecialchars($mute->MutedBy);
+
+			if($mute->Reason !== null){
+				$results[$i]["reason"] = htmlspecialchars($mute->Reason);
+			} else {
+				$results[$i]["reason"] = "-";
+			}
+			
+			if($mute->MuteTime != '-1'){
+				$results[$i]["type"] = "temp_mute";
+				$results[$i]["type_human"] = '<span class="label label-warning">' . $this->_language['mute'] . '</span>';
+				
+				// Convert expiry date
+				$date = $mute->MuteTime / 1000;
+				
+				$results[$i]["expires"] = strtotime($mute->MuteTime);
+				$results[$i]["expires_human"] = '<span class="label label-warning" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", $date), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
+			} else {
+				$results[$i]["type"] = "mute";
+				$results[$i]["type_human"] = '<span class="label label-warning">' . $this->_language['mute'] . '</span>';
+				$results[$i]["expires_human"] = '<span class="label label-danger">' . $this->_language['permanent'] . '</span>';
+			}
+
+			$i++;
+		}
+		return $results;
+	}
+	
+	// Receive an object containing infraction information for a specified infraction ID and type (BungeeUtilisals plugin)
+	// Params: $type (string), either ban or mute; $id (string), UUID of infraction
+	public function bu_getInfraction($type, $id) {
+		if($type === "ban" || $type === "temp_ban"){
+			$results = $this->_db->get('bans', array("Banned", "=", $id))->results();
+
+			if(count($results)) return $results[0];
+		} else if($type === "mute" || $type === "temp_mute"){
+			$results = $this->_db->get('mutes', array("Muted", "=", $id))->results();
+
+			if(count($results)) return $results[0];
+		}
+
+		return false;
+	}
+	
 }

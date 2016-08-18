@@ -29,7 +29,7 @@ if($user->isLoggedIn()){
 
 <h3>Addon: Infractions</h3>
 Author: Samerton<br />
-Version: 1.0.3<br />
+Version: 1.0.4<br />
 Description: Integrate your server infractions with your website<br />
 
 <h3>Infractions Settings</h3>
@@ -141,6 +141,9 @@ if(empty($infractions_settings)){
     </label>
     <label class="btn btn-primary<?php if($infractions_settings[0]->value == 'bam'){ ?> active<?php } ?>">
 	  <input type="radio" name="plugin_type" id="InputPluginType3" value="bam" autocomplete="off"<?php if($infractions_settings[0]->value == 'bam'){ ?> checked<?php } ?>> Ban and Mute Plugin
+    </label>
+    <label class="btn btn-primary<?php if($infractions_settings[0]->value == 'bu'){ ?> active<?php } ?>">
+	  <input type="radio" name="plugin_type" id="InputPluginType4" value="bu" autocomplete="off"<?php if($infractions_settings[0]->value == 'bu'){ ?> checked<?php } ?>> BungeeUtilisals
     </label>
   </div>
   <br /><br />
