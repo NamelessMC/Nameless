@@ -34,7 +34,7 @@ if($user->isLoggedIn()){
 <?php if(!isset($_GET['view']) && !isset($_GET['do'])){ ?>  
 <h3>Addon: Donate</h3>
 Author: Samerton<br />
-Version: 1.0.2<br />
+Version: 1.0.3<br />
 Description: Integrate a donation store with your website<br />
 
 <h3>Donation Store</h3>
@@ -43,7 +43,7 @@ $donation_settings = $queries->tableExists('donation_settings');
 if(empty($donation_settings)){
 	// Hasn't been installed yet
 	// Install now
-	$data = $queries->createTable("donation_cache", " `id` int(11) NOT NULL AUTO_INCREMENT, `time` int(11) NOT NULL, `uuid` varchar(32) NOT NULL, `ign` varchar(20) NOT NULL, `price` varchar(10) NOT NULL, `package` varchar(64) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
+	$data = $queries->createTable("donation_cache", " `id` int(11) NOT NULL AUTO_INCREMENT, `time` int(11) NOT NULL, `uuid` varchar(32) NOT NULL, `ign` varchar(20) NOT NULL, `price` varchar(10) NOT NULL, `package` varchar(64) DEFAULT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 	echo '<strong>Donation Cache</strong> table successfully initialised<br />';
 	$data = $queries->createTable("donation_categories", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `cid` varchar(64) NOT NULL, `order` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 	echo '<strong>Donation Categories</strong> table successfully initialised<br />';
