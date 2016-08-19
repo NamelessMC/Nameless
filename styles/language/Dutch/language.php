@@ -8,7 +8,8 @@
  *  http://headhunterz.pw
  */
   /*
- *  Updated by melerpe
+ *  Updated and removed syntax error by melerpe
+    
  *
  */
 /*
@@ -449,7 +450,7 @@ $user_language = array(
 	'location_minimum_2' => 'Je locatie moet minstens uit 2 tekens bestaan.',
 	'location_maximum_128' => 'Je locatie mag maar uit 128 tekens bestaan.',
 	'verify_account' => 'Verifieer account',
-	'verify_account_help' => 'Volg a.u.b. de stappen zodat wij kunnen zie of u eigenaar bent van het account,
+	'verify_account_help' => 'Volg a.u.b. de stappen zodat wij kunnen zie of u eigenaar bent van het account',
 	'verification_failed' => 'Verificatie mislukt. Probeer a.u.b. Opnieuw',
 	'verification_success' => 'Verificatie gelukt! Je kan nu inloggen.',
 
