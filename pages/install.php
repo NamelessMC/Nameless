@@ -631,7 +631,7 @@ if(isset($_GET["step"])){
 							));
 							
 							$queries->create('settings', array(
-								'name' => 'mcassoc',
+								'name' => 'use_mcassoc',
 								'value' => '0'
 							));
 							
@@ -1065,7 +1065,7 @@ if(isset($_GET["step"])){
 						'value' => 'helmavatar'
 					),
 					39 => array(
-						'name' => 'mcassoc',
+						'name' => 'use_mcassoc',
 						'value' => '0'
 					),
 					40 => array(
