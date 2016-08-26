@@ -1,8 +1,10 @@
 <?php
 /*
- *                               Translation created by LPkkjHD & BukkitTNT
+ *                               Translation created by manuelgu, LPkkjHD, BukkitTNT & philipp0002
  *                             https://www.spigotmc.org/members/bukkittnt.71804/
  *                              https://www.spigotmc.org/members/lpkkjhd.31564/
+ *								https://www.spigotmc.org/members/manuelgu.32316/
+ *							  https://www.spigotmc.org/members/philipp0002.26678/
  *
  *                                              License: MIT
  */
@@ -17,8 +19,8 @@
 $admin_language = array(
 	// General terms
 	'admin_cp' => 'AdminCP',
-	'infractions' => 'die Übertretung',
-	'invalid_token' => 'Unbekannter Token, bitte versuche es erneut',
+	'infractions' => 'Straftaten',
+	'invalid_token' => 'Unbekannte Sitzung, bitte versuche es erneut',
 	'invalid_action' => 'Unmögliche Aktion',
 	'successfully_updated' => 'Update erfolgreich',
 	'settings' => 'Einstellungen',
@@ -32,7 +34,7 @@ $admin_language = array(
 
 	// Admin sidebar
 	'index' => 'Übersicht',
-	'announcements' => 'Announcements',
+	'announcements' => 'Hinweise',
 	'core' => 'Core',
 	'custom_pages' => 'Eigene Seiten',
 	'general' => 'Allgemein',
@@ -49,24 +51,24 @@ $admin_language = array(
 	'registrations_per_day' => 'Registrationen pro Tag (letzten 7 Tage)',
 
 	// Admin announcements page
-	'current_announcements' => 'Current Announcements',
-	'create_announcement' => 'Create Announcement',
-	'announcement_content' => 'Announcement Content',
-	'announcement_location' => 'Announcement Location',
-	'announcement_can_close' => 'Can close announcement?',
-	'announcement_permissions' => 'Announcement Permissions',
-	'no_announcements' => 'No announcements created yet.',
-	'confirm_cancel_announcement' => 'Are you sure you want to cancel this announcement?',
-	'announcement_location_help' => 'Ctrl-click to select multiple pages',
-	'select_all' => 'Select All',
-	'deselect_all' => 'Deselect All',
-	'announcement_created' => 'Announcement successfully created',
-	'please_input_announcement_content' => 'Please input announcement content and select a type',
-	'confirm_delete_announcement' => 'Are you sure you want to delete this announcement?',
-	'announcement_actions' => 'Announcement Actions',
-	'announcement_deleted' => 'Announcement successfully deleted',
-	'announcement_type' => 'Announcement Type',
-	'can_view_announcement' => 'Can view announcement?',
+	'current_announcements' => 'Aktuelle Hinweise',
+	'create_announcement' => 'Hinweis erstellen',
+	'announcement_content' => 'Hinweisinhalt',
+	'announcement_location' => 'Hinweisposition',
+	'announcement_can_close' => 'Kann den Hinweis schließen?',
+	'announcement_permissions' => 'Hinweisrechte',
+	'no_announcements' => 'Noch keine Hinweise vorhanden.',
+	'confirm_cancel_announcement' => 'Willst du wirklich diesen Hinweis löschen?',
+	'announcement_location_help' => 'Strg-Klick um mehrere Seiten zu wählen',
+	'select_all' => 'Alle auswählen',
+	'deselect_all' => 'Alle Nicht-auswählen',
+	'announcement_created' => 'Hinweis erfolgreich erstellt',
+	'please_input_announcement_content' => 'Bitte füge noch den Inhalt und die Art hinzu',
+	'confirm_delete_announcement' => 'Wirklich diesen Hinweis löschen?',
+	'announcement_actions' => 'Hinweisaktionen',
+	'announcement_deleted' => 'Hinweis erfolgreich gelöscht',
+	'announcement_type' => 'Hinweisart',
+	'can_view_announcement' => 'Kann den Hinweis sehen?',
 
 	// Admin core page
 	'general_settings' => 'Allgemeine Einstellungen',
@@ -163,8 +165,8 @@ $admin_language = array(
 	'page_link_none' => 'Kein Seitenlink',
 	'page_permissions' => 'Seiten Permissions',
 	'can_view_page' => 'Kann Seite sehen:',
-	'redirect_page' => 'Redirect page?',
-	'redirect_link' => 'Redirect link',
+	'redirect_page' => 'Seite weiterleiten?',
+	'redirect_link' => 'Weiterleitungslink',
 
 	// Admin forum page
 	'labels' => 'Themen Label',
@@ -304,13 +306,13 @@ $admin_language = array(
 	'avatar_type' => 'Avatar Typ',
 	'custom_usernames' => 'Nur Minecarftnamen?',
 	'mcassoc' => 'mcassoc',
-	'use_mcassoc' => 'Use mcassoc?',
-	'use_mcassoc_help' => 'mcassoc ensures users own the Minecraft account they\'re registering with',
+	'use_mcassoc' => 'mcassoc nutzen?',
+	'use_mcassoc_help' => 'mcassoc sorgt dafür, dass Minecraftaccounts verifiziert werden können',
 	'mcassoc_key' => 'mcassoc Shared Key',
-	'invalid_mcassoc_key' => 'Invalid mcassoc key.',
-	'mcassoc_instance' => 'mcassoc Instance',
-	'mcassoc_instance_help' => 'Generate an instance code <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">here</a>',
-	'mcassoc_key_help' => 'Get your mcassoc key <a href="https://mcassoc.lukegb.com/" target="_blank">here</a>',
+	'invalid_mcassoc_key' => 'Falscher mcassoc key.',
+	'mcassoc_instance' => 'mcassoc Instanz',
+	'mcassoc_instance_help' => 'Generiere einen Instanzcode <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">hier</a>',
+	'mcassoc_key_help' => 'Hole dir deinen Key <a href="https://mcassoc.lukegb.com/" target="_blank">hier</a>',
 
 	// Admin Themes, Templates and Addons
 	'themes' => 'Themen',
@@ -553,15 +555,15 @@ $user_language = array(
 	'write_on_user_profile' => 'Schreibe etwas unter {x}\'s Profil...', // Don't replace {x}
 	'write_on_own_profile' => 'Schreibe etwas unter dein Profil...',
 	'profile_posts' => 'Profil Nachrichten',
-	'no_profile_posts' => 'Es existieren kien Profilnachrichten.',
+	'no_profile_posts' => 'Es existieren keine Profilnachrichten.',
 	'invalid_wall_post' => 'Die Nachricht muss zwichen 2 und 2048 Zeichen lang sein.',
 	'about' => 'Über',
 	'reply' => 'Antworten',
 	'x_likes' => '{x} likes', // Don't replace {x}
 	'likes' => 'Likes',
 	'no_likes' => 'Keine likes.',
-	'post_liked' => 'Post geliket.',
-	'post_unliked' => 'Post gedisliket.',
+	'post_liked' => 'Post geliked.',
+	'post_unliked' => 'Post gedisliked.',
 	'no_posts' => 'Keine Posts.',
 	'last_5_posts' => 'Letzten 5 Posts',
 	'follow' => 'Folgen',
@@ -599,7 +601,7 @@ $mod_language = array(
 	'ip_lookup' => 'IP Lookup:',
 	'registered' => 'Registriert',
 	'reason' => 'Grund:',
-	'cant_ban_root_user' => 'Can\'t punish the root user!',
+	'cant_ban_root_user' => 'Root-Nutzer kann nicht bestraft werden.',
 	'invalid_reason' => 'Gib bitte einen gültigen Grund an.',
 	'punished_successfully' => 'Der Nutzer wurde erfolgreich bestraft.',
 
