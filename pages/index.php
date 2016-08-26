@@ -213,7 +213,7 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 
 					// build and display HTML treeview using custom image paths (remote icons will be embedded using data URI sheme)
 					$viewer = $ts3_VirtualServer->getViewer(new TeamSpeak3_Viewer_Html("core/assets/img/ts3/viewer/", "core/assets/img/ts3/flags/", "data:image"));
-					$viewer .= '<br /><center><a href="ts3server://' . htmlspecialchars($voice_server_ip) . '" class="btn btn-primary">' . $general_language['join'] . '</a></center>';
+					$viewer .= '<br /><center><a href="ts3server://' . htmlspecialchars($voice_server_ip) . ':' . htmlspecialchars($voice_server_port) . '" class="btn btn-primary">' . $general_language['join'] . '</a></center>';
 				
 					// Cache
 					$c->store('ts', $viewer, 300); // cache for 5 mins
