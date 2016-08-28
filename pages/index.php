@@ -167,7 +167,7 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 			'date' => date('d M Y, H:i', $item['topic_date']),
 			'title' => htmlspecialchars($item['topic_title']),
 			'views' => $item['topic_views'],
-			'replies' => $item['replies'],
+			'replies' => ($item['replies'] - 1),
 			'author_mcname' => htmlspecialchars($user->idToMCName($item['author'])),
 			'author_username' => htmlspecialchars($user->idToName($item['author'])),
 			'author_avatar' => $avatar,
