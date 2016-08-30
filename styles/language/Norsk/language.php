@@ -774,6 +774,7 @@ $forum_language = array(
 	
 	// Search
 	'search_error' => 'Vennligst skriv inn et søk på mellom 1 og 32 tegn.',
+	'no_search_results' => 'No search results have been found.',
 	
 	//Share on a social-media.
 	'sm-share' => 'Del',

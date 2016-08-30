@@ -772,6 +772,7 @@ $forum_language = array(
 	
 	// Search
 	'search_error' => 'Zadajte prosím vyhľadávací dotaz medzi 1 az 32 znakov.',
+	'no_search_results' => 'No search results have been found.',
 	
 	//Share on a social-media.
 	'sm-share' => 'podiel',

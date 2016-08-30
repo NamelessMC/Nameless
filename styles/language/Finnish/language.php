@@ -774,6 +774,7 @@ $forum_language = array(
 	
 	// Search
 	'search_error' => 'Laita hakukyselyyn 1-20 merkkiä.',
+	'no_search_results' => 'No search results have been found.',
 	
 	//Share on a social-media.
 	'sm-share' => 'Jakaa',

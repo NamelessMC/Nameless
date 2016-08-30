@@ -776,6 +776,7 @@ $forum_language = array(
 	
 	// Search
 	'search_error' => 'Die Suchanfrage muss zwischen 1 und 32 Zeichen lang sein.',
+	'no_search_results' => 'No search results have been found.',
 	
 	//Share on a social-media.
 	'sm-share' => 'Aktie',
