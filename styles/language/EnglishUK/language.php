@@ -101,7 +101,7 @@ $admin_language = array(
 	'google_analytics_help' => 'See <a href="https://support.google.com/analytics/answer/1008080?hl=en#GA" target="_blank">this guide</a> for more information, following steps 1 to 3.',
 	'social_media_links' => 'Social Media Links',
 	'youtube_url' => 'YouTube URL',
-	'twitter_url' => 'Twitter URL',
+	'twitter_url' => 'Twitter URL (Don\'t end with /'),
 	'twitter_dark_theme' => 'Use dark Twitter theme?',
 	'twitter_widget_id' => 'Twitter Widget ID',
 	'google_plus_url' => 'Google Plus URL',
