@@ -128,20 +128,33 @@ if($user->isLoggedIn()){ // User must be logged in to search
 					'post_creator' => $result->post_creator,
 					'post_content' => $result->post_content,
 					'post_date' => $result->post_date,
-					'post_id' => $result->id
+					'post_id' => $result->id,
+					'forum_id' => $result->forum_id
 				);
 			} else {
 				// Topics
 				$merged_results[$result->id][] = array(
 					'topic_id' => $result->id,
 					'topic_title' => $result->topic_title,
-					'label' => $result->label
+					'label' => $result->label,
+					'forum_id' => $result->forum_id
 				);
 			}
 		}
 		
 		// Loop through merged items and see if they're just topics, just posts, or both
 		foreach($merged_results as $result){
+			// Check permissions
+			$permissions = $queries->getWhere('forums_permissions', array('forum_id', '=', $merged_results[$result[0]['topic_id']][0]['forum_id']));
+			foreach($permissions as $permission){
+				if($permission->group_id == $user->data()->group_id){
+					if($permission->view == 0){
+						unset($merged_results[$result[0]['topic_id']]);
+						continue 2;
+					} else break;
+				}
+			}
+			
 			if(isset($result[0]['topic_title'])){
 				// Topic
 				if(!isset($result[1])){
@@ -174,51 +187,53 @@ if($user->isLoggedIn()){ // User must be logged in to search
 		// Reset array keys (for pagination)
 		$merged_results = array_values($merged_results);
 		
-		//echo '<pre>', print_r($merged_results), '</pre>';
-		
-		// Pagination
-		$pagination = new Pagination();
-		$pagination->setCurrent($p);
-		$pagination->setTotal(count($merged_results));
-		$pagination->alwaysShowPagination();
-
-		// Get number of users we should display on the page
-		$paginate = PaginateArray($p);
-
-		$n = $paginate[0];
-		$f = $paginate[1];
-		
-		// Get the number we need to finish on ($d)
-		if(count($merged_results) > $f){
-			$d = $p * 10;
+		if(!count($merged_results)){
+			// No results
+			echo '<div class="alert alert-danger">' . $forum_language['no_search_results'] . '</div>';
 		} else {
-			$d = count($merged_results) - $n;
-			$d = $d + $n;
-		}
+			// Pagination
+			$pagination = new Pagination();
+			$pagination->setCurrent($p);
+			$pagination->setTotal(count($merged_results));
+			$pagination->alwaysShowPagination();
 
-		// Initialise HTMLPurifier
-		$config = HTMLPurifier_Config::createDefault();
-		$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
-		$config->set('URI.DisableExternalResources', false);
-		$config->set('URI.DisableResources', false);
-		$config->set('HTML.Allowed', 'u,p,b,i,a,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
-		$config->set('CSS.AllowedProperties', array('text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
-		$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style');
-		$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
-		$config->set('HTML.SafeIframe', true);
-		$config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
-		$purifier = new HTMLPurifier($config);
-		
-		// Display the specific number of results
-		while($n < $d){
-			// Is the topic first in the array, or the post?
-			if(isset($merged_results[$n][0]['topic_title'])){
-				$topic = 0;
-				$post = 1;
+			// Get number of users we should display on the page
+			$paginate = PaginateArray($p);
+
+			$n = $paginate[0];
+			$f = $paginate[1];
+			
+			// Get the number we need to finish on ($d)
+			if(count($merged_results) > $f){
+				$d = $p * 10;
 			} else {
-				$topic = 1;
-				$post = 0;
+				$d = count($merged_results) - $n;
+				$d = $d + $n;
 			}
+
+			// Initialise HTMLPurifier
+			$config = HTMLPurifier_Config::createDefault();
+			$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
+			$config->set('URI.DisableExternalResources', false);
+			$config->set('URI.DisableResources', false);
+			$config->set('HTML.Allowed', 'u,p,b,i,a,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
+			$config->set('CSS.AllowedProperties', array('text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
+			$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style');
+			$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
+			$config->set('HTML.SafeIframe', true);
+			$config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
+			$purifier = new HTMLPurifier($config);
+			
+			// Display the specific number of results
+			while($n < $d){
+				// Is the topic first in the array, or the post?
+				if(isset($merged_results[$n][0]['topic_title'])){
+					$topic = 0;
+					$post = 1;
+				} else {
+					$topic = 1;
+					$post = 0;
+				}
 
 			?>
 	  <div class="panel panel-primary">
@@ -236,11 +251,11 @@ if($user->isLoggedIn()){ // User must be logged in to search
 		</div>
 	  </div>
 			<?php
-
-			$n++;
-		}
+				$n++;
+			}
 		
-		echo $pagination->parse(); // Print pagination
+			echo $pagination->parse(); // Print pagination
+		}
 	  } else {
 	  ?>
 	  <form class="form-horizontal" role="form" method="post" action="">

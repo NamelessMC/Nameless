@@ -771,6 +771,7 @@ $forum_language = array(
 	
 	// Search
 	'search_error' => 'Merci d\'entrer une recherche comprise entre 1 et 32 caractères de longueur.',
+	'no_search_results' => 'No search results have been found.',
 	
 	//Share on a social-media.
 	'sm-share' => 'Partager',

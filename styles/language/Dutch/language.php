@@ -776,9 +776,10 @@ $forum_language = array(
     'are_you_logged_in' => 'Bent u ingelogd?',
     'online_users' => 'Gebruikers Online',
     'no_users_online' => 'Er zijn geen gebruikers online.',
-     
+
     // Search
     'search_error' => 'Voer een zoekopdracht in die tussen 1 en 32 tekens lang is.',
+	'no_search_results' => 'No search results have been found.',
     
     //Share on a social-media.
 	'sm-share' => 'Delen',
