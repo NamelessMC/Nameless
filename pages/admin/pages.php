@@ -522,7 +522,7 @@ $token = Token::generate(); // generate token
 	<script type="text/javascript">
 		CKEDITOR.replace( 'content_editor', {
 			// Define the toolbar groups as it is a more accessible solution.
-			extraAllowedContent: 'div(well)',
+			extraAllowedContent: 'div(panel,panel-*,well)',
 			toolbarGroups: [
 				{"name":"basicstyles","groups":["basicstyles"]},
 				{"name":"links","groups":["links"]},
