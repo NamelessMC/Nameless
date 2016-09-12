@@ -60,7 +60,7 @@ $admin_language = array(
 	'announcement_permissions' => 'Hinweisrechte',
 	'no_announcements' => 'Noch keine Ankündigungen vorhanden.',
 	'confirm_cancel_announcement' => 'Willst du diese Ankündigung wirklich stornieren?',
-	'announcement_location_help' => 'Strg-Klick, um mehrere Seiten zu wählen',
+	'announcement_location_help' => 'Strg-Klick um mehrere Seiten zu wählen',
 	'select_all' => 'Alle auswählen',
 	'deselect_all' => 'Alle Nicht-auswählen',
 	'announcement_created' => 'Ankündigung erfolgreich erstellt',
@@ -501,7 +501,7 @@ $user_language = array(
 	'tfa_successful' => 'Zwei-Faktor-Authentifizierung erfolgreich eingerichtet.',
 	'confirm_tfa_disable' => 'Willst du die Zwei-Faktor-Authentifizierung deaktivieren?',
 	'tfa_disabled' => 'Du hast die Zwei-Faktor-Authentifizierung deaktiviert.',
-	'tfa_enter_email_code' => 'Gib den dir per E-Mail zugeschickten Code ein:',
+	'tfa_enter_email_code' => 'Gib den Code ein, der dir per E-Mail zugeschickt wurde',
 	'tfa_email_contents' => 'Jemand hat sich versucht mit deinem Konto anzumelden. Wenn du das warst, gib folgenden Code ein:',
 
 	// Alerts
@@ -571,7 +571,7 @@ $user_language = array(
 	'unfollow' => 'Nicht mehr Folgen',
 	'name_history' => 'Name History',
 	'changed_name_to' => 'Hat am {y} seinen Namen zu {x} geändert.', // Don't replace {x} or {y}
-	'original_name' => 'Originaler Name:',
+	'original_name' => 'Voriger Name:',
 	'name_history_error' => 'Fehler beim abrufen der Name-History.',
 
 	// Staff applications
