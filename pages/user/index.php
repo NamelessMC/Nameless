@@ -76,7 +76,16 @@ $user_page = 'index';
 			<strong><?php echo $user_language['posts']; ?>:</strong> <?php echo $posts; ?><br />
 			<strong><?php echo $user_language['reputation']; ?>:</strong> <?php echo $reputation; ?><br />
 			<strong><?php echo $mod_language['registered']; ?>:</strong> <?php echo date('d M Y, H:i', $user->data()->joined); ?><br />
-			<strong><?php echo $user_language['friends']; ?>:</strong> <?php echo $friends; ?>
+			<?php 
+			$use_followers = $queries->getWhere('settings', array('name', '=', 'followers'));
+			$use_followers = $use_followers[0]->value;
+			
+			if($use_followers == '1'){ ?> 
+				<strong><?php echo $user_language['following']; ?>:</strong> <?php echo $friends; ?><br />
+				<strong><?php echo $user_language['followers']; ?>:</strong> <?php echo count($user->listFollowers($user->data()->id)); ?><br />
+			<?php } else { ?> 
+				<strong><?php echo $user_language['friends']; ?>:</strong> <?php echo $friends;
+			} ?>
 		  </div>
 		</div>
       </div>	  
