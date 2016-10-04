@@ -114,7 +114,7 @@ if(isset($profile)){
 						$original_post_id = $queries->getWhere('user_profile_wall_posts', array('id', '=', Input::get('pid')));
 						$original_post_id = $original_post_id[0]->author_id;
 						
-						if (!$profile_user[0]->id === $original_post_id && !$profile_user[0]->id === $user->data()->id) {
+						if ($profile_user[0]->id !== $original_post_id && $profile_user[0]->id !== $user->data()->id) {
 							// Alert profile user
 							$queries->create('alerts', array(
 								'user_id' => $profile_user[0]->id,
@@ -171,7 +171,7 @@ if(isset($profile)){
 							'content' => htmlspecialchars(Input::get('wall_post'))
 						));
 						
-						if (!$profile_user[0]->id === $user->data()->id) {
+						if ($profile_user[0]->id !== $user->data()->id) {
 							// Alert user
 							$queries->create('alerts', array(
 								'user_id' => $profile_user[0]->id,
