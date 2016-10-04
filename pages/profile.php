@@ -718,6 +718,9 @@ if(isset($profile)){
 								
 								if($permission != true) continue;
 								
+								// Check the post isn't deleted
+								if($latest_post->deleted == 1) continue;
+								
 								// Get topic title
 								$topic_title = $queries->getWhere('topics', array('id', '=', $latest_post->topic_id));
 								$topic_title = htmlspecialchars($topic_title[0]->topic_title);
