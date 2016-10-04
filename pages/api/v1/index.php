@@ -152,6 +152,10 @@ class NamelessAPI {
 			
 			// Ensure user doesn't already exist
 			$this->_db = DB::getInstance();
+			
+			$username= $this->_db->get('users', array('mcname', '=', htmlspecialchars($_POST['username'])));
+			if(count($username->results())) $this->throwError('Username already exists');
+			
 			$uuid = $this->_db->get('users', array('uuid', '=', htmlspecialchars($_POST['uuid'])));
 			if(count($uuid->results())) $this->throwError('UUID already exists');
 			
