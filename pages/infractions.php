@@ -173,8 +173,22 @@ if(isset($_GET['p'])){
 						if($inf_plugin == 'bat') $mcname = $infractions->bat_getUsernameFromUUID($infraction['uuid']);
 						
 						if($inf_plugin != 'bat' || !count($mcname)){
+							if($inf_plugin == 'bm') $mcname = $infractions->bm_getUsernameFromID(pack("H*", str_replace('-', '', $infraction['uuid'])));
+							
 							$infractions_query = $queries->getWhere('uuid_cache', array('uuid', '=', str_replace('-', '', $infraction["uuid"])));
+							
 							if(empty($infractions_query)){
+								if(count($mcname)) {
+									try {
+										$queries->create("uuid_cache", array(
+											'mcname' => $mcname,
+											'uuid' => $infraction['uuid']
+										));
+									} catch(Exception $e){
+										die($e->getMessage());
+									}
+								}
+								
 								$profile = ProfileUtils::getProfile(str_replace('-', '', $infraction["uuid"]));
 								if(empty($profile)){
 									echo 'Could not find that player';
