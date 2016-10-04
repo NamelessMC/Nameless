@@ -37,6 +37,7 @@ $uuid_linking = $uuid_linking[0]->value;
 
 require('core/includes/password.php'); // Password compat library
 require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifier
+require('core/integration/uuid.php');
 
 ?>
 <!DOCTYPE html>
@@ -202,6 +203,18 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 									);
 									$mcname = htmlspecialchars(Input::get('username'));
 								}
+								
+								// Get UUID
+								$profile = ProfileUtils::getProfile($mcname);
+
+								if(!empty($profile)){
+									$result = $profile->getProfileAsArray();
+									if(isset($result['uuid']) && !empty($result['uuid'])){
+										$uuid = $result['uuid'];
+									} else $uuid = 'Unknown';
+									
+								} else $uuid = 'Unknown';
+								
 							} else {
 								if($displaynames == "true"){
 									$to_validation['mcname'] = array(
@@ -242,6 +255,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 									$user->create(array(
 										'username' => htmlspecialchars(Input::get('username')),
 										'mcname' => $mcname,
+										'uuid' => $uuid,
 										'password' => $password,
 										'pass_method' => 'default',
 										'joined' => $date,
