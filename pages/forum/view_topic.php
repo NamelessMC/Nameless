@@ -555,6 +555,13 @@ $purifier = new HTMLPurifier($config);
 			$("[rel=tooltip]").tooltip({ placement: 'top'});
 			var hash = window.location.hash.substring(1);
 			$("#" + hash).effect("highlight", {}, 2000);
+			(function() {
+			    if (document.location.hash) {
+			        setTimeout(function() {
+			            window.scrollTo(window.scrollX, window.scrollY - 70);
+			        }, 10);
+			    }
+			})();
 		});
 		
 		CKEDITOR.replace( 'quickreply', {
