@@ -245,15 +245,19 @@ class Forum {
 	
 		foreach($forums as $item){
 			if($item->parent != 0){
-				$latest_post = $this->_db->orderWhere('posts', 'forum_id = ' . $item->id, 'post_date', 'DESC LIMIT 1')->results();
+				$latest_post_query = $this->_db->orderWhere('posts', 'forum_id = ' . $item->id, 'post_date', 'DESC')->results();
 				
-				if(count($latest_post)){
-					$latest_post = $latest_post[0];
-		
-					$latest_posts[$n]["forum_id"] = $item->id;
-					$latest_posts[$n]["date"] = $latest_post->post_date;
-					$latest_posts[$n]["author"] = $latest_post->post_creator;
-					$latest_posts[$n]["topic_id"] = $latest_post->topic_id;
+				if(count($latest_post_query)){
+					foreach($latest_post_query as $latest_post){
+						if($latest_post->deleted != 1){
+							$latest_posts[$n]["forum_id"] = $item->id;
+							$latest_posts[$n]["date"] = $latest_post->post_date;
+							$latest_posts[$n]["author"] = $latest_post->post_creator;
+							$latest_posts[$n]["topic_id"] = $latest_post->topic_id;
+							
+							break;
+						}
+					}
 				}
 				
 				$n++;
@@ -284,14 +288,18 @@ class Forum {
 		$n = 0;
 	
 		foreach($topics as $topic){
-			$latest_post = $this->_db->orderWhere('posts', 'topic_id = ' . $topic->id, 'post_date', 'DESC LIMIT 1')->results();
+			$latest_post_query = $this->_db->orderWhere('posts', 'topic_id = ' . $topic->id, 'post_date', 'DESC')->results();
 			
-			if(count($latest_post)){
-				$latest_post = $latest_post[0];
-
-				$latest_posts[$n]["topic_id"] = $topic->id;
-				$latest_posts[$n]["date"] = $latest_post->post_date;
-				$latest_posts[$n]["author"] = $latest_post->post_creator;
+			if(count($latest_post_query)){
+				foreach($latest_post_query as $latest_post){
+					if($latest_post->deleted != 1){
+						$latest_posts[$n]["topic_id"] = $topic->id;
+						$latest_posts[$n]["date"] = $latest_post->post_date;
+						$latest_posts[$n]["author"] = $latest_post->post_creator;
+						
+						break;
+					}
+				}
 			}
 	
 			$n++;

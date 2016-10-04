@@ -123,7 +123,9 @@ if($user->isLoggedIn()){ // User must be logged in to search
 		foreach($search_results as $result){
 			if(!isset($result->topic_title)){
 				// Posts
-				$merged_results[$result->topic_id][] = array(
+				if($result->deleted == 1) continue;
+				
+				$merged_results[]['post'] = array(
 					'topic_id' => $result->topic_id,
 					'post_creator' => $result->post_creator,
 					'post_content' => $result->post_content,
@@ -133,7 +135,7 @@ if($user->isLoggedIn()){ // User must be logged in to search
 				);
 			} else {
 				// Topics
-				$merged_results[$result->id][] = array(
+				$merged_results[]['topic'] = array(
 					'topic_id' => $result->id,
 					'topic_title' => $result->topic_title,
 					'label' => $result->label,
@@ -143,44 +145,44 @@ if($user->isLoggedIn()){ // User must be logged in to search
 		}
 		
 		// Loop through merged items and see if they're just topics, just posts, or both
-		foreach($merged_results as $result){
+		foreach($merged_results as $key => $result){
+			// Check type; topic or post?
+			if(isset($result['post_content'])) $type = 'post';
+			else $type = 'topic';
+			
 			// Check permissions
-			$permissions = $queries->getWhere('forums_permissions', array('forum_id', '=', $merged_results[$result[0]['topic_id']][0]['forum_id']));
+			$permissions = $queries->getWhere('forums_permissions', array('forum_id', '=', $result[$type]['forum_id']));
 			foreach($permissions as $permission){
 				if($permission->group_id == $user->data()->group_id){
 					if($permission->view == 0){
-						unset($merged_results[$result[0]['topic_id']]);
+						unset($merged_results[$key]);
 						continue 2;
 					} else break;
 				}
 			}
 			
-			if(isset($result[0]['topic_title'])){
-				// Topic
-				if(!isset($result[1])){
-					// Need to get corresponding post
-					$result_post = $queries->orderWhere('posts', 'topic_id = ' . $result[0]['topic_id'], 'id ASC LIMIT 1');
-					$merged_results[$result[0]['topic_id']][1] = array(
-						'topic_id' => $result_post[0]->topic_id,
-						'post_id' => $result_post[0]->id,
-						'post_creator' => $result_post[0]->post_creator,
-						'post_content' => $result_post[0]->post_content,
-						'post_date' => $result_post[0]->post_date
-					);
-					$result_post = null; // clear out variable
-				}
-			} else {
-				// Post
-				if(!isset($result[1])){
-					// Need to get corresponding topic
-					$result_topic = $queries->getWhere('topics', array('id', '=', $result[0]['topic_id']));
-					$merged_results[$result[0]['topic_id']][1] = array(
-						'topic_id' => $result_topic[0]->id,
-						'topic_title' => $result_topic[0]->topic_title,
-						'label' => $result_topic[0]->label
-					);
-					$result_topic = null; // clear out variable
-				}
+			// Attach corresponding post to topic
+			if(isset($result['topic']['topic_title'])){
+				$result_post = $queries->orderWhere('posts', 'topic_id = ' . $result['topic']['topic_id'], 'id ASC LIMIT 1');
+				$merged_results[$key]['post'] = array(
+					'topic_id' => $result_post[0]->topic_id,
+					'post_id' => $result_post[0]->id,
+					'post_creator' => $result_post[0]->post_creator,
+					'post_content' => $result_post[0]->post_content,
+					'post_date' => $result_post[0]->post_date
+				);
+				$result_post = null; // clear out variable
+			}
+			
+			// Attach corresponding topic to post
+			if(isset($result['post']['post_content'])){
+				$result_topic = $queries->getWhere('topics', array('id', '=', $result['post']['topic_id']));
+				$merged_results[$key]['topic'] = array(
+					'topic_id' => $result_topic[0]->id,
+					'topic_title' => $result_topic[0]->topic_title,
+					'label' => $result_topic[0]->label
+				);
+				$result_topic = null; // clear out variable
 			}
 		}
 		
@@ -226,27 +228,18 @@ if($user->isLoggedIn()){ // User must be logged in to search
 			
 			// Display the specific number of results
 			while($n < $d){
-				// Is the topic first in the array, or the post?
-				if(isset($merged_results[$n][0]['topic_title'])){
-					$topic = 0;
-					$post = 1;
-				} else {
-					$topic = 1;
-					$post = 0;
-				}
-
 			?>
 	  <div class="panel panel-primary">
 	    <div class="panel-heading">
-		  <a href="/forum/view_topic/?tid=<?php echo $merged_results[$n][$topic]['topic_id']; ?>&amp;pid=<?php echo $merged_results[$n][$post]['post_id']; ?>" class="white-text"><?php echo htmlspecialchars($merged_results[$n][$topic]['topic_title']); ?></a>
+		  <a href="/forum/view_topic/?tid=<?php echo $merged_results[$n]['topic']['topic_id']; ?>&amp;pid=<?php echo $merged_results[$n]['post']['post_id']; ?>" class="white-text"><?php echo htmlspecialchars($merged_results[$n]['topic']['topic_title']); ?></a>
 		  <span class="pull-right">
-		    <a class="white-text" href="/profile/<?php echo htmlspecialchars($user->idToMCName($merged_results[$n][$post]['post_creator'])); ?>"><?php echo htmlspecialchars($user->idToName($merged_results[$n][$post]['post_creator'])); ?></a> <img class="img-rounded" style="height:25px; width:25px;" src="<?php echo $user->getAvatar($merged_results[$n][$post]['post_creator'], '../', 25); ?>" />
+		    <a class="white-text" href="/profile/<?php echo htmlspecialchars($user->idToMCName($merged_results[$n]['post']['post_creator'])); ?>"><?php echo htmlspecialchars($user->idToName($merged_results[$n]['post']['post_creator'])); ?></a> <img class="img-rounded" style="height:25px; width:25px;" src="<?php echo $user->getAvatar($merged_results[$n]['post']['post_creator'], '../', 25); ?>" />
 		  </span>
 		</div>
 		<div class="panel-body">
-		  <?php echo $purifier->purify(htmlspecialchars_decode($merged_results[$n][$post]['post_content'])); ?>
+		  <?php echo $purifier->purify(htmlspecialchars_decode($merged_results[$n]['post']['post_content'])); ?>
 		  <span class="pull-right">
-		    <span class="label label-info"><?php echo date('d M Y, H:i', strtotime($merged_results[$n][$post]['post_date'])); ?></span>
+		    <span class="label label-info"><?php echo date('d M Y, H:i', strtotime($merged_results[$n]['post']['post_date'])); ?></span>
 		  </span>
 		</div>
 	  </div>
