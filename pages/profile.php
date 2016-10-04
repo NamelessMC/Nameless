@@ -110,27 +110,28 @@ if(isset($profile)){
 							'content' => htmlspecialchars(Input::get('post_reply'))
 						));
 						
-						// Alert profile user
-						$queries->create('alerts', array(
-							'user_id' => $profile_user[0]->id,
-							'type' => 'Profile Post',
-							'url' => '/profile/' . $mcname,
-							'content' => htmlspecialchars($user->data()->username) . ' has replied to a post on your profile.',
-							'created' => date('U')
-						));
-						
 						// Alert original post user
 						$original_post_id = $queries->getWhere('user_profile_wall_posts', array('id', '=', Input::get('pid')));
 						$original_post_id = $original_post_id[0]->author_id;
 						
-						$queries->create('alerts', array(
-							'user_id' => $original_post_id,
-							'type' => 'Profile Post',
-							'url' => '/profile/' . $mcname,
-							'content' => htmlspecialchars($user->data()->username) . ' has replied to your post on ' . htmlspecialchars($mcname) . '\'s profile.',
-							'created' => date('U')
-						));
+						if (!$profile_user[0]->id === $original_post_id && !$profile_user[0]->id === $user->data()->id) {
+							// Alert profile user
+							$queries->create('alerts', array(
+								'user_id' => $profile_user[0]->id,
+								'type' => 'Profile Post',
+								'url' => '/profile/' . $mcname,
+								'content' => htmlspecialchars($user->data()->username) . ' has replied to a post on your profile.',
+								'created' => date('U')
+							));
 						
+							$queries->create('alerts', array(
+								'user_id' => $original_post_id,
+								'type' => 'Profile Post',
+								'url' => '/profile/' . $mcname,
+								'content' => htmlspecialchars($user->data()->username) . ' has replied to your post on ' . htmlspecialchars($mcname) . '\'s profile.',
+								'created' => date('U')
+							));
+						}
 						
 						// Redirect to clear input
 						echo '<script data-cfasync="false">window.location.replace("/profile/' . $mcname . '");</script>';
@@ -170,14 +171,16 @@ if(isset($profile)){
 							'content' => htmlspecialchars(Input::get('wall_post'))
 						));
 						
-						// Alert user
-						$queries->create('alerts', array(
-							'user_id' => $profile_user[0]->id,
-							'type' => 'Profile Post',
-							'url' => '/profile/' . $mcname,
-							'content' => htmlspecialchars($user->data()->username) . ' has posted on your profile.',
-							'created' => date('U')
-						));
+						if (!$profile_user[0]->id === $user->data()->id) {
+							// Alert user
+							$queries->create('alerts', array(
+								'user_id' => $profile_user[0]->id,
+								'type' => 'Profile Post',
+								'url' => '/profile/' . $mcname,
+								'content' => htmlspecialchars($user->data()->username) . ' has posted on your profile.',
+								'created' => date('U')
+							));
+						}
 						
 						// Redirect to clear input
 						echo '<script data-cfasync="false">window.location.replace("/profile/' . $mcname . '");</script>';
