@@ -1,10 +1,11 @@
 <?php
 /*
- *                               Translation created by manuelgu, LPkkjHD, BukkitTNT & philipp0002
- *                             https://www.spigotmc.org/members/bukkittnt.71804/
+ *                              Translation created by manuelgu, LPkkjHD, BukkitTNT, philipp0002 and McLive
+ *                             	https://www.spigotmc.org/members/bukkittnt.71804/
  *                              https://www.spigotmc.org/members/lpkkjhd.31564/
  *								https://www.spigotmc.org/members/manuelgu.32316/
- *							  https://www.spigotmc.org/members/philipp0002.26678/
+ *							  	https://www.spigotmc.org/members/philipp0002.26678/
+ * 								https://www.spigotmc.org/members/mclive.1332/
  *
  *                                              License: MIT
  */
@@ -51,31 +52,31 @@ $admin_language = array(
 	'registrations_per_day' => 'Registrationen pro Tag (letzten 7 Tage)',
 
 	// Admin announcements page
-	'current_announcements' => 'Aktuelle Hinweise',
-	'create_announcement' => 'Hinweis erstellen',
-	'announcement_content' => 'Hinweisinhalt',
-	'announcement_location' => 'Hinweisposition',
-	'announcement_can_close' => 'Kann den Hinweis schließen?',
+	'current_announcements' => 'Aktuelle Ankündigungen',
+	'create_announcement' => 'Ankündigung erstellen',
+	'announcement_content' => 'Ankündigungsinhalt',
+	'announcement_location' => 'Ankündigungsposition',
+	'announcement_can_close' => 'Kann die Ankündigung schließen?',
 	'announcement_permissions' => 'Hinweisrechte',
-	'no_announcements' => 'Noch keine Hinweise vorhanden.',
-	'confirm_cancel_announcement' => 'Willst du wirklich diesen Hinweis löschen?',
+	'no_announcements' => 'Noch keine Ankündigungen vorhanden.',
+	'confirm_cancel_announcement' => 'Willst du diese Ankündigung wirklich stornieren?',
 	'announcement_location_help' => 'Strg-Klick um mehrere Seiten zu wählen',
 	'select_all' => 'Alle auswählen',
 	'deselect_all' => 'Alle Nicht-auswählen',
-	'announcement_created' => 'Hinweis erfolgreich erstellt',
+	'announcement_created' => 'Ankündigung erfolgreich erstellt',
 	'please_input_announcement_content' => 'Bitte füge noch den Inhalt und die Art hinzu',
-	'confirm_delete_announcement' => 'Wirklich diesen Hinweis löschen?',
-	'announcement_actions' => 'Hinweisaktionen',
-	'announcement_deleted' => 'Hinweis erfolgreich gelöscht',
-	'announcement_type' => 'Hinweisart',
-	'can_view_announcement' => 'Kann den Hinweis sehen?',
+	'confirm_delete_announcement' => 'Willst du diese Ankündigung wirklich löschen?',
+	'announcement_actions' => 'Ankündigungsaktionen',
+	'announcement_deleted' => 'Ankündigung erfolgreich gelöscht',
+	'announcement_type' => 'Ankündigungsart',
+	'can_view_announcement' => 'Kann die Ankündigung sehen?',
 
 	// Admin core page
 	'general_settings' => 'Allgemeine Einstellungen',
 	'modules' => 'Module',
 	'module_not_exist' => 'Dieses Modul existiert nicht!',
-	'module_enabled' => 'Modul angeschaltet.',
-	'module_disabled' => 'Modul ausgeschaltet.',
+	'module_enabled' => 'Modul aktiviert.',
+	'module_disabled' => 'Modul deaktiviert.',
 	'site_name' => 'Seitenname',
 	'language' => 'Sprache',
 	'voice_server_not_writable' => 'core/voice_server.php ist nicht beschreibbar. Bitte überprüfe die Berechtigungen',
@@ -84,33 +85,33 @@ $admin_language = array(
 	'outgoing_email' => 'Ausgehende E-Mail Adresse',
 	'outgoing_email_help' => 'Nur benötigt, wenn die PHP Mail Funktion angeschaltet ist',
 	'use_php_mail' => 'Verwende PHP mail() Funktion?',
-	'use_php_mail_help' => 'Empfohlen: Eingeschalted. Wenn diese Website keine E-Mails versendet, deaktiviere es und ändere in core/email.php deine E-Mail Einstellungen.',
+	'use_php_mail_help' => 'Empfohlen: Eingeschaltet. Wenn diese Website keine E-Mails versendet, deaktiviere es und ändere in core/email.php deine E-Mail Einstellungen.',
 	'use_gmail' => 'Verwende GoogleMail (Gmail) um E-Mails zu versenden?',
 	'use_gmail_help' => 'Diese Funktion ist nur möglich, wenn die PHP mail() Funktion deaktiviert ist. Wenn du nicht GoogleMail verwendest, wird SMTP verwendet. Beide Wege müssen manuell in core/mail.php gesetzt werden.',
 	'enable_mail_verification' => 'Aktiviere Email verifikation?',
 	'enable_email_verification_help' => 'Wenn dies aktiviert ist, müssen sich neue Nutzer per Email freischalten.',
-	'explain_email_settings' => 'The following is required if the "Use PHP mail() function" option is <strong>disabled</strong>. You can find documentation on these settings <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">on our wiki</a>.',
-	'email_config_not_writable' => 'Bitte gibt <strong>core/email.php</strong> schreib-Rechte. Wir können auf die Datei nicht zugreifen.',
+	'explain_email_settings' => 'Die folgende Einstellung wird benötigt, wenn die "Use PHP mail()" Option <strong>deaktiviert</strong> ist. Die Dokumentation dafür findest du <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">im Wiki</a>.',
+	'email_config_not_writable' => 'Bitte gebe <strong>core/email.php</strong> Schreibrechte. Wir können auf die Datei nicht zugreifen.',
 	'pages' => 'Pages',
 	'enable_or_disable_pages' => 'Aktiviere oder deaktiviere hier Seiten.',
 	'enable' => 'Aktivieren',
 	'disable' => 'Deaktivieren',
 	'maintenance_mode' => 'Forum Wartungsmodus',
 	'forum_in_maintenance' => 'Das Forum befindet sich im Wartungsmodus.',
-	'unable_to_update_settings' => 'Fehler beim Updaten der Einstellungen, stelle sicher, dass alle Felder ausgefüllt sind.',
+	'unable_to_update_settings' => 'Fehler beim aktualisieren der Einstellungen. Stelle sicher, dass alle Felder ausgefüllt sind.',
 	'editing_google_analytics_module' => 'Editiere Google Analytics Einstellungen',
 	'tracking_code' => 'Tracking Code',
-	'tracking_code_help' => 'Insert the tracking code for Google Analytics here, including the surrounding script tags.',
-	'google_analytics_help' => 'See <a href="https://support.google.com/analytics/answer/1008080?hl=en#GA" target="_blank">this guide</a> for more information, following steps 1 to 3.',
+	'tracking_code_help' => 'Füge hier den Tracking Code für Google Analytics ein. Die script-Tags werden ebenfalls benötigt.',
+	'google_analytics_help' => 'Siehe <a href="https://support.google.com/analytics/answer/1008080?hl=en#GA" target="_blank">hier</a> für mehr Informationen (Schritt 1-3).',
 	'social_media_links' => 'Social Media Links',
 	'youtube_url' => 'YouTube URL',
 	'twitter_url' => 'Twitter URL',
-	'twitter_dark_theme' => 'Use dark Twitter theme?',
+	'twitter_dark_theme' => 'Dunkles Twitter-Layout verwenden?',
 	'twitter_widget_id' => 'Twitter Widget ID',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'registration' => 'Registration',
-	'registration_warning' => 'Wenn dieses Option aktiviert ist können sich keine neuen Nutzer registrieren.',
+	'registration_warning' => 'Wenn dieses Option aktiviert ist, können sich keine neuen Nutzer registrieren.',
 	'google_recaptcha' => 'Aktiviere Google reCAPTCHA',
 	'recaptcha_site_key' => 'reCAPTCHA Site Key',
 	'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
@@ -140,7 +141,7 @@ $admin_language = array(
 	'question_deleted' => 'Frage gelöscht',
 	'use_followers' => 'FollowerSystem nutzen?',
 	'use_followers_help' => 'Wenn dies nicht aktiv ist, wird das FreundeSystem genutzt.',
-	
+
 	// Admin custom pages page
 	'click_on_page_to_edit' => 'Klicke auf eine Seite, um sie zu bearbeiten.',
 	'page' => 'Seite:',
@@ -163,7 +164,7 @@ $admin_language = array(
 	'page_link_more' => 'Navigationsleiste -> "Mehr" Menü',
 	'page_link_footer' => 'Fußleiste',
 	'page_link_none' => 'Kein Seitenlink',
-	'page_permissions' => 'Seiten Permissions',
+	'page_permissions' => 'Seiten Berechtigungen',
 	'can_view_page' => 'Kann Seite sehen:',
 	'redirect_page' => 'Seite weiterleiten?',
 	'redirect_link' => 'Weiterleitungslink',
@@ -206,7 +207,7 @@ $admin_language = array(
 	'input_forum_title' => 'Gib einen Foren-Titel an.',
 	'input_forum_description' => 'Gib eine Foren-Beschreibung an.',
 	'forum_name_minimum' => 'Der Foren-Name muss mindestens 2 Zeichen lang sein.',
-	'forum_description_minimum' => 'Die Foren-Beshcreibung muss mindestens 2 Zeichen lang sein.',
+	'forum_description_minimum' => 'Die Foren-Beschreibung muss mindestens 2 Zeichen lang sein.',
 	'forum_name_maximum' => 'Der Foren-Name darf maximal 150 Zeichen lang sein.',
 	'forum_description_maximum' => 'Die Foren-Beschreibung darf maximal 150 Zeichen lang sein.',
 	'forum_type_forum' => 'Diskussions Forum',
@@ -242,7 +243,7 @@ $admin_language = array(
 	'group_html_lg' => 'Gruppen HTML lang',
 	'donor_group_id' => 'Spender Paket-ID',
 	'donor_group_id_help' => '<p>Die Paket-ID ist die ID des Gruppenpacketes von Buycraft, MinecraftMarket oder MCStock.</p><p>Dieses Feld darf freigelassen werden.</p>',
-	'donor_group_instructions' => 	'<p>Spendergruppen müssen in der Reihenfolge von dem <strong>kleinsten zum größten Wert</strong> erstellt werden.</p>
+	'donor_group_instructions' => '<p>Spendergruppen müssen in der Reihenfolge von dem <strong>kleinsten zum größten Wert</strong> erstellt werden.</p>
 									<p>Beispiel: ein Paket für 10€ muss vor einem Paket das 20€ kostet erstellt werden.</p>',
 	'delete_group' => 'Gruppe löschen',
 	'confirm_group_deletion' => 'Bist du sicher, dass du die Gruppe {x} löschen willst?', // Don't replace "{x}"
@@ -274,13 +275,13 @@ $admin_language = array(
 	'main_server_help' => 'Der Server durch den die Spieler connecten. Normalerweise ist dies die BungeeCord Instanz.',
 	'choose_a_main_server' => 'Wähle einen Hauptserver..',
 	'external_query' => 'Verwende external query?',
-	'external_query_help' => 'Verwendet eine externe API um den Minecraft Server abzufragen. Verwende dies nur, wenn die eingebaute Abfrage nicht funktioniert. Es wird sehr empfohlen diese Funktion deaktiviert zu lassen.',
+	'external_query_help' => 'Verwendet eine externe API, um den Minecraft Server abzufragen. Verwende dies nur, wenn die eingebaute Abfrage nicht funktioniert. Es wird sehr empfohlen diese Funktion deaktiviert zu lassen.',
 	'editing_server' => 'Bearbeite den Server {x}', // Don't replace "{x}"
 	'server_ip_with_port' => 'Server IP (mit Port)',
 	'server_ip_with_port_help' => 'Dies ist die IP-Adresse, die den Nutzern angezeigt wird..',
 	'server_ip_numeric' => 'Server IP (mit Port) (nur numerisch)',
 	'server_ip_numeric_help' => 'Dies ist die IP-Adresse, die abgefragt wird. Sie wird den Nutzern nicht angezeigt',
-	'show_on_play_page' => 'Zeite auf der Spieleseite?',
+	'show_on_play_page' => 'Sichtbar auf der Spieleseite?',
 	'pre_17' => 'Vor 1.7 Minecraft Version?',
 	'server_name' => 'Servername',
 	'invalid_server_id' => 'Unbekannte Server ID',
@@ -358,7 +359,7 @@ $admin_language = array(
 	'reset_website' => 'Website zurücksetzen',
 	'reset_website_info' => 'Mit dieser Funktion wird die Website zurückgesetzt. <strong>Addons werden deaktiviert, aber nicht gelöscht, und Einstellungen, die am Addon vorgenommen wurden, sind immer noch present.</strong> Die definierten Minecraft Server werden auch bleiben.',
 	'confirm_reset_website' => 'Bist du sicher, dass du die Website zurücksetzen willst?',
-	
+
 	// Admin Update page
 	'installation_up_to_date' => 'Du nutzt die neueste Version.',
 	'update_check_error' => 'Fehler beim abfragen der neuesten Version.',
@@ -380,7 +381,7 @@ $navbar_language = array(
 	'staff_apps' => 'Bewerbungen',
 	'view_messages' => 'Nachrichten anzeigen',
 	'view_alerts' => 'Benachrichtigungen anzeigen',
-	
+
 	// Icons - will display before the text
 	'home_icon' => '',
 	'play_icon' => '',
@@ -450,7 +451,7 @@ $user_language = array(
 	'verify_account_help' => 'Bitte führe die angegeben Schritte durch um deinen Account zu verifizieren.',
 	'verification_failed' => 'Verifikation fehlgeschlagen.',
 	'verification_success' => 'Erfolgreich freigeschaltet.',
-	
+
 	// UserCP
 	'user_cp' => 'Benutzer Panel',
 	'no_file_chosen' => 'Keine Datei ausgewählt',
@@ -489,19 +490,19 @@ $user_language = array(
 	'update_minecraft_name_help' => 'Dies wird deinen Namen auf deinen Aktuellen Minecraftnamen ändern. Diese Aktion lässt dich nur alle 30 Tage ausführen.',
 	'unable_to_update_mcname' => 'Fehler beim updaten den MC-Namen.',
 	'display_age_on_profile' => 'Zeige das Alter im Profil?',
-	'two_factor_authentication' => '2Step Authentication',
-	'enable_tfa' => 'Aktiviere 2Step Authentication',
-	'tfa_type' => '2Step Authentication Typ:',
+	'two_factor_authentication' => 'Zwei-Faktor-Authentifizierung',
+	'enable_tfa' => 'Aktiviere die Zwei-Faktor-Authentifizierung',
+	'tfa_type' => 'Zwei-Faktor-Authentifizierungs Typ:',
 	'authenticator_app' => 'App',
 	'tfa_scan_code' => 'Bitte Scanne folgenden Code:',
-	'tfa_code' => 'Wenn dein Gerät keine Kamera besitzt gib folgenden Code ein:',
+	'tfa_code' => 'Wenn dein Gerät keine Kamera besitzt, gib folgenden Code ein:',
 	'tfa_enter_code' => 'Gib bitte den Code ein, welcher dir angezeigt wird:',
 	'invalid_tfa' => 'Ungültiger Code, versuche es erneut.',
-	'tfa_successful' => '2Step Authentication erfolgreich eingerichtet.',
-	'confirm_tfa_disable' => 'Willst du die 2Step Authentication deaktivieren?',
-	'tfa_disabled' => 'Du hast die 2Step Authentication deaktiviert.',
-	'tfa_enter_email_code' => 'Gib den dir per Email zugeschickten Code ein:',
-	'tfa_email_contents' => 'Jemand hat sich versucht mit deinem Konto anzumelden, warst dies du, gib folgenden Code ein:',
+	'tfa_successful' => 'Zwei-Faktor-Authentifizierung erfolgreich eingerichtet.',
+	'confirm_tfa_disable' => 'Willst du die Zwei-Faktor-Authentifizierung deaktivieren?',
+	'tfa_disabled' => 'Du hast die Zwei-Faktor-Authentifizierung deaktiviert.',
+	'tfa_enter_email_code' => 'Gib den Code ein, der dir per E-Mail zugeschickt wurde',
+	'tfa_email_contents' => 'Jemand hat sich versucht mit deinem Konto anzumelden. Wenn du das warst, gib folgenden Code ein:',
 
 	// Alerts
 	'viewing_unread_alerts' => 'Zeigt ungelesene Nachrichten. Wechsele zu <a href="/user/alerts/?view=read"><span class="label label-success">gelesen</span></a>.',
@@ -519,7 +520,7 @@ $user_language = array(
 	'deleted_alert' => 'Benachrichtigung erfolgreich gelöscht',
 
 	// Warnings
-	'you_have_received_a_warning' => 'Du hast eine Warnung von {x} vom {y}.', // Don't replace "{x}" or "{y}"
+	'you_have_received_a_warning' => 'Du hast eine Warnung von {x} am {y} erhalten.', // Don't replace "{x}" or "{y}"
 	'acknowledge' => 'Zur Kenntnis genommen',
 
 	// Forgot password
@@ -569,10 +570,10 @@ $user_language = array(
 	'follow' => 'Folgen',
 	'unfollow' => 'Nicht mehr Folgen',
 	'name_history' => 'Name History',
-	'changed_name_to' => 'Hat am {y}  seinen Namen zu {x} geändert.', // Don't replace {x} or {y}
-	'original_name' => 'Original Name:',
+	'changed_name_to' => 'Hat am {y} seinen Namen zu {x} geändert.', // Don't replace {x} or {y}
+	'original_name' => 'Voriger Name:',
 	'name_history_error' => 'Fehler beim abrufen der Name-History.',
-	
+
 	// Staff applications
 	'staff_application' => 'Team Bewerbung',
 	'application_submitted' => 'Die Bewerbung wurde erfolgreich abgeschickt.',
@@ -622,7 +623,7 @@ $mod_language = array(
 	'user_profile' => 'Benutzer Profil',
 	'comment_added' => 'Kommentar hinzugefügt.',
 	'new_report_submitted_alert' => 'Neue Meldung von {x} betreffend {y}', // Don't replace "{x}" or "{y}"
-	
+
 	// Staff applications
 	'comment_error' => 'Bitte stelle sicher, dass dein Kommentar zwischen 2 und 2048 Zeichen lang ist.',
 	'viewing_open_applications' => 'Zeigt <span class="label label-info">offene</span> Bewerbungen. Zeige stattdessen <a href="/mod/applications/?view=accepted"><span class="label label-success">angenommene</span></a> oder <a href="/mod/applications/?view=declined"><span class="label label-danger">abgelehnte</span></a> Bewerbungen.',
@@ -773,11 +774,11 @@ $forum_language = array(
 	'are_you_logged_in' => 'Bist du eingeloggt?',
 	'online_users' => 'Benutzer online',
 	'no_users_online' => 'Es sind keine Benutzer online.',
-	
+
 	// Search
 	'search_error' => 'Die Suchanfrage muss zwischen 1 und 32 Zeichen lang sein.',
 	'no_search_results' => 'No search results have been found.',
-	
+
 	//Share on a social-media.
 	'sm-share' => 'Aktie',
 	'sm-share-facebook' => 'Auf Facebook teilen',
@@ -790,7 +791,7 @@ $forum_language = array(
 $email_language = array(
 	// Registration email
 	'greeting' => 'Hallo,',
-	'message' => 'Danke für deine Registrierung! Um deine Registration abzuschließen klicke bitte auf den folgenden Link:',
+	'message' => 'Danke für deine Registrierung! Um deine Registration abzuschließen, klicke bitte auf den folgenden Link:',
 	'thanks' => 'Danke,'
 );
 
