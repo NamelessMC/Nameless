@@ -74,6 +74,7 @@ Upcoming addons (these will need to be downloaded separately):
 * @godleydemon
 * @yshf9
 * @Saphiria
+* @dasilvaj4 
 
 **[NamelessMC Website](http://namelessmc.github.io/)**
 * @Samerton
@@ -84,13 +85,13 @@ Upcoming addons (these will need to be downloaded separately):
 
 **NamelessMC Translations**
 * English: @Samerton
-* German: @LPkkjHD, @manuelgu, @BukkitTNT and philipp0002
+* German: @LPkkjHD, @manuelgu, @BukkitTNT, philipp0002, @McLive, @Cl1608Ho and @monjo44
 * Spanish: @paloke, @lockerecca, @talkahe, @mrlost, Dexkum and @Ariuw
 * Czech: SnooWiK
 * Norsk: @partydragen
 * Slovak: @Marki35
 * French: @CreaModZ
-* Dutch: Sander Jochems, @Azoraqua, @Headhunterzpw, @melerpe and @aycgit
+* Dutch: Sander Jochems, @Azoraqua, @Headhunterzpw, @melerpe, @aycgit, @RobinMCNetwork and smessie
 * Finnish: -kakara-
 * Portuguese: @dgateles, @dasilvaj4
 
