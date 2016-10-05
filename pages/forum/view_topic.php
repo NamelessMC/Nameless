@@ -98,7 +98,7 @@ $smarty->assign(array(
 ));
 
 // Get all posts in the topic
-$posts = $queries->getWhere("posts", array("topic_id", "=", $tid));
+$posts = $forum->getPosts($tid);
 
 // Can the user post a reply in this topic?
 $can_reply = $forum->canPostReply($topic->forum_id, $user->data()->group_id);

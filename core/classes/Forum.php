@@ -385,4 +385,25 @@ class Forum {
 		return array_slice($return, 0, $number, true);
 	}
 	
+	// Returns all posts in topic
+	// Params: $tid (integer) - topic ID to retrieve post from
+	public function getPosts($tid = null){
+		if($tid){
+			// Get posts from database
+			$posts = $this->_db->get('posts', array('topic_id', '=', $tid));
+			
+			if($posts->count()){
+				$posts = $posts->results();
+				
+				// Remove deleted posts
+				foreach($posts as $key => $post){
+					if($post->deleted == 1) unset($posts[$key]);
+				}
+				
+				return array_values($posts);
+			}
+		}
+		return false;
+	}
+	
 }

@@ -193,6 +193,9 @@ if($user->isLoggedIn()){ // User must be logged in to search
 			// No results
 			echo '<div class="alert alert-danger">' . $forum_language['no_search_results'] . '</div>';
 		} else {
+			// Generate form token
+			$token = Token::generate();
+			
 			// Pagination
 			$pagination = new Pagination();
 			$pagination->setCurrent($p);
@@ -238,6 +241,22 @@ if($user->isLoggedIn()){ // User must be logged in to search
 		</div>
 		<div class="panel-body">
 		  <?php echo $purifier->purify(htmlspecialchars_decode($merged_results[$n]['post']['post_content'])); ?>
+		  <hr />
+		  <?php if(!($merged_results[$n]['topic']['topic_title']) && $user->canViewMCP($user->data()->id)){ ?>
+		  <form class="form-inline" action="/forum/delete_post/" method="post" id="form<?php echo $n; ?>">
+		    <input type="hidden" name="token" value="<?php echo $token; ?>">
+			<input type="hidden" name="pid" value="<?php echo $merged_results[$n]['post']['post_id']; ?>">
+			<?php
+			// Search input
+			$search = str_replace(' ', '+', htmlspecialchars($_GET['s']));
+			$search = preg_replace("/[^a-zA-Z0-9 +]+/", "", $search); // alphanumeric only
+			?>
+			<input type="hidden" name="search_string" value="<?php echo $search; ?>">
+		  </form>
+		  <a href="#" onclick="document.getElementById('form<?php echo $n; ?>').submit()">
+			<span class="label label-danger">Delete</span>
+		  </a>
+		  <?php } ?>
 		  <span class="pull-right">
 		    <span class="label label-info"><?php echo date('d M Y, H:i', strtotime($merged_results[$n]['post']['post_date'])); ?></span>
 		  </span>
