@@ -362,3 +362,31 @@
 - Allow HTML use in profile wall posts
 - Fix database issues with donate addon
 - Add modify column function
+
+1.0.13
+- Only show .panel-body with subforums if $parent.forums > 0
+- Removed syntax error in Dutch language translation
+- Fix incorrect setting name in installer
+- Update Dutch translation
+- Update German translation
+- Update Portuguese translation
+- Removed HTTPS port from Twitter sharing
+- Fix Twitter widget height
+- Add voice server port to TeamSpeak join button
+- Fix incorrect topic view count
+- Display correct number of replies in news section
+- Add Twitter URL warning for EnglishUK language
+- Allow panels in custom page editor
+- Add support for offline Ban Management players in Infractions addon
+- Display Followers/Following instead of Friends within UserCP if enabled
+- Don't alert the user if they're posting on their own wall
+- Fix null UUID on manual user creation
+- Fix multiple search issues, including deleted posts being shown
+- Fix "1 hours ago" grammar
+- Ensure API registrations have unique usernames
+- Change scroll destination for post selection
+- Fix unresponsive videos on homepage
+- Hide Social column on front page if empty
+- Allow deleting "broken" posts directly from search
+- Update readme contributors
+- Fix EnglishUK language syntax error
