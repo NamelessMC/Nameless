@@ -27,19 +27,24 @@ $forum = new Forum();
 if($user->canViewMCP($user->data()->id)){
 	if(Input::exists()) {
 		if(Token::check(Input::get('token'))) {
-			// Is it the OP?
-			if(Input::get('number') == 0){
-				try {
-					$queries->delete('topics', array('id', '=' , (Input::get('tid'))));
-				} catch(Exception $e) {
-					die($e->getMessage());
+			if(isset($_POST['tid'])){
+				// Is it the OP?
+				if(Input::get('number') == 0){
+					try {
+						$queries->delete('topics', array('id', '=' , (Input::get('tid'))));
+					} catch(Exception $e) {
+						die($e->getMessage());
+					}
+					$redirect = "/forum"; // Create a redirect string
+				} else {
+					$redirect = "/forum/view_topic/?tid=" . Input::get('tid');
 				}
-				$redirect = "/forum"; // Create a redirect string
-			} else {
-				$redirect = "/forum/view_topic/?tid=" . Input::get('tid');
-			}
+			} else $redirect = '/forum/search/?p=1&s=' . htmlspecialchars($_POST['search_string']);
+			
 			try {
-				$queries->delete('posts', array('id', '=' , (Input::get('pid'))));
+				$queries->update('posts', Input::get('pid'), array(
+					'deleted' => 1
+				));
 
 				// Update latest posts in categories
 				$forum->updateForumLatestPosts();
