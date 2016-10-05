@@ -149,8 +149,9 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 	$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 	$config->set('URI.DisableExternalResources', false);
 	$config->set('URI.DisableResources', false);
-	$config->set('HTML.Allowed', 'u,p,b,a,i,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
-	$config->set('CSS.AllowedProperties', array('text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
+	$config->set('CSS.Trusted', true);
+	$config->set('HTML.Allowed', 'u,p,b,i,a,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
+	$config->set('CSS.AllowedProperties', array('position', 'padding-bottom', 'padding-top', 'top', 'left', 'height', 'width', 'overflow', 'text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
 	$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style');
 	$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 	$config->set('HTML.SafeIframe', true);
