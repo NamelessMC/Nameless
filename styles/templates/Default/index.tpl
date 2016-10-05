@@ -6,7 +6,11 @@
 	<p>{$CONNECT_WITH}</p>
   </div>
   <div class="row">
+    {if !empty($TWITTER_FEED) || !empty($VOICE_VIEWER)}
     <div class="col-md-9">
+	{else}
+	<div class="col-md-8 col-md-offset-2">
+	{/if}
 	  <!-- News -->
 	  <h2>{$NEWS}</h2>
 	  {foreach from=$newsArray item=news}
@@ -26,6 +30,7 @@
 		</div>
 	  {/foreach}
 	</div>
+	{if !empty($TWITTER_FEED) || !empty($VOICE_VIEWER)}
 	<div class="col-md-3">
 	  <!-- Social -->
 	  <h2>{$SOCIAL}</h2>
@@ -45,5 +50,6 @@
 	  {/if}
 	  {/if}
 	</div>
+	{/if}
   </div>
 </div>
