@@ -147,7 +147,7 @@ if($user->isLoggedIn()){ // User must be logged in to search
 		// Loop through merged items and see if they're just topics, just posts, or both
 		foreach($merged_results as $key => $result){
 			// Check type; topic or post?
-			if(isset($result['post_content'])) $type = 'post';
+			if(isset($result['post']['post_content'])) $type = 'post';
 			else $type = 'topic';
 			
 			// Check permissions
