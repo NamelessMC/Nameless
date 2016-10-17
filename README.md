@@ -96,4 +96,4 @@ Upcoming addons (these will need to be downloaded separately):
 * Portuguese: @dgateles, @dasilvaj4
 
 ## IRC
-\#NamelessMC on irc.spi.gt
+\#NamelessMC on [irc.spi.gt](http://irc.spi.gt/iris/?channels=namelessmc)
