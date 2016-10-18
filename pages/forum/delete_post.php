@@ -32,6 +32,7 @@ if($user->canViewMCP($user->data()->id)){
 				if(Input::get('number') == 0){
 					try {
 						$queries->delete('topics', array('id', '=' , (Input::get('tid'))));
+						$opening_post = 1;
 					} catch(Exception $e) {
 						die($e->getMessage());
 					}
@@ -45,6 +46,18 @@ if($user->canViewMCP($user->data()->id)){
 				$queries->update('posts', Input::get('pid'), array(
 					'deleted' => 1
 				));
+				
+				if(isset($opening_post)){
+					$posts = $queries->getWhere('posts', array('topic_id', '=', $_POST['tid']));
+					
+					if(count($posts)){
+						foreach($posts as $post){
+							$queries->update('posts', $post->id, array(
+								'deleted' => 1
+							));
+						}
+					}
+				}
 
 				// Update latest posts in categories
 				$forum->updateForumLatestPosts();
