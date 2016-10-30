@@ -8,7 +8,7 @@
 
 // Mod check
 if($user->isLoggedIn()){
-	if(!$user->canViewMCP($user->data()->id)){
+	if(!$user->canViewMCP($user->data()->id) || !$user->canViewApps($user->data()->id)){
 		Redirect::to('/');
 		die();
 	}
