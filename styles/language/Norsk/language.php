@@ -375,7 +375,7 @@ $navbar_language = array(
 	'play' => 'Spill',
 	'forum' => 'Forum',
 	'more' => 'Mer',
-	'staff_apps' => 'Staff Applications',
+	'staff_apps' => 'Staff Søknader',
 	'view_messages' => 'Vis Meldinger',
 	'view_alerts' => 'Vis Varsler',
 	
@@ -569,10 +569,10 @@ $user_language = array(
 	'name_history' => 'Navn Historie',
  	'changed_name_to' => 'Endret navn til: {x} på {y}', // Don't replace {x} or {y}
  	'original_name' => 'Opprinnelig navn:',
-	'name_history_error' => 'Unable to retrieve username history.',
+	'name_history_error' => 'Kan ikke hente brukernavn historie.',
 	
 	// Staff applications
-	'staff_application' => 'Staff Application',
+	'staff_application' => 'Staff Søknad',
 	'application_submitted' => 'Søknad sendt.',
 	'application_already_submitted' => 'Du har allerede sendt inn en søknad. Vent til den er ferdig før du sender en annen.',
 	'not_logged_in' => 'Vennligst logg inn for å se denne siden.',
@@ -601,7 +601,7 @@ $mod_language = array(
 	'reason' => 'Grunn:',
 	'cant_ban_root_user' => 'Kan ikke straffe root bruker!',
 	'invalid_reason' => 'Vennligst skriv inn en gyldig grunn til mellom 2 og 256 tegn.',
-	'punished_successfully' => 'Punishment lagt til.',
+	'punished_successfully' => 'Straff lagt til.',
 	
 	// Reports
 	'report_closed' => 'Rapporter lukket.',
@@ -624,9 +624,9 @@ $mod_language = array(
 	// Staff applications
 	'comment_error' => 'Sørg for din kommentar er mellom 2 og 2048 tegn.',
 	'viewing_open_applications' => 'Viser <span class="label label-info">Åpne</span> søknader. Bytt til <a href="/mod/applications/?view=accepted"><span class="label label-success">aksepterte</span></a> eller <a href="/mod/applications/?view=declined"><span class="label label-danger">Avslått</span></a>.',
-	'viewing_accepted_applications' => 'Viser <span class="label label-success">akseptert</span> applications. Bytt til <a href="/mod/applications/"><span class="label label-info">Åpne</span></a> eller <a href="/mod/applications/?view=declined"><span class="label label-danger">avslått</span></a>.',
-	'viewing_declined_applications' => 'Viser <span class="label label-danger">Avslått</span> applications. Bytt til <a href="/mod/applications/"><span class="label label-info">Åpne</span></a> eller <a href="/mod/applications/?view=accepted"><span class="label label-success">akseptert</span></a>.',
-	'time_applied' => 'tid Applied',
+	'viewing_accepted_applications' => 'Viser <span class="label label-success">akseptert</span> søknader. Bytt til <a href="/mod/applications/"><span class="label label-info">Åpne</span></a> eller <a href="/mod/applications/?view=declined"><span class="label label-danger">avslått</span></a>.',
+	'viewing_declined_applications' => 'Viser <span class="label label-danger">Avslått</span> søknader. Bytt til <a href="/mod/applications/"><span class="label label-info">Åpne</span></a> eller <a href="/mod/applications/?view=accepted"><span class="label label-success">akseptert</span></a>.',
+	'time_applied' => 'tid Tatt i bruk',
 	'no_applications' => 'Ingen søknader i denne kategorien',
 	'viewing_app_from' => 'Viser søknad fra {x}', // Don't replace "{x}"
 	'open' => 'Åpne',
@@ -662,7 +662,7 @@ $general_language = array(
 	'error' => 'Feil',
 	'view' => 'Vis',
 	'info' => 'Info',
-	'next' => 'Next',
+	'next' => 'Neste',
 	
 	// Play page
 	'connect_with' => 'Koble til serveren med IP {x}', // Don't replace {x}
@@ -774,7 +774,7 @@ $forum_language = array(
 	
 	// Search
 	'search_error' => 'Vennligst skriv inn et søk på mellom 1 og 32 tegn.',
-	'no_search_results' => 'No search results have been found.',
+	'no_search_results' => 'Ingen søke resultater har blitt funnet.',
 	
 	//Share on a social-media.
 	'sm-share' => 'Del',
