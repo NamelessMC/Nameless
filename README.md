@@ -47,6 +47,13 @@ Upcoming addons (these will need to be downloaded separately):
 * [Support](http://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
 * [Download](https://github.com/NamelessMC/Nameless/releases) 
 
+# Full Staff list:
+**Project**
+* @Samerton
+* @Fellings1
+* @partydragen
+* @SystemUpdate
+
 # Full contributor list:
 **Main repository**
 * @Samerton
