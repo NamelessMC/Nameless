@@ -42,6 +42,7 @@ $admin_language = array(
 	'addons' => 'Lisäosat',
 	'update' => 'Päivitys',
 	'misc' => 'Sekalainen',
+	'help' => 'Help',
 	
 	// Admin index page
 	'statistics' => 'Statistiikat',
