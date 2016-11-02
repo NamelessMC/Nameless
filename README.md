@@ -57,6 +57,7 @@ Upcoming addons (these will need to be downloaded separately):
 # Full contributor list:
 **Main repository**
 * @Samerton
+* @Fellings1
 * @j0ach1mmall3
 * @dwilson390
 * @Root3287
@@ -86,6 +87,7 @@ Upcoming addons (these will need to be downloaded separately):
 **[NamelessMC Website](http://namelessmc.github.io/)**
 * @Samerton
 * @SystemUpdate
+* @Fellings1
 
 **[NamelessMC Plugin](https://github.com/NamelessMC/Plugin)**
 * @SystemUpdate
