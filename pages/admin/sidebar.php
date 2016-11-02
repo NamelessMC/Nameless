@@ -11,6 +11,7 @@
 	<li<?php if($adm_page == "styles"){ ?> class="active"<?php } ?>><a href="/admin/styles"><?php echo $admin_language['style']; ?></a></li>
 	<li<?php if($adm_page == "update"){ ?> class="active"<?php } ?>><a href="/admin/update"><?php echo $admin_language['update']; ?></a></li>
 	<li<?php if($adm_page == "users"){ ?> class="active"<?php } ?>><a href="/admin/users"><?php echo $admin_language['users_and_groups']; ?></a></li>
+	<li<?php if($adm_page == "help"){ ?> class="active"<?php } ?>><a href="/admin/help"><?php echo $admin_language['help']; ?></a></li>
 	<?php foreach($admin_sidebar as $item){ ?>
 	<li<?php if($adm_page == $item['title']){ ?> class="active"<?php } ?>><a href="<?php echo htmlspecialchars($item['path']); ?>"><?php echo htmlspecialchars($item['title']); ?></a></li>
 	<?php } ?>
