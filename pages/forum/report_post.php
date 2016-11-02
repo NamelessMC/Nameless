@@ -116,7 +116,7 @@ $token = Token::generate();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="<?php echo $sitename; ?> Forum - <?php echo htmlspecialchars($forum_query->forum_title); ?>">
-    <meta name="author" content="Samerton">
+    <meta name="author" content="<?php echo $sitename; ?>">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 	
 	<?php
