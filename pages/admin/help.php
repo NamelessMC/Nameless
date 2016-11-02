@@ -87,18 +87,6 @@ $adm_page = "help";
 	// Footer
 	require('core/includes/template/footer.php');
 	$smarty->display('styles/templates/' . $template . '/footer.tpl');
-	
-	// Scripts
-	require('core/includes/template/scripts.php'); 
 	?>
-	<script src="/core/assets/plugins/switchery/switchery.min.js"></script>
-	<script>
-	var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-
-	elems.forEach(function(html) {
-	  var switchery = new Switchery(html, {size: 'small'});
-	});
-	
-	</script>
   </body>
 </html>
