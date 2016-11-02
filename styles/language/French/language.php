@@ -45,6 +45,7 @@ $admin_language = array(
 	'addons' => 'Addons',
 	'update' => 'Mise à jour',
 	'misc' => 'Autre',
+	'help' => 'Help',
 	
 	// Admin index page
 	'statistics' => 'Statistiques',
