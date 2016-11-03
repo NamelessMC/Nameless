@@ -43,51 +43,6 @@ $adm_page = "help";
 	$title = $admin_language['help'];
 	
 	require('core/includes/template/generate.php');
-<?php
-/*
- *	Made by Partydragen
- *  http://partydragen.com/
- *
- *  License: MIT
- */
-
-// Ensure user is logged in, and is admin
-if($user->isLoggedIn()){
-	if($user->canViewACP($user->data()->id)){
-		if($user->isAdmLoggedIn()){
-			// Can view
-		} else {
-			Redirect::to('/admin');
-			die();
-		}
-	} else {
-		Redirect::to('/');
-		die();
-	}
-} else {
-	Redirect::to('/');
-	die();
-}
- 
-$adm_page = "help";
-?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Admin panel">
-    <meta name="author" content="<?php echo $sitename; ?>">
-	<meta name="robots" content="noindex">
-	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-	
-	<?php
-	// Generate header and navbar content
-	// Page title
-	$title = $admin_language['help'];
-	
-	require('core/includes/template/generate.php');
 	?>
 	
 	<link href="/core/assets/plugins/switchery/switchery.min.css" rel="stylesheet">	
