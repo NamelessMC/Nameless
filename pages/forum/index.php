@@ -341,8 +341,22 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 					// Get stats
 					$topics_count = $queries->getWhere("topics", array("forum_id", "=", $item["id"]));
 					$topics_count = count($topics_count);
+					
+					// New way of couting posts, in this way post of deleted topics are not counted.
 					$posts_count = $queries->getWhere("posts", array("forum_id", "=", $item["id"]));
-					$posts_count = count($posts_count);
+                    			$count_posts = array();
+
+                    			foreach ($posts_count as $row){
+                        			// Get topic from posts
+                        			$topic = $queries->getWhere("topics", array("id", "=", $row->topic_id));
+                        			// Check if exists
+                        			if (count($topic) != 0){
+                            				$count_posts[] = $row;
+                        			}
+                    			}
+
+                    			// Count posts
+					$posts_count = count($count_posts);
 				
 					// Get avatar of user who last posted
 					$last_reply_avatar = '<img class="img-centre img-rounded" style="width:27.7px; height:27.7px;" src="' .  $user->getAvatar($item['last_user_posted'], "../", 30) . '" />';
