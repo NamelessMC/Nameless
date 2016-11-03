@@ -46,7 +46,7 @@ $admin_language = array(
 	'addons' => 'Addons',
 	'update' => 'Atualização',
 	'misc' => 'Outras Configurações',
-	'help' => 'Help',
+	'help' => 'Ajuda',
 	
 	// Admin index page
 	'statistics' => 'Estatísticas',
@@ -58,10 +58,10 @@ $admin_language = array(
 	'announcement_content' => 'Conteúdo do anúncio',
 	'announcement_location' => 'Local do anúncio',
 	'announcement_can_close' => 'Pode fechar o anúncio?',
-	'announcement_permissions' => 'As permissões anúncio',
+	'announcement_permissions' => 'Permissões do anúncio',
 	'no_announcements' => 'Nenhum anúncio criado ainda.',
 	'confirm_cancel_announcement' => 'Tem certeza de que deseja cancelar este anúncio?',
-	'announcement_location_help' => 'Ctrl-clique para selecionar multiplas páginas',
+	'announcement_location_help' => 'Ctrl-clique para selecionar múltiplas linhas',
 	'select_all' => 'Selecionar Todos',
 	'deselect_all' => 'Desmarcar Todos',
 	'announcement_created' => 'Anúncio criado com sucesso',
