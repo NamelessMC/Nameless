@@ -79,7 +79,7 @@ if(!isset($_GET['c'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="<?php echo $user_language['change_password']; ?> &bull; <?php echo $sitename; ?>">
-    <meta name="author" content="Samerton">
+    <meta name="author" content="<?php echo $sitename; ?>">
     <meta name="theme-color" content="#454545" />
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 	
