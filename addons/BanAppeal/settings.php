@@ -1,9 +1,7 @@
 <?php 
 /*
- *	Made by Partydragen
+ *  Made by Partydragen And Samerton
  *  http://partydragen.com/
- *
- *  Updated by Samerton
  *
  */
 // Settings for the BanAppeal addon
@@ -40,10 +38,9 @@ if(empty($banappeal_questions)){
 
 ?>
 <h3>Addon: BanAppeal</h3>
-<b>Authors:</b> Partydragen<br />
-<b>Version:</b> 1.0.1<br />
+<b>Authors:</b> Partydragen And Samerton<br />
+<b>Version:</b> 1.0.2<br />
 <b>Description:</b> Allow your players to post a Ban Appeal<br />
-<b>Donate:</b> <a href="http://partydragen.com/donate/" target="_blank">Click here</a> If you want to donate to partydragen to give partydragen more motivation to keep updates and create more addons<br />
 
 						<h3><?php echo $banappeal_language['ban_appeal']; ?></h3>
 						<?php 
