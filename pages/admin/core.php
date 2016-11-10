@@ -599,6 +599,11 @@ $adm_page = "core";
 											} catch(Exception $e) {
 												die($e->getMessage());
 											}
+											
+											// Link location
+											$c->setCache('staffapps');
+											$c->store('linklocation', htmlspecialchars(Input::get('linkposition')));
+											
 										}
 									} else {
 										Session::flash('apps_post_success', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
@@ -611,47 +616,71 @@ $adm_page = "core";
 								$groups = $queries->getWhere('groups', array('id', '<>', '0'));
 						?>
 						<form role="form" action="" method="post">
-						  <strong><?php echo $admin_language['permissions']; ?></strong><br /><br />
-						  <div class="row">
-						    <div class="col-md-8">
-							  <div class="col-md-6">
-							    <?php echo $admin_language['group']; ?>
+						  <div class="form-group">
+						    <strong><?php echo $admin_language['permissions']; ?></strong><br /><br />
+						    <div class="row">
+						      <div class="col-md-8">
+							    <div class="col-md-6">
+							      <?php echo $admin_language['group']; ?>
+							    </div>
+							    <div class="col-md-3">
+							      <?php echo $admin_language['view_applications']; ?>
+							    </div>
+							    <div class="col-md-3">
+							      <?php echo $admin_language['accept_reject_applications']; ?>
+							    </div>
 							  </div>
-							  <div class="col-md-3">
-							    <?php echo $admin_language['view_applications']; ?>
-							  </div>
-							  <div class="col-md-3">
-							    <?php echo $admin_language['accept_reject_applications']; ?>
-							  </div>
-							</div>
-						  </div>
+						    </div>
 
-						  <?php
-						  foreach($groups as $group){
-						  ?>
-						  <div class="row">
-						    <div class="col-md-8">
-							  <div class="col-md-6">
-							    <?php echo htmlspecialchars($group->name); ?><br /><br />
-							  </div>
-							  <div class="col-md-3">
-							    <div class="form-group">
-								  <input id="view-<?php echo $group->id; ?>" name="view-<?php echo $group->id; ?>" type="checkbox" class="js-switch" <?php if($group->staff_apps == 1){ ?>checked <?php } ?>/>
+						    <?php
+						    foreach($groups as $group){
+						    ?>
+						    <div class="row">
+						      <div class="col-md-8">
+							    <div class="col-md-6">
+							      <?php echo htmlspecialchars($group->name); ?><br /><br />
+							    </div>
+							    <div class="col-md-3">
+							      <div class="form-group">
+								    <input id="view-<?php echo $group->id; ?>" name="view-<?php echo $group->id; ?>" type="checkbox" class="js-switch" <?php if($group->staff_apps == 1){ ?>checked <?php } ?>/>
+							      </div>
+							    </div>
+							    <div class="col-md-3">
+							      <div class="form-group">
+								    <input id="accept-<?php echo $group->id; ?>" name="accept-<?php echo $group->id; ?>" type="checkbox" class="js-switch" <?php if($group->accept_staff_apps == 1){ ?>checked <?php } ?>/>
+							      </div>
 							    </div>
 							  </div>
-							  <div class="col-md-3">
-							    <div class="form-group">
-								  <input id="accept-<?php echo $group->id; ?>" name="accept-<?php echo $group->id; ?>" type="checkbox" class="js-switch" <?php if($group->accept_staff_apps == 1){ ?>checked <?php } ?>/>
-							    </div>
-							  </div>
-							</div>
+						    </div>
+						    <?php
+						    }
+						    ?>
 						  </div>
-						  <?php
-						  }
-						  ?>
-						  <br /><br />
-						  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-						  <input type="submit" class="btn btn-default" value="<?php echo $general_language['submit']; ?>">
+						  
+						  <div class="form-group">
+						    <label for="InputLinkPosition"><?php echo $admin_language['page_link_location']; ?></label>
+							<?php
+							// Get position of link
+							$c->setCache('staffapps');
+							if($c->isCached('linklocation')){
+								$link_location = $c->retrieve('linklocation');
+							} else {
+								$c->store('linklocation', 'navbar');
+								$link_location = 'navbar';
+							}
+							?>
+						    <select name="linkposition" id="InputLinkPosition" class="form-control">
+							  <option value="navbar" <?php if($link_location == 'navbar'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_navbar']; ?></option>
+							  <option value="more" <?php if($link_location == 'more'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_more']; ?></option>
+							  <option value="footer" <?php if($link_location == 'footer'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_footer']; ?></option>
+							  <option value="none" <?php if($link_location == 'none'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_none']; ?></option>
+							</select>
+						  </div>
+						  
+						  <div class="form-group">
+						    <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+						    <input type="submit" class="btn btn-default" value="<?php echo $general_language['submit']; ?>">
+						  </div>
 						</form>
 						
 						<br /><br />
