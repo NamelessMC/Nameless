@@ -35,7 +35,7 @@ if($user->isLoggedIn()){
 		break;
 		
 		case 'more':
-			$nav_more_dropdown[$banappeal_language['ban_appeal_icon'] . $banappeal_language['ban_appeal']] = 'banappeal';
+			$nav_more_dropdown[$banappeal_language['ban_appeal_icon'] . $banappeal_language['ban_appeal']] = '/banappeal';
 		break;
 		
 		case 'none':
