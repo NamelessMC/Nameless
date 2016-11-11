@@ -4,9 +4,16 @@
  *  http://partydragen.com/
  *
  */
+
+// page for ModCP sidebar
+$mod_page = 'banappeal';
+
+require('addons/BanAppeal/BanAppeal.php');
+$banappeal = new BanAppeal();
+
 // Mod check
 if($user->isLoggedIn()){
-	if(!$user->canViewMCP($user->data()->id) || !$user->canViewBanAppeal($user->data()->id)){
+	if(!$user->canViewMCP($user->data()->id) || !$banappeal->canViewBanAppeal($user->data()->id)){
 		Redirect::to('/');
 		die();
 	}
@@ -14,11 +21,6 @@ if($user->isLoggedIn()){
 	Redirect::to('/');
 	die();
 }
-// page for ModCP sidebar
-$mod_page = 'banappeal';
-
-require('addons/BanAppeal/BanAppeal.php');
-$banappeal = new BanAppeal();
 
 if(isset($_GET['app'])){
 	// Does the ban appeal exist?
