@@ -74,6 +74,7 @@ $adm_page = "help";
 				* <a href="https://www.spigotmc.org/threads/34810/" target="_blank">Spigot Thread</a></br>
 				* <a href="https://www.spigotmc.org/threads/88001/" target="_blank">Spigot Resource</a></br>
 			        * <a href="http://simba.spi.gt/iris/?channels=NamelessMC" target="_blank">IRC Chat</a></br>
+	  			* <a href="https://discordapp.com/invite/QWdS9CB" target="_blank">Discord</a></br>
 
 				<h3>FAQs</h3>
 				* <a href="https://github.com/NamelessMC/Nameless/wiki/FAQs" target="_blank">FAQs</a></br>
