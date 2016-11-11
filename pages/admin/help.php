@@ -71,8 +71,9 @@ $adm_page = "help";
 			<div class="well">
 				<h3>If you need help you can ask for help here</h3>
 				* <a href="http://namelessmc.com/" target="_blank">NamelessMC Website</a></br>
-				* <a href="https://www.spigotmc.org/threads/88001/" target="_blank">Spigot Thread</a></br>
+				* <a href="https://www.spigotmc.org/threads/34810/" target="_blank">Spigot Thread</a></br>
 				* <a href="https://www.spigotmc.org/threads/88001/" target="_blank">Spigot Resource</a></br>
+			        * <a href="http://simba.spi.gt/iris/?channels=NamelessMC" target="_blank">IRC Chat</a></br>
 
 				<h3>FAQs</h3>
 				* <a href="https://github.com/NamelessMC/Nameless/wiki/FAQs" target="_blank">FAQs</a></br>
