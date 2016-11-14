@@ -1,18 +1,13 @@
 <?php 
 /*
  *  Made by Sander Jochems
- *  http://sanderjochems.r4u.nl
- */
- /*
+ *  http://www.sanderjochems.nl
+ *
  *  Updated by jesseke55/Headhunterz_
  *  http://headhunterz.pw
- */
-  /*
- *  Updated and removed syntax error by melerpe
-    
  *
- */
-/*
+ *  Updated and removed syntax error by melerpe
+ *
  *  Dutch Language
  */
   
@@ -570,12 +565,12 @@ $user_language = array(
 	'post_unliked' => 'Bericht unliked.',
 	'no_posts' => 'Geen berichten.',
 	'last_5_posts' => 'Recentste 5 berichten',
-	'follow' => 'Follow',
-	'unfollow' => 'Unfollow',
+	'follow' => 'Volg',
+	'unfollow' => 'Ontvolgen',
 	'name_history' => 'Namegeschiedenis',
 	'changed_name_to' => 'Veranderd naar: {x} op {y}', // Don't replace {x} or {y}
 	'original_name' => 'Originele name:',
-	'name_history_error' => 'Unable to retrieve username history.',
+	'name_history_error' => 'Kan geen naam historie opvragen.',
 
     // Staff applications
     'staff_application' => 'Staff Aanvraag',
@@ -611,8 +606,8 @@ $mod_language = array(
 
     // Reports
     'report_closed' => 'Report Gesloten.',
-    'new_comment' => 'Nieuw Comment',
-    'comments' => 'Comments',
+    'new_comment' => 'Nieuw Commentaar',
+    'comments' => 'Commentaar',
     'only_viewed_by_staff' => 'Kan alleen worden bekeken door staff',
     'reported_by' => 'Gerapporteerd door',
     'close_issue' => 'Gesloten Uitslag',
