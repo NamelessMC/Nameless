@@ -89,7 +89,7 @@ Upcoming addons (these will need to be downloaded separately):
 * @SystemUpdate
 * @Fellings1
 
-**[NamelessMC Plugin](https://github.com/NamelessMC/Plugin)**
+**[NamelessMC Plugin](https://github.com/NamelessMC/Nameless-Plugin)**
 * @SystemUpdate
 
 **NamelessMC Translations**
@@ -106,3 +106,6 @@ Upcoming addons (these will need to be downloaded separately):
 
 ## IRC
 \#NamelessMC on [irc.spi.gt](http://irc.spi.gt/iris/?channels=namelessmc)
+
+## Discord
+\#NamelessMC on [Discord](https://discord.gg/HYVMgN2)
