@@ -150,6 +150,9 @@ class NamelessAPI {
 			if(strlen($_POST['uuid']) > 32) $this->throwError('Invalid UUID');
 			if(strlen($_POST['email']) > 64) $this->throwError('Invalid email address');
 			
+			// Validate email
+			if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) $this->throwError('Invalid email address');
+			
 			// Ensure user doesn't already exist
 			$this->_db = DB::getInstance();
 			
