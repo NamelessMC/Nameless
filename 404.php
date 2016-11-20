@@ -4,6 +4,7 @@
  *  http://worldscapemc.co.uk
  *
  *  License: MIT
+ *  Copyright (c) 2016 Samerton
  */
 
 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found"); 
