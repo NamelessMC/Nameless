@@ -1,4 +1,4 @@
-###The notes for each release
+The notes for each release
 
 0.1.0
 - Initial release
