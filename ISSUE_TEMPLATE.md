@@ -4,6 +4,7 @@
 * How would you describe the issue? 
 * Do you have (relevant) resources about this issue (Logs, pictures, etc.)?
 * Do you have an idea how or where the issue occurs?
+### Please use image uploading webistes such as Imgur or Gyazo 
 
 #### Example:
 **What kind of issue is it (Question, Bug, etc.)?** Bug.  
