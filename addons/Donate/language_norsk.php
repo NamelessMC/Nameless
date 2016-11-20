@@ -4,6 +4,7 @@
  *  http://worldscapemc.co.uk
  *
  *  License: MIT
+ *  Copyright (c) 2016 Samerton
  */
 // Language file for "Donate" addon
 $donate_language = array(
