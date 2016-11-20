@@ -4,6 +4,8 @@
  *  http://worldscapemc.co.uk
  *
  *  License: MIT
+ *  Copyright (c) 2016 Samerton
+ */
  */
 
 // Settings for the Vote addon
