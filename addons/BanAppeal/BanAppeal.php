@@ -1,9 +1,7 @@
 <?php 
 /*
- *	Made by Partydragen
+ *	Made by Partydragen and Samerton
  *  http://partydragen.com/
- *
- *  and Samerton
  *
  *  License: MIT
  */
