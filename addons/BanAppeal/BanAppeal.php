@@ -4,6 +4,7 @@
  *  http://partydragen.com/
  *
  *  License: MIT
+ *  Copyright (c) 2016 Samerton
  */
 
 class BanAppeal {
