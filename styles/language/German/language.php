@@ -510,7 +510,7 @@ $user_language = array(
 	'viewing_read_alerts' => 'Zeigt gelesene Nachrichten. Wechsele zu<a href="/user/alerts/"><span class="label label-warning">ungelesenen</span></a>.',
 	'no_unread_alerts' => 'Du hast keine ungelesenen Benachrichtigungen.',
 	'no_alerts' => 'Keine Benachrichtigungen',
-	'no_read_alerts' => 'Du hast keine ungelesenen Benachrichtigungen.',
+	'no_read_alerts' => 'Du hast keine gelesenen Benachrichtigungen.',
 	'view' => 'Anzeigen',
 	'alert' => 'Benachrichtigungen',
 	'when' => 'Wann',
@@ -680,7 +680,7 @@ $general_language = array(
 	'x_players_online' => 'Es sind {x} Spieler online.', // Don't replace {x}
 
 	// Other
-	'page_loaded_in' => 'Seite in {x} Sekunden geladen.', // Don't replace {x}; 's' stands for 'seconds'
+	'page_loaded_in' => 'Seite wurde in {x} Sekunden geladen.', // Don't replace {x}; 's' stands for 'seconds'
 	'none' => 'Nichts',
 	'404' => 'Wir konnten diese Seite nicht finden.'
 );
