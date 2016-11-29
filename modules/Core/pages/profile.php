@@ -154,14 +154,13 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 		
 		// Get user's group
 		$group = $queries->getWhere('groups', array('id', '=', $query->group_id));
-		if($group[0]->group_username_css) $username_colour = $group[0]->group_username_css; else $username_colour = false;
 		$group = $group[0]->group_html;
 		
 		$smarty->assign(array(
 			'NICKNAME' => Output::getClean($query->nickname),
 			'USERNAME' => Output::getClean($query->username),
 			'GROUP' => Output::getPurified($group),
-			'USERNAME_COLOUR' => $username_colour,
+			'USERNAME_COLOUR' => $user->getGroupClass($query->id),
 			'FOLLOW' => $language->get('user', 'follow'),
 			'AVATAR' => $user->getAvatar($query->id, '../', 500),
 			'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH : '/') . 'uploads/profile_images/' . Output::getClean($query->banner)
