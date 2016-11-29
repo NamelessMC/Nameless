@@ -1,0 +1,24 @@
+<?php
+require('Configuration.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'ConverterInterface.php');
+require('ConfigurationAwareInterface.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'DefaultConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'BlockquoteConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'CodeConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'CommentConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'DivConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'EmphasisConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'HardBreakConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'HeaderConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'HorizontalRuleConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'ImageConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'LinkConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'ListBlockConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'ListItemConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'ParagraphConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'PreformattedConverter.php');
+require('Converter' . DIRECTORY_SEPARATOR . 'TextConverter.php');
+require('Environment.php');
+require('ElementInterface.php');
+require('Element.php');
+require('HtmlConverter.php');

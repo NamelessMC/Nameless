@@ -1,0 +1,119 @@
+/*
+ *  Custom CSS for Default template
+ */
+ 
+.bg-danger {
+	background-color: #C9001D !important;
+}
+
+.panel-danger {
+	border-color: #C9001D !important;
+}
+
+.panel-danger .panel-heading {
+	background-color: #C9001D !important;
+	border-color: #C9001D !important;
+	color: #fff !important;
+}
+
+.btn-danger {
+	background-color: #C9001D !important;
+	color: #fff !important;
+}
+
+.home-header {
+	background-image: url('../img/homepage_bg_trimmed.jpg');
+	padding-top: 5rem;
+	height: 450px;
+}
+
+.home-header .lg {
+	font-size: 125%;
+}
+
+.home-footer {
+	padding-top: 1rem;
+	height: 150px;
+	color: rgba(255,255,255,.5) !important;
+	background-color: #000;
+}
+
+.home-footer a {
+	color: rgba(255,255,255,.5) !important;
+}
+
+.home-news {
+	background-color: #fff;
+}
+
+.blue-bg {
+	background-color: #54b4eb;
+}
+
+.global-header {
+	padding-top: 2rem;
+}
+
+.white-text {
+	color: #fff !important;
+}
+
+/*
+ *  Temp breadcrumb fix
+ */
+.breadcrumb {
+  padding: .75rem 1rem;
+  margin-bottom: 1rem;
+  list-style: none;
+  background-color: #eceeef;
+  border-radius: .25rem;
+}
+
+.breadcrumb::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.breadcrumb > li {
+  float: left;
+}
+
+.breadcrumb > li + li::before {
+  padding-right: .5rem;
+  padding-left: .5rem;
+  color: #818a91;
+  content: "/";
+}
+
+.breadcrumb > .active {
+  color: #818a91;
+}
+
+/*
+ *  Remove auto-caret
+ */
+.no-caret::after {
+	border: none;
+}
+
+.custom-nav-exclaim {
+	color: red;
+}
+
+/* Credit to bootsnipp.com for the css for the color graph */
+.colorgraph {
+	height: 5px;
+	border-top: 0;
+	background: #c4e17f;
+	border-radius: 5px;
+	background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+	background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+	background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+	background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+}
+
+.emojione {
+	height: 24px;
+	width: 24px;
+}

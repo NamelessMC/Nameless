@@ -1,0 +1,11 @@
+body {
+	background-color: #222222;
+}
+.bg-primary {
+	background-color: #375a7f !important;
+}
+.card {
+	background-color: #303030 !important;
+	border: 1px solid transparent;
+	color: #fff;
+}
