@@ -9,7 +9,7 @@
  *  Main index file
  */
 
-// Ensure PHP version > 5.3
+// Ensure PHP version > 5.4
 if(version_compare(phpversion(), '5.4', '<')){
 	die('NamelessMC is not compatible with PHP versions older than 5.4');
 }
