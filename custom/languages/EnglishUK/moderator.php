@@ -18,6 +18,7 @@ $language = array(
 	'mark_as_spam' => 'Mark as Spam',
 	'confirm_spam' => '<p>Are you sure you want to mark this user as spam?</p><p>The user will be IP banned, and all their content will be removed.</p>',
 	'user_marked_as_spam' => 'User marked as spam successfully.',
+	'cant_ban_admin' => 'You can\'t ban an administrator!',
 	
 	// IP Lookup
 	'ip_lookup' => 'IP Lookup',
