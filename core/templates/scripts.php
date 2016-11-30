@@ -7,15 +7,15 @@
 		}
 	} else { 
 	?>
-	<script src="/core/assets/js/jquery.min.js"></script>
-	<script src="/core/assets/js/tether.min.js"></script>
-    <script src="/core/assets/js/bootstrap.min.js"></script>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/js/jquery.min.js"></script>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/js/tether.min.js"></script>
+    <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/js/bootstrap.min.js"></script>
 	<?php 
 	} 
 	if(isset($js)) echo $js;
 	?>
 	
-	<script src="/core/assets/plugins/toastr/toastr.min.js"></script>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/toastr/toastr.min.js"></script>
 	
 	<script type="text/javascript">
 	  $(function () {
@@ -71,7 +71,7 @@
 		toastr.options.positionClass = 'toast-bottom-left';
 		
 		// Get alerts and messages, and then set them to refresh every 20 seconds
-		$.getJSON('/queries/pms', function(data) {
+		$.getJSON('<?php echo URL::build('/queries/pms'); ?>', function(data) {
 			var pm_dropdown = document.getElementById('pm_dropdown');
 			
 			if(data.value > 0){
@@ -92,7 +92,7 @@
 				pm_dropdown.innerHTML = '<a class="dropdown-item"><?php echo $language->get('user', 'no_messages'); ?></a>';
 			}
 		});
-		$.getJSON('/queries/alerts', function(data) {
+		$.getJSON('<?php echo URL::build('/queries/alerts'); ?>', function(data) {
 			var alert_dropdown = document.getElementById('alert_dropdown');
 			
 			if(data.value > 0){
@@ -115,7 +115,7 @@
 		});
 		
 		window.setInterval(function(){
-		  $.getJSON('/queries/pms', function(data) {
+		  $.getJSON('<?php echo URL::build('/queries/pms'); ?>', function(data) {
 			if(data.value > 0 && $('#pms').is(':empty')){
 				$("#pms").html(' <i class="fa fa-exclamation-circle custom-nav-exclaim"></i>');
 				toastr.options.onclick = function () {
@@ -154,7 +154,7 @@
 				}
 			}
 		  });
-		  $.getJSON('/queries/alerts', function(data) {
+		  $.getJSON('<?php echo URL::build('/queries/alerts'); ?>', function(data) {
 			if(data.value > 0 && $('#alerts').is(':empty')){
 				$("#alerts").html(' <i class="fa fa-exclamation-circle custom-nav-exclaim"></i>');
 				toastr.options.onclick = function () {

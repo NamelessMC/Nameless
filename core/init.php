@@ -40,6 +40,10 @@ if($page != 'install'){
 	/*
 	 *  Initialise
 	 */
+	 
+	// Friendly URLs?
+	define('FRIENDLY_URLS', Config::get('core/friendly'));
+
 	// Queries
 	$queries = new Queries();
 
@@ -90,10 +94,18 @@ if($page != 'install'){
 	$directory = '/' . $directory;
 
 	// Are we loading a profile page?
-	if($directories[0] != 'profile'){
-		$directory = strtok($directory, '?');
+	if(FRIENDLY_URLS == true){
+		if($directories[0] != 'profile'){
+			$directory = strtok($directory, '?');
+		} else {
+			$directory = '/profile';
+		}
 	} else {
-		$directory = '/profile';
+		if(isset($_GET['route']) && strpos($_GET['route'], 'profile') !== false){
+			$profile = explode('/', $_GET['route']);
+			$directories[1] = $profile[2];
+			$route = '/profile';
+		}
 	}
 
 	// Remove the trailing /

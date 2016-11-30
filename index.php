@@ -9,7 +9,7 @@
  *  Main index file
  */
 
-// Ensure PHP version > 5.4
+// Ensure PHP version >= 5.4
 if(version_compare(phpversion(), '5.4', '<')){
 	die('NamelessMC is not compatible with PHP versions older than 5.4');
 }
@@ -58,9 +58,6 @@ if(is_file('pages/install.php')){
 // Start initialising the page
 require('core/init.php');
 
-// Is the use of the .htaccess file enabled?
-define('FRIENDLY_URLS', true);
-
 if(FRIENDLY_URLS == true){
 	// Load the main page content
 	
@@ -81,27 +78,21 @@ if(FRIENDLY_URLS == true){
 
 } else {
 	// Friendly URLs are disabled
-	if(!isset($_GET['route'])){
+	if(!isset($_GET['route']) || $_GET['route'] == '/'){
 		// Homepage
-		require('pages/index.php');
+		require('modules/Core/pages/index.php');
 	} else {
-		$route = array_filter(explode('/', $_GET['route']));
+		if(!isset($route)) $route = rtrim($_GET['route'], '/');
 		
-		$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'pages', htmlspecialchars(implode('/', $route)) . '.php'));
+		// Check modules
+		$modules = $pages->returnPages();
 		
-		if(file_exists($path)){
-			// Load the page
-			require($path);
+		// Include the page
+		if(array_key_exists($route, $modules)){
+			$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']));
+			if(!file_exists($path)) require('404.php'); else require($path);
+			die();
 		} else {
-			// Check if it should be pointing to the index page, eg /admin/index.php
-			if(file_exists(rtrim($path, '.php') . DIRECTORY_SEPARATOR . 'index.php')){
-				require(rtrim($path, '.php') . DIRECTORY_SEPARATOR . 'index.php');
-				die();
-			}
-			
-			// Page doesn't exist, custom page?
-			
-			
 			// 404
 			require('404.php');
 		}
