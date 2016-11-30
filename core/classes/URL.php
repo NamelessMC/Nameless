@@ -14,16 +14,7 @@ class URL {
 	// Params:  $url (string) - contains the URL which will be formatted
 	// 			$params (string) - contains string with URL parameters (optional)
 	public static function build($url, $params = ''){	
-		if(!defined('FRIENDLY_URLS')){
-			// Return the URL passed in, as whether friendly URLs are enabled can't be determined
-			// Check for params
-			if($params != ''){
-				$params = '?' . $params;
-			}
-			return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . $url . $params;
-		}
-		
-		if(FRIENDLY_URLS == true){
+		if((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (!defined('FRIENDLY_URLS') && Config::get('core/friendly') == true)){
 			// Friendly URLs are enabled, we can just use the URL passed through
 			// Check for params
 			if($params != ''){
