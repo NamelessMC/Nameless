@@ -35,6 +35,7 @@ $language = array(
 	'no_alerts' => 'No new alerts',
 	'view_alerts' => 'View alerts',
 	'x_new_alerts' => 'You have {x} new alerts', // Don't replace {x}
+	'no_alerts_usercp' => 'You do not have any alerts.',
 	
 	// Registraton
 	'registration_check_email' => 'Thanks for registering! Please check your emails for a validation link in order to complete your registration. If you are unable to find the email, check your junk folder.',

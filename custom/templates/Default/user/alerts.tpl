@@ -19,7 +19,8 @@
 				<col span="1" style="width: 100%;">
 			  </colgroup>
 			  {nocache}
-			  {foreach from=$ALERTS_LIST item=alert}
+			  {if count($ALERTS_LIST)}
+			    {foreach from=$ALERTS_LIST item=alert}
 			  <tr>
 				<td>
 				  {$alert->content} 
@@ -29,7 +30,10 @@
 				  </span>
 				</td>
 			  </tr>
-			  {/foreach}
+			    {/foreach}
+			  {else}
+			    {$NO_ALERTS}
+			  {/if}
 			  {/nocache}
 			</table>
 		  </div>

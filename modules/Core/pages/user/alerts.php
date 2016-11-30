@@ -66,7 +66,8 @@ $timeago = new Timeago();
 				'ALERTS_LIST' => $alerts_limited,
 				'DELETE_ALL' => $language->get('user', 'delete_all'),
 				'DELETE_ALL_LINK' => URL::build('/user/alerts/', 'action=purge'),
-				'CLICK_TO_VIEW' => $language->get('user', 'click_here_to_view')
+				'CLICK_TO_VIEW' => $language->get('user', 'click_here_to_view'),
+				'NO_ALERTS' => $language->get('user', 'no_alerts_usercp')
 			));
 			
 			$smarty->display('custom/templates/' . TEMPLATE . '/user/alerts.tpl');
