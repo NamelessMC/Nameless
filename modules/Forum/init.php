@@ -46,7 +46,7 @@ $pages->add('Forum', '/forum/stick', 'pages/forum/stick.php');
 $pages->add('Forum', '/forum/reactions', 'pages/forum/reactions.php');
 
 // Add link to navbar
-$navigation->add('forum', $forum_language->get('forum', 'forum'), URL::build('/forum'));$navigation->add('forum', $forum_language->get('forum', 'forum'), URL::build('/forum'));
+$navigation->add('forum', $forum_language->get('forum', 'forum'), URL::build('/forum'));
 
 // Add link to admin sidebar
 if(!isset($admin_sidebar)) $admin_sidebar = array();
