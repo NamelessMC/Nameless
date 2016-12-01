@@ -190,12 +190,12 @@ $timeago = new Timeago();
 			// Close/reopen link
 			if($report->status == 0){
 				$smarty->assign(array(
-					'CLOSE_LINK' => URL::build('/mod/reports/?action=close&amp;report=' . $report->id),
+					'CLOSE_LINK' => URL::build('/mod/reports/', 'action=close&amp;report=' . $report->id),
 					'CLOSE_REPORT' => $language->get('moderator', 'close_report')
 				));
 			} else {
 				$smarty->assign(array(
-					'REOPEN_LINK' => URL::build('/mod/reports/?action=open&amp;report=' . $report->id),
+					'REOPEN_LINK' => URL::build('/mod/reports/', 'action=open&amp;report=' . $report->id),
 					'REOPEN_REPORT' => $language->get('moderator', 'reopen_report')
 				));
 			}
@@ -214,7 +214,7 @@ $timeago = new Timeago();
 						));
 					}
 					
-					Redirect::to(URL::build('/mod/reports/?report=' . $report[0]->id));
+					Redirect::to(URL::build('/mod/reports/', 'report=' . $report[0]->id));
 					die();
 				}
 				
@@ -232,7 +232,7 @@ $timeago = new Timeago();
 						));
 					}
 					
-					Redirect::to(URL::build('/mod/reports/?report=' . $report[0]->id));
+					Redirect::to(URL::build('/mod/reports/', 'report=' . $report[0]->id));
 					die();
 				}
 				
