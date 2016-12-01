@@ -164,6 +164,56 @@ $current_default_language = $current_default_language[0]->value;
 									$cache->setCache('post_formatting');
 									$cache->store('formatting', Output::getClean(Input::get('formatting')));
 									
+									// Friendly URLs
+									if(Input::get('friendlyURL') == 'true') $friendly = 'true';
+									else $friendly = 'false';
+									
+									if(is_writable(join(DIRECTORY_SEPARATOR, array('core', 'config.php')))){
+										// Writable
+										require(join(DIRECTORY_SEPARATOR, array('core', 'config.php')));
+										
+										// Make string to input
+										$input_string = '<?php' . PHP_EOL .
+														'$GLOBALS[\'config\'] = array(' . PHP_EOL .
+														'    "mysql" => array(' . PHP_EOL .
+														'        "host" => "' . Config::get('mysql/host') . '", // Web server database IP (Likely to be 127.0.0.1)' . PHP_EOL .
+														'        "username" => "' . Config::get('mysql/username') . '", // Web server database username' . PHP_EOL .
+														'        "password" => \'' . Config::get('mysql/password') . '\', // Web server database password' . PHP_EOL .
+														'        "db" => "' . Config::get('mysql/db') . '", // Web server database name' . PHP_EOL .
+														'        "prefix" => "nl2_" // Web server table prefix' . PHP_EOL .
+														'    ),' . PHP_EOL .
+														'    "remember" => array(' . PHP_EOL .
+														'        "cookie_name" => "nl2", // Name for website cookies' . PHP_EOL .
+														'        "cookie_expiry" => 604800' . PHP_EOL .
+														'    ),' . PHP_EOL .
+														'    "session" => array(' . PHP_EOL .
+														'        "session_name" => "2user",' . PHP_EOL .
+														'        "admin_name" => "2admin",' . PHP_EOL .
+														'        "token_name" => "2token"' . PHP_EOL .
+														'    ),' . PHP_EOL .
+														'    "core" => array(' . PHP_EOL .
+														'        "path" => "' . Config::get('core/path') . '",' . PHP_EOL .
+														'        "friendly" => ' . $friendly . PHP_EOL .
+														'    )' . PHP_EOL .
+														');';
+										
+										$file = fopen(join(DIRECTORY_SEPARATOR, array('core', 'config.php')), 'w');
+										fwrite($file, $input_string);
+										fclose($file);
+										
+									} else $errors = array($language->get('admin', 'config_not_writable'));
+									
+									// Redirect in case URL type has changed
+									if(!isset($errors)){
+										if($friendly == 'true'){
+											$redirect = URL::build('/admin/core', 'view=general', 'friendly');
+										} else {
+											$redirect = URL::build('/admin/core', 'view=general', 'non-friendly');
+										}
+										Redirect::to($redirect);
+										die();
+									}
+									
 								} else $errors = array($language->get('admin', 'missing_sitename'));
 							} else {
 								// Invalid token
@@ -225,6 +275,17 @@ $current_default_language = $current_default_language[0]->value;
 				  <select name="formatting" class="form-control" id="inputFormatting">
 				    <option value="html"<?php if($formatting == 'html'){ ?> selected<?php } ?>>HTML</option>
 					<option value="markdown"<?php if($formatting == 'markdown'){ ?> selected<?php } ?>>Markdown</option>
+				  </select>
+				</div>
+				<div class="form-group">
+				  <?php
+				  // Get friendly URL setting
+				  $friendly_url = Config::get('core/friendly');
+				  ?>
+				  <label for="inputFormatting"><?php echo $language->get('admin', 'use_friendly_urls'); ?></label> <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'use_friendly_urls_help'); ?>"></i></span>
+				  <select name="friendlyURL" class="form-control" id="inputFriendlyURL">
+				    <option value="true"<?php if($friendly_url == true){ ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
+					<option value="false"<?php if($friendly_url == false){ ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
 				  </select>
 				</div>
 				<br />
