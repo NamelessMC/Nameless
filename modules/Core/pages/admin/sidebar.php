@@ -42,7 +42,7 @@
 					foreach($admin_sidebar as $key => $item){
 					?>
 				<li class="nav-item">
-				  <a class="nav-link<?php if(isset($admin_page) && $admin_page == $key) echo ' active'; ?>" href="<?php echo URL::build($item['url']); ?>"><?php echo $item['title']; ?></a>
+				  <a class="nav-link<?php if(isset($admin_page) && $admin_page == $key) echo ' active'; ?>" href="<?php echo $item['url']; ?>"><?php echo $item['title']; ?></a>
 				</li>
 					<?php
 					}

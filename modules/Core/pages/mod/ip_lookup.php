@@ -84,7 +84,7 @@ define('PAGE', 'mod_ip_lookup');
 					}
 					
 					if(count($query)){
-						Redirect::to(URL::build('/mod/ip_lookup/?user=' . $query[0]->id));
+						Redirect::to(URL::build('/mod/ip_lookup/', 'user=' . $query[0]->id));
 						die();
 					}
 					
@@ -92,7 +92,7 @@ define('PAGE', 'mod_ip_lookup');
 					$query = $queries->getWhere('users_ips', array('ip', '=', Output::getClean(Input::get('search'))));
 					
 					if(count($query)){
-						Redirect::to(URL::build('/mod/ip_lookup/?ip=' . Output::getClean(Input::get('search'))));
+						Redirect::to(URL::build('/mod/ip_lookup/', 'ip=' . Output::getClean(Input::get('search'))));
 						die();
 					}
 					
