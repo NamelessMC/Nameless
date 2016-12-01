@@ -193,6 +193,7 @@ class User {
 	public function login($username = null, $password = null, $remember = false) {
 		if(!$username && !$password && $this->exists()){
 			Session::put($this->_sessionName, $this->data()->id);
+			$this->_isLoggedIn = true;
 		} else {
 			$user = $this->find($username);
 			if($user){
