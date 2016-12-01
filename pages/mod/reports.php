@@ -143,12 +143,12 @@ $token = Token::generate();
 					?>
 					<tr>
 					  <td><a href="/mod/reports/?rid=<?php echo $report->id; ?>"><strong><?php echo $general_language['view']; ?></strong></a></td>
-					  <td><a href="/profile/<?php echo htmlspecialchars($user->idToMCName($report->reported_id)); ?>"><?php echo htmlspecialchars($user->idToName($report->reported_id)); ?></a></td>
+					  <td><a href="/profile/<?php echo htmlspecialchars(($report->type == 0 ? $user->idToMCName($report->reported_id) : $report->reported_mcname)); ?>"><?php echo htmlspecialchars(($report->type == 0 ? $user->idToName($report->reported_id) : $report->reported_mcname)); ?></a></td>
 					  <td><?php
 					  if($report->type == 0){
 						echo $mod_language['forum_post'];
 					  } else if ($report->type == 1) {
-						echo $mod_language['user_profile'];
+						echo $mod_language['ingame_report'];
 					  }
 					  ?></td>
 					  <td><?php echo(count($queries->getWhere("reports_comments", array('report_id' , '=', $report->id)))); ?></td>
@@ -186,7 +186,7 @@ $token = Token::generate();
 						echo '<center>' . Session::flash('success_comment_report') . '</center>';
 					}
 					?>
-					<h2 style="display:inline;"><?php echo $mod_language['report']; ?> <a href="/profile/<?php echo htmlspecialchars($user->idToMCName($report[0]->reported_id)); ?>"><?php echo htmlspecialchars($user->idToName($report[0]->reported_id));?></a> | <small><a href="<?php echo $url; ?>"><?php echo $mod_language['view_reported_content']; ?></a></small></h2>
+					<h2 style="display:inline;"><?php echo $mod_language['report']; ?> <a href="/profile/<?php echo htmlspecialchars(($report[0]->type == 0 ? $user->idToMCName($report[0]->reported_id) : $report[0]->reported_mcname)); ?>"><?php echo htmlspecialchars(($report[0]->type == 0 ? $user->idToName($report[0]->reported_id) : $report[0]->reported_mcname));?></a><?php if($report[0]->type != 1){ ?> | <small><a href="<?php echo $url; ?>"><?php echo $mod_language['view_reported_content']; ?></a></small><?php } ?></h2>
 					<span class="pull-right">
 						<form action="" method="post">
 							<?php echo '<input type="hidden" name="type" value="update_status">'; ?>

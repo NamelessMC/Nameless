@@ -619,6 +619,7 @@ $mod_language = array(
 	'user_profile' => 'Profil uživateľa',
 	'comment_added' => 'Komentár pridaný',
 	'new_report_submitted_alert' => 'Nové nahlásenie predložené {x} týkajúce sa {y}', // Don't replace "{x}" or "{y}"
+	'ingame_report' => 'Ingame Report',
 	
 	// Staff applications
 	'comment_error' => 'Uistite sa prosím, že váš komentár má dĺžku medzi 2 až 2048 znakov.',

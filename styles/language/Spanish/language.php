@@ -624,6 +624,7 @@ $mod_language = array(
 	'user_profile' => 'Perfil del usuario',
 	'comment_added' => 'Comentario añadido.',
 	'new_report_submitted_alert' => 'Nuevo reporte presentado por {x} especto al usuario {y}', // Don't replace "{x}" or "{y}"
+	'ingame_report' => 'Ingame Report',
 	
 	// Staff applications
 	'comment_error' => 'Tu comentario debe tener entre 2 y 2048 caracteres.',

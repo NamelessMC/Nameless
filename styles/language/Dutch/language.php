@@ -621,7 +621,8 @@ $mod_language = array(
     'user_profile' => 'Speler Profiel',
     'comment_added' => 'Comment added.',
     'new_report_submitted_alert' => 'Nieuw report ingediend door {x} over {y}', // Don't replace "{x}" or "{y}"
-     
+	'ingame_report' => 'Ingame Report',
+
     // Staff applications
     'comment_error' => 'Zorg ervoor dat uw comment tussen de 2 en 2048 tekens lang is.',
     'viewing_open_applications' => 'Bekijk <span class="label label-info">open</span> applications. Verander naar <a href="/mod/applications/?view=accepted"><span class="label label-success">Geaccepted</span></a> or <a href="/mod/applications/?view=declined"><span class="label label-danger">Afgewezen</span></a>.',
