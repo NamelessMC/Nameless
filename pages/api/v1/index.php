@@ -121,6 +121,11 @@ class NamelessAPI {
 					$this->setGroup();
 				break;
 				
+				case 'createReport':
+					// Creating a new player report
+					$this->createReport();
+				break;
+				
 				default:
 					// No method specified
 					$this->throwError('Invalid API method');
@@ -372,6 +377,99 @@ class NamelessAPI {
 			
 			// Success
 			$this->sendSuccessMessage(json_encode($return));
+			
+		} else $this->throwError('Invalid API key');
+	}
+	
+	// Create a new report
+	private function createReport(){
+		// Ensure the API key is valid
+		if($this->_validated === true){
+			if(!isset($_POST) || empty($_POST)){
+				$this->throwError('Invalid post contents');
+			}
+			
+			// Validate post request
+			// Player UUID, report content, reported player UUID and reported player username required
+			if((!isset($_POST['reporter_uuid']) || empty($_POST['reporter_uuid'])) 
+				|| (!isset($_POST['reported_username']) || empty($_POST['reported_username']))
+			    || (!isset($_POST['reported_uuid']) || empty($_POST['reported_uuid']))
+				|| (!isset($_POST['content']) || empty($_POST['content']))){
+				$this->throwError('Invalid post contents');
+			}
+			
+			// Remove -s from UUID (if present)
+			$_POST['reporter_uuid'] = str_replace('-', '', $_POST['reporter_uuid']);
+			$_POST['reported_uuid'] = str_replace('-', '', $_POST['reported_uuid']);
+			
+			// Ensure UUIDs/usernames/content are correct lengths
+			if(strlen($_POST['reported_username']) > 20) $this->throwError('Invalid username');
+			if(strlen($_POST['reported_uuid']) > 32 || strlen($_POST['reporter_uuid']) > 32) $this->throwError('Invalid UUID');
+			if(strlen($_POST['content']) >= 255) $this->throwError('Please ensure the report content is less than 255 characters long.');
+
+			// Ensure user reporting has website account, and has not been banned
+			$this->_db = DB::getInstance();
+			$user_reporting = $this->_db->get('users', array('uuid', '=', htmlspecialchars($_POST['reporter_uuid'])));
+			
+			if(!count($user_reporting->results())) $this->throwError('You must have a website account to report players.');
+			else $user_reporting = $user_reporting->results();
+			
+			if($user_reporting[0]->isbanned == 1) $this->throwError('You have been banned from the website.');
+			
+			// Ensure user has not already reported the same player, and the report is open
+			$user_reports = $this->_db->get('reports', array('reporter_id', '=', $user_reporting[0]->id));
+			if(count($user_reports->results())){
+				foreach($user_reports->results() as $report){
+					if($report->reported_uuid == $_POST['reported_uuid']){
+						if($report->status == 0) $this->throwError('You still have a report open regarding that player.');
+					}
+				}
+			}
+			
+			// Create report
+			try {
+				$this->_db->insert('reports', array(
+					'type' => 1,
+					'reporter_id' => $user_reporting[0]->id,
+					'reported_id' => 0,
+					'status' => 0,
+					'date_reported' => date('Y-m-d H:i:s'),
+					'date_updated' => date('Y-m-d H:i:s'),
+					'report_reason' => htmlspecialchars($_POST['content']),
+					'updated_by' => $user_reporting[0]->id,
+					'reported_post' => 0,
+					'reported_post_topic' => 0,
+					'reported_mcname' => htmlspecialchars($_POST['reported_username']),
+					'reported_uuid' => htmlspecialchars($_POST['reported_uuid'])
+				));
+				
+				// Alert moderators
+				$report_id = $this->_db->lastid();
+
+				// Alert for moderators
+				$mod_groups = $this->_db->get('groups', array('mod_cp', '=', 1));
+				if(count($mod_groups->results())){
+					foreach($mod_groups->results() as $mod_group){
+						$mod_users = $this->_db->get('users', array('group_id', '=', $mod_group->id));
+						if(count($mod_users->results())){
+							foreach($mod_users->results() as $individual){
+								$this->_db->insert('alerts', array(
+									'user_id' => $individual->id,
+									'type' => 'Report',
+									'url' => '/mod/reports/?rid=' . $report_id,
+									'content' => 'New report submitted',
+									'created' => date('U')
+								));
+							}
+						}
+					}
+				}
+				
+				// Success
+				$this->sendSuccessMessage('Report created successfully');
+			} catch(Exception $e){
+				$this->throwError('Unable to create report');
+			}
 			
 		} else $this->throwError('Invalid API key');
 	}
