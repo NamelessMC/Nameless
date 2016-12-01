@@ -621,6 +621,7 @@ $mod_language = array(
 	'user_profile' => 'Bruker Profil',
 	'comment_added' => 'Kommentar lagt til.',
 	'new_report_submitted_alert' => 'Ny rapport fra {x} angående bruker {y}', // Don't replace "{x}" or "{y}"
+	'ingame_report' => 'Ingame Report',
 	
 	// Staff applications
 	'comment_error' => 'Sørg for din kommentar er mellom 2 og 2048 tegn.',

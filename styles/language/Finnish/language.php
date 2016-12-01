@@ -621,6 +621,7 @@ $mod_language = array(
 	'user_profile' => 'Käyttäjäprofiili',
 	'comment_added' => 'Kommentti lisätty.',
 	'new_report_submitted_alert' => 'Uusi raportti käyttäjältä {x} koskien käyttäjää {y}', // Don't replace "{x}" or "{y}"
+	'ingame_report' => 'Ingame Report',
 	
 	// Staff applications
 	'comment_error' => 'Varmista, että kommenttisi on vähintään 2 ja enintään 2048 merkkiä pitkä.',

@@ -619,6 +619,7 @@ $mod_language = array(
 	'user_profile' => 'Uživatelův profil',
 	'comment_added' => 'Komentář přidán',
 	'new_report_submitted_alert' => 'Nové oznámení submitted {x} týkající se {y}', // Don't replace "{x}" or "{y}"
+	'ingame_report' => 'Ingame Report',
 	
 	// Staff applications
 	'comment_error' => 'Please ensure your comment is between 2 and 2048 characters long.',
