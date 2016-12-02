@@ -213,7 +213,7 @@ $admin_page = 'users_and_groups';
 				} else if(isset($_GET["group"])){
 					// Verify group is numeric ID
 					if(!is_numeric($_GET['group'])){
-						Redirect::to('/admin/groups');
+						Redirect::to(URL::build('/admin/groups'));
 						die();
 					}
 					// Deal with input
@@ -249,7 +249,7 @@ $admin_page = 'users_and_groups';
 											'staff' => Input::get('staff')
 										));
 										
-										Redirect::to('/admin/groups/', 'group=' . Output::getClean($_GET['group']));
+										Redirect::to(URL::build('/admin/groups/', 'group=' . Output::getClean($_GET['group'])));
 										die();
 									} catch(Exception $e) {
 										die($e->getMessage());
