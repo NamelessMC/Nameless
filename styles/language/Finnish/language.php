@@ -449,6 +449,7 @@ $user_language = array(
 	'verify_account_help' => 'Please follow the instructions below so we can verify you own the Minecraft account in question.',
 	'verification_failed' => 'Verification failed, please try again.',
 	'verification_success' => 'Successfully validated! You can now log in.',
+	'complete_signup' => 'Complete Signup',
 	
 	// UserCP
 	'user_cp' => 'KäyttäjäCP',

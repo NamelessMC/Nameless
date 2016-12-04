@@ -449,6 +449,7 @@ $user_language = array(
 	'verify_account_help' => 'Følg instruksjonene under slik at vi kan bekrefte at du eier Minecraft aktuelle kontoen.',
 	'verification_failed' => 'Verifisering mislyktes, vennligst prøv igjen.',
 	'verification_success' => 'Vellykket skjekking! Du kan nå logge inn.',
+	'complete_signup' => 'Complete Signup',
 	
 	// UserCP
 	'user_cp' => 'BrukerCP',

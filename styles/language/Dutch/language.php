@@ -449,6 +449,7 @@ $user_language = array(
 	'verify_account_help' => 'Volg a.u.b. de stappen zodat wij kunnen zie of u eigenaar bent van het account',
 	'verification_failed' => 'Verificatie mislukt. Probeer a.u.b. Opnieuw',
 	'verification_success' => 'Verificatie gelukt! Je kan nu inloggen.',
+	'complete_signup' => 'Complete Signup',
 
     // UserCP
     'user_cp' => 'UserCP',
