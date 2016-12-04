@@ -412,6 +412,10 @@ require('core/integration/uuid.php');
 							// Delete the user's topics
 							$queries->delete('topics', array('topic_creator', '=', $_GET["uid"]));
 							
+							// Delete user's friends
+							$queries->delete('friends', array('user_id', '=', $_GET["uid"]));
+							$queries->delete('friends', array('friend_id', '=', $_GET["uid"]));
+							
 							Session::flash('adm-users', '<div class="alert alert-info alert-dismissible">  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $admin_language['user_deleted'] . '</div>');
 							echo '<script data-cfasync="false">window.location.replace("/admin/users/");</script>';
 							die();
