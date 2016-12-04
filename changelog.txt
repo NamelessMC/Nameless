@@ -392,3 +392,32 @@ The notes for each release
 - Allow deleting "broken" posts directly from search
 - Update readme contributors
 - Fix EnglishUK language syntax error
+
+1.0.14
+- Add webchat and Discord links to readme
+- Prevent forum index from counting deleted posts
+- Fix replies not being deleted after topic deletion
+- Update Dutch translation
+- Update German translation
+- Update Norsk translation
+- Update Portuguese translation
+- Update Spanish translation
+- Add checks if the user can view staff applications
+- Removed "Top voters list coming soon" from vote page
+- Update author meta tag to site name
+- Allow custom user sidebar links
+- Add Help page
+- Add Ban Appeal addon to core Nameless release
+- Fix Ban Appeal "More" dropdown issue
+- Allow moving Staff Application link location
+- Update Ban Appeal permission check
+- Ensure email is valid for API registration
+- Automatically log user in on first load
+- Add report creation method to API
+- Update ModCP to support ingame reports
+- Update AdminCP Forum permissions issue
+- Fix avatar width issues
+- Prevent viewing files in non-accessible directories
+- Update editor line break method
+- Add signup completion for API register method
+- Remove user's friends on deletion
