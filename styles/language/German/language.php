@@ -452,6 +452,7 @@ $user_language = array(
 	'verify_account_help' => 'Bitte führe die angegeben Schritte durch um deinen Account zu verifizieren.',
 	'verification_failed' => 'Verifikation fehlgeschlagen.',
 	'verification_success' => 'Erfolgreich freigeschaltet.',
+	'complete_signup' => 'Complete Signup',
 
 	// UserCP
 	'user_cp' => 'Benutzer Panel',

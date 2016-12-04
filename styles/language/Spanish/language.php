@@ -452,6 +452,7 @@ $user_language = array(
 	'verify_account_help' => 'Por favor, sigue las instrucciones mostradas a continuación para que podamos verificar que eres el dueño de la cuenta de Minecraft.',
 	'verification_failed' => 'Verificación fallida, Por favor inténtalo de nuevo.',
 	'verification_success' => 'Cuenta verificada correctamente, Ya puedes iniciar sesión.',
+	'complete_signup' => 'Complete Signup',
 	
 	// UserCP
 	'user_cp' => 'Panel Usuario',

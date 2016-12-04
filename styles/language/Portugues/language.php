@@ -453,6 +453,7 @@ $user_language = array(
 	'verify_account_help' => 'Por favor, siga as instruções abaixo, assim nós podemos verificar se você possui a conta de Minecraft em questão.',
 	'verification_failed' => 'Falha ao verificar, por favor, tente de novo.',
 	'verification_success' => 'Verificada com sucesso! Agora você pode logar-se.',
+	'complete_signup' => 'Complete Signup',
 	
 	// UserCP
 	'user_cp' => 'UserCP',
