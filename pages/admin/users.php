@@ -850,6 +850,7 @@ require('core/integration/uuid.php');
 			// Remove the redundant buttons from toolbar groups defined above.
 			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash,Iframe'
 		} );
+		CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
 	</script>
   </body>
 </html>
