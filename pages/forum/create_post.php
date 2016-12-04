@@ -234,6 +234,7 @@ $token = Token::generate();
 			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash,Iframe'
 		} );
 		CKEDITOR.config.extraAllowedContent = 'blockquote small';
+		CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
 	    <?php 
 	    // Quote
 	    if(isset($quoted_post) && !Session::exists('failure_post')){
