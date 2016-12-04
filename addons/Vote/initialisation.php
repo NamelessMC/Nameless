@@ -6,7 +6,6 @@
  *  License: MIT
  *  Copyright (c) 2016 Samerton
  */
- */
 
 // Initialise the vote addon
 // We've already checked to see if it's enabled
