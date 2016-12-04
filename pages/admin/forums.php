@@ -650,7 +650,7 @@ $adm_page = "forums";
 							<tbody>
 								<tr>
 									<td>Guest</td>
-									<td><input type="hidden" name="perm-view-0" value="0" /><input name="perm-view-0" id="Input-view-0" value="1" type="checkbox"<?php if(isset($view) && $view == 1){ echo ' checked'; } ?>></td>
+									<td><input type="hidden" name="perm-view-0" value="0" /><input onclick="colourUpdate(this);" name="perm-view-0" id="Input-view-0" value="1" type="checkbox"<?php if(isset($view) && $view == 1){ echo ' checked'; } ?>></td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 								</tr>
