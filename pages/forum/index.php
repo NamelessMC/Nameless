@@ -232,7 +232,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 			$posts = count($posts);
 			
 			// Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
-			$last_reply_avatar = '<img class="img-centre img-rounded" style="width:27.7px; height:27.7px;" src="' .  $user->getAvatar($discussions[$n]['topic_last_user'], "../", 30) . '" />';
+			$last_reply_avatar = '<img class="img-centre img-rounded" src="' .  $user->getAvatar($discussions[$n]['topic_last_user'], "../", 30) . '" />';
 			
 			// Is there a label?
 			if($discussions[$n]['label'] != 0){ // yes
@@ -359,7 +359,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 					$posts_count = count($count_posts);
 				
 					// Get avatar of user who last posted
-					$last_reply_avatar = '<img class="img-centre img-rounded" style="width:27.7px; height:27.7px;" src="' .  $user->getAvatar($item['last_user_posted'], "../", 30) . '" />';
+					$last_reply_avatar = '<img class="img-centre img-rounded" src="' .  $user->getAvatar($item['last_user_posted'], "../", 30) . '" />';
 					
 					// Get the last topic posted in
 					$last_topic = '';
@@ -435,7 +435,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 			}
 
 			// Get avatar of user
-			$last_reply_avatar = '<img class="img-centre img-rounded" style="width:27.7px; height:27.7px;" src="' .  $user->getAvatar($item['topic_last_user'], "../", 30) . '" />';
+			$last_reply_avatar = '<img class="img-centre img-rounded" src="' .  $user->getAvatar($item['topic_last_user'], "../", 30) . '" />';
 			
 			$latest_posts[] = array(
 				'topic_id' => $item['id'],

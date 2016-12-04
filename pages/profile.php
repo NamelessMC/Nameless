@@ -329,10 +329,10 @@ if(isset($profile)){
             color: white;
         }
 		.image_container {
-			width: 262.5px;
-			height: 262.5px;
+			/* width: 262.5px;
+			height: 262.5px;*/
 			text-align: center;
-			line-height: 262.5px;
+			/*line-height: 262.5px;*/
 		}
       </style>
    </head>
