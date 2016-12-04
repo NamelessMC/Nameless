@@ -6,7 +6,6 @@
  *  License: MIT
  *  Copyright (c) 2016 Samerton
  */
- */
 
 // Language file for "Infractions" addon
 

@@ -10,8 +10,6 @@
  * Copyright (c) 2016 Samerton
  */
 
- */
-
 // Initialise the members addon
 // We've already checked to see if it's enabled
 
