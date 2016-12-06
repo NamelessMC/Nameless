@@ -258,7 +258,7 @@ $admin_language = array(
 	
 	// Admin Minecraft page
 	'minecraft_settings' => 'Minecraft Settings',
-	'use_plugin' => 'Enabled Nameless API?',
+	'use_plugin' => 'Enable Nameless API?',
 	'force_avatars' => 'Force Minecraft avatars?',
 	'uuid_linking' => 'Enable UUID linking?',
 	'use_plugin_help' => 'Enabling the API, along with the upcoming server plugin, allows for rank synchronisation and also ingame registration and report submission.',
