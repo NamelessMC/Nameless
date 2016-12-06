@@ -78,6 +78,9 @@ $current_default_language = $current_default_language[0]->value;
 				  <tr>
 					<td><a href="<?php echo URL::build('/admin/registration'); ?>"><?php echo $language->get('admin', 'registration'); ?></a></td>
 				  </tr>
+				  <tr>
+					<td><a href="<?php echo URL::build('/admin/core/', 'view=social'); ?>"><?php echo $language->get('admin', 'social_media'); ?></a></td>
+				  </tr>
 				</table>
 			  </div>
 			  <?php 
@@ -588,6 +591,113 @@ $current_default_language = $current_default_language[0]->value;
 								}
 							}
 						}
+					  break;
+					  
+					  case 'social':
+						// Deal with input
+						if(Input::exists()){
+							if(Token::check(Input::get('token'))){
+								// Update database values
+								// Youtube URL
+								$youtube_url_id = $queries->getWhere('settings', array('name', '=', 'youtube_url'));
+								$youtube_url_id = $youtube_url_id[0]->id;
+								
+								$queries->update('settings', $youtube_url_id, array(
+									'value' => Output::getClean(Input::get('youtubeurl'))
+								));
+								
+								// Update cache
+								$cache->setCache('social_media');
+								$cache->store('youtube', Output::getClean(Input::get('youtubeurl')));
+								
+								// Twitter URL
+								$twitter_url_id = $queries->getWhere('settings', array('name', '=', 'twitter_url'));
+								$twitter_url_id = $twitter_url_id[0]->id;
+								
+								$queries->update('settings', $twitter_url_id, array(
+									'value' => Output::getClean(Input::get('twitterurl'))
+								));
+								
+								$cache->store('twitter', Output::getClean(Input::get('twitterurl')));
+								
+								// Twitter dark theme
+								$twitter_dark_theme = $queries->getWhere('settings', array('name', '=', 'twitter_style'));
+								$twitter_dark_theme = $twitter_dark_theme[0]->id;
+								
+								if(isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) $theme = 'dark';
+								else $theme = 'light';
+								
+								$queries->update('settings', $twitter_dark_theme, array(
+									'value' => $theme
+								));
+								
+								$cache->store('twitter_theme', $theme);
+								
+								// Google Plus URL
+								$gplus_url_id = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
+								$gplus_url_id = $gplus_url_id[0]->id;
+								
+								$queries->update('settings', $gplus_url_id, array(
+									'value' => Output::getClean(Input::get('gplusurl'))
+								));
+								
+								$cache->store('google_plus', Output::getClean(Input::get('gplusurl')));
+								
+								// Facebook URL
+								$fb_url_id = $queries->getWhere('settings', array('name', '=', 'fb_url'));
+								$fb_url_id = $fb_url_id[0]->id;
+								$queries->update('settings', $fb_url_id, array(
+									'value' => Output::getClean(Input::get('fburl'))
+								));
+								
+								$cache->store('facebook', Output::getClean(Input::get('fburl')));
+								
+								Session::flash('social_media_links', '<div class="alert alert-success">' . $language->get('admin', 'successfully_updated') . '</div>');
+							} else {
+								// Invalid token
+								Session::flash('social_media_links', '<div class="alert alert-danger">' . $language->get('general', 'invalid_token') . '</div>');
+							}
+						}
+
+						// Show settings for social media links
+						// Get values from database
+						$youtube_url = $queries->getWhere('settings', array('name', '=', 'youtube_url'));
+						$twitter_url = $queries->getWhere('settings', array('name', '=', 'twitter_url'));
+						$twitter_style = $queries->getWhere('settings', array('name', '=', 'twitter_style'));
+						$gplus_url = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
+						$fb_url = $queries->getWhere('settings', array('name', '=', 'fb_url'));
+						?>
+						<h4><?php echo $language->get('admin', 'social_media'); ?></h4>
+						<?php
+						if(Session::exists('social_media_links')){
+							echo Session::flash('social_media_links');
+						}
+						?>
+						<form action="" method="post">
+							<div class="form-group">
+								<label for="InputYoutube"><?php echo $language->get('admin', 'youtube_url'); ?></label>
+								<input type="text" name="youtubeurl" class="form-control" id="InputYoutube" placeholder="<?php echo $language->get('admin', 'youtube_url'); ?>" value="<?php echo Output::getClean($youtube_url[0]->value); ?>">
+							</div>
+							<div class="form-group">
+								<label for="InputTwitter"><?php echo $language->get('admin', 'twitter_url'); ?></label>
+								<input type="text" name="twitterurl" class="form-control" id="InputTwitter" placeholder="<?php echo $language->get('admin', 'twitter_url'); ?>" value="<?php echo Output::getClean($twitter_url[0]->value); ?>">
+							</div>
+							<div class="form-group">
+							  <label for="InputTwitterStyle"><?php echo $language->get('admin', 'twitter_dark_theme'); ?></label>
+							  <input id="InputTwitterStyle" name="twitter_dark_theme" type="checkbox" class="js-switch" value="1" <?php if($twitter_style[0]->value == 'dark') echo 'checked'; ?>/>
+							</div>
+							<div class="form-group">
+								<label for="InputGPlus"><?php echo $language->get('admin', 'google_plus_url'); ?></label>
+								<input type="text" name="gplusurl" class="form-control" id="InputGPlus" placeholder="<?php echo $language->get('admin', 'google_plus_url'); ?>" value="<?php echo Output::getClean($gplus_url[0]->value); ?>">
+							</div>
+							<div class="form-group">
+								<label for="InputFacebook"><?php echo $language->get('admin', 'facebook_url'); ?></label>
+								<input type="text" name="fburl" class="form-control" id="InputFacebook" placeholder="<?php echo $language->get('admin', 'facebook_url'); ?>" value="<?php echo Output::getClean($fb_url[0]->value); ?>">
+							</div>
+							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+							<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+						</form>
+						<?php
 					  break;
 					  
 					  default:

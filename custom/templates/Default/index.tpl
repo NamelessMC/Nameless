@@ -45,11 +45,13 @@
 	  
 	    <center><h2>{$SOCIAL} <i class="fa fa-users" aria-hidden="true"></i></h2></center>
 	    <hr />
+		{if $TWITTER}
 	    <div class="card">
 		  <div class="card-block">
 	        {$TWITTER}
 		  </div>
 		</div>
+		{/if}
 	    <iframe src="https://discordapp.com/widget?id=172055419961868288&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe>
 	  </div>
 	</div>
