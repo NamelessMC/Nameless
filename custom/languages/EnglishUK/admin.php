@@ -46,6 +46,16 @@ $language = array(
 	'post_formatting_type' => 'Post formatting type',
 	'portal' => 'Portal',
 	'missing_sitename' => 'Please insert a site name between 2 and 64 characters long.',
+	'use_friendly_urls' => 'Friendly URLs',
+	'use_friendly_urls_help' => 'IMPORTANT: Your server must be configured to allow the use of mod_rewrite and .htaccess files for this to work.',
+	'config_not_writable' => 'Your <strong>core/config.php</strong> file is not writable. Please check file permissions.',
+	'social_media' => 'Social Media',
+	'youtube_url' => 'Youtube URL',
+	'twitter_url' => 'Twitter URL',
+	'twitter_dark_theme' => 'Use Twitter dark theme?',
+	'google_plus_url' => 'Google Plus URL',
+	'facebook_url' => 'Facebook URL',
+	'successfully_updated' => 'Successfully updated',
 	
 	// Reactions
 	'icon' => 'Icon',
