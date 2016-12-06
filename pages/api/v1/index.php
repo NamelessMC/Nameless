@@ -273,7 +273,7 @@ class NamelessAPI {
 				));
 				
 				// Success
-				$this->sendSuccessMessage('Registered successfully');
+				$this->sendSuccessMessage('Registered successfully, please check your emails for further instructions');
 			} catch(Exception $e){
 				$this->throwError('Unable to create account');
 			}
