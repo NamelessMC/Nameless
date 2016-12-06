@@ -76,11 +76,23 @@ $timeago = new Timeago();
 				$comments = $queries->getWhere('reports_comments', array('report_id', '=', $report->id));
 				$comments = count($comments);
 				
+				if($report->type == 0){
+					// Site report
+					$user_reported = Output::getClean($user->idToNickname($report->reported_id));
+					$user_profile = URL::build('/profile/' . Output::getClean($user->idToName($report->reported_id)));
+					$user_style = $user->getGroupClass($report->reported_id);
+				} else {
+					// Ingame report
+					$user_reported = Output::getClean($report->reported_mcname);
+					$user_profile = URL::build('/profile/' . Output::getClean($report->reported_mcname));
+					$user_style = '';
+				}
+				
 				$reports[] = array(
 					'id' => $report->id,
-					'user_reported' => Output::getClean($user->idToNickname($report->reported_id)),
-					'user_profile' => URL::build('/profile/' . Output::getClean($user->idToName($report->reported_id))),
-					'user_reported_style' => $user->getGroupClass($report->reported_id),
+					'user_reported' => $user_reported,
+					'user_profile' => $user_profile,
+					'user_reported_style' => $user_style,
 					'link' => URL::build('/mod/reports/', 'report=' . $report->id),
 					'updated_by' => Output::getClean($user->idToNickname($report->updated_by)),
 					'updated_by_profile' => URL::build('/profile/' . Output::getClean($user->idToName($report->updated_by))),
@@ -160,6 +172,16 @@ $timeago = new Timeago();
 				);
 			}
 			
+			if(!$report->reported_id){
+				$reported_user = Output::getClean($report->reported_mcname);
+				$reported_user_profile = URL::build('/profile/' . Output::getClean($report->reported_mcname));
+				$reported_user_style = '';
+			} else {
+				$reported_user = Output::getClean($user->idToNickname($report->reported_id));
+				$reported_user_profile = URL::build('/profile/' . Output::getClean($user->idToName($report->reported_id)));
+				$reported_user_style = $user->getGroupClass($report->reported_id);
+			}
+			
 			// Smarty variables
 			$smarty->assign(array(
 				'MOD_CP' => $language->get('moderator', 'mod_cp'),
@@ -167,9 +189,9 @@ $timeago = new Timeago();
 				'REPORTS_LINK' => URL::build('/mod/reports'),
 				'VIEWING_REPORT' => $language->get('moderator', 'viewing_report'),
 				'BACK' => $language->get('general', 'back'),
-				'REPORTED_USER' => Output::getClean($user->idToNickname($report->reported_id)),
-				'REPORTED_USER_PROFILE' => URL::build('/profile/' . Output::getClean($user->idToName($report->reported_id))),
-				'REPORTED_USER_STYLE' => $user->getGroupClass($report->reported_id),
+				'REPORTED_USER' => $reported_user,
+				'REPORTED_USER_PROFILE' => $reported_user_profile,
+				'REPORTED_USER_STYLE' => $reported_user_style,
 				'REPORT_DATE' => date('d M Y, H:i', strtotime($report->date_reported)),
 				'REPORT_DATE_FRIENDLY' => $timeago->inWords($report->date_reported, $language->getTimeLanguage()),
 				'CONTENT_LINK' => $report->link,
@@ -184,7 +206,8 @@ $timeago = new Timeago();
 				'NEW_COMMENT' => $language->get('moderator', 'new_comment'),
 				'SUBMIT' => $language->get('general', 'submit'),
 				'TOKEN' => Token::generate(),
-				'ERROR' => (isset($error) ? $error : false)
+				'ERROR' => (isset($error) ? $error : false),
+				'TYPE' => $report->type
 			));
 			
 			// Close/reopen link
