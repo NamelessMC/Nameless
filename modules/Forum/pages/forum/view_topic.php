@@ -436,7 +436,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 		}
 	
 		// Profile fields
-		$fields = $user->getProfileFields($post_user[0]->id);
+		$fields = $user->getProfileFields($post_user[0]->id, true, true);
 		
 		if($mc_integration[0]->value == '1') $fields[] = array('name' => 'IGN', 'value' => Output::getClean($post_user[0]->username));
 		
