@@ -58,21 +58,6 @@
   </div>
 </div>
 
-<footer class="home-footer">
-  <div class="container">
-    <div class="row">
-	  <div class="col-md-4">
-	    <h3>Links</h3>
-	    <ul>
-	      <li><a target="_blank" href="https://namelesshosting.com/">Free Hosting</a></li>
-	    </ul>
-	  </div>
-	  <div class="col-md-8">
-	    <br /><br />
-	    <span class="pull-right">
-		  <a href="https://github.com/NamelessMC/Nameless/" target="_blank">Powered by NamelessMC 2.0</a>
-		</span>
-	  </div>
-	</div>
-  </div>
-</footer>
+<br />
+
+{include file='footer.tpl'}
