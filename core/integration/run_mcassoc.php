@@ -132,7 +132,7 @@ if(!isset($_SESSION['mcassoc'])) $_SESSION['mcassoc'] = $_POST;
 					  
 						unset($_SESSION['mcassoc']);
 					  
-						echo '<div class="alert alert-success">' . $user_language['verification_success'] . '<br /><a href="/login" class="btn btn-primary">' . $user_language['sign_in'] . '</a></div>';
+						echo '<div class="alert alert-success">' . $user_language['verification_success'] . '<br /><a href="/signin" class="btn btn-primary">' . $user_language['sign_in'] . '</a></div>';
 					}
 			  } catch (Exception $e) {
 				  echo '<div class="alert alert-danger">' . $user_language['verification_failed'] . '<br /><a href="/register" class="btn btn-primary">' . $user_language['register'] . '</a></div>';
