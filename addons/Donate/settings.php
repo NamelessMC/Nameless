@@ -29,13 +29,13 @@ if($user->isLoggedIn()){
 ?>
 <ul class="nav nav-pills">
   <li<?php if(!isset($_GET['view'])){ ?> class="active"<?php } ?>><a href="/admin/addons/?action=edit&amp;addon=Donate">Settings</a></li>
-  <!--<li<?php //if(isset($_GET['view']) && $_GET['view'] == 'mcstock'){ ?> class="active"<?php //} ?>><a href="/admin/addons/?action=edit&amp;addon=Donate&amp;view=mcstock">MCStock</a></li>-->
+  <li<?php if(isset($_GET['view']) && $_GET['view'] == 'packages'){ ?> class="active"<?php } ?>><a href="/admin/addons/?action=edit&amp;addon=Donate&amp;view=packages">Packages</a></li>
 </ul>
 
 <?php if(!isset($_GET['view']) && !isset($_GET['do'])){ ?>  
 <h3>Addon: Donate</h3>
 Author: Samerton<br />
-Version: 1.0.3<br />
+Version: 1.1.0<br />
 Description: Integrate a donation store with your website<br />
 
 <h3>Donation Store</h3>
@@ -157,9 +157,6 @@ if(empty($donation_settings)){
     <label class="btn btn-primary<?php if($donation_settings[0]->value == 'mm'){ ?> active<?php } ?>">
 	  <input type="radio" name="store_type" id="InputStoreType2" value="mm" autocomplete="off"<?php if($donation_settings[0]->value == 'mm'){ ?> checked<?php } ?>> Minecraft Market
     </label>
-    <!--<label class="btn btn-primary<?php //if($donation_settings[0]->value == 'mcs'){ ?> active<?php //} ?>">
-	  <input type="radio" name="store_type" id="InputStoreType3" value="mcs" autocomplete="off"<?php //if($donation_settings[0]->value == 'mcs'){ ?> checked<?php //} ?>> MCStock
-    </label>-->
   </div>
   <br /><br />
   <div class="form-group">
@@ -207,28 +204,120 @@ if(empty($donation_settings)){
 }
 } else {
 	if(isset($_GET['view']) && !isset($_GET['do'])){
-		if($_GET['view'] == 'mcstock'){
-			// MCStock integration
-			$donation_settings = $queries->getWhere('donation_settings', array('id', '<>', 0));
-			if(!count($donation_settings)){
-				// Hasn't been installed yet
+		if($_GET['view'] == 'packages'){
+			// Change packages
+			if(!isset($_GET['package'])){
+				?>
+	<h3>Packages</h3>
+	Click to edit package descriptions:<br /><br />
+				<?php
+				// Display a list of all available packages
+				$packages = $queries->getWhere('donation_packages', array('id', '<>', 0));
+				
+				if(count($packages)){
+					echo '<ul>';
+					foreach($packages as $package){
+						echo '<li><a href="/admin/addons/?action=edit&amp;addon=donate&amp;view=packages&amp;package=' . $package->package_id . '">' . htmlspecialchars($package->name) . '</a></li>';
+					}
+					echo '</ul>';
+				} else echo 'No packages available yet.';
 			} else {
-	?>
-	<h3>MCStock</h3>
-	<?php
-				// Is MCStock enabled?
-				if($donation_settings[0]->value == 'mcs'){ // Yes
-	?>
-	Control your MCStock donor store from here.<br /><br />
-	<div class="alert alert-warning">Coming soon</div>
-	<?php
-				} else { // No
-	?>
-	<div class="alert alert-info">
-	  MCStock is not selected as your donation plugin.
-	</div>
-	<?php
+				// Ensure package exists
+				$package = $queries->getWhere('donation_packages', array('package_id', '=', htmlspecialchars($_GET['package'])));
+				
+				if(!count($package)){
+					echo '<script>window.location.replace(\'/admin/addons/?action=edit&addon=Donate\');</script>';
+					die();
 				}
+				
+				$package = $package[0];
+				
+				if(Input::exists()){
+					if(Token::check(Input::get('token'))){
+						// Validate input
+						$validate = new Validate();
+						
+						$validation = $validate->check($_POST, array(
+							'editor' => array(
+								'required' => true,
+								'min' => 1,
+								'max' => 20000
+							)
+						));
+						
+						if($validation->passed()){
+							try {
+								$queries->update('donation_packages', $package->id, array(
+									'description' => htmlspecialchars(Input::get('editor'))
+								));
+								
+								// Requery to bring $package up to date
+								$package = $queries->getWhere('donation_packages', array('package_id', '=', $package->package_id));
+								$package = $package[0];
+								
+								$error = '<div class="alert alert-success">Updated successfully.</div>';
+								
+							} catch(Exception $e){
+								$error = '<div class="alert alert-danger">Error: ' . $e->getMessage . '</div>';
+							}
+						} else {
+							$error = '<div class="alert alert-danger">Please input a valid description between 1 and 20000 characters long.</div>';
+						}
+					} else {
+						// Invalid token
+						$error = '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>';
+					}
+				}
+				
+				// Generate form token
+				$token = Token::generate();
+				
+				// HTMLPurifier
+				require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
+				$config = HTMLPurifier_Config::createDefault();
+				$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
+				$config->set('URI.DisableExternalResources', false);
+				$config->set('URI.DisableResources', false);
+				$config->set('HTML.Allowed', 'u,a,p,b,i,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
+				$config->set('CSS.AllowedProperties', array('float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
+				$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style');
+				$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
+				$purifier = new HTMLPurifier($config);
+				
+				?>
+				<h3>Editing package <?php echo htmlspecialchars($package->name); ?></h3>
+				<?php if(isset($error)) echo $error; ?>
+				<form action="" method="post">
+				  <div class="form-group">
+				    <label for="InputDescription">Description</label>
+				    <textarea class="editor" rows="10" name="editor" id="InputDescription"><?php echo $purifier->purify(htmlspecialchars_decode($package->description)); ?></textarea>
+				  </div>
+				  <div class="form-group">
+				    <input type="hidden" name="token" value="<?php echo $token; ?>">
+				    <input class="btn btn-primary" type="submit" value="<?php echo $general_language['submit']; ?>">
+					<a href="/admin/addons/?action=edit&amp;addon=Donate&amp;view=packages" onclick="return confirm('Are you sure?');" class="btn btn-danger">Cancel</a>
+				  </div>
+				</form>
+				
+				<div class="alert alert-info">Unfortunately the package description will be reset upon synchronising the donor store, this will be modified in a future update.</div>
+				
+				<script src="/core/assets/js/ckeditor.js"></script>
+				<script type="text/javascript">
+					CKEDITOR.replace( 'editor', {
+						// Define the toolbar groups as it is a more accessible solution.
+						toolbarGroups: [
+							{"name":"basicstyles","groups":["basicstyles"]},
+							{"name":"paragraph","groups":["list","align"]},
+							{"name":"styles","groups":["styles"]},
+							{"name":"colors","groups":["colors"]},
+							{"name":"links","groups":["links"]}
+						],
+						// Remove the redundant buttons from toolbar groups defined above.
+						removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash,Iframe'
+					} );
+					CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+				</script>
+				<?php
 			}
 		}
 	} else if(isset($_GET['do']) && !isset($_GET['view'])){
