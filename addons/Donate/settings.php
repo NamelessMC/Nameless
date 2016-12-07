@@ -217,7 +217,7 @@ if(empty($donation_settings)){
 				if(count($packages)){
 					echo '<ul>';
 					foreach($packages as $package){
-						echo '<li><a href="/admin/addons/?action=edit&amp;addon=donate&amp;view=packages&amp;package=' . $package->package_id . '">' . htmlspecialchars($package->name) . '</a></li>';
+						echo '<li><a href="/admin/addons/?action=edit&amp;addon=Donate&amp;view=packages&amp;package=' . $package->package_id . '">' . htmlspecialchars($package->name) . '</a></li>';
 					}
 					echo '</ul>';
 				} else echo 'No packages available yet.';
