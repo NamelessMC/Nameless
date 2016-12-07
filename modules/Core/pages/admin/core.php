@@ -312,7 +312,7 @@ $current_default_language = $current_default_language[0]->value;
 			  <table class="table">
 			    <thead>
 				  <tr>
-				    <th><?php echo $language->get('admin', 'name'); ?></th>
+				    <th><?php echo $language->get('admin', 'field_name'); ?></th>
 					<th><?php echo $language->get('admin', 'type'); ?></th>
 					<th><?php echo $language->get('admin', 'required'); ?></th>
 					<th><?php echo $language->get('admin', 'public'); ?></th>
@@ -358,10 +358,252 @@ $current_default_language = $current_default_language[0]->value;
 						<?php
 						} else {
 							if(isset($_GET['action'])){
-								
-							} else if(isset($_GET['id'])) {
+								if($_GET['action'] == 'new'){
+									// New field
+									if(Input::exists()){
+										if(Token::check(Input::get('token'))){
+											// Validate input
+											$validate = new Validate();
+											
+											$validation = $validate->check($_POST, array(
+												'name' => array(
+													'required' => true,
+													'min' => 2,
+													'max' => 16
+												),
+												'type' => array(
+													'required' => true
+												)
+											));
+											
+											if($validation->passed()){
+												// Input into database
+												try {
+													// Get whether required/public/forum post options are enabled or not
+													if(isset($_POST['required']) && $_POST['required'] == 'on') $required = 1;
+													else $required = 0;
+													
+													if(isset($_POST['public']) && $_POST['public'] == 'on') $public = 1;
+													else $public = 0;
+													
+													if(isset($_POST['forum']) && $_POST['forum'] == 'on') $forum_posts = 1;
+													else $forum_posts = 0;
+													
+													// Insert into database
+													$queries->create('profile_fields', array(
+														'name' => Output::getClean(Input::get('name')),
+														'type' => Input::get('type'),
+														'public' => $public,
+														'required' => $required,
+														'description' => Output::getClean(Input::get('description')),
+														'forum_posts' => $forum_posts
+													));
+													
+													// Redirect
+													Redirect::to(URL::build('/admin/core/', 'view=profile'));
+													die();
+													
+												} catch(Exception $e){
+													$error = $e->getMessage();
+												}
+												
+											} else {
+												// Display errors
+												$error = $language->get('admin', 'profile_field_error');
+											}
+										} else {
+											// Invalid token
+											$error = $language->get('admin', 'invalid_token');
+										}
+									}
+									
+									?>
+			  <h4 style="display:inline;"><?php echo $language->get('admin', 'creating_profile_field'); ?></h4>
+			  <span class="pull-right">
+			    <a class="btn btn-danger" href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
+			  </span>
+			  <br /><br />
+			  <?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
+			  <form action="" method="post">
+			    <div class="form-group">
+				  <label for="inputName"><?php echo $language->get('admin', 'field_name'); ?></label>
+				  <input type="text" name="name" id="inputName" class="form-control" placeholder="<?php echo $language->get('admin', 'field_name'); ?>">
+				</div>
+				
+			    <div class="form-group">
+				  <label for="inputType"><?php echo $language->get('admin', 'type'); ?></label>
+				  <select class="form-control" name="type" id="inputType">
+				    <option value="1"><?php echo $language->get('admin', 'text'); ?></option>
+				    <option value="2"><?php echo $language->get('admin', 'textarea'); ?></option>
+				    <option value="3"><?php echo $language->get('admin', 'date'); ?></option>
+				  </select>
+				</div>
+				
+			    <div class="form-group">
+				  <label for="inputDescription"><?php echo $language->get('admin', 'description'); ?></label>
+				  <textarea id="inputDescription" name="description" class="form-control"></textarea>
+				</div>
+				
+				<div class="form-group">
+				  <label for="inputRequired"><?php echo $language->get('admin', 'required'); ?></label>
+				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_required_help'); ?>"></i></span>
+				  <input type="checkbox" id="inputRequired" name="required" class="js-switch" />
+				</div>
+				
+				<div class="form-group">
+				  <label for="inputPublic"><?php echo $language->get('admin', 'public'); ?></label>
+				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_public_help'); ?>"></i></span>
+				  <input type="checkbox" id="inputPublic" name="public" class="js-switch" />
+				</div>
+				
+				<div class="form-group">
+				  <label for="inputForum"><?php echo $language->get('admin', 'display_field_on_forum'); ?></label>
+				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_forum_help'); ?>"></i></span>
+				  <input type="checkbox" id="inputForum" name="forum" class="js-switch" />
+				</div>
+				
+				<div class="form-group">
+				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+				  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+				</div>
+			  </form>
+									<?php
+								} else if($_GET['action'] == 'delete'){
+									// Delete field
+									if(isset($_GET['id']))
+										$queries->delete('profile_fields', array('id', '=', $_GET['id']));
+									
+									Redirect::to(URL::build('/admin/core/', 'view=profile'));
+									die();
+								}
+							} else if(isset($_GET['id']) && !isset($_GET['action'])) {
 								// Editing field
 								
+								// Ensure field actually exists
+								if(!is_numeric($_GET['id'])){
+									Redirect::to(URL::build('/admin/core/', 'view=profile'));
+									die();
+								}
+								
+								$field = $queries->getWhere('profile_fields', array('id', '=', $_GET['id']));
+								if(!count($field)){
+									Redirect::to(URL::build('/admin/core/', 'view=profile'));
+									die();
+								}
+								
+								$field = $field[0];
+								
+								if(Input::exists()){
+									if(Token::check(Input::get('token'))){
+										// Validate input
+										$validate = new Validate();
+										
+										$validation = $validate->check($_POST, array(
+											'name' => array(
+												'required' => true,
+												'min' => 2,
+												'max' => 16
+											),
+											'type' => array(
+												'required' => true
+											)
+										));
+										
+										if($validation->passed()){
+											// Update database
+											try {
+												// Get whether required/public/forum post options are enabled or not
+												if(isset($_POST['required']) && $_POST['required'] == 'on') $required = 1;
+												else $required = 0;
+												
+												if(isset($_POST['public']) && $_POST['public'] == 'on') $public = 1;
+												else $public = 0;
+												
+												if(isset($_POST['forum']) && $_POST['forum'] == 'on') $forum_posts = 1;
+												else $forum_posts = 0;
+												
+												// Update database
+												$queries->update('profile_fields', $field->id, array(
+													'name' => Output::getClean(Input::get('name')),
+													'type' => Input::get('type'),
+													'public' => $public,
+													'required' => $required,
+													'description' => Output::getClean(Input::get('description')),
+													'forum_posts' => $forum_posts
+												));
+												
+												// Redirect
+												Redirect::to(URL::build('/admin/core/', 'view=profile'));
+												die();
+												
+											} catch(Exception $e){
+												$error = $e->getMessage();
+											}
+										} else {
+											// Error
+											$error = $language->get('admin', 'profile_field_error');
+										}
+										
+									} else {
+										$error = $language->get('admin', 'invalid_token');
+									}
+								}
+								
+								// Generate form token
+								$token = Token::generate();
+								
+								?>
+			  <h4 style="display:inline;"><?php echo $language->get('admin', 'editing_profile_field'); ?></h4>
+			  <span class="pull-right">
+			    <a class="btn btn-warning" href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
+			    <a class="btn btn-danger" href="<?php echo URL::build('/admin/core/', 'view=profile&amp;action=delete&amp;id=' . $field->id); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_deletion'); ?>');"><?php echo $language->get('general', 'delete'); ?></a>
+			  </span>
+			  <br /><br />
+			  <?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
+			  <form action="" method="post">
+			    <div class="form-group">
+				  <label for="inputName"><?php echo $language->get('admin', 'field_name'); ?></label>
+				  <input type="text" name="name" id="inputName" class="form-control" placeholder="<?php echo $language->get('admin', 'field_name'); ?>" value="<?php echo Output::getClean($field->name); ?>">
+				</div>
+				
+			    <div class="form-group">
+				  <label for="inputType"><?php echo $language->get('admin', 'type'); ?></label>
+				  <select class="form-control" name="type" id="inputType">
+				    <option value="1"<?php if($field->type == 1) echo ' selected'; ?>><?php echo $language->get('admin', 'text'); ?></option>
+				    <option value="2"<?php if($field->type == 2) echo ' selected'; ?>><?php echo $language->get('admin', 'textarea'); ?></option>
+				    <option value="3"<?php if($field->type == 3) echo ' selected'; ?>><?php echo $language->get('admin', 'date'); ?></option>
+				  </select>
+				</div>
+				
+			    <div class="form-group">
+				  <label for="inputDescription"><?php echo $language->get('admin', 'description'); ?></label>
+				  <textarea id="inputDescription" name="description" class="form-control"><?php echo Output::getPurified($field->description); ?></textarea>
+				</div>
+				
+				<div class="form-group">
+				  <label for="inputRequired"><?php echo $language->get('admin', 'required'); ?></label>
+				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_required_help'); ?>"></i></span>
+				  <input type="checkbox" id="inputRequired" name="required" class="js-switch" <?php if($field->required == 1) echo ' checked';?>/>
+				</div>
+				
+				<div class="form-group">
+				  <label for="inputPublic"><?php echo $language->get('admin', 'public'); ?></label>
+				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_public_help'); ?>"></i></span>
+				  <input type="checkbox" id="inputPublic" name="public" class="js-switch" <?php if($field->public == 1) echo ' checked';?>/>
+				</div>
+				
+				<div class="form-group">
+				  <label for="inputForum"><?php echo $language->get('admin', 'display_field_on_forum'); ?></label>
+				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_forum_help'); ?>"></i></span>
+				  <input type="checkbox" id="inputForum" name="forum" class="js-switch" <?php if($field->forum_posts == 1) echo ' checked';?>/>
+				</div>
+				
+				<div class="form-group">
+				  <input type="hidden" name="token" value="<?php echo $token; ?>">
+				  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+				</div>
+			  </form>
+								<?php
 							}
 						}
 					  break;
