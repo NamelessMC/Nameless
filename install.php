@@ -197,7 +197,7 @@ require('core/init.php');
 								}
 								
 								// Get installation path
-								$path = str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])));
+								$path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))) . '/', 1);
 								
 								$mysqli = new mysqli(Input::get('db_address'), Input::get('db_username'), $password, Input::get('db_name'), Input::get('db_port'));
 								if($mysqli->connect_errno) {
@@ -450,19 +450,19 @@ require('core/init.php');
 						));
 						
 						$queries->create('groups', array(
-							'name' => 'Moderator',
-							'group_html' => '<span class="tag tag-primary">Moderator</span>',
-							'group_html_lg' => '<span class="tag tag-primary">Moderator</span>',
-							'mod_cp' => 1
-						));
-						
-						$queries->create('groups', array(
 							'name' => 'Admin',
 							'group_html' => '<span class="tag tag-danger">Admin</span>',
 							'group_html_lg' => '<span class="tag tag-danger">Admin</span>',
 							'group_username_css' => '#ff0000',
 							'mod_cp' => 1,
 							'admin_cp' => 1
+						));
+						
+						$queries->create('groups', array(
+							'name' => 'Moderator',
+							'group_html' => '<span class="tag tag-primary">Moderator</span>',
+							'group_html_lg' => '<span class="tag tag-primary">Moderator</span>',
+							'mod_cp' => 1
 						));
 						
 						// Languages
@@ -488,7 +488,9 @@ require('core/init.php');
 						$cache->setCache('modulescache');
 						$cache->store('enabled_modules', array(
 							array('name' => 'Core', 'priority' => 1),
-							array('name' => 'Forum', 'priority' => 4)
+							array('name' => 'Forum', 'priority' => 4),
+							array('module_core' => true),
+							array('module_forum' => true)
 						));
 						
 						// Reactions
@@ -734,7 +736,7 @@ require('core/init.php');
 							'is_default' => 1
 						));
 						$cache->setCache('templatecache');
-						$cache->store('default', 'default');
+						$cache->store('default', 'Default');
 						
 						// Success
 						Redirect::to('install.php?step=user');

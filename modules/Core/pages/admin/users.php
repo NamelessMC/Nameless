@@ -463,7 +463,7 @@ require('core/includes/password.php'); // Password compat library
 										);
 										$group = Input::get('group');
 									} else {
-										$group = 3;
+										$group = 2;
 									}
 
 									if($displaynames == 'true'){
