@@ -17,7 +17,7 @@ require('core/includes/password.php'); // For password hashing
 
 // Ensure user isn't already logged in
 if($user->isLoggedIn()){
-	Redirect::to('/');
+	Redirect::to(URL::build('/'));
 	die();
 }
 
@@ -51,7 +51,7 @@ if(Input::exists()){
 			if($login){
 				// Yes
 				Session::flash('home', $language->get('user', 'successful_signin'));
-				Redirect::to('/');
+				Redirect::to(URL::build('/'));
 				die();
 			} else {
 				// No, output error
