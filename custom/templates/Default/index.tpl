@@ -52,7 +52,7 @@
 		  </div>
 		</div>
 		{/if}
-	    <iframe src="https://discordapp.com/widget?id=172055419961868288&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe>
+	    
 	  </div>
 	</div>
   </div>
