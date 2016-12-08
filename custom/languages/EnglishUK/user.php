@@ -30,6 +30,16 @@ $language = array(
 	'alerts' => 'Alerts',
 	'delete_all' => 'Delete All',
 	
+	// Profile settings
+	'field_is_required' => '{x} is required.', // Don't replace {x}
+	'settings_updated_successfully' => 'Settings updated successfully.',
+	'password_changed_successfully' => 'Password changed successfully.',
+	'change_password' => 'Change Password',
+	'current_password' => 'Current Password',
+	'new_password' => 'New Password',
+	'confirm_new_password' => 'Confirm New Password',
+	'incorrect_password' => 'Your password is incorrect.',
+	
 	// Alerts
 	'user_tag_info' => 'You have been tagged in a post by {x}.', // Don't replace {x}
 	'no_alerts' => 'No new alerts',
@@ -40,6 +50,7 @@ $language = array(
 	// Registraton
 	'registration_check_email' => 'Thanks for registering! Please check your emails for a validation link in order to complete your registration. If you are unable to find the email, check your junk folder.',
 	'username' => 'Username',
+	'nickname' => 'Nickname',
 	'minecraft_username' => 'Minecraft Username',
 	'email_address' => 'Email Address',
 	'email' => 'Email',
