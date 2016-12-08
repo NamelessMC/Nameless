@@ -182,6 +182,7 @@ $current_default_language = $current_default_language[0]->value;
 														'        "host" => "' . Config::get('mysql/host') . '", // Web server database IP (Likely to be 127.0.0.1)' . PHP_EOL .
 														'        "username" => "' . Config::get('mysql/username') . '", // Web server database username' . PHP_EOL .
 														'        "password" => \'' . Config::get('mysql/password') . '\', // Web server database password' . PHP_EOL .
+														'        "port" => "' . Config::get('mysql/port') . '", // Web server database port' . PHP_EOL .
 														'        "db" => "' . Config::get('mysql/db') . '", // Web server database name' . PHP_EOL .
 														'        "prefix" => "nl2_" // Web server table prefix' . PHP_EOL .
 														'    ),' . PHP_EOL .
