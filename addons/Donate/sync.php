@@ -4,7 +4,6 @@
  *  http://worldscapemc.co.uk
  *
  *  License: MIT
- *  Copyright (c) 2016 Samerton
  */
  
 // Require files
@@ -85,16 +84,30 @@ if($webstore == 'bc'){
 						));
 					} else {
 						// Update package
-						$queries->update('donation_packages', $package_exists[0]->id, array(
-							'name' => htmlspecialchars($package['name']),
-							'description' => 'No description available',
-							'cost' => $package['price'],
-							'package_id' => $package['id'],
-							'active' => 1,
-							'package_order' => $package['order'],
-							'category' => $item['id'],
-							'url' => 'none'
-						));
+						// Only update description if no custom one is set
+						if($package_exists[0]->custom_description == 0){
+							$queries->update('donation_packages', $package_exists[0]->id, array(
+								'name' => htmlspecialchars($package['name']),
+								'description' => 'No description available',
+								'cost' => $package['price'],
+								'package_id' => $package['id'],
+								'active' => 1,
+								'package_order' => $package['order'],
+								'category' => $item['id'],
+								'url' => 'none'
+							));
+						} else {
+							$queries->update('donation_packages', $package_exists[0]->id, array(
+								'name' => htmlspecialchars($package['name']),
+								'cost' => $package['price'],
+								'package_id' => $package['id'],
+								'active' => 1,
+								'package_order' => $package['order'],
+								'category' => $item['id'],
+								'url' => 'none'
+							));
+
+						}
 					}
 					
 					// Add to array containing all packages
