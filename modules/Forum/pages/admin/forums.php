@@ -13,7 +13,7 @@
 if($user->isLoggedIn()){
 	if(!$user->canViewACP()){
 		// No
-		Redirect::to('/');
+		Redirect::to(URL::build('/'));
 		die();
 	} else {
 		// Check the user has re-authenticated
@@ -340,10 +340,12 @@ $admin_page = 'forums';
 										if(Token::check(Input::get('token'))){
 											// Guest forum permissions
 											$view = Input::get('perm-view-0');
-											$create = Input::get('perm-topic-0');
-											$post = Input::get('perm-post-0');
-											$view_others = Input::get('perm-view_others-0');
-											$moderate = Input::get('perm-moderate-0');
+											$create = 0;
+											$post = 0;
+											$view_others = 0;
+											$moderate = 0;
+											
+											if(!($view)) $view = 0;
 											
 											$forum_perm_exists = 0;
 											
@@ -391,6 +393,12 @@ $admin_page = 'forums';
 												$post = Input::get('perm-post-' . $group->id);
 												$view_others = Input::get('perm-view_others-' . $group->id);
 												$moderate = Input::get('perm-moderate-' . $group->id);
+												
+												if(!($view)) $view = 0;
+												if(!($create)) $create = 0;
+												if(!($post)) $post = 0;
+												if(!($view_others)) $view_others = 0;
+												if(!($moderate)) $moderate = 0;
 												
 												$forum_perm_exists = 0;
 
@@ -710,10 +718,12 @@ $admin_page = 'forums';
 									
 									// Guest forum permissions
 									$view = Input::get('perm-view-0');
-									$create = Input::get('perm-topic-0');
-									$post = Input::get('perm-post-0');
-									$view_others = Input::get('perm-view_others-0');
-									$moderate = Input::get('perm-moderate-others-0');
+									$create = 0;
+									$post = 0;
+									$view_others = 0;
+									$moderate = 0;
+									
+									if(!($view)) $view = 0;
 									
 									$forum_perm_exists = 0;
 									
@@ -761,6 +771,12 @@ $admin_page = 'forums';
 										$post = Input::get('perm-post-' . $group->id);
 										$view_others = Input::get('perm-view_others-' . $group->id);
 										$moderate = Input::get('perm-moderate-' . $group->id);
+										
+										if(!($view)) $view = 0;
+										if(!($create)) $create = 0;
+										if(!($post)) $post = 0;
+										if(!($view_others)) $view_others = 0;
+										if(!($moderate)) $moderate = 0;
 										
 										$forum_perm_exists = 0;
 

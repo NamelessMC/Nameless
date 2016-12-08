@@ -20,7 +20,7 @@
       </ul>
 	  <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-          <a class="nav-link" href="/" target="_blank"><?php echo $language->get('admin', 'view_site'); ?></a>
+          <a class="nav-link" href="<?php echo URL::build('/'); ?>" target="_blank"><?php echo $language->get('admin', 'view_site'); ?></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#"><?php echo str_replace('{x}', htmlspecialchars($user->data()->nickname), $language->get('admin', 'signed_in_as_x')); ?></a>
