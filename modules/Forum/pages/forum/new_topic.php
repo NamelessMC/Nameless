@@ -87,6 +87,10 @@ if(Input::exists()) {
 			));
 			if($validation->passed()){
 				try {
+					if(isset($_POST['topic_label']) && !empty($_POST['topic_label']))
+						$label = Input::get('topic_label');
+					else $label = null;
+					
 					$queries->create("topics", array(
 						'forum_id' => $fid,
 						'topic_title' => Input::get('title'),
@@ -94,7 +98,7 @@ if(Input::exists()) {
 						'topic_last_user' => $user->data()->id,
 						'topic_date' => date('U'),
 						'topic_reply_date' => date('U'),
-						'label' => Input::get('topic_label')
+						'label' => $label
 					));
 					$topic_id = $queries->getLastId();
 					
