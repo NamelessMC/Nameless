@@ -165,13 +165,12 @@ if($user->isLoggedIn()){
  
 $global_messages = '';
 if(Session::exists('global')){
-	$global_messages = '<br /><div class="container">' . Session::flash('global') . '</div>';
+	$global_messages = Session::flash('global');
 }
 
 if($user->isLoggedIn()){
 	if($infraction = $user->hasInfraction($user->data()->id)){
 		$global_messages .= '
-		<div class="container">
 			<div class="alert alert-danger">
 			  <center>';
 			  
@@ -181,8 +180,7 @@ if($user->isLoggedIn()){
 			  "' . htmlspecialchars($infraction[0]["reason"]) . '"<br /><br />
 			  <a href="/user/acknowledge/?iid=' . $infraction[0]["id"] . '" class="btn btn-primary">' . $user_language['acknowledge'] . '</a>
 			  </center>
-			</div>
-		</div>';
+			</div>';
 	}
 }
  
