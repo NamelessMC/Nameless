@@ -48,7 +48,7 @@ if(empty($donation_settings)){
 	echo '<strong>Donation Cache</strong> table successfully initialised<br />';
 	$data = $queries->createTable("donation_categories", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `cid` varchar(64) NOT NULL, `order` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 	echo '<strong>Donation Categories</strong> table successfully initialised<br />';
-	$data = $queries->createTable("donation_packages", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `description` mediumtext, `cost` varchar(10) NOT NULL, `package_id` varchar(64) NOT NULL, `active` tinyint(4) NOT NULL, `package_order` int(11) NOT NULL, `category` varchar(64) NOT NULL, `url` varchar(512) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
+	$data = $queries->createTable("donation_packages", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `description` mediumtext, `cost` varchar(10) NOT NULL, `package_id` varchar(64) NOT NULL, `active` tinyint(4) NOT NULL, `package_order` int(11) NOT NULL, `category` varchar(64) NOT NULL, `url` varchar(512) NOT NULL, `custom_description` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 	echo '<strong>Donation Packages</strong> table successfully initialised<br />';
 	$data = $queries->createTable("donation_settings", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(32) NOT NULL, `value` varchar(128) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 	echo '<strong>Donation Settings</strong> table successfully initialised<br />';
@@ -222,70 +222,74 @@ if(empty($donation_settings)){
 					echo '</ul>';
 				} else echo 'No packages available yet.';
 			} else {
-				// Ensure package exists
-				$package = $queries->getWhere('donation_packages', array('package_id', '=', htmlspecialchars($_GET['package'])));
-				
-				if(!count($package)){
-					echo '<script>window.location.replace(\'/admin/addons/?action=edit&addon=Donate\');</script>';
-					die();
-				}
-				
-				$package = $package[0];
-				
-				if(Input::exists()){
-					if(Token::check(Input::get('token'))){
-						// Validate input
-						$validate = new Validate();
-						
-						$validation = $validate->check($_POST, array(
-							'editor' => array(
-								'required' => true,
-								'min' => 1,
-								'max' => 20000
-							)
-						));
-						
-						if($validation->passed()){
-							try {
-								$queries->update('donation_packages', $package->id, array(
-									'description' => htmlspecialchars(Input::get('editor'))
-								));
-								
-								// Requery to bring $package up to date
-								$package = $queries->getWhere('donation_packages', array('package_id', '=', $package->package_id));
-								$package = $package[0];
-								
-								$error = '<div class="alert alert-success">Updated successfully.</div>';
-								
-							} catch(Exception $e){
-								$error = '<div class="alert alert-danger">Error: ' . $e->getMessage . '</div>';
+				if(!isset($_GET['reset'])){
+					// Ensure package exists
+					$package = $queries->getWhere('donation_packages', array('package_id', '=', htmlspecialchars($_GET['package'])));
+					
+					if(!count($package)){
+						echo '<script>window.location.replace(\'/admin/addons/?action=edit&addon=Donate\');</script>';
+						die();
+					}
+					
+					$package = $package[0];
+					
+					if(Input::exists()){
+						if(Token::check(Input::get('token'))){
+							// Validate input
+							$validate = new Validate();
+							
+							$validation = $validate->check($_POST, array(
+								'editor' => array(
+									'required' => true,
+									'min' => 1,
+									'max' => 20000
+								)
+							));
+							
+							if($validation->passed()){
+								try {
+									$queries->update('donation_packages', $package->id, array(
+										'description' => htmlspecialchars(Input::get('editor')),
+										'custom_description' => 1
+									));
+									
+									// Requery to bring $package up to date
+									$package = $queries->getWhere('donation_packages', array('package_id', '=', $package->package_id));
+									$package = $package[0];
+									
+									$error = '<div class="alert alert-success">Updated successfully.</div>';
+									
+								} catch(Exception $e){
+									$error = '<div class="alert alert-danger">Error: ' . $e->getMessage . '</div>';
+								}
+							} else {
+								$error = '<div class="alert alert-danger">Please input a valid description between 1 and 20000 characters long.</div>';
 							}
 						} else {
-							$error = '<div class="alert alert-danger">Please input a valid description between 1 and 20000 characters long.</div>';
+							// Invalid token
+							$error = '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>';
 						}
-					} else {
-						// Invalid token
-						$error = '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>';
 					}
-				}
-				
-				// Generate form token
-				$token = Token::generate();
-				
-				// HTMLPurifier
-				require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
-				$config = HTMLPurifier_Config::createDefault();
-				$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
-				$config->set('URI.DisableExternalResources', false);
-				$config->set('URI.DisableResources', false);
-				$config->set('HTML.Allowed', 'u,a,p,b,i,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
-				$config->set('CSS.AllowedProperties', array('float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
-				$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style');
-				$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
-				$purifier = new HTMLPurifier($config);
-				
+					
+					// Generate form token
+					$token = Token::generate();
+					
+					// HTMLPurifier
+					require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
+					$config = HTMLPurifier_Config::createDefault();
+					$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
+					$config->set('URI.DisableExternalResources', false);
+					$config->set('URI.DisableResources', false);
+					$config->set('HTML.Allowed', 'u,a,p,b,i,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
+					$config->set('CSS.AllowedProperties', array('float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
+					$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style');
+					$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
+					$purifier = new HTMLPurifier($config);
 				?>
-				<h3>Editing package <?php echo htmlspecialchars($package->name); ?></h3>
+				<br />
+				<h3 style="display:inline;">Editing package <?php echo htmlspecialchars($package->name); ?></h3>
+				<span class="pull-right"><a class="btn btn-danger" onclick="return confirm('Are you sure you want to reset the package description?');"href="/admin/addons/?action=edit&amp;addon=Donate&amp;view=packages&amp;package=<?php echo $package->package_id; ?>&amp;reset=true">Reset</a></span>
+				<br /><br />
 				<?php if(isset($error)) echo $error; ?>
 				<form action="" method="post">
 				  <div class="form-group">
@@ -317,7 +321,22 @@ if(empty($donation_settings)){
 					} );
 					CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
 				</script>
-				<?php
+					<?php
+				} else {
+					// Reset
+					if(is_numeric($_GET['package'])){
+						$package = $queries->getWhere('donation_packages', array('package_id', '=', $_GET['package']));
+						if(count($package)){
+							$queries->update('donation_packages', $package[0]->id, array(
+								'custom_description' => 0
+							));
+							
+							Session::flash('admin_donate', '<div class="alert alert-success">Package description reset. The description will be updated during the next sync.</div>');
+							echo '<script>window.location.replace(\'/admin/addons/?action=edit&addon=Donate\');</script>';
+							die();
+						}
+					}
+				}
 			}
 		}
 	} else if(isset($_GET['do']) && !isset($_GET['view'])){
