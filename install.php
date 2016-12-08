@@ -197,7 +197,7 @@ require('core/init.php');
 								}
 								
 								// Get installation path
-								$path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))) . '/', 1);
+								$path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))), 1);
 								
 								$mysqli = new mysqli(Input::get('db_address'), Input::get('db_username'), $password, Input::get('db_name'), Input::get('db_port'));
 								if($mysqli->connect_errno) {
