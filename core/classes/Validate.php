@@ -103,6 +103,15 @@ class Validate {
 						break;
 						*/
 						
+						// Check if email is valid
+						case 'email';
+							if(!filter_var($value, FILTER_VALIDATE_EMAIL)){
+								// Value is not a valid email
+								$this->addError("That is not a valid email.");
+							}
+						break;
+						
+						
 						// Check that the specified user account is set as active (ie validated)
 						case 'isactive';
 							$check = $this->_db->get('users', array($item, '=', $value));

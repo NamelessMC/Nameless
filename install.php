@@ -190,9 +190,11 @@ require('core/init.php');
 							
 							if($validation->passed()){
 								// Check database connection
-								if(isset($_POST['password']) && !empty($_POST['password'])){
-									$password = $_POST['password'];
-								} else $password = '';
+								if(isset($_POST['db_password']) && !empty($_POST['db_password'])){
+									$password = $_POST['db_password'];
+								} else {
+									$password = '';
+								}
 								
 								// Get installation path
 								$path = str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])));
@@ -456,7 +458,7 @@ require('core/init.php');
 						
 						$queries->create('groups', array(
 							'name' => 'Admin',
-							'group_html' => '<span class="tag tag-danger">Admin/span>',
+							'group_html' => '<span class="tag tag-danger">Admin</span>',
 							'group_html_lg' => '<span class="tag tag-danger">Admin</span>',
 							'group_username_css' => '#ff0000',
 							'mod_cp' => 1,
@@ -720,6 +722,11 @@ require('core/init.php');
 							'value' => null
 						));
 						
+						$queries->create('settings', array(
+							'name' => 'language',
+							'value' => 1
+						));
+						
 						// Templates
 						$queries->create('templates', array(
 							'name' => 'Default',
@@ -727,7 +734,7 @@ require('core/init.php');
 							'is_default' => 1
 						));
 						$cache->setCache('templatecache');
-						$cache->store('default', 1);
+						$cache->store('default', 'default');
 						
 						// Success
 						Redirect::to('install.php?step=user');
