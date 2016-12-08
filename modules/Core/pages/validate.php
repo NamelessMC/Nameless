@@ -10,7 +10,7 @@
  */
  
 if(!isset($_GET['c'])){
-	Redirect::to('/');
+	Redirect::to(URL::build('/'));
 	die();
 } else {
 	$check = $queries->getWhere('users', array('reset_code', '=', $_GET['c']));
@@ -20,11 +20,11 @@ if(!isset($_GET['c'])){
 			'active' => 1
 		));
 		Session::flash('home', '<div class="alert alert-info">' . $language->get('user', 'validation_complete') . '</div>');
-		Redirect::to('/');
+		Redirect::to(URL::build('/'));
 		die();
 	} else {
 		Session::flash('home', '<div class="alert alert-danger">' . $language->get('user', 'validation_error') . '</div>');
-		Redirect::to('/');
+		Redirect::to(URL::build('/'));
 		die();
 	}
 }

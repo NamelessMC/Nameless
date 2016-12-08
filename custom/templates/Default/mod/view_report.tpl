@@ -14,7 +14,7 @@
 		  </span>
 		  
 		  <br /><br />
-		  <h4 style="display:inline;">{$VIEWING_REPORT} &raquo; <a target="_blank" href="{$REPORTED_USER_PROFILE}" style="{$REPORTED_USER_STYLE}">{$REPORTED_USER}</a> | <small><a href="{$CONTENT_LINK}" target="_blank">{$VIEW_CONTENT}</a></small></h4>
+		  <h4 style="display:inline;">{$VIEWING_REPORT} &raquo; <a target="_blank" href="{$REPORTED_USER_PROFILE}" style="{$REPORTED_USER_STYLE}">{$REPORTED_USER}</a> {if ($TYPE == 0)}| <small><a href="{$CONTENT_LINK}" target="_blank">{$VIEW_CONTENT}</a></small>{/if}</h4>
 		  <hr />
 		  
 		  {if ($ERROR)}

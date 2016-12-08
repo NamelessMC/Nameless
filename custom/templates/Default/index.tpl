@@ -45,32 +45,19 @@
 	  
 	    <center><h2>{$SOCIAL} <i class="fa fa-users" aria-hidden="true"></i></h2></center>
 	    <hr />
+		{if $TWITTER}
 	    <div class="card">
 		  <div class="card-block">
 	        {$TWITTER}
 		  </div>
 		</div>
-	    <iframe src="https://discordapp.com/widget?id=172055419961868288&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe>
+		{/if}
+	    
 	  </div>
 	</div>
   </div>
 </div>
 
-<footer class="home-footer">
-  <div class="container">
-    <div class="row">
-	  <div class="col-md-4">
-	    <h3>Links</h3>
-	    <ul>
-	      <li><a target="_blank" href="https://namelesshosting.com/">Free Hosting</a></li>
-	    </ul>
-	  </div>
-	  <div class="col-md-8">
-	    <br /><br />
-	    <span class="pull-right">
-		  <a href="https://github.com/NamelessMC/Nameless/" target="_blank">Powered by NamelessMC 2.0</a>
-		</span>
-	  </div>
-	</div>
-  </div>
-</footer>
+<br />
+
+{include file='footer.tpl'}

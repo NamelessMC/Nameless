@@ -5,7 +5,7 @@
 	    {*Social media*}
 		{if !empty($SOCIAL_MEDIA_ICONS)}
 		  {foreach from=$SOCIAL_MEDIA_ICONS item=icon}
-		    <a href="#"><i id="social-{$icon.short}" class="fa fa-{$icon.long}-square fa-3x social"></i></a>
+		    <a href="{$icon.link}" target="_blank"><i id="social-{$icon.short}" class="fa fa-{$icon.long}-square fa-3x social"></i></a>
 		  {/foreach}
 		{/if}
         <span class="pull-right">

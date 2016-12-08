@@ -10,27 +10,56 @@
  */
 
 // Get social media icons if enabled
-$social_media_icons = array(
-	1 => array(
+// Check cache
+$cache->setCache('social_media');
+
+$social_media_icons = array();
+
+// Facebook
+$social_media = $cache->retrieve('facebook');
+if($social_media){
+	$social_media_icons[] = array(
 		'short' => 'fb',
-		'long' => 'facebook'
-	), 
-	2 => array(
+		'long' => 'facebook',
+		'link' => Output::getClean($social_media)
+	);
+}
+
+// Twitter
+$social_media = $cache->retrieve('twitter');
+if($social_media){
+	$social_media_icons[] = array(
 		'short' => 'tw',
-		'long' => 'twitter'
-	), 
-	3 => array(
+		'long' => 'twitter',
+		'link' => Output::getClean($social_media)
+	);
+}
+
+// Google Plus
+$social_media = $cache->retrieve('google_plus');
+if($social_media){
+	$social_media_icons[] = array(
 		'short' => 'gp',
-		'long' => 'google-plus'
-	),
-	4 => array(
+		'long' => 'google-plus',
+		'link' => Output::getClean($social_media)
+	);
+}
+
+// Youtube
+$social_media = $cache->retrieve('youtube');
+if($social_media){
+	$social_media_icons[] = array(
 		'short' => 'gp',
-		'long' => 'youtube'
-	),
-	5 => array(
-		'short' => 'em',
-		'long' => 'envelope'
-	)
+		'long' => 'youtube',
+		'link' => Output::getClean($social_media)
+	);
+}
+
+// Always add contact link
+$social_media_icons[] = array(
+	'short' => 'em',
+	'long' => 'envelope',
+	'link' => URL::build('/contact')
 );
 
 // Smarty template
