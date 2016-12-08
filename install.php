@@ -257,6 +257,8 @@ require('core/init.php');
 	  </center>
 	  <div class="row">
 		<div class="col-md-6 offset-md-3">
+		  <h3>Database Configuration</h3>
+		  
 		  <?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
 		  <form action="" method="post">
 			<div class="form-group">
@@ -488,10 +490,10 @@ require('core/init.php');
 						$cache->setCache('modulescache');
 						$cache->store('enabled_modules', array(
 							array('name' => 'Core', 'priority' => 1),
-							array('name' => 'Forum', 'priority' => 4),
-							array('module_core' => true),
-							array('module_forum' => true)
+							array('name' => 'Forum', 'priority' => 4)
 						));
+						$cache->store('module_core', true);
+						$cache->store('module_forum', true);
 						
 						// Reactions
 						$queries->create('reactions', array(
@@ -746,6 +748,168 @@ require('core/init.php');
 					
 					case 'user':
 						// Admin user creation
+						// Require password hashing methods
+						require('core/includes/password.php');
+						
+						if(Input::exists()){
+							// Validate input
+							$validate = new Validate();
+							
+							$validation = $validate->check($_POST, array(
+								'username' => array(
+									'required' => true,
+									'min' => 3,
+									'max' => 20
+								),
+								'email' => array(
+									'required' => true,
+									'min' => 4,
+									'max' => 64,
+									'email' => true
+								),
+								'password' => array(
+									'required' => true,
+									'min' => 6,
+									'max' => 64
+								),
+								'password_again' => array(
+									'required' => true,
+									'matches' => 'password'
+								)
+							));
+							
+							if($validation->passed()){
+								$user = new User();
+								
+								// Hash password
+								$password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
+								
+								try {
+									// Get user's IP
+									$ip = $user->getIP();
+									
+									// Create the user
+									$user->create(array(
+										'username' => Output::getClean(Input::get('username')),
+										'nickname' => Output::getClean(Input::get('username')),
+										'password' => $password,
+										'pass_method' => 'default',
+										'uuid' => 'none',
+										'joined' => date('U'),
+										'group_id' => 2,
+										'email' => Output::getClean(Input::get('email')),
+										'lastip' => $ip,
+										'active' => 1,
+										'last_online' => date('U'),
+										'theme_id' => 1,
+										'language_id' => 1
+									));
+									
+									// Log the user in
+									$login = $user->login(Input::get('username'), Input::get('password'), true);
+									
+									if($login){
+										if($_SESSION['action'] == 'install'){
+											Redirect::to('install.php?step=convert');
+											die();
+										} else {
+											Redirect::to('install.php?step=upgrade');
+											die();
+										}
+									} else {
+										$error = 'Unable to log in.';
+										$queries->delete('users', array('id', '=', 1));
+									}
+									
+									
+								} catch(Exception $e){
+									$error = 'Unable to create account: ' . $e->getMessage();
+								}
+								
+							} else {
+								// Get errors
+								foreach($validation->errors() as $item){
+									if(strpos($item, 'is required') !== false){
+										$error = 'Please input a valid username, email address and password.';
+									} else if(strpos($item, 'minimum') !== false){
+										$error = 'Please ensure your username is a minimum of 3 characters, your email address is a minimum of 4 characters, and your password is a minimum of 6 characters.';
+									} else if(strpos($item, 'maximum') !== false){
+										$error = 'Please ensure your username is a maximum of 20 characters, and your email address and password are a maximum of 64 characters.';
+									} else if(strpos($item, 'must match') !== false){
+										$error = 'Your passwords must match.';
+									}
+								}
+							}
+						}
+						?>
+		</center>
+		<div class="row">
+		  <div class="col-md-6 offset-md-3">
+		    <h3>Creating Admin Account</h3>
+			
+			<p>Please enter the details for the admin account.</p>
+			
+			<?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
+		    <form action="" method="post">
+		      <div class="form-group">
+			    <label for="inputUsername">Username</label>
+			    <input type="text" class="form-control" name="username" id="inputUsername" placeholder="Username" tabindex="1">
+			  </div>
+			  
+		      <div class="form-group">
+			    <label for="inputEmail">Email Address</label>
+			    <input type="email" class="form-control" name="email" id="inputEmail" placeholder="Email Address" tabindex="2">
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="inputPassword">Password</label>
+				<input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password" tabindex="3">
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="inputPasswordAgain">Confirm Password</label>
+				<input type="password" class="form-control" name="password_again" id="inputPasswordAgain" placeholder="Confirm Password" tabindex="4">
+			  </div>
+			  
+			  <div class="form-group">
+			    <input type="submit" value="Submit" class="btn btn-primary">
+			  </div>
+		    </form>
+		  </div>
+		</div>
+		<center>
+						<?php
+					break;
+					
+					case 'upgrade':
+						// Upgrade from v1
+						echo 'Upgrade process not yet available. <a href="install.php?step=finish">Continue</a>';
+					break;
+					
+					case 'convert':
+						// Convert from a different forum software
+						if(!isset($_GET['convert'])){
+						?>
+
+		  <h3>Convert</h3>
+		  <p>Finally, do you want to convert from a different forum software?</p>
+		  <a class="btn btn-success btn-lg disabled" href="install.php?step=convert&amp;convert=yes">Yes</a>
+		  <a class="btn btn-primary btn-lg" href="install.php?step=finish">No</a>
+
+						<?php
+						} else {
+							
+						}
+					break;
+					
+					case 'finish':
+						// Finished
+						?>
+		<h3>Finish</h3>
+		<p>Thanks for installing NamelessMC! You can now proceed to the AdminCP, where you can further configure your website.</p>
+		<p>If you need any support, check out our website <a href="https://namelessmc.com" target="_blank">here</a>, or you can also visit our <a href="https://discord.gg/r7Eq4jw" target="_blank">Discord channel</a> or our <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.
+		<p><a href="index.php?route=/admin&amp;from=install" class="btn btn-success btn-lg">Finish</a></p>
+						<?php
 					break;
 					
 					default:
