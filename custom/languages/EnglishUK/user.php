@@ -39,6 +39,14 @@ $language = array(
 	'new_password' => 'New Password',
 	'confirm_new_password' => 'Confirm New Password',
 	'incorrect_password' => 'Your password is incorrect.',
+	'two_factor_auth' => 'Two Factor Authentication',
+	'enable' => 'Enable',
+	'disable' => 'Disable',
+	'tfa_scan_code' => 'Please scan the following code within your authentication app:',
+	'tfa_code' => 'If your device does not have a camera, or you are unable to scan the QR code, please input the following code:',
+	'tfa_enter_code' => 'Please enter the code displaying within your authentication app:',
+	'invalid_tfa' => 'Invalid code, please try again.',
+	'tfa_successful' => 'Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.',
 	
 	// Alerts
 	'user_tag_info' => 'You have been tagged in a post by {x}.', // Don't replace {x}

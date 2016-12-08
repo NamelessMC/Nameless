@@ -81,6 +81,17 @@
 			</div>
 		  </form>
 		  {/nocache}
+		  
+		  <hr />
+		  
+		  <h4>{$TWO_FACTOR_AUTH}</h4>
+		  {nocache}
+		    {if isset($ENABLE)}
+		  <a href="{$ENABLE_LINK}" class="btn btn-success">{$ENABLE}</a>
+		    {else}
+		  <a href="{$DISABLE_LINK}" class="btn btn-danger">{$DISABLE}</a>
+			{/if}
+		  {/nocache}
 		</div>
 	  </div>
 	</div>
