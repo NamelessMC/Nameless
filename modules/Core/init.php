@@ -10,7 +10,7 @@
  */
 
 // Ensure module has been installed
-$module_installed = $cache->retrieve('module_core');
+$module_installed = $cache->retrieve('enabled_modules');
 if(!$module_installed){
 	// Hasn't been installed
 	// Need to run the installer

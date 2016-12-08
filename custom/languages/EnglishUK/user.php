@@ -68,6 +68,7 @@ $language = array(
 	'passwords_dont_match' => 'Your passwords do not match.',
 	'username_mcname_email_exists' => 'Your username or email address already exists.',
 	'invalid_mcname' => 'Your Minecraft username is invalid.',
+	'invalid_email' => 'Your email is invalid.',
 	'mcname_lookup_error' => 'There has been an error communicating with Mojang\'s servers to verify your username. Please try again later.',
 	'invalid_recaptcha' => 'Invalid reCAPTCHA response.',
 	'verify_account' => 'Verify Account',

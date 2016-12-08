@@ -281,6 +281,9 @@ require('core/includes/password.php'); // Password compat library
 										case (strpos($error, 'password') !== false):
 											echo $language->get('user', 'password_minimum_6') . '<br />';
 										break;
+										case (strpos($error, 'email') !== false):
+											echo $language->get('user', 'invalid_email') . '<br />';
+										break;
 									}
 									
 								} else if(strpos($error, 'maximum') !== false){
@@ -460,25 +463,25 @@ require('core/includes/password.php'); // Password compat library
 										);
 										$group = Input::get('group');
 									} else {
-										$group = 2;
+										$group = 3;
 									}
 
 									if($displaynames == 'true'){
 										$to_validation['MCUsername'] = array(
 											'required' => true,
-											'min' => 4,
+											'min' => 3,
 											'max' => 20
 										);
 										$to_validation['username'] = array(
 											'required' => true,
-											'min' => 4,
+											'min' => 3,
 											'max' => 20
 										);
 										$mcname = htmlspecialchars(Input::get('MCUsername'));
 									} else {
 										$to_validation['username'] = array(
 											'required' => true,
-											'min' => 4,
+											'min' => 3,
 											'max' => 20
 										);
 										$mcname = htmlspecialchars(Input::get('username'));
