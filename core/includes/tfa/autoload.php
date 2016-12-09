@@ -1,5 +1,6 @@
 <?php
 // Autoloader
+require('Providers/Rng/MCryptRNGProvider.php');
 require('Providers/Rng/IRNGProvider.php');
 require('Providers/Rng/CSRNGProvider.php');
 require('Providers/Qr/IQRCodeProvider.php');
