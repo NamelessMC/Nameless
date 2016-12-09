@@ -10,7 +10,7 @@
  */
 
 // Ensure module has been installed
-$module_installed = $cache->retrieve('enabled_modules');
+$module_installed = $cache->retrieve('module_core');
 if(!$module_installed){
 	// Hasn't been installed
 	// Need to run the installer
@@ -41,7 +41,7 @@ $pages->add('Core', '/admin/update_mcnames', 'pages/admin/update_mcnames.php');
 $pages->add('Core', '/admin/reset_password', 'pages/admin/reset_password.php');
 $pages->add('Core', '/admin/night_mode', 'pages/admin/night_mode.php');
 $pages->add('Core', '/user', 'pages/user/index.php');
-$pages->add('Core', '/user/profile_settings', 'pages/user/profile_settings.php');
+$pages->add('Core', '/user/settings', 'pages/user/settings.php');
 $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
 $pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
 $pages->add('Core', '/mod', 'pages/mod/index.php');

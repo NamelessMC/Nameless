@@ -77,7 +77,9 @@ if($page != 'install'){
 	if(empty($directories[0])) unset($directories[0]);
 	$directories = array_values($directories);
 
-	if(!empty(Config::get('core/path'))){
+	$config_path = Config::get('core/path');
+	
+	if(!empty($config_path)){
 		$config_path = explode('/', Config::get('core/path'));
 		
 		for($i = 0; $i < count($config_path); $i++){

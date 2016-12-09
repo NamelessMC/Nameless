@@ -105,7 +105,7 @@ if($user->isLoggedIn()){
 	$smarty->assign(array(
 		'ALERTS_LINK' => URL::build('/user/alerts'),
 		'VIEW_ALERTS' => $language->get('user', 'view_alerts'),
-		'MESSAGING_LINK' => URL::build('/user/messages'),
+		'MESSAGING_LINK' => URL::build('/user/messaging'),
 		'VIEW_MESSAGES' => $language->get('user', 'view_messages'),
 		'LOADING' => $language->get('general', 'loading')
 	));

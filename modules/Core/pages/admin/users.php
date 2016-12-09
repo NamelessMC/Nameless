@@ -13,7 +13,7 @@
 if($user->isLoggedIn()){
 	if(!$user->canViewACP()){
 		// No
-		Redirect::to('/');
+		Redirect::to(URL::build('/'));
 		die();
 	} else {
 		// Check the user has re-authenticated
@@ -463,7 +463,7 @@ require('core/includes/password.php'); // Password compat library
 										);
 										$group = Input::get('group');
 									} else {
-										$group = 3;
+										$group = 2;
 									}
 
 									if($displaynames == 'true'){

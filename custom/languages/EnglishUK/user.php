@@ -30,6 +30,24 @@ $language = array(
 	'alerts' => 'Alerts',
 	'delete_all' => 'Delete All',
 	
+	// Profile settings
+	'field_is_required' => '{x} is required.', // Don't replace {x}
+	'settings_updated_successfully' => 'Settings updated successfully.',
+	'password_changed_successfully' => 'Password changed successfully.',
+	'change_password' => 'Change Password',
+	'current_password' => 'Current Password',
+	'new_password' => 'New Password',
+	'confirm_new_password' => 'Confirm New Password',
+	'incorrect_password' => 'Your password is incorrect.',
+	'two_factor_auth' => 'Two Factor Authentication',
+	'enable' => 'Enable',
+	'disable' => 'Disable',
+	'tfa_scan_code' => 'Please scan the following code within your authentication app:',
+	'tfa_code' => 'If your device does not have a camera, or you are unable to scan the QR code, please input the following code:',
+	'tfa_enter_code' => 'Please enter the code displaying within your authentication app:',
+	'invalid_tfa' => 'Invalid code, please try again.',
+	'tfa_successful' => 'Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.',
+	
 	// Alerts
 	'user_tag_info' => 'You have been tagged in a post by {x}.', // Don't replace {x}
 	'no_alerts' => 'No new alerts',
@@ -40,6 +58,7 @@ $language = array(
 	// Registraton
 	'registration_check_email' => 'Thanks for registering! Please check your emails for a validation link in order to complete your registration. If you are unable to find the email, check your junk folder.',
 	'username' => 'Username',
+	'nickname' => 'Nickname',
 	'minecraft_username' => 'Minecraft Username',
 	'email_address' => 'Email Address',
 	'email' => 'Email',

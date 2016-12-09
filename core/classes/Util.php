@@ -62,4 +62,12 @@ class Util {
 		return false;
 	}
 	
+	// Check to see if a given date is valid, returning true/false accordingly
+	// Params: 	$date (string) 		- date to check
+	//			$format (string) 	- date format to use (optional, defaults to 'm/d/Y')
+	public static function validateDate($date, $format = 'm/d/Y'){
+		$d = DateTime::createFromFormat($format, $date);
+		return $d && $d->format($format) == $date;
+	}
+	
 }

@@ -13,7 +13,7 @@
 if($user->isLoggedIn()){
 	if(!$user->canViewACP()){
 		// No
-		Redirect::to('/');
+		Redirect::to(URL::build('/'));
 		die();
 	} else {
 		// Check the user has re-authenticated
@@ -49,7 +49,7 @@ if(Input::exists()){
 	if(Token::check(Input::get('token'))){
 		// Valid token
 		$cache->setCache('backgroundcache');
-		$cache->store('background_image', '/uploads/backgrounds/' . Input::get('bg'));
+		$cache->store('background_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/backgrounds/' . Input::get('bg'));
 		
 	} else {
 		// Invalid token
@@ -131,7 +131,7 @@ $token = Token::generate();
 						continue;
 					  }
 				  ?>
-				  <option data-img-src="/uploads/backgrounds/<?php echo $image; ?>" value="<?php echo Output::getClean($image); ?>" <?php if($background_image == '/uploads/backgrounds/' . $image) echo 'selected'; ?>><?php echo $n; ?></option>
+				  <option data-img-src="<?php echo ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/'); ?>uploads/backgrounds/<?php echo $image; ?>" value="<?php echo Output::getClean($image); ?>" <?php if($background_image == '/uploads/backgrounds/' . $image) echo 'selected'; ?>><?php echo $n; ?></option>
 				  <?php
 				  }
 				  ?>

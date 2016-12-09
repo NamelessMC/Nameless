@@ -49,9 +49,9 @@ class URL {
 	// 			$params (string) - contains string with URL parameters
 	private static function buildNonFriendly($url, $params){
 		if($params != ''){
-			return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . 'index.php?route=' . $url . '&' . $params;
+			return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . '&' . $params;
 		} else {
-			return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . 'index.php?route=' . $url;
+			return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url;
 		}
 	}
 

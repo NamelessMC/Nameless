@@ -219,16 +219,20 @@ if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group 
 		$forums = $forum->listAllForums($user_group);
 		
 		// Loop through to get last poster avatars and to format a date
-		foreach($forums as $key => $item){
-			foreach($item['subforums'] as $subforum_id => $subforum){
-				if(isset($subforum->last_post)){
-					$forums[$key]['subforums'][$subforum_id]->last_post->avatar = $user->getAvatar($forums[$key]['subforums'][$subforum_id]->last_post->post_creator, '../', 30);
-					$forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language->getTimeLanguage());
-					$forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', strtotime($forums[$key]['subforums'][$subforum_id]->last_post->post_date));
-					$forums[$key]['subforums'][$subforum_id]->last_post->user_style = $user->getGroupClass($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
+		if(count($forums)){
+			foreach($forums as $key => $item){
+				if(count($item['subforums'])){
+					foreach($item['subforums'] as $subforum_id => $subforum){
+						if(isset($subforum->last_post)){
+							$forums[$key]['subforums'][$subforum_id]->last_post->avatar = $user->getAvatar($forums[$key]['subforums'][$subforum_id]->last_post->post_creator, '../', 30);
+							$forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language->getTimeLanguage());
+							$forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', strtotime($forums[$key]['subforums'][$subforum_id]->last_post->post_date));
+							$forums[$key]['subforums'][$subforum_id]->last_post->user_style = $user->getGroupClass($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
+						}
+					}
 				}
 			}
-		}
+		} else $forums = array();
 		
 		$cache->store('forums', $forums, 60);
 	}

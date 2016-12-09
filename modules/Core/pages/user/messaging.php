@@ -9,6 +9,12 @@
  *  UserCP messaging page
  */
 
+// Must be logged in
+if(!$user->isLoggedIn()){
+	Redirect::to(URL::build('/'));
+	die();
+}
+ 
 // Always define page name for navbar
 define('PAGE', 'cc_messaging');
 
