@@ -87,6 +87,27 @@ $current_default_language = $current_default_language[0]->value;
 			  } else {
 				  switch($_GET['view']){
 					  case 'general':
+					    if(isset($_GET['do']) && $_GET['do'] == 'installLanguage'){
+							// Install new language
+							$languages = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
+							foreach($languages as $item){
+								$folders = explode(DIRECTORY_SEPARATOR, $item);
+								
+								// Is it already in the database?
+								$exists = $queries->getWhere('languages', array('name', '=', Output::getClean($folders[2])));
+								if(!count($exists)){
+									// No, add it now
+									$queries->create('languages', array(
+										'name' => Output::getClean($folders[2])
+									));
+								}
+							}
+							
+							Session::flash('general_language', $language->get('admin', 'installed_languages'));
+							Redirect::to(URL::build('/admin/core/', 'view=general'));
+							die();
+						}
+						
 						// Deal with input
 						if(Input::exists()){
 							if(Token::check(Input::get('token'))){
@@ -226,6 +247,7 @@ $current_default_language = $current_default_language[0]->value;
 						}
 						?>
 			  <form action="" method="post">
+			    <?php if(Session::exists('general_language')){ ?><div class="alert alert-success"><?php echo Session::flash('general_language'); ?></div><?php } ?>
 			    <?php if(isset($errors)){ ?><div class="alert alert-danger"><?php foreach($errors as $error) echo $error; ?></div><?php } ?>
 			    <div class="form-group">
 				  <?php
@@ -253,7 +275,7 @@ $current_default_language = $current_default_language[0]->value;
 					  ?>
 				    </select>
 				    <div class="input-group-btn">
-				      <a class="btn btn-secondary" href="#"><i class="fa fa-plus-circle"></i></a>
+				      <a class="btn btn-secondary" href="<?php echo URL::build('/admin/core/', 'view=general&amp;do=installLanguage'); ?>"><i class="fa fa-plus-circle"></i></a>
 				    </div>
 				  </div>
 				</div>

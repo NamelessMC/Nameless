@@ -25,6 +25,15 @@
 		  <form action="" method="post">
 		  {nocache}
 		  
+		    <div class="form-group">
+			  <label for="inputLanguage">{$ACTIVE_LANGUAGE}</label>
+			  <select name="language" id="inputLanguage" class="form-control">
+			    {foreach from=$LANGUAGES item=language}
+				<option value="{$language.name}"{if $language.active == true} selected{/if}>{$language.name}</option>
+				{/foreach}
+			  </select>
+			</div>
+
 		    {foreach from=$PROFILE_FIELDS item=field}
 		    <div class="form-group">
 			
