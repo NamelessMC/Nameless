@@ -39,18 +39,17 @@ $directories = explode("/", $directory);
 $lim = count($directories);
 
 // Installer?
-if(is_file('pages/install.php')){
+if(is_file('install.php')){
 	if(isset($_GET['from']) && $_GET['from'] == 'install'){
-		if(is_writable('pages/install.php')){
-			unlink('pages/install.php');
+		if(is_writable('install.php')){
+			unlink('install.php');
 		} else {
-			die('Unable to automatically delete <strong>pages/install.php</strong>, please do so manually.');
+			die('Unable to automatically delete <strong>install.php</strong>, please do so manually.');
 		}
 	} else {
 		$page = 'install';
 		
-		require('core/init.php');
-		require('pages/install.php');
+		require('install.php');
 		die();
 	}
 }

@@ -10,8 +10,10 @@
  */
  
 // Definitions 
-define('PATH', '/'); 
-define('ROOT_PATH', dirname(__FILE__));
+if(!defined('PATH')){
+	define('PATH', '/'); 
+	define('ROOT_PATH', dirname(__FILE__));
+}
 $page = 'install';
 
 // Start initialising the page
