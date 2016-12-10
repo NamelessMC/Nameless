@@ -193,6 +193,16 @@ if(isset($_GET['do'])){
 				if($validation->passed()){
 					// Update profile fields
 					try {
+						// Update language
+						$new_language = $queries->getWhere('languages', array('name', '=', Input::get('language')));
+						
+						if(count($new_language)) $new_language = $new_language[0]->id;
+						else $new_language = $user->data()->language_id;
+						
+						$queries->update('users', $user->data()->id, array(
+							'language_id' => $new_language
+						));
+						
 						foreach($_POST as $key => $item){
 							if(strpos($key, 'action') !== false || strpos($key, 'token') !== false){
 								// Action/token, don't do anything
@@ -232,9 +242,12 @@ if(isset($_GET['do'])){
 							}
 						}
 						
-						$success = $language->get('user', 'settings_updated_successfully');
+						Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
+						Redirect::to(URL::build('/user/settings'));
+						die();
+						
 					} catch(Exception $e){
-						$error = $e->getMessage();
+						Session::flash('settings_error', $e->getMessage());
 					}
 					
 				} else {
@@ -252,7 +265,7 @@ if(isset($_GET['do'])){
 						}
 					}
 					
-					$error = rtrim($error, '<br />');
+					Session::flash('settings_error', rtrim($error, '<br />'));
 				}
 			} else if(Input::get('action') == 'password'){
 				// Change password
@@ -294,7 +307,7 @@ if(isset($_GET['do'])){
 						}
 					} else {
 						// Invalid current password
-						$error = $language->get('user', 'incorrect_password');
+						Session::flash('settings_error', $language->get('user', 'incorrect_password'));
 					}
 				} else {
 					$error = '';
@@ -325,12 +338,12 @@ if(isset($_GET['do'])){
 							$error .= $language->get('user', 'passwords_dont_match') . '<br />';
 						}
 					}
-					$error = rtrim($error, '<br />');
+					Session::flash('settings_error', $error = rtrim($error, '<br />'));
 				}
 			}
 		} else {
 			// Invalid form token
-			$error = $language->get('general', 'invalid_token');
+			Session::flash('settings_error', $language->get('general', 'invalid_token'));
 		}
 	}
 ?>
@@ -356,6 +369,21 @@ if(isset($_GET['do'])){
 	require('core/templates/navbar.php');
 	require('core/templates/footer.php');
 
+	// Error/success message?
+	if(Session::exists('settings_error')) $error = Session::flash('settings_error');
+	if(Session::exists('settings_success')) $success = Session::flash('settings_success');
+	
+	// Get languages
+	$languages = array();
+	$language_query = $queries->getWhere('languages', array('id', '<>', 0));
+
+	foreach($language_query as $item){
+		$languages[] = array(
+			'name' => Output::getClean($item->name),
+			'active' => (($user->data()->language_id == $item->id) ? true : false)
+		);
+	}
+	
 	// Get custom fields
 	$custom_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
 	$user_custom_fields = $queries->getWhere('users_profile_fields', array('user_id', '=', $user->data()->id));
@@ -418,6 +446,8 @@ if(isset($_GET['do'])){
 	// Language values
 	$smarty->assign(array(
 		'SETTINGS' => $language->get('user', 'profile_settings'),
+		'ACTIVE_LANGUAGE' => $language->get('user', 'active_language'),
+		'LANGUAGES' => $languages,
 		'PROFILE_FIELDS' => $custom_fields_template,
 		'SUBMIT' => $language->get('general', 'submit'),
 		'TOKEN' => Token::generate(),
