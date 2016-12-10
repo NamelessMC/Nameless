@@ -76,6 +76,15 @@ $language = array(
 	'text' => 'Text',
 	'textarea' => 'Text area',
 	'date' => 'Date',
+	'creating_profile_field' => 'Creating Profile Field',
+	'editing_profile_field' => 'Editing Profile Field',
+	'field_name' => 'Field Name',
+	'profile_field_required_help' => 'Required fields must be filled out by the user, and they will appear during registration.',
+	'profile_field_public_help' => 'Public fields will be displayed to all users, if this is disabled only moderators can view the values.',
+	'profile_field_error' => 'Please input a field name between 2 and 16 characters long.',
+	'description' => 'Description',
+	'display_field_on_forum' => 'Display field on forum?',
+	'profile_field_forum_help' => 'If enabled, the field will display by the user next to forum posts.',
 	
 	// Minecraft
 	'enable_minecraft_integration' => 'Enable Minecraft integration?',
