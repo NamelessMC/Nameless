@@ -238,7 +238,7 @@ require('core/init.php');
 											fwrite($file, $insert);
 											fclose($file);
 
-											Redirect::to('install.php?step=database_initialise');
+											Redirect::to('?step=database_initialise');
 											die();
 											
 										} catch(Exception $e){
@@ -311,7 +311,7 @@ require('core/init.php');
 							die($e->getMessage());
 						}
 						
-						Redirect::to('install.php?step=configuration');
+						Redirect::to('?step=configuration');
 						die();
 						
 					break;
@@ -365,7 +365,7 @@ require('core/init.php');
 									'value' => Output::getClean(Input::get('outgoing'))
 								));
 								
-								Redirect::to('install.php?step=initialise');
+								Redirect::to('?step=initialise');
 								die();
 							} else {
 								$error = 'Please input a valid site name between 1 and 32 characters long, and valid email addresses between 4 and 64 characters long.';
@@ -743,7 +743,7 @@ require('core/init.php');
 						$cache->store('default', 'Default');
 						
 						// Success
-						Redirect::to('install.php?step=user');
+						Redirect::to('?step=user');
 						die();
 						
 					break;
@@ -812,10 +812,10 @@ require('core/init.php');
 									
 									if($login){
 										if($_SESSION['action'] == 'install'){
-											Redirect::to('install.php?step=convert');
+											Redirect::to('?step=convert');
 											die();
 										} else {
-											Redirect::to('install.php?step=upgrade');
+											Redirect::to('?step=upgrade');
 											die();
 										}
 									} else {
@@ -885,7 +885,7 @@ require('core/init.php');
 					
 					case 'upgrade':
 						// Upgrade from v1
-						echo 'Upgrade process not yet available. <a href="install.php?step=finish">Continue</a>';
+						echo 'Upgrade process not yet available. <a href="?step=finish">Continue</a>';
 					break;
 					
 					case 'convert':
@@ -895,8 +895,8 @@ require('core/init.php');
 
 		  <h3>Convert</h3>
 		  <p>Finally, do you want to convert from a different forum software?</p>
-		  <a class="btn btn-success btn-lg disabled" href="install.php?step=convert&amp;convert=yes">Yes</a>
-		  <a class="btn btn-primary btn-lg" href="install.php?step=finish">No</a>
+		  <a class="btn btn-success btn-lg disabled" href="?step=convert&amp;convert=yes">Yes</a>
+		  <a class="btn btn-primary btn-lg" href="?step=finish">No</a>
 
 						<?php
 						} else {

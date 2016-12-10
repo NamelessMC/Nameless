@@ -18,10 +18,12 @@ if($user->isLoggedIn()){
 	} else {
 		// Try to delete installer
 		if(isset($_GET['from']) && $_GET['from'] == 'install'){
-			try {
-				unlink('install.php');
-			} catch(Exception $e){
-				die('Unable to delete installer automatically, please remove <strong>install.php</strong> from your website before continuing.');
+			if(is_file('install.php')){
+				try {
+					unlink('install.php');
+				} catch(Exception $e){
+					die('Unable to delete installer automatically, please remove <strong>install.php</strong> from your website before continuing.');
+				}
 			}
 		}
 		
