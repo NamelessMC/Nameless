@@ -36,13 +36,15 @@ class Forum {
 			if($forum->view == 1){
 				// Get the name..
 				$forum_query = $this->_db->get("forums", array("id", "=", $forum->forum_id))->results();
-				$forum_id = $forum_query[0]->id;
+				if(count($forum_query)){
+					$forum_id = $forum_query[0]->id;
 
-				// First, get a list of parent forums
-				if($forum_query[0]->parent == 0){
-					$return[$forum_id]['description'] = Output::getClean($forum_query[0]->forum_description);
-					$return[$forum_id]['title'] = Output::getClean($forum_query[0]->forum_title);
-					$return[$forum_id]['order'] = $forum_query[0]->forum_order;
+					// First, get a list of parent forums
+					if($forum_query[0]->parent == 0){
+						$return[$forum_id]['description'] = Output::getClean($forum_query[0]->forum_description);
+						$return[$forum_id]['title'] = Output::getClean($forum_query[0]->forum_title);
+						$return[$forum_id]['order'] = $forum_query[0]->forum_order;
+					}
 				}
 			}
 		}
@@ -54,6 +56,8 @@ class Forum {
 				// Get the name..
 				$forum_query = $this->_db->get("forums", array("id", "=", $forum->forum_id))->results();
 
+				if(!count($forum_query)) continue;
+				
 				// Ensure it's not a parent forum
 				if($forum_query[0]->parent != 0){
 					// Get name of parent forum
