@@ -220,7 +220,26 @@ $admin_page = 'styles';
 				  } else if(isset($_GET['action'])){
 					  if($_GET['action'] == 'install'){
 						  // Install new template
-						  echo $language->get('install');
+
+						  // Scan template directory for new templates
+						  $directories = glob('custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
+						  foreach($directories as $directory){
+							$folders = explode(DIRECTORY_SEPARATOR, $directory);
+							// Is it already in the database?
+		
+							$exists = $queries->getWhere('templates', array('name', '=', htmlspecialchars($folders[2])));
+							if(!count($exists)){
+								// No, add it now
+								$queries->create('templates', array(
+									'name' => htmlspecialchars($folders[2])
+								));
+							}
+						  }
+						  
+						  // TODO: success message
+						  Redirect::to(URL::build('/admin/styles'));
+						  die();
+						  
 					  } else if($_GET['action'] == 'make_default'){
 						  // Make a template default
 						  // Ensure it exists
