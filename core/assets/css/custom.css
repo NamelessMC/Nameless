@@ -546,3 +546,8 @@ a {
 .nav-inline .nav-link {
  line-height: 50px;
 }
+
+.forum_post img {
+	overflow: auto;
+	width: 100%
+}
