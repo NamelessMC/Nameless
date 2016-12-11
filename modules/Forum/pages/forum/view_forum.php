@@ -268,6 +268,8 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			$smarty->assign('NEW_TOPIC_BUTTON', false);
 		}
 		
+		$no_topics_exist = true;
+		
 	} else {
 		// Topics/sticky topics exist
 		
@@ -417,7 +419,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 	$smarty->assign('LATEST_MEMBER', $latest_member);
 	
 	// Load Smarty template
-	if(!count($stickies) && !count($topics)) $smarty->display('custom/templates/' . TEMPLATE . '/forum/view_forum_no_discussions.tpl'); 
+	if(isset($no_topics_exist)) $smarty->display('custom/templates/' . TEMPLATE . '/forum/view_forum_no_discussions.tpl'); 
 	else $smarty->display('custom/templates/' . TEMPLATE . '/forum/view_forum.tpl');
 
 	require('core/templates/scripts.php'); 
