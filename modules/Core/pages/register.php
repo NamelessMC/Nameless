@@ -141,14 +141,13 @@ if(Input::exists()){
 			
 			if($uuid_linking == '1'){
 				if($custom_usernames == "true"){ // validate username and Minecraft name
-					$to_validation['mcname'] = array(
+					$to_validation['username'] = array(
 						'required' => true,
-						//'isvalid' => true,
 						'min' => 3,
 						'max' => 20,
 						'unique' => 'users'
 					);
-					$to_validation['username'] = array(
+					$to_validation['nickname'] = array(
 						'required' => true,
 						'min' => 3,
 						'max' => 20,
@@ -170,7 +169,6 @@ if(Input::exists()){
 				} else { // only validate Minecraft name
 					$to_validation['username'] = array(
 						'required' => true,
-						//'isvalid' => true,
 						'min' => 3,
 						'max' => 20,
 						'unique' => 'users'
@@ -191,19 +189,19 @@ if(Input::exists()){
 				}
 			} else {
 				if($custom_usernames == "true"){ // validate username and Minecraft name
-					$to_validation['mcname'] = array(
-						'required' => true,
-						'min' => 3,
-						'max' => 20,
-						'unique' => 'users'
-					);
 					$to_validation['username'] = array(
 						'required' => true,
 						'min' => 3,
 						'max' => 20,
 						'unique' => 'users'
 					);
-					$mcname = htmlspecialchars(Input::get('mcname'));
+					$to_validation['nickname'] = array(
+						'required' => true,
+						'min' => 3,
+						'max' => 20,
+						'unique' => 'users'
+					);
+					$mcname = htmlspecialchars(Input::get('username'));
 				} else { // only validate Minecraft name
 					$to_validation['username'] = array(
 						'required' => true,
@@ -326,7 +324,7 @@ if(Input::exists()){
 									$mail->From = $GLOBALS['email']['username'];
 									$mail->FromName = $GLOBALS['email']['name'];
 									$mail->addAddress(htmlspecialchars(Input::get('email')), htmlspecialchars(Input::get('username')));
-									$mail->Subject = $sitename . ' - ' . $language->get('user', 'register');
+									$mail->Subject = $sitename . ' - ' . $language->get('general', 'register');
 									
 									// HTML to display in message
 									$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', $template, 'email', 'register.html'));
@@ -334,7 +332,7 @@ if(Input::exists()){
 									
 									$link = 'http://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code);
 									
-									$html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array($sitename, $language->get('user', 'register'), $language->get('user', 'email_greeting'), $language->get('user', 'email_message'), $link, $language->get('user', 'email_thanks')), $html);
+									$html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array($sitename, $language->get('general', 'register'), $language->get('user', 'email_greeting'), $language->get('user', 'email_message'), $link, $language->get('user', 'email_thanks')), $html);
 									
 									$mail->msgHTML($html);
 									$mail->IsHTML(true);
@@ -346,13 +344,14 @@ if(Input::exists()){
 									} else {
 										echo "Message sent!";
 									}
+
 								} else {
 									// PHP mail function
 									$siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
 									$siteemail = $siteemail[0]->value;
 									
 									$to      = Input::get('email');
-									$subject = $sitename . ' - ' . $language->get('user', 'register');
+									$subject = $sitename . ' - ' . $language->get('general', 'register');
 									
 									$message = 	$language->get('user', 'email_greeting') . PHP_EOL .
 												$language->get('user', 'email_message') . PHP_EOL . PHP_EOL . 

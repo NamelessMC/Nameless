@@ -20,24 +20,24 @@
 			{if isset($NICKNAMES)}
 			  {* Custom usernames are enabled *}
 			  <div class="form-group">
-				<input type="text" name="username" id="username" autocomplete="off" class="form-control form-control-lg" placeholder="{$NICKNAME}" tabindex="1">
+				<input type="text" name="nickname" id="username" autocomplete="off" class="form-control form-control-lg" placeholder="{$NICKNAME}" tabindex="1">
 			  </div>
 			  
 			  {if isset($MINECRAFT)}
 				<div class="form-group">
-				  <input type="text" name="mcname" id="mcname" autocomplete="off" class="form-control form-control-lg" placeholder="{$MINECRAFT_USERNAME}" tabindex="2">
+				  <input type="text" name="username" id="mcname" autocomplete="off" class="form-control form-control-lg" placeholder="{$MINECRAFT_USERNAME}" tabindex="2">
 				</div>
 			  {/if}
 			{else}
 			  {if isset($MINECRAFT)}
 			    {* Minecraft username required *}
 				<div class="form-group">
-				  <input type="text" name="mcname" id="mcname" autocomplete="off" class="form-control form-control-lg" placeholder="{$MINECRAFT_USERNAME}" tabindex="1">
+				  <input type="text" name="username" id="mcname" autocomplete="off" class="form-control form-control-lg" placeholder="{$MINECRAFT_USERNAME}" tabindex="1">
 				</div>
 			  {else}
 			    {* Minecraft integration disabled, just ask for a username *}
 				<div class="form-group">
-				  <input type="text" name="mcname" id="mcname" autocomplete="off" class="form-control form-control-lg" placeholder="{$NICKNAME}" tabindex="2">
+				  <input type="text" name="username" id="mcname" autocomplete="off" class="form-control form-control-lg" placeholder="{$NICKNAME}" tabindex="2">
 				</div>
 			  {/if}
 			{/if}
