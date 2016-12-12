@@ -412,7 +412,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 				$replies = count($replies);
 				
 				// Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
-				$last_reply_avatar = '<img class="img-rounded img-centre" src="' . $user->getAvatar($sticky->topic_last_user, "../", 30) . '" />';
+				$last_reply_avatar = '<img class="img-rounded img-centre" style="max-height:30px;max-width:30px;"  src="' . $user->getAvatar($sticky->topic_last_user, "../", 30) . '" />';
 				
 				// Is there a label?
 				if($sticky->label != 0){ // yes
@@ -475,7 +475,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 				$replies = count($replies);
 				
 				// Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
-				$last_reply_avatar = '<img class="img-rounded img-centre" src="' . $user->getAvatar($topics[$n]->topic_last_user, "../", 30) . '" />';
+				$last_reply_avatar = '<img class="img-rounded img-centre" style="max-height:30px;max-width:30px;"  src="' . $user->getAvatar($topics[$n]->topic_last_user, "../", 30) . '" />';
 				
 				// Is there a label?
 				if($topics[$n]->label != 0){ // yes
@@ -582,7 +582,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 					$posts_count = count($posts_count);
 					
 					// Get last user avatar
-					$last_reply_avatar = '<img class="img-rounded img-centre" src="' . $user->getAvatar($subforum->last_user_posted, "../", 30) . '" />';
+					$last_reply_avatar = '<img class="img-rounded img-centre" style="max-height:30px;max-width:30px;"  src="' . $user->getAvatar($subforum->last_user_posted, "../", 30) . '" />';
 					
 					// Get last topic name and label
 					$last_topic = $queries->getWhere('topics', array('id', '=', $subforum->last_topic_posted));
@@ -659,7 +659,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 				}
 
 				// Get avatar of user
-				$last_reply_avatar = '<img class="img-rounded img-centre" src="' . $user->getAvatar($item['topic_last_user'], "../", 30) . '" />';
+				$last_reply_avatar = '<img class="img-rounded img-centre" style="max-height:30px;max-width:30px;"  src="' . $user->getAvatar($item['topic_last_user'], "../", 30) . '" />';
 				
 				$latest_posts[] = array(
 					'topic_id' => $item['id'],
@@ -708,7 +708,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 				
 				// Get avatar of user who last posted
 				if($item->topic_last_user != null){
-					$last_reply_avatar = '<img class="img-rounded img-centre" src="' . $user->getAvatar($item->topic_last_user, "../", 30) . '" />';
+					$last_reply_avatar = '<img class="img-rounded img-centre" style="max-height:30px;max-width:30px;"  src="' . $user->getAvatar($item->topic_last_user, "../", 30) . '" />';
 				}
 				
 				// Is there a label?
@@ -768,7 +768,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 				
 				// Get avatar of user who last posted
 				if($topics[$n]->topic_last_user != null){
-					$last_reply_avatar = '<img class="img-rounded img-centre" src="' . $user->getAvatar($topics[$n]->topic_last_user, "../", 30) . '" />';
+					$last_reply_avatar = '<img class="img-rounded img-centre" style="max-height:30px;max-width:30px;"  src="' . $user->getAvatar($topics[$n]->topic_last_user, "../", 30) . '" />';
 				}
 				
 				// Is there a label?
@@ -816,7 +816,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 
 				// Get avatar of user
 				if($item['topic_last_user'] != null){
-					$last_reply_avatar = '<img class="img-rounded img-centre" src="' . $user->getAvatar($item['topic_last_user'], "../", 30) . '" />';
+					$last_reply_avatar = '<img class="img-rounded img-centre" style="max-height:30px;max-width:30px;"  src="' . $user->getAvatar($item['topic_last_user'], "../", 30) . '" />';
 				}
 				
 				$latest_posts[] = array(
