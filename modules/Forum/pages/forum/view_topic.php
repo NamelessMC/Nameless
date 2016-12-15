@@ -618,6 +618,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 			// Remove the redundant buttons from toolbar groups defined above.
 			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash,Iframe'
 		} );
+		CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
 			<?php
 			}
 			?>
