@@ -64,7 +64,7 @@ class ProfileUtils {
             $identifier = ProfileUtils::getUUIDFromUsername($identifier, $timeout);
             $url = "https://sessionserver.mojang.com/session/minecraft/profile/".$identifier['uuid'];
         } else {
-            $url = "https://sessionserver.mojang.com/session/minecraft/profile/".$identifier;
+            $url = "https://api.mojang.com/users/profiles/minecraft/" . $identifier;
         }
 
 		// Use cURL instead of file_get_contents
