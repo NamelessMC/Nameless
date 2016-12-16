@@ -63,7 +63,7 @@ class Alert {
 			
 			foreach($pms_access as $pm){
 				// Get actual PM information
-				$pm_full = $queries->getWhere('private_messages', array('id', '=', $pm->pm_id));
+				$pm_full = $db->get('private_messages', array('id', '=', $pm->pm_id))->results();
 				
 				if(!count($pm_full)) continue;
 				else $pm_full = $pm_full[0];
@@ -86,7 +86,7 @@ class Alert {
 			
 			foreach($pms as $pm){
 				if($pm->read == 0){
-					$pm_full = $queries->getWhere('private_messages', array('id', '=', $pm->pm_id));
+					$pm_full = $db->get('private_messages', array('id', '=', $pm->pm_id))->results();
 					
 					if(!count($pm_full)) continue;
 					else $pm_full = $pm_full[0];

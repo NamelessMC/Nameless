@@ -389,28 +389,7 @@ class User {
 		if($user_id){
 			$return = array(); // Array to return containing info of PMs
 			
-			// First, get a list of PMs the user has created themselves
-			$data = $this->_db->orderWhere('private_messages', 'author_id = ' . $user_id, 'sent_date', 'DESC');
-			
-			if($data->count()){
-				$data = $data->results();
-				foreach($data as $result){
-					// Get a list of users who are in this conversation and return them as an array
-					$pms = $this->_db->get('private_messages_users', array('pm_id', '=', $result->id))->results();
-					$users = array(); // Array containing users with permission
-					foreach($pms as $pm){
-						$users[] = $pm->user_id;
-					}
-					$users[] = $result->author_id; // Don't forget the author!
-					
-					$return[$result->id]['id'] = $result->id;
-					$return[$result->id]['title'] = $result->title;
-					$return[$result->id]['date'] = $result->sent_date;
-					$return[$result->id]['users'] = $users;
-				}
-			}
-			
-			// Next, get a list of PMs which the user has been added to
+			// Get a list of PMs which the user is in
 			$data = $this->_db->get('private_messages_users', array('user_id', '=', $user_id));
 			
 			if($data->count()){
@@ -427,14 +406,19 @@ class User {
 					$pm = $this->_db->get('private_messages', array('id', '=', $result->pm_id))->results();
 					$pm = $pm[0];
 					
-					$users[] = $pm->author_id; // Don't forget the author!
-					
 					$return[$pm->id]['id'] = $pm->id;
-					$return[$pm->id]['title'] = $pm->title;
-					$return[$pm->id]['date'] = $pm->sent_date;
+					$return[$pm->id]['title'] = Output::getClean($pm->title);
+					$return[$pm->id]['created'] = $pm->created;
+					$return[$pm->id]['updated'] = $pm->last_reply_date;
+					$return[$pm->id]['user_updated'] = $pm->last_reply_user;
 					$return[$pm->id]['users'] = $users;
 				}
 			}
+			// Order the PMs by date updated - most recent first
+			usort($return, function($a, $b) {
+				return $b['updated'] - $a['updated'];
+			});
+			
 			return $return;
 		}
 		return false;
@@ -448,27 +432,28 @@ class User {
 			if($data->count()){
 				$data = $data->results();
 				$data = $data[0];
-				if($data->author_id != $user_id){
-					// User is not the author, do they have permission to view the PM?
-					$pms = $this->_db->get('private_messages_users', array('pm_id', '=', $pm_id))->results();
-					foreach($pms as $pm){
-						if($pm->user_id == $user_id){
-							$has_permission = true;
-							$pm_user_id = $pm->id;
-							break;
-						}
-					}
-
-					if($has_permission != true){
-						return false; // User doesn't have permission
-					}
-					// Set message to "read"
-					if($pm->read == 0){
-						$this->_db->update('private_messages_users', $pm_user_id, array(
-							'`read`' => 1
-						));
+				
+				// Does the user have permission to view the PM?
+				$pms = $this->_db->get('private_messages_users', array('pm_id', '=', $pm_id))->results();
+				foreach($pms as $pm){
+					if($pm->user_id == $user_id){
+						$has_permission = true;
+						$pm_user_id = $pm->id;
+						break;
 					}
 				}
+
+				if(!isset($has_permission)){
+					return false; // User doesn't have permission
+				}
+				
+				// Set message to "read"
+				if($pm->read == 0){
+					$this->_db->update('private_messages_users', $pm_user_id, array(
+						'`read`' => 1
+					));
+				}
+				
 				// User has permission, return the PM information
 				
 				// Get a list of users in the conversation
@@ -480,8 +465,6 @@ class User {
 				foreach($pms as $pm){
 					$users[] = $pm->user_id;
 				}
-				
-				$users[] = $data->author_id; // Don't forget the author!
 				
 				return array($data, $users);
 			}

@@ -26,6 +26,10 @@ $js_sources = array(
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/js/bootstrap.min.js'
 );
 
+if(defined('PAGE') && PAGE == 'cc_messaging'){
+	$js_sources[] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/js/bootstrap3-typeahead.min.js';
+}
+
 // Page load time
 $page_load = microtime(true) - $start;
 if(isset($page_loading) && $page_loading == '1'){

@@ -120,8 +120,29 @@ $language = array(
 	
 	// Messaging
 	'no_messages' => 'No new messages',
+	'no_messages_full' => 'You do not have any messages.',
 	'view_messages' => 'View messages',
 	'x_new_messages' => 'You have {x} new messages', // Don't replace {x}
+	'new_message' => 'New Message',
+	'message_title' => 'Message Title',
+	'to' => 'To',
+	'separate_users_with_commas' => 'Separate users with commas',
+	'title_required' => 'Please input a title',
+	'content_required' => 'Please input some content',
+	'users_to_required' => 'Please input some message recipients',
+	'cant_send_to_self' => 'You can\'t send a message to yourself!',
+	'title_min_2' => 'The title must be a minimum of 2 characters',
+	'content_min_2' => 'The content must be a minimum of 2 characters',
+	'title_max_64' => 'The title must be a maximum of 64 characters',
+	'content_max_20480' => 'The content must be a maximum of 20480 characters',
+	'max_pm_10_users' => 'You can only send a message to a maximum of 10 users',
+	'message_sent_successfully' => 'Message sent successfully',
+	'participants' => 'Participants',
+	'last_message' => 'Last Message',
+	'by' => 'by',
+	'new_reply' => 'New Reply',
+	'leave_conversation' => 'Leave Conversation',
+	'confirm_leave' => 'Are you sure you want to leave this conversation?',
 	
 	// Reactions
 	'reactions' => 'Reactions',

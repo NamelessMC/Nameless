@@ -82,7 +82,7 @@
 					var new_pm_dropdown = '';
 					
 					for(i in data.pms){ 
-						new_pm_dropdown += '<a class="dropdown-item" href="<?php echo URL::build('/user/messages/', 'view='); ?>' + data.pms[i].id + '">' + data.pms[i].title + '</a>';
+						new_pm_dropdown += '<a class="dropdown-item" href="<?php echo URL::build('/user/messaging/', 'action=view&amp;message='); ?>' + data.pms[i].id + '">' + data.pms[i].title + '</a>';
 					}
 					
 					pm_dropdown.innerHTML = new_pm_dropdown;
@@ -94,7 +94,7 @@
 		});
 		$.getJSON('<?php echo URL::build('/queries/alerts'); ?>', function(data) {
 			var alert_dropdown = document.getElementById('alert_dropdown');
-			
+
 			if(data.value > 0){
 				$("#alerts").html(' <i class="fa fa-exclamation-circle custom-nav-exclaim"></i>');
 
@@ -133,7 +133,7 @@
 				var new_pm_dropdown = '';
 				
 				for(i in data.pms){ 
-					new_pm_dropdown += '<a class="dropdown-item" href="<?php echo URL::build('/user/messages/', 'view='); ?>' + data.pms[i].id + '">' + data.pms[i].title + '</a>';
+					new_pm_dropdown += '<a class="dropdown-item" href="<?php echo URL::build('/user/messaging/', 'action=view&amp;message='); ?>' + data.pms[i].id + '">' + data.pms[i].title + '</a>';
 				}
 				
 				pm_dropdown.innerHTML = new_pm_dropdown;
