@@ -7,8 +7,9 @@
  */
 
 /*
- *  API version 1.0.0
+ *  API version 1.0.1
  *  built for NamelessMC version 1.0.10
+ *  last updated for NamelessMC version 1.0.15
  */
  
  //Headers
@@ -124,6 +125,11 @@ class NamelessAPI {
 				case 'createReport':
 					// Creating a new player report
 					$this->createReport();
+				break;
+				
+				case 'getNotifications':
+					// Get notifications for user
+					$this->getNotifications((isset($_POST['uuid']) ? $_POST['uuid'] : null));
 				break;
 				
 				default:
@@ -474,4 +480,66 @@ class NamelessAPI {
 		} else $this->throwError('Invalid API key');
 	}
 
+	// Get number of notifications (alerts + private messages) for a user, based on UUID
+	private function getNotifications($uuid = null){
+		// Ensure the API key is valid
+		if($this->_validated === true){
+			// Ensure a UUID is set
+			if(!$uuid){
+				$this->throwError('Invalid UUID');
+			}
+			
+			// Remove - from UUID
+			$uuid = str_replace('-', '', $uuid);
+			
+			// Ensure valid UUID was passed
+			if(strlen($uuid) > 32 || strlen($uuid) > 32) $this->throwError('Invalid UUID');
+			
+			// Get user from database
+			$this->_db = DB::getInstance();
+			$user = $this->_db->get('users', array('uuid', '=', htmlspecialchars($uuid)));
+			
+			if($user->count()){
+				// Get notifications
+				$user = $user->results();
+				$user = $user[0];
+				
+				// Alerts
+				$alerts = $this->_db->get('alerts', array('user_id', '=', $user->id));
+				
+				$alerts_count = 0;
+				
+				if($alerts->count()){
+					$alerts = $alerts->results();
+					
+					foreach($alerts as $alert){
+						if($alert->read == 0) $alerts_count++;
+					}
+				}
+				
+				$alerts = null;
+				
+				// Private messages
+				$pms = $this->_db->get('private_messages_users', array('user_id', '=', $user->id));
+				
+				$pms_count = 0;
+				
+				if($pms->count()){
+					$pms = $pms->results();
+					
+					foreach($pms as $pm){
+						if($pm->read == 0) $pms_count++;
+					}
+				}
+				
+				$pms = null;
+				
+				$this->sendSuccessMessage(json_encode(array('alerts' => $alerts_count, 'messages' => $pms_count)));
+				
+			} else
+				$this->throwError('Can\'t find user with that UUID!');
+			
+		} else $this->throwError('Invalid API key');
+	}
+	
 }
