@@ -83,7 +83,7 @@ $adm_page = "help";
 				* <a href="https://github.com/NamelessMC/Nameless" target="_blank">Source Code on GitHub</a></br>
 
 				<h3>NamelessMC Plugin</h3>
-				* <a href="http://ci.namelessmc.com:8080/job/Nameless-Plugin/">Jenkins (Not released)</a></br>
+				* <a href="http://ci.namelessmc.com/jenkins/job/Nameless-Plugin/">Jenkins (Not released)</a></br>
 
 				<h3>Video Tutorial</h3>
 				* <a href="https://youtu.be/BlRz9gpS-Ew?t=3m12s" target="_blank">Setup Forums (v1.0.2)</a></br>
