@@ -92,6 +92,8 @@ class Forum {
 									$n++;
 								}
 								
+								if(!isset($last_reply[$n])) continue;
+								
 								$return[$parent_id]['subforums'][$forum_query[0]->id]->last_post = $last_reply[$n];
 								$return[$parent_id]['subforums'][$forum_query[0]->id]->last_post->link = URL::build('/forum/view_topic/', 'tid=' . $last_reply[$n]->topic_id . '&amp;pid=' . $last_reply[0]->id);
 								
