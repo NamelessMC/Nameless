@@ -38,7 +38,9 @@ class URL {
 	// 			$params (string) - contains string with URL parameters
 	private static function buildFriendly($url, $params){
 		// Check for params
-		if($params != ''){
+		if($params != '' || $params === true){
+			if($params === true) $params = '';
+			
 			$params = '?' . $params;
 		}
 		return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . $url . $params;
@@ -48,7 +50,9 @@ class URL {
 	// Params:  $url (string) - contains the URL which will be formatted
 	// 			$params (string) - contains string with URL parameters
 	private static function buildNonFriendly($url, $params){
-		if($params != ''){
+		if($params != '' || $params === true){
+			if($params === true) $params = '';
+			
 			return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . '&' . $params;
 		} else {
 			return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url;

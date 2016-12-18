@@ -26,12 +26,12 @@ require('core/includes/paginate.php'); // Get number of topics on a page
 // Get page
 if(isset($_GET['p'])){
 	if(!is_numeric($_GET['p'])){
-		Redirect::to(URL::build('/messaging'));
+		Redirect::to(URL::build('/user/messaging'));
 		die();
 	} else {
 		if($_GET['p'] == 1){ 
 			// Avoid bug in pagination class
-			Redirect::to(URL::build('/messaging'));
+			Redirect::to(URL::build('/user/messaging'));
 			die();
 		}
 		$p = $_GET['p'];
@@ -72,7 +72,7 @@ require('core/templates/cc_navbar.php');
 		
 		// Pagination
 		$results = $paginator->getLimited($messages, 10, $p, count($messages));
-		$pagination = $paginator->generate(7, URL::build('/user/messaging/'));
+		$pagination = $paginator->generate(7, URL::build('/user/messaging/', true));
 		
 		$smarty->assign('PAGINATION', $pagination);
 
