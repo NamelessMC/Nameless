@@ -549,5 +549,5 @@ a {
 
 .forum_post img {
 	overflow: auto;
-	width: 100%
+	max-width: 100%
 }
