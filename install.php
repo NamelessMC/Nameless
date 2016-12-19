@@ -475,6 +475,16 @@ require('core/init.php');
                 'is_default' => 1
             ));
 
+            $queries->create('languages', array(
+                'name' => 'German',
+                'is_default' => 0
+            ));
+
+            $queries->create('languages', array(
+                'name' => 'EnglishUS',
+                'is_default' => 0
+            ));
+
             $cache->setCache('languagecache');
             $cache->store('language', 'EnglishUK');
 
