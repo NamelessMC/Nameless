@@ -6,7 +6,7 @@
  *
  *  License: MIT
  *
- *  EnglishUK Language for Forum module
+ *  EnglishUS Language for Forum module
  */
 
 $language = array(
