@@ -16,7 +16,7 @@ $language = array(
 	'submit' => 'Senden',
 	'register' => 'Registrieren',
 	'sign_in' => 'Einloggen',
-	'log_out' => 'Ausoggen',
+	'log_out' => 'Ausloggen',
 	'profile' => 'Profil',
 	'invalid_token' => 'Ungültiger Token.',
 	'close' => 'Schließen',
@@ -58,7 +58,7 @@ $language = array(
 	/*
 	 *  Homepage
 	 */
-	'social' => 'Soziale Medien',
+	'social' => 'Soziale Netzwerke',
 	
 	
 	/*
