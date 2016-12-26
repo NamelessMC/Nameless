@@ -12,8 +12,8 @@
  *  last updated for NamelessMC version 1.0.15
  */
  
- //Headers
- header("Content-Type: application/json; charset=UTF-8");
+// Headers
+header("Content-Type: application/json; charset=UTF-8");
  
 // Get API key
 if(!isset($directories[3]) || (isset($directories[3]) && empty($directories[3]))){
@@ -130,6 +130,11 @@ class NamelessAPI {
 				case 'getNotifications':
 					// Get notifications for user
 					$this->getNotifications((isset($_POST['uuid']) ? $_POST['uuid'] : null));
+				break;
+				
+				case 'updateUsername':
+					// Update a user's username
+					$this->updateUsername();
 				break;
 				
 				default:
@@ -480,24 +485,33 @@ class NamelessAPI {
 		} else $this->throwError('Invalid API key');
 	}
 
-	// Get number of notifications (alerts + private messages) for a user, based on UUID
-	private function getNotifications($uuid = null){
+	// Get number of notifications (alerts + private messages) for a user, based on username or UUID
+	private function getNotifications($id = null){
 		// Ensure the API key is valid
 		if($this->_validated === true){
 			// Ensure a UUID is set
-			if(!$uuid){
-				$this->throwError('Invalid UUID');
+			if(!$id){
+				$this->throwError('Invalid username/UUID');
 			}
 			
-			// Remove - from UUID
-			$uuid = str_replace('-', '', $uuid);
-			
-			// Ensure valid UUID was passed
-			if(strlen($uuid) > 32 || strlen($uuid) > 32) $this->throwError('Invalid UUID');
+			// UUID or username?
+			if(strlen($id) <= 16){
+				// Username
+				$field = 'mcname';
+				
+			} else {
+				// Remove - from UUID
+				$id = str_replace('-', '', $id);
+				
+				// Ensure valid UUID was passed
+				if(strlen($id) > 32 || strlen($id) > 32) $this->throwError('Invalid UUID');
+				
+				$field = 'uuid';
+			}
 			
 			// Get user from database
 			$this->_db = DB::getInstance();
-			$user = $this->_db->get('users', array('uuid', '=', htmlspecialchars($uuid)));
+			$user = $this->_db->get('users', array($field, '=', htmlspecialchars($id)));
 			
 			if($user->count()){
 				// Get notifications
@@ -537,7 +551,72 @@ class NamelessAPI {
 				$this->sendSuccessMessage(json_encode(array('alerts' => $alerts_count, 'messages' => $pms_count)));
 				
 			} else
-				$this->throwError('Can\'t find user with that UUID!');
+				$this->throwError('Can\'t find user with that username or UUID!');
+			
+		} else $this->throwError('Invalid API key');
+	}
+	
+	// Update a user's username
+	private function updateUsername(){
+		// Ensure the API key is valid
+		if($this->_validated === true){
+			// Check post contents
+			// Required: UUID/old username, new username
+			if(!isset($_POST['id']) || empty($_POST['id']) || !isset($_POST['new_username']) || empty($_POST['new_username']))
+				$this->throwError('Invalid post contents');
+			
+			// Remove - from ID, if any
+			$_POST['id'] = str_replace('-', '', $_POST['id']);
+			
+			// Validate post content
+			if(strlen($_POST['id']) > 32) $this->throwError('Invalid UUID');
+			else if(strlen($_POST['id']) < 2) $this->throwError('Invalid username/UUID');
+			
+			if(strlen($_POST['new_username']) < 2) $this->throwError('Invalid new username provided');
+			else if(strlen($_POST['new_username']) > 16) $this->throwError('Invalid new username provided');
+			
+			// Check for user specified
+			$this->_db = DB::getInstance();
+			$user = $this->_db->get('users', array((strlen($_POST['id']) <= 16 ? 'mcname' : 'uuid'), '=', htmlspecialchars($_POST['id'])));
+			
+			if($user->count()){
+				$user = $user->first();
+				$user = $user->id;
+				
+				// Update just Minecraft username, or displayname too?
+				$displaynames = $this->_db->get('settings', array('name', '=', 'displaynames'));
+				if(!$displaynames->count()) $this->throwError('Unable to obtain settings from database');
+				
+				$displaynames = $displaynames->first();
+				
+				if($displaynames->value == 'false'){
+					// Displaynames disabled
+					try {
+						// Update the user's displayname and Minecraft username
+						$this->_db->update('users', $user, array(
+							'username' => htmlspecialchars($_POST['new_username']),
+							'mcname' => htmlspecialchars($_POST['new_username'])
+						));
+					} catch(Exception $e){
+						$this->throwError('Unable to update username');
+					}
+					
+				} else {
+					// Displaynames are separate, just update Minecraft username
+					try {
+						// Update the user's Minecraft username
+						$this->_db->update('users', $user, array(
+							'mcname' => htmlspecialchars($_POST['new_username'])
+						));
+					} catch(Exception $e){
+						$this->throwError('Unable to update username');
+					}
+					
+				}
+				
+				$this->sendSuccessMessage('Username updated successfully');
+				
+			} else $this->throwError('Can\'t find user with that username or UUID!');
 			
 		} else $this->throwError('Invalid API key');
 	}
