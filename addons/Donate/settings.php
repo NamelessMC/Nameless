@@ -303,8 +303,6 @@ if(empty($donation_settings)){
 				  </div>
 				</form>
 				
-				<div class="alert alert-info">Unfortunately the package description will be reset upon synchronising the donor store, this will be modified in a future update.</div>
-				
 				<script src="/core/assets/js/ckeditor.js"></script>
 				<script type="text/javascript">
 					CKEDITOR.replace( 'editor', {
