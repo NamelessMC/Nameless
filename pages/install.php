@@ -653,7 +653,7 @@ if(isset($_GET["step"])){
 							// Version update
 							$version_id = $queries->getWhere('settings', array('name', '=', 'version'));
 							$queries->update('settings', $version_id[0]->id, array(
-								'value' => '1.0.14'
+								'value' => '1.0.15'
 							));
 							
 							
@@ -1022,7 +1022,7 @@ if(isset($_GET["step"])){
 					),
 					28 => array(
 						'name' => 'version',
-						'value' => '1.0.14'
+						'value' => '1.0.15'
 					),
 					29 => array(
 						'name' => 'version_checked',

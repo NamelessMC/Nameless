@@ -421,3 +421,18 @@ The notes for each release
 - Update editor line break method
 - Add signup completion for API register method
 - Remove user's friends on deletion
+
+1.0.15
+- Update API language terms
+- Improve register API method success message
+- Fix Buycraft synchronisation
+- Allow modifying package descriptions within the Donate addon
+- Fix incorrect link following MCAssoc validation
+- Update lower case addon name in link
+- Keep custom package descriptions on donation sync
+- Remove containers from global messages
+- Fix incorrect custom avatar size in forums
+- Update plugin link within AdminCP Help page
+- Add getNotifications method to API
+- Add updateUsername method to API
+- Update included library
