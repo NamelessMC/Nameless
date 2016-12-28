@@ -1,5 +1,6 @@
   Options +FollowSymLinks
   Options -MultiViews
+  Options -Indexes
   RewriteEngine on
   IndexIgnore *
   RewriteBase /
