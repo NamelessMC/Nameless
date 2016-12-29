@@ -53,6 +53,18 @@ if($page != 'install'){
 	// Page load timer?
 	$cache->setCache('page_load_cache');
 	$page_loading = $cache->retrieve('page_load');
+	
+	// Set timezone
+	try {
+		$cache->setCache('timezone_cache');
+		if($cache->isCached('timezone')){
+			define('TIMEZONE', $cache->retrieve('timezone'));
+		} else define('TIMEZONE', 'Europe/London');
+		
+		date_default_timezone_set(TIMEZONE);
+	} catch(Exception $e){
+		die('Unable to set timezone: ' . $e->getMessage());
+	}
 
 	// Get the Nameless version
 	$nameless_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));

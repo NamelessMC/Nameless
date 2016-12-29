@@ -19,6 +19,8 @@ $page = 'install';
 // Start initialising the page
 require('core/init.php');
 
+// Set default timezone to prevent potential issues
+date_default_timezone_set('Europe/London');
 ?>
 
 <html lang="en">
