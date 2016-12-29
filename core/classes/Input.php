@@ -47,4 +47,36 @@ class Input {
 		// It is not in either $_GET or $_POST, return an empty string
 		return '';
 	}
+	
+	// Displays a new CKEditor field
+	// Params: $name (string) - name of input field ID
+	public static function createEditor($name = null){
+		if($name){
+			$editor = '
+			window.path = "' . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . '";
+			
+			CKEDITOR.replace( \'' . $name . '\', {
+				extraAllowedContent: \'blockquote(blockquote)\',
+				// Define the toolbar groups as it is a more accessible solution.
+				toolbarGroups: [
+					{"name":"basicstyles","groups":["basicstyles"]},
+					{"name":"paragraph","groups":["list","align"]},
+					{"name":"styles","groups":["styles"]},
+					{"name":"colors","groups":["colors"]},
+					{"name":"links","groups":["links"]},
+					{"name":"insert","groups":["insert"]}
+					//{"name" : "pbckcode"}
+				],
+				// Remove the redundant buttons from toolbar groups defined above.
+				removeButtons: \'Anchor,Styles,Specialchar,Font,About,Flash,Iframe,Smiley\'
+			} );
+			CKEDITOR.config.disableNativeSpellChecker = false;
+			CKEDITOR.config.width = "auto";
+			CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+			';
+			
+			return $editor;
+		}
+		return null;
+	}
 }

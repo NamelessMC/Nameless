@@ -22,6 +22,8 @@ $timeago = new Timeago();
 $paginator = new Paginator();
 
 require('core/includes/paginate.php'); // Get number of topics on a page
+require('core/includes/emojione/autoload.php'); // Emojione
+$emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get page
 if(isset($_GET['p'])){
@@ -58,6 +60,7 @@ require('core/templates/cc_navbar.php');
 	
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.min.css"/>
+	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.sprites.css"/>
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emojionearea/css/emojionearea.min.css"/>
   
   </head>
@@ -436,7 +439,7 @@ require('core/templates/cc_navbar.php');
 					'author_group' => $user->getGroup($results->data[$n]->author_id, 'true'),
 					'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
 					'message_date_full' => date('d M Y, H:i', $results->data[$n]->created),
-					'content' => Output::getPurified(htmlspecialchars_decode($results->data[$n]->content))
+					'content' => Output::getPurified($emojione->unicodeToImage($results->data[$n]->content))
 				);
 			}
 			
@@ -526,24 +529,12 @@ require('core/templates/cc_navbar.php');
 	  });
 	</script>
 	<?php } else { ?>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/ckeditor.js"></script>
 	
 	<script type="text/javascript">
-		CKEDITOR.replace( 'reply', {
-			// Define the toolbar groups as it is a more accessible solution.
-			toolbarGroups: [
-				{"name":"basicstyles","groups":["basicstyles"]},
-				{"name":"paragraph","groups":["list","align"]},
-				{"name":"colors","groups":["colors"]},
-				{"name":"links","groups":["links"]},
-				{"name":"insert","groups":["insert"]}
-				//{"name" : "pbckcode"}
-			],
-			// Remove the redundant buttons from toolbar groups defined above.
-			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash,Iframe'
-		} );
-		CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+		<?php echo Input::createEditor('reply'); ?>
 	</script>
 	<?php } ?>
 	

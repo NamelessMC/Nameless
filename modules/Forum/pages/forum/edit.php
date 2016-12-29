@@ -96,7 +96,7 @@ if(!$can_reply){
 }
 
 
-if($user->data()->id !== $post_editing[0]->post_creator && !($forum->canModerateForum($user->data()->group_id, $forum_id))){
+if($user->data()->id !== $post_editing[0]->post_creator && !($user->canModerateForum($user->data()->group_id, $forum_id))){
 	Redirect::to(URL::build('/forum/view_forum/', 'fid=' . $forum_id));
 	die();
 }
@@ -227,6 +227,7 @@ if(Input::exists()){
 	
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.min.css"/>
+	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.sprites.css"/>
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emojionearea/css/emojionearea.min.css"/>
 	
   </head>
@@ -324,26 +325,14 @@ if(Input::exists()){
 		$clean = htmlspecialchars_decode($post_editing[0]->post_content);
 		$clean = Output::getPurified($clean);
 	?>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/ckeditor.js"></script>
 
 	<script type="text/javascript">
-		CKEDITOR.replace('editor', {
-			extraAllowedContent: 'blockquote(blockquote)',
-			// Define the toolbar groups as it is a more accessible solution.
-			toolbarGroups: [
-				{"name":"basicstyles","groups":["basicstyles"]},
-				{"name":"paragraph","groups":["list","align"]},
-				{"name":"styles","groups":["styles"]},
-				{"name":"colors","groups":["colors"]},
-				{"name":"links","groups":["links"]},
-				{"name":"insert","groups":["insert"]}
-			],
-			// Remove the redundant buttons from toolbar groups defined above.
-			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash,Iframe'
-		});
-		CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
-	    <?php 
+		<?php 
+		echo Input::createEditor('editor');
+
 	    // Insert
 	    if(!Session::exists('failure_post')){
 	    ?>

@@ -61,6 +61,7 @@ require('core/includes/password.php'); // Password compat library
   
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.min.css"/>
+	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.sprites.css"/>
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emojionearea/css/emojionearea.min.css"/>
   
   </head>
@@ -830,23 +831,11 @@ require('core/includes/password.php'); // Password compat library
 	<?php
 	} else {
 	?>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript">
-		CKEDITOR.replace( 'InputSignature', {			
-			// Define the toolbar groups as it is a more accessible solution.
-			toolbarGroups: [
-				{"name":"basicstyles","groups":["basicstyles"]},
-				{"name":"paragraph","groups":["list","align"]},
-				{"name":"styles","groups":["styles"]},
-				{"name":"colors","groups":["colors"]},
-				{"name":"links","groups":["links"]},
-				{"name":"insert","groups":["insert"]}
-				//{"name" : "pbckcode"}
-			],
-			// Remove the redundant buttons from toolbar groups defined above.
-			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash,Iframe'
-		} );
+	  <?php echo Input::getEditor('InputSignature'); ?>
 	</script>
 	<?php } ?>
   </body>
