@@ -382,6 +382,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 			// Remove the redundant buttons from toolbar groups defined above.
 			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash'
 		} );
+		CKEDITOR.config.disableNativeSpellChecker = false;
 	</script>
     <script type="text/javascript">
 		function colourUpdate(that) {
