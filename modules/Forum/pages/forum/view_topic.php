@@ -496,7 +496,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 			'buttons' => $buttons,
 			'content' => $content,
 			'signature' => Output::getPurified(htmlspecialchars_decode($signature)),
-			'fields' => $fields,
+			'fields' => (empty($fields) ? array() : $fields),
 			'edited' => (is_null($results->data[$n]->last_edited) ? null : str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $results->data[$n]->last_edited), $language->getTimeLanguage()), $forum_language->get('forum', 'last_edited'))),
 			'edited_full' => (is_null($results->data[$n]->last_edited) ? null : date('d M Y, H:i', $results->data[$n]->last_edited)),
 			'post_reactions' => $post_reactions,

@@ -73,11 +73,13 @@
 			  {$reply.user_posts_count} {$POSTS}<br />
 			  <hr />
 			</center>
+			{if count($reply.fields)}
 			<blockquote class="blockquote">
 			  {foreach from=$reply.fields item=field}
 			  <small>{$field.name}: {$field.value}</small><br />
 			  {/foreach}
 			</blockquote>
+			{/if}
 		  </div>
 		  <div class="col-md-9">
 		    {$BY} <a style="{$reply.user_style}" href="{$reply.profile}">{$reply.username}</a> &raquo; <span data-toggle="tooltip" data-trigger="hover" data-original-title="{$reply.post_date}">{$reply.post_date_rough}</span>
