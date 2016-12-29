@@ -17,9 +17,6 @@ if(version_compare(phpversion(), '5.4', '<')){
 // Start page load timer
 $start = microtime(true);
  
-// Temp
-date_default_timezone_set('Europe/London');
- 
 // Definitions 
 define('PATH', '/'); 
 define('ROOT_PATH', dirname(__FILE__));

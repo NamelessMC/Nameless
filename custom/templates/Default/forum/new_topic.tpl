@@ -16,7 +16,7 @@
 
 	  <form action="" method="post">
 		<div class="form-group">
-		  <input type="text" class="form-control form-control-lg" name="title" placeholder="{$TOPIC_TITLE}">
+		  <input type="text" class="form-control form-control-lg" name="title" placeholder="{$TOPIC_TITLE}" maxlength="64">
 		</div>
 		{if !isset($MARKDOWN)}
 		<div class="form-group">
