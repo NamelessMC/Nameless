@@ -439,7 +439,7 @@ require('core/templates/cc_navbar.php');
 					'author_group' => $user->getGroup($results->data[$n]->author_id, 'true'),
 					'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
 					'message_date_full' => date('d M Y, H:i', $results->data[$n]->created),
-					'content' => Output::getPurified($emojione->unicodeToImage($results->data[$n]->content))
+					'content' => Output::getPurified($emojione->unicodeToImage(htmlspecialchars_decode($results->data[$n]->content)))
 				);
 			}
 			
