@@ -742,6 +742,13 @@ require('core/init.php');
                 'name' => 'language',
                 'value' => 1
             ));
+			
+            $queries->create('settings', array(
+                'name' => 'timezone',
+                'value' => 'Europe/London'
+            ));
+            $cache->setCache('timezone_cache');
+            $cache->store('timezone', 'Europe/London');
 
             // Templates
             $queries->create('templates', array(
