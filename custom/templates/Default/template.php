@@ -40,6 +40,27 @@ if(isset($page_loading) && $page_loading == '1'){
 	</script>';
 } else $js = '';
 
+// Popovers
+$js.= '
+ <script>
+ $(".pop").popover({ trigger: "manual" , html: true, animation:false, placement: "top" })
+	.on("mouseenter", function () {
+		var _this = this;
+		$(this).popover("show");
+		$(".popover").on("mouseleave", function () {
+			$(_this).popover(\'hide\');
+		});
+	}).on("mouseleave", function () {
+		var _this = this;
+		setTimeout(function () {
+			if (!$(".popover:hover").length) {
+				$(_this).popover(\'hide\');
+			}
+		}, 300);
+ });
+ </script>
+';
+
 // Registration page/login page checkbox
 if(isset($page) && ($page == 'login' || $page = 'register')){
 	$js .= '

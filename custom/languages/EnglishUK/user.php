@@ -106,12 +106,27 @@ $language = array(
 	'must_input_username' => 'You must input a username.',
 	'must_input_password' => 'You must input a password.',
 	
-	
 	// Profile pages
 	'profile' => 'Profile',
 	'follow' => 'Follow',
 	'no_wall_posts' => 'There are no wall posts here yet.',
 	'change_banner' => 'Change Banner',
+	'post_on_wall' => 'Post on {x}\'s wall', // Don't replace {x}
+	'invalid_wall_post' => 'Please ensure your post is between 1 and 10000 characters.',
+	'1_reaction' => '1 reaction',
+	'x_reactions' => '{x} reactions', // Don't replace {x}
+	'1_like' => '1 like',
+	'x_likes' => '{x} likes', // Don't replace {x}
+	'1_reply' => '1 reply',
+	'x_replies' => '{x} replies', // Don't replace {x}
+	'no_replies_yet' => 'No replies yet',
+	'feed' => 'Feed',
+	'about' => 'About',
+	'reactions' => 'Reactions',
+	'replies' => 'Replies',
+	'new_reply' => 'New Reply',
+	'registered' => 'Registered:',
+	'last_seen' => 'Last Seen:',
 	
 	// Reports
 	'invalid_report_content' => 'Unable to create report. Please ensure your report reason is between 2 and 1024 characters.',

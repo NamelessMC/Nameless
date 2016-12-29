@@ -133,5 +133,9 @@ $language = array(
 	'forum_type_forum' => 'Forum',
 	'forum_type_category' => 'Category',
 	'invalid_action' => 'Invalid action',
-	'use_reactions' => 'Use Reactions?'
+	'use_reactions' => 'Use Reactions?',
+	
+	// Profile tab
+	'user_no_posts' => 'This user has not made any forum posts yet.',
+	'latest_posts' => 'Latest Posts'
 );
