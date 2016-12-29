@@ -293,7 +293,7 @@ class Forum {
 							if(empty($topic_query)) continue;
 							
 							$latest_posts[$n]["forum_id"] = $item->id;
-							$latest_posts[$n]["date"] = $latest_post->post_date;
+							$latest_posts[$n]["date"] = strtotime($latest_post->post_date);
 							$latest_posts[$n]["author"] = $latest_post->post_creator;
 							$latest_posts[$n]["topic_id"] = $latest_post->topic_id;
 							
