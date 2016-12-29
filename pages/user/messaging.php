@@ -447,6 +447,8 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 			// Remove the redundant buttons from toolbar groups defined above.
 			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash,Iframe'
 		} );
+		CKEDITOR.config.disableNativeSpellChecker = false;
+		CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
 	</script>
   </body>
 </html>
