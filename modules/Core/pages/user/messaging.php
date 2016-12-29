@@ -18,7 +18,7 @@ if(!$user->isLoggedIn()){
 // Always define page name for navbar
 define('PAGE', 'cc_messaging');
 
-$timeago = new Timeago();
+$timeago = new Timeago(TIMEZONE);
 $paginator = new Paginator();
 
 require('core/includes/paginate.php'); // Get number of topics on a page

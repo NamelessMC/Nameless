@@ -25,7 +25,7 @@ if($user->isLoggedIn()){
 define('PAGE', 'mod_reports');
 
 // Initialise timeago class
-$timeago = new Timeago();
+$timeago = new Timeago(TIMEZONE);
 
 ?>
 <!DOCTYPE html>

@@ -20,7 +20,7 @@ define('PAGE', 'cc_alerts');
 
 require('core/templates/cc_navbar.php');
 
-$timeago = new Timeago();
+$timeago = new Timeago(TIMEZONE);
 ?>
 <!DOCTYPE html>
 <html>

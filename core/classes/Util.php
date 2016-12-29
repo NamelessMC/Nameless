@@ -70,4 +70,42 @@ class Util {
 		return $d && $d->format($format) == $date;
 	}
 	
+	// Return an array containing all timezone lists
+	// No params
+	public static function listTimezones(){
+		// Array to contain timezones
+		$timezones = array();
+		
+		// Array to contain offsets
+		$offsets = array();
+		
+		// Get all PHP timezones
+		$all_timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
+		
+		// Get current UTC time to calculate offset
+		$current = new DateTime('now', new DateTimeZone('UTC'));
+		
+		foreach($all_timezones as $timezone){
+			// Get timezone offset
+			$current->setTimezone(new DateTimeZone($timezone));
+			
+			// Add offset to offset array
+			$offsets[] = $current->getOffset();
+			
+			// Format timezone offset
+			$offset = 'GMT ' . intval($current->getOffset() / 3600) . ':' . str_pad(abs(intval($offset % 3600 / 60)), 2, 0);
+			
+			// Prettify timezone name
+			$name = Output::getClean(str_replace(array('/', '_'), array(', ', ' '), $timezone));
+			
+			// Add to timezones array
+			$timezones[$timezone] = array('offset' => $offset, 'name' => $name, 'time' => $current->format('H:i'));
+			
+		}
+		
+		array_multisort($offsets, $timezones);
+		
+		return $timezones;
+	}
+	
 }

@@ -27,7 +27,7 @@ define('PAGE', 'forum');
 
 // Initialise
 $forum = new Forum();
-$timeago = new Timeago();
+$timeago = new Timeago(TIMEZONE);
 
 // Get user group ID
 if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group = null;

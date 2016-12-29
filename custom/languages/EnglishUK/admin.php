@@ -39,6 +39,7 @@ $language = array(
 	'default_language' => 'Default language',
 	'default_language_help' => 'Users will be able to choose from any installed languages.',
 	'installed_languages' => 'Any new languages have been installed successfully.',
+	'default_timezone' => 'Default timezone',
 	'registration' => 'Registration',
 	'enable_registration' => 'Enable registration?',
 	'verify_with_mcassoc' => 'Verify user accounts with MCAssoc?',

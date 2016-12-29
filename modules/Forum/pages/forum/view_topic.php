@@ -26,7 +26,7 @@ require('modules/Forum/classes/Forum.php');
 define('PAGE', 'forum');
 
 $forum = new Forum();
-$timeago = new Timeago();
+$timeago = new Timeago(TIMEZONE);
 $paginator = new Paginator();
 $mentionsParser = new MentionsParser();
 

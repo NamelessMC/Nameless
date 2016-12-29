@@ -9,6 +9,7 @@
  *  Admin core settings page
  */
 
+// Can the user view the AdminCP?
 if($user->isLoggedIn()){
 	if(!$user->canViewACP()){
 		// No
@@ -160,6 +161,23 @@ $current_default_language = $current_default_language[0]->value;
 										$cache->store('language', $language_name);
 									}
 									
+									// Timezone
+									$timezone_id = $queries->getWhere('settings', array('name', '=', 'timezone'));
+									$timezone_id = $timezone_id[0]->id;
+									
+									try {
+										$queries->update('settings', $timezone_id, array(
+											'value' => Output::getClean($_POST['timezone'])
+										));
+										
+										// Cache
+										$cache->setCache('timezone_cache');
+										$cache->store('timezone', Output::getClean($_POST['timezone']));
+										
+									} catch(Exception $e){
+										$errors = array($e->getMessage());
+									}
+									
 									// Portal
 									$portal_id = $queries->getWhere('settings', array('name', '=', 'portal'));
 									$portal_id = $portal_id[0]->id;
@@ -278,6 +296,19 @@ $current_default_language = $current_default_language[0]->value;
 				      <a class="btn btn-secondary" href="<?php echo URL::build('/admin/core/', 'view=general&amp;do=installLanguage'); ?>"><i class="fa fa-plus-circle"></i></a>
 				    </div>
 				  </div>
+				</div>
+				<div class="form-group">
+				  <label for="inputTimezone"><?php echo $language->get('admin', 'default_timezone'); ?></label>
+				  <?php
+				  // Get timezone setting
+				  $timezone = $queries->getWhere('settings', array('name', '=', 'timezone'));
+				  $timezone = $timezone[0];			  
+				  ?>
+				  <select name="timezone" class="form-control" id="inputTimezone">
+				    <?php foreach(Util::listTimezones() as $key => $item){ ?>
+				    <option value="<?php echo $key; ?>"<?php if($timezone->value == $key){ ?> selected<?php } ?>>(<?php echo $item['offset']; ?>) - <?php echo $item['name']; ?> (<?php echo $item['time']; ?>)</option>
+					<?php } ?>
+				  </select>
 				</div>
 				<div class="form-group">
 				  <label for="inputHomepage"><?php echo $language->get('admin', 'homepage_type'); ?></label>
