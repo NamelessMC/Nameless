@@ -1,7 +1,7 @@
 # Finished products of Nameless can be found on
 https://namelessmc.com/
 
-# Warning - All downloads off the github are not 100% bug free and are in dev.
+Warning - All downloads off the github are not 100% bug free and are in dev.
 
 # Version 1.0.15
 
