@@ -203,6 +203,11 @@ date_default_timezone_set('Europe/London');
                 } else {
                     $password = '';
                 }
+				
+				// Get charset
+				if($_POST['charset'] == 'latin1'){
+					$charset = 'latin1';
+				} else $charset = 'utf8';
 
                 // Get installation path
                 $path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))), 1);
@@ -243,6 +248,8 @@ date_default_timezone_set('Europe/London');
                             $file = fopen('core/config.php','w');
                             fwrite($file, $insert);
                             fclose($file);
+							
+							$_SESSION['charset'] = $charset;
 
                             Redirect::to('?step=database_initialise');
                             die();
@@ -293,6 +300,14 @@ date_default_timezone_set('Europe/London');
                     <label for="inputDBName">Database Name</label>
                     <input type="text" class="form-control" name="db_name" id="inputDBName" placeholder="Database Name">
                 </div>
+				
+				<div class="form-group">
+				    <label for="inputCharset">Character set</label>
+				    <select class="form-control" name="charset" id="inputCharset">
+					    <option value="latin1">latin1</option>
+						<option value="utf8" selected>Unicode</option>
+					</select>
+				</div>
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="Submit">
@@ -311,8 +326,11 @@ date_default_timezone_set('Europe/London');
             <p>This may take a while...</p>
             <?php
             try {
+				if(isset($_SESSION['charset'])) $charset = $_SESSION['charset'];
+				else $charset = 'utf8_unicode_ci';
+				
                 $queries = new Queries();
-                $queries->dbInitialise();
+                $queries->dbInitialise($charset);
             } catch(Exception $e){
                 die($e->getMessage());
             }
@@ -2015,6 +2033,12 @@ date_default_timezone_set('Europe/London');
 						));
 						$cache->setCache('templatecache');
 						$cache->store('default', 'Default');
+						
+						unset($_SESSION['db_address']);
+						unset($_SESSION['db_port']);
+						unset($_SESSION['db_username']);
+						unset($_SESSION['db_password']);
+						unset($_SESSION['db_name']);
 						
 						Redirect::to('?step=do_upgrade&s=9');
 						die();
