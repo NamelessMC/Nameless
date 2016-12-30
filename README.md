@@ -1,4 +1,9 @@
-# NamelessMC - version 1.0.15
+# Finished products of Nameless can be found on
+https://namelessmc.com/
+
+# Warning - All downloads off the github are not 100% bug free and are in dev.
+
+# Version 1.0.15
 
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
