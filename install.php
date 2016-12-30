@@ -1017,7 +1017,7 @@ date_default_timezone_set('Europe/London');
 		
 		case 'do_upgrade':
 			// Query old v1 database and insert into v2
-			$conn = DB_Custom::getInstance($_SESSION['db_address'], $_SESSION['db_name'], $_SESSION['db_username'], $_SESSION['db_password'], $_SESSION['db_port']);
+			if(!isset($_GET['s']) || (isset($_GET['s']) && $_GET['s'] != '9')) $conn = DB_Custom::getInstance($_SESSION['db_address'], $_SESSION['db_name'], $_SESSION['db_username'], $_SESSION['db_password'], $_SESSION['db_port']);
 			echo '<div class="alert alert-info">Please wait whilst the installer upgrades your database...</div>';
 			
 			$queries = new Queries();
@@ -1736,7 +1736,7 @@ date_default_timezone_set('Europe/London');
 								$old = $old->results();
 								
 								foreach($old as $item){
-									$queries->create('users_admin_session', array(
+									$queries->create('user_profile_wall_posts', array(
 										'id' => $item->id,
 										'user_id' => $item->user_id,
 										'author_id' => $item->author_id,
