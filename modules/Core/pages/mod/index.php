@@ -26,7 +26,7 @@ define('PAGE', 'mod_overview');
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
     <!-- Standard Meta -->
     <meta charset="utf-8" />

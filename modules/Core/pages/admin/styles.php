@@ -13,7 +13,7 @@
 if($user->isLoggedIn()){
 	if(!$user->canViewACP()){
 		// No
-		Redirect::to('/');
+		Redirect::to(URL::build('/'));
 		die();
 	} else {
 		// Check the user has re-authenticated
@@ -34,7 +34,7 @@ $page = 'admin';
 $admin_page = 'styles';
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
     <!-- Standard Meta -->
     <meta charset="utf-8" />
@@ -46,7 +46,7 @@ $admin_page = 'styles';
 	require('core/templates/admin_header.php'); 
 	?>
 	
-	<link rel="stylesheet" href="/core/assets/plugins/codemirror/lib/codemirror.css">
+	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/codemirror/lib/codemirror.css">
   
   </head>
   <body>
@@ -336,8 +336,8 @@ $admin_page = 'styles';
 
     <?php require('modules/Core/pages/admin/scripts.php'); ?>
 	
-	<script src="/core/assets/plugins/codemirror/lib/codemirror.js"></script>
-	<script src="/core/assets/plugins/codemirror/mode/smarty/smarty.js"></script>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/codemirror/lib/codemirror.js"></script>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/codemirror/mode/smarty/smarty.js"></script>
 	
 	<script>
 	var editor = CodeMirror.fromTextArea(document.getElementById("code"), {

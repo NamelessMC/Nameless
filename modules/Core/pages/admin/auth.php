@@ -13,7 +13,7 @@
 if($user->isLoggedIn()){
 	if(!$user->canViewACP()){
 		// No
-		Redirect::to('/');
+		Redirect::to(URL::build('/'));
 		die();
 	}
 	if($user->isAdmLoggedIn()){
@@ -74,7 +74,7 @@ $page = 'admin';
 $admin_page = 'auth';
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
     <!-- Standard Meta -->
     <meta charset="utf-8" />

@@ -47,7 +47,7 @@ require('core/includes/password.php'); // Password compat library
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
     <!-- Standard Meta -->
     <meta charset="utf-8" />

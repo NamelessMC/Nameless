@@ -84,7 +84,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id)){
 $token = Token::generate();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

@@ -45,7 +45,7 @@ $page = 'admin';
 $admin_page = 'overview';
 
 ?>
-<!DOCTYPE html>
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
 <html>
   <head>
     <!-- Standard Meta -->

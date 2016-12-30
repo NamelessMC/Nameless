@@ -37,6 +37,17 @@ class Language {
 		}
 		
 		$this->_activeLanguageDirectory = $path;
+		
+		// HTML language definition
+		if(is_file($path . DIRECTORY_SEPARATOR . 'version.php')){
+			require($path . DIRECTORY_SEPARATOR . 'version.php');
+			
+			if(isset($language_html)){
+				if(!defined('HTML_LANG')){
+					define('HTML_LANG', $language_html);
+				}
+			}
+		}
 	}
 
 	// Return a term in the currently active language

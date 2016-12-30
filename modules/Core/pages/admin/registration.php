@@ -12,7 +12,7 @@
 if($user->isLoggedIn()){
 	if(!$user->canViewACP()){
 		// No
-		Redirect::to('/');
+		Redirect::to(URL::build('/'));
 		die();
 	} else {
 		// Check the user has re-authenticated
@@ -64,7 +64,7 @@ $token = Token::generate();
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
     <!-- Standard Meta -->
     <meta charset="utf-8" />

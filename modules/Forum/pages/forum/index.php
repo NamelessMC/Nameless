@@ -35,7 +35,7 @@ if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
     <!-- Standard Meta -->
     <meta charset="utf-8" />

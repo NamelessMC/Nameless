@@ -21,7 +21,7 @@ $emojione = new Emojione\Client(new Emojione\Ruleset());
 require('core/includes/paginate.php'); // Get number of wall posts on a page
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
     <!-- Standard Meta -->
     <meta charset="utf-8" />
