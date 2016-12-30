@@ -31,6 +31,9 @@
 				  <a class="nav-link<?php if(isset($admin_page) && $admin_page == 'styles') echo ' active'; ?>" href="<?php echo URL::build('/admin/styles'); ?>"><?php echo $language->get('admin', 'styles'); ?></a>
 				</li>
 				<li class="nav-item">
+				  <a class="nav-link<?php if(isset($admin_page) && $admin_page == 'update') echo ' active'; ?>" href="<?php echo URL::build('/admin/update'); ?>"><?php echo $language->get('admin', 'update'); ?></a>
+				</li>
+				<li class="nav-item">
 				  <a class="nav-link<?php if(isset($admin_page) && $admin_page == 'users_and_groups') echo ' active'; ?>" href="<?php echo URL::build('/admin/users'); ?>"><?php echo $language->get('admin', 'users_and_groups'); ?></a>
 				</li>
 				

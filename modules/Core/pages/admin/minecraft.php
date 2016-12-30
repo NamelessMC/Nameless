@@ -76,7 +76,7 @@ $admin_page = 'minecraft';
 	require('core/templates/admin_header.php'); 
 	?>
 	
-	<link rel="stylesheet" href="/core/assets/plugins/switchery/switchery.min.css">
+	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.css">
 
   </head>
   <body>
@@ -120,7 +120,7 @@ $admin_page = 'minecraft';
 	require('modules/Core/pages/admin/scripts.php'); 
 	?>
 	
-	<script src="/core/assets/plugins/switchery/switchery.min.js"></script>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.js"></script>
 	
 	<script>
 	var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));

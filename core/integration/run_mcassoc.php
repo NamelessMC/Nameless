@@ -15,7 +15,7 @@ if(!defined('MCASSOC') || !(isset($_POST['username']) || isset($_SESSION['mcasso
 if(!isset($_SESSION['mcassoc'])) $_SESSION['mcassoc'] = $_POST;
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

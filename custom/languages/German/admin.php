@@ -175,6 +175,20 @@ $language = array(
 	'template_changes' => 'Template Editierungen',
 	'file_changed' => 'File geändert',
 	
+	// Updates
+	'update' => 'Update',
+	'current_version_x' => 'Current version: <strong>{x}</strong>', // Don't replaec {x}
+	'new_version_x' => 'New version: <strong>{x}</strong>', // Don't replace {x}
+	'new_update_available' => 'There is a new update available',
+	'up_to_date' => 'Your NamelessMC installation is up to date!',
+	'urgent' => 'This update is an urgent update',
+	'changelog' => 'Changelog',
+	'update_check_error' => 'There was an error whilst checking for an update:',
+	'instructions' => 'Instructions',
+	'download' => 'Download',
+	'install' => 'Install',
+	'install_confirm' => 'Please ensure you have downloaded the package and uploaded the contained files first!',
+	
 	// File uploads
 	'drag_files_here' => 'Ziehe ein Bild hierhin.',
 	'invalid_file_type' => 'Ungültiges Dateiformat!',

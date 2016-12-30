@@ -36,6 +36,8 @@ $pages->add('Core', '/admin/registration', 'pages/admin/registration.php');
 $pages->add('Core', '/admin/security', 'pages/admin/security.php');
 $pages->add('Core', '/admin/styles', 'pages/admin/styles.php');
 $pages->add('Core', '/admin/users', 'pages/admin/users.php');
+$pages->add('Core', '/admin/update', 'pages/admin/update.php');
+$pages->add('Core', '/admin/update_execute', 'pages/admin/update_execute.php');
 $pages->add('Core', '/admin/update_uuids', 'pages/admin/update_uuids.php');
 $pages->add('Core', '/admin/update_mcnames', 'pages/admin/update_mcnames.php');
 $pages->add('Core', '/admin/reset_password', 'pages/admin/reset_password.php');
