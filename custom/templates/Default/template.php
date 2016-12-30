@@ -2,15 +2,15 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr1
  *
  *  License: MIT
  *
  *  Default template
  */
  
-$template_version = 'v2.0.0-dev'; // Version number of template
-$nl_template_version = '2.0.0-dev'; // Nameless version template is designed for
+$template_version = 'v2.0.0-pr1'; // Version number of template
+$nl_template_version = '2.0.0-pr1'; // Nameless version template is designed for
 
 // Paths to CSS files
 $css = array(
