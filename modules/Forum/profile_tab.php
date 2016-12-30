@@ -59,7 +59,7 @@ if(!count($latest_posts)){
  
 // Smarty
 $smarty->assign(array(
-	'LATEST_POSTS' => $posts,
+	'LATEST_POSTS' => (isset($posts)) ? $posts : array(),
 	'LATEST_POSTS_TITLE' => $forum_language->get('forum', 'latest_posts'),
 	'FORUM_TAB_TITLE' => $forum_language->get('forum', 'forum')
 ));
