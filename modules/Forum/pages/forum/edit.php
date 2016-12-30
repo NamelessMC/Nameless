@@ -96,7 +96,7 @@ if(!$can_reply){
 }
 
 
-if($user->data()->id !== $post_editing[0]->post_creator && !($user->canModerateForum($user->data()->group_id, $forum_id))){
+if($user->data()->id !== $post_editing[0]->post_creator && !($forum->canModerateForum($user->data()->group_id, $forum_id))){
 	Redirect::to(URL::build('/forum/view_forum/', 'fid=' . $forum_id));
 	die();
 }
