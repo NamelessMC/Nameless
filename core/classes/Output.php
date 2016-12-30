@@ -13,7 +13,7 @@ class Output {
 	// Returns a clean version of an inputted string
 	// Params: $input (string) - contains the string which will be cleaned
 	public static function getClean($input){
-		return htmlspecialchars($input);
+		return str_replace('&amp;', '&', htmlspecialchars($input));
 	}
 	
 	// Returns a purified version of an inputted string with HTMLPurifier
