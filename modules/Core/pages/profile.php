@@ -205,6 +205,12 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 							die();
 						}
 						
+						// Can't like our own post
+						if($post[0]->author_id == $user->data()->id){
+							Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
+							die();
+						}
+						
 						// Liking or unliking?
 						$post_likes = $queries->getWhere('user_profile_wall_posts_reactions', array('post_id', '=', $_GET['post']));
 						if(count($post_likes)){
@@ -413,7 +419,7 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 					'date' => date('d M Y, H:i', $results->data[$n]->time),
 					'reactions' => $reactions,
 					'replies' => $replies,
-					'reactions_link' => ($user->isLoggedIn() ? URL::build('/profile/' . Output::getClean($query->username) . '/', 'action=react&amp;post=' . $results->data[$n]->id) : '#')
+					'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/' . Output::getClean($query->username) . '/', 'action=react&amp;post=' . $results->data[$n]->id) : '#')
 				);
 			}
 			
