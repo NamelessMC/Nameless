@@ -67,7 +67,7 @@ define('PAGE', 'mod_ip_lookup');
 					'COUNT_ACCOUNTS' => str_replace(array('{x}', '{y}'), array(count($user_ips), Output::getClean($user->idToName($_GET['user']))), $language->get('moderator', 'count_ips_with_name'))
 				));
 			} else {
-				$smarty->assign('NO_ACCOUNTS', $language->get('moderator', 'no_accounts_with_username'));
+				$smarty->assign('NO_ACCOUNTS', $language->get('moderator', 'no_ips_with_username'));
 			}
 			
 		} else {
