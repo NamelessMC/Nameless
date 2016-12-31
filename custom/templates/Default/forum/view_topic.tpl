@@ -142,7 +142,9 @@
 			<br />
 			{/if}
 			<hr />
-			{$reply.signature}
+			<div class="forum_post">
+			  {$reply.signature}
+			</div>
 		  </div>
 		</div>
 	  </div>
