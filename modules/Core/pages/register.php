@@ -153,7 +153,7 @@ if(Input::exists()){
 						'max' => 20,
 						'unique' => 'users'
 					);
-					$mcname = htmlspecialchars(Input::get('mcname'));
+					$mcname = htmlspecialchars(Input::get('username'));
 					
 					// Perform validation on Minecraft name
 					$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
