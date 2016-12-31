@@ -666,7 +666,7 @@ require('core/includes/password.php'); // Password compat library
 							<form role="form" action="" method="post">
 							  <div class="form-group">
 								<label for="InputUsername"><?php echo $language->get('user', 'username'); ?></label>
-								<input type="text" name="username" class="form-control" id="InputUsername" placeholder="<?php echo $language->get('user', 'username'); ?>" value="<?php echo Output::getClean($individual[0]->username); ?>">
+								<input type="text" name="username" class="form-control" id="InputUsername" placeholder="<?php echo $language->get('user', 'username'); ?>" value="<?php echo Output::getClean($individual[0]->nickname); ?>">
 							  </div>
 							  <div class="form-group">
 								<label for="InputEmail"><?php echo $language->get('user', 'email_address'); ?></label>
@@ -677,7 +677,7 @@ require('core/includes/password.php'); // Password compat library
 							  ?>
 							  <div class="form-group">
 								<label for="InputMCUsername"><?php echo $language->get('user', 'minecraft_username'); ?></label>
-								<input type="text" name="MCUsername" class="form-control" name="MCUsername" id="InputMCUsername" placeholder="<?php echo $language->get('user', 'minecraft_username'); ?>" value="<?php echo Output::getClean($individual[0]->mcname); ?>">
+								<input type="text" name="MCUsername" class="form-control" name="MCUsername" id="InputMCUsername" placeholder="<?php echo $language->get('user', 'minecraft_username'); ?>" value="<?php echo Output::getClean($individual[0]->username); ?>">
 							  </div>
 							  <?php
 							  } else {
