@@ -1901,18 +1901,6 @@ date_default_timezone_set('Europe/London');
 							'value' => 1
 						));
 						
-						$recaptcha = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
-						if(count($recaptcha)){
-							$queries->update('settings', $recaptcha[0]->id, array(
-								'name' => 'recaptcha_secret'
-							));
-						} else {
-							$queries->create('settings', array(
-								'name' => 'recaptcha_secret',
-								'value' => null
-							));
-						}
-						
 						$version = $queries->getWhere('settings', array('name', '=', 'version'));
 						if(count($version)){
 							$queries->update('settings', $version[0]->id, array(
