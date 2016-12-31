@@ -120,7 +120,12 @@ $posts = $forum->getPosts($tid);
 
 // Can the user post a reply in this topic?
 if($user->isLoggedIn()){
-	$can_reply = $forum->canPostReply($topic->forum_id, $user->data()->group_id);
+	// Topic locked?
+	if($topic->locked == 0 || $forum->canModerateForum($user->data()->group_id, $topic->forum_id)){
+		$can_reply = $forum->canPostReply($topic->forum_id, $user->data()->group_id);
+	} else {
+		$can_reply = false;
+	}
 } else {
 	$can_reply = false;
 }
