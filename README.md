@@ -2,14 +2,15 @@
 https://namelessmc.com/
 
 
-## Warning - All downloads off the github are not 100% bug free and are in dev.
+### Warning - All downloads off the github are not 100% bug free and are in dev.
 
+# Version 2.0
+
+Nameless version 2.0 is currently in development and the source can be viewed on the v2 branch. Until its ready for production use, any pre-releases can be found here: https://github.com/NamelessMC/Nameless/releases.
 
 # Version 1.0.15
 
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
-
-NamelessMC version 2.0 will be released in the near future. Make sure to leave any feedback for this update!
 
 Version 1.0.15 features:
 
@@ -55,52 +56,74 @@ Upcoming addons (these will need to be downloaded separately):
 * [Issue Tracker](https://github.com/NamelessMC/Nameless/issues)
 * [Support](http://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
 * [Download](https://github.com/NamelessMC/Nameless/releases) 
+* [Plugin Download](https://ci.namelessmc.com/jenkins/job/Nameless-Plugin/)
 
 # Full Staff list:
 **Project**
 * @Samerton
 * @Fellings1
 * @partydragen
-* @SystemUpdate
+* @Envici
 
 # Full contributor list:
 **Main repository**
-* @Samerton
-* @Fellings1
-* @j0ach1mmall3
-* @dwilson390
-* @Root3287
-* @HexaCubist
-* @TheMeq
+* @samerton
 * @partydragen
-* @IonLogic
-* @nfell2009
-* @computerwizjared
-* @mentimjojo
-* @Headhunterzpw
-* @MistriHD
-* @fetch404
-* @MrHodge
-* @oliverdunk
-* @talkahe
-* @IMmmKI
-* @ConnorLinfoot
-* @RobinMCNetwork
+* @Fellings1
 * @PugaBear
-* @Tim-NL
+* @Root3287
+* @jesseke55
+* @RobinMCNetwork
 * @godleydemon
 * @yshf9
-* @Saphiria
-* @dasilvaj4 
+* @dasilvaj4
+* @Ariuw
+* @nfell2009
+* @paloke
+* @nerdtron123
+* @aycgit
+* @BukkitTNT
+* @IonLogic
+* @CreaModZ
+* @LPkkjHD
+* @dgateles
+* @Tim-NL
+* @Azoraqua
+* @talkahe
+* @mentimjojo
+* @McLive
+* @melerpe
+* @IsS127 
+* @ConnorLinFoot
+* @lockerecca
 * @tombomb
+* @MrHodge
+* @MistriHD
+* @manuelgu
+* @SystemUpdate
+* @computerwizjared
+* @TheMeq
+* @IMmmKI
+* @Headhunterzpw
+* @rodymol123
+* @nick-2017
+* @Cl1608Ho
+* @Fiiily
 
 **[NamelessMC Website](http://namelessmc.github.io/)**
 * @Samerton
+* @Root3287
 * @SystemUpdate
-* @Fellings1
+* @nick-2017
 
 **[NamelessMC Plugin](https://github.com/NamelessMC/Nameless-Plugin)**
-* @SystemUpdate
+* @IsS127
+* @Lmmb74
+* @samerton
+* @Fellings1
+* @partydragen
+* @Envici
+* @rojo8399
 
 **NamelessMC Translations**
 * English: @Samerton, @Fellings1
