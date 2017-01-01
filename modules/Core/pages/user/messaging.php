@@ -381,7 +381,13 @@ require('core/templates/cc_navbar.php');
 							'content' => $content
 						));
 						
-						// Update PM as read for all users
+						// Update last reply PM information
+						$queries->update('private_messages', $pm[0]->id, array(
+							'last_reply_user' => $user->data()->id,
+							'last_reply_date' => date('U')
+						));
+						
+						// Update PM as unread for all users
 						$users = $queries->getWhere('private_messages_users', array('pm_id', '=', $pm[0]->id));
 						
 						foreach($users as $item){
