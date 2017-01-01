@@ -81,6 +81,7 @@ $language = array(
 	'topic_stuck' => 'Topic has been stuck.',
 	'topic_unstuck' => 'Topic has been unstuck.',
 	'spam_wait' => 'Please wait {x} seconds before posting again.',
+	'overview' => 'Overview',
 	
 	// Homepage
 	'latest_announcements' => 'Latest Announcements',

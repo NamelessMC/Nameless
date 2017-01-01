@@ -287,7 +287,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			if($sticky->label != 0){ // yes
 				// Get label
 				$label = $queries->getWhere('forums_topic_labels', array('id', '=', $sticky->label));
-				$label = '<span class="label label-' . Output::getClean($label[0]->label) . '">' . Output::getClean($label[0]->name) . '</span>';
+				$label = '<span class="tag tag-' . Output::getClean($label[0]->label) . '">' . Output::getClean($label[0]->name) . '</span>';
 			} else { // no
 				$label = '';
 			}

@@ -146,7 +146,7 @@ if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group 
 			if($discussions[$n]['label'] != 0){ // yes
 				// Get label
 				$label = $queries->getWhere('forums_topic_labels', array('id', '=', $discussions[$n]['label']));
-				$label = '<span class="label label-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
+				$label = '<span class="tag tag-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
 			} else { // no
 				$label = '';
 			}
@@ -188,8 +188,9 @@ if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group 
 	$smarty->assign('LATEST_DISCUSSIONS', $template_array);
 	
 	// Assign language variables
-	$smarty->assign('FORUMS', $forum_language->get('forum', 'forums'));
+	$smarty->assign('FORUMS_TITLE', $forum_language->get('forum', 'forums'));
 	$smarty->assign('DISCUSSION', $forum_language->get('forum', 'discussion'));
+	$smarty->assign('TOPIC', $forum_language->get('forum', 'topic'));
 	$smarty->assign('STATS', $forum_language->get('forum', 'stats'));
 	$smarty->assign('LAST_REPLY', $forum_language->get('forum', 'last_reply'));
 	$smarty->assign('BY', $forum_language->get('forum', 'by'));

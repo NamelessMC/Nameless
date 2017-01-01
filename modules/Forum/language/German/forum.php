@@ -81,6 +81,7 @@ $language = array(
 	'topic_stuck' => 'Thema wurde angeheftet.',
 	'topic_unstuck' => 'Thema wurde abgeheftet.',
 	'spam_wait' => 'Bitte warte {x} Sekunden bis du wieder Beiträge erstellen kannst.',
+	'overview' => 'Overview',
 	
 	// Homepage
 	'latest_announcements' => 'Neueste Ankündigungen',
