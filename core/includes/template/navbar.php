@@ -68,24 +68,27 @@ foreach($custom_pages as $item){
         	} else {
         	    $navbar_links .= '><a href="' . htmlspecialchars($item->url) . '">' . $item->title . '</a></li>';
         	}
-	} else if($item->link_location == 2){
-		// More dropdown
-		$nav_more_dropdown[$item->title] = $item->url;
-	}
+    	} else if($item->link_location == 2){
+    	    array_push($nav_more_dropdown, $item);
+    	}
 }
 
-// More dropdown
-if(isset($nav_more_dropdown) && !empty($nav_more_dropdown)){
-	$navbar_links .= '<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' . $navbar_language['more'] . ' <span class="caret"></span></a>
-						  <ul class="dropdown-menu">';
-	
-	foreach($nav_more_dropdown as $key => $item){
-		$navbar_links .= '<li><a href="' . htmlspecialchars($item) . '">' . $key . '</a></li>';
+	// More dropdown
+	if(isset($nav_more_dropdown) && !empty($nav_more_dropdown)){
+    		$navbar_links .= '<li class="dropdown">
+    		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' . $navbar_language['more'] . ' <span class="caret"></span></a>
+    		<ul class="dropdown-menu">';
+
+    		foreach($nav_more_dropdown as $key => $item){
+        		if(isset($item->icon)) {
+            			$navbar_links .= '<li><a href="' . htmlspecialchars($item->url) . '">' . $item->icon . $item->title . '</a></li>';
+        		} else {
+            			$navbar_links .= '<li><a href="' . htmlspecialchars($item->url) . '">' . $item->title . '</a></li>';
+        		}
+    		}
+
+    		$navbar_links .= '</ul></li>';
 	}
-	
-	$navbar_links .= '</ul></li>';
-}
 
 $navbar_links .= '</ul>';
  
