@@ -8,6 +8,8 @@
  *
  *  Updated and removed syntax error by melerpe
  *
+ *  Updated by DoraKlikOpDora/Besbos
+ *  http://minevibes.com
  *  Dutch Language
  */
   
@@ -32,7 +34,7 @@ $admin_language = array(
      
     // Admin sidebar
     'index' => 'Overzicht',
-	'announcements' => 'Announcements',
+	'announcements' => 'Aankondigingen',
     'core' => 'Kern',
     'custom_pages' => 'Aangepaste pagina\'s',
     'general' => 'Algemeen',
@@ -54,7 +56,7 @@ $admin_language = array(
     'create_announcement' => 'Maak Aankondiging',
     'announcement_content' => 'Inhoud Aankondiging',
     'announcement_location' => 'Locatie Aankondiging',
-    'announcement_can_close' => 'Kan aankondiging sluiten?',
+    'announcement_can_close' => 'Aankondiging weg te klikken?',
     'announcement_permissions' => 'Aankondiging permissies',
     'no_announcements' => 'Nog geen aankondigingen gemaakt.',
     'confirm_cancel_announcement' => 'Bent u zeker dat u deze aankondiging wilt annuleren?',
@@ -62,12 +64,12 @@ $admin_language = array(
     'select_all' => 'Selecteer alles',
     'deselect_all' => 'Deselecteer alles',
     'announcement_created' => 'Aankondiging succesvol aangemaakt!',
-    'please_input_announcement_content' => 'Voer een aankondiging in en selecteer een type alstublieft.',
-    'confirm_delete_announcement' => 'Bent u zeker dat u de aankondiging wilt verwijderen?',
+    'please_input_announcement_content' => 'Voer alstublieft een aankondiging in en selecteer een type.',
+    'confirm_delete_announcement' => 'Weet u zeker dat u de aankondiging wilt verwijderen?',
     'announcement_actions' => 'Aankondiging acties',
     'announcement_deleted' => 'Aankondiging succesvol verwijderd!',
     'announcement_type' => 'Aankondiging type',
-    'can_view_announcement' => 'Kan de aankondiging bekijken?',
+    'can_view_announcement' => 'Kan deze groep de aankondiging bekijken?',
 
     // Admin core page
     'general_settings' => 'Algemene Instellingen',
@@ -77,7 +79,7 @@ $admin_language = array(
     'module_disabled' => 'Module uitgeschakeld.',
     'site_name' => 'Site Naam',
     'language' => 'Taal',
-    'voice_server_not_writable' => '"core/voice_server.php" is niet beschrijfbaar. Controleer de bestandsrechten.',
+    'voice_server_not_writable' => '"core/voice_server.php" is niet beschrijfbaar. Controleer de bestandsrechten (777).',
     'email' => 'Email',
     'incoming_email' => 'Inkomend email adres',
     'outgoing_email' => 'Uitgaand email adres',
@@ -87,29 +89,29 @@ $admin_language = array(
     'use_gmail' => 'Gebruik Gmail voor het verzenden van e-mail?',
     'use_gmail_help' => 'Alleen beschikbaar als de PHP mail() functie is uitgeschakeld. Als u ervoor kiest om Gmail te gebruiken, zal SMTP worden gebruikt, dit zal de configuratie in core/email.php nodig hebben.',
     'enable_mail_verification' => 'Schakel e-mail account verificatie in?',
-    'enable_email_verification_help' => 'Nadat deze geactiveerd is zullen nieuwe geregistreerde gebruikers gevraagt worden om hun account via de e-mail te verifiëren voordat de registratie voltooid wordt.',
+    'enable_email_verification_help' => 'Nadat deze geactiveerd is zullen nieuwe geregistreerde gebruikers gevraagd worden om hun account via de e-mail te verifiëren voordat de registratie voltooid wordt.',
    	'explain_email_settings' => 'Het volgende is benodigd als de functie: "Gebruik PHP mail()" is <strong>uitgeschakeld</strong>.Je kan de documentatie over de instellingen vinden <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">op onze wiki</a>.',
-	'email_config_not_writable' => 'Je <strong>core/email.php</strong> Kon niet worden aangepast. Probeer om je bestandspermissies te checken',
+	'email_config_not_writable' => 'Je <strong>core/email.php</strong> Kon niet worden aangepast. Bekijk je bestandspermissies (777).',
     'pages' => 'Pagina\'s',
     'enable_or_disable_pages' => 'Schakel pagina\'s hier in en uit .',
-    'enable' => 'Ingeschakeld',
-    'disable' => 'Uitgeschakeld',
-    'maintenance_mode' => 'Forum onderhoud modus',
+    'enable' => 'Klik om in te schakelen',
+    'disable' => 'Klik om uit te schakelen',
+    'maintenance_mode' => 'Forum onderhoud mode',
     'forum_in_maintenance' => 'Forum is in onderhoud mode.',
-	'unable_to_update_settings' => 'Kan de instellingen niet updaten. Wees er zeker van dat alle velden zijn ingevuld.',
+	'unable_to_update_settings' => 'Kan de instellingen niet updaten. Zorg dat alle velden zijn ingevuld.',
 	'editing_google_analytics_module' => 'Bewerk de Google Analytics module',
 	'tracking_code' => 'Traceer Code',
-	'tracking_code_help' => 'Voer de traceer code voor Google Analytics hier, met de tags om script heen (<script>)',
+	'tracking_code_help' => 'Voer het traceerscript van Google Analytics hier in, laat de script tags eromheen!',
 	'google_analytics_help' => 'Bekijk <a href="https://support.google.com/analytics/answer/1008080?hl=en#GA" target="_blank">deze gids</a> voor meer informatie, volg de stappen 1 tot en met 3',
 	'social_media_links' => 'Social Media Links',
 	'youtube_url' => 'YouTube URL',
 	'twitter_url' => 'Twitter URL',
-	'twitter_dark_theme' => 'Gebruik dark Twitter thema?',
+	'twitter_dark_theme' => 'Gebruik donker Twitter thema?',
 	'twitter_widget_id' => 'Twitter Widget ID',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'registration' => 'Registratie',
-	'registration_warning' => 'Als je deze module uitschakeld dan kunnen er geen mensen zich registreren op je website.',
+	'registration_warning' => 'Als je deze module uitschakeld dan kunnen er geen mensen registreren op je website.',
 	'google_recaptcha' => 'Schakel Google reCAPTCHA in',
 	'recaptcha_site_key' => 'reCAPTCHA Site sleutel',
 	'recaptcha_secret_key' => 'reCAPTCHA Secret sleutel',
@@ -128,17 +130,17 @@ $admin_language = array(
 	'question' => 'Vraag',
 	'type' => 'Soort',
 	'options' => 'Opties',
-	'options_help' => 'Elke optie op een nieuwe regel; mag leeg zijn (Alleen voor lijst opties)',
+	'options_help' => 'Elke optie op een nieuwe regel (Alleen voor lijst opties, anders negeren)',
 	'no_questions' => 'Er zijn geen vragen toegevoegd.',
 	'new_question' => 'Nieuwe vraag',
 	'editing_question' => 'Vraag bewerken',
 	'delete_question' => 'Vraag verwijderen',
 	'dropdown' => 'Lijst',
-	'text' => 'Tekst',
-	'textarea' => 'Tekst Gebied',
+	'text' => 'Tekstlijn',
+	'textarea' => 'Tekstblok',
 	'question_deleted' => 'Vraag verwijderd',
 	'use_followers' => 'Gebruik volgers?',
-	'use_followers_help' => 'Als dit is uitgeschakeld dan word de vrienden systeem ingeschakeld',
+	'use_followers_help' => 'Als dit is uitgeschakeld dan wordt het vrienden systeem ingeschakeld',
      
     // Admin custom pages page
     'click_on_page_to_edit' => 'Klik op een pagina om deze te bewerken.',
@@ -149,28 +151,28 @@ $admin_language = array(
     'page_title' => 'Pagina Titel',
     'page_content' => 'Pagina Inhoud',
     'new_page' => 'Nieuwe Pagina',
-    'page_successfully_created' => 'Pagina succesvol gemaakt',
+    'page_successfully_created' => 'Pagina succesvol aangemaakt',
     'page_successfully_edited' => 'Pagina succesvol bewerkt',
-    'unable_to_create_page' => 'Kan de pagina niet maken.',
+    'unable_to_create_page' => 'Kan de pagina niet aanmaken.',
     'unable_to_edit_page' => 'Kan de pagina niet bewerken.',
-    'create_page_error' => 'Zorg ervoor dat u URL tussen 1 en 20 tekens lang is, de pagina titel tussen 1 en 30 tekens lang is en de inhoud van de pagina tussen 5 en 20.480 tekens lang is.',
+    'create_page_error' => 'Zorg ervoor dat de URL tussen 1 en 20 tekens lang is, de pagina titel tussen 1 en 30 tekens lang is en de inhoud van de pagina tussen 5 en 20.480 tekens lang is.',
     'delete_page' => 'Verwijder Pagina',
     'confirm_delete_page' => 'Weet u zeker dat u deze pagina wilt verwijderen?',
     'page_deleted_successfully' => 'Pagina succesvol verwijderd',
     'page_link_location' => 'Toon pagina link in:',
     'page_link_navbar' => 'Navbar',
-    'page_link_more' => 'Navbar "More" dropdown',
+    'page_link_more' => 'Onder de navbar "Meer" knop',
     'page_link_footer' => 'Pagina Onderkant',
     'page_link_none' => 'Geen pagina link',
-	'page_permissions' => 'Page Permissions',
-	'can_view_page' => 'Can view page:',
+	'page_permissions' => 'Pagina Permissions',
+	'can_view_page' => 'Kan de pagina zien:',
 	'redirect_page' => 'Redirect page?',
 	'redirect_link' => 'Redirect link',
 
     // Admin forum page
     'labels' => 'Topic Labels',
-    'new_label' => 'Nieuw Label',
-    'no_labels_defined' => 'Geen labels gedefinieerd',
+    'new_label' => 'Nieuwe Label',
+    'no_labels_defined' => 'Geen labels aangemaakt',
     'label_name' => 'Label Naam',
     'label_type' => 'Label Type',
     'label_forums' => 'Label Forums',
@@ -185,36 +187,36 @@ $admin_language = array(
     'label_info' => 'Info',
     'label_warning' => 'Waarschuwing',
     'label_danger' => 'Gevaar',
-    'new_forum' => 'Nieuwe Forum',
+    'new_forum' => 'Nieuw Forum',
     'forum_layout' => 'Forum Layout',
-    'table_view' => 'Table view',
-    'latest_discussions_view' => 'Recente Discussies overzicht',
+    'table_view' => 'Forum overzicht',
+    'latest_discussions_view' => 'Recente overzicht',
     'create_forum' => 'Maak Forum',
     'forum_name' => 'Forum Naam',
     'forum_description' => 'Forum Beschrijving',
     'delete_forum' => 'Verwijder Forum',
     'move_topics_and_posts_to' => 'Verplaats topics en posts naar',
     'delete_topics_and_posts' => 'Verwijder topics en posts',
-    'parent_forum' => 'Ouderlijk Forum',
-    'has_no_parent' => 'Heeft geen ouderlijk Forum',
+    'parent_forum' => 'Subforum',
+    'has_no_parent' => 'Heeft geen subforum',
     'forum_permissions' => 'Forum Rechten',
     'can_view_forum' => 'Kan forum bekijken',
     'can_create_topic' => 'Kan een topic maken',
     'can_post_reply' => 'Kan een antwoord plaatsen',
     'display_threads_as_news' => 'Vertoon topics als nieuws op de voorpagina?',
-	'input_forum_title' => 'Input a forum title.',
+	'input_forum_title' => 'Vul een forum titel in.',
 	'input_forum_description' => 'Vul een forum beschrijving in (HTML codes mogen worden gebruikt).',
 	'forum_name_minimum' => 'De forum naam moet minstens uit 2 tekens bestaan.',
 	'forum_description_minimum' => 'De forum beschrijving moet minstens uit 2 tekens bestaan.',
-	'forum_name_maximum' => 'De forum naam mag maar maximaal 150 tekens bevatten.',
+	'forum_name_maximum' => 'De forum naam mag maximaal 150 tekens bevatten.',
 	'forum_description_maximum' => 'De forum beschrijving mag maar uit 255 tekens bestaan.',
-	'forum_type_forum' => 'Discussion Forum',
+	'forum_type_forum' => 'Discussie Forum',
 	'forum_type_category' => 'Categorie',
 
     // Admin Users and Groups page
     'users' => 'Gebruikers',
     'new_user' => 'Nieuwe Gebruiker',
-    'created' => 'Gemaakt',
+    'created' => 'Aangemaakt',
     'user_deleted' => 'Gebruiker Verwijderd',
     'validate_user' => 'Bevestigde Gebruiker',
     'update_uuid' => 'Update UUID',
@@ -228,7 +230,7 @@ $admin_language = array(
     'ip' => 'IP:',
     'other_actions' => 'Andere Actie\'s:',
     'disable_avatar' => 'Schakel avatar uit',
-    'enable_avatar' => 'Enable avatar',
+    'enable_avatar' => 'Schakel avatar in',
     'confirm_user_deletion' => 'Weet u zeker dat u de gebruiker <b>{x}</b> wilt verwijderen?', // Don't replace "{x}"
     'groups' => 'Groepen',
     'group' => 'Groep',
@@ -240,9 +242,9 @@ $admin_language = array(
     'group_html' => 'Groep HTML',
     'group_html_lg' => 'Groep HTML Groote',
     'donor_group_id' => 'Donor Pakket ID',
-    'donor_group_id_help' => '<p>Dit is de ID van het pakket van de groep van Buycraft, Minecraft Market of MCStock.</p><p>Dit kan leeg gelaten worden.</p>',
+    'donor_group_id_help' => '<p>Dit is het ID van het pakket van de groep van Buycraft, Minecraft Market of MCStock.</p><p>Dit kan leeg gelaten worden.</p>',
     'donor_group_instructions' =>    '<p>Donor groepen moeten worden gecreëerd in de volgorde van de <strong>laagste naar hoogste prijs</ strong>.</p>
-                                    <p>Zo zal een &euro 10 pakket worden gemaakt boven een &euro 20 pakket.</p>',
+                                    <p>Zo zal een &euro; 10 pakket worden gemaakt boven een &euro; 20 pakket.</p>',
     'delete_group' => 'Verwijder Groep',
     'confirm_group_deletion' => 'Weet u zeker dat u de groep <b>{x}<b> verwijderen?', // Don't replace "{x}"
     'group_staff' => 'Is de groep een staff groep?',
@@ -254,8 +256,8 @@ $admin_language = array(
 	'html_maximum' => 'De groep HTML mag maar maximaal uit 1024 tekens bestaan.',
 	'select_user_group' => 'De gebruiker moet in een groep.',
 	'uuid_max_32' => 'De UUID bestaat maar uit 32 tekens.',
-	'cant_delete_root_user' => 'Je kan de administrator gebruiker niet verwijderen!',
-	'cant_modify_root_user' => 'Je kan de groep van de administrator gebruiker niet bewerken!',
+	'cant_delete_root_user' => 'De administrator kan niet verwijderd worden!',
+	'cant_modify_root_user' => 'Je kan de groep van de administrator niet bewerken!',
      
     // Admin Minecraft page
     'minecraft_settings' => 'Minecraft Instellingen',
@@ -280,7 +282,7 @@ $admin_language = array(
     'server_ip_numeric' => 'Server IP (met port) (alleen numerieke)',
     'server_ip_numeric_help' => 'Dit is het IP dat zal worden gequeryd, zorg ervoor dat het alleen numeriek is. Het zal niet worden getoond aan gebruikers.',
     'show_on_play_page' => 'Laat op de Play pagina zien?',
-    'pre_17' => 'Pre 1.7 Minecraft versie?',
+    'pre_17' => 'Lager dan 1.7 Minecraft versie?',
     'server_name' => 'Server Naam',
     'invalid_server_id' => 'Ongeldige server ID',
     'show_players' => 'Laat de spelers op de Play pagina zien.',
@@ -303,7 +305,7 @@ $admin_language = array(
 	'purge_errors' => 'Verwijder foutmeldingen',
 	'confirm_purge_errors' => 'Weet je het zeker dat je de foutmeldingen wilt verwijderen>',
 	'avatar_type' => 'Avatar type',
-	'custom_usernames' => 'Force Minecraft usernames?',
+	'custom_usernames' => 'Forceer Minecraft usernames?',
 	'mcassoc' => 'mcassoc',
 	'use_mcassoc' => 'Gebruik mcassoc?',
 	'use_mcassoc_help' => 'mcassoc kijkt na of mensen echt eigenaar van het Minecraft account zijn.',
@@ -376,7 +378,7 @@ $navbar_language = array(
     'play' => 'Speel',
     'forum' => 'Forum',
     'more' => 'Meer',
-    'staff_apps' => 'Staff Applications',
+    'staff_apps' => 'Staff Sollicitaties',
     'view_messages' => 'Bekijk Berichten',
     'view_alerts' => 'Bekijk Meldingen',
 	
@@ -415,8 +417,8 @@ $user_language = array(
     'forgot_password' => 'Wachtwoord Vergeten',
     'must_input_username' => 'U moet een username invullen.',
     'must_input_password' => 'U moet een wachtwoord invullen.',
-    'inactive_account' => 'Uw account is momenteel inactief. Heeft u uw wachtwoord opnieuw aangevraagd?',
-    'account_banned' => 'Uw account is geband.',
+    'inactive_account' => 'Uw account is momenteel inactief. Bekijk uw mail om het te activeren.',
+    'account_banned' => 'Uw account is verbannen.',
     'successfully_logged_out' => 'U bent succesvol uitgelogd.',
     'signature' => 'Ondertekening',
     'registration_check_email' => 'Controleer uw e-mails voor een validatie link. U zult niet in staat om in te loggen, totdat er deze wordt geklikt.',
@@ -438,18 +440,18 @@ $user_language = array(
     'password_maximum_30' => 'Uw wachtwoord mag maximaal 30 tekens lang zijn.',
     'passwords_dont_match' => 'Uw wachtwoorden komen niet overeen.',
     'username_mcname_email_exists' => 'Uw gebruikersnaam, Minecraft gebruikersnaam of e-mailadres bestaat al. Heeft u al een account aangemaakt?',
-    'invalid_mcname' => 'Uw Minecraft gebruikersnaam is geen geldige account',
+    'invalid_mcname' => 'Uw Minecraft gebruikersnaam is geen geldig account. Er worden alleen gekochte Minecraftaccountnamen geaccepteerd.',
     'mcname_lookup_error' => 'Er is een fout opgetreden bij het verbinden met de Mojang servers. Probeer het later opnieuw.',
 	'signature_maximum_900' => 'Je handtekening mag maar uit 900 tekens bestaan.',
-	'invalid_date_of_birth' => 'Ongeldige geboortedatum ingevuld.',
-	'location_required' => 'Vul een locatie in.',
+	'invalid_date_of_birth' => 'Ongeldige geboortedatum ingevuld. Vul deze in met behulp van de kalender.',
+	'location_required' => 'Vul je plaats in.',
 	'location_minimum_2' => 'Je locatie moet minstens uit 2 tekens bestaan.',
 	'location_maximum_128' => 'Je locatie mag maar uit 128 tekens bestaan.',
 	'verify_account' => 'Verifieer account',
-	'verify_account_help' => 'Volg a.u.b. de stappen zodat wij kunnen zie of u eigenaar bent van het account',
+	'verify_account_help' => 'Volg a.u.b. de stappen zodat wij kunnen zien of u eigenaar bent van het account',
 	'verification_failed' => 'Verificatie mislukt. Probeer a.u.b. Opnieuw',
 	'verification_success' => 'Verificatie gelukt! Je kan nu inloggen.',
-	'complete_signup' => 'Complete Signup',
+	'complete_signup' => 'Complete aanmelding',
 
     // UserCP
     'user_cp' => 'UserCP',
@@ -478,7 +480,7 @@ $user_language = array(
      
     // Profile settings
     'display_name' => 'Weergavenaam',
-    'upload_an_avatar' => 'Upload een avatar (aleen .jpg, .png of .gif):',
+    'upload_an_avatar' => 'Upload een avatar (alleen .jpg, .png of .gif):',
     'use_gravatar' => 'Gebruik Gravatar?',
     'change_password' => 'Verander wachtwoord',
     'current_password' => 'Huidig wachtwoord',
@@ -489,17 +491,17 @@ $user_language = array(
 	'update_minecraft_name_help' => 'Dit zal je website gebruikersnaam veranderen naar je Minecraft gebruikersnaam die je nu hebt. Je kan dit maar 1x per 30 dagen uitvoeren.',
 	'unable_to_update_mcname' => 'De Minecraft gebruikersnaam kan niet worden bijgewerkt.',
 	'display_age_on_profile' => 'Laat je leeftijd zien op je profiel?',
-	'two_factor_authentication' => 'Twee Staps Authenticatie',
-	'enable_tfa' => 'Schakel Twee Staps Authenticatie in.',
-	'tfa_type' => 'Twee Staps Authenticate type:',
+	'two_factor_authentication' => 'TwoFactor Authenticatie',
+	'enable_tfa' => 'Schakel TwoFactor Authenticatie in.',
+	'tfa_type' => 'TwoFactor Authenticate type:',
 	'authenticator_app' => 'Authenticate Applicatie',
 	'tfa_scan_code' => 'Scan de volgende code in je authenticate app:',
 	'tfa_code' => ' Als je apparaat geen camera heeft, of je bent niet in staat om de QR code uit te lezen, vul dan de volgende code in de app:',
-	'tfa_enter_code' => 'Vul de volgende code in die je ziet in de authenticatie app:',
+	'tfa_enter_code' => 'Vul de code in die je ziet in de authenticatie app:',
 	'invalid_tfa' => 'Ongeldige code, probeer het nog eens.',
-	'tfa_successful' => 'Twee Staps authenticate is met success ingesteld. Iedere keer als je inlogd moet je jezelf verifieren met een code.',
-	'confirm_tfa_disable' => 'Weet je het zeker dat je Twee Staps Authenticatie wilt uitschakelen?',
-	'tfa_disabled' => 'wee Staps Authenticate is uitgeschakeld.',
+	'tfa_successful' => 'TwoFactor authenticate is met success ingesteld. Iedere keer als je inlogd moet je jezelf verifieren met een code.',
+	'confirm_tfa_disable' => 'Weet je het zeker dat je TwoFactor Authenticatie wilt uitschakelen?',
+	'tfa_disabled' => 'TwoFactor Authenticate is uitgeschakeld.',
 	'tfa_enter_email_code' => 'We hebben je een verificatie code gestuurd in een email. Vul de code in:',
 	'tfa_email_contents' => 'Er is  een login poging gemaakt tot je account. Als je dit bent, vul dan de volgende code in als dat word gevraagd. Als je dit niet bent dan kan je de email negeren, hoe dan ook een wachtwoord reset word aangeraden. De code is voor 10 minuten geldig.',
 
@@ -550,8 +552,8 @@ $user_language = array(
 	'user_no_followers' => 'Deze gebruiker heeft geen volgers.',
 	'following' => 'Volgend',
 	'followers' => 'Volgers',
-	'display_location' => 'Van {x}.', // Don't replace {x}, which will be the user's location
-	'display_age_and_location' => '{x}, van {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
+	'display_location' => 'Komt uit {x}.', // Don't replace {x}, which will be the user's location
+	'display_age_and_location' => '{x} jaar oud en komt uit {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
 	'write_on_user_profile' => 'Plaats iets op {x}\'s profiel...', // Don't replace {x}
 	'write_on_own_profile' => 'Plaats iets op je profiel...',
 	'profile_posts' => 'Profiel Berichten.',
@@ -559,16 +561,16 @@ $user_language = array(
 	'invalid_wall_post' => 'Ongeldige profiel post. Zorg ervoor dat je post tussen de 2 en 2048 tekens is.',
 	'about' => 'Over',
 	'reply' => 'Antwoord',
-	'x_likes' => '{x} likes', // Don't replace {x}
-	'likes' => 'Likes',
-	'no_likes' => 'Geen likes.',
-	'post_liked' => 'Bericht liked.',
-	'post_unliked' => 'Bericht unliked.',
+	'x_likes' => '{x} vind-ik-leuks', // Don't replace {x}
+	'likes' => 'vind-ik-leuks',
+	'no_likes' => 'Geen vind-ik-leuks.',
+	'post_liked' => 'Bericht vind ik leuk.',
+	'post_unliked' => 'Bericht vind ik niet meer leuk.',
 	'no_posts' => 'Geen berichten.',
 	'last_5_posts' => 'Recentste 5 berichten',
 	'follow' => 'Volg',
 	'unfollow' => 'Ontvolgen',
-	'name_history' => 'Namegeschiedenis',
+	'name_history' => 'Naamgeschiedenis',
 	'changed_name_to' => 'Veranderd naar: {x} op {y}', // Don't replace {x} or {y}
 	'original_name' => 'Originele name:',
 	'name_history_error' => 'Kan geen naam historie opvragen.',
@@ -578,7 +580,7 @@ $user_language = array(
     'application_submitted' => 'Aanvraag succesvol ingediend.',
     'application_already_submitted' => 'U heeft al een aanvraag ingediend. U moet wachten totdat hij beantwoord is voordat u een andere kan maken.',
     'not_logged_in' => 'U moet inloggen om deze pagina te bekijken.',
-    'application_accepted' => 'Uw staff aanvraag is geaccepteerd.',
+    'application_accepted' => 'Uw staff aanvraag is geaccepteerd, gefeliciteerd!',
     'application_rejected' => 'Uw staff aanvraag is afgewezen.'
 );
  
@@ -590,19 +592,19 @@ $mod_language = array(
     'overview' => 'Overzicht',
     'reports' => 'Reports',
     'punishments' => 'Straffen',
-    'staff_applications' => 'Staff Applications',
+    'staff_applications' => 'Staff Aanvragen',
      
     // Punishments
     'ban' => 'Ban',
     'unban' => 'Unban',
     'warn' => 'Waarschuwen',
-    'search_for_a_user' => 'Zoek voor een speler',
+    'search_for_a_user' => 'Zoek een speler',
     'user' => 'Gebruiker:',
     'ip_lookup' => 'IP Lookup:',
     'registered' => 'Geregistreerd',
     'reason' => 'Reden:',
-	'cant_ban_root_user' => 'Je kan de hoofdgebruiker niet straffen!',
-	'invalid_reason' => 'Maak a.u.b. Een goede reden tussen de 2 en 256 tekens lang.',
+	'cant_ban_root_user' => 'Je kan de administrator niet straffen!',
+	'invalid_reason' => 'Maak a.u.b. een goede reden tussen de 2 en 256 tekens lang.',
 	'punished_successfully' => 'Straf succesvol toegevoegd.',
 
     // Reports
@@ -611,7 +613,7 @@ $mod_language = array(
     'comments' => 'Commentaar',
     'only_viewed_by_staff' => 'Kan alleen worden bekeken door staff',
     'reported_by' => 'Gerapporteerd door',
-    'close_issue' => 'Gesloten Uitslag',
+    'close_issue' => 'Sluit rapport',
     'report' => 'Report:',
     'view_reported_content' => 'Bekijk gemelde inhoud',
     'no_open_reports' => 'Geen open reports',
@@ -652,7 +654,7 @@ $general_language = array(
     // General terms
     'submit' => 'Verstuur',
     'close' => 'Sluiten',
-    'cookie_message' => '<strong>Deze website maakt gebruik van cookies om uw ervaring te verbeteren.</strong><p>Door op deze website te blijven accepteerd u deze.</p>',
+    'cookie_message' => '<strong>Deze website maakt gebruik van cookies om uw ervaring te verbeteren.</strong><p>Door op deze website te blijven accepteert u deze.</p>',
     'theme_not_exist' => 'Het geselecteerde thema bestaat niet.',
     'confirm' => 'Bevestigen',
     'cancel' => 'Annuleer',
@@ -673,7 +675,7 @@ $general_language = array(
     'offline' => 'Offline',
     'status' => 'Status:',
     'players_online' => 'Spelers Online:',
-    'queried_in' => 'Queried In:',
+    'queried_in' => 'Opgevraagd In:',
     'server_status' => 'Server Status',
     'no_players_online' => 'Er zijn geen spelers online!',
     'x_players_online' => 'Er zijn {x} spelers online.', // Don't replace {x}
@@ -681,7 +683,7 @@ $general_language = array(
     // Other
     'page_loaded_in' => 'Pagina geladen in {x} seconden', // Don't replace {x}; 's' stands for 'seconds'
     'none' => 'Geen',
-	'404' => 'Sorry, we konden deze pagina niet vinden.'
+	'404' => 'Sorry, we konden deze pagina niet vinden. Weet u zeker dat u de URL correct heeft gespeld?'
 );
  
 /* 
@@ -724,7 +726,7 @@ $forum_language = array(
     'confirm_thread_deletion' => 'Weet u zeker dat u dit topic wilt verwijderen?',
     'move_thread' => 'Verplaats topic',
     'sticky_thread' => 'Sticky topic',
-    'report_post' => 'Reporteer bericht',
+    'report_post' => 'Rapporteer bericht',
     'quote_post' => 'Citeer bericht',
     'delete_post' => 'Verwijder bericht',
     'edit_post' => 'Bewerk bericht',
@@ -766,8 +768,8 @@ $forum_language = array(
     'move_to' => 'Verplaats naar:',
      
     // Merge threads
-    'merge_instructions' => 'De thread <strong>moet</strong> binnen hetzelfde forum zijn. Het verplaatsen van de topic is nodig.',
-    'merge_with' => 'Samensmelten met:',
+    'merge_instructions' => 'De thread <strong>moet</strong> binnen hetzelfde forum zijn. Het verplaatsen van het topic is nodig.',
+    'merge_with' => 'Samenvoegen met:',
      
     // Other
     'forum_error' => 'Sorry, we konden dat forum of topic niet vinden.',
@@ -777,7 +779,7 @@ $forum_language = array(
 
     // Search
     'search_error' => 'Voer een zoekopdracht in die tussen 1 en 32 tekens lang is.',
-	'no_search_results' => 'No search results have been found.',
+	'no_search_results' => 'Uw zoekopdracht heeft niets opgeleverd.',
     
     //Share on a social-media.
 	'sm-share' => 'Delen',
@@ -800,9 +802,9 @@ $email_language = array(
  *  DON'T replace "{x}" in any translations
  */
 $time_language = array(
-    'seconds_short' => 'sec', // Shortened "seconds", eg "s"
+    'seconds_short' => 's', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'Minder dan een minuut geleden',
-    '1_minute' => '1 minuut geladen',
+    '1_minute' => '1 minuut geleden',
     '_minutes' => '{x} minuten geleden',
     'about_1_hour' => '1 uur geleden',
     '_hours' => '{x} uren geleden',
@@ -820,7 +822,7 @@ $time_language = array(
 $table_language = array(
     'display_records_per_page' => 'Geef _MENU_ rijen weer per pagina', // Don't replace "_MENU_"
     'nothing_found' => 'Geen resultaat gevonden',
-    'page_x_of_y' => 'pagina _PAGE_ van de _PAGES_ wordt weergegeven', // Don't replace "_PAGE_" or "_PAGES_"
+    'page_x_of_y' => 'pagina _PAGE_ / _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Geen gegevens beschikbaar',
     'filtered' => '(gefilterd van de _MAX_ gegevens)' // Don't replace "_MAX_"
 );
