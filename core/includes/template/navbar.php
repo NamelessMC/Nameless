@@ -62,7 +62,12 @@ foreach($custom_pages as $item){
 		if(isset($page) && $page == $item->title){
 			$navbar_links .= ' class="active"';
 		}
-		$navbar_links .= '><a href="' . htmlspecialchars($item->url) . '">' . $item->title . '</a></li>';
+		
+		if(isset($item->icon)) {
+        	    $navbar_links .= '><a href="' . htmlspecialchars($item->url) . '">' . $item->icon . $item->title . '</a></li>';
+        	} else {
+        	    $navbar_links .= '><a href="' . htmlspecialchars($item->url) . '">' . $item->title . '</a></li>';
+        	}
 	} else if($item->link_location == 2){
 		// More dropdown
 		$nav_more_dropdown[$item->title] = $item->url;
