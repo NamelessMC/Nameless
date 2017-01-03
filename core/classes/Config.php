@@ -2,6 +2,9 @@
 class Config {
 	public static function get($path = null) {
 		if($path) {
+			
+			if(!isset($GLOBALS['config'])) return false;
+			
 			$config = $GLOBALS['config'];
 			$path = explode('/', $path);
 			
