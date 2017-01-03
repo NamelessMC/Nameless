@@ -73,7 +73,7 @@ if(!isset($_GET['action'])){
 					$queries->update("custom_pages", $_GET["page"], array(
 						"url" => htmlspecialchars(Input::get('url')),
 						"title" => htmlspecialchars(Input::get('title')),
-                        "icon" => htmlspecialchars(Input::get('icon')),
+                        			"icon" => Input::get('icon'),
 						"content" => htmlspecialchars(Input::get('content')),
 						"link_location" => Input::get('link_location'),
 						'redirect' => $redirect,
@@ -173,9 +173,9 @@ if(!isset($_GET['action'])){
 					'min' => 1,
 					'max' => 30
 				),
-                'icon' => array(
-                    'max' => 50
-                ),
+                		'icon' => array(
+                		 	'max' => 50
+                		 ),
 				'content' => array(
 					'max' => 20480
 				),
@@ -200,7 +200,7 @@ if(!isset($_GET['action'])){
 					$queries->create("custom_pages", array(
 						"url" => htmlspecialchars(Input::get('url')),
 						"title" => htmlspecialchars(Input::get('title')),
-                        "icon" => htmlspecialchars(Input::get('icon')),
+                        			"icon" => Input::get('icon'),
 						"content" => htmlspecialchars(Input::get('content')),
 						"link_location" => Input::get('link_location'),
 						'redirect' => $redirect,
@@ -322,7 +322,7 @@ $token = Token::generate(); // generate token
 				  </div>
 				  <div class="form-group">
 				    <label for="icon"><?php echo $admin_language['page_icon']; ?></label>
-					<input class="form-control" type="text" name="icon" id="icon" value="<?php echo htmlspecialchars($page[0]->icon); ?>" />
+					<input class="form-control" type="text" name="icon" id="icon" value="<?php echo $page[0]->icon; ?>" />
 				  </div>
 				  <div class="form-group">
 				    <label for="link_location"><?php echo $admin_language['page_link_location']; ?></label>
@@ -459,7 +459,7 @@ $token = Token::generate(); // generate token
 				  </div>
                   <div class="form-group">
                     <label for="icon"><?php echo $admin_language['page_icon']; ?></label>
-                    <input class="form-control" type="text" name="icon" id="icon" value="<?php echo htmlspecialchars(Input::get('icon')); ?>" />
+                    <input class="form-control" type="text" name="icon" id="icon" value="<?php echo Input::get('icon'); ?>" />
                   </div>
 				  <div class="form-group">
 				    <label for="link_location"><?php echo $admin_language['page_link_location']; ?></label>
