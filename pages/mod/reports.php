@@ -223,7 +223,7 @@ $token = Token::generate();
 							$config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
 							$purifier = new HTMLPurifier($config);
 							
-							echo $purifier->purify(htmlspecialchars_decode($report[0]->report_reason));
+							echo $purifier->purify(str_replace('\n', '<br />', htmlspecialchars_decode($report[0]->report_reason)));
 							?>
 						</div>
 					</div>
