@@ -12,7 +12,7 @@
  *  License: MIT
  */
 
-// Settings for the CP2 Web Interface addon
+// Settings for the BAT Web Interface addon
 
 // Ensure user is logged in, and is admin
 if($user->isLoggedIn()){
@@ -77,7 +77,7 @@ Description: Adds an online browser to explore Bungee Admin Tools Infractions<br
 		</div>
 		<div class="panel-body">
 			<p>Unfortunately, I couldn't get the location selector module to work. I tried, believe me. If u know how to get it to work, PLEASE show me how! D:</p>
-			<p>Open <code>"/addons/CoreProtect2 Web Interface/initialisation.php"</code> and paste in the code snippets below or put none to hide the link (The link is hidden by default & the footer code is commented out as an example for you).</p>
+			<p>Open <code>"/addons/Bungee Admin Tools Web Interface/initialisation.php"</code> and paste in the code snippets below or put none to hide the link (The link is hidden by default & the footer code is commented out as an example for you).</p>
 			<ul>
 				<li>To place it in the header use this code: <div class="well">$navbar_array[] = array('batinfractions' => $bat_language['bat_icon'] . $bat_language['bat']);</div></li>
 				<li>To place it in the header's "more" dropdown menu, use this code: <div class="well">$nav_more_dropdown[$bat_language['bat_icon'] . $bat_language['bat']] = '/batinfractions';</div></li>
