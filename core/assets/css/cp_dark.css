@@ -9,3 +9,6 @@ body {
 	border: 1px solid transparent;
 	color: #fff;
 }
+.panel-body {
+	background-color: #303030 !important;
+}
