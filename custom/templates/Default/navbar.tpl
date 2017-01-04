@@ -26,7 +26,7 @@
 		{/foreach}
 	  </ul>
 	
-	  <ul class="nav navbar-nav pull-xs-right">
+	  <ul class="nav navbar-nav float-xs-right">
 	    {if isset($MESSAGING_LINK)}
 	    {* Private messages and alerts *}
 		<li class="nav-item dropdown pm-dropdown">

@@ -5,7 +5,7 @@
 	<div class="row">
 	  <div class="col-md-8">
 		<h2>
-		  <img class="img-rounded" style="height:60px;width=60px;" src="{$AVATAR}" />
+		  <img class="rounded" style="height:60px;width=60px;" src="{$AVATAR}" />
 		  <strong{if $USERNAME_COLOUR != false} style="{$USERNAME_COLOUR}"{/if}>{$NICKNAME}</strong> 
 		  {$GROUP}
 		</h2>
@@ -93,7 +93,7 @@
 			  </div>
 
 			  <div class="panel-footer">
-				<a href="{if $post.reactions_link ne "#"}{$post.reactions_link}{else}#{/if}" class="pop" data-content='{if isset($post.reactions.reactions)} {foreach from=$post.reactions.reactions item=reaction name=reactions}<a href="{$reaction.profile}" style="{$reaction.style}"><img class="img-rounded" src="{$reaction.avatar}" alt="{$reaction.username}" style="max-height:30px; max-width:30px;" /> {$reaction.nickname}</a>{if !$smarty.foreach.reactions.last}<br />{/if}{/foreach} {else}{$post.reactions.count}{/if}'><i class="fa fa-thumbs-up"></i> {$post.reactions.count} </a> | <a href="#" data-toggle="modal" data-target="#replyModal{$post.id}"><i class="fa fa-comments"></i> {$post.replies.count}</a>
+				<a href="{if $post.reactions_link ne "#"}{$post.reactions_link}{else}#{/if}" class="pop" data-content='{if isset($post.reactions.reactions)} {foreach from=$post.reactions.reactions item=reaction name=reactions}<a href="{$reaction.profile}" style="{$reaction.style}"><img class="rounded" src="{$reaction.avatar}" alt="{$reaction.username}" style="max-height:30px; max-width:30px;" /> {$reaction.nickname}</a>{if !$smarty.foreach.reactions.last}<br />{/if}{/foreach} {else}{$post.reactions.count}{/if}'><i class="fa fa-thumbs-up"></i> {$post.reactions.count} </a> | <a href="#" data-toggle="modal" data-target="#replyModal{$post.id}"><i class="fa fa-comments"></i> {$post.replies.count}</a>
 			  </div>
 
 			</article>
@@ -133,7 +133,7 @@
 				  <div class="modal-body">
 				    {if isset($post.replies.replies)}
 					  {foreach from=$post.replies.replies name=replies item=reply}
-					  <img src="{$reply.avatar}" alt="{$reply.username}" style="max-height:20px; max-width:20px;" class="img-rounded" /> <a href="{$reply.profile}" style="{$reply.style}">{$reply.nickname}</a> &raquo;
+					  <img src="{$reply.avatar}" alt="{$reply.username}" style="max-height:20px; max-width:20px;" class="rounded" /> <a href="{$reply.profile}" style="{$reply.style}">{$reply.nickname}</a> &raquo;
 					  <span class="pull-right">
 					    <span rel="tooltip" title="{$reply.time_full}">{$reply.time_friendly}</span>
 					  </span>
@@ -184,7 +184,7 @@
 			    <div class="card-block">
 				  {if isset($ABOUT_FIELDS.minecraft)}
 				    <center>
-					  <img src="{$ABOUT_FIELDS.minecraft.image}" alt="{$USERNAME}" class="img-rounded" />
+					  <img src="{$ABOUT_FIELDS.minecraft.image}" alt="{$USERNAME}" class="rounded" />
 					  <h2{if $USERNAME_COLOUR != false} style="{$USERNAME_COLOUR}"{/if}>{$NICKNAME}</h2>
 					  {$USER_TITLE}
 					</center>

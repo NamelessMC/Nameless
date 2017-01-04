@@ -30,7 +30,7 @@
 				    <div class="row">
 				      <div class="col-md-3">
 					    <div class="frame">
-					      <a href="{$message.last_message_user_profile}"><img class="img-centre img-rounded" style="max-height:30px; max-width:30px;" src="{$message.last_message_user_avatar}" alt="{$message.last_message_user}" /></a>
+					      <a href="{$message.last_message_user_profile}"><img class="img-centre rounded" style="max-height:30px; max-width:30px;" src="{$message.last_message_user_avatar}" alt="{$message.last_message_user}" /></a>
 					    </div>
 				      </div>
 				      <div class="col-md-9">

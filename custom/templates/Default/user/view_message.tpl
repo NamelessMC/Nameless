@@ -31,7 +31,7 @@
 			  <div class="row">
 			    <div class="col-md-3">
 				  <center>
-				    <img class="img-rounded" style="width:100px; height:100px;" src="{$message.author_avatar}" alt="{$message.author_username}" />
+				    <img class="rounded" style="width:100px; height:100px;" src="{$message.author_avatar}" alt="{$message.author_username}" />
 				    <br /><br />
 				    <strong><a style="{$message.author_style}" href="{$message.author_profile}">{$message.author_username}</a></strong>
 				    <br />

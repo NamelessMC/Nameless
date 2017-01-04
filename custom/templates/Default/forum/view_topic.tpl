@@ -60,7 +60,7 @@
 	    <div class="row">
 		  <div class="col-md-3">
 		    <center>
-			  <img class="img-rounded" style="width:100px; height:100px;" src="{$reply.avatar}" />
+			  <img class="rounded" style="width:100px; height:100px;" src="{$reply.avatar}" />
 			  <br /><br />
 			  <strong><a style="{$reply.user_style}" href="{$reply.profile}">{$reply.username}</a></strong>
 			  <br />
@@ -165,7 +165,7 @@
 			{foreach from=$reply.post_reactions name=reactions item=reaction}
 			  <strong>{$reaction.html} x {$reaction.count}:</strong><br />
 			  {foreach from=$reaction.users item=user}
-			    <a style="{$user.style}" href="{$user.profile}"><img src="{$user.avatar}" class="img-rounded" style="height:25px;width:25px;" alt="{$user.username}" /> {$user.nickname}</a><br />
+			    <a style="{$user.style}" href="{$user.profile}"><img src="{$user.avatar}" class="rounded" style="height:25px;width:25px;" alt="{$user.username}" /> {$user.nickname}</a><br />
 			  {/foreach}
 			  {if !($smarty.foreach.reactions.last)}<hr />{/if}
 			{/foreach}

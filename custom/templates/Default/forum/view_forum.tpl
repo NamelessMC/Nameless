@@ -32,7 +32,7 @@
 				  <div class="row">
 				    <div class="col-md-3">
 					  <div class="frame">
-					    <a href="{$subforum.latest_post.last_user_link}"><img class="img-centre img-rounded" style="height:30px; width:30px;" src="{$subforum.latest_post.last_user_avatar}" alt="{$subforum.latest_post.last_user}" /></a>
+					    <a href="{$subforum.latest_post.last_user_link}"><img class="img-centre rounded" style="height:30px; width:30px;" src="{$subforum.latest_post.last_user_avatar}" alt="{$subforum.latest_post.last_user}" /></a>
 					  </div>
 				    </div>
 				    <div class="col-md-9">
@@ -72,7 +72,7 @@
 				<div class="row">
 				  <div class="col-md-3">
 					<div class="frame">
-					  <a href="{$sticky.last_reply_link}"><img class="img-centre img-rounded" style="height:30px; width:30px;" src="{$sticky.last_reply_avatar}" alt="{$sticky.last_reply_username}" /></a>
+					  <a href="{$sticky.last_reply_link}"><img class="img-centre rounded" style="height:30px; width:30px;" src="{$sticky.last_reply_avatar}" alt="{$sticky.last_reply_username}" /></a>
 					</div>
 				  </div>
 				  <div class="col-md-9">
@@ -96,7 +96,7 @@
 				<div class="row">
 				  <div class="col-md-3">
 					<div class="frame">
-					  <a href="{$discussion.last_reply_link}"><img class="img-centre img-rounded" style="height:30px; width:30px;" src="{$discussion.last_reply_avatar}" alt="{$discussion.last_reply_username}" /></a>
+					  <a href="{$discussion.last_reply_link}"><img class="img-centre rounded" style="height:30px; width:30px;" src="{$discussion.last_reply_avatar}" alt="{$discussion.last_reply_username}" /></a>
 					</div>
 				  </div>
 				  <div class="col-md-9">

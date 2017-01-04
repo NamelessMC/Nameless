@@ -32,7 +32,7 @@
 				  <div class="row">
 				    <div class="col-md-3">
 					  <div class="frame">
-					    <a href="{$subforum.latest_post.last_user_link}"><img class="img-centre img-rounded" style="height:30px; width:30px;" src="{$subforum.latest_post.last_user_avatar}" alt="{$subforum.latest_post.last_user}" /></a>
+					    <a href="{$subforum.latest_post.last_user_link}"><img class="img-centre rounded" style="height:30px; width:30px;" src="{$subforum.latest_post.last_user_avatar}" alt="{$subforum.latest_post.last_user}" /></a>
 					  </div>
 				    </div>
 				    <div class="col-md-9">

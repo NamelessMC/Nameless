@@ -35,7 +35,7 @@
 					<div class="row">
 				      <div class="col-md-3">
 						<div class="frame">
-						  <a href="{$subforum->last_post->profile}"><img alt="{$subforum->last_post->profile}" class="img-centre img-rounded" src="{$subforum->last_post->avatar}" /></a>
+						  <a href="{$subforum->last_post->profile}"><img alt="{$subforum->last_post->profile}" class="img-centre rounded" src="{$subforum->last_post->avatar}" /></a>
 						</div>
 					  </div>
 					  <div class="col-md-9">
