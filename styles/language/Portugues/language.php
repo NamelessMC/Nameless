@@ -169,6 +169,7 @@ $admin_language = array(
 	'can_view_page' => 'Pode visualizar a página:',
 	'redirect_page' => 'Redirecionar página?',
 	'redirect_link' => 'Redirecionar link',
+	'page_icon' => 'Page Icon',
 	
 	// Admin forum page
 	'labels' => 'Rótulos de tópico',

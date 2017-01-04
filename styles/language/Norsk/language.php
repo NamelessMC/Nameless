@@ -165,6 +165,7 @@ $admin_language = array(
 	'can_view_page' => 'Kan vise side:',
 	'redirect_page' => 'Omdirigerings side?',
 	'redirect_link' => 'Omdirigere lenke',
+	'page_icon' => 'Page Icon',
 	
 	// Admin forum page
 	'labels' => 'Emne etiketter',

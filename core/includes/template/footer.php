@@ -34,7 +34,7 @@ if(isset($footer_nav_array)){
 $custom_pages = $queries->getWhere('custom_pages', array('url', '<>', ''));
 foreach($custom_pages as $item){
 	if($item->link_location == 3){
-		$footer_nav .= '<li><a href="' . htmlspecialchars($item->url) . '">' . htmlspecialchars($item->title) . '</a></li>';
+		$footer_nav .= '<li><a href="' . htmlspecialchars($item->url) . '">' . (isset($item->icon) ? $item->icon . ' ' : '') . htmlspecialchars($item->title) . '</a></li>';
 	}
 }
 

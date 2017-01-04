@@ -169,6 +169,7 @@ $admin_language = array(
 	'can_view_page' => 'Puede ver la pagina:',
 	'redirect_page' => '¿Página redirigida?',
 	'redirect_link' => 'Link de redirección',
+	'page_icon' => 'Page Icon',
 	
 	// Admin forum page
 	'labels' => 'Etiquetas de tema',
