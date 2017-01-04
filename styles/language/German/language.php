@@ -169,6 +169,7 @@ $admin_language = array(
 	'can_view_page' => 'Kann Seite sehen:',
 	'redirect_page' => 'Seite weiterleiten?',
 	'redirect_link' => 'Weiterleitungslink',
+	'page_icon' => 'Page Icon',
 
 	// Admin forum page
 	'labels' => 'Themen Label',

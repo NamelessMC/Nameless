@@ -168,6 +168,7 @@ $admin_language = array(
 	'can_view_page' => 'Can view page:',
 	'redirect_page' => 'Redirect page?',
 	'redirect_link' => 'Redirect link',
+	'page_icon' => 'Page Icon',
 	
 	// Admin forum page
 	'labels' => 'Labels de sujet',

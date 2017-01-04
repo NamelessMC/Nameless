@@ -56,6 +56,8 @@ foreach($navbar_array as $item){
 
 // Custom pages
 $custom_pages = $queries->getWhere('custom_pages', array('url', '<>', ''));
+if(!isset($nav_more_dropdown)) $nav_more_dropdown = array();
+
 foreach($custom_pages as $item){
 	if($item->link_location == 1){
 		$navbar_links .= '<li';
@@ -64,12 +66,12 @@ foreach($custom_pages as $item){
 		}
 		
 		if(isset($item->icon)) {
-        	    $navbar_links .= '><a href="' . htmlspecialchars($item->url) . '">' . $item->icon . $item->title . '</a></li>';
+        	    $navbar_links .= '><a href="' . htmlspecialchars($item->url) . '">' . $item->icon . ' ' . $item->title . '</a></li>';
         	} else {
         	    $navbar_links .= '><a href="' . htmlspecialchars($item->url) . '">' . $item->title . '</a></li>';
         	}
     	} else if($item->link_location == 2){
-    	    array_push($nav_more_dropdown, $item);
+    	    $nav_more_dropdown[] = $item;
     	}
 }
 
@@ -81,7 +83,7 @@ foreach($custom_pages as $item){
 
     		foreach($nav_more_dropdown as $key => $item){
         		if(isset($item->icon)) {
-            			$navbar_links .= '<li><a href="' . htmlspecialchars($item->url) . '">' . $item->icon . $item->title . '</a></li>';
+            			$navbar_links .= '<li><a href="' . htmlspecialchars($item->url) . '">' . $item->icon . ' ' . $item->title . '</a></li>';
         		} else {
             			$navbar_links .= '<li><a href="' . htmlspecialchars($item->url) . '">' . $item->title . '</a></li>';
         		}
