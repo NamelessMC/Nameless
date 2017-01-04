@@ -1001,7 +1001,7 @@ $admin_page = 'forums';
 						foreach($topic_labels as $topic_label){
 							// Get label type
 							$label_type = $queries->getWhere('forums_labels', array('id', '=', $topic_label->label));
-							if(!count($label_type)) continue;
+							if(!count($label_type)) $label_type = 0;
 							else $label_type = $label_type[0];
 						?>
 						<?php echo str_replace('{x}', Output::getClean($topic_label->name), $label_type->html); ?>
@@ -1123,7 +1123,7 @@ $admin_page = 'forums';
 						  </div>
 						  <div class="form-group">
 							<label for="label_forums"><?php echo $forum_language->get('forum', 'label_forums'); ?></label>
-							<select name="label_forums[]" id="label_forums" size="5" class="form-control" multiple>
+							<select name="label_forums[]" id="label_forums" size="5" class="form-control" multiple style="overflow:auto;">
 							  <?php 
 							  $forum_list = $queries->getWhere('forums', array('parent', '<>', 0)); 
 							  foreach($forum_list as $item){
@@ -1248,7 +1248,7 @@ $admin_page = 'forums';
 							</div>
 							<div class="form-group">
 							  <label for="label_forums"><?php echo $forum_language->get('forum', 'label_forums'); ?></label>
-							  <select name="label_forums[]" id="label_forums" size="5" class="form-control" multiple>
+							  <select name="label_forums[]" id="label_forums" size="5" class="form-control" multiple style="overflow:auto;">
 								<?php 
 								// Get a list of forums in which the label is enabled
 								$enabled_forums = explode(',', $label->fids);
