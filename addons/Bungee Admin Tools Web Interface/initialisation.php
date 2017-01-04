@@ -12,7 +12,7 @@
  *  License: MIT
  */
 
-// Initialise the CO2 Web Interface addon
+// Initialise the BAT Web Interface addon
 // We've already checked to see if it's enabled
 
 require('addons/Bungee Admin Tools Web Interface/language.php');
