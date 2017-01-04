@@ -1,3 +1,20 @@
+<?php
+/*
+ *	Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr2
+ *
+ *  License: MIT
+ *
+ *  Header generation
+ */
+ 
+// Set current page URL in session, provided it's not the login page
+if(defined('PAGE') && PAGE != 'login'){
+	$_SESSION['last_page'] = URL::build((FRIENDLY_URLS === true ? $directory : (isset($route) ? $route : '/')));
+}
+?>
+
 	<!-- Page Title -->
 	<title><?php echo $title; ?> &bull; <?php echo SITE_NAME; ?></title>
 	

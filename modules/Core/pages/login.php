@@ -10,7 +10,7 @@
  */
 
 // Set page name variable
-$page = 'login';
+define('PAGE', 'login');
  
 // Requirements
 require('core/includes/password.php'); // For password hashing
@@ -93,9 +93,17 @@ if(Input::exists()){
 				// Successful login?
 				if($login){
 					// Yes
-					Session::flash('home', $language->get('user', 'successful_signin'));
-					Redirect::to(URL::build('/'));
-					die();
+					
+					// Redirect to a certain page?
+					if(isset($_SESSION['last_page'])){
+						Redirect::to($_SESSION['last_page']);
+						die();
+						
+					} else {
+						Session::flash('home', $language->get('user', 'successful_signin'));
+						Redirect::to(URL::build('/'));
+						die();
+					}
 				} else {
 					// No, output error
 					$return_error = array($language->get('user', 'incorrect_details'));
@@ -178,30 +186,6 @@ if(Input::exists()){
 		'ERROR' => (isset($return_error) ? $return_error : array()),
 		'SUBMIT' => $language->get('general', 'submit')
 	));
-	
-	$form_content = '
-	<div class="form-group">
-		<input type="text" name="username" id="username" autocomplete="off" value="' . Output::getClean(Input::get('username')) . '" class="form-control input-lg" placeholder="';
-	if($custom_usernames == 'false'){ $form_content .= $language->get('user', 'minecraft_username'); } else { $form_content .= $language->get('user', 'username'); }
-	$form_content .= '" tabindex="1">
-	</div>' . PHP_EOL . 
-	'<div class="form-group">
-		<input type="password" name="password" id="password" class="form-control input-lg" placeholder="' . $language->get('user', 'password') . '" tabindex="2">
-	</div>' . PHP_EOL . 
-	'<div class="row">
-		<div class="col-xs-12 col-md-6">
-			<div class="form-group">
-				<label for="remember">
-					<input type="checkbox" name="remember" id="remember"> ' . $language->get('user', 'remember_me') . '
-				</label>				
-			</div>
-		</div>
-		<div class="col-xs-12 col-md-6">
-			<span class="pull-right"><a class="btn btn-sm btn-primary" href="' . URL::build('/forgot_password') . '">' . $language->get('user', 'forgot_password') . '</a></span>
-		</div>
-	</div>';
-
-	$submit = '<input type="submit" value="' . $language->get('general', 'sign_in') . '" class="btn btn-primary btn-block btn-lg">';
 
 	$register_url = URL::build('/register');
 
@@ -209,8 +193,6 @@ if(Input::exists()){
 	$smarty->assign('SIGNIN', $language->get('general', 'sign_in'));
 	$smarty->assign('REGISTER_URL', $register_url);
 	$smarty->assign('REGISTER', $language->get('general', 'register'));
-	$smarty->assign('FORM_CONTENT', $form_content);
-	$smarty->assign('FORM_SUBMIT', $submit);
 
 	if(isset($return_error)){
 		$smarty->assign('SESSION_FLASH', $return_error);
