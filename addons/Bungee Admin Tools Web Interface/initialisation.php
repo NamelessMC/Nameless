@@ -19,4 +19,4 @@ require('addons/Bungee Admin Tools Web Interface/language.php');
 
 // Enabled, add links to navbar
 
-//$footer_nav_array['coreprotect2'] = $cp2_language['cp2_icon'] . $cp2_language['cp2'];
+//$footer_nav_array['batinfractions'] = $bat_language['bat_icon'] . $bat_language['bat'];

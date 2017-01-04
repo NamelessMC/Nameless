@@ -79,9 +79,9 @@ Description: Adds an online browser to explore Bungee Admin Tools Infractions<br
 			<p>Unfortunately, I couldn't get the location selector module to work. I tried, believe me. If u know how to get it to work, PLEASE show me how! D:</p>
 			<p>Open <code>"/addons/CoreProtect2 Web Interface/initialisation.php"</code> and paste in the code snippets below or put none to hide the link (The link is hidden by default & the footer code is commented out as an example for you).</p>
 			<ul>
-				<li>To place it in the header use this code: <div class="well">$navbar_array[] = array('coreprotect2' => $cp2_language['cp2_icon'] . $cp2_language['cp2']);</div></li>
-				<li>To place it in the header's "more" dropdown menu, use this code: <div class="well">$nav_more_dropdown[$cp2_language['cp2_icon'] . $cp2_language['cp2']] = '/coreprotect2';</div></li>
-				<li>To place it in the footer use this code: <div class="well">$footer_nav_array['coreprotect2'] = $cp2_language['cp2_icon'] . $cp2_language['cp2'];</div></li>
+				<li>To place it in the header use this code: <div class="well">$navbar_array[] = array('batinfractions' => $bat_language['bat_icon'] . $bat_language['bat']);</div></li>
+				<li>To place it in the header's "more" dropdown menu, use this code: <div class="well">$nav_more_dropdown[$bat_language['bat_icon'] . $bat_language['bat']] = '/batinfractions';</div></li>
+				<li>To place it in the footer use this code: <div class="well">$footer_nav_array['batinfractions'] = $bat_language['bat_icon'] . $bat_language['bat'];</div></li>
 				<li>To have it not show up at all, just don't put anything. :P ;)</li>
 			</ul>
 		</div>
