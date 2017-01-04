@@ -107,7 +107,7 @@ $admin_language = array(
 	'social_media_links' => 'Links Páginas Sociais',
 	'youtube_url' => 'YouTube URL',
 	'twitter_url' => 'Twitter URL',
-	'twitter_dark_theme' => 'Use dark Twitter theme?',
+	'twitter_dark_theme' => 'Usar tema escuro do Twitter?',
 	'twitter_widget_id' => 'Twitter Widget ID',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
@@ -306,12 +306,12 @@ $admin_language = array(
 	'purge_errors' => 'Eliminar Erros',
 	'confirm_purge_errors' => 'Você tem certeza de que deseja eliminar todos os erros de query?',
 	'avatar_type' => 'Tipo de Avatar',
-	'custom_usernames' => 'Force Minecraft usernames?',
+	'custom_usernames' => 'Forçar Usuários Minecraft?',
 	'mcassoc' => 'mcassoc',
-	'use_mcassoc' => 'Use mcassoc?',
-	'use_mcassoc_help' => 'mcassoc ensures users own the Minecraft account they\'re registering with',
+	'use_mcassoc' => 'Usar mcassoc?',
+	'use_mcassoc_help' => 'mcassoc garante que os usuários possuem a conta do Minecraft com a qual eles estão registrando',
 	'mcassoc_key' => 'mcassoc Shared Key',
-	'invalid_mcassoc_key' => 'Chave do mcassoc invalida.',
+	'invalid_mcassoc_key' => 'Chave do mcassoc inválida.',
 	'mcassoc_instance' => 'Instância mcassoc',
 	'mcassoc_instance_help' => 'Gerar um código de instância <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">aqui</a>',
 	'mcassoc_key_help' => 'Obter a sua chave mcassoc <a href="https://mcassoc.lukegb.com/" target="_blank">aqui</a>',
@@ -453,7 +453,7 @@ $user_language = array(
 	'verify_account_help' => 'Por favor, siga as instruções abaixo, assim nós podemos verificar se você possui a conta de Minecraft em questão.',
 	'verification_failed' => 'Falha ao verificar, por favor, tente de novo.',
 	'verification_success' => 'Verificada com sucesso! Agora você pode logar-se.',
-	'complete_signup' => 'Complete Signup',
+	'complete_signup' => 'Cadastro Concluído',
 	
 	// UserCP
 	'user_cp' => 'UserCP',
@@ -605,9 +605,9 @@ $mod_language = array(
 	'ip_lookup' => 'IP Lookup:',
 	'registered' => 'Registrado',
 	'reason' => 'Razão:',
-	'cant_ban_root_user' => 'Can\'t punish the root user!',
-	'invalid_reason' => 'Please enter a valid reason between 2 and 256 characters long.',
-	'punished_successfully' => 'Punishment added successfully.',
+	'cant_ban_root_user' => 'Não é possível banir o usuário root!',
+	'invalid_reason' => 'Por favor, escreva a razão tendo entre 2 e 256 caracteres.',
+	'punished_successfully' => 'Punição adicionada com êxito.',
 	
 	// Reports
 	'report_closed' => 'Parecer fechado.',
@@ -626,7 +626,7 @@ $mod_language = array(
 	'user_profile' => 'Perfil de Usuário',
 	'comment_added' => 'Comentário Add.',
 	'new_report_submitted_alert' => 'Novo parecer enviado por {x} em relação ao usuário {y}', // Don't replace "{x}" or "{y}"
-	'ingame_report' => 'Ingame Report',
+	'ingame_report' => 'Denúncia InGame',
 	
 	// Staff applications
 	'comment_error' => 'Por favor, verifique se seu comentário possui de 2 à 2048 caracteres.',
@@ -781,7 +781,7 @@ $forum_language = array(
 	
 	// Search
 	'search_error' => 'Por favor, informe de 1 à 32 caracteres para pesquisar.',
-	'no_search_results' => 'No search results have been found.',
+	'no_search_results' => 'Nada foi encontrado com os termos informados.',
 	
 	//Share on a social-media.
 	'sm-share' => 'Compartilhar',
