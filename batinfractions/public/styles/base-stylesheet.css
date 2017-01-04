@@ -1,0 +1,132 @@
+/* BAT WebInterface style file
+This file has two parts :
+ - the first one doesn't modify color only font
+ - the second one modify the color and produce an blue-orange theme
+ If you want to keep bootstrap style or just want to remove the colours, just delete the second part */
+ 
+/* 1st part => Basic styles : font and alignement */
+h1, h2{
+	font-family: 'Bree Serif', serif;
+}
+body, .jumbotron p{
+	font-family: 'TrebuchetSansMS', sans-serif;
+	font-size: 14px;
+}
+td, th{
+	text-align: center;
+}
+.table-bat tbody tr td, .valign tbody tr td{
+    vertical-align: middle;
+}
+.profile-title{
+	text-decoration: underline;
+}
+.navbar .divider-vertical {
+	height: 50px;
+	margin: 0 9px;
+	border-right: 1px solid #E0E4CC;
+	border-left: 1px solid #E0E4CC;
+}
+/* 2nd part => Below this line, the CSS may include color into the design */
+body{
+	background: #A7DBD8;
+}
+.navbar-bat{
+	font-family: 'Alegreya', sans-serif; font-size: 18px;
+}
+/* Navigation bar customization */
+#navbar-title{
+	text-decoration: underline;
+	font-weight: 900;
+	color: white;
+}
+.navbar-bat{
+	background: #FA6900;
+	filter: none !important;
+	box-shadow: 0 2px 15px rgba(0,0,0,0.25);
+	-moz-box-shadow: 0 2px 15px rgba(0,0,0,0.25);
+	-webkit-box-shadow: 0 2px 15px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+.navbar-bat *{
+	color:  #E0E4CC;
+}
+.navbar-bat .nav li.active, .navbar-bat .nav li a:hover {
+	background: #F38630;
+	color: white;
+}
+.navbar-bat .nav li.display-only a:hover {
+	background: #FA6900;
+	color:  #E0E4CC;
+}
+/* Table customization : colours and rounded borders */
+.table-bat {
+    *border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0;
+    border-color: #A7DBD8;
+}
+.table-bat th:first-child {
+    border-radius: 10px 0 0 0;
+}
+.table-bat th:last-child {
+    border-radius: 0 10px 0 0;
+}
+.table-bat th:only-child{
+    border-radius: 10px 10px 0 0;
+}
+/* Add spacing between row with an 2px border */
+.table-bat td{
+	background: #E0E4CC;
+	padding: 2px 0;
+    border-width: 2px 0;
+    border-color: #E3E3E3;
+    border-style: solid;
+}
+.table-bat th{
+	background: #F38630;
+}
+/* List customization */
+.profile-list{
+	font-weight: bold;
+	font-size: medium;
+	font-family: 'Bree Serif', serif;
+}
+/* Need to implement own info because of priority */
+.info-bat td{
+	background-color: #D9EDF7;
+}
+table tbody tr.warning td.danger-bat{
+	background-color: #FFF2AD;
+}
+/* Customize jQuery autocompletion menu */
+.ui-menu{
+	color: white;
+	background: #69D2E7;
+	border-color: white;
+	width: 50px;
+	border-radius: 0 0 10px 10px;
+	list-style-type: none;
+}
+.ui-helper-hidden-accessible{ 
+	display: none; 
+}
+/* Misc */
+.input-text{
+	color: white;
+	background: #A7DBD8;
+}
+.btn-bat{
+	color: white;
+	background: #69D2E7;
+}
+.btn-bat-orange { 
+  color: #F2F7D9; 
+  background-color: #FA6900; 
+  border-color: #E0E4CC; 
+} 
+.lead{
+	color: navy;
+}
+li .lead{
+	font-family: 'TrebuchetSansMS', sans-serif;
+}
