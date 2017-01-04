@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  http://worldscapemc.co.uk
@@ -23,7 +23,7 @@ if($user->isLoggedIn()){
 	Redirect::to('/');
 	die();
 }
- 
+
 $adm_page = "custom_pages"; // For admin sidebar
 
 require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purifier
@@ -31,7 +31,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 if(!isset($_GET['action'])){
 	// Get a list of all groups
 	$groups = $queries->getWhere('groups', array('id', '<>', '0'));
-	
+
 	// Deal with input for editing pages only
 	if(Input::exists()) {
 		if(Token::check(Input::get('token'))) {
@@ -47,6 +47,9 @@ if(!isset($_GET['action'])){
 					'min' => 1,
 					'max' => 30
 				),
+                'icon' => array(
+                    'max' => 50
+                ),
 				'content' => array(
 					'max' => 20480
 				),
@@ -57,33 +60,34 @@ if(!isset($_GET['action'])){
 					'max' => 512
 				)
 			));
-			
+
 			if($validation->passed()){
 				try {
 					// Is redirect enabled, and is a link set?
 					if(isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') $redirect = 1;
 					else $redirect = 0;
-					
+
 					if(isset($_POST['redirect_link'])) $link = $_POST['redirect_link'];
 					else $link = '';
-					
+
 					$queries->update("custom_pages", $_GET["page"], array(
 						"url" => htmlspecialchars(Input::get('url')),
 						"title" => htmlspecialchars(Input::get('title')),
+                        			"icon" => Input::get('icon'),
 						"content" => htmlspecialchars(Input::get('content')),
 						"link_location" => Input::get('link_location'),
 						'redirect' => $redirect,
 						'link' => htmlspecialchars($link)
 					));
-					
+
 					// Permissions
 					// Guests first
 					$view = Input::get('perm-view-0');
-					
+
 					$page_perm_exists = 0;
-					
+
 					$page_perm_query = $queries->getWhere('custom_pages_permissions', array('page_id', '=', $_GET["page"]));
-					if(count($page_perm_query)){ 
+					if(count($page_perm_query)){
 						foreach($page_perm_query as $query){
 							if($query->group_id == 0){
 								$page_perm_exists = 1;
@@ -105,14 +109,14 @@ if(!isset($_GET['action'])){
 							'view' => $view
 						));
 					}
-					
+
 					// Groups
-					foreach($groups as $group){ 
+					foreach($groups as $group){
 						$view = Input::get('perm-view-' . $group->id);
-						
+
 						$page_perm_exists = 0;
 
-						if(count($page_perm_query)){ 
+						if(count($page_perm_query)){
 							foreach($page_perm_query as $query){
 								if($query->group_id == $group->id){
 									$page_perm_exists = 1;
@@ -121,13 +125,13 @@ if(!isset($_GET['action'])){
 								}
 							}
 						}
-						
+
 						if($page_perm_exists != 0){ // Permission already exists, update
 							// Update the forum
 							$queries->update('custom_pages_permissions', $update_id, array(
 								'view' => $view
 							));
-							
+
 						} else { // Permission doesn't exist, create
 							$queries->create('custom_pages_permissions', array(
 								'group_id' => $group->id,
@@ -136,15 +140,15 @@ if(!isset($_GET['action'])){
 							));
 						}
 					}
-					
+
 				} catch(Exception $e){
 					die($e->getMessage());
 				}
-				
+
 				Session::flash('custom-pages', '<div class="alert alert-info">' . $admin_language['page_successfully_edited'] . '</div>');
 				echo '<script data-cfasync="false">window.location.replace(\'/admin/pages\');</script>';
 				die();
-				
+
 			} else {
 				$error = '<div class="alert alert-warning"><p><strong>' . $admin_language['unable_to_edit_page'] . '</strong></p><p>' . $admin_language['create_page_error'] . '</p></div>';
 			}
@@ -169,6 +173,9 @@ if(!isset($_GET['action'])){
 					'min' => 1,
 					'max' => 30
 				),
+                		'icon' => array(
+                		 	'max' => 50
+                		 ),
 				'content' => array(
 					'max' => 20480
 				),
@@ -179,32 +186,33 @@ if(!isset($_GET['action'])){
 					'max' => 512
 				)
 			));
-			
+
 			if($validation->passed()){
 				// Go ahead and input the page data
 				try {
 					// Is redirect enabled, and is a link set?
 					if(isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') $redirect = 1;
 					else $redirect = 0;
-					
+
 					if(isset($_POST['redirect_link'])) $link = $_POST['redirect_link'];
 					else $link = '';
-					
+
 					$queries->create("custom_pages", array(
 						"url" => htmlspecialchars(Input::get('url')),
 						"title" => htmlspecialchars(Input::get('title')),
+                        			"icon" => Input::get('icon'),
 						"content" => htmlspecialchars(Input::get('content')),
 						"link_location" => Input::get('link_location'),
 						'redirect' => $redirect,
 						'link' => htmlspecialchars($link)
 					));
-					
+
 					$page_id = $queries->getLastId();
-					
+
 				} catch(Exception $e){
 					die($e->getMessage());
 				}
-				
+
 				Session::flash('custom-pages', '<div class="alert alert-info">' . $admin_language['page_successfully_created'] . '</div>');
 				echo '<script data-cfasync="false">window.location.replace(\'/admin/pages/?page=' . $page_id . '\');</script>';
 				die();
@@ -232,17 +240,17 @@ $token = Token::generate(); // generate token
 	<meta name="robots" content="noindex">
 	<script>var groups = [];</script>
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-	
+
 	<?php
 	// Generate header and navbar content
 	// Page title
 	$title = $admin_language['custom_pages'];
-	
+
 	require('core/includes/template/generate.php');
 	?>
-	
-	<link href="/core/assets/plugins/switchery/switchery.min.css" rel="stylesheet">	
-	
+
+	<link href="/core/assets/plugins/switchery/switchery.min.css" rel="stylesheet">
+
 	<!-- Custom style -->
 	<style>
 	html {
@@ -252,7 +260,7 @@ $token = Token::generate(); // generate token
   </head>
 
   <body>
-    <div class="container">	
+    <div class="container">
 	  <?php
 	  // Index page
 	  // Load navbar
@@ -275,15 +283,15 @@ $token = Token::generate(); // generate token
 				}
 				?>
 				<?php echo $admin_language['click_on_page_to_edit']; ?><br /><br />
-				<?php 
-				$pages = $queries->getAll("custom_pages", array("id", "<>", "0")); 
+				<?php
+				$pages = $queries->getAll("custom_pages", array("id", "<>", "0"));
 				foreach($pages as $page){
 				?>
 				<a href="/admin/pages/?page=<?php echo $page->id; ?>"><?php echo htmlspecialchars($page->title); ?></a><br />
-				<?php 
+				<?php
 				}
 				?>
-				<?php 
+				<?php
 				} else if(isset($_GET['page']) && !isset($_GET['action'])) {
 					$page = $queries->getWhere("custom_pages", array("id", "=", $_GET["page"]));
 					if(!count($page)){
@@ -300,7 +308,7 @@ $token = Token::generate(); // generate token
 					echo Session::flash('custom-pages');
 				}
 				if(isset($error)){
-					echo $error;	
+					echo $error;
 				}
 				?>
 				<form action="" method="post">
@@ -313,6 +321,10 @@ $token = Token::generate(); // generate token
 					<input class="form-control" type="text" name="title" id="title" value="<?php echo htmlspecialchars($page[0]->title); ?>" />
 				  </div>
 				  <div class="form-group">
+				    <label for="icon"><?php echo $admin_language['page_icon']; ?></label>
+					<input class="form-control" type="text" name="icon" id="icon" value="<?php echo $page[0]->icon; ?>" />
+				  </div>
+				  <div class="form-group">
 				    <label for="link_location"><?php echo $admin_language['page_link_location']; ?></label>
 					<select class="form-control" id="link_location" name="link_location">
 					  <option value="1" <?php if($page[0]->link_location == 1){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_navbar']; ?></option>
@@ -323,7 +335,7 @@ $token = Token::generate(); // generate token
 				  </div>
 				  <strong><?php echo $admin_language['page_content']; ?></strong><br />
 				  <textarea rows="10" name="content" id="content_editor">
-				  <?php 
+				  <?php
 			      // Initialise HTML Purifier
 				  $config = HTMLPurifier_Config::createDefault();
 				  $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
@@ -336,7 +348,7 @@ $token = Token::generate(); // generate token
 				  $config->set('URI.SafeIframeRegexp', '%%');
 				  $config->set('URI.AllowedSchemes', array('http' => true, 'https' => true, 'ts3server' => true));
 				  $purifier = new HTMLPurifier($config);
-				  echo $purifier->purify(htmlspecialchars_decode($page[0]->content)); 
+				  echo $purifier->purify(htmlspecialchars_decode($page[0]->content));
 				  ?>
 				  </textarea>
 				  <br />
@@ -388,7 +400,7 @@ $token = Token::generate(); // generate token
 					foreach($groups as $group){
 						// Get the existing group permissions
 						$view = 0;
-						
+
 						foreach($group_perms as $group_perm){
 							if($group_perm->group_id == $group->id){
 								$view = $group_perm->view;
@@ -433,7 +445,7 @@ $token = Token::generate(); // generate token
 				<h2><?php echo $admin_language['new_page']; ?></h2>
 				<?php
 				if(isset($error)){
-					echo $error;	
+					echo $error;
 				}
 				?>
 				<form action="" method="post">
@@ -445,6 +457,10 @@ $token = Token::generate(); // generate token
 				    <label for="title"><?php echo $admin_language['page_title']; ?></label>
 					<input class="form-control" type="text" name="title" id="title" value="<?php echo htmlspecialchars(Input::get('title')); ?>" />
 				  </div>
+                  <div class="form-group">
+                    <label for="icon"><?php echo $admin_language['page_icon']; ?></label>
+                    <input class="form-control" type="text" name="icon" id="icon" value="<?php echo Input::get('icon'); ?>" />
+                  </div>
 				  <div class="form-group">
 				    <label for="link_location"><?php echo $admin_language['page_link_location']; ?></label>
 					<select class="form-control" id="link_location" name="link_location">
@@ -456,7 +472,7 @@ $token = Token::generate(); // generate token
 				  </div>
 				  <strong><?php echo $admin_language['page_content']; ?></strong><br />
 				  <textarea rows="10" name="content" id="content_editor">
-				  <?php 
+				  <?php
 			      // Initialise HTML Purifier
 				  $config = HTMLPurifier_Config::createDefault();
 				  $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
@@ -468,7 +484,7 @@ $token = Token::generate(); // generate token
 				  $config->set('HTML.SafeIframe', true);
 				  $config->set('URI.SafeIframeRegexp', '%%');
 				  $purifier = new HTMLPurifier($config);
-				  echo $purifier->purify(Input::get('content')); 
+				  echo $purifier->purify(Input::get('content'));
 				  ?>
 				  </textarea>
 				  <br />
@@ -492,14 +508,14 @@ $token = Token::generate(); // generate token
 							echo '<script data-cfasync="false">window.location.replace(\'/admin/pages\');</script>';
 							die();
 						}
-						
+
 						// Try to delete it
 						try {
 							$queries->delete("custom_pages", array('id', '=', $_GET['pid']));
 						} catch(Exception $e){
 							die($e->getMessage());
 						}
-						
+
 						Session::flash('custom-pages', '<div class="alert alert-info">' . $admin_language['page_deleted_successfully'] . '</div>');
 						echo '<script data-cfasync="false">window.location.replace(\'/admin/pages\');</script>';
 						die();
@@ -508,15 +524,15 @@ $token = Token::generate(); // generate token
 				?>
 			</div>
 		</div>
-      </div>	  
+      </div>
     </div>
 	<?php
 	// Footer
 	require('core/includes/template/footer.php');
 	$smarty->display('styles/templates/' . $template . '/footer.tpl');
-	
+
 	// Scripts
-	require('core/includes/template/scripts.php'); 
+	require('core/includes/template/scripts.php');
 	?>
 	<script src="/core/assets/js/ckeditor.js"></script>
 	<script type="text/javascript">
@@ -536,7 +552,6 @@ $token = Token::generate(); // generate token
 			// Remove the redundant buttons from toolbar groups defined above.
 			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash'
 		} );
-		CKEDITOR.config.disableNativeSpellChecker = false;
 		CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
 	</script>
     <script type="text/javascript">
