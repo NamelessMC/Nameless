@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -166,7 +166,7 @@ $timeago = new Timeago(TIMEZONE);
 					'username' => Output::getClean($user->idToNickname($comment->commenter_id)),
 					'profile' => URL::build('/profile/' . Output::getClean($user->idToName($comment->commenter_id))),
 					'style' => $user->getGroupClass($comment->commenter_id),
-					'content' => Output::getClean($comment->comment_content),
+					'content' => Output::getPurified(htmlspecialchars_decode($comment->comment_content)),
 					'date' => date('d M Y, H:i', strtotime($comment->comment_date)),
 					'date_friendly' => $timeago->inWords($comment->comment_date, $language->getTimeLanguage())
 				);
@@ -196,7 +196,7 @@ $timeago = new Timeago(TIMEZONE);
 				'REPORT_DATE_FRIENDLY' => $timeago->inWords($report->date_reported, $language->getTimeLanguage()),
 				'CONTENT_LINK' => $report->link,
 				'VIEW_CONTENT' => $language->get('moderator', 'view_content'),
-				'REPORT_CONTENT' => Output::getPurified($report->report_reason),
+				'REPORT_CONTENT' => Output::getPurified(htmlspecialchars_decode($report->report_reason)),
 				'REPORTER_USER' => Output::getClean($user->idToNickname($report->reporter_id)),
 				'REPORTER_USER_PROFILE' => URL::build('/profile/' . Output::getClean($user->idToName($report->reporter_id))),
 				'REPORTER_USER_STYLE' => $user->getGroupClass($report->reporter_id),
