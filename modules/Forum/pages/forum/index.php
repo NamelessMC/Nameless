@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -146,7 +146,15 @@ if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group 
 			if($discussions[$n]['label'] != 0){ // yes
 				// Get label
 				$label = $queries->getWhere('forums_topic_labels', array('id', '=', $discussions[$n]['label']));
-				$label = '<span class="tag tag-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
+				if(count($label)){
+					$label = $label[0];
+				
+					$label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+					if(count($label_html)){
+						$label_html = $label_html[0]->html;
+						$label = str_replace('{x}', Output::getClean($label->name), $label_html);
+					} else $label = '';
+				} else $label = '';
 			} else { // no
 				$label = '';
 			}

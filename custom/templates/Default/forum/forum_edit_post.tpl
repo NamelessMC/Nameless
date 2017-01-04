@@ -21,11 +21,14 @@
 		  <input type="text" class="form-control form-control-lg" name="title" value="{$TOPIC_TITLE}">
 		</div>
 		
-		  {if count($LABELS) < 0}
-		    {foreach from=$LABELS item=label}
-		  <input type="radio" name="topic_label" value="{$label.id}"{if $label.active} checked="checked"{/if}>
-		    {/foreach}
-		  {/if}
+		{if count($LABELS)}
+		<div class="form-group">
+		  {foreach from=$LABELS item=label}
+		  <label for="{$label.id}">{$label.html}</label>
+		  <input type="radio" name="topic_label" id="{$label.id}" value="{$label.id}"{if $label.active} checked="checked"{/if}>
+		  {/foreach}
+		</div>
+		{/if}
 		
 		{/if}
 		

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -982,7 +982,10 @@ $admin_page = 'forums';
 					  // Topic labels
 					  $topic_labels = $queries->getWhere('forums_topic_labels', array('id', '<>', 0));
 					  ?>
-					  <span class="pull-right"><a href="<?php echo URL::build('/admin/forums/', 'view=labels&action=create'); ?>" class="btn btn-primary"><?php echo $language->get('new_label'); ?></a></span>
+					  <span class="pull-right">
+					    <a href="<?php echo URL::build('/admin/forums/', 'view=labels&amp;action=types'); ?>" class="btn btn-info"><?php echo $forum_language->get('forum', 'label_types'); ?></a>
+					    <a href="<?php echo URL::build('/admin/forums/', 'view=labels&amp;action=create'); ?>" class="btn btn-primary"><?php echo $forum_language->get('forum', 'new_label'); ?></a>
+					  </span>
 					  <br /><br />
 					  <?php
 					  if(Session::exists('forum_labels')){
@@ -991,16 +994,20 @@ $admin_page = 'forums';
 					  if(count($topic_labels)){
 						?>
 					  <div class="panel panel-default">
-						<div class="panel-heading"><?php echo $language->get('labels'); ?></div>
+						<div class="panel-heading"><?php echo $forum_language->get('forum', 'labels'); ?></div>
 						<div class="panel-body">
 						<?php
 						// Display list of all labels
 						foreach($topic_labels as $topic_label){
+							// Get label type
+							$label_type = $queries->getWhere('forums_labels', array('id', '=', $topic_label->label));
+							if(!count($label_type)) continue;
+							else $label_type = $label_type[0];
 						?>
-						<h4 style="display:inline;"><span class="label label-<?php echo Output::getClean($topic_label->label); ?>"><?php echo Output::getClean($topic_label->name); ?></span></h4>
+						<?php echo str_replace('{x}', Output::getClean($topic_label->name), $label_type->html); ?>
 						<span class="pull-right">
 						  <a href="<?php echo URL::build('/admin/forums/', 'view=labels&amp;action=edit&amp;lid=' . $topic_label->id); ?>" class="btn btn-info btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-						  <a onclick="return confirm('<?php echo $language->get('confirm_deletion'); ?>');" href="<?php echo URL::build('/admin/forums/', 'view=labels&action=delete&lid=' . $topic_label->id); ?>" class="btn btn-warning btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
+						  <a onclick="return confirm('<?php echo $language->get('general', 'confirm_deletion'); ?>');" href="<?php echo URL::build('/admin/forums/', 'view=labels&amp;action=delete&amp;lid=' . $topic_label->id); ?>" class="btn btn-warning btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
 						</span>
 						<br /><br />
 						<?php
@@ -1009,7 +1016,7 @@ $admin_page = 'forums';
 						$forums_string = '';
 						foreach($enabled_forums as $item){
 							$forum_name = $queries->getWhere('forums', array('id', '=', $item));
-							if(count($forum_name)) $forums_string .= Output::getClean($forum_name[0]->forum_title) . ', '; else $forums_string .= $language->get('no_forums');
+							if(count($forum_name)) $forums_string .= Output::getClean($forum_name[0]->forum_title) . ', '; else $forums_string .= $forum_language->get('forum', 'no_forums');
 						}
 						echo rtrim($forums_string, ', ');
 						?>
@@ -1022,7 +1029,7 @@ $admin_page = 'forums';
 					  <?php
 					  } else {
 						// No labels defined yet
-						echo '<div class="alert alert-warning">' . $language->get('no_labels_defined') . '</div>'; 
+						echo '<div class="alert alert-warning">' . $forum_language->get('forum', 'no_labels_defined') . '</div>'; 
 					  }
 					} else if(isset($_GET['action']) && $_GET['action'] == 'create'){
 						// Deal with input
@@ -1039,7 +1046,7 @@ $admin_page = 'forums';
 										'min' => 1,
 										'max' => 32
 									),
-									'label_type' => array(
+									'label_id' => array(
 										'required' => true
 									)
 								));
@@ -1058,10 +1065,10 @@ $admin_page = 'forums';
 										$queries->create('forums_topic_labels', array(
 											'fids' => $forum_string,
 											'name' => htmlspecialchars(Input::get('label_name')),
-											'label' => htmlspecialchars(Input::get('label_type'))
+											'label' => Input::get('label_id')
 										));
 										
-										Session::flash('forum_labels', '<div class="alert alert-success">' . $language->get('label_creation_success') . '</div>');
+										Session::flash('forum_labels', '<div class="alert alert-success">' . $forum_language->get('forum', 'label_creation_success') . '</div>');
 										Redirect::to(URL::build('/admin/forums/', 'view=labels'));
 										die();
 									} catch(Exception $e){
@@ -1070,17 +1077,20 @@ $admin_page = 'forums';
 									
 								} else {
 									// Validation errors
-									Session::flash('new_label_error', '<div class="alert alert-danger">' . $language->get('label_creation_error') . '</div>');
+									Session::flash('new_label_error', '<div class="alert alert-danger">' . $forum_language->get('forum', 'label_creation_error') . '</div>');
 								}
 								
 							} else {
 								// Invalid token
-								Session::flash('new_label_error', '<div class="alert alert-danger">' . $language->get('invalid_token') . '</div>');
+								Session::flash('new_label_error', '<div class="alert alert-danger">' . $language->get('general', 'invalid_token') . '</div>');
 							}
 						}
+						
+						// Get a list of labels
+						$labels = $queries->getWhere('forums_labels', array('id', '<>', 0));
 						?>
 					    <br /><br />
-						<h4><?php echo $language->get('creating_label'); ?></h4>
+						<h4><?php echo $forum_language->get('forum', 'creating_label'); ?></h4>
 						<?php
 						if(Session::exists('new_label_error')){
 							echo Session::flash('new_label_error');
@@ -1088,34 +1098,31 @@ $admin_page = 'forums';
 						?>
 						<form action="" method="post">
 						  <div class="form-group">
-							<label for="label_name"><?php echo $language->get('label_name'); ?></label>
-							<input type="text" name="label_name" placeholder="<?php echo $language->get('label_name'); ?>" id="label_name" class="form-control">
+							<label for="label_name"><?php echo $forum_language->get('forum', 'label_name'); ?></label>
+							<input type="text" name="label_name" placeholder="<?php echo $forum_language->get('forum', 'label_name'); ?>" id="label_name" class="form-control">
 						  </div>
 						  <div class="form-group">
-							<label for="label_type"><?php echo $language->get('label_type'); ?></label><br />
+							<label for="label_id"><?php echo $forum_language->get('forum', 'label_type'); ?></label><br />
 							<div class="row">
-							  <div class="col-md-2">
-								<input type="radio" name="label_type" id="label_type" value="default"> <span class="label label-default"><?php echo $language->get('label'); ?></span><br />
-							  </div>
-							  <div class="col-md-2">
-								<input type="radio" name="label_type" id="label_type" value="primary"> <span class="label label-primary"><?php echo $language->get('label'); ?></span><br />
-							  </div>
-							  <div class="col-md-2">
-								<input type="radio" name="label_type" id="label_type" value="success"> <span class="label label-success"><?php echo $language->get('label'); ?></span><br />
-							  </div>
-							  <div class="col-md-2">
-								<input type="radio" name="label_type" id="label_type" value="info"> <span class="label label-info"><?php echo $language->get('label'); ?></span><br />
-							  </div>
-							  <div class="col-md-2">
-								<input type="radio" name="label_type" id="label_type" value="warning"> <span class="label label-warning"><?php echo $language->get('label'); ?></span><br />
-							  </div>
-							  <div class="col-md-2">
-								<input type="radio" name="label_type" id="label_type" value="danger"> <span class="label label-danger"><?php echo $language->get('label'); ?></span><br />
-							  </div>
+							  <?php 
+							  if(count($labels)){
+								  $n = 0;
+								  foreach($labels as $label){
+									  if($n != 0 && ($n % 6) == 0){
+										  echo '</div><div class="row">';
+									  }
+									  echo '
+									  <div class="col-md-2">
+										<input type="radio" name="label_id" id="label_id" value="' . $label->id . '"> ' . str_replace('{x}', Output::getClean($label->name), htmlspecialchars_decode($label->html)) . '</span><br />
+									  </div>';
+									  $n++;
+								  }
+							  }
+							  ?>
 							</div>
 						  </div>
 						  <div class="form-group">
-							<label for="label_forums"><?php echo $language->get('label_forums'); ?></label>
+							<label for="label_forums"><?php echo $forum_language->get('forum', 'label_forums'); ?></label>
 							<select name="label_forums[]" id="label_forums" size="5" class="form-control" multiple>
 							  <?php 
 							  $forum_list = $queries->getWhere('forums', array('parent', '<>', 0)); 
@@ -1128,8 +1135,8 @@ $admin_page = 'forums';
 							</select>
 						  </div>
 						  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-						  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('submit'); ?>">
-						  <a href="<?php echo URL::build('/admin/forums', 'view=labels'); ?>" class="btn btn-danger" onclick="return confirm('<?php echo $language->get('confirm_cancel'); ?>');"><?php echo $language->get('cancel'); ?></a>
+						  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+						  <a href="<?php echo URL::build('/admin/forums/', 'view=labels'); ?>" class="btn btn-danger" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
 						</form>
 						<?php
 					} else if(isset($_GET['action']) && $_GET['action'] == 'edit'){
@@ -1164,7 +1171,7 @@ $admin_page = 'forums';
 										'min' => 1,
 										'max' => 32
 									),
-									'label_type' => array(
+									'label_id' => array(
 										'required' => true
 									)
 								));
@@ -1183,10 +1190,10 @@ $admin_page = 'forums';
 										$queries->update('forums_topic_labels', $label->id, array(
 											'fids' => $forum_string,
 											'name' => Output::getClean(Input::get('label_name')),
-											'label' => Output::getClean(Input::get('label_type'))
+											'label' => Input::get('label_id')
 										));
 										
-										Session::flash('forum_labels', '<div class="alert alert-info">' . $language->get('label_edit_success') . '</div>');
+										Session::flash('forum_labels', '<div class="alert alert-info">' . $forum_language->get('forum', 'label_edit_success') . '</div>');
 										Redirect::to(URL::build('/admin/forums', 'view=labels'));
 										die();
 									} catch(Exception $e){
@@ -1195,17 +1202,20 @@ $admin_page = 'forums';
 									
 								} else {
 									// Validation errors
-									Session::flash('editing_label_error', '<div class="alert alert-danger">' . $language->get('label_creation_error') . '</div>');
+									Session::flash('editing_label_error', '<div class="alert alert-danger">' . $forum_language->get('forum', 'label_creation_error') . '</div>');
 								}
 								
 							} else {
 								// Invalid token
-								Session::flash('editing_label_error', '<div class="alert alert-danger">' . $language->get('invalid_token') . '</div>');
+								Session::flash('editing_label_error', '<div class="alert alert-danger">' . $language->get('general', 'invalid_token') . '</div>');
 							}
 						}
+						
+						// Get all labels
+						$labels = $queries->getWhere('forums_labels', array('id', '<>', 0));
 						?>
 						<br /><br />
-						<h4><?php echo $language->get('editing_label'); ?></h4>
+						<h4><?php echo $forum_language->get('forum', 'editing_label'); ?></h4>
 						<?php
 						if(Session::exists('editing_label_error')){
 							echo Session::flash('editing_label_error');
@@ -1213,34 +1223,31 @@ $admin_page = 'forums';
 						?>
 						  <form action="" method="post">
 							<div class="form-group">
-							  <label for="label_name"><?php echo $language->get('label_name'); ?></label>
-							  <input type="text" name="label_name" placeholder="<?php echo $language->get('label_name'); ?>" id="label_name" value="<?php echo Output::getClean($label->name); ?>" class="form-control">
+							  <label for="label_name"><?php echo $forum_language->get('forum', 'label_name'); ?></label>
+							  <input type="text" name="label_name" placeholder="<?php echo $forum_language->get('forum', 'label_name'); ?>" id="label_name" value="<?php echo Output::getClean($label->name); ?>" class="form-control">
 							</div>
 							<div class="form-group">
-							  <label for="label_type"><?php echo $language->get('label_type'); ?></label><br />
+							  <label for="label_id"><?php echo $forum_language->get('forum', 'label_type'); ?></label><br />
 							  <div class="row">
-								<div class="col-md-2">
-								  <input type="radio" name="label_type" id="label_type" value="default"<?php if($label->label == 'default'){ ?> checked<?php } ?>> <span class="label label-default"><?php echo $language->get('label'); ?></span><br />
-								</div>
-								<div class="col-md-2">
-								  <input type="radio" name="label_type" id="label_type" value="primary"<?php if($label->label == 'primary'){ ?> checked<?php } ?>> <span class="label label-primary"><?php echo $language->get('label'); ?></span><br />
-								</div>
-								<div class="col-md-2">
-								  <input type="radio" name="label_type" id="label_type" value="success"<?php if($label->label == 'success'){ ?> checked<?php } ?>> <span class="label label-success"><?php echo $language->get('label'); ?></span><br />
-								</div>
-								<div class="col-md-2">
-								  <input type="radio" name="label_type" id="label_type" value="info"<?php if($label->label == 'info'){ ?> checked<?php } ?>> <span class="label label-info"><?php echo $language->get('label'); ?></span><br />
-								</div>
-								<div class="col-md-2">
-								  <input type="radio" name="label_type" id="label_type" value="warning"<?php if($label->label == 'warning'){ ?> checked<?php } ?>> <span class="label label-warning"><?php echo $language->get('label'); ?></span><br />
-								</div>
-								<div class="col-md-2">
-								  <input type="radio" name="label_type" id="label_type" value="danger"<?php if($label->label == 'danger'){ ?> checked<?php } ?>> <span class="label label-danger"><?php echo $language->get('label'); ?></span><br />
-								</div>
+							    <?php 
+							    if(count($labels)){
+								  $n = 0;
+								  foreach($labels as $item){
+									  if($n != 0 && ($n % 6) == 0){
+										  echo '</div><div class="row">';
+									  }
+									  echo '
+									  <div class="col-md-2">
+										<input type="radio" name="label_id" id="label_id" value="' . $item->id . '"' . ($label->label == $item->id ? ' checked' : '') . '> ' . str_replace('{x}', Output::getClean($item->name), htmlspecialchars_decode($item->html)) . '</span><br />
+									  </div>';
+									  $n++;
+								  }
+							    }
+							    ?>
 							  </div>
 							</div>
 							<div class="form-group">
-							  <label for="label_forums"><?php echo $language->get('label_forums'); ?></label>
+							  <label for="label_forums"><?php echo $forum_language->get('forum', 'label_forums'); ?></label>
 							  <select name="label_forums[]" id="label_forums" size="5" class="form-control" multiple>
 								<?php 
 								// Get a list of forums in which the label is enabled
@@ -1257,8 +1264,8 @@ $admin_page = 'forums';
 							  </select>
 							</div>
 							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-							<input type="submit" class="btn btn-primary" value="<?php echo $language->get('submit'); ?>">
-							<a class="btn btn-danger" href="<?php echo URL::build('/admin/forums/', 'view=labels'); ?>" onclick="return confirm('<?php echo $language->get('confirm_cancel'); ?>');"><?php echo $language->get('cancel'); ?></a>
+							<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+							<a class="btn btn-danger" href="<?php echo URL::build('/admin/forums/', 'view=labels'); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
 						  </form>
 						<?php
 					} else if(isset($_GET['action']) && $_GET['action'] == 'delete'){
@@ -1272,6 +1279,214 @@ $admin_page = 'forums';
 							// Delete the label
 							$queries->delete('forums_topic_labels', array('id', '=', $_GET['lid']));
 							Redirect::to(URL::build('/admin/forums/', 'view=labels'));
+							die();
+						} catch(Exception $e){
+							die($e->getMessage());
+						}
+					} else if(isset($_GET['action']) && $_GET['action'] == 'types'){
+						// List label types
+						$labels = $queries->getWhere('forums_labels', array('id', '<>', 0));
+						?>
+						<span class="pull-right">
+						  <a href="<?php echo URL::build('/admin/forums/', 'view=labels'); ?>" class="btn btn-info"><?php echo $forum_language->get('forum', 'labels'); ?></a>
+						  <a href="<?php echo URL::build('/admin/forums/', 'view=labels&amp;action=create_type'); ?>" class="btn btn-primary"><?php echo $forum_language->get('forum', 'new_label_type'); ?></a>
+						</span>
+						<br /><br />
+					  <?php
+					  if(Session::exists('forum_label_types')){
+						echo Session::flash('forum_label_types');
+					  }
+					  if(count($labels)){
+						?>
+					  <div class="panel panel-default">
+						<div class="panel-heading"><?php echo $forum_language->get('forum', 'label_types'); ?></div>
+						<div class="panel-body">
+						<?php
+						// Display list of all labels
+						foreach($labels as $label){
+						?>
+						<?php echo str_replace('{x}', Output::getClean($label->name), $label->html); ?>
+						<span class="pull-right">
+						  <a href="<?php echo URL::build('/admin/forums/', 'view=labels&amp;action=edit_label&amp;lid=' . $label->id); ?>" class="btn btn-info btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+						  <a onclick="return confirm('<?php echo $language->get('general', 'confirm_deletion'); ?>');" href="<?php echo URL::build('/admin/forums/', 'view=labels&amp;action=delete_label&amp;lid=' . $label->id); ?>" class="btn btn-warning btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
+						</span>
+						<hr />
+						<?php
+						}
+					    ?>
+						</div>
+					  </div>
+					  <?php
+					  } else {
+						  // No labels
+						  echo '<div class="alert alert-warning">' . $forum_language->get('forum', 'no_label_types_defined') . '</div>';
+					  }
+					} else if(isset($_GET['action']) && $_GET['action'] == 'create_type'){
+						// Creating a label type
+						// Deal with input
+						if(Input::exists()){
+							// Check token
+							if(Token::check(Input::get('token'))){
+								// Valid token
+								// Validate input
+								$validate = new Validate();
+								
+								$validation = $validate->check($_POST, array(
+									'label_name' => array(
+										'required' => true,
+										'min' => 1,
+										'max' => 32
+									),
+									'label_html' => array(
+										'required' => true,
+										'min' => 1,
+										'max' => 64
+									)
+								));
+								
+								if($validation->passed()){
+									try {
+										$queries->create('forums_labels', array(
+											'name' => Output::getClean(Input::get('label_name')),
+											'html' => Input::get('label_html')
+										));
+										
+										Session::flash('forum_label_types', '<div class="alert alert-success">' . $forum_language->get('forum', 'label_type_creation_success') . '</div>');
+										Redirect::to(URL::build('/admin/forums/', 'view=labels&action=types'));
+										die();
+									} catch(Exception $e){
+										die($e->getMessage());
+									}
+									
+								} else {
+									// Validation errors
+									Session::flash('new_label_type_error', '<div class="alert alert-danger">' . $forum_language->get('forum', 'label_type_creation_error') . '</div>');
+								}
+								
+							} else {
+								// Invalid token
+								Session::flash('new_label_type_error', '<div class="alert alert-danger">' . $language->get('general', 'invalid_token') . '</div>');
+							}
+						}
+						?>
+						<br /><br />
+						<h4><?php echo $forum_language->get('forum', 'creating_label_type'); ?></h4>
+						
+						<?php
+						if(Session::exists('new_label_type_error')){
+							echo Session::flash('new_label_type_error');
+						}
+						?>
+						<form action="" method="post">
+						  <div class="form-group">
+							<label for="label_type_name"><?php echo $forum_language->get('forum', 'label_type_name'); ?></label>
+							<input type="text" name="label_name" placeholder="Primary" id="label_type_name" class="form-control">
+						  </div>
+						  <div class="form-group">
+							<label for="label_html"><?php echo $forum_language->get('forum', 'label_type_html'); ?></label> <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $forum_language->get('forum', 'label_type_html_help'); ?>"></i></span><br />
+							<input type="text" name="label_html" placeholder="<span class=&quot;tag tag-primary&quot;>{x}</span>" id="label_type_html" class="form-control">
+						  </div>
+						  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+						  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+						  <a href="<?php echo URL::build('/admin/forums/', 'view=labels&amp;action=types'); ?>" class="btn btn-danger" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
+						</form>
+						
+						<?php
+					} else if(isset($_GET['action']) && $_GET['action'] == 'edit_label'){
+						// Editing a label type
+						if(!isset($_GET['lid']) || !is_numeric($_GET['lid'])){
+							Redirect::to(URL::build('/admin/forums/', 'view=labels&action=types'));
+							die();
+						}
+						
+						// Does the label exist?
+						$label = $queries->getWhere('forums_labels', array('id', '=', $_GET['lid']));
+						if(!count($label)){
+							// No, it doesn't exist
+							Redirect::to(URL::build('/admin/forums/', 'view=labels&action=types'));
+							die();
+						} else {
+							$label = $label[0];
+						}
+						
+						// Deal with input
+						if(Input::exists()){
+							// Check token
+							if(Token::check(Input::get('token'))){
+								// Valid token
+								// Validate input
+								$validate = new Validate();
+								
+								$validation = $validate->check($_POST, array(
+									'label_name' => array(
+										'required' => true,
+										'min' => 1,
+										'max' => 32
+									),
+									'label_html' => array(
+										'required' => true,
+										'min' => 1,
+										'max' => 64
+									)
+								));
+								
+								if($validation->passed()){
+									try {
+										$queries->update('forums_labels', $label->id, array(
+											'name' => Output::getClean(Input::get('label_name')),
+											'html' => htmlspecialchars_decode(Input::get('label_html'))
+										));
+										
+										Session::flash('forum_label_types', '<div class="alert alert-info">' . $forum_language->get('forum', 'label_type_edit_success') . '</div>');
+										Redirect::to(URL::build('/admin/forums', 'view=labels&action=types'));
+										die();
+									} catch(Exception $e){
+										die($e->getMessage());
+									}
+									
+								} else {
+									// Validation errors
+									Session::flash('editing_label_type_error', '<div class="alert alert-danger">' . $forum_language->get('forum', 'label_type_creation_error') . '</div>');
+								}
+								
+							} else {
+								// Invalid token
+								Session::flash('editing_label_type_error', '<div class="alert alert-danger">' . $language->get('general', 'invalid_token') . '</div>');
+							}
+						}
+						?>
+						<br /><br />
+						<h4><?php echo $forum_language->get('forum', 'editing_label_type'); ?></h4>
+						<?php
+						if(Session::exists('editing_label_type_error')){
+							echo Session::flash('editing_label_type_error');
+						}
+						?>
+						  <form action="" method="post">
+							<div class="form-group">
+							  <label for="label_name"><?php echo $forum_language->get('forum', 'label_type_name'); ?></label>
+							  <input type="text" name="label_name" placeholder="Primary" id="label_name" value="<?php echo Output::getClean($label->name); ?>" class="form-control">
+							</div>
+							<div class="form-group">
+							  <label for="label_html"><?php echo $forum_language->get('forum', 'label_type_html'); ?></label> <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $forum_language->get('forum', 'label_type_html_help'); ?>"></i></span><br />
+							  <input type="text" name="label_html" placeholder="<span class=&quot;tag tag-primary&quot;>Primary</span>" id="label_html" value="<?php echo Output::getClean($label->html); ?>" class="form-control">
+							</div>
+							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+							<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+							<a class="btn btn-danger" href="<?php echo URL::build('/admin/forums/', 'view=labels'); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
+						  </form>
+						<?php
+					} else if(isset($_GET['action']) && $_GET['action'] == 'delete_label'){
+						// Label deletion
+						if(!isset($_GET['lid']) || !is_numeric($_GET['lid'])){
+							// Check the label ID is valid
+							Redirect::to(URL::build('/admin/forums/', 'view=labels&action=types'));
+							die();
+						}
+						try {
+							// Delete the label
+							$queries->delete('forums_labels', array('id', '=', $_GET['lid']));
+							Redirect::to(URL::build('/admin/forums/', 'view=labels&action=types'));
 							die();
 						} catch(Exception $e){
 							die($e->getMessage());

@@ -85,7 +85,7 @@
 			{foreach from=$LATEST_DISCUSSIONS item=discussion}
 			<tr>
 			  <td>
-				{if $discussion.locked == 1}<i class="fa fa-lock"></i> {/if}<h4 style="display:inline;">{$discussion.label}</h4> <a href="{$discussion.link}">{$discussion.topic_title}</a><br />
+				{if $discussion.locked == 1}<i class="fa fa-lock"></i> {/if}{$discussion.label} <a href="{$discussion.link}">{$discussion.topic_title}</a><br />
 				<small><span data-toggle="tooltip" data-trigger="hover" data-original-title="{$discussion.topic_created}">{$discussion.topic_created_rough}</span> {$BY} <a style="{$discussion.topic_created_style}" href="{$discussion.author_link}">{$discussion.topic_created_username}</a></small>
 			  </td>
 			  <td>

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -82,6 +82,7 @@ $language = array(
 	'topic_unstuck' => 'Thema wurde abgeheftet.',
 	'spam_wait' => 'Bitte warte {x} Sekunden bis du wieder Beiträge erstellen kannst.',
 	'overview' => 'Overview',
+	'no_label' => 'No label',
 	
 	// Homepage
 	'latest_announcements' => 'Neueste Ankündigungen',
@@ -91,17 +92,28 @@ $language = array(
 	'labels' => 'Labels', //Means 'Etiketten' but Labels is in Germany the same word
 	'new_forum' => '<i class="fa fa-plus-circle"></i> Neues Forum',
 	'new_label' => '<i class="fa fa-plus-circle"></i> Neues Label',
+	'new_label_type' => '<i class="fa fa-plus-circle"></i> New Label Type',
+	'label_types' => 'Label Types',
 	'creating_label' => 'Erstelle neues Label',
+	'creating_label_type' => 'Creating new label type',
 	'editing_label' => 'Editiere Label',
+	'editing_label_type' => 'Editing label type',
 	'label_name' => 'Label Name',
 	'label_type' => 'Label Typ',
+	'label_type_name' => 'Label Type Name',
+	'label_type_html' => 'Label Type HTML',
+	'label_type_html_help' => 'The HTML must include {x} as a placeholder for the label name',
 	'label' => 'Label',
 	'label_forums' => 'Label Foren',
 	'no_forums' => 'Keine Foren',
 	'no_labels_defined' => 'Es wurde bis her keine Labels definiert.',
+	'no_label_types_defined' => 'No label types have been defined yet.',
 	'label_edit_success' => 'Label erfolgreich editiert.',
+	'label_type_edit_success' => 'Label successfully edited.',
 	'label_creation_success' => 'Label erfolgreich erstellt.',
+	'label_type_creation_success' => 'Label type created successfully.',
 	'label_creation_error' => 'Fehler beim erstellen des Labels',
+	'label_type_creation_error' => 'Error creating a label type. Please ensure the name is no longer than 32 characters and that the HTML is no longer than 64 characters.',
 	'creating_forum' => 'Erstelle neues Forum',
 	'forum_name' => 'Forum Name',
 	'forum_description' => 'Forum Beschreibung',

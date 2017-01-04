@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -87,7 +87,7 @@ if(Input::exists()) {
 			));
 			if($validation->passed()){
 				try {
-					if(isset($_POST['topic_label']) && !empty($_POST['topic_label']))
+					if(isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_numeric($_POST['topic_label']))
 						$label = Input::get('topic_label');
 					else $label = null;
 					
@@ -220,26 +220,39 @@ $token = Token::generate();
 	$creating_topic_in = str_replace('{x}', Output::getPurified(htmlspecialchars_decode($forum->getForumTitle($fid))), $forum_language->get('forum', 'creating_topic_in_x'));
 	$smarty->assign('CREATING_TOPIC_IN', $creating_topic_in);
 	
-	// Get labels available
-	$labels = '<h4 style="display:inline;">';
-	$labels_query = $queries->getWhere('forums_topic_labels', array('id', '<>', 0));
+	// Topic labels
+	$smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
+	$labels = array();
 	
-	$available_label_ids = array();
-	
-	foreach($labels_query as $label){
-		$forum_ids = explode(',', $label->fids);
-		if(in_array($fid, $forum_ids)){
-			$available_label_ids[] = $label->id;
+	$forum_labels = $queries->getWhere('forums_topic_labels', array('id', '<>', 0));
+	if(count($forum_labels)){
+		$labels[] = array(
+			'id' => 0,
+			'html' => $forum_language->get('forum', 'no_label')
+		);
+		
+		foreach($forum_labels as $label){
+			$forum_ids = explode(',', $label->fids);
+			
+			if(in_array($fid, $forum_ids)){
+				// Check permissions
+				// TODO
+				
+				// Get label HTML
+				$label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+				if(!count($label_html)) continue;
+				else $label_html = str_replace('{x}', Output::getClean($label->name), $label_html[0]->html);
+				
+				$labels[] = array(
+					'id' => $label->id,
+					'html' => $label_html
+				);
+			}
 		}
 	}
 	
-	foreach($available_label_ids as $label){
-		$query = $queries->getWhere('forums_topic_labels', array('id', '=', $label));
-		$labels .= '<input type="radio" name="topic_label" value="' . $query[0]->id . '"> <span class="tag tag-' . Output::getClean($query[0]->label) . '">' . Output::getClean($query[0]->name) . '</span>&nbsp;&nbsp;';
-	}
-	
-	$labels .= '</h4>';
-	
+	// Smarty variables
+	$smarty->assign('LABELS', $labels);
 	$smarty->assign('TOPIC_TITLE', $forum_language->get('forum', 'topic_title'));
 	$smarty->assign('LABEL', $forum_language->get('forum', 'label'));
 	$smarty->assign('SUBMIT', $language->get('general', 'submit'));

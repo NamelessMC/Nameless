@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -287,7 +287,15 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			if($sticky->label != 0){ // yes
 				// Get label
 				$label = $queries->getWhere('forums_topic_labels', array('id', '=', $sticky->label));
-				$label = '<span class="tag tag-' . Output::getClean($label[0]->label) . '">' . Output::getClean($label[0]->name) . '</span>';
+				if(count($label)){
+					$label = $label[0];
+				
+					$label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+					if(count($label_html)){
+						$label_html = $label_html[0]->html;
+						$label = str_replace('{x}', Output::getClean($label->name), $label_html);
+					} else $label = '';
+				} else $label = '';
 			} else { // no
 				$label = '';
 			}
@@ -350,12 +358,20 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			
 			// Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
 			$last_reply_avatar = $user->getAvatar($topics[$n]->topic_last_user, "../", 30);
-			
+
 			// Is there a label?
 			if($topics[$n]->label != 0){ // yes
 				// Get label
 				$label = $queries->getWhere('forums_topic_labels', array('id', '=', $topics[$n]->label));
-				$label = '<span class="label label-' . Output::getClean($label[0]->label) . '">' . Output::getClean($label[0]->name) . '</span>';
+				if(count($label)){
+					$label = $label[0];
+				
+					$label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+					if(count($label_html)){
+						$label_html = $label_html[0]->html;
+						$label = str_replace('{x}', Output::getClean($label->name), $label_html);
+					} else $label = '';
+				} else $label = '';
 			} else { // no
 				$label = '';
 			}

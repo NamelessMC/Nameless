@@ -18,6 +18,16 @@
 		<div class="form-group">
 		  <input type="text" class="form-control form-control-lg" name="title" placeholder="{$TOPIC_TITLE}" maxlength="64">
 		</div>
+		
+		{if count($LABELS)}
+		<div class="form-group">
+		  {foreach from=$LABELS item=label}
+		  <label for="{$label.id}">{$label.html}</label>
+		  <input type="radio" name="topic_label" id="{$label.id}" value="{$label.id}">
+		  {/foreach}
+		</div>
+		{/if}
+		
 		{if !isset($MARKDOWN)}
 		<div class="form-group">
 		  <textarea style="width:100%" name="content" id="reply" rows="15">{$CONTENT}</textarea>
