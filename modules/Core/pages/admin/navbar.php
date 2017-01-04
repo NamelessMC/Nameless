@@ -18,7 +18,7 @@
       <a class="navbar-brand" href="<?php echo URL::build('/admin'); ?>"><?php echo $language->get('admin', 'admin_cp'); ?></a>
       <ul class="nav navbar-nav">
       </ul>
-	  <ul class="nav navbar-nav pull-xs-right">
+	  <ul class="nav navbar-nav float-xs-right">
         <li class="nav-item">
           <a class="nav-link" href="<?php echo URL::build('/'); ?>" target="_blank"><?php echo $language->get('admin', 'view_site'); ?></a>
         </li>
