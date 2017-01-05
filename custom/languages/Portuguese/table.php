@@ -6,9 +6,9 @@
  *
  *  License: MIT
  *
- *  Portuguese Language - Admin
+ *  Portuguese Language - Table
  *  Translation By Douglas Teles
- *  Last Update: 04/01/2017
+ *  Last Update: 05/01/2017
  */
 $language = array(
 	/*
