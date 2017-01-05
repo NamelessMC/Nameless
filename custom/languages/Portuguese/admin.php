@@ -8,7 +8,7 @@
  *
  *  Portuguese Language - Admin
  *  Translation By Douglas Teles
- *  Last Update: 04/01/2017
+ *  Last Update: 05/01/2017
  */
 $language = array(
 	/*
