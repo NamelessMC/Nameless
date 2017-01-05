@@ -16,13 +16,13 @@
 	<script src="public/js/base-script.js"></script>
 	<!-- CUSTOM THEMES HERE!!! -->
 		<!-- For Development -->
-		<link rel="stylesheet" href="res/themes/Yeti/css/bootstrap.min.css?version=2" title="Yeti">
-		<link rel="stylesheet" href="res/themes/Yeti/css/custom.css?version=2" title="Yeti">
-		<link rel="stylesheet" href="res/themes/Yeti/css/font-awesome.min.css?version=2" title="Yeti">
+		<link rel="stylesheet" href="res/themes/Yeti/css/bootstrap.min.css" title="Yeti">
+		<link rel="stylesheet" href="res/themes/Yeti/css/custom.css" title="Yeti">
+		<link rel="stylesheet" href="res/themes/Yeti/css/font-awesome.min.css" title="Yeti">
 		<!-- Live CSS -->
-		<link rel="stylesheet" href="/styles/themes/Yeti/css/bootstrap.min.css?version=2" title="Yeti">
-		<link rel="stylesheet" href="/styles/themes/Yeti/css/custom.css?version=2" title="Yeti">
-		<link rel="stylesheet" href="/styles/themes/Yeti/css/font-awesome.min.css?version=2" title="Yeti">
+		<link rel="stylesheet" href="/styles/themes/Yeti/css/bootstrap.min.css" title="Yeti">
+		<link rel="stylesheet" href="/styles/themes/Yeti/css/custom.css" title="Yeti">
+		<link rel="stylesheet" href="/styles/themes/Yeti/css/font-awesome.min.css" title="Yeti">
 	<!-- END CUSTOM THEMES -->
 	<link rel="stylesheet" href="public/styles/custom.css">
 </head>
