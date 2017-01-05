@@ -6,7 +6,9 @@
  *
  *  License: MIT
  *
- *  EnglishUS Language - Moderator terms
+ *  Portuguese Language - Moderator terms
+ *  Translation By Douglas Teles
+ *  Last Update: 05/01/2017
  */
 $language = array(
 	'mod_cp' => 'ModCP',
