@@ -8,7 +8,7 @@
  *
  *  Portuguese Language - Language version
  *  Translation By Douglas Teles
- *  Last Update: 04/01/2017
+ *  Last Update: 05/01/2017
  */
 // Which version of NamelessMC is this language file updated to?
 $language_version = '2.0.0-pr1';
