@@ -4,7 +4,7 @@
  *  http://www.sanderjochems.nl
  *
  *  Updated by jesseke55/Headhunterz_
- *  http://headhunterz.pw
+ *  http://jessegeerts.nl
  *
  *  Updated and removed syntax error by melerpe
  *
@@ -365,10 +365,10 @@ $admin_language = array(
 	'installation_up_to_date' => 'Je installatie is up to date',
 	'update_check_error' => 'Helaas konden we niet controleren of er updates zijn. Probeer het later nog eens.',
 	'new_update_available' => 'Er is een update beschikbaar.',
-	'your_version' => 'Jouw versie:',
-	'new_version' => 'Nieuwe versie:',
+	'your_version' => 'Je huidige versie:',
+	'new_version' => 'Recentste versie:',
 	'download' => 'Download',
-	'update_warning' => 'Waarschuwing: Verzeker jezelf van dat je de zip hebt gedownload en de bestanden die daarin zitten hebt geupload voordat je de update start!'
+	'update_warning' => 'Waarschuwing: Kijk even dubbel of je de zip hebt gedownload en de bestanden daarvan hebt geupload, voordat je de update start!'
 );
  
 /*
@@ -397,8 +397,8 @@ $user_language = array(
     // Registration
     'create_an_account' => 'Maak een Account',
     'authme_password' => 'AuthMe Wachtwoord',
-    'username' => 'Username',
-    'minecraft_username' => 'Minecraft Username',
+    'username' => 'Gebruikersnaam',
+    'minecraft_username' => 'Minecraft Gebruikersnaam',
     'email' => 'E-mail',
     'email_address' => 'Email Adres',
 	'date_of_birth' => 'Geboortedatum',
@@ -407,7 +407,7 @@ $user_language = array(
     'password' => 'Wachtwoord',
     'confirm_password' => 'Bevestig Wachtwoord',
     'i_agree' => 'Ik Accepteer',
-    'agree_t_and_c' => 'Als u op <strong class="label label-primary">Registreer</strong> klikt, dan bent u het eens met de <a href="#" data-toggle="modal" data-target="#t_and_c_m">Algemene Voorwaarden</a>.',
+    'agree_t_and_c' => 'Als u op <strong class="label label-primary">Registreer</strong> klikt, dan bent u akkoord om de <a href="#" data-toggle="modal" data-target="#t_and_c_m">Algemene Voorwaarden</a>.',
     'register' => 'Registreer',
     'sign_in' => 'Inloggen',
     'sign_out' => 'Uitloggen',
@@ -601,7 +601,7 @@ $mod_language = array(
     'warn' => 'Waarschuwen',
     'search_for_a_user' => 'Zoek een speler',
     'user' => 'Gebruiker:',
-    'ip_lookup' => 'IP Lookup:',
+    'ip_lookup' => 'IP Opzoeken:',
     'registered' => 'Geregistreerd',
     'reason' => 'Reden:',
 	'cant_ban_root_user' => 'Je kan de administrator niet straffen!',
@@ -750,8 +750,8 @@ $forum_language = array(
      
     // Sticky threads
     'thread_is_' => 'Topic is ',
-    'now_sticky' => 'nu een sticky topic',
-    'no_longer_sticky' => 'niet langer een sticky topic',
+    'now_sticky' => 'Is nu een plakkerige topic',
+    'no_longer_sticky' => 'Is niet langer meer een plakkerige topic',
      
     // Create topic
     'topic_created' => 'Topic Gemaakt.',
