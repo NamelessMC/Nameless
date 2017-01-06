@@ -11,7 +11,7 @@
 		</h2>
 	  </div>
 	  <div class="col-md-4">
-		<div class="pull-xs-right">
+		<div class="float-xs-right">
 		  {nocache}
 		  {if isset($LOGGED_IN)}
 		    {if !isset($SELF)}
@@ -78,7 +78,7 @@
 
 			<article class="panel panel-primary">
 			  <div class="panel-heading icon">
-				<img class="img-circle" style="height:40px; width=40px;" src="{$post.avatar}" />
+				<img class="rounded-circle" style="height:40px; width=40px;" src="{$post.avatar}" />
 			  </div>
 
 			  <div class="panel-heading">
