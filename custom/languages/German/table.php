@@ -9,6 +9,14 @@
  *  German Language - Table
  */
 
+/*
+ *
+ * Translation by BukkitTNT
+ * http://BukkitTNT.de
+ * http://Twitter.com/BukkitTNT
+ *
+ */
+
 $language = array(
 	/*
 	 *  Tables

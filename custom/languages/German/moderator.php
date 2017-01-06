@@ -9,6 +9,15 @@
  *  German Language - Moderator terms
  */
 
+
+/*
+ *
+ * Translation by BukkitTNT
+ * http://BukkitTNT.de
+ * http://Twitter.com/BukkitTNT
+ *
+ */
+
 $language = array(
 	'mod_cp' => 'ModCP',
 	'overview' => 'Überblick',

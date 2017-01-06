@@ -9,6 +9,15 @@
  *  German Language - Admin
  */
 
+
+/*
+ *
+ * Translation by BukkitTNT
+ * http://BukkitTNT.de
+ * http://Twitter.com/BukkitTNT
+ *
+ */
+
 $language = array(
 	/*
 	 *  Admin Control Panel
@@ -41,7 +50,7 @@ $language = array(
 	'installed_languages' => 'Es wurden alle neuen Sprachen erfolgreich installiert.',
 	'registration' => 'Registration',
 	'enable_registration' => 'Registrierung aktivieren?',
-	'verify_with_mcassoc' => 'Sollen sich Nutzer mit MCAssoc verifizieren?',
+	'verify_with_mcassoc' => 'Sollen sich Nutzer mit "MCAssoc" verifizieren können?',
 	'email_verification' => 'Email Verifikation aktivieren?',
 	'homepage_type' => 'Seiten Typ',
 	'post_formatting_type' => 'Post Format Typ',
@@ -53,42 +62,42 @@ $language = array(
 	'social_media' => 'Soziale Medien',
 	'youtube_url' => 'Youtube URL',
 	'twitter_url' => 'Twitter URL',
-	'twitter_dark_theme' => 'Benutze Dunkles Twitter Theme?',
+	'twitter_dark_theme' => 'Benutze dunkles Twitter Theme?',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Erfolgreich geupdatet.',
 	
 	// Reactions
 	'icon' => 'Icon',
-	'type' => 'Type',
-	'positive' => 'Positive',
+	'type' => 'Typ',
+	'positive' => 'Positiv',
 	'neutral' => 'Neutral',
-	'negative' => 'Negative',
-	'editing_reaction' => 'Editing Reaction',
+	'negative' => 'Negativ',
+	'editing_reaction' => 'Editiere Reaktion',
 	'html' => 'HTML',
-	'new_reaction' => '<i class="fa fa-plus-circle"></i> New Reaction',
-	'creating_reaction' => 'Creating Reaction',
+	'new_reaction' => '<i class="fa fa-plus-circle"></i> Neue Reaktion',
+	'creating_reaction' => 'Ertselle Reaktion',
 	
 	// Custom profile fields
-	'custom_fields' => 'Custom Profile Fields',
-	'new_field' => '<i class="fa fa-plus-circle"></i> New Field',
-	'required' => 'Required',
-	'public' => 'Public',
+	'custom_fields' => 'Eigene Profilfelder',
+	'new_field' => '<i class="fa fa-plus-circle"></i> Neues Feld',
+	'required' => 'Benötigt',
+	'public' => 'Öffentlich',
 	'text' => 'Text',
-	'textarea' => 'Text area',
+	'textarea' => 'Textbereich',
 	'date' => 'Date',
-	'creating_profile_field' => 'Creating Profile Field',
-	'editing_profile_field' => 'Editing Profile Field',
-	'field_name' => 'Field Name',
-	'profile_field_required_help' => 'Required fields must be filled out by the user, and they will appear during registration.',
-	'profile_field_public_help' => 'Public fields will be displayed to all users, if this is disabled only moderators can view the values.',
-	'profile_field_error' => 'Please input a field name between 2 and 16 characters long.',
-	'description' => 'Description',
-	'display_field_on_forum' => 'Display field on forum?',
-	'profile_field_forum_help' => 'If enabled, the field will display by the user next to forum posts.',
+	'creating_profile_field' => 'Erstelle Profilfeld',
+	'editing_profile_field' => 'Bearbeite Profilfeld',
+	'field_name' => 'Feld Name',
+	'profile_field_required_help' => 'Felder welche als "Benötigt" gekennzeichnet werden, müssen ausgefüllt werden.',
+	'profile_field_public_help' => 'Öffentliche Felder können von allen Nutzern eingesehen werden.',
+	'profile_field_error' => 'Der Name des Feldes muss zwischen 2 & 16 Zeichen lang sein.',
+	'description' => 'Beschreibung',
+	'display_field_on_forum' => 'Feld im Forum anzeigen?',
+	'profile_field_forum_help' => 'Ist diese Funktion aktiv, wird das Feld unter dem Namen im Forum angezeigt.',
 	
 	// Minecraft
-	'enable_minecraft_integration' => 'Enable Minecraft integration?',
+	'enable_minecraft_integration' => 'Minecraft Integration?',
 	
 	// Modules
 	'modules_installed_successfully' => 'Alle neuen Module wurden erfolgreich installiert.',
@@ -99,7 +108,7 @@ $language = array(
 	
 	// Styles
 	'templates' => 'Templates',
-	'template_outdated' => 'Das Template ist nicht für diese NamelessMC Version',
+	'template_outdated' => 'Dieses Template ist nicht für die aktuell installierte NamelessMC Version',
 	'active' => 'Aktivi',
 	'deactivate' => 'Deaktivieren',
 	'activate' => 'Aktivieren',

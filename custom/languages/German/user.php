@@ -9,6 +9,13 @@
  *  German Language - Users
  */
 
+/*
+ *
+ * Translation by BukkitTNT
+ * http://BukkitTNT.de
+ * http://Twitter.com/BukkitTNT
+ *
+ */
 $language = array(
 	/*
 	 *  User Related
