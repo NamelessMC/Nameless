@@ -26,7 +26,11 @@
 
 <br />
 
-{$GLOBAL_MESSAGES}
+{if isset($GLOBAL_MESSAGES) && !empty($GLOBAL_MESSAGES)}
+<div class="container">
+  {$GLOBAL_MESSAGES}
+</div>
+{/if}
 
 {if isset($ANNOUNCEMENTS) && !empty($ANNOUNCEMENTS)}
   <div class="container">
