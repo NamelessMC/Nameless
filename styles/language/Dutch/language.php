@@ -3,7 +3,7 @@
  *  Made by Sander Jochems
  *  http://www.sanderjochems.nl
  *
- *  Updated by jesseke55/Headhunterz_
+ *  Updated by jesseke55/Headhunterz_/jessegeerts
  *  http://jessegeerts.nl
  *
  *  Updated and removed syntax error by melerpe
@@ -456,7 +456,7 @@ $user_language = array(
 
     // UserCP
     'user_cp' => 'UserCP',
-    'no_file_chosen' => 'Geen bestand gekozen',
+    'no_file_chosen' => 'Er is geen bestand gekozen',
     'private_messages' => 'Prive berichten',
     'profile_settings' => 'Profiel Instellingen',
     'your_profile' => 'Mijn Profiel',
@@ -464,7 +464,7 @@ $user_language = array(
     'posts' => 'Posts',
     'reputation' => 'Reputatie',
     'friends' => 'Vrienden',
-    'alerts' => 'Alerts',
+    'alerts' => 'Meldingen',
      
     // Messaging
     'new_message' => 'Nieuwe Berichten',
@@ -482,7 +482,7 @@ $user_language = array(
     // Profile settings
     'display_name' => 'Weergavenaam',
     'upload_an_avatar' => 'Upload een avatar (alleen .jpg, .png of .gif):',
-    'use_gravatar' => 'Gebruik Gravatar?',
+    'use_gravatar' => 'Wil je gebruik maken van Gravatar? (Aanvinken is inschakelen)',
     'change_password' => 'Verander wachtwoord',
     'current_password' => 'Huidig wachtwoord',
     'new_password' => 'Nieuw wachtwoord',
@@ -517,9 +517,9 @@ $user_language = array(
     'when' => 'Wanneer',
     'delete' => 'Verwijder',
     'tag' => 'Gebruiker Tag',
-    'tagged_in_post' => 'U bent getagd in een post',
+    'tagged_in_post' => 'Je bent getagd in een post',
     'report' => 'Rapporteer',
-    'deleted_alert' => 'Alert succesvol verwijderd',
+    'deleted_alert' => 'Melding is succesvol verwijderd',
      
     // Warnings
     'you_have_received_a_warning' => 'U heeft een waarschuwing van {x} op {y} ontvangen.', // Don't replace "{x}" or "{y}"
@@ -574,12 +574,12 @@ $user_language = array(
 	'name_history' => 'Naamgeschiedenis',
 	'changed_name_to' => 'Veranderd naar: {x} op {y}', // Don't replace {x} or {y}
 	'original_name' => 'Originele name:',
-	'name_history_error' => 'Kan geen naam historie opvragen.',
+	'name_history_error' => 'Het systeem kan geen naamverandering geschiedenis vinden.',
 
     // Staff applications
-    'staff_application' => 'Staff Aanvraag',
-    'application_submitted' => 'Aanvraag succesvol ingediend.',
-    'application_already_submitted' => 'U heeft al een aanvraag ingediend. U moet wachten totdat hij beantwoord is voordat u een andere kan maken.',
+    'staff_application' => 'Solliciteren voor staff',
+    'application_submitted' => 'Sollicitatie is verzonden.',
+    'application_already_submitted' => 'Je hebt al een sollicitatie verzonden. Je moet wachten tot er antwoord is op je sollicitatie voordat je een nieuwe kunt aanmaken.',
     'not_logged_in' => 'U moet inloggen om deze pagina te bekijken.',
     'application_accepted' => 'Uw staff aanvraag is geaccepteerd, gefeliciteerd!',
     'application_rejected' => 'Uw staff aanvraag is afgewezen.'
@@ -593,7 +593,7 @@ $mod_language = array(
     'overview' => 'Overzicht',
     'reports' => 'Reports',
     'punishments' => 'Straffen',
-    'staff_applications' => 'Staff Aanvragen',
+    'staff_applications' => 'Solliciteren voor staff',
      
     // Punishments
     'ban' => 'Ban',
@@ -622,7 +622,7 @@ $mod_language = array(
     'type' => 'Type',
     'updated_by' => 'Bijgewerkt Door',
     'forum_post' => 'Forum Post',
-    'user_profile' => 'Speler Profiel',
+    'user_profile' => 'Gebruikers Profiel',
     'comment_added' => 'Comment added.',
     'new_report_submitted_alert' => 'Nieuw report ingediend door {x} over {y}', // Don't replace "{x}" or "{y}"
 	'ingame_report' => 'Ingame Report',
@@ -784,8 +784,8 @@ $forum_language = array(
     
     //Share on a social-media.
 	'sm-share' => 'Delen',
-	'sm-share-facebook' => 'Delen op Facebook',
-	'sm-share-twitter' => 'Delen op Twitter',
+	'sm-share-facebook' => 'Deel op Facebook',
+	'sm-share-twitter' => 'Deel op Twitter',
 );
  
 /*
@@ -832,7 +832,7 @@ $table_language = array(
  *  API language
  */
 $api_language = array(
-	'register' => 'Voltooi registratie'
+	'register' => 'Registratie afronden'
 );
   
 ?>
