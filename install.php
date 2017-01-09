@@ -2081,7 +2081,7 @@ date_default_timezone_set('Europe/London');
             ?>
             <h3>Finish</h3>
             <p>Thanks for installing NamelessMC! You can now proceed to the AdminCP, where you can further configure your website.</p>
-            <p>If you need any support, check out our website <a href="https://namelessmc.com" target="_blank">here</a>, or you can also visit our <a href="https://discord.gg/r7Eq4jw" target="_blank">Discord channel</a> or our <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.
+            <p>If you need any support, check out our website <a href="https://namelessmc.com" target="_blank">here</a>, or you can also visit our <a href="https://discord.gg/r7Eq4jw" target="_blank">Discord server</a> or our <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.
             <p><a href="index.php?route=/admin&amp;from=install" class="btn btn-success btn-lg">Finish</a></p>
 			<hr />
 			<h3>Credits</h3>
