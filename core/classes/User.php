@@ -107,12 +107,14 @@ class User {
 	}
 	
 	// Find a specified user by username
-	public function find($user = null) {
-		if($user){
-			$field = (is_numeric($user)) ? 'id' : 'username';
+	// Params: $user (mixed) - either username or user ID to search for
+	//         $force_username (boolean) - if true, only search using username, not ID
+	public function find($user = null, $force_username = false) {
+		if ($user) {
+			$field = ($force_username === false && is_numeric($user)) ? 'id' : 'username';
 			$data = $this->_db->get('users', array($field, '=', $user));
 			
-			if($data->count()){
+			if($data->count()) {
 				$this->_data = $data->first();
 				return true;
 			}
@@ -152,7 +154,7 @@ class User {
 			Session::put($this->_sessionName, $this->data()->id);
 			$this->_isLoggedIn = true;
 		} else {
-			$user = $this->find($username);
+			$user = $this->find($username, true);
 			if($user){
 				if(password_verify($password, $this->data()->password)) {
 					Session::put($this->_sessionName, $this->data()->id);
@@ -186,7 +188,7 @@ class User {
 		if(!$username && !$password && $this->exists()){
 			Session::put($this->_admSessionName, $this->data()->id);
 		} else {
-			$user = $this->find($username);
+			$user = $this->find($username, true);
 			if($user){
 				if(password_verify($password, $this->data()->password)) {
 					Session::put($this->_admSessionName, $this->data()->id);
