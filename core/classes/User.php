@@ -150,9 +150,11 @@ class User {
 	}
 	
 	// Find a specified user, either by username or ID (not Minecraft name)
-	public function find($user = null) {
+	// Params: $user (mixed) - either username or user ID to search for
+	//         $force_username (boolean) - if true, only search using username, not ID
+	public function find($user = null, $force_username = false) {
 		if ($user) {
-			$field = (is_numeric($user)) ? 'id' : 'username';
+			$field = ($force_username === false && is_numeric($user)) ? 'id' : 'username';
 			$data = $this->_db->get('users', array($field, '=', $user));
 			
 			if($data->count()) {
@@ -195,7 +197,8 @@ class User {
 			Session::put($this->_sessionName, $this->data()->id);
 			$this->_isLoggedIn = true;
 		} else {
-			$user = $this->find($username);
+			$user = $this->find($username, true);
+
 			if($user){
 				if($this->data()->pass_method == "default"){ // Default, use password_verify
 					if(password_verify($password, $this->data()->password)) {
@@ -278,7 +281,7 @@ class User {
 		if(!$username && !$password && $this->exists()){
 			Session::put($this->_admSessionName, $this->data()->id);
 		} else {
-			$user = $this->find($username);
+			$user = $this->find($username, true);
 			if($user){
 				if(password_verify($password, $this->data()->password)) {
 					Session::put($this->_admSessionName, $this->data()->id);
