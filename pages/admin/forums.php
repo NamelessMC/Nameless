@@ -142,10 +142,9 @@ $adm_page = "forums";
 							</span>
 						</div>
 					</div>
-					<hr> 
 					<?php 
 					$i++;
-					}
+					if((sizeof($forums)+1) != $i) { echo '<hr>'; } }
 					?>
 
 				</div>
