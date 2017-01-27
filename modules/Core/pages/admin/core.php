@@ -734,11 +734,23 @@ $current_default_language = $current_default_language[0]->value;
 											if(isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
 											else $enabled = 0;
 											
+											switch(Input::get('type')){
+												case 1:
+													$type = 1;
+												break;
+												case 2:
+													$type = 2;
+												break;
+												default:
+													$type = 0;
+												break;
+											}
+											
 											// Update database
 											$queries->update('reactions', $_GET['id'], array(
 												'name' => Output::getClean(Input::get('name')),
 												'html' => Output::getPurified(htmlspecialchars_decode(Input::get('html'))),
-												'type' => Input::get('type'),
+												'type' => $type,
 												'enabled' => $enabled
 											));
 											
@@ -774,7 +786,7 @@ $current_default_language = $current_default_language[0]->value;
 				  <select name="type" class="form-control" id="InputReactionType">
 					<option value="2"<?php if($reaction->type == 2) echo ' selected'; ?>><?php echo $language->get('admin', 'positive'); ?></option>
 					<option value="1"<?php if($reaction->type == 1) echo ' selected'; ?>><?php echo $language->get('admin', 'neutral'); ?></option>
-					<option value="0"<?php if($reaction->type == 0) echo ' selected'; ?>><?php echo $language->get('admin', 'negative'); ?></option>
+					<option value="-1"<?php if($reaction->type == 0) echo ' selected'; ?>><?php echo $language->get('admin', 'negative'); ?></option>
 				  </select>
 				</div>
 				
@@ -817,11 +829,23 @@ $current_default_language = $current_default_language[0]->value;
 												if(isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
 												else $enabled = 0;
 												
+												switch(Input::get('type')){
+													case 1:
+														$type = 1;
+													break;
+													case 2:
+														$type = 2;
+													break;
+													default:
+														$type = 0;
+													break;
+												}
+												
 												// Update database
 												$queries->create('reactions', array(
 													'name' => Output::getClean(Input::get('name')),
 													'html' => Output::getPurified(htmlspecialchars_decode(Input::get('html'))),
-													'type' => Input::get('type'),
+													'type' => $type,
 													'enabled' => $enabled
 												));
 												
@@ -856,7 +880,7 @@ $current_default_language = $current_default_language[0]->value;
 				  <select name="type" class="form-control" id="InputReactionType">
 					<option value="2"><?php echo $language->get('admin', 'positive'); ?></option>
 					<option value="1"><?php echo $language->get('admin', 'neutral'); ?></option>
-					<option value="0"><?php echo $language->get('admin', 'negative'); ?></option>
+					<option value="-1"><?php echo $language->get('admin', 'negative'); ?></option>
 				  </select>
 				</div>
 				
