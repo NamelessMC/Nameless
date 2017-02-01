@@ -162,7 +162,17 @@ $admin_page = 'overview';
 		
 		var registrationLineChart = new Chart(ctx, {
 			type: 'line',
-			data: data
+			data: data,
+			options: {
+				scales: {
+					yAxes: [{
+						display: true,
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				}
+			}
 		});
 	});
 	</script>
