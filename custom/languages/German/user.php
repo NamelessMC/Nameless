@@ -9,6 +9,14 @@
  *  German Language - Users
  */
 
+/*
+ *	Translation by BukkitTNT
+ *
+ *  http://BukkitTNT.de
+ *  http://twitter.com/BukkitTNT
+ *
+ */
+
 $language = array(
 	/*
 	 *  User Related
@@ -111,22 +119,22 @@ $language = array(
 	'follow' => 'Folgen',
 	'no_wall_posts' => 'Es existieren noch keine Profil-Nachrichten.',
 	'change_banner' => 'Banner ändern',
-	'post_on_wall' => 'Post on {x}\'s wall', // Don't replace {x}
-	'invalid_wall_post' => 'Please ensure your post is between 1 and 10000 characters.',
-	'1_reaction' => '1 reaction',
-	'x_reactions' => '{x} reactions', // Don't replace {x}
-	'1_like' => '1 like',
-	'x_likes' => '{x} likes', // Don't replace {x}
-	'1_reply' => '1 reply',
-	'x_replies' => '{x} replies', // Don't replace {x}
-	'no_replies_yet' => 'No replies yet',
+	'post_on_wall' => 'Nachricht auf {x}\'s Profilseite posten.', // Don't replace {x}
+	'invalid_wall_post' => 'Die Nachricht darf nicht länger als 10.000 Zeichen sein.',
+	'1_reaction' => '1 Reaktion',
+	'x_reactions' => '{x} Reaktionen', // Don't replace {x}
+	'1_like' => '1 Like',
+	'x_likes' => '{x} Likes', // Don't replace {x}
+	'1_reply' => '1 Antwort',
+	'x_replies' => '{x} Antworten', // Don't replace {x}
+	'no_replies_yet' => 'Bisher keine Antworten',
 	'feed' => 'Feed',
-	'about' => 'About',
-	'reactions' => 'Reactions',
-	'replies' => 'Replies',
-	'new_reply' => 'New Reply',
-	'registered' => 'Registered:',
-	'last_seen' => 'Last Seen:',
+	'about' => 'Über',
+	'reactions' => 'Reaktioenen',
+	'replies' => 'Antwoeren',
+	'new_reply' => 'Neue Antwort',
+	'registered' => 'Registriert seit:',
+	'last_seen' => 'Zuletzt gesehen:',
 	
 	// Reports
 	'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
