@@ -261,7 +261,8 @@ require('core/integration/uuid.php');
 										'joined' => $date,
 										'group_id' => Input::get('group'),
 										'email' => htmlspecialchars(Input::get('email')),
-										'active' => 1
+										'active' => 1,
+										'lastip' => 'none'
 									));
 									echo '<script data-cfasync="false">window.location.replace("/admin/users/");</script>';
 									die();
