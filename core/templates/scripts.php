@@ -193,7 +193,7 @@
 				}
 			}
 		  });
-		}, 200);
+		}, 20000);
 	});
 	
     $('.alert-dropdown, .pm-dropdown').hover(
