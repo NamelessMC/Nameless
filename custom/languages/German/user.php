@@ -124,7 +124,7 @@ $language = array(
 	'about' => 'About',
 	'reactions' => 'Reactions',
 	'replies' => 'Replies',
-	'new_reply' => 'New Reply',
+	'new_reply' => 'Neue Antwort',
 	'registered' => 'Registered:',
 	'last_seen' => 'Last Seen:',
 	
@@ -155,7 +155,6 @@ $language = array(
 	'participants' => 'Teilnehmer',
 	'last_message' => 'Letzte Nachricht',
 	'by' => 'von',
-	'new_reply' => 'Neue Antwort',
 	'leave_conversation' => 'Konversation verlassen.',
 	'confirm_leave' => 'Möchtest du die Konversation wirklich verlassen?',
 	
