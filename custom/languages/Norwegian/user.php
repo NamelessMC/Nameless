@@ -155,7 +155,6 @@ $language = array(
 	'participants' => 'Deltakere',
 	'last_message' => 'Siste melding',
 	'by' => 'av',
-	'new_reply' => 'Nytt svar',
 	'leave_conversation' => 'Forlat samtale',
 	'confirm_leave' => 'Er du sikker på at du vil forlate denne samtalen?',
 	
