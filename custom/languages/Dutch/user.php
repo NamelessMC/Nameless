@@ -157,6 +157,7 @@ $language = array(
 	'participants' => 'Deelnemers',
 	'last_message' => 'Laatste bericht',
 	'by' => 'door',
+	'new_reply' => 'New Reply',
 	'leave_conversation' => 'Verlaat gesprek',
 	'confirm_leave' => 'Weet je zeker dat je dit gesprek wilt verlaten?',
 	
