@@ -156,7 +156,6 @@ $language = array(
 	'participants' => 'Participantes',
 	'last_message' => 'Última Mensagem',
 	'by' => 'por',
-	'new_reply' => 'Nova Resposta',
 	'leave_conversation' => 'Deixar Conversa',
 	'confirm_leave' => 'Tem certeza de que deseja sair desta conversa?',
 	
