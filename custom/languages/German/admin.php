@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -23,7 +23,7 @@ $language = array(
 	 */
 	// Login
 	're-authenticate' => 'Bitte melde dich erneut an!',
-	
+
 	// Sidebar
 	'admin_cp' => 'AdminCP',
 	'administration' => 'Administration',
@@ -34,12 +34,12 @@ $language = array(
 	'security' => 'Sicherheit',
 	'styles' => 'Styles',
 	'users_and_groups' => 'Benutzer und Gruppen',
-	
+
 	// Overview
 	'running_nameless_version' => 'Forum läuft auf der Version <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => 'Running PHP version <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Statistiken',
-	
+
 	// Core
 	'settings' => 'Einstellungen',
 	'general_settings' => 'Allgemeine Einstellungen',
@@ -66,7 +66,7 @@ $language = array(
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Erfolgreich geupdatet.',
-	
+
 	// Reactions
 	'icon' => 'Icon',
 	'type' => 'Type',
@@ -103,9 +103,11 @@ $language = array(
 	'modules_installed_successfully' => 'Alle neuen Module wurden erfolgreich installiert.',
 	'enabled' => 'Aktiviert',
 	'disabled' => 'Deaktiviert',
+	'enable' => 'Aktivieren',
+	'disable' => 'Deaktivieren',
 	'module_enabled' => 'Modul aktiviert.',
 	'module_disabled' => 'Modul deaktiviert.',
-	
+
 	// Styles
 	'templates' => 'Templates',
 	'template_outdated' => 'Dieses Template ist nicht für die aktuell installierte NamelessMC Version',
@@ -123,7 +125,7 @@ $language = array(
 	'default_template_set' => 'Das Template {x} wurde als Standart gesetzt.', // Don't replace {x}
 	'template_deactivated' => 'Template wurde deaktiviert.',
 	'template_activated' => 'Template wurde aktiviert.',
-	
+
 	// Users & groups
 	'users' => 'Benutzer',
 	'groups' => 'Gruppen',
@@ -167,7 +169,7 @@ $language = array(
 	'delete_group' => 'Gruppe Löschen',
 	'confirm_group_deletion' => 'Möchtest du die Gruppe {x} wirklich löschen?', // Don't replace {x}
 	'group_not_exist' => 'Diese Gruppe existiert nicht.',
-	
+
 	// General Admin language
 	'task_successful' => 'Aufgabe erfolgreich .',
 	'invalid_action' => 'Ungültige Aktion.',
@@ -175,14 +177,14 @@ $language = array(
 	'disable_night_mode' => 'Nacht Modus deaktivieren',
 	'view_site' => 'Seite ansehen',
 	'signed_in_as_x' => 'Eingeloggt als {x}', // Don't replace {x}
-	
+
 	// Security
 	'acp_logins' => 'AdminCP Logins',
 	'please_select_logs' => 'Bitte wähle die Logs aus.',
 	'ip_address' => 'IP Addresse',
 	'template_changes' => 'Template Editierungen',
 	'file_changed' => 'Datei geändert',
-	
+
 	// Updates
 	'update' => 'Update',
 	'current_version_x' => 'Aktuelle Version: <strong>{x}</strong>', // Don't replaec {x}
@@ -196,7 +198,7 @@ $language = array(
 	'download' => 'Download',
 	'install' => 'Installieren',
 	'install_confirm' => 'Sei sicher dass du die Dateien zuerst hochgeladen hast!',
-	
+
 	// File uploads
 	'drag_files_here' => 'Ziehe ein Bild hierhin.',
 	'invalid_file_type' => 'Ungültiges Dateiformat!',

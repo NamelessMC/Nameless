@@ -28,7 +28,7 @@ if($user->isLoggedIn()){
 	Redirect::to(URL::build('/login'));
 	die();
 }
- 
+
 $page = 'admin';
 $admin_page = 'core';
 
@@ -45,13 +45,13 @@ $current_default_language = $current_default_language[0]->value;
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-	<?php 
+	<?php
 	$title = $language->get('admin', 'admin_cp');
-	require('core/templates/admin_header.php'); 
+	require('core/templates/admin_header.php');
 	?>
-  
+
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.css">
-  
+
   </head>
   <body>
     <?php require('modules/Core/pages/admin/navbar.php'); ?>
@@ -84,7 +84,7 @@ $current_default_language = $current_default_language[0]->value;
 				  </tr>
 				</table>
 			  </div>
-			  <?php 
+			  <?php
 			  } else {
 				  switch($_GET['view']){
 					  case 'general':
@@ -93,7 +93,7 @@ $current_default_language = $current_default_language[0]->value;
 							$languages = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
 							foreach($languages as $item){
 								$folders = explode(DIRECTORY_SEPARATOR, $item);
-								
+
 								// Is it already in the database?
 								$exists = $queries->getWhere('languages', array('name', '=', Output::getClean($folders[2])));
 								if(!count($exists)){
@@ -103,18 +103,18 @@ $current_default_language = $current_default_language[0]->value;
 									));
 								}
 							}
-							
+
 							Session::flash('general_language', $language->get('admin', 'installed_languages'));
 							Redirect::to(URL::build('/admin/core/', 'view=general'));
 							die();
 						}
-						
+
 						// Deal with input
 						if(Input::exists()){
 							if(Token::check(Input::get('token'))){
 								// Validate input
 								$validate = new Validate();
-								
+
 								$validation = $validate->check($_POST, array(
 									'sitename' => array(
 										'required' => true,
@@ -122,130 +122,113 @@ $current_default_language = $current_default_language[0]->value;
 										'max' => 64
 									)
 								));
-								
+
 								if($validation->passed()){
 									// Update settings
 									// Sitename
 									$sitename_id = $queries->getWhere('settings', array('name', '=', 'sitename'));
 									$sitename_id = $sitename_id[0]->id;
-									
+
 									$queries->update('settings', $sitename_id, array(
 										'value' => Output::getClean(Input::get('sitename'))
 									));
-									
+
 									// Update cache
 									$cache->setCache('sitenamecache');
 									$cache->store('sitename', Output::getClean(Input::get('sitename')));
-									
+
 									// Language
 									// Get current default language
 									$default_language = $queries->getWhere('languages', array('is_default', '=', 1));
 									$default_language = $default_language[0];
-									
+
 									if($default_language->name != Input::get('language')){
 										// The default language has been changed
 										$queries->update('languages', $default_language->id, array(
 											'is_default' => 0
 										));
-										
+
 										$language_id = $queries->getWhere('languages', array('id', '=', Input::get('language')));
 										$language_name = Output::getClean($language_id[0]->name);
 										$language_id = $language_id[0]->id;
-										
+
 										$queries->update('languages', $language_id, array(
 											'is_default' => 1
 										));
-										
+
 										// Update cache
 										$cache->setCache('languagecache');
 										$cache->store('language', $language_name);
 									}
-									
+
 									// Timezone
 									$timezone_id = $queries->getWhere('settings', array('name', '=', 'timezone'));
 									$timezone_id = $timezone_id[0]->id;
-									
+
 									try {
 										$queries->update('settings', $timezone_id, array(
 											'value' => Output::getClean($_POST['timezone'])
 										));
-										
+
 										// Cache
 										$cache->setCache('timezone_cache');
 										$cache->store('timezone', Output::getClean($_POST['timezone']));
-										
+
 									} catch(Exception $e){
 										$errors = array($e->getMessage());
 									}
-									
+
 									// Portal
 									$portal_id = $queries->getWhere('settings', array('name', '=', 'portal'));
 									$portal_id = $portal_id[0]->id;
-									
+
 									if($_POST['homepage'] == 'portal'){
 										$use_portal = 1;
 									} else $use_portal = 0;
-									
+
 									$queries->update('settings', $portal_id, array(
 										'value' => $use_portal
 									));
-									
+
 									// Update cache
 									$cache->setCache('portal_cache');
 									$cache->store('portal', $use_portal);
-									
+
 									// Post formatting
 									$formatting_id = $queries->getWhere('settings', array('name', '=', 'formatting_type'));
 									$formatting_id = $formatting_id[0]->id;
-									
+
 									$queries->update('settings', $formatting_id, array(
 										'value' => Output::getClean(Input::get('formatting'))
 									));
-									
+
 									// Update cache
 									$cache->setCache('post_formatting');
 									$cache->store('formatting', Output::getClean(Input::get('formatting')));
-									
+
 									// Friendly URLs
-									if(Input::get('friendlyURL') == 'true') $friendly = 'true';
-									else $friendly = 'false';
-									
+									if(Input::get('friendlyURL') == 'true') $friendly = true;
+									else $friendly = false;
+
 									if(is_writable(join(DIRECTORY_SEPARATOR, array('core', 'config.php')))){
-										// Writable
-										require(join(DIRECTORY_SEPARATOR, array('core', 'config.php')));
-										
-										// Make string to input
-										$input_string = '<?php' . PHP_EOL .
-														'$GLOBALS[\'config\'] = array(' . PHP_EOL .
-														'    "mysql" => array(' . PHP_EOL .
-														'        "host" => "' . Config::get('mysql/host') . '", // Web server database IP (Likely to be 127.0.0.1)' . PHP_EOL .
-														'        "username" => "' . Config::get('mysql/username') . '", // Web server database username' . PHP_EOL .
-														'        "password" => \'' . Config::get('mysql/password') . '\', // Web server database password' . PHP_EOL .
-														'        "port" => "' . Config::get('mysql/port') . '", // Web server database port' . PHP_EOL .
-														'        "db" => "' . Config::get('mysql/db') . '", // Web server database name' . PHP_EOL .
-														'        "prefix" => "nl2_" // Web server table prefix' . PHP_EOL .
-														'    ),' . PHP_EOL .
-														'    "remember" => array(' . PHP_EOL .
-														'        "cookie_name" => "nl2", // Name for website cookies' . PHP_EOL .
-														'        "cookie_expiry" => 604800' . PHP_EOL .
-														'    ),' . PHP_EOL .
-														'    "session" => array(' . PHP_EOL .
-														'        "session_name" => "2user",' . PHP_EOL .
-														'        "admin_name" => "2admin",' . PHP_EOL .
-														'        "token_name" => "2token"' . PHP_EOL .
-														'    ),' . PHP_EOL .
-														'    "core" => array(' . PHP_EOL .
-														'        "path" => "' . Config::get('core/path') . '",' . PHP_EOL .
-														'        "friendly" => ' . $friendly . PHP_EOL .
-														'    )' . PHP_EOL .
-														');';
-										
-										$file = fopen(join(DIRECTORY_SEPARATOR, array('core', 'config.php')), 'w');
-										fwrite($file, $input_string);
-										fclose($file);
-										
+
+									// Require config
+									if(isset($path)){
+										$loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
+									} else {
+										$loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
+									}
+
+									if(is_array($loadedConfig)) {
+											$GLOBALS['config'] = $loadedConfig;
+									}
+
+									// Make string to input
+
+									Config::set('core/friendly', $friendly);
+
 									} else $errors = array($language->get('admin', 'config_not_writable'));
-									
+
 									// Redirect in case URL type has changed
 									if(!isset($errors)){
 										if($friendly == 'true'){
@@ -256,7 +239,7 @@ $current_default_language = $current_default_language[0]->value;
 										Redirect::to($redirect);
 										die();
 									}
-									
+
 								} else $errors = array($language->get('admin', 'missing_sitename'));
 							} else {
 								// Invalid token
@@ -302,7 +285,7 @@ $current_default_language = $current_default_language[0]->value;
 				  <?php
 				  // Get timezone setting
 				  $timezone = $queries->getWhere('settings', array('name', '=', 'timezone'));
-				  $timezone = $timezone[0];			  
+				  $timezone = $timezone[0];
 				  ?>
 				  <select name="timezone" class="form-control" id="inputTimezone">
 				    <?php foreach(Util::listTimezones() as $key => $item){ ?>
@@ -351,10 +334,10 @@ $current_default_language = $current_default_language[0]->value;
 			  </form>
 						<?php
 					  break;
-					  
+
 					  case 'profile':
 						if(!isset($_GET['id']) && !isset($_GET['action'])){
-							
+
 							// Custom profile fields
 							$profile_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
 						?>
@@ -373,13 +356,13 @@ $current_default_language = $current_default_language[0]->value;
 				  </tr>
 				</thead>
 				<tbody>
-				  <?php 
+				  <?php
 				  if(count($profile_fields)){
 					  foreach($profile_fields as $field){
 				  ?>
 				  <tr>
 				    <td><a href="<?php echo URL::build('/admin/core/', 'view=profile&amp;id=' . $field->id); ?>"><?php echo Output::getClean($field->name); ?></a></td>
-					<td><?php 
+					<td><?php
 					switch($field->type){
 						case 1:
 							// Text field
@@ -403,7 +386,7 @@ $current_default_language = $current_default_language[0]->value;
 					else echo '<i class="fa fa-times-circle-o" aria-hidden="true"></i>';
 					?></td>
 				  </tr>
-				  <?php 
+				  <?php
 					  }
 				  }
 				  ?>
@@ -418,7 +401,7 @@ $current_default_language = $current_default_language[0]->value;
 										if(Token::check(Input::get('token'))){
 											// Validate input
 											$validate = new Validate();
-											
+
 											$validation = $validate->check($_POST, array(
 												'name' => array(
 													'required' => true,
@@ -429,20 +412,20 @@ $current_default_language = $current_default_language[0]->value;
 													'required' => true
 												)
 											));
-											
+
 											if($validation->passed()){
 												// Input into database
 												try {
 													// Get whether required/public/forum post options are enabled or not
 													if(isset($_POST['required']) && $_POST['required'] == 'on') $required = 1;
 													else $required = 0;
-													
+
 													if(isset($_POST['public']) && $_POST['public'] == 'on') $public = 1;
 													else $public = 0;
-													
+
 													if(isset($_POST['forum']) && $_POST['forum'] == 'on') $forum_posts = 1;
 													else $forum_posts = 0;
-													
+
 													// Insert into database
 													$queries->create('profile_fields', array(
 														'name' => Output::getClean(Input::get('name')),
@@ -452,15 +435,15 @@ $current_default_language = $current_default_language[0]->value;
 														'description' => Output::getClean(Input::get('description')),
 														'forum_posts' => $forum_posts
 													));
-													
+
 													// Redirect
 													Redirect::to(URL::build('/admin/core/', 'view=profile'));
 													die();
-													
+
 												} catch(Exception $e){
 													$error = $e->getMessage();
 												}
-												
+
 											} else {
 												// Display errors
 												$error = $language->get('admin', 'profile_field_error');
@@ -470,7 +453,7 @@ $current_default_language = $current_default_language[0]->value;
 											$error = $language->get('admin', 'invalid_token');
 										}
 									}
-									
+
 									?>
 			  <h4 style="display:inline;"><?php echo $language->get('admin', 'creating_profile_field'); ?></h4>
 			  <span class="pull-right">
@@ -483,7 +466,7 @@ $current_default_language = $current_default_language[0]->value;
 				  <label for="inputName"><?php echo $language->get('admin', 'field_name'); ?></label>
 				  <input type="text" name="name" id="inputName" class="form-control" placeholder="<?php echo $language->get('admin', 'field_name'); ?>">
 				</div>
-				
+
 			    <div class="form-group">
 				  <label for="inputType"><?php echo $language->get('admin', 'type'); ?></label>
 				  <select class="form-control" name="type" id="inputType">
@@ -492,30 +475,30 @@ $current_default_language = $current_default_language[0]->value;
 				    <option value="3"><?php echo $language->get('admin', 'date'); ?></option>
 				  </select>
 				</div>
-				
+
 			    <div class="form-group">
 				  <label for="inputDescription"><?php echo $language->get('admin', 'description'); ?></label>
 				  <textarea id="inputDescription" name="description" class="form-control"></textarea>
 				</div>
-				
+
 				<div class="form-group">
 				  <label for="inputRequired"><?php echo $language->get('admin', 'required'); ?></label>
 				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_required_help'); ?>"></i></span>
 				  <input type="checkbox" id="inputRequired" name="required" class="js-switch" />
 				</div>
-				
+
 				<div class="form-group">
 				  <label for="inputPublic"><?php echo $language->get('admin', 'public'); ?></label>
 				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_public_help'); ?>"></i></span>
 				  <input type="checkbox" id="inputPublic" name="public" class="js-switch" />
 				</div>
-				
+
 				<div class="form-group">
 				  <label for="inputForum"><?php echo $language->get('admin', 'display_field_on_forum'); ?></label>
 				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_forum_help'); ?>"></i></span>
 				  <input type="checkbox" id="inputForum" name="forum" class="js-switch" />
 				</div>
-				
+
 				<div class="form-group">
 				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 				  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
@@ -526,32 +509,32 @@ $current_default_language = $current_default_language[0]->value;
 									// Delete field
 									if(isset($_GET['id']))
 										$queries->delete('profile_fields', array('id', '=', $_GET['id']));
-									
+
 									Redirect::to(URL::build('/admin/core/', 'view=profile'));
 									die();
 								}
 							} else if(isset($_GET['id']) && !isset($_GET['action'])) {
 								// Editing field
-								
+
 								// Ensure field actually exists
 								if(!is_numeric($_GET['id'])){
 									Redirect::to(URL::build('/admin/core/', 'view=profile'));
 									die();
 								}
-								
+
 								$field = $queries->getWhere('profile_fields', array('id', '=', $_GET['id']));
 								if(!count($field)){
 									Redirect::to(URL::build('/admin/core/', 'view=profile'));
 									die();
 								}
-								
+
 								$field = $field[0];
-								
+
 								if(Input::exists()){
 									if(Token::check(Input::get('token'))){
 										// Validate input
 										$validate = new Validate();
-										
+
 										$validation = $validate->check($_POST, array(
 											'name' => array(
 												'required' => true,
@@ -562,20 +545,20 @@ $current_default_language = $current_default_language[0]->value;
 												'required' => true
 											)
 										));
-										
+
 										if($validation->passed()){
 											// Update database
 											try {
 												// Get whether required/public/forum post options are enabled or not
 												if(isset($_POST['required']) && $_POST['required'] == 'on') $required = 1;
 												else $required = 0;
-												
+
 												if(isset($_POST['public']) && $_POST['public'] == 'on') $public = 1;
 												else $public = 0;
-												
+
 												if(isset($_POST['forum']) && $_POST['forum'] == 'on') $forum_posts = 1;
 												else $forum_posts = 0;
-												
+
 												// Update database
 												$queries->update('profile_fields', $field->id, array(
 													'name' => Output::getClean(Input::get('name')),
@@ -585,11 +568,11 @@ $current_default_language = $current_default_language[0]->value;
 													'description' => Output::getClean(Input::get('description')),
 													'forum_posts' => $forum_posts
 												));
-												
+
 												// Redirect
 												Redirect::to(URL::build('/admin/core/', 'view=profile'));
 												die();
-												
+
 											} catch(Exception $e){
 												$error = $e->getMessage();
 											}
@@ -597,15 +580,15 @@ $current_default_language = $current_default_language[0]->value;
 											// Error
 											$error = $language->get('admin', 'profile_field_error');
 										}
-										
+
 									} else {
 										$error = $language->get('admin', 'invalid_token');
 									}
 								}
-								
+
 								// Generate form token
 								$token = Token::generate();
-								
+
 								?>
 			  <h4 style="display:inline;"><?php echo $language->get('admin', 'editing_profile_field'); ?></h4>
 			  <span class="pull-right">
@@ -619,7 +602,7 @@ $current_default_language = $current_default_language[0]->value;
 				  <label for="inputName"><?php echo $language->get('admin', 'field_name'); ?></label>
 				  <input type="text" name="name" id="inputName" class="form-control" placeholder="<?php echo $language->get('admin', 'field_name'); ?>" value="<?php echo Output::getClean($field->name); ?>">
 				</div>
-				
+
 			    <div class="form-group">
 				  <label for="inputType"><?php echo $language->get('admin', 'type'); ?></label>
 				  <select class="form-control" name="type" id="inputType">
@@ -628,30 +611,30 @@ $current_default_language = $current_default_language[0]->value;
 				    <option value="3"<?php if($field->type == 3) echo ' selected'; ?>><?php echo $language->get('admin', 'date'); ?></option>
 				  </select>
 				</div>
-				
+
 			    <div class="form-group">
 				  <label for="inputDescription"><?php echo $language->get('admin', 'description'); ?></label>
 				  <textarea id="inputDescription" name="description" class="form-control"><?php echo Output::getPurified($field->description); ?></textarea>
 				</div>
-				
+
 				<div class="form-group">
 				  <label for="inputRequired"><?php echo $language->get('admin', 'required'); ?></label>
 				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_required_help'); ?>"></i></span>
 				  <input type="checkbox" id="inputRequired" name="required" class="js-switch" <?php if($field->required == 1) echo ' checked';?>/>
 				</div>
-				
+
 				<div class="form-group">
 				  <label for="inputPublic"><?php echo $language->get('admin', 'public'); ?></label>
 				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_public_help'); ?>"></i></span>
 				  <input type="checkbox" id="inputPublic" name="public" class="js-switch" <?php if($field->public == 1) echo ' checked';?>/>
 				</div>
-				
+
 				<div class="form-group">
 				  <label for="inputForum"><?php echo $language->get('admin', 'display_field_on_forum'); ?></label>
 				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_forum_help'); ?>"></i></span>
 				  <input type="checkbox" id="inputForum" name="forum" class="js-switch" <?php if($field->forum_posts == 1) echo ' checked';?>/>
 				</div>
-				
+
 				<div class="form-group">
 				  <input type="hidden" name="token" value="<?php echo $token; ?>">
 				  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
@@ -661,7 +644,7 @@ $current_default_language = $current_default_language[0]->value;
 							}
 						}
 					  break;
-					  
+
 					  case 'reactions':
 						if(!isset($_GET['id']) && (!isset($_GET['action']))){
 							// Get all reactions
@@ -696,8 +679,8 @@ $current_default_language = $current_default_language[0]->value;
 				  </tr>
 				</tbody>
 			  </table>
-					<?php 
-						} else { 
+					<?php
+						} else {
 							if(isset($_GET['id']) && !isset($_GET['action'])){
 								// Get reaction
 								$reaction = $queries->getWhere('reactions', array('id', '=', $_GET['id']));
@@ -705,9 +688,9 @@ $current_default_language = $current_default_language[0]->value;
 									// Reaction doesn't exist
 									Redirect::to(URL::build('/admin/core/', 'view=reactions'));
 									die();
-									
+
 								} else $reaction = $reaction[0];
-								
+
 								// Deal with input
 								if(Input::exists()){
 									if(Token::check(Input::get('token'))){
@@ -728,12 +711,12 @@ $current_default_language = $current_default_language[0]->value;
 												'required' => true
 											)
 										));
-										
+
 										if($validation->passed()){
 											// Check enabled status
 											if(isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
 											else $enabled = 0;
-											
+
 											switch(Input::get('type')){
 												case 1:
 													$type = 1;
@@ -745,7 +728,7 @@ $current_default_language = $current_default_language[0]->value;
 													$type = 0;
 												break;
 											}
-											
+
 											// Update database
 											$queries->update('reactions', $_GET['id'], array(
 												'name' => Output::getClean(Input::get('name')),
@@ -753,7 +736,7 @@ $current_default_language = $current_default_language[0]->value;
 												'type' => $type,
 												'enabled' => $enabled
 											));
-											
+
 											$reaction = $queries->getWhere('reactions', array('id', '=', $_GET['id']));
 											$reaction = $reaction[0];
 										} else {
@@ -775,12 +758,12 @@ $current_default_language = $current_default_language[0]->value;
 			      <label for="InputReactionName"><?php echo $language->get('admin', 'name'); ?></label>
 			      <input type="text" class="form-control" name="name" id="InputReactionName" placeholder="<?php echo $language->get('admin', 'name'); ?>" value="<?php echo Output::getClean($reaction->name); ?>">
 				</div>
-				
+
 				<div class="form-group">
 				  <label for="InputReactionHTML"><?php echo $language->get('admin', 'html'); ?></label>
 				  <input type="text" class="form-control" name="html" id="InputReactionHTML" placeholder="<?php echo $language->get('admin', 'html'); ?>" value="<?php echo Output::getClean($reaction->html); ?>">
 				</div>
-				
+
 				<div class="form-group">
 				  <label for="InputReactionType"><?php echo $language->get('admin', 'type'); ?></label>
 				  <select name="type" class="form-control" id="InputReactionType">
@@ -789,12 +772,12 @@ $current_default_language = $current_default_language[0]->value;
 					<option value="-1"<?php if($reaction->type == 0) echo ' selected'; ?>><?php echo $language->get('admin', 'negative'); ?></option>
 				  </select>
 				</div>
-				
+
 				<div class="form-group">
 				  <label for="InputEnabled"><?php echo $language->get('admin', 'enabled'); ?></label>
 				  <input type="checkbox" name="enabled" class="js-switch"<?php if($reaction->enabled == 1) echo ' checked'; ?>/>
 				</div>
-				
+
 				<div class="form-group">
 				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 				  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
@@ -823,12 +806,12 @@ $current_default_language = $current_default_language[0]->value;
 													'required' => true
 												)
 											));
-											
+
 											if($validation->passed()){
 												// Check enabled status
 												if(isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
 												else $enabled = 0;
-												
+
 												switch(Input::get('type')){
 													case 1:
 														$type = 1;
@@ -840,7 +823,7 @@ $current_default_language = $current_default_language[0]->value;
 														$type = 0;
 													break;
 												}
-												
+
 												// Update database
 												$queries->create('reactions', array(
 													'name' => Output::getClean(Input::get('name')),
@@ -848,7 +831,7 @@ $current_default_language = $current_default_language[0]->value;
 													'type' => $type,
 													'enabled' => $enabled
 												));
-												
+
 												Redirect::to(URL::build('/admin/core/', 'view=reactions'));
 												die();
 											} else {
@@ -869,12 +852,12 @@ $current_default_language = $current_default_language[0]->value;
 			      <label for="InputReactionName"><?php echo $language->get('admin', 'name'); ?></label>
 			      <input type="text" class="form-control" name="name" id="InputReactionName" placeholder="<?php echo $language->get('admin', 'name'); ?>" value="<?php echo Output::getClean(Input::get('name')); ?>">
 				</div>
-				
+
 				<div class="form-group">
 				  <label for="InputReactionHTML"><?php echo $language->get('admin', 'html'); ?></label>
 				  <input type="text" class="form-control" name="html" id="InputReactionHTML" placeholder="<?php echo $language->get('admin', 'html'); ?>" value="<?php echo Output::getClean(Input::get('html')); ?>">
 				</div>
-				
+
 				<div class="form-group">
 				  <label for="InputReactionType"><?php echo $language->get('admin', 'type'); ?></label>
 				  <select name="type" class="form-control" id="InputReactionType">
@@ -883,12 +866,12 @@ $current_default_language = $current_default_language[0]->value;
 					<option value="-1"><?php echo $language->get('admin', 'negative'); ?></option>
 				  </select>
 				</div>
-				
+
 				<div class="form-group">
 				  <label for="InputEnabled"><?php echo $language->get('admin', 'enabled'); ?></label>
 				  <input type="checkbox" name="enabled" class="js-switch" />
 				</div>
-				
+
 				<div class="form-group">
 				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 				  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
@@ -904,7 +887,7 @@ $current_default_language = $current_default_language[0]->value;
 
 									// Delete reaction
 									$queries->delete('reactions', array('id', '=', $_GET['reaction']));
-									
+
 									// Redirect
 									Redirect::to(URL::build('/admin/core/', 'view=reactions'));
 									die();
@@ -912,7 +895,7 @@ $current_default_language = $current_default_language[0]->value;
 							}
 						}
 					  break;
-					  
+
 					  case 'social':
 						// Deal with input
 						if(Input::exists()){
@@ -921,57 +904,57 @@ $current_default_language = $current_default_language[0]->value;
 								// Youtube URL
 								$youtube_url_id = $queries->getWhere('settings', array('name', '=', 'youtube_url'));
 								$youtube_url_id = $youtube_url_id[0]->id;
-								
+
 								$queries->update('settings', $youtube_url_id, array(
 									'value' => Output::getClean(Input::get('youtubeurl'))
 								));
-								
+
 								// Update cache
 								$cache->setCache('social_media');
 								$cache->store('youtube', Output::getClean(Input::get('youtubeurl')));
-								
+
 								// Twitter URL
 								$twitter_url_id = $queries->getWhere('settings', array('name', '=', 'twitter_url'));
 								$twitter_url_id = $twitter_url_id[0]->id;
-								
+
 								$queries->update('settings', $twitter_url_id, array(
 									'value' => Output::getClean(Input::get('twitterurl'))
 								));
-								
+
 								$cache->store('twitter', Output::getClean(Input::get('twitterurl')));
-								
+
 								// Twitter dark theme
 								$twitter_dark_theme = $queries->getWhere('settings', array('name', '=', 'twitter_style'));
 								$twitter_dark_theme = $twitter_dark_theme[0]->id;
-								
+
 								if(isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) $theme = 'dark';
 								else $theme = 'light';
-								
+
 								$queries->update('settings', $twitter_dark_theme, array(
 									'value' => $theme
 								));
-								
+
 								$cache->store('twitter_theme', $theme);
-								
+
 								// Google Plus URL
 								$gplus_url_id = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
 								$gplus_url_id = $gplus_url_id[0]->id;
-								
+
 								$queries->update('settings', $gplus_url_id, array(
 									'value' => Output::getClean(Input::get('gplusurl'))
 								));
-								
+
 								$cache->store('google_plus', Output::getClean(Input::get('gplusurl')));
-								
+
 								// Facebook URL
 								$fb_url_id = $queries->getWhere('settings', array('name', '=', 'fb_url'));
 								$fb_url_id = $fb_url_id[0]->id;
 								$queries->update('settings', $fb_url_id, array(
 									'value' => Output::getClean(Input::get('fburl'))
 								));
-								
+
 								$cache->store('facebook', Output::getClean(Input::get('fburl')));
-								
+
 								Session::flash('social_media_links', '<div class="alert alert-success">' . $language->get('admin', 'successfully_updated') . '</div>');
 							} else {
 								// Invalid token
@@ -1019,7 +1002,7 @@ $current_default_language = $current_default_language[0]->value;
 						</form>
 						<?php
 					  break;
-					  
+
 					  default:
 						Redirect::to(URL::build('/admin/core'));
 						die();
@@ -1032,19 +1015,19 @@ $current_default_language = $current_default_language[0]->value;
 		</div>
 	  </div>
     </div>
-	
+
 	<?php require('modules/Core/pages/admin/footer.php'); ?>
 
     <?php require('modules/Core/pages/admin/scripts.php'); ?>
-	
+
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.js"></script>
-	
+
 	<script>
 	var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 	elems.forEach(function(html) {
 	  var switchery = new Switchery(html);
 	});
 	</script>
-	
+
   </body>
 </html>
