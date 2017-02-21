@@ -18,11 +18,11 @@ body {
 body::-webkit-scrollbar {
     width: 0em;
 }
- 
+
 body::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0);
 }
- 
+
 ::selection {
     color: #fff;
     background-color: #6178A5;
@@ -61,7 +61,7 @@ a:hover {
 #wrapper h1{
  font: normal 60pt Segoe UI;
  color: #FFFFFF;
- text-shadow: 
+ text-shadow:
  0 1px 0 #ccc,
  0 2px 0 #c9c9c9,
  0 3px 0 #bbb,
