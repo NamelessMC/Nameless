@@ -9,6 +9,14 @@
  *  German Language - General terms
  */
 
+/*
+ *	Translation by BukkitTNT
+ *
+ *  http://BukkitTNT.de
+ *  http://twitter.com/BukkitTNT
+ *
+ */
+
 $language = array(
 	/*
 	 *  General terms

@@ -10,18 +10,28 @@
  */
 
 session_start();
- 
+
 // Page variable must be set
 if(!isset($page)){
 	die();
 }
 
-// Require config
-if(!isset($path)){
-	require(ROOT_PATH . '/core/config.php');
-} else {
-	require($path . 'core/config.php');
+if(!file_exists('core/config.php')){
+	fopen('core/config.php', 'w');
 }
+
+if(!file_exists('cache/templates_c')){
+	mkdir('cache/templates_c', 0777, true);
+}
+
+// Require config
+if(isset($path))
+	require($path . 'core/config.php');
+else
+	require(ROOT_PATH . '/core/config.php');
+
+if(isset($conf) && is_array($conf))
+	$GLOBALS['config'] = $conf;
 
 /*
  *  Autoload classes
@@ -40,7 +50,7 @@ if($page != 'install'){
 	/*
 	 *  Initialise
 	 */
-	 
+
 	// Friendly URLs?
 	define('FRIENDLY_URLS', Config::get('core/friendly'));
 
@@ -53,19 +63,19 @@ if($page != 'install'){
 	// Page load timer?
 	$cache->setCache('page_load_cache');
 	$page_loading = $cache->retrieve('page_load');
-	
+
 	// Set timezone
 	try {
 		$cache->setCache('timezone_cache');
 		if($cache->isCached('timezone')){
 			define('TIMEZONE', $cache->retrieve('timezone'));
 		} else define('TIMEZONE', 'Europe/London');
-		
+
 		date_default_timezone_set(TIMEZONE);
 	} catch(Exception $e){
 		die('Unable to set timezone: ' . $e->getMessage());
 	}
-	
+
 	// Error reporting
 	$cache->setCache('error_cache');
 	if($cache->isCached('error_reporting')){
@@ -97,7 +107,7 @@ if($page != 'install'){
 	if(Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))){
 		$hash = Cookie::get(Config::get('remember/cookie_name'));
 		$hashCheck = DB::getInstance()->get('users_session', array('hash', '=', $hash));
-		
+
 		if($hashCheck->count()){
 			$user = new User($hashCheck->first()->user_id);
 			$user->login();
@@ -109,18 +119,18 @@ if($page != 'install'){
 	$directories = array_values($directories);
 
 	$config_path = Config::get('core/path');
-	
+
 	if(!empty($config_path)){
 		$config_path = explode('/', Config::get('core/path'));
-		
+
 		for($i = 0; $i < count($config_path); $i++){
 			unset($directories[$i]);
 		}
-		
+
 		define('CONFIG_PATH', '/' . Config::get('core/path'));
-		
+
 		$directories = array_values($directories);
-		
+
 	}
 	$directory = implode('/', $directories);
 
@@ -238,7 +248,7 @@ if($page != 'install'){
 				'lastip' => $ip
 			));
 		}
-		
+
 		// Insert it into the logs
 		$user_ip_logged = $queries->getWhere('users_ips', array('ip', '=', $ip));
 		if(!count($user_ip_logged)){
@@ -265,7 +275,7 @@ if($page != 'install'){
 						'ip' => $ip
 					));
 				}
-				
+
 			} else {
 				// Does the entry already belong to the current user?
 				if($user_ip_logged[0]->user_id != $user->data()->id){
@@ -276,12 +286,12 @@ if($page != 'install'){
 				}
 			}
 		}
-		
+
 		// Update last online
 		// Update user last online
 		$queries->update('users', $user->data()->id, array(
 			'last_online' => date('U')
 		));
-		
+
 	}
 }

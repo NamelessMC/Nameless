@@ -16,17 +16,6 @@ if($user->isLoggedIn()){
 		Redirect::to(URL::build('/'));
 		die();
 	} else {
-		// Try to delete installer
-		if(isset($_GET['from']) && $_GET['from'] == 'install'){
-			if(is_file('install.php')){
-				try {
-					unlink('install.php');
-				} catch(Exception $e){
-					die('Unable to delete installer automatically, please remove <strong>install.php</strong> from your website before continuing.');
-				}
-			}
-		}
-		
 		// Check the user has re-authenticated
 		if(!$user->isAdmLoggedIn()){
 			// They haven't, do so now
@@ -39,8 +28,8 @@ if($user->isLoggedIn()){
 	Redirect::to(URL::build('/login'));
 	die();
 }
- 
- 
+
+
 $page = 'admin';
 $admin_page = 'overview';
 
@@ -52,12 +41,12 @@ $admin_page = 'overview';
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-	
-	<?php 
+
+	<?php
 	$title = $language->get('admin', 'admin_cp');
-	require('core/templates/admin_header.php'); 
+	require('core/templates/admin_header.php');
 	?>
-  
+
   </head>
   <body>
     <?php require('modules/Core/pages/admin/navbar.php'); ?>
@@ -72,13 +61,13 @@ $admin_page = 'overview';
 			  <h3><?php echo $language->get('admin', 'overview'); ?></h3>
 			  <?php echo str_replace('{x}', NAMELESS_VERSION, $language->get('admin', 'running_nameless_version')); ?><br />
 			  <?php echo str_replace('{x}', phpversion(), $language->get('admin', 'running_php_version')); ?>
-			  
+
 			  <br /><br />
 			  <h3 style="display:inline;"><?php echo $language->get('admin', 'statistics'); ?></h3>
 			  <span class="pull-right"><!-- dropdown to select stats here --></span>
-			  
+
 			  <br />
-			  
+
 			  <canvas id="registrationChart" width="100%" height="40"></canvas>
 
 		    </div>
@@ -86,22 +75,22 @@ $admin_page = 'overview';
 		</div>
 	  </div>
     </div>
-	
+
 	<?php require('modules/Core/pages/admin/footer.php'); ?>
 
     <?php require('modules/Core/pages/admin/scripts.php'); ?>
-	
-	
+
+
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/moment/moment.min.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/charts/Chart.min.js"></script>
-	
+
 	<?php
 	// Get data for members statistics graph
 	$latest_members = $queries->orderWhere('users', 'joined > ' . strtotime("-1 week"), 'joined', 'ASC');
-	
+
 	// Output array
 	$output = array();
-	
+
 	foreach($latest_members as $member){
 		// Turn into format for graph
 		// First, order them per day
@@ -114,7 +103,7 @@ $admin_page = 'overview';
 			$output[$date] = 1;
 		}
 	}
-	
+
 	// Fill in missing dates, set registrations to 0
 	$start = strtotime("-1 week");
 	$start = date('d M Y', $start);
@@ -126,10 +115,10 @@ $admin_page = 'overview';
 		}
 		$start = $start + 86400;
 	}
-	
+
 	// Sort by date
 	ksort($output);
-	
+
 	// Turn into string for graph
 	$labels = '';
 	$registration_data = '';
@@ -140,7 +129,7 @@ $admin_page = 'overview';
 	$labels = '[' . rtrim($labels, ', ') . ']';
 	$registration_data = '[' . rtrim($registration_data, ', ') . ']';
 	?>
-	
+
 	<script type="text/javascript">
 	$(document).ready(function() {
 		var ctx = $("#registrationChart").get(0).getContext("2d");
@@ -159,7 +148,7 @@ $admin_page = 'overview';
 				}
 			]
 		}
-		
+
 		var registrationLineChart = new Chart(ctx, {
 			type: 'line',
 			data: data,
@@ -176,6 +165,6 @@ $admin_page = 'overview';
 		});
 	});
 	</script>
-	
+
   </body>
 </html>

@@ -398,6 +398,10 @@ require('core/templates/cc_navbar.php');
 							}
 						}
 						
+						// Display success message
+						$smarty->assign('MESSAGE_SENT', $language->get('user', 'message_sent_successfully'));
+						unset($_POST['content']);
+						
 					} else {
 						// Errors
 						foreach($validation->errors() as $item){

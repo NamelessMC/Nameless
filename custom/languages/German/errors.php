@@ -9,6 +9,14 @@
  *  German Language - Errors
  */
 
+/*
+ *	Translation by BukkitTNT
+ *
+ *  http://BukkitTNT.de
+ *  http://twitter.com/BukkitTNT
+ *
+ */
+
 $language = array(
 	/*
 	 *  Errors
