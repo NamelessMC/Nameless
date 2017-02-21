@@ -25,16 +25,13 @@ if(!file_exists('cache/templates_c')){
 }
 
 // Require config
-if(isset($path)){
-	$loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
-} else {
-	$loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
-}
+if(isset($path))
+	require($path . 'core/config.php');
+else
+	require(ROOT_PATH . '/core/config.php');
 
-if(is_array($loadedConfig)) {
-		$GLOBALS['config'] = $loadedConfig;
-}
-
+if(isset($conf) && is_array($conf))
+	$GLOBALS['config'] = $conf;
 
 /*
  *  Autoload classes

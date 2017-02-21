@@ -23,40 +23,38 @@ class Config {
 	}
 
 	public static function set($key, $value) {
-			if(!file_exists('core/config.php')) {
-				fopen('core/config.php', 'w');
+		if(!file_exists('core/config.php')) {
+			fopen('core/config.php', 'w');
+		}
+
+		require(ROOT_PATH . '/core/config.php');
+		
+		$loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
+
+		if(!isset($conf) || !is_array($conf)) {
+			$conf = [];
+		}
+
+		$path = explode('/', $key);
+
+		if(!is_array($path)) {
+			$conf[$key] = $value;
+		} else {
+			$loc = &$conf;
+			foreach($path as $step)
+			{
+				$loc = &$loc[$step];
 			}
 
-			$loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
+			$loc = $value;
+		}
 
-			if(!is_array($loadedConfig)) {
-				$loadedConfig = [];
-			}
-
-			$config = $loadedConfig;
-
-			$path = explode('/', $key);
-
-			if(!is_array($path)) {
-					$config[$key] = $value;
-			} else {
-					$loc = &$config;
-					foreach($path as $step)
-					{
-						$loc = &$loc[$step];
-					}
-
-					$loc = $value;
-			}
-
-			return static::write($config);
+		return static::write($conf);
 	}
 
 	public static function write($config) {
-			$insert = json_encode($config, JSON_PRETTY_PRINT);
-
-			$file = fopen('core/config.php', 'w');
-							fwrite($file, $insert);
-			return fclose($file);
+		$file = fopen('core/config.php', 'wa+');
+		fwrite($file, '<?php' . PHP_EOL . '$conf = ' . var_export($config, true) . ';');
+		return fclose($file);
 	}
 }
