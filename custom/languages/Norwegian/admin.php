@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Oversatt av Thesevs
  *  https://github.com/NamelessMC/Nameless/
@@ -15,7 +15,7 @@ $language = array(
 	 */
 	// Login
 	're-authenticate' => 'Vennligst logg inn på nytt.',
-	
+
 	// Sidebar
 	'admin_cp' => 'AdminCP',
 	'administration' => 'Administrasjon',
@@ -26,12 +26,12 @@ $language = array(
 	'security' => 'Sikkerhet',
 	'styles' => 'Stiler',
 	'users_and_groups' => 'Brukere og grupper',
-	
+
 	// Overview
 	'running_nameless_version' => 'Kjører NamelessMC versjon <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => 'Kjører PHP versjon <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Statistikker',
-	
+
 	// Core
 	'settings' => 'Instillinger',
 	'general_settings' => 'Generelle instillinger',
@@ -58,7 +58,7 @@ $language = array(
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Oppdatert suksessfullt!',
-	
+
 	// Reactions
 	'icon' => 'Ikon',
 	'type' => 'Type',
@@ -69,7 +69,7 @@ $language = array(
 	'html' => 'HTML',
 	'new_reaction' => '<i class="fa fa-plus-circle"></i> Ny reaksjon',
 	'creating_reaction' => 'Oppretter ny reaksjon',
-	
+
 	// Custom profile fields
 	'custom_fields' => 'Egenkonfigurerte profile bokser',
 	'new_field' => '<i class="fa fa-plus-circle"></i> Ny boks',
@@ -87,17 +87,19 @@ $language = array(
 	'description' => 'Beskrivelse',
 	'display_field_on_forum' => 'Vise boks på forumet?',
 	'profile_field_forum_help' => 'Hvis boksen er aktivert, vil den bli sett på brukerforumet.',
-	
+
 	// Minecraft
 	'enable_minecraft_integration' => 'Tillatt Minecraft integrering?',
-	
+
 	// Modules
 	'modules_installed_successfully' => 'Nye moduler har suksessfullt blitt installert.',
 	'enabled' => 'Aktivert',
 	'disabled' => 'Deaktivert',
+	'enable' => 'Aktivere',
+	'disable' => 'Deaktivere',
 	'module_enabled' => 'Modul aktivert.',
 	'module_disabled' => 'Modul deaktivert.',
-	
+
 	// Styles
 	'templates' => 'Templater',
 	'template_outdated' => 'Vi har funnet ut av at din template er gyldig for NamelessMC versjon {x}, men du kjører versjon {y}', // Don't replace "{x}" or "{y}"
@@ -115,7 +117,7 @@ $language = array(
 	'default_template_set' => 'Standard template satt til {x} suksessfullt.', // Don't replace {x}
 	'template_deactivated' => 'Template deaktivert.',
 	'template_activated' => 'Template aktivert.',
-	
+
 	// Users & groups
 	'users' => 'Brukere',
 	'groups' => 'Grupper',
@@ -159,7 +161,7 @@ $language = array(
 	'delete_group' => 'Slett gruppe',
 	'confirm_group_deletion' => 'Er du sikker på at du vil slette gruppa {x}?', // Don't replace {x}
 	'group_not_exist' => 'Den gruppa eksisterer ikke.',
-	
+
 	// General Admin language
 	'task_successful' => 'Kapittel ferdig.',
 	'invalid_action' => 'Ugyldig valg.',
@@ -167,14 +169,14 @@ $language = array(
 	'disable_night_mode' => 'Deaktiver nattmodus',
 	'view_site' => 'Vis side',
 	'signed_in_as_x' => 'Logget inn som {x}', // Don't replace {x}
-	
+
 	// Security
 	'acp_logins' => 'AdminCP Logg inns',
 	'please_select_logs' => 'Velg logs du vil vise.',
 	'ip_address' => 'IP Addresser',
 	'template_changes' => 'Template forandringer',
 	'file_changed' => 'File endringer',
-	
+
 	// Updates
 	'update' => 'Oppdater',
 	'current_version_x' => 'Denne versjonen: <strong>{x}</strong>', // Don't replaec {x}
@@ -188,7 +190,7 @@ $language = array(
 	'download' => 'Last ned',
 	'install' => 'Installer',
 	'install_confirm' => 'Pass på at du har lastet opp filene først!',
-	
+
 	// File uploads
 	'drag_files_here' => 'Dra filene hit for å laste opp.',
 	'invalid_file_type' => 'Ugyldig filtype.',

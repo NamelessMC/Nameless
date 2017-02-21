@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -16,7 +16,7 @@ $language = array(
 	 */
 	// Login
 	're-authenticate' => 'Por favor, logue-se novamente',
-	
+
 	// Sidebar
 	'admin_cp' => 'AdminCP',
 	'administration' => 'Administração',
@@ -27,12 +27,12 @@ $language = array(
 	'security' => 'Segurança',
 	'styles' => 'Estilos',
 	'users_and_groups' => 'Usuários & Grupos',
-	
+
 	// Overview
 	'running_nameless_version' => 'Versão do NamelessMC: <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => 'Versão do PHP: <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Estatísticas',
-	
+
 	// Core
 	'settings' => 'Configurações',
 	'general_settings' => 'Configurações Gerais',
@@ -59,7 +59,7 @@ $language = array(
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Atualizado com sucesso!',
-	
+
 	// Reactions
 	'icon' => 'Icone',
 	'type' => 'Tipo',
@@ -70,7 +70,7 @@ $language = array(
 	'html' => 'HTML',
 	'new_reaction' => '<i class="fa fa-plus-circle"></i> Nova Reação',
 	'creating_reaction' => 'Criando Reação',
-	
+
 	// Custom profile fields
 	'custom_fields' => 'Campos Personalizados do Perfil',
 	'new_field' => '<i class="fa fa-plus-circle"></i> Novo Campo',
@@ -88,17 +88,19 @@ $language = array(
 	'description' => 'Descrição',
 	'display_field_on_forum' => 'Mostrar campo no fórum?',
 	'profile_field_forum_help' => 'Se ativado, o campo será exibido pelo usuário próximo aos posts do fórum.',
-	
+
 	// Minecraft
 	'enable_minecraft_integration' => 'Ativar a integração do Minecraft?',
-	
+
 	// Modules
 	'modules_installed_successfully' => 'Todos os novos módulos foram instalados com êxito.',
 	'enabled' => 'Ativado',
 	'disabled' => 'Desativado',
+	'enable' => 'Ativar',
+	'disable' => 'Desativar',
 	'module_enabled' => 'Módulo ativado.',
 	'module_disabled' => 'Módulo desativado.',
-	
+
 	// Styles
 	'templates' => 'Templates',
 	'template_outdated' => 'Você está utilizando um template para a versão {x} do Nameless, porém sua versão do Nameless é {y}', // Don't replace "{x}" or "{y}"
@@ -116,7 +118,7 @@ $language = array(
 	'default_template_set' => 'Template padrão definido para {x} com sucesso.', // Don't replace {x}
 	'template_deactivated' => 'Template desativado.',
 	'template_activated' => 'Template ativado.',
-	
+
 	// Users & groups
 	'users' => 'Usuários',
 	'groups' => 'Grupos',
@@ -160,7 +162,7 @@ $language = array(
 	'delete_group' => 'Excluír Grupo',
 	'confirm_group_deletion' => 'Você tem certeza de que deseja excluir o grupo {x}?', // Don't replace {x}
 	'group_not_exist' => 'Esse grupo não existe.',
-	
+
 	// General Admin language
 	'task_successful' => 'Tarefa bem-sucedida.',
 	'invalid_action' => 'Ação inválida.',
@@ -168,14 +170,14 @@ $language = array(
 	'disable_night_mode' => 'Desativar modo noturno',
 	'view_site' => 'Ver Site',
 	'signed_in_as_x' => 'Logado como {x}', // Don't replace {x}
-	
+
 	// Security
 	'acp_logins' => 'AdminCP Logins',
 	'please_select_logs' => 'Selecione logs para visualizar',
 	'ip_address' => 'Endereço IP',
 	'template_changes' => 'Alterações do Template',
 	'file_changed' => 'Arquivo Modificado',
-	
+
 	// Updates
 	'update' => 'Atualizar',
 	'current_version_x' => 'Versão atual: <strong>{x}</strong>', // Don't replaec {x}
@@ -189,7 +191,7 @@ $language = array(
 	'download' => 'Download',
 	'install' => 'Instalar',
 	'install_confirm' => 'Certifique-se de que transferiu o pacote e carregou os ficheiros contidos em primeiro lugar!',
-	
+
 	// File uploads
 	'drag_files_here' => 'Arraste arquivos aqui para fazer o upload.',
 	'invalid_file_type' => 'Tipo de arquivo inválido!',

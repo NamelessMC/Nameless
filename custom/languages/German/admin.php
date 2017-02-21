@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -9,13 +9,21 @@
  *  German Language - Admin
  */
 
+/*
+ *	Translation by BukkitTNT
+ *
+ *  http://BukkitTNT.de
+ *  http://twitter.com/BukkitTNT
+ *
+ */
+
 $language = array(
 	/*
 	 *  Admin Control Panel
 	 */
 	// Login
 	're-authenticate' => 'Bitte melde dich erneut an!',
-	
+
 	// Sidebar
 	'admin_cp' => 'AdminCP',
 	'administration' => 'Administration',
@@ -26,12 +34,12 @@ $language = array(
 	'security' => 'Sicherheit',
 	'styles' => 'Styles',
 	'users_and_groups' => 'Benutzer und Gruppen',
-	
+
 	// Overview
 	'running_nameless_version' => 'Forum läuft auf der Version <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => 'Running PHP version <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Statistiken',
-	
+
 	// Core
 	'settings' => 'Einstellungen',
 	'general_settings' => 'Allgemeine Einstellungen',
@@ -58,50 +66,52 @@ $language = array(
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Erfolgreich geupdatet.',
-	
+
 	// Reactions
 	'icon' => 'Icon',
 	'type' => 'Type',
 	'positive' => 'Positive',
 	'neutral' => 'Neutral',
 	'negative' => 'Negative',
-	'editing_reaction' => 'Editing Reaction',
+	'editing_reaction' => 'Editiere Reaktion',
 	'html' => 'HTML',
 	'new_reaction' => '<i class="fa fa-plus-circle"></i> New Reaction',
-	'creating_reaction' => 'Creating Reaction',
-	
+	'creating_reaction' => 'Erstelle Reaktion',
+
 	// Custom profile fields
-	'custom_fields' => 'Custom Profile Fields',
-	'new_field' => '<i class="fa fa-plus-circle"></i> New Field',
-	'required' => 'Required',
-	'public' => 'Public',
+	'custom_fields' => 'Eigene Profilfelder',
+	'new_field' => '<i class="fa fa-plus-circle"></i> Neues Feld',
+	'required' => 'Benötigt',
+	'public' => 'Öffentlich',
 	'text' => 'Text',
-	'textarea' => 'Text area',
-	'date' => 'Date',
-	'creating_profile_field' => 'Creating Profile Field',
-	'editing_profile_field' => 'Editing Profile Field',
-	'field_name' => 'Field Name',
-	'profile_field_required_help' => 'Required fields must be filled out by the user, and they will appear during registration.',
-	'profile_field_public_help' => 'Public fields will be displayed to all users, if this is disabled only moderators can view the values.',
-	'profile_field_error' => 'Please input a field name between 2 and 16 characters long.',
-	'description' => 'Description',
-	'display_field_on_forum' => 'Display field on forum?',
-	'profile_field_forum_help' => 'If enabled, the field will display by the user next to forum posts.',
+	'textarea' => 'Textfeld',
+	'date' => 'Datum',
+	'creating_profile_field' => 'Erstelle Profilfeld',
+	'editing_profile_field' => 'Editiere Profilfeld',
+	'field_name' => 'Feldname',
+	'profile_field_required_help' => 'Benötigte Felder müssen während der Registration ausgefüllt werden.',
+	'profile_field_public_help' => 'Öffentliche Felder können von jedem eingesehen werden.',
+	'profile_field_error' => 'Der Text muss zwischen 2-16 Zeichen lang sein.',
+	'description' => 'Beschreibung',
+	'display_field_on_forum' => 'Feld im Forum anzeigen?',
+	'profile_field_forum_help' => 'Wenn dies aktiviert ist wird das Feld unter dem Namen angezeigt.',
 	
 	// Minecraft
-	'enable_minecraft_integration' => 'Enable Minecraft integration?',
+	'enable_minecraft_integration' => 'Minecraft integration aktivieren.',
 	
 	// Modules
 	'modules_installed_successfully' => 'Alle neuen Module wurden erfolgreich installiert.',
 	'enabled' => 'Aktiviert',
 	'disabled' => 'Deaktiviert',
+	'enable' => 'Aktivieren',
+	'disable' => 'Deaktivieren',
 	'module_enabled' => 'Modul aktiviert.',
 	'module_disabled' => 'Modul deaktiviert.',
-	
+
 	// Styles
 	'templates' => 'Templates',
-	'template_outdated' => 'Das Template ist nicht für diese NamelessMC Version',
-	'active' => 'Aktivi',
+	'template_outdated' => 'Dieses Template ist nicht für die aktuell installierte NamelessMC Version',
+	'active' => 'Aktiv',
 	'deactivate' => 'Deaktivieren',
 	'activate' => 'Aktivieren',
 	'warning_editing_default_template' => 'Warnung! Editiere nicht das Standart Template.',
@@ -115,7 +125,7 @@ $language = array(
 	'default_template_set' => 'Das Template {x} wurde als Standart gesetzt.', // Don't replace {x}
 	'template_deactivated' => 'Template wurde deaktiviert.',
 	'template_activated' => 'Template wurde aktiviert.',
-	
+
 	// Users & groups
 	'users' => 'Benutzer',
 	'groups' => 'Gruppen',
@@ -159,7 +169,7 @@ $language = array(
 	'delete_group' => 'Gruppe Löschen',
 	'confirm_group_deletion' => 'Möchtest du die Gruppe {x} wirklich löschen?', // Don't replace {x}
 	'group_not_exist' => 'Diese Gruppe existiert nicht.',
-	
+
 	// General Admin language
 	'task_successful' => 'Aufgabe erfolgreich .',
 	'invalid_action' => 'Ungültige Aktion.',
@@ -167,28 +177,28 @@ $language = array(
 	'disable_night_mode' => 'Nacht Modus deaktivieren',
 	'view_site' => 'Seite ansehen',
 	'signed_in_as_x' => 'Eingeloggt als {x}', // Don't replace {x}
-	
+
 	// Security
 	'acp_logins' => 'AdminCP Logins',
 	'please_select_logs' => 'Bitte wähle die Logs aus.',
 	'ip_address' => 'IP Addresse',
 	'template_changes' => 'Template Editierungen',
-	'file_changed' => 'File geändert',
-	
+	'file_changed' => 'Datei geändert',
+
 	// Updates
 	'update' => 'Update',
-	'current_version_x' => 'Current version: <strong>{x}</strong>', // Don't replaec {x}
-	'new_version_x' => 'New version: <strong>{x}</strong>', // Don't replace {x}
-	'new_update_available' => 'There is a new update available',
-	'up_to_date' => 'Your NamelessMC installation is up to date!',
-	'urgent' => 'This update is an urgent update',
+	'current_version_x' => 'Aktuelle Version: <strong>{x}</strong>', // Don't replaec {x}
+	'new_version_x' => 'Neue version: <strong>{x}</strong>', // Don't replace {x}
+	'new_update_available' => 'Es ist ein Update verfügbar!',
+	'up_to_date' => 'Deine NamelessMC Version ist aktuell!',
+	'urgent' => 'Dieses Update ist ein wichtiges Update!',
 	'changelog' => 'Changelog',
-	'update_check_error' => 'There was an error whilst checking for an update:',
-	'instructions' => 'Instructions',
+	'update_check_error' => 'Fehler beim abrufen der neuesten Version:',
+	'instructions' => 'Anleitung',
 	'download' => 'Download',
-	'install' => 'Install',
-	'install_confirm' => 'Please ensure you have downloaded the package and uploaded the contained files first!',
-	
+	'install' => 'Installieren',
+	'install_confirm' => 'Sei sicher dass du die Dateien zuerst hochgeladen hast!',
+
 	// File uploads
 	'drag_files_here' => 'Ziehe ein Bild hierhin.',
 	'invalid_file_type' => 'Ungültiges Dateiformat!',

@@ -9,6 +9,14 @@
  *  German Language - Moderator terms
  */
 
+/*
+ *	Translation by BukkitTNT
+ *
+ *  http://BukkitTNT.de
+ *  http://twitter.com/BukkitTNT
+ *
+ */
+
 $language = array(
 	'mod_cp' => 'ModCP',
 	'overview' => 'Überblick',
@@ -39,10 +47,10 @@ $language = array(
 	'view_closed' => 'Geschlossene ansehen',
 	'view_open' => 'Offene ansehen',
 	'viewing_report' => 'Sieht Report an',
-	'view_content' => 'Sehe den gemeldeten Content an.',
+	'view_content' => 'Sehe den gemeldeten Kontent an.',
 	'no_comments' => 'Keine Kommentare',
 	'new_comment' => 'Neuer Kommentar',
-	'report_comment_invalid' => 'Ungültiger Content.',
+	'report_comment_invalid' => 'Ungültiger Kontent.',
 	'close_report' => 'Report schließen',
 	'reopen_report' => 'Report erneut öffnen',
 	'open_reports' => 'Es sind aktuell <strong>{x}</strong> Reports geöffnet.', // Don't replace {x}

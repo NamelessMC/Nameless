@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -13,12 +13,12 @@
 if(version_compare(phpversion(), '5.4', '<')){
 	die('NamelessMC is not compatible with PHP versions older than 5.4');
 }
- 
+
 // Start page load timer
 $start = microtime(true);
- 
-// Definitions 
-define('PATH', '/'); 
+
+// Definitions
+define('PATH', '/');
 define('ROOT_PATH', dirname(__FILE__));
 $page = 'Home';
 
@@ -35,33 +35,24 @@ $directory = $_SERVER['REQUEST_URI'];
 $directories = explode("/", $directory);
 $lim = count($directories);
 
-// Installer?
-if(is_file('install.php')){
-	if(isset($_GET['from']) && $_GET['from'] == 'install'){
-		if(is_writable('install.php')){
-			unlink('install.php');
-		} else {
-			die('Unable to automatically delete <strong>install.php</strong>, please do so manually.');
-		}
-	} else {
-		$page = 'install';
-		
-		require('install.php');
-		die();
+try {
+	// Start initialising the page
+	require('core/init.php');
+}
+catch(Exception $e) {
+	if($e->getMessage() === 'Config unavailable.' && is_file('install.php')) {
+		Redirect::to('install.php');
 	}
 }
 
-// Start initialising the page
-require('core/init.php');
-
 if(FRIENDLY_URLS == true){
 	// Load the main page content
-	
+
 	// Check modules
 	$modules = $pages->returnPages();
-	
+
 	// Custom rules
-	
+
 	// Include the page
 	if(array_key_exists($directory, $modules)){
 		$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$directory]['module'], $modules[$directory]['file']));
@@ -79,10 +70,10 @@ if(FRIENDLY_URLS == true){
 		require('modules/Core/pages/index.php');
 	} else {
 		if(!isset($route)) $route = rtrim($_GET['route'], '/');
-		
+
 		// Check modules
 		$modules = $pages->returnPages();
-		
+
 		// Include the page
 		if(array_key_exists($route, $modules)){
 			$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']));
@@ -92,6 +83,6 @@ if(FRIENDLY_URLS == true){
 			// 404
 			require('404.php');
 		}
-		
+
 	}
 }

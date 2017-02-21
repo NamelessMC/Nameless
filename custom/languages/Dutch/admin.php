@@ -1,8 +1,8 @@
-<?php 
+<?php
 /*
  *	Gemaakt door Samerton
  *  en vertaald door Sander Lambrechts
- *  
+ *
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-dev
  *
@@ -10,14 +10,14 @@
  *
  *  Nederlandse taal - Admin
  */
- 
+
 $language = array(
 	/*
 	 *  Admin controle paneel
 	 */
 	// Login
 	're-authenticate' => 'Gelieve opnieuw te verifiëren',
-	
+
 	// Navigatiebalk
 	'admin_cp' => 'Controle Paneel',
 	'administration' => 'Administratie',
@@ -28,12 +28,12 @@ $language = array(
 	'security' => 'Beveiliging',
 	'styles' => 'Stijlen',
 	'users_and_groups' => 'Gebruikers en groepen',
-	
+
 	// Overzicht
 	'running_nameless_version' => 'Website versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'running_php_version' => 'PHP versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'statistics' => 'Statistieken',
-	
+
 	// Kern
 	'settings' => 'Instellingen',
 	'general_settings' => 'Algemene Instellingen',
@@ -60,7 +60,7 @@ $language = array(
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Succesvol bijgewerkt',
-	
+
 	// Reacties
 	'icon' => 'Icoon',
 	'type' => 'Type',
@@ -71,7 +71,7 @@ $language = array(
 	'html' => 'HTML',
 	'new_reaction' => '<i class="fa fa-plus-circle"></i> Nieuwe reactie',
 	'creating_reaction' => 'Reactie maken',
-	
+
 	// Aangepaste profiel velden
 	'custom_fields' => 'Aangepaste profiel velden',
 	'new_field' => '<i class="fa fa-plus-circle"></i> Nieuw veld',
@@ -89,17 +89,19 @@ $language = array(
 	'description' => 'Beschrijving',
 	'display_field_on_forum' => 'Veld laten zien in het forum?',
 	'profile_field_forum_help' => 'Als aan staat, wordt het veld weergegeven bij de gebruiker naast de forum posts.',
-	
+
 	// Minecraft
 	'enable_minecraft_integration' => 'Minecraft integratie aan?',
-	
+
 	// Modulen
-	'modules_installed_successfully' => 'Elke nieuwe modulen zijn succesvol toegevoegd.',
-	'enabled' => 'Inschakelen',
-	'disabled' => 'Uitschakelen',
+	'modules_installed_successfully' => 'Alle nieuwe modules zijn succesvol toegevoegd.',
+	'enabled' => 'Ingeschakeld',
+	'disabled' => 'Uitgeschakeld',
+  'enable' => 'Inschakelen',
+	'disable' => 'Uitschakelen',
 	'module_enabled' => 'Module ingeschakeld.',
 	'module_disabled' => 'Module uitgeschakeld.',
-	
+
 	// Stijlen
 	'templates' => 'Sjablonen',
 	'template_outdated' => 'We hebben ontdekt dat deze sjabloon voor versie {x} is, maar je gebruikt versie {y}', // Verander "{x}" of "{y}" niet
@@ -117,7 +119,7 @@ $language = array(
 	'default_template_set' => 'Standaard sjabloon verzet naar {x} succesvol.', // Verander "{x}" niet
 	'template_deactivated' => 'Sjabloon gedeactiveerd.',
 	'template_activated' => 'Sjabloon geactiveerd.',
-	
+
 	// Gebruikers & groepen
 	'users' => 'Gebruikers',
 	'groups' => 'Groepen',
@@ -130,7 +132,7 @@ $language = array(
 	'cant_modify_root_user' => 'Kan niet de groep van de hoofdgebruiker wijzigen!',
 	'user_deleted' => 'Gebruiker succesvol verwijderd.',
 	'confirm_user_deletion' => 'Weet je zeker dat je <strong>{x}</strong> wilt verwijderen?', // Verander "{x}" niet
-	'validate_user' => 'Valideer gebruiker', 
+	'validate_user' => 'Valideer gebruiker',
 	'update_uuid' => 'Werk UUID bij',
 	'update_mc_name' => 'Werk Minecraft naam bij',
 	'reset_password' => 'Reset wachtwoord',
@@ -161,7 +163,7 @@ $language = array(
 	'delete_group' => 'Verwijder groep',
 	'confirm_group_deletion' => 'Weet je zeker dat je de groep {x} wilt verwijderen?', // Verander "{x}" niet
 	'group_not_exist' => 'Die groep bestaat niet.',
-	
+
 	// Algemene admin taal
 	'task_successful' => 'Taak succesvol.',
 	'invalid_action' => 'Ongeldige actie.',
@@ -169,14 +171,14 @@ $language = array(
 	'disable_night_mode' => 'Nacht modus uitzetten',
 	'view_site' => 'Terug naar de website',
 	'signed_in_as_x' => 'Ingelogd als {x}', // Verander "{x}" niet
-	
+
 	// Beveiliging
 	'acp_logins' => 'Controle paneel aanmeldingen',
 	'please_select_logs' => 'Welk logboek wil je bekijken?',
 	'ip_address' => 'IP Adres',
 	'template_changes' => 'Sjabloon veranderingen',
 	'file_changed' => 'Bestanden veranderd',
-	
+
 	// Updates
 	'update' => 'Bijwerken',
 	'current_version_x' => 'Huidige versie: <strong>{x}</strong>', // Verander "{x}" niet
@@ -189,7 +191,7 @@ $language = array(
 	'instructions' => 'Instructies',
 	'download' => 'Download',
 	'install_confirm' => 'Zorg ervoor dat je het bestand hebt gedownload en de bestanden hebt geupload voordat je verder gaat!',
-	
+
 	// Bestand uploads
 	'drag_files_here' => 'Sleep bestanden hier naartoe om te uploaden.',
 	'invalid_file_type' => 'Verkeerd bestands type',
