@@ -9,6 +9,14 @@
  *  German Language - Time
  */
 
+/*
+ *	Translation by BukkitTNT
+ *
+ *  http://BukkitTNT.de
+ *  http://twitter.com/BukkitTNT
+ *
+ */
+
 $language = array(
 	/*
 	 *  Time
