@@ -25,6 +25,12 @@
 		  </div>
 		  {/if}
 		  
+		  {if isset($MESSAGE_SENT)}
+		  <div class="alert alert-success">
+		    {$MESSAGE_SENT}
+		  </div>
+		  {/if}
+		  
 		  {foreach from=$MESSAGES item=message}
 		  <div class="card">
 		    <div class="card-block">
