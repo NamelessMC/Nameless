@@ -17,11 +17,19 @@ if(!isset($page)){
 }
 
 if(!file_exists('core/config.php')){
-	fopen('core/config.php', 'w');
+	try {
+		fopen('core/config.php', 'w');
+	} catch(Exception $e){
+		die('Your <strong>core</strong> directory is not writable, please check your file permissions.');
+	}
 }
 
 if(!file_exists('cache/templates_c')){
-	mkdir('cache/templates_c', 0777, true);
+	try {
+		mkdir('cache/templates_c', 0777, true);
+	} catch(Exception $e){
+		die('Unable to create cache directories, please check your file permissions.');
+	}
 }
 
 // Require config
