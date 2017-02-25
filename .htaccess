@@ -18,5 +18,6 @@
   RewriteRule ^avatar/([^/]+)$ %{ENV:BASE}core/avatar/face.php?u=$1 [L]
   
   RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
   
   RewriteRule ^(.*)$ %{ENV:BASE}index.php  [QSA]
