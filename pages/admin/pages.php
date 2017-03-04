@@ -552,6 +552,7 @@ $token = Token::generate(); // generate token
 			// Remove the redundant buttons from toolbar groups defined above.
 			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash'
 		} );
+		CKEDITOR.timestamp = '2';
 		CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
 	</script>
     <script type="text/javascript">

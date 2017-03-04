@@ -578,6 +578,7 @@ $purifier = new HTMLPurifier($config);
 			// Remove the redundant buttons from toolbar groups defined above.
 			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash,Iframe'
 		} );
+		CKEDITOR.timestamp = '2';
 		CKEDITOR.config.disableNativeSpellChecker = false;
 		CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
 	</script>

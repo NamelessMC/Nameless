@@ -8,4 +8,5 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
 	config.extraPlugins = 'widget,lineutils,codesnippet';
+	config.smiley_path = '/core/assets/js/plugins/smiley/images/';
 };
