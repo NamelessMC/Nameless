@@ -366,7 +366,7 @@ class User {
 			// Gravatar?
 			if($data[0]->gravatar == 1){
 				// Gravatar
-				return "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $data[0]->email ) ) ) . "?d=" . urlencode( 'https://cravatar.eu/avatar/Steve/200.png' ) . "&s=200";
+				return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $data[0]->email ) ) ) . "?d=" . urlencode( 'https://cravatar.eu/avatar/Steve/200.png' ) . "&s=200";
 			} else if($data[0]->has_avatar == 1){
 				// Custom avatar
 				$exts = array('gif','png','jpg');
