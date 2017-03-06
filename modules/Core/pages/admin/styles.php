@@ -28,10 +28,11 @@ if($user->isLoggedIn()){
 	Redirect::to(URL::build('/login'));
 	die();
 }
- 
- 
+
+
 $page = 'admin';
 $admin_page = 'styles';
+$admin_styles = true;
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
@@ -41,13 +42,13 @@ $admin_page = 'styles';
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-	<?php 
+	<?php
 	$title = $language->get('admin', 'admin_cp');
-	require('core/templates/admin_header.php'); 
+	require('core/templates/admin_header.php');
 	?>
-	
+
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/codemirror/lib/codemirror.css">
-  
+
   </head>
   <body>
     <?php require('modules/Core/pages/admin/navbar.php'); ?>
@@ -70,8 +71,8 @@ $admin_page = 'styles';
 		      <hr />
 
 			  <h3 style="display:inline;"><?php echo $language->get('admin', 'templates'); ?></h3>
-			  <?php 
-			  if(isset($_GET['tid']) || isset($_GET['action'])) echo '<span class="pull-right"><a href="' . URL::build('/admin/styles/') . '" class="btn btn-primary">' . $language->get('general', 'back') . '</a></span>'; 
+			  <?php
+			  if(isset($_GET['tid']) || isset($_GET['action'])) echo '<span class="pull-right"><a href="' . URL::build('/admin/styles/') . '" class="btn btn-primary">' . $language->get('general', 'back') . '</a></span>';
 			  else echo '<span class="pull-right"><a href="' . URL::build('/admin/styles/', 'action=install') . '" class="btn btn-primary">' . $language->get('admin', 'install') . '</a></span>';
 			  ?>
 			  <hr />
@@ -83,22 +84,22 @@ $admin_page = 'styles';
 			  if(!isset($_GET['tid']) && !isset($_GET['action'])){
 				  // Get all templates
 				  $templates = $queries->getWhere('templates', array('id', '<>', 0));
-				  
+
 				  // Get all active templates
 				  $active_templates = $queries->getWhere('templates', array('enabled', '=', 1));
-				  
+
 				  foreach($templates as $template){
 					  $template_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), 'template.php'));
 					  require($template_path);
-					  
+
 					  echo '<strong>' . Output::getClean($template->name) . '</strong> ' . Output::getClean($template_version);
-					  
+
 					  if($nl_template_version != NAMELESS_VERSION){
 						  echo ' <span class="label label-warning"><i class="fa fa-exclamation-triangle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('admin', 'warning') . '" data-content="' . str_replace(array('{x}', '{y}'), array(Output::getClean($nl_template_version), NAMELESS_VERSION), $language->get('admin', 'template_outdated')) . '"></i></span>';
 					  }
-					  
+
 					  echo '<span class="pull-right">';
-					  
+
 					  if($template->enabled == 0){
 						echo '<a href="' . URL::build('/admin/styles/', 'action=activate&amp;template=' . $template->id) . '" class="btn btn-primary btn-sm">' . $language->get('admin', 'activate') . '</a>';
 					  } else {
@@ -108,23 +109,23 @@ $admin_page = 'styles';
 						} else {
 							echo '<button type="button" class="btn btn-sm btn-success" disabled>' . $language->get('admin', 'active') . '</button> ';
 						}
-						
+
 						// Is the template default?
 						if($template->is_default == 1){
 							echo '<button type="button" class="btn btn-sm btn-success" disabled>' . $language->get('admin', 'default') . '</button> ';
 						} else {
 							echo '<a href="' . URL::build('/admin/styles/', 'action=make_default&amp;template=' . $template->id) . '" class="btn btn-sm btn-info">' . $language->get('admin', 'make_default') . '</a> ';
 						}
-						
+
 						echo '<a href="' . URL::build('/admin/styles/', 'tid=' . $template->id) . '" class="btn btn-sm btn-warning">' . $language->get('general', 'edit') . '</a>';
 					  }
-					  
+
 					  echo '</span>';
-					  
+
 					  echo '<hr />';
-					  
+
 				  }
-			  
+
 			  } else {
 				  if(isset($_GET['tid']) && !isset($_GET['action'])){
 					  // Editing template
@@ -136,24 +137,24 @@ $admin_page = 'styles';
 						  Redirect::to(URL::build('/admin/styles'));
 						  die();
 					  }
-					  
+
 					  if($_GET['tid'] == 1){
 						  echo '<div class="alert alert-warning">' . $language->get('admin', 'warning_editing_default_template') . '</div>';
 					  }
-					  
+
 					  if(!isset($_GET['file'])){
 						  echo '<h4>' . htmlspecialchars($template->name) . '</h4>';
 						  // Get all files
 						  // Build path to template folder
 						  $template_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name)));
 						  $files = scandir($template_path);
-						  
+
 						  foreach($files as $file){
 							  if(strpos($file, '.tpl') !== false){
 								  echo '<a href="' . URL::build('/admin/styles/', 'tid=' . $template->id . '&amp;file=' . htmlspecialchars($file)) . '">' . htmlspecialchars($file) . '</a><br />';
 							  }
 						  }
-						  
+
 					  } else {
 						  // Deal with input
 						  if(Input::exists()){
@@ -166,10 +167,10 @@ $admin_page = 'styles';
 									  $file = fopen($file_path, 'w');
 									  fwrite($file, Input::get('code'));
 									  fclose($file);
-									  
+
 									  // Insert into logs
 									  $ip = $user->getIP();
-									  
+
 									  $queries->create('logs', array(
 										'time' => date('U'),
 										'action' => 'acp_template_update',
@@ -177,30 +178,30 @@ $admin_page = 'styles';
 										'user_id' => $user->data()->id,
 										'info' => Output::getClean($_GET['file'])
 									  ));
-									  
+
 									  // Display session success message
 									  Session::flash('template_view', '<div class="alert alert-success">' . $language->get('admin', 'template_updated') . '</div>');
-									  
+
 									  // Redirect to refresh page
 									  Redirect::to(URL::build('/admin/styles/', 'tid=' . $_GET['tid']. '&file=' . Output::getClean($_GET['file'])));
 									  die();
-									  
+
 								  } else {
 									  // No write permission
 
 								  }
-								  
+
 							  } else {
 								  // Invalid token
 
 							  }
 						  }
-						  
+
 						  // Session
 						  if(Session::exists('template_view')){
 							  echo Session::flash('template_view');
 						  }
-						  
+
 						  echo '<h4>'. htmlspecialchars($_GET['file']) . '</h4>';
 						  $file_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), htmlspecialchars($_GET['file'])));
 						?>
@@ -226,7 +227,7 @@ $admin_page = 'styles';
 						  foreach($directories as $directory){
 							$folders = explode(DIRECTORY_SEPARATOR, $directory);
 							// Is it already in the database?
-		
+
 							$exists = $queries->getWhere('templates', array('name', '=', htmlspecialchars($folders[2])));
 							if(!count($exists)){
 								// No, add it now
@@ -235,11 +236,11 @@ $admin_page = 'styles';
 								));
 							}
 						  }
-						  
+
 						  // TODO: success message
 						  Redirect::to(URL::build('/admin/styles'));
 						  die();
-						  
+
 					  } else if($_GET['action'] == 'make_default'){
 						  // Make a template default
 						  // Ensure it exists
@@ -250,9 +251,9 @@ $admin_page = 'styles';
 							  die();
 						  } else {
 							  $new_default_template = $new_default[0]->name;
-							  $new_default = $new_default[0]->id;  
+							  $new_default = $new_default[0]->id;
 						  }
-						  
+
 						  // Get current default template
 						  $current_default = $queries->getWhere('templates', array('is_default', '=', 1));
 						  if(count($current_default)){
@@ -262,22 +263,22 @@ $admin_page = 'styles';
 								'is_default' => 0
 							  ));
 						  }
-						  
+
 						  // Make selected template default
 						  $queries->update('templates', $new_default, array(
 							'is_default' => 1
 						  ));
-						  
+
 						  // Cache
 						  $cache->setCache('templatecache');
 						  $cache->store('default', $new_default_template);
-						  
+
 						  // Session
 						  Session::flash('admin_templates', '<div class="alert alert-success">' . str_replace('{x}', Output::getClean($new_default_template), $language->get('admin', 'default_template_set')) . '</div>');
-						  
+
 						  Redirect::to(URL::build('/admin/styles/'));
 						  die();
-						  
+
 					  } else if($_GET['action'] == 'deactivate'){
 						  // Deactivate a template
 						  // Ensure it exists
@@ -288,18 +289,18 @@ $admin_page = 'styles';
 							  die();
 						  }
 						  $template = $template[0]->id;
-						  
+
 						  // Deactivate the template
 						  $queries->update('templates', $template, array(
 							'enabled' => 0
 						  ));
-						  
+
 						  // Session
 						  Session::flash('admin_templates', '<div class="alert alert-success">' . $language->get('admin', 'template_deactivated') . '</div>');
-						  
+
 						  Redirect::to(URL::build('/admin/styles/'));
 						  die();
-						  
+
 					  } else if($_GET['action'] == 'activate'){
 						  // Activate a template
 						  // Ensure it exists
@@ -310,18 +311,18 @@ $admin_page = 'styles';
 							  die();
 						  }
 						  $template = $template[0]->id;
-						  
+
 						  // Activate the template
 						  $queries->update('templates', $template, array(
 							'enabled' => 1
 						  ));
-						  
+
 						  // Session
 						  Session::flash('admin_templates', '<div class="alert alert-success">' . $language->get('admin', 'template_activated') . '</div>');
-						  
+
 						  Redirect::to(URL::build('/admin/styles/'));
 						  die();
-					
+
 					  }
 				  }
 			  }
@@ -331,20 +332,20 @@ $admin_page = 'styles';
 		</div>
 	  </div>
     </div>
-	
+
 	<?php require('modules/Core/pages/admin/footer.php'); ?>
 
     <?php require('modules/Core/pages/admin/scripts.php'); ?>
-	
+
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/codemirror/lib/codemirror.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/codemirror/mode/smarty/smarty.js"></script>
-	
+
 	<script>
 	var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
 	  lineNumbers: true,
 	  mode: "smarty"
 	});
 	</script>
-	
+
   </body>
 </html>
