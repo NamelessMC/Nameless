@@ -61,15 +61,14 @@ Upcoming addons (these will need to be downloaded separately):
 # Full Staff list:
 **Project**
 * @Samerton
-* @Fellings1
+* @Awtra
 * @partydragen
-* @Envici
 
 # Full contributor list:
 **Main repository**
 * @samerton
+* @Awtra
 * @partydragen
-* @Fellings1
 * @PugaBear
 * @Root3287
 * @jesseke55
