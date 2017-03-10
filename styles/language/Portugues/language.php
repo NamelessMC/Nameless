@@ -8,10 +8,10 @@
 
 /*
  *  Linguagem: Português-BR
- *  Por: www.craftalizar.com
- *  Tradutor: Douglas Teles
- *  Versão: 0.2.0
- *  Última revisão: 08/07/2016
+ *  Por: www.craftalizar.com & www.miningbr.com.br
+ *  Tradutor: Douglas Teles & dasilvaj4
+ *  Versão: 0.2.1
+ *  Última revisão: 09/03/2017
  */
  
 /*
@@ -169,7 +169,7 @@ $admin_language = array(
 	'can_view_page' => 'Pode visualizar a página:',
 	'redirect_page' => 'Redirecionar página?',
 	'redirect_link' => 'Redirecionar link',
-	'page_icon' => 'Page Icon',
+	'page_icon' => 'Ícone da Página',
 	
 	// Admin forum page
 	'labels' => 'Rótulos de tópico',
