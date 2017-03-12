@@ -224,6 +224,22 @@ if($page != 'install'){
 	$smarty->setCompileDir('cache/templates_c');
 	$smarty->assign('SITE_NAME', SITE_NAME);
 
+	// Maintenance mode?
+    $cache->setCache('maintenance_cache');
+    $maintenance = $cache->retrieve('maintenance');
+    if(isset($maintenance['maintenance']) && $maintenance['maintenance'] != 'false'){
+        // Enabled
+        // Admins only beyond this point
+        if(!$user->isLoggedIn() || !$user->canViewACP()){
+            // Maintenance mode
+            require('maintenance.php');
+            die();
+        } else {
+            // Display notice to admin stating maintenance mode is enabled
+            $smarty->assign('MAINTENANCE_ENABLED', $language->get('admin', 'maintenance_enabled'));
+        }
+    }
+
 	// Navbar links
 	$navigation = new Navigation();
 	$cc_nav 	= new Navigation();

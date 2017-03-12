@@ -1,6 +1,6 @@
 {include file='navbar.tpl'}
 
-<div class="container" style="padding-top: 5rem;">
+<div class="container">
   <div class="jumbotron" style="background-image:url('{$BANNER}');">
 	<div class="row">
 	  <div class="col-md-8">

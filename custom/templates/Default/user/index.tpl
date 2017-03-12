@@ -1,6 +1,6 @@
 {include file='navbar.tpl'}
 
-<div class="container" style="padding-top: 5rem;">
+<div class="container">
   <div class="row">
 	<div class="col-md-3">
 	  {include file='user/navigation.tpl'}

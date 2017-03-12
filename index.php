@@ -40,9 +40,11 @@ try {
 	require('core/init.php');
 }
 catch(Exception $e) {
-	if($e->getMessage() === 'Config unavailable.' && is_file('install.php')) {
-		Redirect::to('install.php');
-	}
+	die($e->getMessage());
+}
+
+if(!isset($GLOBALS['config']['core']) && is_file('install.php')) {
+	Redirect::to('install.php');
 }
 
 if(FRIENDLY_URLS == true){

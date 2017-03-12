@@ -73,6 +73,9 @@ $current_default_language = $current_default_language[0]->value;
 				  <tr>
 					<td><a href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>"><?php echo $language->get('admin', 'custom_fields'); ?></a></td>
 				  </tr>
+                    <tr>
+                        <td><a href="<?php echo URL::build('/admin/core/', 'view=maintenance'); ?>"><?php echo $language->get('admin', 'maintenance_mode'); ?></a></td>
+                    </tr>
 				  <tr>
 					<td><a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>"><?php echo $language->get('user', 'reactions'); ?></a></td>
 				  </tr>
@@ -1007,6 +1010,80 @@ $current_default_language = $current_default_language[0]->value;
 						Redirect::to(URL::build('/admin/core'));
 						die();
 					  break;
+                      case 'maintenance':
+                          // Maintenance mode settings
+                          // Deal with input
+                          if(Input::exists()){
+                              if(Token::check(Input::get('token'))){
+                                  // Valid token
+                                  // Validate message
+                                  $validate = new Validate();
+                                  $validation = $validate->check($_POST, array(
+                                     'message' => array(
+                                       'max' => 1024
+                                     )
+                                  ));
+
+                                  if($validation->passed()){
+                                      // Update database and cache
+                                      // Is maintenance enabled or not?
+                                      if(isset($_POST['enable_maintenance']) && $_POST['enable_maintenance'] == 1) $enabled = 'true';
+                                      else $enabled = 'false';
+
+                                      $maintenance_id = $queries->getWhere('settings', array('name', '=', 'maintenance'));
+                                      $maintenance_id = $maintenance_id[0]->id;
+                                      $queries->update('settings', $maintenance_id, array(
+                                          'value' => $enabled
+                                      ));
+
+                                      if(isset($_POST['message']) && !empty($_POST['message'])) $message = Input::get('message');
+                                      else $message = 'Maintenance mode is enabled.';
+
+                                      $maintenance_id = $queries->getWhere('settings', array('name', '=', 'maintenance_message'));
+                                      $maintenance_id = $maintenance_id[0]->id;
+                                      $queries->update('settings', $maintenance_id, array(
+                                          'value' => Output::getClean($message)
+                                      ));
+
+                                      // Cache
+                                      $cache->setCache('maintenance_cache');
+                                      $cache->store('maintenance', array(
+                                          'maintenance' => $enabled,
+                                          'message' => Output::getClean($message)
+                                      ));
+
+                                  } else $error = $language->get('admin', 'maintenance_message_max_1024');
+                              } else {
+                                  // Invalid token
+                                  $error = $language->get('general', 'invalid_token');
+                              }
+
+                              // Re-query cache for updated values
+                              $cache->setCache('maintenance_cache');
+                              $maintenance = $cache->retrieve('maintenance');
+                          }
+                          ?>
+                          <h4><?php echo $language->get('admin', 'maintenance_mode'); ?></h4>
+
+                          <form action="" method="post">
+                            <?php if(isset($error)){ ?>
+                            <div class="alert alert-danger"><?php echo $error; ?></div>
+                            <?php } ?>
+                            <div class="form-group">
+                              <label for="InputMaintenance"><?php echo $language->get('admin', 'enable_maintenance_mode'); ?></label>
+                              <input id="InputMaintenance" name="enable_maintenance" type="checkbox" class="js-switch" value="1" <?php if(isset($maintenance['maintenance']) && $maintenance['maintenance'] != 'false') echo 'checked'; ?>/>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputMaintenanceMessage"><?php echo $language->get('admin', 'maintenance_mode_message'); ?></label>
+                              <textarea style="width:100%" rows="10" name="message" id="InputMaintenanceMessage"><?php echo Output::getPurified((isset($_POST['message']) ? $_POST['message'] : $maintenance['message'])); ?></textarea>
+                            </div>
+                            <div class="form-group">
+                              <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+                              <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
+                            </div>
+                          </form>
+                          <?php
+                      break;
 				  }
 			  }
 			  ?>
@@ -1029,5 +1106,13 @@ $current_default_language = $current_default_language[0]->value;
 	});
 	</script>
 
+    <?php if(isset($_GET['view']) && $_GET['view'] == 'maintenance'){ ?>
+    <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
+    <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
+    <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+      <?php echo Input::createEditor('InputMaintenanceMessage'); ?>
+    </script>
+    <?php } ?>
   </body>
 </html>
