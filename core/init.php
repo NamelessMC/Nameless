@@ -232,8 +232,10 @@ if($page != 'install'){
         // Admins only beyond this point
         if(!$user->isLoggedIn() || !$user->canViewACP()){
             // Maintenance mode
-            require('maintenance.php');
-            die();
+            if($directory != '/login') {
+                require('maintenance.php');
+                die();
+            }
         } else {
             // Display notice to admin stating maintenance mode is enabled
             $smarty->assign('MAINTENANCE_ENABLED', $language->get('admin', 'maintenance_enabled'));
