@@ -17,5 +17,7 @@ $language = array(
 	'404_content' => 'Vi kunne ikke finne denne siden!',
 	'404_back' => 'Tilbake',
 	'404_home' => 'Hjem',
-	'404_error' => 'Hvis du mener dette er en feil, {x}vennligst kontakt administrasjonen{y}' // Don't replace {x} or {y}
+	'404_error' => 'Hvis du mener dette er en feil, {x}vennligst kontakt administrasjonen{y}', // Don't replace {x} or {y}
+    'maintenance_title' => 'Maintenance mode.',
+    'maintenance_retry' => 'Retry'
 );

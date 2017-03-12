@@ -23,8 +23,11 @@
 
 .home-header {
 	background-image: url('../img/homepage_bg_trimmed.jpg');
-	padding-top: 5rem;
 	height: 450px;
+}
+
+.jumbotron.home-header .container .container {
+    padding-top: 0px !important;
 }
 
 .home-header .lg {

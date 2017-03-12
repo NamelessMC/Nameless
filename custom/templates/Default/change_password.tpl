@@ -6,8 +6,8 @@
 	  <div class="card">
 	    <div class="card-block">
 		  <form role="form" action="" method="post">
-			<h2>{$SIGN_IN}</h2>
-		
+			<h2>{$CHANGE_PASSWORD}</h2>
+
 			{if count($ERROR)}
 			<div class="alert alert-danger" role="alert">
 			  {foreach from=$ERROR item=item name=err}
@@ -18,15 +18,15 @@
 			{/if}
 
 			<hr class="colorgraph">
-			
+
 			<div class="form-group">
 			  <input type="text" class="form-control form-control-lg" name="username" id="username" autocomplete="off" value="{$USERNAME_INPUT}" placeholder="{$USERNAME}" tabindex="1">
 			</div>
-			
+
 			<div class="form-group">
 			  <input type="password" class="form-control form-control-lg" name="password" id="password" autocomplete="off" placeholder="{$PASSWORD}" tabindex="2">
 			</div>
-			
+
 			<div class="form-group">
 			  <div class="row">
 				<div class="col-xs-12 col-md-6">
@@ -34,7 +34,7 @@
 					<span class="button-checkbox">
 						<button type="button" class="btn" data-color="info" tabindex="7"> {$REMEMBER_ME}</button>
 						<input type="checkbox" name="remember" id="remember" style="display:none;" value="1">
-					</span>				
+					</span>
 				  </div>
 				</div>
 				<div class="col-xs-12 col-md-6">
@@ -44,9 +44,9 @@
 				</div>
 			  </div>
 			</div>
-			
+
 			<input type="hidden" name="token" value="{$FORM_TOKEN}">
-			
+
 			<hr class="colorgraph">
 			<div class="row">
 			  <div class="col-xs-12 col-md-6">

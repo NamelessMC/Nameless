@@ -97,7 +97,7 @@ $language = array(
 	'modules_installed_successfully' => 'Alle nieuwe modules zijn succesvol toegevoegd.',
 	'enabled' => 'Ingeschakeld',
 	'disabled' => 'Uitgeschakeld',
-  'enable' => 'Inschakelen',
+    'enable' => 'Inschakelen',
 	'disable' => 'Uitschakelen',
 	'module_enabled' => 'Module ingeschakeld.',
 	'module_disabled' => 'Module uitgeschakeld.',
@@ -119,6 +119,7 @@ $language = array(
 	'default_template_set' => 'Standaard sjabloon verzet naar {x} succesvol.', // Verander "{x}" niet
 	'template_deactivated' => 'Sjabloon gedeactiveerd.',
 	'template_activated' => 'Sjabloon geactiveerd.',
+	'permissions' => 'Permissions',
 
 	// Gebruikers & groepen
 	'users' => 'Gebruikers',
@@ -171,6 +172,14 @@ $language = array(
 	'disable_night_mode' => 'Nacht modus uitzetten',
 	'view_site' => 'Terug naar de website',
 	'signed_in_as_x' => 'Ingelogd als {x}', // Verander "{x}" niet
+    'warning' => 'Warning',
+
+    // Maintenance
+    'maintenance_mode' => 'Maintenance Mode',
+    'maintenance_enabled' => 'Maintenance mode is currently enabled.',
+    'enable_maintenance_mode' => 'Enable maintenance mode?',
+    'maintenance_mode_message' => 'Maintenance mode message',
+    'maintenance_message_max_1024' => 'Please ensure your maintenance message is a maximum of 1024 characters.',
 
 	// Beveiliging
 	'acp_logins' => 'Controle paneel aanmeldingen',

@@ -17,5 +17,7 @@ $language = array(
 	'404_content' => 'We couldn\'t find that page.',
 	'404_back' => 'Go back',
 	'404_home' => 'Home',
-	'404_error' => 'If you believe this to be an error, {x}please contact an administrator{y}' // Don't replace {x} or {y}
+	'404_error' => 'If you believe this to be an error, {x}please contact an administrator{y}', // Don't replace {x} or {y}
+    'maintenance_title' => 'Maintenance mode.',
+    'maintenance_retry' => 'Retry'
 );

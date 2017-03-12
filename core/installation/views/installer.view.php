@@ -733,6 +733,13 @@
             $cache->setCache('timezone_cache');
             $cache->store('timezone', 'Europe/London');
 
+            $queries->create('settings', array(
+                'name' => 'maintenance_message',
+                'value' => 'This website is currently in maintenance mode.'
+            ));
+            $cache->setCache('maintenance_cache');
+            $cache->store('maintenance', array('maintenance' => 'false', 'message' => 'This website is currently in maintenance mode.'));
+
             // Templates
             $queries->create('templates', array(
                 'name' => 'Default',
@@ -1964,6 +1971,13 @@
 						));
 						$cache->setCache('timezone_cache');
 						$cache->store('timezone', 'Europe/London');
+
+            $queries->create('settings', array(
+                'name' => 'maintenance_message',
+                'value' => 'This website is currently in maintenance mode.'
+            ));
+            $cache->setCache('maintenance_cache');
+            $cache->store('maintenance', array('maintenance' => 'false', 'message' => 'This website is currently in maintenance mode.'));
 
 						// Templates
 						$queries->create('templates', array(

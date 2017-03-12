@@ -1,6 +1,6 @@
 {include file='navbar.tpl'}
 
-<div class="container" style="padding-top: 5rem;">
+<div class="container">
   <div class="row">
 	<div class="col-xs-12 col-sm-8 col-md-6 offset-sm-2 offset-md-3">
 	  <div class="card">

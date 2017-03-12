@@ -95,10 +95,10 @@ $language = array(
 	'description' => 'Beschreibung',
 	'display_field_on_forum' => 'Feld im Forum anzeigen?',
 	'profile_field_forum_help' => 'Wenn dies aktiviert ist wird das Feld unter dem Namen angezeigt.',
-	
+
 	// Minecraft
 	'enable_minecraft_integration' => 'Minecraft integration aktivieren.',
-	
+
 	// Modules
 	'modules_installed_successfully' => 'Alle neuen Module wurden erfolgreich installiert.',
 	'enabled' => 'Aktiviert',
@@ -125,6 +125,7 @@ $language = array(
 	'default_template_set' => 'Das Template {x} wurde als Standart gesetzt.', // Don't replace {x}
 	'template_deactivated' => 'Template wurde deaktiviert.',
 	'template_activated' => 'Template wurde aktiviert.',
+	'permissions' => 'Permissions',
 
 	// Users & groups
 	'users' => 'Benutzer',
@@ -177,6 +178,14 @@ $language = array(
 	'disable_night_mode' => 'Nacht Modus deaktivieren',
 	'view_site' => 'Seite ansehen',
 	'signed_in_as_x' => 'Eingeloggt als {x}', // Don't replace {x}
+    'warning' => 'Warning',
+
+    // Maintenance
+    'maintenance_mode' => 'Maintenance Mode',
+    'maintenance_enabled' => 'Maintenance mode is currently enabled.',
+    'enable_maintenance_mode' => 'Enable maintenance mode?',
+    'maintenance_mode_message' => 'Maintenance mode message',
+    'maintenance_message_max_1024' => 'Please ensure your maintenance message is a maximum of 1024 characters.',
 
 	// Security
 	'acp_logins' => 'AdminCP Logins',

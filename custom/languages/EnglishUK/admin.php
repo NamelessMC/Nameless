@@ -117,6 +117,8 @@ $language = array(
 	'default_template_set' => 'Default template set to {x} successfully.', // Don't replace {x}
 	'template_deactivated' => 'Template deactivated.',
 	'template_activated' => 'Template activated.',
+	'permissions' => 'Permissions',
+	'setting_perms_for_x' => 'Setting permissions for template {x}', // Don't replace {x}
 
 	// Users & groups
 	'users' => 'Users',
@@ -169,6 +171,14 @@ $language = array(
 	'disable_night_mode' => 'Disable Night Mode',
 	'view_site' => 'View Site',
 	'signed_in_as_x' => 'Signed in as {x}', // Don't replace {x}
+    'warning' => 'Warning',
+
+    // Maintenance
+    'maintenance_mode' => 'Maintenance Mode',
+    'maintenance_enabled' => 'Maintenance mode is currently enabled.',
+    'enable_maintenance_mode' => 'Enable maintenance mode?',
+    'maintenance_mode_message' => 'Maintenance mode message',
+    'maintenance_message_max_1024' => 'Please ensure your maintenance message is a maximum of 1024 characters.',
 
 	// Security
 	'acp_logins' => 'AdminCP Logins',

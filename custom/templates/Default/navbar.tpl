@@ -74,3 +74,12 @@
 	</div>
   </div>
 </nav>
+
+<div class="container" style="padding-top: 5rem;">
+  {* Global messages *}
+  {if isset($MAINTENANCE_ENABLED)}
+  <div class="alert alert-danger">
+    {$MAINTENANCE_ENABLED}
+  </div>
+  {/if}
+</div>
