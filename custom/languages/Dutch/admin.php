@@ -97,7 +97,7 @@ $language = array(
 	'modules_installed_successfully' => 'Alle nieuwe modules zijn succesvol toegevoegd.',
 	'enabled' => 'Ingeschakeld',
 	'disabled' => 'Uitgeschakeld',
-    'enable' => 'Inschakelen',
+    	'enable' => 'Inschakelen',
 	'disable' => 'Uitschakelen',
 	'module_enabled' => 'Module ingeschakeld.',
 	'module_disabled' => 'Module uitgeschakeld.',
@@ -119,7 +119,7 @@ $language = array(
 	'default_template_set' => 'Standaard sjabloon verzet naar {x} succesvol.', // Verander "{x}" niet
 	'template_deactivated' => 'Sjabloon gedeactiveerd.',
 	'template_activated' => 'Sjabloon geactiveerd.',
-	'permissions' => 'Permissions',
+	'permissions' => 'Toestemmingen',
 
 	// Gebruikers & groepen
 	'users' => 'Gebruikers',
@@ -172,14 +172,14 @@ $language = array(
 	'disable_night_mode' => 'Nacht modus uitzetten',
 	'view_site' => 'Terug naar de website',
 	'signed_in_as_x' => 'Ingelogd als {x}', // Verander "{x}" niet
-    'warning' => 'Warning',
+    	'warning' => 'Waarschuwing',
 
-    // Maintenance
-    'maintenance_mode' => 'Maintenance Mode',
-    'maintenance_enabled' => 'Maintenance mode is currently enabled.',
-    'enable_maintenance_mode' => 'Enable maintenance mode?',
-    'maintenance_mode_message' => 'Maintenance mode message',
-    'maintenance_message_max_1024' => 'Please ensure your maintenance message is a maximum of 1024 characters.',
+	// Maintenance
+ 	'maintenance_mode' => 'Onderhoud Modus',
+ 	'maintenance_enabled' => 'Onderhoud Modus staat nu aan.',
+  	'enable_maintenance_mode' => 'Onderhoud modus aanzetten?',
+  	'maintenance_mode_message' => 'Onderhoud modus bericht',
+  	'maintenance_message_max_1024' => 'Zorg ervoor dat je onderhoud bericht maximaal uit 1024 karakters bestaat.',
 
 	// Beveiliging
 	'acp_logins' => 'Controle paneel aanmeldingen',
