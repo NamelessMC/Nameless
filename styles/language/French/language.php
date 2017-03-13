@@ -48,7 +48,7 @@ $admin_language = array(
 	'addons' => 'Addons',
 	'update' => 'Mise à jour',
 	'misc' => 'Autre',
-	'help' => 'Help',
+	'help' => 'Aide',
 	
 	// Admin index page
 	'statistics' => 'Statistiques',
@@ -215,7 +215,7 @@ $admin_language = array(
 	'forum_name_maximum' => 'Le nom du Forum doit avoir un maximum de 150 caractères.',
 	'forum_description_maximum' => 'La description du Forum doit avoir un maximum de 255 caractères.',
 	'forum_type_forum' => 'Type de Forums',
-	'forum_type_category' => 'Catégory de Forums',
+	'forum_type_category' => 'Catégorie de Forums',
 	
 	// Admin Users and Groups page
 	'users' => 'Utilisateurs',
@@ -269,7 +269,7 @@ $admin_language = array(
 	'force_avatars' => 'Forcer les avatars Minecraft?',
 	'uuid_linking' => 'Activer les liens d\'UUID?',
 	'use_plugin_help' => 'L\'utilisation dece plugin permet la synchronisation des rangs, de l\'enregistrement In-Game et la submission de tickets.',
-	'uuid_linking_help' => 'Si cette option est désactivée, les Utilisateurs ne seront pas lier avec un UUID. Il est recommandé de laisser cette option <strong>activée</strong>.',
+	'uuid_linking_help' => 'Si cette option est désactivée, les Utilisateurs ne seront pas lier avec un UUID. Il est recommandé de laisser cette option activée.',
 	'plugin_settings' => 'Paramètres de plugin',
 	'confirm_api_regen' => 'Désirez-vous générer une nouvelle clé API?',
 	'servers' => 'Serveurs',
@@ -404,7 +404,7 @@ $user_language = array(
 	'user_title' => 'Titre',
 	'email_address' => 'Adresse Email',
 	'date_of_birth' => 'Date de naissance',
-	'location' => 'Location',
+	'location' => 'Localisation',
 	'password' => 'Mot de Passe',
 	'confirm_password' => 'Confirmer votre Mot de Passe',
 	'i_agree' => 'J\'accepte',
@@ -482,7 +482,7 @@ $user_language = array(
 	
 	// Profile settings
 	'display_name' => 'Pseudonyme',
-	'upload_an_avatar' => 'Uploader un avatar (.jpg, .png ou .gif):',
+	'upload_an_avatar' => 'Télécharger un avatar (.jpg, .png ou .gif):',
 	'use_gravatar' => 'Utiliser Gravatar?',
 	'change_password' => 'Modifier votre Mot de Passe',
 	'current_password' => 'Mot de Passe actuel',
@@ -827,7 +827,7 @@ $table_language = array(
  *  API language
  */
 $api_language = array(
-	'register' => 'Enregistrement complète.'
+	'register' => 'Enregistrement complèté.'
 );
  
 ?>
