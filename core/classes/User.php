@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/samerton
- * 
+ *
  *  User class
  */
 class User {
@@ -13,14 +13,14 @@ class User {
 			$_isLoggedIn,
 			$_admSessionName,
 			$_isAdmLoggedIn;
-	
+
 	// Construct User class
 	public function __construct($user = null) {
 		$this->_db = DB::getInstance();
 		$this->_sessionName = Config::get('session/session_name');
 		$this->_cookieName = Config::get('remember/cookie_name');
 		$this->_admSessionName = Config::get('session/admin_name');
-		
+
 		if(!$user){
 			if(Session::exists($this->_sessionName)) {
 				$user = Session::get($this->_sessionName);
@@ -32,7 +32,7 @@ class User {
 			}
 			if(Session::exists($this->_admSessionName)) {
 				$user = Session::get($this->_admSessionName);
-				if($this->find($user)){
+				if($user == $this->data()->id && $this->find($user)){
 					$this->_isAdmLoggedIn = true;
 				} else {
 					// process logout
@@ -41,7 +41,7 @@ class User {
 		} else {
 			$this->find($user);
 		}
-		
+
 	}
 
 	// Get name of group from an ID
@@ -54,27 +54,27 @@ class User {
 			return false;
 		}
 	}
-	
+
 	// Get a group's CSS class from an ID
 	public function getGroupClass($user_id) {
 		$user = $this->_db->get('users', array('id', '=', $user_id));
-		
+
 		// Check the user exists..
 		if($user->count()){
 			// Get the user's group
 			$group_id = $user->results();
 			$group_id = $group_id[0]->group_id;
-			
+
 			$data = $this->_db->get('groups', array('id', '=', $group_id));
 			if($data->count()) {
 				$results = $data->results();
 				return 'color:' . htmlspecialchars($results[0]->group_username_css) . ';';
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	// Get a user's IP address
 	public function getIP() {
 		if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -86,26 +86,26 @@ class User {
 		}
 		return $ip;
 	}
-	
+
 	// Update a user's data
 	public function update($fields = array(), $id = null) {
-	
+
 		if(!$id && $this->isLoggedIn()) {
 			$id = $this->data()->id;
 		}
-	
+
 		if(!$this->_db->update('users', $id, $fields)) {
 			throw new Exception('There was a problem updating your details.');
 		}
 	}
-	
+
 	// Create a new user
 	public function create($fields = array()) {
 		if(!$this->_db->insert('users', $fields)) {
 			throw new Exception('There was a problem creating an account.');
 		}
 	}
-	
+
 	// Find a specified user by username
 	// Params: $user (mixed) - either username or user ID to search for
 	//         $force_username (boolean) - if true, only search using username, not ID
@@ -113,7 +113,7 @@ class User {
 		if ($user) {
 			$field = ($force_username === false && is_numeric($user)) ? 'id' : 'username';
 			$data = $this->_db->get('users', array($field, '=', $user));
-			
+
 			if($data->count()) {
 				$this->_data = $data->first();
 				return true;
@@ -121,12 +121,12 @@ class User {
 		}
 		return false;
 	}
-	
+
 	// Get username from ID
 	public function IdToName($id = null){
 		if($id){
 			$data = $this->_db->get('users', array('id', '=', $id));
-			
+
 			if($data->count()){
 				$results = $data->results();
 				return $results[0]->username;
@@ -134,12 +134,12 @@ class User {
 		}
 		return false;
 	}
-	
+
 	// Get nickname from ID
 	public function IdToNickname($id = null) {
 		if($id){
 			$data = $this->_db->get('users', array('id', '=', $id));
-			
+
 			if($data->count()) {
 				$results = $data->results();
 				return $results[0]->nickname;
@@ -147,7 +147,7 @@ class User {
 		}
 		return false;
 	}
-	
+
 	// Log the user in
 	public function login($username = null, $password = null, $remember = false) {
 		if(!$username && !$password && $this->exists()){
@@ -158,11 +158,11 @@ class User {
 			if($user){
 				if(password_verify($password, $this->data()->password)) {
 					Session::put($this->_sessionName, $this->data()->id);
-				
+
 					if($remember) {
 						$hash = Hash::unique();
 						$hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
-					
+
 						if(!$hashCheck->count()) {
 							$this->_db->insert('users_session', array(
 								'user_id' => $this->data()->id,
@@ -171,18 +171,18 @@ class User {
 						} else {
 							$hash = $hashCheck->first()->hash;
 						}
-					
+
 						Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
-					
+
 					}
-				
+
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-	
+
 	// Handle AdminCP logins
 	public function adminLogin($username = null, $password = null) {
 		if(!$username && !$password && $this->exists()){
@@ -195,7 +195,7 @@ class User {
 
 					$hash = Hash::unique();
 					$hashCheck = $this->_db->get('users_admin_session', array('user_id', '=', $this->data()->id));
-				
+
 					if(!$hashCheck->count()) {
 						$this->_db->insert('users_admin_session', array(
 							'user_id' => $this->data()->id,
@@ -204,17 +204,17 @@ class User {
 					} else {
 						$hash = $hashCheck->first()->hash;
 					}
-				
+
 					Cookie::put($this->_cookieName . "_adm", $hash, 3600);
 
-				
+
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-	
+
 	// Get a user's group from their ID. We can either return their ID only, their normal HTML display code, or their large HTML display code
 	public function getGroup($id, $html = null, $large = null) {
 		$data = $this->_db->get('users', array('id', '=', $id));
@@ -235,7 +235,7 @@ class User {
 			return $results[0]->group_html;
 		}
 	}
-	
+
 	// Get a user's signature, by user ID
 	public function getSignature($id) {
 		$data = $this->_db->get('users', array('id', '=', $id));
@@ -246,7 +246,7 @@ class User {
 			return "";
 		}
 	}
-	
+
 	// Get a user's avatar, based on user ID
 	public function getAvatar($id, $path = null, $size = 50) {
 		// Do they have an avatar?
@@ -276,7 +276,7 @@ class User {
 			} else {
 				// Minecraft avatar
 				$avatar_type = $this->_db->get('settings', array('name', '=', 'avatar_type'))->results();
-				
+
 				if(count($avatar_type)){
 					$avatar_type = $avatar_type[0]->value;
 					switch($avatar_type){
@@ -296,7 +296,7 @@ class User {
 			}
 		}
 	}
-	
+
 	// Does the user have any infractions?
 	public function hasInfraction($user_id){
 		$data = $this->_db->get('infractions', array('punished', '=', $user_id))->results();
@@ -322,46 +322,46 @@ class User {
 	public function exists() {
 		return (!empty($this->_data)) ? true : false;
 	}
-	
+
 	// Log the user out
 	public function logout() {
-		
+
 		$this->_db->delete('users_session', array('user_id', '=', $this->data()->id));
-		
+
 		Session::delete($this->_sessionName);
 		Cookie::delete($this->_cookieName);
 	}
-	
+
 	// Process logout if user is admin
 	public function admLogout() {
-		
+
 		$this->_db->delete('users_admin_session', array('user_id', '=', $this->data()->id));
-		
+
 		Session::delete($this->_admSessionName);
 		Cookie::delete($this->_cookieName . "_adm");
 	}
-	
+
 	// Returns the currently logged in user's data
 	public function data() {
 		return $this->_data;
 	}
-	
+
 	// Returns true if the current user is logged in
 	public function isLoggedIn() {
 		return $this->_isLoggedIn;
 	}
-	
+
 	// Returns true if the current user is authenticated as an administrator
 	public function isAdmLoggedIn() {
 		return $this->_isAdmLoggedIn;
 	}
-	
+
 	// Return a comma separated string of all users - this is for the new private message dropdown
 	public function listAllUsers() {
 		$data = $this->_db->get('users', array('id', '<>', '0'))->results();
 		$return = "";
 		$i = 1;
-		
+
 		foreach($data as $item){
 			if($i != count($data)){
 				$return .= '"' . $item->username . '",';
@@ -372,12 +372,12 @@ class User {
 		}
 		return $return;
 	}
-	
+
 	// Return an ID from a username
 	public function NameToId($name = null){
 		if($name){
 			$data = $this->_db->get('users', array('username', '=', $name));
-			
+
 			if($data->count()){
 				$results = $data->results();
 				return $results[0]->id;
@@ -385,15 +385,15 @@ class User {
 		}
 		return false;
 	}
-	
+
 	// Get a list of PMs a user has access to
 	public function listPMs($user_id = null){
 		if($user_id){
 			$return = array(); // Array to return containing info of PMs
-			
+
 			// Get a list of PMs which the user is in
 			$data = $this->_db->get('private_messages_users', array('user_id', '=', $user_id));
-			
+
 			if($data->count()){
 				$data = $data->results();
 				foreach($data as $result){
@@ -403,11 +403,11 @@ class User {
 					foreach($pms as $pm){
 						$users[] = $pm->user_id;
 					}
-					
+
 					// Get the PM data
 					$pm = $this->_db->get('private_messages', array('id', '=', $result->pm_id))->results();
 					$pm = $pm[0];
-					
+
 					$return[$pm->id]['id'] = $pm->id;
 					$return[$pm->id]['title'] = Output::getClean($pm->title);
 					$return[$pm->id]['created'] = $pm->created;
@@ -420,7 +420,7 @@ class User {
 			usort($return, function($a, $b) {
 				return $b['updated'] - $a['updated'];
 			});
-			
+
 			return $return;
 		}
 		return false;
@@ -434,7 +434,7 @@ class User {
 			if($data->count()){
 				$data = $data->results();
 				$data = $data[0];
-				
+
 				// Does the user have permission to view the PM?
 				$pms = $this->_db->get('private_messages_users', array('pm_id', '=', $pm_id))->results();
 				foreach($pms as $pm){
@@ -448,32 +448,32 @@ class User {
 				if(!isset($has_permission)){
 					return false; // User doesn't have permission
 				}
-				
+
 				// Set message to "read"
 				if($pm->read == 0){
 					$this->_db->update('private_messages_users', $pm_user_id, array(
 						'`read`' => 1
 					));
 				}
-				
+
 				// User has permission, return the PM information
-				
+
 				// Get a list of users in the conversation
 				if(!isset($pms)){
 					$pms = $this->_db->get('private_messages_users', array('pm_id', '=', $pm_id))->results();
 				}
-				
+
 				$users = array(); // Array to store users
 				foreach($pms as $pm){
 					$users[] = $pm->user_id;
 				}
-				
+
 				return array($data, $users);
 			}
 		}
 		return false;
 	}
-	
+
 	// Delete a user's access to view the PM, or if they're the author, the PM itself
 	public function deletePM($pm_id = null, $user_id = null){
 		if($user_id && $pm_id){
@@ -483,7 +483,7 @@ class User {
 				$data = $data->results();
 				$data = $data[0];
 				if($data->author_id != $user_id){
-					// User is not the author, only delete 
+					// User is not the author, only delete
 					$pms = $this->_db->get('private_messages_users', array('pm_id', '=', $pm_id))->results();
 					foreach($pms as $pm){
 						if($pm->user_id == $user_id){
@@ -503,7 +503,7 @@ class User {
 		}
 		return false;
 	}
-	
+
 	// Get the number of unread PMs for the specified user
 	public function getUnreadPMs($user_id = null){
 		if($user_id){
@@ -523,7 +523,7 @@ class User {
 		}
 		return false;
 	}
-	
+
 	// Can the specified user view the AdminCP?
 	public function canViewACP(){
 		if($this->isLoggedIn()){
@@ -539,7 +539,7 @@ class User {
 		}
 		return false;
 	}
-	
+
 	// Can the specified user view the ModCP?
 	public function canViewMCP(){
 		if($this->isLoggedIn()){
@@ -555,7 +555,7 @@ class User {
 		}
 		return false;
 	}
-	
+
 	// Can the specified user view staff applications?
 	public function canViewApps($user_id = null){
 		if($user_id){
@@ -576,7 +576,7 @@ class User {
 		}
 		return false;
 	}
-	
+
 	// Can the specified user accept staff applications?
 	public function canAcceptApps($user_id = null){
 		if($user_id){
@@ -597,7 +597,7 @@ class User {
 		}
 		return false;
 	}
-	
+
 	// Return profile fields for specified user
 	// Params:  $user_id (integer) - user id of user to retrieve fields from
 	//			$public (boolean)  - whether to only return public fields or not (default true)
@@ -614,7 +614,7 @@ class User {
 						$is_public = $this->_db->get('profile_fields', array('id', '=', $result->field_id));
 						if(!$is_public->count()) continue;
 						else $is_public = $is_public->results();
-						
+
 						if($is_public[0]->public == 1){
 							if($forum == true){
 								if($is_public[0]->forum_posts == 1){
@@ -631,7 +631,7 @@ class User {
 							}
 						}
 					}
-					
+
 					return $return;
 				} else {
 					// Return all fields
@@ -640,13 +640,13 @@ class User {
 						$name = $this->_db->get('profile_fields', array('id', '=', $result->field_id));
 						if(!$name->count()) continue;
 						else $name = $name->results();
-						
+
 						$return[] = array(
 							'name' => Output::getClean($is_public[0]->name),
 							'value' => Output::getClean($result->value)
 						);
 					}
-					
+
 					return $return;
 				}
 			} else return false;
