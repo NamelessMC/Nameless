@@ -1,7 +1,7 @@
-<html lang="en">
+<html lang="<?php echo $language_html; ?>">
 <head>
     <!-- Page Title -->
-    <title>Install &bull; NamelessMC</title>
+    <title><?php echo $language['install']; ?> &bull; NamelessMC</title>
 
     <!-- Global CSS -->
     <link rel="stylesheet" href="core/assets/css/bootstrap.min.css">
@@ -18,33 +18,33 @@
 <body>
 <div class="jumbotron jumbotron-fluid" style="height:100vh; margin-bottom:0rem !important;">
     <center>
-        <h1>NamelessMC v2 <sup><span style="font-size: small;">pre-release</span></sup></h1>
+        <h1>NamelessMC v2 <sup><span style="font-size: small;"><?php echo $language['pre-release']; ?></span></sup></h1>
 
         <hr />
 
         <?php
         if(!isset($_GET['do']) && !isset($_GET['step'])){
             ?>
-            <p>Welcome to NamelessMC version 2.0 pre-release.</p>
+            <p><?php echo $language['installer_welcome']; ?></p>
 
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <div class="alert alert-danger">
-                        Please note that this pre-release is not intended for use on a public site.
+                        <?php echo $language['pre-release_warning']; ?>
                     </div>
                 </div>
             </div>
 
-            <p>The installer will guide you through the installation process.</p>
+            <p><?php echo $language['installer_information']; ?></p>
 
-            <p>Firstly, is this a new installation?</p>
+            <p><?php echo $language['new_installation_question']; ?></p>
 
             <a href="?do=install" class="btn btn-primary btn-lg">
-                New Installation &raquo;
+                <?php echo $language['new_installation']; ?>
             </a>
 
             <a href="?do=upgrade" class="btn btn-warning btn-lg">
-                Upgrading from v1 &raquo;
+                <?php echo $language['upgrading_from_v1']; ?>
             </a>
 
             <?php
@@ -68,7 +68,7 @@
             $success = '<p style="display: inline;" class="text-success"><i class="fa fa-check-circle"></i></p><br />';
 
             ?>
-            <h4>Requirements:</h4>
+            <h4><?php echo $language['requirements']; ?></h4>
 
             <?php
             if(version_compare(phpversion(), '5.4', '<')){
@@ -111,23 +111,23 @@
 
             // Permissions
             if(is_writable('core/config.php')){
-                echo 'core/config.php Writable - ' . $success;
+                echo $language['config_writable'] . ' - ' . $success;
             } else {
-                echo 'core/config.php Writable - ' . $error;
+                echo $language['config_writable'] . ' - ' . $error;
                 $php_error = true;
             }
 
             if(is_writable('cache')){
-                echo 'Cache Writable - ' . $success;
+                echo $language['cache_writable'] . ' - ' . $success;
             } else {
-                echo 'Cache Writable - ' . $error;
+                echo $language['cache_writable'] . ' - ' . $error;
                 $php_error = true;
             }
 
             if(is_writable('cache/templates_c')){
-                echo 'Template Cache Writable - ' . $success;
+                echo $language['template_cache_writable'] . ' - ' . $success;
             } else {
-                echo 'Template Cache Writable - ' . $error;
+                echo $language['template_cache_writable'] . ' - ' . $error;
                 $php_error = true;
             }
 
@@ -137,13 +137,13 @@
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
                         <div class="alert alert-danger">
-                            You must have all of the required extensions installed, and have correct permissions set, in order to proceed with installation.
+                            <?php echo $language['requirements_error']; ?>
                         </div>
                     </div>
                 </div>
                 <?php
             } else {
-                echo '<br /><a class="btn btn-primary btn-lg" href="?step=database">Proceed &raquo;</a>';
+                echo '<br /><a class="btn btn-primary btn-lg" href="?step=database">' . $language['proceed'] . ' &raquo;</a>';
             }
             break;
 
@@ -219,44 +219,44 @@
             }
 
             } else {
-                $error = 'Please ensure all fields have been filled out.';
+                $error = $language['database_error'];
             }
         }
         ?>
     </center>
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h3>Database Configuration</h3>
+            <h3><?php echo $language['database_configuration']; ?></h3>
 
             <?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
             <form action="" method="post">
                 <div class="form-group">
-                    <label for="inputDBAddress">Database Address</label>
-                    <input type="text" class="form-control" name="db_address" id="inputDBAddress" placeholder="Database Address">
+                    <label for="inputDBAddress"><?php echo $language['database_address']; ?></label>
+                    <input type="text" class="form-control" name="db_address" id="inputDBAddress" placeholder="<?php echo $language['database_address']; ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputDBPort">Database Port</label>
-                    <input type="text" class="form-control" name="db_port" id="inputDBPort" placeholder="Database Port" value="3306">
+                    <label for="inputDBPort"><?php echo $language['database_port']; ?></label>
+                    <input type="text" class="form-control" name="db_port" id="inputDBPort" placeholder="<?php echo $language['database_port']; ?>" value="3306">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputDBUsername">Database Username</label>
-                    <input type="text" class="form-control" name="db_username" id="inputDBUsername" placeholder="Database Username">
+                    <label for="inputDBUsername"><?php echo $language['database_username']; ?></label>
+                    <input type="text" class="form-control" name="db_username" id="inputDBUsername" placeholder="<?php echo $language['database_username']; ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputDBPassword">Database Password</label>
-                    <input type="password" class="form-control" name="db_password" id="inputDBPassword" placeholder="Database Password">
+                    <label for="inputDBPassword"><?php echo $language['database_password']; ?></label>
+                    <input type="password" class="form-control" name="db_password" id="inputDBPassword" placeholder="<?php echo $language['database_password']; ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputDBName">Database Name</label>
-                    <input type="text" class="form-control" name="db_name" id="inputDBName" placeholder="Database Name">
+                    <label for="inputDBName"><?php echo $language['database_name']; ?></label>
+                    <input type="text" class="form-control" name="db_name" id="inputDBName" placeholder="<?php echo $language['database_name']; ?>">
                 </div>
 
 				<div class="form-group">
-				    <label for="inputCharset">Character set</label>
+				    <label for="inputCharset"><?php echo $language['character_set']; ?></label>
 				    <select class="form-control" name="charset" id="inputCharset">
 					    <option value="latin1">latin1</option>
 						<option value="utf8" selected>Unicode</option>
@@ -264,7 +264,7 @@
 				</div>
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Submit">
+                    <input type="submit" class="btn btn-primary" value="<?php echo $language['submit']; ?>">
                 </div>
             </form>
         </div>
@@ -276,8 +276,7 @@
         case 'database_initialise':
             // Initialise database tables
             ?>
-            <p>The installer is now initialising the database.</p>
-            <p>This may take a while...</p>
+            <p><?php echo $language['installer_now_initialising_database']; ?></p>
             <?php
             try {
 				if(isset($_SESSION['charset'])) $charset = $_SESSION['charset'];
@@ -351,7 +350,7 @@
                 Redirect::to('?step=initialise');
                 die();
             } else {
-                $error = 'Please input a valid site name between 1 and 32 characters long, and valid email addresses between 4 and 64 characters long.';
+                $error = $language['configuration_error'];
             }
 
         }
@@ -361,28 +360,28 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <form action="" method="post">
-                <h3>Configuration</h3>
-                <p>Please input basic information about your site. These values can be changed later on through the admin panel.</p>
+                <h3><?php echo $language['configuration']; ?></h3>
+                <p><?php echo $language['configuration_info']; ?></p>
 
                 <?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
 
                 <div class="form-group">
-                    <label for="inputSitename">Site Name</label>
-                    <input type="text" class="form-control" name="sitename" id="inputSitename" placeholder="Site Name">
+                    <label for="inputSitename"><?php echo $language['site_name']; ?></label>
+                    <input type="text" class="form-control" name="sitename" id="inputSitename" placeholder="<?php echo $language['site_name']; ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputContactEmail">Contact Email</label>
-                    <input type="email" class="form-control" name="incoming" id="inputContactEmail" placeholder="Contact Email">
+                    <label for="inputContactEmail"><?php echo $language['contact_email']; ?></label>
+                    <input type="email" class="form-control" name="incoming" id="inputContactEmail" placeholder="<?php echo $language['contact_email']; ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputOutgoingEmail">Outgoing Email</label>
-                    <input type="email" class="form-control" name="outgoing" id="inputOutgoingEmail" placeholder="Outgoing Email">
+                    <label for="inputOutgoingEmail"><?php echo $language['outgoing_email']; ?></label>
+                    <input type="email" class="form-control" name="outgoing" id="inputOutgoingEmail" placeholder="<?php echo $language['outgoing_email']; ?>">
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Submit">
+                    <input type="submit" class="btn btn-primary" value="<?php echo $language['submit']; ?>">
                 </div>
             </form>
         </div>
@@ -393,7 +392,7 @@
 
         case 'initialise':
             // Initialise database and cache
-            echo 'Initialising database and cache, please wait...';
+            echo $language['initialising_database_and_cache'];
 
             $queries = new Queries();
             $cache = new Cache();
@@ -822,26 +821,26 @@
                         Redirect::to('?step=convert');
                         die();
                     } else {
-                        $error = 'Unable to log in.';
+                        $error = $language['unable_to_login'];
                         $queries->delete('users', array('id', '=', 1));
                     }
 
 
                 } catch(Exception $e){
-                    $error = 'Unable to create account: ' . $e->getMessage();
+                    $error = $language['unable_to_create_account'] . ': ' . $e->getMessage();
                 }
 
             } else {
                 // Get errors
                 foreach($validation->errors() as $item){
                     if(strpos($item, 'is required') !== false){
-                        $error = 'Please input a valid username, email address and password.';
+                        $error = $language['input_required'];
                     } else if(strpos($item, 'minimum') !== false){
-                        $error = 'Please ensure your username is a minimum of 3 characters, your email address is a minimum of 4 characters, and your password is a minimum of 6 characters.';
+                        $error = $language['input_minimum'];
                     } else if(strpos($item, 'maximum') !== false){
-                        $error = 'Please ensure your username is a maximum of 20 characters, and your email address and password are a maximum of 64 characters.';
+                        $error = $language['input_maximum'];
                     } else if(strpos($item, 'must match') !== false){
-                        $error = 'Your passwords must match.';
+                        $error = $language['passwords_must_match'];
                     }
                 }
             }
@@ -850,34 +849,34 @@
     </center>
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h3>Creating Admin Account</h3>
+            <h3><?php echo $language['creating_admin_account']; ?></h3>
 
-            <p>Please enter the details for the admin account.</p>
+            <p><?php echo $language['enter_admin_details']; ?></p>
 
             <?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
             <form action="" method="post">
                 <div class="form-group">
-                    <label for="inputUsername">Username</label>
-                    <input type="text" class="form-control" name="username" id="inputUsername" placeholder="Username" tabindex="1">
+                    <label for="inputUsername"><?php echo $language['username']; ?></label>
+                    <input type="text" class="form-control" name="username" id="inputUsername" placeholder="<?php echo $language['username']; ?>" tabindex="1">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputEmail">Email Address</label>
-                    <input type="email" class="form-control" name="email" id="inputEmail" placeholder="Email Address" tabindex="2">
+                    <label for="inputEmail"><?php echo $language['email_address']; ?></label>
+                    <input type="email" class="form-control" name="email" id="inputEmail" placeholder="<?php echo $language['email_address']; ?>" tabindex="2">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password" tabindex="3">
+                    <label for="inputPassword"><?php echo $language['password']; ?></label>
+                    <input type="password" class="form-control" name="password" id="inputPassword" placeholder="<?php echo $language['password']; ?>" tabindex="3">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputPasswordAgain">Confirm Password</label>
-                    <input type="password" class="form-control" name="password_again" id="inputPasswordAgain" placeholder="Confirm Password" tabindex="4">
+                    <label for="inputPasswordAgain"><?php echo $language['confirm_password']; ?></label>
+                    <input type="password" class="form-control" name="password_again" id="inputPasswordAgain" placeholder="<?php echo $language['confirm_password']; ?>" tabindex="4">
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="Submit" class="btn btn-primary">
+                    <input type="submit" value="<?php echo $language['submit']; ?>" class="btn btn-primary">
                 </div>
             </form>
         </div>
@@ -935,37 +934,37 @@
     </center>
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h3>Upgrade</h3>
-			<p>Please input the database details for your Nameless version 1 installation</p>
+            <h3><?php echo $language['upgrade']; ?></h3>
+			<p><?php echo $language['input_v1_details']; ?></p>
             <?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
             <form action="" method="post">
                 <div class="form-group">
-                    <label for="inputDBAddress">Database Address</label>
-                    <input type="text" class="form-control" name="db_address" id="inputDBAddress" placeholder="Database Address">
+                    <label for="inputDBAddress"><?php echo $language['database_address']; ?></label>
+                    <input type="text" class="form-control" name="db_address" id="inputDBAddress" placeholder="<?php echo $language['database_address']; ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputDBPort">Database Port</label>
-                    <input type="text" class="form-control" name="db_port" id="inputDBPort" placeholder="Database Port" value="3306">
+                    <label for="inputDBPort"><?php echo $language['database_port']; ?></label>
+                    <input type="text" class="form-control" name="db_port" id="inputDBPort" placeholder="<?php echo $language['database_port']; ?>" value="3306">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputDBUsername">Database Username</label>
-                    <input type="text" class="form-control" name="db_username" id="inputDBUsername" placeholder="Database Username">
+                    <label for="inputDBUsername"><?php echo $language['database_username']; ?></label>
+                    <input type="text" class="form-control" name="db_username" id="inputDBUsername" placeholder="<?php echo $language['database_username']; ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputDBPassword">Database Password</label>
-                    <input type="password" class="form-control" name="db_password" id="inputDBPassword" placeholder="Database Password">
+                    <label for="inputDBPassword"><?php echo $language['database_password']; ?></label>
+                    <input type="password" class="form-control" name="db_password" id="inputDBPassword" placeholder="<?php echo $language['database_password']; ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputDBName">Database Name</label>
-                    <input type="text" class="form-control" name="db_name" id="inputDBName" placeholder="Database Name">
+                    <label for="inputDBName"><?php echo $language['database_name']; ?></label>
+                    <input type="text" class="form-control" name="db_name" id="inputDBName" placeholder="<?php echo $language['database_name']; ?>">
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Submit">
+                    <input type="submit" class="btn btn-primary" value="<?php echo $language['submit']; ?>">
                 </div>
             </form>
         </div>
@@ -977,7 +976,7 @@
 		case 'do_upgrade':
 			// Query old v1 database and insert into v2
 			if(!isset($_GET['s']) || (isset($_GET['s']) && $_GET['s'] != '9')) $conn = DB_Custom::getInstance($_SESSION['db_address'], $_SESSION['db_name'], $_SESSION['db_username'], $_SESSION['db_password'], $_SESSION['db_port']);
-			echo '<div class="alert alert-info">Please wait whilst the installer upgrades your database...</div>';
+			echo '<div class="alert alert-info">' . $language['installer_upgrading_database'] . '</div>';
 
 			$queries = new Queries();
 			$cache = new Cache();
@@ -1112,7 +1111,7 @@
 				}
 
 				if(isset($error)){
-					echo '<div class="alert alert-warning"><p>Errors have been logged. Click Continue to continue with upgrade.</p><a href="?step=do_upgrade&amp;s=1" class="btn btn-secondary">Continue</a></div>';
+					echo '<div class="alert alert-warning"><p>' . $language['errors_logged'] . '</p><a href="?step=do_upgrade&amp;s=1" class="btn btn-secondary">' . $language['continue'] . '</a></div>';
 				} else {
 					Redirect::to('?step=do_upgrade&s=1');
 					die();
@@ -1235,7 +1234,7 @@
 						}
 
 						if(isset($error)){
-							echo '<div class="alert alert-warning"><p>Errors have been logged. Click Continue to continue with upgrade.</p><a href="?step=do_upgrade&amp;s=2" class="btn btn-secondary">Continue</a></div>';
+							echo '<div class="alert alert-warning"><p>' . $language['errors_logged'] . '</p><a href="?step=do_upgrade&amp;s=2" class="btn btn-secondary">' . $language['continue'] . '</a></div>';
 						} else {
 							Redirect::to('?step=do_upgrade&s=2');
 							die();
@@ -1316,7 +1315,7 @@
 						}
 
 						if(isset($error)){
-							echo '<div class="alert alert-warning"><p>Errors have been logged. Click Continue to continue with upgrade.</p><a href="?step=do_upgrade&amp;s=3" class="btn btn-secondary">Continue</a></div>';
+							echo '<div class="alert alert-warning"><p>' . $language['errors_logged'] . '</p><a href="?step=do_upgrade&amp;s=3" class="btn btn-secondary">' . $language['continue'] . '</a></div>';
 						} else {
 							Redirect::to('?step=do_upgrade&s=3');
 							die();
@@ -1420,7 +1419,7 @@
 						}
 
 						if(isset($error)){
-							echo '<div class="alert alert-warning"><p>Errors have been logged. Click Continue to continue with upgrade.</p><a href="?step=do_upgrade&amp;s=4" class="btn btn-secondary">Continue</a></div>';
+							echo '<div class="alert alert-warning"><p>' . $language['errors_logged'] . '</p><a href="?step=do_upgrade&amp;s=4" class="btn btn-secondary">' . $language['continue'] . '</a></div>';
 						} else {
 							Redirect::to('?step=do_upgrade&s=4');
 							die();
@@ -1542,7 +1541,7 @@
 						}
 
 						if(isset($error)){
-							echo '<div class="alert alert-warning"><p>Errors have been logged. Click Continue to continue with upgrade.</p><a href="?step=do_upgrade&amp;s=5" class="btn btn-secondary">Continue</a></div>';
+							echo '<div class="alert alert-warning"><p>' . $language['errors_logged'] . '</p><a href="?step=do_upgrade&amp;s=5" class="btn btn-secondary">' . $language['continue'] . '</a></div>';
 						} else {
 							Redirect::to('?step=do_upgrade&s=5');
 							die();
@@ -1619,7 +1618,7 @@
 						}
 
 						if(isset($error)){
-							echo '<div class="alert alert-warning"><p>Errors have been logged. Click Continue to continue with upgrade.</p><a href="?step=do_upgrade&amp;s=6" class="btn btn-secondary">Continue</a></div>';
+							echo '<div class="alert alert-warning"><p>' . $language['errors_logged'] . '</p><a href="?step=do_upgrade&amp;s=6" class="btn btn-secondary">' . $language['continue'] . '</a></div>';
 						} else {
 							Redirect::to('?step=do_upgrade&s=6');
 							die();
@@ -1752,7 +1751,7 @@
 						}
 
 						if(isset($error)){
-							echo '<div class="alert alert-warning"><p>Errors have been logged. Click Continue to continue with upgrade.</p><a href="?step=do_upgrade&amp;s=7" class="btn btn-secondary">Continue</a></div>';
+							echo '<div class="alert alert-warning"><p>' . $language['errors_logged'] . '</p><a href="?step=do_upgrade&amp;s=7" class="btn btn-secondary">' . $language['continue'] . '</a></div>';
 						} else {
 							Redirect::to('?step=do_upgrade&s=7');
 							die();
@@ -1781,7 +1780,7 @@
 						}
 
 						if(isset($error)){
-							echo '<div class="alert alert-warning"><p>Errors have been logged. Click Continue to continue with upgrade.</p><a href="?step=do_upgrade&amp;s=8" class="btn btn-secondary">Continue</a></div>';
+							echo '<div class="alert alert-warning"><p>' . $language['errors_logged'] . '</p><a href="?step=do_upgrade&amp;s=8" class="btn btn-secondary">' . $language['continue'] . '</a></div>';
 						} else {
 							Redirect::to('?step=do_upgrade&s=8');
 							die();
@@ -2005,7 +2004,7 @@
     </center>
     <div class="row">
         <div class="col-md-6 offset-md-3">
-		  <div class="alert alert-success"><p>Upgrade complete!</p><center><a href="?step=finish" class="btn btn-primary">Continue</a></center></div>
+		  <div class="alert alert-success"><p>Upgrade complete!</p><center><a href="?step=finish" class="btn btn-primary"><?php echo $language['continue']; ?></a></center></div>
 		</div>
 	</div>
 	<center>
@@ -2020,10 +2019,10 @@
             if(!isset($_GET['convert'])){
                 ?>
 
-                <h3>Convert</h3>
-                <p>Finally, do you want to convert from a different forum software?</p>
-                <a class="btn btn-success btn-lg disabled" href="?step=convert&amp;convert=yes">Yes</a>
-                <a class="btn btn-primary btn-lg" href="?step=finish">No</a>
+                <h3><?php echo $language['convert']; ?></h3>
+                <p><?php echo $language['convert_message']; ?></p>
+                <a class="btn btn-success btn-lg disabled" href="?step=convert&amp;convert=yes"><?php echo $language['yes']; ?></a>
+                <a class="btn btn-primary btn-lg" href="?step=finish"><?php echo $language['no']; ?></a>
 
                 <?php
             } else {
@@ -2054,13 +2053,13 @@
 
                 ?>
 
-                <h3>Finish</h3>
-                <p>Thanks for installing NamelessMC! You can now proceed to the AdminCP, where you can further configure your website.</p>
-                <p>If you need any support, check out our website <a href="https://namelessmc.com" target="_blank">here</a>, or you can also visit our <a href="https://discord.gg/r7Eq4jw" target="_blank">Discord server</a> or our <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.
-                <p><a href="index.php?route=/admin" class="btn btn-success btn-lg">Finish</a></p>
+                <h3><?php echo $language['finish']; ?></h3>
+                <p><?php echo $language['finish_message']; ?></p>
+                <p><?php echo $language['support_message']; ?></p>
+                <p><a href="index.php?route=/admin" class="btn btn-success btn-lg"><?php echo $language['finish']; ?></a></p>
     			<hr />
-    			<h3>Credits</h3>
-    			<p>A huge thanks to all <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC contributors</a> since 2014</p>
+    			<h3><?php echo $language['credits']; ?></h3>
+    			<p><?php echo $language['credits_message']; ?></p>
 
                 <?php
             }
@@ -2082,10 +2081,43 @@
 
         <div class="container">
 		  <span class="pull-right">
+            <div class="btn-group dropup">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <i class="fa fa-globe" aria-hidden="true"></i>
+              </button>
+              <div class="dropdown-menu">
+                  <?php
+                  // Display all languages
+                  $languages = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
+                  foreach($languages as $item){
+                      $folders = explode(DIRECTORY_SEPARATOR, $item);
+                  ?>
+                <a class="dropdown-item" href="#" onclick="setLanguage($(this).text())"><?php echo Output::getClean($folders[2]); ?></a>
+                  <?php
+                  }
+                  ?>
+              </div>
+            </div>
 		    <a class="btn btn-primary" href="https://github.com/NamelessMC/Nameless" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
 		  </span>
         </div>
     </center>
 </div>
+<script src="core/assets/js/jquery.min.js"></script>
+<script src="core/assets/js/tether.min.js"></script>
+<script src="core/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    function setLanguage(language){
+        $.ajax({
+            'url' : 'install.php?language=' + language,
+            'type' : 'GET',
+            'success' : function(data) {
+                if(data == "OK"){
+                    window.location.reload();
+                }
+            }
+        });
+    }
+</script>
 </body>
 </html>
