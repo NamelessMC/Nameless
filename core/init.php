@@ -40,6 +40,7 @@ else
 
 if(isset($conf) && is_array($conf))
 	$GLOBALS['config'] = $conf;
+else $page = 'install';
 
 /*
  *  Autoload classes
