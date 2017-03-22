@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -263,7 +263,7 @@ $current_default_language = $current_default_language[0]->value;
 			      <input type="text" class="form-control" name="sitename" id="inputSitename" value="<?php echo Output::getClean($sitename->value); ?>" />
 				</div>
 				<div class="form-group">
-				  <label for="inputLanguage"><?php echo $language->get('admin', 'default_language'); ?></label> <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'default_language_help'); ?>"></i></span>
+				  <label for="inputLanguage"><?php echo $language->get('admin', 'default_language'); ?></label> <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'default_language_help'); ?>"></i></span>
 			      <div class="input-group">
 				    <?php
 				    // Get languages
@@ -325,7 +325,7 @@ $current_default_language = $current_default_language[0]->value;
 				  // Get friendly URL setting
 				  $friendly_url = Config::get('core/friendly');
 				  ?>
-				  <label for="inputFormatting"><?php echo $language->get('admin', 'use_friendly_urls'); ?></label> <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'use_friendly_urls_help'); ?>"></i></span>
+				  <label for="inputFormatting"><?php echo $language->get('admin', 'use_friendly_urls'); ?></label> <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'use_friendly_urls_help'); ?>"></i></span>
 				  <select name="friendlyURL" class="form-control" id="inputFriendlyURL">
 				    <option value="true"<?php if($friendly_url == true){ ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
 					<option value="false"<?php if($friendly_url == false){ ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
@@ -486,19 +486,19 @@ $current_default_language = $current_default_language[0]->value;
 
 				<div class="form-group">
 				  <label for="inputRequired"><?php echo $language->get('admin', 'required'); ?></label>
-				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_required_help'); ?>"></i></span>
+				  <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_required_help'); ?>"></i></span>
 				  <input type="checkbox" id="inputRequired" name="required" class="js-switch" />
 				</div>
 
 				<div class="form-group">
 				  <label for="inputPublic"><?php echo $language->get('admin', 'public'); ?></label>
-				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_public_help'); ?>"></i></span>
+				  <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_public_help'); ?>"></i></span>
 				  <input type="checkbox" id="inputPublic" name="public" class="js-switch" />
 				</div>
 
 				<div class="form-group">
 				  <label for="inputForum"><?php echo $language->get('admin', 'display_field_on_forum'); ?></label>
-				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_forum_help'); ?>"></i></span>
+				  <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_forum_help'); ?>"></i></span>
 				  <input type="checkbox" id="inputForum" name="forum" class="js-switch" />
 				</div>
 
@@ -622,19 +622,19 @@ $current_default_language = $current_default_language[0]->value;
 
 				<div class="form-group">
 				  <label for="inputRequired"><?php echo $language->get('admin', 'required'); ?></label>
-				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_required_help'); ?>"></i></span>
+				  <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_required_help'); ?>"></i></span>
 				  <input type="checkbox" id="inputRequired" name="required" class="js-switch" <?php if($field->required == 1) echo ' checked';?>/>
 				</div>
 
 				<div class="form-group">
 				  <label for="inputPublic"><?php echo $language->get('admin', 'public'); ?></label>
-				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_public_help'); ?>"></i></span>
+				  <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_public_help'); ?>"></i></span>
 				  <input type="checkbox" id="inputPublic" name="public" class="js-switch" <?php if($field->public == 1) echo ' checked';?>/>
 				</div>
 
 				<div class="form-group">
 				  <label for="inputForum"><?php echo $language->get('admin', 'display_field_on_forum'); ?></label>
-				  <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_forum_help'); ?>"></i></span>
+				  <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'profile_field_forum_help'); ?>"></i></span>
 				  <input type="checkbox" id="inputForum" name="forum" class="js-switch" <?php if($field->forum_posts == 1) echo ' checked';?>/>
 				</div>
 

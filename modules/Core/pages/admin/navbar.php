@@ -2,23 +2,23 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
  *  Admin navbar
  */
 ?>
-<nav class="navbar navbar-fixed-top navbar-dark bg-primary">
+<nav class="navbar navbar-toggleable-md fixed-top navbar-inverse bg-primary">
   <div class="container">
-    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
-      &#9776;
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <a class="navbar-brand" href="<?php echo URL::build('/admin'); ?>"><?php echo $language->get('admin', 'admin_cp'); ?></a>
-      <ul class="nav navbar-nav">
+      <ul class="navbar-nav mr-auto">
       </ul>
-	  <ul class="nav navbar-nav float-xs-right">
+	  <ul class="navbar-nav float-right">
         <li class="nav-item">
           <a class="nav-link" href="<?php echo URL::build('/'); ?>" target="_blank"><?php echo $language->get('admin', 'view_site'); ?></a>
         </li>

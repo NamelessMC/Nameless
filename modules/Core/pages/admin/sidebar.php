@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -11,7 +11,7 @@
 ?>
 		  <div class="card card-inverse">
 		    <div class="card-block">
-			  <ul class="nav nav-pills nav-stacked">
+			  <ul class="nav flex-column">
 				<li class="nav-item">
 				  <a class="nav-link<?php if(isset($admin_page) && $admin_page == 'overview') echo ' active'; ?>" href="<?php echo URL::build('/admin'); ?>"><?php echo $language->get('admin', 'overview'); ?></a>
 				</li>
