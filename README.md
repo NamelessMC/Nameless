@@ -139,5 +139,5 @@ Upcoming addons (these will need to be downloaded separately):
 ## Discord
 [<img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/r7Eq4jw)
 
-## IRC
-\#NamelessMC on [irc.spi.gt](http://irc.spi.gt/iris/?channels=namelessmc)
+<!--## IRC
+\#NamelessMC on [irc.spi.gt](http://irc.spi.gt/iris/?channels=namelessmc)-->
