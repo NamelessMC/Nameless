@@ -232,7 +232,7 @@
             <form action="" method="post">
                 <div class="form-group">
                     <label for="inputDBAddress"><?php echo $language['database_address']; ?></label>
-                    <input type="text" class="form-control" name="db_address" id="inputDBAddress" placeholder="<?php echo $language['database_address']; ?>">
+                    <input type="text" class="form-control" name="db_address" id="inputDBAddress" value="127.0.0.1" placeholder="<?php echo $language['database_address']; ?>">
                 </div>
 
                 <div class="form-group">
