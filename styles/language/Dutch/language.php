@@ -10,6 +10,9 @@
  *
  *  Updated by DoraKlikOpDora/Besbos
  *  http://minevibes.com
+ *
+ *  Updated by Sander Lambrechts
+ *  
  *  Dutch Language
  */
   
@@ -251,7 +254,7 @@ $admin_language = array(
     'group_staff' => 'Is de groep een staff groep?',
     'group_modcp' => 'Kan de groep de ModCP bekijken?',
     'group_admincp' => 'Kan de groep de AdminCP bekijken?',
-    'group_name_required' => 'Groepnaam invullen is verplicht.',
+    'group_name_required' => 'Groep naam invullen is verplicht.',
     'group_name_minimum' => 'De groep naam moet uit minimaal 2 tekens bestaan.',
     'group_name_maximum' => 'De groep naam mag maar uit 20 tekens bestaan.',
     'html_maximum' => 'De groep HTML mag maar maximaal uit 1024 tekens bestaan.',
@@ -306,7 +309,7 @@ $admin_language = array(
     'purge_errors' => 'Verwijder foutmeldingen',
     'confirm_purge_errors' => 'Weet je het zeker dat je de foutmeldingen wilt verwijderen>',
     'avatar_type' => 'Avatar type',
-    'custom_usernames' => 'Forceer Minecraft usernames?',
+    'custom_usernames' => 'Forceer Minecraft gebruikersnaam?',
     'mcassoc' => 'mcassoc',
     'use_mcassoc' => 'Gebruik mcassoc?',
     'use_mcassoc_help' => 'mcassoc kijkt na of mensen echt eigenaar van het Minecraft account zijn.',
@@ -417,7 +420,7 @@ $user_language = array(
     'incorrect_details' => 'Gegevens Onjuist',
     'remember_me' => 'Onthoud mij',
     'forgot_password' => 'Wachtwoord Vergeten',
-    'must_input_username' => 'U moet een username invullen.',
+    'must_input_username' => 'U moet een gebruikersnaam invullen.',
     'must_input_password' => 'U moet een wachtwoord invullen.',
     'inactive_account' => 'Uw account is momenteel inactief. Bekijk uw mail om het te activeren.',
     'account_banned' => 'Uw account is verbannen.',
@@ -431,18 +434,18 @@ $user_language = array(
     'username_required' => 'Vul een gebruikersnaam in.',
     'password_required' => 'Vul een wachtwoord in.',
     'email_required' => 'Vul een email adres in.',
-    'mcname_required' => 'Vul een Minecraft Username in.',
+    'mcname_required' => 'Vul een Minecraft Gebruikersnaam in.',
     'accept_terms' => 'U moet de Algemene Voorwaarden accepteren voordat u zich kunt registreren.',
     'invalid_recaptcha' => 'Ongeldige reCAPTCHA.',
     'username_minimum_3' => 'Uw gebruikersnaam moet minimaal 3 tekens lang zijn.',
     'username_maximum_20' => 'Uw gebruikersnaam mag maximaal 20 tekens lang zijn.',
-    'mcname_minimum_3' => 'Uw Minecraft Username moet minimaal 3 tekens lang zijn.',
-    'mcname_maximum_20' => 'Uw Minecraft Username mag maximaal 20 tekens lang zijn.',
+    'mcname_minimum_3' => 'Uw Minecraft Gebruikersnaam moet minimaal 3 tekens lang zijn.',
+    'mcname_maximum_20' => 'Uw Minecraft Gebruikersnaam mag maximaal 20 tekens lang zijn.',
     'password_minimum_6' => 'Uw wachtwoord moet minimaal 6 tekens lang zijn.',
     'password_maximum_30' => 'Uw wachtwoord mag maximaal 30 tekens lang zijn.',
     'passwords_dont_match' => 'Uw wachtwoorden komen niet overeen.',
     'username_mcname_email_exists' => 'Uw gebruikersnaam, Minecraft gebruikersnaam of e-mailadres bestaat al. Heeft u al een account aangemaakt?',
-    'invalid_mcname' => 'Uw Minecraft gebruikersnaam is geen geldig account. Er worden alleen gekochte Minecraftaccountnamen geaccepteerd.',
+    'invalid_mcname' => 'Uw Minecraft gebruikersnaam is geen geldig account. Er worden alleen gekochte Minecraft account geaccepteerd.',
     'mcname_lookup_error' => 'Er is een fout opgetreden bij het verbinden met de Mojang servers. Probeer het later opnieuw.',
     'signature_maximum_900' => 'Je handtekening mag maar uit 900 tekens bestaan.',
     'invalid_date_of_birth' => 'Ongeldige geboortedatum ingevuld. Vul deze in met behulp van de kalender.',
@@ -574,7 +577,7 @@ $user_language = array(
     'unfollow' => 'Ontvolgen',
     'name_history' => 'Naamgeschiedenis',
     'changed_name_to' => 'Veranderd naar: {x} op {y}', // Don't replace {x} or {y}
-    'original_name' => 'Originele name:',
+    'original_name' => 'Originele naam:',
     'name_history_error' => 'Het systeem kan geen naamverandering geschiedenis vinden.',
 
     // Staff applications
@@ -784,9 +787,9 @@ $forum_language = array(
     'no_search_results' => 'Uw zoekopdracht heeft niets opgeleverd.',
     
     //Share on a social-media.
-	'sm-share' => 'Delen',
-	'sm-share-facebook' => 'Deel op Facebook',
-	'sm-share-twitter' => 'Deel op Twitter',
+   'sm-share' => 'Delen',
+   'sm-share-facebook' => 'Deel op Facebook',
+   'sm-share-twitter' => 'Deel op Twitter',
 );
  
 /*
