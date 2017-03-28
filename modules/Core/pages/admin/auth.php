@@ -68,8 +68,7 @@ if(Input::exists()){
 		Session::flash('adm_auth_error', $language->get('general', 'invalid_token'));
 	}
 }
- 
- 
+
 $page = 'admin';
 $admin_page = 'auth';
 ?>
@@ -89,36 +88,35 @@ $admin_page = 'auth';
   </head>
   <body>
 	<div class="container">
-	  <div class="row">
-		<br /><br />
-		<div class="col-xs-12 col-sm-8 col-md-6 offset-sm-2 offset-md-3">
-		  <form role="form" action="" method="post">
-		    <div class="card">
-			  <div class="card-block">
-				<center><h2><?php echo $language->get('admin', 're-authenticate'); ?></h2></center>
-				<?php
-				if(Session::exists('adm_auth_error')){
-					echo Session::flash('adm_auth_error');
-				}
-				?>
-				<div class="form-group">
-				  <input type="text" name="username" id="username" autocomplete="off" value="<?php echo Output::getClean(Input::get('username')); ?>" class="form-control" placeholder="<?php echo $language->get('user', 'username'); ?>" tabindex="3">
-				</div>
-				<div class="form-group">
-				  <input type="password" name="password" id="password" class="form-control" placeholder="<?php echo $language->get('user', 'password'); ?>" tabindex="4">
-				</div>
-				<div class="row">
-				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-				  <center>
-					<input type="submit" value="<?php echo $language->get('general', 'sign_in'); ?>" class="btn btn-primary btn-lg" tabindex="5">
-					<a href="/" class="btn btn-danger btn-lg"><?php echo $language->get('general', 'back'); ?></a>
-				  </center>
-				</div>
-			  </div>
-			</div>
-		  </form>
-		</div>
-	  </div>
+      <div style="height:15vh"></div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-6 offset-sm-2 offset-md-3">
+          <form role="form" action="" method="post">
+            <div class="card">
+              <div class="card-block">
+                <center><h2><?php echo $language->get('admin', 're-authenticate'); ?></h2></center>
+                <?php
+                  if(Session::exists('adm_auth_error')){
+                      echo '<div class="alert alert-danger">' . Session::flash('adm_auth_error') . '</div>';
+                  }
+                ?>
+                <div class="form-group">
+                  <input type="text" name="username" id="username" autocomplete="off" value="<?php echo Output::getClean(Input::get('username')); ?>" class="form-control" placeholder="<?php echo $language->get('user', 'username'); ?>" tabindex="3">
+                </div>
+                <div class="form-group">
+                  <input type="password" name="password" id="password" class="form-control" placeholder="<?php echo $language->get('user', 'password'); ?>" tabindex="4">
+                </div>
+
+                <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+                <center>
+                  <input type="submit" value="<?php echo $language->get('general', 'sign_in'); ?>" class="btn btn-primary btn-lg text-center mx-auto" tabindex="5">
+                  <a href="<?php echo URL::build('/'); ?>" class="btn btn-danger btn-lg text-center mx-auto"><?php echo $language->get('general', 'back'); ?></a>
+                </center>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
 	</div>
   </body>
 </html>
