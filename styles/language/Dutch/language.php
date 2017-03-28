@@ -99,8 +99,8 @@ $admin_language = array(
     'enable_or_disable_pages' => 'Schakel pagina\'s hier in en uit .',
     'enable' => 'Klik om in te schakelen',
     'disable' => 'Klik om uit te schakelen',
-    'maintenance_mode' => 'Forum onderhoud mode',
-    'forum_in_maintenance' => 'Forum is in onderhoud mode.',
+    'maintenance_mode' => 'Forum onderhoud modus',
+    'forum_in_maintenance' => 'Forum is in onderhoud',
     'unable_to_update_settings' => 'Kan de instellingen niet updaten. Zorg dat alle velden zijn ingevuld.',
     'editing_google_analytics_module' => 'Bewerk de Google Analytics module',
     'tracking_code' => 'Traceer Code',
@@ -351,17 +351,17 @@ $admin_language = array(
     'template_deleted' => 'Template Verwijderd.',
     'addon_disabled' => 'Addon Uitgeschakeld.',
     'inverse_navbar' => 'Inverse Navbar',
-    'confirm_theme_deletion' => 'Weet u zeker dat u het thema <b>{x}</b> wilt verwijderen?<br /><br />Het thema wordt verwijderd uit uw <b>styles/themes</b> map.', // Don't replace {x}
-    'confirm_template_deletion' => 'Weet u zeker dat u het thema <b>{x}</b> wilt verwijderen?<br /><br />Het template wordt verwijderd uit uw <b>styles/templates</b> map.', // Don't replace {x}
+    'confirm_theme_deletion' => 'Weet u het zeker dat u thema <b>{x}</b> wilt verwijderen?<br /><br />Het thema wordt verwijderd uit uw <b>styles/themes</b> map.', // Don't replace {x}
+    'confirm_template_deletion' => 'Weet u zeker dat u de template <b>{x}</b> wilt verwijderen?<br /><br />Het template wordt verwijderd uit uw <b>styles/templates</b> map.', // Don't replace {x}
      
     // Admin Misc page
     'other_settings' => 'Andere Instellingen',
     'enable_error_reporting' => 'Inschakelen error rapportage?',
     'error_reporting_description' => 'Dit mag alleen worden gebruikt voor het opsporen van fouten, het is aanbevolen dit als uitgeschakeld te laten staan.',
     'display_page_load_time' => 'Toon pagina laadtijd?',
-    'page_load_time_description' => 'Nadat deze is ingeschakeld zal een snelheidsmeter weergegeven in de voettekst die de laadtijd van de pagina weergeeft.',
+    'page_load_time_description' => 'Nadat deze is ingeschakeld zal een snelheidsmeter weergegeven in de voettekst die de laadtijd van de pagina weergeeft. (Dit is aan de onderkant van de pagina bij de copyright.)',
     'reset_website' => 'Reset Website',
-    'reset_website_info' => 'Dit zal uw website resetten. <b>Addons worden uitgeschakeld, maar niet verwijderd, en de instellingen zullen niet veranderen.</b> Uw ingestelde Minecraft servers zullen ook blijven.',
+    'reset_website_info' => 'Deze knop zal uw website resetten <b>Addons worden uitgeschakeld, maar niet verwijderd uit de database en addons map, en de instellingen worden niet veranderd.</b> Ingestelde Minecraft servers blijven behouden',
     'confirm_reset_website' => 'Weet u zeker dat u uw website wilt resetten?',
 	
     // Admin Update page
