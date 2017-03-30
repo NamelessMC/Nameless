@@ -62,13 +62,13 @@ $admin_language = array(
     'announcement_can_close' => 'Aankondiging weg te klikken?',
     'announcement_permissions' => 'Aankondiging permissies',
     'no_announcements' => 'Nog geen aankondigingen gemaakt.',
-    'confirm_cancel_announcement' => 'Bent u zeker dat u deze aankondiging wilt annuleren?',
+    'confirm_cancel_announcement' => 'Weet je zeker dat je deze aankondiging wilt annuleren?',
     'announcement_location_help' => 'Ctrl-klik om meerdere pagina\'s te selecteren.',
     'select_all' => 'Selecteer alles',
     'deselect_all' => 'Deselecteer alles',
     'announcement_created' => 'Aankondiging succesvol aangemaakt!',
-    'please_input_announcement_content' => 'Voer alstublieft een aankondiging in en selecteer een type.',
-    'confirm_delete_announcement' => 'Weet u zeker dat u de aankondiging wilt verwijderen?',
+    'please_input_announcement_content' => 'Voer een aankondiging in en selecteer een type.',
+    'confirm_delete_announcement' => 'Weet je zeker dat je de aankondiging wilt verwijderen?',
     'announcement_actions' => 'Aankondiging acties',
     'announcement_deleted' => 'Aankondiging succesvol verwijderd!',
     'announcement_type' => 'Aankondiging type',
@@ -88,9 +88,9 @@ $admin_language = array(
     'outgoing_email' => 'Uitgaand email adres',
     'outgoing_email_help' => 'Alleen nodig als de PHP mail functie is ingeschakeld',
     'use_php_mail' => 'Gebruik PHP mail() functie?',
-    'use_php_mail_help' => 'Aanbevolen: ingeschakeld. Als je website geen mails stuurt, dan kunt u de "core/email.php" uitschakelen in de email instellingen.',
+    'use_php_mail_help' => 'Aanbevolen: ingeschakeld. Als je website geen mails stuurt, dan kun je de "core/email.php" uitschakelen in de email instellingen.',
     'use_gmail' => 'Gebruik Gmail voor het verzenden van e-mail?',
-    'use_gmail_help' => 'Alleen beschikbaar als de PHP mail() functie is uitgeschakeld. Als u ervoor kiest om Gmail te gebruiken, zal SMTP worden gebruikt, dit zal de configuratie in core/email.php nodig hebben.',
+    'use_gmail_help' => 'Alleen beschikbaar als de PHP mail() functie is uitgeschakeld. Als je ervoor kiest om Gmail te gebruiken, zal SMTP worden gebruikt, dit zal de configuratie in core/email.php nodig hebben.',
     'enable_mail_verification' => 'Schakel e-mail account verificatie in?',
     'enable_email_verification_help' => 'Nadat deze geactiveerd is zullen nieuwe geregistreerde gebruikers gevraagd worden om hun account via de e-mail te verifiëren voordat de registratie voltooid wordt.',
     'explain_email_settings' => 'Het volgende is benodigd als de functie: "Gebruik PHP mail()" is <strong>uitgeschakeld</strong>.Je kan de documentatie over de instellingen vinden <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">op onze wiki</a>.',
@@ -181,7 +181,7 @@ $admin_language = array(
     'label_type' => 'Label Type',
     'label_forums' => 'Label Forums',
     'label_creation_error' => 'Fout bij het maken van een label. Zorg ervoor dat de naam niet langer is dan 32 tekens en dat u een soort heeft opgegeven.',
-    'confirm_label_deletion' => 'Weet u zeker dat u dit label verwijderen?',
+    'confirm_label_deletion' => 'Weet je zeker dat je dit label verwijderen?',
     'editing_label' => 'Label bewerken',
     'label_creation_success' => 'Label succesvol gemaakt',
     'label_edit_success' => 'Label succesvol bewerkt',
@@ -235,7 +235,7 @@ $admin_language = array(
     'other_actions' => 'Andere Actie\'s:',
     'disable_avatar' => 'Schakel avatar uit',
     'enable_avatar' => 'Schakel avatar in',
-    'confirm_user_deletion' => 'Weet u zeker dat u de gebruiker <b>{x}</b> wilt verwijderen?', // Don't replace "{x}"
+    'confirm_user_deletion' => 'Weet je zeker dat je de gebruiker <b>{x}</b> wilt verwijderen?', // Don't replace "{x}"
     'groups' => 'Groepen',
     'group' => 'Groep',
     'new_group' => 'Nieuwe Groep',
@@ -250,7 +250,7 @@ $admin_language = array(
     'donor_group_instructions' =>    '<p>Donor groepen moeten worden gecreëerd in de volgorde van de <strong>laagste naar hoogste prijs</ strong>.</p>
                                     <p>Zo zal een &euro; 10 pakket worden gemaakt boven een &euro; 20 pakket.</p>',
     'delete_group' => 'Verwijder Groep',
-    'confirm_group_deletion' => 'Weet u zeker dat u de groep <b>{x}<b> verwijderen?', // Don't replace "{x}"
+    'confirm_group_deletion' => 'Weet je zeker dat je de groep <b>{x}<b> verwijderen?', // Don't replace "{x}"
     'group_staff' => 'Is de groep een staff groep?',
     'group_modcp' => 'Kan de groep de ModCP bekijken?',
     'group_admincp' => 'Kan de groep de AdminCP bekijken?',
@@ -269,17 +269,17 @@ $admin_language = array(
     'force_avatars' => 'Forceer Minecraft avatars?',
     'uuid_linking' => 'Schakel UUID koppelen in?',
     'use_plugin_help' => 'Gebruik de plugin voor rank synchronisatie en ook in het spel registreren en ticket indienen.',
-    'uuid_linking_help' => 'Indien uitgeschakeld, zullen gebruikersaccounts niet worden gekoppeld aan UUID. Het wordt aanbevolen dat u dit als ingeschakeld laat.',
+    'uuid_linking_help' => 'Indien uitgeschakeld, zullen gebruikersaccounts niet worden gekoppeld aan UUID. Je kan dit het beste aan laten.',
     'plugin_settings' => 'Plugin Instellingen',
-    'confirm_api_regen' => 'Weet u zeker dat u een nieuwe API Key wilt genereren?',
+    'confirm_api_regen' => 'Weet je zeker dat je een nieuwe API Key wilt genereren?',
     'servers' => 'Servers',
     'new_server' => 'Nieuwe Server',
-    'confirm_server_deletion' => 'Weet u zeker dat u deze server wilt verwijderen?',
+    'confirm_server_deletion' => 'Weet je zeker dat je deze server wilt verwijderen?',
     'main_server' => 'Belangrijkste Server',
     'main_server_help' => 'Hierheen verbinden de spelers van de server. Normaal gesproken zal dit de BungeeCord zijn.',
     'choose_a_main_server' => 'Kies de belangrijkste server.',
     'external_query' => 'Gebruik externe query?',
-    'external_query_help' => 'Gebruik een externe API om de Minecraft-server te Queryen? Gebruik dit alleen als de ingebouwde in de zoekopdracht niet werkt; Het aanbovelen dat dit aangevinkt is.',
+    'external_query_help' => 'Gebruik een externe API om de Minecraft-server te Queryen? Gebruik dit alleen als de ingebouwde niet werkt.',
     'editing_server' => 'Server {x} aan het bewerken', // Don't replace "{x}"
     'server_ip_with_port' => 'Server IP (met port) (numerieke of domein)',
     'server_ip_with_port_help' => 'Dit is het IP dat zal worden getoond aan gebruikers. Het zal niet worden gequeryd.',
@@ -293,12 +293,12 @@ $admin_language = array(
     'server_edited' => 'Server succesvol bewerkt',
     'server_created' => 'Server succesvol gemaakt',
     'query_errors' => 'Query Errors',
-    'query_errors_info' => 'De volgende fouten kunt u problemen diagnosticeren met uw interne server query.',
+    'query_errors_info' => 'De volgende fouten kun je gebruiken om fouten met de interne server query op te lossen.',
     'no_query_errors' => 'Geen query fouten gevonden',
     'date' => 'Datum:',
     'port' => 'Poort:',
     'viewing_error' => 'Bekijk melding',
-    'confirm_error_deletion' => 'Weet u het zeker dat u deze error wilt verwijderen?',
+    'confirm_error_deletion' => 'Weet je het zeker dat je deze error wilt verwijderen?',
     'display_server_status' => 'Laat Server Status module zien',
     'server_name_required' => 'Je moet een server naam invullen.',
     'server_ip_required' => 'Je moet een server IP invullen.',
@@ -351,8 +351,8 @@ $admin_language = array(
     'template_deleted' => 'Template Verwijderd.',
     'addon_disabled' => 'Addon Uitgeschakeld.',
     'inverse_navbar' => 'Inverse Navbar',
-    'confirm_theme_deletion' => 'Weet u het zeker dat u thema <b>{x}</b> wilt verwijderen?<br /><br />Het thema wordt verwijderd uit uw <b>styles/themes</b> map.', // Don't replace {x}
-    'confirm_template_deletion' => 'Weet u zeker dat u de template <b>{x}</b> wilt verwijderen?<br /><br />Het template wordt verwijderd uit uw <b>styles/templates</b> map.', // Don't replace {x}
+    'confirm_theme_deletion' => 'Weet je het zeker dat je thema <b>{x}</b> wil verwijderen?<br /><br />Het thema wordt verwijderd uit de <b>styles/themes</b> map.', // Don't replace {x}
+    'confirm_template_deletion' => 'Weet je zeker dat je de template <b>{x}</b> wil verwijderen?<br /><br />Het template wordt verwijderd uit de <b>styles/templates</b> map.', // Don't replace {x}
      
     // Admin Misc page
     'other_settings' => 'Andere Instellingen',
@@ -361,8 +361,8 @@ $admin_language = array(
     'display_page_load_time' => 'Toon pagina laadtijd?',
     'page_load_time_description' => 'Nadat deze is ingeschakeld zal een snelheidsmeter weergegeven in de voettekst die de laadtijd van de pagina weergeeft. (Dit is aan de onderkant van de pagina bij de copyright.)',
     'reset_website' => 'Reset Website',
-    'reset_website_info' => 'Deze knop zal uw website resetten <b>Addons worden uitgeschakeld, maar niet verwijderd uit de database en addons map, en de instellingen worden niet veranderd.</b> Ingestelde Minecraft servers blijven behouden',
-    'confirm_reset_website' => 'Weet u zeker dat u uw website wilt resetten?',
+    'reset_website_info' => 'Deze knop zal je website resetten <b>Addons worden uitgeschakeld, maar niet verwijderd uit de database en addons map, en de instellingen worden niet veranderd.</b> Ingestelde Minecraft servers blijven behouden',
+    'confirm_reset_website' => 'Weet je zeker dat je je website wilt resetten?',
 	
     // Admin Update page
     'installation_up_to_date' => 'Je installatie is up to date',
@@ -371,7 +371,7 @@ $admin_language = array(
     'your_version' => 'Je huidige versie:',
     'new_version' => 'Recentste versie:',
     'download' => 'Download',
-    'update_warning' => 'Waarschuwing: Kijk even dubbel of je de zip hebt gedownload en de bestanden daarvan hebt geupload, voordat je de update start!'
+    'update_warning' => 'Waarschuwing: Kijk even dubbel of je de zip hebt gedownloadet en de bestanden daarvan hebt geupload, voordat je de update start!'
 );
  
 /*
@@ -416,36 +416,36 @@ $user_language = array(
     'sign_in' => 'Inloggen',
     'sign_out' => 'Uitloggen',
     'terms_and_conditions' => 'Algemene Voorwaarden',
-    'successful_signin' => 'U bent succesvol ingelogd',
+    'successful_signin' => 'Je bent succesvol ingelogd',
     'incorrect_details' => 'Gegevens Onjuist',
     'remember_me' => 'Onthoud mij',
     'forgot_password' => 'Wachtwoord Vergeten',
-    'must_input_username' => 'U moet een gebruikersnaam invullen.',
-    'must_input_password' => 'U moet een wachtwoord invullen.',
-    'inactive_account' => 'Uw account is momenteel inactief. Bekijk uw mail om het te activeren.',
-    'account_banned' => 'Uw account is verbannen.',
-    'successfully_logged_out' => 'U bent succesvol uitgelogd.',
+    'must_input_username' => 'Je moet een gebruikersnaam invullen.',
+    'must_input_password' => 'Je moet een wachtwoord invullen.',
+    'inactive_account' => 'Je account is momenteel inactief. Bekijk uw mail om het te activeren.',
+    'account_banned' => 'Je account is verbannen.',
+    'successfully_logged_out' => 'Je bent succesvol uitgelogd.',
     'signature' => 'Ondertekening',
-    'registration_check_email' => 'Controleer uw e-mails voor een validatie link. U zult niet in staat zijn om in te loggen, totdat er deze op de link wordt geklikt.',
+    'registration_check_email' => 'Controleer je e-mails voor een validatie link. Je zal niet in staat zijn om in te loggen, totdat er deze op de link wordt geklikt.',
     'unknown_login_error' => 'Sorry, er was een onbekende fout tijdens het inloggen. Probeer het later opnieuw.',
-    'validation_complete' => 'Bedankt voor het registreren! U kunt nu inloggen.',
-    'validation_error' => 'Fout bij het verwerken van uw aanvraag. Probeer het opnieuw door op de link te klikken.',
-    'registration_error' => 'Zorg ervoor dat u alle velden heeft ingevuld en dat uw gebruikersnaam tussen de 3 en 20 tekens lang is en uw wachtwoord tussen de 6 en 30 tekens lang is.',
+    'validation_complete' => 'Bedankt voor het registreren! Je kan nu inloggen.',
+    'validation_error' => 'Fout bij het verwerken van je aanvraag. Probeer het opnieuw door op de link te klikken.',
+    'registration_error' => 'Zorg ervoor dat je alle velden hebt ingevuld, dat je gebruikersnaam tussen de 3 en 20 tekens lang is en je wachtwoord tussen de 6 en 30 tekens lang is.',
     'username_required' => 'Vul een gebruikersnaam in.',
     'password_required' => 'Vul een wachtwoord in.',
     'email_required' => 'Vul een email adres in.',
-    'mcname_required' => 'Vul een Minecraft Gebruikersnaam in.',
-    'accept_terms' => 'U moet de Algemene Voorwaarden accepteren voordat u zich kunt registreren.',
+    'mcname_required' => 'Vul een Minecraft gebruikersnaam in.',
+    'accept_terms' => 'Je moet de Algemene Voorwaarden accepteren voordat je je kunt registreren.',
     'invalid_recaptcha' => 'Ongeldige reCAPTCHA.',
-    'username_minimum_3' => 'Uw gebruikersnaam moet minimaal 3 tekens lang zijn.',
-    'username_maximum_20' => 'Uw gebruikersnaam mag maximaal 20 tekens lang zijn.',
-    'mcname_minimum_3' => 'Uw Minecraft Gebruikersnaam moet minimaal 3 tekens lang zijn.',
-    'mcname_maximum_20' => 'Uw Minecraft Gebruikersnaam mag maximaal 20 tekens lang zijn.',
-    'password_minimum_6' => 'Uw wachtwoord moet minimaal 6 tekens lang zijn.',
-    'password_maximum_30' => 'Uw wachtwoord mag maximaal 30 tekens lang zijn.',
-    'passwords_dont_match' => 'Uw wachtwoorden komen niet overeen.',
-    'username_mcname_email_exists' => 'Uw gebruikersnaam, Minecraft gebruikersnaam of e-mailadres bestaat al. Heeft u al een account aangemaakt?',
-    'invalid_mcname' => 'Uw Minecraft gebruikersnaam is geen geldig account. Er worden alleen gekochte Minecraft account geaccepteerd.',
+    'username_minimum_3' => 'Je gebruikersnaam moet minimaal 3 tekens lang zijn.',
+    'username_maximum_20' => 'Je gebruikersnaam mag maximaal 20 tekens lang zijn.',
+    'mcname_minimum_3' => 'Je Minecraft Gebruikersnaam moet minimaal 3 tekens lang zijn.',
+    'mcname_maximum_20' => 'Je Minecraft Gebruikersnaam mag maximaal 20 tekens lang zijn.',
+    'password_minimum_6' => 'Je wachtwoord moet minimaal 6 tekens lang zijn.',
+    'password_maximum_30' => 'Je wachtwoord mag maximaal 30 tekens lang zijn.',
+    'passwords_dont_match' => 'Je wachtwoorden komen niet overeen.',
+    'username_mcname_email_exists' => 'Je gebruikersnaam, Minecraft gebruikersnaam of e-mailadres bestaat al. Heb je al een account aangemaakt?',
+    'invalid_mcname' => 'Je Minecraft gebruikersnaam is geen geldig account. Er worden alleen gekochte Minecraft account geaccepteerd.',
     'mcname_lookup_error' => 'Er is een fout opgetreden bij het verbinden met de Mojang servers. Probeer het later opnieuw.',
     'signature_maximum_900' => 'Je handtekening mag maar uit 900 tekens bestaan.',
     'invalid_date_of_birth' => 'Ongeldige geboortedatum ingevuld. Vul deze in met behulp van de kalender.',
@@ -453,7 +453,7 @@ $user_language = array(
     'location_minimum_2' => 'Je locatie moet minstens uit 2 tekens bestaan.',
     'location_maximum_128' => 'Je locatie mag maar uit 128 tekens bestaan.',
     'verify_account' => 'Verifieer account',
-    'verify_account_help' => 'Volg a.u.b. de stappen zodat wij kunnen zien of u eigenaar bent van het account',
+    'verify_account_help' => 'Volg de stappen zodat wij kunnen zien of u eigenaar bent van het account',
     'verification_failed' => 'Verificatie mislukt. Probeer a.u.b. Opnieuw',
     'verification_success' => 'Verificatie gelukt! Je kan nu inloggen.',
     'complete_signup' => 'Complete aanmelding',
@@ -481,7 +481,7 @@ $user_language = array(
     'separate_users_with_comma' => 'Meerde gebruikers tegelijk een bericht sturen? Plaats er een komma ertussen (",")',
     'viewing_message' => 'Bekijk Bericht',
     'delete_message' => 'Verwijder Bericht',
-    'confirm_message_deletion' => 'Weet u zeker dat u dit bericht wilt verwijderen?',
+    'confirm_message_deletion' => 'Weet je zeker dat je dit bericht wilt verwijderen?',
      
     // Profile settings
     'display_name' => 'Weergavenaam',
@@ -513,9 +513,9 @@ $user_language = array(
     // Alerts
     'viewing_unread_alerts' => 'Bekijk ongelezen alerts. Verander naar <a href="/user/alerts/?view=read"><span class="label label-success">gelezen</span></a>.',
     'viewing_read_alerts' => 'Bekijk gelezen alerts. Verander naar <a href="/user/alerts/"><span class="label label-warning">ongelezen</span></a>.',
-    'no_unread_alerts' => 'U heeft geen ongelezen alerts.',
+    'no_unread_alerts' => 'Je heeft geen ongelezen alerts.',
     'no_alerts' => 'Geen alerts',
-    'no_read_alerts' => 'U heeft geen gelezen alerts.',
+    'no_read_alerts' => 'Je heeft geen gelezen alerts.',
     'view' => 'Bekijk',
     'alert' => 'Alert',
     'when' => 'Wanneer',
@@ -526,17 +526,17 @@ $user_language = array(
     'deleted_alert' => 'Melding is succesvol verwijderd',
      
     // Warnings
-    'you_have_received_a_warning' => 'U heeft een waarschuwing van {x} op {y} ontvangen.', // Don't replace "{x}" or "{y}"
+    'you_have_received_a_warning' => 'Je heeft een waarschuwing van {x} op {y} ontvangen.', // Don't replace "{x}" or "{y}"
     'acknowledge' => 'Dit Klopt',
      
     // Forgot password
     'password_reset' => 'Wachtwoord Reset',
-    'email_body' => 'U ontvangt deze e-mail omdat u een wachtwoord reset heeft gevraagd. Om uw wachtwoord te resetten, gebruik dan de volgende link:', // Body for the password reset email
-    'email_body_2' => 'Als u het wachtwoord reset niet heeft aangevraagd, kunt u deze e-mail negeren.',
-    'password_email_set' => 'Controleer uw e-mail voor verdere instructies.',
+    'email_body' => 'Je ontvangt deze e-mail omdat je om een wachtwoord reset hebt gevraagd. Om je wachtwoord te resetten, gebruik de volgende link:', // Body for the password reset email
+    'email_body_2' => 'Als je de wachtwoord reset niet hebt aangevraagd, kan je deze e-mail negeren.',
+    'password_email_set' => 'Controleer je e-mail voor verdere instructies.',
     'username_not_found' => 'Die gebruikersnaam bestaat niet.',
     'change_password' => 'Verander Wachtwoord',
-    'your_password_has_been_changed' => 'Uw wachtwoord is succesvol gewijzigd.',
+    'your_password_has_been_changed' => 'Je wachtwoord is succesvol gewijzigd.',
      
     // Profile page
     'profile' => 'Profiel',
@@ -584,9 +584,9 @@ $user_language = array(
     'staff_application' => 'Solliciteren voor staff',
     'application_submitted' => 'Sollicitatie is verzonden.',
     'application_already_submitted' => 'Je hebt al een sollicitatie verzonden. Je moet wachten tot er antwoord is op je sollicitatie voordat je een nieuwe kunt aanmaken.',
-    'not_logged_in' => 'U moet inloggen om deze pagina te bekijken.',
-    'application_accepted' => 'Uw staff aanvraag is geaccepteerd, gefeliciteerd!',
-    'application_rejected' => 'Uw staff aanvraag is afgewezen.'
+    'not_logged_in' => 'Je moet inloggen om deze pagina te bekijken.',
+    'application_accepted' => 'Je staff aanvraag is geaccepteerd, gefeliciteerd!',
+    'application_rejected' => 'Je staff aanvraag is afgewezen.'
 );
  
 /*
@@ -609,7 +609,7 @@ $mod_language = array(
     'registered' => 'Geregistreerd',
     'reason' => 'Reden:',
     'cant_ban_root_user' => 'Je kan de administrator niet straffen!',
-    'invalid_reason' => 'Maak a.u.b. een goede reden tussen de 2 en 256 tekens lang.',
+    'invalid_reason' => 'Maak een goede reden tussen de 2 en 256 tekens lang.',
     'punished_successfully' => 'Straf succesvol toegevoegd.',
 
     // Reports
@@ -659,7 +659,7 @@ $general_language = array(
     // General terms
     'submit' => 'Verstuur',
     'close' => 'Sluiten',
-    'cookie_message' => '<strong>Deze website maakt gebruik van cookies om uw ervaring te verbeteren.</strong><p>Door op deze website te blijven accepteert u deze.</p>',
+    'cookie_message' => '<strong>Deze website maakt gebruik van cookies om je ervaring te verbeteren.</strong><p>Door op deze website te blijven accepteer je deze.</p>',
     'theme_not_exist' => 'Het geselecteerde thema bestaat niet.',
     'confirm' => 'Bevestigen',
     'cancel' => 'Annuleer',
@@ -688,7 +688,7 @@ $general_language = array(
     // Other
     'page_loaded_in' => 'Pagina geladen in {x} seconden', // Don't replace {x}; 's' stands for 'seconds'
     'none' => 'Geen',
-    '404' => 'Sorry, we konden deze pagina niet vinden. Weet u zeker dat u de URL correct heeft gespeld?'
+    '404' => 'Sorry, we konden deze pagina niet vinden. Weet je zeker dat je de URL correct heeft gespeld?'
 );
  
 /* 
@@ -728,7 +728,7 @@ $forum_language = array(
     'unlock_thread' => 'Ontgrendel topic',
     'merge_thread' => 'Voeg een topic samen',
     'delete_thread' => 'Verwijder topic',
-    'confirm_thread_deletion' => 'Weet u zeker dat u dit topic wilt verwijderen?',
+    'confirm_thread_deletion' => 'Weet je zeker dat je dit topic wilt verwijderen?',
     'move_thread' => 'Verplaats topic',
     'sticky_thread' => 'Sticky topic',
     'report_post' => 'Rapporteer bericht',
@@ -736,7 +736,7 @@ $forum_language = array(
     'delete_post' => 'Verwijder bericht',
     'edit_post' => 'Bewerk bericht',
     'reputation' => 'reputatie',
-    'confirm_post_deletion' => 'Weet u zeker dat u dit bericht wilt verwijderen?',
+    'confirm_post_deletion' => 'Weet je zeker dat je dit bericht wilt verwijderen?',
     'give_reputation' => 'Geef Reputatie',
     'remove_reputation' => 'Verwijder Reputatie',
     'post_reputation' => 'Post Reputatie',
@@ -747,7 +747,7 @@ $forum_language = array(
     'create_post' => 'Maak Post',
     'post_submitted' => 'Post Geplaatst',
     'creating_post_in' => 'Maak post in: ',
-    'topic_locked_permission_post' => 'Dit onderwerp is gesloten, maar u kunt nog posten',
+    'topic_locked_permission_post' => 'Dit onderwerp is gesloten, maar je kan nog posten',
      
     // Edit post view
     'editing_post' => 'Post Bewerken',
@@ -761,7 +761,7 @@ $forum_language = array(
     'topic_created' => 'Topic Gemaakt.',
     'creating_topic_in_' => 'Maak topic in forum ',
     'thread_title' => 'Thread Titel',
-    'confirm_cancellation' => 'Weet u het zeker?',
+    'confirm_cancellation' => 'Weet je het zeker?',
     'label' => 'Label',
      
     // Reports
@@ -778,13 +778,13 @@ $forum_language = array(
      
     // Other
     'forum_error' => 'Sorry, we konden dat forum of topic niet vinden.',
-    'are_you_logged_in' => 'Bent u ingelogd?',
+    'are_you_logged_in' => 'Ben je ingelogd?',
     'online_users' => 'Gebruikers Online',
     'no_users_online' => 'Er zijn geen gebruikers online.',
 
     // Search
     'search_error' => 'Voer een zoekopdracht in die tussen 1 en 32 tekens lang is.',
-    'no_search_results' => 'Uw zoekopdracht heeft niets opgeleverd.',
+    'no_search_results' => 'Je zoekopdracht heeft niks opgeleverd.',
     
     //Share on a social-media.
    'sm-share' => 'Delen',
@@ -798,7 +798,7 @@ $forum_language = array(
 $email_language = array(
     // Registration email
     'greeting' => 'Beste Gebruiker',
-    'message' => 'Bedankt voor het registreren! Om uw registratie te voltooien, klikt u op de volgende link:',
+    'message' => 'Bedankt voor het registreren! Om de registratie te voltooien, klikt je op de volgende link:',
     'thanks' => 'Bedankt,'
 );
  
