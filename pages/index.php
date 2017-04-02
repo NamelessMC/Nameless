@@ -172,7 +172,8 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 			'author_mcname' => htmlspecialchars($user->idToMCName($item['author'])),
 			'author_username' => htmlspecialchars($user->idToName($item['author'])),
 			'author_avatar' => $avatar,
-			'content' => $purifier->purify(htmlspecialchars_decode($item['content']))
+			'content' => $purifier->purify(htmlspecialchars_decode($item['content'])),
+			'group' => $user->getGroup($item['author'], true)
 		);
 	}
 
