@@ -8,7 +8,7 @@
  *
  *  License: MIT
  *
- *  EnglishUS Language - Language version
+ *  Greek Language - Language version
  */
 
 // Which version of NamelessMC is this language file updated to?
