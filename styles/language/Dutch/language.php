@@ -688,7 +688,7 @@ $general_language = array(
     // Other
     'page_loaded_in' => 'Pagina geladen in {x} seconden', // Don't replace {x}; 's' stands for 'seconds'
     'none' => 'Geen',
-    '404' => 'Sorry, we konden deze pagina niet vinden. Weet je zeker dat je de URL correct heeft gespeld?'
+    '404' => 'Sorry, we kunnen de pagina niet vinden die je probeert te bezoeken. Controleer de URL en probeer het opnieuw, als het nog niet lukt neem dan contact op met de Administrator'
 );
  
 /* 
@@ -836,7 +836,7 @@ $table_language = array(
  *  API language
  */
 $api_language = array(
-	'register' => 'Registratie afronden'
+	'register' => 'Registratie voltooien'
 );
   
 ?>
