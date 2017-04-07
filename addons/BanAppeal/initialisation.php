@@ -35,7 +35,12 @@ if($user->isLoggedIn()){
 		break;
 		
 		case 'more':
-			$nav_more_dropdown[$banappeal_language['ban_appeal_icon'] . $banappeal_language['ban_appeal']] = '/banappeal';
+			$nav_banappeal_object = new stdClass();
+			$nav_banappeal_object->url = '/banappeal';
+			$nav_banappeal_object->icon = $banappeal_language['ban_appeal_icon'];
+			$nav_banappeal_object->title = $banappeal_language['ban_appeal'];
+		
+			$nav_more_dropdown[] = $nav_banappeal_object;
 		break;
 		
 		case 'none':

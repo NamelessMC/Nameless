@@ -35,7 +35,7 @@ if($user->isLoggedIn()){
 <?php if(!isset($_GET['view']) && !isset($_GET['do'])){ ?>  
 <h3>Addon: Donate</h3>
 Author: Samerton<br />
-Version: 1.1.0<br />
+Version: 1.1.1<br />
 Description: Integrate a donation store with your website<br />
 
 <h3>Donation Store</h3>
@@ -129,6 +129,10 @@ if(empty($donation_settings)){
 					'value' => Input::get('currency')
 				));
 				
+				// Link location
+				$c->setCache('donateaddon');
+				$c->store('linklocation', htmlspecialchars(Input::get('linkposition')));
+				
 				// Query again because settings updated
 				// Get settings from database
 				$donation_settings = $queries->getWhere('donation_settings', array('id', '<>', 0));
@@ -192,6 +196,25 @@ if(empty($donation_settings)){
 	  <option value="1" <?php if($donation_settings[5]->value == '1'){ echo ' selected="selected"'; } ?>>£</option>
 	  <option value="2" <?php if($donation_settings[5]->value == '2'){ echo ' selected="selected"'; } ?>>€</option>
 	  <option value="3" <?php if($donation_settings[5]->value == '3'){ echo ' selected="selected"'; } ?>>R$</option>
+	</select>
+  </div>
+  <div class="form-group">
+	<label for="InputLinkPosition"><?php echo $admin_language['page_link_location']; ?></label>
+	<?php
+	// Get position of link
+	$c->setCache('donateaddon');
+	if($c->isCached('linklocation')){
+		$link_location = $c->retrieve('linklocation');
+	} else {
+		$c->store('linklocation', 'navbar');
+		$link_location = 'navbar';
+	}
+	?>
+	<select name="linkposition" id="InputLinkPosition" class="form-control">
+	  <option value="navbar" <?php if($link_location == 'navbar'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_navbar']; ?></option>
+	  <option value="more" <?php if($link_location == 'more'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_more']; ?></option>
+	  <option value="footer" <?php if($link_location == 'footer'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_footer']; ?></option>
+	  <option value="none" <?php if($link_location == 'none'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_none']; ?></option>
 	</select>
   </div>
   <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">

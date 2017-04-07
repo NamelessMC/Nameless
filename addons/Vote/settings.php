@@ -1,10 +1,9 @@
 <?php 
 /*
  *	Made by Samerton
- *  http://worldscapemc.co.uk
+ *  https://worldscapemc.com
  *
  *  License: MIT
- *  Copyright (c) 2016 Samerton
  */
 
 // Settings for the Vote addon
@@ -32,7 +31,7 @@ if(!isset($_GET['do']) && !isset($_GET['vid'])){
 ?>
 <h3>Addon: Vote</h3>
 Author: Samerton<br />
-Version: 1.0.2<br />
+Version: 1.0.3<br />
 Description: Adds a page where users can vote for your server<br />
 
 <?php
@@ -68,9 +67,10 @@ if(empty($vote_settings)){
 	if(!count($vote_sites)){
 		// No sites defined
 ?>
-<strong>No vote defined</strong>
+<strong>No vote sites defined</strong>
 <?php
 	} else {
+		$n = 0;
 ?>
 <div class="panel panel-info">
 	<div class="panel-heading">
@@ -91,15 +91,18 @@ if(empty($vote_settings)){
 				</span>
 			</div>
 		</div>
-		<hr> 
 		<?php 
+			if(($n + 1) != count($vote_sites)) echo '<hr />';
+			
+			$n++;
 		}
 		?>
 
 	</div>
 </div>
 <?php
-// deal with input
+	}
+// Deal with input
 if(Input::exists()){
 	if(Token::check(Input::get('token'))){
 		$validate = new Validate();
@@ -110,6 +113,10 @@ if(Input::exists()){
 		));
 		
 		if($validation->passed()){
+			// Link location
+			$c->setCache('voteaddon');
+			$c->store('linklocation', htmlspecialchars(Input::get('linkposition')));
+			
 			try {
 				$queries->update('vote_settings', 1, array(
 					'value' => Input::get('message')
@@ -132,16 +139,38 @@ if(Input::exists()){
 $vote_message = $queries->getWhere('vote_settings', array('id', '=', 1));
 $vote_message = htmlspecialchars($vote_message[0]->value);
 ?>
+<hr />
 <form action="" method="post">
   <div class="form-group">
     <label for="InputMessage">Message to display at top of Vote page <em>(This can be left blank)</em></label><br />
     <textarea name="message" rows="3" id="InputMessage" class="form-control"><?php echo htmlspecialchars($vote_message); ?></textarea>
   </div>
+  
+  <div class="form-group">
+	<label for="InputLinkPosition"><?php echo $admin_language['page_link_location']; ?></label>
+	<?php
+	// Get position of link
+	$c->setCache('voteaddon');
+	if($c->isCached('linklocation')){
+		$link_location = $c->retrieve('linklocation');
+	} else {
+		$c->store('linklocation', 'navbar');
+		$link_location = 'navbar';
+	}
+	?>
+	<select name="linkposition" id="InputLinkPosition" class="form-control">
+	  <option value="navbar" <?php if($link_location == 'navbar'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_navbar']; ?></option>
+	  <option value="more" <?php if($link_location == 'more'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_more']; ?></option>
+	  <option value="footer" <?php if($link_location == 'footer'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_footer']; ?></option>
+	  <option value="none" <?php if($link_location == 'none'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_none']; ?></option>
+	</select>
+  </div>
+  
   <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
   <input type="submit" value="<?php echo $general_language['submit']; ?>" class="btn btn-primary">
 </form>
 <?php
-	}
+
 } else {
 	if(isset($_GET['do']) && $_GET['do'] == 'new'){
 		// new vote site
