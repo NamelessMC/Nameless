@@ -15,7 +15,7 @@
  */
 $admin_language = array(
 	// General terms
-	'admin_cp' => '管理者控制面板',
+	'admin_cp' => '管理者後台',
 	'infractions' => 'Infractions',
 	'invalid_token' => '不正確的 token，請重試。',
 	'invalid_action' => '不正確的動作',
@@ -35,7 +35,7 @@ $admin_language = array(
 	'core' => '核心',
 	'custom_pages' => '自定義頁面',
 	'general' => '一般',
-	'forums' => '論壇',
+	'forums' => '版塊',
 	'users_and_groups' => '使用者與組別',
 	'minecraft' => 'Minecraft',
 	'style' => '樣式',
@@ -87,7 +87,7 @@ $admin_language = array(
 	'use_gmail_help' => '只有在 PHP mail() 函式停用的時候才可以使用。如果你選擇不使用 Gmail，系統將會使用 SMTP。兩種情況都需要你在 core/email.php 中進行設定。',
 	'enable_mail_verification' => '啟用電子郵件驗證',
 	'enable_email_verification_help' => '若你啟用此項，新使用者註冊時將會被要求驗證他們的電子郵件位址才能完成註冊。',
-	'explain_email_settings' => '若你停用了「使用 PHP mail() 函式」 選項，則此項為必填。你可以在<a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">我們的維基頁面</a>上找到更多關於此項設定的資料。',
+	'explain_email_settings' => '若你停用了「使用 PHP mail() 函式」 選項，則以下項目為必填。你可以在<a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">我們的維基頁面</a>上找到更多關於此項設定的資料。',
 	'email_config_not_writable' => '無法寫入 <strong>core/email.php</strong>，請檢查檔案權限。',
 	'pages' => '頁面',
 	'enable_or_disable_pages' => '在這裡啟用或停用頁面。',
@@ -185,29 +185,29 @@ $admin_language = array(
 	'label_info' => '資訊',
 	'label_warning' => '警告',
 	'label_danger' => '危險',
-	'new_forum' => '新的論壇',
+	'new_forum' => '新的版塊',
 	'forum_layout' => '論壇樣式',
-	'table_view' => 'Table view',
-	'latest_discussions_view' => 'Latest Discussions view',
-	'create_forum' => '建立論壇',
-	'forum_name' => '論壇名稱',
-	'forum_description' => '論壇描述',
-	'delete_forum' => '刪除論壇',
+	'table_view' => '顯示版塊列表',
+	'latest_discussions_view' => '顯示最新文章',
+	'create_forum' => '建立版塊',
+	'forum_name' => '版塊名稱',
+	'forum_description' => '版塊描述',
+	'delete_forum' => '刪除版塊',
 	'move_topics_and_posts_to' => '將主題與文章移動至',
 	'delete_topics_and_posts' => '刪除主題與文章',
-	'parent_forum' => '父論壇',
+	'parent_forum' => '父版塊',
 	'has_no_parent' => '沒有父項',
-	'forum_permissions' => '論壇權限',
-	'can_view_forum' => '可以查看論壇',
+	'forum_permissions' => '版塊權限',
+	'can_view_forum' => '可以查看版塊',
 	'can_create_topic' => '可以建立主題',
 	'can_post_reply' => '可以發表回覆',
 	'display_threads_as_news' => '將帖子顯示在首頁上的新聞欄',
-	'input_forum_title' => '輸入一個論壇標籤。',
-	'input_forum_description' => '輸入一個論壇描述（你可以使用 HTML 語法）。',
-	'forum_name_minimum' => '論壇名稱的最小值為不小於 2 個字元。',
-	'forum_description_minimum' => '論壇描述的最小值為不小於 2 個字元。',
-	'forum_name_maximum' => '論壇名稱的最大值為不超過 150 個字元。',
-	'forum_description_maximum' => '論壇描述的最大值為不超過 255 個字元。',
+	'input_forum_title' => '輸入一個版塊標籤。',
+	'input_forum_description' => '輸入一個版塊描述（你可以使用 HTML 語法）。',
+	'forum_name_minimum' => '版塊名稱的最小值為不小於 2 個字元。',
+	'forum_description_minimum' => '版塊描述的最小值為不小於 2 個字元。',
+	'forum_name_maximum' => '版塊名稱的最大值為不超過 150 個字元。',
+	'forum_description_maximum' => '版塊描述的最大值為不超過 255 個字元。',
 	'forum_type_forum' => 'Discussion Forum',
 	'forum_type_category' => '類別',
 	
@@ -375,11 +375,11 @@ $navbar_language = array(
 	// Text only
 	'home' => '主頁',
 	'play' => '遊玩',
-	'forum' => '論壇',
+	'forum' => '版塊',
 	'more' => 'More',
 	'staff_apps' => '申請成為工作人員',
 	'view_messages' => '查看訊息',
-	'view_alerts' => '查看 Alerts',
+	'view_alerts' => '查看通知',
 	
 	// Icons - will display before the text
 	'home_icon' => '',
@@ -397,7 +397,7 @@ $user_language = array(
 	'authme_password' => 'AuthMe 密碼',
 	'username' => '使用者名稱',
 	'minecraft_username' => 'Minecraft 名稱',
-	'email' => 'Email',
+	'email' => '電子郵件',
 	'user_title' => 'Title',
 	'email_address' => '電子郵件位址',
 	'date_of_birth' => '生日',
@@ -453,7 +453,7 @@ $user_language = array(
 	'complete_signup' => '完成註冊',
 	
 	// UserCP
-	'user_cp' => 'UserCP',
+	'user_cp' => '設定',
 	'no_file_chosen' => '未選擇任何檔案',
 	'private_messages' => '私人訊息',
 	'profile_settings' => '個人資料設定',
@@ -462,7 +462,7 @@ $user_language = array(
 	'posts' => '文章',
 	'reputation' => '聲望',
 	'friends' => '好友',
-	'alerts' => 'Alerts',
+	'alerts' => '通知',
 	
 	// Messaging
 	'new_message' => '新的訊息',
@@ -505,19 +505,19 @@ $user_language = array(
 	'tfa_email_contents' => '有人嘗試登入你的賬號。如果那是你，當你被要求輸入雙因素驗證代碼時，請輸入以下的代碼。如果那不是你，你可以忽略這封電子郵件，不過我們建議你重設你的密碼。這個代碼在十分鐘內有效。',
 	
 	// Alerts
-	'viewing_unread_alerts' => '正在查看未讀的 Alerts。標記為<a href="/user/alerts/?view=read"><span class="label label-success">已讀</span></a>。',
-	'viewing_read_alerts' => '正在查看已讀的 Alerts。標記為<a href="/user/alerts/"><span class="label label-warning">未讀</span></a>。',
-	'no_unread_alerts' => '你沒有未讀的 Alerts。',
-	'no_alerts' => '沒有 alerts',
-	'no_read_alerts' => '你沒有已讀的 Alerts。',
+	'viewing_unread_alerts' => '正在查看未讀的通知。標記為<a href="/user/alerts/?view=read"><span class="label label-success">已讀</span></a>。',
+	'viewing_read_alerts' => '正在查看已讀的通知。標記為<a href="/user/alerts/"><span class="label label-warning">未讀</span></a>。',
+	'no_unread_alerts' => '你沒有未讀的通知。',
+	'no_alerts' => '沒有通知',
+	'no_read_alerts' => '你沒有已讀的通知。',
 	'view' => 'View',
-	'alert' => 'Alert',
+	'alert' => '通知',
 	'when' => 'When',
 	'delete' => 'Delete',
 	'tag' => 'User Tag',
 	'tagged_in_post' => '你在一則文章內被標記',
 	'report' => 'Report',
-	'deleted_alert' => 'Alert 刪除完畢',
+	'deleted_alert' => '通知刪除完畢',
 	
 	// Warnings
 	'you_have_received_a_warning' => 'You have received a warning from {x} dated {y}.', // Don't replace "{x}" or "{y}"
@@ -569,9 +569,9 @@ $user_language = array(
 	'last_5_posts' => '最新的五篇文章',
 	'follow' => '追蹤',
 	'unfollow' => '取消追蹤',
-	'name_history' => 'Name History',
-	'changed_name_to' => 'Changed name to: {x} on {y}', // Don't replace {x} or {y}
-	'original_name' => '原本的名字：',
+	'name_history' => 'Minecraft 名稱歷史',
+	'changed_name_to' => '在 {y} 變更為 {x}', // Don't replace {x} or {y}
+	'original_name' => '起初的名字：',
 	'name_history_error' => '無法取得使用者名稱變更歷史。',
 	
 	// Staff applications
@@ -587,7 +587,7 @@ $user_language = array(
  *  Moderation related
  */
 $mod_language = array(
-	'mod_cp' => 'ModCP',
+	'mod_cp' => '工作人員後台',
 	'overview' => '概覽',
 	'reports' => '舉報',
 	'punishments' => '懲處',
@@ -600,7 +600,7 @@ $mod_language = array(
 	'search_for_a_user' => '搜尋使用者',
 	'user' => '使用者：',
 	'ip_lookup' => 'IP 位置查詢：',
-	'registered' => 'Registered',
+	'registered' => '註冊時間',
 	'reason' => '原因：',
 	'cant_ban_root_user' => '無法處罰 root 使用者！',
 	'invalid_reason' => '請輸入一個 2 ~ 256 字元長的理由。',
@@ -690,28 +690,28 @@ $general_language = array(
  */
 $forum_language = array(
 	// Latest discussions view
-	'forums' => '論壇',
+	'forums' => '版塊',
 	'discussion' => '討論',
 	'stats' => '統計資料',
 	'last_reply' => '最新的回覆',
 	'ago' => 'ago',
-	'by' => 'by',
+	'by' => '作者：',
 	'in' => 'in',
-	'views' => 'views',
-	'posts' => 'posts',
-	'topics' => 'topics',
-	'topic' => 'Topic',
-	'statistics' => '統計資料',
+	'views' => '次瀏覽',
+	'posts' => '篇文章',
+	'topics' => '個主題',
+	'topic' => '主題',
+	'statistics' => '統計',
 	'overview' => '概覽',
 	'latest_discussions' => '最新的討論串',
 	'latest_posts' => '最新的文章',
 	'users_registered' => '已註冊的使用者：',
 	'latest_member' => '最新註冊的使用者：',
-	'forum' => '論壇',
+	'forum' => '版塊',
 	'last_post' => '最新的文章',
 	'no_topics' => '這裡還沒有任何主題',
 	'new_topic' => '新的主題',
-	'subforums' => '子論壇：',
+	'subforums' => '子版塊：',
 	
 	// View topic view
 	'home' => '主頁',
@@ -724,7 +724,7 @@ $forum_language = array(
 	'delete_thread' => '刪除帖子',
 	'confirm_thread_deletion' => '你確定要刪除這個帖子嗎？',
 	'move_thread' => '移動帖子',
-	'sticky_thread' => 'Sticky Thread',
+	'sticky_thread' => '置頂帖子',
 	'report_post' => '舉報文章',
 	'quote_post' => '引用文章',
 	'delete_post' => '刪除文章',
@@ -747,9 +747,9 @@ $forum_language = array(
 	'editing_post' => '正在編輯文章',
 	
 	// Sticky threads
-	'thread_is_' => 'Thread is ',
-	'now_sticky' => 'now a sticky thread',
-	'no_longer_sticky' => 'no longer a sticky thread',
+	'thread_is_' => '帖子',
+	'now_sticky' => '置頂完成',
+	'no_longer_sticky' => '取消置頂完成',
 	
 	// Create topic
 	'topic_created' => '主題建立完畢。',
@@ -767,11 +767,11 @@ $forum_language = array(
 	'move_to' => '移動至：',
 	
 	// Merge threads
-	'merge_instructions' => '兩個要合併的帖子<strong>必須</strong>在同個論壇下。Move a thread if necessary.',
+	'merge_instructions' => '兩個要合併的帖子<strong>必須</strong>在同個版塊下。Move a thread if necessary.',
 	'merge_with' => '與 ... 合併：',
 	
 	// Other
-	'forum_error' => '對不起，我們找不到相關的論壇或主題。',
+	'forum_error' => '對不起，我們找不到相關的版塊或主題。',
 	'are_you_logged_in' => '你登入了嗎？',
 	'online_users' => '本站線上使用者',
 	'no_users_online' => '沒有使用者在線上',
