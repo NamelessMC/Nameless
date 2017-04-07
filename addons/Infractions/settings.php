@@ -30,7 +30,7 @@ if($user->isLoggedIn()){
 
 <h3>Addon: Infractions</h3>
 Author: Samerton<br />
-Version: 1.0.4<br />
+Version: 1.0.5<br />
 Description: Integrate your server infractions with your website<br />
 
 <h3>Infractions Settings</h3>
@@ -63,6 +63,10 @@ if(empty($infractions_settings)){
 					'value' => htmlspecialchars(Input::get('plugin_type'))
 				));
 				
+				// Link location
+				$c->setCache('infractionsaddon');
+				$c->store('linklocation', htmlspecialchars(Input::get('linkposition')));
+					
 				echo '<script data-cfasync="false">window.location.replace(\'/admin/addons/?action=edit&addon=Infractions\');</script>';
 				die();
 				
@@ -148,6 +152,25 @@ if(empty($infractions_settings)){
     </label>
   </div>
   <br /><br />
+  <div class="form-group">
+	<label for="InputLinkPosition"><?php echo $admin_language['page_link_location']; ?></label>
+	<?php
+	// Get position of link
+	$c->setCache('infractionsaddon');
+	if($c->isCached('linklocation')){
+		$link_location = $c->retrieve('linklocation');
+	} else {
+		$c->store('linklocation', 'footer');
+		$link_location = 'footer';
+	}
+	?>
+	<select name="linkposition" id="InputLinkPosition" class="form-control">
+	  <option value="navbar" <?php if($link_location == 'navbar'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_navbar']; ?></option>
+	  <option value="more" <?php if($link_location == 'more'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_more']; ?></option>
+	  <option value="footer" <?php if($link_location == 'footer'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_footer']; ?></option>
+	  <option value="none" <?php if($link_location == 'none'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_none']; ?></option>
+	</select>
+  </div>
   <input type="hidden" name="action" value="settings">
   <input type="hidden" name="token" value="<?php echo $token; ?>">
   <input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">

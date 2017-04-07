@@ -1,7 +1,7 @@
 <?php 
 /*
  *	Made by Samerton
- *  http://worldscapemc.co.uk
+ *  https://worldscapemc.com
  *
  *  License: MIT
  */
@@ -13,6 +13,36 @@
 require('addons/Infractions/language.php');
 
 // Enabled, add links to navbar
-if(!isset($footer_nav_array)) $footer_nav_array = array();
+$c->setCache('infractionsaddon');
+if($c->isCached('linklocation')){
+	$link_location = $c->retrieve('linklocation');
+} else {
+	$c->store('linklocation', 'footer');
+	$link_location = 'footer';
+}
 
-$footer_nav_array['infractions'] = $infractions_language['infractions_icon'] . $infractions_language['infractions'];
+switch($link_location){
+	case 'navbar':
+		$navbar_array[] = array('infractions' => $infractions_language['infractions_icon'] . $infractions_language['infractions']);
+	break;
+	
+	case 'footer':
+		$footer_nav_array['infractions'] = $infractions_language['infractions_icon'] . $infractions_language['infractions'];
+	break;
+	
+	case 'more':
+		$nav_infractions_object = new stdClass();
+		$nav_infractions_object->url = '/infractions';
+		$nav_infractions_object->icon = $infractions_language['infractions_icon'];
+		$nav_infractions_object->title = $infractions_language['infractions'];
+	
+		$nav_more_dropdown[] = $nav_infractions_object;
+	break;
+	
+	case 'none':
+	break;
+	
+	default:
+		$navbar_array[] = array('infractions' => $infractions_language['infractions_icon'] . $infractions_language['infractions']);
+	break;
+}
