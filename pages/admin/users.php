@@ -539,7 +539,7 @@ require('core/integration/uuid.php');
 											'username' => htmlspecialchars(Input::get('username')),
 											'email' => htmlspecialchars(Input::get('email')),
 											'group_id' => Input::get('group'),
-											'mcname' => htmlspecialchars(Input::get('MCUsername')),
+											'mcname' => $mcname,
 											'uuid' => htmlspecialchars(Input::get('UUID')),
 											'user_title' => Input::get('title'),
 											'signature' => htmlspecialchars($signature),
