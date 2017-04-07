@@ -375,7 +375,7 @@ $navbar_language = array(
 	// Text only
 	'home' => '主頁',
 	'play' => '遊玩',
-	'forum' => '版塊',
+	'forum' => '論壇',
 	'more' => 'More',
 	'staff_apps' => '申請成為工作人員',
 	'view_messages' => '查看訊息',
