@@ -729,12 +729,12 @@ $forum_language = array(
 	'quote_post' => '引用文章',
 	'delete_post' => '刪除文章',
 	'edit_post' => '編輯文章',
-	'reputation' => 'reputation',
+	'reputation' => '聲望',
 	'confirm_post_deletion' => '你確定要刪除此篇文章嗎？',
-	'give_reputation' => 'Give reputation',
-	'remove_reputation' => 'Remove reputation',
+	'give_reputation' => '給予聲望',
+	'remove_reputation' => '移除聲望',
 	'post_reputation' => 'Post Reputation',
-	'no_reputation' => 'No reputation for this post yet',
+	'no_reputation' => '這篇文章還沒獲得任何聲望',
 	're' => 'RE:',
 	
 	// Create post view
