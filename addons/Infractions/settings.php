@@ -1,10 +1,9 @@
 <?php 
 /*
  *	Made by Samerton
- *  http://worldscapemc.co.uk
+ *  https://worldscapemc.com
  *
  *  License: MIT
- *  Copyright (c) 2016 Samerton
  */
 
 // Settings for the Infractions addon
@@ -30,7 +29,7 @@ if($user->isLoggedIn()){
 
 <h3>Addon: Infractions</h3>
 Author: Samerton<br />
-Version: 1.0.5<br />
+Version: 1.0.6<br />
 Description: Integrate your server infractions with your website<br />
 
 <h3>Infractions Settings</h3>
@@ -149,6 +148,9 @@ if(empty($infractions_settings)){
     </label>
     <label class="btn btn-primary<?php if($infractions_settings[0]->value == 'bu'){ ?> active<?php } ?>">
 	  <input type="radio" name="plugin_type" id="InputPluginType4" value="bu" autocomplete="off"<?php if($infractions_settings[0]->value == 'bu'){ ?> checked<?php } ?>> BungeeUtilisals
+    </label>
+    <label class="btn btn-primary<?php if($infractions_settings[0]->value == 'ab'){ ?> active<?php } ?>">
+	  <input type="radio" name="plugin_type" id="InputPluginType5" value="ab" autocomplete="off"<?php if($infractions_settings[0]->value == 'ab'){ ?> checked<?php } ?>> AdvancedBan
     </label>
   </div>
   <br /><br />

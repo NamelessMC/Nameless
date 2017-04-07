@@ -1,7 +1,7 @@
 <?php 
 /* 
  *	Made by Samerton
- *  http://worldscapemc.co.uk
+ *  https://worldscapemc.com
  *
  *  License: MIT
  */
@@ -98,23 +98,34 @@ if(isset($_GET['p'])){
         <h2><?php echo $infractions_language['infractions']; ?></h2>
 		<?php
 		if(!isset($_GET['type']) && !isset($_GET['id'])){
-			// Get all infractions, depending on plugin
-			switch($inf_plugin){
-				case 'bat':
-					$all_infractions = $infractions->bat_getAllInfractions();
-				break;
-				case 'bm':
-					$all_infractions = $infractions->bm_getAllInfractions();
-				break;
-				case 'lb':
-					$all_infractions = $infractions->lb_getAllInfractions();
-				break;
-				case 'bam':
-					$all_infractions = $infractions->bam_getAllInfractions();
-				break;
-				case 'bu':
-					$all_infractions = $infractions->bu_getAllInfractions();
-				break;
+			// Check cache
+			$c->setCache('infractions_cache');
+			if($c->isCached('infractions')){
+				$all_infractions = $c->retrieve('infractions');
+			} else {
+				// Get all infractions, depending on plugin
+				switch($inf_plugin){
+					case 'bat':
+						$all_infractions = $infractions->bat_getAllInfractions();
+					break;
+					case 'bm':
+						$all_infractions = $infractions->bm_getAllInfractions();
+					break;
+					case 'lb':
+						$all_infractions = $infractions->lb_getAllInfractions();
+					break;
+					case 'bam':
+						$all_infractions = $infractions->bam_getAllInfractions();
+					break;
+					case 'bu':
+						$all_infractions = $infractions->bu_getAllInfractions();
+					break;
+					case 'ab':
+						$all_infractions = $infractions->ab_getAllInfractions();
+					break;
+				}
+				
+				$c->store('infractions', $all_infractions, 120);
 			}
 
 			// Pagination
@@ -159,6 +170,8 @@ if(isset($_GET['p'])){
 		    <tbody>
 			<?php 
 			while($n < $d){
+				if(isset($mcname)) unset($mcname);
+				
 				$infraction = $all_infractions[$n];
 				if($inf_plugin == "mb"){
 					$exploded = explode('.', $infraction["id"]);
@@ -178,38 +191,33 @@ if(isset($_GET['p'])){
 							$infractions_query = $queries->getWhere('uuid_cache', array('uuid', '=', str_replace('-', '', $infraction["uuid"])));
 							
 							if(empty($infractions_query)){
-								if(count($mcname)) {
-									try {
-										$queries->create("uuid_cache", array(
-											'mcname' => $mcname,
-											'uuid' => $infraction['uuid']
-										));
-									} catch(Exception $e){
-										die($e->getMessage());
-									}
-								}
-								
+								// Query Minecraft API to retrieve username
 								$profile = ProfileUtils::getProfile(str_replace('-', '', $infraction["uuid"]));
 								if(empty($profile)){
-									echo 'Could not find that player';
-									die();
+									// Couldn't find player
+									
 								} else {
 									$result = $profile->getProfileAsArray();
-									$mcname = htmlspecialchars($result["username"]);
-									$uuid = htmlspecialchars(str_replace('-', '', $infraction["uuid"]));
-									try {
-										$queries->create("uuid_cache", array(
-											'mcname' => $mcname,
-											'uuid' => $uuid
-										));
-									} catch(Exception $e){
-										die($e->getMessage());
+										if(isset($result['username'])){
+										$mcname = htmlspecialchars($result["username"]);
+										$uuid = htmlspecialchars(str_replace('-', '', $infraction["uuid"]));
+										try {
+											$queries->create("uuid_cache", array(
+												'mcname' => $mcname,
+												'uuid' => $uuid
+											));
+										} catch(Exception $e){
+											die($e->getMessage());
+										}
 									}
 								}
 							}
 							$mcname = $queries->getWhere('uuid_cache', array('uuid', '=', str_replace('-', '', $infraction["uuid"])));
-							$mcname = $mcname[0]->mcname;
-						
+							if(count($mcname))
+								$mcname = $mcname[0]->mcname;
+							else
+								$mcname = 'Unknown';
+
 						} else {
 							$mcname = $mcname[0]->BAT_player;
 						}
@@ -589,11 +597,80 @@ if(isset($_GET['p'])){
 					}
 					
 				break;
+				case 'ab':
+					// Advanced Ban
+					$infraction = $infractions->ab_getInfraction($_GET['id']);
+					
+					// Username
+					$uuid = htmlspecialchars($infraction->uuid);
+					$infractions_query = $queries->getWhere('users', array('uuid', '=', $uuid));
+					if(empty($infractions_query)){
+						$infractions_query = $queries->getWhere('uuid_cache', array('uuid', '=', $uuid));
+						if(empty($infractions_query)){
+							$profile = ProfileUtils::getProfile($uuid);
+							if(empty($profile)){
+								$username = 'Unknown';
+							} else {
+								$result = $profile->getProfileAsArray();
+								$username = htmlspecialchars($result["username"]);
+								try {
+									$queries->create("uuid_cache", array(
+										'mcname' => $username,
+										'uuid' => $uuid
+									));
+								} catch(Exception $e){
+									die($e->getMessage());
+								}
+							}
+						}
+						$username = $queries->getWhere('uuid_cache', array('uuid', '=', $uuid));
+						if(count($username))
+							$username = htmlspecialchars($username[0]->mcname);
+						else
+							$username = 'Unknown';
+					} else {
+						$username = htmlspecialchars($infractions_query[0]->mcname);
+					}
+					
+					// Staff
+					$staff = htmlspecialchars($infraction->operator);
+					
+					// Date
+					$created = '<span rel="tooltip" data-placement="top" title="' . date('jS M Y, H:i', ($infraction->start / 1000)) . '">' . $timeago->inWords(date('d M Y, H:i', ($infraction->start / 1000)), $time_language) . '</span>';
+					
+					// Expires/expired?
+					switch($_GET['type']){
+						case 'ban':
+						case 'mute':
+							$expires = '<span class="label label-danger">' . $infractions_language['permanent'] . '</span>';
+						break;
+						case 'temp_ban':
+						case 'temp_mute':
+							if(($infraction->end / 1000) < date('U')){
+								$expires = '<span class="label label-success" rel="tooltip" data-placement="top" title="' . date('jS M Y, H:i', ($infraction->end / 1000)) . '">' . $infractions_language['expired'] . '</span>';
+							} else {
+								$expires = '<span class="label label-danger" rel="tooltip" data-placement="top" title="' . date('jS M Y, H:i', ($infraction->end / 1000)) . '">' . $infractions_language['active'] . '</span>';
+							}
+						break;
+					}
+					
+					// Reason
+					if($infraction->reason)
+						$reason = htmlspecialchars($infraction->reason);
+					else
+						$reason = 'n/a';
+
+				break;
+			}
+			
+			if(!isset($infraction) || !isset($username)){
+				echo '<script data-cfasync="false">window.location.replace("/infractions");</script>';
+				die();
 			}
 			?>
 		  <hr />
 		  <h4 style="display:inline;"><?php echo $infractions_language['viewing_infraction']; ?></h4>
-		  <span class="pull-right"><a href="/infractions"><?php echo $general_language['back']; ?></a></span>
+		  <span class="pull-right"><a class="btn btn-primary" href="/infractions"><?php echo $general_language['back']; ?></a></span>
 		  <br /><br />
 		  <?php echo $infractions_language['user'] . ' <strong><a href="/profile/' . $username . '">' . $username . '</a></strong>'; ?><br />
 		  <?php echo $infractions_language['staff_member'] . ': ' . (strtolower($staff) == 'console' ? $staff : '<a href="/profile/' . $staff . '">' . $staff . '</a>'); ?><br />

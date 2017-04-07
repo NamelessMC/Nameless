@@ -922,4 +922,127 @@ class Infractions {
 		return false;
 	}
 	
+	
+	// Receive a list of all infractions for AdvancedBan, either for a single user or for all users
+	// Params: $uuid (string) - UUID of a user. If null, return all infractions
+	public function ab_getAllInfractions($uuid = null) {
+		if($uuid !== null){
+			$symbol = "=";
+			$equals = $uuid;
+		} else {
+			$symbol = "<>";
+			$equals = "0";
+		}
+		$punishments = $this->_db->get('punishmenthistory', array('uuid', $symbol, $equals))->results();
+		
+		$results = array();
+		
+		if(count($punishments)){
+			foreach($punishments as $punishment){
+				$ret = array();
+				$ret["id"] = $punishment->id;
+				$ret["uuid"] = str_replace('-', '', $punishment->uuid);
+				$ret["staff"] = htmlspecialchars($punishment->operator);
+				$ret["issued"] = ($punishment->start / 1000);
+				$ret["issued_human"] = date("jS M Y, H:i", ($punishment->start / 1000));
+
+				if($punishment->reason !== null){
+					$ret["reason"] = htmlspecialchars($punishment->reason);
+				} else {
+					$ret["reason"] = "-";
+				}
+				
+				switch($punishment->punishmentType){
+					case 'BAN':
+						// Ban
+						$ret["type"] = "ban";
+						$ret["type_human"] = '<span class="label label-danger">' . $this->_language['ban'] . '</span>';
+						$ret["expires_human"] = '<span class="label label-danger">' . $this->_language['permanent'] . '</span>';
+					break;
+					
+					case 'TEMP_BAN':
+						// Temp ban
+						$ret["type"] = "temp_ban";
+						$ret["type_human"] = '<span class="label label-danger">' . $this->_language['ban'] . '</span>';
+
+						// Convert expiry date
+						$date = $punishment->end / 1000;
+				
+						$ret["expires"] = $date;
+						if(strtotime('now') < $date)
+							$ret["expires_human"] = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", $date), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
+						else
+							$ret["expires_human"] = '<span class="label label-success" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", $date), $this->_language['expired_x']) . '">' . $this->_language['expired'] . '</span>';
+					break;
+					
+					case 'MUTE':
+						// Mute
+						$ret["type"] = "mute";
+						$ret["type_human"] = '<span class="label label-warning">' . $this->_language['mute'] . '</span>';
+						$ret["expires_human"] = '<span class="label label-danger">' . $this->_language['permanent'] . '</span>';
+					break;
+					
+					case 'TEMP_MUTE':
+						// Temp mute
+						$ret["type"] = "temp_mute";
+						$ret["type_human"] = '<span class="label label-warning">' . $this->_language['mute'] . '</span>';
+
+						// Convert expiry date
+						$date = $punishment->end / 1000;
+				
+						$ret["expires"] = $date;
+						if(strtotime('now') < $date)
+							$ret["expires_human"] = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", $date), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
+						else
+							$ret["expires_human"] = '<span class="label label-success" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", $date), $this->_language['expired_x']) . '">' . $this->_language['expired'] . '</span>';
+					break;
+					
+					case 'WARNING':
+						// Warning
+						$ret["type"] = "warning";
+						$ret["type_human"] = '<span class="label label-info">' . $this->_language['warning'] . '</span>';
+						$ret["expires_human"] = '';
+					break;
+					
+					case 'KICK':
+						// Kick
+						$ret["type"] = "kick";
+						$ret["type_human"] = '<span class="label label-default">' . $this->_language['kick'] . '</span>';
+						$ret["expires_human"] = '';
+					break;
+				}
+				
+				$results[] = $ret;
+			}
+		}
+		
+		// Sort by date
+		function date_compare($a, $b){
+			if(isset($a['issued'])){
+				$t1 = $a['issued'];
+			} else {
+				$t1 = $a['expires'];
+			}
+			if(isset($b['issued'])){
+				$t2 = $b['issued'];
+			} else {
+				$t2 = $b['expires'];
+			}
+			return $t2 - $t1;
+		}
+		
+		usort($results, 'date_compare');
+
+		return $results;
+	}
+	
+	// Retrieve a specific infraction
+	// Params: $id - ID of ban to retrieve
+	public function ab_getInfraction($id){
+		$results = $this->_db->get('punishmenthistory', array('id', '=', $id))->results();
+		
+		if(count($results)) return $results[0];
+
+		return false;
+	}
 }
