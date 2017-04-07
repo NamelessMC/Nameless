@@ -36,7 +36,7 @@ $admin_language = array(
 	'custom_pages' => '自定義頁面',
 	'general' => '一般',
 	'forums' => '論壇',
-	'users_and_groups' => '使用者與群組',
+	'users_and_groups' => '使用者與組別',
 	'minecraft' => 'Minecraft',
 	'style' => '樣式',
 	'addons' => '插件',
@@ -230,32 +230,32 @@ $admin_language = array(
 	'disable_avatar' => '停用大頭照',
 	'enable_avatar' => '啟用大頭照',
 	'confirm_user_deletion' => '你確定要刪除使用者「{x}」嗎？', // Don't replace "{x}"
-	'groups' => 'Group',
-	'group' => 'Group',
-	'new_group' => '新的 Group',
+	'groups' => '組別',
+	'group' => '組別',
+	'new_group' => '新的組別',
 	'id' => 'ID',
 	'name' => '名稱',
-	'create_group' => '建立 Group',
-	'group_name' => 'Group Name',
-	'group_html' => 'Group HTML',
-	'group_html_lg' => 'Group HTML Large',
-	'donor_group_id' => 'Donor package ID',
-	'donor_group_id_help' => '<p>This is the ID of the group\'s package from Buycraft、MinecraftMarket 或 MCStock。</p><p>此處可以留空。</p>',
-	'donor_group_instructions' => 	'<p>贊助者的 groups 必須以價格<strong>從小到大</strong>的順序依次建立。</p>
+	'create_group' => '建立組別',
+	'group_name' => '組別名稱',
+	'group_html' => '組別 HTML',
+	'group_html_lg' => '組別 HTML Large',
+	'donor_group_id' => '贊助者商品 ID',
+	'donor_group_id_help' => '<p>該組別的 Buycraft、MinecraftMarket 或 MCStock 商品 ID。</p><p>此處可以留空。</p>',
+	'donor_group_instructions' => 	'<p>贊助者的組別必須以價格<strong>從小到大</strong>的順序依次建立。</p>
 									<p>例如，一個 $100 新台幣的項目必須在一個 $200 新台幣的項目之前建立好。</p>',
-	'delete_group' => '刪除 Group',
-	'confirm_group_deletion' => '你確定要刪除 group {x} 嗎？', // Don't replace "{x}"
-	'group_staff' => '這是工作人員群組嗎？',
-	'group_modcp' => '這個群組可以查看 ModCP 嗎？',
-	'group_admincp' => '這個群組可以查看 AdminCP 嗎？',
-	'group_name_required' => '你必須填寫一個 group 名稱。',
-	'group_name_minimum' => 'The group name 最少要有 2 個字元。',
-	'group_name_maximum' => 'The group name 最多不能超過 20 個字元。',
-	'html_maximum' => 'The group HTML 最多不能超過 1024 個字元。',
-	'select_user_group' => 'The user must be in a group.',
+	'delete_group' => '刪除組別',
+	'confirm_group_deletion' => '你確定要刪除組別 {x} 嗎？', // Don't replace "{x}"
+	'group_staff' => '這是工作人員組別嗎？',
+	'group_modcp' => '這個組別可以查看 ModCP 嗎？',
+	'group_admincp' => '這個組別可以查看 AdminCP 嗎？',
+	'group_name_required' => '你必須填寫一個組別名稱。',
+	'group_name_minimum' => '組別名稱最少要有 2 個字元。',
+	'group_name_maximum' => '組別名稱最多不能超過 20 個字元。',
+	'html_maximum' => '組別 HTML 最多不能超過 1024 個字元。',
+	'select_user_group' => '該使用者必須在一個組別內。',
 	'uuid_max_32' => 'UUID 最多不能超過 32 個字元。',
 	'cant_delete_root_user' => '無法刪除 root 使用者！',
-	'cant_modify_root_user' => '無法變更 root 使用者的 group.',
+	'cant_modify_root_user' => '無法變更 root 使用者的組別.',
 	
 	// Admin Minecraft page
 	'minecraft_settings' => 'Minecraft 設定',
@@ -344,7 +344,7 @@ $admin_language = array(
 	'theme_deleted' => '佈景主題刪除完畢。',
 	'template_deleted' => '模板刪除完畢。',
 	'addon_disabled' => '插件停用完畢。',
-	'inverse_navbar' => 'Inverse Navbar',
+	'inverse_navbar' => '反轉導航列顏色',
 	'confirm_theme_deletion' => '你確認要刪除佈景主題 <strong>{x}</strong>嗎？<br /><br />該佈景主題將會自 <strong>styles/themes</strong> 刪除。', // Don't replace {x}
 	'confirm_template_deletion' => '你確認要刪除模板 <strong>{x}</strong>嗎？<br /><br />該模板將會自 <strong>styles/templates</strong> 刪除。', // Don't replace {x}
 	
@@ -399,7 +399,7 @@ $user_language = array(
 	'minecraft_username' => 'Minecraft 名稱',
 	'email' => 'Email',
 	'user_title' => 'Title',
-	'email_address' => 'Email Address',
+	'email_address' => '電子郵件位址',
 	'date_of_birth' => '生日',
 	'location' => '所在地區',
 	'password' => '密碼',
@@ -589,7 +589,7 @@ $user_language = array(
 $mod_language = array(
 	'mod_cp' => 'ModCP',
 	'overview' => '概覽',
-	'reports' => '回報',
+	'reports' => '舉報',
 	'punishments' => '懲處',
 	'staff_applications' => '工作人員申請表單',
 	
@@ -607,15 +607,15 @@ $mod_language = array(
 	'punished_successfully' => '懲處增加完畢。',
 	
 	// Reports
-	'report_closed' => '回報已關閉',
+	'report_closed' => '舉報已關閉',
 	'new_comment' => '新的回覆',
 	'comments' => '回覆',
 	'only_viewed_by_staff' => '只有工作人員可以查看',
 	'reported_by' => '檢舉人：',
 	'close_issue' => '關閉問題',
-	'report' => '回報：',
+	'report' => '舉報：',
 	'view_reported_content' => 'View reported content',
-	'no_open_reports' => '所有舉報都已被受理',
+	'no_open_reports' => '沒有待受理的舉報',
 	'user_reported' => 'User Reported',
 	'type' => '類型',
 	'updated_by' => 'Updated By',
@@ -627,13 +627,13 @@ $mod_language = array(
 	
 	// Staff applications
 	'comment_error' => '請確認您的回覆在 2 ~ 2048 個字元之內。',
-	'viewing_open_applications' => '正在查看<span class="label label-info">尚未受理的</span>申請表單。<a href="/mod/applications/?view=accepted"><span class="label label-success">變更狀態為接受</span></a>或<a href="/mod/applications/?view=declined"><span class="label label-danger">拒絕</span></a>.',
-	'viewing_accepted_applications' => '正在查看<span class="label label-success">被接受的</span>申請表單。<a href="/mod/applications/"><span class="label label-info">變更狀態為尚未受理</span></a>或<a href="/mod/applications/?view=declined"><span class="label label-danger">變更為拒絕</span></a>.',
-	'viewing_declined_applications' => '正在查看<span class="label label-danger">被拒絕的</span>申請表單。<a href="/mod/applications/"><span class="label label-info">變更狀態為尚未受理</span></a>或<a href="/mod/applications/?view=accepted"><span class="label label-success">變更為接受</span></a>.',
+	'viewing_open_applications' => '正在查看<span class="label label-info">待受理的</span>申請表單。<a href="/mod/applications/?view=accepted"><span class="label label-success">變更狀態為接受</span></a>或<a href="/mod/applications/?view=declined"><span class="label label-danger">拒絕</span></a>.',
+	'viewing_accepted_applications' => '正在查看<span class="label label-success">被接受的</span>申請表單。<a href="/mod/applications/"><span class="label label-info">變更狀態為待受理</span></a>或<a href="/mod/applications/?view=declined"><span class="label label-danger">變更為拒絕</span></a>.',
+	'viewing_declined_applications' => '正在查看<span class="label label-danger">被拒絕的</span>申請表單。<a href="/mod/applications/"><span class="label label-info">變更狀態為待受理</span></a>或<a href="/mod/applications/?view=accepted"><span class="label label-success">變更為接受</span></a>.',
 	'time_applied' => '申請時間',
 	'no_applications' => '在此分類中沒有任何申請表單',
 	'viewing_app_from' => 'Viewing application from {x}', // Don't replace "{x}"
-	'open' => '尚未受理',
+	'open' => '待受理',
 	'accepted' => '已接受',
 	'declined' => '已拒絕',
 	'accept' => '接受',
@@ -647,7 +647,7 @@ $mod_language = array(
 $general_language = array(
 	// Homepage
 	'news' => '新聞',
-	'social' => '社交',
+	'social' => '社群',
 	'join' => '加入',
 	
 	// General terms
@@ -669,15 +669,15 @@ $general_language = array(
 	'next' => 'Next',
 	
 	// Play page
-	'connect_with' => '連線至伺服器的 IP 位址：{x}', // Don't replace {x}
-	'online' => '運作中',
+	'connect_with' => '伺服器的 IP 位址：{x}', // Don't replace {x}
+	'online' => '在線上',
 	'offline' => '離線',
 	'status' => '狀態：',
-	'players_online' => '在線上的玩家數量：',
+	'players_online' => '線上玩家數量：',
 	'queried_in' => '查詢所用時間：',
 	'server_status' => '伺服器狀態',
-	'no_players_online' => '目前沒有玩家在線上！',
-	'x_players_online' => '目前有 {x} 位玩家正在遊玩。', // Don't replace {x}
+	'no_players_online' => '目前沒有玩家在線上。',
+	'x_players_online' => '目前有 {x} 位玩家遊玩當中。', // Don't replace {x}
 	
 	// Other
 	'page_loaded_in' => '頁面載入時間：{x} 秒', // Don't replace {x}; 's' stands for 'seconds'
@@ -706,7 +706,7 @@ $forum_language = array(
 	'latest_discussions' => '最新的討論串',
 	'latest_posts' => '最新的文章',
 	'users_registered' => '已註冊的使用者：',
-	'latest_member' => '最新加入的使用者：',
+	'latest_member' => '最新註冊的使用者：',
 	'forum' => '論壇',
 	'last_post' => '最新的文章',
 	'no_topics' => '這裡還沒有任何主題',
@@ -725,7 +725,7 @@ $forum_language = array(
 	'confirm_thread_deletion' => '你確定要刪除這個帖子嗎？',
 	'move_thread' => '移動帖子',
 	'sticky_thread' => 'Sticky Thread',
-	'report_post' => '回報文章',
+	'report_post' => '舉報文章',
 	'quote_post' => '引用文章',
 	'delete_post' => '刪除文章',
 	'edit_post' => '編輯文章',
@@ -759,7 +759,7 @@ $forum_language = array(
 	'label' => '標籤',
 	
 	// Reports
-	'report_submitted' => '回報完成。',
+	'report_submitted' => '舉報完成。',
 	'view_post_content' => '查看文章內容',
 	'report_reason' => '舉報原因',
 	
@@ -773,7 +773,7 @@ $forum_language = array(
 	// Other
 	'forum_error' => '對不起，我們找不到相關的論壇或主題。',
 	'are_you_logged_in' => '你登入了嗎？',
-	'online_users' => '線上的使用者',
+	'online_users' => '本站線上使用者',
 	'no_users_online' => '沒有使用者在線上',
 	
 	// Search
