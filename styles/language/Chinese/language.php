@@ -201,15 +201,15 @@ $admin_language = array(
 	'can_view_forum' => '可以查看討論區',
 	'can_create_topic' => '可以建立主題',
 	'can_post_reply' => '可以發表回覆',
-	'display_threads_as_news' => '將帖子顯示在首頁上的新聞欄',
+	'display_threads_as_news' => '將討論串顯示在首頁上的新聞欄',
 	'input_forum_title' => '輸入一個討論區標籤。',
 	'input_forum_description' => '輸入一個討論區描述（你可以使用 HTML 語法）。',
 	'forum_name_minimum' => '討論區名稱的最小值為不小於 2 個字元。',
 	'forum_description_minimum' => '討論區描述的最小值為不小於 2 個字元。',
 	'forum_name_maximum' => '討論區名稱的最大值為不超過 150 個字元。',
 	'forum_description_maximum' => '討論區描述的最大值為不超過 255 個字元。',
-	'forum_type_forum' => 'Discussion Forum',
-	'forum_type_category' => '類別',
+	'forum_type_forum' => '討論區',
+	'forum_type_category' => '作為類別使用',
 	
 	// Admin Users and Groups page
 	'users' => '使用者',
@@ -718,13 +718,13 @@ $forum_language = array(
 	'topic_locked' => '主題已上鎖',
 	'new_reply' => '新的回覆',
 	'mod_actions' => '管理動作',
-	'lock_thread' => '鎖定帖子',
-	'unlock_thread' => '解鎖帖子',
-	'merge_thread' => '合併帖子',
-	'delete_thread' => '刪除帖子',
-	'confirm_thread_deletion' => '你確定要刪除這個帖子嗎？',
-	'move_thread' => '移動帖子',
-	'sticky_thread' => '置頂帖子',
+	'lock_thread' => '鎖定討論串',
+	'unlock_thread' => '解鎖討論串',
+	'merge_thread' => '合併討論串',
+	'delete_thread' => '刪除討論串',
+	'confirm_thread_deletion' => '你確定要刪除這個討論串嗎？',
+	'move_thread' => '移動討論串',
+	'sticky_thread' => '置頂討論串',
 	'report_post' => '舉報文章',
 	'quote_post' => '引用文章',
 	'delete_post' => '刪除文章',
@@ -747,14 +747,14 @@ $forum_language = array(
 	'editing_post' => '正在編輯文章',
 	
 	// Sticky threads
-	'thread_is_' => '帖子',
+	'thread_is_' => '討論串',
 	'now_sticky' => '置頂完成',
 	'no_longer_sticky' => '取消置頂完成',
 	
 	// Create topic
 	'topic_created' => '主題建立完畢。',
 	'creating_topic_in_' => '正在建立主題至 ',
-	'thread_title' => '帖子標題',
+	'thread_title' => '討論串標題',
 	'confirm_cancellation' => '你確定嗎？',
 	'label' => '標籤',
 	
@@ -767,7 +767,7 @@ $forum_language = array(
 	'move_to' => '移動至：',
 	
 	// Merge threads
-	'merge_instructions' => '兩個要合併的帖子<strong>必須</strong>在同個討論區下。Move a thread if necessary.',
+	'merge_instructions' => '兩個要合併的討論串<strong>必須</strong>在同個討論區下。Move a thread if necessary.',
 	'merge_with' => '與 ... 合併：',
 	
 	// Other
