@@ -7,9 +7,9 @@
  */
 
 /*
- *  API version 1.0.1
+ *  API version 1.0.2
  *  built for NamelessMC version 1.0.10
- *  last updated for NamelessMC version 1.0.15
+ *  last updated for NamelessMC version 1.0.16
  */
  
 // Headers
@@ -137,12 +137,24 @@ class NamelessAPI {
 					$this->updateUsername();
 				break;
 				
+				case 'checkConnection':
+					// Check API connection
+					$this->checkConnection();
+				break;
+				
 				default:
 					// No method specified
 					$this->throwError('Invalid API method');
 				break;
 			}
 			
+		} else $this->throwError('Invalid API key');
+	}
+	
+	// Simple connection check
+	private function checkConnection(){
+		if($this->_validated === true){
+			$this->sendSuccessMessage('OK');
 		} else $this->throwError('Invalid API key');
 	}
 	
