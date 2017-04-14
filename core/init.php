@@ -17,9 +17,9 @@ if(!isset($page)){
 }
 
 if(!file_exists('core/config.php')){
-	try {
+	if(is_writable('core/config.php')) {
 		fopen('core/config.php', 'w');
-	} catch(Exception $e){
+	} else {
 		die('Your <strong>core</strong> directory is not writable, please check your file permissions.');
 	}
 }
