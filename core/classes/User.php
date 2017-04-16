@@ -1,7 +1,8 @@
 <?php
 /*
  *	Made by Samerton
- *  https://github.com/samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr2
  *
  *  User class
  */
@@ -156,28 +157,132 @@ class User {
 		} else {
 			$user = $this->find($username, true);
 			if($user){
-				if(password_verify($password, $this->data()->password)) {
-					Session::put($this->_sessionName, $this->data()->id);
+			    switch($this->data()->pass_method) {
+                    case 'wordpress':
+                        // phpass
+                        $phpass = new PasswordHash(8, FALSE);
 
-					if($remember) {
-						$hash = Hash::unique();
-						$hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
+                        if($phpass->CheckPassword($password, $this->data()->password)){
+                            Session::put($this->_sessionName, $this->data()->id);
+                            if($remember) {
+                                $hash = Hash::unique();
+                                $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
+                                if(!$hashCheck->count()) {
+                                    $this->_db->insert('users_session', array(
+                                        'user_id' => $this->data()->id,
+                                        'hash' => $hash
+                                    ));
+                                } else
+                                    $hash = $hashCheck->first()->hash;
 
-						if(!$hashCheck->count()) {
-							$this->_db->insert('users_session', array(
-								'user_id' => $this->data()->id,
-								'hash' => $hash
-							));
-						} else {
-							$hash = $hashCheck->first()->hash;
-						}
+                                Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
+                            }
+                            return true;
+                        }
+                        break;
 
-						Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
+                    case 'sha256':
+                        $exploded = explode('$', $this->data()->password);
 
-					}
+                        $salt = $exploded[0];
+                        $pass = $exploded[1];
 
-					return true;
-				}
+                        if($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass) {
+                            Session::put($this->_sessionName, $this->data()->id);
+
+                            if($remember) {
+                                $hash = Hash::unique();
+                                $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
+                                if(!$hashCheck->count()) {
+                                    $this->_db->insert('users_session', array(
+                                        'user_id' => $this->data()->id,
+                                        'hash' => $hash
+                                    ));
+                                } else
+                                    $hash = $hashCheck->first()->hash;
+
+                                Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
+                            }
+                            return true;
+                        }
+
+                        break;
+
+                    case 'pbkdf2':
+                        $exploded = explode('$', $this->data()->password);
+
+                        $iterations = $exploded[0];
+                        $salt = $exploded[1];
+                        $pass = $exploded[2];
+
+                        $hashed = hash_pbkdf2('sha256', $password, $salt, $iterations, 64, true);
+
+                        if($hashed == hex2bin($pass)){
+                            Session::put($this->_sessionName, $this->data()->id);
+
+                            if($remember) {
+                                $hash = Hash::unique();
+                                $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
+                                if(!$hashCheck->count()) {
+                                    $this->_db->insert('users_session', array(
+                                        'user_id' => $this->data()->id,
+                                        'hash' => $hash
+                                    ));
+                                } else
+                                    $hash = $hashCheck->first()->hash;
+
+                                Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
+                            }
+                            return true;
+                        }
+
+                        break;
+
+                    case 'modernbb':
+                    case 'sha1':
+                        if(sha1($password) == $this->data()->password){
+                            Session::put($this->_sessionName, $this->data()->id);
+
+                            if($remember) {
+                                $hash = Hash::unique();
+                                $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
+                                if(!$hashCheck->count()) {
+                                    $this->_db->insert('users_session', array(
+                                        'user_id' => $this->data()->id,
+                                        'hash' => $hash
+                                    ));
+                                } else
+                                    $hash = $hashCheck->first()->hash;
+
+                                Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
+                            }
+                            return true;
+                        }
+                        break;
+
+                    default:
+                        // Default to bcrypt
+                        if(password_verify($password, $this->data()->password)){
+                            Session::put($this->_sessionName, $this->data()->id);
+
+                            if($remember){
+                                $hash = Hash::unique();
+                                $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
+
+                                if(!$hashCheck->count()){
+                                    $this->_db->insert('users_session', array(
+                                        'user_id' => $this->data()->id,
+                                        'hash' => $hash
+                                    ));
+                                } else
+                                    $hash = $hashCheck->first()->hash;
+
+                                Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
+                            }
+                            return true;
+                        }
+                        break;
+                }
 			}
 		}
 		return false;
@@ -642,7 +747,7 @@ class User {
 						else $name = $name->results();
 
 						$return[] = array(
-							'name' => Output::getClean($is_public[0]->name),
+							'name' => Output::getClean($name[0]->name),
 							'value' => Output::getClean($result->value)
 						);
 					}

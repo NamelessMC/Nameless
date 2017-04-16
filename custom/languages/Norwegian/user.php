@@ -72,7 +72,15 @@ $language = array(
 	'validation_complete' => 'Du bruker har nå blitt verifisert, du kan logge inn.',
 	'validation_error' => 'Det var en feil under verifiseringen av din bruker, kontakt en administrator.',
 	'signature' => 'Signatur',
-	
+
+    // Registration - Authme
+    'connect_with_authme' => 'Connect your account with AuthMe',
+    'authme_help' => 'Please enter your ingame AuthMe account details. If you don\'t already have an account ingame, join the server now and follow the instructions provided.',
+    'unable_to_connect_to_authme_db' => 'Unable to connect to the AuthMe database. If this error persists, please contact an administrator.',
+    'authme_account_linked' => 'Account linked successfully.',
+    'authme_email_help_1' => 'Finally, please enter your email address.',
+    'authme_email_help_2' => 'Finally, please enter your email address, and also choose a display name for your account.',
+
 	// Registration errors
 	'username_required' => 'Fyll inn et brukeravn.',
 	'email_required' => 'Fyll inn en email.',

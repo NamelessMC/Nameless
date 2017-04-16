@@ -2,8 +2,11 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
+ *
+ *  Home page
  */
 
 // Always define page name
@@ -30,7 +33,11 @@ define('PAGE', 'index');
     <?php 
 	require('core/templates/navbar.php'); 
 	require('core/templates/footer.php'); 
-	
+
+	if(Session::exists('home')){
+	    $smarty->assign('HOME_SESSION_FLASH', Session::flash('home'));
+    }
+
 	if(isset($front_page_modules)){
 		foreach($front_page_modules as $module){
 			require($module);

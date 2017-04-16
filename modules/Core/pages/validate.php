@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -19,11 +19,11 @@ if(!isset($_GET['c'])){
 			'reset_code' => '',
 			'active' => 1
 		));
-		Session::flash('home', '<div class="alert alert-info">' . $language->get('user', 'validation_complete') . '</div>');
+		Session::flash('home', $language->get('user', 'validation_complete'));
 		Redirect::to(URL::build('/'));
 		die();
 	} else {
-		Session::flash('home', '<div class="alert alert-danger">' . $language->get('user', 'validation_error') . '</div>');
+		Session::flash('home', $language->get('user', 'validation_error'));
 		Redirect::to(URL::build('/'));
 		die();
 	}

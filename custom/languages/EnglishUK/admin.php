@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -90,6 +90,30 @@ $language = array(
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Enable Minecraft integration?',
+	'mc_service_status' => 'Minecraft Service Status',
+	'service_query_error' => 'Unable to retrieve service status.',
+	'authme_integration' => 'AuthMe Integration',
+	'authme_integration_info' => 'When AuthMe integration is enabled, users can only register ingame.',
+	'enable_authme' => 'Enable AuthMe integration?',
+	'authme_db_address' => 'AuthMe Database Address',
+	'authme_db_port' => 'AuthMe Database Port',
+	'authme_db_name' => 'AuthMe Database Name',
+	'authme_db_user' => 'AuthMe Database Username',
+	'authme_db_password' => 'AuthMe Database Password',
+	'authme_hash_algorithm' => 'AuthMe Hashing Algorithm',
+	'authme_db_table' => 'AuthMe User Table',
+	'enter_authme_db_details' => 'Please enter valid database details.',
+	'authme_password_sync' => 'Synchronise AuthMe password?',
+	'authme_password_sync_help' => 'If enabled, whenever a user\'s password is updated ingame, the password will also be updated on the website.',
+	'minecraft_servers' => 'Minecraft Servers',
+	'account_verification' => 'Minecraft Account Verification',
+	'server_banners' => 'Server Banners',
+	'query_errors' => 'Query Errors',
+	'add_server' => '<i class="fa fa-plus-circle"></i> Add Server',
+	'adding_server' => 'Adding Server',
+	'server_name' => 'Server Name',
+	'server_address' => 'Server Address',
+	'server_address_help' => 'This is the IP address or domain used to connect to your server. If necessary, you can add the server port here too.',
 
 	// Modules
 	'modules_installed_successfully' => 'Any new modules have been installed successfully.',

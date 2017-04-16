@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -17,7 +17,23 @@ if($user->isLoggedIn()){
  
 // Set page name for custom scripts
 $page = 'register';
- 
+
+// Check if Minecraft is enabled
+$minecraft = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
+$minecraft = $minecraft[0]->value;
+
+if($minecraft == '1') {
+    // Check if AuthMe is enabled
+    $authme_enabled = $queries->getWhere('settings', array('name', '=', 'authme'));
+    $authme_enabled = $authme_enabled[0]->value;
+
+    if ($authme_enabled == '1') {
+        // Authme connector
+        require(join(DIRECTORY_SEPARATOR, array('modules', 'Core', 'pages', 'authme_connector.php')));
+        die();
+    }
+}
+
 // Check if registration is enabled
 $registration_enabled = $queries->getWhere('settings', array('name', '=', 'registration_enabled'));
 $registration_enabled = $registration_enabled[0]->value;
@@ -27,10 +43,6 @@ if(!isset($registration_enabled)){
 	Redirect::to(URL::build('/'));
 	die();
 }
-
-// Check if Minecraft is enabled
-$minecraft = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
-$minecraft = $minecraft[0]->value;
  
 // Registration page
 require('core/integration/uuid.php'); // For UUID stuff
@@ -439,7 +451,9 @@ if(Input::exists()){
 							
 						} else if(strpos($validation_error, 'already exists') !== false){
 							// already exists
-							$errors[] = $language->get('user', 'username_mcname_email_exists');
+                            if(!in_array($language->get('user', 'username_mcname_email_exists'), $errors))
+                                $errors[] = $language->get('user', 'username_mcname_email_exists');
+
 						} else if(strpos($validation_error, 'not a valid Minecraft account') !== false){
 							// Invalid Minecraft username
 							$errors[] = $language->get('user', 'invalid_mcname');
@@ -526,30 +540,7 @@ require('core/templates/footer.php');
 
 // Registration template
 $smarty->display('custom/templates/' . TEMPLATE . '/register.tpl');
-?>
-<!-- Modal -->
-<div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="t_and_c_m_Label" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-			  <h4 class="modal-title" id="t_and_c_m_Label"><?php echo $language->get('user', 'terms_and_conditions'); ?></h4>
-			</div>
-			<div class="modal-body">
-			  <?php 
-			  $t_and_c = $queries->getWhere("settings", array("name", "=", "t_and_c"));
-			  echo Output::getPurified(htmlspecialchars_decode($t_and_c[0]->value));
-			  $t_and_c = $queries->getWhere("settings", array("name", "=", "t_and_c_site"));
-			  echo Output::getPurified(htmlspecialchars_decode($t_and_c[0]->value));
-			  ?>
-			</div>
-			<div class="modal-footer">
-			  <button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo $language->get('general', 'close'); ?></button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
-<?php
 // Scripts 
 require('core/templates/scripts.php');
  

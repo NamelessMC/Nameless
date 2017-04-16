@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -14,6 +14,7 @@ define('PAGE', 'login');
  
 // Requirements
 require('core/includes/password.php'); // For password hashing
+require('core/includes/phpass.php'); // phpass for Wordpress auth
 require('core/includes/tfa/autoload.php'); // Two Factor Auth
 
 // Ensure user isn't already logged in
@@ -88,8 +89,79 @@ if(Input::exists()){
 				
 				// Did the user check 'remember me'?
 				$remember = (Input::get('remember') == 1) ? true : false;
-				$login = $user->login(Input::get('username'), Input::get('password'), $remember);
-				
+
+				// Is Minecraft and AuthMe integration enabled?
+                $minecraft = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
+                $minecraft = $minecraft[0]->value;
+
+                $authme_enabled = $queries->getWhere('settings', array('name', '=', 'authme'));
+                $authme_enabled = $authme_enabled[0]->value;
+
+                $cache->setCache('authme_cache');
+                $authme_db = $cache->retrieve('authme');
+
+                if($minecraft == '1' && $authme_enabled == '1' && $authme_db['sync'] == '1'){
+
+                    // Sync AuthMe password
+                    try {
+                        $authme_conn = new mysqli($authme_db['address'], $authme_db['user'], $authme_db['pass'], $authme_db['db'], $authme_db['port']);
+
+                        if($authme_conn->connect_errno){
+                            // Connection error
+                            // Continue anyway, and use already stored password
+                        } else {
+                            // Success, check user exists in database and validate password
+                            $stmt = $authme_conn->prepare("SELECT password FROM " . $authme_db['table'] . " WHERE realname = ?");
+                            if ($stmt) {
+                                $stmt->bind_param('s', Input::get('username'));
+                                $stmt->execute();
+                                $stmt->bind_result($password);
+
+                                while ($stmt->fetch()) {
+                                    // Retrieve result
+                                }
+
+                                $stmt->free_result();
+                                $stmt->close();
+
+                                switch($authme_db['hash']){
+                                    case 'sha256':
+                                        $exploded = explode('$', $password);
+                                        $salt = $exploded[2];
+
+                                        $password = $salt . '$' . $exploded[3];
+
+                                        break;
+
+                                    case 'pbkdf2':
+                                        $exploded = explode('$', $password);
+
+                                        $iterations = $exploded[1];
+                                        $salt = $exploded[2];
+                                        $pass = $exploded[3];
+
+                                        $password = $iterations . '$' . $salt . '$' . $pass;
+
+                                        break;
+                                }
+
+                                // Update password
+                                if(!is_null($password)){
+                                    $queries->update('users', $user->NameToId(Input::get('username')), array(
+                                        'password' => $password,
+                                        'pass_method' => $authme_db['hash']
+                                    ));
+                                }
+                            }
+                        }
+
+                    } catch(Exception $e){
+                        // Error, continue as we can use the already stored password
+                    }
+                }
+
+                $login = $user->login(Input::get('username'), Input::get('password'), $remember);
+
 				// Successful login?
 				if($login){
 					// Yes

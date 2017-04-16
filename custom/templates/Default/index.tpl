@@ -16,6 +16,11 @@
 <div class="home-news">
   <div class="container">
     <br />
+	{if isset($HOME_SESSION_FLASH)}
+        <div class="alert alert-info">
+            {$HOME_SESSION_FLASH}
+        </div>
+	{/if}
 	<div class="row">
 	
 	  {if isset($NEWS)}

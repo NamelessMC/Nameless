@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -58,18 +58,60 @@ $admin_page = 'overview';
 		<div class="col-md-9">
 		  <div class="card">
 		    <div class="card-block">
-			  <h3><?php echo $language->get('admin', 'overview'); ?></h3>
-			  <?php echo str_replace('{x}', NAMELESS_VERSION, $language->get('admin', 'running_nameless_version')); ?><br />
-			  <?php echo str_replace('{x}', phpversion(), $language->get('admin', 'running_php_version')); ?>
+			    <h3><?php echo $language->get('admin', 'overview'); ?></h3>
+			    <?php echo str_replace('{x}', NAMELESS_VERSION, $language->get('admin', 'running_nameless_version')); ?><br />
+			    <?php echo str_replace('{x}', phpversion(), $language->get('admin', 'running_php_version')); ?>
 
-			  <br /><br />
-			  <h3 style="display:inline;"><?php echo $language->get('admin', 'statistics'); ?></h3>
-			  <span class="pull-right"><!-- dropdown to select stats here --></span>
+			    <br /><br />
+			    <h3 style="display:inline;"><?php echo $language->get('admin', 'statistics'); ?></h3>
+			    <span class="pull-right"><!-- dropdown to select stats here --></span>
 
-			  <br />
+			    <br />
 
-			  <canvas id="registrationChart" width="100%" height="40"></canvas>
+			    <canvas id="registrationChart" width="100%" height="40"></canvas>
 
+            <?php
+            // Minecraft service query
+            // Check if Minecraft is enabled
+            $minecraft_enabled = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
+            $minecraft_enabled = $minecraft_enabled[0]->value;
+
+            if($minecraft_enabled == '1') {
+                // Query Minecraft services
+                $cache->setCache('mc_service_cache');
+                if($cache->isCached('services')){
+                    $results = $cache->retrieve('services');
+                } else {
+                    $results = ExternalMCQuery::queryMinecraftServices();
+                    $cache->store('services', $results, 120);
+                }
+                echo '<hr /><h3>' . $language->get('admin', 'mc_service_status') . '</h3>';
+                if(count((array)$results) == 10) {
+                    $n = 1;
+                    foreach ($results as $key => $result) {
+                        if($n == 1)
+                            echo '<div class="row">';
+                        else if(($n + 1) % 2 == 0)
+                            echo '</div><div class="row">';
+                        ?>
+                        <div class="col-6">
+                          <div class="card card-inverse card-<?php echo (($result->status == 'Online') ? 'success' : 'danger'); ?> mb-3">
+                            <div class="card-block">
+                              <h4 class="card-title"><?php echo Output::getClean($key); ?></h4>
+                              <p class="card-text"><?php echo Output::getClean($result->status); ?></p>
+                            </div>
+                          </div>
+                        </div>
+                        <?php
+                        if($n == 10)
+                            echo '</div>';
+
+                        $n++;
+                    }
+                } else
+                    echo '<div class="alert alert-danger">' . $language->get('admin', 'service_query_error') . '</div>';
+            }
+            ?>
 		    </div>
 		  </div>
 		</div>
