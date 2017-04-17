@@ -8,6 +8,7 @@
 
 if(!isset($registration_enabled)){
 	// Registration is disabled
+	Session::flash('home', '<div class="alert alert-info">' . $user_language['registration_disabled'] . '</div>');
 	Redirect::to('/');
 	die();
 }

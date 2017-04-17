@@ -448,6 +448,7 @@ $user_language = array(
 	'verification_failed' => 'Špatně ses ověřis skus to znovu.',
 	'verification_success' => 'Úspěžně jsi byl ověřen. Můžeš se přihlásit.',
 	'complete_signup' => 'Dokončit přihlášení',
+	'registration_disabled' => 'Website registration is currently disabled.',
 	
 	// UserCP
 	'user_cp' => 'Uživ. menu',

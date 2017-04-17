@@ -451,6 +451,7 @@ $user_language = array(
 	'verification_failed' => 'Verifisering mislyktes, vennligst prøv igjen.',
 	'verification_success' => 'Vellykket skjekking! Du kan nå logge inn.',
 	'complete_signup' => 'Complete Signup',
+	'registration_disabled' => 'Website registration is currently disabled.',
 	
 	// UserCP
 	'user_cp' => 'BrukerCP',

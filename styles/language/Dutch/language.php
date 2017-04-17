@@ -353,7 +353,7 @@ $admin_language = array(
     'inverse_navbar' => 'Inverse Navbar',
     'confirm_theme_deletion' => 'Weet je het zeker dat je thema <b>{x}</b> wil verwijderen?<br /><br />Het thema wordt verwijderd uit de <b>styles/themes</b> map.', // Don't replace {x}
     'confirm_template_deletion' => 'Weet je zeker dat je de template <b>{x}</b> wil verwijderen?<br /><br />Het template wordt verwijderd uit de <b>styles/templates</b> map.', // Don't replace {x}
-     
+
     // Admin Misc page
     'other_settings' => 'Andere Instellingen',
     'enable_error_reporting' => 'Inschakelen error rapportage?',
@@ -457,6 +457,7 @@ $user_language = array(
     'verification_failed' => 'Verificatie mislukt. Probeer a.u.b. Opnieuw',
     'verification_success' => 'Verificatie gelukt! Je kan nu inloggen.',
     'complete_signup' => 'Complete aanmelding',
+	'registration_disabled' => 'Website registration is currently disabled.',
 
     // UserCP
     'user_cp' => 'UserCP',
@@ -469,7 +470,7 @@ $user_language = array(
     'reputation' => 'Reputatie',
     'friends' => 'Vrienden',
     'alerts' => 'Meldingen',
-     
+
     // Messaging
     'new_message' => 'Nieuwe Berichten',
     'no_messages' => 'Geen Berichten',
@@ -482,7 +483,7 @@ $user_language = array(
     'viewing_message' => 'Bekijk Bericht',
     'delete_message' => 'Verwijder Bericht',
     'confirm_message_deletion' => 'Weet je zeker dat je dit bericht wilt verwijderen?',
-     
+
     // Profile settings
     'display_name' => 'Weergavenaam',
     'upload_an_avatar' => 'Upload een avatar (alleen .jpg, .png of .gif):',

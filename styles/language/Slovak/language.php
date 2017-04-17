@@ -449,6 +449,7 @@ $user_language = array(
 	'verification_failed' => 'Verification failed, please try again.',
 	'verification_success' => 'Successfully validated! You can now log in.',
 	'complete_signup' => 'Complete Signup',
+	'registration_disabled' => 'Website registration is currently disabled.',
 	
 	// UserCP
 	'user_cp' => 'Uživ. menu',
