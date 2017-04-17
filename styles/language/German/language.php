@@ -454,6 +454,7 @@ $user_language = array(
 	'verification_failed' => 'Verifikation fehlgeschlagen.',
 	'verification_success' => 'Erfolgreich freigeschaltet.',
 	'complete_signup' => 'Complete Signup',
+	'registration_disabled' => 'Website registration is currently disabled.',
 
 	// UserCP
 	'user_cp' => 'Benutzer Panel',
