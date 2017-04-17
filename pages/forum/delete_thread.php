@@ -33,9 +33,13 @@ if(!isset($_GET["tid"]) || !is_numeric($_GET["tid"])){
 
 if($user->canViewMCP($user->data()->id)){
 	try {
-		//$queries->delete('posts', array('topic_id', '=' , $topic_id));
-		// Keep posts for archival reasons
-		
+		// Mark posts as deleted
+		$posts = $queries->getWhere('posts', array('topic_id', '=', $topic_id));
+		foreach($posts as $post){
+			$queries->update('posts', $post->id, array(
+				'deleted' => 1
+			));
+		}
 		
 		$queries->delete('topics', array('id', '=', $topic_id));
 
@@ -44,6 +48,7 @@ if($user->canViewMCP($user->data()->id)){
 
 		Redirect::to('/forum');
 		die();
+		
 	} catch(Exception $e) {
 		die($e->getMessage());
 	}

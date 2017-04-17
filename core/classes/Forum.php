@@ -245,6 +245,8 @@ class Forum {
 	
 		foreach($forums as $item){
 			if($item->parent != 0){
+				$exists = false;
+				
 				$latest_post_query = $this->_db->orderWhere('posts', 'forum_id = ' . $item->id, 'post_date', 'DESC')->results();
 				
 				if(count($latest_post_query)){
@@ -255,9 +257,18 @@ class Forum {
 							$latest_posts[$n]["author"] = $latest_post->post_creator;
 							$latest_posts[$n]["topic_id"] = $latest_post->topic_id;
 							
+							$exists = true;
+
 							break;
 						}
 					}
+				}
+
+				if($exists !== true){
+					$latest_posts[$n]["forum_id"] = $item->id;
+					$latest_posts[$n]["date"] = null;
+					$latest_posts[$n]["author"] = null;
+					$latest_posts[$n]["topic_id"] = null;
 				}
 				
 				$n++;
@@ -267,13 +278,11 @@ class Forum {
 		$forums = null;
 	
 		foreach($latest_posts as $latest_post){
-			if(!empty($latest_post["date"])){
-				$this->_db->update('forums', $latest_post["forum_id"], array(
-					'last_post_date' => $latest_post["date"],
-					'last_user_posted' => $latest_post["author"],
-					'last_topic_posted' => $latest_post["topic_id"]
-				));
-			}
+			$this->_db->update('forums', $latest_post["forum_id"], array(
+				'last_post_date' => $latest_post["date"],
+				'last_user_posted' => $latest_post["author"],
+				'last_topic_posted' => $latest_post["topic_id"]
+			));
 		}
 	
 		$latest_posts = null;
