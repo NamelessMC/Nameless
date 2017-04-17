@@ -61,36 +61,35 @@ if(!isset($nav_more_dropdown)) $nav_more_dropdown = array();
 foreach($custom_pages as $item){
 	if($item->link_location == 1){
 		$navbar_links .= '<li';
-		if(isset($page) && $page == $item->title){
-			$navbar_links .= ' class="active"';
-		}
 		
-		if(isset($item->icon)) {
-        	    $navbar_links .= '><a href="' . htmlspecialchars($item->url) . '">' . $item->icon . ' ' . $item->title . '</a></li>';
-        	} else {
-        	    $navbar_links .= '><a href="' . htmlspecialchars($item->url) . '">' . $item->title . '</a></li>';
-        	}
-    	} else if($item->link_location == 2){
-    	    $nav_more_dropdown[] = $item;
-    	}
+		if(isset($page) && $page == $item->title)
+			$navbar_links .= ' class="active"';
+		
+		if(isset($item->icon))
+        	$navbar_links .= '><a href="' . htmlspecialchars($item->url) . '">' . $item->icon . ' ' . $item->title . '</a></li>';
+        else
+        	$navbar_links .= '><a href="' . htmlspecialchars($item->url) . '">' . $item->title . '</a></li>';
+
+    } else if($item->link_location == 2)
+    	$nav_more_dropdown[] = $item;
 }
 
-	// More dropdown
-	if(isset($nav_more_dropdown) && !empty($nav_more_dropdown)){
-    		$navbar_links .= '<li class="dropdown">
-    		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' . $navbar_language['more'] . ' <span class="caret"></span></a>
-    		<ul class="dropdown-menu">';
+// More dropdown
+if(isset($nav_more_dropdown) && !empty($nav_more_dropdown)){
+	$navbar_links .= '<li class="dropdown">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' . $navbar_language['more'] . ' <span class="caret"></span></a>
+	<ul class="dropdown-menu">';
 
-    		foreach($nav_more_dropdown as $key => $item){
-        		if(isset($item->icon)) {
-            			$navbar_links .= '<li><a href="' . htmlspecialchars($item->url) . '">' . $item->icon . ' ' . $item->title . '</a></li>';
-        		} else {
-            			$navbar_links .= '<li><a href="' . htmlspecialchars($item->url) . '">' . $item->title . '</a></li>';
-        		}
-    		}
-
-    		$navbar_links .= '</ul></li>';
+	foreach($nav_more_dropdown as $key => $item){
+		if(isset($item->icon)) {
+			$navbar_links .= '<li><a href="' . htmlspecialchars($item->url) . '">' . $item->icon . ' ' . $item->title . '</a></li>';
+		} else {
+			$navbar_links .= '<li><a href="' . htmlspecialchars($item->url) . '">' . $item->title . '</a></li>';
+		}
 	}
+
+	$navbar_links .= '</ul></li>';
+}
 
 $navbar_links .= '</ul>';
  
@@ -150,7 +149,7 @@ if($user->isLoggedIn()){
 		if($user->canViewACP($user->data()->id)){
 			$user_area .= '<li><a href="/admin">' . $admin_language['admin_cp'] . '</a></li>';
 		}
-		if($user->canViewACP($user->data()->id)){
+		if(isset($infractions_language) && $user->canViewACP($user->data()->id)){
 			$user_area .= '<li class="divider"></li><li><a href="/infractions">' . $admin_language['infractions'] . '</a></li>';
 		}
 		$user_area .= '<li class="divider"></li>
