@@ -25,6 +25,11 @@ $forum = new Forum();
 $timeago = new Timeago();
 
 require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purifier
+
+if($user->isLoggedIn())
+	$group_id = $user->data()->group_id;
+else 
+	$group_id = 0;
 ?>
 
 <!DOCTYPE html>
@@ -205,7 +210,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 	
 	if($forum_layout == '1'){
 		// Generate latest posts to pass to template
-		$discussions = $forum->getLatestDiscussions($user->data()->group_id);
+		$discussions = $forum->getLatestDiscussions($group_id);
 
 		$n = 0;
 		// Calculate the number of discussions to display (10 max)
@@ -285,7 +290,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 		$smarty->assign('LATEST_DISCUSSIONS_TITLE', $forum_language['latest_discussions']);
 		
 		// Forums sidebar
-		$forums = $forum->listAllForums($user->data()->group_id, true); // second parameter states we're in latest discussions view
+		$forums = $forum->listAllForums($group_id, true); // second parameter states we're in latest discussions view
 		$sidebar_forums = array();
 		foreach($forums as $key => $item){
 			$item = array_filter($item);
@@ -319,7 +324,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 		
 	} else {
 		// Table view - generate to pass to template
-		$forums = $forum->orderAllForums($user->data()->group_id);
+		$forums = $forum->orderAllForums($group_id);
 		
 		// Loop through forums, get stats and return an array to pass to the template
 		$template_array = array();
@@ -344,18 +349,18 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 					
 					// New way of couting posts, in this way post of deleted topics are not counted.
 					$posts_count = $queries->getWhere("posts", array("forum_id", "=", $item["id"]));
-                    			$count_posts = array();
+					$count_posts = array();
 
-                    			foreach ($posts_count as $row){
-                        			// Get topic from posts
-                        			$topic = $queries->getWhere("topics", array("id", "=", $row->topic_id));
-                        			// Check if exists
-                        			if (count($topic) != 0){
-                            				$count_posts[] = $row;
-                        			}
-                    			}
+					foreach ($posts_count as $row){
+						// Get topic from posts
+						$topic = $queries->getWhere("topics", array("id", "=", $row->topic_id));
+						// Check if exists
+						if (count($topic) != 0){
+							$count_posts[] = $row;
+						}
+					}
 
-                    			// Count posts
+                    // Count posts
 					$posts_count = count($count_posts);
 				
 					// Get avatar of user who last posted
@@ -366,16 +371,19 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 					if($item['last_topic_posted'] !== null){
 						$last_topic = $queries->getWhere('topics', array('id', '=', $item['last_topic_posted']));
 						
-						// Is there a label?
-						if($last_topic[0]->label != 0){ // yes
-							// Get label
-							$label = $queries->getWhere('forums_topic_labels', array('id', '=', $last_topic[0]->label));
-							$label = '<span class="label label-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
-						} else { // no
-							$label = '';
-						}
-						
-						$last_topic = $last_topic[0]->topic_title;
+						if(count($last_topic)){
+							// Is there a label?
+							if($last_topic[0]->label != 0){ // yes
+								// Get label
+								$label = $queries->getWhere('forums_topic_labels', array('id', '=', $last_topic[0]->label));
+								$label = '<span class="label label-' . htmlspecialchars($label[0]->label) . '">' . htmlspecialchars($label[0]->name) . '</span>';
+							} else { // no
+								$label = '';
+							}
+							
+							$last_topic = $last_topic[0]->topic_title;
+						} else
+							$last_topic = null;
 					}
 					
 					// Subforums?
@@ -383,7 +391,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 					$subforum_string = '';
 					if(count($subforums)){
 						foreach($subforums as $subforum){
-							if($forum->forumExist($subforum->id, $user->data()->group_id)){
+							if($forum->forumExist($subforum->id, $group_id)){
 								$subforum_string .= '<i class="fa fa-folder"></i> <a href="/forum/view_forum/?fid=' . $subforum->id . '">' . htmlspecialchars($subforum->forum_title) . '</a>&nbsp;&nbsp';
 							}
 						}
@@ -400,7 +408,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 						'last_reply_username' => htmlspecialchars($user->idToName($item['last_user_posted'])),
 						'last_reply_mcname' => htmlspecialchars($user->idToMCName($item['last_user_posted'])),
 						'last_topic_id' => $item['last_topic_posted'],
-						'last_topic_name' => htmlspecialchars($last_topic),
+						'last_topic_name' => ((!is_null($last_topic)) ? htmlspecialchars($last_topic) : ''),
 						'last_topic_time' => date('jS M Y, g:iA', strtotime($item['last_post_date'])),
 						'subforums' => $subforum_string,
 						'label' => $label
@@ -425,7 +433,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 		$smarty->assign('BY', $forum_language['by']);
 		$smarty->assign('AGO', ''); // to be removed
 		
-		$latest = $forum->getLatestDiscussions($user->data()->group_id);
+		$latest = $forum->getLatestDiscussions($group_id);
 		$latest_posts = array();
 		
 		$n = 0;
