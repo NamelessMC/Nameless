@@ -113,8 +113,8 @@ if(Input::exists()) {
 			Session::flash('failure_post', '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $error_string . '</div>');
 		}
 	} else {
-		Redirect::to("/forum");
-		die();
+		// Invalid token
+		Session::flash('failure_post', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
 	}
 }
 
