@@ -75,13 +75,13 @@ $language = array(
 	'validation_error' => 'Er was een onbekend probleem bij het bevestigen van je account, neem contact op met de beheerds.',
 	'signature' => 'Ondertekening',
 
-    // Registration - Authme
-    'connect_with_authme' => 'Connect your account with AuthMe',
-    'authme_help' => 'Please enter your ingame AuthMe account details. If you don\'t already have an account ingame, join the server now and follow the instructions provided.',
-    'unable_to_connect_to_authme_db' => 'Unable to connect to the AuthMe database. If this error persists, please contact an administrator.',
-    'authme_account_linked' => 'Account linked successfully.',
-    'authme_email_help_1' => 'Finally, please enter your email address.',
-    'authme_email_help_2' => 'Finally, please enter your email address, and also choose a display name for your account.',
+	// Registration - Authme
+	'connect_with_authme' => 'Verbind je account met AuthMe',
+	'authme_help' => 'Voer je in-game Authme account details in. Als je nog geen in-game account hebt, ga in de server en volg de instructies.',
+	'unable_to_connect_to_authme_db' => 'Kon niet verbinden met Authme database. Als dit probleem blijft voorthouden, neem dan contact op met de beheerder.',
+	'authme_account_linked' => 'Account succesvol verbonden.',
+	'authme_email_help_1' => 'Als laatste, vul je e-mail adres in.',
+	'authme_email_help_2' => 'Als laatste, vul je e-mail adres in, en kies ook een weergave naam voor je account.',
 
 	// Registratie problemen
 	'username_required' => 'Een gebruikersnaam moet worden ingevuld.',
