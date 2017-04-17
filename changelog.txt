@@ -436,3 +436,32 @@ The notes for each release
 - Add getNotifications method to API
 - Add updateUsername method to API
 - Update included library
+
+1.0.16
+- Prevent directory listing with htaccess
+- Enable native spellchecker in editor
+- Update translations
+- Add Chinese translation
+- Allow use of \n character in report content
+- Add ability to customise custom page icons
+- Display global messages in a container
+- Fix signin issue with numeric useranmes
+- Remove extra line from admin forum list
+- Remove redundant <ul> from navbar links
+- Fix MySQL error upon user creation through AdminCP
+- Update Gravatars to use https
+- Fix smileys not being HTTPS compatible
+- Allow non-3306 database ports
+- Prevent admin account switch in AdminCP
+- Remove IRC link from readme
+- Add user group to news template array
+- Fix issue with email config password resetting
+- Allow changing link location of all included addons
+- Update Infractions addon to cache infractions, and add AdvancedBan support
+- Fix AdminCP user update issue
+- Add API function to check valid connection
+- Fix staff application "More" dropdown link
+- Update admin Infractions link in user dropdown
+- Update invalid token handling during topic submission
+- Forum index and topic deletion fixes
+- Add notice when registration is disabled
