@@ -30,7 +30,12 @@ if($user->isLoggedIn()){
 		break;
 		
 		case 'more':
-			$nav_more_dropdown[$navbar_language['staff_apps_icon'] . $navbar_language['staff_apps']] = '/apply';
+			$nav_app_object = new stdClass();
+			$nav_app_object->url = '/apply';
+			$nav_app_object->icon = $navbar_language['staff_apps_icon'];
+			$nav_app_object->title = $navbar_language['staff_apps'];
+
+			$nav_more_dropdown[] = $nav_app_object;
 		break;
 		
 		case 'none':
