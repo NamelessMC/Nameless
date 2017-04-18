@@ -56,17 +56,17 @@ $adm_page = "styles";
 	
   </head>
   <body>
-    <div class="container">
-	  <?php
-	  // Index page
-	  // Load navbar
-	  if(is_file('styles/templates/' . $template . '/navbar.tpl')){
+	<?php
+	// Styles page
+	// Load navbar
+	if(is_file('styles/templates/' . $template . '/navbar.tpl')){
 		$smarty->display('styles/templates/' . $template . '/navbar.tpl');
-	  } else {
+	} else {
 		// template not defined, allow user to navigate straight to styles page to change this
 		$smarty->display('styles/templates/Default/navbar.tpl');
-	  }
-	  ?>
+	}
+	?>
+    <div class="container">
 	  <br />
 	  <div class="row">
 	    <div class="col-md-3">
