@@ -56,12 +56,12 @@ $adm_page = "help";
 	
   </head>
   <body>
+	<?php
+	// Help page
+	// Load navbar
+	$smarty->display('styles/templates/' . $template . '/navbar.tpl');
+	?>
     <div class="container">
-	  <?php
-	  // Index page
-	  // Load navbar
-	  $smarty->display('styles/templates/' . $template . '/navbar.tpl');
-	  ?>
 	  <br />
 	  <div class="row">
 	    <div class="col-md-3">

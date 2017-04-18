@@ -260,12 +260,12 @@ $token = Token::generate(); // generate token
   </head>
 
   <body>
+	<?php
+	// Custom pages page
+	// Load navbar
+	$smarty->display('styles/templates/' . $template . '/navbar.tpl');
+	?>
     <div class="container">
-	  <?php
-	  // Index page
-	  // Load navbar
-	  $smarty->display('styles/templates/' . $template . '/navbar.tpl');
-	  ?>
 	  <br />
 	  <div class="row">
 		<div class="col-md-3">

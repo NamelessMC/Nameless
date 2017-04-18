@@ -58,16 +58,15 @@ $adm_page = "forums";
   </head>
 
   <body>
-
-    <div class="container">	
-	  <?php
-	  // Index page
-	  // Load navbar
-	  $smarty->display('styles/templates/' . $template . '/navbar.tpl');
-	  if(Session::exists('adm-alert')){
+	<?php
+	// Forums page
+	// Load navbar
+	$smarty->display('styles/templates/' . $template . '/navbar.tpl');
+	if(Session::exists('adm-alert')){
 		echo Session::flash('adm-alert');
-	  }
-	  ?>
+	}
+	?>
+	<div class="container">
 	  <br />
 	  <div class="row">
 		<div class="col-md-3">

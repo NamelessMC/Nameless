@@ -55,19 +55,19 @@ $adm_page = "users";
 
   </head>
 
-  <body>
-    <div class="container">	
-	  <?php
-	  // "Groups" page
-	  // Load navbar
-	  $smarty->display('styles/templates/' . $template . '/navbar.tpl');
-	  
-	  echo '<br />';
-	  
-	  if(Session::exists('adm-alert')){
+  <body>	
+	<?php
+	// "Groups" page
+	// Load navbar
+	$smarty->display('styles/templates/' . $template . '/navbar.tpl');
+	
+	echo '<br />';
+	
+	if(Session::exists('adm-alert')){
 		echo Session::flash('adm-alert');
-	  }
-	  ?>
+	}
+	?>
+    <div class="container">
 	  <div class="row">
 		<div class="col-md-3">
 		  <?php require('pages/admin/sidebar.php'); ?>

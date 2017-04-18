@@ -57,12 +57,12 @@ $adm_page = "minecraft";
 	
   </head>
   <body>
+	<?php
+	// Minecraft page
+	// Load navbar
+	$smarty->display('styles/templates/' . $template . '/navbar.tpl');
+	?>
     <div class="container">
-	  <?php
-	  // Index page
-	  // Load navbar
-	  $smarty->display('styles/templates/' . $template . '/navbar.tpl');
-	  ?>
 	  <br />
 	  <div class="row">
 	    <div class="col-md-3">
