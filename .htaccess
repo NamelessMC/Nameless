@@ -1,5 +1,4 @@
-  Options +FollowSymLinks
-  Options -Indexes
+  Options +FollowSymLinks -Indexes
   RewriteEngine On
 
   RewriteCond %{SCRIPT_FILENAME} !-d
