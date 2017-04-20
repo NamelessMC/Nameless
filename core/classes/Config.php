@@ -28,8 +28,6 @@ class Config {
 		}
 
 		require(ROOT_PATH . '/core/config.php');
-		
-		$loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
 
 		if(!isset($conf) || !is_array($conf)) {
 			$conf = [];
