@@ -455,7 +455,7 @@ $user_language = array(
 	'verification_failed' => 'Falha ao verificar, por favor, tente de novo.',
 	'verification_success' => 'Verificada com sucesso! Agora você pode logar-se.',
 	'complete_signup' => 'Cadastro Concluído',
-	'registration_disabled' => 'Website registration is currently disabled.',
+	'registration_disabled' => 'Cadastro no site está atualmente desabilitado.',
 	
 	// UserCP
 	'user_cp' => 'UserCP',
