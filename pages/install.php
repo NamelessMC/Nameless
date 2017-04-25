@@ -61,7 +61,7 @@ if(isset($_GET["step"])){
 	  if($step === "start"){
 	  ?>
           <div class="row page-header">
-            <h3>Welcome to NamelessMC <small>BETA</small></h3>
+            <h3>Welcome to NamelessMC</h3>
             <hr class="small-margin">
             <p>This installer will guide you through the process of installing the NamelessMC website package.</p>
           </div>
@@ -1136,7 +1136,7 @@ if(isset($_GET["step"])){
 					$queries->create('custom_pages', array(
 						'url' => '/help/',
 						'title' => 'Help',
-						'content' => 'Default help page. Customise in the admin panel.',
+						'content' => 'If you need help with your new NamelessMC Website you can ask for help here:</br>-<a href="http://namelessmc.com/">NamelessMC Website</a></br>-<a href="http://www.spigotmc.org/resources/11434/">Spigot Forum</a>',
 						'link_location' => 3
 					));
 					
@@ -1903,6 +1903,7 @@ if(isset($_GET["step"])){
           <div class="modal-body">
             NamelessMC includes support for the following Bukkit/Spigot plugins:
 			<ul>
+			  <li><a target="_blank" href="https://www.spigotmc.org/resources/23337/">NamelessMC Registration</a></li>
 			  <li><a target="_blank" href="http://dev.bukkit.org/bukkit-plugins/buycraft/">Buycraft</a></li>
 			  <li><a target="_blank" href="http://dev.bukkit.org/bukkit-plugins/ban-management/">Ban Management</a></li>
 			  <li><a target="_blank" href="http://dev.bukkit.org/bukkit-plugins/maxbans/">MaxBans</a></li>
@@ -1910,7 +1911,7 @@ if(isset($_GET["step"])){
 			Coming soon:
 			<ul>
 			  <li><a target="_blank" href="http://www.spigotmc.org/resources/mcmmo.2445/">McMMO</a></li>
-			  <li><a target="_blank" href="http://dev.bukkit.org/bukkit-plugins/lolmewnstats/">Stats</a></li>
+			  <li><a target="_blank" href="http://www.spigotmc.org/resources/19016/">Stats</a></li>
 			  <li><a target="_blank" href="http://www.spigotmc.org/resources/bukkitgames-hungergames.279/">BukkitGames</a></li>
 			</ul>
           </div>
