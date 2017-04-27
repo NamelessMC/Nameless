@@ -1,0 +1,156 @@
+<?php 
+/*
+ *	Gemaakt door Samerton
+ *  en vertaald door Sander Lambrechts
+ *  
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC versie 2.0.0-dev
+ *
+ *  License: MIT
+ *
+ *  Nederlandse taal voor Forum module
+ */
+
+$language = array(
+	/*
+	 *  Forums
+	 */ 
+	'forum' => 'Forum',
+	'forums' => 'Forums',
+	'forum_index' => 'Start',
+	'no_users_online' => 'Geen gebruikers online.',
+	'online_users' => 'Online gebruikers',
+	'discussion' => 'Discussies',
+	'topic' => 'Onderwerp',
+	'stats' => 'Statistieken',
+	'topics' => 'onderwerpen',
+	'views' => 'x bekeken',
+	'posts' => 'berichten',
+	'by' => 'door',
+	'in' => 'in',
+	'last_reply' => 'Laatste antwoord',
+	'latest_discussions' => 'Laatste discussies',
+	'users_registered' => '<strong>Gebruikers geregistreerd:</strong> {x}', // Verander "{x}" niet
+	'latest_member' => '<strong>Laatste gebruikers:</strong> {x}', // Verander "{x}" niet
+	'subforums' => 'Subforums',
+	'subforum' => 'Subforum',
+	'no_topics' => 'Er zijn nog geen onderwerpen gemaakt.',
+	'no_topics_short' => 'Geen onderwerpen',
+	'new_topic' => 'Nieuw onderwerp',
+	'post_successful' => 'Bericht succesvol.',
+	'post_edited_successfully' => 'Bericht succesvol bewerkt.',
+	'user_tag' => 'Je bent genoemd in een bericht.',
+	'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander "{x}" niet
+	'creating_topic_in_x' => 'Onderwerp maken in {x}', // Verander "{x}" niet
+	'topic_title' => 'Onderwerp titel',
+	'new_reply' => 'Nieuw antwoord',
+	're' => 'RE: ',
+	'topic_locked' => 'Onderwerp gesloten',
+	'mod_actions' => 'Beheer',
+	'lock_topic' => 'Sluit onderwerp',
+	'unlock_topic' => 'Open onderwerp',
+	'merge_topic' => 'Smelt onderwerp samen',
+	'merge_topics' => 'Smelt onderwerpen samen',
+	'merge_instructions' => 'De discussie waarmee je wilt samensmelten <strong>moet</strong> in hetzelfde forum zijn. Verplaats een discussie als het nodig is.',
+	'confirm_delete_short' => 'Confirm deletion',
+	'confirm_delete_topic' => 'Are you sure you want to delete this topic?',
+	'confirm_delete_post' => 'Are you sure you want to delete this post?',
+	'delete_topic' => 'Delete Topic',
+	'move_topic' => 'Move Topic',
+	'move_topic_to' => 'Move topic to:',
+	'stick_topic' => 'Stick Topic',
+	'unstick_topic' => 'Unstick Topic',
+	'share' => 'Share',
+	'share_twitter' => 'Share on Twitter',
+	'share_facebook' => 'Share on Facebook',
+	'edit' => 'Edit',
+	'edit_post' => 'Edit Post',
+	'last_edited' => 'Last edited: {x}', // Verander "{x}" niet
+	'quote' => 'Quote',
+	'topic_locked_notice' => 'This topic is locked, but your permissions allow you to create a reply.',
+	'title_required' => 'Please input a topic title',
+	'content_required' => 'Please input post content',
+	'title_min_2' => 'Your topic title must be a minimum of 2 characters',
+	'title_max_64' => 'Your topic title must be no longer than 64 characters',
+	'content_min_2' => 'Your post content must be a minimum of 2 characters',
+	'content_max_20480' => 'Your post content must be no longer than 20480 characters',
+	'post_already_reported' => 'You have already reported this post!',
+	'quoted_post' => 'Post added to quoted posts.',
+	'removed_quoted_post' => 'Post removed from quoted posts.',
+	'quoting_posts' => 'Inserting quotes..',
+	'error_quoting_posts' => 'Sorry, there was an error quoting those posts.',
+	'error_rating_post' => 'Sorry, there was an error rating the post.',
+	'topic_stuck' => 'Topic has been stuck.',
+	'topic_unstuck' => 'Topic has been unstuck.',
+	'spam_wait' => 'Please wait {x} seconds before posting again.',
+	'overview' => 'Overview',
+	'no_label' => 'No label',
+	
+	// Homepagina
+	'latest_announcements' => 'Latest Announcements',
+	'read_full_post' => 'Read full post',
+	
+	// Admin tab
+	'labels' => 'Labels',
+	'new_forum' => '<i class="fa fa-plus-circle"></i> New Forum',
+	'new_label' => '<i class="fa fa-plus-circle"></i> New Label',
+	'new_label_type' => '<i class="fa fa-plus-circle"></i> New Label Type',
+	'label_types' => 'Label Types',
+	'creating_label' => 'Creating new label',
+	'creating_label_type' => 'Creating new label type',
+	'editing_label' => 'Editing label',
+	'editing_label_type' => 'Editing label type',
+	'label_name' => 'Label Name',
+	'label_type' => 'Label Type',
+	'label_type_name' => 'Label Type Name',
+	'label_type_html' => 'Label Type HTML',
+	'label_type_html_help' => 'The HTML must include {x} as a placeholder for the label name',
+	'label' => 'Label',
+	'label_forums' => 'Label Forums',
+	'no_forums' => 'No forums',
+	'no_labels_defined' => 'No labels have been defined yet.',
+	'no_label_types_defined' => 'No label types have been defined yet.',
+	'label_edit_success' => 'Label successfully edited.',
+	'label_type_edit_success' => 'Label successfully edited.',
+	'label_creation_success' => 'Label created successfully.',
+	'label_type_creation_success' => 'Label type created successfully.',
+	'label_creation_error' => 'Error creating a label. Please ensure the name is no longer than 32 characters and that you have specified a type.',
+	'label_type_creation_error' => 'Error creating a label type. Please ensure the name is no longer than 32 characters and that the HTML is no longer than 64 characters.',
+	'creating_forum' => 'Creating new forum',
+	'forum_name' => 'Forum Name',
+	'forum_description' => 'Forum Description',
+	'delete_forum' => 'Delete Forum',
+	'move_topics_and_posts_to' => 'Move topics and posts to',
+	'delete_topics_and_posts' => 'Delete topics and posts',
+	'forum_permissions' => 'Forum permissions',
+	'select_a_parent_forum' => 'Select a parent forum',
+	'parent_forum' => 'Parent Forum',
+	'has_no_parent' => 'No parent',
+	'guests' => 'Guests',
+	'group' => 'Group',
+	'can_view_forum' => 'Can view forum?',
+	'can_view_other_topics' => 'Can view other users\' topics?',
+	'can_create_topic' => 'Can create topics?',
+	'can_post_reply' => 'Can create replies?',
+	'can_moderate_forum' => 'Can moderate forum?',
+	'display_topics_as_news' => 'Display topics as news on front page?',
+	'forum_created_successfully' => 'Forum created successfully.',
+	'forum_layout' => 'Forum Layout',
+	'table_view' => 'Table View',
+	'latest_discussions_view' => 'Latest Discussions View',
+	'input_forum_title' => 'Please input a forum title.',
+	'input_forum_description' => 'Please input a forum description.',
+	'forum_name_minimum' => 'The forum name must be a minimum of 2 characters.',
+	'forum_description_minimum' => 'The forum description must be a minimum of 2 characters.',
+	'forum_name_maximum' => 'The forum name must be a maximum of 150 characters.',
+	'forum_description_maximum' => 'The forum description must be a maximum of 255 characters.',
+	'forum_type' => 'Forum type',
+	'forum_type_forum' => 'Forum',
+	'forum_type_category' => 'Category',
+	'invalid_action' => 'Invalid action',
+	'use_reactions' => 'Use Reactions?',
+	
+	// Profiel tab
+	'user_no_posts' => 'Deze gebruiker heeft nog geen berichten geplaatst op het forum .',
+	'latest_posts' => 'Laatste berichten'
+);
