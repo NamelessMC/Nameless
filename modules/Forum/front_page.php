@@ -39,4 +39,4 @@ foreach($latest_news as $item){
 
 $smarty->assign('LATEST_ANNOUNCEMENTS', $forum_language->get('forum', 'latest_announcements'));
 $smarty->assign('READ_FULL_POST', $forum_language->get('forum', 'read_full_post'));
-$smarty->assign('NEWS', $news);
+$smarty->assign('NEWS', array_reverse($news));
