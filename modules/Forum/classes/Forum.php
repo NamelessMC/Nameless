@@ -429,7 +429,7 @@ class Forum {
 			return $b['topic_date'] - $a['topic_date'];
 		});
 
-		return array_slice($return, 0, $number, true);
+		return array_slice(array_reverse($return), 0, $number, true);
 	}
 	
 	// Can the user moderate the specified forum?
