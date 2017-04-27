@@ -451,7 +451,7 @@ $user_language = array(
 	'verification_failed' => '驗證失敗，請稍後再試一次。',
 	'verification_success' => '驗證完成！您現在可以登入。',
 	'complete_signup' => '完成註冊',
-	'registration_disabled' => 'Website registration is currently disabled.',
+	'registration_disabled' => '註冊功能目前已被停用。',
 	
 	// UserCP
 	'user_cp' => '個人設定',
