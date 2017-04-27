@@ -13,7 +13,7 @@
  *  Thanks to CreaModZ (creamodz.fr) for the pre-translation
  *  https://www.spigotmc.org/members/creamodz.6937/
  *
- *  Last edition: 11/03/2017 10:47AM (EST) by Pandalyser
+ *  Last edition: 26/04/2017 22:39 (UTF+1) by Aviortheking
  */
  
 /*
@@ -454,7 +454,7 @@ $user_language = array(
 	'verification_failed' => 'Vérification impossible, veuillez essayer de nouveau.',
 	'verification_success' => 'Compte validé! Vous pouvez vous connecter.',
 	'complete_signup' => 'Compléter l\'inscription.',
-	'registration_disabled' => 'Website registration is currently disabled.',
+	'registration_disabled' => 'L\'inscription sur le site est actuellement désactivée.',
 	
 	// UserCP
 	'user_cp' => 'Panneau d\'utilisateur',
