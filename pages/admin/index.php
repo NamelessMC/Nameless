@@ -203,12 +203,12 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 			<strong>Running PHP <?php echo phpversion(); ?></strong> <a href="/admin/phpinfo" target="_blank">(Full PHP information)</a><br />
 			<h3><?php echo $admin_language['statistics']; ?></h3>
 			<strong><?php echo $admin_language['registrations_per_day']; ?></strong>
-			
+
 			<canvas id="registrationChart" width="100%" height="40"></canvas>
-			
+
 			<h3>Banner</h3>
-			<img src="/core/integration/banner/banner.png"><br />
-			URL: <code>http://<?php echo $_SERVER['SERVER_NAME']; ?>/core/integration/banner/banner.png</code>
+			<img src="/core/integration/banner/banner/"><br />
+			URL: <code>http://<?php echo $_SERVER['SERVER_NAME']; ?>/core/integration/banner/banner/</code>
 		  </div>
 		</div>
 	  </div>
