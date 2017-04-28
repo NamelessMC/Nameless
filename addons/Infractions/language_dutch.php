@@ -7,7 +7,13 @@
  *  Copyright (c) 2016 Samerton
  */
 
-// Language file for "Infractions" addon
+/*
+* Dutch language was made by Jesse Geerts
+* http://jessegeerts.nl
+* Have fun with the translation
+*/
+
+// Language file for "Infractions" addon in Dutch.
 
 $infractions_language = array(
 	'infractions' => 'Infractions',
