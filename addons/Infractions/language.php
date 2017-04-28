@@ -10,28 +10,28 @@
 // Language file for "Infractions" addon
 
 $infractions_language = array(
-	'infractions' => 'Infractions',
+	'infractions' => 'Bestrafungen',
 	'infractions_icon' => '', // Icon to display before "Infractions" in navbar
 	'view' => 'View &raquo;',
-	'staff_member' => 'Staff Member',
-	'action' => 'Action',
-	'actions' => 'Actions',
+	'staff_member' => 'Team Mitglied',
+	'action' => 'Aktion',
+	'actions' => 'Aktionen',
 	'ban' => 'Ban',
 	'temp_ban' => 'Temp Ban',
-	'warning' => 'Warning',
-	'mute' => 'Mute',
+	'warning' => 'Verwarnung',
+	'mute' => 'Stumm',
 	'kick' => 'Kick',
-	'created' => 'Created',
-	'reason' => 'Reason',
-	'expires_x' => 'Expires: {x}', // Don't replace {x}
-	'expired' => 'Expired',
-	'expired_x' => 'Expired: {x}', // Don't replace {x}
-	'active' => 'Active',
+	'created' => 'Erstellt',
+	'reason' => 'Grund',
+	'expires_x' => 'Läuft ab: {x}', // Don't replace {x}
+	'expired' => 'Abgelaufen',
+	'expired_x' => 'Abgelaufen am: {x}', // Don't replace {x}
+	'active' => 'Aktiv',
 	'permanent' => 'Permanent',
-	'viewing_infraction' => 'Viewing Infraction',
-	'user' => 'User:',
+	'viewing_infraction' => 'Bestrafung ansehen',
+	'user' => 'Benutzer:',
 	'status' => 'Status:',
-	'no_reason' => 'No reason specified.',
-	'revoked' => 'Revoked',
-	'revoked_by' => 'Revoked by {x}' // Don't replace {x}
+	'no_reason' => 'Kein Grund angegeben.',
+	'revoked' => 'Zurückgezogen',
+	'revoked_by' => 'Zurückgezogen von {x}' // Don't replace {x}
 );
