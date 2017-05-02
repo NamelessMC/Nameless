@@ -1,7 +1,8 @@
 <?php
 /*
- *	Translation created by Partydragen
+ *	Translation created by Partydragen and @tlystad24
  *  http://partydragen.com/
+    http://tlystad24.github.io
  *
  *  License: MIT
  */
