@@ -963,7 +963,7 @@ class Infractions {
 					case 'TEMP_BAN':
 						// Temp ban
 						$ret["type"] = "temp_ban";
-						$ret["type_human"] = '<span class="label label-danger">' . $this->_language['ban'] . '</span>';
+						$ret["type_human"] = '<span class="label label-danger">' . $this->_language['temp_ban'] . '</span>';
 
 						// Convert expiry date
 						$date = $punishment->end / 1000;
