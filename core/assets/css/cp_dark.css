@@ -5,9 +5,17 @@ body {
 	background-color: #375a7f !important;
 }
 .card {
-	background-color: #303030 !important;
+	background-color: #303030;
 	border: 1px solid transparent;
 	color: #fff;
+}
+.card-success {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+.card-danger{
+    background-color: #d9534f;
+    border-color: #d9534f;
 }
 .panel-body {
 	background-color: #303030 !important;
