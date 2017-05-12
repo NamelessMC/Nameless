@@ -274,7 +274,7 @@
             <?php
             try {
 				if(isset($_SESSION['charset'])) $charset = $_SESSION['charset'];
-				else $charset = 'utf8_unicode_ci';
+				else $charset = 'utf8';
 
                 $queries = new Queries();
                 $queries->dbInitialise($charset);

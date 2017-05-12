@@ -18,6 +18,6 @@ $language = array(
 	'404_back' => 'Tilbake',
 	'404_home' => 'Hjem',
 	'404_error' => 'Hvis du mener dette er en feil, {x}vennligst kontakt administrasjonen{y}', // Don't replace {x} or {y}
-    'maintenance_title' => 'Maintenance mode.',
-    'maintenance_retry' => 'Retry'
+    'maintenance_title' => 'Vedlikeholdsmodus',
+    'maintenance_retry' => 'Prøv igjen'
 );
