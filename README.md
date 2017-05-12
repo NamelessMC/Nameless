@@ -75,7 +75,7 @@ Upcoming addons (these will need to be downloaded separately):
 * @PugaBear
 * @Root3287
 * @jesseke55
-* @RobinMCNetwork
+* @Derkades
 * @godleydemon
 * @yshf9
 * @dasilvaj4
@@ -135,7 +135,7 @@ Upcoming addons (these will need to be downloaded separately):
 * Norsk: @partydragen
 * Slovak: @Marki35
 * French: @CreaModZ
-* Dutch: Sander Jochems, @Azoraqua, @Headhunterzpw, @melerpe, @aycgit, @RobinMCNetwork and smessie
+* Dutch: Sander Jochems, @Azoraqua, @Headhunterzpw, @melerpe, @aycgit, @Derkades and smessie
 * Finnish: -kakara-
 * Portuguese: @dgateles, @dasilvaj4
 
