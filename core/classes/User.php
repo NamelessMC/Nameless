@@ -155,135 +155,25 @@ class User {
 			Session::put($this->_sessionName, $this->data()->id);
 			$this->_isLoggedIn = true;
 		} else {
-			$user = $this->find($username, true);
-			if($user){
-			    switch($this->data()->pass_method) {
-                    case 'wordpress':
-                        // phpass
-                        $phpass = new PasswordHash(8, FALSE);
+            if($this->checkCredentials($username, $password) === true){
+                // Valid credentials
+                Session::put($this->_sessionName, $this->data()->id);
+                if($remember) {
+                    $hash = Hash::unique();
+                    $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
 
-                        if($phpass->CheckPassword($password, $this->data()->password)){
-                            Session::put($this->_sessionName, $this->data()->id);
-                            if($remember) {
-                                $hash = Hash::unique();
-                                $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
-                                if(!$hashCheck->count()) {
-                                    $this->_db->insert('users_session', array(
-                                        'user_id' => $this->data()->id,
-                                        'hash' => $hash
-                                    ));
-                                } else
-                                    $hash = $hashCheck->first()->hash;
+                    if(!$hashCheck->count()) {
+                        $this->_db->insert('users_session', array(
+                            'user_id' => $this->data()->id,
+                            'hash' => $hash
+                        ));
+                    } else
+                        $hash = $hashCheck->first()->hash;
 
-                                Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
-                            }
-                            return true;
-                        }
-                        break;
-
-                    case 'sha256':
-                        $exploded = explode('$', $this->data()->password);
-
-                        $salt = $exploded[0];
-                        $pass = $exploded[1];
-
-                        if($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass) {
-                            Session::put($this->_sessionName, $this->data()->id);
-
-                            if($remember) {
-                                $hash = Hash::unique();
-                                $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
-                                if(!$hashCheck->count()) {
-                                    $this->_db->insert('users_session', array(
-                                        'user_id' => $this->data()->id,
-                                        'hash' => $hash
-                                    ));
-                                } else
-                                    $hash = $hashCheck->first()->hash;
-
-                                Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
-                            }
-                            return true;
-                        }
-
-                        break;
-
-                    case 'pbkdf2':
-                        $exploded = explode('$', $this->data()->password);
-
-                        $iterations = $exploded[0];
-                        $salt = $exploded[1];
-                        $pass = $exploded[2];
-
-                        $hashed = hash_pbkdf2('sha256', $password, $salt, $iterations, 64, true);
-
-                        if($hashed == hex2bin($pass)){
-                            Session::put($this->_sessionName, $this->data()->id);
-
-                            if($remember) {
-                                $hash = Hash::unique();
-                                $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
-                                if(!$hashCheck->count()) {
-                                    $this->_db->insert('users_session', array(
-                                        'user_id' => $this->data()->id,
-                                        'hash' => $hash
-                                    ));
-                                } else
-                                    $hash = $hashCheck->first()->hash;
-
-                                Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
-                            }
-                            return true;
-                        }
-
-                        break;
-
-                    case 'modernbb':
-                    case 'sha1':
-                        if(sha1($password) == $this->data()->password){
-                            Session::put($this->_sessionName, $this->data()->id);
-
-                            if($remember) {
-                                $hash = Hash::unique();
-                                $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
-                                if(!$hashCheck->count()) {
-                                    $this->_db->insert('users_session', array(
-                                        'user_id' => $this->data()->id,
-                                        'hash' => $hash
-                                    ));
-                                } else
-                                    $hash = $hashCheck->first()->hash;
-
-                                Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
-                            }
-                            return true;
-                        }
-                        break;
-
-                    default:
-                        // Default to bcrypt
-                        if(password_verify($password, $this->data()->password)){
-                            Session::put($this->_sessionName, $this->data()->id);
-
-                            if($remember){
-                                $hash = Hash::unique();
-                                $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
-
-                                if(!$hashCheck->count()){
-                                    $this->_db->insert('users_session', array(
-                                        'user_id' => $this->data()->id,
-                                        'hash' => $hash
-                                    ));
-                                } else
-                                    $hash = $hashCheck->first()->hash;
-
-                                Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
-                            }
-                            return true;
-                        }
-                        break;
+                    Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
                 }
-			}
+                return true;
+            }
 		}
 		return false;
 	}
@@ -293,32 +183,85 @@ class User {
 		if(!$username && !$password && $this->exists()){
 			Session::put($this->_admSessionName, $this->data()->id);
 		} else {
-			$user = $this->find($username, true);
-			if($user){
-				if(password_verify($password, $this->data()->password)) {
-					Session::put($this->_admSessionName, $this->data()->id);
+            if($this->checkCredentials($username, $password) === true){
+                Session::put($this->_admSessionName, $this->data()->id);
 
-					$hash = Hash::unique();
-					$hashCheck = $this->_db->get('users_admin_session', array('user_id', '=', $this->data()->id));
+                $hash = Hash::unique();
+                $hashCheck = $this->_db->get('users_admin_session', array('user_id', '=', $this->data()->id));
 
-					if(!$hashCheck->count()) {
-						$this->_db->insert('users_admin_session', array(
-							'user_id' => $this->data()->id,
-							'hash' => $hash
-						));
-					} else {
-						$hash = $hashCheck->first()->hash;
-					}
+                if(!$hashCheck->count()) {
+                    $this->_db->insert('users_admin_session', array(
+                        'user_id' => $this->data()->id,
+                        'hash' => $hash
+                    ));
+                } else {
+                    $hash = $hashCheck->first()->hash;
+                }
 
-					Cookie::put($this->_cookieName . "_adm", $hash, 3600);
+                Cookie::put($this->_cookieName . "_adm", $hash, 3600);
 
-
-					return true;
-				}
+                return true;
 			}
 		}
 		return false;
 	}
+
+	// Check whether given credentials are valid
+    public function checkCredentials($username, $password){
+        $user = $this->find($username, true);
+        if($user){
+            switch($this->data()->pass_method) {
+                case 'wordpress':
+                    // phpass
+                    $phpass = new PasswordHash(8, FALSE);
+
+                    if($phpass->CheckPassword($password, $this->data()->password))
+                        return true;
+
+                    break;
+
+                case 'sha256':
+                    $exploded = explode('$', $this->data()->password);
+
+                    $salt = $exploded[0];
+                    $pass = $exploded[1];
+
+                    if($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass)
+                        return true;
+
+                    break;
+
+                case 'pbkdf2':
+                    $exploded = explode('$', $this->data()->password);
+
+                    $iterations = $exploded[0];
+                    $salt = $exploded[1];
+                    $pass = $exploded[2];
+
+                    $hashed = hash_pbkdf2('sha256', $password, $salt, $iterations, 64, true);
+
+                    if($hashed == hex2bin($pass))
+                        return true;
+
+                    break;
+
+                case 'modernbb':
+                case 'sha1':
+                    if(sha1($password) == $this->data()->password)
+                        return true;
+
+                    break;
+
+                default:
+                    // Default to bcrypt
+                    if(password_verify($password, $this->data()->password))
+                        return true;
+                    break;
+            }
+        }
+
+        return false;
+    }
 
 	// Get a user's group from their ID. We can either return their ID only, their normal HTML display code, or their large HTML display code
 	public function getGroup($id, $html = null, $large = null) {

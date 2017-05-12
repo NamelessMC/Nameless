@@ -21,6 +21,7 @@ define('PAGE', 'cc_settings');
 require('core/templates/cc_navbar.php');
 
 require('core/includes/password.php'); // For password hashing
+require('core/includes/phpass.php'); // phpass for Wordpress auth
 
 // Two factor auth?
 if(isset($_GET['do'])){
@@ -290,14 +291,15 @@ if(isset($_GET['do'])){
 					// Update password
 					// Check old password matches 
 					$old_password = Input::get('old_password');
-					if(password_verify($old_password, $user->data()->password)){
+					if($user->checkCredentials($user->data()->username, $old_password)){
 						try {
 							// Hash new password
 							$new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, array("cost" => 13));
 							
 							// Update password
 							$queries->update('users', $user->data()->id, array(
-								'password' => $new_password
+								'password' => $new_password,
+                                'pass_method' => 'default'
 							));
 							
 							$success = $language->get('user', 'password_changed_successfully');
