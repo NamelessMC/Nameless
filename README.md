@@ -1,8 +1,11 @@
 # Finished products of Nameless can be found on
 https://namelessmc.com/
 
-
 ### Warning - All downloads off the github are not 100% bug free and are in dev.
+
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/NamelessMC/Nameless.svg)](http://isitmaintained.com/project/NamelessMC/Nameless "Average time to resolve an issue")
+
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/NamelessMC/Nameless.svg)](http://isitmaintained.com/project/NamelessMC/Nameless "Percentage of issues still open")
 
 # Version 2.0
 
