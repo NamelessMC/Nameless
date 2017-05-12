@@ -66,6 +66,8 @@ $language = array(
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Erfolgreich geupdatet.',
+    'debugging_and_maintenance' => 'Debugging and Maintenance',
+    'enable_debug_mode' => 'Enable debug mode?',
 
 	// Reactions
 	'icon' => 'Icon',

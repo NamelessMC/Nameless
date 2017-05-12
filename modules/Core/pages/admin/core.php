@@ -74,7 +74,7 @@ $current_default_language = $current_default_language[0]->value;
 					<td><a href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>"><?php echo $language->get('admin', 'custom_fields'); ?></a></td>
 				  </tr>
                     <tr>
-                        <td><a href="<?php echo URL::build('/admin/core/', 'view=maintenance'); ?>"><?php echo $language->get('admin', 'maintenance_mode'); ?></a></td>
+                        <td><a href="<?php echo URL::build('/admin/core/', 'view=maintenance'); ?>"><?php echo $language->get('admin', 'debugging_and_maintenance'); ?></a></td>
                     </tr>
 				  <tr>
 					<td><a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>"><?php echo $language->get('user', 'reactions'); ?></a></td>
@@ -1026,6 +1026,20 @@ $current_default_language = $current_default_language[0]->value;
 
                                   if($validation->passed()){
                                       // Update database and cache
+                                      // Is debug mode enabled or not?
+                                      if(isset($_POST['enable_debugging']) && $_POST['enable_debugging'] == 1) $enabled = 1;
+                                      else $enabled = 0;
+
+                                      $debug_id = $queries->getWhere('settings', array('name', '=', 'error_reporting'));
+                                      $debug_id = $debug_id[0]->id;
+                                      $queries->update('settings', $debug_id, array(
+                                          'value' => $enabled
+                                      ));
+
+                                      // Cache
+                                      $cache->setCache('error_cache');
+                                      $cache->store('error_reporting', $enabled);
+
                                       // Is maintenance enabled or not?
                                       if(isset($_POST['enable_maintenance']) && $_POST['enable_maintenance'] == 1) $enabled = 'true';
                                       else $enabled = 'false';
@@ -1052,6 +1066,9 @@ $current_default_language = $current_default_language[0]->value;
                                           'message' => Output::getClean($message)
                                       ));
 
+                                      // Reload to update debugging
+                                      Redirect::to(URL::build('/admin/core/', 'view=maintenance'));
+
                                   } else $error = $language->get('admin', 'maintenance_message_max_1024');
                               } else {
                                   // Invalid token
@@ -1063,12 +1080,16 @@ $current_default_language = $current_default_language[0]->value;
                               $maintenance = $cache->retrieve('maintenance');
                           }
                           ?>
-                          <h4><?php echo $language->get('admin', 'maintenance_mode'); ?></h4>
+                          <h4><?php echo $language->get('admin', 'debugging_and_maintenance'); ?></h4>
 
                           <form action="" method="post">
                             <?php if(isset($error)){ ?>
                             <div class="alert alert-danger"><?php echo $error; ?></div>
                             <?php } ?>
+                            <div class="form-group">
+                              <label for="InputDebug"><?php echo $language->get('admin', 'enable_debug_mode'); ?></label>
+                              <input id="InputDebug" name="enable_debugging" type="checkbox" class="js-switch" value="1" <?php if(defined('DEBUGGING')) echo 'checked'; ?>/>
+                            </div>
                             <div class="form-group">
                               <label for="InputMaintenance"><?php echo $language->get('admin', 'enable_maintenance_mode'); ?></label>
                               <input id="InputMaintenance" name="enable_maintenance" type="checkbox" class="js-switch" value="1" <?php if(isset($maintenance['maintenance']) && $maintenance['maintenance'] != 'false') echo 'checked'; ?>/>

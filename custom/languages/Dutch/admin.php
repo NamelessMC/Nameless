@@ -60,6 +60,8 @@ $language = array(
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Succesvol bijgewerkt',
+    'debugging_and_maintenance' => 'Debugging and Maintenance',
+    'enable_debug_mode' => 'Enable debug mode?',
 
 	// Reacties
 	'icon' => 'Icoon',

@@ -93,6 +93,8 @@ if($page != 'install'){
 			ini_set('display_startup_errors',1);
 			ini_set('display_errors',1);
 			error_reporting(-1);
+
+			define('DEBUGGING', 1);
 		} else {
 			// Disabled
 			error_reporting(0);
