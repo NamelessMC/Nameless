@@ -111,6 +111,7 @@ Upcoming addons (these will need to be downloaded separately):
 * @nick-2017
 * @Cl1608Ho
 * @Fiiily
+* @OscarWoHA
 
 **[NamelessMC Website](http://namelessmc.github.io/)**
 * @Samerton
@@ -132,7 +133,7 @@ Upcoming addons (these will need to be downloaded separately):
 * German: @LPkkjHD, @manuelgu, @BukkitTNT, philipp0002, @McLive, @Cl1608Ho and @monjo44
 * Spanish: @paloke, @lockerecca, @talkahe, @mrlost, Dexkum and @Ariuw
 * Czech: SnooWiK
-* Norsk: @partydragen
+* Norsk: @partydragen and @OscarWoHA
 * Slovak: @Marki35
 * French: @CreaModZ
 * Dutch: Sander Jochems, @Azoraqua, @Headhunterzpw, @melerpe, @aycgit, @Derkades, smessie and @TheSander562
