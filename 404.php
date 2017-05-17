@@ -23,10 +23,11 @@ header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
 	<meta name="robots" content="noindex">
 	
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-
-    <title>404 &bull; <?php echo SITE_NAME; ?></title>
 	
-	<?php require('core/templates/header.php'); ?>
+	<?php
+	$title = '404';
+	require('core/templates/header.php');
+	?>
 	
 	<!-- Custom style -->
 	<style>
