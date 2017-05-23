@@ -2,7 +2,7 @@
 #
 # Portable PHP password hashing framework.
 #
-# Version 0.1 / genuine.
+# Version 0.1 / NamelessMC - PHP 7 update
 #
 # Written by Solar Designer <solar at openwall.com> in 2004-2006 and placed in
 # the public domain.
@@ -30,7 +30,7 @@ class PasswordHash {
     var $portable_hashes;
     var $random_state;
 
-    function PasswordHash($iteration_count_log2, $portable_hashes)
+    public function __construct($iteration_count_log2, $portable_hashes)
     {
         $this->itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
