@@ -101,7 +101,7 @@ $admin_page = 'minecraft';
                   <input name="enable_minecraft" type="checkbox"
                          class="js-switch js-check-change"<?php if ($minecraft_enabled == '1') { ?> checked<?php } ?>
                          value="1"/>
-                  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+                  <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
                 </form>
 
                   <?php
@@ -222,7 +222,7 @@ $admin_page = 'minecraft';
                             }
                         }
 
-                        $token = Token::generate();
+                        $token = Token::get();
 
                         // Is Authme enabled?
                         $authme_enabled = $queries->getWhere('settings', array('name', '=', 'authme'));

@@ -117,7 +117,7 @@ $admin_page = 'forums';
 				$forum_reactions = $forum_reactions[0]->value;
 				
 				// Form token
-				$token = Token::generate();
+				$token = Token::get();
 				?>
 
 				<div class="panel panel-default">
@@ -257,7 +257,7 @@ $admin_page = 'forums';
 								<textarea name="forumdesc" placeholder="<?php echo $forum_language->get('forum', 'forum_description'); ?>" class="form-control" rows="3"><?php echo Output::getClean(Input::get('forumdesc')); ?></textarea>
 							  </div>
 							  <div class="form-group">
-							    <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+							    <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 								<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 							  </div>
 							</form>
@@ -323,7 +323,7 @@ $admin_page = 'forums';
 										<input name="news_forum" id="InputNews" type="checkbox" class="js-switch" value="1" />
 									  </div>
 									  <div class="form-group">
-									    <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+									    <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 										<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 									  </div>
 									</form>
@@ -513,7 +513,7 @@ $admin_page = 'forums';
 								</tbody>	
 							  </table>
 							  <div class="form-group">
-							    <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+							    <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 								<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 							  </div>
 							</form>
@@ -676,7 +676,7 @@ $admin_page = 'forums';
 								}
 							  ?>
 							</select>
-						  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+						  <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 						  <input type="hidden" name="confirm" value="true">
 						  <br />
 						  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-danger">
@@ -857,7 +857,7 @@ $admin_page = 'forums';
 					}
 					
 					// Form token
-					$token = Token::generate();
+					$token = Token::get();
 					
 					if(!is_numeric($_GET['forum'])){
 						die();
@@ -1134,7 +1134,7 @@ $admin_page = 'forums';
 							  ?>
 							</select>
 						  </div>
-						  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+						  <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 						  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 						  <a href="<?php echo URL::build('/admin/forums/', 'view=labels'); ?>" class="btn btn-danger" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
 						</form>
@@ -1263,7 +1263,7 @@ $admin_page = 'forums';
 								?>
 							  </select>
 							</div>
-							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+							<input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 							<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 							<a class="btn btn-danger" href="<?php echo URL::build('/admin/forums/', 'view=labels'); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
 						  </form>
@@ -1386,7 +1386,7 @@ $admin_page = 'forums';
 							<label for="label_html"><?php echo $forum_language->get('forum', 'label_type_html'); ?></label> <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $forum_language->get('forum', 'label_type_html_help'); ?>"></i></span><br />
 							<input type="text" name="label_html" placeholder="<span class=&quot;tag tag-primary&quot;>{x}</span>" id="label_type_html" class="form-control">
 						  </div>
-						  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+						  <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 						  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 						  <a href="<?php echo URL::build('/admin/forums/', 'view=labels&amp;action=types'); ?>" class="btn btn-danger" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
 						</form>
@@ -1471,7 +1471,7 @@ $admin_page = 'forums';
 							  <label for="label_html"><?php echo $forum_language->get('forum', 'label_type_html'); ?></label> <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $forum_language->get('forum', 'label_type_html_help'); ?>"></i></span><br />
 							  <input type="text" name="label_html" placeholder="<span class=&quot;tag tag-primary&quot;>Primary</span>" id="label_html" value="<?php echo Output::getClean($label->html); ?>" class="form-control">
 							</div>
-							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+							<input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 							<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 							<a class="btn btn-danger" href="<?php echo URL::build('/admin/forums/', 'view=labels'); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
 						  </form>

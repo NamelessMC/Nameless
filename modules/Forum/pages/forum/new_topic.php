@@ -183,7 +183,7 @@ if(Input::exists()) {
 }
 
 // Generate a token
-$token = Token::generate();
+$token = Token::get();
 
 ?>
 <!DOCTYPE html>

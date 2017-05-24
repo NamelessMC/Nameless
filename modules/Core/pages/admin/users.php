@@ -348,7 +348,7 @@ require('core/includes/password.php'); // Password compat library
 								<input class="form-control" type="password" name="password" id="password" placeholder="<?php echo $language->get('user', 'password'); ?>">
 							</div>
 							<input class="form-control" type="password" name="password_again" id="password_again" placeholder="<?php echo $language->get('user', 'confirm_password'); ?>">	
-							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>"><br />
+							<input type="hidden" name="token" value="<?php echo Token::get(); ?>"><br />
 							<strong><?php echo $language->get('admin', 'group'); ?></strong>
 							<select name="group" id="group" size="5" class="form-control">
 							  <?php
@@ -632,7 +632,7 @@ require('core/includes/password.php'); // Password compat library
 							$individual = $queries->getWhere('users', array('id', '=', $_GET['user']));
 						}
 						if(count($individual)){
-							$token = Token::generate();
+							$token = Token::get();
 							
 							echo '<br /><br /><h4 style="display: inline;">' . Output::getClean($individual[0]->username) . '</h4>';
 							?>

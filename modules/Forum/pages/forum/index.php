@@ -63,7 +63,7 @@ if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group 
 	$smarty->assign(array(
 		'SEARCH_URL' => URL::build('/forum/search'),
 		'SEARCH' => $language->get('general', 'search'),
-		'TOKEN' => Token::generate()
+		'TOKEN' => Token::get()
 	));
 	
 	// Server status module

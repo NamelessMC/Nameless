@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -320,7 +320,7 @@ require('core/templates/cc_navbar.php');
 				'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
 				'CANCEL_LINK' => URL::build('/user/messaging'),
 				'SUBMIT' => $language->get('general', 'submit'),
-				'TOKEN' => Token::generate(),
+				'TOKEN' => Token::get(),
 				'MESSAGE_TITLE' => $language->get('user', 'message_title'),
 				'MESSAGE_TITLE_VALUE' => (isset($_POST['title']) ? Output::getPurified($_POST['title']) : ''),
 				'CONTENT' => (isset($_POST['content']) ? Output::getPurified($_POST['content']) : ''),
@@ -474,7 +474,7 @@ require('core/templates/cc_navbar.php');
 				'PARTICIPANTS' => $participants,
 				'MESSAGES' => $template_array,
 				'NEW_REPLY' => $language->get('user', 'new_reply'),
-				'TOKEN' => Token::generate(),
+				'TOKEN' => Token::get(),
 				'SUBMIT' => $language->get('general', 'submit')
 			));
 			

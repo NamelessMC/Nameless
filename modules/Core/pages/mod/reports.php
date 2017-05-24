@@ -205,7 +205,7 @@ $timeago = new Timeago(TIMEZONE);
 				'NO_COMMENTS' => $language->get('moderator', 'no_comments'),
 				'NEW_COMMENT' => $language->get('moderator', 'new_comment'),
 				'SUBMIT' => $language->get('general', 'submit'),
-				'TOKEN' => Token::generate(),
+				'TOKEN' => Token::get(),
 				'ERROR' => (isset($error) ? $error : false),
 				'TYPE' => $report->type
 			));

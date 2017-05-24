@@ -203,7 +203,7 @@ if(Input::exists()) {
 
 // Generate a post token
 if($user->isLoggedIn()){
-	$token = Token::generate();
+	$token = Token::get();
 }
 
 // View count

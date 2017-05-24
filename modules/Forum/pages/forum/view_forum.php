@@ -102,7 +102,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 	$smarty->assign(array(
 		'SEARCH_URL' => URL::build('/forum/search'),
 		'SEARCH' => $language->get('general', 'search'),
-		'TOKEN' => Token::generate()
+		'TOKEN' => Token::get()
 	));
 	
 	// Breadcrumbs and search bar - same for latest discussions view + table view

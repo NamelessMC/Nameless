@@ -265,7 +265,7 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 		if($user->isLoggedIn()){
 			// Form token
 			$smarty->assign(array(
-				'TOKEN' => Token::generate(),
+				'TOKEN' => Token::get(),
 				'LOGGED_IN' => true,
 				'SUBMIT' => $language->get('general', 'submit'),
 				'CANCEL' => $language->get('general', 'cancel')

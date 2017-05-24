@@ -158,7 +158,7 @@ $admin_page = 'users_and_groups';
 						}
 						
 						// Generate token for form
-						$token = Token::generate();
+						$token = Token::get();
 						
 						if(isset($validation)){
 							if(!$validation->passed()){
@@ -297,7 +297,7 @@ $admin_page = 'users_and_groups';
 					}
 					
 					// Generate token for form
-					$token = Token::generate();
+					$token = Token::get();
 					
 					if(!is_numeric($_GET["group"])){
 						$group = $queries->getWhere("groups", array("name", "=", $_GET["group"]));

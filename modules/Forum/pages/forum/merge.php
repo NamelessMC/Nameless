@@ -81,7 +81,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id)){
 	die();
 }
 
-$token = Token::generate();
+$token = Token::get();
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
@@ -119,7 +119,7 @@ $token = Token::generate();
 	$smarty->assign(array(
 		'MERGE_TOPICS' => $forum_language->get('forum', 'merge_topics'),
 		'MERGE_INSTRUCTIONS' => $forum_language->get('forum', 'merge_instructions'),
-		'TOKEN' => Token::generate(),
+		'TOKEN' => Token::get(),
 		'SUBMIT' => $language->get('general', 'submit'),
 		'CANCEL' => $language->get('general', 'cancel'),
 		'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),

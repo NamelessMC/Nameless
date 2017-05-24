@@ -58,7 +58,7 @@ if(Input::exists()){
 }
 
 // Generate token for multiple forms
-$token = Token::generate();
+$token = Token::get();
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">

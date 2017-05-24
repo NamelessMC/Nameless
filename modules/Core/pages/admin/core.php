@@ -332,7 +332,7 @@ $current_default_language = $current_default_language[0]->value;
 				  </select>
 				</div>
 				<br />
-				<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+				<input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 				<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 			  </form>
 						<?php
@@ -503,7 +503,7 @@ $current_default_language = $current_default_language[0]->value;
 				</div>
 
 				<div class="form-group">
-				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+				  <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 				  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 				</div>
 			  </form>
@@ -590,7 +590,7 @@ $current_default_language = $current_default_language[0]->value;
 								}
 
 								// Generate form token
-								$token = Token::generate();
+								$token = Token::get();
 
 								?>
 			  <h4 style="display:inline;"><?php echo $language->get('admin', 'editing_profile_field'); ?></h4>
@@ -782,7 +782,7 @@ $current_default_language = $current_default_language[0]->value;
 				</div>
 
 				<div class="form-group">
-				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+				  <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 				  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
 				</div>
 			 </form>
@@ -876,7 +876,7 @@ $current_default_language = $current_default_language[0]->value;
 				</div>
 
 				<div class="form-group">
-				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+				  <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 				  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
 				</div>
 			 </form>
@@ -1000,7 +1000,7 @@ $current_default_language = $current_default_language[0]->value;
 								<label for="InputFacebook"><?php echo $language->get('admin', 'facebook_url'); ?></label>
 								<input type="text" name="fburl" class="form-control" id="InputFacebook" placeholder="<?php echo $language->get('admin', 'facebook_url'); ?>" value="<?php echo Output::getClean($fb_url[0]->value); ?>">
 							</div>
-							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+							<input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 							<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 						</form>
 						<?php
@@ -1099,7 +1099,7 @@ $current_default_language = $current_default_language[0]->value;
                               <textarea style="width:100%" rows="10" name="message" id="InputMaintenanceMessage"><?php echo Output::getPurified((isset($_POST['message']) ? $_POST['message'] : $maintenance['message'])); ?></textarea>
                             </div>
                             <div class="form-group">
-                              <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+                              <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
                               <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
                             </div>
                           </form>

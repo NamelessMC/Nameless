@@ -284,7 +284,7 @@ if(Input::exists()){
 	}
 	
 	$smarty->assign(array(
-		'TOKEN' => Token::generate(),
+		'TOKEN' => Token::get(),
 		'SUBMIT' => $language->get('general', 'submit'),
 		'CANCEL' => $language->get('general', 'cancel'),
 		'CANCEL_LINK' => URL::build('/forum/view_topic/', 'tid=' . $topic_id . '&pid=' . $post_id),

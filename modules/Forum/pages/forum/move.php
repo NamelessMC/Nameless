@@ -122,7 +122,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id)){
 	$smarty->assign(array(
 		'MOVE_TOPIC' => $forum_language->get('forum', 'move_topic'),
 		'MOVE_TO' => $forum_language->get('forum', 'move_topic_to'),
-		'TOKEN' => Token::generate(),
+		'TOKEN' => Token::get(),
 		'SUBMIT' => $language->get('general', 'submit'),
 		'CANCEL' => $language->get('general', 'cancel'),
 		'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),

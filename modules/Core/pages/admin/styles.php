@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -211,7 +211,7 @@ $admin_styles = true;
 						  </div>
 						  <br />
 						  <div class="form-group">
-							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+							<input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 							<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 							<a href="<?php echo URL::build('/admin/styles/', 'tid=' . $template->id); ?>" class="btn btn-warning" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
 						  </div>

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -141,7 +141,7 @@ define('PAGE', 'mod_ip_lookup');
 		'MOD_CP' => $language->get('moderator', 'mod_cp'),
 		'IP_LOOKUP' => $language->get('moderator', 'ip_lookup'),
 		'SUBMIT' => $language->get('general', 'submit'),
-		'TOKEN' => Token::generate()
+		'TOKEN' => Token::get()
 	));
 	
 	$smarty->display('custom/templates/' . TEMPLATE . '/mod/ip_lookup.tpl');

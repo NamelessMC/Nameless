@@ -107,7 +107,7 @@ $admin_page = 'auth';
                   <input type="password" name="password" id="password" class="form-control" placeholder="<?php echo $language->get('user', 'password'); ?>" tabindex="4">
                 </div>
 
-                <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+                <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
                 <center>
                   <input type="submit" value="<?php echo $language->get('general', 'sign_in'); ?>" class="btn btn-primary btn-lg text-center mx-auto" tabindex="5">
                   <a href="<?php echo URL::build('/'); ?>" class="btn btn-danger btn-lg text-center mx-auto"><?php echo $language->get('general', 'back'); ?></a>

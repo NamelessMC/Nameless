@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -141,7 +141,7 @@ if(isset($_GET['do'])){
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 		'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
 		'SUBMIT' => $language->get('general', 'submit'),
-		'TOKEN' => Token::generate(),
+		'TOKEN' => Token::get(),
 		'CANCEL' => $language->get('general', 'cancel'),
 		'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa')
 	));
@@ -452,7 +452,7 @@ if(isset($_GET['do'])){
 		'LANGUAGES' => $languages,
 		'PROFILE_FIELDS' => $custom_fields_template,
 		'SUBMIT' => $language->get('general', 'submit'),
-		'TOKEN' => Token::generate(),
+		'TOKEN' => Token::get(),
 		'ERROR' => (isset($error) ? $error : false),
 		'SUCCESS' => (isset($success) ? $success : false),
 		'CHANGE_PASSWORD' => $language->get('user', 'change_password'),

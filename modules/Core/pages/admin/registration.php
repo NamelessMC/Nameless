@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -60,7 +60,7 @@ $registration_enabled = $queries->getWhere('settings', array('name', '=', 'regis
 $registration_enabled = $registration_enabled[0]->value;
 
 // Generate form token
-$token = Token::generate();
+$token = Token::get();
 
 ?>
 <!DOCTYPE html>
