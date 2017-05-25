@@ -49,6 +49,7 @@ $language = array(
 	'invalid_tfa' => 'Código inválido, por favor tente novamente.',
 	'tfa_successful' => 'Autenticação em dois fatores configurado com sucesso. Você precisará se autenticar toda vez que você fizer login a partir de agora.',
 	'active_language' => 'Linguagem Ativa',
+    'timezone' => 'Timezone',
 	
 	// Alerts
 	'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}

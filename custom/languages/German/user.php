@@ -56,6 +56,7 @@ $language = array(
 	'invalid_tfa' => 'Ungültiger Code, versuche es erneut.',
 	'tfa_successful' => '2 Schritt Authentifizierung wurde aktiviert.',
 	'active_language' => 'Ausgewählte Sprache:',
+    'timezone' => 'Timezone',
 	
 	// Alerts
 	'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace {x}

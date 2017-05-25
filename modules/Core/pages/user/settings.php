@@ -194,14 +194,17 @@ if(isset($_GET['do'])){
 				if($validation->passed()){
 					// Update profile fields
 					try {
-						// Update language
+						// Update language and timezone
 						$new_language = $queries->getWhere('languages', array('name', '=', Input::get('language')));
 						
 						if(count($new_language)) $new_language = $new_language[0]->id;
 						else $new_language = $user->data()->language_id;
+
+						$timezone = Input::get('timezone');
 						
 						$queries->update('users', $user->data()->id, array(
-							'language_id' => $new_language
+							'language_id' => $new_language,
+              'timezone' => $timezone
 						));
 						
 						foreach($_POST as $key => $item){
@@ -459,7 +462,10 @@ if(isset($_GET['do'])){
 		'CURRENT_PASSWORD' => $language->get('user', 'current_password'),
 		'NEW_PASSWORD' => $language->get('user', 'new_password'),
 		'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
-		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth')
+		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
+    'TIMEZONE' => $language->get('user', 'timezone'),
+    'TIMEZONES' => Util::listTimezones(),
+    'SELECTED_TIMEZONE' => $user->data()->timezone
 	));
 	
 	if($user->data()->tfa_enabled == 1){

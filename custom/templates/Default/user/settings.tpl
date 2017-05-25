@@ -32,7 +32,16 @@
   				<option value="{$language.name}"{if $language.active == true} selected{/if}>{$language.name}</option>
   				{/foreach}
   			  </select>
-			  </div>
+			</div>
+
+			<div class="form-group">
+			  <label for="inputTimezone">{$TIMEZONE}</label>
+			  <select name="timezone" class="form-control" id="inputTimezone">
+				  {foreach from=$TIMEZONES key=KEY item=ITEM}
+				    <option value="{$KEY}"{if $SELECTED_TIMEZONE eq $KEY} selected{/if}>({$ITEM.offset}) - {$ITEM.name} ({$ITEM.time})</option>
+				  {/foreach}
+			  </select>
+			</div>
 
 
 		    {foreach from=$PROFILE_FIELDS item=field}

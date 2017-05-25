@@ -73,18 +73,6 @@ if($page != 'install'){
 	$cache->setCache('page_load_cache');
 	$page_loading = $cache->retrieve('page_load');
 
-	// Set timezone
-	try {
-		$cache->setCache('timezone_cache');
-		if($cache->isCached('timezone')){
-			define('TIMEZONE', $cache->retrieve('timezone'));
-		} else define('TIMEZONE', 'Europe/London');
-
-		date_default_timezone_set(TIMEZONE);
-	} catch(Exception $e){
-		die('Unable to set timezone: ' . $e->getMessage());
-	}
-
 	// Error reporting
 	$cache->setCache('error_cache');
 	if($cache->isCached('error_reporting')){
@@ -164,6 +152,22 @@ if($page != 'install'){
 
 	// Remove the trailing /
 	if(strlen($directory) > 1) $directory = rtrim($directory, '/');
+
+    // Set timezone
+    try {
+        if($user->isLoggedIn()){
+            define('TIMEZONE', $user->data()->timezone);
+        } else {
+            $cache->setCache('timezone_cache');
+            if($cache->isCached('timezone')){
+                define('TIMEZONE', $cache->retrieve('timezone'));
+            } else define('TIMEZONE', 'Europe/London');
+        }
+
+        date_default_timezone_set(TIMEZONE);
+    } catch(Exception $e){
+        die('Unable to set timezone: ' . $e->getMessage());
+    }
 
 	// Language
 	if(!$user->isLoggedIn() || !($user->data()->language_id)){

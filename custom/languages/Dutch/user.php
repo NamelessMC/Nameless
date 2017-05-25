@@ -50,6 +50,7 @@ $language = array(
 	'invalid_tfa' => 'Verkeerde code, probeer opnieuw.',
 	'tfa_successful' => 'Twee factor authenticatie succesvol ingesteld. Je moet nu elke keer een code hebben om in te kunnen loggen.',
 	'active_language' => 'Actieve taal',
+    'timezone' => 'Timezone',
 	
 	// Meldingen
 	'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet

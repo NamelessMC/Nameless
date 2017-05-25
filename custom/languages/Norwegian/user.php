@@ -48,6 +48,7 @@ $language = array(
 	'invalid_tfa' => 'Ugyldig kode, prøv igjen.',
 	'tfa_successful' => 'To-stegs-verifikasjon fullført.',
 	'active_language' => 'Språk',
+    'timezone' => 'Timezone',
 	
 	// Alerts
 	'user_tag_info' => 'Du har blitt tagget i et innlegg av {x}.', // Don't replace {x}

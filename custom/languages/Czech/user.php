@@ -48,6 +48,7 @@ $language = array(
 	'invalid_tfa' => 'Špatný kód.',
 	'tfa_successful' => 'Dvoufázové ověření bylo úspěšně nastaveno.Nyní budeš pokaždé vyzván pro ověření přihlášení.',
 	'active_language' => 'Aktivní jazyk',
+    'timezone' => 'Timezone',
 	
 	// Alerts
 	'user_tag_info' => 'Byl jsi označen v příspěvku {x}.', // Don't replace {x}
