@@ -18,10 +18,10 @@ header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Samerton">
+    <meta name="author" content="<?php echo $sitename; ?>">
     <link rel="icon" href="/core/assets/favicon.ico">
 
-    <title>404</title>
+    <title>404 &bull; <?php echo $sitename; ?></title>
 	
 	<link href="/core/assets/css/bootstrap.min.css" rel="stylesheet">
 
