@@ -1,0 +1,115 @@
+/*
+ * CoLWI v0.9.3
+ * Setup JSON application or Page
+ * Copyright (c) 2015-2016 SimonOrJ
+ */
+html {
+  overflow-y:scroll;
+}
+body {
+  position:relative;
+  padding-top: 7rem;
+}
+#scroll-nav {
+  max-height:54px;
+}
+#top {
+  margin-bottom:.75rem;
+}
+/* Minecraft font. All rights belongs to the creator which I don't exactly know.
+ * Please credit the person if you do know. */
+@font-face {
+    font-family: Minecraft;
+    src: url(../font/Minecraft.woff);
+}
+.navbar {
+    padding: 0;
+}
+select.form-control:not([size]):not([multiple]) {
+    height: 3.9rem;
+}
+.mcSign {
+  display:inline-block;
+  width:12rem;
+  height:6rem;
+  padding:.5rem 0;
+  line-height:1.24rem;
+  text-align:center;
+  white-space:pre;
+  font-family: Minecraft;
+  background: #A88953 url("../img/sign.png") no-repeat;
+  background-size: cover;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;   /* IE8+                */
+}
+.center {
+  text-align:center;
+}
+.cPointer {
+  cursor:pointer;
+}
+form label {
+  white-space:nowrap;
+}
+/* Bootstrap Style Overwrites */
+.btn {
+  margin-bottom:0;
+}
+.table-striped tbody tr:nth-of-type(odd) .table-warning {
+  background-color:#fbf6dd;
+}
+.table-striped tbody tr:nth-of-type(odd) .table-info {
+  background-color:#d2e9f5;
+}
+.table-striped tbody tr:nth-of-type(odd).table-success>td {
+  background-color:#d9edd1;
+}
+.table-striped tbody tr.table-success>td.table-warning{
+  background-color:#edf6e6;
+}
+.table-striped tbody tr:nth-of-type(odd).table-success>.table-warning {
+  background-color:#eaf5e2;
+}
+.table-striped tbody tr.table-success>td.table-info{
+  background-color:#e9f6e9;
+}
+.table-striped tbody tr:nth-of-type(odd).table-success>.table-info {
+  background-color:#e5f4e5;
+}
+.table-section th{
+  color: #55595c;
+  background-color: #eceeef;
+}
+.rColl>.collapse-toggle,.rDrop>.dropdown-toggle {
+    border-radius:.25rem;
+    cursor:pointer;
+    display:inline-block;
+}
+.rColl>.collapse-toggle:hover,.rDrop>.dropdown-toggle:hover {
+  background:rgba(0,0,0,.1);
+  color:#373A3C
+}
+.rColl>.collapse-toggle.active,.rColl>.collapse-toggle.fosuc,.rColl>.collapse-toggle:active,.rColl>.collapse-toggle:focus,.rDrop>.dropdown-toggle.active,.rDrop>.dropdown-toggle.focus,.rDrop>.dropdown-toggle:active,.rDrop>.dropdown-toggle:focus,.open.rDrop>.dropdown-toggle {
+  background:rgba(0,0,0,.32);
+}
+.rDrop>.dropdown-toggle::after {
+  display:none;
+}
+.collapse-toggle::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-right: .25rem;
+  margin-left: .25rem;
+  vertical-align: middle;
+  content: "";
+  border-top: .3em solid;
+  border-right: .3em solid transparent;
+  border-left: .3em solid transparent;
+}
+@media(max-width:991px) {
+.groups-line {
+  margin-bottom: 1rem;
+}
+}
