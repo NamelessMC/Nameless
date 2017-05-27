@@ -426,7 +426,7 @@ class Forum {
 
 		// Order the discussions by date - most recent first
 		usort($return, function($a, $b) {
-			return $b['topic_date'] - $a['topic_date'];
+			return strtotime($b['topic_date']) - strtotime($a['topic_date']);
 		});
 
 		return array_slice($return, 0, $number, true);
