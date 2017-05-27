@@ -130,6 +130,10 @@ $admin_page = 'overview';
 	// Get data for members statistics graph
 	$latest_members = $queries->orderWhere('users', 'joined > ' . strtotime("-1 week"), 'joined', 'ASC');
 
+	// Get data for topics and posts
+  $latest_topics = $queries->orderWhere('topics', 'topic_date > ' . strtotime("-1 week"), 'topic_date', 'ASC');
+  $latest_posts = $queries->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime("-1 week")) . '"', 'post_date', 'ASC');
+
 	// Output array
 	$output = array();
 
@@ -139,12 +143,34 @@ $admin_page = 'overview';
 		$date = date('d M Y', $member->joined);
 		$date = strtotime($date);
 
-		if(isset($output[$date])){
-			$output[$date] = $output[$date] + 1;
+		if(isset($output[$date]['users'])){
+			$output[$date]['users'] = $output[$date]['users'] + 1;
 		} else {
-			$output[$date] = 1;
+			$output[$date]['users'] = 1;
 		}
 	}
+
+	foreach($latest_topics as $topic){
+	  $date = date('d M Y', $topic->topic_date);
+	  $date = strtotime($date);
+
+	  if(isset($output[$date]['topics'])){
+	    $output[$date]['topics'] = $output[$date]['topics'] + 1;
+    } else {
+	    $output[$date]['topics'] = 1;
+    }
+  }
+
+  foreach($latest_posts as $post){
+      $date = date('d M Y', strtotime($post->post_date));
+      $date = strtotime($date);
+
+      if(isset($output[$date]['posts'])){
+          $output[$date]['posts'] = $output[$date]['posts'] + 1;
+      } else {
+          $output[$date]['posts'] = 1;
+      }
+  }
 
 	// Fill in missing dates, set registrations to 0
 	$start = strtotime("-1 week");
@@ -152,9 +178,15 @@ $admin_page = 'overview';
 	$start = strtotime($start);
 	$end = strtotime(date('d M Y'));
 	while($start <= $end){
-		if(!isset($output[$start])){
-			$output[$start] = 0;
-		}
+		if(!isset($output[$start]['users']))
+      $output[$start]['users'] = 0;
+
+    if(!isset($output[$start]['topics']))
+      $output[$start]['topics'] = 0;
+
+    if(!isset($output[$start]['posts']))
+      $output[$start]['posts'] = 0;
+
 		$start = $start + 86400;
 	}
 
@@ -164,12 +196,18 @@ $admin_page = 'overview';
 	// Turn into string for graph
 	$labels = '';
 	$registration_data = '';
+	$topics_data = '';
+	$posts_data = '';
 	foreach($output as $date => $member){
 		$labels .= '"' . date('D', $date) . '", ';
-		$registration_data .= $member . ', ';
+		$registration_data .= $member['users'] . ', ';
+		$topics_data .= $member['topics'] . ', ';
+		$posts_data .= $member['posts'] . ', ';
 	}
 	$labels = '[' . rtrim($labels, ', ') . ']';
 	$registration_data = '[' . rtrim($registration_data, ', ') . ']';
+	$topics_data = '[' . rtrim($topics_data, ', ') . ']';
+	$posts_data = '[' . rtrim($posts_data, ', ') . ']';
 	?>
 
 	<script type="text/javascript">
@@ -187,7 +225,25 @@ $admin_page = 'overview';
 					pointBackgroundColor: "#fff",
 					tension: 0.1,
 					data: <?php echo $registration_data; ?>
-				}
+				},
+        {
+          label: "Topics",
+          fill: false,
+          borderColor: "#0004FF",
+          pointBorderColor: "#0004FF",
+          pointBackgroundColor: "#fff",
+          tension: 0.1,
+          data: <?php echo $topics_data; ?>
+        },
+        {
+          label: "Posts",
+          fill: false,
+          borderColor: "#00931D",
+          pointBorderColor: "#00931D",
+          pointBackgroundColor: "#fff",
+          tension: 0.1,
+          data: <?php echo $posts_data; ?>
+        },
 			]
 		}
 
