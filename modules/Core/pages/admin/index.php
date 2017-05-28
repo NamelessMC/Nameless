@@ -93,9 +93,21 @@ $admin_page = 'overview';
                             echo '<div class="row">';
                         else if(($n + 1) % 2 == 0)
                             echo '</div><div class="row">';
+						
+						switch($result->status){
+							case 'Online':
+								$status = 'success';
+							break;
+							case 'Slow':
+								$status = 'warning';
+							break;
+							default:
+								$status = 'danger';
+							break;
+						}
                         ?>
                         <div class="col-6">
-                          <div class="card card-inverse card-<?php echo (($result->status == 'Online') ? 'success' : 'danger'); ?> mb-3">
+                          <div class="card card-inverse card-<?php echo $status; ?> mb-3">
                             <div class="card-block">
                               <h4 class="card-title"><?php echo Output::getClean($key); ?></h4>
                               <p class="card-text"><?php echo Output::getClean($result->status); ?></p>
