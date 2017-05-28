@@ -17,6 +17,7 @@ if($user->isLoggedIn()){
  
 // Set page name for custom scripts
 $page = 'register';
+define('PAGE', 'register');
 
 // Check if Minecraft is enabled
 $minecraft = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
