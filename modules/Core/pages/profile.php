@@ -459,7 +459,7 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 				$fields[] = array(
 					'title' => Output::getClean($profile_field->name),
 					'type' => $type,
-					'value' => Output::getPurified(htmlspecialchars_decode($field->value))
+					'value' => Output::getPurified(Util::urlToAnchorTag(htmlspecialchars_decode($field->value)))
 				);
 			}
 		}

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -56,8 +56,12 @@ class Input {
 			window.path = "' . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . '";
 			
 			CKEDITOR.replace( \'' . $name . '\', {
+				extraPlugins: \'codesnippetgeshi\',
+				codeSnippetGeshi_url: \'' . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/includes/geshi/colorize.php\',
+				
 				extraAllowedContent: \'blockquote(blockquote)\',
 				// Define the toolbar groups as it is a more accessible solution.
+
 				toolbarGroups: [
 					{"name":"basicstyles","groups":["basicstyles"]},
 					{"name":"paragraph","groups":["list","align"]},
@@ -65,11 +69,11 @@ class Input {
 					{"name":"colors","groups":["colors"]},
 					{"name":"links","groups":["links"]},
 					{"name":"insert","groups":["insert"]}
-					//{"name" : "pbckcode"}
 				],
-				// Remove the redundant buttons from toolbar groups defined above.
+				
 				removeButtons: \'Anchor,Styles,Specialchar,Font,About,Flash,Iframe,Smiley\'
 			} );
+			CKEDITOR.config.fontawesomePath = path + \'core/assets/css/font-awesome.min.css\';
 			CKEDITOR.config.disableNativeSpellChecker = false;
 			CKEDITOR.config.width = "auto";
 			CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;

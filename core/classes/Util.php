@@ -108,4 +108,63 @@ class Util {
 		return $timezones;
 	}
 	
+	// Transform any plain-text URLs in a string to an HTML anchor tag with href attribute
+	// Regex pattern credit: https://daringfireball.net/2010/07/improved_regex_for_matching_urls
+	// "This pattern is free for anyone to use, no strings attached. Consider it public domain."
+	public static function urlToAnchorTag($text){
+	   $pattern = '#(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)/)(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’])|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)\b/?(?!@)))#';
+	   $callback = create_function('$matches', '
+		   $url = array_shift($matches);
+		   $url_parts = parse_url($url);
+
+		   $text = parse_url($url, PHP_URL_HOST) . parse_url($url, PHP_URL_PATH);
+		   $text = preg_replace("/^www./", "", $text);
+
+		   $last = -(strlen(strrchr($text, "/"))) + 1;
+		   if($last < 0){
+		       $text = substr($text, 0, $last) . "&hellip;";
+		   }
+
+		   return sprintf(\'<a rel="nofollow" target="_blank" href="%s">%s</a>\', $url, $text);
+	   ');
+
+	   return preg_replace_callback($pattern, $callback, $text);
+	}
+	
+	// Parse text with Geshi
+	public static function parseGeshi($content = null){
+		if($content){
+			require_once('core/includes/geshi/geshi.php');
+			
+			$dom = new DOMDocument;
+
+			$dom->loadHTML($content);
+			
+			$codeTags = $dom->getElementsByTagName('code');
+			
+			$string = '';
+			
+			foreach($codeTags as $code){
+				if($code->hasAttributes()){
+					foreach($code->attributes as $attribute){
+						if($attribute->name == 'class'){
+							$class = $attribute->value;
+							
+							if(substr($class, 0, 9) == 'language-'){
+								// Parse with GeSHi
+								$language = substr($class, 9);
+								$geshi = new GeSHi($code->nodeValue, $language);
+								$string .= $geshi->parse_code();
+								
+							}
+						}
+					}
+				}
+			}
+			
+			return $string;
+		}
+		return false;
+	}
+	
 }
