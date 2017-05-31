@@ -36,7 +36,10 @@ class Cookie {
 	// Delete a cookie
 	// Params: $name (string) - name of cookie to delete
 	public static function delete($name){
-		self::put($name, '', time() - 1);
+		if(setcookie($name, '', time() - 1, '/')){
+			return true;
+		}
+		return false;
 	}
 	
 }

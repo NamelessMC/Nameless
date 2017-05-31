@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -11,6 +11,7 @@
 
 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found"); 
 
+define('PAGE', 404);
 ?>
 
 <!DOCTYPE html>

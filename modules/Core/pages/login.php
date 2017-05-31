@@ -167,7 +167,7 @@ if(Input::exists()){
 					// Yes
 					
 					// Redirect to a certain page?
-					if(isset($_SESSION['last_page'])){
+					if(isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '='){
 						Redirect::to($_SESSION['last_page']);
 						die();
 						

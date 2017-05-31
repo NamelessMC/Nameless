@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -68,8 +68,12 @@ if(FRIENDLY_URLS == true){
 } else {
 	// Friendly URLs are disabled
 	if(!isset($_GET['route']) || $_GET['route'] == '/'){
-		// Homepage
-		require('modules/Core/pages/index.php');
+		if(count($directories) > 1 && (!isset($_GET['route']) || (isset($_GET['route']) && $_GET['route'] != '/')))
+			require('404.php');
+		else
+			// Homepage
+			require('modules/Core/pages/index.php');
+
 	} else {
 		if(!isset($route)) $route = rtrim($_GET['route'], '/');
 
@@ -79,6 +83,7 @@ if(FRIENDLY_URLS == true){
 		// Include the page
 		if(array_key_exists($route, $modules)){
 			$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']));
+			
 			if(!file_exists($path)) require('404.php'); else require($path);
 			die();
 		} else {

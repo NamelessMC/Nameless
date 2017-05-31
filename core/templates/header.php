@@ -11,7 +11,15 @@
  
 // Set current page URL in session, provided it's not the login page
 if(defined('PAGE') && PAGE != 'login'){
-	$_SESSION['last_page'] = URL::build((FRIENDLY_URLS === true ? $directory : (isset($route) ? $route : '/')));
+	if(FRIENDLY_URLS === true){
+		$split = explode('?', $_SERVER['REQUEST_URI']);
+
+		if(count($split) > 1)
+			$_SESSION['last_page'] = URL::build($split[0], $split[1]);
+		else
+			$_SESSION['last_page'] = URL::build($split[0]);
+	} else
+		$_SESSION['last_page'] = $directory;
 }
 ?>
 
