@@ -95,7 +95,7 @@ $admin_page = 'security';
 				    <tr>
 					  <td><a target="_blank" style="<?php echo $user->getGroupClass($log->user_id); ?>" href="<?php echo URL::build('/profile/' . Output::getClean($user->idToName($log->user_id))); ?>"><?php echo Output::getClean($user->idToNickname($log->user_id)); ?></a></td>
 					  <td><a target="_blank" href="<?php echo URL::build('/mod/ip_lookup/', 'ip=' . Output::getClean($log->ip)); ?>"><?php echo Output::getClean($log->ip); ?></a></td>
-					  <td><?php echo date('jS M Y, g:iA', $log->time); ?></td>
+					  <td data-order="<?php echo $log->time; ?>"><?php echo date('jS M Y, g:iA', $log->time); ?></td>
 				    </tr>
 					<?php } ?>
 				  </tbody>
@@ -133,7 +133,7 @@ $admin_page = 'security';
 				    <tr>
 					  <td><a target="_blank" style="<?php echo $user->getGroupClass($log->user_id); ?>" href="<?php echo URL::build('/profile/' . Output::getClean($user->idToName($log->user_id))); ?>"><?php echo Output::getClean($user->idToNickname($log->user_id)); ?></a></td>
 					  <td><a target="_blank" href="<?php echo URL::build('/mod/ip_lookup/', 'ip=' . Output::getClean($log->ip)); ?>"><?php echo Output::getClean($log->ip); ?></a></td>
-					  <td><?php echo date('jS M Y, g:iA', $log->time); ?></td>
+					  <td data-order="<?php echo $log->time; ?>"><?php echo date('jS M Y, g:iA', $log->time); ?></td>
 					  <td><?php echo Output::getClean($log->info); ?></td>
 				    </tr>
 					<?php } ?>
@@ -169,7 +169,8 @@ $admin_page = 'security';
 					"infoEmpty": "<?php echo $language->get('table', 'no_records'); ?>",
 					"infoFiltered": "<?php echo $language->get('table', 'filtered'); ?>",
 					"search": "<?php echo $language->get('general', 'search'); ?> "
-				}
+				},
+                order: [[ 2, 'desc']]
             });
 		});
 	</script>
