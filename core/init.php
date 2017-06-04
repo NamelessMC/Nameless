@@ -63,11 +63,25 @@ if($page != 'install'){
 	// Friendly URLs?
 	define('FRIENDLY_URLS', Config::get('core/friendly'));
 
-	// Queries
-	$queries = new Queries();
-
 	// Set up cache
 	$cache = new Cache();
+
+	// Force https?
+    $cache->setCache('force_https_cache');
+    if($cache->isCached('force_https')) {
+        $force_https = $cache->retrieve('force_https');
+        if($force_https === true){
+            if($_SERVER["HTTPS"] != "on"){
+                // Redirect to https
+                header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+                die();
+            }
+        }
+    } else
+        $cache->store('force_https', false);
+
+    // Queries
+    $queries = new Queries();
 
 	// Page load timer?
 	$cache->setCache('page_load_cache');

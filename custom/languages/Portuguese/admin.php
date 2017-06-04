@@ -61,6 +61,8 @@ $language = array(
 	'successfully_updated' => 'Atualizado com sucesso!',
     'debugging_and_maintenance' => 'Debugging and Maintenance',
     'enable_debug_mode' => 'Enable debug mode?',
+    'force_https' => 'Force https?',
+    'force_https_help' => 'If enabled, all requests to your website will be redirected to https. You must have a valid SSL certificate active for this to work correctly.',
 
 	// Reactions
 	'icon' => 'Icone',

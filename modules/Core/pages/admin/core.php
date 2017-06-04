@@ -216,7 +216,7 @@ $current_default_language = $current_default_language[0]->value;
 									if(is_writable(join(DIRECTORY_SEPARATOR, array('core', 'config.php')))){
 
 									// Require config
-									if(isset($path)){
+									if(isset($path) && file_exists($path . 'core/config.php')){
 										$loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
 									} else {
 										$loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
@@ -231,6 +231,29 @@ $current_default_language = $current_default_language[0]->value;
 									Config::set('core/friendly', $friendly);
 
 									} else $errors = array($language->get('admin', 'config_not_writable'));
+
+									// Force HTTPS?
+                  if(Input::get('forceHTTPS') == 'true')
+                    $https = true;
+                  else
+                    $https = false;
+
+                  $force_https_id = $queries->getWhere('settings', array('name', '=', 'force_https'));
+                  if(count($force_https_id)){
+                    $force_https_id = $force_https_id[0]->id;
+                    $queries->update('settings', $force_https_id, array(
+                        'value' => $https
+                    ));
+                  } else {
+                    $queries->create('settings', array(
+                        'name' => 'force_https',
+                        'value' => $https
+                    ));
+                  }
+
+                  // Update cache
+                  $cache->setCache('force_https_cache');
+                  $cache->store('force_https', $https);
 
 									// Redirect in case URL type has changed
 									if(!isset($errors)){
@@ -325,12 +348,27 @@ $current_default_language = $current_default_language[0]->value;
 				  // Get friendly URL setting
 				  $friendly_url = Config::get('core/friendly');
 				  ?>
-				  <label for="inputFormatting"><?php echo $language->get('admin', 'use_friendly_urls'); ?></label> <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'use_friendly_urls_help'); ?>"></i></span>
+				  <label for="inputFriendlyURL"><?php echo $language->get('admin', 'use_friendly_urls'); ?></label> <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'use_friendly_urls_help'); ?>"></i></span>
 				  <select name="friendlyURL" class="form-control" id="inputFriendlyURL">
 				    <option value="true"<?php if($friendly_url == true){ ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
 					<option value="false"<?php if($friendly_url == false){ ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
 				  </select>
 				</div>
+        <div class="form-group">
+          <?php
+          // Get force SSL setting
+          $cache->setCache('force_https_cache');
+          if($cache->isCached('force_https'))
+            $force_https = $cache->retrieve('force_https');
+          else
+            $force_https = false;
+          ?>
+          <label for="inputForceHTTPS"><?php echo $language->get('admin', 'force_https'); ?></label> <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'force_https_help'); ?>"></i></span>
+          <select name="forceHTTPS" class="form-control" id="inputForceHTTPS">
+            <option value="true"<?php if($force_https === true){ ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
+            <option value="false"<?php if($force_https !== true){ ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
+          </select>
+        </div>
 				<br />
 				<input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 				<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
