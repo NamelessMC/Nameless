@@ -108,8 +108,8 @@ if(Input::exists()) {
 					
 					if($formatting == 'markdown'){
 						$content = Michelf\Markdown::defaultTransform(Input::get('content'));
-						$content = Output::getClean(Util::parseGeshi($content));
-					} else $content = Output::getClean(Util::parseGeshi(Input::get('content')));
+						$content = Output::getClean($content);
+					} else $content = Output::getClean(Input::get('content'));
 					
 					$queries->create("posts", array(
 						'forum_id' => $fid,

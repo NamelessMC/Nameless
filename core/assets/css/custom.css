@@ -547,6 +547,10 @@ a {
  line-height: 50px;
 }
 
+.forum_post {
+	word-wrap: break-word;
+}
+
 .forum_post img {
 	overflow: auto;
 	max-width: 100%

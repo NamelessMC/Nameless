@@ -37,6 +37,7 @@ class Output {
 		$purifierConfig->set('HTML.SafeIframe', true);
 		$purifierConfig->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
 		$purifierConfig->set('Core.EscapeInvalidTags', true);
+		$purifierConfig->set('AutoFormat.Linkify', true);
 		$purifier = new HTMLPurifier($purifierConfig);
 		
 		// Purify the string

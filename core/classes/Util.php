@@ -133,36 +133,53 @@ class Util {
 	
 	// Parse text with Geshi
 	public static function parseGeshi($content = null){
-		if($content){
-			require_once('core/includes/geshi/geshi.php');
-			
-			$dom = new DOMDocument;
+		if($content) {
+            require_once('core/includes/geshi/geshi.php');
 
-			$dom->loadHTML($content);
-			
-			$codeTags = $dom->getElementsByTagName('code');
-			
-			$string = '';
-			
-			foreach($codeTags as $code){
-				if($code->hasAttributes()){
-					foreach($code->attributes as $attribute){
-						if($attribute->name == 'class'){
-							$class = $attribute->value;
-							
-							if(substr($class, 0, 9) == 'language-'){
-								// Parse with GeSHi
-								$language = substr($class, 9);
-								$geshi = new GeSHi($code->nodeValue, $language);
-								$string .= $geshi->parse_code();
-								
-							}
-						}
-					}
-				}
-			}
-			
-			return $string;
+            $dom = new DOMDocument;
+
+            $dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+            $codeTags = $dom->getElementsByTagName('code');
+            $newCodeTags = array();
+            $ids = array();
+
+            $i = $codeTags->length - 1;
+
+            while ($i > -1) {
+                $code = $codeTags->item($i);
+                if ($code->hasAttributes()) {
+                    foreach ($code->attributes as $attribute) {
+                        if ($attribute->name == 'class') {
+                            $class = $attribute->value;
+
+                            if (substr($class, 0, 9) == 'language-') {
+                                // Parse with GeSHi
+                                $language = substr($class, 9);
+
+                                $geshi = new GeSHi($code->nodeValue, $language);
+                                $string = $geshi->parse_code();
+
+                                $newCodeTags[] = $string;
+
+                                $repl = $dom->createElement('span');
+
+                                $id = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 20);
+                                $ids[] = '<span id="' . $id . '"></span>';
+
+                                $repl->setAttribute('id', $id);
+
+                                $code->parentNode->replaceChild($repl, $code);
+                            }
+                        }
+                    }
+                }
+                $i--;
+            }
+
+            $content = $dom->saveHTML();
+
+            return str_replace($ids, $newCodeTags, $content);
 		}
 		return false;
 	}

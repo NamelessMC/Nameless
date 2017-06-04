@@ -134,8 +134,8 @@ if(Input::exists()){
 				
 				if($formatting == 'markdown'){
 					$content = Michelf\Markdown::defaultTransform(Input::get('content'));
-					$content = Output::getClean(Util::parseGeshi($content));
-				} else $content = Output::getClean(Util::parseGeshi(Input::get('content')));
+					$content = Output::getClean($content);
+				} else $content = Output::getClean(Input::get('content'));
 				
 				// Update post content
 				$queries->update("posts", $post_id, array(

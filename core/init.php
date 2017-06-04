@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -16,19 +16,19 @@ if(!isset($page)){
 	die();
 }
 
-if(!file_exists('core/config.php')){
-	if(is_writable('core')) {
-		fopen('core/config.php', 'w');
+if(!file_exists(ROOT_PATH . '/core/config.php')){
+	if(is_writable(ROOT_PATH . '/core')) {
+		fopen(ROOT_PATH . '/core/config.php', 'w');
 	} else {
 		die('Your <strong>core</strong> directory is not writable, please check your file permissions.');
 	}
 }
 
-if(!file_exists('cache/templates_c')){
+if(!file_exists(ROOT_PATH . '/cache/templates_c')){
 	try {
-		mkdir('cache/templates_c', 0777, true);
+		mkdir(ROOT_PATH . '/cache/templates_c', 0777, true);
 	} catch(Exception $e){
-		die('Unable to create cache directories, please check your file permissions.');
+		die('Unable to create /cache directories, please check your file permissions.');
 	}
 }
 
