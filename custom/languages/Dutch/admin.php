@@ -60,10 +60,10 @@ $language = array(
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Succesvol bijgewerkt',
-    'debugging_and_maintenance' => 'Debugging and Maintenance',
-    'enable_debug_mode' => 'Enable debug mode?',
-    'force_https' => 'Force https?',
-    'force_https_help' => 'If enabled, all requests to your website will be redirected to https. You must have a valid SSL certificate active for this to work correctly.',
+    	'debugging_and_maintenance' => 'Debugging en beheer',
+  	'enable_debug_mode' => 'Wilt u debug modus inschakelen?',
+    	'force_https' => 'Forceer https?',
+    	'force_https_help' => 'Als het aanstaat, worden alle verzoeken naar deze website doorgestuurd naar https. Je moet een geldig SSL certificaat die actief is hebben om dit te laten werken.',
 
 	// Reacties
 	'icon' => 'Icoon',
