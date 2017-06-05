@@ -39,14 +39,14 @@ if(is_file('pages/install.php')){
 	} else {
 		$page = 'install';
 		
-		require('core/init.php');
-		require('pages/install.php');
+		require 'core/init.php';
+		require 'pages/install.php';
 		die();
 	}
 }
 
 // Start initialising the page
-require('core/init.php');
+require 'core/init.php';
 
 // Load the main page content
 // Check if the page actually exists..
@@ -71,20 +71,20 @@ if(empty($directories[0]) && empty($directories[1])){
 
 // Include the page
 if(is_file($page_path)){
-	require($page_path);
+	require $page_path;
 } else {
 	if(is_file($page_path . '.php')){
-		require($page_path . '.php');
+		require $page_path . '.php';
 	} else {
 		if(is_dir($page_path)){
 			if(file_exists($page_path . '/index.php')){
-				require($page_path . '/index.php');
+				require $page_path . '/index.php';
 			}
 		} else {
 			// Profile page?
 			if($directories[1] == 'profile'){
 				if(isset($directories[2])) $profile = htmlspecialchars($directories[2]);
-				require('pages/profile.php');
+				require 'pages/profile.php';
 				// Kill the script
 				die();
 			}
@@ -92,7 +92,7 @@ if(is_file($page_path)){
 			// API?
 			if($directories[1] == 'api'){
 				if(is_file('pages' . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . $directories[2] . DIRECTORY_SEPARATOR . 'index.php')){
-					require('pages' . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . $directories[2] . DIRECTORY_SEPARATOR . 'index.php');
+					require 'pages' . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . $directories[2] . DIRECTORY_SEPARATOR . 'index.php';
 					die();
 				}
 			}
@@ -140,8 +140,7 @@ if(is_file($page_path)){
 			}
 			
 			// 404
-			require('404.php');
+			require '404.php';
 		}
 	}
 }
-?>
