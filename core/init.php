@@ -263,6 +263,13 @@ if($page != 'install'){
         }
     }
 
+    // Minecraft integration?
+    $mc_integration = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
+    if(count($mc_integration) && $mc_integration[0]->value == '1')
+        define('MINECRAFT', true);
+    else
+        define('MINECRAFT', false);
+
 	// Navbar links
 	$navigation = new Navigation();
 	$cc_nav 	= new Navigation();

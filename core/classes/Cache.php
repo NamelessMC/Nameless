@@ -19,8 +19,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
  * @author Christian Metz
  * @since 22.12.2011
  * @copyright Christian Metz - MetzWeb Networks
- * @version 1.6
+ * @version 1.6-Nameless
  * @license BSD http://www.opensource.org/licenses/bsd-license.php
+ *
+ * Modified by Samerton for NamelessMC
+ * https://github.com/NamelessMC/Nameless
  */
 
 class Cache {
@@ -73,11 +76,13 @@ class Cache {
   public function isCached($key) {
     if (false != $this->_loadCache()) {
       $cachedData = $this->_loadCache();
-      $entry = $cachedData[$key];
-      if ($entry && true === $this->_checkExpired($entry['time'], $entry['expire'])) {
-        return false;
-      } else {
-        return isset($cachedData[$key]['data']);
+      if(isset($cachedData[$key])){
+          $entry = $cachedData[$key];
+          if ($entry && true === $this->_checkExpired($entry['time'], $entry['expire'])) {
+              return false;
+          } else {
+              return isset($cachedData[$key]['data']);
+          }
       }
     }
   }

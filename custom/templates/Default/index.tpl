@@ -5,9 +5,18 @@
 	<center>
 	  <br /><br /><br />
 	  <h1>{$SITE_NAME}</h1>
-	  <hr />
-	  <p class="lg">There are currently <strong>0</strong> players online.</p>
-	  <p class="lg">Connect now using the IP <strong>example.com</strong></p>
+
+	  {if isset($MINECRAFT)}
+		<hr />
+		{if isset($SERVER_QUERY)}
+		  {if isset($SERVER_QUERY.status_value) && $SERVER_QUERY.status_value == 1}
+			<p class="lg">{$SERVER_QUERY.x_players_online}</p>
+		  {else}
+		    <p class="lg">{$SERVER_QUERY.server_offline}</p>
+		  {/if}
+		{/if}
+		<p class="lg">{$CONNECT_WITH}</p>
+	  {/if}
 	</center>
 	
   </div>
