@@ -159,6 +159,10 @@ $language = array(
     'query_port_maximum' => 'Please ensure your query port is a maximum of 5 characters',
     'server_created' => 'Server created successfully.',
     'confirm_delete_server' => 'Are you sure you want to delete this server?',
+    'server_updated' => 'Server updated successfully.',
+    'editing_server' => 'Editing Server',
+    'server_deleted' => 'Server deleted successfully',
+    'unable_to_delete_server' => 'Unable to delete server.',
 
 	// Modules
 	'modules_installed_successfully' => 'Alle neuen Module wurden erfolgreich installiert.',

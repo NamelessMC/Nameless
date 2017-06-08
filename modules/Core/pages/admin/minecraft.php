@@ -368,6 +368,12 @@ $admin_page = 'minecraft';
                                               else
                                                 $port = 25565;
 
+                                              // Validate server query port
+                                              if(is_numeric(Input::get('query_port')))
+                                                  $query_port = Input::get('query_port');
+                                              else
+                                                  $query_port = 25565;
+
                                               $queries->create('mc_servers', array(
                                                   'ip' => Output::getClean(Input::get('server_address')),
                                                   'query_ip' => Output::getClean(Input::get('server_address')),
@@ -377,7 +383,8 @@ $admin_page = 'minecraft';
                                                   'player_list' => $query,
                                                   'parent_server' => $parent,
                                                   'bungee' => $bungee,
-                                                  'port' => $port
+                                                  'port' => $port,
+                                                  'query_port' => $query_port
                                               ));
 
                                               Session::flash('admin_mc_servers_success', $language->get('admin', 'server_created'));
@@ -471,6 +478,12 @@ $admin_page = 'minecraft';
                                     <label for="InputParentServer"><?php echo $language->get('admin', 'parent_server'); ?></label> <?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'parent_server_help') . '"></i></span>'; ?>
                                     <select id="InputParentServer" class="form-control" name="parent_server">
                                       <option value="none" selected><?php echo $language->get('admin', 'no_parent_server'); ?></option>
+                                        <?php
+                                        $available_parent_servers = $queries->getWhere('mc_servers', array('parent_server', '=', 0));
+                                        if(count($available_parent_servers))
+                                            foreach($available_parent_servers as $server)
+                                              echo '<option value="' . $server->id . '">' . Output::getClean($server->name) . '</option>';
+                                        ?>
                                     </select>
                                   </div>
                                   <div class="form-group">
@@ -522,6 +535,280 @@ $admin_page = 'minecraft';
                                 </form>
                               <?php
                               break;
+                            case 'edit':
+                              // Get server
+                              if(!isset($_GET['id']) || !is_numeric($_GET['id'])){
+                                Redirect::to(URL::build('/admin/minecraft/', 'view=servers'));
+                                die();
+                              }
+
+                              $server_editing = $queries->getWhere('mc_servers', array('id', '=', $_GET['id']));
+                              if(!count($server_editing)){
+                                Redirect::to(URL::build('/admin/minecraft/', 'view=servers'));
+                                die();
+                              }
+                              $server_editing = $server_editing[0];
+
+                              // Handle input
+                              if(Input::exists()){
+                                  if(Token::check(Input::get('token'))){
+                                      // Validate input
+                                      $validate = new Validate();
+                                      $validation = $validate->check($_POST, array(
+                                          'server_name' => array(
+                                              'required' => true,
+                                              'min' => 1,
+                                              'max' => 20
+                                          ),
+                                          'server_address' => array(
+                                              'required' => true,
+                                              'min' => 1,
+                                              'max' => 64
+                                          ),
+                                          'server_port' => array(
+                                              'required' => true,
+                                              'min' => 2,
+                                              'max' => 5
+                                          ),
+                                          'parent_server' => array(
+                                              'required' => true
+                                          ),
+                                          'query_port' => array(
+                                              'max' => 5
+                                          )
+                                      ));
+
+                                      if($validation->passed()){
+                                          // Handle input
+                                          try {
+                                              // BungeeCord selected?
+                                              if(isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1)
+                                                  $bungee = 1;
+                                              else
+                                                  $bungee = 0;
+
+                                              // Pre 1.7?
+                                              if(isset($_POST['pre_17']) && $_POST['pre_17'] == 1)
+                                                  $pre = 1;
+                                              else
+                                                  $pre = 0;
+
+                                              // Status enabled?
+                                              if(isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1)
+                                                  $status = 1;
+                                              else
+                                                  $status = 0;
+
+                                              // Player list enabled?
+                                              if(isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1)
+                                                  $query = 1;
+                                              else
+                                                  $query = 0;
+
+                                              // Parent server
+                                              if($_POST['parent_server'] == 'none')
+                                                  $parent = 0;
+                                              else
+                                                  $parent = $_POST['parent_server'];
+
+                                              // Validate server port
+                                              if(is_numeric(Input::get('server_port')))
+                                                  $port = Input::get('server_port');
+                                              else
+                                                  $port = 25565;
+
+                                              // Validate server query port
+                                              if(is_numeric(Input::get('query_port')))
+                                                  $query_port = Input::get('query_port');
+                                              else
+                                                  $query_port = 25565;
+
+                                              $queries->update('mc_servers', $server_editing->id, array(
+                                                  'ip' => Output::getClean(Input::get('server_address')),
+                                                  'query_ip' => Output::getClean(Input::get('server_address')),
+                                                  'name' => Output::getClean(Input::get('server_name')),
+                                                  'display' => $status,
+                                                  'pre' => $pre,
+                                                  'player_list' => $query,
+                                                  'parent_server' => $parent,
+                                                  'bungee' => $bungee,
+                                                  'port' => $port,
+                                                  'query_port' => $query_port
+                                              ));
+
+                                              Session::flash('admin_mc_servers_success', $language->get('admin', 'server_updated'));
+                                              Redirect::to(URL::build('/admin/minecraft/', 'view=servers'));
+                                              die();
+
+                                          } catch(Exception $e){
+                                              $errors = array($e->getMessage());
+                                          }
+                                      } else {
+                                          // Validation failed
+                                          $errors = array();
+                                          foreach($validation->errors() as $item){
+                                              if(strpos($item, 'is required') !== false){
+                                                  switch($item){
+                                                      case (strpos($item, 'server_name') !== false):
+                                                          $errors[] = $language->get('admin', 'server_name_required');
+                                                          break;
+                                                      case (strpos($item, 'server_address') !== false):
+                                                          $errors[] = $language->get('admin', 'server_address_required');
+                                                          break;
+                                                      case (strpos($item, 'server_port') !== false):
+                                                          $errors[] = $language->get('admin', 'server_port_required');
+                                                          break;
+                                                      case (strpos($item, 'parent_server') !== false):
+                                                          $errors[] = $language->get('admin', 'server_parent_required');
+                                                          break;
+                                                  }
+                                              } else if(strpos($item, 'minimum') !== false){
+                                                  switch($item){
+                                                      case (strpos($item, 'server_name') !== false):
+                                                          $errors[] = $language->get('admin', 'server_name_minimum');
+                                                          break;
+                                                      case (strpos($item, 'server_address') !== false):
+                                                          $errors[] = $language->get('admin', 'server_address_minimum');
+                                                          break;
+                                                      case (strpos($item, 'server_port') !== false):
+                                                          $errors[] = $language->get('admin', 'server_port_minimum');
+                                                          break;
+                                                  }
+                                              } else if(strpos($item, 'maximum') !== false){
+                                                  switch($item){
+                                                      case (strpos($item, 'server_name') !== false):
+                                                          $errors[] = $language->get('admin', 'server_name_maximum');
+                                                          break;
+                                                      case (strpos($item, 'server_address') !== false):
+                                                          $errors[] = $language->get('admin', 'server_address_maximum');
+                                                          break;
+                                                      case (strpos($item, 'server_port') !== false):
+                                                          $errors[] = $language->get('admin', 'server_port_maximum');
+                                                          break;
+                                                      case (strpos($item, 'query_port') !== false):
+                                                          $errors[] = $language->get('admin', 'query_port_maximum');
+                                                          break;
+                                                  }
+                                              }
+                                          }
+                                      }
+
+                                  } else
+                                      // Invalid token
+                                      $error = $language->get('general', 'invalid_token');
+                              }
+
+                              echo '<h4 style="display:inline">' . $language->get('admin', 'editing_server') . '</h4>';
+                              echo '<span class="pull-right"><a class="btn btn-danger" href="' . URL::build('/admin/minecraft/', 'view=servers') . '">' . $language->get('general', 'cancel') . '</a></span><hr />';
+                              ?>
+                              <form action="" method="post">
+                                  <?php
+                                  if(isset($errors)){
+                                      echo '<div class="alert alert-danger"><ul>';
+                                      foreach($errors as $error)
+                                          echo '<li>' . $error . '</li>';
+                                      echo '</div></ul>';
+                                  }
+                                  ?>
+                                <h4>Server Information</h4>
+                                <div class="form-group">
+                                  <label for="InputName"><?php echo $language->get('admin', 'server_name'); ?></label>
+                                  <input name="server_name" placeholder="<?php echo $language->get('admin', 'server_name'); ?>" id="InputName" value="<?php echo Output::getClean($server_editing->name); ?>" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                  <label for="InputAddress"><?php echo $language->get('admin', 'server_address'); ?></label> <?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'server_address_help') . '"></i></span>'; ?>
+                                  <input name="server_address" placeholder="<?php echo $language->get('admin', 'server_address'); ?>" id="InputAddress" value="<?php echo Output::getClean($server_editing->ip); ?>" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                  <label for="inputPort"><?php echo $language->get('admin', 'server_port'); ?></label>
+                                  <input name="server_port" placeholder="<?php echo $language->get('admin', 'server_port'); ?>" id="inputPort" value="<?php echo Output::getClean($server_editing->port); ?>" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                  <label for="InputParentServer"><?php echo $language->get('admin', 'parent_server'); ?></label> <?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'parent_server_help') . '"></i></span>'; ?>
+                                  <select id="InputParentServer" class="form-control" name="parent_server">
+                                    <option value="none" selected><?php echo $language->get('admin', 'no_parent_server'); ?></option>
+                                      <?php
+                                      $available_parent_servers = $queries->getWhere('mc_servers', array('parent_server', '=', 0));
+                                      if(count($available_parent_servers))
+                                        foreach($available_parent_servers as $server)
+                                          if($server->id != $server_editing->id)
+                                            echo '<option value="' . $server->id . '"' . (($server_editing->parent_server == $server->id) ? ' selected' : '') . '>' . Output::getClean($server->name) . '</option>';
+                                      ?>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label for="inputBungeeInstance"><?php echo $language->get('admin', 'bungee_instance'); ?></label> <?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'bungee_instance_help') . '"></i></span>'; ?>
+                                  <input type="hidden" name="bungee_instance" value="0">
+                                  <input id=inputBungeeInstance" name="bungee_instance" type="checkbox" class="js-switch" value="1"<?php if($server_editing->bungee == 1) echo ' checked'; ?>/>
+                                </div>
+                                <div class="form-group">
+                                  <label for="inputPre17"><?php echo $language->get('admin', 'pre_1.7'); ?></label>
+                                  <input type="hidden" name="pre_17" value="0">
+                                  <input id=inputPre17" name="pre_17" type="checkbox" class="js-switch" value="1"<?php if($server_editing->pre == 1) echo ' checked'; ?>/>
+                                </div>
+                                  <?php
+                                  // Display query information alert only if external query is selected
+                                  $external_query = $queries->getWhere('settings', array('name', '=', 'external_query'));
+                                  $external_query = $external_query[0]->value;
+                                  ?>
+                                <h4>Query Information</h4>
+                                <div class="form-group">
+                                  <div class="form-group">
+                                    <label for="inputStatusQueryEnabled"><?php echo $language->get('admin', 'enable_status_query'); ?></label><?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'status_query_help') . '"></i></span>'; ?>
+                                    <input type="hidden" name="status_query_enabled" value="0">
+                                    <input id=inputStatusQueryEnabled" name="status_query_enabled" type="checkbox" class="js-switch" value="1"<?php if($server_editing->display == 1) echo ' checked'; ?>/>
+                                  </div>
+                                    <?php
+                                    if($external_query == '1'){
+                                        ?>
+                                      <div class="alert alert-info">
+                                          <?php echo $language->get('admin', 'server_query_information'); ?>
+                                      </div>
+                                        <?php
+                                    }
+                                    ?>
+                                  <div class="form-group">
+                                    <label for="inputQueryEnabled"><?php echo $language->get('admin', 'enable_player_list'); ?></label><?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'player_list_help') . '"></i></span>'; ?>
+                                    <input type="hidden" name="query_enabled" value="0">
+                                    <input id=inputQueryEnabled" name="query_enabled" type="checkbox" class="js-switch" value="1"<?php if($server_editing->player_list == 1) echo ' checked'; ?>/>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="inputQueryPort"><?php echo $language->get('admin', 'server_query_port'); ?></label> <?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'server_query_port_help') . '"></i></span>'; ?>
+                                    <input name="query_port" placeholder="<?php echo $language->get('admin', 'server_query_port'); ?>" id="inputQueryPort" value="<?php echo Output::getClean($server_editing->query_port); ?>" class="form-control">
+                                  </div>
+                                </div>
+                                <hr />
+                                <div class="form-group">
+                                  <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
+                                  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+                                </div>
+                              </form>
+                              <?php
+                              break;
+
+                            case 'delete':
+                              // Get server
+                              if(!isset($_GET['id']) || !is_numeric($_GET['id'])){
+                                  Redirect::to(URL::build('/admin/minecraft/', 'view=servers'));
+                                  die();
+                              }
+
+                              try {
+                                $queries->delete('mc_servers', array('id', '=', $_GET['id']));
+                                Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
+                                Redirect::to(URL::build('/admin/minecraft/', 'view=servers'));
+                                die();
+                              } catch(Exception $e){
+                                Session::flash('admin_mc_servers_error', '<p>' . $language->get('admin', 'unable_to_delete_server') . '</p><p>' . $e->getMessage() . '</p>');
+                                  Redirect::to(URL::build('/admin/minecraft/', 'view=servers'));
+                                die();
+                              }
+                              break;
+
+                            default:
+                              Redirect::to(URL::build('/admin/minecraft'));
+                              die();
+                              break;
                         }
                       } else {
                           if(Input::exists()){
@@ -539,8 +826,6 @@ $admin_page = 'minecraft';
 
                               // Update database and cache
                               try {
-                                  $cache->setCache('query_cache');
-
                                   // Default server
                                   if($new_default > 0) {
                                       $current_default = $queries->getWhere('mc_servers', array('is_default', '=', 1));
@@ -555,6 +840,20 @@ $admin_page = 'minecraft';
                                         ));
                                   }
 
+                                  $cache->setCache('mc_default_server');
+
+                                  // Get sub-servers of default server
+                                  $sub_servers = $queries->getWhere('mc_servers', array('parent_server', '=', $new_default));
+                                  if(count($sub_servers))
+                                      $cache->store('default_sub', $sub_servers);
+                                  else
+                                      $cache->store('default_sub', array());
+
+                                  $new_default_query = $queries->getWhere('mc_servers', array('id', '=', $new_default));
+                                  $new_default_query = $new_default_query[0];
+
+                                  $cache->store('default', $new_default_query);
+
                                   // External query
                                   $external_query_id = $queries->getWhere('settings', array('name', '=', 'external_query'));
                                   $external_query_id = $external_query_id[0];
@@ -562,6 +861,8 @@ $admin_page = 'minecraft';
                                   $queries->update('settings', $external_query_id->id, array(
                                       'value' => $external
                                   ));
+
+                                  $cache->setCache('query_cache');
 
                                   $cache->store('query', array(
                                       'default' => $new_default,
@@ -582,6 +883,9 @@ $admin_page = 'minecraft';
                           if(Session::exists('admin_mc_servers_success'))
                             echo '<div class="alert alert-success">' . Session::flash('admin_mc_servers_success') . '</div>';
 
+                          if(Session::exists('admin_mc_servers_error'))
+                            echo '<div class="alert alert-danger">' . Sesion::flash('admin_mc_servers_error') . '</div>';
+
                           $servers = $queries->getWhere('mc_servers', array('id', '<>', 0));
 
                           if(count($servers)){
@@ -594,8 +898,8 @@ $admin_page = 'minecraft';
                                 ?>
                                 <strong><?php echo Output::getClean($server->name); ?></strong>
                                 <span class="pull-right">
-                                  <a class="btn btn-warning btn-sm" href="<?php echo URL::build('/admin/minecraft', 'view=servers&amp;action=edit&amp;id=' . $server->id); ?>"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i></a>
-                                  <a class="btn btn-danger btn-sm" href="<?php echo URL::build('/admin/minecraft', 'view=servers&amp;action=delete&amp;id=' . $server->id); ?>" onclick="return confirm('<?php echo $language->get('admin', 'confirm_delete_server'); ?>')"><i class="fa fa-trash-o fa-fw" aria-hidden="true"></i></a>
+                                  <a class="btn btn-warning btn-sm" href="<?php echo URL::build('/admin/minecraft/', 'view=servers&amp;action=edit&amp;id=' . $server->id); ?>"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i></a>
+                                  <a class="btn btn-danger btn-sm" href="<?php echo URL::build('/admin/minecraft/', 'view=servers&amp;action=delete&amp;id=' . $server->id); ?>" onclick="return confirm('<?php echo $language->get('admin', 'confirm_delete_server'); ?>')"><i class="fa fa-trash-o fa-fw" aria-hidden="true"></i></a>
                                 </span>
                                 <?php
                                 if($counter < count($servers))
