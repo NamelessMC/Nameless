@@ -10,7 +10,11 @@
 		<hr />
 		{if isset($SERVER_QUERY)}
 		  {if isset($SERVER_QUERY.status_value) && $SERVER_QUERY.status_value == 1}
-			<p class="lg">{$SERVER_QUERY.x_players_online}</p>
+			{if isset($SERVER_QUERY.status_full)}
+				<p class="lg">{$SERVER_QUERY.status_full}</p>
+			{else}
+			    <p class="lg">{$SERVER_QUERY.x_players_online}</p>
+			{/if}
 		  {else}
 		    <p class="lg">{$SERVER_QUERY.server_offline}</p>
 		  {/if}

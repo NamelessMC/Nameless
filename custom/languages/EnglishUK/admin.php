@@ -62,6 +62,7 @@ $language = array(
     'enable_debug_mode' => 'Enable debug mode?',
 	'force_https' => 'Force https?',
 	'force_https_help' => 'If enabled, all requests to your website will be redirected to https. You must have a valid SSL certificate active for this to work correctly.',
+	'contact_email' => 'Contact Email Address',
 
 	// Reactions
 	'icon' => 'Icon',
@@ -155,6 +156,7 @@ $language = array(
 	'editing_server' => 'Editing Server',
 	'server_deleted' => 'Server deleted successfully',
 	'unable_to_delete_server' => 'Unable to delete server.',
+	'leave_port_empty_for_srv' => 'You can the port empty if it is 25565, or if your domain uses an SRV record',
 
 	// Modules
 	'modules_installed_successfully' => 'Any new modules have been installed successfully.',
