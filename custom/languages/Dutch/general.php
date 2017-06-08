@@ -73,10 +73,10 @@ $language = array(
      */
     'online' => 'Online',
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Version: {x}', // Don't replace {x}
-    'currently_x_players_online' => 'There are currently <strong>{x}</strong> players online.', // Don't replace {x}
-    'server_offline' => 'The server is currently offline.',
-    'connect_with_ip_x' => 'Connect now using the IP <strong>{x}</strong>' // Don't replace {x}
+    'player_count' => '{x}/{y}', // Verander "{x}" of "{y}" niet
+    'ping' => 'Ping: {x}', // Verander "{x}" niet
+    'version' => 'Versie: {x}', // Verander "{x}" niet
+    'currently_x_players_online' => 'Er zijn nu <strong>{x}</strong> spelers online.', // Verander "{x}" niet
+    'server_offline' => 'De server is nu offline.',
+    'connect_with_ip_x' => 'Verbind met dit IP adres: <strong>{x}</strong>' // Verander "{x}" niet
 );
