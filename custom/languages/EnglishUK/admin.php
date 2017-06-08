@@ -265,7 +265,6 @@ $language = array(
 	'update_check_error' => 'There was an error whilst checking for an update:',
 	'instructions' => 'Instructions',
 	'download' => 'Download',
-	'install' => 'Install',
 	'install_confirm' => 'Please ensure you have downloaded the package and uploaded the contained files first!',
 
 	// File uploads
