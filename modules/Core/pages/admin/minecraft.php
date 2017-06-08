@@ -318,8 +318,6 @@ $admin_page = 'minecraft';
                                              'max' => 64
                                          ),
                                          'server_port' => array(
-                                             'required' => true,
-                                             'min' => 2,
                                              'max' => 5
                                          ),
                                          'parent_server' => array(
@@ -365,14 +363,18 @@ $admin_page = 'minecraft';
                                               // Validate server port
                                               if(is_numeric(Input::get('server_port')))
                                                 $port = Input::get('server_port');
-                                              else
-                                                $port = 25565;
+                                              else {
+                                                if(!isset($_POST['server_port']) || empty($_POST['server_port']))
+                                                  $port = null;
+                                                else
+                                                  $port = 25565;
+                                              }
 
                                               // Validate server query port
                                               if(is_numeric(Input::get('query_port')))
-                                                  $query_port = Input::get('query_port');
+                                                $query_port = Input::get('query_port');
                                               else
-                                                  $query_port = 25565;
+                                                $query_port = 25565;
 
                                               $queries->create('mc_servers', array(
                                                   'ip' => Output::getClean(Input::get('server_address')),
@@ -471,7 +473,7 @@ $admin_page = 'minecraft';
                                     <input name="server_address" placeholder="<?php echo $language->get('admin', 'server_address'); ?>" id="InputAddress" value="<?php echo Output::getClean(Input::get('server_address')); ?>" class="form-control">
                                   </div>
                                   <div class="form-group">
-                                    <label for="inputPort"><?php echo $language->get('admin', 'server_port'); ?></label>
+                                    <label for="inputPort"><?php echo $language->get('admin', 'server_port'); ?></label> <?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'leave_port_empty_for_srv') . '"></i></span>'; ?>
                                     <input name="server_port" placeholder="<?php echo $language->get('admin', 'server_port'); ?>" id="inputPort" value="25565" class="form-control">
                                   </div>
                                   <div class="form-group">
@@ -566,8 +568,6 @@ $admin_page = 'minecraft';
                                               'max' => 64
                                           ),
                                           'server_port' => array(
-                                              'required' => true,
-                                              'min' => 2,
                                               'max' => 5
                                           ),
                                           'parent_server' => array(
@@ -614,8 +614,12 @@ $admin_page = 'minecraft';
                                               // Validate server port
                                               if(is_numeric(Input::get('server_port')))
                                                   $port = Input::get('server_port');
-                                              else
-                                                  $port = 25565;
+                                              else {
+                                                  if(!isset($_POST['server_port']) || empty($_POST['server_port']))
+                                                      $port = null;
+                                                  else
+                                                      $port = 25565;
+                                              }
 
                                               // Validate server query port
                                               if(is_numeric(Input::get('query_port')))
@@ -720,7 +724,7 @@ $admin_page = 'minecraft';
                                   <input name="server_address" placeholder="<?php echo $language->get('admin', 'server_address'); ?>" id="InputAddress" value="<?php echo Output::getClean($server_editing->ip); ?>" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                  <label for="inputPort"><?php echo $language->get('admin', 'server_port'); ?></label>
+                                  <label for="inputPort"><?php echo $language->get('admin', 'server_port'); ?></label> <?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'leave_port_empty_for_srv') . '"></i></span>'; ?>
                                   <input name="server_port" placeholder="<?php echo $language->get('admin', 'server_port'); ?>" id="inputPort" value="<?php echo Output::getClean($server_editing->port); ?>" class="form-control">
                                 </div>
                                 <div class="form-group">
@@ -839,20 +843,6 @@ $admin_page = 'minecraft';
                                             'is_default' => 1
                                         ));
                                   }
-
-                                  $cache->setCache('mc_default_server');
-
-                                  // Get sub-servers of default server
-                                  $sub_servers = $queries->getWhere('mc_servers', array('parent_server', '=', $new_default));
-                                  if(count($sub_servers))
-                                      $cache->store('default_sub', $sub_servers);
-                                  else
-                                      $cache->store('default_sub', array());
-
-                                  $new_default_query = $queries->getWhere('mc_servers', array('id', '=', $new_default));
-                                  $new_default_query = $new_default_query[0];
-
-                                  $cache->store('default', $new_default_query);
 
                                   // External query
                                   $external_query_id = $queries->getWhere('settings', array('name', '=', 'external_query'));

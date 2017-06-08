@@ -15,7 +15,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
     $cache->setCache('mc_default_server');
 
     // Already cached?
-    if($cache->isCached('default_query') && $cache->isCached('default')) {
+    if($cache->isCached('default_query')) {
         $result = $cache->retrieve('default_query');
         $default = $cache->retrieve('default');
     } else {
@@ -35,13 +35,13 @@ if(defined('MINECRAFT') && MINECRAFT === true){
 
                 $default = $default[0];
 
-                $cache->store('default', $default);
+                $cache->store('default', $default, 60);
             } else
-                $cache->store('default', null);
+                $cache->store('default', null, 60);
         }
 
         if(!is_null($default) && isset($default->ip)){
-            $full_ip = array('ip' => $default->ip . ':' . (!is_null($default->port) ? $default->port : 25565), 'pre' => $default->pre);
+            $full_ip = array('ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name);
 
             // Get query type
             $query_type = $queries->getWhere('settings', array('name', '=', 'external_query'));
@@ -56,14 +56,13 @@ if(defined('MINECRAFT') && MINECRAFT === true){
             if(count($sub_servers)){
                 $servers = array($full_ip);
 
-                foreach($servers as $server)
-                    $servers[] = array('ip' => $server->ip . ':' . (!is_null($server->port) ? $server->port : 25565), 'pre' => $server->pre);
+                foreach($sub_servers as $server)
+                    $servers[] = array('ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name);
 
-                $result = MCQuery::multiQuery($servers, $query_type, $language);
+                $result = MCQuery::multiQuery($servers, $query_type, $language, true);
 
             } else {
                 $result = MCQuery::singleQuery($full_ip, $query_type, $language);
-
             }
 
             // Cache for 1 minute
