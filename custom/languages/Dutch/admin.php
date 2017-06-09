@@ -1,7 +1,7 @@
 <?php
 /*
  *	Gemaakt door Samerton
- *  en vertaald door Sander Lambrechts
+ *  en vertaald + bijgewerkt door Sander Lambrechts, Jesse Geerts
  *
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-dev
@@ -39,11 +39,11 @@ $language = array(
 	'general_settings' => 'Algemene Instellingen',
 	'sitename' => 'Site naam',
 	'default_language' => 'Standaard taal',
-	'default_language_help' => 'Gebruikers kunnen kiezen uit alle geïnstalleerde talen.',
+	'default_language_help' => 'Gebruikers kunnen kiezen uit alle geinstalleerde talen.',
 	'installed_languages' => 'Alle nieuwe talen zijn toegevoegd.',
 	'default_timezone' => 'Standaard tijdzone',
 	'registration' => 'Registratie',
-	'enable_registration' => 'Registratie inschakelen?',
+	'enable_registration' => 'Schakel registratie in?',
 	'verify_with_mcassoc' => 'Verifieer gebruiker accounts met MCAssoc?',
 	'email_verification' => 'Schakel email verificatie in?',
 	'homepage_type' => 'Beginpagina type',
@@ -51,7 +51,7 @@ $language = array(
 	'portal' => 'Portaal',
 	'missing_sitename' => 'Graag een site naam invullen van 2 tot 64 karakters lang.',
 	'use_friendly_urls' => 'Vriendelijke URLs',
-	'use_friendly_urls_help' => 'BELANGERIJK: Je host moet geconfigureerd zijn om het gebruik van mod_rewrite en .htaccess files toe te staan.',
+	'use_friendly_urls_help' => 'BELANGRIJK: Je webserver/webhosting moet geconfigureerd zijn om gebruik te maken van mod_rewrite en .htaccess om dit in werking te laten treden.',
 	'config_not_writable' => 'Uw <strong>core/config.php</strong> bestand is niet herschrijfbaar.',
 	'social_media' => 'Sociale Media',
 	'youtube_url' => 'Youtube URL',
@@ -116,7 +116,7 @@ $language = array(
 	'server_banners' => 'Server Banners',
 	'query_errors' => 'Query Problemen',
 	'add_server' => '<i class="fa fa-plus-circle"></i> Server toevoegen',
-    'no_servers_defined' => 'Geen servers gedefinieerd',
+    'no_servers_defined' => 'Er zijn geen servers gedefinieerd',
     'query_settings' => 'Query instellingen',
     'default_server' => 'Standaard server',
     'no_default_server' => 'Geen standaard server',
@@ -125,7 +125,7 @@ $language = array(
     'adding_server' => 'Server toevoegen',
     'server_name' => 'Server naam',
     'server_address' => 'Server adres',
-    'server_address_help' => 'Dit is het IP adres of domein dat wordt gebruikt om met de server te verbinden.',
+    'server_address_help' => 'Dit is het IP adres of domein dat wordt gebruikt door de spelers om met de server te verbinden.',
     'server_port' => 'Server poort',
     'parent_server' => 'Hoofd server',
     'parent_server_help' => 'Een hoofd server is gewoonlijk de BungeeCord server waarmee de website is verbonden, als deze er is.',
@@ -136,7 +136,7 @@ $language = array(
     'enable_status_query' => 'Status query aanzetten?',
     'status_query_help' => 'Als dit aan staat, zal er op de status pagina staan of de server online is.',
     'enable_player_list' => 'Speler lijst aanzetten?',
-    'pre_1.7' => 'Minecraft versie ouder dan 1.7?',
+    'pre_1.7' => 'Is de server oud dan Minecraft versie 1.7?',
     'player_list_help' => 'Als dit aanstaat, wordt er op de status pagina een lijst van online spelers weergegeven.',
     'server_query_port' => 'Server Query poort',
     'server_query_port_help' => 'Dit is de query.port optie in je server\'s server.properties bestand, zorg er ook voor dat de enable-query optie in hetzelfde bestaand aanstaat (true).',
@@ -153,10 +153,10 @@ $language = array(
     'query_port_maximum' => 'Zorg ervoor dat je query poort maximaal uit 5 karakters bestaat',
     'server_created' => 'Server succesvol aangemaakt.',
     'confirm_delete_server' => 'Weet je zeker dat je deze server wilt verwijderen?',
-    'server_updated' => 'Server succesvol geüpdatet.',
+    'server_updated' => 'Server succesvol geÃ¼pdatet.',
     'editing_server' => 'Server bewerken',
     'server_deleted' => 'Server succesvol verwijderd',
-    'unable_to_delete_server' => 'Kan de server niet wissen.',
+    'unable_to_delete_server' => 'Deze server kan niet worden verwijderd.',
 
 	// Modulen
 	'modules_installed_successfully' => 'Alle nieuwe modules zijn succesvol toegevoegd.',
@@ -173,7 +173,7 @@ $language = array(
 	'active' => 'Actief',
 	'deactivate' => 'Deactiveer',
 	'activate' => 'Activeer',
-	'warning_editing_default_template' => 'Waarschuwing! Het is aangeraden niet de standaard sjaboon te bewerken.',
+	'warning_editing_default_template' => 'Waarschuwing! Het wordt niet aanbevolen om de standaard sjabloon te bewerken.',
 	'images' => 'Afbeeldingen',
 	'upload_new_image' => 'Upload nieuwe afbeelding',
 	'reset_background' => 'Reset achtergrond',
@@ -233,8 +233,8 @@ $language = array(
 	// Algemene admin taal
 	'task_successful' => 'Taak succesvol.',
 	'invalid_action' => 'Ongeldige actie.',
-	'enable_night_mode' => 'Nacht modus aanzetten',
-	'disable_night_mode' => 'Nacht modus uitzetten',
+	'enable_night_mode' => 'Zet nacht modus aan',
+	'disable_night_mode' => 'Zet nacht modus uit',
 	'view_site' => 'Terug naar de website',
 	'signed_in_as_x' => 'Ingelogd als {x}', // Verander "{x}" niet
     	'warning' => 'Waarschuwing',
@@ -242,7 +242,7 @@ $language = array(
 	// Onderhoud
  	'maintenance_mode' => 'Onderhoud Modus',
  	'maintenance_enabled' => 'Onderhoud Modus staat nu aan.',
-  	'enable_maintenance_mode' => 'Onderhoud modus aanzetten?',
+  	'enable_maintenance_mode' => 'Wil je onderhoud modus inschakelen?',
   	'maintenance_mode_message' => 'Onderhoud modus bericht',
   	'maintenance_message_max_1024' => 'Zorg ervoor dat je onderhoud bericht maximaal uit 1024 karakters bestaat.',
 
@@ -267,7 +267,7 @@ $language = array(
 	'install_confirm' => 'Zorg ervoor dat je het bestand hebt gedownload en de bestanden hebt geupload voordat je verder gaat!',
 
 	// Bestand uploads
-	'drag_files_here' => 'Sleep bestanden hier naartoe om te uploaden.',
-	'invalid_file_type' => 'Verkeerd bestands type',
-	'file_too_big' => 'Bestand te groot! Uw bestand is {{filesize}} en het limiet is {{maxFilesize}}' // Verander {{filesize}} of {{maxFilesize}} niet
+	'drag_files_here' => 'Sleep bestand(en) hier naartoe om te uploaden.',
+	'invalid_file_type' => 'Bestands type is incorrect',
+	'file_too_big' => 'Het bestand die je wilt uploaden is te groot! Je bestand is {{filesize}} en limiet is {{maxFilesize}} .' // Verander {{filesize}} of {{maxFilesize}} niet
 );
