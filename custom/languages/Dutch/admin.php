@@ -116,7 +116,7 @@ $language = array(
 	'server_banners' => 'Server Banners',
 	'query_errors' => 'Query Problemen',
 	'add_server' => '<i class="fa fa-plus-circle"></i> Server toevoegen',
-    'no_servers_defined' => 'Geen servers gedefineerd',
+    'no_servers_defined' => 'Geen servers gedefinieerd',
     'query_settings' => 'Query instellingen',
     'default_server' => 'Standaard server',
     'no_default_server' => 'Geen standaard server',
