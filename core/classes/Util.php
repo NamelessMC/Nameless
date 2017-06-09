@@ -93,7 +93,7 @@ class Util {
 			$offsets[] = $current->getOffset();
 			
 			// Format timezone offset
-			$offset = 'GMT ' . intval($current->getOffset() / 3600) . ':' . str_pad(abs(intval($offset % 3600 / 60)), 2, 0);
+			$offset = 'GMT ' . intval($current->getOffset() / 3600) . ':' . str_pad(abs(intval($current->getOffset() % 3600 / 60)), 2, 0);
 			
 			// Prettify timezone name
 			$name = Output::getClean(str_replace(array('/', '_'), array(', ', ' '), $timezone));
