@@ -16,7 +16,7 @@ $language = array(
 	 *  Admin controle paneel
 	 */
 	// Login
-	're-authenticate' => 'Gelieve opnieuw te verifiÃ«ren',
+	're-authenticate' => 'Gelieve opnieuw te verifiëren',
 
 	// Navigatiebalk
 	'admin_cp' => 'Controle Paneel',
