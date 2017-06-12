@@ -92,7 +92,7 @@ $language = array(
 	'profile_field_error' => 'Graag een veld naam invullen tussen de 2 en 16 karakters lang.',
 	'description' => 'Beschrijving',
 	'display_field_on_forum' => 'Veld laten zien in het forum?',
-	'profile_field_forum_help' => 'Als aan staat, wordt het veld weergegeven bij de gebruiker naast de forum posts.',
+	'profile_field_forum_help' => 'Als aan staat, wordt het veld weergegeven bij de gebruiker naast de forum berichten.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Minecraft integratie aan?',
@@ -132,11 +132,11 @@ $language = array(
     'no_parent_server' => 'Geen hoofd server',
     'bungee_instance' => 'BungeeCord Server?',
     'bungee_instance_help' => 'Zet dit aan als de server een BungeeCord server is.',
-    'server_query_information' => 'In order to display a list of online players on your website, your server <strong>must</strong> have the \'enable-query\' option enabled in your server\'s <strong>server.properties</strong> file',
+    'server_query_information' => 'Om een lijst met spelers te laten zien, <strong>moet</strong> je server de optie \'enable-query\' aanzetten in de server\'s <strong>server.properties</strong> bestand',
     'enable_status_query' => 'Status query aanzetten?',
     'status_query_help' => 'Als dit aan staat, zal er op de status pagina staan of de server online is.',
-    'enable_player_list' => 'Speler lijst aanzetten?',
-    'pre_1.7' => 'Is de server oud dan Minecraft versie 1.7?',
+    'enable_player_list' => 'Spelers lijst aanzetten?',
+    'pre_1.7' => 'Is de server ouder dan Minecraft versie 1.7?',
     'player_list_help' => 'Als dit aanstaat, wordt er op de status pagina een lijst van online spelers weergegeven.',
     'server_query_port' => 'Server Query poort',
     'server_query_port_help' => 'Dit is de query.port optie in je server\'s server.properties bestand, zorg er ook voor dat de enable-query optie in hetzelfde bestaand aanstaat (true).',
@@ -169,14 +169,14 @@ $language = array(
 
 	// Stijlen
 	'templates' => 'Sjablonen',
-	'template_outdated' => 'We hebben ontdekt dat deze sjabloon voor versie {x} is, maar je gebruikt versie {y}', // Verander "{x}" of "{y}" niet
+	'template_outdated' => 'We hebben ontdekt dat dit sjabloon voor versie {x} is, maar je gebruikt versie {y}', // Verander "{x}" of "{y}" niet
 	'active' => 'Actief',
 	'deactivate' => 'Deactiveer',
 	'activate' => 'Activeer',
-	'warning_editing_default_template' => 'Waarschuwing! Het wordt niet aanbevolen om de standaard sjabloon te bewerken.',
+	'warning_editing_default_template' => 'Waarschuwing! Het wordt niet aanbevolen om het standaard sjabloon te bewerken.',
 	'images' => 'Afbeeldingen',
 	'upload_new_image' => 'Upload nieuwe afbeelding',
-	'reset_background' => 'Reset achtergrond',
+	'reset_background' => 'Herstel achtergrond naar standaard',
 	'install' => '<i class="fa fa-plus-circle"></i> Installeren',
 	'template_updated' => 'Sjabloon succesvol bijgewerkt.',
 	'default' => 'Standaard',
@@ -201,7 +201,7 @@ $language = array(
 	'validate_user' => 'Valideer gebruiker',
 	'update_uuid' => 'Werk UUID bij',
 	'update_mc_name' => 'Werk Minecraft naam bij',
-	'reset_password' => 'Reset wachtwoord',
+	'reset_password' => 'Herstel wachtwoord',
 	'punish_user' => 'Straf gebruiker',
 	'delete_user' => 'Verwijder gebruiker',
 	'minecraft_uuid' => 'Minecraft UUID',
@@ -233,8 +233,8 @@ $language = array(
 	// Algemene admin taal
 	'task_successful' => 'Taak succesvol.',
 	'invalid_action' => 'Ongeldige actie.',
-	'enable_night_mode' => 'Zet nacht modus aan',
-	'disable_night_mode' => 'Zet nacht modus uit',
+	'enable_night_mode' => 'Zet nachtmodus aan',
+	'disable_night_mode' => 'Zet nachtmodus uit',
 	'view_site' => 'Terug naar de website',
 	'signed_in_as_x' => 'Ingelogd als {x}', // Verander "{x}" niet
     	'warning' => 'Waarschuwing',
@@ -251,7 +251,7 @@ $language = array(
 	'please_select_logs' => 'Welk logboek wil je bekijken?',
 	'ip_address' => 'IP Adres',
 	'template_changes' => 'Sjabloon veranderingen',
-	'file_changed' => 'Bestanden veranderd',
+	'file_changed' => 'Veranderde bestanden',
 
 	// Updates
 	'update' => 'Bijwerken',
@@ -269,5 +269,5 @@ $language = array(
 	// Bestand uploads
 	'drag_files_here' => 'Sleep bestand(en) hier naartoe om te uploaden.',
 	'invalid_file_type' => 'Bestands type is incorrect',
-	'file_too_big' => 'Het bestand die je wilt uploaden is te groot! Je bestand is {{filesize}} en limiet is {{maxFilesize}} .' // Verander {{filesize}} of {{maxFilesize}} niet
+	'file_too_big' => 'Het bestand dat je wilt uploaden is te groot! Je bestand is {{filesize}} en het limiet is {{maxFilesize}} .' // Verander {{filesize}} of {{maxFilesize}} niet
 );
