@@ -73,8 +73,8 @@ $language = array(
     'offline' => 'Offline',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Version: {x}', // Don't replace {x}
-    'currently_x_players_online' => 'There are currently <strong>{x}</strong> players online.', // Don't replace {x}
-    'server_offline' => 'The server is currently offline.',
-    'connect_with_ip_x' => 'Connect now using the IP <strong>{x}</strong>' // Don't replace {x}
+    'version' => 'Versjon: {x}', // Don't replace {x}
+    'currently_x_players_online' => 'Det er <strong>{x}</strong> påloggede spillere.', // Don't replace {x}
+    'server_offline' => 'Serveren er nede for øyeblikket.',
+    'connect_with_ip_x' => 'Koble til nå med IP <strong>{x}</strong>' // Don't replace {x}
 );
