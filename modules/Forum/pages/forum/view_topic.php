@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -221,14 +221,14 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo SITE_NAME; ?> Forum - Topic: <?php echo Output::getClean($topic->topic_title); ?>">
+    <meta name="description" content="<?php echo SITE_NAME; ?> Forum - Topic: <?php echo Output::getClean($topic->topic_title); ?> - Page <?php echo $p; ?>">
 
     <?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 	
 	<?php
 	// Generate header and navbar content
 	// Page title
-	$title = Output::getClean($topic->topic_title);
+  $title = ((strlen(Output::getClean($topic->topic_title)) > 20) ? Output::getClean(substr($topic->topic_title, 0, 20)) . '...' : Output::getClean($topic->topic_title)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
 	require('core/templates/header.php'); 
 	?>
 	

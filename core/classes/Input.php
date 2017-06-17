@@ -71,7 +71,7 @@ class Input {
 					{"name":"insert","groups":["insert"]}
 				],
 				
-				removeButtons: \'Anchor,Styles,Specialchar,Font,About,Flash,Iframe,Smiley,CodeSnippet\'
+				removeButtons: \'Anchor,Styles,Specialchar,Font,About,Flash,Iframe,Smiley,CodeSnippet,Format\'
 			} );
 			CKEDITOR.config.fontawesomePath = path + \'core/assets/css/font-awesome.min.css\';
 			CKEDITOR.config.disableNativeSpellChecker = false;

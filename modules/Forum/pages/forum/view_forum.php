@@ -85,9 +85,11 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
+    <meta name="description" content="<?php echo SITE_NAME; ?> Forum - Viewing forum: <?php echo Output::getClean($forum_query->forum_title); ?> - Page <?php echo $p; ?>">
+
     <!-- Site Properties -->
 	<?php 
-	$title = Output::getClean($forum_query->forum_title);
+	$title = Output::getClean($forum_query->forum_title) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
 	require('core/templates/header.php'); 
 	?>
   
