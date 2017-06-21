@@ -654,6 +654,11 @@ if(isset($_GET["step"])){
 								'value' => 'light'
 							));
 							
+							$queries->create('settings', array(
+								'name' => 'enable_name_history',
+								'value' => 1
+							));
+							
 							// Version update
 							$version_id = $queries->getWhere('settings', array('name', '=', 'version'));
 							$queries->update('settings', $version_id[0]->id, array(
@@ -1095,6 +1100,10 @@ if(isset($_GET["step"])){
 					42 => array(
 						'name' => 'twitter_style',
 						'value' => 'light'
+					),
+					43 => array(
+						'name' => 'enable_name_history',
+						'value' => 1
 					)
 				);
 				

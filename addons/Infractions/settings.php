@@ -29,7 +29,8 @@ if($user->isLoggedIn()){
 
 <h3>Addon: Infractions</h3>
 Author: Samerton<br />
-Version: 1.0.6<br />
+Contributors: partydragen, relavis<br />
+Version: 1.1.0<br />
 Description: Integrate your server infractions with your website<br />
 
 <h3>Infractions Settings</h3>
@@ -220,6 +221,8 @@ if(empty($infractions_settings)){
 		  <li><a href="http://dev.bukkit.org/bukkit-plugins/ban-management/" target="_blank">Ban Management</a></li>
 		  <li><a href="https://www.spigotmc.org/resources/litebans.3715/" target="_blank">LiteBans</a></li>
 		  <li><a href="https://www.spigotmc.org/resources/bansystem-chatban-mute-report-system-chatfilter-bungeecord-mysql.17875/" target="_blank">Ban and Mute Plugin</a></li>
+		  <li><a href="https://www.spigotmc.org/resources/bungeeutilisals.7865/" target="_blank">Bungee Utilisals</a></li>
+		  <li><a href="https://www.spigotmc.org/resources/advancedban.8695/" target="_blank">Advanced Ban</a></li>
 		</ul>
       </div>
       <div class="modal-footer">

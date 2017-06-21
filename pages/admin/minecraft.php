@@ -108,6 +108,11 @@ $adm_page = "minecraft";
 					} else {
 						$usernames = 'true';
 					}
+					if(Input::get('name_history') == 'on'){
+						$name_history = 1;
+					} else {
+						$name_history = 0;
+					}
 					
 					// Update values
 					$uuids_id = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
@@ -142,9 +147,14 @@ $adm_page = "minecraft";
 					
 					$avatar_id = $queries->getWhere('settings', array('name', '=', 'avatar_type'));
 					$avatar_id = $avatar_id[0]->id;
-					
 					$queries->update('settings', $avatar_id, array(
 						'value' => htmlspecialchars(Input::get('avatar_type'))
+					));
+					
+					$name_history_id = $queries->getWhere('settings', array('name', '=', 'enable_name_history'));
+					$name_history_id = $name_history_id[0]->id;
+					$queries->update('settings', $name_history_id, array(
+						'value' => $name_history
 					));
 					
 				} else {
@@ -160,6 +170,7 @@ $adm_page = "minecraft";
 			$server_status = $queries->getWhere('settings', array('name', '=', 'mc_status_module'));
 			$usernames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
 			$avatar_type = $queries->getWhere('settings', array('name', '=', 'avatar_type'));
+			$name_history = $queries->getWhere('settings', array('name', '=', 'enable_name_history'));
 			
 			if(Session::exists('mc_settings')){
 				echo Session::flash('mc_settings');
@@ -196,6 +207,12 @@ $adm_page = "minecraft";
 				    <label for="usernames"><?php echo $admin_language['custom_usernames']; ?></label>
 					<span class="pull-right">
 					  <input id="usernames" name="usernames" type="checkbox" class="js-switch" <?php if($usernames[0]->value == 'false'){ ?>checked <?php } ?>/>
+					</span>
+				  </div>
+				  <div class="form-group">
+				    <label for="name_history"><?php echo $admin_language['enable_name_history']; ?></label>
+					<span class="pull-right">
+					  <input id="name_history" name="name_history" type="checkbox" class="js-switch" <?php if($name_history[0]->value == '1'){ ?>checked <?php } ?>/>
 					</span>
 				  </div>
 				  <div class="form-group">
