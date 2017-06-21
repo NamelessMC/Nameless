@@ -348,6 +348,7 @@ $admin_language = array(
 	'inverse_navbar' => '反轉導航列顏色',
 	'confirm_theme_deletion' => '你確認要刪除佈景主題 <strong>{x}</strong>嗎？<br /><br />該佈景主題將會自 <strong>styles/themes</strong> 刪除。', // Don't replace {x}
 	'confirm_template_deletion' => '你確認要刪除模板 <strong>{x}</strong>嗎？<br /><br />該模板將會自 <strong>styles/templates</strong> 刪除。', // Don't replace {x}
+	'unable_to_enable_addon' => 'Could not enable addon. Please ensure it is a valid NamelessMC addon.',
 	
 	// Admin Misc page
 	'other_settings' => '其他設定',

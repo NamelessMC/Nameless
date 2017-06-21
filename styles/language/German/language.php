@@ -352,7 +352,8 @@ $admin_language = array(
 	'inverse_navbar' => 'Umgekehrte Navigationsleiste',
 	'confirm_theme_deletion' => 'Bist du sicher, dass du das <strong>{x}</strong> Theme löschen willst?<br /><br />Das Theme wird aus dem <strong>styles/themes</strong> Ordner entfernt.', // Don't replace {x}
 	'confirm_template_deletion' => 'Bist du sicher, dass du die Vorlage <strong>{x}</strong> löschen willst?<br /><br />Das Theme wird aus dem <strong>styles/templates</strong> Ordner entfernt.', // Don't replace {x}
-
+	'unable_to_enable_addon' => 'Could not enable addon. Please ensure it is a valid NamelessMC addon.',
+	
 	// Admin Misc page
 	'other_settings' => 'Andere Einstellungen',
 	'enable_error_reporting' => 'Aktiviere Fehlerrückmeldungen?',

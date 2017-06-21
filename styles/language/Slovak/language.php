@@ -348,6 +348,7 @@ $admin_language = array(
 	'inverse_navbar' => 'Inverse Navbar',
 	'confirm_theme_deletion' => 'Vážne chceš zmazať túto tému <strong>{x}</strong>?<br /><br />Téma bude vymazaná z <strong>styles/themes</strong> directory.', // Don't replace {x}
 	'confirm_template_deletion' => 'Vážne chceš zmazať túto šablonu <strong>{x}</strong>?<br /><br />Šablona bude vymazaná z <strong>styles/templates</strong> directory.', // Don't replace {x}
+	'unable_to_enable_addon' => 'Could not enable addon. Please ensure it is a valid NamelessMC addon.',
 	
 	// Admin Misc page
 	'other_settings' => 'Ďalšie nastavenia',
