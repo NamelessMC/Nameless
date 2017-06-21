@@ -142,6 +142,7 @@ Upcoming addons (these will need to be downloaded separately):
 
 ## Discord
 [<img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/r7Eq4jw)
+The official [NamelessMC Discord bot](https://github.com/dannygtech/NamelessBOT) was made by **Jellz** and **BrightSkyz**! Huge thanks to them!
 
 <!--## IRC
 \#NamelessMC on [irc.spi.gt](http://irc.spi.gt/iris/?channels=namelessmc)-->
