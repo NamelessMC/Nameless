@@ -316,6 +316,7 @@ $admin_language = array(
 	'mcassoc_instance' => 'mcassoc Instanz',
 	'mcassoc_instance_help' => 'Generiere einen Instanzcode <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">hier</a>',
 	'mcassoc_key_help' => 'Hole dir deinen Key <a href="https://mcassoc.lukegb.com/" target="_blank">hier</a>',
+	'enable_name_history' => 'Enable profile username history?',
 
 	// Admin Themes, Templates and Addons
 	'themes' => 'Themen',

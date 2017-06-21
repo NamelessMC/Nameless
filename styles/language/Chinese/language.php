@@ -312,6 +312,7 @@ $admin_language = array(
 	'mcassoc_instance' => 'mcassoc Instance',
 	'mcassoc_instance_help' => '在<a href="http://jsbin.com/jadofehoqu/1/" target="_blank">這裡</a>建立一個 Instance 代碼',
 	'mcassoc_key_help' => '在<a href="https://mcassoc.lukegb.com/" target="_blank">這裡</a>取得你的 mcassoc 金鑰',
+	'enable_name_history' => 'Enable profile username history?',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => '佈景主題',

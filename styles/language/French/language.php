@@ -318,6 +318,7 @@ $admin_language = array(
 	'mcassoc_instance' => 'Instance mcassoc',
 	'mcassoc_instance_help' => 'Générer un code d\'instance mcassoc <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">ici</a>',
 	'mcassoc_key_help' => 'Générer votre clé de partage mcassoc <a href="https://mcassoc.lukegb.com/" target="_blank">ici</a>',
+	'enable_name_history' => 'Enable profile username history?',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Thèmes',

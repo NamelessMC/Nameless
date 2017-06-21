@@ -188,36 +188,37 @@ if(isset($_GET['p'])){
 						if($inf_plugin != 'bat' || !count($mcname)){
 							if($inf_plugin == 'bm') $mcname = $infractions->bm_getUsernameFromID(pack("H*", str_replace('-', '', $infraction['uuid'])));
 							
-							$infractions_query = $queries->getWhere('uuid_cache', array('uuid', '=', str_replace('-', '', $infraction["uuid"])));
-							
-							if(empty($infractions_query)){
-								// Query Minecraft API to retrieve username
-								$profile = ProfileUtils::getProfile(str_replace('-', '', $infraction["uuid"]));
-								if(empty($profile)){
-									// Couldn't find player
-									
-								} else {
-									$result = $profile->getProfileAsArray();
-										if(isset($result['username'])){
-										$mcname = htmlspecialchars($result["username"]);
-										$uuid = htmlspecialchars(str_replace('-', '', $infraction["uuid"]));
-										try {
-											$queries->create("uuid_cache", array(
-												'mcname' => $mcname,
-												'uuid' => $uuid
-											));
-										} catch(Exception $e){
-											die($e->getMessage());
+							else {
+								$infractions_query = $queries->getWhere('uuid_cache', array('uuid', '=', str_replace('-', '', $infraction["uuid"])));
+								
+								if(empty($infractions_query)){
+									// Query Minecraft API to retrieve username
+									$profile = ProfileUtils::getProfile(str_replace('-', '', $infraction["uuid"]));
+									if(empty($profile)){
+										// Couldn't find player
+										
+									} else {
+										$result = $profile->getProfileAsArray();
+											if(isset($result['username'])){
+											$mcname = htmlspecialchars($result["username"]);
+											$uuid = htmlspecialchars(str_replace('-', '', $infraction["uuid"]));
+											try {
+												$queries->create("uuid_cache", array(
+													'mcname' => $mcname,
+													'uuid' => $uuid
+												));
+											} catch(Exception $e){
+												die($e->getMessage());
+											}
 										}
 									}
 								}
+								$mcname = $queries->getWhere('uuid_cache', array('uuid', '=', str_replace('-', '', $infraction["uuid"])));
+								if(count($mcname))
+									$mcname = $mcname[0]->mcname;
+								else
+									$mcname = 'Unknown';
 							}
-							$mcname = $queries->getWhere('uuid_cache', array('uuid', '=', str_replace('-', '', $infraction["uuid"])));
-							if(count($mcname))
-								$mcname = $mcname[0]->mcname;
-							else
-								$mcname = 'Unknown';
-
 						} else {
 							$mcname = $mcname[0]->BAT_player;
 						}

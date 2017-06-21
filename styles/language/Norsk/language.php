@@ -313,6 +313,7 @@ $admin_language = array(
 	'mcassoc_instance' => 'mcassoc instance',
 	'mcassoc_instance_help' => 'Generere en instance kode <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">her</a>',
 	'mcassoc_key_help' => 'Få en mcassoc nøkkelen <a href="https://mcassoc.lukegb.com/" target="_blank">her</a>',
+	'enable_name_history' => 'Enable profile username history?',
 
 	// Admin Themes, Templates and Addons
 	'themes' => 'Temaer',
