@@ -79,6 +79,9 @@ $adm_page = "addons";
 			<span class="pull-right"><a href="/admin/addons/?action=new" class="btn btn-info"><?php echo $admin_language['install_addon']; ?></a></span><br /><br />
 			<hr>
 			<?php
+			if(Session::exists('addon_error')){
+				echo Session::flash('addon_error');
+			}
 			// Get a list of addons
 			$addons = $queries->getWhere('addons', array('id', '<>', '0'));
 			// Order alphabetically

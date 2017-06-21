@@ -348,6 +348,7 @@ $admin_language = array(
 	'inverse_navbar' => 'Käänteinen navigaatiopalkki',
 	'confirm_theme_deletion' => 'Oletko varma, että haluat poistaa teeman <strong>{x}</strong>?<br /><br />Teema poistetaan myös <strong>styles/themes</strong> kansiosta.', // Don't replace {x}
 	'confirm_template_deletion' => 'Oletko varma, että haluat poistaa mallin <strong>{x}</strong>?<br /><br />Malli poistetaan myös <strong>styles/templates</strong> kansiosta.', // Don't replace {x}
+	'unable_to_enable_addon' => 'Could not enable addon. Please ensure it is a valid NamelessMC addon.',
 	
 	// Admin Misc page
 	'other_settings' => 'Muut asetukset',

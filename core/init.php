@@ -127,8 +127,16 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 	$addons = $queries->getWhere('addons', array('enabled', '=', 1));
 	foreach($addons as $addon){
 		// Require its initialisation file
-		require('addons/' . htmlspecialchars($addon->name) . '/initialisation.php');
-		$enabled_addon_pages[] = $addon->name;
+		if(file_exists('addons/' . htmlspecialchars($addon->name) . '/initialisation.php')){
+			require('addons/' . htmlspecialchars($addon->name) . '/initialisation.php');
+			$enabled_addon_pages[] = $addon->name;
+		} else {
+			// Disable addon
+			Session::flash('addon_error', '<div class="alert alert-danger">' . $admin_language['unable_to_enable_addon'] . '</div>');
+			$queries->update('addons', $addon->id, array(
+				'enabled' => 0
+			));
+		}
 	}
 	
 	/*

@@ -349,6 +349,7 @@ $admin_language = array(
 	'inverse_navbar' => 'Omvendt Navigasjonsbar',
 	'confirm_theme_deletion' => 'Er du sikker på at du vil slette temaet <strong>{x}</strong>?<br /><br />Temaet vil bli slettet fra <strong>styles/themes</strong> mappa.', // Don't replace {x}
 	'confirm_template_deletion' => 'Er du sikker på at du vil slette template <strong>{x}</strong>?<br /><br />Template vil bli slettet fra <strong>styles/templates</strong> mappa.', // Don't replace {x}
+	'unable_to_enable_addon' => 'Could not enable addon. Please ensure it is a valid NamelessMC addon.',
 
 	// Admin Misc page
 	'other_settings' => 'Andre Innstillinger',

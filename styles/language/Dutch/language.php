@@ -354,7 +354,8 @@ $admin_language = array(
     'inverse_navbar' => 'Omgekeerde kleur Navbar',
     'confirm_theme_deletion' => 'Weet je het zeker dat je thema <b>{x}</b> wil verwijderen?<br /><br />Het thema wordt verwijderd uit de <b>styles/themes</b> map.', // Don't replace {x}
     'confirm_template_deletion' => 'Weet je zeker dat je het sjabloon <b>{x}</b> wilt verwijderen?<br /><br />Het sjabloon wordt verwijderd uit de <b>styles/templates</b> map.', // Don't replace {x}
-
+	'unable_to_enable_addon' => 'Could not enable addon. Please ensure it is a valid NamelessMC addon.',
+	
     // Admin Misc page
     'other_settings' => 'Andere Instellingen',
     'enable_error_reporting' => 'Probleem rapportage inschakelen?',

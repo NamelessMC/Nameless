@@ -354,6 +354,7 @@ $admin_language = array(
 	'inverse_navbar' => 'Inverser la barre de navigation',
 	'confirm_theme_deletion' => 'Êtes-vous certain de vouloir supprimé le Thème <strong>{x}</strong>?<br /><br />Le Thème sera supprimé de la catégorie <strong>Thèmes</strong> directory.', // Don't replace {x}
 	'confirm_template_deletion' => 'Are you sure you wish to delete the template <strong>{x}</strong>?<br /><br />Le Modèle sera supprimé de la catégorie <strong>Modèles</strong> directory.', // Don't replace {x}
+	'unable_to_enable_addon' => 'Could not enable addon. Please ensure it is a valid NamelessMC addon.',
 	
 	// Admin Misc page
 	'other_settings' => 'Autres paramètres',
