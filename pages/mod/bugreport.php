@@ -77,7 +77,7 @@ if(isset($_GET['app'])){
 				// Who posted the app?
 				$user_posted = $application->uid;
 				
-				if($_GET['action'] == 'accept'){
+				if($_GET['action'] == 'close'){
 					$queries->update('bugreport_replies', $application->id, array(
 						'status' => 1
 					));
@@ -86,23 +86,10 @@ if(isset($_GET['app'])){
 						'user_id' => $user_posted,
 						'type' => $bugreport_language['bug_report'],
 						'url' => '#',
-						'content' => str_replace('{x}', htmlspecialchars($user->data()->username), $bugreport_language['bug_report_accepted']),
+						'content' => str_replace('{x}', htmlspecialchars($user->data()->username), $bugreport_language['bug_report_closed']),
 						'created' => date('U')
 					));
 					
-					
-				} else if($_GET['action'] == 'reject'){
-					$queries->update('bugreport_replies', $application->id, array(
-						'status' => 2
-					));
-					// Add alert to tell user that it's been rejected
-					$queries->create('alerts', array(
-						'user_id' => $user_posted,
-						'type' => $bugreport_language['bug_report'],
-						'url' => '#',
-						'content' => str_replace('{x}', htmlspecialchars($user->data()->username), $bugreport_language['bug_report_rejected']),
-						'created' => date('U')
-					));
 					
 				}
 				
@@ -167,15 +154,11 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 						// Get open bug report
 						$applications = $queries->getWhere('bugreport_replies', array('status', '=', 0));
 						echo $bugreport_language['viewing_open_bug_report'] . '<br /><br />';
-					} else if(isset($_GET['view']) && $_GET['view'] == 'accepted'){ 
-						// Get accepted bug report
+					} else if(isset($_GET['view']) && $_GET['view'] == 'closed'){ 
+						// Get closed bug report
 						$applications = $queries->getWhere('bugreport_replies', array('status', '=', 1));
-						echo $bugreport_language['viewing_accepted_bug_report'] . '<br /><br />';
-					} else if(isset($_GET['view']) && $_GET['view'] == 'declined'){ 
-						// Get declined bug report
-						$applications = $queries->getWhere('bugreport_replies', array('status', '=', 2));
-						echo $bugreport_language['viewing_declined_bug_report'] . '<br /><br />';
-					} 
+						echo $bugreport_language['viewing_closed_bug_report'] . '<br /><br />';
+					}
 					if(count($applications)){
 				?>
 				<table class="table table-striped">
@@ -216,33 +199,29 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
                 echo str_replace('{x}', '<a href="/profile/' . $username . '">' . $username . '</a>', $bugreport_language['viewing_bug_report_from']);
 				if($application->status == 0){ 
 					?>
-					<span class="label label-info"><?php echo $bugreport_language['open']; ?></span>
+					<span class="label label-success"><?php echo $bugreport_language['open']; ?></span>
 					<?php 
 				} else if($application->status == 1){ 
 					?>
-					<span class="label label-success"><?php echo $bugreport_language['accepted']; ?></span>
+					<span class="label label-danger"><?php echo $bugreport_language['closed']; ?></span>
 					<?php 
-				} else if($application->status == 2){ 
-					?>
-					<span class="label label-danger"><?php echo $bugreport_language['declined']; ?></span>
-					<?php 
-				} 
+				}
 				?>
 			<div class="well well-sm">
-			<span class="pull-right">
-			  <?php 
-			  // Can the user accept bugreport?
-			  if($application->status == 0 && $bugreport->canAcceptBugReport($user->data()->id)){
-			  ?>
-			  <div class="btn-group">
-			    <a href="/mod/bugreport/?app=<?php echo $application->id; ?>&action=accept" class="btn btn-success"><?php echo $bugreport_language['accept']; ?></a><a href="/mod/bugreport/?app=<?php echo $application->id; ?>&action=reject" class="btn btn-danger"><?php echo $bugreport_language['decline']; ?></a>
-			  </div>
-			  <?php
-			  }
-			  ?>
-			</span><br /><br />
-			<hr>
 			<?php 
+			// Can the user accept bugreport?
+			if($application->status == 0 && $bugreport->canAcceptBugReport($user->data()->id)){
+			?>
+			<span class="pull-right">
+			  <div class="btn-group">
+			    <a href="/mod/bugreport/?app=<?php echo $application->id; ?>&action=close" class="btn btn-danger"><?php echo $bugreport_language['close']; ?></a>
+			  </div>
+			</span>
+			<br /><br />
+			<hr />
+			<?php 
+			}
+			
 			foreach($answers as $answer){
 				// Get the question itself from the ID
 				foreach($questions as $key => $item){
