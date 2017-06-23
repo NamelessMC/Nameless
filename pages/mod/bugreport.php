@@ -1,19 +1,19 @@
 <?php 
 /* 
- *  Made by Partydragen And Samerton
+ *  Made by Partydragen And Samerton, edited by relavis
  *  http://partydragen.com/
  *
  */
 
 // page for ModCP sidebar
-$mod_page = 'banappeal';
+$mod_page = 'bugreport';
 
-require('addons/BanAppeal/BanAppeal.php');
-$banappeal = new BanAppeal();
+require('addons/BugReport/BugReport.php');
+$bugreport = new BugReport();
 
 // Mod check
 if($user->isLoggedIn()){
-	if(!$user->canViewMCP($user->data()->id) || !$banappeal->canViewBanAppeal($user->data()->id)){
+	if(!$user->canViewMCP($user->data()->id) || !$bugreport->canViewBugReport($user->data()->id)){
 		Redirect::to('/');
 		die();
 	}
@@ -23,11 +23,11 @@ if($user->isLoggedIn()){
 }
 
 if(isset($_GET['app'])){
-	// Does the ban appeal exist?
-	$application = $queries->getWhere('banappeal_replies', array('id', '=', htmlspecialchars($_GET['app'])));
+	// Does the bug report exist?
+	$application = $queries->getWhere('bugreport_replies', array('id', '=', htmlspecialchars($_GET['app'])));
 	if(empty($application)){
 		// Doesn't exist
-		echo '<script>window.location.replace(\'/mod/banappeal\');</script>';
+		echo '<script>window.location.replace(\'/mod/bugreport\');</script>';
 		die();
 	} else {
 		$application = $application[0];
@@ -47,18 +47,18 @@ if(isset($_GET['app'])){
 					));
 					if($validation->passed()){
 						try {
-							$queries->create("banappeal_comments", array(
+							$queries->create("bugreport_comments", array(
 								'aid' => $application->id,
 								'uid' => $user->data()->id,
 								'time' => date('U'),
 								'content' => htmlspecialchars(Input::get('comment'))
 							));
-							Session::flash('mod_staff_app', '<div class="alert alert-info alert-dismissable"> <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $banappeal_language['comment_added'] . '</div>');
+							Session::flash('mod_staff_app', '<div class="alert alert-info alert-dismissable"> <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $bugreport_language['comment_added'] . '</div>');
 						} catch(Exception $e){
 							die($e->getMessage());
 						}
 					} else {
-						Session::flash('mod_staff_app', '<div class="alert alert-danger">' . $banappeal_language['comment_error'] . '</div>');
+						Session::flash('mod_staff_app', '<div class="alert alert-danger">' . $bugreport_language['comment_error'] . '</div>');
 					}
 				} else {
 					// Invalid token
@@ -69,45 +69,45 @@ if(isset($_GET['app'])){
 			// Decode the questions/answers
 			$answers = json_decode($application->content, true);
 			// Get questions
-			$questions = $queries->getWhere('banappeal_questions', array('id', '<>', 0));
+			$questions = $queries->getWhere('bugreport_questions', array('id', '<>', 0));
 			
 		} else {
 			// Can the user actually accept an application?
-			if($banappeal->canAcceptBanAppeal($user->data()->id)){
+			if($bugreport->canAcceptBugReport($user->data()->id)){
 				// Who posted the app?
 				$user_posted = $application->uid;
 				
 				if($_GET['action'] == 'accept'){
-					$queries->update('banappeal_replies', $application->id, array(
+					$queries->update('bugreport_replies', $application->id, array(
 						'status' => 1
 					));
 					// Add alert to tell user that it's been accepted
 					$queries->create('alerts', array(
 						'user_id' => $user_posted,
-						'type' => $banappeal_language['ban_appeal'],
+						'type' => $bugreport_language['bug_report'],
 						'url' => '#',
-						'content' => str_replace('{x}', htmlspecialchars($user->data()->username), $banappeal_language['ban_appeal_accepted']),
+						'content' => str_replace('{x}', htmlspecialchars($user->data()->username), $bugreport_language['bug_report_accepted']),
 						'created' => date('U')
 					));
 					
 					
 				} else if($_GET['action'] == 'reject'){
-					$queries->update('banappeal_replies', $application->id, array(
+					$queries->update('bugreport_replies', $application->id, array(
 						'status' => 2
 					));
 					// Add alert to tell user that it's been rejected
 					$queries->create('alerts', array(
 						'user_id' => $user_posted,
-						'type' => $banappeal_language['ban_appeal'],
+						'type' => $bugreport_language['bug_report'],
 						'url' => '#',
-						'content' => str_replace('{x}', htmlspecialchars($user->data()->username), $banappeal_language['ban_appeal_rejected']),
+						'content' => str_replace('{x}', htmlspecialchars($user->data()->username), $bugreport_language['bug_report_rejected']),
 						'created' => date('U')
 					));
 					
 				}
 				
 			}
-			Redirect::to('/mod/banappeal/?app=' . $application->id);
+			Redirect::to('/mod/bugreport/?app=' . $application->id);
 			die();
 		}
 	}
@@ -131,7 +131,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 	<?php
 	// Generate header and navbar content
 	// Page title
-	$title = $mod_language['mod_cp'] . ' - ' . $banappeal_language['ban_appeal'];
+	$title = $mod_language['mod_cp'] . ' - ' . $bugreport_language['bug_report'];
 	
 	require('core/includes/template/generate.php');
 	?>
@@ -157,24 +157,24 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 		  <?php require('pages/mod/sidebar.php'); ?>
 		</div>
 		<div class="col-md-9">
-			<h2><?php echo $banappeal_language['ban_appeal']; ?></h2>
+			<h2><?php echo $bugreport_language['bug_report']; ?></h2>
 			<?php 
 			if(!isset($_GET['app'])){
 			?>
 			<div class="well well-sm">
 				<?php
 					if(!isset($_GET['view'])){ 
-						// Get open ban appeal
-						$applications = $queries->getWhere('banappeal_replies', array('status', '=', 0));
-						echo $banappeal_language['viewing_open_ban_appeal'] . '<br /><br />';
+						// Get open bug report
+						$applications = $queries->getWhere('bugreport_replies', array('status', '=', 0));
+						echo $bugreport_language['viewing_open_bug_report'] . '<br /><br />';
 					} else if(isset($_GET['view']) && $_GET['view'] == 'accepted'){ 
-						// Get accepted ban appeal
-						$applications = $queries->getWhere('banappeal_replies', array('status', '=', 1));
-						echo $banappeal_language['viewing_accepted_ban_appeal'] . '<br /><br />';
+						// Get accepted bug report
+						$applications = $queries->getWhere('bugreport_replies', array('status', '=', 1));
+						echo $bugreport_language['viewing_accepted_bug_report'] . '<br /><br />';
 					} else if(isset($_GET['view']) && $_GET['view'] == 'declined'){ 
-						// Get declined ban appeal
-						$applications = $queries->getWhere('banappeal_replies', array('status', '=', 2));
-						echo $banappeal_language['viewing_declined_ban_appeal'] . '<br /><br />';
+						// Get declined bug report
+						$applications = $queries->getWhere('bugreport_replies', array('status', '=', 2));
+						echo $bugreport_language['viewing_declined_bug_report'] . '<br /><br />';
 					} 
 					if(count($applications)){
 				?>
@@ -183,7 +183,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 				    <tr>
 				      <th></th>
 					  <th><?php echo $user_language['minecraft_username']; ?></th>
-					  <th><?php echo $banappeal_language['time_applied']; ?></th>
+					  <th><?php echo $bugreport_language['time_applied']; ?></th>
 				    </tr>
 				  </thead>
 				  <?php 
@@ -193,7 +193,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 				  ?>
 				  <tbody>
 				    <tr>
-				      <td><a href="/mod/banappeal/?app=<?php echo $application->id; ?>" class="btn btn-info btn-xs"><?php echo $general_language['view']; ?></a></td>
+				      <td><a href="/mod/bugreport/?app=<?php echo $application->id; ?>" class="btn btn-info btn-xs"><?php echo $general_language['view']; ?></a></td>
 					  <td><a href="/profile/<?php echo htmlspecialchars($username); ?>"><?php echo htmlspecialchars($username); ?></a></td>
 					  <td><?php echo date('d M Y, G:i', $application->time); ?></td>
 				    </tr>
@@ -202,7 +202,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 				</table>
 				<?php
 					} else {
-						echo $banappeal_language['no_ban_appeal'];
+						echo $bugreport_language['no_bug_report'];
 					}
 				?>
 			</div>
@@ -213,29 +213,29 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 				  echo Session::flash('mod_staff_app');
 				}
 				
-                echo str_replace('{x}', '<a href="/profile/' . $username . '">' . $username . '</a>', $banappeal_language['viewing_ban_appeal_from']);
+                echo str_replace('{x}', '<a href="/profile/' . $username . '">' . $username . '</a>', $bugreport_language['viewing_bug_report_from']);
 				if($application->status == 0){ 
 					?>
-					<span class="label label-info"><?php echo $banappeal_language['open']; ?></span>
+					<span class="label label-info"><?php echo $bugreport_language['open']; ?></span>
 					<?php 
 				} else if($application->status == 1){ 
 					?>
-					<span class="label label-success"><?php echo $banappeal_language['accepted']; ?></span>
+					<span class="label label-success"><?php echo $bugreport_language['accepted']; ?></span>
 					<?php 
 				} else if($application->status == 2){ 
 					?>
-					<span class="label label-danger"><?php echo $banappeal_language['declined']; ?></span>
+					<span class="label label-danger"><?php echo $bugreport_language['declined']; ?></span>
 					<?php 
 				} 
 				?>
 			<div class="well well-sm">
 			<span class="pull-right">
 			  <?php 
-			  // Can the user accept banappeal?
-			  if($application->status == 0 && $banappeal->canAcceptBanAppeal($user->data()->id)){
+			  // Can the user accept bugreport?
+			  if($application->status == 0 && $bugreport->canAcceptBugReport($user->data()->id)){
 			  ?>
 			  <div class="btn-group">
-			    <a href="/mod/banappeal/?app=<?php echo $application->id; ?>&action=accept" class="btn btn-success"><?php echo $banappeal_language['accept']; ?></a><a href="/mod/banappeal/?app=<?php echo $application->id; ?>&action=reject" class="btn btn-danger"><?php echo $banappeal_language['decline']; ?></a>
+			    <a href="/mod/bugreport/?app=<?php echo $application->id; ?>&action=accept" class="btn btn-success"><?php echo $bugreport_language['accept']; ?></a><a href="/mod/bugreport/?app=<?php echo $application->id; ?>&action=reject" class="btn btn-danger"><?php echo $bugreport_language['decline']; ?></a>
 			  </div>
 			  <?php
 			  }
@@ -254,10 +254,10 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 			}
 			?>
 			<hr>
-			<h4><?php echo $banappeal_language['comments']; ?></h4>
+			<h4><?php echo $bugreport_language['comments']; ?></h4>
 			<?php
 			// Get comments
-			$comments = $queries->getWhere('banappeal_comments', array('aid', '=', $application->id));
+			$comments = $queries->getWhere('bugreport_comments', array('aid', '=', $application->id));
 			if(count($comments)){
 				foreach($comments as $comment){
 					$username = htmlspecialchars($user->idToName($comment->uid));
@@ -292,7 +292,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 			?>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<?php echo $banappeal_language['new_comment']; ?>
+					<?php echo $bugreport_language['new_comment']; ?>
 				</div>
 				<div class="panel-body">
 					<form action="" method="post">
@@ -300,7 +300,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 						<br />
 						<?php echo '<input type="hidden" name="token" value="' . $token . '">'; ?>
 						<button type="submit" class="btn btn-danger">
-						  <?php echo $banappeal_language['submit']; ?>
+						  <?php echo $bugreport_language['submit']; ?>
 						</button>
 					</form>
 				</div>
