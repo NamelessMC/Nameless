@@ -74,18 +74,6 @@ if(Input::exists()){
 	}
 }
 
-if(!isset($completed)){
-	// Has the user already submitted an Bug Report?
-	$already_submitted = $queries->getWhere('bugreport_replies', array('uid', '=', $user->data()->id));
-	foreach($already_submitted as $item){
-		if($item->status == 0){
-			$completed = 2;
-			break;
-		}
-	}
-	$already_submitted = null;
-}
-
 $page = $bugreport_language['bug_report'];
 
 ?>
@@ -131,9 +119,6 @@ $page = $bugreport_language['bug_report'];
 	?>
 	  <div class="well">
 		<h2><?php echo $bugreport_language['bug_report']; ?></h2>
-		<?php
-		if(!isset($completed)){
-		?>
 		<div class="row">
 		  <div class="col-md-5">
 			<form action="" method="post">
@@ -179,18 +164,6 @@ $page = $bugreport_language['bug_report'];
 			</form>
 		  </div>
 		</div>
-		<?php
-		} else {
-			if(Session::exists('app_success')){
-				echo Session::flash('app_success');
-			}
-			if($completed === 2){
-		?>
-		<div class="alert alert-info"><?php echo $bugreport_language['bug_report_already_submitted']; ?></div>
-		<?php
-			}
-		}
-		?>
 	  </div>
     </div>
     <?php

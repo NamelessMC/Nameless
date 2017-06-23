@@ -38,8 +38,8 @@ if(empty($bugreport_questions)){
 
 ?>
 <h3>Addon: BugReport</h3>
-<b>Authors:</b> Partydragen And Samerton<br />
-<b>Version:</b> 1.0.3<br />
+<b>Authors:</b> Partydragen, Samerton and relavis<br />
+<b>Version:</b> 1.0.4<br />
 <b>Description:</b> Allow your players to post a Bug Report<br />
 
 <h3><?php echo $bugreport_language['bug_report']; ?></h3>
@@ -102,7 +102,7 @@ if(empty($bugreport_questions)){
 		  <?php echo $bugreport_language['view_bug_report']; ?>
 		</div>
 		<div class="col-md-3">
-		  <?php echo $bugreport_language['accept_reject_bug_report']; ?>
+		  <?php echo $bugreport_language['open_close_bug_report']; ?>
 		</div>
 	  </div>
 	</div>
