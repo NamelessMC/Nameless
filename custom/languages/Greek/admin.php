@@ -89,6 +89,8 @@ $language = array(
     'send' => 'Send',
     'test_email_error' => 'Test email error:',
     'test_email_success' => 'Test email sent successfully!',
+    'terms_error' => 'Please ensure your terms and conditions are no longer than 2048 characters.',
+    'terms_updated' => 'Terms updated successfully.',
 
 	// Reactions
 	'icon' => 'Icon',
