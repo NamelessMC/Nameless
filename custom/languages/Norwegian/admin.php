@@ -180,6 +180,11 @@ $language = array(
     'editing_server' => 'Endrer server',
     'server_deleted' => 'Serveren ble suksessfullt slettet.',
     'unable_to_delete_server' => 'Kunne ikke slette server.',
+    'leave_port_empty_for_srv' => 'You can the port empty if it is 25565, or if your domain uses an SRV record',
+    'viewing_query_error' => 'Viewing Query Error',
+    'confirm_query_error_deletion' => 'Are you sure you want to delete this query error?',
+    'no_query_errors' => 'No query errors logged.',
+    'new_banner' => '<i class="fa fa-plus-circle"></i> New Banner',
 
 	// Modules
 	'modules_installed_successfully' => 'Modulene er nå oppdatert',
