@@ -189,6 +189,13 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> New Banner',
     'purge_errors' => 'Purge Errors',
     'confirm_purge_errors' => 'Are you sure you want to purge all errors?',
+    'mcassoc_help' => 'mcassoc is an external service which can be used to verify users own the Minecraft account they have registered with. To use this feature, you will need to sign up for a shared key <a href="https://mcassoc.lukegb.com/" target="_blank">here</a>.',
+    'mcassoc_key' => 'mcassoc Shared Key',
+    'mcassoc_instance' => 'mcassoc Instance Key',
+    'mcassoc_instance_help' => '<a href="#" onclick="generateInstance();">Click to generate an instance key</a>',
+    'mcassoc_error' => 'Please ensure you that have entered your shared key correctly, and that you have generated an instance key correctly.',
+    'updated_mcassoc_successfully' => 'mcassoc settings updated successfully.',
+    'force_premium_accounts' => 'Force premium Minecraft accounts?',
 
 	// Modules
 	'modules_installed_successfully' => 'Any new modules have been installed successfully.',

@@ -52,7 +52,7 @@ $_SESSION['remember'] = Input::get('remember');
 	$smarty->assign(array(
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 		'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
-		'TOKEN' => Token::generate(),
+		'TOKEN' => Token::get(),
 		'SUBMIT' => $language->get('general', 'submit')
 	));
 	

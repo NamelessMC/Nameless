@@ -143,6 +143,119 @@ $admin_page = 'minecraft';
                 switch($_GET['view']){
                     case 'account_verification':
                       echo '<h4>' . $language->get('admin', 'account_verification') . '</h4>';
+
+                      // Handle input
+                      if(Input::exists()){
+                        if(Token::check(Input::get('token'))){
+                          if(!isset($_POST['premium'])) {
+                              if (isset($_POST['use_mcassoc']) && $_POST['use_mcassoc'] == 'on') {
+                                  $validate = new Validate();
+                                  $validation = $validate->check($_POST, array(
+                                      'mcassoc_key' => array(
+                                          'required' => true,
+                                          'max' => 128
+                                      ),
+                                      'mcassoc_instance' => array(
+                                          'required' => true,
+                                          'min' => 32,
+                                          'max' => 32
+                                      )
+                                  ));
+
+                                  if ($validation->passed()) {
+                                      // Update settings
+                                      $use_mcassoc = $queries->getWhere('settings', array('name', '=', 'verify_accounts'));
+                                      $use_mcassoc = $use_mcassoc[0]->id;
+
+                                      $mcassoc_key = $queries->getWhere('settings', array('name', '=', 'mcassoc_key'));
+                                      $mcassoc_key = $mcassoc_key[0]->id;
+
+                                      $mcassoc_instance = $queries->getWhere('settings', array('name', '=', 'mcassoc_instance'));
+                                      $mcassoc_instance = $mcassoc_instance[0]->id;
+
+                                      $queries->update('settings', $use_mcassoc, array('value' => 1));
+                                      $queries->update('settings', $mcassoc_key, array('value' => Input::get('mcassoc_key')));
+                                      $queries->update('settings', $mcassoc_instance, array('value' => Input::get('mcassoc_instance')));
+
+                                      $success = $language->get('admin', 'updated_mcassoc_successfully');
+                                  } else {
+                                      $error = $language->get('admin', 'mcassoc_error');
+                                  }
+                              }
+                          } else {
+                            $uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
+                            $uuid_linking = $uuid_linking[0]->id;
+
+                            if(isset($_POST['enable_premium_accounts']) && $_POST['enable_premium_accounts'] == 1)
+                              $use_premium = 1;
+                            else
+                              $use_premium = 0;
+
+                            $queries->update('settings', $uuid_linking, array('value' => $use_premium));
+                          }
+                        }
+                      }
+
+                      // Get UUID linking settings
+                      $uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
+                      $uuid_linking = $uuid_linking[0]->value;
+
+                      // Get mcassoc settings
+                      $use_mcassoc = $queries->getWhere('settings', array('name', '=', 'verify_accounts'));
+                      $use_mcassoc = $use_mcassoc[0]->value;
+
+                      $mcassoc_key = $queries->getWhere('settings', array('name', '=', 'mcassoc_key'));
+                      $mcassoc_key = Output::getClean($mcassoc_key[0]->value);
+
+                      $mcassoc_instance = $queries->getWhere('settings', array('name', '=', 'mcassoc_instance'));
+                      $mcassoc_instance = Output::getClean($mcassoc_instance[0]->value);
+                      ?>
+                      <form id="enablePremium" action="" method="post">
+                          <?php echo $language->get('admin', 'force_premium_accounts'); ?>
+                        <input type="hidden" name="enable_premium_accounts" value="0">
+                        <input name="enable_premium_accounts" type="checkbox"
+                               class="js-switch js-check-change"<?php if ($uuid_linking == '1') { ?> checked<?php } ?>
+                               value="1"/>
+                        <input type="hidden" name="premium" value="1">
+                        <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
+                      </form>
+                      <?php if($uuid_linking == '1') { ?>
+                      <hr/>
+                      <div class="alert alert-info">
+                          <?php echo $language->get('admin', 'mcassoc_help'); ?>
+                      </div>
+                        <?php
+                        if (isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>';
+                        else if (isset($success)) echo '<div class="alert alert-success">' . $success . '</div>';
+                        ?>
+                      <form action="" method="post">
+                        <div class="form-group">
+                          <label for="use_mcassoc"><?php echo $language->get('admin', 'verify_with_mcassoc'); ?></label>
+                          <input id="use_mcassoc" name="use_mcassoc" type="checkbox" class="js-switch"
+                                 <?php if ($use_mcassoc == '1'){ ?>checked <?php } ?>/>
+                          </span>
+                        </div>
+                        <div class="form-group">
+                          <label for="mcassoc_key"><?php echo $language->get('admin', 'mcassoc_key'); ?></label>
+                          <input type="text" class="form-control" name="mcassoc_key" id="mcassoc_key"
+                                 value="<?php echo $mcassoc_key; ?>"
+                                 placeholder="<?php echo $language->get('admin', 'mcassoc_key'); ?>">
+                        </div>
+                        <div class="form-group">
+                          <label for="mcassoc_instance"><?php echo $language->get('admin', 'mcassoc_instance'); ?></label>
+                          <input type="text" class="form-control" name="mcassoc_instance" id="mcassoc_instance"
+                                 value="<?php echo $mcassoc_instance; ?>"
+                                 placeholder="<?php echo $language->get('admin', 'mcassoc_instance'); ?>">
+                          <p><?php echo $language->get('admin', 'mcassoc_instance_help'); ?></p>
+                        </div>
+                        <div class="form-group">
+                          <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
+                          <input type="submit" class="btn btn-primary"
+                                 value="<?php echo $language->get('general', 'submit'); ?>">
+                        </div>
+                      </form>
+                      <?php
+                      }
                       break;
 
                     case 'authme':
@@ -1106,12 +1219,25 @@ $admin_page = 'minecraft';
 	var changeCheckbox = document.querySelector('.js-check-change');
 
 	changeCheckbox.onchange = function() {
-	  if($("#enableMinecraft").length == 0)
-          $('#enableAuthMe').submit();
+	  if($("#enableAuthMe").length > 0)
+      $('#enableAuthMe').submit();
+	  else if($("#enablePremium").length > 0)
+	    $('#enablePremium').submit();
 	  else
-	      $('#enableMinecraft').submit();
+	    $('#enableMinecraft').submit();
 	};
-	
+
+	<?php if($_GET['view'] == 'account_verification'){ ?>
+  function generateInstance() {
+      var text = "";
+      var possible = "abcdef0123456789";
+      // thanks SO 1349426
+      for(var i = 0; i < 32; i++)
+          text += (possible.charAt(Math.floor(Math.random() * possible.length)));
+
+      document.getElementById("mcassoc_instance").setAttribute("value", text);
+  }
+  <?php } ?>
 	</script>
 
   </body>
