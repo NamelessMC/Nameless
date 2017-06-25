@@ -318,7 +318,7 @@ $admin_language = array(
     'mcassoc_instance' => 'mcassoc Instance',
     'mcassoc_instance_help' => 'Genereer een instance code <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">hier</a>',
     'mcassoc_key_help' => 'Verkrijg je mcassoc sleutel <a href="https://mcassoc.lukegb.com/" target="_blank">hier</a>',
-	'enable_name_history' => 'Enable profile username history?',
+    'enable_name_history' => 'Schakel profiel gebruikersnaam geschiedenis is?',
 
     // Admin Themes, Templates and Addons
     'themes' => 'Thema\'s',
@@ -354,7 +354,7 @@ $admin_language = array(
     'inverse_navbar' => 'Omgekeerde kleur Navbar',
     'confirm_theme_deletion' => 'Weet je het zeker dat je thema <b>{x}</b> wil verwijderen?<br /><br />Het thema wordt verwijderd uit de <b>styles/themes</b> map.', // Don't replace {x}
     'confirm_template_deletion' => 'Weet je zeker dat je het sjabloon <b>{x}</b> wilt verwijderen?<br /><br />Het sjabloon wordt verwijderd uit de <b>styles/templates</b> map.', // Don't replace {x}
-	'unable_to_enable_addon' => 'Could not enable addon. Please ensure it is a valid NamelessMC addon.',
+    'unable_to_enable_addon' => 'Kan addon niet inschakelen. Zorg ervoor dat het een geldige NamelessMC addon is.',
 	
     // Admin Misc page
     'other_settings' => 'Andere Instellingen',
