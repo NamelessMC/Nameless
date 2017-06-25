@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -22,121 +22,123 @@ if(!isset($_SESSION['mcassoc'])) $_SESSION['mcassoc'] = $_POST;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Verify Account">
     <meta name="author" content="<?php echo SITE_NAME; ?>">
-	<meta name="robots" content="noindex">
-	
-    <title><?php echo $language->get('user', 'verify_account'); ?> &bull; <?php echo SITE_NAME; ?></title>
-	
-	<?php 
-	$page = 'admin'; // to load default CSS
-	require('core/templates/header.php'); 
-	?>
-	
+	  <meta name="robots" content="noindex">
+
+    <?php
+    $title = $language->get('user', 'verify_account');
+    require('core/templates/header.php');
+    ?>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/js/client.js"></script>
 	
   </head>
   
   <body>
-    <?php require('core/templates/navbar.php'); ?>
-    
-	<div class="container">
-	  <h2><?php echo $language->get('user', 'verify_account'); ?></h2>
-	  <div class="alert alert-info"><?php echo $language->get('user', 'verify_account_help'); ?></div>
-	  <?php
-	  // MCAssoc steps
-	  if(!isset($_GET['step'])){ 
-		// Step 1 - MCAssoc
-	    if($custom_usernames == 'true'){
-			if(isset($_SESSION['mcassoc']['mcname'])){
-				$username = $_SESSION['mcassoc']['mcname'];
-			}
-		} else {
-			if(isset($_SESSION['mcassoc']['username'])){
-				$username = $_SESSION['mcassoc']['username'];
-			}
-		}
-		
-		$return_link = "http://$_SERVER[HTTP_HOST]". strtok($_SERVER['REQUEST_URI'], '?') . '/?' . http_build_query(array(
-			'step' => '2'
-		));
-		$key = $mcassoc->generateKey($username);
-	  ?>
+  <?php
+  // Generate navbar and footer
+  require('core/templates/navbar.php');
+  require('core/templates/footer.php');
+
+  $smarty->assign(array(
+    'VERIFY_ACCOUNT' => $language->get('user', 'verify_account'),
+    'VERIFY_ACCOUNT_HELP' => $language->get('user', 'verify_account_help')
+  ));
+
+  if(!isset($_GET['step'])){
+    // Step 1 - MCAssoc
+    if($custom_usernames == 'true'){
+        if(isset($_SESSION['mcassoc']['mcname'])){
+            $username = $_SESSION['mcassoc']['mcname'];
+        }
+    } else {
+        if(isset($_SESSION['mcassoc']['username'])){
+            $username = $_SESSION['mcassoc']['username'];
+        }
+    }
+
+    $return_link = "http://$_SERVER[HTTP_HOST]". strtok($_SERVER['REQUEST_URI'], '?') . '/?' . http_build_query(array(
+            'step' => '2'
+        ));
+    $key = $mcassoc->generateKey($username);
+
+    $smarty->assign('MCASSOC', '
 	  <center>
 	    <iframe id="mcassoc" width="100%" height="400" frameBorder="0" seamless scrolling="no"></iframe>
 	  </center>
 	  <script>
-	  MCAssoc.init("<?php echo $mcassoc_site_id; ?>", "<?php echo $key; ?>", "<?php echo $return_link; ?>");
+	  MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");
 	  </script>
-	  <?php
-	  } else {
-		  if($_GET['step'] == 2){
-			  // Final step - verify data matches form
-			  if($custom_usernames == 'true'){
-				if(isset($_SESSION['mcassoc']['mcname'])){
-					$username = $_SESSION['mcassoc']['mcname'];
-				}
-			  } else {
-				if(isset($_SESSION['mcassoc']['username'])){
-					$username = $_SESSION['mcassoc']['username'];
-				}
-			  }
-			  
-			  if(!isset($username)) die();
-			  
-			  try {
-				    $data = $mcassoc->unwrapData($_POST['data']);
-				  
-					if(!$data || $username != $data->username){
-						// Does not match MCAssoc
-						echo '<div class="alert alert-danger">' . $language->get('user', 'verification_failed') . '<br /><a href="' . URL::build('/register') . '" class="btn btn-primary">' . $language->get('general', 'register') . '</a></div>';
-						unset($_SESSION['mcassoc']);
-					} else {
-						// Matches
-						// Register the account
-						// Password (already hashed)
-						$password = $_SESSION['password'];
-					  
-						// Get current unix time
-						$date = new DateTime();
-						$date = $date->getTimestamp();
-					  
-						// Get IP
-						$ip = $user->getIP();
-					  
-						$user->create(array(
-							'username' => htmlspecialchars($username),
-							'nickname' => htmlspecialchars($_SESSION['mcassoc']['username']),
-							'uuid' => htmlspecialchars($data->uuid),
-							'password' => $password,
-							'pass_method' => 'default',
-							'joined' => $date,
-							'group_id' => 1,
-							'email' => htmlspecialchars($_SESSION['mcassoc']['email']),
-							'active' => 1,
-							'lastip' => htmlspecialchars($ip),
-							'last_online' => $date
-						));
-					  
-						unset($_SESSION['mcassoc']);
-					  
-						echo '<div class="alert alert-success">' . $language->get('user', 'verification_success') . '<br /><a href="' . URL::build('/login') . '" class="btn btn-primary">' . $language->get('general', 'sign_in') . '</a></div>';
-					}
-			  } catch (Exception $e) {
-				  echo '<div class="alert alert-danger">' . $language->get('user', 'verification_failed') . '<br /><a href="' . URL::build('/register') . '" class="btn btn-primary">' . $language->get('general', 'register') . '</a></div>';
-				  unset($_SESSION['mcassoc']);
-			  }
-	      }
-	  }
-	  ?>
-	</div>
-  
-    <?php
-	// Footer
-	require('core/templates/footer.php');
+    ');
+
+  } else if($_GET['step'] == 2){
+    // Final step - verify data matches form
+    if($custom_usernames == 'true'){
+        if(isset($_SESSION['mcassoc']['mcname'])){
+            $username = $_SESSION['mcassoc']['mcname'];
+        }
+    } else {
+        if(isset($_SESSION['mcassoc']['username'])){
+            $username = $_SESSION['mcassoc']['username'];
+        }
+    }
+
+    if(!isset($username)) die('Session expired, please try again.');
+
+    $smarty->assign('STEP', 2);
+
+    try {
+        $data = $mcassoc->unwrapData($_POST['data']);
+
+        if(!$data || $username != $data->username){
+            // Does not match MCAssoc
+            $smarty->assign('ERROR', $language->get('user', 'verification_failed'));
+            $smarty->assign('RETRY_LINK', URL::build('/register'));
+            $smarty->assign('RETRY_TEXT', $language->get('general', 'register'));
+
+            unset($_SESSION['mcassoc']);
+        } else {
+            // Matches
+            // Register the account
+            // Password (already hashed)
+            $password = $_SESSION['password'];
+
+            // Get IP
+            $ip = $user->getIP();
+
+            $user->create(array(
+                'username' => htmlspecialchars($username),
+                'nickname' => htmlspecialchars($_SESSION['mcassoc']['username']),
+                'uuid' => htmlspecialchars($data->uuid),
+                'password' => $password,
+                'pass_method' => 'default',
+                'joined' => date('U'),
+                'group_id' => 1,
+                'email' => htmlspecialchars($_SESSION['mcassoc']['email']),
+                'active' => 1,
+                'lastip' => htmlspecialchars($ip),
+                'last_online' => date('U')
+            ));
+
+            unset($_SESSION['mcassoc']);
+
+            $smarty->assign('SUCCESS', $language->get('user', 'verification_success'));
+            $smarty->assign('LOGIN_LINK', URL::build('/login'));
+            $smarty->assign('LOGIN_TEXT', $language->get('general', 'sign_in'));
+
+        }
+    } catch (Exception $e) {
+        $smarty->assign('ERROR', $language->get('user', 'verification_failed') . ' - ' . $e->getMessage());
+        $smarty->assign('RETRY_LINK', URL::build('/register'));
+        $smarty->assign('RETRY_TEXT', $language->get('general', 'register'));
+
+        unset($_SESSION['mcassoc']);
+    }
+  }
+
+  // Display template
+  $smarty->display('custom/templates/' . TEMPLATE . '/mcassoc.tpl');
+
+  // Scripts
+  require('core/templates/scripts.php');
 	?>
-  
-    <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/js/jquery.min.js"></script>
-	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/js/tether.min.js"></script>
-    <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/js/bootstrap.min.js"></script>
-	
   </body>
 </html>
