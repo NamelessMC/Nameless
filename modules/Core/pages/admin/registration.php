@@ -47,11 +47,25 @@ if(Input::exists()){
 			));
 		} else {
 			// Registration settings
-			
+			if(isset($_POST['verification']) && $_POST['verification'] == 'on')
+			  $verification = 1;
+			else
+			  $verification = 0;
+
+			$verification_id = $queries->getWhere('settings', array('name', '=', 'email_verification'));
+			$verification_id = $verification_id[0]->id;
+
+			try {
+			  $queries->update('settings', $verification_id, array(
+			     'value' => $verification
+        ));
+      } catch(Exception $e){
+			  $error = $e->getMessage();
+      }
 		}
 	} else {
 		// Invalid token
-		
+		$error = $language->get('general', 'invalid_token');
 	}
 }
 
@@ -90,7 +104,13 @@ $token = Token::get();
 		  <div class="card">
 		    <div class="card-block">
 			  <h3><?php echo $language->get('admin', 'registration'); ?></h3>
-			  
+
+        <?php if(isset($error)){ ?>
+        <div class="alert alert-danger">
+          <?php echo $error; ?>
+        </div>
+			  <?php } ?>
+
 			  <form id="enableRegistration" action="" method="post">
 			    <?php echo $language->get('admin', 'enable_registration'); ?>
 				<input type="hidden" name="enable_registration" value="0">
@@ -100,23 +120,15 @@ $token = Token::get();
 			  
 			  <?php
 			  if($registration_enabled == '1'){
-				  // MCAssoc?
-				  $mcassoc = $queries->getWhere('settings', array('name', '=', 'verify_accounts'));
-				  $mcassoc = $mcassoc[0]->value;
-				  
 				  // Is email verification enabled
 				  $emails = $queries->getWhere('settings', array('name', '=', 'email_verification'));
 				  $emails = $emails[0]->value;
 			  ?>
 			  <hr>
 			  <form action="" method="post">
-			    <div class="form-group">
-			      <?php echo $language->get('admin', 'verify_with_mcassoc'); ?>
-			      <input type="checkbox" class="js-switch"<?php if($mcassoc == '1'){ ?> checked<?php } ?> />
-				</div>
 				<div class="form-group">
-			      <?php echo $language->get('admin', 'email_verification'); ?>
-			      <input type="checkbox" class="js-switch"<?php if($emails == '1'){ ?> checked<?php } ?> />
+          <label for="verification"><?php echo $language->get('admin', 'email_verification'); ?></label>
+			    <input name="verification" id="verification" type="checkbox" class="js-switch"<?php if($emails == '1'){ ?> checked<?php } ?> />
 				</div>
 				<input type="hidden" name="token" value="<?php echo $token; ?>">
 				<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
