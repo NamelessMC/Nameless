@@ -186,6 +186,8 @@ $language = array(
     'confirm_query_error_deletion' => 'Are you sure you want to delete this query error?',
     'no_query_errors' => 'No query errors logged.',
     'new_banner' => '<i class="fa fa-plus-circle"></i> New Banner',
+    'purge_errors' => 'Purge Errors',
+    'confirm_purge_errors' => 'Are you sure you want to purge all errors?',
 
 	// Modules
 	'modules_installed_successfully' => 'Todos os novos módulos foram instalados com êxito.',

@@ -982,9 +982,17 @@ $admin_page = 'minecraft';
 
                     case 'query_errors':
                       echo '<h4 style="display:inline;">' . $language->get('admin', 'query_errors') . '</h4>';
-                      echo '<span class="pull-right"><a href="' . (!isset($_GET['id']) ? URL::build('/admin/minecraft/') : URL::build('/admin/minecraft/', 'view=query_errors')) . '" class="btn btn-warning">' . $language->get('general', 'back') . '</a></span><br /><br />';
+                      if(!isset($_GET['id']) && !isset($_GET['action']))
+                        echo '<span class="pull-right"><a href="' . URL::build('/admin/minecraft', 'view=query_errors&amp;action=purge') . '" class="btn btn-warning" onclick="return confirm(\'' . $language->get('admin', 'confirm_purge_errors') . '\');">' . $language->get('admin', 'purge_errors') . '</a></span><br /><br />';
+                      else
+                        echo '<span class="pull-right"><a href="' . (!isset($_GET['id']) ? URL::build('/admin/minecraft/') : URL::build('/admin/minecraft/', 'view=query_errors')) . '" class="btn btn-warning">' . $language->get('general', 'back') . '</a></span><br /><br />';
 
                       if(!isset($_GET['id'])){
+                          if(isset($_GET['action']) && $_GET['action'] == 'purge'){
+                            $queries->delete('query_errors', array('id', '<>', 0));
+                            Redirect::to(URL::build('/admin/minecraft/', 'view=query_errors'));
+                            die();
+                          }
                           $query_errors = $queries->orderWhere('query_errors', 'id <> 0', 'DATE', 'DESC');
                           if(count($query_errors)){
                               // Get page
