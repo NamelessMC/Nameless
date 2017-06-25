@@ -49,6 +49,17 @@ $language = array(
 	'loading' => 'Načítání...',
 	'report' => 'Nahlásit',
 	'page_loaded_in' => 'Stránka se načetla za {x}sekund', // Don't replace {x}, time unit is seconds
+    'page_x' => 'Page {x}',
+
+    /*
+     *  Contact form
+     */
+    'contact' => 'Contact',
+    'message' => 'Message',
+    'contact_email_subject' => 'New contact form submission',
+    'contact_message_failed' => 'Unable to send message. Please ensure you have entered a message between 10 and 5000 characters long.',
+    'contact_message_sent' => 'Message sent successfully.',
+    'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {x} minutes.', // Don't replace {x}
 	
 	/* 
 	 *  Navbar

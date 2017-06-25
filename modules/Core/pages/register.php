@@ -313,50 +313,41 @@ if(Input::exists()){
 								'last_online' => $date,
 								'language_id' => $language_id
 							));
+
+							// Get user ID
+              $user_id = $queries->getLastId();
 							
 							if($email_verification == '1'){
 								$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
 								$php_mailer = $php_mailer[0]->value;
-								
+
 								if($php_mailer == '1'){
 									// PHP Mailer
-									require('core/includes/phpmailer/PHPMailerAutoload.php');
-									require('core/email.php');
-									
-									$mail = new PHPMailer;
-									$mail->IsSMTP(); 
-									$mail->SMTPDebug = 0;
-									$mail->Debugoutput = 'html';
-									$mail->Host = $GLOBALS['email']['host'];
-									$mail->Port = $GLOBALS['email']['port'];
-									$mail->SMTPSecure = $GLOBALS['email']['secure'];
-									$mail->SMTPAuth = true;
-									$mail->Username = $GLOBALS['email']['username'];
-									$mail->Password = $GLOBALS['email']['password'];
-									$mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
-									$mail->From = $GLOBALS['email']['username'];
-									$mail->FromName = $GLOBALS['email']['name'];
-									$mail->addAddress(htmlspecialchars(Input::get('email')), htmlspecialchars(Input::get('username')));
-									$mail->Subject = $sitename . ' - ' . $language->get('general', 'register');
-									
 									// HTML to display in message
 									$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', $template, 'email', 'register.html'));
 									$html = file_get_contents($path);
 									
-									$link = 'http://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code);
+									$link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code);
 									
 									$html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array($sitename, $language->get('general', 'register'), $language->get('user', 'email_greeting'), $language->get('user', 'email_message'), $link, $language->get('user', 'email_thanks')), $html);
-									
-									$mail->msgHTML($html);
-									$mail->IsHTML(true);
-									$mail->Body = $html;
-									
-									if(!$mail->send()) {
-										echo "Mailer Error: " . $mail->ErrorInfo;
-										die();
-									} else {
-										echo "Message sent!";
-									}
+
+									$email = array(
+                      'to' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('username'))),
+                      'subject' => SITE_NAME . ' - ' . $language->get('general', 'register'),
+                      'message' => $html
+                  );
+
+									$sent = Email::send($email, 'mailer');
+
+                  if(isset($sent['error'])){
+                      // Error, log it
+                      $queries->create('email_errors', array(
+                          'type' => 1, // 1 = registration
+                          'content' => $sent['error'],
+                          'at' => date('U'),
+                          'user_id' => $user_id
+                      ));
+                  }
 
 								} else {
 									// PHP mail function
@@ -367,15 +358,34 @@ if(Input::exists()){
 									$subject = $sitename . ' - ' . $language->get('general', 'register');
 									
 									$message = 	$language->get('user', 'email_greeting') . PHP_EOL .
-												$language->get('user', 'email_message') . PHP_EOL . PHP_EOL . 
-												'http://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code) . PHP_EOL . PHP_EOL .
+												$language->get('user', 'email_message') . PHP_EOL . PHP_EOL .
+                        'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code) . PHP_EOL . PHP_EOL .
 												$language->get('user', 'email_thanks') . PHP_EOL .
 												$sitename;
-									
-									$headers = 'From: ' . $siteemail . "\r\n" .
-										'Reply-To: ' . $siteemail . "\r\n" .
-										'X-Mailer: PHP/' . phpversion();
-									mail($to, $subject, $message, $headers);
+
+                  $headers = 'From: ' . $siteemail . "\r\n" .
+                      'Reply-To: ' . $siteemail . "\r\n" .
+                      'X-Mailer: PHP/' . phpversion();
+
+									$email = array(
+                      'to' => $to,
+                      'subject' => $subject,
+                      'message' => $message,
+                      'headers' => $headers
+                  );
+
+									$sent = Email::send($email, 'php');
+
+									if(isset($sent['error'])){
+									  // Error, log it
+                    $queries->create('email_errors', array(
+                        'type' => 1, // 1 = registration
+                        'content' => $sent['error'],
+                        'at' => date('U'),
+                        'user_id' => $user_id
+                    ));
+                  }
+
 								}
 							} else {
 								// Email verification disabled
@@ -385,7 +395,7 @@ if(Input::exists()){
 								die();
 							}
 							
-							Session::flash('home', '<div class="alert alert-info alert-dismissible">  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $language->get('user', 'registration_check_email') . '</div>');
+							Session::flash('home', $language->get('user', 'registration_check_email'));
 							Redirect::to(URL::build('/'));
 							die();
 						

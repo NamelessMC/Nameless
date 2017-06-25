@@ -33,6 +33,9 @@ $language = array(
 	'running_nameless_version' => 'Website versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'running_php_version' => 'PHP versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'statistics' => 'Statistieken',
+    'notices' => 'Notices',
+    'no_notices' => 'No notices.',
+    'email_errors_logged' => 'Email errors have been logged. Click <a href="{x}">here</a> to view.', // Don't replace "{x}"
 
 	// Kern
 	'settings' => 'Instellingen',
@@ -60,10 +63,32 @@ $language = array(
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Succesvol bijgewerkt',
-    	'debugging_and_maintenance' => 'Debugging en beheer',
+    'debugging_and_maintenance' => 'Debugging en beheer',
   	'enable_debug_mode' => 'Wilt u debug modus inschakelen?',
-    	'force_https' => 'Forceer https?',
-    	'force_https_help' => 'Als het aanstaat, worden alle verzoeken naar deze website doorgestuurd naar https. Je moet een geldig SSL certificaat die actief is hebben om dit te laten werken.',
+    'force_https' => 'Forceer https?',
+    'force_https_help' => 'Als het aanstaat, worden alle verzoeken naar deze website doorgestuurd naar https. Je moet een geldig SSL certificaat die actief is hebben om dit te laten werken.',
+    'contact_email' => 'Contact Email Address',
+    'emails' => 'Emails',
+    'email_errors' => 'Email Errors',
+    'registration_email' => 'Registration Email',
+    'contact_email' => 'Contact Email',
+    'unknown' => 'Unknown',
+    'delete_email_error' => 'Delete error',
+    'confirm_email_error_deletion' => 'Are you sure you want to delete this error?',
+    'viewing_email_error' => 'Viewing error',
+    'unable_to_write_email_config' => 'Unable to write to file <strong>core/email.php</core>. Please check file permissions.',
+    'enable_mailer' => 'Enable PHPMailer?',
+    'enable_mailer_help' => 'Enable this if emails aren\'t being sent by default. The use of PHPMailer requires you to have a service capable of sending emails, such as Gmail or an SMTP provider.',
+    'outgoing_email' => 'Outgoing Email Address',
+    'outgoing_email_info' => 'This is the email address which NamelessMC will use to send emails from.',
+    'mailer_settings_info' => 'The following fields are required if you have enabled PHPMailer. For more information on how to fill out these fields, check out <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">the wiki</a>.',
+    'host' => 'Host',
+    'email_password_hidden' => 'The password is not shown for security reasons.',
+    'send_test_email' => 'Send Test Email',
+    'send_test_email_info' => 'The following button will attempt to send an email to your email address, <strong>{x}</strong>. Any errors thrown whilst sending the email will be displayed.', // Don't replace {x}
+    'send' => 'Send',
+    'test_email_error' => 'Test email error:',
+    'test_email_success' => 'Test email sent successfully!',
 
 	// Reacties
 	'icon' => 'Icoon',
