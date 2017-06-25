@@ -37,7 +37,8 @@ class MCQuery {
                                 'status' => $language->get('general', 'online'),
                                 'player_count' => Output::getClean($query['players']['online']),
                                 'player_count_max' => Output::getClean($query['players']['max']),
-                                'x_players_online' => str_replace('{x}', Output::getClean($query['players']['online']), $language->get('general', 'currently_x_players_online'))
+                                'x_players_online' => str_replace('{x}', Output::getClean($query['players']['online']), $language->get('general', 'currently_x_players_online')),
+                                'motd' => $query['description']['text']
                             );
                         else
                             $return = array(
@@ -56,13 +57,15 @@ class MCQuery {
                     ExternalMCQuery::addServer($ip['ip']);
                     $query = ExternalMCQuery::queryServers('basic');
 
-                    if(isset($query->status))
+                    if(isset($query->status) && !empty($query->status))
                         $return = array(
                             'status_value' => 1,
                             'status' => $language->get('general', 'online'),
                             'player_count' => Output::getClean($query->players->online),
                             'player_count_max' => Output::getClean($query->players->max),
-                            'x_players_online' => str_replace('{x}', Output::getClean($query->players->online), $language->get('general', 'currently_x_players_online'))
+                            'x_players_online' => str_replace('{x}', Output::getClean($query->players->online), $language->get('general', 'currently_x_players_online')),
+                            'motd' => $query->motd,
+                            'motd_formatted' => Output::getPurified($query->htmlmotd)
                         );
                     else
                         $return = array(
