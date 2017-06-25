@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -69,3 +69,7 @@ $smarty->assign(array(
 	'PAGE_LOAD_TIME' => ((isset($page_loading) && $page_loading == '1') ? true : false),
 	'FOOTER_NAVIGATION' => $navigation->returnNav('footer')
 ));
+
+// Terms
+$smarty->assign('TERMS_LINK', URL::build('/terms'));
+$smarty->assign('TERMS_TEXT', $language->get('user', 'terms_and_conditions'));

@@ -88,6 +88,9 @@ $current_default_language = $current_default_language[0]->value;
             <tr>
               <td><a href="<?php echo URL::build('/admin/core/', 'view=social'); ?>"><?php echo $language->get('admin', 'social_media'); ?></a></td>
             </tr>
+            <tr>
+              <td><a href="<?php echo URL::build('/admin/core/', 'view=terms'); ?>"><?php echo $language->get('user', 'terms_and_conditions'); ?></a></td>
+            </tr>
 				  </table>
 			  </div>
 			  <?php
@@ -1518,6 +1521,61 @@ $current_default_language = $current_default_language[0]->value;
 
               break;
 
+            case 'terms':
+              if(Input::exists()){
+                if(Token::check(Input::get('token'))){
+                  $validate = new Validate();
+                  $validation = $validate->check($_POST, array(
+                     'terms' => array(
+                         'required' => true,
+                         'max' => 2048
+                     )
+                  ));
+
+                  if($validation->passed()){
+                    try {
+                      $terms_id = $queries->getWhere('settings', array('name', '=', 't_and_c_site'));
+                      $terms_id = $terms_id[0]->id;
+
+                      $queries->update('settings', $terms_id, array(
+                          'value' => Input::get('terms')
+                      ));
+
+                      $success = $language->get('admin', 'terms_updated');
+                    } catch(Exception $e){
+                      $error = $e->getMessage();
+                    }
+                  } else
+                    $error = $language->get('admin', 'terms_error');
+
+                } else
+                  $error = $language->get('general', 'invalid_token');
+              }
+
+              $site_terms = $queries->getWhere('settings', array('name', '=', 't_and_c_site'));
+              $site_terms = $site_terms[0]->value;
+              ?>
+              <h4><?php echo $language->get('user', 'terms_and_conditions'); ?></h4>
+
+              <form action="" method="post">
+                <?php if(isset($error)){ ?>
+                  <div class="alert alert-danger"><?php echo $error; ?></div>
+                <?php } else if(isset($success)){ ?>
+                  <div class="alert alert-success"><?php echo $success; ?></div>
+                <?php } ?>
+
+                <div class="form-group">
+                  <label for="InputTerms"><?php echo $language->get('user', 'terms_and_conditions'); ?></label>
+                  <textarea style="width:100%" rows="10" name="terms" id="InputTerms"><?php echo Output::getPurified($site_terms); ?></textarea>
+                </div>
+                <div class="form-group">
+                  <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
+                  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
+                </div>
+              </form>
+              <?php
+              break;
+
             default:
               Redirect::to(URL::build('/admin/core'));
               die();
@@ -1543,12 +1601,17 @@ $current_default_language = $current_default_language[0]->value;
 	});
 	</script>
 
-    <?php if(isset($_GET['view']) && $_GET['view'] == 'maintenance'){ ?>
+    <?php if(isset($_GET['view']) && ($_GET['view'] == 'maintenance' || $_GET['view'] == 'terms')){ ?>
     <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
     <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
     <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
-      <?php echo Input::createEditor('InputMaintenanceMessage'); ?>
+      <?php
+      if($_GET['view'] == 'maintenance')
+        echo Input::createEditor('InputMaintenanceMessage');
+      else
+        echo Input::createEditor('InputTerms');
+      ?>
     </script>
     <?php } ?>
   </body>

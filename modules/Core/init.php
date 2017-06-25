@@ -58,3 +58,4 @@ $pages->add('Core', '/validate', 'pages/validate.php');
 $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
 $pages->add('Core', '/queries/pms', 'queries/pms.php');
 $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
+$pages->add('Core', '/terms', 'pages/terms.php');
