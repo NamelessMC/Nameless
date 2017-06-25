@@ -156,4 +156,24 @@ class ExternalMCQuery {
 
         return $result;
     }
+
+    // Get a server's favicon
+    // Params: $ip - server IP address
+    public static function getFavicon($ip = null){
+        if($ip){
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+            curl_setopt($ch, CURLOPT_URL, 'https://mcapi.ca/query/' . $ip . '/icon');
+
+            $result = curl_exec($ch);
+
+            curl_close($ch);
+
+            return $result;
+        }
+        return false;
+    }
 }

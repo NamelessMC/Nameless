@@ -944,10 +944,39 @@ $admin_page = 'minecraft';
 
                     case 'banners':
                       echo '<h4 style="display:inline;">' . $language->get('admin', 'server_banners') . '</h4>';
-                      if(!isset($_GET['action'])) {
-                          echo '<span class="pull-right"><a href="' . URL::build('/admin/minecraft/', 'view=banners&amp;action=new') . '" class="btn btn-primary">' . $language->get('admin', 'new_banner') . '</a></span>';
+                      if(isset($_GET['server'])) {
+                        echo '<span class="pull-right"><a href="' . URL::build('/admin/minecraft/', 'view=banners') . '" class="btn btn-info">' . $language->get('general', 'back') . '</a></span>';
+                        // Get server
+                        $server = $queries->getWhere('mc_servers', array('id', '=', $_GET['server']));
+                        if(!count($server)){
+                          Redirect::to(URL::build('/admin/minecraft/', 'view=banners'));
+                          die();
+                        }
+                        $server = $server[0];
+                        echo '<hr />';
+                        echo '<p><code>http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/banner/' . $server->name . '.png') . '</code></p>';
+                        echo '<img src="' . URL::build('/banner/' . $server->name) . '" alt="' . Output::getClean($server->name) . '" />';
                       } else {
-                        echo '<span class="pull-right"><a href="' . URL::build('/admin/minecraft/', 'view=banners') . '" class="btn btn-warning">' . $language->get('general', 'cancel') . '</a></span>';
+                        $servers = $queries->getWhere('mc_servers', array('id', '<>', 0));
+                        if(count($servers)){
+                          echo '<br /><br />';
+                          $counter = 1;
+
+                          foreach($servers as $server){
+                              ?>
+                            <strong><?php echo Output::getClean($server->name); ?></strong>
+                            <span class="pull-right">
+                                <a class="btn btn-info btn-sm" href="<?php echo URL::build('/admin/minecraft/', 'view=banners&amp;server=' . $server->id); ?>"><i class="fa fa-search" aria-hidden="true"></i></a>
+                              </span>
+                              <?php
+                              if($counter < count($servers))
+                                  echo '<hr />';
+
+                              $counter++;
+                          }
+                        } else {
+                          echo '<br /><br /><div class="alert alert-info">' . $language->get('admin', 'no_servers_defined') . '</div>';
+                        }
                       }
                       break;
 
