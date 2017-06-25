@@ -59,10 +59,10 @@ if(defined('MINECRAFT') && MINECRAFT === true){
                 foreach($sub_servers as $server)
                     $servers[] = array('ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name);
 
-                $result = MCQuery::multiQuery($servers, $query_type, $language, true);
+                $result = MCQuery::multiQuery($servers, $query_type, $language, true, $queries);
 
             } else {
-                $result = MCQuery::singleQuery($full_ip, $query_type, $language);
+                $result = MCQuery::singleQuery($full_ip, $query_type, $language, $queries);
             }
 
             // Cache for 1 minute

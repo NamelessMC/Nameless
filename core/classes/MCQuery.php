@@ -15,7 +15,8 @@ class MCQuery {
     // Params:  $ip - full server IP address with port (separated by :) to query
     //          $type - type of query to use (internal or external)
     //          $language - query language object
-    public static function singleQuery($ip = null, $type = 'internal', $language){
+    //          $queries - Queries instance to pass through for error logging
+    public static function singleQuery($ip = null, $type = 'internal', $language, $queries){
         if($ip){
             try {
                 if($type == 'internal'){
@@ -73,9 +74,20 @@ class MCQuery {
                     return $return;
                 }
             } catch(Exception $e){
+                $error = $e->getMessage();
+
+                $query_ip = explode(':', $ip['ip']);
+
+                $queries->create('query_errors', array(
+                    'date' => date('U'),
+                    'error' => $error,
+                    'ip' => $query_ip[0],
+                    'port' => (isset($query_ip[1]) ? $query_ip[1] : 25565)
+                ));
+
                 return array(
                     'error' => true,
-                    'value' => $e->getMessage()
+                    'value' => $error
                 );
             }
         }
@@ -88,7 +100,8 @@ class MCQuery {
     //          $type - type of query to use (internal or external)
     //          $language - query language object
     //          $accumulate - whether to return as one accumulated result or not
-    public static function multiQuery($servers, $type = 'internal', $language, $accumulate = false){
+    //          $queries - Queries instance to pass through for error logging
+    public static function multiQuery($servers, $type = 'internal', $language, $accumulate = false, $queries){
         if(count($servers)){
             if($type == 'internal'){
                 // Internal query
@@ -109,7 +122,16 @@ class MCQuery {
                                 $query = $ping->Query();
                         } catch(Exception $e){
                             // Unable to query
+                            $error = $e->getMessage();
+
                             $query = array();
+
+                            $queries->create('query_errors', array(
+                                'date' => date('U'),
+                                'error' => $error,
+                                'ip' => $query_ip[0],
+                                'port' => (isset($query_ip[1]) ? $query_ip[1] : 25565)
+                            ));
                         }
 
                         if(isset($query['players'])) {

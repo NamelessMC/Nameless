@@ -182,6 +182,10 @@ $language = array(
     'editing_server' => 'Server bewerken',
     'server_deleted' => 'Server succesvol verwijderd',
     'unable_to_delete_server' => 'Deze server kan niet worden verwijderd.',
+    'viewing_query_error' => 'Viewing Query Error',
+    'confirm_query_error_deletion' => 'Are you sure you want to delete this query error?',
+    'no_query_errors' => 'No query errors logged.',
+    'new_banner' => '<i class="fa fa-plus-circle"></i> New Banner',
 
 	// Modulen
 	'modules_installed_successfully' => 'Alle nieuwe modules zijn succesvol toegevoegd.',

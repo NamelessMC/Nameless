@@ -943,11 +943,97 @@ $admin_page = 'minecraft';
                       break;
 
                     case 'banners':
-                      echo '<h4>' . $language->get('admin', 'server_banners') . '</h4>';
+                      echo '<h4 style="display:inline;">' . $language->get('admin', 'server_banners') . '</h4>';
+                      if(!isset($_GET['action'])) {
+                          echo '<span class="pull-right"><a href="' . URL::build('/admin/minecraft/', 'view=banners&amp;action=new') . '" class="btn btn-primary">' . $language->get('admin', 'new_banner') . '</a></span>';
+                      } else {
+                        echo '<span class="pull-right"><a href="' . URL::build('/admin/minecraft/', 'view=banners') . '" class="btn btn-warning">' . $language->get('general', 'cancel') . '</a></span>';
+                      }
                       break;
 
                     case 'query_errors':
-                      echo '<h4>' . $language->get('admin', 'query_errors') . '</h4>';
+                      echo '<h4 style="display:inline;">' . $language->get('admin', 'query_errors') . '</h4>';
+                      echo '<span class="pull-right"><a href="' . (!isset($_GET['id']) ? URL::build('/admin/minecraft/') : URL::build('/admin/minecraft/', 'view=query_errors')) . '" class="btn btn-warning">' . $language->get('general', 'back') . '</a></span><br /><br />';
+
+                      if(!isset($_GET['id'])){
+                          $query_errors = $queries->orderWhere('query_errors', 'id <> 0', 'DATE', 'DESC');
+                          if(count($query_errors)){
+                              // Get page
+                              if(isset($_GET['p'])){
+                                  if(!is_numeric($_GET['p'])){
+                                      Redirect::to(URL::build('/admin/minecraft/', 'view=query_errors'));
+                                      die();
+                                  } else
+                                      $p = $_GET['p'];
+
+                              } else {
+                                  $p = 1;
+                              }
+
+                              // Pagination
+                              $paginator = new Paginator();
+                              $results = $paginator->getLimited($query_errors, 10, $p, count($query_errors));
+                              $pagination = $paginator->generate(7, URL::build('/admin/minecraft/', 'view=query_errors&'));
+                              ?>
+                            <div class="table-responsive">
+                              <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                  <th><?php echo str_replace(':', '', $language->get('admin', 'server_address')); ?></th>
+                                  <th><?php echo str_replace(':', '', $language->get('admin', 'server_port')); ?></th>
+                                  <th><?php echo str_replace(':', '', $language->get('general', 'date')); ?></th>
+                                  <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                for($n = 0; $n < count($results->data); $n++){
+                                    ?>
+                                  <tr>
+                                    <td><?php echo Output::getClean($results->data[$n]->ip); ?></td>
+                                    <td><?php echo Output::getClean($results->data[$n]->port); ?></td>
+                                    <td><?php echo date('d M Y, H:i', $results->data[$n]->date); ?></td>
+                                    <td>
+                                      <a href="<?php echo URL::build('/admin/minecraft/', 'view=query_errors&amp;id=' . $results->data[$n]->id); ?>"
+                                         class="btn btn-info btn-sm"><i class="fa fa-search fa-fw"></i></a> <a
+                                              href="<?php echo URL::build('/admin/minecraft/', 'view=query_errors&amp;action=delete&amp;id=' . $results->data[$n]->id); ?>"
+                                              class="btn btn-warning btn-sm"
+                                              onclick="return confirm('<?php echo $language->get('admin', 'confirm_query_error_deletion'); ?>')"><i
+                                                class="fa fa-trash fa-fw"></i></a></td>
+                                  </tr>
+                                <?php } ?>
+                                </tbody>
+                              </table>
+                            </div>
+                              <?php
+                              echo $pagination;
+                          } else
+                            echo '<div class="alert alert-info">' . $language->get('admin', 'no_query_errors') . '</div>';
+                      } else if(!isset($_GET['action'])){
+                        if(!is_numeric($_GET['id'])){
+                          Redirect::to(URL::build('/admin/minecraft/', 'view=query_errors'));
+                          die();
+                        }
+
+                        $query_error = $queries->getWhere('query_errors', array('id', '=', $_GET['id']));
+                        if(!count($query_error)){
+                            Redirect::to(URL::build('/admin/minecraft/', 'view=query_errors'));
+                            die();
+                        }
+                        $query_error = $query_error[0];
+                        
+                        echo '<strong>' . $language->get('admin', 'viewing_query_error') . '</strong><hr />';
+                        echo $language->get('admin', 'server_address') . ': ' . Output::getClean($query_error->ip) . '<br />';
+                        echo $language->get('admin', 'server_port') . ': ' . Output::getClean($query_error->port) . '<br />';
+                        echo $language->get('general', 'date') . ': ' . date('d M Y, G:i', $query_error->date) . '<br /><br />';
+                        echo '<div class="panel panel-danger"><div class="panel-body"><p>' . Output::getClean($query_error->error) . '</p></div></div>';
+                      } else {
+                        if($_GET['action'] == 'delete'){
+                          $queries->delete('query_errors', array('id', '=', $_GET['id']));
+                          Redirect::to(URL::build('/admin/minecraft/', 'view=query_errors'));
+                          die();
+                        }
+                      }
                       break;
 
                     default:
@@ -990,6 +1076,6 @@ $admin_page = 'minecraft';
 	};
 	
 	</script>
-	
+
   </body>
 </html>
