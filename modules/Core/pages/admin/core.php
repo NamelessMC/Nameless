@@ -67,25 +67,28 @@ $current_default_language = $current_default_language[0]->value;
 			  <?php if(!isset($_GET['view'])){ ?>
 			  <div class="table-responsive">
 			    <table class="table table-striped">
-				  <tr>
-				    <td><a href="<?php echo URL::build('/admin/core/', 'view=general'); ?>"><?php echo $language->get('admin', 'general_settings'); ?></a></td>
-				  </tr>
-				  <tr>
-					<td><a href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>"><?php echo $language->get('admin', 'custom_fields'); ?></a></td>
-				  </tr>
-                    <tr>
-                        <td><a href="<?php echo URL::build('/admin/core/', 'view=maintenance'); ?>"><?php echo $language->get('admin', 'debugging_and_maintenance'); ?></a></td>
-                    </tr>
-				  <tr>
-					<td><a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>"><?php echo $language->get('user', 'reactions'); ?></a></td>
-				  </tr>
-				  <tr>
-					<td><a href="<?php echo URL::build('/admin/registration'); ?>"><?php echo $language->get('admin', 'registration'); ?></a></td>
-				  </tr>
-				  <tr>
-					<td><a href="<?php echo URL::build('/admin/core/', 'view=social'); ?>"><?php echo $language->get('admin', 'social_media'); ?></a></td>
-				  </tr>
-				</table>
+            <tr>
+              <td><a href="<?php echo URL::build('/admin/core/', 'view=general'); ?>"><?php echo $language->get('admin', 'general_settings'); ?></a></td>
+            </tr>
+            <tr>
+              <td><a href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>"><?php echo $language->get('admin', 'custom_fields'); ?></a></td>
+            </tr>
+            <tr>
+              <td><a href="<?php echo URL::build('/admin/core/', 'view=maintenance'); ?>"><?php echo $language->get('admin', 'debugging_and_maintenance'); ?></a></td>
+            </tr>
+            <tr>
+              <td><a href="<?php echo URL::build('/admin/core/', 'view=email'); ?>"><?php echo $language->get('admin', 'emails'); ?></a></td>
+            </tr>
+            <tr>
+              <td><a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>"><?php echo $language->get('user', 'reactions'); ?></a></td>
+            </tr>
+            <tr>
+              <td><a href="<?php echo URL::build('/admin/registration'); ?>"><?php echo $language->get('admin', 'registration'); ?></a></td>
+            </tr>
+            <tr>
+              <td><a href="<?php echo URL::build('/admin/core/', 'view=social'); ?>"><?php echo $language->get('admin', 'social_media'); ?></a></td>
+            </tr>
+				  </table>
 			  </div>
 			  <?php
 			  } else {
@@ -123,7 +126,12 @@ $current_default_language = $current_default_language[0]->value;
 										'required' => true,
 										'min' => 2,
 										'max' => 64
-									)
+									),
+                  'contact_email' => array(
+                    'required' => true,
+                    'min' => 3,
+                    'max' => 255
+                  )
 								));
 
 								if($validation->passed()){
@@ -139,6 +147,14 @@ $current_default_language = $current_default_language[0]->value;
 									// Update cache
 									$cache->setCache('sitenamecache');
 									$cache->store('sitename', Output::getClean(Input::get('sitename')));
+
+									// Email address
+                  $contact_id = $queries->getWhere('settings', array('name', '=', 'incoming_email'));
+                  $contact_id = $contact_id[0]->id;
+
+                  $queries->update('settings', $contact_id, array(
+                     'value' => Output::getClean(Input::get('contact_email'))
+                  ));
 
 									// Language
 									// Get current default language
@@ -227,7 +243,6 @@ $current_default_language = $current_default_language[0]->value;
 									}
 
 									// Make string to input
-
 									Config::set('core/friendly', $friendly);
 
 									} else $errors = array($language->get('admin', 'config_not_writable'));
@@ -285,6 +300,15 @@ $current_default_language = $current_default_language[0]->value;
 			      <label for="inputSitename"><?php echo $language->get('admin', 'sitename'); ?></label>
 			      <input type="text" class="form-control" name="sitename" id="inputSitename" value="<?php echo Output::getClean($sitename->value); ?>" />
 				</div>
+        <div class="form-group">
+            <?php
+            // Get contact email address
+            $contact_email = $queries->getWhere('settings', array('name', '=', 'incoming_email'));
+            $contact_email = $contact_email[0];
+            ?>
+          <label for="inputContactEmail"><?php echo $language->get('admin', 'contact_email'); ?></label>
+          <input type="text" class="form-control" name="contact_email" id="inputContactEmail" value="<?php echo Output::getClean($contact_email->value); ?>" />
+        </div>
 				<div class="form-group">
 				  <label for="inputLanguage"><?php echo $language->get('admin', 'default_language'); ?></label> <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'default_language_help'); ?>"></i></span>
 			      <div class="input-group">
@@ -1044,105 +1068,460 @@ $current_default_language = $current_default_language[0]->value;
 						<?php
 					  break;
 
-					  default:
-						Redirect::to(URL::build('/admin/core'));
-						die();
-					  break;
-                      case 'maintenance':
-                          // Maintenance mode settings
-                          // Deal with input
-                          if(Input::exists()){
-                              if(Token::check(Input::get('token'))){
-                                  // Valid token
-                                  // Validate message
-                                  $validate = new Validate();
-                                  $validation = $validate->check($_POST, array(
-                                     'message' => array(
-                                       'max' => 1024
-                                     )
-                                  ));
+            case 'maintenance':
+                // Maintenance mode settings
+                // Deal with input
+                if(Input::exists()){
+                    if(Token::check(Input::get('token'))){
+                        // Valid token
+                        // Validate message
+                        $validate = new Validate();
+                        $validation = $validate->check($_POST, array(
+                           'message' => array(
+                             'max' => 1024
+                           )
+                        ));
 
-                                  if($validation->passed()){
-                                      // Update database and cache
-                                      // Is debug mode enabled or not?
-                                      if(isset($_POST['enable_debugging']) && $_POST['enable_debugging'] == 1) $enabled = 1;
-                                      else $enabled = 0;
+                        if($validation->passed()){
+                            // Update database and cache
+                            // Is debug mode enabled or not?
+                            if(isset($_POST['enable_debugging']) && $_POST['enable_debugging'] == 1) $enabled = 1;
+                            else $enabled = 0;
 
-                                      $debug_id = $queries->getWhere('settings', array('name', '=', 'error_reporting'));
-                                      $debug_id = $debug_id[0]->id;
-                                      $queries->update('settings', $debug_id, array(
-                                          'value' => $enabled
-                                      ));
+                            $debug_id = $queries->getWhere('settings', array('name', '=', 'error_reporting'));
+                            $debug_id = $debug_id[0]->id;
+                            $queries->update('settings', $debug_id, array(
+                                'value' => $enabled
+                            ));
 
-                                      // Cache
-                                      $cache->setCache('error_cache');
-                                      $cache->store('error_reporting', $enabled);
+                            // Cache
+                            $cache->setCache('error_cache');
+                            $cache->store('error_reporting', $enabled);
 
-                                      // Is maintenance enabled or not?
-                                      if(isset($_POST['enable_maintenance']) && $_POST['enable_maintenance'] == 1) $enabled = 'true';
-                                      else $enabled = 'false';
+                            // Is maintenance enabled or not?
+                            if(isset($_POST['enable_maintenance']) && $_POST['enable_maintenance'] == 1) $enabled = 'true';
+                            else $enabled = 'false';
 
-                                      $maintenance_id = $queries->getWhere('settings', array('name', '=', 'maintenance'));
-                                      $maintenance_id = $maintenance_id[0]->id;
-                                      $queries->update('settings', $maintenance_id, array(
-                                          'value' => $enabled
-                                      ));
+                            $maintenance_id = $queries->getWhere('settings', array('name', '=', 'maintenance'));
+                            $maintenance_id = $maintenance_id[0]->id;
+                            $queries->update('settings', $maintenance_id, array(
+                                'value' => $enabled
+                            ));
 
-                                      if(isset($_POST['message']) && !empty($_POST['message'])) $message = Input::get('message');
-                                      else $message = 'Maintenance mode is enabled.';
+                            if(isset($_POST['message']) && !empty($_POST['message'])) $message = Input::get('message');
+                            else $message = 'Maintenance mode is enabled.';
 
-                                      $maintenance_id = $queries->getWhere('settings', array('name', '=', 'maintenance_message'));
-                                      $maintenance_id = $maintenance_id[0]->id;
-                                      $queries->update('settings', $maintenance_id, array(
-                                          'value' => Output::getClean($message)
-                                      ));
+                            $maintenance_id = $queries->getWhere('settings', array('name', '=', 'maintenance_message'));
+                            $maintenance_id = $maintenance_id[0]->id;
+                            $queries->update('settings', $maintenance_id, array(
+                                'value' => Output::getClean($message)
+                            ));
 
-                                      // Cache
-                                      $cache->setCache('maintenance_cache');
-                                      $cache->store('maintenance', array(
-                                          'maintenance' => $enabled,
-                                          'message' => Output::getClean($message)
-                                      ));
+                            // Cache
+                            $cache->setCache('maintenance_cache');
+                            $cache->store('maintenance', array(
+                                'maintenance' => $enabled,
+                                'message' => Output::getClean($message)
+                            ));
 
-                                      // Reload to update debugging
-                                      Redirect::to(URL::build('/admin/core/', 'view=maintenance'));
+                            // Reload to update debugging
+                            Redirect::to(URL::build('/admin/core/', 'view=maintenance'));
 
-                                  } else $error = $language->get('admin', 'maintenance_message_max_1024');
-                              } else {
-                                  // Invalid token
-                                  $error = $language->get('general', 'invalid_token');
-                              }
+                        } else $error = $language->get('admin', 'maintenance_message_max_1024');
+                    } else {
+                        // Invalid token
+                        $error = $language->get('general', 'invalid_token');
+                    }
 
-                              // Re-query cache for updated values
-                              $cache->setCache('maintenance_cache');
-                              $maintenance = $cache->retrieve('maintenance');
+                    // Re-query cache for updated values
+                    $cache->setCache('maintenance_cache');
+                    $maintenance = $cache->retrieve('maintenance');
+                }
+                ?>
+                <h4><?php echo $language->get('admin', 'debugging_and_maintenance'); ?></h4>
+
+                <form action="" method="post">
+                  <?php if(isset($error)){ ?>
+                  <div class="alert alert-danger"><?php echo $error; ?></div>
+                  <?php } ?>
+                  <div class="form-group">
+                    <label for="InputDebug"><?php echo $language->get('admin', 'enable_debug_mode'); ?></label>
+                    <input id="InputDebug" name="enable_debugging" type="checkbox" class="js-switch" value="1" <?php if(defined('DEBUGGING')) echo 'checked'; ?>/>
+                  </div>
+                  <div class="form-group">
+                    <label for="InputMaintenance"><?php echo $language->get('admin', 'enable_maintenance_mode'); ?></label>
+                    <input id="InputMaintenance" name="enable_maintenance" type="checkbox" class="js-switch" value="1" <?php if(isset($maintenance['maintenance']) && $maintenance['maintenance'] != 'false') echo 'checked'; ?>/>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputMaintenanceMessage"><?php echo $language->get('admin', 'maintenance_mode_message'); ?></label>
+                    <textarea style="width:100%" rows="10" name="message" id="InputMaintenanceMessage"><?php echo Output::getPurified((isset($_POST['message']) ? $_POST['message'] : $maintenance['message'])); ?></textarea>
+                  </div>
+                  <div class="form-group">
+                    <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
+                    <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
+                  </div>
+                </form>
+                <?php
+            break;
+
+            case 'email':
+              if(isset($_GET['action'])){
+                if($_GET['action'] == 'errors'){
+                  if(isset($_GET['do'])){
+                    if($_GET['do'] == 'purge'){
+                      // Purge all errors
+                      try {
+                        $queries->delete('email_errors', array('id', '<>', 0));
+                      } catch(Exception $e){
+                        // Error
+                      }
+
+                      Redirect::to(URL::build('/admin/core/', 'view=email&action=errors'));
+                      die();
+
+                    } else if($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])){
+                      try {
+                        $queries->delete('email_errors', array('id', '=', $_GET['id']));
+                      } catch(Exception $e){
+                        // Error
+                      }
+
+                      Redirect::to(URL::build('/admin/core/', 'view=email&action=errors'));
+                      die();
+
+                    } else if($_GET['do'] == 'view' && isset($_GET['id']) && is_numeric($_GET['id'])) {
+                      // Check the error exists
+                      $error = $queries->getWhere('email_errors', array('id', '=', $_GET['id']));
+                      if(!count($error)){
+                        Redirect::to(URL::build('/admin/core/', 'view=email&action=errors'));
+                        die();
+                      }
+                      $error = $error[0];
+
+                      // Display error
+                      echo '<h4 style="display:inline;">' . $language->get('admin', 'email_errors') . '</h4>';
+                      echo '<span class="pull-right"><a href="' . URL::build('/admin/core/', 'view=email&amp;action=errors') . '" class="btn btn-primary">' . $language->get('general', 'back') . '</a></span>';
+                      ?>
+                      <br /><br />
+                      <strong><?php echo $language->get('admin', 'viewing_email_error'); ?></strong><hr />
+                      <strong><?php echo $language->get('user', 'username'); ?>:</strong> <?php echo Output::getClean($user->idToName($error->user_id)); ?><br />
+                      <strong><?php echo $language->get('general', 'date'); ?>:</strong> <?php echo date('d M Y, H:i', $error->at); ?><br />
+                      <strong><?php echo $language->get('admin', 'type'); ?>:</strong> <?php
+                          switch($error->type){
+                              case 1:
+                                  echo $language->get('admin', 'registration_email');
+                                  break;
+                              default:
+                                  echo $language->get('admin', 'unknown');
+                                  break;
                           }
-                          ?>
-                          <h4><?php echo $language->get('admin', 'debugging_and_maintenance'); ?></h4>
+                          ?><br /><br />
+                      <div class="card">
+                        <div class="card-block">
+                          <?php echo Output::getPurified($error->content); ?>
+                        </div>
+                      </div>
+                      <hr />
+                      <h4><?php echo $language->get('general', 'actions'); ?></h4>
+                      <?php
+                        if($error->type == 1){
+                          $user_validated = $queries->getWhere('users', array('id', '=', $error->user_id));
+                          if(count($user_validated)){
+                            $user_validated = $user_validated[0];
+                            if($user_validated->active == 0){
+                                ?>
+                              <a href="<?php echo URL::build('/admin/users/', 'user=' . $error->user_id . '&amp;action=validate'); ?>" class="btn btn-secondary"><?php echo $language->get('admin', 'validate_user'); ?></a>
+                                <?php
+                            }
+                          }
+                        }
+                      ?>
+                      <a href="<?php echo URL::build('/admin/core/', 'view=email&amp;action=errors&amp;do=delete&amp;id=' . $error->id); ?>" class="btn btn-warning" onclick="return confirm('<?php echo $language->get('admin', 'confirm_email_error_deletion'); ?>');"><?php echo $language->get('admin', 'delete_email_error'); ?></a>
+                      <?php
+                    } else {
+                      Redirect::to(URL::build('/admin/core/', 'view=email&action=errors'));
+                      die();
+                    }
+                  } else {
+                    // Display all errors
+                    $errors = $queries->orderWhere('email_errors', 'id <> 0', 'at', 'DESC');
 
-                          <form action="" method="post">
-                            <?php if(isset($error)){ ?>
-                            <div class="alert alert-danger"><?php echo $error; ?></div>
-                            <?php } ?>
-                            <div class="form-group">
-                              <label for="InputDebug"><?php echo $language->get('admin', 'enable_debug_mode'); ?></label>
-                              <input id="InputDebug" name="enable_debugging" type="checkbox" class="js-switch" value="1" <?php if(defined('DEBUGGING')) echo 'checked'; ?>/>
-                            </div>
-                            <div class="form-group">
-                              <label for="InputMaintenance"><?php echo $language->get('admin', 'enable_maintenance_mode'); ?></label>
-                              <input id="InputMaintenance" name="enable_maintenance" type="checkbox" class="js-switch" value="1" <?php if(isset($maintenance['maintenance']) && $maintenance['maintenance'] != 'false') echo 'checked'; ?>/>
-                            </div>
-                            <div class="form-group">
-                              <label for="inputMaintenanceMessage"><?php echo $language->get('admin', 'maintenance_mode_message'); ?></label>
-                              <textarea style="width:100%" rows="10" name="message" id="InputMaintenanceMessage"><?php echo Output::getPurified((isset($_POST['message']) ? $_POST['message'] : $maintenance['message'])); ?></textarea>
-                            </div>
-                            <div class="form-group">
-                              <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
-                              <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
-                            </div>
-                          </form>
+                    // Get page
+                    if(isset($_GET['p'])){
+                        if(!is_numeric($_GET['p'])){
+                            Redirect::to(URL::build('/admin/core/', 'view=email&action=errors'));
+                            die();
+                        } else {
+                            if($_GET['p'] == 1){
+                                // Avoid bug in pagination class
+                                Redirect::to(URL::build('/admin/core/', 'view=email&action=errors'));
+                                die();
+                            }
+                            $p = $_GET['p'];
+                        }
+                    } else {
+                        $p = 1;
+                    }
+
+                    // Pagination
+                    $paginator = new Paginator();
+
+                    $results = $paginator->getLimited($errors, 10, $p, count($errors));
+                    $pagination = $paginator->generate(7, URL::build('/admin/core/', 'view=email&action=errors&'));
+
+                    echo '<h4 style="display:inline;">' . $language->get('admin', 'email_errors') . '</h4>';
+                    echo '<span class="pull-right"><a href="' . URL::build('/admin/core/', 'view=email') . '" class="btn btn-primary">' . $language->get('general', 'back') . '</a></span>';
+                    ?>
+                    <br /><br />
+                    <?php if(count($errors)) { ?>
+                      <table class="table table-striped">
+                        <thead>
+                        <tr>
+                          <th><?php echo $language->get('admin', 'type'); ?></th>
+                          <th><?php echo $language->get('general', 'date'); ?></th>
+                          <th><?php echo $language->get('user', 'username'); ?></th>
+                          <th><?php echo $language->get('general', 'actions'); ?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
                           <?php
-                      break;
+                          for($n = 0; $n < count($results->data); $n++){
+                            switch($results->data[$n]->type){
+                                case 1:
+                                  $type = $language->get('admin', 'registration_email');
+                                  break;
+                                case 2:
+                                  $type = $language->get('admin', 'contact_email');
+                                  break;
+                                default:
+                                  $type = $language->get('admin', 'unknown');
+                                  break;
+                            }
+                            ?>
+                          <tr>
+                            <td><?php echo $type; ?></td>
+                            <td><?php echo date('d M Y, H:i', $results->data[$n]->at); ?></td>
+                            <td><?php echo Output::getClean($user->idToName($results->data[$n]->user_id)); ?></td>
+                            <td><a href="<?php echo URL::build('/admin/core/', 'view=email&amp;action=errors&amp;do=view&amp;id=' . $results->data[$n]->id); ?>" class="btn btn-info btn-sm"><i class="fa fa-search fa-fw"></i></a> <a href="<?php echo URL::build('/admin/core/', 'view=email&amp;action=errors&amp;do=delete&amp;id=' . $results->data[$n]->id); ?>" class="btn btn-warning btn-sm" onclick="return confirm('<?php echo $language->get('admin', 'confirm_email_error_deletion'); ?>')"><i class="fa fa-trash fa-fw"></i></a></td>
+                          </tr>
+                          <?php } ?>
+                        </tbody>
+                      </table>
+                        <?php
+                          echo $pagination;
+                      }
+                  }
+                } else if($_GET['action'] == 'test'){
+                  echo '<h4 style="display:inline;">' . $language->get('admin', 'send_test_email') . '</h4>';
+                  echo '<span class="pull-right"><a href="' . URL::build('/admin/core/', 'view=email') . '" class="btn btn-primary">' . $language->get('general', 'back') . '</a></span>';
+
+                  if(isset($_GET['do']) && $_GET['do'] == 'send'){
+                    $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+                    $php_mailer = $php_mailer[0]->value;
+
+                    if($php_mailer == '1'){
+                        // PHP Mailer
+                        // HTML to display in message
+                        $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', $template, 'email', 'register.html'));
+                        $html = file_get_contents($path);
+
+                        $html = SITE_NAME . ' - Test email successful!';;
+
+                        $email = array(
+                            'to' => array('email' => Output::getClean($user->data()->email), 'name' => Output::getClean($user->data()->nickname)),
+                            'subject' => SITE_NAME . ' - Test Email',
+                            'message' => $html
+                        );
+
+                        $sent = Email::send($email, 'mailer');
+
+                        if(isset($sent['error']))
+                            // Error
+                            $error = $sent['error'];
+
+                    } else {
+                        // PHP mail function
+                        $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
+                        $siteemail = $siteemail[0]->value;
+
+                        $to = $user->data()->email;
+                        $subject = SITE_NAME . ' - Test Email';
+
+                        $message = SITE_NAME . ' - Test email successful!';
+
+                        $headers = 'From: ' . $siteemail . "\r\n" .
+                            'Reply-To: ' . $siteemail . "\r\n" .
+                            'X-Mailer: PHP/' . phpversion();
+
+                        $email = array(
+                            'to' => $to,
+                            'subject' => $subject,
+                            'message' => $message,
+                            'headers' => $headers
+                        );
+
+                        $sent = Email::send($email, 'php');
+
+                        if (isset($sent['error']))
+                            // Error
+                            $error = $sent['error'];
+                    }
+                    echo '<br /><br />';
+                    if(isset($error)){
+                      ?>
+                      <div class="alert alert-danger"><strong><?php echo $language->get('admin', 'test_email_error'); ?></strong><p><?php echo Output::getClean($error); ?></p></div>
+                      <?php
+                    } else {
+                      ?>
+                      <div class="alert alert-success"><?php echo $language->get('admin', 'test_email_success'); ?></div>
+                      <?php
+                    }
+                  } else {
+                      ?>
+                    <br/><br/>
+                    <div class="alert alert-info"><?php echo str_replace('{x}', Output::getClean($user->data()->email), $language->get('admin', 'send_test_email_info')); ?></div>
+                    <hr/>
+                    <a class="btn btn-primary"
+                       href="<?php echo URL::build('/admin/core/', 'view=email&amp;action=test&do=send'); ?>"><?php echo $language->get('admin', 'send'); ?></a>
+                      <?php
+                  }
+                }
+              } else {
+                // Handle input
+                if(Input::exists()){
+                  if(Token::check(Input::get('token'))){
+                    if(isset($_POST['enable_mailer']) && $_POST['enable_mailer'] == 1)
+                        $mailer = '1';
+                    else
+                        $mailer = '0';
+
+                    $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+                    $php_mailer = $php_mailer[0]->id;
+
+                    $queries->update('settings', $php_mailer, array(
+                      'value' => $mailer
+                    ));
+
+                    if(!empty($_POST['email'])) {
+                      $outgoing_email = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
+                      $outgoing_email = $outgoing_email[0]->id;
+
+                      $queries->update('settings', $outgoing_email, array(
+                        'value' => Output::getClean($_POST['email'])
+                      ));
+                    }
+
+                    // Update config
+                    $config_path = 'core' . DIRECTORY_SEPARATOR . 'email.php';
+                    if(file_exists($config_path)){
+                      if(is_writable($config_path)){
+                        require('core/email.php');
+                        // Build new email config
+                        $config = '<?php' . PHP_EOL .
+                            '$GLOBALS[\'email\'] = array(' . PHP_EOL .
+                            '    \'email\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['email']) ? $_POST['email'] : $GLOBALS['email']['email'])) . '\',' . PHP_EOL .
+                            '    \'username\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['username']) ? $_POST['username'] : $GLOBALS['email']['username'])) . '\',' . PHP_EOL .
+                            '    \'password\' => \'' . str_replace('\'', '\\\'', ((!empty($_POST['password'])) ? $_POST['password'] : $GLOBALS['email']['password'])) . '\',' . PHP_EOL .
+                            '    \'name\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['name']) ? $_POST['name'] : $GLOBALS['email']['name'])) . '\',' . PHP_EOL .
+                            '    \'host\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['host']) ? $_POST['host'] : $GLOBALS['email']['host'])) . '\',' . PHP_EOL .
+                            '    \'port\' => ' . str_replace('\'', '\\\'', $GLOBALS['email']['port']) . ',' . PHP_EOL .
+                            '    \'secure\' => \'' . str_replace('\'', '\\\'', $GLOBALS['email']['secure']) . '\',' . PHP_EOL .
+                            '    \'smtp_auth\' => ' . (($GLOBALS['email']['smtp_auth']) ? 'true' : 'false') . PHP_EOL .
+                            ');';
+
+                        $file = fopen($config_path, 'w');
+                        fwrite($file, $config);
+                        fclose($file);
+                      } else {
+                        // Permissions incorrect
+                        $error = $language->get('admin', 'unable_to_write_email_config');
+                      }
+                    } else {
+                      // Create one now
+                      if(is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'core')){
+                        // Build new email config
+                        $config = '<?php' . PHP_EOL .
+                            '$GLOBALS[\'email\'] = array(' . PHP_EOL .
+                            '    \'email\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['email']) ? $_POST['email'] : '')) . '\',' . PHP_EOL .
+                            '    \'username\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['username']) ? $_POST['username'] : '')) . '\',' . PHP_EOL .
+                            '    \'password\' => \'' . str_replace('\'', '\\\'', ((!empty($_POST['password'])) ? $_POST['password'] : '')) . '\',' . PHP_EOL .
+                            '    \'name\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['name']) ? $_POST['name'] : '')) . '\',' . PHP_EOL .
+                            '    \'host\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['host']) ? $_POST['host'] : '')) . '\',' . PHP_EOL .
+                            '    \'port\' => 587,' . PHP_EOL .
+                            '    \'secure\' => \'tls\',' . PHP_EOL .
+                            '    \'smtp_auth\' => true' . PHP_EOL .
+                            ');';
+                        $file = fopen($config_path, 'w');
+                        fwrite($file, $config);
+                        fclose($file);
+                      } else {
+                        $error = $language->get('admin', 'unable_to_write_email_config');
+                      }
+                    }
+                  } else
+                    $error = $language->get('general', 'invalid_token');
+                }
+
+                echo '<h4 style="display:inline;">' . $language->get('admin', 'emails') . '</h4>';
+                echo '<span class="pull-right"><a class="btn btn-info" href="' . URL::build('/admin/core/', 'view=email&amp;action=test') . '">' . $language->get('admin', 'send_test_email') . '</a> <a href="' . URL::build('/admin/core/', 'view=email&amp;action=errors') . '" class="btn btn-primary">' . $language->get('admin', 'email_errors') . '</a></span>';
+
+                if(isset($error))
+                  echo '<div class="alert alert-danger">' . $error . '</div>';
+
+                $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+                $php_mailer = $php_mailer[0]->value;
+
+                $outgoing_email = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
+                $outgoing_email = $outgoing_email[0]->value;
+
+                require_once('core/email.php');
+                ?>
+                <br /><br />
+                <form action="" method="post">
+                  <div class="form-group">
+                    <label for="inputMailer"><?php echo $language->get('admin', 'enable_mailer'); ?></label> <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'enable_mailer_help'); ?>"></i></span>
+                    <input type="hidden" name="enable_mailer" value="0">
+                    <input id="inputMailer" name="enable_mailer" type="checkbox" class="js-switch" value="1"<?php if($php_mailer == '1'){ ?> checked<?php } ?> />
+                  </div>
+                  <div class="form-group">
+                    <label for="InputOutgoingEmail"><?php echo $language->get('admin', 'outgoing_email'); ?></label> <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'outgoing_email_info'); ?>"></i></span>
+                    <input type="text" id="InputOutgoingEmail" name="email" value="<?php echo Output::getClean($outgoing_email); ?>" class="form-control">
+                  </div>
+                  <hr />
+                  <div class="alert alert-info">
+                    <?php echo $language->get('admin', 'mailer_settings_info'); ?>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputUsername"><?php echo $language->get('user', 'username'); ?></label>
+                    <input class="form-control" type="text" name="username" value="<?php if(!empty($GLOBALS['email']['username'])) echo Output::getClean($GLOBALS['email']['username']); ?>" id="inputUsername">
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPassword"><?php echo $language->get('user', 'password'); ?></label> <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $language->get('admin', 'email_password_hidden'); ?>"></i></span>
+                    <input class="form-control" type="password" name="password" id="inputPassword">
+                  </div>
+                  <div class="form-group">
+                    <label for="inputName"><?php echo $language->get('admin', 'name'); ?></label>
+                    <input class="form-control" type="text" name="name" value="<?php if(!empty($GLOBALS['email']['name'])) echo Output::getClean($GLOBALS['email']['name']); ?>" id="inputName">
+                  </div>
+                  <div class="form-group">
+                    <label for="inputHost"><?php echo $language->get('admin', 'host'); ?></label>
+                    <input class="form-control" type="text" name="host" value="<?php if(!empty($GLOBALS['email']['host'])) echo Output::getClean($GLOBALS['email']['host']); ?>" id="inputHost">
+                  </div>
+                  <hr />
+                  <div class="form-group">
+                    <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
+                    <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+                  </div>
+                </form>
+                <?php
+              }
+
+              break;
+
+            default:
+              Redirect::to(URL::build('/admin/core'));
+              die();
+              break;
 				  }
 			  }
 			  ?>
@@ -1153,8 +1532,7 @@ $current_default_language = $current_default_language[0]->value;
     </div>
 
 	<?php require('modules/Core/pages/admin/footer.php'); ?>
-
-    <?php require('modules/Core/pages/admin/scripts.php'); ?>
+  <?php require('modules/Core/pages/admin/scripts.php'); ?>
 
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.js"></script>
 

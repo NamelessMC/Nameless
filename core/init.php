@@ -76,6 +76,8 @@ if($page != 'install'){
                 header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
                 die();
             }
+
+            define('FORCE_SSL', true);
         }
     } else
         $cache->store('force_https', false);

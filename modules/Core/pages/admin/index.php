@@ -70,7 +70,19 @@ $admin_page = 'overview';
 
 			    <canvas id="registrationChart" width="100%" height="40"></canvas>
 
+          <hr />
+          <h3><?php echo $language->get('admin', 'notices'); ?></h3>
             <?php
+            // Email errors?
+            $email_errors = $queries->getWhere('email_errors', array('id', '<>', 0));
+            if(count($email_errors)){
+              ?>
+                <div class="alert alert-warning"><?php echo str_replace('{x}', URL::build('/admin/core/', 'view=email&amp;action=errors'), $language->get('admin', 'email_errors_logged')); ?></div>
+              <?php
+            } else {
+              echo $language->get('admin', 'no_notices');
+            }
+
             // Minecraft service query
             // Check if Minecraft is enabled
             $minecraft_enabled = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
