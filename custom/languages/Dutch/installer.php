@@ -12,9 +12,6 @@
  */
 
 $language = array(
-    /*
-     *  Installatie
-     */
     'install' => 'Installatie',
     'pre-release' => 'pre-release',
     'installer_welcome' => 'Welkom bij NamelessMC versie 2.0 pre-release.',
