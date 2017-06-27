@@ -156,7 +156,7 @@ $language = array(
 	'title_required' => 'Voer een titel in',
 	'content_required' => 'Je moet wat typen in je inhoud',
 	'users_to_required' => 'Je moet minimaal 1 ontvanger invoeren',
-	'cant_send_to_self' => 'Je Kunt geen berichten naar jezelf sturen!',
+	'cant_send_to_self' => 'Je kunt geen berichten naar jezelf sturen!',
 	'title_min_2' => 'De titel moet minimaal uit 2 karakters bestaan',
 	'content_min_2' => 'De inhoud moet minimaal uit 2 karakters bestaan',
 	'title_max_64' => 'De titel mag niet langer dan 64 karakters zijn',
@@ -182,6 +182,6 @@ $language = array(
 	 *  Emails
 	 */
 	'email_greeting' => 'Hoi,',
-	'email_message' => 'Bedankt voor het registreren op onze website! Om je registratie te voltooien, klik je op deze link:',
+	'email_message' => 'Bedankt voor het registreren op onze website! Om je registratie te voltooien, klik je op deze link: ',
 	'email_thanks' => 'Nogmaals bedankt,'
 );
