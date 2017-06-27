@@ -2,13 +2,13 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
  *  Portuguese Language - General
- *  Translation By Douglas Teles
- *  Last Update: 04/01/2017
+ *  Translation By Douglas Teles & dasilvaj4
+ *  Last Update: 26/06/2017
  */
 $language = array(
 	/*
@@ -50,22 +50,22 @@ $language = array(
 	'loading' => 'Carregando...',
 	'report' => 'Relatório',
 	'page_loaded_in' => 'Página gerada em {x}s', // Don't replace {x}, time unit is seconds
-    'page_x' => 'Page {x}',
+    'page_x' => 'Página {x}',
 
     /*
      *  Contact form
      */
-    'contact' => 'Contact',
-    'message' => 'Message',
-    'contact_email_subject' => 'New contact form submission',
-    'contact_message_failed' => 'Unable to send message. Please ensure you have entered a message between 10 and 5000 characters long.',
-    'contact_message_sent' => 'Message sent successfully.',
-    'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {x} minutes.', // Don't replace {x}
+    'contact' => 'Contato',
+    'message' => 'Mensagem',
+    'contact_email_subject' => 'Novo formulário de contato',
+    'contact_message_failed' => 'Não foi possível a mensagem. Certifique-se de ter inserido uma mensagem entre 10 e 5000 caracteres.',
+    'contact_message_sent' => 'Mensagem enviada com sucesso.',
+    'contact_message_limit' => 'Você só pode enviar uma mensagem por hora. Você pode enviar uma mensagem em {x} minutos.', // Don't replace {x}
 	
 	/* 
 	 *  Navbar
 	 */
-	'home' => 'Home',
+	'home' => 'Início',
 	
 	/*
 	 *  Homepage
@@ -85,8 +85,8 @@ $language = array(
     'offline' => 'Offline',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Version: {x}', // Don't replace {x}
-    'currently_x_players_online' => 'There are currently <strong>{x}</strong> players online.', // Don't replace {x}
-    'server_offline' => 'The server is currently offline.',
-    'connect_with_ip_x' => 'Connect now using the IP <strong>{x}</strong>' // Don't replace {x}
+    'version' => 'Versão: {x}', // Don't replace {x}
+    'currently_x_players_online' => 'Há <strong>{x}</strong> jogadores online.', // Don't replace {x}
+    'server_offline' => 'O servidor está atualmente offline.',
+    'connect_with_ip_x' => 'Junte-se aos nossos jogadores: <strong>{x}</strong>' // Don't replace {x}
 );

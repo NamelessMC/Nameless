@@ -2,13 +2,13 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
  *  Portuguese Language - Errors
- *  Translation By Douglas Teles
- *  Last Update: 04/01/2017
+ *  Translation By Douglas Teles & dasilvaj4
+ *  Last Update: 26/06/2017
  */
 $language = array(
 	/*
@@ -19,6 +19,6 @@ $language = array(
 	'404_back' => 'Voltar',
 	'404_home' => 'Home',
 	'404_error' => 'Se você acredita que isso seja um erro, {x}entre em contato com um administrador{y}', // Don't replace {x} or {y}
-    'maintenance_title' => 'Maintenance mode.',
-    'maintenance_retry' => 'Retry'
+    'maintenance_title' => 'Modo de manutenção.',
+    'maintenance_retry' => 'Tentar novamente'
 );

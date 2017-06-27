@@ -2,13 +2,13 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
  *  Portuguese Language - Table
- *  Translation By Douglas Teles
- *  Last Update: 05/01/2017
+ *  Translation By Douglas Teles & dasilvaj4
+ *  Last Update: 26/06/2017
  */
 $language = array(
 	/*
