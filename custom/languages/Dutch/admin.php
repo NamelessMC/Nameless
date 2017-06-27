@@ -1,7 +1,7 @@
 <?php
 /*
  *	Gemaakt door Samerton
- *  en vertaald en bijgewerkt door Sander Lambrechts en Jesse Geerts
+ *  en vertaald en bijgewerkt door Sander Lambrechts, Jesse Geerts en Derkades
  *
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr2
