@@ -1,20 +1,20 @@
 <?php 
 /*
  *	Gemaakt door Samerton
- *  en vertaald door Sander Lambrechts
+ *  en vertaald door Sander Lambrechts en Derkades
  *  
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
  *  Nederlandse taal - Algemene termen
  */
- 
+
 $language = array(
 	/*
 	 *  Algemene termen
-	 */ 
+	 */
 	'submit' => 'Verstuur',
 	'register' => 'Registreren',
 	'sign_in' => 'Inloggen',
@@ -50,12 +50,12 @@ $language = array(
 	'x_new_messages' => 'Je hebt {x} nieuwe berichten.', // Verander "{x}" niet
 	'loading' => 'Laden...',
 	'report' => 'Rapport',
-	'page_loaded_in' => 'Pagine geladen in {x}s', // Verander "{x}" niet, tijdseenhijd is seconden
-   	'page_x' => 'Pagina {x}',
+	'page_loaded_in' => 'Pagine geladen in {x}s', // Verander "{x}" niet, tijdseenheid is seconden
+	'page_x' => 'Pagina {x}',
 
-   	/*
-   	 *  Contact formulier
-	*/
+	/*
+	 *  Contact formulier
+	 */
 	'contact' => 'Contact',
 	'message' => 'Bericht',
 	'contact_email_subject' => 'Nieuw contactformulier indiening',
@@ -79,15 +79,15 @@ $language = array(
 	 */
 	'markdown_help' => 'Je kan gebruik maken van Markdown bij je berichten en forum. Voor meer informatie, klik <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>hier</a>.',
 
-    	/*
-    	 *  Server query
-    	 */
-    	'online' => 'Online',
-    	'offline' => 'Offline',
-    	'player_count' => '{x}/{y}', // Verander "{x}" of "{y}" niet
-    	'ping' => 'Ping: {x}', // Verander "{x}" niet
-    	'version' => 'Versie: {x}', // Verander "{x}" niet
-    	'currently_x_players_online' => 'Er zijn nu <strong>{x}</strong> spelers online.', // Verander "{x}" niet
-    	'server_offline' => 'De server is nu offline.',
-    	'connect_with_ip_x' => 'Verbind met dit IP adres: <strong>{x}</strong>' // Verander "{x}" niet
+	/*
+	 *  Server query
+	 */
+	'online' => 'Online',
+	'offline' => 'Offline',
+	'player_count' => '{x}/{y}', // Verander "{x}" of "{y}" niet
+	'ping' => 'Ping: {x}', // Verander "{x}" niet
+	'version' => 'Versie: {x}', // Verander "{x}" niet
+	'currently_x_players_online' => 'Er zijn nu <strong>{x}</strong> spelers online.', // Verander "{x}" niet
+	'server_offline' => 'De server is nu offline.',
+	'connect_with_ip_x' => 'Verbind met dit IP adres: <strong>{x}</strong>' // Verander "{x}" niet
 );

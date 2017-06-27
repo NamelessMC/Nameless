@@ -1,10 +1,10 @@
 <?php 
 /*
  *	Gemaakt door Samerton
- *  en vertaald door Sander Lambrechts
+ *  en vertaald door Sander Lambrechts en Derkades
  *  
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -50,7 +50,7 @@ $language = array(
 	'invalid_tfa' => 'Verkeerde code, probeer opnieuw.',
 	'tfa_successful' => 'Twee factor authenticatie succesvol ingesteld. Je moet nu elke keer een code hebben om in te kunnen loggen.',
 	'active_language' => 'Actieve taal',
-   	'timezone' => 'Tijdzone',
+	'timezone' => 'Tijdzone',
 	
 	// Meldingen
 	'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet
@@ -156,7 +156,7 @@ $language = array(
 	'title_required' => 'Voer een titel in',
 	'content_required' => 'Je moet wat typen in je inhoud',
 	'users_to_required' => 'Je moet minimaal 1 ontvanger invoeren',
-	'cant_send_to_self' => 'Je Kunt geen berichten naar jezelf sturen!',
+	'cant_send_to_self' => 'Je kunt geen berichten naar jezelf sturen!',
 	'title_min_2' => 'De titel moet minimaal uit 2 karakters bestaan',
 	'content_min_2' => 'De inhoud moet minimaal uit 2 karakters bestaan',
 	'title_max_64' => 'De titel mag niet langer dan 64 karakters zijn',
@@ -182,6 +182,6 @@ $language = array(
 	 *  Emails
 	 */
 	'email_greeting' => 'Hoi,',
-	'email_message' => 'Bedankt voor het registreren op onze website! Om je registratie te voltooien, klik je op deze link:',
+	'email_message' => 'Bedankt voor het registreren op onze website! Om je registratie te voltooien, klik je op deze link: ',
 	'email_thanks' => 'Nogmaals bedankt,'
 );
