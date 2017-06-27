@@ -16,6 +16,8 @@ if(!defined('PATH')){
 }
 $page = 'install';
 
+$install_path = str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])));
+
 // Start initialising the page
 require('core/init.php');
 
@@ -44,7 +46,7 @@ if(isset($_SESSION['installer_language'])){
 // Get installation path
 $install_path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))), 1);
 
-if(!isset($GLOBALS['config']['core'])) {
+if(!isset($CONFIG['installed'])) {
     if(isset($_GET['language'])){
         // Set language
         if(is_file('custom/languages/' . $_GET['language'] . '/installer.php')) {

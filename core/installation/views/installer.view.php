@@ -180,27 +180,39 @@
                 } else {
 
                     try {
+						$insert = 	'<?php' . PHP_EOL . 
+									'$conf = array(' . PHP_EOL . 
+									'	"mysql" => array(' . PHP_EOL . 
+									'		"host" => "' . Input::get('db_address') . '", // Web server database IP (Likely to be 127.0.0.1)' . PHP_EOL . 
+									'		"username" => "' . Input::get('db_username') . '", // Web server database username' . PHP_EOL . 
+									'		"password" => \'' . $password . '\', // Web server database password' . PHP_EOL . 
+									'		"db" => "' . Input::get('db_name') . '", // Web server database name' . PHP_EOL .
+									'		"port" => "' . Input::get('db_port') . '", // Web server database port' . PHP_EOL .
+									'		"prefix" => "nl2_" // Web server table prefix' . PHP_EOL .
+									'	),' . PHP_EOL . 
+									'	"remember" => array(' . PHP_EOL . 
+									'		"cookie_name" => "nl2", // Name for website cookies' . PHP_EOL . 
+									'		"cookie_expiry" => 604800' . PHP_EOL . 
+									'	),' . PHP_EOL . 
+									'	"session" => array(' . PHP_EOL . 
+									'		"session_name" => "2user",' . PHP_EOL . 
+									'		"admin_name" => "2admin",' . PHP_EOL .
+									'		"token_name" => "2token"' . PHP_EOL . 
+									'	),' . PHP_EOL . 
+									'	"core" => array(' . PHP_EOL . 
+									'		"path" => "' . $install_path . '",' . PHP_EOL . 
+									'		"friendly" => false' . PHP_EOL . 
+									'	)' . PHP_EOL . 
+									');' . PHP_EOL;
+									
 
-                        // Writable, attempt to write configuration
-                        Config::set('mysql', array(
-                          "host" => Input::get('db_address'),
-                          "username" => Input::get('db_username'),
-                          "password" => $password,
-                          "db" => Input::get('db_name'),
-                          "port" => Input::get('db_port'),
-                          "prefix" => "nl2_"
-                        ));
-
-                        Config::set('remember', array(
-                            "cookie_name" => "nl2",
-                            "cookie_expiry" => 604800
-                        ));
-
-                        Config::set('session', array(
-                          "session_name" => "2user",
-                          "admin_name" => "2admin",
-                          "token_name" => "2token"
-                        ));
+						if(is_writable('core/config.php')){
+							$file = fopen('core/config.php','w');
+							fwrite($file, $insert);
+							fclose($file);
+						} else {
+							die('Config not writable');
+						}
 
 						$_SESSION['charset'] = $charset;
 
@@ -2057,16 +2069,15 @@
             break;
         case 'finish':
             // Finished
-
-            try {
-
-                Config::set('core', array(
-                  "path" => (string) $install_path,
-                  "friendly" => false
-                ));
-
-                ?>
-
+			try {
+				if(is_writable('core/config.php'))
+					file_put_contents('core/config.php', '$CONFIG[\'installed\'] = true;', FILE_APPEND);
+				else
+					die('Config not writable');
+			} catch(Exception $e){
+				die($e->getMessage());
+			}
+			?>
                 <h3><?php echo $language['finish']; ?></h3>
                 <p><?php echo $language['finish_message']; ?></p>
                 <p><?php echo $language['support_message']; ?></p>
@@ -2074,15 +2085,7 @@
     			<hr />
     			<h3><?php echo $language['credits']; ?></h3>
     			<p><?php echo $language['credits_message']; ?></p>
-
-                <?php
-            }
-            catch(Exception $e) {
-                $error = $e->getMessage();
-
-                if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>';
-            }
-
+            <?php
             break;
         default:
             die('Unknown step');
