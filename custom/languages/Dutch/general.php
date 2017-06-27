@@ -50,7 +50,7 @@ $language = array(
 	'x_new_messages' => 'Je hebt {x} nieuwe berichten.', // Verander "{x}" niet
 	'loading' => 'Laden...',
 	'report' => 'Rapport',
-	'page_loaded_in' => 'Pagine geladen in {x}s', // Verander "{x}" niet, tijdseenhijd is seconden
+	'page_loaded_in' => 'Pagine geladen in {x}s', // Verander "{x}" niet, tijdseenheid is seconden
 	'page_x' => 'Pagina {x}',
 
 	/*
