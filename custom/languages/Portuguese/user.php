@@ -2,13 +2,13 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
  *  Portuguese Language - Users
- *  Translation By Douglas Teles
- *  Last Update: 05/01/2017
+ *  Translation By Douglas Teles & dasilvaj4
+ *  Last Update: 26/06/2017
  */
 $language = array(
 	/*
@@ -49,7 +49,7 @@ $language = array(
 	'invalid_tfa' => 'Código inválido, por favor tente novamente.',
 	'tfa_successful' => 'Autenticação em dois fatores configurado com sucesso. Você precisará se autenticar toda vez que você fizer login a partir de agora.',
 	'active_language' => 'Linguagem Ativa',
-    'timezone' => 'Timezone',
+    'timezone' => 'Fuso horário',
 	
 	// Alerts
 	'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}
@@ -76,12 +76,12 @@ $language = array(
 	'signature' => 'Assinatura',
 
     // Registration - Authme
-    'connect_with_authme' => 'Connect your account with AuthMe',
-    'authme_help' => 'Please enter your ingame AuthMe account details. If you don\'t already have an account ingame, join the server now and follow the instructions provided.',
-    'unable_to_connect_to_authme_db' => 'Unable to connect to the AuthMe database. If this error persists, please contact an administrator.',
-    'authme_account_linked' => 'Account linked successfully.',
-    'authme_email_help_1' => 'Finally, please enter your email address.',
-    'authme_email_help_2' => 'Finally, please enter your email address, and also choose a display name for your account.',
+    'connect_with_authme' => 'Conecte sua conta com AuthMe',
+    'authme_help' => 'Digite os detalhes da sua conta AuthMe. Se você ainda não possui uma conta no servidor, entre no servidor agora e siga as instruções fornecidas.',
+    'unable_to_connect_to_authme_db' => 'Não é possível conectar-se ao banco de dados AuthMe. Se esse erro persistir, entre em contato com um administrador.',
+    'authme_account_linked' => 'Conta vinculada com sucesso.',
+    'authme_email_help_1' => 'Finalmente, insira seu endereço de e-mail.',
+    'authme_email_help_2' => 'Finalmente, digite seu endereço de e-mail e escolha um nome para sua conta.',
 
 	// Registration errors
 	'username_required' => 'É necessário um nome de usuário.',
