@@ -24,7 +24,7 @@ $language = array(
 	'config_writable' => 'core/config.php Schrijfbaar',
 	'cache_writable' => 'Cache Schrijfbaar',
 	'template_cache_writable' => 'Sjabloon Cache Schrijfbaar',
-	'requirements_error' => 'U moet alle extensies hebben geinstalleerd, en de juiste machtingen hebben ingesteld, om door te gaan met de installatie.',
+	'requirements_error' => 'Je moet alle extensies hebben geinstalleerd, en de juiste machtingen hebben ingesteld, om door te gaan met de installatie.',
 	'proceed' => 'Doorgaan',
 	'database_configuration' => 'Database Configuratie',
 	'database_address' => 'Database Adres',
@@ -68,5 +68,5 @@ $language = array(
 	'finish_message' => 'Bedankt voor het installeren van NamelessMC! U kunt nu doorgaan naar het controle paneel, waar u uw website verder kunt configureren.',
 	'support_message' => 'Als je hulp nodig hebt, check onze website <a href="https://namelessmc.com" target="_blank">here</a>, of je kan onze <a href="https://discord.gg/r7Eq4jw" target="_blank">Discord server</a> bezoeken of onze <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.',
 	'credits' => 'Credits',
-	'credits_message' => 'Een grote dank aan alle <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC bijdragers</a> sinds 2014'
+	'credits_message' => 'Een grote dank aan alle <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC bijdragers</a> sinds 2014!'
 );
