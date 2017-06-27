@@ -1,7 +1,7 @@
 <?php
 /*
  *	Gemaakt door Samerton
- *  en vertaald door Sander Lambrechts en Derkades
+ *  en vertaald door Sander Lambrechts, Melerpe en Derkades 
  *
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr2
@@ -15,7 +15,7 @@ $language = array(
 	'install' => 'Installatie',
 	'pre-release' => 'pre-release',
 	'installer_welcome' => 'Welkom bij NamelessMC versie 2.0 pre-release.',
-	'pre-release_warning' => 'Houd je er rekening mee dat deze pre-release niet voor een openbare site bedoeld is.',
+	'pre-release_warning' => 'Hou er rekening mee dat deze pre-release niet voor een openbare site bedoeld is.',
 	'installer_information' => 'Het installatieprogramma leid je door het installatieproces.',
 	'new_installation_question' => 'Ten eerste, is dit een nieuwe installatie?',
 	'new_installation' => 'Nieuwe installatie &raquo;',
@@ -35,7 +35,7 @@ $language = array(
 	'character_set' => 'Karakterset',
 	'database_error' => 'Zorg ervoor dat alle velden zijn ingevuld.',
 	'submit' => 'Indienen',
-	'installer_now_initialising_database' => 'De installatie is nu aan het initialiseren van de database. Dit kan een tijdje duren...',
+	'installer_now_initialising_database' => 'De installateur is de database aan het instellen. Dit kan een tijdje duren...',
 	'configuration' => 'Configuratie',
 	'configuration_info' => 'Gelieve de basisinformatie over uw site invullen. Dit kan later nog worden gewijzigd via het controle paneel.',
 	'configuration_error' => 'Voer een geldige naam in voor de site die tussen de 1 en 32 tekens lang zijn, en geldige e-mailadressen tussen de 4 en 64 tekens lang zijn.',
@@ -43,8 +43,8 @@ $language = array(
 	'contact_email' => 'Contact Email',
 	'outgoing_email' => 'Uitgaande Email',
 	'initialising_database_and_cache' => 'Initialiseren van de database en cache, even geduld...',
-	'unable_to_login' => 'Niet mogelijk om in te loggen.',
-	'unable_to_create_account' => 'Niet mogelijk om een account te maken.',
+	'unable_to_login' => 'Het is niet mogelijk om in te loggen.',
+	'unable_to_create_account' => 'Het is niet mogelijk om een account aan te maken.',
 	'input_required' => 'Graag een geldige gebruikersnaam, email adres en wachtwoord invullen.',
 	'input_minimum' => 'Zorg ervoor dat uw gebruikersnaam een minimum van 3 karakters, je e-mailadres een minimum van 4 karakters, en uw wachtwoord minimaal 6 karakters heeft.',
 	'input_maximum' => 'Zorg ervoor dat uw gebruikersnaam een maximum van 20 karakters, en uw e-mailadres en wachtwoord maximaal 64 tekens bevatten.',
@@ -61,10 +61,10 @@ $language = array(
 	'errors_logged' => 'Fouten zijn vastgesteld. Klik op Doorgaan om door te gaan met de upgrade.',
 	'continue' => 'Doorgaan',
 	'convert' => 'Converteer',
-	'convert_message' => 'Tot slot, wil je converteren van een ander forum software?',
+	'convert_message' => 'Tot slot, wil je data overzetten van een ander forum software?',
 	'yes' => 'Ja',
 	'no' => 'Nee',
-	'finish' => 'Afwerken',
+	'finish' => 'Voltooien',
 	'finish_message' => 'Bedankt voor het installeren van NamelessMC! U kunt nu doorgaan naar het controle paneel, waar u uw website verder kunt configureren.',
 	'support_message' => 'Als je hulp nodig hebt, check onze website <a href="https://namelessmc.com" target="_blank">here</a>, of je kan onze <a href="https://discord.gg/r7Eq4jw" target="_blank">Discord server</a> bezoeken of onze <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.',
 	'credits' => 'Credits',
