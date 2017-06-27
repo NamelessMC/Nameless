@@ -1,10 +1,10 @@
 <?php
 /*
  *	Gemaakt door Samerton
- *  en vertaald en bijgewerkt door Sander Lambrechts en Jesse Geerts
+ *  en vertaald en bijgewerkt door Sander Lambrechts, Jesse Geerts en Derkades
  *
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pre1
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -63,18 +63,18 @@ $language = array(
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Succesvol bijgewerkt',
-    	'debugging_and_maintenance' => 'Debugging en beheer',
-  	'enable_debug_mode' => 'Wilt u debug modus inschakelen?',
-    	'force_https' => 'Forceer https?',
-    	'force_https_help' => 'Als het aanstaat, worden alle verzoeken naar deze website doorgestuurd naar https. Je moet een geldig SSL certificaat die actief is hebben om dit te laten werken.',
-    	'contact_email' => 'Emailadres voor contact',
+	'debugging_and_maintenance' => 'Debugging en beheer',
+	'enable_debug_mode' => 'Wil je debug modus inschakelen?',
+	'force_https' => 'Forceer https?',
+	'force_https_help' => 'Als het aanstaat, worden alle verzoeken naar deze website doorgestuurd naar https. Je moet een geldig SSL certificaat die actief is hebben om dit te laten werken.',
+	'contact_email' => 'Emailadres voor contact',
 	'emails' => 'Emails',
 	'email_errors' => 'Email fouten',
 	'registration_email' => 'Registratie email',
 	'contact_email' => 'Contact email',
 	'unknown' => 'Onbekend',
 	'delete_email_error' => 'Fout verwijderen',
-	'confirm_email_error_deletion' => 'Weet u zeker dat u deze fout wilt verwijderen?',
+	'confirm_email_error_deletion' => 'Weet je zeker dat je deze fout wilt verwijderen?',
 	'viewing_email_error' => 'Fout aan het bekijken',
 	'unable_to_write_email_config' => 'Kon niet naar het bestand <strong>core/email.php</core> schrijven. Graag de bestands toestemmingen bekijken.',
 	'enable_mailer' => 'PHPMailer inschakelen?',
@@ -190,7 +190,7 @@ $language = array(
 	'new_banner' => '<i class="fa fa-plus-circle"></i> Nieuwe banner',
 	'purge_errors' => 'Verwijder fouten',
 	'confirm_purge_errors' => 'Weet je zeker dat je alle fouten wilt verwijderen?',
-	'mcassoc_help' => 'mcassoc is een externe dienst die kan worden gebruikt om te controleren of gebruikers het Minecraft account hebben gekocht waarmee zij zich hebben geregistreerd. Om deze functie te gebruiken, moet u zich aanmelden voor een "shared key" <a href="https://mcassoc.lukegb.com/" target="_blank">hier</a>.',
+	'mcassoc_help' => 'mcassoc is een externe dienst die gebruikt kan worden om te controleren of gebruikers het Minecraft account hebben gekocht waarmee zij zich hebben geregistreerd. Om deze functie te gebruiken, dien je je aan te melden voor een "shared key". Je kan deze krijgen op de <a href="https://mcassoc.lukegb.com/" target="_blank">mcassoc website</a>.',
 	'mcassoc_key' => 'mcassoc Shared Key',
 	'mcassoc_instance' => 'mcassoc Instance Key',
 	'mcassoc_instance_help' => '<a href="#" onclick="generateInstance();">Klik om een "instance key" te genereren</a>',
@@ -202,7 +202,7 @@ $language = array(
 	'modules_installed_successfully' => 'Alle nieuwe modules zijn succesvol toegevoegd.',
 	'enabled' => 'Ingeschakeld',
 	'disabled' => 'Uitgeschakeld',
-    	'enable' => 'Inschakelen',
+	'enable' => 'Inschakelen',
 	'disable' => 'Uitschakelen',
 	'module_enabled' => 'Module ingeschakeld.',
 	'module_disabled' => 'Module uitgeschakeld.',
@@ -277,14 +277,14 @@ $language = array(
 	'disable_night_mode' => 'Zet nachtmodus uit',
 	'view_site' => 'Terug naar de website',
 	'signed_in_as_x' => 'Ingelogd als {x}', // Verander "{x}" niet
-    	'warning' => 'Waarschuwing',
+	'warning' => 'Waarschuwing',
 
 	// Onderhoud
- 	'maintenance_mode' => 'Onderhoud modus',
- 	'maintenance_enabled' => 'Onderhoud modus staat nu aan.',
-  	'enable_maintenance_mode' => 'Wil je onderhoud modus inschakelen?',
-  	'maintenance_mode_message' => 'Onderhoud modus bericht',
-  	'maintenance_message_max_1024' => 'Zorg ervoor dat je onderhoud bericht maximaal uit 1024 karakters bestaat.',
+	'maintenance_mode' => 'Onderhoud modus',
+	'maintenance_enabled' => 'Onderhoud modus staat nu aan.',
+	'enable_maintenance_mode' => 'Wil je onderhoud modus inschakelen?',
+	'maintenance_mode_message' => 'Onderhoud modus bericht',
+	'maintenance_message_max_1024' => 'Zorg ervoor dat je onderhoud bericht maximaal uit 1024 karakters bestaat.',
 
 	// Beveiliging
 	'acp_logins' => 'Controle paneel aanmeldingen',
@@ -298,8 +298,8 @@ $language = array(
 	'current_version_x' => 'Huidige versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'new_version_x' => 'Nieuwe versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'new_update_available' => 'Er is een nieuwe versie beschikbaar',
-	'up_to_date' => 'Uw website is al helemaal bijgewerkt!',
-	'urgent' => 'U moet uw website dringend bijwerken',
+	'up_to_date' => 'Deze website draait al de nieuwste versie!',
+	'urgent' => 'Je moet je website dringend bijwerken',
 	'changelog' => 'Lijst van veranderingen',
 	'update_check_error' => 'Er was een fout met het zoeken naar nieuwe versies:',
 	'instructions' => 'Instructies',
