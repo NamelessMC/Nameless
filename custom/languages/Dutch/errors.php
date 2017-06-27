@@ -10,7 +10,7 @@
  *
  *  Nederlandse taal - 404 problemen
  */
- 
+
 $language = array(
 	/*
 	 *  Problemen
