@@ -49,6 +49,7 @@ $language = array(
 	'tfa_successful' => 'Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.',
 	'active_language' => 'Active Language',
 	'timezone' => 'Timezone',
+	'upload_new_avatar' => 'Upload a new avatar',
 	
 	// Alerts
 	'user_tag_info' => 'You have been tagged in a post by {x}.', // Don't replace {x}

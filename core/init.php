@@ -64,13 +64,13 @@ if($page != 'install'){
 	define('FRIENDLY_URLS', Config::get('core/friendly'));
 
 	// Set up cache
-	$cache = new Cache();
+	$cache = new Cache(array('name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'));
 
 	// Force https?
     $cache->setCache('force_https_cache');
     if($cache->isCached('force_https')) {
         $force_https = $cache->retrieve('force_https');
-        if($force_https === true){
+        if($force_https == 'true'){
             if($_SERVER["HTTPS"] != "on"){
                 // Redirect to https
                 header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
@@ -248,10 +248,37 @@ if($page != 'install'){
 	// Smarty
 	$smarty = new Smarty();
 
-	$template_path = 'custom/templates/' . TEMPLATE;
+	$template_path = ROOT_PATH . '/custom/templates/' . TEMPLATE;
 	$smarty->setTemplateDir($template_path);
 	$smarty->setCompileDir('cache/templates_c');
 	$smarty->assign('SITE_NAME', SITE_NAME);
+
+	// Avatars
+    $cache->setCache('avatar_settings_cache');
+    if($cache->isCached('custom_avatars') && $cache->retrieve('custom_avatars') == 1) {
+        define('CUSTOM_AVATARS', true);
+    }
+
+    if($cache->isCached('default_avatar_type')) {
+        define('DEFAULT_AVATAR_TYPE', $cache->retrieve('default_avatar_type'));
+        if(DEFAULT_AVATAR_TYPE == 'custom' && $cache->isCached('default_avatar_image'))
+            define('DEFAULT_AVATAR_IMAGE', $cache->retrieve('default_avatar_image'));
+        else
+            define('DEFAULT_AVATAR_IMAGE', '');
+    } else
+        define('DEFAULT_AVATAR_TYPE', 'minecraft');
+
+    if(DEFAULT_AVATAR_TYPE == 'minecraft'){
+        if($cache->isCached('avatar_source'))
+            define('DEFAULT_AVATAR_SOURCE', $cache->retrieve('avatar_source'));
+        else
+            define('DEFAULT_AVATAR_SOURCE', 'cravatar');
+
+        if($cache->isCached('avatar_perspective'))
+            define('DEFAULT_AVATAR_PERSPECTIVE', $cache->retrieve('avatar_perspective'));
+        else
+            define('DEFAULT_AVATAR_PERSPECTIVE', 'face');
+    }
 
 	// Maintenance mode?
     $cache->setCache('maintenance_cache');
@@ -298,7 +325,8 @@ if($page != 'install'){
 	});
 
 	foreach($enabled_modules as $module){
-		require('modules/' . $module['name'] . '/init.php');
+	    if(file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php'))
+		    require(ROOT_PATH . '/modules/' . $module['name'] . '/init.php');
 	}
 
 	// Perform tasks if the user is logged in

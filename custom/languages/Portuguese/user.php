@@ -50,6 +50,7 @@ $language = array(
 	'tfa_successful' => 'Autenticação em dois fatores configurado com sucesso. Você precisará se autenticar toda vez que você fizer login a partir de agora.',
 	'active_language' => 'Linguagem Ativa',
     'timezone' => 'Fuso horário',
+    'upload_new_avatar' => 'Upload a new avatar',
 	
 	// Alerts
 	'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}

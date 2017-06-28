@@ -50,6 +50,7 @@ $language = array(
 	'report' => 'Nahlásit',
 	'page_loaded_in' => 'Stránka se načetla za {x}sekund', // Don't replace {x}, time unit is seconds
     'page_x' => 'Page {x}',
+    'browse' => 'Browse',
 
     /*
      *  Contact form

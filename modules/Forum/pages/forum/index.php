@@ -9,17 +9,6 @@
  *  Forum index page
  */
 
-// Maintenance mode?
-// Todo: cache this
-$maintenance_mode = $queries->getWhere('settings', array('name', '=', 'maintenance'));
-if($maintenance_mode[0]->value == 'true'){
-	// Maintenance mode is enabled, only admins can view
-	if(!$user->isLoggedIn() || !$user->canViewACP($user->data()->id)){
-		require('modules/Forum/pages/forum/maintenance.php');
-		die();
-	}
-}
-
 require('modules/Forum/classes/Forum.php');
  
 // Always define page name
@@ -140,7 +129,7 @@ if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group 
 			$posts = count($posts);
 			
 			// Get the last reply user's avatar
-			$last_reply_avatar = $user->getAvatar($discussions[$n]['topic_last_user'], "../", 30);
+			$last_reply_avatar = $user->getAvatar($discussions[$n]['topic_last_user'], "../", 64);
 			
 			// Is there a label?
 			if($discussions[$n]['label'] != 0){ // yes
@@ -233,7 +222,7 @@ if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group 
 				if(count($item['subforums'])){
 					foreach($item['subforums'] as $subforum_id => $subforum){
 						if(isset($subforum->last_post)){
-							$forums[$key]['subforums'][$subforum_id]->last_post->avatar = $user->getAvatar($forums[$key]['subforums'][$subforum_id]->last_post->post_creator, '../', 30);
+							$forums[$key]['subforums'][$subforum_id]->last_post->avatar = $user->getAvatar($forums[$key]['subforums'][$subforum_id]->last_post->post_creator, '../', 64);
 							$forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language->getTimeLanguage());
 							$forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', strtotime($forums[$key]['subforums'][$subforum_id]->last_post->post_date));
 							$forums[$key]['subforums'][$subforum_id]->last_post->user_style = $user->getGroupClass($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);

@@ -131,7 +131,7 @@ $token = Token::get();
 						continue;
 					  }
 				  ?>
-				  <option data-img-src="<?php echo ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/'); ?>uploads/backgrounds/<?php echo $image; ?>" value="<?php echo Output::getClean($image); ?>" <?php if($background_image == '/uploads/backgrounds/' . $image) echo 'selected'; ?>><?php echo $n; ?></option>
+				  <option data-img-src="<?php echo ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/'); ?>uploads/backgrounds/<?php echo $image; ?>" value="<?php echo Output::getClean($image); ?>" <?php if($background_image == ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/backgrounds/' . $image) echo 'selected'; ?>><?php echo $n; ?></option>
 				  <?php
 				  }
 				  ?>
@@ -158,7 +158,7 @@ $token = Token::get();
 		  </div>
 		  <div class="modal-body">
 			<!-- Upload modal -->
-			<form action="/core/includes/image_upload.php" class="dropzone" id="upload_background_dropzone">
+			<form action="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/includes/image_upload.php" class="dropzone" id="upload_background_dropzone">
 			<div class="dz-message" data-dz-message><span><?php echo $language->get('admin', 'drag_files_here'); ?></span></div>
 			  <input type="hidden" name="token" value="<?php echo $token; ?>">
 			  <input type="hidden" name="type" value="background">

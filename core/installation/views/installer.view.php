@@ -1987,22 +1987,37 @@
 						$cache->setCache('timezone_cache');
 						$cache->store('timezone', 'Europe/London');
 
-                        $queries->create('settings', array(
-                            'name' => 'maintenance_message',
-                            'value' => 'This website is currently in maintenance mode.'
-                        ));
-                        $cache->setCache('maintenance_cache');
-                        $cache->store('maintenance', array('maintenance' => 'false', 'message' => 'This website is currently in maintenance mode.'));
+						$queries->create('settings', array(
+                'name' => 'maintenance_message',
+                'value' => 'This website is currently in maintenance mode.'
+            ));
+						$cache->setCache('maintenance_cache');
+						$cache->store('maintenance', array('maintenance' => 'false', 'message' => 'This website is currently in maintenance mode.'));
 
-                        $queries->create('settings', array(
-                            'name' => 'authme',
-                            'value' => 0
-                        ));
+            $queries->create('settings', array(
+                'name' => 'authme',
+                'value' => 0
+            ));
 
-                        $queries->create('settings', array(
-                            'name' => 'authme_db',
-                            'value' => null
-                        ));
+            $queries->create('settings', array(
+                'name' => 'authme_db',
+                'value' => null
+            ));
+
+            $queries->create('settings', array(
+                'name' => 'force_https',
+                'value' => 'false'
+            ));
+
+            $queries->create('settings', array(
+                'name' => 'default_avatar_type',
+                'value' => 'minecraft'
+            ));
+
+            $queries->create('settings', array(
+                'name' => 'custom_default_avatar',
+                'value' => null
+            ));
 
 						// Templates
 						$queries->create('templates', array(

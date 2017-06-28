@@ -49,6 +49,7 @@ $language = array(
 	'tfa_successful' => 'Dvoufázové ověření bylo úspěšně nastaveno.Nyní budeš pokaždé vyzván pro ověření přihlášení.',
 	'active_language' => 'Aktivní jazyk',
     'timezone' => 'Timezone',
+    'upload_new_avatar' => 'Upload a new avatar',
 	
 	// Alerts
 	'user_tag_info' => 'Byl jsi označen v příspěvku {x}.', // Don't replace {x}

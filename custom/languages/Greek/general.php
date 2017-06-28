@@ -52,6 +52,7 @@ $language = array(
 	'report' => 'Αναφορά',
 	'page_loaded_in' => 'Η σελίδα φορτώθηκε σε {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Page {x}',
+    'browse' => 'Browse',
 
     /*
      *  Contact form

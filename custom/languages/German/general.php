@@ -58,6 +58,7 @@ $language = array(
 	'report' => 'Melden',
 	'page_loaded_in' => 'Seite wurde in {x} Sekunden geladen.', // Don't replace {x}, time unit is seconds
     'page_x' => 'Page {x}',
+    'browse' => 'Browse',
 
     /*
      *  Contact form

@@ -57,6 +57,7 @@ $language = array(
 	'tfa_successful' => '2 Schritt Authentifizierung wurde aktiviert.',
 	'active_language' => 'Ausgewählte Sprache:',
     'timezone' => 'Timezone',
+    'upload_new_avatar' => 'Upload a new avatar',
 	
 	// Alerts
 	'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace {x}

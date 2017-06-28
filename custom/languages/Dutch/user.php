@@ -51,6 +51,7 @@ $language = array(
 	'tfa_successful' => 'Twee factor authenticatie succesvol ingesteld. Je moet nu elke keer een code hebben om in te kunnen loggen.',
 	'active_language' => 'Actieve taal',
 	'timezone' => 'Tijdzone',
+    'upload_new_avatar' => 'Upload a new avatar',
 	
 	// Meldingen
 	'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet
