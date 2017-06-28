@@ -51,6 +51,14 @@ $current_default_language = $current_default_language[0]->value;
 	?>
 
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.css">
+    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dropzone/dropzone.min.css">
+    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/image-picker/image-picker.css">
+
+    <style type="text/css">
+      .thumbnails li img{
+        width: 60px;
+      }
+    </style>
 
   </head>
   <body>
@@ -69,6 +77,9 @@ $current_default_language = $current_default_language[0]->value;
 			    <table class="table table-striped">
             <tr>
               <td><a href="<?php echo URL::build('/admin/core/', 'view=general'); ?>"><?php echo $language->get('admin', 'general_settings'); ?></a></td>
+            </tr>
+            <tr>
+              <td><a href="<?php echo URL::build('/admin/core/', 'view=avatars'); ?>"><?php echo $language->get('admin', 'avatars'); ?></a></td>
             </tr>
             <tr>
               <td><a href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>"><?php echo $language->get('admin', 'custom_fields'); ?></a></td>
@@ -252,9 +263,9 @@ $current_default_language = $current_default_language[0]->value;
 
 									// Force HTTPS?
                   if(Input::get('forceHTTPS') == 'true')
-                    $https = true;
+                    $https = 'true';
                   else
-                    $https = false;
+                    $https = 'false';
 
                   $force_https_id = $queries->getWhere('settings', array('name', '=', 'force_https'));
                   if(count($force_https_id)){
@@ -1576,6 +1587,175 @@ $current_default_language = $current_default_language[0]->value;
               <?php
               break;
 
+            case 'avatars':
+              // Input
+              if(Input::exists()){
+                if(Token::check(Input::get('token'))){
+                  if(isset($_POST['avatar_source'])){
+                    // Custom avatars?
+                    if(isset($_POST['custom_avatars']) && $_POST['custom_avatars'] == 1)
+                      $custom_avatars = 1;
+                    else
+                      $custom_avatars = 0;
+
+                    try {
+                      $custom_avatars_id = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
+                      $custom_avatars_id = $custom_avatars_id[0]->id;
+                      $queries->update('settings', $custom_avatars_id, array('value' => $custom_avatars));
+
+                      $default_avatar_type = $queries->getWhere('settings', array('name', '=', 'default_avatar_type'));
+                      $default_avatar_type = $default_avatar_type[0]->id;
+                      $queries->update('settings', $default_avatar_type, array('value' => Input::get('default_avatar')));
+
+                      $mc_avatar_source = $queries->getWhere('settings', array('name', '=', 'avatar_site'));
+                      $mc_avatar_source = $mc_avatar_source[0]->id;
+                      $queries->update('settings', $mc_avatar_source, array('value' => Input::get('avatar_source')));
+
+                      $mc_avatar_perspective = $queries->getWhere('settings', array('name', '=', 'avatar_type'));
+                      $mc_avatar_perspective = $mc_avatar_perspective[0]->id;
+                      $queries->update('settings', $mc_avatar_perspective, array('value' => Input::get('avatar_perspective')));
+
+                      $cache->setCache('avatar_settings_cache');
+                      $cache->store('custom_avatars', $custom_avatars);
+                      $cache->store('default_avatar_type', Input::get('default_avatar'));
+                      $cache->store('avatar_source', Input::get('avatar_source'));
+                      $cache->store('avatar_perspective', Input::get('avatar_perspective'));
+
+                    } catch(Exception $e){
+                      $error = $e->getMessage();
+                    }
+                  } else if(isset($_POST['avatar'])){
+                    // Selecting a new default avatar
+                    try {
+                      $default_avatar = $queries->getWhere('settings', array('name', '=', 'custom_default_avatar'));
+                      $default_avatar = $default_avatar[0]->id;
+                      $queries->update('settings', $default_avatar, array('value' => Input::get('avatar')));
+
+                      $cache->setCache('avatar_settings_cache');
+                      $cache->store('default_avatar_image', Input::get('avatar'));
+
+                    } catch(Exception $e){
+                      $error = $e->getMessage();
+                    }
+                  }
+
+                  $success = $language->get('admin', 'avatar_settings_updated_successfully');
+                } else
+                  $error = $language->get('general', 'invalid_token');
+              }
+
+              // Get setting values
+              $custom_avatars = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
+              $custom_avatars = $custom_avatars[0]->value;
+
+              $default_avatar_type = $queries->getWhere('settings', array('name', '=', 'default_avatar_type'));
+              $default_avatar_type = $default_avatar_type[0]->value;
+
+              $mc_avatar_source = $queries->getWhere('settings', array('name', '=', 'avatar_site'));
+              $mc_avatar_source = $mc_avatar_source[0]->value;
+
+              $mc_avatar_perspective = $queries->getWhere('settings', array('name', '=', 'avatar_type'));
+              $mc_avatar_perspective = $mc_avatar_perspective[0]->value;
+              ?>
+              <h4><?php echo $language->get('admin', 'avatars'); ?></h4>
+
+              <?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
+              <?php if(isset($success)) echo '<div class="alert alert-success">' . $success . '</div>'; ?>
+
+              <form action="" method="post">
+                <div class="form-group">
+                  <label for="inputCustomAvatars"><?php echo $language->get('admin', 'allow_custom_avatars'); ?></label>
+                  <input type="hidden" name="custom_avatars" value="0">
+                  <input id="inputCustomAvatars" name="custom_avatars" type="checkbox" class="js-switch" value="1"<?php if($custom_avatars == '1'){ ?> checked<?php } ?> />
+                </div>
+                <div class="form-group">
+                  <label for="inputDefaultAvatar"><?php echo $language->get('admin', 'default_avatar'); ?></label>
+                  <select class="form-control" name="default_avatar" id="inputDefaultAvatar">
+                    <option value="minecraft"<?php if($default_avatar_type == 'minecraft') echo ' selected'; ?>><?php echo $language->get('admin', 'minecraft_avatar'); ?></option>
+                    <option value="custom"<?php if($default_avatar_type == 'custom') echo ' selected'; ?>><?php echo $language->get('admin', 'custom_avatar'); ?></option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="inputMinecraftAvatarSource"><?php echo $language->get('admin', 'minecraft_avatar_source'); ?></label>
+                  <select class="form-control" name="avatar_source" id="inputMinecraftAvatarSource">
+                    <option value="cravatar"<?php if($mc_avatar_source == 'cravatar') echo ' selected'; ?>>cravatar.eu</option>
+                    <option value="crafatar"<?php if($mc_avatar_source == 'crafatar') echo ' selected'; ?>>crafatar.com</option>
+                    <option value="nameless"<?php if($mc_avatar_source == 'nameless') echo ' selected'; ?>><?php echo $language->get('admin', 'built_in_avatars'); ?></option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="inputAvatarPerspective"><?php echo $language->get('admin', 'minecraft_avatar_perspective'); ?></label>
+                  <select class="form-control" name="avatar_perspective" id="inputAvatarPerspective">
+                    <option value="face"<?php if($mc_avatar_perspective == 'avatar' || $mc_avatar_perspective == 'helmavatar') echo ' selected'; ?>><?php echo $language->get('admin', 'face'); ?></option>
+                    <option value="head"<?php if($mc_avatar_perspective == 'head') echo ' selected'; ?>><?php echo $language->get('admin', 'head'); ?></option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
+                  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+                </div>
+              </form>
+              <h5><?php echo $language->get('admin', 'default_avatar'); ?></h5>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#uploadModal"><?php echo $language->get('admin', 'upload_new_image'); ?></button>
+              <br /><br />
+
+              <form action="" method="post" style="display:inline;" >
+                <label for="inputAvatar"><?php echo $language->get('admin', 'select_default_avatar'); ?></label>
+                <select name="avatar" class="image-picker show-html">
+                    <?php
+                    $image_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'avatars', 'defaults'));
+                    $images = scandir($image_path);
+
+                    // Only display jpeg, png, jpg, gif
+                    $allowed_exts = array('gif', 'png', 'jpg', 'jpeg');
+
+                    foreach($images as $image){
+                        $ext = pathinfo($image, PATHINFO_EXTENSION);
+                        if(!in_array($ext, $allowed_exts)){
+                            continue;
+                        }
+                        $count = 1;
+                        ?>
+                      <option data-img-src="<?php echo ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/'); ?>uploads/avatars/defaults/<?php echo Output::getClean($image); ?>" value="<?php echo Output::getClean($image); ?>" <?php if($default_avatar_image == ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . Output::getClean($image)) echo 'selected'; ?>><?php echo Output::getClean($image); ?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
+                <?php if(!isset($count)) echo '<strong>' . $language->get('admin', 'no_avatars_available') . '</strong>'; else { ?>
+                <div class="form-group">
+                  <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
+                  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+                </div>
+                <?php } ?>
+              </form>
+
+              <!-- Modal -->
+              <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <h4 class="modal-title" id="uploadModalLabel"><?php echo $language->get('admin', 'upload_new_image'); ?></h4>
+                    </div>
+                    <div class="modal-body">
+                      <!-- Upload modal -->
+                      <form action="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/includes/image_upload.php" class="dropzone" id="upload_avatar_dropzone">
+                        <div class="dz-message" data-dz-message><span><?php echo $language->get('admin', 'drag_files_here'); ?></span></div>
+                        <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
+                        <input type="hidden" name="type" value="default_avatar">
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" onclick="location.reload();" data-dismiss="modal"><?php echo $language->get('general', 'cancel'); ?></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <?php
+              break;
+
             default:
               Redirect::to(URL::build('/admin/core'));
               die();
@@ -1613,6 +1793,21 @@ $current_default_language = $current_default_language[0]->value;
         echo Input::createEditor('InputTerms');
       ?>
     </script>
+    <?php } else if(isset($_GET['view']) && $_GET['view'] == 'avatars'){ ?>
+      <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dropzone/dropzone.min.js"></script>
+      <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/image-picker/image-picker.min.js"></script>
+
+      <script>
+          // Dropzone options
+          Dropzone.options.upload_avatar_dropzone = {
+              maxFilesize: 2,
+              dictDefaultMessage: "<?php echo $language->get('admin', 'drag_files_here'); ?>",
+              dictInvalidFileType: "<?php echo $language->get('admin', 'invalid_file_type'); ?>",
+              dictFileTooBig: "<?php echo $language->get('admin', 'file_too_big'); ?>"
+          };
+
+          $(".image-picker").imagepicker();
+      </script>
     <?php } ?>
   </body>
 </html>

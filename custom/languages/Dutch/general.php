@@ -52,6 +52,7 @@ $language = array(
 	'report' => 'Rapport',
 	'page_loaded_in' => 'Pagine geladen in {x}s', // Verander "{x}" niet, tijdseenheid is seconden
 	'page_x' => 'Pagina {x}',
+    'browse' => 'Browse',
 
 	/*
 	 *  Contact formulier

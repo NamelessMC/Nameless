@@ -51,6 +51,7 @@ $language = array(
 	'report' => 'Relatório',
 	'page_loaded_in' => 'Página gerada em {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Página {x}',
+    'browse' => 'Browse',
 
     /*
      *  Contact form

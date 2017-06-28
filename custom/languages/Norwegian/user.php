@@ -49,6 +49,7 @@ $language = array(
 	'tfa_successful' => 'To-stegs-verifikasjon fullført.',
 	'active_language' => 'Språk',
     'timezone' => 'Timezone',
+    'upload_new_avatar' => 'Upload a new avatar',
 	
 	// Alerts
 	'user_tag_info' => 'Du har blitt tagget i et innlegg av {x}.', // Don't replace {x}

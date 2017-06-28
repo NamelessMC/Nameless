@@ -111,6 +111,23 @@
 		  <a href="{$DISABLE_LINK}" class="btn btn-danger">{$DISABLE}</a>
 			{/if}
 		  {/nocache}
+
+		  {if isset($CUSTOM_AVATARS)}
+			<hr />
+			<h4>{$UPLOAD_NEW_PROFILE_IMAGE}</h4>
+			<form action="{$CUSTOM_AVATARS_SCRIPT}" method="post" enctype="multipart/form-data">
+			  <div class="form-group">
+			    <label class="btn btn-secondary">
+			      {$BROWSE} <input type="file" name="file" hidden/>
+			    </label>
+			  </div>
+			  <div class="form-group">
+			    <input type="hidden" name="token" value="{$TOKEN}">
+				<input type="hidden" name="type" value="avatar">
+			    <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
+			  </div>
+			</form>
+		  {/if}
 		</div>
 	  </div>
 	</div>

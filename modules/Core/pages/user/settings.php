@@ -302,7 +302,7 @@ if(isset($_GET['do'])){
 							// Update password
 							$queries->update('users', $user->data()->id, array(
 								'password' => $new_password,
-                                'pass_method' => 'default'
+								'pass_method' => 'default'
 							));
 							
 							$success = $language->get('user', 'password_changed_successfully');
@@ -467,6 +467,15 @@ if(isset($_GET['do'])){
     'TIMEZONES' => Util::listTimezones(),
     'SELECTED_TIMEZONE' => $user->data()->timezone
 	));
+
+	if(defined('CUSTOM_AVATARS')) {
+      $smarty->assign(array(
+        'CUSTOM_AVATARS' => true,
+        'CUSTOM_AVATARS_SCRIPT' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/includes/image_upload.php',
+        'BROWSE' => $language->get('general', 'browse'),
+        'UPLOAD_NEW_PROFILE_IMAGE' => $language->get('user', 'upload_new_avatar')
+      ));
+  }
 	
 	if($user->data()->tfa_enabled == 1){
 		// Disable

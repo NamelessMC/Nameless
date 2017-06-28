@@ -19,7 +19,7 @@ $view = in_array($view, array('f', 'l', 'r', 'b')) ? $view : 'f';
 function get_skin($user, $cache)
 {
 	// Check cache
-	$cache->setCache('avatarCache');
+	$cache->setCache('avatarCache_' . $user);
 	if($cache->isCached($user)){
 		return 'cached';
 	}
@@ -70,7 +70,7 @@ function get_skin($user, $cache)
     }
 	
 	// Cache image
-	$cache->setCache('avatarCache');
+	$cache->setCache('avatarCache_' . $user);
 	$cache->store($user, 'cached', 3600);
 	
     return $output;

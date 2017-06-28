@@ -9,17 +9,6 @@
  *  View forum page
  */
 
-// Maintenance mode?
-// Todo: cache this
-$maintenance_mode = $queries->getWhere('settings', array('name', '=', 'maintenance'));
-if($maintenance_mode[0]->value == 'true'){
-	// Maintenance mode is enabled, only admins can view
-	if(!$user->isLoggedIn() || !$user->canViewACP($user->data()->id)){
-		require('modules/Forum/pages/forum/maintenance.php');
-		die();
-	}
-}
- 
 // Always define page name
 define('PAGE', 'forum');
 

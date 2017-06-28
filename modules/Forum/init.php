@@ -24,7 +24,7 @@ if(!$module_installed){
 define('FORUM', true);
 
 // Initialise forum language
-$forum_language = new Language('modules/Forum/language', LANGUAGE);
+$forum_language = new Language(ROOT_PATH . '/modules/Forum/language', LANGUAGE);
 
 // Define URLs which belong to this module
 $pages->add('Forum', '/admin/forums', 'pages/admin/forums.php');
