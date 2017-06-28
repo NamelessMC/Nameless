@@ -54,12 +54,12 @@ $language = array(
     /*
      *  Contact form
      */
-    'contact' => 'Contact',
-    'message' => 'Message',
-    'contact_email_subject' => 'New contact form submission',
-    'contact_message_failed' => 'Unable to send message. Please ensure you have entered a message between 10 and 5000 characters long.',
-    'contact_message_sent' => 'Message sent successfully.',
-    'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {x} minutes.', // Don't replace {x}
+    'contact' => 'Kontakt',
+    'message' => 'Melding',
+    'contact_email_subject' => 'Ny kontaktskjema',
+    'contact_message_failed' => 'Kunne ikke sende melding. Pass på at meldingen er mellom 10 og 5000 tegn lang',
+    'contact_message_sent' => 'Melding suksessfullt sendt!',
+    'contact_message_limit' => 'Du kan kun sende èn melding hver time. Du kan sende en ny melding om {x} minutter.', // Don't replace {x}
 	
 	/* 
 	 *  Navbar
