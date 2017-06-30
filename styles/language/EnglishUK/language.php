@@ -262,7 +262,7 @@ $admin_language = array(
 	'use_plugin' => 'Enable Nameless API?',
 	'force_avatars' => 'Force Minecraft avatars?',
 	'uuid_linking' => 'Enable UUID linking?',
-	'use_plugin_help' => 'Enabling the API, along with the upcoming server plugin, allows for rank synchronisation and also ingame registration and report submission.',
+	'use_plugin_help' => 'Enabling the API, along with the <a href="https://www.spigotmc.org/resources/official-namelessplugin.42698/" title="NamelessPlugin" target="_blank">server plugin</a>, allows for rank synchronisation and also ingame registration and report submission.',
 	'uuid_linking_help' => 'If disabled, user accounts won\'t be linked with UUIDs. It is highly recommended you keep this as enabled.',
 	'plugin_settings' => 'Plugin Settings',
 	'confirm_api_regen' => 'Are you sure you want to generate a new API key?',
