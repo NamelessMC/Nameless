@@ -70,9 +70,9 @@ $adm_page = "help";
 		<div class="col-md-9">
 			<div class="well">
 				<h3>If you need help you can ask for help here</h3>
-				* <a href="http://namelessmc.com/" target="_blank">NamelessMC Website</a></br>
+				* <a href="https://namelessmc.com/" target="_blank">NamelessMC Website</a></br>
 				* <a href="https://www.spigotmc.org/threads/34810/" target="_blank">Spigot Thread</a></br>
-				* <a href="https://www.spigotmc.org/threads/88001/" target="_blank">Spigot Resource</a></br>
+				* <a href="https://www.spigotmc.org/resources/11434/" target="_blank">Spigot Resource</a></br>
 			        * <a href="http://simba.spi.gt/iris/?channels=NamelessMC" target="_blank">IRC Chat</a></br>
 	  			* <a href="https://discordapp.com/invite/QWdS9CB" target="_blank">Discord</a></br>
 
@@ -83,7 +83,7 @@ $adm_page = "help";
 				* <a href="https://github.com/NamelessMC/Nameless" target="_blank">Source Code on GitHub</a></br>
 
 				<h3>NamelessMC Plugin</h3>
-				* <a href="http://ci.namelessmc.com/jenkins/job/Nameless-Plugin/">Jenkins (Not released)</a></br>
+				* <a href="https://www.spigotmc.org/resources/42698/">Download from Spigot</a></br>
 
 				<h3>Video Tutorial</h3>
 				* <a href="https://youtu.be/BlRz9gpS-Ew?t=3m12s" target="_blank">Setup Forums (v1.0.2)</a></br>
