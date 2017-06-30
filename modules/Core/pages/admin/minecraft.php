@@ -1227,7 +1227,7 @@ $admin_page = 'minecraft';
 	    $('#enableMinecraft').submit();
 	};
 
-	<?php if($_GET['view'] == 'account_verification'){ ?>
+	<?php if(isset($_GET['view']) && $_GET['view'] == 'account_verification'){ ?>
   function generateInstance() {
       var text = "";
       var possible = "abcdef0123456789";
