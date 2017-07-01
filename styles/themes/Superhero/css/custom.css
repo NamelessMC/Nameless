@@ -2,6 +2,9 @@
   color: #fff;
   text-decoration: none;
 }
+.white-text:hover {
+  color: #fff;
+}
 .custom-nav-exclaim {
   color: red;
 }
