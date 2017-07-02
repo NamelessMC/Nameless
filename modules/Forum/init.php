@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -44,6 +44,7 @@ $pages->add('Forum', '/forum/edit', 'pages/forum/edit.php');
 $pages->add('Forum', '/forum/lock', 'pages/forum/lock.php');
 $pages->add('Forum', '/forum/stick', 'pages/forum/stick.php');
 $pages->add('Forum', '/forum/reactions', 'pages/forum/reactions.php');
+$pages->add('Forum', '/forum/search', 'pages/forum/search.php');
 
 // Add link to navbar
 $navigation->add('forum', $forum_language->get('forum', 'forum'), URL::build('/forum'));

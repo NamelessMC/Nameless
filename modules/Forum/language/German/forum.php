@@ -157,6 +157,14 @@ $language = array(
     'invalid_action' => 'Ungültige Aktion',
     'use_reactions' => '"Reaktionen" Funktion verwenden?',
 
+    // Search
+    'forum_search' => 'Forum Search',
+    'search_again_in_x_seconds' => 'Please wait {x} seconds before searching again.',
+    'search_results' => 'Search Results',
+    'new_search' => 'New Search',
+    'invalid_search_query' => 'Please enter a search query between 3 and 128 characters long.',
+    'no_results_found' => 'No results found.',
+
     // Profile tab
     'user_no_posts' => 'Dieser Benutzer hat noch keine Foren-Beiträge erstellt.',
     'latest_posts' => 'Neueste Beiträge'

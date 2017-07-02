@@ -148,6 +148,14 @@ $language = array(
 	'forum_type_category' => 'Category',
 	'invalid_action' => 'Invalid action',
 	'use_reactions' => 'Use Reactions?',
+
+    // Search
+    'forum_search' => 'Forum Search',
+    'search_again_in_x_seconds' => 'Please wait {x} seconds before searching again.',
+    'search_results' => 'Search Results',
+    'new_search' => 'New Search',
+    'invalid_search_query' => 'Please enter a search query between 3 and 128 characters long.',
+    'no_results_found' => 'No results found.',
 	
 	// Profile tab
 	'user_no_posts' => 'This user has not made any forum posts yet.',

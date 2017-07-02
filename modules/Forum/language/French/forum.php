@@ -150,6 +150,14 @@ $language = array(
 	'forum_type_category' => 'Catégorie',
 	'invalid_action' => 'Action invalide',
 	'use_reactions' => 'Utiliser les réactions ?',
+
+    // Search
+    'forum_search' => 'Forum Search',
+    'search_again_in_x_seconds' => 'Please wait {x} seconds before searching again.',
+    'search_results' => 'Search Results',
+    'new_search' => 'New Search',
+    'invalid_search_query' => 'Please enter a search query between 3 and 128 characters long.',
+    'no_results_found' => 'No results found.',
 	
 	// Profile tab
 	'user_no_posts' => 'Cet utilisateur n\'a fait aucun posts.',
