@@ -4,7 +4,7 @@
  *  en vertaald door Sander Lambrechts
  *  
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versie 2.0.0-dev
+ *  NamelessMC versie 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -107,7 +107,6 @@ $language = array(
 	'label_type_html_help' => 'De HTML moet {x} bevatten als een placeholder voor de label naam',
 	'label' => 'Label',
 	'label_forums' => 'Label forums',
-    'label_groups' => 'Label Groups',
 	'no_forums' => 'Geen forums',
 	'no_labels_defined' => 'Geen labels zijn er gedefineerd.',
 	'no_label_types_defined' => 'Geen label types zijn er gedefineerd.',
@@ -150,6 +149,14 @@ $language = array(
 	'forum_type_category' => 'Categorie',
 	'invalid_action' => 'Ongeldige actie',
 	'use_reactions' => 'Reacties gebruiken?',
+
+    // Search
+    'forum_search' => 'Forum Search',
+    'search_again_in_x_seconds' => 'Please wait {x} seconds before searching again.',
+    'search_results' => 'Search Results',
+    'new_search' => 'New Search',
+    'invalid_search_query' => 'Please enter a search query between 3 and 128 characters long.',
+    'no_results_found' => 'No results found.',
 	
 	// Profiel tab
 	'user_no_posts' => 'Deze gebruiker heeft nog geen berichten geplaatst op het forum .',
