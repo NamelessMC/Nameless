@@ -116,6 +116,14 @@ $language = array(
 	'remember_me' => 'Lembrar-me',
 	'must_input_username' => 'Você deve inserir um nome de usuário.',
 	'must_input_password' => 'Você deve inserir uma senha.',
+
+    // Forgot password
+    'forgot_password_instructions' => 'Please enter your email address so we can send you further instructions on resetting your password.',
+    'forgot_password_email_sent' => 'If an account with the email address exists, an email has been sent containing further instructions. If you can\'t find it, try checking your junk folder.',
+    'unable_to_send_forgot_password_email' => 'Unable to send forgot password email. Please contact an administrator.',
+    'enter_new_password' => 'Please confirm your email address and enter a new password below.',
+    'incorrect_email' => 'The email address you have entered does not match the request.',
+    'forgot_password_change_successful' => 'Your password has been changed successfully. You can now log in.',
 	
 	// Profile pages
 	'profile' => 'Perfil',
@@ -183,5 +191,6 @@ $language = array(
 	 */
 	'email_greeting' => 'Olá,',
 	'email_message' => 'Obrigado por se registrar! Para completar o seu cadastro, clique no link a seguir:',
+    'forgot_password_email_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
 	'email_thanks' => 'Obrigado,'
 );

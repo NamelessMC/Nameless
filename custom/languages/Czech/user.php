@@ -107,6 +107,14 @@ $language = array(
 	'remember_me' => 'Zapamatovat si',
 	'must_input_username' => 'Musíš vložit přezdívku.',
 	'must_input_password' => 'Musíš vložit heslo.',
+
+    // Forgot password
+    'forgot_password_instructions' => 'Please enter your email address so we can send you further instructions on resetting your password.',
+    'forgot_password_email_sent' => 'If an account with the email address exists, an email has been sent containing further instructions. If you can\'t find it, try checking your junk folder.',
+    'unable_to_send_forgot_password_email' => 'Unable to send forgot password email. Please contact an administrator.',
+    'enter_new_password' => 'Please confirm your email address and enter a new password below.',
+    'incorrect_email' => 'The email address you have entered does not match the request.',
+    'forgot_password_change_successful' => 'Your password has been changed successfully. You can now log in.',
 	
 	// Profile pages
 	'profile' => 'Profil',
@@ -175,5 +183,6 @@ $language = array(
 	 */
 	'email_greeting' => 'Zdravím,',
 	'email_message' => 'Děkujeme za registraci na našem webu! Pro dokončení registrace klikni na odkaz níže:',
+    'forgot_password_email_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
 	'email_thanks' => 'Přejeme příjemné hraní,'
 );
