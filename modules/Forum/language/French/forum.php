@@ -106,6 +106,7 @@ $language = array(
 	'label_type_html_help' => 'L\'HTML doit inclure {x} qui sera par la suite remplacer par le nom de l\'étiquette',
 	'label' => 'Étiquette',
 	'label_forums' => 'Étiquette du forum',
+    'label_groups' => 'Label Groups',
 	'no_forums' => 'Aucun forum',
 	'no_labels_defined' => 'Aucune étiquettes n\'ont été définie.', 
 	'no_label_types_defined' => 'Aucun type d\'étiquette n\'ont été définie.',

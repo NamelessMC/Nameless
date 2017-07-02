@@ -1060,12 +1060,20 @@ $admin_page = 'forums';
 									}
 
 									$forum_string = rtrim($forum_string, ',');
-									
+
+                                    $group_string = '';
+                                    foreach(Input::get('label_groups') as $item){
+                                        $group_string .= $item . ',';
+                                    }
+
+                                    $group_string = rtrim($group_string, ',');
+
 									try {
 										$queries->create('forums_topic_labels', array(
 											'fids' => $forum_string,
 											'name' => htmlspecialchars(Input::get('label_name')),
-											'label' => Input::get('label_id')
+											'label' => Input::get('label_id'),
+                                            'gids' => $group_string
 										));
 										
 										Session::flash('forum_labels', '<div class="alert alert-success">' . $forum_language->get('forum', 'label_creation_success') . '</div>');
@@ -1134,6 +1142,20 @@ $admin_page = 'forums';
 							  ?>
 							</select>
 						  </div>
+                            <div class="form-group">
+                                <label for="label_groups"><?php echo $forum_language->get('forum', 'label_groups'); ?></label>
+                                <select name="label_groups[]" id="label_groups" size="5" class="form-control" multiple style="overflow:auto;">
+                                    <?php
+                                    // Get a list of all groups
+                                    $group_list = $queries->getWhere('groups', array('id', '<>', 0));
+                                    foreach($group_list as $item){
+                                        ?>
+                                        <option value="<?php echo $item->id; ?>"><?php echo Output::getClean($item->name); ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
 						  <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 						  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 						  <a href="<?php echo URL::build('/admin/forums/', 'view=labels'); ?>" class="btn btn-danger" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
@@ -1185,12 +1207,20 @@ $admin_page = 'forums';
 									}
 
 									$forum_string = rtrim($forum_string, ',');
+
+                                    $group_string = '';
+                                    foreach(Input::get('label_groups') as $item){
+                                        $group_string .= $item . ',';
+                                    }
+
+                                    $group_string = rtrim($group_string, ',');
 									
 									try {
 										$queries->update('forums_topic_labels', $label->id, array(
 											'fids' => $forum_string,
 											'name' => Output::getClean(Input::get('label_name')),
-											'label' => Input::get('label_id')
+											'label' => Input::get('label_id'),
+                                            'gids' => $group_string
 										));
 										
 										Session::flash('forum_labels', '<div class="alert alert-info">' . $forum_language->get('forum', 'label_edit_success') . '</div>');
@@ -1249,12 +1279,12 @@ $admin_page = 'forums';
 							<div class="form-group">
 							  <label for="label_forums"><?php echo $forum_language->get('forum', 'label_forums'); ?></label>
 							  <select name="label_forums[]" id="label_forums" size="5" class="form-control" multiple style="overflow:auto;">
-								<?php 
+								<?php
 								// Get a list of forums in which the label is enabled
 								$enabled_forums = explode(',', $label->fids);
-								
+
 								// Get a list of all forums
-								$forum_list = $queries->getWhere('forums', array('parent', '<>', 0)); 
+								$forum_list = $queries->getWhere('forums', array('parent', '<>', 0));
 								foreach($forum_list as $item){
 								?>
 								<option value="<?php echo $item->id; ?>"<?php if(in_array($item->id, $enabled_forums)){ ?> selected<?php } ?>><?php echo Output::getClean($item->forum_title); ?></option>
@@ -1263,6 +1293,23 @@ $admin_page = 'forums';
 								?>
 							  </select>
 							</div>
+                              <div class="form-group">
+                                  <label for="label_groups"><?php echo $forum_language->get('forum', 'label_groups'); ?></label>
+                                  <select name="label_groups[]" id="label_groups" size="5" class="form-control" multiple style="overflow:auto;">
+                                      <?php
+                                      // Get a list of groups which have access to the label
+                                      $groups = explode(',', $label->gids);
+
+                                      // Get a list of all groups
+                                      $group_list = $queries->getWhere('groups', array('id', '<>', 0));
+                                      foreach($group_list as $item){
+                                          ?>
+                                          <option value="<?php echo $item->id; ?>"<?php if(in_array($item->id, $groups)){ ?> selected<?php } ?>><?php echo Output::getClean($item->name); ?></option>
+                                          <?php
+                                      }
+                                      ?>
+                                  </select>
+                              </div>
 							<input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 							<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 							<a class="btn btn-danger" href="<?php echo URL::build('/admin/forums/', 'view=labels'); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
