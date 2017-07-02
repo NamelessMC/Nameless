@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -59,3 +59,4 @@ $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
 $pages->add('Core', '/queries/pms', 'queries/pms.php');
 $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
 $pages->add('Core', '/terms', 'pages/terms.php');
+$pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
