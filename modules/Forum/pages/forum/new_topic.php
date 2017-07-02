@@ -87,9 +87,18 @@ if(Input::exists()) {
 			));
 			if($validation->passed()){
 				try {
-					if(isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_numeric($_POST['topic_label']))
-						$label = Input::get('topic_label');
-					else $label = null;
+					if(isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_numeric($_POST['topic_label'])){
+                        $topic_label = $queries->getWhere('forums_topic_labels', array('id', '=', $_POST['topic_label']));
+                        if(count($topic_label)){
+                            $groups = explode(',', $topic_label[0]->gids);
+                            if(in_array($user->data()->group_id, $groups))
+                                $label = Input::get('topic_label');
+                            else
+                                $label = null;
+                        } else
+                            $label = null;
+                    } else
+                        $label = null;
 					
 					$queries->create("topics", array(
 						'forum_id' => $fid,
@@ -236,7 +245,9 @@ $token = Token::get();
 			
 			if(in_array($fid, $forum_ids)){
 				// Check permissions
-				// TODO
+                $groups = explode(',', $label->gids);
+                if (!in_array($user->data()->group_id, $groups))
+                    continue;
 				
 				// Get label HTML
 				$label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));

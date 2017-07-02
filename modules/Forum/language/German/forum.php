@@ -113,6 +113,7 @@ $language = array(
     'label_type_html_help' => 'The HTML must include {x} as a placeholder for the label name',
     'label' => 'Label',
     'label_forums' => 'Label Foren',
+    'label_groups' => 'Label Groups',
     'no_forums' => 'Keine Foren',
     'no_labels_defined' => 'Es wurde bis her keine Labels definiert.',
     'no_label_types_defined' => 'Es wurden bisher keine Label-Typen definiert.',

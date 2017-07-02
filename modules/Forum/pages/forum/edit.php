@@ -146,8 +146,18 @@ if(Input::exists()){
 				if(isset($edit_title)){
 					// Update title and label
 					// Check a label has been set..
-					if(!isset($_POST['topic_label']) || !is_numeric($_POST['topic_label'])) $topic_label = 0;
-					else $topic_label = $_POST['topic_label'];
+					if(!isset($_POST['topic_label']) || !is_numeric($_POST['topic_label'])) $topic_label = null;
+					else {
+					    $topic_label = $queries->getWhere('forums_topic_labels', array('id', '=', $_POST['topic_label']));
+					    if(count($topic_label)){
+                            $groups = explode(',', $topic_label[0]->gids);
+                            if(in_array($user->data()->group_id, $groups))
+                                $topic_label = $_POST['topic_label'];
+                            else
+                                $topic_label = null;
+                        } else
+                            $topic_label = null;
+                    }
 					
 					$queries->update('topics', $topic_id, array(
 						'topic_title' => htmlspecialchars_decode(Input::get('title')),
@@ -262,20 +272,22 @@ if(Input::exists()){
 				$forum_ids = explode(',', $label->fids);
 				
 				if(in_array($forum_id, $forum_ids)){
-					// Check permissions
-					// TODO
-					
-					// Get label HTML
-					$label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
-					if(!count($label_html)) continue;
-					else $label_html = str_replace('{x}', Output::getClean($label->name), $label_html[0]->html);
-					
-					$labels[] = array(
-						'id' => $label->id,
-						'active' => (($post_label == $label->id) ? true : false),
-						'html' => $label_html
-					);
-				}
+                    // Check permissions
+                    $groups = explode(',', $label->gids);
+                    if (!in_array($user->data()->group_id, $groups))
+                        continue;
+
+                    // Get label HTML
+                    $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+                    if (!count($label_html)) continue;
+                    else $label_html = str_replace('{x}', Output::getClean($label->name), $label_html[0]->html);
+
+                    $labels[] = array(
+                        'id' => $label->id,
+                        'active' => (($post_label == $label->id) ? true : false),
+                        'html' => $label_html
+                    );
+                }
 			}
 		}
 		
