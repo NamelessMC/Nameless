@@ -50,18 +50,18 @@ $language = array(
 	'loading' => 'Carregando...',
 	'report' => 'Relatório',
 	'page_loaded_in' => 'Página gerada em {x}s', // Don't replace {x}, time unit is seconds
-    'page_x' => 'Página {x}',
-    'browse' => 'Browse',
+	'page_x' => 'Página {x}',
+	'browse' => 'Navegar',
 
-    /*
-     *  Contact form
-     */
-    'contact' => 'Contato',
-    'message' => 'Mensagem',
-    'contact_email_subject' => 'Novo formulário de contato',
-    'contact_message_failed' => 'Não foi possível a mensagem. Certifique-se de ter inserido uma mensagem entre 10 e 5000 caracteres.',
-    'contact_message_sent' => 'Mensagem enviada com sucesso.',
-    'contact_message_limit' => 'Você só pode enviar uma mensagem por hora. Você pode enviar uma mensagem em {x} minutos.', // Don't replace {x}
+ 	/*
+	*  Contact form
+	*/
+	'contact' => 'Contato',
+	'message' => 'Mensagem',
+	'contact_email_subject' => 'Novo formulário de contato',
+	'contact_message_failed' => 'Não foi possível a mensagem. Certifique-se de ter inserido uma mensagem entre 10 e 5000 caracteres.',
+	'contact_message_sent' => 'Mensagem enviada com sucesso.',
+	'contact_message_limit' => 'Você só pode enviar uma mensagem por hora. Você pode enviar uma mensagem em {x} minutos.', // Don't replace {x}
 	
 	/* 
 	 *  Navbar
@@ -79,15 +79,15 @@ $language = array(
 	 */
 	'markdown_help' => 'Você pode formatar sua postagem usando o Markdown. Para mais informações, veja <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aqui</a>.',
 
-    /*
-     *  Server query
-     */
-    'online' => 'Online',
-    'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Versão: {x}', // Don't replace {x}
-    'currently_x_players_online' => 'Há <strong>{x}</strong> jogadores online.', // Don't replace {x}
-    'server_offline' => 'O servidor está atualmente offline.',
-    'connect_with_ip_x' => 'Junte-se aos nossos jogadores: <strong>{x}</strong>' // Don't replace {x}
+	/*
+	*  Server query
+	*/
+	'online' => 'Online',
+	'offline' => 'Offline',
+	'player_count' => '{x}/{y}', // Don't replace {x} or {y}
+	'ping' => 'Ping: {x}', // Don't replace {x}
+	'version' => 'Versão: {x}', // Don't replace {x}
+	'currently_x_players_online' => 'Há <strong>{x}</strong> jogadores online.', // Don't replace {x}
+	'server_offline' => 'O servidor está atualmente offline.',
+	'connect_with_ip_x' => 'Junte-se aos nossos jogadores: <strong>{x}</strong>' // Don't replace {x}
 );
