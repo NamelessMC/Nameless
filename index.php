@@ -47,7 +47,7 @@ if(!isset($GLOBALS['config']['core']) && is_file('install.php')) {
 	Redirect::to('install.php');
 }
 
-if(FRIENDLY_URLS == true){
+if(defined('FRIENDLY_URLS') && FRIENDLY_URLS == true){
 	// Load the main page content
 
 	// Check modules

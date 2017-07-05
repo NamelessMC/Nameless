@@ -459,8 +459,23 @@
 
             // Languages
             $queries->create('languages', array(
+                'name' => 'Czech',
+                'is_default' => 0
+            ));
+
+            $queries->create('languages', array(
+                'name' => 'Dutch',
+                'is_default' => 0
+            ));
+
+            $queries->create('languages', array(
                 'name' => 'EnglishUK',
                 'is_default' => 1
+            ));
+
+            $queries->create('languages', array(
+                'name' => 'EnglishUS',
+                'is_default' => 0
             ));
 
             $queries->create('languages', array(
@@ -469,7 +484,17 @@
             ));
 
             $queries->create('languages', array(
-                'name' => 'EnglishUS',
+                'name' => 'Greek',
+                'is_default' => 0
+            ));
+
+            $queries->create('languages', array(
+                'name' => 'Norwegian',
+                'is_default' => 0
+            ));
+
+            $queries->create('languages', array(
+                'name' => 'Portuguese',
                 'is_default' => 0
             ));
 
@@ -565,7 +590,7 @@
 
             $queries->create('settings', array(
                 'name' => 'nameless_version',
-                'value' => '2.0.0-pr1'
+                'value' => '2.0.0-pr2'
             ));
 
             $queries->create('settings', array(
@@ -752,6 +777,21 @@
 
             $queries->create('settings', array(
                 'name' => 'authme_db',
+                'value' => null
+            ));
+			
+            $queries->create('settings', array(
+                'name' => 'force_https',
+                'value' => 'false'
+            ));
+
+            $queries->create('settings', array(
+                'name' => 'default_avatar_type',
+                'value' => 'minecraft'
+            ));
+
+            $queries->create('settings', array(
+                'name' => 'custom_default_avatar',
                 'value' => null
             ));
 
@@ -1879,12 +1919,12 @@
 						if(count($version)){
 							$queries->update('settings', $version[0]->id, array(
 								'name' => 'nameless_version',
-								'value' => '2.0.0-pr1'
+								'value' => '2.0.0-pr2'
 							));
 						} else {
 							$queries->create('settings', array(
 								'name' => 'nameless_version',
-								'value' => '2.0.0-pr1'
+								'value' => '2.0.0-pr2'
 							));
 						}
 
