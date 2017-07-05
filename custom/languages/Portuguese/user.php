@@ -49,8 +49,8 @@ $language = array(
 	'invalid_tfa' => 'Código inválido, por favor tente novamente.',
 	'tfa_successful' => 'Autenticação em dois fatores configurado com sucesso. Você precisará se autenticar toda vez que você fizer login a partir de agora.',
 	'active_language' => 'Linguagem Ativa',
-    'timezone' => 'Fuso horário',
-    'upload_new_avatar' => 'Upload a new avatar',
+	'timezone' => 'Fuso horário',
+	'upload_new_avatar' => 'Enviar um novo Avatar',
 	
 	// Alerts
 	'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}
@@ -118,12 +118,12 @@ $language = array(
 	'must_input_password' => 'Você deve inserir uma senha.',
 
     // Forgot password
-    'forgot_password_instructions' => 'Please enter your email address so we can send you further instructions on resetting your password.',
-    'forgot_password_email_sent' => 'If an account with the email address exists, an email has been sent containing further instructions. If you can\'t find it, try checking your junk folder.',
-    'unable_to_send_forgot_password_email' => 'Unable to send forgot password email. Please contact an administrator.',
-    'enter_new_password' => 'Please confirm your email address and enter a new password below.',
-    'incorrect_email' => 'The email address you have entered does not match the request.',
-    'forgot_password_change_successful' => 'Your password has been changed successfully. You can now log in.',
+    'forgot_password_instructions' => 'Por favor, insira seu endereço de e-mail para que possamos enviar-lhe mais instruções sobre como redefinir sua senha.',
+    'forgot_password_email_sent' => 'Se existe uma conta com o endereço de e-mail, um e-mail foi enviado contendo instruções adicionais. Se você não conseguir encontrá-lo, tente verificar sua pasta de spams.',
+    'unable_to_send_forgot_password_email' => 'Não foi possível enviar o e-mail para recuperar a senha. Entre em contato com um administrador.',
+    'enter_new_password' => 'Confirme seu endereço de e-mail e insira uma nova senha abaixo.',
+    'incorrect_email' => 'O endereço de e-mail digitado não corresponde à solicitação.',
+    'forgot_password_change_successful' => 'Sua senha foi alterada com sucesso. Você já pode realizar o seu login.',
 	
 	// Profile pages
 	'profile' => 'Perfil',
@@ -191,6 +191,6 @@ $language = array(
 	 */
 	'email_greeting' => 'Olá,',
 	'email_message' => 'Obrigado por se registrar! Para completar o seu cadastro, clique no link a seguir:',
-    'forgot_password_email_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
+    'forgot_password_email_message' => 'Para resetar sua senha, clique no seguinte link. Se você desconhece essa requisição, você pode excluir com segurança este e-mail.',
 	'email_thanks' => 'Obrigado,'
 );
