@@ -867,7 +867,7 @@
                         'active' => 1,
                         'last_online' => date('U'),
                         'theme_id' => 1,
-                        'language_id' => 1
+                        'language_id' => 3
                     ));
 
                     // Log the user in
