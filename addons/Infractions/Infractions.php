@@ -1011,6 +1011,20 @@ class Infractions {
 						$ret["expires_human"] = '';
 					break;
 					
+					case 'TEMP_WARNING':
+						$ret["type"] = "warning";
+						$ret["type_human"] = '<span class="label label-info">' . $this->_language['warning'] . '</span>';
+						
+						// Convert expiry date
+						$date = $punishment->end / 1000;
+						
+						$ret["expires"] = $date;
+						if(strtotime('now') < $date)
+							$ret["expires_human"] = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", $date), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
+						else
+							$ret["expires_human"] = '<span class="label label-success" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", $date), $this->_language['expired_x']) . '">' . $this->_language['expired'] . '</span>';
+					break;
+					
 					case 'KICK':
 						// Kick
 						$ret["type"] = "kick";
