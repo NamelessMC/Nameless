@@ -137,6 +137,7 @@ $language = array(
 	'new_reply' => 'Nová odpověď',
 	'registered' => 'Registrován:',
 	'last_seen' => 'Poslední přihlášení:',
+	'new_wall_post' => '{x} has posted on your profile.',
 	
 	// Reports
 	'invalid_report_content' => 'Nelze vytvořit nahlášení. Musíš zadat důvod v rozmezí 2 až 1024 znaků.',

@@ -145,6 +145,7 @@ $language = array(
 	'new_reply' => 'New Reply',
 	'registered' => 'Registered:',
 	'last_seen' => 'Last Seen:',
+	'new_wall_post' => '{x} has posted on your profile.',
 	
 	// Reports
 	'invalid_report_content' => 'Unable to create report. Please ensure your report reason is between 2 and 1024 characters.',

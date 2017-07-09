@@ -153,6 +153,7 @@ $language = array(
 	'new_reply' => 'Neue Antwort',
 	'registered' => 'Registriert seit:',
 	'last_seen' => 'Zuletzt gesehen:',
+	'new_wall_post' => '{x} has posted on your profile.',
 	
 	// Reports
 	'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',

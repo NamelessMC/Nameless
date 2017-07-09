@@ -113,7 +113,7 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 									
 									if($query->id !== $user->data()->id){
 										// Alert user
-										Alert::create($query->id, 'profile_post', $language->get('user', 'new_wall_post'), str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'x_posted_on_wall')), URL::build('/profile/' . Output::getClean($query->username)));
+										Alert::create($query->id, 'profile_post', str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), URL::build('/profile/' . Output::getClean($query->username)));
 									}
 									
 									// Redirect to clear input
@@ -166,7 +166,7 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 									
 									if($query->id !== $user->data()->id){
 										// Alert user
-										Alert::create($query->id, 'profile_post', $language->get('user', 'new_wall_post'), str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'x_posted_on_wall')), URL::build('/profile/' . Output::getClean($query->username)));
+										Alert::create($query->id, 'profile_post', str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), URL::build('/profile/' . Output::getClean($query->username)));
 									}
 									
 									// Redirect to clear input

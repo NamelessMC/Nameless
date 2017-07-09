@@ -144,6 +144,7 @@ $language = array(
 	'new_reply' => 'Nytt svar',
 	'registered' => 'Registrerte seg:',
 	'last_seen' => 'Sist sett:',
+	'new_wall_post' => '{x} has posted on your profile.',
 	
 	// Reports
 	'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Har du sjekket at den er mellom 2 og 1024 tegn?',

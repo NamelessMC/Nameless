@@ -146,6 +146,7 @@ $language = array(
 	'new_reply' => 'Nova Resposta',
 	'registered' => 'Cadastrado:',
 	'last_seen' => 'Visto pela última vez:',
+	'new_wall_post' => '{x} has posted on your profile.',
 	
 	// Reports
 	'invalid_report_content' => 'Não foi possível criar o alerta. Certifique-se de que o motivo do alerta está entre 2 e 1024 caracteres.',
