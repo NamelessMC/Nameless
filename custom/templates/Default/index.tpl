@@ -1,7 +1,6 @@
 <div class="jumbotron home-header">
   <div class="container">
-    {include file='navbar.tpl'}
-	
+	{include file='navbar.tpl'}
 	<center>
 	  <br /><br /><br />
 	  <h1>{$SITE_NAME}</h1>
@@ -75,7 +74,5 @@
 	</div>
   </div>
 </div>
-
-<br />
 
 {include file='footer.tpl'}
