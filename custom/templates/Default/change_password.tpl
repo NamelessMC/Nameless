@@ -44,6 +44,4 @@
     </div>
 </div>
 
-<br/>
-
 {include file='footer.tpl'}
