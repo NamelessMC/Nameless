@@ -52,6 +52,7 @@
 		    <span class="pull-right"><a href="{$item.url}" class="btn btn-primary btn-sm">{$READ_FULL_POST} &raquo;</a></span>
 		  </div>
 		</div>
+		<br />
 		{/foreach}
 	  </div>
 	  <div class="col-md-4">
