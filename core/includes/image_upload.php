@@ -65,6 +65,12 @@ if(Input::exists()){
             } catch(Exception $e){
                 // Error
             }
+		} else {
+			if(Input::get('type') == 'avatar'){
+				Redirect::to(URL::build('/user/settings'));
+				die();
+			} else
+				die('No image selected');
 		}
 		
 	} else {
@@ -74,3 +80,5 @@ if(Input::exists()){
 		}
 	}
 }
+
+die('Invalid input');
