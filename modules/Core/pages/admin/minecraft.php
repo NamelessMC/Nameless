@@ -1067,8 +1067,8 @@ $admin_page = 'minecraft';
                         }
                         $server = $server[0];
                         echo '<hr />';
-                        echo '<p><code>http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/banner/' . $server->name . '.png') . '</code></p>';
-                        echo '<img src="' . URL::build('/banner/' . $server->name) . '" alt="' . Output::getClean($server->name) . '" />';
+                        echo '<p><code>http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/banner/' . urlencode($server->name) . '.png') . '</code></p>';
+                        echo '<img src="' . URL::build('/banner/' . urlencode($server->name)) . '" alt="' . Output::getClean($server->name) . '" />';
                       } else {
                         $servers = $queries->getWhere('mc_servers', array('id', '<>', 0));
                         if(count($servers)){
