@@ -168,7 +168,7 @@ if($page != 'install'){
 			$route = '/profile';
 		} else if(isset($_GET['route']) && strpos($_GET['route'], 'banner') !== false){
             $banner = explode('/', $_GET['route']);
-            $directories[1] = $profile[2];
+            $directories[1] = $banner[2];
             $route = '/banner';
         }
 	}

@@ -20,6 +20,8 @@ if(defined('MINECRAFT') && MINECRAFT === true){
         if(substr($banner, -4) == '.png')
             $banner = substr($banner, 0, -4);
 
+        $banner = urldecode($banner);
+
         $server = $queries->getWhere('mc_servers', array('name', '=', $banner));
 
         if(!count($server))
@@ -35,7 +37,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
 
         $full_ip = array('ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name);
 
-        $cache->setCache('banner_cache_' . $server->name);
+        $cache->setCache('banner_cache_' . urlencode($server->name));
         if(!$cache->isCached('image')){
             // Internal or external query?
             $query_type = $queries->getWhere('settings', array('name', '=', 'external_query'));
@@ -61,6 +63,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
 
                 $motd = str_replace($replace, '', $motd);
                 $motd = preg_split('/(?=\n)/', $motd);
+                $motd_formatted = array();
 
                 foreach ($motd as $item) {
                     $motd_explode = explode('`', $item);
@@ -77,17 +80,17 @@ if(defined('MINECRAFT') && MINECRAFT === true){
             }
 
             // Do we need to query for favicon?
-            if($cache->isCached('favicon')){
-                $favicon = imagecreatefromstring(ExternalMCQuery::getFavicon($display_ip));
+            if(!$cache->isCached('favicon')){
+                $favicon = imagecreatefromstring(ExternalMCQuery::getFavicon($full_ip['ip']));
 
                 // Cache the favicon for 1 hour
-                imagepng($favicon, 'cache/server_fav_' . $server->name . '.png');
+                imagepng($favicon, 'cache/server_fav_' . urlencode($server->name) . '.png');
                 imageAlphaBlending($favicon, true);
                 imageSaveAlpha($favicon, true);
 
                 $cache->store('favicon', 'true', 3600);
             } else {
-                $favicon = imagecreatefrompng('cache/server_fav_' . $server->name . '.png');
+                $favicon = imagecreatefrompng('cache/server_fav_' . urlencode($server->name) . '.png');
             }
 
             // Font
@@ -199,7 +202,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
 
             }
 
-            imagettftext($im, 10, 0, 90, 90, $white, $font, $full_ip);
+            imagettftext($im, 10, 0, 90, 90, $white, $font, $display_ip);
 
             if($query['status_value'] === 1){
                 // Where does the player count need to be situated?
@@ -227,7 +230,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
 
             imagecopy($im, $favicon, 10, 20, 0, 0, 64, 64);
 
-            imagepng($im, 'cache/server_' . $server->name . '.png');
+            imagepng($im, 'cache/server_' . urlencode($server->name) . '.png');
             imagepng($im);
 
             imagedestroy($favicon);
@@ -237,7 +240,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
             $cache->store('image', 'true', 120);
         } else {
             header('Content-Type: image/png');
-            $im = imagecreatefrompng('cache/server_' . $server->name . '.png');
+            $im = imagecreatefrompng('cache/server_' . urlencode($server->name) . '.png');
             imagepng($im);
             imagedestroy($im);
         }
