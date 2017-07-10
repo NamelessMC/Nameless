@@ -54,6 +54,8 @@ if(!count($latest_posts)){
 			'date_friendly' => $timeago->inWords(date('d M Y, H:i', strtotime($latest_post->post_date)), $language->getTimeLanguage()),
 			'date_full' => date('d M Y, H:i', strtotime($latest_post->post_date))
 		);
+
+		$n++;
 	}
 }
  
