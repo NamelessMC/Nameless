@@ -27,45 +27,10 @@ SOFTWARE.
 
 class MinecraftBanner
 {
-
-    const COLOR_CHAR = "§";
-    const COLORS = [
-        '0' => [0, 0, 0], //Black
-        '1' => [0, 0, 170], //Dark Blue
-        '2' => [0, 170, 0], //Dark Green
-        '3' => [0, 170, 170], //Dark Aqua
-        '4' => [170, 0, 0], //Dark Red
-        '5' => [170, 0, 170], //Dark Purple
-        '6' => [255, 170, 0], //Gold
-        '7' => [170, 170, 170], //Gray
-        '8' => [85, 85, 85], //Dark Gray
-        '9' => [85, 85, 255], //Blue
-        'a' => [85, 255, 85], //Green
-        'b' => [85, 255, 255], //Aqua
-        'c' => [255, 85, 85], //Red
-        'd' => [255, 85, 85], //Light Purple
-        'e' => [255, 255, 85], //Yellow
-        'f' => [255, 255, 255], //White
-    ];
-
-    const TEXTURE_SIZE = 32;
-    const FONT_FILE = ROOT_PATH . '/core/assets/fonts/minecraft.ttf';
-
-    const DEFAULT_BACKGROUND = NULL;
-    const CLOUDS_BACKGROUND = "0";
-    const LILLY_PADS_BACKGROUND = "1";
-    const HILLS_BACKGROUND = "2";
-    const WATERFALL_BACKGROUND = "3";
-    const CANYON_BACKGROUND = "4";
-    const GRASSLAND_BACKGROUND = "5";
-    const GRASSLAND_CANYON_BACKGROUND = "6";
-    const SWAMP_BACKGROUND = "7";
-    const LAKE_BACKGROUND = "8";
-    const SWAMP2_BACKGROUND = "9";
-    const LILLY_PADS_SWAMP_BACKGROUND = "10";
-
     public static function getBackgroundCanvas($width, $height, $background)
     {
+		$texture_size = 32;
+
         $canvas = imagecreatetruecolor($width, $height);
         if ($background == NULL) {
             $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
@@ -94,14 +59,14 @@ class MinecraftBanner
             }
         }
 
-        if (imagesx($background) == self::TEXTURE_SIZE) {
-            for ($yPos = 0; $yPos <= ($height / self::TEXTURE_SIZE); $yPos++) {
-                for ($xPos = 0; $xPos <= ($width / self::TEXTURE_SIZE); $xPos++) {
-                    $startX = $xPos * self::TEXTURE_SIZE;
-                    $startY = $yPos * self::TEXTURE_SIZE;
+        if (imagesx($background) == $texture_size) {
+            for ($yPos = 0; $yPos <= ($height / $texture_size); $yPos++) {
+                for ($xPos = 0; $xPos <= ($width / $texture_size); $xPos++) {
+                    $startX = $xPos * $texture_size;
+                    $startY = $yPos * $texture_size;
                     imagecopyresampled($canvas, $background, $startX, $startY, 0, 0
-                            , self::TEXTURE_SIZE, self::TEXTURE_SIZE
-                            , self::TEXTURE_SIZE, self::TEXTURE_SIZE);
+                            , $texture_size, $texture_size
+                            , $texture_size, $texture_size);
                 }
             }
         } else {
@@ -110,4 +75,34 @@ class MinecraftBanner
 
         return $canvas;
     }
+	
+	public static function getColours(){
+		return array(
+			'0' => array(0, 0, 0), //Black
+			'1' => array(0, 0, 170), //Dark Blue
+			'2' => array(0, 170, 0), //Dark Green
+			'3' => array(0, 170, 170), //Dark Aqua
+			'4' => array(170, 0, 0), //Dark Red
+			'5' => array(170, 0, 170), //Dark Purple
+			'6' => array(255, 170, 0), //Gold
+			'7' => array(170, 170, 170), //Gray
+			'8' => array(85, 85, 85), //Dark Gray
+			'9' => array(85, 85, 255), //Blue
+			'a' => array(85, 255, 85), //Green
+			'b' => array(85, 255, 255), //Aqua
+			'c' => array(255, 85, 85), //Red
+			'd' => array(255, 85, 85), //Light Purple
+			'e' => array(255, 255, 85), //Yellow
+			'f' => array(255, 255, 255), //White
+		);
+	}
+	
+	public static function getColourChar(){
+		return "";
+	}
+	
+	public static function getFontFile(){
+		return ROOT_PATH . '/core/assets/fonts/minecraft.ttf';
+	}
+
 }
