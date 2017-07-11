@@ -113,7 +113,7 @@ require('core/includes/password.php'); // Password compat library
 					$users = $queries->orderAll('users', 'USERNAME', 'ASC');
 					$groups = $queries->getWhere('groups', array('id', '<>', 0));
 				?>
-				<span class="pull-right"><a href="/admin/users/?action=new" class="btn btn-primary"><?php echo $language->get('admin', 'new_user'); ?></a></span>
+				<span class="pull-right"><a href="<?php echo URL::build('/admin/users/', 'action=new'); ?>" class="btn btn-primary"><?php echo $language->get('admin', 'new_user'); ?></a></span>
 				<br /><br />
 				
 				<div class="table-responsive">
