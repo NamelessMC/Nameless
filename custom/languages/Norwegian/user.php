@@ -104,6 +104,7 @@ $language = array(
 	'verify_account_help' => 'Vennligst følg instruksjonene så vi kan verifisere at dette er din bruker.',
 	'verification_failed' => 'Verifisering feilet, prøv igjen.',
 	'verification_success' => 'Suksessfullt verifisert, du kan nå logge inn!',
+	'authme_username_exists' => 'Your Authme account has already been connected to the website!',
 	
 	// Login
 	'successful_login' => 'Du har nå logget inn.',

@@ -107,6 +107,7 @@ $language = array(
 	'verify_account_help' => 'Graag de volgende instructies volgen zodat we kunnen valideren (controleren) of u de eigenaar bent van dit Minecraft account.',
 	'verification_failed' => 'Validatie gefaald, probeer het opnieuw.',
 	'verification_success' => 'Succesvol gevalideerd! Je kunt nu inloggen.',
+	'authme_username_exists' => 'Your Authme account has already been connected to the website!',
 	
 	// Inloggen
 	'successful_login' => 'Je bent nu ingelogd.',

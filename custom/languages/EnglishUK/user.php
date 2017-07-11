@@ -105,6 +105,7 @@ $language = array(
 	'verify_account_help' => 'Please follow the instructions below so we can verify you own the Minecraft account in question.',
 	'verification_failed' => 'Verification failed, please try again.',
 	'verification_success' => 'Successfully validated! You can now log in.',
+	'authme_username_exists' => 'Your Authme account has already been connected to the website!',
 	
 	// Login
 	'successful_login' => 'You have successfully logged in.',

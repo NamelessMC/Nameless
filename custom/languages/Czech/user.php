@@ -105,6 +105,7 @@ $language = array(
 	'verify_account_help' => 'Postupujte podle pokynů níže, abychom mohli ověřit, zda je tento Minecraft účet opravdu Váš.',
 	'verification_failed' => 'Ověření selhalo, zkuste to prosím později.',
 	'verification_success' => 'Ověření úspěšné! Nyní se můžete přihlásit.',
+    'authme_username_exists' => 'Your Authme account has already been connected to the website!',
 	
 	// Login
 	'successful_login' => 'Úspěšně jste se přihlásil.',
