@@ -1,7 +1,6 @@
 <div class="jumbotron home-header">
   <div class="container">
-    {include file='navbar.tpl'}
-	
+	{include file='navbar.tpl'}
 	<center>
 	  <br /><br /><br />
 	  <h1>{$SITE_NAME}</h1>
@@ -53,6 +52,7 @@
 		    <span class="pull-right"><a href="{$item.url}" class="btn btn-primary btn-sm">{$READ_FULL_POST} &raquo;</a></span>
 		  </div>
 		</div>
+		<br />
 		{/foreach}
 	  </div>
 	  <div class="col-md-4">
@@ -75,7 +75,5 @@
 	</div>
   </div>
 </div>
-
-<br />
 
 {include file='footer.tpl'}
