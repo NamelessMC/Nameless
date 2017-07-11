@@ -102,6 +102,12 @@
             } else {
                 echo 'PHP XML Extension - ' . $success;
             }
+            if(!function_exists('exif_imagetype')){
+                echo 'PHP exif_imagetype Function - ' . $error;
+                $php_error = true;
+            } else {
+                echo 'PHP exif_imagetype Function - ' . $success;
+            }
 
             // Permissions
             if(is_writable('core/config.php')){
