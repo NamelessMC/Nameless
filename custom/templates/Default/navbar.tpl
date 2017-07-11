@@ -1,11 +1,11 @@
-<nav class="navbar navbar-fixed-top navbar-dark bg-primary">
-  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#navbar">
-	&#9776;
+<nav class="navbar navbar-toggleable-md fixed-top navbar-inverse bg-primary">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-toggleable-xs" id="navbar">
-	<div class="container">
-	  <ul class="nav navbar-nav">
-	    <a class="navbar-brand" href="/">{$SITE_NAME}</a>
+  <div class="container">
+   <a class="navbar-brand" href="/">{$SITE_NAME}</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	  <ul class="navbar-nav mr-auto">
  	    {foreach from=$NAV_LINKS key=name item=item}
 		  {if isset($item.items)}
 		    {* Dropdown *}
@@ -26,7 +26,7 @@
 		{/foreach}
 	  </ul>
 	
-	  <ul class="nav navbar-nav float-xs-right">
+	  <ul class="nav navbar-nav">
 	    {if isset($MESSAGING_LINK)}
 	    {* Private messages and alerts *}
 		<li class="nav-item dropdown pm-dropdown">
@@ -71,7 +71,7 @@
 		  {/if}
 		{/foreach}
 	  </ul>
-	</div>
+    </div>
   </div>
 </nav>
 

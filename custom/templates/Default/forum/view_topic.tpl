@@ -290,8 +290,6 @@
   
 </div>
 
-<br />
-
 {include file='footer.tpl'}
 
 {if isset($CAN_MODERATE)}

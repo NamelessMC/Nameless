@@ -58,8 +58,8 @@ $admin_page = 'forums';
   </head>
 
   <body>
+  <?php require('modules/Core/pages/admin/navbar.php'); ?>
     <div class="container">	
-	  <?php require('modules/Core/pages/admin/navbar.php'); ?>
 	  <div class="row">
 		<div class="col-md-3">
 		  <?php require('modules/Core/pages/admin/sidebar.php'); ?>
