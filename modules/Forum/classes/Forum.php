@@ -24,90 +24,64 @@ class Forum {
 		if($group_id == null){
 			$group_id = 0; // Guest
 		}
-		// Get the forums the user can view based on their group ID
-		$access = $this->_db->get("forums_permissions", array("group_id", "=", $group_id))->results();
-		
-		$return = array(); // Array to return containing forums
-		$parents = array(); // Array containing a list of parent forums
-		
-		// Get the forum names
-		foreach($access as $forum){
-			// Can they view it?
-			if($forum->view == 1){
-				// Get the name..
-				$forum_query = $this->_db->get("forums", array("id", "=", $forum->forum_id))->results();
-				if(count($forum_query)){
-					$forum_id = $forum_query[0]->id;
 
-					// First, get a list of parent forums
-					if($forum_query[0]->parent == 0){
-						$return[$forum_id]['description'] = Output::getClean($forum_query[0]->forum_description);
-						$return[$forum_id]['title'] = Output::getClean($forum_query[0]->forum_title);
-						$return[$forum_id]['order'] = $forum_query[0]->forum_order;
-					}
-				}
-			}
-		}
+		// Get a list of parent forums
+		$parent_forums = $this->_db->orderWhere('forums', 'parent = 0', 'forum_order', 'ASC')->results();
 		
-		// Loop through again and add to parent forums array
-		foreach($access as $forum){
-			// Can they view it?
-			if($forum->view == 1){
-				// Get the name..
-				$forum_query = $this->_db->get("forums", array("id", "=", $forum->forum_id))->results();
+		$return = array();
 
-				if(!count($forum_query)) continue;
-				
-				// Ensure it's not a parent forum
-				if($forum_query[0]->parent != 0){
-					// Get name of parent forum
-					$parent_id = $this->_db->get("forums", array("id", "=", $forum_query[0]->parent))->results();
-					$parent_id = $parent_id[0]->id;
+		if(count($parent_forums)){
+			foreach($parent_forums as $forum){
+				if($this->canViewForum($group_id, $forum->id)){
+					$return[$forum->id]['description'] = Output::getClean($forum->forum_description);
+					$return[$forum->id]['title'] = Output::getClean($forum->forum_title);
 					
-					// Is the parent already in the parents array?
-					// If not, the forum is a subforum which we won't display
-					if(array_key_exists($parent_id, $return)){
-						$return[$parent_id]['subforums'][$forum_query[0]->id] = $forum_query[0]; // add to return array
-						// Purify title/description
-						$return[$parent_id]['subforums'][$forum_query[0]->id]->forum_title = Output::getClean($return[$parent_id]['subforums'][$forum_query[0]->id]->forum_title);
-						$return[$parent_id]['subforums'][$forum_query[0]->id]->forum_description = Output::getClean($return[$parent_id]['subforums'][$forum_query[0]->id]->forum_description);
-						
-						$return[$parent_id]['subforums'][$forum_query[0]->id]->link = URL::build('/forum/view_forum/', 'fid=' . $forum_query[0]->id); // build link to forum
-						
-						// Get topic/post count
-						$topics = $this->_db->orderWhere('topics', 'forum_id = ' . $forum_query[0]->id . ' AND deleted = 0', 'id', 'ASC')->results();
-						$topics = count($topics);
-						$return[$parent_id]['subforums'][$forum_query[0]->id]->topics = $topics;
-
-						$posts = $this->_db->orderWhere('posts', 'forum_id = ' . $forum_query[0]->id . ' AND deleted = 0', 'id', 'ASC')->results();
-						$posts = count($posts);
-						$return[$parent_id]['subforums'][$forum_query[0]->id]->posts = $posts;
-						
-						if($forum_query[0]->last_topic_posted){
-							// Last reply
-							$last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $forum_query[0]->last_topic_posted, 'post_date', 'DESC')->results();
-							if(count($last_reply)){
-								$n = 0;
-								while(isset($last_reply[$n]) && $last_reply[$n]->deleted == 1){
-									$n++;
+					// Get subforums
+					$forums = $this->_db->orderWhere('forums', 'parent = ' . $forum->id, 'forum_order', 'ASC')->results();
+					if(count($forums)){
+						foreach($forums as $item){
+							if($this->canViewForum($group_id, $item->id)){
+								$return[$forum->id]['subforums'][$item->id] = $item;
+								$return[$forum->id]['subforums'][$item->id]->forum_title = Output::getClean($item->forum_title);
+								$return[$forum->id]['subforums'][$item->id]->forum_description = Output::getClean($item->forum_description);
+								$return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view_forum/', 'fid=' . $item->id);
+								
+								// Get topic/post count
+								$topics = $this->_db->orderWhere('topics', 'forum_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
+								$topics = count($topics);
+								$return[$forum->id]['subforums'][$item->id]->topics = $topics;
+								
+								$posts = $this->_db->orderWhere('posts', 'forum_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
+								$posts = count($posts);
+								$return[$forum->id]['subforums'][$item->id]->posts = $posts;
+								
+								if($item->last_topic_posted){
+									// Last reply
+									$last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $item->last_topic_posted, 'post_date', 'DESC')->results();
+									if(count($last_reply)){
+										$n = 0;
+										while(isset($last_reply[$n]) && $last_reply[$n]->deleted == 1){
+											$n++;
+										}
+										
+										if(!isset($last_reply[$n])) continue;
+										
+										$return[$forum->id]['subforums'][$item->id]->last_post = $last_reply[$n];
+										$return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/view_topic/', 'tid=' . $last_reply[$n]->topic_id . '&amp;pid=' . $last_reply[0]->id);
+										
+										// Title
+										$last_topic = $this->_db->get('topics', array('id', '=', $last_reply[$n]->topic_id))->results();
+										$return[$forum->id]['subforums'][$item->id]->last_post->title = Output::getClean($last_topic[0]->topic_title);
+										
+										// Last reply username, profile link and avatar
+										$last_reply_user = $this->_db->get('users', array('id', '=', $last_reply[$n]->post_creator))->results();
+										$return[$forum->id]['subforums'][$item->id]->last_post->username = Output::getClean($last_reply_user[0]->nickname);
+										$return[$forum->id]['subforums'][$item->id]->last_post->mcname = Output::getClean($last_reply_user[0]->username);
+										$return[$forum->id]['subforums'][$item->id]->last_post->profile = URL::build('/profile/' . Output::getClean($last_reply_user[0]->username));
+										$return[$forum->id]['subforums'][$item->id]->last_post->avatar = '';
+										$return[$forum->id]['subforums'][$item->id]->last_post->date_friendly = '';
+									}
 								}
-								
-								if(!isset($last_reply[$n])) continue;
-								
-								$return[$parent_id]['subforums'][$forum_query[0]->id]->last_post = $last_reply[$n];
-								$return[$parent_id]['subforums'][$forum_query[0]->id]->last_post->link = URL::build('/forum/view_topic/', 'tid=' . $last_reply[$n]->topic_id . '&amp;pid=' . $last_reply[0]->id);
-								
-								// Title
-								$last_topic = $this->_db->get('topics', array('id', '=', $last_reply[$n]->topic_id))->results();
-								$return[$parent_id]['subforums'][$forum_query[0]->id]->last_post->title = Output::getClean($last_topic[0]->topic_title);
-								
-								// Last reply username, profile link and avatar
-								$last_reply_user = $this->_db->get('users', array('id', '=', $last_reply[$n]->post_creator))->results();
-								$return[$parent_id]['subforums'][$forum_query[0]->id]->last_post->username = Output::getClean($last_reply_user[0]->nickname);
-								$return[$parent_id]['subforums'][$forum_query[0]->id]->last_post->mcname = Output::getClean($last_reply_user[0]->username);
-								$return[$parent_id]['subforums'][$forum_query[0]->id]->last_post->profile = URL::build('/profile/' . Output::getClean($last_reply_user[0]->username));
-								$return[$parent_id]['subforums'][$forum_query[0]->id]->last_post->avatar = '';
-								$return[$parent_id]['subforums'][$forum_query[0]->id]->last_post->date_friendly = '';
 							}
 						}
 					}
@@ -115,12 +89,8 @@ class Forum {
 			}
 		}
 		
-		// Sort forums
-		uasort($return, function($a, $b) {
-			return $a['order'] - $b['order'];
-		});
-		
 		return $return;
+
 	}
 	
 	// Returns an array of forums a user can access, in order
@@ -447,6 +417,27 @@ class Forum {
 				else return false;
 			}
 		}
+		
+		return false;
+	}
+	
+	// Can the user view the specified forum?
+	// Params:  $group_id (integer) - group ID of the user
+	//			$forum_id (integer) - forum ID to check
+	public function canViewForum($group_id = null, $forum_id = null){
+		if(!$group_id || !$forum_id) return false;
+		
+		$permissions = $this->_db->get('forums_permissions', array('forum_id', '=', $forum_id))->results();
+		
+		// Check the forum
+		foreach($permissions as $permission){
+			if($permission->group_id == $group_id){
+				if($permission->view == 1) return true;
+				else return false;
+			}
+		}
+		
+		return false;
 	}
 	
 	// Returns all posts in topic
