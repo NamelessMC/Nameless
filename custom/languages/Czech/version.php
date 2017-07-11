@@ -1,6 +1,6 @@
 <?php 
 /*
- *	Made by Samerton, translated by Zemos
+ *	Made by Samerton, translated by Zemos and Renzotom
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr2
  *

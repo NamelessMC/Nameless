@@ -1,6 +1,6 @@
 <?php 
 /*
- *	Made by Samerton, translated by Zemos
+ *	Made by Samerton, translated by Zemos and Renzotom
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr2
  *
@@ -16,14 +16,14 @@ $language = array(
 	// Spam
 	'spam' => 'Spam',
 	'mark_as_spam' => 'Označit jako spam',
-	'confirm_spam' => '<p>Opravdu chceš označit tohohle uživatele za spam?</p><p>Uživatel bude zabanován a veškerý jeho obsah odebrán..</p>',
-	'user_marked_as_spam' => 'Uživatel byl úpěšně označen za spam',
-	'cant_ban_admin' => 'Nemůžeš zabanovat administrátora!',
+	'confirm_spam' => '<p>Opravdu chcete označit tohohle uživatele za spam?</p><p>Uživatel bude zabanován a veškerý jeho obsah odebrán..</p>',
+	'user_marked_as_spam' => 'Uživatel byl úpěšně označen za spam.',
+	'cant_ban_admin' => 'Nemůžete zabanovat administrátora!',
 	
 	// IP Lookup
 	'ip_lookup' => 'Vyhledávání podle IP',
 	'search_for_ip' => 'Vyhledejte uživatelské jméno nebo adresu IP:',
-	'no_ips_with_username' => 'Pro daného uživatele nebyly nalezeny žádné adresy IP.',
+	'no_ips_with_username' => 'Pro daného uživatele nebyly nalezeny žádné IP adresy.',
 	'no_accounts_with_that_ip' => 'Pro danou IP adresu nebyl nalezen žádný uživatel.',
 	'count_accounts_with_ip' => 'Nalezl jsem {x} účtů pro IP {y}', // Don't replace "{x}" or "{y}"
 	'count_ips_with_name' => 'Nalezl jsem {x} IP adres  pro uživatele {y}', // Don't replace "{x}" or "{y}"
@@ -32,19 +32,19 @@ $language = array(
 	// Reports
 	'reports' => 'Nahlášení',
 	'report_alert' => 'Nahlášení odesláno',
-	'user_reported' => 'Uživatel nahlášen',
+	'user_reported' => 'Nahlášený uživatel',
 	'comments' => 'Komentář',
 	'updated_by' => 'Aktualizováno',
 	'actions' => 'Akce',
-	'view_closed' => 'Zobrazit Zavřené',
-	'view_open' => 'Zobrazit Otevřené',
+	'view_closed' => 'Zobrazit zavřené',
+	'view_open' => 'Zobrazit otevřené',
 	'viewing_report' => 'Zobrazení nahlášení',
 	'view_content' => 'Zobrazit nahlášený příspěvek',
 	'no_comments' => 'Žádné komentáře',
 	'new_comment' => 'Nový komentář',
-	'report_comment_invalid' => 'Nezadal jsi komentář. Ujistěte se, že jste zadali komentář s minimálně 5 znaky.',
+	'report_comment_invalid' => 'Nezadal jste komentář. Zajistěte, aby jste zadal komentář s minimálně 5 znaky.',
 	'close_report' => 'Zavřít nahlášení',
-	'reopen_report' => 'Znovuotevřít náhlášení',
+	'reopen_report' => 'Znovu otevřít náhlášení',
 	'open_reports' => 'V současné době je <strong>{x}</strong> otevřených nahlášení.', // Don't replace {x}
 	
 	// Punishments

@@ -1,24 +1,24 @@
 <?php 
 /*
- *	Made by Samerton, translated by Zemos
+ *	Made by Samerton, translated by Zemos and Renzotom
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
- *  Czech language - General terms
+ *  Czech Language - General terms
  */
 
 $language = array(
 	/*
 	 *  General terms
 	 */ 
-	'submit' => 'Přihlásit',
-	'register' => 'Registrace',
-	'sign_in' => 'Přihlásit',
-	'log_out' => 'Odhlásit',
+	'submit' => 'Potvrdit',
+	'register' => 'Registrovat se',
+	'sign_in' => 'Přihlásit se',
+	'log_out' => 'Odhlásit se',
 	'profile' => 'Profil',
-	'invalid_token' => 'Chyba, zkuste to znovu.',
+	'invalid_token' => 'Chyba, zkuste to prosím znovu.',
 	'close' => 'Zavřít',
 	'back' => 'Zpět',
 	'warning' => 'Varování',
@@ -26,12 +26,12 @@ $language = array(
 	'search' => 'Hledat',
 	'edit' => 'Upravit',
 	'next' => 'Další',
-	'confirm_cancel' => 'Opravdu to cheš zrušit?',
+	'confirm_cancel' => 'Opravdu to chcete zrušit?',
 	'confirm_delete' => 'Potvrdit smazání',
-	'confirm_deletion' => 'Opravdu chceš toto smazat?',
+	'confirm_deletion' => 'Opravdu toto chcete smazat?',
 	'cancel' => 'Zavřít',
 	'delete' => 'Smazat',
-	'none' => 'Žádný',
+	'none' => 'žádný',
 	'view' => 'Zobrazit',
 	'change' => 'Změnit',
 	'remove' => 'Odstranit',
@@ -40,27 +40,27 @@ $language = array(
 	'actions' => 'Akce',
 	'alerts' => 'Upozornění',
 	'view_alerts' => 'Zobrazit upozornění',
-	'no_alerts' => 'Nemáš žádné upozornění',
-	'x_new_alerts' => 'Máš {x} nových upozornění.', // Don't replace {x}
-	'messages' => 'Zorávy',
+	'no_alerts' => 'Nemáte žádná upozornění',
+	'x_new_alerts' => 'Máte {x} nových upozornění.', // Don't replace {x}
+	'messages' => 'Zprávy',
 	'view_messages' => 'Zobrazit zprávy',
-	'no_messages' => 'Nemáž žádné zprávy',
-	'x_new_messages' => 'Máš {x} nových zpráv.', // Don't replace {x}
+	'no_messages' => 'Nemáte žádné zprávy',
+	'x_new_messages' => 'Máte {x} nových zpráv.', // Don't replace {x}
 	'loading' => 'Načítání...',
 	'report' => 'Nahlásit',
-	'page_loaded_in' => 'Stránka se načetla za {x}sekund', // Don't replace {x}, time unit is seconds
-    'page_x' => 'Page {x}',
-    'browse' => 'Browse',
+	'page_loaded_in' => 'Stránka se načetla za {x} sekund', // Don't replace {x}, time unit is seconds
+    'page_x' => 'Stran {x}',
+    'browse' => 'Prohlížet',
 
     /*
      *  Contact form
      */
-    'contact' => 'Contact',
-    'message' => 'Message',
-    'contact_email_subject' => 'New contact form submission',
-    'contact_message_failed' => 'Unable to send message. Please ensure you have entered a message between 10 and 5000 characters long.',
-    'contact_message_sent' => 'Message sent successfully.',
-    'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {x} minutes.', // Don't replace {x}
+    'contact' => 'Kontakt',
+    'message' => 'Zpráva',
+    'contact_email_subject' => 'Nový kontaktní formulář ',
+    'contact_message_failed' => 'Nepodařilo se odeslat zprávu. Zajistěte, aby jste vložil zprávu mezi 10 a 5000 znaky dlouhou.',
+    'contact_message_sent' => 'Zpráva byla úspěšně odeslana.',
+    'contact_message_limit' => 'Můžete odeslat pouze jednu zprávu za hodinu. Další můžete odeslat za {x} minut.', // Don't replace {x}
 	
 	/* 
 	 *  Navbar
@@ -71,6 +71,7 @@ $language = array(
 	 *  Homepage
 	 */
 	'social' => 'Sociální sítě',
+	
 	
 	/*
 	 *  Help dialogues
@@ -84,8 +85,8 @@ $language = array(
     'offline' => 'Offline',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Version: {x}', // Don't replace {x}
-    'currently_x_players_online' => 'There are currently <strong>{x}</strong> players online.', // Don't replace {x}
-    'server_offline' => 'The server is currently offline.',
-    'connect_with_ip_x' => 'Connect now using the IP <strong>{x}</strong>' // Don't replace {x}
+    'version' => 'Verze: {x}', // Don't replace {x}
+    'currently_x_players_online' => 'Aktuálně je na serveru <strong>{x}</strong> online hráčů.', // Don't replace {x}
+    'server_offline' => 'Server je aktuálně vypnut (offline).',
+    'connect_with_ip_x' => 'Připojte se nyní pomoci IP adresy <strong>{x}</strong>' // Don't replace {x}
 );
