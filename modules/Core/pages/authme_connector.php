@@ -206,7 +206,8 @@ if(Input::exists()){
                 $validate = new Validate();
                 $validation = $validate->check($_POST, array(
                     'username' => array(
-                        'required' => true
+                        'required' => true,
+                        'unique' => 'users'
                     ),
                     'password' => array(
                         'required' => true
@@ -347,6 +348,8 @@ if(Input::exists()){
                                     $errors[] = $language->get('user', 'accept_terms');
                                     break;
                             }
+                        } else if(strpos($validation_error, 'exists') !== false){
+                            $errors[] = $language->get('user', 'authme_username_exists');
                         }
                     }
                 }

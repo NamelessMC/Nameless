@@ -113,6 +113,7 @@ $language = array(
     'verify_account_help' => 'Bitte führe die angegeben Schritte durch um deinen Account zu verifizieren.',
     'verification_failed' => 'Verifikation fehlgeschlagen.',
     'verification_success' => 'Erfolgreich freigeschaltet.',
+    'authme_username_exists' => 'Your Authme account has already been connected to the website!',
 	
 	// Login
 	'successful_login' => 'Du hast dich erfolgreich angemeldet.',
