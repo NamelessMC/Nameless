@@ -211,6 +211,7 @@ $language = array(
     'mcassoc_error' => 'Certifique-se de que você inseriu sua chave compartilhada corretamente e que gerou uma chave de instância corretamente.',
     'updated_mcassoc_successfully' => 'Configurações do mcassoc atualizadas com sucesso.',
     'force_premium_accounts' => 'Forçar contas Minecraft premium?',
+    'banner_background' => 'Banner background',
 
 	// Modules
 	'modules_installed_successfully' => 'Todos os novos módulos foram instalados com êxito.',

@@ -210,6 +210,7 @@ $language = array(
 	'mcassoc_error' => 'Please ensure you that have entered your shared key correctly, and that you have generated an instance key correctly.',
 	'updated_mcassoc_successfully' => 'mcassoc settings updated successfully.',
 	'force_premium_accounts' => 'Force premium Minecraft accounts?',
+	'banner_background' => 'Banner background',
 
 	// Modules
 	'modules_installed_successfully' => 'Any new modules have been installed successfully.',
@@ -318,7 +319,6 @@ $language = array(
 	'update_check_error' => 'There was an error whilst checking for an update:',
 	'instructions' => 'Instructions',
 	'download' => 'Download',
-	'install' => 'Install',
 	'install_confirm' => 'Please ensure you have downloaded the package and uploaded the contained files first!',
 
 	// File uploads

@@ -51,6 +51,13 @@ $admin_page = 'minecraft';
 	?>
 	
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.css">
+    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/image-picker/image-picker.css">
+
+    <style type="text/css">
+      .thumbnails li img{
+          width: 200px;
+      }
+    </style>
 
   </head>
   <body>
@@ -1069,6 +1076,71 @@ $admin_page = 'minecraft';
                         echo '<hr />';
                         echo '<p><code>http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/banner/' . urlencode($server->name) . '.png') . '</code></p>';
                         echo '<img src="' . URL::build('/banner/' . urlencode($server->name)) . '" alt="' . Output::getClean($server->name) . '" />';
+
+                      } else if(isset($_GET['edit']) && is_numeric($_GET['edit'])){
+                          echo '<span class="pull-right"><a href="' . URL::build('/admin/minecraft/', 'view=banners') . '" class="btn btn-info">' . $language->get('general', 'back') . '</a></span>';
+                          // Get server
+                          $server = $queries->getWhere('mc_servers', array('id', '=', $_GET['edit']));
+                          if(!count($server)){
+                              Redirect::to(URL::build('/admin/minecraft/', 'view=banners'));
+                              die();
+                          }
+
+                          if(Input::exists()){
+                              // Check token
+                              if(Token::check(Input::get('token'))){
+                                  // Valid token
+                                  try {
+                                      if(file_exists(ROOT_PATH . '/uploads/banners/' . Input::get('banner'))){
+                                          $queries->update('mc_servers', $_GET['edit'], array(
+                                            'banner_background' => Output::getClean(Input::get('banner'))
+                                          ));
+                                      }
+                                  } catch(Exception $e){
+                                      $error = $e->getMessage();
+                                  }
+
+
+                              } else {
+                                  // Invalid token
+                                  $error = $language->get('general', 'invalid_token');
+                              }
+
+                              // Re-query
+                              $server = $queries->getWhere('mc_servers', array('id', '=', $_GET['edit']));
+                          }
+
+                          $server = $server[0];
+                          echo '<hr />';
+                          if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>';
+                          ?>
+                          <form action="" method="post">
+                              <label for="inputBanner"><?php echo $language->get('admin', 'banner_background'); ?></label>
+                              <select name="banner" id="inputBanner" class="image-picker show-html">
+                                  <?php
+                                  $image_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'banners'));
+                                  $images = scandir($image_path);
+
+                                  // Only display jpeg, png, jpg, gif
+                                  $allowed_exts = array('gif', 'png', 'jpg', 'jpeg');
+                                  $n = 1;
+
+                                  foreach($images as $image){
+                                      $ext = pathinfo($image, PATHINFO_EXTENSION);
+                                      if(!in_array($ext, $allowed_exts)){
+                                          continue;
+                                      }
+                                      ?>
+                                      <option data-img-src="<?php echo ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/'); ?>uploads/banners/<?php echo $image; ?>" value="<?php echo Output::getClean($image); ?>" <?php if($server->banner_background == $image) echo 'selected'; ?>><?php echo $n; ?></option>
+                                      <?php
+                                      $n++;
+                                  }
+                                  ?>
+                              </select>
+                              <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
+                              <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+                          </form>
+                          <?php
                       } else {
                         $servers = $queries->getWhere('mc_servers', array('id', '<>', 0));
                         if(count($servers)){
@@ -1079,7 +1151,8 @@ $admin_page = 'minecraft';
                               ?>
                             <strong><?php echo Output::getClean($server->name); ?></strong>
                             <span class="pull-right">
-                                <a class="btn btn-info btn-sm" href="<?php echo URL::build('/admin/minecraft/', 'view=banners&amp;server=' . $server->id); ?>"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                <a class="btn btn-warning btn-sm" href="<?php echo URL::build('/admin/minecraft/', 'view=banners&amp;edit=' . $server->id); ?>"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i></a>
+                                <a class="btn btn-info btn-sm" href="<?php echo URL::build('/admin/minecraft/', 'view=banners&amp;server=' . $server->id); ?>"><i class="fa fa-search fa-fw" aria-hidden="true"></i></a>
                               </span>
                               <?php
                               if($counter < count($servers))
@@ -1206,6 +1279,7 @@ $admin_page = 'minecraft';
 	?>
 	
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.js"></script>
+    <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/image-picker/image-picker.min.js"></script>
 	
 	<script>
 	var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
@@ -1216,16 +1290,18 @@ $admin_page = 'minecraft';
 	/*
 	 *  Submit form on clicking enable/disable Minecraft/AuthMe
 	 */
-	var changeCheckbox = document.querySelector('.js-check-change');
+	if($('.js-check-change').length) {
+        var changeCheckbox = document.querySelector('.js-check-change');
 
-	changeCheckbox.onchange = function() {
-	  if($("#enableAuthMe").length > 0)
-      $('#enableAuthMe').submit();
-	  else if($("#enablePremium").length > 0)
-	    $('#enablePremium').submit();
-	  else
-	    $('#enableMinecraft').submit();
-	};
+        changeCheckbox.onchange = function () {
+            if ($("#enableAuthMe").length > 0)
+                $('#enableAuthMe').submit();
+            else if ($("#enablePremium").length > 0)
+                $('#enablePremium').submit();
+            else
+                $('#enableMinecraft').submit();
+        };
+    }
 
 	<?php if(isset($_GET['view']) && $_GET['view'] == 'account_verification'){ ?>
   function generateInstance() {
@@ -1237,6 +1313,8 @@ $admin_page = 'minecraft';
 
       document.getElementById("mcassoc_instance").setAttribute("value", text);
   }
+  <?php } else if(isset($_GET['view']) && $_GET['view'] == 'banners' && isset($_GET['edit'])){ ?>
+    $(".image-picker").imagepicker();
   <?php } ?>
 	</script>
 

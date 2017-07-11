@@ -134,7 +134,7 @@ curl_close($ch);
 					  echo '<hr />';
 					  
 					  echo '<a href="https://worldscapemc.co.uk/nl_core/nl1/updates/' . str_replace(array('.', '-'), '', Output::getClean($current_version)) . '.zip" class="btn btn-primary">' . $language->get('admin', 'download') . '</a> ';
-				      echo '<a href="' . URL::build('/admin/update_execute') . '" class="btn btn-info" onclick="return confirm(\'' . $language->get('admin', 'install_confirm') . '\');">' . $language->get('admin', 'install') . '</a>';
+				      echo '<a href="' . URL::build('/admin/update_execute') . '" class="btn btn-info" onclick="return confirm(\'' . $language->get('admin', 'install_confirm') . '\');">' . $language->get('admin', 'update') . '</a>';
 				  }
 			  } else {
 			  ?>
