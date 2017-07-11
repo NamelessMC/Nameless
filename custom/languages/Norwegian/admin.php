@@ -210,6 +210,7 @@ $language = array(
     'mcassoc_error' => 'Please ensure you that have entered your shared key correctly, and that you have generated an instance key correctly.',
     'updated_mcassoc_successfully' => 'mcassoc settings updated successfully.',
     'force_premium_accounts' => 'Force premium Minecraft accounts?',
+    'banner_background' => 'Banner background',
 
 	// Modules
 	'modules_installed_successfully' => 'Modulene er nå oppdatert',

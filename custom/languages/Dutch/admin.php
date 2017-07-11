@@ -211,6 +211,7 @@ $language = array(
 	'mcassoc_error' => 'Zorg ervoor dat je je "shared key" correct hebt ingevuld, en dat je een "instance key" correct hebt gegenereerd.',
 	'updated_mcassoc_successfully' => 'mcassoc instellingen succesvol bijgewerkt.',
 	'force_premium_accounts' => 'Forceer betaalde Minecraft accounts?',
+	'banner_background' => 'Banner background',
 
 	// Modulen
 	'modules_installed_successfully' => 'Alle nieuwe modules zijn succesvol toegevoegd.',

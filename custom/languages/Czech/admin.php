@@ -210,6 +210,7 @@ $language = array(
     'mcassoc_error' => 'Ujistěte se prosím, zda jste zadal Váš sdílený klíč správně, a následně správně vygeneroval případový klíč.',
     'updated_mcassoc_successfully' => 'nastavení mcassoc úspěšně aktualizováno.',
     'force_premium_accounts' => 'Vyžadovat prémiové účty?',
+    'banner_background' => 'Banner background',
 	
 	// Modules
 	'modules_installed_successfully' => 'Všechny nové moduly se nainstalovaly.',
