@@ -1311,7 +1311,7 @@ $current_default_language = $current_default_language[0]->value;
                                     <div class="form-group">
                                         <label for="inputMaintenanceMessage"><?php echo $language->get('admin', 'maintenance_mode_message'); ?></label>
                                         <textarea style="width:100%" rows="10" name="message"
-                                                  id="InputMaintenanceMessage"><?php echo Output::getPurified((isset($_POST['message']) ? $_POST['message'] : $maintenance['message'])); ?></textarea>
+                                                  id="InputMaintenanceMessage"><?php echo Output::getPurified(htmlspecialchars_decode($maintenance['message'])); ?></textarea>
                                     </div>
                                     <div class="form-group">
                                         <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
