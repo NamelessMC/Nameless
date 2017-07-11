@@ -78,8 +78,11 @@
 <div class="container" style="padding-top: 5rem;">
   {* Global messages *}
   {if isset($MAINTENANCE_ENABLED)}
-  <div class="alert alert-danger">
-    {$MAINTENANCE_ENABLED}
+  <div class="alert alert-danger alert-dismissible" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		  <span aria-hidden="true">&times;</span>
+	  </button>
+	  {$MAINTENANCE_ENABLED}
   </div>
   {/if}
 </div>
