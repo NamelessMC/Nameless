@@ -27,24 +27,6 @@ SOFTWARE.
 
 class ServerBanner
 {
-
-    const WIDTH = 650;
-    const HEIGHT = 80;
-    const PADDING = 3;
-
-    const FAVICON_SIZE = 64;
-
-    const TITLE_SIZE = 13;
-    const MOTD_SIZE = 12;
-    const PLAYERS_SIZE = 14;
-    const PING_WIDTH = 36;
-    const PING_HEIGHT = 29;
-
-    const PING_WELL = 150;
-    const PING_GOOD = 300;
-    const PING_WORSE = 400;
-    const PING_WORST = 500;
-
     /**
      *
      * @param string $address the server address
@@ -57,24 +39,24 @@ class ServerBanner
      * @return resource the rendered banner
      */
     public static function server($address, $motd = "§cOffline Server", $players = -1, $max_players = -1,
-            $favicon = NULL, $background = NULL, $ping = self::PING_WELL)
+            $favicon = NULL, $background = NULL, $ping = 150)
     {
-        $canvas = MinecraftBanner::getBackgroundCanvas(self::WIDTH, self::HEIGHT, $background);
+        $canvas = MinecraftBanner::getBackgroundCanvas(650, 80, $background);
+
         if ($favicon == NULL) {
             $favicon = imagecreatefrompng(ROOT_PATH . '/core/assets/img/favicon.png');
         }
+        //center the image in y-direction and add padding to the left side
+        $favicon_posY = (80 - 64) / 2;
+        imagecopy($canvas, $favicon, 3, $favicon_posY, 0, 0, 64, 64);
 
-        //center the iamge in y-direction and add padding to the left side
-        $favicon_posY = (self::HEIGHT - self::FAVICON_SIZE) / 2;
-        imagecopy($canvas, $favicon, self::PADDING, $favicon_posY, 0, 0, self::FAVICON_SIZE, self::FAVICON_SIZE);
-
-        $startX = self::PADDING + self::FAVICON_SIZE + self::PADDING;
+        $startX = 3 + 64 + 3;
 
         $white = imagecolorallocate($canvas, 255, 255, 255);
-        $titleY = $favicon_posY + self::PADDING * 2 + self::TITLE_SIZE;
-        imagettftext($canvas, self::TITLE_SIZE, 0, $startX, $titleY, $white, MinecraftBanner::FONT_FILE, $address);
+        $titleY = $favicon_posY + 3 * 2 + 13;
+        imagettftext($canvas, 13, 0, $startX, $titleY, $white, MinecraftBanner::getFontFile(), $address);
 
-        $components = explode(MinecraftBanner::COLOR_CHAR, $motd);
+        $components = explode(MinecraftBanner::getColourChar(), $motd);
         $nextX = $startX;
         $nextY = 50;
         $last_color = [255, 255, 255];
@@ -84,7 +66,7 @@ class ServerBanner
             }
 
             $color_code = $component[0];
-            $colors = MinecraftBanner::COLORS;
+            $colors = MinecraftBanner::getColours();
 
             //default to white
             $text = $component;
@@ -101,45 +83,45 @@ class ServerBanner
             $color = imagecolorallocate($canvas, $last_color[0], $last_color[1], $last_color[2]);
             $lines = explode("\n", $text);
 
-            imagettftext($canvas, self::MOTD_SIZE, 0, $nextX, $nextY, $color, MinecraftBanner::FONT_FILE, $lines[0]);
-            $box = imagettfbbox(self::MOTD_SIZE, 0, MinecraftBanner::FONT_FILE, $text);
+            imagettftext($canvas, 12, 0, $nextX, $nextY, $color, MinecraftBanner::getFontFile(), $lines[0]);
+            $box = imagettfbbox(12, 0, MinecraftBanner::getFontFile(), $text);
             $text_width = abs($box[4] - $box[0]);
             if (count($lines) > 1) {
                 $nextX = $startX;
-                $nextY += self::PADDING * 2 + self::MOTD_SIZE;
+                $nextY += 3 * 2 + 12;
 
-                imagettftext($canvas, self::MOTD_SIZE, 0, $nextX, $nextY, $color, MinecraftBanner::FONT_FILE, $lines[1]);
+                imagettftext($canvas, 12, 0, $nextX, $nextY, $color, MinecraftBanner::getFontFile(), $lines[1]);
             } else {
-                $nextX += $text_width + self::PADDING;
+                $nextX += $text_width + 3;
             }
         }
 
         if ($ping < 0) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/-1.png');
-        } else if ($ping > 0 && $ping <= self::PING_WELL) {
+        } else if ($ping > 0 && $ping <= 150) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/5.png');
-        } else if ($ping <= self::PING_GOOD) {
+        } else if ($ping <= 300) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/4.png');
-        } else if ($ping <= self::PING_WORSE) {
+        } else if ($ping <= 400) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/3.png');
-        } else if ($ping <= self::PING_WORST) {
+        } else if ($ping <= 400) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/2.png');
-        } else if ($ping >= self::PING_WORST) {
+        } else if ($ping > 400) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/1.png');
         }
 
-        $ping_posX = self::WIDTH - self::PING_WIDTH - self::PADDING;
-        imagecopy($canvas, $image, $ping_posX, $favicon_posY, 0, 0, self::PING_WIDTH, self::PING_HEIGHT);
+        $ping_posX = 650 - 36 - 3;
+        imagecopy($canvas, $image, $ping_posX, $favicon_posY, 0, 0, 36, 29);
 
         $text = $players . ' / ' . $max_players;
-        $box = imagettfbbox(self::PLAYERS_SIZE, 0, MinecraftBanner::FONT_FILE, $text);
+        $box = imagettfbbox(14, 0, MinecraftBanner::getFontFile(), $text);
         $text_width = abs($box[4] - $box[0]);
 
         //center it based on the ping image
-        $posY = $favicon_posY + (self::PING_HEIGHT / 2) + self::PLAYERS_SIZE / 2;
-        $posX = $ping_posX - $text_width - self::PADDING / 2;
+        $posY = $favicon_posY + (29 / 2) + 14 / 2;
+        $posX = $ping_posX - $text_width - 3 / 2;
 
-        imagettftext($canvas, self::PLAYERS_SIZE, 0, $posX, $posY, $white, MinecraftBanner::FONT_FILE, $text);
+        imagettftext($canvas, 14, 0, $posX, $posY, $white, MinecraftBanner::getFontFile(), $text);
         return $canvas;
     }
 }
