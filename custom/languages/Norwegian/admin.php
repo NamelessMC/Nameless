@@ -82,6 +82,7 @@ $language = array(
     'outgoing_email_info' => 'Dette er emailen NamelesMC vil bruke til å sende ut mails.',
     'mailer_settings_info' => 'De markerte feltene må være utfylt hvis du har PHPMailer aktivert. For mer informasjon om hvordan du fyller ut disse feltene, sjekk ut <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">wiki</a>.',
     'host' => 'Vert',
+    'email_port' => 'Port',
     'email_password_hidden' => 'Passordet vises ikke på grunn av sikkerhetsmessige årsaker.',
     'send_test_email' => 'Send test email',
     'send_test_email_info' => 'Denne knappen vil prøve å sende en test email til din email adresse, <strong>{x}</strong>. Alle errorene som blir oppdaget, vil bli listet her.', // Don't replace {x}
