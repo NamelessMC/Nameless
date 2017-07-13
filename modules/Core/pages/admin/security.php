@@ -155,8 +155,8 @@ $admin_page = 'security';
 
     <?php require('modules/Core/pages/admin/scripts.php'); ?>
 	
-	<script src="/core/assets/plugins/dataTables/jquery.dataTables.min.js"></script>
-	<script src="/core/assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dataTables/jquery.dataTables.min.js"></script>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
 	
 	<script type="text/javascript">
         $(document).ready(function() {
