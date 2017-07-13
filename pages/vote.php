@@ -64,90 +64,48 @@ if(!in_array('Vote', $enabled_addon_pages)){
 	
 	$sites = $queries->getWhere("vote_sites", array("id", "<>", 0));
 	
-	if(count($sites) > 4){
-		// How many buttons on the second row?
-		$second_row = count($sites) - 4;
-		if($second_row == 1){
-			// one central button
-			$col = '12';
-		} else if($second_row == 2){
-			// two central buttons
-			$col = '6';
-		} else if($second_row == 3){
-			// three wider buttons
-			$col = '4';
-		} else if($second_row == 4){
-			// four buttons
-			$col = '3';
-		}
-	} else {
-		// How many buttons on the top row?
-		$top_row = count($sites);
-		if($top_row == 1){
-			// one central button
-			$col = '12';
-		} else if($top_row == 2){
-			// two central buttons
-			$col = '6';
-		} else if($top_row == 3){
-			// three wider buttons
-			$col = '4';
-		} else if($top_row == 4){
-			// four buttons
-			$col = '3';
-		}
-	}
+	// How many rows/columns?
+	$total = count($sites);
 	
-	if(isset($top_row)){
-		// One row only
-	?>
-	<div class="row">
-	<?php
-		foreach($sites as $site){
-	?>
-	  <div class="col-md-<?php echo $col; ?>">
-	    <center><a class="btn btn-lg btn-block btn-primary" href="<?php echo str_replace("&amp;", "&", htmlspecialchars($site->site)); ?>" target="_blank" role="button"><?php echo htmlspecialchars($site->name); ?></a></center>
-	  </div>
-	<?php 
-		} 
-	?>
-	</div>
-	<?php
-	} else if(isset($second_row)){
-		// Two rows
-	?>
-	<div class="row">
-	<?php
-		$n = 0;
-		while($n < 4){
-	?>
-	  <div class="col-md-3">
-	    <center><a class="btn btn-lg btn-block btn-primary" href="<?php echo str_replace("&amp;", "&", htmlspecialchars($sites[$n]->site)); ?>" target="_blank" role="button"><?php echo htmlspecialchars($sites[$n]->name); ?></a></center>
-	  </div>
-	<?php
-			$n++;
+	for($i = 0; $i < $total; $i++){
+		if($i % 4 == 0){
+			// Determine number of columns in the row
+			$remaining = count($sites);
+			
+			if($remaining >= 4)
+				$col_type = 3;
+			else {
+				$end = $i + $remaining;
+				
+				switch($remaining){
+					case 1:
+						$col_type = 12;
+					break;
+					case 2:
+						$col_type = 6;
+					break;
+					case 3:
+						$col_type = 4;
+					break;
+				}
+			}
+			
+			echo '<div class="row">';
 		}
-	?>
-	</div><br />
-	<div class="row">
-	<?php
-		$n = 0;
-		while($n < $second_row){
-	?>
-	  <div class="col-md-<?php echo $col; ?>">
-        <center><a class="btn btn-lg btn-block btn-primary" href="<?php echo str_replace("&amp;", "&", htmlspecialchars($sites[$n + 4]->site)); ?>" target="_blank" role="button"><?php echo htmlspecialchars($sites[$n + 4]->name); ?></a></center>
-	  </div>
-	<?php
-			$n++;
-		}
-	?>
-	</div>
-	<?php
+		
+		echo '<div class="col-md-' . $col_type . '">';
+		echo '<center><a class="btn btn-lg btn-block btn-primary" href="' . str_replace("&amp;", "&", htmlspecialchars($sites[$i]->site)) . '" target="_blank" role="button">' . htmlspecialchars($sites[$i]->name) . '</a></center>';
+		echo '</div>';
+		unset($sites[$i]);
+		
+		if(($i + 1) % 4 == 0)
+			echo '</div><br />';
+
 	}
 	?>
-	  
+
     </div>
-		
+
 	<?php
 	// Footer
 	require('core/includes/template/footer.php');
