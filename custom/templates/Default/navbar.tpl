@@ -53,7 +53,7 @@
 			{* Dropdown *}
 			<li class="nav-item dropdown">
 			  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{$item.title}</a>
-			  <div class="dropdown-menu">
+			  <div class="dropdown-menu dropdown-menu-right">
 				{foreach from=$item.items item=dropdown}
 				  {if isset($dropdown.separator)}
 				    <div class="dropdown-divider"></div>
