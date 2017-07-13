@@ -1607,7 +1607,7 @@ $current_default_language = $current_default_language[0]->value;
                                                         '    \'password\' => \'' . str_replace('\'', '\\\'', ((!empty($_POST['password'])) ? $_POST['password'] : $GLOBALS['email']['password'])) . '\',' . PHP_EOL .
                                                         '    \'name\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['name']) ? $_POST['name'] : $GLOBALS['email']['name'])) . '\',' . PHP_EOL .
                                                         '    \'host\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['host']) ? $_POST['host'] : $GLOBALS['email']['host'])) . '\',' . PHP_EOL .
-                                                        '    \'port\' => ' . str_replace('\'', '\\\'', $GLOBALS['email']['port']) . ',' . PHP_EOL .
+                                                        '    \'port\' => ' . str_replace('\'', '\\\'', (!empty($_POST['port']) ? $_POST['port'] : $GLOBALS['email']['port'])) . ',' . PHP_EOL .
                                                         '    \'secure\' => \'' . str_replace('\'', '\\\'', $GLOBALS['email']['secure']) . '\',' . PHP_EOL .
                                                         '    \'smtp_auth\' => ' . (($GLOBALS['email']['smtp_auth']) ? 'true' : 'false') . PHP_EOL .
                                                         ');';
@@ -1630,7 +1630,7 @@ $current_default_language = $current_default_language[0]->value;
                                                         '    \'password\' => \'' . str_replace('\'', '\\\'', ((!empty($_POST['password'])) ? $_POST['password'] : '')) . '\',' . PHP_EOL .
                                                         '    \'name\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['name']) ? $_POST['name'] : '')) . '\',' . PHP_EOL .
                                                         '    \'host\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['host']) ? $_POST['host'] : '')) . '\',' . PHP_EOL .
-                                                        '    \'port\' => 587,' . PHP_EOL .
+                                                        '    \'port\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['port']) ? $_POST['host'] : 587)) . ',' . PHP_EOL .
                                                         '    \'secure\' => \'tls\',' . PHP_EOL .
                                                         '    \'smtp_auth\' => true' . PHP_EOL .
                                                         ');';
@@ -1641,6 +1641,12 @@ $current_default_language = $current_default_language[0]->value;
                                                     $error = $language->get('admin', 'unable_to_write_email_config');
                                                 }
                                             }
+											
+											if(!isset($error)){
+												// Redirect to refresh config values
+												Redirect::to(URL::build('/admin/core/', 'view=email'));
+												die();
+											}
                                         } else
                                             $error = $language->get('general', 'invalid_token');
                                     }
@@ -1657,7 +1663,7 @@ $current_default_language = $current_default_language[0]->value;
                                     $outgoing_email = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
                                     $outgoing_email = $outgoing_email[0]->value;
 
-                                    require_once('core/email.php');
+                                    require('core/email.php');
                                     ?>
                                     <br/><br/>
                                     <form action="" method="post">
@@ -1715,6 +1721,12 @@ $current_default_language = $current_default_language[0]->value;
                                             <input class="form-control" type="text" name="host"
                                                    value="<?php if (!empty($GLOBALS['email']['host'])) echo Output::getClean($GLOBALS['email']['host']); ?>"
                                                    id="inputHost">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPort"><?php echo $language->get('admin', 'email_port'); ?></label>
+                                            <input class="form-control" type="text" name="port"
+                                                   value="<?php if (!empty($GLOBALS['email']['port'])) echo Output::getClean(isset($GLOBALS['email']['port']) ? $GLOBALS['email']['port'] : 587); ?>"
+                                                   id="inputPort">
                                         </div>
                                         <hr/>
                                         <div class="form-group">

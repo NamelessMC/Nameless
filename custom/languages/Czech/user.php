@@ -17,7 +17,7 @@ $language = array(
 	'guests' => 'Hosté',
 	
 	// UserCP
-	'user_cp' => 'UserCP',
+	'user_cp' => 'Ovládací panel uživatele',
 	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
 	'overview' => 'Přehled',
 	'user_details' => 'Informace o uživateli',
@@ -105,7 +105,7 @@ $language = array(
 	'verify_account_help' => 'Postupujte podle pokynů níže, abychom mohli ověřit, zda je tento Minecraft účet opravdu Váš.',
 	'verification_failed' => 'Ověření selhalo, zkuste to prosím později.',
 	'verification_success' => 'Ověření úspěšné! Nyní se můžete přihlásit.',
-    'authme_username_exists' => 'Your Authme account has already been connected to the website!',
+    'authme_username_exists' => 'Váš AuthMe účet byl právě připojen k webu!',
 	
 	// Login
 	'successful_login' => 'Úspěšně jste se přihlásil.',

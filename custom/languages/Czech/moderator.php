@@ -10,7 +10,7 @@
  */
 
 $language = array(
-	'mod_cp' => 'ModCP',
+	'mod_cp' => 'Ovládací panel moderátora',
 	'overview' => 'Přehled',
 	
 	// Spam

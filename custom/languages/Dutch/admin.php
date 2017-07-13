@@ -84,6 +84,7 @@ $language = array(
 	'outgoing_email_info' => 'Dit is het email adres waarmee NamelessMC emails gaat verzenden.',
 	'mailer_settings_info' => 'De volgende velden zijn nodig als je PHPMailer aan hebt gezet. Voor meer informatie hoe je deze velden moet invullen, bekijk dan <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">de wiki</a>.',
 	'host' => 'Host',
+	'email_port' => 'Port',
 	'email_password_hidden' => 'Het wachtwoord wordt om veiligheidsredenen niet getoond.',
 	'send_test_email' => 'Vezend test email',
 	'send_test_email_info' => 'Deze knop zorgt ervoor dat er een email naar het email addres, <strong>{x}</strong> wordt verzonden. Eventuele fouten tijdens het versturen van die e-mail, worden weergegeven.', // Verander {x} niet

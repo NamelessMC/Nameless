@@ -83,6 +83,7 @@ $language = array(
     'outgoing_email_info' => 'Este é o endereço de e-mail do qual NamelessMC usará para enviar e-mails.',
     'mailer_settings_info' => 'Os campos a seguir são necessários se você tiver habilitado PHPMailer. Para obter mais informações sobre como preencher esses campos, confira <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">a wiki</a>.',
     'host' => 'Host',
+    'email_port' => 'Port',
     'email_password_hidden' => 'A senha não é mostrada por razões de segurança.',
     'send_test_email' => 'Enviar e-mail de teste',
     'send_test_email_info' => 'O seguinte botão irá tentar enviar um e-mail para o seu endereço de e-mail, <strong>{x}</strong>. Qualquer erro que occora enquanto envia o e-mail será exibido.', // Don't replace {x}

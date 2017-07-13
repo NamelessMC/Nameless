@@ -17,7 +17,7 @@ $language = array(
 	're-authenticate' => 'Prosím ověřte přihlášení',
 	
 	// Sidebar
-	'admin_cp' => 'AdminCP',
+	'admin_cp' => 'Ovládací panel administrátora',
 	'administration' => 'Administrace',
 	'overview' => 'Přehled',
 	'core' => 'Nastavení',
@@ -82,6 +82,7 @@ $language = array(
     'outgoing_email_info' => 'Toto je e-mailová adresa, z jaké NamelessMC posílá e-maily.',
     'mailer_settings_info' => 'Jestliže máte zapnutý PHPMailer, tak jsou následující pole povinná. Pro více informací, jak tyto pole vyplnit, se podívejte na <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">wiki</a>.',
     'host' => 'Host',
+	'email_port' => 'Port',
     'email_password_hidden' => 'Z bezpečnostních důvodů neni heslo zobrazeno.',
     'send_test_email' => 'Odeslat zkušební e-mail',
     'send_test_email_info' => 'Následující tlačítko se pokusí odeslat e-mail na Vaši e-mailovou adresu, <strong>{x}</strong>. Objeví se zde všechny chyby při odesílání e-mailu.', // Don't replace {x}
@@ -210,7 +211,7 @@ $language = array(
     'mcassoc_error' => 'Ujistěte se prosím, zda jste zadal Váš sdílený klíč správně, a následně správně vygeneroval případový klíč.',
     'updated_mcassoc_successfully' => 'nastavení mcassoc úspěšně aktualizováno.',
     'force_premium_accounts' => 'Vyžadovat prémiové účty?',
-    'banner_background' => 'Banner background',
+    'banner_background' => 'Pozadí banneru',
 	
 	// Modules
 	'modules_installed_successfully' => 'Všechny nové moduly se nainstalovaly.',
@@ -279,8 +280,8 @@ $language = array(
 	'group_html_lg' => 'Velké HTML skupiny',
 	'group_username_colour' => 'Barva názvu skupiny',
 	'group_staff' => 'Bude tato skupina pracovní?',
-	'group_modcp' => 'Uvidí ModCP?',
-	'group_admincp' => 'Uvidí AdminCP?',
+	'group_modcp' => 'Uvidí OP moderátora?',
+	'group_admincp' => 'Uvidí OP administrátora?',
 	'delete_group' => 'Smazat skupinu',
 	'confirm_group_deletion' => 'Opravdu chcete smazat tuto skupinu: {x}?', // Don't replace {x}
 	'group_not_exist' => 'Tato skupina neexistuje.',
