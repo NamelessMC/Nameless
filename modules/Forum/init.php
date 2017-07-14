@@ -10,15 +10,19 @@
  */
 
 // Ensure module has been installed
+$cache->setCache('modulescache');
 $module_installed = $cache->retrieve('module_forum');
 if(!$module_installed){
-	// Hasn't been installed
-	// Need to run the installer
-	
-	die('Run the installer first!');
-	
-} else {
-	// Installed
+    // Hasn't been installed
+    // Need to run the installer
+
+    $exists = $queries->tableExists('forums');
+    if(empty($exists)) {
+        die('Run the installer first!');
+    } else {
+        $cache->store('module_forum', true);
+    }
+
 }
 
 define('FORUM', true);
