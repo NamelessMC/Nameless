@@ -425,7 +425,7 @@ class Forum {
 	// Params:  $group_id (integer) - group ID of the user
 	//			$forum_id (integer) - forum ID to check
 	public function canViewForum($group_id = null, $forum_id = null){
-		if(!$group_id || !$forum_id) return false;
+		if(is_null($group_id) || !$forum_id) return false;
 		
 		$permissions = $this->_db->get('forums_permissions', array('forum_id', '=', $forum_id))->results();
 		
