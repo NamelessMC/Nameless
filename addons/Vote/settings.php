@@ -107,7 +107,7 @@ if(Input::exists()){
 	if(Token::check(Input::get('token'))){
 		$validate = new Validate();
 		$validation = $validate->check($_POST, array(
-			'vote_message' => array(
+			'message' => array(
 				'max' => 2048
 			)
 		));
