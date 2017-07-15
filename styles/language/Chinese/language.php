@@ -136,6 +136,12 @@ $admin_language = array(
 	'text' => '文字',
 	'textarea' => '文字區塊',
 	'question_deleted' => '問題已刪除',
+	'name_required' => 'Name is required.',
+	'question_required' => 'Question is required.',
+	'name_minimum' => 'Name must be a minimum of 2 characters.',
+	'question_minimum' => 'Question must be a minimum of 2 characters.',
+	'name_maximum' => 'Name must be a maximum of 16 characters.',
+	'question_maximum' => 'Question must be a maximum of 16 characters.',
 	'use_followers' => '使用追隨者',
 	'use_followers_help' => '如果停用此選項，系統將會啟用好友系統。',
 	

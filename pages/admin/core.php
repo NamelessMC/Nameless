@@ -766,14 +766,62 @@ $adm_page = "core";
 											Session::flash('apps_post_success', '<div class="alert alert-info">' . $admin_language['successfully_updated'] . '</div>');
 											echo '<script data-cfasync="false">window.location.replace(\'/admin/core/?view=modules&action=edit&module=Staff_Applications\');</script>';
 											die();
+										}  else {
+											// errors
+											$error = array();
+											foreach($validation->errors() as $item){
+												if(strpos($item, 'is required') !== false){
+													switch($item){
+														case (strpos($item, 'name') !== false):
+															$error[] = $admin_language['name_required'];
+														break;
+														case (strpos($item, 'question') !== false):
+															$error[] = $admin_language['question_required'];
+														break;
+													}
+												} else if(strpos($item, 'minimum') !== false){
+													switch($item){
+														case (strpos($item, 'name') !== false):
+															$error[] = $admin_language['name_minimum'];
+														break;
+														case (strpos($item, 'question') !== false):
+															$error[] = $admin_language['question_minimum'];
+														break;
+													}
+												} else if(strpos($item, 'maximum') !== false){
+													switch($item){
+														case (strpos($item, 'name') !== false):
+															$error[] = $admin_language['name_maximum'];
+														break;
+														case (strpos($item, 'question') !== false):
+															$error[] = $admin_language['question_maximum'];
+														break;
+													}
+												}
+											}
 										}
 								
 									} else {
 										// Invalid token
+										$error[] = $admin_language['invalid_token'];
 									}
 								}
 						
 								$question = $question[0];
+						?>
+						<!-- Errors? Display here -->
+						<?php
+						if(isset($error)){
+						?>
+						<div class="alert alert-danger">
+						<?php
+							foreach($error as $item){
+								echo $item . '<br />';
+							}
+						?>
+						</div>
+						<?php
+						}
 						?>
 						<strong><?php echo $admin_language['editing_question']; ?></strong>
 						<span class="pull-right"><a href="/admin/core/?view=modules&amp;action=edit&amp;module=Staff_Applications&amp;question=<?php echo $question->id; ?>&amp;module_action=delete" onclick="return confirm('<?php echo $forum_language['confirm_cancellation']; ?>');" class="btn btn-danger"><?php echo $admin_language['delete_question']; ?></a></span>
@@ -844,13 +892,59 @@ $adm_page = "core";
 											die();
 										} else {
 											// errors
+											$error = array();
+											foreach($validation->errors() as $item){
+												if(strpos($item, 'is required') !== false){
+													switch($item){
+														case (strpos($item, 'name') !== false):
+															$error[] = $admin_language['name_required'];
+														break;
+														case (strpos($item, 'question') !== false):
+															$error[] = $admin_language['question_required'];
+														break;
+													}
+												} else if(strpos($item, 'minimum') !== false){
+													switch($item){
+														case (strpos($item, 'name') !== false):
+															$error[] = $admin_language['name_minimum'];
+														break;
+														case (strpos($item, 'question') !== false):
+															$error[] = $admin_language['question_minimum'];
+														break;
+													}
+												} else if(strpos($item, 'maximum') !== false){
+													switch($item){
+														case (strpos($item, 'name') !== false):
+															$error[] = $admin_language['name_maximum'];
+														break;
+														case (strpos($item, 'question') !== false):
+															$error[] = $admin_language['question_maximum'];
+														break;
+													}
+												}
+											}
 										}
 										
 									} else {
 										// Invalid token
+										$error[] = $admin_language['invalid_token'];
 									}
 								}
 
+						?>
+						<!-- Errors? Display here -->
+						<?php
+						if(isset($error)){
+						?>
+						<div class="alert alert-danger">
+						<?php
+							foreach($error as $item){
+								echo $item . '<br />';
+							}
+						?>
+						</div>
+						<?php
+						}
 						?>
 						<strong><?php echo $admin_language['new_question']; ?></strong><br /><br />
 						
