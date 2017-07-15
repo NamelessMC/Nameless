@@ -22,10 +22,8 @@ if($user->isLoggedIn()){
 	Redirect::to('/');
 	die();
 }
-
 // Check language has been loaded, if not load now
 if(!isset($banappeal_language)) require('addons/BanAppeal/language.php');
-
 $banappeal_questions = $queries->tableExists('banappeal_questions');
 if(empty($banappeal_questions)){
 		// Create/update tables
@@ -35,7 +33,6 @@ if(empty($banappeal_questions)){
  		$data = $queries->createTable("banappeal_questions", " `id` int(11) NOT NULL AUTO_INCREMENT, `type` int(11) NOT NULL, `name` varchar(16) NOT NULL, `question` varchar(256) NOT NULL, `options` text NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
  		$data = $queries->createTable("banappeal_replies", " `id` int(11) NOT NULL AUTO_INCREMENT, `uid` int(11) NOT NULL, `time` int(11) NOT NULL, `content` mediumtext NOT NULL, `status` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
  	}
-
 ?>
 <h3>Addon: BanAppeal</h3>
 <b>Authors:</b> Partydragen And Samerton<br />
@@ -207,7 +204,6 @@ if(count($questions)){
 			echo '<script data-cfasync="false">window.location.replace(\'/admin/addons/?action=edit&addon=BanAppeal\');</script>';
 			die();
 		}
-
 		// Deal with the input
 		if(Input::exists()){
 			if(Token::check(Input::get('token'))){
@@ -238,14 +234,61 @@ if(count($questions)){
 					Session::flash('apps_post_success', '<div class="alert alert-info">' . $admin_language['successfully_updated'] . '</div>');
 					echo '<script data-cfasync="false">window.location.replace(\'/admin/addons/?action=edit&addon=BanAppeal\');</script>';
 					die();
+				} else {
+					// errors
+					$error = array();
+					foreach($validation->errors() as $item){
+						if(strpos($item, 'is required') !== false){
+							switch($item){
+								case (strpos($item, 'name') !== false):
+									$error[] = $banappeal_language['name_required'];
+								break;
+								case (strpos($item, 'question') !== false):
+									$error[] = $banappeal_language['question_required'];
+								break;
+							}
+						} else if(strpos($item, 'minimum') !== false){
+							switch($item){
+								case (strpos($item, 'name') !== false):
+									$error[] = $banappeal_language['name_minimum'];
+								break;
+								case (strpos($item, 'question') !== false):
+									$error[] = $banappeal_language['question_minimum'];
+								break;
+							}
+						} else if(strpos($item, 'maximum') !== false){
+							switch($item){
+								case (strpos($item, 'name') !== false):
+									$error[] = $banappeal_language['name_maximum'];
+								break;
+								case (strpos($item, 'question') !== false):
+									$error[] = $banappeal_language['question_maximum'];
+								break;
+							}
+						}
+					}
 				}
 		
 			} else {
 				// Invalid token
+				$error[] = $admin_language['invalid_token'];
 			}
 		}
-
 		$question = $question[0];
+?>
+<!-- Errors? Display here -->
+<?php
+if(isset($error)){
+?>
+<div class="alert alert-danger">
+<?php
+	foreach($error as $item){
+		echo $item . '<br />';
+	}
+?>
+</div>
+<?php
+}
 ?>
 <strong><?php echo $banappeal_language['editing_question']; ?></strong>
 <span class="pull-right"><a href="/admin/addons/?action=edit&amp;addon=BanAppeal&amp;question=<?php echo $question->id; ?>&amp;module_action=delete" onclick="return confirm('<?php echo $banappeal_language['confirm_cancellation']; ?>');" class="btn btn-danger"><?php echo $banappeal_language['delete_question']; ?></a></span>
@@ -315,15 +358,60 @@ if(count($questions)){
 					die();
 				} else {
 					// errors
+					$error = array();
+					foreach($validation->errors() as $item){
+						if(strpos($item, 'is required') !== false){
+							switch($item){
+								case (strpos($item, 'name') !== false):
+									$error[] = $banappeal_language['name_required'];
+								break;
+								case (strpos($item, 'question') !== false):
+									$error[] = $banappeal_language['question_required'];
+								break;
+							}
+						} else if(strpos($item, 'minimum') !== false){
+							switch($item){
+								case (strpos($item, 'name') !== false):
+									$error[] = $banappeal_language['name_minimum'];
+								break;
+								case (strpos($item, 'question') !== false):
+									$error[] = $banappeal_language['question_minimum'];
+								break;
+							}
+						} else if(strpos($item, 'maximum') !== false){
+							switch($item){
+								case (strpos($item, 'name') !== false):
+									$error[] = $banappeal_language['name_maximum'];
+								break;
+								case (strpos($item, 'question') !== false):
+									$error[] = $banappeal_language['question_maximum'];
+								break;
+							}
+						}
+					}
 				}
 				
 			} else {
 				// Invalid token
+				$error[] = $admin_language['invalid_token'];
 			}
 		}
 ?>
 <strong><?php echo $banappeal_language['new_question']; ?></strong><br /><br />
-
+<!-- Errors? Display here -->
+<?php
+if(isset($error)){
+?>
+<div class="alert alert-danger">
+<?php
+	foreach($error as $item){
+		echo $item . '<br />';
+	}
+?>
+</div>
+<?php
+}
+?>
 <form method="post" action="">
   <label for="name"><?php echo $banappeal_language['name']; ?></label>
   <input class="form-control" type="text" name="name" id="name" placeholder="<?php echo $banappeal_language['name']; ?>">

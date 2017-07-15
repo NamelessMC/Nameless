@@ -49,4 +49,11 @@ $banappeal_language = array(
 	'groups' => 'Groups',
 	'name' => 'Name',
 	'confirm_cancellation' => 'Are you sure?',
+// Error messages
+	'name_required' => 'Name is required.',
+	'question_required' => 'Question is required.',
+	'name_minimum' => 'Name must be a minimum of 2 characters.',
+	'question_minimum' => 'Question must be a minimum of 2 characters.',
+	'name_maximum' => 'Name must be a maximum of 16 characters.',
+	'question_maximum' => 'Question must be a maximum of 16 characters.',
 );
