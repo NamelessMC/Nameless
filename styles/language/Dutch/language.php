@@ -142,6 +142,12 @@ $admin_language = array(
     'text' => 'Tekstlijn',
     'textarea' => 'Tekstblok',
     'question_deleted' => 'Vraag verwijderd',
+	'name_required' => 'Name is required.',
+	'question_required' => 'Question is required.',
+	'name_minimum' => 'Name must be a minimum of 2 characters.',
+	'question_minimum' => 'Question must be a minimum of 2 characters.',
+	'name_maximum' => 'Name must be a maximum of 16 characters.',
+	'question_maximum' => 'Question must be a maximum of 16 characters.',
     'use_followers' => 'Gebruik volgers?',
     'use_followers_help' => 'Als dit is uitgeschakeld dan wordt het vrienden systeem ingeschakeld',
      

@@ -137,6 +137,12 @@ $admin_language = array(
 	'text' => 'Tekst',
 	'textarea' => 'Tekstfelt',
 	'question_deleted' => 'Spørsmål slettet',
+	'name_required' => 'Name is required.',
+	'question_required' => 'Question is required.',
+	'name_minimum' => 'Name must be a minimum of 2 characters.',
+	'question_minimum' => 'Question must be a minimum of 2 characters.',
+	'name_maximum' => 'Name must be a maximum of 16 characters.',
+	'question_maximum' => 'Question must be a maximum of 16 characters.',
 	'use_followers' => 'Bruk følgere?',
 	'use_followers_help' => 'Hvis deaktivert, vil venner systemet brukes.',
 

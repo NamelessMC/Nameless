@@ -142,6 +142,12 @@ $admin_language = array(
 	'text' => 'Texte',
 	'textarea' => 'Zone de texte',
 	'question_deleted' => 'Question supprimée',
+	'name_required' => 'Name is required.',
+	'question_required' => 'Question is required.',
+	'name_minimum' => 'Name must be a minimum of 2 characters.',
+	'question_minimum' => 'Question must be a minimum of 2 characters.',
+	'name_maximum' => 'Name must be a maximum of 16 characters.',
+	'question_maximum' => 'Question must be a maximum of 16 characters.',
 	'use_followers' => 'Utiliser la fonction "Fan"?',
 	'use_followers_help' => 'Si la fonction "Fan" est désactivée, la fonction "Amis" sera utilisée.',
 	

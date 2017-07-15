@@ -140,6 +140,12 @@ $admin_language = array(
 	'text' => 'Text',
 	'textarea' => 'Text Area',
 	'question_deleted' => 'Frage gelöscht',
+	'name_required' => 'Name is required.',
+	'question_required' => 'Question is required.',
+	'name_minimum' => 'Name must be a minimum of 2 characters.',
+	'question_minimum' => 'Question must be a minimum of 2 characters.',
+	'name_maximum' => 'Name must be a maximum of 16 characters.',
+	'question_maximum' => 'Question must be a maximum of 16 characters.',
 	'use_followers' => 'FollowerSystem nutzen?',
 	'use_followers_help' => 'Wenn dies nicht aktiv ist, wird das FreundeSystem genutzt.',
 

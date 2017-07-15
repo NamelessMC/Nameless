@@ -140,6 +140,12 @@ $admin_language = array(
 	'text' => 'Texto',
 	'textarea' => 'Área de Texto',
 	'question_deleted' => 'Pergunta Apagada',
+	'name_required' => 'Name is required.',
+	'question_required' => 'Question is required.',
+	'name_minimum' => 'Name must be a minimum of 2 characters.',
+	'question_minimum' => 'Question must be a minimum of 2 characters.',
+	'name_maximum' => 'Name must be a maximum of 16 characters.',
+	'question_maximum' => 'Question must be a maximum of 16 characters.',
 	'use_followers' => 'Usar seguidores?',
 	'use_followers_help' => 'Se desativado, será utilizado o sistema de amigos.',
 	
