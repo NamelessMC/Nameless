@@ -242,6 +242,8 @@ $language = array(
 	'template_deactivated' => 'Template desativado.',
 	'template_activated' => 'Template ativado.',
 	'permissions' => 'Permissões',
+	'setting_perms_for_x' => 'Setting permissions for template {x}', // Don't replace {x}
+	'templates_installed_successfully' => 'Any new templates have been installed successfully.',
 
 	// Users & groups
 	'users' => 'Usuários',

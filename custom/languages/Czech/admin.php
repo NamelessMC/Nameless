@@ -242,6 +242,7 @@ $language = array(
 	'template_activated' => 'Šablona aktivována.',
 	'permissions' => 'Oprávnění',
 	'setting_perms_for_x' => 'Nastavení oprávnění pro šablonu {x}', // Don't replace {x}
+	'templates_installed_successfully' => 'Any new templates have been installed successfully.',
 	
 	// Users & groups
 	'users' => 'Uživatel',
