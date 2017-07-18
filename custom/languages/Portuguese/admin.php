@@ -222,6 +222,7 @@ $language = array(
 	'disable' => 'Desativar',
 	'module_enabled' => 'Módulo ativado.',
 	'module_disabled' => 'Módulo desativado.',
+	'author' => 'Author:',
 
 	// Styles
 	'templates' => 'Templates',

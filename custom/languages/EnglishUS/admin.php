@@ -221,6 +221,7 @@ $language = array(
 	'disable' => 'Disable',
 	'module_enabled' => 'Module enabled.',
 	'module_disabled' => 'Module disabled.',
+	'author' => 'Author:',
 
 	// Styles
 	'templates' => 'Templates',

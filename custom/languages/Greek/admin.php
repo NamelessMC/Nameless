@@ -223,6 +223,7 @@ $language = array(
 	'disable' => 'Απενεργοποιώ',
 	'module_enabled' => 'Το τμήμα Ενεργοποιήθηκε.',
 	'module_disabled' => 'Τμήμα Απενεργοποιήθηκε.',
+	'author' => 'Author:',
 
 	// Styles
 	'templates' => 'Templates',
