@@ -37,6 +37,7 @@
 			  $modules = $queries->getWhere('modules', array('id', '<>', 0));
 
 			  foreach($modules as $module){
+				  if(isset($module_author)) unset($module_author);
 				  if(isset($module_version)) unset($module_version);
 				  if(isset($nameless_version)) unset($nameless_version);
 
@@ -45,6 +46,7 @@
 			  <div class="row">
 			    <div class="col-md-9">
 			      <strong><?php echo htmlspecialchars($module->name); ?></strong> <?php if(isset($module_version)){ ?><small><?php echo $module_version; ?></small><?php } ?>
+				  <?php if(isset($module_author)){ ?></br><small><?php echo $language->get('admin', 'author'); ?> <?php echo $module_author; ?></small><?php } ?>
 				</div>
 				<div class="col-md-3">
 				  <span class="pull-right">

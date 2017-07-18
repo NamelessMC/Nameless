@@ -222,6 +222,7 @@ $language = array(
 	'disable' => 'Uitschakelen',
 	'module_enabled' => 'Module ingeschakeld.',
 	'module_disabled' => 'Module uitgeschakeld.',
+	'author' => 'Author:',
 
 	// Stijlen
 	'templates' => 'Sjablonen',

@@ -221,6 +221,7 @@ $language = array(
 	'disable' => 'Deaktiver',
 	'module_enabled' => 'Modul aktivert.',
 	'module_disabled' => 'Modul deaktivert.',
+	'author' => 'Utgiver:',
 
 	// Styles
 	'templates' => 'Maler',

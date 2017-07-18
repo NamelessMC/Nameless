@@ -221,6 +221,7 @@ $language = array(
 	'disable' => 'Zakázat',
 	'module_enabled' => 'Modul povolen.',
 	'module_disabled' => 'Modul zakázán.',
+	'author' => 'Author:',
 	
 	// Styles
 	'templates' => 'Šablony',
