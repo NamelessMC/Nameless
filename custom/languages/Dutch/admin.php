@@ -242,6 +242,8 @@ $language = array(
 	'template_deactivated' => 'Sjabloon gedeactiveerd.',
 	'template_activated' => 'Sjabloon geactiveerd.',
 	'permissions' => 'Toestemmingen',
+	'setting_perms_for_x' => 'Setting permissions for template {x}', // Don't replace {x}
+	'templates_installed_successfully' => 'Any new templates have been installed successfully.',
 
 	// Gebruikers & groepen
 	'users' => 'Gebruikers',

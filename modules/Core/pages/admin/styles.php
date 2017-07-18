@@ -193,6 +193,7 @@ $admin_styles = true;
 
 							  } else {
 								  // Invalid token
+								  Session::flash('template_view', '<div class="alert alert-danger">' . $language->get('general', 'invalid_token') . '</div>');
 
 							  }
 						  }
@@ -237,7 +238,7 @@ $admin_styles = true;
 							}
 						  }
 
-						  // TODO: success message
+						  Session::flash('admin_templates', '<div class="alert alert-success">' . $language->get('admin', 'templates_installed_successfully') . '</div>');
 						  Redirect::to(URL::build('/admin/styles'));
 						  die();
 
