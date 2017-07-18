@@ -67,10 +67,8 @@ require('core/includes/password.php'); // Password compat library
   </head>
 
   <body>
-    <div class="container">	
-	  <?php
-	  require('modules/Core/pages/admin/navbar.php');
-	  ?>
+    <?php require('modules/Core/pages/admin/navbar.php'); ?>
+    <div class="container">
 	  <div class="row">
 		<div class="col-md-3">
 		  <?php require('modules/Core/pages/admin/sidebar.php'); ?>
