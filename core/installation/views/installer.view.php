@@ -503,6 +503,11 @@
                 'name' => 'Portuguese',
                 'is_default' => 0
             ));
+			
+            $queries->create('languages', array(
+                'name' => 'Romanian',
+                'is_default' => 0
+            ));
 
             $cache->setCache('languagecache');
             $cache->store('language', 'EnglishUK');
