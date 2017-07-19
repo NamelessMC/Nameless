@@ -50,7 +50,7 @@ $language = array(
 	'x_new_messages' => 'Aveți {x} mesaje noi.', // Don't replace {x}
 	'loading' => 'Se încarcă...',
 	'report' => 'Raportează',
-	'page_loaded_in' => 'Pagină incărcată în  {x}s', // Don't replace {x}, time unit is seconds
+	'page_loaded_in' => 'Pagină incărcată în  {x} secunde.', // Don't replace {x}, time unit is seconds
     'page_x' => 'Pagina {x}',
     'browse' => 'Caută',
 
