@@ -1,0 +1,39 @@
+# Written by Latouth (latouth@gmail.com) for nginx on July 19th 2017
+# Please note, this config MAY or MAY NOT work depending on php version, where you got php, where php is listening to (socket or port), etc
+# In which case, please contact the NamelessMC Discord team for support.
+server {
+	listen 80;
+	listen [::]:80;
+	
+	# This depends on where you want to install nameless on file. 
+	root /var/www/example.com/public;
+	index index.php;
+
+	server_name ~^(www.)?example.com;
+	
+	# Logging
+	error_log /var/www/example.com/error.log warn;
+	access_log /var/www/example.com/access.log;
+
+	# Larger file upload size & larger script run times
+	client_max_body_size 128M;
+	client_body_timeout 300s;
+	
+	location / {
+		try_files $uri $uri/ /index.php?$args;
+	}
+
+	location ~ \.php$ {
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock; 
+		# This greatly depends on where php fpm is located
+		# It can be /var/run/php5/php-fpm.sock or 127.0.0.1:9000 or others.
+		fastcgi_index index.php;
+		include fastcgi_params;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		include /etc/nginx/fastcgi_params;
+	}
+
+	error_page 404 /404.php;
+	
+}
