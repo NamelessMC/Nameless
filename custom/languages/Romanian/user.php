@@ -173,7 +173,7 @@ $language = array(
 	'message_sent_successfully' => 'Mesaj trimis cu succes.',
 	'participants' => 'Participanți',
 	'last_message' => 'Ultimul mesaj',
-	'by' => 'by',
+	'by' => 'de',
 	'leave_conversation' => 'Părăsește conversația',
 	'confirm_leave' => 'Sunteți sigur că doriți să părăsiți această conversație?',
 	
