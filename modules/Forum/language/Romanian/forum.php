@@ -1,0 +1,165 @@
+<?php 
+/*
+ *	Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr2
+ *
+ *  License: MIT
+ *
+ *  Romanian Language for Forum module
+ *  Translation By @BaxAndrei ( https://baxandrei.ro ) 
+ *  Last Update: 15/07/2017
+ */
+
+$language = array(
+	/*
+	 *  Forums
+	 */ 
+	'forum' => 'Forum',
+	'forums' => 'Forumuri',
+	'forum_index' => 'Acasă',
+	'no_users_online' => 'Nimeni online momentan.',
+	'online_users' => 'Membrii online',
+	'discussion' => 'Discuţie',
+	'topic' => 'Subiect',
+	'stats' => 'Statistici',
+	'topics' => 'subiecte',
+	'views' => 'vizualizari',
+	'posts' => 'mesaje',
+	'by' => 'de',
+	'in' => 'în',
+	'last_reply' => 'Ultimul răspuns',
+	'latest_discussions' => 'Ultimele discuții',
+	'users_registered' => '<strong>Utilizatori înregistrați:</strong> {x}', // Don't replace "{x}"
+	'latest_member' => '<strong>Ultimul membru:</strong> {x}', // Don't replace "{x}"
+	'subforums' => 'Subforumuri',
+	'subforum' => 'Subforum',
+	'no_topics' => 'Nu au fost create încă subiecte.',
+	'no_topics_short' => 'Nu există subiecte.',
+	'new_topic' => 'Subiect nou',
+	'post_successful' => 'Mesajul dvs. a fost publicat cu succes.',
+	'post_edited_successfully' => 'Mesajul dvs. a fost editat cu succes.',
+	'user_tag' => 'Ai fost etichetat într-o postare.',
+	'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace "{x}"
+	'creating_topic_in_x' => 'Creați un subiect în {x}', // Don't replace "{x}"
+	'topic_title' => 'Titlul subiectului',
+	'new_reply' => 'Răspuns nou',
+	're' => 'RE: ',
+	'topic_locked' => 'Subiect blocat',
+	'mod_actions' => 'Moderare',
+	'lock_topic' => 'Blocați subiectul',
+	'unlock_topic' => 'Deblocați subiectul',
+	'merge_topic' => 'Uniți subiectul',
+	'merge_topics' => 'Uniți subiectele',
+	'merge_instructions' => 'Subiectul cu care doriţi să se facă unirea <strong>trebuie</strong> să fie în același forum. Dacă este nevoie, trebuie mutat.',
+	'confirm_delete_short' => 'Confirmă stergerea',
+	'confirm_delete_topic' => 'Sigur doriți să ștergeți acest subiect?',
+	'confirm_delete_post' => 'Sigur doriți să ștergeți această postare?',
+	'delete_topic' => 'Ștergeți subiectul',
+	'move_topic' => 'Mutați subiectul',
+	'move_topic_to' => 'Mutați subiectul în:',
+	'stick_topic' => 'Fixează subiectul',
+	'unstick_topic' => 'Dezactivează evidențierea subiectul',
+	'share' => 'Distribuie',
+	'share_twitter' => 'Distribuiți pe Twitter',
+	'share_facebook' => 'Distribuiți pe Facebook',
+	'edit' => 'Editați',
+	'edit_post' => 'Editați postarea',
+	'last_edited' => 'Ultima editare: {x}', // Don't replace "{x}"
+	'quote' => 'Citat',
+	'topic_locked_notice' => 'Acest subiect este blocat, dar permisiunile dvs. vă permit să adăugați un răspuns.',
+	'title_required' => 'Introduceți un titlu de subiect.',
+	'content_required' => 'Vă rugăm să introduceți conținutul subiectului.',
+	'title_min_2' => 'Titlul subiectului dvs. trebuie să aibă cel puțin 2 caractere.',
+	'title_max_64' => 'Titlul subiectului dvs. nu trebuie să depășească 64 de caractere.',
+	'content_min_2' => 'Conținutul subiectului dvs. trebuie să aibă cel puțin 2 caractere.',
+	'content_max_20480' => 'Conținutul subiectului dvs. nu trebuie să depășească 20480 de caractere.',
+	'post_already_reported' => 'Ați raportat deja această postare!',
+	'quoted_post' => 'Mesaj adăugat la citarea postărilor.',
+	'removed_quoted_post' => 'Mesaj eliminat din citarea postărilor.',
+	'quoting_posts' => 'Se introduc citatele ...',
+	'error_quoting_posts' => 'Ne pare rău, a apărut o eroare la citarea mesajului ales.',
+	'error_rating_post' => 'Ne pare rău, a apărut o eroare la evaluarea postării.',
+	'topic_stuck' => 'Subiectul a fost evidențiat.',
+	'topic_unstuck' => 'Subiectul nu mai este evidențiat.',
+	'spam_wait' => 'Așteptați {x} secunde înainte să încărcați să postați din nou.',
+	'overview' => 'Prezentare generală',
+	'no_label' => 'Fără etichetă',
+	
+	// Homepage
+	'latest_announcements' => 'Cele mai recente articole',
+	'read_full_post' => 'Citiți articolul complet',
+	
+	// Admin tab
+	'labels' => 'Etichete',
+	'new_forum' => '<i class="fa fa-plus-circle"></i> Forum nou',
+	'new_label' => '<i class="fa fa-plus-circle"></i> Etichetă nouă',
+	'new_label_type' => '<i class="fa fa-plus-circle"></i> Tip nou de etichetă',
+	'label_types' => 'Tipuri de etichete',
+	'creating_label' => 'Creați o nouă etichetă',
+	'creating_label_type' => 'Crearea unui nou tip de etichetă',
+	'editing_label' => 'Editing label',
+	'editing_label_type' => 'Editing label type',
+	'label_name' => 'Label Name',
+	'label_type' => 'Label Type',
+	'label_type_name' => 'Label Type Name',
+	'label_type_html' => 'Label Type HTML',
+	'label_type_html_help' => 'The HTML must include {x} as a placeholder for the label name',
+	'label' => 'Label',
+	'label_forums' => 'Label Forums',
+    'label_groups' => 'Label Groups',
+	'no_forums' => 'No forums',
+	'no_labels_defined' => 'No labels have been defined yet.',
+	'no_label_types_defined' => 'No label types have been defined yet.',
+	'label_edit_success' => 'Label successfully edited.',
+	'label_type_edit_success' => 'Label type successfully edited.',
+	'label_creation_success' => 'Label created successfully.',
+	'label_type_creation_success' => 'Label type created successfully.',
+	'label_creation_error' => 'Error creating a label. Please ensure the name is no longer than 32 characters and that you have specified a type.',
+	'label_type_creation_error' => 'Error creating a label type. Please ensure the name is no longer than 32 characters and that the HTML is no longer than 64 characters.',
+	'creating_forum' => 'Creating new forum',
+	'forum_name' => 'Forum Name',
+	'forum_description' => 'Forum Description',
+	'delete_forum' => 'Delete Forum',
+	'move_topics_and_posts_to' => 'Move topics and posts to',
+	'delete_topics_and_posts' => 'Delete topics and posts',
+	'forum_permissions' => 'Forum permissions',
+	'select_a_parent_forum' => 'Select a parent forum',
+	'parent_forum' => 'Parent Forum',
+	'has_no_parent' => 'No parent',
+	'guests' => 'Guests',
+	'group' => 'Group',
+	'can_view_forum' => 'Can view forum?',
+	'can_view_other_topics' => 'Can view other users\' topics?',
+	'can_create_topic' => 'Can create topics?',
+	'can_post_reply' => 'Can create replies?',
+	'can_moderate_forum' => 'Can moderate forum?',
+	'display_topics_as_news' => 'Display topics as news on front page?',
+	'forum_created_successfully' => 'Forum created successfully.',
+	'forum_layout' => 'Forum Layout',
+	'table_view' => 'Table View',
+	'latest_discussions_view' => 'Latest Discussions View',
+	'input_forum_title' => 'Please input a forum title.',
+	'input_forum_description' => 'Please input a forum description.',
+	'forum_name_minimum' => 'The forum name must be a minimum of 2 characters.',
+	'forum_description_minimum' => 'The forum description must be a minimum of 2 characters.',
+	'forum_name_maximum' => 'The forum name must be a maximum of 150 characters.',
+	'forum_description_maximum' => 'The forum description must be a maximum of 255 characters.',
+	'forum_type' => 'Forum type',
+	'forum_type_forum' => 'Forum',
+	'forum_type_category' => 'Category',
+	'invalid_action' => 'Invalid action',
+	'use_reactions' => 'Use Reactions?',
+
+    // Search
+    'forum_search' => 'Forum Search',
+    'search_again_in_x_seconds' => 'Please wait {x} seconds before searching again.',
+    'search_results' => 'Search Results',
+    'new_search' => 'New Search',
+    'invalid_search_query' => 'Please enter a search query between 3 and 128 characters long.',
+    'no_results_found' => 'No results found.',
+	
+	// Profile tab
+	'user_no_posts' => 'This user has not made any forum posts yet.',
+	'latest_posts' => 'Latest Posts'
+);
