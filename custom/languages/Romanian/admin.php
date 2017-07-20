@@ -84,6 +84,7 @@ $language = array(
     'outgoing_email_info' => 'Aceasta este adresa de e-mail pe care NumelessMC o va utiliza pentru a trimite e-mailuri si care se va afișa utilizatorilor.',
     'mailer_settings_info' => 'Următoarele câmpuri sunt necesare dacă ați activat PHPMailer. Pentru mai multe informații despre completarea acestor câmpuri, consultați <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">wiki-ul</a>.',
     'host' => 'Gazdă',
+    'email_port' => 'Port',
     'email_password_hidden' => 'Parola nu este afișată din motive de securitate.',
     'send_test_email' => 'Trimiteți e-mail de încercare (test)',
     'send_test_email_info' => 'Următorul buton va încerca să trimită un e-mail la adresa dvs. de e-mail, <strong>{x}</strong>. Orice erori întâmpinate în timp ce trimiteți e-mailul vor fi afișate.', // Don't replace {x}
@@ -204,7 +205,7 @@ $language = array(
     'confirm_query_error_deletion' => 'Sigur doriți să ștergeți această eroare de interogare?',
     'no_query_errors' => 'Nu s-au înregistrat erori de interogare.',
     'new_banner' => '<i class="fa fa-plus-circle"></i> Adăugare Banner',
-    'purge_errors' => 'Golește erorile',
+    'purge_errors' => 'Gșleste erorile',
     'confirm_purge_errors' => 'Sigur doriți să eliminați toate erorile?',
     'mcassoc_help' => 'Mcassoc este un serviciu extern care poate fi folosit pentru a verifica dacă utilizatorii dețin contul Minecraft la care s-au înregistrat. Pentru a utiliza această funcție, va trebui să vă înscrieți pentru o cheie distribuită <a href="https://mcassoc.lukegb.com/" target="_blank">aici</a>.',
     'mcassoc_key' => 'Cheie partajată mcassoc',
@@ -222,6 +223,7 @@ $language = array(
 	'disable' => 'Dezactivează',
 	'module_enabled' => 'Modulul este activat.',
 	'module_disabled' => 'Modulul este dezactivat.',
+	'author' => 'Autor:',
 
 	// Styles
 	'templates' => 'Template-uri',
@@ -241,6 +243,8 @@ $language = array(
 	'template_deactivated' => 'Șablonul a fost dezactivat.',
 	'template_activated' => 'Șablonul a fost activat.',
 	'permissions' => 'Permisiuni',
+	'setting_perms_for_x' => 'Setați permisiunile pentru șablonul {x}', // Don't replace {x}
+	'templates_installed_successfully' => 'Toate șabloanele noi au fost instalate cu succes.',
 
 	// Users & groups
 	'users' => 'Utilizatori',
