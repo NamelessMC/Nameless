@@ -1532,7 +1532,9 @@ $current_default_language = $current_default_language[0]->value;
 
                                                 $headers = 'From: ' . $siteemail . "\r\n" .
                                                     'Reply-To: ' . $siteemail . "\r\n" .
-                                                    'X-Mailer: PHP/' . phpversion();
+                                                    'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                                                    'MIME-Version: 1.0' . "\r\n" . 
+                                                    'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                                                 $email = array(
                                                     'to' => $to,

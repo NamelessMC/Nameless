@@ -367,7 +367,7 @@ if(Input::exists()){
                       'Reply-To: ' . $siteemail . "\r\n" .
                       'X-Mailer: PHP/' . phpversion() . "\r\n" .
                       'MIME-Version: 1.0' . "\r\n" . 
-                      'Content-type: text/plain; charset=UTF-8' . "\r\n";
+                      'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                   $email = array(
                       'to' => $to,
