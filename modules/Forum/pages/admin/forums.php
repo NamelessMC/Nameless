@@ -1431,7 +1431,7 @@ $admin_page = 'forums';
 						  </div>
 						  <div class="form-group">
 							<label for="label_html"><?php echo $forum_language->get('forum', 'label_type_html'); ?></label> <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $forum_language->get('forum', 'label_type_html_help'); ?>"></i></span><br />
-							<input type="text" name="label_html" placeholder="<span class=&quot;tag tag-primary&quot;>{x}</span>" id="label_type_html" class="form-control">
+							<input type="text" name="label_html" placeholder="<span class=&quot;badge badge-primary&quot;>{x}</span>" id="label_type_html" class="form-control">
 						  </div>
 						  <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 						  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
@@ -1516,7 +1516,7 @@ $admin_page = 'forums';
 							</div>
 							<div class="form-group">
 							  <label for="label_html"><?php echo $forum_language->get('forum', 'label_type_html'); ?></label> <span class="tag tag-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="<?php echo $language->get('general', 'info'); ?>" data-content="<?php echo $forum_language->get('forum', 'label_type_html_help'); ?>"></i></span><br />
-							  <input type="text" name="label_html" placeholder="<span class=&quot;tag tag-primary&quot;>Primary</span>" id="label_html" value="<?php echo Output::getClean($label->html); ?>" class="form-control">
+							  <input type="text" name="label_html" placeholder="<span class=&quot;badge badge-primary&quot;>Primary</span>" id="label_html" value="<?php echo Output::getClean($label->html); ?>" class="form-control">
 							</div>
 							<input type="hidden" name="token" value="<?php echo Token::get(); ?>">
 							<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
