@@ -443,14 +443,14 @@
             // Groups
             $queries->create('groups', array(
                 'name' => 'Member',
-                'group_html' => '<span class="tag tag-success">Member</span>',
-                'group_html_lg' => '<span class="tag tag-success">Member</span>'
+                'group_html' => '<span class="badge badge-success">Member</span>',
+                'group_html_lg' => '<span class="badge badge-success">Member</span>'
             ));
 
             $queries->create('groups', array(
                 'name' => 'Admin',
-                'group_html' => '<span class="tag tag-danger">Admin</span>',
-                'group_html_lg' => '<span class="tag tag-danger">Admin</span>',
+                'group_html' => '<span class="badge badge-danger">Admin</span>',
+                'group_html_lg' => '<span class="badge badge-danger">Admin</span>',
                 'group_username_css' => '#ff0000',
                 'mod_cp' => 1,
                 'admin_cp' => 1
@@ -458,8 +458,8 @@
 
             $queries->create('groups', array(
                 'name' => 'Moderator',
-                'group_html' => '<span class="tag tag-primary">Moderator</span>',
-                'group_html_lg' => '<span class="tag tag-primary">Moderator</span>',
+                'group_html' => '<span class="badge badge-primary">Moderator</span>',
+                'group_html_lg' => '<span class="badge badge-primary">Moderator</span>',
                 'mod_cp' => 1
             ));
 
