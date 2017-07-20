@@ -341,7 +341,10 @@ if(Input::exists()){
 										
 										$headers = 'From: ' . $siteemail . "\r\n" .
 											'Reply-To: ' . $siteemail . "\r\n" .
-											'X-Mailer: PHP/' . phpversion();
+											'X-Mailer: PHP/' . phpversion() . "\r\n" .
+											'MIME-Version: 1.0' . "\r\n" . 
+											'Content-type: text/plain; charset=UTF-8' . "\r\n";
+										
 										mail($to, $subject, $message, $headers);
 									}
 								} else {
