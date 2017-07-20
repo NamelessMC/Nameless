@@ -205,7 +205,7 @@ $language = array(
     'confirm_query_error_deletion' => 'Sigur doriți să ștergeți această eroare de interogare?',
     'no_query_errors' => 'Nu s-au înregistrat erori de interogare.',
     'new_banner' => '<i class="fa fa-plus-circle"></i> Adăugare Banner',
-    'purge_errors' => 'Gșleste erorile',
+    'purge_errors' => 'Golește erorile',
     'confirm_purge_errors' => 'Sigur doriți să eliminați toate erorile?',
     'mcassoc_help' => 'Mcassoc este un serviciu extern care poate fi folosit pentru a verifica dacă utilizatorii dețin contul Minecraft la care s-au înregistrat. Pentru a utiliza această funcție, va trebui să vă înscrieți pentru o cheie distribuită <a href="https://mcassoc.lukegb.com/" target="_blank">aici</a>.',
     'mcassoc_key' => 'Cheie partajată mcassoc',
