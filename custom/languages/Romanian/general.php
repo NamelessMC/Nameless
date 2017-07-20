@@ -17,8 +17,8 @@ $language = array(
 	 */ 
 	'submit' => 'Trimite',
 	'register' => 'Înregistrează-te ',
-	'sign_in' => 'Logați-vă',
-	'log_out' => 'Deconectați-vă',
+	'sign_in' => 'Conectează-te',
+	'log_out' => 'Deconectează-te',
 	'profile' => 'Profil',
 	'invalid_token' => 'Token invalid, încercați din nou.',
 	'close' => 'Închide',
