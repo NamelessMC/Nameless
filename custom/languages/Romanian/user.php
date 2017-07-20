@@ -108,6 +108,7 @@ $language = array(
 	'verify_account_help' => 'Urmați instrucțiunile de mai jos pentru a putea verifica dacă sunteți proprietarul contului Minecraft în cauză.',
 	'verification_failed' => 'Verificare eșuată. Vă rugăm încercați din nou.',
 	'verification_success' => 'Validat cu succes! Acum te poți loga.',
+	'authme_username_exists' => 'Contul dvs. Authme a fost deja conectat la site-ul Web!',
 	
 	// Login
 	'successful_login' => 'V-ați conectat cu succes.',
