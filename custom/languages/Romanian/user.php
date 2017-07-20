@@ -59,6 +59,7 @@ $language = array(
 	'view_alerts' => 'Vizualizați alertele',
 	'x_new_alerts' => 'Aveți {x} alerte noi.', // Don't replace {x}
 	'no_alerts_usercp' => 'Momentan nu aveți alerte.',
+	'new_wall_post' => '{x} a postat pe peretele tău.',
 	
 	// Registraton
 	'registration_check_email' => 'Vă mulțumim pentru înregistrare! Verificați e-mailurile pentru un link de validare pentru a vă completa înregistrarea. Dacă nu reușiți să găsiți e-mailul, verificați dosarul de spam.',
