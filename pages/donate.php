@@ -172,7 +172,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 													<div class="panel-heading">
 													  ' . htmlspecialchars($package->name) . '
 													  <span class="pull-right">
-														' . $currency . htmlspecialchars($package->cost) . '
+														' . (($package->cost > 0) ? $currency . htmlspecialchars($package->cost) : '') . '
 													  </span>
 													</div>
 													<div class="panel-body">
