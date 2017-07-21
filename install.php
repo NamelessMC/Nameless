@@ -29,14 +29,10 @@ ini_set('display_errors', 0);
 date_default_timezone_set('Europe/London');
 
 // Select language
-if(isset($_SESSION['installer_language'])){
-    if(is_file('custom/languages/' . $_SESSION['installer_language'] . '/installer.php')) {
-        require('custom/languages/' . $_SESSION['installer_language'] . '/version.php');
-        require('custom/languages/' . $_SESSION['installer_language'] . '/installer.php');
-    } else {
-        require('custom/languages/EnglishUK/version.php');
-        require('custom/languages/EnglishUK/installer.php');
-    }
+if(isset($_SESSION['installer_language'])
+    && is_file('custom/languages/' . $_SESSION['installer_language'] . '/installer.php')) {
+    require('custom/languages/' . $_SESSION['installer_language'] . '/version.php');
+    require('custom/languages/' . $_SESSION['installer_language'] . '/installer.php');
 } else {
     // Require default language (EnglishUK)
     require('custom/languages/EnglishUK/version.php');
