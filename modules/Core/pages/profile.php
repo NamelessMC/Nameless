@@ -308,7 +308,7 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 		
 		// Get user's group
 		$group = $queries->getWhere('groups', array('id', '=', $query->group_id));
-		$group = $group[0]->group_html;
+		$group = $group[0]->group_html_lg;
 		
 		// Get list of reactions
 		//$reactions = $queries->getWhere('reactions', array('enabled', '=', 1));
