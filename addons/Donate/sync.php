@@ -146,7 +146,7 @@ if($webstore == 'bc'){
 		else $latest_payment = 0;
 		
 		foreach($bc_payments as $item){
-			if($item['date'] < strtotime($item['date'])){
+			if($latest_payment < strtotime($item['date'])){
 				// Input into database
 				$queries->create('donation_cache', array(
 					'time' => strtotime($item['date']),
@@ -483,23 +483,105 @@ if($webstore == 'bc'){
 		}
 	}
 	
+} else if($webstore == 'cs'){
+	// CraftingStore
+	require('integration/craftingstore.php');
+	
+	/*
+	 *  Categories and packages
+	 */
+	
+	$packages = array();
+	
+	$category = $queries->getWhere('donation_categories', array('cid', '=', 1));
+	if(!count($category)){
+		$queries->create('donation_categories', array(
+			'name' => 'Packages',
+			'cid' => 1,
+			'order' => 1
+		));
+	}
+	
+	if(count($cs_packages['result'])){
+		foreach($cs_packages['result'] as $package){
+			$package_exists = $queries->getWhere('donation_packages', array('package_id', '=', $package['id']));
+			if(!count($package_exists)){
+				$queries->create('donation_packages', array(
+					'name' => htmlspecialchars($package['name']),
+					'description' => 'No description available',
+					'cost' => 0,
+					'package_id' => $package['id'],
+					'active' => 1,
+					'package_order' => 1,
+					'category' => 1,
+					'url' => 'none'
+				));
+			} else {
+				// Update package
+				// Only update description if no custom one is set
+				if($package_exists[0]->custom_description == 0){
+					$queries->update('donation_packages', $package_exists[0]->id, array(
+						'name' => htmlspecialchars($package['name']),
+						'description' => 'No description available',
+						'cost' => 0,
+						'package_id' => $package['id'],
+						'active' => 1,
+						'package_order' => 1,
+						'category' => 1,
+						'url' => 'none'
+					));
+				} else {
+					$queries->update('donation_packages', $package_exists[0]->id, array(
+						'name' => htmlspecialchars($package['name']),
+						'cost' => $package['price'],
+						'package_id' => $package['id'],
+						'active' => 1,
+						'package_order' => 1,
+						'category' => 1,
+						'url' => 'none'
+					));
+
+				}
+			}
+			
+			// Add to array containing all packages
+			$packages[] = $package['id'];
+		}
+	}
+	
+	// Delete packages no longer on web store
+	$package_query = $queries->getWhere('donation_packages', array('package_id', '<>', 0));
+	foreach($package_query as $item){
+		if(!in_array($item->package_id, $packages)){
+			$queries->delete('donation_packages', array('package_id', '=', $item->package_id));
+		}
+	}
+
+	/*
+	 *  Latest donors
+	 */
+
+	if(count($cs_donors['result'])){
+		// Get latest payment already stored in cache
+		$latest_payment = $queries->orderWhere('donation_cache', 'id <> 0', 'time', 'DESC');
+		if(count($latest_payment)) $latest_payment = $latest_payment[0]->time;
+		else $latest_payment = 0;
+		
+		foreach($cs_donors['result'] as $item){
+			if($latest_payment < $item['timestamp']){
+				// Input into database
+				$queries->create('donation_cache', array(
+					'time' => $item['timestamp'],
+					'uuid' => 'None',
+					'ign' => htmlspecialchars($item['player_name']),
+					'price' => $item['price'],
+					'package' => $item['package']
+				));
+			}
+		}
+	}
 }
  
 return true;
  
 die('Valid');
-
-if($webstore == "bc"){
-	// Buycraft
-	require('inc/integration/buycraft.php');
-
-
-} else if($webstore == "mm"){
-	// Minecraft Market
-	require('inc/integration/minecraftmarket.php');
-	
-
-}
-
-return "true";
-?>

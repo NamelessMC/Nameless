@@ -35,7 +35,7 @@ if($user->isLoggedIn()){
 <?php if(!isset($_GET['view']) && !isset($_GET['do'])){ ?>  
 <h3>Addon: Donate</h3>
 Author: Samerton<br />
-Version: 1.1.1<br />
+Version: 1.1.2<br />
 Description: Integrate a donation store with your website<br />
 
 <h3>Donation Store</h3>
@@ -93,7 +93,7 @@ if(empty($donation_settings)){
 			
 			$validation = $validate->check($_POST, array(
 				'api_key' => array(
-					'max' => 40
+					'max' => 60
 				)
 			));
 			
@@ -160,6 +160,9 @@ if(empty($donation_settings)){
     </label>
     <label class="btn btn-primary<?php if($donation_settings[0]->value == 'mm'){ ?> active<?php } ?>">
 	  <input type="radio" name="store_type" id="InputStoreType2" value="mm" autocomplete="off"<?php if($donation_settings[0]->value == 'mm'){ ?> checked<?php } ?>> Minecraft Market
+    </label>
+    <label class="btn btn-primary<?php if($donation_settings[0]->value == 'cs'){ ?> active<?php } ?>">
+	  <input type="radio" name="store_type" id="InputStoreType3" value="cs" autocomplete="off"<?php if($donation_settings[0]->value == 'cs'){ ?> checked<?php } ?>> CraftingStore
     </label>
   </div>
   <br /><br />
