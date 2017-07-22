@@ -289,8 +289,10 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 													if($store_type == 'mm'){
 														$package_modals .= '<a href="' . htmlspecialchars($package->url) . '" class="btn btn-primary btn-large">' . $donate_language['agree'] . '</a>';	
 													} else if($store_type == 'mcs'){
-														$package_modals .= '<a href="' . rtrim(htmlspecialchars($store_url), '/') . '/cart/add/' . $package->package_id . '" class="btn btn-primary btn-large">' . $donate_language['agree'] . '</a>';	
-													}
+														$package_modals .= '<a href="' . rtrim(htmlspecialchars($store_url), '/') . '/cart/add/' . $package->package_id . '" class="btn btn-primary btn-large">' . $donate_language['agree'] . '</a>';
+                                                    } else if($store_type == 'cs'){
+                                                        $package_modals .= '<a href="' . htmlspecialchars($package->url) . '" class="btn btn-primary btn-large">' . $donate_language['agree'] . '</a>';
+                                                    }
 													$package_modals .= '</form>
 												  </div>
 												</div>
