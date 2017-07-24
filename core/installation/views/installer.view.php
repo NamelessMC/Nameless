@@ -440,6 +440,37 @@
                 }
             }
 
+            // Forum Labels
+            $queries->create('forums_labels', array(
+                'name' => 'Default',
+                'html' => '<span class="badge badge-default">{x}</span>'
+            ));
+
+            $queries->create('forums_labels', array(
+                'name' => 'Primary',
+                'html' => '<span class="badge badge-primary">{x}</span>'
+            ));
+
+            $queries->create('forums_labels', array(
+                'name' => 'Success',
+                'html' => '<span class="badge badge-success">{x}</span>'
+            ));
+
+            $queries->create('forums_labels', array(
+                'name' => 'Info',
+                'html' => '<span class="badge badge-info">{x}</span>'
+            ));
+
+            $queries->create('forums_labels', array(
+                'name' => 'Warning',
+                'html' => '<span class="badge badge-warning">{x}</span>'
+            ));
+
+            $queries->create('forums_labels', array(
+                'name' => 'Danger',
+                'html' => '<span class="badge badge-danger">{x}</span>'
+            ));
+
             // Groups
             $queries->create('groups', array(
                 'name' => 'Member',
@@ -1918,6 +1949,32 @@
 							'html' => '<i class="fa fa-meh-o text-warning"></i>',
 							'enabled' => 1,
 							'type' => 1
+						));
+
+						// Forum Labels
+						$queries->create('forums_labels', array(
+							'name' => 'Default',
+							'html' => '<span class="badge badge-default">{x}</span>'
+						));
+						$queries->create('forums_labels', array(
+							'name' => 'Primary',
+							'html' => '<span class="badge badge-primary">{x}</span>'
+						));
+						$queries->create('forums_labels', array(
+							'name' => 'Success',
+							'html' => '<span class="badge badge-success">{x}</span>'
+						));
+						$queries->create('forums_labels', array(
+							'name' => 'Info',
+							'html' => '<span class="badge badge-info">{x}</span>'
+						));
+						$queries->create('forums_labels', array(
+							'name' => 'Warning',
+							'html' => '<span class="badge badge-warning">{x}</span>'
+						));
+						$queries->create('forums_labels', array(
+							'name' => 'Danger',
+							'html' => '<span class="badge badge-danger">{x}</span>'
 						));
 
 						// Settings
