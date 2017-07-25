@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -305,6 +305,7 @@ $admin_page = 'users_and_groups';
 						$group = $queries->getWhere("groups", array("id", "=", $_GET["group"]));
 					}
 					if(count($group)){
+					    echo '<span class="pull-right"><a href="' . URL::build('/admin/groups') . '" class="btn btn-danger">'  . $language->get('general', 'back') . '</a></span>';
 						echo '<br /><br /><h4>' . Output::getClean($group[0]->name) . '</h4>';
 						if(isset($error_string)) echo $error_string;
 						?>
