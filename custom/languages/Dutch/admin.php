@@ -327,9 +327,9 @@ $language = array(
 
 	 // Widgets
 	'widgets' => 'Widgets',
-	'widget_enabled' => 'Widget enabled.',
-	'widget_disabled' => 'Widget disabled.',
-	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
+	'widget_enabled' => 'Widget ingeschakeld.',
+	'widget_disabled' => 'Widget uitgeschakeld.',
+	'editing_widget_x' => 'Widget {x} bewerken', // Don't replace {x}
 
 	// Bestand uploads
 	'drag_files_here' => 'Sleep bestand(en) hier naartoe om te uploaden.',
