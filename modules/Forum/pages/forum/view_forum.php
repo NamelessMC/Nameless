@@ -12,7 +12,7 @@
 // Always define page name
 define('PAGE', 'forum');
 
-require('modules/Forum/classes/Forum.php');
+require_once('modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
 $paginator = new Paginator();
