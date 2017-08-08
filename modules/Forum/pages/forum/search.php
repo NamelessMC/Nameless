@@ -9,7 +9,7 @@
  *  Forum search page
  */
 
-require('core/includes/emojione/autoload.php'); // Emojione
+require_once('core/includes/emojione/autoload.php'); // Emojione
 
 define('PAGE', 'forum');
 

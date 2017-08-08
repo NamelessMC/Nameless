@@ -67,3 +67,104 @@ $front_page_modules[] = 'modules/Forum/front_page.php';
 // Profile page tab
 if(!isset($profile_tabs)) $profile_tabs = array();
 $profile_tabs['forum'] = array('title' => $forum_language->get('forum', 'forum'), 'smarty_template' => 'forum/profile_tab.tpl', 'require' => 'modules' . DIRECTORY_SEPARATOR . 'Forum' . DIRECTORY_SEPARATOR . 'profile_tab.php');
+
+// Widgets
+// Latest posts
+require_once('modules/Forum/widgets/LatestPostsWidget.php');
+$module_pages = $widgets->getPages('Latest Posts');
+
+require_once('modules/Forum/classes/Forum.php');
+$forum = new Forum();
+$timeago = new Timeago(TIMEZONE);
+
+if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group = null;
+
+if($user_group){
+    $cache_name = 'forum_discussions_' . $user_group;
+} else {
+    $cache_name = 'forum_discussions_guest';
+}
+
+$cache->setCache($cache_name);
+
+if($cache->isCached('latest_posts')){
+    $template_array = $cache->retrieve('latest_posts');
+
+} else {
+    // Generate latest posts
+    $discussions = $forum->getLatestDiscussions($user_group);
+
+    $n = 0;
+    // Calculate the number of discussions to display (5 max)
+    if(count($discussions) <= 5){
+        $limit = count($discussions);
+    } else {
+        $limit = 5;
+    }
+
+    $template_array = array();
+
+    // Generate an array to pass to template
+    while($n < $limit){
+        // Get the name of the forum from the ID
+        $forum_name = $queries->getWhere('forums', array('id', '=', $discussions[$n]['forum_id']));
+        $forum_name = Output::getPurified(htmlspecialchars_decode($forum_name[0]->forum_title));
+
+        // Get the number of replies
+        $posts = $queries->getWhere('posts', array('topic_id', '=', $discussions[$n]['id']));
+        $posts = count($posts);
+
+        // Get the last reply user's avatar
+        $last_reply_avatar = $user->getAvatar($discussions[$n]['topic_last_user'], "../", 64);
+
+        // Is there a label?
+        if($discussions[$n]['label'] != 0){ // yes
+            // Get label
+            $label = $queries->getWhere('forums_topic_labels', array('id', '=', $discussions[$n]['label']));
+            if(count($label)){
+                $label = $label[0];
+
+                $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+                if(count($label_html)){
+                    $label_html = $label_html[0]->html;
+                    $label = str_replace('{x}', Output::getClean($label->name), $label_html);
+                } else $label = '';
+            } else $label = '';
+        } else { // no
+            $label = '';
+        }
+
+        // Add to array
+        $template_array[] = array(
+            'topic_title' => Output::getClean($discussions[$n]['topic_title']),
+            'topic_id' => $discussions[$n]['id'],
+            'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $discussions[$n]['topic_date']), $language->getTimeLanguage()),
+            'topic_created' => date('d M Y, H:i', $discussions[$n]['topic_date']),
+            'topic_created_username' => Output::getClean($user->idToNickname($discussions[$n]['topic_creator'])),
+            'topic_created_mcname' => Output::getClean($user->idToName($discussions[$n]['topic_creator'])),
+            'topic_created_style' => $user->getGroupClass($discussions[$n]['topic_creator']),
+            'locked' => $discussions[$n]['locked'],
+            'forum_name' => $forum_name,
+            'forum_id' => $discussions[$n]['forum_id'],
+            'views' => $discussions[$n]['topic_views'],
+            'posts' => $posts,
+            'last_reply_avatar' => $last_reply_avatar,
+            'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $discussions[$n]['topic_reply_date']), $language->getTimeLanguage()),
+            'last_reply' => date('d M Y, H:i', $discussions[$n]['topic_reply_date']),
+            'last_reply_username' => Output::getClean($user->idToNickname($discussions[$n]['topic_last_user'])),
+            'last_reply_mcname' => Output::getClean($user->idToName($discussions[$n]['topic_last_user'])),
+            'last_reply_style' => $user->getGroupClass($discussions[$n]['topic_last_user']),
+            'label' => $label,
+            'link' => URL::build('/forum/view_topic/', 'tid=' . $discussions[$n]['id']),
+            'forum_link' => URL::build('/forum/view_forum/', 'fid=' . $discussions[$n]['forum_id']),
+            'author_link' => URL::build('/profile/' . Output::getClean($user->idToName($discussions[$n]['topic_creator']))),
+            'last_reply_profile_link' => URL::build('/profile/' . Output::getClean($user->idToName($discussions[$n]['topic_last_user']))),
+            'last_reply_link' => URL::build('/forum/view_topic/', 'tid=' . $discussions[$n]['id'] . '&amp;pid=' . $discussions[$n]['last_post_id'])
+        );
+
+        $n++;
+    }
+
+    $cache->store('latest_posts_widget_' . ($user->isLoggedIn() ? $user->data()->group_id : 0), $template_array, 60);
+}
+$widgets->add(new LatestPostsWidget($module_pages, $template_array, $forum_language->get('forum', 'latest_posts'), $forum_language->get('forum', 'by'), $smarty));

@@ -144,7 +144,11 @@ class Forum {
 				// Get a list of discussions
 				$discussions_query = $this->_db->orderWhere("topics", "forum_id = " . $forum->forum_id . " AND deleted = 0", "topic_reply_date", "DESC")->results();
 				foreach($discussions_query as $discussion){
-					$return[] = (array) $discussion;
+				    // Get latest post data
+                    $last_post = $this->_db->orderWhere('posts', 'topic_id = ' . $discussion->id . ' AND deleted = 0', 'post_date', 'DESC LIMIT 1')->results();
+                    $discussion = (array) $discussion;
+                    $discussion['last_post_id'] = $last_post[0]->id;
+					$return[] = $discussion;
 				}
 			}
 		}

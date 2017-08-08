@@ -9,7 +9,7 @@
  *  Forum index page
  */
 
-require('modules/Forum/classes/Forum.php');
+require_once('modules/Forum/classes/Forum.php');
  
 // Always define page name
 define('PAGE', 'forum');

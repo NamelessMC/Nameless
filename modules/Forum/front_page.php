@@ -9,7 +9,7 @@
  *  Forum module - front page module
  */
 
-require('modules/Forum/classes/Forum.php');
+require_once('modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $timeago = new Timeago();
 $latest_news = $forum->getLatestNews(5); // Get latest 5 items

@@ -9,18 +9,7 @@
  *  React to a post
  */
 
-// Maintenance mode?
-// Todo: cache this
-$maintenance_mode = $queries->getWhere('settings', array('name', '=', 'maintenance'));
-if($maintenance_mode[0]->value == 'true'){
-	// Maintenance mode is enabled, only admins can view
-	if(!$user->isLoggedIn() || !$user->canViewACP($user->data()->id)){
-		require('modules/Forum/pages/forum/maintenance.php');
-		die();
-	}
-}
-
-require('modules/Forum/classes/Forum.php');
+require_once('modules/Forum/classes/Forum.php');
 $forum = new Forum();
 
 // User must be logged in to proceed
