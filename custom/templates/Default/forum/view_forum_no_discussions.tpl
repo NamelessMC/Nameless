@@ -81,6 +81,14 @@
 			  
 			</div>
 		  </div>
+
+		  {if count($WIDGETS)}
+		    <br />
+		    {foreach from=$WIDGETS item=widget}
+		      {$widget}
+		      <br /><br />
+		    {/foreach}
+		  {/if}
 		</div>
 	  </div>
 	</div>

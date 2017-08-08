@@ -63,12 +63,11 @@
 	  
 	    <center><h2>{$SOCIAL} <i class="fa fa-users" aria-hidden="true"></i></h2></center>
 	    <hr />
-		{if $TWITTER}
-	    <div class="card">
-		  <div class="card-block">
-	        {$TWITTER}
-		  </div>
-		</div>
+		{if count($WIDGETS)}
+		  {foreach from=$WIDGETS item=widget}
+			{$widget}
+			<br /><br />
+		  {/foreach}
 		{/if}
 	    
 	  </div>

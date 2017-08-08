@@ -325,6 +325,12 @@ $language = array(
 	'install' => 'Install',
 	'install_confirm' => 'Please ensure you have downloaded the package and uploaded the contained files first!',
 
+	// Widgets
+	'widgets' => 'Widgets',
+	'widget_enabled' => 'Widget enabled.',
+	'widget_disabled' => 'Widget disabled.',
+	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
+
 	// File uploads
 	'drag_files_here' => 'Drag files here to upload.',
 	'invalid_file_type' => 'Invalid file type!',

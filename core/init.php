@@ -316,6 +316,9 @@ if($page != 'install'){
     // Add homepage to navbar
     $navigation->add('index', $language->get('general', 'home'), URL::build('/'));
 
+    // Widgets
+    $widgets = new Widgets($cache);
+
     // Modules
     $cache->setCache('modulescache');
     $enabled_modules = $cache->retrieve('enabled_modules');

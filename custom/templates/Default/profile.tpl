@@ -32,6 +32,10 @@
 	</div>
   </div>
 
+  {if !empty($WIDGETS)}
+  <div class="row">
+    <div class="col-md-8">
+  {/if}
   <div class="card">
     <div class="card-block">
 	  <ul class="nav nav-tabs">
@@ -226,6 +230,15 @@
 	  </div>
     </div>
   </div>
+  {if !empty($WIDGETS)}
+  </div>
+  <div class="col-md-4">
+  {foreach from=$WIDGETS item=widget}
+    {$widget}<br /><br />
+  {/foreach}
+  </div>
+  </div>
+  {/if}
 </div>
 
 {if isset($LOGGED_IN)}

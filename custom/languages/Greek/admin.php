@@ -327,6 +327,12 @@ $language = array(
 	'install' => 'Εγκατάσταση',
 	'install_confirm' => 'Παρακαλούμε βεβαιωθείτε ότι έχετε κατεβάσει το πακέτο και να έχετε ανεβάσει τα αρχεία πρώτα!',
 
+	// Widgets
+	'widgets' => 'Widgets',
+	'widget_enabled' => 'Widget enabled.',
+	'widget_disabled' => 'Widget disabled.',
+	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
+
 	// File uploads
 	'drag_files_here' => 'Σύρετε αρχεία εδώ για μεταφόρτωση.',
 	'invalid_file_type' => 'Μη έγκυρος τύπος αρχείου!',

@@ -326,6 +326,12 @@ $language = array(
 	'install' => 'Instalar',
 	'install_confirm' => 'Certifique-se de que transferiu o pacote e carregou os ficheiros contidos em primeiro lugar!',
 
+	// Widgets
+	'widgets' => 'Widgets',
+	'widget_enabled' => 'Widget enabled.',
+	'widget_disabled' => 'Widget disabled.',
+	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
+
 	// File uploads
 	'drag_files_here' => 'Arraste arquivos aqui para fazer o upload.',
 	'invalid_file_type' => 'Tipo de arquivo inválido!',

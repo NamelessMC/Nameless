@@ -32,7 +32,7 @@ $forum_language = new Language(ROOT_PATH . '/modules/Forum/language', LANGUAGE);
 
 // Define URLs which belong to this module
 $pages->add('Forum', '/admin/forums', 'pages/admin/forums.php');
-$pages->add('Forum', '/forum', 'pages/forum/index.php');
+$pages->add('Forum', '/forum', 'pages/forum/index.php', 'forum', true);
 $pages->add('Forum', '/forum/error', 'pages/forum/error.php');
 $pages->add('Forum', '/forum/view_forum', 'pages/forum/view_forum.php');
 $pages->add('Forum', '/forum/view_topic', 'pages/forum/view_topic.php');

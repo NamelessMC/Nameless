@@ -21,6 +21,9 @@ if(defined('PAGE') && PAGE != 'login'){
 	} else
 		$_SESSION['last_page'] = $directory;
 }
+
+// Add widgets to Smarty
+$smarty->assign('WIDGETS', $widgets->getWidgets());
 ?>
 
 	<!-- Page Title -->

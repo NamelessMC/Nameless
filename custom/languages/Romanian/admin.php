@@ -325,6 +325,12 @@ $language = array(
 	'download' => '<i class="fa fa-arrow-circle-down" aria-hidden="true"></i> Descarcă',
 	'install_confirm' => 'Asigurați-vă că ați descărcat pachetul și ați încărcat mai întâi fișierele conținute!',
 
+	// Widgets
+	'widgets' => 'Widgets',
+	'widget_enabled' => 'Widget enabled.',
+	'widget_disabled' => 'Widget disabled.',
+	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
+
 	// File uploads
 	'drag_files_here' => 'Trageți fișierele aici pentru a le încărca.',
 	'invalid_file_type' => 'Tip de fișier nevalid!',
