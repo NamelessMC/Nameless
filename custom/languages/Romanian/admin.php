@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 15/07/2017
+ *  Last Update: 08/08/2017
  */
 
 $language = array(
@@ -326,10 +326,10 @@ $language = array(
 	'install_confirm' => 'Asigurați-vă că ați descărcat pachetul și ați încărcat mai întâi fișierele conținute!',
 
 	// Widgets
-	'widgets' => 'Widgets',
-	'widget_enabled' => 'Widget enabled.',
-	'widget_disabled' => 'Widget disabled.',
-	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
+	'widgets' => 'Piese',
+	'widget_enabled' => 'Piesă activată.',
+	'widget_disabled' => 'Piesă dezactivată .',
+	'editing_widget_x' => 'Modificare piesă: {x}', // Don't replace {x}
 
 	// File uploads
 	'drag_files_here' => 'Trageți fișierele aici pentru a le încărca.',
