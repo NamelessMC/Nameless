@@ -333,6 +333,12 @@ $language = array(
 	'install' => 'Installieren',
 	'install_confirm' => 'Sei sicher dass du die Dateien zuerst hochgeladen hast!',
 
+	// Widgets
+	'widgets' => 'Widgets',
+	'widget_enabled' => 'Widget enabled.',
+	'widget_disabled' => 'Widget disabled.',
+	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
+
 	// File uploads
 	'drag_files_here' => 'Ziehe ein Bild hierhin.',
 	'invalid_file_type' => 'Ungültiges Dateiformat!',

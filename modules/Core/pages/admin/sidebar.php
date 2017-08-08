@@ -36,6 +36,9 @@
 				<li class="nav-item">
 				  <a class="nav-link<?php if(isset($admin_page) && $admin_page == 'users_and_groups') echo ' active'; ?>" href="<?php echo URL::build('/admin/users'); ?>"><?php echo $language->get('admin', 'users_and_groups'); ?></a>
 				</li>
+				<li class="nav-item">
+				  <a class="nav-link<?php if(isset($admin_page) && $admin_page == 'widgets') echo ' active'; ?>" href="<?php echo URL::build('/admin/widgets'); ?>"><?php echo $language->get('admin', 'widgets'); ?></a>
+				</li>
 				
 				<?php if(isset($admin_sidebar) && count($admin_sidebar)){ ?>
 				<hr />

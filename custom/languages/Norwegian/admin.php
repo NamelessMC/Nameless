@@ -295,14 +295,15 @@ $language = array(
 	'disable_night_mode' => 'Deaktiver nattmodus',
 	'view_site' => 'Vis side',
 	'signed_in_as_x' => 'Logget inn som {x}', // Don't replace {x}
-    	'warning' => 'Advarsel',
+	'warning' => 'Advarsel',
 
-    	// Maintenance
-    	'maintenance_mode' => 'Vedlikeholdsmodus',
-    	'maintenance_enabled' => 'Vedlikeholdsmodus er aktivert.',
-    	'enable_maintenance_mode' => 'Aktiver vedlikeholdsmodus??',
-    	'maintenance_mode_message' => 'Vedlikeholdsmelding',
-    	'maintenance_message_max_1024' => 'Pass på at vedlikeholdsmeldingen er maks 1024 tegn',
+	// Maintenance
+	'maintenance_mode' => 'Vedlikeholdsmodus',
+	'maintenance_enabled' => 'Vedlikeholdsmodus er aktivert.',
+	'enable_maintenance_mode' => 'Aktiver vedlikeholdsmodus??',
+	'maintenance_mode_message' => 'Vedlikeholdsmelding',
+	'maintenance_message_max_1024' => 'Pass på at vedlikeholdsmeldingen er maks 1024 tegn',
+
 	// Security
 	'acp_logins' => 'AdminCP Logg inns',
 	'please_select_logs' => 'Velg logs du vil vise.',
@@ -323,6 +324,12 @@ $language = array(
 	'download' => 'Last ned',
 	'install' => 'Installer',
 	'install_confirm' => 'Pass på at du har lastet opp filene først!',
+
+	// Widgets
+	'widgets' => 'Widgets',
+	'widget_enabled' => 'Widget enabled.',
+	'widget_disabled' => 'Widget disabled.',
+	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
 
 	// File uploads
 	'drag_files_here' => 'Dra filene hit for å laste opp.',

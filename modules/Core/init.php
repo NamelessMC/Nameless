@@ -24,7 +24,7 @@ if(!$module_installed){
 // Define URLs which belong to this module
 $pages->add('Core', '/', 'pages/index.php');
 $pages->add('Core', '/contact', 'pages/contact.php');
-$pages->add('Core', '/home', 'pages/home.php');
+$pages->add('Core', '/home', 'pages/home.php', 'index', true);
 $pages->add('Core', '/admin', 'pages/admin/index.php');
 $pages->add('Core', '/admin/auth', 'pages/admin/auth.php');
 $pages->add('Core', '/admin/core', 'pages/admin/core.php');
@@ -42,6 +42,7 @@ $pages->add('Core', '/admin/update_uuids', 'pages/admin/update_uuids.php');
 $pages->add('Core', '/admin/update_mcnames', 'pages/admin/update_mcnames.php');
 $pages->add('Core', '/admin/reset_password', 'pages/admin/reset_password.php');
 $pages->add('Core', '/admin/night_mode', 'pages/admin/night_mode.php');
+$pages->add('Core', '/admin/widgets', 'pages/admin/widgets.php');
 $pages->add('Core', '/user', 'pages/user/index.php');
 $pages->add('Core', '/user/settings', 'pages/user/settings.php');
 $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
@@ -52,7 +53,7 @@ $pages->add('Core', '/mod/reports', 'pages/mod/reports.php');
 $pages->add('Core', '/mod/ip_lookup', 'pages/mod/ip_lookup.php');
 $pages->add('Core', '/login', 'pages/login.php');
 $pages->add('Core', '/logout', 'pages/logout.php');
-$pages->add('Core', '/profile', 'pages/profile.php');
+$pages->add('Core', '/profile', 'pages/profile.php', 'profile', true);
 $pages->add('Core', '/register', 'pages/register.php');
 $pages->add('Core', '/validate', 'pages/validate.php');
 $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
@@ -60,3 +61,26 @@ $pages->add('Core', '/queries/pms', 'queries/pms.php');
 $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
 $pages->add('Core', '/terms', 'pages/terms.php');
 $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
+
+// Widgets
+// Facebook
+require_once('modules/Core/widgets/FacebookWidget.php');
+$cache->setCache('social_media');
+$fb_url = $cache->retrieve('facebook');
+if($fb_url){
+    // Active pages
+    $module_pages = $widgets->getPages('Facebook');
+
+    $widgets->add(new FacebookWidget($module_pages, $fb_url));
+}
+
+// Twitter
+require_once('modules/Core/widgets/TwitterWidget.php');
+$twitter = $cache->retrieve('twitter');
+
+if($twitter){
+    $theme = $cache->retrieve('twitter_theme');
+    $module_pages = $widgets->getPages('Twitter');
+
+    $widgets->add(new TwitterWidget($module_pages, $twitter, $theme));
+}

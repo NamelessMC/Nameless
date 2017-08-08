@@ -44,21 +44,8 @@ define('PAGE', 'index');
 		}
 	}
 	
-	// Twitter feed?
-	$cache->setCache('social_media');
-	$twitter = $cache->retrieve('twitter');
-	
-	if($twitter){
-		$theme = $cache->retrieve('twitter_theme');
-		
-		$twitter = '<a class="twitter-timeline" ' . (($theme == 'dark') ? 'data-theme="dark" ' : '') . ' data-height="600" href="' . Output::getClean($twitter) . '">Tweets</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
-	}
-	
 	// Assign to Smarty variables
-	$smarty->assign(array(
-		'SOCIAL' => $language->get('general', 'social'),
-		'TWITTER' => (isset($twitter) ? $twitter : false)
-	));
+	$smarty->assign('SOCIAL', $language->get('general', 'social'));
 	
 	// Display template
 	$smarty->display('custom/templates/' . TEMPLATE . '/index.tpl');

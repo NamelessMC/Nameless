@@ -324,7 +324,13 @@ $language = array(
 	'download' => 'Stáhnout',
 	'install' => 'Instalovat',
 	'install_confirm' => 'Ujistěte se prosím, že jste stáhl balíček a nejprve jste nahrál obsažené soubory!',
-	
+
+	// Widgets
+	'widgets' => 'Widgets',
+	'widget_enabled' => 'Widget enabled.',
+	'widget_disabled' => 'Widget disabled.',
+	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
+
 	// File uploads
 	'drag_files_here' => 'Soubory přetáhněte sem pro nahrání.',
 	'invalid_file_type' => 'Špatný formát souboru!',

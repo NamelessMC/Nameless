@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -22,10 +22,14 @@ class Pages {
 	// Params:  $module (string)	- module which the page belongs to
 	// 			$url (string) 		- contains URL string
 	//			$file (string)		- contains path (from module folder) to page file
-	public function add($module, $url, $file){	
+    //          $name (string)      - contains name of page (optional)
+    //          $widgets (boolean)  - can widgets be used on the page? Default false
+	public function add($module, $url, $file, $name = '', $widgets = false){
 		$this->_pages[$url] = array(
 			'module' => $module, 
-			'file' => $file
+			'file' => $file,
+            'name' => $name,
+            'widgets' => $widgets
 		);
 	}
 
@@ -34,5 +38,16 @@ class Pages {
 	public function returnPages(){
 		return $this->_pages;
 	}
+
+	// Return pages which allow widgets
+    // No params
+    public function returnWidgetPages(){
+	    $ret = array();
+	    foreach($this->_pages as $page)
+	        if(!empty($page['name']) && $page['widgets'] === true)
+	            $ret[$page['module']][$page['name']] = true;
+
+        return $ret;
+    }
 	
 }
