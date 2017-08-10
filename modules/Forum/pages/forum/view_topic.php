@@ -201,6 +201,11 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 		$queries->increment("topics", $tid, "topic_views");
 		Cookie::put("nl-topic-" . $tid, "true", 3600);
 	}
+} else {
+	if(!Session::exists('nl-topic-' . $tid)){
+		$queries->increment("topics", $tid, "topic_views");
+		Session::put("nl-topic-" . $tid, "true");
+	}
 }
 ?>
 
