@@ -59,7 +59,7 @@ Upcoming addons (these will need to be downloaded separately):
 * [Issue Tracker](https://github.com/NamelessMC/Nameless/issues)
 * [Support](http://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
 * [Download](https://github.com/NamelessMC/Nameless/releases) 
-* [Plugin Download](https://ci.namelessmc.com/jenkins/job/Nameless-Plugin/)
+* [Plugin Download](https://www.spigotmc.org/resources/official-namelessplugin.42698/)
 
 # Full Staff list:
 **Project**
