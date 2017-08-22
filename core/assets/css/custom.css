@@ -498,53 +498,53 @@ a {
 	overflow-x: hidden;
   }
 }
-/* Bootstrap nav list from 2.3.2 */
-.nav-header {
+/* Bootstrap nav list from 2.3.2, modified for NamelessMC */
+.nl-nav {
+	list-style: none;
+}
+.nl-nav-header {
   display: block;
   padding: 3px 15px;
   font-size: 11px;
   font-weight: bold;
   line-height: 1.5;
-  color: #000;
+  color: #999999;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
 }
-.nav li + .nav-header {
+.nl-nav li + .nl-nav-header {
   margin-top: 9px;
 }
-.nav-list {
+.nl-nav-list {
   padding-left: 15px;
   padding-right: 15px;
   margin-bottom: 0;
 }
-.nav-list > li > a,
-.nav-list .nav-header {
+.nl-nav-list > li > a,
+.nl-nav-list .nl-nav-header {
   margin-left: -15px;
   margin-right: -15px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
-.nav-list > li > a {
+.nl-nav-list > li > a {
   padding: 3px 15px;
 }
-.nav-list > .active > a,
-.nav-list > .active > a:hover,
-.nav-list > .active > a:focus {
+.nl-nav-list > .active > a,
+.nl-nav-list > .active > a:hover,
+.nl-nav-list > .active > a:focus {
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
   background-color: #428bca;
 }
-.nav-list [class^="icon-"],
-.nav-list [class*=" icon-"] {
+.nl-nav-list [class^="icon-"],
+.nl-nav-list [class*=" icon-"] {
   margin-right: 2px;
 }
-.nav-list .divider {
+.nl-nav-list .divider {
   height: 1px;
   margin: 9px 0;
   overflow: hidden;
   background-color: #e5e5e5;
-}
-.nav-inline .nav-link {
- line-height: 50px;
 }
 
 .forum_post {
