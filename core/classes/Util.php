@@ -184,4 +184,40 @@ class Util {
 		return false;
 	}
 	
+	// Get a Minecraft avatar from a UUID
+	public static function getAvatarFromUUID($uuid, $size = 128){
+		if(defined('DEFAULT_AVATAR_SOURCE')){
+			if(defined('DEFAULT_AVATAR_PERSPECTIVE'))
+				$perspective = DEFAULT_AVATAR_PERSPECTIVE;
+			else
+				$perspective = 'face';
+
+			switch(DEFAULT_AVATAR_SOURCE){
+				case 'crafatar':
+					if($perspective == 'face')
+						return 'https://crafatar.com/avatars/' . $uuid . '?size=' . $size . '&amp;overlay';
+					else
+						return 'https://crafatar.com/renders/head/' . $uuid . '?overlay';
+					break;
+				case 'nameless':
+					// Only supports face currently
+					if(defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
+						return URL::build('/avatar/' . Output::getClean($uuid));
+					else
+						return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($uuid);
+					break;
+				case 'cravatar':
+				default:
+					if($perspective == 'face')
+						return 'https://cravatar.eu/helmavatar/' . $uuid . '/' . $size . '.png';
+					else
+						return 'https://cravatar.eu/helmhead/' . $uuid . '/' . $size . '.png';
+					break;
+			}
+		} else {
+			// Fall back to cravatar
+			return 'https://cravatar.eu/helmavatar/' . $uuid . '/' . $size . '.png';
+		}
+	}
+	
 }
