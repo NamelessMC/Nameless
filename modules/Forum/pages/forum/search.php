@@ -21,7 +21,17 @@ $paginator = new Paginator();
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get user group ID
-if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group = 0;
+if($user->isLoggedIn()){
+    $user_group = $user->data()->group_id;
+    $secondary_groups = $user->data()->secondary_groups;
+    $secondary_groups_array = json_decode($secondary_groups, true);
+    if(is_null($secondary_groups_array))
+        $secondary_groups_array = array();
+} else {
+    $user_group = 0;
+    $secondary_groups = null;
+    $secondary_groups_array = array();
+}
 
 if(!isset($_GET['s'])){
     if(Input::exists()){
@@ -61,7 +71,7 @@ if(!isset($_GET['s'])){
         die();
     }
 
-    $cache->setCache($search . '-' . $user_group);
+    $cache->setCache($search . '-' . $user_group . '-' . $secondary_groups);
     if(!$cache->isCached('result')){
         // Execute search
         $search_topics = $queries->getLike('topics', 'topic_title', '%' . $search . '%');
@@ -74,7 +84,7 @@ if(!isset($_GET['s'])){
             // Check permissions
             $perms = $queries->getWhere('forums_permissions', array('forum_id', '=', $result->forum_id));
             foreach($perms as $perm){
-                if($perm->group_id == $user_group && $perm->view == 1){
+                if(($perm->group_id == $user_group || in_array($perm->group_id, $secondary_groups_array)) && $perm->view == 1){
                     if(isset($result->topic_id)){
                         // Post
                         if(!isset($results[$result->id]) && $result->deleted == 0){

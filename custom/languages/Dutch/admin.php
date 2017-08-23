@@ -288,6 +288,8 @@ $language = array(
 	'delete_group' => 'Verwijder groep',
 	'confirm_group_deletion' => 'Weet je zeker dat je de groep {x} wilt verwijderen?', // Verander "{x}" niet
 	'group_not_exist' => 'Die groep bestaat niet.',
+	'secondary_groups' => 'Secondary Groups',
+	'secondary_groups_info' => 'The user will gain any additional permissions from these groups',
 
 	// Algemene admin taal
 	'task_successful' => 'Taak succesvol.',

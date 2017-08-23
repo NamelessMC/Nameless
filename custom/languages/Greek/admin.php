@@ -289,6 +289,8 @@ $language = array(
 	'delete_group' => 'Διαγραφή ομάδας',
 	'confirm_group_deletion' => 'Είστε σίγουροι ότι θέλετε να διαγράψετε την ομάδα {x}?', // Don't replace {x}
 	'group_not_exist' => 'Αυτή η ομάδα δεν υπάρχει.',
+	'secondary_groups' => 'Secondary Groups',
+	'secondary_groups_info' => 'The user will gain any additional permissions from these groups',
 
 	// General Admin language
 	'task_successful' => 'Task successful.',

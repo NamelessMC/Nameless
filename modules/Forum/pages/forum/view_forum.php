@@ -37,10 +37,16 @@ if(!is_numeric($fid[0])){
 $fid = $fid[0];
 
 // Get user group ID
-if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group = null;
+if($user->isLoggedIn()) {
+    $user_group = $user->data()->group_id;
+    $secondary_groups = $user->data()->secondary_groups;
+} else {
+    $user_group = null;
+    $secondary_groups = null;
+}
 
 // Does the forum exist, and can the user view it?
-$list = $forum->forumExist($fid, $user_group);
+$list = $forum->forumExist($fid, $user_group, $secondary_groups);
 if(!$list){
 	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 	die();
@@ -189,7 +195,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			$latest_post = $queries->orderWhere('topics', 'forum_id = ' . $subforum->id . ' AND deleted = 0', 'topic_reply_date', 'DESC');
 			$subforum_topics = count($latest_post);
 			
-			if($forum->forumExist($subforum->id, $user_group)){
+			if($forum->forumExist($subforum->id, $user_group, $secondary_groups)){
 				if(count($latest_post)){
 					foreach($latest_post as $item){
 						if($item->deleted == 0){
@@ -249,7 +255,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 	$smarty->assign('FORUM_TITLE', Output::getPurified(htmlspecialchars_decode($forum_query->forum_title)));
 	
 	// Can the user post here?
-	if($user->isLoggedIn() && $forum->canPostTopic($fid, $user_group)){ 
+	if($user->isLoggedIn() && $forum->canPostTopic($fid, $user_group, $secondary_groups)){
 		$smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . $fid));
 	} else {
 		$smarty->assign('NEW_TOPIC_BUTTON', false);
@@ -262,7 +268,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 		// No topics yet
 		$smarty->assign('NO_TOPICS_FULL', $forum_language->get('forum', 'no_topics'));
 		
-		if($user->isLoggedIn() && $forum->canPostTopic($fid, $user_group)){ 
+		if($user->isLoggedIn() && $forum->canPostTopic($fid, $user_group, $secondary_groups)){
 			$smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . $fid));
 		} else {
 			$smarty->assign('NEW_TOPIC_BUTTON', false);

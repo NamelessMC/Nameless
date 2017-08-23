@@ -64,7 +64,9 @@
 			  <br /><br />
 			  <strong><a style="{$reply.user_style}" href="{$reply.profile}">{$reply.username}</a></strong>
 			  <br />
-			  {$reply.user_group}
+			  {foreach from=$reply.user_groups item=group}
+			    {$group}<br />
+			  {/foreach}
 			  {if $reply.user_title}
 			    <br />
 			    <small>{$reply.user_title}</small>

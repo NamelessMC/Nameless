@@ -284,6 +284,46 @@ class User {
 		}
 	}
 
+	// Get all of a user's groups from their ID. We can return their ID only or their HTML display code
+    public function getAllGroups($id, $html = null) {
+        $groups = array();
+
+        $data = $this->_db->get('users', array('id', '=', $id));
+        if($data->count()){
+            $results = $data->results();
+
+            if(is_null($html)){
+                $groups[] = $results[0]->group_id;
+            } else {
+                $group = $this->_db->get('groups', array('id', '=', $results[0]->group_id));
+                if($group->count()){
+                    $group = $group->results();
+                    $groups[] = $group[0]->group_html;
+                }
+            }
+
+            $secondary = $results[0]->secondary_groups;
+            if($secondary){
+                $secondary = json_decode($secondary, true);
+                if(count($secondary)){
+                    foreach($secondary as $item){
+                        if(is_null($html)){
+                            $groups[] = $item;
+                        } else {
+                            $group = $this->_db->get('groups', array('id', '=', $item));
+                            if($group->count()){
+                                $group = $group->results();
+                                $groups[] = $group[0]->group_html;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $groups;
+    }
+
 	// Get a user's signature, by user ID
 	public function getSignature($id) {
 		$data = $this->_db->get('users', array('id', '=', $id));
@@ -599,17 +639,32 @@ class User {
 
 	// Can the specified user view the AdminCP?
 	public function canViewACP(){
-		if($this->isLoggedIn()){
-			// Get whether the user can view the AdminCP from the groups table
-			$data = $this->_db->get('groups', array('id', '=', $this->data()->group_id));
-			if($data->count()){
-				$data = $data->results();
-				if($data[0]->admin_cp == 1){
-					// Can view
-					return true;
-				}
-			}
-		}
+        // Get whether the user can view the AdminCP from the groups table
+        $data = $this->_db->get('groups', array('id', '=', $this->data()->group_id));
+        if($data->count()){
+            $data = $data->results();
+            if($data[0]->admin_cp == 1){
+                // Can view
+                return true;
+            } else {
+                // Check secondary groups
+                if(!is_null($this->data()->secondary_groups)){
+                    $secondary = json_decode($this->data()->secondary_groups, true);
+                    if(count($secondary)){
+                        foreach($secondary as $group) {
+                            $data = $this->_db->get('groups', array('id', '=', $group));
+                            if($data->count()){
+                                $data = $data->results();
+
+                                if($data[0]->admin_cp == 1){
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 		return false;
 	}
 
@@ -623,7 +678,24 @@ class User {
 				if($data[0]->mod_cp == 1){
 					// Can view
 					return true;
-				}
+				} else {
+                    // Check secondary groups
+                    if(!is_null($this->data()->secondary_groups)){
+                        $secondary = json_decode($this->data()->secondary_groups, true);
+                        if(count($secondary)){
+                            foreach($secondary as $group) {
+                                $data = $this->_db->get('groups', array('id', '=', $group));
+                                if($data->count()){
+                                    $data = $data->results();
+
+                                    if($data[0]->mod_cp == 1){
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
 			}
 		}
 		return false;
@@ -635,6 +707,7 @@ class User {
 			$data = $this->_db->get('users', array('id', '=', $user_id));
 			if($data->count()){
 				$user_group = $data->results();
+				$secondary_groups = $user_group[0]->secondary_groups;
 				$user_group = $user_group[0]->group_id;
 				// Get whether the user can view applications from the groups table
 				$data = $this->_db->get('groups', array('id', '=', $user_group));
@@ -643,7 +716,24 @@ class User {
 					if($data[0]->staff_apps == 1){
 						// Can view
 						return true;
-					}
+					} else {
+                        // Check secondary groups
+                        if(!is_null($secondary_groups)){
+                            $secondary_groups = json_decode($secondary_groups, true);
+                            if(count($secondary_groups)){
+                                foreach($secondary_groups as $group) {
+                                    $data = $this->_db->get('groups', array('id', '=', $group));
+                                    if($data->count()){
+                                        $data = $data->results();
+
+                                        if($data[0]->staff_apps == 1){
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
 				}
 			}
 		}
@@ -656,6 +746,7 @@ class User {
 			$data = $this->_db->get('users', array('id', '=', $user_id));
 			if($data->count()){
 				$user_group = $data->results();
+                $secondary_groups = $user_group[0]->secondary_groups;
 				$user_group = $user_group[0]->group_id;
 				// Get whether the user can accept applications from the groups table
 				$data = $this->_db->get('groups', array('id', '=', $user_group));
@@ -664,7 +755,24 @@ class User {
 					if($data[0]->accept_staff_apps == 1){
 						// Can view
 						return true;
-					}
+					} else {
+                        // Check secondary groups
+                        if(!is_null($secondary_groups)){
+                            $secondary_groups = json_decode($secondary_groups, true);
+                            if(count($secondary_groups)){
+                                foreach($secondary_groups as $group) {
+                                    $data = $this->_db->get('groups', array('id', '=', $group));
+                                    if($data->count()){
+                                        $data = $data->results();
+
+                                        if($data[0]->accept_staff_apps == 1){
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
 				}
 			}
 		}

@@ -500,6 +500,13 @@ require('core/includes/password.php'); // Password compat library
 											} else {
 												$signature = Output::getClean($signature);
 											}
+
+											// Get secondary groups
+                                            if(isset($_POST['secondary_groups']) && count($_POST['secondary_groups'])){
+											    $secondary_groups = json_encode($_POST['secondary_groups']);
+                                            } else {
+                                                $secondary_groups = '';
+                                            }
 											
 											$queries->update('users', $_GET["user"], array(
 												'nickname' => htmlspecialchars(Input::get('username')),
@@ -509,7 +516,8 @@ require('core/includes/password.php'); // Password compat library
 												'user_title' => Output::getClean(Input::get('title')),
 												'uuid' => htmlspecialchars(Input::get('UUID')),
 												'signature' => $signature,
-												'lastip' => Input::get('ip')
+												'lastip' => Input::get('ip'),
+                                                'secondary_groups' => $secondary_groups
 											));
 
 											Redirect::to(URL::build('/admin/users/', 'user=' . $_GET['user']));
@@ -728,7 +736,7 @@ require('core/includes/password.php'); // Password compat library
 								<?php 
 								foreach($groups as $group){ 
 								?>
-								  <option value="<?php echo $group->id; ?>" <?php if($group->id === $individual[0]->group_id){ echo 'selected="selected"'; } ?>><?php echo $group->name; ?></option>
+								  <option value="<?php echo $group->id; ?>" <?php if($group->id === $individual[0]->group_id){ echo 'selected="selected"'; } ?>><?php echo Output::getClean($group->name); ?></option>
 								<?php 
 								} 
 								?>
@@ -739,6 +747,26 @@ require('core/includes/password.php'); // Password compat library
 								<?php echo $language->get('admin', 'cant_modify_root_user'); ?>
 							  </div>
 							  <?php } ?>
+							  <div class="form-group">
+							    <label for="inputSecondaryGroups"><?php echo $language->get('admin', 'secondary_groups'); ?></label>
+							    <div class="alert alert-info"><?php echo $language->get('admin', 'secondary_groups_info'); ?></div>
+							    <select class="form-control" name="secondary_groups[]" id="inputSecondaryGroups" multiple>
+                                    <?php
+                                    $secondary_groups = json_decode($individual[0]->secondary_groups, true);
+                                    if(is_null($secondary_groups)) $secondary_groups = array();
+
+                                    foreach($groups as $group){
+                                        if($individual[0]->group_id == $group->id)
+                                            continue;
+
+                                        echo '<option value="' . $group->id . '"';
+                                        if(in_array($group->id, $secondary_groups))
+                                            echo ' selected="selected"';
+                                        echo '>' . Output::getClean($group->name) . '</option>';
+                                    }
+                                    ?>
+							    </select>
+							  </div>
 							  <input type="hidden" name="token" value="<?php echo $token; ?>">
 							  <input type="hidden" name="action" value="update">
 							  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">

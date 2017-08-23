@@ -288,6 +288,8 @@ $language = array(
 	'delete_group' => 'Ștergeți grupul',
 	'confirm_group_deletion' => 'Sigur doriți să ștergeți grupul {x}?', // Don't replace {x}
 	'group_not_exist' => 'Grupul specificat nu există.',
+	'secondary_groups' => 'Secondary Groups',
+	'secondary_groups_info' => 'The user will gain any additional permissions from these groups',
 
 	// General Admin language
 	'task_successful' => 'Sarcina a reușit.',

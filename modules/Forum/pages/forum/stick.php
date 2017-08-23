@@ -41,7 +41,7 @@ if(!count($topic)){
 
 $forum_id = $topic[0]->forum_id;
 
-if($forum->canModerateForum($user->data()->group_id, $forum_id)){
+if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->secondary_groups)){
 	// Get current status
 	if($topic[0]->sticky == 0){
 		$sticky = 1;

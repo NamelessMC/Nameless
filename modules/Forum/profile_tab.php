@@ -20,8 +20,13 @@ if(!count($latest_posts)){
 	// Check permissions
 	$n = 0;
 	
-	if(!$user->isLoggedIn()) $group_id = 0;
-	else $group_id = $user->data()->group_id;
+	if(!$user->isLoggedIn()){
+        $group_id = 0;
+        $secondary_groups = null;
+    } else {
+	    $group_id = $user->data()->group_id;
+	    $secondary_groups = json_decode($user->data()->secondary_groups, true);
+    }
 	
 	// Array to assign posts to
 	$posts = array();
@@ -33,7 +38,7 @@ if(!count($latest_posts)){
 		$permission = false;
 		$forum_permissions = $queries->getWhere('forums_permissions', array('forum_id', '=', $latest_post->forum_id));
 		foreach($forum_permissions as $forum_permission){
-			if($forum_permission->group_id == $group_id){
+			if($forum_permission->group_id == $group_id || (is_array($secondary_groups) && in_array($forum_permission->group_id, $secondary_groups))){
 				if($forum_permission->view == 1){
 					$permission = true;
 					break;
