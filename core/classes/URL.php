@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -43,7 +43,7 @@ class URL {
 			
 			$params = '?' . $params;
 		}
-		return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . $url . $params;
+		return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . $url . ((substr($url, -1) == '/') ? '' : '/') . $params;
 	}
 	
 	// Returns a non-friendly URL
@@ -53,9 +53,9 @@ class URL {
 		if($params != '' || $params === true){
 			if($params === true) $params = '';
 			
-			return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . '&' . $params;
+			return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) == '/') ? '' : '/') . '&' . $params;
 		} else {
-			return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url;
+			return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) == '/') ? '' : '/');
 		}
 	}
 

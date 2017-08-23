@@ -25,12 +25,21 @@ require('core/includes/emojione/autoload.php'); // Emojione
 require('core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
-if(!isset($_GET['tid']) || !is_numeric($_GET['tid'])){
+// Get topic ID
+$tid = explode('/', $route);
+$tid = $tid[count($tid) - 1];
+
+if(!isset($tid[count($tid) - 1])){
 	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 	die();
 }
 
-$tid = (int) $_GET['tid'];
+$tid = explode('-', $tid);
+if(!is_numeric($tid[0])){
+	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	die();
+}
+$tid = $tid[0];
 
 // Does the topic exist, and can the user view it?
 if($user->isLoggedIn()){
@@ -43,6 +52,15 @@ if(!$list){
 	die();
 }
 
+// Get the topic information
+$topic = $queries->getWhere('topics', array('id', '=', $tid));
+$topic = $topic[0];
+
+if($topic->deleted == 1){
+	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	die();
+}
+
 // Get page
 if(isset($_GET['p'])){
 	if(!is_numeric($_GET['p'])){
@@ -51,7 +69,7 @@ if(isset($_GET['p'])){
 	} else {
 		if($_GET['p'] == 1){ 
 			// Avoid bug in pagination class
-			Redirect::to(URL::build('/forum/view_topic/', 'tid=' . $tid));
+			Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
 			die();
 		}
 		$p = $_GET['p'];
@@ -73,10 +91,10 @@ if(isset($_GET['pid'])){
 			$i++;
 		}
 		if(ceil($output / 10) != $p){
-			Redirect::to(URL::build('/forum/view_topic/', 'tid=' . $tid . '&p=' . ceil($output / 10) . '#post-' . $_GET['pid']));
+			Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'p=' . ceil($output / 10)) . '#post-' . $_GET['pid']);
 			die();
 		} else {
-			Redirect::to(URL::build('/forum/view_topic/', 'tid=' . $tid . '#post-' . $_GET['pid']));
+			Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)) . '#post-' . $_GET['pid']);
 			die();
 		}
 		
@@ -84,15 +102,6 @@ if(isset($_GET['pid'])){
 		Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 		die();
 	}
-}
-
-// Get the topic information
-$topic = $queries->getWhere('topics', array('id', '=', $tid));
-$topic = $topic[0];
-
-if($topic->deleted == 1){
-	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-	die();
 }
 
 // Assign author + title to Smarty variables
@@ -170,7 +179,7 @@ if(Input::exists()) {
 					'topic_reply_date' => date('U')
 				));
 				Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
-				Redirect::to(URL::build('/forum/view_topic/', 'tid=' . $tid));
+				Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
 				die();
 				
 			} catch(Exception $e){
@@ -249,12 +258,12 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 			'id' => 0,
 			'forum_title' => Output::getClean($topic->topic_title),
 			'active' => 1,
-			'link' => URL::build('/forum/view_topic/', 'tid=' . $topic->id)
+			'link' => URL::build('/forum/view/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title))
 		),
 		1 => array(
 			'id' => $forum_parent[0]->id,
 			'forum_title' => Output::getClean($forum_parent[0]->forum_title),
-			'link' => URL::build('/forum/view_forum/', 'fid=' . $forum_parent[0]->id)
+			'link' => URL::build('/forum/view/'. $forum_parent[0]->id . '-' . $forum->titleToURL($forum_parent[0]->forum_title))
 		)
 	);
 	if(!empty($parent_category) && $parent_category[0]->parent == 0){
@@ -262,14 +271,14 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 		$breadcrumbs[] = array(
 			'id' => $parent_category[0]->id,
 			'forum_title' => Output::getClean($parent_category[0]->forum_title),
-			'link' => URL::build('/forum/view_forum/', 'fid=' . $parent_category[0]->id)
+			'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
 		);
 	} else if(!empty($parent_category)){
 		// Parent forum, get its category
 		$breadcrumbs[] = array(
 			'id' => $parent_category[0]->id,
 			'forum_title' => Output::getClean($parent_category[0]->forum_title),
-			'link' => URL::build('/forum/view_forum/', 'fid=' . $parent_category[0]->id)
+			'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
 		);
 		$parent = false;
 		while($parent == false){
@@ -277,7 +286,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 			$breadcrumbs[] = array(
 				'id' => $parent_category[0]->id,
 				'forum_title' => Output::getClean($parent_category[0]->forum_title),
-				'link' => URL::build('/forum/view_forum/', 'fid=' . $parent_category[0]->id)
+				'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
 			);
 			if($parent_category[0]->parent == 0){
 				$parent = true;
@@ -351,14 +360,14 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	$smarty->assign(array(
 		'SHARE' => $forum_language->get('forum', 'share'),
 		'SHARE_TWITTER' => $forum_language->get('forum', 'share_twitter'),
-		'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . getSelfURL() . URL::build('forum/view_topic/', 'tid=' . $tid),
+		'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . getSelfURL() . URL::build('forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)),
 		'SHARE_FACEBOOK' => $forum_language->get('forum', 'share_facebook'),
-		'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . getSelfURL() . URL::build('forum/view_topic/', 'tid=' . $tid)
+		'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . getSelfURL() . URL::build('forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title))
 	));
 	
 	// Pagination
 	$results = $paginator->getLimited($posts, 10, $p, count($posts));
-	$pagination = $paginator->generate(7, URL::build('/forum/view_topic/', 'tid=' . $tid . '&'));
+	$pagination = $paginator->generate(7, URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), true));
 	
 	$smarty->assign('PAGINATION', $pagination);
 	
@@ -374,7 +383,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 		$signature = $user->getSignature($results->data[$n]->post_creator);
 	
 		// Panel heading content
-		$url = URL::build('/forum/view_topic/', 'tid=' . $tid . '&amp;pid=' . $results->data[$n]->id);
+		$url = URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $results->data[$n]->id);
 		
 		if($n != 0) $heading = $forum_language->get('forum', 're') . Output::getClean($topic->topic_title);
 		else $heading = Output::getClean($topic->topic_title);

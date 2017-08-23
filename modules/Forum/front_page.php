@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -22,7 +22,7 @@ $emojione = new Emojione\Client(new Emojione\Ruleset());
 foreach($latest_news as $item){
 	$news[] = array(
 		'id' => $item['topic_id'],
-		'url' => URL::build('/forum/view_topic/', 'tid=' . $item['topic_id']),
+		'url' => URL::build('/forum/topic/' . $item['topic_id'] . '-' . $forum->titleToURL($item['topic_title'])),
 		'date' => date('d M Y, H:i', strtotime($item['topic_date'])),
 		'time_ago' => $timeago->inWords($item['topic_date'], $language->getTimeLanguage()),
 		'title' => Output::getClean($item['topic_title']),

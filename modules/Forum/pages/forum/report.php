@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -47,7 +47,7 @@ if(Token::check(Input::get('token'))){
 			if($report->reporter_id == $user->data()->id && $report->status == 0){
 				// User already has an open report
 				Session::flash('failure_post', $forum_language->get('forum', 'post_already_reported'));
-				Redirect::to(URL::build('/forum/view_topic/', 'tid=' . Output::getClean($_POST['topic'])));
+				Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
 				die();
 			}
 		}
@@ -76,30 +76,30 @@ if(Token::check(Input::get('token'))){
 				'date_updated' => date('Y-m-d H:i:s'),
 				'report_reason' => Output::getClean($_POST['reason']),
 				'updated_by' => $user->data()->id,
-				'link' => URL::build('/forum/view_topic/', 'tid=' . Output::getClean($_POST['topic']) . '&pid=' . Output::getClean($_POST['post']))
+				'link' => URL::build('/forum/topic/' . Output::getClean($_POST['topic']), 'pid=' . Output::getClean($_POST['post']))
 			), $language->get('moderator', 'report_alert'));
 			
 		} catch(Exception $e){
 			// Exception creating report
 			Session::flash('failure_post', $e->getMessage());
-			Redirect::to(URL::build('/forum/view_topic/', 'tid=' . Output::getClean($_POST['topic'])));
+			Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
 			die();
 		}
 		
 		Session::flash('success_post', $language->get('user', 'report_created'));
-		Redirect::to(URL::build('/forum/view_topic/', 'tid=' . Output::getClean($_POST['topic'])));
+		Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
 		die();
 		
 	} else {
 		// Invalid report content
 		Session::flash('failure_post', $language->get('user', 'invalid_report_content'));
-		Redirect::to(URL::build('/forum/view_topic/', 'tid=' . Output::getClean($_POST['topic'])));
+		Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
 		die();
 	}
 	
 } else {
 	// Invalid token
 	Session::flash('failure_post', $language->get('general', 'invalid_token'));
-	Redirect::to(URL::build('/forum/view_topic/', 'tid=' . Output::getClean($_POST['topic'])));
+	Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
 	die();
 }

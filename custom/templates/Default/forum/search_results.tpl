@@ -28,7 +28,10 @@
                 </div>
             {/if}
 
-            {$PAGINATION}
+            {if isset($PAGINATION)}
+                <br />
+                {$PAGINATION}
+            {/if}
         </div>
     </div>
 </div>

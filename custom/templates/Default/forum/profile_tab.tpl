@@ -19,5 +19,6 @@
 	  </span>
 	</div>
   </div>
+  <br />
   {/foreach}
 {/if}

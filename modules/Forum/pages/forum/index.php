@@ -169,8 +169,8 @@ if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group 
 				'last_reply_mcname' => Output::getClean($user->idToName($discussions[$n]['topic_last_user'])),
 				'last_reply_style' => $user->getGroupClass($discussions[$n]['topic_last_user']),
 				'label' => $label,
-				'link' => URL::build('/forum/view_topic/', 'tid=' . $discussions[$n]['id']),
-				'forum_link' => URL::build('/forum/view_forum/', 'fid=' . $discussions[$n]['forum_id']),
+				'link' => URL::build('/forum/topic/' . $discussions[$n]['id'] . '-' . $forum->titleToURL($discussions[$n]['topic_title'])),
+				'forum_link' => URL::build('/forum/view/' . $discussions[$n]['forum_id'] . '-' . $forum->titleToURL($forum_name)),
 				'author_link' => URL::build('/profile/' . Output::getClean($user->idToName($discussions[$n]['topic_creator']))),
 				'last_reply_link' => URL::build('/profile/' . Output::getClean($user->idToName($discussions[$n]['topic_last_user'])))
 			);

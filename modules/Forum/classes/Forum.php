@@ -44,7 +44,7 @@ class Forum {
 								$return[$forum->id]['subforums'][$item->id] = $item;
 								$return[$forum->id]['subforums'][$item->id]->forum_title = Output::getClean($item->forum_title);
 								$return[$forum->id]['subforums'][$item->id]->forum_description = Output::getClean($item->forum_description);
-								$return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view_forum/', 'fid=' . $item->id);
+								$return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view/' . $item->id . '-' . $this->titleToURL($item->forum_title));
 								
 								// Get topic/post count
 								$topics = $this->_db->orderWhere('topics', 'forum_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
@@ -63,16 +63,16 @@ class Forum {
 										while(isset($last_reply[$n]) && $last_reply[$n]->deleted == 1){
 											$n++;
 										}
-										
+
 										if(!isset($last_reply[$n])) continue;
-										
-										$return[$forum->id]['subforums'][$item->id]->last_post = $last_reply[$n];
-										$return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/view_topic/', 'tid=' . $last_reply[$n]->topic_id . '&amp;pid=' . $last_reply[0]->id);
-										
+
 										// Title
 										$last_topic = $this->_db->get('topics', array('id', '=', $last_reply[$n]->topic_id))->results();
+
+										$return[$forum->id]['subforums'][$item->id]->last_post = $last_reply[$n];
 										$return[$forum->id]['subforums'][$item->id]->last_post->title = Output::getClean($last_topic[0]->topic_title);
-										
+										$return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/topic/' . $last_reply[$n]->topic_id . '-' . $this->titleToURL($last_topic[0]->topic_title), 'pid=' . $last_reply[0]->id);
+
 										// Last reply username, profile link and avatar
 										$last_reply_user = $this->_db->get('users', array('id', '=', $last_reply[$n]->post_creator))->results();
 										$return[$forum->id]['subforums'][$item->id]->last_post->username = Output::getClean($last_reply_user[0]->nickname);
@@ -463,5 +463,13 @@ class Forum {
 			}
 		}
 		return false;
+	}
+	
+	// Transform a topic title to URL-ify it
+	public function titleToURL($topic = null){
+		if($topic)
+			return Output::getClean(strtolower(urlencode(str_replace(' ', '-', htmlspecialchars_decode($topic)))));
+
+		return '';
 	}
 }

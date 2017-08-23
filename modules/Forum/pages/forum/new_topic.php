@@ -44,7 +44,7 @@ if(!$list){
 // Can the user post a topic in this forum?
 $can_reply = $forum->canPostTopic($fid, $user_group);
 if(!$can_reply){
-	Redirect::to(URL::build('/forum/view_forum/', 'fid=' . $fid));
+	Redirect::to(URL::build('/forum/view/' . $fid));
 	die();
 }
 
@@ -133,7 +133,7 @@ if(Input::exists()) {
 					
 					Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
 					
-					Redirect::to(URL::build('/forum/view_topic/', 'tid=' . $topic_id));
+					Redirect::to(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))));
 					die();
 					
 				} catch(Exception $e){

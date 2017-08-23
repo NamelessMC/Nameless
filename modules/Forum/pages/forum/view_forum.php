@@ -20,12 +20,21 @@ $pagination = new Pagination();
 
 require('core/includes/paginate.php'); // Get number of topics on a page
 
-if(!isset($_GET['fid']) || !is_numeric($_GET['fid'])){
+// Get forum ID
+$fid = explode('/', $route);
+$fid = $fid[count($fid) - 1];
+
+if(!isset($fid[count($fid) - 1])){
 	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 	die();
 }
 
-$fid = (int) $_GET['fid'];
+$fid = explode('-', $fid);
+if(!is_numeric($fid[0])){
+	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	die();
+}
+$fid = $fid[0];
 
 // Get user group ID
 if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group = null;
@@ -37,6 +46,10 @@ if(!$list){
 	die();
 }
 
+// Get data from the database
+$forum_query = $queries->getWhere('forums', array('id', '=', $fid));
+$forum_query = $forum_query[0];
+
 // Get page
 if(isset($_GET['p'])){
 	if(!is_numeric($_GET['p'])){
@@ -45,7 +58,7 @@ if(isset($_GET['p'])){
 	} else {
 		if($_GET['p'] == 1){ 
 			// Avoid bug in pagination class
-			Redirect::to(URL::build('/forum/view_forum/', 'fid=' . $fid));
+			Redirect::to(URL::build('/forum/view/' . $fid . '-'.  $forum->titleToURL($forum_query->forum_title)));
 			die();
 		}
 		$p = $_GET['p'];
@@ -53,10 +66,6 @@ if(isset($_GET['p'])){
 } else {
 	$p = 1;
 }
-
-// Get data from the database
-$forum_query = $queries->getWhere('forums', array('id', '=', $fid));
-$forum_query = $forum_query[0];
 
 // Get all topics
 $topics = $queries->orderWhere("topics", "forum_id = ". $fid . " AND sticky = 0 AND deleted = 0", "topic_reply_date", "DESC");
@@ -102,21 +111,21 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 		'id' => $forum_query->id,
 		'forum_title' => Output::getClean($forum_query->forum_title),
 		'active' => 1,
-		'link' => URL::build('/forum/view_forum/', 'fid=' . $forum_query->id)
+		'link' => URL::build('/forum/view/' . $forum_query->id . '-'. $forum->titleToURL($forum_query->forum_title))
 	));
 	if(!empty($parent_category) && $parent_category[0]->parent == 0){
 		// Category
 		$breadcrumbs[] = array(
 			'id' => $parent_category[0]->id,
 			'forum_title' => Output::getClean($parent_category[0]->forum_title),
-			'link' => URL::build('/forum/view_forum/', 'fid=' . $parent_category[0]->id)
+			'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
 		);
 	} else if(!empty($parent_category)){
 		// Parent forum, get its category
 		$breadcrumbs[] = array(
 			'id' => $parent_category[0]->id,
 			'forum_title' => Output::getClean($parent_category[0]->forum_title),
-			'link' => URL::build('/forum/view_forum/', 'fid=' . $parent_category[0]->id)
+			'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum-titleToURL($parent_category[0]->forum_title))
 		);
 		$parent = false;
 		while($parent == false){
@@ -124,7 +133,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			$breadcrumbs[] = array(
 				'id' => $parent_category[0]->id,
 				'forum_title' => Output::getClean($parent_category[0]->forum_title),
-				'link' => URL::build('/forum/view_forum/', 'fid=' . $parent_category[0]->id)
+				'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum-titleToURL($parent_category[0]->forum_title))
 			);
 			if($parent_category[0]->parent == 0){
 				$parent = true;
@@ -189,7 +198,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 						}
 					}
 
-					$latest_post_link = URL::build('/forum/view_topic/', 'tid=' . $latest_post->id);
+					$latest_post_link = URL::build('/forum/topic/' . $latest_post->id . '-' . $forum->titleToURL($latest_post->topic_title));
 					$latest_post_avatar = $user->getAvatar($latest_post->topic_last_user, "../", 30);
 					$latest_post_title = Output::getClean($latest_post->topic_title);
 					$latest_post_user = Output::getClean($user->idToNickname($latest_post->topic_last_user));
@@ -214,7 +223,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 					'id' => $subforum->id,
 					'title' => Output::getPurified(htmlspecialchars_decode($subforum->forum_title)),
 					'topics' => $subforum_topics,
-					'link' => URL::build('/forum/view_forum/', 'fid=' . $subforum->id),
+					'link' => URL::build('/forum/view/' . $subforum->id . '-' . $forum->titleToURL($subforum->forum_title)),
 					'latest_post' => $latest_post
 				);
 			}
@@ -241,7 +250,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 	
 	// Can the user post here?
 	if($user->isLoggedIn() && $forum->canPostTopic($fid, $user_group)){ 
-		$smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new_topic/', 'fid=' . $fid));
+		$smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . $fid));
 	} else {
 		$smarty->assign('NEW_TOPIC_BUTTON', false);
 	}
@@ -254,7 +263,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 		$smarty->assign('NO_TOPICS_FULL', $forum_language->get('forum', 'no_topics'));
 		
 		if($user->isLoggedIn() && $forum->canPostTopic($fid, $user_group)){ 
-			$smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new_topic/', 'fid=' . $fid));
+			$smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . $fid));
 		} else {
 			$smarty->assign('NEW_TOPIC_BUTTON', false);
 		}
@@ -311,7 +320,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 				'last_reply_style' => $user->getGroupClass($sticky->topic_last_user),
 				'label' => $label,
 				'author_link' => URL::build('/profile/' . Output::getClean($user->idToName($sticky->topic_creator))),
-				'link' => URL::build('/forum/view_topic/', 'tid=' . $sticky->id),
+				'link' => URL::build('/forum/topic/' . $sticky->id . '-' . $forum->titleToURL($sticky->topic_title)),
 				'last_reply_link' => URL::build('/profile/' . Output::getClean($user->idToName($sticky->topic_last_user)))
 			);
 		}
@@ -320,29 +329,15 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 		$sticky = null;
 		
 		// Latest discussions
-		// PAGINATION
-		// Set current page and number of records
-		$pagination->setCurrent($p);
-		$pagination->setTotal(count($topics));
-		$pagination->alwaysShowPagination();
-
-		// Get number of topics we should display on the page
-		$paginate = PaginateArray($p);
-
-		$n = $paginate[0];
-		$f = $paginate[1];
+		// Pagination
+		$results = $paginator->getLimited($topics, 10, $p, count($topics));
+		$pagination = $paginator->generate(7, URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title), true));
 		
-		// Get the number we need to finish on ($d)
-		if(count($topics) > $f){
-			$d = $p * 10;
-		} else {
-			$d = count($topics) - $n;
-			$d = $d + $n;
-		}
+		$smarty->assign('PAGINATION', $pagination);
 		
 		$template_array = array();
 		// Get a list of all topics from the forum, and paginate
-		while($n < $d){
+		for($n = 0; $n < count($results->data); $n++){
 			// Get number of replies to a topic
 			$replies = $queries->getWhere("posts", array("topic_id", "=", $topics[$n]->id));
 			$replies = count($replies);
@@ -387,15 +382,10 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 				'last_reply_style' => $user->getGroupClass($topics[$n]->topic_last_user),
 				'label' => $label,
 				'author_link' => URL::build('/profile/' . Output::getClean($user->idToName($topics[$n]->topic_creator))),
-				'link' => URL::build('/forum/view_topic/', 'tid=' . $topics[$n]->id),
+				'link' => URL::build('/forum/topic/' . $topics[$n]->id . '-' . $forum->titleToURL($topics[$n]->topic_title)),
 				'last_reply_link' => URL::build('/profile/' . Output::getClean($user->idToName($topics[$n]->topic_last_user)))
 			);
-			
-			$n++;
 		}
-		
-		// Assign pagination
-		$smarty->assign('PAGINATION', $pagination->parse());
 	
 		// Assign to Smarty variable
 		$smarty->assign('STICKY_DISCUSSIONS', $sticky_array);

@@ -47,49 +47,50 @@ if(!isset($GLOBALS['config']['core']) && is_file('install.php')) {
 	Redirect::to('install.php');
 }
 
-if(defined('FRIENDLY_URLS') && FRIENDLY_URLS == true){
-	// Load the main page content
+// Get page to load from URL
+if(!isset($_GET['route']) || $_GET['route'] == '/'){
+	if(count($directories) > 1 && (!isset($_GET['route']) || (isset($_GET['route']) && $_GET['route'] != '/')))
+		require('404.php');
+	else
+		// Homepage
+		require('modules/Core/pages/index.php');
+
+} else {
+	if(!isset($route)) $route = rtrim($_GET['route'], '/');
 
 	// Check modules
 	$modules = $pages->returnPages();
 
-	// Custom rules
-
 	// Include the page
-	if(array_key_exists($directory, $modules)){
-		$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$directory]['module'], $modules[$directory]['file']));
+	if(array_key_exists($route, $modules)){
+		$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']));
+		
 		if(!file_exists($path)) require('404.php'); else require($path);
 		die();
 	} else {
+		// Use recursion to check - might have URL parameters in path
+		$path_array = explode('/', $route);
+		//echo '<pre>', print_r($path_array), '</pre>';
+		
+		for($i = count($path_array) - 2; $i > 0; $i--){
+			$new_path = '/';
+			for($n = 1; $n <= $i; $n++){
+				$new_path .= $path_array[$n] . '/';
+			}
+			$new_path = rtrim($new_path, '/');
+
+			if(array_key_exists($new_path, $modules)){
+				$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$new_path]['module'], $modules[$new_path]['file']));
+				
+				if(file_exists($path)){
+					require($path);
+					die();
+				}
+			}
+		}
+		
 		// 404
 		require('404.php');
 	}
 
-} else {
-	// Friendly URLs are disabled
-	if(!isset($_GET['route']) || $_GET['route'] == '/'){
-		if(count($directories) > 1 && (!isset($_GET['route']) || (isset($_GET['route']) && $_GET['route'] != '/')))
-			require('404.php');
-		else
-			// Homepage
-			require('modules/Core/pages/index.php');
-
-	} else {
-		if(!isset($route)) $route = rtrim($_GET['route'], '/');
-
-		// Check modules
-		$modules = $pages->returnPages();
-
-		// Include the page
-		if(array_key_exists($route, $modules)){
-			$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']));
-			
-			if(!file_exists($path)) require('404.php'); else require($path);
-			die();
-		} else {
-			// 404
-			require('404.php');
-		}
-
-	}
 }

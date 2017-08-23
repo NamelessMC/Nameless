@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -59,7 +59,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id)){
 					$forum->updateForumLatestPosts();
 					$forum->updateTopicLatestPosts();
 
-					Redirect::to(URL::build('/forum/view_topic/', 'tid=' . $topic_id));
+					Redirect::to(URL::build('/forum/topic/' . $topic_id));
 					die();
 				} catch(Exception $e){
 					die($e->getMessage());
@@ -115,7 +115,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id)){
 		'SUBMIT' => $language->get('general', 'submit'),
 		'CANCEL' => $language->get('general', 'cancel'),
 		'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-		'CANCEL_LINK' => URL::build('/forum/view_topic/', 'tid=' . $topic->id),
+		'CANCEL_LINK' => URL::build('/forum/topic/' . $topic->id),
 		'FORUMS' => $forums
 	));
 	

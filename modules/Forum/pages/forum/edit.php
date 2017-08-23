@@ -80,13 +80,13 @@ $forum_id = $post_editing[0]->forum_id;
 // Check permissions before proceeding
 $can_reply = $forum->canPostReply($forum_id, $user->data()->group_id);
 if(!$can_reply){
-	Redirect::to(URL::build('/forum/view_forum/', 'fid=' . $forum_id));
+	Redirect::to(URL::build('/forum/view/' . $forum_id));
 	die();
 }
 
 
 if($user->data()->id !== $post_editing[0]->post_creator && !($forum->canModerateForum($user->data()->group_id, $forum_id))){
-	Redirect::to(URL::build('/forum/view_forum/', 'fid=' . $forum_id));
+	Redirect::to(URL::build('/forum/view/' . $forum_id));
 	die();
 }
 
@@ -156,7 +156,7 @@ if(Input::exists()){
 				
 				// Display success message and redirect
 				Session::flash('success_post', $forum_language->get('forum', 'post_edited_successfully'));
-				Redirect::to(URL::build('/forum/view_topic/', 'tid=' . $topic_id . '&pid=' . $post_id));
+				Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id));
 				die();
 				
 			} catch(Exception $e){
@@ -288,7 +288,7 @@ if(Input::exists()){
 		'TOKEN' => Token::get(),
 		'SUBMIT' => $language->get('general', 'submit'),
 		'CANCEL' => $language->get('general', 'cancel'),
-		'CANCEL_LINK' => URL::build('/forum/view_topic/', 'tid=' . $topic_id . '&pid=' . $post_id),
+		'CANCEL_LINK' => URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id),
 		'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel')
 	));
 	

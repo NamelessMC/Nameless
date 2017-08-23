@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -53,7 +53,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id)){
 					}
 					$redirect = URL::build('/forum'); // Create a redirect string
 				} else {
-					$redirect = URL::build('/forum/view_topic/', 'tid=' . Input::get('tid'));
+					$redirect = URL::build('/forum/topic/' . Input::get('tid'));
 				}
 			} else $redirect = URL::build('/forum/search/', 'p=1&s=' . htmlspecialchars($_POST['search_string']));
 			
@@ -84,7 +84,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id)){
 				die($e->getMessage());
 			}
 		} else {
-			Redirect::to(URL::build('/forum/view_topic/', 'tid=' . Input::get('tid')));
+			Redirect::to(URL::build('/forum/topic/' . Input::get('tid')));
 			die();
 		}
 	} else {
