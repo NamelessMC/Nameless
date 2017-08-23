@@ -251,6 +251,9 @@ $language = array(
 	'permissions' => 'Permissions',
 	'setting_perms_for_x' => 'Setting permissions for template {x}', // Don't replace {x}
 	'templates_installed_successfully' => 'Any new templates have been installed successfully.',
+	'confirm_delete_template' => 'Are you sure you want to delete this template?',
+	'delete' => 'Delete',
+	'template_deleted_successfully' => 'Template deleted successfully.',
 
 	// Users & groups
 	'users' => 'Benutzer',

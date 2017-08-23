@@ -101,7 +101,8 @@ $admin_styles = true;
 					  echo '<span class="pull-right">';
 
 					  if($template->enabled == 0){
-						echo '<a href="' . URL::build('/admin/styles/', 'action=activate&amp;template=' . $template->id) . '" class="btn btn-primary btn-sm">' . $language->get('admin', 'activate') . '</a>';
+						echo '<a href="' . URL::build('/admin/styles/', 'action=activate&amp;template=' . $template->id) . '" class="btn btn-primary btn-sm">' . $language->get('admin', 'activate') . '</a> ';
+						echo '<a href="' . URL::build('/admin/styles/', 'action=delete&amp;template=' . $template->id) . '" class="btn btn-danger btn-sm" onclick="return confirm(\'' . $language->get('admin', 'confirm_delete_template') . '\');">' . $language->get('admin', 'delete') . '</a>';
 					  } else {
 						// Only allow deactivating if there is more than 1 template active, and it's not default
 						if(count($active_templates) > 1 && $template->is_default == 0){
@@ -324,7 +325,39 @@ $admin_styles = true;
 						  Redirect::to(URL::build('/admin/styles/'));
 						  die();
 
-					  }
+					  } else if($_GET['action'] == 'delete' && isset($_GET['template'])){
+                          $item = $_GET['template'];
+
+                          try {
+                              // Ensure template is not default or active
+                              $template = $queries->getWhere('templates', array('id', '=', $item));
+                              if(count($template)){
+                                  $template = $template[0];
+                                  if($template->enabled == 1 || $template->is_default == 1){
+                                      Redirect::to(URL::build('/admin/styles'));
+                                      die();
+                                  }
+
+                                  $item = $template->name;
+                              } else {
+                                  Redirect::to(URL::build('/admin/styles'));
+                                  die();
+                              }
+
+                              Util::recursiveRemoveDirectory('custom/templates/' . $item);
+
+                              // Delete from database
+                              $queries->delete('templates', array('name', '=', $item));
+
+                              Session::flash('admin_templates', '<div class="alert alert-success">' . $language->get('admin', 'template_deleted_successfully') . '</div>');
+                              Redirect::to(URL::build('/admin/styles'));
+                              die();
+                          } catch(Exception $e){
+                              Session::flash('admin_templates', '<div class="alert alert-danger">' . $e->getMessage() . '</div>');
+                              Redirect::to(URL::build('/admin/styles'));
+                              die();
+                          }
+                      }
 				  }
 			  }
 			  ?>
