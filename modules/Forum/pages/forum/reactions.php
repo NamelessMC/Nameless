@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -78,11 +78,12 @@ if(Input::exists()){
 		}
 
 		// Redirect
-		Redirect::to(URL::build('/forum/view_topic/', 'tid=' . $topic_id . '&pid=' . $post->id));
+		Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post->id));
 		die();
 	} else {
 		// Invalid token
-		Redirect::to(URL::build('/forum/view_topic/', 'tid=' . $topic_id . '&pid=' . $post->id));
+		Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post->id));
+		die();
 	}
 } else {
 	Redirect::to(URL::build('/forum'));

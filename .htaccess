@@ -20,4 +20,5 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   
-  RewriteRule ^(.*)$ %{ENV:BASE}index.php  [QSA]
+  #RewriteRule ^(.*)$ %{ENV:BASE}index.php  [QSA]
+  RewriteRule ^(.*)$ ./index.php?route=/$1 [NC,L,QSA]

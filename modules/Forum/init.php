@@ -34,9 +34,9 @@ $forum_language = new Language(ROOT_PATH . '/modules/Forum/language', LANGUAGE);
 $pages->add('Forum', '/admin/forums', 'pages/admin/forums.php');
 $pages->add('Forum', '/forum', 'pages/forum/index.php', 'forum', true);
 $pages->add('Forum', '/forum/error', 'pages/forum/error.php');
-$pages->add('Forum', '/forum/view_forum', 'pages/forum/view_forum.php');
-$pages->add('Forum', '/forum/view_topic', 'pages/forum/view_topic.php');
-$pages->add('Forum', '/forum/new_topic', 'pages/forum/new_topic.php');
+$pages->add('Forum', '/forum/view', 'pages/forum/view_forum.php');
+$pages->add('Forum', '/forum/topic', 'pages/forum/view_topic.php');
+$pages->add('Forum', '/forum/new', 'pages/forum/new_topic.php');
 $pages->add('Forum', '/forum/spam', 'pages/forum/spam.php');
 $pages->add('Forum', '/forum/report', 'pages/forum/report.php');
 $pages->add('Forum', '/forum/get_quotes', 'pages/forum/get_quotes.php');
@@ -49,6 +49,10 @@ $pages->add('Forum', '/forum/lock', 'pages/forum/lock.php');
 $pages->add('Forum', '/forum/stick', 'pages/forum/stick.php');
 $pages->add('Forum', '/forum/reactions', 'pages/forum/reactions.php');
 $pages->add('Forum', '/forum/search', 'pages/forum/search.php');
+
+// Redirects
+$pages->add('Forum', '/forum/view_topic', 'pages/forum/redirect.php');
+$pages->add('Forum', '/forum/view_forum', 'pages/forum/redirect.php');
 
 // Add link to navbar
 $navigation->add('forum', $forum_language->get('forum', 'forum'), URL::build('/forum'));
@@ -155,11 +159,11 @@ if($cache->isCached('latest_posts')){
             'last_reply_mcname' => Output::getClean($user->idToName($discussions[$n]['topic_last_user'])),
             'last_reply_style' => $user->getGroupClass($discussions[$n]['topic_last_user']),
             'label' => $label,
-            'link' => URL::build('/forum/view_topic/', 'tid=' . $discussions[$n]['id']),
-            'forum_link' => URL::build('/forum/view_forum/', 'fid=' . $discussions[$n]['forum_id']),
+            'link' => URL::build('/forum/topic/' . $discussions[$n]['id'] . '-' . $forum->titleToURL($discussions[$n]['topic_title'])),
+            'forum_link' => URL::build('/forum/forum/' . $discussions[$n]['forum_id']),
             'author_link' => URL::build('/profile/' . Output::getClean($user->idToName($discussions[$n]['topic_creator']))),
             'last_reply_profile_link' => URL::build('/profile/' . Output::getClean($user->idToName($discussions[$n]['topic_last_user']))),
-            'last_reply_link' => URL::build('/forum/view_topic/', 'tid=' . $discussions[$n]['id'] . '&amp;pid=' . $discussions[$n]['last_post_id'])
+            'last_reply_link' => URL::build('/forum/topic/' . $discussions[$n]['id'] . '-' . $forum->titleToURL($discussions[$n]['topic_title']), 'pid=' . $discussions[$n]['last_post_id'])
         );
 
         $n++;

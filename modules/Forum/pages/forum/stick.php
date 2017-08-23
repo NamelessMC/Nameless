@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -58,5 +58,5 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id)){
 	Session::flash('success_post', $status);
 } 
 
-Redirect::to(URL::build('/forum/view_topic/', 'tid=' . $topic_id));
+Redirect::to(URL::build('/forum/topic/' . $topic_id));
 die();

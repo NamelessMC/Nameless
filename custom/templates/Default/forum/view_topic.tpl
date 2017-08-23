@@ -47,7 +47,7 @@
 	
   </span>
   
-  <br />
+  <br /><br />
   
   {$PAGINATION}
   

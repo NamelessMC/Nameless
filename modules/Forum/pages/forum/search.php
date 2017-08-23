@@ -8,7 +8,9 @@
  *
  *  Forum search page
  */
-
+if(!isset($forum) || (isset($forum) && !$forum instanceof Forum))
+	$forum = new Forum();
+ 
 require_once('core/includes/emojione/autoload.php'); // Emojione
 
 define('PAGE', 'forum');
@@ -192,7 +194,7 @@ if(!isset($_GET['s'])){
                     'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language->getTimeLanguage()),
                     'content' => $content,
                     'topic_title' => Output::getClean($results->data[$n]['topic_title']),
-                    'post_url' => URL::build('/forum/view_topic/', 'tid=' . $results->data[$n]['topic_id'] . '&amp;pid=' . $results->data[$n]['post_id'])
+                    'post_url' => URL::build('/forum/topic/' . $results->data[$n]['topic_id'] . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
                 );
                 $n++;
             }

@@ -9,6 +9,9 @@
  *  Forum module - forum profile tab
  */
  
+if(!isset($forum) || (isset($forum) && !$forum instanceof Forum))
+	$forum = new Forum();
+ 
 // Get latest posts
 $latest_posts = $queries->orderWhere('posts', 'post_creator = ' . $query->id, 'post_date', 'DESC LIMIT 15');
 if(!count($latest_posts)){
@@ -48,7 +51,7 @@ if(!count($latest_posts)){
 		$topic_title = htmlspecialchars($topic_title[0]->topic_title);
 		
 		$posts[] = array(
-			'link' => URL::build('/forum/view_topic/', 'tid=' . $latest_post->topic_id . '&amp;pid=' . $latest_post->id),
+			'link' => URL::build('/forum/topic/' . $latest_post->topic_id . '-' . $forum->titleToURL($topic_title), 'pid=' . $latest_post->id),
 			'title' => $topic_title,
 			'content' => Output::getPurified($emojione->unicodeToImage(htmlspecialchars_decode($latest_post->post_content))),
 			'date_friendly' => $timeago->inWords(date('d M Y, H:i', strtotime($latest_post->post_date)), $language->getTimeLanguage()),

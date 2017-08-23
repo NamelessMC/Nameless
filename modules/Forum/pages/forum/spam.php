@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -54,7 +54,7 @@ if($forum->canModerateForum($user->data()->group_id, $post->forum_id)){
 		// Ensure user is not admin
 		if($is_admin){
 			Session::flash('failure_post', $language->get('moderator', 'cant_ban_admin'));
-			Redirect::to(URL::build('/forum/view_topic/', 'tid=' . $post->topic_id . '&pid=' . $post->id));
+			Redirect::to(URL::build('/forum/topic/' . $post->topic_id, 'pid=' . $post->id));
 			die();
 		}
 		
@@ -88,7 +88,7 @@ if($forum->canModerateForum($user->data()->group_id, $post->forum_id)){
 		
 	} else {
 		// Invalid token
-		Redirect::to(URL::build('/forum/view_topic/', 'tid=' . $post->topic_id . '&pid=' . $post->id));
+		Redirect::to(URL::build('/forum/topic/' . $post->topic_id, 'pid=' . $post->id));
 		die();
 	}
 } else {
