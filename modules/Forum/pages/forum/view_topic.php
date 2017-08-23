@@ -44,9 +44,13 @@ $tid = $tid[0];
 // Does the topic exist, and can the user view it?
 if($user->isLoggedIn()){
 	$group_id = $user->data()->group_id;
-} else $group_id = null;
+	$secondary_groups = $user->data()->secondary_groups;
+} else {
+    $group_id = null;
+    $secondary_groups = null;
+}
 
-$list = $forum->topicExist($tid, $group_id);
+$list = $forum->topicExist($tid, $group_id, $secondary_groups);
 if(!$list){
 	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 	die();
@@ -119,8 +123,8 @@ $posts = $forum->getPosts($tid);
 // Can the user post a reply in this topic?
 if($user->isLoggedIn()){
 	// Topic locked?
-	if($topic->locked == 0 || $forum->canModerateForum($user->data()->group_id, $topic->forum_id)){
-		$can_reply = $forum->canPostReply($topic->forum_id, $user->data()->group_id);
+	if($topic->locked == 0 || $forum->canModerateForum($group_id, $topic->forum_id, $secondary_groups)){
+		$can_reply = $forum->canPostReply($topic->forum_id, $group_id, $secondary_groups);
 	} else {
 		$can_reply = false;
 	}
@@ -321,7 +325,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 			$smarty->assign('NEW_REPLY', $forum_language->get('forum', 'new_reply'));
 		} else { // Locked
 			$smarty->assign('LOCKED', true);
-			if($forum->canModerateForum($user->data()->group_id, $forum_parent[0]->id)){
+			if($forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups)){
 				// Can post anyway
 				$smarty->assign('NEW_REPLY', $forum_language->get('forum', 'new_reply'));
 			} else {
@@ -333,7 +337,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	
 	// Is the user a moderator?
 	$buttons = '<span class="pull-right">';
-	if($user->isLoggedIn() && $forum->canModerateForum($user->data()->group_id, $forum_parent[0]->id)){
+	if($user->isLoggedIn() && $forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups)){
 		$smarty->assign(array(
 			'CAN_MODERATE' => true,
 			'MOD_ACTIONS' => $forum_language->get('forum', 'mod_actions'),
@@ -379,7 +383,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	// Display the correct number of posts	
 	for($n = 0; $n < count($results->data); $n++){
 	  	// Get user's group HTML formatting and their signature
-	  	$user_group = $user->getGroup($results->data[$n]->post_creator, 'true');
+	  	$user_groups = $user->getAllGroups($results->data[$n]->post_creator, 'true');
 		$signature = $user->getSignature($results->data[$n]->post_creator);
 	
 		// Panel heading content
@@ -400,7 +404,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 			$smarty->assign('TOKEN', $token);
 			
 			// Edit button
-			if($forum->canModerateForum($user->data()->group_id, $forum_parent[0]->id)){
+			if($forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups)){
 				$buttons['edit'] = array(
 					'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
 					'TEXT' => $forum_language->get('forum', 'edit')
@@ -415,7 +419,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 			} 
 			
 			// Delete button
-			if($forum->canModerateForum($user->data()->group_id, $forum_parent[0]->id)){
+			if($forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups)){
 				$buttons['delete'] = array(
 					'URL' => URL::build('/forum/delete_post/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
 					'TEXT' => $language->get('general', 'delete'),
@@ -436,7 +440,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 			
 			// Quote button
 			if($can_reply){
-				if($forum->canModerateForum($user->data()->group_id, $forum_parent[0]->id) || $topic->locked != 1){ 
+				if($forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups) || $topic->locked != 1){
 					$buttons['quote'] = array(
 						'TEXT' => $forum_language->get('forum', 'quote')
 					);
@@ -496,7 +500,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 			'user_title' => Output::getClean($post_user[0]->user_title),
 			'profile' => URL::build('/profile/' . htmlspecialchars($post_user[0]->username)),
 			'user_style' => $user->getGroupClass($post_user[0]->id),
-			'user_group' => $user_group,
+			'user_groups' => $user_groups,
 			'user_posts_count' => count($queries->getWhere('posts', array('post_creator', '=', $results->data[$n]->post_creator))),
 			'user_reputation' => $post_user[0]->reputation,
 			'post_date_rough' => $timeago->inWords($results->data[$n]->post_date, $language->getTimeLanguage()),
@@ -527,7 +531,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	
 	// Quick reply
 	if($user->isLoggedIn() && $can_reply){
-		if($forum->canModerateForum($user->data()->group_id, $forum_parent[0]->id) || $topic->locked != 1){
+		if($forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups) || $topic->locked != 1){
 			if($topic->locked == 1){
 				$smarty->assign('TOPIC_LOCKED_NOTICE', $forum_language->get('forum', 'topic_locked_notice'));
 			}

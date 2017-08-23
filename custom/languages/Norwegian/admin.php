@@ -287,6 +287,8 @@ $language = array(
 	'delete_group' => 'Slett gruppe',
 	'confirm_group_deletion' => 'Er du sikker på at du vil slette gruppa {x}?', // Don't replace {x}
 	'group_not_exist' => 'Den gruppa eksisterer ikke.',
+	'secondary_groups' => 'Secondary Groups',
+	'secondary_groups_info' => 'The user will gain any additional permissions from these groups',
 
 	// General Admin language
 	'task_successful' => 'Kapittel ferdig.',

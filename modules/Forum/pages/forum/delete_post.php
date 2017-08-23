@@ -37,7 +37,7 @@ $post = $post[0];
 
 $forum_id = $post->forum_id;
 
-if($forum->canModerateForum($user->data()->group_id, $forum_id)){
+if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->secondary_groups)){
 	if(Input::exists()) {
 		if(Token::check(Input::get('token'))) {
 			if(isset($_POST['tid'])){

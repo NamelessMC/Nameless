@@ -37,20 +37,16 @@ if(!count($post)){
 $post = $post[0];
 
 // Check the user can moderate the forum
-if($forum->canModerateForum($user->data()->group_id, $post->forum_id)){
+if($forum->canModerateForum($user->data()->group_id, $post->forum_id, $user->data()->secondary_groups)){
 	// Check token
 	if(Token::check(Input::get('token'))){
 		// Valid token, go ahead and mark the user as spam
 		
 		// Get user
 		$banned_user = new User($post->post_creator);
-		
-		$is_admin = $queries->getWhere('groups', array('id', '=', $banned_user->data()->group_id));
-		if(count($is_admin)){
-			if($is_admin[0]->admin_cp == 1) $is_admin = true;
-			else $is_admin = false;
-		} else $is_admin = false;
-		
+
+		$is_admin = $banned_user->canViewACP();
+
 		// Ensure user is not admin
 		if($is_admin){
 			Session::flash('failure_post', $language->get('moderator', 'cant_ban_admin'));

@@ -19,8 +19,13 @@ $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
 
 // Get user group ID
-if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group = null;
-
+if($user->isLoggedIn()){
+    $user_group = $user->data()->group_id;
+    $secondary_groups = $user->data()->secondary_groups;
+} else {
+    $user_group = null;
+    $secondary_groups = null;
+}
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +100,7 @@ if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group 
 	// Generate latest posts to pass to template
 	// Check cache per user's group
 	if($user_group){
-		$cache_name = 'forum_discussions_' . $user_group;
+		$cache_name = 'forum_discussions_' . $user_group . '-' . $secondary_groups;
 	} else {
 		$cache_name = 'forum_discussions_guest';
 	}
@@ -106,7 +111,7 @@ if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group 
 		$template_array = $cache->retrieve('discussions');
 		
 	} else {
-		$discussions = $forum->getLatestDiscussions($user_group);
+		$discussions = $forum->getLatestDiscussions($user_group, $secondary_groups);
 		
 		$n = 0;
 		// Calculate the number of discussions to display (10 max)
@@ -203,7 +208,7 @@ if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group 
 	// Get forums
 	// Check cache per user's group
 	if($user_group){
-		$cache_name = 'forum_forums_' . $user_group;
+		$cache_name = 'forum_forums_' . $user_group . '-' . $secondary_groups;
 	} else {
 		$cache_name = 'forum_forums_guest';
 	}
@@ -214,7 +219,7 @@ if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group 
 		$forums = $cache->retrieve('forums');
 		
 	} else {
-		$forums = $forum->listAllForums($user_group);
+		$forums = $forum->listAllForums($user_group, $secondary_groups);
 		
 		// Loop through to get last poster avatars and to format a date
 		if(count($forums)){

@@ -81,10 +81,16 @@ require_once('modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
 
-if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group = null;
+if($user->isLoggedIn()) {
+    $user_group = $user->data()->group_id;
+    $secondary_groups = $user->data()->secondary_groups;
+} else {
+    $user_group = null;
+    $secondary_groups = null;
+}
 
 if($user_group){
-    $cache_name = 'forum_discussions_' . $user_group;
+    $cache_name = 'forum_discussions_' . $user_group . '_' . $secondary_groups;
 } else {
     $cache_name = 'forum_discussions_guest';
 }
@@ -96,7 +102,7 @@ if($cache->isCached('latest_posts')){
 
 } else {
     // Generate latest posts
-    $discussions = $forum->getLatestDiscussions($user_group);
+    $discussions = $forum->getLatestDiscussions($user_group, $secondary_groups);
 
     $n = 0;
     // Calculate the number of discussions to display (5 max)
@@ -169,6 +175,6 @@ if($cache->isCached('latest_posts')){
         $n++;
     }
 
-    $cache->store('latest_posts_widget_' . ($user->isLoggedIn() ? $user->data()->group_id : 0), $template_array, 60);
+    $cache->store('latest_posts_widget_' . ($user->isLoggedIn() ? $user->data()->group_id . '_' . $user->data()->secondary_groups : 0), $template_array, 60);
 }
 $widgets->add(new LatestPostsWidget($module_pages, $template_array, $forum_language->get('forum', 'latest_posts'), $forum_language->get('forum', 'by'), $smarty));

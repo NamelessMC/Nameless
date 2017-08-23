@@ -78,14 +78,14 @@ if(!count($post_editing)){
 $forum_id = $post_editing[0]->forum_id;
 
 // Check permissions before proceeding
-$can_reply = $forum->canPostReply($forum_id, $user->data()->group_id);
+$can_reply = $forum->canPostReply($forum_id, $user->data()->group_id, $user->data()->secondary_groups);
 if(!$can_reply){
 	Redirect::to(URL::build('/forum/view/' . $forum_id));
 	die();
 }
 
 
-if($user->data()->id !== $post_editing[0]->post_creator && !($forum->canModerateForum($user->data()->group_id, $forum_id))){
+if($user->data()->id !== $post_editing[0]->post_creator && !($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->secondary_groups))){
 	Redirect::to(URL::build('/forum/view/' . $forum_id));
 	die();
 }
@@ -142,8 +142,22 @@ if(Input::exists()){
                             $groups = explode(',', $topic_label[0]->gids);
                             if(in_array($user->data()->group_id, $groups))
                                 $topic_label = $_POST['topic_label'];
-                            else
-                                $topic_label = null;
+                            else {
+                                if(!is_null($user->data()->secondary_groups)){
+                                    $secondary_groups = json_decode($user->data()->secondary_groups, true);
+                                    if(count($secondary_groups)){
+                                        $topic_label = null;
+                                        foreach($secondary_groups as $group){
+                                            if(in_array($group, $groups)){
+                                                $topic_label = $_POST['topic_label'];
+                                                break;
+                                            }
+                                        }
+                                    } else
+                                        $topic_label = null;
+                                } else
+                                    $topic_label = null;
+                            }
                         } else
                             $topic_label = null;
                     }
@@ -263,8 +277,19 @@ if(Input::exists()){
 				if(in_array($forum_id, $forum_ids)){
                     // Check permissions
                     $groups = explode(',', $label->gids);
-                    if (!in_array($user->data()->group_id, $groups))
-                        continue;
+                    if(!in_array($user->data()->group_id, $groups)){
+                        $perms = false;
+                        if(!is_null($user->data()->secondary_groups)) {
+                            $secondary_groups = json_decode($user->data()->secondary_groups, true);
+                            if(count($secondary_groups)){
+                                foreach($secondary_groups as $group){
+                                    if(in_array($group, $groups))
+                                        $perms = true;
+                                }
+                            }
+                        }
+                        if($perms == false) continue;
+                    }
 
                     // Get label HTML
                     $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));

@@ -295,6 +295,8 @@ $language = array(
 	'delete_group' => 'Gruppe Löschen',
 	'confirm_group_deletion' => 'Möchtest du die Gruppe {x} wirklich löschen?', // Don't replace {x}
 	'group_not_exist' => 'Diese Gruppe existiert nicht.',
+	'secondary_groups' => 'Secondary Groups',
+	'secondary_groups_info' => 'The user will gain any additional permissions from these groups',
 
 	// General Admin language
 	'task_successful' => 'Aufgabe erfolgreich .',

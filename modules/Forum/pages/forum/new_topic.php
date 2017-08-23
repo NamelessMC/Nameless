@@ -32,17 +32,18 @@ if(!isset($_GET['fid']) || !is_numeric($_GET['fid'])){
 $fid = (int) $_GET['fid'];
 
 // Get user group ID
-if($user->isLoggedIn()) $user_group = $user->data()->group_id; else $user_group = null;
+$user_group = $user->data()->group_id;
+$secondary_groups = $user->data()->secondary_groups;
 
 // Does the forum exist, and can the user view it?
-$list = $forum->forumExist($fid, $user_group);
+$list = $forum->forumExist($fid, $user_group, $secondary_groups);
 if(!$list){
 	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 	die();
 }
 
 // Can the user post a topic in this forum?
-$can_reply = $forum->canPostTopic($fid, $user_group);
+$can_reply = $forum->canPostTopic($fid, $user_group, $secondary_groups);
 if(!$can_reply){
 	Redirect::to(URL::build('/forum/view/' . $fid));
 	die();

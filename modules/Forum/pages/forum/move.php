@@ -26,7 +26,7 @@ if(!isset($_GET["tid"]) || !is_numeric($_GET["tid"])){
 	$topic = $topic[0];
 }
 
-if($forum->canModerateForum($user->data()->group_id, $forum_id)){
+if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->secondary_groups)){
 	if(Input::exists()) {
 		if(Token::check(Input::get('token'))) {
 			$validate = new Validate();

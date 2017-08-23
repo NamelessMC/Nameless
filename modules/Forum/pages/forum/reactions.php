@@ -38,7 +38,7 @@ if(Input::exists()){
 	$topic_id = $post->topic_id;
 	
 	// Check user can actually view the post
-	if(!($forum->forumExist($post->forum_id, $user->data()->group_id))){
+	if(!($forum->forumExist($post->forum_id, $user->data()->group_id, $user->data()->secondary_groups))){
 		Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 		die();
 	}
