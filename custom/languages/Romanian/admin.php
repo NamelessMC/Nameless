@@ -245,6 +245,9 @@ $language = array(
 	'permissions' => 'Permisiuni',
 	'setting_perms_for_x' => 'Setați permisiunile pentru șablonul {x}', // Don't replace {x}
 	'templates_installed_successfully' => 'Toate șabloanele noi au fost instalate cu succes.',
+	'confirm_delete_template' => 'Are you sure you want to delete this template?',
+	'delete' => 'Delete',
+	'template_deleted_successfully' => 'Template deleted successfully.',
 
 	// Users & groups
 	'users' => 'Utilizatori',
