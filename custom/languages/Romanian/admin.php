@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *    Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr2
  *
@@ -8,61 +8,61 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 08/08/2017
+ *  Last Update: 24/08/2017
  */
 
 $language = array(
-	/*
-	 *  Admin Control Panel
-	 */
-	// Login
-	're-authenticate' => 'Vă rugăm să vă re-autentificati',
+    /*
+     *  Admin Control Panel
+     */
+    // Login
+    're-authenticate' => 'Vă rugăm să vă re-autentificati',
 
-	// Sidebar
-	'admin_cp' => 'Panou Administrare',
-	'administration' => 'Administrare',
-	'overview' => 'Prezentare generală',
-	'core' => 'Bază',
-	'minecraft' => 'Minecraft',
-	'modules' => 'Module',
-	'security' => 'Securitate',
-	'styles' => 'Stiluri',
-	'users_and_groups' => 'Utilizatori și grupuri',
+    // Sidebar
+    'admin_cp' => 'Panou Administrare',
+    'administration' => 'Administrare',
+    'overview' => 'Prezentare generală',
+    'core' => 'Bază',
+    'minecraft' => 'Minecraft',
+    'modules' => 'Module',
+    'security' => 'Securitate',
+    'styles' => 'Stiluri',
+    'users_and_groups' => 'Utilizatori și grupuri',
 
-	// Overview
-	'running_nameless_version' => 'Rulează versiunea <strong>{x}</strong> a NamelessMC', // Don't replace "{x}"
-	'running_php_version' => 'Rulează cu versiunea PHP <strong>{x}</strong>', // Don't replace "{x}"
-	'statistics' => 'Statistici',
+    // Overview
+    'running_nameless_version' => 'Rulează versiunea <strong>{x}</strong> a NamelessMC', // Don't replace "{x}"
+    'running_php_version' => 'Rulează cu versiunea PHP <strong>{x}</strong>', // Don't replace "{x}"
+    'statistics' => 'Statistici',
     'notices' => 'Alerte',
     'no_notices' => 'Momentan nu există alerte.',
     'email_errors_logged' => 'Au fost înregistrate erori de e-mail. Click <a href="{x}">aici</a> pentru a le vizualiza.', // Don't replace "{x}"
 
-	// Core
-	'settings' => 'Setări',
-	'general_settings' => 'Setări generale',
-	'sitename' => 'Nume site',
-	'default_language' => 'Limbă implicită',
-	'default_language_help' => 'Utilizatorii vor putea alege din limbile instalate.',
-	'installed_languages' => 'Toate limbile noi au fost instalate cu succes.',
-	'default_timezone' => 'Fusul orar prestabilit',
-	'registration' => 'Înregistrare',
-	'enable_registration' => 'Activați înregistrarea?',
-	'verify_with_mcassoc' => 'Verificați conturile de utilizator cu MCAssoc?',
-	'email_verification' => 'Activați verificarea prin e-mail?',
-	'homepage_type' => 'Tipul paginii principale',
-	'post_formatting_type' => 'Tip de formatare textarea',
-	'portal' => 'Portal',
-	'missing_sitename' => 'PIntroduceți un nume de site între 2 și 64 de caractere.',
-	'use_friendly_urls' => 'SEO URL',
-	'use_friendly_urls_help' => 'IMPORTANT: Serverul dvs. trebuie să fie configurat pentru a permite utilizarea fișierelor mod_rewrite și .htaccess pentru a funcționa.',
-	'config_not_writable' => 'Fisierul <strong>core/config.php</strong> nu are permisiunea de scriere. Vă rugăm să verificați permisiunile.',
-	'social_media' => 'Social Media',
-	'youtube_url' => 'Adresă Youtube',
-	'twitter_url' => 'Adresă Twitter',
-	'twitter_dark_theme' => 'Utilizați tema închisă Twitter?',
-	'google_plus_url' => 'Adresă Google Plus',
-	'facebook_url' => 'Adresă Facebook',
-	'successfully_updated' => 'Actualizat cu succes',
+    // Core
+    'settings' => 'Setări',
+    'general_settings' => 'Setări generale',
+    'sitename' => 'Nume site',
+    'default_language' => 'Limbă implicită',
+    'default_language_help' => 'Utilizatorii vor putea alege din limbile instalate.',
+    'installed_languages' => 'Toate limbile noi au fost instalate cu succes.',
+    'default_timezone' => 'Fusul orar prestabilit',
+    'registration' => 'Înregistrare',
+    'enable_registration' => 'Activați înregistrarea?',
+    'verify_with_mcassoc' => 'Verificați conturile de utilizator cu MCAssoc?',
+    'email_verification' => 'Activați verificarea prin e-mail?',
+    'homepage_type' => 'Tipul paginii principale',
+    'post_formatting_type' => 'Tip de formatare textarea',
+    'portal' => 'Portal',
+    'missing_sitename' => 'PIntroduceți un nume de site între 2 și 64 de caractere.',
+    'use_friendly_urls' => 'SEO URL',
+    'use_friendly_urls_help' => 'IMPORTANT: Serverul dvs. trebuie să fie configurat pentru a permite utilizarea fișierelor mod_rewrite și .htaccess pentru a funcționa.',
+    'config_not_writable' => 'Fisierul <strong>core/config.php</strong> nu are permisiunea de scriere. Vă rugăm să verificați permisiunile.',
+    'social_media' => 'Social Media',
+    'youtube_url' => 'Adresă Youtube',
+    'twitter_url' => 'Adresă Twitter',
+    'twitter_dark_theme' => 'Utilizați tema închisă Twitter?',
+    'google_plus_url' => 'Adresă Google Plus',
+    'facebook_url' => 'Adresă Facebook',
+    'successfully_updated' => 'Actualizat cu succes',
     'debugging_and_maintenance' => 'Depanare și întreținere',
     'enable_debug_mode' => 'Activați modul de depanare?',
     'force_https' => 'Forțează https?',
@@ -107,34 +107,34 @@ $language = array(
     'no_avatars_available' => 'Nu există avatare disponibile. Vă rugăm să încărcați mai întâi o imagine nouă.',
     'avatar_settings_updated_successfully' => 'Setările avatarelor s-au actualizat cu succes.',
 
-	// Reactions
-	'icon' => 'Iconiță',
-	'type' => 'Tip',
-	'positive' => 'Pozitiv',
-	'neutral' => 'Neutru',
-	'negative' => 'Negativ',
-	'editing_reaction' => 'Modificați reacția',
-	'html' => 'HTML iconiță',
-	'new_reaction' => '<i class="fa fa-plus-circle"></i> Reacție nouă',
-	'creating_reaction' => 'Adaugă reacție',
+    // Reactions
+    'icon' => 'Iconiță',
+    'type' => 'Tip',
+    'positive' => 'Pozitiv',
+    'neutral' => 'Neutru',
+    'negative' => 'Negativ',
+    'editing_reaction' => 'Modificați reacția',
+    'html' => 'HTML iconiță',
+    'new_reaction' => '<i class="fa fa-plus-circle"></i> Reacție nouă',
+    'creating_reaction' => 'Adaugă reacție',
 
-	// Custom profile fields
-	'custom_fields' => 'Câmpuri personalizate pentru profil',
-	'new_field' => '<i class="fa fa-plus-circle"></i> Adăugați un câmp nou',
-	'required' => 'Necesar',
-	'public' => 'Public',
-	'text' => 'Text',
-	'textarea' => 'Zona Text',
-	'date' => 'Dată',
-	'creating_profile_field' => 'Adaugă câmp personalizat pentru profil',
-	'editing_profile_field' => 'Editare câmp personalizat pentru profil',
-	'field_name' => 'Nume câmp',
-	'profile_field_required_help' => 'Câmpurile obligatorii trebuie completate de utilizator și vor apărea în timpul înregistrării.',
-	'profile_field_public_help' => 'PCâmpurile publice vor fi afișate tuturor utilizatorilor, dar dacă acest lucru este dezactivat, numai moderatorii pot vizualiza valorile.',
-	'profile_field_error' => 'Introduceți un nume de câmp între 2 și 16 caractere.',
-	'description' => 'Descriere',
-	'display_field_on_forum' => 'Afișați câmpul pe forum?',
-	'profile_field_forum_help' => 'Dacă este activată, câmpul va fi afișat în dreptul postărilor pe forum sub numele utilizatorului.',
+    // Custom profile fields
+    'custom_fields' => 'Câmpuri personalizate pentru profil',
+    'new_field' => '<i class="fa fa-plus-circle"></i> Adăugați un câmp nou',
+    'required' => 'Necesar',
+    'public' => 'Public',
+    'text' => 'Text',
+    'textarea' => 'Zona Text',
+    'date' => 'Dată',
+    'creating_profile_field' => 'Adaugă câmp personalizat pentru profil',
+    'editing_profile_field' => 'Editare câmp personalizat pentru profil',
+    'field_name' => 'Nume câmp',
+    'profile_field_required_help' => 'Câmpurile obligatorii trebuie completate de utilizator și vor apărea în timpul înregistrării.',
+    'profile_field_public_help' => 'PCâmpurile publice vor fi afișate tuturor utilizatorilor, dar dacă acest lucru este dezactivat, numai moderatorii pot vizualiza valorile.',
+    'profile_field_error' => 'Introduceți un nume de câmp între 2 și 16 caractere.',
+    'description' => 'Descriere',
+    'display_field_on_forum' => 'Afișați câmpul pe forum?',
+    'profile_field_forum_help' => 'Dacă este activată, câmpul va fi afișat în dreptul postărilor pe forum sub numele utilizatorului.',
 
     // Minecraft
     'enable_minecraft_integration' => 'Activați integrarea Minecraft?',
@@ -215,92 +215,92 @@ $language = array(
     'updated_mcassoc_successfully' => 'Setările mcassoc s-au actualizat cu succes.',
     'force_premium_accounts' => 'Forțează deținere unui cont de Minecraft permium?',
 
-	// Modules
-	'modules_installed_successfully' => 'Toate modulele noi au fost instalate cu succes (daca exista).',
-	'enabled' => 'Activat',
-	'disabled' => 'Dezactivat',
-	'enable' => 'Activează',
-	'disable' => 'Dezactivează',
-	'module_enabled' => 'Modulul este activat.',
-	'module_disabled' => 'Modulul este dezactivat.',
-	'author' => 'Autor:',
+    // Modules
+    'modules_installed_successfully' => 'Toate modulele noi au fost instalate cu succes (daca exista).',
+    'enabled' => 'Activat',
+    'disabled' => 'Dezactivat',
+    'enable' => 'Activează',
+    'disable' => 'Dezactivează',
+    'module_enabled' => 'Modulul este activat.',
+    'module_disabled' => 'Modulul este dezactivat.',
+    'author' => 'Autor:',
 
-	// Styles
-	'templates' => 'Template-uri',
-	'template_outdated' => 'Am detectat că șablonul dvs. este destinat versiunii NamelessMC {x}, dar executați versiunea NamelessMC {y}.', // Don't replace "{x}" or "{y}"
-	'active' => 'Activ',
-	'deactivate' => 'Dezactivare',
-	'activate' => 'Activare',
-	'warning_editing_default_template' => 'Avertizare! Se recomandă să nu editați șablonul implicit.',
-	'images' => 'Imagini',
-	'upload_new_image' => 'Încărcați o imagine nouă',
-	'reset_background' => 'Resetați fundalul',
-	'install' => '<i class="fa fa-plus-circle"></i> Instalare',
-	'template_updated' => 'Șablon actualizat cu succes.',
-	'default' => 'Implicit',
-	'make_default' => 'Setează implicit',
-	'default_template_set' => 'Șablonul prestabilit a fost setat la {x} cu succes.', // Don't replace {x}
-	'template_deactivated' => 'Șablonul a fost dezactivat.',
-	'template_activated' => 'Șablonul a fost activat.',
-	'permissions' => 'Permisiuni',
-	'setting_perms_for_x' => 'Setați permisiunile pentru șablonul {x}', // Don't replace {x}
-	'templates_installed_successfully' => 'Toate șabloanele noi au fost instalate cu succes.',
-	'confirm_delete_template' => 'Are you sure you want to delete this template?',
-	'delete' => 'Delete',
-	'template_deleted_successfully' => 'Template deleted successfully.',
+    // Styles
+    'templates' => 'Template-uri',
+    'template_outdated' => 'Am detectat că șablonul dvs. este destinat versiunii NamelessMC {x}, dar executați versiunea NamelessMC {y}.', // Don't replace "{x}" or "{y}"
+    'active' => 'Activ',
+    'deactivate' => 'Dezactivare',
+    'activate' => 'Activare',
+    'warning_editing_default_template' => 'Avertizare! Se recomandă să nu editați șablonul implicit.',
+    'images' => 'Imagini',
+    'upload_new_image' => 'Încărcați o imagine nouă',
+    'reset_background' => 'Resetați fundalul',
+    'install' => '<i class="fa fa-plus-circle"></i> Instalare',
+    'template_updated' => 'Șablon actualizat cu succes.',
+    'default' => 'Implicit',
+    'make_default' => 'Setează implicit',
+    'default_template_set' => 'Șablonul prestabilit a fost setat la {x} cu succes.', // Don't replace {x}
+    'template_deactivated' => 'Șablonul a fost dezactivat.',
+    'template_activated' => 'Șablonul a fost activat.',
+    'permissions' => 'Permisiuni',
+    'setting_perms_for_x' => 'Setați permisiunile pentru șablonul {x}', // Don't replace {x}
+    'templates_installed_successfully' => 'Toate șabloanele noi au fost instalate cu succes.',
+    'confirm_delete_template' => 'Sigur doriți să ștergeți acest șablon?',
+    'delete' => 'Șterge',
+    'template_deleted_successfully' => 'Șablonul a fost șters cu succes.',
 
-	// Users & groups
-	'users' => 'Utilizatori',
-	'groups' => 'Grupuri',
-	'group' => 'Grup',
-	'new_user' => '<i class="fa fa-plus-circle"></i> Utilizator nou',
-	'creating_new_user' => 'Creați un utilizator nou',
-	'registered' => 'Înregistrat',
-	'user_created' => 'Utilizatorul a fost creat cu succes.',
-	'cant_delete_root_user' => 'Nu puteți șterge utilizatorul root (principal)!',
-	'cant_modify_root_user' => 'Nu puteți modifica grupul de utilizatori al utilizatorului root (principal)!',
-	'user_deleted' => 'Utilizatorul a fost șters cu succes.',
-	'confirm_user_deletion' => 'Sigur doriți să ștergeți utilizatorul <strong>{x}</strong>?', // Don't replace {x}
-	'validate_user' => 'Activați utilizatorul',
-	'update_uuid' => 'Actualizare UUID',
-	'update_mc_name' => 'Actualizare nume Minecraft',
-	'reset_password' => 'Resetează parola',
-	'punish_user' => 'Sanctionați utilizatorul',
-	'delete_user' => 'Ștergeți utilizatorul',
-	'minecraft_uuid' => 'UUID Minecraft',
-	'other_actions' => 'Alte acțiuni',
-	'disable_avatar' => 'Dezactivare avatar',
-	'select_user_group' => 'Trebuie să selectați un grup de utilizatori.',
-	'uuid_max_32' => 'UUID-ul trebuie să aibă maxim 32 de caractere.',
-	'title_max_64' => 'Titlul utilizatorului trebuie să aibă maximum 64 de caractere.',
-	'group_id' => 'ID group',
-	'name' => 'Nume',
-	'title' => 'Titlul utilizatorului',
-	'new_group' => '<i class="fa fa-plus-circle"></i> Grup nou',
-	'group_name_required' => 'Introduceți un nume de grup.',
-	'group_name_minimum' => 'Asigurați-vă că numele grupului este de cel puțin 2 caractere.',
-	'group_name_maximum' => 'Asigurați-vă că numele grupului este de maximum 20 de caractere.',
-	'creating_group' => 'Adăugați un grup nou',
-	'group_html_maximum' => 'Asigurați-vă că HTML-ul grupului nu depășește 1024 de caractere.',
-	'group_html' => 'HTML grup',
-	'group_html_lg' => 'HTML grup (mare) ',
-	'group_username_colour' => 'Culoarea grupului',
-	'group_staff' => 'Grupul este un grup de personal (staff)?',
-	'group_modcp' => 'Grupul poate vizualiza Panoul Moderatorului?',
-	'group_admincp' => 'Grupul poate vizualiza Panoul de Administrare?',
-	'delete_group' => 'Ștergeți grupul',
-	'confirm_group_deletion' => 'Sigur doriți să ștergeți grupul {x}?', // Don't replace {x}
-	'group_not_exist' => 'Grupul specificat nu există.',
-	'secondary_groups' => 'Secondary Groups',
-	'secondary_groups_info' => 'The user will gain any additional permissions from these groups',
+    // Users & groups
+    'users' => 'Utilizatori',
+    'groups' => 'Grupuri',
+    'group' => 'Grup',
+    'new_user' => '<i class="fa fa-plus-circle"></i> Utilizator nou',
+    'creating_new_user' => 'Creați un utilizator nou',
+    'registered' => 'Înregistrat',
+    'user_created' => 'Utilizatorul a fost creat cu succes.',
+    'cant_delete_root_user' => 'Nu puteți șterge utilizatorul root (principal)!',
+    'cant_modify_root_user' => 'Nu puteți modifica grupul de utilizatori al utilizatorului root (principal)!',
+    'user_deleted' => 'Utilizatorul a fost șters cu succes.',
+    'confirm_user_deletion' => 'Sigur doriți să ștergeți utilizatorul <strong>{x}</strong>?', // Don't replace {x}
+    'validate_user' => 'Activați utilizatorul',
+    'update_uuid' => 'Actualizare UUID',
+    'update_mc_name' => 'Actualizare nume Minecraft',
+    'reset_password' => 'Resetează parola',
+    'punish_user' => 'Sanctionați utilizatorul',
+    'delete_user' => 'Ștergeți utilizatorul',
+    'minecraft_uuid' => 'UUID Minecraft',
+    'other_actions' => 'Alte acțiuni',
+    'disable_avatar' => 'Dezactivare avatar',
+    'select_user_group' => 'Trebuie să selectați un grup de utilizatori.',
+    'uuid_max_32' => 'UUID-ul trebuie să aibă maxim 32 de caractere.',
+    'title_max_64' => 'Titlul utilizatorului trebuie să aibă maximum 64 de caractere.',
+    'group_id' => 'ID group',
+    'name' => 'Nume',
+    'title' => 'Titlul utilizatorului',
+    'new_group' => '<i class="fa fa-plus-circle"></i> Grup nou',
+    'group_name_required' => 'Introduceți un nume de grup.',
+    'group_name_minimum' => 'Asigurați-vă că numele grupului este de cel puțin 2 caractere.',
+    'group_name_maximum' => 'Asigurați-vă că numele grupului este de maximum 20 de caractere.',
+    'creating_group' => 'Adăugați un grup nou',
+    'group_html_maximum' => 'Asigurați-vă că HTML-ul grupului nu depășește 1024 de caractere.',
+    'group_html' => 'HTML grup',
+    'group_html_lg' => 'HTML grup (mare) ',
+    'group_username_colour' => 'Culoarea grupului',
+    'group_staff' => 'Grupul este un grup de personal (staff)?',
+    'group_modcp' => 'Grupul poate vizualiza Panoul Moderatorului?',
+    'group_admincp' => 'Grupul poate vizualiza Panoul de Administrare?',
+    'delete_group' => 'Ștergeți grupul',
+    'confirm_group_deletion' => 'Sigur doriți să ștergeți grupul {x}?', // Don't replace {x}
+    'group_not_exist' => 'Grupul specificat nu există.',
+    'secondary_groups' => 'Grupuri secundare',
+    'secondary_groups_info' => 'Utilizatorul va obține orice permisiuni suplimentare din partea acestor grupuri',
 
-	// General Admin language
-	'task_successful' => 'Sarcina a reușit.',
-	'invalid_action' => 'Acțiune nevalidă.',
-	'enable_night_mode' => 'Activați modul de noapte',
-	'disable_night_mode' => 'Dezactivați modul de noapte',
-	'view_site' => 'Vizualizați site-ul',
-	'signed_in_as_x' => 'Conectat drept {x}', // Don't replace {x}
+    // General Admin language
+    'task_successful' => 'Sarcina a reușit.',
+    'invalid_action' => 'Acțiune nevalidă.',
+    'enable_night_mode' => 'Activați modul de noapte',
+    'disable_night_mode' => 'Dezactivați modul de noapte',
+    'view_site' => 'Vizualizați site-ul',
+    'signed_in_as_x' => 'Conectat drept {x}', // Don't replace {x}
     'warning' => 'Avertizare',
 
     // Maintenance
@@ -310,34 +310,34 @@ $language = array(
     'maintenance_mode_message' => 'Mesajul de întreținere',
     'maintenance_message_max_1024' => 'Asigurați-vă că mesajul de întreținere este de maximum 1024 de caractere.',
 
-	// Security
-	'acp_logins' => 'Conectări în Panoul de Administrare',
-	'please_select_logs' => 'Selectați jurnalele de afișat',
-	'ip_address' => 'Adresa IP',
-	'template_changes' => 'Modificări șabloane',
-	'file_changed' => 'Fișier modificat',
+    // Security
+    'acp_logins' => 'Conectări în Panoul de Administrare',
+    'please_select_logs' => 'Selectați jurnalele de afișat',
+    'ip_address' => 'Adresa IP',
+    'template_changes' => 'Modificări șabloane',
+    'file_changed' => 'Fișier modificat',
 
-	// Updates
-	'update' => 'Actualizare',
-	'current_version_x' => 'Versiune curentă: <strong>{x}</strong>', // Don't replaec {x}
-	'new_version_x' => 'Versiune nouă: <strong>{x}</strong>', // Don't replace {x}
-	'new_update_available' => 'Există o nouă actualizare disponibilă.',
-	'up_to_date' => 'Instalarea dvs. NamelessMC este actualizată!',
-	'urgent' => 'Această actualizare este o actualizare urgentă (importantă).',
-	'changelog' => 'Istoric modificări',
-	'update_check_error' => 'A apărut o eroare la verificarea pentru actualizări:',
-	'instructions' => 'Instrucțiuni',
-	'download' => '<i class="fa fa-arrow-circle-down" aria-hidden="true"></i> Descarcă',
-	'install_confirm' => 'Asigurați-vă că ați descărcat pachetul și ați încărcat mai întâi fișierele conținute!',
+    // Updates
+    'update' => 'Actualizare',
+    'current_version_x' => 'Versiune curentă: <strong>{x}</strong>', // Don't replaec {x}
+    'new_version_x' => 'Versiune nouă: <strong>{x}</strong>', // Don't replace {x}
+    'new_update_available' => 'Există o nouă actualizare disponibilă.',
+    'up_to_date' => 'Instalarea dvs. NamelessMC este actualizată!',
+    'urgent' => 'Această actualizare este o actualizare urgentă (importantă).',
+    'changelog' => 'Istoric modificări',
+    'update_check_error' => 'A apărut o eroare la verificarea pentru actualizări:',
+    'instructions' => 'Instrucțiuni',
+    'download' => '<i class="fa fa-arrow-circle-down" aria-hidden="true"></i> Descarcă',
+    'install_confirm' => 'Asigurați-vă că ați descărcat pachetul și ați încărcat mai întâi fișierele conținute!',
 
-	// Widgets
-	'widgets' => 'Piese',
-	'widget_enabled' => 'Piesă activată.',
-	'widget_disabled' => 'Piesă dezactivată .',
-	'editing_widget_x' => 'Modificare piesă: {x}', // Don't replace {x}
+    // Widgets
+    'widgets' => 'Piese',
+    'widget_enabled' => 'Piesă activată.',
+    'widget_disabled' => 'Piesă dezactivată .',
+    'editing_widget_x' => 'Modificare piesă: {x}', // Don't replace {x}
 
-	// File uploads
-	'drag_files_here' => 'Trageți fișierele aici pentru a le încărca.',
-	'invalid_file_type' => 'Tip de fișier nevalid!',
-	'file_too_big' => 'Fișierul este prea mare! Fișierul are {{filesize}} iar limita maximă este {{maxFilesize}}' // Don't replace {{filesize}} or {{maxFilesize}}
+    // File uploads
+    'drag_files_here' => 'Trageți fișierele aici pentru a le încărca.',
+    'invalid_file_type' => 'Tip de fișier nevalid!',
+    'file_too_big' => 'Fișierul este prea mare! Fișierul are {{filesize}} iar limita maximă este {{maxFilesize}}' // Don't replace {{filesize}} or {{maxFilesize}}
 );
