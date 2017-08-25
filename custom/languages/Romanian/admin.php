@@ -60,6 +60,7 @@ $language = array(
     'youtube_url' => 'Adresă Youtube',
     'twitter_url' => 'Adresă Twitter',
     'twitter_dark_theme' => 'Utilizați tema închisă Twitter?',
+	'discord_id' => 'Discord Server ID',
     'google_plus_url' => 'Adresă Google Plus',
     'facebook_url' => 'Adresă Facebook',
     'successfully_updated' => 'Actualizat cu succes',

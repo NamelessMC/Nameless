@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -66,6 +66,7 @@ $language = array(
 	'youtube_url' => 'Youtube URL',
 	'twitter_url' => 'Twitter URL',
 	'twitter_dark_theme' => 'Benutze Dunkles Twitter Theme?',
+	'discord_id' => 'Discord Server ID',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Erfolgreich geupdatet.',
