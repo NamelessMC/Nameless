@@ -59,6 +59,7 @@ $language = array(
 	'youtube_url' => 'Youtube URL',
 	'twitter_url' => 'Twitter URL',
 	'twitter_dark_theme' => 'Utilizar tema escuro do Twitter?',
+	'discord_id' => 'Discord Server ID',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Atualizado com sucesso!',

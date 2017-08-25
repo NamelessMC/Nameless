@@ -1143,6 +1143,16 @@ $current_default_language = $current_default_language[0]->value;
 
                                         $cache->store('twitter_theme', $theme);
 
+										// Discord ID
+                                        $discord_id = $queries->getWhere('settings', array('name', '=', 'discord'));
+                                        $discord_id = $discord_id[0]->id;
+
+                                        $queries->update('settings', $discord_id, array(
+                                            'value' => Output::getClean(Input::get('discordid'))
+                                        ));
+
+                                        $cache->store('discord', Output::getClean(Input::get('discordid')));
+										
                                         // Google Plus URL
                                         $gplus_url_id = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
                                         $gplus_url_id = $gplus_url_id[0]->id;
@@ -1174,6 +1184,7 @@ $current_default_language = $current_default_language[0]->value;
                                 $youtube_url = $queries->getWhere('settings', array('name', '=', 'youtube_url'));
                                 $twitter_url = $queries->getWhere('settings', array('name', '=', 'twitter_url'));
                                 $twitter_style = $queries->getWhere('settings', array('name', '=', 'twitter_style'));
+								$discord = $queries->getWhere('settings', array('name', '=', 'discord'));
                                 $gplus_url = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
                                 $fb_url = $queries->getWhere('settings', array('name', '=', 'fb_url'));
                                 ?>
@@ -1201,6 +1212,12 @@ $current_default_language = $current_default_language[0]->value;
                                         <input id="InputTwitterStyle" name="twitter_dark_theme" type="checkbox"
                                                class="js-switch"
                                                value="1" <?php if ($twitter_style[0]->value == 'dark') echo 'checked'; ?>/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="InputDiscord"><?php echo $language->get('admin', 'discord_id'); ?></label>
+                                        <input type="text" name="discordid" class="form-control" id="InputDiscord"
+                                               placeholder="<?php echo $language->get('admin', 'discord_id'); ?>"
+                                               value="<?php echo Output::getClean($discord[0]->value); ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="InputGPlus"><?php echo $language->get('admin', 'google_plus_url'); ?></label>

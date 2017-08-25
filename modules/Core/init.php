@@ -84,3 +84,13 @@ if($twitter){
 
     $widgets->add(new TwitterWidget($module_pages, $twitter, $theme));
 }
+
+// Discord
+require_once('modules/Core/widgets/DiscordWidget.php');
+$discord = $cache->retrieve('discord');
+
+if($discord){
+    $module_pages = $widgets->getPages('Discord');
+
+    $widgets->add(new DiscordWidget($module_pages, $discord));
+}

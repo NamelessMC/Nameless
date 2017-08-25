@@ -58,6 +58,7 @@ $language = array(
 	'config_not_writable' => 'Uw <strong>core/config.php</strong> bestand is niet herschrijfbaar.',
 	'social_media' => 'Sociale Media',
 	'youtube_url' => 'Youtube URL',
+	'discord_id' => 'Discord Server ID',
 	'twitter_url' => 'Twitter URL',
 	'twitter_dark_theme' => 'Gebruik het donkere thema voor Twitter?',
 	'google_plus_url' => 'Google Plus URL',

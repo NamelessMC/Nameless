@@ -2,7 +2,7 @@
 /*
  *	Oversatt av Thesevs
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-dev
+ *  NamelessMC versjon 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -58,6 +58,7 @@ $language = array(
 	'youtube_url' => 'YouTube-URL',
 	'twitter_url' => 'Twitter-URL',
 	'twitter_dark_theme' => 'Bruk mørkt tema for Twitter-modulen?',
+	'discord_id' => 'Discord Server ID',
 	'google_plus_url' => 'Google+ URL',
 	'facebook_url' => 'Facebook-URL',
 	'successfully_updated' => 'Vellykket endring i innstillinger!',
