@@ -23,7 +23,8 @@ if(defined('PAGE') && PAGE != 'login'){
 }
 
 // Add widgets to Smarty
-$smarty->assign('WIDGETS', $widgets->getWidgets());
+if(isset($widgets))
+	$smarty->assign('WIDGETS', $widgets->getWidgets());
 ?>
 
 	<!-- Page Title -->
