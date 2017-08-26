@@ -159,9 +159,18 @@ require('core/templates/cc_navbar.php');
 								$username = $users[$n];
 							} else $username = $item;
 							
-							if($username == $user->data()->nickname){
+							if($username == $user->data()->nickname || $username == $user->data()->username){
 								unset($users[$n]);
 								continue;
+							}
+
+                            $user_id = $user->NameToId($item);
+							if($user_id){
+                                if($user->isBlocked($user_id, $user->data()->id) && !$user->canViewMCP() && !$user->canViewACP()){
+                                    $blocked = true;
+                                    unset($users[$n]);
+                                    continue;
+                                }
 							}
 							
 							if($n == 10){
@@ -170,8 +179,11 @@ require('core/templates/cc_navbar.php');
 							}
 							$n++;
 						}
-						
-						if(!count($users)){
+
+						if(isset($blocked)){
+						    $error = $language->get('user', 'one_or_more_users_blocked');
+
+                        } else if(!count($users)){
 							$error = $language->get('user', 'cant_send_to_self');
 							
 						} else {
@@ -446,7 +458,7 @@ require('core/templates/cc_navbar.php');
 					'author_profile' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]->author_id))),
 					'author_avatar' => $user->getAvatar($results->data[$n]->author_id, "../", 100),
 					'author_style' => $user->getGroupClass($results->data[$n]->author_id),
-					'author_group' => $user->getGroup($results->data[$n]->author_id, 'true'),
+					'author_groups' => $user->getAllGroups($results->data[$n]->author_id, 'true'),
 					'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
 					'message_date_full' => date('d M Y, H:i', $results->data[$n]->created),
 					'content' => Output::getPurified($emojione->unicodeToImage(htmlspecialchars_decode($results->data[$n]->content)))

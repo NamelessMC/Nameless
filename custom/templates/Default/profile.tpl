@@ -11,12 +11,13 @@
 		</h2>
 	  </div>
 	  <div class="col-md-4">
-		<div class="float-xs-right">
+		<span class="pull-right">
 		  {nocache}
 		  {if isset($LOGGED_IN)}
 		    {if !isset($SELF)}
 		  <div class="btn-group">
 			<!--<a href="{$FOLLOW_LINK}" class="btn btn-primary btn-lg"><i class="fa fa-users fa-fw"></i> {$FOLLOW}</a>-->
+			{if $MOD_OR_ADMIN ne true}<a href="#" data-toggle="modal" data-target="#blockModal" class="btn btn-danger btn-lg"><i class="fa fa-ban fa-fw"></i></a>{/if}
 			<a href="{$MESSAGE_LINK}" class="btn btn-secondary btn-lg"><i class="fa fa-envelope fa-fw"></i></a>
 		  </div>
 		    {else}
@@ -27,7 +28,7 @@
 		    {/if}
 		  {/if}
 		  {/nocache}
-		</div>
+		</span>
 	  </div>
 	</div>
   </div>
@@ -60,6 +61,11 @@
 			{if isset($ERROR)}
 			<div class="alert alert-danger">
 			  {$ERROR}
+			</div>
+			{/if}
+            {if isset($SUCCESS)}
+			<div class="alert alert-success">
+			  {$SUCCESS}
 			</div>
 			{/if}
 		  <form action="" method="post">
@@ -271,6 +277,33 @@
 		</div>
 	  </div>
 	</div>
+  {else}
+	{if $MOD_OR_ADMIN ne true}
+	<!-- Block user modal -->
+	<div class="modal fade" id="blockModal" tabindex="-1" role="dialog" aria-labelledby="blockModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+			<h4 class="modal-title" id="blockModalLabel">{if isset($BLOCK_USER)}{$BLOCK_USER}{else}{$UNBLOCK_USER}{/if}</h4>
+		  </div>
+		  <form action="" method="post" style="display:inline;" >
+		    <div class="modal-body">
+			  <p>{if isset($CONFIRM_BLOCK_USER)}{$CONFIRM_BLOCK_USER}{else}{$CONFIRM_UNBLOCK_USER}{/if}</p>
+			  <input type="hidden" name="token" value="{$TOKEN}">
+			  <input type="hidden" name="action" value="block">
+		    </div>
+		    <div class="modal-footer">
+			  <button type="button" class="btn btn-danger" data-dismiss="modal">{$CANCEL}</button>
+			  <input type="submit" class="btn btn-primary" value="{$CONFIRM}">
+		    </div>
+		  </form>
+		</div>
+	  </div>
+	</div>
+	{/if}
   {/if}
 {/if}
 

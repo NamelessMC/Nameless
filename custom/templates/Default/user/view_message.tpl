@@ -41,7 +41,9 @@
 				    <br /><br />
 				    <strong><a style="{$message.author_style}" href="{$message.author_profile}">{$message.author_username}</a></strong>
 				    <br />
-				    {$message.author_group}
+				    {foreach from=$message.author_groups item=group}
+				      {$group}<br />
+				    {/foreach}
 				  </center>
 				</div>
 				<div class="col-md-9">
@@ -55,7 +57,7 @@
 			</div>
 		  </div>
 		  {/foreach}
-		  
+		  <br />
 		  {$PAGINATION}
 		  
 		  <form action="" method="post">

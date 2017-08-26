@@ -638,9 +638,31 @@ class User {
 	}
 
 	// Can the specified user view the AdminCP?
-	public function canViewACP(){
+	public function canViewACP($user_id = null){
+        if(is_null($user_id)){
+            $group_id = $this->data()->group_id;
+            if(is_null($this->data()->secondary_groups))
+                $secondary = array();
+            else
+                $secondary = json_decode($this->data()->secondary_groups, true);
+        } else {
+            // Get user
+            $user_query = $this->_db->get('users', array('id', '=', $user_id));
+            if($user_query->count()){
+                $user_query = $user_query->first();
+                $group_id = $user_query->group_id;
+                if(is_null($user_query->secondary_groups))
+                    $secondary = array();
+                else
+                    $secondary = json_decode($user_query->secondary_groups, true);
+
+            } else {
+                return false;
+            }
+        }
+
         // Get whether the user can view the AdminCP from the groups table
-        $data = $this->_db->get('groups', array('id', '=', $this->data()->group_id));
+        $data = $this->_db->get('groups', array('id', '=', $group_id));
         if($data->count()){
             $data = $data->results();
             if($data[0]->admin_cp == 1){
@@ -648,17 +670,14 @@ class User {
                 return true;
             } else {
                 // Check secondary groups
-                if(!is_null($this->data()->secondary_groups)){
-                    $secondary = json_decode($this->data()->secondary_groups, true);
-                    if(count($secondary)){
-                        foreach($secondary as $group) {
-                            $data = $this->_db->get('groups', array('id', '=', $group));
-                            if($data->count()){
-                                $data = $data->results();
+                if(count($secondary)){
+                    foreach($secondary as $group) {
+                        $data = $this->_db->get('groups', array('id', '=', $group));
+                        if($data->count()){
+                            $data = $data->results();
 
-                                if($data[0]->admin_cp == 1){
-                                    return true;
-                                }
+                            if($data[0]->admin_cp == 1){
+                                return true;
                             }
                         }
                     }
@@ -669,35 +688,52 @@ class User {
 	}
 
 	// Can the specified user view the ModCP?
-	public function canViewMCP(){
-		if($this->isLoggedIn()){
-			// Get whether the user can view the ModCP from the groups table
-			$data = $this->_db->get('groups', array('id', '=', $this->data()->group_id));
-			if($data->count()){
-				$data = $data->results();
-				if($data[0]->mod_cp == 1){
-					// Can view
-					return true;
-				} else {
-                    // Check secondary groups
-                    if(!is_null($this->data()->secondary_groups)){
-                        $secondary = json_decode($this->data()->secondary_groups, true);
-                        if(count($secondary)){
-                            foreach($secondary as $group) {
-                                $data = $this->_db->get('groups', array('id', '=', $group));
-                                if($data->count()){
-                                    $data = $data->results();
+	public function canViewMCP($user_id = null){
+	    if(is_null($user_id)){
+	        $group_id = $this->data()->group_id;
+	        if(is_null($this->data()->secondary_groups))
+	            $secondary = array();
+	        else
+	            $secondary = json_decode($this->data()->secondary_groups, true);
+        } else {
+	        // Get user
+            $user_query = $this->_db->get('users', array('id', '=', $user_id));
+            if($user_query->count()){
+                $user_query = $user_query->first();
+                $group_id = $user_query->group_id;
+                if(is_null($user_query->secondary_groups))
+                    $secondary = array();
+                else
+                    $secondary = json_decode($user_query->secondary_groups, true);
 
-                                    if($data[0]->mod_cp == 1){
-                                        return true;
-                                    }
-                                }
+            } else {
+                return false;
+            }
+        }
+
+        // Get whether the user can view the ModCP from the groups table
+        $data = $this->_db->get('groups', array('id', '=', $group_id));
+        if($data->count()) {
+            $data = $data->results();
+            if ($data[0]->mod_cp == 1) {
+                // Can view
+                return true;
+            } else {
+                // Check secondary groups
+                if(count($secondary)){
+                    foreach ($secondary as $group) {
+                        $data = $this->_db->get('groups', array('id', '=', $group));
+                        if ($data->count()) {
+                            $data = $data->results();
+
+                            if($data[0]->mod_cp == 1){
+                                return true;
                             }
                         }
                     }
                 }
-			}
-		}
+            }
+        }
 		return false;
 	}
 
@@ -834,4 +870,25 @@ class User {
 		}
 		return false;
 	}
+
+	/*
+	 *  Is a user blocked?
+	 *  Params: $user - ID of first user
+	 *          $blocked - ID of user who may or may not be blocked
+	 */
+	public function isBlocked($user, $blocked){
+	    if($user && $blocked){
+	        $possible_users = $this->_db->get('blocked_users', array('user_id', '=', $user));
+	        if($possible_users->count()){
+	            $possible_users = $possible_users->results();
+
+	            foreach($possible_users as $possible_user){
+	                if($possible_user->user_blocked_id == $blocked)
+	                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }

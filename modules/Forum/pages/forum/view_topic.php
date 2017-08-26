@@ -168,7 +168,7 @@ if(Input::exists()) {
 				// Get last post ID
 				$last_post_id = $queries->getLastId();
 				$content = $mentionsParser->parse($user->data()->id, $content, $tid, $last_post_id, $forum_language->get('forum', 'user_tag'), $forum_language->get('forum', 'user_tag_info'));
-				
+
 				$queries->update("posts", $last_post_id, array(
 					'post_content' => $content
 				));
@@ -183,7 +183,7 @@ if(Input::exists()) {
 					'topic_reply_date' => date('U')
 				));
 				Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
-				Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
+				Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
 				die();
 				
 			} catch(Exception $e){

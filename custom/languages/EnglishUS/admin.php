@@ -292,7 +292,7 @@ $language = array(
 	'confirm_group_deletion' => 'Are you sure you want to delete the group {x}?', // Don't replace {x}
 	'group_not_exist' => 'That group doesn\'t exist.',
 	'secondary_groups' => 'Secondary Groups',
-	'secondary_groups_info' => 'The user will gain any additional permissions from these groups',
+	'secondary_groups_info' => 'The user will gain any additional permissions from these groups. Ctrl+click to select/deselect multiple groups.',
 
 	// General Admin language
 	'task_successful' => 'Task successful.',
