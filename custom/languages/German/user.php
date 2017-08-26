@@ -156,6 +156,12 @@ $language = array(
 	'last_seen' => 'Zuletzt gesehen:',
 	'new_wall_post' => '{x} has posted on your profile.',
 	'couldnt_find_that_user' => 'Couldn\'t find that user.',
+	'block_user' => 'Block User',
+	'unblock_user' => 'Unblock User',
+	'confirm_block_user' => 'Are you sure you want to block this user? They will not be able to send you private messages or tag you in posts.',
+	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
+	'user_blocked' => 'User blocked.',
+	'user_unblocked' => 'User unblocked.',
 	
 	// Reports
 	'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
@@ -186,6 +192,7 @@ $language = array(
 	'by' => 'von',
 	'leave_conversation' => 'Konversation verlassen.',
 	'confirm_leave' => 'Möchtest du die Konversation wirklich verlassen?',
+	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
 	
 	// Reactions
 	'reactions' => 'Reaktionen',

@@ -148,6 +148,12 @@ $language = array(
 	'last_seen' => 'Last Seen:',
 	'new_wall_post' => '{x} has posted on your profile.',
 	'couldnt_find_that_user' => 'Couldn\'t find that user.',
+	'block_user' => 'Block User',
+	'unblock_user' => 'Unblock User',
+	'confirm_block_user' => 'Are you sure you want to block this user? They will not be able to send you private messages or tag you in posts.',
+	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
+	'user_blocked' => 'User blocked.',
+	'user_unblocked' => 'User unblocked.',
 	
 	// Reports
 	'invalid_report_content' => 'Unable to create report. Please ensure your report reason is between 2 and 1024 characters.',
@@ -178,6 +184,7 @@ $language = array(
 	'by' => 'by',
 	'leave_conversation' => 'Leave Conversation',
 	'confirm_leave' => 'Are you sure you want to leave this conversation?',
+	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
 	
 	// Reactions
 	'reactions' => 'Reactions',
