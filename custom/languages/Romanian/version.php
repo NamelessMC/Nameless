@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Language version
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 15/07/2017
+ *  Last Update: 26/08/2017
  */
 
 // Which version of NamelessMC is this language file updated to?

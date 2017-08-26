@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Installation
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 15/07/2017
+ *  Last Update: 26/08/2017
  */
 
 $language = array(
