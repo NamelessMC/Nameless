@@ -77,11 +77,11 @@ $language = array(
 
     	 // Registration - Authme
 	'connect_with_authme' => 'Koble til brukeren din med AuthMe.',
-    	'authme_help' => 'Vennligst skriv inn dine ingame AuthMe brukers pålogginsinformsajon. Hvis du ikke har en bruker ingame, logg inn på serveren og følg instruksjonene.',
+	'authme_help' => 'Vennligst skriv inn dine ingame AuthMe brukers pålogginsinformsajon. Hvis du ikke har en bruker ingame, logg inn på serveren og følg instruksjonene.',
    	'unable_to_connect_to_authme_db' => 'En feil oppstod under tilkoblingen til AuthMe databasen. Hvis denne feilen gjentar seg, vennligst kontakt en administrator.',
    	'authme_account_linked' => 'Bruker suksessfullt tilkoblet.',
-    	'authme_email_help_1' => 'Til slutt, vennligst skriv inn ditt email adresse.',
-    	'authme_email_help_2' => 'Til slutt, vennligst skriv inn ditt email adresse, og velg et nytt brukernavn til din bruker.',
+	'authme_email_help_1' => 'Til slutt, vennligst skriv inn ditt email adresse.',
+	'authme_email_help_2' => 'Til slutt, vennligst skriv inn ditt email adresse, og velg et nytt brukernavn til din bruker.',
 	// Registration errors
 	'username_required' => 'Fyll inn et brukeravn.',
 	'email_required' => 'Fyll inn en email.',
@@ -147,6 +147,12 @@ $language = array(
 	'last_seen' => 'Sist sett:',
 	'new_wall_post' => '{x} has posted on your profile.',
 	'couldnt_find_that_user' => 'Couldn\'t find that user.',
+	'block_user' => 'Block User',
+	'unblock_user' => 'Unblock User',
+	'confirm_block_user' => 'Are you sure you want to block this user? They will not be able to send you private messages or tag you in posts.',
+	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
+	'user_blocked' => 'User blocked.',
+	'user_unblocked' => 'User unblocked.',
 	
 	// Reports
 	'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Har du sjekket at den er mellom 2 og 1024 tegn?',
@@ -177,6 +183,7 @@ $language = array(
 	'by' => 'av',
 	'leave_conversation' => 'Forlat samtale',
 	'confirm_leave' => 'Er du sikker på at du vil forlate denne samtalen?',
+	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
 	
 	// Reactions
 	'reactions' => 'Reaksjoner',

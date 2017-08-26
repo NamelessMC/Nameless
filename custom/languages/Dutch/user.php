@@ -150,6 +150,12 @@ $language = array(
 	'last_seen' => 'Laatst gezien:',
 	'new_wall_post' => '{x} has posted on your profile.',
 	'couldnt_find_that_user' => 'Couldn\'t find that user.',
+	'block_user' => 'Block User',
+	'unblock_user' => 'Unblock User',
+	'confirm_block_user' => 'Are you sure you want to block this user? They will not be able to send you private messages or tag you in posts.',
+	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
+	'user_blocked' => 'User blocked.',
+	'user_unblocked' => 'User unblocked.',
 	
 	// Rapporten
 	'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
@@ -180,6 +186,7 @@ $language = array(
 	'by' => 'door',
 	'leave_conversation' => 'Verlaat gesprek',
 	'confirm_leave' => 'Weet je zeker dat je dit gesprek wilt verlaten?',
+	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
 	
 	// Reacties
 	'reactions' => 'Reacties',

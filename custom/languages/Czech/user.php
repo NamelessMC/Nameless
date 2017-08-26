@@ -148,6 +148,12 @@ $language = array(
 	'last_seen' => 'Poslední přihlášení:',
 	'new_wall_post' => 'Hráč {x} napsal na Váš profil.',
 	'couldnt_find_that_user' => 'Couldn\'t find that user.',
+	'block_user' => 'Block User',
+	'unblock_user' => 'Unblock User',
+	'confirm_block_user' => 'Are you sure you want to block this user? They will not be able to send you private messages or tag you in posts.',
+	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
+	'user_blocked' => 'User blocked.',
+	'user_unblocked' => 'User unblocked.',
 	
 	// Reports
 	'invalid_report_content' => 'Nelze vytvořit nahlášení. Musíte zadat důvod v rozmezí 2 až 1024 znaků.',
@@ -179,6 +185,7 @@ $language = array(
 	'new_reply' => 'Nová odpověď',
 	'leave_conversation' => 'Opustit konverzaci',
 	'confirm_leave' => 'Opravdu chcete opustit konverzaci?',
+	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
 	
 	// Reactions
 	'reactions' => 'Reakce',
