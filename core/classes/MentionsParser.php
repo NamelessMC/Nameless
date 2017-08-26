@@ -7,7 +7,7 @@
  *
  * Modified by Samerton for NamelessMC
  * https://github.com/NamelessMC/Nameless/
- * NamelessMC version 2.0.0-dev
+ * NamelessMC version 2.0.0-pr2
  */
 class MentionsParser {
 	/*
@@ -33,7 +33,10 @@ class MentionsParser {
         if(preg_match_all("/\@([A-Za-z0-9\-_!\.\s]+)/", $value, $matches)){
 			// Get username of author
 			$author_name = $this->_db->get('users', array('id', '=', $author_id))->results();
-			if($author_name) $author_name = Output::getClean($author_name[0]->username);
+			if(count($author_name)){
+			    $author_id = $author_name[0]->id;
+			    $author_name = Output::getClean($author_name[0]->username);
+            }
 			else $author_name = 'Anonymous';
 			
             $matches = $matches[1];
@@ -45,9 +48,23 @@ class MentionsParser {
 					$user = $this->_db->get('users', array('username', '=', $possible_username));
 					$user = $user->first();
                     if($user){
-                        $value = preg_replace("/".preg_quote("@{$possible_username}", "/")."/", "<a href=" . URL::build('/profile/' . $possible_username) . ">@{$possible_username}</a>", $value);
-                        
-						Alert::create($user->id, 'tag', $user_tag, str_replace('{x}', '<a href="' . URL::build('/profile/' . $author_name) . '">' . $author_name . '</a>', $user_tag_info),  URL::build('/forum/view_topic/', 'tid=' . $topic_id . '&pid=' . $post_id));
+                        $value = preg_replace("/".preg_quote("@{$possible_username}", "/")."/", "<a href=\"" . URL::build('/profile/' . rtrim($possible_username, ' ')) . "\">@{$possible_username}</a>", $value);
+
+                        // Check if user is blocked by OP
+                        if(isset($author_id)){
+                            $user_blocked = $this->_db->get('blocked_users', array('user_id', '=', $user->id));
+                            if($user_blocked->count()){
+                                $user_blocked = $user_blocked->results();
+
+                                foreach($user_blocked as $item){
+                                    if($item->user_blocked_id == $author_id){
+                                        break 2;
+                                    }
+                                }
+                            }
+                        }
+
+                        Alert::create($user->id, 'tag', $user_tag, str_replace('{x}', '<a href="' . URL::build('/profile/' . $author_name) . '">' . $author_name . '</a>', $user_tag_info),  URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id));
 
 						break;
                     }
@@ -59,7 +76,6 @@ class MentionsParser {
                 }
             }
         }
-
         return $value;
     }
 }

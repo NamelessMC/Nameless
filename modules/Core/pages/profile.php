@@ -182,7 +182,37 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 								$error = $language->get('general', 'invalid_token');
 							}
 						break;
-						
+
+						case 'block':
+						    if(Token::check(Input::get('token'))){
+						        if($user->isBlocked($user->data()->id, $query->id)){
+						            // Unblock
+						            $blocked_id = $queries->getWhere('blocked_users', array('user_id', '=', $user->data()->id));
+						            if(count($blocked_id)){
+						                foreach($blocked_id as $id){
+						                    if($id->user_blocked_id == $query->id){
+						                        $blocked_id = $id->id;
+						                        break;
+						                    }
+						                }
+
+						                if(is_numeric($blocked_id)){
+						                    $queries->delete('blocked_users', array('id', '=', $blocked_id));
+						                    $success = $language->get('user', 'user_unblocked');
+						                }
+						            }
+
+						        } else {
+						            // Block
+						            $queries->create('blocked_users', array(
+						                'user_id' => $user->data()->id,
+						                'user_blocked_id' => $query->id
+						            ));
+						            $success = $language->get('user', 'user_blocked');
+						        }
+						    } else
+						        $error = $language->get('general', 'invalid_token');
+						break;
 					}
 				}
 			}
@@ -301,8 +331,25 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 					'BANNERS' => $banners
 				));
 			} else {
-				$smarty->assign('MESSAGE_LINK', URL::build('/user/messaging/', 'action=new&amp;uid=' . $query->id));
-				$smarty->assign('FOLLOW_LINK', URL::build('/user/follow/', 'user=' . $query->id));
+			    $smarty->assign(array(
+			        'MESSAGE_LINK' => URL::build('/user/messaging/', 'action=new&amp;uid=' . $query->id),
+			        'FOLLOW_LINK' => URL::build('/user/follow/', 'user=' . $query->id),
+			        'CONFIRM' => $language->get('general', 'confirm'),
+                    'MOD_OR_ADMIN' => ($user->canViewMCP($query->id) || $user->canViewACP($query->id))
+			    ));
+
+			    // Is the user blocked?
+			    if($user->isBlocked($user->data()->id, $query->id)){
+			        $smarty->assign(array(
+			            'UNBLOCK_USER' => $language->get('user', 'unblock_user'),
+			            'CONFIRM_UNBLOCK_USER' => $language->get('user', 'confirm_unblock_user')
+			        ));
+			    } else {
+			        $smarty->assign(array(
+			            'BLOCK_USER' => $language->get('user', 'block_user'),
+			            'CONFIRM_BLOCK_USER' => $language->get('user', 'confirm_block_user')
+			        ));
+			    }
 			}
 		}
 		
@@ -428,6 +475,7 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 		$smarty->assign('WALL_POSTS', $wall_posts);
 		
 		if(isset($error)) $smarty->assign('ERROR', $error);
+		if(isset($success)) $smarty->assign('SUCCESS', $success);
 		
 		// About tab
 		$fields = array();
