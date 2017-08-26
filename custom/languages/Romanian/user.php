@@ -148,6 +148,7 @@ $language = array(
 	'new_reply' => 'Adaugă un răspuns nou',
 	'registered' => 'Înregistrat:',
 	'last_seen' => 'Vazut ultima data:',
+	'couldnt_find_that_user' => 'Couldn\'t find that user.',
 	
 	// Reports
 	'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',

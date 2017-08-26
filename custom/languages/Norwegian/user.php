@@ -2,7 +2,7 @@
 /*
  *  Translations by Thesevs and OscarWoHA
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-dev
+ *  NamelessMC versjon 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -146,6 +146,7 @@ $language = array(
 	'registered' => 'Registrerte seg:',
 	'last_seen' => 'Sist sett:',
 	'new_wall_post' => '{x} has posted on your profile.',
+	'couldnt_find_that_user' => 'Couldn\'t find that user.',
 	
 	// Reports
 	'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Har du sjekket at den er mellom 2 og 1024 tegn?',

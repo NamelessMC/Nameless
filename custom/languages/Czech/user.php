@@ -147,6 +147,7 @@ $language = array(
 	'registered' => 'Registrován:',
 	'last_seen' => 'Poslední přihlášení:',
 	'new_wall_post' => 'Hráč {x} napsal na Váš profil.',
+	'couldnt_find_that_user' => 'Couldn\'t find that user.',
 	
 	// Reports
 	'invalid_report_content' => 'Nelze vytvořit nahlášení. Musíte zadat důvod v rozmezí 2 až 1024 znaků.',
