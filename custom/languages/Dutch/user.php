@@ -149,6 +149,7 @@ $language = array(
 	'registered' => 'Geregistreerd sinds:',
 	'last_seen' => 'Laatst gezien:',
 	'new_wall_post' => '{x} has posted on your profile.',
+	'couldnt_find_that_user' => 'Couldn\'t find that user.',
 	
 	// Rapporten
 	'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',

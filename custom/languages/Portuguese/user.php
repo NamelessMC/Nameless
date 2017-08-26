@@ -148,6 +148,7 @@ $language = array(
 	'registered' => 'Cadastrado:',
 	'last_seen' => 'Visto pela última vez:',
 	'new_wall_post' => '{x} has posted on your profile.',
+	'couldnt_find_that_user' => 'Couldn\'t find that user.',
 	
 	// Reports
 	'invalid_report_content' => 'Não foi possível criar o alerta. Certifique-se de que o motivo do alerta está entre 2 e 1024 caracteres.',

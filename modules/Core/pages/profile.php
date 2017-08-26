@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -510,8 +510,13 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 		
 	} else {
 		if(isset($_GET['error'])){
-			// Error
-			echo 'Couldn\'t find that user.';
+			// User not exist
+			$smarty->assign(array(
+				'BACK' => $language->get('general', 'back'),
+				'HOME' => $language->get('general', 'home'),
+				'NOT_FOUND' => $language->get('user', 'couldnt_find_that_user')
+			));
+			$smarty->display('custom/templates/' . TEMPLATE . '/user_not_exist.tpl');
 		}
 		// Search for user
 		// TODO

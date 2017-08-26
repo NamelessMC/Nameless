@@ -147,6 +147,7 @@ $language = array(
 	'registered' => 'Registered:',
 	'last_seen' => 'Last Seen:',
 	'new_wall_post' => '{x} has posted on your profile.',
+	'couldnt_find_that_user' => 'Couldn\'t find that user.',
 	
 	// Reports
 	'invalid_report_content' => 'Unable to create report. Please ensure your report reason is between 2 and 1024 characters.',

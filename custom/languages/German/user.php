@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -155,6 +155,7 @@ $language = array(
 	'registered' => 'Registriert seit:',
 	'last_seen' => 'Zuletzt gesehen:',
 	'new_wall_post' => '{x} has posted on your profile.',
+	'couldnt_find_that_user' => 'Couldn\'t find that user.',
 	
 	// Reports
 	'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
