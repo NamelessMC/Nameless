@@ -332,10 +332,10 @@ $language = array(
 	'install_confirm' => 'Ujistěte se prosím, že jste stáhl balíček a nejprve jste nahrál obsažené soubory!',
 
 	// Widgets
-	'widgets' => 'Widgets',
-	'widget_enabled' => 'Widget enabled.',
-	'widget_disabled' => 'Widget disabled.',
-	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
+	'widgets' => 'Widgety',
+	'widget_enabled' => 'Widget zapnut.',
+	'widget_disabled' => 'Widget vypnut.',
+	'editing_widget_x' => 'Upravování widgetu {x}', // Don't replace {x}
 
 	// File uploads
 	'drag_files_here' => 'Soubory přetáhněte sem pro nahrání.',
