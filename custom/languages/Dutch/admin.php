@@ -214,6 +214,9 @@ $language = array(
 	'updated_mcassoc_successfully' => 'mcassoc instellingen succesvol bijgewerkt.',
 	'force_premium_accounts' => 'Forceer betaalde Minecraft accounts?',
 	'banner_background' => 'Banner background',
+	'query_interval' => 'Query interval (in minutes, must be between 5 and 60)',
+	'player_graphs' => 'Player Graphs',
+	'player_count_cronjob_info' => 'You can set up a cron job to query your servers every {x} minutes with the following command:',
 
 	// Modulen
 	'modules_installed_successfully' => 'Alle nieuwe modules zijn succesvol toegevoegd.',

@@ -919,6 +919,7 @@ $admin_page = 'minecraft';
 
                               try {
                                 $queries->delete('mc_servers', array('id', '=', $_GET['id']));
+                                $queries->delete('query_results', array('server_id', '=', $_GET['id']));
                                 Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
                                 Redirect::to(URL::build('/admin/minecraft/', 'view=servers'));
                                 die();
@@ -927,6 +928,68 @@ $admin_page = 'minecraft';
                                   Redirect::to(URL::build('/admin/minecraft/', 'view=servers'));
                                 die();
                               }
+                              break;
+
+                            case 'graph':
+                              echo '<h4 style="display:inline">' . $language->get('admin', 'player_graphs') . '</h4>';
+                              echo '<span class="pull-right"><a class="btn btn-primary" href="' . URL::build('/admin/minecraft/', 'view=servers') . '">' . $language->get('general', 'back') . '</a></span><hr />';
+
+                              // Get data - check cache first
+                              $cache->setCache('player_count_cache');
+                              if($cache->isCached('data')){
+                                  $graph_data = $cache->retrieve('data');
+
+                              } else {
+                                  $data = $queries->getWhere('query_results', array('id', '<>', 0));
+                                  if(count($data)){
+                                      // Convert data into graph format
+                                      $graph_data = array();
+
+                                      // Get servers
+                                      $server_query = $queries->getWhere('mc_servers', array('id', '<>', 0));
+                                      if(count($server_query)){
+                                          $servers = array();
+
+                                          foreach($server_query as $server)
+                                              $servers[$server->id] = $server->name;
+
+                                          foreach($data as $item){
+                                              if(isset($graph_data[$item->server_id])){
+                                                  $graph_data[$item->server_id]['data'][date('Y-m-d H:i', $item->queried_at)] = $item->players_online;
+                                              } else {
+                                                  $graph_data[$item->server_id]['name'] = $servers[$item->server_id];
+                                                  $graph_data[$item->server_id]['data'][date('Y-m-d H:i', $item->queried_at)] = $item->players_online;
+                                              }
+                                          }
+                                      }
+                                  }
+
+                                  $cache->store('data', $graph_data, 300);
+                              }
+
+                              if(isset($graph_data))
+                                  echo '<div id="playerChart"></div>';
+
+                              $cache->setCache('server_query_cache');
+                              if($cache->isCached('query_interval')){
+                                $query_interval = $cache->retrieve('query_interval');
+                                if(is_numeric($query_interval) && $query_interval <= 60 && $query_interval >= 5){
+                                    // Interval ok
+                                } else {
+                                    // Default to 10
+                                    $query_interval = 10;
+
+                                    $cache->store('query_interval', $query_interval);
+                                }
+                              } else {
+                                // Default to 10
+                                $query_interval = 10;
+
+                                $cache->store('query_interval', $query_interval);
+                              }
+
+                              echo '<div class="alert alert-info">' . str_replace('{x}', $query_interval,$language->get('admin', 'player_count_cronjob_info')) . '<br /><code>*/' . $query_interval . ' * * * * wget -O /dev/null ' . Output::getClean(Util::getSelfURL()) . URL::build('queries/servers') . '</code></div>';
+
                               break;
 
                             default:
@@ -979,6 +1042,12 @@ $admin_page = 'minecraft';
                                       'external' => $external
                                   ));
 
+                                  // Query interval
+                                  if(isset($_POST['interval']) && is_numeric($_POST['interval']) && $_POST['interval'] <= 60 && $_POST['interval'] >= 5){
+                                      $cache->setCache('server_query_cache');
+                                      $cache->store('query_interval', $_POST['interval']);
+                                  }
+
                               } catch(Exception $e){
                                   // Error
                                   $error = $e->getMessage();
@@ -988,7 +1057,10 @@ $admin_page = 'minecraft';
                               $error = $language->get('general', 'invalid_token');
                           }
                           echo '<h4 style="display:inline">' . $language->get('admin', 'minecraft_servers') . '</h4>';
-                          echo '<span class="pull-right"><a class="btn btn-primary" href="' . URL::build('/admin/minecraft', 'view=servers&amp;action=new') . '">' . $language->get('admin', 'add_server') . '</a></span><br /><hr />';
+                          echo '<span class="pull-right">';
+                          echo '<a class="btn btn-info" href="' . URL::build('/admin/minecraft/', 'view=servers&amp;action=graph') . '">' . $language->get('admin', 'player_graphs') . '</a> ';
+                          echo '<a class="btn btn-primary" href="' . URL::build('/admin/minecraft', 'view=servers&amp;action=new') . '">' . $language->get('admin', 'add_server') . '</a>';
+                          echo '</span><br /><hr />';
 
                           if(Session::exists('admin_mc_servers_success'))
                             echo '<div class="alert alert-success">' . Session::flash('admin_mc_servers_success') . '</div>';
@@ -1026,6 +1098,25 @@ $admin_page = 'minecraft';
                           $external_query = $queries->getWhere('settings', array('name', '=', 'external_query'));
                           $external_query = $external_query[0]->value;
 
+                          // Query interval
+                          $cache->setCache('server_query_cache');
+                          if($cache->isCached('query_interval')){
+                              $query_interval = $cache->retrieve('query_interval');
+                              if(is_numeric($query_interval) && $query_interval <= 60 && $query_interval >= 5){
+                                  // Interval ok
+                              } else {
+                                  // Default to 10
+                                  $query_interval = 10;
+
+                                  $cache->store('query_interval', $query_interval);
+                              }
+                          } else {
+                              // Default to 10
+                              $query_interval = 10;
+
+                              $cache->store('query_interval', $query_interval);
+                          }
+
                           echo '<hr /><h4>' . $language->get('admin', 'query_settings') . '</h4>';
                           ?>
                           <form action="" method="post">
@@ -1048,9 +1139,13 @@ $admin_page = 'minecraft';
                               </select>
                             </div>
                             <div class="form-group">
+                              <label for="inputQueryInterval"><?php echo $language->get('admin', 'query_interval'); ?></label>
+                              <input id="inputQueryInterval" name="interval" type="number" class="form-control" value="<?php echo $query_interval; ?>" min="5" max="60"/>
+                            </div>
+                            <div class="form-group">
                               <label for="inputExternalQuery"><?php echo $language->get('admin', 'external_query'); ?></label> <?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'external_query_help') . '"></i></span>'; ?>
                               <input type="hidden" name="external_query" value="0">
-                              <input id=inputExternalQuery" name="external_query" type="checkbox" class="js-switch" value="1" <?php if($external_query == '1') echo 'checked'; ?>/>
+                              <input id="inputExternalQuery" name="external_query" type="checkbox" class="js-switch" value="1" <?php if($external_query == '1') echo 'checked'; ?>/>
                             </div>
                             <div class="form-group">
                               <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
@@ -1302,9 +1397,80 @@ $admin_page = 'minecraft';
                 $('#enableMinecraft').submit();
         };
     }
+	<?php if(isset($_GET['view']) && isset($_GET['action']) && $_GET['view'] == 'servers' && $_GET['action'] == 'graph' && isset($graph_data)){ ?>
+	</script>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/plotly/plotly.min.js"></script>
+	<script>
+	$(function () {
+        var graphData = [
+            <?php
+            foreach($graph_data as $data){
+            ?>
+            {
+                x: ['<?php echo rtrim(implode('\',\'', array_keys($data['data'])), ','); ?>'],
+                y: [<?php echo rtrim(implode(',', $data['data']), ','); ?>],
+                mode: 'lines+markers',
+                name: '<?php echo Output::getClean($data['name']); ?>'
+            },
+            <?php
+            }
+            ?>
+        ];
 
-	<?php if(isset($_GET['view']) && $_GET['view'] == 'account_verification'){ ?>
-  function generateInstance() {
+        var selectorOptions = {
+            buttons: [{
+                step: 'month',
+                stepmode: 'backward',
+                count: 1,
+                label: '1m'
+            }, {
+                step: 'month',
+                stepmode: 'backward',
+                count: 6,
+                label: '6m'
+            }, {
+                step: 'year',
+                stepmode: 'todate',
+                count: 1,
+                label: 'YTD'
+            }, {
+                step: 'year',
+                stepmode: 'backward',
+                count: 1,
+                label: '1y'
+            }, {
+                step: 'all',
+            }],
+        };
+
+        var layout = {
+            title: 'Players',
+            xaxis: {
+                rangeselector: selectorOptions,
+                rangeslider: {}
+            },
+            yaxis: {
+                fixedrange: true
+            }
+        };
+
+        Plotly.newPlot('playerChart', graphData, layout, {displayModeBar: false});
+	});
+
+    /*
+     *  Generate random colours for graph lines
+     *  Credit https://stackoverflow.com/a/25709983
+     */
+    function getRandomColour() {
+        var letters = '0123456789ABCDEF'.split('');
+        var colour = '#';
+        for (var i = 0; i < 6; i++ ) {
+            colour += letters[Math.floor(Math.random() * 16)];
+        }
+        return colour;
+    }
+	<?php } else if(isset($_GET['view']) && $_GET['view'] == 'account_verification'){ ?>
+	function generateInstance() {
       var text = "";
       var possible = "abcdef0123456789";
       // thanks SO 1349426
@@ -1312,10 +1478,10 @@ $admin_page = 'minecraft';
           text += (possible.charAt(Math.floor(Math.random() * possible.length)));
 
       document.getElementById("mcassoc_instance").setAttribute("value", text);
-  }
-  <?php } else if(isset($_GET['view']) && $_GET['view'] == 'banners' && isset($_GET['edit'])){ ?>
+	}
+	<?php } else if(isset($_GET['view']) && $_GET['view'] == 'banners' && isset($_GET['edit'])){ ?>
     $(".image-picker").imagepicker();
-  <?php } ?>
+	<?php } ?>
 	</script>
 
   </body>
