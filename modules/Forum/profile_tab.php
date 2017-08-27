@@ -53,6 +53,7 @@ if(!count($latest_posts)){
 		
 		// Get topic title
 		$topic_title = $queries->getWhere('topics', array('id', '=', $latest_post->topic_id));
+		if(!count($topic_title)) continue;
 		$topic_title = htmlspecialchars($topic_title[0]->topic_title);
 		
 		$posts[] = array(
