@@ -48,8 +48,8 @@ $language = array(
 	'invalid_tfa' => 'Špatný kód.',
 	'tfa_successful' => 'Dvoufázové ověření bylo úspěšně nastaveno. Nyní budete pokaždé vyzván pro ověření přihlášení.',
 	'active_language' => 'Aktivní jazyk',
-    'timezone' => 'Časová zóna',
-    'upload_new_avatar' => 'Nahrát nového avatara.',
+	'timezone' => 'Časová zóna',
+	'upload_new_avatar' => 'Nahrát nového avatara.',
 	
 	// Alerts
 	'user_tag_info' => 'Byl jste označen v příspěvku {x}.', // Don't replace {x}
@@ -105,7 +105,7 @@ $language = array(
 	'verify_account_help' => 'Postupujte podle pokynů níže, abychom mohli ověřit, zda je tento Minecraft účet opravdu Váš.',
 	'verification_failed' => 'Ověření selhalo, zkuste to prosím později.',
 	'verification_success' => 'Ověření úspěšné! Nyní se můžete přihlásit.',
-    'authme_username_exists' => 'Váš AuthMe účet byl právě připojen k webu!',
+	'authme_username_exists' => 'Váš AuthMe účet byl právě připojen k webu!',
 	
 	// Login
 	'successful_login' => 'Úspěšně jste se přihlásil.',
@@ -117,13 +117,13 @@ $language = array(
 	'must_input_username' => 'Musíte vložit uživatelské jméno.',
 	'must_input_password' => 'Musíte vložit heslo.',
 
-    // Forgot password
-    'forgot_password_instructions' => 'Zadejte prosím svou e-mailovou adresu, abychom Vám mohli zaslat další pokyny pro obnovení hesla.',
-    'forgot_password_email_sent' => 'Pokud existuje účet s touto e-mailovou adresou, tak Vám právě byl odeslán e-mail s dalšími pokyny. Pokud jej nemůžete najít, zkuste zkontrolovat složku nevyžádané pošty (např. spam).',
-    'unable_to_send_forgot_password_email' => 'Nepodařilo se odeslat e-mail se zapomenutým heslem. Kontaktujte prosím administrátora.',
-    'enter_new_password' => 'Potvrďte prosím svou e-mailovou adresu a zadejte níže nové heslo.',
-    'incorrect_email' => 'Vámi zadaná e-mailová adresa neodpovídá požadavku.',
-    'forgot_password_change_successful' => 'Vaše zapomenuté heslo bylo úspěšně změněno. Nyní se můžete přihlásit.',
+	// Forgot password
+	'forgot_password_instructions' => 'Zadejte prosím svou e-mailovou adresu, abychom Vám mohli zaslat další pokyny pro obnovení hesla.',
+	'forgot_password_email_sent' => 'Pokud existuje účet s touto e-mailovou adresou, tak Vám právě byl odeslán e-mail s dalšími pokyny. Pokud jej nemůžete najít, zkuste zkontrolovat složku nevyžádané pošty (např. spam).',
+	'unable_to_send_forgot_password_email' => 'Nepodařilo se odeslat e-mail se zapomenutým heslem. Kontaktujte prosím administrátora.',
+	'enter_new_password' => 'Potvrďte prosím svou e-mailovou adresu a zadejte níže nové heslo.',
+	'incorrect_email' => 'Vámi zadaná e-mailová adresa neodpovídá požadavku.',
+	'forgot_password_change_successful' => 'Vaše zapomenuté heslo bylo úspěšně změněno. Nyní se můžete přihlásit.',
 	
 	// Profile pages
 	'profile' => 'Profil',
@@ -148,12 +148,12 @@ $language = array(
 	'last_seen' => 'Poslední přihlášení:',
 	'new_wall_post' => 'Hráč {x} napsal na Váš profil.',
 	'couldnt_find_that_user' => 'Nepodařilo se najít tohoto uživatele.',
-	'block_user' => 'Block User',
-	'unblock_user' => 'Unblock User',
-	'confirm_block_user' => 'Are you sure you want to block this user? They will not be able to send you private messages or tag you in posts.',
-	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
-	'user_blocked' => 'User blocked.',
-	'user_unblocked' => 'User unblocked.',
+	'block_user' => 'Zablokovat uživatele',
+	'unblock_user' => 'Odblokovat uživatele',
+	'confirm_block_user' => 'Jste si jist, že chcete zablokovat tohoto uživatele? Blokovaní uživatelé Vám nebudou moci posílat soukromé zprávy nebo Vás označovat v příspěvcích.',
+	'confirm_unblock_user' => 'Jste si jist, že chcete odblokovat tohoto uživatele? Odblkovaní uživatelé Vám budou moci posílat soukromé zprávy a označovat Vás v příspěvcích.',
+	'user_blocked' => 'Uživatel zablokován.',
+	'user_unblocked' => 'Uživatel odblokován.',
 	
 	// Reports
 	'invalid_report_content' => 'Nelze vytvořit nahlášení. Musíte zadat důvod v rozmezí 2 až 1024 znaků.',
@@ -185,7 +185,7 @@ $language = array(
 	'new_reply' => 'Nová odpověď',
 	'leave_conversation' => 'Opustit konverzaci',
 	'confirm_leave' => 'Opravdu chcete opustit konverzaci?',
-	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
+	'one_or_more_users_blocked' => 'Alespoň jednomu členovi konverzace nemůžete odeslat soukromé zprávy.',
 	
 	// Reactions
 	'reactions' => 'Reakce',
@@ -201,6 +201,6 @@ $language = array(
 	 */
 	'email_greeting' => 'Zdravím,',
 	'email_message' => 'Děkujeme za registraci na našem webu! Pro dokončení registrace klikněte na odkaz níže:',
-    'forgot_password_email_message' => 'Pro obnovení Vašeho zapomenutého hesla klikněte prosím na následující odkaz. Pokud jste o obnovení zapomenutého hesla nepožádal sám, můžete e-mail bezpečně smazat.',
+	'forgot_password_email_message' => 'Pro obnovení Vašeho zapomenutého hesla klikněte prosím na následující odkaz. Pokud jste o obnovení zapomenutého hesla nepožádal sám, můžete e-mail bezpečně smazat.',
 	'email_thanks' => 'Přejeme příjemné hraní,'
 );
