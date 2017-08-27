@@ -31,7 +31,7 @@
 
                 <div class="form-group">
                     <label for="inputPasswordAgain">{$CONFIRM_PASSWORD}</label>
-                    <input type="password" class="form-control" name="password" id="inputPasswordAgain"
+                    <input type="password" class="form-control" name="password_again" id="inputPasswordAgain"
                            autocomplete="off" placeholder="{$CONFIRM_PASSWORD}" tabindex="3">
                 </div>
 
