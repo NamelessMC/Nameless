@@ -58,6 +58,7 @@ $pages->add('Core', '/register', 'pages/register.php');
 $pages->add('Core', '/validate', 'pages/validate.php');
 $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
 $pages->add('Core', '/queries/pms', 'queries/pms.php');
+$pages->add('Core', '/queries/servers', 'queries/servers.php');
 $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
 $pages->add('Core', '/terms', 'pages/terms.php');
 $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');

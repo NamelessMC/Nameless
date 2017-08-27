@@ -75,7 +75,8 @@ if(defined('MINECRAFT') && MINECRAFT === true){
     if(isset($result))
         $smarty->assign('SERVER_QUERY', $result);
 
-    $smarty->assign('CONNECT_WITH', str_replace('{x}', $default->ip . ($default->port != 25565 ? ':' . $default->port : ''), $language->get('general', 'connect_with_ip_x')));
+    if(!is_null($default) && isset($default->ip))
+        $smarty->assign('CONNECT_WITH', str_replace('{x}', $default->ip . ($default->port != 25565 ? ':' . $default->port : ''), $language->get('general', 'connect_with_ip_x')));
 }
 
 // Home page or portal?

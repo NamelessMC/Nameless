@@ -28,6 +28,9 @@ $language = array(
     'security' => 'Securitate',
     'styles' => 'Stiluri',
     'users_and_groups' => 'Utilizatori și grupuri',
+    'query_interval' => 'Query interval (in minutes, must be between 5 and 60)',
+    'player_graphs' => 'Player Graphs',
+    'player_count_cronjob_info' => 'You can set up a cron job to query your servers every {x} minutes with the following command:',
 
     // Overview
     'running_nameless_version' => 'Rulează versiunea <strong>{x}</strong> a NamelessMC', // Don't replace "{x}"

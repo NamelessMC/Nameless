@@ -159,6 +159,8 @@ if(!isset($admin_styles)){
         }
       });
 
+      $.getJSON(\'' . URL::build('/queries/servers'). '\', function(data) {});
+
       window.setInterval(function(){
         $.getJSON(\'' . URL::build('/queries/pms') . '\', function(data) {
         if(data.value > 0 && $(\'#pms\').is(\':empty\')){
@@ -192,8 +194,7 @@ if(!isset($admin_styles)){
             });
 
             notification.onclick = function () {
-              // TODO
-              //window.open("' . URL::build('/user/messaging') . '");
+              window.open("' . Output::getClean(Util::getSelfURL()) . URL::build('user/messaging') . '");
             };
 
           }
@@ -231,8 +232,7 @@ if(!isset($admin_styles)){
             });
 
             notification.onclick = function () {
-              // TODO
-              //window.open("' . URL::build('/user/alerts') . '");
+              window.open("' . Output::getClean(Util::getSelfURL()) . URL::build('user/alerts') . '");
             };
 
           }

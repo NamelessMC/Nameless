@@ -20,7 +20,6 @@ $paginator = new Paginator();
 $mentionsParser = new MentionsParser();
 
 require('core/includes/paginate.php'); // Get number of replies on a page
-require('core/includes/getSelfURL.php'); // getSelfURL function
 require('core/includes/emojione/autoload.php'); // Emojione
 require('core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
@@ -364,9 +363,9 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	$smarty->assign(array(
 		'SHARE' => $forum_language->get('forum', 'share'),
 		'SHARE_TWITTER' => $forum_language->get('forum', 'share_twitter'),
-		'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . getSelfURL() . URL::build('forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)),
+		'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . Output::getClean(Util::getSelfURL()) . URL::build('forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)),
 		'SHARE_FACEBOOK' => $forum_language->get('forum', 'share_facebook'),
-		'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . getSelfURL() . URL::build('forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title))
+		'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . Output::getClean(Util::getSelfURL()) . URL::build('forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title))
 	));
 	
 	// Pagination
