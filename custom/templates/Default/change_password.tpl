@@ -7,7 +7,7 @@
                 <h2>{$FORGOT_PASSWORD}</h2>
                 <p>{$ENTER_NEW_PASSWORD}</p>
 
-                {if count($ERROR)}
+                {if isset($ERROR)}
                     <div class="alert alert-danger" role="alert">
                         {foreach from=$ERROR item=item name=err}
                             {$item}
