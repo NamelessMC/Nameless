@@ -58,7 +58,7 @@ $language = array(
 	'youtube_url' => 'Youtube URL',
 	'twitter_url' => 'Twitter URL',
 	'twitter_dark_theme' => 'Použít pro Twitter tmavý vzhled?',
-	'discord_id' => 'Discord Server ID',
+	'discord_id' => 'ID Discord serveru',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Úspěšně aktualizováno',
@@ -244,9 +244,9 @@ $language = array(
 	'permissions' => 'Oprávnění',
 	'setting_perms_for_x' => 'Nastavení oprávnění pro šablonu {x}', // Don't replace {x}
 	'templates_installed_successfully' => 'Any new templates have been installed successfully.',
-	'confirm_delete_template' => 'Are you sure you want to delete this template?',
-	'delete' => 'Delete',
-	'template_deleted_successfully' => 'Template deleted successfully.',
+	'confirm_delete_template' => 'Jste si jist, že chcete smazat tuto šablonu?',
+	'delete' => 'Smazat',
+	'template_deleted_successfully' => 'Šablona úspěšně odstraněna.',
 
 	// Users & groups
 	'users' => 'Uživatel',
@@ -291,8 +291,8 @@ $language = array(
 	'delete_group' => 'Smazat skupinu',
 	'confirm_group_deletion' => 'Opravdu chcete smazat tuto skupinu: {x}?', // Don't replace {x}
 	'group_not_exist' => 'Tato skupina neexistuje.',
-	'secondary_groups' => 'Secondary Groups',
-	'secondary_groups_info' => 'The user will gain any additional permissions from these groups',
+	'secondary_groups' => 'Vedlejší skupiny',
+	'secondary_groups_info' => 'Od těchto skupin získá uživatel jakákoliv další oprávnění',
 	
 	// General Admin language
 	'task_successful' => 'Úkol úspěšný.',
