@@ -20,7 +20,9 @@ if($cache->isCached('query_interval')){
 
 if($cache->isCached('last_query')){
     $last_query = $cache->retrieve('last_query');
-    if($last_query > strtotime($query_interval . ' minutes ago')){
+    $interval = $query_interval * 60;
+    $interval = $interval + 10; // 10 second difference
+    if($last_query > strtotime($interval . ' seconds ago')){
         // No need to re-query
         die('1');
     }
