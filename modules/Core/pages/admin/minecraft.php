@@ -941,9 +941,9 @@ $admin_page = 'minecraft';
 
                               } else {
                                   $data = $queries->getWhere('query_results', array('id', '<>', 0));
+                                  $graph_data = array();
                                   if(count($data)){
                                       // Convert data into graph format
-                                      $graph_data = array();
 
                                       // Get servers
                                       $server_query = $queries->getWhere('mc_servers', array('id', '<>', 0));
