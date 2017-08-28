@@ -41,7 +41,7 @@
 				&copy; {$SITE_NAME} {'Y'|date}
 			  </a>
 			  <div class="dropdown-menu" aria-labelledby="Preview">
-				<a class="dropdown-item" target="_blank" href="https://github.com/NamelessMC/Nameless">Powered by NamelessMC</a>
+				<a class="dropdown-item" target="_blank" href="https://namelessmc.com/">Powered by NamelessMC</a>
 				<a class="dropdown-item" href="{$TERMS_LINK}">{$TERMS_TEXT}</a>
 			  </div>
 			</li>
