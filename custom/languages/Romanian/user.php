@@ -131,7 +131,7 @@ $language = array(
     // Profile pages
     'profile' => 'Profil',
     'follow' => 'Urmăriţi',
-    'no_wall_posts' => 'Momentan nu există posturi de perete aici.',
+    'no_wall_posts' => 'Momentan nu există nimic de afişat pe acest perete.',
     'change_banner' => 'Schimbați bannerul',
     'post_on_wall' => 'Postați pe peretele lui {x}', // Don't replace {x}
     'invalid_wall_post' => 'Asigurați-vă că postarea dvs. are între 1 și 10000 de caractere.',
