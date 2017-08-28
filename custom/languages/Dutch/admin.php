@@ -33,8 +33,8 @@ $language = array(
 	'running_nameless_version' => 'Website versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'running_php_version' => 'PHP versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'statistics' => 'Statistieken',
-	'notices' => 'Notices',
-	'no_notices' => 'No notices.',
+	'notices' => 'Mededelingen',
+	'no_notices' => 'Geen mededelingen.',
 	'email_errors_logged' => 'Email fouten zijn vastgesteld. Klik <a href="{x}">hier</a> om ze te bekijken.', // Verander "{x}" niet
 
 	// Kern
@@ -73,7 +73,7 @@ $language = array(
 	'email_errors' => 'Email fouten',
 	'registration_email' => 'Registratie email',
 	'contact_email' => 'Contact email',
-    'forgot_password_email' => 'Forgot Password Email',
+    	'forgot_password_email' => 'Vergeten wachtwoord Email',
 	'unknown' => 'Onbekend',
 	'delete_email_error' => 'Fout verwijderen',
 	'confirm_email_error_deletion' => 'Weet je zeker dat je deze fout wilt verwijderen?',
@@ -94,19 +94,19 @@ $language = array(
 	'test_email_success' => 'Test email succesvol verzonden!',
 	'terms_error' => 'Zorg ervoor dat je algemene voorwaarden niet meer dan 2048 karakters bevat.',
 	'terms_updated' => 'Algemene voorwaarden succesvol bijgewerkt.',
-    'avatars' => 'Avatars',
-    'allow_custom_avatars' => 'Allow custom user avatars?',
-    'default_avatar' => 'Default avatar',
-    'custom_avatar' => 'Custom avatar',
-    'minecraft_avatar' => 'Minecraft avatar',
-    'minecraft_avatar_source' => 'Minecraft avatar source',
-    'built_in_avatars' => 'Built-in avatar service',
-    'minecraft_avatar_perspective' => 'Minecraft avatar perspective',
-    'face' => 'Face',
-    'head' => 'Head',
-    'select_default_avatar' => 'Select a new default avatar:',
-    'no_avatars_available' => 'No avatars available. Please upload a new image above first.',
-    'avatar_settings_updated_successfully' => 'Avatar settings updated successfully.',
+   	'avatars' => 'Avatars',
+    	'allow_custom_avatars' => 'Sta aangepaste gebruikeravatars toe?',
+    	'default_avatar' => 'Standaard avatar',
+    	'custom_avatar' => 'Aangepaste avatar',
+    	'minecraft_avatar' => 'Minecraft avatar',
+   	'minecraft_avatar_source' => 'Minecraft avatar bron',
+    	'built_in_avatars' => 'Ingebouwde avatar service',
+    	'minecraft_avatar_perspective' => 'Minecraft avatar perspectief',
+    	'face' => 'Gezicht',
+    	'head' => 'Hoofd',
+    	'select_default_avatar' => 'Selecteer een nieuwe standaard avatar:',
+    	'no_avatars_available' => 'Geen avatars beschikbaar. Upload eerst een nieuwe foto hierboven.',
+    	'avatar_settings_updated_successfully' => 'Avatar instellingen succesvol bijgewerktuccessfully.',
 
 	// Reacties
 	'icon' => 'Icoon',
@@ -213,10 +213,10 @@ $language = array(
 	'mcassoc_error' => 'Zorg ervoor dat je je "shared key" correct hebt ingevuld, en dat je een "instance key" correct hebt gegenereerd.',
 	'updated_mcassoc_successfully' => 'mcassoc instellingen succesvol bijgewerkt.',
 	'force_premium_accounts' => 'Forceer betaalde Minecraft accounts?',
-	'banner_background' => 'Banner background',
-	'query_interval' => 'Query interval (in minutes, must be between 5 and 60)',
-	'player_graphs' => 'Player Graphs',
-	'player_count_cronjob_info' => 'You can set up a cron job to query your servers every {x} minutes with the following command:',
+	'banner_background' => 'Banner achtergrond',
+	'query_interval' => 'Query interval (in minuten, tussen de 5 en 60)',
+	'player_graphs' => 'Speler Graphs',
+	'player_count_cronjob_info' => 'Je kan een cron job instellen zodat hij je server elke {x} minu(u)t(en) quarried met het volgende commando:',
 
 	// Modulen
 	'modules_installed_successfully' => 'Alle nieuwe modules zijn succesvol toegevoegd.',
@@ -226,7 +226,7 @@ $language = array(
 	'disable' => 'Uitschakelen',
 	'module_enabled' => 'Module ingeschakeld.',
 	'module_disabled' => 'Module uitgeschakeld.',
-	'author' => 'Author:',
+	'author' => 'Auteur:',
 
 	// Stijlen
 	'templates' => 'Sjablonen',
@@ -242,15 +242,15 @@ $language = array(
 	'template_updated' => 'Sjabloon succesvol bijgewerkt.',
 	'default' => 'Standaard',
 	'make_default' => 'Maak standaard',
-	'default_template_set' => 'Standaard sjabloon verzet naar {x} succesvol.', // Verander "{x}" niet
+	'default_template_set' => 'Standaard sjabloon succesvol verzet naar {x}.', // Verander "{x}" niet
 	'template_deactivated' => 'Sjabloon gedeactiveerd.',
 	'template_activated' => 'Sjabloon geactiveerd.',
 	'permissions' => 'Toestemmingen',
-	'setting_perms_for_x' => 'Setting permissions for template {x}', // Don't replace {x}
-	'templates_installed_successfully' => 'Any new templates have been installed successfully.',
-	'confirm_delete_template' => 'Are you sure you want to delete this template?',
-	'delete' => 'Delete',
-	'template_deleted_successfully' => 'Template deleted successfully.',
+	'setting_perms_for_x' => 'Toestemmingen regelen voor sjabloon {x}', // Don't replace {x}
+	'templates_installed_successfully' => 'Elk nieuw sjabloon is toegevoegd.',
+	'confirm_delete_template' => 'Weet je zeker dat je dit sjabloon wilt verwijderen?',
+	'delete' => 'Verwijder',
+	'template_deleted_successfully' => 'Sjabloon succesvol verwijderd.',
 
 	// Gebruikers & groepen
 	'users' => 'Gebruikers',
@@ -295,8 +295,8 @@ $language = array(
 	'delete_group' => 'Verwijder groep',
 	'confirm_group_deletion' => 'Weet je zeker dat je de groep {x} wilt verwijderen?', // Verander "{x}" niet
 	'group_not_exist' => 'Die groep bestaat niet.',
-	'secondary_groups' => 'Secondary Groups',
-	'secondary_groups_info' => 'The user will gain any additional permissions from these groups',
+	'secondary_groups' => 'Bijhorende groepen',
+	'secondary_groups_info' => 'De gebruiker zal de extra toestemmingen van de groepen krijgen',
 
 	// Algemene admin taal
 	'task_successful' => 'Taak succesvol.',
