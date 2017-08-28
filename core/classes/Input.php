@@ -77,6 +77,25 @@ class Input {
 			CKEDITOR.config.disableNativeSpellChecker = false;
 			CKEDITOR.config.width = "auto";
 			CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+            CKEDITOR.on(\'instanceReady\', function(ev) {
+                var editor = ev.editor;
+                editor.dataProcessor.htmlFilter.addRules({
+                    elements : {
+                        a : function( element ) {
+                            var url = element.attributes.href;
+
+                            var parser = document.createElement(\'a\');
+                            parser.href = url;
+        
+                            var hostname = parser.hostname;
+                            if ( hostname !== window.location.host) {
+                                element.attributes.rel = \'nofollow noopener\';
+                                element.attributes.target = \'_blank\';
+                            }
+                        }
+                    }
+                });
+            })
 			';
 			
 			return $editor;

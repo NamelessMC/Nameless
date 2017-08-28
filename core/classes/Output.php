@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
@@ -32,8 +32,9 @@ class Output {
 		$purifierConfig->set('HTML.Allowed', 'u,a,p,b,i,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
 		$purifierConfig->set('CSS.AllowedProperties', array('text-align', 'display', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
 		$purifierConfig->set('CSS.AllowTricky', true);
-		$purifierConfig->set('HTML.AllowedAttributes', 'target, href, id, src, height, width, alt, class, *.style');
+		$purifierConfig->set('HTML.AllowedAttributes', 'target, rel, href, id, src, height, width, alt, class, *.style');
 		$purifierConfig->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
+		$purifierConfig->set('Attr.AllowedRel',array('noopener', 'nofollow'));
 		$purifierConfig->set('HTML.SafeIframe', true);
 		$purifierConfig->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
 		$purifierConfig->set('Core.EscapeInvalidTags', true);
