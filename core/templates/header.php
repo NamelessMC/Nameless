@@ -62,6 +62,7 @@ if(isset($widgets))
 		background-image: url('<?php echo $background_image; ?>');
 		background-repeat: no-repeat;
 		background-attachment: fixed;
+        background-size: cover;
 	}
 	</style>
 	<?php
