@@ -19,7 +19,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">&copy; NamelessMC <?php echo date('Y'); ?></a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="https://github.com/NamelessMC/Nameless" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> Source</a>
+                <a class="dropdown-item" href="https://namelessmc.com/" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> Source</a>
               </div>
             </li>
           </span>
