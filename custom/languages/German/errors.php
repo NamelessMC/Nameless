@@ -25,7 +25,7 @@ $language = array(
 	'404_content' => 'Wir konnten diese Seite nicht finden.</br>Vielleicht wurde sie aufgegessen :0',
 	'404_back' => 'Zurück',
 	'404_home' => 'Startseite',
-	'404_error' => 'Wenn du glaubst, dies ein Fehler ist {x}Kontaktieren einen Administrator {y}',
-    'maintenance_title' => 'Maintenance mode.',
-    'maintenance_retry' => 'Retry'
+	'404_error' => 'Wenn du glaubst das dies ein Fehler ist, {x}Kontaktieren einen Administrator {y}',
+    'maintenance_title' => 'Wartungsmodus.',
+    'maintenance_retry' => 'Wiederholen'
 );
