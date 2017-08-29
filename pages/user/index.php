@@ -79,10 +79,16 @@ $user_page = 'index';
 			<?php 
 			$use_followers = $queries->getWhere('settings', array('name', '=', 'followers'));
 			$use_followers = $use_followers[0]->value;
-			
-			if($use_followers == '1'){ ?> 
+
+			if($use_followers == '1'){ 
+				$followers = $user->listFollowers($user->data()->id);
+				if($followers)
+					$followers = count($followers);
+				else
+					$followers = 0;
+			?> 
 				<strong><?php echo $user_language['following']; ?>:</strong> <?php echo $friends; ?><br />
-				<strong><?php echo $user_language['followers']; ?>:</strong> <?php echo count($user->listFollowers($user->data()->id)); ?><br />
+				<strong><?php echo $user_language['followers']; ?>:</strong> <?php echo $followers; ?><br />
 			<?php } else { ?> 
 				<strong><?php echo $user_language['friends']; ?>:</strong> <?php echo $friends;
 			} ?>
