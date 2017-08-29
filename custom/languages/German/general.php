@@ -57,18 +57,18 @@ $language = array(
 	'loading' => 'Lädt...',
 	'report' => 'Melden',
 	'page_loaded_in' => 'Seite wurde in {x} Sekunden geladen.', // Don't replace {x}, time unit is seconds
-    'page_x' => 'Page {x}',
-    'browse' => 'Browse',
+    'page_x' => 'Seite {x}',
+    'browse' => 'Blättern',
 
     /*
      *  Contact form
      */
-    'contact' => 'Contact',
-    'message' => 'Message',
-    'contact_email_subject' => 'New contact form submission',
-    'contact_message_failed' => 'Unable to send message. Please ensure you have entered a message between 10 and 5000 characters long.',
-    'contact_message_sent' => 'Message sent successfully.',
-    'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {x} minutes.', // Don't replace {x}
+    'contact' => 'Kontakt',
+    'message' => 'Nachricht',
+    'contact_email_subject' => 'Neue Kontaktformulareinreichung',
+    'contact_message_failed' => 'Nachricht konnte nicht gesendet werden. Bitte stellen Sie sicher, dass Sie eine Nachricht zwischen 10 und 5000 Zeichen lang eingegeben haben.',
+    'contact_message_sent' => 'Nachricht erfolgreich gesendet.',
+    'contact_message_limit' => 'Sie können nur eine Nachricht pro Stunde senden. Sie können als nächstes eine Nachricht in {x} Minuten senden.', // Don't replace {x}
 	
 	/* 
 	 *  Navbar
@@ -94,7 +94,7 @@ $language = array(
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Version: {x}', // Don't replace {x}
-    'currently_x_players_online' => 'There are currently <strong>{x}</strong> players online.', // Don't replace {x}
-    'server_offline' => 'The server is currently offline.',
-    'connect_with_ip_x' => 'Connect now using the IP <strong>{x}</strong>' // Don't replace {x}
+    'currently_x_players_online' => 'Derzeit sind <strong>{x}</strong> Spieler online.', // Don't replace {x}
+    'server_offline' => 'Der Server ist zurzeit Offline.',
+    'connect_with_ip_x' => 'Verbinde dich jetzt mit folgender Adresse: <strong>{x}</strong>' // Don't replace {x}
 );
