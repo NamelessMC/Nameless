@@ -82,10 +82,11 @@ $user_page = 'index';
 
 			if($use_followers == '1'){ 
 				$followers = $user->listFollowers($user->data()->id);
-				if($followers)
+				if($followers) {
 					$followers = count($followers);
-				else
+				} else {
 					$followers = 0;
+				}
 			?> 
 				<strong><?php echo $user_language['following']; ?>:</strong> <?php echo $friends; ?><br />
 				<strong><?php echo $user_language['followers']; ?>:</strong> <?php echo $followers; ?><br />
