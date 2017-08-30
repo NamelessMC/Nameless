@@ -6,66 +6,67 @@
  *
  *  License: MIT
  *
- *  EnglishUK Language - General terms
+ *  Translated by IsS127
+ *  SwedishSE Language - General Terms
  */
 
 $language = array(
 	/*
 	 *  General terms
 	 */ 
-	'submit' => 'Submit',
-	'register' => 'Register',
-	'sign_in' => 'Log In',
-	'log_out' => 'Log Out',
-	'profile' => 'Profile',
-	'invalid_token' => 'Invalid token, please try again.',
-	'close' => 'Close',
-	'back' => 'Back',
-	'warning' => 'Warning',
-	'date' => 'Date',
-	'search' => 'Search',
-	'edit' => 'Edit',
-	'next' => 'Next',
-	'confirm_cancel' => 'Are you sure you wish to cancel?',
-	'confirm_delete' => 'Confirm deletion',
-	'confirm_deletion' => 'Are you sure you wish to delete this?',
-	'cancel' => 'Cancel',
-	'delete' => 'Delete',
-	'none' => 'None',
-	'view' => 'View',
-	'change' => 'Change',
-	'remove' => 'Remove',
+	'submit' => 'Enter',
+	'register' => 'Registrera',
+	'sign_in' => 'Logga In',
+	'log_out' => 'Logga Ut',
+	'profile' => 'Profil',
+	'invalid_token' => 'Ogiltigt token, försök igen.',
+	'close' => 'Stäng',
+	'back' => 'Tillbaka',
+	'warning' => 'Varning',
+	'date' => 'Datum',
+	'search' => 'Sök',
+	'edit' => 'Redigera',
+	'next' => 'Nästa',
+	'confirm_cancel' => 'Är du säker att du vill avsluta?',
+	'confirm_delete' => 'Bekräfta radering',
+	'confirm_deletion' => 'Är du säker att du vill radera detta?',
+	'cancel' => 'Avsluta',
+	'delete' => 'Radera',
+	'none' => 'Ingen',
+	'view' => 'Visa',
+	'change' => 'Byta',
+	'remove' => 'Ta Bort',
 	'info' => 'Info',
-	'confirm' => 'Confirm',
-	'actions' => 'Actions',
+	'confirm' => 'Bekräfta',
+	'actions' => 'Handlingar',
 	'alerts' => 'Alerts',
-	'view_alerts' => 'View alerts',
-	'no_alerts' => 'No alerts',
-	'x_new_alerts' => 'You have {x} new alerts.', // Don't replace {x}
-	'messages' => 'Messages',
-	'view_messages' => 'View messages',
-	'no_messages' => 'No messages',
-	'x_new_messages' => 'You have {x} new messages.', // Don't replace {x}
-	'loading' => 'Loading...',
-	'report' => 'Report',
-	'page_loaded_in' => 'Page loaded in {x}s', // Don't replace {x}, time unit is seconds
-	'page_x' => 'Page {x}',
-	'browse' => 'Browse',
+	'view_alerts' => 'Visa alerts',
+	'no_alerts' => 'Inga alerts',
+	'x_new_alerts' => 'Du har {x} nya alerts.', // Don't replace {x}
+	'messages' => 'Meddelander',
+	'view_messages' => 'Visa Meddelander',
+	'no_messages' => 'Inga Meddelanden',
+	'x_new_messages' => 'Du har {x} nya meddelanden.', // Don't replace {x}
+	'loading' => 'Laddar...',
+	'report' => 'Anmäl',
+	'page_loaded_in' => 'Sida laddad på {x}s', // Don't replace {x}, time unit is seconds
+	'page_x' => 'Sida {x}',
+	'browse' => 'Bläddra',
 
 	/*
 	 *  Contact form
 	 */
-    'contact' => 'Contact',
-    'message' => 'Message',
-	'contact_email_subject' => 'New contact form submission',
-	'contact_message_failed' => 'Unable to send message. Please ensure you have entered a message between 10 and 5000 characters long.',
-	'contact_message_sent' => 'Message sent successfully.',
-	'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {x} minutes.', // Don't replace {x}
+    'contact' => 'Kontakt',
+    'message' => 'Meddelande',
+	'contact_email_subject' => 'Ny kontaktformulär inlämning.',
+	'contact_message_failed' => 'Det gick inte att skicka meddelandet. Vänligen Unable to send message. Please se till att du har skrivit ett meddelande mellan 10 och 5000 tecken långt.',
+	'contact_message_sent' => 'Meddelande sänt med framgång!',
+	'contact_message_limit' => 'Du kan bara skicka ett meddelande per timme. Du kan sedan skicka ett meddelande om {x} minuter.', // Don't replace {x}
 	
 	/* 
 	 *  Navbar
 	 */
-	'home' => 'Home',
+	'home' => 'Hem',
 	
 	/*
 	 *  Homepage
@@ -75,7 +76,7 @@ $language = array(
 	/*
 	 *  Help dialogues
 	 */
-	'markdown_help' => 'You can format your post using Markdown. For more information, see <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>here</a>.',
+	'markdown_help' => 'Du kan formatera ditt inlägg med Markdown. För mer information, se <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>här</a>.',
 
     /*
      *  Server query
@@ -85,7 +86,7 @@ $language = array(
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Version: {x}', // Don't replace {x}
-    'currently_x_players_online' => 'There are currently <strong>{x}</strong> players online.', // Don't replace {x}
-    'server_offline' => 'The server is currently offline.',
-    'connect_with_ip_x' => 'Connect now using the IP <strong>{x}</strong>' // Don't replace {x}
+    'currently_x_players_online' => 'Det finns närvarande <strong>{x}</strong> spelare online.', // Don't replace {x}
+    'server_offline' => 'Servern är närvarande offline.',
+    'connect_with_ip_x' => 'Anslut nu med IP <strong>{x}</strong>' // Don't replace {x}
 );

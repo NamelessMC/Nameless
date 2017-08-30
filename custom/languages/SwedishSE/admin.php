@@ -17,9 +17,9 @@ $language = array(
 	're-authenticate' => 'Please re-authenticate',
 
 	// Sidebar
-	'admin_cp' => 'AdminCP',
+	'admin_cp' => 'AdminKP',
 	'administration' => 'Administration',
-	'overview' => 'Overview',
+	'overview' => 'Översikt',
 	'core' => 'Core',
 	'minecraft' => 'Minecraft',
 	'modules' => 'Modules',

@@ -6,18 +6,19 @@
  *
  *  License: MIT
  *
- *  EnglishUK Language - Users
+ *  Translated by IsS127
+ *  SwedishSE Language - User
  */
 
 $language = array(
 	/*
 	 *  User Related
 	 */
-	'guest' => 'Guest',
-	'guests' => 'Guests',
+	'guest' => 'Gäst',
+	'guests' => 'Gäster',
 	
 	// UserCP
-	'user_cp' => 'UserCP',
+	'user_cp' => 'UserKP',
 	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
 	'overview' => 'Overview',
 	'user_details' => 'User Details',
