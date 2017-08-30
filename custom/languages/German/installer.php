@@ -67,7 +67,7 @@ $language = array(
     'no' => 'Nein',
     'finish' => 'Abschliessen',
     'finish_message' => 'Danke für die Installation von NamelessMC! Sie können nun zum AdminCP gelangen, wo Sie Ihre Website weiter konfigurieren können.',
-    'support_message' => 'Wenn Sie irgendwelche Unterstützung benötigen, schauen Sie sich unsere Website <a href="https://namelessmc.com" target="_blank">NamelessMC</a> an, oder besuchen Sie doch unseren <a href="https://discord.gg/r7Eq4jw" target="_blank">Discord Server</a> sowie unser <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.',
+    'support_message' => 'Wenn Sie irgendwelche Unterstützung benötigen, schauen Sie sich unsere Website <a href="https://namelessmc.com" target="_blank">NamelessMC</a> an, oder besuchen Sie doch unseren <a href="https://discord.gg/9vk93VR" target="_blank">Discord Server</a> sowie unser <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.',
     'credits' => 'Credits',
     'credits_message' => 'Ein großer Dank an alle <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC Mitwirkenden</a> die seid 2014 mitgeholfen haben.'
 );
