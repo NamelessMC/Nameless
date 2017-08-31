@@ -19,6 +19,6 @@ $language = array(
 	'404_back' => 'Gå tillbaka',
 	'404_home' => 'Hem',
 	'404_error' => 'Om du tror det här är ett fel, {x} snälla kontakta ett administratör{y}', // Don't replace {x} or {y}
-    'maintenance_title' => 'Underhållsläge.',
+    'maintenance_title' => 'Under Uppbyggnad.',
     'maintenance_retry' => 'Prova igen'
 );
