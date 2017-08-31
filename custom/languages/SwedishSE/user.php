@@ -20,74 +20,74 @@ $language = array(
 	// UserCP
 	'user_cp' => 'UserKP',
 	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
-	'overview' => 'Overview',
-	'user_details' => 'User Details',
-	'profile_settings' => 'Profile Settings',
-	'successfully_logged_out' => 'You have been logged out successfully.',
-	'messaging' => 'Messaging',
-	'click_here_to_view' => 'Click here to view.',
+	'overview' => 'Översikt',
+	'user_details' => 'Användaruppgifter',
+	'profile_settings' => 'Profil Inställningar',
+	'successfully_logged_out' => 'Du har blivit utloggad!',
+	'messaging' => 'Meddelande',
+	'click_here_to_view' => 'Klicka här för att visa.',
 	'moderation' => 'Moderation',
 	'administration' => 'Administration',
 	'alerts' => 'Alerts',
-	'delete_all' => 'Delete All',
+	'delete_all' => 'Radera Alla',
 	
 	// Profile settings
-	'field_is_required' => '{x} is required.', // Don't replace {x}
-	'settings_updated_successfully' => 'Settings updated successfully.',
-	'password_changed_successfully' => 'Password changed successfully.',
-	'change_password' => 'Change Password',
-	'current_password' => 'Current Password',
-	'new_password' => 'New Password',
-	'confirm_new_password' => 'Confirm New Password',
-	'incorrect_password' => 'Your password is incorrect.',
+	'field_is_required' => '{x} krävs', // Don't replace {x}
+	'settings_updated_successfully' => 'Inställningarna uppdateras!',
+	'password_changed_successfully' => 'Lösenordet har ändrats!',
+	'change_password' => 'Byt Lösenord',
+	'current_password' => 'Nurvarande Lösenord',
+	'new_password' => 'Ny Lösenord',
+	'confirm_new_password' => 'Bekräfta ditt nya lösenord',
+	'incorrect_password' => 'Ditt lösenord är fel!',
 	'two_factor_auth' => 'Two Factor Authentication',
-	'enable' => 'Enable',
-	'disable' => 'Disable',
-	'tfa_scan_code' => 'Please scan the following code within your authentication app:',
-	'tfa_code' => 'If your device does not have a camera, or you are unable to scan the QR code, please input the following code:',
-	'tfa_enter_code' => 'Please enter the code displaying within your authentication app:',
-	'invalid_tfa' => 'Invalid code, please try again.',
-	'tfa_successful' => 'Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.',
-	'active_language' => 'Active Language',
-	'timezone' => 'Timezone',
-	'upload_new_avatar' => 'Upload a new avatar',
+	'enable' => 'Aktivera',
+	'disable' => 'Inaktivera',
+	'tfa_scan_code' => 'Vänligen skanna följande kod i din autentiserings app:',
+	'tfa_code' => 'Om din enhet inte har en kamera eller om du inte kan skanna QR-koden, ange följande kod:',
+	'tfa_enter_code' => 'Ange koden som visas i din autentiseringsapp:',
+	'invalid_tfa' => 'Ogiltig kod, försök igen.',
+	'tfa_successful' => 'Two factor authentication har upprättats. Du måste autentisera varje gång du loggar in från och med nu.',
+	'active_language' => 'Aktiv Språk',
+	'timezone' => 'Tidzon',
+	'upload_new_avatar' => 'Ladda upp en ny avatar',
 	
 	// Alerts
-	'user_tag_info' => 'You have been tagged in a post by {x}.', // Don't replace {x}
-	'no_alerts' => 'No new alerts',
-	'view_alerts' => 'View alerts',
-	'x_new_alerts' => 'You have {x} new alerts', // Don't replace {x}
-	'no_alerts_usercp' => 'You do not have any alerts.',
+	'user_tag_info' => 'Du har blivit taggat i ett inlägg av {x}.', // Don't replace {x}
+	'no_alerts' => 'Inga nya alerter.',
+	'view_alerts' => 'Visa alerter',
+	'x_new_alerts' => 'Du har {x} nya alerter', // Don't replace {x}
+	'no_alerts_usercp' => 'Du har inga nya alerter.',
 	
 	// Registraton
-	'registration_check_email' => 'Thanks for registering! Please check your emails for a validation link in order to complete your registration. If you are unable to find the email, check your junk folder.',
-	'username' => 'Username',
-	'nickname' => 'Nickname',
-	'minecraft_username' => 'Minecraft Username',
-	'email_address' => 'Email Address',
-	'email' => 'Email',
-	'password' => 'Password',
-	'confirm_password' => 'Confirm Password',
-	'i_agree' => 'I Agree',
-	'agree_t_and_c' => 'By clicking <strong class="label label-primary">Register</strong>, you agree to our <a href="{x}" target="_blank">Terms and Conditions</a>.',
-	'create_an_account' => 'Create an Account',
-	'terms_and_conditions' => 'Terms and Conditions',
-	'validation_complete' => 'Your account has been validated, you can now log in.',
-	'validation_error' => 'There was an unknown error validating your account, please contact a website administrator.',
-	'signature' => 'Signature',
+	'registration_check_email' => 'Tack för att du registrerade! Vänligen kolla i din e-post för en valideringslänk för att slutföra din registrering. Om du inte hittar e-postmeddelandet, kolla i din skräppostmapp.',
+	'username' => 'Användarnamn',
+	'nickname' => 'Smeknamn',
+	'minecraft_username' => 'Minecraft Användarnamn',
+	'email_address' => 'E-postadress',
+	'email' => 'E-post',
+	'password' => 'Lösenord',
+	'confirm_password' => 'Bekräfta Lösenord',
+	'i_agree' => 'Jag accepterar.',
+	'agree_t_and_c' => 'Genom att klicka på <strong class="label label-primary">Registrera</strong> godkänner du våra <a href="{x}" target="_blank">användarvillkor</a>.',
+	'create_an_account' => 'Skapa ett konto',
+	'terms_and_conditions' => 'AnvändarVillkor',
+	'validation_complete' => 'Ditt konto har validerats, du kan nu logga in.',
+	'validation_error' => 'Det fanns ett okänt fel medans vi validerade ditt konto, var god kontakta en webbplats administratör.',
+	'signature' => 'Signatur',
 
 	// Registration - Authme
-    'connect_with_authme' => 'Connect your account with AuthMe',
+    'connect_with_authme' => 'Anslut ditt konto med AuthMe',
 	'authme_help' => 'Please enter your ingame AuthMe account details. If you don\'t already have an account ingame, join the server now and follow the instructions provided.',
 	'unable_to_connect_to_authme_db' => 'Unable to connect to the AuthMe database. If this error persists, please contact an administrator.',
 	'authme_account_linked' => 'Account linked successfully.',
-	'authme_email_help_1' => 'Finally, please enter your email address.',
-	'authme_email_help_2' => 'Finally, please enter your email address, and also choose a display name for your account.',
+	'authme_email_help_1' => 'Slutligen, ange en e-postadress',
+	'authme_email_help_2' => 'Slutligen, ange en e-postadress och ange ett smeknamn',
 	
 	// Registration errors
-	'username_required' => 'A username is required.',
-	'email_required' => 'An email address is required.',
-	'password_required' => 'A password is required.',
+	'username_required' => 'Ett användarnamn krävs.',
+	'email_required' => 'En e-postadress krävs.',
+	'password_required' => 'Ett lösenord krävs.',
 	'mcname_required' => 'A Minecraft username is required.',
 	'accept_terms' => 'You must accept the terms and conditions before registering.',
 	'username_minimum_3' => 'Your username must be a minimum of 3 characters.',
@@ -188,19 +188,19 @@ $language = array(
 	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
 	
 	// Reactions
-	'reactions' => 'Reactions',
+	'reactions' => 'Reaktioner',
 	
 	/*
 	 *  Infractions area
 	 */
-	'infractions' => 'Infractions',
+	'infractions' => 'Överträdelser',
 	
 	
 	/*
 	 *  Emails
 	 */
-	'email_greeting' => 'Hi,',
-	'email_message' => 'Thanks for registering! In order to complete your registration, please click the following link:',
-	'forgot_password_email_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
-	'email_thanks' => 'Thanks,'
+	'email_greeting' => 'Hej,',
+	'email_message' => 'Tack för att du registrerade! För att slutföra din registrering klickar du på följande länk:',
+	'forgot_password_email_message' => 'För att återställa ditt lösenord, klicka på följande länk. Om du inte begärt det själv kan du radera det här e-postmeddelandet.',
+	'email_thanks' => 'Tack,'
 );
