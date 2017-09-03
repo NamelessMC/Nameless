@@ -141,7 +141,7 @@ Upcoming addons (these will need to be downloaded separately):
 * Portuguese: @dgateles, @dasilvaj4
 
 ## Discord
-[<img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/r7Eq4jw)
+[<img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/HYVMgN2)
 The official [NamelessMC Discord bot](https://github.com/dannygtech/NamelessBOT) was made by **Jellz** and [**BrightSkyz**](https://brightskyz.xyz)! Huge thanks to them!
 
 <!--## IRC
