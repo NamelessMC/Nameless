@@ -172,7 +172,7 @@ if (Input::exists()) {
                         die();
 
                     } else {
-                        Session::flash('home', $language->get('user', 'successful_signin'));
+                        Session::flash('home', $language->get('user', 'successful_login'));
                         Redirect::to(URL::build('/'));
                         die();
                     }

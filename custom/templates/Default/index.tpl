@@ -25,8 +25,8 @@
   </div>
 </div>
 
-<div class="home-news">
-  <div class="container">
+<div class="container">
+  <div class="home-news">
     <br />
 	{if isset($HOME_SESSION_FLASH)}
         <div class="alert alert-info">
