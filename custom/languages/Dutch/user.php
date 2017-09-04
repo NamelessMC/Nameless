@@ -51,7 +51,7 @@ $language = array(
 	'tfa_successful' => 'Twee factor authenticatie succesvol ingesteld. Je moet nu elke keer een code hebben om in te kunnen loggen.',
 	'active_language' => 'Actieve taal',
 	'timezone' => 'Tijdzone',
-    'upload_new_avatar' => 'Upload a new avatar',
+    	'upload_new_avatar' => 'Upload een nieuwe avatar',
 	
 	// Meldingen
 	'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet
@@ -107,7 +107,7 @@ $language = array(
 	'verify_account_help' => 'Graag de volgende instructies volgen zodat we kunnen valideren (controleren) of u de eigenaar bent van dit Minecraft account.',
 	'verification_failed' => 'Validatie gefaald, probeer het opnieuw.',
 	'verification_success' => 'Succesvol gevalideerd! Je kunt nu inloggen.',
-	'authme_username_exists' => 'Your Authme account has already been connected to the website!',
+	'authme_username_exists' => 'Je Authme account is al verbonden met de website!',
 	
 	// Inloggen
 	'successful_login' => 'Je bent nu ingelogd.',
@@ -119,13 +119,13 @@ $language = array(
 	'must_input_username' => 'Je moet een gebruikersnaam invoeren.',
 	'must_input_password' => 'Je moet een wachtwoord invoeren.',
 
-    // Forgot password
-    'forgot_password_instructions' => 'Please enter your email address so we can send you further instructions on resetting your password.',
-    'forgot_password_email_sent' => 'If an account with the email address exists, an email has been sent containing further instructions. If you can\'t find it, try checking your junk folder.',
-    'unable_to_send_forgot_password_email' => 'Unable to send forgot password email. Please contact an administrator.',
-    'enter_new_password' => 'Please confirm your email address and enter a new password below.',
-    'incorrect_email' => 'The email address you have entered does not match the request.',
-    'forgot_password_change_successful' => 'Your password has been changed successfully. You can now log in.',
+    	// Forgot password
+   	'forgot_password_instructions' => 'Graag je email adres invoeren zodat we verdere instructies kunnen sturen om je wachtwoord te herstellen.',
+   	'forgot_password_email_sent' => 'Als een account met dit email adres bestaat, is er een email verstuurt met daarin verdere instructies. Als je hem niet kan vinden, bekijk dan ook de SPAM map.',
+    	'unable_to_send_forgot_password_email' => 'Kon vergeten wachtwoord email niet verzenden. Graag contact opnemen met een administrator.',
+    	'enter_new_password' => 'Graag je email bevestigen en een nieuw wachtwoord invoeren.',
+   	'incorrect_email' => 'Het email adres dat is ingevoerd komt niet overeen met het verzoek.',
+    	'forgot_password_change_successful' => 'Je wachtwoord is succesvol veranderd. Je kan nu inloggen.',
 	
 	// Profiel paginas
 	'profile' => 'Profiel',
@@ -148,14 +148,14 @@ $language = array(
 	'new_reply' => 'Nieuw antwoord',
 	'registered' => 'Geregistreerd sinds:',
 	'last_seen' => 'Laatst gezien:',
-	'new_wall_post' => '{x} has posted on your profile.',
-	'couldnt_find_that_user' => 'Couldn\'t find that user.',
-	'block_user' => 'Block User',
-	'unblock_user' => 'Unblock User',
-	'confirm_block_user' => 'Are you sure you want to block this user? They will not be able to send you private messages or tag you in posts.',
-	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
-	'user_blocked' => 'User blocked.',
-	'user_unblocked' => 'User unblocked.',
+	'new_wall_post' => '{x} heeft een bericht geplaatst op je profiel.',
+	'couldnt_find_that_user' => 'Kan gebruiker niet vinden.',
+	'block_user' => 'Blokkeer gebruiker',
+	'unblock_user' => 'Deblokkeer gebruiker',
+	'confirm_block_user' => 'Weet je zeker dat je deze gebruiker wilt blokkeren? Ze zullen niet meer in staat zijn om prive berichten kunnen sturen en je in een bericht noemen.',
+	'confirm_unblock_user' => 'Weet je zeker dat je deze gebruiker wilt deblokkeren? Ze zullen je prive berichten kunnen sturen en in een bericht kunnen noemen.',
+	'user_blocked' => 'Gebruiker geblokkeerd.',
+	'user_unblocked' => 'Gebruiker gedeblokkeerd.',
 	
 	// Rapporten
 	'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
@@ -186,7 +186,7 @@ $language = array(
 	'by' => 'door',
 	'leave_conversation' => 'Verlaat gesprek',
 	'confirm_leave' => 'Weet je zeker dat je dit gesprek wilt verlaten?',
-	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
+	'one_or_more_users_blocked' => 'Je kan niet een prive bericht sturen naar ten minste een lid van het gesprek.',
 	
 	// Reacties
 	'reactions' => 'Reacties',
@@ -202,6 +202,6 @@ $language = array(
 	 */
 	'email_greeting' => 'Hoi,',
 	'email_message' => 'Bedankt voor het registreren op onze website! Om je registratie te voltooien, klik je op deze link: ',
-    'forgot_password_email_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
+    	'forgot_password_email_message' => 'Om je wachtwoord te herstellen, klik op de volgende link. Als je dit niet hebt aangevraagd, kan je deze email negeren.',
 	'email_thanks' => 'Nogmaals bedankt,'
 );
