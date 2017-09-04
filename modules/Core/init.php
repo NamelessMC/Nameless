@@ -65,7 +65,7 @@ $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
 
 // Widgets
 // Facebook
-require_once('modules/Core/widgets/FacebookWidget.php');
+require_once(ROOT_PATH . '/modules/Core/widgets/FacebookWidget.php');
 $cache->setCache('social_media');
 $fb_url = $cache->retrieve('facebook');
 if($fb_url){
@@ -76,7 +76,7 @@ if($fb_url){
 }
 
 // Twitter
-require_once('modules/Core/widgets/TwitterWidget.php');
+require_once(ROOT_PATH . '/modules/Core/widgets/TwitterWidget.php');
 $twitter = $cache->retrieve('twitter');
 
 if($twitter){
@@ -87,7 +87,7 @@ if($twitter){
 }
 
 // Discord
-require_once('modules/Core/widgets/DiscordWidget.php');
+require_once(ROOT_PATH . '/modules/Core/widgets/DiscordWidget.php');
 $discord = $cache->retrieve('discord');
 
 if($discord){

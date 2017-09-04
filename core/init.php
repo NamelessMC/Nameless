@@ -131,50 +131,52 @@ if($page != 'install'){
     }
 
     // Check if we're in a subdirectory
-    if(empty($directories[0])) unset($directories[0]);
-    $directories = array_values($directories);
-
-    $config_path = Config::get('core/path');
-
-    if(!empty($config_path)){
-        $config_path = explode('/', Config::get('core/path'));
-
-        for($i = 0; $i < count($config_path); $i++){
-            unset($directories[$i]);
-        }
-
-        define('CONFIG_PATH', '/' . Config::get('core/path'));
-
+    if(isset($directories)) {
+        if (empty($directories[0])) unset($directories[0]);
         $directories = array_values($directories);
 
-    }
-    $directory = implode('/', $directories);
+        $config_path = Config::get('core/path');
 
-    $directory = '/' . $directory;
+        if (!empty($config_path)) {
+            $config_path = explode('/', Config::get('core/path'));
 
-    // Are we loading a profile or a banner page?
-    if(FRIENDLY_URLS == true){
-        if($directories[0] == 'profile') {
-            $directory = '/profile';
-        } else if($directories[0] == 'banner') {
-            $directory = '/banner';
+            for ($i = 0; $i < count($config_path); $i++) {
+                unset($directories[$i]);
+            }
+
+            define('CONFIG_PATH', '/' . Config::get('core/path'));
+
+            $directories = array_values($directories);
+
+        }
+        $directory = implode('/', $directories);
+
+        $directory = '/' . $directory;
+
+        // Are we loading a profile or a banner page?
+        if(FRIENDLY_URLS == true){
+            if ($directories[0] == 'profile') {
+                $directory = '/profile';
+            } else if ($directories[0] == 'banner') {
+                $directory = '/banner';
+            } else {
+                $directory = strtok($directory, '?');
+            }
         } else {
-            $directory = strtok($directory, '?');
+            if(isset($_GET['route']) && strpos($_GET['route'], 'profile') !== false){
+                $profile = explode('/', $_GET['route']);
+                $directories[1] = $profile[2];
+                $route = '/profile';
+            } else if (isset($_GET['route']) && strpos($_GET['route'], 'banner') !== false){
+                $banner = explode('/', $_GET['route']);
+                $directories[1] = $banner[2];
+                $route = '/banner';
+            }
         }
-    } else {
-        if(isset($_GET['route']) && strpos($_GET['route'], 'profile') !== false){
-            $profile = explode('/', $_GET['route']);
-            $directories[1] = $profile[2];
-            $route = '/profile';
-        } else if(isset($_GET['route']) && strpos($_GET['route'], 'banner') !== false){
-            $banner = explode('/', $_GET['route']);
-            $directories[1] = $banner[2];
-            $route = '/banner';
-        }
-    }
 
-    // Remove the trailing /
-    if(strlen($directory) > 1) $directory = rtrim($directory, '/');
+        // Remove the trailing /
+        if(strlen($directory) > 1) $directory = rtrim($directory, '/');
+    }
 
     // Set timezone
     try {
@@ -387,6 +389,15 @@ if($page != 'install'){
         // Update user last online
         $queries->update('users', $user->data()->id, array(
             'last_online' => date('U')
+        ));
+
+        // Basic user variables
+        $smarty->assign('LOGGED_IN_USER', array(
+            'username' => Output::getClean($user->data()->username),
+            'nickname' => Output::getClean($user->data()->nickname),
+            'profile' => URL::build('/profile/' . Output::getClean($user->data()->username)),
+            'username_style' => $user->getGroupClass($user->data()->id),
+            'avatar' => $user->getAvatar($user->data()->id)
         ));
 
     }

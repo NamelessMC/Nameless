@@ -72,12 +72,25 @@ $front_page_modules[] = 'modules/Forum/front_page.php';
 if(!isset($profile_tabs)) $profile_tabs = array();
 $profile_tabs['forum'] = array('title' => $forum_language->get('forum', 'forum'), 'smarty_template' => 'forum/profile_tab.tpl', 'require' => 'modules' . DIRECTORY_SEPARATOR . 'Forum' . DIRECTORY_SEPARATOR . 'profile_tab.php');
 
+// Global variables if user is logged in
+if($user->isLoggedIn()){
+    // Basic user variables
+    $topic_count = $queries->getWhere('topics', array('topic_creator', '=', $user->data()->id));
+    $topic_count = count($topic_count);
+    $post_count = $queries->getWhere('posts', array('post_creator', '=', $user->data()->id));
+    $post_count = count($post_count);
+    $smarty->assign('LOGGED_IN_USER_FORUM', array(
+        'topic_count' => $topic_count,
+        'post_count' => $post_count
+    ));
+}
+
 // Widgets
 // Latest posts
-require_once('modules/Forum/widgets/LatestPostsWidget.php');
+require_once(ROOT_PATH . '/modules/Forum/widgets/LatestPostsWidget.php');
 $module_pages = $widgets->getPages('Latest Posts');
 
-require_once('modules/Forum/classes/Forum.php');
+require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
 
