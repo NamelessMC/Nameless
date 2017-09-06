@@ -7,12 +7,10 @@ class Paginator{
 
     public function __construct($class = array()){
         // Constructor
-        if(!count($class) && (!defined('PAGINATION_UL_CLASS') || !defined('PAGINATION_LI_CLASS') || !defined('PAGINATION_A_CLASS') || !defined('PAGINATION_DIV_CLASS')))
+        if(!count($class))
             $this->_class = array('ul' => 'pagination d-inline-flex', 'li' => 'page-item {x}', 'a' => 'page-link');
-        else if(count($class))
-            $this->_class = $class;
         else
-            $this->_class = array('div' => PAGINATION_DIV_CLASS, 'ul' => PAGINATION_UL_CLASS, 'li' => PAGINATION_LI_CLASS, 'a' => PAGINATION_A_CLASS);
+            $this->_class = $class;
     }
 
     public function getLimited($data, $limit = 10, $page = 1, $total = 10){
@@ -44,7 +42,7 @@ class Paginator{
         $start = (($this->_page - $links) > 0) ? $this->_page - $links : 1;
         $end = (($this->_page + $links) < $last) ? $this->_page + $links : $last;
 
-        if(defined('PAGINATION_DIV_CLASS') && !empty(PAGINATION_DIV_CLASS))
+        if(isset($this->_class['div']) && !empty($this->_class['div']))
             $html = '<div class="' . $this->_class['div'] . '">';
         else
             $html = '<ul class="' . $this->_class['ul'] . '">';
@@ -101,7 +99,7 @@ class Paginator{
             $html .= '">&raquo;</a></li>';
         }
 
-        if(defined('PAGINATION_DIV_CLASS') && !empty(PAGINATION_DIV_CLASS))
+        if(isset($this->_class['div']) && !empty($this->_class['div']))
             $html .= '</div>';
         else
             $html .= '</ul>';

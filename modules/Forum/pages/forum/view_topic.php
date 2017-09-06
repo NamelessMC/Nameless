@@ -16,7 +16,7 @@ define('PAGE', 'forum');
 
 $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
-$paginator = new Paginator();
+$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 $mentionsParser = new MentionsParser();
 
 require('core/includes/paginate.php'); // Get number of replies on a page

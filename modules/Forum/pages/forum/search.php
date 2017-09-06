@@ -17,7 +17,7 @@ define('PAGE', 'forum');
 
 // Initialise
 $timeago = new Timeago(TIMEZONE);
-$paginator = new Paginator();
+$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get user group ID
