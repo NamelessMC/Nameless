@@ -1,76 +1,112 @@
 <?php
 class Paginator{
-	private $_limit,
-			$_page,
-			$_total,
-			$_class;
-	
-	public function __construct($class = array()){
-		// Constructor
-		if(!count($class)) $this->_class = array('ul' => 'pagination', 'li' => 'page-item', 'a' => 'page-link');
-		else $this->_class = $class;
-	}
-	
-	public function getLimited($data, $limit = 10, $page = 1, $total = 10){
-		$this->_limit   = $limit;
-		$this->_page    = (int)$page;
-		
-		$return = array();
-		
-		for($i = ($this->_page != 1 ? (($this->_page - 1) * $limit) : 0); $i < ($this->_page * $limit); $i++){			
-			if(!isset($data[$i])) break;
-			
-			$return[] = $data[$i];
-		}
+    private $_limit,
+        $_page,
+        $_total,
+        $_class;
 
-		$this->_total = $total;
-		
-		$result         = new stdClass();
-		$result->page   = $this->_page;
-		$result->limit  = $this->_limit;
-		$result->total  = $this->_total;
-		$result->data   = $return;
-	 
-		return $result;
-	}
-	
-	public function generate($links, $href = '?'){
-		$last = ceil($this->_total / $this->_limit);
-	 
-		$start = (($this->_page - $links) > 0) ? $this->_page - $links : 1;
-		$end = (($this->_page + $links) < $last) ? $this->_page + $links : $last;
-	 
-		$html       = '<ul class="' . $this->_class['ul'] . '">';
-	 
-		$class = ($this->_page == 1) ? " disabled" : "";
-		$html .= '<li class="' . $this->_class['li'] . $class . '"><a class="' . $this->_class['a'] . '" href="';
-		if($this->_page == 1) $html .= '#'; else $html .= $href . 'p=' . ($this->_page - 1);
-		$html .= '">&laquo;</a></li>';
-	 
-		if($start > 1){
-			$html   .= '<li class="' . $this->_class['li'] . '"><a class="' . $this->_class['a'] . '" href="' . $href . 'p=1">1</a></li>';
-			$html   .= '<li class="' . $this->_class['li'] . ' disabled"><span>...</span></li>';
-		}
-	 
-		for($i = $start; $i <= $end; $i++){
-			$class  = ($this->_page == $i) ? " active" : "";
-			$html   .= '<li class="' . $this->_class['li'] . $class . '"><a class="' . $this->_class['a'] . '" href="' . $href . 'p=' . $i . '">' . $i . '</a></li>';
-		}
-	 
-		if($end < $last ){
-			$html   .= '<li class="' . $this->_class['li'] . ' disabled"><span>...</span></li>';
-			$html   .= '<li class="' . $this->_class['li'] . '"><a class="' . $this->_class['a'] . '" href="' . $href . 'p=' . $last . '">' . $last . '</a></li>';
-		}
-	 
-		$class      = ($this->_page == $last) ? " disabled" : "";
-		
-		$html       .= '<li class="' . $this->_class['li'] . $class . '"><a class="' . $this->_class['a'] . '" href="';
-		if($this->_page == $last) $html .= '#'; else $html .= $href . 'p=' . ($this->_page + 1);
-		$html .= '">&raquo;</a></li>';
-	 
-		$html       .= '</ul>';
-	 
-		return $html;
-	}
- 
+    public function __construct($class = array()){
+        // Constructor
+        if(!count($class) && (!defined('PAGINATION_UL_CLASS') || !defined('PAGINATION_LI_CLASS') || !defined('PAGINATION_A_CLASS') || !defined('PAGINATION_DIV_CLASS')))
+            $this->_class = array('ul' => 'pagination d-inline-flex', 'li' => 'page-item {x}', 'a' => 'page-link');
+        else if(count($class))
+            $this->_class = $class;
+        else
+            $this->_class = array('div' => PAGINATION_DIV_CLASS, 'ul' => PAGINATION_UL_CLASS, 'li' => PAGINATION_LI_CLASS, 'a' => PAGINATION_A_CLASS);
+    }
+
+    public function getLimited($data, $limit = 10, $page = 1, $total = 10){
+        $this->_limit   = $limit;
+        $this->_page    = (int)$page;
+
+        $return = array();
+
+        for($i = ($this->_page != 1 ? (($this->_page - 1) * $limit) : 0); $i < ($this->_page * $limit); $i++){
+            if(!isset($data[$i])) break;
+
+            $return[] = $data[$i];
+        }
+
+        $this->_total = $total;
+
+        $result         = new stdClass();
+        $result->page   = $this->_page;
+        $result->limit  = $this->_limit;
+        $result->total  = $this->_total;
+        $result->data   = $return;
+
+        return $result;
+    }
+
+    public function generate($links, $href = '?'){
+        $last = ceil($this->_total / $this->_limit);
+
+        $start = (($this->_page - $links) > 0) ? $this->_page - $links : 1;
+        $end = (($this->_page + $links) < $last) ? $this->_page + $links : $last;
+
+        if(defined('PAGINATION_DIV_CLASS') && !empty(PAGINATION_DIV_CLASS))
+            $html = '<div class="' . $this->_class['div'] . '">';
+        else
+            $html = '<ul class="' . $this->_class['ul'] . '">';
+
+        if(empty($this->_class['ul'])){
+            $class = str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), ($this->_class['a']));
+
+            $html .= '<a class="' . $class . '" href="' . (($this->_page == 1) ? '#' : $href . 'p=' . ($this->_page - 1)) . '">&laquo;</a>';
+        } else {
+            $class = str_replace('{x}', ($this->_page == 1) ? ' disabled' : '', $this->_class['li']);
+
+            $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), $this->_class['a']) . '" href="';
+            if($this->_page == 1) $html .= '#'; else $html .= $href . 'p=' . ($this->_page - 1);
+            $html .= '">&laquo;</a></li>';
+        }
+
+        if($start > 1){
+            if(empty($this->_class['ul'])){
+                $html .= '<a class="' . str_replace('{x}', '', $this->_class['a']) . '" href="' . $href . 'p=1">1</a>';
+                $html .= '<a class="' . str_replace('{x}', ' disabled ', $this->_class['a']) . '" href="#">...</a>';
+
+            } else {
+                $html .= '<li class="' . str_replace('{x}', '', $this->_class['li']) . '"><a class="' . str_replace('{x}', '', $this->_class['a']) . '" href="' . $href . 'p=1">1</a></li>';
+                $html .= '<li class="' . str_replace('{x}', ' disabled ', $this->_class['li']) . '"><a href="#" class="' . str_replace('{x}', ' disabled ', $this->_class['a']) . '">...</a></li>';
+
+            }
+        }
+
+        for($i = $start; $i <= $end; $i++){
+            if(empty($this->_class['ul'])){
+                $class = str_replace('{x}', ($this->_page == $i) ? ' active ' : '', $this->_class['a']);
+                $html .= '<a class="' . $class . '" href="' . $href . 'p=' . $i . '">' . $i . '</a>';
+            } else {
+                $class = str_replace('{x}', ($this->_page == $i) ? ' active ' : '', $this->_class['li']);
+                $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', ($this->_page == $i) ? ' active ' : '', $this->_class['a']) . '" href="' . $href . 'p=' . $i . '">' . $i . '</a></li>';
+            }
+        }
+
+        if($end < $last ){
+            if(empty($this->_class['ul'])){
+                $html .= '<a class="' . str_replace('{x}', ' disabled ', $this->_class['li']) . '">...</a>';
+                $html .= '<a class="' . str_replace('{x}', '', $this->_class['li']) . '" href="' . $href . 'p=' . $last . '">' . $last . '</a>';
+            } else {
+                $html .= '<li class="' . str_replace('{x}', ' disabled ', $this->_class['li']) . '"><a href="#" class="' . str_replace('{x}', ' disabled ', $this->_class['a']) . '">...</a></li>';
+                $html .= '<li class="' . str_replace('{x}', '', $this->_class['li']) . '"><a class="' . str_replace('{x}', '', $this->_class['a']) . '" href="' . $href . 'p=' . $last . '">' . $last . '</a></li>';
+            }
+        }
+
+        if(empty($this->_class['ul'])){
+            $html .= '<a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="' . (($this->_page == $last) ? '#' : $href . 'p=' . ($this->_page + 1)) . '">&raquo;</a>';
+        } else {
+            $html .= '<li class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['li']) . '"><a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="';
+            if($this->_page == $last) $html .= '#'; else $html .= $href . 'p=' . ($this->_page + 1);
+            $html .= '">&raquo;</a></li>';
+        }
+
+        if(defined('PAGINATION_DIV_CLASS') && !empty(PAGINATION_DIV_CLASS))
+            $html .= '</div>';
+        else
+            $html .= '</ul>';
+
+        return $html;
+    }
+
 }
