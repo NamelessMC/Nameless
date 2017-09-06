@@ -12,7 +12,7 @@
 // Always define page name
 define('PAGE', 'profile');
 
-$paginator = new Paginator();
+$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 $timeago = new Timeago(TIMEZONE);
 
 require('core/includes/emojione/autoload.php'); // Emojione

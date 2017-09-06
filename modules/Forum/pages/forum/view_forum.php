@@ -15,7 +15,7 @@ define('PAGE', 'forum');
 require_once('modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
-$paginator = new Paginator();
+$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 
 require('core/includes/paginate.php'); // Get number of topics on a page
 
