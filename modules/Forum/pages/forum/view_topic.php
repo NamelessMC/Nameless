@@ -16,7 +16,6 @@ define('PAGE', 'forum');
 
 $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
-$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 $mentionsParser = new MentionsParser();
 
 require('core/includes/paginate.php'); // Get number of replies on a page
@@ -369,6 +368,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	));
 	
 	// Pagination
+	$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 	$results = $paginator->getLimited($posts, 10, $p, count($posts));
 	$pagination = $paginator->generate(7, URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), true));
 	

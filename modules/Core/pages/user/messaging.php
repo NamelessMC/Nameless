@@ -19,7 +19,6 @@ if(!$user->isLoggedIn()){
 define('PAGE', 'cc_messaging');
 
 $timeago = new Timeago(TIMEZONE);
-$paginator = new Paginator();
 
 require('core/includes/paginate.php'); // Get number of topics on a page
 require('core/includes/emojione/autoload.php'); // Emojione
@@ -74,6 +73,7 @@ require('core/templates/cc_navbar.php');
 		$messages = $user->listPMs($user->data()->id);
 		
 		// Pagination
+		$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 		$results = $paginator->getLimited($messages, 10, $p, count($messages));
 		$pagination = $paginator->generate(7, URL::build('/user/messaging/', true));
 		
@@ -442,6 +442,7 @@ require('core/templates/cc_navbar.php');
 			$pm_replies = $queries->getWhere('private_messages_replies', array('pm_id', '=', $_GET['message']));
 			
 			// Pagination
+			$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 			$results = $paginator->getLimited($pm_replies, 10, $p, count($pm_replies));
 			$pagination = $paginator->generate(7, URL::build('/user/messaging/', 'action=view&amp;message=' . $pm[0]->id . '&amp;'));
 			

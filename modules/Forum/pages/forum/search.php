@@ -17,7 +17,6 @@ define('PAGE', 'forum');
 
 // Initialise
 $timeago = new Timeago(TIMEZONE);
-$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get user group ID
@@ -181,6 +180,7 @@ if(!isset($_GET['s'])){
     if(isset($_GET['s'])){
         // Show results
         if(count($results)) {
+            $paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
             $results = $paginator->getLimited($results, 10, $p, count($results));
             $pagination = $paginator->generate(7, URL::build('/forum/search/', 's=' . $search . '&'));
 
