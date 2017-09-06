@@ -12,7 +12,6 @@
 // Always define page name
 define('PAGE', 'profile');
 
-$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 $timeago = new Timeago(TIMEZONE);
 
 require('core/includes/emojione/autoload.php'); // Emojione
@@ -386,6 +385,7 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 		
 		if(count($wall_posts_query)){
 			// Pagination
+			$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 			$results = $paginator->getLimited($wall_posts_query, 10, $p, count($wall_posts_query));
 			$pagination = $paginator->generate(7, URL::build('/profile/' . Output::getClean($query->username) . '/', true));
 			

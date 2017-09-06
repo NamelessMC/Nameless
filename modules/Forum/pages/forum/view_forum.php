@@ -15,7 +15,6 @@ define('PAGE', 'forum');
 require_once('modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
-$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 
 require('core/includes/paginate.php'); // Get number of topics on a page
 
@@ -335,6 +334,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 		
 		// Latest discussions
 		// Pagination
+		$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 		$results = $paginator->getLimited($topics, 10, $p, count($topics));
 		$pagination = $paginator->generate(7, URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title), true));
 		
