@@ -166,6 +166,7 @@ $timeago = new Timeago(TIMEZONE);
 					'username' => Output::getClean($user->idToNickname($comment->commenter_id)),
 					'profile' => URL::build('/profile/' . Output::getClean($user->idToName($comment->commenter_id))),
 					'style' => $user->getGroupClass($comment->commenter_id),
+					'avatar' => $user->getAvatar($comment->commenter_id),
 					'content' => Output::getPurified(htmlspecialchars_decode($comment->comment_content)),
 					'date' => date('d M Y, H:i', strtotime($comment->comment_date)),
 					'date_friendly' => $timeago->inWords($comment->comment_date, $language->getTimeLanguage())
@@ -176,10 +177,12 @@ $timeago = new Timeago(TIMEZONE);
 				$reported_user = Output::getClean($report->reported_mcname);
 				$reported_user_profile = URL::build('/profile/' . Output::getClean($report->reported_mcname));
 				$reported_user_style = '';
+				$reported_user_avatar = '';
 			} else {
 				$reported_user = Output::getClean($user->idToNickname($report->reported_id));
 				$reported_user_profile = URL::build('/profile/' . Output::getClean($user->idToName($report->reported_id)));
 				$reported_user_style = $user->getGroupClass($report->reported_id);
+				$reported_user_avatar = $user->getAvatar($report->reported_id);
 			}
 			
 			// Smarty variables
@@ -192,6 +195,7 @@ $timeago = new Timeago(TIMEZONE);
 				'REPORTED_USER' => $reported_user,
 				'REPORTED_USER_PROFILE' => $reported_user_profile,
 				'REPORTED_USER_STYLE' => $reported_user_style,
+				'REPORTED_USER_AVATAR' => $reported_user_avatar,
 				'REPORT_DATE' => date('d M Y, H:i', strtotime($report->date_reported)),
 				'REPORT_DATE_FRIENDLY' => $timeago->inWords($report->date_reported, $language->getTimeLanguage()),
 				'CONTENT_LINK' => $report->link,
@@ -200,6 +204,7 @@ $timeago = new Timeago(TIMEZONE);
 				'REPORTER_USER' => Output::getClean($user->idToNickname($report->reporter_id)),
 				'REPORTER_USER_PROFILE' => URL::build('/profile/' . Output::getClean($user->idToName($report->reporter_id))),
 				'REPORTER_USER_STYLE' => $user->getGroupClass($report->reporter_id),
+				'REPORTER_USER_AVATAR' => $user->getAvatar($report->reporter_id),
 				'COMMENTS' => $smarty_comments,
 				'COMMENTS_TEXT' => $language->get('moderator', 'comments'),
 				'NO_COMMENTS' => $language->get('moderator', 'no_comments'),
