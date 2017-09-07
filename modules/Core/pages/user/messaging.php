@@ -22,6 +22,7 @@ $timeago = new Timeago(TIMEZONE);
 
 require('core/includes/paginate.php'); // Get number of topics on a page
 require('core/includes/emojione/autoload.php'); // Emojione
+require('core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get page
