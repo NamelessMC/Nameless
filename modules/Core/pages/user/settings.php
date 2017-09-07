@@ -35,16 +35,11 @@ if(isset($_GET['do'])){
 			die();
 		}
 		
-		$tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
+        $tfa = new \RobThree\Auth\TwoFactorAuth(SITE_NAME);
 		
 		if(!isset($_GET['s'])){
 			// Generate secret
 			$secret = $tfa->createSecret();
-
-			if($user->data()->tfa_secret){
-				Redirect::to(URL::build('/user/settings'));
-				die();
-			}
 
 			$queries->update('users', $user->data()->id, array(
 				'tfa_secret' => $secret
