@@ -1,7 +1,7 @@
 # Finished products of Nameless can be found on
 https://namelessmc.com/
 
-### Warning - All downloads off the github are not 100% bug free and are in dev.
+### Disclaimer - All downloads off the github are not 100% bug free and are in dev.
 
 ![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/NamelessMC/Nameless.svg)
 
@@ -61,11 +61,12 @@ Upcoming addons (these will need to be downloaded separately):
 * [Download](https://github.com/NamelessMC/Nameless/releases) 
 * [Plugin Download](https://www.spigotmc.org/resources/official-namelessplugin.42698/)
 
-# Full Staff list:
+# Full Management list:
 **Project**
 * @Samerton
 * @Awtra
 * @partydragen
+* @IsS147
 
 # Full contributor list:
 **Main repository**
@@ -123,13 +124,13 @@ Upcoming addons (these will need to be downloaded separately):
 * @IsS127
 * @Lmmb74
 * @samerton
-* @Fellings1
+* @Awtra
 * @partydragen
 * @Envici
 * @rojo8399
 
 **NamelessMC Translations**
-* English: @Samerton, @Fellings1
+* English: @Samerton, @Awtra
 * German: @LPkkjHD, @manuelgu, @BukkitTNT, philipp0002, @McLive, @Cl1608Ho and @monjo44
 * Spanish: @paloke, @lockerecca, @talkahe, @mrlost, Dexkum and @Ariuw
 * Czech: SnooWiK
