@@ -19,14 +19,18 @@
   </div>
   {/if}
 
-  {if isset($CAN_REPLY)}
-  <a{if isset($LOCKED) && !isset($CAN_MODERATE)} disabled="disabled"{else} href="#reply_section"{/if} class="btn btn-{if isset($LOCKED) && !isset($CAN_MODERATE)}warning disabled{else}primary{/if}">{if isset($LOCKED) && !isset($CAN_MODERATE)}<i class="fa fa-lock" aria-hidden="true"></i> {/if}{$NEW_REPLY}</a>
-  {/if}
+  {$PAGINATION}
+
   
   <span class="pull-right">
+	    {if isset($CAN_REPLY)}
+	  <div class="btn-group">
+			<a{if isset($LOCKED) && !isset($CAN_MODERATE)} disabled="disabled"{else} href="#reply_section"{/if} style="vertical-align:baseline;" class="btn btn-{if isset($LOCKED) && !isset($CAN_MODERATE)}warning disabled{else}primary{/if}">{if isset($LOCKED) && !isset($CAN_MODERATE)}<i class="fa fa-lock" aria-hidden="true"></i> {/if}{$NEW_REPLY}</a>
+	  </div>
+		  {/if}
     {if isset($CAN_MODERATE)}
     <div class="btn-group">
-	  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">{$MOD_ACTIONS} <span class="caret"></span></button>
+	  <button type="button" style="vertical-align:baseline;" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">{$MOD_ACTIONS} <span class="caret"></span></button>
 	  <ul class="dropdown-menu" role="menu">
 		<li><a class="dropdown-item" href="{$LOCK_URL}">{$LOCK}</a></li>
 		<li><a class="dropdown-item" href="{$MERGE_URL}">{$MERGE}</a></li>
@@ -36,21 +40,16 @@
 	  </ul>
 	</div>
     {/if}
-  
+
     <div class="btn-group">
-	  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">{$SHARE} <span class="caret"></span></button>
+	  <button type="button" style="vertical-align:baseline;" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">{$SHARE} <span class="caret"></span></button>
 	  <ul class="dropdown-menu" role="menu">
 		<li><a target="_blank" class="dropdown-item" href="{$SHARE_TWITTER_URL}">{$SHARE_TWITTER}</a></li>
 		<li><a target="_blank" class="dropdown-item" href="{$SHARE_FACEBOOK_URL}">{$SHARE_FACEBOOK}</a></li>
 	  </ul>
 	</div>
-	
   </span>
-  
-  <br /><br />
-  
-  {$PAGINATION}
-  
+
   {foreach from=$REPLIES item=reply name=arr}
     <div class="panel panel-primary">
 	  <div class="panel-heading">
