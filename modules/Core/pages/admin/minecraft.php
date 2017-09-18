@@ -988,7 +988,11 @@ $admin_page = 'minecraft';
                                 $cache->store('query_interval', $query_interval);
                               }
 
-                              echo '<div class="alert alert-info">' . str_replace('{x}', $query_interval,$language->get('admin', 'player_count_cronjob_info')) . '<br /><code>*/' . $query_interval . ' * * * * wget -O /dev/null ' . Output::getClean(Util::getSelfURL()) . URL::build('queries/servers') . '</code></div>';
+                              // Get unique key for cron
+                              $key = $queries->getWhere('settings', array('name', '=', 'unique_id'));
+                              $key = $key[0]->value;
+
+                              echo '<div class="alert alert-info">' . str_replace('{x}', $query_interval,$language->get('admin', 'player_count_cronjob_info')) . '<br /><code>*/' . $query_interval . ' * * * * wget -O /dev/null "' . Output::getClean(Util::getSelfURL()) . URL::build('queries/servers/', 'key=' . Output::getClean($key)) . '"</code></div>';
 
                               break;
 

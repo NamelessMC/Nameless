@@ -18,13 +18,23 @@ if($cache->isCached('query_interval')){
     $cache->store('query_interval', $query_interval);
 }
 
-if($cache->isCached('last_query')){
-    $last_query = $cache->retrieve('last_query');
-    $interval = $query_interval * 60;
-    $interval = $interval + 10; // 10 second difference
-    if($last_query > strtotime($interval . ' seconds ago')){
-        // No need to re-query
-        die('1');
+if(isset($_GET['key'])){
+    // Get key from database - check it matches
+    $key = $queries->getWhere('settings', array('name', '=', 'unique_id'));
+    if(!count($key))
+        die();
+
+    $key = $key[0];
+    if($_GET['key'] != $key->value)
+        die();
+
+} else {
+    if ($cache->isCached('last_query')) {
+        $last_query = $cache->retrieve('last_query');
+        if ($last_query > strtotime($query_interval . ' minutes ago')) {
+            // No need to re-query
+            die('1');
+        }
     }
 }
 
