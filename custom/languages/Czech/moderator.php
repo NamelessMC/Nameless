@@ -48,6 +48,32 @@ $language = array(
 	'open_reports' => 'V současné době je <strong>{x}</strong> otevřených nahlášení.', // Don't replace {x}
 	
 	// Punishments
-	'punishments' => 'Tresty'
+	'punishments' => 'Tresty',
+	'view_punishments' => 'View Punishments',
+	'banned' => 'Banned',
+	'groups' => 'Groups',
+	'punish' => 'Punish',
+	'ban' => 'Ban',
+	'warn' => 'Warn',
+	'ban_ip' => 'Ban IP',
+	'viewing_user_x' => 'Viewing user {x}', // Don't replace {x}
+	'previous_punishments' => 'Previous punishments',
+	'no_previous_punishments' => 'No previous punishments',
+	'warning' => 'Warning',
+	'ip_ban' => 'IP Ban',
+	'reason' => 'Reason',
+	'warn_user' => 'Warn User',
+	'ban_user' => 'Ban User',
+	'enter_valid_punishment_reason' => 'Please enter a valid reason for your punishment, between 5 and 5000 characters.',
+	'user_punished' => 'User punished.',
+	'user_punished_alert' => '{x} has punished user {y}', // Don't replace {x} (staff member) or {y} (user punished)
+	'revoke' => 'Revoke',
+	'revoked' => 'Revoked',
+	'acknowledged' => 'Acknowledged',
+	'confirm_revoke_warning' => 'Are you sure you want to revoke this warning?',
+	'confirm_revoke_ban' => 'Are you sure you want to revoke this ban? The user will be unbanned, even if they have a more recent ban!',
+	'punishment_revoked' => 'Punishment revoked.',
+	'punishment_revoked_alert' => '{x} has revoked a punishment for user {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
+	'cant_punish_admin' => 'You can\'t punish an administrator!'
 
 );

@@ -37,6 +37,9 @@ define('PAGE', 'index');
 	if(Session::exists('home')){
 	    $smarty->assign('HOME_SESSION_FLASH', Session::flash('home'));
     }
+    if(Session::exists('home_error')){
+        $smarty->assign('HOME_SESSION_ERROR_FLASH', Session::flash('home_error'));
+    }
 
 	if(isset($front_page_modules)){
 		foreach($front_page_modules as $module){

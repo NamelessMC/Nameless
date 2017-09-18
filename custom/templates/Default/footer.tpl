@@ -1,3 +1,22 @@
+{* Punishment modal if necessary *}
+{if isset($GLOBAL_WARNING_TITLE)}
+  <div class="modal fade show-punishment" data-keyboard="false" data-backdrop="static" id="acknowledgeModal" tabindex="-1" role="dialog" aria-labelledby="acknowledgeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="acknowledgeModalLabel">{$GLOBAL_WARNING_TITLE}</h4>
+        </div>
+        <div class="modal-body">
+          {$GLOBAL_WARNING_REASON}
+        </div>
+        <div class="modal-footer">
+          <a href="{$GLOBAL_WARNING_ACKNOWLEDGE_LINK}" class="btn btn-warning">{$GLOBAL_WARNING_ACKNOWLEDGE}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{/if}
+
 <br />
 <footer>
   <div class="container">
