@@ -56,8 +56,8 @@ $language = array(
 	'invalid_tfa' => 'Ungültiger Code, versuche es erneut.',
 	'tfa_successful' => '2 Schritt Authentifizierung wurde aktiviert.',
 	'active_language' => 'Ausgewählte Sprache:',
-    'timezone' => 'Timezone',
-    'upload_new_avatar' => 'Upload a new avatar',
+    'timezone' => 'Zeitzone',
+    'upload_new_avatar' => 'Ein neuen Avatar hochladen',
 	
 	// Alerts
 	'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace {x}
@@ -75,7 +75,7 @@ $language = array(
 	'email' => 'Email',
 	'password' => 'Passwort',
 	'confirm_password' => 'Passwort wiederholen',
-	'i_agree' => 'I Agree',
+	'i_agree' => 'Ich akzeptiere',
 	'agree_t_and_c' => 'Wenn du auf <strong class="label label-primary">Register</strong> drückst stimmst du unseren <a href="{x}" target="_blank">Geschäftsbedingungen</a>.',
 	'create_an_account' => 'Erstelle einen Account',
 	'terms_and_conditions' => 'Geschäftsbedingungen',
@@ -84,12 +84,12 @@ $language = array(
 	'signature' => 'Signatur',
 
     // Registration - Authme
-    'connect_with_authme' => 'Connect your account with AuthMe',
-    'authme_help' => 'Please enter your ingame AuthMe account details. If you don\'t already have an account ingame, join the server now and follow the instructions provided.',
-    'unable_to_connect_to_authme_db' => 'Unable to connect to the AuthMe database. If this error persists, please contact an administrator.',
-    'authme_account_linked' => 'Account linked successfully.',
-    'authme_email_help_1' => 'Finally, please enter your email address.',
-    'authme_email_help_2' => 'Finally, please enter your email address, and also choose a display name for your account.',
+    'connect_with_authme' => 'Verbinden Sie Ihr Konto mit AuthMe',
+    'authme_help' => 'Bitte geben Sie Ihre Ingame AuthMe Konto Details an. Falls Sie ncoh kein Konto im Spiel haben, verbinden Sie sich einfach mit dem Spiele Server und folgen Sie den weiteren Anweisungen.',
+    'unable_to_connect_to_authme_db' => 'Es konnte keine Verbindung zur AuthMe-Datenbank hergestellt werden. Wenn dieser Fehler weiterhin besteht, wenden Sie sich bitte an einen Administrator.',
+    'authme_account_linked' => 'Konto erfolgreich verknüpft.',
+    'authme_email_help_1' => 'Bitte geben Sie Ihre E-Mail-Adresse ein.',
+    'authme_email_help_2' => 'Geben Sie bitte Ihre E-Mail-Adresse ein und wählen Sie einen Anzeigenamen für Ihr Konto.',
 
 	// Registration errors
     'username_required' => 'Bitte gebe einen Nutzernamen an.',
@@ -113,7 +113,7 @@ $language = array(
     'verify_account_help' => 'Bitte führe die angegeben Schritte durch um deinen Account zu verifizieren.',
     'verification_failed' => 'Verifikation fehlgeschlagen.',
     'verification_success' => 'Erfolgreich freigeschaltet.',
-    'authme_username_exists' => 'Your Authme account has already been connected to the website!',
+    'authme_username_exists' => 'Ihr Authme-Konto wurde bereits mit der Website verbunden!',
 	
 	// Login
 	'successful_login' => 'Du hast dich erfolgreich angemeldet.',
@@ -126,12 +126,12 @@ $language = array(
 	'must_input_password' => 'Du musst ein Passwort eingeben.',
 
     // Forgot password
-    'forgot_password_instructions' => 'Please enter your email address so we can send you further instructions on resetting your password.',
-    'forgot_password_email_sent' => 'If an account with the email address exists, an email has been sent containing further instructions. If you can\'t find it, try checking your junk folder.',
-    'unable_to_send_forgot_password_email' => 'Unable to send forgot password email. Please contact an administrator.',
-    'enter_new_password' => 'Please confirm your email address and enter a new password below.',
-    'incorrect_email' => 'The email address you have entered does not match the request.',
-    'forgot_password_change_successful' => 'Your password has been changed successfully. You can now log in.',
+    'forgot_password_instructions' => 'Bitte geben Sie Ihre E-Mail-Adresse ein, damit wir Ihnen weitere Anweisungen zum Zurücksetzen Ihres Passworts zusenden können.',
+    'forgot_password_email_sent' => 'Wenn ein Konto mit der E-Mail-Adresse existiert, wurde eine E-Mail mit weiteren Anweisungen gesendet. Wenn Sie es nicht finden können, überprüfen Sie bitte Ihren Spam-Ordner.',
+    'unable_to_send_forgot_password_email' => 'Die Email zum zurücksetzen des Passworts konnte nicht versendet werden. Bitte wenden Sie sich an einen Administrator.',
+    'enter_new_password' => 'Bitte bestätigen Sie Ihre E-Mail-Adresse und geben Sie ein neues Passwort ein.',
+    'incorrect_email' => 'Die eingegebene E-Mail-Adresse stimmt nicht mit der Anfrage überein.',
+    'forgot_password_change_successful' => 'Ihr Passwort wurde erfolgreich geändert. Sie können sich jetzt anmelden.',
 	
 	// Profile pages
 	'profile' => 'Profil',
@@ -154,14 +154,14 @@ $language = array(
 	'new_reply' => 'Neue Antwort',
 	'registered' => 'Registriert seit:',
 	'last_seen' => 'Zuletzt gesehen:',
-	'new_wall_post' => '{x} has posted on your profile.',
-	'couldnt_find_that_user' => 'Couldn\'t find that user.',
-	'block_user' => 'Block User',
-	'unblock_user' => 'Unblock User',
-	'confirm_block_user' => 'Are you sure you want to block this user? They will not be able to send you private messages or tag you in posts.',
-	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
-	'user_blocked' => 'User blocked.',
-	'user_unblocked' => 'User unblocked.',
+	'new_wall_post' => '{x} hat etwas auf deine Profilpinwand geschrieben.',
+	'couldnt_find_that_user' => 'Konnte den Benutzer nicht finden.',
+	'block_user' => 'Benutzer blockieren',
+	'unblock_user' => 'Benutzer blockierung aufheben',
+	'confirm_block_user' => 'Sind Sie sicher, dass Sie diesen Benutzer blockieren möchten? Sie werden nicht in der Lage sein, Ihnen private Nachrichten zu schicken oder Sie in Posts zu markieren.',
+	'confirm_unblock_user' => 'Sind Sie sicher, dass Sie diesen Benutzer freischalten möchten? Sie werden in der Lage sein, Ihnen private Nachrichten zu schicken und Sie in Posts zu markieren.',
+	'user_blocked' => 'Benutzer blockiert.',
+	'user_unblocked' => 'Benutzer blockierung aufgehoben.',
 	
 	// Reports
 	'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
@@ -197,9 +197,9 @@ $language = array(
 	/*
 	 *  Infractions area
 	 */
-	'you_have_been_banned' => 'You have been banned!',
-	'you_have_received_a_warning' => 'You have received a warning!',
-	'acknowledge' => 'Acknowledge',
+	'you_have_been_banned' => 'Sie wurden Gebannt!',
+	'you_have_received_a_warning' => 'Sie haben eine Verwarnung erhalten!',
+	'acknowledge' => 'Bestätigen',
 
 	/*
 	 *  Emails
