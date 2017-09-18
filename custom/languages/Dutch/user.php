@@ -51,7 +51,7 @@ $language = array(
 	'tfa_successful' => 'Twee factor authenticatie succesvol ingesteld. Je moet nu elke keer een code hebben om in te kunnen loggen.',
 	'active_language' => 'Actieve taal',
 	'timezone' => 'Tijdzone',
-    	'upload_new_avatar' => 'Upload een nieuwe avatar',
+	'upload_new_avatar' => 'Upload een nieuwe avatar',
 	
 	// Meldingen
 	'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet
@@ -122,10 +122,10 @@ $language = array(
     	// Forgot password
    	'forgot_password_instructions' => 'Graag je email adres invoeren zodat we verdere instructies kunnen sturen om je wachtwoord te herstellen.',
    	'forgot_password_email_sent' => 'Als een account met dit email adres bestaat, is er een email verstuurt met daarin verdere instructies. Als je hem niet kan vinden, bekijk dan ook de SPAM map.',
-    	'unable_to_send_forgot_password_email' => 'Kon vergeten wachtwoord email niet verzenden. Graag contact opnemen met een administrator.',
-    	'enter_new_password' => 'Graag je email bevestigen en een nieuw wachtwoord invoeren.',
+   	'unable_to_send_forgot_password_email' => 'Kon vergeten wachtwoord email niet verzenden. Graag contact opnemen met een administrator.',
+   	'enter_new_password' => 'Graag je email bevestigen en een nieuw wachtwoord invoeren.',
    	'incorrect_email' => 'Het email adres dat is ingevoerd komt niet overeen met het verzoek.',
-    	'forgot_password_change_successful' => 'Je wachtwoord is succesvol veranderd. Je kan nu inloggen.',
+   	'forgot_password_change_successful' => 'Je wachtwoord is succesvol veranderd. Je kan nu inloggen.',
 	
 	// Profiel paginas
 	'profile' => 'Profiel',
@@ -188,13 +188,12 @@ $language = array(
 	'confirm_leave' => 'Weet je zeker dat je dit gesprek wilt verlaten?',
 	'one_or_more_users_blocked' => 'Je kan niet een prive bericht sturen naar ten minste een lid van het gesprek.',
 	
-	// Reacties
-	'reactions' => 'Reacties',
-	
 	/*
 	 *  Overtredingen gebied
 	 */
-	'infractions' => 'Overtredingen',
+	'you_have_been_banned' => 'You have been banned!',
+	'you_have_received_a_warning' => 'You have received a warning!',
+	'acknowledge' => 'Acknowledge',
 	
 	
 	/*
@@ -202,6 +201,6 @@ $language = array(
 	 */
 	'email_greeting' => 'Hoi,',
 	'email_message' => 'Bedankt voor het registreren op onze website! Om je registratie te voltooien, klik je op deze link: ',
-    	'forgot_password_email_message' => 'Om je wachtwoord te herstellen, klik op de volgende link. Als je dit niet hebt aangevraagd, kan je deze email negeren.',
+	'forgot_password_email_message' => 'Om je wachtwoord te herstellen, klik op de volgende link. Als je dit niet hebt aangevraagd, kan je deze email negeren.',
 	'email_thanks' => 'Nogmaals bedankt,'
 );

@@ -258,6 +258,11 @@ if(!isset($admin_styles)){
               $(this).stop(true, true).delay(25).fadeOut();
           }
       );
+      
+      // Warnings
+      if($(\'div.show-punishment\').length){
+        $(\'.show-punishment\').modal(\'show\');
+      }
 
     </script>';
   }

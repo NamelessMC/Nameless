@@ -186,15 +186,13 @@ $language = array(
 	'leave_conversation' => 'Lämna konversationen',
 	'confirm_leave' => 'Är du säker på att du vill lämna den här konversationen?',
 	'one_or_more_users_blocked' => 'Du kan inte skicka privata meddelanden till minst en medlem i samtalet.',
-	
-	// Reactions
-	'reactions' => 'Reaktioner',
-	
+
 	/*
 	 *  Infractions area
 	 */
-	'infractions' => 'Överträdelser',
-	
+	'you_have_been_banned' => 'You have been banned!',
+	'you_have_received_a_warning' => 'You have received a warning!',
+	'acknowledge' => 'Acknowledge',
 	
 	/*
 	 *  Emails

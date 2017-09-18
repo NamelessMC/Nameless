@@ -187,13 +187,12 @@ $language = array(
 	'confirm_leave' => 'Opravdu chcete opustit konverzaci?',
 	'one_or_more_users_blocked' => 'Alespoň jednomu členovi konverzace nemůžete odeslat soukromé zprávy.',
 	
-	// Reactions
-	'reactions' => 'Reakce',
-	
 	/*
 	 *  Infractions area
 	 */
-	'infractions' => 'Přestupky',
+	'you_have_been_banned' => 'You have been banned!',
+	'you_have_received_a_warning' => 'You have received a warning!',
+	'acknowledge' => 'Acknowledge',
 	
 	
 	/*

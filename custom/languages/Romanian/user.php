@@ -186,15 +186,13 @@ $language = array(
     'leave_conversation' => 'Părăsește conversația',
     'confirm_leave' => 'Sunteți sigur că doriți să părăsiți această conversație?',
     'one_or_more_users_blocked' => 'Nu puteți trimite mesajul privat deoarece unul sau mai mulți destinatari sunt blocați.',
-    
-    // Reactions
-    'reactions' => 'Reacții',
-    
+
     /*
      *  Infractions area
      */
-    'infractions' => 'Abateri',
-    
+    'you_have_been_banned' => 'You have been banned!',
+    'you_have_received_a_warning' => 'You have received a warning!',
+    'acknowledge' => 'Acknowledge',
     
     /*
      *  Emails

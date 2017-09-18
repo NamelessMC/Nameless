@@ -339,6 +339,14 @@ if($page != 'install'){
 
     // Perform tasks if the user is logged in
     if($user->isLoggedIn()){
+        // Ensure a user is not banned
+        if($user->data()->isbanned == 1){
+            $user->logout();
+            Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
+            Redirect::to(URL::build('/'));
+            die();
+        }
+
         // Update a user's IP
         $ip = $user->getIP();
         if(filter_var($ip, FILTER_VALIDATE_IP)){
@@ -385,6 +393,15 @@ if($page != 'install'){
             }
         }
 
+        // Is the IP address banned?
+        $ip_bans = $queries->getWhere('ip_bans', array('ip', '=', $ip));
+        if(count($ip_bans)){
+            $user->logout();
+            Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
+            Redirect::to(URL::build('/'));
+            die();
+        }
+
         // Update last online
         // Update user last online
         $queries->update('users', $user->data()->id, array(
@@ -399,6 +416,22 @@ if($page != 'install'){
             'username_style' => $user->getGroupClass($user->data()->id),
             'avatar' => $user->getAvatar($user->data()->id)
         ));
+
+        // Warnings
+        $warnings = $queries->getWhere('infractions', array('punished', '=', $user->data()->id));
+        if(count($warnings)){
+            foreach($warnings as $warning){
+                if($warning->revoked == 0 && $warning->acknowledged == 0){
+                    $smarty->assign(array(
+                        'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
+                        'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
+                        'GLOBAL_WARNING_ACKNOWLEDGE' => $language->get('user', 'acknowledge'),
+                        'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/' . $warning->id)
+                    ));
+                    break;
+                }
+            }
+        }
 
     }
 }

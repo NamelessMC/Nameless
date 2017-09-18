@@ -47,6 +47,7 @@ $pages->add('Core', '/user', 'pages/user/index.php');
 $pages->add('Core', '/user/settings', 'pages/user/settings.php');
 $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
 $pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
+$pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
 $pages->add('Core', '/mod', 'pages/mod/index.php');
 $pages->add('Core', '/mod/punishments', 'pages/mod/punishments.php');
 $pages->add('Core', '/mod/reports', 'pages/mod/reports.php');

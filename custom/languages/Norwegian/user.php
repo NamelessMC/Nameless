@@ -184,15 +184,13 @@ $language = array(
 	'leave_conversation' => 'Forlat samtale',
 	'confirm_leave' => 'Er du sikker på at du vil forlate denne samtalen?',
 	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
-	
-	// Reactions
-	'reactions' => 'Reaksjoner',
-	
+
 	/*
 	 *  Infractions area
 	 */
-	'infractions' => 'Straff',
-	
+	'you_have_been_banned' => 'You have been banned!',
+	'you_have_received_a_warning' => 'You have received a warning!',
+	'acknowledge' => 'Acknowledge',
 	
 	/*
 	 *  Emails

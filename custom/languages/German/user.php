@@ -193,16 +193,14 @@ $language = array(
 	'leave_conversation' => 'Konversation verlassen.',
 	'confirm_leave' => 'Möchtest du die Konversation wirklich verlassen?',
 	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
-	
-	// Reactions
-	'reactions' => 'Reaktionen',
-	
+
 	/*
 	 *  Infractions area
 	 */
-	'infractions' => 'Straftaten',
-	
-	
+	'you_have_been_banned' => 'You have been banned!',
+	'you_have_received_a_warning' => 'You have received a warning!',
+	'acknowledge' => 'Acknowledge',
+
 	/*
 	 *  Emails
 	 */
