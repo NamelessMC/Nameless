@@ -663,7 +663,7 @@ require('core/includes/password.php'); // Password compat library
 									}
 									?>
 									<li><a class="dropdown-item" href="<?php echo URL::build('/admin/reset_password/', 'uid=' . $individual[0]->id); ?>"><?php echo $language->get('admin', 'reset_password'); ?></a></li>
-									<li><a class="dropdown-item" href="<?php echo URL::build('/mod/punishments/', 'uid=' . $individual[0]->id); ?>"><?php echo $language->get('admin', 'punish_user'); ?></a></li>
+									<li><a class="dropdown-item" href="<?php echo URL::build('/mod/punishments/', 'user=' . $individual[0]->id); ?>"><?php echo $language->get('admin', 'punish_user'); ?></a></li>
 									<li><a class="dropdown-item" href="<?php echo URL::build('/admin/users/', 'action=delete&uid=' . $individual[0]->id); ?>"><?php echo $language->get('admin', 'delete_user'); ?></a></li>
 								  </div>
 								</div>
