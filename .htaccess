@@ -22,3 +22,8 @@
   
   #RewriteRule ^(.*)$ %{ENV:BASE}index.php  [QSA]
   RewriteRule ^(.*)$ ./index.php?route=/$1 [NC,L,QSA]
+
+  # Prevent access to template files
+  <files "*.tpl">
+    Deny from all
+  </files>
