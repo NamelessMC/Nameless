@@ -1173,8 +1173,8 @@ $admin_page = 'minecraft';
                         }
                         $server = $server[0];
                         echo '<hr />';
-                        echo '<p><code>http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/banner/' . urlencode($server->name) . '.png') . '</code></p>';
-                        echo '<img src="' . URL::build('/banner/' . urlencode($server->name)) . '" alt="' . Output::getClean($server->name) . '" />';
+                        echo '<p><code>http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/') . '</code></p>';
+                        echo '<img src="' . rtrim(URL::build('/banner/' . urlencode($server->name)), '/') . '" alt="' . Output::getClean($server->name) . '" />';
 
                       } else if(isset($_GET['edit']) && is_numeric($_GET['edit'])){
                           echo '<span class="pull-right"><a href="' . URL::build('/admin/minecraft/', 'view=banners') . '" class="btn btn-info">' . $language->get('general', 'back') . '</a></span>';
