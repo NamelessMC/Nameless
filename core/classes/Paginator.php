@@ -83,8 +83,8 @@ class Paginator{
 
         if($end < $last ){
             if(empty($this->_class['ul'])){
-                $html .= '<a class="' . str_replace('{x}', ' disabled ', $this->_class['li']) . '">...</a>';
-                $html .= '<a class="' . str_replace('{x}', '', $this->_class['li']) . '" href="' . $href . 'p=' . $last . '">' . $last . '</a>';
+                $html .= '<a class="' . str_replace('{x}', ' disabled ', $this->_class['a']) . '">...</a>';
+                $html .= '<a class="' . str_replace('{x}', '', $this->_class['a']) . '" href="' . $href . 'p=' . $last . '">' . $last . '</a>';
             } else {
                 $html .= '<li class="' . str_replace('{x}', ' disabled ', $this->_class['li']) . '"><a href="#" class="' . str_replace('{x}', ' disabled ', $this->_class['a']) . '">...</a></li>';
                 $html .= '<li class="' . str_replace('{x}', '', $this->_class['li']) . '"><a class="' . str_replace('{x}', '', $this->_class['a']) . '" href="' . $href . 'p=' . $last . '">' . $last . '</a></li>';
