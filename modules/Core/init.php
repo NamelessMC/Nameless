@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -65,143 +65,145 @@ $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
 $pages->add('Core', '/terms', 'pages/terms.php');
 $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
 
-// Custom pages
-$custom_pages = $queries->getWhere('custom_pages', array('id', '<>', 0));
-if(count($custom_pages)){
-    $more = array();
-    $cache->setCache('navbar_order');
+if(rtrim($_GET['route'], '/') != '/admin/update_execute'){
+	// Custom pages
+	$custom_pages = $queries->getWhere('custom_pages', array('id', '<>', 0));
+	if(count($custom_pages)){
+		$more = array();
+		$cache->setCache('navbar_order');
 
-    if($user->isLoggedIn()){
-        // Check all groups
-        $user_groups = $user->getAllGroups($user->data()->id);
+		if($user->isLoggedIn()){
+			// Check all groups
+			$user_groups = $user->getAllGroups($user->data()->id);
 
-        foreach($custom_pages as $custom_page){
-            $redirect = null;
-            foreach($user_groups as $user_group){
-                $custom_page_permissions = $queries->getWhere('custom_pages_permissions', array('group_id', '=', $user_group));
-                if(count($custom_page_permissions)){
-                    foreach($custom_page_permissions as $permission){
-                        if($permission->page_id == $custom_page->id){
-                            if($permission->view == 1){
-                                // Get redirect URL if enabled
-                                if($custom_page->redirect == 1){
-                                    $redirect = Output::getClean($custom_page->link);
-                                } else
-                                    $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
+			foreach($custom_pages as $custom_page){
+				$redirect = null;
+				foreach($user_groups as $user_group){
+					$custom_page_permissions = $queries->getWhere('custom_pages_permissions', array('group_id', '=', $user_group));
+					if(count($custom_page_permissions)){
+						foreach($custom_page_permissions as $permission){
+							if($permission->page_id == $custom_page->id){
+								if($permission->view == 1){
+									// Get redirect URL if enabled
+									if($custom_page->redirect == 1){
+										$redirect = Output::getClean($custom_page->link);
+									} else
+										$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
 
-                                switch($custom_page->link_location){
-                                    case 1:
-                                        // Navbar
-                                        // Check cache first
-                                        if(!$cache->isCached($custom_page->id . '_order')){
-                                            // Create cache entry now
-                                            $page_order = 200;
-                                            $cache->store($custom_page->id . '_order', 200);
-                                        } else {
-                                            $page_order = $cache->retrieve($custom_page->id . '_order');
-                                        }
+									switch($custom_page->link_location){
+										case 1:
+											// Navbar
+											// Check cache first
+											if(!$cache->isCached($custom_page->id . '_order')){
+												// Create cache entry now
+												$page_order = 200;
+												$cache->store($custom_page->id . '_order', 200);
+											} else {
+												$page_order = $cache->retrieve($custom_page->id . '_order');
+											}
 
-                                        $navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order);
-                                        break;
-                                    case 2:
-                                        // "More" dropdown
-                                        $more[] = array('title' => $custom_page->icon . ' ' . Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect);
-                                        break;
-                                    case 3:
-                                        // Footer
-                                        $navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
-                                        break;
-                                }
-                                break 2;
-                            } else
-                                break;
-                        }
-                    }
-                }
-            }
-        }
-    } else {
-        $custom_page_permissions = $queries->getWhere('custom_pages_permissions', array('group_id', '=', 0));
-        if(count($custom_page_permissions)){
-            foreach($custom_pages as $custom_page){
-                $redirect = null;
-                foreach($custom_page_permissions as $permission){
-                    if($permission->page_id == $custom_page->id){
-                        if($permission->view == 1){
-                            if($custom_page->redirect == 1){
-                                $redirect = Output::getClean($custom_page->link);
-                            } else
-                                $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), FALSE);
+											$navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order);
+											break;
+										case 2:
+											// "More" dropdown
+											$more[] = array('title' => $custom_page->icon . ' ' . Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect);
+											break;
+										case 3:
+											// Footer
+											$navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
+											break;
+									}
+									break 2;
+								} else
+									break;
+							}
+						}
+					}
+				}
+			}
+		} else {
+			$custom_page_permissions = $queries->getWhere('custom_pages_permissions', array('group_id', '=', 0));
+			if(count($custom_page_permissions)){
+				foreach($custom_pages as $custom_page){
+					$redirect = null;
+					foreach($custom_page_permissions as $permission){
+						if($permission->page_id == $custom_page->id){
+							if($permission->view == 1){
+								if($custom_page->redirect == 1){
+									$redirect = Output::getClean($custom_page->link);
+								} else
+									$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), FALSE);
 
-                            switch($custom_page->link_location){
-                                case 1:
-                                    // Navbar
-                                    // Check cache first
-                                    if(!$cache->isCached($custom_page->id . '_order')){
-                                        // Create cache entry now
-                                        $page_order = 200;
-                                        $cache->store($custom_page->id . '_order', 200);
-                                    } else {
-                                        $page_order = $cache->retrieve($custom_page->id . '_order');
-                                    }
+								switch($custom_page->link_location){
+									case 1:
+										// Navbar
+										// Check cache first
+										if(!$cache->isCached($custom_page->id . '_order')){
+											// Create cache entry now
+											$page_order = 200;
+											$cache->store($custom_page->id . '_order', 200);
+										} else {
+											$page_order = $cache->retrieve($custom_page->id . '_order');
+										}
 
-                                    $navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order);
-                                    break;
-                                case 2:
-                                    // "More" dropdown
-                                    $more[] = array('title' => $custom_page->icon . ' ' . Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect);
-                                    break;
-                                case 3:
-                                    // Footer
-                                    $navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
-                                    break;
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-    }
-    $custom_page_permissions = null;
+										$navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order);
+										break;
+									case 2:
+										// "More" dropdown
+										$more[] = array('title' => $custom_page->icon . ' ' . Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect);
+										break;
+									case 3:
+										// Footer
+										$navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
+										break;
+								}
+							}
+							break;
+						}
+					}
+				}
+			}
+		}
+		$custom_page_permissions = null;
 
-    if(count($more)){
-        $navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', 2500);
-        foreach($more as $item)
-            $navigation->addItemToDropdown('more_dropdown', $item['title'], $item['title'], $item['url'], 'top', ($item['redirect']) ? '_blank' : null);
-    }
-}
-$custom_pages = null;
+		if(count($more)){
+			$navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', 2500);
+			foreach($more as $item)
+				$navigation->addItemToDropdown('more_dropdown', $item['title'], $item['title'], $item['url'], 'top', ($item['redirect']) ? '_blank' : null);
+		}
+	}
+	$custom_pages = null;
 
-// Widgets
-// Facebook
-require_once(ROOT_PATH . '/modules/Core/widgets/FacebookWidget.php');
-$cache->setCache('social_media');
-$fb_url = $cache->retrieve('facebook');
-if($fb_url){
-    // Active pages
-    $module_pages = $widgets->getPages('Facebook');
+	// Widgets
+	// Facebook
+	require_once(ROOT_PATH . '/modules/Core/widgets/FacebookWidget.php');
+	$cache->setCache('social_media');
+	$fb_url = $cache->retrieve('facebook');
+	if($fb_url){
+		// Active pages
+		$module_pages = $widgets->getPages('Facebook');
 
-    $widgets->add(new FacebookWidget($module_pages, $fb_url));
-}
+		$widgets->add(new FacebookWidget($module_pages, $fb_url));
+	}
 
-// Twitter
-require_once(ROOT_PATH . '/modules/Core/widgets/TwitterWidget.php');
-$twitter = $cache->retrieve('twitter');
+	// Twitter
+	require_once(ROOT_PATH . '/modules/Core/widgets/TwitterWidget.php');
+	$twitter = $cache->retrieve('twitter');
 
-if($twitter){
-    $theme = $cache->retrieve('twitter_theme');
-    $module_pages = $widgets->getPages('Twitter');
+	if($twitter){
+		$theme = $cache->retrieve('twitter_theme');
+		$module_pages = $widgets->getPages('Twitter');
 
-    $widgets->add(new TwitterWidget($module_pages, $twitter, $theme));
-}
+		$widgets->add(new TwitterWidget($module_pages, $twitter, $theme));
+	}
 
-// Discord
-require_once(ROOT_PATH . '/modules/Core/widgets/DiscordWidget.php');
-$discord = $cache->retrieve('discord');
+	// Discord
+	require_once(ROOT_PATH . '/modules/Core/widgets/DiscordWidget.php');
+	$discord = $cache->retrieve('discord');
 
-if($discord){
-    $module_pages = $widgets->getPages('Discord');
+	if($discord){
+		$module_pages = $widgets->getPages('Discord');
 
-    $widgets->add(new DiscordWidget($module_pages, $discord));
+		$widgets->add(new DiscordWidget($module_pages, $discord));
+	}
 }

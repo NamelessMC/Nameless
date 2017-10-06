@@ -82,3 +82,91 @@ NamelessMC version 2 Changelog
 - Add forum topic label permissions
 - Add forum search
 - Update Font Awesome
+
+2.0.0 pr-3
+- Update existing translations
+- Add Romanian and Swedish translations
+- Add missing profile post term to all languages
+- Update Bootstrap version to v4 alpha 6
+- Fix server banner issues
+- Add missing font file
+- Fix white screen if no avatar is uploaded
+- Only display 5 forum posts on profile pages 
+- Fix AdminCP forums page navbar
+- Fix potentially broken AdminCP link with non-friendly URLs
+- Update Minecraft server banners and allow custom backgrounds
+- Allow dismissing maintenance mode alert
+- Check if username already exists in Authme connector
+- Update installer requirements
+- Fix banner issues with PHP < 7.0
+- Fix issue with maintenance mode message editor
+- Fix incorrect forum order
+- Fix login page in maintenance mode without friendly URLs
+- Fix avatar size in news section
+- Update DataTables Bootstrap plugin to v4
+- Fix potential overflow in user dropdown
+- Add port field to email configuration
+- Update forum module, fixing installation check
+- Fix no forums showing for guests
+- Display module author
+- Add template alert language entries
+- Fix navbar issue
+- Update email content type to html
+- Update group tags within installer to use badges instead of labels
+- Tidy installer language file includes
+- Create default label types
+- Add back button to edit group page
+- Add widget system, along with Twitter and Facebook widgets
+- Add latest post widget
+- Add header to latest posts widget template
+- Track topic views via session if cookies are disabled
+- Update .nav-list CSS
+- Add function to get avatar from UUID
+- Add friendlier forum URLs
+- Fix editor Emoji icon and tabs
+- Add secondary user groups
+- Fix pagination issue with no non-sticky topics in forum
+- Allow deleting templates
+- Fix widget issue with maintenance mode for non-admins
+- Add Discord widget
+- Add user doesn't exist page
+- Add missing language files
+- Allow blocking users
+- Fix error display issue in change password template
+- Fix match password for forgot password page
+- Fix potential undefined offset issue
+- Add player count graphs
+- Add rel="nofollow noopener" and target="_blank" to every external link
+- Update NamelessMC footer link
+- Fix potential undefined variable error
+- Update server query internal
+- Add blocked users table to installation, and update infractions table
+- Add background-size: cover; to background image
+- Fix expired Discord invite
+- Fix successful login alert
+- Add user related variables
+- Update Paginator class, allowing for custom pagination CSS
+- Update site name in two factor authentication
+- Add missing include to user messaging file
+- Add extra template variables to ModCP reports
+- Reshuffle view topic buttons
+- Add user punishments
+- Update server player count query
+- Update punishment link in AdminCP
+- Prevent viewing template files
+- Fix incorrect banner URL
+- Remove port 443 from getSelfURL() if https is enabled
+- Fix issue with custom pagination classes
+- Create htaccess in cache directory
+- Add custom page system
+- Fix custom page icons
+- Add ability to re-order navbar
+- Fix spoilers + emojis on custom pages
+- Add module name to widget list
+- Add option to enable page load timer
+- Add missing view to ModCP punishments
+- Fix incorrect pagination link
+- Add signature to UserCP settings
+- Move AdminCP navbar contents into container
+- Allow editing/deleting profile wall posts
+- Update updater URL
