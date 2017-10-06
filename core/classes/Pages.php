@@ -33,6 +33,20 @@ class Pages {
 		);
 	}
 
+	// Defines a custom page
+    // Params:  $url (string)       - contains URL string
+    //          $name (string)      - contains name of page
+    //          $widgets (boolean)  - can widgets be used on the page? Default false
+    public function addCustom($url, $name, $widgets = false){
+	    $this->_pages[$url] = array(
+	        'module' => 'Core',
+            'file' => 'custom.php',
+            'name' => $name,
+            'widgets' => $widgets,
+            'custom' => true
+        );
+    }
+
 	// Returns the array of all pages
 	// No params
 	public function returnPages(){

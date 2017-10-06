@@ -49,8 +49,9 @@ class Input {
 	}
 	
 	// Displays a new CKEditor field
-	// Params: $name (string) - name of input field ID
-	public static function createEditor($name = null){
+	// Params:  $name (string) - name of input field ID
+    //          $admin (boolean) - whether to add admin options or not - default false
+	public static function createEditor($name = null, $admin = false){
 		if($name){
 			$editor = '
 			window.path = "' . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . '";
@@ -68,11 +69,20 @@ class Input {
 					{"name":"styles","groups":["styles"]},
 					{"name":"colors","groups":["colors"]},
 					{"name":"links","groups":["links"]},
-					{"name":"insert","groups":["insert"]}
-				],
+					{"name":"insert","groups":["insert"]}';
+
+			if($admin)
+			    $editor .= ',{"name":"mode","groups":["mode"]}';
+
+			$editor .= '],
 				
 				removeButtons: \'Anchor,Styles,Specialchar,Font,About,Flash,Iframe,Smiley,CodeSnippet,Format\'
-			} );
+			} );';
+
+			if($admin)
+			    $editor .= 'CKEDITOR.config.allowedContent = true;';
+
+			$editor .= '
 			CKEDITOR.config.fontawesomePath = path + \'core/assets/css/font-awesome.min.css\';
 			CKEDITOR.config.disableNativeSpellChecker = false;
 			CKEDITOR.config.width = "auto";

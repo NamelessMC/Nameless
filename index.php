@@ -63,10 +63,15 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 
 	// Include the page
 	if(array_key_exists($route, $modules)){
-		$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']));
-		
-		if(!file_exists($path)) require('404.php'); else require($path);
-		die();
+	    if(!isset($modules[$route]['custom'])){
+            $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']));
+
+            if(!file_exists($path)) require('404.php'); else require($path);
+            die();
+        } else {
+	        require(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php')));
+	        die();
+        }
 	} else {
 		// Use recursion to check - might have URL parameters in path
 		$path_array = explode('/', $route);

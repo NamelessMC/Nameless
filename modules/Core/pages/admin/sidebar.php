@@ -11,7 +11,7 @@
 ?>
 		  <div class="card card-inverse">
 		    <div class="card-block">
-			  <ul class="nav flex-column">
+			  <ul class="nav flex-column nav-pills">
 				<li class="nav-item">
 				  <a class="nav-link<?php if(isset($admin_page) && $admin_page == 'overview') echo ' active'; ?>" href="<?php echo URL::build('/admin'); ?>"><?php echo $language->get('admin', 'overview'); ?></a>
 				</li>
@@ -23,6 +23,9 @@
 				</li>
 				<li class="nav-item">
 				  <a class="nav-link<?php if(isset($admin_page) && $admin_page == 'modules') echo ' active'; ?>" href="<?php echo URL::build('/admin/modules'); ?>"><?php echo $language->get('admin', 'modules'); ?></a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link<?php if(isset($admin_page) && $admin_page == 'pages') echo ' active'; ?>" href="<?php echo URL::build('/admin/pages'); ?>"><?php echo $language->get('admin', 'pages'); ?></a>
 				</li>
 				<li class="nav-item">
 				  <a class="nav-link<?php if(isset($admin_page) && $admin_page == 'security') echo ' active'; ?>" href="<?php echo URL::build('/admin/security'); ?>"><?php echo $language->get('admin', 'security'); ?></a>

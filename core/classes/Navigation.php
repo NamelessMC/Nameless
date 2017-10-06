@@ -25,14 +25,16 @@ class Navigation {
 	//			$link (string)		- HTML href attribute, can be link built with URL class or hyperlink (required)
 	//			$location (string) 	- location to add item to, either 'top' or 'footer' (defaults to 'top')
 	//			$target (string)	- HTML target attribute (eg '_blank') (optional)
-	public function add($name, $title, $link, $location = 'top', $target = null){
+    //          $order (int)        - nav item order (default 1)
+	public function add($name, $title, $link, $location = 'top', $target = null, $order = 1){
 		// Add the link to the navigation
 		if($location == 'top'){
 			// Add to top navbar
 			$this->_topNavbar[$name] = array(
 				'title' => $title,
 				'link' => $link,
-				'target' => $target
+				'target' => $target,
+                'order' => $order
 			);
 			
 		} else {
@@ -40,7 +42,8 @@ class Navigation {
 			$this->_footerNav[$name] = array(
 				'title' => $title,
 				'link' => $link,
-				'target' => $target
+				'target' => $target,
+                'order' => $order
 			);
 		}
 	}
@@ -48,15 +51,17 @@ class Navigation {
 	// Add a dropdown menu to the navigation
 	// Params:	$name (string)		- unique name for the navbar (required)
 	//			$title (string)		- dropdown title (required)
-	//			$location (string)	- location to add item to, either 'top' or 'footer' (defaults to 'top')
-	public function addDropdown($name, $title, $location = 'top'){
+	//			$location (string)	- location to add item to, either 'top' or 'footer' (defaults to 'top'),
+    //          $order (int)        - nav item order (default 1)
+	public function addDropdown($name, $title, $location = 'top', $order = 1){
 		// Add the dropdown
 		if($location == 'top'){
 			// Navbar
 			$this->_topNavbar[$name] = array(
 				'type' => 'dropdown',
 				'title' => $title,
-				'items' => array()
+				'items' => array(),
+                'order' => $order
 			);
 			
 		} else {
@@ -64,7 +69,8 @@ class Navigation {
 			$this->_footerNav[$name] = array(
 				'type' => 'dropdown',
 				'title' => $title,
-				'items' => array()
+				'items' => array(),
+                'order' => $order
 			);
 			
 		}
@@ -124,6 +130,11 @@ class Navigation {
 				}
 			}
 		}
+
+        uasort($return, function($a, $b){
+            return $a['order'] - $b['order'];
+        });
+
 		return $return;
 	}
 }

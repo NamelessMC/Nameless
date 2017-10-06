@@ -54,10 +54,10 @@ $admin_page = 'users_and_groups';
   </head>
 
   <body>
-    <div class="container">	
-	  <?php
-	  require('modules/Core/pages/admin/navbar.php');
-	  ?>
+  <?php
+  require('modules/Core/pages/admin/navbar.php');
+  ?>
+    <div class="container">
 	  <div class="row">
 		<div class="col-md-3">
 		  <?php require('modules/Core/pages/admin/sidebar.php'); ?>

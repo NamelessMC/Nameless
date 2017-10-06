@@ -68,6 +68,7 @@ $language = array(
 	 *  Navigatiebalk
 	 */
 	'home' => 'Start',
+	'more' => 'More',
 	
 	/*
 	 *  Homepagina
