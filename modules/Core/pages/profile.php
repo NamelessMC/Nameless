@@ -212,6 +212,99 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 						    } else
 						        $error = $language->get('general', 'invalid_token');
 						break;
+
+                        case 'edit':
+                            // Ensure user is mod or owner of post
+                            if(Token::check(Input::get('token'))){
+                                if(isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
+                                    $post = $queries->getWhere('user_profile_wall_posts', array('id', '=', $_POST['post_id']));
+                                    if(count($post)) {
+                                        $post = $post[0];
+                                        if($user->canViewMCP() || $post->author_id == $user->data()->id){
+                                            if(isset($_POST['content']) && strlen($_POST['content']) < 10000 && strlen($_POST['content']) >= 1){
+                                                try {
+                                                    $queries->update('user_profile_wall_posts', $_POST['post_id'], array(
+                                                        'content' => Output::getClean($_POST['content'])
+                                                    ));
+                                                } catch(Exception $e){
+                                                    $error = $e->getMessage();
+                                                }
+                                            } else
+                                                $error = $language->get('user', 'invalid_wall_post');
+                                        }
+                                    }
+                                }
+                            } else
+                                $error = $language->get('general', 'invalid_token');
+                            break;
+
+                        case 'delete':
+                            // Ensure user is mod or owner of post
+                            if(Token::check(Input::get('token'))){
+                                if(isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
+                                    $post = $queries->getWhere('user_profile_wall_posts', array('id', '=', $_POST['post_id']));
+                                    if(count($post)) {
+                                        $post = $post[0];
+                                        if($user->canViewMCP() || $post->author_id == $user->data()->id){
+                                            try {
+                                                $queries->delete('user_profile_wall_posts', array('id', '=', $_POST['post_id']));
+                                                $queries->delete('user_profile_wall_posts_replies', array('post_id', '=', $_POST['post_id']));
+                                            } catch(Exception $e){
+                                                $error = $e->getMessage();
+                                            }
+                                        }
+                                    }
+                                }
+                            } else
+                                $error = $language->get('general', 'invalid_token');
+                            break;
+
+                        /*
+                        case 'editReply':
+                            // Ensure user is mod or owner of reply
+                            if(Token::check(Input::get('token'))){
+                                if(isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
+                                    $post = $queries->getWhere('user_profile_wall_posts_replies', array('id', '=', $_POST['post_id']));
+                                    if(count($post)) {
+                                        $post = $post[0];
+                                        if($user->canViewMCP() || $post->author_id == $user->data()->id){
+                                            if(isset($_POST['content']) && strlen($_POST['content']) < 10000 && strlen($_POST['content']) >= 1){
+                                                try {
+                                                    $queries->update('user_profile_wall_posts_replies', $_POST['post_id'], array(
+                                                        'content' => Output::getClean($_POST['content'])
+                                                    ));
+                                                } catch(Exception $e){
+                                                    $error = $e->getMessage();
+                                                }
+                                            } else
+                                                $error = $language->get('user', 'invalid_wall_post');
+                                        }
+                                    }
+                                }
+                            } else
+                                $error = $language->get('general', 'invalid_token');
+                            break;
+                        */
+
+                        case 'deleteReply':
+                            // Ensure user is mod or owner of reply
+                            if(Token::check(Input::get('token'))){
+                                if(isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
+                                    $post = $queries->getWhere('user_profile_wall_posts_replies', array('id', '=', $_POST['post_id']));
+                                    if(count($post)) {
+                                        $post = $post[0];
+                                        if($user->canViewMCP() || $post->author_id == $user->data()->id){
+                                            try {
+                                                $queries->delete('user_profile_wall_posts_replies', array('id', '=', $_POST['post_id']));
+                                            } catch(Exception $e){
+                                                $error = $e->getMessage();
+                                            }
+                                        }
+                                    }
+                                }
+                            } else
+                                $error = $language->get('general', 'invalid_token');
+                            break;
 					}
 				}
 			}
@@ -297,7 +390,8 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 				'TOKEN' => Token::get(),
 				'LOGGED_IN' => true,
 				'SUBMIT' => $language->get('general', 'submit'),
-				'CANCEL' => $language->get('general', 'cancel')
+				'CANCEL' => $language->get('general', 'cancel'),
+                'CAN_MODERATE' => ($user->canViewMCP() || $user->canViewACP())
 			));
 			
 			if($user->data()->username == $profile){
@@ -376,7 +470,10 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 			'CLOSE' => $language->get('general', 'close'),
 			'REPLIES_TITLE' => $language->get('user', 'replies'),
 			'NO_REPLIES' => $language->get('user', 'no_replies_yet'),
-			'NEW_REPLY' => $language->get('user', 'new_reply')
+			'NEW_REPLY' => $language->get('user', 'new_reply'),
+            'DELETE' => $language->get('general', 'delete'),
+            'CONFIRM_DELETE' => $language->get('general', 'confirm_deletion'),
+            'EDIT' => $language->get('general', 'edit')
 		));
 		
 		// Wall posts
@@ -448,7 +545,9 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 							'avatar' => $user->getAvatar($reply->author_id, '../', 500),
 							'time_friendly' => $timeago->inWords(date('d M Y, H:i', $reply->time), $language->getTimeLanguage()),
 							'time_full' => date('d M Y, H:i', $reply->time),
-							'content' => Output::getPurified($reply->content)
+							'content' => Output::getPurified($reply->content),
+                            'self' => (($user->isLoggedIn() && $user->data()->id == $reply->author_id) ? 1 : 0),
+                            'id' => $reply->id
 						);
 					}
 				} else $replies['count'] = str_replace('{x}', 0, $language->get('user', 'x_replies'));
@@ -466,6 +565,7 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 					'date' => date('d M Y, H:i', $results->data[$n]->time),
 					'reactions' => $reactions,
 					'replies' => $replies,
+					'self' => (($user->isLoggedIn() && $user->data()->id == $results->data[$n]->author_id) ? true : false),
 					'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/' . Output::getClean($query->username) . '/', 'action=react&amp;post=' . $results->data[$n]->id) : '#')
 				);
 			}
