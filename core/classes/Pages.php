@@ -39,7 +39,7 @@ class Pages {
     //          $widgets (boolean)  - can widgets be used on the page? Default false
     public function addCustom($url, $name, $widgets = false){
 	    $this->_pages[$url] = array(
-	        'module' => 'Core',
+            'module' => 'Core',
             'file' => 'custom.php',
             'name' => $name,
             'widgets' => $widgets,

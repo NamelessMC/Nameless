@@ -25,8 +25,8 @@ class Navigation {
 	//			$link (string)		- HTML href attribute, can be link built with URL class or hyperlink (required)
 	//			$location (string) 	- location to add item to, either 'top' or 'footer' (defaults to 'top')
 	//			$target (string)	- HTML target attribute (eg '_blank') (optional)
-    //          $order (int)        - nav item order (default 1)
-	public function add($name, $title, $link, $location = 'top', $target = null, $order = 1){
+	//          $order (int)        - nav item order (default 10)
+	public function add($name, $title, $link, $location = 'top', $target = null, $order = 10){
 		// Add the link to the navigation
 		if($location == 'top'){
 			// Add to top navbar
@@ -52,8 +52,8 @@ class Navigation {
 	// Params:	$name (string)		- unique name for the navbar (required)
 	//			$title (string)		- dropdown title (required)
 	//			$location (string)	- location to add item to, either 'top' or 'footer' (defaults to 'top'),
-    //          $order (int)        - nav item order (default 1)
-	public function addDropdown($name, $title, $location = 'top', $order = 1){
+    //          $order (int)        - nav item order (default 10)
+	public function addDropdown($name, $title, $location = 'top', $order = 10){
 		// Add the dropdown
 		if($location == 'top'){
 			// Navbar
