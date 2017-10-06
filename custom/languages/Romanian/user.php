@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Users
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 26/08/2017
+ *  Last Update: 06/10/2017
  */
 
 $language = array(
@@ -71,7 +71,7 @@ $language = array(
     'password' => 'Parolă',
     'confirm_password' => 'Confirmă parola',
     'i_agree' => 'Sunt de acord',
-    'agree_t_and_c' => 'Făcând clic pe <strong class="label label-primary">Înregistrare</strong>, sunteți de acord cu <a href="{x}" target="_blank">Termenii și condițiile</a> noastre.',
+    'agree_t_and_c' => 'Înainte de bifare vă rugam să citiți <a href="{x}" target="_blank">Termenii și condițiile</a> noastre, după care să bifați căsuța alaturată.',
     'create_an_account' => 'Creează un cont',
     'terms_and_conditions' => 'Termeni si conditii',
     'validation_complete' => 'Contul dvs. a fost validat, acum vă puteți conecta.',
@@ -192,7 +192,7 @@ $language = array(
      */
     'you_have_been_banned' => 'Ați fost banat!',
     'you_have_received_a_warning' => 'Ați primit un avertisment!',
-    'acknowledge' => 'Recunoaște',
+    'acknowledge' => 'Am înțeles',
     
     /*
      *  Emails
