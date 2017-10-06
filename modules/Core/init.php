@@ -91,15 +91,15 @@ if(count($custom_pages)){
                                 switch($custom_page->link_location){
                                     case 1:
                                         // Navbar
-                                        $navigation->add($custom_page->title, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', 2000);
+                                        $navigation->add($custom_page->title, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', 2000);
                                         break;
                                     case 2:
                                         // "More" dropdown
-                                        $more[] = array('title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect);
+                                        $more[] = array('title' => $custom_page->icon . ' ' . Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect);
                                         break;
                                     case 3:
                                         // Footer
-                                        $navigation->add($custom_page->title, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
+                                        $navigation->add($custom_page->title, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
                                         break;
                                 }
                                 break 2;
@@ -126,15 +126,15 @@ if(count($custom_pages)){
                             switch($custom_page->link_location){
                                 case 1:
                                     // Navbar
-                                    $navigation->add($custom_page->title, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', 2000);
+                                    $navigation->add($custom_page->title, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', 2000);
                                     break;
                                 case 2:
                                     // "More" dropdown
-                                    $more[] = array('title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect);
+                                    $more[] = array('title' => $custom_page->icon . ' ' . Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect);
                                     break;
                                 case 3:
                                     // Footer
-                                    $navigation->add($custom_page->title, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
+                                    $navigation->add($custom_page->title, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
                                     break;
                             }
                         }
