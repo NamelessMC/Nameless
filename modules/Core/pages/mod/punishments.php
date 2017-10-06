@@ -58,12 +58,12 @@ if(isset($_GET['view'])){
         // Get page
         if(isset($_GET['p'])){
             if(!is_numeric($_GET['p'])){
-                Redirect::to(URL::build('/mod/punishments'));
+                Redirect::to(URL::build('/mod/punishments/', 'view=punishments'));
                 die();
             } else {
                 if($_GET['p'] == 1){
                     // Avoid bug in pagination class
-                    Redirect::to(URL::build('/mod/punishments'));
+                    Redirect::to(URL::build('/mod/punishments/', 'view=punishments'));
                     die();
                 }
                 $p = $_GET['p'];
@@ -80,7 +80,7 @@ if(isset($_GET['view'])){
             // Pagination
             $paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
             $results = $paginator->getLimited($punishments, 10, $p, count($punishments));
-            $pagination = $paginator->generate(7, URL::build('/mod/punishments/', true));
+            $pagination = $paginator->generate(7, URL::build('/mod/punishments/', 'view=punishments&amp;'));
 
             $smarty_results = array();
             foreach($results->data as $result){
