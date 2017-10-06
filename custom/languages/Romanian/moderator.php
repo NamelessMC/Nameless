@@ -76,6 +76,12 @@ $language = array(
     'confirm_revoke_ban' => 'Sigur doriți să revocați această interdicție? Utilizatorul va fi activat, chiar dacă are o interdicție mai recentă!',
     'punishment_revoked' => 'Pedeapsa a fost retrasă.',
     'punishment_revoked_alert' => '{x} a retras o pedeapsă pentru utilizatorul {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
-    'cant_punish_admin' => 'Nu puteți pedepsi un administrator!'
+    'cant_punish_admin' => 'Nu puteți pedepsi un administrator!',
+    'viewing_all_punishments' => 'Viewing all punishments',
+    'no_punishments_found' => 'No punishments found.',
+    'view_user' => 'View User',
+    'when' => 'When',
+    'staff' => 'Staff',
+    'type' => 'Type'
 
 );

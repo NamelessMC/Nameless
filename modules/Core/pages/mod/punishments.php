@@ -54,7 +54,91 @@ $smarty->assign(array(
 ));
 
 if(isset($_GET['view'])){
+    if($_GET['view'] == 'punishments'){
+        // Get page
+        if(isset($_GET['p'])){
+            if(!is_numeric($_GET['p'])){
+                Redirect::to(URL::build('/mod/punishments'));
+                die();
+            } else {
+                if($_GET['p'] == 1){
+                    // Avoid bug in pagination class
+                    Redirect::to(URL::build('/mod/punishments'));
+                    die();
+                }
+                $p = $_GET['p'];
+            }
+        } else {
+            $p = 1;
+        }
 
+        $smarty->assign('VIEWING_ALL_PUNISHMENTS', $language->get('moderator', 'viewing_all_punishments'));
+
+        // Get punishments
+        $punishments = $queries->orderWhere('infractions', 'id <> 0', 'infraction_date', 'DESC');
+        if(count($punishments)){
+            // Pagination
+            $paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
+            $results = $paginator->getLimited($punishments, 10, $p, count($punishments));
+            $pagination = $paginator->generate(7, URL::build('/mod/punishments/', true));
+
+            $smarty_results = array();
+            foreach($results->data as $result){
+                switch($result->type){
+                    case 1:
+                        // Ban
+                        $type = $language->get('moderator', 'ban');
+                        break;
+                    case 2:
+                        // Warning
+                        $type = $language->get('moderator', 'warning');
+                        break;
+                    default:
+                        // IP Ban
+                        $type = $language->get('moderator', 'ip_ban');
+                        break;
+                }
+
+                $smarty_results[] = array(
+                    'username' => Output::getClean($user->idToName($result->punished)),
+                    'nickname' => Output::getClean($user->idToNickname($result->punished)),
+                    'profile' => URL::build('/profile/' . Output::getClean($user->idToName($result->punished))),
+                    'style' => $user->getGroupClass($result->punished),
+                    'staff_username' => Output::getClean($user->idToName($result->staff)),
+                    'staff_nickname' => Output::getClean($user->idToNickname($result->staff)),
+                    'staff_profile' => URL::build('/profile/' . Output::getClean($user->idToName($result->staff))),
+                    'staff_style' => $user->getGroupClass($result->staff),
+                    'type' => $type,
+                    'type_numeric' => $result->type,
+                    'revoked' => $result->revoked,
+                    'acknowledged' => $result->acknowledged,
+                    'time_full' => date('d M Y, H:i', strtotime($result->infraction_date)),
+                    'time' => $timeago->inWords($result->infraction_date, $language->getTimeLanguage()),
+                    'link' => URL::build('/mod/punishments/', 'user=' . $result->punished)
+                );
+            }
+
+            $smarty->assign(array(
+                'PAGINATION' => $pagination,
+                'USERNAME' => $language->get('user', 'username'),
+                'STAFF' => $language->get('moderator', 'staff'),
+                'ACTIONS' => $language->get('moderator', 'actions'),
+                'WHEN' => $language->get('moderator', 'when'),
+                'VIEW_USER' => $language->get('moderator', 'view_user'),
+                'TYPE' => $language->get('moderator', 'type'),
+                'RESULTS' => $smarty_results,
+                'ACKNOWLEDGED' => $language->get('moderator', 'acknowledged'),
+                'REVOKED' => $language->get('moderator', 'revoked')
+            ));
+        } else {
+            $smarty->assign('NO_PUNISHMENTS', $language->get('moderator', 'no_punishments_found'));
+        }
+
+        $smarty->display('custom/templates/' . TEMPLATE . '/mod/all_punishments.tpl');
+    } else {
+        Redirect::to(URL::build('/mod/punishments'));
+        die();
+    }
 } else {
     if(isset($_GET['user']) && is_numeric($_GET['user'])) {
         // Viewing a certain user
