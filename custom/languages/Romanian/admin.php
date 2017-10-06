@@ -342,6 +342,7 @@ $language = array(
     'widget_enabled' => 'Piesă activată.',
     'widget_disabled' => 'Piesă dezactivată .',
     'editing_widget_x' => 'Modificare piesă: {x}', // Don't replace {x}
+    'module_x' => 'Module: {x}', // Don't replace {x}
 
     // Custom Pages
     'pages' => 'Pagini',

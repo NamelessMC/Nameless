@@ -13,7 +13,8 @@ abstract class WidgetBase {
               $_pages,
               $_location,
               $_content,
-              $_description;
+              $_description,
+              $_module;
 
     public function __construct($pages = array()){
         $this->_pages = $pages;
@@ -37,5 +38,9 @@ abstract class WidgetBase {
 
     public function getDescription(){
         return $this->_description;
+    }
+
+    public function getModule(){
+        return $this->_module;
     }
 }

@@ -341,6 +341,7 @@ $language = array(
 	'widget_enabled' => 'Widget zapnut.',
 	'widget_disabled' => 'Widget vypnut.',
 	'editing_widget_x' => 'Upravování widgetu {x}', // Don't replace {x}
+	'module_x' => 'Module: {x}', // Don't replace {x}
 
 	// Custom Pages
 	'pages' => 'Pages',

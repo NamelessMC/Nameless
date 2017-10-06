@@ -343,6 +343,7 @@ $language = array(
 	'widget_enabled' => 'Widget enabled.',
 	'widget_disabled' => 'Widget disabled.',
 	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
+	'module_x' => 'Module: {x}', // Don't replace {x}
 
     // Custom Pages
     'pages' => 'Pages',
