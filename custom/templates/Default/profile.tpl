@@ -104,9 +104,47 @@
 
 			  <div class="panel-footer">
 				<a href="{if $post.reactions_link ne "#"}{$post.reactions_link}{else}#{/if}" class="pop" data-content='{if isset($post.reactions.reactions)} {foreach from=$post.reactions.reactions item=reaction name=reactions}<a href="{$reaction.profile}" style="{$reaction.style}"><img class="rounded" src="{$reaction.avatar}" alt="{$reaction.username}" style="max-height:30px; max-width:30px;" /> {$reaction.nickname}</a>{if !$smarty.foreach.reactions.last}<br />{/if}{/foreach} {else}{$post.reactions.count}{/if}'><i class="fa fa-thumbs-up"></i> {$post.reactions.count} </a> | <a href="#" data-toggle="modal" data-target="#replyModal{$post.id}"><i class="fa fa-comments"></i> {$post.replies.count}</a>
+				<span class="pull-right">
+				  {if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
+				    <form action="" method="post" id="delete{$post.id}">
+					  <input type="hidden" name="post_id" value="{$post.id}">
+					  <input type="hidden" name="action" value="delete">
+				      <input type="hidden" name="token" value="{$TOKEN}">
+					</form>
+					<a href="#" data-toggle="modal" data-target="#editModal{$post.id}">{$EDIT}</a> | <a href="#" onclick="deletePost({$post.id})">{$DELETE}</a>
+				  {/if}
+				</span>
 			  </div>
 
 			</article>
+
+			{if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
+				<!-- Post editing modal -->
+				<div class="modal fade" id="editModal{$post.id}" tabindex="-1" role="dialog" aria-labelledby="editModal{$post.id}Label" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form action="" method="post">
+								  <div class="form-group">
+									<textarea class="form-control" name="content">{$post.content}</textarea>
+								  </div>
+								  <div class="form-group">
+									<input type="hidden" name="token" value="{$TOKEN}">
+									<input type="hidden" name="post_id" value="{$post.id}">
+									<input type="hidden" name="action" value="edit">
+									<input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+								  </div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			{/if}
 
 			{if $post.reactions_link ne "#"}
 			<!-- Reaction modal -->
@@ -151,6 +189,14 @@
 					  <div class="forum_post">
 					    {$reply.content}
 					  </div>
+                      {if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $reply.self eq 1}
+						<form action="" method="post" id="deleteReply{$reply.id}">
+						  <input type="hidden" name="action" value="deleteReply">
+						  <input type="hidden" name="token" value="{$TOKEN}">
+						  <input type="hidden" name="post_id" value="{$reply.id}">
+						</form>
+						<br /><a href="#" onclick="deleteReply({$reply.id})">{$DELETE}</a>
+					  {/if}
 					  {if !$smarty.foreach.replies.last}<hr />{/if}
 					  {/foreach}
 					{else}
@@ -308,3 +354,20 @@
 {/if}
 
 {include file='footer.tpl'}
+
+{if isset($LOGGED_IN)}
+  <script type="text/javascript">
+    function deletePost(post) {
+	    if(confirm("{$CONFIRM_DELETE}")){
+	        document.getElementById("delete" + post).submit();
+        }
+    }
+  </script>
+  <script type="text/javascript">
+    function deleteReply(post) {
+    	if(confirm("{$CONFIRM_DELETE}")){
+    		document.getElementById("deleteReply" + post).submit();
+    	}
+    }
+  </script>
+{/if}
