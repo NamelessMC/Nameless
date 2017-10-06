@@ -72,6 +72,7 @@ $language = array(
 	 *  Homepage
 	 */
 	'social' => 'Social',
+	'more' => 'More',
 	
 	/*
 	 *  Help dialogues

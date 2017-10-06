@@ -32,6 +32,7 @@ $pages->add('Core', '/admin/groups', 'pages/admin/groups.php');
 $pages->add('Core', '/admin/images', 'pages/admin/images.php');
 $pages->add('Core', '/admin/minecraft', 'pages/admin/minecraft.php');
 $pages->add('Core', '/admin/modules', 'pages/admin/modules.php');
+$pages->add('Core', '/admin/pages', 'pages/admin/pages.php');
 $pages->add('Core', '/admin/registration', 'pages/admin/registration.php');
 $pages->add('Core', '/admin/security', 'pages/admin/security.php');
 $pages->add('Core', '/admin/styles', 'pages/admin/styles.php');
@@ -63,6 +64,95 @@ $pages->add('Core', '/queries/servers', 'queries/servers.php');
 $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
 $pages->add('Core', '/terms', 'pages/terms.php');
 $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
+
+// Custom pages
+$custom_pages = $queries->getWhere('custom_pages', array('id', '<>', 0));
+if(count($custom_pages)){
+    $more = array();
+
+    if($user->isLoggedIn()){
+        // Check all groups
+        $user_groups = $user->getAllGroups($user->data()->id);
+
+        foreach($custom_pages as $custom_page){
+            $redirect = null;
+            foreach($user_groups as $user_group){
+                $custom_page_permissions = $queries->getWhere('custom_pages_permissions', array('group_id', '=', $user_group));
+                if(count($custom_page_permissions)){
+                    foreach($custom_page_permissions as $permission){
+                        if($permission->page_id == $custom_page->id){
+                            if($permission->view == 1){
+                                // Get redirect URL if enabled
+                                if($custom_page->redirect == 1){
+                                    $redirect = Output::getClean($custom_page->link);
+                                } else
+                                    $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
+
+                                switch($custom_page->link_location){
+                                    case 1:
+                                        // Navbar
+                                        $navigation->add($custom_page->title, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', 2000);
+                                        break;
+                                    case 2:
+                                        // "More" dropdown
+                                        $more[] = array('title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect);
+                                        break;
+                                    case 3:
+                                        // Footer
+                                        $navigation->add($custom_page->title, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
+                                        break;
+                                }
+                                break 2;
+                            } else
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+        $custom_page_permissions = $queries->getWhere('custom_pages_permissions', array('group_id', '=', 0));
+        if(count($custom_page_permissions)){
+            foreach($custom_pages as $custom_page){
+                $redirect = null;
+                foreach($custom_page_permissions as $permission){
+                    if($permission->page_id == $custom_page->id){
+                        if($permission->view == 1){
+                            if($custom_page->redirect == 1){
+                                $redirect = Output::getClean($custom_page->link);
+                            } else
+                                $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), FALSE);
+
+                            switch($custom_page->link_location){
+                                case 1:
+                                    // Navbar
+                                    $navigation->add($custom_page->title, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', 2000);
+                                    break;
+                                case 2:
+                                    // "More" dropdown
+                                    $more[] = array('title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect);
+                                    break;
+                                case 3:
+                                    // Footer
+                                    $navigation->add($custom_page->title, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
+                                    break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    $custom_page_permissions = null;
+
+    if(count($more)){
+        $navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', 2500);
+        foreach($more as $item)
+            $navigation->addItemToDropdown('more_dropdown', $item['title'], $item['title'], $item['url'], 'top', ($item['redirect']) ? '_blank' : null);
+    }
+}
+$custom_pages = null;
 
 // Widgets
 // Facebook

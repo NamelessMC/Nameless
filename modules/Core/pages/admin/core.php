@@ -470,9 +470,8 @@ $current_default_language = $current_default_language[0]->value;
                                     ?>
                                     <h4 style="display:inline;"><?php echo $language->get('admin', 'custom_fields'); ?></h4>
                                     <span class="pull-right">
-			    <a class="btn btn-primary"
-                   href="<?php echo URL::build('/admin/core/', 'view=profile&amp;action=new'); ?>"><?php echo $language->get('admin', 'new_field'); ?></a>
-			  </span>
+                                      <a class="btn btn-primary" href="<?php echo URL::build('/admin/core/', 'view=profile&amp;action=new'); ?>"><?php echo $language->get('admin', 'new_field'); ?></a>
+                                    </span>
                                     <br/><br/>
                                     <table class="table">
                                         <thead>
@@ -587,9 +586,8 @@ $current_default_language = $current_default_language[0]->value;
                                             ?>
                                             <h4 style="display:inline;"><?php echo $language->get('admin', 'creating_profile_field'); ?></h4>
                                             <span class="pull-right">
-			    <a class="btn btn-danger" href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>"
-                   onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
-			  </span>
+                                              <a class="btn btn-danger" href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
+                                            </span>
                                             <br/><br/>
                                             <?php if (isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
                                             <form action="" method="post">
@@ -745,12 +743,9 @@ $current_default_language = $current_default_language[0]->value;
                                         ?>
                                         <h4 style="display:inline;"><?php echo $language->get('admin', 'editing_profile_field'); ?></h4>
                                         <span class="pull-right">
-			    <a class="btn btn-warning" href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>"
-                   onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
-			    <a class="btn btn-danger"
-                   href="<?php echo URL::build('/admin/core/', 'view=profile&amp;action=delete&amp;id=' . $field->id); ?>"
-                   onclick="return confirm('<?php echo $language->get('general', 'confirm_deletion'); ?>');"><?php echo $language->get('general', 'delete'); ?></a>
-			  </span>
+                                          <a class="btn btn-warning" href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
+                                          <a class="btn btn-danger" href="<?php echo URL::build('/admin/core/', 'view=profile&amp;action=delete&amp;id=' . $field->id); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_deletion'); ?>');"><?php echo $language->get('general', 'delete'); ?></a>
+                                        </span>
                                         <br/><br/>
                                         <?php if (isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
                                         <form action="" method="post">
@@ -829,9 +824,10 @@ $current_default_language = $current_default_language[0]->value;
                                     $reactions = $queries->getWhere('reactions', array('id', '<>', 0));
                                     ?>
                                     <h4 style="display:inline;"><?php echo $language->get('user', 'reactions'); ?></h4>
-                                    <span class="pull-right"><a class="btn btn-primary"
-                                                                href="<?php echo URL::build('/admin/core/', 'view=reactions&amp;action=new'); ?>"><?php echo $language->get('admin', 'new_reaction'); ?></a></span>
-                                    <br/><br/>
+                                    <span class="pull-right">
+                                      <a class="btn btn-primary" href="<?php echo URL::build('/admin/core/', 'view=reactions&amp;action=new'); ?>"><?php echo $language->get('admin', 'new_reaction'); ?></a>
+                                    </span>
+                                    <br /><br />
                                     <table class="table">
                                         <thead>
                                         <tr>
@@ -934,12 +930,9 @@ $current_default_language = $current_default_language[0]->value;
                                         ?>
                                         <h4 style="display:inline;"><?php echo $language->get('admin', 'editing_reaction'); ?></h4>
                                         <span class="pull-right">
-			    <a href="<?php echo URL::build('/admin/core/', 'view=reactions&amp;action=delete&amp;reaction=' . $reaction->id); ?>"
-                   onclick="return confirm('<?php echo $language->get('general', 'confirm_deletion'); ?>');"
-                   class="btn btn-danger"><?php echo $language->get('general', 'delete'); ?></a>
-			    <a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>"
-                   class="btn btn-warning"><?php echo $language->get('general', 'cancel'); ?></a>
-			  </span>
+                                          <a href="<?php echo URL::build('/admin/core/', 'view=reactions&amp;action=delete&amp;reaction=' . $reaction->id); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_deletion'); ?>');" class="btn btn-danger"><?php echo $language->get('general', 'delete'); ?></a>
+                                          <a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>" class="btn btn-warning"><?php echo $language->get('general', 'cancel'); ?></a>
+                                        </span>
                                         <hr/>
                                         <form action="" method="post">
                                             <div class="form-group">
@@ -1041,9 +1034,8 @@ $current_default_language = $current_default_language[0]->value;
                                             ?>
                                             <h4 style="display:inline;"><?php echo $language->get('admin', 'creating_reaction'); ?></h4>
                                             <span class="pull-right">
-			    <a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>"
-                   class="btn btn-warning"><?php echo $language->get('general', 'cancel'); ?></a>
-			  </span>
+                                              <a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>" class="btn btn-warning"><?php echo $language->get('general', 'cancel'); ?></a>
+                                            </span>
                                             <hr/>
                                             <form action="" method="post">
                                                 <div class="form-group">
