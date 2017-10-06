@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Moderator terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 26/08/2017
+ *  Last Update: 06/10/2017
  */
 
 $language = array(
@@ -51,31 +51,31 @@ $language = array(
     
     // Punishments
     'punishments' => 'Pedepse',
-    'view_punishments' => 'View Punishments',
-    'banned' => 'Banned',
-    'groups' => 'Groups',
-    'punish' => 'Punish',
+    'view_punishments' => 'Vezi pedepsele',
+    'banned' => 'Banat',
+    'groups' => 'Grupuri',
+    'punish' => 'Pedepsește',
     'ban' => 'Ban',
-    'warn' => 'Warn',
+    'warn' => 'Avertizare',
     'ban_ip' => 'Ban IP',
-    'viewing_user_x' => 'Viewing user {x}', // Don't replace {x}
-    'previous_punishments' => 'Previous punishments',
-    'no_previous_punishments' => 'No previous punishments',
-    'warning' => 'Warning',
-    'ip_ban' => 'IP Ban',
-    'reason' => 'Reason',
-    'warn_user' => 'Warn User',
-    'ban_user' => 'Ban User',
-    'enter_valid_punishment_reason' => 'Please enter a valid reason for your punishment, between 5 and 5000 characters.',
-    'user_punished' => 'User punished.',
-    'user_punished_alert' => '{x} has punished user {y}', // Don't replace {x} (staff member) or {y} (user punished)
-    'revoke' => 'Revoke',
-    'revoked' => 'Revoked',
-    'acknowledged' => 'Acknowledged',
-    'confirm_revoke_warning' => 'Are you sure you want to revoke this warning?',
-    'confirm_revoke_ban' => 'Are you sure you want to revoke this ban? The user will be unbanned, even if they have a more recent ban!',
-    'punishment_revoked' => 'Punishment revoked.',
-    'punishment_revoked_alert' => '{x} has revoked a punishment for user {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
-    'cant_punish_admin' => 'You can\'t punish an administrator!'
+    'viewing_user_x' => 'Vizualizare utilizator {x}', // Don't replace {x}
+    'previous_punishments' => 'Pedepsele anterioare',
+    'no_previous_punishments' => 'Nu există pedepse anterioare.',
+    'warning' => 'Avertizare',
+    'ip_ban' => 'IP Banat',
+    'reason' => 'Motiv',
+    'warn_user' => 'Avertizați utilizatorul',
+    'ban_user' => 'Banați utilizatorul',
+    'enter_valid_punishment_reason' => 'Introduceți un motiv valid pentru pedeapsa dvs., între 5 și 5000 de caractere.',
+    'user_punished' => 'Utilizator pedepsit.',
+    'user_punished_alert' => '{x} a pedepsit utilizatorul {y}', // Don't replace {x} (staff member) or {y} (user punished)
+    'revoke' => 'Retragere',
+    'revoked' => 'Retras',
+    'acknowledged' => 'Citit',
+    'confirm_revoke_warning' => 'Sigur doriți să retrageți acest avertisment?',
+    'confirm_revoke_ban' => 'Sigur doriți să revocați această interdicție? Utilizatorul va fi activat, chiar dacă are o interdicție mai recentă!',
+    'punishment_revoked' => 'Pedeapsa a fost retrasă.',
+    'punishment_revoked_alert' => '{x} a retras o pedeapsă pentru utilizatorul {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
+    'cant_punish_admin' => 'Nu puteți pedepsi un administrator!'
 
 );
