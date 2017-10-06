@@ -1291,8 +1291,23 @@ $current_default_language = $current_default_language[0]->value;
                                                 'message' => Output::getClean($message)
                                             ));
 
+                                            // Page load timer
+                                            if (isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] == 1) $enabled = 1;
+                                            else $enabled = 0;
+
+                                            $load_id = $queries->getWhere('settings', array('name', '=', 'page_loading'));
+                                            $load_id = $load_id[0]->id;
+                                            $queries->update('settings', $load_id, array(
+                                                'value' => $enabled
+                                            ));
+
+                                            // Cache
+                                            $cache->setCache('page_load_cache');
+                                            $cache->store('page_load', $enabled);
+
                                             // Reload to update debugging
                                             Redirect::to(URL::build('/admin/core/', 'view=maintenance'));
+                                            die();
 
                                         } else $error = $language->get('admin', 'maintenance_message_max_1024');
                                     } else {
@@ -1303,6 +1318,12 @@ $current_default_language = $current_default_language[0]->value;
                                     // Re-query cache for updated values
                                     $cache->setCache('maintenance_cache');
                                     $maintenance = $cache->retrieve('maintenance');
+
+                                    $cache->setCache('page_load_cache');
+                                    if($cache->isCached('page_load'))
+                                        $page_loading = $cache->retrieve('page_load');
+                                    else
+                                        $page_loading = 0;
                                 }
                                 ?>
                                 <h4><?php echo $language->get('admin', 'debugging_and_maintenance'); ?></h4>
@@ -1315,6 +1336,11 @@ $current_default_language = $current_default_language[0]->value;
                                         <label for="InputDebug"><?php echo $language->get('admin', 'enable_debug_mode'); ?></label>
                                         <input id="InputDebug" name="enable_debugging" type="checkbox" class="js-switch"
                                                value="1" <?php if (defined('DEBUGGING')) echo 'checked'; ?>/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="InputPageLoad"><?php echo $language->get('admin', 'enable_page_load_timer'); ?></label>
+                                        <input id="InputPageLoad" name="enable_page_load_timer" type="checkbox" class="js-switch"
+                                               value="1" <?php if($page_loading == '1') echo 'checked'; ?>/>
                                     </div>
                                     <div class="form-group">
                                         <label for="InputMaintenance"><?php echo $language->get('admin', 'enable_maintenance_mode'); ?></label>
