@@ -535,7 +535,7 @@ $user_language = array(
     'deleted_alert' => 'Melding is succesvol verwijderd',
      
     // Warnings
-    'you_have_received_a_warning' => 'Je heeft een waarschuwing van {x} op {y} ontvangen.', // Don't replace "{x}" or "{y}"
+    'you_have_received_a_warning' => 'Je hebt een waarschuwing ontvangen van {x} op {y}.', // Don't replace "{x}" or "{y}"
     'acknowledge' => 'Dit Klopt',
      
     // Forgot password
@@ -622,8 +622,8 @@ $mod_language = array(
     'punished_successfully' => 'Straf succesvol toegevoegd.',
 
     // Reports
-    'report_closed' => 'Rapport Gesloten.',
-    'new_comment' => 'Nieuw Commentaar',
+    'report_closed' => 'Rapport gesloten.',
+    'new_comment' => 'Nieuw commentaar',
     'comments' => 'Commentaar',
     'only_viewed_by_staff' => 'Kan alleen worden bekeken door staff',
     'reported_by' => 'Gerapporteerd door',
@@ -631,11 +631,11 @@ $mod_language = array(
     'report' => 'Report:',
     'view_reported_content' => 'Bekijk gemelde inhoud',
     'no_open_reports' => 'Geen open rapporten',
-    'user_reported' => 'Speler Gerapporteerd',
+    'user_reported' => 'Speler gerapporteerd',
     'type' => 'Type',
-    'updated_by' => 'Bijgewerkt Door',
-    'forum_post' => 'Forum Post',
-    'user_profile' => 'Gebruikers Profiel',
+    'updated_by' => 'Bijgewerkt door',
+    'forum_post' => 'Forum post',
+    'user_profile' => 'Gebruikers profiel',
     'comment_added' => 'Commentaar toegevoegd.',
     'new_report_submitted_alert' => 'Nieuw rapport ingediend door {x} over {y}', // Don't replace "{x}" or "{y}"
     'ingame_report' => 'In-game rapport',
