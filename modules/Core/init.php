@@ -65,7 +65,7 @@ $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
 $pages->add('Core', '/terms', 'pages/terms.php');
 $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
 
-if(rtrim($_GET['route'], '/') != '/admin/update_execute'){
+if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/') != '/admin/update_execute')){
 	// Custom pages
 	$custom_pages = $queries->getWhere('custom_pages', array('id', '<>', 0));
 	if(count($custom_pages)){

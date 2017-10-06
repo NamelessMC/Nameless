@@ -54,7 +54,7 @@ $pages->add('Forum', '/forum/search', 'pages/forum/search.php');
 $pages->add('Forum', '/forum/view_topic', 'pages/forum/redirect.php');
 $pages->add('Forum', '/forum/view_forum', 'pages/forum/redirect.php');
 
-if(rtrim($_GET['route'], '/') != '/admin/update_execute'){
+if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/') != '/admin/update_execute')){
 	// Add link to navbar
 	$cache->setCache('navbar_order');
 	if(!$cache->isCached('forum_order')){
