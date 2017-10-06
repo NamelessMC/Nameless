@@ -42,7 +42,7 @@ $uid = $uid[0]->value;
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_URL, 'https://worldscapemc.co.uk/nl_core/nl1/stats.php?uid=' . $uid . '&version=' . $current_version);
+curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version);
 
 $update_check = curl_exec($ch);
 
@@ -115,7 +115,7 @@ curl_close($ch);
 					  $ch = curl_init();
 					  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 					  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-					  curl_setopt($ch, CURLOPT_URL, 'https://worldscapemc.co.uk/nl_core/nl1/instructions.php?uid=' . $uid . '&version=' . $current_version);
+                      curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/instructions.php?uid=' . $uid . '&version=' . $current_version);
 
 					  $instructions = curl_exec($ch);
 
@@ -132,8 +132,8 @@ curl_close($ch);
 					  echo Output::getPurified($instructions);
 					  
 					  echo '<hr />';
-					  
-					  echo '<a href="https://worldscapemc.co.uk/nl_core/nl1/updates/' . str_replace(array('.', '-'), '', Output::getClean($current_version)) . '.zip" class="btn btn-primary">' . $language->get('admin', 'download') . '</a> ';
+
+                      echo '<a href="https://namelessmc.com/nl_core/nl2/updates/' . str_replace(array('.', '-'), '', Output::getClean($current_version)) . '.zip" class="btn btn-primary">' . $language->get('admin', 'download') . '</a> ';
 				      echo '<a href="' . URL::build('/admin/update_execute') . '" class="btn btn-info" onclick="return confirm(\'' . $language->get('admin', 'install_confirm') . '\');">' . $language->get('admin', 'update') . '</a>';
 				  }
 			  } else {
