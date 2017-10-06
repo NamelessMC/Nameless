@@ -37,7 +37,7 @@ if(!isset($admin_styles)){
   	$js = '
   	<script type="text/javascript">
   	var timer = \'' . str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')) . '\';
-  	$(\'#page_load_tooltip\').attr(\'title\', timer).tooltip(\'fixTitle\');
+  	$(\'#page_load_tooltip\').attr(\'title\', timer).tooltip();
   	</script>';
   } else $js = '';
 

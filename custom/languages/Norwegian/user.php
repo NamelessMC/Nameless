@@ -74,8 +74,9 @@ $language = array(
 	'validation_complete' => 'Brukerkontoen er nå bekreftet.',
 	'validation_error' => 'Det oppstod en feil under bekreftelsen av kontoen din. Kontakt en nettstedsadministrator med en gang!',
 	'signature' => 'Signatur',
+	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
 
-    	 // Registration - Authme
+	// Registration - Authme
 	'connect_with_authme' => 'Koble til brukeren din med AuthMe.',
 	'authme_help' => 'Vennligst skriv inn dine ingame AuthMe brukers pålogginsinformsajon. Hvis du ikke har en bruker ingame, logg inn på serveren og følg instruksjonene.',
    	'unable_to_connect_to_authme_db' => 'En feil oppstod under tilkoblingen til AuthMe databasen. Hvis denne feilen gjentar seg, vennligst kontakt en administrator.',

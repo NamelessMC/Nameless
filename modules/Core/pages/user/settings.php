@@ -22,6 +22,9 @@ require('core/templates/cc_navbar.php');
 
 require('core/includes/password.php'); // For password hashing
 require('core/includes/phpass.php'); // phpass for Wordpress auth
+require('core/includes/emojione/autoload.php'); // Emojione
+require('core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
+$emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Two factor auth?
 if(isset($_GET['do'])){
@@ -58,7 +61,6 @@ if(isset($_GET['do'])){
 	$title = $language->get('user', 'user_cp');
 	require('core/templates/header.php'); 
 	?>
-  
   </head>
   <body>
     <?php
@@ -170,7 +172,11 @@ if(isset($_GET['do'])){
 				// Validation
 				$validate = new Validate();
 				
-				$to_validate = array();
+				$to_validate = array(
+                    'signature' => array(
+                        'max' => 900
+                    )
+                );
 				
 				// Get a list of required profile fields
 				$profile_fields = $queries->getWhere('profile_fields', array('required', '=', 1));
@@ -196,10 +202,19 @@ if(isset($_GET['do'])){
 						else $new_language = $user->data()->language_id;
 
 						$timezone = Input::get('timezone');
+
+						$cache->setCache('post_formatting');
+						$formatting = $cache->retrieve('formatting');
+
+						if($formatting == 'markdown'){
+						    $signature = Michelf\Markdown::defaultTransform(Input::get('signature'));
+						    $signature = Output::getClean($signature);
+						} else $signature = Output::getClean(Input::get('signature'));
 						
 						$queries->update('users', $user->data()->id, array(
 							'language_id' => $new_language,
-              'timezone' => $timezone
+							'timezone' => $timezone,
+							'signature' => $signature
 						));
 						
 						foreach($_POST as $key => $item){
@@ -253,15 +268,19 @@ if(isset($_GET['do'])){
 					// Validation errors
 					$error = '';
 					foreach($validation->errors() as $item){
-						// Get field name
-						$id = explode(' ', $item);
-						$id = $id[0];
-						
-						$field = $queries->getWhere('profile_fields', array('id', '=', $id));
-						if(count($field)){
-							$field = $field[0];
-							$error .= str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required')) . '<br />';
-						}
+					    if(strpos($item, 'signature') !== false){
+					        $error .= $language->get('user', 'signature_max_900') . '<br />';
+                        } else {
+                            // Get field name
+                            $id = explode(' ', $item);
+                            $id = $id[0];
+
+                            $field = $queries->getWhere('profile_fields', array('id', '=', $id));
+                            if (count($field)) {
+                                $field = $field[0];
+                                $error .= str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required')) . '<br />';
+                            }
+                        }
 					}
 					
 					Session::flash('settings_error', rtrim($error, '<br />'));
@@ -362,7 +381,10 @@ if(isset($_GET['do'])){
 	?>
   
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css">
-  
+    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
+    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.min.css"/>
+    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.sprites.css"/>
+    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emojionearea/css/emojionearea.min.css"/>
   </head>
   <body>
     <?php
@@ -442,7 +464,25 @@ if(isset($_GET['do'])){
 	if(Session::exists('tfa_success')){
 		$success = Session::flash('tfa_success');
 	}
-	
+
+    // Get post formatting type (HTML or Markdown)
+    $cache->setCache('post_formatting');
+    $formatting = $cache->retrieve('formatting');
+
+    if($formatting == 'markdown'){
+        // Markdown
+        require('core/includes/markdown/tomarkdown/autoload.php');
+        $converter = new League\HTMLToMarkdown\HtmlConverter(array('strip_tags' => true));
+
+        $signature = $converter->convert(htmlspecialchars_decode($user->data()->signature));
+        $signature = Output::getPurified($signature);
+
+        $smarty->assign('MARKDOWN', true);
+        $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
+    } else {
+        $signature = Output::getPurified(htmlspecialchars_decode($user->data()->signature));
+    }
+
 	// Language values
 	$smarty->assign(array(
 		'SETTINGS' => $language->get('user', 'profile_settings'),
@@ -458,9 +498,11 @@ if(isset($_GET['do'])){
 		'NEW_PASSWORD' => $language->get('user', 'new_password'),
 		'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
-    'TIMEZONE' => $language->get('user', 'timezone'),
-    'TIMEZONES' => Util::listTimezones(),
-    'SELECTED_TIMEZONE' => $user->data()->timezone
+		'TIMEZONE' => $language->get('user', 'timezone'),
+		'TIMEZONES' => Util::listTimezones(),
+		'SELECTED_TIMEZONE' => $user->data()->timezone,
+		'SIGNATURE' => $language->get('user', 'signature'),
+        'SIGNATURE_VALUE' => $signature
 	));
 
 	if(defined('CUSTOM_AVATARS')) {
@@ -470,7 +512,7 @@ if(isset($_GET['do'])){
         'BROWSE' => $language->get('general', 'browse'),
         'UPLOAD_NEW_PROFILE_IMAGE' => $language->get('user', 'upload_new_avatar')
       ));
-  }
+	}
 	
 	if($user->data()->tfa_enabled == 1){
 		// Disable
@@ -492,6 +534,32 @@ if(isset($_GET['do'])){
 	<script>
 	$('.datepicker').datepicker();
 	</script>
+
+    <?php
+    $cache->setCache('post_formatting');
+    $formatting = $cache->retrieve('formatting');
+    if($formatting == 'markdown'){
+        ?>
+        <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
+        <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emojionearea/js/emojionearea.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var el = $("#inputSignature").emojioneArea({
+                    pickerPosition: "bottom"
+                });
+            });
+        </script>
+    <?php
+    } else {
+    ?>
+        <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
+        <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
+        <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/ckeditor.js"></script>
+        <?php
+        echo '<script type="text/javascript">' . Input::createEditor('signature') . '</script>';
+    }
+    ?>
 	
   </body>
 </html>

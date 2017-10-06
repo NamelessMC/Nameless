@@ -74,6 +74,7 @@ $language = array(
 	'validation_complete' => 'Váš účet byl ověřen. Můžete se přihlásit :)',
 	'validation_error' => 'Vznikl problém při ověřování účtu, prosím kontaktujte administrátora webu.',
 	'signature' => 'Podpis',
+	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
 
 	// Registration - Authme
 	'connect_with_authme' => 'Propojte Váš účet s AuthMe',

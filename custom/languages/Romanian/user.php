@@ -77,6 +77,7 @@ $language = array(
     'validation_complete' => 'Contul dvs. a fost validat, acum vă puteți conecta.',
     'validation_error' => 'A apărut o eroare necunoscută în timpul validări contul dvs., vă rugăm să contactați un administrator de site web.',
     'signature' => 'Semnătură',
+    'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
 
     // Registration - Authme
     'connect_with_authme' => 'Conectați-vă contul cu AuthMe',

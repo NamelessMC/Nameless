@@ -76,6 +76,7 @@ $language = array(
 	'validation_complete' => 'Je account is bevestigt, je kunt nu inloggen.',
 	'validation_error' => 'Er was een onbekend probleem bij het bevestigen van je account, neem contact op met de beheerds.',
 	'signature' => 'Ondertekening',
+	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
 
 	// Registration - Authme
 	'connect_with_authme' => 'Verbind je account met AuthMe',
