@@ -106,6 +106,9 @@ $language = array(
 	'select_default_avatar' => 'Välj en ny standard avatar:',
 	'no_avatars_available' => 'Inga avatarer är tillgängliga. Var god och ladda upp en ny bild ovan först.',
 	'avatar_settings_updated_successfully' => 'Avatarinställningarna uppdaterades!',
+	'navigation' => 'Navigation',
+	'navbar_order' => 'Navbar Order',
+	'navbar_order_instructions' => 'You can give each item a number above 0 to order items in the navbar, with 1 being the first item and higher numbers coming after it.',
 
 	// Reactions
 	'icon' => 'Ikon',

@@ -106,6 +106,9 @@ $language = array(
     'select_default_avatar' => 'Selecione um novo avatar padrão:',
     'no_avatars_available' => 'Não há avatares disponíveis. Por favor, envie uma nova imagem acima primeiro.',
     'avatar_settings_updated_successfully' => 'Configurações do Avatar atualizadas com sucesso.',
+    'navigation' => 'Navigation',
+    'navbar_order' => 'Navbar Order',
+    'navbar_order_instructions' => 'You can give each item a number above 0 to order items in the navbar, with 1 being the first item and higher numbers coming after it.',
 
 	// Reactions
 	'icon' => 'Icone',

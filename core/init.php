@@ -316,7 +316,16 @@ if($page != 'install'){
     $mod_nav	= new Navigation();
 
     // Add homepage to navbar
-    $navigation->add('index', $language->get('general', 'home'), URL::build('/'));
+    // Check navbar order in cache
+    $cache->setCache('navbar_order');
+    if(!$cache->isCached('index_order')){
+        // Create cache entry now
+        $home_order = 1;
+        $cache->store('index_order', 1);
+    } else {
+        $home_order = $cache->retrieve('index_order');
+    }
+    $navigation->add('index', $language->get('general', 'home'), URL::build('/'), 'top', null, $home_order);
 
     // Widgets
     $widgets = new Widgets($cache);

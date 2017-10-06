@@ -49,7 +49,7 @@ if(!isset($can_view)){
 }
 
 // Always define page name
-define('PAGE', $custom_page->title);
+define('PAGE', $custom_page->id);
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">

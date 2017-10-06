@@ -105,6 +105,11 @@ $current_default_language = $current_default_language[0]->value;
                                 </tr>
                                 <tr>
                                     <td>
+                                        <a href="<?php echo URL::build('/admin/core/', 'view=navigation'); ?>"><?php echo $language->get('admin', 'navigation'); ?></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         <a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>"><?php echo $language->get('user', 'reactions'); ?></a>
                                     </td>
                                 </tr>
@@ -1995,6 +2000,56 @@ $current_default_language = $current_default_language[0]->value;
                                         </div>
                                     </div>
                                 </div>
+                                <?php
+                                break;
+
+                            case 'navigation':
+                                // Maintenance mode settings
+                                // Deal with input
+                                if(Input::exists()){
+                                    if(Token::check(Input::get('token'))){
+                                        // Valid token
+                                        // Update cache
+                                        $cache->setCache('navbar_order');
+                                        if(isset($_POST['inputOrder']) && count($_POST['inputOrder'])) {
+                                            foreach($_POST['inputOrder'] as $key => $item){
+                                                if(is_numeric($item) && $item > 0){
+                                                    $cache->store($key . '_order', $item);
+                                                }
+                                            }
+                                        }
+
+                                        // Reload to update info
+                                        Redirect::to(URL::build('/admin/core/', 'view=navigation'));
+                                        die();
+                                    } else {
+                                        // Invalid token
+                                        $error = $language->get('general', 'invalid_token');
+                                    }
+                                }
+                                ?>
+                                <h4><?php echo $language->get('admin', 'navbar_order'); ?></h4>
+
+                                <form action="" method="post">
+                                    <div class="alert alert-info"><?php echo $language->get('admin', 'navbar_order_instructions'); ?></div>
+                                    <?php
+                                    // Display fields for each page
+                                    $nav_items = $navigation->returnNav('top');
+                                    foreach($nav_items as $key => $item){
+                                    ?>
+                                    <div class="form-group">
+                                        <label for="input<?php echo Output::getClean($item['title']); ?>"><?php echo Output::getClean($item['title']); ?></label>
+                                        <input type="number" min="1" class="form-control" id="input<?php echo Output::getClean($item['title']); ?>" name="inputOrder[<?php echo ((isset($item['custom']) && is_numeric($item['custom'])) ? $item['custom'] : Output::getClean($key)); ?>]" value="<?php echo Output::getClean($item['order']); ?>">
+                                    </div>
+                                    <?php
+                                    }
+                                    ?>
+                                    <div class="form-group">
+                                        <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
+                                        <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>"
+                                               class="btn btn-primary">
+                                    </div>
+                                </form>
                                 <?php
                                 break;
 

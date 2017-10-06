@@ -55,7 +55,14 @@ $pages->add('Forum', '/forum/view_topic', 'pages/forum/redirect.php');
 $pages->add('Forum', '/forum/view_forum', 'pages/forum/redirect.php');
 
 // Add link to navbar
-$navigation->add('forum', $forum_language->get('forum', 'forum'), URL::build('/forum'));
+$cache->setCache('navbar_order');
+if(!$cache->isCached('forum_order')){
+    $forum_order = 2;
+    $cache->store('forum_order', 2);
+} else {
+    $forum_order = $cache->retrieve('forum_order');
+}
+$navigation->add('forum', $forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $forum_order);
 
 // Add link to admin sidebar
 if(!isset($admin_sidebar)) $admin_sidebar = array();

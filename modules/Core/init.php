@@ -69,6 +69,7 @@ $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
 $custom_pages = $queries->getWhere('custom_pages', array('id', '<>', 0));
 if(count($custom_pages)){
     $more = array();
+    $cache->setCache('navbar_order');
 
     if($user->isLoggedIn()){
         // Check all groups
@@ -91,7 +92,16 @@ if(count($custom_pages)){
                                 switch($custom_page->link_location){
                                     case 1:
                                         // Navbar
-                                        $navigation->add($custom_page->title, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', 2000);
+                                        // Check cache first
+                                        if(!$cache->isCached($custom_page->id . '_order')){
+                                            // Create cache entry now
+                                            $page_order = 200;
+                                            $cache->store($custom_page->id . '_order', 200);
+                                        } else {
+                                            $page_order = $cache->retrieve($custom_page->id . '_order');
+                                        }
+
+                                        $navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order);
                                         break;
                                     case 2:
                                         // "More" dropdown
@@ -99,7 +109,7 @@ if(count($custom_pages)){
                                         break;
                                     case 3:
                                         // Footer
-                                        $navigation->add($custom_page->title, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
+                                        $navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
                                         break;
                                 }
                                 break 2;
@@ -126,7 +136,16 @@ if(count($custom_pages)){
                             switch($custom_page->link_location){
                                 case 1:
                                     // Navbar
-                                    $navigation->add($custom_page->title, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', 2000);
+                                    // Check cache first
+                                    if(!$cache->isCached($custom_page->id . '_order')){
+                                        // Create cache entry now
+                                        $page_order = 200;
+                                        $cache->store($custom_page->id . '_order', 200);
+                                    } else {
+                                        $page_order = $cache->retrieve($custom_page->id . '_order');
+                                    }
+
+                                    $navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order);
                                     break;
                                 case 2:
                                     // "More" dropdown
@@ -134,7 +153,7 @@ if(count($custom_pages)){
                                     break;
                                 case 3:
                                     // Footer
-                                    $navigation->add($custom_page->title, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
+                                    $navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
                                     break;
                             }
                         }
