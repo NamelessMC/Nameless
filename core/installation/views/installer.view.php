@@ -540,6 +540,16 @@
                 'is_default' => 0
             ));
 
+            $queries->create('languages', array(
+                'name' => 'Spanish',
+                'is_default' => 0
+            ));
+
+            $queries->create('languages', array(
+                'name' => 'SwedishSE',
+                'is_default' => 0
+            ));
+
             $cache->setCache('languagecache');
             $cache->store('language', 'EnglishUK');
 
@@ -1899,18 +1909,50 @@
 						}
 
 						// Languages
+                        $queries->create('languages', array(
+                            'name' => 'Czech',
+                            'is_default' => 0
+                        ));
+                        $queries->create('languages', array(
+                            'name' => 'Dutch',
+                            'is_default' => 0
+                        ));
 						$queries->create('languages', array(
 							'name' => 'EnglishUK',
 							'is_default' => 1
 						));
 						$queries->create('languages', array(
-							'name' => 'German',
-							'is_default' => 0
-						));
-						$queries->create('languages', array(
 							'name' => 'EnglishUS',
 							'is_default' => 0
 						));
+                        $queries->create('languages', array(
+                            'name' => 'German',
+                            'is_default' => 0
+                        ));
+                        $queries->create('languages', array(
+                            'name' => 'Greek',
+                            'is_default' => 0
+                        ));
+                        $queries->create('languages', array(
+                            'name' => 'Norwegian',
+                            'is_default' => 0
+                        ));
+                        $queries->create('languages', array(
+                            'name' => 'Portuguese',
+                            'is_default' => 0
+                        ));
+                        $queries->create('languages', array(
+                            'name' => 'Romanian',
+                            'is_default' => 0
+                        ));
+                        $queries->create('languages', array(
+                            'name' => 'Spanish',
+                            'is_default' => 0
+                        ));
+                        $queries->create('languages', array(
+                            'name' => 'SwedishSE',
+                            'is_default' => 0
+                        ));
 						$cache->setCache('languagecache');
 						$cache->store('language', 'EnglishUK');
 
