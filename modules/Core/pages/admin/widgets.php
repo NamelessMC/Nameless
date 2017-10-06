@@ -130,7 +130,7 @@ if(isset($_GET['action'])){
                             ?>
                             <div class="row">
                                 <div class="col-md-9">
-                                    <strong><?php echo Output::getClean($widget->getName()); ?></strong>
+                                    <strong><?php echo Output::getClean($widget->getName()); ?></strong> <small>(<?php echo str_replace('{x}', Output::getClean($widget->getModule()), $language->get('admin', 'module_x')); ?>)</small>
                                     <br/>
                                     <small><?php echo Output::getClean($widget->getDescription()); ?></small>
                                 </div>

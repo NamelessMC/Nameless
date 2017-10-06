@@ -13,9 +13,10 @@ class DiscordWidget extends WidgetBase {
         parent::__construct($pages);
 
         // Set widget variables
+        $this->_module = 'Core';
         $this->_name = 'Discord';
         $this->_location = 'right';
-        $this->_description = 'Display your Discord channel on your site. Configure in the AdminCP -> Core -> Social Media tab.';
+        $this->_description = 'Display your Discord channel on your site. Make sure you have entered your Discord widget details in the AdminCP -> Core -> Social Media tab first!';
 
         // Generate HTML code for widget
         $this->_content = '

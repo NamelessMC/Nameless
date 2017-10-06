@@ -13,6 +13,7 @@ class LatestPostsWidget extends WidgetBase {
         parent::__construct($pages);
 
         // Set widget variables
+        $this->_module = 'Forum';
         $this->_name = 'Latest Posts';
         $this->_location = 'right';
         $this->_description = 'Display latest posts from your forum.';
