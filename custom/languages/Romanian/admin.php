@@ -113,7 +113,7 @@ $language = array(
     'navigation' => 'Navigare',
     'navbar_order' => 'Ordonare navigare',
     'navbar_order_instructions' => 'Puteți da fiecărui articol un număr mai mare de 0 pentru a ordona elemente în bara de navigare, cu 1 fiind primul element și numerele mai mari care vin după el.',
-    'enable_page_load_timer' => 'Enable page load timer?',
+    'enable_page_load_timer' => 'Activați cronometrarea încărcării paginii?',
 
     // Reactions
     'icon' => 'Iconiță',
