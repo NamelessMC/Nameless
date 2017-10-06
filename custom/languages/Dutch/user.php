@@ -76,7 +76,7 @@ $language = array(
 	'validation_complete' => 'Je account is bevestigt, je kunt nu inloggen.',
 	'validation_error' => 'Er was een onbekend probleem bij het bevestigen van je account, neem contact op met de beheerds.',
 	'signature' => 'Ondertekening',
-	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
+	'signature_max_900' => 'Je ondertekening moet uit maximaal 900 karakters bestaan.',
 
 	// Registration - Authme
 	'connect_with_authme' => 'Verbind je account met AuthMe',
@@ -192,9 +192,9 @@ $language = array(
 	/*
 	 *  Overtredingen gebied
 	 */
-	'you_have_been_banned' => 'You have been banned!',
-	'you_have_received_a_warning' => 'You have received a warning!',
-	'acknowledge' => 'Acknowledge',
+	'you_have_been_banned' => 'Je bent verbannen!',
+	'you_have_received_a_warning' => 'Je hebt een waarschuwing gekregen!',
+	'acknowledge' => 'Toegeven',
 	
 	
 	/*
