@@ -82,6 +82,7 @@ $language = array(
 	'validation_complete' => 'Dein Account wurde verifiziert. Du kannst dich nun anmelden.',
 	'validation_error' => 'Mit deinem Account stimmt etwas nicht. Benachrichtige einen Administrator.',
 	'signature' => 'Signatur',
+	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
 
     // Registration - Authme
     'connect_with_authme' => 'Verbinden Sie Ihr Konto mit AuthMe',

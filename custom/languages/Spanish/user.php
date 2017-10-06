@@ -74,6 +74,7 @@ $language = array(
 	'validation_complete' => 'Su cuenta ha sido validada, ahora puede iniciar sesión.',
 	'validation_error' => 'Se ha producido un error desconocido al validar su cuenta, póngase en contacto con un administrador del sitio web.',
 	'signature' => 'Firma',
+	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
 
     // Registration - Authme
     'connect_with_authme' => 'Conecte su cuenta con AuthMe',

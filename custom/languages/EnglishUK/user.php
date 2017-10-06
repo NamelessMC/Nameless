@@ -74,6 +74,7 @@ $language = array(
 	'validation_complete' => 'Your account has been validated, you can now log in.',
 	'validation_error' => 'There was an unknown error validating your account, please contact a website administrator.',
 	'signature' => 'Signature',
+	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
 
 	// Registration - Authme
     'connect_with_authme' => 'Connect your account with AuthMe',

@@ -75,6 +75,7 @@ $language = array(
 	'validation_complete' => 'Ditt konto har validerats, du kan nu logga in.',
 	'validation_error' => 'Det fanns ett okänt fel medans vi validerade ditt konto, var god kontakta en webbplats administratör.',
 	'signature' => 'Signatur',
+	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
 
 	// Registration - Authme
     'connect_with_authme' => 'Anslut ditt konto med AuthMe',
