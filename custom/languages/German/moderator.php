@@ -82,6 +82,12 @@ $language = array(
 	'confirm_revoke_ban' => 'Sind Sie sicher, dass Sie das Verbot widerrufen wollen? Der Benutzer wird entbannt, auch wenn Sie ein neueres Verbot haben!',
 	'punishment_revoked' => 'Bestrafung widerrufen.',
 	'punishment_revoked_alert' => '{x} hat eine Bestrafung für den Benutzer {y} zurückgezogen', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
-	'cant_punish_admin' => 'Sie können einen Administrator nicht bestrafen!'
+	'cant_punish_admin' => 'Sie können einen Administrator nicht bestrafen!',
+    'viewing_all_punishments' => 'Viewing all punishments',
+    'no_punishments_found' => 'No punishments found.',
+    'view_user' => 'View User',
+    'when' => 'When',
+    'staff' => 'Staff',
+    'type' => 'Type'
 
 );

@@ -74,6 +74,12 @@ $language = array(
 	'confirm_revoke_ban' => 'Are you sure you want to revoke this ban? The user will be unbanned, even if they have a more recent ban!',
 	'punishment_revoked' => 'Punishment revoked.',
 	'punishment_revoked_alert' => '{x} has revoked a punishment for user {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
-	'cant_punish_admin' => 'You can\'t punish an administrator!'
+	'cant_punish_admin' => 'You can\'t punish an administrator!',
+    'viewing_all_punishments' => 'Viewing all punishments',
+    'no_punishments_found' => 'No punishments found.',
+    'view_user' => 'View User',
+    'when' => 'When',
+    'staff' => 'Staff',
+    'type' => 'Type'
 
 );
