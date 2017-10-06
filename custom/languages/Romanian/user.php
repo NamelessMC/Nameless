@@ -190,9 +190,9 @@ $language = array(
     /*
      *  Infractions area
      */
-    'you_have_been_banned' => 'You have been banned!',
-    'you_have_received_a_warning' => 'You have received a warning!',
-    'acknowledge' => 'Acknowledge',
+    'you_have_been_banned' => 'Ați fost banat!',
+    'you_have_received_a_warning' => 'Ați primit un avertisment!',
+    'acknowledge' => 'Recunoaște',
     
     /*
      *  Emails
