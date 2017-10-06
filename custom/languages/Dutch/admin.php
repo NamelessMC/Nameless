@@ -4,7 +4,7 @@
  *  en vertaald en bijgewerkt door Sander Lambrechts, Jesse Geerts en Derkades
  *
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -33,8 +33,8 @@ $language = array(
 	'running_nameless_version' => 'Website versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'running_php_version' => 'PHP versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'statistics' => 'Statistieken',
-	'notices' => 'Notices',
-	'no_notices' => 'No notices.',
+	'notices' => 'Berichten',
+	'no_notices' => 'Geen berichten.',
 	'email_errors_logged' => 'Email fouten zijn vastgesteld. Klik <a href="{x}">hier</a> om ze te bekijken.', // Verander "{x}" niet
 
 	// Kern
@@ -73,7 +73,7 @@ $language = array(
 	'email_errors' => 'Email fouten',
 	'registration_email' => 'Registratie email',
 	'contact_email' => 'Contact email',
-    'forgot_password_email' => 'Forgot Password Email',
+    	'forgot_password_email' => 'Vergeten wachtwoord email',
 	'unknown' => 'Onbekend',
 	'delete_email_error' => 'Fout verwijderen',
 	'confirm_email_error_deletion' => 'Weet je zeker dat je deze fout wilt verwijderen?',
@@ -94,23 +94,23 @@ $language = array(
 	'test_email_success' => 'Test email succesvol verzonden!',
 	'terms_error' => 'Zorg ervoor dat je algemene voorwaarden niet meer dan 2048 karakters bevat.',
 	'terms_updated' => 'Algemene voorwaarden succesvol bijgewerkt.',
-    'avatars' => 'Avatars',
-    'allow_custom_avatars' => 'Allow custom user avatars?',
-    'default_avatar' => 'Default avatar',
-    'custom_avatar' => 'Custom avatar',
-    'minecraft_avatar' => 'Minecraft avatar',
-    'minecraft_avatar_source' => 'Minecraft avatar source',
-    'built_in_avatars' => 'Built-in avatar service',
-    'minecraft_avatar_perspective' => 'Minecraft avatar perspective',
-    'face' => 'Face',
-    'head' => 'Head',
-    'select_default_avatar' => 'Select a new default avatar:',
-    'no_avatars_available' => 'No avatars available. Please upload a new image above first.',
-    'avatar_settings_updated_successfully' => 'Avatar settings updated successfully.',
-    'navigation' => 'Navigation',
-    'navbar_order' => 'Navbar Order',
-    'navbar_order_instructions' => 'You can give each item a number above 0 to order items in the navbar, with 1 being the first item and higher numbers coming after it.',
-    'enable_page_load_timer' => 'Enable page load timer?',
+    	'avatars' => 'Avatars',
+    	'allow_custom_avatars' => 'Toestaan van aangespaste gebruiker avatars?',
+    	'default_avatar' => 'Standaard avatar',
+    	'custom_avatar' => 'Aangepaste avatar',
+    	'minecraft_avatar' => 'Minecraft avatar',
+    	'minecraft_avatar_source' => 'Minecraft avatar bron',
+    	'built_in_avatars' => 'Ingebouwde avatar dienst',
+    	'minecraft_avatar_perspective' => 'Minecraft avatar perspectief',
+    	'face' => 'Gezicht',
+    	'head' => 'Hoofd',
+    	'select_default_avatar' => 'Selecteer een nieuwe standaard avatar:',
+    	'no_avatars_available' => 'Geen avatars beschikbaar. Graag eerst een niewe afbeelding uploaden hierboven.',
+    	'avatar_settings_updated_successfully' => 'Avatar instellingen succesvol geupdated.',
+    	'navigation' => 'Navigatie',
+    	'navbar_order' => 'Navbar ordening',
+    	'navbar_order_instructions' => 'Je kan elk item een nummer boven de 0 geven om items te ordenen in de navbar, met 1 de eerste en hogere nummers erna.',
+    	'enable_page_load_timer' => 'Pagina laad timer inschakelen?',
 
 	// Reacties
 	'icon' => 'Icoon',
@@ -217,10 +217,10 @@ $language = array(
 	'mcassoc_error' => 'Zorg ervoor dat je je "shared key" correct hebt ingevuld, en dat je een "instance key" correct hebt gegenereerd.',
 	'updated_mcassoc_successfully' => 'mcassoc instellingen succesvol bijgewerkt.',
 	'force_premium_accounts' => 'Forceer betaalde Minecraft accounts?',
-	'banner_background' => 'Banner background',
-	'query_interval' => 'Query interval (in minutes, must be between 5 and 60)',
-	'player_graphs' => 'Player Graphs',
-	'player_count_cronjob_info' => 'You can set up a cron job to query your servers every {x} minutes with the following command:',
+	'banner_background' => 'Banner achtergrond',
+	'query_interval' => 'Query interval (in minuten, moet tussen de 5 en 60)',
+	'player_graphs' => 'Speler grafieken',
+	'player_count_cronjob_info' => 'Je kan een cron job instellen om je servers op tevragen elke {x} minuten met de volgende commando:',
 
 	// Modulen
 	'modules_installed_successfully' => 'Alle nieuwe modules zijn succesvol toegevoegd.',
@@ -230,7 +230,7 @@ $language = array(
 	'disable' => 'Uitschakelen',
 	'module_enabled' => 'Module ingeschakeld.',
 	'module_disabled' => 'Module uitgeschakeld.',
-	'author' => 'Author:',
+	'author' => 'Auteur:',
 
 	// Stijlen
 	'templates' => 'Sjablonen',
@@ -250,11 +250,11 @@ $language = array(
 	'template_deactivated' => 'Sjabloon gedeactiveerd.',
 	'template_activated' => 'Sjabloon geactiveerd.',
 	'permissions' => 'Toestemmingen',
-	'setting_perms_for_x' => 'Setting permissions for template {x}', // Don't replace {x}
-	'templates_installed_successfully' => 'Any new templates have been installed successfully.',
-	'confirm_delete_template' => 'Are you sure you want to delete this template?',
-	'delete' => 'Delete',
-	'template_deleted_successfully' => 'Template deleted successfully.',
+	'setting_perms_for_x' => 'Instellen van toestemmingen voor sjabloon {x}', // Verander "{x}" niet
+	'templates_installed_successfully' => 'Elk nieuw sjabloon is geinstalleerd .',
+	'confirm_delete_template' => 'Weet je zeker dat je dit sjabloon wilt verwijderen?',
+	'delete' => 'Verwijder',
+	'template_deleted_successfully' => 'Sjabloon succesvol verwijderd.',
 
 	// Gebruikers & groepen
 	'users' => 'Gebruikers',
@@ -299,8 +299,8 @@ $language = array(
 	'delete_group' => 'Verwijder groep',
 	'confirm_group_deletion' => 'Weet je zeker dat je de groep {x} wilt verwijderen?', // Verander "{x}" niet
 	'group_not_exist' => 'Die groep bestaat niet.',
-	'secondary_groups' => 'Secondary Groups',
-	'secondary_groups_info' => 'The user will gain any additional permissions from these groups',
+	'secondary_groups' => 'Bijkomende groepen',
+	'secondary_groups_info' => 'De gebruiker zal de bijkomende toestemmingen van deze groepen ook krijgen',
 
 	// Algemene admin taal
 	'task_successful' => 'Taak succesvol.',
@@ -345,39 +345,39 @@ $language = array(
 	'editing_widget_x' => 'Widget {x} bewerken', // Don't replace {x}
 	'module_x' => 'Module: {x}', // Don't replace {x}
 
-    // Custom Pages
-    'pages' => 'Pages',
-    'new_page' => '<i class="fa fa-plus-circle"></i> New Page',
-    'no_custom_pages' => 'No pages have been created yet.',
-    'creating_new_page' => 'Creating Page',
-    'page_title' => 'Page Title',
-    'page_path' => 'Page Path (with preceding /, eg /example)',
-    'page_icon' => 'Page Icon',
+    // aangepaste pagina's
+    'pages' => 'Pagina\'s',
+    'new_page' => '<i class="fa fa-plus-circle"></i> Nieuwe pagina',
+    'no_custom_pages' => 'Er zijn nog geen paginas gemaakt.',
+    'creating_new_page' => 'Pagina aan het maken',
+    'page_title' => 'Pagina titel',
+    'page_path' => 'Pagina pad (met vooraf een /, bv /voorbeeld)',
+    'page_icon' => 'Pagina icoon',
     'page_link_location' => 'Page Link Location',
     'page_link_navbar' => 'Navbar',
     'page_link_footer' => 'Footer',
-    'page_link_more' => '"More" Dropdown',
-    'page_link_none' => 'No link',
-    'page_content' => 'Page Content',
-    'page_redirect' => 'Page Redirect?',
-    'page_redirect_to' => 'Redirect Link (with preceding http://)',
-    'unsafe_html' => 'Allow unsafe HTML?',
-    'unsafe_html_warning' => 'Enabling this option means any HTML can be used on the page, including potentially dangerous JavaScript. Only enable this if you are sure your HTML is safe.',
-    'page_permissions' => 'Page Permissions',
-    'view_page' => 'View Page?',
-    'editing_page_x' => 'Editing Page {x}', // Don't replace {x}
-    'unable_to_create_page' => 'Unable to create page:',
-    'page_title_required' => 'A page title is required.',
-    'page_url_required' => 'A page path is required.',
-    'link_location_required' => 'A link location is required.',
-    'page_title_minimum_2' => 'The page title must be a minimum of 2 characters.',
-    'page_url_minimum_2' => 'The page path must be a minimum of 2 characters.',
-    'page_title_maximum_30' => 'The page title must be a maximum of 30 characters.',
-    'page_icon_maximum_64' => 'The page icon must be a maximum of 64 characters.',
-    'page_url_maximum_20' => 'The page path must be a maximum of 20 characters.',
-    'page_content_maximum_20480' => 'The page content must be a maximum of 20480 characters.',
-    'page_redirect_link_maximum_512' => 'The page redirect link must be a maximum of 512 characters.',
-    'confirm_delete_page' => 'Are you sure you want to delete this page?',
+    'page_link_more' => '"Meer" Dropdown',
+    'page_link_none' => 'Geen link',
+    'page_content' => 'Pagina inhoud',
+    'page_redirect' => 'Pagina doorsturing?',
+    'page_redirect_to' => 'Doorstuur link (met vooraf http://)',
+    'unsafe_html' => 'Toestaan van onveilige HTML?',
+    'unsafe_html_warning' => 'Dit aanzetten betekent dat je HTML kan gebruiken op je pagina, inclusief potentieel gevaarlijke JavaScript. Alleen aanzetten als je weet dat je HTML veilig is.',
+    'page_permissions' => 'Pagina toestemmingen',
+    'view_page' => 'Pagina bekijken?',
+    'editing_page_x' => 'Pagina {x} aan het bewerken', // Verander {x} niet
+    'unable_to_create_page' => 'Kon pagina niet maken:',
+    'page_title_required' => 'Een pagina titel is nodig.',
+    'page_url_required' => 'Een pagina pad is nodig.',
+    'link_location_required' => 'Een link locatie is nodig.',
+    'page_title_minimum_2' => 'De pagina titel moet minimaal uit 2 karakters bestaan.',
+    'page_url_minimum_2' => 'Het pagina pad moet minimaal uit 2 karakters bestaan.',
+    'page_title_maximum_30' => 'De pagina titel moet maximaal uit 30 karakters bestaan.',
+    'page_icon_maximum_64' => 'Het pagina icoon moet maximaal uit 64 karakters bestaan.',
+    'page_url_maximum_20' => 'Het pagina pad moet maximaal uit 20 karakters bestaan.',
+    'page_content_maximum_20480' => 'De pagina inhoud moet minimaal uit 20480 karakters bestaan.',
+    'page_redirect_link_maximum_512' => 'De pagina doorstuur link moet minimaal uit 512 karakters bestaan.',
+    'confirm_delete_page' => 'Weet je zeker dat je deze pagina wilt verwijderen?',
 
 	// Bestand uploads
 	'drag_files_here' => 'Sleep bestand(en) hier naartoe om te uploaden.',
