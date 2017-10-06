@@ -4,7 +4,7 @@
  *  en vertaald door Sander Lambrechts en Derkades
  *  
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -38,7 +38,7 @@ $language = array(
 	'change' => 'Verander',
 	'remove' => 'Verwijder',
 	'info' => 'Info',
-	'confirm' => 'Confirm',
+	'confirm' => 'Bevestig',
 	'actions' => 'Acties',
 	'alerts' => 'Meldingen',
 	'view_alerts' => 'Bekijk meldingen',
@@ -52,7 +52,7 @@ $language = array(
 	'report' => 'Rapport',
 	'page_loaded_in' => 'Pagine geladen in {x}s', // Verander "{x}" niet, tijdseenheid is seconden
 	'page_x' => 'Pagina {x}',
-    'browse' => 'Browse',
+   	'browse' => 'Doorzoek',
 
 	/*
 	 *  Contact formulier
@@ -68,7 +68,7 @@ $language = array(
 	 *  Navigatiebalk
 	 */
 	'home' => 'Start',
-	'more' => 'More',
+	'more' => 'Meer',
 	
 	/*
 	 *  Homepagina
