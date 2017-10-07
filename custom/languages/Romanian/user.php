@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -130,6 +130,7 @@ $language = array(
     'forgot_password_change_successful' => 'Parola dvs. a fost modificată cu succes. Acum te poți loga.',
     
     // Profile pages
+    'reactions' => 'Reacții',
     'profile' => 'Profil',
     'follow' => 'Urmăriţi',
     'no_wall_posts' => 'Momentan nu există nimic de afişat pe acest perete.',
