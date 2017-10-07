@@ -74,7 +74,7 @@ $language = array(
 	'validation_complete' => 'Váš účet byl ověřen. Můžete se přihlásit :)',
 	'validation_error' => 'Vznikl problém při ověřování účtu, prosím kontaktujte administrátora webu.',
 	'signature' => 'Podpis',
-	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
+	'signature_max_900' => 'Zajistěte, aby Váš popis byl maximálně 900 znaků dlouhý.',
 
 	// Registration - Authme
 	'connect_with_authme' => 'Propojte Váš účet s AuthMe',
@@ -191,9 +191,9 @@ $language = array(
 	/*
 	 *  Infractions area
 	 */
-	'you_have_been_banned' => 'You have been banned!',
-	'you_have_received_a_warning' => 'You have received a warning!',
-	'acknowledge' => 'Acknowledge',
+	'you_have_been_banned' => 'Byl Vám zakázán přístup k této stránce!',
+	'you_have_received_a_warning' => 'Dostal jste varování!',
+	'acknowledge' => 'Uznat',
 	
 	
 	/*
