@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Users
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 06/10/2017
+ *  Last Update: 07/10/2017
  */
 
 $language = array(
@@ -77,7 +77,7 @@ $language = array(
     'validation_complete' => 'Contul dvs. a fost validat, acum vă puteți conecta.',
     'validation_error' => 'A apărut o eroare necunoscută în timpul validări contul dvs., vă rugăm să contactați un administrator de site web.',
     'signature' => 'Semnătură',
-    'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
+    'signature_max_900' => 'Semnătura dvs. trebuie să aibă maximum 900 de caractere.',
 
     // Registration - Authme
     'connect_with_authme' => 'Conectați-vă contul cu AuthMe',
