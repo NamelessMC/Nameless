@@ -66,7 +66,7 @@ $language = array(
 	 *  Navbar
 	 */
 	'home' => 'Domů',
-	'more' => 'More',
+	'more' => 'Více',
 	
 	/*
 	 *  Homepage
