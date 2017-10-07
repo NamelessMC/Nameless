@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Moderator terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 06/10/2017
+ *  Last Update: 07/10/2017
  */
 
 $language = array(
@@ -77,11 +77,11 @@ $language = array(
     'punishment_revoked' => 'Pedeapsa a fost retrasă.',
     'punishment_revoked_alert' => '{x} a retras o pedeapsă pentru utilizatorul {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
     'cant_punish_admin' => 'Nu puteți pedepsi un administrator!',
-    'viewing_all_punishments' => 'Viewing all punishments',
-    'no_punishments_found' => 'No punishments found.',
-    'view_user' => 'View User',
-    'when' => 'When',
-    'staff' => 'Staff',
-    'type' => 'Type'
+    'viewing_all_punishments' => 'Vizualizarea tuturor pedepselor',
+    'no_punishments_found' => 'Nu au fost găsite pedepse.',
+    'view_user' => 'Vizualizare istoric',
+    'when' => 'Când',
+    'staff' => 'Pedepsitor',
+    'type' => 'Tip'
 
 );
