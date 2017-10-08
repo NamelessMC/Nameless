@@ -383,9 +383,12 @@ if(empty($donation_settings)){
 	<br />
 	<code>http://<?php echo $_SERVER['SERVER_NAME']; ?>/addons/Donate/sync.php?key=<?php echo $unique_key; ?></code>
 	<br /><br />
+	<strong>for example</strong> (will run every 20 minutes):<br />
+	<code>wget --spider "http://<?php echo $_SERVER['SERVER_NAME']; ?>/addons/Donate/sync.php?key=<?php echo $unique_key; ?>" >/dev/null 2>&1</code>
+	<br /><br />
 	<strong>Please keep the above URL a secret!</strong>
 	<br /><br />
-	To avoid using the API too often, please leave a reasonable time period between running the cron job.
+	To avoid using the API too often, please leave a reasonable time period between running the cron job, such as 20 minutes.
 	
 	<!-- Modal -->
 	<div class="modal fade" data-keyboard="false" data-backdrop="static" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel" aria-hidden="true">
