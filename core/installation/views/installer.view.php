@@ -170,7 +170,7 @@
             if($validation->passed()){
                 // Check database connection
                 if(isset($_POST['db_password']) && !empty($_POST['db_password'])){
-                    $password = $_POST['db_password'];
+                    $password = str_replace('\'', '\\\'', $_POST['db_password']);
                 } else {
                     $password = '';
                 }
