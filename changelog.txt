@@ -465,3 +465,36 @@ The notes for each release
 - Update invalid token handling during topic submission
 - Forum index and topic deletion fixes
 - Add notice when registration is disabled
+
+1.0.17
+- Add Japanese translation
+- Update Chinese translation
+- Update Czech translation
+- Update Dutch translation
+- Update French translation
+- Update Norwegian translation
+- Update Portuguese translation
+- Update Slovak translation
+- Move AdminCP container location
+- More efficient way of using Options in .htaccess
+- Delete unused 1920x1080 background image
+- Fix AdvancedBan label issue
+- Display website name on 404 page title
+- Integrate Infractions tab into profile pages
+- Update Infractions addon for profile pages
+- Allow toggling name history on profile pages
+- Fix loading invalid addons
+- Add BugReport addon
+- Update help page
+- Update Superhero theme
+- Add temp warning AdvancedBan integration to Infractions addon
+- Update vote addon to allow for > 8 voting sites without visual glitches
+- Fix broken API popover in AdminCP
+- Add error messages to BanAppeal and BugReport addons
+- Add error messages to staff application module
+- Fix validate error on vote addon
+- Update nginx example configs
+- Update email headers
+- Add CraftingStore support to Donate addon
+- Fix incorrect UserCP follower count
+- Add example Donate addon cron command

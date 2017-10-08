@@ -1,21 +1,14 @@
-# Finished products of Nameless can be found on
-https://namelessmc.com/
+# NamelessMC ![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/NamelessMC/Nameless.svg) ![Percentage of issues still open](http://isitmaintained.com/badge/open/NamelessMC/Nameless.svg)
 
-### Disclaimer - All downloads off the github are not 100% bug free and are in dev.
+## Version 2.0.0
 
-![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/NamelessMC/Nameless.svg)
+Nameless version 2.0.0 is currently in development and the source can be viewed on the v2 branch. Until it's ready for production use, any pre-releases can be found here: https://github.com/NamelessMC/Nameless/releases.
 
-![Percentage of issues still open](http://isitmaintained.com/badge/open/NamelessMC/Nameless.svg)
-
-# Version 2.0
-
-Nameless version 2.0 is currently in development and the source can be viewed on the v2 branch. Until its ready for production use, any pre-releases can be found here: https://github.com/NamelessMC/Nameless/releases.
-
-# Version 1.0.16
+## Version 1.0.17
 
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
-Version 1.0.16 features:
+Version 1.0.17 features:
 
 - Template and theme system
 - Languages
@@ -49,12 +42,7 @@ Core modules:
 - Registration
 - Voice server status
 
-Upcoming addons (these will need to be downloaded separately): 
-- PermissionsEX control panel
-- Stats
-- Tickets
-
-# Downloads & Support
+## Downloads & Support
 * [Changelog](https://github.com/NamelessMC/Nameless/blob/master/changelog.txt)
 * [Issue Tracker](https://github.com/NamelessMC/Nameless/issues)
 * [Support](http://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
@@ -114,11 +102,9 @@ Upcoming addons (these will need to be downloaded separately):
 * @Fiiily
 * @OscarWoHA
 
-**[NamelessMC Website](http://namelessmc.github.io/)**
+**[NamelessMC Website](https://namelessmc.com)**
 * @Samerton
-* @Root3287
-* @SystemUpdate
-* @nick-2017
+* @IsS127
 
 **[NamelessMC Plugin](https://github.com/NamelessMC/Nameless-Plugin)**
 * @IsS127
@@ -130,20 +116,23 @@ Upcoming addons (these will need to be downloaded separately):
 * @rojo8399
 
 **NamelessMC Translations**
-* English: @Samerton, @Awtra
-* German: @LPkkjHD, @manuelgu, @BukkitTNT, philipp0002, @McLive, @Cl1608Ho and @monjo44
-* Spanish: @paloke, @lockerecca, @talkahe, @mrlost, Dexkum and @Ariuw
-* Czech: SnooWiK
-* Norsk: @partydragen and @OscarWoHA
-* Slovak: @Marki35
-* French: @CreaModZ
-* Dutch: Sander Jochems, @Azoraqua, @Headhunterzpw, @melerpe, @aycgit, @Derkades, smessie and @TheSander562
-* Finnish: -kakara-
-* Portuguese: @dgateles, @dasilvaj4
+* Chinese: @BirkhoffLee
+* Czech: @SnooWiK, @Root3287, @godleydemon, @yshf9
+* Dutch: Sander Jochems, @Azoraqua, @Headhunterzpw, @melerpe, @aycgit, @yshf9, @GodleyDemon, @Tim-NL, @Derkades, smessie, @DoraKlikOpDora, @TheSander562
+* EnglishUK: @Samerton, @Awtra
+* Finnish: -kakara-, @Root3287, @godleydemon, @yshf9
+* French: @Pandalyser, CreaModZ, Aviortheking, @Noiknez, @yshf9, @Root3287
+* German: @LPkkjHD, @nerdtron123, @manuelgu, @BukkitTNT, philipp0002, @McLive, @Cl1608Ho, @monjo44, @Root3287, @godleydemon, @yshf9
+* Japanese: SimplyRin
+* Norsk: @partydragen, @Root3287, @godleydemon, @OscarWoHA, @tlystad24
+* Portugues: @dgateles, @dasilvaj4, @Root3287, @godleydemon
+* Slovak: Marki35, @Root3287, @godleydemon, MrMiijoSK
+* Spanish: @paloke, @mrlost, @Legomix13, Dexkum, @SrBas97, @Root3287, @Ariuw, @godleydemon
 
 ## Discord
 [<img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/HYVMgN2)
-The official [NamelessMC Discord bot](https://github.com/dannygtech/NamelessBOT) was made by **Jellz** and [**BrightSkyz**](https://brightskyz.xyz)! Huge thanks to them!
+
+The official [NamelessMC Discord bot](https://github.com/dannygtech/NamelessBOT) was made by **Jellz** and [**BrightSkyz**](https://brightskyz.xyz).
 
 <!--## IRC
 \#NamelessMC on [irc.spi.gt](http://irc.spi.gt/iris/?channels=namelessmc)-->
