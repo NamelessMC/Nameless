@@ -143,7 +143,7 @@ $admin_language = array(
 	'use_followers_help' => '無効にした場合は、フレンド システムが使用されます。',
 	
 	// Admin custom pages page
-	'click_on_page_to_edit' => '編集数Rページをクリックしてください。',
+	'click_on_page_to_edit' => '編集するページをクリックしてください。',
 	'page' => 'ページ:',
 	'url' => 'URL:',
 	'page_url' => 'ページ URL',
@@ -362,7 +362,7 @@ $admin_language = array(
 	'confirm_reset_website' => 'ウェブサイトの設定をリセットしてもよろしいですか？',
 	
 	// Admin Update page
-	'installation_up_to_date' => 'あなたのインストールは最新です。',
+	'installation_up_to_date' => 'あなたは最新バージョンを使用しています。',
 	'update_check_error' => '更新を確認できません。 後でもう一度お試しください。',
 	'new_update_available' => '新しいアップデートが利用可能です。',
 	'your_version' => '現在のバージョン:',
@@ -574,7 +574,7 @@ $user_language = array(
 	'follow' => 'フォロー',
 	'unfollow' => 'アンフォロー',
 	'name_history' => 'ページの履歴',
-	'changed_name_to' => '名前を {y} から {x} に変更しました。', // Don't replace {x} or {y}
+	'changed_name_to' => '名前を {y} に {x} へ変更しました。', // Don't replace {x} or {y}
 	'original_name' => '元の名前:',
 	'name_history_error' => 'ユーザー名の履歴を取得できません。',
 	
@@ -657,7 +657,7 @@ $general_language = array(
 	// General terms
 	'submit' => '送信',
 	'close' => '閉じる',
-	'cookie_message' => '<strong>このサイトは、あなたの情報を向上させるためにクッキーを使用します。</strong><p>このウェブサイトを閲覧し、使用し続けることにより、それに同意したことになります。</p>',
+	'cookie_message' => '<strong>このサイトは、あなたの経験を向上させるためにクッキーを使用します。</strong><p>このウェブサイトを閲覧し、対話を続けることにより、その使用に同意したことになります。</p>',
 	'theme_not_exist' => '選択したテーマが存在しません。',
 	'confirm' => '確認',
 	'cancel' => 'キャンセル',
@@ -781,7 +781,7 @@ $forum_language = array(
 	'no_users_online' => 'オンラインのユーザーはありません。',
 	
 	// Search
-	'search_error' => '1〜32文字の検索クエリを入力してください。',
+	'search_error' => '1~32文字の検索クエリを入力してください。',
 	'no_search_results' => '検索結果は見つかりませんでした。',
 	
 	//Share on a social-media.
