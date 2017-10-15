@@ -98,7 +98,7 @@ class MinecraftBanner
 	}
 	
 	public static function getColourChar(){
-		return "";
+		return "§";
 	}
 	
 	public static function getFontFile(){
