@@ -51,7 +51,9 @@
 			<span class="pull-right" data-toggle="tooltip" title="{$item.date}">{$item.time_ago}</span>
 		  </div>
 		  <div class="card-block">
-			{$item.content}
+			<div class="forum_post">
+			  {$item.content}
+			</div>
 			<hr />
 			<a href="{$item.author_url}"><img class="rounded-circle" style="height:30px;width=30px;" src="{$item.author_avatar}" /></a> <a href="{$item.author_url}" style="{$item.author_style}">{$item.author_name}</a>
 		    <span class="pull-right"><a href="{$item.url}" class="btn btn-primary btn-sm">{$READ_FULL_POST} &raquo;</a></span>
