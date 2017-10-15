@@ -526,6 +526,11 @@
             ));
 
             $queries->create('languages', array(
+                'name' => 'Japanese',
+                'is_default' => 0
+            ));
+
+            $queries->create('languages', array(
                 'name' => 'Norwegian',
                 'is_default' => 0
             ));
@@ -1931,6 +1936,10 @@
                         ));
                         $queries->create('languages', array(
                             'name' => 'Greek',
+                            'is_default' => 0
+                        ));
+                        $queries->create('languages', array(
+                            'name' => 'Japanese',
                             'is_default' => 0
                         ));
                         $queries->create('languages', array(
