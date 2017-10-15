@@ -129,7 +129,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 		$breadcrumbs[] = array(
 			'id' => $parent_category[0]->id,
 			'forum_title' => Output::getClean($parent_category[0]->forum_title),
-			'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum-titleToURL($parent_category[0]->forum_title))
+			'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
 		);
 		$parent = false;
 		while($parent == false){
@@ -137,7 +137,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			$breadcrumbs[] = array(
 				'id' => $parent_category[0]->id,
 				'forum_title' => Output::getClean($parent_category[0]->forum_title),
-				'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum-titleToURL($parent_category[0]->forum_title))
+				'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
 			);
 			if($parent_category[0]->parent == 0){
 				$parent = true;
