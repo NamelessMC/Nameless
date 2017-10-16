@@ -35,7 +35,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
         if(!is_null($server->port) && $server->port != 25565)
             $display_ip .= ':' . $server->port;
 
-        $full_ip = array('ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name);
+        $full_ip = array('ip' => $server->ip . (is_null($server->port) ? ':' . 25565 : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name);
 
         $cache->setCache('banner_cache_' . urlencode($server->name));
         if(!$cache->isCached('image')){
