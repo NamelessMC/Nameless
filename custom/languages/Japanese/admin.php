@@ -109,6 +109,9 @@ $language = array(
     'navbar_order' => 'ナビバーオーダー',
     'navbar_order_instructions' => '各アイテムに 0 以上の数字を付けて、ナビゲーションバーのアイテムを注文することができます。最初のアイテムは 1、それ以降は上位のアイテムです。',
     'enable_page_load_timer' => 'Enable page load timer?',
+    'google_recaptcha' => 'Enable Google reCAPTCHA?',
+    'recaptcha_site_key' => 'reCAPTCHA Site Key',
+    'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
 
 	// Reactions
 	'icon' => 'アイコン',

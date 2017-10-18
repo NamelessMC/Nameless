@@ -110,6 +110,9 @@ $language = array(
 	'navbar_order' => 'Navbar Order',
 	'navbar_order_instructions' => 'You can give each item a number above 0 to order items in the navbar, with 1 being the first item and higher numbers coming after it.',
 	'enable_page_load_timer' => 'Enable page load timer?',
+    'google_recaptcha' => 'Enable Google reCAPTCHA?',
+    'recaptcha_site_key' => 'reCAPTCHA Site Key',
+    'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
 
 	// Reactions
 	'icon' => 'Ikon',
