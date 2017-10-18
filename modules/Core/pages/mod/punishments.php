@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -14,6 +14,10 @@ if($user->isLoggedIn()){
     if(!$user->canViewMCP()){
         // No
         Redirect::to(URL::build('/'));
+        die();
+    } else if(!$user->hasPermission('modcp.punishments')){
+        // Can't view this page
+        require('404.php');
         die();
     }
 } else {
@@ -151,7 +155,7 @@ if(isset($_GET['view'])){
 
         if(isset($_GET['do']) && $_GET['do'] == 'revoke' && isset($_GET['id']) && is_numeric($_GET['id'])){
             $infraction = $queries->getWhere('infractions', array('id', '=', $_GET['id']));
-            if(!count($infraction) || (count($infraction) && $infraction[0]->punished != $query->id)){
+            if(!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || (count($infraction) && $infraction[0]->punished != $query->id)){
                 Redirect::to(URL::build('/mod/punishments/', 'user=' . $query->id));
                 die();
             }
@@ -206,14 +210,26 @@ if(isset($_GET['view'])){
                     switch ($_POST['type']) {
                         case 'ban':
                             // Ban
+                            if(!$user->hasPermission('modcp.punishments.ban')){
+                                Redirect::to(URL::build('/mod/punishments'));
+                                die();
+                            }
                             $type = 1;
                             break;
                         case 'ban_ip':
                             // Ban IP
+                            if(!$user->hasPermission('modcp.punishments.banip')){
+                                Redirect::to(URL::build('/mod/punishments'));
+                                die();
+                            }
                             $type = 3;
                             break;
                         default:
                             // Warn
+                            if(!$user->hasPermission('modcp.punishments.warn')){
+                                Redirect::to(URL::build('/mod/punishments'));
+                                die();
+                            }
                             $type = 2;
                             break;
                     }
@@ -310,16 +326,22 @@ if(isset($_GET['view'])){
                     'issued_by_style' => $user->getGroupClass($punishment->staff),
                     'date_full' => date('d M Y, H:i', strtotime($punishment->infraction_date)),
                     'date_friendly' => $timeago->inWords($punishment->infraction_date, $language->getTimeLanguage()),
-                    'revoke_link' => URL::build('/mod/punishments/', 'user=' . $query->id . '&amp;do=revoke&amp;id=' . $punishment->id),
+                    'revoke_link' => (($user->hasPermission('modcp.punishments.revoke')) ? URL::build('/mod/punishments/', 'user=' . $query->id . '&amp;do=revoke&amp;id=' . $punishment->id) : 'none'),
                     'confirm_revoke_punishment' => (($punishment->type == 2) ? $language->get('moderator', 'confirm_revoke_warning') : $language->get('moderator', 'confirm_revoke_ban'))
                 );
             }
         }
 
+        if($user->hasPermission('modcp.punishments.warn'))
+          $smarty->assign('WARN', $language->get('moderator', 'warn'));
+
+        if($user->hasPermission('modcp.punishments.ban'))
+          $smarty->assign('BAN', $language->get('moderator', 'ban'));
+
+        if($user->hasPermission('modcp.punishments.banip'))
+          $smarty->assign('BAN_IP', $language->get('moderator', 'ban_ip'));
+
         $smarty->assign(array(
-            'BAN' => $language->get('moderator', 'ban'),
-            'WARN' => $language->get('moderator', 'warn'),
-            'BAN_IP' => $language->get('moderator', 'ban_ip'),
             'BACK_LINK' => URL::build('/mod/punishments'),
             'BACK' => $language->get('general', 'back'),
             'VIEWING_USER' => str_replace('{x}', Output::getClean($query->nickname), $language->get('moderator', 'viewing_user_x')),

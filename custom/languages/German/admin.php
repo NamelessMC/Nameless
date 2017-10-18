@@ -262,6 +262,7 @@ $language = array(
 	'confirm_delete_template' => 'Sind Sie sicher, dass Sie diese Vorlage löschen möchten?',
 	'delete' => 'Löschen',
 	'template_deleted_successfully' => 'Vorlage erfolgreich gelöscht',
+    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
 
 	// Users & groups
 	'users' => 'Benutzer',
@@ -287,7 +288,6 @@ $language = array(
 	'select_user_group' => 'Du musst eine Benutzergruppe auswählen.',
 	'uuid_max_32' => 'UUID muss zwischen 2 und 32 Zeichen lang sein.',
 	'title_max_64' => 'Der Benutzertitel muss zwischen 2 und 32 Zeichen lang sein..',
-	'minecraft_uuid' => 'Minecraft UUID',
 	'group_id' => 'Gruppen ID',
 	'name' => 'Name',
 	'title' => 'Benutzer Titel',
@@ -308,6 +308,14 @@ $language = array(
 	'group_not_exist' => 'Diese Gruppe existiert nicht.',
 	'secondary_groups' => 'Sekundärgruppen',
 	'secondary_groups_info' => 'Der Benutzer erhält zusätzliche Berechtigungen aus diesen Gruppen',
+
+    // Permissions
+    'select_all' => 'Select All',
+    'deselect_all' => 'Deselect All',
+    'background_image' => 'Background image',
+    'can_edit_own_group' => 'Can edit own group\'s permissions',
+    'permissions_updated_successfully' => 'Permissions updated successfully.',
+    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
 
 	// General Admin language
 	'task_successful' => 'Aufgabe erfolgreich .',

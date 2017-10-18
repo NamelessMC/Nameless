@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -203,13 +203,16 @@ if(isset($_GET['do'])){
 
 						$timezone = Input::get('timezone');
 
-						$cache->setCache('post_formatting');
-						$formatting = $cache->retrieve('formatting');
+						if($user->hasPermission('usercp.signature')){
+                            $cache->setCache('post_formatting');
+                            $formatting = $cache->retrieve('formatting');
 
-						if($formatting == 'markdown'){
-						    $signature = Michelf\Markdown::defaultTransform(Input::get('signature'));
-						    $signature = Output::getClean($signature);
-						} else $signature = Output::getClean(Input::get('signature'));
+                            if($formatting == 'markdown'){
+                                $signature = Michelf\Markdown::defaultTransform(Input::get('signature'));
+                                $signature = Output::getClean($signature);
+                            } else $signature = Output::getClean(Input::get('signature'));
+                        } else
+                          $signature = '';
 						
 						$queries->update('users', $user->data()->id, array(
 							'language_id' => $new_language,
@@ -465,22 +468,29 @@ if(isset($_GET['do'])){
 		$success = Session::flash('tfa_success');
 	}
 
-    // Get post formatting type (HTML or Markdown)
-    $cache->setCache('post_formatting');
-    $formatting = $cache->retrieve('formatting');
+	if($user->hasPermission('usercp.signature')){
+        // Get post formatting type (HTML or Markdown)
+        $cache->setCache('post_formatting');
+        $formatting = $cache->retrieve('formatting');
 
-    if($formatting == 'markdown'){
-        // Markdown
-        require('core/includes/markdown/tomarkdown/autoload.php');
-        $converter = new League\HTMLToMarkdown\HtmlConverter(array('strip_tags' => true));
+        if($formatting == 'markdown'){
+            // Markdown
+            require('core/includes/markdown/tomarkdown/autoload.php');
+            $converter = new League\HTMLToMarkdown\HtmlConverter(array('strip_tags' => TRUE));
 
-        $signature = $converter->convert(htmlspecialchars_decode($user->data()->signature));
-        $signature = Output::getPurified($signature);
+            $signature = $converter->convert(htmlspecialchars_decode($user->data()->signature));
+            $signature = Output::getPurified($signature);
 
-        $smarty->assign('MARKDOWN', true);
-        $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-    } else {
-        $signature = Output::getPurified(htmlspecialchars_decode($user->data()->signature));
+            $smarty->assign('MARKDOWN', TRUE);
+            $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
+        } else {
+            $signature = Output::getPurified(htmlspecialchars_decode($user->data()->signature));
+        }
+
+        $smarty->assign(array(
+            'SIGNATURE' => $language->get('user', 'signature'),
+            'SIGNATURE_VALUE' => $signature
+        ));
     }
 
 	// Language values
@@ -500,9 +510,7 @@ if(isset($_GET['do'])){
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 		'TIMEZONE' => $language->get('user', 'timezone'),
 		'TIMEZONES' => Util::listTimezones(),
-		'SELECTED_TIMEZONE' => $user->data()->timezone,
-		'SIGNATURE' => $language->get('user', 'signature'),
-        'SIGNATURE_VALUE' => $signature
+		'SELECTED_TIMEZONE' => $user->data()->timezone
 	));
 
 	if(defined('CUSTOM_AVATARS')) {

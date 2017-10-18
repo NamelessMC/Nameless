@@ -256,6 +256,7 @@ $language = array(
     'confirm_delete_template' => 'Sigur doriți să ștergeți acest șablon?',
     'delete' => 'Șterge',
     'template_deleted_successfully' => 'Șablonul a fost șters cu succes.',
+    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
 
     // Users & groups
     'users' => 'Utilizatori',
@@ -301,6 +302,14 @@ $language = array(
     'group_not_exist' => 'Grupul specificat nu există.',
     'secondary_groups' => 'Grupuri secundare',
     'secondary_groups_info' => 'Utilizatorul va obține orice permisiuni suplimentare din partea acestor grupuri',
+
+    // Permissions
+    'select_all' => 'Select All',
+    'deselect_all' => 'Deselect All',
+    'background_image' => 'Background image',
+    'can_edit_own_group' => 'Can edit own group\'s permissions',
+    'permissions_updated_successfully' => 'Permissions updated successfully.',
+    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
 
     // General Admin language
     'task_successful' => 'Sarcina a reușit.',

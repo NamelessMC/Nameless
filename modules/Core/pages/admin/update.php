@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr1
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -21,7 +21,11 @@ if($user->isLoggedIn()){
 			// They haven't, do so now
 			Redirect::to(URL::build('/admin/auth'));
 			die();
-		}
+		} else if(!$user->hasPermission('admincp.update')){
+            // Can't view this page
+            require('404.php');
+            die();
+        }
 	}
 } else {
 	// Not logged in

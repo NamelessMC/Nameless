@@ -255,6 +255,7 @@ $language = array(
 	'confirm_delete_template' => 'Weet je zeker dat je dit sjabloon wilt verwijderen?',
 	'delete' => 'Verwijder',
 	'template_deleted_successfully' => 'Sjabloon succesvol verwijderd.',
+    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
 
 	// Gebruikers & groepen
 	'users' => 'Gebruikers',
@@ -280,7 +281,6 @@ $language = array(
 	'select_user_group' => 'Je moet een groep slecteren.',
 	'uuid_max_32' => 'De UUID mag maar uit 32 karakters bestaan.',
 	'title_max_64' => 'De gebruikers titel mag maar uit 64 karakters bestaan.',
-	'minecraft_uuid' => 'Minecraft UUID',
 	'group_id' => 'Groep ID',
 	'name' => 'Naam groep',
 	'title' => 'Gebruikers titel',
@@ -301,6 +301,14 @@ $language = array(
 	'group_not_exist' => 'Die groep bestaat niet.',
 	'secondary_groups' => 'Bijkomende groepen',
 	'secondary_groups_info' => 'De gebruiker zal de bijkomende toestemmingen van deze groepen ook krijgen',
+
+    // Permissions
+    'select_all' => 'Select All',
+    'deselect_all' => 'Deselect All',
+    'background_image' => 'Background image',
+    'can_edit_own_group' => 'Can edit own group\'s permissions',
+    'permissions_updated_successfully' => 'Permissions updated successfully.',
+    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
 
 	// Algemene admin taal
 	'task_successful' => 'Taak succesvol.',

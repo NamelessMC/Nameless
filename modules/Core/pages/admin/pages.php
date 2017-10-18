@@ -21,6 +21,11 @@ if($user->isLoggedIn()){
             // They haven't, do so now
             Redirect::to(URL::build('/admin/auth'));
             die();
+        } else {
+            if(!$user->hasPermission('admincp.pages')){
+                require('404.php');
+                die();
+            }
         }
     }
 } else {

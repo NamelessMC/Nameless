@@ -255,6 +255,7 @@ $language = array(
 	'confirm_delete_template' => 'Är du säker på att du vill radera den här mallen?',
 	'delete' => 'Radera',
 	'template_deleted_successfully' => 'Mallen har tagits bort!',
+    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
 
 	// Users & groups
 	'users' => 'Användrare',
@@ -300,6 +301,14 @@ $language = array(
 	'group_not_exist' => 'Det där gruppen finns inte!',
 	'secondary_groups' => 'Sekundära grupper',
 	'secondary_groups_info' => 'Användaren får ytterligare behörigheter från dessa grupper. Ctrl + klicka för att välja / avmarkera flera grupper.',
+
+    // Permissions
+    'select_all' => 'Select All',
+    'deselect_all' => 'Deselect All',
+    'background_image' => 'Background image',
+    'can_edit_own_group' => 'Can edit own group\'s permissions',
+    'permissions_updated_successfully' => 'Permissions updated successfully.',
+    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
 
 	// General Admin language
 	'task_successful' => 'Valet har gjorts!',

@@ -253,6 +253,7 @@ $language = array(
 	'confirm_delete_template' => 'Are you sure you want to delete this template?',
 	'delete' => 'Delete',
 	'template_deleted_successfully' => 'Template deleted successfully.',
+    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
 
 	// Users & groups
 	'users' => 'Usuarios',
@@ -298,6 +299,14 @@ $language = array(
 	'group_not_exist' => 'Ese grupo no existe.',
 	'secondary_groups' => 'Secondary Groups',
 	'secondary_groups_info' => 'The user will gain any additional permissions from these groups. Ctrl+click to select/deselect multiple groups.',
+
+    // Permissions
+    'select_all' => 'Select All',
+    'deselect_all' => 'Deselect All',
+    'background_image' => 'Background image',
+    'can_edit_own_group' => 'Can edit own group\'s permissions',
+    'permissions_updated_successfully' => 'Permissions updated successfully.',
+    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
 
 	// General Admin language
 	'task_successful' => 'Tarea exitosa.',

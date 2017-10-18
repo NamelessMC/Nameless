@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -21,7 +21,12 @@ if($user->isLoggedIn()){
 			// They haven't, do so now
 			Redirect::to(URL::build('/admin/auth'));
 			die();
-		}
+		} else {
+		    if(!$user->hasPermission('admincp.styles.images')){
+		        require('404.php');
+		        die();
+            }
+        }
 	}
 } else {
 	// Not logged in
@@ -50,7 +55,7 @@ if(Input::exists()){
 		// Valid token
 		$cache->setCache('backgroundcache');
 		$cache->store('background_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/backgrounds/' . Input::get('bg'));
-		
+
 	} else {
 		// Invalid token
 		Session::flash('admin_images', '<div class="alert alert-danger">' . $language->get('general', 'invalid_token') . '</div>');
@@ -114,8 +119,15 @@ $token = Token::get();
 			    // Get background from cache
 				$cache->setCache('backgroundcache');
 				$background_image = $cache->retrieve('background_image');
+
+				if($background_image == ''){
+				  $bg_img = $language->get('general', 'none');
+               } else {
+				  $bg_img = Output::getClean($background_image);
+               }
+
+				echo str_replace('{x}', $bg_img, $language->get('admin', 'background_image_x'));
 			  ?>
-			  Background image: <?php if($background_image == '') echo '<strong>' . $language->get('general', 'none') . '</strong>'; else echo '<strong>' . Output::getClean($background_image) . '</strong>'; ?>
 			  <form action="" method="post" style="display:inline;" >
 				<select name="bg" class="image-picker show-html">
 				  <?php

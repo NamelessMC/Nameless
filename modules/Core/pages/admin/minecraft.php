@@ -21,7 +21,12 @@ if($user->isLoggedIn()){
 			// They haven't, do so now
 			Redirect::to(URL::build('/admin/auth'));
 			die();
-		}
+		} else {
+        	if(!$user->hasPermission('admincp.minecraft')){
+        	    require('404.php');
+        	    die();
+        	}
+        }
 	}
 } else {
 	// Not logged in
@@ -117,31 +122,37 @@ $admin_page = 'minecraft';
                     <hr />
                     <div class="table-responsive">
                       <table class="table table-striped">
+                        <?php if($user->hasPermission('admincp.minecraft.authme')){ ?>
                         <tr>
                           <td>
                             <a href="<?php echo URL::build('/admin/minecraft/', 'view=authme'); ?>"><?php echo $language->get('admin', 'authme_integration'); ?></a>
                           </td>
                         </tr>
+                        <?php } if($user->hasPermission('admincp.minecraft.verification')){ ?>
                         <tr>
                           <td>
                             <a href="<?php echo URL::build('/admin/minecraft/', 'view=account_verification'); ?>"><?php echo $language->get('admin', 'account_verification'); ?></a>
                           </td>
                         </tr>
+                        <?php } if($user->hasPermission('admincp.minecraft.servers')){ ?>
                         <tr>
                           <td>
                             <a href="<?php echo URL::build('/admin/minecraft/', 'view=servers'); ?>"><?php echo $language->get('admin', 'minecraft_servers'); ?></a>
                           </td>
                         </tr>
+                        <?php } if($user->hasPermission('admincp.minecraft.query_errors')){ ?>
                         <tr>
                           <td>
                             <a href="<?php echo URL::build('/admin/minecraft/', 'view=query_errors'); ?>"><?php echo $language->get('admin', 'query_errors'); ?></a>
                           </td>
                         </tr>
+                        <?php } if($user->hasPermission('admincp.minecraft.banners')){ ?>
                         <tr>
                           <td>
                             <a href="<?php echo URL::build('/admin/minecraft/', 'view=banners'); ?>"><?php echo $language->get('admin', 'server_banners'); ?></a>
                           </td>
                         </tr>
+                        <?php } ?>
                       </table>
                     </div>
                   <?php
@@ -149,6 +160,10 @@ $admin_page = 'minecraft';
               } else {
                 switch($_GET['view']){
                     case 'account_verification':
+                      if(!$user->hasPermission('admincp.minecraft.verification')){
+                        Redirect::to(URL::build('/admin/minecraft'));
+                        die();
+                      }
                       echo '<h4>' . $language->get('admin', 'account_verification') . '</h4>';
 
                       // Handle input
@@ -266,6 +281,10 @@ $admin_page = 'minecraft';
                       break;
 
                     case 'authme':
+                        if(!$user->hasPermission('admincp.minecraft.authme')){
+                            Redirect::to(URL::build('/admin/minecraft'));
+                            die();
+                        }
                         echo '<h4>' . $language->get('admin', 'authme_integration') . '</h4>';
 
                         // Handle input
@@ -418,6 +437,10 @@ $admin_page = 'minecraft';
                         break;
 
                     case 'servers':
+                        if(!$user->hasPermission('admincp.minecraft.servers')){
+                            Redirect::to(URL::build('/admin/minecraft'));
+                            die();
+                        }
                       if(isset($_GET['action'])){
                         switch($_GET['action']){
                             case 'new':
@@ -1162,6 +1185,10 @@ $admin_page = 'minecraft';
                       break;
 
                     case 'banners':
+                      if(!$user->hasPermission('admincp.minecraft.banners')){
+                          Redirect::to(URL::build('/admin/minecraft'));
+                          die();
+                      }
                       echo '<h4 style="display:inline;">' . $language->get('admin', 'server_banners') . '</h4>';
                       if(isset($_GET['server'])) {
                         echo '<span class="pull-right"><a href="' . URL::build('/admin/minecraft/', 'view=banners') . '" class="btn btn-info">' . $language->get('general', 'back') . '</a></span>';
@@ -1266,6 +1293,10 @@ $admin_page = 'minecraft';
                       break;
 
                     case 'query_errors':
+                      if(!$user->hasPermission('admincp.minecraft.query_errors')){
+                          Redirect::to(URL::build('/admin/minecraft'));
+                          die();
+                      }
                       echo '<h4 style="display:inline;">' . $language->get('admin', 'query_errors') . '</h4>';
                       if(!isset($_GET['id']) && !isset($_GET['action']))
                         echo '<span class="pull-right"><a href="' . URL::build('/admin/minecraft', 'view=query_errors&amp;action=purge') . '" class="btn btn-warning" onclick="return confirm(\'' . $language->get('admin', 'confirm_purge_errors') . '\');">' . $language->get('admin', 'purge_errors') . '</a></span><br /><br />';

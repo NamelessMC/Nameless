@@ -9,7 +9,7 @@
 	  <div class="card">
 		<div class="card-block">
 		  <h2 class="card-title" style="display:inline;">{$MESSAGING}</h2>
-		  <span class="pull-right"><a href="{$NEW_MESSAGE_LINK}" class="btn btn-primary">{$NEW_MESSAGE}</a></span>
+		  {if isset($NEW_MESSAGE)}<span class="pull-right"><a href="{$NEW_MESSAGE_LINK}" class="btn btn-primary">{$NEW_MESSAGE}</a></span>{/if}
 		  <br /><br />
 		  
 		  {if count($MESSAGES)}

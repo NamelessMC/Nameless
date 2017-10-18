@@ -63,6 +63,7 @@
                                 </div>
                             {/foreach}
 
+                            {if isset($SIGNATURE)}
                             <label for="inputSignature">{$SIGNATURE}</label>
                             {if !isset($MARKDOWN)}
                                 <textarea style="width:100%" name="signature" id="inputSignature"
@@ -76,6 +77,7 @@
                                                                 class="fa fa-question-circle text-info"
                                                                 aria-hidden="true"></i></span>
                                 </div>
+                            {/if}
                             {/if}
 
                         {/nocache}

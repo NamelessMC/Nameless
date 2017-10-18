@@ -30,6 +30,11 @@ define('FORUM', true);
 // Initialise forum language
 $forum_language = new Language(ROOT_PATH . '/modules/Forum/language', LANGUAGE);
 
+// AdminCP
+PermissionHandler::registerPermissions('Forum', array(
+    'admincp.forums' => $language->get('admin', 'admin_cp') . ' &raquo; ' . $forum_language->get('forum', 'forum')
+));
+
 // Define URLs which belong to this module
 $pages->add('Forum', '/admin/forums', 'pages/admin/forums.php');
 $pages->add('Forum', '/forum', 'pages/forum/index.php', 'forum', true);
@@ -66,11 +71,13 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
 	$navigation->add('forum', $forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $forum_order);
 
 	// Add link to admin sidebar
-	if(!isset($admin_sidebar)) $admin_sidebar = array();
-	$admin_sidebar['forums'] = array(
-		'title' => $forum_language->get('forum', 'forums'),
-		'url' => URL::build('/admin/forums')
-	);
+    if($user->hasPermission('admincp.forums')){
+        if(!isset($admin_sidebar)) $admin_sidebar = array();
+        $admin_sidebar['forums'] = array(
+            'title' => $forum_language->get('forum', 'forums'),
+            'url' => URL::build('/admin/forums')
+        );
+    }
 
 	// Front page module
 	if(!isset($front_page_modules)) $front_page_modules = array();

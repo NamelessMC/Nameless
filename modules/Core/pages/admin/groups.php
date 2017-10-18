@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -21,7 +21,11 @@ if($user->isLoggedIn()){
 			// They haven't, do so now
 			Redirect::to(URL::build('/admin/auth'));
 			die();
-		}
+		} else if(!$user->hasPermission('admincp.groups')){
+			// Can't view this page
+            require('404.php');
+            die();
+        }
 	}
 } else {
 	// Not logged in
@@ -70,7 +74,7 @@ $admin_page = 'users_and_groups';
 				  <a class="nav-link" href="<?php echo URL::build('/admin/users'); ?>"><?php echo $language->get('admin', 'users'); ?></a>
 				</li>
 				<li class="nav-item">
-				  <a class="nav-link active"><?php echo $language->get('admin', 'groups'); ?></a>
+				  <a class="nav-link active" href="<?php echo URL::build('/admin/groups'); ?>"><?php echo $language->get('admin', 'groups'); ?></a>
 				</li>
 			  </ul>
 		      <hr />
@@ -305,66 +309,139 @@ $admin_page = 'users_and_groups';
 						$group = $queries->getWhere("groups", array("id", "=", $_GET["group"]));
 					}
 					if(count($group)){
-					    echo '<span class="pull-right"><a href="' . URL::build('/admin/groups') . '" class="btn btn-danger">'  . $language->get('general', 'back') . '</a></span>';
-						echo '<br /><br /><h4>' . Output::getClean($group[0]->name) . '</h4>';
-						if(isset($error_string)) echo $error_string;
-						?>
-					<form role="form" action="" method="post">
-					  <div class="form-group">
-						<label for="InputGroupname"><?php echo $language->get('admin', 'name'); ?></label>
-						<input type="text" name="groupname" class="form-control" id="InputGroupname" placeholder="<?php echo $language->get('admin', 'name'); ?>" value="<?php echo Output::getClean($group[0]->name); ?>">
-					  </div>
-					  <div class="form-group">
-						<label for="InputHTML"><?php echo $language->get('admin', 'group_html'); ?></label>
-						<input type="text" name="html" class="form-control" id="InputHTML" placeholder="<?php echo $language->get('admin', 'group_html'); ?>" value="<?php echo Output::getClean($group[0]->group_html); ?>">
-					  </div>
-					  <div class="form-group">
-						<label for="InputHTML_Lg"><?php echo $language->get('admin', 'group_html_lg'); ?></label>
-						<input type="text" name="html_lg" class="form-control" id="InputHTML_Lg" placeholder="<?php echo $language->get('admin', 'group_html_lg'); ?>" value="<?php echo Output::getClean($group[0]->group_html_lg); ?>">
-					  </div>
-					  <div class="form-group groupColour">
-						<label for="InputColour"><?php echo $language->get('admin', 'group_username_colour'); ?></label>
-						<div class="input-group">
-						  <input type="text" name="username_style" class="form-control" id="InputColour" value="<?php echo Output::getClean($group[0]->group_username_css); ?>">
-						  <span class="input-group-addon"><i></i></span>
-						</div>
-					  </div>
-					  <div class="form-group">
-						<label for="InputStaff"><?php echo $language->get('admin', 'group_staff'); ?></label>
-						<input type="hidden" name="staff" value="0">
-						<input type="checkbox" name="staff" class="js-switch" id="InputStaff" value="1" <?php if($group[0]->staff == 1){ ?> checked<?php } ?>>
-					  </div>
-					  <div class="form-group">
-						<label for="InputModCP"><?php echo $language->get('admin', 'group_modcp'); ?></label>
-						<input type="hidden" name="modcp" value="0">
-						<input type="checkbox" name="modcp" class="js-switch" id="InputModCP" value="1" <?php if($group[0]->mod_cp == 1){ ?> checked<?php } ?>>
-					  </div>
-					  <div class="form-group">
-						<label for="InputAdminCP"><?php echo $language->get('admin', 'group_admincp'); ?></label>
-						<input type="hidden" name="admincp" value="0">
-						<input type="checkbox" name="admincp" class="js-switch" id="InputAdminCP" value="1" <?php if($group[0]->admin_cp == 1){ ?> checked<?php } ?>>
-					  </div>
-					  <input type="hidden" name="token" value="<?php echo $token; ?>">
-					  <input type="hidden" name="action" value="update">
-					  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-success">
-					</form>
-					<?php 
-					if($group[0]->id == 1 || $group[0]->admin_cp == 1){
-						// Can't delete basic member group or admin group
-					} else {
-					?>
-					<br />
-					<form role="form" action="" method="post">
-					  <p><strong><?php echo $language->get('general', 'actions'); ?></strong></p>
-					  <div class="form-group">
-					    <input type="hidden" name="token" value="<?php echo $token; ?>">
-					    <input type="hidden" name="action" value="delete">
-					    <input type="hidden" name="id" value="<?php echo $group[0]->id; ?>">
-					    <input onclick="return confirm('<?php echo str_replace('{x}', Output::getClean($group[0]->name), $language->get('admin', 'confirm_group_deletion')); ?>');" type="submit" value="<?php echo $language->get('admin', 'delete_group'); ?>" class="btn btn-danger">
-					  </div>
-					</form>
-						<?php 
-						}
+					    if(isset($_GET['do']) && $_GET['do'] == 'permissions'){
+					      $group = $group[0];
+
+					      // Check user can edit group
+                         if($group->id == 2 || ($user->data()->group_id == $group->id && !$user->hasPermission('admincp.groups.self'))){
+                           echo '<div class="alert alert-danger">' . $language->get('admin', 'cant_edit_this_group') . '</div>';
+                         } else {
+
+                             $group_permissions = json_decode($group->permissions, TRUE);
+                             $permissions = PermissionHandler::getPermissions();
+
+                             if(Input::exists()){
+                                 if(Token::check(Input::get('token'))){
+                                     // Token valid
+                                     // Build new JSON object for permissions
+                                     $perms = array();
+                                     if(isset($_POST['permissions']) && count($_POST['permissions'])){
+                                         foreach($_POST['permissions'] as $permission => $value){
+                                             $perms[$permission] = 1;
+                                         }
+                                     }
+                                     $perms_json = json_encode($perms);
+
+                                     try {
+                                         $queries->update('groups', $group->id, array('permissions' => $perms_json));
+                                         Session::flash('adm-groups', '<div class="alert alert-success">' . $language->get('admin', 'permissions_updated_successfully') . '</div>');
+                                         Redirect::to(URL::build('/admin/groups'));
+                                         die();
+                                     } catch(Exception $e) {
+                                         $error = $e->getMessage();
+                                     }
+                                 } else
+                                     $error = $language->get('general', 'invalid_token');
+                             }
+
+                             echo '<hr /><h5>' . $language->get('admin', 'permissions') . '</h5>';
+
+                             if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>';
+
+                             echo '<form action="" method="post">';
+
+                             foreach($permissions as $section => $section_permissions){
+                                 echo '<div class="table-responsive"><table id="' . Output::getClean($section) . '" class="table table-striped">';
+                                 echo '<colgroup><col span="1" style="width: 70%;"><col span="1" style="width: 30%;"></colgroup>';
+                                 echo '<thead><td>' . Output::getClean($section) . '</td>';
+                                 echo '<td><a href="#" onclick="selectAllPerms(\'' . Output::getClean($section) . '\'); return false;">' . $language->get('admin', 'select_all') . '</a> | <a href="#" onclick="deselectAllPerms(\'' . Output::getClean($section) . '\'); return false;">' . $language->get('admin', 'deselect_all') . '</a></td></thead>';
+                                 echo '<tbody>';
+                                 foreach($section_permissions as $permission => $title){
+                                     echo '<tr><td>' . Output::getClean($title) . '</td>';
+                                     echo '<td><input type="checkbox" name="permissions[' . Output::getClean($permission) . ']" class="js-switch" value="1" ' . ((is_array($group_permissions) && array_key_exists(Output::getClean($permission), $group_permissions)) ? 'checked ' : '') . '></td>';
+                                     echo '</tr>';
+                                 }
+                                 echo '</tbody></table></div><br />';
+                             }
+
+                             echo '<input type="hidden" name="token" value="' . $token . '">';
+                             echo '<input type="submit" class="btn btn-primary" value="' . $language->get('general', 'submit') . '"></form>';
+                         }
+					    } else {
+                            echo '<span class="pull-right"><a href="' . URL::build('/admin/groups/', 'group=' . $group[0]->id . '&amp;do=permissions') . '" class="btn btn-info">' . $language->get('admin', 'permissions') . '</a> <a href="' . URL::build('/admin/groups') . '" class="btn btn-danger">' . $language->get('general', 'back') . '</a></span>';
+                            echo '<br /><br /><h4>' . Output::getClean($group[0]->name) . '</h4>';
+                            if(isset($error_string)) echo $error_string;
+                            ?>
+                          <form role="form" action="" method="post">
+                            <div class="form-group">
+                              <label for="InputGroupname"><?php echo $language->get('admin', 'name'); ?></label>
+                              <input type="text" name="groupname" class="form-control" id="InputGroupname"
+                                     placeholder="<?php echo $language->get('admin', 'name'); ?>"
+                                     value="<?php echo Output::getClean($group[0]->name); ?>">
+                            </div>
+                            <div class="form-group">
+                              <label for="InputHTML"><?php echo $language->get('admin', 'group_html'); ?></label>
+                              <input type="text" name="html" class="form-control" id="InputHTML"
+                                     placeholder="<?php echo $language->get('admin', 'group_html'); ?>"
+                                     value="<?php echo Output::getClean($group[0]->group_html); ?>">
+                            </div>
+                            <div class="form-group">
+                              <label for="InputHTML_Lg"><?php echo $language->get('admin', 'group_html_lg'); ?></label>
+                              <input type="text" name="html_lg" class="form-control" id="InputHTML_Lg"
+                                     placeholder="<?php echo $language->get('admin', 'group_html_lg'); ?>"
+                                     value="<?php echo Output::getClean($group[0]->group_html_lg); ?>">
+                            </div>
+                            <div class="form-group groupColour">
+                              <label for="InputColour"><?php echo $language->get('admin', 'group_username_colour'); ?></label>
+                              <div class="input-group">
+                                <input type="text" name="username_style" class="form-control" id="InputColour"
+                                       value="<?php echo Output::getClean($group[0]->group_username_css); ?>">
+                                <span class="input-group-addon"><i></i></span>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="InputStaff"><?php echo $language->get('admin', 'group_staff'); ?></label>
+                              <input type="hidden" name="staff" value="0">
+                              <input type="checkbox" name="staff" class="js-switch" id="InputStaff"
+                                     value="1" <?php if($group[0]->staff == 1){ ?> checked<?php } ?>>
+                            </div>
+                            <div class="form-group">
+                              <label for="InputModCP"><?php echo $language->get('admin', 'group_modcp'); ?></label>
+                              <input type="hidden" name="modcp" value="0">
+                              <input type="checkbox" name="modcp" class="js-switch" id="InputModCP"
+                                     value="1" <?php if($group[0]->mod_cp == 1){ ?> checked<?php } ?>>
+                            </div>
+                            <div class="form-group">
+                              <label for="InputAdminCP"><?php echo $language->get('admin', 'group_admincp'); ?></label>
+                              <input type="hidden" name="admincp" value="0">
+                              <input type="checkbox" name="admincp" class="js-switch" id="InputAdminCP"
+                                     value="1" <?php if($group[0]->admin_cp == 1){ ?> checked<?php } ?>>
+                            </div>
+                            <input type="hidden" name="token" value="<?php echo $token; ?>">
+                            <input type="hidden" name="action" value="update">
+                            <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>"
+                                   class="btn btn-success">
+                          </form>
+                            <?php
+                            if($group[0]->id == 1 || $group[0]->admin_cp == 1){
+                                // Can't delete basic member group or admin group
+                            } else {
+                                ?>
+                              <br/>
+                              <form role="form" action="" method="post">
+                                <p><strong><?php echo $language->get('general', 'actions'); ?></strong></p>
+                                <div class="form-group">
+                                  <input type="hidden" name="token" value="<?php echo $token; ?>">
+                                  <input type="hidden" name="action" value="delete">
+                                  <input type="hidden" name="id" value="<?php echo $group[0]->id; ?>">
+                                  <input onclick="return confirm('<?php echo str_replace('{x}', Output::getClean($group[0]->name), $language->get('admin', 'confirm_group_deletion')); ?>');"
+                                         type="submit" value="<?php echo $language->get('admin', 'delete_group'); ?>"
+                                         class="btn btn-danger">
+                                </div>
+                              </form>
+                                <?php
+                            }
+                        }
 					} else {
 						Session::flash('adm-groups', '<div class="alert alert-info">' . $language->get('admin', 'group_not_exist') . '</div>');
 						Redirect::to(URL::build('/admin/groups'));
@@ -392,12 +469,42 @@ $admin_page = 'users_and_groups';
 	
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 
-	<script>
+	<script type="text/javascript">
 		$(function(){
 			$('.groupColour').colorpicker({
-				'color': <?php if(isset($_GET['group']) && !isset($_GET['action']) && $group[0]->group_username_css != null){ echo '\'' . $group[0]->group_username_css . '\''; } else { ?>false<?php } ?>
+				'color': <?php if(isset($_GET['group']) && !isset($_GET['action']) && !isset($_GET['do']) && $group[0]->group_username_css != null){ echo '\'' . $group[0]->group_username_css . '\''; } else { ?>false<?php } ?>
 			});
 		});
 	</script>
+
+  <?php if(isset($_GET['do']) && $_GET['do'] == 'permissions'){ ?>
+    <script type="text/javascript">
+        function selectAllPerms(section){
+            var table= $('table#' + section);
+            table.find('tbody tr td .js-switch').each(function () {
+                $(this).prop('checked', true);
+                onChange(this);
+            });
+            return false;
+        }
+        function deselectAllPerms(section){
+            var table= $('table#' + section);
+            table.find('tbody tr td .js-switch').each(function () {
+                $(this).prop('checked', false);
+                onChange(this);
+            });
+            return false;
+        }
+        function onChange(el) {
+            if (typeof Event === 'function' || !document.fireEvent) {
+                var event = document.createEvent('HTMLEvents');
+                event.initEvent('change', true, true);
+                el.dispatchEvent(event);
+            } else {
+                el.fireEvent('onchange');
+            }
+        }
+    </script>
+  <?php } ?>
   </body>
 </html>
