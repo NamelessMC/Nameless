@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -20,7 +20,10 @@ if($user->isLoggedIn()){
 			// They haven't, do so now
 			Redirect::to(URL::build('/admin/auth'));
 			die();
-		}
+		} else if(!$user->hasPermission('admincp.core.registration')){
+            require('404.php');
+            die();
+        }
 	}
 } else {
 	// Not logged in
@@ -55,13 +58,37 @@ if(Input::exists()){
 			$verification_id = $queries->getWhere('settings', array('name', '=', 'email_verification'));
 			$verification_id = $verification_id[0]->id;
 
+            // reCAPCTHA enabled?
+            if(Input::get('enable_recaptcha') == 1){
+                $recaptcha = 'true';
+            } else {
+                $recaptcha = 'false';
+            }
+            $recaptcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha'));
+            $recaptcha_id = $recaptcha_id[0]->id;
+            $queries->update('settings', $recaptcha_id, array(
+                'value' => $recaptcha
+            ));
+            // reCAPTCHA key
+            $recaptcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
+            $recaptcha_id = $recaptcha_id[0]->id;
+            $queries->update('settings', $recaptcha_id, array(
+                'value' => htmlspecialchars(Input::get('recaptcha'))
+            ));
+            // reCAPTCHA secret key
+            $recaptcha_secret_id = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
+            $recaptcha_secret_id = $recaptcha_secret_id[0]->id;
+            $queries->update('settings', $recaptcha_secret_id, array(
+                'value' => htmlspecialchars(Input::get('recaptcha_secret'))
+            ));
+
 			try {
 			  $queries->update('settings', $verification_id, array(
 			     'value' => $verification
-        ));
-      } catch(Exception $e){
+			  ));
+			} catch(Exception $e){
 			  $error = $e->getMessage();
-      }
+			}
 		}
 	} else {
 		// Invalid token
@@ -123,13 +150,30 @@ $token = Token::get();
 				  // Is email verification enabled
 				  $emails = $queries->getWhere('settings', array('name', '=', 'email_verification'));
 				  $emails = $emails[0]->value;
+
+				  // Recaptcha
+                  $recaptcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha'));
+                  $recaptcha_key = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
+                  $recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
 			  ?>
 			  <hr>
 			  <form action="" method="post">
 				<div class="form-group">
-          <label for="verification"><?php echo $language->get('admin', 'email_verification'); ?></label>
-			    <input name="verification" id="verification" type="checkbox" class="js-switch"<?php if($emails == '1'){ ?> checked<?php } ?> />
+			      <label for="verification"><?php echo $language->get('admin', 'email_verification'); ?></label>
+			      <input name="verification" id="verification" type="checkbox" class="js-switch"<?php if($emails == '1'){ ?> checked<?php } ?> />
 				</div>
+                <div class="form-group">
+                  <label for="InputEnableRecaptcha"><?php echo $language->get('admin', 'google_recaptcha'); ?></label>
+                  <input id="InputEnableRecaptcha" name="enable_recaptcha" type="checkbox" class="js-switch" value="1"<?php if($recaptcha_id[0]->value == 'true'){ ?> checked<?php } ?> />
+                </div>
+                <div class="form-group">
+                  <label for="InputRecaptcha"><?php echo $language->get('admin', 'recaptcha_site_key'); ?></label>
+                  <input type="text" name="recaptcha" class="form-control" id="InputRecaptcha" placeholder="<?php echo $language->get('admin', 'recaptcha_site_key'); ?>" value="<?php echo htmlspecialchars($recaptcha_key[0]->value); ?>">
+                </div>
+                <div class="form-group">
+                  <label for="InputRecaptchaSecret"><?php echo $language->get('admin', 'recaptcha_secret_key'); ?></label>
+                  <input type="text" name="recaptcha_secret" class="form-control" id="InputRecaptchaSecret" placeholder="<?php echo $language->get('admin', 'recaptcha_secret_key'); ?>" value="<?php echo htmlspecialchars($recaptcha_secret[0]->value); ?>">
+                </div>
 				<input type="hidden" name="token" value="<?php echo $token; ?>">
 				<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
 			  </form>

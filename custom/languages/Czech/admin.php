@@ -109,6 +109,9 @@ $language = array(
     'navbar_order' => 'Pořadí v navigační liště',
     'navbar_order_instructions' => 'Každé položce můžete dát číslo 0 k seřazení položek v navigační liště, číslo 1 bude první položka navigační lišty a další čísla za 1 se v ní budou dale seřazovat.',
     'enable_page_load_timer' => 'Zapnout čas načítání stránky?',
+    'google_recaptcha' => 'Enable Google reCAPTCHA?',
+    'recaptcha_site_key' => 'reCAPTCHA Site Key',
+    'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
 
 	// Reactions
 	'icon' => 'Ikonka',
@@ -280,7 +283,6 @@ $language = array(
 	'select_user_group' => 'Musíte vybrat skupinu uživatele!',
 	'uuid_max_32' => 'UUID musí být maximálně 32 znaků dlouhé.',
 	'title_max_64' => 'Uživatelské jméno musí mít maximálně 64 znaků.',
-	'minecraft_uuid' => 'Minecraft UUID',
 	'group_id' => 'Skupina ID',
 	'name' => 'Název',
 	'title' => 'Jméno uživatele',

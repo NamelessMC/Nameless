@@ -109,6 +109,9 @@ $language = array(
     'navbar_order' => 'Navigasjonsbar rekkefølge',
     'navbar_order_instructions' => 'Du kan gi hver ting et tall over 0 for å plassere i rekkefølge.',
     'enable_page_load_timer' => 'Aktiver side timer?',
+    'google_recaptcha' => 'Enable Google reCAPTCHA?',
+    'recaptcha_site_key' => 'reCAPTCHA Site Key',
+    'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
 
 	// Reactions
 	'icon' => 'Ikon',
