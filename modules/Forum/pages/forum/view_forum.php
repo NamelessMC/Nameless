@@ -198,10 +198,13 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 		// append subforums to string
 		foreach($subforums as $subforum){
 			// Get number of topics
-			$latest_post = $queries->orderWhere('topics', 'forum_id = ' . $subforum->id . ' AND deleted = 0', 'topic_reply_date', 'DESC');
-			$subforum_topics = count($latest_post);
-			
 			if($forum->forumExist($subforum->id, $user_group, $secondary_groups)){
+			    if($forum->canViewOtherTopics($subforum->id, $user_group, $secondary_groups))
+                  $latest_post = $queries->orderWhere('topics', 'forum_id = ' . $subforum->id . ' AND deleted = 0', 'topic_reply_date', 'DESC');
+			    else
+			      $latest_post = $queries->orderWhere('topics', 'forum_id = ' . $subforum->id . ' AND deleted = 0 AND topic_creator = ' . $user_id, 'topic_reply_date', 'DESC');
+			    
+                $subforum_topics = count($latest_post);
 				if(count($latest_post)){
 					foreach($latest_post as $item){
 						if($item->deleted == 0){
