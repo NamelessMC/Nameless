@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -21,6 +21,11 @@ if ($user->isLoggedIn()) {
             // They haven't, do so now
             Redirect::to(URL::build('/admin/auth'));
             die();
+        } else {
+            if(!$user->hasPermission('admincp.core')){
+                require('404.php');
+                die();
+            }
         }
     }
 } else {
@@ -78,62 +83,77 @@ $current_default_language = $current_default_language[0]->value;
                     <?php if (!isset($_GET['view'])) { ?>
                         <div class="table-responsive">
                             <table class="table table-striped">
+                                <?php if($user->hasPermission('admincp.core.general')){ ?>
                                 <tr>
                                     <td>
                                         <a href="<?php echo URL::build('/admin/core/', 'view=general'); ?>"><?php echo $language->get('admin', 'general_settings'); ?></a>
                                     </td>
                                 </tr>
+                                <?php } if($user->hasPermission('admincp.core.avatars')){ ?>
                                 <tr>
                                     <td>
                                         <a href="<?php echo URL::build('/admin/core/', 'view=avatars'); ?>"><?php echo $language->get('admin', 'avatars'); ?></a>
                                     </td>
                                 </tr>
+                                <?php } if($user->hasPermission('admincp.core.fields')){ ?>
                                 <tr>
                                     <td>
                                         <a href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>"><?php echo $language->get('admin', 'custom_fields'); ?></a>
                                     </td>
                                 </tr>
+                                <?php } if($user->hasPermission('admincp.core.debugging')){ ?>
                                 <tr>
                                     <td>
                                         <a href="<?php echo URL::build('/admin/core/', 'view=maintenance'); ?>"><?php echo $language->get('admin', 'debugging_and_maintenance'); ?></a>
                                     </td>
                                 </tr>
+                                <?php } if($user->hasPermission('admincp.core.emails')){ ?>
                                 <tr>
                                     <td>
                                         <a href="<?php echo URL::build('/admin/core/', 'view=email'); ?>"><?php echo $language->get('admin', 'emails'); ?></a>
                                     </td>
                                 </tr>
+                                <?php } if($user->hasPermission('admincp.core.navigation')){ ?>
                                 <tr>
                                     <td>
                                         <a href="<?php echo URL::build('/admin/core/', 'view=navigation'); ?>"><?php echo $language->get('admin', 'navigation'); ?></a>
                                     </td>
                                 </tr>
+                                <?php } if($user->hasPermission('admincp.core.reactions')){ ?>
                                 <tr>
                                     <td>
                                         <a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>"><?php echo $language->get('user', 'reactions'); ?></a>
                                     </td>
                                 </tr>
+                                <?php } if($user->hasPermission('admincp.core.registration')){ ?>
                                 <tr>
                                     <td>
                                         <a href="<?php echo URL::build('/admin/registration'); ?>"><?php echo $language->get('admin', 'registration'); ?></a>
                                     </td>
                                 </tr>
+                                <?php } if($user->hasPermission('admincp.core.social_media')){ ?>
                                 <tr>
                                     <td>
                                         <a href="<?php echo URL::build('/admin/core/', 'view=social'); ?>"><?php echo $language->get('admin', 'social_media'); ?></a>
                                     </td>
                                 </tr>
+                                <?php } if($user->hasPermission('admincp.core.terms')){ ?>
                                 <tr>
                                     <td>
                                         <a href="<?php echo URL::build('/admin/core/', 'view=terms'); ?>"><?php echo $language->get('user', 'terms_and_conditions'); ?></a>
                                     </td>
                                 </tr>
+                                <?php } ?>
                             </table>
                         </div>
                         <?php
                     } else {
                         switch ($_GET['view']) {
                             case 'general':
+                                if(!$user->hasPermission('admincp.core.general')){
+                                    Redirect::to(URL::build('/admin/core'));
+                                    die();
+                                }
                                 if (isset($_GET['do']) && $_GET['do'] == 'installLanguage') {
                                     // Install new language
                                     $languages = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
@@ -468,8 +488,11 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'profile':
+                                if(!$user->hasPermission('admincp.core.fields')){
+                                    Redirect::to(URL::build('/admin/core'));
+                                    die();
+                                }
                                 if (!isset($_GET['id']) && !isset($_GET['action'])) {
-
                                     // Custom profile fields
                                     $profile_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
                                     ?>
@@ -824,6 +847,10 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'reactions':
+                                if(!$user->hasPermission('admincp.core.reactions')){
+                                    Redirect::to(URL::build('/admin/core'));
+                                    die();
+                                }
                                 if (!isset($_GET['id']) && (!isset($_GET['action']))) {
                                     // Get all reactions
                                     $reactions = $queries->getWhere('reactions', array('id', '<>', 0));
@@ -1101,6 +1128,10 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'social':
+                                if(!$user->hasPermission('admincp.core.social_media')){
+                                    Redirect::to(URL::build('/admin/core'));
+                                    die();
+                                }
                                 // Deal with input
                                 if (Input::exists()) {
                                     if (Token::check(Input::get('token'))) {
@@ -1236,6 +1267,10 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'maintenance':
+                                if(!$user->hasPermission('admincp.core.debugging')){
+                                    Redirect::to(URL::build('/admin/core'));
+                                    die();
+                                }
                                 // Maintenance mode settings
                                 // Deal with input
                                 if (Input::exists()) {
@@ -1363,6 +1398,10 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'email':
+                                if(!$user->hasPermission('admincp.core.emails')){
+                                    Redirect::to(URL::build('/admin/core'));
+                                    die();
+                                }
                                 if (isset($_GET['action'])) {
                                     if ($_GET['action'] == 'errors') {
                                         if (isset($_GET['do'])) {
@@ -1783,6 +1822,10 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'terms':
+                                if(!$user->hasPermission('admincp.core.terms')){
+                                    Redirect::to(URL::build('/admin/core'));
+                                    die();
+                                }
                                 if (Input::exists()) {
                                     if (Token::check(Input::get('token'))) {
                                         $validate = new Validate();
@@ -1840,6 +1883,10 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'avatars':
+                                if(!$user->hasPermission('admincp.core.avatars')){
+                                    Redirect::to(URL::build('/admin/core'));
+                                    die();
+                                }
                                 // Input
                                 if (Input::exists()) {
                                     if (Token::check(Input::get('token'))) {
@@ -2030,6 +2077,10 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'navigation':
+                                if(!$user->hasPermission('admincp.core.navigation')){
+                                    Redirect::to(URL::build('/admin/core'));
+                                    die();
+                                }
                                 // Maintenance mode settings
                                 // Deal with input
                                 if(Input::exists()){

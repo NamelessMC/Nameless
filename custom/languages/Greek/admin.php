@@ -256,6 +256,7 @@ $language = array(
 	'confirm_delete_template' => 'Are you sure you want to delete this template?',
 	'delete' => 'Delete',
 	'template_deleted_successfully' => 'Template deleted successfully.',
+    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
 
 	// Users & groups
 	'users' => 'Χρήστες',
@@ -281,7 +282,6 @@ $language = array(
 	'select_user_group' => 'You must select a user\'s group.',
 	'uuid_max_32' => 'The UUID must be a maximum of 32 characters.',
 	'title_max_64' => 'The user title must be a maximum of 64 characters.',
-	'minecraft_uuid' => 'Minecraft UUID',
 	'group_id' => 'Group ID',
 	'name' => 'Όνομα',
 	'title' => 'Τίτλος Xρήστη',
@@ -302,6 +302,14 @@ $language = array(
 	'group_not_exist' => 'Αυτή η ομάδα δεν υπάρχει.',
 	'secondary_groups' => 'Secondary Groups',
 	'secondary_groups_info' => 'The user will gain any additional permissions from these groups',
+
+    // Permissions
+    'select_all' => 'Select All',
+    'deselect_all' => 'Deselect All',
+    'background_image' => 'Background image',
+    'can_edit_own_group' => 'Can edit own group\'s permissions',
+    'permissions_updated_successfully' => 'Permissions updated successfully.',
+    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
 
 	// General Admin language
 	'task_successful' => 'Task successful.',

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  User class
  */
@@ -891,4 +891,34 @@ class User {
         return false;
     }
 
+    /*
+     *  Does the user have a given permission?
+     *  Params: $permission (string) - name of permission
+     *          $user_id (int) - user ID of user to check - optional, default to logged in user
+     */
+    public function hasPermission($permission, $user_id = null){
+        if(!$user_id){
+            if($this->isLoggedIn())
+                $group = $this->_db->get('groups', array('id', '=', $this->data()->group_id));
+            else
+                return false;
+        } else {
+            $user = $this->_db->get('users', array('id', '=', $user_id));
+            if(!$user->count())
+                return false;
+
+            $user = $user->first();
+            $group = $this->_db->get('groups', array('id', '=', $user->group_id));
+        }
+
+        if($group->count()){
+            $group = $group->first();
+            $permissions = json_decode($group->permissions, true);
+
+            if(isset($permissions[$permission]) && $permissions[$permission] == 1){
+                return true;
+            }
+        }
+        return false;
+    }
 }

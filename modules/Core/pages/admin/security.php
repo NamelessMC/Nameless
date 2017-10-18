@@ -21,7 +21,12 @@ if($user->isLoggedIn()){
 			// They haven't, do so now
 			Redirect::to(URL::build('/admin/auth'));
 			die();
-		}
+		} else {
+            if(!$user->hasPermission('admincp.security')){
+                require('404.php');
+                die();
+            }
+        }
 	}
 } else {
 	// Not logged in
@@ -62,13 +67,17 @@ $admin_page = 'security';
 			  <?php if(!isset($_GET['view'])){ ?>
 			  <p><strong><?php echo $language->get('admin', 'please_select_logs'); ?></strong></p>
 			  <ul>
-			    <li><a href="<?php echo URL::build('/admin/security/', 'view=acp_logins'); ?>"><?php echo $language->get('admin', 'acp_logins'); ?></a></li>
-				<li><a href="<?php echo URL::build('/admin/security/', 'view=template_changes'); ?>"><?php echo $language->get('admin', 'template_changes'); ?></a></li>
+			    <?php if($user->hasPermission('admincp.security.acp_logins')){ ?><li><a href="<?php echo URL::build('/admin/security/', 'view=acp_logins'); ?>"><?php echo $language->get('admin', 'acp_logins'); ?></a></li><?php } ?>
+				<?php if($user->hasPermission('admincp.security.template')){ ?><li><a href="<?php echo URL::build('/admin/security/', 'view=template_changes'); ?>"><?php echo $language->get('admin', 'template_changes'); ?></a></li><?php } ?>
 			  </ul>
 			  <?php 
 			  } else {
 				  switch($_GET['view']){
 					  case 'acp_logins':
+					    if(!$user->hasPermission('admincp.security.acp_logins')){
+					        Redirect::to(URL::build('/admin/security'));
+					        die();
+                       }
 					    // Successful AdminCP logins
 						echo '<strong>' . $language->get('admin', 'acp_logins') . '</strong>';
 						
@@ -104,6 +113,10 @@ $admin_page = 'security';
 						<?php
 					  break;
 					  case 'template_changes':
+                       if(!$user->hasPermission('admincp.security.template')){
+                           Redirect::to(URL::build('/admin/security'));
+                           die();
+                       }
 					    // Template changes
 						echo '<strong>' . $language->get('admin', 'template_changes') . '</strong>';
 						

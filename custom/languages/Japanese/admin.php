@@ -254,6 +254,7 @@ $language = array(
 	'confirm_delete_template' => 'このテンプレートを削除してもよろしいですか？',
 	'delete' => '削除',
 	'template_deleted_successfully' => 'テンプレートが正常に削除されました。',
+    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
 
 	// Users & groups
 	'users' => 'ユーザー',
@@ -279,7 +280,6 @@ $language = array(
 	'select_user_group' => 'ユーザーのグループを選択する必要があります。',
 	'uuid_max_32' => 'UUID は、最大 32 文字にする必要があります。',
 	'title_max_64' => 'ユーザーのタイトルは、最大64文字でなければなりません。',
-	'minecraft_uuid' => 'Minecraft UUID',
 	'group_id' => 'グループ ID',
 	'name' => '名前',
 	'title' => 'ユーザータイトル',
@@ -300,6 +300,14 @@ $language = array(
 	'group_not_exist' => 'そのグループは存在しません。',
 	'secondary_groups' => 'セカンダリグループ',
 	'secondary_groups_info' => 'ユーザーはこれらのグループから追加の権限を取得します。 複数のグループを選択/選択解除するには Ctrl +クリック します。',
+
+    // Permissions
+    'select_all' => 'Select All',
+    'deselect_all' => 'Deselect All',
+    'background_image' => 'Background image',
+    'can_edit_own_group' => 'Can edit own group\'s permissions',
+    'permissions_updated_successfully' => 'Permissions updated successfully.',
+    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
 
 	// General Admin language
 	'task_successful' => 'タスクは成功しました。',

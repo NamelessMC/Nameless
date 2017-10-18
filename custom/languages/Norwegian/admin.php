@@ -254,6 +254,7 @@ $language = array(
 	'confirm_delete_template' => 'Er du sikker på at du vil slette denne malen?',
 	'delete' => 'Slett',
 	'template_deleted_successfully' => 'Mal suksessfullt slettet.',
+    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
 
 	// Users & groups
 	'users' => 'Brukere',
@@ -279,7 +280,6 @@ $language = array(
 	'select_user_group' => 'Du må velge brukerens gruppe.',
 	'uuid_max_32' => 'UUID må være maksimum 32 tegn.',
 	'title_max_64' => 'Brukernavnet kan maksimum være 64 tegn.',
-	'minecraft_uuid' => 'Minecraft UUID',
 	'group_id' => 'Gruppe ID',
 	'name' => 'Navn',
 	'title' => 'Bruker tittel',
@@ -300,6 +300,14 @@ $language = array(
 	'group_not_exist' => 'Den gruppa eksisterer ikke.',
 	'secondary_groups' => 'Undergrupper',
 	'secondary_groups_info' => 'Denne brukeren vil få all tilgang som denne gruppen har.',
+
+    // Permissions
+    'select_all' => 'Select All',
+    'deselect_all' => 'Deselect All',
+    'background_image' => 'Background image',
+    'can_edit_own_group' => 'Can edit own group\'s permissions',
+    'permissions_updated_successfully' => 'Permissions updated successfully.',
+    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
 
 	// General Admin language
 	'task_successful' => 'Kapittel ferdig.',

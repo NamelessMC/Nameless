@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -113,18 +113,28 @@ require('core/templates/cc_navbar.php');
 			'MESSAGING' => $language->get('user', 'messaging'),
 			'MESSAGES' => $template_array,
 			'NO_MESSAGES' => $language->get('user', 'no_messages_full'),
-			'NEW_MESSAGE' => $language->get('user', 'new_message'),
-			'NEW_MESSAGE_LINK' => URL::build('/user/messaging/', 'action=new'),
 			'MESSAGE_TITLE' => $language->get('user', 'message_title'),
 			'PARTICIPANTS' => $language->get('user', 'participants'),
 			'LAST_MESSAGE' => $language->get('user', 'last_message'),
 			'BY' => $language->get('user', 'by')
 		));
+
+        if($user->hasPermission('usercp.messaging')){
+            // Can send messages
+            $smarty->assign(array(
+                'NEW_MESSAGE' => $language->get('user', 'new_message'),
+                'NEW_MESSAGE_LINK' => URL::build('/user/messaging/', 'action=new')
+            ));
+        }
 		
 		$smarty->display('custom/templates/' . TEMPLATE . '/user/messaging.tpl');
 	
 	} else {
 		if($_GET['action'] == 'new'){
+            if(!$user->hasPermission('usercp.messaging')){
+              Redirect::to(URL::build('/user/messaging'));
+              die();
+            }
 			// New PM
 			if(Input::exists()){
 				if(Token::check(Input::get('token'))){

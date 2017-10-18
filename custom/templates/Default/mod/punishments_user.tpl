@@ -21,15 +21,21 @@
                         <div class="alert alert-success">{$SUCCESS}</div>
                     {/if}
                     <div class="row">
+                        {if isset($WARN)}
                         <div class="col-md-4" style="text-align: center">
                             <a href="#" data-toggle="modal" data-target="#warnModal" class="btn btn-warning">{$WARN}</a>
                         </div>
+                        {/if}
+                        {if isset($BAN)}
                         <div class="col-md-4" style="text-align: center">
                             <a href="#" data-toggle="modal" data-target="#banModal" class="btn btn-danger">{$BAN}</a>
                         </div>
+                        {/if}
+                        {if isset($BAN_IP)}
                         <div class="col-md-4" style="text-align: center">
                             <a href="#" data-toggle="modal" data-target="#banIPModal" class="btn btn-danger">{$BAN_IP}</a>
                         </div>
+                        {/if}
                     </div>
                     <hr />
                     <h4>{$PREVIOUS_PUNISHMENTS}</h4>
@@ -55,7 +61,7 @@
                                 </div>
                                 <div class="card-block">
                                     {$punishment.reason}
-                                    {if $punishment.revoked == 0}
+                                    {if $punishment.revoked == 0 && $punishment.revoke_link != 'none'}
                                         <hr />
                                         <a href="{$punishment.revoke_link}" class="btn btn-warning" onclick="return confirm('{$punishment.confirm_revoke_punishment}');">{$REVOKE}</a>
                                     {/if}
@@ -74,6 +80,7 @@
     </div>
 </div>
 
+{if isset($WARN)}
 <div class="modal fade" id="warnModal" tabindex="-1" role="dialog" aria-labelledby="warnModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -100,6 +107,8 @@
         </div>
     </div>
 </div>
+{/if}
+{if isset($BAN)}
 <div class="modal fade" id="banModal" tabindex="-1" role="dialog" aria-labelledby="banModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -126,6 +135,8 @@
         </div>
     </div>
 </div>
+{/if}
+{if isset($BAN_IP)}
 <div class="modal fade" id="banIPModal" tabindex="-1" role="dialog" aria-labelledby="banIPModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -152,5 +163,6 @@
         </div>
     </div>
 </div>
+{/if}
 
 {include file='footer.tpl'}

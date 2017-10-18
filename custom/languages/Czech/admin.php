@@ -254,6 +254,7 @@ $language = array(
 	'confirm_delete_template' => 'Jste si jist, že chcete smazat tuto šablonu?',
 	'delete' => 'Smazat',
 	'template_deleted_successfully' => 'Šablona úspěšně odstraněna.',
+    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
 
 	// Users & groups
 	'users' => 'Uživatel',
@@ -300,6 +301,14 @@ $language = array(
 	'group_not_exist' => 'Tato skupina neexistuje.',
 	'secondary_groups' => 'Vedlejší skupiny',
 	'secondary_groups_info' => 'Od těchto skupin získá uživatel jakákoliv další oprávnění',
+
+    // Permissions
+    'select_all' => 'Select All',
+    'deselect_all' => 'Deselect All',
+    'background_image' => 'Background image',
+    'can_edit_own_group' => 'Can edit own group\'s permissions',
+    'permissions_updated_successfully' => 'Permissions updated successfully.',
+    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
 	
 	// General Admin language
 	'task_successful' => 'Úkol úspěšný.',

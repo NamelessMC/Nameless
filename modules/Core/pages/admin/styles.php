@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -21,7 +21,15 @@ if($user->isLoggedIn()){
 			// They haven't, do so now
 			Redirect::to(URL::build('/admin/auth'));
 			die();
-		}
+		} else if(!$user->hasPermission('admincp.styles.templates')){
+            // Can't view this page
+            if($user->hasPermission('admincp.styles') && $user->hasPermission('admincp.styles.images'))
+              Redirect::to(URL::build('/admin/images'));
+            else
+              require('404.php');
+
+            die();
+        }
 	}
 } else {
 	// Not logged in
@@ -62,7 +70,7 @@ $admin_styles = true;
 		    <div class="card-block">
 			  <ul class="nav nav-pills">
 				<li class="nav-item">
-				  <a class="nav-link active"><?php echo $language->get('admin', 'templates'); ?></a>
+				  <a class="nav-link active" href="<?php echo URL::build('/admin/styles'); ?>"><?php echo $language->get('admin', 'templates'); ?></a>
 				</li>
 				<li class="nav-item">
 				  <a class="nav-link" href="<?php echo URL::build('/admin/images'); ?>"><?php echo $language->get('admin', 'images'); ?></a>
@@ -118,7 +126,8 @@ $admin_styles = true;
 							echo '<a href="' . URL::build('/admin/styles/', 'action=make_default&amp;template=' . $template->id) . '" class="btn btn-sm btn-info">' . $language->get('admin', 'make_default') . '</a> ';
 						}
 
-						echo '<a href="' . URL::build('/admin/styles/', 'tid=' . $template->id) . '" class="btn btn-sm btn-warning">' . $language->get('general', 'edit') . '</a>';
+						if($user->hasPermission('admincp.styles.templates.edit'))
+						  echo '<a href="' . URL::build('/admin/styles/', 'tid=' . $template->id) . '" class="btn btn-sm btn-warning">' . $language->get('general', 'edit') . '</a>';
 					  }
 
 					  echo '</span>';
@@ -130,6 +139,10 @@ $admin_styles = true;
 			  } else {
 				  if(isset($_GET['tid']) && !isset($_GET['action'])){
 					  // Editing template
+                      if(!$user->hasPermission('admincp.styles.templates.edit')){
+                        Redirect::to(URL::build('/admin/styles'));
+                        die();
+                      }
 					  // Get the template
 					  $template = $queries->getWhere('templates', array('id', '=', $_GET['tid']));
 					  if(count($template)){

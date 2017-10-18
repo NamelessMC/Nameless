@@ -21,6 +21,59 @@ if(!$module_installed){
 	// Installed
 }
 
+// Permissions
+// AdminCP
+PermissionHandler::registerPermissions('AdminCP', array(
+    'admincp.core' => $language->get('admin', 'core'),
+    'admincp.core.general' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'general_settings'),
+    'admincp.core.avatars' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'avatars'),
+    'admincp.core.fields' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'custom_fields'),
+    'admincp.core.debugging' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'debugging_and_maintenance'),
+    'admincp.core.emails' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails'),
+    'admincp.core.navigation' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'navigation'),
+    'admincp.core.reactions' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('user', 'reactions'),
+    'admincp.core.registration' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'registration'),
+    'admincp.core.social_media' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'social_media'),
+    'admincp.core.terms' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('user', 'terms_and_conditions'),
+    'admincp.minecraft' => $language->get('admin', 'minecraft'),
+    'admincp.minecraft.authme' => $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
+    'admincp.minecraft.verification' => $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
+    'admincp.minecraft.servers' => $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'minecraft_servers'),
+    'admincp.minecraft.query_errors' => $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'query_errors'),
+    'admincp.minecraft.banners' => $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'server_banners'),
+    'admincp.modules' => $language->get('admin', 'modules'),
+    'admincp.pages' => $language->get('admin', 'pages'),
+    'admincp.security' => $language->get('admin', 'security'),
+    'admincp.security.acp_logins' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'acp_logins'),
+    'admincp.security.template' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'template_changes'),
+    'admincp.styles' => $language->get('admin', 'styles'),
+    'admincp.styles.templates' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'templates'),
+    'admincp.styles.templates.edit' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'templates') . ' &raquo; ' . $language->get('general', 'edit'),
+    'admincp.styles.images' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'images'),
+    'admincp.update' => $language->get('admin', 'update'),
+    'admincp.users' => $language->get('admin', 'users'),
+    'admincp.groups' => $language->get('admin', 'groups'),
+    'admincp.groups.self' => $language->get('admin', 'groups') . ' &raquo; ' . $language->get('admin', 'can_edit_own_group'),
+    'admincp.widgets' => $language->get('admin', 'widgets')
+));
+
+// ModCP
+PermissionHandler::registerPermissions('ModCP', array(
+    'modcp.ip_lookup' => $language->get('moderator', 'ip_lookup'),
+    'modcp.punishments' => $language->get('moderator', 'punishments'),
+    'modcp.punishments.warn' => $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'warn_user'),
+    'modcp.punishments.ban' => $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'ban_user'),
+    'modcp.punishments.banip' => $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'ban_ip'),
+    'modcp.punishments.revoke' => $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'revoke'),
+    'modcp.reports' => $language->get('moderator', 'reports')
+));
+
+// UserCP
+PermissionHandler::registerPermissions('UserCP', array(
+    'usercp.messaging' => $language->get('user', 'messaging'),
+    'usercp.signature' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'signature')
+));
+
 // Define URLs which belong to this module
 $pages->add('Core', '/', 'pages/index.php');
 $pages->add('Core', '/contact', 'pages/contact.php');
