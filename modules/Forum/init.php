@@ -130,7 +130,7 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
 
 	} else {
 		// Generate latest posts
-		$discussions = $forum->getLatestDiscussions($user_group, $secondary_groups);
+		$discussions = $forum->getLatestDiscussions($user_group, $secondary_groups, ($user->isLoggedIn() ? $user->data()->id : 0));
 
 		$n = 0;
 		// Calculate the number of discussions to display (5 max)

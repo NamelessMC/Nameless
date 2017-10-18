@@ -63,7 +63,12 @@ if($topic->deleted == 1){
 	die();
 }
 
-if(!$forum->canViewOtherTopics($topic->forum_id, $group_id, $secondary_groups)){
+if($user->isLoggedIn())
+  $user_id = $user->data()->id;
+else
+  $user_id = 0;
+
+if($topic->topic_creator != $user_id && !$forum->canViewOtherTopics($topic->forum_id, $group_id, $secondary_groups)){
 	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 	die();
 }
