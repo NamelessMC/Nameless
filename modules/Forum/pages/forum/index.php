@@ -111,7 +111,7 @@ if($user->isLoggedIn()){
 		$template_array = $cache->retrieve('discussions');
 		
 	} else {
-		$discussions = $forum->getLatestDiscussions($user_group, $secondary_groups);
+		$discussions = $forum->getLatestDiscussions($user_group, $secondary_groups, ($user->isLoggedIn() ? $user->data()->id : 0));
 		
 		$n = 0;
 		// Calculate the number of discussions to display (10 max)
@@ -219,7 +219,7 @@ if($user->isLoggedIn()){
 		$forums = $cache->retrieve('forums');
 		
 	} else {
-		$forums = $forum->listAllForums($user_group, $secondary_groups);
+		$forums = $forum->listAllForums($user_group, $secondary_groups, ($user->isLoggedIn() ? $user->data()->id : 0));
 		
 		// Loop through to get last poster avatars and to format a date
 		if(count($forums)){

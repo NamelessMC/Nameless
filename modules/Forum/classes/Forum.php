@@ -19,10 +19,14 @@ class Forum {
 	
 	// Returns an array of forums a user can access, including topic information
 	// Params: $group_id (integer) - group id of the user, optional, $secondary_groups (json object) - any secondary groups for the user, optional
-	public function listAllForums($group_id = null, $secondary_groups = null){
+	public function listAllForums($group_id = null, $secondary_groups = null, $user_id = null){
 		if($group_id == null) {
             $group_id = 0; // Guest
+            $user_id = 0;
         }
+
+        if(!$user_id)
+            $user_id = 0;
 
 		// Get a list of parent forums
 		$parent_forums = $this->_db->orderWhere('forums', 'parent = 0', 'forum_order', 'ASC')->results();
@@ -40,48 +44,57 @@ class Forum {
 					if(count($forums)){
 						foreach($forums as $item){
 							if($this->forumExist($item->id, $group_id, $secondary_groups)){
-								$return[$forum->id]['subforums'][$item->id] = $item;
-								$return[$forum->id]['subforums'][$item->id]->forum_title = Output::getClean($item->forum_title);
-								$return[$forum->id]['subforums'][$item->id]->forum_description = Output::getClean($item->forum_description);
-								$return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view/' . $item->id . '-' . $this->titleToURL($item->forum_title));
-								
-								// Get topic/post count
-								$topics = $this->_db->orderWhere('topics', 'forum_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
-								$topics = count($topics);
-								$return[$forum->id]['subforums'][$item->id]->topics = $topics;
-								
-								$posts = $this->_db->orderWhere('posts', 'forum_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
-								$posts = count($posts);
-								$return[$forum->id]['subforums'][$item->id]->posts = $posts;
-								
-								if($item->last_topic_posted){
-									// Last reply
-									$last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $item->last_topic_posted, 'post_date', 'DESC')->results();
-									if(count($last_reply)){
-										$n = 0;
-										while(isset($last_reply[$n]) && $last_reply[$n]->deleted == 1){
-											$n++;
-										}
+                                $return[$forum->id]['subforums'][$item->id] = $item;
+                                $return[$forum->id]['subforums'][$item->id]->forum_title = Output::getClean($item->forum_title);
+                                $return[$forum->id]['subforums'][$item->id]->forum_description = Output::getClean($item->forum_description);
+                                $return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view/' . $item->id . '-' . $this->titleToURL($item->forum_title));
 
-										if(!isset($last_reply[$n])) continue;
+                                // Get topic/post count
+                                $topics = $this->_db->orderWhere('topics', 'forum_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
+                                $topics = count($topics);
+                                $return[$forum->id]['subforums'][$item->id]->topics = $topics;
 
-										// Title
-										$last_topic = $this->_db->get('topics', array('id', '=', $last_reply[$n]->topic_id))->results();
+                                $posts = $this->_db->orderWhere('posts', 'forum_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
+                                $posts = count($posts);
+                                $return[$forum->id]['subforums'][$item->id]->posts = $posts;
 
-										$return[$forum->id]['subforums'][$item->id]->last_post = $last_reply[$n];
-										$return[$forum->id]['subforums'][$item->id]->last_post->title = Output::getClean($last_topic[0]->topic_title);
-										$return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/topic/' . $last_reply[$n]->topic_id . '-' . $this->titleToURL($last_topic[0]->topic_title), 'pid=' . $last_reply[0]->id);
+                                // Can the user view other topics
+                                if($group_id == 0 || $this->canViewOtherTopics($item->id, $group_id, $secondary_groups) || $item->last_user_posted == $user_id){
+                                    if($item->last_topic_posted){
+                                        // Last reply
+                                        $last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $item->last_topic_posted, 'post_date', 'DESC')->results();
+                                    }
+                                } else {
+                                    $last_topic = $this->_db->orderWhere('topics', 'forum_id = ' . $item->id . ' AND deleted = 0 AND topic_creator = ' . $user_id, 'topic_reply_date', 'DESC')->results();
+                                    if(count($last_topic)){
+                                        $last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $last_topic[0]->id, 'post_date', 'DESC')->results();
+                                    }
+                                }
 
-										// Last reply username, profile link and avatar
-										$last_reply_user = $this->_db->get('users', array('id', '=', $last_reply[$n]->post_creator))->results();
-										$return[$forum->id]['subforums'][$item->id]->last_post->username = Output::getClean($last_reply_user[0]->nickname);
-										$return[$forum->id]['subforums'][$item->id]->last_post->mcname = Output::getClean($last_reply_user[0]->username);
-										$return[$forum->id]['subforums'][$item->id]->last_post->profile = URL::build('/profile/' . Output::getClean($last_reply_user[0]->username));
-										$return[$forum->id]['subforums'][$item->id]->last_post->avatar = '';
-										$return[$forum->id]['subforums'][$item->id]->last_post->date_friendly = '';
-									}
-								}
-							}
+                                if(isset($last_reply) && count($last_reply)){
+                                    $n = 0;
+                                    while(isset($last_reply[$n]) && $last_reply[$n]->deleted == 1){
+                                        $n++;
+                                    }
+
+                                    if(!isset($last_reply[$n])) continue;
+
+                                    // Title
+                                    $last_topic = $this->_db->get('topics', array('id', '=', $last_reply[$n]->topic_id))->results();
+
+                                    $return[$forum->id]['subforums'][$item->id]->last_post = $last_reply[$n];
+                                    $return[$forum->id]['subforums'][$item->id]->last_post->title = Output::getClean($last_topic[0]->topic_title);
+                                    $return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/topic/' . $last_reply[$n]->topic_id . '-' . $this->titleToURL($last_topic[0]->topic_title), 'pid=' . $last_reply[0]->id);
+
+                                    // Last reply username, profile link and avatar
+                                    $last_reply_user = $this->_db->get('users', array('id', '=', $last_reply[$n]->post_creator))->results();
+                                    $return[$forum->id]['subforums'][$item->id]->last_post->username = Output::getClean($last_reply_user[0]->nickname);
+                                    $return[$forum->id]['subforums'][$item->id]->last_post->mcname = Output::getClean($last_reply_user[0]->username);
+                                    $return[$forum->id]['subforums'][$item->id]->last_post->profile = URL::build('/profile/' . Output::getClean($last_reply_user[0]->username));
+                                    $return[$forum->id]['subforums'][$item->id]->last_post->avatar = '';
+                                    $return[$forum->id]['subforums'][$item->id]->last_post->date_friendly = '';
+                                }
+                            }
 						}
 					}
 				}
@@ -151,13 +164,17 @@ class Forum {
 	
 	// Returns an array of the latest discussions a user can access (10 from each category)
 	// Params: $group_id (integer) - group id of the user, $secondary_groups (json object) - any secondary groups the user is in
-	public function getLatestDiscussions($group_id = null, $secondary_groups = null){
+	public function getLatestDiscussions($group_id = null, $secondary_groups = null, $user_id = null){
 		if($group_id == null){
 			$group_id = 0; // Guest
 		} else {
             if($secondary_groups)
                 $secondary_groups = json_decode($secondary_groups, true);
         }
+
+        if(!$user_id)
+            $user_id = 0;
+
 		// Get the forums the user can view based on their group ID
 		$access = $this->_db->get("forums_permissions", array("group_id", "=", $group_id))->results();
 
@@ -168,7 +185,10 @@ class Forum {
 			// Can they view it?
 			if($forum->view == 1){
 				// Get a list of discussions
-				$discussions_query = $this->_db->orderWhere("topics", "forum_id = " . $forum->forum_id . " AND deleted = 0", "topic_reply_date", "DESC")->results();
+                if($group_id == 0 || $forum->view_other_topics == 1)
+				    $discussions_query = $this->_db->orderWhere("topics", "forum_id = " . $forum->forum_id . " AND deleted = 0", "topic_reply_date", "DESC")->results();
+                else
+                    $discussions_query = $this->_db->orderWhere("topics", "forum_id = " . $forum->forum_id . " AND deleted = 0 AND topic_creator = " . $user_id, "topic_reply_date", "DESC")->results();
 				foreach($discussions_query as $discussion){
 				    // Get latest post data
                     $last_post = $this->_db->orderWhere('posts', 'topic_id = ' . $discussion->id . ' AND deleted = 0', 'post_date', 'DESC LIMIT 1')->results();
@@ -526,7 +546,8 @@ class Forum {
     // Params: $forum_id - forum ID (int), $group_id - group ID of user (int), $secondary_groups - array of group IDs user is in (array of ints)
     public function canViewOtherTopics($forum_id, $group_id = null, $secondary_groups = null){
         if($group_id == null){
-            $group_id = 0; // Guest
+            // If guests have permission to view this forum, they can view all topics
+            return true;
         } else {
             if($secondary_groups)
                 $secondary_groups = json_decode($secondary_groups, true);
