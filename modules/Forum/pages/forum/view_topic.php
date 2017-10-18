@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -59,6 +59,11 @@ $topic = $queries->getWhere('topics', array('id', '=', $tid));
 $topic = $topic[0];
 
 if($topic->deleted == 1){
+	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	die();
+}
+
+if(!$forum->canViewOtherTopics($topic->forum_id, $group_id, $secondary_groups)){
 	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 	die();
 }

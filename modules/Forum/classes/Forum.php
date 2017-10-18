@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -10,8 +10,7 @@
  */
  
 class Forum {
-	private $_db,
-			$_data;
+	private $_db;
 	
 	// Constructor, connect to database
 	public function __construct() {
@@ -522,4 +521,32 @@ class Forum {
 
 		return '';
 	}
+
+	// Can the user view other topics in a forum?
+    // Params: $forum_id - forum ID (int), $group_id - group ID of user (int), $secondary_groups - array of group IDs user is in (array of ints)
+    public function canViewOtherTopics($forum_id, $group_id = null, $secondary_groups = null){
+        if($group_id == null){
+            $group_id = 0; // Guest
+        } else {
+            if($secondary_groups)
+                $secondary_groups = json_decode($secondary_groups, true);
+        }
+        // Does the forum exist?
+        $exists = $this->_db->get("forums", array("id", "=", $forum_id))->results();
+        if(count($exists)){
+            // Can the user view other topics?
+            $access = $this->_db->get("forums_permissions", array("forum_id", "=", $forum_id))->results();
+
+            foreach($access as $item){
+                if($item->group_id == $group_id || (is_array($secondary_groups) && count($secondary_groups) && in_array($item->group_id, $secondary_groups))){
+                    if($item->view_other_topics == 1){
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
 }
