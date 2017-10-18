@@ -207,8 +207,11 @@ class Forum {
                 foreach($access as $forum){
                     // Can they view it?
                     if($forum->view == 1){
-                        // Get a list of discussions
-                        $discussions_query = $this->_db->orderWhere("topics", "forum_id = " . $forum->forum_id . " AND deleted = 0", "topic_reply_date", "DESC")->results();
+                        if($group_id == 0 || $forum->view_other_topics == 1)
+                            $discussions_query = $this->_db->orderWhere("topics", "forum_id = " . $forum->forum_id . " AND deleted = 0", "topic_reply_date", "DESC")->results();
+                        else
+                            $discussions_query = $this->_db->orderWhere("topics", "forum_id = " . $forum->forum_id . " AND deleted = 0 AND topic_creator = " . $user_id, "topic_reply_date", "DESC")->results();
+
                         foreach($discussions_query as $discussion){
                             // Get latest post data
                             $last_post = $this->_db->orderWhere('posts', 'topic_id = ' . $discussion->id . ' AND deleted = 0', 'post_date', 'DESC LIMIT 1')->results();
