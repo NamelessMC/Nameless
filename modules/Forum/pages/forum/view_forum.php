@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -72,7 +72,15 @@ if(isset($_GET['p'])){
 }
 
 // Get all topics
-$topics = $queries->orderWhere("topics", "forum_id = ". $fid . " AND sticky = 0 AND deleted = 0", "topic_reply_date", "DESC");
+if($user->isLoggedIn())
+  $user_id = $user->data()->id;
+else
+  $user_id = 0;
+
+if($forum->canViewOtherTopics($fid, $user_group, $secondary_groups))
+  $topics = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky = 0 AND deleted = 0", "topic_reply_date", "DESC");
+else
+  $topics = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky = 0 AND deleted = 0 AND topic_creator = " . $user_id, "topic_reply_date", "DESC");
 
 // Get sticky topics
 $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky = 1 AND deleted = 0", "topic_reply_date", "DESC");
