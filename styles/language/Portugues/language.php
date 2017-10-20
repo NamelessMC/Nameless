@@ -11,7 +11,7 @@
  *  Por: www.craftalizar.com & www.miningbr.com.br
  *  Tradutor: Douglas Teles & dasilvaj4
  *  Versão: 0.2.1
- *  Última revisão: 09/03/2017
+ *  Última revisão: 20/10/2017
  */
  
 /*
