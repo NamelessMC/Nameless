@@ -114,7 +114,7 @@ $language = array(
     'navbar_order' => 'Ordonare navigare',
     'navbar_order_instructions' => 'Puteți da fiecărui articol un număr mai mare de 0 pentru a ordona elemente în bara de navigare, cu 1 fiind primul element și numerele mai mari care vin după el.',
     'enable_page_load_timer' => 'Activați cronometrarea încărcării paginii?',
-    'google_recaptcha' => 'Enable Google reCAPTCHA?',
+    'google_recaptcha' => 'Activați Google reCAPTCHA?',
     'recaptcha_site_key' => 'reCAPTCHA Site Key',
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
 
@@ -259,7 +259,7 @@ $language = array(
     'confirm_delete_template' => 'Sigur doriți să ștergeți acest șablon?',
     'delete' => 'Șterge',
     'template_deleted_successfully' => 'Șablonul a fost șters cu succes.',
-    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+    'background_image_x' => 'Imagine de fundal: <strong>{x}</strong>', // Don't replace {x}
 
     // Users & groups
     'users' => 'Utilizatori',
@@ -307,12 +307,12 @@ $language = array(
     'secondary_groups_info' => 'Utilizatorul va obține orice permisiuni suplimentare din partea acestor grupuri',
 
     // Permissions
-    'select_all' => 'Select All',
-    'deselect_all' => 'Deselect All',
-    'background_image' => 'Background image',
-    'can_edit_own_group' => 'Can edit own group\'s permissions',
-    'permissions_updated_successfully' => 'Permissions updated successfully.',
-    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
+    'select_all' => 'Selectează tot',
+    'deselect_all' => 'Deselectează tot',
+    'background_image' => 'Imagine de fundal',
+    'can_edit_own_group' => 'Poate edita permisiunile grupurilor proprii',
+    'permissions_updated_successfully' => 'Permisiunile s-au actualizat cu succes.',
+    'cant_edit_this_group' => 'Nu puteți edita permisiunile acestui grup!',
 
     // General Admin language
     'task_successful' => 'Sarcina a reușit.',
