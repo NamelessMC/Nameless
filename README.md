@@ -31,6 +31,8 @@ Version 1.0.17 features:
 - Announcements
 
 Included addons:
+- Ban appeal
+- Bug report
 - Donate
 - Member list
 - Voting
@@ -41,20 +43,21 @@ Core modules:
 - Social media
 - Registration
 - Voice server status
+- Staff Applications
 
 ## Downloads & Support
 * [Changelog](https://github.com/NamelessMC/Nameless/blob/master/changelog.txt)
 * [Issue Tracker](https://github.com/NamelessMC/Nameless/issues)
 * [Support](http://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
 * [Download](https://github.com/NamelessMC/Nameless/releases) 
-* [Plugin Download](https://www.spigotmc.org/resources/official-namelessplugin.42698/)
+* [Plugin Download](https://plugin.namelessmc.com/)
 
 # Full Management list:
 **Project**
 * @Samerton
 * @Awtra
 * @partydragen
-* @IsS147
+* @IsS127
 
 # Full contributor list:
 **Main repository**
@@ -108,6 +111,7 @@ Core modules:
 
 **[NamelessMC Plugin](https://github.com/NamelessMC/Nameless-Plugin)**
 * @IsS127
+* @Derkades
 * @Lmmb74
 * @samerton
 * @Awtra
