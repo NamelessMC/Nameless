@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6 offset-sm-2 offset-md-3">
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <form role="form" action="" method="post">
                         <h2>{$SIGN_IN}</h2>
 

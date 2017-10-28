@@ -7,7 +7,7 @@
 	</div>
 	<div class="col-md-9">
 	  <div class="card">
-		<div class="card-block">
+		<div class="card-body">
 		  <h2 class="card-title" style="display:inline;">{$REPORTS}</h2>
 		  <span class="pull-right">
 		    <a href="{$REPORTS_LINK}" class="btn btn-info">{$BACK}</a>
@@ -23,29 +23,31 @@
 			</div>
 		  {/if}
 		  
-		  <div class="panel panel-primary">
-		    <div class="panel-heading">
-			  <a href="{$REPORTER_USER_PROFILE}" target="_blank" class="white-text">{$REPORTER_USER}</a>:
+		  <div class="card">
+		    <div class="card-header">
+			  <a href="{$REPORTER_USER_PROFILE}" target="_blank">{$REPORTER_USER}</a>:
 			  <span class="pull-right" data-toggle="tooltip" data-original-title="{$REPORT_DATE}">{$REPORT_DATE_FRIENDLY}</span>
 			</div>
-		    <div class="panel-body">
+		    <div class="card-body">
 			  {$REPORT_CONTENT}
 			</div>
 		  </div>
+		  <br />
 		  
 		  <h4>{$COMMENTS_TEXT}</h4>
 		  
 		  {if count($COMMENTS)}
 		    {foreach from=$COMMENTS item=comment}
-			  <div class="panel panel-primary">
-			    <div class="panel-heading">
-			      <a href="{$comment.profile}" target="_blank" class="white-text">{$comment.username}</a>:
+			  <div class="card">
+			    <div class="card-header">
+			      <a href="{$comment.profile}" target="_blank">{$comment.username}</a>:
 			      <span class="pull-right" data-toggle="tooltip" data-original-title="{$comment.date}">{$comment.date_friendly}</span>
 				</div>
-				<div class="panel-body">
+				<div class="card-body">
 				  {$comment.content}
 				</div>
 			  </div>
+			  <br />
 			{/foreach}
 		  {else}
 		    {$NO_COMMENTS}

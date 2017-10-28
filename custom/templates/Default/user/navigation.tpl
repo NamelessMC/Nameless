@@ -1,5 +1,5 @@
-<div class="card card-inverse">
-  <div class="card-block">
+<div class="card">
+  <div class="card-body">
     <ul class="nav nav-pills flex-column">
 	  {foreach from=$CC_NAV_LINKS key=name item=item}
 	  <li class="nav-item">

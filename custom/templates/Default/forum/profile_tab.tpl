@@ -7,10 +7,10 @@
   <h4>{$LATEST_POSTS_TITLE}</h4>
   {foreach from=$LATEST_POSTS item=post}
   <div class="card">
-    <div class="card-header card-primary">
-	  <a href="{$post.link}" class="white-text">{$post.title}</a>
+    <div class="card-header">
+	  <a href="{$post.link}">{$post.title}</a>
 	</div>
-	<div class="card-block">
+	<div class="card-body">
 	  <div class="forum_post">
 	    {$post.content}
 	  </div>

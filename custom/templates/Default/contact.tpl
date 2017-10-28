@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="card">
-        <div class="card-block">
+        <div class="card-body">
             <h2>{$CONTACT}</h2>
             {if isset($ERROR)}
                 <div class="alert alert-danger">

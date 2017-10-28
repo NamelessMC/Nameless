@@ -50,7 +50,7 @@
 			<a href="{$item.url}">{$item.title}</a>
 			<span class="pull-right" data-toggle="tooltip" title="{$item.date}">{$item.time_ago}</span>
 		  </div>
-		  <div class="card-block">
+		  <div class="card-body">
 			<div class="forum_post">
 			  {$item.content}
 			</div>

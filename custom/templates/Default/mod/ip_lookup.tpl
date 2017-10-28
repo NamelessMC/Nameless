@@ -7,7 +7,7 @@
 	</div>
 	<div class="col-md-9">
 	  <div class="card">
-		<div class="card-block">
+		<div class="card-body">
 		  <h2 class="card-title">{$IP_LOOKUP}</h2>
 		  
 		  {if not isset($SEARCH)}

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-toggleable-md fixed-top navbar-inverse bg-primary">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -21,7 +21,7 @@
 		  {else}
 		    {* Normal link *}
 			<li class="nav-item{if isset($item.active)} active{/if}">
-			  <a class="nav-link{if isset($item.active)} white-text{/if}" href="{$item.link}" target="{$item.target}">{$item.title}</a></li>
+			  <a class="nav-link" href="{$item.link}" target="{$item.target}">{$item.title}</a></li>
 		  {/if}
 		{/foreach}
 	  </ul>

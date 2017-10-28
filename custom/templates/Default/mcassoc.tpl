@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="card">
-        <div class="card-block">
+        <div class="card-body">
             <h2>{$VERIFY_ACCOUNT}</h2>
             <div class="alert alert-info">{$VERIFY_ACCOUNT_HELP}</div>
             {if !isset($STEP)}

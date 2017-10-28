@@ -21,7 +21,7 @@
 <footer>
   <div class="container">
     <div class="card">
-      <div class="card-block">
+      <div class="card-body">
 	    {*Social media*}
 		{if !empty($SOCIAL_MEDIA_ICONS)}
 		  {foreach from=$SOCIAL_MEDIA_ICONS item=icon}
@@ -70,3 +70,4 @@
     </div>
   </div>
 </footer>
+<br />
