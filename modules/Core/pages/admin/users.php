@@ -434,6 +434,17 @@ require('core/includes/password.php'); // Password compat library
 							die();
 						}
 					} else {
+                        if(!is_numeric($_GET['user'])){
+                            $individual = $queries->getWhere('users', array('username', '=', $_GET['user']));
+                        } else {
+                            $individual = $queries->getWhere('users', array('id', '=', $_GET['user']));
+                        }
+
+                        if(!count($individual)){
+                            Redirect::to(URL::build('/admin/users'));
+                            die();
+                        }
+
 						if(Input::exists()) {
 							if(Token::check(Input::get('token'))) {
 								if(Input::get('action') === 'update'){
@@ -462,14 +473,14 @@ require('core/includes/password.php'); // Password compat library
 											'max' => 64
 										)
 									);
-									
-									if($_GET['user'] != 1){
+
+									if($_GET['user'] != 1 && ($_GET['user'] != $user->data()->id || $user->hasPermission('admincp.groups.self'))){
 										$to_validation['group'] = array(
 											'required' => true
 										);
 										$group = Input::get('group');
 									} else {
-										$group = 2;
+										$group = $individual[0]->group_id;
 									}
 
 									if($displaynames == 'true'){
@@ -637,12 +648,14 @@ require('core/includes/password.php'); // Password compat library
 										die($e->getMessage());
 									}
 								}
+
+								// Re-query individual
+                                if(!is_numeric($_GET['user'])){
+                                    $individual = $queries->getWhere('users', array('username', '=', $_GET['user']));
+                                } else {
+                                    $individual = $queries->getWhere('users', array('id', '=', $_GET['user']));
+                                }
 							}
-						}
-						if(!is_numeric($_GET['user'])){
-							$individual = $queries->getWhere('users', array('username', '=', $_GET['user']));
-						} else {
-							$individual = $queries->getWhere('users', array('id', '=', $_GET['user']));
 						}
 						if(count($individual)){
 							$token = Token::get();
@@ -739,7 +752,7 @@ require('core/includes/password.php'); // Password compat library
 							  ?>
 							  <div class="form-group">
 								 <label for="InputGroup"><?php echo $language->get('admin', 'group'); ?></label>
-								 <select class="form-control" id="InputGroup" name="group"<?php if($_GET['user'] == 1){ ?> disabled<?php } ?>>
+								 <select class="form-control" id="InputGroup" name="group"<?php if($_GET['user'] == 1 || ($_GET['user'] == $user->data()->id && !$user->hasPermission('admincp.groups.self'))){ ?> disabled<?php } ?>>
 								<?php 
 								foreach($groups as $group){ 
 								?>
