@@ -7,7 +7,7 @@
 	</div>
 	<div class="col-md-9">
 	  <div class="card">
-		<div class="card-block">
+		<div class="card-body">
 		  <h2 class="card-title" style="display:inline;">{$MESSAGING}</h2>
 		  {if isset($NEW_MESSAGE)}<span class="pull-right"><a href="{$NEW_MESSAGE_LINK}" class="btn btn-primary">{$NEW_MESSAGE}</a></span>{/if}
 		  <br /><br />

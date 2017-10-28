@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="card">
-        <div class="card-block">
+        <div class="card-body">
             <form role="form" action="" method="post">
                 <h2>{$FORGOT_PASSWORD}</h2>
                 <p>{$ENTER_NEW_PASSWORD}</p>

@@ -38,7 +38,7 @@
     <div class="col-md-8">
   {/if}
   <div class="card">
-    <div class="card-block">
+    <div class="card-body">
 	  <ul class="nav nav-tabs">
 		<li class="nav-item">
 		  <a class="nav-link active" data-toggle="tab" href="#feed" role="tab">{$FEED}</a>
@@ -86,7 +86,7 @@
 			<div class="line text-muted"></div>
 			{foreach from=$WALL_POSTS item=post}
 
-			<article class="panel panel-primary">
+			<article class="panel panel-default">
 			  <div class="panel-heading icon">
 				<img class="rounded-circle" style="height:40px; width=40px;" src="{$post.avatar}" />
 			  </div>
@@ -152,10 +152,10 @@
 			  <div class="modal-dialog" role="document">
 				<div class="modal-content">
 				  <div class="modal-header">
+				    <h5 class="modal-title" id="reactModal{$post.id}Label">{$REACTIONS_TITLE}</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					  <span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="reactModal{$post.id}Label">{$REACTIONS_TITLE}</h4>
 				  </div>
 				  <div class="modal-body">
 					
@@ -173,10 +173,10 @@
 			  <div class="modal-dialog" role="document">
 				<div class="modal-content">
 				  <div class="modal-header">
+				    <h5 class="modal-title" id="replyModal{$post.id}Label">{$REPLIES_TITLE}</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					  <span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="replyModal{$post.id}Label">{$REPLIES_TITLE}</h4>
 				  </div>
 				  <div class="modal-body">
 				    {if isset($post.replies.replies)}
@@ -237,7 +237,7 @@
 		  <div class="row">
 		    <div class="col-md-4">
 			  <div class="card">
-			    <div class="card-block">
+			    <div class="card-body">
 				  {if isset($ABOUT_FIELDS.minecraft)}
 				    <center>
 					  <img src="{$ABOUT_FIELDS.minecraft.image}" alt="{$USERNAME}" class="rounded" />
@@ -300,10 +300,10 @@
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
+		    <h5 class="modal-title" id="imageModalLabel">{$CHANGE_BANNER}</h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>
 			</button>
-			<h4 class="modal-title" id="imageModalLabel">{$CHANGE_BANNER}</h4>
 		  </div>
 		  <form action="" method="post" style="display:inline;" >
 		    <div class="modal-body">
@@ -330,10 +330,10 @@
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
+		    <h5 class="modal-title" id="blockModalLabel">{if isset($BLOCK_USER)}{$BLOCK_USER}{else}{$UNBLOCK_USER}{/if}</h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>
 			</button>
-			<h4 class="modal-title" id="blockModalLabel">{if isset($BLOCK_USER)}{$BLOCK_USER}{else}{$UNBLOCK_USER}{/if}</h4>
 		  </div>
 		  <form action="" method="post" style="display:inline;" >
 		    <div class="modal-body">

@@ -7,7 +7,7 @@
 	</div>
 	<div class="col-md-9">
 	  <div class="card">
-		<div class="card-block">
+		<div class="card-body">
 		  <h2 class="card-title" style="display:inline;">{$MESSAGE_TITLE}</h2>
 		  <span class="pull-right">
 		    <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
@@ -33,9 +33,9 @@
 		  
 		  {foreach from=$MESSAGES item=message}
 		  <div class="card">
-		    <div class="card-block">
+		    <div class="card-body">
 			  <div class="row">
-			    <div class="col-md-3">
+			    <div class="col-md-2">
 				  <center>
 				    <img class="rounded" style="width:100px; height:100px;" src="{$message.author_avatar}" alt="{$message.author_username}" />
 				    <br /><br />
@@ -46,7 +46,7 @@
 				    {/foreach}
 				  </center>
 				</div>
-				<div class="col-md-9">
+				<div class="col-md-10">
 				  <div class="forum_post">
 				    {$message.content}
 				  </div>

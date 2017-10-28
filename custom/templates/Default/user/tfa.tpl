@@ -2,7 +2,7 @@
 
 <div class="container">
   <div class="card">
-    <div class="card-block">
+    <div class="card-body">
 	
 	  <h2>{$TWO_FACTOR_AUTH}</h2>
 	  

@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-9">
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <h2 class="card-title" style="display:inline;">{$PUNISHMENTS}</h2>
                     <span class="pull-right">
                         <a href="{$BACK_LINK}" class="btn btn-info">{$BACK}</a>

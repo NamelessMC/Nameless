@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="card">
-        <div class="card-block">
+        <div class="card-body">
             <form action="" method="post">
                 <h2>{$CONNECT_WITH_AUTHME}</h2>
                 <hr />

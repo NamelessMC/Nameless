@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-block">
+    <div class="card-body">
         <h2>{$LATEST_POSTS}</h2>
         {foreach from=$LATEST_POSTS_ARRAY item=post name=latest_posts}
             <div class="row">

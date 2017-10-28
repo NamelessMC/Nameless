@@ -7,7 +7,7 @@
 	</div>
 	<div class="col-md-9">
 	  <div class="card">
-		<div class="card-block">
+		<div class="card-body">
 		  <h2 class="card-title">{$OVERVIEW}</h2>
 		  <ul>
 			{nocache}

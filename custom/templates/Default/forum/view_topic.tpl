@@ -51,11 +51,11 @@
   </span>
 
   {foreach from=$REPLIES item=reply name=arr}
-    <div class="panel panel-primary">
-	  <div class="panel-heading">
-	    <a href="{$reply.url}" class="white-text">{if isset($LOCKED) && $smarty.foreach.arr.first}<span class="fa fa-lock"></span> {/if}{$reply.heading}</a>
+    <div class="card">
+	  <div class="card-header">
+	    <a href="{$reply.url}">{if isset($LOCKED) && $smarty.foreach.arr.first}<span class="fa fa-lock"></span> {/if}{$reply.heading}</a>
 	  </div>
-	  <div class="panel-body" id="post-{$reply.id}">
+	  <div class="card-body" id="post-{$reply.id}">
 	    <div class="row">
 		  <div class="col-md-3">
 		    <center>
@@ -99,7 +99,7 @@
 			  {/if}
 			  
 			  {if isset($reply.buttons.report)}
-			  <button class="btn btn-warning btn-sm" rel="tooltip" data-trigger="hover" data-original-title="{$reply.buttons.report.TEXT}" data-toggle="modal" data-target="#report{$reply.id}Modal"><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i></button>
+			  <button class="btn btn-warning btn-sm white-text" rel="tooltip" data-trigger="hover" data-original-title="{$reply.buttons.report.TEXT}" data-toggle="modal" data-target="#report{$reply.id}Modal"><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i></button>
 			  {/if}
 			  
 			  {if isset($reply.buttons.quote)}
@@ -157,10 +157,10 @@
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
+		    <h5 class="modal-title" id="reactions{$reply.id}ModalLabel">{$REACTIONS_TEXT}</h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>
 			</button>
-			<h4 class="modal-title" id="reactions{$reply.id}ModalLabel">{$REACTIONS_TEXT}</h4>
 		  </div>
 		  <div class="modal-body">
 			{foreach from=$reply.post_reactions name=reactions item=reaction}
@@ -182,10 +182,10 @@
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
+		    <h5 class="modal-title" id="report{$reply.id}ModalLabel">{$reply.buttons.report.TEXT}</h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>
 			</button>
-			<h4 class="modal-title" id="report{$reply.id}ModalLabel">{$reply.buttons.report.TEXT}</h4>
 		  </div>
 		  <form action="{$reply.buttons.report.URL}" method="post">
 		    <div class="modal-body">
@@ -213,10 +213,10 @@
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
+		    <h5 class="modal-title" id="spam{$reply.id}ModalLabel">{$MARK_AS_SPAM}</h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>
 			</button>
-			<h4 class="modal-title" id="spam{$reply.id}ModalLabel">{$MARK_AS_SPAM}</h4>
 		  </div>
 		  <div class="modal-body">
 			{$CONFIRM_SPAM_POST}
@@ -238,10 +238,10 @@
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
+		    <h5 class="modal-title" id="delete{$reply.id}ModalLabel">{$CONFIRM_DELETE_SHORT}</h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>
 			</button>
-			<h4 class="modal-title" id="delete{$reply.id}ModalLabel">{$CONFIRM_DELETE_SHORT}</h4>
 		  </div>
 		  <div class="modal-body">
 			{$CONFIRM_DELETE_POST}
@@ -263,6 +263,7 @@
 	
   {/foreach}
   
+  <br />
   {$PAGINATION}
   
   {if isset($TOPIC_LOCKED_NOTICE)}
@@ -299,10 +300,10 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
+	    <h5 class="modal-title" id="deleteModalLabel">{$CONFIRM_DELETE_SHORT}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" id="deleteModalLabel">{$CONFIRM_DELETE_SHORT}</h4>
       </div>
       <div class="modal-body">
         {$CONFIRM_DELETE}

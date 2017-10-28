@@ -2,7 +2,7 @@
 
 <div class="container">
 <div class="card">
-  <div class="card-block">
+  <div class="card-body">
 	<div class="container">
 	  <h3>{$EDITING_POST}</h3>
 	  

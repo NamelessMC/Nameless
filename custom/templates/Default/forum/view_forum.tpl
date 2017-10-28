@@ -2,7 +2,7 @@
 
 <div class="container">
 <div class="card">
-  <div class="card-block">
+  <div class="card-body">
 	<div class="container">
 	  <div class="row">
 		<div class="col-md-9">
@@ -128,7 +128,7 @@
 		  <br />
 		  
 		  <div class="card">
-		    <div class="card-block">
+		    <div class="card-body">
 			  <h2>{$STATS} <i class="fa fa-bar-chart"></i></h2>
 			  {$USERS_REGISTERED}<br />
 			  {$LATEST_MEMBER}

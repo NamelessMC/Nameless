@@ -2,7 +2,7 @@
 
 <div class="container">
 <div class="card">
-  <div class="card-block">
+  <div class="card-body">
 	<div class="container">
 	  <div class="row">
 		<div class="col-md-9">
@@ -19,7 +19,7 @@
 		    <div class="card card-default">
 		    {if !empty($forum.subforums)}
 			  <div class="card-header">{$forum.title}</div>
-			  <div class="card-block">
+			  <div class="card-body">
 			  {foreach $forum.subforums item=subforum}
 			    <div class="row">
 				  <div class="col-md-6">
@@ -57,6 +57,7 @@
 			  </div>
 		    {/if}
 			</div>
+			<br />
 		  {/foreach}
 		</div>
 		<div class="col-md-3">
@@ -76,7 +77,7 @@
 		  <br />
 		  
 		  <div class="card">
-		    <div class="card-block">
+		    <div class="card-body">
 			  <h2>{$STATS} <i class="fa fa-bar-chart"></i></h2>
 			  {$USERS_REGISTERED}<br />
 			  {$LATEST_MEMBER}
