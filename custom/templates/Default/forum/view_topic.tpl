@@ -260,7 +260,7 @@
 	  </div>
 	</div>
 	{/if}
-	
+	<br />
   {/foreach}
   
   <br />
