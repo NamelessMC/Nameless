@@ -59,7 +59,7 @@
                                     <a href="{$punishment.issued_by_profile}" style="{$punishment.issued_by_style}">{$punishment.issued_by_nickname}</a>
                                     <span class="pull-right"><span data-toggle="tooltip" data-original-title="{$punishment.date_full}">{$punishment.date_friendly}</span></span>
                                 </div>
-                                <div class="card-block">
+                                <div class="card-body">
                                     {$punishment.reason}
                                     {if $punishment.revoked == 0 && $punishment.revoke_link != 'none'}
                                         <hr />
