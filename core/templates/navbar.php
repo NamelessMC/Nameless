@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -10,16 +10,17 @@
  */
 
 // User area
+$user_area = array();
 $user_area_left = array();
 
 if($user->isLoggedIn()){
-	$user_area_left['usercp'] = array(
+	$user_area['usercp'] = array(
 		'target' => '',
 		'link' => URL::build('/user'),
 		'title' => $language->get('user', 'user_cp_icon')
 	);
 	if(defined('PAGE') && PAGE == 'usercp'){
-		$user_area_left['usercp']['active'] = true;
+		$user_area['usercp']['active'] = true;
 	}
 	
 	$user_area_left['account'] = array(
@@ -93,7 +94,8 @@ $smarty->assign(array(
 	'NAVBAR_INVERSE' => '', 
 	'SITE_NAME' => SITE_NAME,
 	'NAV_LINKS' => $navigation->returnNav('top'),
-	'USER_AREA' => $user_area_left,
+	'USER_AREA' => $user_area,
+	'USER_DROPDOWN' => $user_area_left,
 	'GLOBAL_MESSAGES' => ''
 ));
 
