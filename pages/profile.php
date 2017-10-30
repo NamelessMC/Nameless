@@ -477,8 +477,12 @@ if(isset($profile)){
                      <?php echo $mcname; ?>
                      <?php 
                         if($exists == true){ 
-                           echo $user->getGroup($profile_user[0]->id, null, "true"); 
-                        } else { 
+                           echo $user->getGroup($profile_user[0]->id, null, "true");
+                           echo "   ";
+                           if($user->getGroup2($profile_user[0]->id, null, null) != 1) {
+                               echo $user->getGroup2($profile_user[0]->id, null, "true");
+                           }
+                        } else {
                            echo '<span class="label label-default">' . $user_language['player'] . '</span>';
                         }
                         ?>

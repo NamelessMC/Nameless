@@ -238,6 +238,7 @@ $admin_language = array(
 	'confirm_user_deletion' => '你確定要刪除使用者「{x}」嗎？', // Don't replace "{x}"
 	'groups' => '組別',
 	'group' => '組別',
+	'group' => '組別 2',
 	'new_group' => '新的組別',
 	'id' => 'ID',
 	'name' => '名稱',
