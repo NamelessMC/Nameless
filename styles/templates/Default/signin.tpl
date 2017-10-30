@@ -9,11 +9,11 @@
 				<hr class="colorgraph">
 				<div class="row">
 				  <div class="col-xs-12 col-md-6">
-				    {$FORM_SUBMIT}
+				    <a class="btn btn-primary btn-block btn-lg" href="/register">{$REGISTER}</a>
 				  </div>
-				  <div class="col-xs-12 col-md-6">
-				    <a class="btn btn-success btn-block btn-lg" href="/register">{$REGISTER}</a>
-				  </div>
+                  <div class="col-xs-12 col-md-6">
+                      {$FORM_SUBMIT}
+                  </div>
 				</div>
 			</form>
 		</div>
