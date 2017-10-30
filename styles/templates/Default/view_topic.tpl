@@ -27,6 +27,8 @@
 			  <br />
 			  {$reply.user_group}
 			  <br />
+			  {$reply.user_group2}
+              <br />
 			  {$reply.user_title}
 			  <hr>
 			  {$reply.user_posts_count} {$POSTS}<br />

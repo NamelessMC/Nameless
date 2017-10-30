@@ -242,6 +242,7 @@ $admin_language = array(
 	'confirm_user_deletion' => 'Você tem certeza de que deseja excluir o usuário {x}?', // Don't replace "{x}"
 	'groups' => 'Grupos',
 	'group' => 'Grupo',
+	'group2' => 'Grupo 2',
 	'new_group' => 'Novo Grupo',
 	'id' => 'ID',
 	'name' => 'Nome',
