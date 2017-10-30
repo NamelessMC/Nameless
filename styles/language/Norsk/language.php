@@ -239,6 +239,7 @@ $admin_language = array(
 	'confirm_user_deletion' => 'Er du sikker på at du vil slette brukeren {x}?', // Don't replace "{x}"
 	'groups' => 'Grupper',
 	'group' => 'Gruppe',
+	'group2' => 'Gruppe 2',
 	'new_group' => 'Ny Gruppe',
 	'id' => 'ID',
 	'name' => 'Navn',

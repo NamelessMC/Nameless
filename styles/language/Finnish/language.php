@@ -238,6 +238,7 @@ $admin_language = array(
 	'confirm_user_deletion' => 'Oletko varma, että haluat poistaa käyttäjän {x}?', // Don't replace "{x}"
 	'groups' => 'Käyttäjäryhmät',
 	'group' => 'Ryhmä',
+	'group2' => 'Ryhmä 2',
 	'new_group' => 'Uusi ryhmä',
 	'id' => 'ID',
 	'name' => 'Nimi',

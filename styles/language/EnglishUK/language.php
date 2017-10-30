@@ -238,6 +238,7 @@ $admin_language = array(
 	'confirm_user_deletion' => 'Are you sure you want to delete the user {x}?', // Don't replace "{x}"
 	'groups' => 'Groups',
 	'group' => 'Group',
+	'group2' => 'Second Group',
 	'new_group' => 'New Group',
 	'id' => 'ID',
 	'name' => 'Name',

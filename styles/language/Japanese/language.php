@@ -235,6 +235,7 @@ $admin_language = array(
 	'confirm_user_deletion' => 'ユーザー {x} を削除してもよろしいですか？', // Don't replace "{x}"
 	'groups' => 'グループ',
 	'group' => 'グループ',
+	'group2' => 'グループ 2',
 	'new_group' => '新しいグループ',
 	'id' => 'ID',
 	'name' => '名前',
