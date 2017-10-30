@@ -539,6 +539,7 @@ require('core/integration/uuid.php');
 											'username' => htmlspecialchars(Input::get('username')),
 											'email' => htmlspecialchars(Input::get('email')),
 											'group_id' => Input::get('group'),
+											'group2_id' => Input::get('group2'),
 											'mcname' => $mcname,
 											'uuid' => htmlspecialchars(Input::get('UUID')),
 											'user_title' => Input::get('title'),
@@ -766,6 +767,19 @@ require('core/integration/uuid.php');
 						    <?php echo $admin_language['cant_modify_root_user']; ?>
 						  </div>
 						  <?php } ?>
+
+                            <div class="form-group">
+                                <label for="InputGroup2"><?php echo $admin_language['group2']; ?></label>
+                                <select class="form-control" id="InputGroup2" name="group2">
+                                    <?php
+                                    foreach($groups as $group){
+                                        ?>
+                                        <option value="<?php echo $group->id; ?>" <?php if($group->id === $individual[0]->group2_id){ echo 'selected="selected"'; } ?>><?php echo $group->name; ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
 						  <input type="hidden" name="token" value="<?php echo $token; ?>">
 						  <input type="hidden" name="action" value="update">
 						  <input type="submit" value="<?php echo $general_language['submit']; ?>" class="btn btn-default">
