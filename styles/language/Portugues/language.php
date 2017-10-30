@@ -11,7 +11,7 @@
  *  Por: www.craftalizar.com & www.miningbr.com.br
  *  Tradutor: Douglas Teles & dasilvaj4
  *  Versão: 0.2.1
- *  Última revisão: 20/10/2017
+ *  Última revisão: 30/10/2017
  */
  
 /*
@@ -242,7 +242,7 @@ $admin_language = array(
 	'confirm_user_deletion' => 'Você tem certeza de que deseja excluir o usuário {x}?', // Don't replace "{x}"
 	'groups' => 'Grupos',
 	'group' => 'Grupo',
-	'group2' => 'Grupo 2',
+	'group2' => 'Grupo secundário',
 	'new_group' => 'Novo Grupo',
 	'id' => 'ID',
 	'name' => 'Nome',
