@@ -763,8 +763,8 @@ $forum_language = array(
      
     // Sticky threads
     'thread_is_' => 'Onderwerp is ',
-    'now_sticky' => 'Is nu een plakkerige onderwerp',
-    'no_longer_sticky' => 'Is niet langer meer een plakkerige onderwerp',
+    'now_sticky' => 'Is nu een vastgepind onderwerp',
+    'no_longer_sticky' => 'Is niet langer meer een vastgepind onderwerp',
      
     // Create topic
     'topic_created' => 'Onderwerp gemaakt.',
