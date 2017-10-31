@@ -36,7 +36,7 @@ $admin_language = array(
 	// Admin sidebar
 	'index' => 'Übersicht',
 	'announcements' => 'Hinweise',
-	'core' => 'Core',
+	'core' => 'Kernmodule ',
 	'custom_pages' => 'Eigene Seiten',
 	'general' => 'Allgemein',
 	'forums' => 'Foren',
@@ -46,7 +46,7 @@ $admin_language = array(
 	'addons' => 'Erweiterungen',
 	'update' => 'Updates',
 	'misc' => 'Verschiedenes',
-	'help' => 'Help',
+	'help' => 'Hilfe',
 
 	// Admin index page
 	'statistics' => 'Statistiken',
@@ -60,10 +60,10 @@ $admin_language = array(
 	'announcement_can_close' => 'Kann die Ankündigung schließen?',
 	'announcement_permissions' => 'Hinweisrechte',
 	'no_announcements' => 'Noch keine Ankündigungen vorhanden.',
-	'confirm_cancel_announcement' => 'Willst du diese Ankündigung wirklich stornieren?',
+	'confirm_cancel_announcement' => 'Willst du diese Ankündigung wirklich nicht senden?',
 	'announcement_location_help' => 'Strg-Klick um mehrere Seiten zu wählen',
 	'select_all' => 'Alle auswählen',
-	'deselect_all' => 'Alle Nicht-auswählen',
+	'deselect_all' => 'Alle abwählen',
 	'announcement_created' => 'Ankündigung erfolgreich erstellt',
 	'please_input_announcement_content' => 'Bitte füge noch den Inhalt und die Art hinzu',
 	'confirm_delete_announcement' => 'Willst du diese Ankündigung wirklich löschen?',
@@ -97,7 +97,7 @@ $admin_language = array(
 	'enable_or_disable_pages' => 'Aktiviere oder deaktiviere hier Seiten.',
 	'enable' => 'Aktivieren',
 	'disable' => 'Deaktivieren',
-	'maintenance_mode' => 'Forum Wartungsmodus',
+	'maintenance_mode' => 'Wartungsmodus',
 	'forum_in_maintenance' => 'Das Forum befindet sich im Wartungsmodus.',
 	'unable_to_update_settings' => 'Fehler beim aktualisieren der Einstellungen. Stelle sicher, dass alle Felder ausgefüllt sind.',
 	'editing_google_analytics_module' => 'Editiere Google Analytics Einstellungen',
@@ -138,16 +138,16 @@ $admin_language = array(
 	'delete_question' => 'Frage löschen',
 	'dropdown' => 'Dropdown',
 	'text' => 'Text',
-	'textarea' => 'Text Area',
+	'textarea' => 'Textfeld',
 	'question_deleted' => 'Frage gelöscht',
-	'name_required' => 'Name is required.',
-	'question_required' => 'Question is required.',
-	'name_minimum' => 'Name must be a minimum of 2 characters.',
-	'question_minimum' => 'Question must be a minimum of 2 characters.',
-	'name_maximum' => 'Name must be a maximum of 16 characters.',
-	'question_maximum' => 'Question must be a maximum of 16 characters.',
-	'use_followers' => 'FollowerSystem nutzen?',
-	'use_followers_help' => 'Wenn dies nicht aktiv ist, wird das FreundeSystem genutzt.',
+	'name_required' => 'Name wird benötigt.',
+	'question_required' => 'Frage wird benötigt.',
+	'name_minimum' => 'Name muss mindestens aus 2 Zeichen bestehen.',
+	'question_minimum' => 'Frage muss mindestens aus 2 Zeichen bestehen.',
+	'name_maximum' => 'Name darf nur maximal aus 16 Zeichen bestehen.',
+	'question_maximum' => 'Frage darf nur maximal aus 16 Zeichen bestehen.',
+	'use_followers' => 'Follower System nutzen?',
+	'use_followers_help' => 'Wenn dies nicht aktiv ist, wird das Follower System genutzt.',
 
 	// Admin custom pages page
 	'click_on_page_to_edit' => 'Klicke auf eine Seite, um sie zu bearbeiten.',
@@ -238,7 +238,7 @@ $admin_language = array(
 	'ip' => 'IP:',
 	'other_actions' => 'Andere Aktionen:',
 	'disable_avatar' => 'Avatar ausschalten',
-	'enable_avatar' => 'Enable avatar',
+	'enable_avatar' => 'Avatar aktivieren',
 	'confirm_user_deletion' => 'Bist du sicher, dass du den Benutzer {x} löschen willst?', // Don't replace "{x}"
 	'groups' => 'Gruppen',
 	'group' => 'Gruppe',
@@ -314,7 +314,7 @@ $admin_language = array(
 	'purge_errors' => 'Fehler Löschen',
 	'confirm_purge_errors' => 'Bist du sicher, dass du alle Fehler löschen willst?',
 	'avatar_type' => 'Avatar Typ',
-	'custom_usernames' => 'Nur Minecarftnamen?',
+	'custom_usernames' => 'Nur Minecraftnamen?',
 	'mcassoc' => 'mcassoc',
 	'use_mcassoc' => 'mcassoc nutzen?',
 	'use_mcassoc_help' => 'mcassoc sorgt dafür, dass Minecraftaccounts verifiziert werden können',
@@ -323,7 +323,7 @@ $admin_language = array(
 	'mcassoc_instance' => 'mcassoc Instanz',
 	'mcassoc_instance_help' => 'Generiere einen Instanzcode <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">hier</a>',
 	'mcassoc_key_help' => 'Hole dir deinen Key <a href="https://mcassoc.lukegb.com/" target="_blank">hier</a>',
-	'enable_name_history' => 'Enable profile username history?',
+	'enable_name_history' => 'Aktiviere die Profilnamen Historie?',
 
 	// Admin Themes, Templates and Addons
 	'themes' => 'Themen',
@@ -359,7 +359,7 @@ $admin_language = array(
 	'inverse_navbar' => 'Umgekehrte Navigationsleiste',
 	'confirm_theme_deletion' => 'Bist du sicher, dass du das <strong>{x}</strong> Theme löschen willst?<br /><br />Das Theme wird aus dem <strong>styles/themes</strong> Ordner entfernt.', // Don't replace {x}
 	'confirm_template_deletion' => 'Bist du sicher, dass du die Vorlage <strong>{x}</strong> löschen willst?<br /><br />Das Theme wird aus dem <strong>styles/templates</strong> Ordner entfernt.', // Don't replace {x}
-	'unable_to_enable_addon' => 'Could not enable addon. Please ensure it is a valid NamelessMC addon.',
+	'unable_to_enable_addon' => 'Konnte die Erweiterung nicht aktivieren. Bitte versichere dich das es sich um eine valide NamelessMC Erweiterung handelt.',
 	
 	// Admin Misc page
 	'other_settings' => 'Andere Einstellungen',
@@ -442,7 +442,7 @@ $user_language = array(
 	'email_required' => 'Bitte gebe eine gültige E-Mail-Adresse an.',
 	'mcname_required' => 'Bitte gebe einen Minecraft Namen an.',
 	'accept_terms' => 'Du musst unsere AGBs akzeptieren, um dich zu registrieren.',
-	'invalid_recaptcha' => 'Invalid reCAPTCHA response.',
+	'invalid_recaptcha' => 'Ungültige reCAPTCHA Antwort.',
 	'username_minimum_3' => 'Dein Nutzername muss mindestens 3 Zeichen lang sein.',
 	'username_maximum_20' => 'Dein Nutzername darf nicht länger als 20 Zeichen sein.',
 	'mcname_minimum_3' => 'Dein Minecraftname muss mindestens 3 Zeichen lang sein.',
@@ -463,7 +463,7 @@ $user_language = array(
 	'verification_failed' => 'Verifikation fehlgeschlagen.',
 	'verification_success' => 'Erfolgreich freigeschaltet.',
 	'complete_signup' => 'Complete Signup',
-	'registration_disabled' => 'Website registration is currently disabled.',
+	'registration_disabled' => 'Webseite Registrierung ist aktuell deaktiviert.',
 
 	// UserCP
 	'user_cp' => 'Benutzer Panel',
