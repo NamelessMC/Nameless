@@ -1,7 +1,7 @@
 <?php
 /*
  *	Gemaakt door Samerton
- *  en vertaald door Sander Lambrechts, Melerpe en Derkades 
+ *  en vertaald door Sander Lambrechts, Melerpe, Derkades en smessie
  *
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr2
@@ -15,16 +15,16 @@ $language = array(
 	'install' => 'Installatie',
 	'pre-release' => 'pre-release',
 	'installer_welcome' => 'Welkom bij NamelessMC versie 2.0 pre-release.',
-	'pre-release_warning' => 'Hou er rekening mee dat deze pre-release niet voor een openbare site bedoeld is.',
-	'installer_information' => 'Het installatieprogramma leid je door het installatieproces.',
-	'new_installation_question' => 'Ten eerste, is dit een nieuwe installatie?',
+	'pre-release_warning' => 'Houd er rekening mee dat deze pre-release niet voor een openbare site bedoeld is.',
+	'installer_information' => 'Het installatieprogramma leidt je door het installatieproces.',
+	'new_installation_question' => 'Om te beginnen, is dit een nieuwe installatie?',
 	'new_installation' => 'Nieuwe installatie &raquo;',
 	'upgrading_from_v1' => 'Upgrade vanuit versie 1 &raquo;',
 	'requirements' => 'Vereisten:',
 	'config_writable' => 'core/config.php Schrijfbaar',
 	'cache_writable' => 'Cache Schrijfbaar',
 	'template_cache_writable' => 'Sjabloon Cache Schrijfbaar',
-	'requirements_error' => 'Je moet alle extensies hebben geinstalleerd, en de juiste machtingen hebben ingesteld, om door te gaan met de installatie.',
+	'requirements_error' => 'Je moet alle extensies hebben geinstalleerd, en de juiste machtigingen hebben ingesteld, om door te gaan met de installatie.',
 	'proceed' => 'Doorgaan',
 	'database_configuration' => 'Database Configuratie',
 	'database_address' => 'Database Adres',
@@ -37,8 +37,8 @@ $language = array(
 	'submit' => 'Indienen',
 	'installer_now_initialising_database' => 'De installateur is de database aan het instellen. Dit kan een tijdje duren...',
 	'configuration' => 'Configuratie',
-	'configuration_info' => 'Gelieve de basisinformatie over uw site invullen. Dit kan later nog worden gewijzigd via het controle paneel.',
-	'configuration_error' => 'Voer een geldige naam in voor de site die tussen de 1 en 32 tekens lang zijn, en geldige e-mailadressen tussen de 4 en 64 tekens lang zijn.',
+	'configuration_info' => 'Gelieve de basisinformatie over uw site in te vullen. Dit kan later nog worden gewijzigd via het controle paneel.',
+	'configuration_error' => 'Voer een geldige naam in voor de site die tussen de 1 en 32 tekens lang is, en geldige e-mailadressen die tussen de 4 en 64 tekens lang zijn.',
 	'site_name' => 'Site Naam',
 	'contact_email' => 'Contact Email',
 	'outgoing_email' => 'Uitgaande Email',
@@ -50,7 +50,7 @@ $language = array(
 	'input_maximum' => 'Zorg ervoor dat uw gebruikersnaam een maximum van 20 karakters, en uw e-mailadres en wachtwoord maximaal 64 tekens bevatten.',
 	'passwords_must_match' => 'Uw wachtwoorden komen niet overeen.',
 	'creating_admin_account' => 'Admin account maken',
-	'enter_admin_details' => 'Vul de gegevens in voor de Admin account',
+	'enter_admin_details' => 'Vul de gegevens in voor het Admin account',
 	'username' => 'Gebruikersnaam',
 	'email_address' => 'Email Adres',
 	'password' => 'Wachtwoord',
@@ -66,7 +66,7 @@ $language = array(
 	'no' => 'Nee',
 	'finish' => 'Voltooien',
 	'finish_message' => 'Bedankt voor het installeren van NamelessMC! U kunt nu doorgaan naar het controle paneel, waar u uw website verder kunt configureren.',
-	'support_message' => 'Als je hulp nodig hebt, check onze website <a href="https://namelessmc.com" target="_blank">here</a>, of je kan onze <a href="https://discord.gg/9vk93VR" target="_blank">Discord server</a> bezoeken of onze <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.',
+	'support_message' => 'Als je hulp nodig hebt, check onze website <a href="https://namelessmc.com" target="_blank">hier</a>, of je kan onze <a href="https://discord.gg/9vk93VR" target="_blank">Discord server</a> bezoeken of onze <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.',
 	'credits' => 'Credits',
 	'credits_message' => 'Een grote dank aan alle <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC bijdragers</a> sinds 2014!'
 );

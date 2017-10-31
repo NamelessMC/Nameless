@@ -1,7 +1,7 @@
 <?php 
 /*
  *	Gemaakt door Samerton
- *  en vertaald door Sander Lambrechts en Derkades
+ *  en vertaald door Sander Lambrechts, Derkades en smessie
  *  
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr3
@@ -24,7 +24,7 @@ $language = array(
 	
 	// IP Opzoeken
 	'ip_lookup' => 'IP zoeken',
-	'search_for_ip' => 'Zoek naar ip of gebruikersnaam:',
+	'search_for_ip' => 'Zoek naar IP of gebruikersnaam:',
 	'no_ips_with_username' => 'Geen IP adres gevonden voor die gebruiker.',
 	'no_accounts_with_that_ip' => 'Geen accounts gevonden voor dat IP adres.',
 	'count_accounts_with_ip' => '{x} accounts met het IP {y} gevonden', // Verander "{x}" of "{y}" niet
@@ -77,11 +77,11 @@ $language = array(
 	'punishment_revoked' => 'Straf ingetrokken.',
 	'punishment_revoked_alert' => '{x} heeft een straf ingetrokken van {y}', // Verander {x} (staff member) of {y} (user punished) niet
 	'cant_punish_admin' => 'Je kan geen administrator straffen!',
-    	'viewing_all_punishments' => 'Alle straffen aan het bekijken',
+    'viewing_all_punishments' => 'Alle straffen aan het bekijken',
    	'no_punishments_found' => 'Geen straffen gevonden.',
-    	'view_user' => 'Bekijk gebruiker',
+    'view_user' => 'Bekijk gebruiker',
    	'when' => 'Wanneer',
    	'staff' => 'Staff',
-    	'type' => 'Type'
+    'type' => 'Type'
 
 );

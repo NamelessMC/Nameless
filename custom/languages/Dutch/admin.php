@@ -1,7 +1,7 @@
 <?php
 /*
  *	Gemaakt door Samerton
- *  en vertaald en bijgewerkt door Sander Lambrechts, Jesse Geerts en Derkades
+ *  en vertaald en bijgewerkt door Sander Lambrechts, Jesse Geerts, Derkades en smessie
  *
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr3
@@ -52,10 +52,10 @@ $language = array(
 	'homepage_type' => 'Beginpagina type',
 	'post_formatting_type' => 'Bericht opmaak soort',
 	'portal' => 'Portaal',
-	'missing_sitename' => 'Graag een site naam invullen van 2 tot 64 karakters lang.',
+	'missing_sitename' => 'Graag een sitenaam invullen van 2 tot 64 karakters lang.',
 	'use_friendly_urls' => 'Vriendelijke URLs',
-	'use_friendly_urls_help' => 'BELANGRIJK: Je webserver/webhosting moet geconfigureerd zijn om gebruik te maken van mod_rewrite en .htaccess om dit in werking te laten treden.',
-	'config_not_writable' => 'Uw <strong>core/config.php</strong> bestand is niet herschrijfbaar.',
+	'use_friendly_urls_help' => 'BELANGRIJK: Je webserver/webhosting moet geconfigureerd zijn om gebruik te maken van mod_rewrite en .htaccess vooraleer dit werkt.',
+	'config_not_writable' => 'Uw <strong>core/config.php</strong> bestand is niet schrijfbaar. Controleer de permissies.',
 	'social_media' => 'Sociale Media',
 	'youtube_url' => 'Youtube URL',
 	'discord_id' => 'Discord Server ID',
@@ -67,20 +67,20 @@ $language = array(
 	'debugging_and_maintenance' => 'Debugging en beheer',
 	'enable_debug_mode' => 'Wil je debug modus inschakelen?',
 	'force_https' => 'Forceer https?',
-	'force_https_help' => 'Als het aanstaat, worden alle verzoeken naar deze website doorgestuurd naar https. Je moet een geldig SSL certificaat die actief is hebben om dit te laten werken.',
+	'force_https_help' => 'Als dit aanstaat, worden alle verzoeken naar deze website doorgestuurd via https. Je moet een geldig SSL certificaat hebben die actief is om dit te laten werken.',
 	'contact_email_address' => 'Emailadres voor contact',
 	'emails' => 'Emails',
 	'email_errors' => 'Email fouten',
 	'registration_email' => 'Registratie email',
 	'contact_email' => 'Contact email',
-    	'forgot_password_email' => 'Vergeten wachtwoord email',
+    'forgot_password_email' => 'Vergeten wachtwoord email',
 	'unknown' => 'Onbekend',
 	'delete_email_error' => 'Fout verwijderen',
 	'confirm_email_error_deletion' => 'Weet je zeker dat je deze fout wilt verwijderen?',
 	'viewing_email_error' => 'Fout aan het bekijken',
-	'unable_to_write_email_config' => 'Kon niet naar het bestand <strong>core/email.php</core> schrijven. Graag de bestands toestemmingen bekijken.',
+	'unable_to_write_email_config' => 'Kon niet naar het bestand <strong>core/email.php</core> schrijven. Graag de bestandsrechten bekijken.',
 	'enable_mailer' => 'PHPMailer inschakelen?',
-	'enable_mailer_help' => 'Zet dit aan als de emails standaard niet worden verzonden. Als je gebruik wilt maken van PHPMailer heb je een email dienst nodig waarmee je emails kan verzenden, zoals Gmail of een SMTP provider (outlook/hotmail).',
+	'enable_mailer_help' => 'Zet dit aan als de emails standaard niet worden verzonden. Als je gebruik wilt maken van PHPMailer heb je een email dienst nodig waarmee je emails kan verzenden, zoals Gmail of een SMTP provider (Outlook/Hotmail).',
 	'outgoing_email' => 'Uitgaand Emailadres',
 	'outgoing_email_info' => 'Dit is het email adres waarmee NamelessMC emails gaat verzenden.',
 	'mailer_settings_info' => 'De volgende velden zijn nodig als je PHPMailer aan hebt gezet. Voor meer informatie hoe je deze velden moet invullen, bekijk dan <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">de wiki</a>.',
@@ -95,7 +95,7 @@ $language = array(
 	'terms_error' => 'Zorg ervoor dat je algemene voorwaarden niet meer dan 2048 karakters bevat.',
 	'terms_updated' => 'Algemene voorwaarden succesvol bijgewerkt.',
     'avatars' => 'Avatars',
-    'allow_custom_avatars' => 'Toestaan van aangespaste gebruiker avatars?',
+    'allow_custom_avatars' => 'Toestaan van aangepaste gebruiker avatars?',
     'default_avatar' => 'Standaard avatar',
     'custom_avatar' => 'Aangepaste avatar',
     'minecraft_avatar' => 'Minecraft avatar',
@@ -106,7 +106,7 @@ $language = array(
     'head' => 'Hoofd',
     'select_default_avatar' => 'Selecteer een nieuwe standaard avatar:',
     'no_avatars_available' => 'Geen avatars beschikbaar. Graag eerst een niewe afbeelding uploaden hierboven.',
-    'avatar_settings_updated_successfully' => 'Avatar instellingen succesvol geupdated.',
+    'avatar_settings_updated_successfully' => 'Avatar instellingen succesvol geüpdatet.',
     'navigation' => 'Navigatie',
     'navbar_order' => 'Navbar ordening',
     'navbar_order_instructions' => 'Je kan elk item een nummer boven de 0 geven om items te ordenen in de navbar, met 1 de eerste en hogere nummers erna.',
@@ -142,7 +142,7 @@ $language = array(
 	'profile_field_error' => 'Graag een veld naam invullen tussen de 2 en 16 karakters lang.',
 	'description' => 'Beschrijving',
 	'display_field_on_forum' => 'Veld laten zien in het forum?',
-	'profile_field_forum_help' => 'Als aan staat, wordt het veld weergegeven bij de gebruiker naast de forum berichten.',
+	'profile_field_forum_help' => 'Als dit aan staat, wordt het veld weergegeven bij de gebruiker naast de forum berichten.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Minecraft integratie aan?',
@@ -184,8 +184,8 @@ $language = array(
 	'bungee_instance_help' => 'Zet dit aan als de server een BungeeCord server is.',
 	'server_query_information' => 'Om een lijst met spelers te laten zien, <strong>moet</strong> je server de optie \'enable-query\' aanzetten in de server\'s <strong>server.properties</strong> bestand',
 	'enable_status_query' => 'Status query aanzetten?',
-	'status_query_help' => 'Als dit aan staat, zal er op de status pagina staan of de server online is.',
-	'enable_player_list' => 'Spelers lijst aanzetten?',
+	'status_query_help' => 'Als dit aanstaat, zal er op de status pagina staan of de server online is.',
+	'enable_player_list' => 'Spelerslijst aanzetten?',
 	'pre_1.7' => 'Is de server ouder dan Minecraft versie 1.7?',
 	'player_list_help' => 'Als dit aanstaat, wordt er op de status pagina een lijst van online spelers weergegeven.',
 	'server_query_port' => 'Server Query poort',
@@ -268,8 +268,8 @@ $language = array(
 	'creating_new_user' => 'Maak een nieuwe gebruiker',
 	'registered' => 'Aangemeld',
 	'user_created' => 'Gebruiker succesvol aangemaakt.',
-	'cant_delete_root_user' => 'Kan niet de hoofdgebruiker verwijderen!',
-	'cant_modify_root_user' => 'Kan niet de groep van de hoofdgebruiker wijzigen!',
+	'cant_delete_root_user' => 'Kan de hoofdgebruiker niet verwijderen!',
+	'cant_modify_root_user' => 'Kan de groep van de hoofdgebruiker niet wijzigen!',
 	'user_deleted' => 'Gebruiker succesvol verwijderd.',
 	'confirm_user_deletion' => 'Weet je zeker dat je <strong>{x}</strong> wilt verwijderen?', // Verander "{x}" niet
 	'validate_user' => 'Valideer gebruiker',
@@ -294,24 +294,24 @@ $language = array(
 	'creating_group' => 'Nieuwe groep maken',
 	'group_html_maximum' => 'Zorg ervoor dat je groeps HTML code niet langer is dan 1024 karakters.',
 	'group_html' => 'Groeps HTML code',
-	'group_html_lg' => 'Groeps langere HTML code',
+	'group_html_lg' => 'Groeps grotere HTML code',
 	'group_username_colour' => 'Groep gebruikersnaam kleur',
 	'group_staff' => 'Is de groep voor personeel?',
-	'group_modcp' => 'Mag deze groep het beheer paneel zien?',
-	'group_admincp' => 'Mag deze groep het controle paneel zien?',
+	'group_modcp' => 'Mag deze groep het moderatie paneel zien?',
+	'group_admincp' => 'Mag deze groep het controle/administratie paneel zien?',
 	'delete_group' => 'Verwijder groep',
 	'confirm_group_deletion' => 'Weet je zeker dat je de groep {x} wilt verwijderen?', // Verander "{x}" niet
 	'group_not_exist' => 'Die groep bestaat niet.',
 	'secondary_groups' => 'Bijkomende groepen',
 	'secondary_groups_info' => 'De gebruiker zal de bijkomende toestemmingen van deze groepen ook krijgen',
 
-    // Permissions
-    'select_all' => 'Select All',
-    'deselect_all' => 'Deselect All',
-    'background_image' => 'Background image',
-    'can_edit_own_group' => 'Can edit own group\'s permissions',
-    'permissions_updated_successfully' => 'Permissions updated successfully.',
-    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
+    // Permissies
+    'select_all' => 'Selecteer Allemaal',
+    'deselect_all' => 'Deselecteer Allemaal',
+    'background_image' => 'Achtergrondafbeelding',
+    'can_edit_own_group' => 'Kan de permissies van je eigen groep niet bewerken.',
+    'permissions_updated_successfully' => 'Permissies succesvol geüpdatet.',
+    'cant_edit_this_group' => 'Je kan deze groep haar permissies niet aanpassen!',
 
 	// Algemene admin taal
 	'task_successful' => 'Taak succesvol.',
@@ -364,9 +364,9 @@ $language = array(
     'page_title' => 'Pagina titel',
     'page_path' => 'Pagina pad (met vooraf een /, bv /voorbeeld)',
     'page_icon' => 'Pagina icoon',
-    'page_link_location' => 'Page Link Location',
+    'page_link_location' => 'Pagina Link Locatie',
     'page_link_navbar' => 'Navbar',
-    'page_link_footer' => 'Footer',
+    'page_link_footer' => 'Voettekst',
     'page_link_more' => '"Meer" Dropdown',
     'page_link_none' => 'Geen link',
     'page_content' => 'Pagina inhoud',
@@ -392,6 +392,6 @@ $language = array(
 
 	// Bestand uploads
 	'drag_files_here' => 'Sleep bestand(en) hier naartoe om te uploaden.',
-	'invalid_file_type' => 'Bestands type is incorrect',
+	'invalid_file_type' => 'Bestandstype is incorrect',
 	'file_too_big' => 'Het bestand dat je wilt uploaden is te groot! Je bestand is {{filesize}} en het limiet is {{maxFilesize}} .' // Verander {{filesize}} of {{maxFilesize}} niet
 );
