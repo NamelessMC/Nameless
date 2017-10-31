@@ -1,7 +1,7 @@
 <?php 
 /*
  *	Gemaakt door Samerton
- *  en vertaald door Sander Lambrechts en Derkades
+ *  en vertaald door Sander Lambrechts, Derkades en smessie
  *  
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr3
@@ -16,8 +16,8 @@ $language = array(
 	 *  Tijd
 	 */
 	'time' => 'tijd', // Placeholder, geen behoefte om te vertalen
-	'seconds_short' => 'sec', // Verkort "seconden", bv "sec"
-	'less_than_a_minute' => 'korter dan een minuut geleden',
+	'seconds_short' => 's', // Verkort "seconden", bv "sec"
+	'less_than_a_minute' => 'Minder dan een minuut geleden',
 	'1_minute' => '1 minuut geleden',
 	'_minutes' => '{x} minuten geleden',
 	'about_1_hour' => 'ongeveer 1 uur geleden',

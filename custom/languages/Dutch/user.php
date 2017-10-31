@@ -1,7 +1,7 @@
 <?php 
 /*
  *	Gemaakt door Samerton
- *  en vertaald door Sander Lambrechts en Derkades
+ *  en vertaald door Sander Lambrechts, Derkades en smessie
  *  
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr3
@@ -26,7 +26,7 @@ $language = array(
 	'profile_settings' => 'Profiel Instellingen',
 	'successfully_logged_out' => 'Je bent nu uitgelogd.',
 	'messaging' => 'Berichten',
-	'click_here_to_view' => 'Klik om te zien.',
+	'click_here_to_view' => 'Klik om te bekijken.',
 	'moderation' => 'Moderatie',
 	'administration' => 'Administratie',
 	'alerts' => 'Meldingen',
@@ -45,7 +45,7 @@ $language = array(
 	'enable' => 'Aanzetten',
 	'disable' => 'Uitzetten',
 	'tfa_scan_code' => 'Graag deze QR-code scannen met je authenticator app:',
-	'tfa_code' => 'Als je mobiel geen camera heeft, of je kan de code niet scannen, vul dan in je app deze code:',
+	'tfa_code' => 'Als je mobiel geen camera heeft, of je kan de code niet scannen, vul dan deze code in je app in:',
 	'tfa_enter_code' => 'Vul nu de code in die je te zien krijgt in de app:',
 	'invalid_tfa' => 'Verkeerde code, probeer opnieuw.',
 	'tfa_successful' => 'Twee factor authenticatie succesvol ingesteld. Je moet nu elke keer een code hebben om in te kunnen loggen.',
@@ -61,7 +61,7 @@ $language = array(
 	'no_alerts_usercp' => 'Je hebt geen meldingen.',
 	
 	// Registratie
-	'registration_check_email' => 'Bedankt voor het registreren! Bekijk nu je email voor een bevestigings link om je registratie te voltooien. Als je de email niet kan vinden, bekijk dan de spam/junk folder.',
+	'registration_check_email' => 'Bedankt voor het registreren! Bekijk nu je email voor een bevestigingslink om je registratie te voltooien. Als je de email niet kan vinden, bekijk dan de spam/junk/ongewenste folder.',
 	'username' => 'Gebruikersnaam',
 	'nickname' => 'Gebruikersnaam',
 	'minecraft_username' => 'Minecraft gebruikersnaam',
@@ -70,10 +70,10 @@ $language = array(
 	'password' => 'Wachtwoord',
 	'confirm_password' => 'Bevestig wachtwoord',
 	'i_agree' => 'Akkoord',
-	'agree_t_and_c' => 'Door <strong class="label label-primary">registreren</strong> te klikken, ga je akkoord met onze <a href="{x}" target="_blank">Voorwaarden</a>.',
+	'agree_t_and_c' => 'Door op <strong class="label label-primary">registreren</strong> te klikken, ga je akkoord met onze <a href="{x}" target="_blank">Voorwaarden</a>.',
 	'create_an_account' => 'Maak een account',
 	'terms_and_conditions' => 'Voorwaarden',
-	'validation_complete' => 'Je account is bevestigt, je kunt nu inloggen.',
+	'validation_complete' => 'Je account is bevestigd, je kunt nu inloggen.',
 	'validation_error' => 'Er was een onbekend probleem bij het bevestigen van je account, neem contact op met de beheerds.',
 	'signature' => 'Ondertekening',
 	'signature_max_900' => 'Je ondertekening moet uit maximaal 900 karakters bestaan.',
@@ -113,7 +113,7 @@ $language = array(
 	// Inloggen
 	'successful_login' => 'Je bent nu ingelogd.',
 	'incorrect_details' => 'Je hebt incorrecte gegevens ingevoerd.',
-	'inactive_account' => 'Je account is inactief. Bekijk je email voor een bevestigings link, doorzoek ook de spam/junk folder.',
+	'inactive_account' => 'Je account is inactief. Bekijk je email voor een bevestigingslink, doorzoek ook de spam/junk/ongewenste folder.',
 	'account_banned' => 'Dit account is verbannen.',
 	'forgot_password' => 'Wachtwoord vergeten?',
 	'remember_me' => 'Onthoud mij',
@@ -122,7 +122,7 @@ $language = array(
 
     	// Forgot password
    	'forgot_password_instructions' => 'Graag je email adres invoeren zodat we verdere instructies kunnen sturen om je wachtwoord te herstellen.',
-   	'forgot_password_email_sent' => 'Als een account met dit email adres bestaat, is er een email verstuurt met daarin verdere instructies. Als je hem niet kan vinden, bekijk dan ook de SPAM map.',
+   	'forgot_password_email_sent' => 'Als een account met dit email adres bestaat, is er een email verstuurt met daarin verdere instructies. Als je hem niet kan vinden, bekijk dan ook de spam/junk/ongewenste map.',
    	'unable_to_send_forgot_password_email' => 'Kon vergeten wachtwoord email niet verzenden. Graag contact opnemen met een administrator.',
    	'enter_new_password' => 'Graag je email bevestigen en een nieuw wachtwoord invoeren.',
    	'incorrect_email' => 'Het email adres dat is ingevoerd komt niet overeen met het verzoek.',
@@ -153,7 +153,7 @@ $language = array(
 	'couldnt_find_that_user' => 'Kan gebruiker niet vinden.',
 	'block_user' => 'Blokkeer gebruiker',
 	'unblock_user' => 'Deblokkeer gebruiker',
-	'confirm_block_user' => 'Weet je zeker dat je deze gebruiker wilt blokkeren? Ze zullen niet meer in staat zijn om prive berichten kunnen sturen en je in een bericht noemen.',
+	'confirm_block_user' => 'Weet je zeker dat je deze gebruiker wilt blokkeren? Ze zullen niet meer in staat zijn om prive berichten te sturen en je in een bericht noemen.',
 	'confirm_unblock_user' => 'Weet je zeker dat je deze gebruiker wilt deblokkeren? Ze zullen je prive berichten kunnen sturen en in een bericht kunnen noemen.',
 	'user_blocked' => 'Gebruiker geblokkeerd.',
 	'user_unblocked' => 'Gebruiker gedeblokkeerd.',
@@ -187,14 +187,14 @@ $language = array(
 	'by' => 'door',
 	'leave_conversation' => 'Verlaat gesprek',
 	'confirm_leave' => 'Weet je zeker dat je dit gesprek wilt verlaten?',
-	'one_or_more_users_blocked' => 'Je kan niet een prive bericht sturen naar ten minste een lid van het gesprek.',
+	'one_or_more_users_blocked' => 'Je kan geen privé bericht sturen naar een of meerdere leden van het gesprek.',
 	
 	/*
 	 *  Overtredingen gebied
 	 */
 	'you_have_been_banned' => 'Je bent verbannen!',
 	'you_have_received_a_warning' => 'Je hebt een waarschuwing gekregen!',
-	'acknowledge' => 'Toegeven',
+	'acknowledge' => 'Begrepen',
 	
 	
 	/*
