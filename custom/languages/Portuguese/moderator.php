@@ -8,7 +8,7 @@
  *
  *  Portuguese Language - Moderator terms
  *  Translation By Douglas Teles & dasilvaj4
- *  Last Update: 26/06/2017
+ *  Last Update: 30/10/2017
  */
 $language = array(
 	'mod_cp' => 'ModCP',
@@ -50,36 +50,36 @@ $language = array(
 	
 	// Punishments
 	'punishments' => 'Punições',
-	'view_punishments' => 'View Punishments',
-	'banned' => 'Banned',
-	'groups' => 'Groups',
-	'punish' => 'Punish',
-	'ban' => 'Ban',
-	'warn' => 'Warn',
-	'ban_ip' => 'Ban IP',
-	'viewing_user_x' => 'Viewing user {x}', // Don't replace {x}
-	'previous_punishments' => 'Previous punishments',
-	'no_previous_punishments' => 'No previous punishments',
+	'view_punishments' => 'Ver Punições',
+	'banned' => 'Banido',
+	'groups' => 'Grupos',
+	'punish' => 'Punir',
+	'ban' => 'Banir',
+	'warn' => 'Advertir',
+	'ban_ip' => 'Banir por IP',
+	'viewing_user_x' => 'Analisando o usuário {x}', // Don't replace {x}
+	'previous_punishments' => 'Punições anteriores',
+	'no_previous_punishments' => 'Sem punições anteriores',
 	'warning' => 'Warning',
 	'ip_ban' => 'IP Ban',
-	'reason' => 'Reason',
-	'warn_user' => 'Warn User',
-	'ban_user' => 'Ban User',
-	'enter_valid_punishment_reason' => 'Please enter a valid reason for your punishment, between 5 and 5000 characters.',
-	'user_punished' => 'User punished.',
-	'user_punished_alert' => '{x} has punished user {y}', // Don't replace {x} (staff member) or {y} (user punished)
-	'revoke' => 'Revoke',
-	'revoked' => 'Revoked',
+	'reason' => 'Motivo',
+	'warn_user' => 'Advertir o Usuário',
+	'ban_user' => 'Banir o Usuário',
+	'enter_valid_punishment_reason' => 'Por favor, digite um motivo válido para a sua punição, deve ter 5 a 5000 caracteres.',
+	'user_punished' => 'Usuário punido.',
+	'user_punished_alert' => '{x} puniu o usuário {y}', // Don't replace {x} (staff member) or {y} (user punished)
+	'revoke' => 'Anular',
+	'revoked' => 'Anulado',
 	'acknowledged' => 'Acknowledged',
-	'confirm_revoke_warning' => 'Are you sure you want to revoke this warning?',
-	'confirm_revoke_ban' => 'Are you sure you want to revoke this ban? The user will be unbanned, even if they have a more recent ban!',
-	'punishment_revoked' => 'Punishment revoked.',
-	'punishment_revoked_alert' => '{x} has revoked a punishment for user {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
-	'cant_punish_admin' => 'You can\'t punish an administrator!',
-    'viewing_all_punishments' => 'Viewing all punishments',
-    'no_punishments_found' => 'No punishments found.',
-    'view_user' => 'View User',
-    'when' => 'When',
+	'confirm_revoke_warning' => 'Você tem certeza que quer anular essa advertência?',
+	'confirm_revoke_ban' => 'Você tem certeza que quer anular esse banimento? O usuário vai ser desbanido, mesmo se o usuário tem mais banimentos recentes!',
+	'punishment_revoked' => 'Punição anulada.',
+	'punishment_revoked_alert' => '{x} anulou a punição do usuário {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
+	'cant_punish_admin' => 'Você não pode punir um administrador!',
+    'viewing_all_punishments' => 'Visualizando todas as punições',
+    'no_punishments_found' => 'Nenhuma punição encontrada.',
+    'view_user' => 'Visualizando usuário',
+    'when' => 'Quando',
     'staff' => 'Staff',
-    'type' => 'Type'
+    'type' => 'Tipo'
 );

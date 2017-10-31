@@ -8,7 +8,7 @@
  *
  *  Portuguese Language - Users
  *  Translation By Douglas Teles & dasilvaj4
- *  Last Update: 26/06/2017
+ *  Last Update: 30/10/2017
  */
 $language = array(
 	/*
@@ -75,7 +75,7 @@ $language = array(
 	'validation_complete' => 'Sua conta foi validada, agora você pode fazer login.',
 	'validation_error' => 'Ocorreu um erro desconhecido ao validar sua conta, entre em contato com um administrador.',
 	'signature' => 'Assinatura',
-	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
+	'signature_max_900' => 'Sua assinatura deve ter no máximo 900 caracteres.',
 
     // Registration - Authme
     'connect_with_authme' => 'Conecte sua conta com AuthMe',
@@ -107,7 +107,7 @@ $language = array(
 	'verify_account_help' => 'Siga as instruções abaixo para que possamos verificar se você possui a conta do Minecraft em questão.',
 	'verification_failed' => 'Falha na verificação. Por favor tente novamente.',
 	'verification_success' => 'Validado com sucesso! Agora você pode entrar.',
-	'authme_username_exists' => 'Your Authme account has already been connected to the website!',
+	'authme_username_exists' => 'Sua conta AuthMe já está conectada com o website!',
 	
 	// Login
 	'successful_login' => 'Você fez login com sucesso.',
@@ -148,14 +148,14 @@ $language = array(
 	'new_reply' => 'Nova Resposta',
 	'registered' => 'Cadastrado:',
 	'last_seen' => 'Visto pela última vez:',
-	'new_wall_post' => '{x} has posted on your profile.',
-	'couldnt_find_that_user' => 'Couldn\'t find that user.',
-	'block_user' => 'Block User',
-	'unblock_user' => 'Unblock User',
-	'confirm_block_user' => 'Are you sure you want to block this user? They will not be able to send you private messages or tag you in posts.',
-	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
-	'user_blocked' => 'User blocked.',
-	'user_unblocked' => 'User unblocked.',
+	'new_wall_post' => '{x} postou no seu perfil.',
+	'couldnt_find_that_user' => 'Não encontramos este usuário.',
+	'block_user' => 'Bloquear Usuário',
+	'unblock_user' => 'Desbloquear Usuário',
+	'confirm_block_user' => 'Você tem certeza que quer bloquear esse usuário? Ele não vai mais poder te enviar mensagens privadas e nem te marcar nos posts.',
+	'confirm_unblock_user' => 'Você tem certeza que quer desbloquear esse usuário? Ele vai poder te enviar mensagens privadas e te marcar nos posts.',
+	'user_blocked' => 'Usuário bloqueado.',
+	'user_unblocked' => 'Usuário desbloqueado.',
 	
 	// Reports
 	'invalid_report_content' => 'Não foi possível criar o alerta. Certifique-se de que o motivo do alerta está entre 2 e 1024 caracteres.',
@@ -186,13 +186,13 @@ $language = array(
 	'by' => 'por',
 	'leave_conversation' => 'Deixar Conversa',
 	'confirm_leave' => 'Tem certeza de que deseja sair desta conversa?',
-	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
+	'one_or_more_users_blocked' => 'Você não pode enviar mensagens privadas para pelo menos um membro da conversa.',
 
 	/*
 	 *  Infractions area
 	 */
-	'you_have_been_banned' => 'You have been banned!',
-	'you_have_received_a_warning' => 'You have received a warning!',
+	'you_have_been_banned' => 'Você foi banido!',
+	'you_have_received_a_warning' => 'Você recebeu uma advertencia!',
 	'acknowledge' => 'Acknowledge',
 	
 	/*
