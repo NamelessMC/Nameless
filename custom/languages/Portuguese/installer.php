@@ -8,7 +8,7 @@
  *
  *  Portuguese Language - Installation
  *  Translation By Douglas Teles & dasilvaj4
- *  Last Update: 26/06/2017
+ *  Last Update: 30/10/2017
  */
 
 $language = array(

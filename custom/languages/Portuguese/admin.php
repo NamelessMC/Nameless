@@ -8,7 +8,7 @@
  *
  *  Portuguese Language - Admin
  *  Translation By Douglas Teles & dasilvaj4
- *  Last Update: 26/06/2017
+ *  Last Update: 30/10/2017
  */
 $language = array(
 	/*
@@ -220,10 +220,10 @@ $language = array(
     'mcassoc_error' => 'Certifique-se de que você inseriu sua chave compartilhada corretamente e que gerou uma chave de instância corretamente.',
     'updated_mcassoc_successfully' => 'Configurações do mcassoc atualizadas com sucesso.',
     'force_premium_accounts' => 'Forçar contas Minecraft premium?',
-    'banner_background' => 'Banner background',
-    'query_interval' => 'Query interval (in minutes, must be between 5 and 60)',
-    'player_graphs' => 'Player Graphs',
-    'player_count_cronjob_info' => 'You can set up a cron job to query your servers every {x} minutes with the following command:',
+    'banner_background' => 'Fundo do Banner',
+    'query_interval' => 'Intevalo de Consulta (em minutos, deve ser entre 5 e 60)',
+    'player_graphs' => 'Gráficos de Jogadores',
+    'player_count_cronjob_info' => 'Você pode configurar uma cron job para consultar o seu servidor a cada {x} minutos com os seguintes comandos:',
 
 	// Modules
 	'modules_installed_successfully' => 'Todos os novos módulos foram instalados com êxito.',
@@ -233,7 +233,7 @@ $language = array(
 	'disable' => 'Desativar',
 	'module_enabled' => 'Módulo ativado.',
 	'module_disabled' => 'Módulo desativado.',
-	'author' => 'Author:',
+	'author' => 'Autor:',
 
 	// Styles
 	'templates' => 'Templates',
@@ -244,7 +244,7 @@ $language = array(
 	'warning_editing_default_template' => 'Atenção! É recomendável que você não edite o modelo padrão.',
 	'images' => 'Imagens',
 	'upload_new_image' => 'Carregar nova imagem',
-	'reset_background' => 'Resetar Background',
+	'reset_background' => 'Resetar o Fundo',
 	'install' => '<i class="fa fa-plus-circle"></i> Instalar',
 	'template_updated' => 'Template atualizado com sucesso.',
 	'default' => 'Padrão',
@@ -253,12 +253,12 @@ $language = array(
 	'template_deactivated' => 'Template desativado.',
 	'template_activated' => 'Template ativado.',
 	'permissions' => 'Permissões',
-	'setting_perms_for_x' => 'Setting permissions for template {x}', // Don't replace {x}
-	'templates_installed_successfully' => 'Any new templates have been installed successfully.',
-	'confirm_delete_template' => 'Are you sure you want to delete this template?',
-	'delete' => 'Delete',
-	'template_deleted_successfully' => 'Template deleted successfully.',
-    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+	'setting_perms_for_x' => 'Configurando as permissões do template {x}', // Don't replace {x}
+	'templates_installed_successfully' => 'Todos os novos templates foi instalado com sucesso.',
+	'confirm_delete_template' => 'Tem certeza que você quer remover esse template?',
+	'delete' => 'Remover',
+	'template_deleted_successfully' => 'Template removido com sucesso.',
+    'background_image_x' => 'Imagem de fundo: <strong>{x}</strong>', // Don't replace {x}
 
 	// Users & groups
 	'users' => 'Usuários',
@@ -302,16 +302,16 @@ $language = array(
 	'delete_group' => 'Excluír Grupo',
 	'confirm_group_deletion' => 'Você tem certeza de que deseja excluir o grupo {x}?', // Don't replace {x}
 	'group_not_exist' => 'Esse grupo não existe.',
-	'secondary_groups' => 'Secondary Groups',
-	'secondary_groups_info' => 'The user will gain any additional permissions from these groups',
+	'secondary_groups' => 'Grupos secundários',
+	'secondary_groups_info' => 'Este usuário vai ganhar qualquer permissão adicional provenientes destes grupos',
 
     // Permissions
-    'select_all' => 'Select All',
-    'deselect_all' => 'Deselect All',
-    'background_image' => 'Background image',
-    'can_edit_own_group' => 'Can edit own group\'s permissions',
-    'permissions_updated_successfully' => 'Permissions updated successfully.',
-    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
+    'select_all' => 'Selecionar Todos',
+    'deselect_all' => 'Deselecionar Todos',
+    'background_image' => 'Imagem de Fundo',
+    'can_edit_own_group' => 'Pode editar as permissão do seu próprio grupo',
+    'permissions_updated_successfully' => 'Permissões atualizada com sucesso.',
+    'cant_edit_this_group' => 'Você pode editar as permissões destes grupos!',
 
 	// General Admin language
 	'task_successful' => 'Tarefa bem-sucedida.',
@@ -330,7 +330,7 @@ $language = array(
     'maintenance_message_max_1024' => 'Certifique-se de que sua mensagem de manutenção é de no máximo 1024 caracteres.',
 
 	// Security
-	'acp_logins' => 'AdminCP Logins',
+	'acp_logins' => 'Logins do AdminCP',
 	'please_select_logs' => 'Selecione logs para visualizar',
 	'ip_address' => 'Endereço IP',
 	'template_changes' => 'Alterações do Template',
@@ -351,44 +351,44 @@ $language = array(
 
 	// Widgets
 	'widgets' => 'Widgets',
-	'widget_enabled' => 'Widget enabled.',
-	'widget_disabled' => 'Widget disabled.',
-	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
-	'module_x' => 'Module: {x}', // Don't replace {x}
+	'widget_enabled' => 'Widget ativado.',
+	'widget_disabled' => 'Widget desativado.',
+	'editing_widget_x' => 'Editando o widget {x}', // Don't replace {x}
+	'module_x' => 'Módulo: {x}', // Don't replace {x}
 
     // Custom Pages
-    'pages' => 'Pages',
-    'new_page' => '<i class="fa fa-plus-circle"></i> New Page',
-    'no_custom_pages' => 'No pages have been created yet.',
-    'creating_new_page' => 'Creating Page',
-    'page_title' => 'Page Title',
-    'page_path' => 'Page Path (with preceding /, eg /example)',
-    'page_icon' => 'Page Icon',
-    'page_link_location' => 'Page Link Location',
+    'pages' => 'Páginas',
+    'new_page' => '<i class="fa fa-plus-circle"></i> Nova página',
+    'no_custom_pages' => 'Nenhuma págia foi criada ainda.',
+    'creating_new_page' => 'Criando Página',
+    'page_title' => 'Título da Página',
+    'page_path' => 'Endereço da Página (com o /, ex: /example)',
+    'page_icon' => 'Ícone da Página',
+    'page_link_location' => 'Local do link para Página',
     'page_link_navbar' => 'Navbar',
     'page_link_footer' => 'Footer',
     'page_link_more' => '"More" Dropdown',
-    'page_link_none' => 'No link',
-    'page_content' => 'Page Content',
-    'page_redirect' => 'Page Redirect?',
-    'page_redirect_to' => 'Redirect Link (with preceding http://)',
-    'unsafe_html' => 'Allow unsafe HTML?',
-    'unsafe_html_warning' => 'Enabling this option means any HTML can be used on the page, including potentially dangerous JavaScript. Only enable this if you are sure your HTML is safe.',
-    'page_permissions' => 'Page Permissions',
-    'view_page' => 'View Page?',
-    'editing_page_x' => 'Editing Page {x}', // Don't replace {x}
-    'unable_to_create_page' => 'Unable to create page:',
-    'page_title_required' => 'A page title is required.',
-    'page_url_required' => 'A page path is required.',
-    'link_location_required' => 'A link location is required.',
-    'page_title_minimum_2' => 'The page title must be a minimum of 2 characters.',
-    'page_url_minimum_2' => 'The page path must be a minimum of 2 characters.',
-    'page_title_maximum_30' => 'The page title must be a maximum of 30 characters.',
-    'page_icon_maximum_64' => 'The page icon must be a maximum of 64 characters.',
-    'page_url_maximum_20' => 'The page path must be a maximum of 20 characters.',
-    'page_content_maximum_20480' => 'The page content must be a maximum of 20480 characters.',
-    'page_redirect_link_maximum_512' => 'The page redirect link must be a maximum of 512 characters.',
-    'confirm_delete_page' => 'Are you sure you want to delete this page?',
+    'page_link_none' => 'Sem link',
+    'page_content' => 'Conteudo da Página',
+    'page_redirect' => 'Página de Redirecionamento?',
+    'page_redirect_to' => 'Link para o redirecionamento (com o http:// ou https://)',
+    'unsafe_html' => 'Permitir tags HTML não seguras?',
+    'unsafe_html_warning' => 'Ativando está opção, siginifica que qualquer HTML pode ser usada nesta página, incluindo JavaScript potencialmente perigosos. Somente ativa esta opção se você está ciente que o seu HTML é seguro.',
+    'page_permissions' => 'Permisões da Página',
+    'view_page' => 'Ver Página?',
+    'editing_page_x' => 'Editando a Página {x}', // Don't replace {x}
+    'unable_to_create_page' => 'Não foi possível criar a página:',
+    'page_title_required' => 'É necessário um título.',
+    'page_url_required' => 'É necessário um endereço para página.',
+    'link_location_required' => 'É necessário um link.',
+    'page_title_minimum_2' => 'O título da página deve ter no mínimo 2 caracteres.',
+    'page_url_minimum_2' => 'O endereço da página deve ter no mínimo 2 caracteres.',
+    'page_title_maximum_30' => 'O título da página deve ter no máximo 30 caracteres.',
+    'page_icon_maximum_64' => 'O ícone da página deve ter no máximo 64 caracteres.',
+    'page_url_maximum_20' => 'O endereço da página deve ter no máximo 20 caracteres.',
+    'page_content_maximum_20480' => 'O conteudo da página deve ter no máximo 20480 caracteres.',
+    'page_redirect_link_maximum_512' => 'O link de redirecionamento deve ter no máximo 512 caracteres.',
+    'confirm_delete_page' => 'Você tem certeza que quer deletar está página?',
 
 	// File uploads
 	'drag_files_here' => 'Arraste arquivos aqui para fazer o upload.',
