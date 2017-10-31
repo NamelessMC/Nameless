@@ -1,7 +1,7 @@
 <?php 
 /*
  *	Gemaakt door Samerton
- *  en vertaald door Sander Lambrechts en Derkades
+ *  en vertaald door Sander Lambrechts, Derkades en smessie
  *  
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr3
@@ -50,7 +50,7 @@ $language = array(
 	'x_new_messages' => 'Je hebt {x} nieuwe berichten.', // Verander "{x}" niet
 	'loading' => 'Laden...',
 	'report' => 'Rapport',
-	'page_loaded_in' => 'Pagine geladen in {x}s', // Verander "{x}" niet, tijdseenheid is seconden
+	'page_loaded_in' => 'Pagina geladen in {x}s', // Verander "{x}" niet, tijdseenheid is seconden
 	'page_x' => 'Pagina {x}',
    	'browse' => 'Doorzoek',
 
@@ -62,7 +62,7 @@ $language = array(
 	'contact_email_subject' => 'Nieuw contactformulier indiening',
 	'contact_message_failed' => 'Kan bericht niet verzenden. Zorg ervoor dat je bericht tussen de 10 en 5000 karakters lang is.',
 	'contact_message_sent' => 'Bericht succesvol verzonden.',
-	'contact_message_limit' => 'Je kan maar 1 bericht per uur versturenn. Je kan pas weer over {x} minuten een nieuw bericht versturen.', // Vervang {x} niet
+	'contact_message_limit' => 'Je kan maar 1 bericht per uur versturen. Je kan pas weer over {x} minuten een nieuw bericht versturen.', // Vervang {x} niet
 	
 	/* 
 	 *  Navigatiebalk

@@ -11,6 +11,6 @@
  *  Nederlandse taal - Taal versie
  */
 
-// Welke versie van NamelessMC is dit taal bestand geupdate voor?
+// Welke versie van NamelessMC is dit taal bestand geüpdatet voor?
 $language_version = '2.0.0-pr3';
 $language_html = 'nl';
