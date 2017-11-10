@@ -60,7 +60,7 @@ $admin_language = array(
     'announcement_content' => 'Inhoud Aankondiging',
     'announcement_location' => 'Locatie Aankondiging',
     'announcement_can_close' => 'Aankondiging weg te klikken?',
-    'announcement_permissions' => 'Aankondiging permissies',
+    'announcement_permissions' => 'Aankondiging toestemmingen',
     'no_announcements' => 'Nog geen aankondigingen gemaakt.',
     'confirm_cancel_announcement' => 'Weet je zeker dat je deze aankondiging wilt annuleren?',
     'announcement_location_help' => 'Ctrl-klik om meerdere pagina\'s te selecteren.',
@@ -229,7 +229,7 @@ $admin_language = array(
     'created' => 'Aangemaakt',
     'user_deleted' => 'Gebruiker Verwijderd',
     'validate_user' => 'Bevestigde Gebruiker',
-    'update_uuid' => 'Update UUID',
+    'update_uuid' => 'UUID bijwerken',
     'unable_to_update_uuid' => 'De UUID kan niet worden bijgewerkt.',
     'update_mc_name' => 'Update Minecraft Naam',
     'reset_password' => 'Reset Wachtwoord',
@@ -693,7 +693,7 @@ $general_language = array(
     'queried_in' => 'Opgevraagd In:',
     'server_status' => 'Server Status',
     'no_players_online' => 'Er zijn geen spelers online!',
-	'1_player_online' => 'There is 1 player online.',
+	'1_player_online' => 'Er is 1 speler online.',
     'x_players_online' => 'Er zijn {x} spelers online.', // Don't replace {x}
      
     // Other
