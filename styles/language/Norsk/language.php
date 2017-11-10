@@ -688,6 +688,7 @@ $general_language = array(
 	'queried_in' => 'Spørres i:',
 	'server_status' => 'Serverstatus',
 	'no_players_online' => 'Det er ingen spillere online!',
+	'1_player_online' => 'There is 1 player online.',
 	'x_players_online' => 'Det er {x} spillere online.', // Don't replace {x}
 
 	// Other

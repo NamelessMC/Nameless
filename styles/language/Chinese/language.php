@@ -687,6 +687,7 @@ $general_language = array(
 	'queried_in' => '查詢所用時間：',
 	'server_status' => '伺服器狀態',
 	'no_players_online' => '目前沒有玩家在線上。',
+	'1_player_online' => 'There is 1 player online.',
 	'x_players_online' => '目前有 {x} 位玩家遊玩當中。', // Don't replace {x}
 	
 	// Other
