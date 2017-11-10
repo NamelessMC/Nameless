@@ -358,16 +358,16 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 		// Get a list of all topics from the forum, and paginate
 		for($n = 0; $n < count($results->data); $n++){
 			// Get number of replies to a topic
-			$replies = $queries->getWhere("posts", array("topic_id", "=", $topics[$n]->id));
+			$replies = $queries->getWhere("posts", array("topic_id", "=", $results->data[$n]->id));
 			$replies = count($replies);
 			
 			// Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
-			$last_reply_avatar = $user->getAvatar($topics[$n]->topic_last_user, "../", 30);
+			$last_reply_avatar = $user->getAvatar($results->data[$n]->topic_last_user, "../", 30);
 
 			// Is there a label?
-			if($topics[$n]->label != 0){ // yes
+			if($results->data[$n]->label != 0){ // yes
 				// Get label
-				$label = $queries->getWhere('forums_topic_labels', array('id', '=', $topics[$n]->label));
+				$label = $queries->getWhere('forums_topic_labels', array('id', '=', $results->data[$n]->label));
 				if(count($label)){
 					$label = $label[0];
 				
@@ -383,26 +383,26 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 			
 			// Add to array
 			$template_array[] = array(
-				'topic_title' => Output::getClean($topics[$n]->topic_title),
-				'topic_id' => $topics[$n]->id,
-				'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $topics[$n]->topic_date), $language->getTimeLanguage()),
-				'topic_created' => date('d M Y, H:i', $topics[$n]->topic_date),
-				'topic_created_username' => Output::getClean($user->idToNickname($topics[$n]->topic_creator)),
-				'topic_created_mcname' => Output::getClean($user->idToName($topics[$n]->topic_creator)),
-				'topic_created_style' => $user->getGroupClass($topics[$n]->topic_creator),
-				'locked' => $topics[$n]->locked,
-				'views' => $topics[$n]->topic_views,
+				'topic_title' => Output::getClean($results->data[$n]->topic_title),
+				'topic_id' => $results->data[$n]->id,
+				'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->topic_date), $language->getTimeLanguage()),
+				'topic_created' => date('d M Y, H:i', $results->data[$n]->topic_date),
+				'topic_created_username' => Output::getClean($user->idToNickname($results->data[$n]->topic_creator)),
+				'topic_created_mcname' => Output::getClean($user->idToName($results->data[$n]->topic_creator)),
+				'topic_created_style' => $user->getGroupClass($results->data[$n]->topic_creator),
+				'locked' => $results->data[$n]->locked,
+				'views' => $results->data[$n]->topic_views,
 				'posts' => $replies,
 				'last_reply_avatar' => $last_reply_avatar,
-				'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $topics[$n]->topic_reply_date), $language->getTimeLanguage()),
-				'last_reply' => date('d M Y, H:i', $topics[$n]->topic_reply_date),
-				'last_reply_username' => Output::getClean($user->idToNickname($topics[$n]->topic_last_user)),
-				'last_reply_mcname' => Output::getClean($user->idToName($topics[$n]->topic_last_user)),
-				'last_reply_style' => $user->getGroupClass($topics[$n]->topic_last_user),
+				'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->topic_reply_date), $language->getTimeLanguage()),
+				'last_reply' => date('d M Y, H:i', $results->data[$n]->topic_reply_date),
+				'last_reply_username' => Output::getClean($user->idToNickname($results->data[$n]->topic_last_user)),
+				'last_reply_mcname' => Output::getClean($user->idToName($results->data[$n]->topic_last_user)),
+				'last_reply_style' => $user->getGroupClass($results->data[$n]->topic_last_user),
 				'label' => $label,
-				'author_link' => URL::build('/profile/' . Output::getClean($user->idToName($topics[$n]->topic_creator))),
-				'link' => URL::build('/forum/topic/' . $topics[$n]->id . '-' . $forum->titleToURL($topics[$n]->topic_title)),
-				'last_reply_link' => URL::build('/profile/' . Output::getClean($user->idToName($topics[$n]->topic_last_user)))
+				'author_link' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]->topic_creator))),
+				'link' => URL::build('/forum/topic/' . $results->data[$n]->id . '-' . $forum->titleToURL($results->data[$n]->topic_title)),
+				'last_reply_link' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]->topic_last_user)))
 			);
 		}
 	
