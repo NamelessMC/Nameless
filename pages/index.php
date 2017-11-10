@@ -85,7 +85,12 @@ if($pre17 == 0){
 	$player_count = $Info['Players'];
 }
 
-$smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_language['x_players_online']));
+if($player_count == 1)
+	$smarty->assign('PLAYERS_ONLINE', $general_language['1_player_online']);
+else if($player_count > 1)
+	$smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_language['x_players_online']));
+else
+	$smarty->assign('PLAYERS_ONLINE', $general_language['no_players_online']);
 ?>
 <!DOCTYPE html>
 <html lang="en">

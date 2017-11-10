@@ -687,6 +687,7 @@ $general_language = array(
 	'queried_in' => 'Kysytty ajassa:',
 	'server_status' => 'Serverin Status',
 	'no_players_online' => 'Pelaajia ei ole online!',
+	'1_player_online' => 'There is 1 player online.',
 	'x_players_online' => 'Tällähetkellä {x} pelaajaa online.', // Don't replace {x}
 	
 	// Other

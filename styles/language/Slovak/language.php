@@ -684,6 +684,7 @@ $general_language = array(
 	'queried_in' => 'Načítané za:',
 	'server_status' => 'Status servera',
 	'no_players_online' => 'Žiadni hráči nie sú online!',
+	'1_player_online' => 'There is 1 player online.',
 	'x_players_online' => 'Na serveri je pripjených {x} hráčov.', // Don't replace {x}
 	
 	// Other

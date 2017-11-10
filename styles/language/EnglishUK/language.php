@@ -686,7 +686,8 @@ $general_language = array(
 	'players_online' => 'Players Online:',
 	'queried_in' => 'Queried In:',
 	'server_status' => 'Server Status',
-	'no_players_online' => 'There are no players online!',
+	'no_players_online' => 'There are no players online.',
+	'1_player_online' => 'There is 1 player online.',
 	'x_players_online' => 'There are {x} players online.', // Don't replace {x}
 	
 	// Other

@@ -693,6 +693,7 @@ $general_language = array(
     'queried_in' => 'Opgevraagd In:',
     'server_status' => 'Server Status',
     'no_players_online' => 'Er zijn geen spelers online!',
+	'1_player_online' => 'There is 1 player online.',
     'x_players_online' => 'Er zijn {x} spelers online.', // Don't replace {x}
      
     // Other

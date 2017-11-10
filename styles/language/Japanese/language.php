@@ -682,6 +682,7 @@ $general_language = array(
 	'queried_in' => '応答速度:',
 	'server_status' => 'サーバー状態',
 	'no_players_online' => 'オンラインプレイヤーはいません！',
+	'1_player_online' => 'There is 1 player online.',
 	'x_players_online' => '{x} 人のプレーヤーがオンラインです。', // Don't replace {x}
 	
 	// Other
