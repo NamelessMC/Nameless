@@ -20,7 +20,7 @@ class DiscordWidget extends WidgetBase {
 
         // Generate HTML code for widget
         $this->_content = '
-			<iframe src="https://discordapp.com/widget?id=' . Output::getClean($discord) . '&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+			<iframe src="https://discordapp.com/widget?id=' . Output::getClean($discord) . '&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe>
         ';
     }
 }
