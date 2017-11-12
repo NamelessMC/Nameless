@@ -25,6 +25,7 @@ if(!$module_installed){
 // AdminCP
 PermissionHandler::registerPermissions('AdminCP', array(
     'admincp.core' => $language->get('admin', 'core'),
+    'admincp.core.api' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'api'),
     'admincp.core.general' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'general_settings'),
     'admincp.core.avatars' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'avatars'),
     'admincp.core.fields' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'custom_fields'),
@@ -76,10 +77,13 @@ PermissionHandler::registerPermissions('UserCP', array(
 
 // Define URLs which belong to this module
 $pages->add('Core', '/', 'pages/index.php');
+$pages->add('Core', '/api/v1', 'pages/api/v1/index.php');
+$pages->add('Core', '/api/v2', 'pages/api/v2/index.php');
 $pages->add('Core', '/contact', 'pages/contact.php');
 $pages->add('Core', '/home', 'pages/home.php', 'index', true);
 $pages->add('Core', '/admin', 'pages/admin/index.php');
 $pages->add('Core', '/admin/auth', 'pages/admin/auth.php');
+$pages->add('Core', '/admin/api', 'pages/admin/api.php');
 $pages->add('Core', '/admin/core', 'pages/admin/core.php');
 $pages->add('Core', '/admin/groups', 'pages/admin/groups.php');
 $pages->add('Core', '/admin/images', 'pages/admin/images.php');
@@ -117,6 +121,7 @@ $pages->add('Core', '/queries/servers', 'queries/servers.php');
 $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
 $pages->add('Core', '/terms', 'pages/terms.php');
 $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
+$pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
 
 if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/') != '/admin/update_execute')){
 	// Custom pages
