@@ -390,6 +390,16 @@ $language = array(
     'page_redirect_link_maximum_512' => 'De pagina doorstuur link moet minimaal uit 512 karakters bestaan.',
     'confirm_delete_page' => 'Weet je zeker dat je deze pagina wilt verwijderen?',
 
+    // API
+    'api' => 'API',
+    'enable_api' => 'Enable API?',
+    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>.',
+    'enable_legacy_api' => 'Enable legacy API?',
+    'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
+    'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
+    'api_registration_email' => 'API Registration Email',
+    'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
+
 	// Bestand uploads
 	'drag_files_here' => 'Sleep bestand(en) hier naartoe om te uploaden.',
 	'invalid_file_type' => 'Bestandstype is incorrect',

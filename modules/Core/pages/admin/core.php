@@ -89,6 +89,12 @@ $current_default_language = $current_default_language[0]->value;
                                         <a href="<?php echo URL::build('/admin/core/', 'view=general'); ?>"><?php echo $language->get('admin', 'general_settings'); ?></a>
                                     </td>
                                 </tr>
+                                <?php } if($user->hasPermission('admincp.core.api')){ ?>
+                                    <tr>
+                                        <td>
+                                            <a href="<?php echo URL::build('/admin/api'); ?>"><?php echo $language->get('admin', 'api'); ?></a>
+                                        </td>
+                                    </tr>
                                 <?php } if($user->hasPermission('admincp.core.avatars')){ ?>
                                 <tr>
                                     <td>
@@ -1458,6 +1464,9 @@ $current_default_language = $current_default_language[0]->value;
                                                     case 3:
                                                         echo $language->get('admin', 'forgot_password_email');
                                                         break;
+                                                    case 4:
+                                                        echo $language->get('admin', 'api_registration_email');
+                                                        break;
                                                     default:
                                                         echo $language->get('admin', 'unknown');
                                                         break;
@@ -1479,6 +1488,16 @@ $current_default_language = $current_default_language[0]->value;
                                                             ?>
                                                             <a href="<?php echo URL::build('/admin/users/', 'user=' . $error->user_id . '&amp;action=validate'); ?>"
                                                                class="btn btn-secondary"><?php echo $language->get('admin', 'validate_user'); ?></a>
+                                                            <?php
+                                                        }
+                                                    }
+                                                } else if($error->type == 4){
+                                                    $user_error = $queries->getWhere('users', array('id', '=', $error->user_id));
+                                                    if(count($user_error)){
+                                                        $user_error = $user_error[0];
+                                                        if($user_error->active == 0 && !is_null($user_error->reset_code)){
+                                                            ?>
+                                                            <div class="alert alert-info"><?php echo str_replace('{x}', rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . Output::getClean($user_error->reset_code)), $language->get('admin', 'link_to_complete_registration')); ?></div>
                                                             <?php
                                                         }
                                                     }

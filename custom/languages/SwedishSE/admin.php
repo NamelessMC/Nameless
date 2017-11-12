@@ -390,6 +390,16 @@ $language = array(
     'page_redirect_link_maximum_512' => 'The page redirect link must be a maximum of 512 characters.',
     'confirm_delete_page' => 'Are you sure you want to delete this page?',
 
+    // API
+    'api' => 'API',
+    'enable_api' => 'Enable API?',
+    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>.',
+    'enable_legacy_api' => 'Enable legacy API?',
+    'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
+    'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
+    'api_registration_email' => 'API Registration Email',
+    'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
+
 	// File uploads
 	'drag_files_here' => 'Dra filer här för att ladda upp.',
 	'invalid_file_type' => 'Ogiltig filtyp!',
