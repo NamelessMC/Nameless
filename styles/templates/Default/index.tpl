@@ -20,7 +20,7 @@
 			<span class="pull-right"><a class="white-text" href="/profile/{$news.author_mcname}">{$news.author_username}</a> {$news.author_avatar}</span>
 		  </div>
 		  <div class="panel-body">
-		    {$news.content}
+		    <div class="forum_post">{$news.content}</div>
 			<br /><br />
 			<span class="label label-info">{$news.date}</span>
 			<span class="pull-right">
