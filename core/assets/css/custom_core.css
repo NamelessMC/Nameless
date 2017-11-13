@@ -29,5 +29,6 @@
 }
 .forum_post {
 	overflow: auto;
-	width: 100%
+	width: 100%;
+	word-wrap: break-word;
 }
