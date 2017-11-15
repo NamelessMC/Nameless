@@ -682,7 +682,7 @@ $general_language = array(
 	'queried_in' => '応答速度:',
 	'server_status' => 'サーバー状態',
 	'no_players_online' => 'オンラインプレイヤーはいません！',
-	'1_player_online' => 'There is 1 player online.',
+	'1_player_online' => 'オンラインの1人のプレーヤーがいます。',
 	'x_players_online' => '{x} 人のプレーヤーがオンラインです。', // Don't replace {x}
 	
 	// Other
@@ -761,7 +761,7 @@ $forum_language = array(
 	'topic_created' => 'トピックが作成されました。',
 	'creating_topic_in_' => 'フォーラムでトピックを作成する ',
 	'thread_title' => 'スレッドのタイトル',
-	'confirm_cancellation' => '確かですか？',
+	'confirm_cancellation' => '実行しますか？',
 	'label' => 'ラベル',
 	
 	// Reports
@@ -807,7 +807,7 @@ $email_language = array(
  *  DON'T replace "{x}" in any translations
  */
 $time_language = array(
-	'seconds_short' => 's', // Shortened "seconds", eg "s"
+	'seconds_short' => '数秒', // Shortened "seconds", eg "s"
 	'less_than_a_minute' => 'わずか1分前',
 	'1_minute' => '1 分前',
 	'_minutes' => '{x} 分前',
