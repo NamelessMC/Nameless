@@ -1454,15 +1454,35 @@ $admin_page = 'minecraft';
 
         var selectorOptions = {
             buttons: [{
+                step: 'hour',
+                stepmode: 'backward',
+                count: 6,
+                label: '6h'
+            }, {
+                step: 'hour',
+                stepmode: 'backward',
+                count: 12,
+                label: '12h'
+            }, {
+                step: 'day',
+                stepmode: 'backward',
+                count: 1,
+                label: '1d'
+            }, {
+                step: 'day',
+                stepmode: 'backward',
+                count: 15,
+                label: '15d'
+            }, {
                 step: 'month',
                 stepmode: 'backward',
                 count: 1,
-                label: '1m'
+                label: '1mo'
             }, {
                 step: 'month',
                 stepmode: 'backward',
                 count: 6,
-                label: '6m'
+                label: '6mo'
             }, {
                 step: 'year',
                 stepmode: 'todate',
