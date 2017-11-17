@@ -98,7 +98,13 @@ $admin_styles = true;
 
 				  foreach($templates as $template){
 					  $template_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), 'template.php'));
-					  require($template_path);
+
+					  if(file_exists(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), 'template.php'))))
+					      require($template_path);
+					  else {
+					      $queries->delete('templates', array('id', '=', $template->id));
+					      continue;
+                      }
 
 					  echo '<strong>' . Output::getClean($template->name) . '</strong> ' . Output::getClean($template_version);
 
