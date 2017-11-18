@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 26/08/2017
+ *  Last Update: 18/11/2017
  */
 
 $language = array(
@@ -393,13 +393,13 @@ $language = array(
 
     // API
     'api' => 'API',
-    'enable_api' => 'Enable API?',
-    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>.',
-    'enable_legacy_api' => 'Enable legacy API?',
-    'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
-    'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
-    'api_registration_email' => 'API Registration Email',
-    'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
+    'enable_api' => 'Activare API?',
+    'api_info' => 'API permite ca pluginurile și alte servicii să interacționeze cu site-ul dvs. web, cum ar fi <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >pluginul oficial Nameless</a>.',
+    'enable_legacy_api' => 'Activați API-ul vechi?',
+    'legacy_api_info' => 'API-ul vechi permite pluginurilor care utilizează API-ul versiunii vechi Nameless 1 să lucreze cu site-ul dvs. Nameless versiunea 2.',
+    'confirm_api_regen' => 'Sigur doriți să vă regenerați cheia API?',
+    'api_registration_email' => 'API pentru înregistrarea e-mail',
+    'link_to_complete_registration' => 'Adresa pentru finalizarea înregistrări:', // Don't replace {x}
 
     // File uploads
     'drag_files_here' => 'Trageți fișierele aici pentru a le încărca.',
