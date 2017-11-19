@@ -22,6 +22,9 @@ class MCQuery {
                 if($type == 'internal'){
                     // Internal query
                     $query_ip = explode(':', $ip['ip']);
+					
+					if(count($query_ip) == 1 || (count($query_ip[1]) == 2 && empty($query_ip[1])))
+						$query_ip[1] = 25565;
 
                     if(count($query_ip) == 2){
                         $ping = new MinecraftPing($query_ip[0], $query_ip[1], 1);
