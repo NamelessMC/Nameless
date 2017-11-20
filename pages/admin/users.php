@@ -534,12 +534,17 @@ require('core/integration/uuid.php');
 								$validation = $validate->check($_POST, $to_validation);
 								
 								if($validation->passed()){
+								  if(isset($_POST['group2']) && $_POST['group2'] > 0)
+								    $group2 = $_POST['group2'];
+								  else
+								    $group2 = null;
+
 									try {
 										$queries->update('users', $_GET["user"], array(
 											'username' => htmlspecialchars(Input::get('username')),
 											'email' => htmlspecialchars(Input::get('email')),
 											'group_id' => Input::get('group'),
-											'group2_id' => Input::get('group2'),
+											'group2_id' => $group2,
 											'mcname' => $mcname,
 											'uuid' => htmlspecialchars(Input::get('UUID')),
 											'user_title' => Input::get('title'),
@@ -768,18 +773,19 @@ require('core/integration/uuid.php');
 						  </div>
 						  <?php } ?>
 
-                            <div class="form-group">
-                                <label for="InputGroup2"><?php echo $admin_language['group2']; ?></label>
-                                <select class="form-control" id="InputGroup2" name="group2">
-                                    <?php
-                                    foreach($groups as $group){
-                                        ?>
-                                        <option value="<?php echo $group->id; ?>" <?php if($group->id === $individual[0]->group2_id){ echo 'selected="selected"'; } ?>><?php echo $group->name; ?></option>
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
+						  <div class="form-group">
+						    <label for="InputGroup2"><?php echo $admin_language['group2']; ?></label>
+						    <select class="form-control" id="InputGroup2" name="group2">
+                  <option value="0"><?php echo $general_language['none']; ?></option>
+						    <?php
+						    foreach($groups as $group){
+						    ?>
+						      <option value="<?php echo $group->id; ?>" <?php if($group->id === $individual[0]->group2_id){ echo 'selected="selected"'; } ?>><?php echo $group->name; ?></option>
+						    <?php
+						    }
+						    ?>
+						    </select>
+						  </div>
 						  <input type="hidden" name="token" value="<?php echo $token; ?>">
 						  <input type="hidden" name="action" value="update">
 						  <input type="submit" value="<?php echo $general_language['submit']; ?>" class="btn btn-default">

@@ -479,7 +479,7 @@ if(isset($profile)){
                         if($exists == true){ 
                            echo $user->getGroup($profile_user[0]->id, null, "true");
                            echo "   ";
-                           if($user->getGroup2($profile_user[0]->id, null, null) != 1) {
+                           if($user->getGroup2($profile_user[0]->id, null, null)) {
                                echo $user->getGroup2($profile_user[0]->id, null, "true");
                            }
                         } else {
