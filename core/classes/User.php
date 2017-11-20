@@ -351,18 +351,22 @@ class User {
     // Get a user's second group from their ID. We can either return their ID only, their normal HTML display code, or their large HTML display code
     public function getGroup2($id, $html = null, $large = null) {
         $data = $this->_db->get('users', array('id', '=', $id));
+        if(!$data->count())
+        	return;
+
+        $results = $data->results();
+        if($results[0]->group2_id == null || $results[0]->group2_id == 0)
+        	return;
+
         if($html === null){
             if($large === null){
-                $results = $data->results();
                 return $results[0]->group2_id;
             } else {
-                $results = $data->results();
                 $data = $this->_db->get('groups', array('id', '=', $results[0]->group2_id));
                 $results = $data->results();
                 return $results[0]->group_html_lg;
             }
         } else {
-            $results = $data->results();
             if($results[0]->group2_id == '1') {
                 return null;
             } else {
