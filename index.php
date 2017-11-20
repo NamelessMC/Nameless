@@ -56,7 +56,7 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 		require('modules/Core/pages/index.php');
 
 } else {
-	if(!isset($route)) $route = rtrim($_GET['route'], '/');
+	if(!isset($route)) $route = strtolower(rtrim($_GET['route'], '/'));
 
 	// Check modules
 	$modules = $pages->returnPages();
