@@ -1,14 +1,14 @@
 <?php
-/* 
+/*
  *	Made by Samerton
  *  http://worldscapemc.co.uk
  *
  *  License: MIT
  */
- 
+
 require('core/includes/password.php'); // Require password compatibility
 require('core/integration/uuid.php'); // Require UUID integration
- 
+
 if(isset($_GET["step"])){
 	$step = strtolower(htmlspecialchars($_GET["step"]));
 } else {
@@ -29,7 +29,7 @@ if(isset($_GET["step"])){
     <title>NamelessMC &bull; Install</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="./core/assets/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="./core/assets/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
       .small-margin {
         margin-top: 10px;
@@ -65,18 +65,18 @@ if(isset($_GET["step"])){
             <hr class="small-margin">
             <p>This installer will guide you through the process of installing the NamelessMC website package.</p>
           </div>
-          
+
           <h4>Are you upgrading from 0.4.1?</h4>
-		  
+
           <p>
             <button type="button" onclick="location.href='./install?step=upgrade_requirements'" class="btn btn-success">Yes, upgrade from 0.4.1 &raquo;</button>
 	    <button type="button" onclick="location.href='./install?step=requirements'" class="btn btn-primary">No, this is a new install &raquo;</button>
           </p>
-		  
+
 		  <div class="alert alert-info">Note: if you're upgrading from a 1.x version to another 1.x version, you will need to follow the instructions from within the AdminCP's Update tab, rather than running through the installer again.</div>
 
           <hr>
-          
+
           <div class="panel-group">
             <div class="panel panel-default">
               <div class="panel-heading">
@@ -124,8 +124,8 @@ if(isset($_GET["step"])){
               </div>
             </div>
           </div>
-	  
-	  <?php 
+
+	  <?php
 	  } else if($step === "requirements" || $step === "upgrade_requirements") {
 		$error = '<p style="display: inline;" class="text-danger"><span class="glyphicon glyphicon-remove-sign"></span></p><br />';
 		$success = '<p style="display: inline;" class="text-success"><span class="glyphicon glyphicon-ok-sign"></span></p><br />';
@@ -226,17 +226,17 @@ if(isset($_GET["step"])){
 					} else {
 						$db_password = '';
 					}
-					
+
 					$prefix = Input::get('prefix');
 					if(empty($prefix)){
 						$prefix = '';
 					}
-					
+
 					$prefix = htmlspecialchars($prefix);
-					
+
 					$db_prefix = "nl1_";
 					$cookie_name = "nlmc";
-					
+
 					/*
 					 *  Test connection - use MySQLi here, as the config for PDO is not written
 					 */
@@ -247,27 +247,27 @@ if(isset($_GET["step"])){
 						/*
 						 *  Write to config file
 						 */
-						$insert = 	'<?php' . PHP_EOL . 
-									'$GLOBALS[\'config\'] = array(' . PHP_EOL . 
-									'	"mysql" => array(' . PHP_EOL . 
-									'		"host" => "' . Input::get('db_address') . '", // Web server database IP (Likely to be 127.0.0.1)' . PHP_EOL . 
-									'		"username" => "' . Input::get('db_username') . '", // Web server database username' . PHP_EOL . 
-									'		"password" => \'' . $db_password . '\', // Web server database password' . PHP_EOL . 
+						$insert = 	'<?php' . PHP_EOL .
+									'$GLOBALS[\'config\'] = array(' . PHP_EOL .
+									'	"mysql" => array(' . PHP_EOL .
+									'		"host" => "' . Input::get('db_address') . '", // Web server database IP (Likely to be 127.0.0.1)' . PHP_EOL .
+									'		"username" => "' . Input::get('db_username') . '", // Web server database username' . PHP_EOL .
+									'		"password" => \'' . $db_password . '\', // Web server database password' . PHP_EOL .
 									'		"db" => "' . Input::get('db_name') . '", // Web server database name' . PHP_EOL .
 									'		"port" => "' . Input::get('db_port') . '", // Web server database port' . PHP_EOL .
 									'		"prefix" => "' . $db_prefix . '" // Web server table prefix' . PHP_EOL .
-									'	),' . PHP_EOL . 
-									'	"remember" => array(' . PHP_EOL . 
-									'		"cookie_name" => "' . $cookie_name . '", // Name for website cookies' . PHP_EOL . 
-									'		"cookie_expiry" => 604800' . PHP_EOL . 
-									'	),' . PHP_EOL . 
-									'	"session" => array(' . PHP_EOL . 
-									'		"session_name" => "user",' . PHP_EOL . 
+									'	),' . PHP_EOL .
+									'	"remember" => array(' . PHP_EOL .
+									'		"cookie_name" => "' . $cookie_name . '", // Name for website cookies' . PHP_EOL .
+									'		"cookie_expiry" => 604800' . PHP_EOL .
+									'	),' . PHP_EOL .
+									'	"session" => array(' . PHP_EOL .
+									'		"session_name" => "user",' . PHP_EOL .
 									'		"admin_name" => "admin",' . PHP_EOL .
-									'		"token_name" => "token"' . PHP_EOL . 
-									'	)' . PHP_EOL . 
+									'		"token_name" => "token"' . PHP_EOL .
+									'	)' . PHP_EOL .
 									');';
-						
+
 						if(is_writable('core/config.php')){
 							$file = fopen('core/config.php','w');
 							fwrite($file, $insert);
@@ -275,7 +275,7 @@ if(isset($_GET["step"])){
 
 							$queries = new Queries();
 							$queries->dbInitialise($db_prefix); // Initialise the database
-							
+
 							$query = $mysqli->query("SELECT * FROM {$prefix}custom_pages");
 							while($row = $query->fetch_assoc()){
 								$queries->create('custom_pages', array(
@@ -285,19 +285,19 @@ if(isset($_GET["step"])){
 									'link_location' => 1
 								));
 							}
-							
+
 							$query = $mysqli->query("INSERT nl1_forums SELECT * FROM {$prefix}forums");
 
 							$query = $mysqli->query("INSERT nl1_forums_permissions SELECT * FROM {$prefix}forums_permissions");
-							
+
 							$query = $mysqli->query("INSERT nl1_friends SELECT * FROM {$prefix}friends");
-							
+
 							$query = $mysqli->query("SELECT * FROM {$prefix}groups");
 							while($row = $query->fetch_assoc()){
 								$mod_cp = 0;
 								$admin_cp = 0;
 								$staff = 0;
-								
+
 								if($row['id'] == 2){
 									$mod_cp = 1;
 									$admin_cp = 1;
@@ -306,7 +306,7 @@ if(isset($_GET["step"])){
 									$mod_cp = 1;
 									$staff = 1;
 								}
-								
+
 								$queries->create('groups', array(
 									'id' => $row['id'],
 									'name' => $row['name'],
@@ -318,9 +318,9 @@ if(isset($_GET["step"])){
 									'staff' => $staff
 								));
 							}
-							
+
 							$query = $mysqli->query("INSERT nl1_infractions SELECT * FROM {$prefix}infractions");
-							
+
 							$query = $mysqli->query("SELECT * FROM {$prefix}mc_servers");
 							while($row = $query->fetch_assoc()){
 								if(isset($row['pre'])){
@@ -328,13 +328,13 @@ if(isset($_GET["step"])){
 								} else {
 									$pre = 0;
 								}
-								
+
 								if(isset($row['player_list'])){
 									$player_list = $row['player_list'];
 								} else {
 									$player_list = 0;
 								}
-								
+
 								$queries->create('mc_servers', array(
 									'ip' => $row['ip'],
 									'name' => $row['name'],
@@ -344,21 +344,21 @@ if(isset($_GET["step"])){
 									'player_list' => $player_list
 								));
 							}
-							
+
 							$query = $mysqli->query("INSERT nl1_posts SELECT * FROM {$prefix}posts");
-							
+
 							$query = $mysqli->query("INSERT nl1_private_messages SELECT * FROM {$prefix}private_messages");
-							
+
 							$query = $mysqli->query("INSERT nl1_private_messages_users SELECT * FROM {$prefix}private_messages_users");
-							
+
 							$query = $mysqli->query("INSERT nl1_reports SELECT * FROM {$prefix}reports");
-							
+
 							$query = $mysqli->query("INSERT nl1_reports_comments SELECT * FROM {$prefix}reports_comments");
-							
+
 							$query = $mysqli->query("INSERT nl1_reputation SELECT * FROM {$prefix}reputation");
-							
+
 							$query = $mysqli->query("INSERT nl1_settings SELECT * FROM {$prefix}settings");
-							
+
 							$query = $mysqli->query("SELECT * FROM {$prefix}topics");
 							while($row = $query->fetch_assoc()){
 								$queries->create('topics', array(
@@ -375,18 +375,18 @@ if(isset($_GET["step"])){
 									'label' => null
 								));
 							}
-							
+
 							$query = $mysqli->query("INSERT nl1_users SELECT * FROM {$prefix}users");
-							
+
 							$query = $mysqli->query("INSERT nl1_users_admin_session SELECT * FROM {$prefix}users_admin_session");
-							
+
 							$query = $mysqli->query("INSERT nl1_users_session SELECT * FROM {$prefix}users_session");
-							
+
 							$query = $mysqli->query("INSERT nl1_uuid_cache SELECT * FROM {$prefix}uuid_cache");
-							
+
 							// Core Modules
 							$modules_initialised = $queries->getWhere('core_modules', array('id', '<>', 0));
-							
+
 							if(!count($modules_initialised)){
 								$queries->create('core_modules', array(
 									'name' => 'Google_Analytics',
@@ -409,10 +409,10 @@ if(isset($_GET["step"])){
 									'enabled' => 0
 								));
 							}
-							
+
 							// Themes
 							$themes_initialised = $queries->getWhere('themes', array('id', '<>', 0));
-							
+
 							if(!count($themes_initialised)){
 								$themes = array(
 									1 => array(
@@ -484,7 +484,7 @@ if(isset($_GET["step"])){
 										'enabled' => 0
 									)
 								);
-								
+
 								foreach($themes as $theme){
 									$queries->create('themes', array(
 										'enabled' => $theme['enabled'],
@@ -492,54 +492,54 @@ if(isset($_GET["step"])){
 									));
 								}
 							}
-							
+
 							// Templates
 							$queries->create('templates', array(
 								'enabled' => 1,
 								'name' => 'Default'
 							));
-							
+
 							// Cache
 							$c = new Cache();
 							$c->setCache('themecache');
 							$c->store('theme', 'Bootstrap');
 							$c->store('inverse_navbar', '0');
-							
+
 							// Todo: update site name
 							//$c->setCache('sitenamecache');
 							//$c->store('sitename', htmlspecialchars(Input::get('sitename')));
-							
+
 							$c->setCache('templatecache');
 							$c->store('template', 'Default');
-							
+
 							$c->setCache('languagecache');
 							$c->store('language', 'EnglishUK');
-							
+
 							$c->setCache('page_load_cache');
 							$c->store('page_load', 0);
-							
+
 							$plugin_key = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 32);
-							
+
 							// New settings
 							$queries->update('settings', 13, array(
 								'value' => 'By registering on our website, you agree to the following:<p>This website uses "Nameless" website software. The "Nameless" software creators will not be held responsible for any content that may be experienced whilst browsing this site, nor are they responsible for any loss of data which may come about, for example a hacking attempt. The website is run independently from the software creators, and any content is the responsibility of the website administration.</p>'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'mc_api_key',
 								'value' => $plugin_key
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'phpmailer',
 								'value' => '0'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'phpmailer_type',
 								'value' => 'smtp'
 							));
-							
+
 							$external_query = $queries->getWhere('settings', array('name', '=', 'external_query'));
 							if(!count($external_query)){
 								$queries->create('settings', array(
@@ -547,98 +547,98 @@ if(isset($_GET["step"])){
 									'value' => 'false'
 								));
 							}
-							
+
 							$queries->create('settings', array(
 								'name' => 'use_plugin',
 								'value' => '0'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'uuid_linking',
 								'value' => '1'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'inverse_navbar',
 								'value' => '0'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'error_reporting',
 								'value' => '0'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'ga_script',
 								'value' => 'null'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'avatar_api',
 								'value' => 'cravatar'
 							));
-							
+
 							// Languages
 							$queries->create('settings', array(
 								'name' => 'language',
 								'value' => 'EnglishUK'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 't_and_c_site',
 								'value' => '<p>You agree to be bound by our website rules and any laws which may apply to this website and your participation.</p><p>The website administration have the right to terminate your account at any time, delete any content you may have posted, and your IP address and any data you input to the website is recorded to assist the site staff with their moderation duties.</p><p>The site administration have the right to change these terms and conditions, and any site rules, at any point without warning. Whilst you may be informed of any changes, it is your responsibility to check these terms and the rules at any point.</p>'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'incoming_email',
 								'value' => ''
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'query_update',
 								'value' => 'false'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'mc_status_module',
 								'value' => 'false'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'recaptcha_secret',
 								'value' => 'null'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'email_verification',
 								'value' => '1'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'play_page_enabled',
 								'value' => '1'
 							));
-						
+
 							$queries->create('settings', array(
 								'name' => 'followers',
 								'value' => '0'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'discord',
 								'value' => '0'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'avatar_type',
 								'value' => 'helmavatar'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'use_mcassoc',
 								'value' => '0'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'mcassoc_key',
 								'value' => ''
@@ -648,30 +648,30 @@ if(isset($_GET["step"])){
 								'name' => 'mcassoc_instance',
 								'value' => ''
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'twitter_style',
 								'value' => 'light'
 							));
-							
+
 							$queries->create('settings', array(
 								'name' => 'enable_name_history',
 								'value' => 1
 							));
-							
+
 							// Version update
 							$version_id = $queries->getWhere('settings', array('name', '=', 'version'));
 							$queries->update('settings', $version_id[0]->id, array(
-								'value' => '1.0.17'
+								'value' => '1.0.18'
 							));
-							
-							
+
+
 							// Close connections
 							$mysqli->close();
-							
+
 							echo '<script>window.location.replace("./install?step=finish&from=upgrade");</script>';
 							die();
-							
+
 						} else {
 							/*
 							 *  File not writeable
@@ -750,9 +750,9 @@ if(isset($_GET["step"])){
 				$db_password = "";
 				$db_prefix = "nl1_";
 				$cookie_name = "nlmc";
-				
+
 				$db_password = Input::get('db_password');
-				
+
 				if(!empty($db_password)){
 					$db_password = Input::get('db_password');
 				}
@@ -767,35 +767,35 @@ if(isset($_GET["step"])){
 					/*
 					 *  Write to config file
 					 */
-					$insert = 	'<?php' . PHP_EOL . 
-								'$GLOBALS[\'config\'] = array(' . PHP_EOL . 
-								'	"mysql" => array(' . PHP_EOL . 
-								'		"host" => "' . Input::get('db_address') . '", // Web server database IP (Likely to be 127.0.0.1)' . PHP_EOL . 
-								'		"username" => "' . Input::get('db_username') . '", // Web server database username' . PHP_EOL . 
-								'		"password" => \'' . $db_password . '\', // Web server database password' . PHP_EOL . 
+					$insert = 	'<?php' . PHP_EOL .
+								'$GLOBALS[\'config\'] = array(' . PHP_EOL .
+								'	"mysql" => array(' . PHP_EOL .
+								'		"host" => "' . Input::get('db_address') . '", // Web server database IP (Likely to be 127.0.0.1)' . PHP_EOL .
+								'		"username" => "' . Input::get('db_username') . '", // Web server database username' . PHP_EOL .
+								'		"password" => \'' . $db_password . '\', // Web server database password' . PHP_EOL .
 								'		"db" => "' . Input::get('db_name') . '", // Web server database name' . PHP_EOL .
 								'		"port" => "' . Input::get('db_port') . '", // Web server database port' . PHP_EOL .
 								'		"prefix" => "' . $db_prefix . '" // Web server table prefix' . PHP_EOL .
-								'	),' . PHP_EOL . 
-								'	"remember" => array(' . PHP_EOL . 
-								'		"cookie_name" => "' . $cookie_name . '", // Name for website cookies' . PHP_EOL . 
-								'		"cookie_expiry" => 604800' . PHP_EOL . 
-								'	),' . PHP_EOL . 
-								'	"session" => array(' . PHP_EOL . 
-								'		"session_name" => "user",' . PHP_EOL . 
+								'	),' . PHP_EOL .
+								'	"remember" => array(' . PHP_EOL .
+								'		"cookie_name" => "' . $cookie_name . '", // Name for website cookies' . PHP_EOL .
+								'		"cookie_expiry" => 604800' . PHP_EOL .
+								'	),' . PHP_EOL .
+								'	"session" => array(' . PHP_EOL .
+								'		"session_name" => "user",' . PHP_EOL .
 								'		"admin_name" => "admin",' . PHP_EOL .
-								'		"token_name" => "token"' . PHP_EOL . 
-								'	)' . PHP_EOL . 
+								'		"token_name" => "token"' . PHP_EOL .
+								'	)' . PHP_EOL .
 								');';
-					
+
 					if(is_writable('core/config.php')){
 						$file = fopen('core/config.php','w');
 						fwrite($file, $insert);
 						fclose($file);
-						
+
 						echo '<script>window.location.replace("./install?step=database");</script>';
 						die();
-						
+
 					} else {
 						/*
 						 *  File not writeable
@@ -808,7 +808,7 @@ if(isset($_GET["step"])){
 				}
 			} else {
 				$errors = "";
-				
+
 				foreach($validation->errors() as $error){
 					if(strstr($error, 'db_address')){
 						$errors .= "Please input a database address<br />";
@@ -886,12 +886,12 @@ if(isset($_GET["step"])){
 			$queries = new Queries(); // Initialise queries
 		}
 		$prefix = Config::get('mysql/prefix');
-		
+
                 if($queries->dbInitialise($prefix)) {
                     ?>
            <div class="alert alert-success">The database was initialised successfully, and you may now progress with the installation.</div>
            <button type='button' onclick="location.href='./install?step=settings'" class='btn btn-primary'>Continue &raquo;</button>
-                    <?php                    
+                    <?php
                 } else {
                     echo '<div class="alert alert-danger">Database initialisation failed.</div>';
                 }
@@ -915,19 +915,19 @@ if(isset($_GET["step"])){
 					'max' => 1024
 				)
 			));
-			
+
 			if($validation->passed()) {
-			
+
 				if(!isset($queries)){
 					$queries = new Queries(); // Initialise queries
 				}
-				
+
 				$plugin_key = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 32);
 				$uid = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 62);
 				// Get current unix time
 				$date = new DateTime();
 				$date = $date->getTimestamp();
-				
+
 				$data = array(
 					0 => array(
 						'name' => 'sitename',
@@ -1043,7 +1043,7 @@ if(isset($_GET["step"])){
 					),
 					28 => array(
 						'name' => 'version',
-						'value' => '1.0.17'
+						'value' => '1.0.18'
 					),
 					29 => array(
 						'name' => 'version_checked',
@@ -1106,7 +1106,7 @@ if(isset($_GET["step"])){
 						'value' => 1
 					)
 				);
-				
+
 				$youtube_url = Input::get('youtube_url');
 				if(!empty($youtube_url)){
 					$data[4]["value"] = htmlspecialchars($youtube_url);
@@ -1133,7 +1133,7 @@ if(isset($_GET["step"])){
 				if(Input::get('user_avatars') == 1){
 					$data[22]["value"] = "1";
 				}
-				
+
 				try {
 					foreach($data as $setting){
 						$queries->create("settings", array(
@@ -1148,10 +1148,10 @@ if(isset($_GET["step"])){
 						'content' => 'Default help page. Customise in the admin panel.',
 						'link_location' => 3
 					));
-					
+
 					// Core Modules
 					$modules_initialised = $queries->getWhere('core_modules', array('id', '<>', 0));
-					
+
 					if(!count($modules_initialised)){
 						$queries->create('core_modules', array(
 							'name' => 'Google_Analytics',
@@ -1174,10 +1174,10 @@ if(isset($_GET["step"])){
 							'enabled' => 0
 						));
 					}
-					
+
 					// Themes
 					$themes_initialised = $queries->getWhere('themes', array('id', '<>', 0));
-							
+
 					if(!count($themes_initialised)){
 						$themes = array(
 							1 => array(
@@ -1249,7 +1249,7 @@ if(isset($_GET["step"])){
 								'enabled' => 0
 							)
 						);
-						
+
 						foreach($themes as $theme){
 							$queries->create('themes', array(
 								'enabled' => $theme['enabled'],
@@ -1257,42 +1257,42 @@ if(isset($_GET["step"])){
 							));
 						}
 					}
-					
+
 					// Templates
 					$queries->create('templates', array(
 						'enabled' => 1,
 						'name' => 'Default'
 					));
-					
+
 					// Cache
 					$c = new Cache();
 					$c->setCache('themecache');
 					$c->store('theme', 'Bootstrap');
 					$c->store('inverse_navbar', '0');
-					
+
 					$c->setCache('sitenamecache');
 					$c->store('sitename', htmlspecialchars(Input::get('site_name')));
-					
+
 					$c->setCache('templatecache');
 					$c->store('template', 'Default');
-					
+
 					$c->setCache('languagecache');
 					$c->store('language', 'EnglishUK');
-					
+
 					$c->setCache('page_load_cache');
 					$c->store('page_load', 0);
-					
+
 					echo '<script>window.location.replace("./install?step=account");</script>';
 					die();
-					
+
 				} catch(Exception $e){
 					echo "<br><div class='alert alert-danger'>".$e->getMessage()."</div>";
                                         die();
 				}
-				
+
 			} else {
 				$errors = "";
-				
+
 				foreach($validation->errors() as $error){
 					if(strstr($error, 'site_name')){
 						$errors .= "Please input a site name<br />";
@@ -1378,14 +1378,14 @@ if(isset($_GET["step"])){
 	  <?php
 	  } else if($step === "account"){
 		if(!isset($queries)){
-			$queries = new Queries(); // Initialise queries 
+			$queries = new Queries(); // Initialise queries
 		}
 		$allow_mcnames = $queries->getWhere("settings", array("name", "=", "displaynames"));
 		$allow_mcnames = $allow_mcnames[0]->value; // Can the user register with a non-Minecraft username?
-		
+
 		if(Input::exists()){
 			$validate = new Validate();
-			
+
 			$data = array(
 				'email' => array(
 					'required' => true,
@@ -1402,7 +1402,7 @@ if(isset($_GET["step"])){
 					'matches' => 'password'
 				)
 			);
-			
+
 			if($allow_mcnames === "false"){ // Custom usernames are disabled
 				$data['username'] = array(
 					'min' => 2,
@@ -1418,12 +1418,12 @@ if(isset($_GET["step"])){
 					'max' => 20
 				);
 			}
-			
+
 			$validation = $validate->check($_POST, $data); // validate
-			
+
 			if($validation->passed()){
 				$user = new User();
-				
+
 				// Get Minecraft UUID of user
 				if($allow_mcnames !== "false"){
 					$mcname = Input::get('mcname');
@@ -1432,29 +1432,29 @@ if(isset($_GET["step"])){
 					$mcname = Input::get('username');
 					$profile = ProfileUtils::getProfile(Input::get('username'));
 				}
-				
+
 				if(!empty($profile)){
 					$uuid = $profile->getProfileAsArray();
-					$uuid = $uuid['uuid']; 
+					$uuid = $uuid['uuid'];
 					if(empty($uuid)){
 						$uuid = '';
 					}
 				} else {
 					$uuid = '';
 				}
-				
+
 				if($uuid == ''){
 					// Error getting UUID, display an error asking user to update manually
 					$uuid_error = true;
 				}
-				
+
 				// Hash password
 				$password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
-				
+
 				// Get current unix time
 				$date = new DateTime();
 				$date = $date->getTimestamp();
-				
+
 				try {
 					// Create groups
 					// Only create if they don't already exist for some reason
@@ -1467,7 +1467,7 @@ if(isset($_GET["step"])){
 							'group_html_lg' => '<span class="label label-success">Member</span>'
 						));
 					}
-					
+
 					$group_exists = $queries->getWhere("groups", array("id", "=", 2));
 					if(!count($group_exists)){
 						$queries->create("groups", array(
@@ -1480,7 +1480,7 @@ if(isset($_GET["step"])){
 							'staff' => 1
 						));
 					}
-					
+
 					$group_exists = $queries->getWhere("groups", array("id", "=", 3));
 					if(!count($group_exists)){
 						$queries->create("groups", array(
@@ -1492,7 +1492,7 @@ if(isset($_GET["step"])){
 							'staff' => 1
 						));
 					}
-				
+
 					// Create admin account
 					$user->create(array(
 						'username' => Input::get('username'),
@@ -1506,9 +1506,9 @@ if(isset($_GET["step"])){
 						'lastip' => "",
 						'active' => 1
 					));
-					
+
 					$login = $user->login(Input::get('username'), Input::get('password'), true);
-					if($login) {					
+					if($login) {
 						if(!isset($uuid_error)){
 							echo '<script>window.location.replace("./install?step=convert");</script>';
 						} else {
@@ -1519,13 +1519,13 @@ if(isset($_GET["step"])){
 						echo '<p>Sorry, there was an unknown error logging you in. <a href="/install/?step=account">Try again</a></p>';
 						die();
 					}
-				
+
 				} catch(Exception $e){
-					echo "<br><div class='alert alert-danger'>".$e->getMessage()."</div>";				
+					echo "<br><div class='alert alert-danger'>".$e->getMessage()."</div>";
 					die();
 				}
-				
-				
+
+
 			} else {
 				Session::flash('admin-acc-error', '
 						<div class="alert alert-danger">
@@ -1585,7 +1585,7 @@ if(isset($_GET["step"])){
             <hr>
             <button type="submit" class="btn btn-default">Submit</button>
 	  </form>
-	  <?php 
+	  <?php
 	  } else if($_GET['step'] === "convert"){
 		if(!isset($user)){
 			$user = new User();
@@ -1614,7 +1614,7 @@ if(isset($_GET["step"])){
 			if(!Input::exists()){
 	  ?>
 			<h4>Converting from ModernBB:</h4>
-			
+
 	  <?php
 				if(isset($_GET["error"])){
 	  ?>
@@ -1624,7 +1624,7 @@ if(isset($_GET["step"])){
 	  <?php
 				}
 	  ?>
-			
+
 			<form action="?step=convert&convert=yes&from=modernbb" method="post">
 			  <div class="form-group">
 			    <label for="InputDBAddress">ModernBB Database Address</label>
@@ -1651,7 +1651,7 @@ if(isset($_GET["step"])){
 			  <input class="btn btn-primary" type="submit" value="Convert">
 			  <a href="#" class="btn btn-danger" onclick="location.href='./install?step=convert&convert=yes'">Cancel</a>
 			</form>
-			
+
 	  <?php
 			} else {
 				require 'core/converters/modernbb.php';
@@ -1667,7 +1667,7 @@ if(isset($_GET["step"])){
 	  ?>
 			<h4>Converting from phpBB:</h4>
 			Coming soon. This won't work yet!
-			
+
 	  <?php
 				if(isset($_GET["error"])){
 	  ?>
@@ -1677,7 +1677,7 @@ if(isset($_GET["step"])){
 	  <?php
 				}
 	  ?>
-			
+
 			<form action="?step=convert&convert=yes&from=phpbb" method="post">
 			  <div class="form-group">
 			    <label for="InputDBAddress">phpBB Database Address</label>
@@ -1704,7 +1704,7 @@ if(isset($_GET["step"])){
 			  <input class="btn btn-primary" type="submit" value="Convert">
 			  <a href="#" class="btn btn-danger" onclick="location.href='./install?step=convert&convert=yes'">Cancel</a>
 			</form>
-			
+
 	  <?php
 			} else {
 				require 'core/converters/phpbb.php';
@@ -1715,14 +1715,14 @@ if(isset($_GET["step"])){
 			</div>
 	  <?php
 			}
-/* 
+/*
  * ---- NEW, By dwilson390 -----
  */
 		} else if(strtolower($_GET["from"]) === "wordpress"){
 			if(!Input::exists()){
 	  ?>
 			<h4>Converting from WordPress:</h4>
-			
+
 	  <?php
 				if(isset($_GET["error"])){
 	  ?>
@@ -1734,7 +1734,7 @@ if(isset($_GET["step"])){
 	  ?>
 			<div class="alert alert-success">
 				WordPress conversion script created by dwilson390.<br />
-			</div>	
+			</div>
 			<form action="?step=convert&convert=yes&from=wordpress" method="post">
 			  <div class="form-group">
 			    <label for="InputDBAddress">Wordpress Database Address</label>
@@ -1765,7 +1765,7 @@ if(isset($_GET["step"])){
 			  <input class="btn btn-primary" type="submit" value="Convert">
 			  <a href="#" class="btn btn-danger" onclick="location.href='./install?step=convert&convert=yes'">Cancel</a>
 			</form>
-			
+
 	  <?php
 			} else {
 				require 'core/converters/wordpress.php';
@@ -1776,7 +1776,7 @@ if(isset($_GET["step"])){
 			</div>
 	  <?php
 			}
-		
+
 /*
  * ---- END, By dwilson390 -----
  */
@@ -1789,7 +1789,7 @@ if(isset($_GET["step"])){
 			if(!Input::exists()){
 	  ?>
 			<h4>Converting from XenForo:</h4>
-			
+
 	  <?php
 				if(isset($_GET["error"])){
 	  ?>
@@ -1799,7 +1799,7 @@ if(isset($_GET["step"])){
 	  <?php
 				}
 	  ?>
-			
+
 			<form action="?step=convert&convert=yes&from=xenforo" method="post">
 			  <div class="form-group">
 			    <label for="InputDBAddress">XenForo Database Address</label>
@@ -1822,7 +1822,7 @@ if(isset($_GET["step"])){
 			  <input class="btn btn-primary" type="submit" value="Convert">
 			  <a href="#" class="btn btn-danger" onclick="location.href='./install?step=convert&convert=yes'">Cancel</a>
 			</form>
-			
+
 	  <?php
 			} else {
 				require 'core/converters/xenforo.php';
@@ -1880,10 +1880,10 @@ if(isset($_GET["step"])){
       </footer>
     </div> <!-- /container -->
 
-	<?php 
-	if($step === "start"){ 
+	<?php
+	if($step === "start"){
 	?>
-	
+
     <div class="modal fade" id="bungee_plugins" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -1902,7 +1902,7 @@ if(isset($_GET["step"])){
         </div>
       </div>
     </div>
-	
+
     <div class="modal fade" id="mc_plugins" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -1952,7 +1952,7 @@ if(isset($_GET["step"])){
 	<?php
 	}
 	?>
-	
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

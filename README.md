@@ -4,11 +4,11 @@
 
 Nameless version 2.0.0 is currently in development and the source can be viewed on the v2 branch. Until it's ready for production use, any pre-releases can be found here: https://github.com/NamelessMC/Nameless/releases.
 
-## Version 1.0.17
+## Version 1.0.18
 
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
-Version 1.0.17 features:
+Version 1.0.18 features:
 
 - Template and theme system
 - Languages
@@ -49,7 +49,7 @@ Core modules:
 * [Changelog](https://github.com/NamelessMC/Nameless/blob/master/changelog.txt)
 * [Issue Tracker](https://github.com/NamelessMC/Nameless/issues)
 * [Support](http://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
-* [Download](https://github.com/NamelessMC/Nameless/releases) 
+* [Download](https://github.com/NamelessMC/Nameless/releases)
 * [Plugin Download](https://plugin.namelessmc.com/)
 
 # Full Management list:
@@ -87,7 +87,7 @@ Core modules:
 * @mentimjojo
 * @McLive
 * @melerpe
-* @IsS127 
+* @IsS127
 * @ConnorLinFoot
 * @lockerecca
 * @tombomb
