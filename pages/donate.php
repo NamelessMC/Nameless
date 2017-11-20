@@ -88,7 +88,7 @@ if($settings[2]->value == 0 && !$user->isLoggedIn()){
         $latest_donors_string = '';
         foreach($latest_donors as $latest_donor){
             // Append to string to display in template
-            $latest_donors_string .= '<p><div class="row vertical-align"><div class="col-md-3"><a href="/profile/' . htmlspecialchars($latest_donor->ign) . '"><img class="img-rounded" src="https://cravatar.eu/avatar/' . htmlspecialchars($latest_donor->ign) . '/30.png" /></a></div>';
+            $latest_donors_string .= '<p><div class="row vertical-align"><div class="col-md-3"><a href="/profile/' . htmlspecialchars($latest_donor->ign) . '"><img class="img-rounded" src="https://cravatar.eu/avatar/' . ((strlen($latest_donor->uuid) > 0 && $latest_donor->uuid != '----') ? htmlspecialchars($latest_donor->uuid) : htmlspecialchars($latest_donor->ign)) . '/30.png" /></a></div>';
             $latest_donors_string .= '<div class="col-md-9"><a href="/profile/' . htmlspecialchars($latest_donor->ign) . '">' . htmlspecialchars($latest_donor->ign) . '</a> - ' . $currency . $latest_donor->price . '<br />' . date('d M Y', $latest_donor->time) . '</div></div></p>';
         }
 

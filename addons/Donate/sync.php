@@ -163,22 +163,36 @@ if($webstore == 'bc'){
     // MinecraftMarket
     require('integration/minecraftmarket.php');
 
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
     /*
      * PACKAGES SYNC
      */
 
     // Categories first
-    foreach($mm_gui['categories'] as $item){
+	$categories_array = array();
+	$db_categories_query = $queries->getWhere('donation_categories', array('id', '<>', 0));
+	$db_categories = array();
+	if(count($db_categories_query)){
+		foreach($db_categories_query as $item){
+			$db_categories[$item->id] = $item->name;
+		}
+	}
+
+    foreach($mm_gui['results'] as $item){
         // Does it already exist in the database?
         $category_name = htmlspecialchars($item['name']);
-        $category = $queries->getWhere('donation_categories', array('name', '=', $category_name));
+        $categories_array[] = $category_name;
 
-        if(!count($category)){
+        if(!in_array($item['name'], $db_categories)){
             // No, it doesn't exist
             $category_order = 0;
-            if(!empty($category_order)){
+            if(isset($item['order']) && !empty($item['order'])){
                 $category_order = $item['order'];
             }
+
             $category_id = $item['id'];
             $queries->create('donation_categories', array(
                 'name' => $category_name,
@@ -186,30 +200,75 @@ if($webstore == 'bc'){
                 'order' => $category_order
             ));
         }
+
+        // Subcategories
+		$subcategories = $item['subcategories'];
+        if(is_array($subcategories) && count($subcategories)){
+        	foreach($subcategories as $subcategory){
+
+				curl_setopt($ch, CURLOPT_URL, $subcategory['url']);
+				$result = curl_exec($ch);
+				$result = json_decode(str_replace("&quot;", "\"", strip_tags($result)), true);
+
+				if(is_array($result) && isset($result['name'])){
+					$category_name = $result['name'];
+					$categories_array[] = $category_name;
+
+					if(!in_array($result['name'], $db_categories)){
+						$category_order = 0;
+						if(isset($result['order']) && !empty($result['order'])){
+							$category_order = $result['order'];
+						}
+
+						$category_id = $result['id'];
+
+						$queries->create('donation_categories', array(
+							'name' => $category_name,
+							'cid' => $category_id,
+							'order' => $category_order
+						));
+					}
+				}
+			}
+		}
     }
 
+    curl_close($ch);
+
     // Delete any categories which don't exist on the web store anymore
-    $categories = $queries->getWhere('donation_categories', array('id', '<>', 0));
-    foreach($categories as $category){
-        if(!in_array_r($category->cid, $mm_gui['categories'])){
+    foreach($db_categories_query as $category){
+        if(!in_array($category->name, $categories_array)){
             // It doesn't exist anymore
             $queries->delete('donation_categories', array('id', '=', $category->id));
         }
     }
 
+    $db_categories_query = null;
+	$db_categories = null;
+	$categories_array = null;
+
     // Packages next
-    foreach($mm_gui['result'] as $item){
+	$db_packages_query = $queries->getWhere('donation_packages', array('id', '<>', 0));
+	$db_packages = array();
+	if(count($db_packages_query)){
+		foreach($db_packages_query as $item){
+			$db_packages[$item->id] = $item->name;
+		}
+	}
+
+	$packages_array = array();
+    foreach($mm_packages['results'] as $item){
         // Does it already exist in the database?
         $package_name = htmlspecialchars($item['name']);
-        $package = $queries->getWhere('donation_packages', array('name', '=', $package_name));
+        $packages_array[] = $package_name;
 
-        if(!count($package)){
+        if(!in_array($package_name, $db_packages)){
             // No, it doesn't exist
             $package_id = $item['id'];
-            $package_category = $item['categoryid'];
-            $package_description = htmlspecialchars($item['description']);
+            $package_category = $item['category']['id'];
+            $package_description = htmlspecialchars($item['gui_description']);
             $package_price = $item['price'];
-            $package_url = htmlspecialchars($item['url']);
+            $package_url = htmlspecialchars($item['gui_url']);
 
             $queries->create('donation_packages', array(
                 'name' => $package_name,
@@ -225,83 +284,50 @@ if($webstore == 'bc'){
     }
 
     // Delete any packages which don't exist on the web store anymore
-    $packages = $queries->getWhere('donation_packages', array('id', '<>', 0));
-    foreach($packages as $package){
-        if(!in_array_r($package->package_id, $mm_gui['result'])){
+	foreach($db_packages_query as $package){
+		if(!in_array($package->name, $packages_array)){
             // It doesn't exist anymore
             $queries->delete('donation_packages', array('id', '=', $package->id));
         }
     }
 
+	$db_packages_query = null;
+	$db_packages = null;
+	$packages_array = null;
+
     /*
      * DONORS SYNC
      */
 
-    foreach($mm_donors['result'] as $item){
+    $latest_donation = $queries->orderWhere('donation_cache', 'id <> 0', '`time`', 'DESC LIMIT 1');
+    if(count($latest_donation))
+    	$latest_donation = $latest_donation[0]->time;
+    else
+    	$latest_donation = 0;
+
+    foreach($mm_donors['results'] as $item){
         // Does it already exist in the database?
         $date = strtotime($item['date']);
-        $donor_query = $queries->getWhere('donation_cache', array('time', '=', $date));
 
-        if(count($donor_query)){
-            // Already exists, we can stop now
-            break;
-        }
+        if($date <= $latest_donation)
+        	break;
 
-        $donor_name = htmlspecialchars($item['username']);
+        $donor_name = htmlspecialchars($item['player']['username']);
+        $uuid = htmlspecialchars($item['player']['uuid']);
         $price = $item['price'];
         $package = $item['id'];
 
         // Doesn't exist, input into our database
         $queries->create('donation_cache', array(
             'time' => $date,
-            'uuid' => '',
+            'uuid' => $uuid,
             'ign' => $donor_name,
             'price' => $price,
             'package' => $package
         ));
     }
 
-    /*
-     * GROUP SYNC
-     * 1 - import donor groups from database
-     * 2 - loop through donors
-     * 3 - for each donor, check if they already have a DONOR/STANDARD group (ie not staff)
-     * 4 - if the user is a staff member, do nothing, else:
-     *       a - check if the user is a donor already, if so:
-     *       		i - add most valuable package to the user
-             b - if not, add the most valuable package (if they've bought multiple) to the user
-     */
-
-    $donor_groups = $queries->getWhere("groups", array("buycraft_id", "<>", "NULL"));
-
-    foreach($mm_donors['result'] as $donor){
-        $donor_user = $queries->getWhere('users', array('username', '=', htmlspecialchars($donor['username']))); // user from users table
-        if(!count($donor_user)){
-            $donor_user = $queries->getWhere('users', array('mcname', '=', htmlspecialchars($donor['username'])));
-        }
-        if(count($donor_user)){ // if the user has registered on the website..
-            // Are they a staff member?
-            $user_group = $queries->getWhere('groups', array('id', '=', $donor_user[0]->group_id));
-            if($user_group[0]->staff == 1){
-                // Don't do anything as they're a staff member - we want them to keep their staff rank
-            } else {
-                $donor_group = $queries->getWhere("groups", array("buycraft_id", "=", $item['id']));
-                $package_group_id = $donor_group[0]->id;
-                if($donor_user[0]->group_id < $package_group_id){
-                    try {
-                        $queries->update("users", $donor_user[0]->id, array(
-                            'group_id' => $package_group_id
-                        ));
-                    } catch(Exception $e){
-                        die($e->getMessage());
-                    }
-                }
-                /*
-                 * TODO: Run check if user has purchased multiple packages
-                 */
-            }
-        }
-    }
+    $latest_donation = null;
 
 } else if($webstore == 'mcs'){
     // MCStock
