@@ -313,7 +313,11 @@ if($webstore == 'bc'){
         	break;
 
         $donor_name = htmlspecialchars($item['player']['username']);
-        $uuid = htmlspecialchars($item['player']['uuid']);
+        if(!is_null($item['player']['uuid']) && strlen($item['player']['uuid']) > 0)
+        	$uuid = htmlspecialchars($item['player']['uuid']);
+        else
+        	$uuid = '----';
+
         $price = $item['price'];
         $package = $item['id'];
 
