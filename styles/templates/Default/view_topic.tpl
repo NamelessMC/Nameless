@@ -26,8 +26,8 @@
 			  <strong><a href="/profile/{$reply.mcname}">{$reply.username}</a></strong>
 			  <br />
 			  {$reply.user_group}
-			  <br />
-			  {$reply.user_group2}
+			  {if !is_null($reply.user_group2)}<br />
+			  {$reply.user_group2}{/if}
               <br />
 			  {$reply.user_title}
 			  <hr>
