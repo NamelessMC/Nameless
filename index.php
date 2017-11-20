@@ -27,7 +27,7 @@ if(!ini_get('upload_tmp_dir')){
 ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR  . $tmp_dir);
 
 // Get the directory the user is trying to access
-$directory = $_SERVER['REQUEST_URI'];
+$directory = strtolower($_SERVER['REQUEST_URI']);
 
 $directories = explode("/", $directory);
 $lim = count($directories);
