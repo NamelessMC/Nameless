@@ -35,7 +35,7 @@ if($user->isLoggedIn()){
 <?php if(!isset($_GET['view']) && !isset($_GET['do'])){ ?>  
 <h3>Addon: Donate</h3>
 Author: Samerton<br />
-Version: 1.1.2<br />
+Version: 1.1.3<br />
 Description: Integrate a donation store with your website<br />
 
 <h3>Donation Store</h3>
