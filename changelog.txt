@@ -128,13 +128,13 @@ The notes for each release
 - Removed unnecessary line breaks from the AdminCP's Custom Pages tab
 - Fix issue where people could add each other as friends multiple times
 - Allow users to change their own passwords
-- Allow iFrame frameBorder attribute on custom pages 
+- Allow iFrame frameBorder attribute on custom pages
 - Add a new IP field which the Minecraft server query uses, to prevent looking up SRV records. Also allows support for virtual hosts
-- Gravatar support 
+- Gravatar support
 - Display recently online users
-- Display when a user was last online on their profile 
+- Display when a user was last online on their profile
 - Add forum breadcrumbs
-- Add forum search ability 
+- Add forum search ability
 - Allow border-style, border-width, height and width CSS attributes in custom pages
 - Fix images contributing to signature character limit
 - New updater
@@ -145,11 +145,11 @@ The notes for each release
 - Fix invalid token on creating a new private message
 - Fix "remember me" on signin not actually remembering the user
 - Prevent users navigating to /pages directory manually
-- Remove unnecessary tr tag from the play page template 
-- Add Minecraft status module to forum 
-- Add better registration error messages 
-- Add reCAPTCHA secret key field to AdminCP 
-- Change method of checking to see if a Minecraft username is valid 
+- Remove unnecessary tr tag from the play page template
+- Add Minecraft status module to forum
+- Add better registration error messages
+- Add reCAPTCHA secret key field to AdminCP
+- Change method of checking to see if a Minecraft username is valid
 
 1.0.2
 - Update German translation (thanks to @manuelgu)
@@ -498,3 +498,19 @@ The notes for each release
 - Add CraftingStore support to Donate addon
 - Fix incorrect UserCP follower count
 - Add example Donate addon cron command
+
+1.0.18
+- Update issue template and readme
+- Update Dutch translation
+- Update German translation
+- Update Japanese translation
+- Update Portuguese translation
+- Add secondary group
+- Swap place and colour of signin and register buttons
+- Fix grammar on homepage if 1 player is online
+- Add word-wrap to .forum_post
+- Apply .forum_post to homepage announcements
+- Update MinecraftMarket integration
+- Ensure route is =lowercase
+- Ensure UUID is never null
+- Update secondary groups
