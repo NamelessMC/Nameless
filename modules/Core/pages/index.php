@@ -77,6 +77,8 @@ if(defined('MINECRAFT') && MINECRAFT === true){
 
     if(!is_null($default) && isset($default->ip))
         $smarty->assign('CONNECT_WITH', str_replace('{x}', $default->ip . ($default->port != 25565 ? ':' . $default->port : ''), $language->get('general', 'connect_with_ip_x')));
+
+    $smarty->assign('SERVER_OFFLINE', $language->get('general', 'server_offline'));
 }
 
 // Home page or portal?

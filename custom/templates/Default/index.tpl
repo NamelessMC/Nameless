@@ -15,13 +15,13 @@
 			    <p class="lg">{$SERVER_QUERY.x_players_online}</p>
 			{/if}
 		  {else}
-		    <p class="lg">{$SERVER_QUERY.server_offline}</p>
+		    <p class="lg">{$SERVER_OFFLINE}</p>
 		  {/if}
 		{/if}
 		<p class="lg">{$CONNECT_WITH}</p>
 	  {/if}
 	</center>
-	
+
   </div>
 </div>
 
@@ -39,7 +39,7 @@
         </div>
 	{/if}
 	<div class="row">
-	
+
 	  {if isset($NEWS)}
 	  <div class="col-md-8">
 	    <center><h2>{$LATEST_ANNOUNCEMENTS} <i class="fa fa-bullhorn"></i></h2></center>
@@ -63,11 +63,11 @@
 		{/foreach}
 	  </div>
 	  <div class="col-md-4">
-	  
+
 	  {else}
 	  <div class="col-md-4 offset-md-4">
 	  {/if}
-	  
+
 	    <center><h2>{$SOCIAL} <i class="fa fa-users" aria-hidden="true"></i></h2></center>
 	    <hr />
 		{if count($WIDGETS)}
@@ -76,7 +76,7 @@
 			<br /><br />
 		  {/foreach}
 		{/if}
-	    
+
 	  </div>
 	</div>
   </div>
