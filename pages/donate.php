@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  http://worldscapemc.co.uk
@@ -176,7 +176,7 @@ if($settings[2]->value == 0 && !$user->isLoggedIn()){
 													  </span>
 													</div>
 													<div class="panel-body">
-													  ' . $purifier->purify(htmlspecialchars_decode($package->description)) . '
+													  <div class="forum_post">' . $purifier->purify(htmlspecialchars_decode($package->description)) . '</div>
 													  <center>
 														<a data-toggle="modal" href="#package' . $package->id . '" class="btn btn-primary">' . $donate_language['select'] . '</a>
 													  </center>
@@ -199,7 +199,7 @@ if($settings[2]->value == 0 && !$user->isLoggedIn()){
 													  </span>
 													</div>
 													<div class="panel-body">
-													  ' . $purifier->purify(htmlspecialchars_decode($packages[$i]->description)) . '
+													  <div class="forum_post">' . $purifier->purify(htmlspecialchars_decode($packages[$i]->description)) . '</div>
 													  <center>
 														<a data-toggle="modal" href="#package' . $packages[$i]->id . '" class="btn btn-primary">' . $donate_language['select'] . '</a>
 													  </center>
@@ -222,7 +222,7 @@ if($settings[2]->value == 0 && !$user->isLoggedIn()){
 													  </span>
 													</div>
 													<div class="panel-body">
-													  ' . $purifier->purify(htmlspecialchars_decode($packages[$n]->description)) . '
+													  <div class="forum_post">' . $purifier->purify(htmlspecialchars_decode($packages[$n]->description)) . '</div>
 													  <center>
 														<a data-toggle="modal" href="#package' . $packages[$n]->id . '" class="btn btn-primary">' . $donate_language['select'] . '</a>
 													  </center>
@@ -262,7 +262,7 @@ if($settings[2]->value == 0 && !$user->isLoggedIn()){
 													  <input type="hidden" name="action" value="add">
 													  <input type="hidden" name="package" value="' . $package->package_id . '"><br />
 													  <button type="button" class="btn btn-default" data-dismiss="modal">' . $donate_language['cancel'] . '</button>
-													  <button type="submit" class="btn btn-primary btn-large">' . $donate_language['agree'] . '</button>	
+													  <button type="submit" class="btn btn-primary btn-large">' . $donate_language['agree'] . '</button>
 													</form>
 												  </div>
 												</div>
