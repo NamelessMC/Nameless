@@ -56,7 +56,7 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 		require('modules/Core/pages/index.php');
 
 } else {
-	if(!isset($route)) $route = strtolower(rtrim($_GET['route'], '/'));
+	if(!isset($route)) $route = rtrim($_GET['route'], '/');
 
 	// Check modules
 	$modules = $pages->returnPages();
@@ -76,7 +76,7 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 		// Use recursion to check - might have URL parameters in path
 		$path_array = explode('/', $route);
 		//echo '<pre>', print_r($path_array), '</pre>';
-		
+
 		for($i = count($path_array) - 2; $i > 0; $i--){
 			$new_path = '/';
 			for($n = 1; $n <= $i; $n++){
@@ -86,14 +86,14 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 
 			if(array_key_exists($new_path, $modules)){
 				$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$new_path]['module'], $modules[$new_path]['file']));
-				
+
 				if(file_exists($path)){
 					require($path);
 					die();
 				}
 			}
 		}
-		
+
 		// 404
 		require('404.php');
 	}
