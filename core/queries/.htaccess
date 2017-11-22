@@ -2,8 +2,3 @@
     Order Deny,Allow
     Allow from all
 </Files>
-
-
-  RewriteEngine on
-
-  RewriteRule ^banner.png$ index.php
