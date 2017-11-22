@@ -514,3 +514,8 @@ The notes for each release
 - Ensure route is =lowercase
 - Ensure UUID is never null
 - Update secondary groups
+
+1.0.19
+- Fix invalid API keys
+- Fix text overflow on donate package descriptions
+- Add htaccess files to core directory
