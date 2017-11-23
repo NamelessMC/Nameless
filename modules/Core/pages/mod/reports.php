@@ -58,7 +58,7 @@ $timeago = new Timeago(TIMEZONE);
 		
 		if(!isset($_GET['view'])){
 			// Get open reports
-			$report_query = $queries->getWhere('reports', array('status', '=', 0));
+			$report_query = $queries->orderWhere('reports', 'status = 0', 'date_updated', 'DESC');
 			
 			$smarty->assign(array(
 				'CHANGE_VIEW' => $language->get('moderator', 'view_closed'),

@@ -491,6 +491,7 @@ class NamelessAPI {
                                     'type' => 'Report',
                                     'url' => URL::build('/mod/reports/', 'rid=' . $report_id),
                                     'content' => 'New report submitted',
+                                    'content_short' => 'New report submitted',
                                     'created' => date('U')
                                 ));
                             }
