@@ -157,6 +157,7 @@ $language = array(
 	'confirm_unblock_user' => 'Weet je zeker dat je deze gebruiker wilt deblokkeren? Ze zullen je prive berichten kunnen sturen en in een bericht kunnen noemen.',
 	'user_blocked' => 'Gebruiker geblokkeerd.',
 	'user_unblocked' => 'Gebruiker gedeblokkeerd.',
+	'views' => 'Views:',
 	
 	// Rapporten
 	'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',

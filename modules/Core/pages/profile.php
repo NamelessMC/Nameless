@@ -383,6 +383,19 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 			$p = 1;
 		}
 		
+		// View count
+		if($user->isLoggedIn() || Cookie::exists('alert-box')){
+			if(!Cookie::exists('nl-profile-' . $query->id)) {
+				$queries->increment("users", $query->id, "profile_views");
+				Cookie::put("nl-profile-" . $query->id, "true", 3600);
+			}
+		} else {
+			if(!Session::exists('nl-profile-' . $query->id)){
+				$queries->increment("users", $query->id, "profile_views");
+				Session::put("nl-profile-" . $query->id, "true");
+			}
+		}
+		
 		// Generate Smarty variables to pass to template
 		if($user->isLoggedIn()){
 			// Form token
@@ -637,6 +650,13 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 			'type' => 'text',
 			'value' => $timeago->inWords(date('d M Y, H:i', $query->last_online), $language->getTimeLanguage()),
 			'tooltip' => date('d M Y, H:i', $query->last_online)
+		);
+		
+		// Add Profile views
+		$fields['profile_views'] = array(
+			'title' => $language->get("user", 'views'),
+			'type' => 'text',
+			'value' => $user->getProfileViews($query->id)
 		);
 		
 		$smarty->assign('ABOUT_FIELDS', $fields);
