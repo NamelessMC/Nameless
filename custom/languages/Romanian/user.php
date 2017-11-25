@@ -157,6 +157,7 @@ $language = array(
     'confirm_unblock_user' => 'Sigur doriți să deblocați acest utilizator? Va putea din nou să vă trimită mesaje private și să vă eticheteze în postări.',
     'user_blocked' => 'Utilizatorul a fost blocat.',
     'user_unblocked' => 'Utilizatorul a fost deblocat.',
+	'views' => 'Views:',
     
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',

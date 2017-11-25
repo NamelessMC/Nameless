@@ -156,6 +156,7 @@ $language = array(
 	'confirm_unblock_user' => 'Você tem certeza que quer desbloquear esse usuário? Ele vai poder te enviar mensagens privadas e te marcar nos posts.',
 	'user_blocked' => 'Usuário bloqueado.',
 	'user_unblocked' => 'Usuário desbloqueado.',
+	'views' => 'Views:',
 	
 	// Reports
 	'invalid_report_content' => 'Não foi possível criar o alerta. Certifique-se de que o motivo do alerta está entre 2 e 1024 caracteres.',

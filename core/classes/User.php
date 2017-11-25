@@ -921,4 +921,16 @@ class User {
         }
         return false;
     }
+	
+	// Get a user's profile views, by user ID
+	public function getProfileViews($id) {
+		$data = $this->_db->get('users', array('id', '=', $id));
+		$results = $data->results();
+		if(!empty($results[0]->profile_views)){
+			return $results[0]->profile_views;
+		} else {
+			return 0;
+		}
+	}
+
 }

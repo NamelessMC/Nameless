@@ -156,6 +156,7 @@ $language = array(
 	'confirm_unblock_user' => 'Är du säker på att du vill avblockera den här användaren? De kommer att kunna skicka privata meddelanden och tagga dig i inlägger.',
 	'user_blocked' => 'Användrare blockerad.',
 	'user_unblocked' => 'Användrare avblockerad.',
+	'views' => 'Visningar:',
 	
 	// Reports
 	'invalid_report_content' => 'Det gick inte att skapa en anmäla. Var god och se till att din anmälnings orsak är mellan 2 och 1024 tecken.',

@@ -155,6 +155,7 @@ $language = array(
 	'confirm_unblock_user' => 'Jste si jist, že chcete odblokovat tohoto uživatele? Odblkovaní uživatelé Vám budou moci posílat soukromé zprávy a označovat Vás v příspěvcích.',
 	'user_blocked' => 'Uživatel zablokován.',
 	'user_unblocked' => 'Uživatel odblokován.',
+	'views' => 'Views:',
 	
 	// Reports
 	'invalid_report_content' => 'Nelze vytvořit nahlášení. Musíte zadat důvod v rozmezí 2 až 1024 znaků.',
