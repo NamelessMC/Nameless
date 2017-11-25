@@ -384,16 +384,17 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 		}
 		
 		// View count
-		if($user->isLoggedIn() || Cookie::exists('alert-box')){
+		// Check if user is logged in and the viewer is not the owner of this profile.
+		if(($user->isLoggedIn() && $user->data()->username != $profile)
+			// If no one is logged in check if they have accepted the cookies.
+			|| (!$user->isLoggedIn() && Cookie::exists('alert-box'))){
 			if(!Cookie::exists('nl-profile-' . $query->id)) {
 				$queries->increment("users", $query->id, "profile_views");
 				Cookie::put("nl-profile-" . $query->id, "true", 3600);
 			}
-		} else {
-			if(!Session::exists('nl-profile-' . $query->id)){
+		} else if(!Session::exists('nl-profile-' . $query->id)){
 				$queries->increment("users", $query->id, "profile_views");
 				Session::put("nl-profile-" . $query->id, "true");
-			}
 		}
 		
 		// Generate Smarty variables to pass to template
