@@ -157,6 +157,7 @@ $language = array(
 	'confirm_unblock_user' => 'このユーザーをブロック解除してもよろしいですか？ 彼らはあなたにプライベートメッセージを送り、あなたの投稿にタグを付けることができます。',
 	'user_blocked' => 'ユーザーをブロックしました。',
 	'user_unblocked' => 'ユーザーをアンブロックしました。',
+	'views' => 'Views:',
 	
 	// Reports
 	'invalid_report_content' => 'レポートを作成できません。 レポートの理由が 2~1024 文字であることを確認してください。',

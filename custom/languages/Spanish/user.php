@@ -155,6 +155,7 @@ $language = array(
 	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
 	'user_blocked' => 'User blocked.',
 	'user_unblocked' => 'User unblocked.',
+	'views' => 'Views:',
 	
 	// Reports
 	'invalid_report_content' => 'No se puede crear el informe. Asegúrese de que la razón de su informe es entre 2 y 1024 caracteres.',
