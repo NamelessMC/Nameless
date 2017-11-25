@@ -177,7 +177,21 @@ if(isset($_GET['do'])){
                         'max' => 900
                     )
                 );
-				
+
+				// Displaynames?
+                $displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+                if($displaynames[0]->value == 'true'){
+                    $to_validate['nickname'] = array(
+                        'required' => true,
+                        'min' => 3,
+                        'max' => 20,
+                        'unique' => 'users'
+                    );
+
+                    $displayname = Output::getClean(Input::get('nickname'));
+                } else
+                    $displayname = $user->data()->username;
+
 				// Get a list of required profile fields
 				$profile_fields = $queries->getWhere('profile_fields', array('required', '=', 1));
 				
@@ -217,7 +231,8 @@ if(isset($_GET['do'])){
 						$queries->update('users', $user->data()->id, array(
 							'language_id' => $new_language,
 							'timezone' => $timezone,
-							'signature' => $signature
+							'signature' => $signature,
+                            'nickname' => $displayname
 						));
 						
 						foreach($_POST as $key => $item){
@@ -273,6 +288,16 @@ if(isset($_GET['do'])){
 					foreach($validation->errors() as $item){
 					    if(strpos($item, 'signature') !== false){
 					        $error .= $language->get('user', 'signature_max_900') . '<br />';
+                        } else if(strpos($item, 'nickname') !== false){
+					        if(strpos($item, 'required') !== false){
+					            $error .= $language->get('user', 'username_required') . '<br />';
+                            } else if(strpos($item, 'min')  !== false){
+                                $error .= $language->get('user', 'username_minimum_3') . '<br />';
+                            } else if(strpos($item, 'max') !== false){
+                                $error .= $language->get('user', 'username_maximum_20') . '<br />';
+                            } else if(strpos($item, 'unique') !== false){
+                                $error .= $language->get('user', 'username_mcname_email_exists') . '<br />';
+                            }
                         } else {
                             // Get field name
                             $id = explode(' ', $item);
@@ -418,16 +443,16 @@ if(isset($_GET['do'])){
 	$displaynames = $displaynames[0]->value;
 	
 	$custom_fields_template = array(
-		'displayname' => array(
+		'nickname' => array(
 			'disabled' => true
 		)
 	);
 	
 	if($displaynames == 'true'){
-		$custom_fields_template['displayname'] = array(
+		$custom_fields_template['nickname'] = array(
 			'name' => $language->get('user', 'nickname'),
 			'value' => Output::getClean($user->data()->nickname),
-			'id' => 'displayname',
+			'id' => 'nickname',
 			'type' => 'text'
 		);
 	}
