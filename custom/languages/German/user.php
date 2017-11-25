@@ -163,6 +163,7 @@ $language = array(
 	'confirm_unblock_user' => 'Sind Sie sicher, dass Sie diesen Benutzer freischalten möchten? Sie werden in der Lage sein, Ihnen private Nachrichten zu schicken und Sie in Posts zu markieren.',
 	'user_blocked' => 'Benutzer blockiert.',
 	'user_unblocked' => 'Benutzer blockierung aufgehoben.',
+	'views' => 'Views:',
 	
 	// Reports
 	'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',

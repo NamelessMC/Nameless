@@ -154,6 +154,7 @@ $language = array(
 	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
 	'user_blocked' => 'User blocked.',
 	'user_unblocked' => 'User unblocked.',
+	'views' => 'Views:',
 	
 	// Reports
 	'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Har du sjekket at den er mellom 2 og 1024 tegn?',
