@@ -3,7 +3,6 @@
 <div class="container">
 <div class="card">
   <div class="card-body">
-	<div class="container">
 	  <div class="row">
 		<div class="col-md-9">
 		  <ol class="breadcrumb">
@@ -99,7 +98,6 @@
 		  {/if}
 		</div>
 	  </div>
-	</div>
   </div>
 </div>
 </div>
