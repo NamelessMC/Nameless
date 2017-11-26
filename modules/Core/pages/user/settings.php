@@ -241,10 +241,15 @@ if(isset($_GET['do'])){
                             } else
                                 $signature = '';
 
-                            if ($user->canPrivateProfile($user->data()->id) && $_POST['privateProfile'] == 1)
-                                $privateProfile = 1;
-                            else
-                                $privateProfile = 0;
+                            // Private profiles enabled?
+                            $private_profiles = $queries->getWhere('settings', array('name', '=', 'private_profile'));
+                            if($private_profiles[0]->value == 1) {
+                                if ($user->canPrivateProfile($user->data()->id) && $_POST['privateProfile'] == 1)
+                                    $privateProfile = 1;
+                                else
+                                    $privateProfile = 0;
+                            } else
+                                $privateProfile = $user->data()->private_profile;
 
                             $queries->update('users', $user->data()->id, array(
                                 'language_id' => $new_language,
