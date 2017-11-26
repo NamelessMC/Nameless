@@ -3,7 +3,6 @@
 <div class="container">
 <div class="card">
   <div class="card-body">
-	<div class="container">
 	  <h3>{$CREATING_TOPIC_IN}</h3>
 	  
 	  {if isset($ERROR)}
@@ -43,7 +42,6 @@
 		<input type="submit" class="btn btn-primary" value="{$SUBMIT}">
 		<a href="#" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal">{$CANCEL}</a>
 	  </form>
-	</div>
   </div>
 </div>
 </div>

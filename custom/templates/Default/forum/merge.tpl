@@ -3,7 +3,6 @@
 <div class="container">
   <div class="card">
     <div class="card-body">
-	  <div class="container">
 	    <h3>{$MERGE_TOPICS}</h3>
 
 	    <form action="" method="post">
@@ -22,7 +21,6 @@
 		    <a class="btn btn-danger" href="{$CANCEL_LINK}" onclick="return confirm('{$CONFIRM_CANCEL}')">{$CANCEL}</a>
 		  </div>
 	    </form>
-	  </div>
     </div>
   </div>
 </div>
