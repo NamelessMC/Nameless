@@ -293,12 +293,12 @@
   </div>
   </div>
   {/if}
-</div>
 {else}
 	<div class="alert alert-danger" role="alert">
         {$PRIVATE_PROFILE}
 	</div>
 {/if}
+</div>
 
 {if isset($LOGGED_IN)}
   {if isset($SELF)}
