@@ -268,7 +268,7 @@ if(!isset($admin_styles)){
   }
 
   // Registration page/login page checkbox
-  if(isset($page) && ($page == 'login' || $page == 'register' || $page == 'complete_signup')){
+  if(defined('PAGE') && (PAGE == 'login' || PAGE == 'register' || PAGE == 'complete_signup')){
   	$js .= '
   	<script>
   	$(function () {
