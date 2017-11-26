@@ -15,7 +15,7 @@ $language = array(
      *  Installation
      */
     'install' => 'Installera',
-    'pre-release' => 'förhands-utgivning',
+    'pre-release' => 'Förhands-utgivning',
     'installer_welcome' => 'Välkommen till NamelessMC version 2.0 förhands-utgivning',
     'pre-release_warning' => 'Kom ihåg att detta släppet är inte avsett att användas på en allmän hemsida.',
     'installer_information' => 'Installatören kommer att guida dig igenom installation processen.',

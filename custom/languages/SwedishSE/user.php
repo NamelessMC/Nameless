@@ -160,7 +160,7 @@ $language = array(
 	'confirm_unblock_user' => 'Är du säker på att du vill avblockera den här användaren? De kommer att kunna skicka privata meddelanden och tagga dig i inlägger.',
 	'user_blocked' => 'Användrare blockerad.',
 	'user_unblocked' => 'Användrare avblockerad.',
-	'views' => 'Visningar:',
+	'views' => 'Profil Visningar:',
 	'private_profile_page' => 'Det här är en privat profil!',
 	
 	// Reports
@@ -197,9 +197,9 @@ $language = array(
 	/*
 	 *  Infractions area
 	 */
-	'you_have_been_banned' => 'You have been banned!',
-	'you_have_received_a_warning' => 'You have received a warning!',
-	'acknowledge' => 'Acknowledge',
+	'you_have_been_banned' => 'Du är bannad!',
+	'you_have_received_a_warning' => 'Du har fått en varning!',
+	'acknowledge' => 'Erkänna',
 	
 	/*
 	 *  Emails
