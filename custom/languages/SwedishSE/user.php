@@ -54,6 +54,7 @@ $language = array(
 	'active_language' => 'Aktiv Språk',
 	'timezone' => 'Tidzon',
 	'upload_new_avatar' => 'Ladda upp en ny avatar',
+    'nickname_already_exists' => 'Your chosen nickname already exists.',
 	
 	// Alerts
 	'user_tag_info' => 'Du har blivit taggat i ett inlägg av {x}.', // Don't replace {x}

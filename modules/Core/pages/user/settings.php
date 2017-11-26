@@ -184,8 +184,7 @@ if(isset($_GET['do'])){
                     $to_validate['nickname'] = array(
                         'required' => true,
                         'min' => 3,
-                        'max' => 20,
-                        'unique' => 'users'
+                        'max' => 20
                     );
 
                     $displayname = Output::getClean(Input::get('nickname'));
@@ -207,86 +206,101 @@ if(isset($_GET['do'])){
 				$validation = $validate->check($_POST, $to_validate);
 				
 				if($validation->passed()){
-					// Update profile fields
-					try {
-						// Update language and timezone
-						$new_language = $queries->getWhere('languages', array('name', '=', Input::get('language')));
-						
-						if(count($new_language)) $new_language = $new_language[0]->id;
-						else $new_language = $user->data()->language_id;
-
-						$timezone = Input::get('timezone');
-
-						if($user->hasPermission('usercp.signature')){
-                            $cache->setCache('post_formatting');
-                            $formatting = $cache->retrieve('formatting');
-
-                            if($formatting == 'markdown'){
-                                $signature = Michelf\Markdown::defaultTransform(Input::get('signature'));
-                                $signature = Output::getClean($signature);
-                            } else $signature = Output::getClean(Input::get('signature'));
-                        } else
-                          $signature = '';
-						
-						$queries->update('users', $user->data()->id, array(
-							'language_id' => $new_language,
-							'timezone' => $timezone,
-							'signature' => $signature,
-                            'nickname' => $displayname
-						));
-						
-						if($user->canPrivateProfile($user->data()->id)){
-                            $queries->update('users', $user->data()->id, array(
-                                'private_profile' => Input::get('privateProfile')
-                            ));
+				    // Check nickname is unique
+                    if($displaynames[0]->value == 'true') {
+                        $unique_nickname = $queries->getWhere('users', array('nickname', '=', Output::getClean(Input::get('nickname'))));
+                        if(count($unique_nickname)){
+                            $unique_nickname = $unique_nickname[0];
+                            if($unique_nickname->id != $user->data()->id){
+                                // Not unique
+                                $nickname_error = true;
+                                $error = $language->get('user', 'nickname_already_exists');
+                            }
                         }
-						
-						foreach($_POST as $key => $item){
-							if(strpos($key, 'action') !== false || strpos($key, 'token') !== false){
-								// Action/token, don't do anything
-								
-							} else {
-								// Check field exists
-								$field_exists = $queries->getWhere('profile_fields', array('id', '=', $key));
-								if(!count($field_exists)) continue;
-								
-								// Update or create?
-								$update = false;
-								$exists = $queries->getWhere('users_profile_fields', array('user_id', '=', $user->data()->id));
-								
-								if(count($exists)){
-									foreach($exists as $exist){
-										if($exist->field_id == $key){
-											// Exists
-											$update = true;
-											break;
-										}
-									}
-								}
-								
-								if($update == true){
-									// Update field value
-									$queries->update('users_profile_fields', $exist->id, array(
-										'value' => Output::getClean($item) // Todo - allow HTML
-									));
-								} else {
-									// Create new field value
-									$queries->create('users_profile_fields', array(
-										'user_id' => $user->data()->id,
-										'field_id' => $key,
-										'value' => Output::getClean($item) // Todo - allow HTML
-									));
-								}
-							}
-						}
-						
-						Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
-						Redirect::to(URL::build('/user/settings'));
-						die();
-						
-					} catch(Exception $e){
-						Session::flash('settings_error', $e->getMessage());
-					}
+                    }
+
+					// Update profile fields
+                    if(!isset($nickname_error)) {
+                        try {
+                            // Update language and timezone
+                            $new_language = $queries->getWhere('languages', array('name', '=', Input::get('language')));
+
+                            if (count($new_language)) $new_language = $new_language[0]->id;
+                            else $new_language = $user->data()->language_id;
+
+                            $timezone = Input::get('timezone');
+
+                            if ($user->hasPermission('usercp.signature')) {
+                                $cache->setCache('post_formatting');
+                                $formatting = $cache->retrieve('formatting');
+
+                                if ($formatting == 'markdown') {
+                                    $signature = Michelf\Markdown::defaultTransform(Input::get('signature'));
+                                    $signature = Output::getClean($signature);
+                                } else $signature = Output::getClean(Input::get('signature'));
+                            } else
+                                $signature = '';
+
+                            if ($user->canPrivateProfile($user->data()->id) && $_POST['privateProfile'] == 1)
+                                $privateProfile = 1;
+                            else
+                                $privateProfile = 0;
+
+                            $queries->update('users', $user->data()->id, array(
+                                'language_id' => $new_language,
+                                'timezone' => $timezone,
+                                'signature' => $signature,
+                                'nickname' => $displayname,
+                                'private_profile' => $privateProfile
+                            ));
+
+                            foreach ($_POST as $key => $item) {
+                                if (strpos($key, 'action') !== false || strpos($key, 'token') !== false) {
+                                    // Action/token, don't do anything
+
+                                } else {
+                                    // Check field exists
+                                    $field_exists = $queries->getWhere('profile_fields', array('id', '=', $key));
+                                    if (!count($field_exists)) continue;
+
+                                    // Update or create?
+                                    $update = false;
+                                    $exists = $queries->getWhere('users_profile_fields', array('user_id', '=', $user->data()->id));
+
+                                    if (count($exists)) {
+                                        foreach ($exists as $exist) {
+                                            if ($exist->field_id == $key) {
+                                                // Exists
+                                                $update = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if ($update == true) {
+                                        // Update field value
+                                        $queries->update('users_profile_fields', $exist->id, array(
+                                            'value' => Output::getClean($item) // Todo - allow HTML
+                                        ));
+                                    } else {
+                                        // Create new field value
+                                        $queries->create('users_profile_fields', array(
+                                            'user_id' => $user->data()->id,
+                                            'field_id' => $key,
+                                            'value' => Output::getClean($item) // Todo - allow HTML
+                                        ));
+                                    }
+                                }
+                            }
+
+                            Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
+                            Redirect::to(URL::build('/user/settings'));
+                            die();
+
+                        } catch (Exception $e) {
+                            Session::flash('settings_error', $e->getMessage());
+                        }
+                    }
 					
 				} else {
 					// Validation errors
@@ -301,8 +315,6 @@ if(isset($_GET['do'])){
                                 $error .= $language->get('user', 'username_minimum_3') . '<br />';
                             } else if(strpos($item, 'max') !== false){
                                 $error .= $language->get('user', 'username_maximum_20') . '<br />';
-                            } else if(strpos($item, 'unique') !== false){
-                                $error .= $language->get('user', 'username_mcname_email_exists') . '<br />';
                             }
                         } else {
                             // Get field name
@@ -443,7 +455,7 @@ if(isset($_GET['do'])){
 	// Get custom fields
 	$custom_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
 	$user_custom_fields = $queries->getWhere('users_profile_fields', array('user_id', '=', $user->data()->id));
-	
+
 	// Custom usernames?
 	$displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
 	$displaynames = $displaynames[0]->value;

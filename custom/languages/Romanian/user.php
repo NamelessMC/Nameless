@@ -55,6 +55,7 @@ $language = array(
     'active_language' => 'Limbă site',
     'timezone' => 'Fus orar',
     'upload_new_avatar' => 'Încărcați un nou avatar',
+    'nickname_already_exists' => 'Your chosen nickname already exists.',
     
     // Alerts
     'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace {x}
@@ -160,7 +161,7 @@ $language = array(
     'confirm_unblock_user' => 'Sigur doriți să deblocați acest utilizator? Va putea din nou să vă trimită mesaje private și să vă eticheteze în postări.',
     'user_blocked' => 'Utilizatorul a fost blocat.',
     'user_unblocked' => 'Utilizatorul a fost deblocat.',
-	'views' => 'Views:',
+	'views' => 'Profile Views:',
 	'private_profile_page' => 'This is a private profile!',
     
     // Reports

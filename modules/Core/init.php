@@ -72,7 +72,7 @@ PermissionHandler::registerPermissions('ModCP', array(
 // UserCP
 PermissionHandler::registerPermissions('UserCP', array(
     'usercp.messaging' => $language->get('user', 'messaging'),
-    'usercp.signature' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'signature')
+    'usercp.signature' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'signature'),
     'usercp.private_profile' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'private_profile')
 ));
 
