@@ -519,7 +519,8 @@ require('core/includes/password.php'); // Password compat library
 												$signature = Output::getClean($signature);
 											}
 
-											$private_profile_active = $queries->getWhere('settings', array('name', '=', 'private_profile'))[0]->value == 1;
+											$private_profile_active = $queries->getWhere('settings', array('name', '=', 'private_profile'));
+											$private_profile_active = $private_profile_active[0]->value == 1;
 											
 											if($private_profile_active){
                                                 $queries->update('users', $_GET["user"], array(
