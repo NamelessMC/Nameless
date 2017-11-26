@@ -235,6 +235,12 @@ if(isset($_GET['do'])){
                             'nickname' => $displayname
 						));
 						
+						if($user->canPrivateProfile($user->data()->id)){
+                            $queries->update('users', $user->data()->id, array(
+                                'private_profile' => Input::get('privateProfile')
+                            ));
+                        }
+						
 						foreach($_POST as $key => $item){
 							if(strpos($key, 'action') !== false || strpos($key, 'token') !== false){
 								// Action/token, don't do anything
@@ -515,6 +521,16 @@ if(isset($_GET['do'])){
         $smarty->assign(array(
             'SIGNATURE' => $language->get('user', 'signature'),
             'SIGNATURE_VALUE' => $signature
+        ));
+    }
+	
+	if($user->canPrivateProfile($user->data()->id)){
+        $smarty->assign(array(
+            'PRIVATE_PROFILE' => $language->get('user', 'private_profile'),
+            'PRIVATE_PROFILE_ENABLED' => $user->isPrivateProfile($user->data()->id),
+            'ENABLED' => $language->get('user', 'enabled'),
+            'DISABLED' => $language->get('user', 'disabled')
+
         ));
     }
 

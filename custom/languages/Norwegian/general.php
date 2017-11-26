@@ -51,6 +51,7 @@ $language = array(
 	'page_loaded_in' => 'Side lastet inn på {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Page {x}',
     'browse' => 'Browse',
+	'bypass' => 'Bypass',
 
     /*
      *  Contact form

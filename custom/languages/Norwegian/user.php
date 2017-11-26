@@ -29,6 +29,7 @@ $language = array(
 	'administration' => 'Administrasjon',
 	'alerts' => 'Viktige meldinger',
 	'delete_all' => 'Slett alle',
+	'private_profile' => 'Private profile',
 	
 	// Profile settings
 	'field_is_required' => '{x} er påkrevd.', // Don't replace {x}
@@ -40,6 +41,8 @@ $language = array(
 	'confirm_new_password' => 'Bekreft ny passord',
 	'incorrect_password' => 'Feil passord',
 	'two_factor_auth' => 'To-stegs-verifikasjon',
+	'enabled' => 'Enabled',
+    'disabled' => 'Disabled',
 	'enable' => 'Aktiver',
 	'disable' => 'Deaktiver',
 	'tfa_scan_code' => 'Vennligst skann denne koden med tostegsverifikasjons-applikasjonen:',
@@ -155,6 +158,8 @@ $language = array(
 	'user_blocked' => 'User blocked.',
 	'user_unblocked' => 'User unblocked.',
 	'views' => 'Views:',
+	'private_profile_page' => 'This is a private profile!',
+	
 	
 	// Reports
 	'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Har du sjekket at den er mellom 2 og 1024 tegn?',

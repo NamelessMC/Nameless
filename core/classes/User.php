@@ -923,8 +923,8 @@ class User {
     }
 	
 	// Get a user's profile views, by user ID
-	public function getProfileViews($id) {
-		$data = $this->_db->get('users', array('id', '=', $id));
+	public function getProfileViews($user_id = null) {
+		$data = $this->_db->get('users', array('id', '=', $user_id));
 		$results = $data->results();
 		if(!empty($results[0]->profile_views)){
 			return $results[0]->profile_views;
@@ -932,5 +932,28 @@ class User {
 			return 0;
 		}
 	}
+
+    // Is private profile enabled and does he have the permission to use it?
+    public function canPrivateProfile($user_id = null){
+        $settings_data = $this->_db->get('settings', array('name', '=', 'private_profile'));
+        $settings_results = $settings_data->results();
+        if(($settings_results[0]->value == 1) && ($this->hasPermission('usercp.private_profile', $user_id)))
+            return true;
+        else
+            return false;
+    }
+
+    // Is the profile page set to private?
+    public function isPrivateProfile($user_id = null) {
+        $cp_data = $this->_db->get('users', array('id', '=', $user_id));
+        $cp_results = $cp_data->results();
+        if($cp_results[0]->private_profile == 1){
+            // It's private
+            return true;
+        } else {
+            // It's not private
+            return false;
+        }
+    }
 
 }

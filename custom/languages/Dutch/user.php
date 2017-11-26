@@ -31,6 +31,7 @@ $language = array(
 	'administration' => 'Administratie',
 	'alerts' => 'Meldingen',
 	'delete_all' => 'Verwijder alle meldingen',
+	'private_profile' => 'Private profile',
 	
 	// Profiel instellingen
 	'field_is_required' => '{x} is nodig.', // Verander {x} niet
@@ -42,6 +43,8 @@ $language = array(
 	'confirm_new_password' => 'Bevestig nieuw wachtwoord',
 	'incorrect_password' => 'Je wachtwoord is incorrect.',
 	'two_factor_auth' => 'Twee Factor Authenticatie',
+	'enabled' => 'Enabled',
+    'disabled' => 'Disabled',
 	'enable' => 'Aanzetten',
 	'disable' => 'Uitzetten',
 	'tfa_scan_code' => 'Graag deze QR-code scannen met je authenticator app:',
@@ -158,6 +161,7 @@ $language = array(
 	'user_blocked' => 'Gebruiker geblokkeerd.',
 	'user_unblocked' => 'Gebruiker gedeblokkeerd.',
 	'views' => 'Views:',
+	'private_profile_page' => 'This is a private profile!',
 	
 	// Rapporten
 	'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',

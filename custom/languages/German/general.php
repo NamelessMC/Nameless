@@ -59,6 +59,7 @@ $language = array(
 	'page_loaded_in' => 'Seite wurde in {x} Sekunden geladen.', // Don't replace {x}, time unit is seconds
     'page_x' => 'Seite {x}',
     'browse' => 'Blättern',
+	'bypass' => 'Bypass',
 
     /*
      *  Contact form

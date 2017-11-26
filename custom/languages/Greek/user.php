@@ -29,6 +29,7 @@ $language = array(
 	'administration' => 'Administration',
 	'alerts' => 'Alerts',
 	'delete_all' => 'Delete All',
+	'private_profile' => 'Private profile',
 	
 	// Profile settings
 	'field_is_required' => '{x} is required.', // Don't replace {x}
@@ -40,6 +41,8 @@ $language = array(
 	'confirm_new_password' => 'Confirm New Password',
 	'incorrect_password' => 'Your password is incorrect.',
 	'two_factor_auth' => 'Two Factor Authentication',
+	'enabled' => 'Enabled',
+    'disabled' => 'Disabled',
 	'enable' => 'Enable',
 	'disable' => 'Disable',
 	'tfa_scan_code' => 'Please scan the following code within your authentication app:',
@@ -156,6 +159,7 @@ $language = array(
 	'user_blocked' => 'User blocked.',
 	'user_unblocked' => 'User unblocked.',
 	'views' => 'Views:',
+	'private_profile_page' => 'This is a private profile!',
 	
 	// Reports
 	'invalid_report_content' => 'Unable to create report. Please ensure your report reason is between 2 and 1024 characters.',

@@ -53,6 +53,7 @@ $language = array(
 	'page_loaded_in' => 'Pagina geladen in {x}s', // Verander "{x}" niet, tijdseenheid is seconden
 	'page_x' => 'Pagina {x}',
    	'browse' => 'Doorzoek',
+	'bypass' => 'Bypass',
 
 	/*
 	 *  Contact formulier

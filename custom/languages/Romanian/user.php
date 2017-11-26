@@ -31,6 +31,7 @@ $language = array(
     'administration' => 'Administrare',
     'alerts' => 'Alerte',
     'delete_all' => 'Şterge tot',
+	'private_profile' => 'Private profile',
     
     // Profile settings
     'field_is_required' => 'Câmpul "{x}" este necesar.', // Don't replace {x}
@@ -42,6 +43,8 @@ $language = array(
     'confirm_new_password' => 'Confirma noua parolă',
     'incorrect_password' => 'Parola dvs. este incorectă.',
     'two_factor_auth' => 'Autentificare în doi pași',
+	'enabled' => 'Enabled',
+    'disabled' => 'Disabled',
     'enable' => 'Activează',
     'disable' => 'Dezactivează',
     'tfa_scan_code' => 'Scanați următorul cod în aplicația de autentificare:',
@@ -158,6 +161,7 @@ $language = array(
     'user_blocked' => 'Utilizatorul a fost blocat.',
     'user_unblocked' => 'Utilizatorul a fost deblocat.',
 	'views' => 'Views:',
+	'private_profile_page' => 'This is a private profile!',
     
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',

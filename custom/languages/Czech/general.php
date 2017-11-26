@@ -51,6 +51,7 @@ $language = array(
 	'page_loaded_in' => 'Stránka se načetla za {x} sekund', // Don't replace {x}, time unit is seconds
     'page_x' => 'Stran {x}',
     'browse' => 'Prohlížet',
+	'bypass' => 'Bypass',
 
     /*
      *  Contact form

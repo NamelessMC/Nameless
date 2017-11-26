@@ -30,6 +30,7 @@ $language = array(
 	'administration' => 'Administration',
 	'alerts' => 'Alerts',
 	'delete_all' => 'Radera Alla',
+	'private_profile' => 'Privat profil',
 	
 	// Profile settings
 	'field_is_required' => '{x} krävs', // Don't replace {x}
@@ -41,6 +42,8 @@ $language = array(
 	'confirm_new_password' => 'Bekräfta ditt nya lösenord',
 	'incorrect_password' => 'Ditt lösenord är fel!',
 	'two_factor_auth' => 'Two Factor Authentication',
+	'enabled' => 'Aktiverat',
+    'disabled' => 'Inaktiverat',
 	'enable' => 'Aktivera',
 	'disable' => 'Inaktivera',
 	'tfa_scan_code' => 'Vänligen skanna följande kod i din autentiserings app:',
@@ -157,6 +160,7 @@ $language = array(
 	'user_blocked' => 'Användrare blockerad.',
 	'user_unblocked' => 'Användrare avblockerad.',
 	'views' => 'Visningar:',
+	'private_profile_page' => 'Det här är en privat profil!',
 	
 	// Reports
 	'invalid_report_content' => 'Det gick inte att skapa en anmäla. Var god och se till att din anmälnings orsak är mellan 2 och 1024 tecken.',

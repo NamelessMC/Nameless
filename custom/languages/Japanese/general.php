@@ -53,6 +53,7 @@ $language = array(
 	'page_loaded_in' => '{x} に読み込まれたページ', // Don't replace {x}, time unit is seconds
     'page_x' => '{x} ページ',
     'browse' => 'ブラウズ',
+	'bypass' => 'Bypass',
 
     /*
      *  Contact form

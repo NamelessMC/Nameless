@@ -278,6 +278,16 @@ $current_default_language = $current_default_language[0]->value;
                                             // Update cache
                                             $cache->setCache('portal_cache');
                                             $cache->store('portal', $use_portal);
+											
+										    // Private profile
+                                            $private_profile_id = $queries->getWhere('settings', array('name', '=', 'private_profile'));
+                                            $private_profile_id = $private_profile_id[0]->id;
+
+                                            $queries->update('settings', $private_profile_id, array(
+                                                'value' => $_POST['privateProfile']
+                                            ));
+
+                                            // No cache? ^^
 
                                             // Post formatting
                                             $formatting_id = $queries->getWhere('settings', array('name', '=', 'formatting_type'));
@@ -483,6 +493,18 @@ $current_default_language = $current_default_language[0]->value;
                                         <select name="forceHTTPS" class="form-control" id="inputForceHTTPS">
                                             <option value="true"<?php if ($force_https === true) { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
                                             <option value="false"<?php if ($force_https !== true) { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
+                                        </select>
+                                    </div>
+									<div class="form-group">
+                                        <label for="inputPrivateProfile"><?php echo $language->get('user', 'private_profile'); ?></label>
+                                        <?php
+                                        // Get private profile settings
+                                        $private_profile = $queries->getWhere('settings', array('name', '=', 'private_profile'));
+                                        $private_profile = $private_profile[0];
+                                        ?>
+                                        <select name="privateProfile" class="form-control" id="inputPrivateProfile">
+                                            <option value="1"<?php if ($private_profile->value == 1) { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
+                                            <option value="0"<?php if ($private_profile->value == 0) { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
                                         </select>
                                     </div>
                                     <br/>

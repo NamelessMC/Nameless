@@ -37,6 +37,7 @@ $language = array(
 	'administration' => 'Administration',
 	'alerts' => 'Benachrichtigungen',
 	'delete_all' => 'Alle Löschen',
+	'private_profile' => 'Private profile',
 	
 	// Profile settings
 	'field_is_required' => '{x} wird benötigt.', // Don't replace {x}
@@ -48,6 +49,8 @@ $language = array(
 	'confirm_new_password' => 'Neues Passwort bestätigen',
 	'incorrect_password' => 'Dein Passwort ist falsch.',
 	'two_factor_auth' => '2 Schritt Authentifizierung',
+	'enabled' => 'Enabled',
+    'disabled' => 'Disabled',
 	'enable' => 'Aktivieren',
 	'disable' => 'Deaktivieren',
 	'tfa_scan_code' => 'Scanne folgenden Code mit der APP:',
@@ -164,6 +167,7 @@ $language = array(
 	'user_blocked' => 'Benutzer blockiert.',
 	'user_unblocked' => 'Benutzer blockierung aufgehoben.',
 	'views' => 'Views:',
+	'private_profile_page' => 'This is a private profile!',
 	
 	// Reports
 	'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',

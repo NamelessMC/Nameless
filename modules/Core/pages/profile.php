@@ -397,6 +397,18 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 				Session::put("nl-profile-" . $query->id, "true");
 		}
 		
+		// Set Can view
+		if($user->isPrivateProfile($query->id) && $user->canPrivateProfile($query->id)) {
+			$smarty->assign(array(
+				'PRIVATE_PROFILE' => $language->get('user', 'private_profile_page'),
+				'CAN_VIEW' => false
+			));
+		}else {
+			$smarty->assign(array(
+				'CAN_VIEW' => true
+			));
+		}
+		
 		// Generate Smarty variables to pass to template
 		if($user->isLoggedIn()){
 			// Form token
@@ -407,6 +419,12 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 				'CANCEL' => $language->get('general', 'cancel'),
                 'CAN_MODERATE' => ($user->canViewMCP() || $user->canViewACP())
 			));
+			
+			if($user->hasPermission('profile.private.bypass')){
+				$smarty->assign(array(
+					'CAN_VIEW' => true
+				));
+			}
 			
 			if($user->data()->username == $profile){
 				// Custom profile banners
@@ -435,7 +453,8 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 					'SELF' => true,
 					'SETTINGS_LINK' => URL::build('/user/settings'),
 					'CHANGE_BANNER' => $language->get('user', 'change_banner'),
-					'BANNERS' => $banners
+					'BANNERS' => $banners,
+					'CAN_VIEW' => true,
 				));
 			} else {
 			    $smarty->assign(array(

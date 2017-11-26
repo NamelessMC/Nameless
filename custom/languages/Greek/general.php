@@ -53,6 +53,7 @@ $language = array(
 	'page_loaded_in' => 'Η σελίδα φορτώθηκε σε {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Page {x}',
     'browse' => 'Browse',
+	'bypass' => 'Bypass',
 
     /*
      *  Contact form
