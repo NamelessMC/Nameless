@@ -31,6 +31,7 @@ $language = array(
 	'administration' => '管理',
 	'alerts' => 'アラート',
 	'delete_all' => 'すべて削除',
+	'private_profile' => 'Private profile',
 	
 	// Profile settings
 	'field_is_required' => '{x} は必須です。', // Don't replace {x}
@@ -42,6 +43,8 @@ $language = array(
 	'confirm_new_password' => '新しいパスワードを再入力',
 	'incorrect_password' => 'パスワードが間違っています。',
 	'two_factor_auth' => '2段階認証',
+	'enabled' => 'Enabled',
+    'disabled' => 'Disabled',
 	'enable' => '有効',
 	'disable' => '無効',
 	'tfa_scan_code' => '認証アプリ内で次のコードをスキャンしてください:',
@@ -158,6 +161,7 @@ $language = array(
 	'user_blocked' => 'ユーザーをブロックしました。',
 	'user_unblocked' => 'ユーザーをアンブロックしました。',
 	'views' => 'Views:',
+	'private_profile_page' => 'This is a private profile!',
 	
 	// Reports
 	'invalid_report_content' => 'レポートを作成できません。 レポートの理由が 2~1024 文字であることを確認してください。',

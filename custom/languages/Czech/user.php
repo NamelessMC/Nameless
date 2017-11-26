@@ -29,6 +29,7 @@ $language = array(
 	'administration' => 'Administrace',
 	'alerts' => 'Upozornění',
 	'delete_all' => 'Smazat vše',
+	'private_profile' => 'Private profile',
 	
 	// Profile settings
 	'field_is_required' => '{x} je .', // Don't replace {x}
@@ -40,6 +41,8 @@ $language = array(
 	'confirm_new_password' => 'Zopakujte nové heslo.',
 	'incorrect_password' => 'Vaše heslo je nesprávné.',
 	'two_factor_auth' => 'Dvoufázové ověření',
+	'enabled' => 'Enabled',
+    'disabled' => 'Disabled',
 	'enable' => 'Povolit',
 	'disable' => 'Zakázat',
 	'tfa_scan_code' => 'Prosím, naskenujte QR kód pomocí autentifikační aplikace:',
@@ -156,6 +159,7 @@ $language = array(
 	'user_blocked' => 'Uživatel zablokován.',
 	'user_unblocked' => 'Uživatel odblokován.',
 	'views' => 'Views:',
+	'private_profile_page' => 'This is a private profile!',
 	
 	// Reports
 	'invalid_report_content' => 'Nelze vytvořit nahlášení. Musíte zadat důvod v rozmezí 2 až 1024 znaků.',

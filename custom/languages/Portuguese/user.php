@@ -30,6 +30,7 @@ $language = array(
 	'administration' => 'Administração',
 	'alerts' => 'Alertas',
 	'delete_all' => 'Excluir Todos',
+	'private_profile' => 'Private profile',
 	
 	// Profile settings
 	'field_is_required' => '{x} é requerido.', // Don't replace {x}
@@ -41,6 +42,8 @@ $language = array(
 	'confirm_new_password' => 'Confirme a Nova Senha',
 	'incorrect_password' => 'Sua senha está incorreta.',
 	'two_factor_auth' => 'Autenticação em Dois Fatores',
+	'enabled' => 'Enabled',
+    'disabled' => 'Disabled',
 	'enable' => 'Ativar',
 	'disable' => 'Desativar',
 	'tfa_scan_code' => 'Verifique o seguinte código no seu aplicativo de autenticação:',
@@ -157,6 +160,7 @@ $language = array(
 	'user_blocked' => 'Usuário bloqueado.',
 	'user_unblocked' => 'Usuário desbloqueado.',
 	'views' => 'Views:',
+	'private_profile_page' => 'This is a private profile!',
 	
 	// Reports
 	'invalid_report_content' => 'Não foi possível criar o alerta. Certifique-se de que o motivo do alerta está entre 2 e 1024 caracteres.',

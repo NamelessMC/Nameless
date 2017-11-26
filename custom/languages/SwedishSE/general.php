@@ -52,6 +52,7 @@ $language = array(
 	'page_loaded_in' => 'Sida laddad på {x}s', // Don't replace {x}, time unit is seconds
 	'page_x' => 'Sida {x}',
 	'browse' => 'Bläddra',
+	'bypass' => 'Undvika',
 
 	/*
 	 *  Contact form

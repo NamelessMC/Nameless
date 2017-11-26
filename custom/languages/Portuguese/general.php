@@ -52,6 +52,7 @@ $language = array(
 	'page_loaded_in' => 'Página gerada em {x}s', // Don't replace {x}, time unit is seconds
 	'page_x' => 'Página {x}',
 	'browse' => 'Navegar',
+	'bypass' => 'Bypass',
 
  	/*
 	*  Contact form

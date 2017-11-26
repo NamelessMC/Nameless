@@ -518,6 +518,12 @@ require('core/includes/password.php'); // Password compat library
 											} else {
 												$signature = Output::getClean($signature);
 											}
+											
+											if($user->canPrivateProfile($_GET["user"])){
+                                                $queries->update('users', $_GET["user"], array(
+                                                    'private_profile' => Input::get('privateProfile')
+                                                ));
+                                            }
 
 											// Get secondary groups
                                             if(isset($_POST['secondary_groups']) && count($_POST['secondary_groups'])){
@@ -724,6 +730,24 @@ require('core/includes/password.php'); // Password compat library
 								<label for="InputTitle"><?php echo $language->get('admin', 'title'); ?></label>
 								<input type="text" name="title" class="form-control" id="InputTitle" placeholder="<?php echo $language->get('admin', 'title'); ?>" value="<?php echo Output::getClean($individual[0]->user_title); ?>">
 							  </div>
+							  <?php
+                              // Get private profile settings
+                              $private_profile = $queries->getWhere('settings', array('name', '=', 'private_profile'));
+                              $private_profile = $private_profile[0];
+
+                              if($private_profile->value == 1){
+                              ?>
+                              <div class="form-group">
+                                <label for="inputPrivateProfile"><?php echo $language->get('user', 'private_profile'); ?></label>
+                                <?php
+                                $private_profile = $individual[0]->private_profile;
+                                ?>
+                                <select name="privateProfile" class="form-control" id="inputPrivateProfile">
+                                  <option value="1"<?php if ($private_profile == 1) { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
+                                  <option value="0"<?php if ($private_profile == 0) { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
+                                </select>
+                                </div>
+                              <?php }?>
 							  <div class="form-group">
 								<label for="InputSignature"><?php echo $language->get('user', 'signature'); ?></label>
 								<?php

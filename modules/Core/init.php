@@ -73,6 +73,12 @@ PermissionHandler::registerPermissions('ModCP', array(
 PermissionHandler::registerPermissions('UserCP', array(
     'usercp.messaging' => $language->get('user', 'messaging'),
     'usercp.signature' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'signature')
+    'usercp.private_profile' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'private_profile')
+));
+
+// Profile Page
+PermissionHandler::registerPermissions('Profile', array(
+    'profile.private.bypass' => $language->get('general', 'bypass') . ' &raquo; ' . $language->get('user', 'private_profile')
 ));
 
 // Define URLs which belong to this module

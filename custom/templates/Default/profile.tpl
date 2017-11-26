@@ -32,7 +32,8 @@
 	  </div>
 	</div>
   </div>
-
+  
+{if $CAN_VIEW}
   {if !empty($WIDGETS)}
   <div class="row">
     <div class="col-md-8">
@@ -293,6 +294,11 @@
   </div>
   {/if}
 </div>
+{else}
+	<div class="alert alert-danger" role="alert">
+        {$PRIVATE_PROFILE}
+	</div>
+{/if}
 
 {if isset($LOGGED_IN)}
   {if isset($SELF)}

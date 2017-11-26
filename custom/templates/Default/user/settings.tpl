@@ -42,6 +42,15 @@
                                     {/foreach}
                                 </select>
                             </div>
+							{if isset($PRIVATE_PROFILE)}
+                                <div class="form-group">
+                                    <label for="inputPrivateProfile">{$PRIVATE_PROFILE}</label>
+                                        <select name="privateProfile" class="form-control" id="inputPrivateProfile">
+                                            <option value="1"{if $PRIVATE_PROFILE_ENABLED == true} selected {/if}>{$ENABLED}</option>
+                                            <option value="0"{if $PRIVATE_PROFILE_ENABLED == false} selected {/if}>{$DISABLED}</option>
+                                        </select>
+                                </div>
+                            {/if}
                             {foreach from=$PROFILE_FIELDS item=field}
                                 <div class="form-group">
 
