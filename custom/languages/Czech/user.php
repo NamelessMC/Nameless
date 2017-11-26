@@ -53,6 +53,7 @@ $language = array(
 	'active_language' => 'Aktivní jazyk',
 	'timezone' => 'Časová zóna',
 	'upload_new_avatar' => 'Nahrát nového avatara.',
+    'nickname_already_exists' => 'Your chosen nickname already exists.',
 	
 	// Alerts
 	'user_tag_info' => 'Byl jste označen v příspěvku {x}.', // Don't replace {x}
@@ -158,7 +159,7 @@ $language = array(
 	'confirm_unblock_user' => 'Jste si jist, že chcete odblokovat tohoto uživatele? Odblkovaní uživatelé Vám budou moci posílat soukromé zprávy a označovat Vás v příspěvcích.',
 	'user_blocked' => 'Uživatel zablokován.',
 	'user_unblocked' => 'Uživatel odblokován.',
-	'views' => 'Views:',
+	'views' => 'Profile Views:',
 	'private_profile_page' => 'This is a private profile!',
 	
 	// Reports

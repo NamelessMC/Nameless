@@ -54,6 +54,7 @@ $language = array(
 	'active_language' => 'Linguagem Ativa',
 	'timezone' => 'Fuso horário',
 	'upload_new_avatar' => 'Enviar um novo Avatar',
+    'nickname_already_exists' => 'Your chosen nickname already exists.',
 	
 	// Alerts
 	'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}
@@ -159,7 +160,7 @@ $language = array(
 	'confirm_unblock_user' => 'Você tem certeza que quer desbloquear esse usuário? Ele vai poder te enviar mensagens privadas e te marcar nos posts.',
 	'user_blocked' => 'Usuário bloqueado.',
 	'user_unblocked' => 'Usuário desbloqueado.',
-	'views' => 'Views:',
+	'views' => 'Profile Views:',
 	'private_profile_page' => 'This is a private profile!',
 	
 	// Reports

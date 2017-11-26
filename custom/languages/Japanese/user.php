@@ -55,6 +55,7 @@ $language = array(
 	'active_language' => '有効な言語',
     'timezone' => 'タイムゾーン',
     'upload_new_avatar' => '新しいアバターをアップロードする',
+    'nickname_already_exists' => 'Your chosen nickname already exists.',
 	
 	// Alerts
 	'user_tag_info' => 'あなたは {x} の投稿にタグがついています。', // Don't replace {x}
@@ -160,7 +161,7 @@ $language = array(
 	'confirm_unblock_user' => 'このユーザーをブロック解除してもよろしいですか？ 彼らはあなたにプライベートメッセージを送り、あなたの投稿にタグを付けることができます。',
 	'user_blocked' => 'ユーザーをブロックしました。',
 	'user_unblocked' => 'ユーザーをアンブロックしました。',
-	'views' => 'Views:',
+	'views' => 'Profile Views:',
 	'private_profile_page' => 'This is a private profile!',
 	
 	// Reports

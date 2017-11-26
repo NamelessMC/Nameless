@@ -55,6 +55,7 @@ $language = array(
 	'active_language' => 'Actieve taal',
 	'timezone' => 'Tijdzone',
 	'upload_new_avatar' => 'Upload een nieuwe avatar',
+    'nickname_already_exists' => 'Your chosen nickname already exists.',
 	
 	// Meldingen
 	'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet
@@ -160,7 +161,7 @@ $language = array(
 	'confirm_unblock_user' => 'Weet je zeker dat je deze gebruiker wilt deblokkeren? Ze zullen je prive berichten kunnen sturen en in een bericht kunnen noemen.',
 	'user_blocked' => 'Gebruiker geblokkeerd.',
 	'user_unblocked' => 'Gebruiker gedeblokkeerd.',
-	'views' => 'Views:',
+	'views' => 'Profile Views:',
 	'private_profile_page' => 'This is a private profile!',
 	
 	// Rapporten

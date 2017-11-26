@@ -385,7 +385,7 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 		
 		// View count
 		// Check if user is logged in and the viewer is not the owner of this profile.
-		if(($user->isLoggedIn() && $user->data()->username != $profile)
+        if(($user->isLoggedIn() && $user->data()->id != $query->id)
 			// If no one is logged in check if they have accepted the cookies.
 			|| (!$user->isLoggedIn() && Cookie::exists('alert-box'))){
 			if(!Cookie::exists('nl-profile-' . $query->id)) {
@@ -425,8 +425,8 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 					'CAN_VIEW' => true
 				));
 			}
-			
-			if($user->data()->username == $profile){
+
+            if($user->data()->id == $query->id){
 				// Custom profile banners
 				$banners = array();
 
@@ -676,7 +676,7 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 		$fields['profile_views'] = array(
 			'title' => $language->get("user", 'views'),
 			'type' => 'text',
-			'value' => $user->getProfileViews($query->id)
+			'value' => $query->profile_views
 		);
 		
 		$smarty->assign('ABOUT_FIELDS', $fields);
