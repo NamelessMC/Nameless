@@ -855,6 +855,11 @@
                 'value' => null
             ));
 
+            $queries->create('settings', array(
+                'name' => 'private_profile',
+                'value' => 1
+            ));
+
             // Templates
             $queries->create('templates', array(
                 'name' => 'Default',
@@ -2191,7 +2196,7 @@
 			
 			$queries->create('settings', array(
                 'name' => 'private_profile',
-                 'value' => 1
+                'value' => 1
             ));
 
 
