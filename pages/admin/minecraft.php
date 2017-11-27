@@ -703,6 +703,9 @@ $adm_page = "minecraft";
 						$validation = $validate->check($_POST, array(
 							'mcassoc_key' => array(
 								'max' => 128
+							),
+							'mcassoc_instance' => array(
+								'max' => 32
 							)
 						));
 						
@@ -722,6 +725,11 @@ $adm_page = "minecraft";
 							$mcassoc_key = $queries->getWhere('settings', array('name', '=', 'mcassoc_key'));
 							$queries->update('settings', $mcassoc_key[0]->id, array(
 								'value' => htmlspecialchars(Input::get('mcassoc_key'))
+							));
+
+							$mcassoc_instance = $queries->getWhere('settings', array('name', '=', 'mcassoc_instance'));
+							$queries->update('settings', $mcassoc_instance[0]->id, array(
+								'value' => htmlspecialchars(Input::get('mcassoc_instance'))
 							));
 							
 						} else {
