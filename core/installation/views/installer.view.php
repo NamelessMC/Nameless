@@ -1433,7 +1433,7 @@
 										'topic_id' => $item->topic_id,
 										'post_creator' => $item->post_creator,
 										'post_content' => $item->post_content,
-										'post_date' => $item->post_date,
+										'created' => strtotime($item->post_date),
 										'deleted' => $item->deleted
 									));
 								}

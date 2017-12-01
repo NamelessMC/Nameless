@@ -228,8 +228,15 @@ if($user->isLoggedIn()){
 					foreach($item['subforums'] as $subforum_id => $subforum){
 						if(isset($subforum->last_post)){
 							$forums[$key]['subforums'][$subforum_id]->last_post->avatar = $user->getAvatar($forums[$key]['subforums'][$subforum_id]->last_post->post_creator, '../', 64);
-							$forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language->getTimeLanguage());
-							$forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', strtotime($forums[$key]['subforums'][$subforum_id]->last_post->post_date));
+
+							if(is_null($forums[$key]['subforums'][$subforum_id]->last_post->created)){
+							  $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language->getTimeLanguage());
+							  $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', strtotime($forums[$key]['subforums'][$subforum_id]->last_post->post_date));
+							} else {
+							  $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords(date('d M Y, H:i', $forums[$key]['subforums'][$subforum_id]->last_post->created), $language->getTimeLanguage());
+							  $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', $forums[$key]['subforums'][$subforum_id]->last_post->created);
+							}
+
 							$forums[$key]['subforums'][$subforum_id]->last_post->user_style = $user->getGroupClass($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
 						}
 					}
