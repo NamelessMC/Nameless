@@ -489,6 +489,8 @@ $admin_page = 'forums';
 										$view = 0;
 										$topic = 0;
 										$post = 0;
+										$view_others = 0;
+										$moderate = 0;
 										
 										foreach($group_perms as $group_perm){
 											if($group_perm->group_id == $group->id){
@@ -943,6 +945,8 @@ $admin_page = 'forums';
 									$view = 0;
 									$topic = 0;
 									$post = 0;
+									$view_others = 0;
+									$moderate = 0;
 										
 									foreach($group_perms as $group_perm){
 										if($group_perm->group_id == $group->id){
