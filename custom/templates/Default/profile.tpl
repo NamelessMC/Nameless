@@ -261,7 +261,7 @@
 			
 			<div class="col-md-8">
 			  <div class="card">
-			    <div class="card-block">
+			    <div class="card-body">
 				  {foreach from=$ABOUT_FIELDS key=key item=field}
 					{if is_numeric($key)}
 					  <h3>{$field.title}</h3>
@@ -332,7 +332,7 @@
 	</div>
   {else}
 	{if $MOD_OR_ADMIN ne true}
-	<!-- Block user modal -->
+	<!-- user modal -->
 	<div class="modal fade" id="blockModal" tabindex="-1" role="dialog" aria-labelledby="blockModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
