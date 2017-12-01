@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -21,7 +21,7 @@ $language = array(
 	'admin_cp' => 'AdminKP',
 	'administration' => 'Administration',
 	'overview' => 'Översikt',
-	'core' => 'Core',
+	'core' => 'Kärna',
 	'minecraft' => 'Minecraft',
 	'modules' => 'Moduler',
 	'security' => 'Säkerhet',
@@ -106,13 +106,13 @@ $language = array(
 	'select_default_avatar' => 'Välj en ny standard avatar:',
 	'no_avatars_available' => 'Inga avatarer är tillgängliga. Var god och ladda upp en ny bild ovan först.',
 	'avatar_settings_updated_successfully' => 'Avatarinställningarna uppdaterades!',
-	'navigation' => 'Navigation',
-	'navbar_order' => 'Navbar Order',
-	'navbar_order_instructions' => 'You can give each item a number above 0 to order items in the navbar, with 1 being the first item and higher numbers coming after it.',
-	'enable_page_load_timer' => 'Enable page load timer?',
-    'google_recaptcha' => 'Enable Google reCAPTCHA?',
-    'recaptcha_site_key' => 'reCAPTCHA Site Key',
-    'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
+	'navigation' => 'Navigering',
+	'navbar_order' => 'Navbar Ordning',
+	'navbar_order_instructions' => 'Du kan ge varje föremål ett nummer över 0 för att ordna föremålet i navbaren, där 1 är det första föremålet och högre nummer som kommer efter det.',
+	'enable_page_load_timer' => 'Aktivera sidladdningstimer?',
+    'google_recaptcha' => 'Aktivera Google reCAPTCHA?',
+    'recaptcha_site_key' => 'reCAPTCHA Sido Nyckel',
+    'recaptcha_secret_key' => 'reCAPTCHA Privat Nyckeö',
 
 	// Reactions
 	'icon' => 'Ikon',
@@ -126,22 +126,22 @@ $language = array(
 	'creating_reaction' => 'Skapar Reaktion',
 
 	// Custom profile fields
-	'custom_fields' => 'Custom Profile Fields',
+	'custom_fields' => 'Anpassade profilfält',
 	'new_field' => '<i class="fa fa-plus-circle"></i> New Field',
-	'required' => 'Required',
+	'required' => 'Obligatorisk',
 	'public' => 'Publik',
 	'text' => 'Text',
 	'textarea' => 'Text area',
 	'date' => 'Date',
 	'creating_profile_field' => 'Creating Profile Field',
 	'editing_profile_field' => 'Editing Profile Field',
-	'field_name' => 'Field Name',
-	'profile_field_required_help' => 'Required fields must be filled out by the user, and they will appear during registration.',
-	'profile_field_public_help' => 'Public fields will be displayed to all users, if this is disabled only moderators can view the values.',
-	'profile_field_error' => 'Please input a field name between 2 and 16 characters long.',
-	'description' => 'Description',
-	'display_field_on_forum' => 'Display field on forum?',
-	'profile_field_forum_help' => 'If enabled, the field will display by the user next to forum posts.',
+	'field_name' => 'Fält Namn',
+	'profile_field_required_help' => 'Obligatoriska fält måste fyllas i av användaren, och de kommer att visas under registrering.',
+	'profile_field_public_help' => 'Offentliga fält kommer att visas för alla användare, om det här är inaktiverat kan moderatorer bara visa värdena.',
+	'profile_field_error' => 'Ange ett fältnamn mellan 2 och 16 tecken långt.',
+	'description' => 'Beskrivning',
+	'display_field_on_forum' => 'Visa fält på forumet?',
+	'profile_field_forum_help' => 'Om aktiverat, fältet kommer att visas av användraren bredvid forum inlägg.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Aktivera Minecraft Integration?',
@@ -161,7 +161,7 @@ $language = array(
 	'authme_password_sync' => 'Synkronisera AuthMe lösenord?',
 	'authme_password_sync_help' => 'Om aktiverat, när användarens lösenord uppdateras i spelet, uppdateras lösenordet även på webbplatsen.',
 	'minecraft_servers' => 'Minecraft Serverar',
-	'account_verification' => 'Minecraft Account Verification',
+	'account_verification' => 'Minecraft Konto verifikation',
 	'server_banners' => 'Server Banners',
 	'query_errors' => 'Query Fel',
 	'add_server' => '<i class="fa fa-plus-circle"></i> Add Server',
@@ -306,12 +306,12 @@ $language = array(
 	'secondary_groups_info' => 'Användaren får ytterligare behörigheter från dessa grupper. Ctrl + klicka för att välja / avmarkera flera grupper.',
 
     // Permissions
-    'select_all' => 'Select All',
-    'deselect_all' => 'Deselect All',
-    'background_image' => 'Background image',
-    'can_edit_own_group' => 'Can edit own group\'s permissions',
-    'permissions_updated_successfully' => 'Permissions updated successfully.',
-    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
+    'select_all' => 'Välj alla',
+    'deselect_all' => 'Avmarkera alla',
+    'background_image' => 'Bakgrundsbild',
+    'can_edit_own_group' => 'Kan redigera egen grupps behörigheter',
+    'permissions_updated_successfully' => 'Behörigheterna uppdaterades!',
+    'cant_edit_this_group' => 'Du kan inte redigera gruppens behörigheter!',
 
 	// General Admin language
 	'task_successful' => 'Valet har gjorts!',
@@ -357,30 +357,30 @@ $language = array(
 	'module_x' => 'Module: {x}', // Don't replace {x}
 
     // Custom Pages
-    'pages' => 'Pages',
-    'new_page' => '<i class="fa fa-plus-circle"></i> New Page',
-    'no_custom_pages' => 'No pages have been created yet.',
-    'creating_new_page' => 'Creating Page',
-    'page_title' => 'Page Title',
-    'page_path' => 'Page Path (with preceding /, eg /example)',
-    'page_icon' => 'Page Icon',
-    'page_link_location' => 'Page Link Location',
-    'page_link_navbar' => 'Navbar',
-    'page_link_footer' => 'Footer',
-    'page_link_more' => '"More" Dropdown',
-    'page_link_none' => 'No link',
-    'page_content' => 'Page Content',
-    'page_redirect' => 'Page Redirect?',
-    'page_redirect_to' => 'Redirect Link (with preceding http://)',
-    'unsafe_html' => 'Allow unsafe HTML?',
-    'unsafe_html_warning' => 'Enabling this option means any HTML can be used on the page, including potentially dangerous JavaScript. Only enable this if you are sure your HTML is safe.',
-    'page_permissions' => 'Page Permissions',
-    'view_page' => 'View Page?',
-    'editing_page_x' => 'Editing Page {x}', // Don't replace {x}
-    'unable_to_create_page' => 'Unable to create page:',
-    'page_title_required' => 'A page title is required.',
-    'page_url_required' => 'A page path is required.',
-    'link_location_required' => 'A link location is required.',
+    'pages' => 'Sidor',
+    'new_page' => '<i class="fa fa-plus-circle"></i>Ny Sida',
+    'no_custom_pages' => 'Inga sidor har skapats än.',
+    'creating_new_page' => 'Skapar Sida',
+    'page_title' => 'Sido Titel',
+    'page_path' => 'Sido Väg (med föregående /, t.ex /example)',
+    'page_icon' => 'Sido Ikon',
+    'page_link_location' => 'Sido Länk Plats',
+    'page_link_navbar' => 'Navfält',
+    'page_link_footer' => 'Sidfot',
+    'page_link_more' => '"Mer" Rullgardinsmeny',
+    'page_link_none' => 'Ingen länk',
+    'page_content' => 'Sido Innehåll',
+    'page_redirect' => 'Sido Omdirigera?',
+    'page_redirect_to' => 'Omdirigerings Länk (med föregående http://)',
+    'unsafe_html' => 'Tillåt osäker HTML?',
+    'unsafe_html_warning' => 'Aktivering av det här alternativet innebär att alla HTML kan användas på sidan, inklusive potentiellt farlig JavaScript. Aktivera bara detta om du är säker på att din HTML är säker.',
+    'page_permissions' => 'Sido Behörigheter',
+    'view_page' => 'Visa Sida?',
+    'editing_page_x' => 'Redigerar Sidan {x}', // Don't replace {x}
+    'unable_to_create_page' => 'Det gick inte att skapa sida:',
+    'page_title_required' => 'En sido titel krävs.',
+    'page_url_required' => 'En sido väg krävs.',
+    'link_location_required' => 'En sido länk plats krävs.',
     'page_title_minimum_2' => 'The page title must be a minimum of 2 characters.',
     'page_url_minimum_2' => 'The page path must be a minimum of 2 characters.',
     'page_title_maximum_30' => 'The page title must be a maximum of 30 characters.',
