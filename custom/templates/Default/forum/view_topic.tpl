@@ -6,13 +6,13 @@
 	<li{if isset($breadcrumb.active)} class="active"{/if}>{if !isset($breadcrumb.active)}<a href="{$breadcrumb.link}">{/if}{$breadcrumb.forum_title}{if !isset($breadcrumb.active)}</a>{/if}</li>
 	{/foreach}
   </ol>
-  
+
   {if isset($SESSION_SUCCESS_POST)}
   <div class="alert alert-success">
     {$SESSION_SUCCESS_POST}
   </div>
   {/if}
-  
+
   {if isset($SESSION_FAILURE_POST)}
   <div class="alert alert-danger">
     {$SESSION_FAILURE_POST}
@@ -21,7 +21,7 @@
 
   {$PAGINATION}
 
-  
+
   <span class="pull-right">
 	    {if isset($CAN_REPLY)}
 	  <div class="btn-group">
@@ -43,7 +43,7 @@
 
     <div class="btn-group">
 	  <button type="button" style="vertical-align:baseline;" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">{$SHARE} <span class="caret"></span></button>
-	  <ul class="dropdown-menu" role="menu">
+	  <ul class="dropdown-menu dropdown-menu-right" role="menu">
 		<li><a target="_blank" class="dropdown-item" href="{$SHARE_TWITTER_URL}">{$SHARE_TWITTER}</a></li>
 		<li><a target="_blank" class="dropdown-item" href="{$SHARE_FACEBOOK_URL}">{$SHARE_FACEBOOK}</a></li>
 	  </ul>
@@ -84,31 +84,31 @@
 		  </div>
 		  <div class="col-md-9">
 		    {$BY} <a style="{$reply.user_style}" href="{$reply.profile}">{$reply.username}</a> &raquo; <span data-toggle="tooltip" data-trigger="hover" data-original-title="{$reply.post_date}">{$reply.post_date_rough}</span>
-			
+
 			<span class="pull-right">
 			  {if isset($reply.buttons.spam)}
 			  <button class="btn btn-danger btn-sm" rel="tooltip" data-trigger="hover" data-original-title="{$reply.buttons.spam.TEXT}" data-toggle="modal" data-target="#spam{$reply.id}Modal"><i class="fa fa-flag fa-fw" aria-hidden="true"></i></button>
 			  {/if}
-			
+
 			  {if isset($reply.buttons.edit)}
 			  <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-trigger="hover" data-original-title="{$reply.buttons.edit.TEXT}" href="{$reply.buttons.edit.URL}"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></a>
 			  {/if}
-			  
+
 			  {if isset($reply.buttons.delete)}
 			  <button class="btn btn-danger btn-sm" rel="tooltip" data-trigger="hover" data-original-title="{$reply.buttons.delete.TEXT}" data-toggle="modal" data-target="#delete{$reply.id}Modal"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></button>
 			  {/if}
-			  
+
 			  {if isset($reply.buttons.report)}
 			  <button class="btn btn-warning btn-sm white-text" rel="tooltip" data-trigger="hover" data-original-title="{$reply.buttons.report.TEXT}" data-toggle="modal" data-target="#report{$reply.id}Modal"><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i></button>
 			  {/if}
-			  
+
 			  {if isset($reply.buttons.quote)}
 			  <button class="btn btn-info btn-sm" data-toggle="tooltip" data-trigger="hover" data-original-title="{$reply.buttons.quote.TEXT}" onclick="quote({$reply.id});"><i class="fa fa-quote-left fa-fw" aria-hidden="true"></i></button>
 			  {/if}
 			</span>
-			
+
 			<hr />
-			
+
 			<div class="forum_post">
 			  {$reply.content}
 			</div>
@@ -122,7 +122,7 @@
 			  {/foreach}
 			</span>
 			{/if}
-			
+
 			{if $reply.user_id !== $USER_ID}
 			  {if isset($REACTIONS) && count($REACTIONS)}
 			<br />
@@ -150,7 +150,7 @@
 		</div>
 	  </div>
 	</div>
-	
+
 	{if count($reply.post_reactions)}
 	<!-- Reactions modal -->
 	<div class="modal fade" id="reactions{$reply.id}Modal" tabindex="-1" role="dialog" aria-labelledby="reactions{$reply.id}ModalLabel" aria-hidden="true">
@@ -175,7 +175,7 @@
 	  </div>
 	</div>
 	{/if}
-	
+
 	{if isset($reply.buttons.report)}
 	<!-- Post report modal -->
 	<div class="modal fade" id="report{$reply.id}Modal" tabindex="-1" role="dialog" aria-labelledby="report{$reply.id}ModalLabel" aria-hidden="true">
@@ -206,7 +206,7 @@
 	  </div>
 	</div>
 	{/if}
-	
+
 	{if isset($CAN_MODERATE)}
 	<!-- Post spam modal -->
 	<div class="modal fade" id="spam{$reply.id}Modal" tabindex="-1" role="dialog" aria-labelledby="spam{$reply.id}ModalLabel" aria-hidden="true">
@@ -232,7 +232,7 @@
 		</div>
 	  </div>
 	</div>
-	
+
 	<!-- Post deletion modal -->
 	<div class="modal fade" id="delete{$reply.id}Modal" tabindex="-1" role="dialog" aria-labelledby="delete{$reply.id}ModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
@@ -262,14 +262,14 @@
 	{/if}
 	<br />
   {/foreach}
-  
+
   <br />
   {$PAGINATION}
-  
+
   {if isset($TOPIC_LOCKED_NOTICE)}
     <div class="alert alert-info">{$TOPIC_LOCKED_NOTICE}</div>
   {/if}
-  
+
   {if isset($CAN_REPLY)}
   <div id="reply_section">
     <h3>{$NEW_REPLY}</h3>
@@ -289,7 +289,7 @@
     </form>
   </div>
   {/if}
-  
+
 </div>
 
 {include file='footer.tpl'}
