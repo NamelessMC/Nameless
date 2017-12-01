@@ -55,13 +55,21 @@ if(!count($latest_posts)){
 		$topic_title = $queries->getWhere('topics', array('id', '=', $latest_post->topic_id));
 		if(!count($topic_title)) continue;
 		$topic_title = htmlspecialchars($topic_title[0]->topic_title);
-		
+
+		if(is_null($latest_post->created)){
+			$date_friendly = $timeago->inWords($latest_post->post_date, $language->getTimeLanguage());
+			$date_full = date('d M Y, H:i', strtotime($latest_post->post_date));
+		} else {
+			$date_friendly = $timeago->inWords(date('d M Y, H:i', $latest_post->created), $language->getTimeLanguage());
+			$date_full = date('d M Y, H:i', $latest_post->created);
+		}
+
 		$posts[] = array(
 			'link' => URL::build('/forum/topic/' . $latest_post->topic_id . '-' . $forum->titleToURL($topic_title), 'pid=' . $latest_post->id),
 			'title' => $topic_title,
 			'content' => Output::getPurified($emojione->unicodeToImage(htmlspecialchars_decode($latest_post->post_content))),
-			'date_friendly' => $timeago->inWords(date('d M Y, H:i', strtotime($latest_post->post_date)), $language->getTimeLanguage()),
-			'date_full' => date('d M Y, H:i', strtotime($latest_post->post_date))
+			'date_friendly' => $date_friendly,
+			'date_full' => $date_full
 		);
 
 		$n++;

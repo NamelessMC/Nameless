@@ -170,7 +170,8 @@ if(Input::exists()) {
 					'topic_id' => $tid,
 					'post_creator' => $user->data()->id,
 					'post_content' => $content,
-					'post_date' => date('Y-m-d H:i:s')
+					'post_date' => date('Y-m-d H:i:s'),
+					'created' => date('U')
 				));
 				
 				// Get last post ID
@@ -497,6 +498,15 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 		$content = htmlspecialchars_decode($results->data[$n]->post_content);
 		$content = $emojione->unicodeToImage($content);
 		$content = Output::getPurified($content);
+
+		// Get post date
+    if(is_null($results->data[$n]->created)){
+      $post_date_rough = $timeago->inWords($results->data[$n]->post_date, $language->getTimeLanguage());
+		  $post_date = date('d M Y, H:i', strtotime($results->data[$n]->post_date));
+	  } else {
+		  $post_date_rough = $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage());
+		  $post_date = date('d M Y, H:i', $results->data[$n]->created);
+    }
 		
 		$replies[] = array(
 			'url' => $url,
@@ -512,8 +522,8 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 			'user_groups' => $user_groups,
 			'user_posts_count' => count($queries->getWhere('posts', array('post_creator', '=', $results->data[$n]->post_creator))),
 			'user_reputation' => $post_user[0]->reputation,
-			'post_date_rough' => $timeago->inWords($results->data[$n]->post_date, $language->getTimeLanguage()),
-			'post_date' => date('d M Y, H:i', strtotime($results->data[$n]->post_date)),
+			'post_date_rough' => $post_date_rough,
+			'post_date' => $post_date,
 			'buttons' => $buttons,
 			'content' => $content,
 			'signature' => Output::getPurified(htmlspecialchars_decode($signature)),
