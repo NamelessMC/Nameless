@@ -62,7 +62,7 @@ $language = array(
 	'discord_id' => 'Discord Server ID',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
-	'successfully_updated' => 'Uppdaterat framgångsrikt',
+	'successfully_updated' => 'Uppdaterat!',
     'debugging_and_maintenance' => 'Felsökning och uppbyggnadsläge',
     'enable_debug_mode' => 'Aktivera debug-läge?',
 	'force_https' => 'Tvinga https?',
@@ -237,7 +237,7 @@ $language = array(
 
 	// Styles
 	'templates' => 'Mallar',
-	'template_outdated' => 'Vi har upptäckt att din mall är avsedd för Nameless version {x}, men du kör Namnlös version {y}', // Don't replace "{x}" or "{y}"
+	'template_outdated' => 'Vi har upptäckt att din mall är för Nameless version {x}, men du kör Nameless version {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Aktiv',
 	'deactivate' => 'Avaktivera',
 	'activate' => 'Activate',
@@ -249,7 +249,7 @@ $language = array(
 	'template_updated' => 'Mallen har uppdaterats!',
 	'default' => 'Standard',
 	'make_default' => 'Gör standard',
-	'default_template_set' => 'Standardmallen är nu {x}!', // Don't replace {x}
+	'default_template_set' => 'Standard mallen är nu {x}!', // Don't replace {x}
 	'template_deactivated' => 'Mallen är nu deaktiverad!',
 	'template_activated' => 'Mallen har blivit aktiverat!',
 	'permissions' => 'Behörigheter',
@@ -323,11 +323,11 @@ $language = array(
     'warning' => 'Varning',
 
     // Maintenance
-    'maintenance_mode' => 'Uppbygnadsläge',
-    'maintenance_enabled' => 'Uppbygnadsläge är nurvarande inaktiverat',
+    'maintenance_mode' => 'Uppbyggnadsläge',
+    'maintenance_enabled' => 'Uppbyggnadsläge är nuvarande inaktiverat',
     'enable_maintenance_mode' => 'Aktivera uppbyggnadsläge?',
-    'maintenance_mode_message' => 'Uppbygnadsläge meddelande',
-    'maintenance_message_max_1024' => 'Se till att ditt uppbygnadsläge meddelande är högst 1024 tecken.',
+    'maintenance_mode_message' => 'Uppbyggnadsläge meddelande',
+    'maintenance_message_max_1024' => 'Se till att ditt uppbyggnadsläge meddelande är högst 1024 tecken.',
 
 	// Security
 	'acp_logins' => 'AdminKP Inloggningar',
@@ -381,24 +381,24 @@ $language = array(
     'page_title_required' => 'En sido titel krävs.',
     'page_url_required' => 'En sido väg krävs.',
     'link_location_required' => 'En sido länk plats krävs.',
-    'page_title_minimum_2' => 'The page title must be a minimum of 2 characters.',
-    'page_url_minimum_2' => 'The page path must be a minimum of 2 characters.',
-    'page_title_maximum_30' => 'The page title must be a maximum of 30 characters.',
-    'page_icon_maximum_64' => 'The page icon must be a maximum of 64 characters.',
-    'page_url_maximum_20' => 'The page path must be a maximum of 20 characters.',
-    'page_content_maximum_20480' => 'The page content must be a maximum of 20480 characters.',
-    'page_redirect_link_maximum_512' => 'The page redirect link must be a maximum of 512 characters.',
-    'confirm_delete_page' => 'Are you sure you want to delete this page?',
+    'page_title_minimum_2' => 'Sido titeln måste minst vara 2 tecken.',
+    'page_url_minimum_2' => 'Sido vägen måste minst vara 2 tecken.',
+    'page_title_maximum_30' => 'Sido titeln måste högst vara 30 tecken.',
+    'page_icon_maximum_64' => 'Sido ikonen måste högst vara 64 tecken.',
+    'page_url_maximum_20' => 'Sido vägen måste högst vara 20 tecken.',
+    'page_content_maximum_20480' => 'Sido innehållet måste högst vara 20480 tecken.',
+    'page_redirect_link_maximum_512' => 'Sido omdirigerings länken måste högst vara 512 tecken.',
+    'confirm_delete_page' => 'Är du säker på att du vill ta bort den här sidan?',
 
     // API
     'api' => 'API',
-    'enable_api' => 'Enable API?',
-    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>.',
-    'enable_legacy_api' => 'Enable legacy API?',
-    'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
-    'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
-    'api_registration_email' => 'API Registration Email',
-    'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
+    'enable_api' => 'Aktivera API?',
+    'api_info' => 'API:an tillåter plugins och andra tjänster att interagera med din hemsida, till exempel det <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >officiella Nameless plugin</a>.',
+    'enable_legacy_api' => 'Aktivera äldre API?',
+    'legacy_api_info' => 'Äldre API:an tillåter plugins och andra tjänst som använder det gamla Nameless versionen 1 API:an för att fungera med din version 2 hemsida.',
+    'confirm_api_regen' => 'Är du säker på att du vill regenerera din API nyckel?',
+    'api_registration_email' => 'API Registrerings Email',
+    'link_to_complete_registration' => 'Länk till fullständig registrering: {x}', // Don't replace {x}
 
 	// File uploads
 	'drag_files_here' => 'Dra filer här för att ladda upp.',
