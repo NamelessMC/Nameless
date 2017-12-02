@@ -291,7 +291,7 @@ if($page != 'install'){
         // Admins only beyond this point
         if(!$user->isLoggedIn() || !$user->canViewACP()){
             // Maintenance mode
-            if((isset($_GET['route']) && $_GET['route'] == '/login') || (FRIENDLY_URLS === true && !isset($_GET['route']) && $directory == '/login')) {
+            if(isset($_GET['route']) && rtrim($_GET['route'], '/') == '/login'){
                 // Can continue as normal
             } else {
                 require('maintenance.php');
