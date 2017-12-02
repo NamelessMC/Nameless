@@ -8,7 +8,7 @@
  *
  *  Romanian Language - General terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 26/08/2017
+ *  Last Update: 02/12/2017
  */
 
 $language = array(
@@ -53,7 +53,7 @@ $language = array(
     'page_loaded_in' => 'Pagină incărcată în  {x} secunde.', // Don't replace {x}, time unit is seconds
     'page_x' => 'Pagina {x}',
     'browse' => 'Caută',
-	'bypass' => 'Bypass',
+	'bypass' => 'Evită',
 
     /*
      *  Contact form
