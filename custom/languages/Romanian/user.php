@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Users
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 07/10/2017
+ *  Last Update: 02/11/2017
  */
 
 $language = array(
@@ -31,7 +31,7 @@ $language = array(
     'administration' => 'Administrare',
     'alerts' => 'Alerte',
     'delete_all' => 'Şterge tot',
-	'private_profile' => 'Private profile',
+	'private_profile' => 'Profil privat',
     
     // Profile settings
     'field_is_required' => 'Câmpul "{x}" este necesar.', // Don't replace {x}
@@ -43,8 +43,8 @@ $language = array(
     'confirm_new_password' => 'Confirma noua parolă',
     'incorrect_password' => 'Parola dvs. este incorectă.',
     'two_factor_auth' => 'Autentificare în doi pași',
-	'enabled' => 'Enabled',
-    'disabled' => 'Disabled',
+	'enabled' => 'Activat',
+    'disabled' => 'Dezactivat',
     'enable' => 'Activează',
     'disable' => 'Dezactivează',
     'tfa_scan_code' => 'Scanați următorul cod în aplicația de autentificare:',
@@ -55,7 +55,7 @@ $language = array(
     'active_language' => 'Limbă site',
     'timezone' => 'Fus orar',
     'upload_new_avatar' => 'Încărcați un nou avatar',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
+    'nickname_already_exists' => 'Numele ales este deja utilizat.',
     
     // Alerts
     'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace {x}
@@ -161,8 +161,8 @@ $language = array(
     'confirm_unblock_user' => 'Sigur doriți să deblocați acest utilizator? Va putea din nou să vă trimită mesaje private și să vă eticheteze în postări.',
     'user_blocked' => 'Utilizatorul a fost blocat.',
     'user_unblocked' => 'Utilizatorul a fost deblocat.',
-	'views' => 'Profile Views:',
-	'private_profile_page' => 'This is a private profile!',
+	'views' => 'Vizualizări profil:',
+	'private_profile_page' => 'Acest profil este privat!',
     
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',
