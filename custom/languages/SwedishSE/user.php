@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -75,17 +75,17 @@ $language = array(
 	'i_agree' => 'Jag accepterar.',
 	'agree_t_and_c' => 'Genom att klicka på <strong class="label label-primary">Registrera</strong> godkänner du våra <a href="{x}" target="_blank">användarvillkor</a>.',
 	'create_an_account' => 'Skapa ett konto',
-	'terms_and_conditions' => 'AnvändarVillkor',
+	'terms_and_conditions' => 'Användar Villkor',
 	'validation_complete' => 'Ditt konto har validerats, du kan nu logga in.',
 	'validation_error' => 'Det fanns ett okänt fel medans vi validerade ditt konto, var god kontakta en webbplats administratör.',
 	'signature' => 'Signatur',
-	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
+	'signature_max_900' => 'Din signatur måste vara högst 900 tecken.',
 
 	// Registration - Authme
     'connect_with_authme' => 'Anslut ditt konto med AuthMe',
-	'authme_help' => 'Please enter your ingame AuthMe account details. If you don\'t already have an account ingame, join the server now and follow the instructions provided.',
-	'unable_to_connect_to_authme_db' => 'Unable to connect to the AuthMe database. If this error persists, please contact an administrator.',
-	'authme_account_linked' => 'Account linked successfully.',
+	'authme_help' => 'Vänligen, Skriv in din AuthMe konto uppgifter. Om du inte redan har ett konto inloggat, gå med i servern nu och följ instruktionerna.',
+	'unable_to_connect_to_authme_db' => 'Det gick inte att ansluta till AuthMe databasen. Om det här felet forstätter, kontakta en administratör.',
+	'authme_account_linked' => 'Kontot har länktat!',
 	'authme_email_help_1' => 'Slutligen, ange en e-postadress',
 	'authme_email_help_2' => 'Slutligen, ange en e-postadress och ange ett smeknamn',
 	
@@ -134,10 +134,10 @@ $language = array(
 	// Profile pages
 	'profile' => 'Profil',
 	'follow' => 'Följ',
-	'no_wall_posts' => 'TDet finns inga väggposter här än.',
+	'no_wall_posts' => 'Det finns inga väggposter här än.',
 	'change_banner' => 'Ändra banner',
 	'post_on_wall' => 'Skriv något på {x}s vägg', // Don't replace {x}
-	'invalid_wall_post' => 'Var goc och se till att ditt inlägg är mellan 1 och 10000 tecken.',
+	'invalid_wall_post' => 'Var god och se till att ditt inlägg är mellan 1 och 10000 tecken.',
 	'1_reaction' => '1 reaktion',
 	'x_reactions' => '{x} reaktioner', // Don't replace {x}
 	'1_like' => '1 like',
