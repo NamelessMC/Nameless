@@ -37,7 +37,7 @@ $language = array(
 	'administration' => 'Administration',
 	'alerts' => 'Benachrichtigungen',
 	'delete_all' => 'Alle Löschen',
-	'private_profile' => 'Private profile',
+	'private_profile' => 'Privates Profil',
 	
 	// Profile settings
 	'field_is_required' => '{x} wird benötigt.', // Don't replace {x}
@@ -49,8 +49,8 @@ $language = array(
 	'confirm_new_password' => 'Neues Passwort bestätigen',
 	'incorrect_password' => 'Dein Passwort ist falsch.',
 	'two_factor_auth' => '2 Schritt Authentifizierung',
-	'enabled' => 'Enabled',
-    'disabled' => 'Disabled',
+	'enabled' => 'Aktiviert',
+    'disabled' => 'Deaktiviert',
 	'enable' => 'Aktivieren',
 	'disable' => 'Deaktivieren',
 	'tfa_scan_code' => 'Scanne folgenden Code mit der APP:',
@@ -61,7 +61,7 @@ $language = array(
 	'active_language' => 'Ausgewählte Sprache:',
     'timezone' => 'Zeitzone',
     'upload_new_avatar' => 'Ein neuen Avatar hochladen',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
+    'nickname_already_exists' => 'Der gewählte Nickname existiert bereits.',
 	
 	// Alerts
 	'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace {x}
@@ -86,7 +86,7 @@ $language = array(
 	'validation_complete' => 'Dein Account wurde verifiziert. Du kannst dich nun anmelden.',
 	'validation_error' => 'Mit deinem Account stimmt etwas nicht. Benachrichtige einen Administrator.',
 	'signature' => 'Signatur',
-	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
+	'signature_max_900' => 'Ihre Signatur darf maximal 900 Zeichen lang sein.',
 
     // Registration - Authme
     'connect_with_authme' => 'Verbinden Sie Ihr Konto mit AuthMe',
@@ -113,7 +113,7 @@ $language = array(
     'invalid_mcname' => 'Dein Minecraft Benutzername ist ungültig.',
 	'invalid_email' => 'Deine EmailAdresse ist ungültig.',
 	'mcname_lookup_error' => 'Fehler beim abrufen des MC-Namens.',
-	'invalid_recaptcha' => 'Ungültige reCAPTCHA antwort.',
+	'invalid_recaptcha' => 'Ungültige reCAPTCHA Antwort.',
     'verify_account' => 'Account verifizieren',
     'verify_account_help' => 'Bitte führe die angegeben Schritte durch um deinen Account zu verifizieren.',
     'verification_failed' => 'Verifikation fehlgeschlagen.',
@@ -168,7 +168,7 @@ $language = array(
 	'user_blocked' => 'Benutzer blockiert.',
 	'user_unblocked' => 'Benutzer blockierung aufgehoben.',
 	'views' => 'Profile Views:',
-	'private_profile_page' => 'This is a private profile!',
+	'private_profile_page' => 'Dies ist ein privates Profil!',
 	
 	// Reports
 	'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
@@ -199,7 +199,7 @@ $language = array(
 	'by' => 'von',
 	'leave_conversation' => 'Konversation verlassen.',
 	'confirm_leave' => 'Möchtest du die Konversation wirklich verlassen?',
-	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
+	'one_or_more_users_blocked' => 'Sie können keine privaten Nachrichten an mindestens ein Mitglied der Konversation senden.',
 
 	/*
 	 *  Infractions area
@@ -213,6 +213,6 @@ $language = array(
 	 */
 	'email_greeting' => 'Hey,',
 	'email_message' => 'Danke für deine Registration! Um deine Registration abzuschließen klicke auf folgenden Link:',
-    'forgot_password_email_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
+    'forgot_password_email_message' => 'Um Ihr Passwort zurückzusetzen, klicken Sie bitte auf den folgenden Link. Wenn Sie dies nicht selbst angefordert haben, können Sie diese E-Mail bedenkenlos löschen.',
 	'email_thanks' => 'Liebe Grüße,'
 );
