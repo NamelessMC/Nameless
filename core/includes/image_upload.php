@@ -58,12 +58,19 @@ if(Input::exists()){
 
                         Redirect::to(URL::build('/user/settings'));
                         die();
-                    }
+                    } else {
+						die('OK');
+					}
                 } else {
-                    // echo $image["error"];
+					http_response_code(400);
+                    echo $image["error"];
+                    die();
                 }
             } catch(Exception $e){
                 // Error
+				http_response_code(400);
+				echo $e->getMessage();
+				die();
             }
 		} else {
 			if(Input::get('type') == 'avatar'){
