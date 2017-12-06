@@ -122,9 +122,9 @@ $token = Token::get();
 
 				if($background_image == ''){
 				  $bg_img = $language->get('general', 'none');
-               } else {
+				} else {
 				  $bg_img = Output::getClean($background_image);
-               }
+				}
 
 				echo str_replace('{x}', $bg_img, $language->get('admin', 'background_image_x'));
 			  ?>
@@ -163,21 +163,20 @@ $token = Token::get();
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload();">
 			  <span aria-hidden="true">&times;</span>
 			</button>
 			<h4 class="modal-title" id="uploadModalLabel"><?php echo $language->get('admin', 'upload_new_image'); ?></h4>
 		  </div>
 		  <div class="modal-body">
-			<!-- Upload modal -->
-			<form action="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/includes/image_upload.php" class="dropzone" id="upload_background_dropzone">
-			<div class="dz-message" data-dz-message><span><?php echo $language->get('admin', 'drag_files_here'); ?></span></div>
-			  <input type="hidden" name="token" value="<?php echo $token; ?>">
-			  <input type="hidden" name="type" value="background">
-			</form>
+			  <!-- Upload modal -->
+			  <form action="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/includes/image_upload.php" class="dropzone" id="uploadBackgroundDropzone">
+			    <input type="hidden" name="token" value="<?php echo $token; ?>">
+			    <input type="hidden" name="type" value="background">
+			  </form>
 		  </div>
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-danger" onclick="location.reload();" data-dismiss="modal"><?php echo $language->get('general', 'cancel'); ?></button>
+        <button type="button" class="btn btn-primary" onclick="location.reload();" data-dismiss="modal"><?php echo $language->get('general', 'close'); ?></button>
 		  </div>
 		</div>
 	  </div>
@@ -190,15 +189,28 @@ $token = Token::get();
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dropzone/dropzone.min.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/image-picker/image-picker.min.js"></script>
 	
-	<script>
-	// Dropzone options
-	Dropzone.options.upload_background_dropzone = {
-	  maxFilesize: 2,
-	  dictDefaultMessage: "<?php echo $language->get('admin', 'drag_files_here'); ?>",
-	  dictInvalidFileType: "<?php echo $language->get('admin', 'invalid_file_type'); ?>",
-	  dictFileTooBig: "<?php echo $language->get('admin', 'file_too_big'); ?>"
-	};
-	
+	<script type="text/javascript">
+    Dropzone.options.uploadBackgroundDropzone = {
+        maxFilesize: 2,
+        dictDefaultMessage: "<?php echo $language->get('admin', 'drag_files_here'); ?>",
+        dictInvalidFileType: "<?php echo $language->get('admin', 'invalid_file_type'); ?>",
+        dictFileTooBig: "<?php echo $language->get('admin', 'file_too_big'); ?>",
+        params: {
+            token: "<?php echo Token::get(); ?>",
+            type: "background"
+        },
+        error: function(file, response) {
+            console.log("ERROR");
+            console.log(file);
+            console.log(response);
+        },
+        success: function(file, response){
+            console.log("ACCEPTED");
+            console.log(file);
+            console.log(response);
+        },
+        url: "<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/includes/image_upload.php"
+    };
 	$("select").imagepicker();
 	</script>
 	
