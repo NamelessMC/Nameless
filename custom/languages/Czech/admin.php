@@ -303,6 +303,7 @@ $language = array(
 	'group_not_exist' => 'Tato skupina neexistuje.',
 	'secondary_groups' => 'Vedlejší skupiny',
 	'secondary_groups_info' => 'Od těchto skupin získá uživatel jakákoliv další oprávnění',
+    'unable_to_update_uuid' => 'Unable to update UUID.',
 
     // Permissions
     'select_all' => 'Select All',

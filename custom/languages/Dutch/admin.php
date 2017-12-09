@@ -304,6 +304,7 @@ $language = array(
 	'group_not_exist' => 'Die groep bestaat niet.',
 	'secondary_groups' => 'Bijkomende groepen',
 	'secondary_groups_info' => 'De gebruiker zal de bijkomende toestemmingen van deze groepen ook krijgen',
+    'unable_to_update_uuid' => 'De UUID kan niet worden bijgewerkt.',
 
     // Permissies
     'select_all' => 'Selecteer Allemaal',

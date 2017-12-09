@@ -303,6 +303,7 @@ $language = array(
 	'group_not_exist' => 'That group doesn\'t exist.',
 	'secondary_groups' => 'Secondary Groups',
 	'secondary_groups_info' => 'The user will gain any additional permissions from these groups. Ctrl+click to select/deselect multiple groups.',
+    'unable_to_update_uuid' => 'Unable to update UUID.',
 
     // Permissions
     'select_all' => 'Select All',
