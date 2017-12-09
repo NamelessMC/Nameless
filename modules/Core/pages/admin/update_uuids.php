@@ -27,7 +27,7 @@ if(isset($_GET["uid"])){
 				'uuid' => $result['uuid']
 			));
 		} else {
-			Session::flash('adm-users', '<div class="alert alert-danger">  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $language->get('unable_to_update_uuid') . '</div>');
+			Session::flash('adm-users', '<div class="alert alert-danger">  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $language->get('admin', 'unable_to_update_uuid') . '</div>');
 			Redirect::to(URL::build('/admin/users/', 'user=' . $individual[0]->id));
 			die();
 		}

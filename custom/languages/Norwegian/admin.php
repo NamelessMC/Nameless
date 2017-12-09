@@ -303,6 +303,7 @@ $language = array(
 	'group_not_exist' => 'Den gruppa eksisterer ikke.',
 	'secondary_groups' => 'Undergrupper',
 	'secondary_groups_info' => 'Denne brukeren vil få all tilgang som denne gruppen har.',
+    'unable_to_update_uuid' => 'Kan ikke oppdatere UUID.',
 
     // Permissions
     'select_all' => 'Select All',

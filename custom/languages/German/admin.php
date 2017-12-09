@@ -311,6 +311,7 @@ $language = array(
 	'group_not_exist' => 'Diese Gruppe existiert nicht.',
 	'secondary_groups' => 'Sekundärgruppen',
 	'secondary_groups_info' => 'Der Benutzer erhält zusätzliche Berechtigungen aus diesen Gruppen',
+    'unable_to_update_uuid' => 'Unmöglich die UUID zu aktualisieren.',
 
     // Permissions
     'select_all' => 'Alle auswählen',
