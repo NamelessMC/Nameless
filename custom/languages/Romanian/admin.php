@@ -305,7 +305,7 @@ $language = array(
     'group_not_exist' => 'Grupul specificat nu există.',
     'secondary_groups' => 'Grupuri secundare',
     'secondary_groups_info' => 'Utilizatorul va obține orice permisiuni suplimentare din partea acestor grupuri',
-    'unable_to_update_uuid' => 'Unable to update UUID.',
+    'unable_to_update_uuid' => 'Imposibil de actualizat UUID-ul.',
 
     // Permissions
     'select_all' => 'Selectează tot',
