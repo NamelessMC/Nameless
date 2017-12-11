@@ -44,31 +44,25 @@ class ExternalMCQuery {
     // Params: $type = Query type - basic or extensive
     private static function query($type){
         if($type == 'basic'){
-            if(self::$_count > 1)
-                $action = '/multi';
-            else
-                $action = '/info';
+            $action = '/info/';
 
         } else if($type == 'extensive'){
-            if(self::$_count > 1)
-                $action = '/extensivemulti';
-            else
-                $action = '/extensive';
+            $action = '/extensive/';
 
         } else return false;
 
         // Single or batch?
         if(self::$_count > 1){
             // Batch
-            $queryUrl = 'https://mcapi.ca/query/';
+            $queryUrl = 'https://use.gameapis.net/mc/query' . $action;
             foreach(self::$_servers as $server){
                 $queryUrl .= $server . ',';
             }
 
-            $queryUrl = rtrim($queryUrl, ',') . $action;
+            $queryUrl = rtrim($queryUrl, ',');
         } else
             // Single
-            $queryUrl = 'https://mcapi.ca/query/' . self::$_servers[0] . $action;
+            $queryUrl = 'https://use.gameapis.net/mc/query' . $action . self::$_servers[0];
 
         try {
             // cURL
@@ -108,7 +102,7 @@ class ExternalMCQuery {
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
                 curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-                curl_setopt($ch, CURLOPT_URL, 'https://mcapi.ca/query/' . $server . '/players');
+                curl_setopt($ch, CURLOPT_URL, 'https://use.gameapis.net/mc/query/players/' . $server);
 
                 $result = curl_exec($ch);
                 $result = json_decode($result);
@@ -140,7 +134,7 @@ class ExternalMCQuery {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
             curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_URL, 'https://mcapi.ca/mcstatus');
+            curl_setopt($ch, CURLOPT_URL, 'https://use.gameapis.net/mc/extra/status');
 
             $result = curl_exec($ch);
             $result = json_decode($result);
@@ -166,7 +160,7 @@ class ExternalMCQuery {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
             curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_URL, 'https://mcapi.ca/query/' . $ip . '/icon');
+            curl_setopt($ch, CURLOPT_URL, 'https://use.gameapis.net/mc/query/icon/' . $ip);
 
             $result = curl_exec($ch);
 

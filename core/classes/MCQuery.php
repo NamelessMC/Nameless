@@ -67,8 +67,8 @@ class MCQuery {
                             'player_count' => Output::getClean($query->players->online),
                             'player_count_max' => Output::getClean($query->players->max),
                             'x_players_online' => str_replace('{x}', Output::getClean($query->players->online), $language->get('general', 'currently_x_players_online')),
-                            'motd' => $query->motd,
-                            'motd_formatted' => Output::getPurified($query->htmlmotd)
+                            'motd' => $query->motds->ingame,
+                            'motd_formatted' => Output::getPurified($query->motds->html)
                         );
                     else
                         $return = array(
@@ -184,16 +184,17 @@ class MCQuery {
 
                 $query = ExternalMCQuery::queryServers('basic');
 
+                $to_return = array();
                 if(count($query)){
-                    $to_return = array();
                     $total_count = 0;
                     $status = 0;
+                    $i = 0;
 
                     foreach($query as $item){
                         if(isset($item->players)) {
                             if($accumulate === false){
                                 $to_return[] = array(
-                                    'name' => Output::getClean($server['name']),
+                                    'name' => Output::getClean($servers[$i]['name']),
                                     'status_value' => 1,
                                     'status' => $language->get('general', 'online'),
                                     'player_count' => Output::getClean($item->players->online),
@@ -214,6 +215,8 @@ class MCQuery {
                                     'server_offline' => $language->get('general', 'server_offline')
                                 );
                         }
+
+                        $i++;
                     }
                 }
 
