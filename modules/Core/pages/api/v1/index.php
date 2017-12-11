@@ -489,7 +489,7 @@ class NamelessAPI {
                                 $this->_db->insert('alerts', array(
                                     'user_id' => $individual->id,
                                     'type' => 'Report',
-                                    'url' => URL::build('/mod/reports/', 'rid=' . $report_id),
+                                    'url' => URL::build('/mod/reports/', 'report=' . $report_id),
                                     'content' => 'New report submitted',
                                     'content_short' => 'New report submitted',
                                     'created' => date('U')
