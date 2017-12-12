@@ -20,3 +20,6 @@ body {
 .panel-body {
 	background-color: #303030 !important;
 }
+textarea, .cke {
+	color: #000 !important;
+}
