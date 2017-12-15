@@ -23,7 +23,7 @@ if($user->isLoggedIn()){
 			die();
 		} else if(!$user->hasPermission('admincp.update')){
             // Can't view this page
-            require('404.php');
+            require(ROOT_PATH . '/404.php');
             die();
         }
 	}
@@ -51,7 +51,7 @@ $current_version = $current_version[0]->value;
 
 // Perform the update
 if(is_file('core/includes/updates/' . str_replace('.', '', $current_version) . '.php'))
-	require('core/includes/updates/' . str_replace('.', '', $current_version) . '.php');
+	require(ROOT_PATH . '/core/includes/updates/' . str_replace('.', '', $current_version) . '.php');
 
 Redirect::to(URL::build('/admin/update'));
 die();

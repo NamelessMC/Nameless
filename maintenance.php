@@ -23,7 +23,7 @@
 
     <?php $title = 'Maintenance'; ?>
 
-    <?php require('core/templates/header.php'); ?>
+    <?php require(ROOT_PATH . '/core/templates/header.php'); ?>
 
 </head>
 <body>

@@ -18,7 +18,7 @@ if(!$user->isLoggedIn()){
 // Always define page name for navbar
 define('PAGE', 'cc_alerts');
 
-require('core/templates/cc_navbar.php');
+require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
 $timeago = new Timeago(TIMEZONE);
 ?>
@@ -33,14 +33,14 @@ $timeago = new Timeago(TIMEZONE);
     <!-- Site Properties -->
 	<?php 
 	$title = $language->get('user', 'user_cp');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php'); 
 	?>
   
   </head>
   <body>
     <?php
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 	
 	if(!isset($_GET['view'])){
 		if(!isset($_GET['action'])){
@@ -105,7 +105,7 @@ $timeago = new Timeago(TIMEZONE);
 		die();
 	}
 
-    require('core/templates/scripts.php');
+    require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
 	
   </body>

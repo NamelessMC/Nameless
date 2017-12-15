@@ -17,7 +17,7 @@ if(!isset($_GET['c'])){
     Redirect::to(URL::build('/'));
     die();
 } else {
-    require('core/includes/password.php');
+    require(ROOT_PATH . '/core/includes/password.php');
 
     // Ensure API is enabled
     $is_legacy_enabled = $queries->getWhere('settings', array('name', '=', 'use_legacy_api'));
@@ -127,7 +127,7 @@ if(!isset($_GET['c'])){
         <!-- Site Properties -->
         <?php
         $title = $language->get('general', 'register');
-        require('core/templates/header.php');
+        require(ROOT_PATH . '/core/templates/header.php');
         ?>
 
         <!-- Custom style -->
@@ -141,8 +141,8 @@ if(!isset($_GET['c'])){
     <body>
     <?php
     // Generate navbar and footer
-    require('core/templates/navbar.php');
-    require('core/templates/footer.php');
+    require(ROOT_PATH . '/core/templates/navbar.php');
+    require(ROOT_PATH . '/core/templates/footer.php');
 
     // Smarty variables
     if(isset($errors) && count($errors)){
@@ -161,7 +161,7 @@ if(!isset($_GET['c'])){
 
     $smarty->display('custom/templates/' . TEMPLATE . '/complete_signup.tpl');
 
-    require('core/templates/scripts.php');
+    require(ROOT_PATH . '/core/templates/scripts.php');
     ?>
     </body>
 </html>

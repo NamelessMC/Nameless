@@ -17,7 +17,7 @@ if ($user->isLoggedIn()) {
     die();
 }
 
-require('core/includes/password.php'); // For password hashing
+require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo(defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
@@ -33,7 +33,7 @@ require('core/includes/password.php'); // For password hashing
 
     <?php
     $title = str_replace('?', '', $language->get('user', 'forgot_password'));
-    require('core/templates/header.php');
+    require(ROOT_PATH . '/core/templates/header.php');
     ?>
 
     <!-- Custom style -->
@@ -47,8 +47,8 @@ require('core/includes/password.php'); // For password hashing
 <body>
 <?php
 // Generate navbar and footer
-require('core/templates/navbar.php');
-require('core/templates/footer.php');
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
 
 if (!isset($_GET['c'])) {
     // Enter email address form
@@ -264,7 +264,7 @@ if (!isset($_GET['c'])) {
 }
 
 // Scripts
-require('core/templates/scripts.php');
+require(ROOT_PATH . '/core/templates/scripts.php');
 ?>
 </body>
 </html>

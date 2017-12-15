@@ -14,10 +14,10 @@ define('PAGE', 'profile');
 
 $timeago = new Timeago(TIMEZONE);
 
-require('core/includes/emojione/autoload.php'); // Emojione
+require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
-require('core/includes/paginate.php'); // Get number of wall posts on a page
+require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts on a page
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
@@ -30,7 +30,7 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
     <!-- Site Properties -->
 	<?php 
 	$title = $language->get('user', 'profile');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php'); 
 	?>
 	
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/image-picker/image-picker.css">
@@ -43,8 +43,8 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
   </head>
   <body>
     <?php
-	require('core/templates/navbar.php'); 
-	require('core/templates/footer.php'); 
+	require(ROOT_PATH . '/core/templates/navbar.php'); 
+	require(ROOT_PATH . '/core/templates/footer.php'); 
 	?>
 	
 	<?php
@@ -711,8 +711,8 @@ require('core/includes/paginate.php'); // Get number of wall posts on a page
 	}
 	
 	// Footer and scripts
-	require('core/templates/footer.php');
-	require('core/templates/scripts.php'); 
+	require(ROOT_PATH . '/core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/scripts.php'); 
 	
 	if(isset($directories[1]) && !empty($directories[1]) && !isset($_GET['error']) && $user->isLoggedIn()){
 		if($user->data()->username == $profile){

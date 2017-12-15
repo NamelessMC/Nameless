@@ -22,7 +22,7 @@ require_once('modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $mentionsParser = new MentionsParser();
 
-require('core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
+require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 
 if(!isset($_GET['fid']) || !is_numeric($_GET['fid'])){
 	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
@@ -198,7 +198,7 @@ $token = Token::get();
     <!-- Site Properties -->
 	<?php
 	$title = $forum_language->get('forum', 'new_topic');
-	require('core/templates/header.php');
+	require(ROOT_PATH . '/core/templates/header.php');
 	?>
 
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
@@ -209,8 +209,8 @@ $token = Token::get();
 
   <body>
 	<?php
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 
 	// Generate content for template
 	if(isset($error)){
@@ -278,7 +278,7 @@ $token = Token::get();
 	// Display template
 	$smarty->display('custom/templates/' . TEMPLATE . '/forum/new_topic.tpl');
 
-	require('core/templates/scripts.php');
+	require(ROOT_PATH . '/core/templates/scripts.php');
 
 	if($formatting == 'markdown'){
 	?>

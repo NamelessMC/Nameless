@@ -50,6 +50,7 @@ if(!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
 
 // Get page to load from URL
 if(!isset($_GET['route']) || $_GET['route'] == '/'){
+
 	if(count($directories) > 1 && (!isset($_GET['route']) || (isset($_GET['route']) && $_GET['route'] != '/')))
 		require(ROOT_PATH . '/404.php');
 	else
@@ -59,7 +60,9 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 } else {
 	if(!isset($route)) $route = rtrim($_GET['route'], '/');
 	// Check modules
+
 	$modules = $pages->returnPages();
+
 
 	// Include the page
 	if(array_key_exists($route, $modules)){
@@ -73,9 +76,11 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 	        die();
         }
 	} else {
+
 		// Use recursion to check - might have URL parameters in path
 		$path_array = explode('/', $route);
-		//echo '<pre>', print_r($path_array), '</pre>';
+
+//		echo '<pre>', var_dump($path_array).  '</pre>';
 
 		for($i = count($path_array) - 2; $i > 0; $i--){
 			$new_path = '/';
@@ -83,10 +88,8 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 				$new_path .= $path_array[$n] . '/';
 			}
 			$new_path = rtrim($new_path, '/');
-
 			if(array_key_exists($new_path, $modules)){
 				$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$new_path]['module'], $modules[$new_path]['file']));
-
 				if(file_exists($path)){
 					require($path);
 					die();

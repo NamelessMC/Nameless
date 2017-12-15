@@ -23,14 +23,14 @@ define('PAGE', 'terms');
     <!-- Site Properties -->
     <?php
     $title = $language->get('user', 'terms_and_conditions');
-    require('core/templates/header.php');
+    require(ROOT_PATH . '/core/templates/header.php');
     ?>
 
 </head>
 <body>
 <?php
-require('core/templates/navbar.php');
-require('core/templates/footer.php');
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
 
 // Retrieve terms from database
 $site_terms = $queries->getWhere('settings', array('name', '=', 't_and_c_site'));
@@ -47,7 +47,7 @@ $smarty->assign(array(
 
 $smarty->display('custom/templates/' . TEMPLATE . '/terms.tpl');
 
-require('core/templates/scripts.php'); ?>
+require(ROOT_PATH . '/core/templates/scripts.php'); ?>
 
 </body>
 </html>

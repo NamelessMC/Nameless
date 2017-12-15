@@ -39,15 +39,15 @@ if($user->isLoggedIn()){
     <!-- Site Properties -->
 	<?php 
 	$title = $forum_language->get('forum', 'forum');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php');
 	?>
   
   </head>
 
   <body>
     <?php 
-	require('core/templates/navbar.php'); 
-	require('core/templates/footer.php'); 
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 	
 	// Breadcrumbs and search bar - same for latest discussions view + table view
 	$smarty->assign('BREADCRUMB_URL', URL::build('/forum'));
@@ -276,7 +276,7 @@ if($user->isLoggedIn()){
 	// Load Smarty template
 	$smarty->display('custom/templates/' . TEMPLATE . '/forum/forum_index.tpl'); 
 	
-	require('core/templates/scripts.php'); 
+	require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
   </body>
 </html>

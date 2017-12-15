@@ -16,7 +16,7 @@ $latest_news = $forum->getLatestNews(5); // Get latest 5 items
 
 $news = array();
 
-require('core/includes/emojione/autoload.php'); // Emojione
+require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 foreach($latest_news as $item){

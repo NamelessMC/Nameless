@@ -23,7 +23,7 @@ if($user->isLoggedIn()){
 			die();
 		} else if(!$user->hasPermission('admincp.update')){
             // Can't view this page
-            require('404.php');
+            require(ROOT_PATH . '/404.php');
             die();
         }
 	}
@@ -70,16 +70,16 @@ curl_close($ch);
 	
 	<?php 
 	$title = $language->get('admin', 'admin_cp');
-	require('core/templates/admin_header.php'); 
+	require(ROOT_PATH . '/core/templates/admin_header.php');
 	?>
 
   </head>
   <body>
-    <?php require('modules/Core/pages/admin/navbar.php'); ?>
+    <?php require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php'); ?>
 	<div class="container">
 	  <div class="row">
 	    <div class="col-md-3">
-		  <?php require('modules/Core/pages/admin/sidebar.php'); ?>
+		  <?php require(ROOT_PATH . '/modules/Core/pages/admin/sidebar.php'); ?>
 		</div>
 		<div class="col-md-9">
 		  <div class="card">
@@ -157,8 +157,8 @@ curl_close($ch);
     </div>
 	
 	<?php 
-	require('modules/Core/pages/admin/footer.php');
-	require('modules/Core/pages/admin/scripts.php'); 
+	require(ROOT_PATH . '/modules/Core/pages/admin/footer.php');
+	require(ROOT_PATH . '/modules/Core/pages/admin/scripts.php');
 	?>
 	
   </body>

@@ -27,7 +27,7 @@ define('PAGE', 404);
 	
 	<?php
 	$title = '404';
-	require('core/templates/header.php');
+	require(ROOT_PATH . '/core/templates/header.php');
 	?>
 	
 	<!-- Custom style -->
@@ -41,8 +41,8 @@ define('PAGE', 404);
   <body>
 	<?php
 	// Generate navbar and footer
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 
 	// Assign Smarty variables
 	$smarty->assign(array(
@@ -58,7 +58,7 @@ define('PAGE', 404);
 	$smarty->display('custom/templates/' . TEMPLATE . '/404.tpl');
 
 	// Scripts 
-	require('core/templates/scripts.php');
+	require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
   </body>
 </html>

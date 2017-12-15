@@ -15,8 +15,8 @@ if(!in_array("init.php", get_included_files())){
 	require('../status/MinecraftServerPing.php');
 	require('../../includes/motd_format.php');
 } else {
-	require('core/integration/status/MinecraftServerPing.php');
-	require('core/includes/motd_format.php');
+	require(ROOT_PATH . '/core/integration/status/MinecraftServerPing.php');
+	require(ROOT_PATH . '/core/includes/motd_format.php');
 }
 
 // Are we using the built-in query or an external API?

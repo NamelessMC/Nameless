@@ -46,7 +46,7 @@ $admin_page = 'forums';
 	
 	<?php 
 	$title = $language->get('admin', 'admin_cp');
-	require('core/templates/admin_header.php'); 
+	require(ROOT_PATH . '/core/templates/admin_header.php'); 
 	?>
   
 	<!-- Custom style -->
@@ -61,11 +61,11 @@ $admin_page = 'forums';
   </head>
 
   <body>
-  <?php require('modules/Core/pages/admin/navbar.php'); ?>
+  <?php require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php'); ?>
     <div class="container">	
 	  <div class="row">
 		<div class="col-md-3">
-		  <?php require('modules/Core/pages/admin/sidebar.php'); ?>
+		  <?php require(ROOT_PATH . '/modules/Core/pages/admin/sidebar.php'); ?>
 		</div>
 		<div class="col-md-9">
 		  <div class="card">
@@ -1554,9 +1554,9 @@ $admin_page = 'forums';
 		</div>
       </div>
     </div>
-	<?php require('modules/Core/pages/admin/footer.php'); ?>
+	<?php require(ROOT_PATH . '/modules/Core/pages/admin/footer.php'); ?>
 
-    <?php require('modules/Core/pages/admin/scripts.php'); ?>
+    <?php require(ROOT_PATH . '/modules/Core/pages/admin/scripts.php'); ?>
 	
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.js"></script>
 	

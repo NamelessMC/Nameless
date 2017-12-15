@@ -20,18 +20,18 @@ define('PAGE', 'portal');
     <!-- Site Properties -->
 	<?php 
 	$title = $language->get('general', 'home');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php'); 
 	?>
   
   </head>
   <body>
     <?php 
-	require('core/templates/navbar.php'); 
-	require('core/templates/footer.php'); 
+	require(ROOT_PATH . '/core/templates/navbar.php'); 
+	require(ROOT_PATH . '/core/templates/footer.php'); 
 	
 	$smarty->display('custom/templates/' . TEMPLATE . '/portal.tpl');
 
-    require('core/templates/scripts.php'); ?>
+    require(ROOT_PATH . '/core/templates/scripts.php'); ?>
 	
   </body>
 </html>
