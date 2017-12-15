@@ -9,6 +9,7 @@
  *  Main index file
  */
 
+
 // Ensure PHP version >= 5.4
 if(version_compare(phpversion(), '5.4', '<')){
 	die('NamelessMC is not compatible with PHP versions older than 5.4');
@@ -37,27 +38,26 @@ $lim = count($directories);
 
 try {
 	// Start initialising the page
-	require('core/init.php');
+	require(ROOT_PATH . '/core/init.php');
 }
 catch(Exception $e) {
 	die($e->getMessage());
 }
 
-if(!isset($GLOBALS['config']['core']) && is_file('install.php')) {
+if(!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
 	Redirect::to('install.php');
 }
 
 // Get page to load from URL
 if(!isset($_GET['route']) || $_GET['route'] == '/'){
 	if(count($directories) > 1 && (!isset($_GET['route']) || (isset($_GET['route']) && $_GET['route'] != '/')))
-		require('404.php');
+		require(ROOT_PATH . '/404.php');
 	else
 		// Homepage
-		require('modules/Core/pages/index.php');
+		require(ROOT_PATH . '/modules/Core/pages/index.php');
 
 } else {
 	if(!isset($route)) $route = rtrim($_GET['route'], '/');
-
 	// Check modules
 	$modules = $pages->returnPages();
 
@@ -99,3 +99,4 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 	}
 
 }
+
