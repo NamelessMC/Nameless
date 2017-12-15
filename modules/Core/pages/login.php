@@ -278,7 +278,7 @@ if (Session::exists('login_success'))
     $smarty->assign('SUCCESS', Session::flash('login_success'));
 
 // Display template
-$smarty->display('custom/templates/' . TEMPLATE . '/login.tpl');
+$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/login.tpl');
 
 // Scripts
 require(ROOT_PATH . '/core/templates/scripts.php');

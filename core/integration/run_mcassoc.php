@@ -135,7 +135,7 @@ if(!isset($_SESSION['mcassoc'])) $_SESSION['mcassoc'] = $_POST;
   }
 
   // Display template
-  $smarty->display('custom/templates/' . TEMPLATE . '/mcassoc.tpl');
+  $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mcassoc.tpl');
 
   // Scripts
   require(ROOT_PATH . '/core/templates/scripts.php');

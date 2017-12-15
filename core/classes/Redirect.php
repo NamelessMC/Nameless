@@ -21,7 +21,7 @@ class Redirect {
 					// 404 request?
 					case 404:
 						header('HTTP/1.0 404 Not Found');
-						require('404.php');
+						require(ROOT_PATH . '/404.php');
 						die();
 					break;
 				}

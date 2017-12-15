@@ -9,7 +9,7 @@
  *  View topic page
  */
 
-require_once('modules/Forum/classes/Forum.php');
+require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
  
 // Set the page name for the active link in navbar
 define('PAGE', 'forum');
@@ -581,7 +581,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	}
 	
 	// Display page template
-	$smarty->display('custom/templates/' . TEMPLATE . '/forum/view_topic.tpl'); 
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/view_topic.tpl');
 	
 	// Scripts 
 	require(ROOT_PATH . '/core/templates/scripts.php');

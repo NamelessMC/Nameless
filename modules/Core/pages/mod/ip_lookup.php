@@ -148,7 +148,7 @@ define('PAGE', 'mod_ip_lookup');
 		'TOKEN' => Token::get()
 	));
 	
-	$smarty->display('custom/templates/' . TEMPLATE . '/mod/ip_lookup.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/ip_lookup.tpl');
 
     require(ROOT_PATH . '/core/templates/scripts.php');
 	?>

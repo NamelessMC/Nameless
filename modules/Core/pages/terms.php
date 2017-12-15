@@ -45,7 +45,7 @@ $smarty->assign(array(
     'NAMELESS_TERMS' => $nameless_terms
 ));
 
-$smarty->display('custom/templates/' . TEMPLATE . '/terms.tpl');
+$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/terms.tpl');
 
 require(ROOT_PATH . '/core/templates/scripts.php'); ?>
 

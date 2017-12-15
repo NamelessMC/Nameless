@@ -185,7 +185,7 @@ $smarty->assign(array(
 ));
 
 // Display template
-$smarty->display('custom/templates/' . TEMPLATE . '/contact.tpl');
+$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/contact.tpl');
 
 require(ROOT_PATH . '/core/templates/scripts.php');
 if($recaptcha === "true"){

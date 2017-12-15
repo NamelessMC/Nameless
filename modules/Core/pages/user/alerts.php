@@ -76,7 +76,7 @@ $timeago = new Timeago(TIMEZONE);
 				'NO_ALERTS' => $language->get('user', 'no_alerts_usercp')
 			));
 			
-			$smarty->display('custom/templates/' . TEMPLATE . '/user/alerts.tpl');
+			$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/alerts.tpl');
 		
 		} else {
 			if($_GET['action'] == 'purge'){

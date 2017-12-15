@@ -119,7 +119,7 @@ $timeago = new Timeago(TIMEZONE);
 		));
 		
 		// Display template
-		$smarty->display('custom/templates/' . TEMPLATE . '/mod/reports.tpl');
+		$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/reports.tpl');
 	} else {
 		if(!isset($_GET['action'])){
 			// Get report
@@ -233,7 +233,7 @@ $timeago = new Timeago(TIMEZONE);
 			}
 			
 			// Display template
-			$smarty->display('custom/templates/' . TEMPLATE . '/mod/view_report.tpl');
+			$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/view_report.tpl');
 		} else {
 			if($_GET['action'] == 'close'){
 				// Close report

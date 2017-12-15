@@ -134,7 +134,7 @@ class Util {
 	// Parse text with Geshi
 	public static function parseGeshi($content = null){
 		if($content) {
-            require_once('core/includes/geshi/geshi.php');
+            require_once(ROOT_PATH . '/core/includes/geshi/geshi.php');
 
             $dom = new DOMDocument;
 

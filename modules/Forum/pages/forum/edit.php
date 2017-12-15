@@ -19,7 +19,7 @@ if(!$user->isLoggedIn()){
 }
 
 // Initialise
-require_once('modules/Forum/classes/Forum.php');
+require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $mentionsParser = new MentionsParser();
 
@@ -328,7 +328,7 @@ if(Input::exists()){
 	}
 	
 	// Display template
-	$smarty->display('custom/templates/' . TEMPLATE . '/forum/forum_edit_post.tpl'); 
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/forum_edit_post.tpl');
 
 	require(ROOT_PATH . '/core/templates/scripts.php');
 

@@ -80,7 +80,7 @@ if(isset($_GET['do'])){
 		'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa')
 	));
 	
-	$smarty->display('custom/templates/' . TEMPLATE . '/user/tfa.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/tfa.tpl');
 
     require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
@@ -143,7 +143,7 @@ if(isset($_GET['do'])){
 		'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa')
 	));
 	
-	$smarty->display('custom/templates/' . TEMPLATE . '/user/tfa.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/tfa.tpl');
 
 	require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
@@ -590,7 +590,7 @@ if(isset($_GET['do'])){
 		$smarty->assign('ENABLE_LINK', URL::build('/user/settings/', 'do=enable_tfa'));
 	}
 	
-	$smarty->display('custom/templates/' . TEMPLATE . '/user/settings.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/settings.tpl');
 
     require(ROOT_PATH . '/core/templates/scripts.php');
 	?>

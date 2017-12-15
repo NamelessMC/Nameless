@@ -9,7 +9,7 @@
  *  Merge two topics together
  */
 
-require_once('modules/Forum/classes/Forum.php');
+require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
  
 // Set the page name for the active link in navbar
@@ -117,7 +117,7 @@ $token = Token::get();
 	));
 	
 	// Load template
-	$smarty->display('custom/templates/' . TEMPLATE . '/forum/merge.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/merge.tpl');
 	
 	// Scripts
 	require(ROOT_PATH . '/core/templates/scripts.php');

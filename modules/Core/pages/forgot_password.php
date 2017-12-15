@@ -167,7 +167,7 @@ if (!isset($_GET['c'])) {
         'SUBMIT' => $language->get('general', 'submit')
     ));
 
-    $smarty->display('custom/templates/' . TEMPLATE . '/forgot_password.tpl');
+    $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forgot_password.tpl');
 } else {
     // Check code exists
     $code = $queries->getWhere('users', array('reset_code', '=', $_GET['c']));
@@ -259,7 +259,7 @@ if (!isset($_GET['c'])) {
         'SUBMIT' => $language->get('general', 'submit')
     ));
 
-    $smarty->display('custom/templates/' . TEMPLATE . '/change_password.tpl');
+    $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/change_password.tpl');
 
 }
 
