@@ -40,8 +40,8 @@ if(isset($widgets))
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/css/custom.css">
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/css/font-awesome.min.css">
 	<?php 
-	} else { 
-		require('custom/templates/' . TEMPLATE . '/template.php');
+	} else {
+		require(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php');
 		foreach($css as $item){
 			?>
 	<link rel="stylesheet" href="<?php echo $item; ?>">
@@ -51,6 +51,7 @@ if(isset($widgets))
 	?>
 	
 	<?php
+
 	// Background?
 	$cache->setCache('backgroundcache');
 	$background_image = $cache->retrieve('background_image');
