@@ -114,6 +114,7 @@ $language = array(
     'google_recaptcha' => 'Enable Google reCAPTCHA?',
     'recaptcha_site_key' => 'reCAPTCHA Site Key',
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
+    'registration_disabled_message' => 'Registration disabled message',
 
 	// Reactions
 	'icon' => 'Icon',

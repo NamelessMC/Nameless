@@ -39,10 +39,60 @@ if($minecraft == '1') {
 $registration_enabled = $queries->getWhere('settings', array('name', '=', 'registration_enabled'));
 $registration_enabled = $registration_enabled[0]->value;
  
-if(!isset($registration_enabled)){
-	// Registration is disabled
-	Redirect::to(URL::build('/'));
-	die();
+if($registration_enabled == 0){
+	// Registration is disabled, display a message
+	?>
+<!DOCTYPE html>
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="<?php echo SITE_NAME; ?> - registration disabled">
+
+    <!-- Site Properties -->
+    <?php
+    $title = $language->get('general', 'register');
+    require('core/templates/header.php');
+    ?>
+
+    <!-- Custom style -->
+    <style>
+        html {
+            overflow-y: scroll;
+        }
+    </style>
+
+  </head>
+  <body>
+  <?php
+  // Generate navbar and footer
+  require('core/templates/navbar.php');
+  require('core/templates/footer.php');
+
+  // Get registration disabled message and assign to Smarty variable
+  $registration_disabled_message = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
+  if(count($registration_disabled_message)){
+      $message = Output::getPurified(htmlspecialchars_decode($registration_disabled_message[0]->value));
+  } else {
+      $message = 'Registration is currently disabled.';
+  }
+
+  $smarty->assign(array(
+      'REGISTRATION_DISABLED' => $message,
+      'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
+  ));
+
+  // Registration template
+  $smarty->display('custom/templates/' . TEMPLATE . '/registration_disabled.tpl');
+
+  // Scripts
+  require('core/templates/scripts.php');
+  ?>
+  </body>
+</html>
+	<?php
+    die();
 }
  
 // Registration page
@@ -315,7 +365,7 @@ if(Input::exists()){
 							));
 
 							// Get user ID
-              $user_id = $queries->getLastId();
+							$user_id = $queries->getLastId();
 							
 							if($email_verification == '1'){
 								$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
@@ -332,22 +382,22 @@ if(Input::exists()){
 									$html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array($sitename, $language->get('general', 'register'), $language->get('user', 'email_greeting'), $language->get('user', 'email_message'), $link, $language->get('user', 'email_thanks')), $html);
 
 									$email = array(
-                      'to' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('username'))),
-                      'subject' => SITE_NAME . ' - ' . $language->get('general', 'register'),
-                      'message' => $html
-                  );
+									    'to' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('username'))),
+									    'subject' => SITE_NAME . ' - ' . $language->get('general', 'register'),
+									    'message' => $html
+									);
 
 									$sent = Email::send($email, 'mailer');
 
-                  if(isset($sent['error'])){
-                      // Error, log it
-                      $queries->create('email_errors', array(
-                          'type' => 1, // 1 = registration
-                          'content' => $sent['error'],
-                          'at' => date('U'),
-                          'user_id' => $user_id
-                      ));
-                  }
+									if(isset($sent['error'])){
+									    // Error, log it
+									    $queries->create('email_errors', array(
+									        'type' => 1, // 1 = registration
+									        'content' => $sent['error'],
+									        'at' => date('U'),
+									        'user_id' => $user_id
+									    ));
+									}
 
 								} else {
 									// PHP mail function
@@ -359,34 +409,34 @@ if(Input::exists()){
 									
 									$message = 	$language->get('user', 'email_greeting') . PHP_EOL .
 												$language->get('user', 'email_message') . PHP_EOL . PHP_EOL .
-                        'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code) . PHP_EOL . PHP_EOL .
+												'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code) . PHP_EOL . PHP_EOL .
 												$language->get('user', 'email_thanks') . PHP_EOL .
 												$sitename;
 
-                  $headers = 'From: ' . $siteemail . "\r\n" .
-                      'Reply-To: ' . $siteemail . "\r\n" .
-                      'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                      'MIME-Version: 1.0' . "\r\n" . 
-                      'Content-type: text/html; charset=UTF-8' . "\r\n";
+									$headers = 'From: ' . $siteemail . "\r\n" .
+									    'Reply-To: ' . $siteemail . "\r\n" .
+									    'X-Mailer: PHP/' . phpversion() . "\r\n" .
+									    'MIME-Version: 1.0' . "\r\n" .
+									    'Content-type: text/html; charset=UTF-8' . "\r\n";
 
-                  $email = array(
-                      'to' => $to,
-                      'subject' => $subject,
-                      'message' => $message,
-                      'headers' => $headers
-                  );
+									$email = array(
+									    'to' => $to,
+									    'subject' => $subject,
+									    'message' => $message,
+									    'headers' => $headers
+									);
 
 									$sent = Email::send($email, 'php');
 
 									if(isset($sent['error'])){
-									  // Error, log it
-                    $queries->create('email_errors', array(
-                        'type' => 1, // 1 = registration
-                        'content' => $sent['error'],
-                        'at' => date('U'),
-                        'user_id' => $user_id
-                    ));
-                  }
+									    // Error, log it
+									    $queries->create('email_errors', array(
+									    'type' => 1, // 1 = registration
+									    'content' => $sent['error'],
+									    'at' => date('U'),
+									    'user_id' => $user_id
+									    ));
+									}
 
 								}
 							} else {

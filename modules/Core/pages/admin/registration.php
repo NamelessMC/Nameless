@@ -82,6 +82,13 @@ if(Input::exists()){
                 'value' => htmlspecialchars(Input::get('recaptcha_secret'))
             ));
 
+            // Registration disabled message
+            $registration_disabled_id = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
+            $registration_disabled_id = $registration_disabled_id[0]->id;
+            $queries->update('settings', $registration_disabled_id, array(
+                'value' => htmlspecialchars(Input::get('message'))
+            ));
+
 			try {
 			  $queries->update('settings', $verification_id, array(
 			     'value' => $verification
@@ -132,21 +139,22 @@ $token = Token::get();
 		    <div class="card-block">
 			  <h3><?php echo $language->get('admin', 'registration'); ?></h3>
 
-        <?php if(isset($error)){ ?>
-        <div class="alert alert-danger">
-          <?php echo $error; ?>
-        </div>
+			  <?php if(isset($error)){ ?>
+			  <div class="alert alert-danger">
+			    <?php echo $error; ?>
+			  </div>
 			  <?php } ?>
 
 			  <form id="enableRegistration" action="" method="post">
-			    <?php echo $language->get('admin', 'enable_registration'); ?>
-				<input type="hidden" name="enable_registration" value="0">
-			    <input name="enable_registration" type="checkbox" class="js-switch js-check-change"<?php if($registration_enabled == '1'){ ?> checked<?php } ?> value="1" />
+			    <div class="form-group">
+			      <?php echo $language->get('admin', 'enable_registration'); ?>
+				  <input type="hidden" name="enable_registration" value="0">
+			      <input name="enable_registration" type="checkbox" class="js-switch js-check-change"<?php if($registration_enabled == '1'){ ?> checked<?php } ?> value="1" />
+                </div>
 				<input type="hidden" name="token" value="<?php echo $token; ?>">
 			  </form>
 			  
 			  <?php
-			  if($registration_enabled == '1'){
 				  // Is email verification enabled
 				  $emails = $queries->getWhere('settings', array('name', '=', 'email_verification'));
 				  $emails = $emails[0]->value;
@@ -155,8 +163,9 @@ $token = Token::get();
                   $recaptcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha'));
                   $recaptcha_key = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
                   $recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
+                  $registration_disabled_message = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
 			  ?>
-			  <hr>
+			  <hr />
 			  <form action="" method="post">
 				<div class="form-group">
 			      <label for="verification"><?php echo $language->get('admin', 'email_verification'); ?></label>
@@ -174,13 +183,15 @@ $token = Token::get();
                   <label for="InputRecaptchaSecret"><?php echo $language->get('admin', 'recaptcha_secret_key'); ?></label>
                   <input type="text" name="recaptcha_secret" class="form-control" id="InputRecaptchaSecret" placeholder="<?php echo $language->get('admin', 'recaptcha_secret_key'); ?>" value="<?php echo htmlspecialchars($recaptcha_secret[0]->value); ?>">
                 </div>
-				<input type="hidden" name="token" value="<?php echo $token; ?>">
-				<input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+				<div class="form-group">
+				  <label for="InputRegistrationDisabledMessage"><?php echo $language->get('admin', 'registration_disabled_message'); ?></label>
+				  <textarea style="width:100%" rows="10" name="message" id="InputRegistrationDisabledMessage"><?php echo Output::getPurified(htmlspecialchars_decode($registration_disabled_message[0]->value)); ?></textarea>
+				</div>
+				<div class="form-group">
+				  <input type="hidden" name="token" value="<?php echo $token; ?>">
+				  <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
+                </div>
 			  </form>
-			  <?php			  
-			  }
-			  ?>
-			  
 		    </div>
 		  </div>
 		</div>
@@ -191,7 +202,7 @@ $token = Token::get();
 
     <?php require('modules/Core/pages/admin/scripts.php'); ?>
 	
-	<script src="/core/assets/plugins/switchery/switchery.min.js"></script>
+	<script src="<?php if (defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.js"></script>
 	
 	<script>
 	var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
@@ -208,6 +219,15 @@ $token = Token::get();
 	  $('#enableRegistration').submit();
 	};
 	
+	</script>
+
+	<script src="<?php if (defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
+	<script src="<?php if (defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
+	<script src="<?php if (defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript">
+        <?php
+        echo Input::createEditor('InputRegistrationDisabledMessage');
+        ?>
 	</script>
 	
   </body>

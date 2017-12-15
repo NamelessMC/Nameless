@@ -120,6 +120,7 @@ $language = array(
     'google_recaptcha' => 'Google ReCAPTCHA aktivieren?',
     'recaptcha_site_key' => 'reCAPTCHA-Standortschlüssel',
     'recaptcha_secret_key' => 'reCAPTCHA Geheimschlüssel',
+    'registration_disabled_message' => 'Registration disabled message',
 
 	// Reactions
 	'icon' => 'Icon',

@@ -113,6 +113,7 @@ $language = array(
     'google_recaptcha' => 'Aktivera Google reCAPTCHA?',
     'recaptcha_site_key' => 'reCAPTCHA Sido Nyckel',
     'recaptcha_secret_key' => 'reCAPTCHA Privat Nyckeö',
+    'registration_disabled_message' => 'Registration disabled message',
 
 	// Reactions
 	'icon' => 'Ikon',
