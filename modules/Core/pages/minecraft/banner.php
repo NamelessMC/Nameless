@@ -29,7 +29,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
 
         $server = $server[0];
 
-        require('core/includes/motd_format.php');
+        require(ROOT_PATH . '/core/includes/motd_format.php');
 
         $display_ip = $server->ip;
         if(!is_null($server->port) && $server->port != 25565)

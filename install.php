@@ -19,7 +19,7 @@ $page = 'install';
 $install_path = str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])));
 
 // Start initialising the page
-require('core/init.php');
+require(ROOT_PATH . '/core/init.php');
 
 // Disable error reporting
 error_reporting(0);
@@ -31,12 +31,12 @@ date_default_timezone_set('Europe/London');
 // Select language
 if(isset($_SESSION['installer_language'])
     && is_file('custom/languages/' . $_SESSION['installer_language'] . '/installer.php')) {
-    require('custom/languages/' . $_SESSION['installer_language'] . '/version.php');
-    require('custom/languages/' . $_SESSION['installer_language'] . '/installer.php');
+    require(ROOT_PATH . '/custom/languages/' . $_SESSION['installer_language'] . '/version.php');
+    require(ROOT_PATH . '/custom/languages/' . $_SESSION['installer_language'] . '/installer.php');
 } else {
     // Require default language (EnglishUK)
-    require('custom/languages/EnglishUK/version.php');
-    require('custom/languages/EnglishUK/installer.php');
+    require(ROOT_PATH . '/custom/languages/EnglishUK/version.php');
+    require(ROOT_PATH . '/custom/languages/EnglishUK/installer.php');
 }
 
 // Get installation path

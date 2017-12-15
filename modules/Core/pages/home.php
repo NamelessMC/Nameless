@@ -23,16 +23,17 @@ define('PAGE', 'index');
     <!-- Site Properties -->
 	<?php 
 	$title = $language->get('general', 'home');
-	require('core/templates/header.php'); 
+
+	require(ROOT_PATH . '/core/templates/header.php');
 	?>
 	
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.min.css"/>
-  
+
   </head>
   <body>
-    <?php 
-	require('core/templates/navbar.php'); 
-	require('core/templates/footer.php'); 
+    <?php
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 
 	if(Session::exists('home')){
 	    $smarty->assign('HOME_SESSION_FLASH', Session::flash('home'));
@@ -41,19 +42,21 @@ define('PAGE', 'index');
         $smarty->assign('HOME_SESSION_ERROR_FLASH', Session::flash('home_error'));
     }
 
+
 	if(isset($front_page_modules)){
 		foreach($front_page_modules as $module){
-			require($module);
+			require(ROOT_PATH . '/' . $module);
 		}
 	}
 	
 	// Assign to Smarty variables
 	$smarty->assign('SOCIAL', $language->get('general', 'social'));
-	
-	// Display template
-	$smarty->display('custom/templates/' . TEMPLATE . '/index.tpl');
 
-	require('core/templates/scripts.php');
+	// Display template
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/index.tpl');
+
+	require(ROOT_PATH . '/core/templates/scripts.php');
+
 	?>
 	
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>

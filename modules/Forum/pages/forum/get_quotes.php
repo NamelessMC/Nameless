@@ -13,7 +13,7 @@ if(!$user->isLoggedIn()){
 	die(json_encode(array('error' => 'Not logged in')));
 }
  
-require_once('modules/Forum/classes/Forum.php');
+require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
  
 // Always define page name
 define('PAGE', 'forum');
@@ -32,7 +32,7 @@ $formatting = $cache->retrieve('formatting');
 
 if($formatting == 'markdown'){
 	// Markdown
-	require('core/includes/markdown/tomarkdown/autoload.php');
+	require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
 	$converter = new League\HTMLToMarkdown\HtmlConverter(array('strip_tags' => true));
 }
 

@@ -26,7 +26,7 @@ $_SESSION['remember'] = Input::get('remember');
 
 	<?php 
 	$title = $language->get('general', 'sign_in');
-    require('core/templates/header.php'); 
+    require(ROOT_PATH . '/core/templates/header.php');
 	?>
 	
 	<!-- Custom style -->
@@ -41,8 +41,8 @@ $_SESSION['remember'] = Input::get('remember');
   <body>
 	<?php
 	// Generate navbar and footer
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 	
 	if(Session::exists('tfa_signin')){
 		$smarty->assign('ERROR', Session::flash('tfa_signin'));
@@ -57,10 +57,10 @@ $_SESSION['remember'] = Input::get('remember');
 	));
 	
 	// Display template
-	$smarty->display('custom/templates/' . TEMPLATE . '/tfa.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/tfa.tpl');
 
 	// Scripts 
-	require('core/templates/scripts.php');
+	require(ROOT_PATH . '/core/templates/scripts.php');
     ?>
   </body>
 </html>

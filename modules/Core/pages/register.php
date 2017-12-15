@@ -53,7 +53,7 @@ if($registration_enabled == 0){
     <!-- Site Properties -->
     <?php
     $title = $language->get('general', 'register');
-    require('core/templates/header.php');
+    require(ROOT_PATH . '/core/templates/header.php');
     ?>
 
     <!-- Custom style -->
@@ -67,8 +67,8 @@ if($registration_enabled == 0){
   <body>
   <?php
   // Generate navbar and footer
-  require('core/templates/navbar.php');
-  require('core/templates/footer.php');
+  require(ROOT_PATH . '/core/templates/navbar.php');
+  require(ROOT_PATH . '/core/templates/footer.php');
 
   // Get registration disabled message and assign to Smarty variable
   $registration_disabled_message = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
@@ -84,10 +84,10 @@ if($registration_enabled == 0){
   ));
 
   // Registration template
-  $smarty->display('custom/templates/' . TEMPLATE . '/registration_disabled.tpl');
+  $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/registration_disabled.tpl');
 
   // Scripts
-  require('core/templates/scripts.php');
+  require(ROOT_PATH . '/core/templates/scripts.php');
   ?>
   </body>
 </html>
@@ -96,8 +96,8 @@ if($registration_enabled == 0){
 }
  
 // Registration page
-require('core/integration/uuid.php'); // For UUID stuff
-require('core/includes/password.php'); // For password hashing
+require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
+require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
 
 // Are custom usernames enabled?
 $custom_usernames = $queries->getWhere("settings", array("name", "=", "displaynames"));
@@ -119,7 +119,7 @@ if(isset($_GET['step']) && isset($_SESSION['mcassoc'])){
 	$mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
 	$mcassoc->enableInsecureMode();
 
-	require('core/integration/run_mcassoc.php');
+	require(ROOT_PATH . '/core/integration/run_mcassoc.php');
 	die();
 }
 
@@ -319,7 +319,7 @@ if(Input::exists()){
 						$mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
 						$mcassoc->enableInsecureMode();
 						
-						require('core/integration/run_mcassoc.php');
+						require(ROOT_PATH . '/core/integration/run_mcassoc.php');
 						die();
 						
 					} else {
@@ -584,7 +584,7 @@ $smarty->assign(array(
     <!-- Site Properties -->
 	<?php 
 	$title = $language->get('general', 'register');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php'); 
 	?>
 	
 	<!-- Custom style -->
@@ -598,14 +598,14 @@ $smarty->assign(array(
   <body>
 <?php
 // Generate navbar and footer
-require('core/templates/navbar.php');
-require('core/templates/footer.php');
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
 
 // Registration template
-$smarty->display('custom/templates/' . TEMPLATE . '/register.tpl');
+$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/register.tpl');
 
 // Scripts 
-require('core/templates/scripts.php');
+require(ROOT_PATH . '/core/templates/scripts.php');
  
 if($recaptcha === "true"){
 ?>

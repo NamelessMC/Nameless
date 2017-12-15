@@ -11,7 +11,7 @@
 if(!isset($forum) || (isset($forum) && !$forum instanceof Forum))
 	$forum = new Forum();
  
-require_once('core/includes/emojione/autoload.php'); // Emojione
+require_once(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 
 define('PAGE', 'forum');
 
@@ -163,7 +163,7 @@ if(!isset($_GET['s'])){
     else {
         $title = $forum_language->get('forum', 'forum_search') . ' - ' . Output::getClean(substr($search, 0, 20)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
     }
-    require('core/templates/header.php');
+    require(ROOT_PATH . '/core/templates/header.php');
     ?>
 
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
@@ -174,8 +174,8 @@ if(!isset($_GET['s'])){
 </head>
 <body>
     <?php
-    require('core/templates/navbar.php');
-    require('core/templates/footer.php');
+    require(ROOT_PATH . '/core/templates/navbar.php');
+    require(ROOT_PATH . '/core/templates/footer.php');
 
     if(isset($_GET['s'])){
         // Show results
@@ -225,7 +225,7 @@ if(!isset($_GET['s'])){
             'NEW_SEARCH_URL' => URL::build('/forum/search')
         ));
 
-        $smarty->display('custom/templates/' . TEMPLATE . '/forum/search_results.tpl');
+        $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/search_results.tpl');
 
     } else {
         // Search bar
@@ -242,11 +242,11 @@ if(!isset($_GET['s'])){
             'SUBMIT' => $language->get('general', 'submit')
         ));
 
-        $smarty->display('custom/templates/' . TEMPLATE . '/forum/search.tpl');
+        $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/search.tpl');
     }
 
 
-    require('core/templates/scripts.php');
+    require(ROOT_PATH . '/core/templates/scripts.php');
     ?>
     <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
     <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>

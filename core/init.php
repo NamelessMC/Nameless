@@ -33,10 +33,8 @@ if(!file_exists(ROOT_PATH . '/cache/templates_c')){
 }
 
 // Require config
-if(isset($path))
-    require($path . 'core/config.php');
-else
-    require(ROOT_PATH . '/core/config.php');
+
+require(ROOT_PATH . '/core/config.php');
 
 if(isset($conf) && is_array($conf))
     $GLOBALS['config'] = $conf;
@@ -253,7 +251,7 @@ if($page != 'install'){
 
     $template_path = ROOT_PATH . '/custom/templates/' . TEMPLATE;
     $smarty->setTemplateDir($template_path);
-    $smarty->setCompileDir('cache/templates_c');
+    $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
     $smarty->assign('SITE_NAME', SITE_NAME);
 
     // Avatars
@@ -294,7 +292,7 @@ if($page != 'install'){
             if(isset($_GET['route']) && rtrim($_GET['route'], '/') == '/login'){
                 // Can continue as normal
             } else {
-                require('maintenance.php');
+                require(ROOT_PATH . '/maintenance.php');
                 die();
             }
         } else {
@@ -426,6 +424,7 @@ if($page != 'install'){
             'avatar' => $user->getAvatar($user->data()->id)
         ));
 
+
         // Warnings
         $warnings = $queries->getWhere('infractions', array('punished', '=', $user->data()->id));
         if(count($warnings)){
@@ -444,3 +443,4 @@ if($page != 'install'){
 
     }
 }
+

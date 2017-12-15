@@ -878,7 +878,7 @@
         case 'user':
         // Admin user creation
         // Require password hashing methods
-        require('core/includes/password.php');
+        require(ROOT_PATH . '/core/includes/password.php');
 
         if(Input::exists()){
             // Validate input

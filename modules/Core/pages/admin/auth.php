@@ -27,7 +27,7 @@ if($user->isLoggedIn()){
 	die();
 }
 
-require('core/includes/password.php'); // Require password compat library
+require(ROOT_PATH . '/core/includes/password.php'); // Require password compat library
 
 // Deal with any input
 if(Input::exists()){
@@ -82,7 +82,7 @@ $admin_page = 'auth';
 
 	<?php 
 	$title = $language->get('admin', 'admin_cp');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php');
 	?>
   
   </head>

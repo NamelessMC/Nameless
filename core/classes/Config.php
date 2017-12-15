@@ -23,8 +23,8 @@ class Config {
 	}
 
 	public static function set($key, $value) {
-		if(!file_exists('core/config.php')) {
-			fopen('core/config.php', 'w');
+		if(!file_exists(ROOT_PATH . '/core/config.php')) {
+			fopen(ROOT_PATH . '/core/config.php', 'w');
 		}
 
 		require(ROOT_PATH . '/core/config.php');
@@ -53,7 +53,7 @@ class Config {
 	}
 
 	public static function write($config) {
-		$file = fopen('core/config.php', 'wa+');
+		$file = fopen(ROOT_PATH . '/core/config.php', 'wa+');
 		fwrite($file, '<?php' . PHP_EOL . '$conf = ' . var_export($config, true) . ';');
 		return fclose($file);
 	}

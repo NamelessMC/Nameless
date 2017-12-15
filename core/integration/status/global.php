@@ -4,7 +4,7 @@ define( 'MQ_SERVER_PORT', $default_port );
 define( 'MQ_TIMEOUT', 1 );
 define( 'PRE', $pre17 );
 
-require('core/integration/status/MinecraftServerPing.php');
+require(ROOT_PATH . '/core/integration/status/MinecraftServerPing.php');
 
 $Timer = MicroTime( true );
 

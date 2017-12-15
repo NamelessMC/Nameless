@@ -20,9 +20,9 @@ define('PAGE', 'cc_messaging');
 
 $timeago = new Timeago(TIMEZONE);
 
-require('core/includes/paginate.php'); // Get number of topics on a page
-require('core/includes/emojione/autoload.php'); // Emojione
-require('core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
+require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of topics on a page
+require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
+require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get page
@@ -42,7 +42,7 @@ if(isset($_GET['p'])){
 	$p = 1;
 }
 
-require('core/templates/cc_navbar.php');
+require(ROOT_PATH . '/core/templates/cc_navbar.php');
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
@@ -55,7 +55,7 @@ require('core/templates/cc_navbar.php');
     <!-- Site Properties -->
 	<?php 
 	$title = $language->get('user', 'user_cp');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php');
 	?>
 	
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
@@ -66,8 +66,8 @@ require('core/templates/cc_navbar.php');
   </head>
   <body>
     <?php
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 
 	if(!isset($_GET['action'])){
 		// Get private messages
@@ -127,7 +127,7 @@ require('core/templates/cc_navbar.php');
             ));
         }
 		
-		$smarty->display('custom/templates/' . TEMPLATE . '/user/messaging.tpl');
+		$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/messaging.tpl');
 	
 	} else {
 		if($_GET['action'] == 'new'){
@@ -353,7 +353,7 @@ require('core/templates/cc_navbar.php');
 			));
 			
 			// Display template
-			$smarty->display('custom/templates/' . TEMPLATE . '/user/new_message.tpl');
+			$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/new_message.tpl');
 			
 		} else if($_GET['action'] == 'view'){
 			// Ensure message is specified
@@ -517,7 +517,7 @@ require('core/templates/cc_navbar.php');
 			else $smarty->assign('CONTENT', '');
 			
 			// Display Smarty template
-			$smarty->display('custom/templates/' . TEMPLATE . '/user/view_message.tpl');
+			$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/view_message.tpl');
 			
 		} else if($_GET['action'] == 'leave'){
 			// Try to remove the user from the conversation
@@ -543,7 +543,7 @@ require('core/templates/cc_navbar.php');
 		}
 	}
 
-    require('core/templates/scripts.php');
+    require(ROOT_PATH . '/core/templates/scripts.php');
 	
 	// Display either Markdown or HTML editor
 	if(!isset($formatting)){

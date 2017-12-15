@@ -9,14 +9,14 @@
  *  Forum module - front page module
  */
 
-require_once('modules/Forum/classes/Forum.php');
+require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $timeago = new Timeago();
 $latest_news = $forum->getLatestNews(5); // Get latest 5 items
 
 $news = array();
 
-require('core/includes/emojione/autoload.php'); // Emojione
+require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 foreach($latest_news as $item){

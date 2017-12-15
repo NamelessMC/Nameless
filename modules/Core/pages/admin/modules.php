@@ -22,7 +22,7 @@ if($user->isLoggedIn()){
 			die();
 		} else {
             if(!$user->hasPermission('admincp.modules')){
-                require('404.php');
+                require(ROOT_PATH . '/404.php');
                 die();
             }
         }
@@ -53,7 +53,7 @@ if(isset($_GET['action'])){
 
 				// Require installer if necessary
 				if(file_exists('modules/' . $folders[1] . '/install.php')){
-					require('modules/' . $folders[1] . '/install.php');
+					require(ROOT_PATH . '/modules/' . $folders[1] . '/install.php');
 				}
 			}
 		}
@@ -138,6 +138,6 @@ if(isset($_GET['action'])){
 	}
 }
 
-require('modules/Core/views/admin/modules.view.php');
+require(ROOT_PATH . '/modules/Core/views/admin/modules.view.php');
 
 ?>

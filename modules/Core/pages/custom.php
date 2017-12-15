@@ -12,7 +12,7 @@
 // Get page info from URL
 $custom_page = $queries->getWhere('custom_pages', array('url', '=', rtrim($route, '/')));
 if(!count($custom_page)){
-    require('404.php');
+    require(ROOT_PATH . '/404.php');
     die();
 } else
     $custom_page = $custom_page[0];
@@ -44,7 +44,7 @@ if($user->isLoggedIn()){
 }
 
 if(!isset($can_view)){
-    require('404.php');
+    require(ROOT_PATH . '/404.php');
     die();
 }
 
@@ -62,7 +62,7 @@ define('PAGE', $custom_page->id);
     <!-- Site Properties -->
     <?php
     $title = Output::getClean($custom_page->title);
-    require('core/templates/header.php');
+    require(ROOT_PATH . '/core/templates/header.php');
     ?>
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.min.css"/>
@@ -71,17 +71,17 @@ define('PAGE', $custom_page->id);
 </head>
 <body>
 <?php
-require('core/templates/navbar.php');
-require('core/templates/footer.php');
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
 
 $smarty->assign(array(
     'CONTENT' => (($custom_page->all_html == 0) ? Output::getPurified(htmlspecialchars_decode($custom_page->content)) : htmlspecialchars_decode($custom_page->content))
 ));
 
 // Display template
-$smarty->display('custom/templates/' . TEMPLATE . '/custom.tpl');
+$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/custom.tpl');
 
-require('core/templates/scripts.php');
+require(ROOT_PATH . '/core/templates/scripts.php');
 ?>
 <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
 <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
