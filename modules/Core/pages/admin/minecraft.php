@@ -1502,11 +1502,27 @@ $admin_page = 'minecraft';
             title: 'Players',
             xaxis: {
                 rangeselector: selectorOptions,
-                rangeslider: {}
+                rangeslider: {}<?php if($user->data()->night_mode == 1){ ?>,
+                tickfont: {
+                    "color": '#fff'
+                }<?php } ?>
             },
             yaxis: {
-                fixedrange: true
-            }
+                fixedrange: true<?php if($user->data()->night_mode == 1){ ?>,
+                tickfont: {
+                    "color": '#fff'
+                }<?php } ?>
+            },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)'<?php if($user->data()->night_mode == 1){ ?>,
+            titlefont: {
+                "color": '#fff'
+            },
+            legend: {
+                font: {
+                    color: '#fff'
+                }
+            }<?php } ?>
         };
 
         Plotly.newPlot('playerChart', graphData, layout, {displayModeBar: false});
