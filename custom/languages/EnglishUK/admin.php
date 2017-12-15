@@ -404,5 +404,6 @@ $language = array(
 	// File uploads
 	'drag_files_here' => 'Drag files here to upload.',
 	'invalid_file_type' => 'Invalid file type!',
-	'file_too_big' => 'File too big! Your file was {{filesize}} and the limit is {{maxFilesize}}' // Don't replace {{filesize}} or {{maxFilesize}}
+	'file_too_big' => 'File too big! Your file was {{filesize}} and the limit is {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
+    "allowed_proxies" => "Allowed Proxies"
 );
