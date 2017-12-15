@@ -292,7 +292,7 @@ if($page != 'install'){
             if(isset($_GET['route']) && rtrim($_GET['route'], '/') == '/login'){
                 // Can continue as normal
             } else {
-                require('maintenance.php');
+                require(ROOT_PATH . '/maintenance.php');
                 die();
             }
         } else {
