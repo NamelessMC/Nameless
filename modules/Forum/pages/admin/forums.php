@@ -22,7 +22,7 @@ if($user->isLoggedIn()){
 			Redirect::to(URL::build('/admin/auth'));
 			die();
 		} else if(!$user->hasPermission('admincp.forums')){
-		  require('404.php');
+		  require(ROOT_PATH . '/404.php');
 		  die();
         }
 	}
