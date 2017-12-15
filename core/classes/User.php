@@ -78,13 +78,24 @@ class User {
 
 	// Get a user's IP address
 	public function getIP() {
+        $usingproxy = false;
+        $proxiedIp = null;
+        $ip = $_SERVER['REMOTE_ADDR'];
+
 		if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
-		  $ip = $_SERVER['HTTP_CLIENT_IP'];
+		    $proxiedIp = $_SERVER['HTTP_CLIENT_IP'];
+		    $usingproxy = true;
 		} else if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-		  $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		} else {
-		  $ip = $_SERVER['REMOTE_ADDR'];
+            $proxiedIp = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            $usingproxy = true;
 		}
+		if($usingproxy) {
+            $proxyList = explode(',', Config::get("allowedProxies"));
+            if(in_array($_SERVER['REMOTE_ADDR'], $proxyList)) {
+                return $proxiedIp;
+            }
+            return $ip;
+        }
 		return $ip;
 	}
 

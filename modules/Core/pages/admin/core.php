@@ -305,7 +305,7 @@ $current_default_language = $current_default_language[0]->value;
                                             if (Input::get('friendlyURL') == 'true') $friendly = true;
                                             else $friendly = false;
 
-                                            if (is_writable(join(DIRECTORY_SEPARATOR, array('core', 'config.php')))) {
+                                            if (is_writable(ROOT_PATH . '/' . join(DIRECTORY_SEPARATOR, array('core', 'config.php')))) {
 
                                                 // Require config
                                                 if (isset($path) && file_exists($path . 'core/config.php')) {
@@ -340,6 +340,17 @@ $current_default_language = $current_default_language[0]->value;
                                                     'name' => 'force_https',
                                                     'value' => $https
                                                 ));
+                                            }
+
+                                            if(!empty($_POST["allowedProxies"])) {
+                                                $allowedProxies = $_POST["allowedProxies"];
+                                                $allowedProxies = str_replace("\r", "", $allowedProxies);
+                                                $allowedProxies = preg_replace('/\s+/', ' ', $allowedProxies);
+                                                $allowedProxies = str_replace(" ", "", $allowedProxies);
+
+                                                Config::set("allowedProxies", $allowedProxies);
+                                            }else {
+                                                Config::set("allowedProxies", "");
                                             }
 
                                             // Update cache
@@ -506,6 +517,17 @@ $current_default_language = $current_default_language[0]->value;
                                             <option value="1"<?php if ($private_profile->value == 1) { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
                                             <option value="0"<?php if ($private_profile->value == 0) { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
                                         </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for=allowedProxies"><?php echo $language->get('admin', 'allowed_proxies'); ?></label>
+                                        <?php
+                                        // Make sure there's a default list
+                                        $allowedProxies = Config::get("allowedProxies");
+                                        $allowedProxies = str_replace(",", "\n", $allowedProxies)
+                                        ?>
+                                        <textarea class="form-control" placeholder="Line seperated list of allowed proxy ip's." name="allowedProxies" id="allowedProxies" cols="30" rows="10"><?php
+                                            echo $allowedProxies;
+                                            ?></textarea>
                                     </div>
                                     <br/>
                                     <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
