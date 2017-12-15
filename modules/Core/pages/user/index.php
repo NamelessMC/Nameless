@@ -18,7 +18,7 @@ if(!$user->isLoggedIn()){
 // Always define page name for navbar
 define('PAGE', 'cc_overview');
 
-require('core/templates/cc_navbar.php');
+require(ROOT_PATH . '/core/templates/cc_navbar.php');
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
@@ -31,14 +31,14 @@ require('core/templates/cc_navbar.php');
     <!-- Site Properties -->
 	<?php 
 	$title = $language->get('user', 'user_cp');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php');
 	?>
   
   </head>
   <body>
     <?php
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 
 	$user_details = array(
 		$language->get('user', 'username') => $user->data()->username,
@@ -54,9 +54,9 @@ require('core/templates/cc_navbar.php');
 		'OVERVIEW' => $language->get('user', 'overview')
 	));
 	
-	$smarty->display('custom/templates/' . TEMPLATE . '/user/index.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/index.tpl');
 
-    require('core/templates/scripts.php');
+    require(ROOT_PATH . '/core/templates/scripts.php');
 
 	?>
 	

@@ -26,7 +26,7 @@ if($user->isLoggedIn()){
             if($user->hasPermission('admincp.groups'))
               Redirect::to(URL::build('/admin/groups'));
             else
-              require('404.php');
+              require(ROOT_PATH . '/404.php');
             die();
         }
 	}
@@ -40,7 +40,7 @@ if($user->isLoggedIn()){
 $page = 'admin';
 $admin_page = 'users_and_groups';
 
-require('core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
+require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 
 // Custom usernames?
 $displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
@@ -50,7 +50,7 @@ $displaynames = $displaynames[0]->value;
 $uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
 $uuid_linking = $uuid_linking[0]->value;
 
-require('core/includes/password.php'); // Password compat library
+require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 
 ?>
 <!DOCTYPE html>
@@ -63,7 +63,7 @@ require('core/includes/password.php'); // Password compat library
 
 	<?php 
 	$title = $language->get('admin', 'admin_cp');
-	require('core/templates/admin_header.php'); 
+	require(ROOT_PATH . '/core/templates/admin_header.php'); 
 	?>
   
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
@@ -74,11 +74,11 @@ require('core/includes/password.php'); // Password compat library
   </head>
 
   <body>
-    <?php require('modules/Core/pages/admin/navbar.php'); ?>
+    <?php require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php'); ?>
     <div class="container">
 	  <div class="row">
 		<div class="col-md-3">
-		  <?php require('modules/Core/pages/admin/sidebar.php'); ?>
+		  <?php require(ROOT_PATH . '/modules/Core/pages/admin/sidebar.php'); ?>
 		</div>
 		<div class="col-md-9">
 		  <div class="card">
@@ -759,7 +759,7 @@ require('core/includes/password.php'); // Password compat library
 								$formatting = $cache->retrieve('formatting');
 								
 								if($formatting == 'markdown'){
-									require('core/includes/markdown/tomarkdown/autoload.php');
+									require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
 									$converter = new League\HTMLToMarkdown\HtmlConverter(array('strip_tags' => true));
 
 									$signature = $converter->convert(htmlspecialchars_decode($individual[0]->signature));
@@ -861,8 +861,8 @@ require('core/includes/password.php'); // Password compat library
 	  </div>	  
     </div>
 	
-	<?php require('modules/Core/pages/admin/footer.php'); ?>
-    <?php require('modules/Core/pages/admin/scripts.php'); ?>
+	<?php require(ROOT_PATH . '/modules/Core/pages/admin/footer.php'); ?>
+    <?php require(ROOT_PATH . '/modules/Core/pages/admin/scripts.php'); ?>
 
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dataTables/jquery.dataTables.min.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dataTables/dataTables.bootstrap4.min.js"></script>

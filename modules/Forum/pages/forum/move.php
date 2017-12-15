@@ -9,7 +9,7 @@
  *  Move a topic
  */
 
-require_once('modules/Forum/classes/Forum.php');
+require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
  
 if(!isset($_GET["tid"]) || !is_numeric($_GET["tid"])){
@@ -87,7 +87,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
     <!-- Site Properties -->
 	<?php 
 	$title = $forum_language->get('forum', 'move_topic');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php');
 	?>
 	
 	<!-- Custom style -->
@@ -101,8 +101,8 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
   <body>
 	<?php 
 	// Generate navbar and footer
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 	
 	// Get a list of all forums
 	$forums = $queries->getWhere('forums', array('parent', '<>', 0));
@@ -120,10 +120,10 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 	));
 	
 	// Load template
-	$smarty->display('custom/templates/' . TEMPLATE . '/forum/move.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/move.tpl');
 	
 	// Scripts
-	require('core/templates/scripts.php');
+	require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
   </body>
 </html>

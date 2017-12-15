@@ -23,7 +23,7 @@ if ($user->isLoggedIn()) {
             die();
         } else {
             if(!$user->hasPermission('admincp.core')){
-                require('404.php');
+                require(ROOT_PATH . '/404.php');
                 die();
             }
         }
@@ -52,7 +52,7 @@ $current_default_language = $current_default_language[0]->value;
 
     <?php
     $title = $language->get('admin', 'admin_cp');
-    require('core/templates/admin_header.php');
+    require(ROOT_PATH . '/core/templates/admin_header.php');
     ?>
 
     <link rel="stylesheet"
@@ -70,11 +70,11 @@ $current_default_language = $current_default_language[0]->value;
 
 </head>
 <body>
-<?php require('modules/Core/pages/admin/navbar.php'); ?>
+<?php require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php'); ?>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <?php require('modules/Core/pages/admin/sidebar.php'); ?>
+            <?php require(ROOT_PATH . '/modules/Core/pages/admin/sidebar.php'); ?>
         </div>
         <div class="col-md-9">
             <div class="card">
@@ -305,7 +305,7 @@ $current_default_language = $current_default_language[0]->value;
                                             if (Input::get('friendlyURL') == 'true') $friendly = true;
                                             else $friendly = false;
 
-                                            if (is_writable(join(DIRECTORY_SEPARATOR, array('core', 'config.php')))) {
+                                            if (is_writable(ROOT_PATH . '/' . join(DIRECTORY_SEPARATOR, array('core', 'config.php')))) {
 
                                                 // Require config
                                                 if (isset($path) && file_exists($path . 'core/config.php')) {
@@ -340,6 +340,17 @@ $current_default_language = $current_default_language[0]->value;
                                                     'name' => 'force_https',
                                                     'value' => $https
                                                 ));
+                                            }
+
+                                            if(!empty($_POST["allowedProxies"])) {
+                                                $allowedProxies = $_POST["allowedProxies"];
+                                                $allowedProxies = str_replace("\r", "", $allowedProxies);
+                                                $allowedProxies = preg_replace('/\s+/', ' ', $allowedProxies);
+                                                $allowedProxies = str_replace(" ", "", $allowedProxies);
+
+                                                Config::set("allowedProxies", $allowedProxies);
+                                            }else {
+                                                Config::set("allowedProxies", "");
                                             }
 
                                             // Update cache
@@ -506,6 +517,17 @@ $current_default_language = $current_default_language[0]->value;
                                             <option value="1"<?php if ($private_profile->value == 1) { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
                                             <option value="0"<?php if ($private_profile->value == 0) { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
                                         </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for=allowedProxies"><?php echo $language->get('admin', 'allowed_proxies'); ?></label>
+                                        <?php
+                                        // Make sure there's a default list
+                                        $allowedProxies = Config::get("allowedProxies");
+                                        $allowedProxies = str_replace(",", "\n", $allowedProxies)
+                                        ?>
+                                        <textarea class="form-control" placeholder="Line seperated list of allowed proxy ip's." name="allowedProxies" id="allowedProxies" cols="30" rows="10"><?php
+                                            echo $allowedProxies;
+                                            ?></textarea>
                                     </div>
                                     <br/>
                                     <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
@@ -1720,7 +1742,7 @@ $current_default_language = $current_default_language[0]->value;
                                             $config_path = 'core' . DIRECTORY_SEPARATOR . 'email.php';
                                             if (file_exists($config_path)) {
                                                 if (is_writable($config_path)) {
-                                                    require('core/email.php');
+                                                    require(ROOT_PATH . '/core/email.php');
                                                     // Build new email config
                                                     $config = '<?php' . PHP_EOL .
                                                         '$GLOBALS[\'email\'] = array(' . PHP_EOL .
@@ -1785,7 +1807,7 @@ $current_default_language = $current_default_language[0]->value;
                                     $outgoing_email = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
                                     $outgoing_email = $outgoing_email[0]->value;
 
-                                    require('core/email.php');
+                                    require(ROOT_PATH . '/core/email.php');
                                     ?>
                                     <br/><br/>
                                     <form action="" method="post">
@@ -2184,8 +2206,8 @@ $current_default_language = $current_default_language[0]->value;
     </div>
 </div>
 
-<?php require('modules/Core/pages/admin/footer.php'); ?>
-<?php require('modules/Core/pages/admin/scripts.php'); ?>
+<?php require(ROOT_PATH . '/modules/Core/pages/admin/footer.php'); ?>
+<?php require(ROOT_PATH . '/modules/Core/pages/admin/scripts.php'); ?>
 
 <script src="<?php if (defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.js"></script>
 

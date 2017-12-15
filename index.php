@@ -9,6 +9,7 @@
  *  Main index file
  */
 
+
 // Ensure PHP version >= 5.4
 if(version_compare(phpversion(), '5.4', '<')){
 	die('NamelessMC is not compatible with PHP versions older than 5.4');
@@ -37,45 +38,49 @@ $lim = count($directories);
 
 try {
 	// Start initialising the page
-	require('core/init.php');
+	require(ROOT_PATH . '/core/init.php');
 }
 catch(Exception $e) {
 	die($e->getMessage());
 }
 
-if(!isset($GLOBALS['config']['core']) && is_file('install.php')) {
+if(!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
 	Redirect::to('install.php');
 }
 
 // Get page to load from URL
 if(!isset($_GET['route']) || $_GET['route'] == '/'){
+
 	if(count($directories) > 1 && (!isset($_GET['route']) || (isset($_GET['route']) && $_GET['route'] != '/')))
-		require('404.php');
+		require(ROOT_PATH . '/404.php');
 	else
 		// Homepage
-		require('modules/Core/pages/index.php');
+		require(ROOT_PATH . '/modules/Core/pages/index.php');
 
 } else {
 	if(!isset($route)) $route = rtrim($_GET['route'], '/');
-
 	// Check modules
+
 	$modules = $pages->returnPages();
+
 
 	// Include the page
 	if(array_key_exists($route, $modules)){
 	    if(!isset($modules[$route]['custom'])){
             $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']));
 
-            if(!file_exists($path)) require('404.php'); else require($path);
+            if(!file_exists($path)) require(ROOT_PATH . '/404.php'); else require($path);
             die();
         } else {
 	        require(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php')));
 	        die();
         }
 	} else {
+
 		// Use recursion to check - might have URL parameters in path
 		$path_array = explode('/', $route);
-		//echo '<pre>', print_r($path_array), '</pre>';
+
+//		echo '<pre>', var_dump($path_array).  '</pre>';
 
 		for($i = count($path_array) - 2; $i > 0; $i--){
 			$new_path = '/';
@@ -83,10 +88,8 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 				$new_path .= $path_array[$n] . '/';
 			}
 			$new_path = rtrim($new_path, '/');
-
 			if(array_key_exists($new_path, $modules)){
 				$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$new_path]['module'], $modules[$new_path]['file']));
-
 				if(file_exists($path)){
 					require($path);
 					die();
@@ -95,7 +98,8 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 		}
 
 		// 404
-		require('404.php');
+		require(ROOT_PATH . '/404.php');
 	}
 
 }
+

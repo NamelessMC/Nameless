@@ -50,8 +50,8 @@ class Email {
 
     // Send an email using the PHPMailer library
     private static function sendMailer($email){
-        require_once('core/includes/phpmailer/PHPMailerAutoload.php');
-        require_once('core/email.php');
+        require_once(ROOT_PATH . '/core/includes/phpmailer/PHPMailerAutoload.php');
+        require_once(ROOT_PATH . '/core/email.php');
 
         // Initialise PHPMailer
         $mail = new PHPMailer(true);

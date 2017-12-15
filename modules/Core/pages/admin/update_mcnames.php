@@ -9,7 +9,7 @@
  *  Update Minecraft username script
  */
 
-require('core/integration/uuid.php');
+require(ROOT_PATH . '/core/integration/uuid.php');
 
 // Custom usernames?
 $displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));

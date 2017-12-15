@@ -17,7 +17,7 @@ if($user->isLoggedIn()){
 		die();
 	} else if(!$user->hasPermission('modcp.reports')){
         // Can't view this page
-        require('404.php');
+        require(ROOT_PATH . '/404.php');
         die();
     }
 } else {
@@ -42,16 +42,16 @@ $timeago = new Timeago(TIMEZONE);
 
 	<?php 
 	$title = $language->get('moderator', 'mod_cp');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php');
 	?>
   
   </head>
   <body>
     <?php
 	// Generate navbar, footer + mod navbar
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
-	require('core/templates/mod_navbar.php');
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/mod_navbar.php');
 	
 	if(!isset($_GET['report'])){
 		$reports = array();
@@ -119,7 +119,7 @@ $timeago = new Timeago(TIMEZONE);
 		));
 		
 		// Display template
-		$smarty->display('custom/templates/' . TEMPLATE . '/mod/reports.tpl');
+		$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/reports.tpl');
 	} else {
 		if(!isset($_GET['action'])){
 			// Get report
@@ -233,7 +233,7 @@ $timeago = new Timeago(TIMEZONE);
 			}
 			
 			// Display template
-			$smarty->display('custom/templates/' . TEMPLATE . '/mod/view_report.tpl');
+			$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/view_report.tpl');
 		} else {
 			if($_GET['action'] == 'close'){
 				// Close report
@@ -279,7 +279,7 @@ $timeago = new Timeago(TIMEZONE);
 	}
 
 	// Scripts
-    require('core/templates/scripts.php'); 
+    require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
   </body>
 </html>

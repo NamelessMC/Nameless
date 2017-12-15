@@ -35,15 +35,15 @@ define('PAGE', 'mod_overview');
 
 	<?php 
 	$title = $language->get('moderator', 'mod_cp');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php');
 	?>
   
   </head>
   <body>
     <?php
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
-	require('core/templates/mod_navbar.php');
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/mod_navbar.php');
 	
 	// Count number of open reports
 	$count_reports = $queries->getWhere('reports', array('status', '=', 0));
@@ -56,9 +56,9 @@ define('PAGE', 'mod_overview');
 	));
 	
 	// Display template
-	$smarty->display('custom/templates/' . TEMPLATE . '/mod/index.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/index.tpl');
 
-    require('core/templates/scripts.php'); 
+    require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
   </body>
 </html>
