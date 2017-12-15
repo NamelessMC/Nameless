@@ -424,6 +424,7 @@ if($page != 'install'){
             'avatar' => $user->getAvatar($user->data()->id)
         ));
 
+
         // Warnings
         $warnings = $queries->getWhere('infractions', array('punished', '=', $user->data()->id));
         if(count($warnings)){
@@ -442,3 +443,4 @@ if($page != 'install'){
 
     }
 }
+

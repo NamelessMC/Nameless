@@ -84,7 +84,7 @@ $token = Token::get();
     <!-- Site Properties -->
 	<?php 
 	$title = $forum_language->get('forum', 'merge_topics');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php');
 	?>
 	
 	<!-- Custom style -->
@@ -98,8 +98,8 @@ $token = Token::get();
   <body>
 	<?php
 	// Generate navbar and footer
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 	
 	// Get topics
 	$topics = $queries->orderWhere('topics', 'forum_id = ' . $forum_id . ' AND deleted = 0 AND id <> ' . $topic_id, 'id', 'ASC');
@@ -120,7 +120,7 @@ $token = Token::get();
 	$smarty->display('custom/templates/' . TEMPLATE . '/forum/merge.tpl');
 	
 	// Scripts
-	require('core/templates/scripts.php');
+	require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
   </body>
 </html>

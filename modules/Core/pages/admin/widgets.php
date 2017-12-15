@@ -22,7 +22,7 @@ if($user->isLoggedIn()){
             die();
         } else if(!$user->hasPermission('admincp.widgets')){
             // Can't view this page
-            require('404.php');
+            require(ROOT_PATH . '/404.php');
             die();
         }
     }
@@ -98,16 +98,16 @@ if(isset($_GET['action'])){
 
     <?php
     $title = $language->get('admin', 'admin_cp');
-    require('core/templates/admin_header.php');
+    require(ROOT_PATH . '/core/templates/admin_header.php');
     ?>
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.css">
 </head>
 <body>
-<?php require('modules/Core/pages/admin/navbar.php'); ?>
+<?php require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php'); ?>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <?php require('modules/Core/pages/admin/sidebar.php'); ?>
+            <?php require(ROOT_PATH . '/modules/Core/pages/admin/sidebar.php'); ?>
         </div>
         <div class="col-md-9">
             <div class="card">
@@ -247,9 +247,9 @@ if(isset($_GET['action'])){
     </div>
 </div>
 
-<?php require('modules/Core/pages/admin/footer.php'); ?>
+<?php require(ROOT_PATH . '/modules/Core/pages/admin/footer.php'); ?>
 
-<?php require('modules/Core/pages/admin/scripts.php'); ?>
+<?php require(ROOT_PATH . '/modules/Core/pages/admin/scripts.php'); ?>
 <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.js"></script>
 <script>
 var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));

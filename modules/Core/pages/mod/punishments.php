@@ -17,7 +17,7 @@ if($user->isLoggedIn()){
         die();
     } else if(!$user->hasPermission('modcp.punishments')){
         // Can't view this page
-        require('404.php');
+        require(ROOT_PATH . '/404.php');
         die();
     }
 } else {
@@ -40,15 +40,15 @@ define('PAGE', 'mod_punishments');
 
     <?php
     $title = $language->get('moderator', 'mod_cp');
-    require('core/templates/header.php');
+    require(ROOT_PATH . '/core/templates/header.php');
     ?>
 
 </head>
 <body>
 <?php
-require('core/templates/navbar.php');
-require('core/templates/footer.php');
-require('core/templates/mod_navbar.php');
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+require(ROOT_PATH . '/core/templates/mod_navbar.php');
 
 $smarty->assign(array(
     'MOD_CP' => $language->get('moderator', 'mod_cp'),
@@ -391,7 +391,7 @@ if(isset($_GET['view'])){
     }
 }
 
-require('core/templates/scripts.php');
+require(ROOT_PATH . '/core/templates/scripts.php');
 
 if(!isset($_GET['view'])){
 ?>

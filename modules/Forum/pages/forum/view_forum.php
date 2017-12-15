@@ -16,7 +16,7 @@ require_once('modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
 
-require('core/includes/paginate.php'); // Get number of topics on a page
+require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of topics on a page
 
 // Get forum ID
 $fid = explode('/', $route);
@@ -100,15 +100,15 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
     <!-- Site Properties -->
 	<?php 
 	$title = Output::getClean($forum_query->forum_title) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php');
 	?>
   
   </head>
 
   <body>
 	<?php
-	require('core/templates/navbar.php'); 
-	require('core/templates/footer.php'); 
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 	
 	// Search bar
 	$smarty->assign(array(
@@ -438,7 +438,7 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 	if(isset($no_topics_exist)) $smarty->display('custom/templates/' . TEMPLATE . '/forum/view_forum_no_discussions.tpl'); 
 	else $smarty->display('custom/templates/' . TEMPLATE . '/forum/view_forum.tpl');
 
-	require('core/templates/scripts.php'); 
+	require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
   </body>
 </html>

@@ -13,9 +13,9 @@
 define('PAGE', 'login');
 
 // Requirements
-require('core/includes/password.php'); // For password hashing
-require('core/includes/phpass.php'); // phpass for Wordpress auth
-require('core/includes/tfa/autoload.php'); // Two Factor Auth
+require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
+require(ROOT_PATH . '/core/includes/phpass.php'); // phpass for Wordpress auth
+require(ROOT_PATH . '/core/includes/tfa/autoload.php'); // Two Factor Auth
 
 // Ensure user isn't already logged in
 if ($user->isLoggedIn()) {
@@ -61,7 +61,7 @@ if (Input::exists()) {
 
                         } else {
                             // App
-                            require('core/includes/tfa_signin.php');
+                            require(ROOT_PATH . '/core/includes/tfa_signin.php');
                             die();
                         }
                     } else {
@@ -72,7 +72,7 @@ if (Input::exists()) {
 
                             if ($tfa->verifyCode($user_query[0]->tfa_secret, $_POST['tfa_code']) !== true) {
                                 Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
-                                require('core/includes/tfa_signin.php');
+                                require(ROOT_PATH . '/core/includes/tfa_signin.php');
                                 die();
                             }
 
@@ -227,7 +227,7 @@ if (Input::exists()) {
 
     <?php
     $title = $language->get('general', 'sign_in');
-    require('core/templates/header.php');
+    require(ROOT_PATH . '/core/templates/header.php');
     ?>
 
     <!-- Custom style -->
@@ -241,8 +241,8 @@ if (Input::exists()) {
 <body>
 <?php
 // Generate navbar and footer
-require('core/templates/navbar.php');
-require('core/templates/footer.php');
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
 
 // Sign in template
 // Generate content
@@ -281,7 +281,7 @@ if (Session::exists('login_success'))
 $smarty->display('custom/templates/' . TEMPLATE . '/login.tpl');
 
 // Scripts
-require('core/templates/scripts.php');
+require(ROOT_PATH . '/core/templates/scripts.php');
 ?>
 </body>
 </html>

@@ -163,7 +163,7 @@ if(!isset($_GET['s'])){
     else {
         $title = $forum_language->get('forum', 'forum_search') . ' - ' . Output::getClean(substr($search, 0, 20)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
     }
-    require('core/templates/header.php');
+    require(ROOT_PATH . '/core/templates/header.php');
     ?>
 
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
@@ -174,8 +174,8 @@ if(!isset($_GET['s'])){
 </head>
 <body>
     <?php
-    require('core/templates/navbar.php');
-    require('core/templates/footer.php');
+    require(ROOT_PATH . '/core/templates/navbar.php');
+    require(ROOT_PATH . '/core/templates/footer.php');
 
     if(isset($_GET['s'])){
         // Show results
@@ -246,7 +246,7 @@ if(!isset($_GET['s'])){
     }
 
 
-    require('core/templates/scripts.php');
+    require(ROOT_PATH . '/core/templates/scripts.php');
     ?>
     <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
     <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>

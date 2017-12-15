@@ -92,7 +92,7 @@ if(Input::exists()){
 
                 // UUID
                 if($uuid_linking == '1'){
-                    require('core/integration/uuid.php'); // For UUID stuff
+                    require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
                     if(!isset($mcname_result)){
                         $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
                         $mcname_result = $profile->getProfileAsArray();
@@ -253,7 +253,7 @@ if(Input::exists()){
 
                                 switch($authme_db['hash']){
                                     case 'bcrypt':
-                                        require('core/includes/password.php');
+                                        require(ROOT_PATH . '/core/includes/password.php');
 
                                         if(password_verify($_POST['password'], $password)){
                                             $valid = true;
@@ -422,7 +422,7 @@ if(!isset($_GET['step'])){
     <!-- Site Properties -->
     <?php
     $title = $language->get('general', 'register');
-    require('core/templates/header.php');
+    require(ROOT_PATH . '/core/templates/header.php');
     ?>
 
     <!-- Custom style -->
@@ -436,14 +436,14 @@ if(!isset($_GET['step'])){
   <body>
     <?php
     // Generate navbar and footer
-    require('core/templates/navbar.php');
-    require('core/templates/footer.php');
+    require(ROOT_PATH . '/core/templates/navbar.php');
+    require(ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
     $smarty->display($template);
 
     // Scripts
-    require('core/templates/scripts.php');
+    require(ROOT_PATH . '/core/templates/scripts.php');
 
     if($recaptcha === "true"){
         ?>

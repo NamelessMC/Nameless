@@ -23,7 +23,7 @@ require_once('modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $mentionsParser = new MentionsParser();
 
-require('core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
+require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 
 if(isset($_GET['pid']) && isset($_GET['tid'])){
 	if(is_numeric($_GET['pid']) && is_numeric($_GET['tid'])){
@@ -235,7 +235,7 @@ if(Input::exists()){
 	// Page title
 	$title = $forum_language->get('forum', 'edit_post');
 	
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php'); 
 	?>
 	
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
@@ -247,8 +247,8 @@ if(Input::exists()){
 
   <body>
 	<?php 
-	require('core/templates/navbar.php'); 
-	require('core/templates/footer.php'); 
+	require(ROOT_PATH . '/core/templates/navbar.php'); 
+	require(ROOT_PATH . '/core/templates/footer.php'); 
 	
 	if(isset($errors)) $smarty->assign('ERRORS', $errors);
 	
@@ -330,12 +330,12 @@ if(Input::exists()){
 	// Display template
 	$smarty->display('custom/templates/' . TEMPLATE . '/forum/forum_edit_post.tpl'); 
 
-	require('core/templates/scripts.php');
+	require(ROOT_PATH . '/core/templates/scripts.php');
 
 	// Get clean post content
 	if($formatting == 'markdown'){
 		// Markdown
-		require('core/includes/markdown/tomarkdown/autoload.php');
+		require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
 		$converter = new League\HTMLToMarkdown\HtmlConverter(array('strip_tags' => true));
 
 		$clean = $converter->convert(htmlspecialchars_decode($post_editing[0]->post_content));

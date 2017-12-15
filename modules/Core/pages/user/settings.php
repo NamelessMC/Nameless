@@ -18,19 +18,19 @@ if(!$user->isLoggedIn()){
 // Always define page name for navbar
 define('PAGE', 'cc_settings');
 
-require('core/templates/cc_navbar.php');
+require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
-require('core/includes/password.php'); // For password hashing
-require('core/includes/phpass.php'); // phpass for Wordpress auth
-require('core/includes/emojione/autoload.php'); // Emojione
-require('core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
+require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
+require(ROOT_PATH . '/core/includes/phpass.php'); // phpass for Wordpress auth
+require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
+require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Two factor auth?
 if(isset($_GET['do'])){
 	if($_GET['do'] == 'enable_tfa'){
 		// Enable TFA
-		require('core/includes/tfa/autoload.php');
+		require(ROOT_PATH . '/core/includes/tfa/autoload.php');
 		
 		// Ensure TFA is currently disabled
 		if($user->data()->tfa_enabled == 1){
@@ -59,13 +59,13 @@ if(isset($_GET['do'])){
     <!-- Site Properties -->
 	<?php 
 	$title = $language->get('user', 'user_cp');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php'); 
 	?>
   </head>
   <body>
     <?php
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 	
 	// Assign Smarty variables
 	$smarty->assign(array(
@@ -82,7 +82,7 @@ if(isset($_GET['do'])){
 	
 	$smarty->display('custom/templates/' . TEMPLATE . '/user/tfa.tpl');
 
-    require('core/templates/scripts.php');
+    require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
   </body>
 </html>
@@ -124,14 +124,14 @@ if(isset($_GET['do'])){
     <!-- Site Properties -->
 	<?php 
 	$title = $language->get('user', 'user_cp');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php'); 
 	?>
   
   </head>
   <body>
 	<?php
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 	if(isset($error)) $smarty->assign('ERROR', $error);
 	
 	$smarty->assign(array(
@@ -145,7 +145,7 @@ if(isset($_GET['do'])){
 	
 	$smarty->display('custom/templates/' . TEMPLATE . '/user/tfa.tpl');
 
-	require('core/templates/scripts.php');
+	require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
   </body>
 </html>
@@ -428,7 +428,7 @@ if(isset($_GET['do'])){
     <!-- Site Properties -->
 	<?php 
 	$title = $language->get('user', 'user_cp');
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php'); 
 	?>
   
     <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css">
@@ -439,8 +439,8 @@ if(isset($_GET['do'])){
   </head>
   <body>
     <?php
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 
 	// Error/success message?
 	if(Session::exists('settings_error')) $error = Session::flash('settings_error');
@@ -523,7 +523,7 @@ if(isset($_GET['do'])){
 
         if($formatting == 'markdown'){
             // Markdown
-            require('core/includes/markdown/tomarkdown/autoload.php');
+            require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
             $converter = new League\HTMLToMarkdown\HtmlConverter(array('strip_tags' => TRUE));
 
             $signature = $converter->convert(htmlspecialchars_decode($user->data()->signature));
@@ -592,7 +592,7 @@ if(isset($_GET['do'])){
 	
 	$smarty->display('custom/templates/' . TEMPLATE . '/user/settings.tpl');
 
-    require('core/templates/scripts.php');
+    require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
 	
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>

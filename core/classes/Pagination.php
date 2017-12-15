@@ -275,7 +275,7 @@
 
             // buffer handling
             ob_start();
-            require('core/includes/render.inc.php');
+            require(ROOT_PATH . '/core/includes/render.inc.php');
             $_response = ob_get_contents();
             ob_end_clean();
             return $_response;

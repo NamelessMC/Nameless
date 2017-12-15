@@ -18,9 +18,9 @@ $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
 $mentionsParser = new MentionsParser();
 
-require('core/includes/paginate.php'); // Get number of replies on a page
-require('core/includes/emojione/autoload.php'); // Emojione
-require('core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
+require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of replies on a page
+require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
+require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get topic ID
@@ -245,7 +245,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	// Generate header and navbar content
 	// Page title
   $title = ((strlen(Output::getClean($topic->topic_title)) > 20) ? Output::getClean(substr($topic->topic_title, 0, 20)) . '...' : Output::getClean($topic->topic_title)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
-	require('core/templates/header.php'); 
+	require(ROOT_PATH . '/core/templates/header.php');
 	?>
 	
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
@@ -259,8 +259,8 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
   <body>
 	<?php 
 	// Load navbar
-	require('core/templates/navbar.php'); 
-	require('core/templates/footer.php'); 
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 	
 	// Assign Smarty variables to pass to template
 	$forum_parent = $queries->getWhere('forums', array('id', '=', $topic->forum_id));
@@ -584,7 +584,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	$smarty->display('custom/templates/' . TEMPLATE . '/forum/view_topic.tpl'); 
 	
 	// Scripts 
-	require('core/templates/scripts.php'); 
+	require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/js/jquery-ui.min.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/js/jquery.cookie.js"></script>

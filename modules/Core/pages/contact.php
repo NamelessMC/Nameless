@@ -158,13 +158,13 @@ if(Input::exists()){
     <!-- Site Properties -->
     <?php
     $title = $language->get('general', 'contact');
-    require('core/templates/header.php');
+    require(ROOT_PATH . '/core/templates/header.php');
     ?>
 </head>
 <body>
 <?php
-require('core/templates/navbar.php');
-require('core/templates/footer.php');
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
 
 // Smarty variables
 if($recaptcha == 'true'){
@@ -187,7 +187,7 @@ $smarty->assign(array(
 // Display template
 $smarty->display('custom/templates/' . TEMPLATE . '/contact.tpl');
 
-require('core/templates/scripts.php');
+require(ROOT_PATH . '/core/templates/scripts.php');
 if($recaptcha === "true"){
     ?>
   <script src="https://www.google.com/recaptcha/api.js"></script>

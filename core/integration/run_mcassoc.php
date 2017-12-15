@@ -26,7 +26,7 @@ if(!isset($_SESSION['mcassoc'])) $_SESSION['mcassoc'] = $_POST;
 
     <?php
     $title = $language->get('user', 'verify_account');
-    require('core/templates/header.php');
+    require(ROOT_PATH . '/core/templates/header.php');
     ?>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/js/client.js"></script>
 	
@@ -35,8 +35,8 @@ if(!isset($_SESSION['mcassoc'])) $_SESSION['mcassoc'] = $_POST;
   <body>
   <?php
   // Generate navbar and footer
-  require('core/templates/navbar.php');
-  require('core/templates/footer.php');
+  require(ROOT_PATH . '/core/templates/navbar.php');
+  require(ROOT_PATH . '/core/templates/footer.php');
 
   $smarty->assign(array(
     'VERIFY_ACCOUNT' => $language->get('user', 'verify_account'),
@@ -138,7 +138,7 @@ if(!isset($_SESSION['mcassoc'])) $_SESSION['mcassoc'] = $_POST;
   $smarty->display('custom/templates/' . TEMPLATE . '/mcassoc.tpl');
 
   // Scripts
-  require('core/templates/scripts.php');
+  require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
   </body>
 </html>
