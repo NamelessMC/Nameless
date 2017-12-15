@@ -79,7 +79,7 @@ $smarty->assign(array(
 ));
 
 // Display template
-$smarty->display('custom/templates/' . TEMPLATE . '/custom.tpl');
+$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/custom.tpl');
 
 require(ROOT_PATH . '/core/templates/scripts.php');
 ?>

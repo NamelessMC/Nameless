@@ -694,7 +694,7 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts 
 		$smarty->assign('TABS', $tabs);
 		
 		// Template
-		$smarty->display('custom/templates/' . TEMPLATE . '/profile.tpl');
+		$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/profile.tpl');
 		
 	} else {
 		if(isset($_GET['error'])){
@@ -704,7 +704,7 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts 
 				'HOME' => $language->get('general', 'home'),
 				'NOT_FOUND' => $language->get('user', 'couldnt_find_that_user')
 			));
-			$smarty->display('custom/templates/' . TEMPLATE . '/user_not_exist.tpl');
+			$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user_not_exist.tpl');
 		}
 		// Search for user
 		// TODO

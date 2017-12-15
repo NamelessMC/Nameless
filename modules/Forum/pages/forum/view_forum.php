@@ -12,7 +12,7 @@
 // Always define page name
 define('PAGE', 'forum');
 
-require_once('modules/Forum/classes/Forum.php');
+require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
 
@@ -435,8 +435,8 @@ $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky =
 	$smarty->assign('LATEST_MEMBER', $latest_member);
 	
 	// Load Smarty template
-	if(isset($no_topics_exist)) $smarty->display('custom/templates/' . TEMPLATE . '/forum/view_forum_no_discussions.tpl'); 
-	else $smarty->display('custom/templates/' . TEMPLATE . '/forum/view_forum.tpl');
+	if(isset($no_topics_exist)) $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/view_forum_no_discussions.tpl'); 
+	else $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/view_forum.tpl');
 
 	require(ROOT_PATH . '/core/templates/scripts.php');
 	?>

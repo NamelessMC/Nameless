@@ -40,7 +40,7 @@ if(!empty($maintenance_message)) $smarty->assign('MAINTENANCE_MESSAGE', Output::
 else $smarty->assign('MAINTENANCE_MESSAGE', 'Maintenance mode is enabled.');
 
 // Maintenance template
-$smarty->display('custom/templates/' . TEMPLATE . '/maintenance.tpl');
+$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/maintenance.tpl');
 ?>
 </body>
 </html>

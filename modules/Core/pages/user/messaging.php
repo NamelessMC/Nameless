@@ -127,7 +127,7 @@ require(ROOT_PATH . '/core/templates/cc_navbar.php');
             ));
         }
 		
-		$smarty->display('custom/templates/' . TEMPLATE . '/user/messaging.tpl');
+		$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/messaging.tpl');
 	
 	} else {
 		if($_GET['action'] == 'new'){
@@ -353,7 +353,7 @@ require(ROOT_PATH . '/core/templates/cc_navbar.php');
 			));
 			
 			// Display template
-			$smarty->display('custom/templates/' . TEMPLATE . '/user/new_message.tpl');
+			$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/new_message.tpl');
 			
 		} else if($_GET['action'] == 'view'){
 			// Ensure message is specified
@@ -517,7 +517,7 @@ require(ROOT_PATH . '/core/templates/cc_navbar.php');
 			else $smarty->assign('CONTENT', '');
 			
 			// Display Smarty template
-			$smarty->display('custom/templates/' . TEMPLATE . '/user/view_message.tpl');
+			$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/view_message.tpl');
 			
 		} else if($_GET['action'] == 'leave'){
 			// Try to remove the user from the conversation

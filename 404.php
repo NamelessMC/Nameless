@@ -55,7 +55,7 @@ define('PAGE', 404);
 	));
 	
 	// 404 template
-	$smarty->display('custom/templates/' . TEMPLATE . '/404.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/404.tpl');
 
 	// Scripts 
 	require(ROOT_PATH . '/core/templates/scripts.php');

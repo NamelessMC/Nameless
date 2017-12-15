@@ -386,7 +386,7 @@ if(!isset($_GET['step'])){
         $smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
     }
 
-    $template = 'custom/templates/' . TEMPLATE . '/authme.tpl';
+    $template = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme.tpl';
 } else {
     // Step 2
     // Are custom usernames enabled?
@@ -408,7 +408,7 @@ if(!isset($_GET['step'])){
         'SUBMIT' => $language->get('general', 'submit')
     ));
 
-    $template = 'custom/templates/' . TEMPLATE . '/authme_email.tpl';
+    $template = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme_email.tpl';
 }
 ?>
 <!DOCTYPE html>

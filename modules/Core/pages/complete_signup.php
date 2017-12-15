@@ -159,7 +159,7 @@ if(!isset($_GET['c'])){
         'TOKEN' => Token::get()
     ));
 
-    $smarty->display('custom/templates/' . TEMPLATE . '/complete_signup.tpl');
+    $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/complete_signup.tpl');
 
     require(ROOT_PATH . '/core/templates/scripts.php');
     ?>

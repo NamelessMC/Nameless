@@ -45,10 +45,9 @@ define('PAGE', 'index');
 
 	if(isset($front_page_modules)){
 		foreach($front_page_modules as $module){
-			require($module);
+			require(ROOT_PATH . '/' . $module);
 		}
 	}
-
 	
 	// Assign to Smarty variables
 	$smarty->assign('SOCIAL', $language->get('general', 'social'));

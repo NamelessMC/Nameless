@@ -9,7 +9,7 @@
  *  Move a topic
  */
 
-require_once('modules/Forum/classes/Forum.php');
+require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
  
 if(!isset($_GET["tid"]) || !is_numeric($_GET["tid"])){
@@ -120,7 +120,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 	));
 	
 	// Load template
-	$smarty->display('custom/templates/' . TEMPLATE . '/forum/move.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/move.tpl');
 	
 	// Scripts
 	require(ROOT_PATH . '/core/templates/scripts.php');

@@ -29,7 +29,7 @@ define('PAGE', 'portal');
 	require(ROOT_PATH . '/core/templates/navbar.php'); 
 	require(ROOT_PATH . '/core/templates/footer.php'); 
 	
-	$smarty->display('custom/templates/' . TEMPLATE . '/portal.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/portal.tpl');
 
     require(ROOT_PATH . '/core/templates/scripts.php'); ?>
 	

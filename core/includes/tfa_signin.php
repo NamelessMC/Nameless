@@ -57,7 +57,7 @@ $_SESSION['remember'] = Input::get('remember');
 	));
 	
 	// Display template
-	$smarty->display('custom/templates/' . TEMPLATE . '/tfa.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/tfa.tpl');
 
 	// Scripts 
 	require(ROOT_PATH . '/core/templates/scripts.php');

@@ -9,7 +9,7 @@
  *  Stick/unstick a topic
  */
 
-require_once('modules/Forum/classes/Forum.php');
+require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 
 // User must be logged in to proceed

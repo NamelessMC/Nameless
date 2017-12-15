@@ -11,7 +11,7 @@
 if(!isset($forum) || (isset($forum) && !$forum instanceof Forum))
 	$forum = new Forum();
  
-require_once('core/includes/emojione/autoload.php'); // Emojione
+require_once(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 
 define('PAGE', 'forum');
 
@@ -225,7 +225,7 @@ if(!isset($_GET['s'])){
             'NEW_SEARCH_URL' => URL::build('/forum/search')
         ));
 
-        $smarty->display('custom/templates/' . TEMPLATE . '/forum/search_results.tpl');
+        $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/search_results.tpl');
 
     } else {
         // Search bar
@@ -242,7 +242,7 @@ if(!isset($_GET['s'])){
             'SUBMIT' => $language->get('general', 'submit')
         ));
 
-        $smarty->display('custom/templates/' . TEMPLATE . '/forum/search.tpl');
+        $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/search.tpl');
     }
 
 

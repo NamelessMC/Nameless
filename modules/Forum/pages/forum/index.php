@@ -9,7 +9,7 @@
  *  Forum index page
  */
 
-require_once('modules/Forum/classes/Forum.php');
+require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
  
 // Always define page name
 define('PAGE', 'forum');
@@ -52,7 +52,6 @@ if($user->isLoggedIn()){
 	// Breadcrumbs and search bar - same for latest discussions view + table view
 	$smarty->assign('BREADCRUMB_URL', URL::build('/forum'));
 	$smarty->assign('BREADCRUMB_TEXT', $forum_language->get('forum', 'forum_index'));
-	
 	// Search bar
 	$smarty->assign(array(
 		'SEARCH_URL' => URL::build('/forum/search'),
@@ -96,7 +95,7 @@ if($user->isLoggedIn()){
 	    $smarty->assign('ONLINE_USERS_LIST', $forum_language->get('forum', 'no_users_online'));
     }
 	$smarty->assign('ONLINE_USERS', $forum_language->get('forum', 'online_users'));
-	
+
 	// Generate latest posts to pass to template
 	// Check cache per user's group
 	if($user_group){
@@ -185,7 +184,7 @@ if($user->isLoggedIn()){
 		
 		$cache->store('discussions', $template_array, 60);
 	}
-	
+
 	// Assign to Smarty variable
 	$smarty->assign('LATEST_DISCUSSIONS', $template_array);
 	
@@ -268,14 +267,13 @@ if($user->isLoggedIn()){
 			'latest_member' => $latest_member
 		), 120);
 	}
-	
+
 	$smarty->assign('USERS_REGISTERED', $users_registered);
 	$smarty->assign('LATEST_MEMBER', $latest_member);
 	$smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
-	
 	// Load Smarty template
-	$smarty->display('custom/templates/' . TEMPLATE . '/forum/forum_index.tpl'); 
-	
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/forum_index.tpl');
+
 	require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
   </body>

@@ -138,7 +138,7 @@ if(isset($_GET['view'])){
             $smarty->assign('NO_PUNISHMENTS', $language->get('moderator', 'no_punishments_found'));
         }
 
-        $smarty->display('custom/templates/' . TEMPLATE . '/mod/all_punishments.tpl');
+        $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/all_punishments.tpl');
     } else {
         Redirect::to(URL::build('/mod/punishments'));
         die();
@@ -357,7 +357,7 @@ if(isset($_GET['view'])){
             'ACKNOWLEDGED' => $language->get('moderator', 'acknowledged')
         ));
 
-        $smarty->display('custom/templates/' . TEMPLATE . '/mod/punishments_user.tpl');
+        $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/punishments_user.tpl');
 
     } else {
         // View all users
@@ -387,7 +387,7 @@ if(isset($_GET['view'])){
             'BANNED' => $language->get('moderator', 'banned'),
             'USERS' => $user_array
         ));
-        $smarty->display('custom/templates/' . TEMPLATE . '/mod/punishments.tpl');
+        $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/punishments.tpl');
     }
 }
 

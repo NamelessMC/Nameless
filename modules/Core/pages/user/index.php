@@ -54,7 +54,7 @@ require(ROOT_PATH . '/core/templates/cc_navbar.php');
 		'OVERVIEW' => $language->get('user', 'overview')
 	));
 	
-	$smarty->display('custom/templates/' . TEMPLATE . '/user/index.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/index.tpl');
 
     require(ROOT_PATH . '/core/templates/scripts.php');
 

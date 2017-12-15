@@ -56,7 +56,7 @@ define('PAGE', 'mod_overview');
 	));
 	
 	// Display template
-	$smarty->display('custom/templates/' . TEMPLATE . '/mod/index.tpl');
+	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/index.tpl');
 
     require(ROOT_PATH . '/core/templates/scripts.php');
 	?>

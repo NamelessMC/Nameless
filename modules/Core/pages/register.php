@@ -84,7 +84,7 @@ if($registration_enabled == 0){
   ));
 
   // Registration template
-  $smarty->display('custom/templates/' . TEMPLATE . '/registration_disabled.tpl');
+  $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/registration_disabled.tpl');
 
   // Scripts
   require(ROOT_PATH . '/core/templates/scripts.php');
@@ -602,7 +602,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Registration template
-$smarty->display('custom/templates/' . TEMPLATE . '/register.tpl');
+$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/register.tpl');
 
 // Scripts 
 require(ROOT_PATH . '/core/templates/scripts.php');
