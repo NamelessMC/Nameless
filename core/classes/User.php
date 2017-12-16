@@ -96,6 +96,13 @@ class User {
                 $hasRanges = true;
             }
             $proxyList = explode(',', $proxyTextList);
+
+            // Check if it's in the array at first for mixed lists
+            if (in_array($_SERVER['REMOTE_ADDR'], $proxyList)) {
+                // Return proxied ip if it's in the list and there's no ranges
+                return $proxiedIp;
+            }
+
             if($hasRanges) { // Check if we're using ranges (needed for cloudflare)
                 foreach($proxyList as $proxy) {
                     if ( strpos( $proxy, '/' ) == true ) { // check if it's an actual range (we're lazy so we just check for an / in it)
@@ -103,11 +110,6 @@ class User {
                             return $proxiedIp;
                         }
                     }
-                }
-            }else {
-                if (in_array($_SERVER['REMOTE_ADDR'], $proxyList)) {
-                    // Return proxied ip if it's in the list and there's no ranges
-                    return $proxiedIp;
                 }
             }
             // Return normal ip if it's not in the list
