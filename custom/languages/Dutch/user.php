@@ -31,7 +31,7 @@ $language = array(
 	'administration' => 'Administratie',
 	'alerts' => 'Meldingen',
 	'delete_all' => 'Verwijder alle meldingen',
-	'private_profile' => 'Private profile',
+	'private_profile' => 'Privé profiel',
 	
 	// Profiel instellingen
 	'field_is_required' => '{x} is nodig.', // Verander {x} niet
@@ -55,7 +55,7 @@ $language = array(
 	'active_language' => 'Actieve taal',
 	'timezone' => 'Tijdzone',
 	'upload_new_avatar' => 'Upload een nieuwe avatar',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
+    'nickname_already_exists' => 'Je gekozen nicknaam bestaat al.',
 	
 	// Meldingen
 	'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet
@@ -161,8 +161,8 @@ $language = array(
 	'confirm_unblock_user' => 'Weet je zeker dat je deze gebruiker wilt deblokkeren? Ze zullen je prive berichten kunnen sturen en in een bericht kunnen noemen.',
 	'user_blocked' => 'Gebruiker geblokkeerd.',
 	'user_unblocked' => 'Gebruiker gedeblokkeerd.',
-	'views' => 'Profile Views:',
-	'private_profile_page' => 'This is a private profile!',
+	'views' => 'Profiel weergaven:',
+	'private_profile_page' => 'Dit profiel is privé!',
 	
 	// Rapporten
 	'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
