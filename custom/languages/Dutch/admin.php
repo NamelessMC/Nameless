@@ -114,7 +114,7 @@ $language = array(
     'google_recaptcha' => 'Google reCAPTCHA aanzetten?',
     'recaptcha_site_key' => 'reCAPTCHA Site Key',
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
-    'registration_disabled_message' => 'Registratie uitgezet bericht',
+    'registration_disabled_message' => 'Bericht voor uitgezette registratie',
 
 	// Reacties
 	'icon' => 'Icoon',
@@ -397,8 +397,8 @@ $language = array(
     'enable_api' => 'API aanzetten?',
     'api_info' => 'De API staat toe dat plugins en andere services mogen communiceren met je website, zoals de <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >officiële Nameless plugin</a>.',
     'enable_legacy_api' => 'Legacy API aanzetten?',
-    'legacy_api_info' => 'De legacy API staat toe dat plugins die de oude Nameless versie 1 API nodig hebben te werken met je versie 2 website.',
-    'confirm_api_regen' => 'Weet je zeker dat je je API key wilt vernieuwen?',
+    'legacy_api_info' => 'De legacy API staat toe dat plugins die de verouderde versie (1) API gebruiken werken met uw huidige versie (2).',
+    'confirm_api_regen' => 'Weet je zeker dat jij jouw API key wilt vernieuwen?',
     'api_registration_email' => 'API Registratie Email',
     'link_to_complete_registration' => 'Link voor het voltooien van de registratie: {x}', // Don't replace {x}
 
