@@ -117,7 +117,7 @@ $language = array(
     'google_recaptcha' => 'Activați Google reCAPTCHA?',
     'recaptcha_site_key' => 'reCAPTCHA Site Key',
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
-    'registration_disabled_message' => 'Registration disabled message',
+    'registration_disabled_message' => 'Mesaj afișat când înregistrarea este dezactivată',
 
     // Reactions
     'icon' => 'Iconiță',
