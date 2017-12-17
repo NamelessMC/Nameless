@@ -2205,9 +2205,14 @@
                 'value' => null
             ));
 			
-			$queries->create('settings', array(
+	    $queries->create('settings', array(
                 'name' => 'private_profile',
                 'value' => 1
+            ));
+						
+            $queries->create('settings', array(
+                'name' => 'registration_disabled_message',
+                'value' => null
             ));
 
 
