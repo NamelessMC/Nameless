@@ -108,6 +108,12 @@
             } else {
                 echo 'PHP exif_imagetype Function - ' . $success;
             }
+            if(!extension_loaded('mysql') && !extension_loaded('mysqlnd')){
+                echo 'PHP MySQL Extension - ' . $error;
+                $php_error = true;
+            } else {
+                echo 'PHP MySQL Extension - ' . $success;
+            }
 
             // Permissions
             if(is_writable('core/config.php')){
