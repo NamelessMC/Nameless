@@ -213,8 +213,9 @@
 									'	),' . PHP_EOL . 
 									'	"core" => array(' . PHP_EOL . 
 									'		"path" => "' . $install_path . '",' . PHP_EOL . 
-									'		"friendly" => false' . PHP_EOL . 
-									'	)' . PHP_EOL . 
+									'		"friendly" => false' . PHP_EOL .
+									'	),' . PHP_EOL .
+									'	"allowedProxies" => ""' . PHP_EOL .
 									');' . PHP_EOL;
 									
 
