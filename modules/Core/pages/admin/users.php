@@ -191,20 +191,12 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 								);
 
 								if($displaynames == 'true'){
-									$to_validation['mcname'] = array(
+									$to_validation['nickname'] = array(
 										'required' => true,
 										'min' => 4,
 										'max' => 20,
 										'unique' => 'users'
 									);
-									$to_validation['username'] = array(
-										'required' => true,
-										'min' => 4,
-										'max' => 20,
-										'unique' => 'users'
-									);
-									$mcname = htmlspecialchars(Input::get('mcname'));
-								} else {
 									$to_validation['username'] = array(
 										'required' => true,
 										'min' => 4,
@@ -212,6 +204,14 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 										'unique' => 'users'
 									);
 									$mcname = htmlspecialchars(Input::get('username'));
+								} else {
+									$to_validation['nickname'] = array(
+										'required' => true,
+										'min' => 4,
+										'max' => 20,
+										'unique' => 'users'
+									);
+									$mcname = htmlspecialchars(Input::get('nickname'));
 								}
 								
 								$validation = $validate->check($_POST, $to_validation);
@@ -228,7 +228,7 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 									try {
 										$user->create(array(
 											'username' => $mcname,
-											'nickname' => htmlspecialchars(Input::get('username')),
+											'nickname' => htmlspecialchars(Input::get('nickname')),
 											'password' => $password,
 											'pass_method' => 'default',
 											'joined' => $date,
@@ -258,7 +258,7 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 								if(strpos($error, 'is required') !== false){
 									// x is required
 									switch($error){
-										case (strpos($error, 'username') !== false):
+										case (strpos($error, 'nickname') !== false):
 											echo $language->get('user', 'username_required') . '<br />';
 										break;
 										case (strpos($error, 'email') !== false):
@@ -267,7 +267,7 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 										case (strpos($error, 'password') !== false):
 											echo $language->get('user', 'password_required') . '<br />';
 										break;
-										case (strpos($error, 'mcname') !== false):
+										case (strpos($error, 'username') !== false):
 											echo $language->get('user', 'mcname_required') . '<br />';
 										break;
 										case (strpos($error, 'group') !== false):
@@ -278,10 +278,10 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 								} else if(strpos($error, 'minimum') !== false){
 									// x must be a minimum of y characters long
 									switch($error){
-										case (strpos($error, 'username') !== false):
+										case (strpos($error, 'nickname') !== false):
 											echo $language->get('user', 'username_minimum_3') . '<br />';
 										break;
-										case (strpos($error, 'mcname') !== false):
+										case (strpos($error, 'username') !== false):
 											echo $language->get('user', 'mcname_minimum_3') . '<br />';
 										break;
 										case (strpos($error, 'password') !== false):
@@ -295,10 +295,10 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 								} else if(strpos($error, 'maximum') !== false){
 									// x must be a maximum of y characters long
 									switch($error){
-										case (strpos($error, 'username') !== false):
+										case (strpos($error, 'nickname') !== false):
 											echo $language->get('user', 'username_maximum_20') . '<br />';
 										break;
-										case (strpos($error, 'mcname') !== false):
+										case (strpos($error, 'username') !== false):
 											echo $language->get('user', 'mcname_maximum_20') . '<br />';
 										break;
 										case (strpos($error, 'password') !== false):
@@ -335,13 +335,13 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 							<br />
 							<h4><?php echo $language->get('admin', 'creating_new_user'); ?></h4>
 							<div class="form-group">
-								<input class="form-control" type="text" name="username" id="username" value="<?php echo Output::getClean(Input::get('username')); ?>" placeholder="<?php if($displaynames == 'false'){ echo $language->get('user', 'minecraft_username'); } else { echo $language->get('user', 'username'); } ?>" autocomplete="off">
+							    <input class="form-control" type="text" name="nickname" id="nickname" value="<?php echo Output::getClean(Input::get('nickname')); ?>" placeholder="<?php if($displaynames == 'false'){ echo $language->get('user', 'username'); } else { echo $language->get('user', 'nickname'); } ?>" autocomplete="off">
 							</div>
 							<?php
 							if($displaynames == "true"){
 							?>
 							<div class="form-group">
-								<input class="form-control" type="text" name="mcname" id="mcname" value="<?php echo Output::getClean(Input::get('mcname')); ?>" placeholder="<?php echo $language->get('user', 'minecraft_username'); ?>" autocomplete="off">
+								<input class="form-control" type="text" name="username" id="username" value="<?php echo Output::getClean(Input::get('username')); ?>" placeholder="<?php echo $language->get('user', 'minecraft_username'); ?>" autocomplete="off">
 							</div>
 							<?php
 							}
