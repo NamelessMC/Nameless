@@ -225,10 +225,15 @@ class Util {
 	 */
     public static function getSelfURL(){
         if($_SERVER['SERVER_ADDR'] !== "127.0.0.1"){
+            if(isset($_SERVER['REQUEST_SCHEME']))
+                $req_scheme = $_SERVER['REQUEST_SCHEME'];
+            else
+                $req_scheme = 'http';
+
             if($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443){
-                $url = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['SERVER_NAME'];
+                $url = $req_scheme."://".$_SERVER['SERVER_NAME'];
             } else {
-                $url = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'];
+                $url = $req_scheme."://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'];
             }
 
             if(substr($url, -1) !== '/') $url .= '/';
