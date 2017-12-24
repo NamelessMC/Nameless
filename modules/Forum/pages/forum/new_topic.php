@@ -55,7 +55,7 @@ if(Input::exists()) {
 		// Check post limits
 		$last_post = $queries->orderWhere('posts', 'post_creator = ' . $user->data()->id, 'post_date', 'DESC LIMIT 1');
 		if(count($last_post)){
-			if(strtotime($last_post[0]->post_date) > strtotime("-30 seconds")){
+			if($last_post[0]->created > strtotime("-30 seconds")){
 				$spam_check = true;
 			}
 		}
