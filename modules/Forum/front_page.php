@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -33,6 +33,7 @@ foreach($latest_news as $item){
 		'author_name' => Output::getClean($user->idToName($item['author'])),
 		'author_nickname' => Output::getClean($user->idToNickname($item['author'])),
 		'author_avatar' => $user->getAvatar($item["author"], "../", 25),
+		'author_group' => $user->getGroupName($user->getGroup($item['author'])),
 		'content' => Output::getPurified($emojione->unicodeToImage(htmlspecialchars_decode($item['content'])))
 	);
 }
