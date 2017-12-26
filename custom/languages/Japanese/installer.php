@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  Translation by SimplyRin
  *
@@ -36,6 +36,7 @@ $language = array(
     'database_password' => 'データベース パスワード',
     'database_name' => 'データベース名',
     'character_set' => 'キャラクターセット',
+    'database_engine' => 'Database Storage Engine',
     'database_error' => 'すべてのフィールドに記入してください。',
     'submit' => '送信',
     'installer_now_initialising_database' => 'これでインストーラはデータベースを初期化しています。 これはしばらく時間がかかることがあります...',

@@ -185,6 +185,11 @@
 				if($_POST['charset'] == 'latin1'){
 					$charset = 'latin1';
 				} else $charset = 'utf8';
+				
+				// Get DB engine
+				if($_POST['engine'] == 'MyISAM'){
+					$engine = 'MyISAM';
+				} else $engine = 'InnoDB';
 
                 $mysqli = new mysqli(Input::get('db_address'), Input::get('db_username'), $password, Input::get('db_name'), Input::get('db_port'));
                 if($mysqli->connect_errno) {
@@ -200,7 +205,9 @@
 									'		"password" => \'' . $password . '\', // Web server database password' . PHP_EOL . 
 									'		"db" => "' . Input::get('db_name') . '", // Web server database name' . PHP_EOL .
 									'		"port" => "' . Input::get('db_port') . '", // Web server database port' . PHP_EOL .
-									'		"prefix" => "nl2_" // Web server table prefix' . PHP_EOL .
+									'		"prefix" => "nl2_", // Web server table prefix' . PHP_EOL .
+									'		"charset" => "' . $charset . '", // MySQL charset for new tables' . PHP_EOL .
+									'		"engine" => "' . $engine . '" // MySQL engine for new tables' . PHP_EOL .
 									'	),' . PHP_EOL . 
 									'	"remember" => array(' . PHP_EOL . 
 									'		"cookie_name" => "nl2", // Name for website cookies' . PHP_EOL . 
@@ -228,6 +235,7 @@
 						}
 
 						$_SESSION['charset'] = $charset;
+						$_SESSION['engine'] = $engine;
 
                         Redirect::to('?step=database_initialise');
                         die();
@@ -281,6 +289,14 @@
 						<option value="utf8" selected>Unicode</option>
 					</select>
 				</div>
+				
+				<div class="form-group">
+				    <label for="inputEngine"><?php echo $language['database_engine']; ?></label>
+				    <select class="form-control" name="engine" id="inputEngine">
+					    <option value="InnoDB" selected>InnoDB</option>
+						<option value="MyISAM">MyISAM</option>
+					</select>
+				</div>
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="<?php echo $language['submit']; ?>">
@@ -300,9 +316,12 @@
             try {
 				if(isset($_SESSION['charset'])) $charset = $_SESSION['charset'];
 				else $charset = 'utf8';
+				
+				if(isset($_SESSION['engine'])) $engine = $_SESSION['engine'];
+				else $engine = 'InnoDB';
 
                 $queries = new Queries();
-                $queries->dbInitialise($charset);
+                $queries->dbInitialise($charset, $engine);
             } catch(Exception $e){
                 die($e->getMessage());
             }

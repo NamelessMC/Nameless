@@ -2,7 +2,7 @@
 /*
  *	Made by TheSuperSkills
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -34,6 +34,7 @@ $language = array(
     'database_password' => 'Database Contraseña',
     'database_name' => 'Database Nombre',
     'character_set' => 'Conjunto de caracteres',
+    'database_engine' => 'Database Storage Engine',
     'database_error' => 'Asegúrese de completar todos los campos.',
     'submit' => 'Enviar',
     'installer_now_initialising_database' => 'El instalador está iniciando la base de datos. Esto puede tardar un rato...',
