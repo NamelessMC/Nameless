@@ -36,6 +36,7 @@ $language = array(
     'database_password' => 'Parola utilizatorului bazei de date',
     'database_name' => 'Numele bazei de date',
     'character_set' => 'Set de caractere',
+    'database_engine' => 'Database Storage Engine',
     'database_error' => 'Asigurați-vă că toate câmpurile au fost completate.',
     'submit' => 'Trimite',
     'installer_now_initialising_database' => 'Instalatorul inițiază acum baza de date. Acest lucru poate dura ceva timp...',

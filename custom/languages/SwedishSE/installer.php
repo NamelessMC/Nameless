@@ -35,6 +35,7 @@ $language = array(
     'database_password' => 'Databas Lösenord',
     'database_name' => 'Databas Namn',
     'character_set' => 'Teckenuppsättning',
+    'database_engine' => 'Database Storage Engine',
     'database_error' => 'Se till att alla fält har fyllts i.',
     'submit' => 'Enter',
     'installer_now_initialising_database' => 'Installatören initierar databasen nu. Det här kan ta ett tag...',

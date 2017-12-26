@@ -2,7 +2,7 @@
 /*
  *  Oversatt av Thesevs
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr2
+ *  NamelessMC versjon 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -33,6 +33,7 @@ $language = array(
     'database_password' => 'Database Passord',
     'database_name' => 'Database Navn',
     'character_set' => 'Tegnsetting',
+    'database_engine' => 'Database Storage Engine',
     'database_error' => 'Pass på at alle rutene har blitt fylt.',
     'submit' => 'Enter',
     'installer_now_initialising_database' => 'Installereren kobler til databasen. Dette kan ta litt tid...',

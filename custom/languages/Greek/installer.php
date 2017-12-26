@@ -4,7 +4,7 @@
  *  https://github.com/Ar1sC
  *  https://twitter.com/Ar1cC
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -36,6 +36,7 @@ $language = array(
     'database_password' => 'Database Password',
     'database_name' => 'Database Name',
     'character_set' => 'Character Set',
+    'database_engine' => 'Database Storage Engine',
     'database_error' => 'Βεβαιωθείτε οτι όλα τα πεδία έχουν συμπληρωθεί.',
     'submit' => 'Υποβολή',
     'installer_now_initialising_database' => 'Το πρόγραμμα εγκατάστασης προετοιμάζει την βάσης δεδομένων. Αυτό μπορεί να πάρει λίγο χρόνο...',

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -36,6 +36,7 @@ $language = array(
     'database_password' => 'Senha do banbo de dados',
     'database_name' => 'Nome do banbo de dados',
     'character_set' => 'Conjunto de caracteres',
+    'database_engine' => 'Database Storage Engine',
     'database_error' => 'Certifique-se de que todos os campos foram preenchidos.',
     'submit' => 'Enviar',
     'installer_now_initialising_database' => 'O instalador agora está inicializando o banco de dados. Isto pode demorar um pouco...',
