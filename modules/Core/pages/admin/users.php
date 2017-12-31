@@ -42,13 +42,12 @@ $admin_page = 'users_and_groups';
 
 require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 
-// Custom usernames?
-$displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
-$displaynames = $displaynames[0]->value;
-
 // Is UUID linking enabled?
 $uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
 $uuid_linking = $uuid_linking[0]->value;
+
+$mc_integration = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
+$mc_integration = $mc_integration[0]->value;
 
 require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 
@@ -187,32 +186,20 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 									),
 									'group' => array(
 										'required' => true
-									)
+									),
+                                    'nickname' => array(
+                                        'required' => true,
+                                        'min' => 4,
+                                        'max' => 20,
+                                        'unique' => 'users'
+                                    ),
+                                    'username' => array(
+                                        'required' => true,
+                                        'min' => 4,
+                                        'max' => 20,
+                                        'unique' => 'users'
+                                    )
 								);
-
-								if($displaynames == 'true'){
-									$to_validation['nickname'] = array(
-										'required' => true,
-										'min' => 4,
-										'max' => 20,
-										'unique' => 'users'
-									);
-									$to_validation['username'] = array(
-										'required' => true,
-										'min' => 4,
-										'max' => 20,
-										'unique' => 'users'
-									);
-									$mcname = htmlspecialchars(Input::get('username'));
-								} else {
-									$to_validation['nickname'] = array(
-										'required' => true,
-										'min' => 4,
-										'max' => 20,
-										'unique' => 'users'
-									);
-									$mcname = htmlspecialchars(Input::get('nickname'));
-								}
 								
 								$validation = $validate->check($_POST, $to_validation);
 								
@@ -227,7 +214,7 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 									
 									try {
 										$user->create(array(
-											'username' => $mcname,
+											'username' => htmlspecialchars(Input::get('username')),
 											'nickname' => htmlspecialchars(Input::get('nickname')),
 											'password' => $password,
 											'pass_method' => 'default',
@@ -335,17 +322,11 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 							<br />
 							<h4><?php echo $language->get('admin', 'creating_new_user'); ?></h4>
 							<div class="form-group">
-							    <input class="form-control" type="text" name="nickname" id="nickname" value="<?php echo Output::getClean(Input::get('nickname')); ?>" placeholder="<?php if($displaynames == 'false'){ echo $language->get('user', 'username'); } else { echo $language->get('user', 'nickname'); } ?>" autocomplete="off">
+							    <input class="form-control" type="text" name="nickname" id="nickname" value="<?php echo Output::getClean(Input::get('nickname')); ?>" placeholder="<?php echo $language->get('user', 'nickname'); ?>" autocomplete="off">
 							</div>
-							<?php
-							if($displaynames == "true"){
-							?>
 							<div class="form-group">
-								<input class="form-control" type="text" name="username" id="username" value="<?php echo Output::getClean(Input::get('username')); ?>" placeholder="<?php echo $language->get('user', 'minecraft_username'); ?>" autocomplete="off">
+								<input class="form-control" type="text" name="username" id="username" value="<?php echo Output::getClean(Input::get('username')); ?>" placeholder="<?php if($mc_integration == '1') echo $language->get('user', 'minecraft_username'); else echo $language->get('user', 'username'); ?>" autocomplete="off">
 							</div>
-							<?php
-							}
-							?>
 							<div class="form-group">
 								<input class="form-control" type="text" name="email" id="email" value="<?php echo Output::getClean(Input::get('email')); ?>" placeholder="<?php echo $language->get('user', 'email'); ?>">
 							</div>
@@ -471,7 +452,17 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 										),
 										'title' => array(
 											'max' => 64
-										)
+										),
+										'MCUsername' => array(
+										    'required' => true,
+										    'min' => 3,
+										    'max' => 20
+										),
+                                        'username' => array(
+                                            'required' => true,
+                                            'min' => 3,
+                                            'max' => 20
+                                        )
 									);
 
 									if($_GET['user'] != 1 && ($_GET['user'] != $user->data()->id || $user->hasPermission('admincp.groups.self'))){
@@ -481,27 +472,6 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 										$group = Input::get('group');
 									} else {
 										$group = $individual[0]->group_id;
-									}
-
-									if($displaynames == 'true'){
-										$to_validation['MCUsername'] = array(
-											'required' => true,
-											'min' => 3,
-											'max' => 20
-										);
-										$to_validation['username'] = array(
-											'required' => true,
-											'min' => 3,
-											'max' => 20
-										);
-										$mcname = htmlspecialchars(Input::get('MCUsername'));
-									} else {
-										$to_validation['username'] = array(
-											'required' => true,
-											'min' => 3,
-											'max' => 20
-										);
-										$mcname = htmlspecialchars(Input::get('username'));
 									}
 									
 									$validation = $validate->check($_POST, $to_validation);
@@ -539,7 +509,7 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 												'nickname' => htmlspecialchars(Input::get('username')),
 												'email' => htmlspecialchars(Input::get('email')),
 												'group_id' => $group,
-												'username' => $mcname,
+												'username' => Output::getClean(Input::get('MCUsername')),
 												'user_title' => Output::getClean(Input::get('title')),
 												'uuid' => htmlspecialchars(Input::get('UUID')),
 												'signature' => $signature,

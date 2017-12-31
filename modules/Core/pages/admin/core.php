@@ -287,7 +287,13 @@ $current_default_language = $current_default_language[0]->value;
                                                 'value' => $_POST['privateProfile']
                                             ));
 
-                                            // No cache? ^^
+                                            // Registration displaynames
+                                            $displaynames_id = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+                                            $displaynames_id = $displaynames_id[0]->id;
+
+                                            $queries->update('settings', $displaynames_id, array(
+                                                'value' => $_POST['displaynames']
+                                            ));
 
                                             // Post formatting
                                             $formatting_id = $queries->getWhere('settings', array('name', '=', 'formatting_type'));
@@ -516,6 +522,18 @@ $current_default_language = $current_default_language[0]->value;
                                         <select name="privateProfile" class="form-control" id="inputPrivateProfile">
                                             <option value="1"<?php if ($private_profile->value == 1) { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
                                             <option value="0"<?php if ($private_profile->value == 0) { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEnableNicknames"><?php echo $language->get('admin', 'enable_nicknames_on_registration'); ?></label>
+                                        <?php
+                                        // Get nickname setting
+                                        $displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+                                        $displaynames = $displaynames[0];
+                                        ?>
+                                        <select name="displaynames" class="form-control" id="inputEnableNicknames">
+                                            <option value="true"<?php if ($displaynames->value == "true") { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
+                                            <option value="false"<?php if ($displaynames->value == "false") { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
                                         </select>
                                     </div>
                                     <div class="form-group">

@@ -118,6 +118,7 @@ $language = array(
     'recaptcha_site_key' => 'reCAPTCHA Site Key',
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
     'registration_disabled_message' => 'Mesaj afișat când înregistrarea este dezactivată',
+    'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
 
     // Reactions
     'icon' => 'Iconiță',

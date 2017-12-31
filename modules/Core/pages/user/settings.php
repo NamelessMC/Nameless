@@ -178,9 +178,8 @@ if(isset($_GET['do'])){
                     )
                 );
 
-				// Displaynames?
-                $displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
-                if($displaynames[0]->value == 'true'){
+				// Permission to use nickname?
+                if($user->hasPermission('usercp.nickname')){
                     $to_validate['nickname'] = array(
                         'required' => true,
                         'min' => 3,
@@ -207,7 +206,7 @@ if(isset($_GET['do'])){
 				
 				if($validation->passed()){
 				    // Check nickname is unique
-                    if($displaynames[0]->value == 'true') {
+                    if($user->hasPermission('usercp.nickname')) {
                         $unique_nickname = $queries->getWhere('users', array('nickname', '=', Output::getClean(Input::get('nickname'))));
                         if(count($unique_nickname)){
                             $unique_nickname = $unique_nickname[0];
@@ -460,10 +459,6 @@ if(isset($_GET['do'])){
 	// Get custom fields
 	$custom_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
 	$user_custom_fields = $queries->getWhere('users_profile_fields', array('user_id', '=', $user->data()->id));
-
-	// Custom usernames?
-	$displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
-	$displaynames = $displaynames[0]->value;
 	
 	$custom_fields_template = array(
 		'nickname' => array(
@@ -471,7 +466,7 @@ if(isset($_GET['do'])){
 		)
 	);
 	
-	if($displaynames == 'true'){
+	if($user->hasPermission('usercp.nickname')){
 		$custom_fields_template['nickname'] = array(
 			'name' => $language->get('user', 'nickname'),
 			'value' => Output::getClean($user->data()->nickname),
