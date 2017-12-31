@@ -114,6 +114,7 @@ $language = array(
     'recaptcha_site_key' => 'reCAPTCHA Site Key',
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
     'registration_disabled_message' => 'Registration disabled message',
+    'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
 
 	// Reactions
 	'icon' => 'Icone',

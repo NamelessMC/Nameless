@@ -115,6 +115,7 @@ $language = array(
     'recaptcha_site_key' => 'reCAPTCHA Site Key',
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
     'registration_disabled_message' => 'Bericht voor uitgezette registratie',
+    'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
 
 	// Reacties
 	'icon' => 'Icoon',
