@@ -96,7 +96,7 @@ $admin_language = array(
     'explain_email_settings' => 'Het volgende is benodigd als de functie: "Gebruik PHP mail()" is <strong>uitgeschakeld</strong>.Je kan de documentatie over de instellingen vinden <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">op onze wiki</a>.',
     'email_config_not_writable' => 'Je <strong>core/email.php</strong> kon niet worden aangepast. Bekijk je bestandspermissies (777).',
     'pages' => 'Pagina\'s',
-    'enable_or_disable_pages' => 'Schakel pagina\'s hier in en uit .',
+    'enable_or_disable_pages' => 'Schakel pagina\'s hier in en uit.',
     'enable' => 'Klik om in te schakelen',
     'disable' => 'Klik om uit te schakelen',
     'maintenance_mode' => 'Forum onderhoud modus',
@@ -809,7 +809,7 @@ $forum_language = array(
 $email_language = array(
     // Registration email
     'greeting' => 'Beste Gebruiker',
-    'message' => 'Bedankt voor het registreren! Om de registratie te voltooien, klikt je op de volgende link:',
+    'message' => 'Bedankt voor het registreren! Om de registratie te voltooien, klik je op de volgende link:',
     'thanks' => 'Bedankt,'
 );
  
