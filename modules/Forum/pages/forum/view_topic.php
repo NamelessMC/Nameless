@@ -69,8 +69,11 @@ else
   $user_id = 0;
 
 if($topic->topic_creator != $user_id && !$forum->canViewOtherTopics($topic->forum_id, $group_id, $secondary_groups)){
-	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-	die();
+    // Only allow viewing stickied topics
+    if($topic->sticky == 0) {
+        Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+        die();
+    }
 }
 
 // Get page
