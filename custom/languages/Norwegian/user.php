@@ -51,9 +51,9 @@ $language = array(
 	'invalid_tfa' => 'Ugyldig kode, prøv igjen.',
 	'tfa_successful' => 'To-stegs-verifikasjon fullført.',
 	'active_language' => 'Språk',
-    'timezone' => 'Timezone',
-    'upload_new_avatar' => 'Upload a new avatar',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
+    'timezone' => 'Tidssone',
+    'upload_new_avatar' => 'Last opp et nytt avatar.',
+    'nickname_already_exists' => 'Brukernavnet du har valgt er allerede i bruk.',
 	
 	// Alerts
 	'user_tag_info' => 'Du har blitt tagget i et innlegg av {x}.', // Don't replace {x}
@@ -78,7 +78,7 @@ $language = array(
 	'validation_complete' => 'Brukerkontoen er nå bekreftet.',
 	'validation_error' => 'Det oppstod en feil under bekreftelsen av kontoen din. Kontakt en nettstedsadministrator med en gang!',
 	'signature' => 'Signatur',
-	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
+	'signature_max_900' => 'Din signatur må være maksimum 900 tegn.',
 
 	// Registration - Authme
 	'connect_with_authme' => 'Koble til brukeren din med AuthMe.',
@@ -109,7 +109,7 @@ $language = array(
 	'verify_account_help' => 'Vennligst følg instruksjonene så vi kan verifisere at dette er din bruker.',
 	'verification_failed' => 'Verifisering feilet, prøv igjen.',
 	'verification_success' => 'Suksessfullt verifisert, du kan nå logge inn!',
-	'authme_username_exists' => 'Your Authme account has already been connected to the website!',
+	'authme_username_exists' => 'Din Authme bruker har allerede blitt koblet til denne nettsida!',
 	
 	// Login
 	'successful_login' => 'Du har nå logget inn.',
@@ -122,12 +122,12 @@ $language = array(
 	'must_input_password' => 'Du må skrive inn et passord.',
 
     // Forgot password
-    'forgot_password_instructions' => 'Please enter your email address so we can send you further instructions on resetting your password.',
-    'forgot_password_email_sent' => 'If an account with the email address exists, an email has been sent containing further instructions. If you can\'t find it, try checking your junk folder.',
-    'unable_to_send_forgot_password_email' => 'Unable to send forgot password email. Please contact an administrator.',
-    'enter_new_password' => 'Please confirm your email address and enter a new password below.',
-    'incorrect_email' => 'The email address you have entered does not match the request.',
-    'forgot_password_change_successful' => 'Your password has been changed successfully. You can now log in.',
+    'forgot_password_instructions' => 'Vennligst skriv inn email adressen din så vi kan sende deg en epost med instruskjoner på resetting av passordet ditt.',
+    'forgot_password_email_sent' => 'Hvis en bruker med denne email adressen er registrert her, vil den mailen ha mottatt en epost med mer informasjon. Hvis du ikke finner eposten, prøv å sjekk søppelpost.',
+    'unable_to_send_forgot_password_email' => 'Kunne ikke sende glemt passord email. Vennligst kontakt en administrator.',
+    'enter_new_password' => 'Vennligst bekreft email adressen din og skriv inn et nytt passord under.',
+    'incorrect_email' => 'Email adressen du har skrevet inn passer ikke med forespørselen.',
+    'forgot_password_change_successful' => 'Passordet ditt har suksessfullt blitt endret. Du kan nå logge inn.',
 	
 	// Profile pages
 	'profile' => 'Profil',
@@ -150,16 +150,16 @@ $language = array(
 	'new_reply' => 'Nytt svar',
 	'registered' => 'Registrerte seg:',
 	'last_seen' => 'Sist sett:',
-	'new_wall_post' => '{x} has posted on your profile.',
-	'couldnt_find_that_user' => 'Couldn\'t find that user.',
-	'block_user' => 'Block User',
-	'unblock_user' => 'Unblock User',
-	'confirm_block_user' => 'Are you sure you want to block this user? They will not be able to send you private messages or tag you in posts.',
-	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
-	'user_blocked' => 'User blocked.',
-	'user_unblocked' => 'User unblocked.',
-	'views' => 'Profile Views:',
-	'private_profile_page' => 'This is a private profile!',
+	'new_wall_post' => '{x} har kommentert på profilen din.',
+	'couldnt_find_that_user' => 'Kunne ikke finne den brukeren.',
+	'block_user' => 'Blokker bruker',
+	'unblock_user' => 'Fjern blokkering',
+	'confirm_block_user' => 'Er du sikker på at du vil blokkere denne personen? De vil ikke lenger ha muligheten til å sende deg private meldinger og tagge deg i innlegg.',
+	'confirm_unblock_user' => 'Er du sikker på at du vil fjerne blokkeringen? De vil heretter ha muligheten til å sende deg private meldinger og tagge deg i innlegg igjen.',
+	'user_blocked' => 'Spiller blokkert.',
+	'user_unblocked' => 'Fjernet blokkering.',
+	'views' => 'Profilvisninger:',
+	'private_profile_page' => 'Dette er en privat profil!',
 	
 	
 	// Reports
@@ -191,20 +191,20 @@ $language = array(
 	'by' => 'av',
 	'leave_conversation' => 'Forlat samtale',
 	'confirm_leave' => 'Er du sikker på at du vil forlate denne samtalen?',
-	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
+	'one_or_more_users_blocked' => 'Du kan ikke sende private meldinger til minst en person i samtalen.',
 
 	/*
 	 *  Infractions area
 	 */
-	'you_have_been_banned' => 'You have been banned!',
-	'you_have_received_a_warning' => 'You have received a warning!',
-	'acknowledge' => 'Acknowledge',
+	'you_have_been_banned' => 'Du har blitt bannlyst!',
+	'you_have_received_a_warning' => 'Du har mottatt en advarsel!',
+	'acknowledge' => 'Anerkjenne',
 	
 	/*
 	 *  Emails
 	 */
 	'email_greeting' => 'Hei!',
 	'email_message' => 'Takk for at du registrerte deg på vårt nettsted. For å fullføre registreringen må du følge denne lenken:',
-    'forgot_password_email_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
+    'forgot_password_email_message' => 'For å resette passordet ditt, vennligst følg linken. Hvis du ikke har bedt om en resettelse, kan du trygt slette denne mailen.',
 	'email_thanks' => 'Takk,'
 );
