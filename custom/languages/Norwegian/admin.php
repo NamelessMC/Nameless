@@ -33,7 +33,7 @@ $language = array(
 	'statistics' => 'Statistikk',
     'notices' => 'Notices',
     'no_notices' => 'No notices.',
-    'email_errors_logged' => 'Email errors have been logged. Click <a href="{x}">here</a> to view.', // Don't replace "{x}"
+    'email_errors_logged' => 'Email error har blitt logget. Click <a href="{x}">her</a> for å se dem.', // Don't replace "{x}"
 
 	// Core
 	'settings' => 'Instillinger',
@@ -71,7 +71,7 @@ $language = array(
     'email_errors' => 'Email error',
     'registration_email' => 'Registreringsemail',
     'contact_email' => 'Kontaktemail',
-    'forgot_password_email' => 'Forgot Password Email',
+    'forgot_password_email' => 'Glemt email passord',
     'unknown' => 'Ukjent',
     'delete_email_error' => 'Slett error',
     'confirm_email_error_deletion' => 'Er du sikker på at du vil slette denne erroren?',
@@ -109,11 +109,11 @@ $language = array(
     'navbar_order' => 'Navigasjonsbar rekkefølge',
     'navbar_order_instructions' => 'Du kan gi hver ting et tall over 0 for å plassere i rekkefølge.',
     'enable_page_load_timer' => 'Aktiver side timer?',
-    'google_recaptcha' => 'Enable Google reCAPTCHA?',
-    'recaptcha_site_key' => 'reCAPTCHA Site Key',
-    'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
-    'registration_disabled_message' => 'Registration disabled message',
-    'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
+    'google_recaptcha' => 'Aktiver Google reCAPTCHA?',
+    'recaptcha_site_key' => 'reCAPTCHA nettsidenøkkel (Site key)',
+    'recaptcha_secret_key' => 'reCAPTCHA hemmelig nøkkel (Secret key)',
+    'registration_disabled_message' => 'Registrering deaktivert melding',
+    'enable_nicknames_on_registration' => 'Tillatt kallenavn for nyregistrerte brukere?',
 
 	// Reactions
 	'icon' => 'Ikon',
@@ -214,17 +214,17 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> Ny banner',
     'purge_errors' => 'Rens alle error',
     'confirm_purge_errors' => 'Er du sikker på at du vil fjerne alle errorer?',
-    'mcassoc_help' => 'mcassoc is an external service which can be used to verify users own the Minecraft account they have registered with. To use this feature, you will need to sign up for a shared key <a href="https://mcassoc.lukegb.com/" target="_blank">here</a>.',
-    'mcassoc_key' => 'mcassoc Shared Key',
+    'mcassoc_help' => 'mcassoc er en ekstern service som kan bli brukt for å verifisere deres Minecraft bruker de har registrert med. For å bruke denne funksjonen må du registrere deg for å motta en delt nøkkel <a href="https://mcassoc.lukegb.com/" target="_blank">her</a>.',
+    'mcassoc_key' => 'mcassoc delt nøkkel (Shared key)',
     'mcassoc_instance' => 'mcassoc Instance Key',
     'mcassoc_instance_help' => '<a href="#" onclick="generateInstance();">Klikk for å generere en instance nøkkel</a>',
-    'mcassoc_error' => 'Please ensure you that have entered your shared key correctly, and that you have generated an instance key correctly.',
-    'updated_mcassoc_successfully' => 'mcassoc settings updated successfully.',
-    'force_premium_accounts' => 'Force premium Minecraft accounts?',
+    'mcassoc_error' => 'Vennligst sjekk at du har skrevet inn nøkkelen korrekt, og at du har generert en riktig instance nøkkel.',
+    'updated_mcassoc_successfully' => 'mcassoc instillinger suksessfullt oppdatert!',
+    'force_premium_accounts' => 'Tving premium Minecraft brukere?',
     'banner_background' => 'Banner bakgrunn',
-    'query_interval' => 'Query interval (in minutes, must be between 5 and 60)',
+    'query_interval' => 'Query interval (i minutter, må være mellom 5 og 60)',
     'player_graphs' => 'Spillergrafer',
-    'player_count_cronjob_info' => 'You can set up a cron job to query your servers every {x} minutes with the following command:',
+    'player_count_cronjob_info' => 'Du kan sette opp et cron job for å querye serveren hvert {x} minutt med denne kommandoen:',
 
 	// Modules
 	'modules_installed_successfully' => 'Modulene er nå oppdatert',
@@ -259,7 +259,7 @@ $language = array(
 	'confirm_delete_template' => 'Er du sikker på at du vil slette denne malen?',
 	'delete' => 'Slett',
 	'template_deleted_successfully' => 'Mal suksessfullt slettet.',
-    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+    'background_image_x' => 'Bakgrunnsbilde: <strong>{x}</strong>', // Don't replace {x}
 
 	// Users & groups
 	'users' => 'Brukere',
@@ -308,12 +308,12 @@ $language = array(
     'unable_to_update_uuid' => 'Kan ikke oppdatere UUID.',
 
     // Permissions
-    'select_all' => 'Select All',
-    'deselect_all' => 'Deselect All',
-    'background_image' => 'Background image',
-    'can_edit_own_group' => 'Can edit own group\'s permissions',
-    'permissions_updated_successfully' => 'Permissions updated successfully.',
-    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
+    'select_all' => 'Velg alle',
+    'deselect_all' => 'Fjern markering',
+    'background_image' => 'Bakgrunnsbilde',
+    'can_edit_own_group' => 'Kan ikke endre egen gruppes permisjoner.',
+    'permissions_updated_successfully' => 'Permisjoner suksessfullt oppdatert.',
+    'cant_edit_this_group' => 'Du kan ikke endre på denne gruppens permisjoner!',
 
 	// General Admin language
 	'task_successful' => 'Kapittel ferdig.',
@@ -394,13 +394,13 @@ $language = array(
 
     // API
     'api' => 'API',
-    'enable_api' => 'Enable API?',
-    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>.',
-    'enable_legacy_api' => 'Enable legacy API?',
-    'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
-    'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
-    'api_registration_email' => 'API Registration Email',
-    'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
+    'enable_api' => 'Aktiver API?',
+    'api_info' => 'APIen tillater plugins og andre servicer til å kommunisere med nettsiden din, for eksempel <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >den offisielle Nameless pluginen</a>.',
+    'enable_legacy_api' => 'Aktiver legacy API?',
+    'legacy_api_info' => 'Legacy APIen tillatter plugins som bruker Nameless versjon 1 APIen til å fungere med din versjon 2 nettside.',
+    'confirm_api_regen' => 'Er du sikker på at du vil regenere API nøkkelen din?Are you sure you want to regenerate your API key?',
+    'api_registration_email' => 'API RegistreringsemailAPI Registration Email',
+    'link_to_complete_registration' => 'Link for å fullføre registrering: {x}', // Don't replace {x}
 
 	// File uploads
 	'drag_files_here' => 'Dra filene hit for å laste opp.',
