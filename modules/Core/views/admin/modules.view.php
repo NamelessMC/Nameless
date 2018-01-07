@@ -41,7 +41,7 @@
 				  if(isset($module_version)) unset($module_version);
 				  if(isset($nameless_version)) unset($nameless_version);
 
-				  if(file_exists('modules/' . $module->name . '/module.php')) require(ROOT_PATH . '/modules/' . $module->name . '/module.php');
+				  if(file_exists(ROOT_PATH . '/modules/' . $module->name . '/module.php')) require(ROOT_PATH . '/modules/' . $module->name . '/module.php');
 			  ?>
 			  <div class="row">
 			    <div class="col-md-9">
