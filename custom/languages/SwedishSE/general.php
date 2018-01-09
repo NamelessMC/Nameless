@@ -59,10 +59,12 @@ $language = array(
 	 */
     'contact' => 'Kontakt',
     'message' => 'Meddelande',
-	'contact_email_subject' => 'Ny kontaktformulär inlämning.',
-	'contact_message_failed' => 'Det gick inte att skicka meddelandet. Vänligen Unable to send message. Please se till att du har skrivit ett meddelande mellan 10 och 5000 tecken långt.',
-	'contact_message_sent' => 'Meddelande sänt med framgång!',
-	'contact_message_limit' => 'Du kan bara skicka ett meddelande per timme. Du kan sedan skicka ett meddelande om {x} minuter.', // Don't replace {x}
+    'email_address' => 'Email Address',
+    'contact_email_subject' => 'Ny kontaktformulär inlämning.',
+    'contact_message_failed' => 'Det gick inte att skicka meddelandet. Vänligen Unable to send message. Please se till att du har skrivit ett meddelande mellan 10 och 5000 tecken långt.',
+    'contact_message_email' => 'The provided email is invalid.',
+    'contact_message_sent' => 'Meddelande sänt med framgång!',
+    'contact_message_limit' => 'Du kan bara skicka ett meddelande per timme. Du kan sedan skicka ett meddelande om {x} minuter.', // Don't replace {x}
 	
 	/* 
 	 *  Navbar

@@ -60,8 +60,10 @@ $language = array(
 	 */
 	'contact' => 'Contact',
 	'message' => 'Bericht',
+    'email_address' => 'Email Address',
 	'contact_email_subject' => 'Nieuw contactformulier indiening',
 	'contact_message_failed' => 'Kan bericht niet verzenden. Zorg ervoor dat je bericht tussen de 10 en 5000 karakters lang is.',
+    'contact_message_email' => 'The provided email is invalid.',
 	'contact_message_sent' => 'Bericht succesvol verzonden.',
 	'contact_message_limit' => 'Je kan maar 1 bericht per uur versturen. Je kan pas weer over {x} minuten een nieuw bericht versturen.', // Vervang {x} niet
 	

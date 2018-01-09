@@ -60,8 +60,10 @@ $language = array(
      */
     'contact' => '問い合わせ',
     'message' => 'メッセージ',
+    'email_address' => 'Email Address',
     'contact_email_subject' => '新しい連絡先フォームの提出',
     'contact_message_failed' => 'メッセージを送信できません。 10~5000 文字のメッセージを入力してください。',
+    'contact_message_email' => 'The provided email is invalid.',
     'contact_message_sent' => '送信に成功しました。',
     'contact_message_limit' => '1時間に1つのメッセージしか送信できません。 次に、{x} 分後にメッセージを送信できます。', // Don't replace {x}
 	

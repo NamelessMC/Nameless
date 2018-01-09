@@ -58,8 +58,10 @@ $language = array(
      */
     'contact' => 'Contacto',
     'message' => 'Mensaje',
+    'email_address' => 'Email Address',
     'contact_email_subject' => 'Nuevo formulario de contacto',
     'contact_message_failed' => 'No se puede enviar el mensaje. Asegúrate de haber ingresado un mensaje entre 10 y 5000 caracteres.',
+    'contact_message_email' => 'The provided email is invalid.',    
     'contact_message_sent' => 'Mensaje enviado con éxito.',
     'contact_message_limit' => 'Sólo puede enviar un mensaje por hora. Puede enviar un mensaje en {x} minutos.', // Don't replace {x}
 	
