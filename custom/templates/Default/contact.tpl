@@ -10,9 +10,14 @@
                 </div>
             {/if}
             <form action="" method="post">
-			    <div class="form-group">
-			        <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="{$EMAIL}" tabindex="3">
-			    </div>
+                {if isset($ERROR_EMAIL)}
+                    <div class="alert alert-danger">
+                        {$ERROR_EMAIL}
+                    </div>
+                {/if}			
+                <div class="form-group">
+                    <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="{$EMAIL}" tabindex="3">
+                </div>
                 {if isset($ERROR_CONTENT)}
                     <div class="alert alert-danger">
                         {$ERROR_CONTENT}
