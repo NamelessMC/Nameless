@@ -10,6 +10,11 @@
                 </div>
             {/if}
             <form action="" method="post">
+                {if isset($ERROR)}
+                    <div class="alert alert-danger">
+                        {$ERROR}
+                    </div>
+                {/if}
                 {if isset($ERROR_EMAIL)}
                     <div class="alert alert-danger">
                         {$ERROR_EMAIL}

@@ -186,6 +186,9 @@ if($recaptcha == 'true'){
     $smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
 }
 
+if(isset($error))
+    $smarty->assign('ERROR', $error);
+
 if(isset($erroremail))
     $smarty->assign('ERROR_EMAIL', $erroremail);
 
