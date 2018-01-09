@@ -55,6 +55,11 @@ if(Input::exists()){
                     'required' => true,
                     'min' => 10,
                     'max' => 5000
+                ),
+                'email' => array(
+                    'required' => true,
+                    'min' => 4,
+                    'max' => 64,
                 )
             ));
 
@@ -97,9 +102,10 @@ if(Input::exists()){
                         $subject = SITE_NAME . ' - ' . $language->get('general', 'contact_email_subject');
 
                         $message = Output::getClean(Input::get('content'));
+                        $fromemail = Output::getClean(Input::get('email'));
 
                         $headers = 'From: ' . $siteemail . "\r\n" .
-                            'Reply-To: ' . $siteemail . "\r\n" .
+                            'Reply-To: ' . $fromeemail . "\r\n" .
                             'X-Mailer: PHP/' . phpversion() . "\r\n" .
                             'MIME-Version: 1.0' . "\r\n" . 
                             'Content-type: text/html; charset=UTF-8' . "\r\n";
@@ -132,7 +138,16 @@ if(Input::exists()){
                 $_SESSION['last_contact_sent'] = date('U');
                 $success = $language->get('general', 'contact_message_sent');
             } else {
-                $error = $language->get('general', 'contact_message_failed');
+                foreach($validation->errors() as $validation_error){
+                    switch($validation_error){
+                        case (strpos($validation_error, 'content') !== false):
+                            $errorcontent = $language->get('general', 'contact_message_failed');
+                            break;
+                        case (strpos($validation_error, 'email') !== false):
+                            $erroremail = $language->get('general', 'contact_message_email');
+                            break;
+                    }
+                }
             }
 
         } else
@@ -172,12 +187,19 @@ if($recaptcha == 'true'){
 }
 
 if(isset($error))
-  $smarty->assign('ERROR', $error);
+    $smarty->assign('ERROR', $error);
+
+if(isset($erroremail))
+    $smarty->assign('ERROR_EMAIL', $erroremail);
+
+if(isset($errorcontent))
+    $smarty->assign('ERROR_CONTENT', $errorcontent);
 
 if(isset($success))
     $smarty->assign('SUCCESS', $success);
 
 $smarty->assign(array(
+    'EMAIL' => $language->get('general', 'email_address'),
     'CONTACT' => $language->get('general', 'contact'),
     'MESSAGE' => $language->get('general', 'message'),
     'TOKEN' => Token::get(),
