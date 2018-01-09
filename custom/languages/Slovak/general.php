@@ -58,8 +58,10 @@ $language = array(
      */
     'contact' => 'Kontakt',
     'message' => 'Správa',
+    'email_address' => 'Email Address',
     'contact_email_subject' => 'Nový kontaktný formulár ',
     'contact_message_failed' => 'Nepodarilo sa odoslať zprávu. Zajistěte, aby jste vložil zprávu mezi 10 a 5000 znaky dlouhou.',
+    'contact_message_email' => 'The provided email is invalid.',
     'contact_message_sent' => 'Správa bola úspešne odoslaná.',
     'contact_message_limit' => 'Můžete odeslat pouze jednu zprávu za hodinu. Další můžete odeslat za {x} minut.', // Don't replace {x}
 	

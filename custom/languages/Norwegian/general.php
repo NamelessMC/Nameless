@@ -58,8 +58,10 @@ $language = array(
      */
     'contact' => 'Kontakt',
     'message' => 'Melding',
+    'email_address' => 'Email Address',
     'contact_email_subject' => 'Ny kontaktskjema',
     'contact_message_failed' => 'Kunne ikke sende melding. Pass på at meldingen er mellom 10 og 5000 tegn lang',
+    'contact_message_email' => 'The provided email is invalid.',
     'contact_message_sent' => 'Melding suksessfullt sendt!',
     'contact_message_limit' => 'Du kan kun sende èn melding hver time. Du kan sende en ny melding om {x} minutter.', // Don't replace {x}
 	
