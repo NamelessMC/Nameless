@@ -7,8 +7,8 @@
  *  License: MIT
  *
  *  Romanian Language - Installation
- *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 26/08/2017
+ *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ASMODΣUS
+ *  Last Update: 11/01/2017
  */
 
 $language = array(
@@ -16,7 +16,7 @@ $language = array(
      *  Installation
      */
     'install' => 'Instalare',
-    'pre-release' => 'pre-release',
+    'pre-release' => 'pre-lansare',
     'installer_welcome' => 'Bine ați venit la versiunea 2.0-pre-release a programului NamelessMC.',
     'pre-release_warning' => 'Rețineți că această versiune prealabilă nu este destinată utilizării pe un site public.',
     'installer_information' => 'Programul de instalare vă va ghida în procesul de instalare.',
@@ -26,8 +26,8 @@ $language = array(
     'requirements' => 'Cerinţe:',
     'config_writable' => 'core/config.php are permisiune de scriere',
     'cache_writable' => 'Cache are permisiune de scriere',
-    'template_cache_writable' => 'Sabloanele Cache au permisiune de scriere',
-    'requirements_error' => 'Trebuie să aveți instalate toate extensiile necesare și setați să permisiunile corecte (permisiuni de scriere) pentru a continua instalarea.',
+    'template_cache_writable' => 'Șabloanele Cache au permisiune de scriere',
+    'requirements_error' => 'Trebuie să aveți instalate toate extensiile necesare și setați permisiunile corecte (permisiuni de scriere) pentru a continua instalarea.',
     'proceed' => 'Continuă',
     'database_configuration' => 'Configurarea bazei de date',
     'database_address' => 'Adresa bazei de date',
