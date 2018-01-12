@@ -1,7 +1,7 @@
 <?php
 /*
  *	Gemaakt door Samerton
- *  en vertaald door Sander Lambrechts, Melerpe, Derkades en smessie
+ *  en vertaald door Sander Lambrechts, Melerpe, Derkades, smessie en ItzRonaldLG
  *
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr3
@@ -33,7 +33,7 @@ $language = array(
 	'database_password' => 'Database Wachtwoord',
 	'database_name' => 'Database Naam',
 	'character_set' => 'Karakterset',
-	'database_engine' => 'Database Storage Engine',
+	'database_engine' => 'Gegevens opslag progamma',
 	'database_error' => 'Zorg ervoor dat alle velden zijn ingevuld.',
 	'submit' => 'Indienen',
 	'installer_now_initialising_database' => 'De installateur is de database aan het instellen. Dit kan een tijdje duren...',
