@@ -525,6 +525,11 @@
 
             // Languages
             $queries->create('languages', array(
+                'name' => 'Chinese',
+                'is_default' => 0
+            ));
+
+            $queries->create('languages', array(
                 'name' => 'Czech',
                 'is_default' => 0
             ));
@@ -1961,6 +1966,10 @@
 						}
 
 						// Languages
+                        $queries->create('languages', array(
+                            'name' => 'Chinese',
+                            'is_default' => 0
+                        ));
                         $queries->create('languages', array(
                             'name' => 'Czech',
                             'is_default' => 0
