@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -26,6 +26,7 @@ if(defined('PAGE') && PAGE != 'login'){
 if(isset($widgets))
 	$smarty->assign('WIDGETS', $widgets->getWidgets());
 ?>
+    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
 
 	<!-- Page Title -->
 	<title><?php echo $title; ?> &bull; <?php echo SITE_NAME; ?></title>
