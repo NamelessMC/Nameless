@@ -535,17 +535,17 @@
             ));
 
             $queries->create('languages', array(
-                'name' => 'Dutch',
-                'is_default' => 0
-            ));
-
-            $queries->create('languages', array(
                 'name' => 'EnglishUK',
                 'is_default' => 1
             ));
 
             $queries->create('languages', array(
                 'name' => 'EnglishUS',
+                'is_default' => 0
+            ));
+
+            $queries->create('languages', array(
+                'name' => 'Dutch',
                 'is_default' => 0
             ));
 
@@ -1974,18 +1974,18 @@
                             'name' => 'Czech',
                             'is_default' => 0
                         ));
+			$queries->create('languages', array(
+                            'name' => 'EnglishUK',
+                            'is_default' => 1
+			));
+			$queries->create('languages', array(
+                            'name' => 'EnglishUS',
+                            'is_default' => 0
+			));
                         $queries->create('languages', array(
                             'name' => 'Dutch',
                             'is_default' => 0
                         ));
-						$queries->create('languages', array(
-							'name' => 'EnglishUK',
-							'is_default' => 1
-						));
-						$queries->create('languages', array(
-							'name' => 'EnglishUS',
-							'is_default' => 0
-						));
                         $queries->create('languages', array(
                             'name' => 'German',
                             'is_default' => 0
