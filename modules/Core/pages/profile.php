@@ -48,9 +48,11 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts 
 	?>
 	
 	<?php
-	if(isset($directories[1]) && !empty($directories[1]) && !isset($_GET['error'])){
+    $profile = explode('/', $route);
+	if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])){
 		// User specified
-		$profile = $directories[1];
+		$profile = $profile[count($profile) - 1];
+
 		$query = $queries->getWhere('users', array('username', '=', $profile));
 		
 		if(!count($query)) Redirect::to(URL::build('/profile/', 'error=not_exist'));
