@@ -151,27 +151,6 @@ if($page != 'install'){
 
         $directory = '/' . $directory;
 
-        // Are we loading a profile or a banner page?
-        if(FRIENDLY_URLS == true){
-            if ($directories[0] == 'profile') {
-                $directory = '/profile';
-            } else if ($directories[0] == 'banner') {
-                $directory = '/banner';
-            } else {
-                $directory = strtok($directory, '?');
-            }
-        } else {
-            if(isset($_GET['route']) && strpos($_GET['route'], 'profile') !== false){
-                $profile = explode('/', $_GET['route']);
-                $directories[1] = $profile[2];
-                $route = '/profile';
-            } else if (isset($_GET['route']) && strpos($_GET['route'], 'banner') !== false){
-                $banner = explode('/', $_GET['route']);
-                $directories[1] = $banner[2];
-                $route = '/banner';
-            }
-        }
-
         // Remove the trailing /
         if(strlen($directory) > 1) $directory = rtrim($directory, '/');
     }
