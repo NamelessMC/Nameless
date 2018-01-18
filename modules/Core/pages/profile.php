@@ -492,6 +492,7 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts 
 			'NICKNAME' => Output::getClean($query->nickname),
 			'USERNAME' => Output::getClean($query->username),
 			'GROUP' => Output::getPurified($group),
+			'GROUPS' => (isset($query) ? $user->getAllGroups($query->id, 'true') : array(Output::getPurified($group))),
 			'USERNAME_COLOUR' => $user->getGroupClass($query->id),
 			'USER_TITLE' => Output::getClean($query->user_title),
 			'FOLLOW' => $language->get('user', 'follow'),
