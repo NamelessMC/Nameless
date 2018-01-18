@@ -10,7 +10,7 @@
  */
  
 // Set current page URL in session, provided it's not the login page
-if(defined('PAGE') && PAGE != 'login'){
+if(defined('PAGE') && PAGE != 'login' && PAGE != 404){
 	if(FRIENDLY_URLS === true){
 		$split = explode('?', $_SERVER['REQUEST_URI']);
 
