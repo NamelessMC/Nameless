@@ -4,6 +4,8 @@
 * How would you describe the issue?
 * Do you have (relevant) resources about this issue (Logs, pictures, etc.)?
 * Do you have an idea how or where the issue occurs?
+* What Modules are you using ?
+* What theme are you using ?
 
 ### Please use image uploading websites such as Imgur or Gyazo
 
