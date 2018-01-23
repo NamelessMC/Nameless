@@ -232,6 +232,7 @@ if($page != 'install'){
     $smarty->setTemplateDir($template_path);
     $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
     $smarty->assign('SITE_NAME', SITE_NAME);
+    $smarty->assign('SITE_HOME', URL::build('/'));
 
     // Avatars
     $cache->setCache('avatar_settings_cache');
