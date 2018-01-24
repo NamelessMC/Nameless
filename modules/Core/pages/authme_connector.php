@@ -90,12 +90,15 @@ if(Input::exists()){
                 else
                     $nickname = $_SESSION['authme']['user'];
 
+                $mcname = $_SESSION['authme']['user'];
+
                 // UUID
                 if($uuid_linking == '1'){
                     require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
                     if(!isset($mcname_result)){
                         $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-                        $mcname_result = $profile->getProfileAsArray();
+                        if($profile && method_exists($profile, 'getProfileAsArray'))
+                            $mcname_result = $profile->getProfileAsArray();
                     }
                     if(isset($mcname_result["uuid"]) && !empty($mcname_result['uuid'])){
                         $uuid = $mcname_result['uuid'];
