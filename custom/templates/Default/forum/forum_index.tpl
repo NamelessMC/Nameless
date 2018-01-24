@@ -6,7 +6,7 @@
 	  <div class="row">
 		<div class="col-md-9">
 		  <ol class="breadcrumb">
-		    <li><a href="{$BREADCRUMB_URL}">{$BREADCRUMB_TEXT}</a></li>
+		    <li class="breadcrumb-item active"><a href="{$BREADCRUMB_URL}">{$BREADCRUMB_TEXT}</a></li>
 		  </ol>
 		  
 		  {if isset($SPAM_INFO)}

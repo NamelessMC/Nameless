@@ -28,7 +28,6 @@
 <div class="container">
 <div class="card">
   <div class="card-body">
-  <div class="home-news">
 	{if isset($HOME_SESSION_FLASH)}
         <div class="alert alert-info">
             {$HOME_SESSION_FLASH}
@@ -42,7 +41,7 @@
 	<div class="row">
 
 	  {if isset($NEWS)}
-	  <div class="col-md-8">
+	  <div class="col-md-9">
 	    <center><h2>{$LATEST_ANNOUNCEMENTS} <i class="fa fa-bullhorn"></i></h2></center>
 		<hr />
 		{foreach from=$NEWS item=item}
@@ -63,10 +62,10 @@
 		<br />
 		{/foreach}
 	  </div>
-	  <div class="col-md-4">
+	  <div class="col-md-3">
 
 	  {else}
-	  <div class="col-md-4 offset-md-4">
+	  <div class="col-md-3 offset-md-6">
 	  {/if}
 
 	    <center><h2>{$SOCIAL} <i class="fa fa-users" aria-hidden="true"></i></h2></center>
@@ -80,7 +79,6 @@
 
 	  </div>
 	</div>
-  </div>
   </div>
 </div>
 </div>

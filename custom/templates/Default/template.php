@@ -12,10 +12,35 @@
 $template_version = 'v2.0.0-pr3'; // Version number of template
 $nl_template_version = '2.0.0-pr3'; // Nameless version template is designed for
 
+$cache->setCache('default_template');
+if($cache->isCached('bootswatch')){
+	$theme = $cache->retrieve('bootswatch');
+} else {
+	$theme = 'bootstrap';
+	$cache->store('bootswatch', 'bootstrap');
+}
+
+if($cache->isCached('nav_style')){
+	$nav_style = $cache->retrieve('nav_style');
+} else {
+	$nav_style = 'light';
+	$cache->store('nav_style', 'light');
+}
+
+if($cache->isCached('nav_bg')){
+	$nav_bg = $cache->retrieve('nav_bg');
+} else {
+	$nav_bg = 'light';
+	$cache->store('nav_style', 'light');
+}
+
+$smarty->assign('NAV_STYLE', Output::getClean($nav_style));
+$smarty->assign('NAV_BG', Output::getClean($nav_bg));
+
 if(!isset($admin_styles)){
   // Paths to CSS files
   $css = array(
-  	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/css/bootstrap.min.css',
+  	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/css/' . Output::getClean($theme) . '.min.css',
   	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/custom.css',
   	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/font-awesome.min.css',
   	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/css/custom.css'

@@ -603,6 +603,11 @@
                 'enabled' => 1
             ));
 
+            $queries->create('modules', array(
+                'name' => 'DefaultTheme',
+                'enabled' => 0
+            ));
+
             $cache->setCache('modulescache');
             $cache->store('enabled_modules', array(
                 array('name' => 'Core', 'priority' => 1),
@@ -2029,6 +2034,10 @@
 						$queries->create('modules', array(
 							'name' => 'Forum',
 							'enabled' => 1
+						));
+						$queries->create('modules', array(
+							'name' => 'DefaultTheme',
+							'enabled' => 0
 						));
 						$cache->setCache('modulescache');
 						$cache->store('enabled_modules', array(
