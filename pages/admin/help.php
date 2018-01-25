@@ -96,6 +96,9 @@ $adm_page = "help";
 	// Footer
 	require('core/includes/template/footer.php');
 	$smarty->display('styles/templates/' . $template . '/footer.tpl');
+
+	// Scripts 
+	require('core/includes/template/scripts.php');
 	?>
   </body>
 </html>
