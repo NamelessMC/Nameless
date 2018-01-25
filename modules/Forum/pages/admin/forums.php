@@ -123,11 +123,11 @@ $admin_page = 'forums';
 				$token = Token::get();
 				?>
 
-				<div class="panel panel-default">
-				  <div class="panel-heading">
+				<div class="card card-default">
+				  <div class="card-header">
 				    <?php echo $forum_language->get('forum', 'forums'); ?>
 				  </div>
-				  <div class="panel-body">
+				  <div class="card-block">
 					<?php 
 					$number = count($forums);
 					$i = 1;
@@ -1000,9 +1000,9 @@ $admin_page = 'forums';
 					  }
 					  if(count($topic_labels)){
 						?>
-					  <div class="panel panel-default">
-						<div class="panel-heading"><?php echo $forum_language->get('forum', 'labels'); ?></div>
-						<div class="panel-body">
+					  <div class="card card-default">
+						<div class="card-header"><?php echo $forum_language->get('forum', 'labels'); ?></div>
+						<div class="card-block">
 						<?php
 						// Display list of all labels
 						foreach($topic_labels as $topic_label){
@@ -1352,9 +1352,9 @@ $admin_page = 'forums';
 					  }
 					  if(count($labels)){
 						?>
-					  <div class="panel panel-default">
-						<div class="panel-heading"><?php echo $forum_language->get('forum', 'label_types'); ?></div>
-						<div class="panel-body">
+					  <div class="card card-dark">
+						<div class="card-header"><?php echo $forum_language->get('forum', 'label_types'); ?></div>
+						<div class="card-block">
 						<?php
 						// Display list of all labels
 						foreach($labels as $label){

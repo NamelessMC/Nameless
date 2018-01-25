@@ -17,8 +17,8 @@ body {
     background-color: #d9534f;
     border-color: #d9534f;
 }
-.panel-body {
-	background-color: #303030 !important;
+.card-header {
+    background-color: #303030;
 }
 textarea, .cke {
 	color: #000 !important;
