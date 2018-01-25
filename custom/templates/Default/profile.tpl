@@ -83,27 +83,21 @@
 		  {/if}
 
 		  {if count($WALL_POSTS)}
-		  <div class="timeline">
-			<div class="line text-muted"></div>
 			{foreach from=$WALL_POSTS item=post}
 
-			<article class="panel panel-default">
-			  <div class="panel-heading icon">
-				<img class="rounded-circle" style="height:40px; width=40px;" src="{$post.avatar}" />
-			  </div>
-
-			  <div class="panel-heading">
-				<h2 class="panel-title" style="display:inline;"><a href="{$post.profile}">{$post.nickname}:</a></h2>
+			<div class="card card-default">
+			  <div class="card-header">
+				<img class="rounded-circle" style="max-height:25px; max-width=25px;" src="{$post.avatar}" /> <a href="{$post.profile}">{$post.nickname}:</a>
 				<span class="pull-right"><span rel="tooltip" data-original-title="{$post.date}">{$post.date_rough}</span></span>
 			  </div>
 
-			  <div class="panel-body">
+			  <div class="card-body">
 				<div class="forum_post">
 				  {$post.content}
 				</div>
 			  </div>
 
-			  <div class="panel-footer">
+			  <div class="card-footer">
 				<a href="{if $post.reactions_link ne "#"}{$post.reactions_link}{else}#{/if}" class="pop" data-content='{if isset($post.reactions.reactions)} {foreach from=$post.reactions.reactions item=reaction name=reactions}<a href="{$reaction.profile}" style="{$reaction.style}"><img class="rounded" src="{$reaction.avatar}" alt="{$reaction.username}" style="max-height:30px; max-width:30px;" /> {$reaction.nickname}</a>{if !$smarty.foreach.reactions.last}<br />{/if}{/foreach} {else}{$post.reactions.count}{/if}'><i class="fa fa-thumbs-up"></i> {$post.reactions.count} </a> | <a href="#" data-toggle="modal" data-target="#replyModal{$post.id}"><i class="fa fa-comments"></i> {$post.replies.count}</a>
 				<span class="pull-right">
 				  {if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
@@ -116,8 +110,7 @@
 				  {/if}
 				</span>
 			  </div>
-
-			</article>
+			</div>
 
 			{if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
 				<!-- Post editing modal -->
@@ -225,7 +218,7 @@
 			</div>
 
 			{/foreach}
-		  </div>
+		    <hr />
 
 			{$PAGINATION}
 		  {else}
