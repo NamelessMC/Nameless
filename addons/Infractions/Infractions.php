@@ -940,7 +940,7 @@ class Infractions {
 			$symbol = "<>";
 			$equals = "0";
 		}
-		$punishments = $this->_db->get('punishmenthistory', array('uuid', $symbol, $equals))->results();
+		$punishments = $this->_db->get('PunishmentHistory', array('uuid', $symbol, $equals))->results();
 		
 		$results = array();
 		
@@ -1060,7 +1060,7 @@ class Infractions {
 	// Retrieve a specific infraction
 	// Params: $id - ID of ban to retrieve
 	public function ab_getInfraction($id){
-		$results = $this->_db->get('punishmenthistory', array('id', '=', $id))->results();
+		$results = $this->_db->get('PunishmentHistory', array('id', '=', $id))->results();
 		
 		if(count($results)) return $results[0];
 
