@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -91,6 +91,7 @@ $language = array(
     'spam_wait' => 'Bitte warte {x} Sekunden bis du wieder Beiträge erstellen kannst.',
     'overview' => 'Überblick',
     'no_label' => 'Kein Label',
+    'forum_redirect_warning' => 'Notice: you are about to leave this site! Are you sure you want to proceed to {x}?',
 
     // Homepage
     'latest_announcements' => 'Neueste Ankündigungen',
@@ -156,6 +157,9 @@ $language = array(
     'forum_type_category' => 'Kategorie',
     'invalid_action' => 'Ungültige Aktion',
     'use_reactions' => '"Reaktionen" Funktion verwenden?',
+    'redirect_forum' => 'Redirect forum?',
+    'redirect_url' => 'Redirect URL',
+    'invalid_redirect_url' => 'You have enabled the forum redirect, but you have not entered a valid URL between 1 and 512 characters.',
 
     // Search
     'forum_search' => 'Forum Search',

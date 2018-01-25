@@ -19,12 +19,13 @@
 		    {if !empty($forum.subforums)}
 			  <div class="card-header">{$forum.title}</div>
 			  <div class="card-body">
-			  {foreach $forum.subforums item=subforum}
+			  {foreach from=$forum.subforums item=subforum}
 			    <div class="row">
 				  <div class="col-md-6">
-				    <a href="{$subforum->link}">{$subforum->forum_title}</a>
+				    <a href="{if !isset($subforum->redirect_confirm)}{$subforum->link}{else}#" data-toggle="modal" data-target="#confirmRedirectModal{$subforum->id}{/if}">{$subforum->forum_title}</a>
 					<p>{$subforum->forum_description}</p>
 				  </div>
+				  {if !isset($subforum->redirect_confirm)}
 				  <div class="col-md-2">
 				    <strong>{$subforum->topics}</strong> {$TOPICS}<br />
 					<strong>{$subforum->posts}</strong> {$POSTS}
@@ -47,7 +48,38 @@
 					{$NO_TOPICS}
 					{/if}
 				  </div>
+				  {else}
+				    <div class="modal fade" id="confirmRedirectModal{$subforum->id}" tabindex="-1" role="dialog" aria-hidden="true">
+				      <div class="modal-dialog" role="document">
+				        <div class="modal-content">
+				          <div class="modal-body">
+				            {$subforum->redirect_confirm}
+				          </div>
+				          <div class="modal-footer">
+				            <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+				            <a class="btn btn-primary" href="{$subforum->redirect_url}" target="_blank" rel="noopener nofollow">{$YES}</a>
+				          </div>
+				        </div>
+				      </div>
+				    </div>
+				  {/if}
 				</div>
+				{if isset($subforum->subforums)}
+				  <br />
+				  {assign var=sf_counter value=1}
+				  <div class="row">
+				  {foreach from=$subforum->subforums item=sub_subforum}
+				    <div class="col-md-4">
+				      <i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;&nbsp;<a href="{$sub_subforum->link}">{$sub_subforum->title}</a>
+				      {assign var=sf_counter value=$sf_counter+1}
+				    </div>
+				    {if $sf_counter eq 4}
+				      </div>
+				      <div class="row">
+				    {/if}
+				  {/foreach}
+				  </div>
+				{/if}
 				{if ($forum.subforums|@count) != $counter}
 				<hr />
 				{/if}

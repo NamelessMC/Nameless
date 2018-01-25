@@ -56,6 +56,8 @@ $language = array(
 	'page_x' => '頁 {x}',
 	'browse' => '瀏覽',
 	'bypass' => 'Bypass',
+	'yes' => 'Yes',
+	'no' => 'No',
 
 	/*
 	 *  Contact form

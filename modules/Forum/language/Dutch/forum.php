@@ -4,7 +4,7 @@
  *  en vertaald door Sander Lambrechts
  *  
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versie 2.0.0-pr2
+ *  NamelessMC versie 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -85,6 +85,7 @@ $language = array(
 	'spam_wait' => 'Graag {x} seconden wachten voordat je weer opnieuw plaatst.',
 	'overview' => 'Overzicht',
 	'no_label' => 'Geen label',
+	'forum_redirect_warning' => 'Notice: you are about to leave this site! Are you sure you want to proceed to {x}?',
 	
 	// Homepagina
 	'latest_announcements' => 'Laatste aankondigingen',
@@ -149,6 +150,9 @@ $language = array(
 	'forum_type_category' => 'Categorie',
 	'invalid_action' => 'Ongeldige actie',
 	'use_reactions' => 'Reacties gebruiken?',
+	'redirect_forum' => 'Redirect forum?',
+	'redirect_url' => 'Redirect URL',
+	'invalid_redirect_url' => 'You have enabled the forum redirect, but you have not entered a valid URL between 1 and 512 characters.',
 
     // Search
     'forum_search' => 'Forum Search',

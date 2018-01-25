@@ -48,6 +48,7 @@ class Forum {
                                 $return[$forum->id]['subforums'][$item->id]->forum_title = Output::getClean($item->forum_title);
                                 $return[$forum->id]['subforums'][$item->id]->forum_description = Output::getClean($item->forum_description);
                                 $return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view/' . $item->id . '-' . $this->titleToURL($item->forum_title));
+                                $return[$forum->id]['subforums'][$item->id]->redirect_to = Output::getClean(htmlspecialchars_decode($item->redirect_url));
 
                                 // Get topic/post count
                                 $topics = $this->_db->orderWhere('topics', 'forum_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
@@ -97,6 +98,20 @@ class Forum {
                                     $return[$forum->id]['subforums'][$item->id]->last_post->profile = URL::build('/profile/' . Output::getClean($last_reply_user[0]->username));
                                     $return[$forum->id]['subforums'][$item->id]->last_post->avatar = '';
                                     $return[$forum->id]['subforums'][$item->id]->last_post->date_friendly = '';
+                                }
+
+                                // Get list of subforums (names + links)
+                                $subforums = $this->_db->orderWhere('forums', 'parent = ' . $item->id, 'forum_order', 'ASC')->results();
+                                if(count($subforums)) {
+                                    foreach ($subforums as $subforum) {
+                                        if ($this->forumExist($subforum->id, $group_id, $secondary_groups)) {
+                                            if(!isset($return[$forum->id]['subforums'][$item->id]->subforums))
+                                                $return[$forum->id]['subforums'][$item->id]->subforums = array();
+                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id] = new stdClass();
+                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->title = Output::getClean($subforum->forum_title);
+                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->link = URL::build('/forum/view/' . $subforum->id . '-' . $this->titleToURL($subforum->forum_title));
+                                        }
+                                    }
                                 }
                             }
 						}

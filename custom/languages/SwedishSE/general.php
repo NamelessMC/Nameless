@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -53,18 +53,20 @@ $language = array(
 	'page_x' => 'Sida {x}',
 	'browse' => 'Bläddra',
 	'bypass' => 'Undvika',
+	'yes' => 'Yes',
+	'no' => 'No',
 
 	/*
 	 *  Contact form
 	 */
-    'contact' => 'Kontakt',
-    'message' => 'Meddelande',
-    'email_address' => 'Email Address',
-    'contact_email_subject' => 'Ny kontaktformulär inlämning.',
-    'contact_message_failed' => 'Det gick inte att skicka meddelandet. Vänligen Unable to send message. Please se till att du har skrivit ett meddelande mellan 10 och 5000 tecken långt.',
-    'contact_message_email' => 'The provided email is invalid.',
-    'contact_message_sent' => 'Meddelande sänt med framgång!',
-    'contact_message_limit' => 'Du kan bara skicka ett meddelande per timme. Du kan sedan skicka ett meddelande om {x} minuter.', // Don't replace {x}
+	'contact' => 'Kontakt',
+	'message' => 'Meddelande',
+	'email_address' => 'Email Address',
+	'contact_email_subject' => 'Ny kontaktformulär inlämning.',
+	'contact_message_failed' => 'Det gick inte att skicka meddelandet. Vänligen Unable to send message. Please se till att du har skrivit ett meddelande mellan 10 och 5000 tecken långt.',
+	'contact_message_email' => 'The provided email is invalid.',
+	'contact_message_sent' => 'Meddelande sänt med framgång!',
+	'contact_message_limit' => 'Du kan bara skicka ett meddelande per timme. Du kan sedan skicka ett meddelande om {x} minuter.', // Don't replace {x}
 	
 	/* 
 	 *  Navbar
@@ -82,15 +84,15 @@ $language = array(
 	 */
 	'markdown_help' => 'Du kan formatera ditt inlägg med Markdown. För mer information, se <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>här</a>.',
 
-    /*
-     *  Server query
-     */
-    'online' => 'Online',
-    'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Version: {x}', // Don't replace {x}
-    'currently_x_players_online' => 'Det finns närvarande <strong>{x}</strong> spelare online.', // Don't replace {x}
-    'server_offline' => 'Servern är närvarande offline.',
-    'connect_with_ip_x' => 'Anslut nu med IP <strong>{x}</strong>' // Don't replace {x}
+	/*
+	 *  Server query
+	 */
+	'online' => 'Online',
+	'offline' => 'Offline',
+	'player_count' => '{x}/{y}', // Don't replace {x} or {y}
+	'ping' => 'Ping: {x}', // Don't replace {x}
+	'version' => 'Version: {x}', // Don't replace {x}
+	'currently_x_players_online' => 'Det finns närvarande <strong>{x}</strong> spelare online.', // Don't replace {x}
+	'server_offline' => 'Servern är närvarande offline.',
+	'connect_with_ip_x' => 'Anslut nu med IP <strong>{x}</strong>' // Don't replace {x}
 );

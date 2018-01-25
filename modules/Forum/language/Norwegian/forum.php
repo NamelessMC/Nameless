@@ -83,6 +83,7 @@ $language = array(
 	'spam_wait' => 'Vennligst vent {x} før du poster noe igjen.',
 	'overview' => 'Oversikt',
 	'no_label' => 'Ingen etikett',
+	'forum_redirect_warning' => 'Notice: you are about to leave this site! Are you sure you want to proceed to {x}?',
 	
 	// Homepage
 	'latest_announcements' => 'Siste Aktivitet',
@@ -148,6 +149,9 @@ $language = array(
 	'forum_type_category' => 'Kategori',
 	'invalid_action' => 'Invalid action',
 	'use_reactions' => 'Bruk reaksjoner?',
+	'redirect_forum' => 'Redirect forum?',
+	'redirect_url' => 'Redirect URL',
+	'invalid_redirect_url' => 'You have enabled the forum redirect, but you have not entered a valid URL between 1 and 512 characters.',
 
 	// Search
     'forum_search' => 'Søk i forunet',

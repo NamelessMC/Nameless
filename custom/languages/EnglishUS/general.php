@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -49,21 +49,23 @@ $language = array(
 	'loading' => 'Loading...',
 	'report' => 'Report',
 	'page_loaded_in' => 'Page loaded in {x}s', // Don't replace {x}, time unit is seconds
-    'page_x' => 'Page {x}',
-    'browse' => 'Browse',
+	'page_x' => 'Page {x}',
+	'browse' => 'Browse',
 	'bypass' => 'Bypass',
+	'yes' => 'Yes',
+	'no' => 'No',
 
-    /*
-     *  Contact form
-     */
-    'contact' => 'Contact',
-    'message' => 'Message',
-    'email_address' => 'Email Address',
-    'contact_email_subject' => 'New contact form submission',
-    'contact_message_failed' => 'Unable to send message. Please ensure you have entered a message between 10 and 5000 characters long.',
-    'contact_message_email' => 'The provided email is invalid.',
-    'contact_message_sent' => 'Message sent successfully.',
-    'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {x} minutes.', // Don't replace {x}
+	/*
+	 *  Contact form
+	 */
+	'contact' => 'Contact',
+	'message' => 'Message',
+	'email_address' => 'Email Address',
+	'contact_email_subject' => 'New contact form submission',
+	'contact_message_failed' => 'Unable to send message. Please ensure you have entered a message between 10 and 5000 characters long.',
+	'contact_message_email' => 'The provided email is invalid.',
+	'contact_message_sent' => 'Message sent successfully.',
+	'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {x} minutes.', // Don't replace {x}
 	
 	
 	/* 
@@ -83,15 +85,15 @@ $language = array(
 	 */
 	'markdown_help' => 'You can format your post using Markdown. For more information, see <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>here</a>.',
 
-    /*
-     *  Server query
-     */
-    'online' => 'Online',
-    'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Version: {x}', // Don't replace {x}
-    'currently_x_players_online' => 'There are currently <strong>{x}</strong> players online.', // Don't replace {x}
-    'server_offline' => 'The server is currently offline.',
-    'connect_with_ip_x' => 'Connect now using the IP <strong>{x}</strong>' // Don't replace {x}
+	/*
+	 *  Server query
+	 */
+	'online' => 'Online',
+	'offline' => 'Offline',
+	'player_count' => '{x}/{y}', // Don't replace {x} or {y}
+	'ping' => 'Ping: {x}', // Don't replace {x}
+	'version' => 'Version: {x}', // Don't replace {x}
+	'currently_x_players_online' => 'There are currently <strong>{x}</strong> players online.', // Don't replace {x}
+	'server_offline' => 'The server is currently offline.',
+	'connect_with_ip_x' => 'Connect now using the IP <strong>{x}</strong>' // Don't replace {x}
 );
