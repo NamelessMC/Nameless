@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton, translated by Zemos and Renzotom
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -51,7 +51,9 @@ $language = array(
 	'page_loaded_in' => 'Stránka se načetla za {x} sekund', // Don't replace {x}, time unit is seconds
     'page_x' => 'Stran {x}',
     'browse' => 'Prohlížet',
-	'bypass' => 'Bypass',
+    'bypass' => 'Bypass',
+    'yes' => 'Yes',
+    'no' => 'No',
 
     /*
      *  Contact form

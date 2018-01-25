@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -53,18 +53,20 @@ $language = array(
 	'page_x' => 'Página {x}',
 	'browse' => 'Navegar',
 	'bypass' => 'Bypass',
+	'yes' => 'Yes',
+	'no' => 'No',
 
- 	/*
+	/*
 	*  Contact form
 	*/
-    'contact' => 'Contato',
-    'message' => 'Mensagem',
-    'email_address' => 'Email Address',
-    'contact_email_subject' => 'Novo formulário de contato',
-    'contact_message_failed' => 'Não foi possível a mensagem. Certifique-se de ter inserido uma mensagem entre 10 e 5000 caracteres.',
-    'contact_message_email' => 'The provided email is invalid.',    
+	'contact' => 'Contato',
+	'message' => 'Mensagem',
+	'email_address' => 'Email Address',
+	'contact_email_subject' => 'Novo formulário de contato',
+	'contact_message_failed' => 'Não foi possível a mensagem. Certifique-se de ter inserido uma mensagem entre 10 e 5000 caracteres.',
+	'contact_message_email' => 'The provided email is invalid.',
 	'contact_message_sent' => 'Mensagem enviada com sucesso.',
-    'contact_message_limit' => 'Você só pode enviar uma mensagem por hora. Você pode enviar uma mensagem em {x} minutos.', // Don't replace {x}
+	'contact_message_limit' => 'Você só pode enviar uma mensagem por hora. Você pode enviar uma mensagem em {x} minutos.', // Don't replace {x}
 	
 	/* 
 	 *  Navbar

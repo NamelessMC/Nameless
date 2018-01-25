@@ -291,13 +291,31 @@ $admin_page = 'forums';
 									if(Input::exists()){
 										if(Token::check(Input::get('token'))){
 											try {
-												$queries->update('forums', $forum->id, array(
-													'parent' => Input::get('parent'),
-													'news' => Input::get('news_forum')
-												));
-												
-												Redirect::to(URL::build('/admin/forums/', 'action=new&step=3&forum=' . $forum->id));
-												die();
+												if(isset($_POST['redirect']) && $_POST['redirect'] == 1) {
+                                                    $redirect = 1;
+                                                    if(isset($_POST['redirect_url']) && strlen($_POST['redirect_url']) > 0 && strlen($_POST['redirect_url']) <= 512){
+                                                        $redirect_url = Output::getClean($_POST['redirect_url']);
+                                                    } else {
+                                                        $redirect_error = true;
+                                                    }
+                                                } else {
+                                                    $redirect = 0;
+                                                    $redirect_url = null;
+                                                }
+
+                                                if(!isset($redirect_error)) {
+                                                    $queries->update('forums', $forum->id, array(
+                                                        'parent' => Input::get('parent'),
+                                                        'news' => Input::get('news_forum'),
+                                                        'redirect_forum' => $redirect,
+                                                        'redirect_url' => $redirect_url
+                                                    ));
+
+                                                    Redirect::to(URL::build('/admin/forums/', 'action=new&step=3&forum=' . $forum->id));
+                                                    die();
+                                                } else {
+                                                    $error = '<div class="alert alert-danger">' . $forum_language->get('forum', 'invalid_redirect_url') . '</div>';
+                                                }
 												
 											} catch(Exception $e){
 												$error = '<div class="alert alert-danger">' . $e->getMessage() . '</div>';
@@ -322,8 +340,17 @@ $admin_page = 'forums';
 									  </div>
 									  <div class="form-group">
 									    <label for="InputNews"><?php echo $forum_language->get('forum', 'display_topics_as_news'); ?></label>
-										<input type="hidden" name="news_forum" id="InputNews" value="0">
+									    <input type="hidden" name="news_forum" value="0">
 										<input name="news_forum" id="InputNews" type="checkbox" class="js-switch" value="1" />
+									  </div>
+									  <div class="form-group">
+									    <label for="InputForumRedirect"><?php echo $forum_language->get('forum', 'redirect_forum'); ?></label>
+									    <input type="hidden" name="redirect" value="0">
+									    <input name="redirect" id="InputForumRedirect" type="checkbox" class="js-switch" value="1" />
+									  </div>
+									  <div class="form-group">
+									    <label for="InputForumRedirectURL"><?php echo $forum_language->get('forum', 'redirect_url'); ?></label>
+									    <input placeholder="<?php echo $forum_language->get('forum', 'redirect_url'); ?>" name="redirect_url" id="InputForumRedirectURL" type="text" class="form-control" />
 									  </div>
 									  <div class="form-group">
 									    <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
@@ -709,13 +736,32 @@ $admin_page = 'forums';
 								
 								if($validation->passed()){
 									try {
+										if(isset($_POST['redirect']) && $_POST['redirect'] == 1) {
+											$redirect = 1;
+											if(isset($_POST['redirect_url']) && strlen($_POST['redirect_url']) > 0 && strlen($_POST['redirect_url']) <= 512){
+											    $redirect_url = Output::getClean($_POST['redirect_url']);
+											} else {
+											    $redirect = 0;
+											    $redirect_url = null;
+											    $redirect_error = true;
+											}
+										} else {
+											$redirect = 0;
+											$redirect_url = null;
+										}
 										// Update the forum
-										$queries->update('forums', $_GET['forum'], array(
-											'forum_title' => Output::getClean(Input::get('title')),
-											'forum_description' => Output::getClean(Input::get('description')),
-											'news' => Input::get('display'),
-											'parent' => Input::get('parent_forum')
-										));
+										$to_update = array(
+										    'forum_title' => Output::getClean(Input::get('title')),
+										    'forum_description' => Output::getClean(Input::get('description')),
+										    'news' => Input::get('display'),
+										    'parent' => Input::get('parent_forum'),
+										    'redirect_forum' => $redirect
+										);
+
+										if(!isset($redirect_error))
+										    $to_update['redirect_url'] = $redirect_url;
+
+										$queries->update('forums', $_GET['forum'], $to_update);
 										
 									} catch(Exception $e) {
 										die($e->getMessage());
@@ -901,6 +947,15 @@ $admin_page = 'forums';
 						    <input type="hidden" name="display" value="0" />
 						    <label for="InputDisplay"><?php echo $forum_language->get('forum', 'display_topics_as_news'); ?></label>
 						    <input name="display" id="InputDisplay" value="1" class="js-switch" type="checkbox"<?php if($forum[0]->news == 1){ echo ' checked'; } ?>>
+						  </div>
+						  <div class="form-group">
+						    <label for="InputForumRedirect"><?php echo $forum_language->get('forum', 'redirect_forum'); ?></label>
+						    <input type="hidden" name="redirect" value="0">
+						    <input name="redirect" id="InputForumRedirect" type="checkbox" class="js-switch" value="1"<?php if($forum[0]->redirect_forum == 1) echo ' checked'; ?>/>
+						  </div>
+						  <div class="form-group">
+						    <label for="InputForumRedirectURL"><?php echo $forum_language->get('forum', 'redirect_url'); ?></label>
+						    <input placeholder="<?php echo $forum_language->get('forum', 'redirect_url'); ?>" name="redirect_url" id="InputForumRedirectURL" type="text" class="form-control" value="<?php echo Output::getClean(htmlspecialchars_decode($forum[0]->redirect_url)); ?>"/>
 						  </div>
 						  <div class="form-group">
 							<strong><?php echo $forum_language->get('forum', 'forum_permissions'); ?></strong><br />

@@ -87,6 +87,7 @@ $language = array(
 	'spam_wait' => '請等待 {x} 秒後再發言.',
 	'overview' => '總覽',
 	'no_label' => '沒有標籤',
+	'forum_redirect_warning' => 'Notice: you are about to leave this site! Are you sure you want to proceed to {x}?',
 	
 	// Homepage
 	'latest_announcements' => '最新公告',
@@ -152,6 +153,9 @@ $language = array(
 	'forum_type_category' => '類別',
 	'invalid_action' => '無效操作',
 	'use_reactions' => '使用回應?',
+	'redirect_forum' => 'Redirect forum?',
+	'redirect_url' => 'Redirect URL',
+	'invalid_redirect_url' => 'You have enabled the forum redirect, but you have not entered a valid URL between 1 and 512 characters.',
 
 	// Search
     'forum_search' => '論壇搜尋',

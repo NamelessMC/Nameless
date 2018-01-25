@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -238,6 +238,9 @@ if($user->isLoggedIn()){
 
 							$forums[$key]['subforums'][$subforum_id]->last_post->user_style = $user->getGroupClass($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
 						}
+
+						if($forums[$key]['subforums'][$subforum_id]->redirect_forum == 1)
+						    $forums[$key]['subforums'][$subforum_id]->redirect_confirm = str_replace('{x}', $forums[$key]['subforums'][$subforum_id]->redirect_to, $forum_language->get('forum', 'forum_redirect_warning'));
 					}
 				}
 			}
@@ -247,6 +250,8 @@ if($user->isLoggedIn()){
 	}
 	
 	$smarty->assign('FORUMS', $forums);
+	$smarty->assign('YES', $language->get('general', 'yes'));
+	$smarty->assign('NO', $language->get('general', 'no'));
 	
 	// Statistics
 	// Check cache
