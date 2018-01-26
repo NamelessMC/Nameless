@@ -166,7 +166,8 @@ class MCQuery {
                         }
                     }
                 }
-                $ping->close();
+                if(isset($ping))
+                    $ping->close();
 
                 if($accumulate === true)
                     $to_return = array(
