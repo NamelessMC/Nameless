@@ -405,5 +405,7 @@ $language = array(
 	// File uploads
 	'drag_files_here' => 'アップロードするファイルをここにドラッグします。',
 	'invalid_file_type' => '無効なファイルタイプです！',
-	'file_too_big' => 'ファイルが大きすぎます！ あなたのファイルは {{filesize}} であり、上限は {{maxFilesize}} です' // Don't replace {{filesize}} or {{maxFilesize}}
+	'file_too_big' => 'ファイルが大きすぎます！ あなたのファイルは {{filesize}} であり、上限は {{maxFilesize}} です', // Don't replace {{filesize}} or {{maxFilesize}}
+	'allowed_proxies' => 'Allowed Proxies',
+	'allowed_proxies_info' => 'Line seperated list of allowed proxy IPs.'
 );

@@ -406,5 +406,7 @@ $language = array(
 	// Bestand uploads
 	'drag_files_here' => 'Sleep bestand(en) hier naartoe om te uploaden.',
 	'invalid_file_type' => 'Bestandstype is incorrect',
-	'file_too_big' => 'Het bestand dat je wilt uploaden is te groot! Je bestand is {{filesize}} en het limiet is {{maxFilesize}} .' // Verander {{filesize}} of {{maxFilesize}} niet
+	'file_too_big' => 'Het bestand dat je wilt uploaden is te groot! Je bestand is {{filesize}} en het limiet is {{maxFilesize}} .', // Verander {{filesize}} of {{maxFilesize}} niet
+	'allowed_proxies' => 'Allowed Proxies',
+	'allowed_proxies_info' => 'Line seperated list of allowed proxy IPs.'
 );

@@ -407,5 +407,7 @@ $language = array(
 	// File uploads
 	'drag_files_here' => 'Σύρετε αρχεία εδώ για μεταφόρτωση.',
 	'invalid_file_type' => 'Μη έγκυρος τύπος αρχείου!',
-	'file_too_big' => 'Πολύ μεγάλο αρχείο! Το αρχείο σας ήταν {{filesize}} και το όριο είναι {{maxFilesize}}' // Don't replace {{filesize}} or {{maxFilesize}}
+	'file_too_big' => 'Πολύ μεγάλο αρχείο! Το αρχείο σας ήταν {{filesize}} και το όριο είναι {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
+	'allowed_proxies' => 'Allowed Proxies',
+	'allowed_proxies_info' => 'Line seperated list of allowed proxy IPs.'
 );

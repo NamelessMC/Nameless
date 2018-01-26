@@ -410,5 +410,6 @@ $language = array(
 	'drag_files_here' => '拖曳檔案至此上傳.',
 	'invalid_file_type' => '錯誤檔案類型!',
 	'file_too_big' => '檔案過大! 您的檔案大小為 {{filesize}} 最高限制為 {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
-	'allowed_proxies' => 'Allowed Proxies'
+	'allowed_proxies' => 'Allowed Proxies',
+	'allowed_proxies_info' => 'Line seperated list of allowed proxy IPs.'
 );
