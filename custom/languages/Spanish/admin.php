@@ -404,5 +404,7 @@ $language = array(
 	// File uploads
 	'drag_files_here' => 'Arrastre los archivos aquí para cargarlos.',
 	'invalid_file_type' => 'Tipo de archivo invalido!',
-	'file_too_big' => 'Archivo demasiado grande! Su archivo pesa {{filesize}} y el límite es {{maxFilesize}}' // Don't replace {{filesize}} or {{maxFilesize}}
+	'file_too_big' => 'Archivo demasiado grande! Su archivo pesa {{filesize}} y el límite es {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
+	'allowed_proxies' => 'Allowed Proxies',
+	'allowed_proxies_info' => 'Line seperated list of allowed proxy IPs.'
 );

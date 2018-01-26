@@ -406,5 +406,7 @@ $language = array(
 	// File uploads
 	'drag_files_here' => 'Súbory pretiahnite sem pre nahranie.',
 	'invalid_file_type' => 'Nesprávny formát súboru!',
-	'file_too_big' => 'Súbor je veľmi veľký! Tvoj súbor má {{filesize}} a limit je {{maxFilesize}}' // Don't replace {{filesize}} or {{maxFilesize}}
+	'file_too_big' => 'Súbor je veľmi veľký! Tvoj súbor má {{filesize}} a limit je {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
+	'allowed_proxies' => 'Allowed Proxies',
+	'allowed_proxies_info' => 'Line seperated list of allowed proxy IPs.'
 );

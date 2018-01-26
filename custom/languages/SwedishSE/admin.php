@@ -406,5 +406,7 @@ $language = array(
 	// File uploads
 	'drag_files_here' => 'Dra filer här för att ladda upp.',
 	'invalid_file_type' => 'Ogiltig filtyp!',
-	'file_too_big' => 'Filen är för stor! Din fil var {{filesize}} och max kan man ha {{maxFilesize}}' // Don't replace {{filesize}} or {{maxFilesize}}
+	'file_too_big' => 'Filen är för stor! Din fil var {{filesize}} och max kan man ha {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
+	'allowed_proxies' => 'Allowed Proxies',
+	'allowed_proxies_info' => 'Line seperated list of allowed proxy IPs.'
 );

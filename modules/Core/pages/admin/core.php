@@ -543,7 +543,7 @@ $current_default_language = $current_default_language[0]->value;
                                         $allowedProxies = Config::get("allowedProxies");
                                         $allowedProxies = str_replace(",", "\n", $allowedProxies)
                                         ?>
-                                        <textarea class="form-control" placeholder="Line seperated list of allowed proxy ip's." name="allowedProxies" id="allowedProxies" cols="30" rows="10"><?php
+                                        <textarea class="form-control" placeholder="<?php echo $language->get('admin', 'allowed_proxies_info'); ?>" name="allowedProxies" id="allowedProxies" cols="30" rows="10"><?php
                                             echo $allowedProxies;
                                             ?></textarea>
                                     </div>

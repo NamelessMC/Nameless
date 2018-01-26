@@ -407,5 +407,7 @@ $language = array(
     // File uploads
     'drag_files_here' => 'Trageți fișierele aici pentru a le încărca.',
     'invalid_file_type' => 'Tip de fișier nevalid!',
-    'file_too_big' => 'Fișierul este prea mare! Fișierul are {{filesize}} iar limita maximă este {{maxFilesize}}' // Don't replace {{filesize}} or {{maxFilesize}}
+    'file_too_big' => 'Fișierul este prea mare! Fișierul are {{filesize}} iar limita maximă este {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
+    'allowed_proxies' => 'Allowed Proxies',
+    'allowed_proxies_info' => 'Line seperated list of allowed proxy IPs.'
 );
