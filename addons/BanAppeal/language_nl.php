@@ -3,6 +3,11 @@
  *	Made by Partydragen
  *  http://partydragen.com/
  *
+ *
+ * 	Translated by Jesse Geerts
+ *	https://jessegeerts.nl
+ *
+ *
  */
 // Language file for "banappeal" addon
 $banappeal_language = array(
