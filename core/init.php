@@ -490,7 +490,7 @@ if($page != 'install'){
             $smarty->assign('SERVER_QUERY', $result);
 
         if(!is_null($default) && isset($default->ip)){
-            $smarty->assign('CONNECT_WITH', str_replace('{x}', $default->ip . ($default->port != 25565 ? ':' . $default->port : ''), $language->get('general', 'connect_with_ip_x')));
+            $smarty->assign('CONNECT_WITH', str_replace('{x}', $default->ip . ((!is_null($default->port) && $default->port != 25565) ? ':' . $default->port : ''), $language->get('general', 'connect_with_ip_x')));
             $smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')));
         } else {
             $smarty->assign('CONNECT_WITH', '');
