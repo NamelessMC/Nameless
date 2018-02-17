@@ -19,7 +19,7 @@ class DB_Custom {
 
 	public function __construct($host, $database, $username, $password, $port = 3306) {
 		try {
-			$this->_pdo = new PDO('mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database, $username, $password);
+			$this->_pdo = new PDO('mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database, $username, $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
 			$this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->_prefix = '';
 		} catch(PDOException $e) {
