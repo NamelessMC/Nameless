@@ -98,7 +98,7 @@ $admin_page = 'overview';
                     $cache->store('services', $results, 120);
                 }
                 echo '<hr /><h3>' . $language->get('admin', 'mc_service_status') . '</h3>';
-                if(count((array)$results) == 10) {
+                if(count((array)$results) == 8) {
                     $n = 1;
                     foreach ($results as $key => $result) {
                         if($n == 1)
@@ -127,7 +127,7 @@ $admin_page = 'overview';
                           </div>
                         </div>
                         <?php
-                        if($n == 10)
+                        if($n == 8)
                             echo '</div>';
 
                         $n++;
