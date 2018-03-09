@@ -9,7 +9,7 @@
 		  <h4>{$CONTENT}</h4>
 		  <div class="btn-group" role="group" aria-label="...">
 			<a href="#" class="btn btn-primary btn-lg" onclick="window.history.back()">{$BACK}</a>
-			<a href="/" class="btn btn-success btn-lg">{$HOME}</a>
+			<a href="{$SITE_HOME}" class="btn btn-success btn-lg">{$HOME}</a>
 		  </div>
 		  <hr />
 		  {$ERROR}

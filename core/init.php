@@ -9,6 +9,11 @@
  *  Initialisation file
  */
 
+// Nameless error handling
+require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', 'ErrorHandler.php')));
+set_error_handler("ErrorHandler::catchError");
+register_shutdown_function("ErrorHandler::catchFatalError");
+
 session_start();
 
 // Page variable must be set
@@ -33,7 +38,6 @@ if(!file_exists(ROOT_PATH . '/cache/templates_c')){
 }
 
 // Require config
-
 require(ROOT_PATH . '/core/config.php');
 
 if(isset($conf) && is_array($conf))
@@ -97,7 +101,8 @@ if($page != 'install'){
             ini_set('display_errors',1);
             error_reporting(-1);
 
-            define('DEBUGGING', 1);
+            if(!defined('DEBUGGING'))
+            	define('DEBUGGING', 1);
         } else {
             // Disabled
             error_reporting(0);

@@ -21,5 +21,11 @@ $language = array(
     '404_home' => ' Acasă',
     '404_error' => 'Dacă considerați că aceasta ar putea să fie o eroare , {x} va rugan să contactați un administrator{y}.', // Don't replace {x} or {y}
     'maintenance_title' => 'Modul de întreținere.',
-    'maintenance_retry' => 'Reîncercați'
+    'maintenance_retry' => 'Reîncercați',
+    'fatal_error' => 'Fatal Error',
+    'fatal_error_title' => 'Sorry!',
+    'fatal_error_message_user' => 'Sorry, but something went wrong while loading the page. Please contact an administrator.',
+    'fatal_error_message_admin' => 'Sorry, but something went wrong while loading the page. Error details:',
+    'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
+    'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
 );

@@ -70,9 +70,3 @@ if(isset($widgets))
 	<?php
 	}
 	?>
-
-	<style>
-	html {
-		overflow-y: scroll;
-	}
-	</style> 

@@ -55,7 +55,8 @@ PermissionHandler::registerPermissions('AdminCP', array(
     'admincp.users' => $language->get('admin', 'users'),
     'admincp.groups' => $language->get('admin', 'groups'),
     'admincp.groups.self' => $language->get('admin', 'groups') . ' &raquo; ' . $language->get('admin', 'can_edit_own_group'),
-    'admincp.widgets' => $language->get('admin', 'widgets')
+    'admincp.widgets' => $language->get('admin', 'widgets'),
+	'admincp.errors' => $language->get('admin', 'can_view_error_logs')
 ));
 
 // ModCP
