@@ -164,5 +164,11 @@ $language = array(
 	
 	// Profiel tab
 	'user_no_posts' => 'Deze gebruiker heeft nog geen berichten geplaatst op het forum .',
-	'latest_posts' => 'Laatste berichten'
+	'latest_posts' => 'Laatste berichten',
+
+	// UserCP
+	'last_7_days_posts' => 'Forum posts (last 7 days)',
+	'your_posts' => 'Your post count',
+	'average_posts' => 'Average user post count',
+	'total_posts' => 'Total post count'
 );
