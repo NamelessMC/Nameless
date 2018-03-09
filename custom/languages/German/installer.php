@@ -25,6 +25,7 @@ $language = array(
     'config_writable' => 'core/config.php beschreibbar',
     'cache_writable' => 'Cache beschreibbar',
     'template_cache_writable' => 'Vorlagen Cache beschreibbar',
+    'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
     'requirements_error' => 'Sie müssen alle erforderlichen Erweiterungen installiert haben und korrekte Berechtigungen festgelegt haben, um mit der Installation fortzufahren.',
     'proceed' => 'Fortfahren',
     'database_configuration' => 'Datenbank Konfiguration',

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -10,6 +10,9 @@
  */
 
 define('PAGE', 'banner');
+
+if(!function_exists('exif_imagetype'))
+	die('exif_imagetype is required to use server banners.');
 
 // Minecraft integration?
 if(defined('MINECRAFT') && MINECRAFT === true){

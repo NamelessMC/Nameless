@@ -279,12 +279,17 @@ $current_default_language = $current_default_language[0]->value;
                                             $cache->setCache('portal_cache');
                                             $cache->store('portal', $use_portal);
 											
-										    // Private profile
+                                            // Private profile
                                             $private_profile_id = $queries->getWhere('settings', array('name', '=', 'private_profile'));
                                             $private_profile_id = $private_profile_id[0]->id;
 
+                                            if($_POST['privateProfile'])
+                                              $private_profile = 1;
+                                            else
+                                              $private_profile = 0;
+
                                             $queries->update('settings', $private_profile_id, array(
-                                                'value' => $_POST['privateProfile']
+                                                'value' => $private_profile
                                             ));
 
                                             // Registration displaynames

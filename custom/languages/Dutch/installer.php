@@ -24,6 +24,7 @@ $language = array(
 	'config_writable' => 'core/config.php Schrijfbaar',
 	'cache_writable' => 'Cache Schrijfbaar',
 	'template_cache_writable' => 'Sjabloon Cache Schrijfbaar',
+	'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
 	'requirements_error' => 'Je moet alle extensies hebben geinstalleerd, en de juiste machtigingen hebben ingesteld, om door te gaan met de installatie.',
 	'proceed' => 'Doorgaan',
 	'database_configuration' => 'Database Configuratie',

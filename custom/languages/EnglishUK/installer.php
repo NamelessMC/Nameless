@@ -25,6 +25,7 @@ $language = array(
     'config_writable' => 'core/config.php Writable',
     'cache_writable' => 'Cache Writable',
     'template_cache_writable' => 'Template Cache Writable',
+    'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
     'requirements_error' => 'You must have all of the required extensions installed, and have correct permissions set, in order to proceed with installation.',
     'proceed' => 'Proceed',
     'database_configuration' => 'Database Configuration',

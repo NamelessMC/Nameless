@@ -27,6 +27,7 @@ $language = array(
     'config_writable' => 'core/config.php are permisiune de scriere',
     'cache_writable' => 'Cache are permisiune de scriere',
     'template_cache_writable' => 'Șabloanele Cache au permisiune de scriere',
+    'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
     'requirements_error' => 'Trebuie să aveți instalate toate extensiile necesare și setați permisiunile corecte (permisiuni de scriere) pentru a continua instalarea.',
     'proceed' => 'Continuă',
     'database_configuration' => 'Configurarea bazei de date',

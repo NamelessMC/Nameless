@@ -25,6 +25,7 @@ $language = array(
     'config_writable' => 'core/config.php Escritura',
     'cache_writable' => 'Caché grabable',
     'template_cache_writable' => 'Caché de plantillas',
+    'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
     'requirements_error' => 'Debe tener todas las extensiones requeridas instaladas y tener los permisos correctos establecidos para continuar con la instalación.',
     'proceed' => 'Proceder',
     'database_configuration' => 'Configuración de la base de datos',
