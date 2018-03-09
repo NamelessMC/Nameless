@@ -163,13 +163,6 @@ if(isset($_GET["step"])){
                 } else {
                         echo 'PHP mysqlnd Extension - ' . $success;
                 }
-
-		if(!function_exists("mcrypt_encrypt")) {
-			echo 'PHP mcrypt Extension - ' . $error;
-			$php_error = true;
-		} else {
-			echo 'PHP mcrypt Extension - ' . $success;
-		}
 		if(!function_exists('curl_version')){
 			echo 'PHP cURL Extension - ' . $error;
 			$php_error = true;
