@@ -27,6 +27,7 @@ $language = array(
     'config_writable' => 'core/config.php é Gravável',
     'cache_writable' => 'Cache é Gravável',
     'template_cache_writable' => 'Template Cache é Gravável',
+    'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
     'requirements_error' => 'Você deve ter todas as extensões necessárias instaladas e ter as permissões corretas definidas, a fim de prosseguir com a instalação.',
     'proceed' => 'Prosseguir',
     'database_configuration' => 'Configuração do banco de dados',

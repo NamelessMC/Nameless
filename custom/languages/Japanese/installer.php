@@ -27,6 +27,7 @@ $language = array(
     'config_writable' => 'core/config.php 書き込み可能',
     'cache_writable' => 'キャッシュ書き込み可能',
     'template_cache_writable' => '書き込み可能なテンプレートキャッシュ',
+    'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
     'requirements_error' => 'インストールを続行するには、必要な拡張機能がすべてインストールされていて、適切な権限が設定されている必要があります。',
     'proceed' => '続行する',
     'database_configuration' => 'データベース 構成',

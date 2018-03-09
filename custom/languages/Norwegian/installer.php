@@ -24,6 +24,7 @@ $language = array(
     'config_writable' => 'core/config.php Skrivelig',
     'cache_writable' => 'Cache Skrivelig',
     'template_cache_writable' => 'Template Cache Skrivelig',
+    'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
     'requirements_error' => 'Du må ha alle kravene for denne installasjonen, og ha de riktige permisjonene for å kunne fortsette.',
     'proceed' => 'Fortsett',
     'database_configuration' => 'Database Konfigurering',

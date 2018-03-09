@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -146,7 +146,7 @@ $admin_page = 'minecraft';
                             <a href="<?php echo URL::build('/admin/minecraft/', 'view=query_errors'); ?>"><?php echo $language->get('admin', 'query_errors'); ?></a>
                           </td>
                         </tr>
-                        <?php } if($user->hasPermission('admincp.minecraft.banners')){ ?>
+                        <?php } if($user->hasPermission('admincp.minecraft.banners') && function_exists('exif_imagetype')){ ?>
                         <tr>
                           <td>
                             <a href="<?php echo URL::build('/admin/minecraft/', 'view=banners'); ?>"><?php echo $language->get('admin', 'server_banners'); ?></a>
@@ -1185,7 +1185,7 @@ $admin_page = 'minecraft';
                       break;
 
                     case 'banners':
-                      if(!$user->hasPermission('admincp.minecraft.banners')){
+                      if(!$user->hasPermission('admincp.minecraft.banners') || !function_exists('exif_imagetype')){
                           Redirect::to(URL::build('/admin/minecraft'));
                           die();
                       }

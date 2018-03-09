@@ -26,6 +26,7 @@ $language = array(
     'config_writable' => 'core/config.php Skrivbar',
     'cache_writable' => 'Cache Skrivbar',
     'template_cache_writable' => 'Mall Cache Skrivbar',
+    'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
     'requirements_error' => 'Du måste ha alla nödvändiga tillägg installerade och ha rätt behörighet för att kunna fortsätta med installationen.',
     'proceed' => 'Fortsätt',
     'database_configuration' => 'Databas Konfiguration',

@@ -25,6 +25,7 @@ $language = array(
     'config_writable' => 'core/config.php Writable',
     'cache_writable' => 'Mezipameť Writable',
     'template_cache_writable' => 'Mezipaměť šablony Writable',
+    'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
     'requirements_error' => 'Aby bylo možné pokračovat v instalaci, musíte mít nainstalována všechna potřebná rozlišení a nastavená správná oprávnění.',
     'proceed' => 'Pokračovat',
     'database_configuration' => 'Konfigurace databáze',

@@ -54,7 +54,7 @@ class Config {
 
 	public static function write($config) {
 		$file = fopen(ROOT_PATH . '/core/config.php', 'wa+');
-		fwrite($file, '<?php' . PHP_EOL . '$conf = ' . var_export($config, true) . ';');
+		fwrite($file, '<?php' . PHP_EOL . '$conf = ' . var_export($config, true) . ';' . PHP_EOL . '$CONFIG[\'installed\'] = true;');
 		return fclose($file);
 	}
 }

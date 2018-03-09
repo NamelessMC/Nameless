@@ -29,6 +29,7 @@ $language = array(
     'config_writable' => 'core/config.php 可寫入',
     'cache_writable' => 'Cache 可寫入',
     'template_cache_writable' => 'Template Cache 可寫入',
+    'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
     'requirements_error' => '你必須安裝所有必需的，並設置正確才能繼續安裝.',
     'proceed' => '繼續',
     'database_configuration' => '資料庫設定',

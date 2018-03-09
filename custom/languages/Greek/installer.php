@@ -27,6 +27,7 @@ $language = array(
     'config_writable' => 'core/config.php με δυνατότητα εγγραφής',
     'cache_writable' => 'Cache με δυνατότητα εγγραφής',
     'template_cache_writable' => 'Template Cache με δυνατότητα εγγραφής',
+    'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
     'requirements_error' => 'Πρέπει να έχετε όλες τις απαιτούμενες επεκτάσεις εγκατεστημένες, και να έχουν οριστεί σωστά δικαιώματα, προκειμένου να προχωρήσει με την εγκατάσταση.',
     'proceed' => 'συνεχίζω',
     'database_configuration' => 'Database Configuration',
