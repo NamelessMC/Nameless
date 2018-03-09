@@ -3,7 +3,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="container">
-   <a class="navbar-brand" href="/">{$SITE_NAME}</a>
+   <a class="navbar-brand" href="{$SITE_HOME}">{$SITE_NAME}</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	  <ul class="navbar-nav mr-auto">
  	    {foreach from=$NAV_LINKS key=name item=item}

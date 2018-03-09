@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -17,7 +17,7 @@ define('PAGE', 404);
 <!DOCTYPE html>
 <html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
-    <meta charset="utf-8">
+    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="<?php echo SITE_NAME; ?> - 404">
@@ -56,9 +56,6 @@ define('PAGE', 404);
 	
 	// 404 template
 	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/404.tpl');
-
-	// Scripts 
-	require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
   </body>
 </html>

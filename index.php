@@ -2,13 +2,21 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
  *  Main index file
  */
 
+// Change to 1 to enable debugging
+define('DEBUGGING', 0);
+
+if(DEBUGGING){
+	ini_set('display_startup_errors', 1);
+	ini_set('display_errors', 1);
+	error_reporting(-1);
+}
 
 // Ensure PHP version >= 5.4
 if(version_compare(phpversion(), '5.4', '<')){

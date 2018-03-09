@@ -19,6 +19,12 @@ $language = array(
 	'404_back' => 'Gå tillbaka',
 	'404_home' => 'Hem',
 	'404_error' => 'Om du tror det här är ett fel, {x} snälla kontakta ett administratör{y}', // Don't replace {x} or {y}
-    'maintenance_title' => 'Under Uppbyggnad.',
-    'maintenance_retry' => 'Prova igen'
+	'maintenance_title' => 'Under Uppbyggnad.',
+	'maintenance_retry' => 'Prova igen',
+	'fatal_error' => 'Fatal Error',
+	'fatal_error_title' => 'Sorry!',
+	'fatal_error_message_user' => 'Sorry, but something went wrong while loading the page. Please contact an administrator.',
+	'fatal_error_message_admin' => 'Sorry, but something went wrong while loading the page. Error details:',
+	'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
+	'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
 );

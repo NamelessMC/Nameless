@@ -19,5 +19,11 @@ $language = array(
 	'404_home' => 'Domov',
 	'404_error' => 'Pokiaľ sa domnievate, že je to chyba, {x}kontaktujte prosím administrátora{y}', // Don't replace {x} or {y}
 	'maintenance_title' => 'Údržba.',
-    'maintenance_retry' => 'Opakovať'
+	'maintenance_retry' => 'Opakovať',
+	'fatal_error' => 'Fatal Error',
+	'fatal_error_title' => 'Sorry!',
+	'fatal_error_message_user' => 'Sorry, but something went wrong while loading the page. Please contact an administrator.',
+	'fatal_error_message_admin' => 'Sorry, but something went wrong while loading the page. Error details:',
+	'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
+	'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
 );
