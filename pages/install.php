@@ -69,8 +69,8 @@ if(isset($_GET["step"])){
           <h4>Are you upgrading from 0.4.1?</h4>
 
           <p>
-            <button type="button" onclick="location.href='./install?step=upgrade_requirements'" class="btn btn-success">Yes, upgrade from 0.4.1 &raquo;</button>
-	    <button type="button" onclick="location.href='./install?step=requirements'" class="btn btn-primary">No, this is a new install &raquo;</button>
+            <button type="button" onclick="location.href='./install?step=requirements'" class="btn btn-primary">New Installation &raquo;</button>
+            <button type="button" onclick="location.href='./install?step=upgrade_requirements'" class="btn btn-default">Upgrading from 0.4.1 &raquo;</button>
           </p>
 
 		  <div class="alert alert-info">Note: if you're upgrading from a 1.x version to another 1.x version, you will need to follow the instructions from within the AdminCP's Update tab, rather than running through the installer again.</div>
@@ -155,32 +155,51 @@ if(isset($_GET["step"])){
 		} else {
 			echo 'PHP PDO Extension - ' . $success;
 		}
-                if(!extension_loaded('mysqlnd')){
-                        echo 'PHP mysqlnd Extension - ' . $warning;
-						echo 'You may experience issues without the mysqlnd extension.<br />';
-                        // Remove error temporarily
-						//$php_error = true;
-                } else {
-                        echo 'PHP mysqlnd Extension - ' . $success;
-                }
+		if($step == "upgrade_requirements"){
+			if(!extension_loaded('mysqlnd')){
+				echo 'PHP mysqlnd Extension - ' . $warning;
+				$php_error = true;
+			} else {
+				echo 'PHP mysqlnd Extension - ' . $success;
+			}
+		} else {
+			if(!extension_loaded('mysql') && !extension_loaded('mysqli') && !extension_loaded('mysqlnd')){
+				echo 'PHP mysql, mysqli or mysqlnd Extension - ' . $warning;
+				$php_error = true;
+			} else {
+				echo 'PHP mysql, mysqli or mysqlnd Extension - ' . $success;
+			}
+		}
 		if(!function_exists('curl_version')){
 			echo 'PHP cURL Extension - ' . $error;
 			$php_error = true;
 		} else {
 			echo 'PHP cURL Extension - ' . $success;
 		}
-		if(!class_exists("DOMDocument")){ // if there is a fatal error on the Requirements step, this is missing
-			echo 'PHP DOMDocument Class - ' . $error;
+		if(!extension_loaded('xml')){
+			echo 'PHP XML Extension - ' . $error;
 			$php_error = true;
 		} else {
-			echo 'PHP DOMDocument Class - ' . $success;
+			echo 'PHP XML Extension - ' . $success;
+		}
+		if(!is_writable('cache') || !is_writable('cache' . DIRECTORY_SEPARATOR . 'templates_c')){
+			echo 'Your <strong>cache</strong> and <strong>cache/templates_c</strong> directories must be writable. Please check your file permissions. ' . $error;
+			$php_error = true;
+		} else {
+			echo 'Cache and cache/templates_c directories writable - ' . $success;
+		}
+		if(!is_writable('core' . DIRECTORY_SEPARATOR . 'config.php')){
+			echo 'Your <strong>core/config.php</strong> file must be writable. Please check your file permissions. ' . $error;
+			$php_error = true;
+		} else {
+			echo 'core/config.php writable - ' . $success;
 		}
 	  ?>
 	  <br />
 	  <?php
 	    if(isset($php_error)){
 	  ?>
-	  <div class="alert alert-danger">You must be running at least PHP version 5.3 with the required extensions enabled in order to proceed with installation.</div>
+	  <div class="alert alert-danger">You must be running at least PHP version 5.3 with the required extensions and permissions in order to proceed with installation.</div>
 	  <?php
 		} else {
                     if($step === "requirements") {
