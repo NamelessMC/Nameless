@@ -162,8 +162,14 @@ $language = array(
     'new_search' => 'Efectuați o nouă căutare',
     'invalid_search_query' => 'Introduceți o interogare de căutare cuprinsă între 3 și 128 de caractere.',
     'no_results_found' => 'Nici un rezultat gasit.',
-	
-	// Profile tab
-	'user_no_posts' => 'Acest utilizator nu a făcut încă nicio postare pe forum.',
-	'latest_posts' => 'Ultimele postări'
+
+    // Profile tab
+    'user_no_posts' => 'Acest utilizator nu a făcut încă nicio postare pe forum.',
+    'latest_posts' => 'Ultimele postări',
+
+    // UserCP
+    'last_7_days_posts' => 'Forum posts (last 7 days)',
+    'your_posts' => 'Your post count',
+    'average_posts' => 'Average user post count',
+    'total_posts' => 'Total post count'
 );

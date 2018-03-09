@@ -165,5 +165,11 @@ $language = array(
 	
 	// Profile tab
 	'user_no_posts' => 'Cet utilisateur n\'a fait aucun posts.',
-	'latest_posts' => 'Derniers Posts'
+	'latest_posts' => 'Derniers Posts',
+
+	// UserCP
+	'last_7_days_posts' => 'Forum posts (last 7 days)',
+	'your_posts' => 'Your post count',
+	'average_posts' => 'Average user post count',
+	'total_posts' => 'Total post count'
 );

@@ -171,5 +171,11 @@ $language = array(
 
     // Profile tab
     'user_no_posts' => 'Dieser Benutzer hat noch keine Foren-Beiträge erstellt.',
-    'latest_posts' => 'Neueste Beiträge'
+    'latest_posts' => 'Neueste Beiträge',
+
+    // UserCP
+    'last_7_days_posts' => 'Forum posts (last 7 days)',
+    'your_posts' => 'Your post count',
+    'average_posts' => 'Average user post count',
+    'total_posts' => 'Total post count'
 );
