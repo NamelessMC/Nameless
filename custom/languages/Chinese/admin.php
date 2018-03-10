@@ -411,5 +411,14 @@ $language = array(
 	'invalid_file_type' => '錯誤檔案類型!',
 	'file_too_big' => '檔案過大! 您的檔案大小為 {{filesize}} 最高限制為 {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
 	'allowed_proxies' => 'Allowed Proxies',
-	'allowed_proxies_info' => 'Line seperated list of allowed proxy IPs.'
+	'allowed_proxies_info' => 'Line separated list of allowed proxy IPs.',
+
+	// Error logs
+	'error_logs' => 'Error Logs',
+	'notice_log' => 'Notice log',
+	'warning_log' => 'Warning log',
+	'custom_log' => 'Custom log',
+	'other_log' => 'Other log',
+	'fatal_log' => 'Fatal log',
+	'log_file_not_found' => 'Log file not found.'
 );

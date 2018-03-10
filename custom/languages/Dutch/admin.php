@@ -408,5 +408,14 @@ $language = array(
 	'invalid_file_type' => 'Bestandstype is incorrect',
 	'file_too_big' => 'Het bestand dat je wilt uploaden is te groot! Je bestand is {{filesize}} en het limiet is {{maxFilesize}} .', // Verander {{filesize}} of {{maxFilesize}} niet
 	'allowed_proxies' => 'Allowed Proxies',
-	'allowed_proxies_info' => 'Line seperated list of allowed proxy IPs.'
+	'allowed_proxies_info' => 'Line separated list of allowed proxy IPs.',
+
+	// Error logs
+	'error_logs' => 'Error Logs',
+	'notice_log' => 'Notice log',
+	'warning_log' => 'Warning log',
+	'custom_log' => 'Custom log',
+	'other_log' => 'Other log',
+	'fatal_log' => 'Fatal log',
+	'log_file_not_found' => 'Log file not found.'
 );
