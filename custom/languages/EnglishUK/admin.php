@@ -407,5 +407,14 @@ $language = array(
 	'invalid_file_type' => 'Invalid file type!',
 	'file_too_big' => 'File too big! Your file was {{filesize}} and the limit is {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
 	'allowed_proxies' => 'Allowed Proxies',
-	'allowed_proxies_info' => 'Line seperated list of allowed proxy IPs.'
+	'allowed_proxies_info' => 'Line separated list of allowed proxy IPs.',
+
+	// Error logs
+	'error_logs' => 'Error Logs',
+	'notice_log' => 'Notice log',
+	'warning_log' => 'Warning log',
+	'custom_log' => 'Custom log',
+	'other_log' => 'Other log',
+	'fatal_log' => 'Fatal log',
+	'log_file_not_found' => 'Log file not found.'
 );

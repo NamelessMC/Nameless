@@ -17,7 +17,7 @@ class ErrorHandler {
 			case E_USER_ERROR:
 				define('ERRORHANDLER', true);
 				require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.php');
-				self::logError('user', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
+				self::logError('custom', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
 				die(1);
 				break;
 
@@ -30,7 +30,7 @@ class ErrorHandler {
 				break;
 
 			default:
-				self::logError('unknown', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
+				self::logError('other', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
 				break;
 		}
 

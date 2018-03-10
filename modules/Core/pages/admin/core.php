@@ -1434,7 +1434,9 @@ $current_default_language = $current_default_language[0]->value;
                                         $page_loading = 0;
                                 }
                                 ?>
-                                <h4><?php echo $language->get('admin', 'debugging_and_maintenance'); ?></h4>
+                                <h4 style="display:inline;"><?php echo $language->get('admin', 'debugging_and_maintenance'); ?></h4>
+                                <?php if($user->hasPermission('admincp.errors')){ ?><span class="pull-right"><a class="btn btn-primary" href="<?php echo URL::build('/admin/core/', 'view=errors'); ?>"><?php echo $language->get('admin', 'error_logs'); ?></a></span><?php } ?>
+                                <br /><br />
 
                                 <form action="" method="post">
                                     <?php if (isset($error)) { ?>
@@ -2215,6 +2217,70 @@ $current_default_language = $current_default_language[0]->value;
                                 </form>
                                 <?php
                                 break;
+
+                            case 'errors':
+                              if(!$user->hasPermission('admincp.errors')){
+                                Redirect::to(URL::build('/admin/core'));
+                                die();
+                              }
+                              echo '<h4 style="display:inline;">' . $language->get('admin', 'error_logs') . '</h4><span class="pull-right"><a class="btn btn-primary" href="' . (!isset($_GET['log']) ? URL::build('/admin/core/', 'view=maintenance') : URL::build('/admin/core/', 'view=errors')) . '">' . $language->get('general', 'back') . '</a></span><br /><br />';
+                              if(!isset($_GET['log'])){
+                              ?>
+                              <div class="table-responsive">
+                                <table class="table table-striped">
+                                  <tr>
+                                    <td><a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=fatal'); ?>"><?php echo $language->get('admin', 'fatal_log'); ?></a></td>
+                                  </tr>
+                                  <tr>
+                                    <td><a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=notice'); ?>"><?php echo $language->get('admin', 'notice_log'); ?></a></td>
+                                  </tr>
+                                  <tr>
+                                    <td><a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=warning'); ?>"><?php echo $language->get('admin', 'warning_log'); ?></a></td>
+                                  </tr>
+                                  <tr>
+                                    <td><a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=custom'); ?>"><?php echo $language->get('admin', 'custom_log'); ?></a></td>
+                                  </tr>
+                                  <tr>
+                                    <td><a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=other'); ?>"><?php echo $language->get('admin', 'other_log'); ?></a></td>
+                                  </tr>
+                                </table>
+                              </div>
+                              <?php
+                              } else {
+                                if(!in_array($_GET['log'], array('fatal', 'notice', 'warning', 'custom', 'other'))){
+                                  Redirect::to(URL::build('/admin/core/', 'view=errors'));
+                                  die();
+                                }
+
+                                if(isset($_GET['do']) && $_GET['do'] == 'purge')
+                                  file_put_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log')), '');
+
+                                if(file_exists(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log')))){
+                                  echo '
+                                  <style>
+                                  .error_log {
+                                    width: 100%;
+                                    height: 400px;
+                                    padding: 0 10px;
+                                    -webkit-box-sizing: border-box;
+                                    -moz-box-sizing: border-box;
+                                    box-sizing: border-box;
+                                    overflow-y: scroll;
+                                    overflow-x: scroll;
+                                    white-space: initial;
+                                    background-color: #eceeef;
+                                  }
+                                  </style>';
+                                  echo '<pre class="error_log">';
+                                  echo nl2br(Output::getClean(file_get_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log')))));
+                                  echo '</pre>';
+                                  echo '<hr /><h4>' . $language->get('general', 'actions') . '</h4>';
+                                  echo '<a href="' . URL::build('/admin/core/', 'view=errors&amp;log=' . $_GET['log'] . '&amp;do=purge') . '" class="btn btn-warning" onclick="return confirm(\'' . $language->get('admin', 'confirm_purge_errors') . '\');">' . $language->get('admin', 'purge_errors') . '</a>';
+                                } else {
+                                  echo '<div class="alert alert-info">' . $language->get('admin', 'log_file_not_found') . '</div>';
+                                }
+                              }
+                              break;
 
                             default:
                                 Redirect::to(URL::build('/admin/core'));

@@ -30,6 +30,7 @@ PermissionHandler::registerPermissions('AdminCP', array(
     'admincp.core.avatars' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'avatars'),
     'admincp.core.fields' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'custom_fields'),
     'admincp.core.debugging' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'debugging_and_maintenance'),
+    'admincp.errors' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'debugging_and_maintenance') . ' &raquo; ' . $language->get('admin', 'error_logs'),
     'admincp.core.emails' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails'),
     'admincp.core.navigation' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'navigation'),
     'admincp.core.reactions' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('user', 'reactions'),
@@ -55,8 +56,7 @@ PermissionHandler::registerPermissions('AdminCP', array(
     'admincp.users' => $language->get('admin', 'users'),
     'admincp.groups' => $language->get('admin', 'groups'),
     'admincp.groups.self' => $language->get('admin', 'groups') . ' &raquo; ' . $language->get('admin', 'can_edit_own_group'),
-    'admincp.widgets' => $language->get('admin', 'widgets'),
-	'admincp.errors' => $language->get('admin', 'can_view_error_logs')
+    'admincp.widgets' => $language->get('admin', 'widgets')
 ));
 
 // ModCP

@@ -2,7 +2,7 @@
 /*
  *	Oversatt av Thesevs
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr2
+ *  NamelessMC versjon 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -407,5 +407,14 @@ $language = array(
 	'invalid_file_type' => 'Ugyldig filtype.',
 	'file_too_big' => 'Filen er for stor! Din fil var {{filesize}} og maksimum er {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
 	'allowed_proxies' => 'Allowed Proxies',
-	'allowed_proxies_info' => 'Line seperated list of allowed proxy IPs.'
+	'allowed_proxies_info' => 'Line separated list of allowed proxy IPs.',
+
+	// Error logs
+	'error_logs' => 'Error Logs',
+	'notice_log' => 'Notice log',
+	'warning_log' => 'Warning log',
+	'custom_log' => 'Custom log',
+	'other_log' => 'Other log',
+	'fatal_log' => 'Fatal log',
+	'log_file_not_found' => 'Log file not found.'
 );
