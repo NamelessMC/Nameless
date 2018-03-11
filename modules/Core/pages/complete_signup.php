@@ -20,9 +20,12 @@ if(!isset($_GET['c'])){
     require(ROOT_PATH . '/core/includes/password.php');
 
     // Ensure API is enabled
-    $is_legacy_enabled = $queries->getWhere('settings', array('name', '=', 'use_legacy_api'));
-    if($is_legacy_enabled[0]->value != '1'){
-        die('Legacy API is disabled');
+    $is_api_enabled = $queries->getWhere('settings', array('name', '=', 'use_api'));
+    if($is_api_enabled[0]->value != '1') {
+        $is_legacy_enabled = $queries->getWhere('settings', array('name', '=', 'use_legacy_api'));
+        if ($is_legacy_enabled[0]->value != '1') {
+            die('Legacy API is disabled');
+        }
     }
 
     if(!$user->isLoggedIn()){
@@ -119,7 +122,6 @@ if(!isset($_GET['c'])){
 <!DOCTYPE html>
 <html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
     <head>
-        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="<?php echo SITE_NAME; ?> - complete account registration">

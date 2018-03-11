@@ -162,6 +162,8 @@ $language = array(
 	'user_unblocked' => 'Usuário desbloqueado.',
 	'views' => 'Profile Views:',
 	'private_profile_page' => 'This is a private profile!',
+	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
+	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
 	
 	// Reports
 	'invalid_report_content' => 'Não foi possível criar o alerta. Certifique-se de que o motivo do alerta está entre 2 e 1024 caracteres.',

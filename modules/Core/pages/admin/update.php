@@ -90,26 +90,42 @@ curl_close($ch);
 				  if($update_check == 'None'){
 					  echo '<div class="alert alert-success">' . $language->get('admin', 'up_to_date') . '</div>';
 				  } else {
-					  // Update database values to say we need a version update
-					  $update_needed_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
-					  $update_needed_id = $update_needed_id[0]->id;
-					  $queries->update('settings', $update_needed_id, array(
-						  'value' => 'true'
-					  ));
-					
 					  // Update database value to say when we last checked
 					  $update_needed_id = $queries->getWhere('settings', array('name', '=', 'version_checked'));
 					  $update_needed_id = $update_needed_id[0]->id;
 					  $queries->update('settings', $update_needed_id, array(
 						  'value' => date('U')
 					  ));
-					  
+
 					  echo '<p><strong>' . $language->get('admin', 'new_update_available') . '</strong></p>';
 					  $update_check = json_decode($update_check);
-					  
+
+                      // Update new version in database
+                      $new_version_id = $queries->getWhere('settings', array('name', '=', 'new_version'));
+                      if(count($new_version_id)) {
+                          $new_version_id = $new_version_id[0]->id;
+                          $queries->update('settings', $new_version_id, array(
+                              'value' => $update_check->new_version
+                          ));
+                      } else {
+                          $queries->create('settings', array(
+                              'name' => 'new_version',
+                              'value' => $update_check->new_version
+                          ));
+                      }
+
 					  if(isset($update_check->urgent) && $update_check->urgent == 'true'){
 						  echo '<div class="alert alert-danger">' . $language->get('admin', 'urgent') . '</div>';
-					  }
+						  $need_update = 'urgent';
+					  } else {
+                          $need_update = 'true';
+                      }
+                      // Update database values to say we need a version update
+                      $update_needed_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+                      $update_needed_id = $update_needed_id[0]->id;
+                      $queries->update('settings', $update_needed_id, array(
+                          'value' => $need_update
+                      ));
 					  
 					  echo '<ul><li>' . str_replace('{x}', Output::getClean($current_version), $language->get('admin', 'current_version_x')) . '</li>
 					  <li>' . str_replace('{x}', Output::getClean($update_check->new_version), $language->get('admin', 'new_version_x')) . '</li></ul>';

@@ -27,6 +27,7 @@ class Report {
 		$id = $this->_db->lastid();
 		
 		// Alert moderators
+        // TODO: improve to use permissions
 		$moderator_groups = $this->_db->get('groups', array('mod_cp', '=', 1))->results();
 		
 		if(count($moderator_groups)){

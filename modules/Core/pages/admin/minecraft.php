@@ -1105,7 +1105,7 @@ $admin_page = 'minecraft';
                                 if($server->is_default == 1)
                                   $default = $server->id;
                                 ?>
-                                <strong><?php echo Output::getClean($server->name); ?></strong>
+                                <strong><?php echo Output::getClean($server->name); ?></strong> (ID: <strong><?php echo Output::getClean($server->id); ?></strong>)
                                 <span class="pull-right">
                                   <a class="btn btn-warning btn-sm" href="<?php echo URL::build('/admin/minecraft/', 'view=servers&amp;action=edit&amp;id=' . $server->id); ?>"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i></a>
                                   <a class="btn btn-danger btn-sm" href="<?php echo URL::build('/admin/minecraft/', 'view=servers&amp;action=delete&amp;id=' . $server->id); ?>" onclick="return confirm('<?php echo $language->get('admin', 'confirm_delete_server'); ?>')"><i class="fa fa-trash-o fa-fw" aria-hidden="true"></i></a>

@@ -40,7 +40,7 @@ $admin_page = 'update_execute';
 $update_needed = $queries->getWhere('settings', array('name', '=', 'version_update'));
 $update_needed = $update_needed[0]->value;
 
-if($update_needed != 'true'){
+if($update_needed != 'true' && $update_needed != 'urgent'){
 	Redirect::to(URL::build('/admin/update'));
 	die();
 }
