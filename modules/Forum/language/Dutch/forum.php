@@ -173,5 +173,10 @@ $language = array(
 	'last_7_days_posts' => 'Forum posts (last 7 days)',
 	'your_posts' => 'Your post count',
 	'average_posts' => 'Average user post count',
-	'total_posts' => 'Total post count'
+	'total_posts' => 'Total post count',
+
+    // Hooks
+    'new_topic_hook_info' => 'New topic',
+    'new_topic_text' => 'Topic created in {x} by {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'include_in_hook' => 'Include new topics from this forum in the webhook?'
 );

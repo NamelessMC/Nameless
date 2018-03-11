@@ -1273,6 +1273,30 @@ $current_default_language = $current_default_language[0]->value;
 
                                         $cache->store('facebook', Output::getClean(Input::get('fburl')));
 
+                                        // Discord hook
+                                        $discord_url_id = $queries->getWhere('settings', array('name', '=', 'discord_url'));
+                                        $discord_url_id = $discord_url_id[0]->id;
+
+                                        $queries->update('settings', $discord_url_id, array(
+                                            'value' => Output::getClean(Input::get('discord_url'))
+                                        ));
+
+                                        $discord_hooks_id = $queries->getWhere('settings', array('name', '=', 'discord_hooks'));
+                                        $discord_hooks_id = $discord_hooks_id[0]->id;
+
+                                        if(isset($_POST['discord_hooks']))
+                                            $hooks = $_POST['discord_hooks'];
+                                        else
+                                            $hooks = array();
+
+                                        $queries->update('settings', $discord_hooks_id, array(
+                                            'value' => json_encode($hooks)
+                                        ));
+
+                                        $cache->setCache('discord_hook');
+                                        $cache->store('events', $_POST['discord_hooks']);
+                                        $cache->store('url', $_POST['discord_url']);
+
                                         Session::flash('social_media_links', '<div class="alert alert-success">' . $language->get('admin', 'successfully_updated') . '</div>');
                                     } else {
                                         // Invalid token
@@ -1288,6 +1312,9 @@ $current_default_language = $current_default_language[0]->value;
 								$discord = $queries->getWhere('settings', array('name', '=', 'discord'));
                                 $gplus_url = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
                                 $fb_url = $queries->getWhere('settings', array('name', '=', 'fb_url'));
+                                $discord_url = $queries->getWhere('settings', array('name', '=', 'discord_url'));
+                                $discord_hooks = $queries->getWhere('settings', array('name', '=', 'discord_hooks'));
+                                $discord_hooks = json_decode($discord_hooks[0]->value, true);
                                 ?>
                                 <h4><?php echo $language->get('admin', 'social_media'); ?></h4>
                                 <?php
@@ -1331,6 +1358,20 @@ $current_default_language = $current_default_language[0]->value;
                                         <input type="text" name="fburl" class="form-control" id="InputFacebook"
                                                placeholder="<?php echo $language->get('admin', 'facebook_url'); ?>"
                                                value="<?php echo Output::getClean($fb_url[0]->value); ?>">
+                                    </div>
+                                    <h4><?php echo $language->get('admin', 'discord_hooks'); ?></h4>
+                                    <div class="alert alert-info"><?php echo $language->get('admin', 'discord_hooks_info'); ?></div>
+                                    <div class="form-group">
+                                        <label for="InputDiscordHookURL"><?php echo $language->get('admin', 'discord_hook_url'); ?></label>
+                                        <input type="text" class="form-control" name="discord_url" placeholder="<?php echo $language->get('admin', 'discord_hook_url'); ?>" value="<?php echo Output::getClean($discord_url[0]->value); ?>" id="InputDiscordHookURL">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="InputDiscordHooks"><?php echo $language->get('admin', 'discord_hook_events'); ?></label>
+                                        <select multiple class="form-control" name="discord_hooks[]" id="InputDiscordHooks">
+                                            <?php foreach(HookHandler::getHooks() as $hook => $description){ ?>
+                                            <option value="<?php echo Output::getClean($hook); ?>"<?php if(in_array(Output::getClean($hook), $discord_hooks)) echo ' selected'; ?>><?php echo Output::getClean($description); ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                     <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
                                     <input type="submit" class="btn btn-primary"
@@ -2238,16 +2279,13 @@ $current_default_language = $current_default_language[0]->value;
                                     <td><a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=warning'); ?>"><?php echo $language->get('admin', 'warning_log'); ?></a></td>
                                   </tr>
                                   <tr>
-                                    <td><a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=custom'); ?>"><?php echo $language->get('admin', 'custom_log'); ?></a></td>
-                                  </tr>
-                                  <tr>
                                     <td><a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=other'); ?>"><?php echo $language->get('admin', 'other_log'); ?></a></td>
                                   </tr>
                                 </table>
                               </div>
                               <?php
                               } else {
-                                if(!in_array($_GET['log'], array('fatal', 'notice', 'warning', 'custom', 'other'))){
+                                if(!in_array($_GET['log'], array('fatal', 'notice', 'warning', 'other'))){
                                   Redirect::to(URL::build('/admin/core/', 'view=errors'));
                                   die();
                                 }

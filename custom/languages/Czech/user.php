@@ -210,5 +210,10 @@ $language = array(
 	'email_greeting' => 'Zdravím,',
 	'email_message' => 'Děkujeme za registraci na našem webu! Pro dokončení registrace klikněte na odkaz níže:',
 	'forgot_password_email_message' => 'Pro obnovení Vašeho zapomenutého hesla klikněte prosím na následující odkaz. Pokud jste o obnovení zapomenutého hesla nepožádal sám, můžete e-mail bezpečně smazat.',
-	'email_thanks' => 'Přejeme příjemné hraní,'
+	'email_thanks' => 'Přejeme příjemné hraní,',
+
+	/*
+	 *  Hooks
+	 */
+	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
 );

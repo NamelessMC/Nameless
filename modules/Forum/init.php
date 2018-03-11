@@ -35,6 +35,9 @@ PermissionHandler::registerPermissions('Forum', array(
     'admincp.forums' => $language->get('admin', 'admin_cp') . ' &raquo; ' . $forum_language->get('forum', 'forum')
 ));
 
+// Hooks
+HookHandler::registerEvent('newTopic', $forum_language->get('forum', 'new_topic_hook_info'));
+
 // Define URLs which belong to this module
 $pages->add('Forum', '/admin/forums', 'pages/admin/forums.php');
 $pages->add('Forum', '/forum', 'pages/forum/index.php', 'forum', true);

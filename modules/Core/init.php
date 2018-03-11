@@ -131,6 +131,9 @@ $pages->add('Core', '/terms', 'pages/terms.php');
 $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
 $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
 
+// Hooks
+HookHandler::registerEvent('registerUser', $language->get('admin', 'register_hook_info'));
+
 if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/') != '/admin/update_execute')){
 	// Custom pages
 	$custom_pages = $queries->getWhere('custom_pages', array('id', '<>', 0));
@@ -272,4 +275,18 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
 
 		$widgets->add(new DiscordWidget($module_pages, $discord));
 	}
+
+	// Discord hook
+    require_once(ROOT_PATH . '/modules/Core/hooks/DiscordHook.php');
+	$cache->setCache('discord_hook');
+	if($cache->isCached('events')){
+	    $events = $cache->retrieve('events');
+	    if(count($events)){
+	        foreach($events as $event){
+	            HookHandler::registerHook($event, 'DiscordHook::execute');
+            }
+        }
+    }
+    if($cache->isCached('url'))
+        DiscordHook::setURL($cache->retrieve('url'));
 }

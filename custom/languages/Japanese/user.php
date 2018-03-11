@@ -210,6 +210,11 @@ $language = array(
 	 */
 	'email_greeting' => 'こんにちは！',
 	'email_message' => '登録ありがとう！ 登録を完了するには、次のリンクをクリックしてください:',
-    'forgot_password_email_message' => 'パスワードをリセットするには、次のリンクをクリックしてください。 これを自分でリクエストしていない場合は、このメールを安全に削除できます。',
-	'email_thanks' => 'Thank you so much.'
+	'forgot_password_email_message' => 'パスワードをリセットするには、次のリンクをクリックしてください。 これを自分でリクエストしていない場合は、このメールを安全に削除できます。',
+	'email_thanks' => 'Thank you so much.',
+
+	/*
+	 *  Hooks
+	 */
+	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
 );

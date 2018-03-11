@@ -345,7 +345,20 @@ class Nameless2API
                     'reset_code' => $code
                 ));
 
-                return array('user_id' => $this->_db->lastid(), 'code' => $code);
+                $user_id = $this->_db->lastid();
+
+                $user = new User();
+                HookHandler::executeEvent('registerUser', array(
+                    'event' => 'registerUser',
+                    'user_id' => $user_id,
+                    'username' => Output::getClean($username),
+                    'content' => str_replace('{x}', Output::getClean($username), $this->_language->get('user', 'user_x_has_registered')),
+                    'avatar_url' => $user->getAvatar($user_id, null, 128, true),
+                    'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean($username)), '/'),
+                    'language' => $this->_language
+                ));
+
+                return array('user_id' => $user_id, 'code' => $code);
 
             } catch (Exception $e) {
                 $this->throwError(13, $this->_language->get('api', 'unable_to_create_account'));
@@ -371,7 +384,7 @@ class Nameless2API
             $user_id = $user_id['user_id'];
 
             // Get link + template
-            $link =  Util::getSelfURL() . URL::build('complete_signup/', 'c=' . $code);
+            $link =  Util::getSelfURL() . ltrim(URL::build('/complete_signup/', 'c=' . $code), '/');
             $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'register.html'));
             $html = file_get_contents($path);
 
@@ -434,6 +447,17 @@ class Nameless2API
                     $this->throwError(14, $this->_language->get('api', 'unable_to_send_registration_email'));
                 }
             }
+
+            $user = new User();
+            HookHandler::executeEvent('registerUser', array(
+                'event' => 'registerUser',
+                'user_id' => $user_id,
+                'username' => Output::getClean($username),
+                'content' => str_replace('{x}', Output::getClean($username), $this->_language->get('user', 'user_x_has_registered')),
+                'avatar_url' => $user->getAvatar($user_id, null, 128, true),
+                'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean($username)), '/'),
+                'language' => $this->_language
+            ));
 
             $this->returnArray(array('message' => $this->_language->get('api', 'finish_registration_email')));
 
@@ -625,7 +649,7 @@ class Nameless2API
                 foreach($messages->results() as $result){
                     $return[] = array(
                         'type' => 'message',
-                        'url' => Util::getSelfURL() . URL::build('user/messaging/', 'action=view&message=' . $result->id),
+                        'url' => Util::getSelfURL() . ltrim(URL::build('/user/messaging/', 'action=view&message=' . $result->id), '/'),
                         'message_short' => $result->title,
                         'message' => $result->title
                     );

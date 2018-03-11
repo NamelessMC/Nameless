@@ -208,6 +208,11 @@ $language = array(
 	 */
 	'email_greeting' => 'Olá,',
 	'email_message' => 'Obrigado por se registrar! Para completar o seu cadastro, clique no link a seguir:',
-    'forgot_password_email_message' => 'Para resetar sua senha, clique no seguinte link. Se você desconhece essa requisição, você pode excluir com segurança este e-mail.',
-	'email_thanks' => 'Obrigado,'
+	'forgot_password_email_message' => 'Para resetar sua senha, clique no seguinte link. Se você desconhece essa requisição, você pode excluir com segurança este e-mail.',
+	'email_thanks' => 'Obrigado,',
+
+	/*
+	 *  Hooks
+	 */
+	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
 );

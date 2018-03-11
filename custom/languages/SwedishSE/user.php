@@ -209,5 +209,10 @@ $language = array(
 	'email_greeting' => 'Hej,',
 	'email_message' => 'Tack för att du registrerade! För att slutföra din registrering klickar du på följande länk:',
 	'forgot_password_email_message' => 'För att återställa ditt lösenord, klicka på följande länk. Om du inte begärt det själv kan du radera det här e-postmeddelandet.',
-	'email_thanks' => 'Tack,'
+	'email_thanks' => 'Tack,',
+
+	/*
+	 *  Hooks
+	 */
+	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
 );
