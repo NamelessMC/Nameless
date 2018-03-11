@@ -235,6 +235,18 @@ class NamelessAPI {
 
                 $user_id = $this->_db->lastid();
 
+                $user = new User();
+
+                HookHandler::executeEvent('registerUser', array(
+                    'event' => 'registerUser',
+                    'user_id' => $user_id,
+                    'username' => Output::getClean($_POST['username']),
+                    'content' => str_replace('{x}', Output::getClean(Input::get('username')), $this->_language->get('user', 'user_x_has_registered')),
+                    'avatar_url' => $user->getAvatar($user_id, null, 128, true),
+                    'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean($_POST['username'])), '/'),
+                    'language' => $this->_language
+                ));
+
                 if($php_mailer == '1'){
                     // PHP Mailer
                     // HTML to display in message

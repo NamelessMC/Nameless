@@ -441,12 +441,32 @@ if(Input::exists()){
 								}
 							} else {
 								// Email verification disabled
+                                HookHandler::executeEvent('registerUser', array(
+                                    'event' => 'registerUser',
+                                    'user_id' => $user_id,
+                                    'username' => Output::getClean(Input::get('username')),
+                                    'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
+                                    'avatar_url' => $user->getAvatar($user_id, null, 128, true),
+                                    'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
+                                    'language' => $language
+                                ));
+
 								// Redirect straight to verification link
 								$url = URL::build('/validate/', 'c=' . $code);
 								Redirect::to($url);
 								die();
 							}
-							
+
+                            HookHandler::executeEvent('registerUser', array(
+                                'event' => 'registerUser',
+                                'user_id' => $user_id,
+                                'username' => Output::getClean(Input::get('username')),
+                                'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
+                                'avatar_url' => $user->getAvatar($user_id, null, 128, true),
+                                'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
+                                'language' => $language
+                            ));
+
 							Session::flash('home', $language->get('user', 'registration_check_email'));
 							Redirect::to(URL::build('/'));
 							die();
@@ -576,10 +596,9 @@ $smarty->assign(array(
 <!DOCTYPE html>
 <html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
-    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo $sitename; ?> - registration form">
+    <meta name="description" content="<?php echo SITE_NAME; ?> - registration form">
 	
     <!-- Site Properties -->
 	<?php 

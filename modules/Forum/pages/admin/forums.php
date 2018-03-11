@@ -311,6 +311,25 @@ $admin_page = 'forums';
                                                         'redirect_url' => $redirect_url
                                                     ));
 
+                                                    $webhook_settings = $queries->getWhere('settings', array('name', '=', 'forum_new_topic_hooks'));
+                                                    if(!count($webhook_settings)){
+                                                        $val = array();
+                                                        if($_POST['webhook'] == 1)
+                                                            $val[] = $forum->id;
+
+                                                        $queries->create('settings', array(
+                                                            'name' => 'forum_new_topic_hooks',
+                                                            'value' => json_encode($val)
+                                                        ));
+                                                    } else if(Input::get('webhook') == 1) {
+                                                        $enabled_hooks = $webhook_settings[0]->value;
+                                                        $enabled_hooks = json_decode($enabled_hooks);
+                                                        $enabled_hooks[] = $forum->id;
+                                                        $queries->update('settings', $webhook_settings[0]->id, array(
+                                                            'value' => json_encode($enabled_hooks)
+                                                        ));
+                                                    }
+
                                                     Redirect::to(URL::build('/admin/forums/', 'action=new&step=3&forum=' . $forum->id));
                                                     die();
                                                 } else {
@@ -351,6 +370,11 @@ $admin_page = 'forums';
 									  <div class="form-group">
 									    <label for="InputForumRedirectURL"><?php echo $forum_language->get('forum', 'redirect_url'); ?></label>
 									    <input placeholder="<?php echo $forum_language->get('forum', 'redirect_url'); ?>" name="redirect_url" id="InputForumRedirectURL" type="text" class="form-control" />
+									  </div>
+									  <div class="form-group">
+									    <label for="InputForumWebhook"><?php echo $forum_language->get('forum', 'include_in_hook'); ?></label>
+									    <input type="hidden" name="webhook" value="0">
+									    <input name="webhook" id="InputForumWebhook" type="checkbox" class="js-switch" value="1" />
 									  </div>
 									  <div class="form-group">
 									    <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
@@ -762,6 +786,32 @@ $admin_page = 'forums';
 										    $to_update['redirect_url'] = $redirect_url;
 
 										$queries->update('forums', $_GET['forum'], $to_update);
+
+                                        $webhook_settings = $queries->getWhere('settings', array('name', '=', 'forum_new_topic_hooks'));
+                                        if(!count($webhook_settings)){
+                                            $val = array();
+                                            if($_POST['webhook'] == 1)
+                                                $val[] = $_GET['forum'];
+
+                                            $queries->create('settings', array(
+                                                'name' => 'forum_new_topic_hooks',
+                                                'value' => json_encode($val)
+                                            ));
+                                        } else {
+                                            $enabled_hooks = $webhook_settings[0]->value;
+                                            $enabled_hooks = json_decode($enabled_hooks);
+
+                                            $new_hooks = array();
+
+                                            foreach($enabled_hooks as $hook)
+                                                if($hook != $_GET['forum'] || $_POST['webhook'] == 1)
+                                                    $new_hooks[] = $hook;
+
+                                            $queries->update('settings', $webhook_settings[0]->id, array(
+                                                'value' => json_encode($new_hooks)
+                                            ));
+
+                                        }
 										
 									} catch(Exception $e) {
 										die($e->getMessage());
@@ -916,6 +966,18 @@ $admin_page = 'forums';
 						$forum = $queries->getWhere('forums', array('id', '=', $_GET['forum']));
 					}
 					if(count($forum)){
+					    $is_webhook_enabled = $queries->getWhere('settings', array('name', '=', 'forum_new_topic_hooks'));
+					    if(!count($is_webhook_enabled)){
+					        $queries->create('settings', array('name' => 'forum_new_topic_hooks', 'value' => json_encode(array())));
+					        $is_webhook_enabled = false;
+                        } else {
+					        $webhook_forums = json_decode($is_webhook_enabled[0]->value, true);
+					        if(count($webhook_forums) && in_array($_GET['forum'], $webhook_forums))
+                                $is_webhook_enabled = true;
+                            else
+                                $is_webhook_enabled = false;
+                        }
+
 						echo '<hr /><h4 style="display: inline;">' . Output::getClean($forum[0]->forum_title) . '</h2>';
 						?>
 						<br /><br />
@@ -956,6 +1018,11 @@ $admin_page = 'forums';
 						  <div class="form-group">
 						    <label for="InputForumRedirectURL"><?php echo $forum_language->get('forum', 'redirect_url'); ?></label>
 						    <input placeholder="<?php echo $forum_language->get('forum', 'redirect_url'); ?>" name="redirect_url" id="InputForumRedirectURL" type="text" class="form-control" value="<?php echo Output::getClean(htmlspecialchars_decode($forum[0]->redirect_url)); ?>"/>
+						  </div>
+						  <div class="form-group">
+						    <label for="InputForumWebhook"><?php echo $forum_language->get('forum', 'include_in_hook'); ?></label>
+						    <input type="hidden" name="webhook" value="0">
+						    <input name="webhook" id="InputForumWebhook" type="checkbox" class="js-switch" value="1"<?php if($is_webhook_enabled) echo ' checked'; ?> />
 						  </div>
 						  <div class="form-group">
 							<strong><?php echo $forum_language->get('forum', 'forum_permissions'); ?></strong><br />

@@ -386,7 +386,7 @@ class User {
 	}
 
 	// Get a user's avatar, based on user ID
-	public function getAvatar($id, $path = null, $size = 128) {
+	public function getAvatar($id, $path = null, $size = 128, $full = false) {
         $data = $this->_db->get('users', array('id', '=', $id))->results();
         if(empty($data)){
             // User doesn't exist
@@ -409,7 +409,7 @@ class User {
                 $exts = array('gif','png','jpg','jpeg');
                 foreach($exts as $ext) {
                     if(file_exists(ROOT_PATH . "/uploads/avatars/" . $id . "." . $ext)){
-                        $avatar_path = ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . "uploads/avatars/" . $id . "." . $ext;
+                        $avatar_path = ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . "uploads/avatars/" . $id . "." . $ext;
                         break;
                     }
                 }
@@ -441,9 +441,9 @@ class User {
                     case 'nameless':
                         // Only supports face currently
                         if(defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
-                            return URL::build('/avatar/' . Output::getClean($data[0]->username));
+                            return ($full ? rtrim(Util::getSelfURL(), '/') : '') . URL::build('/avatar/' . Output::getClean($data[0]->username));
                         else
-                            return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($data[0]->username);
+                            return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($data[0]->username);
                         break;
                     case 'cravatar':
                     default:

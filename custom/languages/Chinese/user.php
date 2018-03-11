@@ -213,5 +213,10 @@ $language = array(
 	'email_greeting' => '嗨,',
 	'email_message' => '感謝您的註冊，請點擊下列的網址來完成驗證:',
 	'forgot_password_email_message' => '點擊下列網址萊完成忘記密碼恢復，如果您沒有傳送忘記密碼，請移除本郵件.',
-	'email_thanks' => '謝謝,'
+	'email_thanks' => '謝謝,',
+
+	/*
+	 *  Hooks
+	 */
+	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
 );

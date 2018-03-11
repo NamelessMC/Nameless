@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -48,6 +48,8 @@ if(!$can_reply){
 	Redirect::to(URL::build('/forum/view/' . $fid));
 	die();
 }
+
+$forum_title = $forum->getForumTitle($fid);
 
 // Deal with any inputted data
 if(Input::exists()) {
@@ -133,6 +135,24 @@ if(Input::exists()) {
 						'last_topic_posted' => $topic_id
 					));
 
+					// Execute hooks if necessary
+                    $forum_events = $queries->getWhere('settings', array('name', '=', 'forum_new_topic_hooks'));
+                    if(count($forum_events)){
+                        $forum_events = $forum_events[0]->value;
+                        $forum_events = json_decode($forum_events);
+                        if(count($forum_events) && in_array($fid, $forum_events)){
+                            HookHandler::executeEvent('newTopic', array(
+                                'event' => 'newTopic',
+                                'username' => Output::getClean($user->data()->nickname),
+                                'content' => str_replace(array('{x}', '{y}'), array($forum_title, Output::getClean($user->data()->nickname)), $forum_language->get('forum', 'new_topic_text')),
+                                'content_full' => strip_tags(Input::get('content')),
+                                'avatar_url' => $user->getAvatar($user->data()->id, null, 128, true),
+                                'title' => Input::get('title'),
+                                'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))), '/')
+                            ));
+                        }
+                    }
+
 					Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
 
 					Redirect::to(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))));
@@ -190,7 +210,6 @@ $token = Token::get();
 <html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
     <!-- Standard Meta -->
-    <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	<meta name="robots" content="noindex">
@@ -217,7 +236,7 @@ $token = Token::get();
 		$smarty->assign('ERROR', $error);
 	}
 
-	$creating_topic_in = str_replace('{x}', Output::getPurified(htmlspecialchars_decode($forum->getForumTitle($fid))), $forum_language->get('forum', 'creating_topic_in_x'));
+	$creating_topic_in = str_replace('{x}', Output::getPurified(htmlspecialchars_decode($forum_title)), $forum_language->get('forum', 'creating_topic_in_x'));
 	$smarty->assign('CREATING_TOPIC_IN', $creating_topic_in);
 
 	// Topic labels

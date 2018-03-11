@@ -210,5 +210,10 @@ $language = array(
     'email_greeting' => 'Salut,',
     'email_message' => 'Vă mulțumim pentru înregistrare! Pentru a vă completa înregistrarea, faceți clic pe următorul link:',
     'forgot_password_email_message' => 'Pentru a vă reseta parola, faceți clic pe următorul link. Dacă nu ați solicitat acest lucru, puteți șterge în siguranță acest e-mail.',
-    'email_thanks' => 'Cu stimă,'
+    'email_thanks' => 'Cu stimă,',
+
+    /*
+     *  Hooks
+     */
+    'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
 );

@@ -417,5 +417,12 @@ $language = array(
 	'custom_log' => 'Custom log',
 	'other_log' => 'Other log',
 	'fatal_log' => 'Fatal log',
-	'log_file_not_found' => 'Log file not found.'
+	'log_file_not_found' => 'Log file not found.',
+
+	// Hooks
+	'discord_hooks' => 'Discord Hooks',
+	'discord_hooks_info' => 'Send a message to a Discord channel when something happens on your site. Create a Discord hook in your Discord Server Settings -> Webhooks tab.',
+	'discord_hook_url' => 'Discord webhook URL',
+	'discord_hook_events' => 'Enabled Discord hook events (Ctrl+click to select multiple events)',
+	'register_hook_info' => 'User registration'
 );

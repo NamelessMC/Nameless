@@ -17,7 +17,7 @@ class ErrorHandler {
 			case E_USER_ERROR:
 				define('ERRORHANDLER', true);
 				require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.php');
-				self::logError('custom', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
+				self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
 				die(1);
 				break;
 
