@@ -476,31 +476,26 @@ class Forum {
 	}
 
 	// Returns an array of the latest news items
-	// Params: $number (integer) - number to return (max recommended 10)
+	// Params: $number (integer) - number to return (max 10)
 	public function getLatestNews($number = 5) {
-		$news_forums = $this->_db->get('forums', array('news', '=', 1))->results(); // List news forums
-
 		$return = array(); // Array to return containing news
-		foreach($news_forums as $news_forum){
-			$news_items = $this->_db->orderWhere("topics", "forum_id = " . $news_forum->id, "topic_date", "DESC LIMIT 10")->results();
 
-			foreach($news_items as $item){
-				if($item->deleted == 1) continue;
+        $news_items = $this->_db->query("SELECT * FROM nl2_topics WHERE forum_id IN (SELECT id FROM nl2_forums WHERE news = 1) AND deleted = 0 ORDER BY topic_date DESC LIMIT 10")->results();
 
-				$news_post = $this->_db->get("posts", array("topic_id", "=", $item->id))->results();
-				$posts = count($news_post);
-				$topic_date = $news_post[0]->post_date;
-				$post = $news_post[0]->post_content;
-				$return[] = array(
-					"topic_id" => $item->id,
-					"topic_date" => $topic_date,
-					"topic_title"=> $item->topic_title,
-					"topic_views" => $item->topic_views,
-					"author" => $item->topic_creator,
-					"content" => $post,
-					"replies" => $posts
-				);
-			}
+        foreach($news_items as $item){
+            $news_post = $this->_db->get("posts", array("topic_id", "=", $item->id))->results();
+            $posts = count($news_post);
+            $topic_date = $news_post[0]->post_date;
+            $post = $news_post[0]->post_content;
+            $return[] = array(
+                "topic_id" => $item->id,
+                "topic_date" => $topic_date,
+                "topic_title"=> $item->topic_title,
+                "topic_views" => $item->topic_views,
+                "author" => $item->topic_creator,
+                "content" => $post,
+                "replies" => $posts
+            );
 		}
 
 		// Order the discussions by date - most recent first
