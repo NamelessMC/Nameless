@@ -523,10 +523,10 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 			'profile' => URL::build('/profile/' . htmlspecialchars($post_user[0]->username)),
 			'user_style' => $user->getGroupClass($post_user[0]->id),
 			'user_groups' => $user_groups,
-			'user_posts_count' => count($queries->getWhere('posts', array('post_creator', '=', $results->data[$n]->post_creator))),
-			'user_topics_count' => count($queries->getWhere('topics', array('topic_creator'. '=', $results->data[$n]->post_creator))),
-			'user_registered' => $timeago->inWords(date('Y-m-d H:i:s', $post_user->joined), $language->getTimeLanguage()),
-			'user_registered_full' => date('d M Y, H:i', $post_user->joined),
+			'user_posts_count' => str_replace('{x}', count($queries->getWhere('posts', array('post_creator', '=', $results->data[$n]->post_creator))), $forum_language->get('forum', 'x_posts')),
+			'user_topics_count' => str_replace('{x}', count($queries->getWhere('topics', array('topic_creator', '=', $results->data[$n]->post_creator))), $forum_language->get('forum', 'x_topics')),
+			'user_registered' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_user[0]->joined), $language->getTimeLanguage()), $forum_language->get('forum', 'registered_x')),
+			'user_registered_full' => date('d M Y', $post_user[0]->joined),
 			'user_reputation' => $post_user[0]->reputation,
 			'post_date_rough' => $post_date_rough,
 			'post_date' => $post_date,
@@ -573,9 +573,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 		'POSTS' => $forum_language->get('forum', 'posts'),
 		'BY' => ucfirst($forum_language->get('forum', 'by')),
 		'CANCEL' => $language->get('general', 'cancel'),
-		'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id  : 0),
-		'REGISTERED' => '',
-		'TOPICS' => ''
+		'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id  : 0)
 	));
 	
 	// Get post formatting type (HTML or Markdown)
