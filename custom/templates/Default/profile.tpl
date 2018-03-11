@@ -87,7 +87,7 @@
 
 			<div class="card card-default">
 			  <div class="card-header">
-				<img class="rounded-circle" style="max-height:25px; max-width=25px;" src="{$post.avatar}" /> <a href="{$post.profile}">{$post.nickname}:</a>
+				<img class="rounded-circle" style="max-height:25px; max-width=25px;" src="{$post.avatar}" /> <a href="{$post.profile}" style="{$post.user_style}">{$post.nickname}:</a>
 				<span class="pull-right"><span rel="tooltip" data-original-title="{$post.date}">{$post.date_rough}</span></span>
 			  </div>
 
@@ -216,6 +216,8 @@
 				</div>
 			  </div>
 			</div>
+
+			<br />
 
 			{/foreach}
 		    <hr />

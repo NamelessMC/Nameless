@@ -161,6 +161,8 @@ $language = array(
 	'user_unblocked' => 'User unblocked.',
 	'views' => 'Profile Views:',
 	'private_profile_page' => 'This is a private profile!',
+	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
+	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
 	
 	// Reports
 	'invalid_report_content' => 'Unable to create report. Please ensure your report reason is between 2 and 1024 characters.',

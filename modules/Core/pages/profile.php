@@ -164,11 +164,17 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts 
 										'time' => date('U'),
 										'content' => Output::getClean(Input::get('reply'))
 									));
-									
-									if($query->id !== $user->data()->id){
-										// Alert user
-										Alert::create($query->id, 'profile_post', str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), URL::build('/profile/' . Output::getClean($query->username)));
-									}
+
+									if($post[0]->author_id != $query->id && $query->id != $user->data()->id)
+                                        Alert::create($query->id, 'profile_post', str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), URL::build('/profile/' . Output::getClean($query->username)));
+
+									else if($post[0]->author_id != $user->data()->id){
+									    // Alert post author
+                                        if($post[0]->author_id == $query->id)
+                                            Alert::create($query->id, 'profile_post_reply', str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post_reply_your_profile')), str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post_reply_your_profile')), URL::build('/profile/' . Output::getClean($query->username)));
+                                        else
+                                            Alert::create($post[0]->author_id, 'profile_post_reply', str_replace(array('{x}', '{y}'), array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname)), $language->get('user', 'new_wall_post_reply')), str_replace(array('{x}', '{y}'), array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname)), $language->get('user', 'new_wall_post_reply')), URL::build('/profile/' . Output::getClean($query->username)));
+                                    }
 									
 									// Redirect to clear input
 									Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));

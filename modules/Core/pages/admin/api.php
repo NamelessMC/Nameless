@@ -71,6 +71,21 @@ if(Input::exists()){
         $queries->update('settings', $legacy_plugin_id, array(
             'value' => Input::get('enable_legacy_api')
         ));
+
+        if(isset($_POST['verification']) && $_POST['verification'] == 'on')
+            $verification = 1;
+        else
+            $verification = 0;
+
+        $verification_id = $queries->getWhere('settings', array('name', '=', 'email_verification'));
+        $verification_id = $verification_id[0]->id;
+        try {
+            $queries->update('settings', $verification_id, array(
+                'value' => $verification
+            ));
+        } catch(Exception $e){
+            $error = $e->getMessage();
+        }
     } else {
         $error = $language->get('general', 'invalid_token');
     }
@@ -136,6 +151,10 @@ if(Input::exists()){
 
                     // Get API key
                     $plugin_api = $queries->getWhere('settings', array('name', '=', 'mc_api_key'));
+
+                    // Is email verification enabled
+                    $emails = $queries->getWhere('settings', array('name', '=', 'email_verification'));
+                    $emails = $emails[0]->value;
                     ?>
 
                     <form action="" method="post">
@@ -152,6 +171,10 @@ if(Input::exists()){
                             <input id="enable_api" name="enable_legacy_api" type="checkbox"
                                    class="js-switch"
                                    value="1"<?php if ($legacy_api_enabled == '1') { ?> checked<?php } ?> />
+                        </div>
+                        <div class="form-group">
+                            <label for="verification"><?php echo $language->get('admin', 'email_verification'); ?></label>
+                            <input name="verification" id="verification" type="checkbox" class="js-switch"<?php if($emails == '1'){ ?> checked<?php } ?> />
                         </div>
                         <div class="form-group">
                             <input type="hidden" name="token" value="<?php echo Token::get(); ?>">

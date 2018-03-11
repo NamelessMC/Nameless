@@ -163,6 +163,8 @@ $language = array(
     'user_unblocked' => 'Utilizatorul a fost deblocat.',
 	'views' => 'Vizualizări profil:',
 	'private_profile_page' => 'Acest profil este privat!',
+	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
+	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
     
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',
