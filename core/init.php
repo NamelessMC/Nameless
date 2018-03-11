@@ -274,7 +274,7 @@ if($page != 'install'){
         // Admins only beyond this point
         if(!$user->isLoggedIn() || !$user->canViewACP()){
             // Maintenance mode
-            if(isset($_GET['route']) && rtrim($_GET['route'], '/') == '/login'){
+            if(isset($_GET['route']) && (rtrim($_GET['route'], '/') == '/login' || substr($_GET['route'], 0, 5) == '/api/')){
                 // Can continue as normal
             } else {
                 require(ROOT_PATH . '/maintenance.php');
