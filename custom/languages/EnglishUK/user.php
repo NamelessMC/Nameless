@@ -114,7 +114,7 @@ $language = array(
 	
 	// Login
 	'successful_login' => 'You have successfully logged in.',
-	'incorrect_details' => 'You have inputted incorrect details.',
+	'incorrect_details' => 'You have entered incorrect details.',
 	'inactive_account' => 'Your account is inactive. Please check your emails for a validation link, including within your junk folder.',
 	'account_banned' => 'That account is banned.',
 	'forgot_password' => 'Forgot password?',
