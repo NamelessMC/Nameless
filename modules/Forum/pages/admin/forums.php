@@ -803,8 +803,11 @@ $admin_page = 'forums';
 
                                             $new_hooks = array();
 
+                                            if($_POST['webhook'] == 1)
+                                                $new_hooks[] = $_GET['forum'];
+
                                             foreach($enabled_hooks as $hook)
-                                                if($hook != $_GET['forum'] || $_POST['webhook'] == 1)
+                                                if($hook != $_GET['forum'])
                                                     $new_hooks[] = $hook;
 
                                             $queries->update('settings', $webhook_settings[0]->id, array(
