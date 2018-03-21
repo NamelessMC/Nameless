@@ -26,8 +26,6 @@ if(defined('PAGE') && PAGE != 'login' && PAGE != 404){
 if(isset($widgets))
 	$smarty->assign('WIDGETS', $widgets->getWidgets());
 ?>
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-
 	<!-- Page Title -->
 	<title><?php echo $title; ?> &bull; <?php echo SITE_NAME; ?></title>
 	
@@ -42,7 +40,6 @@ if(isset($widgets))
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/css/font-awesome.min.css">
 	<?php 
 	} else {
-		require(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php');
 		foreach($css as $item){
 			?>
 	<link rel="stylesheet" href="<?php echo $item; ?>">

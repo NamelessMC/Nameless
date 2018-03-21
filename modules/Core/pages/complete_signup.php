@@ -120,8 +120,9 @@ if(!isset($_GET['c'])){
 }
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
     <head>
+        <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="<?php echo SITE_NAME; ?> - complete account registration">

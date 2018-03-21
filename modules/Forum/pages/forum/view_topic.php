@@ -235,9 +235,9 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 ?>
 
 <!DOCTYPE html>
-<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
-    <meta charset="utf-8">
+    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="<?php echo SITE_NAME; ?> Forum - Topic: <?php echo Output::getClean($topic->topic_title); ?> - Page <?php echo $p; ?>">

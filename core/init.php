@@ -239,6 +239,11 @@ if($page != 'install'){
     $smarty->assign('SITE_NAME', SITE_NAME);
     $smarty->assign('SITE_HOME', URL::build('/'));
 
+    if(file_exists(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php'))
+        require(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php');
+    else
+        require(ROOT_PATH . '/custom/templates/Default/template.php');
+
     // Avatars
     $cache->setCache('avatar_settings_cache');
     if($cache->isCached('custom_avatars') && $cache->retrieve('custom_avatars') == 1) {
