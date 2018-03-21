@@ -39,21 +39,21 @@ $admin_page = 'modules';
 if(isset($_GET['action'])){
 	if($_GET['action'] == 'install'){
 		// Install any new modules
-		$directories = glob('modules/*' , GLOB_ONLYDIR);
+		$directories = glob(ROOT_PATH . '/modules/*' , GLOB_ONLYDIR);
 
 		foreach($directories as $directory){
 			$folders = explode('/', $directory);
 			// Is it already in the database?
-			$exists = $queries->getWhere('modules', array('name', '=', htmlspecialchars($folders[1])));
+			$exists = $queries->getWhere('modules', array('name', '=', htmlspecialchars($folders[count($folders) - 1])));
 			if(!count($exists)){
 				// No, add it now
 				$queries->create('modules', array(
-					'name' => htmlspecialchars($folders[1])
+					'name' => htmlspecialchars($folders[count($folders) - 1])
 				));
 
 				// Require installer if necessary
-				if(file_exists('modules/' . $folders[1] . '/install.php')){
-					require(ROOT_PATH . '/modules/' . $folders[1] . '/install.php');
+				if(file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/install.php')){
+					require(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/install.php');
 				}
 			}
 		}
