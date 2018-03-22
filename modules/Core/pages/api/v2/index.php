@@ -45,11 +45,11 @@ class Nameless2API
                 }
             }
 
-            if (isset($api_key)) {
-                // Set language
-                if (!isset($api_language) || empty($api_language)) $this->throwError(2, 'Invalid language file');
-                $this->_language = $api_language;
+            // Set language
+            if (!isset($api_language) || empty($api_language)) $this->throwError(2, 'Invalid language file');
+            $this->_language = $api_language;
 
+            if (isset($api_key)) {
                 // Set template
                 $this->_template = $template;
 
