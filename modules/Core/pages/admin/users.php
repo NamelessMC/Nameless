@@ -426,6 +426,9 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
                             die();
                         }
 
+                        $displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+                        $displaynames = $displaynames[0]->value;
+
 						if(Input::exists()) {
 							if(Token::check(Input::get('token'))) {
 								if(Input::get('action') === 'update'){
