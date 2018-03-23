@@ -114,6 +114,8 @@ $language = array(
 	'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
 	'registration_disabled_message' => 'Registration disabled message',
 	'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
+	'validation_promote_group' => 'Post-validation group',
+	'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
 
 	// Reactions
 	'icon' => 'Icon',
@@ -305,11 +307,12 @@ $language = array(
 	'group_not_exist' => 'That group doesn\'t exist.',
 	'secondary_groups' => 'Secondary Groups',
 	'secondary_groups_info' => 'The user will gain any additional permissions from these groups. Ctrl+click to select/deselect multiple groups.',
-    'unable_to_update_uuid' => 'Unable to update UUID.',
+	'unable_to_update_uuid' => 'Unable to update UUID.',
+	'default_group' => 'Is the group the default group (for new users)?',
 
 	// Permissions
-    'select_all' => 'Select All',
-    'deselect_all' => 'Deselect All',
+	'select_all' => 'Select All',
+	'deselect_all' => 'Deselect All',
 	'background_image' => 'Background image',
 	'can_edit_own_group' => 'Can edit own group\'s permissions',
 	'permissions_updated_successfully' => 'Permissions updated successfully.',
@@ -401,6 +404,8 @@ $language = array(
 	'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
 	'api_registration_email' => 'API Registration Email',
 	'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
+	'api_verification' => 'Enable API verification?',
+	'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
 
 	// File uploads
 	'drag_files_here' => 'Drag files here to upload.',
@@ -423,5 +428,6 @@ $language = array(
 	'discord_hooks_info' => 'Send a message to a Discord channel when something happens on your site. Create a Discord hook in your Discord Server Settings -> Webhooks tab.',
 	'discord_hook_url' => 'Discord webhook URL',
 	'discord_hook_events' => 'Enabled Discord hook events (Ctrl+click to select multiple events)',
-	'register_hook_info' => 'User registration'
+	'register_hook_info' => 'User registration',
+	'validate_hook_info' => 'User validation'
 );

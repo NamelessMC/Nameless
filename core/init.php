@@ -431,6 +431,22 @@ if($page != 'install'){
             }
         }
 
+        // Does the account need verifying?
+        // Get default group ID
+        $cache->setCache('default_group');
+        if($cache->isCached('default_group')) {
+            $default_group = $cache->retrieve('default_group');
+        } else {
+            $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
+            $default_group = $default_group[0]->id;
+
+            $cache->store('default_group', $default_group);
+        }
+        if($user->data()->group_id == $default_group && ($user->data()->reset_code)){
+            // User needs to validate account
+            $smarty->assign('MUST_VALIDATE_ACCOUNT', str_replace('{x}', Output::getClean($user->data()->reset_code), $language->get('user', 'validate_account_command')));
+        }
+
     }
 
     // Minecraft integration?

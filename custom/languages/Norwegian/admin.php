@@ -114,6 +114,8 @@ $language = array(
     'recaptcha_secret_key' => 'reCAPTCHA hemmelig nøkkel (Secret key)',
     'registration_disabled_message' => 'Registrering deaktivert melding',
     'enable_nicknames_on_registration' => 'Tillatt kallenavn for nyregistrerte brukere?',
+    'validation_promote_group' => 'Post-validation group',
+    'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
 
 	// Reactions
 	'icon' => 'Ikon',
@@ -305,15 +307,16 @@ $language = array(
 	'group_not_exist' => 'Den gruppa eksisterer ikke.',
 	'secondary_groups' => 'Undergrupper',
 	'secondary_groups_info' => 'Denne brukeren vil få all tilgang som denne gruppen har.',
-    'unable_to_update_uuid' => 'Kan ikke oppdatere UUID.',
+	'unable_to_update_uuid' => 'Kan ikke oppdatere UUID.',
+	'default_group' => 'Is the group the default group (for new users)?',
 
-    // Permissions
-    'select_all' => 'Velg alle',
-    'deselect_all' => 'Fjern markering',
-    'background_image' => 'Bakgrunnsbilde',
-    'can_edit_own_group' => 'Kan ikke endre egen gruppes permisjoner.',
-    'permissions_updated_successfully' => 'Permisjoner suksessfullt oppdatert.',
-    'cant_edit_this_group' => 'Du kan ikke endre på denne gruppens permisjoner!',
+	// Permissions
+	'select_all' => 'Velg alle',
+	'deselect_all' => 'Fjern markering',
+	'background_image' => 'Bakgrunnsbilde',
+	'can_edit_own_group' => 'Kan ikke endre egen gruppes permisjoner.',
+	'permissions_updated_successfully' => 'Permisjoner suksessfullt oppdatert.',
+	'cant_edit_this_group' => 'Du kan ikke endre på denne gruppens permisjoner!',
 
 	// General Admin language
 	'task_successful' => 'Kapittel ferdig.',
@@ -401,6 +404,8 @@ $language = array(
     'confirm_api_regen' => 'Er du sikker på at du vil regenere API nøkkelen din?Are you sure you want to regenerate your API key?',
     'api_registration_email' => 'API RegistreringsemailAPI Registration Email',
     'link_to_complete_registration' => 'Link for å fullføre registrering: {x}', // Don't replace {x}
+    'api_verification' => 'Enable API verification?',
+    'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
 
 	// File uploads
 	'drag_files_here' => 'Dra filene hit for å laste opp.',
@@ -423,5 +428,6 @@ $language = array(
 	'discord_hooks_info' => 'Send a message to a Discord channel when something happens on your site. Create a Discord hook in your Discord Server Settings -> Webhooks tab.',
 	'discord_hook_url' => 'Discord webhook URL',
 	'discord_hook_events' => 'Enabled Discord hook events (Ctrl+click to select multiple events)',
-	'register_hook_info' => 'User registration'
+	'register_hook_info' => 'User registration',
+	'validate_hook_info' => 'User validation'
 );

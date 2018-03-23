@@ -243,6 +243,22 @@ $admin_page = 'users_and_groups';
 								
 								if($validation->passed()){
 									try {
+										if(isset($_POST['default']) && $_POST['default'] == 1){
+											$default = 1;
+											$cache->setCache('default_group');
+											$cache->store('default_group', $_GET['group']);
+										} else
+											$default = 0;
+
+										$default_group = $queries->getWhere('groups', array('default_group', '=', 1));
+										if($default_group[0]->id != $_GET['group'])
+											$queries->update('groups', $default_group[0]->id, array(
+												'default_group' => 0
+											));
+										else
+											if($default == 0)
+												$default = 1;
+
 										$queries->update('groups', $_GET['group'], array(
 											'name' => Input::get('groupname'),
 											'group_html' => Input::get('html'),
@@ -250,7 +266,8 @@ $admin_page = 'users_and_groups';
 											'group_username_css' => Input::get('username_style'),
 											'mod_cp' => Input::get('modcp'),
 											'admin_cp' => Input::get('admincp'),
-											'staff' => Input::get('staff')
+											'staff' => Input::get('staff'),
+											'default_group' => $default
 										));
 										
 										Redirect::to(URL::build('/admin/groups/', 'group=' . Output::getClean($_GET['group'])));
@@ -416,6 +433,12 @@ $admin_page = 'users_and_groups';
                               <input type="hidden" name="admincp" value="0">
                               <input type="checkbox" name="admincp" class="js-switch" id="InputAdminCP"
                                      value="1" <?php if($group[0]->admin_cp == 1){ ?> checked<?php } ?>>
+                            </div>
+                            <div class="form-group">
+                              <label for="InputDefault"><?php echo $language->get('admin', 'default_group'); ?></label>
+                              <input type="hidden" name="default" value="0">
+                              <input type="checkbox" name="default" class="js-switch" id="InputDefault"
+                                     value="1" <?php if($group[0]->default_group == 1){ ?> checked<?php } ?>>
                             </div>
                             <input type="hidden" name="token" value="<?php echo $token; ?>">
                             <input type="hidden" name="action" value="update">

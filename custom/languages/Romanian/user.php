@@ -13,6 +13,11 @@
 
 $language = array(
     /*
+     *  Change this for the account validation message
+     */
+    'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+
+    /*
      *  User Related
      */
     'guest' => 'Vizitator',

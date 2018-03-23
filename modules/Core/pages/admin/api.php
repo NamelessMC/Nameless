@@ -86,6 +86,21 @@ if(Input::exists()){
         } catch(Exception $e){
             $error = $e->getMessage();
         }
+
+        if(isset($_POST['api_verification']) && $_POST['api_verification'] == 'on')
+            $api_verification = 1;
+        else
+            $api_verification = 0;
+
+        $api_verification_id = $queries->getWhere('settings', array('name', '=', 'api_verification'));
+        $api_verification_id = $api_verification_id[0]->id;
+        try {
+            $queries->update('settings', $api_verification_id, array(
+                'value' => $api_verification
+            ));
+        } catch(Exception $e){
+            $error = $e->getMessage();
+        }
     } else {
         $error = $language->get('general', 'invalid_token');
     }
@@ -155,6 +170,10 @@ if(Input::exists()){
                     // Is email verification enabled
                     $emails = $queries->getWhere('settings', array('name', '=', 'email_verification'));
                     $emails = $emails[0]->value;
+
+                    // Is API verification enabled?
+                    $api_verification = $queries->getWhere('settings', array('name', '=', 'api_verification'));
+                    $api_verification = $api_verification[0]->value;
                     ?>
 
                     <form action="" method="post">
@@ -175,6 +194,10 @@ if(Input::exists()){
                         <div class="form-group">
                             <label for="verification"><?php echo $language->get('admin', 'email_verification'); ?></label>
                             <input name="verification" id="verification" type="checkbox" class="js-switch"<?php if($emails == '1'){ ?> checked<?php } ?> />
+                        </div>
+                        <div class="form-group">
+                            <label for="api_verification"><?php echo $language->get('admin', 'api_verification'); ?></label> <span class="badge badge-info" data-toggle="popover" data-html="true" data-content="<?php echo $language->get('admin', 'api_verification_info'); ?>"><i class="fa fa-question"></i></span>
+                            <input name="api_verification" id="api_verification" type="checkbox" class="js-switch"<?php if($api_verification == '1'){ ?> checked<?php } ?> />
                         </div>
                         <div class="form-group">
                             <input type="hidden" name="token" value="<?php echo Token::get(); ?>">

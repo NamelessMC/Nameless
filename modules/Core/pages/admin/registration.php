@@ -96,6 +96,26 @@ if(Input::exists()){
 			} catch(Exception $e){
 			  $error = $e->getMessage();
 			}
+
+			// Validation group
+			$validation_group_id = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
+			$validation_action = $validation_group_id[0]->value;
+			$validation_action = json_decode($validation_action, true);
+			if(isset($validation_action['action']))
+			    $validation_action = $validation_action['action'];
+			else
+			    $validation_action = 'promote';
+			$validation_group_id = $validation_group_id[0]->id;
+
+			$new_value = json_encode(array('action' => $validation_action, 'group' => $_POST['promote_group']));
+
+			try {
+			    $queries->update('settings', $validation_group_id, array(
+			        'value' => $new_value
+			    ));
+			} catch(Exception $e){
+			    $error = $e->getMessage();
+			}
 		}
 	} else {
 		// Invalid token
@@ -164,6 +184,15 @@ $token = Token::get();
                   $recaptcha_key = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
                   $recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
                   $registration_disabled_message = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
+
+                  // Validation group
+                  $validation_group = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
+                  $validation_group = $validation_group[0]->value;
+                  $validation_group = json_decode($validation_group, true);
+                  if(isset($validation_group['group']))
+                      $validation_group = $validation_group['group'];
+                  else
+                     $validation_group = 1;
 			  ?>
 			  <hr />
 			  <form action="" method="post">
@@ -186,6 +215,17 @@ $token = Token::get();
 				<div class="form-group">
 				  <label for="InputRegistrationDisabledMessage"><?php echo $language->get('admin', 'registration_disabled_message'); ?></label>
 				  <textarea style="width:100%" rows="10" name="message" id="InputRegistrationDisabledMessage"><?php echo Output::getPurified(htmlspecialchars_decode($registration_disabled_message[0]->value)); ?></textarea>
+				</div>
+				<div class="form-group">
+				  <label for="InputValidationPromoteGroup"><?php echo $language->get('admin', 'validation_promote_group'); ?></label> <span class="badge badge-info" data-toggle="popover" data-content="<?php echo $language->get('admin', 'validation_promote_group_info'); ?>"><i class="fa fa-question"></i></span>
+				  <select class="form-control" id="InputValidationPromoteGroup" name="promote_group">
+				    <?php
+				    $groups = $queries->getWhere('groups', array('default_group', '=', 0));
+				    foreach($groups as $group){
+				        echo '<option value="' . $group->id . '"' . (($group->id == $validation_group) ? ' selected' : '') . '>' . Output::getClean($group->name) . '</option>';
+				    }
+				    ?>
+				  </select>
 				</div>
 				<div class="form-group">
 				  <input type="hidden" name="token" value="<?php echo $token; ?>">
