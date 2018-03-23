@@ -295,7 +295,7 @@ if(!isset($admin_styles)){
   }
 
   // Registration page/login page checkbox
-  if($route == '/login' || $route == 'register' || $route == 'complete_signup'){
+  if($route == '/login' || $route == '/register' || $route == '/complete_signup'){
   	$js .= '
   	<script>
   	$(function () {
