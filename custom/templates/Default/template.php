@@ -37,6 +37,8 @@ if($cache->isCached('nav_bg')){
 $smarty->assign('NAV_STYLE', Output::getClean($nav_style));
 $smarty->assign('NAV_BG', Output::getClean($nav_bg));
 
+$route = rtrim($_GET['route'], '/');
+
 if(!isset($admin_styles)){
   // Paths to CSS files
   $css = array(
@@ -52,7 +54,7 @@ if(!isset($admin_styles)){
   	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/js/bootstrap.min.js'
   );
 
-  if(defined('PAGE') && PAGE == 'cc_messaging'){
+  if($route == '/user/messaging'){
   	$js_sources[] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/js/bootstrap3-typeahead.min.js';
   }
 
@@ -293,7 +295,7 @@ if(!isset($admin_styles)){
   }
 
   // Registration page/login page checkbox
-  if(defined('PAGE') && (PAGE == 'login' || PAGE == 'register' || PAGE == 'complete_signup')){
+  if($route == '/login' || $route == 'register' || $route == 'complete_signup'){
   	$js .= '
   	<script>
   	$(function () {
