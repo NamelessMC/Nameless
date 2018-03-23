@@ -114,6 +114,8 @@ $language = array(
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
     'registration_disabled_message' => 'Registration disabled message',
     'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
+    'validation_promote_group' => 'Post-validation group',
+    'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
 
 	// Reactions
 	'icon' => 'Ikonka',
@@ -305,15 +307,16 @@ $language = array(
 	'group_not_exist' => 'Tato skupina neexistuje.',
 	'secondary_groups' => 'Vedlejší skupiny',
 	'secondary_groups_info' => 'Od těchto skupin získá uživatel jakákoliv další oprávnění',
-    'unable_to_update_uuid' => 'Unable to update UUID.',
+	'unable_to_update_uuid' => 'Unable to update UUID.',
+	'default_group' => 'Is the group the default group (for new users)?',
 
-    // Permissions
-    'select_all' => 'Select All',
-    'deselect_all' => 'Deselect All',
-    'background_image' => 'Background image',
-    'can_edit_own_group' => 'Can edit own group\'s permissions',
-    'permissions_updated_successfully' => 'Permissions updated successfully.',
-    'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
+	// Permissions
+	'select_all' => 'Select All',
+	'deselect_all' => 'Deselect All',
+	'background_image' => 'Background image',
+	'can_edit_own_group' => 'Can edit own group\'s permissions',
+	'permissions_updated_successfully' => 'Permissions updated successfully.',
+	'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
 	
 	// General Admin language
 	'task_successful' => 'Úkol úspěšný.',
@@ -392,15 +395,17 @@ $language = array(
 	'page_redirect_link_maximum_512' => 'Zajistětě, aby odkaz na přesměrování Vaší stránky byl maximálně 512 znaků dlouhý.',
 	'confirm_delete_page' => 'Jste si jist, že chcete tuto stránku odstranit?',
 
-    // API
-    'api' => 'API',
-    'enable_api' => 'Enable API?',
-    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>.',
-    'enable_legacy_api' => 'Enable legacy API?',
-    'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
-    'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
-    'api_registration_email' => 'API Registration Email',
-    'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
+	// API
+	'api' => 'API',
+	'enable_api' => 'Enable API?',
+	'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>.',
+	'enable_legacy_api' => 'Enable legacy API?',
+	'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
+	'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
+	'api_registration_email' => 'API Registration Email',
+	'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
+	'api_verification' => 'Enable API verification?',
+	'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
 
 	// File uploads
 	'drag_files_here' => 'Soubory přetáhněte sem pro nahrání.',
@@ -423,5 +428,6 @@ $language = array(
 	'discord_hooks_info' => 'Send a message to a Discord channel when something happens on your site. Create a Discord hook in your Discord Server Settings -> Webhooks tab.',
 	'discord_hook_url' => 'Discord webhook URL',
 	'discord_hook_events' => 'Enabled Discord hook events (Ctrl+click to select multiple events)',
-	'register_hook_info' => 'User registration'
+	'register_hook_info' => 'User registration',
+	'validate_hook_info' => 'User validation'
 );

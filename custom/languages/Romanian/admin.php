@@ -119,6 +119,8 @@ $language = array(
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
     'registration_disabled_message' => 'Mesaj afișat când înregistrarea este dezactivată',
     'enable_nicknames_on_registration' => 'Activați poreclele pentru utilizatorii ce se înregistrează?',
+    'validation_promote_group' => 'Post-validation group',
+    'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
 
     // Reactions
     'icon' => 'Iconiță',
@@ -308,6 +310,7 @@ $language = array(
     'secondary_groups' => 'Grupuri secundare',
     'secondary_groups_info' => 'Utilizatorul va obține orice permisiuni suplimentare din partea acestor grupuri',
     'unable_to_update_uuid' => 'Imposibil de actualizat UUID-ul.',
+    'default_group' => 'Is the group the default group (for new users)?',
 
     // Permissions
     'select_all' => 'Selectează tot',
@@ -403,6 +406,8 @@ $language = array(
     'confirm_api_regen' => 'Sigur doriți să vă regenerați cheia API?',
     'api_registration_email' => 'API pentru înregistrarea e-mail',
     'link_to_complete_registration' => 'Adresa pentru finalizarea înregistrări:', // Don't replace {x}
+    'api_verification' => 'Enable API verification?',
+    'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
 
     // File uploads
     'drag_files_here' => 'Trageți fișierele aici pentru a le încărca.',
@@ -425,5 +430,6 @@ $language = array(
     'discord_hooks_info' => 'Send a message to a Discord channel when something happens on your site. Create a Discord hook in your Discord Server Settings -> Webhooks tab.',
     'discord_hook_url' => 'Discord webhook URL',
     'discord_hook_events' => 'Enabled Discord hook events (Ctrl+click to select multiple events)',
-    'register_hook_info' => 'User registration'
+    'register_hook_info' => 'User registration',
+    'validate_hook_info' => 'User validation'
 );

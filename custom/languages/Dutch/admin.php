@@ -116,6 +116,8 @@ $language = array(
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
     'registration_disabled_message' => 'Bericht voor uitgezette registratie',
     'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
+    'validation_promote_group' => 'Post-validation group',
+    'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
 
 	// Reacties
 	'icon' => 'Icoon',
@@ -306,15 +308,16 @@ $language = array(
 	'group_not_exist' => 'Die groep bestaat niet.',
 	'secondary_groups' => 'Bijkomende groepen',
 	'secondary_groups_info' => 'De gebruiker zal de bijkomende toestemmingen van deze groepen ook krijgen',
-    'unable_to_update_uuid' => 'De UUID kan niet worden bijgewerkt.',
+	'unable_to_update_uuid' => 'De UUID kan niet worden bijgewerkt.',
+	'default_group' => 'Is the group the default group (for new users)?',
 
-    // Permissies
-    'select_all' => 'Selecteer Allemaal',
-    'deselect_all' => 'Deselecteer Allemaal',
-    'background_image' => 'Achtergrondafbeelding',
-    'can_edit_own_group' => 'Kan de permissies van je eigen groep niet bewerken.',
-    'permissions_updated_successfully' => 'Permissies succesvol geüpdatet.',
-    'cant_edit_this_group' => 'Je kan deze groep haar permissies niet aanpassen!',
+	// Permissies
+	'select_all' => 'Selecteer Allemaal',
+	'deselect_all' => 'Deselecteer Allemaal',
+	'background_image' => 'Achtergrondafbeelding',
+	'can_edit_own_group' => 'Kan de permissies van je eigen groep niet bewerken.',
+	'permissions_updated_successfully' => 'Permissies succesvol geüpdatet.',
+	'cant_edit_this_group' => 'Je kan deze groep haar permissies niet aanpassen!',
 
 	// Algemene admin taal
 	'task_successful' => 'Taak succesvol.',
@@ -393,15 +396,17 @@ $language = array(
     'page_redirect_link_maximum_512' => 'De pagina doorstuur link moet minimaal uit 512 karakters bestaan.',
     'confirm_delete_page' => 'Weet je zeker dat je deze pagina wilt verwijderen?',
 
-    // API
-    'api' => 'API',
-    'enable_api' => 'API aanzetten?',
-    'api_info' => 'De API staat toe dat plugins en andere services mogen communiceren met je website, zoals de <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >officiële Nameless plugin</a>.',
-    'enable_legacy_api' => 'Legacy API aanzetten?',
-    'legacy_api_info' => 'De legacy API staat toe dat plugins die de verouderde versie (1) API gebruiken werken met uw huidige versie (2).',
-    'confirm_api_regen' => 'Weet je zeker dat jij jouw API key wilt vernieuwen?',
-    'api_registration_email' => 'API Registratie Email',
-    'link_to_complete_registration' => 'Link voor het voltooien van de registratie: {x}', // Don't replace {x}
+	// API
+	'api' => 'API',
+	'enable_api' => 'API aanzetten?',
+	'api_info' => 'De API staat toe dat plugins en andere services mogen communiceren met je website, zoals de <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >officiële Nameless plugin</a>.',
+	'enable_legacy_api' => 'Legacy API aanzetten?',
+	'legacy_api_info' => 'De legacy API staat toe dat plugins die de verouderde versie (1) API gebruiken werken met uw huidige versie (2).',
+	'confirm_api_regen' => 'Weet je zeker dat jij jouw API key wilt vernieuwen?',
+	'api_registration_email' => 'API Registratie Email',
+	'link_to_complete_registration' => 'Link voor het voltooien van de registratie: {x}', // Don't replace {x}
+	'api_verification' => 'Enable API verification?',
+	'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
 
 	// Bestand uploads
 	'drag_files_here' => 'Sleep bestand(en) hier naartoe om te uploaden.',

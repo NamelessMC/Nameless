@@ -112,4 +112,9 @@
 	  {$MAINTENANCE_ENABLED}
   </div>
   {/if}
+  {if isset($MUST_VALIDATE_ACCOUNT)}
+  	  <div class="alert alert-info">
+  		  {$MUST_VALIDATE_ACCOUNT}
+  	  </div>
+  {/if}
 </div>

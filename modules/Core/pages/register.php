@@ -144,6 +144,10 @@ $recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha
 $email_verification = $queries->getWhere('settings', array('name', '=', 'email_verification'));
 $email_verification = $email_verification[0]->value;
 
+// API verification
+$api_verification = $queries->getWhere('settings', array('name', '=', 'api_verification'));
+$api_verification = $api_verification[0]->value;
+
 // Deal with any input
 if(Input::exists()){
 	if(Token::check(Input::get('token'))){
@@ -339,14 +343,32 @@ if(Input::exists()){
 						$date = $date->getTimestamp();
 						
 						try {
-							// Generate random code for email
-							$code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+							if($api_verification == '1') {
+                                // Generate shorter code for API validation
+                                $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
+                                $active = 1;
+							} else {
+                                // Generate random code for email
+                                $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+                                $active = 0;
+							}
 							
 							// Get default language ID before creating user
 							$language_id = $queries->getWhere('languages', array('name', '=', LANGUAGE));
 							
 							if(count($language_id)) $language_id = $language_id[0]->id;
 							else $language_id = 1; // fallback to EnglishUK
+
+							// Get default group ID
+							$cache->setCache('default_group');
+							if($cache->isCached('default_group')) {
+								$default_group = $cache->retrieve('default_group');
+							} else {
+								$default_group = $queries->getWhere('groups', array('default_group', '=', 1));
+								$default_group = $default_group[0]->id;
+
+								$cache->store('default_group', $default_group);
+							}
 							
 							// Create user
 							$user->create(array(
@@ -356,18 +378,19 @@ if(Input::exists()){
 								'password' => $password,
 								'pass_method' => 'default',
 								'joined' => $date,
-								'group_id' => 1,
+								'group_id' => $default_group,
 								'email' => htmlspecialchars(Input::get('email')),
 								'reset_code' => $code,
 								'lastip' => htmlspecialchars($ip),
 								'last_online' => $date,
-								'language_id' => $language_id
+								'language_id' => $language_id,
+								'active' => $active
 							));
 
 							// Get user ID
 							$user_id = $queries->getLastId();
 							
-							if($email_verification == '1'){
+							if($api_verification != '1' && $email_verification == '1'){
 								$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
 								$php_mailer = $php_mailer[0]->value;
 

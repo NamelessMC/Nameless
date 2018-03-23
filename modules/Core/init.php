@@ -133,6 +133,7 @@ $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
 
 // Hooks
 HookHandler::registerEvent('registerUser', $language->get('admin', 'register_hook_info'));
+HookHandler::registerEvent('validateUser', $language->get('admin', 'validate_hook_info'));
 
 if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/') != '/admin/update_execute')){
 	// Custom pages
@@ -289,4 +290,23 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
     }
     if($cache->isCached('url'))
         DiscordHook::setURL($cache->retrieve('url'));
+
+	// Validate user hook
+    $cache->setCache('validate_action');
+    if($cache->isCached('validate_action')){
+        $validate_action = $cache->retrieve('validate_action');
+
+    } else {
+        $validate_action = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
+        $validate_action = $validate_action[0]->value;
+        $validate_action = json_decode($validate_action, true);
+
+        $cache->store('validate_action', $validate_action);
+
+    }
+
+    if($validate_action['action'] == 'promote') {
+        HookHandler::registerHook('validateUser', 'User::validatePromote');
+        define('VALIDATED_DEFAULT', $validate_action['group']);
+    }
 }

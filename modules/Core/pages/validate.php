@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -15,10 +15,27 @@ if(!isset($_GET['c'])){
 } else {
 	$check = $queries->getWhere('users', array('reset_code', '=', $_GET['c']));
 	if(count($check)){
+        // API verification
+        $api_verification = $queries->getWhere('settings', array('name', '=', 'api_verification'));
+        $api_verification = $api_verification[0]->value;
+
+        if($api_verification == '1')
+            $reset_code = $check[0]->reset_code;
+        else
+            $reset_code = null;
+
 		$queries->update('users', $check[0]->id, array(
-			'reset_code' => '',
+			'reset_code' => $reset_code,
 			'active' => 1
 		));
+
+		HookHandler::executeEvent('validateUser', array(
+			'event' => 'validateUser',
+			'user_id' => $check[0]->id,
+			'username' => Output::getClean($check[0]->username),
+			'language' => $language
+		));
+
 		Session::flash('home', $language->get('user', 'validation_complete'));
 		Redirect::to(URL::build('/'));
 		die();

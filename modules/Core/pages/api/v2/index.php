@@ -7,7 +7,7 @@
  *  License: MIT
  *
  *  Version 2.0.0 API
- *  API version 1.0.0
+ *  API version 1.0.1
  */
 
 // Headers
@@ -159,6 +159,11 @@ class Nameless2API
                 case 'getNotifications':
                     // Get user notifications
                     $this->getNotifications();
+                    break;
+
+                case 'validateUser':
+                    // Validate a user
+                    $this->validateUser();
                     break;
 
                 default:
@@ -733,5 +738,38 @@ class Nameless2API
             $this->returnArray(array('message' => $this->_language->get('server_info_updated')));
 
         } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
+    }
+
+    // Validate user
+    private function validateUser(){
+        // Ensure the API key is valid
+        if($this->_validated === true){
+            if(!isset($_POST) || empty($_POST) || !isset($_POST['uuid']) || !isset($_POST['code'])){
+                $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
+            }
+
+            $user_query = $this->_db->get('users', array('uuid', '=', str_replace('-', '', $_POST['uuid'])));
+            if($user_query->count()){
+                $user_query = $user_query->first();
+
+                if($user_query->reset_code == $_POST['code']){
+                    $this->_db->update('users', $user_query->id, array(
+                        'reset_code' => '',
+                        'active' => 1
+                    ));
+
+                    HookHandler::executeEvent('validateUser', array(
+                        'event' => 'validateUser',
+                        'user_id' => $user_query->id,
+                        'username' => Output::getClean($user_query->username),
+                        'language' => $this->_language
+                    ));
+
+                } else
+                    $this->throwError(26, $this->_language->get('api', 'invalid_code'));
+
+            } else
+                $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
+        }
     }
 }

@@ -461,8 +461,8 @@
                         'group_id' => $i,
                         'forum_id' => $n,
                         'view' => 1,
-                        'create_topic' => (($i == 0) ? 0 : 1),
-                        'create_post' => (($i == 0) ? 0 : 1),
+                        'create_topic' => (($i == 0 || $i == 4) ? 0 : 1),
+                        'create_post' => (($i == 0 || $i == 4) ? 0 : 1),
                         'view_other_topics' => 1,
                         'moderate' => (($i == 2 || $i == 3) ? 1 : 0),
                     ));
@@ -505,7 +505,8 @@
                 'name' => 'Member',
                 'group_html' => '<span class="badge badge-success">Member</span>',
                 'group_html_lg' => '<span class="badge badge-success">Member</span>',
-                'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1}'
+                'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1}',
+                'default_group' => 1
             ));
 
             $queries->create('groups', array(
@@ -526,7 +527,19 @@
                 'permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1}'
             ));
 
+            $queries->create('groups', array(
+                'name' => 'Unconfirmed Member',
+                'group_html' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
+                'group_html_lg' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
+                'group_username_css' => '#6c757d'
+            ));
+
             // Languages
+            $queries->create('languages', array(
+                'name' => 'EnglishUK',
+                'is_default' => 1
+            ));
+
             $queries->create('languages', array(
                 'name' => 'Chinese',
                 'is_default' => 0
@@ -535,11 +548,6 @@
             $queries->create('languages', array(
                 'name' => 'Czech',
                 'is_default' => 0
-            ));
-
-            $queries->create('languages', array(
-                'name' => 'EnglishUK',
-                'is_default' => 1
             ));
 
             $queries->create('languages', array(
@@ -912,6 +920,16 @@
             $queries->create('settings', array(
                 'name' => 'discord_hooks',
                 'value' => '{}'
+            ));
+
+            $queries->create('settings', array(
+                'name' => 'api_verification',
+                'value' => '0'
+            ));
+
+            $queries->create('settings', array(
+                'name' => 'validate_user_action',
+                'value' => '{"action":"promote","group":1}'
             ));
 
             // Templates
@@ -1397,7 +1415,8 @@
 										'group_html' => $item->group_html,
 										'group_html_lg' => $item->group_html_lg,
 										'mod_cp' => $item->mod_cp,
-										'admin_cp' => $item->staff
+										'admin_cp' => $item->staff,
+										'default_group' => (($item->id == 1) ? 1 : 0)
 									));
 								}
 
@@ -1979,6 +1998,10 @@
 
 						// Languages
                         $queries->create('languages', array(
+                            'name' => 'EnglishUK',
+                            'is_default' => 1
+                        ));
+                        $queries->create('languages', array(
                             'name' => 'Chinese',
                             'is_default' => 0
                         ));
@@ -1986,14 +2009,10 @@
                             'name' => 'Czech',
                             'is_default' => 0
                         ));
-			$queries->create('languages', array(
-                            'name' => 'EnglishUK',
-                            'is_default' => 1
-			));
-			$queries->create('languages', array(
+                        $queries->create('languages', array(
                             'name' => 'EnglishUS',
                             'is_default' => 0
-			));
+                        ));
                         $queries->create('languages', array(
                             'name' => 'Dutch',
                             'is_default' => 0
@@ -2268,6 +2287,16 @@
 						$queries->create('settings', array(
 						    'name' => 'discord_hooks',
 						    'value' => '{}'
+						));
+
+						$queries->create('settings', array(
+						    'name' => 'api_verification',
+						    'value' => '1'
+						));
+
+						$queries->create('settings', array(
+						    'name' => 'validate_user_action',
+						    'value' => '{"action":"activate"}'
 						));
 
 						// Templates

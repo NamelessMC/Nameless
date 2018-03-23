@@ -38,6 +38,7 @@ $language = array(
     'unable_to_update_username' => 'Unable to update username',
     'unable_to_update_server_info' => 'Unable to update server info',
     'invalid_server_id' => 'Invalid server ID',
+    'invalid_code' => 'Invalid code provided',
 
     // Success messages
     'finish_registration_link' => 'Please click on the following link to complete registration:',
