@@ -3,7 +3,7 @@
  *	Made by Samerton
  *  http://worldscapemc.co.uk
  *
- *  Translation by SimplyRin
+ *  Translation by SimplyRin(@SimplyRin_, https://www.simplyrin.net)
  *
  *  License: MIT
  */
@@ -117,7 +117,7 @@ $admin_language = array(
 	'recaptcha_secret_key' => 'reCAPTCHA シークレットキー',
 	'registration_terms_and_conditions' => '登録の利用規約',
 	'voice_server_module' => '音声サーバーモジュール',
-	'only_works_with_teamspeak' => 'このモジュールは現在、TeamSpeakとDiscordでのみ動作します',
+	'only_works_with_teamspeak' => 'このモジュールは現在、 TeamSpeak と Discord でのみ動作します',
 	'discord_id' => 'Discord サーバー ID',
 	'voice_server_help' => 'ServerQuery ユーザーの詳細を入力してください',
 	'ip_without_port' => 'IP (ポートなし)',
@@ -155,7 +155,7 @@ $admin_language = array(
 	'page_successfully_edited' => 'ページが正常に編集されました',
 	'unable_to_create_page' => 'ページを作成することができません。',
 	'unable_to_edit_page' => 'ページを編集することができません。',
-	'create_page_error' => '1 〜 20 文字の長さ、1 ~ 30 文字、5 文字 20480 ページ コンテンツ ページ タイトルと URL を入力したか確認してください。',
+	'create_page_error' => '1 ~ 20 文字の長さ、1 ~ 30 文字、5 文字 20480 ページ コンテンツ ページ タイトルと URL を入力したか確認してください。',
 	'delete_page' => 'ページを削除',
 	'confirm_delete_page' => 'このページを削除してもよろしいですか？',
 	'page_deleted_successfully' => 'ページが正常に削除されました。',
@@ -253,9 +253,9 @@ $admin_language = array(
 	'group_modcp' => 'グループは ModCP を表示できますか？',
 	'group_admincp' => 'グループは AdminCP を表示できますか？',
 	'group_name_required' => 'グループ名を入力する必要があります。',
-	'group_name_minimum' => 'グループ名は2文字以上にする必要があります。',
-	'group_name_maximum' => 'グループ名は最大20文字でなければなりません。',
-	'html_maximum' => 'グループHTMLは、最大1024文字でなければなりません。',
+	'group_name_minimum' => 'グループ名は 2 文字以上にする必要があります。',
+	'group_name_maximum' => 'グループ名は最大 20 文字でなければなりません。',
+	'html_maximum' => 'グループHTMLは、最大 1024 文字でなければなりません。',
 	'select_user_group' => 'ユーザーはグループに属している必要があります。',
 	'uuid_max_32' => 'UUID は、最大 32 文字にする必要があります。',
 	'cant_delete_root_user' => 'Root ユーザーは削除できません!',
@@ -276,7 +276,7 @@ $admin_language = array(
 	'main_server' => 'メイン サーバー',
 	'main_server_help' => 'サーバープレーヤーが接続します。 通常これはBungeeのインスタンスになります。',
 	'choose_a_main_server' => 'メイン サーバーを選択...',
-	'external_query' => '外部クエリを使用しますか。',
+	'external_query' => '外部クエリを使用しますか？',
 	'external_query_help' => '外部APIを使用してMinecraftサーバーを照会しますか？ 組み込みのクエリが機能しない場合にのみこれを使用してください。 これはアンティッキであることを強くお勧めします。',
 	'editing_server' => 'サーバー {x} の編集', // Don't replace "{x}"
 	'server_ip_with_port' => 'サーバーIP (ポートあり) (ドメインまたはIP)',
@@ -299,18 +299,18 @@ $admin_language = array(
 	'confirm_error_deletion' => 'このエラーを削除してもよろしいですか？',
 	'display_server_status' => 'サーバー ステータスのモジュールを表示',
 	'server_name_required' => 'サーバー名を入力する必要があります。',
-	'server_ip_required' => 'サーバーの iP アドレスを入力する必要があります。',
-	'server_name_minimum' => 'サーバー名は、2文字以上にする必要があります。',
+	'server_ip_required' => 'サーバーの IP アドレスを入力する必要があります。',
+	'server_name_minimum' => 'サーバー名は、2 文字以上にする必要があります。',
 	'server_ip_minimum' => 'サーバーの IP アドレスは、2 文字以上でなければなりません。',
-	'server_name_maximum' => 'サーバー名は最大20文字でなければなりません。',
-	'server_ip_maximum' => 'サーバーIPは、最大64文字でなければなりません。',
+	'server_name_maximum' => 'サーバー名は最大 20 文字でなければなりません。',
+	'server_ip_maximum' => 'サーバーIPは、最大 64 文字でなければなりません。',
 	'purge_errors' => 'エラーを消去',
 	'confirm_purge_errors' => 'すべてのクエリエラーを消去してもよろしいですか？',
 	'avatar_type' => 'アバタータイプ',
 	'custom_usernames' => 'Minecraft ユーザー名を強制しますか？',
 	'mcassoc' => 'mcassoc',
 	'use_mcassoc' => 'Mcassoc を使用しますか？',
-	'use_mcassoc_help' => 'mcassoc は、ユーザーが登録しているMinecraftアカウントを所有していることを確認します。',
+	'use_mcassoc_help' => 'mcassoc は、ユーザーが登録している Minecraft アカウントを所有していることを確認します。',
 	'mcassoc_key' => 'mcassoc 共有キー',
 	'invalid_mcassoc_key' => '無効な mcassoc キー。',
 	'mcassoc_instance' => 'mcassoc インスタンス',
@@ -405,7 +405,7 @@ $user_language = array(
 	'user_title' => 'タイトル',
 	'email_address' => 'メール アドレス',
 	'date_of_birth' => '生年月日',
-	'location' => 'Location',
+	'location' => '場所',
 	'password' => 'パスワード',
 	'confirm_password' => 'パスワードを確認',
 	'i_agree' => '同意します',
@@ -416,12 +416,12 @@ $user_language = array(
 	'terms_and_conditions' => '利用規約',
 	'successful_signin' => 'あなたは正常にサインインしました。',
 	'incorrect_details' => '不正確な詳細',
-	'remember_me' => '私を覚えて',
+	'remember_me' => 'ログインしたままにする',
 	'forgot_password' => 'パスワードを忘れた',
 	'must_input_username' => 'ユーザー名を入力する必要があります。',
 	'must_input_password' => 'パスワードを入力する必要があります。',
 	'inactive_account' => 'あなたのアカウントが現在アクティブではないです。パスワードの再設定を要求しましたか？',
-	'account_banned' => 'あなたのアカウントがBanされています。',
+	'account_banned' => 'あなたのアカウントは Ban されています。',
 	'successfully_logged_out' => 'あなたは正常にログアウトされました。',
 	'signature' => '署名',
 	'registration_check_email' => '電子メールで確認リンクを確認してください。 これがクリックされるまでログインすることはできません。',
@@ -435,21 +435,21 @@ $user_language = array(
 	'mcname_required' => 'Minecraft のユーザー名を入力してください。',
 	'accept_terms' => '登録する前に利用規約に同意する必要があります。',
 	'invalid_recaptcha' => 'reCAPTCHA 応答が無効です。',
-	'username_minimum_3' => 'ユーザー名の長さは3文字以上でなければなりません。',
-	'username_maximum_20' => 'ユーザー名の長さは最大20文字です。',
-	'mcname_minimum_3' => 'あなたのMinecraftユーザー名は3文字以上でなければなりません。',
-	'mcname_maximum_20' => 'あなたのMinecraftユーザー名は、最大20文字の長さでなければなりません。',
+	'username_minimum_3' => 'ユーザー名の長さは 3 文字以上でなければなりません。',
+	'username_maximum_20' => 'ユーザー名の長さは最大 20 文字です。',
+	'mcname_minimum_3' => 'あなたのMinecraftユーザー名は 3 文字以上でなければなりません。',
+	'mcname_maximum_20' => 'あなたのMinecraftユーザー名は、最大 20 文字の長さでなければなりません。',
 	'password_minimum_6' => 'パスワードは6文字以上でなければなりません。',
 	'password_maximum_30' => 'パスワードは30文字以内で入力してください。',
 	'passwords_dont_match' => 'パスワードが一致しません。',
 	'username_mcname_email_exists' => 'あなたのユーザー名は、Minecraft のユーザー名または電子メールアドレスが既に存在します。アカウントは登録済みですか？',
 	'invalid_mcname' => 'あなたの Minecraft のユーザー名は、有効なアカウントではありません。',
 	'mcname_lookup_error' => 'Mojang のサーバーと通信エラーが発生しました。もう一度やり直してください。',
-	'signature_maximum_900' => '署名は最大900文字でなければなりません。',
+	'signature_maximum_900' => '署名は最大 900 文字でなければなりません。',
 	'invalid_date_of_birth' => '生年月日が無効です。',
 	'location_required' => '場所を入力してください。',
-	'location_minimum_2' => 'あなたの所在地は2文字以上でなければなりません。',
-	'location_maximum_128' => 'あなたの所在地は最大128文字でなければなりません。',
+	'location_minimum_2' => 'あなたの所在地は 2 文字以上でなければなりません。',
+	'location_maximum_128' => 'あなたの所在地は最大 128 文字でなければなりません。',
 	'verify_account' => 'アカウントを確認します。',
 	'verify_account_help' => 'Minecraft アカウントを所有することを確認以下の手順に従ってください。',
 	'verification_failed' => '検証に失敗しました、再試行してください。',
@@ -567,13 +567,13 @@ $user_language = array(
 	'reply' => '返信',
 	'x_likes' => 'いいね {x}', // Don't replace {x}
 	'likes' => 'いいね',
-	'no_likes' => 'だめ',
-	'post_liked' => 'ポストが好きだった。',
-	'post_unliked' => 'ポストが嫌いだった。',
+	'no_likes' => 'やだね！',
+	'post_liked' => 'いいね！しています',
+	'post_unliked' => 'やだね！しています',
 	'no_posts' => '投稿はありません。',
 	'last_5_posts' => '最後の5件',
 	'follow' => 'フォロー',
-	'unfollow' => 'アンフォロー',
+	'unfollow' => 'フォロー解除',
 	'name_history' => 'ページの履歴',
 	'changed_name_to' => '名前を {y} に {x} へ変更しました。', // Don't replace {x} or {y}
 	'original_name' => '元の名前:',
@@ -582,7 +582,7 @@ $user_language = array(
 	// Staff applications
 	'staff_application' => 'スタッフアプリケーション',
 	'application_submitted' => 'アプリケーションが正常に送信されました。',
-	'application_already_submitted' => 'あなたは既に申請書を提出しています。 完了するまでお待ちください。',
+	'application_already_submitted' => 'あなたは既に申請を提出しています。 完了するまでお待ちください。',
 	'not_logged_in' => 'そのページを表示するにはログインしてください。',
 	'application_accepted' => 'あなたのスタッフの応募が受け入れられました。',
 	'application_rejected' => 'あなたのスタッフの申請は拒否されました。'
@@ -608,7 +608,7 @@ $mod_language = array(
 	'registered' => '登録',
 	'reason' => '理由:',
 	'cant_ban_root_user' => 'ルート ユーザーを罰することはできません!',
-	'invalid_reason' => '2〜256文字の有効な理由を入力してください。',
+	'invalid_reason' => '2 ~ 256 文字の有効な理由を入力してください。',
 	'punished_successfully' => '罰は正常に追加されました。',
 	
 	// Reports
@@ -631,7 +631,7 @@ $mod_language = array(
 	'ingame_report' => 'ゲーム内レポート',
 	
 	// Staff applications
-	'comment_error' => 'コメントの長さは、2〜2048文字の長さにしてください。',
+	'comment_error' => 'コメントの長さは、2 ~ 2048文字の長さにしてください。',
 	'viewing_open_applications' => 'アプリケーションの表示 <span class="label label-info">承認</span>された<a href="/mod/applications/?view=accepted"><span class="label label-success">承認</span></a>または<a href="/mod/applications/?view=declined"><span class="label label-danger">不承認</span></a>への変更',
 	'viewing_accepted_applications' => '<span class="label label-success">承認</span>されたアプリケーションの表示。 <a href="/mod/applications/"><span class="label label-info">開いている</span></a>か<a href="/mod/applications/?view=declined"><span class="label label-danger">拒否</span></a>されているかに変更',
 	'viewing_declined_applications' => '<span class="label label-danger">承認</span>されたアプリケーションの表示。 <a href="/mod/applications/"><span class="label label-info">開いている</span></a>か<a href="/mod/applications/?view=declined"><span class="label label-danger">拒否</span></a>されているかに変更',
@@ -686,9 +686,9 @@ $general_language = array(
 	'x_players_online' => '{x} 人のプレーヤーがオンラインです。', // Don't replace {x}
 	
 	// Other
-	'page_loaded_in' => '{x} に読み込まれたページ', // Don't replace {x}; 's' stands for 'seconds'
+	'page_loaded_in' => '{x} ミリ秒で読み込まれました。', // Don't replace {x}; 's' stands for 'seconds'
 	'none' => '無し',
-	'404' => '申し訳ありませんがそのページを見つけることができませんでした。'
+	'404' => '404！このページはありません！'
 );
 
 /* 
@@ -798,8 +798,8 @@ $forum_language = array(
 $email_language = array(
 	// Registration email
 	'greeting' => 'こんにちは！',
-	'message' => '登録ありがとう！ 登録を完了するには、次のリンクをクリックしてください:',
-	'thanks' => 'Thank you so much.'
+	'message' => '登録ありがとうございます！登録を完了するには、次のリンクをクリックしてください:',
+	'thanks' => 'Thanks.'
 );
 
 /*
@@ -808,7 +808,7 @@ $email_language = array(
  */
 $time_language = array(
 	'seconds_short' => '数秒', // Shortened "seconds", eg "s"
-	'less_than_a_minute' => 'わずか1分前',
+	'less_than_a_minute' => '1 分前',
 	'1_minute' => '1 分前',
 	'_minutes' => '{x} 分前',
 	'about_1_hour' => '約 1 時間前',
