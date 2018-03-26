@@ -4,7 +4,7 @@
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-dev
  *
- *  Translation by SimplyRin
+ *  Translation by SimplyRin(@SimplyRin_, https://www.simplyrin.net)
  *
  *  License: MIT
  *
@@ -16,8 +16,8 @@ $language = array(
 	 *  Time
 	 */
 	'time' => '時間', // Placeholder, no need to translate
-	'seconds_short' => 's', // Shortened "seconds", eg "s"
-	'less_than_a_minute' => 'わずか1分前',
+	'seconds_short' => '秒', // Shortened "seconds", eg "s"
+	'less_than_a_minute' => '1分前',
 	'1_minute' => '1 分前',
 	'_minutes' => '{x} 分前',
 	'about_1_hour' => '約 1 時間前',

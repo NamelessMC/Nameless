@@ -4,7 +4,7 @@
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr3
  *
- *  Translation by SimplyRin
+ *  Translation by SimplyRin(@SimplyRin_, https://www.simplyrin.net)
  *
  *  License: MIT
  *
@@ -23,11 +23,11 @@ $language = array(
     'new_installation_question' => 'まず、これは新しいインストールですか？',
     'new_installation' => '新規インストール &raquo;',
     'upgrading_from_v1' => 'v1 からアップグレード &raquo;',
-    'requirements' => '要件:',
+    'requirements' => '必要条件:',
     'config_writable' => 'core/config.php 書き込み可能',
     'cache_writable' => 'キャッシュ書き込み可能',
     'template_cache_writable' => '書き込み可能なテンプレートキャッシュ',
-    'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
+    'exif_imagetype_banners_disabled' => 'exif_imagetype 関数がなければ、サーバーバナーは無効になります。',
     'requirements_error' => 'インストールを続行するには、必要な拡張機能がすべてインストールされていて、適切な権限が設定されている必要があります。',
     'proceed' => '続行する',
     'database_configuration' => 'データベース 構成',
@@ -37,13 +37,13 @@ $language = array(
     'database_password' => 'データベース パスワード',
     'database_name' => 'データベース名',
     'character_set' => 'キャラクターセット',
-    'database_engine' => 'Database Storage Engine',
+    'database_engine' => 'データベースストレージエンジン',
     'database_error' => 'すべてのフィールドに記入してください。',
     'submit' => '送信',
-    'installer_now_initialising_database' => 'これでインストーラはデータベースを初期化しています。 これはしばらく時間がかかることがあります...',
+    'installer_now_initialising_database' => 'インストーラはデータベースを初期化しています。 これはしばらく時間がかかることがあります...',
     'configuration' => '構成',
     'configuration_info' => 'あなたのサイトに関する基本情報を入力してください。 これらの値は後で管理パネルから変更することができます。',
-    'configuration_error' => '1~32 文字の有効なサイト名と 4~64 文字の有効な電子メールアドレスを入力してください。',
+    'configuration_error' => '1 ~ 32 文字の有効なサイト名と 4 ~ 64 文字の有効な電子メールアドレスを入力してください。',
     'site_name' => 'サイト名',
     'contact_email' => '連絡先メールアドレス',
     'outgoing_email' => '送信メール',
