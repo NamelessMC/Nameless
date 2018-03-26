@@ -4,9 +4,11 @@
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr3
  *
+ *  Translation by SimplyRin(@SimplyRin_, https://www.simplyrin.net)
+ *
  *  License: MIT
  *
- *  EnglishUS Language - Admin
+ *  Japanese Language - Admin
  */
 
 $language = array(
@@ -108,14 +110,14 @@ $language = array(
     'navigation' => 'ナビゲーション',
     'navbar_order' => 'ナビバーオーダー',
     'navbar_order_instructions' => '各アイテムに 0 以上の数字を付けて、ナビゲーションバーのアイテムを注文することができます。最初のアイテムは 1、それ以降は上位のアイテムです。',
-    'enable_page_load_timer' => 'Enable page load timer?',
-    'google_recaptcha' => 'Enable Google reCAPTCHA?',
-    'recaptcha_site_key' => 'reCAPTCHA Site Key',
-    'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
-    'registration_disabled_message' => 'Registration disabled message',
-    'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
-    'validation_promote_group' => 'Post-validation group',
-    'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
+    'enable_page_load_timer' => 'ページロードタイマーを有効にしますか？',
+    'google_recaptcha' => 'Google reCAPTCHA を有効にしますか？',
+    'recaptcha_site_key' => 'reCAPTCHA サイトキー',
+    'recaptcha_secret_key' => 'reCAPTCHA シークレットキー',
+    'registration_disabled_message' => '登録無効メッセージ',
+    'enable_nicknames_on_registration' => 'ユーザーを登録するニックネームを有効にしますか？',
+    'validation_promote_group' => '昇格検証グループ',
+    'validation_promote_group_info' => 'アカウントの有効を確認したユーザーに昇格されるグループです。',
 
 	// Reactions
 	'icon' => 'アイコン',
@@ -308,15 +310,15 @@ $language = array(
 	'secondary_groups' => 'セカンダリグループ',
 	'secondary_groups_info' => 'ユーザーはこれらのグループから追加の権限を取得します。 複数のグループを選択/選択解除するには Ctrl +クリック します。',
 	'unable_to_update_uuid' => 'UUID を更新できません。',
-	'default_group' => 'Is the group the default group (for new users)?',
+	'default_group' => 'デフォルトグループ (新規ユーザー向け)？',
 
 	// Permissions
-	'select_all' => 'Select All',
-	'deselect_all' => 'Deselect All',
-	'background_image' => 'Background image',
-	'can_edit_own_group' => 'Can edit own group\'s permissions',
-	'permissions_updated_successfully' => 'Permissions updated successfully.',
-	'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
+	'select_all' => 'すべて選択',
+	'deselect_all' => 'すべての選択を解除',
+	'background_image' => '背景画像',
+	'can_edit_own_group' => '自分のグループの権限を編集できます',
+	'permissions_updated_successfully' => '権利更新が成功しました。',
+	'cant_edit_this_group' => 'このグループの権限を編集することはできません！',
 
 	// General Admin language
 	'task_successful' => 'タスクは成功しました。',
@@ -397,37 +399,37 @@ $language = array(
 
     // API
     'api' => 'API',
-    'enable_api' => 'Enable API?',
-    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>.',
-    'enable_legacy_api' => 'Enable legacy API?',
-    'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
-    'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
-    'api_registration_email' => 'API Registration Email',
-    'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
-    'api_verification' => 'Enable API verification?',
-    'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
+    'enable_api' => 'API を有効にしますか？',
+    'api_info' => 'APIを使用すると、プラグインやその他のサービスが公式の <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >Namelessプラグイン</a> などのWebサイトとやりとりすることができます。',
+    'enable_legacy_api' => '従来の API を有効にしますか？',
+    'legacy_api_info' => '従来の API では、 Nameless v1 APIを使用するプラグインで、 v2 のWebサイトで動作することができます。',
+    'confirm_api_regen' => 'APIキーを再生成してもよろしいですか？',
+    'api_registration_email' => 'API登録メール',
+    'link_to_complete_registration' => '登録を完了するためのリンク: {x}', // Don't replace {x}
+    'api_verification' => 'APIの確認を有効にしますか？',
+    'api_verification_info' => '有効にすると、APIを介してアカウントを確認することができます。たとえば、公式のNamelessプラグインを使用してアカウントを確認することができます。<strong>このオプションは電子メールの検証より優先され、アカウントは自動的に有効になります！</strong><br />既定のグループを設定して、アクセス許可を制限し、AdminCP - >コア - >登録タブのポスト検証グループを、通常のアクセス許可を持つフルメンバーグループに更新する必要があります。',
 
 	// File uploads
 	'drag_files_here' => 'アップロードするファイルをここにドラッグします。',
 	'invalid_file_type' => '無効なファイルタイプです！',
 	'file_too_big' => 'ファイルが大きすぎます！ あなたのファイルは {{filesize}} であり、上限は {{maxFilesize}} です', // Don't replace {{filesize}} or {{maxFilesize}}
-	'allowed_proxies' => 'Allowed Proxies',
-	'allowed_proxies_info' => 'Line separated list of allowed proxy IPs.',
+	'allowed_proxies' => '許可されるプロキシ',
+	'allowed_proxies_info' => '許可されたプロキシIPの行区切りリスト。',
 
 	// Error logs
-	'error_logs' => 'Error Logs',
-	'notice_log' => 'Notice log',
-	'warning_log' => 'Warning log',
-	'custom_log' => 'Custom log',
-	'other_log' => 'Other log',
-	'fatal_log' => 'Fatal log',
-	'log_file_not_found' => 'Log file not found.',
+	'error_logs' => 'エラーログ',
+	'notice_log' => '通知ログ',
+	'warning_log' => '警告ログ',
+	'custom_log' => 'カスタムログ',
+	'other_log' => 'その他のログ',
+	'fatal_log' => '致命的なログ',
+	'log_file_not_found' => 'ログファイルが見つかりませんでした。',
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
-	'discord_hooks_info' => 'Send a message to a Discord channel when something happens on your site. Create a Discord hook in your Discord Server Settings -> Webhooks tab.',
-	'discord_hook_url' => 'Discord webhook URL',
-	'discord_hook_events' => 'Enabled Discord hook events (Ctrl+click to select multiple events)',
-	'register_hook_info' => 'User registration',
-	'validate_hook_info' => 'User validation'
+	'discord_hooks_info' => 'あなたのサイトで何か変化が起こった時 Discord チャンネルにメッセージを送ります。 \'Discord サーバー設定 - > Webhooks -> Webhookを作成で\' Webhooks を作成できます。',
+	'discord_hook_url' => 'Discord Webhook リンク',
+	'discord_hook_events' => 'Discord Hook イベントが有効です。 (複数のイベントを選択するには Ctrl を押しながらクリック)',
+	'register_hook_info' => 'ユーザー登録',
+	'validate_hook_info' => 'ユーザー検証'
 );

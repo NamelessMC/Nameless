@@ -4,7 +4,7 @@
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr3
  *
- *  Translation by SimplyRin
+ *  Translation by SimplyRin(@SimplyRin_, https://www.simplyrin.net)
  *
  *  License: MIT
  *
@@ -15,7 +15,7 @@ $language = array(
 	/*
 	 *  Change this for the account validation message
 	 */
-	'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+	'validate_account_command' => '登録を完了するには、ゲーム内で <strong>/validate {x}</strong> コマンドを送信してください。', // Don't replace {x}
 
 	/*
 	 *  User Related
@@ -70,7 +70,7 @@ $language = array(
 	'no_alerts_usercp' => 'あなたはアラートを持っていません。',
 	
 	// Registraton
-	'registration_check_email' => '登録ありがとう！ 登録を完了するには、電子メールで確認リンクを確認してください。 電子メールが見つからない場合は、迷惑メールフォルダを確認してください。',
+	'registration_check_email' => '登録ありがとうございます！登録を完了するには、電子メールで確認リンクを確認してください。 電子メールが見つからない場合は、迷惑メールフォルダを確認してください。',
 	'username' => 'ユーザー名',
 	'nickname' => 'ニックネーム',
 	'minecraft_username' => 'Minecraft のユーザー名',
@@ -143,7 +143,7 @@ $language = array(
 	'no_wall_posts' => 'まだ壁のポストはありません。',
 	'change_banner' => 'バナーを変更',
 	'post_on_wall' => '{x} の壁に投稿する', // Don't replace {x}
-	'invalid_wall_post' => 'あなたの投稿が 1~10000 文字であることを確認してください。',
+	'invalid_wall_post' => 'あなたの投稿が 1 ~ 10000 文字であることを確認してください。',
 	'1_reaction' => '1 の反応',
 	'x_reactions' => '{x} の反応', // Don't replace {x}
 	'1_like' => 'いいね',
@@ -214,12 +214,12 @@ $language = array(
 	 *  Emails
 	 */
 	'email_greeting' => 'こんにちは！',
-	'email_message' => '登録ありがとう！ 登録を完了するには、次のリンクをクリックしてください:',
+	'email_message' => '登録ありがとうございます！ 登録を完了するには、次のリンクをクリックしてください:',
 	'forgot_password_email_message' => 'パスワードをリセットするには、次のリンクをクリックしてください。 これを自分でリクエストしていない場合は、このメールを安全に削除できます。',
-	'email_thanks' => 'Thank you so much.',
+	'email_thanks' => 'Thanks!',
 
 	/*
 	 *  Hooks
 	 */
-	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
+	'user_x_has_registered' => '{x} が ' . SITE_NAME . ' に参加しました！'
 );

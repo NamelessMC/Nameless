@@ -4,7 +4,7 @@
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-dev
  *
- *  Translation by SimplyRin
+ *  Translation by SimplyRin(@SimplyRin_, https://www.simplyrin.net)
  *
  *  License: MIT
  *
@@ -53,21 +53,21 @@ $language = array(
 	'page_loaded_in' => '{x} に読み込まれたページ', // Don't replace {x}, time unit is seconds
     'page_x' => '{x} ページ',
     'browse' => 'ブラウズ',
-    'bypass' => 'Bypass',
-    'yes' => 'Yes',
-    'no' => 'No',
+    'bypass' => 'バイパス',
+    'yes' => 'はい',
+    'no' => 'いいえ',
 
     /*
      *  Contact form
      */
     'contact' => '問い合わせ',
     'message' => 'メッセージ',
-    'email_address' => 'Email Address',
+    'email_address' => 'Email アドレス',
     'contact_email_subject' => '新しい連絡先フォームの提出',
-    'contact_message_failed' => 'メッセージを送信できません。 10~5000 文字のメッセージを入力してください。',
-    'contact_message_email' => 'The provided email is invalid.',
+    'contact_message_failed' => 'メッセージを送信できません。 10 ~ 5000 文字のメッセージを入力してください。',
+    'contact_message_email' => '彼は電子メールが無効です。',
     'contact_message_sent' => '送信に成功しました。',
-    'contact_message_limit' => '1時間に1つのメッセージしか送信できません。 次に、{x} 分後にメッセージを送信できます。', // Don't replace {x}
+    'contact_message_limit' => '1 時間に 1 つのメッセージのみ送信できます。 {x} 分後に次のメッセージを送信できます。', // Don't replace {x}
 	
 	/* 
 	 *  Navbar

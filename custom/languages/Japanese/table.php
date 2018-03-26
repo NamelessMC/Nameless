@@ -4,7 +4,7 @@
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-dev
  *
- *  Translation by SimplyRin
+ *  Translation by SimplyRin(@SimplyRin_, https://www.simplyrin.net)
  *
  *  License: MIT
  *
