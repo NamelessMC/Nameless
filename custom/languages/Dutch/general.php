@@ -54,8 +54,8 @@ $language = array(
 	'page_x' => 'Pagina {x}',
    	'browse' => 'Doorzoek',
 	'bypass' => 'Bypass',
-	'yes' => 'Yes',
-	'no' => 'No',
+	'yes' => 'Ja',
+	'no' => 'Nee',
 
 	/*
 	 *  Contact formulier
