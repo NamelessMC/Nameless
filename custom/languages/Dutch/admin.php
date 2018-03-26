@@ -87,7 +87,7 @@ $language = array(
 	'host' => 'Host',
 	'email_port' => 'Port',
 	'email_password_hidden' => 'Het wachtwoord wordt om veiligheidsredenen niet getoond.',
-	'send_test_email' => 'Vezend test email',
+	'send_test_email' => 'Verzend test email',
 	'send_test_email_info' => 'Deze knop zorgt ervoor dat er een email naar het email addres, <strong>{x}</strong> wordt verzonden. Eventuele fouten tijdens het versturen van die e-mail, worden weergegeven.', // Verander {x} niet
 	'send' => 'Verzend',
 	'test_email_error' => 'Test email fout:',
@@ -309,7 +309,7 @@ $language = array(
 	'secondary_groups' => 'Bijkomende groepen',
 	'secondary_groups_info' => 'De gebruiker zal de bijkomende toestemmingen van deze groepen ook krijgen',
 	'unable_to_update_uuid' => 'De UUID kan niet worden bijgewerkt.',
-	'default_group' => 'Is the group the default group (for new users)?',
+	'default_group' => 'Is de standaardgroep (voor nieuwe gebruikers)?',
 
 	// Permissies
 	'select_all' => 'Selecteer Allemaal',
