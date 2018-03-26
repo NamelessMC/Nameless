@@ -22,10 +22,10 @@ $language = array(
 	'404_error' => 'Als je denkt dat dit een error is, {x} neem dan contact op met een beheerder van de website {y}', // Verander "{x}" of "{y}" niet
 	'maintenance_title' => 'Onderhoud modus.',
 	'maintenance_retry' => 'Probeer opnieuw',
-	'fatal_error' => 'Fatal Error',
+	'fatal_error' => 'Fatale fout',
 	'fatal_error_title' => 'Sorry!',
-	'fatal_error_message_user' => 'Sorry, but something went wrong while loading the page. Please contact an administrator.',
-	'fatal_error_message_admin' => 'Sorry, but something went wrong while loading the page. Error details:',
+	'fatal_error_message_user' => 'Sorry, maar er is iets misgegaan tijdens het laden van de pagina. Neem contact op met een admin.',
+	'fatal_error_message_admin' => 'Sorry, maar er is iets misgegaan tijdens het laden van de pagina. Error gegevens:',
 	'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
 	'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
 );
