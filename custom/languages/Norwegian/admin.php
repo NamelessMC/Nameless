@@ -31,9 +31,9 @@ $language = array(
 	'running_nameless_version' => 'Kjører NamelessMC versjon <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => 'Kjører PHP versjon <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Statistikk',
-    'notices' => 'Notices',
-    'no_notices' => 'No notices.',
-    'email_errors_logged' => 'Email error har blitt logget. Click <a href="{x}">her</a> for å se dem.', // Don't replace "{x}"
+    'notices' => 'Varsler',
+    'no_notices' => 'Ingen varsler.',
+    'email_errors_logged' => 'En email error har blitt logget. Klikk <a href="{x}">her</a> for å se dem.', // Don't replace "{x}"
 
 	// Core
 	'settings' => 'Instillinger',
@@ -66,7 +66,7 @@ $language = array(
     'enable_debug_mode' => 'Tillatt feilsøkingsmodus?',
     'force_https' => 'Overstyr https?',
     'force_https_help' => 'Hvis aktivert, alle forespørsler på din nettside vil bli videresendt til https. Du må ha en gyldig SSL sertifikat aktiv for at dette skal funke.',
-    'contact_email_address' => 'Contact Email Address',
+    'contact_email_address' => 'Kontakt email adresse',
     'emails' => 'Email',
     'email_errors' => 'Email error',
     'registration_email' => 'Registreringsemail',
@@ -168,7 +168,7 @@ $language = array(
     'server_banners' => 'Server-bannere',
     'query_errors' => 'Spørrefeil',
     'add_server' => '<i class="fa fa-plus-circle"></i> Legg til en server',
-    'no_servers_defined' => 'No servers have been defined yet',
+    'no_servers_defined' => 'Ingen servere har blitt definert.',
     'query_settings' => 'Query innstillinger',
     'default_server' => 'Standard server',
     'no_default_server' => 'Ingen standardserver',
@@ -308,7 +308,7 @@ $language = array(
 	'secondary_groups' => 'Undergrupper',
 	'secondary_groups_info' => 'Denne brukeren vil få all tilgang som denne gruppen har.',
 	'unable_to_update_uuid' => 'Kan ikke oppdatere UUID.',
-	'default_group' => 'Is the group the default group (for new users)?',
+	'default_group' => 'Er denne gruppen standardgruppen (for nye brukere)?',
 
 	// Permissions
 	'select_all' => 'Velg alle',
@@ -415,19 +415,19 @@ $language = array(
 	'allowed_proxies_info' => 'Line separated list of allowed proxy IPs.',
 
 	// Error logs
-	'error_logs' => 'Error Logs',
-	'notice_log' => 'Notice log',
+	'error_logs' => 'Error Logg',
+	'notice_log' => 'Varsler logg',
 	'warning_log' => 'Warning log',
-	'custom_log' => 'Custom log',
-	'other_log' => 'Other log',
-	'fatal_log' => 'Fatal log',
-	'log_file_not_found' => 'Log file not found.',
+	'custom_log' => 'Egendefinert logg',
+	'other_log' => 'Andre logg',
+	'fatal_log' => 'Fatale logg',
+	'log_file_not_found' => 'Logg fil ikke funnet.',
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
-	'discord_hooks_info' => 'Send a message to a Discord channel when something happens on your site. Create a Discord hook in your Discord Server Settings -> Webhooks tab.',
+	'discord_hooks_info' => 'Send en melding til en Discord kanal når noe skjer på nettsiden din. Gå til Discord Server Settings -> Webhooks tab.',
 	'discord_hook_url' => 'Discord webhook URL',
-	'discord_hook_events' => 'Enabled Discord hook events (Ctrl+click to select multiple events)',
-	'register_hook_info' => 'User registration',
-	'validate_hook_info' => 'User validation'
+	'discord_hook_events' => 'Aktivert Discord hook events (Ctrl+klikk for å velge forskjellge eventer)',
+	'register_hook_info' => 'Brukerregistrering',
+	'validate_hook_info' => 'Brukerverifisering'
 );
