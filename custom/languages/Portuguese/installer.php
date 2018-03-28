@@ -53,6 +53,7 @@ $language = array(
     'input_required' => 'Digite um nome de usuário, endereço de e-mail e senha válidos.',
     'input_minimum' => 'Certifique-se de que seu nome de usuário seja um mínimo de 3 caracteres, seu endereço de e-mail é de no mínimo 4 caracteres e sua senha tem no mínimo 6 caracteres.',
     'input_maximum' => 'Certifique-se de que seu nome de usuário tenha no máximo 20 caracteres e seu endereço de e-mail e senha tenham no máximo 64 caracteres.',
+    'email_invalid' => 'Your email is not valid.',
     'passwords_must_match' => 'Suas senhas devem corresponder.',
     'creating_admin_account' => 'Criando conta de administrador',
     'enter_admin_details' => 'Digite os detalhes da conta de administrador.',

@@ -50,6 +50,7 @@ $language = array(
 	'input_required' => 'Graag een geldige gebruikersnaam, email adres en wachtwoord invullen.',
 	'input_minimum' => 'Zorg ervoor dat uw gebruikersnaam een minimum van 3 karakters, je e-mailadres een minimum van 4 karakters, en uw wachtwoord minimaal 6 karakters heeft.',
 	'input_maximum' => 'Zorg ervoor dat uw gebruikersnaam een maximum van 20 karakters, en uw e-mailadres en wachtwoord maximaal 64 tekens bevatten.',
+	'email_invalid' => 'Your email is not valid.',
 	'passwords_must_match' => 'Uw wachtwoorden komen niet overeen.',
 	'creating_admin_account' => 'Admin account maken',
 	'enter_admin_details' => 'Vul de gegevens in voor het Admin account',

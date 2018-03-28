@@ -51,6 +51,7 @@ $language = array(
     'input_required' => 'Bitte geben Sie einen gültigen Benutzernamen, eine E-Mail-Adresse und ein Passwort ein.',
     'input_minimum' => 'Bitte stellen Sie sicher, dass Ihr Benutzername mindestens 3 Zeichen beträgt, Ihre E-Mail-Adresse mindestens 4 Zeichen und Ihr Passwort mindestens 6 Zeichen.',
     'input_maximum' => 'Bitte stellen Sie sicher, dass Ihr Benutzername maximal 20 Zeichen beträgt und Ihre E-Mail-Adresse und Ihr Passwort maximal 64 Zeichen haben.',
+    'email_invalid' => 'Your email is not valid.',
     'passwords_must_match' => 'Ihre Passwörter müssen übereinstimmen.',
     'creating_admin_account' => 'Admin-Konto erstellen',
     'enter_admin_details' => 'Bitte geben Sie die Details für das Admin-Konto ein.',
