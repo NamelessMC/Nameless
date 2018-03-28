@@ -51,6 +51,7 @@ $language = array(
     'input_required' => 'Zadejte prosím platné uživatelské jméno, e-mailovou adresu a heslo.',
     'input_minimum' => 'Zajistěte, aby Vaše uživatelské jméno mělo minimálně 3 znaky, Vaše e-mailová adresa 4 znaky a Vaše heslo 6 znaků.',
     'input_maximum' => 'Zajistěte, aby Vaše uživatelské jméno mělo maximálně 20 znaků, Vaše e-mailová adresa a heslo 64 znaků.',
+    'email_invalid' => 'Your email is not valid.',
     'passwords_must_match' => 'Vaše hesla se musí shodovat.',
     'creating_admin_account' => 'Vytváření účtu administrátora',
     'enter_admin_details' => 'Zadejte prosím podrobnosti pro Váš účet administrátora.',

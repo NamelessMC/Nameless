@@ -55,6 +55,7 @@ $language = array(
     'input_required' => '請輸入帳號、電子郵件和密碼.',
     'input_minimum' => '帳號最低限制 3 字元，電子郵件最低限制 4 字元，密碼最低限制 6 字元.',
     'input_maximum' => '帳號最高限制 20 字元，電子郵件最高限制 20 字元，密碼最高限制 64 字元.',
+    'email_invalid' => 'Your email is not valid.',
     'passwords_must_match' => '密碼不相同.',
     'creating_admin_account' => '建立管理員帳號',
     'enter_admin_details' => '請輸入管理員的帳號資料.',

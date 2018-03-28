@@ -50,6 +50,7 @@ $language = array(
     'input_required' => 'Skriv inn et gyldig brukernavn, email og passord.',
     'input_minimum' => 'Pass på at brukernavnet er minst 3 tegn, emailen minst 4 tegn og passordet minst 6 tegn.',
     'input_maximum' => 'Pass på at brukernavnet er maks 20 tegn, og emailen og passordet maks 64 tegn.',
+    'email_invalid' => 'Your email is not valid.',
     'passwords_must_match' => 'Passordene dine er ikke like.',
     'creating_admin_account' => 'Lager admin bruker.',
     'enter_admin_details' => 'Skriv inn brukerinformasjonen til admin brukeren.',

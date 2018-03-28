@@ -53,6 +53,7 @@ $language = array(
     'input_required' => '有効なユーザー名、電子メールアドレス、パスワードを入力してください。',
     'input_minimum' => 'ユーザー名は3文字以上、メールアドレスは4文字以上、パスワードは6文字以上であることを確認してください。',
     'input_maximum' => 'ユーザー名は最大20文字、メールアドレスとパスワードは最大64文字であることを確認してください。',
+    'email_invalid' => 'Your email is not valid.',
     'passwords_must_match' => 'あなたのパスワードは一致する必要があります。',
     'creating_admin_account' => '管理者アカウントの作成',
     'enter_admin_details' => '管理者アカウントの詳細を入力してください。',

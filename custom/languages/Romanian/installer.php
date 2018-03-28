@@ -53,6 +53,7 @@ $language = array(
     'input_required' => 'Introduceți un nume de utilizator, o adresă de e-mail și o parolă care să fie valide.',
     'input_minimum' => 'Asigurați-vă că numele dvs. de utilizator are cel puțin 3 caractere, adresa dvs. de e-mail este de cel puțin 4 caractere, iar parola dvs. are cel puțin 6 caractere.',
     'input_maximum' => 'Asigurați-vă că numele dvs. de utilizator este de maximum 20 de caractere, iar adresa dvs. de e-mail și parola sunt de maxim 64 de caractere.',
+    'email_invalid' => 'Your email is not valid.',
     'passwords_must_match' => 'Parolele dvs. trebuie să se potrivească.',
     'creating_admin_account' => 'Crearea contului de administrator',
     'enter_admin_details' => 'Introduceți detaliile contului de admin.',

@@ -51,6 +51,7 @@ $language = array(
     'input_required' => 'Please input a valid username, email address and password.',
     'input_minimum' => 'Please ensure your username is a minimum of 3 characters, your email address is a minimum of 4 characters, and your password is a minimum of 6 characters.',
     'input_maximum' => 'Please ensure your username is a maximum of 20 characters, and your email address and password are a maximum of 64 characters.',
+    'email_invalid' => 'Your email is not valid.',
     'passwords_must_match' => 'Your passwords must match.',
     'creating_admin_account' => 'Creating Admin Account',
     'enter_admin_details' => 'Please enter the details for the admin account.',

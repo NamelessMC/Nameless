@@ -1034,6 +1034,8 @@
                         $error = $language['input_maximum'];
                     } else if(strpos($item, 'must match') !== false){
                         $error = $language['passwords_must_match'];
+                    } else if(strpos($item, 'not a valid email') !== false){
+                        $error = $language['email_invalid'];
                     }
                 }
             }
