@@ -538,7 +538,7 @@ if($webstore == 'bc'){
             $queries->create('donation_categories', array(
                 'name' => $category_name,
                 'cid' => $category_id,
-                'order' => $category_order
+                'order' => ($category_order ? $category_order : 0)
             ));
         }
 
