@@ -18,8 +18,8 @@ if(defined('PAGE') && PAGE != 'login' && PAGE != 404){
 			$_SESSION['last_page'] = URL::build($split[0], $split[1]);
 		else
 			$_SESSION['last_page'] = URL::build($split[0]);
-	} else
-		$_SESSION['last_page'] = $directory;
+	} else 
+		$_SESSION['last_page'] = URL::build($_GET['route']);
 }
 
 // Add widgets to Smarty
