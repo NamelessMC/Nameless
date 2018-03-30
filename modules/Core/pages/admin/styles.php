@@ -80,8 +80,8 @@ $admin_styles = true;
 
 			  <h3 style="display:inline;"><?php echo $language->get('admin', 'templates'); ?></h3>
 			  <?php
-			  if(isset($_GET['tid']) || isset($_GET['action'])) echo '<span class="pull-right"><a href="' . URL::build('/admin/styles/') . '" class="btn btn-primary">' . $language->get('general', 'back') . '</a></span>';
-			  else echo '<span class="pull-right"><a href="' . URL::build('/admin/styles/', 'action=install') . '" class="btn btn-primary">' . $language->get('admin', 'install') . '</a></span>';
+			  if(isset($_GET['tid']) && !isset($_GET['file'])) echo '<span class="pull-right"><a href="' . ((isset($_GET['file']) || isset($_GET['dir'])) ? URL::build('/admin/styles/', 'tid=' . Output::getClean($_GET['tid'])) : URL::build('/admin/styles')) . '" class="btn btn-primary">' . $language->get('general', 'back') . '</a></span>';
+			  else if(!isset($_GET['file'])) echo '<span class="pull-right"><a href="' . URL::build('/admin/styles/', 'action=install') . '" class="btn btn-primary">' . $language->get('admin', 'install') . '</a></span>';
 			  ?>
 			  <hr />
 			  <?php
@@ -99,7 +99,7 @@ $admin_styles = true;
 				  foreach($templates as $template){
 					  $template_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), 'template.php'));
 
-					  if(file_exists(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), 'template.php'))))
+					  if(file_exists($template_path))
 					      require($template_path);
 					  else {
 					      $queries->delete('templates', array('id', '=', $template->id));
@@ -162,7 +162,7 @@ $admin_styles = true;
 						  echo '<div class="alert alert-warning">' . $language->get('admin', 'warning_editing_default_template') . '</div>';
 					  }
 
-					  if(!isset($_GET['file'])){
+					  if(!isset($_GET['file']) && !isset($_GET['dir'])){
 						  echo '<h4>' . htmlspecialchars($template->name) . '</h4>';
 						  // Get all files
 						  // Build path to template folder
@@ -170,17 +170,69 @@ $admin_styles = true;
 						  $files = scandir($template_path);
 
 						  foreach($files as $file){
-							  if(strpos($file, '.tpl') !== false){
-								  echo '<a href="' . URL::build('/admin/styles/', 'tid=' . $template->id . '&amp;file=' . htmlspecialchars($file)) . '">' . htmlspecialchars($file) . '</a><br />';
+							  if($file != '.' && $file != '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js')){
+								  if(!is_dir($template_path . DIRECTORY_SEPARATOR . $file))
+                                      echo '<a href="' . URL::build('/admin/styles/', 'tid=' . $template->id . '&amp;file=' . htmlspecialchars($file)) . '">' . htmlspecialchars($file) . '</a><br />';
+                                  else
+                                      echo '<a href="' . URL::build('/admin/styles/', 'tid=' . $template->id . '&amp;dir=' . htmlspecialchars($file)) . '">' . htmlspecialchars($file) . '</a><br />';
 							  }
 						  }
 
-					  } else {
+					  } else if(isset($_GET['dir']) && !isset($_GET['file'])){
+					      // List files in dir
+                          $realdir = realpath(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), htmlspecialchars($_GET['dir']))));
+                          if($realdir)
+                            $dir = basename($realdir);
+
+                          if(!isset($dir) || !is_dir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), $dir)))){
+                              Redirect::to(URL::build('/admin/styles'));
+                              die();
+                          }
+
+                          $template_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), $dir));
+
+                          $files = scandir($template_path);
+
+                          foreach($files as $file){
+                              if(pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js'){
+                                  if(!is_dir($template_path . DIRECTORY_SEPARATOR . $file))
+                                      echo '<a href="' . URL::build('/admin/styles/', 'tid=' . $template->id . '&amp;dir=' . htmlspecialchars($dir) . '&amp;file=' . htmlspecialchars($file)) . '">' . htmlspecialchars($file) . '</a><br />';
+                              }
+                          }
+
+                      } else if(isset($_GET['file'])){
+					      $file = basename(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), htmlspecialchars($_GET['file']))));
+
+					      if(isset($_GET['dir'])){
+                              $realdir = realpath(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), htmlspecialchars($_GET['dir']))));
+                              if($realdir)
+                                  $dir = basename($realdir);
+
+                              if(!isset($dir) || !is_dir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), $dir)))){
+                                  Redirect::to(URL::build('/admin/styles'));
+                                  die();
+                              }
+
+                              $file_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), $dir, $file));
+                          } else
+                              $file_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), $file));
+
+					      if(!file_exists($file_path) || !(pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js')){
+					          Redirect::to(URL::build('/admin/styles'));
+					          die();
+                          }
+
+                          if(pathinfo($file, PATHINFO_EXTENSION) == 'tpl')
+                              $file_type = 'smarty';
+                          else if(pathinfo($file, PATHINFO_EXTENSION) == 'css')
+                              $file_type = 'css';
+                          else if(pathinfo($file, PATHINFO_EXTENSION) == 'js')
+                              $file_type = 'javascript';
+
 						  // Deal with input
 						  if(Input::exists()){
 							  if(Token::check(Input::get('token'))){
 								  // Valid token
-								  $file_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), htmlspecialchars($_GET['file'])));
 								  if(is_writable($file_path)){
 									  // Can write to template file
 									  // Write
@@ -203,7 +255,10 @@ $admin_styles = true;
 									  Session::flash('template_view', '<div class="alert alert-success">' . $language->get('admin', 'template_updated') . '</div>');
 
 									  // Redirect to refresh page
-									  Redirect::to(URL::build('/admin/styles/', 'tid=' . $_GET['tid']. '&file=' . Output::getClean($_GET['file'])));
+									  if(isset($_GET['dir']))
+									    Redirect::to(URL::build('/admin/styles/', 'tid=' . $_GET['tid']. '&dir=' . Output::getClean($_GET['dir']) . '&file=' . Output::getClean($_GET['file'])));
+									  else
+									    Redirect::to(URL::build('/admin/styles/', 'tid=' . $_GET['tid']. '&file=' . Output::getClean($_GET['file'])));
 									  die();
 
 								  } else {
@@ -224,7 +279,6 @@ $admin_styles = true;
 						  }
 
 						  echo '<h4>'. htmlspecialchars($_GET['file']) . '</h4>';
-						  $file_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), htmlspecialchars($_GET['file'])));
 						?>
 						<form action="" method="post">
 						  <div class="form-group">
@@ -390,15 +444,20 @@ $admin_styles = true;
 
     <?php require(ROOT_PATH . '/modules/Core/pages/admin/scripts.php'); ?>
 
+    <?php if(isset($_GET['tid']) && isset($_GET['file'])){ ?>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/codemirror/lib/codemirror.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/codemirror/mode/smarty/smarty.js"></script>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/codemirror/mode/css/css.js"></script>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/codemirror/mode/javascript/javascript.js"></script>
 
 	<script>
 	var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
 	  lineNumbers: true,
-	  mode: "smarty"
+	  mode: "<?php echo $file_type; ?>"
 	});
+	editor.setSize(null, 400);
 	</script>
+    <?php } ?>
 
   </body>
 </html>
