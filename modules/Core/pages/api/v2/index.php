@@ -90,7 +90,7 @@ class Nameless2API
     {
         if ($api_key) {
             // Check cached key
-            if (!is_file('cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
+            if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
                 // Not cached, cache now
                 $this->_db = DB::getInstance();
 
@@ -100,9 +100,9 @@ class Nameless2API
                 $correct_key = htmlspecialchars($correct_key[0]->value);
 
                 // Store in cache file
-                file_put_contents('cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $correct_key);
+                file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $correct_key);
 
-            } else $correct_key = file_get_contents('cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
+            } else $correct_key = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
 
             if ($api_key == $correct_key) return true;
         }
@@ -335,6 +335,37 @@ class Nameless2API
         // Ensure API key is valid
         if($this->_validated === true) {
             try {
+                // Get default group ID
+                if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
+                    // Not cached, cache now
+                    $this->_db = DB::getInstance();
+
+                    // Retrieve from database
+                    $default_group = $this->_db->get('groups', array('default_group', '=', 1));
+                    if(!$default_group->count())
+                        $default_group = 1;
+                    else {
+                        $default_group = $default_group->results();
+                        $default_group = $default_group[0]->id;
+                    }
+
+                    $to_cache = array(
+                        'default_group' => array(
+                            'time' => date('U'),
+                            'expire' => 0,
+                            'data' => serialize($default_group)
+                        )
+                    );
+
+                    // Store in cache file
+                    file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache', json_encode($to_cache));
+
+                } else {
+                    $default_group = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache');
+                    $default_group = json_decode($default_group);
+                    $default_group = unserialize($default_group->default_group->data);
+                }
+
                 if (!$code)
                     $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
 
@@ -345,7 +376,7 @@ class Nameless2API
                     'email' => Output::getClean($email),
                     'password' => md5($code), // temp code
                     'joined' => date('U'),
-                    'group_id' => 1,
+                    'group_id' => $default_group,
                     'lastip' => 'Unknown',
                     'reset_code' => $code
                 ));
