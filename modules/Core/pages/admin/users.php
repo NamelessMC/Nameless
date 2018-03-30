@@ -516,7 +516,6 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 												'user_title' => Output::getClean(Input::get('title')),
 												'uuid' => htmlspecialchars(Input::get('UUID')),
 												'signature' => $signature,
-												'lastip' => Input::get('ip'),
                                                 'secondary_groups' => $secondary_groups
 											));
 
