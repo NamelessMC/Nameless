@@ -289,7 +289,7 @@
 				    <label for="inputCharset"><?php echo $language['character_set']; ?></label>
 				    <select class="form-control" name="charset" id="inputCharset">
 					    <option value="latin1">latin1</option>
-						<option value="utf8" selected>Unicode</option>
+					    <option value="utf8mb4" selected>Unicode</option>
 					</select>
 				</div>
 				
@@ -318,7 +318,7 @@
             <?php
             try {
 				if(isset($_SESSION['charset'])) $charset = $_SESSION['charset'];
-				else $charset = 'utf8';
+				else $charset = 'utf8mb4';
 				
 				if(isset($_SESSION['engine'])) $engine = $_SESSION['engine'];
 				else $engine = 'InnoDB';
