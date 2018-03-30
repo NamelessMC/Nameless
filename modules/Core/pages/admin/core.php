@@ -353,6 +353,7 @@ $current_default_language = $current_default_language[0]->value;
                                                 ));
                                             }
 
+                                            /*
                                             if(!empty($_POST["allowedProxies"])) {
                                                 $allowedProxies = $_POST["allowedProxies"];
                                                 $allowedProxies = str_replace("\r", "", $allowedProxies);
@@ -363,6 +364,7 @@ $current_default_language = $current_default_language[0]->value;
                                             }else {
                                                 Config::set("allowedProxies", "");
                                             }
+                                            */
 
                                             // Update cache
                                             $cache->setCache('force_https_cache');
@@ -541,6 +543,7 @@ $current_default_language = $current_default_language[0]->value;
                                             <option value="false"<?php if ($displaynames->value == "false") { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
                                         </select>
                                     </div>
+                                    <!--
                                     <div class="form-group">
                                         <label for=allowedProxies"><?php echo $language->get('admin', 'allowed_proxies'); ?></label>
                                         <?php
@@ -552,6 +555,7 @@ $current_default_language = $current_default_language[0]->value;
                                             echo $allowedProxies;
                                             ?></textarea>
                                     </div>
+                                    -->
                                     <br/>
                                     <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
                                     <input type="submit" class="btn btn-primary"
