@@ -220,7 +220,7 @@ $token = Token::get();
 				  <label for="InputValidationPromoteGroup"><?php echo $language->get('admin', 'validation_promote_group'); ?></label> <span class="badge badge-info" data-toggle="popover" data-content="<?php echo $language->get('admin', 'validation_promote_group_info'); ?>"><i class="fa fa-question"></i></span>
 				  <select class="form-control" id="InputValidationPromoteGroup" name="promote_group">
 				    <?php
-				    $groups = $queries->getWhere('groups', array('default_group', '=', 0));
+				    $groups = $queries->getWhere('groups', array('id', '<>', 0));
 				    foreach($groups as $group){
 				        echo '<option value="' . $group->id . '"' . (($group->id == $validation_group) ? ' selected' : '') . '>' . Output::getClean($group->name) . '</option>';
 				    }
