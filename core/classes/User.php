@@ -76,7 +76,10 @@ class User {
 		return false;
 	}
 
-	// Get a user's IP address
+
+
+    // Get a user's IP address
+    /*
 	public function getIP() {
         $usingproxy = false;
         $proxiedIp = null;
@@ -118,6 +121,18 @@ class User {
         // Return normal ip if not using proxy
 		return $ip;
 	}
+    */
+    public function getIP() {
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } else if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+    }
+
     /**
      * Check if a given ip is in a network
      * @param  string $ip    IP to check in IPV4 format eg. 127.0.0.1
