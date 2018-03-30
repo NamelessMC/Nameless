@@ -9,10 +9,10 @@
  *  Main index file
  */
 
-// Change to 1 to enable debugging
-define('DEBUGGING', 0);
+// Uncomment to enable debugging
+//define('DEBUGGING', 1);
 
-if(DEBUGGING){
+if(defined('DEBUGGING') && DEBUGGING){
 	ini_set('display_startup_errors', 1);
 	ini_set('display_errors', 1);
 	error_reporting(-1);
