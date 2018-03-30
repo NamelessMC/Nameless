@@ -170,6 +170,9 @@ $admin_page = 'minecraft';
                       if(Input::exists()){
                         if(Token::check(Input::get('token'))){
                           if(!isset($_POST['premium'])) {
+                              $use_mcassoc = $queries->getWhere('settings', array('name', '=', 'verify_accounts'));
+                              $use_mcassoc = $use_mcassoc[0]->id;
+
                               if (isset($_POST['use_mcassoc']) && $_POST['use_mcassoc'] == 'on') {
                                   $validate = new Validate();
                                   $validation = $validate->check($_POST, array(
@@ -186,9 +189,6 @@ $admin_page = 'minecraft';
 
                                   if ($validation->passed()) {
                                       // Update settings
-                                      $use_mcassoc = $queries->getWhere('settings', array('name', '=', 'verify_accounts'));
-                                      $use_mcassoc = $use_mcassoc[0]->id;
-
                                       $mcassoc_key = $queries->getWhere('settings', array('name', '=', 'mcassoc_key'));
                                       $mcassoc_key = $mcassoc_key[0]->id;
 
@@ -203,6 +203,9 @@ $admin_page = 'minecraft';
                                   } else {
                                       $error = $language->get('admin', 'mcassoc_error');
                                   }
+                              } else {
+                                  $queries->update('settings', $use_mcassoc, array('value' => 0));
+                                  $success = $language->get('admin', 'updated_mcassoc_successfully');
                               }
                           } else {
                             $uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
