@@ -96,5 +96,11 @@ $language = array(
 	'version' => 'Versie: {x}', // Verander "{x}" niet
 	'currently_x_players_online' => 'Er zijn nu <strong>{x}</strong> spelers online.', // Verander "{x}" niet
 	'server_offline' => 'De server is nu offline.',
-	'connect_with_ip_x' => 'Verbind met dit IP adres: <strong>{x}</strong>' // Verander "{x}" niet
+	'connect_with_ip_x' => 'Verbind met dit IP adres: <strong>{x}</strong>', // Verander "{x}" niet
+
+	/*
+	 *  Cookie notice
+	 */
+	'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
+	'cookie_agree' => 'Agree'
 );

@@ -97,5 +97,11 @@ $language = array(
     'version' => '版本: {x}', // Don't replace {x}
     'currently_x_players_online' => '現在有 <strong>{x}</strong> 位玩家在線上.', // Don't replace {x}
     'server_offline' => '伺服器目前離線.',
-    'connect_with_ip_x' => '使用 IP <strong>{x}</strong> 來連接伺服器' // Don't replace {x}
+    'connect_with_ip_x' => '使用 IP <strong>{x}</strong> 來連接伺服器', // Don't replace {x}
+
+    /*
+     *  Cookie notice
+     */
+    'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
+    'cookie_agree' => 'Agree'
 );

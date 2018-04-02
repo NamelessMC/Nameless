@@ -94,5 +94,11 @@ $language = array(
 	'version' => 'Version: {x}', // Don't replace {x}
 	'currently_x_players_online' => 'Hay actualmente <strong>{x}</strong> jugadores conectados.', // Don't replace {x}
 	'server_offline' => 'El servidor está actualmente sin conexióne.',
-	'connect_with_ip_x' => 'Conéctate ahora <strong>{x}</strong>' // Don't replace {x}
+	'connect_with_ip_x' => 'Conéctate ahora <strong>{x}</strong>', // Don't replace {x}
+
+	/*
+	 *  Cookie notice
+	 */
+	'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
+	'cookie_agree' => 'Agree'
 );

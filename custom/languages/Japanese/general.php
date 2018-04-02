@@ -96,5 +96,11 @@ $language = array(
     'version' => 'バージョン: {x}', // Don't replace {x}
     'currently_x_players_online' => '現在、オンラインの <strong>{x}</strong> プレーヤーがあります。', // Don't replace {x}
     'server_offline' => 'サーバーは現在オフラインです。',
-    'connect_with_ip_x' => 'サーバーへの接続IPは -> <strong>{x}</strong>' // Don't replace {x}
+    'connect_with_ip_x' => 'サーバーへの接続IPは -> <strong>{x}</strong>', // Don't replace {x}
+
+    /*
+     *  Cookie notice
+     */
+    'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
+    'cookie_agree' => 'Agree'
 );
