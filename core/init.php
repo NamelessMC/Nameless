@@ -233,6 +233,19 @@ if($page != 'install'){
     // Smarty
     $smarty = new Smarty();
 
+    // Cookie notice
+    if(!$user->isLoggedIn()){
+        // Cookie notice for guests
+        if(!Cookie::exists('accept')){
+            $smarty->assign(array(
+                'COOKIE_NOTICE' => $language->get('general', 'cookie_notice'),
+                'COOKIE_AGREE' => $language->get('general', 'cookie_agree')
+            ));
+
+            define('COOKIE_NOTICE', true);
+        }
+    }
+
     $template_path = ROOT_PATH . '/custom/templates/' . TEMPLATE;
     $smarty->setTemplateDir($template_path);
     $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');

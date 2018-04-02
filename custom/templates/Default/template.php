@@ -292,6 +292,22 @@ if(!isset($admin_styles)){
       }
 
     </script>';
+  } else {
+      if(defined('COOKIE_NOTICE')){
+          $js .= '<script type="text/javascript">
+          toastr.options.timeOut = 0;
+          toastr.options.extendedTimeOut = 0;
+          toastr.options.closeButton = true;
+          
+          toastr.options.onclick = function() { $(\'.toast .toast-close-button\').focus(); }
+          toastr.options.onHidden = function() { $.cookie(\'accept\', \'accepted\', { path: \'/\' }); }
+          
+          toastr.options.positionClass = \'toast-bottom-left\';
+          
+          toastr.info(\'' . $language->get('general', 'cookie_notice') . '\');
+          
+          </script>';
+      }
   }
 
   // Registration page/login page checkbox

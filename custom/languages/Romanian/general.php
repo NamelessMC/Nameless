@@ -96,5 +96,11 @@ $language = array(
     'version' => 'Versiune: {x}', // Don't replace {x}
     'currently_x_players_online' => 'În prezent sunt <strong>{x}</strong> jucători online.', // Don't replace {x}
     'server_offline' => 'Serverul este în prezent offline.',
-    'connect_with_ip_x' => 'Conectați-vă acum folosind IP-ul: <strong>{x}</strong>' // Don't replace {x}
+    'connect_with_ip_x' => 'Conectați-vă acum folosind IP-ul: <strong>{x}</strong>', // Don't replace {x}
+
+    /*
+     *  Cookie notice
+     */
+    'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
+    'cookie_agree' => 'Agree'
 );

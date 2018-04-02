@@ -94,5 +94,11 @@ $language = array(
     'version' => 'Verze: {x}', // Don't replace {x}
     'currently_x_players_online' => 'Aktuálně je na serveru <strong>{x}</strong> online hráčů.', // Don't replace {x}
     'server_offline' => 'Server je aktuálně vypnut (offline).',
-    'connect_with_ip_x' => 'Připojte se nyní pomoci IP adresy <strong>{x}</strong>' // Don't replace {x}
+    'connect_with_ip_x' => 'Připojte se nyní pomoci IP adresy <strong>{x}</strong>', // Don't replace {x}
+
+    /*
+     *  Cookie notice
+     */
+    'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
+    'cookie_agree' => 'Agree'
 );

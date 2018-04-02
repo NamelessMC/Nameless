@@ -102,5 +102,11 @@ $language = array(
     'version' => 'Version: {x}', // Don't replace {x}
     'currently_x_players_online' => 'Derzeit sind <strong>{x}</strong> Spieler online.', // Don't replace {x}
     'server_offline' => 'Der Server ist zurzeit Offline.',
-    'connect_with_ip_x' => 'Verbinde dich jetzt mit folgender Adresse: <strong>{x}</strong>' // Don't replace {x}
+    'connect_with_ip_x' => 'Verbinde dich jetzt mit folgender Adresse: <strong>{x}</strong>', // Don't replace {x}
+
+    /*
+     *  Cookie notice
+     */
+    'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
+    'cookie_agree' => 'Agree'
 );
