@@ -118,6 +118,7 @@ $language = array(
 	'verification_failed' => 'Validatie gefaald, probeer het opnieuw.',
 	'verification_success' => 'Succesvol gevalideerd! Je kunt nu inloggen.',
 	'authme_username_exists' => 'Je Authme account is al verbonden met de website!',
+	'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
 	
 	// Inloggen
 	'successful_login' => 'Je bent nu ingelogd.',

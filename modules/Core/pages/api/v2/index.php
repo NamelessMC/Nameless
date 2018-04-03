@@ -7,7 +7,7 @@
  *  License: MIT
  *
  *  Version 2.0.0 API
- *  API version 1.0.1
+ *  API version 1.0.2
  */
 
 // Headers
@@ -750,23 +750,63 @@ class Nameless2API
             if(!isset($info->{'server-id'}) || !isset($info->{'max-memory'}) || !isset($info->{'free-memory'}) || !isset($info->{'allocated-memory'}) || !isset($info->{'tps'}) || !isset($info->{'players'}))
                 $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
 
+            $this->_db = DB::getInstance();
+
             // Ensure server exists
             $server_query = $this->_db->get('mc_servers', array('id', '=', $info->{'server-id'}));
             if(!$server_query->count()) $this->throwError(27, $this->_language->get('api', 'invalid_server_id'));
+
+            //echo '<pre>', print_r($info->{'players'}), '</pre>';
 
             try {
                 $this->_db->insert('query_results', array(
                     'server_id' => $info->{'server-id'},
                     'queried_at' => date('U'),
                     'players_online' => count($info->{'players'}),
-                    'extra' => $info
+                    'extra' => $_POST['info']
                 ));
 
             } catch(Exception $e){
                 $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
             }
 
-            $this->returnArray(array('message' => $this->_language->get('server_info_updated')));
+            // Update usernames
+            try {
+                $update_usernames = $this->_db->get('settings', array('name', '=', 'username_sync'))->results();
+                $update_usernames = $update_usernames[0]->value;
+
+                if($update_usernames == '1'){
+                    if(count($info->{'players'})){
+                        // Update just Minecraft username, or displayname too?
+                        $displaynames = $this->_db->get('settings', array('name', '=', 'displaynames'));
+                        if(!$displaynames->count()) $displaynames = 'false';
+                        else $displaynames = $displaynames->first()->value;
+
+                        foreach($info->{'players'} as $uuid => $player){
+                            $user = new User();
+                            if($user->find($uuid, 'uuid')){
+                                if($player->name != $user->data()->username){
+                                    // Update username
+                                    if($displaynames == 'false') {
+                                        $user->update(array(
+                                            'username' => Output::getClean($player->name),
+                                            'nickname' => Output::getClean($player->name)
+                                        ), $user->data()->id);
+                                    } else {
+                                        $user->update(array(
+                                            'username' => Output::getClean($player->name)
+                                        ), $user->data()->id);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch(Exception $e){
+                $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
+            }
+
+            $this->returnArray(array('message' => $this->_language->get('api', 'server_info_updated')));
 
         } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
     }

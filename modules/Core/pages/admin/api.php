@@ -101,6 +101,21 @@ if(Input::exists()){
         } catch(Exception $e){
             $error = $e->getMessage();
         }
+
+        if(isset($_POST['username_sync']) && $_POST['username_sync'] == 'on')
+            $username_sync = 1;
+        else
+            $username_sync = 0;
+
+        $username_sync_id = $queries->getWhere('settings', array('name', '=', 'username_sync'));
+        $username_sync_id = $username_sync_id[0]->id;
+        try {
+            $queries->update('settings', $username_sync_id, array(
+                'value' => $username_sync
+            ));
+        } catch(Exception $e){
+            $error = $e->getMessage();
+        }
     } else {
         $error = $language->get('general', 'invalid_token');
     }
@@ -174,6 +189,10 @@ if(Input::exists()){
                     // Is API verification enabled?
                     $api_verification = $queries->getWhere('settings', array('name', '=', 'api_verification'));
                     $api_verification = $api_verification[0]->value;
+
+                    // Is the username sync enabled?
+                    $username_sync = $queries->getWhere('settings', array('name', '=', 'username_sync'));
+                    $username_sync = $username_sync[0]->value;
                     ?>
 
                     <form action="" method="post">
@@ -198,6 +217,10 @@ if(Input::exists()){
                         <div class="form-group">
                             <label for="api_verification"><?php echo $language->get('admin', 'api_verification'); ?></label> <span class="badge badge-info" data-toggle="popover" data-html="true" data-content="<?php echo $language->get('admin', 'api_verification_info'); ?>"><i class="fa fa-question"></i></span>
                             <input name="api_verification" id="api_verification" type="checkbox" class="js-switch"<?php if($api_verification == '1'){ ?> checked<?php } ?> />
+                        </div>
+                        <div class="form-group">
+                            <label for="username_sync"><?php echo $language->get('admin', 'enable_username_sync'); ?></label> <span class="badge badge-info" data-toggle="popover" data-html="true" data-content="<?php echo $language->get('admin', 'enable_username_sync_info'); ?>"><i class="fa fa-question"></i></span>
+                            <input name="username_sync" id="username_sync" type="checkbox" class="js-switch"<?php if($username_sync == '1'){ ?> checked<?php } ?> />
                         </div>
                         <div class="form-group">
                             <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
