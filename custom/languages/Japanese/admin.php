@@ -118,6 +118,7 @@ $language = array(
     'enable_nicknames_on_registration' => 'ユーザーを登録するニックネームを有効にしますか？',
     'validation_promote_group' => '昇格検証グループ',
     'validation_promote_group_info' => 'アカウントの有効を確認したユーザーに昇格されるグループです。',
+    'login_method' => 'Login Method',
 
 	// Reactions
 	'icon' => 'アイコン',

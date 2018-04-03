@@ -932,6 +932,11 @@
                 'value' => '{"action":"promote","group":1}'
             ));
 
+            $queries->create('settings', array(
+                'name' => 'login_method',
+                'value' => 'email'
+            ));
+
             // Templates
             $queries->create('templates', array(
                 'name' => 'Default',
@@ -2299,6 +2304,11 @@
 						$queries->create('settings', array(
 						    'name' => 'validate_user_action',
 						    'value' => '{"action":"activate"}'
+						));
+
+						$queries->create('settings', array(
+						    'name' => 'login_method',
+						    'value' => 'email'
 						));
 
 						// Templates

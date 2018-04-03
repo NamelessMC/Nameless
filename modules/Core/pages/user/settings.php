@@ -358,7 +358,7 @@ if(isset($_GET['do'])){
 					// Update password
 					// Check old password matches 
 					$old_password = Input::get('old_password');
-					if($user->checkCredentials($user->data()->username, $old_password)){
+					if($user->checkCredentials($user->data()->username, $old_password, 'username')){
 						try {
 							// Hash new password
 							$new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, array("cost" => 13));

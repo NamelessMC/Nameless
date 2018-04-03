@@ -174,10 +174,9 @@ class User {
 
 	// Find a specified user by username
 	// Params: $user (mixed) - either username or user ID to search for
-	//         $force_username (boolean) - if true, only search using username, not ID
-	public function find($user = null, $force_username = false) {
+	//         $field (string) - database field to use, eg email, username, id
+	public function find($user = null, $field = 'id') {
 		if ($user) {
-			$field = ($force_username === false && is_numeric($user)) ? 'id' : 'username';
 			$data = $this->_db->get('users', array($field, '=', $user));
 
 			if($data->count()) {
@@ -215,12 +214,12 @@ class User {
 	}
 
 	// Log the user in
-	public function login($username = null, $password = null, $remember = false) {
+	public function login($username = null, $password = null, $remember = false, $method = 'email') {
 		if(!$username && !$password && $this->exists()){
 			Session::put($this->_sessionName, $this->data()->id);
 			$this->_isLoggedIn = true;
 		} else {
-            if($this->checkCredentials($username, $password) === true){
+            if($this->checkCredentials($username, $password, $method) === true){
                 // Valid credentials
                 Session::put($this->_sessionName, $this->data()->id);
                 if($remember) {
@@ -244,11 +243,11 @@ class User {
 	}
 
 	// Handle AdminCP logins
-	public function adminLogin($username = null, $password = null) {
+	public function adminLogin($username = null, $password = null, $method = 'email') {
 		if(!$username && !$password && $this->exists()){
 			Session::put($this->_admSessionName, $this->data()->id);
 		} else {
-            if($this->checkCredentials($username, $password) === true){
+            if($this->checkCredentials($username, $password, $method) === true){
                 Session::put($this->_admSessionName, $this->data()->id);
 
                 $hash = Hash::unique();
@@ -272,8 +271,8 @@ class User {
 	}
 
 	// Check whether given credentials are valid
-    public function checkCredentials($username, $password){
-        $user = $this->find($username, true);
+    public function checkCredentials($username, $password, $method = 'email'){
+        $user = $this->find($username, $method);
         if($user){
             switch($this->data()->pass_method) {
                 case 'wordpress':
@@ -563,6 +562,19 @@ class User {
 		}
 		return false;
 	}
+
+    // Return an ID from an email
+    public function emailToId($email = null){
+        if($email){
+            $data = $this->_db->get('users', array('email', '=', $email));
+
+            if($data->count()){
+                $results = $data->results();
+                return $results[0]->id;
+            }
+        }
+        return false;
+    }
 
 	// Get a list of PMs a user has access to
 	public function listPMs($user_id = null){

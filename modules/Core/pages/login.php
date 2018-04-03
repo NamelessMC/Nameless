@@ -27,6 +27,10 @@ if ($user->isLoggedIn()) {
 $custom_usernames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
 $custom_usernames = $custom_usernames[0]->value;
 
+// Get login method
+$method = $queries->getWhere('settings', array('name', '=', 'login_method'));
+$method = $method[0]->value;
+
 // Deal with input
 if (Input::exists()) {
     // Check form token
@@ -44,14 +48,27 @@ if (Input::exists()) {
 
         // Initialise validation
         $validate = new Validate();
-        $validation = $validate->check($_POST, array(
-            'username' => array('required' => true, 'isbanned' => true, 'isactive' => true),
-            'password' => array('required' => true)
-        ));
+        if($method == 'email')
+            $to_validate = array(
+                'email' => array('required' => true, 'isbanned' => true, 'isactive' => true),
+                'password' => array('required' => true)
+            );
+        else
+            $to_validate = array(
+                'username' => array('required' => true, 'isbanned' => true, 'isactive' => true),
+                'password' => array('required' => true)
+            );
+
+        $validation = $validate->check($_POST, $to_validate);
 
         // Check if validation passed
         if ($validation->passed()) {
-            $user_query = $queries->getWhere('users', array('username', '=', Input::get('username')));
+            if($method == 'email')
+                $username = Input::get('email');
+            else
+                $username = Input::get('username');
+
+            $user_query = $queries->getWhere('users', array($method, '=', $username));
             if (count($user_query)) {
                 if ($user_query[0]->tfa_enabled == 1 && $user_query[0]->tfa_complete == 1) {
                     if (!isset($_POST['tfa_code'])) {
@@ -111,9 +128,14 @@ if (Input::exists()) {
                             // Continue anyway, and use already stored password
                         } else {
                             // Success, check user exists in database and validate password
-                            $stmt = $authme_conn->prepare("SELECT password FROM " . $authme_db['table'] . " WHERE realname = ?");
+                            if($method == 'email')
+                                $field = 'email';
+                            else
+                                $field = 'realname';
+
+                            $stmt = $authme_conn->prepare("SELECT password FROM " . $authme_db['table'] . " WHERE " . $field . " = ?");
                             if ($stmt) {
-                                $stmt->bind_param('s', Input::get('username'));
+                                $stmt->bind_param('s', $username);
                                 $stmt->execute();
                                 $stmt->bind_result($password);
 
@@ -147,7 +169,12 @@ if (Input::exists()) {
 
                                 // Update password
                                 if (!is_null($password)) {
-                                    $queries->update('users', $user->NameToId(Input::get('username')), array(
+                                    if($method == 'email')
+                                        $user_id = $user->emailToId($username);
+                                    else
+                                        $user_id = $user->NameToId($username);
+
+                                    $queries->update('users', $user_id, array(
                                         'password' => $password,
                                         'pass_method' => $authme_db['hash']
                                     ));
@@ -160,7 +187,7 @@ if (Input::exists()) {
                     }
                 }
 
-                $login = $user->login(Input::get('username'), Input::get('password'), $remember);
+                $login = $user->login($username, Input::get('password'), $remember, $method);
 
                 // Successful login?
                 if ($login) {
@@ -245,9 +272,13 @@ require(ROOT_PATH . '/core/templates/footer.php');
 
 // Sign in template
 // Generate content
+if($method == 'email')
+    $smarty->assign('EMAIL', $language->get('user', 'email'));
+else
+    $smarty->assign('USERNAME', (($custom_usernames == 'false') ? $language->get('user', 'minecraft_username') : $language->get('user', 'username')));
+
 $smarty->assign(array(
-    'USERNAME' => (($custom_usernames == 'false') ? $language->get('user', 'minecraft_username') : $language->get('user', 'username')),
-    'USERNAME_INPUT' => Output::getClean(Input::get('username')),
+    'USERNAME_INPUT' => ($method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
     'PASSWORD' => $language->get('user', 'password'),
     'REMEMBER_ME' => $language->get('user', 'remember_me'),
     'FORGOT_PASSWORD_URL' => URL::build('/forgot_password'),
