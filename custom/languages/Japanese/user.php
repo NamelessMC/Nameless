@@ -118,6 +118,7 @@ $language = array(
 	'verification_failed' => '検証に失敗しました、再試行してください。',
 	'verification_success' => '正常に検証されました！ これでログインできます。',
 	'authme_username_exists' => 'AuthMe アカウントはすでにWebサイトに接続されています。',
+	'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
 	
 	// Login
 	'successful_login' => 'あなたは正常にログインしました。',

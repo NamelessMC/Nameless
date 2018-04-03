@@ -407,6 +407,8 @@ $language = array(
 	'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
 	'api_verification' => 'Enable API verification?',
 	'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
+	'enable_username_sync' => 'Enable username sync?',
+	'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
 
 	// File uploads
 	'drag_files_here' => 'Soubory přetáhněte sem pro nahrání.',

@@ -116,6 +116,7 @@ $language = array(
 	'verification_failed' => 'Verification failed, please try again.',
 	'verification_success' => 'Successfully validated! You can now log in.',
 	'authme_username_exists' => 'Your Authme account has already been connected to the website!',
+	'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
 	
 	// Login
 	'successful_login' => 'You have successfully logged in.',

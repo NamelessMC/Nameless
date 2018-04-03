@@ -409,6 +409,8 @@ $language = array(
     'link_to_complete_registration' => '登録を完了するためのリンク: {x}', // Don't replace {x}
     'api_verification' => 'APIの確認を有効にしますか？',
     'api_verification_info' => '有効にすると、APIを介してアカウントを確認することができます。たとえば、公式のNamelessプラグインを使用してアカウントを確認することができます。<strong>このオプションは電子メールの検証より優先され、アカウントは自動的に有効になります！</strong><br />既定のグループを設定して、アクセス許可を制限し、AdminCP - >コア - >登録タブのポスト検証グループを、通常のアクセス許可を持つフルメンバーグループに更新する必要があります。',
+    'enable_username_sync' => 'Enable username sync?',
+    'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
 
 	// File uploads
 	'drag_files_here' => 'アップロードするファイルをここにドラッグします。',

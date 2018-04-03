@@ -937,6 +937,11 @@
                 'value' => 'email'
             ));
 
+            $queries->create('settings', array(
+                'name' => 'username_sync',
+                'value' => '1'
+            ));
+
             // Templates
             $queries->create('templates', array(
                 'name' => 'Default',
@@ -2309,6 +2314,11 @@
 						$queries->create('settings', array(
 						    'name' => 'login_method',
 						    'value' => 'email'
+						));
+
+						$queries->create('settings', array(
+						    'name' => 'username_sync',
+						    'value' => '1'
 						));
 
 						// Templates
