@@ -25,10 +25,17 @@
 
                         <hr class="colorgraph">
 
-                        <div class="form-group">
-                            <input type="text" class="form-control form-control-lg" name="username" id="username"
-                                   autocomplete="off" value="{$USERNAME_INPUT}" placeholder="{$USERNAME}" tabindex="1">
-                        </div>
+                        {if isset($EMAIL)}
+                            <div class="form-group">
+                                <input type="email" class="form-control form-control-lg" name="email" id="email"
+                                       autocomplete="off" value="{$USERNAME_INPUT}" placeholder="{$EMAIL}" tabindex="1">
+                            </div>
+                        {else}
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" name="username" id="username"
+                                       autocomplete="off" value="{$USERNAME_INPUT}" placeholder="{$USERNAME}" tabindex="1">
+                            </div>
+                        {/if}
 
                         <div class="form-group">
                             <input type="password" class="form-control form-control-lg" name="password" id="password"

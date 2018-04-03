@@ -366,6 +366,14 @@ $current_default_language = $current_default_language[0]->value;
                                             }
                                             */
 
+                                            // Login method
+                                            $login_method_id = $queries->getWhere('settings', array('name', '=', 'login_method'));
+                                            $login_method_id = $login_method_id[0]->id;
+
+                                            $queries->update('settings', $login_method_id, array(
+                                                'value' => $_POST['login_method']
+                                            ));
+
                                             // Update cache
                                             $cache->setCache('force_https_cache');
                                             $cache->store('force_https', $https);
@@ -541,6 +549,18 @@ $current_default_language = $current_default_language[0]->value;
                                         <select name="displaynames" class="form-control" id="inputEnableNicknames">
                                             <option value="true"<?php if ($displaynames->value == "true") { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
                                             <option value="false"<?php if ($displaynames->value == "false") { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputLoginMethod"><?php echo $language->get('admin', 'login_method'); ?></label>
+                                        <?php
+                                        // Get login method
+                                        $method = $queries->getWhere('settings', array('name', '=', 'login_method'));
+                                        $method = $method[0];
+                                        ?>
+                                        <select name="login_method" class="form-control" id="inputLoginMethod">
+                                            <option value="email"<?php if ($method->value == "email") { ?> selected<?php } ?>><?php echo $language->get('user', 'email'); ?></option>
+                                            <option value="username"<?php if ($method->value == "username") { ?> selected<?php } ?>><?php echo $language->get('user', 'username'); ?></option>
                                         </select>
                                     </div>
                                     <!--

@@ -29,19 +29,37 @@ if($user->isLoggedIn()){
 
 require(ROOT_PATH . '/core/includes/password.php'); // Require password compat library
 
+// Get login method
+$method = $queries->getWhere('settings', array('name', '=', 'login_method'));
+$method = $method[0]->value;
+
 // Deal with any input
 if(Input::exists()){
 	if(Token::check(Input::get('token'))){
 		// Validate input
 		$validate = new Validate();
-		$validation = $validate->check($_POST, array(
-			'username' => array('required' => true, 'isbanned' => true, 'isactive' => true),
-			'password' => array('required' => true)
-		));
+
+        if($method == 'email')
+            $to_validate = array(
+                'email' => array('required' => true, 'isbanned' => true, 'isactive' => true),
+                'password' => array('required' => true)
+            );
+        else
+            $to_validate = array(
+                'username' => array('required' => true, 'isbanned' => true, 'isactive' => true),
+                'password' => array('required' => true)
+            );
+
+		$validation = $validate->check($_POST, $to_validate);
 		
 		if($validation->passed()) {
+            if($method == 'email')
+                $username = Input::get('email');
+            else
+                $username = Input::get('username');
+
 			$user = new User();
-			$login = $user->adminLogin(Input::get('username'), Input::get('password'));
+			$login = $user->adminLogin($username, Input::get('password'), $method);
 			
 			if($login){
 				// Get IP
@@ -94,24 +112,28 @@ $admin_page = 'auth';
           <form role="form" action="" method="post">
             <div class="card">
               <div class="card-block">
-                <center><h2><?php echo $language->get('admin', 're-authenticate'); ?></h2></center>
+                <div style="text-align:center"><h2><?php echo $language->get('admin', 're-authenticate'); ?></h2></div>
                 <?php
                   if(Session::exists('adm_auth_error')){
                       echo '<div class="alert alert-danger">' . Session::flash('adm_auth_error') . '</div>';
                   }
                 ?>
                 <div class="form-group">
-                  <input type="text" name="username" id="username" autocomplete="off" value="<?php echo Output::getClean(Input::get('username')); ?>" class="form-control" placeholder="<?php echo $language->get('user', 'username'); ?>" tabindex="3">
+                  <?php if($method == 'email'){ ?>
+                    <input type="email" name="email" id="email" autocomplete="off" value="<?php echo Output::getClean(Input::get('email')); ?>" class="form-control" placeholder="<?php echo $language->get('user', 'email'); ?>" tabindex="3">
+                  <?php } else { ?>
+                    <input type="text" name="username" id="username" autocomplete="off" value="<?php echo Output::getClean(Input::get('username')); ?>" class="form-control" placeholder="<?php echo $language->get('user', 'username'); ?>" tabindex="3">
+                  <?php } ?>
                 </div>
                 <div class="form-group">
                   <input type="password" name="password" id="password" class="form-control" placeholder="<?php echo $language->get('user', 'password'); ?>" tabindex="4">
                 </div>
 
                 <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
-                <center>
+                <div style="text-align:center">
                   <input type="submit" value="<?php echo $language->get('general', 'sign_in'); ?>" class="btn btn-primary btn-lg text-center mx-auto" tabindex="5">
                   <a href="<?php echo URL::build('/'); ?>" class="btn btn-danger btn-lg text-center mx-auto"><?php echo $language->get('general', 'back'); ?></a>
-                </center>
+                </div>
               </div>
             </div>
           </form>
