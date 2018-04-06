@@ -426,14 +426,22 @@ if(isset($_GET['p'])){
         // Check cache
         $cache->setCache('forum_stats');
 
-        if ($cache->isCached('stats')) {
-            $latest_member = $cache->retrieve('stats');
-            $users_registered = $latest_member['users_registered'];
-            $latest_member = $latest_member['latest_member'];
+        if($cache->isCached('stats')){
+            $users_query = $cache->retrieve('stats');
+            $users_registered = $users_query['users_registered'];
+            $latest_member = $users_query['latest_member'];
+
         } else {
             $users_query = $queries->orderAll('users', 'joined', 'DESC');
-            $users_registered = str_replace('{x}', count($users_query), $forum_language->get('forum', 'users_registered'));
-            $latest_member = str_replace('{x}', '<a style="' . $user->getGroupClass($users_query[0]->id) . '" href="' . URL::build('/profile/' . Output::getClean($users_query[0]->username)) . '">' . Output::getClean($users_query[0]->nickname) . '</a>', $forum_language->get('forum', 'latest_member'));
+            $users_registered = count($users_query);
+            $latest_member = array(
+                'style' => $user->getGroupClass($users_query[0]->id),
+                'profile' => URL::build('/profile/' . Output::getClean($users_query[0]->username)),
+                'avatar' => $user->getAvatar($users_query[0]->id),
+                'username' => Output::getClean($users_query[0]->username),
+                'nickname' => Output::getClean($users_query[0]->nickname)
+            );
+
             $users_query = null;
 
             $cache->store('stats', array(
@@ -442,8 +450,8 @@ if(isset($_GET['p'])){
             ), 120);
         }
 
-        $smarty->assign('USERS_REGISTERED', $users_registered);
-        $smarty->assign('LATEST_MEMBER', $latest_member);
+        $smarty->assign('USERS_REGISTERED', str_replace('{x}', $users_registered, $forum_language->get('forum', 'users_registered')));
+        $smarty->assign('LATEST_MEMBER', str_replace('{x}', '<a style="' . $latest_member['style'] . '" href="' . $latest_member['profile'] . '">' . $latest_member['nickname'] . '</a>', $forum_language->get('forum', 'latest_member')));
 
         // Load Smarty template
         if (isset($no_topics_exist)) $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/view_forum_no_discussions.tpl');
