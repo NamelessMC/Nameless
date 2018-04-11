@@ -8,7 +8,7 @@
  *
  *  Portuguese Language - Moderator terms
  *  Translation By Douglas Teles & dasilvaj4
- *  Last Update: 30/10/2017
+ *  Last Update: 11/04/2018
  */
 $language = array(
 	'mod_cp' => 'ModCP',

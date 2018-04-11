@@ -7,8 +7,8 @@
  *  License: MIT
  *
  *  Portuguese Language - Language version
- *  Translation By Douglas Teles
- *  Last Update: 30/10/2017
+ *  Translation By Douglas Teles & dasilvaj4
+ *  Last Update: 11/04/2018
  */
 // Which version of NamelessMC is this language file updated to?
 $language_version = '2.0.0-pr2';
