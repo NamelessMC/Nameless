@@ -10,7 +10,7 @@
  */
 
 // Custom language
-$default_theme_language = new Language(ROOT_PATH . '/modules/DefaultTheme/language');
+$default_theme_language = new Language(ROOT_PATH . '/modules/DefaultTheme/language', LANGUAGE);
 
 // Define URLs which belong to this module
 $pages->add('DefaultTheme', '/admin/defaulttheme', 'pages/admin.php');

@@ -8,13 +8,13 @@
  *
  *  Portuguese Language - Users
  *  Translation By Douglas Teles & dasilvaj4
- *  Last Update: 30/10/2017
+ *  Last Update: 11/04/2018
  */
 $language = array(
 	/*
 	 *  Change this for the account validation message
 	 */
-	'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+	'validate_account_command' => 'Para completar o registo, por favor execute o comando <strong>/validate {x}</strong> no servidor.', // Don't replace {x}
 
 	/*
 	 *  User Related
@@ -35,7 +35,7 @@ $language = array(
 	'administration' => 'Administração',
 	'alerts' => 'Alertas',
 	'delete_all' => 'Excluir Todos',
-	'private_profile' => 'Private profile',
+	'private_profile' => 'Perfil privado',
 	
 	// Profile settings
 	'field_is_required' => '{x} é requerido.', // Don't replace {x}
@@ -47,8 +47,8 @@ $language = array(
 	'confirm_new_password' => 'Confirme a Nova Senha',
 	'incorrect_password' => 'Sua senha está incorreta.',
 	'two_factor_auth' => 'Autenticação em Dois Fatores',
-	'enabled' => 'Enabled',
-    'disabled' => 'Disabled',
+	'enabled' => 'Ativado',
+    'disabled' => 'Desativado',
 	'enable' => 'Ativar',
 	'disable' => 'Desativar',
 	'tfa_scan_code' => 'Verifique o seguinte código no seu aplicativo de autenticação:',
@@ -59,7 +59,7 @@ $language = array(
 	'active_language' => 'Linguagem Ativa',
 	'timezone' => 'Fuso horário',
 	'upload_new_avatar' => 'Enviar um novo Avatar',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
+    'nickname_already_exists' => 'O nickname escolhido já existe.',
 	
 	// Alerts
 	'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}
@@ -117,7 +117,7 @@ $language = array(
 	'verification_failed' => 'Falha na verificação. Por favor tente novamente.',
 	'verification_success' => 'Validado com sucesso! Agora você pode entrar.',
 	'authme_username_exists' => 'Sua conta AuthMe já está conectada com o website!',
-	'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
+	'uuid_already_exists' => 'Seu UUID já existe, o que significa que esta conta Minecraft já está registrado.',
 	
 	// Login
 	'successful_login' => 'Você fez login com sucesso.',
@@ -166,10 +166,10 @@ $language = array(
 	'confirm_unblock_user' => 'Você tem certeza que quer desbloquear esse usuário? Ele vai poder te enviar mensagens privadas e te marcar nos posts.',
 	'user_blocked' => 'Usuário bloqueado.',
 	'user_unblocked' => 'Usuário desbloqueado.',
-	'views' => 'Profile Views:',
-	'private_profile_page' => 'This is a private profile!',
-	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
-	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
+	'views' => 'Visualizações do perfil:',
+	'private_profile_page' => 'Este é um perfil privado!',
+	'new_wall_post_reply' => '{x} respondeu a sua postagem no perfil de {y}.', // Don't replace {x} or {y}
+	'new_wall_post_reply_your_profile' => '{x} respondeu ao seu post no seu perfil.', // Don't replace {x}
 	
 	// Reports
 	'invalid_report_content' => 'Não foi possível criar o alerta. Certifique-se de que o motivo do alerta está entre 2 e 1024 caracteres.',
@@ -220,5 +220,5 @@ $language = array(
 	/*
 	 *  Hooks
 	 */
-	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
+	'user_x_has_registered' => '{x} juntou-se ' . SITE_NAME . '!'
 );

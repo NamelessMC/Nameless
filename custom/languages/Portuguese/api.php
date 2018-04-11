@@ -7,45 +7,47 @@
  *  License: MIT
  *
  *  Portuguese Language - API
+ *  Translation By dasilvaj4
+ *  Last Update: 11/04/2018
  */
 
 $language = array(
     // Errors
-    'unknown_error' => 'Unknown error',
-    'invalid_api_key' => 'Invalid API key',
-    'invalid_language_file' => 'Invalid language file',
-    'invalid_api_method' => 'Invalid API method',
-    'no_unique_site_id' => 'No unique site ID available',
-    'unable_to_check_for_updates' => 'Unable to check for updates',
-    'invalid_post_contents' => 'Invalid POST contents',
-    'invalid_get_contents' => 'Invalid GET contents',
-    'invalid_email_address' => 'Invalid email address',
-    'invalid_username' => 'Invalid username',
-    'invalid_uuid' => 'Invalid UUID',
-    'email_already_exists' => 'Email already exists',
-    'username_already_exists' => 'Username already exists',
-    'uuid_already_exists' => 'UUID already exists',
-    'unable_to_create_account' => 'Unable to create account',
-    'unable_to_send_registration_email' => 'Unable to send registration email, please contact an admin to activate your account',
-    'unable_to_find_user' => 'Unable to find user',
-    'unable_to_find_group' => 'Unable to find group',
-    'unable_to_update_group' => 'Unable to update user\'s group',
-    'report_content_too_long' => 'The report content must be 255 characters or less',
-    'you_must_register_to_report' => 'You must register on our website to be able to create a report',
-    'you_have_been_banned_from_website' => 'You have been banned from the website',
-    'you_have_open_report_already' => 'You already have an open report regarding this player',
-    'unable_to_create_report' => 'Unable to create report',
-    'unable_to_update_username' => 'Unable to update username',
-    'unable_to_update_server_info' => 'Unable to update server info',
-    'invalid_server_id' => 'Invalid server ID',
-    'invalid_code' => 'Invalid code provided',
+    'unknown_error' => 'Erro desconhecido',
+    'invalid_api_key' => 'Chave de API inválido',
+    'invalid_language_file' => 'Arquivo de idioma inválido',
+    'invalid_api_method' => 'Método de API inválido',
+    'no_unique_site_id' => 'Nenhum ID de site exclusivo disponível',
+    'unable_to_check_for_updates' => 'Não é possível verificar atualizações',
+    'invalid_post_contents' => 'Conteúdo de POST inválido',
+    'invalid_get_contents' => 'Conteúdo de GET inválido',
+    'invalid_email_address' => 'Endereço de e-mail inválido',
+    'invalid_username' => 'Nome de usuário inválido',
+    'invalid_uuid' => 'UUID inválido',
+    'email_already_exists' => 'O email já existe',
+    'username_already_exists' => 'Usuário já existe',
+    'uuid_already_exists' => 'O UUID já existe',
+    'unable_to_create_account' => 'Não é possível criar conta',
+    'unable_to_send_registration_email' => 'Não é possível enviar e-mail de registro, entre em contato com um administrador para ativar sua conta',
+    'unable_to_find_user' => 'Não é possível localizar o usuário',
+    'unable_to_find_group' => 'Não é possível localizar o grupo',
+    'unable_to_update_group' => 'Não é possível atualizar o grupo do usuário',
+    'report_content_too_long' => 'O conteúdo do relatório deve ter 255 caracteres ou menos',
+    'you_must_register_to_report' => 'Você deve registrar em nosso site para ser capaz de criar um relatório',
+    'you_have_been_banned_from_website' => 'Você foi banido do site',
+    'you_have_open_report_already' => 'Você já tem um relatório aberto sobre este jogador',
+    'unable_to_create_report' => 'Não é possível criar relatório',
+    'unable_to_update_username' => 'Não é possível atualizar o nome de usuário',
+    'unable_to_update_server_info' => 'Não é possível atualizar informações do servidor',
+    'invalid_server_id' => 'ID de servidor inválido',
+    'invalid_code' => 'Código inválido fornecido',
 
     // Success messages
-    'finish_registration_link' => 'Please click on the following link to complete registration:',
-    'finish_registration_email' => 'Please check your emails to complete registration.',
-    'group_updated' => 'Group updated successfully',
-    'report_created' => 'Report created successfully',
-    'new_private_message_from' => 'New private message from {x}', // Don't replace {x}
-    'username_updated' => 'Username updated successfully',
-    'server_info_updated' => 'Server info updated successfully'
+    'finish_registration_link' => 'Por favor, clique no seguinte link para concluir o registro:',
+    'finish_registration_email' => 'Por favor, verifique seus e-mails para completar o registro.',
+    'group_updated' => 'Grupo atualizado com êxito',
+    'report_created' => 'Relatório criado com êxito',
+    'new_private_message_from' => 'Nova mensagem privada de {x}', // Don't replace {x}
+    'username_updated' => 'Nome de usuário atualizado com êxito',
+    'server_info_updated' => 'Informações do servidor atualizadas com êxito'
 );

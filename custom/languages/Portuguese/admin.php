@@ -8,7 +8,7 @@
  *
  *  Portuguese Language - Admin
  *  Translation By Douglas Teles & dasilvaj4
- *  Last Update: 30/10/2017
+ *  Last Update: 11/04/2018
  */
 $language = array(
 	/*
@@ -56,12 +56,12 @@ $language = array(
 	'use_friendly_urls_help' => 'IMPORTANTE: Seu servidor deverá permitir o uso do mod_rewrite e do .htaccess para que isso funcione.',
 	'config_not_writable' => 'Seu arquivo <strong>core/config.php</strong> não é gravável. Por favor, verifique as permissões do arquivo.',
 	'social_media' => 'Social',
-	'youtube_url' => 'Youtube URL',
-	'twitter_url' => 'Twitter URL',
+	'youtube_url' => 'URL do Youtube',
+	'twitter_url' => 'URL do Twitter',
 	'twitter_dark_theme' => 'Utilizar tema escuro do Twitter?',
 	'discord_id' => 'Discord Server ID',
-	'google_plus_url' => 'Google Plus URL',
-	'facebook_url' => 'Facebook URL',
+	'google_plus_url' => 'URL do Google Plus',
+	'facebook_url' => 'URL do Facebook',
 	'successfully_updated' => 'Atualizado com sucesso!',
     'debugging_and_maintenance' => 'Depuração e manutenção',
     'enable_debug_mode' => 'Habilitar o modo de depuração?',
@@ -84,7 +84,7 @@ $language = array(
     'outgoing_email_info' => 'Este é o endereço de e-mail do qual NamelessMC usará para enviar e-mails.',
     'mailer_settings_info' => 'Os campos a seguir são necessários se você tiver habilitado PHPMailer. Para obter mais informações sobre como preencher esses campos, confira <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">a wiki</a>.',
     'host' => 'Host',
-    'email_port' => 'Port',
+    'email_port' => 'Porta',
     'email_password_hidden' => 'A senha não é mostrada por razões de segurança.',
     'send_test_email' => 'Enviar e-mail de teste',
     'send_test_email_info' => 'O seguinte botão irá tentar enviar um e-mail para o seu endereço de e-mail, <strong>{x}</strong>. Qualquer erro que occora enquanto envia o e-mail será exibido.', // Don't replace {x}
@@ -106,21 +106,21 @@ $language = array(
     'select_default_avatar' => 'Selecione um novo avatar padrão:',
     'no_avatars_available' => 'Não há avatares disponíveis. Por favor, envie uma nova imagem acima primeiro.',
     'avatar_settings_updated_successfully' => 'Configurações do Avatar atualizadas com sucesso.',
-    'navigation' => 'Navigation',
-    'navbar_order' => 'Navbar Order',
-    'navbar_order_instructions' => 'You can give each item a number above 0 to order items in the navbar, with 1 being the first item and higher numbers coming after it.',
-    'enable_page_load_timer' => 'Enable page load timer?',
+    'navigation' => 'Navegação',
+    'navbar_order' => 'Ordem na Navbar',
+    'navbar_order_instructions' => 'Você pode dar a cada item um número acima de 0 para os itens na barra de navegação, sendo 1 o primeiro item e os números mais altos após ele.',
+    'enable_page_load_timer' => 'Ativar o page load timer?',
     'google_recaptcha' => 'Enable Google reCAPTCHA?',
     'recaptcha_site_key' => 'reCAPTCHA Site Key',
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
-    'registration_disabled_message' => 'Registration disabled message',
-    'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
-    'validation_promote_group' => 'Post-validation group',
-    'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
-    'login_method' => 'Login Method',
+    'registration_disabled_message' => 'Motivo do registro está desativado',
+    'enable_nicknames_on_registration' => 'Ativar nickname para registrar usuários?',
+    'validation_promote_group' => 'Grupo pós-validação',
+    'validation_promote_group_info' => 'Este é o grupo para o qual um usuário será promovido depois de ter validado sua conta.',
+    'login_method' => 'Método de login',
 
 	// Reactions
-	'icon' => 'Icone',
+	'icon' => 'Ícone',
 	'type' => 'Tipo',
 	'positive' => 'Positivo',
 	'neutral' => 'Neutro',
@@ -215,7 +215,7 @@ $language = array(
     'viewing_query_error' => 'Visualizando os erros da Query',
     'confirm_query_error_deletion' => 'Tem certeza de que deseja excluir esse erro de Query?',
     'no_query_errors' => 'Sem erro de Query registrado.',
-    'new_banner' => '<i class="fa fa-plus-circle"></i> New Banner',
+    'new_banner' => '<i class="fa fa-plus-circle"></i> Novo Banner',
     'purge_errors' => 'Limpar os erros',
     'confirm_purge_errors' => 'Tem certeza de que deseja limpar todos os erros?',
     'mcassoc_help' => 'O mcassoc é um serviço externo que pode ser usado para verificar que os usuários possuem a conta Minecraft com a qual se registraram. Para usar este recurso, você precisará se inscrever para uma chave compartilhada <a href="https://mcassoc.lukegb.com/" target="_blank">aqui</a>.',
@@ -310,7 +310,7 @@ $language = array(
 	'secondary_groups' => 'Grupos secundários',
 	'secondary_groups_info' => 'Este usuário vai ganhar qualquer permissão adicional provenientes destes grupos',
 	'unable_to_update_uuid' => 'Unable to update UUID.',
-	'default_group' => 'Is the group the default group (for new users)?',
+	'default_group' => 'Grupo padrão (para novos usuários)?',
 
 	// Permissions
 	'select_all' => 'Selecionar Todos',
@@ -399,39 +399,39 @@ $language = array(
 
     // API
     'api' => 'API',
-    'enable_api' => 'Enable API?',
-    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>.',
-    'enable_legacy_api' => 'Enable legacy API?',
-    'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
-    'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
-    'api_registration_email' => 'API Registration Email',
-    'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
-    'api_verification' => 'Enable API verification?',
-    'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
-    'enable_username_sync' => 'Enable username sync?',
-    'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
+    'enable_api' => 'Ativar a API?',
+    'api_info' => 'A API permite que plugins e outros serviços interajam com o seu site, como o <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >como o plugin Nameless oficial</a>.',
+    'enable_legacy_api' => 'Ativar API legacy?',
+    'legacy_api_info' => 'A API legacy permite que plugins que usam a API antiga do Nameless v1 para trabalhar com o seu site da versão 2.',
+    'confirm_api_regen' => 'Tem certeza de que deseja gerar uma nova chave para API?',
+    'api_registration_email' => 'E-mail de registro da API',
+    'link_to_complete_registration' => 'Link para o registro completo: {x}', // Don't replace {x}
+    'api_verification' => 'Ativar verificação de API?',
+    'api_verification_info' => 'Se ativado, as contas só podem ser verificadas por meio da API, por exemplo, usando o plugin oficial Nameless. <strong>Essa opção substituirá a verificação de e-mail e as contas serão ativadas automaticamente.</strong><br />Você deve configurar seu grupo padrão para ter permissões limitadas e, em seguida, atualizar o grupo de pós-validação na guia AdminCP -> Core -> Cadastro para o grupo de membros completo com permissões normais.',
+    'enable_username_sync' => 'Ativar sincronização de nome de usuário?',
+    'enable_username_sync_info' => 'Se ativado, os nomes de usuário do site serão atualizados para corresponder aos nomes de usuário do jogo.',
 
 	// File uploads
 	'drag_files_here' => 'Arraste arquivos aqui para fazer o upload.',
 	'invalid_file_type' => 'Tipo de arquivo inválido!',
 	'file_too_big' => 'Arquivo muito grande! Seu arquivo possui {{filesize}} e o limite é {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
-	'allowed_proxies' => 'Allowed Proxies',
-	'allowed_proxies_info' => 'Line separated list of allowed proxy IPs.',
+	'allowed_proxies' => 'Proxies permitidos',
+	'allowed_proxies_info' => 'Lista separada por linha de IPs de proxy permitidos.',
 
 	// Error logs
-	'error_logs' => 'Error Logs',
-	'notice_log' => 'Notice log',
-	'warning_log' => 'Warning log',
-	'custom_log' => 'Custom log',
-	'other_log' => 'Other log',
-	'fatal_log' => 'Fatal log',
-	'log_file_not_found' => 'Log file not found.',
+	'error_logs' => 'Logs de erros',
+	'notice_log' => 'Logs notices',
+	'warning_log' => 'Logs de avisos',
+	'custom_log' => 'Logs custom',
+	'other_log' => 'Outros logs',
+	'fatal_log' => 'Logs fatais',
+	'log_file_not_found' => 'Arquivo de log não encontrado.',
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
-	'discord_hooks_info' => 'Send a message to a Discord channel when something happens on your site. Create a Discord hook in your Discord Server Settings -> Webhooks tab.',
-	'discord_hook_url' => 'Discord webhook URL',
-	'discord_hook_events' => 'Enabled Discord hook events (Ctrl+click to select multiple events)',
-	'register_hook_info' => 'User registration',
-	'validate_hook_info' => 'User validation'
+	'discord_hooks_info' => 'Envie uma mensagem para um canal Discord quando algo acontecer em seu site. Crie um hook no seu Discord nas Configurações do seu Servidor Discord -> aba Webhooks.',
+	'discord_hook_url' => 'URL do webhook do Discord',
+	'discord_hook_events' => 'Ativar eventos hook do Discord (Ctrl + clique para selecionar vários eventos)',
+	'register_hook_info' => 'Registro do usuário',
+	'validate_hook_info' => 'Validação do usuário'
 );
