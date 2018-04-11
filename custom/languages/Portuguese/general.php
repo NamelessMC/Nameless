@@ -8,7 +8,7 @@
  *
  *  Portuguese Language - General
  *  Translation By Douglas Teles & dasilvaj4
- *  Last Update: 30/10/2017
+ *  Last Update: 11/04/2018
  */
 $language = array(
 	/*
@@ -52,19 +52,19 @@ $language = array(
 	'page_loaded_in' => 'Página gerada em {x}s', // Don't replace {x}, time unit is seconds
 	'page_x' => 'Página {x}',
 	'browse' => 'Navegar',
-	'bypass' => 'Bypass',
-	'yes' => 'Yes',
-	'no' => 'No',
+	'bypass' => 'Burlar',
+	'yes' => 'Sim',
+	'no' => 'Não',
 
 	/*
 	*  Contact form
 	*/
 	'contact' => 'Contato',
 	'message' => 'Mensagem',
-	'email_address' => 'Email Address',
+	'email_address' => 'Endereço de e-mail',
 	'contact_email_subject' => 'Novo formulário de contato',
 	'contact_message_failed' => 'Não foi possível a mensagem. Certifique-se de ter inserido uma mensagem entre 10 e 5000 caracteres.',
-	'contact_message_email' => 'The provided email is invalid.',
+	'contact_message_email' => 'O e-mail fornecido é inválido.',
 	'contact_message_sent' => 'Mensagem enviada com sucesso.',
 	'contact_message_limit' => 'Você só pode enviar uma mensagem por hora. Você pode enviar uma mensagem em {x} minutos.', // Don't replace {x}
 	
@@ -100,6 +100,6 @@ $language = array(
 	/*
 	 *  Cookie notice
 	 */
-	'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
-	'cookie_agree' => 'Agree'
+	'cookie_notice' => 'Este site usa cookies para melhorar a sua experiência de navegação. Ao registar-se no nosso site ou fechar este aviso você concorda com a sua utilização.',
+	'cookie_agree' => 'Concordo'
 );
