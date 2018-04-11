@@ -1018,7 +1018,7 @@
                     ));
 
                     // Log the user in
-                    $login = $user->login(Input::get('username'), Input::get('password'), true);
+                    $login = $user->login(Input::get('email'), Input::get('password'), true);
 
                     if($login){
                         Redirect::to('?step=convert');
