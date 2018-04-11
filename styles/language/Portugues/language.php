@@ -105,12 +105,12 @@ $admin_language = array(
 	'tracking_code_help' => 'Insira o código de acompanhamento do Google Analytics aqui, incluindo as tags de script circundantes.',
 	'google_analytics_help' => 'Veja <a href="https://support.google.com/analytics/answer/1008080?hl=en#GA" target="_blank">este guia</a> para mais informações, siga os passos 1 ao 3.',
 	'social_media_links' => 'Links Páginas Sociais',
-	'youtube_url' => 'YouTube URL',
-	'twitter_url' => 'Twitter URL',
+	'youtube_url' => 'URL do YouTube',
+	'twitter_url' => 'URL do Twitter',
 	'twitter_dark_theme' => 'Usar tema escuro do Twitter?',
 	'twitter_widget_id' => 'Twitter Widget ID',
-	'google_plus_url' => 'Google Plus URL',
-	'facebook_url' => 'Facebook URL',
+	'google_plus_url' => 'URL do Google Plus',
+	'facebook_url' => 'URL do Facebook',
 	'registration' => 'Cadastro',
 	'registration_warning' => 'Desativando este módulo, também desativará novos cadastros em seu site.',
 	'google_recaptcha' => 'Ativar Google reCAPTCHA',
@@ -323,7 +323,7 @@ $admin_language = array(
 	'mcassoc_instance' => 'Instância mcassoc',
 	'mcassoc_instance_help' => 'Gerar um código de instância <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">aqui</a>',
 	'mcassoc_key_help' => 'Obter a sua chave mcassoc <a href="https://mcassoc.lukegb.com/" target="_blank">aqui</a>',
-	'enable_name_history' => 'Enable profile username history?',
+	'enable_name_history' => 'Ativar histórico de usuários no perfil?',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Temas',
@@ -558,7 +558,7 @@ $user_language = array(
 	'user_no_friends' => 'Esse usuário não adicionou nenhum amigo',
 	'send_message' => 'Enviar Mensagem',
 	'remove_friend' => 'Remover Amigo',
-	'add_friend' => 'Add Amigo',
+	'add_friend' => 'Adicionar Amigo',
 	'last_online' => 'Última vez online:',
 	'find_a_user' => 'Encontrar um usuário',
 	'user_not_following' => 'Esse usuário não segue ninguém.',
@@ -593,8 +593,8 @@ $user_language = array(
 	'application_submitted' => 'Formulário enviado com sucesso.',
 	'application_already_submitted' => 'Você enviou um formulário. Por favor, aguarde até que seja concluído antes de enviar outro.',
 	'not_logged_in' => 'Por favor, faça login para visualizar essa página.',
-	'application_accepted' => 'Seu pedido para ingressar-se na Staff foi aceito.',
-	'application_rejected' => 'Seu pedido para ingressar-se na Staff foi rejeitado.'
+	'application_accepted' => 'O seu pedido para ingressar-se na Staff foi aceito.',
+	'application_rejected' => 'O seu pedido para ingressar-se na Staff foi rejeitado.'
 );
 
 /*
@@ -691,7 +691,7 @@ $general_language = array(
 	'queried_in' => 'Atualizado em:',
 	'server_status' => 'Server Status',
 	'no_players_online' => 'Não há jogadores online!',
-	'1_player_online' => 'There is 1 player online.',
+	'1_player_online' => 'Há 1 jogador em online.',
 	'x_players_online' => 'Há {x} jogadores online.', // Don't replace {x}
 	
 	// Other
