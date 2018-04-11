@@ -538,5 +538,12 @@ if($page != 'install'){
 
         $smarty->assign('SERVER_OFFLINE', $language->get('general', 'server_offline'));
     }
+
+    // Auto unset signin tfa variables if set
+    if((isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['password'])) && !isset($_POST['tfa'])){
+        unset($_SESSION['remember']);
+        unset($_SESSION['username']);
+        unset($_SESSION['password']);
+    }
 }
 
