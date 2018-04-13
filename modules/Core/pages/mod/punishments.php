@@ -200,15 +200,16 @@ if(isset($_GET['view'])){
                 }else if($infraction->type == 3){
                     $infractionTypeText = $language->get('mod', 'ban_ip');
                 }
+                
+                $query_user = $queries->getWhere("users", ["id", "=", Output::getClean($_GET['user'])]);
+                $query_user = Output::getClean($query_user[0]->username);
 
                 $queries->create('logs', array(
                         'time' => date('U'),
                         'action' => $language->get('logs', 'log_puishment_revoke'),
                         'user_id' => $user->data()->id,
                         'ip' => $user->getIP(),
-                        'info' => $language->get('mod', 'punishment')."{$infractionTypeText}: ".$language->get('user', 'username').": ".Output::getClean(
-                            $queries->getWhere("users", ["id", "=", Output::getClean($_GET['user'])])[0]->username
-                            ),
+                        'info' => $language->get('mod', 'punishment')."{$infractionTypeText}: ".$query_user,
                     ));
 
                 $queries->update('infractions', $infraction->id, array(
