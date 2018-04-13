@@ -42,6 +42,14 @@ $admin_page = 'styles';
 if(isset($_GET['action']) && $_GET['action'] == 'reset_bg'){
 	$cache->setCache('backgroundcache');
 	$cache->store('background_image', '');
+
+	$queries->create('logs', array(
+		'time' => date('U'),
+		'action' => $language->get('log', 'log_image_reset'),
+		'user_id' => $user->data()->id,
+		'ip' => $user->getIP(),
+		'info' => $language->get('log', 'info_image_reset'),
+	));
 	
 	Redirect::to(URL::build('/admin/images'));
 	die();
@@ -55,6 +63,13 @@ if(Input::exists()){
 		// Valid token
 		$cache->setCache('backgroundcache');
 		$cache->store('background_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/backgrounds/' . Input::get('bg'));
+		$queries->create('logs', array(
+			'time' => date('U'),
+			'action' => $language->get('log', 'log_image_submit'),
+			'user_id' => $user->data()->id,
+			'ip' => $user->getIP(),
+			'info' => $language->get('log', 'info_image_submit'),
+		));
 
 	} else {
 		// Invalid token

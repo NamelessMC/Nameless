@@ -38,6 +38,13 @@ $admin_page = 'modules';
 
 if(isset($_GET['action'])){
 	if($_GET['action'] == 'install'){
+		$queries->create('logs', array(
+			'time' => date('U'),
+			'action' => $language->get('log', 'log_module_install'),
+			'user_id' => $user->data()->id,
+			'ip' => $user->getIP(),
+			'info' => $language->get('log', 'info_module_install'),
+		));
 		// Install any new modules
 		$directories = glob(ROOT_PATH . '/modules/*' , GLOB_ONLYDIR);
 
@@ -67,6 +74,14 @@ if(isset($_GET['action'])){
 	} else if($_GET['action'] == 'enable'){
 		// Enable a module
 		if(!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) die('Invalid module!');
+
+		$queries->create('logs', array(
+			'time' => date('U'),
+			'action' => $language->get('log', 'log_module_enable'),
+			'user_id' => $user->data()->id,
+			'ip' => $user->getIP(),
+			'info' => Output::getClean($_GET['m']),
+		));
 
 		$queries->update('modules', $_GET['m'], array(
 			'enabled' => 1
@@ -105,6 +120,14 @@ if(isset($_GET['action'])){
 	} else if($_GET['action'] == 'disable'){
 		// Disable a module
 		if(!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) die('Invalid module!');
+
+		$queries->create('logs', array(
+			'time' => date('U'),
+			'action' => $language->get('log', 'log_module_disable'),
+			'user_id' => $user->data()->id,
+			'ip' => $user->getIP(),
+			'info' => Output::getClean($_GET['m']),
+		));
 
 		$queries->update('modules', $_GET['m'], array(
 			'enabled' => 0

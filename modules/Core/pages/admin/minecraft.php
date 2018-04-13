@@ -218,6 +218,14 @@ $admin_page = 'minecraft';
 
                             $queries->update('settings', $uuid_linking, array('value' => $use_premium));
                           }
+
+                          $queries->create('logs', array(
+                            'time' => date('U'),
+                            'action' => $language->get('log', 'log_mc_update'),
+                            'user_id' => $user->data()->id,
+                            'ip' => $user->getIP(),
+                            'info' => $language->get('log', 'info_mc_update'),
+                          ));
                         }
                       }
 
@@ -352,6 +360,14 @@ $admin_page = 'minecraft';
 
                                         $queries->update('settings', $authme_db_id, array(
                                             'value' => json_encode($result)
+                                        ));
+
+                                        $queries->create('logs', array(
+                                          'time' => date('U'),
+                                          'action' => $language->get('log', 'log_authme_update'),
+                                          'user_id' => $user->data()->id,
+                                          'ip' => $user->getIP(),
+                                          'info' => $language->get('log', 'info_authme_update'),
                                         ));
 
                                     } else {
@@ -533,6 +549,14 @@ $admin_page = 'minecraft';
                                                   'bungee' => $bungee,
                                                   'port' => $port,
                                                   'query_port' => $query_port
+                                              ));
+
+                                              $queries->create('logs', array(
+                                                'time' => date('U'),
+                                                'action' => $language->get('log', 'log_server_update'),
+                                                'user_id' => $user->data()->id,
+                                                'ip' => $user->getIP(),
+                                                'info' => $language->get('log', 'info_server_update'),
                                               ));
 
                                               Session::flash('admin_mc_servers_success', $language->get('admin', 'server_created'));
@@ -786,6 +810,14 @@ $admin_page = 'minecraft';
                                                   'query_port' => $query_port
                                               ));
 
+                                              $queries->create('logs', array(
+                                                'time' => date('U'),
+                                                'action' => $language->get('log', 'log_server_update'),
+                                                'user_id' => $user->data()->id,
+                                                'ip' => $user->getIP(),
+                                                'info' => $language->get('log', 'log_server_update'),
+                                              ));
+
                                               Session::flash('admin_mc_servers_success', $language->get('admin', 'server_updated'));
                                               Redirect::to(URL::build('/admin/minecraft/', 'view=servers'));
                                               die();
@@ -946,6 +978,13 @@ $admin_page = 'minecraft';
                               try {
                                 $queries->delete('mc_servers', array('id', '=', $_GET['id']));
                                 $queries->delete('query_results', array('server_id', '=', $_GET['id']));
+                                $queries->create('logs', array(
+                                  'time' => date('U'),
+                                  'action' => $language->get('log', 'log_server_delete'),
+                                  'user_id' => $user->data()->id,
+                                  'ip' => $user->getIP(),
+                                  'info' => $language->get('log', 'info_server_delete'),
+                                ));
                                 Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
                                 Redirect::to(URL::build('/admin/minecraft/', 'view=servers'));
                                 die();
@@ -1077,6 +1116,14 @@ $admin_page = 'minecraft';
                                       $cache->setCache('server_query_cache');
                                       $cache->store('query_interval', $_POST['interval']);
                                   }
+
+                                  $queries->create('logs', array(
+                                    'time' => date('U'),
+                                    'action' => $language->get('log', 'log_server_update'),
+                                    'user_id' => $user->data()->id,
+                                    'ip' => $user->getIP(),
+                                    'info' => $language->get('log', 'info_server_update'),
+                                  ));
 
                               } catch(Exception $e){
                                   // Error
@@ -1223,6 +1270,13 @@ $admin_page = 'minecraft';
                                       if(file_exists(ROOT_PATH . '/uploads/banners/' . Input::get('banner'))){
                                           $queries->update('mc_servers', $_GET['edit'], array(
                                             'banner_background' => Output::getClean(Input::get('banner'))
+                                          ));
+                                          $queries->create('logs', array(
+                                            'time' => date('U'),
+                                            'action' => $language->get('log', 'log_banner_update'),
+                                            'user_id' => $user->data()->id,
+                                            'ip' => $user->getIP(),
+                                            'info' => $language->get('log', 'info_banner_update'),
                                           ));
                                       }
                                   } catch(Exception $e){

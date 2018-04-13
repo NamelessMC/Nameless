@@ -146,6 +146,13 @@ $timeago = new Timeago(TIMEZONE);
 					));
 					
 					if($validation->passed()){
+						$queries->create('logs', array(
+							'time' => date('U'),
+							'action' => $language->log('log', 'log_report_comment'),
+							'user_id' => $user->data()->id,
+							'ip' => $user->getIP(),
+							'info' => Output::getClean($_GET['report'])
+						));
 						$queries->create('reports_comments', array(
 							'report_id' => $_GET['report'],
 							'commenter_id' => $user->data()->id,
@@ -245,6 +252,14 @@ $timeago = new Timeago(TIMEZONE);
 							'status' => 1
 						));
 					}
+
+					$queries->create('logs', array(
+						'time' => date('U'),
+						'action' => $language->get('log', 'log_report_close'),
+						'user_id' => $user->data()->id,
+						'ip' => $user->getIP(),
+						'info' => Output::getClean($_GET['report'])
+					));
 					
 					Redirect::to(URL::build('/mod/reports/', 'report=' . $report[0]->id));
 					die();
@@ -264,6 +279,14 @@ $timeago = new Timeago(TIMEZONE);
 						));
 					}
 					
+					$queries->create('logs', array(
+						'time' => date('U'),
+						'action' => $language->get('log', 'log_report_open'),
+						'user_id' => $user->data()->id,
+						'ip' => $user->getIP(),
+						'info' => Output::getClean($_GET['report'])
+					));
+
 					Redirect::to(URL::build('/mod/reports/', 'report=' . $report[0]->id));
 					die();
 				}

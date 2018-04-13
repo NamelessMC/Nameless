@@ -131,6 +131,14 @@ if(Input::exists()){
 					'post_content' => $content,
 					'last_edited' => date('U')
 				));
+
+				$queries->create('logs', array(
+		            'time' => date('U'),
+		            'action' => $language->get('log', 'log_forum_update'),
+		            'user_id' => $user->data()->id,
+		            'ip' => $user->getIP(),
+		            'info' => $language->get('log', 'info_forum_update_post'),
+		        ));
 				
 				if(isset($edit_title)){
 					// Update title and label
@@ -166,6 +174,14 @@ if(Input::exists()){
 						'topic_title' => htmlspecialchars_decode(Input::get('title')),
 						'label' => $topic_label
 					));
+
+					$queries->create('logs', array(
+				            'time' => date('U'),
+				            'action' => $language->get('log', 'log_forum_update'),
+				            'user_id' => $user->data()->id,
+				            'ip' => $user->getIP(),
+				            'info' => $language->get('log', 'info_forum_update_topic'),
+				        ));
 				}
 				
 				// Display success message and redirect

@@ -68,7 +68,7 @@ if(Input::exists()){
 				// Create log
 				$queries->create('logs', array(
 					'time' => date('U'),
-					'action' => 'acp_login',
+					'action' => $language->get('log', 'log_acp_login'),
 					'user_id' => $user->data()->id,
 					'ip' => $ip
 				));

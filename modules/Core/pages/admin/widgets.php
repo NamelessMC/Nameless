@@ -190,6 +190,14 @@ if(isset($_GET['action'])){
                                     $active_pages_string = json_encode($active_pages);
 
                                     $queries->update('widgets', $widget->id, array('pages' => $active_pages_string));
+
+                                    $queries->create('logs', array(
+                                        'time' => date('U'),
+                                        'action' => $language->get('log', 'log_widget_update'),
+                                        'ip' => $ip,
+                                        'user_id' => $user->data()->id,
+                                        'info' => $widget->name,
+                                    ));
                                 } catch(Exception $e){
                                     $error = $e->getMessage();
                                 }

@@ -135,6 +135,14 @@ if(Input::exists()) {
 						'last_topic_posted' => $topic_id
 					));
 
+					$queries->create('logs', array(
+			            'time' => date('U'),
+			            'action' => $language->get('log', 'log_forum_create'),
+			            'user_id' => $user->data()->id,
+			            'ip' => $user->getIP(),
+			            'info' => $language->get('log', 'info_forum_create_post'),
+			        ));
+
 					// Execute hooks if necessary
                     $forum_events = $queries->getWhere('settings', array('name', '=', 'forum_new_topic_hooks'));
                     if(count($forum_events)){

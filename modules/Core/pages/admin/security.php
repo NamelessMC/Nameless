@@ -69,6 +69,7 @@ $admin_page = 'security';
 			  <ul>
 			    <?php if($user->hasPermission('admincp.security.acp_logins')){ ?><li><a href="<?php echo URL::build('/admin/security/', 'view=acp_logins'); ?>"><?php echo $language->get('admin', 'acp_logins'); ?></a></li><?php } ?>
 				<?php if($user->hasPermission('admincp.security.template')){ ?><li><a href="<?php echo URL::build('/admin/security/', 'view=template_changes'); ?>"><?php echo $language->get('admin', 'template_changes'); ?></a></li><?php } ?>
+				<?php if($user->hasPermission('admincp.security.all')){ ?><li><a href="<?php echo URL::build('/admin/security/', 'view=all'); ?>"><?php echo $language->get('admin', 'all_logs'); ?></a></li><?php } ?>
 			  </ul>
 			  <?php 
 			  } else {
@@ -154,6 +155,51 @@ $admin_page = 'security';
 			    </table>
 			  </div>
 						<?php
+					  break;
+					  case 'all':
+					  if(!$user->hasPermission('admincp.security.template')){
+                           Redirect::to(URL::build('/admin/security'));
+                           die();
+                       }
+					    // Template changes
+						echo '<strong>' . $language->get('admin', 'all_logs') . '</strong>';
+						
+						// Get logs
+						$logs = $queries->orderWhere('logs', '1 = 1', 'time', 'DESC');
+					  ?>
+			  <hr>
+			  <div class="table-responsive">
+				<table class="table table-bordered table-hover dataTable">
+				  <colgroup>
+					<col span="1" style="width: 20%;">
+					<col span="1" style="width: 20%;">
+					<col span="1" style="width: 20%">
+					<col span="1" style="width: 20%">
+					<col span="1" style="width: 20%">
+				  </colgroup>
+				  <thead>
+					<tr>
+					  <td><?php echo $language->get('user', 'username'); ?></td>
+					  <td><?php echo $language->get('admin', 'ip_address'); ?></td>
+					  <td><?php echo $language->get('general', 'date'); ?></td>
+					  <td><?php echo $language->get('admin', 'action'); ?></td>
+					  <td><?php echo $language->get('admin', 'action_info'); ?></td>
+					</tr>
+				  </thead>
+				  <tbody>
+				    <?php foreach($logs as $log){ ?>
+				    <tr>
+					  <td><a target="_blank" style="<?php echo $user->getGroupClass($log->user_id); ?>" href="<?php echo URL::build('/profile/' . Output::getClean($user->idToName($log->user_id))); ?>"><?php echo Output::getClean($user->idToNickname($log->user_id)); ?></a></td>
+					  <td><a target="_blank" href="<?php echo URL::build('/mod/ip_lookup/', 'ip=' . Output::getClean($log->ip)); ?>"><?php echo Output::getClean($log->ip); ?></a></td>
+					  <td data-order="<?php echo $log->time; ?>"><?php echo date('jS M Y, g:iA', $log->time); ?></td>
+					  <td><?php echo Output::getClean($log->action); ?></td>
+					  <td><?php echo Output::getClean($log->info); ?></td>
+				    </tr>
+					<?php } ?>
+				  </tbody>
+			    </table>
+			  </div>
+					  <?php
 					  break;
 				  }
 			  }

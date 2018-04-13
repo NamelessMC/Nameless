@@ -224,6 +224,14 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 											'active' => 1
 										));
 
+										$queries->create('logs', array(
+											'time' => date('U'),
+											'action' => $language->get('log', 'log_user_force_create'),
+											'ip' => $ip,
+											'user_id' => $user->data()->id,
+											'info' => Output::getClean(Input::get('username'))
+										));
+
 										Session::flash('adm-users', '<div class="alert alert-success">' . $language->get('admin', 'user_created') . '</div>');
 										
 										Redirect::to(URL::build('/admin/users'));
@@ -518,7 +526,13 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 												'signature' => $signature,
                                                 'secondary_groups' => $secondary_groups
 											));
-
+											$queries->create('logs', array(
+												'time' => date('U'),
+												'action' => $language->get('log', 'log_user_force_update'),
+												'ip' => $ip,
+												'user_id' => $user->data()->id,
+												'info' => Output::getClean(Input::get('username'))
+											));
 											Redirect::to(URL::build('/admin/users/', 'user=' . $_GET['user']));
 											die();
 										} catch(Exception $e) {
