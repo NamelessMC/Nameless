@@ -145,6 +145,14 @@ if(!isset($_GET['s'])){
         $results = $cache->retrieve('result');
 
     $input = true;
+
+    $queries->create('logs', array(
+        'time' => date('U'),
+        'action' => $language->get('log', 'log_forum_search'),
+        'user_id' => $user->data()->id,
+        'ip' => $user->getIP(),
+        'info' => $language->get('log', 'info_forum_search'),
+    ));
 }
 ?>
 <!DOCTYPE html>

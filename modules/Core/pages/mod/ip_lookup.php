@@ -81,6 +81,14 @@ define('PAGE', 'mod_ip_lookup');
 				if(Token::check(Input::get('token'))){
 					// Search
 					$query = $queries->getWhere('users', array('username', '=', Output::getClean(Input::get('search'))));
+
+					$queries->create('logs', array(
+						'time' => date('U'),
+						'action' => 'mcp_ip_lookup',
+						'user_id' => $user->data()->id,
+						'ip' => $user->getIP(),
+						'info' => Output::getClean(Input::get('search'))
+					));
 					
 					if(!count($query)){
 						// Try nickname

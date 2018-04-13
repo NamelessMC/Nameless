@@ -395,6 +395,14 @@ if(Input::exists()){
                                     'active' => $active
                                 ));
 
+                                $queries->create('logs', array(
+									'time' => date('U'),
+									'action' => $language->get('log', 'log_register'),
+									'user_id' => $queries->getLastId(),
+									'ip' => $user->getIP(),
+									'info' => $language->get('log', 'info_register'),
+								));
+
                                 // Get user ID
                                 $user_id = $queries->getLastId();
 

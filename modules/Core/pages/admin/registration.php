@@ -113,6 +113,13 @@ if(Input::exists()){
 			    $queries->update('settings', $validation_group_id, array(
 			        'value' => $new_value
 			    ));
+			    $queries->create('logs', array(
+					'time' => date('U'),
+					'action' => $language->get('log', 'log_register_change'),
+					'user_id' => $user->data()->id,
+					'ip' => $user->getIP(),
+					'info' => $language->get('log', 'info_register_change'),
+				));
 			} catch(Exception $e){
 			    $error = $e->getMessage();
 			}
