@@ -22,8 +22,8 @@ $install_path = str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT
 require(ROOT_PATH . '/core/init.php');
 
 // Disable error reporting
-//error_reporting(0);
-//ini_set('display_errors', 0);
+error_reporting(0);
+ini_set('display_errors', 0);
 
 // Set default timezone to prevent potential issues
 date_default_timezone_set('Europe/London');
