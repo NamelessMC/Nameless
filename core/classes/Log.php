@@ -14,6 +14,32 @@ class Log{
 	private static $ACTION = [
 		'admin' => [
 			'login' => 'acp_login',
+			'core' => [
+				'general' => 'acp_core_update',
+				'avatar' => 'acp_avatar_update',
+				'profile' => [
+					'add' => 'acp_core_profile_add',
+					'delete' => 'acp_core_profile_delete',
+					'update' => 'acp_core_profile_update',
+				],
+				'maintenance' => [
+					'enable' => 'acp_maintenance_enable',
+					'disable' => 'acp_maintenance_disable',
+					'update' => 'acp_maintenance_update',
+				],
+				'email' => [
+					'update' => 'acp_email_update',
+					'test' => 'acp_email_test',
+				],
+				'nav' => 'admin_nav_update',
+				'reaction' => [
+					'update' => 'acp_reaction_update',
+					'add' => 'acp_reaction_add',
+					'delete' => 'acp_reaction_remove'
+				],
+				'social' => 'acp_social_update',
+				'term' => 'acp_term_update',
+			],
 			'api' => [
 				'change' => 'acp_api_change',
 			],
@@ -105,6 +131,7 @@ class Log{
 				'move' => 'forums_topic_move',
 				'merge' => 'forums_topic_merge',
 				'react' => 'forums_topic_react',
+				'unstick' => 'forum_topic_unstick',
 			],
 			'post' => [
 				'delete' => 'forums_post_delete',
@@ -113,6 +140,7 @@ class Log{
 				'create' => 'forums_post_create',
 				'search' => 'forums_post_search',
 				'stick' => 'forums_post_stick',
+				'unstick' => 'forum_topic_unstick',
 				'view' => 'forums_post_view',
 				'move' => 'forums_post_move',
 				'merge' => 'forums_post_merge',

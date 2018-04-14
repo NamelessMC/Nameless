@@ -132,7 +132,7 @@ if(Input::exists()){
 					'last_edited' => date('U')
 				));
 
-				Log::getInstance()->log(Log::Action('forums/post/update'), $post_id);
+				Log::getInstance()->log(Log::Action('forums/post/edit'), $post_id);
 				
 				if(isset($edit_title)){
 					// Update title and label
@@ -169,7 +169,7 @@ if(Input::exists()){
 						'label' => $topic_label
 					));
 
-					Log::getInstance()->log(Log::Action('forums/topic/update'), htmlspecialchars_decode(Input::get('title')));
+					Log::getInstance()->log(Log::Action('forums/topic/edit'), htmlspecialchars_decode(Input::get('title')));
 				}
 				
 				// Display success message and redirect

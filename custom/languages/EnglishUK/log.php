@@ -10,7 +10,7 @@ $language = array(
 	'info_user_tfa_key_success' => 'Key Accepted',
 	'info_user_update_dtfa' => 'Disable TFA',
 
-	//type
+	//forums
 	'info_forums_delete_post' => 'Deleted Post',
 	'info_forums_delete_topic' =>'Deleted topic',
 	'info_forums_edit_post' => 'Edited Post',
