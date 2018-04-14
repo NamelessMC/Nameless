@@ -163,13 +163,7 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                           'all_html' => ($unsafe == 1) ? 1 : 0
                       ));
 
-                      $queries->create('logs', array(
-                        'time' => date('U'),
-                        'action' => $language->get('log', 'log_pages_new'),
-                        'user_id' => $user->data()->id,
-                        'ip' => $user->getIP(),
-                        'info' => Output::getClean(Input::get('page_title')),
-                      ));
+                      Log::getInstance()->log(Log::Action('admin/pages/new'), Output::getClean(Input::get('page_title')));
 
                       $last_id = $queries->getLastId();
                       
@@ -399,13 +393,8 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                                 'icon' => Input::get('page_icon'),
                                 'all_html' => ($unsafe == 1) ? 1 : 0
                             ));
-                            $queries->create('logs', array(
-                              'time' => date('U'),
-                              'action' => $language->get('log', 'log_pages_edit'),
-                              'user_id' => $user->data()->id,
-                              'ip' => $user->getIP(),
-                              'info' => $language->get('log', Output::getClean('page_title')),
-                            ));
+                            
+                            Log::getInstance()->log(Log::Action('admin/pages/edit'), Output::getClean(Input::get('page_title')));
 
                             // Permissions
                             // Guest first
@@ -629,14 +618,8 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
             } else if($_GET['action'] == 'delete'){
               if(isset($_GET['id']) && is_numeric($_GET['id'])){
                 try {
-                  $queries->create('logs', array(
-                    'time' => date('U'),
-                    'action' => $language->get('log', 'log_pages_delete'),
-                    'user_id' => $user->data()->id,
-                    'ip' => $user->getIP(),
-                    'info' => Output::getClean($_GET['id']),
-                  ));
                   $queries->delete('custom_pages', array('id', '=', $_GET['id']));
+                  Log::getInstance()->log(Log::Action('admin/pages/delete'));
                 } catch(Exception $e){
                   die($e->getMessage());
                 }

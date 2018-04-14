@@ -44,13 +44,8 @@ if($forum->canModerateForum($user->data()->group_id, $topic->forum_id, $user->da
 		$queries->update('topics', $topic_id, array(
 			'deleted' => 1
 		));
-		$queries->create('logs', array(
-            'time' => date('U'),
-            'action' => $language->get('log', 'log_forum_delete'),
-            'user_id' => $user->data()->id,
-            'ip' => $user->getIP(),
-            'info' => $language->get('log', 'info_forum_delete_topic').' '.$topic->topic_title,
-        ));
+		//TODO: TOPIC
+		Log::getInstance()->log(Log::Action('forums/topic/delete'), $topic_id);
 		
 		$posts = $queries->getWhere('posts', array('topic_id', '=', $topic_id));
 		

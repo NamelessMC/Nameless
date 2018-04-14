@@ -146,19 +146,13 @@ $timeago = new Timeago(TIMEZONE);
 					));
 					
 					if($validation->passed()){
-						$queries->create('logs', array(
-							'time' => date('U'),
-							'action' => $language->log('log', 'log_report_comment'),
-							'user_id' => $user->data()->id,
-							'ip' => $user->getIP(),
-							'info' => Output::getClean($_GET['report'])
-						));
 						$queries->create('reports_comments', array(
 							'report_id' => $_GET['report'],
 							'commenter_id' => $user->data()->id,
 							'comment_date' => date('Y-m-d H:i:s'),
 							'comment_content' => Output::getClean(Input::get('content'))
 						));
+						Log::getInstance()->log(Log::Action('mod/report/comment'));
 					} else {
 						// Display error
 						$error = $language->get('moderator', 'report_comment_invalid');
@@ -253,13 +247,7 @@ $timeago = new Timeago(TIMEZONE);
 						));
 					}
 
-					$queries->create('logs', array(
-						'time' => date('U'),
-						'action' => $language->get('log', 'log_report_close'),
-						'user_id' => $user->data()->id,
-						'ip' => $user->getIP(),
-						'info' => Output::getClean($_GET['report'])
-					));
+					Log::getInstance()->log(Log::Action('mod/report/close'), Output::getClean($_GET['id']));
 					
 					Redirect::to(URL::build('/mod/reports/', 'report=' . $report[0]->id));
 					die();
@@ -279,13 +267,7 @@ $timeago = new Timeago(TIMEZONE);
 						));
 					}
 					
-					$queries->create('logs', array(
-						'time' => date('U'),
-						'action' => $language->get('log', 'log_report_open'),
-						'user_id' => $user->data()->id,
-						'ip' => $user->getIP(),
-						'info' => Output::getClean($_GET['report'])
-					));
+					Log::getInstance()->log(Log::Action('mod/report/open'), Ouput::getClean($_GET['report']));
 
 					Redirect::to(URL::build('/mod/reports/', 'report=' . $report[0]->id));
 					die();

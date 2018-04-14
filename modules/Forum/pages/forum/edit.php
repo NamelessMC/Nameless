@@ -132,13 +132,7 @@ if(Input::exists()){
 					'last_edited' => date('U')
 				));
 
-				$queries->create('logs', array(
-		            'time' => date('U'),
-		            'action' => $language->get('log', 'log_forum_update'),
-		            'user_id' => $user->data()->id,
-		            'ip' => $user->getIP(),
-		            'info' => $language->get('log', 'info_forum_update_post'),
-		        ));
+				Log::getInstance()->log(Log::Action('forums/post/update'), $post_id);
 				
 				if(isset($edit_title)){
 					// Update title and label
@@ -175,13 +169,7 @@ if(Input::exists()){
 						'label' => $topic_label
 					));
 
-					$queries->create('logs', array(
-				            'time' => date('U'),
-				            'action' => $language->get('log', 'log_forum_update'),
-				            'user_id' => $user->data()->id,
-				            'ip' => $user->getIP(),
-				            'info' => $language->get('log', 'info_forum_update_topic'),
-				        ));
+					Log::getInstance()->log(Log::Action('forums/topic/update'), htmlspecialchars_decode(Input::get('title')));
 				}
 				
 				// Display success message and redirect

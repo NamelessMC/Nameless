@@ -395,16 +395,10 @@ if(Input::exists()){
                                     'active' => $active
                                 ));
 
-                                $queries->create('logs', array(
-									'time' => date('U'),
-									'action' => $language->get('log', 'log_register'),
-									'user_id' => $queries->getLastId(),
-									'ip' => $user->getIP(),
-									'info' => $language->get('log', 'info_register'),
-								));
-
                                 // Get user ID
                                 $user_id = $queries->getLastId();
+
+                                Log::getInstance()->log(Log::Action('user/register'), "", $user_id);
 
                                 if ($api_verification != '1' && $email_verification == '1') {
                                     $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));

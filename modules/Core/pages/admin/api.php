@@ -116,13 +116,7 @@ if(Input::exists()){
         } catch(Exception $e){
             $error = $e->getMessage();
         }
-        $queries->create('logs', array(
-            'time' => date('U'),
-            'action' => $language->get('log', 'log_api_change'),
-            'user_id' => $user->data()->id,
-            'ip' => $user->getIP(),
-            'info' => $language->get('log', 'info_api_change'),
-        ));
+        Log::getInstance()->log(Log::Action('admin/api/change'));
     } else {
         $error = $language->get('general', 'invalid_token');
     }

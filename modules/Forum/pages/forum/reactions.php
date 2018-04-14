@@ -76,13 +76,7 @@ if(Input::exists()){
 				'time' => date('U')
 			));
 
-			$queries->create('logs', array(
-	            'time' => date('U'),
-	            'action' => $language->get('log', 'log_forum_react'),
-	            'user_id' => $user->data()->id,
-	            'ip' => $user->getIP(),
-	            'info' => $language->get('log', 'info_forum_react'),
-	        ));
+			Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
 		}
 
 		// Redirect

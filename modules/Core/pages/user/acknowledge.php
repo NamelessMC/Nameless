@@ -31,13 +31,7 @@ if(count($warning)){
             'acknowledged' => 1
         ));
 
-        $queries->create('logs', array(
-			'time' => date('U'),
-			'action' => $language->get('log', 'log_user_acknowledge'),
-			'ip' => $ip,
-			'user_id' => $user->data()->id,
-			'info' => $language->get('log', 'info_user_acknowledge');
-		));
+       Log::getInstance()->log(Log::Action('user/acknowledge'), $result);
     }
 }
 

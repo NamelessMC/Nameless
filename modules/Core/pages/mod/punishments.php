@@ -194,22 +194,24 @@ if(isset($_GET['view'])){
             try {
                 $infractionTypeText = "";
                 if($infraction->type == 1){
-                    $infractionTypeText = $language->get('mod', 'ban');
+                    $infractionTypeText = $language->get('moderator', 'ban');
                 }else if($infraction->type == 2){
-                    $infractionTypeText = $language->get('mod', 'warn');
+                    $infractionTypeText = $language->get('moderator', 'warn');
                 }else if($infraction->type == 3){
-                    $infractionTypeText = $language->get('mod', 'ban_ip');
+                    $infractionTypeText = $language->get('moderator', 'ban_ip');
                 }
                 
                 $query_user = $queries->getWhere("users", ["id", "=", Output::getClean($_GET['user'])]);
                 $query_user = Output::getClean($query_user[0]->username);
 
+                Log::getInstance()->log(Log::Action('mod/punishment/revoke'),  $language->get('moderator', 'punishments')."{$infractionTypeText}: ".$query_user);
+
                 $queries->create('logs', array(
                         'time' => date('U'),
-                        'action' => $language->get('logs', 'log_puishment_revoke'),
+                        'action' => $language->get('log', 'log_punishment_revoke'),
                         'user_id' => $user->data()->id,
                         'ip' => $user->getIP(),
-                        'info' => $language->get('mod', 'punishment')."{$infractionTypeText}: ".$query_user,
+                        'info' => $language->get('moderator', 'punishments')."{$infractionTypeText}: ".$query_user,
                     ));
 
                 $queries->update('infractions', $infraction->id, array(
@@ -283,15 +285,11 @@ if(isset($_GET['view'])){
                                 }else if($type == 3){
                                     $typeText = "IP Ban";
                                 }
-                                
-                                $queries->create('logs', array(
-                                    'time' => date('U'),
-                                    'action' => $language->get('log', 'log_puishment_create'),
-                                    'user_id' => $user->data()->id,
-                                    'ip' => $user->getIP(),
-                                    'info' => $language->('mod', 'punishment').": ". $typeText .", ".$language->get('user', 'username').Output::getClean($banned_user->data()->username),
-                                ));
-
+                                Log::getInstance()->log(Log::Action('mod/punishment/revoke'),  $language->get('moderator', 'punishments').': '. 
+                                                $typeText.
+                                                ', '.
+                                                $language->get('user', 'username').
+                                                Output::getClean($banned_user->data()->username));
 
                                 if($type == 1 || $type == 3){
 
@@ -315,6 +313,8 @@ if(isset($_GET['view'])){
                                         ));
                                     }
                                 }
+
+                                Log::getInstance()->log(Log::Action('mod/punishment/create'),  $language->get('moderator', 'punishments').': '.$typeText. ', '.$language->get('user', 'username'). Output::getClean($banned_user->data()->username));
 
                                 // Send alerts
                                 // TODO
