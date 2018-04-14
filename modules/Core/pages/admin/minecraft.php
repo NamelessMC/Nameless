@@ -539,7 +539,7 @@ $admin_page = 'minecraft';
                                                   'query_port' => $query_port
                                               ));
 
-                                              Log::getInstance()->log(Log::Action('admin/server/create'), Output::getClean(Input::get('server_name')));
+                                              Log::getInstance()->log(Log::Action('admin/server/add'), Output::getClean(Input::get('server_name')));
 
                                               Session::flash('admin_mc_servers_success', $language->get('admin', 'server_created'));
                                               Redirect::to(URL::build('/admin/minecraft', 'view=servers'));

@@ -55,7 +55,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 		"sticky" => $sticky
 	));
 
-	Log::getInstance()->log(Log::Action('forum/topic/stick'), $topic[0]->topic_title);
+	Log::getInstance()->log(($sticky==1)?Log::Action('forums/topic/stick'):Log::Action('forums/topic/unstick'), $topic[0]->topic_title);
 
 	Session::flash('success_post', $status);
 } 

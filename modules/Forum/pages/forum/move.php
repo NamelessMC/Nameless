@@ -55,7 +55,8 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 						));
 					}
 
-					Log::getInstance()->log(Log::Action('forums/move'));
+					//TODO: Topic name & and Forums name
+					Log::getInstance()->log(Log::Action('forums/move'), Output::getClean($topic_id).' => '. Output::getClean(Input::get('forum')));
 
 					// Update latest posts in categories
 					$forum->updateForumLatestPosts();
