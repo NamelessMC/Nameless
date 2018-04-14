@@ -55,13 +55,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 						));
 					}
 
-					$queries->create('logs', array(
-			            'time' => date('U'),
-			            'action' => $language->get('log', 'log_forum_move'),
-			            'user_id' => $user->data()->id,
-			            'ip' => $user->getIP(),
-			            'info' => $language->get('log', 'info_forum_move'),
-			        ));
+					Log::getInstance()->log(Log::Action('forums/move'));
 
 					// Update latest posts in categories
 					$forum->updateForumLatestPosts();

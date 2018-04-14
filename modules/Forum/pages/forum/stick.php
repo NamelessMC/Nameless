@@ -55,13 +55,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 		"sticky" => $sticky
 	));
 
-	$queries->create('logs', array(
-	    'time' => date('U'),
-	    'action' => $language->get('log', 'log_forum_stick'),
-	    'user_id' => $user->data()->id,
-	    'ip' => $user->getIP(),
-	    'info' => $language->get('log', 'info_forum_stick'),
-	));
+	Log::getInstance()->log(Log::Action('forum/topic/stick'), $topic[0]->topic_title);
 
 	Session::flash('success_post', $status);
 } 

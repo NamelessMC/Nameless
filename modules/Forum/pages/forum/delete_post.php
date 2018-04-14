@@ -47,13 +47,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 						$queries->update('topics', Input::get('tid'), array(
 							'deleted' => 1
 						));
-						$queries->create('logs', array(
-				            'time' => date('U'),
-				            'action' => $language->get('log', 'log_forum_delete'),
-				            'user_id' => $user->data()->id,
-				            'ip' => $user->getIP(),
-				            'info' => $language->get('log', 'info_forum_delete_topic'),
-				        ));
+						Log::getInstance()->log(Log::Action('forums/post/delete'), Input::get('tid'));
 						$opening_post = 1;
 					} catch(Exception $e) {
 						die($e->getMessage());
@@ -77,13 +71,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 							$queries->update('posts', $post->id, array(
 								'deleted' => 1
 							));
-							$queries->create('logs', array(
-					            'time' => date('U'),
-					            'action' => $language->get('log', 'log_forum_delete'),
-					            'user_id' => $user->data()->id,
-					            'ip' => $user->getIP(),
-					            'info' => $language->get('log', 'info_forum_delete_post'),
-					        ));
+							Log::getInstance()->log(Log::Action('forums/post/delete'), $post->id);
 						}
 					}
 				}

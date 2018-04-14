@@ -8,13 +8,7 @@
  *
  *  Log user out
  */
-$queries->create('logs', array(
-	'time' => date('U'),
-	'action' => $language->get('log', 'log_logout'),
-	'user_id' => $user->data()->id,
-	'ip' => $user->getIP(),
-	'info' => $language->get('log', 'info_logout'),
-));
+Log::getInstance()->log(Log::Action('user/logout'));
 
 if($user->isLoggedIn()){
 	$user->admLogout();

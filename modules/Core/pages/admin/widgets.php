@@ -191,13 +191,7 @@ if(isset($_GET['action'])){
 
                                     $queries->update('widgets', $widget->id, array('pages' => $active_pages_string));
 
-                                    $queries->create('logs', array(
-                                        'time' => date('U'),
-                                        'action' => $language->get('log', 'log_widget_update'),
-                                        'ip' => $ip,
-                                        'user_id' => $user->data()->id,
-                                        'info' => $widget->name,
-                                    ));
+                                    Log::getInstance()->log(Log::Action('admin/widget/update'), $widget->name);
                                 } catch(Exception $e){
                                     $error = $e->getMessage();
                                 }

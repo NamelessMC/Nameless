@@ -78,13 +78,7 @@ if(Token::check(Input::get('token'))){
 				'updated_by' => $user->data()->id,
 				'link' => URL::build('/forum/topic/' . Output::getClean($_POST['topic']), 'pid=' . Output::getClean($_POST['post']))
 			), $language->get('moderator', 'report_alert'));
-			$queries->create('logs', array(
-	            'time' => date('U'),
-	            'action' => $language->get('log', 'log_report'),
-	            'user_id' => $user->data()->id,
-	            'ip' => $user->getIP(),
-	            'info' => $language->get('log', 'info_reported'),
-	        ));
+			Log::getInstance()->log(Log::Action('misc/report'), $post->post_creator);
 			
 		} catch(Exception $e){
 			// Exception creating report

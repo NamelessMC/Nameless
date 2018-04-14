@@ -192,13 +192,7 @@ if (Input::exists()) {
                 // Successful login?
                 if ($login) {
                     // Yes
-                    $queries->create('logs', array(
-                        'time' => date('U'),
-                        'action' => $language->get('log', 'log_login'),
-                        'user_id' => $user->data()->id,
-                        'ip' => $user->getIP(),
-                        'info' => "User Logged In!",
-                    ));
+                    Log::getInstance()->log(Log::Action('user/login'));
 
                     // Redirect to a certain page?
                     if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
