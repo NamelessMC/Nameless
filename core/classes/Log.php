@@ -160,6 +160,9 @@ class Log{
 		'misc' => [
 			'report' => 'report',
 		],
+		'api' => [
+			//TODO API STUFF
+		],
 	];
 
 	private $_db;
@@ -196,15 +199,19 @@ class Log{
 	 * @param  String $action The action being logged
 	 * @param  String $info   Some more information about what the action is about
 	 * @param  Int $user   The User ID who is doing the action
+	 * @param  String $ip The ip of the user
 	 * @return boolean         Return true or false if inserted into the database.
 	 */
-	public function log($action, $info ="", $user = null){
+	public function log($action, $info ="", $user = null, $ip=null){
 		$userTemp = new User();
+		if($ip === null){
+			$ip = ($user)?$user->getIP():$userTemp->getIP()
+		}
 		return $this->_db->insert('logs', array(
             'time' => date('U'),
             'action' => $action,
             'user_id' => ($user)?$user:$userTemp->data()->id,
-            'ip' => ($user)?$user->getIP():$userTemp->getIP(),
+            'ip' => $ip,
             'info' => $info,
         ));
 	}

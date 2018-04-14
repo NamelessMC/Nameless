@@ -166,6 +166,10 @@ class Nameless2API
                     $this->validateUser();
                     break;
 
+                case 'log':
+                    $this->log();
+                    break;
+
                 default:
                     $this->throwError(3, $this->_language->get('api', 'invalid_api_method'));
                     break;
@@ -841,6 +845,30 @@ class Nameless2API
 
             } else
                 $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
+        }
+    }
+
+    private function log(){
+        //Ensures the API key is valid
+        if($this->_validated === true){
+            if(!isset($_POST), || empty($_POST), || !isset($_POST['action']) || !isset($_POST['user']) || !isset($_POST['userID']) || !isset($_POST['userIP'])){
+                $this->throwError();
+            }
+            $user_query = $this->_db->get('users', array('uuid', '=', str_replace('-', '', $_POST['uuid'])));
+            if($user_query->count()){
+                $user_query = $user_query->first();
+
+                //TODO: Check if user have the permission
+                
+                //Check if it is an action
+                if(Log::Action(Output::getClean($_POST['action'])) !== null){
+
+                    //Log the action
+                    Log::getInstance()->log(Log::Action(Output::getClean($_POST['action'])), (isset($_POST['info'])?Output::getClean($_POST['info']):null, $user_query->id, Output::getClean($_POST['userIP']));
+                }
+            } else{
+                $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
+            }
         }
     }
 }
