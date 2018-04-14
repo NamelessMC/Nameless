@@ -374,6 +374,8 @@ $current_default_language = $current_default_language[0]->value;
                                                 'value' => $_POST['login_method']
                                             ));
 
+                                            Log::getInstance()->log(Log::Action('admin/core/general'));
+                                            
                                             // Update cache
                                             $cache->setCache('force_https_cache');
                                             $cache->store('force_https', $https);
@@ -389,7 +391,6 @@ $current_default_language = $current_default_language[0]->value;
                                                 die();
                                             }
 
-                                            Log::getInstance()->log(Log::Action('admin/core/update'));
                                         } else $errors = array($language->get('admin', 'missing_sitename'));
                                     } else {
                                         // Invalid token
