@@ -250,20 +250,20 @@ $admin_page = 'users_and_groups';
 										} else
 											$default = 0;
 
+										// If this is the new default group, update old default group
 										$default_group = $queries->getWhere('groups', array('default_group', '=', 1));
-										if($default_group[0]->id != $_GET['group'])
+										if(count($default_group) && $default == 1 && $default_group[0]->id != $_GET['group'])
 											$queries->update('groups', $default_group[0]->id, array(
 												'default_group' => 0
 											));
-										else
-											if($default == 0)
+										else if(!count($default_group) && $default == 0)
 												$default = 1;
 
 										$queries->update('groups', $_GET['group'], array(
 											'name' => Input::get('groupname'),
 											'group_html' => Input::get('html'),
 											'group_html_lg' => Input::get('html_lg'),
-											'group_username_css' => Input::get('username_style'),
+											'group_username_css' => ($_POST['username_style'] ? Input::get('username_style') : null),
 											'mod_cp' => Input::get('modcp'),
 											'admin_cp' => Input::get('admincp'),
 											'staff' => Input::get('staff'),
