@@ -45,6 +45,11 @@ if(isset($widgets))
 	<link rel="stylesheet" href="<?php echo $item; ?>">
 			<?php
 		}
+		if(isset($style) && is_array($style)){
+			foreach($style as $item){
+				echo $item;
+			}
+		}
 	} 
 	?>
 	
