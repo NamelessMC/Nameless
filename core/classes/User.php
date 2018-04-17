@@ -399,7 +399,7 @@ class User {
 			// Gravatar?
 			if($data[0]->gravatar == 1){
 				// Gravatar
-				return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $data[0]->email ) ) ) . "?d=" . urlencode( 'https://cravatar.eu/avatar/Steve/200.png' ) . "&s=200";
+				return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $data[0]->email ) ) ) . "?d=" . urlencode( 'https://minotar.net/helm/Steve/200.png' ) . "&s=200";
 			} else if($data[0]->has_avatar == 1){
 				// Custom avatar
 				$exts = array('gif','png','jpg');
@@ -422,17 +422,17 @@ class User {
 					$avatar_type = $avatar_type[0]->value;
 					switch($avatar_type){
 						case 'avatar':
-							return 'https://cravatar.eu/avatar/' . htmlspecialchars($data[0]->mcname) . '/' . $size . '.png';
+							return 'https://minotar.net/avatar/' . htmlspecialchars($data[0]->mcname) . '/' . $size . '.png';
 						break;
 						case 'helmavatar':
-							return 'https://cravatar.eu/helmavatar/' . htmlspecialchars($data[0]->mcname) . '/' . $size . '.png';
+							return 'https://minotar.net/helm/' . htmlspecialchars($data[0]->mcname) . '/' . $size . '.png';
 						break;
 						default:
-							return 'https://cravatar.eu/avatar/' . htmlspecialchars($data[0]->mcname) . '/' . $size . '.png';
+							return 'https://minotar.net/helm/' . htmlspecialchars($data[0]->mcname) . '/' . $size . '.png';
 						break;
 					}
 				} else {
-					return 'https://cravatar.eu/avatar/' . htmlspecialchars($data[0]->mcname) . '/' . $size . '.png';
+					return 'https://minotar.net/helm/' . htmlspecialchars($data[0]->mcname) . '/' . $size . '.png';
 				}
 			}
 		}
