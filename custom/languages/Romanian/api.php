@@ -7,45 +7,47 @@
  *  License: MIT
  *
  *  Romanian Language - API
+ *  Translation By @BaxAndrei ( https://baxandrei.ro )
+ *  Last Update: 18/04/2018
  */
 
 $language = array(
     // Errors
-    'unknown_error' => 'Unknown error',
-    'invalid_api_key' => 'Invalid API key',
-    'invalid_language_file' => 'Invalid language file',
-    'invalid_api_method' => 'Invalid API method',
-    'no_unique_site_id' => 'No unique site ID available',
-    'unable_to_check_for_updates' => 'Unable to check for updates',
-    'invalid_post_contents' => 'Invalid POST contents',
-    'invalid_get_contents' => 'Invalid GET contents',
-    'invalid_email_address' => 'Invalid email address',
-    'invalid_username' => 'Invalid username',
-    'invalid_uuid' => 'Invalid UUID',
-    'email_already_exists' => 'Email already exists',
-    'username_already_exists' => 'Username already exists',
-    'uuid_already_exists' => 'UUID already exists',
-    'unable_to_create_account' => 'Unable to create account',
-    'unable_to_send_registration_email' => 'Unable to send registration email, please contact an admin to activate your account',
-    'unable_to_find_user' => 'Unable to find user',
-    'unable_to_find_group' => 'Unable to find group',
-    'unable_to_update_group' => 'Unable to update user\'s group',
-    'report_content_too_long' => 'The report content must be 255 characters or less',
-    'you_must_register_to_report' => 'You must register on our website to be able to create a report',
-    'you_have_been_banned_from_website' => 'You have been banned from the website',
-    'you_have_open_report_already' => 'You already have an open report regarding this player',
-    'unable_to_create_report' => 'Unable to create report',
-    'unable_to_update_username' => 'Unable to update username',
-    'unable_to_update_server_info' => 'Unable to update server info',
-    'invalid_server_id' => 'Invalid server ID',
-    'invalid_code' => 'Invalid code provided',
+    'unknown_error' => 'Eroare necunoscută',
+    'invalid_api_key' => 'Cheie API invalidă',
+    'invalid_language_file' => 'Fișier lingvistic invalid',
+    'invalid_api_method' => 'Metoda API invalidă',
+    'no_unique_site_id' => 'Nu este disponibil un cod de identificare unic pentru site',
+    'unable_to_check_for_updates' => 'Imposibil de verificat pentru actualizări',
+    'invalid_post_contents' => 'Conținutul POST este invalid',
+    'invalid_get_contents' => 'Conținutul GET este invalid',
+    'invalid_email_address' => 'Adresa email invalidă',
+    'invalid_username' => 'Nume de utilizator invalid',
+    'invalid_uuid' => 'UUID invalid',
+    'email_already_exists' => 'E-mail deja existent',
+    'username_already_exists' => 'Nume de utilizator deja existent',
+    'uuid_already_exists' => 'UUID deja existent',
+    'unable_to_create_account' => 'Nu s-a putut crea un cont',
+    'unable_to_send_registration_email' => 'Nu se poate trimite e-mailul de înregistrare, contactați un administrator pentru a vă activa contul',
+    'unable_to_find_user' => 'Nu am putut găsi utilizatorul',
+    'unable_to_find_group' => 'Grupul nu a putut fi găsit',
+    'unable_to_update_group' => 'Imposibil de actualizat grupul utilizatorului',
+    'report_content_too_long' => 'Conținutul raportului trebuie să fie de 255 de caractere sau mai puțin',
+    'you_must_register_to_report' => 'Trebuie să vă înregistrați pe site-ul nostru pentru a putea crea un raport',
+    'you_have_been_banned_from_website' => 'Ați fost restrictionat de pe site',
+    'you_have_open_report_already' => 'Aveți deja un raport deschis asupra acest jucător',
+    'unable_to_create_report' => 'Nu s-a putut crea un raport',
+    'unable_to_update_username' => 'Imposibil de actualizat numele de utilizator',
+    'unable_to_update_server_info' => 'Imposibil de actualizat informațiile serverului',
+    'invalid_server_id' => 'ID de server invalid',
+    'invalid_code' => 'Codul furnizat este invalid',
 
     // Success messages
-    'finish_registration_link' => 'Please click on the following link to complete registration:',
-    'finish_registration_email' => 'Please check your emails to complete registration.',
-    'group_updated' => 'Group updated successfully',
-    'report_created' => 'Report created successfully',
-    'new_private_message_from' => 'New private message from {x}', // Don't replace {x}
-    'username_updated' => 'Username updated successfully',
-    'server_info_updated' => 'Server info updated successfully'
+    'finish_registration_link' => 'Faceți clic pe următorul link pentru a finaliza înregistrarea:',
+    'finish_registration_email' => 'Verificați-vă e-mailurile pentru a finaliza înregistrarea.',
+    'group_updated' => 'Grupul a fost actualizat cu succes',
+    'report_created' => 'Raportul a fost creat cu succes',
+    'new_private_message_from' => 'Mesaj privat nou de la {x}', // Don't replace {x}
+    'username_updated' => 'Numele de utilizator a fost actualizat cu succes',
+    'server_info_updated' => 'Informațiile serverului s-au actualizat cu succes'
 );
