@@ -1,210 +1,91 @@
 CKEDITOR.dialog.add( 'emojioneDialog', function( editor ) {
-	var config = editor.config, columns = 10, i;
+	
+	var emojioneHtmlContent = '';
+	
+	var iconArr = [];
+	
+	String.prototype.replaceAll = function(search, replacement) {
+		var target = this;
+		return target.replace(new RegExp(search, 'g'), replacement);
+	};
+	
 	var dialog;
-	var onClick = function( evt ) {
-		editor.insertText(emojione.convert(evt.data.$.target.parentElement.parentElement.getAttribute('data-unicode')));
+	var onClick = function( e ) {
+		var target = e.data.getTarget(),
+			targetName = target.getName();
+
+		if ( targetName == 'a' )
+			target = target.getChild( 0 );
+		else if ( targetName != 'img' )
+			return;
+
+		var src = target.getAttribute( 'src' ),
+			title = target.getAttribute( 'title' );
+
+		var img = editor.document.createElement( 'img', {
+			attributes: {
+				src: src,
+				title: title,
+				alt: title,
+				width: target.$.width,
+				height: target.$.height
+			}
+		} );
+
+		editor.insertElement( img );
 		dialog.hide();
-		evt.data.preventDefault();
+		e.data.preventDefault();
 	};
 
-	var onKeydown = CKEDITOR.tools.addFunction( function( ev, element ) {
-		ev = new CKEDITOR.dom.event( ev );
-		element = new CKEDITOR.dom.element( element );
-		var relative, nodeToMove;
-
-		var keystroke = ev.getKeystroke(),
-			rtl = editor.lang.dir == 'rtl';
-		switch ( keystroke ) {
-			// UP-ARROW
-			case 38:
-				// relative is TR
-				if ( ( relative = element.getParent().getParent().getPrevious() ) ) {
-					nodeToMove = relative.getChild( [ element.getParent().getIndex(), 0 ] );
-					nodeToMove.focus();
-				}
-				ev.preventDefault();
-				break;
-			// DOWN-ARROW
-			case 40:
-				// relative is TR
-				if ( ( relative = element.getParent().getParent().getNext() ) ) {
-					nodeToMove = relative.getChild( [ element.getParent().getIndex(), 0 ] );
-					if ( nodeToMove )
-						nodeToMove.focus();
-				}
-				ev.preventDefault();
-				break;
-			// ENTER
-			// SPACE
-			case 32:
-				onClick( { data: ev } );
-				ev.preventDefault();
-				break;
-
-			// RIGHT-ARROW
-			case rtl ? 37 : 39:
-				// relative is TD
-				if ( ( relative = element.getParent().getNext() ) ) {
-					nodeToMove = relative.getChild( 0 );
-					nodeToMove.focus();
-					ev.preventDefault( true );
-				}
-				// relative is TR
-				else if ( ( relative = element.getParent().getParent().getNext() ) ) {
-					nodeToMove = relative.getChild( [ 0, 0 ] );
-					if ( nodeToMove )
-						nodeToMove.focus();
-					ev.preventDefault( true );
-				}
-				break;
-
-			// LEFT-ARROW
-			case rtl ? 39 : 37:
-				// relative is TD
-				if ( ( relative = element.getParent().getPrevious() ) ) {
-					nodeToMove = relative.getChild( 0 );
-					nodeToMove.focus();
-					ev.preventDefault( true );
-				}
-				// relative is TR
-				else if ( ( relative = element.getParent().getParent().getPrevious() ) ) {
-					nodeToMove = relative.getLast().getChild( 0 );
-					nodeToMove.focus();
-					ev.preventDefault( true );
-				}
-				break;
-			default:
-				// Do not stop not handled events.
-				return;
+	
+	 for(let e in emojis){
+		 if(emojis[e].category != "modifier" && emojis[e].category != "flags" && emojis[e].category != "extras" && emojis[e].category != "regional"){
+		 	/*
+			 if(emojis[e].shortname.indexOf('tone') != -1){
+				 var tone = (emojis[e].shortname).substring(emojis[e].shortname.indexOf('tone'),emojis[e].shortname.indexOf('tone')+5);
+				 if(iconArr[tone] === undefined){
+					 iconArr[tone] = [];
+				 }
+				  iconArr[tone].push([emojis[e].shortname,emojis[e].unicode,e]);
+			 }else{
+			 */
+				 if(iconArr[emojis[e].category] === undefined){
+					iconArr[emojis[e].category] = [];
+				 }
+				 
+				 iconArr[emojis[e].category].push([emojis[e].shortname,emojis[e].unicode,e]);
+			 //}
+			 
+		 } 
+	}
+	var $content = [];
+	Object.keys(iconArr).forEach(function(key,index) {
+		emojioneHtmlContent = "";
+		for(let i=0; i<iconArr[key].length; i++){
+			emojioneHtmlContent += '<a href="javascript:void(0)"><img class="ck_emojione" style="width: 25px !important; height: 25px !important; padding: 3px; cursor: pointer;" alt="'+iconArr[key][i][0]+'" title="'+iconArr[key][i][2]+'" src="'+CKEDITOR.tools.htmlEncode('//cdn.jsdelivr.net/emojione/assets/png/'+iconArr[key][i][1]+'.png?v=2.2.6')+'"></a> '
 		}
-	} );
+		$content.push({
+			id: 'tab-'+key,
+			label: key,
+			elements: [
+				{
+					type: 'html',
+					html: '<p style="word-wrap: break-word; white-space: pre-wrap;">'+emojioneHtmlContent+'</p>',
+					onClick: onClick
+				}                   
+			]
+		});
+	});
 
-	var buildHtml = function(group) {
-		var labelId = CKEDITOR.tools.getNextId() + '_smiley_emtions_label';
-		var html = [
-			'<div>' +
-			'<span id="' + labelId + '" class="cke_voice_label">Test</span>',
-			'<table role="listbox" aria-labelledby="' + labelId + '" style="width:100%;height:100%;border-collapse:separate;" cellspacing="2" cellpadding="2"',
-			CKEDITOR.env.ie && CKEDITOR.env.quirks ? ' style="position:absolute;"' : '',
-			'><tbody>'
-		];
-
-		var list = {};
-		var i = 0;
-		emojione.imageType = 'svg';
-		emojione.sprites = true;
-		emojione.imagePathSVGSprites = window.path + 'core/assets/plugins/ckeditor/plugins/emojione/sprites/emojione.sprites.svg';
-
-		for (var shortcode in emojione.emojioneList) {
-
-			if (!emojione.emojioneList.hasOwnProperty(shortcode)) continue;
-			var obj = emojione.emojioneList[shortcode];
-			if (!obj.isCanonical) continue;
-			for (var prop in obj) {
-				if(!obj.hasOwnProperty(prop)) continue;
-				if (config.emojis[group].indexOf(shortcode) != -1) {
-					list[shortcode] = obj;
-				}
-			}
-		}
-
-		for (var shortcode in list) {
-
-			if ( i % columns === 0 )
-				html.push( '<tr role="presentation">' );
-
-			if (!list.hasOwnProperty(shortcode)) continue;
-
-			var obj = list[shortcode];
-			for (var prop in obj) {
-				if(!obj.hasOwnProperty(prop)) continue;
-			}
-
-			html.push(
-				'<td class="cke_centered" style="vertical-align: middle;" role="presentation">' +
-				'<a data-unicode="' + obj.unicode[0] + '" data-shortcode="' + shortcode + '" href="javascript:void(0)" role="option"', ' aria-posinset="' + ( i + 1 ) + '"', ' aria-setsize=""', ' aria-labelledby=""',
-				' class="cke_hand" tabindex="-1" onkeydown="CKEDITOR.tools.callFunction( ', onKeydown, ', event, this );">',
-				emojione.unicodeToImage(emojione.shortnameToUnicode(shortcode)) +
-				'</a>', '</td>'
-			);
-
-			if ( i % columns == columns - 1 )
-				html.push( '</tr>' );
-			i++;
-		}
-
-
-		if ( i < columns - 1 ) {
-			for ( ; i < columns - 1; i++ )
-				html.push( '<td></td>' );
-			html.push( '</tr>' );
-		}
-
-		html.push( '</tbody></table></div>' );
-		return html;
-	};
-
-
-
-	var emojis = function(group) {
-		return {
-			type: 'html',
-			id: 'emojiSelector',
-			html: buildHtml(group).join( '' ),
-			onLoad: function( event ) {
-				dialog = event.sender;
-			},
-			focus: function() {
-				var self = this;
-				setTimeout( function() {
-					var firstSmile = self.getElement().getElementsByTag( 'a' ).getItem( 0 );
-					firstSmile.focus();
-				}, 0 );
-			},
-			onClick: onClick,
-			style: 'width: 100%; border-collapse: separate;'
-		}
-	};
-
-	return {
-		title: 'Emojis',
-		minWidth: 400,
-		minHeight: 200,
-		contents: [
-			{
-				id: 'tab-people',
-				label: 'People',
-				elements: [
-					emojis('people')
-				]
-			}, {
-				id: 'tab-nature',
-				label: 'Nature',
-				elements: [
-					emojis('nature')
-				]
-			}, {
-				id: 'tab-objects',
-				label: 'Objects',
-				elements: [
-					emojis('objects')
-				]
-			}, {
-				id: 'tab-places',
-				label: 'Places',
-				elements: [
-					emojis('places')
-				]
-			}, {
-				id: 'tab-symbols',
-				label: 'Symbols',
-				elements: [
-					emojis('symbols')
-				]
-			}
-		],
-		onShow: function() {
-
-		}
-	};
+    return {
+        title: 'Emojis',
+		resizable:      CKEDITOR.DIALOG_RESIZE_BOTH,
+        minWidth: 800,
+        height: 200,
+        contents: $content,
+		buttons: [ CKEDITOR.dialog.okButton ],
+        onOk: function() {
+            this.hide();
+        }
+    };
 });
