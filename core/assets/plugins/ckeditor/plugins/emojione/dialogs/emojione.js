@@ -8,8 +8,7 @@ CKEDITOR.dialog.add( 'emojioneDialog', function( editor ) {
 		var target = this;
 		return target.replace(new RegExp(search, 'g'), replacement);
 	};
-	
-	var dialog;
+
 	var onClick = function( e ) {
 		var target = e.data.getTarget(),
 			targetName = target.getName();
@@ -33,28 +32,25 @@ CKEDITOR.dialog.add( 'emojioneDialog', function( editor ) {
 		} );
 
 		editor.insertElement( img );
-		dialog.hide();
 		e.data.preventDefault();
 	};
 
 	
 	 for(let e in emojis){
 		 if(emojis[e].category != "modifier" && emojis[e].category != "flags" && emojis[e].category != "extras" && emojis[e].category != "regional"){
-		 	/*
 			 if(emojis[e].shortname.indexOf('tone') != -1){
-				 var tone = (emojis[e].shortname).substring(emojis[e].shortname.indexOf('tone'),emojis[e].shortname.indexOf('tone')+5);
+				 var tone = "More People";
 				 if(iconArr[tone] === undefined){
 					 iconArr[tone] = [];
 				 }
 				  iconArr[tone].push([emojis[e].shortname,emojis[e].unicode,e]);
-			 }else{
-			 */
+			 } else {
 				 if(iconArr[emojis[e].category] === undefined){
 					iconArr[emojis[e].category] = [];
 				 }
 				 
 				 iconArr[emojis[e].category].push([emojis[e].shortname,emojis[e].unicode,e]);
-			 //}
+			 }
 			 
 		 } 
 	}
@@ -79,13 +75,19 @@ CKEDITOR.dialog.add( 'emojioneDialog', function( editor ) {
 
     return {
         title: 'Emojis',
-		resizable:      CKEDITOR.DIALOG_RESIZE_BOTH,
+		resizable: CKEDITOR.DIALOG_RESIZE_BOTH,
         minWidth: 800,
         height: 200,
         contents: $content,
 		buttons: [ CKEDITOR.dialog.okButton ],
         onOk: function() {
             this.hide();
+        },
+        onLoad: function() {
+            var dialog = this;
+            dialog.on('show', function (e) {
+                dialog.move(this.getPosition().x, 0);
+            });
         }
     };
 });
