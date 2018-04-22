@@ -33,6 +33,9 @@ $language = array(
 	'running_nameless_version' => 'Website versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'running_php_version' => 'PHP versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'statistics' => 'Statistieken',
+	'registrations' => 'Registrations',
+	'topics' => 'Topics',
+	'posts' => 'Posts',
 	'notices' => 'Berichten',
 	'no_notices' => 'Geen berichten.',
 	'email_errors_logged' => 'Email fouten zijn vastgesteld. Klik <a href="{x}">hier</a> om ze te bekijken.', // Verander "{x}" niet

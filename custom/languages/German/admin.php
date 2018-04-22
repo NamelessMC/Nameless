@@ -39,6 +39,9 @@ $language = array(
 	'running_nameless_version' => 'Forum läuft auf der Version <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => 'Laufende PHP version <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Statistiken',
+	'registrations' => 'Registrations',
+	'topics' => 'Topics',
+	'posts' => 'Posts',
     'notices' => 'Ereignisse',
     'no_notices' => 'Keine Ereignisse.',
     'email_errors_logged' => 'Fehler bei der Email wurden gespeichert. Klicke <a href="{x}">hier</a> um sie anzuzeigen.', // Don't replace "{x}"

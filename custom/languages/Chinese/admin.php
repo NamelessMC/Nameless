@@ -35,6 +35,9 @@ $language = array(
 	'running_nameless_version' => '使用中NamelessMC版本 <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => '使用中PHP版本 <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => '統計',
+	'registrations' => 'Registrations',
+	'topics' => 'Topics',
+	'posts' => 'Posts',
 	'notices' => '通知',
 	'no_notices' => '沒有通知.',
 	'email_errors_logged' => '電子郵件錯誤已被紀錄. 點擊<a href="{x}">這裡</a>查看.', // Don't replace "{x}"

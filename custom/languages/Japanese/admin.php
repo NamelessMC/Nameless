@@ -33,6 +33,9 @@ $language = array(
 	'running_nameless_version' => '実行している NamelessMC バージョン <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => '実行している PHP バージョン <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => '統計情報',
+	'registrations' => 'Registrations',
+	'topics' => 'Topics',
+	'posts' => 'Posts',
     'notices' => '通知',
     'no_notices' => '通知はありません。',
     'email_errors_logged' => '電子メールエラーが記録されました。<a href="{x}">ここ</a>をクリックして確認。', // Don't replace "{x}"
