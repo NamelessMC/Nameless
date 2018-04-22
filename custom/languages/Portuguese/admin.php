@@ -32,6 +32,9 @@ $language = array(
 	'running_nameless_version' => 'Versão do NamelessMC: <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => 'Versão do PHP: <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Estatísticas',
+	'registrations' => 'Registrations',
+	'topics' => 'Topics',
+	'posts' => 'Posts',
     'notices' => 'Avisos',
     'no_notices' => 'Sem avisos.',
     'email_errors_logged' => 'Erros de e-mail foram registrados. Clique <a href="{x}">aqui</a> para ver.', // Don't replace "{x}"
