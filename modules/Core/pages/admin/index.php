@@ -241,7 +241,7 @@ $admin_page = 'overview';
 			labels: <?php echo $labels; ?>,
 			datasets: [
 				{
-					label: "Registrations",
+					label: "<?php echo $language->get('admin', 'registrations'); ?>",
 					fill: false,
 					borderColor: "rgba(255,12,0,0.5)",
 					pointBorderColor: "rgba(255,0,5,0.5)",
@@ -249,26 +249,26 @@ $admin_page = 'overview';
 					tension: 0.1,
 					data: <?php echo $registration_data; ?>
 				},
-        {
-          label: "Topics",
-          fill: false,
-          borderColor: "#0004FF",
-          pointBorderColor: "#0004FF",
-          pointBackgroundColor: "#fff",
-          tension: 0.1,
-          data: <?php echo $topics_data; ?>
-        },
-        {
-          label: "Posts",
-          fill: false,
-          borderColor: "#00931D",
-          pointBorderColor: "#00931D",
-          pointBackgroundColor: "#fff",
-          tension: 0.1,
-          data: <?php echo $posts_data; ?>
-        },
+				{
+					label: "<?php echo $language->get('admin', 'topics'); ?>",
+					fill: false,
+					borderColor: "#0004FF",
+					pointBorderColor: "#0004FF",
+					pointBackgroundColor: "#fff",
+					tension: 0.1,
+					data: <?php echo $topics_data; ?>
+				},
+				{
+					label: "<?php echo $language->get('admin', 'posts'); ?>",
+					fill: false,
+					borderColor: "#00931D",
+					pointBorderColor: "#00931D",
+					pointBackgroundColor: "#fff",
+					tension: 0.1,
+					data: <?php echo $posts_data; ?>
+				}
 			]
-		}
+		};
 
 		var registrationLineChart = new Chart(ctx, {
 			type: 'line',

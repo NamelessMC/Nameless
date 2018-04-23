@@ -36,6 +36,9 @@ $language = array(
     'running_nameless_version' => 'Rulează versiunea <strong>{x}</strong> a NamelessMC', // Don't replace "{x}"
     'running_php_version' => 'Rulează cu versiunea PHP <strong>{x}</strong>', // Don't replace "{x}"
     'statistics' => 'Statistici',
+    'registrations' => 'Registrations',
+    'topics' => 'Topics',
+    'posts' => 'Posts',
     'notices' => 'Alerte',
     'no_notices' => 'Momentan nu există alerte.',
     'email_errors_logged' => 'Au fost înregistrate erori de e-mail. Click <a href="{x}">aici</a> pentru a le vizualiza.', // Don't replace "{x}"

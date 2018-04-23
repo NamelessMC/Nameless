@@ -33,6 +33,9 @@ $language = array(
 	'running_nameless_version' => 'Τρέχουσα NamelessMC έκδοση <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => 'Τρέχουσα PHP έκδοση <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Στατιστικά',
+	'registrations' => 'Registrations',
+	'topics' => 'Topics',
+	'posts' => 'Posts',
     'notices' => 'Notices',
     'no_notices' => 'No notices.',
     'email_errors_logged' => 'Email errors have been logged. Click <a href="{x}">here</a> to view.', // Don't replace "{x}"
