@@ -31,6 +31,9 @@ $language = array(
 	'running_nameless_version' => 'NamelessMC beží na verzií <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => 'PHP verzia <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Štatistiky',
+	'registrations' => 'Registrations',
+	'topics' => 'Topics',
+	'posts' => 'Posts',
     'notices' => 'Upozornenia',
     'no_notices' => 'Žiadné upozornenia.',
     'email_errors_logged' => 'Chyby s e-mailami boli zaznamenané. Pre zobrazenie kliknite <a href="{x}">zde</a>.', // Don't replace "{x}"
