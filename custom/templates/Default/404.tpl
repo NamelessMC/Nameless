@@ -8,7 +8,7 @@
 		  <h2>{$TITLE}</h2>
 		  <h4>{$CONTENT}</h4>
 		  <div class="btn-group" role="group" aria-label="...">
-			<a href="#" class="btn btn-primary btn-lg" onclick="window.history.back()">{$BACK}</a>
+			<button class="btn btn-primary btn-lg" onclick="javascript:history.go(-1)">{$BACK}</button>
 			<a href="{$SITE_HOME}" class="btn btn-success btn-lg">{$HOME}</a>
 		  </div>
 		  <hr />
