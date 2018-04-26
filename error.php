@@ -60,7 +60,7 @@ $user = new User();
 							}
 							?>
 							<div class="btn-group" role="group" aria-label="...">
-								<a href="#" class="btn btn-primary btn-lg" onclick="window.history.back()"><?php echo $language->get('general', 'back'); ?></a>
+								<button href="#" class="btn btn-primary btn-lg" onclick="javascript:history.go(-1)"><?php echo $language->get('general', 'back'); ?></button>
 								<a href="<?php echo URL::build('/'); ?>" class="btn btn-success btn-lg"><?php echo $language->get('general', 'home'); ?></a>
 							</div>
 						</div>
