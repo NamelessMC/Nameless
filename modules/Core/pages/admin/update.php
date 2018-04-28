@@ -153,7 +153,7 @@ curl_close($ch);
 					  
 					  echo '<hr />';
 
-                      echo '<a href="https://namelessmc.com/nl_core/nl2/updates/' . str_replace(array('.', '-'), '', Output::getClean($current_version)) . '.zip" class="btn btn-primary">' . $language->get('admin', 'download') . '</a> ';
+                      echo '<a href="https://namelessmc.com/nl_core/nl2/updates/' . str_replace(array('.', '-'), '', Output::getClean($update_check->new_version)) . '.zip" class="btn btn-primary">' . $language->get('admin', 'download') . '</a> ';
 				      echo '<a href="' . URL::build('/admin/update_execute') . '" class="btn btn-info" onclick="return confirm(\'' . $language->get('admin', 'install_confirm') . '\');">' . $language->get('admin', 'update') . '</a>';
 				  }
 			  } else {
