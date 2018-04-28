@@ -1,4 +1,4 @@
-<footer>
+<footer class="footer">
   <div class="container">
     <hr>
     {$SOCIAL_MEDIA_ICONS}
