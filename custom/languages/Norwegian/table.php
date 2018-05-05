@@ -1,12 +1,12 @@
 <?php 
 /*
- *	Oversatt av Thesevs
+ *  Translations by Maiu | Discord: Maiu#1152
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-dev
+ *  NamelessMC versjon 2.0.0-pr3
  *
  *  License: MIT
  *
- *  Norsk språk - Table
+ *  Norsk oversettelse - Table
  */
 
 $language = array(
@@ -17,5 +17,5 @@ $language = array(
 	'nothing_found' => 'Ingen resultater funnet',
 	'page_x_of_y' => 'Viser side _PAGE_ of _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
 	'no_records' => 'Ingen rekorder tilgjengelige',
-	'filtered' => '(filtered from _MAX_ total records)' // Don't replace "_MAX_"
+	'filtered' => '(filtrert fra _MAX_ total records)' // Don't replace "_MAX_"
 );
