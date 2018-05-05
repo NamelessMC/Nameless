@@ -1,12 +1,12 @@
 <?php 
 /*
- *	Oversatt av Thesevs
+ *	Translations by Maiu | Discord: Maiu#1152
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-dev
+ *  NamelessMC versjon 2.0.0-pr3
  *
  *  License: MIT
  *
- *  Norsk språk - Språk versjon
+ *  Norsk språk - Language Version
  */
 
 // Which version of NamelessMC is this language file updated to?
