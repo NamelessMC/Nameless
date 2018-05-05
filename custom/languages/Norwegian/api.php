@@ -1,51 +1,51 @@
 <?php
 /*
- *	Made by Samerton
+ *  Translations by Maiu | Discord: Maiu#1152
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC versjon 2.0.0-pr3
  *
  *  License: MIT
  *
- *  Norwegian Language - API
+ *  Norsk oversettelse - API
  */
 
 $language = array(
     // Errors
-    'unknown_error' => 'Unknown error',
-    'invalid_api_key' => 'Invalid API key',
-    'invalid_language_file' => 'Invalid language file',
-    'invalid_api_method' => 'Invalid API method',
-    'no_unique_site_id' => 'No unique site ID available',
-    'unable_to_check_for_updates' => 'Unable to check for updates',
-    'invalid_post_contents' => 'Invalid POST contents',
-    'invalid_get_contents' => 'Invalid GET contents',
-    'invalid_email_address' => 'Invalid email address',
-    'invalid_username' => 'Invalid username',
-    'invalid_uuid' => 'Invalid UUID',
-    'email_already_exists' => 'Email already exists',
-    'username_already_exists' => 'Username already exists',
-    'uuid_already_exists' => 'UUID already exists',
-    'unable_to_create_account' => 'Unable to create account',
-    'unable_to_send_registration_email' => 'Unable to send registration email, please contact an admin to activate your account',
-    'unable_to_find_user' => 'Unable to find user',
-    'unable_to_find_group' => 'Unable to find group',
-    'unable_to_update_group' => 'Unable to update user\'s group',
-    'report_content_too_long' => 'The report content must be 255 characters or less',
-    'you_must_register_to_report' => 'You must register on our website to be able to create a report',
-    'you_have_been_banned_from_website' => 'You have been banned from the website',
-    'you_have_open_report_already' => 'You already have an open report regarding this player',
-    'unable_to_create_report' => 'Unable to create report',
-    'unable_to_update_username' => 'Unable to update username',
-    'unable_to_update_server_info' => 'Unable to update server info',
-    'invalid_server_id' => 'Invalid server ID',
-    'invalid_code' => 'Invalid code provided',
+    'unknown_error' => 'Ukjent feil',
+    'invalid_api_key' => 'Ugyldig API nøkkel',
+    'invalid_language_file' => 'Ugyldig språkfil',
+    'invalid_api_method' => 'Ugyldig API method',
+    'no_unique_site_id' => 'Ingen unik nettside ID tilgjengelig',
+    'unable_to_check_for_updates' => 'Kunne ikke søke etter oppdateringer',
+    'invalid_post_contents' => 'Ugyldig POST innhold',
+    'invalid_get_contents' => 'Ugyldig GET innhold',
+    'invalid_email_address' => 'Ugyldig email adresse',
+    'invalid_username' => 'Ugyldig brukernavn',
+    'invalid_uuid' => 'Ugyldig UUID',
+    'email_already_exists' => 'Email eksisterer allerede',
+    'username_already_exists' => 'Brukernavn eksisterer allerede',
+    'uuid_already_exists' => 'UUID eksisterer allerede',
+    'unable_to_create_account' => 'Vi kunne ikke registrere kontoen',
+    'unable_to_send_registration_email' => 'Vi kunne ikke sende en registreringsmail, vennligst kontakt en administrator for å aktivere kontoen',
+    'unable_to_find_user' => 'Kunne ikke finne bruker',
+    'unable_to_find_group' => 'Kunne ikke finne gruppe',
+    'unable_to_update_group' => 'Kunne ikke oppdatere brukerens gruppe',
+    'report_content_too_long' => 'Rapporteringen må inneholde mindre enn 255 tegn',
+    'you_must_register_to_report' => 'Du må registrere deg for å kunne rapportere',
+    'you_have_been_banned_from_website' => 'Du har blitt bannlyst fra nettsiden',
+    'you_have_open_report_already' => 'Du har allerede en åpen rapportering angående denne spilleren',
+    'unable_to_create_report' => 'Kunne ikke opprette rapportering',
+    'unable_to_update_username' => 'Kunne ikke oppdatere brukernavn',
+    'unable_to_update_server_info' => 'Kunne ikke oppdatere serverinfo',
+    'invalid_server_id' => 'Ugyldig server ID',
+    'invalid_code' => 'Ugyldig kode oppgitt',
 
     // Success messages
-    'finish_registration_link' => 'Please click on the following link to complete registration:',
-    'finish_registration_email' => 'Please check your emails to complete registration.',
-    'group_updated' => 'Group updated successfully',
-    'report_created' => 'Report created successfully',
-    'new_private_message_from' => 'New private message from {x}', // Don't replace {x}
-    'username_updated' => 'Username updated successfully',
-    'server_info_updated' => 'Server info updated successfully'
+    'finish_registration_link' => 'Vennligst klikk på følgende lenke for å fullføre registeringen:',
+    'finish_registration_email' => 'Vennligst sjekk emailen din for å fullføre registeringen.',
+    'group_updated' => 'Gruppe suksessfullt oppdatert',
+    'report_created' => 'Rapportering suksessfullt opprettet',
+    'new_private_message_from' => 'Ny privatmelding fra {x}', // Don't replace {x}
+    'username_updated' => 'Brukernavn suksessfullt oppdatert',
+    'server_info_updated' => 'Server info suksessfullt oppdatert'
 );
