@@ -1,13 +1,14 @@
 <?php
 /*
- *  Oversatt av Thesevs
+ *  Translations by Maiu | Discord: Maiu#1152
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC versjon 2.0.0-pr3
  *
  *  License: MIT
  *
- *  Norsk språk - Installasjon
+ *  Norsk oversettelse - Installation
  */
+
 $language = array(
     /*
      *  Installation
@@ -50,7 +51,7 @@ $language = array(
     'input_required' => 'Skriv inn et gyldig brukernavn, email og passord.',
     'input_minimum' => 'Pass på at brukernavnet er minst 3 tegn, emailen minst 4 tegn og passordet minst 6 tegn.',
     'input_maximum' => 'Pass på at brukernavnet er maks 20 tegn, og emailen og passordet maks 64 tegn.',
-    'email_invalid' => 'Your email is not valid.',
+    'email_invalid' => 'Din email adresse er ikke gyldig',
     'passwords_must_match' => 'Passordene dine er ikke like.',
     'creating_admin_account' => 'Lager admin bruker.',
     'enter_admin_details' => 'Skriv inn brukerinformasjonen til admin brukeren.',
@@ -70,6 +71,6 @@ $language = array(
     'finish' => 'Ferdig',
     'finish_message' => 'Takk for at du installerte NamelessMC! Du kan nå fortsette til AdminCP, hvor du kan fortsette å konfigurere nettsiden din.',
     'support_message' => 'Hvis du trenger noe hjelp, sjekk ut nettsiden vår <a href="https://namelessmc.com" target="_blank">her</a>, hos vår <a href="https://discord.gg/9vk93VR" target="_blank">Discord server</a>, eller vår <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub nettside</a>.',
-    'credits' => 'Credits',
+    'credits' => 'Creds',
     'credits_message' => 'En stor takk til alle våre <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC kontributører</a> siden 2014'
 );
