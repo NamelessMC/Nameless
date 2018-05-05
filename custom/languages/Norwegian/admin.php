@@ -1,12 +1,12 @@
 <?php
 /*
- *	Oversatt av Thesevs
+ *  Translations by Maiu | Discord: Maiu#1152
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC versjon 2.0.0-pr3
  *
  *  License: MIT
  *
- *  Norsk språk - Admin
+ *  Norsk oversettelse - Admin
  */
 
 $language = array(
@@ -31,9 +31,9 @@ $language = array(
 	'running_nameless_version' => 'Kjører NamelessMC versjon <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => 'Kjører PHP versjon <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Statistikk',
-	'registrations' => 'Registrations',
-	'topics' => 'Topics',
-	'posts' => 'Posts',
+	'registrations' => 'Registreringer',
+	'topics' => 'Emner',
+	'posts' => 'Tråder',
     'notices' => 'Varsler',
     'no_notices' => 'Ingen varsler.',
     'email_errors_logged' => 'En email error har blitt logget. Klikk <a href="{x}">her</a> for å se dem.', // Don't replace "{x}"
@@ -117,9 +117,9 @@ $language = array(
     'recaptcha_secret_key' => 'reCAPTCHA hemmelig nøkkel (Secret key)',
     'registration_disabled_message' => 'Registrering deaktivert melding',
     'enable_nicknames_on_registration' => 'Tillatt kallenavn for nyregistrerte brukere?',
-    'validation_promote_group' => 'Post-validation group',
-    'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
-    'login_method' => 'Login Method',
+    'validation_promote_group' => 'Post-valideringsgruppe',
+    'validation_promote_group_info' => 'Dette er gruppen brukeren vil bli forfremmet til når personen har verifisert kontoen sin.',
+    'login_method' => 'Login Metode',
 
 	// Reactions
 	'icon' => 'Ikon',
@@ -423,7 +423,7 @@ $language = array(
 	// Error logs
 	'error_logs' => 'Error Logg',
 	'notice_log' => 'Varsler logg',
-	'warning_log' => 'Warning log',
+	'warning_log' => 'Advarselslog',
 	'custom_log' => 'Egendefinert logg',
 	'other_log' => 'Andre logg',
 	'fatal_log' => 'Fatale logg',
