@@ -1,12 +1,12 @@
 <?php 
 /*
- *	Oversatt av Thesevs
+ *  Translations by Maiu | Discord: Maiu#1152
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-dev
+ *  NamelessMC versjon 2.0.0-pr3
  *
  *  License: MIT
  *
- *  Norsk språk - Generellt
+ *  Norsk oversettelse - General
  */
 
 $language = array(
@@ -49,11 +49,11 @@ $language = array(
 	'loading' => 'Laster...',
 	'report' => 'Rapport',
 	'page_loaded_in' => 'Side lastet inn på {x}s', // Don't replace {x}, time unit is seconds
-    'page_x' => 'Page {x}',
-    'browse' => 'Browse',
-    'bypass' => 'Bypass',
-    'yes' => 'Yes',
-    'no' => 'No',
+    'page_x' => 'Side {x}',
+    'browse' => 'Utforsk',
+    'bypass' => 'Hopp over',
+    'yes' => 'Ja',
+    'no' => 'Nei',
 
     /*
      *  Contact form
@@ -87,8 +87,8 @@ $language = array(
     /*
      *  Server query
      */
-    'online' => 'Online',
-    'offline' => 'Offline',
+    'online' => 'Oppe',
+    'offline' => 'Nede',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Versjon: {x}', // Don't replace {x}
@@ -99,6 +99,6 @@ $language = array(
     /*
      *  Cookie notice
      */
-    'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
-    'cookie_agree' => 'Agree'
+    'cookie_notice' => 'Denne nettsiden benytter seg av cookies for å forbedre din brukeropplevelse. Ved å registrere deg på vår nettside eller ved å lukke denne meldingen, aksepterer du dette.',
+    'cookie_agree' => 'Enig'
 );
