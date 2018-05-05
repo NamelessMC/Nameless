@@ -1,19 +1,19 @@
 <?php 
 /*
- *  Translations by Thesevs and OscarWoHA
+ *  Translations by Maiu [Discord: Maiu#1152] & OscarWoHA
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC versjon 2.0.0-pr3
  *
  *  License: MIT
  *
- *  Norsk språk - Brukere
+ *  Norsk oversettelse - User
  */
 
 $language = array(
 	/*
 	 *  Change this for the account validation message
 	 */
-	'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+	'validate_account_command' => 'For å fullføre registeringen, skriv inn kommandoen <strong>/validate {x}</strong> ingame.', // Don't replace {x}
 
 	/*
 	 *  User Related
@@ -34,7 +34,7 @@ $language = array(
 	'administration' => 'Administrasjon',
 	'alerts' => 'Viktige meldinger',
 	'delete_all' => 'Slett alle',
-	'private_profile' => 'Private profile',
+	'private_profile' => 'Private profiler',
 	
 	// Profile settings
 	'field_is_required' => '{x} er påkrevd.', // Don't replace {x}
@@ -42,12 +42,12 @@ $language = array(
 	'password_changed_successfully' => 'Passord har blitt endret.',
 	'change_password' => 'Endre passord',
 	'current_password' => 'Din passord',
-	'new_password' => 'Ny passord',
+	'new_password' => 'Nytt passord',
 	'confirm_new_password' => 'Bekreft ny passord',
 	'incorrect_password' => 'Feil passord',
 	'two_factor_auth' => 'To-stegs-verifikasjon',
-	'enabled' => 'Enabled',
-    'disabled' => 'Disabled',
+	'enabled' => 'Aktivert',
+    'disabled' => 'Deaktivert',
 	'enable' => 'Aktiver',
 	'disable' => 'Deaktiver',
 	'tfa_scan_code' => 'Vennligst skann denne koden med tostegsverifikasjons-applikasjonen:',
@@ -219,5 +219,5 @@ $language = array(
 	/*
 	 *  Hooks
 	 */
-	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
+	'user_x_has_registered' => '{x} har registert seg hos ' . SITE_NAME . '!'
 );
