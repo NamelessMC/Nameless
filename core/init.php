@@ -540,9 +540,10 @@ if($page != 'install'){
     }
 
     // Auto unset signin tfa variables if set
-    if((isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['password'])) && !isset($_POST['tfa'])){
+    if((isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && !isset($_POST['tfa_code'])){
         unset($_SESSION['remember']);
         unset($_SESSION['username']);
+        unset($_SESSION['email']);
         unset($_SESSION['password']);
     }
 }

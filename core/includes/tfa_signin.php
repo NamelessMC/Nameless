@@ -10,9 +10,15 @@
  */
  
 // Two Factor Auth signin
-$_SESSION['username'] = Input::get('username');
-$_SESSION['password'] = Input::get('password');
-$_SESSION['remember'] = Input::get('remember');
+if(isset($_POST['username']))
+    $_SESSION['username'] = $_POST['username'];
+
+else if(isset($_POST['email']))
+    $_SESSION['email'] = $_POST['email'];
+
+$_SESSION['password'] = $_POST['password'];
+$_SESSION['remember'] = $_POST['remember'];
+
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
