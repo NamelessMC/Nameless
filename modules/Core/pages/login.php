@@ -36,13 +36,20 @@ if (Input::exists()) {
     // Check form token
     if (Token::check(Input::get('token'))) {
         // Valid token
-        if (isset($_SESSION['remember'])) {
+        if (isset($_SESSION['password'])) {
+            if(isset($_SESSION['username'])){
+                $_POST['username'] = $_SESSION['username'];
+                unset($_SESSION['username']);
+                
+            } else if(isset($_SESSION['email'])){
+                $_POST['email'] = $_SESSION['email'];
+                unset($_SESSION['email']);
+            }
+            
             $_POST['remember'] = $_SESSION['remember'];
-            $_POST['username'] = $_SESSION['username'];
             $_POST['password'] = $_SESSION['password'];
 
             unset($_SESSION['remember']);
-            unset($_SESSION['username']);
             unset($_SESSION['password']);
         }
 
