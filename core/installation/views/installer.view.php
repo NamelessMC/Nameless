@@ -226,7 +226,7 @@
 									'	),' . PHP_EOL . 
 									'	"core" => array(' . PHP_EOL . 
 									'		"path" => "' . $install_path . '",' . PHP_EOL . 
-									'		"friendly" => false' . PHP_EOL .
+									'		"friendly" => ' . ((isset($_POST['friendly']) && $_POST['friendly'] == 'true') ? 'true' : 'false') . PHP_EOL .
 									'	),' . PHP_EOL .
 									'	"allowedProxies" => ""' . PHP_EOL .
 									');' . PHP_EOL;
@@ -291,6 +291,14 @@
                 <div class="form-group">
                     <label for="inputPath"><?php echo $language['nameless_path']; ?></label> <span class="badge badge-info" data-toggle="popover" data-placement="top" data-content="<?php echo $language['nameless_path_info']; ?>"><i class="fa fa-question"></i></span>
                     <input type="text" class="form-control" name="install_path" id="inputPath" value="<?php echo Output::getClean($install_path); ?>" placeholder="<?php echo $language['nameless_path']; ?>">
+                </div>
+                
+                <div class="form-group">
+                    <label for="inputFriendly"><?php echo $language['friendly_urls']; ?></label> <span class="badge badge-info" data-toggle="popover" data-placement="top" data-content="<?php echo $language['friendly_urls_info']; ?>"><i class="fa fa-question"></i></span>
+				    <select class="form-control" name="friendly" id="inputFriendly">
+					    <option value="true"><?php echo $language['enabled']; ?></option>
+					    <option value="false" selected><?php echo $language['disabled']; ?></option>
+					</select>
                 </div>
 
 				<div class="form-group">
