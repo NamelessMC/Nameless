@@ -199,6 +199,9 @@
                     $error = $mysqli->connect_errno . ' - ' . $mysqli->connect_error;
                 } else {
 
+                    if(isset($_POST['install_path']))
+                        $install_path = $_POST['install_path'];
+
                     try {
 						$insert = 	'<?php' . PHP_EOL . 
 									'$conf = array(' . PHP_EOL . 
@@ -283,6 +286,11 @@
                 <div class="form-group">
                     <label for="inputDBName"><?php echo $language['database_name']; ?></label>
                     <input type="text" class="form-control" name="db_name" id="inputDBName" placeholder="<?php echo $language['database_name']; ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPath"><?php echo $language['nameless_path']; ?></label> <span class="badge badge-info" data-toggle="popover" data-placement="top" data-content="<?php echo $language['nameless_path_info']; ?>"><i class="fa fa-question"></i></span>
+                    <input type="text" class="form-control" name="install_path" id="inputPath" value="<?php echo Output::getClean($install_path); ?>" placeholder="<?php echo $language['nameless_path']; ?>">
                 </div>
 
 				<div class="form-group">
@@ -2440,6 +2448,21 @@
 <script src="core/assets/js/tether.min.js"></script>
 <script src="core/assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+    $('[data-toggle="popover"]').popover({ trigger: "manual" , html: true, animation:false}).on("mouseenter", function () {
+        var _this = this;
+        $(this).popover("show");
+        $(".popover").on("mouseleave", function () {
+            $(_this).popover('hide');
+        });
+    }).on("mouseleave", function () {
+        var _this = this;
+        setTimeout(function () {
+            if (!$(".popover:hover").length) {
+                $(_this).popover("hide");
+            }
+        }, 300);
+    });
+
     function setLanguage(language){
         $.ajax({
             'url' : 'install.php?language=' + language,
