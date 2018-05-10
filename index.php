@@ -68,9 +68,7 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 } else {
 	if(!isset($route)) $route = rtrim($_GET['route'], '/');
 	// Check modules
-
 	$modules = $pages->returnPages();
-
 
 	// Include the page
 	if(array_key_exists($route, $modules)){
@@ -87,8 +85,6 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 
 		// Use recursion to check - might have URL parameters in path
 		$path_array = explode('/', $route);
-
-//		echo '<pre>', var_dump($path_array).  '</pre>';
 
 		for($i = count($path_array) - 2; $i > 0; $i--){
 			$new_path = '/';
