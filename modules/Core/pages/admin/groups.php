@@ -305,9 +305,10 @@ $admin_page = 'users_and_groups';
 									if(count($group)){
 										if($group[0]->id == 1 || $group[0]->admin_cp == 1){
 											// Can't delete default group/admin group
-										} else
-											$queries->delete('groups', array('id', '=' , Input::get('id')));
-											Log::getInstance()->log(Log::Action('admin/group/delete'), $group[0]->name;
+										} else {
+											$queries->delete('groups', array('id', '=', Input::get('id')));
+											Log::getInstance()->log(Log::Action('admin/group/delete'), $group[0]->name);
+                                        }
 									}
 									
 									Redirect::to(URL::build('/admin/groups'));
