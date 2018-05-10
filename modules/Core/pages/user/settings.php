@@ -47,14 +47,16 @@ if(isset($_GET['do'])){
 			$queries->update('users', $user->data()->id, array(
 				'tfa_secret' => $secret
 			));
+			/*
 			Log::getInstance()->log(Log::Action('user/login'), $language->get('log', 'info_tfa_key_sent').': '.$secret);
 			$queries->create('logs', array(
 				'time' => date('U'),
 				'action' => $language->get('log', 'log_login'),
 				'ip' => $ip,
 				'user_id' => $user->data()->id,
-				'info' => $language->get('log', 'info_tfa_key_sent').': '.$secret;
+				'info' => $language->get('log', 'info_tfa_key_sent').': '.$secret
 			));
+			*/
 		?>
 <!DOCTYPE html>
 <html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
