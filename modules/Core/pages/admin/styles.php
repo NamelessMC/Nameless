@@ -243,13 +243,7 @@ $admin_styles = true;
 									  // Insert into logs
 									  $ip = $user->getIP();
 
-									  $queries->create('logs', array(
-										'time' => date('U'),
-										'action' => 'acp_template_update',
-										'ip' => $ip,
-										'user_id' => $user->data()->id,
-										'info' => Output::getClean($_GET['file'])
-									  ));
+									  Log::getInstance()->log(Log::Action('admin/template/update'), Ouput::getClean($_GET['file']));
 
 									  // Display session success message
 									  Session::flash('template_view', '<div class="alert alert-success">' . $language->get('admin', 'template_updated') . '</div>');
@@ -309,6 +303,7 @@ $admin_styles = true;
 								$queries->create('templates', array(
 									'name' => htmlspecialchars($folders[2])
 								));
+								Log::getInstance()->log(Log::Action('admin/template/install'), Output::getClean($folders[2]));
 							}
 						  }
 
@@ -343,6 +338,7 @@ $admin_styles = true;
 						  $queries->update('templates', $new_default, array(
 							'is_default' => 1
 						  ));
+						  Log::getInstance()->log(Log::Action('admin/template/default'), Output::getClean($current_default). "=>". Output::getClean($new_default));
 
 						  // Cache
 						  $cache->setCache('templatecache');
@@ -363,6 +359,8 @@ $admin_styles = true;
 							  Redirect::to(URL::build('/admin/styles/'));
 							  die();
 						  }
+						  Log::getInstance()->log(Log::Action('admin/template/deactivate'), $template[0]->name);
+
 						  $template = $template[0]->id;
 
 						  // Deactivate the template
@@ -385,6 +383,9 @@ $admin_styles = true;
 							  Redirect::to(URL::build('/admin/styles/'));
 							  die();
 						  }
+
+						  Log::getInstance()->log(Log::Action('admin/template/activate'), $template[0]->name);
+
 						  $template = $template[0]->id;
 
 						  // Activate the template
@@ -421,6 +422,8 @@ $admin_styles = true;
 
                               // Delete from database
                               $queries->delete('templates', array('name', '=', $item));
+
+                              Log::getInstance()->log(Log::Action('admin/template/delete'), $template[0]->name);
 
                               Session::flash('admin_templates', '<div class="alert alert-success">' . $language->get('admin', 'template_deleted_successfully') . '</div>');
                               Redirect::to(URL::build('/admin/styles'));

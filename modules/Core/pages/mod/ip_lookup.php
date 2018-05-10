@@ -81,6 +81,8 @@ define('PAGE', 'mod_ip_lookup');
 				if(Token::check(Input::get('token'))){
 					// Search
 					$query = $queries->getWhere('users', array('username', '=', Output::getClean(Input::get('search'))));
+
+					Log::getInstance()->log(Log::Action('mod/iplookup'), Oput::getClean(Input::get('search')));
 					
 					if(!count($query)){
 						// Try nickname

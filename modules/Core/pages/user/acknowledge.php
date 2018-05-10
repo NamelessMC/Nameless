@@ -30,6 +30,8 @@ if(count($warning)){
         $queries->update('infractions', $warning[0]->id, array(
             'acknowledged' => 1
         ));
+
+       Log::getInstance()->log(Log::Action('user/acknowledge'), $result);
     }
 }
 

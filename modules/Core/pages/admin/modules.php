@@ -58,6 +58,8 @@ if(isset($_GET['action'])){
 			}
 		}
 
+		Log::getInstance()->log(Log::Action('admin/module/install'));
+
 		Session::flash('admin_modules', '<div class="alert alert-success">' . $language->get('admin', 'modules_installed_successfully') . '</div>');
 
 		Redirect::to(URL::build('/admin/modules'));
@@ -68,10 +70,13 @@ if(isset($_GET['action'])){
 		// Enable a module
 		if(!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) die('Invalid module!');
 
+
 		$queries->update('modules', $_GET['m'], array(
 			'enabled' => 1
 		));
 
+		Log::getInstance()->log(Log::Action('admin/module/enable'));
+		
 		// Get module name
 		$name = $queries->getWhere('modules', array('id', '=', $_GET['m']));
 		$name = htmlspecialchars($name[0]->name);
@@ -106,9 +111,12 @@ if(isset($_GET['action'])){
 		// Disable a module
 		if(!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) die('Invalid module!');
 
+
 		$queries->update('modules', $_GET['m'], array(
 			'enabled' => 0
 		));
+
+		Log::getInstance()->log(Log::Action('admin/module/disable'));
 
 		// Get module name
 		$name = $queries->getWhere('modules', array('id', '=', $_GET['m']));

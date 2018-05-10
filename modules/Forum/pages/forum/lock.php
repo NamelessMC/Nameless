@@ -43,6 +43,7 @@ if($user->isLoggedIn()){
 			$queries->update('topics', $topic_id, array(
 				'locked' => $locked_status
 			));
+			Log::getInstance()->log(Log::Action('forums/topic/lock'),($locked_status ==1)?$language->get('log', 'info_forums_lock'):$language->get('log', 'info_forums_unlock'));
 			
 			Redirect::to(URL::build('/forum/topic/' . $topic_id));
 			die();

@@ -47,6 +47,14 @@ if(isset($_GET['do'])){
 			$queries->update('users', $user->data()->id, array(
 				'tfa_secret' => $secret
 			));
+			Log::getInstance()->log(Log::Action('user/login'), $language->get('log', 'info_tfa_key_sent').': '.$secret);
+			$queries->create('logs', array(
+				'time' => date('U'),
+				'action' => $language->get('log', 'log_login'),
+				'ip' => $ip,
+				'user_id' => $user->data()->id,
+				'info' => $language->get('log', 'info_tfa_key_sent').': '.$secret;
+			));
 		?>
 <!DOCTYPE html>
 <html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
@@ -98,6 +106,7 @@ if(isset($_GET['do'])){
 								'tfa_enabled' => 1,
 								'tfa_type' => 1
 							));
+							Log::getInstance()->log(Log::Action('user/login'), $language->get('log', 'info_user_tfa_key_success').': '.Output::getClean($_POST['tfa_code']));
 							
 							Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
 							Redirect::to(URL::build('/user/settings'));
@@ -159,6 +168,9 @@ if(isset($_GET['do'])){
 			'tfa_secret' => null,
 			'tfa_complete' => 0
 		));
+
+
+		Log::getInstance()->log(Log::Action('user/ucp/update'), $language->get('log', 'info_user_update_dtfa'));
 
 		Redirect::to(URL::build('/user/settings'));
 		die();
@@ -257,6 +269,9 @@ if(isset($_GET['do'])){
                                 'nickname' => $displayname,
                                 'private_profile' => $privateProfile
                             ));
+
+                            Log::getInstance()->log(Log::Action('user/ucp/update'));
+
 
                             foreach ($_POST as $key => $item) {
                                 if (strpos($key, 'action') !== false || strpos($key, 'token') !== false) {

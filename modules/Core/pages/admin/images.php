@@ -42,6 +42,8 @@ $admin_page = 'styles';
 if(isset($_GET['action']) && $_GET['action'] == 'reset_bg'){
 	$cache->setCache('backgroundcache');
 	$cache->store('background_image', '');
+
+	Log::getInstance()->log(Log::Action('admin/bgimage/reset'));
 	
 	Redirect::to(URL::build('/admin/images'));
 	die();
@@ -55,6 +57,7 @@ if(Input::exists()){
 		// Valid token
 		$cache->setCache('backgroundcache');
 		$cache->store('background_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/backgrounds/' . Input::get('bg'));
+		Log::getInstance()->log(Log::Action('admin/bgimage/submit'));
 
 	} else {
 		// Invalid token

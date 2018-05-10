@@ -152,6 +152,7 @@ $timeago = new Timeago(TIMEZONE);
 							'comment_date' => date('Y-m-d H:i:s'),
 							'comment_content' => Output::getClean(Input::get('content'))
 						));
+						Log::getInstance()->log(Log::Action('mod/report/comment'));
 					} else {
 						// Display error
 						$error = $language->get('moderator', 'report_comment_invalid');
@@ -245,6 +246,8 @@ $timeago = new Timeago(TIMEZONE);
 							'status' => 1
 						));
 					}
+
+					Log::getInstance()->log(Log::Action('mod/report/close'), Output::getClean($_GET['id']));
 					
 					Redirect::to(URL::build('/mod/reports/', 'report=' . $report[0]->id));
 					die();
@@ -264,6 +267,8 @@ $timeago = new Timeago(TIMEZONE);
 						));
 					}
 					
+					Log::getInstance()->log(Log::Action('mod/report/open'), Ouput::getClean($_GET['report']));
+
 					Redirect::to(URL::build('/mod/reports/', 'report=' . $report[0]->id));
 					die();
 				}
