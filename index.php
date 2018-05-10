@@ -52,6 +52,11 @@ catch(Exception $e) {
 	die($e->getMessage());
 }
 
+if(isset($_GET['route']) && $_GET['route'] == '/rewrite_test'){
+    require_once('rewrite_test.php');
+    die();
+}
+
 if(!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
 	Redirect::to('install.php');
 }
