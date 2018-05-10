@@ -199,6 +199,7 @@ if (Input::exists()) {
                 // Successful login?
                 if ($login) {
                     // Yes
+                    Log::getInstance()->log(Log::Action('user/login'));
 
                     // Redirect to a certain page?
                     if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {

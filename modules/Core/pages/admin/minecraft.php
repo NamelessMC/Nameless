@@ -218,6 +218,8 @@ $admin_page = 'minecraft';
 
                             $queries->update('settings', $uuid_linking, array('value' => $use_premium));
                           }
+
+                          Log::getInstance()->log(Log::Action('admin/mc/update'), $language->get('log', 'info_mc_general'));
                         }
                       }
 
@@ -353,6 +355,8 @@ $admin_page = 'minecraft';
                                         $queries->update('settings', $authme_db_id, array(
                                             'value' => json_encode($result)
                                         ));
+
+                                        Log::getInstance()->log(Log::Action('admin/authme/update'));
 
                                     } else {
                                         $error = $language->get('admin', 'enter_authme_db_details');
@@ -534,6 +538,8 @@ $admin_page = 'minecraft';
                                                   'port' => $port,
                                                   'query_port' => $query_port
                                               ));
+
+                                              Log::getInstance()->log(Log::Action('admin/server/add'), Output::getClean(Input::get('server_name')));
 
                                               Session::flash('admin_mc_servers_success', $language->get('admin', 'server_created'));
                                               Redirect::to(URL::build('/admin/minecraft', 'view=servers'));
@@ -786,6 +792,8 @@ $admin_page = 'minecraft';
                                                   'query_port' => $query_port
                                               ));
 
+                                              Log::getInstance()->log(Log::Action('admin/server/update'), Output::getClean(Input::get('server_address')));
+
                                               Session::flash('admin_mc_servers_success', $language->get('admin', 'server_updated'));
                                               Redirect::to(URL::build('/admin/minecraft/', 'view=servers'));
                                               die();
@@ -946,6 +954,8 @@ $admin_page = 'minecraft';
                               try {
                                 $queries->delete('mc_servers', array('id', '=', $_GET['id']));
                                 $queries->delete('query_results', array('server_id', '=', $_GET['id']));
+                               //TODO: Get Server name
+                               Log::getInstance()->log(Log::Action('admin/server/delete'), Output::getClean($_GET['id']));
                                 Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
                                 Redirect::to(URL::build('/admin/minecraft/', 'view=servers'));
                                 die();
@@ -1077,6 +1087,8 @@ $admin_page = 'minecraft';
                                       $cache->setCache('server_query_cache');
                                       $cache->store('query_interval', $_POST['interval']);
                                   }
+                                  //TODO: Get Server name
+                                  Log::getInstance()->log(Log::Action('admin/server/default'));
 
                               } catch(Exception $e){
                                   // Error
@@ -1224,6 +1236,8 @@ $admin_page = 'minecraft';
                                           $queries->update('mc_servers', $_GET['edit'], array(
                                             'banner_background' => Output::getClean(Input::get('banner'))
                                           ));
+                                  //TODO: get Server name
+                                          Log::getInstance()->log(Log::Action('admin/server/banner'));
                                       }
                                   } catch(Exception $e){
                                       $error = $e->getMessage();

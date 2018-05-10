@@ -135,6 +135,8 @@ if(Input::exists()) {
 						'last_topic_posted' => $topic_id
 					));
 
+					Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
+
 					// Execute hooks if necessary
                     $forum_events = $queries->getWhere('settings', array('name', '=', 'forum_new_topic_hooks'));
                     if(count($forum_events)){

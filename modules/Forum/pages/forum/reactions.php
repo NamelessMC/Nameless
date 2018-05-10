@@ -75,6 +75,8 @@ if(Input::exists()){
 				'reaction_id' => $_POST['reaction'],
 				'time' => date('U')
 			));
+
+			Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
 		}
 
 		// Redirect

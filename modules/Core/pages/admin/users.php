@@ -224,6 +224,8 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 											'active' => 1
 										));
 
+										Log::getInstance()->log(Log::Action('admin/user/create'), htmlspecialchars(Input::get('username')));
+
 										Session::flash('adm-users', '<div class="alert alert-success">' . $language->get('admin', 'user_created') . '</div>');
 										
 										Redirect::to(URL::build('/admin/users'));
@@ -377,6 +379,9 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 								// Delete the user's topics
 								$queries->delete('topics', array('topic_creator', '=', $_GET['uid']));
 								
+								//TODO: Username
+								Log::getInstance()->log(Log::Action('admin/user/delete'));
+
 								Session::flash('adm-users', '<div class="alert alert-success alert-dismissible">  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $language->get('admin', 'user_deleted') . '</div>');
 								Redirect::to(URL::build('/admin/users'));
 								die();
@@ -518,7 +523,7 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 												'signature' => $signature,
                                                 'secondary_groups' => $secondary_groups
 											));
-
+											Log::getInstance()->log(Log::Action('admin/user/update'), Output::getClean(Input::get('MCUsername')));
 											Redirect::to(URL::build('/admin/users/', 'user=' . $_GET['user']));
 											die();
 										} catch(Exception $e) {

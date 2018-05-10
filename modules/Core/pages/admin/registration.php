@@ -113,6 +113,7 @@ if(Input::exists()){
 			    $queries->update('settings', $validation_group_id, array(
 			        'value' => $new_value
 			    ));
+			    Log::getInstance()->log(Log::Action('admin/user/register'));
 			} catch(Exception $e){
 			    $error = $e->getMessage();
 			}

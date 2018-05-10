@@ -49,7 +49,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 						));
 					}
 					$queries->delete('topics', array('id', '=' , $topic_id));
-
+					Log::getInstance()->log(Log::Action('forums/merge'));
 					// Update latest posts in categories
 					$forum->updateForumLatestPosts();
 					$forum->updateTopicLatestPosts();

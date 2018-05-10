@@ -131,6 +131,8 @@ if(Input::exists()){
 					'post_content' => $content,
 					'last_edited' => date('U')
 				));
+
+				Log::getInstance()->log(Log::Action('forums/post/edit'), $post_id);
 				
 				if(isset($edit_title)){
 					// Update title and label
@@ -166,6 +168,8 @@ if(Input::exists()){
 						'topic_title' => htmlspecialchars_decode(Input::get('title')),
 						'label' => $topic_label
 					));
+
+					Log::getInstance()->log(Log::Action('forums/topic/edit'), htmlspecialchars_decode(Input::get('title')));
 				}
 				
 				// Display success message and redirect

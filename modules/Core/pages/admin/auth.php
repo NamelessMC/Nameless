@@ -66,12 +66,7 @@ if(Input::exists()){
 				$ip = $user->getIP();
 				
 				// Create log
-				$queries->create('logs', array(
-					'time' => date('U'),
-					'action' => 'acp_login',
-					'user_id' => $user->data()->id,
-					'ip' => $ip
-				));
+				Log::getInstance()->log(Log::Action('admin/login'));
 				
 				Redirect::to(URL::build('/admin'));
 				die();

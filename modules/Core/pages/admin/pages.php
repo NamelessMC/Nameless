@@ -163,6 +163,8 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                           'all_html' => ($unsafe == 1) ? 1 : 0
                       ));
 
+                      Log::getInstance()->log(Log::Action('admin/pages/new'), Output::getClean(Input::get('page_title')));
+
                       $last_id = $queries->getLastId();
                       
                       // Permissions
@@ -391,6 +393,8 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                                 'icon' => Input::get('page_icon'),
                                 'all_html' => ($unsafe == 1) ? 1 : 0
                             ));
+                            
+                            Log::getInstance()->log(Log::Action('admin/pages/edit'), Output::getClean(Input::get('page_title')));
 
                             // Permissions
                             // Guest first
@@ -615,6 +619,7 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
               if(isset($_GET['id']) && is_numeric($_GET['id'])){
                 try {
                   $queries->delete('custom_pages', array('id', '=', $_GET['id']));
+                  Log::getInstance()->log(Log::Action('admin/pages/delete'));
                 } catch(Exception $e){
                   die($e->getMessage());
                 }

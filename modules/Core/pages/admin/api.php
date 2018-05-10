@@ -116,6 +116,7 @@ if(Input::exists()){
         } catch(Exception $e){
             $error = $e->getMessage();
         }
+        Log::getInstance()->log(Log::Action('admin/api/change'));
     } else {
         $error = $language->get('general', 'invalid_token');
     }

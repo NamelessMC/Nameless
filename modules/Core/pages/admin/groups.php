@@ -150,6 +150,7 @@ $admin_page = 'users_and_groups';
 											'group_html' => $group_html,
 											'group_html_lg' => $group_html_lg
 										));
+										Log::getInstance()->log(Log::Action('admin/group/create'), Output::getClean(Input::get('groupname')));
 
 										Redirect::to(URL::build('/admin/groups/', 'group=' . $queries->getLastID()));
 										die();
@@ -269,7 +270,7 @@ $admin_page = 'users_and_groups';
 											'staff' => Input::get('staff'),
 											'default_group' => $default
 										));
-										
+										Log::getInstance()->log(Log::Action('admin/group/update'), Input::get('groupname'));
 										Redirect::to(URL::build('/admin/groups/', 'group=' . Output::getClean($_GET['group'])));
 										die();
 									} catch(Exception $e) {
@@ -306,6 +307,7 @@ $admin_page = 'users_and_groups';
 											// Can't delete default group/admin group
 										} else
 											$queries->delete('groups', array('id', '=' , Input::get('id')));
+											Log::getInstance()->log(Log::Action('admin/group/delete'), $group[0]->name;
 									}
 									
 									Redirect::to(URL::build('/admin/groups'));
@@ -351,6 +353,13 @@ $admin_page = 'users_and_groups';
 
                                      try {
                                          $queries->update('groups', $group->id, array('permissions' => $perms_json));
+                                         $queries->create('logs', array(
+											'time' => date('U'),
+											'action' => $language->get('log', 'log_group_update'),
+											'user_id' => $user->data()->id,
+											'ip' => $user->getIP(),
+											'info' => $language->get('log', 'info_group_update_perms').' '.Output::getClean(Input::get('groupname')),
+										));
                                          Session::flash('adm-groups', '<div class="alert alert-success">' . $language->get('admin', 'permissions_updated_successfully') . '</div>');
                                          Redirect::to(URL::build('/admin/groups'));
                                          die();

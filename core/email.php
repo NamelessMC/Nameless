@@ -1,6 +1,6 @@
 <?php
 $GLOBALS['email'] = array(
-    'email' => '',
+    'email' => 'test@test.com',
     'username' => '',
     'password' => '',
     'name' => '',

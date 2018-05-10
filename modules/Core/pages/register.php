@@ -398,6 +398,8 @@ if(Input::exists()){
                                 // Get user ID
                                 $user_id = $queries->getLastId();
 
+                                Log::getInstance()->log(Log::Action('user/register'), "", $user_id);
+
                                 if ($api_verification != '1' && $email_verification == '1') {
                                     $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
                                     $php_mailer = $php_mailer[0]->value;

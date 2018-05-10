@@ -374,6 +374,8 @@ $current_default_language = $current_default_language[0]->value;
                                                 'value' => $_POST['login_method']
                                             ));
 
+                                            Log::getInstance()->log(Log::Action('admin/core/general'));
+                                            
                                             // Update cache
                                             $cache->setCache('force_https_cache');
                                             $cache->store('force_https', $https);
@@ -690,6 +692,8 @@ $current_default_language = $current_default_language[0]->value;
                                                                 'forum_posts' => $forum_posts
                                                             ));
 
+                                                            Log::getInstance()->log(Log::Action('admin/core/profile/new'), Output::getClean(Input::get('name')));
+
                                                             // Redirect
                                                             Redirect::to(URL::build('/admin/core/', 'view=profile'));
                                                             die();
@@ -783,8 +787,10 @@ $current_default_language = $current_default_language[0]->value;
                                             <?php
                                         } else if ($_GET['action'] == 'delete') {
                                             // Delete field
-                                            if (isset($_GET['id']))
+                                            if (isset($_GET['id'])){
                                                 $queries->delete('profile_fields', array('id', '=', $_GET['id']));
+                                                Log::getInstance()->log(Log::Action('admin/core/profile/delete'), Output::getClean($_GET['id']));
+                                            }
 
                                             Redirect::to(URL::build('/admin/core/', 'view=profile'));
                                             die();
@@ -844,6 +850,8 @@ $current_default_language = $current_default_language[0]->value;
                                                             'description' => Output::getClean(Input::get('description')),
                                                             'forum_posts' => $forum_posts
                                                         ));
+
+                                                        Log::getInstance()->log(Log::Action('admin/core/profile/update'), Output::getClean(Input::get('name')));
 
                                                         // Redirect
                                                         Redirect::to(URL::build('/admin/core/', 'view=profile'));
@@ -1047,6 +1055,8 @@ $current_default_language = $current_default_language[0]->value;
                                                         'enabled' => $enabled
                                                     ));
 
+                                                    Log::getInstance()->log(Log::Action('admin/core/reaction/update'), Output::getClean(Input::get('name')));
+
                                                     $reaction = $queries->getWhere('reactions', array('id', '=', $_GET['id']));
                                                     $reaction = $reaction[0];
                                                 } else {
@@ -1151,6 +1161,8 @@ $current_default_language = $current_default_language[0]->value;
                                                             'enabled' => $enabled
                                                         ));
 
+                                                        Log::getInstance()->log(Log::Action('admin/core/reaction/add'), Output::getClean(Input::get('name')));
+
                                                         Redirect::to(URL::build('/admin/core/', 'view=reactions'));
                                                         die();
                                                     } else {
@@ -1215,6 +1227,9 @@ $current_default_language = $current_default_language[0]->value;
 
                                             // Delete reaction
                                             $queries->delete('reactions', array('id', '=', $_GET['reaction']));
+
+                                            //TODO: Name
+                                            Log::getInstance()->log(Log::Action('admin/core/reaction/delete'), $_GET['reaction']);
 
                                             // Redirect
                                             Redirect::to(URL::build('/admin/core/', 'view=reactions'));
@@ -1316,6 +1331,8 @@ $current_default_language = $current_default_language[0]->value;
                                         $queries->update('settings', $discord_hooks_id, array(
                                             'value' => json_encode($hooks)
                                         ));
+
+                                        Log::getInstance()->log(Log::Action('admin/core/social'));
 
                                         $cache->setCache('discord_hook');
                                         $cache->store('events', $_POST['discord_hooks']);
@@ -1456,6 +1473,8 @@ $current_default_language = $current_default_language[0]->value;
                                             $queries->update('settings', $maintenance_id, array(
                                                 'value' => Output::getClean($message)
                                             ));
+
+                                            Log::getInstance()->log(Log::Action('admin/core/maintenance/update'));
 
                                             // Cache
                                             $cache->setCache('maintenance_cache');
@@ -1727,7 +1746,7 @@ $current_default_language = $current_default_language[0]->value;
                                     } else if ($_GET['action'] == 'test') {
                                         echo '<h4 style="display:inline;">' . $language->get('admin', 'send_test_email') . '</h4>';
                                         echo '<span class="pull-right"><a href="' . URL::build('/admin/core/', 'view=email') . '" class="btn btn-primary">' . $language->get('general', 'back') . '</a></span>';
-
+                                        Log::getInstance()->log(Log::Action('admin/core/email/test'));
                                         if (isset($_GET['do']) && $_GET['do'] == 'send') {
                                             $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
                                             $php_mailer = $php_mailer[0]->value;
@@ -1819,6 +1838,8 @@ $current_default_language = $current_default_language[0]->value;
                                                 'value' => $mailer
                                             ));
 
+                                            Log::getInstance()->log(Log::Action('admin/core/email/update'));
+
                                             if (!empty($_POST['email'])) {
                                                 $outgoing_email = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
                                                 $outgoing_email = $outgoing_email[0]->id;
@@ -1849,6 +1870,7 @@ $current_default_language = $current_default_language[0]->value;
                                                     $file = fopen($config_path, 'w');
                                                     fwrite($file, $config);
                                                     fclose($file);
+
                                                 } else {
                                                     // Permissions incorrect
                                                     $error = $language->get('admin', 'unable_to_write_email_config');
@@ -1998,6 +2020,7 @@ $current_default_language = $current_default_language[0]->value;
                                                     'value' => Input::get('terms')
                                                 ));
 
+                                                Log::getInstance()->log(Log::Action('admin/core/term'));
                                                 $success = $language->get('admin', 'terms_updated');
                                             } catch (Exception $e) {
                                                 $error = $e->getMessage();
@@ -2090,6 +2113,8 @@ $current_default_language = $current_default_language[0]->value;
                                                 $error = $e->getMessage();
                                             }
                                         }
+
+                                        Log::getInstance()->log(Log::Action('admin/core/avatar'));
 
                                         $success = $language->get('admin', 'avatar_settings_updated_successfully');
                                     } else
@@ -2247,6 +2272,7 @@ $current_default_language = $current_default_language[0]->value;
                                                     $cache->store($key . '_order', $item);
                                                 }
                                             }
+                                            Log::getInstance()->log(Log::Action('admin/core/nav'));
                                         }
 
                                         // Reload to update info

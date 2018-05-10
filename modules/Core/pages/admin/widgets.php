@@ -190,6 +190,8 @@ if(isset($_GET['action'])){
                                     $active_pages_string = json_encode($active_pages);
 
                                     $queries->update('widgets', $widget->id, array('pages' => $active_pages_string));
+
+                                    Log::getInstance()->log(Log::Action('admin/widget/update'), $widget->name);
                                 } catch(Exception $e){
                                     $error = $e->getMessage();
                                 }
