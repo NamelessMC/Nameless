@@ -82,7 +82,7 @@ define('PAGE', 'mod_ip_lookup');
 					// Search
 					$query = $queries->getWhere('users', array('username', '=', Output::getClean(Input::get('search'))));
 
-					Log::getInstance()->log(Log::Action('mod/iplookup'), Oput::getClean(Input::get('search')));
+					Log::getInstance()->log(Log::Action('mod/iplookup'), Output::getClean(Input::get('search')));
 					
 					if(!count($query)){
 						// Try nickname
