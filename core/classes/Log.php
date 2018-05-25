@@ -204,16 +204,16 @@ class Log{
 	 */
 	public function log($action, $info ="", $user = null, $ip=null){
 		$userTemp = new User();
-		if($ip === null){
-			$ip = ($user)?$user->getIP():$userTemp->getIP();
+		if(!$ip){
+			$ip = $userTemp->getIP();
 		}
 		return $this->_db->insert('logs', array(
-            'time' => date('U'),
-            'action' => $action,
-            'user_id' => ($user)?$user:$userTemp->data()->id,
-            'ip' => $ip,
-            'info' => $info,
-        ));
+			'time' => date('U'),
+			'action' => $action,
+			'user_id' => ($user)?$user:$userTemp->data()->id,
+			'ip' => $ip,
+			'info' => $info,
+		));
 	}
 
 	/**
