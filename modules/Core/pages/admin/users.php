@@ -384,7 +384,54 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 
                                 // Logs
                                 $queries->delete('logs', array('user_id', '=', $_GET['uid']));
-								
+
+                                // Alerts
+                                $queries->delete('alerts', array('user_id', '=', $_GET['uid']));
+
+                                // Blocked users
+                                $queries->delete('blocked_users', array('user_id', '=', $_GET['uid']));
+                                $queries->delete('blocked_users', array('user_blocked_id', '=', $_GET['uid']));
+
+                                // Email errors
+                                $queries->delete('email_errors', array('user_id', '=', $_GET['uid']));
+
+                                // Forum reactions
+                                $queries->delete('forums_reactions', array('user_received', '=', $_GET['uid']));
+                                $queries->delete('forums_reactions', array('user_given', '=', $_GET['uid']));
+
+                                // Friends
+                                $queries->delete('friends', array('user_id', '=', $_GET['uid']));
+                                $queries->delete('friends', array('friend_id', '=', $_GET['uid']));
+
+                                // Infractions
+                                $queries->delete('infractions', array('punished', '=', $_GET['uid']));
+                                $queries->delete('infractions', array('staff', '=', $_GET['uid']));
+
+                                // Private messages
+                                $queries->delete('private_messages', array('author_id', '=', $_GET['uid']));
+                                $queries->delete('private_messages_replies', array('author_id', '=', $_GET['uid']));
+                                $queries->delete('private_messages_users', array('user_id', '=', $_GET['uid']));
+
+                                // Reports
+                                $queries->delete('reports', array('reporter_id', '=', $_GET['uid']));
+                                $queries->delete('reports_comments', array('commenter_id', '=', $_GET['uid']));
+
+                                // User sessions
+                                $queries->delete('users_admin_session', array('user_id', '=', $_GET['uid']));
+                                $queries->delete('users_session', array('user_id', '=', $_GET['uid']));
+
+                                // Profile fields
+                                $queries->delete('users_profile_fields', array('user_id', '=', $_GET['uid']));
+
+                                // Username history
+                                $queries->delete('users_username_history', array('user_id', '=', $_GET['uid']));
+
+                                // Profile wall posts
+                                $queries->delete('user_profile_wall_posts', array('user_id', '=', $_GET['uid']));
+                                $queries->delete('user_profile_wall_posts', array('author_id', '=', $_GET['uid']));
+                                $queries->delete('user_profile_wall_posts_reactions', array('user_id', '=', $_GET['uid']));
+                                $queries->delete('user_profile_wall_posts_replies', array('author_id', '=', $_GET['uid']));
+
 								//TODO: Username
 								Log::getInstance()->log(Log::Action('admin/user/delete'));
 
