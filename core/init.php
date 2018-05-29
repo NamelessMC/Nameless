@@ -450,8 +450,12 @@ if($page != 'install'){
         if($cache->isCached('default_group')) {
             $default_group = $cache->retrieve('default_group');
         } else {
-            $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
-            $default_group = $default_group[0]->id;
+            try {
+                $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
+                $default_group = $default_group[0]->id;
+            } catch(Exception $e){
+                $default_group = 1;
+            }
 
             $cache->store('default_group', $default_group);
         }
