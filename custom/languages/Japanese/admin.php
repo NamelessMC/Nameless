@@ -122,6 +122,7 @@ $language = array(
     'validation_promote_group' => '昇格検証グループ',
     'validation_promote_group_info' => 'アカウントの有効を確認したユーザーに昇格されるグループです。',
     'login_method' => 'Login Method',
+    'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
 
 	// Reactions
 	'icon' => 'アイコン',

@@ -125,6 +125,12 @@ $current_default_language = $current_default_language[0]->value;
                                         <a href="<?php echo URL::build('/admin/core/', 'view=navigation'); ?>"><?php echo $language->get('admin', 'navigation'); ?></a>
                                     </td>
                                 </tr>
+                                <?php } if($user->hasPermission('admincp.core.terms')){ ?>
+                                    <tr>
+                                        <td>
+                                            <a href="<?php echo URL::build('/admin/core/', 'view=terms'); ?>"><?php echo $language->get('admin', 'privacy_and_terms'); ?></a>
+                                        </td>
+                                    </tr>
                                 <?php } if($user->hasPermission('admincp.core.reactions')){ ?>
                                 <tr>
                                     <td>
@@ -141,12 +147,6 @@ $current_default_language = $current_default_language[0]->value;
                                 <tr>
                                     <td>
                                         <a href="<?php echo URL::build('/admin/core/', 'view=social'); ?>"><?php echo $language->get('admin', 'social_media'); ?></a>
-                                    </td>
-                                </tr>
-                                <?php } if($user->hasPermission('admincp.core.terms')){ ?>
-                                <tr>
-                                    <td>
-                                        <a href="<?php echo URL::build('/admin/core/', 'view=terms'); ?>"><?php echo $language->get('user', 'terms_and_conditions'); ?></a>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -2005,6 +2005,10 @@ $current_default_language = $current_default_language[0]->value;
                                     if (Token::check(Input::get('token'))) {
                                         $validate = new Validate();
                                         $validation = $validate->check($_POST, array(
+                                            'privacy' => array(
+                                                'required' => true,
+                                                'max' => 2048
+                                            ),
                                             'terms' => array(
                                                 'required' => true,
                                                 'max' => 2048
@@ -2013,6 +2017,13 @@ $current_default_language = $current_default_language[0]->value;
 
                                         if ($validation->passed()) {
                                             try {
+                                                $privacy_id = $queries->getWhere('settings', array('name', '=', 'privacy_policy'));
+                                                $privacy_id = $privacy_id[0]->id;
+
+                                                $queries->update('settings', $privacy_id, array(
+                                                    'value' => Input::get('privacy')
+                                                ));
+
                                                 $terms_id = $queries->getWhere('settings', array('name', '=', 't_and_c_site'));
                                                 $terms_id = $terms_id[0]->id;
 
@@ -2034,8 +2045,11 @@ $current_default_language = $current_default_language[0]->value;
 
                                 $site_terms = $queries->getWhere('settings', array('name', '=', 't_and_c_site'));
                                 $site_terms = $site_terms[0]->value;
+
+                                $site_privacy = $queries->getWhere('settings', array('name', '=', 'privacy_policy'));
+                                $site_privacy = $site_privacy[0]->value;
                                 ?>
-                                <h4><?php echo $language->get('user', 'terms_and_conditions'); ?></h4>
+                                <h4><?php echo $language->get('admin', 'privacy_and_terms'); ?></h4>
 
                                 <form action="" method="post">
                                     <?php if (isset($error)) { ?>
@@ -2043,6 +2057,12 @@ $current_default_language = $current_default_language[0]->value;
                                     <?php } else if (isset($success)) { ?>
                                         <div class="alert alert-success"><?php echo $success; ?></div>
                                     <?php } ?>
+
+                                    <div class="form-group">
+                                        <label for="InputPrivacy"><?php echo $language->get('general', 'privacy_policy'); ?></label>
+                                        <textarea style="width:100%" rows="10" name="privacy"
+                                                  id="InputPrivacy"><?php echo Output::getPurified($site_privacy); ?></textarea>
+                                    </div>
 
                                     <div class="form-group">
                                         <label for="InputTerms"><?php echo $language->get('user', 'terms_and_conditions'); ?></label>
@@ -2403,8 +2423,10 @@ $current_default_language = $current_default_language[0]->value;
         <?php
         if ($_GET['view'] == 'maintenance')
             echo Input::createEditor('InputMaintenanceMessage');
-        else
+        else {
+            echo Input::createEditor('InputPrivacy');
             echo Input::createEditor('InputTerms');
+        }
         ?>
     </script>
 <?php } else if (isset($_GET['view']) && $_GET['view'] == 'avatars'){ ?>

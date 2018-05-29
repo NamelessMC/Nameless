@@ -36,7 +36,7 @@ PermissionHandler::registerPermissions('AdminCP', array(
     'admincp.core.reactions' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('user', 'reactions'),
     'admincp.core.registration' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'registration'),
     'admincp.core.social_media' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'social_media'),
-    'admincp.core.terms' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('user', 'terms_and_conditions'),
+    'admincp.core.terms' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'privacy_and_terms'),
     'admincp.minecraft' => $language->get('admin', 'minecraft'),
     'admincp.minecraft.authme' => $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
     'admincp.minecraft.verification' => $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
@@ -129,6 +129,7 @@ $pages->add('Core', '/queries/pms', 'queries/pms.php');
 $pages->add('Core', '/queries/servers', 'queries/servers.php');
 $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
 $pages->add('Core', '/terms', 'pages/terms.php');
+$pages->add('Core', '/privacy', 'pages/privacy.php');
 $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
 $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
 

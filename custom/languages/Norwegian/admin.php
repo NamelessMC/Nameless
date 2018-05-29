@@ -120,6 +120,7 @@ $language = array(
     'validation_promote_group' => 'Post-valideringsgruppe',
     'validation_promote_group_info' => 'Dette er gruppen brukeren vil bli forfremmet til når personen har verifisert kontoen sin.',
     'login_method' => 'Login Metode',
+    'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
 
 	// Reactions
 	'icon' => 'Ikon',
