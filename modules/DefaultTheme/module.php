@@ -1,8 +1,8 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  https://github.com/samerton
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -10,5 +10,5 @@
  */
 
 $module_version = 'v1.0.0';
-$nameless_version = '2.0.0-pr3';
+$nameless_version = '2.0.0-pr4';
 $module_author = 'Samerton';

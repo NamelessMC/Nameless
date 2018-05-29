@@ -170,3 +170,150 @@ NamelessMC version 2 Changelog
 - Move AdminCP navbar contents into container
 - Allow editing/deleting profile wall posts
 - Update updater URL
+
+2.0.0 pr-4
+- Update + add new translations
+- Update route check
+- Update DataTables
+- Fix ' in database details not being entered into config correctly
+- Remove non-alphanumeric characters from forum URLs
+- Allow spaces in alphanumeric check
+- Fix subforums not loading
+- Fix image overflow in homepage news posts
+- Fix issues with Minecraft banner MOTD colours
+- Add default 25565 port to banner query
+- Add new core permission system
+- Add missing permissions to installer update script
+- Add functionality to "Can view other users' topics?" permissions
+- Add reCAPTCHA configuration
+- Fix AdminCP overview chart issue
+- Prevent changing own group in AdminCP -> Users tab without permission
+- Update default template to Bootstrap 4 beta 2
+- Add line break between forum posts
+- Add missing Javascript files to template
+- Add stringToURL function to Util class
+- Add user avatar to navbar
+- Add .idea to gitignore
+- Fix incorrect last reply in forum index
+- Fix broken pagination in forum view
+- Fix Discord widget size
+- Add legacy v1 API
+- Add 6h, 12h, 1d, 15d to graph options
+- Automatically remove template if it doesn't exist
+- Set port to 25565 if none is specified
+- Fix homepage server offline message
+- Fix API reports alert, and order reports by last update time
+- Add view count to profile pages
+- Fix nickname changing in AdminCP not working
+- Fix broken "Remember Me" button on login page
+- Add private profiles
+- Fix unique username check in UserCP, and minor profile changes
+- Preserve private profile setting value when private profiles are disabled
+- Remove container inside container
+- Bypass private profile permission in Users & Groups
+- Update AdminCP users private profile query
+- Reset permissions variables in AdminCP forum permission editing
+- Fix share dropdown overflow
+- Fix timezone related forum post date issue
+- Fix issue on profile page
+- Fix new topic post timezone
+- Fix maintenance login link
+- Display dropzone debugging info in console
+- Update external query API
+- Fix URL for reports from API
+- Fix AdminCP night mode editor text colour
+- Allow a custom message when registration is disabled
+- Add root path constant to all file includes
+- Check for mysql/mysqlnd PHP extensions
+- Fix missing database setting
+- Update AdminCP user creation
+- Default request scheme to http if not set
+- Fix new topic anti spam check
+- Add option to change MySQL storage engine
+- Add author's group to latest announcements
+- Add default server IP variable to index page
+- Fix card body on homepage
+- Add permission to nicknames
+- Allow viewing sticky topics in only view own topic forums
+- Add email field to contact form
+- Update AdminCP modules file check
+- Add error message for sending emails too quickly
+- Allow custom HTML lang attribute on 404 pages
+- Fix default language for root user
+- Allow languages to specify their own meta charset content
+- Fix broken topics with "banner" or "profile" in title
+- Update mcassoc return link
+- Prevent saving 404 not found page as last page
+- Add all user groups to Smarty variable on profile page
+- Optimise images
+- Add homepage URL as Smarty variable
+- Fix potential AuthMe connector issues
+- Move CSS from core to default template
+- Update default template to Bootstrap 4.0.0
+- Add Bootswatch themes to default template
+- Update navbar template
+- Update timeline on profile pages
+- Replace panels in AdminCP with cards
+- Add redirect forums
+- Fix fatal error if $ping doesn't exist
+- Make default server query variables available on all pages
+- Add example v2 nginx config
+- Fix : sometimes showing after server IP on homepage
+- Add SET NAMES command to custom DB class
+- Fix broken "Minecraft Service Status"
+- Add forum post graph to UserCP
+- Add custom error handler
+- Disable server banners if exif_imagetype isn't installed
+- Allow viewing error logs in AdminCP
+- Add extra user related variables to topic view
+- Modify topic view Smarty variables
+- Update admin group permissions within installer upgrade
+- Add initial, untested API implementation
+- Allow API to be accessed when maintenance mode is enabled
+- Update getLatestNews function
+- Start on hook system, add Discord webhook
+- Change "inputted" to "entered" to make phrase clearer
+- Fix issue with enabling the first forum web hook
+- Update module installation
+- Allow adding class to <html> via template
+- Update nginx example config
+- Fix issue with incorrect API key
+- Update default template initialisation
+- Update route check in default template
+- Fix AdminCP users nickname issue
+- Start alternative method of account validation through API
+- Add default_group column to groups table
+- Add message if invalid email provided in installer
+- Fix incorrect login redirect for non-friendly URLs in a subdirectory
+- Fix API registration default group
+- Fix AdminCP night mode table font colour
+- Show all groups in post validation group dropdown
+- Add JS/CSS/subdirectory support to template editor
+- Change unicode charset to utf8mb4
+- Fix debugging being permanently disabled
+- Allow disabling mcassoc integration once enabled
+- Fix last IP being reset when editing users in the AdminCP
+- Add card to view topic template
+- Temporarily remove reset password link in AdminCP
+- Add cookie notice
+- Allow switching between usernames + emails for logins
+- Add username sync option to API using serverInfo method
+- Fix wrong translation showing for forum stats
+- Update installer login
+- Fix signin details being remembered if tfa is cancelled
+- Change update zip obtained for updater
+- Add logging implementation
+- Allow templates to add <style> tags to head
+- Update editor emojis
+- Update 404/error back buttons to work on Safari
+- Fix login issue
+- Allow changing path within installer
+- Add option to test and set friendly URLs in installer
+- Add missing editor emoji file
+- Update log class
+- Add online staff + online members widgets
+- Remove built-in forum online user list
+- Add privacy policy page + default policy
+- Remove user logs upon account deletion
+- Remove more user data upon account deletion
+- Fix update execute issues
