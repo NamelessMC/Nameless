@@ -378,6 +378,12 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 								
 								// Delete the user's topics
 								$queries->delete('topics', array('topic_creator', '=', $_GET['uid']));
+
+								// IP logs
+                                $queries->delete('users_ips', array('user_id', '=', $_GET['uid']));
+
+                                // Logs
+                                $queries->delete('logs', array('user_id', '=', $_GET['uid']));
 								
 								//TODO: Username
 								Log::getInstance()->log(Log::Action('admin/user/delete'));
