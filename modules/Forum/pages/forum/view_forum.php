@@ -182,21 +182,6 @@ if(isset($_GET['p'])){
             $smarty->assign('SERVER_STATUS', '');
         }
 
-        // List online users
-        // Todo: cache this
-        $online_users = $queries->getWhere('users', array('last_online', '>', strtotime("-10 minutes")));
-        if (count($online_users)) {
-            $online_users_string = '';
-            foreach ($online_users as $online_user) {
-                $online_users_string .= '<a style="' . $user->getGroupClass($online_user->id) . '" href="' . URL::build('/profile/' . Output::getClean($online_user->username)) . '">' . Output::getClean($online_user->nickname) . '</a>, ';
-            }
-            $smarty->assign('ONLINE_USERS_LIST', rtrim($online_users_string, ', '));
-        } else {
-            // Nobody online
-            $smarty->assign('ONLINE_USERS_LIST', $forum_language->get('forum', 'no_users_online'));
-        }
-        $smarty->assign('ONLINE_USERS', $forum_language->get('forum', 'online_users'));
-
         // Assignments
         $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
 

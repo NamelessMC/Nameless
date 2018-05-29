@@ -131,12 +131,6 @@
 			  <h2>{$STATS} <i class="fa fa-bar-chart"></i></h2>
 			  {$USERS_REGISTERED}<br />
 			  {$LATEST_MEMBER}
-			  
-			  <hr />
-			  
-			  <h3>{$ONLINE_USERS}</h3>
-			  {$ONLINE_USERS_LIST}
-			  
 			</div>
 		  </div>
 
@@ -144,7 +138,7 @@
 		    <br />
 		    {foreach from=$WIDGETS item=widget}
 		      {$widget}
-		      <br /><br />
+		      <br />
 		    {/foreach}
 		  {/if}
 		</div>
