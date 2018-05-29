@@ -101,5 +101,13 @@ $language = array(
 	 *  Cookie notice
 	 */
 	'cookie_notice' => 'Este site usa cookies para melhorar a sua experiência de navegação. Ao registar-se no nosso site ou fechar este aviso você concorda com a sua utilização.',
-	'cookie_agree' => 'Concordo'
+	'cookie_agree' => 'Concordo',
+
+    /*
+     *  Widgets
+     */
+    'online_staff' => '<h2>Online Staff</h2>',
+    'no_online_staff' => 'There are no staff members online.',
+    'online_users' => '<h2>Online Users</h2>',
+    'no_online_users' => 'There are no users online.'
 );

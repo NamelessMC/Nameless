@@ -278,6 +278,41 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
 		$widgets->add(new DiscordWidget($module_pages, $discord));
 	}
 
+    // Online staff
+    require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php');
+    $cache->setCache('online_members');
+
+    if($cache->isCached('staff'))
+        $online = $cache->retrieve('staff');
+    else {
+        $online = DB::getInstance()->query('SELECT id, username, nickname FROM nl2_users WHERE last_online > ' . strtotime('-5 minutes') . ' AND group_id IN (SELECT id FROM nl2_groups WHERE staff = 1)', array())->results();
+        $cache->store('staff', $online, 120);
+    }
+
+    $module_pages = $widgets->getPages('Online Staff');
+    $widgets->add(new OnlineStaffWidget($module_pages, $online, $smarty, array('title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'))));
+
+    // Online users
+    require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsers.php');
+    $cache->setCache('online_members');
+
+    if($cache->isCached('users'))
+        $online = $cache->retrieve('users');
+    else {
+        if($cache->isCached('include_staff_in_users'))
+            $include_staff = $cache->retrieve('include_staff_in_users');
+        else {
+            $include_staff = 0;
+            $cache->store('include_staff_in_users', 0);
+        }
+
+        $online = DB::getInstance()->query('SELECT id, username, nickname FROM nl2_users WHERE last_online > ? AND group_id IN (SELECT id FROM nl2_groups WHERE staff = ?)', array(strtotime('-5 minutes'), $include_staff))->results();
+        $cache->store('users', $online, 120);
+    }
+
+    $module_pages = $widgets->getPages('Online Users');
+    $widgets->add(new OnlineUsersWidget($module_pages, $online, $smarty, array('title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'))));
+
 	// Discord hook
     require_once(ROOT_PATH . '/modules/Core/hooks/DiscordHook.php');
 	$cache->setCache('discord_hook');

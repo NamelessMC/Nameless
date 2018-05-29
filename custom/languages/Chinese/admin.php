@@ -369,6 +369,9 @@ $language = array(
 	'editing_widget_x' => '編輯小工具 {x}', // Don't replace {x}
 	'module_x' => '模組: {x}', // Don't replace {x}
 
+    // Online users widget
+    'include_staff_in_user_widget' => 'Include staff members in user widget?',
+
 	// Custom Pages
 	'pages' => '自訂頁面',
 	'new_page' => '<i class="fa fa-plus-circle"></i> 新自訂頁面',

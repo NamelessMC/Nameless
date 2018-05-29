@@ -366,6 +366,9 @@ $language = array(
 	'editing_widget_x' => 'Redigerar widget {x}', // Don't replace {x}
 	'module_x' => 'Module: {x}', // Don't replace {x}
 
+    // Online users widget
+    'include_staff_in_user_widget' => 'Include staff members in user widget?',
+
     // Custom Pages
     'pages' => 'Sidor',
     'new_page' => '<i class="fa fa-plus-circle"></i>Ny Sida',

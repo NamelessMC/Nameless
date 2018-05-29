@@ -367,6 +367,9 @@ $language = array(
 	'editing_widget_x' => 'ウィジェット {x} の編集', // Don't replace {x}
 	'module_x' => 'モジュール: {x}', // Don't replace {x}
 
+    // Online users widget
+    'include_staff_in_user_widget' => 'Include staff members in user widget?',
+
     // Custom Pages
     'pages' => 'ページ',
     'new_page' => '<i class="fa fa-plus-circle"></i> 新しいページ',
