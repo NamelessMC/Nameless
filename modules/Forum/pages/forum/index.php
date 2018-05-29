@@ -73,28 +73,6 @@ if($user->isLoggedIn()){
 	if(Session::exists('spam_info')){
 		$smarty->assign('SPAM_INFO', Session::flash('spam_info'));
 	}
-	
-    // List online users
-	// Check cache
-	$cache->setCache('online_users');
-	if($cache->isCached('online_users')){
-		$online_users = $cache->retrieve('online_users');
-	} else {
-		$online_users = $queries->getWhere('users', array('last_online', '>', strtotime('-10 minutes')));
-		$cache->store('online_users', $online_users, 120);
-	}
-	
-    if(count($online_users)){
-	    $online_users_string = '';
-	    foreach($online_users as $online_user){
-		    $online_users_string .= '<a style="' . $user->getGroupClass($online_user->id) . '" href="' . URL::build('/profile/' . Output::getClean($online_user->username)) . '">' . Output::getClean($online_user->nickname) . '</a>, ';
-	    }
-	    $smarty->assign('ONLINE_USERS_LIST', rtrim($online_users_string, ', '));
-    } else {
-	    // Nobody online
-	    $smarty->assign('ONLINE_USERS_LIST', $forum_language->get('forum', 'no_users_online'));
-    }
-	$smarty->assign('ONLINE_USERS', $forum_language->get('forum', 'online_users'));
 
 	// Generate latest posts to pass to template
 	// Check cache per user's group
