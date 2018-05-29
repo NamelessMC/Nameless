@@ -128,6 +128,7 @@ $language = array(
     'validation_promote_group' => 'Post-validation group',
     'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
     'login_method' => 'Login Method',
+    'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
 
 	// Reactions
 	'icon' => 'Icon',

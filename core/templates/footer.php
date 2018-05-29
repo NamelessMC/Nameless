@@ -73,3 +73,7 @@ $smarty->assign(array(
 // Terms
 $smarty->assign('TERMS_LINK', URL::build('/terms'));
 $smarty->assign('TERMS_TEXT', $language->get('user', 'terms_and_conditions'));
+
+// Privacy
+$smarty->assign('PRIVACY_LINK', URL::build('/privacy'));
+$smarty->assign('PRIVACY_TEXT', $language->get('general', 'privacy_policy'));
