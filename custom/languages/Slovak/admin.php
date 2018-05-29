@@ -365,6 +365,9 @@ $language = array(
 	'editing_widget_x' => 'Upravenie widgetov {x}', // Don't replace {x}
 	'module_x' => 'Doplněk: {x}', // Don't replace {x}
 
+    // Online users widget
+    'include_staff_in_user_widget' => 'Include staff members in user widget?',
+
 	// Custom Pages
 	'pages' => 'Stránky',
 	'new_page' => '<i class="fa fa-plus-circle"></i> Nová stránka',

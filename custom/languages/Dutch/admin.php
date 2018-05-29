@@ -366,6 +366,9 @@ $language = array(
 	'editing_widget_x' => 'Widget {x} bewerken', // Don't replace {x}
 	'module_x' => 'Module: {x}', // Don't replace {x}
 
+    // Online users widget
+    'include_staff_in_user_widget' => 'Include staff members in user widget?',
+
     // aangepaste pagina's
     'pages' => 'Pagina\'s',
     'new_page' => '<i class="fa fa-plus-circle"></i> Nieuwe pagina',

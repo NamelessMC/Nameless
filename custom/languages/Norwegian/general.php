@@ -100,5 +100,13 @@ $language = array(
      *  Cookie notice
      */
     'cookie_notice' => 'Denne nettsiden benytter seg av cookies for å forbedre din brukeropplevelse. Ved å registrere deg på vår nettside eller ved å lukke denne meldingen, aksepterer du dette.',
-    'cookie_agree' => 'Enig'
+    'cookie_agree' => 'Enig',
+
+    /*
+     *  Widgets
+     */
+    'online_staff' => '<h2>Online Staff</h2>',
+    'no_online_staff' => 'There are no staff members online.',
+    'online_users' => '<h2>Online Users</h2>',
+    'no_online_users' => 'There are no users online.'
 );

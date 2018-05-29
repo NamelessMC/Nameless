@@ -73,7 +73,7 @@
 		{if count($WIDGETS)}
 		  {foreach from=$WIDGETS item=widget}
 			{$widget}
-			<br /><br />
+			<br />
 		  {/foreach}
 		{/if}
 

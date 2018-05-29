@@ -162,85 +162,102 @@ if(isset($_GET['action'])){
                             <?php
                         }
                     } else {
-                        // Editing widget
                         // Ensure widget exists
-                        if(!isset($_GET['w']) || !is_numeric($_GET['w'])){
+                        if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
                             Redirect::to(URL::build('/admin/widgets'));
                             die();
                         }
 
                         $widget = $queries->getWhere('widgets', array('id', '=', $_GET['w']));
-                        if(!count($widget)){
+                        if (!count($widget)) {
                             Redirect::to(URL::build('/admin/widgets'));
                             die();
                         }
                         $widget = $widget[0];
 
-                        $active_pages = json_decode($widget->pages, true);
-
-                        if(Input::exists()){
-                            if(Token::check(Input::get('token'))){
-                                try {
-                                    // Updated pages list
-                                    if(isset($_POST['pages']) && count($_POST['pages']))
-                                        $active_pages = $_POST['pages'];
-                                    else
-                                        $active_pages = array();
-
-                                    $active_pages_string = json_encode($active_pages);
-
-                                    $queries->update('widgets', $widget->id, array('pages' => $active_pages_string));
-
-                                    Log::getInstance()->log(Log::Action('admin/widget/update'), $widget->name);
-                                } catch(Exception $e){
-                                    $error = $e->getMessage();
-                                }
+                        if($_GET['action'] == 'settings'){
+                            // Widget settings
+                            if($widgets->getWidget($widget->name)->getSettings() == null || !file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . $widgets->getWidget($widget->name)->getSettings())){
+                                Redirect::to(URL::build('/admin/widgets'));
+                                die();
                             } else
-                                $error = $language->get('general', 'invalid_token');
-                        }
+                                require_once($widgets->getWidget($widget->name)->getSettings());
 
-                        if(is_null($active_pages))
-                            $active_pages = array();
-                        ?>
-                        <h4 style="display:inline;"><?php echo str_replace('{x}', Output::getClean($widget->name), $language->get('admin', 'editing_widget_x')); ?></h4>
-                        <span class="pull-right"><a class="btn btn-warning" href="<?php echo URL::build('/admin/widgets'); ?>"><?php echo $language->get('general', 'back'); ?></a></span>
-                        <br /><br />
-                        <?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
-                        <form action="" method="post">
-                            <?php
-                            $possible_pages = $pages->returnWidgetPages();
-                            if(count($possible_pages)){
-                                foreach($possible_pages as $module => $module_pages){
-                                    if(count($module_pages)){
-                                        ?>
-                            <div class="table-responsive">
-                              <table class="table table-striped">
-                                <thead>
-                                  <tr><th><?php echo Output::getClean($module); ?></th></tr>
-                                </thead>
-                                <tbody>
-                                  <?php foreach($module_pages as $page => $value){ ?>
-                                  <tr>
-                                    <td>
-                                      <label for="<?php echo Output::getClean($page); ?>"><?php echo Output::getClean(ucfirst($page)); ?></label>
-                                      <span class="pull-right">
-                                        <input class="js-switch" type="checkbox" name="pages[]" id="<?php echo Output::getClean($page); ?>" value="<?php echo Output::getClean($page); ?>"<?php if(in_array($page, $active_pages)) echo ' checked'; ?>>
-                                      </span>
-                                    </td>
-                                  </tr>
-                                  <?php } ?>
-                                </tbody>
-                              </table>
-                            </div>
-                                        <?php
+                        } else if($_GET['action'] == 'edit') {
+                            // Editing widget
+                            $active_pages = json_decode($widget->pages, true);
+
+                            if (Input::exists()) {
+                                if (Token::check(Input::get('token'))) {
+                                    try {
+                                        // Updated pages list
+                                        if (isset($_POST['pages']) && count($_POST['pages']))
+                                            $active_pages = $_POST['pages'];
+                                        else
+                                            $active_pages = array();
+
+                                        $active_pages_string = json_encode($active_pages);
+
+                                        $queries->update('widgets', $widget->id, array('pages' => $active_pages_string));
+
+                                        Log::getInstance()->log(Log::Action('admin/widget/update'), $widget->name);
+                                    } catch (Exception $e) {
+                                        $error = $e->getMessage();
+                                    }
+                                } else
+                                    $error = $language->get('general', 'invalid_token');
+                            }
+
+                            if (is_null($active_pages))
+                                $active_pages = array();
+                            ?>
+                            <h4 style="display:inline;"><?php echo str_replace('{x}', Output::getClean($widget->name), $language->get('admin', 'editing_widget_x')); ?></h4>
+                            <span class="pull-right"><?php if ($widgets->getWidget($widget->name)->getSettings() != null) echo '<a class="btn btn-info" href="' . URL::build('/admin/widgets/', 'action=settings&amp;w=' . $widget->id) . '">' . $language->get('admin', 'settings') . '</a> '; ?>
+                                <a class="btn btn-warning"
+                                   href="<?php echo URL::build('/admin/widgets'); ?>"><?php echo $language->get('general', 'back'); ?></a></span>
+                            <br/><br/>
+                            <?php if (isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
+                            <form action="" method="post">
+                                <?php
+                                $possible_pages = $pages->returnWidgetPages();
+                                if (count($possible_pages)) {
+                                    foreach ($possible_pages as $module => $module_pages) {
+                                        if (count($module_pages)) {
+                                            ?>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th><?php echo Output::getClean($module); ?></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <?php foreach ($module_pages as $page => $value) { ?>
+                                                        <tr>
+                                                            <td>
+                                                                <label for="<?php echo Output::getClean($page); ?>"><?php echo Output::getClean(ucfirst($page)); ?></label>
+                                                                <span class="pull-right">
+                                                                    <input class="js-switch" type="checkbox" name="pages[]"
+                                                                           id="<?php echo Output::getClean($page); ?>"
+                                                                           value="<?php echo Output::getClean($page); ?>"<?php if (in_array($page, $active_pages)) echo ' checked'; ?>>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <?php
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                          <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
-                          <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
-                        </form>
-                    <?php
+                                ?>
+                                <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
+                                <input type="submit" class="btn btn-primary"
+                                       value="<?php echo $language->get('general', 'submit'); ?>">
+                            </form>
+                            <?php
+                        }
                     }
                     ?>
                 </div>
