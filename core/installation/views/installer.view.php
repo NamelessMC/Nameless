@@ -187,7 +187,7 @@
 				// Get charset
 				if($_POST['charset'] == 'latin1'){
 					$charset = 'latin1';
-				} else $charset = 'utf8';
+				} else $charset = 'utf8mb4';
 				
 				// Get DB engine
 				if($_POST['engine'] == 'MyISAM'){
