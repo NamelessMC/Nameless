@@ -166,9 +166,11 @@ class Nameless2API
                     $this->validateUser();
                     break;
 
+                /*
                 case 'log':
                     $this->log();
                     break;
+                */
 
                 default:
                     $this->throwError(3, $this->_language->get('api', 'invalid_api_method'));
@@ -848,10 +850,11 @@ class Nameless2API
         }
     }
 
+    /*
     private function log(){
         //Ensures the API key is valid
         if($this->_validated === true){
-            if(!isset($_POST), || empty($_POST), || !isset($_POST['action']) || !isset($_POST['uuid']) || !isset($_POST['userIP'])){
+            if(!isset($_POST) || empty($_POST) || !isset($_POST['action']) || !isset($_POST['uuid']) || !isset($_POST['userIP'])){
                 $this->throwError();
             }
             $user_query = $this->_db->get('users', array('uuid', '=', str_replace('-', '', $_POST['uuid'])));
@@ -873,4 +876,5 @@ class Nameless2API
             }
         }
     }
+    */
 }
