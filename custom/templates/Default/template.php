@@ -9,8 +9,8 @@
  *  Default template
  */
 
-$template_version = 'v2.0.0-pr3'; // Version number of template
-$nl_template_version = '2.0.0-pr3'; // Nameless version template is designed for
+$template_version = 'v2.0.0-pr4'; // Version number of template
+$nl_template_version = '2.0.0-pr4'; // Nameless version template is designed for
 
 $cache->setCache('default_template');
 if($cache->isCached('bootswatch')){
