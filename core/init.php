@@ -317,7 +317,7 @@ if($page != 'install'){
     $mod_nav	= new Navigation();
 
     // Add homepage to navbar
-    // Check navbar order in cache
+    // Check navbar order + icon in cache
     $cache->setCache('navbar_order');
     if(!$cache->isCached('index_order')){
         // Create cache entry now
@@ -326,7 +326,14 @@ if($page != 'install'){
     } else {
         $home_order = $cache->retrieve('index_order');
     }
-    $navigation->add('index', $language->get('general', 'home'), URL::build('/'), 'top', null, $home_order);
+
+    $cache->setCache('navbar_icons');
+    if($cache->isCached('index_icon'))
+       $home_icon = $cache->retrieve('index_icon');
+    else
+        $home_icon = '';
+
+    $navigation->add('index', $language->get('general', 'home'), URL::build('/'), 'top', null, $home_order, $home_icon);
 
     // Widgets
     $widgets = new Widgets($cache);

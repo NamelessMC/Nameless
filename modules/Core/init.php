@@ -174,15 +174,15 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
 												$page_order = $cache->retrieve($custom_page->id . '_order');
 											}
 
-											$navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order);
+											$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order, $custom_page->icon);
 											break;
 										case 2:
 											// "More" dropdown
-											$more[] = array('title' => $custom_page->icon . ' ' . Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect);
+											$more[] = array('id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'icon' => $custom_page->icon);
 											break;
 										case 3:
 											// Footer
-											$navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
+											$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000, $custom_page->icon);
 											break;
 									}
 									break 2;
@@ -218,15 +218,15 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
 											$page_order = $cache->retrieve($custom_page->id . '_order');
 										}
 
-										$navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order);
+										$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order, $custom_page->icon);
 										break;
 									case 2:
 										// "More" dropdown
-										$more[] = array('title' => $custom_page->icon . ' ' . Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect);
+										$more[] = array('id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'icon' => $custom_page->icon);
 										break;
 									case 3:
 										// Footer
-										$navigation->add($custom_page->id, $custom_page->icon . ' ' . Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000);
+										$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000, $custom_page->icon);
 										break;
 								}
 							}
@@ -239,9 +239,15 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
 		$custom_page_permissions = null;
 
 		if(count($more)){
-			$navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', 2500);
+		    $cache->setCache('navbar_icons');
+		    if($cache->isCached('more_dropdown_icon')){
+		        $icon = $cache->retrieve('more_dropdown_icon');
+            } else
+                $icon = '';
+
+			$navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', 2500, $icon);
 			foreach($more as $item)
-				$navigation->addItemToDropdown('more_dropdown', $item['title'], $item['title'], $item['url'], 'top', ($item['redirect']) ? '_blank' : null);
+				$navigation->addItemToDropdown('more_dropdown', $item['id'], $item['title'], $item['url'], 'top', ($item['redirect']) ? '_blank' : null, $item['icon']);
 		}
 	}
 	$custom_pages = null;
