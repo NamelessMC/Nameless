@@ -10,17 +10,17 @@
 		  {if isset($item.items)}
 		    {* Dropdown *}
 			<li class="nav-item dropdown">
-			  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{$item.title} {$item.icon}</a>
+			  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{$item.icon} {$item.title}</a>
 			  <div class="dropdown-menu">
 			    {foreach from=$item.items item=dropdown}
-				  <a class="dropdown-item" href="{$dropdown.link}" target="{$dropdown.target}">{$dropdown.title} {$dropdown.icon}</a>
+				  <a class="dropdown-item" href="{$dropdown.link}" target="{$dropdown.target}">{$dropdown.icon} {$dropdown.title}</a>
 				{/foreach}
 			  </div>
 			</li>
 		  {else}
 		    {* Normal link *}
 			<li class="nav-item{if isset($item.active)} active{/if}">
-			  <a class="nav-link" href="{$item.link}" target="{$item.target}">{$item.title} {$item.icon}</a></li>
+			  <a class="nav-link" href="{$item.link}" target="{$item.target}">{$item.icon} {$item.title}</a></li>
 		  {/if}
 		{/foreach}
 	  </ul>
