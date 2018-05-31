@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -26,7 +26,8 @@ class Navigation {
 	//			$location (string) 	- location to add item to, either 'top' or 'footer' (defaults to 'top')
 	//			$target (string)	- HTML target attribute (eg '_blank') (optional)
 	//          $order (int)        - nav item order (default 10)
-	public function add($name, $title, $link, $location = 'top', $target = null, $order = 10){
+    //          $icon (string)      - icon to prepend to nav item (default '')
+	public function add($name, $title, $link, $location = 'top', $target = null, $order = 10, $icon = ''){
 		// Add the link to the navigation
 		if($location == 'top'){
 			// Add to top navbar
@@ -34,7 +35,8 @@ class Navigation {
 				'title' => $title,
 				'link' => $link,
 				'target' => $target,
-                'order' => $order
+                'order' => $order,
+                'icon' => $icon
 			);
 			
 		} else {
@@ -43,7 +45,8 @@ class Navigation {
 				'title' => $title,
 				'link' => $link,
 				'target' => $target,
-                'order' => $order
+                'order' => $order,
+                'icon' => $icon
 			);
 		}
 	}
@@ -53,7 +56,8 @@ class Navigation {
 	//			$title (string)		- dropdown title (required)
 	//			$location (string)	- location to add item to, either 'top' or 'footer' (defaults to 'top'),
     //          $order (int)        - nav item order (default 10)
-	public function addDropdown($name, $title, $location = 'top', $order = 10){
+    //          $icon (string)      - icon to prepend to nav item (default '')
+	public function addDropdown($name, $title, $location = 'top', $order = 10, $icon = ''){
 		// Add the dropdown
 		if($location == 'top'){
 			// Navbar
@@ -61,7 +65,8 @@ class Navigation {
 				'type' => 'dropdown',
 				'title' => $title,
 				'items' => array(),
-                'order' => $order
+                'order' => $order,
+                'icon' => $icon
 			);
 			
 		} else {
@@ -70,7 +75,8 @@ class Navigation {
 				'type' => 'dropdown',
 				'title' => $title,
 				'items' => array(),
-                'order' => $order
+                'order' => $order,
+                'icon' => $icon
 			);
 			
 		}
@@ -83,14 +89,16 @@ class Navigation {
 	//			$link (string)		- HTML href attribute, can be link built with URL class or hyperlink (required)
 	//			$location (string)	- location to add item to, either 'top' or 'footer' (defaults to 'top')
 	//			$target (string)	- HTML target attribute (eg '_blank') (optional)
-	public function addItemToDropdown($dropdown, $name, $title, $link, $location = 'top', $target = null){
+    //          $icon (string)      - icon to prepend to nav item (default '')
+	public function addItemToDropdown($dropdown, $name, $title, $link, $location = 'top', $target = null, $icon = ''){
 		// Add the item
 		if($location == 'top' && isset($this->_topNavbar[$dropdown])){
 			// Navbar
 			$this->_topNavbar[$dropdown]['items'][$name] = array(
 				'title' => $title,
 				'link' => $link,
-				'target' => $target
+				'target' => $target,
+                'icon' => $icon
 			);
 			
 		} else if(isset($this->_footerNav[$dropdown])){
@@ -98,7 +106,8 @@ class Navigation {
 			$this->_footerNav[$dropdown]['items'][$name] = array(
 				'title' => $title,
 				'link' => $link,
-				'target' => $target
+				'target' => $target,
+                'icon' => $icon
 			);
 			
 		}

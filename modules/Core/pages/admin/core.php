@@ -2292,8 +2292,26 @@ $current_default_language = $current_default_language[0]->value;
                                                     $cache->store($key . '_order', $item);
                                                 }
                                             }
-                                            Log::getInstance()->log(Log::Action('admin/core/nav'));
                                         }
+
+                                        // Icons
+                                        $cache->setCache('navbar_icons');
+                                        if(isset($_POST['inputIcon']) && count($_POST['inputIcon'])){
+                                            foreach($_POST['inputIcon'] as $key => $item){
+                                                if(is_numeric($key)){
+                                                    // Custom page?
+                                                    $custom_page = $queries->getWhere('custom_pages', array('id', '=', $key));
+                                                    if(count($custom_page)){
+                                                        $queries->update('custom_pages', $key, array(
+                                                            'icon' => $item
+                                                        ));
+                                                    }
+                                                }
+                                                $cache->store($key . '_icon', $item);
+                                            }
+                                        }
+
+                                        Log::getInstance()->log(Log::Action('admin/core/nav'));
 
                                         // Reload to update info
                                         Redirect::to(URL::build('/admin/core/', 'view=navigation'));
@@ -2304,20 +2322,41 @@ $current_default_language = $current_default_language[0]->value;
                                     }
                                 }
                                 ?>
-                                <h4><?php echo $language->get('admin', 'navbar_order'); ?></h4>
+                                <h4><?php echo $language->get('admin', 'navigation'); ?></h4>
 
                                 <form action="" method="post">
-                                    <div class="alert alert-info"><?php echo $language->get('admin', 'navbar_order_instructions'); ?></div>
+                                    <div class="alert alert-info"><?php echo $language->get('admin', 'navbar_order_instructions'); ?><hr /><?php echo $language->get('admin', 'navbar_icon_instructions'); ?></div>
                                     <?php
                                     // Display fields for each page
                                     $nav_items = $navigation->returnNav('top');
                                     foreach($nav_items as $key => $item){
-                                    ?>
+                                        echo '<strong>' . Output::getClean($item['title']) . '</strong>';
+                                        ?>
                                     <div class="form-group">
-                                        <label for="input<?php echo Output::getClean($item['title']); ?>"><?php echo Output::getClean($item['title']); ?></label>
+                                        <label for="input<?php echo Output::getClean($item['title']); ?>"><?php echo $language->get('admin', 'navbar_order'); ?></label>
                                         <input type="number" min="1" class="form-control" id="input<?php echo Output::getClean($item['title']); ?>" name="inputOrder[<?php echo ((isset($item['custom']) && is_numeric($item['custom'])) ? $item['custom'] : Output::getClean($key)); ?>]" value="<?php echo Output::getClean($item['order']); ?>">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="input<?php echo Output::getClean($item['title']); ?>Icon"><?php echo $language->get('admin', 'navbar_icon'); ?></label>
+                                        <input type="text" class="form-control" id="input<?php echo Output::getClean($item['title']); ?>Icon" name="inputIcon[<?php echo ((isset($item['custom']) && is_numeric($item['custom'])) ? $item['custom'] : Output::getClean($key)); ?>]" value="<?php echo Output::getClean($item['icon']); ?>">
+                                    </div>
                                     <?php
+                                        if(isset($item['items']) && count($item['items'])){
+                                            echo '<strong>' . Output::getClean($item['title']) . ' &raquo; ' . $language->get('admin', 'dropdown_items') . '</strong><br />';
+                                            foreach($item['items'] as $dropdown_key => $dropdown_item){
+                                                echo '<strong>' . Output::getClean($dropdown_item['title']) . '</strong>';
+                                                ?>
+                                                <!--<div class="form-group">
+                                                    <label for="input<?php echo Output::getClean($dropdown_item['title']); ?>"><?php echo $language->get('admin', 'navbar_order'); ?></label>
+                                                    <input type="number" min="1" class="form-control" id="input<?php echo Output::getClean($dropdown_item['title']); ?>" name="inputOrder[<?php echo ((isset($dropdown_item['custom']) && is_numeric($dropdown_item['custom'])) ? $dropdown_item['custom'] : Output::getClean($dropdown_key)); ?>]" value="<?php echo Output::getClean($dropdown_item['order']); ?>">
+                                                </div>-->
+                                                <div class="form-group">
+                                                    <label for="input<?php echo Output::getClean($dropdown_item['title']); ?>Icon"><?php echo $language->get('admin', 'navbar_icon'); ?></label>
+                                                    <input type="text" class="form-control" id="input<?php echo Output::getClean($dropdown_item['title']); ?>Icon" name="inputIcon[<?php echo ((isset($dropdown_item['custom']) && is_numeric($dropdown_item['custom'])) ? $dropdown_item['custom'] : Output::getClean($dropdown_key)); ?>]" value="<?php echo Output::getClean($dropdown_item['icon']); ?>">
+                                                </div>
+                                                <?php
+                                            }
+                                        }
                                     }
                                     ?>
                                     <div class="form-group">

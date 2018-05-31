@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -106,9 +106,11 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                           'min' => 2,
                           'max' => 30
                       ),
+                      /*
                       'page_icon' => array(
                           'max' => 64
                       ),
+                      */
                       'page_url' => array(
                           'required' => true,
                           'min' => 2,
@@ -159,7 +161,7 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                           'redirect' => $redirect,
                           'link' => Output::getClean($link),
                           'target' => ($redirect == 1) ? 1 : 0,
-                          'icon' => Input::get('page_icon'),
+                          //'icon' => Input::get('page_icon'),
                           'all_html' => ($unsafe == 1) ? 1 : 0
                       ));
 
@@ -243,10 +245,12 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                 <label for="inputTitle"><?php echo $language->get('admin', 'page_title'); ?></label>
                 <input type="text" class="form-control" name="page_title" id="inputTitle" placeholder="<?php echo $language->get('admin', 'page_title'); ?>" value="<?php echo Input::get('page_title'); ?>">
               </div>
+              <!--
               <div class="form-group">
                 <label for="inputIcon"><?php echo $language->get('admin', 'page_icon'); ?></label>
                 <input type="text" class="form-control" name="page_icon" id="inputIcon" placeholder="<?php echo $language->get('admin', 'page_icon'); ?>" value="<?php echo Output::getClean(Input::get('page_icon')); ?>">
               </div>
+              -->
               <div class="form-group">
                 <label for="inputURL"><?php echo $language->get('admin', 'page_path'); ?></label>
                 <input type="text" class="form-control" name="page_url" id="inputURL" placeholder="<?php echo $language->get('admin', 'page_path'); ?>" value="<?php echo Input::get('page_url'); ?>">

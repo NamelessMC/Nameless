@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -71,7 +71,14 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
 	} else {
 		$forum_order = $cache->retrieve('forum_order');
 	}
-	$navigation->add('forum', $forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $forum_order);
+
+	$cache->setCache('navbar_icons');
+	if(!$cache->isCached('forum_icon'))
+	    $icon = '';
+	else
+	    $icon = $cache->retrieve('forum_icon');
+
+	$navigation->add('forum', $forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $forum_order, $icon);
 
 	// Add link to admin sidebar
     if($user->hasPermission('admincp.forums')){
