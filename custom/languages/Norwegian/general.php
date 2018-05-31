@@ -105,9 +105,9 @@ $language = array(
     /*
      *  Widgets
      */
-    'online_staff' => '<h2>Online Staff</h2>',
+    'online_staff' => 'Online Staff',
     'no_online_staff' => 'There are no staff members online.',
-    'online_users' => '<h2>Online Users</h2>',
+    'online_users' => 'Online Users',
     'no_online_users' => 'There are no users online.',
 
     /*
