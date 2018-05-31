@@ -210,7 +210,7 @@ if(isset($_GET['p'])){
                         }
 
                         $latest_post_link = URL::build('/forum/topic/' . $latest_post->id . '-' . $forum->titleToURL($latest_post->topic_title));
-                        $latest_post_avatar = $user->getAvatar($latest_post->topic_last_user, "../", 30);
+                        $latest_post_avatar = $user->getAvatar($latest_post->topic_last_user, "../", 128);
                         $latest_post_title = Output::getClean($latest_post->topic_title);
                         $latest_post_user = Output::getClean($user->idToNickname($latest_post->topic_last_user));
                         $latest_post_user_link = URL::build('/profile/' . $user->idToName($latest_post->topic_last_user));
@@ -292,7 +292,7 @@ if(isset($_GET['p'])){
                 $replies = count($replies);
 
                 // Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
-                $last_reply_avatar = $user->getAvatar($sticky->topic_last_user, "../", 30);
+                $last_reply_avatar = $user->getAvatar($sticky->topic_last_user, "../", 128);
 
                 // Is there a label?
                 if ($sticky->label != 0) { // yes
@@ -358,7 +358,7 @@ if(isset($_GET['p'])){
                 $replies = count($replies);
 
                 // Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
-                $last_reply_avatar = $user->getAvatar($results->data[$n]->topic_last_user, "../", 30);
+                $last_reply_avatar = $user->getAvatar($results->data[$n]->topic_last_user, "../", 128);
 
                 // Is there a label?
                 if ($results->data[$n]->label != 0) { // yes
