@@ -17,26 +17,26 @@ $language = array(
 	're-authenticate' => 'Vuelva a autenticar',
 
 	// Sidebar
-	'admin_cp' => 'Panel Administracion',
-	'administration' => 'Administracion',
+	'admin_cp' => 'Panel de Administración',
+	'administration' => 'Administración',
 	'overview' => 'Vision de conjunto',
 	'core' => 'Configuraciones',
 	'minecraft' => 'Minecraft',
 	'modules' => 'Modulos',
 	'security' => 'Seguridad',
-	'styles' => 'Stilos',
+	'styles' => 'Estilos',
 	'users_and_groups' => 'Usuarios y grupos',
 
 	// Overview
-	'running_nameless_version' => 'Ejecucion de NamelessMC version <strong>{x}</strong>', // Don't replace "{x}"
-	'running_php_version' => 'Ejecucion de la version de PHP <strong>{x}</strong>', // Don't replace "{x}"
+	'running_nameless_version' => 'Versión en ejecución de NamelessMC <strong>{x}</strong>', // Don't replace "{x}"
+	'running_php_version' => 'Versión en ejecución de PHP <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Estadisticas',
-	'registrations' => 'Registrations',
-	'topics' => 'Topics',
-	'posts' => 'Posts',
+	'registrations' => 'Registros',
+	'topics' => 'Temas',
+	'posts' => 'Publicaciones',
     'notices' => 'Noticias',
-    'no_notices' => 'No noticias.',
-    'email_errors_logged' => 'Se han registrado los errores de correo electrónico. Click <a href="{x}">here</a> to view.', // Don't replace "{x}"
+    'no_notices' => 'No hay noticias.',
+    'email_errors_logged' => 'Se han registrado los errores de correo electrónico. Click <a href="{x}">aquí</a> para ver.', // Don't replace "{x}"
 	// Core
 	'settings' => 'Ajustes',
 	'general_settings' => 'Ajustes Generales',
@@ -107,30 +107,30 @@ $language = array(
     'select_default_avatar' => 'Seleccione un nuevo avatar predeterminado:',
     'no_avatars_available' => 'No hay avatares disponibles. Sube una nueva imagen por encima de la primera.',
     'avatar_settings_updated_successfully' => 'Configuración de avatar actualizada correctamente.',
-    'navigation' => 'Navigation',
-    'navbar_order' => 'Navbar Order',
-    'navbar_order_instructions' => 'You can give each item a number above 0 to order items in the navbar, with 1 being the first item and higher numbers coming after it.',
-    'navbar_icon' => 'Navbar Icon',
-    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
-    'dropdown_items' => 'Dropdown Items',
-    'enable_page_load_timer' => 'Enable page load timer?',
-    'google_recaptcha' => 'Enable Google reCAPTCHA?',
+    'navigation' => 'Navegación',
+    'navbar_order' => 'Orden de la barra de navegación',
+    'navbar_order_instructions' => 'Puede dar a cada elemento un número superior a 0 para ordenar artículos en la barra de navegación, siendo 1 el primer artículo y los números más altos que vendrán después.',
+    'navbar_icon' => 'Icono de navegación',
+    'navbar_icon_instructions' => 'También puede agregar un ícono a cada elemento de la barra de navegación aquí, por ejemplo usando <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+    'dropdown_items' => 'Elementos desplegables',
+    'enable_page_load_timer' => 'Activar tiempo de carga?',
+    'google_recaptcha' => 'Activar Google reCAPTCHA?',
     'recaptcha_site_key' => 'reCAPTCHA Site Key',
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
-    'registration_disabled_message' => 'Registration disabled message',
-    'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
-    'validation_promote_group' => 'Post-validation group',
-    'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
-    'login_method' => 'Login Method',
-    'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+    'registration_disabled_message' => 'Registro deshabilitado',
+    'enable_nicknames_on_registration' => 'Habilitar nicknames para registrar usuarios?',
+    'validation_promote_group' => 'Grupo de validación posterior',
+    'validation_promote_group_info' => 'Este es el grupo al que se proporcionará a un usuario una vez que haya validado su cuenta.',
+    'login_method' => 'Método de ingreso',
+    'privacy_and_terms' => 'Política de privacidad y términos y condiciones',
 
 	// Reactions
 	'icon' => 'Icono',
 	'type' => 'Tipo',
 	'positive' => 'Me gusta',
 	'neutral' => 'Neutral',
-	'negative' => 'Dislike',
-	'editing_reaction' => 'Reacciones edición',
+	'negative' => 'No me gusta',
+	'editing_reaction' => 'Editar reacciones',
 	'html' => 'HTML',
 	'new_reaction' => '<i class="fa fa-plus-circle"></i> Nueva Reacción',
 	'creating_reaction' => 'Crear Reacción',
@@ -149,7 +149,7 @@ $language = array(
 	'profile_field_required_help' => 'Los campos obligatorios deben ser llenados por el usuario, y aparecerán durante el registro.',
 	'profile_field_public_help' => 'Los campos públicos se mostrarán a todos los usuarios, si está desactivado sólo los moderadores pueden ver los valores.',
 	'profile_field_error' => 'Introduzca un nombre de campo entre 2 y 16 caracteres.',
-	'description' => 'Descripcion',
+	'description' => 'Descripción',
 	'display_field_on_forum' => 'Mostrar campo en el foro?',
 	'profile_field_forum_help' => 'Si está activado, el campo se mostrará por el usuario junto a los mensajes del foro.',
 
@@ -232,7 +232,7 @@ $language = array(
     'force_premium_accounts' => 'Forzar cuentas premium de Minecraft?',
     'banner_background' => 'Banner background',
     'query_interval' => 'Query interval (in minutes, must be between 5 and 60)',
-    'player_graphs' => 'Player Graphs',
+    'player_graphs' => 'Gráficos del jugador',
     'player_count_cronjob_info' => 'You can set up a cron job to query your servers every {x} minutes with the following command:',
 
 	// Modules
