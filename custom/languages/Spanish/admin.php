@@ -230,20 +230,20 @@ $language = array(
     'mcassoc_error' => 'Asegúrese de que ha introducido correctamente su clave compartida y de que ha generado correctamente una clave de instancia.',
     'updated_mcassoc_successfully' => 'Mcassoc configuración actualizada correctamente.',
     'force_premium_accounts' => 'Forzar cuentas premium de Minecraft?',
-    'banner_background' => 'Banner background',
+    'banner_background' => 'Fondo del Banner',
     'query_interval' => 'Query interval (in minutes, must be between 5 and 60)',
     'player_graphs' => 'Gráficos del jugador',
     'player_count_cronjob_info' => 'You can set up a cron job to query your servers every {x} minutes with the following command:',
 
 	// Modules
-	'modules_installed_successfully' => 'Any new modules have been installed successfully.',
+	'modules_installed_successfully' => 'Todos los modulos fueron instalados exitosamente.',
 	'enabled' => 'Activado',
 	'disabled' => 'Disactivado',
 	'enable' => 'Activado',
 	'disable' => 'Disactivado',
 	'module_enabled' => 'Modulo activado.',
 	'module_disabled' => 'Modulo disactivado.',
-	'author' => 'Author:',
+	'author' => 'Autor:',
 
 	// Styles
 	'templates' => 'Temas',
@@ -263,12 +263,12 @@ $language = array(
 	'template_deactivated' => 'Tema deactivado.',
 	'template_activated' => 'Tema activado.',
 	'permissions' => 'Permisos',
-	'setting_perms_for_x' => 'Setting permissions for template {x}', // Don't replace {x}
-	'templates_installed_successfully' => 'Any new templates have been installed successfully.',
-	'confirm_delete_template' => 'Are you sure you want to delete this template?',
-	'delete' => 'Delete',
-	'template_deleted_successfully' => 'Template deleted successfully.',
-    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+	'setting_perms_for_x' => 'Configuraciones de permisos para {x}', // Don't replace {x}
+	'templates_installed_successfully' => 'Todas las plantillas fueron instaladas exitosamente.',
+	'confirm_delete_template' => 'Estas seguro que quieres borrar esta plantilla?',
+	'delete' => 'Borrar',
+	'template_deleted_successfully' => 'Plantilla borrada con exito.',
+    'background_image_x' => 'Imagen de fondo: <strong>{x}</strong>', // Don't replace {x}
 
 	// Users & groups
 	'users' => 'Usuarios',
@@ -300,7 +300,7 @@ $language = array(
 	'new_group' => '<i class="fa fa-plus-circle"></i> Nuevo Grupo',
 	'group_name_required' => 'Introduzca un nombre de grupo.',
 	'group_name_minimum' => 'Asegúrese de que su nombre de grupo tenga un mínimo de 2 caracteres.',
-	'group_name_maximum' => 'Please ensure your group name is a maximum of 20 characters long.',
+	'group_name_maximum' => 'Asegúrese que el nombre de su grupo tenga un máximo de 20 caracteres.',
 	'creating_group' => 'Crear nuevo grupo',
 	'group_html_maximum' => 'Asegúrese de que el HTML de su grupo no tenga más de 1024 caracteres.',
 	'group_html' => 'Grupo HTML',
@@ -318,12 +318,12 @@ $language = array(
 	'default_group' => 'Is the group the default group (for new users)?',
 
 	// Permissions
-	'select_all' => 'Select All',
-	'deselect_all' => 'Deselect All',
-	'background_image' => 'Background image',
-	'can_edit_own_group' => 'Can edit own group\'s permissions',
-	'permissions_updated_successfully' => 'Permissions updated successfully.',
-	'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
+	'select_all' => 'Seleccionar todo',
+	'deselect_all' => 'Deseleccionar todo',
+	'background_image' => 'Imagen de fondno',
+	'can_edit_own_group' => 'Puede editar los propios permisos del grupo',
+	'permissions_updated_successfully' => 'Permisos editados con éxito.',
+	'cant_edit_this_group' => 'No puedes editar los permisos de este grupo!',
 
 	// General Admin language
 	'task_successful' => 'Tarea exitosa.',
@@ -363,42 +363,42 @@ $language = array(
 
 	// Widgets
 	'widgets' => 'Widgets',
-	'widget_enabled' => 'Widget enabled.',
-	'widget_disabled' => 'Widget disabled.',
-	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
-	'module_x' => 'Module: {x}', // Don't replace {x}
+	'widget_enabled' => 'Widget activado.',
+	'widget_disabled' => 'Widget desactivado.',
+	'editing_widget_x' => 'Editando widget {x}', // Don't replace {x}
+	'module_x' => 'Modulo: {x}', // Don't replace {x}
 
     // Online users widget
-    'include_staff_in_user_widget' => 'Include staff members in user widget?',
+    'include_staff_in_user_widget' => 'Incluir miembros del staff en el widget de usuarios?',
 
     // Custom Pages
-    'pages' => 'Pages',
-    'new_page' => '<i class="fa fa-plus-circle"></i> New Page',
-    'no_custom_pages' => 'No pages have been created yet.',
-    'creating_new_page' => 'Creating Page',
-    'page_title' => 'Page Title',
-    'page_path' => 'Page Path (with preceding /, eg /example)',
-    'page_icon' => 'Page Icon',
-    'page_link_location' => 'Page Link Location',
-    'page_link_navbar' => 'Navbar',
-    'page_link_footer' => 'Footer',
-    'page_link_more' => '"More" Dropdown',
-    'page_link_none' => 'No link',
-    'page_content' => 'Page Content',
-    'page_redirect' => 'Page Redirect?',
-    'page_redirect_to' => 'Redirect Link (with preceding http://)',
-    'unsafe_html' => 'Allow unsafe HTML?',
+    'pages' => 'Paginas',
+    'new_page' => '<i class="fa fa-plus-circle"></i> Nueva pagina',
+    'no_custom_pages' => 'No se ha creado ninguna Página.',
+    'creating_new_page' => 'Creando página',
+    'page_title' => 'Titulo de la página',
+    'page_path' => 'Path de la página (con un /, Ej: /test)',
+    'page_icon' => 'Icono de la página',
+    'page_link_location' => 'Localización de la página',
+    'page_link_navbar' => 'Navegación',
+    'page_link_footer' => 'Footer / pie de página',
+    'page_link_more' => '"Más" Desplegable',
+    'page_link_none' => 'No hay link',
+    'page_content' => 'Contenido de la página',
+    'page_redirect' => 'Redireccionar página?',
+    'page_redirect_to' => 'Redireccionar Link (con un http://)',
+    'unsafe_html' => 'Permitir inseguro HTML?',
     'unsafe_html_warning' => 'Enabling this option means any HTML can be used on the page, including potentially dangerous JavaScript. Only enable this if you are sure your HTML is safe.',
-    'page_permissions' => 'Page Permissions',
-    'view_page' => 'View Page?',
-    'editing_page_x' => 'Editing Page {x}', // Don't replace {x}
-    'unable_to_create_page' => 'Unable to create page:',
-    'page_title_required' => 'A page title is required.',
-    'page_url_required' => 'A page path is required.',
-    'link_location_required' => 'A link location is required.',
-    'page_title_minimum_2' => 'The page title must be a minimum of 2 characters.',
-    'page_url_minimum_2' => 'The page path must be a minimum of 2 characters.',
-    'page_title_maximum_30' => 'The page title must be a maximum of 30 characters.',
+    'page_permissions' => 'Permisos de la página',
+    'view_page' => 'Ver página?',
+    'editing_page_x' => 'Editando página {x}', // Don't replace {x}
+    'unable_to_create_page' => 'No se puede crear la página:',
+    'page_title_required' => 'Se requiere un titulo de página.',
+    'page_url_required' => 'Se requiere un path de página.',
+    'link_location_required' => 'Se requiere una locación del link.',
+    'page_title_minimum_2' => 'El titulo de la página tiene que contener un mínimo 2 caracteres.',
+    'page_url_minimum_2' => 'El path de la página debe contener un mínimo de 2 caracteres',
+    'page_title_maximum_30' => 'El titulo de la página tiene que contener un máximo de 30 caracteres.',
     'page_icon_maximum_64' => 'The page icon must be a maximum of 64 characters.',
     'page_url_maximum_20' => 'The page path must be a maximum of 20 characters.',
     'page_content_maximum_20480' => 'The page content must be a maximum of 20480 characters.',
