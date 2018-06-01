@@ -10,8 +10,8 @@
  */
 
 $language = array(
-	'mod_cp' => 'Panel de Moderacion',
-	'overview' => 'Vision de Conjunto',
+	'mod_cp' => 'Panel de Moderación',
+	'overview' => 'Vision general',
 	
 	// Spam
 	'spam' => 'Spam',
@@ -49,37 +49,37 @@ $language = array(
 	
 	// Punishments
 	'punishments' => 'Castigos',
-	'view_punishments' => 'View Punishments',
-	'banned' => 'Banned',
-	'groups' => 'Groups',
-	'punish' => 'Punish',
+	'view_punishments' => 'Ver Castigos',
+	'banned' => 'Baneado',
+	'groups' => 'Grupos',
+	'punish' => 'Castigar',
 	'ban' => 'Ban',
-	'warn' => 'Warn',
+	'warn' => 'Advertencia',
 	'ban_ip' => 'Ban IP',
-	'viewing_user_x' => 'Viewing user {x}', // Don't replace {x}
-	'previous_punishments' => 'Previous punishments',
-	'no_previous_punishments' => 'No previous punishments',
-	'warning' => 'Warning',
-	'ip_ban' => 'IP Ban',
-	'reason' => 'Reason',
-	'warn_user' => 'Warn User',
-	'ban_user' => 'Ban User',
-	'enter_valid_punishment_reason' => 'Please enter a valid reason for your punishment, between 5 and 5000 characters.',
-	'user_punished' => 'User punished.',
-	'user_punished_alert' => '{x} has punished user {y}', // Don't replace {x} (staff member) or {y} (user punished)
-	'revoke' => 'Revoke',
-	'revoked' => 'Revoked',
-	'acknowledged' => 'Acknowledged',
-	'confirm_revoke_warning' => 'Are you sure you want to revoke this warning?',
-	'confirm_revoke_ban' => 'Are you sure you want to revoke this ban? The user will be unbanned, even if they have a more recent ban!',
-	'punishment_revoked' => 'Punishment revoked.',
-	'punishment_revoked_alert' => '{x} has revoked a punishment for user {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
-	'cant_punish_admin' => 'You can\'t punish an administrator!',
-    'viewing_all_punishments' => 'Viewing all punishments',
-    'no_punishments_found' => 'No punishments found.',
-    'view_user' => 'View User',
-    'when' => 'When',
+	'viewing_user_x' => 'Viendo a {x}', // Don't replace {x}
+	'previous_punishments' => 'Infracciones anteriores',
+	'no_previous_punishments' => 'No hay infracciones anteriores',
+	'warning' => 'Advertencia',
+	'ip_ban' => 'Ban de IP',
+	'reason' => 'Razón',
+	'warn_user' => 'Advertir usuario',
+	'ban_user' => 'Banear usuario',
+	'enter_valid_punishment_reason' => 'Por favor, coloca una razón válida para la infracción. Entre 5 y 5000 carácteres.',
+	'user_punished' => 'Usuario castigado.',
+	'user_punished_alert' => '{x} castigó a {y}', // Don't replace {x} (staff member) or {y} (user punished)
+	'revoke' => 'Quitár',
+	'revoked' => 'Quitádo',
+	'acknowledged' => 'Admitido',
+	'confirm_revoke_warning' => 'Estas seguro de que quieras remover esta advertencia??',
+	'confirm_revoke_ban' => 'Estas seguro de que quieres remover este Ban? Este usuario será desbaneado, incluso si tiene bans más recientes!',
+	'punishment_revoked' => 'Infracción revocada.',
+	'punishment_revoked_alert' => '{x} le quitó una infracción al usuario {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
+	'cant_punish_admin' => 'No puedes dar una infracción a un Administrador!',
+    'viewing_all_punishments' => 'Viendo todas las infracciones',
+    'no_punishments_found' => 'No hay infracciones.',
+    'view_user' => 'Ver usuario',
+    'when' => 'Tiempo',
     'staff' => 'Staff',
-    'type' => 'Type'
+    'type' => 'Tipo'
 
 );
