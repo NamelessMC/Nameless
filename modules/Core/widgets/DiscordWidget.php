@@ -31,7 +31,7 @@ class DiscordWidget extends WidgetBase {
         $result = json_decode($result);
         curl_close($ch);
 	    // Check if the widget is disabled.
-        if ($result->code == "50004" | $result->message == "Widget Disabled") {
+        if ($result->code == "50004" || $result->message == "Widget Disabled") {
 	        // Yes, it is: display message
             $this->_content = '
 			<h4>Discord Widget</h4><p>The widget is disabled for the specified Discord server. Please go to \'server settings\' on Discord, then \'widget\', then finally toggle \'enable widget\', save, and reload this page.</p>
