@@ -142,6 +142,7 @@ $language = array(
 	'custom_fields' => 'Aangepaste profiel velden',
 	'new_field' => '<i class="fa fa-plus-circle"></i> Nieuw veld',
 	'required' => 'Verplicht',
+	'editable' => 'Editable',
 	'public' => 'Openbaar',
 	'text' => 'Tekst',
 	'textarea' => 'Tekst gebied',
@@ -155,6 +156,7 @@ $language = array(
 	'description' => 'Beschrijving',
 	'display_field_on_forum' => 'Veld laten zien in het forum?',
 	'profile_field_forum_help' => 'Als dit aan staat, wordt het veld weergegeven bij de gebruiker naast de forum berichten.',
+	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Minecraft integratie aan?',

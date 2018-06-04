@@ -142,6 +142,7 @@ $language = array(
 	'custom_fields' => 'Προσαρμοσμένα Πεδία προφίλ',
 	'new_field' => '<i class="fa fa-plus-circle"></i> New Field',
 	'required' => 'Απαιτείται',
+	'editable' => 'Editable',
 	'public' => 'Δημόσιο',
 	'text' => 'Κείμενο',
 	'textarea' => 'Περιοχή κειμένου',
@@ -155,6 +156,7 @@ $language = array(
 	'description' => 'Description',
 	'display_field_on_forum' => 'Θέλω να δείξω το πεδίο στο φόρουμ?',
 	'profile_field_forum_help' => 'Αν είναι ενεργοποιημένο, το πεδίο θα εμφανιστεί από το χρήστη δίπλα στης δημοσιεύσεις.',
+	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Enable Minecraft integration?',
