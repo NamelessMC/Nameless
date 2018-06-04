@@ -145,6 +145,7 @@ $language = array(
     'custom_fields' => 'Câmpuri personalizate pentru profil',
     'new_field' => '<i class="fa fa-plus-circle"></i> Adăugați un câmp nou',
     'required' => 'Necesar',
+	'editable' => 'Editable',
     'public' => 'Public',
     'text' => 'Text',
     'textarea' => 'Zona Text',
@@ -158,6 +159,7 @@ $language = array(
     'description' => 'Descriere',
     'display_field_on_forum' => 'Afișați câmpul pe forum?',
     'profile_field_forum_help' => 'Dacă este activată, câmpul va fi afișat în dreptul postărilor pe forum sub numele utilizatorului.',
+	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 
     // Minecraft
     'enable_minecraft_integration' => 'Activați integrarea Minecraft?',

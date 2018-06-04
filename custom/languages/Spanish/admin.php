@@ -139,6 +139,7 @@ $language = array(
 	'custom_fields' => 'Campos del perfil personalizado',
 	'new_field' => '<i class="fa fa-plus-circle"></i> Nuevo campo',
 	'required' => 'Requiere',
+	'editable' => 'Editable',
 	'public' => 'Público',
 	'text' => 'Texto',
 	'textarea' => 'Área de texto',
@@ -152,6 +153,7 @@ $language = array(
 	'description' => 'Descripción',
 	'display_field_on_forum' => '¿Mostrar campo en el foro?',
 	'profile_field_forum_help' => 'Si está activado, el campo se mostrará por el usuario junto a los mensajes del foro.',
+	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 
     // Minecraft
     'enable_minecraft_integration' => '¿Habilitar la integración de Minecraft?',
