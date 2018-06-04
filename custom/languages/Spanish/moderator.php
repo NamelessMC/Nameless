@@ -1,8 +1,8 @@
-<?php 
+﻿<?php 
 /*
- *	Made by TheSuperSkills
+ *	Made by TheSuperSkills (Edited by Ariuw)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
