@@ -12,7 +12,14 @@
 // Initialise the bug report addon
 // We've already checked to see if it's enabled
 
-require('addons/BugReport/language.php');
+// Check language
+$c->setCache('languagecache');
+$language = $c->retrieve('language');
+
+if(file_exists('addons/BugReport/' . $language . '.php'))
+	require('addons/BugReport/' . $language . '.php');
+else
+	require('addons/BugReport/language.php');
 
 if($user->isLoggedIn()){
 	// Check cache for link location
