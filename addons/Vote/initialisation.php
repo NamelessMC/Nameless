@@ -14,7 +14,7 @@ $c->setCache('languagecache');
 $language = $c->retrieve('language');
 
 if(file_exists('addons/Vote/' . $language . '.php'))
-	require('addons/Votee/' . $language . '.php');
+	require('addons/Vote/' . $language . '.php');
 else
 	require('addons/Vote/language.php');
 
