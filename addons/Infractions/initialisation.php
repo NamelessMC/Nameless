@@ -9,8 +9,14 @@
 // Initialise the infractions addon
 // We've already checked to see if it's enabled
 
-// Require language
-require('addons/Infractions/language.php');
+// Check language
+$c->setCache('languagecache');
+$language = $c->retrieve('language');
+
+if(file_exists('addons/Infractions/' . $language . '.php'))
+	require('addons/Infractions/' . $language . '.php');
+else
+	require('addons/Infractions/language.php');
 
 // Enabled, add links to navbar
 $c->setCache('infractionsaddon');

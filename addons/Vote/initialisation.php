@@ -9,7 +9,14 @@
 // Initialise the vote addon
 // We've already checked to see if it's enabled
 
-require('addons/Vote/language.php');
+// Check language
+$c->setCache('languagecache');
+$language = $c->retrieve('language');
+
+if(file_exists('addons/Vote/' . $language . '.php'))
+	require('addons/Votee/' . $language . '.php');
+else
+	require('addons/Vote/language.php');
 
 // Check cache for link location
 $c->setCache('voteaddon');
