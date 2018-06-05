@@ -142,6 +142,7 @@ $language = array(
 	'custom_fields' => 'カスタムプロファイルフィールド',
 	'new_field' => '<i class="fa fa-plus-circle"></i> 新しいフィールド',
 	'required' => '必須',
+	'editable' => 'Editable',
 	'public' => 'パブリック',
 	'text' => 'テキスト',
 	'textarea' => 'テキスト エリア',
@@ -155,6 +156,7 @@ $language = array(
 	'description' => '説明',
 	'display_field_on_forum' => 'フォーラムにフィールドを表示しますか？',
 	'profile_field_forum_help' => '有効にすると、ユーザはフォーラムの投稿の横にフィールドを表示します。',
+	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 
     // Minecraft
     'enable_minecraft_integration' => 'Minecraft 統合を有効にしますか？',

@@ -494,6 +494,10 @@ if(isset($_GET['do'])){
 	
 	if(count($custom_fields)){
 		foreach($custom_fields as $field){
+			// Check if its editable if not, next
+			if($field->editable == false){
+				continue;
+			}
 			// Get field value for user
 			$value = '';
 			if(count($user_custom_fields)){
