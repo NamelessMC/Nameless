@@ -58,7 +58,10 @@ $language = array(
 	'active_language' => 'Aktivní jazyk',
 	'timezone' => 'Časová zóna',
 	'upload_new_avatar' => 'Nahrát nového avatara.',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => 'Byl jste označen v příspěvku {x}.', // Don't replace {x}

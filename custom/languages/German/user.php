@@ -64,9 +64,12 @@ $language = array(
 	'invalid_tfa' => 'Ungültiger Code, versuche es erneut.',
 	'tfa_successful' => '2 Schritt Authentifizierung wurde aktiviert.',
 	'active_language' => 'Ausgewählte Sprache:',
-    'timezone' => 'Zeitzone',
-    'upload_new_avatar' => 'Ein neuen Avatar hochladen',
-    'nickname_already_exists' => 'Der gewählte Nickname existiert bereits.',
+	'timezone' => 'Zeitzone',
+	'upload_new_avatar' => 'Ein neuen Avatar hochladen',
+	'nickname_already_exists' => 'Der gewählte Nickname existiert bereits.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace {x}

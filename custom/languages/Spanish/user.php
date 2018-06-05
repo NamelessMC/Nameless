@@ -47,7 +47,7 @@ $language = array(
 	'incorrect_password' => 'Tu contraseña es incorrecta.',
 	'two_factor_auth' => 'Autenticación de dos factores',
 	'enabled' => 'Activado',
-        'disabled' => 'Desactivado',
+	'disabled' => 'Desactivado',
 	'enable' => 'Activar',
 	'disable' => 'Desactivar',
 	'tfa_scan_code' => 'Compruebe el código siguiente en su aplicación de autenticación:',
@@ -56,9 +56,12 @@ $language = array(
 	'invalid_tfa' => 'Código no válido, por favor vuelva a intentarlo.',
 	'tfa_successful' => 'La autenticación de dos factores se ha configurado correctamente. Tendrá que autenticarse cada vez que inicie sesión de ahora en adelante.',
 	'active_language' => 'Lenguaje Activo',
-    'timezone' => 'Zona Horaria',
-    'upload_new_avatar' => 'Cargar un nuevo avatar',
-    'nickname_already_exists' => 'El nick que haz elegido ya está en uso.',
+	'timezone' => 'Zona Horaria',
+	'upload_new_avatar' => 'Cargar un nuevo avatar',
+	'nickname_already_exists' => 'El nick que haz elegido ya está en uso.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => 'Has sido etiquetado en un post por {x}.', // Don't replace {x}

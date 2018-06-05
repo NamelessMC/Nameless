@@ -56,9 +56,12 @@ $language = array(
 	'invalid_tfa' => 'Ugyldig kode, prøv igjen.',
 	'tfa_successful' => 'To-stegs-verifikasjon fullført.',
 	'active_language' => 'Språk',
-    'timezone' => 'Tidssone',
-    'upload_new_avatar' => 'Last opp et nytt avatar.',
-    'nickname_already_exists' => 'Brukernavnet du har valgt er allerede i bruk.',
+	'timezone' => 'Tidssone',
+	'upload_new_avatar' => 'Last opp et nytt avatar.',
+	'nickname_already_exists' => 'Brukernavnet du har valgt er allerede i bruk.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => 'Du har blitt tagget i et innlegg av {x}.', // Don't replace {x}

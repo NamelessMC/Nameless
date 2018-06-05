@@ -102,6 +102,25 @@
                     <hr/>
 
                     {nocache}
+                        <h4>{$CHANGE_EMAIL_ADDRESS}</h4>
+                        <form action="" method="post">
+                            <div class="form-group">
+                                <label for="inputPassword">{$CURRENT_PASSWORD}</label>
+                                <input type="password" name="password" id="inputPassword" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">{$EMAIL_ADDRESS}</label>
+                                <input type="email" name="email" id="inputEmail" class="form-control" value="{$CURRENT_EMAIL}">
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="action" value="email">
+                                <input type="hidden" name="token" value="{$TOKEN}">
+                                <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
+                            </div>
+                        </form>
+
+                        <hr />
+
                         <h4>{$CHANGE_PASSWORD}</h4>
                         <form action="" method="post">
                             <div class="form-group">

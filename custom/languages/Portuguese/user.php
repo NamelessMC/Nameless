@@ -59,7 +59,10 @@ $language = array(
 	'active_language' => 'Linguagem Ativa',
 	'timezone' => 'Fuso horário',
 	'upload_new_avatar' => 'Enviar um novo Avatar',
-    'nickname_already_exists' => 'O nickname escolhido já existe.',
+	'nickname_already_exists' => 'O nickname escolhido já existe.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}

@@ -59,6 +59,9 @@ $language = array(
 	'timezone' => 'Timezone',
 	'upload_new_avatar' => 'Upload a new avatar',
 	'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => 'You have been tagged in a post by {x}.', // Don't replace {x}
