@@ -61,6 +61,9 @@ $language = array(
     'timezone' => 'Fus orar',
     'upload_new_avatar' => 'Încărcați un nou avatar',
     'nickname_already_exists' => 'Numele ales este deja utilizat.',
+    'change_email_address' => 'Change Email Address',
+    'email_already_exists' => 'The email address you have entered already exists.',
+    'email_changed_successfully' => 'Email address changed successfully.',
     
     // Alerts
     'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace {x}

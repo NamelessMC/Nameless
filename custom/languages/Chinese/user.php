@@ -64,6 +64,9 @@ $language = array(
 	'timezone' => '時區',
 	'upload_new_avatar' => '上傳新的頭像',
 	'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => '你被標註於 {x}.', // Don't replace {x}

@@ -58,9 +58,12 @@ $language = array(
 	'invalid_tfa' => '無効なコード、もう一度やり直してください。',
 	'tfa_successful' => '二段階認証が設定されました。今からログインするたびに二段階認証をする必要があります。',
 	'active_language' => '有効な言語',
-    'timezone' => 'タイムゾーン',
-    'upload_new_avatar' => '新しいアバターをアップロードする',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'timezone' => 'タイムゾーン',
+	'upload_new_avatar' => '新しいアバターをアップロードする',
+	'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => 'あなたは {x} の投稿にタグがついています。', // Don't replace {x}

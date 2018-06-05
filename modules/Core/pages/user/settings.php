@@ -426,7 +426,75 @@ if(isset($_GET['do'])){
 					}
 					Session::flash('settings_error', $error = rtrim($error, '<br />'));
 				}
-			}
+			} else if(Input::get('action') == 'email'){
+                // Change password
+                $validate = new Validate();
+
+                $validation = $validate->check($_POST, array(
+                    'password' => array(
+                        'required' => true
+                    ),
+                    'email' => array(
+                        'required' => true,
+                        'min' => 4,
+                        'max' => 64
+                    )
+                ));
+
+                if($validation->passed()){
+                    // Check email doesn't exist
+                    $email_query = $queries->getWhere('users', array('email', '=', $_POST['email']));
+                    if(count($email_query)){
+                        if($email_query[0]->id != $user->data()->id){
+                            $error = $language->get('user', 'email_already_exists');
+                        }
+                    }
+
+                    if(!isset($error)) {
+                        // Check password matches
+                        $password = Input::get('password');
+                        if ($user->checkCredentials($user->data()->username, $password, 'username')) {
+                            try {
+                                // Update email
+                                $queries->update('users', $user->data()->id, array(
+                                    'email' => Output::getClean($_POST['email'])
+                                ));
+
+                                Session::flash('settings_success', $language->get('user', 'email_changed_successfully'));
+                                Redirect::to(URL::build('/user/settings'));
+                                die();
+
+                            } catch (Exception $e) {
+                                die($e->getMessage());
+                            }
+                        } else {
+                            // Invalid password
+                            Session::flash('settings_error', $language->get('user', 'incorrect_password'));
+                        }
+                    }
+                } else {
+                    $error = '';
+                    foreach($validation->errors() as $item){
+                        if(strpos($item, 'is required') !== false){
+                            // Empty field
+                            if(strpos($item, 'password') !== false){
+                                $error .= $language->get('user', 'password_required') . '<br />';
+                            } else {
+                                $error .= $language->get('user', 'email_required') . '<br />';
+                            }
+                        } else if(strpos($item, 'minimum') !== false){
+                            // Field under 4 chars
+                            $error .= $language->get('user', 'invalid_email') . '<br />';
+
+                        } else if(strpos($item, 'maximum') !== false){
+                            // Field over 64 chars
+                            $error .= $language->get('user', 'invalid_email') . '<br />';
+
+                        }
+                    }
+                    Session::flash('settings_error', $error = rtrim($error, '<br />'));
+                }
+            }
 		} else {
 			// Invalid form token
 			Session::flash('settings_error', $language->get('general', 'invalid_token'));
@@ -584,7 +652,10 @@ if(isset($_GET['do'])){
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 		'TIMEZONE' => $language->get('user', 'timezone'),
 		'TIMEZONES' => Util::listTimezones(),
-		'SELECTED_TIMEZONE' => $user->data()->timezone
+		'SELECTED_TIMEZONE' => $user->data()->timezone,
+        'CURRENT_EMAIL' => Output::getClean($user->data()->email),
+        'CHANGE_EMAIL_ADDRESS' => $language->get('user', 'change_email_address'),
+        'EMAIL_ADDRESS' => $language->get('user', 'email_address')
 	));
 
 	if(defined('CUSTOM_AVATARS')) {
