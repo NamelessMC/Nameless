@@ -118,13 +118,13 @@ $language = array(
 	'enable_page_load_timer' => 'Aktivera sidladdningstimer?',
     'google_recaptcha' => 'Aktivera Google reCAPTCHA?',
     'recaptcha_site_key' => 'reCAPTCHA Sido Nyckel',
-    'recaptcha_secret_key' => 'reCAPTCHA Privat Nyckeö',
-    'registration_disabled_message' => 'Registration disabled message',
+    'recaptcha_secret_key' => 'reCAPTCHA Privat Nyckel',
+    'registration_disabled_message' => 'Registrering inaktiverad text',
     'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
     'validation_promote_group' => 'Post-validation group',
-    'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
-    'login_method' => 'Login Method',
-    'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+    'validation_promote_group_info' => 'Detta är gruppen användraren får när hen har bekräftat sin konto.',
+    'login_method' => 'Inloggningsmetod',
+    'privacy_and_terms' => 'Sekretesspolicy och Villkor',
 
 	// Reactions
 	'icon' => 'Ikon',
@@ -141,6 +141,7 @@ $language = array(
 	'custom_fields' => 'Anpassade profilfält',
 	'new_field' => '<i class="fa fa-plus-circle"></i> New Field',
 	'required' => 'Obligatorisk',
+	'editable' => 'Redigerbar',
 	'public' => 'Publik',
 	'text' => 'Text',
 	'textarea' => 'Text area',
@@ -154,6 +155,7 @@ $language = array(
 	'description' => 'Beskrivning',
 	'display_field_on_forum' => 'Visa fält på forumet?',
 	'profile_field_forum_help' => 'Om aktiverat, fältet kommer att visas av användraren bredvid forum inlägg.',
+	'profile_field_editable_help' => 'Om aktiverat, kommer fältet att bli redigerbar i deras profil inställningar.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Aktivera Minecraft Integration?',
