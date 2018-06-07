@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -47,6 +47,12 @@ class Language {
 					define('HTML_LANG', $language_html);
 				}
 			}
+
+			if(isset($language_rtl)){
+			    if(!defined('HTML_RTL')){
+			        define('HTML_RTL', $language_rtl);
+                }
+            }
 		}
 	}
 

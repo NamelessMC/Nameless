@@ -20,7 +20,7 @@ $emojione = new Emojione\Client(new Emojione\Ruleset());
 require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts on a page
 ?>
 <!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
   <head>
     <!-- Standard Meta -->
     <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
