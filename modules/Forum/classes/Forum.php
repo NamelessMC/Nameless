@@ -485,11 +485,17 @@ class Forum {
         foreach($news_items as $item){
             $news_post = $this->_db->get("posts", array("topic_id", "=", $item->id))->results();
             $posts = count($news_post);
-            $topic_date = $news_post[0]->post_date;
+
+            if(is_null($news_post[0]->created)){
+                $post_date = date('d M Y, H:i', strtotime($news_post[0]->post_date));
+            } else {
+                $post_date = date('d M Y, H:i', $news_post[0]->created);
+            }
+
             $post = $news_post[0]->post_content;
             $return[] = array(
                 "topic_id" => $item->id,
-                "topic_date" => $topic_date,
+                "topic_date" => $post_date,
                 "topic_title"=> $item->topic_title,
                 "topic_views" => $item->topic_views,
                 "author" => $item->topic_creator,
