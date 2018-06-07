@@ -73,7 +73,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 $token = Token::get();
 ?>
 <!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
   <head>
     <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
