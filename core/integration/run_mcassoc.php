@@ -55,7 +55,7 @@ if(!isset($_SESSION['mcassoc'])) $_SESSION['mcassoc'] = $_POST;
         }
     }
 
-    $return_link = Output::getClean(Util::getSelfURL()) . URL::build('register', 'step=2');
+    $return_link = Output::getClean(Util::getSelfURL()) . URL::build('/register/', 'step=2');
     $key = $mcassoc->generateKey($username);
 
     $smarty->assign('MCASSOC', '
