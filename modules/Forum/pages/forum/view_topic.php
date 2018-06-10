@@ -375,9 +375,9 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	$smarty->assign(array(
 		'SHARE' => $forum_language->get('forum', 'share'),
 		'SHARE_TWITTER' => $forum_language->get('forum', 'share_twitter'),
-		'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . Output::getClean(Util::getSelfURL()) . URL::build('forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)),
+		'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)),
 		'SHARE_FACEBOOK' => $forum_language->get('forum', 'share_facebook'),
-		'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . Output::getClean(Util::getSelfURL()) . URL::build('forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title))
+		'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title))
 	));
 	
 	// Pagination
