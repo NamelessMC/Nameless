@@ -124,14 +124,17 @@ if(isset($_GET['step']) && isset($_SESSION['mcassoc'])){
 }
 
 // Is UUID linking enabled?
-$uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
-$uuid_linking = $uuid_linking[0]->value;
+if($minecraft == '1') {
+    $uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
+    $uuid_linking = $uuid_linking[0]->value;
 
-if($uuid_linking == '1'){
-	// Do we want to verify the user owns the account?
-	$account_verification = $queries->getWhere('settings', array('name', '=', 'verify_accounts'));
-	$account_verification = $account_verification[0]->value;
-}
+    if ($uuid_linking == '1') {
+        // Do we want to verify the user owns the account?
+        $account_verification = $queries->getWhere('settings', array('name', '=', 'verify_accounts'));
+        $account_verification = $account_verification[0]->value;
+    }
+} else
+    $uuid_linking = '0';
 
 // Use recaptcha?
 $recaptcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));

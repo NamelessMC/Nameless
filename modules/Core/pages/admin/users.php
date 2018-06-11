@@ -211,11 +211,28 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 									// Get current unix time
 									$date = new DateTime();
 									$date = $date->getTimestamp();
+
+									// Try to get UUID
+									if($uuid_linking == '1'){
+									    if(!isset($mcname_result)){
+									        $profile = ProfileUtils::getProfile(str_replace(' ', '%20', Input::get('username')));
+									        $mcname_result = $profile->getProfileAsArray();
+									    }
+									    if(isset($mcname_result["uuid"]) && !empty($mcname_result['uuid'])){
+									        $uuid = $mcname_result['uuid'];
+
+									    } else {
+									        $uuid = '';
+									    }
+									} else {
+									    $uuid = '';
+									}
 									
 									try {
 										$user->create(array(
 											'username' => htmlspecialchars(Input::get('username')),
 											'nickname' => htmlspecialchars(Input::get('nickname')),
+											'uuid' => htmlspecialchars($uuid),
 											'password' => $password,
 											'pass_method' => 'default',
 											'joined' => $date,
