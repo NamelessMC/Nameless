@@ -59,9 +59,9 @@ $language = array(
 	'timezone' => 'Zona Horaria',
 	'upload_new_avatar' => 'Cargar un nuevo avatar',
 	'nickname_already_exists' => 'El nick que haz elegido ya está en uso.',
-	'change_email_address' => 'Change Email Address',
-	'email_already_exists' => 'The email address you have entered already exists.',
-	'email_changed_successfully' => 'Email address changed successfully.',
+	'change_email_address' => 'Cambiar dirección de correo electronico',
+	'email_already_exists' => 'El correo electronico que ha introducido está en uso.',
+	'email_changed_successfully' => 'La dirección de correo electrónico fue actualizada con éxito.',
 	
 	// Alerts
 	'user_tag_info' => 'Has sido etiquetado en un post por {x}.', // Don't replace {x}
