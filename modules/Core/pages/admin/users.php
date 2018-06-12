@@ -40,6 +40,7 @@ if($user->isLoggedIn()){
 $page = 'admin';
 $admin_page = 'users_and_groups';
 
+require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
 require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 
 // Is UUID linking enabled?
