@@ -220,7 +220,7 @@ if(!isset($admin_styles)){
             });
 
             notification.onclick = function () {
-              window.open("' . Output::getClean(Util::getSelfURL()) . URL::build('user/messaging') . '");
+              window.open("' . Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/user/messaging') . '");
             };
 
           }
@@ -258,7 +258,7 @@ if(!isset($admin_styles)){
             });
 
             notification.onclick = function () {
-              window.open("' . Output::getClean(Util::getSelfURL()) . URL::build('user/alerts') . '");
+              window.open("' . Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/user/alerts') . '");
             };
 
           }
