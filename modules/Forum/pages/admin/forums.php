@@ -304,8 +304,13 @@ $admin_page = 'forums';
                                                 }
 
                                                 if(!isset($redirect_error)) {
+                                                    if(isset($_POST['parent']))
+                                                        $parent = $_POST['parent'];
+                                                    else
+                                                        $parent = 0;
+
                                                     $queries->update('forums', $forum->id, array(
-                                                        'parent' => Input::get('parent'),
+                                                        'parent' => $parent,
                                                         'news' => Input::get('news_forum'),
                                                         'redirect_forum' => $redirect,
                                                         'redirect_url' => $redirect_url
@@ -773,12 +778,18 @@ $admin_page = 'forums';
 											$redirect = 0;
 											$redirect_url = null;
 										}
+
+										if(isset($_POST['parent']))
+										    $parent = $_POST['parent'];
+										else
+										    $parent = 0;
+
 										// Update the forum
 										$to_update = array(
 										    'forum_title' => Output::getClean(Input::get('title')),
 										    'forum_description' => Output::getClean(Input::get('description')),
 										    'news' => Input::get('display'),
-										    'parent' => Input::get('parent_forum'),
+										    'parent' => $parent,
 										    'redirect_forum' => $redirect
 										);
 
