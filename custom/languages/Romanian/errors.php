@@ -22,10 +22,10 @@ $language = array(
     '404_error' => 'Dacă considerați că aceasta ar putea să fie o eroare , {x} va rugan să contactați un administrator{y}.', // Don't replace {x} or {y}
     'maintenance_title' => 'Modul de întreținere.',
     'maintenance_retry' => 'Reîncercați',
-    'fatal_error' => 'Fatal Error',
-    'fatal_error_title' => 'Sorry!',
-    'fatal_error_message_user' => 'Sorry, but something went wrong while loading the page. Please contact an administrator.',
-    'fatal_error_message_admin' => 'Sorry, but something went wrong while loading the page. Error details:',
-    'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
-    'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
+    'fatal_error' => 'Eroare fatală',
+    'fatal_error_title' => 'Scuze!',
+    'fatal_error_message_user' => 'Ne pare rău, dar în timpul încărcării paginii s-a întâmplat ceva. Contactați un administrator.',
+    'fatal_error_message_admin' => 'Ne pare rău, dar în timpul încărcării paginii s-a întâmplat ceva. Detalii eroare:',
+    'in_file' => 'în fișierul <strong>{x}</strong>', // Don't replace {x}
+    'on_line' => 'linia <strong>{x}</strong>' // Don't replace {x}
 );
