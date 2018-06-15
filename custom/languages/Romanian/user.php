@@ -8,14 +8,14 @@
  *
  *  Romanian Language - Users
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 02/11/2017
+ *  Last Update: 14/06/2018
  */
 
 $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'Pentru a finaliza înregistrarea, vă rugăm să executați comanda <strong>/validate {x}</strong> in joc.', // Don't replace {x}
 
     /*
      *  User Related
@@ -61,9 +61,9 @@ $language = array(
     'timezone' => 'Fus orar',
     'upload_new_avatar' => 'Încărcați un nou avatar',
     'nickname_already_exists' => 'Numele ales este deja utilizat.',
-    'change_email_address' => 'Change Email Address',
-    'email_already_exists' => 'The email address you have entered already exists.',
-    'email_changed_successfully' => 'Email address changed successfully.',
+    'change_email_address' => 'Schimbați adresa de e-mail',
+    'email_already_exists' => 'Adresa de e-mail pe care ați introdus-o este deja utilizată.',
+    'email_changed_successfully' => 'Adresa de e-mail a fost modificată cu succes.',
     
     // Alerts
     'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace {x}
@@ -122,7 +122,7 @@ $language = array(
     'verification_failed' => 'Verificare eșuată. Vă rugăm încercați din nou.',
     'verification_success' => 'Validat cu succes! Acum te poți loga.',
     'authme_username_exists' => 'Contul dvs. Authme a fost deja conectat la site-ul Web!',
-    'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
+    'uuid_already_exists' => 'UUID-ul dvs. există deja, ceea ce înseamnă că acest cont Minecraft este deja înregistrat.',
     
     // Login
     'successful_login' => 'V-ați conectat cu succes.',
@@ -172,8 +172,8 @@ $language = array(
     'user_unblocked' => 'Utilizatorul a fost deblocat.',
 	'views' => 'Vizualizări profil:',
 	'private_profile_page' => 'Acest profil este privat!',
-	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
-	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
+	'new_wall_post_reply' => '{x} a răspuns la postarea ta pe profilul lui {y}.', // Don't replace {x} or {y}
+	'new_wall_post_reply_your_profile' => '{x} a răspuns la postarea de pe profilul tău.', // Don't replace {x}
     
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',
@@ -224,5 +224,5 @@ $language = array(
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
+    'user_x_has_registered' => '{x} s-a alaturat ' . SITE_NAME . '!'
 );

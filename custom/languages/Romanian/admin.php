@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 18/11/2017
+ *  Last Update: 15/06/2018
  */
 
 $language = array(
@@ -36,9 +36,9 @@ $language = array(
     'running_nameless_version' => 'Rulează versiunea <strong>{x}</strong> a NamelessMC', // Don't replace "{x}"
     'running_php_version' => 'Rulează cu versiunea PHP <strong>{x}</strong>', // Don't replace "{x}"
     'statistics' => 'Statistici',
-    'registrations' => 'Registrations',
-    'topics' => 'Topics',
-    'posts' => 'Posts',
+    'registrations' => 'Înregistrări',
+    'topics' => 'Subiecte',
+    'posts' => 'Postări',
     'notices' => 'Alerte',
     'no_notices' => 'Momentan nu există alerte.',
     'email_errors_logged' => 'Au fost înregistrate erori de e-mail. Click <a href="{x}">aici</a> pentru a le vizualiza.', // Don't replace "{x}"
@@ -115,20 +115,20 @@ $language = array(
     'avatar_settings_updated_successfully' => 'Setările avatarelor s-au actualizat cu succes.',
     'navigation' => 'Navigare',
     'navbar_order' => 'Ordonare navigare',
-    'navbar_order_instructions' => 'Puteți da fiecărui articol un număr mai mare de 0 pentru a ordona elemente în bara de navigare, cu 1 fiind primul element și numerele mai mari care vin după el.',
-    'navbar_icon' => 'Navbar Icon',
-    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
-    'dropdown_items' => 'Dropdown Items',
+    'navbar_order_instructions' => 'Puteți da fiecărui element un număr mai mare de 0 pentru a ordona elemente în bara de navigare, cu 1 fiind primul element și numerele mai mari care vin după el.',
+    'navbar_icon' => 'Pictograma navigare',
+    'navbar_icon_instructions' => 'De asemenea, puteți adăuga o pictogramă în fiecare element de navigare aici, de exemplu utilizând <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+    'dropdown_items' => 'Elemente meniu dropdown',
     'enable_page_load_timer' => 'Activați cronometrarea încărcării paginii?',
     'google_recaptcha' => 'Activați Google reCAPTCHA?',
-    'recaptcha_site_key' => 'reCAPTCHA Site Key',
-    'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
+    'recaptcha_site_key' => 'Cheie site reCAPTCHA',
+    'recaptcha_secret_key' => 'Cheie secreta reCAPTCHA',
     'registration_disabled_message' => 'Mesaj afișat când înregistrarea este dezactivată',
     'enable_nicknames_on_registration' => 'Activați poreclele pentru utilizatorii ce se înregistrează?',
-    'validation_promote_group' => 'Post-validation group',
-    'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
-    'login_method' => 'Login Method',
-    'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+    'validation_promote_group' => 'Grupul de post-validare',
+    'validation_promote_group_info' => 'Acesta este grupul în care un utilizator va fi promovat după ce și-a validat contul.',
+    'login_method' => 'Metoda de conectare',
+    'privacy_and_terms' => 'Politica de confidențialitate și termenii și condițiile',
 
     // Reactions
     'icon' => 'Iconiță',
@@ -154,12 +154,12 @@ $language = array(
     'editing_profile_field' => 'Editare câmp personalizat pentru profil',
     'field_name' => 'Nume câmp',
     'profile_field_required_help' => 'Câmpurile obligatorii trebuie completate de utilizator și vor apărea în timpul înregistrării.',
-    'profile_field_public_help' => 'PCâmpurile publice vor fi afișate tuturor utilizatorilor, dar dacă acest lucru este dezactivat, numai moderatorii pot vizualiza valorile.',
+    'profile_field_public_help' => 'Câmpurile publice vor fi afișate tuturor utilizatorilor, dar dacă acest lucru este dezactivat, numai moderatorii pot vizualiza valorile.',
     'profile_field_error' => 'Introduceți un nume de câmp între 2 și 16 caractere.',
     'description' => 'Descriere',
     'display_field_on_forum' => 'Afișați câmpul pe forum?',
     'profile_field_forum_help' => 'Dacă este activată, câmpul va fi afișat în dreptul postărilor pe forum sub numele utilizatorului.',
-	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
+	'profile_field_editable_help' => 'Dacă este activată, utilizatorii vor avea permisiunea de a edita câmpul în setările profilului.',
 
     // Minecraft
     'enable_minecraft_integration' => 'Activați integrarea Minecraft?',
@@ -320,7 +320,7 @@ $language = array(
     'secondary_groups' => 'Grupuri secundare',
     'secondary_groups_info' => 'Utilizatorul va obține orice permisiuni suplimentare din partea acestor grupuri',
     'unable_to_update_uuid' => 'Imposibil de actualizat UUID-ul.',
-    'default_group' => 'Is the group the default group (for new users)?',
+    'default_group' => 'Grupul este grupul implicit pentru utilizatorii noi?',
 
     // Permissions
     'select_all' => 'Selectează tot',
@@ -374,7 +374,7 @@ $language = array(
     'module_x' => 'Module: {x}', // Don't replace {x}
 
     // Online users widget
-    'include_staff_in_user_widget' => 'Include staff members in user widget?',
+    'include_staff_in_user_widget' => 'Includeți membrii (staff) personalului în widget-ul utilizatorului?',
 
     // Custom Pages
     'pages' => 'Pagini',
@@ -419,32 +419,32 @@ $language = array(
     'confirm_api_regen' => 'Sigur doriți să vă regenerați cheia API?',
     'api_registration_email' => 'API pentru înregistrarea e-mail',
     'link_to_complete_registration' => 'Adresa pentru finalizarea înregistrări:', // Don't replace {x}
-    'api_verification' => 'Enable API verification?',
-    'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
-    'enable_username_sync' => 'Enable username sync?',
-    'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
+    'api_verification' => 'Activați verificarea API?',
+    'api_verification_info' => 'Dacă este activat, conturile pot fi verificate numai prin API, de exemplu, utilizând pluginul oficial Nameless in joc.<strong> Această opțiune va înlocui verificarea prin e-mail și conturile vor fi activate automat! </strong> <br />Ar trebui să vă configurați grupul implicit pentru a avea permisiuni limitate și apoi să actualizați grupul de post-validare (în ACP -> Bază -> Înregistrare) cu permisiunile obișnuite.',
+    'enable_username_sync' => 'Activați sincronizarea numelor de utilizator?',
+    'enable_username_sync_info' => 'Dacă este activat, numele de utilizator de pe site va fi actualizat pentru a se potrivi cu numele de utilizator din joc.',
 
     // File uploads
     'drag_files_here' => 'Trageți fișierele aici pentru a le încărca.',
     'invalid_file_type' => 'Tip de fișier nevalid!',
     'file_too_big' => 'Fișierul este prea mare! Fișierul are {{filesize}} iar limita maximă este {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
-    'allowed_proxies' => 'Allowed Proxies',
-    'allowed_proxies_info' => 'Line separated list of allowed proxy IPs.',
+    'allowed_proxies' => 'Proxy-uri permise',
+    'allowed_proxies_info' => 'Adăugați câte un IP pe linie pentru a separa IP-urile proxy permise.',
 
     // Error logs
-    'error_logs' => 'Error Logs',
-    'notice_log' => 'Notice log',
-    'warning_log' => 'Warning log',
-    'custom_log' => 'Custom log',
-    'other_log' => 'Other log',
-    'fatal_log' => 'Fatal log',
-    'log_file_not_found' => 'Log file not found.',
+    'error_logs' => 'Jurnale eroare',
+    'notice_log' => 'Jurnale notificare',
+    'warning_log' => 'Jurnale avertismente',
+    'custom_log' => 'Jurnale personalizate',
+    'other_log' => 'Jurnale diverse',
+    'fatal_log' => 'Jurnale erori fatale',
+    'log_file_not_found' => 'Fișierul jurnalului nu a fost găsit.',
 
     // Hooks
     'discord_hooks' => 'Discord Hooks',
-    'discord_hooks_info' => 'Send a message to a Discord channel when something happens on your site. Create a Discord hook in your Discord Server Settings -> Webhooks tab.',
-    'discord_hook_url' => 'Discord webhook URL',
-    'discord_hook_events' => 'Enabled Discord hook events (Ctrl+click to select multiple events)',
-    'register_hook_info' => 'User registration',
-    'validate_hook_info' => 'User validation'
+    'discord_hooks_info' => 'Trimiteți un mesaj unui canal Discord atunci când se întâmplă ceva pe site-ul dvs. Creați un Discord hook în Setările serverului de Discord -> fila Webhooks.',
+    'discord_hook_url' => 'Adresa Discord webhook',
+    'discord_hook_events' => 'Activează evenimentele Discord hook (Ctrl+click pentru a selecta mai multe evenimente)',
+    'register_hook_info' => 'Înregistrare cont utilizator',
+    'validate_hook_info' => 'Validare cont utilizator'
 );
