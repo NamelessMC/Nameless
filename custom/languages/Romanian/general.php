@@ -101,19 +101,19 @@ $language = array(
     /*
      *  Cookie notice
      */
-    'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
-    'cookie_agree' => 'Agree',
+    'cookie_notice' => 'Acest site utilizează cookie-uri pentru a îmbunătăți experiența dvs. de navigare. Prin înregistrarea pe site-ul nostru sau închiderea acestei notificări sunteți de acord cu utilizarea lor.',
+    'cookie_agree' => 'De acord',
 
     /*
      *  Widgets
      */
-    'online_staff' => 'Online Staff',
-    'no_online_staff' => 'There are no staff members online.',
-    'online_users' => 'Online Users',
-    'no_online_users' => 'There are no users online.',
+    'online_staff' => 'Staff online',
+    'no_online_staff' => 'Nu există membri staff online momentan.',
+    'online_users' => 'Utilizatori online',
+    'no_online_users' => 'Nu există utilizatori online momentan.',
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Privacy Policy'
+    'privacy_policy' => 'Politica de confidentialitate'
 );
