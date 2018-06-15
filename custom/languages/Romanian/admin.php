@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 14/06/2018
+ *  Last Update: 15/06/2018
  */
 
 $language = array(
@@ -420,9 +420,9 @@ $language = array(
     'api_registration_email' => 'API pentru înregistrarea e-mail',
     'link_to_complete_registration' => 'Adresa pentru finalizarea înregistrări:', // Don't replace {x}
     'api_verification' => 'Activați verificarea API?',
-    'api_verification_info' => 'Dacă este activată, conturile pot fi verificate numai prin API, de exemplu, ingame utilizând pluginul oficial Nameless.<strong> Această opțiune va înlocui verificarea prin e-mail și conturile vor fi activate automat! </strong> <br />Ar trebui să vă configurați grupul implicit pentru a avea permisiuni limitate și apoi să actualizați grupul de post-validare (în ACP -> Bază -> Înregistrare) cu permisiunile obișnuite.',
+    'api_verification_info' => 'Dacă este activat, conturile pot fi verificate numai prin API, de exemplu, utilizând pluginul oficial Nameless in joc.<strong> Această opțiune va înlocui verificarea prin e-mail și conturile vor fi activate automat! </strong> <br />Ar trebui să vă configurați grupul implicit pentru a avea permisiuni limitate și apoi să actualizați grupul de post-validare (în ACP -> Bază -> Înregistrare) cu permisiunile obișnuite.',
     'enable_username_sync' => 'Activați sincronizarea numelor de utilizator?',
-    'enable_username_sync_info' => 'Dacă este activată, numele de utilizator al site-ului vor fi actualizate pentru a se potrivi cu numele de utilizator ingame.',
+    'enable_username_sync_info' => 'Dacă este activat, numele de utilizator de pe site va fi actualizat pentru a se potrivi cu numele de utilizator din joc.',
 
     // File uploads
     'drag_files_here' => 'Trageți fișierele aici pentru a le încărca.',
