@@ -48,24 +48,28 @@ function get_skin($user, $cache)
     $output .= 'Ne9AAAAAElFTkSuQmCC';
     $output = base64_decode($output);
     if ($user != '') {
-        $ch = curl_init('http://skins.minecraft.net/MinecraftSkins/' . $user . '.png');
-        curl_setopt($ch, CURLOPT_HEADER, 1);
-        curl_setopt($ch, CURLOPT_NOBODY, 1);
+        $ch = curl_init('https://sessionserver.mojang.com/session/minecraft/profile/' . $user);
+
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $result = curl_exec($ch);
-        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        if ($status == 301) {
-            preg_match('/location:(.*)/i', $result, $matches);
-            curl_setopt($ch, CURLOPT_URL, trim($matches[1]));
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_NOBODY, 0);
-            $result = curl_exec($ch);
-            $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            if ($status == 200) {
-                $output = $result;
+
+        $json = json_decode($result);
+
+        if(isset($json->properties[0]->value)){
+            $texture = base64_decode($json->properties[0]->value);
+
+            $json_texture = json_decode($texture);
+
+            if(isset($json_texture->textures->SKIN->url)){
+                $ch = curl_init($json_texture->textures->SKIN->url);
+
+                curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                $output = curl_exec($ch);
             }
         }
+
         curl_close($ch);
     }
 	

@@ -455,9 +455,9 @@ class User {
                     case 'nameless':
                         // Only supports face currently
                         if(defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
-                            return ($full ? rtrim(Util::getSelfURL(), '/') : '') . URL::build('/avatar/' . Output::getClean($data[0]->username));
+                            return ($full ? rtrim(Util::getSelfURL(), '/') : '') . URL::build('/avatar/' . $uuid);
                         else
-                            return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($data[0]->username);
+                            return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . $uuid;
                         break;
                     case 'cravatar':
                     default:
