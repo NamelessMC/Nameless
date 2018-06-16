@@ -513,9 +513,8 @@ $current_default_language = $current_default_language[0]->value;
                                     <div class="form-group">
                                         <?php
                                         // Get force SSL setting
-                                        $cache->setCache('force_https_cache');
-                                        if ($cache->isCached('force_https'))
-                                            $force_https = $cache->retrieve('force_https');
+                                        if(defined('FORCE_SSL'))
+                                            $force_https = true;
                                         else
                                             $force_https = false;
                                         ?>
@@ -525,8 +524,8 @@ $current_default_language = $current_default_language[0]->value;
                                                                           title="<?php echo $language->get('general', 'info'); ?>"
                                                                           data-content="<?php echo $language->get('admin', 'force_https_help'); ?>"></i></span>
                                         <select name="forceHTTPS" class="form-control" id="inputForceHTTPS">
-                                            <option value="true"<?php if ($force_https === true) { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
-                                            <option value="false"<?php if ($force_https !== true) { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
+                                            <option value="true"<?php if ($force_https) { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
+                                            <option value="false"<?php if (!$force_https) { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
                                         </select>
                                     </div>
 									<div class="form-group">
