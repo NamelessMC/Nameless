@@ -7,19 +7,19 @@
   RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
   RewriteRule ^(.*)$ - [E=BASE:%1]
 
-  RewriteCond %{REQUEST_FILENAME} !-d 
-  
+  RewriteCond %{REQUEST_FILENAME} !-d
+
   # Disabled
   # RewriteRule ^(.+)/$ $1 [R=301,L]
-  
-  RewriteRule ^avatar/([^/]+)/([^/]+)/(f|l|r|b|front|left|right|back)$ %{ENV:BASE}core/avatar/face.php?u=$1&s=$2&v=$3
-  RewriteRule ^avatar/([^/]+)/(f|l|r|b|front|left|right|back)$ %{ENV:BASE}core/avatar/face.php?u=$1&v=$2
-  RewriteRule ^avatar/([^/]+)/([^/]+)$ %{ENV:BASE}core/avatar/face.php?u=$1&s=$2
-  RewriteRule ^avatar/([^/]+)$ %{ENV:BASE}core/avatar/face.php?u=$1 [L]
-  
+
+  RewriteRule ^avatar/([^/]+)/([^/]+)/(f|l|r|b|front|left|right|back)/?$ %{ENV:BASE}core/avatar/face.php?u=$1&s=$2&v=$3
+  RewriteRule ^avatar/([^/]+)/(f|l|r|b|front|left|right|back)/?$ %{ENV:BASE}core/avatar/face.php?u=$1&v=$2
+  RewriteRule ^avatar/([^/]+)/([^/]+)/?$ %{ENV:BASE}core/avatar/face.php?u=$1&s=$2
+  RewriteRule ^avatar/([^/]+)/?$ %{ENV:BASE}core/avatar/face.php?u=$1 [L]
+
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  
+
   #RewriteRule ^(.*)$ %{ENV:BASE}index.php  [QSA]
   RewriteRule ^(.*)$ ./index.php?route=/$1 [NC,L,QSA]
 
