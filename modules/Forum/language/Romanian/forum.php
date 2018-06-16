@@ -2,13 +2,13 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
  *  Romanian Language for Forum module
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) 
- *  Last Update: 15/07/2017
+ *  Last Update: 16/06/2018
  */
 
 $language = array(
@@ -26,9 +26,9 @@ $language = array(
 	'topics' => 'subiecte',
 	'views' => 'vizualizari',
 	'posts' => 'mesaje',
-	'x_posts' => '{x} posts', // Don't replace {x}
-	'x_topics' => '{x} topics', // Don't replace {x}
-	'registered_x' => 'Joined: {x}', // Don't replace {x}
+	'x_posts' => '{x} mesaje', // Don't replace {x}
+	'x_topics' => '{x} subiecte', // Don't replace {x}
+	'registered_x' => 'Data înscrierii: {x}', // Don't replace {x}
 	'by' => 'de',
 	'in' => 'în',
 	'last_reply' => 'Ultimul răspuns',
@@ -77,7 +77,7 @@ $language = array(
 	'title_max_64' => 'Titlul subiectului dvs. nu trebuie să depășească 64 de caractere.',
 	'content_min_2' => 'Conținutul subiectului dvs. trebuie să aibă cel puțin 2 caractere.',
 	'content_max_20480' => 'Conținutul subiectului dvs. nu trebuie să depășească 20480 de caractere.',
-	'post_already_reported' => 'Ați raportat deja această postare!',
+	'post_already_reported' => 'Deja ai raportat această postare!',
 	'quoted_post' => 'Mesaj adăugat la citarea postărilor.',
 	'removed_quoted_post' => 'Mesaj eliminat din citarea postărilor.',
 	'quoting_posts' => 'Se introduc citatele ...',
@@ -88,7 +88,7 @@ $language = array(
 	'spam_wait' => 'Așteptați {x} secunde înainte să încărcați să postați din nou.',
 	'overview' => 'Prezentare generală',
 	'no_label' => 'Fără etichetă',
-	'forum_redirect_warning' => 'Notice: you are about to leave this site! Are you sure you want to proceed to {x}?',
+	'forum_redirect_warning' => 'Observație: Sunteți pe cale de a părăsi acest site! Sigur doriți să continuați către {x}?',
 	
 	// Homepage
 	'latest_announcements' => 'Cele mai recente articole',
@@ -152,11 +152,11 @@ $language = array(
 	'forum_type' => 'Tip forum',
 	'forum_type_forum' => 'Forum',
 	'forum_type_category' => 'Categorie',
-	'invalid_action' => 'Acțiune nevalidă',
+	'invalid_action' => 'Acțiune invalidă',
 	'use_reactions' => 'Utilizați reacțiile?',
-	'redirect_forum' => 'Redirect forum?',
-	'redirect_url' => 'Redirect URL',
-	'invalid_redirect_url' => 'You have enabled the forum redirect, but you have not entered a valid URL between 1 and 512 characters.',
+	'redirect_forum' => 'Forumul va redirecționa către o adresă URL?',
+	'redirect_url' => 'Adresa URL pentru redirecționare',
+	'invalid_redirect_url' => 'Ai activat redirecționarea forumului, dar nu ai introdus o adresă URL validă între 1 și 512 de caractere.',
 
     // Search
     'forum_search' => 'Căutare în forum',
@@ -171,13 +171,13 @@ $language = array(
     'latest_posts' => 'Ultimele postări',
 
     // UserCP
-    'last_7_days_posts' => 'Forum posts (last 7 days)',
-    'your_posts' => 'Your post count',
-    'average_posts' => 'Average user post count',
-    'total_posts' => 'Total post count',
+    'last_7_days_posts' => '<br>Statistici mesaje forum (ultimele 7 zile)',
+    'your_posts' => 'Numărul mesajelor tale',
+    'average_posts' => 'Număr mediu de mesaje per utilizator',
+    'total_posts' => 'Numărul total de mesaje',
 
     // Hooks
-    'new_topic_hook_info' => 'New topic',
-    'new_topic_text' => 'Topic created in {x} by {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
-    'include_in_hook' => 'Include new topics from this forum in the webhook?'
+    'new_topic_hook_info' => 'Subiect nou',
+    'new_topic_text' => 'Subiect creat în {x} de {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'include_in_hook' => 'Includeți subiecte noi din acest forum în webhook?'
 );
