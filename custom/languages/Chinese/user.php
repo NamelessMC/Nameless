@@ -121,6 +121,7 @@ $language = array(
 	'invalid_recaptcha' => '無效的 reCAPTCHA.',
 	'verify_account' => '驗證帳號',
 	'verify_account_help' => '請依照下列的說明來驗證 Minecraft 帳戶為您所有.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => '驗證失敗，請重試.',
 	'verification_success' => '成功驗證，已可以登入.',
 	'authme_username_exists' => '你的 AuthMe 帳號已存在，請直接登入',

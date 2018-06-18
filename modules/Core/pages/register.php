@@ -415,11 +415,11 @@ if(Input::exists()){
 
                                         $link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code);
 
-                                        $html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array($sitename, $language->get('general', 'register'), $language->get('user', 'email_greeting'), $language->get('user', 'email_message'), $link, $language->get('user', 'email_thanks')), $html);
+                                        $html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array(SITE_NAME, $language->get('user', 'validate_account'), $language->get('user', 'email_greeting'), $language->get('user', 'email_message'), $link, $language->get('user', 'email_thanks')), $html);
 
                                         $email = array(
                                             'to' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('username'))),
-                                            'subject' => SITE_NAME . ' - ' . $language->get('general', 'register'),
+                                            'subject' => SITE_NAME . ' - ' . $language->get('user', 'validate_account'),
                                             'message' => $html
                                         );
 
@@ -441,13 +441,13 @@ if(Input::exists()){
                                         $siteemail = $siteemail[0]->value;
 
                                         $to = Input::get('email');
-                                        $subject = $sitename . ' - ' . $language->get('general', 'register');
+                                        $subject = SITE_NAME . ' - ' . $language->get('user', 'validate_account');
 
                                         $message = $language->get('user', 'email_greeting') . PHP_EOL .
                                             $language->get('user', 'email_message') . PHP_EOL . PHP_EOL .
                                             'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code) . PHP_EOL . PHP_EOL .
                                             $language->get('user', 'email_thanks') . PHP_EOL .
-                                            $sitename;
+                                            SITE_NAME;
 
                                         $headers = 'From: ' . $siteemail . "\r\n" .
                                             'Reply-To: ' . $siteemail . "\r\n" .

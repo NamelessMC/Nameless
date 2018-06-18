@@ -118,6 +118,7 @@ $language = array(
 	'invalid_recaptcha' => 'Ongeldig reCAPTCHA antwoord.',
 	'verify_account' => 'Controleer account',
 	'verify_account_help' => 'Graag de volgende instructies volgen zodat we kunnen valideren (controleren) of u de eigenaar bent van dit Minecraft account.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Validatie gefaald, probeer het opnieuw.',
 	'verification_success' => 'Succesvol gevalideerd! Je kunt nu inloggen.',
 	'authme_username_exists' => 'Je Authme account is al verbonden met de website!',

@@ -116,6 +116,7 @@ $language = array(
 	'invalid_recaptcha' => 'La respuesta de reCAPTCHA no es válida...',
 	'verify_account' => 'Verificar Cuenta',
 	'verify_account_help' => 'Siga las instrucciones a continuación para verificar que posee la cuenta de Minecraft en cuestión.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Verificación fallida. Por favor intenta de nuevo.',
 	'verification_success' => '¡Con éxito validado! Ahora puede iniciar sesión.',
 	'authme_username_exists' => 'Tu cuenta de AuthMe ya está conectada con nuestra web.',

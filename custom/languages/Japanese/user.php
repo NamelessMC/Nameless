@@ -118,6 +118,7 @@ $language = array(
 	'invalid_recaptcha' => 'reCAPTCHA 応答が無効です。',
 	'verify_account' => 'アカウントを確認',
 	'verify_account_help' => 'Minecraft アカウントを所有することを確認以下の手順に従ってください。',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => '検証に失敗しました、再試行してください。',
 	'verification_success' => '正常に検証されました！ これでログインできます。',
 	'authme_username_exists' => 'AuthMe アカウントはすでにWebサイトに接続されています。',
