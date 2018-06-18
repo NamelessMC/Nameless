@@ -29,7 +29,7 @@
 	    {if isset($MESSAGING_LINK)}
 	    {* Private messages and alerts *}
 		<li class="nav-item dropdown pm-dropdown">
-		  <a href="#" class="nav-link dropdown-toggle no-caret" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span style="margin: -10px 0px; font-size: 16px;"><i class="fa fa-envelope"></i> <div style="display: inline;" id="pms"></div></span></a>
+		  <a href="#" class="nav-link dropdown-toggle no-caret" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span style="margin: -10px 0px; font-size: 16px;"><i class="fa fa-envelope"></i> <span class="mobile_only">{$MESSAGING}</span> <div style="display: inline;" id="pms"></div></span></a>
 		  <div class="dropdown-menu pm-dropdown-menu dropdown-menu-right">
 		    <div id="pm_dropdown">{$LOADING}</div>
 			<div class="dropdown-divider"></div>
@@ -38,7 +38,7 @@
 		</li>
 		
 		<li class="nav-item dropdown alert-dropdown">
-		  <a href="#" class="nav-link dropdown-toggle no-caret" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span style="margin: -10px 0px; font-size: 16px;"><i class="fa fa-flag"></i> <div style="display: inline;" id="alerts"></div></span></a>
+		  <a href="#" class="nav-link dropdown-toggle no-caret" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span style="margin: -10px 0px; font-size: 16px;"><i class="fa fa-flag"></i> <span class="mobile_only">{$ALERTS}</span> <div style="display: inline;" id="alerts"></div></span></a>
 		  <div class="dropdown-menu alert-dropdown-menu dropdown-menu-right">
 		    <div id="alert_dropdown">{$LOADING}</div>
 		    <div class="dropdown-divider"></div>

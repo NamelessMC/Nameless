@@ -23,7 +23,7 @@ $language = array(
 	
 	// UserCP
 	'user_cp' => 'UserCP',
-	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
+	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">UserCP</span>',
 	'overview' => 'Overview',
 	'user_details' => 'User Details',
 	'profile_settings' => 'Profile Settings',
