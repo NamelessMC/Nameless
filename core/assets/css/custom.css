@@ -207,3 +207,9 @@ a {
 	overflow: auto;
 	max-width: 100%
 }
+
+@media only screen and (min-width: 768px) {
+    .mobile_only {
+        display: none;
+    }
+}
