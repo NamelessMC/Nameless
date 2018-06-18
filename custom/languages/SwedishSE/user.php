@@ -117,6 +117,7 @@ $language = array(
 	'invalid_recaptcha' => 'Ogiltigt reCAPTCHA svar.',
 	'verify_account' => 'Bekräfta Konto',
 	'verify_account_help' => 'Var god och följ instruktionerna nedan så att vi kan verifiera att du äger det här Minecraft kontot.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Verifiering misslyckades, vänligen försök igen.',
 	'verification_success' => 'Du har validerats! Nu kan du logga in.',
 	'authme_username_exists' => 'Ditt Authme konto har redan anslutits till den här webbplatsen!',

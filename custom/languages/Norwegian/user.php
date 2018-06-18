@@ -115,6 +115,7 @@ $language = array(
 	'invalid_recaptcha' => 'Feil reCAPTCHA',
 	'verify_account' => 'Verifiser bruker.',
 	'verify_account_help' => 'Vennligst følg instruksjonene så vi kan verifisere at dette er din bruker.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Verifisering feilet, prøv igjen.',
 	'verification_success' => 'Suksessfullt verifisert, du kan nå logge inn!',
 	'authme_username_exists' => 'Din Authme bruker har allerede blitt koblet til denne nettsida!',

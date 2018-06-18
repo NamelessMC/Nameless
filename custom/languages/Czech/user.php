@@ -116,6 +116,7 @@ $language = array(
 	'invalid_recaptcha' => 'Špatná reCAPTCHA.',
 	'verify_account' => 'Ověřit účet',
 	'verify_account_help' => 'Postupujte podle pokynů níže, abychom mohli ověřit, zda je tento Minecraft účet opravdu Váš.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Ověření selhalo, zkuste to prosím později.',
 	'verification_success' => 'Ověření úspěšné! Nyní se můžete přihlásit.',
 	'authme_username_exists' => 'Váš AuthMe účet byl právě připojen k webu!',

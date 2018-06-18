@@ -124,6 +124,7 @@ $language = array(
 	'invalid_recaptcha' => 'Ungültige reCAPTCHA Antwort.',
     'verify_account' => 'Account verifizieren',
     'verify_account_help' => 'Bitte führe die angegeben Schritte durch um deinen Account zu verifizieren.',
+    'validate_account' => 'Validate Account',
     'verification_failed' => 'Verifikation fehlgeschlagen.',
     'verification_success' => 'Erfolgreich freigeschaltet.',
     'authme_username_exists' => 'Ihr Authme-Konto wurde bereits mit der Website verbunden!',
