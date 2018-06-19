@@ -451,7 +451,7 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts 
 					}
 					
 					$banners[] = array(
-						'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH : '/') . 'uploads/profile_images/' . Output::getClean($image),
+						'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($image),
 						'name' => Output::getClean($image),
 						'active' => ($user->data()->banner == $image) ? true : false
 					);
