@@ -25,7 +25,7 @@ $language = array(
     
     // UserCP
     'user_cp' => 'Panou Utilizator',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
+    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Panou Utilizator</span>',
     'overview' => 'Prezentare generală',
     'user_details' => 'Detalii utilizator',
     'profile_settings' => 'Setările profilului',
@@ -119,7 +119,7 @@ $language = array(
     'invalid_recaptcha' => 'Răspuns reCAPTCHA invalid.',
     'verify_account' => 'Verifica contul',
     'verify_account_help' => 'Urmați instrucțiunile de mai jos pentru a putea verifica dacă sunteți proprietarul contului Minecraft în cauză.',
-    'validate_account' => 'Validate Account',
+    'validate_account' => 'Confirmați contul',
     'verification_failed' => 'Verificare eșuată. Vă rugăm încercați din nou.',
     'verification_success' => 'Validat cu succes! Acum te poți loga.',
     'authme_username_exists' => 'Contul dvs. Authme a fost deja conectat la site-ul Web!',
