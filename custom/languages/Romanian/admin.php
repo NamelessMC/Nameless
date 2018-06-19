@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 16/06/2018
+ *  Last Update: 19/06/2018
  */
 
 $language = array(
@@ -114,9 +114,9 @@ $language = array(
     'no_avatars_available' => 'Nu există avatare disponibile. Vă rugăm să încărcați mai întâi o imagine nouă.',
     'avatar_settings_updated_successfully' => 'Setările avatarelor s-au actualizat cu succes.',
     'navigation' => 'Navigare',
-    'navbar_order' => 'Ordonare navigare',
+    'navbar_order' => 'Număr de ordine',
     'navbar_order_instructions' => 'Puteți da fiecărui element un număr mai mare de 0 pentru a ordona elemente în bara de navigare, cu 1 fiind primul element și numerele mai mari care vin după el.',
-    'navbar_icon' => 'Pictograma navigare',
+    'navbar_icon' => 'Pictogramă',
     'navbar_icon_instructions' => 'De asemenea, puteți adăuga o pictogramă în fiecare element de navigare aici, de exemplu utilizând <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
     'dropdown_items' => 'Elemente meniu dropdown',
     'enable_page_load_timer' => 'Activați cronometrarea încărcării paginii?',
