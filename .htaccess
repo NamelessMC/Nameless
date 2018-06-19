@@ -3,7 +3,6 @@
   Options -Indexes
   RewriteEngine on
   IndexIgnore *
-  RewriteBase /
   RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
   RewriteRule ^(.*)$ - [E=BASE:%1]
 
@@ -20,8 +19,8 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
 
-  #RewriteRule ^(.*)$ %{ENV:BASE}index.php  [QSA]
-  RewriteRule ^(.*)$ ./index.php?route=/$1 [NC,L,QSA]
+  RewriteRule ^(.*)$ %{ENV:BASE}index.php?route=/$1  [NC,L,QSA]
+  #RewriteRule ^(.*)$ ./index.php?route=/$1 [NC,L,QSA]
 
   # Prevent access to template files
   <files "*.tpl">
