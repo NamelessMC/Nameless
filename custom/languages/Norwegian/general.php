@@ -26,6 +26,7 @@ $language = array(
 	'search' => 'Søk',
 	'edit' => 'Rediger',
 	'next' => 'Neste',
+	'previous' => 'Previous',
 	'confirm_cancel' => 'Er du sikker på at du vil avslutte?',
 	'confirm_delete' => 'Aksepter avsluttelse',
 	'confirm_deletion' => 'Er du sikker på at du ønsker å slette dette?',

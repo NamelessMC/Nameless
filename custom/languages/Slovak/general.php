@@ -26,6 +26,7 @@ $language = array(
 	'search' => 'Hľadať',
 	'edit' => 'Upraviť',
 	'next' => 'Ďalšie',
+	'previous' => 'Previous',
 	'confirm_cancel' => 'Naozaj to chcete zrušiť?',
 	'confirm_delete' => 'Potvrdiť zmazanie',
 	'confirm_deletion' => 'Naozaj toto chcete zmazať?',

@@ -30,6 +30,7 @@ $language = array(
 	'search' => '搜尋',
 	'edit' => '編輯',
 	'next' => '下一個',
+	'previous' => 'Previous',
 	'confirm_cancel' => '你要關閉嗎?',
 	'confirm_delete' => '確認移除',
 	'confirm_deletion' => '你想要移除嗎?',
