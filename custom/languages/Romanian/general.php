@@ -55,8 +55,8 @@ $language = array(
     'page_x' => 'Pagina {x}',
     'browse' => 'Caută',
     'bypass' => 'Evită',
-    'yes' => 'Yes',
-    'no' => 'No',
+    'yes' => 'Da',
+    'no' => 'Nu',
 
     /*
      *  Contact form
