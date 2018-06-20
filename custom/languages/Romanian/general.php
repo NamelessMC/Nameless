@@ -8,7 +8,7 @@
  *
  *  Romanian Language - General terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ASMODΣUS
- *  Last Update: 16/06/2018
+ *  Last Update: 20/06/2018
  */
 
 $language = array(
@@ -28,7 +28,7 @@ $language = array(
     'search' => 'Căutare',
     'edit' => 'Editați',
     'next' => 'Înainte',
-    'previous' => 'Previous',
+    'previous' => 'Înapoi',
     'confirm_cancel' => 'Sigur doriți să anulați?',
     'confirm_delete' => 'Confirmă ștergerea',
     'confirm_deletion' => 'Sigur doriți să ștergeți acest lucru?',
