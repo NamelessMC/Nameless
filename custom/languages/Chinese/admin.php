@@ -354,6 +354,9 @@ $language = array(
 	'ip_address' => 'IP位置',
 	'template_changes' => '模板更改',
 	'file_changed' => '檔案更改',
+	'all_logs' => 'All Logs',
+	'action' => 'Action',
+	'action_info' => 'Action Info',
 
 	// Updates
 	'update' => '更新',

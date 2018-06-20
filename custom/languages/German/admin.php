@@ -358,6 +358,9 @@ $language = array(
 	'ip_address' => 'IP Addresse',
 	'template_changes' => 'Template Editierungen',
 	'file_changed' => 'Datei geändert',
+	'all_logs' => 'All Logs',
+	'action' => 'Action',
+	'action_info' => 'Action Info',
 
 	// Updates
 	'update' => 'Update',

@@ -352,6 +352,9 @@ $language = array(
 	'ip_address' => 'IP アドレス',
 	'template_changes' => 'テンプレートの変更',
 	'file_changed' => 'ファイルが変更されました',
+	'all_logs' => 'All Logs',
+	'action' => 'Action',
+	'action_info' => 'Action Info',
 
 	// Updates
 	'update' => 'アップデート',

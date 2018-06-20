@@ -352,6 +352,9 @@ $language = array(
     'ip_address' => 'Adresa IP',
     'template_changes' => 'Modificări șabloane',
     'file_changed' => 'Fișier modificat',
+    'all_logs' => 'All Logs',
+    'action' => 'Action',
+    'action_info' => 'Action Info',
 
     // Updates
     'update' => 'Actualizare',

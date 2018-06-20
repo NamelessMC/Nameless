@@ -351,6 +351,9 @@ $language = array(
 	'ip_address' => 'Endereço IP',
 	'template_changes' => 'Alterações do Template',
 	'file_changed' => 'Arquivo Modificado',
+	'all_logs' => 'All Logs',
+	'action' => 'Action',
+	'action_info' => 'Action Info',
 
 	// Updates
 	'update' => 'Atualizar',

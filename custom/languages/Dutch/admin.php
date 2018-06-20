@@ -351,6 +351,9 @@ $language = array(
 	'ip_address' => 'IP Adres',
 	'template_changes' => 'Sjabloon veranderingen',
 	'file_changed' => 'Veranderde bestanden',
+	'all_logs' => 'All Logs',
+	'action' => 'Action',
+	'action_info' => 'Action Info',
 
 	// Updates
 	'update' => 'Bijwerken',
