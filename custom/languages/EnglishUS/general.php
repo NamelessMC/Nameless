@@ -26,6 +26,7 @@ $language = array(
 	'search' => 'Search',
 	'edit' => 'Edit',
 	'next' => 'Next',
+	'previous' => 'Previous',
 	'confirm_cancel' => 'Are you sure you wish to cancel?',
 	'confirm_delete' => 'Confirm deletion',
 	'confirm_deletion' => 'Are you sure you wish to delete this?',

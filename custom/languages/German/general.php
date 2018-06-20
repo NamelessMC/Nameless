@@ -34,6 +34,7 @@ $language = array(
 	'search' => 'Suche',
 	'edit' => 'Editieren',
 	'next' => 'Nächste',
+	'previous' => 'Previous',
 	'confirm_cancel' => 'Willst du dies wirklich abbrechen?',
 	'confirm_delete' => 'Löschen bestätigen.',
 	'confirm_deletion' => 'Möchtest du dies wirklich löschen?',

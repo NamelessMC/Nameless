@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -27,6 +27,7 @@ $language = array(
 	'search' => 'Sök',
 	'edit' => 'Redigera',
 	'next' => 'Nästa',
+	'previous' => 'Previous',
 	'confirm_cancel' => 'Är du säker att du vill avsluta?',
 	'confirm_delete' => 'Bekräfta radering',
 	'confirm_deletion' => 'Är du säker att du vill radera detta?',

@@ -28,6 +28,7 @@ $language = array(
 	'search' => 'Zoek',
 	'edit' => 'Bewerk',
 	'next' => 'Volgende',
+	'previous' => 'Previous',
 	'confirm_cancel' => 'Weet je zeker dat je het wilt annuleren?',
 	'confirm_delete' => 'Bevestig verwijdering',
 	'confirm_deletion' => 'Weet je zeker dat je dit wilt verwijderen?',

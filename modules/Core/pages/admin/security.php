@@ -227,7 +227,11 @@ $admin_page = 'security';
 					"info": "<?php echo $language->get('table', 'page_x_of_y'); ?>",
 					"infoEmpty": "<?php echo $language->get('table', 'no_records'); ?>",
 					"infoFiltered": "<?php echo $language->get('table', 'filtered'); ?>",
-					"search": "<?php echo $language->get('general', 'search'); ?> "
+					"search": "<?php echo $language->get('general', 'search'); ?> ",
+					"paginate": {
+					    "next": "<?php echo $language->get('general', 'next'); ?>",
+					    "previous": "<?php echo $language->get('general', 'previous'); ?>"
+					}
 				},
                 order: [[ 2, 'desc']]
             });

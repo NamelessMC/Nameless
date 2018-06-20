@@ -28,6 +28,7 @@ $language = array(
     'search' => 'Căutare',
     'edit' => 'Editați',
     'next' => 'Înainte',
+    'previous' => 'Previous',
     'confirm_cancel' => 'Sigur doriți să anulați?',
     'confirm_delete' => 'Confirmă ștergerea',
     'confirm_deletion' => 'Sigur doriți să ștergeți acest lucru?',
