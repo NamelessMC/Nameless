@@ -349,6 +349,9 @@ $language = array(
 	'ip_address' => 'Direccion IP',
 	'template_changes' => 'Cambios de temas',
 	'file_changed' => 'Archivo cambiado',
+	'all_logs' => 'All Logs',
+	'action' => 'Action',
+	'action_info' => 'Action Info',
 
 	// Updates
 	'update' => 'Actualizar',

@@ -350,6 +350,9 @@ $language = array(
 	'ip_address' => 'IP Addresser',
 	'template_changes' => 'Template forandringer',
 	'file_changed' => 'File endringer',
+	'all_logs' => 'All Logs',
+	'action' => 'Action',
+	'action_info' => 'Action Info',
 
 	// Updates
 	'update' => 'Oppdater',

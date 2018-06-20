@@ -352,6 +352,9 @@ $language = array(
 	'ip_address' => 'Διεύθυνση IP',
 	'template_changes' => 'Template Αλλαγές',
 	'file_changed' => 'Το αρχείο άλλαξε',
+	'all_logs' => 'All Logs',
+	'action' => 'Action',
+	'action_info' => 'Action Info',
 
 	// Updates
 	'update' => 'Ενημέρωση',

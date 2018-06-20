@@ -350,6 +350,9 @@ $language = array(
 	'ip_address' => 'IP Adresa',
 	'template_changes' => 'Změna šablony',
 	'file_changed' => 'Soubor byl změněn',
+	'all_logs' => 'All Logs',
+	'action' => 'Action',
+	'action_info' => 'Action Info',
 	
 	// Updates
 	'update' => 'Aktualizace',
