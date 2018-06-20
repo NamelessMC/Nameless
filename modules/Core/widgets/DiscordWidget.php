@@ -2,7 +2,7 @@
 /*
  *	Made by Partydragen
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -21,6 +21,8 @@ class DiscordWidget extends WidgetBase {
         // Generate HTML code for widget
         $this->_content = '
 			<iframe src="https://discordapp.com/widget?id=' . Output::getClean($discord) . '&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe>
-        ';
+        
+		<br>
+		';
     }
 }
