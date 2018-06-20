@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 19/06/2018
+ *  Last Update: 20/06/2018
  */
 
 $language = array(
@@ -352,9 +352,9 @@ $language = array(
     'ip_address' => 'Adresa IP',
     'template_changes' => 'Modificări șabloane',
     'file_changed' => 'Fișier modificat',
-    'all_logs' => 'All Logs',
-    'action' => 'Action',
-    'action_info' => 'Action Info',
+    'all_logs' => 'Toate jurnalele',
+    'action' => 'Acțiune',
+    'action_info' => 'Informații despre acțiune',
 
     // Updates
     'update' => 'Actualizare',
