@@ -779,8 +779,8 @@ $admin_page = 'forums';
 											$redirect_url = null;
 										}
 
-										if(isset($_POST['parent']))
-										    $parent = $_POST['parent'];
+										if(isset($_POST['parent_forum']))
+										    $parent = $_POST['parent_forum'];
 										else
 										    $parent = 0;
 
