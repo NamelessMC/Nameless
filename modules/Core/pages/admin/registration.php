@@ -145,7 +145,7 @@ $token = Token::get();
 	require(ROOT_PATH . '/core/templates/admin_header.php');
 	?>
 	
-	<link rel="stylesheet" href="/core/assets/plugins/switchery/switchery.min.css">
+	<link rel="stylesheet" href="<?php if (defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.css">
   
   </head>
   <body>
