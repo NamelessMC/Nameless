@@ -1701,7 +1701,8 @@ $admin_page = 'forums';
 	elems.forEach(function(html) {
 		var switchery = new Switchery(html);
 	});
-	
+
+    <?php if(isset($_GET['forum']) || (isset($_GET['action']) && $_GET['action'] == 'new')){ ?>
   	function colourUpdate(that) {
     	var x = that.parentElement;
     	if(that.checked) {
@@ -1761,6 +1762,24 @@ $admin_page = 'forums';
 			colourUpdate(this);
 		});
 	}
+
+	$(document).ready(function(){
+        $('td').click(function() {
+            let checkbox = $(this).find('input:checkbox');
+            let id = checkbox.attr('id');
+
+            if(checkbox.is(':checked')){
+                checkbox.prop('checked', false);
+
+                colourUpdate(document.getElementById(id));
+            } else {
+                checkbox.prop('checked', true);
+
+                colourUpdate(document.getElementById(id));
+            }
+        });
+    });
+	<?php } ?>
     </script>
   </body>
 </html>
