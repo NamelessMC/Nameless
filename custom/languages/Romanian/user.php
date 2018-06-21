@@ -34,7 +34,7 @@ $language = array(
     'click_here_to_view' => 'Faceți clic aici pentru a vedea.',
     'moderation' => 'Moderare',
     'administration' => 'Administrare',
-    'alerts' => 'Alerte',
+    'alerts' => 'Notificări',
     'delete_all' => 'Şterge tot',
 	'private_profile' => 'Profil privat',
     
@@ -67,11 +67,11 @@ $language = array(
     
     // Alerts
     'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace {x}
-    'no_alerts' => 'Nu există alerte noi.',
-    'view_alerts' => 'Vizualizați alertele',
-    '1_new_alert' => 'You have 1 new alert',
-    'x_new_alerts' => 'Aveți {x} alerte noi.', // Don't replace {x}
-    'no_alerts_usercp' => 'Momentan nu aveți alerte.',
+    'no_alerts' => 'Nu aveți notificări necitite.',
+    'view_alerts' => 'Vizualizați notificările',
+    '1_new_alert' => 'Aveți o notificare nouă.',
+    'x_new_alerts' => 'Aveți {x} notificări noi.', // Don't replace {x}
+    'no_alerts_usercp' => 'Momentan nu aveți notificări noi.',
     'new_wall_post' => '{x} a postat pe peretele tău.',
     
     // Registraton
@@ -186,7 +186,7 @@ $language = array(
     'no_messages' => 'Nu există mesaje noi.',
     'no_messages_full' => 'Momentan nu aveți mesaje.',
     'view_messages' => 'Vizualizați mesajele',
-    '1_new_message' => 'You have 1 new message',
+    '1_new_message' => 'Aveți un mesaj nou.',
     'x_new_messages' => 'Aveți {x} mesaje noi.', // Don't replace {x}
     'new_message' => 'Mesaj nou',
     'message_title' => 'Titlul mesajului',
