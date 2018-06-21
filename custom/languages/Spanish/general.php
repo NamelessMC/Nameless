@@ -2,7 +2,7 @@
 /*
  *	Made by TheSuperSkills (Edited by iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr3/pr4
  *
  *  License: MIT
  *
@@ -45,7 +45,7 @@ $language = array(
 	'x_new_alerts' => 'Tienes {x} nuevas alertas.', // Don't replace {x}
 	'messages' => 'Mensajes',
 	'view_messages' => 'Ver mensajes',
-	'no_messages' => 'No meensajes',
+	'no_messages' => 'No mensajes',
 	'x_new_messages' => 'Tienes {x} nuevos mensajes.', // Don't replace {x}
 	'loading' => 'Cargando...',
 	'report' => 'Reportar',
@@ -61,7 +61,7 @@ $language = array(
 	 */
 	'contact' => 'Contacto',
 	'message' => 'Mensaje',
-	'email_address' => 'Email Address',
+	'email_address' => 'Correo electrónico',
 	'contact_email_subject' => 'Nuevo formulario de contacto',
 	'contact_message_failed' => 'No se puede enviar el mensaje. Asegúrate de haber ingresado un mensaje entre 10 y 5000 caracteres.',
 	'contact_message_email' => 'Ese e-Mail es inválido.',
