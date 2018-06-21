@@ -68,6 +68,7 @@ $language = array(
 	'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}
 	'no_alerts' => 'Sem novos alertas',
 	'view_alerts' => 'Ver alertas',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Você possui {x} novos alertas', // Don't replace {x}
 	'no_alerts_usercp' => 'Você não possui nenhum alerta.',
 	
@@ -184,6 +185,7 @@ $language = array(
 	'no_messages' => 'Sem novas mensagens',
 	'no_messages_full' => 'Você não possui nenhuma mensagem.',
 	'view_messages' => 'Visualizar mensagens',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Você possui {x} novas mensagens', // Don't replace {x}
 	'new_message' => 'Nova Mensagem',
 	'message_title' => 'Título da Mensagem',

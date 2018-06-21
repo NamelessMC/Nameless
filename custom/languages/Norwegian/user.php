@@ -67,6 +67,7 @@ $language = array(
 	'user_tag_info' => 'Du har blitt tagget i et innlegg av {x}.', // Don't replace {x}
 	'no_alerts' => 'Ingen nye viktige meldinger',
 	'view_alerts' => 'Vis meldinger',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Du har {x} nye viktige meldinger.', // Don't replace {x}
 	'no_alerts_usercp' => 'Du har ingen nye viktige meldinger',
 	
@@ -183,6 +184,7 @@ $language = array(
 	'no_messages' => 'Ingen nye meldinger.',
 	'no_messages_full' => 'Du har ingen meldinger.',
 	'view_messages' => 'Vis meldinger.',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Du har {x} nye meldinger', // Don't replace {x}
 	'new_message' => 'Ny melding',
 	'message_title' => 'Meldingstittel',

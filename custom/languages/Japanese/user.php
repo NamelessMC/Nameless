@@ -69,6 +69,7 @@ $language = array(
 	'user_tag_info' => 'あなたは {x} の投稿にタグがついています。', // Don't replace {x}
 	'no_alerts' => '新しいアラートはありません',
 	'view_alerts' => 'アラートを表示',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => '{x} 個の新しいアラートがあります', // Don't replace {x}
 	'no_alerts_usercp' => 'あなたはアラートを持っていません。',
 	
@@ -185,6 +186,7 @@ $language = array(
 	'no_messages' => '新しいメッセージはありません',
 	'no_messages_full' => 'あなたにはメッセージはありません。',
 	'view_messages' => 'メッセージを表示する',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => '{x} 個の新しいメッセージがあります', // Don't replace {x}
 	'new_message' => '新しいメッセージ',
 	'message_title' => 'メッセージタイトル',

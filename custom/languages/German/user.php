@@ -75,6 +75,7 @@ $language = array(
 	'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace {x}
 	'no_alerts' => 'Keine Benachrichtigungen',
 	'view_alerts' => 'Benachrichtigungen ansehen',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Du hast {x} neue Benachrichtigungen', // Don't replace {x}
 	'no_alerts_usercp' => 'Du hast keine Benachrichtigungen.',
 	
@@ -191,6 +192,7 @@ $language = array(
 	'no_messages' => 'Keine neuen Nachrichten',
 	'no_messages_full' => 'Du hast keine neuen Nachrichten.',
 	'view_messages' => 'Nachrichten ansehen',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Du hast {x} neue Nachrichten', // Don't replace {x}
 	'new_message' => 'Neue Nachricht',
 	'message_title' => 'Nachrichten Titel',
