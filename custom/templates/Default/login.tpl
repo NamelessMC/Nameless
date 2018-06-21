@@ -64,10 +64,10 @@
 
                         <hr class="colorgraph">
                         <div class="row">
-                            <div class="col-xs-12 col-md-6">
+                            <div class="col-xs-12 col-md-6" style="margin:2px;">
                                 <input type="submit" class="btn btn-primary btn-block btn-lg" value="{$SUBMIT}">
                             </div>
-                            <div class="col-xs-12 col-md-6">
+                            <div class="col-xs-12 col-md-6" style="margin:2px;">
                                 <a class="btn btn-success btn-block btn-lg" href="{$REGISTER_URL}">{$REGISTER}</a>
                             </div>
                         </div>
