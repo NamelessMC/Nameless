@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 /*
  *	Made by TheSuperSkills (Edited by Ariuw and iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr3/pr4
  *
  *  License: MIT
  *
@@ -14,7 +14,7 @@ $language = array(
 	 *  Admin Control Panel
 	 */
 	// Login
-	're-authenticate' => 'Vuelva a autenticar',
+	're-authenticate' => 'Inicie sesión para ingresar',
 
 	// Sidebar
 	'admin_cp' => 'Panel de Administración',
@@ -22,16 +22,16 @@ $language = array(
 	'overview' => 'Visión de conjunto',
 	'core' => 'Configuraciones',
 	'minecraft' => 'Minecraft',
-	'modules' => 'Modulos',
+	'modules' => 'Módulos',
 	'security' => 'Seguridad',
 	'styles' => 'Estilos',
 	'users_and_groups' => 'Usuarios y grupos',
 
 	// Overview
-	'running_nameless_version' => 'Versión en ejecución de NamelessMC <strong>{x}</strong>', // Don't replace "{x}"
-	'running_php_version' => 'Versión en ejecución de PHP <strong>{x}</strong>', // Don't replace "{x}"
-	'statistics' => 'Estadisticas',
-	'registrations' => 'Registros',
+	'running_nameless_version' => 'Ejecutando NamelessMC. Versión <strong>{x}</strong>', // Don't replace "{x}"
+	'running_php_version' => 'Ejecutando la versión de PHP <strong>{x}</strong>', // Don't replace "{x}"
+	'statistics' => 'Estadísticas',
+	'registrations' => 'Registraciones',
 	'topics' => 'Temas',
 	'posts' => 'Publicaciones',
     'notices' => 'Noticias',
@@ -39,7 +39,7 @@ $language = array(
     'email_errors_logged' => 'Se han registrado los errores de correo electrónico. Click <a href="{x}">aquí</a> para ver.', // Don't replace "{x}"
 	// Core
 	'settings' => 'Ajustes',
-	'general_settings' => 'Ajustes Generales',
+	'general_settings' => 'Ajustes generales',
 	'sitename' => 'Nombre del sitio',
 	'default_language' => 'Lenguaje por defecto',
 	'default_language_help' => 'Los usuarios podrán elegir entre los idiomas instalados.',
@@ -53,7 +53,7 @@ $language = array(
 	'post_formatting_type' => 'Tipo de formato posterior',
 	'portal' => 'Portal',
 	'missing_sitename' => 'Introduzca un nombre del sitio entre 2 y 64 caracteres.',
-	'use_friendly_urls' => 'Amistoso URLs',
+	'use_friendly_urls' => 'Usar URLs de Amigos',
 	'use_friendly_urls_help' => 'IMPORTANTE: Tu servidor debe estar configurado para permitir el uso de los archivos mod_rewrite y .htaccess para que esto funcione.',
 	'config_not_writable' => 'Tu <strong>core/config.php</strong> archivo no es escribible. Compruebe los permisos de archivo.',
 	'social_media' => 'Redes sociales',
@@ -66,7 +66,7 @@ $language = array(
 	'successfully_updated' => 'Actualizado exitosamente',
     'debugging_and_maintenance' => 'Depuración y mantenimiento',
     'enable_debug_mode' => '¿Habilitar modo de depuracion?',
-    'force_https' => '¿Forzar https?',
+    'force_https' => '¿Forzar HTTPs?',
     'force_https_help' => 'Si habilita esto, todas las solicitudes a su sitio web seran redirigidas a https. Debe tener un certificado SSL valido activo para que funcione correctamente.',
     'contact_email_address' => 'Correo electrónico de contacto',
     'emails' => 'Correos electrónicos',
@@ -80,10 +80,10 @@ $language = array(
     'viewing_email_error' => 'Error de visualización',
     'unable_to_write_email_config' => 'No se puede escribir en el archivo <strong>core/email.php</core>. Compruebe los permisos de archivo.',
     'enable_mailer' => '¿Activar PHPMailer?',
-    'enable_mailer_help' => 'Habilite esto si los correos electrónico no se envian por defecto. El uso de PHPMailer requiere que usted tenga un servicio capaz de enviar correos electronicos, como Gmail o un proveedor de SMTP.',
+    'enable_mailer_help' => 'Habilite esto si los correos electrónico no se envian por defecto. El uso de PHPMailer requiere que usted tenga un servicio capaz de enviar correos electrónico, como Gmail o un proveedor de SMTP.',
     'outgoing_email' => 'Dirección de correo saliente',
     'outgoing_email_info' => 'Esta es la dirección de correo electrónico que NamelessMC utilizará para enviar correos electronicos.',
-    'mailer_settings_info' => 'Los campos siguientes son obligatorios si ha habilitado PHPMailer. Para obtener más informacion sobre como rellenar estos campos, consulta en <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">the wiki</a>.',
+    'mailer_settings_info' => 'Los campos siguientes son obligatorios si ha habilitado PHPMailer. Para obtener más información sobre como rellenar estos campos, consulta en <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">the wiki</a>.',
     'host' => 'Host',
 	'email_port' => 'Port',
     'email_password_hidden' => 'La contraseña no se muestra por razones de seguridad.',
@@ -91,8 +91,8 @@ $language = array(
     'send_test_email_info' => 'El siguiente botón intentará enviar un correo electrónico a su dirección de correo electrónico, <strong>{x}</strong>. Se mostrarán todos los errores lanzados mientras se envía el correo.', // Don't replace {x}
     'send' => 'Enviar',
     'test_email_error' => 'Error de prueba de correo electrónico:',
-    'test_email_success' => 'Correo electrónico de prueba enviado con éxito!',
-    'terms_error' => 'Asegúrese de que sus términos y condiciones no superen los 2048 caracteres..',
+    'test_email_success' => '¡Correo electrónico de prueba enviado con éxito!',
+    'terms_error' => 'Asegúrese de que sus términos y condiciones no superen los 2048 caracteres...',
     'terms_updated' => 'Términos actualizados con éxito.',
     'avatars' => 'Avatares',
     'allow_custom_avatars' => 'Permitir avatares de usuario personalizados?',
@@ -108,11 +108,8 @@ $language = array(
     'no_avatars_available' => 'No hay avatares disponibles. Sube una nueva imagen por encima de la primera.',
     'avatar_settings_updated_successfully' => 'Configuración de avatar actualizada correctamente.',
     'navigation' => 'Navegación',
-    'navbar_order' => 'Orden de la barra de navegación',
-    'navbar_order_instructions' => 'Puede dar a cada elemento un número superior a 0 para ordenar artículos en la barra de navegación, siendo 1 el primer artículo y los números más altos que vendrán después.',
-    'navbar_icon' => 'Icono de navegación',
-    'navbar_icon_instructions' => 'También puede agregar un ícono a cada elemento de la barra de navegación aquí, por ejemplo usando <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
-    'dropdown_items' => 'Elementos desplegables',
+    'navbar_order' => 'Orden de la barra de Navegación',
+    'navbar_order_instructions' => 'Puede dar a cada elemento un número superior a 0 para pedir artículos en la barra de navegación, siendo 1 el primer artículo y los números más altos que vendrán después.',
     'enable_page_load_timer' => '¿Habilitar el tiempo de carga de la página?',
     'google_recaptcha' => '¿Habilitar Google reCAPTCHA?',
     'recaptcha_site_key' => 'Clave de sitio de reCAPTCHA (Site key)',
@@ -120,9 +117,9 @@ $language = array(
     'registration_disabled_message' => 'Mensaje de registración desactivada',
     'enable_nicknames_on_registration' => '¿Habilitar nicks para registrar usuarios?',
     'validation_promote_group' => 'Grupo de validación posterior',
-    'validation_promote_group_info' => 'Este es el grupo al que se proporcionará a un usuario una vez que haya validado su cuenta.',
+    'validation_promote_group_info' => 'Este es el grupo al que se promocionará a un usuario una vez que haya validado su cuenta.',
     'login_method' => 'Método de logueo',
-    'privacy_and_terms' => 'Política de privacidad y términos y condiciones',
+    'privacy_and_terms' => 'Política de privacidad. Términos & Condiciones',
 
 	// Reactions
 	'icon' => 'Icono',
@@ -133,21 +130,20 @@ $language = array(
 	'editing_reaction' => 'Edición de reacciones',
 	'html' => 'HTML',
 	'new_reaction' => '<i class="fa fa-plus-circle"></i> Nueva Reacción',
-	'creating_reaction' => 'Crear Reacción',
+	'creating_reaction' => 'Crear reacción',
 
 	// Custom profile fields
 	'custom_fields' => 'Campos del perfil personalizado',
 	'new_field' => '<i class="fa fa-plus-circle"></i> Nuevo campo',
 	'required' => 'Requiere',
-	'editable' => 'Editable',
-	'public' => 'Público',
+	'public' => 'Publico',
 	'text' => 'Texto',
 	'textarea' => 'Área de texto',
 	'date' => 'Fecha',
 	'creating_profile_field' => 'Creación de un campo de perfil',
 	'editing_profile_field' => 'Edición del campo de perfil',
 	'field_name' => 'Nombre del campo',
-	'profile_field_required_help' => 'Los campos obligatorios deben ser llenados por el usuario, y aparecerán durante el registro.',
+	'profile_field_required_help' => 'Los campos obligatorios deben ser llenados por el usuario y aparecerán durante el registro.',
 	'profile_field_public_help' => 'Los campos públicos se mostrarán a todos los usuarios. Si está desactivado sólo los moderadores pueden ver los valores.',
 	'profile_field_error' => 'Introduzca un nombre de campo entre 2 y 16 caracteres.',
 	'description' => 'Descripción',
@@ -203,26 +199,26 @@ $language = array(
     'server_query_port_help' => 'Esta es la opción query.port en el archivo server.properties de su servidor, siempre que la opción enable-query del mismo archivo esté establecida en true.',
     'server_name_required' => 'Introduzca el nombre del servidor',
     'server_name_minimum' => 'Asegúrese de que su nombre de servidor sea un mínimo de 1 carácter',
-    'server_name_maximum' => 'Asegúrese de que su nombre de servidor sea un máximo de 20 caracteres',
+    'server_name_maximum' => 'Asegúrese de que su nombre de servidor sea un máximo de 20 carácteres',
     'server_address_required' => 'Introduzca la dirección del servidor',
     'server_address_minimum' => 'Asegúrese de que la dirección de su servidor es de un mínimo de 1 carácter',
-    'server_address_maximum' => 'Asegúrese de que la dirección de su servidor sea un máximo de 64 caracteres',
+    'server_address_maximum' => 'Asegúrese de que la dirección de su servidor sea un máximo de 64 carácteres',
     'server_port_required' => 'Introduzca el puerto del servidor',
-    'server_port_minimum' => 'Asegúrese de que su puerto de servidor sea un mínimo de 2 caracteres',
-    'server_port_maximum' => 'Asegúrese de que el puerto del servidor tenga un máximo de 5 caracteres',
+    'server_port_minimum' => 'Asegúrese de que su puerto de servidor sea un mínimo de 2 carácteres',
+    'server_port_maximum' => 'Asegúrese de que el puerto del servidor tenga un máximo de 5 carácteres',
     'server_parent_required' => 'Seleccione un servidor principal',
-    'query_port_maximum' => 'Asegúrese de que su puerto de consulta tenga un máximo de 5 caracteres',
+    'query_port_maximum' => 'Asegúrese de que su puerto de consulta tenga un máximo de 5 carácteres',
     'server_created' => 'Servidor se ha creado correctamente.',
-    'confirm_delete_server' => '¿Está seguro de que desea eliminar este servidor??',
+    'confirm_delete_server' => '¿Está seguro de que desea eliminar este servidor?',
     'server_updated' => 'Servidor actualizado con éxito.',
     'editing_server' => 'Edición del servidor',
     'server_deleted' => 'Servidor eliminado correctamente',
     'unable_to_delete_server' => 'No se puede eliminar el servidor.',
-    'leave_port_empty_for_srv' => 'Puede el puerto vacío si es 25565, o si su dominio utiliza un registro SRV',
+    'leave_port_empty_for_srv' => 'Puede dejar el puerto vacío si es 25565, o si su dominio utiliza un registro SRV',
     'viewing_query_error' => 'Visualización del error de consulta',
     'confirm_query_error_deletion' => '¿Está seguro de que desea eliminar este error de consulta?',
     'no_query_errors' => 'No se han registrado errores de consulta.',
-    'new_banner' => '<i class="fa fa-plus-circle"></i> Nuevo Banner',
+    'new_banner' => '<i class="fa fa-plus-circle"></i> Nuevo banner',
     'purge_errors' => 'Errores de purga',
     'confirm_purge_errors' => '¿Está seguro de que desea purgar todos los errores??',
     'mcassoc_help' => 'MCAssoc es un servicio externo que se puede utilizar para verificar que los usuarios poseen la cuenta de Minecraft con la que se han registrado. Para utilizar esta función, deberá registrarse en una clave compartida <a href="https://mcassoc.lukegb.com/" target="_blank">here</a>.',
@@ -232,24 +228,24 @@ $language = array(
     'mcassoc_error' => 'Asegúrese de que ha introducido correctamente su clave compartida y de que ha generado correctamente una clave de instancia.',
     'updated_mcassoc_successfully' => 'Configuración de MCAssoc actualizada correctamente.',
     'force_premium_accounts' => '¿Forzar cuentas premium de Minecraft?',
-    'banner_background' => 'Fondo del Banner',
+    'banner_background' => 'Background del Banner',
     'query_interval' => 'Intervalo de consultas (en minutos, debe estar entre 5 y 60)',
     'player_graphs' => 'Gráfica de jugadores',
     'player_count_cronjob_info' => 'Puede configurar un trabajo cRON para consultar sus servidores cada {x} minutos con el siguiente comando:',
 
 	// Modules
-	'modules_installed_successfully' => 'Todos los modulos fueron instalados exitosamente.',
+	'modules_installed_successfully' => 'Todos los nuevos módulos han sido instalados correctamente.',
 	'enabled' => 'Activado',
-	'disabled' => 'Disactivado',
-	'enable' => 'Activado',
-	'disable' => 'Disactivado',
-	'module_enabled' => 'Modulo activado.',
-	'module_disabled' => 'Modulo disactivado.',
+	'disabled' => 'Desactivado',
+	'enable' => 'Activar',
+	'disable' => 'Desactivar',
+	'module_enabled' => 'Módulo activado.',
+	'module_disabled' => 'Módulo disactivado.',
 	'author' => 'Autor:',
 
 	// Styles
 	'templates' => 'Temas',
-	'template_outdated' => 'Hemos detectado que su plantilla está destinada a la versión NamelessMC {x}, pero estás ejecutando la versión NamelessMC {y}', // Don't replace "{x}" or "{y}"
+	'template_outdated' => 'Hemos detectado que su plantilla está destinada a la versión Namelessmc {x}, pero estás ejecutando la versión Namelessmc {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Activo',
 	'deactivate' => 'Desactivar',
 	'activate' => 'Activar',
@@ -262,28 +258,28 @@ $language = array(
 	'default' => 'Por defecto',
 	'make_default' => 'Hacer por defecto',
 	'default_template_set' => 'Plantilla predeterminada establecida en {x} exitosamente.', // Don't replace {x}
-	'template_deactivated' => 'Tema deactivado.',
+	'template_deactivated' => 'Tema desactivado.',
 	'template_activated' => 'Tema activado.',
 	'permissions' => 'Permisos',
-	'setting_perms_for_x' => 'Configuraciones de permisos para {x}', // Don't replace {x}
-	'templates_installed_successfully' => 'Todas las plantillas fueron instaladas exitosamente.',
-	'confirm_delete_template' => 'Estas seguro que quieres borrar esta plantilla?',
-	'delete' => 'Borrar',
-	'template_deleted_successfully' => 'Plantilla borrada con exito.',
-    'background_image_x' => 'Imagen de fondo: <strong>{x}</strong>', // Don't replace {x}
+	'setting_perms_for_x' => 'Configurando permisos para el tema {x}', // Don't replace {x}
+	'templates_installed_successfully' => 'Todos los nuevos temas han sido instalados correctamente.',
+	'confirm_delete_template' => '¿Estás seguro de que quieres eliminar este tema?',
+	'delete' => 'Eliminar',
+	'template_deleted_successfully' => 'Tema eliminado correctamente.',
+    'background_image_x' => 'Imagen de background: <strong>{x}</strong>', // Don't replace {x}
 
 	// Users & groups
 	'users' => 'Usuarios',
 	'groups' => 'Grupos',
 	'group' => 'Grupo',
-	'new_user' => '<i class="fa fa-plus-circle"></i> Nuevo Usuario',
+	'new_user' => '<i class="fa fa-plus-circle"></i> Nuevo usuario',
 	'creating_new_user' => 'Crear nuevo usuario',
 	'registered' => 'Registrado',
 	'user_created' => 'Usuario creado correctamente.',
 	'cant_delete_root_user' => 'No se puede eliminar el usuario root!',
 	'cant_modify_root_user' => 'No se puede modificar el grupo del usuario root!',
 	'user_deleted' => 'Usuario eliminado correctamente.',
-	'confirm_user_deletion' => '¿Está seguro de que desea eliminar el usuario <strong>{x}</strong>?', // Don't replace {x}
+	'confirm_user_deletion' => '¿Está seguro de que desea eliminar a el usuario <strong>{x}</strong>?', // Don't replace {x}
 	'validate_user' => 'Validar usuario',
 	'update_uuid' => 'Actualizar UUID',
 	'update_mc_name' => 'Actualizar el nombre de usuario de Minecraft',
@@ -292,21 +288,21 @@ $language = array(
 	'delete_user' => 'Borrar a este usuario',
 	'minecraft_uuid' => 'Minecraft UUID',
 	'other_actions' => 'Otras acciones',
-	'disable_avatar' => 'Desactivar Avatar',
+	'disable_avatar' => 'Desactivar avatar',
 	'select_user_group' => 'Debe seleccionar un grupo de usuarios.',
 	'uuid_max_32' => 'El UUID debe tener un máximo de 32 caracteres.',
-	'title_max_64' => 'El título de usuario debe tener un máximo de 64 caracteres.',
+	'title_max_64' => 'El título de el usuario debe tener un máximo de 64 caracteres.',
 	'group_id' => 'Grupo ID',
 	'name' => 'Nombre',
-	'title' => 'Titulo del usuario',
-	'new_group' => '<i class="fa fa-plus-circle"></i> Nuevo Grupo',
+	'title' => 'Título del usuario',
+	'new_group' => '<i class="fa fa-plus-circle"></i> Nuevo grupo',
 	'group_name_required' => 'Introduzca un nombre de grupo.',
-	'group_name_minimum' => 'Asegúrese de que su nombre de grupo tenga un mínimo de 2 caracteres.',
-	'group_name_maximum' => 'Asegúrese que el nombre de su grupo tenga un máximo de 20 caracteres.',
+	'group_name_minimum' => 'Asegúrese de que su nombre de grupo tenga un mínimo de 2 carácteres.',
+	'group_name_maximum' => 'Asegúrese de que su nombre de grupo tenga un máximo de 20 carácteres.',
 	'creating_group' => 'Crear nuevo grupo',
 	'group_html_maximum' => 'Asegúrese de que el HTML de su grupo no tenga más de 1024 caracteres.',
 	'group_html' => 'Grupo HTML',
-	'group_html_lg' => 'Grupo HTML grande',
+	'group_html_lg' => 'Grupo HTML extenso',
 	'group_username_colour' => 'Nombre de usuario del grupo',
 	'group_staff' => '¿Será el grupo un grupo del personal?',
 	'group_modcp' => '¿Puede el grupo ver el ModCP?',
@@ -322,10 +318,10 @@ $language = array(
 	// Permissions
 	'select_all' => 'Seleccionar todo',
 	'deselect_all' => 'Deseleccionar todo',
-	'background_image' => 'Imagen de fondno',
+	'background_image' => 'Imagen de background',
 	'can_edit_own_group' => 'No puedes editar los permisos de tu propio grupo.',
-	'permissions_updated_successfully' => 'Permisos editados con éxito.',
-	'cant_edit_this_group' => 'No puedes editar los permisos de este grupo',
+	'permissions_updated_successfully' => 'Permisos actualizados correctamente.',
+	'cant_edit_this_group' => 'No puedes editar los permisos de ese grupo.',
 
 	// General Admin language
 	'task_successful' => 'Tarea éxitosa.',
@@ -364,47 +360,47 @@ $language = array(
 	'update_check_error' => 'Se ha producido un error al comprobar si hay una actualización:',
 	'instructions' => 'Instrucciones',
 	'download' => 'Descargar',
-	'install_confirm' => 'Asegúrese de haber descargado el paquete y cargado primero los archivos contenidos!',
+	'install_confirm' => 'Asegúrese de haber descargado el paquete y cargado primero los archivos contenidos.',
 
 	// Widgets
 	'widgets' => 'Widgets',
-	'widget_enabled' => 'Widget activado.',
-	'widget_disabled' => 'Widget desactivado.',
-	'editing_widget_x' => 'Editando widget {x}', // Don't replace {x}
+	'widget_enabled' => 'Widget activado',
+	'widget_disabled' => 'Widget desactivado',
+	'editing_widget_x' => 'Editando el widget {x}', // Don't replace {x}
 	'module_x' => 'Módulo: {x}', // Don't replace {x}
 
     // Online users widget
-    'include_staff_in_user_widget' => '¿Incluir miembros del staff en el widget de usuarios?',
+    'include_staff_in_user_widget' => '¿Incluir a los miembros del Staff en el widget de los Usuarios?',
 
     // Custom Pages
     'pages' => 'Páginas',
     'new_page' => '<i class="fa fa-plus-circle"></i> Nueva página',
-    'no_custom_pages' => 'No se ha creado ninguna Página.',
-    'creating_new_page' => 'Creando página',
-    'page_title' => 'Titulo de la página',
-    'page_path' => 'Ruta de la página (con un /, Ej: /test)',
+    'no_custom_pages' => 'No tienes páginas personalizadas.',
+    'creating_new_page' => 'Creando nueva página personalizada',
+    'page_title' => 'Título de la página',
+    'page_path' => 'Ruta de la página',
     'page_icon' => 'Icono de la página',
     'page_link_location' => 'Ubicación del vínculo',
     'page_link_navbar' => 'Barra de navegación',
-    'page_link_footer' => 'Footer / pie de página',
-    'page_link_more' => '"Más" Desplegable',
+    'page_link_footer' => 'Pié de la página',
+    'page_link_more' => '"Más": Menú desplegable',
     'page_link_none' => 'No hay link',
     'page_content' => 'Contenido de la página',
-    'page_redirect' => '¿Redireccionar página?',
-    'page_redirect_to' => 'Redireccionar Link (con un http://)',
-    'unsafe_html' => '¿Permitir inseguro HTML?',
-    'unsafe_html_warning' => 'Al habilitar esta opción, se puede usar cualquier HTML en la página, incluido un JavaScript potencialmente peligroso. Solo habilite esto si está seguro de que su HTML es seguro',
+    'page_redirect' => '¿Redirigir página?',
+    'page_redirect_to' => 'Redirigr a (con procedimiento http://)',
+    'unsafe_html' => '¿Permitir HTML inseguro?',
+    'unsafe_html_warning' => 'Al habilitar esta opción, se puede usar cualquier HTML en la página, incluido un JavaScript potencialmente peligroso. Solo habilite esto si está seguro de que su HTML es seguro.',
     'page_permissions' => 'Permisos de la página',
     'view_page' => '¿Ver página?',
     'editing_page_x' => 'Editando página {x}', // Don't replace {x}
     'unable_to_create_page' => 'No se puede crear la página:',
-    'page_title_required' => 'Se requiere un titulo de página.',
-    'page_url_required' => 'Se requiere la ruta de la página.',
-    'link_location_required' => 'Se requiere la ubicación del vínculo.',
-    'page_title_minimum_2' => 'El título de la página debe ser mínimo de 2 carácteres.',
-    'page_url_minimum_2' => 'La ruta de la página debe ser mínimo de 2 carácteres.',
-    'page_title_maximum_30' => 'El título de la página debe ser máximo de 30 carácteres.',
-    'page_icon_maximum_64' => 'El ícono de la página debe ser máximo de 64 carácteres.',
+    'page_title_required' => 'Se requiere el nombre de la página',
+    'page_url_required' => 'Se requiere la ruta de la página',
+    'link_location_required' => 'Se requiere la ubicación del vínculo',
+    'page_title_minimum_2' => 'El título de la página debe ser mínimo de 2 carácteres',
+    'page_url_minimum_2' => 'La ruta de la página debe ser mínimo de 2 carácteres',
+    'page_title_maximum_30' => 'El título de la página debe ser máximo de 30 carácteres',
+    'page_icon_maximum_64' => 'El ícono de la página debe ser máximo de 64 carácteres',
     'page_url_maximum_20' => 'La ubicación del vínculo debe ser máximo de 20 carácteres.',
     'page_content_maximum_20480' => 'El contenido de la página debe ser máximo de 20480 carácteres.',
     'page_redirect_link_maximum_512' => 'The page redirect link must be a maximum of 512 characters.',

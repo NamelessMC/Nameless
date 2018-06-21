@@ -1,8 +1,8 @@
 ﻿<?php 
 /*
- *	Made by TheSuperSkills (Edited by iMaykolRD_)
+ *	Made by TheSuperSkills (Edited by Ariuw and iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr3/pr4
  *
  *  License: MIT
  *
@@ -47,7 +47,7 @@ $language = array(
 	'incorrect_password' => 'Tu contraseña es incorrecta.',
 	'two_factor_auth' => 'Autenticación de dos factores',
 	'enabled' => 'Activado',
-	'disabled' => 'Desactivado',
+        'disabled' => 'Desactivado',
 	'enable' => 'Activar',
 	'disable' => 'Desactivar',
 	'tfa_scan_code' => 'Compruebe el código siguiente en su aplicación de autenticación:',

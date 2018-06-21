@@ -1,6 +1,6 @@
 ﻿<?php 
 /*
- *	Made by TheSuperSkills (Edited by Ariuw)
+ *	Made by TheSuperSkills (Edited by Ariuw and iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr4
  *
@@ -11,20 +11,20 @@
 
 $language = array(
 	'mod_cp' => 'Panel de Moderación',
-	'overview' => 'Vision general',
+	'overview' => 'Visión de Conjunto',
 	
 	// Spam
 	'spam' => 'Spam',
 	'mark_as_spam' => 'Marcar como correo no deseado',
-	'confirm_spam' => '<p>Estás seguro de que quieres marcar a este usuario como spam?</p><p>El usuario se prohibirá IP, y todo su contenido se eliminará.</p>',
+	'confirm_spam' => '<p>¿Estás seguro de que quieres marcar a este usuario como spam?</p><p>Se prohibirá la IP del usuario y todo su contenido se eliminará.</p>',
 	'user_marked_as_spam' => 'Usuario marcado como spam correctamente.',
-	'cant_ban_admin' => 'No se puede prohibir a un administrador!',
+	'cant_ban_admin' => '¡No se puede prohibir a un administrador!',
 	
 	// IP Lookup
 	'ip_lookup' => 'Buscar IP',
 	'search_for_ip' => 'Buscar un nombre de usuario o una dirección IP:',
 	'no_ips_with_username' => 'No hay direcciones IP para ese usuario.',
-	'no_accounts_with_that_ip' => 'No accounts for that IP address found.',
+	'no_accounts_with_that_ip' => 'No existen cuentas con esa dirección IP.',
 	'count_accounts_with_ip' => 'Encontró {x} cuentas con la IP {y}', // Don't replace "{x}" or "{y}"
 	'count_ips_with_name' => 'Encontró {x} Dirección(es) IP para el usuario {y}', // Don't replace "{x}" or "{y}"
 	'no_users_or_ips_found' => 'No se han encontrado usuarios ni direcciones IP.',
@@ -49,36 +49,36 @@ $language = array(
 	
 	// Punishments
 	'punishments' => 'Castigos',
-	'view_punishments' => 'Ver Castigos',
-	'banned' => 'Baneado',
+	'view_punishments' => 'Mirar sanciones',
+	'banned' => 'Baneados',
 	'groups' => 'Grupos',
 	'punish' => 'Castigar',
-	'ban' => 'Ban',
-	'warn' => 'Advertencia',
-	'ban_ip' => 'Ban IP',
-	'viewing_user_x' => 'Viendo a {x}', // Don't replace {x}
-	'previous_punishments' => 'Infracciones anteriores',
-	'no_previous_punishments' => 'No hay infracciones anteriores',
+	'ban' => 'Banear',
+	'warn' => 'Advertir',
+	'ban_ip' => 'Banear de IP',
+	'viewing_user_x' => 'Observando al usuario {x}', // Don't replace {x}
+	'previous_punishments' => 'Sanciones anteriores',
+	'no_previous_punishments' => 'No hay sanciones anteriores.',
 	'warning' => 'Advertencia',
-	'ip_ban' => 'Ban de IP',
+	'ip_ban' => 'Baneo de IP',
 	'reason' => 'Razón',
 	'warn_user' => 'Advertir usuario',
 	'ban_user' => 'Banear usuario',
-	'enter_valid_punishment_reason' => 'Por favor, coloca una razón válida para la infracción. Entre 5 y 5000 carácteres.',
-	'user_punished' => 'Usuario castigado.',
-	'user_punished_alert' => '{x} castigó a {y}', // Don't replace {x} (staff member) or {y} (user punished)
-	'revoke' => 'Quitár',
-	'revoked' => 'Quitádo',
-	'acknowledged' => 'Admitido',
-	'confirm_revoke_warning' => 'Estas seguro de que quieras remover esta advertencia??',
-	'confirm_revoke_ban' => 'Estas seguro de que quieres remover este Ban? Este usuario será desbaneado, incluso si tiene bans más recientes!',
-	'punishment_revoked' => 'Infracción revocada.',
-	'punishment_revoked_alert' => '{x} le quitó una infracción al usuario {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
-	'cant_punish_admin' => 'No puedes dar una infracción a un Administrador!',
-    'viewing_all_punishments' => 'Viendo todas las infracciones',
-    'no_punishments_found' => 'No hay infracciones.',
+	'enter_valid_punishment_reason' => 'Por favor ingrese una razón válida, entre 5 y 5000 carácteres.',
+	'user_punished' => 'Usuario sancionado..',
+	'user_punished_alert' => '{x} ha sancionado al usuario {y}', // Don't replace {x} (staff member) or {y} (user punished)
+	'revoke' => 'Revocar',
+	'revoked' => 'Revocado',
+	'acknowledged' => 'Reconocer',
+	'confirm_revoke_warning' => '¿Estás seguro de que quieres revocar esa advertencia?',
+	'confirm_revoke_ban' => '¿Estás seguro de que quieres revocar ese baneo? ¡El usuario será desbaneado, incluso si tiene un castigo reciente!',
+	'punishment_revoked' => 'Castigo revocado..',
+	'punishment_revoked_alert' => '{x} ha revocado el castigo de {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
+	'cant_punish_admin' => 'No puedes castigar a un administrador.',
+    'viewing_all_punishments' => 'Viendo todos los castigos',
+    'no_punishments_found' => 'No se han encontrado castigos.',
     'view_user' => 'Ver usuario',
-    'when' => 'Tiempo',
+    'when' => 'Cuando',
     'staff' => 'Staff',
     'type' => 'Tipo'
 
