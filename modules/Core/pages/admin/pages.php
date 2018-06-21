@@ -165,9 +165,9 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                           'all_html' => ($unsafe == 1) ? 1 : 0
                       ));
 
-                      Log::getInstance()->log(Log::Action('admin/pages/new'), Output::getClean(Input::get('page_title')));
-
                       $last_id = $queries->getLastId();
+
+                      Log::getInstance()->log(Log::Action('admin/pages/new'), Output::getClean(Input::get('page_title')));
                       
                       // Permissions
                       $perms = array();  
