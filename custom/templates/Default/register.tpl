@@ -83,8 +83,8 @@
 			
 			<div class="row">
 			  <input type="hidden" name="token" value="{$TOKEN}">
-			  <div class="col-xs-12 col-md-6"><input type="submit" value="{$REGISTER}" class="btn btn-primary btn-block btn-lg" tabindex="8"></div>
-			  <div class="col-xs-12 col-md-6"><a href="{$LOGIN_URL}" class="btn btn-success btn-block btn-lg">{$LOG_IN}</a></div>
+			  <div class="col-xs-12 col-md-6" style="margin:2px;"><input type="submit" value="{$REGISTER}" class="btn btn-primary btn-block btn-lg" tabindex="8"></div>
+			  <div class="col-xs-12 col-md-6" style="margin:2px;"><a href="{$LOGIN_URL}" class="btn btn-success btn-block btn-lg">{$LOG_IN}</a></div>
 			</div>
 		  </form>
 		</div>
