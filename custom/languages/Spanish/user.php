@@ -67,6 +67,7 @@ $language = array(
 	'user_tag_info' => 'Has sido etiquetado en un post por {x}.', // Don't replace {x}
 	'no_alerts' => 'No hay nuevas alertas',
 	'view_alerts' => 'Ver alertas',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Tienes {x} nuevas alertas', // Don't replace {x}
 	'no_alerts_usercp' => 'No tienes alertas.',
 	
@@ -183,6 +184,7 @@ $language = array(
 	'no_messages' => 'No hay mensajes nuevos',
 	'no_messages_full' => 'No tienes ningún mensaje.',
 	'view_messages' => 'Ver mensajes',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Tienes {x} nuevos mensajes', // Don't replace {x}
 	'new_message' => 'Nuevo mensaje',
 	'message_title' => 'Titulo del Mensaje',

@@ -195,8 +195,12 @@ if(!isset($admin_styles)){
             window.location.href = "' . URL::build('/user/messaging') . '";
           };
 
-          var x_messages = \'' . $language->get('user', 'x_new_messages') . '\';
-          toastr.info(x_messages.replace("{x}", data.value));
+          if(data.value == 1){
+            toastr.info(\'' . $language->get('user', '1_new_message') . '\');
+          } else {
+            var x_messages = \'' . $language->get('user', 'x_new_messages') . '\';
+            toastr.info(x_messages.replace("{x}", data.value));
+          }
 
           // Update navbar dropdown
           var pm_dropdown = document.getElementById(\'pm_dropdown\');
@@ -215,9 +219,15 @@ if(!isset($admin_styles)){
           if (Notification.permission !== "granted")
             Notification.requestPermission();
           else {
-            var notification = new Notification(\'' . SITE_NAME . '\', {
-              body: x_messages.replace("{x}", data.value),
-            });
+            if(data.value == 1){
+              var notification = new Notification(\'' . SITE_NAME . '\', {
+                body: \'' . $language->get('user', '1_new_message') . '\',
+              });
+            } else {
+              var notification = new Notification(\'' . SITE_NAME . '\', {
+                body: x_messages.replace("{x}", data.value),
+              });
+            }
 
             notification.onclick = function () {
               window.open("' . Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/user/messaging') . '");
@@ -233,8 +243,12 @@ if(!isset($admin_styles)){
             window.location.href = "' . URL::build('/user/alerts') . '";
           };
 
-          var x_alerts = \'' . $language->get('user', 'x_new_alerts') . '\';
-          toastr.info(x_alerts.replace("{x}", data.value));
+          if(data.value == 1){
+            toastr.info(\'' . $language->get('user', '1_new_alert') . '\');
+          } else {
+            var x_alerts = \'' . $language->get('user', 'x_new_alerts') . '\';
+            toastr.info(x_alerts.replace("{x}", data.value));
+          }
 
           // Update navbar dropdown
           var alert_dropdown = document.getElementById(\'alert_dropdown\');
@@ -253,9 +267,15 @@ if(!isset($admin_styles)){
           if (Notification.permission !== "granted")
             Notification.requestPermission();
           else {
-            var notification = new Notification(\'' . SITE_NAME . '\', {
-              body: x_alerts.replace("{x}", data.value),
-            });
+            if(data.value == 1){
+              var notification = new Notification(\'' . SITE_NAME . '\', {
+                body: \'' . $language->get('user', '1_new_alert') . '\',
+              });
+            } else {
+              var notification = new Notification(\'' . SITE_NAME . '\', {
+                body: x_alerts.replace("{x}", data.value),
+              });
+            }
 
             notification.onclick = function () {
               window.open("' . Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/user/alerts') . '");

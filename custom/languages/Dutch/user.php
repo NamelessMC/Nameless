@@ -69,6 +69,7 @@ $language = array(
 	'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet
 	'no_alerts' => 'Geen meldingen',
 	'view_alerts' => 'Bekijk meldingen',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Je hebt {x} nieuwe meldingen', // Verander {x} niet
 	'no_alerts_usercp' => 'Je hebt geen meldingen.',
 	
@@ -185,6 +186,7 @@ $language = array(
 	'no_messages' => 'Geen nieuwe berichten',
 	'no_messages_full' => 'Je hebt geen berichten.',
 	'view_messages' => 'Bekijk berichten',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Je hebt {x} nieuwe berichten', // Verander {x} niet
 	'new_message' => 'Nieuw bericht',
 	'message_title' => 'Titel van bericht',

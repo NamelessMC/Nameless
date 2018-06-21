@@ -68,6 +68,7 @@ $language = array(
 	'user_tag_info' => 'Du har blivit taggat i ett inlägg av {x}.', // Don't replace {x}
 	'no_alerts' => 'Inga nya alerter.',
 	'view_alerts' => 'Visa alerter',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Du har {x} nya alerter', // Don't replace {x}
 	'no_alerts_usercp' => 'Du har inga nya alerter.',
 	
@@ -184,6 +185,7 @@ $language = array(
 	'no_messages' => 'Inga nya meddelanden',
 	'no_messages_full' => 'Du har inga meddelanden.',
 	'view_messages' => 'Visa meddelanden',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Du har {x} nya meddelanden', // Don't replace {x}
 	'new_message' => 'Ny meddelande',
 	'message_title' => 'Meddelande Titel',

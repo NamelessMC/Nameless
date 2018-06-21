@@ -72,6 +72,7 @@ $language = array(
 	'user_tag_info' => '你被標註於 {x}.', // Don't replace {x}
 	'no_alerts' => '沒有新提醒',
 	'view_alerts' => '檢視提醒',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => '你有 {x} 個新提醒', // Don't replace {x}
 	'no_alerts_usercp' => '你沒有任何提醒.',
 	
@@ -188,6 +189,7 @@ $language = array(
 	'no_messages' => '沒有新訊息',
 	'no_messages_full' => '你沒有新訊息.',
 	'view_messages' => '查看訊息',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => '你有 {x} 則新訊息', // Don't replace {x}
 	'new_message' => '新訊息',
 	'message_title' => '訊息標題',

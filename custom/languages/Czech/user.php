@@ -67,6 +67,7 @@ $language = array(
 	'user_tag_info' => 'Byl jste označen v příspěvku {x}.', // Don't replace {x}
 	'no_alerts' => 'Žádná nové upozornění.',
 	'view_alerts' => 'Zobrazit upozornění',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Nových upororněních: {x}', // Don't replace {x}
 	'no_alerts_usercp' => 'Nemáte žádná upozornění.',
 	
@@ -183,6 +184,7 @@ $language = array(
 	'no_messages' => 'Žádné nové zprávy.',
 	'no_messages_full' => 'Nemáte žádné zprávy.',
 	'view_messages' => 'Zobrazit zprávy',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Nových zpráv: {x}', // Don't replace {x}
 	'new_message' => 'Nová zpráva',
 	'message_title' => 'Předmět',
