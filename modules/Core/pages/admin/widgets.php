@@ -177,7 +177,7 @@ if(isset($_GET['action'])){
 
                         if($_GET['action'] == 'settings'){
                             // Widget settings
-                            if($widgets->getWidget($widget->name)->getSettings() == null || !file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . $widgets->getWidget($widget->name)->getSettings())){
+                            if($widgets->getWidget($widget->name)->getSettings() == null || !file_exists($widgets->getWidget($widget->name)->getSettings())){
                                 Redirect::to(URL::build('/admin/widgets'));
                                 die();
                             } else

@@ -106,10 +106,11 @@ $language = array(
     /*
      *  Widgets
      */
-    'online_staff' => '<h2>Staff online</h2>',
+    'online_staff' => 'Staff online',
     'no_online_staff' => 'No hay miembros del Staff online.',
-    'online_users' => '<h2>Usuarios online</h2>',
+    'online_users' => 'Usuarios online',
     'no_online_users' => 'No hay usuarios online.',
+    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
 
     /*
      *  Privacy policy
