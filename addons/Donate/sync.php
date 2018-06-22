@@ -525,16 +525,15 @@ if($webstore == 'bc'){
 
     // Categories
     foreach($cs_categories['result'] as $item){
-
         $category_name = htmlspecialchars($item['name']);
         $category = $queries->getWhere('donation_categories', array('name', '=', $category_name));
+        $category_order = $item['order'];
+        $category_id = $item['id'];
 
         // Does it already exist in the database?
         if(!count($category)){
             // Non existing, creating.
 
-            $category_order = $item['order'];
-            $category_id = $item['id'];
             $queries->create('donation_categories', array(
                 'name' => $category_name,
                 'cid' => $category_id,
@@ -542,14 +541,14 @@ if($webstore == 'bc'){
             ));
         }
 
-        $categories[] = $item['id'];
+        $categories[] = $category_name;
     }
 
     // Delete categories no longer on web store
     $category_query = $queries->getWhere('donation_categories', array('cid', '<>', 0));
     foreach($category_query as $item){
-        if(!in_array($item->cid, $categories)){
-            $queries->delete('donation_categories', array('cid', '=', $item->cid));
+        if(!in_array($item->name, $categories)){
+            $queries->delete('donation_categories', array('name', '=', $item->name));
         }
     }
 
@@ -612,7 +611,6 @@ if($webstore == 'bc'){
     /*
      *  Latest donors
      */
-
     if(count($cs_donors['result'])){
         // Get latest payment already stored in cache
         $latest_payment = $queries->orderWhere('donation_cache', 'id <> 0', 'time', 'DESC');
@@ -620,14 +618,14 @@ if($webstore == 'bc'){
         else $latest_payment = 0;
 
         foreach($cs_donors['result'] as $item){
-            if($latest_payment < $item['timestamp']){
+            if($latest_payment < $item['createdAt']){
                 // Input into database
                 $queries->create('donation_cache', array(
-                    'time' => $item['timestamp'],
-                    'uuid' => 'None',
-                    'ign' => htmlspecialchars($item['player_name']),
+                    'time' => $item['createdAt'],
+                    'uuid' => $item['minecraftUUID'],
+                    'ign' => htmlspecialchars($item['minecraftName']),
                     'price' => $item['price'],
-                    'package' => $item['package']
+                    'package' => (isset($item['packages'][0]) ? $item['packages'][0]['packageId'] : 0) // TODO: support multiple packages
                 ));
             }
         }
