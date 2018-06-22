@@ -691,6 +691,23 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
               colourUpdate(this);
           });
       }
+
+      $(document).ready(function(){
+          $('td').click(function() {
+              let checkbox = $(this).find('input:checkbox');
+              let id = checkbox.attr('id');
+
+              if(checkbox.is(':checked')){
+                  checkbox.prop('checked', false);
+
+                  colourUpdate(document.getElementById(id));
+              } else {
+                  checkbox.prop('checked', true);
+
+                  colourUpdate(document.getElementById(id));
+              }
+          });
+      });
   </script>
 <?php } ?>
 </body>
