@@ -112,6 +112,7 @@ $language = array(
     'no_online_staff' => 'Nu există membri staff online momentan.',
     'online_users' => 'Utilizatori online',
     'no_online_users' => 'Nu există utilizatori online momentan.',
+    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
 
     /*
      *  Privacy policy

@@ -278,12 +278,8 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
 	// Discord
 	require_once(ROOT_PATH . '/modules/Core/widgets/DiscordWidget.php');
 	$discord = $cache->retrieve('discord');
-
-	if($discord){
-		$module_pages = $widgets->getPages('Discord');
-
-		$widgets->add(new DiscordWidget($module_pages, $discord));
-	}
+	$module_pages = $widgets->getPages('Discord');
+	$widgets->add(new DiscordWidget($module_pages, $language, $cache, $discord));
 
     // Online staff
     require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php');
