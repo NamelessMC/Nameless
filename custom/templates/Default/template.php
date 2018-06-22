@@ -37,7 +37,10 @@ if($cache->isCached('nav_bg')){
 $smarty->assign('NAV_STYLE', Output::getClean($nav_style));
 $smarty->assign('NAV_BG', Output::getClean($nav_bg));
 
-$route = rtrim($_GET['route'], '/');
+if(isset($_GET['route']))
+	$route = rtrim($_GET['route'], '/');
+else
+	$route = '/';
 
 if(!isset($admin_styles)){
   // Paths to CSS files
