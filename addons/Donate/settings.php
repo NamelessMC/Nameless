@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  http://worldscapemc.co.uk
@@ -32,10 +32,10 @@ if($user->isLoggedIn()){
   <li<?php if(isset($_GET['view']) && $_GET['view'] == 'packages'){ ?> class="active"<?php } ?>><a href="/admin/addons/?action=edit&amp;addon=Donate&amp;view=packages">Packages</a></li>
 </ul>
 
-<?php if(!isset($_GET['view']) && !isset($_GET['do'])){ ?>  
+<?php if(!isset($_GET['view']) && !isset($_GET['do'])){ ?>
 <h3>Addon: Donate</h3>
 Author: Samerton<br />
-Version: 1.1.3<br />
+Version: 1.1.4<br />
 Description: Integrate a donation store with your website<br />
 
 <h3>Donation Store</h3>
@@ -52,7 +52,7 @@ if(empty($donation_settings)){
 	echo '<strong>Donation Packages</strong> table successfully initialised<br />';
 	$data = $queries->createTable("donation_settings", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(32) NOT NULL, `value` varchar(128) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 	echo '<strong>Donation Settings</strong> table successfully initialised<br />';
-	
+
 	// Insert data
 	$queries->create('donation_settings', array(
 		'name' => 'store_type',
@@ -78,7 +78,7 @@ if(empty($donation_settings)){
 		'name' => 'currency',
 		'value' => '1'
 	));
-	
+
 	echo '<script>window.location.replace(\'/admin/addons/?action=edit&addon=Donate\');</script>';
 	die();
 } else {
@@ -90,63 +90,63 @@ if(empty($donation_settings)){
 			// Valid token
 			// Validate input
 			$validate = new Validate();
-			
+
 			$validation = $validate->check($_POST, array(
 				'api_key' => array(
 					'max' => 60
 				)
 			));
-			
+
 			if($validation->passed()){
 				// Save changes
 				// Update store type
 				$queries->update("donation_settings", 1, array(
 					"value" => Input::get('store_type')
 				));
-				
+
 				// API Key
 				$queries->update("donation_settings", 2, array(
 					"value" => htmlspecialchars(Input::get('api_key'))
 				));
-				
+
 				// Allow guests?
 				$queries->update("donation_settings", 3, array(
 					"value" => htmlspecialchars(Input::get('guests'))
 				));
-				
+
 				// Integrated store?
 				$queries->update("donation_settings", 4, array(
 					"value" => htmlspecialchars(Input::get('integrated'))
 				));
-				
+
 				// Store URL
 				$queries->update("donation_settings", 5, array(
 					"value" => htmlspecialchars(Input::get('store_url'))
 				));
-				
+
 				// Store currency
 				$queries->update("donation_settings", 6, array(
 					'value' => Input::get('currency')
 				));
-				
+
 				// Link location
 				$c->setCache('donateaddon');
 				$c->store('linklocation', htmlspecialchars(Input::get('linkposition')));
-				
+
 				// Query again because settings updated
 				// Get settings from database
 				$donation_settings = $queries->getWhere('donation_settings', array('id', '<>', 0));
-				
+
 			} else {
 				Session::flash('admin_donate', '<div class="alert alert-danger">Please enter a valid API key.</div>');
 			}
-		
+
 		} else {
 			// Invalid token
 			Session::flash('admin_donate', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
 		}
 	}
-	
+
 	// Display settings
 	if(Session::exists('admin_donate')){
 		echo Session::flash('admin_donate');
@@ -157,9 +157,6 @@ if(empty($donation_settings)){
   <div class="btn-group" data-toggle="buttons">
     <label class="btn btn-primary<?php if($donation_settings[0]->value == 'bc'){ ?> active<?php } ?>">
 	  <input type="radio" name="store_type" id="InputStoreType1" value="bc" autocomplete="off"<?php if($donation_settings[0]->value == 'bc'){ ?> checked<?php } ?>> Buycraft
-    </label>
-    <label class="btn btn-primary<?php if($donation_settings[0]->value == 'mm'){ ?> active<?php } ?>">
-	  <input type="radio" name="store_type" id="InputStoreType2" value="mm" autocomplete="off"<?php if($donation_settings[0]->value == 'mm'){ ?> checked<?php } ?>> Minecraft Market
     </label>
     <label class="btn btn-primary<?php if($donation_settings[0]->value == 'cs'){ ?> active<?php } ?>">
 	  <input type="radio" name="store_type" id="InputStoreType3" value="cs" autocomplete="off"<?php if($donation_settings[0]->value == 'cs'){ ?> checked<?php } ?>> CraftingStore
@@ -239,7 +236,7 @@ if(empty($donation_settings)){
 				<?php
 				// Display a list of all available packages
 				$packages = $queries->getWhere('donation_packages', array('id', '<>', 0));
-				
+
 				if(count($packages)){
 					echo '<ul>';
 					foreach($packages as $package){
@@ -251,19 +248,19 @@ if(empty($donation_settings)){
 				if(!isset($_GET['reset'])){
 					// Ensure package exists
 					$package = $queries->getWhere('donation_packages', array('package_id', '=', htmlspecialchars($_GET['package'])));
-					
+
 					if(!count($package)){
 						echo '<script>window.location.replace(\'/admin/addons/?action=edit&addon=Donate\');</script>';
 						die();
 					}
-					
+
 					$package = $package[0];
-					
+
 					if(Input::exists()){
 						if(Token::check(Input::get('token'))){
 							// Validate input
 							$validate = new Validate();
-							
+
 							$validation = $validate->check($_POST, array(
 								'editor' => array(
 									'required' => true,
@@ -271,20 +268,20 @@ if(empty($donation_settings)){
 									'max' => 20000
 								)
 							));
-							
+
 							if($validation->passed()){
 								try {
 									$queries->update('donation_packages', $package->id, array(
 										'description' => htmlspecialchars(Input::get('editor')),
 										'custom_description' => 1
 									));
-									
+
 									// Requery to bring $package up to date
 									$package = $queries->getWhere('donation_packages', array('package_id', '=', $package->package_id));
 									$package = $package[0];
-									
+
 									$error = '<div class="alert alert-success">Updated successfully.</div>';
-									
+
 								} catch(Exception $e){
 									$error = '<div class="alert alert-danger">Error: ' . $e->getMessage . '</div>';
 								}
@@ -296,10 +293,10 @@ if(empty($donation_settings)){
 							$error = '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>';
 						}
 					}
-					
+
 					// Generate form token
 					$token = Token::generate();
-					
+
 					// HTMLPurifier
 					require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 					$config = HTMLPurifier_Config::createDefault();
@@ -328,7 +325,7 @@ if(empty($donation_settings)){
 					<a href="/admin/addons/?action=edit&amp;addon=Donate&amp;view=packages" onclick="return confirm('Are you sure?');" class="btn btn-danger">Cancel</a>
 				  </div>
 				</form>
-				
+
 				<script src="/core/assets/js/ckeditor.js"></script>
 				<script type="text/javascript">
 					CKEDITOR.replace( 'editor', {
@@ -355,7 +352,7 @@ if(empty($donation_settings)){
 							$queries->update('donation_packages', $package[0]->id, array(
 								'custom_description' => 0
 							));
-							
+
 							Session::flash('admin_donate', '<div class="alert alert-success">Package description reset. The description will be updated during the next sync.</div>');
 							echo '<script>window.location.replace(\'/admin/addons/?action=edit&addon=Donate\');</script>';
 							die();
@@ -370,7 +367,7 @@ if(empty($donation_settings)){
 			// Get site's unique key
 			$unique_key = $queries->getWhere('settings', array('name', '=', 'unique_id'));
 			$unique_key = htmlspecialchars($unique_key[0]->value);
-			
+
 			// Get plugin in use
 			$donation_plugin = $queries->getWhere('donation_settings', array('id', '=', '1'));
 			$donation_plugin = htmlspecialchars($donation_plugin[0]->value);
@@ -389,7 +386,7 @@ if(empty($donation_settings)){
 	<strong>Please keep the above URL a secret!</strong>
 	<br /><br />
 	To avoid using the API too often, please leave a reasonable time period between running the cron job, such as 20 minutes.
-	
+
 	<!-- Modal -->
 	<div class="modal fade" data-keyboard="false" data-backdrop="static" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
@@ -405,7 +402,7 @@ if(empty($donation_settings)){
 		  </div>
 		</div>
 	  </div>
-	</div>		
+	</div>
 
 	<script type="text/javascript">
 	function syncDonate()
@@ -431,7 +428,7 @@ if(empty($donation_settings)){
 			$queries->delete('donation_cache', array('id', '<>', 0));
 			$queries->delete('donation_categories', array('id', '<>', 0));
 			$queries->delete('donation_packages', array('id', '<>', 0));
-			
+
 			Session::flash('admin_donate', '<div class="alert alert-info">Cache cleared successfully</div>');
 			echo '<script>window.location.replace(\'/admin/addons/?action=edit&addon=Donate\');</script>';
 			die();
