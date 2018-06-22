@@ -2,20 +2,20 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
  *  Romanian Language - Table
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 26/08/2017
+ *  Last Update: 16/06/2018
  */
 
 $language = array(
     /*
      *  Tables
      */
-    'display_records_per_page' => ' Afiseaza&nbsp; _MENU_ &nbsp;rezultate per pagină ', // Don't replace "_MENU_"
+    'display_records_per_page' => ' Afiseaza _MENU_ rezultate per pagină ', // Don't replace "_MENU_"
     'nothing_found' => 'Nu a fost gasit nici un rezultat',
     'page_x_of_y' => 'Afişare pagina _PAGE_ din _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Nu există înregistrări disponibile',

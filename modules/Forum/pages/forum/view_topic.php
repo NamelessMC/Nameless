@@ -235,7 +235,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 ?>
 
 <!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
   <head>
     <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -375,9 +375,9 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	$smarty->assign(array(
 		'SHARE' => $forum_language->get('forum', 'share'),
 		'SHARE_TWITTER' => $forum_language->get('forum', 'share_twitter'),
-		'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . Output::getClean(Util::getSelfURL()) . URL::build('forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)),
+		'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)),
 		'SHARE_FACEBOOK' => $forum_language->get('forum', 'share_facebook'),
-		'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . Output::getClean(Util::getSelfURL()) . URL::build('forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title))
+		'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title))
 	));
 	
 	// Pagination

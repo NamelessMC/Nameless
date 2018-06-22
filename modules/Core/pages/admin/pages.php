@@ -39,7 +39,7 @@ $page = 'admin';
 $admin_page = 'pages';
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo(defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+<html lang="<?php echo(defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
 <head>
   <!-- Standard Meta -->
   <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
@@ -165,9 +165,9 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                           'all_html' => ($unsafe == 1) ? 1 : 0
                       ));
 
-                      Log::getInstance()->log(Log::Action('admin/pages/new'), Output::getClean(Input::get('page_title')));
-
                       $last_id = $queries->getLastId();
+
+                      Log::getInstance()->log(Log::Action('admin/pages/new'), Output::getClean(Input::get('page_title')));
                       
                       // Permissions
                       $perms = array();  
@@ -691,6 +691,25 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
               colourUpdate(this);
           });
       }
+
+      $(document).ready(function(){
+          $('td').click(function() {
+              let checkbox = $(this).find('input:checkbox');
+              let id = checkbox.attr('id');
+
+              if(checkbox.is(':checked')){
+                  checkbox.prop('checked', false);
+
+                  colourUpdate(document.getElementById(id));
+              } else {
+                  checkbox.prop('checked', true);
+
+                  colourUpdate(document.getElementById(id));
+              }
+          });
+      }).children().click(function(e) {
+          e.stopPropagation();
+      });
   </script>
 <?php } ?>
 </body>

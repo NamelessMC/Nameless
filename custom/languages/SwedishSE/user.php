@@ -59,12 +59,16 @@ $language = array(
 	'active_language' => 'Aktiv Språk',
 	'timezone' => 'Tidzon',
 	'upload_new_avatar' => 'Ladda upp en ny avatar',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => 'Du har blivit taggat i ett inlägg av {x}.', // Don't replace {x}
 	'no_alerts' => 'Inga nya alerter.',
 	'view_alerts' => 'Visa alerter',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Du har {x} nya alerter', // Don't replace {x}
 	'no_alerts_usercp' => 'Du har inga nya alerter.',
 	
@@ -114,6 +118,7 @@ $language = array(
 	'invalid_recaptcha' => 'Ogiltigt reCAPTCHA svar.',
 	'verify_account' => 'Bekräfta Konto',
 	'verify_account_help' => 'Var god och följ instruktionerna nedan så att vi kan verifiera att du äger det här Minecraft kontot.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Verifiering misslyckades, vänligen försök igen.',
 	'verification_success' => 'Du har validerats! Nu kan du logga in.',
 	'authme_username_exists' => 'Ditt Authme konto har redan anslutits till den här webbplatsen!',
@@ -180,6 +185,7 @@ $language = array(
 	'no_messages' => 'Inga nya meddelanden',
 	'no_messages_full' => 'Du har inga meddelanden.',
 	'view_messages' => 'Visa meddelanden',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Du har {x} nya meddelanden', // Don't replace {x}
 	'new_message' => 'Ny meddelande',
 	'message_title' => 'Meddelande Titel',

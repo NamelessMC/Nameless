@@ -64,11 +64,15 @@ $language = array(
 	'timezone' => '時區',
 	'upload_new_avatar' => '上傳新的頭像',
 	'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => '你被標註於 {x}.', // Don't replace {x}
 	'no_alerts' => '沒有新提醒',
 	'view_alerts' => '檢視提醒',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => '你有 {x} 個新提醒', // Don't replace {x}
 	'no_alerts_usercp' => '你沒有任何提醒.',
 	
@@ -118,6 +122,7 @@ $language = array(
 	'invalid_recaptcha' => '無效的 reCAPTCHA.',
 	'verify_account' => '驗證帳號',
 	'verify_account_help' => '請依照下列的說明來驗證 Minecraft 帳戶為您所有.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => '驗證失敗，請重試.',
 	'verification_success' => '成功驗證，已可以登入.',
 	'authme_username_exists' => '你的 AuthMe 帳號已存在，請直接登入',
@@ -184,6 +189,7 @@ $language = array(
 	'no_messages' => '沒有新訊息',
 	'no_messages_full' => '你沒有新訊息.',
 	'view_messages' => '查看訊息',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => '你有 {x} 則新訊息', // Don't replace {x}
 	'new_message' => '新訊息',
 	'message_title' => '訊息標題',

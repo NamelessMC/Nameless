@@ -28,6 +28,7 @@ $language = array(
 	'search' => 'Αναζήτηση',
 	'edit' => 'Επεξεργασία',
 	'next' => 'Επόμενο',
+	'previous' => 'Previous',
 	'confirm_cancel' => 'Είστε σίγουροι ότι θέλετε να ακυρώσετε?',
 	'confirm_delete' => 'Επιβεβαίωση διαγραφής',
 	'confirm_deletion' => 'Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό?',

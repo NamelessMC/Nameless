@@ -349,7 +349,8 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
     }
 
     if($validate_action['action'] == 'promote') {
-        HookHandler::registerHook('validateUser', 'User::validatePromote');
+        require_once(ROOT_PATH . '/modules/Core/hooks/ValidateHook.php');
+        HookHandler::registerHook('validateUser', 'ValidateHook::validatePromote');
         define('VALIDATED_DEFAULT', $validate_action['group']);
     }
 }

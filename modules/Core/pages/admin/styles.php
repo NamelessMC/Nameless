@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -43,7 +43,7 @@ $admin_page = 'styles';
 $admin_styles = true;
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
   <head>
     <!-- Standard Meta -->
     <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
@@ -243,7 +243,7 @@ $admin_styles = true;
 									  // Insert into logs
 									  $ip = $user->getIP();
 
-									  Log::getInstance()->log(Log::Action('admin/template/update'), Ouput::getClean($_GET['file']));
+									  Log::getInstance()->log(Log::Action('admin/template/update'), Output::getClean($_GET['file']));
 
 									  // Display session success message
 									  Session::flash('template_view', '<div class="alert alert-success">' . $language->get('admin', 'template_updated') . '</div>');

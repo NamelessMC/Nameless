@@ -40,6 +40,7 @@ if($user->isLoggedIn()){
 $page = 'admin';
 $admin_page = 'users_and_groups';
 
+require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
 require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 
 // Is UUID linking enabled?
@@ -53,7 +54,7 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
   <head>
     <!-- Standard Meta -->
     <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
@@ -211,11 +212,28 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 									// Get current unix time
 									$date = new DateTime();
 									$date = $date->getTimestamp();
+
+									// Try to get UUID
+									if($uuid_linking == '1'){
+									    if(!isset($mcname_result)){
+									        $profile = ProfileUtils::getProfile(str_replace(' ', '%20', Input::get('username')));
+									        $mcname_result = $profile->getProfileAsArray();
+									    }
+									    if(isset($mcname_result["uuid"]) && !empty($mcname_result['uuid'])){
+									        $uuid = $mcname_result['uuid'];
+
+									    } else {
+									        $uuid = '';
+									    }
+									} else {
+									    $uuid = '';
+									}
 									
 									try {
 										$user->create(array(
 											'username' => htmlspecialchars(Input::get('username')),
 											'nickname' => htmlspecialchars(Input::get('nickname')),
+											'uuid' => htmlspecialchars($uuid),
 											'password' => $password,
 											'pass_method' => 'default',
 											'joined' => $date,
@@ -907,7 +925,11 @@ require(ROOT_PATH . '/core/includes/password.php'); // Password compat library
 					"info": "<?php echo $language->get('table', 'page_x_of_y'); ?>",
 					"infoEmpty": "<?php echo $language->get('table', 'no_records'); ?>",
 					"infoFiltered": "<?php echo $language->get('table', 'filtered'); ?>",
-					"search": "<?php echo $language->get('general', 'search'); ?> "
+					"search": "<?php echo $language->get('general', 'search'); ?> ",
+					"paginate": {
+					    "next": "<?php echo $language->get('general', 'next'); ?>",
+					    "previous": "<?php echo $language->get('general', 'previous'); ?>"
+					}
 				}
             });
 		});

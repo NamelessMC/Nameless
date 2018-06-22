@@ -43,7 +43,7 @@ $current_default_language = $current_default_language[0]->value;
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo(defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+<html lang="<?php echo(defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
 <head>
     <!-- Standard Meta -->
     <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
@@ -513,9 +513,8 @@ $current_default_language = $current_default_language[0]->value;
                                     <div class="form-group">
                                         <?php
                                         // Get force SSL setting
-                                        $cache->setCache('force_https_cache');
-                                        if ($cache->isCached('force_https'))
-                                            $force_https = $cache->retrieve('force_https');
+                                        if(defined('FORCE_SSL'))
+                                            $force_https = true;
                                         else
                                             $force_https = false;
                                         ?>
@@ -525,8 +524,8 @@ $current_default_language = $current_default_language[0]->value;
                                                                           title="<?php echo $language->get('general', 'info'); ?>"
                                                                           data-content="<?php echo $language->get('admin', 'force_https_help'); ?>"></i></span>
                                         <select name="forceHTTPS" class="form-control" id="inputForceHTTPS">
-                                            <option value="true"<?php if ($force_https === true) { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
-                                            <option value="false"<?php if ($force_https !== true) { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
+                                            <option value="true"<?php if ($force_https) { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
+                                            <option value="false"<?php if (!$force_https) { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
                                         </select>
                                     </div>
 									<div class="form-group">
@@ -606,6 +605,7 @@ $current_default_language = $current_default_language[0]->value;
                                             <th><?php echo $language->get('admin', 'field_name'); ?></th>
                                             <th><?php echo $language->get('admin', 'type'); ?></th>
                                             <th><?php echo $language->get('admin', 'required'); ?></th>
+											<th><?php echo $language->get('admin', 'editable'); ?></th>
                                             <th><?php echo $language->get('admin', 'public'); ?></th>
                                         </tr>
                                         </thead>
@@ -635,6 +635,10 @@ $current_default_language = $current_default_language[0]->value;
                                                         } ?></td>
                                                     <td><?php
                                                         if ($field->required == 1) echo '<i class="fa fa-check-circle-o" aria-hidden="true"></i>';
+                                                        else echo '<i class="fa fa-times-circle-o" aria-hidden="true"></i>';
+                                                        ?></td>
+													<td><?php
+                                                        if ($field->editable == 1) echo '<i class="fa fa-check-circle-o" aria-hidden="true"></i>';
                                                         else echo '<i class="fa fa-times-circle-o" aria-hidden="true"></i>';
                                                         ?></td>
                                                     <td><?php
@@ -672,7 +676,7 @@ $current_default_language = $current_default_language[0]->value;
                                                     if ($validation->passed()) {
                                                         // Input into database
                                                         try {
-                                                            // Get whether required/public/forum post options are enabled or not
+                                                            // Get whether required/public/editable/forum post options are enabled or not
                                                             if (isset($_POST['required']) && $_POST['required'] == 'on') $required = 1;
                                                             else $required = 0;
 
@@ -681,6 +685,9 @@ $current_default_language = $current_default_language[0]->value;
 
                                                             if (isset($_POST['forum']) && $_POST['forum'] == 'on') $forum_posts = 1;
                                                             else $forum_posts = 0;
+															
+															if (isset($_POST['editable']) && $_POST['editable'] == 'on') $editable = 1;
+                                                            else $editable = 0;
 
                                                             // Insert into database
                                                             $queries->create('profile_fields', array(
@@ -689,7 +696,8 @@ $current_default_language = $current_default_language[0]->value;
                                                                 'public' => $public,
                                                                 'required' => $required,
                                                                 'description' => Output::getClean(Input::get('description')),
-                                                                'forum_posts' => $forum_posts
+                                                                'forum_posts' => $forum_posts,
+																'editable' => $editable
                                                             ));
 
                                                             Log::getInstance()->log(Log::Action('admin/core/profile/new'), Output::getClean(Input::get('name')));
@@ -750,6 +758,18 @@ $current_default_language = $current_default_language[0]->value;
                                                                                       title="<?php echo $language->get('general', 'info'); ?>"
                                                                                       data-content="<?php echo $language->get('admin', 'profile_field_required_help'); ?>"></i></span>
                                                     <input type="checkbox" id="inputRequired" name="required"
+                                                           class="js-switch"/>
+                                                </div>
+												
+												<div class="form-group">
+                                                    <label for="inputEditable"><?php echo $language->get('admin', 'editable'); ?></label>
+                                                    <span class="badge badge-info"><i class="fa fa-question"
+                                                                                      data-container="body"
+                                                                                      data-toggle="popover"
+                                                                                      data-placement="top"
+                                                                                      title="<?php echo $language->get('general', 'info'); ?>"
+                                                                                      data-content="<?php echo $language->get('admin', 'profile_field_editable_help'); ?>"></i></span>
+                                                    <input type="checkbox" id="inputEditable" name="editable"
                                                            class="js-switch"/>
                                                 </div>
 
@@ -831,7 +851,7 @@ $current_default_language = $current_default_language[0]->value;
                                                 if ($validation->passed()) {
                                                     // Update database
                                                     try {
-                                                        // Get whether required/public/forum post options are enabled or not
+                                                        // Get whether required/public/editable/forum post options are enabled or not
                                                         if (isset($_POST['required']) && $_POST['required'] == 'on') $required = 1;
                                                         else $required = 0;
 
@@ -840,6 +860,9 @@ $current_default_language = $current_default_language[0]->value;
 
                                                         if (isset($_POST['forum']) && $_POST['forum'] == 'on') $forum_posts = 1;
                                                         else $forum_posts = 0;
+														
+														if (isset($_POST['editable']) && $_POST['editable'] == 'on') $editable = 1;
+                                                        else $editable = 0;
 
                                                         // Update database
                                                         $queries->update('profile_fields', $field->id, array(
@@ -848,7 +871,8 @@ $current_default_language = $current_default_language[0]->value;
                                                             'public' => $public,
                                                             'required' => $required,
                                                             'description' => Output::getClean(Input::get('description')),
-                                                            'forum_posts' => $forum_posts
+                                                            'forum_posts' => $forum_posts,
+															'editable' => $editable
                                                         ));
 
                                                         Log::getInstance()->log(Log::Action('admin/core/profile/update'), Output::getClean(Input::get('name')));
@@ -914,6 +938,18 @@ $current_default_language = $current_default_language[0]->value;
                                                                                   data-content="<?php echo $language->get('admin', 'profile_field_required_help'); ?>"></i></span>
                                                 <input type="checkbox" id="inputRequired" name="required"
                                                        class="js-switch" <?php if ($field->required == 1) echo ' checked'; ?>/>
+                                            </div>
+											
+											<div class="form-group">
+                                                <label for="inputEditable"><?php echo $language->get('admin', 'editable'); ?></label>
+                                                <span class="badge badge-info"><i class="fa fa-question"
+                                                                                  data-container="body"
+                                                                                  data-toggle="popover"
+                                                                                  data-placement="top"
+                                                                                  title="<?php echo $language->get('general', 'info'); ?>"
+                                                                                  data-content="<?php echo $language->get('admin', 'profile_field_editable_help'); ?>"></i></span>
+                                                <input type="checkbox" id="inputEditable" name="editable"
+                                                       class="js-switch" <?php if ($field->editable == 1) echo ' checked'; ?>/>
                                             </div>
 
                                             <div class="form-group">
@@ -2293,8 +2329,8 @@ $current_default_language = $current_default_language[0]->value;
                                                 }
                                             }
                                         }
-
-                                        // Icons
+										
+										// Icons
                                         $cache->setCache('navbar_icons');
                                         if(isset($_POST['inputIcon']) && count($_POST['inputIcon'])){
                                             foreach($_POST['inputIcon'] as $key => $item){
@@ -2310,8 +2346,8 @@ $current_default_language = $current_default_language[0]->value;
                                                 $cache->store($key . '_icon', $item);
                                             }
                                         }
-
-                                        Log::getInstance()->log(Log::Action('admin/core/nav'));
+										
+										Log::getInstance()->log(Log::Action('admin/core/nav'));
 
                                         // Reload to update info
                                         Redirect::to(URL::build('/admin/core/', 'view=navigation'));
@@ -2330,18 +2366,18 @@ $current_default_language = $current_default_language[0]->value;
                                     // Display fields for each page
                                     $nav_items = $navigation->returnNav('top');
                                     foreach($nav_items as $key => $item){
-                                        echo '<strong>' . Output::getClean($item['title']) . '</strong>';
+										echo '<strong>' . Output::getClean($item['title']) . '</strong>';
                                         ?>
                                     <div class="form-group">
                                         <label for="input<?php echo Output::getClean($item['title']); ?>"><?php echo $language->get('admin', 'navbar_order'); ?></label>
                                         <input type="number" min="1" class="form-control" id="input<?php echo Output::getClean($item['title']); ?>" name="inputOrder[<?php echo ((isset($item['custom']) && is_numeric($item['custom'])) ? $item['custom'] : Output::getClean($key)); ?>]" value="<?php echo Output::getClean($item['order']); ?>">
                                     </div>
-                                    <div class="form-group">
+									<div class="form-group">
                                         <label for="input<?php echo Output::getClean($item['title']); ?>Icon"><?php echo $language->get('admin', 'navbar_icon'); ?></label>
                                         <input type="text" class="form-control" id="input<?php echo Output::getClean($item['title']); ?>Icon" name="inputIcon[<?php echo ((isset($item['custom']) && is_numeric($item['custom'])) ? $item['custom'] : Output::getClean($key)); ?>]" value="<?php echo Output::getClean($item['icon']); ?>">
                                     </div>
                                     <?php
-                                        if(isset($item['items']) && count($item['items'])){
+										if(isset($item['items']) && count($item['items'])){
                                             echo '<strong>' . Output::getClean($item['title']) . ' &raquo; ' . $language->get('admin', 'dropdown_items') . '</strong><br />';
                                             foreach($item['items'] as $dropdown_key => $dropdown_item){
                                                 echo '<strong>' . Output::getClean($dropdown_item['title']) . '</strong>';

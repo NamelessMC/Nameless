@@ -40,7 +40,7 @@ $admin_page = 'security';
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
   <head>
     <!-- Standard Meta -->
     <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
@@ -227,7 +227,11 @@ $admin_page = 'security';
 					"info": "<?php echo $language->get('table', 'page_x_of_y'); ?>",
 					"infoEmpty": "<?php echo $language->get('table', 'no_records'); ?>",
 					"infoFiltered": "<?php echo $language->get('table', 'filtered'); ?>",
-					"search": "<?php echo $language->get('general', 'search'); ?> "
+					"search": "<?php echo $language->get('general', 'search'); ?> ",
+					"paginate": {
+					    "next": "<?php echo $language->get('general', 'next'); ?>",
+					    "previous": "<?php echo $language->get('general', 'previous'); ?>"
+					}
 				},
                 order: [[ 2, 'desc']]
             });

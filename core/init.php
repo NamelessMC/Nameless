@@ -525,8 +525,33 @@ if($page != 'install'){
 
                     $result = MCQuery::multiQuery($servers, $query_type, $language, true, $queries);
 
+                    if(isset($result['status_value']) && $result['status_value'] == 1){
+                        $result['status'] = $language->get('general', 'online');
+                        $result['status_full'] = str_replace('{x}', $result['total_count'], $language->get('general', 'currently_x_players_online'));
+                        $result['x_players_online'] = str_replace('{x}', $result['total_count'], $language->get('general', 'currently_x_players_online'));
+
+                    } else {
+                        $result['status'] = $language->get('general', 'offline');
+                        $result['status_full'] = $language->get('general', 'server_offline');
+                        $result['server_offline'] = $language->get('general', 'server_offline');
+
+                    }
+
                 } else {
                     $result = MCQuery::singleQuery($full_ip, $query_type, $language, $queries);
+
+                    if(isset($result['status_value']) && $result['status_value'] == 1){
+                        $result['status'] = $language->get('general', 'online');
+                        $result['status_full'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
+                        $result['x_players_online'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
+
+                    } else {
+                        $result['status'] = $language->get('general', 'offline');
+                        $result['status_full'] = $language->get('general', 'server_offline');
+                        $result['server_offline'] = $language->get('general', 'server_offline');
+
+                    }
+
                 }
 
                 // Cache for 1 minute
@@ -551,7 +576,7 @@ if($page != 'install'){
     }
 
     // Auto unset signin tfa variables if set
-    if((isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && !isset($_POST['tfa_code'])){
+    if((isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (!isset($_POST['tfa_code']) && !isset($_SESSION['mcassoc']))){
         unset($_SESSION['remember']);
         unset($_SESSION['username']);
         unset($_SESSION['email']);

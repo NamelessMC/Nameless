@@ -56,14 +56,18 @@ $language = array(
 	'invalid_tfa' => 'Ugyldig kode, prøv igjen.',
 	'tfa_successful' => 'To-stegs-verifikasjon fullført.',
 	'active_language' => 'Språk',
-    'timezone' => 'Tidssone',
-    'upload_new_avatar' => 'Last opp et nytt avatar.',
-    'nickname_already_exists' => 'Brukernavnet du har valgt er allerede i bruk.',
+	'timezone' => 'Tidssone',
+	'upload_new_avatar' => 'Last opp et nytt avatar.',
+	'nickname_already_exists' => 'Brukernavnet du har valgt er allerede i bruk.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => 'Du har blitt tagget i et innlegg av {x}.', // Don't replace {x}
 	'no_alerts' => 'Ingen nye viktige meldinger',
 	'view_alerts' => 'Vis meldinger',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Du har {x} nye viktige meldinger.', // Don't replace {x}
 	'no_alerts_usercp' => 'Du har ingen nye viktige meldinger',
 	
@@ -112,6 +116,7 @@ $language = array(
 	'invalid_recaptcha' => 'Feil reCAPTCHA',
 	'verify_account' => 'Verifiser bruker.',
 	'verify_account_help' => 'Vennligst følg instruksjonene så vi kan verifisere at dette er din bruker.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Verifisering feilet, prøv igjen.',
 	'verification_success' => 'Suksessfullt verifisert, du kan nå logge inn!',
 	'authme_username_exists' => 'Din Authme bruker har allerede blitt koblet til denne nettsida!',
@@ -179,6 +184,7 @@ $language = array(
 	'no_messages' => 'Ingen nye meldinger.',
 	'no_messages_full' => 'Du har ingen meldinger.',
 	'view_messages' => 'Vis meldinger.',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Du har {x} nye meldinger', // Don't replace {x}
 	'new_message' => 'Ny melding',
 	'message_title' => 'Meldingstittel',

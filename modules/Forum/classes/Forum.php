@@ -63,14 +63,14 @@ class Forum {
                                 if($group_id == 0 || $this->canViewOtherTopics($item->id, $group_id, $secondary_groups) || $item->last_user_posted == $user_id){
                                     if($item->last_topic_posted){
                                         // Last reply
-                                        $last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $item->last_topic_posted, 'post_date', 'DESC')->results();
+                                        $last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $item->last_topic_posted, 'created', 'DESC')->results();
                                     } else {
                                       $last_reply = null;
                                     }
                                 } else {
                                     $last_topic = $this->_db->orderWhere('topics', 'forum_id = ' . $item->id . ' AND deleted = 0 AND topic_creator = ' . $user_id, 'topic_reply_date', 'DESC')->results();
                                     if(count($last_topic)){
-                                        $last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $last_topic[0]->id, 'post_date', 'DESC')->results();
+                                        $last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $last_topic[0]->id, 'created', 'DESC')->results();
                                     } else {
                                       $last_reply = null;
                                     }
@@ -210,7 +210,7 @@ class Forum {
                     $discussions_query = $this->_db->orderWhere("topics", "forum_id = " . $forum->forum_id . " AND deleted = 0 AND topic_creator = " . $user_id, "topic_reply_date", "DESC")->results();
 				foreach($discussions_query as $discussion){
 				    // Get latest post data
-                    $last_post = $this->_db->orderWhere('posts', 'topic_id = ' . $discussion->id . ' AND deleted = 0', 'post_date', 'DESC LIMIT 1')->results();
+                    $last_post = $this->_db->orderWhere('posts', 'topic_id = ' . $discussion->id . ' AND deleted = 0', 'created', 'DESC LIMIT 1')->results();
                     $discussion = (array) $discussion;
                     $discussion['last_post_id'] = $last_post[0]->id;
 					$return[] = $discussion;
@@ -233,7 +233,7 @@ class Forum {
 
                         foreach($discussions_query as $discussion){
                             // Get latest post data
-                            $last_post = $this->_db->orderWhere('posts', 'topic_id = ' . $discussion->id . ' AND deleted = 0', 'post_date', 'DESC LIMIT 1')->results();
+                            $last_post = $this->_db->orderWhere('posts', 'topic_id = ' . $discussion->id . ' AND deleted = 0', 'created', 'DESC LIMIT 1')->results();
                             $discussion = (array) $discussion;
                             $discussion['last_post_id'] = $last_post[0]->id;
                             if(!in_array($discussion, $return))
@@ -422,7 +422,12 @@ class Forum {
 				foreach($latest_post_query as $latest_post){
 					if($latest_post->deleted != 1){
 						$latest_posts[$n]["topic_id"] = $topic->id;
-						$latest_posts[$n]["date"] = $latest_post->post_date;
+
+						if($latest_post->created != null)
+						    $latest_posts[$n]["date"] = $latest_post->created;
+						else
+						    $latest_posts[$n]["date"] = strtotime($latest_post->post_date);
+
 						$latest_posts[$n]["author"] = $latest_post->post_creator;
 
 						break;
@@ -436,7 +441,7 @@ class Forum {
 		foreach($latest_posts as $latest_post){
 			if(!empty($latest_post["date"])){
 				$this->_db->update('topics', $latest_post["topic_id"], array(
-					'topic_reply_date' => date('U', strtotime($latest_post["date"])),
+					'topic_reply_date' => date('U', $latest_post["date"]),
 					'topic_last_user' => $latest_post["author"]
 				));
 			}
@@ -485,11 +490,17 @@ class Forum {
         foreach($news_items as $item){
             $news_post = $this->_db->get("posts", array("topic_id", "=", $item->id))->results();
             $posts = count($news_post);
-            $topic_date = $news_post[0]->post_date;
+
+            if(is_null($news_post[0]->created)){
+                $post_date = date('d M Y, H:i', strtotime($news_post[0]->post_date));
+            } else {
+                $post_date = date('d M Y, H:i', $news_post[0]->created);
+            }
+
             $post = $news_post[0]->post_content;
             $return[] = array(
                 "topic_id" => $item->id,
-                "topic_date" => $topic_date,
+                "topic_date" => $post_date,
                 "topic_title"=> $item->topic_title,
                 "topic_views" => $item->topic_views,
                 "author" => $item->topic_creator,

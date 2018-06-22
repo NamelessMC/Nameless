@@ -28,6 +28,7 @@ $language = array(
 	'search' => '検索　',
 	'edit' => '編集',
 	'next' => '次へ',
+	'previous' => 'Previous',
 	'confirm_cancel' => 'キャンセルしてもよろしいですか？',
 	'confirm_delete' => '削除の確認',
 	'confirm_deletion' => 'これを削除してもよろしいですか？',

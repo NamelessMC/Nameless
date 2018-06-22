@@ -59,12 +59,16 @@ $language = array(
 	'active_language' => 'Linguagem Ativa',
 	'timezone' => 'Fuso horário',
 	'upload_new_avatar' => 'Enviar um novo Avatar',
-    'nickname_already_exists' => 'O nickname escolhido já existe.',
+	'nickname_already_exists' => 'O nickname escolhido já existe.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}
 	'no_alerts' => 'Sem novos alertas',
 	'view_alerts' => 'Ver alertas',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Você possui {x} novos alertas', // Don't replace {x}
 	'no_alerts_usercp' => 'Você não possui nenhum alerta.',
 	
@@ -114,6 +118,7 @@ $language = array(
 	'invalid_recaptcha' => 'Resposta reCAPTCHA inválida.',
 	'verify_account' => 'Verificar Conta',
 	'verify_account_help' => 'Siga as instruções abaixo para que possamos verificar se você possui a conta do Minecraft em questão.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Falha na verificação. Por favor tente novamente.',
 	'verification_success' => 'Validado com sucesso! Agora você pode entrar.',
 	'authme_username_exists' => 'Sua conta AuthMe já está conectada com o website!',
@@ -180,6 +185,7 @@ $language = array(
 	'no_messages' => 'Sem novas mensagens',
 	'no_messages_full' => 'Você não possui nenhuma mensagem.',
 	'view_messages' => 'Visualizar mensagens',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Você possui {x} novas mensagens', // Don't replace {x}
 	'new_message' => 'Nova Mensagem',
 	'message_title' => 'Título da Mensagem',
