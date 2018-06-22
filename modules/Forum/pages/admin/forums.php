@@ -1777,6 +1777,8 @@ $admin_page = 'forums';
 
                 colourUpdate(document.getElementById(id));
             }
+        }).children().click(function(e) {
+            e.stopPropagation();
         });
     });
 	<?php } ?>
