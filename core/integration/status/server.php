@@ -60,7 +60,7 @@ class ServerStatus {
                         $max = $Info['players']['online'];
                     }
                     for($row = 0; $row < $max; $row++){
-                        $return .= '<span rel="tooltip" data-trigger="hover" data-original-title="'.$Info['players']['sample'][$row]['name'].'"><a href="/profile/' . $Info['players']['sample'][$row]['name'] . '"><img src="https://cravatar.eu/avatar/' .$Info['players']['sample'][$row]['name'] . '/50.png" style="width: 40px; height: 40px; margin-bottom: 5px; margin-left: 5px; border-radius: 3px;" /></a></span>&nbsp;';
+                        $return .= '<span rel="tooltip" data-trigger="hover" data-original-title="'.$Info['players']['sample'][$row]['name'].'"><a href="/profile/' . $Info['players']['sample'][$row]['name'] . '"><img src="https://minotar.net/helm/' .$Info['players']['sample'][$row]['name'] . '/50.png" style="width: 40px; height: 40px; margin-bottom: 5px; margin-left: 5px; border-radius: 3px;" /></a></span>&nbsp;';
                     }
                     if(isset($extra)){
                         $return .= '&nbsp;<span class="label label-info">And ' . $extra . ' more</span>';

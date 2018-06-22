@@ -375,7 +375,7 @@ if(isset($profile)){
 				$avatar_type = $queries->getWhere('settings', array('name', '=', 'avatar_type'));
 				$avatar_type = $avatar_type[0]->value;
 				
-				echo '<img class="img-rounded" src="https://cravatar.eu/' . htmlspecialchars($avatar_type) . '/' . $mcname . '/300.png" />';
+				echo '<img class="img-rounded" src="https://minotar.net/' . htmlspecialchars($avatar_type) . '/' . $mcname . '/300.png" />';
 			  }
 			  else echo '<img class="img-rounded" style="vertical-align: middle;" src="' . $user->getAvatar($profile_user[0]->id, "../", 300) . '" />';
 			  ?>
