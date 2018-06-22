@@ -124,14 +124,17 @@ if(isset($_GET['step']) && isset($_SESSION['mcassoc'])){
 }
 
 // Is UUID linking enabled?
-$uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
-$uuid_linking = $uuid_linking[0]->value;
+if($minecraft == '1') {
+    $uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
+    $uuid_linking = $uuid_linking[0]->value;
 
-if($uuid_linking == '1'){
-	// Do we want to verify the user owns the account?
-	$account_verification = $queries->getWhere('settings', array('name', '=', 'verify_accounts'));
-	$account_verification = $account_verification[0]->value;
-}
+    if ($uuid_linking == '1') {
+        // Do we want to verify the user owns the account?
+        $account_verification = $queries->getWhere('settings', array('name', '=', 'verify_accounts'));
+        $account_verification = $account_verification[0]->value;
+    }
+} else
+    $uuid_linking = '0';
 
 // Use recaptcha?
 $recaptcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
@@ -412,11 +415,11 @@ if(Input::exists()){
 
                                         $link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code);
 
-                                        $html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array($sitename, $language->get('general', 'register'), $language->get('user', 'email_greeting'), $language->get('user', 'email_message'), $link, $language->get('user', 'email_thanks')), $html);
+                                        $html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array(SITE_NAME, $language->get('user', 'validate_account'), $language->get('user', 'email_greeting'), $language->get('user', 'email_message'), $link, $language->get('user', 'email_thanks')), $html);
 
                                         $email = array(
                                             'to' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('username'))),
-                                            'subject' => SITE_NAME . ' - ' . $language->get('general', 'register'),
+                                            'subject' => SITE_NAME . ' - ' . $language->get('user', 'validate_account'),
                                             'message' => $html
                                         );
 
@@ -438,13 +441,13 @@ if(Input::exists()){
                                         $siteemail = $siteemail[0]->value;
 
                                         $to = Input::get('email');
-                                        $subject = $sitename . ' - ' . $language->get('general', 'register');
+                                        $subject = SITE_NAME . ' - ' . $language->get('user', 'validate_account');
 
                                         $message = $language->get('user', 'email_greeting') . PHP_EOL .
                                             $language->get('user', 'email_message') . PHP_EOL . PHP_EOL .
                                             'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code) . PHP_EOL . PHP_EOL .
                                             $language->get('user', 'email_thanks') . PHP_EOL .
-                                            $sitename;
+                                            SITE_NAME;
 
                                         $headers = 'From: ' . $siteemail . "\r\n" .
                                             'Reply-To: ' . $siteemail . "\r\n" .
@@ -630,7 +633,7 @@ $smarty->assign(array(
 ));
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">

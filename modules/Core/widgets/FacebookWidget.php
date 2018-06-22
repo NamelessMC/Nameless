@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -30,6 +30,8 @@ class FacebookWidget extends WidgetBase {
             }(document, \'script\', \'facebook-jssdk\'));</script>
             
             <div class="fb-page" data-href="' . $fb_url . '" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="' . $fb_url . '" class="fb-xfbml-parse-ignore"><a href="' . $fb_url . '">' . SITE_NAME . '</a></blockquote></div>
-        ';
+        
+		<br>
+		';
     }
 }

@@ -140,6 +140,7 @@ $language = array(
 	'custom_fields' => 'Vlastné profilové polia',
 	'new_field' => '<i class="fa fa-plus-circle"></i> nové pole',
 	'required' => 'Povinný',
+	'editable' => 'Editable',
 	'public' => 'Verejný',
 	'text' => 'Text',
 	'textarea' => 'Oblasť textu',
@@ -153,6 +154,7 @@ $language = array(
 	'description' => 'Popis',
 	'display_field_on_forum' => 'Zobraziť pole na fórum?',
 	'profile_field_forum_help' => 'Pokiaľ je zapnuté, pole bude zobrazené vedľa príspevku užívateľa.',
+	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 	
 	// Minecraft
 	'enable_minecraft_integration' => 'Povoliť Minecraft?',
@@ -348,6 +350,9 @@ $language = array(
 	'ip_address' => 'IP Adresa',
 	'template_changes' => 'Zmena šablóny',
 	'file_changed' => 'Súbor bol zmenený',
+	'all_logs' => 'All Logs',
+	'action' => 'Action',
+	'action_info' => 'Action Info',
 	
 	// Updates
 	'update' => 'Aktualizácia',

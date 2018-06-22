@@ -41,7 +41,8 @@ class DiscordWidget extends WidgetBase {
 	        // No, it isn't: display the widget
             $this->_content = '
 			<iframe src="https://discordapp.com/widget?id=' . Output::getClean($discord) . '&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe>
-';
-	    }
+        
+		<br>
+		';
     }
 }

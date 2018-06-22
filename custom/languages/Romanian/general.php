@@ -2,13 +2,13 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
  *  Romanian Language - General terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ASMODΣUS
- *  Last Update: 11/01/2017
+ *  Last Update: 20/06/2018
  */
 
 $language = array(
@@ -28,6 +28,7 @@ $language = array(
     'search' => 'Căutare',
     'edit' => 'Editați',
     'next' => 'Înainte',
+    'previous' => 'Înapoi',
     'confirm_cancel' => 'Sigur doriți să anulați?',
     'confirm_delete' => 'Confirmă ștergerea',
     'confirm_deletion' => 'Sigur doriți să ștergeți acest lucru?',
@@ -40,10 +41,10 @@ $language = array(
     'info' => 'Informații',
     'confirm' => 'Confirmă',
     'actions' => 'Acţiuni',
-    'alerts' => 'Alerte',
-    'view_alerts' => 'Vizualizați alertele',
-    'no_alerts' => 'Nu există alerte',
-    'x_new_alerts' => 'Aveți {x} alerte noi.', // Don't replace {x}
+    'alerts' => 'Notificări',
+    'view_alerts' => 'Vizualizați notificările',
+    'no_alerts' => 'Nu aveți notificări necitite.',
+    'x_new_alerts' => 'Aveți {x} notificări noi.', // Don't replace {x}
     'messages' => 'Mesaje',
     'view_messages' => 'Vizualizați mesajele',
     'no_messages' => 'Nu există mesaje',
@@ -54,8 +55,8 @@ $language = array(
     'page_x' => 'Pagina {x}',
     'browse' => 'Caută',
     'bypass' => 'Evită',
-    'yes' => 'Yes',
-    'no' => 'No',
+    'yes' => 'Da',
+    'no' => 'Nu',
 
     /*
      *  Contact form
@@ -101,19 +102,19 @@ $language = array(
     /*
      *  Cookie notice
      */
-    'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
-    'cookie_agree' => 'Agree',
+    'cookie_notice' => 'Acest site utilizează cookie-uri pentru a îmbunătăți experiența dvs. de navigare. Prin înregistrarea pe site-ul nostru sau închiderea acestei notificări sunteți de acord cu utilizarea lor.',
+    'cookie_agree' => 'De acord',
 
     /*
      *  Widgets
      */
-    'online_staff' => 'Online Staff',
-    'no_online_staff' => 'There are no staff members online.',
-    'online_users' => 'Online Users',
-    'no_online_users' => 'There are no users online.',
+    'online_staff' => 'Staff online',
+    'no_online_staff' => 'Nu există membri staff online momentan.',
+    'online_users' => 'Utilizatori online',
+    'no_online_users' => 'Nu există utilizatori online momentan.',
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Privacy Policy'
+    'privacy_policy' => 'Politica de confidentialitate'
 );

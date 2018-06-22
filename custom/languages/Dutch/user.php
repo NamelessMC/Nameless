@@ -60,12 +60,16 @@ $language = array(
 	'active_language' => 'Actieve taal',
 	'timezone' => 'Tijdzone',
 	'upload_new_avatar' => 'Upload een nieuwe avatar',
-    'nickname_already_exists' => 'Je gekozen nicknaam bestaat al.',
+	'nickname_already_exists' => 'Je gekozen nicknaam bestaat al.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Meldingen
 	'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet
 	'no_alerts' => 'Geen meldingen',
 	'view_alerts' => 'Bekijk meldingen',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Je hebt {x} nieuwe meldingen', // Verander {x} niet
 	'no_alerts_usercp' => 'Je hebt geen meldingen.',
 	
@@ -115,6 +119,7 @@ $language = array(
 	'invalid_recaptcha' => 'Ongeldig reCAPTCHA antwoord.',
 	'verify_account' => 'Controleer account',
 	'verify_account_help' => 'Graag de volgende instructies volgen zodat we kunnen valideren (controleren) of u de eigenaar bent van dit Minecraft account.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Validatie gefaald, probeer het opnieuw.',
 	'verification_success' => 'Succesvol gevalideerd! Je kunt nu inloggen.',
 	'authme_username_exists' => 'Je Authme account is al verbonden met de website!',
@@ -181,6 +186,7 @@ $language = array(
 	'no_messages' => 'Geen nieuwe berichten',
 	'no_messages_full' => 'Je hebt geen berichten.',
 	'view_messages' => 'Bekijk berichten',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Je hebt {x} nieuwe berichten', // Verander {x} niet
 	'new_message' => 'Nieuw bericht',
 	'message_title' => 'Titel van bericht',

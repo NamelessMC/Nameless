@@ -58,12 +58,16 @@ $language = array(
 	'active_language' => 'Aktivní jazyk',
 	'timezone' => 'Časová zóna',
 	'upload_new_avatar' => 'Nahrát nového avatara.',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => 'Byl jste označen v příspěvku {x}.', // Don't replace {x}
 	'no_alerts' => 'Žádná nové upozornění.',
 	'view_alerts' => 'Zobrazit upozornění',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Nových upororněních: {x}', // Don't replace {x}
 	'no_alerts_usercp' => 'Nemáte žádná upozornění.',
 	
@@ -113,6 +117,7 @@ $language = array(
 	'invalid_recaptcha' => 'Špatná reCAPTCHA.',
 	'verify_account' => 'Ověřit účet',
 	'verify_account_help' => 'Postupujte podle pokynů níže, abychom mohli ověřit, zda je tento Minecraft účet opravdu Váš.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Ověření selhalo, zkuste to prosím později.',
 	'verification_success' => 'Ověření úspěšné! Nyní se můžete přihlásit.',
 	'authme_username_exists' => 'Váš AuthMe účet byl právě připojen k webu!',
@@ -179,6 +184,7 @@ $language = array(
 	'no_messages' => 'Žádné nové zprávy.',
 	'no_messages_full' => 'Nemáte žádné zprávy.',
 	'view_messages' => 'Zobrazit zprávy',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Nových zpráv: {x}', // Don't replace {x}
 	'new_message' => 'Nová zpráva',
 	'message_title' => 'Předmět',

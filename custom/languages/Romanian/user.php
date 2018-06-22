@@ -2,20 +2,20 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
  *  Romanian Language - Users
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 02/11/2017
+ *  Last Update: 16/06/2018
  */
 
 $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'Pentru a finaliza înregistrarea, vă rugăm să executați comanda <strong>/validate {x}</strong> in joc.', // Don't replace {x}
 
     /*
      *  User Related
@@ -25,7 +25,7 @@ $language = array(
     
     // UserCP
     'user_cp' => 'Panou Utilizator',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
+    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Panou Utilizator</span>',
     'overview' => 'Prezentare generală',
     'user_details' => 'Detalii utilizator',
     'profile_settings' => 'Setările profilului',
@@ -34,7 +34,7 @@ $language = array(
     'click_here_to_view' => 'Faceți clic aici pentru a vedea.',
     'moderation' => 'Moderare',
     'administration' => 'Administrare',
-    'alerts' => 'Alerte',
+    'alerts' => 'Notificări',
     'delete_all' => 'Şterge tot',
 	'private_profile' => 'Profil privat',
     
@@ -61,13 +61,17 @@ $language = array(
     'timezone' => 'Fus orar',
     'upload_new_avatar' => 'Încărcați un nou avatar',
     'nickname_already_exists' => 'Numele ales este deja utilizat.',
+    'change_email_address' => 'Schimbați adresa de e-mail',
+    'email_already_exists' => 'Adresa de e-mail pe care ați introdus-o este deja utilizată.',
+    'email_changed_successfully' => 'Adresa de e-mail a fost modificată cu succes.',
     
     // Alerts
     'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace {x}
-    'no_alerts' => 'Nu există alerte noi.',
-    'view_alerts' => 'Vizualizați alertele',
-    'x_new_alerts' => 'Aveți {x} alerte noi.', // Don't replace {x}
-    'no_alerts_usercp' => 'Momentan nu aveți alerte.',
+    'no_alerts' => 'Nu aveți notificări necitite.',
+    'view_alerts' => 'Vizualizați notificările',
+    '1_new_alert' => 'Aveți o notificare nouă.',
+    'x_new_alerts' => 'Aveți {x} notificări noi.', // Don't replace {x}
+    'no_alerts_usercp' => 'Momentan nu aveți notificări noi.',
     'new_wall_post' => '{x} a postat pe peretele tău.',
     
     // Registraton
@@ -116,10 +120,11 @@ $language = array(
     'invalid_recaptcha' => 'Răspuns reCAPTCHA invalid.',
     'verify_account' => 'Verifica contul',
     'verify_account_help' => 'Urmați instrucțiunile de mai jos pentru a putea verifica dacă sunteți proprietarul contului Minecraft în cauză.',
+    'validate_account' => 'Confirmați contul',
     'verification_failed' => 'Verificare eșuată. Vă rugăm încercați din nou.',
     'verification_success' => 'Validat cu succes! Acum te poți loga.',
     'authme_username_exists' => 'Contul dvs. Authme a fost deja conectat la site-ul Web!',
-    'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
+    'uuid_already_exists' => 'UUID-ul dvs. există deja, ceea ce înseamnă că acest cont Minecraft este deja înregistrat.',
     
     // Login
     'successful_login' => 'V-ați conectat cu succes.',
@@ -169,8 +174,8 @@ $language = array(
     'user_unblocked' => 'Utilizatorul a fost deblocat.',
 	'views' => 'Vizualizări profil:',
 	'private_profile_page' => 'Acest profil este privat!',
-	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
-	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
+	'new_wall_post_reply' => '{x} a răspuns la postarea ta pe profilul lui {y}.', // Don't replace {x} or {y}
+	'new_wall_post_reply_your_profile' => '{x} a răspuns la postarea de pe profilul tău.', // Don't replace {x}
     
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',
@@ -181,6 +186,7 @@ $language = array(
     'no_messages' => 'Nu există mesaje noi.',
     'no_messages_full' => 'Momentan nu aveți mesaje.',
     'view_messages' => 'Vizualizați mesajele',
+    '1_new_message' => 'Aveți un mesaj nou.',
     'x_new_messages' => 'Aveți {x} mesaje noi.', // Don't replace {x}
     'new_message' => 'Mesaj nou',
     'message_title' => 'Titlul mesajului',
@@ -221,5 +227,5 @@ $language = array(
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
+    'user_x_has_registered' => '{x} s-a alaturat ' . SITE_NAME . '!'
 );

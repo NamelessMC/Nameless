@@ -148,6 +148,7 @@ $language = array(
 	'custom_fields' => 'Eigene Profilfelder',
 	'new_field' => '<i class="fa fa-plus-circle"></i> Neues Feld',
 	'required' => 'Benötigt',
+	'editable' => 'Editable',
 	'public' => 'Öffentlich',
 	'text' => 'Text',
 	'textarea' => 'Textfeld',
@@ -161,6 +162,7 @@ $language = array(
 	'description' => 'Beschreibung',
 	'display_field_on_forum' => 'Feld im Forum anzeigen?',
 	'profile_field_forum_help' => 'Wenn dies aktiviert ist wird das Feld unter dem Namen angezeigt.',
+	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Minecraft Integration aktivieren.',
@@ -356,6 +358,9 @@ $language = array(
 	'ip_address' => 'IP Addresse',
 	'template_changes' => 'Template Editierungen',
 	'file_changed' => 'Datei geändert',
+	'all_logs' => 'All Logs',
+	'action' => 'Action',
+	'action_info' => 'Action Info',
 
 	// Updates
 	'update' => 'Update',

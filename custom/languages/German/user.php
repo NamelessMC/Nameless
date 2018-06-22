@@ -64,14 +64,18 @@ $language = array(
 	'invalid_tfa' => 'Ungültiger Code, versuche es erneut.',
 	'tfa_successful' => '2 Schritt Authentifizierung wurde aktiviert.',
 	'active_language' => 'Ausgewählte Sprache:',
-    'timezone' => 'Zeitzone',
-    'upload_new_avatar' => 'Ein neuen Avatar hochladen',
-    'nickname_already_exists' => 'Der gewählte Nickname existiert bereits.',
+	'timezone' => 'Zeitzone',
+	'upload_new_avatar' => 'Ein neuen Avatar hochladen',
+	'nickname_already_exists' => 'Der gewählte Nickname existiert bereits.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace {x}
 	'no_alerts' => 'Keine Benachrichtigungen',
 	'view_alerts' => 'Benachrichtigungen ansehen',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Du hast {x} neue Benachrichtigungen', // Don't replace {x}
 	'no_alerts_usercp' => 'Du hast keine Benachrichtigungen.',
 	
@@ -121,6 +125,7 @@ $language = array(
 	'invalid_recaptcha' => 'Ungültige reCAPTCHA Antwort.',
     'verify_account' => 'Account verifizieren',
     'verify_account_help' => 'Bitte führe die angegeben Schritte durch um deinen Account zu verifizieren.',
+    'validate_account' => 'Validate Account',
     'verification_failed' => 'Verifikation fehlgeschlagen.',
     'verification_success' => 'Erfolgreich freigeschaltet.',
     'authme_username_exists' => 'Ihr Authme-Konto wurde bereits mit der Website verbunden!',
@@ -187,6 +192,7 @@ $language = array(
 	'no_messages' => 'Keine neuen Nachrichten',
 	'no_messages_full' => 'Du hast keine neuen Nachrichten.',
 	'view_messages' => 'Nachrichten ansehen',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Du hast {x} neue Nachrichten', // Don't replace {x}
 	'new_message' => 'Neue Nachricht',
 	'message_title' => 'Nachrichten Titel',

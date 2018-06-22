@@ -37,7 +37,7 @@ $page = 'admin';
 $admin_page = 'forums';
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
   <head>
     <!-- Standard Meta -->
     <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
@@ -304,8 +304,13 @@ $admin_page = 'forums';
                                                 }
 
                                                 if(!isset($redirect_error)) {
+                                                    if(isset($_POST['parent']))
+                                                        $parent = $_POST['parent'];
+                                                    else
+                                                        $parent = 0;
+
                                                     $queries->update('forums', $forum->id, array(
-                                                        'parent' => Input::get('parent'),
+                                                        'parent' => $parent,
                                                         'news' => Input::get('news_forum'),
                                                         'redirect_forum' => $redirect,
                                                         'redirect_url' => $redirect_url
@@ -773,12 +778,18 @@ $admin_page = 'forums';
 											$redirect = 0;
 											$redirect_url = null;
 										}
+
+										if(isset($_POST['parent_forum']))
+										    $parent = $_POST['parent_forum'];
+										else
+										    $parent = 0;
+
 										// Update the forum
 										$to_update = array(
 										    'forum_title' => Output::getClean(Input::get('title')),
 										    'forum_description' => Output::getClean(Input::get('description')),
 										    'news' => Input::get('display'),
-										    'parent' => Input::get('parent_forum'),
+										    'parent' => $parent,
 										    'redirect_forum' => $redirect
 										);
 
@@ -1690,7 +1701,8 @@ $admin_page = 'forums';
 	elems.forEach(function(html) {
 		var switchery = new Switchery(html);
 	});
-	
+
+    <?php if(isset($_GET['forum']) || (isset($_GET['action']) && $_GET['action'] == 'new')){ ?>
   	function colourUpdate(that) {
     	var x = that.parentElement;
     	if(that.checked) {
@@ -1750,6 +1762,26 @@ $admin_page = 'forums';
 			colourUpdate(this);
 		});
 	}
+
+	$(document).ready(function(){
+        $('td').click(function() {
+            let checkbox = $(this).find('input:checkbox');
+            let id = checkbox.attr('id');
+
+            if(checkbox.is(':checked')){
+                checkbox.prop('checked', false);
+
+                colourUpdate(document.getElementById(id));
+            } else {
+                checkbox.prop('checked', true);
+
+                colourUpdate(document.getElementById(id));
+            }
+        }).children().click(function(e) {
+            e.stopPropagation();
+        });
+    });
+	<?php } ?>
     </script>
   </body>
 </html>

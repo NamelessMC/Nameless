@@ -1,8 +1,8 @@
-<?php 
+﻿<?php 
 /*
- *	Made by TheSuperSkills
+ *	Made by TheSuperSkills (Edited by Ariuw and iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr3/pr4
  *
  *  License: MIT
  *
@@ -13,7 +13,7 @@ $language = array(
 	/*
 	 *  Change this for the account validation message
 	 */
-	'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+	'validate_account_command' => 'Para completar la validación, ejecute el comando <strong>/validate {x}</strong> en el servidor.', // Don't replace {x}
 
 	/*
 	 *  User Related
@@ -24,17 +24,17 @@ $language = array(
 	// UserCP
 	'user_cp' => 'Panel de Usuarios',
 	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
-	'overview' => 'Vision de Conjunto',
-	'user_details' => 'Detalles de Usuario',
+	'overview' => 'Visión de Conjunto',
+	'user_details' => 'Detalles del usuario',
 	'profile_settings' => 'Ajustes de Perfil',
 	'successfully_logged_out' => 'Has salido con éxito.',
 	'messaging' => 'Mensajería',
 	'click_here_to_view' => 'Click aquí para ver.',
-	'moderation' => 'Moderacion',
-	'administration' => 'Administracion',
+	'moderation' => 'Moderación',
+	'administration' => 'Administración',
 	'alerts' => 'Alertas',
 	'delete_all' => 'Eliminar todos',
-	'private_profile' => 'Private profile',
+	'private_profile' => 'Perfil privado',
 	
 	// Profile settings
 	'field_is_required' => '{x} es requerido.', // Don't replace {x}
@@ -46,36 +46,40 @@ $language = array(
 	'confirm_new_password' => 'Confirmar nueva contraseña',
 	'incorrect_password' => 'Tu contraseña es incorrecta.',
 	'two_factor_auth' => 'Autenticación de dos factores',
-	'enabled' => 'Enabled',
-    'disabled' => 'Disabled',
-	'enable' => 'Activado',
-	'disable' => 'Disactivado',
+	'enabled' => 'Activado',
+        'disabled' => 'Desactivado',
+	'enable' => 'Activar',
+	'disable' => 'Desactivar',
 	'tfa_scan_code' => 'Compruebe el código siguiente en su aplicación de autenticación:',
 	'tfa_code' => 'Si su dispositivo no tiene una cámara o no puede escanear el código QR, introduzca el código siguiente:',
 	'tfa_enter_code' => 'Ingresa el código que aparece en tu aplicación de autenticación.:',
 	'invalid_tfa' => 'Código no válido, por favor vuelva a intentarlo.',
 	'tfa_successful' => 'La autenticación de dos factores se ha configurado correctamente. Tendrá que autenticarse cada vez que inicie sesión de ahora en adelante.',
 	'active_language' => 'Lenguaje Activo',
-    'timezone' => 'Zona Horaria',
-    'upload_new_avatar' => 'Cargar un nuevo avatar',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'timezone' => 'Zona Horaria',
+	'upload_new_avatar' => 'Cargar un nuevo avatar',
+	'nickname_already_exists' => 'El nick que haz elegido ya está en uso.',
+	'change_email_address' => 'Cambiar dirección de correo electronico',
+	'email_already_exists' => 'El correo electronico que ha introducido está en uso.',
+	'email_changed_successfully' => 'La dirección de correo electrónico fue actualizada con éxito.',
 	
 	// Alerts
 	'user_tag_info' => 'Has sido etiquetado en un post por {x}.', // Don't replace {x}
 	'no_alerts' => 'No hay nuevas alertas',
 	'view_alerts' => 'Ver alertas',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'Tienes {x} nuevas alertas', // Don't replace {x}
 	'no_alerts_usercp' => 'No tienes alertas.',
 	
 	// Registraton
 	'registration_check_email' => '¡Gracias por registrarte! Por favor revise sus correos electrónicos para obtener un enlace de validación para completar su registro. Si no puede encontrar el correo electrónico, compruebe su carpeta correo basura.',
 	'username' => 'Usuario',
-	'nickname' => 'Nickname',
-	'minecraft_username' => 'Minecraft Usuario',
+	'nickname' => 'Nombre de Usuario',
+	'minecraft_username' => 'Usuario de Minecraft',
 	'email_address' => 'Correo electrónico',
 	'email' => 'Correo',
 	'password' => 'Contraseña',
-	'confirm_password' => 'Confirmar Contraseña',
+	'confirm_password' => 'Confirmar contraseña',
 	'i_agree' => 'Estoy de acuerdo',
 	'agree_t_and_c' => 'Haciendo click <strong class="label label-primary">Registro</strong>, tu aceptas nuestro <a href="{x}" target="_blank">Terminos y Condiciones</a>.',
 	'create_an_account' => 'Crea una cuenta',
@@ -83,7 +87,7 @@ $language = array(
 	'validation_complete' => 'Su cuenta ha sido validada, ahora puede iniciar sesión.',
 	'validation_error' => 'Se ha producido un error desconocido al validar su cuenta, póngase en contacto con un administrador del sitio web.',
 	'signature' => 'Firma',
-	'signature_max_900' => 'Your signature must be a maximum of 900 characters.',
+	'signature_max_900' => 'Tu firma debe ser máximo de 900 carácteres.',
 
     // Registration - Authme
     'connect_with_authme' => 'Conecte su cuenta con AuthMe',
@@ -110,20 +114,21 @@ $language = array(
 	'invalid_mcname' => 'Tu nombre de usuario de Minecraft no es válido.',
 	'invalid_email' => 'Tu correo electrónico es inválido.',
 	'mcname_lookup_error' => 'Se ha producido un error al comunicarse con los servidores de Mojang para verificar su nombre de usuario. Por favor, inténtelo de nuevo más tarde.',
-	'invalid_recaptcha' => 'La respuesta de reCAPTCHA no es válida..',
+	'invalid_recaptcha' => 'La respuesta de reCAPTCHA no es válida...',
 	'verify_account' => 'Verificar Cuenta',
 	'verify_account_help' => 'Siga las instrucciones a continuación para verificar que posee la cuenta de Minecraft en cuestión.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Verificación fallida. Por favor intenta de nuevo.',
 	'verification_success' => '¡Con éxito validado! Ahora puede iniciar sesión.',
-	'authme_username_exists' => 'Your Authme account has already been connected to the website!',
-	'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
+	'authme_username_exists' => 'Tu cuenta de AuthMe ya está conectada con nuestra web.',
+	'uuid_already_exists' => 'Tu UUID ya existe, por lo tanto esa cuenta de Minecraft ya está registrada.',
 	
 	// Login
 	'successful_login' => 'Has iniciado sesión correctamente.',
 	'incorrect_details' => 'Has introducido datos incorrectos.',
 	'inactive_account' => 'Su cuenta está inactiva. Comprueba tus correos electrónicos para ver un enlace de validación, incluso dentro de tu carpeta de correo basura.',
 	'account_banned' => 'Esa cuenta está prohibida.',
-	'forgot_password' => 'Se te olvidó tu contraseña?',
+	'forgot_password' => '¿Se te olvidó tu contraseña?',
 	'remember_me' => 'Recuérdame',
 	'must_input_username' => 'Debe introducir un nombre de usuario.',
 	'must_input_password' => 'Debe introducir una contraseña.',
@@ -140,8 +145,8 @@ $language = array(
 	'profile' => 'Perfil',
 	'follow' => 'Seguir',
 	'no_wall_posts' => 'No hay publicaciones en el muro todavía.',
-	'change_banner' => 'Cambiar Banner',
-	'post_on_wall' => 'Publicar en {x}\'s muro', // Don't replace {x}
+	'change_banner' => 'Cambiar banner',
+	'post_on_wall' => 'Publicar en el muro de {x}', // Don't replace {x}
 	'invalid_wall_post' => 'Asegúrese de que su publicación tenga entre 1 y 10000 caracteres.',
 	'1_reaction' => '1 reaccion',
 	'x_reactions' => '{x} reaccciones', // Don't replace {x}
@@ -150,25 +155,25 @@ $language = array(
 	'1_reply' => '1 respuesta',
 	'x_replies' => '{x} respuestas', // Don't replace {x}
 	'no_replies_yet' => 'No hay respuestas',
-	'feed' => 'Alimentar',
+	'feed' => 'Muro',
 	'about' => 'Acerca de',
 	'reactions' => 'Reacciones',
 	'replies' => 'Respuestas',
 	'new_reply' => 'Nueva respuesta',
 	'registered' => 'Registrado:',
 	'last_seen' => 'Ultima vez visto:',
-	'new_wall_post' => '{x} has posted on your profile.',
-	'couldnt_find_that_user' => 'Couldn\'t find that user.',
-	'block_user' => 'Block User',
-	'unblock_user' => 'Unblock User',
-	'confirm_block_user' => 'Are you sure you want to block this user? They will not be able to send you private messages or tag you in posts.',
-	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
-	'user_blocked' => 'User blocked.',
-	'user_unblocked' => 'User unblocked.',
-	'views' => 'Profile Views:',
-	'private_profile_page' => 'This is a private profile!',
-	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
-	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
+	'new_wall_post' => '{x} ha publicado en tu Perfil.',
+	'couldnt_find_that_user' => 'No se ha podido encontrar a ese usuario.',
+	'block_user' => 'Bloquear usuario',
+	'unblock_user' => 'Desbloquear usuario',
+	'confirm_block_user' => '¿Estás seguro de que quieres bloquear a este usuario? Él no podrá enviarte mensajes privados y/o etiquetarte en publicaciones.',
+	'confirm_unblock_user' => '¿Estás seguro de que quieres desbloquear a este usuario? Él podrá enviarte mensajes privados y/o etiquetarte en publicaciones.',
+	'user_blocked' => 'Usuario bloqueado.',
+	'user_unblocked' => 'Usuario desbloqueado.',
+	'views' => 'Visitas al Perfil:',
+	'private_profile_page' => '¡Este es un Perfil privado!',
+	'new_wall_post_reply' => '{x} ha respondido a tu publicación en el Perfil de {y}.', // Don't replace {x} or {y}
+	'new_wall_post_reply_your_profile' => '{x} ha respondido a tu publicación en tu Perfil.', // Don't replace {x}
 	
 	// Reports
 	'invalid_report_content' => 'No se puede crear el informe. Asegúrese de que la razón de su informe es entre 2 y 1024 caracteres.',
@@ -179,6 +184,7 @@ $language = array(
 	'no_messages' => 'No hay mensajes nuevos',
 	'no_messages_full' => 'No tienes ningún mensaje.',
 	'view_messages' => 'Ver mensajes',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'Tienes {x} nuevos mensajes', // Don't replace {x}
 	'new_message' => 'Nuevo mensaje',
 	'message_title' => 'Titulo del Mensaje',
@@ -195,18 +201,17 @@ $language = array(
 	'max_pm_10_users' => 'Sólo puede enviar un mensaje a un máximo de 10 usuarios',
 	'message_sent_successfully' => 'Mensaje enviado con éxito',
 	'participants' => 'Participantes',
-	'last_message' => 'Ultimo mensaje',
+	'last_message' => 'Último mensaje',
 	'by' => 'por',
 	'leave_conversation' => 'Dejar la conversación',
-	'confirm_leave' => 'Seguro que quieres dejar esta conversación??',
-	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
-
+	'confirm_leave' => '¿Seguro que quieres dejar esta conversación??',
+	'one_or_more_users_blocked' => 'No puede enviar mensajes privados a al menos un miembro de la conversación.',
 	/*
 	 *  Infractions area
 	 */
-	'you_have_been_banned' => 'You have been banned!',
-	'you_have_received_a_warning' => 'You have received a warning!',
-	'acknowledge' => 'Acknowledge',
+	'you_have_been_banned' => '¡HAS SIDO BANEADO!',
+	'you_have_received_a_warning' => '¡Haz recibido una advertencia!',
+	'acknowledge' => 'Reconocer',
 	
 	/*
 	 *  Emails
@@ -219,5 +224,5 @@ $language = array(
 	/*
 	 *  Hooks
 	 */
-	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
+	'user_x_has_registered' => '{x} se ha registado ' . SITE_NAME . '!'
 );

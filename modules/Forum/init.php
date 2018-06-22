@@ -95,7 +95,7 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
 
 	// Profile page tab
 	if(!isset($profile_tabs)) $profile_tabs = array();
-	$profile_tabs['forum'] = array('title' => $forum_language->get('forum', 'forum'), 'smarty_template' => 'forum/profile_tab.tpl', 'require' => 'modules' . DIRECTORY_SEPARATOR . 'Forum' . DIRECTORY_SEPARATOR . 'profile_tab.php');
+	$profile_tabs['forum'] = array('title' => $forum_language->get('forum', 'forum'), 'smarty_template' => 'forum/profile_tab.tpl', 'require' => ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Forum' . DIRECTORY_SEPARATOR . 'profile_tab.php');
 
 	// Global variables if user is logged in
 	if($user->isLoggedIn()){

@@ -58,12 +58,16 @@ $language = array(
 	'active_language' => 'Active Language',
 	'timezone' => 'Timezone',
 	'upload_new_avatar' => 'Upload a new avatar',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'nickname_already_exists' => 'Your chosen nickname already exists.',
+	'change_email_address' => 'Change Email Address',
+	'email_already_exists' => 'The email address you have entered already exists.',
+	'email_changed_successfully' => 'Email address changed successfully.',
 	
 	// Alerts
 	'user_tag_info' => 'You have been tagged in a post by {x}.', // Don't replace {x}
 	'no_alerts' => 'No new alerts',
 	'view_alerts' => 'View alerts',
+	'1_new_alert' => 'You have 1 new alert',
 	'x_new_alerts' => 'You have {x} new alerts', // Don't replace {x}
 	'no_alerts_usercp' => 'You do not have any alerts.',
 	
@@ -113,6 +117,7 @@ $language = array(
 	'invalid_recaptcha' => 'Invalid reCAPTCHA response.',
 	'verify_account' => 'Verify Account',
 	'verify_account_help' => 'Please follow the instructions below so we can verify you own the Minecraft account in question.',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Verification failed, please try again.',
 	'verification_success' => 'Successfully validated! You can now log in.',
 	'authme_username_exists' => 'Your Authme account has already been connected to the website!',
@@ -179,6 +184,7 @@ $language = array(
 	'no_messages' => 'No new messages',
 	'no_messages_full' => 'You do not have any messages.',
 	'view_messages' => 'View messages',
+	'1_new_message' => 'You have 1 new message',
 	'x_new_messages' => 'You have {x} new messages', // Don't replace {x}
 	'new_message' => 'New Message',
 	'message_title' => 'Message Title',

@@ -139,6 +139,7 @@ $language = array(
 	// Custom profile fields
 	'custom_fields' => 'Egendefinerbare profilfelt',
 	'new_field' => '<i class="fa fa-plus-circle"></i> Nytt felt',
+	'editable' => 'Editable',
 	'required' => 'Påkrevd',
 	'public' => 'Synlig for offentligheten',
 	'text' => 'Tekst',
@@ -153,6 +154,7 @@ $language = array(
 	'description' => 'Beskrivelse',
 	'display_field_on_forum' => 'Synlig på forumet',
 	'profile_field_forum_help' => 'Hvis "Synlig på forumet" er aktivert vil alle som bruker forumet kunne se feltet.',
+	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Aktiver Minecraft-integrasjon',
@@ -348,6 +350,9 @@ $language = array(
 	'ip_address' => 'IP Addresser',
 	'template_changes' => 'Template forandringer',
 	'file_changed' => 'File endringer',
+	'all_logs' => 'All Logs',
+	'action' => 'Action',
+	'action_info' => 'Action Info',
 
 	// Updates
 	'update' => 'Oppdater',

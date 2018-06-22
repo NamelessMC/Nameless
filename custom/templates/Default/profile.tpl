@@ -236,7 +236,7 @@
 			    <div class="card-body">
 				  {if isset($ABOUT_FIELDS.minecraft)}
 				    <center>
-					  <img src="{$ABOUT_FIELDS.minecraft.image}" alt="{$USERNAME}" class="rounded" />
+					  <img src="{$ABOUT_FIELDS.minecraft.image}" alt="{$USERNAME}" onerror="this.style.display='none'" />
 					  <h2{if $USERNAME_COLOUR != false} style="{$USERNAME_COLOUR}"{/if}>{$NICKNAME}</h2>
 					  {$USER_TITLE}
 					</center>
