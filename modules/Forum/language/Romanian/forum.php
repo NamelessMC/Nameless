@@ -157,6 +157,8 @@ $language = array(
 	'redirect_forum' => 'Forumul va redirecționa către o adresă URL?',
 	'redirect_url' => 'Adresa URL pentru redirecționare',
 	'invalid_redirect_url' => 'Ai activat redirecționarea forumului, dar nu ai introdus o adresă URL validă între 1 și 512 de caractere.',
+	'forum_icon' => 'Forum Icon',
+	'forum_icon_maximum' => 'The forum icon must be a maximum of 256 characters.',
 
     // Search
     'forum_search' => 'Căutare în forum',

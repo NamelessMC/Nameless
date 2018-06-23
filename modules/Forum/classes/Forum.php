@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -38,6 +38,7 @@ class Forum {
 				if($this->forumExist($forum->id, $group_id, $secondary_groups)){
 					$return[$forum->id]['description'] = Output::getClean($forum->forum_description);
 					$return[$forum->id]['title'] = Output::getClean($forum->forum_title);
+					$return[$forum->id]['icon'] = htmlspecialchars_decode($forum->icon);
 
 					// Get subforums
 					$forums = $this->_db->orderWhere('forums', 'parent = ' . $forum->id, 'forum_order', 'ASC')->results();
@@ -47,6 +48,7 @@ class Forum {
                                 $return[$forum->id]['subforums'][$item->id] = $item;
                                 $return[$forum->id]['subforums'][$item->id]->forum_title = Output::getClean($item->forum_title);
                                 $return[$forum->id]['subforums'][$item->id]->forum_description = Output::getClean($item->forum_description);
+                                $return[$forum->id]['subforums'][$item->id]->icon = htmlspecialchars_decode($item->icon);
                                 $return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view/' . $item->id . '-' . $this->titleToURL($item->forum_title));
                                 $return[$forum->id]['subforums'][$item->id]->redirect_to = Output::getClean(htmlspecialchars_decode($item->redirect_url));
 
@@ -110,6 +112,7 @@ class Forum {
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id] = new stdClass();
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->title = Output::getClean($subforum->forum_title);
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->link = URL::build('/forum/view/' . $subforum->id . '-' . $this->titleToURL($subforum->forum_title));
+                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->icon = htmlspecialchars_decode($subforum->icon);
                                         }
                                     }
                                 }

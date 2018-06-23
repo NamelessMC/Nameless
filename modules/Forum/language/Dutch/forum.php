@@ -156,6 +156,8 @@ $language = array(
 	'redirect_forum' => 'Redirect forum?',
 	'redirect_url' => 'Redirect URL',
 	'invalid_redirect_url' => 'You have enabled the forum redirect, but you have not entered a valid URL between 1 and 512 characters.',
+	'forum_icon' => 'Forum Icon',
+	'forum_icon_maximum' => 'The forum icon must be a maximum of 256 characters.',
 
     // Search
     'forum_search' => 'Forum Search',

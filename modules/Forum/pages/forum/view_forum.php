@@ -235,7 +235,8 @@ if(isset($_GET['p'])){
                         'title' => Output::getPurified(htmlspecialchars_decode($subforum->forum_title)),
                         'topics' => $subforum_topics,
                         'link' => URL::build('/forum/view/' . $subforum->id . '-' . $forum->titleToURL($subforum->forum_title)),
-                        'latest_post' => $latest_post
+                        'latest_post' => $latest_post,
+                        'icon' => htmlspecialchars_decode($subforum->icon)
                     );
                 }
             }
@@ -258,6 +259,7 @@ if(isset($_GET['p'])){
         $smarty->assign('SUBFORUMS', $subforum_array);
         $smarty->assign('SUBFORUM_LANGUAGE', $forum_language->get('forum', 'subforums'));
         $smarty->assign('FORUM_TITLE', Output::getPurified(htmlspecialchars_decode($forum_query->forum_title)));
+        $smarty->assign('FORUM_ICON', htmlspecialchars_decode($forum_query->icon));
 
         // Can the user post here?
         if ($user->isLoggedIn() && $forum->canPostTopic($fid, $user_group, $secondary_groups)) {
