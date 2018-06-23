@@ -22,6 +22,7 @@ if($user->isLoggedIn()){
 	
 	$image->setSize(1000, 2 * 1048576)
 		  ->setMime(array('jpeg', 'png', 'gif'))
+		  ->setDimension(2000, 2000)
 		  ->setLocation(ROOT_PATH . '/uploads/images/' . $user->data()->id, 0777);
 		  
 	if($image['upload']){
@@ -38,8 +39,12 @@ if($user->isLoggedIn()){
 		$langCode = $_GET['langCode'] ;
 
 		$url = ((defined('CONFIG_PATH')) ? CONFIG_PATH : '' . '/uploads/images/' . $user->data()->id . '/' . $image->getName() . '.' . $image->getMime());
-		
-		echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$url', '$message');</script>";
+
+		echo json_encode(array(
+		    'uploaded'  => '1',
+		    'fileName'  => $image->getName() . $image->getMime(),
+		    'url'       => $url
+		));
 
 	}
 	

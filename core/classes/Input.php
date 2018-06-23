@@ -57,6 +57,7 @@ class Input {
 			window.path = "' . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . '";
 			
 			CKEDITOR.replace( \'' . $name . '\', {
+				tabSpaces: 4,
 				extraPlugins: \'codesnippetgeshi\',
 				codeSnippetGeshi_url: \'' . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/includes/geshi/colorize.php\',
 				
@@ -69,7 +70,7 @@ class Input {
 					{"name":"styles","groups":["styles"]},
 					{"name":"colors","groups":["colors"]},
 					{"name":"links","groups":["links"]},
-					{"name":"insert","groups":["insert"]}';
+					{"name":"insert","groups":["insert","emoji"]}';
 
 			if($admin)
 			    $editor .= ',{"name":"mode","groups":["mode"]}';
@@ -83,6 +84,7 @@ class Input {
 			    $editor .= 'CKEDITOR.config.allowedContent = true;';
 
 			$editor .= '
+			CKEDITOR.config.language = \'' . (defined('HTML_LANG') ? HTML_LANG : 'en') . '\';
 			CKEDITOR.config.fontawesomePath = path + \'core/assets/css/font-awesome.min.css\';
 			CKEDITOR.config.disableNativeSpellChecker = false;
 			CKEDITOR.config.width = "auto";

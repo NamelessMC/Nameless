@@ -83,7 +83,7 @@ if(Input::exists()){
 	} else {
 		// Invalid token
 		if(Input::get('type') == 'background'){
-			Session::flash('admin_images', '<div class="alert alert-danger">' . $language->get('invalid_token') . '</div>');
+			Session::flash('admin_images', '<div class="alert alert-danger">' . $language->get('general', 'invalid_token') . '</div>');
 		}
 	}
 }
