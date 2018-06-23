@@ -20,10 +20,13 @@
 			  <div class="card-header">{$forum.title}</div>
 			  <div class="card-body">
 			  {foreach from=$forum.subforums item=subforum}
-			    <div class="row">
-				  <div class="col-md-6">
-				    <a href="{if !isset($subforum->redirect_confirm)}{$subforum->link}{else}#" data-toggle="modal" data-target="#confirmRedirectModal{$subforum->id}{/if}">{$subforum->forum_title}</a>
-					<p>{$subforum->forum_description}</p>
+			    <div class="row align-items-center">
+					<div class="col-md-1">
+						{if empty($subforum->icon)}<i class="fa fa-comments-o fa-fw fa-2x" aria-hidden="true"></i>{else}{$subforum->icon}{/if}
+					</div>
+				  <div class="col-md-5">
+				    <a href="{if !isset($subforum->redirect_confirm)}{$subforum->link}{else}#" data-toggle="modal" data-target="#confirmRedirectModal{$subforum->id}{/if}">{$subforum->forum_title}</a><br />
+					{$subforum->forum_description}
 				  </div>
 				  {if !isset($subforum->redirect_confirm)}
 				  <div class="col-md-2">
@@ -32,7 +35,7 @@
 				  </div>
 				  <div class="col-md-4">
 				    {if isset($subforum->last_post)}
-					<div class="row">
+					<div class="row align-items-center">
 				      <div class="col-md-3">
 						<div class="frame">
 						  <a href="{$subforum->last_post->profile}"><img alt="{$subforum->last_post->profile}" style="height:40px; width:40px;" class="img-centre rounded" src="{$subforum->last_post->avatar}" /></a>
@@ -70,7 +73,7 @@
 				  <div class="row">
 				  {foreach from=$subforum->subforums item=sub_subforum}
 				    <div class="col-md-4">
-				      <i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;&nbsp;<a href="{$sub_subforum->link}">{$sub_subforum->title}</a>
+				      {if empty($sub_subforum->icon)}<i class="fa fa-folder-open" aria-hidden="true"></i>{else}{$sub_subforum->icon}{/if}&nbsp;&nbsp;<a href="{$sub_subforum->link}">{$sub_subforum->title}</a>
 				      {assign var=sf_counter value=$sf_counter+1}
 				    </div>
 				    {if $sf_counter eq 4}
@@ -97,11 +100,9 @@
 		    <div class="input-group">
 			  <input type="text" class="form-control input-sm" name="forum_search" placeholder="{$SEARCH}">
 			  <input type="hidden" name="token" value="{$TOKEN}">
-			  <span class="input-group-btn">
-			    <button type="submit" class="btn btn-default">
-				  <i class="fa fa-search"></i>
-			    </button>
-			  </span>
+			  <div class="input-group-append">
+			    <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
+			  </div>
 		    </div>
 		  </form>
 		  

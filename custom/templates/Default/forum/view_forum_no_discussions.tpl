@@ -24,7 +24,7 @@
 			  </tr>
 			  {foreach from=$SUBFORUMS item=subforum}
 			  <tr>
-			    <td><a href="{$subforum.link}">{$subforum.title}</a></td>
+			    <td>{$subforum.icon} <a href="{$subforum.link}">{$subforum.title}</a></td>
 				<td><strong>{$subforum.topics}</strong> {$TOPICS}</td>
 				<td>
 				  {if count($subforum.latest_post)}

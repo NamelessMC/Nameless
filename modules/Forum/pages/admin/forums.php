@@ -181,6 +181,9 @@ $admin_page = 'forums';
 										),
 										'forumdesc' => array(
 											'max' => 255
+										),
+										'forum_icon' => array(
+											'max' => 256
 										)
 									));
 									
@@ -197,7 +200,8 @@ $admin_page = 'forums';
 												'forum_title' => htmlspecialchars(Input::get('forumname')),
 												'forum_description' => htmlspecialchars($description),
 												'forum_order' => $last_forum_order + 1,
-												'forum_type' => Input::get('forum_type')
+												'forum_type' => Input::get('forum_type'),
+												'icon' => Output::getClean(Input::get('forum_icon'))
 											));
 											
 											$forum_id = $queries->getLastId();
@@ -226,10 +230,13 @@ $admin_page = 'forums';
 											  } else if(strpos($item, 'maximum') !== false){
 												switch($item){
 													case (strpos($item, 'forumname') !== false):
-														$error .= $admin_language->get('forum', 'forum_name_maximum') . '<br />';
+														$error .= $forum_language->get('forum', 'forum_name_maximum') . '<br />';
 													break;
 													case (strpos($item, 'forumdesc') !== false):
-														$error .= $admin_language->get('forum', 'forum_description_maximum') . '<br />';
+														$error .= $forum_language->get('forum', 'forum_description_maximum') . '<br />';
+													break;
+													case (strpos($item, 'forum_icon') !== false):
+														$error .= $forum_language->get('forum', 'forum_icon_maximum') . '<br />';
 													break;
 												}
 											  }
@@ -258,6 +265,9 @@ $admin_page = 'forums';
 							  </div>
 							  <div class="form-group">
 								<textarea name="forumdesc" placeholder="<?php echo $forum_language->get('forum', 'forum_description'); ?>" class="form-control" rows="3"><?php echo Output::getClean(Input::get('forumdesc')); ?></textarea>
+							  </div>
+							  <div class="form-group">
+								<input class="form-control" type="text" name="forum_icon" id="forum_icon" value="<?php echo Output::getClean(Input::get('forum_icon')); ?>" placeholder="<?php echo $forum_language->get('forum', 'forum_icon'); ?>" autocomplete="off">
 							  </div>
 							  <div class="form-group">
 							    <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
@@ -760,6 +770,9 @@ $admin_page = 'forums';
 									),
 									'description' => array(
 										'max' => 255
+									),
+									'icon' => array(
+										'max' => 256
 									)
 								));
 								
@@ -790,7 +803,8 @@ $admin_page = 'forums';
 										    'forum_description' => Output::getClean(Input::get('description')),
 										    'news' => Input::get('display'),
 										    'parent' => $parent,
-										    'redirect_forum' => $redirect
+										    'redirect_forum' => $redirect,
+										    'icon' => Output::getClean(Input::get('icon'))
 										);
 
 										if(!isset($redirect_error))
@@ -959,6 +973,9 @@ $admin_page = 'forums';
 											case (strpos($error, 'description') !== false):
 												echo $forum_language->get('forum', 'forum_description_maximum') . '<br />';
 											break;
+											case (strpos($error, 'icon') !== false):
+												echo $forum_language->get('forum', 'forum_icon_maximum') . '<br />';
+											break;
 										}
 									  }
 									}
@@ -1003,6 +1020,10 @@ $admin_page = 'forums';
 						  <div class="form-group">
 							<label for="InputDescription"><?php echo $forum_language->get('forum', 'forum_description'); ?></label>
 							<textarea name="description" id="InputDescription" placeholder="<?php echo $forum_language->get('forum', 'forum_description'); ?>" class="form-control" rows="3"><?php echo Output::getPurified(htmlspecialchars_decode($forum[0]->forum_description)); ?></textarea>
+						  </div>
+						  <div class="form-group">
+							<label for="InputIcon"><?php echo $forum_language->get('forum', 'forum_icon'); ?></label>
+							<input type="text" name="icon" class="form-control" id="InputIcon" placeholder="<?php echo $forum_language->get('forum', 'forum_icon'); ?>" value="<?php echo Output::getClean(htmlspecialchars_decode($forum[0]->icon)); ?>">
 						  </div>
 						  <div class="form-group">
 							<label for="InputParentForum"><?php echo $forum_language->get('forum', 'parent_forum'); ?></label>
