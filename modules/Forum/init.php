@@ -135,8 +135,8 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
 
 	$cache->setCache($cache_name);
 
-	if($cache->isCached('latest_posts')){
-		$template_array = $cache->retrieve('latest_posts');
+	if($cache->isCached('latest_posts_widget_' . ($user->isLoggedIn() ? $user->data()->group_id . '_' . $user->data()->secondary_groups : 0))){
+		$template_array = $cache->retrieve('latest_posts_widget_' . ($user->isLoggedIn() ? $user->data()->group_id . '_' . $user->data()->secondary_groups : 0));
 
 	} else {
 		// Generate latest posts
