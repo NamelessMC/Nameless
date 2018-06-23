@@ -111,7 +111,7 @@ require(ROOT_PATH . '/core/templates/cc_navbar.php');
 	  $average_data = '';
 	  $total_data = '';
 	  foreach($output as $date => $item){
-		  $labels .= '"' . date('D', $date) . '", ';
+		  $labels .= '"' . date('Y-m-d', $date) . '", ';
 		  $user_data .= $item['user'] . ', ';
 		  $average_data .= $item['average'] . ', ';
 		  $total_data .= $item['total'] . ', ';
@@ -135,6 +135,8 @@ require(ROOT_PATH . '/core/templates/cc_navbar.php');
     <script type="text/javascript">
         $(document).ready(function() {
             var ctx = $("#dataChart").get(0).getContext("2d");
+
+            moment.locale('<?php echo (defined('HTML_LANG') ? strtolower(HTML_LANG) : 'en'); ?>');
 
             var data = {
                 labels: <?php echo $labels; ?>,
@@ -185,6 +187,12 @@ require(ROOT_PATH . '/core/templates/cc_navbar.php');
                                     }
 
                                 }
+                            }
+                        }],
+                        xAxes: [{
+                            type: 'time',
+                            time: {
+                                unit: 'day'
                             }
                         }]
                     }

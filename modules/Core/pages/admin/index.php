@@ -154,8 +154,8 @@ $admin_page = 'overview';
 	$latest_members = $queries->orderWhere('users', 'joined > ' . strtotime("-1 week"), 'joined', 'ASC');
 
 	// Get data for topics and posts
-  $latest_topics = $queries->orderWhere('topics', 'topic_date > ' . strtotime("-1 week"), 'topic_date', 'ASC');
-  $latest_posts = $queries->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime("-1 week")) . '"', 'post_date', 'ASC');
+	$latest_topics = $queries->orderWhere('topics', 'topic_date > ' . strtotime("-1 week"), 'topic_date', 'ASC');
+	$latest_posts = $queries->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime("-1 week")) . '"', 'post_date', 'ASC');
 
 	// Output array
 	$output = array();
@@ -222,7 +222,7 @@ $admin_page = 'overview';
 	$topics_data = '';
 	$posts_data = '';
 	foreach($output as $date => $member){
-		$labels .= '"' . date('D', $date) . '", ';
+		$labels .= '"' . date('Y-m-d', $date) . '", ';
 		$registration_data .= $member['users'] . ', ';
 		$topics_data .= $member['topics'] . ', ';
 		$posts_data .= $member['posts'] . ', ';
@@ -236,6 +236,8 @@ $admin_page = 'overview';
 	<script type="text/javascript">
 	$(document).ready(function() {
 		var ctx = $("#registrationChart").get(0).getContext("2d");
+
+		moment.locale('<?php echo (defined('HTML_LANG') ? strtolower(HTML_LANG) : 'en'); ?>');
 
 		var data = {
 			labels: <?php echo $labels; ?>,
@@ -287,6 +289,12 @@ $admin_page = 'overview';
 
 							}
 						}
+					}],
+					xAxes: [{
+					    type: 'time',
+					    time: {
+					        unit: 'day'
+					    }
 					}]
 				}
 			}
