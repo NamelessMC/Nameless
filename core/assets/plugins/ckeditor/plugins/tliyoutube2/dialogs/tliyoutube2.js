@@ -1,7 +1,48 @@
-﻿/*
- Modifica e usa come vuoi
+﻿/**
+ * @license Modifica e usa come vuoi
+ *
+ * Creato da TurboLab.it - 01/01/2014 (buon anno!)
+ */
+CKEDITOR.dialog.add( 'tliyoutube2Dialog', function( editor ) {
 
- Creato da TurboLab.it - 01/01/2014 (buon anno!)
-*/
-CKEDITOR.dialog.add("tliyoutube2Dialog",function(b){return{title:b.lang.tliyoutube2.title,minWidth:400,minHeight:75,contents:[{id:"tab-basic",label:"Basic Settings",elements:[{type:"text",id:"youtubeURL",label:b.lang.tliyoutube2.txtUrl}]}],onOk:function(){var c=this.getValueOf("tab-basic","youtubeURL").trim().match(/v=([^&$]+)/i);if(null==c||""==c||""==c[0]||""==c[1])return alert(b.lang.youtube.invalidUrl),!1;var a=b.document.createElement("iframe");a.setAttribute("width","560");a.setAttribute("height",
-"315");a.setAttribute("src","//www.youtube.com/embed/"+c[1]+"?rel\x3d0");a.setAttribute("frameborder","0");a.setAttribute("allowfullscreen","1");b.insertElement(a)}}});
+    return {
+					title : editor.lang.tliyoutube2.title,
+        minWidth: 400,
+        minHeight: 75,
+        contents: [
+            {
+                id: 'tab-basic',
+                label: 'Basic Settings',
+                elements: [
+                    {
+                        type: 'text',
+                        id: 'youtubeURL',
+			label : editor.lang.tliyoutube2.txtUrl,
+                    }
+                ]
+            }
+        ],
+        onOk: function() {
+            var dialog = this;
+			var url=dialog.getValueOf( 'tab-basic', 'youtubeURL').trim();
+			var regExURL=/v=([^&$]+)/i;
+			var id_video=url.match(regExURL);
+
+			if(id_video==null || id_video=='' || id_video[0]=='' || id_video[1]=='')
+				{
+				alert( editor.lang.youtube.invalidUrl);
+				return false;
+				}
+
+            var oTag = editor.document.createElement( 'iframe' );
+
+            oTag.setAttribute( 'width', '560' );
+			oTag.setAttribute( 'height', '315' );
+			oTag.setAttribute( 'src', '//www.youtube.com/embed/' + id_video[1] + '?rel=0');
+			oTag.setAttribute( 'frameborder', '0' );
+			oTag.setAttribute( 'allowfullscreen', '1' );
+
+            editor.insertElement( oTag );
+        }
+    };
+});

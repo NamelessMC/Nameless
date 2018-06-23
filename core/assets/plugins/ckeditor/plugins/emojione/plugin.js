@@ -6,7 +6,7 @@ CKEDITOR.plugins.add( 'emojione', {
 		editor.ui.addButton( 'Emojione', {
 			label: 'Emoji',
 			command: 'emojione',
-			toolbar: '',
+			toolbar: 'emoji',
 			icon: this.path + 'icons/emojione.png'
 		});
 		CKEDITOR.dialog.add( 'emojioneDialog', this.path + 'dialogs/emojione.js' );

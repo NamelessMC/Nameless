@@ -654,7 +654,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 				toastr.options.onclick = function () {};
 				toastr.options.progressBar = true;
 				toastr.options.closeButton = true;
-				toastr.options.positionClass = 'toast-bottom-left'
+				toastr.options.positionClass = 'toast-bottom-left';
 				toastr.info('<?php echo $forum_language->get('forum', 'removed_quoted_post'); ?>');
 			}
 			else {
@@ -663,7 +663,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 				toastr.options.onclick = function () {};
 				toastr.options.progressBar = true;
 				toastr.options.closeButton = true;
-				toastr.options.positionClass = 'toast-bottom-left'
+				toastr.options.positionClass = 'toast-bottom-left';
 				toastr.info('<?php echo $forum_language->get('forum', 'quoted_post'); ?>');
 			}
 			
@@ -692,7 +692,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 			toastr.options.onclick = function () {};
 			toastr.options.progressBar = true;
 			toastr.options.closeButton = true;
-			toastr.options.positionClass = 'toast-bottom-left'
+			toastr.options.positionClass = 'toast-bottom-left';
 			toastr.info('<?php echo $forum_language->get('forum', 'quoting_posts'); ?>');
 		
 			var getQuotes = $.ajax({
@@ -724,7 +724,7 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 					  toastr.options.onclick = function () {};
 					  toastr.options.progressBar = true;
 					  toastr.options.closeButton = true;
-					  toastr.options.positionClass = 'toast-bottom-left'
+					  toastr.options.positionClass = 'toast-bottom-left';
 					  toastr.error('<?php echo $forum_language->get('forum', 'error_quoting_posts'); ?>');
 				  }
 			});
