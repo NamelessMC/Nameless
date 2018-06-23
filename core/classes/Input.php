@@ -77,7 +77,7 @@ class Input {
 
 			$editor .= '],
 				
-				removeButtons: \'Anchor,Styles,Specialchar,Font,About,Flash,Iframe,Smiley,CodeSnippet,Format\'
+				removeButtons: \'Anchor,Styles,Specialchar,About,Flash,Iframe,Smiley,CodeSnippet,Format\'
 			} );';
 
 			if($admin)
