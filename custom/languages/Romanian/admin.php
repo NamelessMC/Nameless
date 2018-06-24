@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 20/06/2018
+ *  Last Update: 24/06/2018
  */
 
 $language = array(
@@ -67,9 +67,9 @@ $language = array(
     'twitter_url' => 'Adresă Twitter',
     'twitter_dark_theme' => 'Utilizați tema închisă Twitter?',
 	'discord_id' => 'ID Server Discord',
-	'discord_widget_theme' => 'Discord Widget Theme',
-	'dark' => 'Dark',
-	'light' => 'Light',
+	'discord_widget_theme' => 'Tema Discord',
+	'dark' => 'Închisă',
+	'light' => 'Deschisă',
     'google_plus_url' => 'Adresă Google Plus',
     'facebook_url' => 'Adresă Facebook',
     'successfully_updated' => 'Actualizat cu succes',
