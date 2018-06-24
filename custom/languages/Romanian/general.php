@@ -8,7 +8,7 @@
  *
  *  Romanian Language - General terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ASMODΣUS
- *  Last Update: 20/06/2018
+ *  Last Update: 24/06/2018
  */
 
 $language = array(
@@ -112,7 +112,7 @@ $language = array(
     'no_online_staff' => 'Nu există membri staff online momentan.',
     'online_users' => 'Utilizatori online',
     'no_online_users' => 'Nu există utilizatori online momentan.',
-    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
+    'discord_widget_disabled' => 'Widgetul este dezactivat pentru serverul de Discord specificat. Accesați fila \'Widget\' din setările pentru serverul de Discord și asigurați-vă că widgetul Discord este activat și că ID-ul este corect.',
 
     /*
      *  Privacy policy

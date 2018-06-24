@@ -8,7 +8,7 @@
  *
  *  Romanian Language for Forum module
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) 
- *  Last Update: 16/06/2018
+ *  Last Update: 24/06/2018
  */
 
 $language = array(
@@ -157,8 +157,8 @@ $language = array(
 	'redirect_forum' => 'Forumul va redirecționa către o adresă URL?',
 	'redirect_url' => 'Adresa URL pentru redirecționare',
 	'invalid_redirect_url' => 'Ai activat redirecționarea forumului, dar nu ai introdus o adresă URL validă între 1 și 512 de caractere.',
-	'forum_icon' => 'Forum Icon',
-	'forum_icon_maximum' => 'The forum icon must be a maximum of 256 characters.',
+	'forum_icon' => 'Pictogramă',
+	'forum_icon_maximum' => 'Pictograma forumului trebuie să aibă maxim 256 de caractere.',
 
     // Search
     'forum_search' => 'Căutare în forum',
