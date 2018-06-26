@@ -292,18 +292,18 @@ $admin_styles = true;
 						  // Install new template
 
 						  // Scan template directory for new templates
-						  $directories = glob('custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
+						  $directories = glob(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
 						  foreach($directories as $directory){
 							$folders = explode(DIRECTORY_SEPARATOR, $directory);
-							// Is it already in the database?
 
-							$exists = $queries->getWhere('templates', array('name', '=', htmlspecialchars($folders[2])));
+							// Is it already in the database?
+							$exists = $queries->getWhere('templates', array('name', '=', htmlspecialchars($folders[count($folders) - 1])));
 							if(!count($exists)){
 								// No, add it now
 								$queries->create('templates', array(
-									'name' => htmlspecialchars($folders[2])
+									'name' => htmlspecialchars($folders[count($folders) - 1])
 								));
-								Log::getInstance()->log(Log::Action('admin/template/install'), Output::getClean($folders[2]));
+								Log::getInstance()->log(Log::Action('admin/template/install'), Output::getClean($folders[count($folders) - 1]));
 							}
 						  }
 
