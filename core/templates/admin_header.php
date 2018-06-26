@@ -20,4 +20,9 @@
 	html {
 		overflow-y: scroll;
 	}
+	<?php if(defined('HTML_RTL')){ ?>
+	.pull-right {
+		float: left !important;
+	}
+	<?php } ?>
 	</style> 
