@@ -7,8 +7,8 @@
  *  License: MIT
  *
  *  Romanian Language for Forum module
- *  Translation By @BaxAndrei ( https://baxandrei.ro ) 
- *  Last Update: 24/06/2018
+ *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ImGladius
+ *  Last Update: 27/06/2018
  */
 
 $language = array(
@@ -157,7 +157,7 @@ $language = array(
 	'redirect_forum' => 'Forumul va redirecționa către o adresă URL?',
 	'redirect_url' => 'Adresa URL pentru redirecționare',
 	'invalid_redirect_url' => 'Ai activat redirecționarea forumului, dar nu ai introdus o adresă URL validă între 1 și 512 de caractere.',
-	'forum_icon' => 'Pictogramă',
+	'forum_icon' => 'Cod HTML Pictogramă',
 	'forum_icon_maximum' => 'Pictograma forumului trebuie să aibă maxim 256 de caractere.',
 
     // Search
