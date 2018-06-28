@@ -572,7 +572,8 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 		'POSTS' => $forum_language->get('forum', 'posts'),
 		'BY' => ucfirst($forum_language->get('forum', 'by')),
 		'CANCEL' => $language->get('general', 'cancel'),
-		'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id  : 0)
+		'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id  : 0),
+		'INSERT_QUOTES' => $forum_language->get('forum', 'insert_quotes')
 	));
 	
 	// Get post formatting type (HTML or Markdown)

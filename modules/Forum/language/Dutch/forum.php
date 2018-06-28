@@ -80,6 +80,7 @@ $language = array(
 	'post_already_reported' => 'Je hebt dit bericht al gerapporteerd!',
 	'quoted_post' => 'Bericht toegevoegd aan quoted berichten.',
 	'removed_quoted_post' => 'Bericht verwijderd van quoted berichten.',
+	'insert_quotes' => 'Insert Quotes',
 	'quoting_posts' => 'Quotes invoegen..',
 	'error_quoting_posts' => 'Excuses, er was een probleem met de berichten quoten.',
 	'error_rating_post' => 'Excuses, er was een probleem met het beoordelen van dit bericht.',

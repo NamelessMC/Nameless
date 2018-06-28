@@ -78,6 +78,7 @@ $language = array(
 	'post_already_reported' => 'Du har allerede rapportert dette innlegget',
 	'quoted_post' => 'Post lagt til siterte innlegg.',
 	'removed_quoted_post' => 'Post fjernet fra siterte innlegg.',
+	'insert_quotes' => 'Insert Quotes',
 	'quoting_posts' => 'Siter innlegg',
 	'error_quoting_posts' => 'Beklager det oppstod ett problem.',
 	'error_rating_post' => 'Beklager, det oppstod ett problem.',

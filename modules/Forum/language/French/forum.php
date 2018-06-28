@@ -79,6 +79,7 @@ $language = array(
 	'post_already_reported' => 'Vous vous êtes déjà plaint de ce sujet !',
 	'quoted_post' => 'Message ajouté au messages citésPost added to quoted posts.',
 	'removed_quoted_post' => 'Message suprimmer des messages cités',
+	'insert_quotes' => 'Insert Quotes',
 	'quoting_posts' => 'Insertion des citations...',
 	'error_quoting_posts' => 'Désolé, il y a eu une erreur lors de la citation des messages.',
 	'error_rating_post' => 'Désolé, il y a eu une érreur lors de la notation du sujet.',

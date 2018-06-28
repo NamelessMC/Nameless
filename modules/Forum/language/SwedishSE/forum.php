@@ -80,6 +80,7 @@ $language = array(
 	'post_already_reported' => 'You have already reported this post!',
 	'quoted_post' => 'Post added to quoted posts.',
 	'removed_quoted_post' => 'Post removed from quoted posts.',
+	'insert_quotes' => 'Insert Quotes',
 	'quoting_posts' => 'Inserting quotes..',
 	'error_quoting_posts' => 'Sorry, there was an error quoting those posts.',
 	'error_rating_post' => 'Sorry, there was an error rating the post.',
