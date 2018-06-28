@@ -17,7 +17,7 @@ $language = array(
      */
     'time' => 'time', // Placeholder, no need to translate
     'seconds_short' => 's', // Shortened "seconds", eg "s"
-    'less_than_a_minute' => 'în urmă cu mai puțin de un minut',
+    'less_than_a_minute' => 'În urmă cu mai puțin de un minut',
     '1_minute' => 'Acum 1 minut',
     '_minutes' => 'Acum {x} minute',
     'about_1_hour' => 'Acum o oră',
