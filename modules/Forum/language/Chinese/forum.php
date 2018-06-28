@@ -82,6 +82,7 @@ $language = array(
 	'post_already_reported' => '你已經回報過這篇文章!',
 	'quoted_post' => '文章已新增至引用.',
 	'removed_quoted_post' => '文章已從引用中移除.',
+	'insert_quotes' => 'Insert Quotes',
 	'quoting_posts' => '插入引用..',
 	'error_quoting_posts' => '抱歉，引用文章時出了錯.',
 	'error_rating_post' => '抱歉，文章發生錯誤.',

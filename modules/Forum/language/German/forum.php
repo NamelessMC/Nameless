@@ -86,6 +86,7 @@ $language = array(
     'post_already_reported' => 'Du hast diesen Beitrag bereits gemeldet!',
     'quoted_post' => 'Beitrag wurde als Zitat zur Antwort hinzugefügt.',
     'removed_quoted_post' => 'Beitrag wurde aus den Zitaten der Antwort entfernt.',
+    'insert_quotes' => 'Insert Quotes',
     'quoting_posts' => 'Füge Zitat ein...',
     'error_quoting_posts' => 'Beim einfügen des Zitats ist etwas fehlgeschlagen!',
     'error_rating_post' => 'Entschuldige du kannst diesen Beitrag nicht bewerten.',
