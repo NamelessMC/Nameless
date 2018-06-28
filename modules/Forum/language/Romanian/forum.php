@@ -8,7 +8,7 @@
  *
  *  Romanian Language for Forum module
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ImGladius
- *  Last Update: 27/06/2018
+ *  Last Update: 29/06/2018
  */
 
 $language = array(
@@ -80,7 +80,7 @@ $language = array(
 	'post_already_reported' => 'Deja ai raportat această postare!',
 	'quoted_post' => 'Mesaj adăugat la citarea postărilor.',
 	'removed_quoted_post' => 'Mesaj eliminat din citarea postărilor.',
-	'insert_quotes' => 'Insert Quotes',
+	'insert_quotes' => 'Introduceți citatele',
 	'quoting_posts' => 'Se introduc citatele ...',
 	'error_quoting_posts' => 'Ne pare rău, a apărut o eroare la citarea mesajului ales.',
 	'error_rating_post' => 'Ne pare rău, a apărut o eroare la evaluarea postării.',
