@@ -86,21 +86,21 @@ require(ROOT_PATH . '/core/templates/cc_navbar.php');
 	  }
 
 	  // Fill in missing dates
-	  $start = strtotime("-7 days");
-	  $start = date('d M Y', $start);
-	  $start = strtotime($start);
+	  $graph_start = strtotime("-7 days");
+	  $graph_start = date('d M Y', $graph_start);
+	  $graph_start = strtotime($graph_start);
 	  $end = strtotime(date('d M Y'));
-	  while($start <= $end){
-		  if(!isset($output[$start]['user']))
-			  $output[$start]['user'] = 0;
+	  while($graph_start <= $end){
+		  if(!isset($output[$graph_start]['user']))
+			  $output[$graph_start]['user'] = 0;
 
-		  if(!isset($output[$start]['average']))
-			  $output[$start]['average'] = 0;
+		  if(!isset($output[$graph_start]['average']))
+			  $output[$graph_start]['average'] = 0;
 
-		  if(!isset($output[$start]['total']))
-			  $output[$start]['total'] = 0;
+		  if(!isset($output[$graph_start]['total']))
+			  $output[$graph_start]['total'] = 0;
 
-		  $start = $start + 86400;
+		  $graph_start = $graph_start + 86400;
 	  }
 
 	  ksort($output);
