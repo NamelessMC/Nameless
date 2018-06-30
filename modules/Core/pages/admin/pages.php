@@ -706,9 +706,9 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
 
                   colourUpdate(document.getElementById(id));
               }
+          }).children().click(function(e) {
+              e.stopPropagation();
           });
-      }).children().click(function(e) {
-          e.stopPropagation();
       });
   </script>
 <?php } ?>
