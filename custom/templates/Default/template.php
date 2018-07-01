@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -57,8 +57,24 @@ if(!isset($admin_styles)){
   	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/js/bootstrap.min.js'
   );
 
+  $js = '';
+
   if($route == '/user/messaging'){
-  	$js_sources[] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/js/bootstrap3-typeahead.min.js';
+  	$css[] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/css/bootstrap-tokenfield.min.css';
+  	$css[] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/jquery-ui.min.css';
+  	$js_sources[] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/js/bootstrap-tokenfield.min.js';
+  	$js_sources[] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js';
+  	$js .= '
+ 	<script type="text/javascript">
+ 	$(\'#InputTo\').tokenfield({
+ 	  autocomplete: {
+ 	    source: allUsers,
+ 	    delay: 100
+ 	  },
+ 	  showAutocompleteOnFocus: true
+ 	});
+ 	</script>
+  	';
   }
 
   // Page load time
@@ -71,7 +87,7 @@ if(!isset($admin_styles)){
   }
 
   // Popovers
-  $js = '
+  $js .= '
    <script>
    $(".pop").popover({ trigger: "manual" , html: true, animation:false, placement: "top" })
   	.on("mouseenter", function () {

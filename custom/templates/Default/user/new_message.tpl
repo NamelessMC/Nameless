@@ -26,8 +26,12 @@
 			
 			<div class="form-group">
 			  <label for="InputTo">{$TO} <small><em>{$SEPARATE_USERS_WITH_COMMAS}</em></small></label>
-			  <input class="form-control" type="text" id="InputTo" name="to" {if isset($TO_USER)}value="{$TO_USER}"{/if}data-provide="typeahead" data-items="4" data-source='[{$ALL_USERS}]'>
+			  <input class="form-control" type="text" id="InputTo" name="to" {if isset($TO_USER)}value="{$TO_USER}"{/if}>
 			</div>
+
+			<script type="text/javascript">
+			  let allUsers = [{$ALL_USERS}];
+			</script>
 			
 			{if !isset($MARKDOWN)}
 			<div class="form-group">
