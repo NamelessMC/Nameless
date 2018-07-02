@@ -223,7 +223,8 @@ if(!isset($_GET['s'])){
         $smarty->assign(array(
             'SEARCH_RESULTS' => $forum_language->get('forum', 'search_results'),
             'NEW_SEARCH' => $forum_language->get('forum', 'new_search'),
-            'NEW_SEARCH_URL' => URL::build('/forum/search')
+            'NEW_SEARCH_URL' => URL::build('/forum/search'),
+			'SEARCH_TERM' => ($_GET['s'])
         ));
 
         $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/search_results.tpl');
