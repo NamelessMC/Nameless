@@ -8,7 +8,7 @@
  *
  *  Romanian Language for Forum module
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ImGladius
- *  Last Update: 29/06/2018
+ *  Last Update: 02/07/2018
  */
 
 $language = array(
