@@ -8,7 +8,7 @@
  *
  *  Romanian Language for Forum module
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ImGladius
- *  Last Update: 29/06/2018
+ *  Last Update: 02/07/2018
  */
 
 $language = array(
@@ -37,7 +37,7 @@ $language = array(
 	'latest_member' => '<strong>Ultimul membru:</strong> {x}', // Don't replace "{x}"
 	'subforums' => 'Subforumuri',
 	'subforum' => 'Subforum',
-	'no_topics' => 'Nu au fost create încă subiecte.',
+	'no_topics' => 'Momentan nu există nici un subiect aici.',
 	'no_topics_short' => 'Nu există subiecte.',
 	'new_topic' => 'Subiect nou',
 	'post_successful' => 'Mesajul dvs. a fost publicat cu succes.',
