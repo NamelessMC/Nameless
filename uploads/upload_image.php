@@ -24,29 +24,35 @@ if($user->isLoggedIn()){
 		  ->setMime(array('jpeg', 'png', 'gif'))
 		  ->setDimension(2000, 2000)
 		  ->setLocation(ROOT_PATH . '/uploads/images/' . $user->data()->id, 0777);
-		  
-	if($image['upload']){
+
+	if($image['upload']) {
 		$upload = $image->upload();
-		
-		if(!$upload)
-			$message = Output::getClean($image['error']);
 
-		// CKEDITOR
-		$funcNum = $_GET['CKEditorFuncNum'] ;
+		if($upload){
+			// CKEDITOR
+			$funcNum = $_GET['CKEditorFuncNum'];
 
-		$CKEditor = $_GET['CKEditor'] ;
+			$CKEditor = $_GET['CKEditor'];
 
-		$langCode = $_GET['langCode'] ;
+			$langCode = $_GET['langCode'];
 
-		$url = ((defined('CONFIG_PATH')) ? CONFIG_PATH : '' . '/uploads/images/' . $user->data()->id . '/' . $image->getName() . '.' . $image->getMime());
+			$url = ((defined('CONFIG_PATH')) ? CONFIG_PATH : '' . '/uploads/images/' . $user->data()->id . '/' . $image->getName() . '.' . $image->getMime());
 
-		echo json_encode(array(
-		    'uploaded'  => '1',
-		    'fileName'  => $image->getName() . $image->getMime(),
-		    'url'       => $url
-		));
+			echo json_encode(array(
+				'uploaded' => '1',
+				'fileName' => $image->getName() . $image->getMime(),
+				'url' => $url
+			));
 
+		} else {
+			echo json_encode(array(
+				'uploaded' => '0',
+				'error' => array('message' => $image->getError() . ' ' . $image->getMime())
+			));
+		}
 	}
-	
 } else
-	die('You are not logged in!');
+	echo json_encode(array(
+		'uploaded' => '0',
+		'error' => array('You are not logged in')
+	));
