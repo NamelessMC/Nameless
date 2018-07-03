@@ -658,7 +658,7 @@ $admin_page = 'minecraft';
                                   <h4>Query Information</h4>
                                   <div class="form-group">
                                     <div class="form-group">
-                                      <label for="inputStatusQueryEnabled"><?php echo $language->get('admin', 'enable_status_query'); ?></label><?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'status_query_help') . '"></i></span>'; ?>
+                                      <label for="inputStatusQueryEnabled"><?php echo $language->get('admin', 'enable_status_query'); ?></label><?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" data-html="true" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'status_query_help') . '"></i></span>'; ?>
                                       <input type="hidden" name="status_query_enabled" value="0">
                                       <input id=inputStatusQueryEnabled" name="status_query_enabled" type="checkbox" class="js-switch" value="1"/>
                                     </div>
@@ -672,12 +672,12 @@ $admin_page = 'minecraft';
                                       }
                                       ?>
                                     <div class="form-group">
-                                      <label for="inputQueryEnabled"><?php echo $language->get('admin', 'enable_player_list'); ?></label><?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'player_list_help') . '"></i></span>'; ?>
+                                      <label for="inputQueryEnabled"><?php echo $language->get('admin', 'enable_player_list'); ?></label><?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" data-html="true" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'player_list_help') . '"></i></span>'; ?>
                                       <input type="hidden" name="query_enabled" value="0">
                                       <input id=inputQueryEnabled" name="query_enabled" type="checkbox" class="js-switch" value="1"/>
                                     </div>
                                     <div class="form-group">
-                                      <label for="inputQueryPort"><?php echo $language->get('admin', 'server_query_port'); ?></label> <?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'server_query_port_help') . '"></i></span>'; ?>
+                                      <label for="inputQueryPort"><?php echo $language->get('admin', 'server_query_port'); ?></label> <?php echo ' <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" data-html="true" title="' . $language->get('general', 'info') . '" data-content="' . $language->get('admin', 'server_query_port_help') . '"></i></span>'; ?>
                                       <input name="query_port" placeholder="<?php echo $language->get('admin', 'server_query_port'); ?>" id="inputQueryPort" value="25565" class="form-control">
                                     </div>
                                   </div>
