@@ -33,7 +33,10 @@ if(isset($_GET['p'])){
 	} else {
 		if($_GET['p'] == 1){ 
 			// Avoid bug in pagination class
-			Redirect::to(URL::build('/user/messaging'));
+			if(isset($_GET['message']))
+			    Redirect::to(URL::build('/user/messaging/', 'action=view&message=' . Output::getClean($_GET['message'])));
+			else
+			    Redirect::to(URL::build('/user/messaging'));
 			die();
 		}
 		$p = $_GET['p'];
