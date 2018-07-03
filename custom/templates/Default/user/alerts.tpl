@@ -23,7 +23,7 @@
 			    {foreach from=$ALERTS_LIST item=alert}
 			  <tr>
 				<td>
-				  {$alert->content} 
+				  {if $alert->read eq 0}<strong>{/if}{$alert->content}{if $alert->read eq 0}</strong>{/if}
 				  <a href="{$alert->view_link}">{$CLICK_TO_VIEW}</a>
 				  <span class="pull-right">
 					<span data-toggle="tooltip" data-trigger="hover" data-original-title="{$alert->date}">{$alert->date_nice}</span>
