@@ -16,9 +16,6 @@ $latest_news = $forum->getLatestNews(5); // Get latest 5 items
 
 $news = array();
 
-require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
-$emojione = new Emojione\Client(new Emojione\Ruleset());
-
 foreach($latest_news as $item){
 	$news[] = array(
 		'id' => $item['topic_id'],
@@ -34,7 +31,7 @@ foreach($latest_news as $item){
 		'author_nickname' => Output::getClean($user->idToNickname($item['author'])),
 		'author_avatar' => $user->getAvatar($item["author"], "../", 25),
 		'author_group' => $user->getGroupName($user->getGroup($item['author'])),
-		'content' => Output::getPurified($emojione->unicodeToImage(htmlspecialchars_decode($item['content'])))
+		'content' => Output::getPurified($item['content'])
 	);
 }
 
