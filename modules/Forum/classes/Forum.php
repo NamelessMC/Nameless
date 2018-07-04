@@ -507,7 +507,7 @@ class Forum {
                 "topic_title"=> $item->topic_title,
                 "topic_views" => $item->topic_views,
                 "author" => $item->topic_creator,
-                "content" => $post,
+                "content" => Util::truncate(htmlspecialchars_decode($post)),
                 "replies" => $posts
             );
 		}
