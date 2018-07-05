@@ -32,7 +32,8 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts 
 	$title = $language->get('user', 'profile');
 	require(ROOT_PATH . '/core/templates/header.php'); 
 	?>
-	
+
+	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
 	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/image-picker/image-picker.css">
 	<style type="text/css">
 	.thumbnails li img{
@@ -738,6 +739,7 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts 
 		}
 	}
 	?>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
 	
   </body>
 </html>

@@ -25,6 +25,7 @@ define('PAGE', 'privacy');
     $title = $language->get('general', 'privacy_policy');
     require(ROOT_PATH . '/core/templates/header.php');
     ?>
+    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
 
 </head>
 <body>
@@ -44,6 +45,7 @@ $smarty->assign(array(
 $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/privacy.tpl');
 
 require(ROOT_PATH . '/core/templates/scripts.php'); ?>
+<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
 
 </body>
 </html>
