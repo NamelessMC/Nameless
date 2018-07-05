@@ -8,7 +8,7 @@
  *
  *  Romanian Language for Forum module
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ImGladius
- *  Last Update: 02/07/2018
+ *  Last Update: 05/07/2018
  */
 
 $language = array(
@@ -17,7 +17,7 @@ $language = array(
 	 */ 
 	'forum' => 'Forum',
 	'forums' => 'Forumuri',
-	'forum_index' => 'Acasă',
+	'forum_index' => 'Forum',
 	'no_users_online' => 'Nimeni online momentan.',
 	'online_users' => 'Membrii online',
 	'discussion' => 'Discuţie',
