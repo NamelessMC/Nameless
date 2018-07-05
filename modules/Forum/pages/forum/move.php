@@ -108,7 +108,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 	require(ROOT_PATH . '/core/templates/footer.php');
 	
 	// Get a list of all forums
-	$forums = $queries->orderAll('forums', 'forum_order', 'ASC');
+	$forums = $queries->orderWhere('forums', 'parent <> 0', 'forum_order', 'ASC');
 	
 	// Assign Smarty variables
 	$smarty->assign(array(
