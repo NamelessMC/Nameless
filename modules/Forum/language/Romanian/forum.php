@@ -8,7 +8,7 @@
  *
  *  Romanian Language for Forum module
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ImGladius
- *  Last Update: 05/07/2018
+ *  Last Update: 06/07/2018
  */
 
 $language = array(
@@ -90,11 +90,11 @@ $language = array(
 	'overview' => 'Prezentare generală',
 	'no_label' => 'Fără etichetă',
 	'forum_redirect_warning' => 'Observație: Sunteți pe cale de a părăsi acest site! Sigur doriți să continuați către {x}?',
-	'follow' => 'Follow',
-	'unfollow' => 'Unfollow',
-	'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
-	'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
-	'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
+	'follow' => 'Urmăreşte',
+	'unfollow' => 'Nu mai urmări',
+	'now_following_topic' => 'Acum urmăriți acest subiect și veți primi notificări cu privire la orice răspuns nou.',
+	'no_longer_following_topic' => 'Nu mai urmăriți acest subiect și nu veți mai fi notificat cu privire la niciun răspuns nou.',
+	'new_reply_in_topic' => '{x} a răspuns la subiectul {y}', // Don't replace {x} (username) or {y} (topic title)
 	
 	// Homepage
 	'latest_announcements' => 'Cele mai recente articole',
