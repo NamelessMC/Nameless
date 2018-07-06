@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Moderator terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 16/06/2018
+ *  Last Update: 06/07/2018
  */
 
 $language = array(
@@ -27,11 +27,11 @@ $language = array(
     'search_for_ip' => 'Căutați un nume de utilizator sau o adresă IP:',
     'no_ips_with_username' => 'Nu a fost găsită nici o adresă IP pentru acest utilizator.',
     'no_accounts_with_that_ip' => 'Nu a fost găsit nici un cont de utilizator pentru această adresă IP.',
-    '1_account_with_ip' => 'Found 1 account with the IP {y}', // Don't replace "{y}"
     'count_accounts_with_ip' => 'Am găsit {x} conturi de utilizatori pentru adresa IP {y}', // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Am găsit {x} adrese IP pentru utilizatorul {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Nu a fost găsit nici un cont de utilizator sau adresă IP.',
+	'1_account_with_ip' => 'Am găsit un cont de utilizatori pentru adresa IP {y}', // Don't replace "{y}"
+	'1_ip_with_name' => 'Am găsit o adresă IP pentru utilizatorul {y}', // Don't replace "{y}"
     
     // Reports
     'reports' => 'Rapoarte',
@@ -52,38 +52,38 @@ $language = array(
     'open_reports' => 'În momentul de față există <strong>{x}</strong> rapoarte deschise.', // Don't replace {x}
     
     // Punishments
-    'punishments' => 'Pedepse',
-    'view_punishments' => 'Vezi pedepsele',
+    'punishments' => 'Sancțiuni',
+    'view_punishments' => 'Vezi sancțiunile',
     'banned' => 'Banat',
     'groups' => 'Grupuri',
-    'punish' => 'Pedepsește',
+    'punish' => 'Sancționare',
     'ban' => 'Ban',
     'warn' => 'Avertizare',
     'ban_ip' => 'Ban IP',
     'viewing_user_x' => 'Vizualizare utilizator {x}', // Don't replace {x}
-    'previous_punishments' => 'Pedepsele anterioare',
-    'no_previous_punishments' => 'Nu există pedepse anterioare.',
+    'previous_punishments' => 'Sancțiuni anterioare',
+    'no_previous_punishments' => 'Nu există sancțiuni anterioare.',
     'warning' => 'Avertizare',
     'ip_ban' => 'IP Banat',
     'reason' => 'Motiv',
     'warn_user' => 'Avertizați utilizatorul',
     'ban_user' => 'Banați utilizatorul',
-    'enter_valid_punishment_reason' => 'Introduceți un motiv valid pentru pedeapsa dvs., între 5 și 5000 de caractere.',
-    'user_punished' => 'Utilizator pedepsit.',
-    'user_punished_alert' => '{x} a pedepsit utilizatorul {y}', // Don't replace {x} (staff member) or {y} (user punished)
+    'enter_valid_punishment_reason' => 'Introduceți un motiv valid pentru sancțiunea dvs., între 5 și 5000 de caractere.',
+    'user_punished' => 'Utilizator sancționat.',
+    'user_punished_alert' => '{x} a sancționat utilizatorul {y}', // Don't replace {x} (staff member) or {y} (user punished)
     'revoke' => 'Retragere',
     'revoked' => 'Retras',
     'acknowledged' => 'Citit',
     'confirm_revoke_warning' => 'Sigur doriți să retrageți acest avertisment?',
     'confirm_revoke_ban' => 'Sigur doriți să revocați această interdicție? Utilizatorul va fi activat, chiar dacă are o interdicție mai recentă!',
-    'punishment_revoked' => 'Pedeapsa a fost retrasă.',
-    'punishment_revoked_alert' => '{x} a retras o pedeapsă pentru utilizatorul {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
-    'cant_punish_admin' => 'Nu puteți pedepsi un administrator!',
-    'viewing_all_punishments' => 'Vizualizarea tuturor pedepselor',
-    'no_punishments_found' => 'Nu au fost găsite pedepse.',
+    'punishment_revoked' => 'Sancțiunea a fost retrasă.',
+    'punishment_revoked_alert' => '{x} a retras o sancțiune pentru utilizatorul {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
+    'cant_punish_admin' => 'Nu puteți sancționa un administrator!',
+    'viewing_all_punishments' => 'Vizualizarea tuturor sancțiunilor',
+    'no_punishments_found' => 'Nu au fost găsite sancțiuni.',
     'view_user' => 'Vizualizare istoric',
     'when' => 'Când',
-    'staff' => 'Pedepsitor',
+    'staff' => 'Moderator',
     'type' => 'Tip'
 
 );
