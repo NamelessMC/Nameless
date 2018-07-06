@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -88,6 +88,11 @@ $language = array(
 	'overview' => 'Overview',
 	'no_label' => 'No label',
 	'forum_redirect_warning' => 'Notice: you are about to leave this site! Are you sure you want to proceed to {x}?',
+	'follow' => 'Follow',
+	'unfollow' => 'Unfollow',
+	'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
+	'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
+	'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
 	
 	// Homepage
 	'latest_announcements' => 'Latest Announcements',

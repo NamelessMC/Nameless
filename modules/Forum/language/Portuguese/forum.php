@@ -90,6 +90,11 @@ $language = array(
 	'overview' => 'Visão geral',
 	'no_label' => 'Nenhum rótulo',
 	'forum_redirect_warning' => 'Aviso: você está prestes a sair deste site! Tem certeza de que deseja prosseguir para {x}?',
+	'follow' => 'Follow',
+	'unfollow' => 'Unfollow',
+	'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
+	'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
+	'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
 	
 	// Homepage
 	'latest_announcements' => 'Últimos anúncios',

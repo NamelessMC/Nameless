@@ -27,15 +27,20 @@
 
 
             <span class="pull-right">
-	    {if isset($CAN_REPLY)}
-            <div class="btn-group">
-			<a{if isset($LOCKED) && !isset($CAN_MODERATE)} disabled="disabled"{else} href="#reply_section"{/if}
-                    style="vertical-align:baseline;"
-                    class="btn btn-{if isset($LOCKED) && !isset($CAN_MODERATE)}warning disabled{else}primary{/if}">{if isset($LOCKED) && !isset($CAN_MODERATE)}
-                    <i class="fa fa-lock" aria-hidden="true"></i>
-                {/if}{$NEW_REPLY}</a>
-	  </div>
-        {/if}
+                {if isset($UNFOLLOW)}
+                    <a class="btn btn-primary" href="{$UNFOLLOW_URL}">{$UNFOLLOW}</a>
+                {else if isset($FOLLOW)}
+                    <a class="btn btn-primary" href="{$FOLLOW_URL}">{$FOLLOW}</a>
+                {/if}
+                {if isset($CAN_REPLY)}
+                    <div class="btn-group">
+                        <a{if isset($LOCKED) && !isset($CAN_MODERATE)} disabled="disabled"{else} href="#reply_section"{/if}
+                        style="vertical-align:baseline;"
+                        class="btn btn-{if isset($LOCKED) && !isset($CAN_MODERATE)}warning disabled{else}primary{/if}">{if isset($LOCKED) && !isset($CAN_MODERATE)}
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        {/if}{$NEW_REPLY}</a>
+                    </div>
+                {/if}
                 {if isset($CAN_MODERATE)}
                     <div class="btn-group">
 	  <button type="button" style="vertical-align:baseline;" class="btn btn-primary dropdown-toggle"

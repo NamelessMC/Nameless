@@ -89,6 +89,11 @@ $language = array(
 	'overview' => 'Vue d\'ensemble',
 	'no_label' => 'No label',
 	'forum_redirect_warning' => 'Notice: you are about to leave this site! Are you sure you want to proceed to {x}?',
+	'follow' => 'Follow',
+	'unfollow' => 'Unfollow',
+	'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
+	'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
+	'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
 	
 	// Homepage
 	'latest_announcements' => 'Dernières annonces',

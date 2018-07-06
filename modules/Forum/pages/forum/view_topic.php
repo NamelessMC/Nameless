@@ -119,6 +119,32 @@ if(isset($_GET['pid'])){
 	}
 }
 
+// Follow/unfollow
+if(isset($_GET['action'])){
+	if($user->isLoggedIn()){
+		switch ($_GET['action']){
+			case 'follow':
+				$already_following = DB::getInstance()->query('SELECT id FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
+				if(!$already_following->count()){
+					$queries->create('topics_following', array(
+						'topic_id' => $tid,
+						'user_id' => $user->data()->id,
+						'existing_alerts' => 0
+					));
+					Session::flash('success_post', $forum_language->get('forum', 'now_following_topic'));
+				}
+				break;
+			case 'unfollow':
+				$delete = DB::getInstance()->createQuery('DELETE FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
+				Session::flash('success_post', $forum_language->get('forum', 'no_longer_following_topic'));
+				break;
+		}
+	}
+
+	Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
+	die();
+}
+
 // Assign author + title to Smarty variables
 $smarty->assign(array(
 	'TOPIC_TITLE' => Output::getClean($topic->topic_title),
@@ -145,7 +171,7 @@ if($user->isLoggedIn()){
 
 // Quick reply
 if(Input::exists()) {
-	if(!$user->isLoggedIn() && !$can_reply){ 
+	if(!$user->isLoggedIn() || !$can_reply){
 		Redirect::to(URL::build('/forum'));
 		die();
 	}
@@ -194,6 +220,20 @@ if(Input::exists()) {
 					'topic_last_user' => $user->data()->id,
 					'topic_reply_date' => date('U')
 				));
+
+				// Alerts
+				$users_following = $queries->getWhere('topics_following', array('topic_id', '=', $tid));
+				if(count($users_following)){
+					foreach($users_following as $user_following){
+						if($user_following->user_id != $user->data()->id && $user_following->existing_alerts == 0){
+							Alert::create($user_following->user_id, 'new_reply', str_replace(array('{x}', '{y}'), array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)), $forum_language->get('forum', 'new_reply_in_topic')), str_replace(array('{x}', '{y}'), array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)), $forum_language->get('forum', 'new_reply_in_topic')), URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
+							$queries->update('topics_following', $user_following->id, array(
+								'existing_alerts' => 1
+							));
+						}
+					}
+				}
+
 				Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
 				Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
 				die();
@@ -549,6 +589,29 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 		
 		$smarty->assign('REACTIONS', $reactions);
 		$smarty->assign('REACTIONS_URL', URL::build('/forum/reactions'));
+
+		// Following?
+		$is_user_following = DB::getInstance()->query('SELECT id, existing_alerts FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
+
+		if($is_user_following->count()){
+		    $is_user_following = $is_user_following->first();
+
+		    if($is_user_following->existing_alerts == 1){
+		        $queries->update('topics_following', $is_user_following->id, array(
+		            'existing_alerts' => 0
+		        ));
+		    }
+
+		    $smarty->assign(array(
+		        'UNFOLLOW' => $forum_language->get('forum', 'unfollow'),
+		        'UNFOLLOW_URL' => URL::build('/forum/topic/' . $tid . '/', 'action=unfollow')
+		    ));
+		} else {
+		    $smarty->assign(array(
+		        'FOLLOW' => $forum_language->get('forum', 'follow'),
+		        'FOLLOW_URL' => URL::build('/forum/topic/' . $tid . '/', 'action=follow')
+		    ));
+		}
 	}
 	
 	$smarty->assign('REACTIONS_TEXT', $language->get('user', 'reactions'));

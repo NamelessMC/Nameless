@@ -90,6 +90,11 @@ $language = array(
 	'overview' => 'Prezentare generală',
 	'no_label' => 'Fără etichetă',
 	'forum_redirect_warning' => 'Observație: Sunteți pe cale de a părăsi acest site! Sigur doriți să continuați către {x}?',
+	'follow' => 'Follow',
+	'unfollow' => 'Unfollow',
+	'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
+	'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
+	'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
 	
 	// Homepage
 	'latest_announcements' => 'Cele mai recente articole',
