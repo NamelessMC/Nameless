@@ -375,7 +375,6 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 		if($topic->locked != 1){ // Not locked
 			$smarty->assign('NEW_REPLY', $forum_language->get('forum', 'new_reply'));
 		} else { // Locked
-			$smarty->assign('LOCKED', true);
 			if($forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups)){
 				// Can post anyway
 				$smarty->assign('NEW_REPLY', $forum_language->get('forum', 'new_reply'));
@@ -385,6 +384,9 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 			}
 		}
 	}
+
+	if($topic->locked == 1)
+		$smarty->assign('LOCKED', true);
 	
 	// Is the user a moderator?
 	$buttons = '<span class="pull-right">';
