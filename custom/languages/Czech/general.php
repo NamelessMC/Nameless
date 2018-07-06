@@ -93,6 +93,7 @@ $language = array(
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Verze: {x}', // Don't replace {x}
+    'currently_1_player_online' => 'There is currently 1 player online.',
     'currently_x_players_online' => 'Aktuálně je na serveru <strong>{x}</strong> online hráčů.', // Don't replace {x}
     'server_offline' => 'Server je aktuálně vypnut (offline).',
     'connect_with_ip_x' => 'Připojte se nyní pomoci IP adresy <strong>{x}</strong>', // Don't replace {x}

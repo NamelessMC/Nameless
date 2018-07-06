@@ -93,6 +93,7 @@ $language = array(
 	'player_count' => '{x}/{y}', // Don't replace {x} or {y}
 	'ping' => 'Ping: {x}', // Don't replace {x}
 	'version' => 'Version: {x}', // Don't replace {x}
+	'currently_1_player_online' => 'There is currently 1 player online.',
 	'currently_x_players_online' => 'Det finns närvarande <strong>{x}</strong> spelare online.', // Don't replace {x}
 	'server_offline' => 'Servern är närvarande offline.',
 	'connect_with_ip_x' => 'Anslut nu med IP <strong>{x}</strong>', // Don't replace {x}

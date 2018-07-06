@@ -65,10 +65,15 @@ define('PAGE', 'mod_ip_lookup');
 						'link' => URL::build('/mod/ip_lookup/', 'ip=' . Output::getClean($account->ip))
 					);
 				}
+
+				if(count($user_ips) == 1)
+				    $count_accounts = str_replace('{y}', Output::getClean($user->idToName($_GET['user'])), $language->get('moderator', '1_ip_with_name'));
+				else
+				    $count_accounts = str_replace(array('{x}', '{y}'), array(count($user_ips), Output::getClean($user->idToName($_GET['user']))), $language->get('moderator', 'count_ips_with_name'));
 				
 				$smarty->assign(array(
 					'ACCOUNTS' => $accounts,
-					'COUNT_ACCOUNTS' => str_replace(array('{x}', '{y}'), array(count($user_ips), Output::getClean($user->idToName($_GET['user']))), $language->get('moderator', 'count_ips_with_name'))
+					'COUNT_ACCOUNTS' => $count_accounts
 				));
 			} else {
 				$smarty->assign('NO_ACCOUNTS', $language->get('moderator', 'no_ips_with_username'));
@@ -133,11 +138,16 @@ define('PAGE', 'mod_ip_lookup');
 					'account_ips' => URL::build('/mod/ip_lookup/', 'user='. $account->user_id)
 				);
 			}
+
+			if(count($ip_accounts) == 1)
+				$count_accounts = str_replace('{y}', Output::getClean($_GET['ip']), $language->get('moderator', '1_account_with_ip'));
+			else
+				$count_accounts = str_replace(array('{x}', '{y}'), array(count($ip_accounts), Output::getClean($_GET['ip'])), $language->get('moderator', 'count_accounts_with_ip'));
 			
 			$smarty->assign(array(
 				'IP_SEARCH' => true,
 				'ACCOUNTS' => $accounts,
-				'COUNT_ACCOUNTS' => str_replace(array('{x}', '{y}'), array(count($ip_accounts), Output::getClean($_GET['ip'])), $language->get('moderator', 'count_accounts_with_ip'))
+				'COUNT_ACCOUNTS' => $count_accounts
 			));
 		}
 

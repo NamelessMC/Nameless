@@ -25,7 +25,9 @@ $language = array(
 	'search_for_ip' => 'Søk etter en bruker eller IP adresse:',
 	'no_ips_with_username' => 'IP adresse for denne spilleren ble ikke funnet.',
 	'no_accounts_with_that_ip' => 'IP adresse for denne brukeren ble ikke funnet.',
+	'1_account_with_ip' => 'Found 1 account with the IP {y}', // Don't replace "{y}"
 	'count_accounts_with_ip' => 'Fant {x} brukere med IPen {y}', // Don't replace "{x}" or "{y}"
+	'1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
 	'count_ips_with_name' => 'Fant {x} IP addresse(r) for bruker {y}', // Don't replace "{x}" or "{y}"
 	'no_users_or_ips_found' => 'Spillerens IP adresse ble ikke funnet.',
 	

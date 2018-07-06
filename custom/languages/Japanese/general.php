@@ -95,6 +95,7 @@ $language = array(
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'バージョン: {x}', // Don't replace {x}
+    'currently_1_player_online' => 'There is currently 1 player online.',
     'currently_x_players_online' => '現在、オンラインの <strong>{x}</strong> プレーヤーがあります。', // Don't replace {x}
     'server_offline' => 'サーバーは現在オフラインです。',
     'connect_with_ip_x' => 'サーバーへの接続IPは -> <strong>{x}</strong>', // Don't replace {x}
