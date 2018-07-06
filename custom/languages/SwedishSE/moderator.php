@@ -26,7 +26,9 @@ $language = array(
 	'search_for_ip' => 'Sök efter en användarnamn eller ett IP adress:',
 	'no_ips_with_username' => 'Inga IP Adresser hittades för den användraren.',
 	'no_accounts_with_that_ip' => 'Inga konton för den IP Adressen hittades.',
+	'1_account_with_ip' => 'Found 1 account with the IP {y}', // Don't replace "{y}"
 	'count_accounts_with_ip' => 'Hittat {x} kontor med IP {y}', // Don't replace "{x}" or "{y}"
+	'1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
 	'count_ips_with_name' => 'Hittat {x} IP Adress(er) för användraren, {y}', // Don't replace "{x}" or "{y}"
 	'no_users_or_ips_found' => 'Inga användare eller IP Adresser hittades.',
 	

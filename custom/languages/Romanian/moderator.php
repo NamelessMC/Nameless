@@ -27,7 +27,9 @@ $language = array(
     'search_for_ip' => 'Căutați un nume de utilizator sau o adresă IP:',
     'no_ips_with_username' => 'Nu a fost găsită nici o adresă IP pentru acest utilizator.',
     'no_accounts_with_that_ip' => 'Nu a fost găsit nici un cont de utilizator pentru această adresă IP.',
+    '1_account_with_ip' => 'Found 1 account with the IP {y}', // Don't replace "{y}"
     'count_accounts_with_ip' => 'Am găsit {x} conturi de utilizatori pentru adresa IP {y}', // Don't replace "{x}" or "{y}"
+    '1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Am găsit {x} adrese IP pentru utilizatorul {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Nu a fost găsit nici un cont de utilizator sau adresă IP.',
     

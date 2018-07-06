@@ -27,7 +27,9 @@ $language = array(
 	'search_for_ip' => 'ユーザー名またはIPアドレスを検索する:',
 	'no_ips_with_username' => 'そのユーザーのIPアドレスは見つかりませんでした。',
 	'no_accounts_with_that_ip' => 'そのIPアドレスのアカウントは見つかりませんでした。',
+	'1_account_with_ip' => 'Found 1 account with the IP {y}', // Don't replace "{y}"
 	'count_accounts_with_ip' => '{x} 個 のアカウントがIP {y}', // Don't replace "{x}" or "{y}"
+	'1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
 	'count_ips_with_name' => 'ユーザー {y} の {x} IPアドレスが見つかりました', // Don't replace "{x}" or "{y}"
 	'no_users_or_ips_found' => 'ユーザーまたはIPアドレスが見つかりません。',
 	

@@ -95,6 +95,7 @@ $language = array(
 	'player_count' => '{x}/{y}', // Verander "{x}" of "{y}" niet
 	'ping' => 'Ping: {x}', // Verander "{x}" niet
 	'version' => 'Versie: {x}', // Verander "{x}" niet
+	'currently_1_player_online' => 'There is currently 1 player online.',
 	'currently_x_players_online' => 'Er zijn nu <strong>{x}</strong> spelers online.', // Verander "{x}" niet
 	'server_offline' => 'De server is nu offline.',
 	'connect_with_ip_x' => 'Verbind met dit IP adres: <strong>{x}</strong>', // Verander "{x}" niet

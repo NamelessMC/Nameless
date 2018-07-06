@@ -527,8 +527,14 @@ if($page != 'install'){
 
                     if(isset($result['status_value']) && $result['status_value'] == 1){
                         $result['status'] = $language->get('general', 'online');
-                        $result['status_full'] = str_replace('{x}', $result['total_count'], $language->get('general', 'currently_x_players_online'));
-                        $result['x_players_online'] = str_replace('{x}', $result['total_count'], $language->get('general', 'currently_x_players_online'));
+
+                        if($result['total_count'] == 1){
+                            $result['status_full'] = $language->get('general', 'currently_1_player_online');
+                            $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
+                        } else {
+                            $result['status_full'] = str_replace('{x}', $result['total_count'], $language->get('general', 'currently_x_players_online'));
+                            $result['x_players_online'] = str_replace('{x}', $result['total_count'], $language->get('general', 'currently_x_players_online'));
+                        }
 
                     } else {
                         $result['status'] = $language->get('general', 'offline');
@@ -542,8 +548,14 @@ if($page != 'install'){
 
                     if(isset($result['status_value']) && $result['status_value'] == 1){
                         $result['status'] = $language->get('general', 'online');
-                        $result['status_full'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
-                        $result['x_players_online'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
+
+                        if($result['player_count'] == 1){
+                            $result['status_full'] = $language->get('general', 'currently_1_player_online');
+                            $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
+                        } else {
+                            $result['status_full'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
+                            $result['x_players_online'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
+                        }
 
                     } else {
                         $result['status'] = $language->get('general', 'offline');

@@ -27,7 +27,9 @@ $language = array(
 	'search_for_ip' => 'Zoek naar IP of gebruikersnaam:',
 	'no_ips_with_username' => 'Geen IP adres gevonden voor die gebruiker.',
 	'no_accounts_with_that_ip' => 'Geen accounts gevonden voor dat IP adres.',
+	'1_account_with_ip' => 'Found 1 account with the IP {y}', // Don't replace "{y}"
 	'count_accounts_with_ip' => '{x} accounts met het IP {y} gevonden', // Verander "{x}" of "{y}" niet
+	'1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
 	'count_ips_with_name' => '{x} IP adres(sen) voor gebruiker {y} gevonden', // Verander "{x}" of "{y}" niet
 	'no_users_or_ips_found' => 'Geen gebruiker of IP adressen gevonden.',
 	
