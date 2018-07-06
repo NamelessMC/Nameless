@@ -267,7 +267,7 @@ $timeago = new Timeago(TIMEZONE);
 						));
 					}
 					
-					Log::getInstance()->log(Log::Action('mod/report/open'), Ouput::getClean($_GET['report']));
+					Log::getInstance()->log(Log::Action('mod/report/open'), Output::getClean($_GET['report']));
 
 					Redirect::to(URL::build('/mod/reports/', 'report=' . $report[0]->id));
 					die();
