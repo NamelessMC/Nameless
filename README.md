@@ -4,11 +4,11 @@
 
 Nameless version 2.0.0 is currently in development and the source can be viewed on the v2 branch. Until it's ready for production use, any pre-releases can be found here: https://github.com/NamelessMC/Nameless/releases.
 
-## Version 1.0.20
+## Version 1.0.21
 
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
-Version 1.0.20 features:
+Version 1.0.21 features:
 
 - Template and theme system
 - Languages

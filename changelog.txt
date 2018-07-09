@@ -537,3 +537,12 @@ The notes for each release
 - Fix signin details being remembered if tfa is cancelled
 - Update 404 and forum maintenance mode back buttons to work on Safari
 - Automatically load addon languages
+
+1.0.21
+- Update Italian translation
+- Add basic user template variables
+- Use v4 API for CraftingStore
+- Remove MinecraftMarket integration
+- Ensure reputation user exists
+- Update DB class
+- Update htmlspecialchars calls
