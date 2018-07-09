@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -13,7 +13,7 @@ class Output {
 	// Returns a clean version of an inputted string
 	// Params: $input (string) - contains the string which will be cleaned
 	public static function getClean($input){
-		return str_replace('&amp;', '&', htmlspecialchars($input));
+		return str_replace('&amp;', '&', htmlspecialchars($input, ENT_QUOTES));
 	}
 	
 	// Returns a purified version of an inputted string with HTMLPurifier
