@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  *	Made by Samerton
  *  http://worldscapemc.co.uk
  *
@@ -23,23 +23,23 @@ if(isset($profile)){
 			if(!count($uuid)){
 				if($uuid_linking == '1'){ // is UUID linking enabled?
 					$profile_utils = ProfileUtils::getProfile($profile);
-					
+
 					if($profile_utils == null){ // Not a Minecraft user, end the page
 						Redirect::to('/404');
 						die();
 					}
-					
+
 					// Get results as array
-					$result = $profile_utils->getProfileAsArray(); 
-					
+					$result = $profile_utils->getProfileAsArray();
+
 					if(empty($result['uuid'])){ // Not a Minecraft user, end the page
 						Redirect::to('/404');
 						die();
-						
+
 					}
-					
+
 					$uuid = $result["uuid"];
-					$mcname = htmlspecialchars($profile);
+					$mcname = htmlspecialchars($profile, ENT_QUOTES);
 					// Cache the UUID so we don't have to keep looking it up via Mojang's servers
 					try {
 						$queries->create("uuid_cache", array(
@@ -50,11 +50,11 @@ if(isset($profile)){
 						die($e->getMessage());
 					}
 				} else {
-					$mcname = htmlspecialchars($profile);
+					$mcname = htmlspecialchars($profile, ENT_QUOTES);
 				}
 			} else {
 				$uuid = $uuid[0]->uuid;
-				$mcname = htmlspecialchars($profile);
+				$mcname = htmlspecialchars($profile, ENT_QUOTES);
 			}
 		} else {
 			$exists = true;
@@ -72,7 +72,7 @@ if(isset($profile)){
 		echo '<script data-cfasync="false">window.location.replace(\'/profile/' . $mcname . '/\');</script>';
 		die();
 	}
-	
+
 	if($user->isLoggedIn()){
 		if(!isset($_POST['action'])){
 			if(isset($_POST['AddFriend'])) {
@@ -91,7 +91,7 @@ if(isset($profile)){
 				if(Token::check(Input::get('token'))){
 					// Validate input
 					$validate = new Validate();
-					
+
 					$validation = $validate->check($_POST, array(
 						'post_reply' => array(
 							'required' => true,
@@ -99,7 +99,7 @@ if(isset($profile)){
 							'max' => 2048
 						)
 					));
-					
+
 					if($validation->passed()) {
 						// Validation successful
 						// Input into database
@@ -109,11 +109,11 @@ if(isset($profile)){
 							'time' => date('U'),
 							'content' => htmlspecialchars(Input::get('post_reply'))
 						));
-						
+
 						// Alert original post user
 						$original_post_id = $queries->getWhere('user_profile_wall_posts', array('id', '=', Input::get('pid')));
 						$original_post_id = $original_post_id[0]->author_id;
-						
+
 						if ($profile_user[0]->id !== $original_post_id && $profile_user[0]->id !== $user->data()->id) {
 							// Alert profile user
 							$queries->create('alerts', array(
@@ -123,7 +123,7 @@ if(isset($profile)){
 								'content' => htmlspecialchars($user->data()->username) . ' has replied to a post on your profile.',
 								'created' => date('U')
 							));
-						
+
 							$queries->create('alerts', array(
 								'user_id' => $original_post_id,
 								'type' => 'Profile Post',
@@ -132,27 +132,27 @@ if(isset($profile)){
 								'created' => date('U')
 							));
 						}
-						
+
 						// Redirect to clear input
 						echo '<script data-cfasync="false">window.location.replace("/profile/' . $mcname . '");</script>';
 						die();
-						
+
 					} else {
 						// Validation failed
 						Session::flash('user_wall', '<div class="alert alert-danger">' . $user_language['invalid_wall_post'] . '</div>');
 					}
-					
+
 				} else {
 					// Invalid token
 					Session::flash('user_wall', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
-					
+
 				}
 			} else {
 				// Profile post
 				if(Token::check(Input::get('token'))){
 					// Validate input
 					$validate = new Validate();
-					
+
 					$validation = $validate->check($_POST, array(
 						'wall_post' => array(
 							'required' => true,
@@ -160,7 +160,7 @@ if(isset($profile)){
 							'max' => 2048
 						)
 					));
-					
+
 					if($validation->passed()) {
 						// Validation successful
 						// Input into database
@@ -170,7 +170,7 @@ if(isset($profile)){
 							'time' => date('U'),
 							'content' => htmlspecialchars(Input::get('wall_post'))
 						));
-						
+
 						if ($profile_user[0]->id !== $user->data()->id) {
 							// Alert user
 							$queries->create('alerts', array(
@@ -181,28 +181,28 @@ if(isset($profile)){
 								'created' => date('U')
 							));
 						}
-						
+
 						// Redirect to clear input
 						echo '<script data-cfasync="false">window.location.replace("/profile/' . $mcname . '");</script>';
 						die();
-						
+
 					} else {
 						// Validation failed
 						Session::flash('user_wall', '<div class="alert alert-danger">' . $user_language['invalid_wall_post'] . '</div>');
 					}
-					
+
 				} else {
 					// Invalid token
 					Session::flash('user_wall', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
 				}
 			}
 		}
-		
+
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'like' && isset($_GET['post']) && is_numeric($_GET['post'])){
 				// Liking or unliking?
 				$post_likes = $queries->getWhere('user_profile_wall_posts_likes', array('post_id', '=', $_GET['post']));
-				
+
 				foreach($post_likes as $post_like){
 					if($post_like->user_id == $user->data()->id){
 						$post_like_id = $post_like->id;
@@ -210,11 +210,11 @@ if(isset($profile)){
 						break;
 					}
 				}
-				
+
 				if(isset($liked)){
 					// Unliking
 					$queries->delete('user_profile_wall_posts_likes', array('id', '=', $post_like_id));
-					
+
 					Session::flash('user_wall', '<div class="alert alert-info">' . $user_language['post_unliked'] . '</div>');
 					echo '<script data-cfasync="false">window.location.replace("/profile/' . $mcname . '");</script>';
 					die();
@@ -224,7 +224,7 @@ if(isset($profile)){
 						'post_id' => $_GET['post'],
 						'user_id' => $user->data()->id
 					));
-					
+
 					Session::flash('user_wall', '<div class="alert alert-info">' . $user_language['post_liked'] . '</div>');
 					echo '<script data-cfasync="false">window.location.replace("/profile/' . $mcname . '");</script>';
 					die();
@@ -233,44 +233,44 @@ if(isset($profile)){
 				// Ensure user is moderator
 				if($user->canViewMCP($user->data()->id)){
 					if(isset($_GET['pid']) && is_numeric($_GET['pid'])){
-						// Delete post 
+						// Delete post
 						$queries->delete('user_profile_wall_posts_likes', array('post_id', '=', $_GET['pid']));
 						$queries->delete('user_profile_wall_posts_replies', array('post_id', '=', $_GET['pid']));
 						$queries->delete('user_profile_wall_posts', array('id', '=', $_GET['pid']));
-						
+
 						echo '<script data-cfasync="false">window.location.replace("/profile/' . $mcname . '");</script>';
 						die();
-						
+
 					} else if(isset($_GET['r']) && is_numeric($_GET['r'])){
 						// Delete post reply
 						$queries->delete('user_profile_wall_posts_replies', array('id', '=', $_GET['r']));
-						
+
 						echo '<script data-cfasync="false">window.location.replace("/profile/' . $mcname . '");</script>';
 						die();
-						
+
 					}
 				}
 			}
 		}
-		
+
 		$token = Token::generate();
 	}
 
 	// Is the user online?
 	if($exists == true && strtotime("-10 minutes") < $profile_user[0]->last_online) $is_online = true;
-	
+
 	// Pagination
 	require('core/includes/paginate.php');
 	$pagination = new Pagination();
-	
+
 	// Infractions
 	if(isset($infractions_language)){
 		require('addons/Infractions/config.php');
 		require('addons/Infractions/Infractions.php');
-		
+
 		$infractions = new Infractions($inf_db, $infractions_language);
 		$timeago = new Timeago();
-	
+
 		// Get current plugin in use
 		$inf_plugin = $queries->getWhere('infractions_settings', array('id', '=', 1));
 		$inf_plugin = $inf_plugin[0]->value;
@@ -284,7 +284,7 @@ if(isset($profile)){
 			Redirect::to('/profile/' . $mcname);
 			die();
 		} else {
-			if($_GET['p'] == 1){ 
+			if($_GET['p'] == 1){
 				// Avoid bug in pagination class
 				Redirect::to('/profile/' . $mcname);
 				die();
@@ -294,7 +294,7 @@ if(isset($profile)){
 	} else {
 		$p = 1;
 	}
-	
+
 	// HTMLPurifier
 	$config = HTMLPurifier_Config::createDefault();
 	$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
@@ -308,7 +308,7 @@ if(isset($profile)){
 	$config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
 	$config->set('Core.EscapeInvalidTags', true);
 	$purifier = new HTMLPurifier($config);
-	
+
 	// Enable username history?
 	$name_history = $queries->getWhere('settings', array('name', '=', 'enable_name_history'));
 	if(count($name_history))
@@ -332,9 +332,9 @@ if(isset($profile)){
 	  // Generate header and navbar content
 	  // Page title
 	  $title = $user_language['profile'] . (isset($profile) ? ' - ' . $profile : '');
-	  
+
 	  require('core/includes/template/generate.php');
-	  
+
 	  ?>
       <!-- Custom style -->
       <style>
@@ -374,7 +374,7 @@ if(isset($profile)){
 				// Get the avatar type in use
 				$avatar_type = $queries->getWhere('settings', array('name', '=', 'avatar_type'));
 				$avatar_type = $avatar_type[0]->value;
-				
+
 				echo '<img class="img-rounded" src="https://cravatar.eu/' . htmlspecialchars($avatar_type) . '/' . $mcname . '/300.png" />';
 			  }
 			  else echo '<img class="img-rounded" style="vertical-align: middle;" src="' . $user->getAvatar($profile_user[0]->id, "../", 300) . '" />';
@@ -399,7 +399,7 @@ if(isset($profile)){
                         if($exists == true){
                            if($followers !== false){
                               foreach($followers as $follower){
-                                  echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($follower->user_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($follower->user_id)) . '">'; 
+                                  echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($follower->user_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($follower->user_id)) . '">';
 								  echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 40px; width: 40px;" src="' . $user->getAvatar($follower->user_id, "../", 40) . '" />';
 								  echo '</a></span>&nbsp;';
                               }
@@ -425,7 +425,7 @@ if(isset($profile)){
                         if($exists == true){
                            if($following !== false){
                               foreach($following as $item){
-                                  echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($item->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($item->friend_id)) . '">'; 
+                                  echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($item->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($item->friend_id)) . '">';
 								  echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 40px; width: 40px;" src="' . $user->getAvatar($item->friend_id, "../", 40) . '" />';
 								  echo '</a></span>&nbsp;';
                               }
@@ -454,7 +454,7 @@ if(isset($profile)){
 						$friends = $user->listFriends($profile_user[0]->id);
 						if($friends !== false){
 							foreach($friends as $friend){
-								echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($friend->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($friend->friend_id)) . '">'; 
+								echo '<span rel="tooltip" title="' . htmlspecialchars($user->IdToName($friend->friend_id)) . '"><a href="/profile/' . htmlspecialchars($user->IdToMCName($friend->friend_id)) . '">';
 								echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 40px; width: 40px;" src="' . $user->getAvatar($friend->friend_id, "../", 40) . '" />';
 								echo '</a></span>&nbsp;';
 							}
@@ -475,8 +475,8 @@ if(isset($profile)){
                <div class="jumbotron">
                   <h2 style="display: inline-block;">
                      <?php echo $mcname; ?>
-                     <?php 
-                        if($exists == true){ 
+                     <?php
+                        if($exists == true){
                            echo $user->getGroup($profile_user[0]->id, null, "true");
                            echo "   ";
                            if($user->getGroup2($profile_user[0]->id, null, null)) {
@@ -488,11 +488,11 @@ if(isset($profile)){
                         ?>
                   </h2>
                   <h2 style="display: inline-block; float: right;">
-                     <span class="label label-<?php 
-                        if(!isset($is_online)){ 
-                           echo 'danger">' . $user_language['offline']; 
-                        } else { 
-                           echo 'success">' . $user_language['online']; 
+                     <span class="label label-<?php
+                        if(!isset($is_online)){
+                           echo 'danger">' . $user_language['offline'];
+                        } else {
+                           echo 'success">' . $user_language['online'];
                         }
                         ?>
                      </span>
@@ -501,10 +501,10 @@ if(isset($profile)){
                   <hr />
                   <?php if($exists == true){ ?>
 				  <h5 style="float: left; display: inline-block;">
-				    <?php 
+				    <?php
 					if($profile_user[0]->display_age == 1 && ($profile_user[0]->birthday) && ($profile_user[0]->location)){
 						echo str_replace(array('{x}', '{y}'), array((date_diff(date_create($profile_user[0]->birthday), date_create('today'))->y), htmlspecialchars($profile_user[0]->location)), $user_language['display_age_and_location']);
-					} else if(($profile_user[0]->location)){ 
+					} else if(($profile_user[0]->location)){
 						echo str_replace('{x}', htmlspecialchars($profile_user[0]->location), $user_language['display_location']);
 					}
 					?>
@@ -512,7 +512,7 @@ if(isset($profile)){
                   <h5 style="float: right; display: inline-block;"><?php if($user->isLoggedIn() && $exists == true){
                      if($user->isfriend($user->data()->id, $profile_user[0]->id) === 0){
                         if($user->data()->id === $profile_user[0]->id){
-                     
+
                         } else {
                            echo '
                            <form style="display: inline"; method="post">
@@ -524,7 +524,7 @@ if(isset($profile)){
                         }
                      } else {
                         if($user->data()->id === $profile_user[0]->id){
-                     
+
                         } else {
                            echo '
                            <form style="display: inline"; method="post">
@@ -549,9 +549,9 @@ if(isset($profile)){
                     <li><a href="#topics-and-comments" role="tab" data-toggle="tab"><?php echo ucfirst($forum_language['posts']); ?></a></li>
                     <?php if($name_history == '1'){ ?>
 					<li><a href="#name_history" role="tab" data-toggle="tab"><?php echo ucfirst($user_language['name_history']); ?></a></li>
-					<?php 
+					<?php
 					}
-					if(isset($infractions_language)){ 
+					if(isset($infractions_language)){
 					?>
 					<li><a href="#infractions" role="tab" data-toggle="tab"><?php echo $infractions_language['infractions']; ?></a></li>
 					<?php } ?>
@@ -583,7 +583,7 @@ if(isset($profile)){
                         <hr />
 						<?php
 						}
-						
+
 						// Get all profile posts
 						$profile_posts = $queries->orderWhere('user_profile_wall_posts', 'user_id = ' . $profile_user[0]->id, 'time', 'DESC');
 						if(count($profile_posts)){
@@ -597,7 +597,7 @@ if(isset($profile)){
 
 							$n = $paginate[0];
 							$f = $paginate[1];
-							
+
 							// Get the number we need to finish on ($d)
 							if(count($profile_posts) > $f){
 								$d = $p * 10;
@@ -605,14 +605,14 @@ if(isset($profile)){
 								$d = count($profile_posts) - $n;
 								$d = $d + $n;
 							}
-							
+
 							while($n < $d){
 								// Get info about the user who's posted
 								$post_user = $queries->getWhere('users', array('id', '=', $profile_posts[$n]->author_id));
-								
+
 								// Any replies?
-								
-								
+
+
 								// How many likes?
 								$likes = $queries->getWhere('user_profile_wall_posts_likes', array('post_id', '=', $profile_posts[$n]->id));
 								$likes_count = count($likes);
@@ -644,7 +644,7 @@ if(isset($profile)){
 						     <div class="row">
 							   <div class="col-md-1 col-md-offset-1">
 								<?php
-								// User avatar	
+								// User avatar
 								echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 50px; width: 50px;" src="' . $user->getAvatar($reply->author_id, "../", 50) . '" />';
 								?>
 							   </div>
@@ -692,7 +692,7 @@ if(isset($profile)){
 						</div>
 								<?php
 								}
-						
+
 								$n++;
 							}
 							echo $pagination->parse(); // Print pagination
@@ -704,7 +704,7 @@ if(isset($profile)){
                      <div role="tabpanel" class="tab-pane" id="forum">
                         <br />
 				    <div class="well">
-                        <?php 
+                        <?php
                            // Check if the user has registered on the website
                            if($exists == true){
                            ?>
@@ -712,10 +712,10 @@ if(isset($profile)){
                         <strong><?php echo $user_language['last_online']; ?></strong> <?php if($profile_user[0]->last_online){ echo date("d M Y, G:i", $profile_user[0]->last_online); } else { echo 'n/a'; } ?><br />
                         <strong><?php echo $user_language['pf_posts']; ?></strong> <?php echo count($queries->getWhere("posts", array("post_creator", "=", $profile_user[0]->id))); ?><br />
                         <strong><?php echo $user_language['pf_reputation']; ?></strong> <?php echo count($queries->getWhere("reputation", array("user_received", "=", $profile_user[0]->id))); ?><br />
-                        <?php 
+                        <?php
                            } else {
                               echo $user_language['user_hasnt_registered'];
-                           } 
+                           }
                            ?>
 				     </div>
                      </div>
@@ -723,19 +723,19 @@ if(isset($profile)){
 					    <?php
 						// Get latest posts
 						$latest_posts = $queries->orderWhere('posts', 'post_creator = ' . $profile_user[0]->id, 'post_date', 'DESC LIMIT 15');
-						
+
 						if(!count($latest_posts)) echo '<br /><p>' . $user_language['no_posts'] . '</p>';
-						
+
 						else {
 							echo '<h3>' . $user_language['last_5_posts'] . '</h3>';
 							$n = 0;
-							
+
 							if(!$user->isLoggedIn()) $group_id = 0;
 							else $group_id = $user->data()->group_id;
-							
+
 							foreach($latest_posts as $latest_post){
 								if($n == 5) break;
-								
+
 								// Is the post somewhere the user can view?
 								$permission = false;
 								$forum_permissions = $queries->getWhere('forums_permissions', array('forum_id', '=', $latest_post->forum_id));
@@ -747,12 +747,12 @@ if(isset($profile)){
 										}
 									}
 								}
-								
+
 								if($permission != true) continue;
-								
+
 								// Check the post isn't deleted
 								if($latest_post->deleted == 1) continue;
-								
+
 								// Get topic title
 								$topic_title = $queries->getWhere('topics', array('id', '=', $latest_post->topic_id));
 								$topic_title = htmlspecialchars($topic_title[0]->topic_title);
@@ -760,7 +760,7 @@ if(isset($profile)){
 						<div class="panel panel-primary">
 						  <div class="panel-heading">
 							<a href="/forum/view_topic/?tid=<?php echo $latest_post->topic_id; ?>&amp;pid=<?php echo $latest_post->id; ?>" class="white-text"><?php echo $topic_title; ?></a>
-						  </div>		
+						  </div>
 						  <div class="panel-body">
 						    <div class="forum_post">
 						    <?php echo $purifier->purify(htmlspecialchars_decode($latest_post->post_content)); ?>
@@ -789,7 +789,7 @@ if(isset($profile)){
 								$name = file_get_contents('https://api.mojang.com/user/profiles/' . htmlspecialchars($uuid) . '/names');
 								if($name){
 									$namehistory = json_decode($name, true);
-									
+
 									for($i = 0; $i < count($namehistory); $i++){
 										if(array_key_exists("changedToAt", $namehistory[$i])){
 											// Not the original username
@@ -808,31 +808,31 @@ if(isset($profile)){
 											));
 										}
 									}
-									
+
 									// Refresh user history query
 									$user_history = $queries->getWhere('users_username_history', array('user_id', '=', $profile_user[0]->id));
-									
+
 								} else {
 									// Unable to retrieve list of past names
 									$history_error = true;
 								}
-								
+
 								// Cache for 6 hours
 								$c->setCache('user_history_' . htmlspecialchars($uuid));
 								$c->store('cached', 'true', 21600);
-								
+
 							} else {
 								// Already stored, see if it needs updating by checking cache
 								$c->setCache('user_history_' . htmlspecialchars($uuid));
-								
+
 								if(!$c->isCached('cached')){
 									// Needs updating
 									$name = file_get_contents('https://api.mojang.com/user/profiles/' . htmlspecialchars($uuid) . '/names');
 									if($name){
 										$namehistory = json_decode($name, true);
-										
+
 										$queries->delete('users_username_history', array('user_id', '=', $profile_user[0]->id));
-										
+
 										for($i = 0; $i < count($namehistory); $i++){
 											if(array_key_exists("changedToAt", $namehistory[$i])){
 												// Not the original username
@@ -851,15 +851,15 @@ if(isset($profile)){
 												));
 											}
 										}
-										
+
 										// Refresh user history query
 										$user_history = $queries->orderWhere('users_username_history', 'user_id = ' . $profile_user[0]->id, 'changed_at', 'ASC');
-										
+
 									} else {
 										// Unable to retrieve list of past names
 										$history_error = true;
 									}
-									
+
 									// Cache for 6 hours
 									$c->store('cached', 'true', 21600);
 								}
@@ -867,19 +867,19 @@ if(isset($profile)){
 
 							// Display username history
 							echo '<h3>' . $user_language['name_history'] . '</h3>';
-							
+
 							if(isset($history_error)){
 								// Error querying Mojang API
 								echo $user_language['name_history_error'];
 							} else {
 								if(count($user_history)){
 									echo '<ul>';
-									
+
 									foreach($user_history as $history){
 										if($history->original == 1){
 											// Original username
 											echo '<li class="name">' . $user_language['original_name'] . ' <b>' . htmlspecialchars($history->changed_to) . '</b>';
-											
+
 										} else {
 											echo '<li class="name">' . str_replace(array('{x}', '{y}'), array(htmlspecialchars($history->changed_to), date('dS M Y', $history->changed_at)), $user_language['changed_name_to']) . '</li>';
 										}
@@ -894,9 +894,9 @@ if(isset($profile)){
 						?>
 				       </div>
                      </div>
-					 <?php 
+					 <?php
 					 }
-					 if(isset($infractions_language)){ 
+					 if(isset($infractions_language)){
 					 ?>
 					 <div role="tabpanel" class="tab-pane" id="infractions">
 					   <br />
@@ -928,10 +928,10 @@ if(isset($profile)){
 
 							// Pagination
 							$paginate = PaginateArray($p);
-							
+
 							$n = $paginate[0];
 							$f = $paginate[1];
-							
+
 							if(count($all_infractions) > $f){
 								$d = $p * 10;
 							} else {
@@ -966,10 +966,10 @@ if(isset($profile)){
 							  </tr>
 							</thead>
 							<tbody>
-							<?php 
+							<?php
 							while($n < $d){
 								if(isset($mcname)) unset($mcname);
-								
+
 								$infraction = $all_infractions[$n];
 								if($inf_plugin == "mb"){
 									$exploded = explode('.', $infraction["id"]);
@@ -980,21 +980,21 @@ if(isset($profile)){
 								} else {
 									$infractions_query = $queries->getWhere('users', array('uuid', '=', str_replace('-', '', $infraction["uuid"])));
 									if(empty($infractions_query)){
-										
+
 										if($inf_plugin == 'bat') $mcname = $infractions->bat_getUsernameFromUUID($infraction['uuid']);
-										
+
 										if($inf_plugin != 'bat' || !count($mcname)){
 											if($inf_plugin == 'bm') $mcname = $infractions->bm_getUsernameFromID(pack("H*", str_replace('-', '', $infraction['uuid'])));
-											
+
 											else {
 												$infractions_query = $queries->getWhere('uuid_cache', array('uuid', '=', str_replace('-', '', $infraction["uuid"])));
-											
+
 												if(empty($infractions_query)){
 													// Query Minecraft API to retrieve username
 													$profile = ProfileUtils::getProfile(str_replace('-', '', $infraction["uuid"]));
 													if(empty($profile)){
 														// Couldn't find player
-														
+
 													} else {
 														$result = $profile->getProfileAsArray();
 															if(isset($result['username'])){
@@ -1045,7 +1045,7 @@ if(isset($profile)){
 							$pagination->setCurrent($p);
 							$pagination->setTotal(count($all_infractions));
 							$pagination->alwaysShowPagination();
-							
+
 							echo $pagination->parse();
 						}
 						?>
@@ -1057,10 +1057,10 @@ if(isset($profile)){
 				<?php } else { echo $user_language['user_hasnt_registered']; } ?>
             </div>
          </div>
-         <?php } else { 
+         <?php } else {
             if(Input::exists()){
 				if(Token::check(Input::get('token'))){
-				    echo '<script data-cfasync="false">window.location.replace("/profile/' . htmlspecialchars(Input::get('username')) . '");</script>';
+				    echo '<script data-cfasync="false">window.location.replace("/profile/' . htmlspecialchars(Input::get('username'), ENT_QUOTES) . '");</script>';
 				    die();
 				} else {
 					$error = true;
@@ -1081,12 +1081,12 @@ if(isset($profile)){
          // Footer
          require('core/includes/template/footer.php');
          $smarty->display('styles/templates/' . $template . '/footer.tpl');
-         
-         // Scripts 
+
+         // Scripts
          require('core/includes/template/scripts.php');
-		 
+
          ?>
-		 
+
 		 <script>
 		 $(".pop").popover({ trigger: "manual" , html: true, animation:false, placement: "top" })
 			.on("mouseenter", function () {
