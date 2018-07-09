@@ -23,11 +23,11 @@ if($user->isLoggedIn()){
 						'username' => array('required' => true, 'isbanned' => true, 'isactive' => true),
 						'password' => array('required' => true)
 					));
-					
+
 					if($validation->passed()) {
 						$user = new User();
 						$login = $user->adminLogin(Input::get('username'), Input::get('password'));
-						
+
 						if($login) {
 							Redirect::to("/admin");
 							die();
@@ -52,15 +52,15 @@ if($user->isLoggedIn()){
     <meta name="author" content="<?php echo $sitename; ?>">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-	
+
 	<?php
 	// Generate header and navbar content
 	// Page title
 	$title = $admin_language['index'];
-	
+
 	require('core/includes/template/generate.php');
 	?>
-	
+
   </head>
   <body>
 	<div class="container">
@@ -116,14 +116,18 @@ $version = htmlspecialchars($version[0]->value);
 $uid = $queries->getWhere('settings', array('name', '=', 'unique_id'));
 $uid = $uid[0]->value;
 
-
-if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/stats.php?uid=' . $uid . '&version=' . $version)){
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_URL, 'https://worldscapemc.co.uk/nl_core/nl1/stats.php?uid=' . $uid . '&version=' . $version);
+if($update_check = curl_exec($ch)){
 	if($update_check == 'Failed'){
 		$update_check = 'error';
 	}
 } else {
 	$update_check = 'error';
 }
+curl_close($ch);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -135,15 +139,15 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
     <meta name="author" content="Samerton">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-	
+
 	<?php
 	// Generate header and navbar content
 	// Page title
 	$title = $admin_language['index'];
-	
+
 	require('core/includes/template/generate.php');
 	?>
-	
+
 	<!-- Custom style -->
 	<style>
 	html {
@@ -176,7 +180,7 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 		line-height: 1.2em;
 	}
 	</style>
-	
+
   </head>
   <body>
 	<?php
@@ -203,9 +207,9 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 			<strong>Running PHP <?php echo phpversion(); ?></strong> <a href="/admin/phpinfo" target="_blank">(Full PHP information)</a><br />
 			<h3><?php echo $admin_language['statistics']; ?></h3>
 			<strong><?php echo $admin_language['registrations_per_day']; ?></strong>
-			
+
 			<canvas id="registrationChart" width="100%" height="40"></canvas>
-			
+
 			<h3>Banner</h3>
 			<img src="/core/integration/banner/banner.png"><br />
 			URL: <code>http://<?php echo $_SERVER['SERVER_NAME']; ?>/core/integration/banner/banner.png</code>
@@ -217,21 +221,21 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 	// Footer
 	require('core/includes/template/footer.php');
 	$smarty->display('styles/templates/' . $template . '/footer.tpl');
-	
-	// Scripts 
+
+	// Scripts
 	require('core/includes/template/scripts.php');
 	?>
 
 	<script src="<?php echo PATH; ?>core/assets/js/moment.js"></script>
 	<script src="<?php echo PATH; ?>core/assets/js/charts/Chart.min.js"></script>
-	
+
 	<?php
 	// Get data for members statistics graph
 	$latest_members = $queries->orderWhere('users', 'joined > ' . strtotime("-1 week"), 'joined', 'ASC');
 
 	// Output array
 	$output = array();
-	
+
 	foreach($latest_members as $member){
 		// Turn into format for graph
 		// First, order them per day
@@ -244,7 +248,7 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 			$output[$date] = 1;
 		}
 	}
-	
+
 	// Fill in missing dates, set registrations to 0
 	$start = strtotime("-1 week");
 	$start = date('d M Y', $start);
@@ -256,10 +260,10 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 		}
 		$start = $start + 86400;
 	}
-	
+
 	// Sort by date
 	ksort($output);
-	
+
 	// Turn into string for graph
 	$labels = '';
 	$registration_data = '';
@@ -270,7 +274,7 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 	$labels = '[' . rtrim($labels, ', ') . ']';
 	$registration_data = '[' . rtrim($registration_data, ', ') . ']';
 	?>
-	
+
 	<script type="text/javascript">
 	$(document).ready(function() {
 		var ctx = $("#registrationChart").get(0).getContext("2d");
@@ -289,7 +293,7 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 				}
 			]
 		}
-		
+
 		var registrationLineChart = new Chart(ctx, {
 			type: 'line',
 			data: data

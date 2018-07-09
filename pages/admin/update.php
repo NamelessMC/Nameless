@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  http://worldscapemc.co.uk
@@ -23,7 +23,7 @@ if($user->isLoggedIn()){
 	Redirect::to('/');
 	die();
 }
- 
+
 // Set page name for sidebar
 $adm_page = "update";
 
@@ -38,13 +38,18 @@ $uid = $queries->getWhere('settings', array('name', '=', 'unique_id'));
 $uid = $uid[0]->value;
 
 
-if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/stats.php?uid=' . $uid . '&version=' . $current_version)){
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_URL, 'https://worldscapemc.co.uk/nl_core/nl1/stats.php?uid=' . $uid . '&version=' . $current_version);
+if($update_check = curl_exec($ch)){
 	if($update_check == 'Failed'){
 		$update_check = 'error';
 	}
 } else {
 	$update_check = 'error';
 }
+curl_close($ch);
 
 ?>
 <!DOCTYPE html>
@@ -57,22 +62,22 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
     <meta name="author" content="<?php echo $sitename; ?>">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-	
+
 	<?php
 	// Generate header and navbar content
 	// Page title
 	$title = $admin_language['update'];
-	
+
 	require('core/includes/template/generate.php');
 	?>
-	
+
 	<!-- Custom style -->
 	<style>
 	html {
 		overflow-y: scroll;
 	}
 	</style>
-	
+
   </head>
 
   <body>
@@ -80,7 +85,7 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 	// "Update" page
 	// Load navbar
 	$smarty->display('styles/templates/' . $template . '/navbar.tpl');
-	  
+
 	echo '<br />';
 
 	if(Session::exists('adm-alert')){
@@ -99,15 +104,15 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 			<div class="alert alert-success"><?php echo $admin_language['installation_up_to_date']; ?></div>
 			<?php } else if($update_check == 'error'){ ?>
 			<div class="alert alert-warning"><?php echo $admin_language['update_check_error']; ?></div>
-			<?php 
-			} else { 
+			<?php
+			} else {
 				// Update database values to say we need a version update
 				$update_needed_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
 				$update_needed_id = $update_needed_id[0]->id;
 				$queries->update('settings', $update_needed_id, array(
 					'value' => 'true'
 				));
-				
+
 				// Update database value to say when we last checked
 				$update_needed_id = $queries->getWhere('settings', array('name', '=', 'version_checked'));
 				$update_needed_id = $update_needed_id[0]->id;
@@ -126,7 +131,12 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 			  Update instructions:
 			  <?php
 			  // Get instructions
-			  if($instructions = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/instructions.php?version=' . $current_version)){
+			  $ch = curl_init();
+			  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			  curl_setopt($ch, CURLOPT_URL, 'https://worldscapemc.co.uk/nl_core/nl1/instructions.php?version=' . $current_version);
+
+			  if($instructions = curl_exec($ch)){
 				$config = HTMLPurifier_Config::createDefault();
 				$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 				$config->set('URI.DisableExternalResources', false);
@@ -135,26 +145,28 @@ if($update_check = file_get_contents('https://worldscapemc.co.uk/nl_core/nl1/sta
 				$config->set('CSS.AllowedProperties', array('float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
 				$config->set('HTML.AllowedAttributes', 'src, href, height, target, width, alt, class, *.style');
 				$purifier = new HTMLPurifier($config);
-				
+
 				echo $purifier->purify($instructions);
 			  }
+
+			  curl_close($ch);
 			  ?>
 			  </p>
 			  <hr>
-			  <a class="btn btn-success" target="blank" href="https://worldscapemc.co.uk/nl_core/nl1/updates/<?php echo htmlspecialchars(str_replace('.', '', $update_check)); ?>.zip"><?php echo $admin_language['download']; ?></a> 
+			  <a class="btn btn-success" target="blank" href="https://worldscapemc.co.uk/nl_core/nl1/updates/<?php echo htmlspecialchars(str_replace('.', '', $update_check)); ?>.zip"><?php echo $admin_language['download']; ?></a>
 			  <a class="btn btn-info" href="/admin/update_execute" onclick="return confirm('<?php echo $admin_language['update_warning']; ?>')"><?php echo $admin_language['update']; ?></a>
 			<?php } ?>
 		  </div>
 		</div>
-      </div>	  
+      </div>
     </div>
-	
+
 	<?php
 	// Footer
 	require('core/includes/template/footer.php');
 	$smarty->display('styles/templates/' . $template . '/footer.tpl');
-	
-	// Scripts 
+
+	// Scripts
 	require('core/includes/template/scripts.php');
 	?>
 
