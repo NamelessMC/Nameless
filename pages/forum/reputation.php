@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  http://worldscapemc.co.uk
@@ -16,7 +16,7 @@ if($maintenance_mode[0]->value == 'true'){
 		die();
 	}
 }
- 
+
 // User must be logged in to proceed
 if(!$user->isLoggedIn()){
 	Redirect::to('/forum');
@@ -42,6 +42,19 @@ if(Input::exists()) {
 			)
 		));
 		if($validation->passed()){
+			// Ensure user exists
+			if(!is_numeric($_POST['pid']) || !is_numeric($_POST['tid']) || !is_numeric($_POST['uid'])){
+				Redirect::to('/forum');
+				die();
+			}
+
+			$rep_user = $queries->getWhere('users', array('id', '=', Input::get('uid')));
+			if(!count($rep_user)){
+				Redirect::to('/forum');
+				die();
+			} else
+				$user_id = $rep_user[0]->id;
+
 			if(Input::get('type') === 'positive'){
 				try {
 					$queries->create("reputation", array(
@@ -51,7 +64,7 @@ if(Input::exists()) {
 						'user_given' => $user->data()->id,
 						'time_given' => date('Y-m-d H:i:s')
 					));
-					$queries->increment("users", Input::get('uid'), "reputation");
+					$queries->increment("users", $user_id, "reputation");
 					Redirect::to("/forum/view_topic/?tid=" . Input::get('tid') . "&pid=" . Input::get('pid'));
 					die();
 				} catch(Exception $e){
@@ -60,7 +73,7 @@ if(Input::exists()) {
 			} else if(Input::get('type') === 'negative'){
 				$reputation_id = $queries->getWhere("reputation", array("post_id", "=", Input::get('pid')));
 				$rep_id = 0;
-				
+
 				foreach($reputation_id as $reputation){
 					if($reputation->user_given == $user->data()->id){
 						$rep_id = $reputation->id;
@@ -73,7 +86,7 @@ if(Input::exists()) {
 				}
 				try {
 					$queries->delete("reputation", array("id", "=", $rep_id));
-					$queries->decrement("users", Input::get('uid'), "reputation");
+					$queries->decrement("users", $user_id, "reputation");
 					Redirect::to("/forum/view_topic/?tid=" . Input::get('tid') . "&pid=" . Input::get('pid'));
 					die();
 				} catch(Exception $e){
