@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -203,9 +203,9 @@ class DB {
 	
 	public function increment($table, $id, $field) {
 		$table = $this->_prefix . $table;
-		$sql = "UPDATE {$table} SET {$field} = {$field} + 1 WHERE id = {$id}";
+		$sql = "UPDATE {$table} SET {$field} = {$field} + 1 WHERE id = ?";
 		
-		if(!$this->createQuery($sql)->error()) {
+		if(!$this->createQuery($sql, array($id))->error()) {
 			return true;
 		}
 		
@@ -214,9 +214,9 @@ class DB {
 	
 	public function decrement($table, $id, $field) {
 		$table = $this->_prefix . $table;
-		$sql = "UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = {$id}";
+		$sql = "UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = ?";
 		
-		if(!$this->createQuery($sql)->error()) {
+		if(!$this->createQuery($sql, array($id))->error()) {
 			return true;
 		}
 		
