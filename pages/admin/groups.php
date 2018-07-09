@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  http://worldscapemc.co.uk
@@ -23,7 +23,7 @@ if($user->isLoggedIn()){
 	Redirect::to('/');
 	die();
 }
- 
+
 // Set page name for sidebar
 $adm_page = "users";
 ?>
@@ -37,15 +37,15 @@ $adm_page = "users";
     <meta name="author" content="<?php echo $sitename; ?>">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-	
+
 	<?php
 	// Generate header and navbar content
 	// Page title
 	$title = $admin_language['groups'];
-	
+
 	require('core/includes/template/generate.php');
 	?>
-	
+
 	<!-- Custom style -->
 	<style>
 	html {
@@ -55,14 +55,14 @@ $adm_page = "users";
 
   </head>
 
-  <body>	
+  <body>
 	<?php
 	// "Groups" page
 	// Load navbar
 	$smarty->display('styles/templates/' . $template . '/navbar.tpl');
-	
+
 	echo '<br />';
-	
+
 	if(Session::exists('adm-alert')){
 		echo Session::flash('adm-alert');
 	}
@@ -77,21 +77,21 @@ $adm_page = "users";
 			<li><a href="/admin/users"><?php echo $admin_language['users']; ?></a></li>
 			<li class="active"><a href="/admin/groups"><?php echo $admin_language['groups']; ?></a></li>
 		  </ul>
-		  
+
 		  <hr>
-		  
+
 		  <div class="well well-sm">
-			<?php 
+			<?php
 				if(Session::exists('adm-groups')){
 					echo Session::flash('adm-groups');
 				}
 			?>
-			<?php 
+			<?php
 			if(!isset($_GET["action"]) && !isset($_GET["group"])){
 			?>
 			<a href="/admin/groups/?action=new" class="btn btn-default"><?php echo $admin_language['new_group']; ?></a>
 			<br /><br />
-			<?php 
+			<?php
 			$groups = $queries->getAll("groups", array("id", "<>", 0));
 			?>
 			<table class="table table-bordered">
@@ -103,7 +103,7 @@ $adm_page = "users";
 					</tr>
 				</thead>
 				<tbody>
-			<?php 
+			<?php
 			foreach($groups as $group){
 			?>
 					<tr>
@@ -111,13 +111,13 @@ $adm_page = "users";
 						<td><a href="/admin/groups/?group=<?php echo $group->id; ?>"><?php echo $group->name; ?></a></td>
 						<td><?php echo count($queries->getWhere("users", array("group_id", "=", $group->id))); ?></td>
 					</tr>
-			<?php 
+			<?php
 			}
 			?>
 				</tbody>
 			</table>
 		  </div>
-			<?php 
+			<?php
 			} else if(isset($_GET["action"])){
 				if($_GET["action"] === "new"){
 					if(Input::exists()) {
@@ -130,7 +130,7 @@ $adm_page = "users";
 									'max' => 20
 								)
 							));
-							
+
 							if($validation->passed()){
 								try {
 									$queries->create("groups", array(
@@ -142,17 +142,17 @@ $adm_page = "users";
 
 									echo '<script data-cfasync="false">window.location.replace("/admin/groups");</script>';
 									die();
-								
+
 								} catch(Exception $e){
 									die($e->getMessage());
 								}
 							}
-						}						
+						}
 					}
-					
+
 					// Generate token for form
 					$token = Token::generate();
-					
+
 					if(isset($validation)){
 						if(!$validation->passed()){
 					?>
@@ -169,7 +169,7 @@ $adm_page = "users";
 						}
 						?>
 					</div>
-					<?php 
+					<?php
 						}
 					}
 					?>
@@ -183,7 +183,7 @@ $adm_page = "users";
 						</div>
 						<br />
 						<input type="hidden" name="token" value="<?php echo $token; ?>">
-						<input class="btn btn-success" type="submit" value="<?php echo $general_language['submit']; ?>">	
+						<input class="btn btn-success" type="submit" value="<?php echo $general_language['submit']; ?>">
 					</form>
 					<br />
 					<div class="alert alert-info">
@@ -205,7 +205,7 @@ $adm_page = "users";
 						</div>
 					  </div>
 					</div>
-					<?php 
+					<?php
 				}
 			} else if(isset($_GET["group"])){
 				if(Input::exists()) {
@@ -225,7 +225,7 @@ $adm_page = "users";
 									'max' => 1024
 								)
 							));
-							
+
 							if($validation->passed()){
 								try {
 									$queries->update('groups', $_GET["group"], array(
@@ -237,13 +237,13 @@ $adm_page = "users";
 										'admin_cp' => Input::get('admincp'),
 										'staff' => Input::get('staff')
 									));
-									
-									echo '<script data-cfasync="false">window.location.replace("/admin/groups/?group=' . $_GET['group'] . '");</script>';
+
+									echo '<script data-cfasync="false">window.location.replace("/admin/groups/?group=' . htmlspecialchars($_GET['group'], ENT_QUOTES) . '");</script>';
 									die();
 								} catch(Exception $e) {
 									die($e->getMessage());
 								}
-								
+
 							} else {
 								echo '<div class="alert alert-danger">';
 								foreach($validation->errors() as $error) {
@@ -271,14 +271,14 @@ $adm_page = "users";
 								die();
 							} catch(Exception $e) {
 								die($e->getMessage());
-							}				
+							}
 						}
 					}
 				}
-				
+
 				// Generate token for form
 				$token = Token::generate();
-				
+
 				if(!is_numeric($_GET["group"])){
 					$group = $queries->getWhere("groups", array("name", "=", $_GET["group"]));
 				} else {
@@ -315,21 +315,21 @@ $adm_page = "users";
 						<input type="hidden" name="admincp" value="0">
 						<input type="checkbox" name="admincp" id="InputAdminCP" placeholder="<?php echo $admin_language['group_admincp']; ?>" value="1" <?php if($group[0]->admin_cp == 1){ ?> checked<?php } ?>>
 					  </div>
-					  <?php 
+					  <?php
 					  if($group[0]->staff == 1){} else {
 					  ?>
 					  <div class="form-group">
 						<label for="InputBuycraft"><?php echo $admin_language['donor_group_id']; ?></label>
 						<input type="text" name="buycraft_id" class="form-control" id="InputBuycraft" placeholder="<?php echo $admin_language['donor_group_id']; ?>" value="<?php echo htmlspecialchars($group[0]->buycraft_id); ?>">
 					  </div>
-					  <?php 
+					  <?php
 					  }
 					  ?>
 					  <input type="hidden" name="token" value="<?php echo $token; ?>">
 					  <input type="hidden" name="action" value="update">
 					  <input type="submit" value="<?php echo $general_language['submit']; ?>" class="btn btn-default">
 					</form>
-					<?php 
+					<?php
 					if($group[0]->id == 2 || $group[0]->id == 3 || $group[0]->id == 1){} else {
 					?>
 					<br />
@@ -339,7 +339,7 @@ $adm_page = "users";
 					  <input type="hidden" name="id" value="<?php echo $group[0]->id; ?>">
 					  <input onclick="return confirm('<?php echo str_replace('{x}', htmlspecialchars($group[0]->name), $admin_language['confirm_group_deletion']); ?>');" type="submit" value="<?php echo $admin_language['delete_group']; ?>" class="btn btn-danger">
 					</form>
-					<?php 
+					<?php
 					}
 				} else {
 					Session::flash('adm-groups', '<div class="alert alert-info">' . $admin_language['group_not_exist'] . '</div>');
@@ -349,14 +349,14 @@ $adm_page = "users";
 			}
 			?>
 		</div>
-      </div>	  
+      </div>
     </div>
 	<?php
 	// Footer
 	require('core/includes/template/footer.php');
 	$smarty->display('styles/templates/' . $template . '/footer.tpl');
-	
-	// Scripts 
+
+	// Scripts
 	require('core/includes/template/scripts.php');
 	?>
   </body>
