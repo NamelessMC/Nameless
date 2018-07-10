@@ -2,7 +2,7 @@
 /*
  *  Translations by Maiu [Discord: Maiu#1152] & OscarWoHA
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr3
+ *  NamelessMC versjon 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -129,6 +129,7 @@ $language = array(
 	'account_banned' => 'Denne brukeren er bannet.',
 	'forgot_password' => 'Glemt passord?',
 	'remember_me' => 'Husk meg',
+	'must_input_email' => 'Då må skrive inn et epost',
 	'must_input_username' => 'Du må skrive inn et brukernavn.',
 	'must_input_password' => 'Du må skrive inn et passord.',
 

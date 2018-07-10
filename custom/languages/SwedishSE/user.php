@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -131,6 +131,7 @@ $language = array(
 	'account_banned' => 'Det kontot är bannad.',
 	'forgot_password' => 'Glömt ditt lösenord?',
 	'remember_me' => 'Kom ihåg mig',
+	'must_input_email' => 'Du måste ange ett e-postmeddelandet.',
 	'must_input_username' => 'Du måste ange ett användarnamn.',
 	'must_input_password' => 'Du måste ange ett lösenord.',
 

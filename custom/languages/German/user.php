@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -138,6 +138,7 @@ $language = array(
 	'account_banned' => 'Dieser Account wurde gebannt.',
 	'forgot_password' => 'Passwort vergessen?',
 	'remember_me' => 'Angemeldet bleiben.',
+	'must_input_email' => 'You must input a email.',
 	'must_input_username' => 'Du musst einen Benutzernamen eingeben.',
 	'must_input_password' => 'Du musst ein Passwort eingeben.',
 

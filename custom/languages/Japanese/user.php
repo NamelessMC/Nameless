@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  Translation by SimplyRin(@SimplyRin_, https://www.simplyrin.net)
  *
@@ -132,6 +132,7 @@ $language = array(
 	'account_banned' => 'そのアカウントは禁止されています。',
 	'forgot_password' => 'パスワードを忘れた？',
 	'remember_me' => '私を覚えて',
+	'must_input_email' => 'You must input a email.',
 	'must_input_username' => 'ユーザー名を入力する必要があります。',
 	'must_input_password' => 'パスワードを入力する必要があります。',
 
