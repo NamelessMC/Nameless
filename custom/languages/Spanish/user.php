@@ -2,7 +2,7 @@
 /*
  *	Made by TheSuperSkills (Edited by Ariuw and iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3/pr4
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -130,6 +130,7 @@ $language = array(
 	'account_banned' => 'Esa cuenta está prohibida.',
 	'forgot_password' => '¿Se te olvidó tu contraseña?',
 	'remember_me' => 'Recuérdame',
+	'must_input_email' => 'You must input a email.',
 	'must_input_username' => 'Debe introducir un nombre de usuario.',
 	'must_input_password' => 'Debe introducir una contraseña.',
 

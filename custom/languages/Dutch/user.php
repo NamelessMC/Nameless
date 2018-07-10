@@ -4,7 +4,7 @@
  *  en vertaald door Sander Lambrechts, Derkades en smessie
  *  
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -132,10 +132,11 @@ $language = array(
 	'account_banned' => 'Dit account is verbannen.',
 	'forgot_password' => 'Wachtwoord vergeten?',
 	'remember_me' => 'Onthoud mij',
+	'must_input_email' => 'You must input a email.',
 	'must_input_username' => 'Je moet een gebruikersnaam invoeren.',
 	'must_input_password' => 'Je moet een wachtwoord invoeren.',
 
-    	// Forgot password
+    // Forgot password
    	'forgot_password_instructions' => 'Graag je email adres invoeren zodat we verdere instructies kunnen sturen om je wachtwoord te herstellen.',
    	'forgot_password_email_sent' => 'Als een account met dit email adres bestaat, is er een email verstuurt met daarin verdere instructies. Als je hem niet kan vinden, bekijk dan ook de spam/junk/ongewenste map.',
    	'unable_to_send_forgot_password_email' => 'Kon vergeten wachtwoord email niet verzenden. Graag contact opnemen met een administrator.',

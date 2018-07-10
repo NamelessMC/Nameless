@@ -2,7 +2,7 @@
 /*
   *	Made by Samerton, translated by Zemos and Renzotom
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -130,6 +130,7 @@ $language = array(
 	'account_banned' => 'Tento účet je zabanován.',
 	'forgot_password' => 'Zapomenuté heslo?',
 	'remember_me' => 'Pamatovat si mě',
+	'must_input_email' => 'You must input a email.',
 	'must_input_username' => 'Musíte vložit uživatelské jméno.',
 	'must_input_password' => 'Musíte vložit heslo.',
 

@@ -65,7 +65,7 @@
                         <hr class="colorgraph">
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
-                                <input type="submit" class="btn btn-primary btn-block btn-lg" value="{$SUBMIT}">
+                                <input type="submit" class="btn btn-primary btn-block btn-lg" value="{$SIGN_IN}">
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <a class="btn btn-success btn-block btn-lg" href="{$REGISTER_URL}">{$REGISTER}</a>

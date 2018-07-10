@@ -227,6 +227,9 @@ if (Input::exists()) {
                     if (strpos($error, 'username') !== false) {
                         // Empty username field
                         $return_error[] = $language->get('user', 'must_input_username');
+                    } else if (strpos($error, 'email') !== false) {
+                        // Empty email field
+                        $return_error[] = $language->get('user', 'must_input_email');
                     } else if (strpos($error, 'password') !== false) {
                         // Empty password field
                         $return_error[] = $language->get('user', 'must_input_password');
@@ -296,15 +299,7 @@ $smarty->assign(array(
     'REGISTER_URL' => URL::build('/register'),
     'REGISTER' => $language->get('general', 'register'),
     'ERROR' => (isset($return_error) ? $return_error : array()),
-    'SUBMIT' => $language->get('general', 'submit')
 ));
-
-$register_url = URL::build('/register');
-
-// Smarty variables
-$smarty->assign('SIGNIN', $language->get('general', 'sign_in'));
-$smarty->assign('REGISTER_URL', $register_url);
-$smarty->assign('REGISTER', $language->get('general', 'register'));
 
 if (isset($return_error)) {
     $smarty->assign('SESSION_FLASH', $return_error);
