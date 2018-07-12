@@ -132,7 +132,7 @@ $language = array(
 	'account_banned' => 'そのアカウントは禁止されています。',
 	'forgot_password' => 'パスワードを忘れた？',
 	'remember_me' => '私を覚えて',
-	'must_input_email' => 'You must input a email.',
+	'must_input_email' => 'You must input an email address.',
 	'must_input_username' => 'ユーザー名を入力する必要があります。',
 	'must_input_password' => 'パスワードを入力する必要があります。',
 

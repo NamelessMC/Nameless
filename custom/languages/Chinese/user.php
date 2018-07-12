@@ -135,7 +135,7 @@ $language = array(
 	'account_banned' => '帳戶已被封禁.',
 	'forgot_password' => '忘記密碼?',
 	'remember_me' => '記住我',
-	'must_input_email' => 'You must input a email.',
+	'must_input_email' => 'You must input an email address.',
 	'must_input_username' => '你必須輸入帳號.',
 	'must_input_password' => '你必須輸入密碼.',
 
