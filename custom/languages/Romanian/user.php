@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Users
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 16/06/2018
+ *  Last Update: 11/07/2018
  */
 
 $language = array(
@@ -133,7 +133,7 @@ $language = array(
     'account_banned' => 'Acest cont este banat.',
     'forgot_password' => 'Am uitat parola',
     'remember_me' => 'Ține-mă minte',
-	'must_input_email' => 'You must input a email.',
+    'must_input_email' => 'Trebuie să introduceți o adresă de e-mail.',
     'must_input_username' => 'Trebuie să introduceți un nume de utilizator.',
     'must_input_password' => 'Trebuie să introduceți o parolă.',
 
