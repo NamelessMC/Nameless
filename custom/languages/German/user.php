@@ -138,7 +138,7 @@ $language = array(
 	'account_banned' => 'Dieser Account wurde gebannt.',
 	'forgot_password' => 'Passwort vergessen?',
 	'remember_me' => 'Angemeldet bleiben.',
-	'must_input_email' => 'You must input a email.',
+	'must_input_email' => 'You must input an email address.',
 	'must_input_username' => 'Du musst einen Benutzernamen eingeben.',
 	'must_input_password' => 'Du musst ein Passwort eingeben.',
 

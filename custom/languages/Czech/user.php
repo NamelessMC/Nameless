@@ -130,7 +130,7 @@ $language = array(
 	'account_banned' => 'Tento účet je zabanován.',
 	'forgot_password' => 'Zapomenuté heslo?',
 	'remember_me' => 'Pamatovat si mě',
-	'must_input_email' => 'You must input a email.',
+	'must_input_email' => 'You must input an email address.',
 	'must_input_username' => 'Musíte vložit uživatelské jméno.',
 	'must_input_password' => 'Musíte vložit heslo.',
 

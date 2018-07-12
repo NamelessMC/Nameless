@@ -132,7 +132,7 @@ $language = array(
 	'account_banned' => 'Dit account is verbannen.',
 	'forgot_password' => 'Wachtwoord vergeten?',
 	'remember_me' => 'Onthoud mij',
-	'must_input_email' => 'You must input a email.',
+	'must_input_email' => 'You must input an email address.',
 	'must_input_username' => 'Je moet een gebruikersnaam invoeren.',
 	'must_input_password' => 'Je moet een wachtwoord invoeren.',
 
