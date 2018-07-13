@@ -72,6 +72,7 @@ $language = array(
     'enable_debug_mode' => 'Zapnúť debug mód?',
     'force_https' => 'Vynúcene https?',
     'force_https_help' => 'Pokiaľ je zapnuté, všetké požiadavky na Váš web budú presmerované na https. Ak chcete, aby to táto možnosť fungovala správne, tak musíte mať platný a aktivovaný SSL certifikát.',
+    'force_www' => 'Force www?',
     'contact_email_address' => 'Kontaktná e-mailová adresa',
     'emails' => 'E-maily',
     'email_errors' => 'Chyby s e-mailami',

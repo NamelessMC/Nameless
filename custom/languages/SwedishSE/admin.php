@@ -73,6 +73,7 @@ $language = array(
     'enable_debug_mode' => 'Aktivera debug-läge?',
 	'force_https' => 'Tvinga https?',
 	'force_https_help' => 'Om aktiverad, kommer alla förfrågningar till din webbplats att omdirigeras till https. Du måste ha ett giltigt SSL-certifikat aktivt för att detta ska fungera korrekt.',
+	'force_www' => 'Force www?',
 	'contact_email_address' => 'Kontakt E-postadress',
 	'emails' => 'E-poster',
 	'email_errors' => 'E-postfel',

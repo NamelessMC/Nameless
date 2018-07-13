@@ -74,6 +74,7 @@ $language = array(
 	'enable_debug_mode' => 'Wil je debug modus inschakelen?',
 	'force_https' => 'Forceer https?',
 	'force_https_help' => 'Als dit aanstaat, worden alle verzoeken naar deze website doorgestuurd via https. Je moet een geldig SSL certificaat hebben die actief is om dit te laten werken.',
+	'force_www' => 'Force www?',
 	'contact_email_address' => 'Emailadres voor contact',
 	'emails' => 'Emails',
 	'email_errors' => 'Email fouten',

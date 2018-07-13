@@ -70,20 +70,57 @@ if($page != 'install'){
     $cache = new Cache(array('name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'));
 
     // Force https?
+    $cache->setCache('force_www_cache');
+    if($cache->isCached('force_www')){
+        $force_www = $cache->retrieve('force_www');
+        if($force_www == 'true')
+            define('FORCE_WWW', true);
+    } else
+        $cache->store('force_www', false);
+
     $cache->setCache('force_https_cache');
     if($cache->isCached('force_https')) {
         $force_https = $cache->retrieve('force_https');
         if($force_https == 'true'){
             if($_SERVER["HTTPS"] != "on"){
                 // Redirect to https
-                header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-                die();
+
+                // Force www?
+                if(defined('FORCE_WWW')){
+                    if(strpos($_SERVER['HTTP_HOST'], 'www.') === false){
+                        header('Location: https://www.'.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+                        die();
+                    } else {
+                        header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+                        die();
+                    }
+                } else {
+                    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+                    die();
+                }
+            } else {
+                // Force www?
+                if(defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
+                    header('Location: https://www.'.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+                    die();
+                }
             }
 
             define('FORCE_SSL', true);
         }
     } else
         $cache->store('force_https', false);
+
+    if(!defined('FORCE_SSL')){
+        if(defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
+            if($_SERVER["HTTPS"] != "on") {
+                header('Location: http://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+            } else {
+                header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+            }
+            die();
+        }
+    }
 
     // Queries
     $queries = new Queries();

@@ -76,6 +76,7 @@ $language = array(
     'enable_debug_mode' => '啟用除錯模式?',
 	'force_https' => '強制加密連線(https)?',
 	'force_https_help' => '如果此選項被啟用，網站將會自動導向Https加密連線網頁，必須有正確的SSL證書才可以正常運作，請再次檢查再開啟.',
+	'force_www' => 'Force www?',
 	'contact_email_address' => '聯絡用電子郵件',
 	'emails' => '電子郵件',
 	'email_errors' => '電子郵件錯誤',

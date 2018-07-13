@@ -71,6 +71,7 @@ $language = array(
     'enable_debug_mode' => '¿Habilitar modo de depuracion?',
     'force_https' => '¿Forzar HTTPs?',
     'force_https_help' => 'Si habilita esto, todas las solicitudes a su sitio web seran redirigidas a https. Debe tener un certificado SSL valido activo para que funcione correctamente.',
+    'force_www' => 'Force www?',
     'contact_email_address' => 'Correo electrónico de contacto',
     'emails' => 'Correos electrónicos',
     'email_errors' => 'Errores de correo electrónico',
