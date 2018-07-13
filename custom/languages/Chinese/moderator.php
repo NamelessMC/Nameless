@@ -51,7 +51,10 @@ $language = array(
 	'report_comment_invalid' => '無效的留言，請確認留言的限制包含在 1-1000 字元以內.',
 	'close_report' => '關閉回報',
 	'reopen_report' => '重新開啟回報',
+	'1_open_report' => 'There is currently <strong>1</strong> open report.',
 	'open_reports' => '目前有 <strong>{x}</strong> 開啟的回報.', // Don't replace {x}
+	'no_open_reports' => 'There are currently no open reports.',
+	'no_closed_reports' => 'There are currently no closed reports.',
 	
 	// Punishments
 	'punishments' => '懲罰',

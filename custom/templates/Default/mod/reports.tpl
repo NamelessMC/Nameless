@@ -14,6 +14,7 @@
 		  </span>
 		  
 		  <br /><br />
+		  {if count($ALL_REPORTS)}
 		  <table class="table">
 		    <thead>
 			  <tr>
@@ -34,6 +35,9 @@
 			  {/foreach}
 			</tbody>
 		  </table>
+		  {else if isset($NO_REPORTS)}
+			<div class="alert alert-info">{$NO_REPORTS}</div>
+		  {/if}
 		  
 		</div>
 	  </div>

@@ -49,7 +49,10 @@ $language = array(
 	'report_comment_invalid' => 'コメントコンテンツが無効です。 1~10000 文字のコメントを入力してください。',
 	'close_report' => 'レポートを閉じる',
 	'reopen_report' => 'レポートを再度開く',
+	'1_open_report' => 'There is currently <strong>1</strong> open report.',
 	'open_reports' => '現在 <strong>{x}</strong> 公開レポートがあります。', // Don't replace {x}
+	'no_open_reports' => 'There are currently no open reports.',
+	'no_closed_reports' => 'There are currently no closed reports.',
 	
 	// Punishments
 	'punishments' => '処罰',

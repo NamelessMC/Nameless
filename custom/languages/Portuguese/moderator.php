@@ -48,7 +48,10 @@ $language = array(
 	'report_comment_invalid' => 'Conteúdo do comentário inválido. Certifique-se de que introduziu um comentário entre 1 e 10000 caracteres.',
 	'close_report' => 'Fechar alerta',
 	'reopen_report' => 'Reabrir alerta',
+	'1_open_report' => 'There is currently <strong>1</strong> open report.',
 	'open_reports' => 'Há atualmente <strong>{x}</strong> alertas abertos.', // Don't replace {x}
+	'no_open_reports' => 'There are currently no open reports.',
+	'no_closed_reports' => 'There are currently no closed reports.',
 	
 	// Punishments
 	'punishments' => 'Punições',

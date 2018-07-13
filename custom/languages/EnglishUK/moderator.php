@@ -47,7 +47,10 @@ $language = array(
 	'report_comment_invalid' => 'Invalid comment content. Please ensure you have entered a comment between 1 and 10000 characters.',
 	'close_report' => 'Close report',
 	'reopen_report' => 'Reopen report',
+	'1_open_report' => 'There is currently <strong>1</strong> open report.',
 	'open_reports' => 'There are currently <strong>{x}</strong> open reports.', // Don't replace {x}
+	'no_open_reports' => 'There are currently no open reports.',
+	'no_closed_reports' => 'There are currently no closed reports.',
 	
 	// Punishments
 	'punishments' => 'Punishments',
