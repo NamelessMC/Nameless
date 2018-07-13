@@ -407,7 +407,7 @@ $language = array(
     'page_title_maximum_30' => 'El título de la página debe ser máximo de 30 carácteres',
     'page_icon_maximum_64' => 'El ícono de la página debe ser máximo de 64 carácteres',
     'page_url_maximum_20' => 'La ubicación del vínculo debe ser máximo de 20 carácteres.',
-    'page_content_maximum_20480' => 'El contenido de la página debe ser máximo de 20480 carácteres.',
+    'page_content_maximum_100000' => 'El contenido de la página debe ser máximo de 100000 carácteres.',
     'page_redirect_link_maximum_512' => 'The page redirect link must be a maximum of 512 characters.',
     'confirm_delete_page' => '¿Estás seguro de que quieres eliminar esa página?',
 

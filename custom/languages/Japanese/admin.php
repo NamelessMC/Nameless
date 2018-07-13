@@ -414,7 +414,7 @@ $language = array(
     'page_title_maximum_30' => 'ページタイトルは最大30文字でなければなりません。',
     'page_icon_maximum_64' => 'ページアイコンは最大64文字でなければなりません。',
     'page_url_maximum_20' => 'ページパスは最大20文字でなければなりません。',
-    'page_content_maximum_20480' => 'ページの内容は最大20480文字でなければなりません。',
+    'page_content_maximum_100000' => 'ページの内容は最大100000文字でなければなりません。',
     'page_redirect_link_maximum_512' => 'ページリダイレクトリンクは、最大 512 文字でなければなりません。',
     'confirm_delete_page' => 'このページを削除してもよろしいですか？',
 

@@ -117,7 +117,7 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                           'max' => 20
                       ),
                       'content' => array(
-                          'max' => 20480
+                          'max' => 100000
                       ),
                       'link_location' => array(
                           'required' => true
@@ -222,7 +222,7 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                         else if(strpos($item, 'page_url') !== false)
                           $error .= $language->get('admin', 'page_url_maximum_20');
                         else if(strpos($item, 'content') !== false)
-                          $error .= $language->get('admin', 'page_content_maximum_20480');
+                          $error .= $language->get('admin', 'page_content_maximum_100000');
                         else if(strpos($item, 'redirect_link') !== false)
                           $error .= $language->get('admin', 'page_redirect_link_maximum_512');
                       }
@@ -350,7 +350,7 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                             'max' => 20
                         ),
                         'content' => array(
-                            'max' => 20480
+                            'max' => 100000
                         ),
                         'link_location' => array(
                             'required' => true
@@ -505,7 +505,7 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                                 else if(strpos($item, 'page_url') !== false)
                                     $error .= $language->get('admin', 'page_url_maximum_20');
                                 else if(strpos($item, 'content') !== false)
-                                    $error .= $language->get('admin', 'page_content_maximum_20480');
+                                    $error .= $language->get('admin', 'page_content_maximum_100000');
                                 else if(strpos($item, 'redirect_link') !== false)
                                     $error .= $language->get('admin', 'page_redirect_link_maximum_512');
                             }

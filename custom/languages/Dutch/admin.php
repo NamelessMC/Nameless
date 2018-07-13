@@ -413,7 +413,7 @@ $language = array(
     'page_title_maximum_30' => 'De pagina titel moet maximaal uit 30 karakters bestaan.',
     'page_icon_maximum_64' => 'Het pagina icoon moet maximaal uit 64 karakters bestaan.',
     'page_url_maximum_20' => 'Het pagina pad moet maximaal uit 20 karakters bestaan.',
-    'page_content_maximum_20480' => 'De pagina inhoud moet minimaal uit 20480 karakters bestaan.',
+    'page_content_maximum_100000' => 'De pagina inhoud moet minimaal uit 100000 karakters bestaan.',
     'page_redirect_link_maximum_512' => 'De pagina doorstuur link moet minimaal uit 512 karakters bestaan.',
     'confirm_delete_page' => 'Weet je zeker dat je deze pagina wilt verwijderen?',
 

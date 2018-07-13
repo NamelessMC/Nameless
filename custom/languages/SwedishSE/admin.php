@@ -413,7 +413,7 @@ $language = array(
     'page_title_maximum_30' => 'Sido titeln måste högst vara 30 tecken.',
     'page_icon_maximum_64' => 'Sido ikonen måste högst vara 64 tecken.',
     'page_url_maximum_20' => 'Sido vägen måste högst vara 20 tecken.',
-    'page_content_maximum_20480' => 'Sido innehållet måste högst vara 20480 tecken.',
+    'page_content_maximum_100000' => 'Sido innehållet måste högst vara 100000 tecken.',
     'page_redirect_link_maximum_512' => 'Sido omdirigerings länken måste högst vara 512 tecken.',
     'confirm_delete_page' => 'Är du säker på att du vill ta bort den här sidan?',
 

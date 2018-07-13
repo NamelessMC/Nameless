@@ -414,7 +414,7 @@ $language = array(
     'page_title_maximum_30' => 'Titlul paginii trebuie să aibă maximum 30 de caractere.',
     'page_icon_maximum_64' => 'Pictograma paginii trebuie să aibă maximum 64 de caractere.',
     'page_url_maximum_20' => 'Calea paginii trebuie să aibă maximum 20 de caractere.',
-    'page_content_maximum_20480' => 'Conținutul paginii trebuie să aibă maximum 20480 de caractere.',
+    'page_content_maximum_100000' => 'Conținutul paginii trebuie să aibă maximum 100000 de caractere.',
     'page_redirect_link_maximum_512' => 'Legătura redirecționării paginii trebuie să aibă maximum 512 caractere.',
     'confirm_delete_page' => 'Sigur doriți să ștergeți această pagină?',
 
