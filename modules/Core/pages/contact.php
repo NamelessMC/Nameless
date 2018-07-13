@@ -76,6 +76,7 @@ if(Input::exists()){
                         $html = Output::getClean(Input::get('content'));
 
                         $email = array(
+                            'replyto' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('email'))),
                             'to' => array('email' => Output::getClean($contactemail), 'name' => Output::getClean(SITE_NAME)),
                             'subject' => SITE_NAME . ' - ' . $language->get('general', 'contact_email_subject'),
                             'message' => $html

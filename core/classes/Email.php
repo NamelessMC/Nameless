@@ -66,6 +66,10 @@ class Email {
             $mail->SMTPAuth = $GLOBALS['email']['smtp_auth'];
             $mail->Username = $GLOBALS['email']['username'];
             $mail->Password = $GLOBALS['email']['password'];
+
+            if(isset($email['replyto']))
+                $mail->AddReplyTo($email['replyto']['email'], $email['replyto']['name']);
+
             $mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
             $mail->From = $GLOBALS['email']['username'];
             $mail->FromName = $GLOBALS['email']['name'];
