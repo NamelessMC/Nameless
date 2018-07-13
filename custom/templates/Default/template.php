@@ -34,6 +34,9 @@ if($cache->isCached('nav_bg')){
 	$cache->store('nav_style', 'light');
 }
 
+// Editor skin (moono-lisa or moono-dark)
+define('TEMPLATE_EDITOR_STYLE', 'moono-lisa');
+
 $smarty->assign('NAV_STYLE', Output::getClean($nav_style));
 $smarty->assign('NAV_BG', Output::getClean($nav_bg));
 

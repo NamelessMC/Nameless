@@ -84,6 +84,8 @@ class Input {
 			    $editor .= 'CKEDITOR.config.allowedContent = true;';
 
 			$editor .= '
+			CKEDITOR.config.skin = \'' . (defined('TEMPLATE_EDITOR_STYLE') ? TEMPLATE_EDITOR_STYLE : 'moono-lisa') . '\';
+			CKEDITOR.skinName = \'' . (defined('TEMPLATE_EDITOR_STYLE') ? TEMPLATE_EDITOR_STYLE : 'moono-lisa') . '\';
 			CKEDITOR.config.language = \'' . (defined('HTML_LANG') ? HTML_LANG : 'en') . '\';
 			CKEDITOR.config.fontawesomePath = path + \'core/assets/css/font-awesome.min.css\';
 			CKEDITOR.config.disableNativeSpellChecker = false;
