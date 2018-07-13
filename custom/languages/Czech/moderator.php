@@ -47,7 +47,10 @@ $language = array(
 	'report_comment_invalid' => 'Nezadal jste komentář. Zajistěte, aby jste zadal komentář s minimálně 5 znaky.',
 	'close_report' => 'Zavřít nahlášení',
 	'reopen_report' => 'Znovu otevřít náhlášení',
+	'1_open_report' => 'There is currently <strong>1</strong> open report.',
 	'open_reports' => 'V současné době je <strong>{x}</strong> otevřených nahlášení.', // Don't replace {x}
+	'no_open_reports' => 'There are currently no open reports.',
+	'no_closed_reports' => 'There are currently no closed reports.',
 	
 	// Punishments
 	'punishments' => 'Tresty',

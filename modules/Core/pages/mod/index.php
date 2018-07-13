@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -52,7 +52,7 @@ define('PAGE', 'mod_overview');
 	// Smarty variables
 	$smarty->assign(array(
 		'OVERVIEW' => $language->get('admin', 'overview'),
-		'OPEN_REPORTS' => str_replace('{x}', $count_reports, $language->get('moderator', 'open_reports'))
+		'OPEN_REPORTS' => ($count_reports == 1) ? $language->get('moderator', '1_open_report') : str_replace('{x}', $count_reports, $language->get('moderator', 'open_reports'))
 	));
 	
 	// Display template

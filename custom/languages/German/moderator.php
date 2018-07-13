@@ -55,7 +55,10 @@ $language = array(
 	'report_comment_invalid' => 'Ungültiger Kontent.',
 	'close_report' => 'Report schließen',
 	'reopen_report' => 'Report erneut öffnen',
+	'1_open_report' => 'There is currently <strong>1</strong> open report.',
 	'open_reports' => 'Es sind aktuell <strong>{x}</strong> Reports geöffnet.', // Don't replace {x}
+	'no_open_reports' => 'There are currently no open reports.',
+	'no_closed_reports' => 'There are currently no closed reports.',
 	
 	// Punishments
 	'punishments' => 'Strafen',

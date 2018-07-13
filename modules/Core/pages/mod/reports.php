@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -104,6 +104,12 @@ $timeago = new Timeago(TIMEZONE);
 					'comments' => $comments
 				);
 			}
+		} else {
+		    if(!isset($_GET['view'])){
+		        $smarty->assign('NO_REPORTS', $language->get('moderator', 'no_open_reports'));
+		    } else {
+		        $smarty->assign('NO_REPORTS', $language->get('moderator', 'no_closed_reports'));
+		    }
 		}
 		
 		// Smarty variables

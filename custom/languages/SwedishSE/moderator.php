@@ -48,7 +48,10 @@ $language = array(
 	'report_comment_invalid' => 'Ogiltigt kommentar innehåll. Se till att du har skrivit en kommentar mellan 1 och 10000 tecken.',
 	'close_report' => 'Stäng Anmälning',
 	'reopen_report' => 'Öppna Anmälning',
+	'1_open_report' => 'There is currently <strong>1</strong> open report.',
 	'open_reports' => 'Det finns för närvarande <strong>{x}</strong> öppnade anmälningar.', // Don't replace {x}
+	'no_open_reports' => 'There are currently no open reports.',
+	'no_closed_reports' => 'There are currently no closed reports.',
 	
 	// Punishments
 	'punishments' => 'Straffar',

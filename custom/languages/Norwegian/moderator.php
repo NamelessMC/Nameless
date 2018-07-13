@@ -47,7 +47,10 @@ $language = array(
 	'report_comment_invalid' => 'Ugyldig innhold. Pass på at du har mellom 1 til 1000 tegn.',
 	'close_report' => 'Lukk rapport',
 	'reopen_report' => 'Åpne rapport på nytt',
+	'1_open_report' => 'There is currently <strong>1</strong> open report.',
 	'open_reports' => 'Det er foreløpig<strong>{x}</strong> åpne rapport(er).', // Don't replace {x}
+	'no_open_reports' => 'There are currently no open reports.',
+	'no_closed_reports' => 'There are currently no closed reports.',
 	
 	// Punishments
 	'punishments' => 'Straffer',
