@@ -256,7 +256,7 @@
 			
 			<div class="col-md-8">
 			  <div class="card">
-			    <div class="card-body">
+			    <div class="card-body" id="custom_fields">
 				  {foreach from=$ABOUT_FIELDS key=key item=field}
 					{if is_numeric($key)}
 					  <h3>{$field.title}</h3>
@@ -356,6 +356,34 @@
 {/if}
 
 {include file='footer.tpl'}
+
+<script>
+function emptyOrEmptyHTML(n) {
+    if (n.childNodes.length > 0) {
+        for( var x = 0; x < n.childNodes.length; x++ ) {
+            if (!emptyOrEmptyHTML(n.childNodes[x])) {
+                return false;
+            }
+        }
+        return true;
+    }
+    else {
+        if (n.nodeType == 1) {
+            return n.innerHTML.trim().length == 0;
+        }
+        else if (n.nodeType == 3) {
+            return n.textContent.trim().length == 0;
+        }
+        else {
+            return true;
+        }
+    }
+}
+
+if(emptyOrEmptyHTML(document.getElementById("custom_fields"))) {
+document.getElementById("custom_fields").innerHTML = "This user has not completed any fields yet.";
+}
+</script>
 
 {if isset($LOGGED_IN)}
   <script type="text/javascript">
