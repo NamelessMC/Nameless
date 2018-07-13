@@ -80,6 +80,7 @@ $language = array(
     'enable_debug_mode' => 'Aktiviere den Fehlerbenachrichtungs Modus?',
     'force_https' => 'Erzwinge https? (Gesicherte Webseitenverbindung)',
     'force_https_help' => 'Falls https aktiviert wird, werden alle Anfragen auf das https Protokoll umgeleitet. Bitte überprüfe ob dein SSL Zertifikat gültig und richtig eingerichtet worden ist.',
+    'force_www' => 'Force www?',
     'contact_email_address' => 'Kontakt Email Addresse',
     'emails' => 'Emails',
     'email_errors' => 'Email Fehler',

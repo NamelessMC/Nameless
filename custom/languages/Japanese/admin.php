@@ -74,6 +74,7 @@ $language = array(
     'enable_debug_mode' => 'デバッグモードを有効にしますか？',
     'force_https' => 'Https を強制させますか？',
     'force_https_help' => '有効にするとウェブサイトへのリクエストはすべて https にリダイレクトされます。 これが正しく機能するには、有効なSSL証明書を有効にする必要があります。',
+    'force_www' => 'Force www?',
     'contact_email_address' => '連絡先メールアドレス',
     'emails' => 'メール',
     'email_errors' => 'メールエラー',

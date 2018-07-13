@@ -72,6 +72,7 @@ $language = array(
     'enable_debug_mode' => 'Tillatt feilsøkingsmodus?',
     'force_https' => 'Overstyr https?',
     'force_https_help' => 'Hvis aktivert, alle forespørsler på din nettside vil bli videresendt til https. Du må ha en gyldig SSL sertifikat aktiv for at dette skal funke.',
+    'force_www' => 'Force www?',
     'contact_email_address' => 'Kontakt email adresse',
     'emails' => 'Email',
     'email_errors' => 'Email error',

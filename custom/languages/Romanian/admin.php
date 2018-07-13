@@ -77,6 +77,7 @@ $language = array(
     'enable_debug_mode' => 'Activați modul de depanare?',
     'force_https' => 'Forțează https?',
     'force_https_help' => 'Dacă este activată setarea, toate solicitările către site-ul dvs. vor fi redirecționate către https de la http. Trebuie să aveți un certificat SSL valabil activ pentru ca aceasta să funcționeze corect.',
+    'force_www' => 'Force www?',
     'contact_email_address' => 'Adresa e-mail de contact',
     'emails' => 'E-mailuri',
     'email_errors' => 'Erori ale e-mailului',

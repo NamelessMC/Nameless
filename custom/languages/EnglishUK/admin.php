@@ -72,6 +72,7 @@ $language = array(
     'enable_debug_mode' => 'Enable debug mode?',
 	'force_https' => 'Force https?',
 	'force_https_help' => 'If enabled, all requests to your website will be redirected to https. You must have a valid SSL certificate active for this to work correctly.',
+	'force_www' => 'Force www?',
 	'contact_email_address' => 'Contact Email Address',
 	'emails' => 'Emails',
 	'email_errors' => 'Email Errors',

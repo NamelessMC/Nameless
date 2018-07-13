@@ -363,6 +363,25 @@ $current_default_language = $current_default_language[0]->value;
                                                 ));
                                             }
 
+                                            // Force WWW?
+                                            if (Input::get('forceWWW') == 'true')
+                                                $www = 'true';
+                                            else
+                                                $www = 'false';
+
+                                            $force_www_id = $queries->getWhere('settings', array('name', '=', 'force_www'));
+                                            if (count($force_www_id)) {
+                                                $force_www_id = $force_www_id[0]->id;
+                                                $queries->update('settings', $force_www_id, array(
+                                                    'value' => $www
+                                                ));
+                                            } else {
+                                                $queries->create('settings', array(
+                                                    'name' => 'force_www',
+                                                    'value' => $www
+                                                ));
+                                            }
+
                                             /*
                                             if(!empty($_POST["allowedProxies"])) {
                                                 $allowedProxies = $_POST["allowedProxies"];
@@ -389,6 +408,9 @@ $current_default_language = $current_default_language[0]->value;
                                             // Update cache
                                             $cache->setCache('force_https_cache');
                                             $cache->store('force_https', $https);
+
+                                            $cache->setCache('force_www_cache');
+                                            $cache->store('force_www', $www);
 
                                             // Redirect in case URL type has changed
                                             if (!isset($errors)) {
@@ -536,6 +558,20 @@ $current_default_language = $current_default_language[0]->value;
                                         <select name="forceHTTPS" class="form-control" id="inputForceHTTPS">
                                             <option value="true"<?php if ($force_https) { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
                                             <option value="false"<?php if (!$force_https) { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <?php
+                                        // Get force WWW setting
+                                        if (defined('FORCE_WWW'))
+                                            $force_www = true;
+                                        else
+                                            $force_www = false;
+                                        ?>
+                                        <label for="inputForceWWW"><?php echo $language->get('admin', 'force_www'); ?></label>
+                                        <select name="forceWWW" class="form-control" id="inputForceWWW">
+                                            <option value="true"<?php if ($force_www) { ?> selected<?php } ?>><?php echo $language->get('admin', 'enabled'); ?></option>
+                                            <option value="false"<?php if (!$force_www) { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
                                         </select>
                                     </div>
                                     <div class="form-group">
