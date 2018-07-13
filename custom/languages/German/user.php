@@ -183,6 +183,7 @@ $language = array(
 	'private_profile_page' => 'Dies ist ein privates Profil!',
 	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
+	'no_about_fields' => 'This user has not added any about fields yet.',
 	
 	// Reports
 	'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',

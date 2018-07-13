@@ -159,6 +159,7 @@ $language = array(
 	'display_field_on_forum' => 'Visa fält på forumet?',
 	'profile_field_forum_help' => 'Om aktiverat, fältet kommer att visas av användraren bredvid forum inlägg.',
 	'profile_field_editable_help' => 'Om aktiverat, kommer fältet att bli redigerbar i deras profil inställningar.',
+	'no_custom_fields' => 'There are no custom fields yet.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Aktivera Minecraft Integration?',

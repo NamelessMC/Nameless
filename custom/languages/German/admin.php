@@ -166,6 +166,7 @@ $language = array(
 	'display_field_on_forum' => 'Feld im Forum anzeigen?',
 	'profile_field_forum_help' => 'Wenn dies aktiviert ist wird das Feld unter dem Namen angezeigt.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
+	'no_custom_fields' => 'There are no custom fields yet.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Minecraft Integration aktivieren.',

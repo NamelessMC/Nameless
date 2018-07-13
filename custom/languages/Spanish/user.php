@@ -175,6 +175,7 @@ $language = array(
 	'private_profile_page' => '¡Este es un Perfil privado!',
 	'new_wall_post_reply' => '{x} ha respondido a tu publicación en el Perfil de {y}.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} ha respondido a tu publicación en tu Perfil.', // Don't replace {x}
+	'no_about_fields' => 'This user has not added any about fields yet.',
 	
 	// Reports
 	'invalid_report_content' => 'No se puede crear el informe. Asegúrese de que la razón de su informe es entre 2 y 1024 caracteres.',

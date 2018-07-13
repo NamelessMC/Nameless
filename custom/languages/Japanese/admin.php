@@ -160,6 +160,7 @@ $language = array(
 	'display_field_on_forum' => 'フォーラムにフィールドを表示しますか？',
 	'profile_field_forum_help' => '有効にすると、ユーザはフォーラムの投稿の横にフィールドを表示します。',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
+	'no_custom_fields' => 'There are no custom fields yet.',
 
     // Minecraft
     'enable_minecraft_integration' => 'Minecraft 統合を有効にしますか？',

@@ -177,6 +177,7 @@ $language = array(
 	'private_profile_page' => 'This is a private profile!',
 	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
+	'no_about_fields' => 'This user has not added any about fields yet.',
 	
 	// Reports
 	'invalid_report_content' => 'レポートを作成できません。 レポートの理由が 2~1024 文字であることを確認してください。',

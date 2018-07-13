@@ -158,6 +158,7 @@ $language = array(
 	'display_field_on_forum' => 'Synlig på forumet',
 	'profile_field_forum_help' => 'Hvis "Synlig på forumet" er aktivert vil alle som bruker forumet kunne se feltet.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
+	'no_custom_fields' => 'There are no custom fields yet.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Aktiver Minecraft-integrasjon',

@@ -257,13 +257,17 @@
 			<div class="col-md-8">
 			  <div class="card">
 			    <div class="card-body">
-				  {foreach from=$ABOUT_FIELDS key=key item=field}
-					{if is_numeric($key)}
-					  <h3>{$field.title}</h3>
-					  <p>{$field.value}</p>
-					  <hr />
-					{/if}
-				  {/foreach}
+			      {if !isset($NO_ABOUT_FIELDS)}
+			        {foreach from=$ABOUT_FIELDS key=key item=field}
+			          {if is_numeric($key)}
+			            <h3>{$field.title}</h3>
+			            <p>{$field.value}</p>
+			            <hr />
+			          {/if}
+			        {/foreach}
+			      {else}
+			        <div class="alert alert-info">{$NO_ABOUT_FIELDS}</div>
+			      {/if}
 			    </div>
 			  </div>
 			</div>
