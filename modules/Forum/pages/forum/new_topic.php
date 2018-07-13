@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -74,7 +74,7 @@ if(Input::exists()) {
 				'content' => array(
 					'required' => true,
 					'min' => 2,
-					'max' => 20480
+					'max' => 50000
 				)
 			));
 			if($validation->passed()){
@@ -190,7 +190,7 @@ if(Input::exists()) {
 								$error[] = $forum_language->get('forum', 'title_max_64');
 							break;
 							case (strpos($item, 'content') !== false):
-								$error[] = $forum_language->get('forum', 'content_max_20480');
+								$error[] = $forum_language->get('forum', 'content_max_50000');
 							break;
 						}
 					}

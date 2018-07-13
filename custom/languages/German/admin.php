@@ -420,7 +420,7 @@ $language = array(
     'page_title_maximum_30' => 'Der Seitentitel darf maximal 30 Zeichen lang sein.',
     'page_icon_maximum_64' => 'Das Seitensymbol darf maximal 64 Zeichen lang sein.',
     'page_url_maximum_20' => 'Der Seitenpfad darf maximal 20 Zeichen lang sein.',
-    'page_content_maximum_20480' => 'Der Seiteninhalt darf maximal 20480 Zeichen lang sein.',
+    'page_content_maximum_100000' => 'Der Seiteninhalt darf maximal 100000 Zeichen lang sein.',
     'page_redirect_link_maximum_512' => 'Der Seitenumleitungslink darf maximal 512 Zeichen lang sein.',
     'confirm_delete_page' => 'Möchten Sie diese Seite wirklich löschen?',
 

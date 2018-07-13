@@ -23,6 +23,14 @@
                 </div>
             {/if}
 
+            {if isset($ERRORS)}
+                <div class="alert alert-danger">
+                    {foreach from=$ERRORS item=error}
+                        {$error}<br />
+                    {/foreach}
+                </div>
+            {/if}
+
             {$PAGINATION}
 
 

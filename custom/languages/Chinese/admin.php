@@ -416,7 +416,7 @@ $language = array(
 	'page_title_maximum_30' => '自訂頁面的標題最高限制 30 字元.',
 	'page_icon_maximum_64' => '自訂頁面的圖標最高限制 30 字元.',
 	'page_url_maximum_20' => '自訂頁面的資料最低限制 20 字元.',
-	'page_content_maximum_20480' => '自訂頁面的內文最高限制 20480 字元.',
+	'page_content_maximum_100000' => '自訂頁面的內文最高限制 100000 字元.',
 	'page_redirect_link_maximum_512' => '自訂頁面的轉址網址最高限制 512 字元',
 	'confirm_delete_page' => '移除自訂頁面?',
 

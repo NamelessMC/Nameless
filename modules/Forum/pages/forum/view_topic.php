@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -181,7 +181,7 @@ if(Input::exists()) {
 			'content' => array(
 				'required' => true,
 				'min' => 2,
-				'max' => 20480
+				'max' => 50000
 			)
 		));
 		if($validation->passed()){
@@ -242,15 +242,19 @@ if(Input::exists()) {
 				die($e->getMessage());
 			}
 		} else {
-			$error_string = "";
-			foreach($validation->errors() as $error) {
-				$error_string .= ucfirst($error) . '<br />';
+			$error = array();
+			foreach($validation->errors() as $item){
+				if(strpos($item, 'is required') !== false){
+					$error[] = $forum_language->get('forum', 'content_required');
+				} else if(strpos($item, 'minimum') !== false){
+					$error[] = $forum_language->get('forum', 'content_min_2');
+				} else if(strpos($item, 'maximum') !== false){
+					$error[] = $forum_language->get('forum', 'content_max_50000');
+				}
 			}
-			Session::flash('failure_post', $error_string);
 		}
 	} else {
-		// Invalid token - TODO: improve
-		//echo 'Invalid token';
+		$error = array($language->get('general', 'invalid_token'));
 
 	}
 }
@@ -363,6 +367,9 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	}
 	if(Session::exists('failure_post')){
 		$smarty->assign('SESSION_FAILURE_POST', Session::flash('failure_post'));
+	}
+	if(isset($error) && count($error)){
+	    $smarty->assign('ERRORS', $error);
 	}
 	
 	// Display "new reply" button and "mod actions" if the user has access to them

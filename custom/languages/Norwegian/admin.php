@@ -412,7 +412,7 @@ $language = array(
     'page_title_maximum_30' => 'Side tittelen må være maks 30 tegn.',
     'page_icon_maximum_64' => 'Side iconet må være maks 64 tegn.',
     'page_url_maximum_20' => 'Side pathen må være maks 20 tegn.',
-    'page_content_maximum_20480' => 'Sideinnholdet må være maks 20480 tegn.',
+    'page_content_maximum_100000' => 'Sideinnholdet må være maks 100000 tegn.',
     'page_redirect_link_maximum_512' => 'Sideredirecten må være maks 512 tegn.',
     'confirm_delete_page' => 'Er du sikker på at du vil slette denne siden?',
 

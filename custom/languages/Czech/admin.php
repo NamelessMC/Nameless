@@ -412,7 +412,7 @@ $language = array(
 	'page_title_maximum_30' => 'Zajistětě, aby název Vaší stránky byl maximálně 30 znaků dlouhý.',
 	'page_icon_maximum_64' => 'Zajistětě, aby ikona Vaší stránky byla maximálně 64 znaků dlouhá.',
 	'page_url_maximum_20' => 'Zajistětě, aby cesta k Vaší stránce byla maximálně 20 znaků dlouhá.',
-	'page_content_maximum_20480' => 'Zajistětě, aby obsah Vaší stránky byl maximálně 20480 znaků dlouhý.',
+	'page_content_maximum_100000' => 'Zajistětě, aby obsah Vaší stránky byl maximálně 100000 znaků dlouhý.',
 	'page_redirect_link_maximum_512' => 'Zajistětě, aby odkaz na přesměrování Vaší stránky byl maximálně 512 znaků dlouhý.',
 	'confirm_delete_page' => 'Jste si jist, že chcete tuto stránku odstranit?',
 
