@@ -653,7 +653,8 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts 
 					'value' => Output::getPurified(Util::urlToAnchorTag(htmlspecialchars_decode($field->value)))
 				);
 			}
-		}
+		} else
+			$smarty->assign('NO_ABOUT_FIELDS', $language->get('user', 'no_about_fields'));
 		
 		// Minecraft?
 		$minecraft_integration = $queries->getWhere('settings', array('name', '=', 'mc_integration'));

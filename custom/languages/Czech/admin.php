@@ -158,6 +158,7 @@ $language = array(
 	'display_field_on_forum' => 'Zobrazit pole na fórum?',
 	'profile_field_forum_help' => 'Pokud je zapnuto, pole bude zobrazeno vedle příspěvku uživatele.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
+	'no_custom_fields' => 'There are no custom fields yet.',
 	
 	// Minecraft
 	'enable_minecraft_integration' => 'Povolit Minecraft?',

@@ -160,6 +160,7 @@ $language = array(
 	'display_field_on_forum' => 'Θέλω να δείξω το πεδίο στο φόρουμ?',
 	'profile_field_forum_help' => 'Αν είναι ενεργοποιημένο, το πεδίο θα εμφανιστεί από το χρήστη δίπλα στης δημοσιεύσεις.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
+	'no_custom_fields' => 'There are no custom fields yet.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Enable Minecraft integration?',

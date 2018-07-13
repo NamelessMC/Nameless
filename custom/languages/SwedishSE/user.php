@@ -176,6 +176,7 @@ $language = array(
 	'private_profile_page' => 'Det här är en privat profil!',
 	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
+	'no_about_fields' => 'This user has not added any about fields yet.',
 	
 	// Reports
 	'invalid_report_content' => 'Det gick inte att skapa en anmäla. Var god och se till att din anmälnings orsak är mellan 2 och 1024 tecken.',

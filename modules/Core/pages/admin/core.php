@@ -22,7 +22,7 @@ if ($user->isLoggedIn()) {
             Redirect::to(URL::build('/admin/auth'));
             die();
         } else {
-            if(!$user->hasPermission('admincp.core')){
+            if (!$user->hasPermission('admincp.core')) {
                 require(ROOT_PATH . '/404.php');
                 die();
             }
@@ -43,10 +43,10 @@ $current_default_language = $current_default_language[0]->value;
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo(defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
+<html lang="<?php echo(defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if (defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
 <head>
     <!-- Standard Meta -->
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
+    <meta charset="<?php echo(defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
@@ -83,72 +83,82 @@ $current_default_language = $current_default_language[0]->value;
                     <?php if (!isset($_GET['view'])) { ?>
                         <div class="table-responsive">
                             <table class="table table-striped">
-                                <?php if($user->hasPermission('admincp.core.general')){ ?>
-                                <tr>
-                                    <td>
-                                        <a href="<?php echo URL::build('/admin/core/', 'view=general'); ?>"><?php echo $language->get('admin', 'general_settings'); ?></a>
-                                    </td>
-                                </tr>
-                                <?php } if($user->hasPermission('admincp.core.api')){ ?>
+                                <?php if ($user->hasPermission('admincp.core.general')) { ?>
+                                    <tr>
+                                        <td>
+                                            <a href="<?php echo URL::build('/admin/core/', 'view=general'); ?>"><?php echo $language->get('admin', 'general_settings'); ?></a>
+                                        </td>
+                                    </tr>
+                                <?php }
+                                if ($user->hasPermission('admincp.core.api')) { ?>
                                     <tr>
                                         <td>
                                             <a href="<?php echo URL::build('/admin/api'); ?>"><?php echo $language->get('admin', 'api'); ?></a>
                                         </td>
                                     </tr>
-                                <?php } if($user->hasPermission('admincp.core.avatars')){ ?>
-                                <tr>
-                                    <td>
-                                        <a href="<?php echo URL::build('/admin/core/', 'view=avatars'); ?>"><?php echo $language->get('admin', 'avatars'); ?></a>
-                                    </td>
-                                </tr>
-                                <?php } if($user->hasPermission('admincp.core.fields')){ ?>
-                                <tr>
-                                    <td>
-                                        <a href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>"><?php echo $language->get('admin', 'custom_fields'); ?></a>
-                                    </td>
-                                </tr>
-                                <?php } if($user->hasPermission('admincp.core.debugging')){ ?>
-                                <tr>
-                                    <td>
-                                        <a href="<?php echo URL::build('/admin/core/', 'view=maintenance'); ?>"><?php echo $language->get('admin', 'debugging_and_maintenance'); ?></a>
-                                    </td>
-                                </tr>
-                                <?php } if($user->hasPermission('admincp.core.emails')){ ?>
-                                <tr>
-                                    <td>
-                                        <a href="<?php echo URL::build('/admin/core/', 'view=email'); ?>"><?php echo $language->get('admin', 'emails'); ?></a>
-                                    </td>
-                                </tr>
-                                <?php } if($user->hasPermission('admincp.core.navigation')){ ?>
-                                <tr>
-                                    <td>
-                                        <a href="<?php echo URL::build('/admin/core/', 'view=navigation'); ?>"><?php echo $language->get('admin', 'navigation'); ?></a>
-                                    </td>
-                                </tr>
-                                <?php } if($user->hasPermission('admincp.core.terms')){ ?>
+                                <?php }
+                                if ($user->hasPermission('admincp.core.avatars')) { ?>
+                                    <tr>
+                                        <td>
+                                            <a href="<?php echo URL::build('/admin/core/', 'view=avatars'); ?>"><?php echo $language->get('admin', 'avatars'); ?></a>
+                                        </td>
+                                    </tr>
+                                <?php }
+                                if ($user->hasPermission('admincp.core.fields')) { ?>
+                                    <tr>
+                                        <td>
+                                            <a href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>"><?php echo $language->get('admin', 'custom_fields'); ?></a>
+                                        </td>
+                                    </tr>
+                                <?php }
+                                if ($user->hasPermission('admincp.core.debugging')) { ?>
+                                    <tr>
+                                        <td>
+                                            <a href="<?php echo URL::build('/admin/core/', 'view=maintenance'); ?>"><?php echo $language->get('admin', 'debugging_and_maintenance'); ?></a>
+                                        </td>
+                                    </tr>
+                                <?php }
+                                if ($user->hasPermission('admincp.core.emails')) { ?>
+                                    <tr>
+                                        <td>
+                                            <a href="<?php echo URL::build('/admin/core/', 'view=email'); ?>"><?php echo $language->get('admin', 'emails'); ?></a>
+                                        </td>
+                                    </tr>
+                                <?php }
+                                if ($user->hasPermission('admincp.core.navigation')) { ?>
+                                    <tr>
+                                        <td>
+                                            <a href="<?php echo URL::build('/admin/core/', 'view=navigation'); ?>"><?php echo $language->get('admin', 'navigation'); ?></a>
+                                        </td>
+                                    </tr>
+                                <?php }
+                                if ($user->hasPermission('admincp.core.terms')) { ?>
                                     <tr>
                                         <td>
                                             <a href="<?php echo URL::build('/admin/core/', 'view=terms'); ?>"><?php echo $language->get('admin', 'privacy_and_terms'); ?></a>
                                         </td>
                                     </tr>
-                                <?php } if($user->hasPermission('admincp.core.reactions')){ ?>
-                                <tr>
-                                    <td>
-                                        <a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>"><?php echo $language->get('user', 'reactions'); ?></a>
-                                    </td>
-                                </tr>
-                                <?php } if($user->hasPermission('admincp.core.registration')){ ?>
-                                <tr>
-                                    <td>
-                                        <a href="<?php echo URL::build('/admin/registration'); ?>"><?php echo $language->get('admin', 'registration'); ?></a>
-                                    </td>
-                                </tr>
-                                <?php } if($user->hasPermission('admincp.core.social_media')){ ?>
-                                <tr>
-                                    <td>
-                                        <a href="<?php echo URL::build('/admin/core/', 'view=social'); ?>"><?php echo $language->get('admin', 'social_media'); ?></a>
-                                    </td>
-                                </tr>
+                                <?php }
+                                if ($user->hasPermission('admincp.core.reactions')) { ?>
+                                    <tr>
+                                        <td>
+                                            <a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>"><?php echo $language->get('user', 'reactions'); ?></a>
+                                        </td>
+                                    </tr>
+                                <?php }
+                                if ($user->hasPermission('admincp.core.registration')) { ?>
+                                    <tr>
+                                        <td>
+                                            <a href="<?php echo URL::build('/admin/registration'); ?>"><?php echo $language->get('admin', 'registration'); ?></a>
+                                        </td>
+                                    </tr>
+                                <?php }
+                                if ($user->hasPermission('admincp.core.social_media')) { ?>
+                                    <tr>
+                                        <td>
+                                            <a href="<?php echo URL::build('/admin/core/', 'view=social'); ?>"><?php echo $language->get('admin', 'social_media'); ?></a>
+                                        </td>
+                                    </tr>
                                 <?php } ?>
                             </table>
                         </div>
@@ -156,7 +166,7 @@ $current_default_language = $current_default_language[0]->value;
                     } else {
                         switch ($_GET['view']) {
                             case 'general':
-                                if(!$user->hasPermission('admincp.core.general')){
+                                if (!$user->hasPermission('admincp.core.general')) {
                                     Redirect::to(URL::build('/admin/core'));
                                     die();
                                 }
@@ -278,15 +288,15 @@ $current_default_language = $current_default_language[0]->value;
                                             // Update cache
                                             $cache->setCache('portal_cache');
                                             $cache->store('portal', $use_portal);
-											
+
                                             // Private profile
                                             $private_profile_id = $queries->getWhere('settings', array('name', '=', 'private_profile'));
                                             $private_profile_id = $private_profile_id[0]->id;
 
-                                            if($_POST['privateProfile'])
-                                              $private_profile = 1;
+                                            if ($_POST['privateProfile'])
+                                                $private_profile = 1;
                                             else
-                                              $private_profile = 0;
+                                                $private_profile = 0;
 
                                             $queries->update('settings', $private_profile_id, array(
                                                 'value' => $private_profile
@@ -375,7 +385,7 @@ $current_default_language = $current_default_language[0]->value;
                                             ));
 
                                             Log::getInstance()->log(Log::Action('admin/core/general'));
-                                            
+
                                             // Update cache
                                             $cache->setCache('force_https_cache');
                                             $cache->store('force_https', $https);
@@ -513,7 +523,7 @@ $current_default_language = $current_default_language[0]->value;
                                     <div class="form-group">
                                         <?php
                                         // Get force SSL setting
-                                        if(defined('FORCE_SSL'))
+                                        if (defined('FORCE_SSL'))
                                             $force_https = true;
                                         else
                                             $force_https = false;
@@ -528,7 +538,7 @@ $current_default_language = $current_default_language[0]->value;
                                             <option value="false"<?php if (!$force_https) { ?> selected<?php } ?>><?php echo $language->get('admin', 'disabled'); ?></option>
                                         </select>
                                     </div>
-									<div class="form-group">
+                                    <div class="form-group">
                                         <label for="inputPrivateProfile"><?php echo $language->get('user', 'private_profile'); ?></label>
                                         <?php
                                         // Get private profile settings
@@ -568,13 +578,13 @@ $current_default_language = $current_default_language[0]->value;
                                     <div class="form-group">
                                         <label for=allowedProxies"><?php echo $language->get('admin', 'allowed_proxies'); ?></label>
                                         <?php
-                                        // Make sure there's a default list
-                                        $allowedProxies = Config::get("allowedProxies");
-                                        $allowedProxies = str_replace(",", "\n", $allowedProxies)
-                                        ?>
+                                    // Make sure there's a default list
+                                    $allowedProxies = Config::get("allowedProxies");
+                                    $allowedProxies = str_replace(",", "\n", $allowedProxies)
+                                    ?>
                                         <textarea class="form-control" placeholder="<?php echo $language->get('admin', 'allowed_proxies_info'); ?>" name="allowedProxies" id="allowedProxies" cols="30" rows="10"><?php
-                                            echo $allowedProxies;
-                                            ?></textarea>
+                                    echo $allowedProxies;
+                                    ?></textarea>
                                     </div>
                                     -->
                                     <br/>
@@ -586,7 +596,7 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'profile':
-                                if(!$user->hasPermission('admincp.core.fields')){
+                                if (!$user->hasPermission('admincp.core.fields')) {
                                     Redirect::to(URL::build('/admin/core'));
                                     die();
                                 }
@@ -596,22 +606,23 @@ $current_default_language = $current_default_language[0]->value;
                                     ?>
                                     <h4 style="display:inline;"><?php echo $language->get('admin', 'custom_fields'); ?></h4>
                                     <span class="pull-right">
-                                      <a class="btn btn-primary" href="<?php echo URL::build('/admin/core/', 'view=profile&amp;action=new'); ?>"><?php echo $language->get('admin', 'new_field'); ?></a>
+                                      <a class="btn btn-primary"
+                                         href="<?php echo URL::build('/admin/core/', 'view=profile&amp;action=new'); ?>"><?php echo $language->get('admin', 'new_field'); ?></a>
                                     </span>
                                     <br/><br/>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th><?php echo $language->get('admin', 'field_name'); ?></th>
-                                            <th><?php echo $language->get('admin', 'type'); ?></th>
-                                            <th><?php echo $language->get('admin', 'required'); ?></th>
-											<th><?php echo $language->get('admin', 'editable'); ?></th>
-                                            <th><?php echo $language->get('admin', 'public'); ?></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php
-                                        if (count($profile_fields)) {
+                                    <?php if (count($profile_fields)) { ?>
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th><?php echo $language->get('admin', 'field_name'); ?></th>
+                                                <th><?php echo $language->get('admin', 'type'); ?></th>
+                                                <th><?php echo $language->get('admin', 'required'); ?></th>
+                                                <th><?php echo $language->get('admin', 'editable'); ?></th>
+                                                <th><?php echo $language->get('admin', 'public'); ?></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
                                             foreach ($profile_fields as $field) {
                                                 ?>
                                                 <tr>
@@ -637,7 +648,7 @@ $current_default_language = $current_default_language[0]->value;
                                                         if ($field->required == 1) echo '<i class="fa fa-check-circle-o" aria-hidden="true"></i>';
                                                         else echo '<i class="fa fa-times-circle-o" aria-hidden="true"></i>';
                                                         ?></td>
-													<td><?php
+                                                    <td><?php
                                                         if ($field->editable == 1) echo '<i class="fa fa-check-circle-o" aria-hidden="true"></i>';
                                                         else echo '<i class="fa fa-times-circle-o" aria-hidden="true"></i>';
                                                         ?></td>
@@ -648,11 +659,13 @@ $current_default_language = $current_default_language[0]->value;
                                                 </tr>
                                                 <?php
                                             }
-                                        }
-                                        ?>
-                                        </tbody>
-                                    </table>
-                                    <?php
+                                            ?>
+                                            </tbody>
+                                        </table>
+                                        <?php
+                                    } else {
+                                        echo '<div class="alert alert-info">' . $language->get('admin', 'no_custom_fields') . '</div>';
+                                    }
                                 } else {
                                     if (isset($_GET['action'])) {
                                         if ($_GET['action'] == 'new') {
@@ -685,8 +698,8 @@ $current_default_language = $current_default_language[0]->value;
 
                                                             if (isset($_POST['forum']) && $_POST['forum'] == 'on') $forum_posts = 1;
                                                             else $forum_posts = 0;
-															
-															if (isset($_POST['editable']) && $_POST['editable'] == 'on') $editable = 1;
+
+                                                            if (isset($_POST['editable']) && $_POST['editable'] == 'on') $editable = 1;
                                                             else $editable = 0;
 
                                                             // Insert into database
@@ -697,7 +710,7 @@ $current_default_language = $current_default_language[0]->value;
                                                                 'required' => $required,
                                                                 'description' => Output::getClean(Input::get('description')),
                                                                 'forum_posts' => $forum_posts,
-																'editable' => $editable
+                                                                'editable' => $editable
                                                             ));
 
                                                             Log::getInstance()->log(Log::Action('admin/core/profile/new'), Output::getClean(Input::get('name')));
@@ -723,7 +736,9 @@ $current_default_language = $current_default_language[0]->value;
                                             ?>
                                             <h4 style="display:inline;"><?php echo $language->get('admin', 'creating_profile_field'); ?></h4>
                                             <span class="pull-right">
-                                              <a class="btn btn-danger" href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
+                                              <a class="btn btn-danger"
+                                                 href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>"
+                                                 onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
                                             </span>
                                             <br/><br/>
                                             <?php if (isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
@@ -760,8 +775,8 @@ $current_default_language = $current_default_language[0]->value;
                                                     <input type="checkbox" id="inputRequired" name="required"
                                                            class="js-switch"/>
                                                 </div>
-												
-												<div class="form-group">
+
+                                                <div class="form-group">
                                                     <label for="inputEditable"><?php echo $language->get('admin', 'editable'); ?></label>
                                                     <span class="badge badge-info"><i class="fa fa-question"
                                                                                       data-container="body"
@@ -807,7 +822,7 @@ $current_default_language = $current_default_language[0]->value;
                                             <?php
                                         } else if ($_GET['action'] == 'delete') {
                                             // Delete field
-                                            if (isset($_GET['id'])){
+                                            if (isset($_GET['id'])) {
                                                 $queries->delete('profile_fields', array('id', '=', $_GET['id']));
                                                 Log::getInstance()->log(Log::Action('admin/core/profile/delete'), Output::getClean($_GET['id']));
                                             }
@@ -860,8 +875,8 @@ $current_default_language = $current_default_language[0]->value;
 
                                                         if (isset($_POST['forum']) && $_POST['forum'] == 'on') $forum_posts = 1;
                                                         else $forum_posts = 0;
-														
-														if (isset($_POST['editable']) && $_POST['editable'] == 'on') $editable = 1;
+
+                                                        if (isset($_POST['editable']) && $_POST['editable'] == 'on') $editable = 1;
                                                         else $editable = 0;
 
                                                         // Update database
@@ -872,7 +887,7 @@ $current_default_language = $current_default_language[0]->value;
                                                             'required' => $required,
                                                             'description' => Output::getClean(Input::get('description')),
                                                             'forum_posts' => $forum_posts,
-															'editable' => $editable
+                                                            'editable' => $editable
                                                         ));
 
                                                         Log::getInstance()->log(Log::Action('admin/core/profile/update'), Output::getClean(Input::get('name')));
@@ -900,8 +915,12 @@ $current_default_language = $current_default_language[0]->value;
                                         ?>
                                         <h4 style="display:inline;"><?php echo $language->get('admin', 'editing_profile_field'); ?></h4>
                                         <span class="pull-right">
-                                          <a class="btn btn-warning" href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
-                                          <a class="btn btn-danger" href="<?php echo URL::build('/admin/core/', 'view=profile&amp;action=delete&amp;id=' . $field->id); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_deletion'); ?>');"><?php echo $language->get('general', 'delete'); ?></a>
+                                          <a class="btn btn-warning"
+                                             href="<?php echo URL::build('/admin/core/', 'view=profile'); ?>"
+                                             onclick="return confirm('<?php echo $language->get('general', 'confirm_cancel'); ?>');"><?php echo $language->get('general', 'cancel'); ?></a>
+                                          <a class="btn btn-danger"
+                                             href="<?php echo URL::build('/admin/core/', 'view=profile&amp;action=delete&amp;id=' . $field->id); ?>"
+                                             onclick="return confirm('<?php echo $language->get('general', 'confirm_deletion'); ?>');"><?php echo $language->get('general', 'delete'); ?></a>
                                         </span>
                                         <br/><br/>
                                         <?php if (isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
@@ -939,8 +958,8 @@ $current_default_language = $current_default_language[0]->value;
                                                 <input type="checkbox" id="inputRequired" name="required"
                                                        class="js-switch" <?php if ($field->required == 1) echo ' checked'; ?>/>
                                             </div>
-											
-											<div class="form-group">
+
+                                            <div class="form-group">
                                                 <label for="inputEditable"><?php echo $language->get('admin', 'editable'); ?></label>
                                                 <span class="badge badge-info"><i class="fa fa-question"
                                                                                   data-container="body"
@@ -988,7 +1007,7 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'reactions':
-                                if(!$user->hasPermission('admincp.core.reactions')){
+                                if (!$user->hasPermission('admincp.core.reactions')) {
                                     Redirect::to(URL::build('/admin/core'));
                                     die();
                                 }
@@ -998,9 +1017,10 @@ $current_default_language = $current_default_language[0]->value;
                                     ?>
                                     <h4 style="display:inline;"><?php echo $language->get('user', 'reactions'); ?></h4>
                                     <span class="pull-right">
-                                      <a class="btn btn-primary" href="<?php echo URL::build('/admin/core/', 'view=reactions&amp;action=new'); ?>"><?php echo $language->get('admin', 'new_reaction'); ?></a>
+                                      <a class="btn btn-primary"
+                                         href="<?php echo URL::build('/admin/core/', 'view=reactions&amp;action=new'); ?>"><?php echo $language->get('admin', 'new_reaction'); ?></a>
                                     </span>
-                                    <br /><br />
+                                    <br/><br/>
                                     <table class="table">
                                         <thead>
                                         <tr>
@@ -1013,7 +1033,9 @@ $current_default_language = $current_default_language[0]->value;
                                         <tbody>
                                         <?php
                                         if (count($reactions)){
-                                        foreach ($reactions as $reaction){
+                                        foreach ($reactions
+
+                                        as $reaction){
                                         ?>
                                         <tr>
                                             <td>
@@ -1105,8 +1127,11 @@ $current_default_language = $current_default_language[0]->value;
                                         ?>
                                         <h4 style="display:inline;"><?php echo $language->get('admin', 'editing_reaction'); ?></h4>
                                         <span class="pull-right">
-                                          <a href="<?php echo URL::build('/admin/core/', 'view=reactions&amp;action=delete&amp;reaction=' . $reaction->id); ?>" onclick="return confirm('<?php echo $language->get('general', 'confirm_deletion'); ?>');" class="btn btn-danger"><?php echo $language->get('general', 'delete'); ?></a>
-                                          <a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>" class="btn btn-warning"><?php echo $language->get('general', 'cancel'); ?></a>
+                                          <a href="<?php echo URL::build('/admin/core/', 'view=reactions&amp;action=delete&amp;reaction=' . $reaction->id); ?>"
+                                             onclick="return confirm('<?php echo $language->get('general', 'confirm_deletion'); ?>');"
+                                             class="btn btn-danger"><?php echo $language->get('general', 'delete'); ?></a>
+                                          <a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>"
+                                             class="btn btn-warning"><?php echo $language->get('general', 'cancel'); ?></a>
                                         </span>
                                         <hr/>
                                         <form action="" method="post">
@@ -1211,7 +1236,8 @@ $current_default_language = $current_default_language[0]->value;
                                             ?>
                                             <h4 style="display:inline;"><?php echo $language->get('admin', 'creating_reaction'); ?></h4>
                                             <span class="pull-right">
-                                              <a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>" class="btn btn-warning"><?php echo $language->get('general', 'cancel'); ?></a>
+                                              <a href="<?php echo URL::build('/admin/core/', 'view=reactions'); ?>"
+                                                 class="btn btn-warning"><?php echo $language->get('general', 'cancel'); ?></a>
                                             </span>
                                             <hr/>
                                             <form action="" method="post">
@@ -1276,7 +1302,7 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'social':
-                                if(!$user->hasPermission('admincp.core.social_media')){
+                                if (!$user->hasPermission('admincp.core.social_media')) {
                                     Redirect::to(URL::build('/admin/core'));
                                     die();
                                 }
@@ -1319,7 +1345,7 @@ $current_default_language = $current_default_language[0]->value;
 
                                         $cache->store('twitter_theme', $theme);
 
-										// Discord ID
+                                        // Discord ID
                                         $discord_id = $queries->getWhere('settings', array('name', '=', 'discord'));
                                         $discord_id = $discord_id[0]->id;
 
@@ -1328,7 +1354,7 @@ $current_default_language = $current_default_language[0]->value;
                                         ));
 
                                         $cache->store('discord', Output::getClean(Input::get('discordid')));
-										
+
                                         // Google Plus URL
                                         $gplus_url_id = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
                                         $gplus_url_id = $gplus_url_id[0]->id;
@@ -1359,7 +1385,7 @@ $current_default_language = $current_default_language[0]->value;
                                         $discord_hooks_id = $queries->getWhere('settings', array('name', '=', 'discord_hooks'));
                                         $discord_hooks_id = $discord_hooks_id[0]->id;
 
-                                        if(isset($_POST['discord_hooks']))
+                                        if (isset($_POST['discord_hooks']))
                                             $hooks = $_POST['discord_hooks'];
                                         else
                                             $hooks = array();
@@ -1386,7 +1412,7 @@ $current_default_language = $current_default_language[0]->value;
                                 $youtube_url = $queries->getWhere('settings', array('name', '=', 'youtube_url'));
                                 $twitter_url = $queries->getWhere('settings', array('name', '=', 'twitter_url'));
                                 $twitter_style = $queries->getWhere('settings', array('name', '=', 'twitter_style'));
-								$discord = $queries->getWhere('settings', array('name', '=', 'discord'));
+                                $discord = $queries->getWhere('settings', array('name', '=', 'discord'));
                                 $gplus_url = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
                                 $fb_url = $queries->getWhere('settings', array('name', '=', 'fb_url'));
                                 $discord_url = $queries->getWhere('settings', array('name', '=', 'discord_url'));
@@ -1440,13 +1466,17 @@ $current_default_language = $current_default_language[0]->value;
                                     <div class="alert alert-info"><?php echo $language->get('admin', 'discord_hooks_info'); ?></div>
                                     <div class="form-group">
                                         <label for="InputDiscordHookURL"><?php echo $language->get('admin', 'discord_hook_url'); ?></label>
-                                        <input type="text" class="form-control" name="discord_url" placeholder="<?php echo $language->get('admin', 'discord_hook_url'); ?>" value="<?php echo Output::getClean($discord_url[0]->value); ?>" id="InputDiscordHookURL">
+                                        <input type="text" class="form-control" name="discord_url"
+                                               placeholder="<?php echo $language->get('admin', 'discord_hook_url'); ?>"
+                                               value="<?php echo Output::getClean($discord_url[0]->value); ?>"
+                                               id="InputDiscordHookURL">
                                     </div>
                                     <div class="form-group">
                                         <label for="InputDiscordHooks"><?php echo $language->get('admin', 'discord_hook_events'); ?></label>
-                                        <select multiple class="form-control" name="discord_hooks[]" id="InputDiscordHooks">
-                                            <?php foreach(HookHandler::getHooks() as $hook => $description){ ?>
-                                            <option value="<?php echo Output::getClean($hook); ?>"<?php if(in_array(Output::getClean($hook), $discord_hooks)) echo ' selected'; ?>><?php echo Output::getClean($description); ?></option>
+                                        <select multiple class="form-control" name="discord_hooks[]"
+                                                id="InputDiscordHooks">
+                                            <?php foreach (HookHandler::getHooks() as $hook => $description) { ?>
+                                                <option value="<?php echo Output::getClean($hook); ?>"<?php if (in_array(Output::getClean($hook), $discord_hooks)) echo ' selected'; ?>><?php echo Output::getClean($description); ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -1458,7 +1488,7 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'maintenance':
-                                if(!$user->hasPermission('admincp.core.debugging')){
+                                if (!$user->hasPermission('admincp.core.debugging')) {
                                     Redirect::to(URL::build('/admin/core'));
                                     die();
                                 }
@@ -1548,15 +1578,18 @@ $current_default_language = $current_default_language[0]->value;
                                     $maintenance = $cache->retrieve('maintenance');
 
                                     $cache->setCache('page_load_cache');
-                                    if($cache->isCached('page_load'))
+                                    if ($cache->isCached('page_load'))
                                         $page_loading = $cache->retrieve('page_load');
                                     else
                                         $page_loading = 0;
                                 }
                                 ?>
                                 <h4 style="display:inline;"><?php echo $language->get('admin', 'debugging_and_maintenance'); ?></h4>
-                                <?php if($user->hasPermission('admincp.errors')){ ?><span class="pull-right"><a class="btn btn-primary" href="<?php echo URL::build('/admin/core/', 'view=errors'); ?>"><?php echo $language->get('admin', 'error_logs'); ?></a></span><?php } ?>
-                                <br /><br />
+                                <?php if ($user->hasPermission('admincp.errors')) { ?><span class="pull-right"><a
+                                        class="btn btn-primary"
+                                        href="<?php echo URL::build('/admin/core/', 'view=errors'); ?>"><?php echo $language->get('admin', 'error_logs'); ?></a>
+                                </span><?php } ?>
+                                <br/><br/>
 
                                 <form action="" method="post">
                                     <?php if (isset($error)) { ?>
@@ -1569,8 +1602,9 @@ $current_default_language = $current_default_language[0]->value;
                                     </div>
                                     <div class="form-group">
                                         <label for="InputPageLoad"><?php echo $language->get('admin', 'enable_page_load_timer'); ?></label>
-                                        <input id="InputPageLoad" name="enable_page_load_timer" type="checkbox" class="js-switch"
-                                               value="1" <?php if($page_loading == '1') echo 'checked'; ?>/>
+                                        <input id="InputPageLoad" name="enable_page_load_timer" type="checkbox"
+                                               class="js-switch"
+                                               value="1" <?php if ($page_loading == '1') echo 'checked'; ?>/>
                                     </div>
                                     <div class="form-group">
                                         <label for="InputMaintenance"><?php echo $language->get('admin', 'enable_maintenance_mode'); ?></label>
@@ -1593,7 +1627,7 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'email':
-                                if(!$user->hasPermission('admincp.core.emails')){
+                                if (!$user->hasPermission('admincp.core.emails')) {
                                     Redirect::to(URL::build('/admin/core'));
                                     die();
                                 }
@@ -1680,11 +1714,11 @@ $current_default_language = $current_default_language[0]->value;
                                                             <?php
                                                         }
                                                     }
-                                                } else if($error->type == 4){
+                                                } else if ($error->type == 4) {
                                                     $user_error = $queries->getWhere('users', array('id', '=', $error->user_id));
-                                                    if(count($user_error)){
+                                                    if (count($user_error)) {
                                                         $user_error = $user_error[0];
-                                                        if($user_error->active == 0 && !is_null($user_error->reset_code)){
+                                                        if ($user_error->active == 0 && !is_null($user_error->reset_code)) {
                                                             ?>
                                                             <div class="alert alert-info"><?php echo str_replace('{x}', rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . Output::getClean($user_error->reset_code)), $language->get('admin', 'link_to_complete_registration')); ?></div>
                                                             <?php
@@ -1820,7 +1854,7 @@ $current_default_language = $current_default_language[0]->value;
                                                 $headers = 'From: ' . $siteemail . "\r\n" .
                                                     'Reply-To: ' . $siteemail . "\r\n" .
                                                     'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                                                    'MIME-Version: 1.0' . "\r\n" . 
+                                                    'MIME-Version: 1.0' . "\r\n" .
                                                     'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                                                 $email = array(
@@ -1933,12 +1967,12 @@ $current_default_language = $current_default_language[0]->value;
                                                     $error = $language->get('admin', 'unable_to_write_email_config');
                                                 }
                                             }
-											
-											if(!isset($error)){
-												// Redirect to refresh config values
-												Redirect::to(URL::build('/admin/core/', 'view=email'));
-												die();
-											}
+
+                                            if (!isset($error)) {
+                                                // Redirect to refresh config values
+                                                Redirect::to(URL::build('/admin/core/', 'view=email'));
+                                                die();
+                                            }
                                         } else
                                             $error = $language->get('general', 'invalid_token');
                                     }
@@ -2033,7 +2067,7 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'terms':
-                                if(!$user->hasPermission('admincp.core.terms')){
+                                if (!$user->hasPermission('admincp.core.terms')) {
                                     Redirect::to(URL::build('/admin/core'));
                                     die();
                                 }
@@ -2115,7 +2149,7 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'avatars':
-                                if(!$user->hasPermission('admincp.core.avatars')){
+                                if (!$user->hasPermission('admincp.core.avatars')) {
                                     Redirect::to(URL::build('/admin/core'));
                                     die();
                                 }
@@ -2311,33 +2345,33 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'navigation':
-                                if(!$user->hasPermission('admincp.core.navigation')){
+                                if (!$user->hasPermission('admincp.core.navigation')) {
                                     Redirect::to(URL::build('/admin/core'));
                                     die();
                                 }
                                 // Maintenance mode settings
                                 // Deal with input
-                                if(Input::exists()){
-                                    if(Token::check(Input::get('token'))){
+                                if (Input::exists()) {
+                                    if (Token::check(Input::get('token'))) {
                                         // Valid token
                                         // Update cache
                                         $cache->setCache('navbar_order');
-                                        if(isset($_POST['inputOrder']) && count($_POST['inputOrder'])) {
-                                            foreach($_POST['inputOrder'] as $key => $item){
-                                                if(is_numeric($item) && $item > 0){
+                                        if (isset($_POST['inputOrder']) && count($_POST['inputOrder'])) {
+                                            foreach ($_POST['inputOrder'] as $key => $item) {
+                                                if (is_numeric($item) && $item > 0) {
                                                     $cache->store($key . '_order', $item);
                                                 }
                                             }
                                         }
-										
-										// Icons
+
+                                        // Icons
                                         $cache->setCache('navbar_icons');
-                                        if(isset($_POST['inputIcon']) && count($_POST['inputIcon'])){
-                                            foreach($_POST['inputIcon'] as $key => $item){
-                                                if(is_numeric($key)){
+                                        if (isset($_POST['inputIcon']) && count($_POST['inputIcon'])) {
+                                            foreach ($_POST['inputIcon'] as $key => $item) {
+                                                if (is_numeric($key)) {
                                                     // Custom page?
                                                     $custom_page = $queries->getWhere('custom_pages', array('id', '=', $key));
-                                                    if(count($custom_page)){
+                                                    if (count($custom_page)) {
                                                         $queries->update('custom_pages', $key, array(
                                                             'icon' => $item
                                                         ));
@@ -2346,8 +2380,8 @@ $current_default_language = $current_default_language[0]->value;
                                                 $cache->store($key . '_icon', $item);
                                             }
                                         }
-										
-										Log::getInstance()->log(Log::Action('admin/core/nav'));
+
+                                        Log::getInstance()->log(Log::Action('admin/core/nav'));
 
                                         // Reload to update info
                                         Redirect::to(URL::build('/admin/core/', 'view=navigation'));
@@ -2361,34 +2395,44 @@ $current_default_language = $current_default_language[0]->value;
                                 <h4><?php echo $language->get('admin', 'navigation'); ?></h4>
 
                                 <form action="" method="post">
-                                    <div class="alert alert-info"><?php echo $language->get('admin', 'navbar_order_instructions'); ?><hr /><?php echo $language->get('admin', 'navbar_icon_instructions'); ?></div>
+                                    <div class="alert alert-info"><?php echo $language->get('admin', 'navbar_order_instructions'); ?>
+                                        <hr/><?php echo $language->get('admin', 'navbar_icon_instructions'); ?></div>
                                     <?php
                                     // Display fields for each page
                                     $nav_items = $navigation->returnNav('top');
-                                    foreach($nav_items as $key => $item){
-										echo '<strong>' . Output::getClean($item['title']) . '</strong>';
+                                    foreach ($nav_items as $key => $item) {
+                                        echo '<strong>' . Output::getClean($item['title']) . '</strong>';
                                         ?>
-                                    <div class="form-group">
-                                        <label for="input<?php echo Output::getClean($item['title']); ?>"><?php echo $language->get('admin', 'navbar_order'); ?></label>
-                                        <input type="number" min="1" class="form-control" id="input<?php echo Output::getClean($item['title']); ?>" name="inputOrder[<?php echo ((isset($item['custom']) && is_numeric($item['custom'])) ? $item['custom'] : Output::getClean($key)); ?>]" value="<?php echo Output::getClean($item['order']); ?>">
-                                    </div>
-									<div class="form-group">
-                                        <label for="input<?php echo Output::getClean($item['title']); ?>Icon"><?php echo $language->get('admin', 'navbar_icon'); ?></label>
-                                        <input type="text" class="form-control" id="input<?php echo Output::getClean($item['title']); ?>Icon" name="inputIcon[<?php echo ((isset($item['custom']) && is_numeric($item['custom'])) ? $item['custom'] : Output::getClean($key)); ?>]" value="<?php echo Output::getClean($item['icon']); ?>">
-                                    </div>
-                                    <?php
-										if(isset($item['items']) && count($item['items'])){
+                                        <div class="form-group">
+                                            <label for="input<?php echo Output::getClean($item['title']); ?>"><?php echo $language->get('admin', 'navbar_order'); ?></label>
+                                            <input type="number" min="1" class="form-control"
+                                                   id="input<?php echo Output::getClean($item['title']); ?>"
+                                                   name="inputOrder[<?php echo((isset($item['custom']) && is_numeric($item['custom'])) ? $item['custom'] : Output::getClean($key)); ?>]"
+                                                   value="<?php echo Output::getClean($item['order']); ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="input<?php echo Output::getClean($item['title']); ?>Icon"><?php echo $language->get('admin', 'navbar_icon'); ?></label>
+                                            <input type="text" class="form-control"
+                                                   id="input<?php echo Output::getClean($item['title']); ?>Icon"
+                                                   name="inputIcon[<?php echo((isset($item['custom']) && is_numeric($item['custom'])) ? $item['custom'] : Output::getClean($key)); ?>]"
+                                                   value="<?php echo Output::getClean($item['icon']); ?>">
+                                        </div>
+                                        <?php
+                                        if (isset($item['items']) && count($item['items'])) {
                                             echo '<strong>' . Output::getClean($item['title']) . ' &raquo; ' . $language->get('admin', 'dropdown_items') . '</strong><br />';
-                                            foreach($item['items'] as $dropdown_key => $dropdown_item){
+                                            foreach ($item['items'] as $dropdown_key => $dropdown_item) {
                                                 echo '<strong>' . Output::getClean($dropdown_item['title']) . '</strong>';
                                                 ?>
                                                 <!--<div class="form-group">
                                                     <label for="input<?php echo Output::getClean($dropdown_item['title']); ?>"><?php echo $language->get('admin', 'navbar_order'); ?></label>
-                                                    <input type="number" min="1" class="form-control" id="input<?php echo Output::getClean($dropdown_item['title']); ?>" name="inputOrder[<?php echo ((isset($dropdown_item['custom']) && is_numeric($dropdown_item['custom'])) ? $dropdown_item['custom'] : Output::getClean($dropdown_key)); ?>]" value="<?php echo Output::getClean($dropdown_item['order']); ?>">
+                                                    <input type="number" min="1" class="form-control" id="input<?php echo Output::getClean($dropdown_item['title']); ?>" name="inputOrder[<?php echo((isset($dropdown_item['custom']) && is_numeric($dropdown_item['custom'])) ? $dropdown_item['custom'] : Output::getClean($dropdown_key)); ?>]" value="<?php echo Output::getClean($dropdown_item['order']); ?>">
                                                 </div>-->
                                                 <div class="form-group">
                                                     <label for="input<?php echo Output::getClean($dropdown_item['title']); ?>Icon"><?php echo $language->get('admin', 'navbar_icon'); ?></label>
-                                                    <input type="text" class="form-control" id="input<?php echo Output::getClean($dropdown_item['title']); ?>Icon" name="inputIcon[<?php echo ((isset($dropdown_item['custom']) && is_numeric($dropdown_item['custom'])) ? $dropdown_item['custom'] : Output::getClean($dropdown_key)); ?>]" value="<?php echo Output::getClean($dropdown_item['icon']); ?>">
+                                                    <input type="text" class="form-control"
+                                                           id="input<?php echo Output::getClean($dropdown_item['title']); ?>Icon"
+                                                           name="inputIcon[<?php echo((isset($dropdown_item['custom']) && is_numeric($dropdown_item['custom'])) ? $dropdown_item['custom'] : Output::getClean($dropdown_key)); ?>]"
+                                                           value="<?php echo Output::getClean($dropdown_item['icon']); ?>">
                                                 </div>
                                                 <?php
                                             }
@@ -2405,41 +2449,49 @@ $current_default_language = $current_default_language[0]->value;
                                 break;
 
                             case 'errors':
-                              if(!$user->hasPermission('admincp.errors')){
-                                Redirect::to(URL::build('/admin/core'));
-                                die();
-                              }
-                              echo '<h4 style="display:inline;">' . $language->get('admin', 'error_logs') . '</h4><span class="pull-right"><a class="btn btn-primary" href="' . (!isset($_GET['log']) ? URL::build('/admin/core/', 'view=maintenance') : URL::build('/admin/core/', 'view=errors')) . '">' . $language->get('general', 'back') . '</a></span><br /><br />';
-                              if(!isset($_GET['log'])){
-                              ?>
-                              <div class="table-responsive">
-                                <table class="table table-striped">
-                                  <tr>
-                                    <td><a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=fatal'); ?>"><?php echo $language->get('admin', 'fatal_log'); ?></a></td>
-                                  </tr>
-                                  <tr>
-                                    <td><a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=notice'); ?>"><?php echo $language->get('admin', 'notice_log'); ?></a></td>
-                                  </tr>
-                                  <tr>
-                                    <td><a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=warning'); ?>"><?php echo $language->get('admin', 'warning_log'); ?></a></td>
-                                  </tr>
-                                  <tr>
-                                    <td><a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=other'); ?>"><?php echo $language->get('admin', 'other_log'); ?></a></td>
-                                  </tr>
-                                </table>
-                              </div>
-                              <?php
-                              } else {
-                                if(!in_array($_GET['log'], array('fatal', 'notice', 'warning', 'other'))){
-                                  Redirect::to(URL::build('/admin/core/', 'view=errors'));
-                                  die();
+                                if (!$user->hasPermission('admincp.errors')) {
+                                    Redirect::to(URL::build('/admin/core'));
+                                    die();
                                 }
+                                echo '<h4 style="display:inline;">' . $language->get('admin', 'error_logs') . '</h4><span class="pull-right"><a class="btn btn-primary" href="' . (!isset($_GET['log']) ? URL::build('/admin/core/', 'view=maintenance') : URL::build('/admin/core/', 'view=errors')) . '">' . $language->get('general', 'back') . '</a></span><br /><br />';
+                                if (!isset($_GET['log'])) {
+                                    ?>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <tr>
+                                                <td>
+                                                    <a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=fatal'); ?>"><?php echo $language->get('admin', 'fatal_log'); ?></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=notice'); ?>"><?php echo $language->get('admin', 'notice_log'); ?></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=warning'); ?>"><?php echo $language->get('admin', 'warning_log'); ?></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="<?php echo URL::build('/admin/core/', 'view=errors&amp;log=other'); ?>"><?php echo $language->get('admin', 'other_log'); ?></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <?php
+                                } else {
+                                    if (!in_array($_GET['log'], array('fatal', 'notice', 'warning', 'other'))) {
+                                        Redirect::to(URL::build('/admin/core/', 'view=errors'));
+                                        die();
+                                    }
 
-                                if(isset($_GET['do']) && $_GET['do'] == 'purge')
-                                  file_put_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log')), '');
+                                    if (isset($_GET['do']) && $_GET['do'] == 'purge')
+                                        file_put_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log')), '');
 
-                                if(file_exists(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log')))){
-                                  echo '
+                                    if (file_exists(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log')))) {
+                                        echo '
                                   <style>
                                   .error_log {
                                     width: 100%;
@@ -2454,16 +2506,16 @@ $current_default_language = $current_default_language[0]->value;
                                     background-color: #eceeef;
                                   }
                                   </style>';
-                                  echo '<pre class="error_log">';
-                                  echo nl2br(Output::getClean(file_get_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log')))));
-                                  echo '</pre>';
-                                  echo '<hr /><h4>' . $language->get('general', 'actions') . '</h4>';
-                                  echo '<a href="' . URL::build('/admin/core/', 'view=errors&amp;log=' . $_GET['log'] . '&amp;do=purge') . '" class="btn btn-warning" onclick="return confirm(\'' . $language->get('admin', 'confirm_purge_errors') . '\');">' . $language->get('admin', 'purge_errors') . '</a>';
-                                } else {
-                                  echo '<div class="alert alert-info">' . $language->get('admin', 'log_file_not_found') . '</div>';
+                                        echo '<pre class="error_log">';
+                                        echo nl2br(Output::getClean(file_get_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log')))));
+                                        echo '</pre>';
+                                        echo '<hr /><h4>' . $language->get('general', 'actions') . '</h4>';
+                                        echo '<a href="' . URL::build('/admin/core/', 'view=errors&amp;log=' . $_GET['log'] . '&amp;do=purge') . '" class="btn btn-warning" onclick="return confirm(\'' . $language->get('admin', 'confirm_purge_errors') . '\');">' . $language->get('admin', 'purge_errors') . '</a>';
+                                    } else {
+                                        echo '<div class="alert alert-info">' . $language->get('admin', 'log_file_not_found') . '</div>';
+                                    }
                                 }
-                              }
-                              break;
+                                break;
 
                             default:
                                 Redirect::to(URL::build('/admin/core'));
@@ -2494,7 +2546,7 @@ $current_default_language = $current_default_language[0]->value;
     <script src="<?php if (defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
     <script src="<?php if (defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
     <script src="<?php if (defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/ckeditor.js"></script>
-    <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json"></script>
+    <script src="<?php if (defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json"></script>
     <script type="text/javascript">
         <?php
         if ($_GET['view'] == 'maintenance')

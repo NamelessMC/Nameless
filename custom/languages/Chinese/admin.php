@@ -162,6 +162,7 @@ $language = array(
 	'display_field_on_forum' => '在論壇中顯示區域?',
 	'profile_field_forum_help' => '如果啟用，區域的文字將會在論壇中被顯示.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
+	'no_custom_fields' => 'There are no custom fields yet.',
 
 	// Minecraft
 	'enable_minecraft_integration' => '啟用 Minecraft integration?',

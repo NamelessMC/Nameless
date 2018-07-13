@@ -160,6 +160,7 @@ $language = array(
 	'display_field_on_forum' => 'Veld laten zien in het forum?',
 	'profile_field_forum_help' => 'Als dit aan staat, wordt het veld weergegeven bij de gebruiker naast de forum berichten.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
+ 	'no_custom_fields' => 'There are no custom fields yet.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Minecraft integratie aan?',
