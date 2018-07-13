@@ -60,7 +60,7 @@ if($webstore == 'bc'){
                 $queries->update('donation_categories', $category[0]->id, array(
                     'name' => htmlspecialchars($item['name']),
                     'cid' => $item['id'],
-                    'order' => $item['order']
+                    '`order`' => $item['order']
                 ));
             }
 
@@ -191,7 +191,7 @@ if($webstore == 'bc'){
 
 			$queries->update('donation_categories', $cid, array(
 				'name' => $category_name,
-				'order' => ($category_order ? $category_order : 0),
+				'`order`' => ($category_order ? $category_order : 0),
 				'cid' => $category_id
 			));
 		}
