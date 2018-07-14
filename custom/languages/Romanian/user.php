@@ -177,7 +177,7 @@ $language = array(
 	'private_profile_page' => 'Acest profil este privat!',
 	'new_wall_post_reply' => '{x} a răspuns la postarea ta pe profilul lui {y}.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} a răspuns la postarea de pe profilul tău.', // Don't replace {x}
-	'no_about_fields' => 'This user has not added any about fields yet.',
+	'no_about_fields' => 'Acest utilizator nu si-a completat inca nici un camp aici.',
     
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',
