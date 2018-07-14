@@ -150,9 +150,11 @@ $admin_page = 'users_and_groups';
 											'group_html' => $group_html,
 											'group_html_lg' => $group_html_lg
 										));
+										$group_id = $queries->getLastID();
+
 										Log::getInstance()->log(Log::Action('admin/group/create'), Output::getClean(Input::get('groupname')));
 
-										Redirect::to(URL::build('/admin/groups/', 'group=' . $queries->getLastID()));
+										Redirect::to(URL::build('/admin/groups/', 'group=' . $group_id));
 										die();
 									
 									} catch(Exception $e){
