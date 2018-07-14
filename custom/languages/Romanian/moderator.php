@@ -49,10 +49,10 @@ $language = array(
     'report_comment_invalid' => 'Conținutul comentariului este nevalid. Asigurați-vă că ați introdus un comentariu între 1 și 10000 de caractere.',
     'close_report' => 'Închideți raportul',
     'reopen_report' => 'Redeschideți raportul',
-    '1_open_report' => 'There is currently <strong>1</strong> open report.',
+    '1_open_report' => 'În momentul de față există <strong>un</strong> raport deschis.',
     'open_reports' => 'În momentul de față există <strong>{x}</strong> rapoarte deschise.', // Don't replace {x}
-    'no_open_reports' => 'There are currently no open reports.',
-    'no_closed_reports' => 'There are currently no closed reports.',
+    'no_open_reports' => 'În momentul de față nu există rapoarte deschise.',
+    'no_closed_reports' => 'În momentul de față nu există rapoarte închise.',
     
     // Punishments
     'punishments' => 'Sancțiuni',
