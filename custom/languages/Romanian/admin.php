@@ -164,7 +164,7 @@ $language = array(
     'display_field_on_forum' => 'Afișați câmpul pe forum?',
     'profile_field_forum_help' => 'Dacă este activată, câmpul va fi afișat în dreptul postărilor pe forum sub numele utilizatorului.',
 	'profile_field_editable_help' => 'Dacă este activată, utilizatorii vor avea permisiunea de a edita câmpul în setările profilului.',
-	'no_custom_fields' => 'There are no custom fields yet.',
+	'no_custom_fields' => 'Momentan nu a fost adăugat nici un câmp personalizat pentru profil.',
 
     // Minecraft
     'enable_minecraft_integration' => 'Activați integrarea Minecraft?',
