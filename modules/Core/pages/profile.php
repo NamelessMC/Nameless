@@ -632,7 +632,7 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts 
 				if(!count($profile_field)) continue;
 				else $profile_field = $profile_field[0];
 				
-				if($profile_field->public == 0) continue;
+				if($profile_field->public == 0 || !$field->value) continue;
 				
 				// Get field type
 				switch($profile_field->type){
@@ -653,7 +653,9 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts 
 					'value' => Output::getPurified(Util::urlToAnchorTag(htmlspecialchars_decode($field->value)))
 				);
 			}
-		} else
+		}
+
+		if(!count($fields))
 			$smarty->assign('NO_ABOUT_FIELDS', $language->get('user', 'no_about_fields'));
 		
 		// Minecraft?
