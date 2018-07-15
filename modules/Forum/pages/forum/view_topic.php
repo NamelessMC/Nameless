@@ -664,7 +664,6 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	// Scripts 
 	require(ROOT_PATH . '/core/templates/scripts.php');
 	?>
-	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/js/jquery-ui.min.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/js/jquery.cookie.js"></script>
 	
 	<?php
@@ -693,16 +692,6 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
-			var hash = window.location.hash.substring(1);
-			$("#" + hash).effect("highlight", {}, 2000);
-			(function() {
-			    if (document.location.hash) {
-			        setTimeout(function() {
-			            window.scrollTo(window.scrollX, window.scrollY - 110);
-			        }, 10);
-			    }
-			})();
-			
 			<?php if($user->isLoggedIn()){ ?>
 			if(typeof $.cookie('<?php echo $tid; ?>-quoted') === 'undefined'){
 				$("#quoteButton").hide();
