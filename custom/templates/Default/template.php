@@ -413,5 +413,23 @@ if(!isset($admin_styles)){
   	});
   	</script>
   	';
+  } else if(strpos($route, '/forum/topic/') !== false){
+  	// Post highlight
+  	$js_sources[] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js';
+  	$js .= '
+  	  <script type="text/javascript">
+      $(document).ready(function(){
+			var hash = window.location.hash.substring(1);
+			$("#" + hash).effect("highlight", {}, 2000);
+			(function() {
+			    if (document.location.hash) {
+			        setTimeout(function() {
+			            window.scrollTo(window.scrollX, window.scrollY - 110);
+			        }, 10);
+			    }
+			})();
+      });
+      </script>
+  	';
   }
 }
