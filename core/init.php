@@ -101,7 +101,7 @@ if($page != 'install'){
             } else {
                 // Force www?
                 if(defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
-                    header('Location: https://www.'.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+                    header('Location: http://www.'.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
                     die();
                 }
             }
