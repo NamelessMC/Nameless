@@ -34,7 +34,7 @@
             {$PAGINATION}
 
 
-            <span class="pull-right">
+            <span class="float-md-right">
                 {if isset($UNFOLLOW)}
                     <a class="btn btn-primary" href="{$UNFOLLOW_URL}">{$UNFOLLOW}</a>
                 {else if isset($FOLLOW)}
@@ -117,7 +117,7 @@
                                 &raquo; <span data-toggle="tooltip" data-trigger="hover"
                                               data-original-title="{$reply.post_date}">{$reply.post_date_rough}</span>
 
-                                <span class="pull-right">
+                                <span class="float-md-right">
 			  {if isset($reply.buttons.spam)}
                   <button class="btn btn-danger btn-sm" rel="tooltip" data-trigger="hover"
                           data-original-title="{$reply.buttons.spam.TEXT}" data-toggle="modal"
