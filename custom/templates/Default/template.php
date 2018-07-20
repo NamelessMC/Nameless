@@ -413,7 +413,9 @@ if(!isset($admin_styles)){
   	});
   	</script>
   	';
-  } else if(strpos($route, '/forum/topic/') !== false){
+  } 
+  
+  if(strpos($route, '/forum/topic/') !== false){
   	// Post highlight
   	$js_sources[] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js';
   	$js .= '
