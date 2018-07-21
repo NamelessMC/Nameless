@@ -772,6 +772,32 @@ class Nameless2API
                     'extra' => $_POST['info']
                 ));
 
+
+                if(file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
+                    $query_cache = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache');
+                    $query_cache = json_decode($query_cache);
+                    if(isset($query_cache->query_interval))
+                        $query_interval = unserialize($query_cache->query_interval->data);
+                    else
+                        $query_interval = 10;
+
+                    $to_cache = array(
+                        'query_interval' => array(
+                            'time' => date('U'),
+                            'expire' => 0,
+                            'data' => serialize($query_interval)
+                        ),
+                        'last_query' => array(
+                            'time' => date('U'),
+                            'expire' => 0,
+                            'data' => serialize(date('U'))
+                        )
+                    );
+
+                    // Store in cache file
+                    file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache', json_encode($to_cache));
+                }
+
             } catch(Exception $e){
                 $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
             }
