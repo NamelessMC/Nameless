@@ -136,7 +136,7 @@ Core modules:
 ## Discord
 [<img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/HYVMgN2)
 
-The official [NamelessMC Discord bot](https://github.com/NamelessMC/NamelessBot) was made by [**BrightSkyz**](https:/github.com/BrightSkyz).
+The official [NamelessMC Discord bot](https://github.com/NamelessMC/NamelessBot) was made by [**BrightSkyz**](https://github.com/BrightSkyz).
 
 <!--## IRC
 \#NamelessMC on [irc.spi.gt](http://irc.spi.gt/iris/?channels=namelessmc)-->
