@@ -8,7 +8,7 @@
  *
  *  Romanian Language for Forum module
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ImGladius
- *  Last Update: 06/07/2018
+ *  Last Update: 26/07/2018
  */
 
 $language = array(
@@ -98,7 +98,7 @@ $language = array(
 	
 	// Homepage
 	'latest_announcements' => 'Cele mai recente articole',
-	'read_full_post' => 'Citiți articolul complet',
+	'read_full_post' => 'Subiect complet',
 	
 	// Admin tab
 	'labels' => 'Etichete',
