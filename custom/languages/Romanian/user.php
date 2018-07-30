@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Users
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 11/07/2018
+ *  Last Update: 30/07/2018
  */
 
 $language = array(
@@ -120,7 +120,7 @@ $language = array(
     'invalid_recaptcha' => 'Răspuns reCAPTCHA invalid.',
     'verify_account' => 'Verifica contul',
     'verify_account_help' => 'Urmați instrucțiunile de mai jos pentru a putea verifica dacă sunteți proprietarul contului Minecraft în cauză.',
-    'validate_account' => 'Confirmați contul',
+    'validate_account' => 'Confirmare cont',
     'verification_failed' => 'Verificare eșuată. Vă rugăm încercați din nou.',
     'verification_success' => 'Validat cu succes! Acum te poți loga.',
     'authme_username_exists' => 'Contul dvs. Authme a fost deja conectat la site-ul Web!',
