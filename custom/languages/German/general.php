@@ -105,7 +105,7 @@ $language = array(
     'currently_x_players_online' => 'Derzeit sind <strong>{x}</strong> Spieler online.', // Don't replace {x}
     'server_offline' => 'Der Server ist zurzeit Offline.',
     'connect_with_ip_x' => 'Verbinde dich jetzt mit folgender Adresse: {x}', // Don't replace {x}
-    'click_to_copy_tool_tip' => 'In Zwischenablage kopieren',
+    'click_to_copy_tooltip' => 'In Zwischenablage kopieren',
 
     /*
      *  Cookie notice

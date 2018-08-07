@@ -96,7 +96,7 @@ $language = array(
     'currently_x_players_online' => 'There are currently <strong>{x}</strong> players online.', // Don't replace {x}
     'server_offline' => 'The server is currently offline.',
     'connect_with_ip_x' => 'Connect now using the IP {x}', // Don't replace {x}
-    'click_to_copy_tool_tip' => 'Click to copy',
+    'click_to_copy_tooltip' => 'Click to copy',
 
     /*
      *  Cookie notice
