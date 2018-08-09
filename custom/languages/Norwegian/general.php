@@ -96,7 +96,8 @@ $language = array(
     'currently_1_player_online' => 'There is currently 1 player online.',
     'currently_x_players_online' => 'Det er <strong>{x}</strong> påloggede spillere.', // Don't replace {x}
     'server_offline' => 'Serveren er nede for øyeblikket.',
-    'connect_with_ip_x' => 'Koble til nå med IP <strong>{x}</strong>', // Don't replace {x}
+    'connect_with_ip_x' => 'Koble til nå med IP {x}', // Don't replace {x}
+    'click_to_copy_tooltip' => 'Click to copy',
 
     /*
      *  Cookie notice

@@ -96,7 +96,8 @@ $language = array(
     'currently_1_player_online' => 'There is currently 1 player online.',
     'currently_x_players_online' => 'Aktuálně je na serveru <strong>{x}</strong> online hráčů.', // Don't replace {x}
     'server_offline' => 'Server je aktuálně vypnut (offline).',
-    'connect_with_ip_x' => 'Připojte se nyní pomoci IP adresy <strong>{x}</strong>', // Don't replace {x}
+    'connect_with_ip_x' => 'Připojte se nyní pomoci IP adresy {x}', // Don't replace {x}
+    'click_to_copy_tooltip' => 'Click to copy',
 
     /*
      *  Cookie notice
