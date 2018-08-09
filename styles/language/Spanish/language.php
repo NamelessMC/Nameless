@@ -1,24 +1,24 @@
 <?php 
 /*
- *	Made by Samerton
+ *     Creado por Samerton
  *  http://worldscapemc.co.uk
  *
- *  License: MIT
+ *  Licencia: MIT
  *
- *  Translation created by @paloke, @mrlost, @Legomix13 and Dexkum
- *  Translation edited by @SrBas97
+ *  Traducción creada por @paloke, @mrlost, @Legomix13 and Dexkum
+ *  Traducción editada por @SrBas97 y @iJosGCS
  *
  */
 
 /*
- *  Spanish (ES-es)
+ *  Español (ES-es)
  */
  
 /*
- *  Admin Panel
+ *  Panel Administrativo
  */
 $admin_language = array(
-	// General terms
+	// Términos Generales
 	'admin_cp' => 'AdminCP', 
 	'infractions' => 'Las infracciones',
 	'invalid_token' => 'Token no válido, inténtelo de nuevo.',
@@ -30,10 +30,10 @@ $admin_language = array(
 	'actions' => 'Acciones',
 	'task_successful' => 'Tarea ejecutada correctamante',
 	
-	// Admin login
+	// Acceso de Administrador
 	're-authenticate' => 'Por favor, identifícate',
 	
-	// Admin sidebar
+	// Barra Lateral Administrativa
 	'index' => 'Información general',
 	'announcements' => 'Anuncios',
 	'core' => 'Principal',
@@ -46,13 +46,13 @@ $admin_language = array(
 	'addons' => 'Complementos',
 	'update' => 'Actualizar',
 	'misc' => 'Misceláneo',
-	'help' => 'Help',
+	'help' => 'Ayuda',
 	
-	// Admin index page
+	// Página Administrativa Principal
 	'statistics' => 'Estadísticas',
 	'registrations_per_day' => 'Registros por día (últimos 7 días)',
 	
-	// Admin announcements page
+	// Página Administrativa de los Anuncios
 	'current_announcements' => 'Anuncios actuales',
 	'create_announcement' => 'Crear anuncio',
 	'announcement_content' => 'Contenido del anuncio',
@@ -72,7 +72,7 @@ $admin_language = array(
 	'announcement_type' => 'Tipo de anuncio',
 	'can_view_announcement' => 'Se puede ver el anuncio?',
 	
-	// Admin core page
+	// Página Administrativa del Núcleo
 	'general_settings' => 'Configuración General',
 	'modules' => 'Módulos',
 	'module_not_exist' => '¡El módulo no existe!',
@@ -107,7 +107,7 @@ $admin_language = array(
 	'social_media_links' => 'Links de Redes Sociales',
 	'youtube_url' => 'YouTube URL',
 	'twitter_url' => 'Twitter URL',
-	'twitter_dark_theme' => 'Use dark Twitter theme?',
+	'twitter_dark_theme' => '¿Usar modo oscuro?',
 	'twitter_widget_id' => 'Twitter Widget ID',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
@@ -140,16 +140,16 @@ $admin_language = array(
 	'text' => 'Texto',
 	'textarea' => 'Área de texto',
 	'question_deleted' => 'Pregunta borrada',
-	'name_required' => 'Name is required.',
-	'question_required' => 'Question is required.',
-	'name_minimum' => 'Name must be a minimum of 2 characters.',
-	'question_minimum' => 'Question must be a minimum of 2 characters.',
-	'name_maximum' => 'Name must be a maximum of 16 characters.',
-	'question_maximum' => 'Question must be a maximum of 16 characters.',
+	'name_required' => 'El nombre es requerido.',
+	'question_required' => 'Las preguntas son requeridas.',
+	'name_minimum' => 'El nombre debe contener mínimo 2 caracteres.',
+	'question_minimum' => 'Las preguntas deben contener mínimo 2 caracteres.',
+	'name_maximum' => 'El nombre no debe contener más de 16 caracteres.',
+	'question_maximum' => 'Las preguntas no deben tener más de 16 caracteres.',
 	'use_followers' => '¿Utilizar seguidores?',
 	'use_followers_help' => 'Si esta desactivado, el sistema de amigos será utilizado.',
 	
-	// Admin custom pages page
+	// Página Administrativa de Ayuda sobre Páginas Personalizadas.
 	'click_on_page_to_edit' => 'Seleccione una página para editarla.',
 	'page' => 'Página:',
 	'url' => 'URL:',
@@ -175,9 +175,9 @@ $admin_language = array(
 	'can_view_page' => 'Puede ver la pagina:',
 	'redirect_page' => '¿Página redirigida?',
 	'redirect_link' => 'Link de redirección',
-	'page_icon' => 'Page Icon',
+	'page_icon' => 'Icono',
 	
-	// Admin forum page
+	// Página Administrativa de los Foros
 	'labels' => 'Etiquetas de tema',
 	'new_label' => 'Nueva etiqueta',
 	'no_labels_defined' => 'No se han definido etiquetas',
@@ -219,9 +219,9 @@ $admin_language = array(
 	'forum_name_maximum' => 'El titulo del foro debe tener al menos un máximo de 255 caracteres.',
 	'forum_description_maximum' => 'La descripción del foro debe tener un máximo de 255 caracteres.',
 	'forum_type_forum' => 'Foro de discusion',
-	'forum_type_category' => 'Categoria',
+	'forum_type_category' => 'Categoría',
 	
-	// Admin Users and Groups page
+	// Página Administrativa de Usuarios y Grupos
 	'users' => 'Usuarios',
 	'new_user' => 'Nuevo usuario',
 	'created' => 'Creado',
@@ -238,11 +238,11 @@ $admin_language = array(
 	'ip' => 'IP:',
 	'other_actions' => 'Otras acciones:',
 	'disable_avatar' => 'Desactivar avatar',
-	'enable_avatar' => 'Enable avatar',
+	'enable_avatar' => 'Activar avatar',
 	'confirm_user_deletion' => '¿Seguro que quiere borrar el usuario {x}?', // Don't replace "{x}"
 	'groups' => 'Grupos',
-	'group' => 'Grupo',
-	'group2' => 'Grupo 2',
+	'group' => 'Grupo Principal',
+	'group2' => 'Grupo Secundario',
 	'new_group' => 'Nuevo Grupo',
 	'id' => 'ID',
 	'name' => 'Nombre',
@@ -268,7 +268,7 @@ $admin_language = array(
 	'cant_delete_root_user' => 'No se puede eliminar el usuario principal!',
 	'cant_modify_root_user' => 'No se puede modificar el usuario principal o su grupos.',
 	
-	// Admin Minecraft page
+	// Página Administrativa de Minecraft
 	'minecraft_settings' => 'Configuración de Minecraft',
 	'use_plugin' => '¿Usar el plugin Nameless de Minecraft?',
 	'force_avatars' => '¿Forzar los avatares de Minecraft?',
@@ -323,9 +323,9 @@ $admin_language = array(
 	'mcassoc_instance' => 'Instancia de mcassoc',
 	'mcassoc_instance_help' => 'Genera tu Codigo de Instancia <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">aquí</a>.',
 	'mcassoc_key_help' => 'Obtén tu Llave de mcassoc <a href="https://mcassoc.lukegb.com/" target="_blank">aquí</a>.',
-	'enable_name_history' => 'Enable profile username history?',
+	'enable_name_history' => '¿Activar el historial de nombres?',
 	
-	// Admin Themes, Templates and Addons
+	// Página Administrativa de Temas, Plantilla y Complementos
 	'themes' => 'Temas',
 	'templates' => 'Plantillas',
 	'installed_themes' => 'Temas instalados',
@@ -359,19 +359,19 @@ $admin_language = array(
 	'inverse_navbar' => 'Barra de navegación inversa',
 	'confirm_theme_deletion' => '¿Seguro que desea borrar el tema <strong>{x}</strong>?<br /><br />El tema se eliminará de su directorio <strong>styles/themes</strong>.', // Don't replace {x}
 	'confirm_template_deletion' => '¿Seguro que desea borrar la plantilla <strong>{x}</strong>?<br /><br />La plantilla se eliminará de su directorio <strong>styles/templates</strong>.', // Don't replace {x}
-	'unable_to_enable_addon' => 'Could not enable addon. Please ensure it is a valid NamelessMC addon.',
+	'unable_to_enable_addon' => 'No se pudo activar el complemento. Asegúrese de que es un complemento para NamelessMC.',
 	
-	// Admin Misc page
+	// Página Administrativa Variada
 	'other_settings' => 'Otra configuración',
 	'enable_error_reporting' => '¿Activar reporte de errores?',
 	'error_reporting_description' => 'Esto sólo debe ser usado para depuración, Es muy recomendable que esté desactivado.',
 	'display_page_load_time' => '¿Mostar el tiempo de carga de la página?',
 	'page_load_time_description' => 'Activándolo mostrará el medidor de velocidad a pié de página indicando el tiempo en cargar.',
-	'reset_website' => 'Reiniciar sitio',
+	'reset_website' => 'Reestablecer Sitio',
 	'reset_website_info' => 'Se reiniciará su sitio Web y se eliminará su configuración. <strong>Los complementos serán desactivados pero no eliminados. Su configuración permanecerá sin cambios.</strong> Sus servidores de Minecraft se conservarán.',
 	'confirm_reset_website' => '¿Seguro que quiere reiniciar la configuración del sitio web?',
 	
-	// Admin Update page
+	// Página Administrativa de Actualizaciones
 	'installation_up_to_date' => 'Su instalación esta en fecha.',
 	'update_check_error' => 'Imposible buscar actualizaciones. Por favor, prueba luego.',
 	'new_update_available' => 'Una nueva actualización esta disponible.',
@@ -382,7 +382,7 @@ $admin_language = array(
 );
 
 /*
- *  Navbar
+ *  Menú
  */
 $navbar_language = array(
 	'home' => 'Inicio',
@@ -401,7 +401,7 @@ $navbar_language = array(
 );
 
 /*
- * User Related
+ * Relacionado con el Usuario
  */
 $user_language = array(
 	// Registration
@@ -410,10 +410,10 @@ $user_language = array(
 	'username' => 'Usuario',
 	'minecraft_username' => 'Usuario de Minecraft',
 	'email' => 'Correo',
-	'user_title' => 'Title',
+	'user_title' => 'Título',
 	'email_address' => 'Dirección de correo',
 	'date_of_birth' => 'Fecha de Cumpleaños',
-	'location' => 'Localización',
+	'location' => 'Ubicación',
 	'password' => 'Contraseña',
 	'confirm_password' => 'Confirmar la contraseña',
 	'i_agree' => 'Acepto',
@@ -463,9 +463,9 @@ $user_language = array(
 	'verification_failed' => 'Verificación fallida, Por favor inténtalo de nuevo.',
 	'verification_success' => 'Cuenta verificada correctamente, Ya puedes iniciar sesión.',
 	'complete_signup' => 'Completar Registro',
-	'registration_disabled' => 'Website registration is currently disabled.',
+	'registration_disabled' => 'Actualmente no estamos aceptando nuevos miembros.',
 	
-	// UserCP
+	// Panel de Usuario
 	'user_cp' => 'Panel Usuario',
 	'no_file_chosen' => 'No se ha selecionado un archivo',
 	'private_messages' => 'Mensaje privado',
@@ -477,7 +477,7 @@ $user_language = array(
 	'friends' => 'Amigos',
 	'alerts' => 'Alertas',
 	
-	// Messaging
+	// Mensajería
 	'new_message' => 'Nuevo mensaje',
 	'no_messages' => 'No hay mensajes',
 	'and_x_more' => 'y {x} mas', // Don't replace "{x}"
@@ -490,7 +490,7 @@ $user_language = array(
 	'delete_message' => 'Borrar mensaje',
 	'confirm_message_deletion' => '¿Seguro que desea borrar este mensaje?',
 	
-	// Profile settings
+	// Configuración del Perfil
 	'display_name' => 'Mostrar nombre',
 	'upload_an_avatar' => 'Subir avatar (solo .jpg, .png o .gif):',
 	'use_gravatar' => '¿Usar Gravatar?',
@@ -517,7 +517,7 @@ $user_language = array(
 	'tfa_enter_email_code' => 'Te hemos enviado un código dentro de un correo electrónico para la verificación. Por favor, introduzca el código de ahora:',
 	'tfa_email_contents' => 'Un intento de conexión se ha realizado en su cuenta. Si esto era que, de entrada por favor el siguiente código de Autentificación de dos factores cuando se le preguntó a hacerlo. Si esto no era usted, puede ignorar este mensaje, sin embargo se recomienda un restablecimiento de contraseña. El código sólo es válido durante 10 minutos.',
 	
-	// Alerts
+	// Alertas
 	'viewing_unread_alerts' => 'Viendo las alertas no leídas. Cambiar a <a href="/user/alerts/?view=read"><span class="label label-success">leidas</span></a>.',
 	'viewing_read_alerts' => 'Viendo las alertas ya lídas. Cambiar a <a href="/user/alerts/"><span class="label label-warning">no leídas</span></a>.',
 	'no_unread_alerts' => 'No tiene alertas sin leer.',
@@ -532,11 +532,11 @@ $user_language = array(
 	'report' => 'Informe',
 	'deleted_alert' => 'Alerta borrada correctamente',
 	
-	// Warnings
+	// Advertencias
 	'you_have_received_a_warning' => 'Ha recibido una advertencia de {x} el {y}.', // Don't replace "{x}" or "{y}"
 	'acknowledge' => 'Informado',
 	
-	// Forgot password
+	// Contraseña Olvidada
 	'password_reset' => 'Reiniciar contraseña',
 	'email_body' => 'Ha recibido este correo porque ha pedido un reinicio de contraseña. Para proceder con el reinicio de la contraseña seleccione el siguiente enlace:', // Body for the password reset email
 	'email_body_2' => 'Si no ha pedido un reinicio de contraseña, puede ignorar este correo.',
@@ -545,7 +545,7 @@ $user_language = array(
 	'change_password' => 'Cambiar contraseña',
 	'your_password_has_been_changed' => 'Su contraseña se ha cambiado.',
 	
-	// Profile page
+	// Página del Perfil
 	'profile' => 'Perfil',
 	'player' => 'Jugador',
 	'offline' => 'Desconectado',
@@ -585,9 +585,9 @@ $user_language = array(
 	'name_history' => 'Historial de Nombres',
 	'changed_name_to' => 'Nombre Cambiado a: {x} el {y}', // Don't replace {x} or {y}
 	'original_name' => 'Nombre Original:',
-	'name_history_error' => 'Imposible obtener Historial de Nombres.',
+	'name_history_error' => 'No se ha podido obtener los nombre anteriores de este jugador.',
 	
-	// Staff applications
+	// Solicitudes para Staff
 	'staff_application' => 'Solicitud de staff',
 	'application_submitted' => 'Solicitud enviada correctamente.',
 	'application_already_submitted' => 'Ya has enviado una solicitud. Espera a que finalice antes de enviar otra.',
@@ -597,7 +597,7 @@ $user_language = array(
 );
 
 /*
- *  Moderation related
+ *  Relacionado con el Moderador
  */
 $mod_language = array(
 	'mod_cp' => 'Panel de Moderación',
@@ -606,7 +606,7 @@ $mod_language = array(
 	'punishments' => 'Sanciones',
 	'staff_applications' => 'Solicitud de staff',
 	
-	// Punishments
+	// Sanciones
 	'ban' => 'Banear',
 	'unban' => 'Desbanear',
 	'warn' => 'Advertir',
@@ -619,7 +619,7 @@ $mod_language = array(
 	'invalid_reason' => 'Por favor, Introduce una razón válida entre 2 y 256 Caracteres',
 	'punished_successfully' => 'Sancion añadida correctamente.',
 	
-	// Reports
+	// Reportes
 	'report_closed' => 'Reporte cerrado.',
 	'new_comment' => 'Nuevo comentario',
 	'comments' => 'Comentarios',
@@ -638,7 +638,7 @@ $mod_language = array(
 	'new_report_submitted_alert' => 'Nuevo reporte presentado por {x} especto al usuario {y}', // Don't replace "{x}" or "{y}"
 	'ingame_report' => 'Reporte de Juego',
 	
-	// Staff applications
+	// Solicitued para Staff
 	'comment_error' => 'Tu comentario debe tener entre 2 y 2048 caracteres.',
 	'viewing_open_applications' => 'Viendo solicitudes <span class="label label-info">abiertas</span>. Cambiar a <a href="/mod/applications/?view=accepted"><span class="label label-success">aceptadas</span></a> o <a href="/mod/applications/?view=declined"><span class="label label-danger">denegadas</span></a>.',
 	'viewing_accepted_applications' => 'Viendo solicitudes <span class="label label-success">aceptadas</span>. Cambiar a <a href="/mod/applications/"><span class="label label-info">abiertas</span></a> o <a href="/mod/applications/?view=declined"><span class="label label-danger">denegadas</span></a>.',
@@ -658,12 +658,12 @@ $mod_language = array(
  *  General
  */
 $general_language = array(
-	// Homepage
+	// Página Principal
 	'news' => 'Noticias',
 	'social' => 'Social',
 	'join' => 'Unirse',
 	
-	// General terms
+	// Términos Generales
 	'submit' => 'Enviar',
 	'close' => 'Cerrar',
 	'cookie_message' => '<strong>Este sitio utiliza <i>cookies</i> para una mejor experiencia.</strong><p>Si continua navengado por nuestro sitio está aceptado el uso de elllas.</p>',
@@ -681,7 +681,7 @@ $general_language = array(
 	'info' => 'Información',
 	'next' => 'Siguiente',
 	
-	// Play page
+	// Página de Servidores
 	'connect_with' => 'Conéctate al servidor desde la IP <b>{x}</b>', // Don't replace {x}
 	'online' => 'Conectado',
 	'offline' => 'Desconectado',
@@ -690,20 +690,20 @@ $general_language = array(
 	'queried_in' => 'Conexión:',
 	'server_status' => 'Estado del servidor',
 	'no_players_online' => '¡No hay jugadores conectados!',
-	'1_player_online' => 'There is 1 player online.',
+	'1_player_online' => 'Hay 1 jugador conectado.',
 	'x_players_online' => 'Hay {x} jugadores conectados.', // Don't replace {x}
 	
-	// Other
+	// Otro
 	'page_loaded_in' => 'Página cargada en {x}s', // Don't replace {x}; 's' stands for 'seconds'
 	'none' => 'Nada',
-	'404' => 'Lo sentimos, esa página no existe.'
+	'404' => 'Lo sentimos, parece que esta página no existe.'
 );
 
 /* 
- *  Forum
+ *  Foros
  */
 $forum_language = array(
-	// Latest discussions view
+	// Vista de Ultimas Discusiones
 	'forums' => 'Foros',
 	'discussion' => 'Conversación',
 	'stats' => 'Estadísticas',
@@ -727,7 +727,7 @@ $forum_language = array(
 	'new_topic' => 'Nuevo tema',
 	'subforums' => 'Sub-foro:',
 	
-	// View topic view
+	// Vista del Tema
 	'home' => 'Inicio',
 	'topic_locked' => 'Tema cerrado',
 	'new_reply' => 'Nueva respuesta',
@@ -751,71 +751,71 @@ $forum_language = array(
 	'no_reputation' => 'No hay reputación para este tema',
 	're' => 'RE:',
 	
-	// Create post view
+	// Crear nueva publicación
 	'create_post' => 'Crear mensaje',
 	'post_submitted' => 'Mensaje publicado',
 	'creating_post_in' => 'Creando mensaje en: ',
 	'topic_locked_permission_post' => 'Este tema está cerrado, sin embargo puede publicar',
 	
-	// Edit post view
+	// Editar la publicación
 	'editing_post' => 'Editando tema',
 	
-	// Sticky threads
+	// Hilos Adheridos
 	'thread_is_' => 'El hilo es ',
 	'now_sticky' => 'el tema es fijo',
 	'no_longer_sticky' => 'el tema no es fijo',
 	
-	// Create topic
+	// Crear tema
 	'topic_created' => 'Tema creado.',
 	'creating_topic_in_' => 'Creando tema en el foro ',
 	'thread_title' => 'Título del tema',
 	'confirm_cancellation' => '¿Está Seguro de Realizar esta Acción?',
 	'label' => 'Etiqueta',
 	
-	// Reports
+	// Reportes
 	'report_submitted' => 'Informe subido.',
 	'view_post_content' => 'Ver contenido publicado',
 	'report_reason' => 'Razón del informe',
 	
-	// Move thread
+	// Mover hilo
 	'move_to' => 'Mover a:',
 	
-	// Merge threads
+	// Unir hilos
 	'merge_instructions' => 'El tema a combinar <strong>debe</strong> estar en el mismo foro. Mueva el tema si es necesario.',
 	'merge_with' => 'Combinar con:',
 	
-	// Other
+	// Otro
 	'forum_error' => 'Lo sentimos, pero no se encontró en los foros o los temas.',
 	'are_you_logged_in' => '¿Se ha registrado?',
 	'online_users' => 'Usuarios en linea',
 	'no_users_online' => 'No hay usuarios en línea.',
 	
-	// Search
+	// Buscar
 	'search_error' => 'Por favor, introduce una búsqueda entre 1 y 32 caracteres.',
 	'no_search_results' => 'No se han encontrado resultados.',
 	
-	//Share on a social-media.
+	// Buscar en Redes Sociales
 	'sm-share' => 'Compartir',
 	'sm-share-facebook' => 'Compartir en Facebook',
 	'sm-share-twitter' => 'Compartir en Twitter',
 );
 
 /*
- *  Emails
+ *  Correos
  */
 $email_language = array(
-	// Registration email
+	// Correo de Registro
 	'greeting' => 'Hola',
 	'message' => '¡Gracias por registrarte! Para finalizar el registro es necesario que pulse sobre el siguiente enlace:',
 	'thanks' => 'Gracias,'
 );
 
 /*
- *  Time language, eg "1 minute ago"
- *  DON'T replace "{x}" in any translations
+ *  Lenguaje de Tiempo, ej. "1 minuto aproximadamente."
+ *  NO replaces "{x}" durante la traducción.
  */
 $time_language = array(
-	'seconds_short' => 's', // Shortened "seconds", eg "s"
+	'seconds_short' => 's', // Recortado "segundos", ej. "s"
 	'less_than_a_minute' => 'hace menos de un minuto',
 	'1_minute' => 'hace 1 minuto',
 	'_minutes' => 'hace {x} minutos',
@@ -826,25 +826,25 @@ $time_language = array(
 	'about_1_month' => 'hace 1 mes',
 	'_months' => 'hace {x} meses',
 	'about_1_year' => 'hace 1 año',
-	'over_x_years' => 'hace más {x} años'
+	'over_x_years' => 'hace más de {x} años'
 );
  
 /*
- *  Table language; used for "DataTables" Javascript tables
+ *  Lenguaje de Tablas; usado para "DataTables", tablas en JavaScript
  */
 $table_language = array(
-	'display_records_per_page' => 'Mostar entradas _MENU_ por página', // Don't replace "_MENU_"
+	'display_records_per_page' => 'Mostar entradas _MENU_ por página', // No reemplaces "_MENU_"
 	'nothing_found' => 'Sin resultados',
-	'page_x_of_y' => 'Mostrando página _PAGE_ de _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
+	'page_x_of_y' => 'Mostrando página _PAGE_ de _PAGES_', // No reemplaces "_PAGE_" o "_PAGES_"
 	'no_records' => 'No hay entradas',
-	'filtered' => '(entradas filtrado un total de _MAX_)' // Don't replace "_MAX_"
+	'filtered' => '(entradas filtrado un total de _MAX_)' // No reemplaces "_MAX_"
 );
 
 /*
- *  API language
+ *  Lenguaje API
  */
 $api_language = array(
-	'register' => 'Registro completo'
+	'register' => '¡Se ha registrado correctamente!'
 );
 
 ?>
