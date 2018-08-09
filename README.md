@@ -131,7 +131,7 @@ Core modules:
 * Norsk: @partydragen, @Root3287, @godleydemon, @OscarWoHA, @tlystad24
 * Portugues: @dgateles, @dasilvaj4, @Root3287, @godleydemon
 * Slovak: Marki35, @Root3287, @godleydemon, MrMiijoSK
-* Spanish: @paloke, @mrlost, @Legomix13, Dexkum, @SrBas97, @Root3287, @Ariuw, @godleydemon
+* Spanish: @paloke, @mrlost, @Legomix13, Dexkum, @SrBas97, @Root3287, @Ariuw, @godleydemon, @iJosGCS
 
 ## Discord
 [<img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/HYVMgN2)
