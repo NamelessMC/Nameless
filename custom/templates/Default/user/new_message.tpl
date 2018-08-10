@@ -46,7 +46,7 @@
 		
 			<div class="form-group">
 			  <input type="hidden" name="token" value="{$TOKEN}">
-			  <input type="submit" name="{$SUBMIT}" class="btn btn-primary">
+			  <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
 			</div>
 		  </form>
 		  
