@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  Hook handler class
  */
@@ -40,6 +40,13 @@ class HookHandler {
         if(!isset(self::$_events[$event]) || !count(self::$_events[$event]['hooks']))
             return false;
 
+        if(!is_array($param)){
+        	$param = array();
+        }
+
+        if(!isset($param['event']))
+        	$param['event'] = $event;
+
         foreach(self::$_events[$event]['hooks'] as $hook){
             call_user_func($hook, $param);
         }
@@ -55,5 +62,13 @@ class HookHandler {
 
         return $ret;
     }
+
+	// Get a certain hook
+	public static function getHook($hook){
+    	if(isset(self::$_events[$hook]))
+    		return self::$_events[$hook];
+    	else
+    		return null;
+	}
 
 }
