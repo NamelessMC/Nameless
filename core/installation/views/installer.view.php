@@ -202,6 +202,11 @@
                     if(isset($_POST['install_path']))
                         $install_path = $_POST['install_path'];
 
+                    if(isset($_POST['hostname']))
+                        $server_name = $_POST['hostname'];
+                    else
+                        $server_name = $_SERVER['SERVER_NAME'];
+
                     try {
 						$insert = 	'<?php' . PHP_EOL . 
 									'$conf = array(' . PHP_EOL . 
@@ -225,7 +230,8 @@
 									'		"token_name" => "2token"' . PHP_EOL . 
 									'	),' . PHP_EOL . 
 									'	"core" => array(' . PHP_EOL . 
-									'		"path" => "' . $install_path . '",' . PHP_EOL . 
+									'		"path" => "' . $install_path . '",' . PHP_EOL .
+									'		"hostname" => "' . $server_name . '",' . PHP_EOL .
 									'		"friendly" => ' . ((isset($_POST['friendly']) && $_POST['friendly'] == 'true') ? 'true' : 'false') . PHP_EOL .
 									'	),' . PHP_EOL .
 									'	"allowedProxies" => ""' . PHP_EOL .
@@ -286,6 +292,11 @@
                 <div class="form-group">
                     <label for="inputDBName"><?php echo $language['database_name']; ?></label>
                     <input type="text" class="form-control" name="db_name" id="inputDBName" placeholder="<?php echo $language['database_name']; ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputHostname"><?php echo $language['host']; ?></label> <span class="badge badge-info" data-toggle="popover" data-placement="top" data-content="<?php echo $language['host_help']; ?>"><i class="fa fa-question"></i></span>
+                    <input type="text" class="form-control" name="hostname" id="inputHostname" value="<?php echo Output::getClean($_SERVER['SERVER_NAME']); ?>" placeholder="<?php echo $language['host']; ?>">
                 </div>
 
                 <div class="form-group">

@@ -224,25 +224,24 @@ class Util {
 	 *  Get the server name
 	 */
     public static function getSelfURL(){
-        if($_SERVER['SERVER_ADDR'] !== "127.0.0.1"){
-            if(isset($_SERVER['REQUEST_SCHEME']))
-                $req_scheme = $_SERVER['REQUEST_SCHEME'];
-            else
-                $req_scheme = 'http';
+        if(isset($_SERVER['REQUEST_SCHEME']))
+            $req_scheme = $_SERVER['REQUEST_SCHEME'];
+        else
+            $req_scheme = 'http';
 
-            if($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443){
-                $url = $req_scheme."://".$_SERVER['SERVER_NAME'];
-            } else {
-                $url = $req_scheme."://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'];
-            }
+        $hostname = Config::get('core/hostname');
+        if(is_array($hostname))
+            $hostname = $_SERVER['SERVER_NAME'];
 
-            if(substr($url, -1) !== '/') $url .= '/';
-
-            return $url;
-
+        if($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443){
+            $url = $req_scheme . "://" . Output::getClean($hostname);
         } else {
-            return false;
+            $url = $req_scheme . "://" . Output::getClean($hostname) . ":" . $_SERVER['SERVER_PORT'];
         }
+
+        if(substr($url, -1) !== '/') $url .= '/';
+
+        return $url;
     }
 
     // URL-ify a string
