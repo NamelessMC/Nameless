@@ -153,6 +153,9 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                       if(isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') $unsafe = 1;
                       else $unsafe = 0;
 
+                      if(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') $sitemap = 1;
+                      else $sitemap = 0;
+
                       $queries->create('custom_pages', array(
                           'url' => Output::getClean(rtrim(Input::get('page_url'), '/')),
                           'title' => Output::getClean(Input::get('page_title')),
@@ -162,7 +165,8 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                           'link' => Output::getClean($link),
                           'target' => ($redirect == 1) ? 1 : 0,
                           //'icon' => Input::get('page_icon'),
-                          'all_html' => ($unsafe == 1) ? 1 : 0
+                          'all_html' => ($unsafe == 1) ? 1 : 0,
+                          'sitemap' => ($sitemap == 1) ? 1 : 0
                       ));
 
                       $last_id = $queries->getLastId();
@@ -280,6 +284,10 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                 <label for="inputUnsafeHTML"><?php echo $language->get('admin', 'unsafe_html'); ?></label> <span data-toggle="popover" data-content="<?php echo $language->get('admin', 'unsafe_html_warning'); ?>" class="badge badge-info"><i class="fa fa-question"></i></span>
                 <input id="inputUnsafeHTML" name="unsafe_html" type="checkbox" class="js-switch" />
               </div>
+              <div class="form-group">
+                <label for="inputSitemap"><?php echo $language->get('admin', 'include_in_sitemap'); ?></label>
+                <input id="inputSitemap" name="sitemap" type="checkbox" class="js-switch" />
+              </div>
               <hr />
               <h5><?php echo $language->get('admin', 'page_permissions'); ?></h5>
               <hr />
@@ -386,6 +394,9 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                             if(isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') $unsafe = 1;
                             else $unsafe = 0;
 
+                            if(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') $sitemap = 1;
+                            else $sitemap = 0;
+
                             $queries->update('custom_pages', $page->id, array(
                                 'url' => Output::getClean(rtrim(Input::get('page_url'), '/')),
                                 'title' => Output::getClean(Input::get('page_title')),
@@ -395,7 +406,8 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                                 'link' => Output::getClean($link),
                                 'target' => ($redirect == 1) ? 1 : 0,
                                 'icon' => Input::get('page_icon'),
-                                'all_html' => ($unsafe == 1) ? 1 : 0
+                                'all_html' => ($unsafe == 1) ? 1 : 0,
+                                'sitemap' => ($sitemap == 1) ? 1 : 0
                             ));
                             
                             Log::getInstance()->log(Log::Action('admin/pages/edit'), Output::getClean(Input::get('page_title')));
@@ -560,6 +572,10 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
                 <div class="form-group">
                   <label for="inputUnsafeHTML"><?php echo $language->get('admin', 'unsafe_html'); ?></label> <span data-toggle="popover" data-content="<?php echo $language->get('admin', 'unsafe_html_warning'); ?>" class="badge badge-info"><i class="fa fa-question"></i></span>
                   <input id="inputUnsafeHTML" name="unsafe_html" type="checkbox" class="js-switch" <?php if($page->all_html == 1) echo 'checked '; ?>/>
+                </div>
+                <div class="form-group">
+                  <label for="inputSitemap"><?php echo $language->get('admin', 'include_in_sitemap'); ?></label>
+                  <input id="inputSitemap" name="sitemap" type="checkbox" class="js-switch" <?php if($page->sitemap == 1) echo 'checked '; ?>/>
                 </div>
                 <hr />
                 <h5><?php echo $language->get('admin', 'page_permissions'); ?></h5>

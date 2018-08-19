@@ -24,6 +24,7 @@ $language = array(
 	'minecraft' => 'Minecraft',
 	'modules' => 'Moduly',
 	'security' => 'Zabezpečenie',
+	'sitemap' => 'Sitemap',
 	'styles' => 'Štýly',
 	'users_and_groups' => 'Užívatelia a skupiny',
 	
@@ -401,6 +402,7 @@ $language = array(
 ť odkaz (s predchadzajúcim http://)',
 	'unsafe_html' => 'Povoliť nebezpečné HTML?',
 	'unsafe_html_warning' => 'Povolením tejto možnosti, akékoľvek HTML môže byť na tejto strane použité, okrem potenciálne nebezpečného jazyka JavaScript. Povoľte to len v prípade, či ste si istý, že Váš HTML kód je bezpečný.',
+	'include_in_sitemap' => 'Include in sitemap?',
 	'page_permissions' => 'Oprávnenia stránky',
 	'view_page' => 'Môže túto stránku vidieť?',
 	'editing_page_x' => 'Upravovanie stránky {x}', // Don't replace {x}
@@ -453,5 +455,15 @@ $language = array(
 	'discord_hook_url' => 'Discord webhook URL',
 	'discord_hook_events' => 'Enabled Discord hook events (Ctrl+click to select multiple events)',
 	'register_hook_info' => 'User registration',
-	'validate_hook_info' => 'User validation'
+	'validate_hook_info' => 'User validation',
+
+	// Sitemap
+	'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
+	'sitemap_generated' => 'Sitemap generated successfully',
+	'sitemap_not_writable' => 'The <strong>cache/sitemaps</strong> directory is not writable.',
+	'cache_not_writable' => 'The <strong>cache</strong> directory is not writable.',
+	'generate_sitemap' => 'Generate Sitemap',
+	'download_sitemap' => 'Download Sitemap',
+	'sitemap_not_generated_yet' => 'A sitemap has not been generated yet!',
+	'sitemap_last_generated_x' => 'The sitemap was last generated {x}' // Don't replace {x}
 );

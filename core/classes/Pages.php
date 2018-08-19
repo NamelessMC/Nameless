@@ -2,50 +2,52 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
  *  Pages class
- */ 
+ */
+
 class Pages {
-	
+
 	// Variables
 	private $_pages = array();
-	
+	private $_sm_methods = array();
+
 	// Construct Pages class
 	public function __construct(){
-		
+
 	}
-	
+
 	// Defines a page and assigns it to a module
 	// Params:  $module (string)	- module which the page belongs to
 	// 			$url (string) 		- contains URL string
 	//			$file (string)		- contains path (from module folder) to page file
-    //          $name (string)      - contains name of page (optional)
-    //          $widgets (boolean)  - can widgets be used on the page? Default false
+	//          $name (string)      - contains name of page (optional)
+	//          $widgets (boolean)  - can widgets be used on the page? Default false
 	public function add($module, $url, $file, $name = '', $widgets = false){
 		$this->_pages[$url] = array(
-			'module' => $module, 
+			'module' => $module,
 			'file' => $file,
-            'name' => $name,
-            'widgets' => $widgets
+			'name' => $name,
+			'widgets' => $widgets
 		);
 	}
 
 	// Defines a custom page
-    // Params:  $url (string)       - contains URL string
-    //          $name (string)      - contains name of page
-    //          $widgets (boolean)  - can widgets be used on the page? Default false
-    public function addCustom($url, $name, $widgets = false){
-	    $this->_pages[$url] = array(
-            'module' => 'Core',
-            'file' => 'custom.php',
-            'name' => $name,
-            'widgets' => $widgets,
-            'custom' => true
-        );
-    }
+	// Params:  $url (string)       - contains URL string
+	//          $name (string)      - contains name of page
+	//          $widgets (boolean)  - can widgets be used on the page? Default false
+	public function addCustom($url, $name, $widgets = false){
+		$this->_pages[$url] = array(
+			'module' => 'Core',
+			'file' => 'custom.php',
+			'name' => $name,
+			'widgets' => $widgets,
+			'custom' => true
+		);
+	}
 
 	// Returns the array of all pages
 	// No params
@@ -54,14 +56,28 @@ class Pages {
 	}
 
 	// Return pages which allow widgets
-    // No params
-    public function returnWidgetPages(){
-	    $ret = array();
-	    foreach($this->_pages as $page)
-	        if(!empty($page['name']) && $page['widgets'] === true)
-	            $ret[$page['module']][$page['name']] = true;
+	// No params
+	public function returnWidgetPages(){
+		$ret = array();
+		foreach($this->_pages as $page)
+			if(!empty($page['name']) && $page['widgets'] === true)
+				$ret[$page['module']][$page['name']] = true;
 
-        return $ret;
-    }
-	
+		return $ret;
+	}
+
+	// Register a method for sitemap generation
+	public function registerSitemapMethod($file, $method){
+		if($file && $method){
+			if(!isset($this->_sm_methods[$file]))
+				$this->_sm_methods[$file] = array();
+
+			$this->_sm_methods[$file] = $method;
+		}
+	}
+
+	// Get sitemap methods
+	public function getSitemapMethods(){
+		return $this->_sm_methods;
+	}
 }
