@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -50,6 +50,13 @@
 				  <a class="nav-link<?php if(isset($admin_page) && $admin_page == 'security') echo ' active'; ?>" href="<?php echo URL::build('/admin/security'); ?>"><?php echo $language->get('admin', 'security'); ?></a>
 				</li>
                 <?php
+                }
+                if($user->hasPermission('admincp.sitemap')){
+	                ?>
+					<li class="nav-item">
+						<a class="nav-link<?php if(isset($admin_page) && $admin_page == 'sitemap') echo ' active'; ?>" href="<?php echo URL::build('/admin/sitemap'); ?>"><?php echo $language->get('admin', 'sitemap'); ?></a>
+					</li>
+	                <?php
                 }
                 if($user->hasPermission('admincp.styles')){
                 ?>

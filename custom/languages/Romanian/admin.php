@@ -26,6 +26,7 @@ $language = array(
     'minecraft' => 'Minecraft',
     'modules' => 'Module',
     'security' => 'Securitate',
+    'sitemap' => 'Sitemap',
     'styles' => 'Stiluri',
     'users_and_groups' => 'Utilizatori și grupuri',
     'query_interval' => 'Intervalul interogării (în minute, trebuie să fie între 5 și 60)',
@@ -402,6 +403,7 @@ $language = array(
     'page_redirect_to' => 'Adresa pentru redirecționare (cu http://)',
     'unsafe_html' => 'Permiteți HTML (nesigur) ?',
     'unsafe_html_warning' => 'Activarea acestei opțiuni înseamnă că orice HTML poate fi folosit pe pagină, incluzând JavaScript potențial periculos. Activați acest lucru numai dacă sunteți sigur că codul dvs. HTML este sigur.',
+    'include_in_sitemap' => 'Include in sitemap?',
     'page_permissions' => 'Permisiuni pentru pagină',
     'view_page' => 'Vizualizare pagină?',
     'editing_page_x' => 'Editare pagină: {x}', // Don't replace {x}
@@ -454,5 +456,15 @@ $language = array(
     'discord_hook_url' => 'Adresa Discord webhook',
     'discord_hook_events' => 'Activează evenimentele Discord hook (Ctrl+click pentru a selecta mai multe evenimente)',
     'register_hook_info' => 'Înregistrare cont utilizator',
-    'validate_hook_info' => 'Validare cont utilizator'
+    'validate_hook_info' => 'Validare cont utilizator',
+
+	// Sitemap
+	'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
+	'sitemap_generated' => 'Sitemap generated successfully',
+	'sitemap_not_writable' => 'The <strong>cache/sitemaps</strong> directory is not writable.',
+	'cache_not_writable' => 'The <strong>cache</strong> directory is not writable.',
+	'generate_sitemap' => 'Generate Sitemap',
+	'download_sitemap' => 'Download Sitemap',
+	'sitemap_not_generated_yet' => 'A sitemap has not been generated yet!',
+	'sitemap_last_generated_x' => 'The sitemap was last generated {x}' // Don't replace {x}
 );

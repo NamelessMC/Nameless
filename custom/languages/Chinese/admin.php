@@ -28,6 +28,7 @@ $language = array(
 	'minecraft' => 'Minecraft',
 	'modules' => '模組',
 	'security' => '安全',
+	'sitemap' => 'Sitemap',
 	'styles' => '樣式',
 	'users_and_groups' => '使用者與群組',
 
@@ -404,6 +405,7 @@ $language = array(
 	'page_redirect_to' => '轉址網址 (http://)',
 	'unsafe_html' => '允許使用不安全的 HTML?',
 	'unsafe_html_warning' => '啟用此選項表示你可以使用任何的HTML標籤，包括未加密的JavaScript，確定HTML是安全的再開啟',
+	'include_in_sitemap' => 'Include in sitemap?',
 	'page_permissions' => '自訂頁面權限',
 	'view_page' => '查看自訂頁面?',
 	'editing_page_x' => '編輯自訂頁面 {x}', // Don't replace {x}
@@ -456,5 +458,15 @@ $language = array(
 	'discord_hook_url' => 'Discord webhook URL',
 	'discord_hook_events' => 'Enabled Discord hook events (Ctrl+click to select multiple events)',
 	'register_hook_info' => 'User registration',
-	'validate_hook_info' => 'User validation'
+	'validate_hook_info' => 'User validation',
+
+	// Sitemap
+	'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
+	'sitemap_generated' => 'Sitemap generated successfully',
+	'sitemap_not_writable' => 'The <strong>cache/sitemaps</strong> directory is not writable.',
+	'cache_not_writable' => 'The <strong>cache</strong> directory is not writable.',
+	'generate_sitemap' => 'Generate Sitemap',
+	'download_sitemap' => 'Download Sitemap',
+	'sitemap_not_generated_yet' => 'A sitemap has not been generated yet!',
+	'sitemap_last_generated_x' => 'The sitemap was last generated {x}' // Don't replace {x}
 );

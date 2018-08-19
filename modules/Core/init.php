@@ -101,6 +101,7 @@ $pages->add('Core', '/admin/modules', 'pages/admin/modules.php');
 $pages->add('Core', '/admin/pages', 'pages/admin/pages.php');
 $pages->add('Core', '/admin/registration', 'pages/admin/registration.php');
 $pages->add('Core', '/admin/security', 'pages/admin/security.php');
+$pages->add('Core', '/admin/sitemap', 'pages/admin/sitemap.php');
 $pages->add('Core', '/admin/styles', 'pages/admin/styles.php');
 $pages->add('Core', '/admin/users', 'pages/admin/users.php');
 $pages->add('Core', '/admin/update', 'pages/admin/update.php');
@@ -136,6 +137,9 @@ $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
 // Hooks
 HookHandler::registerEvent('registerUser', $language->get('admin', 'register_hook_info'));
 HookHandler::registerEvent('validateUser', $language->get('admin', 'validate_hook_info'));
+
+// Sitemap
+$pages->registerSitemapMethod(ROOT_PATH . '/modules/Core/classes/Core_Sitemap.php', 'Core_Sitemap::generateSitemap');
 
 if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/') != '/admin/update_execute')){
 	// Custom pages

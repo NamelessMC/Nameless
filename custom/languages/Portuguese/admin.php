@@ -25,6 +25,7 @@ $language = array(
 	'minecraft' => 'Minecraft',
 	'modules' => 'Módulos',
 	'security' => 'Segurança',
+	'sitemap' => 'Sitemap',
 	'styles' => 'Estilos',
 	'users_and_groups' => 'Usuários & Grupos',
 
@@ -401,6 +402,7 @@ $language = array(
     'page_redirect_to' => 'Link para o redirecionamento (com o http:// ou https://)',
     'unsafe_html' => 'Permitir tags HTML não seguras?',
     'unsafe_html_warning' => 'Ativando está opção, siginifica que qualquer HTML pode ser usada nesta página, incluindo JavaScript potencialmente perigosos. Somente ativa esta opção se você está ciente que o seu HTML é seguro.',
+    'include_in_sitemap' => 'Include in sitemap?',
     'page_permissions' => 'Permisões da Página',
     'view_page' => 'Ver Página?',
     'editing_page_x' => 'Editando a Página {x}', // Don't replace {x}
@@ -453,5 +455,15 @@ $language = array(
 	'discord_hook_url' => 'URL do webhook do Discord',
 	'discord_hook_events' => 'Ativar eventos hook do Discord (Ctrl + clique para selecionar vários eventos)',
 	'register_hook_info' => 'Registro do usuário',
-	'validate_hook_info' => 'Validação do usuário'
+	'validate_hook_info' => 'Validação do usuário',
+
+	// Sitemap
+	'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
+	'sitemap_generated' => 'Sitemap generated successfully',
+	'sitemap_not_writable' => 'The <strong>cache/sitemaps</strong> directory is not writable.',
+	'cache_not_writable' => 'The <strong>cache</strong> directory is not writable.',
+	'generate_sitemap' => 'Generate Sitemap',
+	'download_sitemap' => 'Download Sitemap',
+	'sitemap_not_generated_yet' => 'A sitemap has not been generated yet!',
+	'sitemap_last_generated_x' => 'The sitemap was last generated {x}' // Don't replace {x}
 );

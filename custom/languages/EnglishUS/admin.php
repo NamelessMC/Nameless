@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -24,6 +24,7 @@ $language = array(
 	'minecraft' => 'Minecraft',
 	'modules' => 'Modules',
 	'security' => 'Security',
+	'sitemap' => 'Sitemap',
 	'styles' => 'Styles',
 	'users_and_groups' => 'Users and Groups',
 
@@ -400,6 +401,7 @@ $language = array(
     'page_redirect_to' => 'Redirect Link (with preceding http://)',
     'unsafe_html' => 'Allow unsafe HTML?',
     'unsafe_html_warning' => 'Enabling this option means any HTML can be used on the page, including potentially dangerous JavaScript. Only enable this if you are sure your HTML is safe.',
+    'include_in_sitemap' => 'Include in sitemap?',
     'page_permissions' => 'Page Permissions',
     'view_page' => 'View Page?',
     'editing_page_x' => 'Editing Page {x}', // Don't replace {x}
@@ -452,5 +454,15 @@ $language = array(
 	'discord_hook_url' => 'Discord webhook URL',
 	'discord_hook_events' => 'Enabled Discord hook events (Ctrl+click to select multiple events)',
 	'register_hook_info' => 'User registration',
-	'validate_hook_info' => 'User validation'
+	'validate_hook_info' => 'User validation',
+
+	// Sitemap
+	'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
+	'sitemap_generated' => 'Sitemap generated successfully',
+	'sitemap_not_writable' => 'The <strong>cache/sitemaps</strong> directory is not writable.',
+	'cache_not_writable' => 'The <strong>cache</strong> directory is not writable.',
+	'generate_sitemap' => 'Generate Sitemap',
+	'download_sitemap' => 'Download Sitemap',
+	'sitemap_not_generated_yet' => 'A sitemap has not been generated yet!',
+	'sitemap_last_generated_x' => 'The sitemap was last generated {x}' // Don't replace {x}
 );

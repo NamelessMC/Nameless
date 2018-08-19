@@ -24,6 +24,7 @@ $language = array(
 	'minecraft' => 'Minecraft',
 	'modules' => 'Moduler',
 	'security' => 'Sikkerhet',
+	'sitemap' => 'Sitemap',
 	'styles' => 'Stiler',
 	'users_and_groups' => 'Brukere og grupper',
 
@@ -400,6 +401,7 @@ $language = array(
     'page_redirect_to' => 'Redirect lenke (med følgende start http://)',
     'unsafe_html' => 'Tillatt usikker HTML?',
     'unsafe_html_warning' => 'Ved å aktivere denne funksjonen vil all HTML kunne bli brukt på siden, også skadelig JavaScript. Bruk kun om du er sikker på at det er trygt.',
+    'include_in_sitemap' => 'Include in sitemap?',
     'page_permissions' => 'Siden permisjoner',
     'view_page' => 'Se side?',
     'editing_page_x' => 'Redigerer side {x}', // Don't replace {x}
@@ -452,5 +454,15 @@ $language = array(
 	'discord_hook_url' => 'Discord webhook URL',
 	'discord_hook_events' => 'Aktivert Discord hook events (Ctrl+klikk for å velge forskjellge eventer)',
 	'register_hook_info' => 'Brukerregistrering',
-	'validate_hook_info' => 'Brukerverifisering'
+	'validate_hook_info' => 'Brukerverifisering',
+
+	// Sitemap
+	'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
+	'sitemap_generated' => 'Sitemap generated successfully',
+	'sitemap_not_writable' => 'The <strong>cache/sitemaps</strong> directory is not writable.',
+	'cache_not_writable' => 'The <strong>cache</strong> directory is not writable.',
+	'generate_sitemap' => 'Generate Sitemap',
+	'download_sitemap' => 'Download Sitemap',
+	'sitemap_not_generated_yet' => 'A sitemap has not been generated yet!',
+	'sitemap_last_generated_x' => 'The sitemap was last generated {x}' // Don't replace {x}
 );

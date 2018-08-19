@@ -38,6 +38,9 @@ PermissionHandler::registerPermissions('Forum', array(
 // Hooks
 HookHandler::registerEvent('newTopic', $forum_language->get('forum', 'new_topic_hook_info'));
 
+// Sitemap
+$pages->registerSitemapMethod(ROOT_PATH . '/modules/Forum/classes/Forum_Sitemap.php', 'Forum_Sitemap::generateSitemap');
+
 // Define URLs which belong to this module
 $pages->add('Forum', '/admin/forums', 'pages/admin/forums.php');
 $pages->add('Forum', '/forum', 'pages/forum/index.php', 'forum', true);
