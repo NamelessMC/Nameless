@@ -60,7 +60,7 @@ if(Input::exists()){
 			}
 		}
 
-		$sitemap->createSitemapIndex(Util::getSelfURL() . URL::build('/cache/sitemaps/'));
+		$sitemap->createSitemapIndex(rtrim(Util::getSelfURL(), '/') . URL::build('/cache/sitemaps/'));
 
 		$cache->setCache('sitemap_cache');
 		$cache->store('updated', date('d M Y, H:i'));
