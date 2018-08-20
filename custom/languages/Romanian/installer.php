@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Installation
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ASMODΣUS
- *  Last Update: 16/06/2018
+ *  Last Update: 20/08/2018
  */
 
 $language = array(
@@ -44,8 +44,8 @@ $language = array(
     'disabled' => 'Dezactivat',
     'character_set' => 'Set de caractere',
     'database_engine' => 'Motor de stocare pentru baza de date',
-    'host' => 'Hostname',
-    'host_help' => 'The hostname is the <strong>base URL</strong> for your website. Do not include the subfolders from the Installation Path field, or http(s):// here!',
+    'host' => 'Numele gazdei',
+    'host_help' => 'Numele gazdei este <strong>adresa de bază</strong>  pentru site-ul dvs. web. Nu includeți subfolderele din câmpul Calea de instalare sau http(s):// aici!',
     'database_error' => 'Asigurați-vă că toate câmpurile au fost completate.',
     'submit' => 'Trimite',
     'installer_now_initialising_database' => 'Instalatorul inițiază acum baza de date. Acest lucru poate dura ceva timp...',
