@@ -115,6 +115,7 @@ if(Input::exists()){
 
 						} else {
 							mkdir(ROOT_PATH . '/cache/sitemaps');
+							file_put_contents(ROOT_PATH . '/cache/sitemaps/.htaccess', 'Allow from all');
 						}
 					}
 
