@@ -145,6 +145,14 @@ if(isset($_GET['action'])){
 	die();
 }
 
+$forum_parent = $queries->getWhere('forums', array('id', '=', $topic->forum_id));
+
+$page_metadata = $queries->getWhere('page_descriptions', array('page', '=', '/forum/view_topic'));
+if(count($page_metadata)){
+	define('PAGE_DESCRIPTION', str_replace(array('{site}', '{title}', '{author}', '{forum_title}', '{page}'), array(SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p)), $page_metadata[0]->description));
+	define('PAGE_KEYWORDS', $page_metadata[0]->tags);
+}
+
 // Assign author + title to Smarty variables
 $smarty->assign(array(
 	'TOPIC_TITLE' => Output::getClean($topic->topic_title),
@@ -309,7 +317,6 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 	require(ROOT_PATH . '/core/templates/footer.php');
 	
 	// Assign Smarty variables to pass to template
-	$forum_parent = $queries->getWhere('forums', array('id', '=', $topic->forum_id));
 	$parent_category = $queries->getWhere('forums', array('id', '=', $forum_parent[0]->parent));
 	
 	$breadcrumbs = array(

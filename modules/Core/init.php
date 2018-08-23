@@ -45,10 +45,12 @@ PermissionHandler::registerPermissions('AdminCP', array(
     'admincp.minecraft.banners' => $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'server_banners'),
     'admincp.modules' => $language->get('admin', 'modules'),
     'admincp.pages' => $language->get('admin', 'pages'),
+    'admincp.pages.metadata' => $language->get('admin', 'pages') . ' &raquo; ' . $language->get('admin', 'page_metadata'),
     'admincp.security' => $language->get('admin', 'security'),
     'admincp.security.acp_logins' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'acp_logins'),
     'admincp.security.template' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'template_changes'),
     'admincp.security.all' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'all_logs'),
+    'admincp.sitemap' => $language->get('admin', 'sitemap'),
     'admincp.styles' => $language->get('admin', 'styles'),
     'admincp.styles.templates' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'templates'),
     'admincp.styles.templates.edit' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'templates') . ' &raquo; ' . $language->get('general', 'edit'),
@@ -99,6 +101,7 @@ $pages->add('Core', '/admin/images', 'pages/admin/images.php');
 $pages->add('Core', '/admin/minecraft', 'pages/admin/minecraft.php');
 $pages->add('Core', '/admin/modules', 'pages/admin/modules.php');
 $pages->add('Core', '/admin/pages', 'pages/admin/pages.php');
+$pages->add('Core', '/admin/metadata', 'pages/admin/metadata.php');
 $pages->add('Core', '/admin/registration', 'pages/admin/registration.php');
 $pages->add('Core', '/admin/security', 'pages/admin/security.php');
 $pages->add('Core', '/admin/sitemap', 'pages/admin/sitemap.php');

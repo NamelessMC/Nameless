@@ -23,8 +23,13 @@ if($user->isLoggedIn()){
             die();
         } else {
             if(!$user->hasPermission('admincp.pages')){
-                require(ROOT_PATH . '/404.php');
-                die();
+            	if($user->hasPermission('admincp.pages.metadata')){
+            		Redirect::to(URL::build('/admin/metadata'));
+            		die();
+				} else {
+            		require(ROOT_PATH . '/404.php');
+            		die();
+				}
             }
         }
     }
@@ -70,7 +75,18 @@ require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php');
     <div class="col-md-9">
       <div class="card">
         <div class="card-block">
-          <h3 style="display:inline;"><?php echo $language->get('admin', 'pages'); ?></h3>
+          <?php if($user->hasPermission('admincp.pages.metadata')){ ?>
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link active" href="<?php echo URL::build('/admin/pages'); ?>"><?php echo $language->get('admin', 'custom_pages'); ?></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo URL::build('/admin/metadata'); ?>"><?php echo $language->get('admin', 'page_metadata'); ?></a>
+            </li>
+          </ul>
+          <hr />
+          <?php } ?>
+          <h3 style="display:inline;"><?php echo $language->get('admin', 'custom_pages'); ?></h3>
           <?php if(!isset($_GET['action'])){ ?>
             <span class="pull-right">
               <a href="<?php echo URL::build('/admin/pages/', 'action=new'); ?>" class="btn btn-primary"><?php echo $language->get('admin', 'new_page'); ?></a>

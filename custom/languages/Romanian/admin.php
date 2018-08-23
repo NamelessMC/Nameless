@@ -466,5 +466,11 @@ $language = array(
 	'generate_sitemap' => 'Generați harta site-ului',
 	'download_sitemap' => 'Descărcați harta site-ului',
 	'sitemap_not_generated_yet' => 'O hartă a site-ului nu a fost încă generată!',
-	'sitemap_last_generated_x' => 'Harta ultimului site a fost generată {x}' // Don't replace {x}
+	'sitemap_last_generated_x' => 'Harta ultimului site a fost generată {x}', // Don't replace {x}
+
+	// Page metadata
+	'page_metadata' => 'Page Metadata',
+	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
+	'keywords' => 'Keywords',
+	'description_max_500' => 'The description must be at most 500 characters.',
 );
