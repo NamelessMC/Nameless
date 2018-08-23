@@ -18,6 +18,20 @@ require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts on a page
+
+$profile = explode('/', rtrim($_GET['route'], '/'));
+if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])){
+	// User specified
+	$md_profile = $profile[count($profile) - 1];
+
+	$page_metadata = $queries->getWhere('page_descriptions', array('page', '=', '/profile'));
+	if(count($page_metadata)){
+		define('PAGE_DESCRIPTION', str_replace(array('{site}', '{profile}'), array(SITE_NAME, Output::getClean($md_profile)), $page_metadata[0]->description));
+		define('PAGE_KEYWORDS', $page_metadata[0]->tags);
+	}
+
+	$title = $language->get('user', 'profile') . ' - ' . Output::getClean($md_profile);
+}
 ?>
 <!DOCTYPE html>
 <html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
@@ -28,8 +42,10 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <!-- Site Properties -->
-	<?php 
-	$title = $language->get('user', 'profile');
+	<?php
+	if(!isset($title))
+		$title = $language->get('user', 'profile');
+
 	require(ROOT_PATH . '/core/templates/header.php'); 
 	?>
 
@@ -49,7 +65,6 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts 
 	?>
 	
 	<?php
-    $profile = explode('/', $route);
 	if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])){
 		// User specified
 		$profile = $profile[count($profile) - 1];

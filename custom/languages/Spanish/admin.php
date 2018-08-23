@@ -459,5 +459,11 @@ $language = array(
 	'generate_sitemap' => 'Generate Sitemap',
 	'download_sitemap' => 'Download Sitemap',
 	'sitemap_not_generated_yet' => 'A sitemap has not been generated yet!',
-	'sitemap_last_generated_x' => 'The sitemap was last generated {x}' // Don't replace {x}
+	'sitemap_last_generated_x' => 'The sitemap was last generated {x}', // Don't replace {x}
+
+	// Page metadata
+	'page_metadata' => 'Page Metadata',
+	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
+	'keywords' => 'Keywords',
+	'description_max_500' => 'The description must be at most 500 characters.',
 );

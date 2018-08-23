@@ -631,5 +631,17 @@ if($page != 'install'){
         unset($_SESSION['email']);
         unset($_SESSION['password']);
     }
+
+    if(isset($_GET['route']) && $_GET['route'] != '/'){
+    	$route = rtrim($_GET['route'], '/');
+    } else {
+    	$route = '/';
+    }
+
+    $page_metadata = $queries->getWhere('page_descriptions', array('page', '=', $route));
+    if(count($page_metadata)){
+    	define('PAGE_DESCRIPTION', str_replace('{site}', SITE_NAME, $page_metadata[0]->description));
+    	define('PAGE_KEYWORDS', $page_metadata[0]->tags);
+    }
 }
 

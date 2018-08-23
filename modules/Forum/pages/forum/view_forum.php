@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -70,6 +70,12 @@ if(isset($_GET['p'])){
 } else {
     $p = 1;
 }
+
+$page_metadata = $queries->getWhere('page_descriptions', array('page', '=', '/forum/view'));
+if(count($page_metadata)){
+	define('PAGE_DESCRIPTION', str_replace(array('{site}', '{forum_title}', '{page}'), array(SITE_NAME, Output::getClean($forum_query->forum_title), Output::getClean($p)), $page_metadata[0]->description));
+	define('PAGE_KEYWORDS', $page_metadata[0]->tags);
+}
 ?>
 <!DOCTYPE html>
 <html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
@@ -78,8 +84,6 @@ if(isset($_GET['p'])){
     <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-    <meta name="description" content="<?php echo SITE_NAME; ?> Forum - Viewing forum: <?php echo Output::getClean($forum_query->forum_title); if(isset($p)){ ?> - Page <?php echo $p; } ?>">
 
     <!-- Site Properties -->
 	<?php

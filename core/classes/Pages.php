@@ -14,6 +14,7 @@ class Pages {
 	// Variables
 	private $_pages = array();
 	private $_sm_methods = array();
+	private $_id = 1;
 
 	// Construct Pages class
 	public function __construct(){
@@ -31,7 +32,8 @@ class Pages {
 			'module' => $module,
 			'file' => $file,
 			'name' => $name,
-			'widgets' => $widgets
+			'widgets' => $widgets,
+			'id' => $this->_id++
 		);
 	}
 
@@ -45,7 +47,8 @@ class Pages {
 			'file' => 'custom.php',
 			'name' => $name,
 			'widgets' => $widgets,
-			'custom' => true
+			'custom' => true,
+			'id' => $this->_id++
 		);
 	}
 
@@ -79,5 +82,18 @@ class Pages {
 	// Get sitemap methods
 	public function getSitemapMethods(){
 		return $this->_sm_methods;
+	}
+
+	// Get page by ID
+	public function getPageById($page_id = null){
+		if($page_id){
+			foreach($this->_pages as $key => $page){
+				if($page['id'] == $page_id){
+					$page['key'] = $key;
+					return $page;
+				}
+			}
+		}
+		return null;
 	}
 }
