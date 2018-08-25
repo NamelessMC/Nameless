@@ -110,7 +110,7 @@ if($settings[2]->value == 0 && !$user->isLoggedIn()){
             $categories_list .= '><a href="#' . $category->id . '" data-toggle="tab">' . htmlspecialchars($category->name) . '</a></li>';
 
             // Get packages in that category
-            $packages = $queries->getWhere('donation_packages', array('category', '=', $category->cid));
+            $packages = $queries->orderWhere('donation_categories', 'category = ' . htmlspecialchars($category->cid, ENT_QUOTES), '`order`', 'ASC');
 
             $categories_content .= '<div id="' . $category->id . '" class="tab-pane';
             if($n == 0){
