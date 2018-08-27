@@ -100,6 +100,7 @@ $language = array(
     'server_offline' => 'サーバーは現在オフラインです。',
     'connect_with_ip_x' => 'サーバーへの接続IPは -> {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Click to copy',
+    'copied' => 'Copied!',
 
     /*
      *  Cookie notice

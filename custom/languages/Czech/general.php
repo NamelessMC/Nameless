@@ -98,6 +98,7 @@ $language = array(
     'server_offline' => 'Server je aktuálně vypnut (offline).',
     'connect_with_ip_x' => 'Připojte se nyní pomoci IP adresy {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Click to copy',
+    'copied' => 'Copied!',
 
     /*
      *  Cookie notice

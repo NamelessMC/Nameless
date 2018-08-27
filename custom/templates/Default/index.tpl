@@ -18,7 +18,9 @@
 		    <p class="lg">{$SERVER_OFFLINE}</p>
 		  {/if}
 		{/if}
-		<p class="lg">{$CONNECT_WITH}</p>
+		{if isset($CLICK_TO_COPY_TOOLTIP)}
+		  <p class="lg"><span onclick="copyToClipboard('#ip')" data-toggle="tooltip" title="{$CLICK_TO_COPY_TOOLTIP}">{$CONNECT_WITH}</span></p>
+		{/if}
 	  {/if}
 	</center>
 

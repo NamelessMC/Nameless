@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by JozefSorokac
  *  https://github.com/NamelessMC/Nameless/
@@ -98,6 +98,7 @@ $language = array(
     'server_offline' => 'Server je aktuálne vypnutý (offline).',
     'connect_with_ip_x' => 'Pripojte sa teraz pomocou IP adresy {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Click to copy',
+    'copied' => 'Copied!',
 
     /*
      *  Cookie notice

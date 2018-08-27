@@ -101,6 +101,7 @@ $language = array(
     'server_offline' => '伺服器目前離線.',
     'connect_with_ip_x' => '使用 IP {x} 來連接伺服器', // Don't replace {x}
     'click_to_copy_tooltip' => 'Click to copy',
+    'copied' => 'Copied!',
 
     /*
      *  Cookie notice
