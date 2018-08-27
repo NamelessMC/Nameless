@@ -98,7 +98,8 @@ $language = array(
     'currently_1_player_online' => 'În prezent este <strong>un</strong> jucător online.',
     'currently_x_players_online' => 'În prezent sunt <strong>{x}</strong> jucători online.', // Don't replace {x}
     'server_offline' => 'Serverul este în prezent offline.',
-    'connect_with_ip_x' => 'Conectați-vă acum folosind IP-ul: <strong id="ip" onclick="copyToClipboard(\'#ip\')" data-toggle="tooltip" title="Apasa aici pentru a copia adresa IP.">{x}</strong>', // Don't replace {x}
+    'connect_with_ip_x' => 'Conectați-vă acum folosind IP-ul: {x}', // Don't replace {x}
+    'click_to_copy_tooltip' => 'Apasa aici pentru a copia adresa IP',
 
     /*
      *  Cookie notice
