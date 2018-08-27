@@ -2,12 +2,12 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
  *  Version 2.0.0 API
- *  API version 1.0.2
+ *  API version 1.0.3
  */
 
 // Headers
@@ -869,7 +869,7 @@ class Nameless2API
                     ));
 
                 } else
-                    $this->throwError(26, $this->_language->get('api', 'invalid_code'));
+                    $this->throwError(28, $this->_language->get('api', 'invalid_code'));
 
             } else
                 $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
