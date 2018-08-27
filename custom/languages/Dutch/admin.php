@@ -244,6 +244,7 @@ $language = array(
 	'query_interval' => 'Query interval (in minuten, moet tussen de 5 en 60)',
 	'player_graphs' => 'Speler grafieken',
 	'player_count_cronjob_info' => 'Je kan een cron job instellen om je servers op tevragen elke {x} minuten met de volgende commando:',
+	'status_page' => 'Enable status page?',
 
 	// Modulen
 	'modules_installed_successfully' => 'Alle nieuwe modules zijn succesvol toegevoegd.',

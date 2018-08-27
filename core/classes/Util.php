@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -217,6 +217,42 @@ class Util {
 		} else {
 			// Fall back to cravatar
 			return 'https://cravatar.eu/helmavatar/' . $uuid . '/' . $size . '.png';
+		}
+	}
+
+	// Get avatar source with UUID as {x} and size as {y}
+	public static function getAvatarSource(){
+		if(defined('DEFAULT_AVATAR_SOURCE')){
+			if(defined('DEFAULT_AVATAR_PERSPECTIVE'))
+				$perspective = DEFAULT_AVATAR_PERSPECTIVE;
+			else
+				$perspective = 'face';
+
+			switch(DEFAULT_AVATAR_SOURCE){
+				case 'crafatar':
+					if($perspective == 'face')
+						return 'https://crafatar.com/avatars/{x}?size={y}&amp;overlay';
+					else
+						return 'https://crafatar.com/renders/head/{x}?overlay';
+					break;
+				case 'nameless':
+					// Only supports face currently
+					if(defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
+						return URL::build('/avatar/{x}');
+					else
+						return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={x}';
+					break;
+				case 'cravatar':
+				default:
+					if($perspective == 'face')
+						return 'https://cravatar.eu/helmavatar/{x}/{y}.png';
+					else
+						return 'https://cravatar.eu/helmhead/{x}/{y}.png';
+					break;
+			}
+		} else {
+			// Fall back to cravatar
+			return 'https://cravatar.eu/helmavatar/{x}/{y}.png';
 		}
 	}
 

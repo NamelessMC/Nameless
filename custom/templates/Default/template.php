@@ -431,5 +431,51 @@ if(!isset($admin_styles)){
       });
       </script>
   	';
+  } else if($route == '/status'){
+  	$js .= '
+  	<script type="text/javascript">
+  	$(document).ready(function(){
+  	    $(".server").each(function(){
+  	        let serverId = $(this).data("id");
+  	        let serverBungee = $(this).data("bungee");
+  	        let serverPlayerList = $(this).data("players");
+  	        $.getJSON("' . URL::build('/queries/server/', 'id=') . '" + serverId, function(data){
+				var html = "";
+				if(data.status_value == 1){
+					$("#server" + serverId).addClass("bg-success text-white");
+					html = "<p>" + data.player_count + "/" + data.player_count_max + "</p>";
+					if(serverBungee == 1){
+				    	html += "<p>' . $language->get('general', 'bungee_instance') . '</p>";
+					} else {
+					    if(serverPlayerList == 1){
+					        if(data.player_list.length > 0){
+					            html += "<p>";
+					            let avatarSource = "' . Util::getAvatarSource() . '";
+					            for(var i = 0; i < data.player_list.length; i++){
+					                html += "<a href=\"' . URL::build('/profile/') . '" + data.player_list[i].name + "\"><img style=\"margin-bottom:3px;max-width:32px;max-height:32px;\" data-toggle=\"tooltip\" title=\"" + data.player_list[i].name + "\" src=\"" + avatarSource.replace("{x}", data.player_list[i].id).replace("{y}", 64) + "\" class=\"rounded\" alt=\"" + data.player_list[i].name + "\"></a> ";
+					            }
+					            html += "</p>";
+					            
+					            if(data.player_list.length < data.player_count){
+					                let andXMore = "' . $language->get('general', 'and_x_more') . '";
+					                html += "<p><span class=\"badge badge-secondary\">" + andXMore.replace("{x}", (data.player_count - data.player_list.length)) + "</span></p>";
+					            }
+					        } else {
+					            html += "<p>' . $language->get('general', 'no_players_online') . '</p>";
+					        }
+					    }
+					}
+				} else {
+					$("#server" + serverId).addClass("bg-danger text-white");
+					html = "<p>0/0</p><p>' . $language->get('general', 'offline') . '</p>";
+				}
+				
+				$("#content" + serverId).html(html);
+				$(\'[data-toggle="tooltip"]\').tooltip();
+			});
+  	    });
+  	});
+  	</script>
+  	';
   }
 }

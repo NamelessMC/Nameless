@@ -243,6 +243,7 @@ $language = array(
 	'query_interval' => 'Query interval (in minutes, must be between 5 and 60)',
 	'player_graphs' => 'Player Graphs',
 	'player_count_cronjob_info' => 'You can set up a cron job to query your servers every {x} minutes with the following command:',
+	'status_page' => 'Enable status page?',
 
 	// Modules
 	'modules_installed_successfully' => 'Any new modules have been installed successfully.',

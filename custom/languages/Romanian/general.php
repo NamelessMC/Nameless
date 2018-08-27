@@ -75,6 +75,7 @@ $language = array(
      */
     'home' => 'Acasă',
     'more' => 'Mai mult',
+    'status' => 'Status',
     
     /*
      *  Homepage
@@ -101,6 +102,10 @@ $language = array(
     'connect_with_ip_x' => 'Conectați-vă acum folosind IP-ul: {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Apasa aici pentru a copia adresa IP',
     'copied' => 'Copied!',
+    'no_servers' => 'There are no servers to display!',
+    'bungee_instance' => 'This server is a Bungee instance.',
+    'no_players_online' => 'There are no players online.',
+    'and_x_more' => 'and {x} more', // Don't replace {x}
 
     /*
      *  Cookie notice

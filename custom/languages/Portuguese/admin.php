@@ -244,6 +244,7 @@ $language = array(
     'query_interval' => 'Intevalo de Consulta (em minutos, deve ser entre 5 e 60)',
     'player_graphs' => 'Gráficos de Jogadores',
     'player_count_cronjob_info' => 'Você pode configurar uma cron job para consultar o seu servidor a cada {x} minutos com os seguintes comandos:',
+    'status_page' => 'Enable status page?',
 
 	// Modules
 	'modules_installed_successfully' => 'Todos os novos módulos foram instalados com êxito.',

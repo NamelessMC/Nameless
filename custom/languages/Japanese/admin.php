@@ -245,6 +245,7 @@ $language = array(
     'query_interval' => 'クエリー間隔 (分単位で、5~60でなければなりません)',
     'player_graphs' => 'プレイヤーグラフ',
     'player_count_cronjob_info' => '次のコマンドを使用して {x} 分ごとにサーバーに照会するようにジョブを設定できます。',
+    'status_page' => 'Enable status page?',
 
 	// Modules
 	'modules_installed_successfully' => '新しいモジュールが正常にインストールされました。',

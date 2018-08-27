@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -40,6 +40,7 @@ class MCQuery {
                                 'status' => $language->get('general', 'online'),
                                 'player_count' => Output::getClean($query['players']['online']),
                                 'player_count_max' => Output::getClean($query['players']['max']),
+                                'player_list' => (isset($query['players']['sample']) ? $query['players']['sample'] : array()),
                                 'x_players_online' => str_replace('{x}', Output::getClean($query['players']['online']), $language->get('general', 'currently_x_players_online')),
                                 'motd' => (isset($query['description']['text']) ? $query['description']['text'] : '')
                             );
@@ -66,6 +67,7 @@ class MCQuery {
                             'status' => $language->get('general', 'online'),
                             'player_count' => Output::getClean($query->players->online),
                             'player_count_max' => Output::getClean($query->players->max),
+                            'player_list' => (isset($query->hover) ? (array)$query->hover : array()),
                             'x_players_online' => str_replace('{x}', Output::getClean($query->players->online), $language->get('general', 'currently_x_players_online')),
                             'motd' => $query->motds->ingame,
                             'motd_formatted' => Output::getPurified($query->motds->html)

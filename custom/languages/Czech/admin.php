@@ -243,6 +243,7 @@ $language = array(
     'query_interval' => 'Interval Query (v minutách, musí být mezi 5 a 60)',
     'player_graphs' => 'Grafy hráčů',
     'player_count_cronjob_info' => 'Následujícím příkazem můžete nastavit "cron job" k query Vašich serverů každých {x} minut:', // Don't replace "{x}" or "{y}"
+    'status_page' => 'Enable status page?',
 	
 	// Modules
 	'modules_installed_successfully' => 'Všechny nové moduly se nainstalovaly.',
