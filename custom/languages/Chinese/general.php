@@ -99,7 +99,8 @@ $language = array(
     'currently_1_player_online' => 'There is currently 1 player online.',
     'currently_x_players_online' => '現在有 <strong>{x}</strong> 位玩家在線上.', // Don't replace {x}
     'server_offline' => '伺服器目前離線.',
-    'connect_with_ip_x' => '使用 IP <strong>{x}</strong> 來連接伺服器', // Don't replace {x}
+    'connect_with_ip_x' => '使用 IP {x} 來連接伺服器', // Don't replace {x}
+    'click_to_copy_tooltip' => 'Click to copy',
 
     /*
      *  Cookie notice

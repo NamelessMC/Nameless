@@ -98,7 +98,8 @@ $language = array(
 	'currently_1_player_online' => 'There is currently 1 player online.',
 	'currently_x_players_online' => 'Er zijn nu <strong>{x}</strong> spelers online.', // Verander "{x}" niet
 	'server_offline' => 'De server is nu offline.',
-	'connect_with_ip_x' => 'Verbind met dit IP adres: <strong>{x}</strong>', // Verander "{x}" niet
+	'connect_with_ip_x' => 'Verbind met dit IP adres: {x}', // Verander "{x}" niet
+    'click_to_copy_tooltip' => 'Click to copy',
 
 	/*
 	 *  Cookie notice
