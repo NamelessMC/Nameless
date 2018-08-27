@@ -244,6 +244,7 @@ $language = array(
 	'query_interval' => 'Query intervall (i minuter, måste vara mellan 5 och 60 min)',
 	'player_graphs' => 'Player Grafer',
 	'player_count_cronjob_info' => 'Du kan ställa in ett cron-jobb för att queria dina servrar varenda {x} minuter med följande kommando:',
+	'status_page' => 'Enable status page?',
 
 	// Modules
 	'modules_installed_successfully' => 'Alla nya moduler har installerats!',

@@ -238,6 +238,7 @@ $language = array(
     'query_interval' => 'Intervalo de consultas (en minutos, debe estar entre 5 y 60)',
     'player_graphs' => 'Gráfica de jugadores',
     'player_count_cronjob_info' => 'Puede configurar un trabajo cRON para consultar sus servidores cada {x} minutos con el siguiente comando:',
+    'status_page' => 'Enable status page?',
 
 	// Modules
 	'modules_installed_successfully' => 'Todos los nuevos módulos han sido instalados correctamente.',

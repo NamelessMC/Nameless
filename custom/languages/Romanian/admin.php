@@ -245,6 +245,7 @@ $language = array(
     'mcassoc_error' => 'Asigurați-vă că ați introdus corect cheia dvs. partajată și că ați generat corect o cheie de instanță.',
     'updated_mcassoc_successfully' => 'Setările mcassoc s-au actualizat cu succes.',
     'force_premium_accounts' => 'Forțează deținere unui cont de Minecraft permium?',
+    'status_page' => 'Enable status page?',
 
     // Modules
     'modules_installed_successfully' => 'Toate modulele noi au fost instalate cu succes (daca exista).',

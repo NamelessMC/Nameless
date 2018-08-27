@@ -74,6 +74,7 @@ $language = array(
 	 */
 	'home' => 'Início',
 	'more' => 'Mais',
+	'status' => 'Status',
 	
 	/*
 	 *  Homepage
@@ -100,6 +101,10 @@ $language = array(
 	'connect_with_ip_x' => 'Junte-se aos nossos jogadores: {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Click to copy',
     'copied' => 'Copied!',
+    'no_servers' => 'There are no servers to display!',
+    'bungee_instance' => 'This server is a Bungee instance.',
+    'no_players_online' => 'There are no players online.',
+    'and_x_more' => 'and {x} more', // Don't replace {x}
 
 	/*
 	 *  Cookie notice

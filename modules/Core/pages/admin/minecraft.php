@@ -1051,6 +1051,11 @@ $admin_page = 'minecraft';
                               else
                                 $external = 0;
 
+	                            if(isset($_POST['status_page']) && $_POST['status_page'] == 1)
+		                            $status = 1;
+	                            else
+		                            $status = 0;
+
                               // Update database and cache
                               try {
                                   // Default server
@@ -1081,6 +1086,17 @@ $admin_page = 'minecraft';
                                       'default' => $new_default,
                                       'external' => $external
                                   ));
+
+                                  // Status page
+								  $status_page_id = $queries->getWhere('settings', array('name', '=', 'status_page'));
+								  $status_page_id = $status_page_id[0]->id;
+
+								  $queries->update('settings', $status_page_id, array(
+								      'value' => $status
+								  ));
+
+								  $cache->setCache('status_page');
+								  $cache->store('enabled', $status);
 
                                   // Query interval
                                   if(isset($_POST['interval']) && is_numeric($_POST['interval']) && $_POST['interval'] <= 60 && $_POST['interval'] >= 5){
@@ -1140,6 +1156,9 @@ $admin_page = 'minecraft';
                           $external_query = $queries->getWhere('settings', array('name', '=', 'external_query'));
                           $external_query = $external_query[0]->value;
 
+                          $status_page = $queries->getWhere('settings', array('name', '=', 'status_page'));
+                          $status_page = $status_page[0]->value;
+
                           // Query interval
                           $cache->setCache('server_query_cache');
                           if($cache->isCached('query_interval')){
@@ -1189,6 +1208,11 @@ $admin_page = 'minecraft';
                               <input type="hidden" name="external_query" value="0">
                               <input id="inputExternalQuery" name="external_query" type="checkbox" class="js-switch" value="1" <?php if($external_query == '1') echo 'checked'; ?>/>
                             </div>
+							  <div class="form-group">
+								  <label for="inputStatusPage"><?php echo $language->get('admin', 'status_page'); ?></label>
+								  <input type="hidden" name="status_page" value="0">
+								  <input id="inputStatusPage" name="status_page" type="checkbox" class="js-switch" value="1" <?php if($status_page == '1') echo 'checked'; ?>/>
+							  </div>
                             <div class="form-group">
                               <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
                               <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">

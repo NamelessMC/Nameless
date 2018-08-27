@@ -131,11 +131,13 @@ $pages->add('Core', '/validate', 'pages/validate.php');
 $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
 $pages->add('Core', '/queries/pms', 'queries/pms.php');
 $pages->add('Core', '/queries/servers', 'queries/servers.php');
+$pages->add('Core', '/queries/server', 'queries/server.php');
 $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
 $pages->add('Core', '/terms', 'pages/terms.php');
 $pages->add('Core', '/privacy', 'pages/privacy.php');
 $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
 $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
+$pages->add('Core', '/status', 'pages/status.php');
 
 // Hooks
 HookHandler::registerEvent('registerUser', $language->get('admin', 'register_hook_info'));
@@ -356,4 +358,40 @@ if(!isset($_GET['route']) || (isset($_GET['route']) && rtrim($_GET['route'], '/'
         HookHandler::registerHook('validateUser', 'ValidateHook::validatePromote');
         define('VALIDATED_DEFAULT', $validate_action['group']);
     }
+
+	if(defined('MINECRAFT') && MINECRAFT === true){
+		$cache->setCache('status_page');
+		if($cache->isCached('enabled')){
+			$status_enabled = $cache->retrieve('enabled');
+
+		} else {
+			$status_enabled = $queries->getWhere('settings', array('name', '=', 'status_page'));
+			if($status_enabled[0]->value == 1)
+				$status_enabled = 1;
+			else
+				$status_enabled = 0;
+
+			$cache->store('enabled', $status_enabled);
+
+		}
+
+		if($status_enabled == 1){
+			// Add status link to navbar
+			$cache->setCache('navbar_order');
+			if(!$cache->isCached('status_order')){
+				$status_order = 3;
+				$cache->store('status_order', 3);
+			} else{
+				$status_order = $cache->retrieve('status_order');
+			}
+
+			$cache->setCache('navbar_icons');
+			if(!$cache->isCached('status_icon'))
+				$icon = '';
+			else
+				$icon = $cache->retrieve('status_icon');
+
+			$navigation->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
+		}
+	}
 }

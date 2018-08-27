@@ -251,6 +251,7 @@ $language = array(
     'query_interval' => 'Abfrageintervall (in Minuten muss zwischen 5 und 60 liegen)',
     'player_graphs' => 'Spielertafeln',
     'player_count_cronjob_info' => 'Sie können einen Cron-Job einrichten, um Ihre Server alle {x} Minuten mit dem folgenden Befehl abzufragen:',
+    'status_page' => 'Enable status page?',
 
 	// Modules
 	'modules_installed_successfully' => 'Alle neuen Module wurden erfolgreich installiert.',
