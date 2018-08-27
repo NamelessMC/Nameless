@@ -614,9 +614,10 @@ if($page != 'install'){
             $smarty->assign('SERVER_QUERY', $result);
 
         if(!is_null($default) && isset($default->ip)){
-            $wrapped_ip = '<strong id="ip" onclick="copyToClipboard(\'#ip\')" data-toggle="tooltip" title="' . $language->get('general', 'click_to_copy_tooltip') . '">' . $default->ip . ((!is_null($default->port) && $default->port != 25565) ? ':' . $default->port : '') . '</strong>';
-            $smarty->assign('CONNECT_WITH', str_replace('{x}', $wrapped_ip, $language->get('general', 'connect_with_ip_x')));
+            $smarty->assign('CONNECT_WITH', str_replace('{x}', '<span id="ip">' . Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')) . '</span>', $language->get('general', 'connect_with_ip_x')));
             $smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')));
+            $smarty->assign('CLICK_TO_COPY_TOOLTIP', $language->get('general', 'click_to_copy_tooltip'));
+            $smarty->assign('COPIED', $language->get('general', 'copied'));
         } else {
             $smarty->assign('CONNECT_WITH', '');
             $smarty->assign('DEFAULT_IP', '');

@@ -99,6 +99,7 @@ $language = array(
 	'server_offline' => 'O servidor está atualmente offline.',
 	'connect_with_ip_x' => 'Junte-se aos nossos jogadores: {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Click to copy',
+    'copied' => 'Copied!',
 
 	/*
 	 *  Cookie notice

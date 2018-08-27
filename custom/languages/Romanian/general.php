@@ -100,6 +100,7 @@ $language = array(
     'server_offline' => 'Serverul este în prezent offline.',
     'connect_with_ip_x' => 'Conectați-vă acum folosind IP-ul: {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Apasa aici pentru a copia adresa IP',
+    'copied' => 'Copied!',
 
     /*
      *  Cookie notice

@@ -106,6 +106,7 @@ $language = array(
     'server_offline' => 'Der Server ist zurzeit Offline.',
     'connect_with_ip_x' => 'Verbinde dich jetzt mit folgender Adresse: {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'In Zwischenablage kopieren',
+    'copied' => 'Copied!',
 
     /*
      *  Cookie notice

@@ -100,6 +100,7 @@ $language = array(
 	'server_offline' => 'De server is nu offline.',
 	'connect_with_ip_x' => 'Verbind met dit IP adres: {x}', // Verander "{x}" niet
     'click_to_copy_tooltip' => 'Click to copy',
+    'copied' => 'Copied!',
 
 	/*
 	 *  Cookie notice

@@ -145,7 +145,7 @@ if(!isset($admin_styles)){
       toastr.options.progressBar = true;
       toastr.options.closeButton = true;
       toastr.options.positionClass = \'toast-bottom-left\'
-      toastr.success(\'Copied!\');
+      toastr.success("' . $language->get('general', 'copied') . '");
     }
     </script>';
 
