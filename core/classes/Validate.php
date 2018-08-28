@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -145,6 +145,13 @@ class Validate {
 						case 'isbannedip';
 							// Todo: Check if IP is banned
 						break;
+
+						case 'alphanumeric':
+							if(!ctype_alnum($value)){
+								// $value is not alphanumeric
+								$this->addError("{$item} must be alphanumeric.");
+							}
+							break;
 					}
 				}
 
