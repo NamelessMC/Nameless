@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -183,7 +183,7 @@ if(isset($_GET['action'])){
                             } else
                                 require_once($widgets->getWidget($widget->name)->getSettings());
 
-                        } else if($_GET['action'] == 'edit') {
+                        } else if($_GET['action'] == 'edit'){
                             // Editing widget
                             $active_pages = json_decode($widget->pages, true);
 
@@ -198,9 +198,14 @@ if(isset($_GET['action'])){
 
                                         $active_pages_string = json_encode($active_pages);
 
-                                        $queries->update('widgets', $widget->id, array('pages' => $active_pages_string));
+                                        $order = (isset($_POST['order']) ? $_POST['order'] : 10);
+
+                                        $queries->update('widgets', $widget->id, array('pages' => $active_pages_string, '`order`' => $order));
 
                                         Log::getInstance()->log(Log::Action('admin/widget/update'), $widget->name);
+
+                                        Redirect::to(URL::build('/admin/widgets/', 'action=edit&w=' . $widget->id));
+                                        die();
                                     } catch (Exception $e) {
                                         $error = $e->getMessage();
                                     }
@@ -219,6 +224,9 @@ if(isset($_GET['action'])){
                             <?php if (isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
                             <form action="" method="post">
                                 <?php
+                                $order = $widgets->getWidget($widget->name)->getOrder();
+                                if(!$order) $order = 10;
+
                                 $possible_pages = $pages->returnWidgetPages();
                                 if (count($possible_pages)) {
                                     foreach ($possible_pages as $module => $module_pages) {
@@ -252,6 +260,10 @@ if(isset($_GET['action'])){
                                     }
                                 }
                                 ?>
+								<div class="form-group">
+									<label for="inputOrder"><?php echo $language->get('admin', 'widget_order'); ?></label>
+									<input id="inputOrder" name="order" type="number" class="form-control" value="<?php echo Output::getClean($order); ?>">
+								</div>
                                 <input type="hidden" name="token" value="<?php echo Token::get(); ?>">
                                 <input type="submit" class="btn btn-primary"
                                        value="<?php echo $language->get('general', 'submit'); ?>">

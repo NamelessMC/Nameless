@@ -13,12 +13,16 @@ class DiscordWidget extends WidgetBase {
     public function __construct($pages = array(), $language, $cache, $discord = ''){
         parent::__construct($pages);
 
+        // Get order
+        $order = DB::getInstance()->query('SELECT `order` FROM nl2_widgets WHERE `name` = ?', array('Discord'))->first();
+
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Discord';
         $this->_location = 'right';
         $this->_description = 'Display your Discord channel on your site. Make sure you have entered your Discord widget details in the AdminCP -> Core -> Social Media tab first!';
         $this->_settings = ROOT_PATH . '/modules/Core/includes/admin_widgets/discord.php';
+        $this->_order = $order->order;
 
         // Generate HTML code for widget
         // First, check to see if the Discord server has the widget enabled.

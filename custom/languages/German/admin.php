@@ -388,6 +388,7 @@ $language = array(
 	'widget_disabled' => 'Widget deaktiviert.',
 	'editing_widget_x' => 'Bearbeite Widget {x}', // Don't replace {x}
 	'module_x' => 'Module: {x}', // Don't replace {x}
+	'widget_order' => 'Widget Order',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Include staff members in user widget?',

@@ -382,6 +382,7 @@ $language = array(
     'widget_disabled' => 'Piesă dezactivată .',
     'editing_widget_x' => 'Modificare piesă: {x}', // Don't replace {x}
     'module_x' => 'Module: {x}', // Don't replace {x}
+    'widget_order' => 'Widget Order',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Includeți membrii (staff) personalului în widget-ul utilizatorului?',
