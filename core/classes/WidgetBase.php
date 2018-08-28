@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -15,6 +15,7 @@ abstract class WidgetBase {
               $_content,
               $_description,
               $_module,
+              $_order,
               $_settings = null;
 
     public function __construct($pages = array()){
@@ -47,5 +48,9 @@ abstract class WidgetBase {
 
     public function getSettings(){
         return $this->_settings;
+    }
+
+    public function getOrder(){
+        return $this->_order;
     }
 }

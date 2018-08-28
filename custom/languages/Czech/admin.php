@@ -380,6 +380,7 @@ $language = array(
 	'widget_disabled' => 'Widget vypnut.',
 	'editing_widget_x' => 'Upravování widgetu {x}', // Don't replace {x}
 	'module_x' => 'Doplněk: {x}', // Don't replace {x}
+	'widget_order' => 'Widget Order',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Include staff members in user widget?',

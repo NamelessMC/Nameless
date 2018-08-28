@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -12,11 +12,15 @@ class OnlineStaffWidget extends WidgetBase {
     public function __construct($pages = array(), $online_staff = array(), $smarty, $language){
         parent::__construct($pages);
 
+        // Get order
+        $order = DB::getInstance()->query('SELECT `order` FROM nl2_widgets WHERE `name` = ?', array('Online Staff'))->first();
+
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Online Staff';
         $this->_location = 'right';
         $this->_description = 'Displays a list of online staff members on your website.';
+        $this->_order = $order->order;
 
         // Generate HTML code for widget
         if(count($online_staff)){

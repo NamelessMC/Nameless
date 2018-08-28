@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -85,7 +85,10 @@ class Widgets {
      */
     public function getWidgets(){
         $ret = array();
-        foreach($this->_widgets as $item)
+
+        $widgets = $this->getAll();
+
+        foreach($widgets as $item)
             if(array_key_exists($item->getName(), $this->_enabled) && is_array($item->getPages()) && in_array((defined('PAGE') ? PAGE : 'index'), $item->getPages()))
                 $ret[] = $item->display();
 
@@ -96,7 +99,11 @@ class Widgets {
      *  List all widgets
      */
     public function getAll(){
-        return $this->_widgets;
+        $widgets = $this->_widgets;
+        uasort($widgets, function($a, $b){
+            return $a->getOrder() - $b->getOrder();
+        });
+        return $widgets;
     }
 
     /*

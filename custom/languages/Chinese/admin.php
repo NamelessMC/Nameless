@@ -384,6 +384,7 @@ $language = array(
 	'widget_disabled' => '小工具禁用.',
 	'editing_widget_x' => '編輯小工具 {x}', // Don't replace {x}
 	'module_x' => '模組: {x}', // Don't replace {x}
+	'widget_order' => 'Widget Order',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Include staff members in user widget?',
