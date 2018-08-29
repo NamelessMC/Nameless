@@ -56,6 +56,9 @@ $language = array(
 	'bypass' => 'Undvika',
 	'yes' => 'Yes',
 	'no' => 'No',
+	'content' => 'Content',
+	'full_content' => 'Full Content',
+	'url' => 'URL',
 
 	/*
 	 *  Contact form

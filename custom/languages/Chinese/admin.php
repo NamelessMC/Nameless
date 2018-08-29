@@ -330,6 +330,8 @@ $language = array(
 	'secondary_groups_info' => '使用者將會從這些組別獲得權限，<strong>Ctrl+點擊</strong>可選擇/取消群組.',
 	'unable_to_update_uuid' => 'Unable to update UUID.',
 	'default_group' => 'Is the group the default group (for new users)?',
+	'user_id' => 'User ID',
+	'uuid' => 'UUID',
 
 	// Permissions
     'select_all' => 'Select All',

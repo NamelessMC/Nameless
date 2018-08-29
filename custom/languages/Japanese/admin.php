@@ -328,6 +328,8 @@ $language = array(
 	'secondary_groups_info' => 'ユーザーはこれらのグループから追加の権限を取得します。 複数のグループを選択/選択解除するには Ctrl +クリック します。',
 	'unable_to_update_uuid' => 'UUID を更新できません。',
 	'default_group' => 'デフォルトグループ (新規ユーザー向け)？',
+	'user_id' => 'User ID',
+	'uuid' => 'UUID',
 
 	// Permissions
 	'select_all' => 'すべて選択',

@@ -64,6 +64,7 @@ $language = array(
     'change_email_address' => 'Schimbați adresa de e-mail',
     'email_already_exists' => 'Adresa de e-mail pe care ați introdus-o este deja utilizată.',
     'email_changed_successfully' => 'Adresa de e-mail a fost modificată cu succes.',
+    'avatar' => 'Avatar',
     
     // Alerts
     'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace {x}

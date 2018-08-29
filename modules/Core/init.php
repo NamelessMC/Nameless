@@ -140,8 +140,8 @@ $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
 $pages->add('Core', '/status', 'pages/status.php');
 
 // Hooks
-HookHandler::registerEvent('registerUser', $language->get('admin', 'register_hook_info'));
-HookHandler::registerEvent('validateUser', $language->get('admin', 'validate_hook_info'));
+HookHandler::registerEvent('registerUser', $language->get('admin', 'register_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid'), 'avatar_url' => $language->get('user', 'avatar'), 'content' => $language->get('general', 'content'), 'url' => $language->get('user', 'profile')));
+HookHandler::registerEvent('validateUser', $language->get('admin', 'validate_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid')));
 
 // Sitemap
 $pages->registerSitemapMethod(ROOT_PATH . '/modules/Core/classes/Core_Sitemap.php', 'Core_Sitemap::generateSitemap');

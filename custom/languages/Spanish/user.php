@@ -62,6 +62,7 @@ $language = array(
 	'change_email_address' => 'Cambiar dirección de correo electronico',
 	'email_already_exists' => 'El correo electronico que ha introducido está en uso.',
 	'email_changed_successfully' => 'La dirección de correo electrónico fue actualizada con éxito.',
+	'avatar' => 'Avatar',
 	
 	// Alerts
 	'user_tag_info' => 'Has sido etiquetado en un post por {x}.', // Don't replace {x}

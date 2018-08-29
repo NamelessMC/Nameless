@@ -327,6 +327,8 @@ $language = array(
 	'secondary_groups_info' => 'Användaren får ytterligare behörigheter från dessa grupper. Ctrl + klicka för att välja / avmarkera flera grupper.',
 	'unable_to_update_uuid' => 'Kan inte uppdatera UUID.',
 	'default_group' => 'Is the group the default group (for new users)?',
+	'user_id' => 'User ID',
+	'uuid' => 'UUID',
 
 	// Permissions
 	'select_all' => 'Välj alla',

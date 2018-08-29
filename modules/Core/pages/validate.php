@@ -33,6 +33,7 @@ if(!isset($_GET['c'])){
 			'event' => 'validateUser',
 			'user_id' => $check[0]->id,
 			'username' => Output::getClean($check[0]->username),
+			'uuid' => Output::getClean($check[0]->uuid),
 			'language' => $language
 		));
 

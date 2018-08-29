@@ -36,7 +36,7 @@ PermissionHandler::registerPermissions('Forum', array(
 ));
 
 // Hooks
-HookHandler::registerEvent('newTopic', $forum_language->get('forum', 'new_topic_hook_info'));
+HookHandler::registerEvent('newTopic', $forum_language->get('forum', 'new_topic_hook_info'), array('uuid' => $language->get('admin', 'uuid'), 'username' => $language->get('user', 'username'), 'nickname' => $language->get('user', 'nickname'), 'content' => $language->get('general', 'content'), 'content_full' => $language->get('general', 'full_content'), 'avatar_url' => $language->get('user', 'avatar'), 'title' => $forum_language->get('forum', 'topic_title'), 'url' => $language->get('general', 'url')));
 
 // Sitemap
 $pages->registerSitemapMethod(ROOT_PATH . '/modules/Forum/classes/Forum_Sitemap.php', 'Forum_Sitemap::generateSitemap');
