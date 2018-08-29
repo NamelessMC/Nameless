@@ -15,7 +15,12 @@ class Output {
 	// Returns a clean version of an inputted string
 	// Params: $input (string) - contains the string which will be cleaned
 	public static function getClean($input){
-		return str_replace('&amp;', '&', htmlspecialchars($input));
+		return str_replace('&amp;', '&', htmlspecialchars($input, ENT_QUOTES));
+	}
+	// Returns a decoded version of a clean string
+	// Params: $input (string) - contains the clean string which will be decoded
+	public static function getDecoded($input){
+		return htmlspecialchars_decode($input, ENT_QUOTES);
 	}
 
 	// Returns a purified version of an inputted string with HTMLPurifier
