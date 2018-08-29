@@ -145,7 +145,9 @@ if(Input::exists()) {
                         if(count($forum_events) && in_array($fid, $forum_events)){
                             HookHandler::executeEvent('newTopic', array(
                                 'event' => 'newTopic',
-                                'username' => Output::getClean($user->data()->nickname),
+                                'uuid' => Output::getClean($user->data()->uuid),
+                                'username' => Output::getClean($user->data()->username),
+                                'nickname' => Output::getClean($user->data()->nickname),
                                 'content' => str_replace(array('{x}', '{y}'), array($forum_title, Output::getClean($user->data()->nickname)), $forum_language->get('forum', 'new_topic_text')),
                                 'content_full' => strip_tags(Input::get('content')),
                                 'avatar_url' => $user->getAvatar($user->data()->id, null, 128, true),

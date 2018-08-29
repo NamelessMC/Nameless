@@ -57,6 +57,9 @@ $language = array(
     'bypass' => 'Evită',
     'yes' => 'Da',
     'no' => 'Nu',
+    'content' => 'Content',
+    'full_content' => 'Full Content',
+    'url' => 'URL',
 
     /*
      *  Contact form

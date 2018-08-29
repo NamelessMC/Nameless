@@ -55,6 +55,9 @@ $language = array(
     'bypass' => 'Hopp over',
     'yes' => 'Ja',
     'no' => 'Nei',
+    'content' => 'Content',
+    'full_content' => 'Full Content',
+    'url' => 'URL',
 
     /*
      *  Contact form

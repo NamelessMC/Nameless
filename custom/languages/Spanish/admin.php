@@ -321,6 +321,8 @@ $language = array(
 	'secondary_groups_info' => 'El usuario podrá tener los permisos secundarios de los siguientes rangos. Ctrl+click para seleccionar/deseleccionar múltiples grupos.',
 	'unable_to_update_uuid' => 'No se puede actualizar UUID.',
 	'default_group' => '¿Será el grupo por defecto (para nuevos Usuarios)?',
+	'user_id' => 'User ID',
+	'uuid' => 'UUID',
 
 	// Permissions
 	'select_all' => 'Seleccionar todo',

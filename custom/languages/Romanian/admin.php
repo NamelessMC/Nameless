@@ -328,6 +328,8 @@ $language = array(
     'secondary_groups_info' => 'Utilizatorul va obține orice permisiuni suplimentare din partea acestor grupuri',
     'unable_to_update_uuid' => 'Imposibil de actualizat UUID-ul.',
     'default_group' => 'Grupul este grupul implicit pentru utilizatorii noi?',
+    'user_id' => 'User ID',
+    'uuid' => 'UUID',
 
     // Permissions
     'select_all' => 'Selectează tot',

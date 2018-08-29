@@ -13,11 +13,13 @@ class HookHandler {
     // Register an event name
     // Params:  $event - name of event to add
     //          $description - human readable description
-    public static function registerEvent($event, $description){
+	//          $params - array of available parameters and their descriptions
+    public static function registerEvent($event, $description, $params = array()){
         if(!isset(self::$_events[$event]))
             self::$_events[$event] = array();
 
         self::$_events[$event]['description'] = $description;
+        self::$_events[$event]['params'] = $params;
 
         return true;
     }
@@ -69,6 +71,15 @@ class HookHandler {
     		return self::$_events[$hook];
     	else
     		return null;
+	}
+
+	// Get parameters
+	public static function getParameters($event){
+    	if(isset(self::$_events[$event]['parameters'])){
+    		return self::$_events[$event]['parameters'];
+	    } else {
+    		return null;
+	    }
 	}
 
 }

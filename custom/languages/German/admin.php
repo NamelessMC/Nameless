@@ -334,6 +334,8 @@ $language = array(
 	'secondary_groups_info' => 'Der Benutzer erhält zusätzliche Berechtigungen aus diesen Gruppen',
 	'unable_to_update_uuid' => 'Unmöglich die UUID zu aktualisieren.',
 	'default_group' => 'Is the group the default group (for new users)?',
+	'user_id' => 'User ID',
+	'uuid' => 'UUID',
 
     // Permissions
     'select_all' => 'Alle auswählen',

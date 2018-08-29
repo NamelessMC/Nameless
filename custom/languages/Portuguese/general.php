@@ -56,6 +56,9 @@ $language = array(
 	'bypass' => 'Burlar',
 	'yes' => 'Sim',
 	'no' => 'Não',
+	'content' => 'Content',
+	'full_content' => 'Full Content',
+	'url' => 'URL',
 
 	/*
 	*  Contact form
