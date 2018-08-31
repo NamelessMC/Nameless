@@ -36,8 +36,8 @@ class DB {
 		return self::$_instance;
 	
 	}
-	
-	public function query($sql, $params = array()) {
+
+	public function query($sql, $params = array(), $fetch_method = PDO::FETCH_OBJ) {
 		$this->_error = false;
 		if($this->_query = $this->_pdo->prepare($sql)) {
 			$x = 1;
@@ -47,20 +47,19 @@ class DB {
 					$x++;
 				}
 			}
-			
+
 			if($this->_query->execute()) {
-				$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
+				$this->_results = $this->_query->fetchAll($fetch_method);
 				$this->_count = $this->_query->rowCount();
 			} else {
 				print_r($this->_pdo->errorInfo());
 				$this->_error = true;
 			}
-			
-			
+
 		}
-		
+
 		return $this;
-		
+
 	}
 	
 	public function createQuery($sql, $params = array()) {

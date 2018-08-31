@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -411,7 +411,7 @@ $admin_page = 'forums';
 											$view = Input::get('perm-view-0');
 											$create = 0;
 											$post = 0;
-											$view_others = 0;
+											$view_others = Input::get('perm-view-0');
 											$moderate = 0;
 											
 											if(!($view)) $view = 0;
@@ -849,7 +849,7 @@ $admin_page = 'forums';
 									$view = Input::get('perm-view-0');
 									$create = 0;
 									$post = 0;
-									$view_others = 0;
+									$view_others = Input::get('perm-view-0');
 									$moderate = 0;
 									
 									if(!($view)) $view = 0;
