@@ -172,9 +172,9 @@ $admin_styles = true;
 						  foreach($files as $file){
 							  if($file != '.' && $file != '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js')){
 								  if(!is_dir($template_path . DIRECTORY_SEPARATOR . $file))
-                                      echo '<a href="' . URL::build('/admin/styles/', 'tid=' . $template->id . '&amp;file=' . htmlspecialchars($file)) . '">' . htmlspecialchars($file) . '</a><br />';
+                                      echo '<i class="fa fa-file"></i> <a href="' . URL::build('/admin/styles/', 'tid=' . $template->id . '&amp;file=' . htmlspecialchars($file)) . '">' . htmlspecialchars($file) . '</a><br />';
                                   else
-                                      echo '<a href="' . URL::build('/admin/styles/', 'tid=' . $template->id . '&amp;dir=' . htmlspecialchars($file)) . '">' . htmlspecialchars($file) . '</a><br />';
+                                      echo '<i class="fa fa-folder"></i> <a href="' . URL::build('/admin/styles/', 'tid=' . $template->id . '&amp;dir=' . htmlspecialchars($file)) . '">' . htmlspecialchars($file) . '</a><br />';
 							  }
 						  }
 
@@ -196,7 +196,7 @@ $admin_styles = true;
                           foreach($files as $file){
                               if(pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js'){
                                   if(!is_dir($template_path . DIRECTORY_SEPARATOR . $file))
-                                      echo '<a href="' . URL::build('/admin/styles/', 'tid=' . $template->id . '&amp;dir=' . htmlspecialchars($dir) . '&amp;file=' . htmlspecialchars($file)) . '">' . htmlspecialchars($file) . '</a><br />';
+                                      echo '<i class="fa fa-file"></i> <a href="' . URL::build('/admin/styles/', 'tid=' . $template->id . '&amp;dir=' . htmlspecialchars($dir) . '&amp;file=' . htmlspecialchars($file)) . '">' . htmlspecialchars($file) . '</a><br />';
                               }
                           }
 
