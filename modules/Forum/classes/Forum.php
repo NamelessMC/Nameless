@@ -202,6 +202,9 @@ class Forum {
 		if($user_id > 0)
 			$own_topics_forums = DB::getInstance()->query("SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (" . rtrim($group_id . ',' . implode(',', $secondary_groups), ',') . ") AND `view` = 1 AND view_other_topics = 0")->results();
 
+		if(!count($all_topics_forums) && !count($own_topics_forums))
+			return array();
+
 		$all_topics_forums_string = '(';
 		foreach($all_topics_forums as $forum)
 			$all_topics_forums_string .= $forum->forum_id . ',';
