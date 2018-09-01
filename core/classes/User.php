@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  User class
  */
@@ -811,84 +811,6 @@ class User {
                 }
             }
         }
-		return false;
-	}
-
-	// Can the specified user view staff applications?
-	public function canViewApps($user_id = null){
-		if($user_id){
-			$data = $this->_db->get('users', array('id', '=', $user_id));
-			if($data->count()){
-				$user_group = $data->results();
-				$secondary_groups = $user_group[0]->secondary_groups;
-				$user_group = $user_group[0]->group_id;
-				// Get whether the user can view applications from the groups table
-				$data = $this->_db->get('groups', array('id', '=', $user_group));
-				if($data->count()){
-					$data = $data->results();
-					if($data[0]->staff_apps == 1){
-						// Can view
-						return true;
-					} else {
-                        // Check secondary groups
-                        if(!is_null($secondary_groups)){
-                            $secondary_groups = json_decode($secondary_groups, true);
-                            if(count($secondary_groups)){
-                                foreach($secondary_groups as $group) {
-                                    $data = $this->_db->get('groups', array('id', '=', $group));
-                                    if($data->count()){
-                                        $data = $data->results();
-
-                                        if($data[0]->staff_apps == 1){
-                                            return true;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-				}
-			}
-		}
-		return false;
-	}
-
-	// Can the specified user accept staff applications?
-	public function canAcceptApps($user_id = null){
-		if($user_id){
-			$data = $this->_db->get('users', array('id', '=', $user_id));
-			if($data->count()){
-				$user_group = $data->results();
-                $secondary_groups = $user_group[0]->secondary_groups;
-				$user_group = $user_group[0]->group_id;
-				// Get whether the user can accept applications from the groups table
-				$data = $this->_db->get('groups', array('id', '=', $user_group));
-				if($data->count()){
-					$data = $data->results();
-					if($data[0]->accept_staff_apps == 1){
-						// Can view
-						return true;
-					} else {
-                        // Check secondary groups
-                        if(!is_null($secondary_groups)){
-                            $secondary_groups = json_decode($secondary_groups, true);
-                            if(count($secondary_groups)){
-                                foreach($secondary_groups as $group) {
-                                    $data = $this->_db->get('groups', array('id', '=', $group));
-                                    if($data->count()){
-                                        $data = $data->results();
-
-                                        if($data[0]->accept_staff_apps == 1){
-                                            return true;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-				}
-			}
-		}
 		return false;
 	}
 
