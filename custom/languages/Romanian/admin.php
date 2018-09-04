@@ -391,6 +391,7 @@ $language = array(
 
     // Custom Pages
     'pages' => 'Pagini',
+	'custom_pages' => 'Pagini personalizate',
     'new_page' => '<i class="fa fa-plus-circle"></i> Pagină nouă',
     'no_custom_pages' => 'Nici o pagină nu a fost creată încă.',
     'creating_new_page' => 'Creare pagină',
@@ -473,8 +474,8 @@ $language = array(
 	'sitemap_last_generated_x' => 'Harta ultimului site a fost generată {x}', // Don't replace {x}
 
 	// Page metadata
-	'page_metadata' => 'Metadatele paginii',
-	'metadata_page_x' => 'Vizualizarea metadatelor pentru pagina {x}', // Don't replace {x}
+	'page_metadata' => 'Metadatele paginilor',
+	'metadata_page_x' => 'Vizualizarea metadatelor pentru pagina: {x}', // Don't replace {x}
 	'keywords' => 'Cuvinte cheie',
 	'description_max_500' => 'Descrierea trebuie să aibă cel mult 500 de caractere.',
 );
