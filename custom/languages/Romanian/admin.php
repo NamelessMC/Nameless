@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 20/08/2018
+ *  Last Update: 04/09/2018
  */
 
 $language = array(
@@ -245,7 +245,7 @@ $language = array(
     'mcassoc_error' => 'Asigurați-vă că ați introdus corect cheia dvs. partajată și că ați generat corect o cheie de instanță.',
     'updated_mcassoc_successfully' => 'Setările mcassoc s-au actualizat cu succes.',
     'force_premium_accounts' => 'Forțează deținere unui cont de Minecraft permium?',
-    'status_page' => 'Enable status page?',
+    'status_page' => 'Activați pagina de stare?',
 
     // Modules
     'modules_installed_successfully' => 'Toate modulele noi au fost instalate cu succes (daca exista).',
@@ -328,7 +328,7 @@ $language = array(
     'secondary_groups_info' => 'Utilizatorul va obține orice permisiuni suplimentare din partea acestor grupuri',
     'unable_to_update_uuid' => 'Imposibil de actualizat UUID-ul.',
     'default_group' => 'Grupul este grupul implicit pentru utilizatorii noi?',
-    'user_id' => 'User ID',
+    'user_id' => 'ID utilizator',
     'uuid' => 'UUID',
 
     // Permissions
@@ -384,7 +384,7 @@ $language = array(
     'widget_disabled' => 'Piesă dezactivată .',
     'editing_widget_x' => 'Modificare piesă: {x}', // Don't replace {x}
     'module_x' => 'Module: {x}', // Don't replace {x}
-    'widget_order' => 'Widget Order',
+    'widget_order' => 'Ordinea piesei',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Includeți membrii (staff) personalului în widget-ul utilizatorului?',
@@ -473,8 +473,8 @@ $language = array(
 	'sitemap_last_generated_x' => 'Harta ultimului site a fost generată {x}', // Don't replace {x}
 
 	// Page metadata
-	'page_metadata' => 'Page Metadata',
-	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
-	'keywords' => 'Keywords',
-	'description_max_500' => 'The description must be at most 500 characters.',
+	'page_metadata' => 'Metadatele paginii',
+	'metadata_page_x' => 'Vizualizarea metadatelor pentru pagina {x}', // Don't replace {x}
+	'keywords' => 'Cuvinte cheie',
+	'description_max_500' => 'Descrierea trebuie să aibă cel mult 500 de caractere.',
 );
