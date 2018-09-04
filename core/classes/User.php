@@ -436,7 +436,7 @@ class User {
         // Default avatar
         if(defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom'){
             // Custom default avatar
-            return(((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE);
+            return(($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE);
         } else {
             // Minecraft avatar
             if(defined('DEFAULT_AVATAR_SOURCE')){
