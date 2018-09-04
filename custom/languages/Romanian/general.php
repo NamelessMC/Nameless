@@ -8,7 +8,7 @@
  *
  *  Romanian Language - General terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ASMODΣUS
- *  Last Update: 27/07/2018
+ *  Last Update: 04/09/2018
  */
 
 $language = array(
@@ -57,8 +57,8 @@ $language = array(
     'bypass' => 'Evită',
     'yes' => 'Da',
     'no' => 'Nu',
-    'content' => 'Content',
-    'full_content' => 'Full Content',
+    'content' => 'Conţinut',
+    'full_content' => 'Conținut complet',
     'url' => 'URL',
 
     /*
@@ -104,11 +104,11 @@ $language = array(
     'server_offline' => 'Serverul este în prezent offline.',
     'connect_with_ip_x' => 'Conectați-vă acum folosind IP-ul: {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Apasa aici pentru a copia adresa IP',
-    'copied' => 'Copied!',
-    'no_servers' => 'There are no servers to display!',
-    'bungee_instance' => 'This server is a Bungee instance.',
-    'no_players_online' => 'There are no players online.',
-    'and_x_more' => 'and {x} more', // Don't replace {x}
+    'copied' => 'Copiat!',
+    'no_servers' => 'Momentan nu există servere de afișat!',
+    'bungee_instance' => 'Acest server este o instanță Bungee.',
+    'no_players_online' => 'Momentan nu sunt jucători online.',
+    'and_x_more' => 'şi alţi {x}', // Don't replace {x}
 
     /*
      *  Cookie notice
