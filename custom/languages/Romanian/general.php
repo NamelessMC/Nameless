@@ -78,7 +78,7 @@ $language = array(
      */
     'home' => 'Acasă',
     'more' => 'Mai mult',
-    'status' => 'Status',
+    'status' => 'Statistici',
     
     /*
      *  Homepage
