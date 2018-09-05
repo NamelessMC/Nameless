@@ -389,6 +389,7 @@ $language = array(
 
 	// Custom Pages
 	'pages' => 'Stránky',
+	'custom_pages' => 'Stránky',
 	'new_page' => '<i class="fa fa-plus-circle"></i> Nová stránka',
 	'no_custom_pages' => 'Zatiaľ neboli vytvorené žiadne stránky.',
 	'creating_new_page' => 'Vytvorenie stránky',
