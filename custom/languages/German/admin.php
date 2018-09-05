@@ -397,6 +397,7 @@ $language = array(
 
     // Custom Pages
     'pages' => 'Seiten',
+    'custom_pages' => 'Seiten',
     'new_page' => '<i class="fa fa-plus-circle"></i> Neue Seite',
     'no_custom_pages' => 'Es wurden noch keine Seiten erstellt.',
     'creating_new_page' => 'Erstelle Seite',

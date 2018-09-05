@@ -389,6 +389,7 @@ $language = array(
 
     // Custom Pages
     'pages' => 'Sider',
+    'custom_pages' => 'Sider',
     'new_page' => '<i class="fa fa-plus-circle"></i> Ny side',
     'no_custom_pages' => 'Ingen sider har blitt laget enda.',
     'creating_new_page' => 'Oppretter side',

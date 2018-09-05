@@ -391,6 +391,7 @@ $language = array(
 
     // Custom Pages
     'pages' => 'ページ',
+    'custom_pages' => 'ページ',
     'new_page' => '<i class="fa fa-plus-circle"></i> 新しいページ',
     'no_custom_pages' => 'ページはまだ作成されていません。',
     'creating_new_page' => 'ページの作成',

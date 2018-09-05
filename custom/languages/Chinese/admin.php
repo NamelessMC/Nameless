@@ -393,6 +393,7 @@ $language = array(
 
 	// Custom Pages
 	'pages' => '自訂頁面',
+	'custom_pages' => '自訂頁面',
 	'new_page' => '<i class="fa fa-plus-circle"></i> 新自訂頁面',
 	'no_custom_pages' => '沒有自訂頁面.',
 	'creating_new_page' => '建立自訂頁面',

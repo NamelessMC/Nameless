@@ -390,6 +390,7 @@ $language = array(
 
     // aangepaste pagina's
     'pages' => 'Pagina\'s',
+    'custom_pages' => 'Pagina\'s',
     'new_page' => '<i class="fa fa-plus-circle"></i> Nieuwe pagina',
     'no_custom_pages' => 'Er zijn nog geen paginas gemaakt.',
     'creating_new_page' => 'Pagina aan het maken',

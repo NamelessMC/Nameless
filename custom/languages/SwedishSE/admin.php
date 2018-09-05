@@ -390,6 +390,7 @@ $language = array(
 
     // Custom Pages
     'pages' => 'Sidor',
+    'custom_pages' => 'Sidor',
     'new_page' => '<i class="fa fa-plus-circle"></i>Ny Sida',
     'no_custom_pages' => 'Inga sidor har skapats än.',
     'creating_new_page' => 'Skapar Sida',
