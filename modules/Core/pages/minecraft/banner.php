@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -65,15 +65,15 @@ if(defined('MINECRAFT') && MINECRAFT === true){
                 imageSaveAlpha($favicon, true);
 
                 // Cache the favicon for 1 hour
-                imagepng($favicon, 'cache/server_fav_' . urlencode($server->name) . '.png');
+                imagepng($favicon, ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
 
                 $cache->store('favicon', 'true', 3600);
             } else {
-                $favicon = imagecreatefrompng('cache/server_fav_' . urlencode($server->name) . '.png');
+                $favicon = imagecreatefrompng(ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
             }
 
             // Font
-            $font = 'core/assets/fonts/minecraft.ttf';
+            $font = ROOT_PATH . '/core/assets/fonts/minecraft.ttf';
 
             if($query['status_value'] === 1)
                 $image = ServerBanner::server($display_ip, $query['motd'], $query['player_count'], $query['player_count_max'], $favicon, $server->banner_background, 5);
@@ -84,7 +84,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
 
             imagepng($image);
 
-            imagepng($image, 'cache/server_' . urlencode($server->name) . '.png');
+            imagepng($image, ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
             imagepng($image);
 
             imagedestroy($favicon);
@@ -94,7 +94,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
             $cache->store('image', 'true', 120);
         } else {
             header('Content-Type: image/png');
-            $im = imagecreatefrompng('cache/server_' . urlencode($server->name) . '.png');
+            $im = imagecreatefrompng(ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
             imagepng($im);
             imagedestroy($im);
         }
