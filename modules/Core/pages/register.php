@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -18,6 +18,7 @@ if($user->isLoggedIn()){
 // Set page name for custom scripts
 $page = 'register';
 define('PAGE', 'register');
+$page_title = $language->get('general', 'register');
 
 // Check if Minecraft is enabled
 $minecraft = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
@@ -30,10 +31,12 @@ if($minecraft == '1') {
 
     if ($authme_enabled == '1') {
         // Authme connector
-        require(join(DIRECTORY_SEPARATOR, array('modules', 'Core', 'pages', 'authme_connector.php')));
+        require(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php')));
         die();
     }
 }
+
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Check if registration is enabled
 $registration_enabled = $queries->getWhere('settings', array('name', '=', 'registration_enabled'));
@@ -41,57 +44,41 @@ $registration_enabled = $registration_enabled[0]->value;
  
 if($registration_enabled == 0){
 	// Registration is disabled, display a message
-	?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
-  <head>
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo SITE_NAME; ?> - registration disabled">
+	$template->addCSSFiles(array(
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array()
+	));
 
-    <!-- Site Properties -->
-    <?php
-    $title = $language->get('general', 'register');
-    require(ROOT_PATH . '/core/templates/header.php');
-    ?>
+	$template->addJSFiles(array(
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array()
+	));
 
-    <!-- Custom style -->
-    <style>
-        html {
-            overflow-y: scroll;
-        }
-    </style>
+	// Get registration disabled message and assign to Smarty variable
+	$registration_disabled_message = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
+	if(count($registration_disabled_message)){
+		$message = Output::getPurified(htmlspecialchars_decode($registration_disabled_message[0]->value));
+	} else {
+		$message = 'Registration is currently disabled.';
+	}
 
-  </head>
-  <body>
-  <?php
-  // Generate navbar and footer
-  require(ROOT_PATH . '/core/templates/navbar.php');
-  require(ROOT_PATH . '/core/templates/footer.php');
+	$smarty->assign(array(
+		'REGISTRATION_DISABLED' => $message,
+		'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
+	));
 
-  // Get registration disabled message and assign to Smarty variable
-  $registration_disabled_message = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
-  if(count($registration_disabled_message)){
-      $message = Output::getPurified(htmlspecialchars_decode($registration_disabled_message[0]->value));
-  } else {
-      $message = 'Registration is currently disabled.';
-  }
+	// Load modules + template
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-  $smarty->assign(array(
-      'REGISTRATION_DISABLED' => $message,
-      'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
-  ));
+	$page_load = microtime(true) - $start;
+	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
-  // Registration template
-  $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/registration_disabled.tpl');
+	$template->onPageLoad();
 
-  // Scripts
-  require(ROOT_PATH . '/core/templates/scripts.php');
-  ?>
-  </body>
-</html>
-	<?php
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
+
+	// Display template
+	$template->displayTemplate('registration_disabled.tpl', $smarty);
+
     die();
 }
  
@@ -633,46 +620,23 @@ $smarty->assign(array(
 	'TOKEN' => Token::generate(),
 	'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
 ));
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-  <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo SITE_NAME; ?> - registration form">
-	
-    <!-- Site Properties -->
-	<?php 
-	$title = $language->get('general', 'register');
-	require(ROOT_PATH . '/core/templates/header.php'); 
-	?>
-	
-	<!-- Custom style -->
-	<style>
-	html {
-		overflow-y: scroll;
-	}
-	</style>
-	
-  </head>
-  <body>
-<?php
-// Generate navbar and footer
+
+if($recaptcha === "true"){
+	$template->addJSFiles(array(
+		'https://www.google.com/recaptcha/api.js' => array()
+	));
+}
+
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+$template->onPageLoad();
+
 require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
-// Registration template
-$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/register.tpl');
-
-// Scripts 
-require(ROOT_PATH . '/core/templates/scripts.php');
- 
-if($recaptcha === "true"){
-?>
-
-	<script src="https://www.google.com/recaptcha/api.js"></script>
-<?php 
-}
-?>
-  </body>
-</html>
+// Display template
+$template->displayTemplate('register.tpl', $smarty);

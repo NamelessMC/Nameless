@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -11,6 +11,9 @@
 
 $page = 'complete_signup';
 define('PAGE', 'complete_signup');
+$page_title = $language->get('general', 'register');
+
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Validate code
 if(!isset($_GET['c'])){
@@ -21,9 +24,9 @@ if(!isset($_GET['c'])){
 
     // Ensure API is enabled
     $is_api_enabled = $queries->getWhere('settings', array('name', '=', 'use_api'));
-    if($is_api_enabled[0]->value != '1') {
+    if($is_api_enabled[0]->value != '1'){
         $is_legacy_enabled = $queries->getWhere('settings', array('name', '=', 'use_legacy_api'));
-        if ($is_legacy_enabled[0]->value != '1') {
+        if($is_legacy_enabled[0]->value != '1'){
             die('Legacy API is disabled');
         }
     }
@@ -96,7 +99,6 @@ if(!isset($_GET['c'])){
                             } else if(strpos($validation_error, 'maximum') !== false){
                                 $errors[] = $language->get('user', 'password_maximum_30');
 
-
                             } else if(strpos($validation_error, 'must match') !== false){
                                 // password must match password again
                                 $errors[] = $language->get('user', 'passwords_dont_match');
@@ -118,53 +120,31 @@ if(!isset($_GET['c'])){
         die();
     }
 }
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-    <head>
-        <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="<?php echo SITE_NAME; ?> - complete account registration">
 
-        <!-- Site Properties -->
-        <?php
-        $title = $language->get('general', 'register');
-        require(ROOT_PATH . '/core/templates/header.php');
-        ?>
+// Smarty variables
+if(isset($errors) && count($errors)){
+	$smarty->assign('ERRORS', $errors);
+}
 
-        <!-- Custom style -->
-        <style>
-            html {
-                overflow-y: scroll;
-            }
-        </style>
+$smarty->assign(array(
+	'REGISTER' => $language->get('general', 'register'),
+	'PASSWORD' => $language->get('user', 'password'),
+	'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
+	'SUBMIT' => $language->get('general', 'submit'),
+	'I_AGREE' => $language->get('user', 'i_agree'),
+	'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
+	'TOKEN' => Token::get()
+));
 
-    </head>
-    <body>
-    <?php
-    // Generate navbar and footer
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-    // Smarty variables
-    if(isset($errors) && count($errors)){
-        $smarty->assign('ERRORS', $errors);
-    }
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
-    $smarty->assign(array(
-        'REGISTER' => $language->get('general', 'register'),
-        'PASSWORD' => $language->get('user', 'password'),
-        'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
-        'SUBMIT' => $language->get('general', 'submit'),
-        'I_AGREE' => $language->get('user', 'i_agree'),
-        'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
-        'TOKEN' => Token::get()
-    ));
+$template->onPageLoad();
 
-    $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/complete_signup.tpl');
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
 
-    require(ROOT_PATH . '/core/templates/scripts.php');
-    ?>
-    </body>
-</html>
+$template->displayTemplate('complete_signup.tpl', $smarty);

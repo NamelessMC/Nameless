@@ -2,12 +2,14 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
  *  Forum search page
  */
+
+require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 if(!isset($forum) || (isset($forum) && !$forum instanceof Forum))
 	$forum = new Forum();
  
@@ -147,110 +149,115 @@ if(!isset($_GET['s'])){
 
     $input = true;
 }
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-<head>
-    <!-- Standard Meta -->
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="robots" content="noindex">
 
-    <!-- Site Properties -->
-    <?php
-    if(!isset($_GET['s']))
-        $title = $forum_language->get('forum', 'forum_search');
-    else {
-        $title = $forum_language->get('forum', 'forum_search') . ' - ' . Output::getClean(substr($search, 0, 20)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
-    }
-    require(ROOT_PATH . '/core/templates/header.php');
-    ?>
+if(!isset($_GET['s']))
+	$page_title = $forum_language->get('forum', 'forum_search');
+else {
+	$page_title = $forum_language->get('forum', 'forum_search') . ' - ' . Output::getClean(substr($search, 0, 20)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
+}
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
-    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.min.css"/>
-    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.sprites.css"/>
-    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emojionearea/css/emojionearea.min.css"/>
+$template->addCSSFiles(array(
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array()
+));
 
-</head>
-<body>
-    <?php
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+$template->addJSFiles(array(
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array()
+));
 
-    if(isset($_GET['s'])){
-        // Show results
-        if(count($results)) {
-            $paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
-            $results = $paginator->getLimited($results, 10, $p, count($results));
-            $pagination = $paginator->generate(7, URL::build('/forum/search/', 's=' . $search . '&'));
+if(isset($_GET['s'])){
+	// Show results
+	if(count($results)) {
+		$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
+		$results = $paginator->getLimited($results, 10, $p, count($results));
+		$pagination = $paginator->generate(7, URL::build('/forum/search/', 's=' . $search . '&'));
 
-            $smarty->assign('PAGINATION', $pagination);
+		$smarty->assign('PAGINATION', $pagination);
 
-            // Posts to display on the page
-            $posts = array();
-            // Display the correct number of posts
-            $n = 0;
-            while(($n < count($results->data)) && isset($results->data[$n])){
-                $content = htmlspecialchars_decode($results->data[$n]['post_content']);
-                $content = $emojione->unicodeToImage($content);
-                $content = Output::getPurified($content);
+		// Posts to display on the page
+		$posts = array();
+		// Display the correct number of posts
+		$n = 0;
+		while(($n < count($results->data)) && isset($results->data[$n])){
+			$content = htmlspecialchars_decode($results->data[$n]['post_content']);
+			$content = $emojione->unicodeToImage($content);
+			$content = Output::getPurified($content);
 
-                $posts[$n] = array(
-                    'post_author' => Output::getClean($user->idToNickname($results->data[$n]['post_author'])),
-                    'post_author_avatar' => $user->getAvatar($results->data[$n]['post_author'], '../', 25),
-                    'post_author_profile' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]['post_author']))),
-                    'post_author_style' => $user->getGroupClass($results->data[$n]['post_author']),
-                    'post_date_full' => date('d M Y, H:i', strtotime($results->data[$n]['post_date'])),
-                    'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language->getTimeLanguage()),
-                    'content' => $content,
-                    'topic_title' => Output::getClean($results->data[$n]['topic_title']),
-                    'post_url' => URL::build('/forum/topic/' . $results->data[$n]['topic_id'] . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
-                );
-                $n++;
-            }
+			$posts[$n] = array(
+				'post_author' => Output::getClean($user->idToNickname($results->data[$n]['post_author'])),
+				'post_author_avatar' => $user->getAvatar($results->data[$n]['post_author'], '../', 25),
+				'post_author_profile' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]['post_author']))),
+				'post_author_style' => $user->getGroupClass($results->data[$n]['post_author']),
+				'post_date_full' => date('d M Y, H:i', strtotime($results->data[$n]['post_date'])),
+				'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language->getTimeLanguage()),
+				'content' => $content,
+				'topic_title' => Output::getClean($results->data[$n]['topic_title']),
+				'post_url' => URL::build('/forum/topic/' . $results->data[$n]['topic_id'] . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
+			);
+			$n++;
+		}
 
-            $results = null;
+		$results = null;
 
-            $smarty->assign(array(
-                'RESULTS' => $posts,
-                'READ_FULL_POST' => $forum_language->get('forum', 'read_full_post')
-            ));
+		$smarty->assign(array(
+			'RESULTS' => $posts,
+			'READ_FULL_POST' => $forum_language->get('forum', 'read_full_post')
+		));
 
-        } else
-            $smarty->assign('NO_RESULTS', $forum_language->get('forum', 'no_results_found'));
+	} else
+		$smarty->assign('NO_RESULTS', $forum_language->get('forum', 'no_results_found'));
 
-        $smarty->assign(array(
-            'SEARCH_RESULTS' => $forum_language->get('forum', 'search_results'),
-            'NEW_SEARCH' => $forum_language->get('forum', 'new_search'),
-            'NEW_SEARCH_URL' => URL::build('/forum/search'),
-            'SEARCH_TERM' => (isset($_GET['s']) ? Output::getClean($_GET['s']) : '')
-        ));
+	$smarty->assign(array(
+		'SEARCH_RESULTS' => $forum_language->get('forum', 'search_results'),
+		'NEW_SEARCH' => $forum_language->get('forum', 'new_search'),
+		'NEW_SEARCH_URL' => URL::build('/forum/search'),
+		'SEARCH_TERM' => (isset($_GET['s']) ? Output::getClean($_GET['s']) : '')
+	));
 
-        $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/search_results.tpl');
+	// Load modules + template
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-    } else {
-        // Search bar
-        if(isset($error))
-            $smarty->assign('ERROR', $error);
-        else if(Session::exists('search_error'))
-            $smarty->assign('ERROR', Session::flash('search_error'));
+	$page_load = microtime(true) - $start;
+	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
-        $smarty->assign(array(
-            'FORUM_SEARCH' => $forum_language->get('forum', 'forum_search'),
-            'FORM_ACTION' => URL::build('/forum/search'),
-            'SEARCH' => $language->get('general', 'search'),
-            'TOKEN' => Token::get(),
-            'SUBMIT' => $language->get('general', 'submit')
-        ));
+	$template->onPageLoad();
 
-        $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/search.tpl');
-    }
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
 
+	// Display template
+	$template->displayTemplate('forum/search_results.tpl', $smarty);
 
-    require(ROOT_PATH . '/core/templates/scripts.php');
-    ?>
-    <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
-    <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
-</body>
-</html>
+} else {
+	// Search bar
+	if(isset($error))
+		$smarty->assign('ERROR', $error);
+	else if(Session::exists('search_error'))
+		$smarty->assign('ERROR', Session::flash('search_error'));
+
+	$smarty->assign(array(
+		'FORUM_SEARCH' => $forum_language->get('forum', 'forum_search'),
+		'FORM_ACTION' => URL::build('/forum/search'),
+		'SEARCH' => $language->get('general', 'search'),
+		'TOKEN' => Token::get(),
+		'SUBMIT' => $language->get('general', 'submit')
+	));
+
+	// Load modules + template
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+	$page_load = microtime(true) - $start;
+	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+	$template->onPageLoad();
+
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
+
+	// Display template
+	$template->displayTemplate('forum/search.tpl', $smarty);
+}

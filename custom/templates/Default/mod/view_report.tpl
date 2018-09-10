@@ -1,3 +1,4 @@
+{include file='header.tpl'}
 {include file='navbar.tpl'}
 
 <div class="container">
@@ -25,7 +26,7 @@
 		  
 		  <div class="card">
 		    <div class="card-header">
-			  <a href="{$REPORTER_USER_PROFILE}" target="_blank">{$REPORTER_USER}</a>:
+			  <a href="{$REPORTER_USER_PROFILE}" style="{$REPORTER_USER_STYLE}" target="_blank">{$REPORTER_USER}</a>:
 			  <span class="pull-right" data-toggle="tooltip" data-original-title="{$REPORT_DATE}">{$REPORT_DATE_FRIENDLY}</span>
 			</div>
 		    <div class="card-body">
@@ -40,7 +41,7 @@
 		    {foreach from=$COMMENTS item=comment}
 			  <div class="card">
 			    <div class="card-header">
-			      <a href="{$comment.profile}" target="_blank">{$comment.username}</a>:
+			      <a href="{$comment.profile}" style="{$comment.style}" target="_blank">{$comment.username}</a>:
 			      <span class="pull-right" data-toggle="tooltip" data-original-title="{$comment.date}">{$comment.date_friendly}</span>
 				</div>
 				<div class="card-body">

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -11,45 +11,18 @@
 
 define('PAGE', 'forgot_password');
 
+$page_title = str_replace('?', '', $language->get('user', 'forgot_password'));
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+
 // Ensure user is not logged in
-if ($user->isLoggedIn()) {
+if($user->isLoggedIn()){
     Redirect::to(URL::build('/'));
     die();
 }
 
 require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo(defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-<head>
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo SITE_NAME; ?> - forgot password form">
-    <?php if (isset($custom_meta)) {
-        echo $custom_meta;
-    } ?>
 
-    <?php
-    $title = str_replace('?', '', $language->get('user', 'forgot_password'));
-    require(ROOT_PATH . '/core/templates/header.php');
-    ?>
-
-    <!-- Custom style -->
-    <style>
-        html {
-            overflow-y: scroll;
-        }
-    </style>
-
-</head>
-<body>
-<?php
-// Generate navbar and footer
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
-
-if (!isset($_GET['c'])) {
+if(!isset($_GET['c'])){
     // Enter email address form
     if (Input::exists()) {
         if (Token::check(Input::get('token'))) {
@@ -166,7 +139,19 @@ if (!isset($_GET['c'])) {
         'SUBMIT' => $language->get('general', 'submit')
     ));
 
-    $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forgot_password.tpl');
+	$page_load = microtime(true) - $start;
+	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+	// Load modules + template
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+	$template->onPageLoad();
+
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
+
+	// Display template
+	$template->displayTemplate('forgot_password.tpl', $smarty);
+
 } else {
     // Check code exists
     $code = $queries->getWhere('users', array('reset_code', '=', $_GET['c']));
@@ -258,12 +243,17 @@ if (!isset($_GET['c'])) {
         'SUBMIT' => $language->get('general', 'submit')
     ));
 
-    $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/change_password.tpl');
+	// Load modules + template
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
+	$page_load = microtime(true) - $start;
+	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+	$template->onPageLoad();
+
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
+
+	// Display template
+	$template->displayTemplate('change_password.tpl', $smarty);
 }
-
-// Scripts
-require(ROOT_PATH . '/core/templates/scripts.php');
-?>
-</body>
-</html>

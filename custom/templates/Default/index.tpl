@@ -1,3 +1,5 @@
+{include file='header.tpl'}
+
 <div class="jumbotron home-header">
   <div class="container">
 	{include file='navbar.tpl'}

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -34,6 +34,8 @@ if($user->isLoggedIn()){
 
 $page = 'admin';
 $admin_page = 'widgets';
+
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
 if(isset($_GET['action'])){
     if($_GET['action'] == 'enable'){

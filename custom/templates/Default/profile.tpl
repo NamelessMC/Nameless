@@ -1,3 +1,4 @@
+{include file='header.tpl'}
 {include file='navbar.tpl'}
 
 <div class="container">
@@ -360,20 +361,3 @@
 {/if}
 
 {include file='footer.tpl'}
-
-{if isset($LOGGED_IN)}
-  <script type="text/javascript">
-    function deletePost(post) {
-	    if(confirm("{$CONFIRM_DELETE}")){
-	        document.getElementById("delete" + post).submit();
-        }
-    }
-  </script>
-  <script type="text/javascript">
-    function deleteReply(post) {
-    	if(confirm("{$CONFIRM_DELETE}")){
-    		document.getElementById("deleteReply" + post).submit();
-    	}
-    }
-  </script>
-{/if}

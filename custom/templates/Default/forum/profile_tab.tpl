@@ -4,8 +4,8 @@
   <p>{$NO_POSTS}</p>
 {else}
   <hr />
-  <h4>{$LATEST_POSTS_TITLE}</h4>
-  {foreach from=$LATEST_POSTS item=post}
+  <h4>{$PF_LATEST_POSTS_TITLE}</h4>
+  {foreach from=$PF_LATEST_POSTS item=post}
   <div class="card">
     <div class="card-header">
 	  <a href="{$post.link}">{$post.title}</a>

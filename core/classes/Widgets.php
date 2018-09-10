@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -89,8 +89,10 @@ class Widgets {
         $widgets = $this->getAll();
 
         foreach($widgets as $item)
-            if(array_key_exists($item->getName(), $this->_enabled) && is_array($item->getPages()) && in_array((defined('PAGE') ? PAGE : 'index'), $item->getPages()))
-                $ret[] = $item->display();
+            if(array_key_exists($item->getName(), $this->_enabled) && is_array($item->getPages()) && in_array((defined('PAGE') ? PAGE : 'index'), $item->getPages())){
+            	$item->initialise();
+	            $ret[] = $item->display();
+            }
 
         return $ret;
     }
@@ -104,6 +106,13 @@ class Widgets {
             return $a->getOrder() - $b->getOrder();
         });
         return $widgets;
+    }
+
+    /*
+     *  Get all enabled widget names
+     */
+    public function getAllEnabledNames(){
+    	return $this->_enabled;
     }
 
     /*

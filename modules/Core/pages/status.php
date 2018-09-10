@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -30,24 +30,8 @@ if(!defined('MINECRAFT') || MINECRAFT !== true || $status_enabled != 1){
 }
 
 define('PAGE', 'status');
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-	<head>
-		<!-- Standard Meta -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-		<!-- Site Properties -->
-		<?php
-		$title = $language->get('general', 'status');
-		require(ROOT_PATH . '/core/templates/header.php');
-		?>
-	</head>
-	<body>
-<?php
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+$page_title = $language->get('general', 'status');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $servers = $queries->getWhere('mc_servers', array('display', '=', 1));
 
@@ -61,10 +45,16 @@ $smarty->assign(array(
 	'BUNGEE' => $language->get('general', 'bungee_instance')
 ));
 
-// Display template
-$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/status.tpl');
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-require(ROOT_PATH . '/core/templates/scripts.php');
-?>
-	</body>
-</html>
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+$template->onPageLoad();
+
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+
+// Display template
+$template->displayTemplate('status.tpl', $smarty);

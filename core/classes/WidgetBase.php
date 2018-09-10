@@ -53,4 +53,6 @@ abstract class WidgetBase {
     public function getOrder(){
         return $this->_order;
     }
+
+    public abstract function initialise();
 }

@@ -101,9 +101,6 @@ $smarty->assign(array(
 
 if($user->isLoggedIn()){
 	// Get unread alerts and messages
-	$alerts = array();
-	$messages = array();
-	
 	$smarty->assign(array(
 		'ALERTS_LINK' => URL::build('/user/alerts'),
 		'VIEW_ALERTS' => $language->get('user', 'view_alerts'),
