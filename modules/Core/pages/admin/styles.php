@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -36,7 +36,6 @@ if($user->isLoggedIn()){
 	Redirect::to(URL::build('/login'));
 	die();
 }
-
 
 $page = 'admin';
 $admin_page = 'styles';
@@ -96,44 +95,46 @@ $admin_styles = true;
 				  // Get all active templates
 				  $active_templates = $queries->getWhere('templates', array('enabled', '=', 1));
 
-				  foreach($templates as $template){
-					  $template_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template->name), 'template.php'));
+				  $current_template = $template;
+
+				  foreach($templates as $item){
+					  $template_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($item->name), 'template.php'));
 
 					  if(file_exists($template_path))
 					      require($template_path);
 					  else {
-					      $queries->delete('templates', array('id', '=', $template->id));
+					      $queries->delete('templates', array('id', '=', $item->id));
 					      continue;
                       }
 
-					  echo '<strong>' . Output::getClean($template->name) . '</strong> ' . Output::getClean($template_version);
+					  echo '<strong>' . Output::getClean($item->name) . '</strong> ' . Output::getClean($template->getVersion());
 
-					  if($nl_template_version != NAMELESS_VERSION){
-						  echo ' <span class="label label-warning"><i class="fa fa-exclamation-triangle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('admin', 'warning') . '" data-content="' . str_replace(array('{x}', '{y}'), array(Output::getClean($nl_template_version), NAMELESS_VERSION), $language->get('admin', 'template_outdated')) . '"></i></span>';
+					  if($template->getNamelessVersion() != NAMELESS_VERSION){
+						  echo ' <span class="label label-warning"><i class="fa fa-exclamation-triangle" data-container="body" data-toggle="popover" data-placement="top" title="' . $language->get('admin', 'warning') . '" data-content="' . str_replace(array('{x}', '{y}'), array(Output::getClean($template->getNamelessVersion()), NAMELESS_VERSION), $language->get('admin', 'template_outdated')) . '"></i></span>';
 					  }
 
 					  echo '<span class="pull-right">';
 
-					  if($template->enabled == 0){
-						echo '<a href="' . URL::build('/admin/styles/', 'action=activate&amp;template=' . $template->id) . '" class="btn btn-primary btn-sm">' . $language->get('admin', 'activate') . '</a> ';
-						echo '<a href="' . URL::build('/admin/styles/', 'action=delete&amp;template=' . $template->id) . '" class="btn btn-danger btn-sm" onclick="return confirm(\'' . $language->get('admin', 'confirm_delete_template') . '\');">' . $language->get('admin', 'delete') . '</a>';
+					  if($item->enabled == 0){
+						echo '<a href="' . URL::build('/admin/styles/', 'action=activate&amp;template=' . $item->id) . '" class="btn btn-primary btn-sm">' . $language->get('admin', 'activate') . '</a> ';
+						echo '<a href="' . URL::build('/admin/styles/', 'action=delete&amp;template=' . $item->id) . '" class="btn btn-danger btn-sm" onclick="return confirm(\'' . $language->get('admin', 'confirm_delete_template') . '\');">' . $language->get('admin', 'delete') . '</a>';
 					  } else {
 						// Only allow deactivating if there is more than 1 template active, and it's not default
-						if(count($active_templates) > 1 && $template->is_default == 0){
-							echo '<a href="' . URL::build('/admin/styles/', 'action=deactivate&amp;template=' . $template->id) . '" class="btn btn-sm btn-danger">' . $language->get('admin', 'deactivate') . '</a> ';
+						if(count($active_templates) > 1 && $item->is_default == 0){
+							echo '<a href="' . URL::build('/admin/styles/', 'action=deactivate&amp;template=' . $item->id) . '" class="btn btn-sm btn-danger">' . $language->get('admin', 'deactivate') . '</a> ';
 						} else {
 							echo '<button type="button" class="btn btn-sm btn-success" disabled>' . $language->get('admin', 'active') . '</button> ';
 						}
 
 						// Is the template default?
-						if($template->is_default == 1){
+						if($item->is_default == 1){
 							echo '<button type="button" class="btn btn-sm btn-success" disabled>' . $language->get('admin', 'default') . '</button> ';
 						} else {
-							echo '<a href="' . URL::build('/admin/styles/', 'action=make_default&amp;template=' . $template->id) . '" class="btn btn-sm btn-info">' . $language->get('admin', 'make_default') . '</a> ';
+							echo '<a href="' . URL::build('/admin/styles/', 'action=make_default&amp;template=' . $item->id) . '" class="btn btn-sm btn-info">' . $language->get('admin', 'make_default') . '</a> ';
 						}
 
 						if($user->hasPermission('admincp.styles.templates.edit'))
-						  echo '<a href="' . URL::build('/admin/styles/', 'tid=' . $template->id) . '" class="btn btn-sm btn-warning">' . $language->get('general', 'edit') . '</a>';
+						  echo '<a href="' . URL::build('/admin/styles/', 'tid=' . $item->id) . '" class="btn btn-sm btn-warning">' . $language->get('general', 'edit') . '</a>';
 					  }
 
 					  echo '</span>';
@@ -141,6 +142,8 @@ $admin_styles = true;
 					  echo '<hr />';
 
 				  }
+
+				  $template = $current_template;
 
 			  } else {
 				  if(isset($_GET['tid']) && !isset($_GET['action'])){
