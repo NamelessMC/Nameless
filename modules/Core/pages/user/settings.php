@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -17,6 +17,8 @@ if(!$user->isLoggedIn()){
  
 // Always define page name for navbar
 define('PAGE', 'cc_settings');
+$page_title = $language->get('user', 'user_cp');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -47,56 +49,34 @@ if(isset($_GET['do'])){
 			$queries->update('users', $user->data()->id, array(
 				'tfa_secret' => $secret
 			));
-			/*
-			Log::getInstance()->log(Log::Action('user/login'), $language->get('log', 'info_tfa_key_sent').': '.$secret);
-			$queries->create('logs', array(
-				'time' => date('U'),
-				'action' => $language->get('log', 'log_login'),
-				'ip' => $ip,
-				'user_id' => $user->data()->id,
-				'info' => $language->get('log', 'info_tfa_key_sent').': '.$secret
+
+			// Assign Smarty variables
+			$smarty->assign(array(
+				'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
+				'TFA_SCAN_CODE_TEXT' => $language->get('user', 'tfa_scan_code'),
+				'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(SITE_NAME . ':' . Output::getClean($user->data()->username), $secret),
+				'TFA_CODE_TEXT' => $language->get('user', 'tfa_code'),
+				'TFA_CODE' => chunk_split($secret, 4, ' '),
+				'NEXT' => $language->get('general', 'next'),
+				'LINK' => URL::build('/user/settings/', 'do=enable_tfa&amp;s=2'),
+				'CANCEL' => $language->get('general', 'cancel'),
+				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa')
 			));
-			*/
-		?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-  <head>
-    <!-- Standard Meta -->
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <!-- Site Properties -->
-	<?php 
-	$title = $language->get('user', 'user_cp');
-	require(ROOT_PATH . '/core/templates/header.php'); 
-	?>
-  </head>
-  <body>
-    <?php
-	require(ROOT_PATH . '/core/templates/navbar.php');
-	require(ROOT_PATH . '/core/templates/footer.php');
-	
-	// Assign Smarty variables
-	$smarty->assign(array(
-		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
-		'TFA_SCAN_CODE_TEXT' => $language->get('user', 'tfa_scan_code'),
-		'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(SITE_NAME . ':' . Output::getClean($user->data()->username), $secret),
-		'TFA_CODE_TEXT' => $language->get('user', 'tfa_code'),
-		'TFA_CODE' => chunk_split($secret, 4, ' '),
-		'NEXT' => $language->get('general', 'next'),
-		'LINK' => URL::build('/user/settings/', 'do=enable_tfa&amp;s=2'),
-		'CANCEL' => $language->get('general', 'cancel'),
-		'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa')
-	));
-	
-	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/tfa.tpl');
+			// Load modules + template
+			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-    require(ROOT_PATH . '/core/templates/scripts.php');
-	?>
-  </body>
-</html>
-		<?php
+			$page_load = microtime(true) - $start;
+			define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+			$template->onPageLoad();
+
+			require(ROOT_PATH . '/core/templates/navbar.php');
+			require(ROOT_PATH . '/core/templates/footer.php');
+
+			// Display template
+			$template->displayTemplate('user/tfa.tpl', $smarty);
+
 		} else {
 			// Validate code to see if it matches the secret
 			if(Input::exists()){
@@ -108,8 +88,7 @@ if(isset($_GET['do'])){
 								'tfa_enabled' => 1,
 								'tfa_type' => 1
 							));
-							Log::getInstance()->log(Log::Action('user/login'), $language->get('log', 'info_user_tfa_key_success').': '.Output::getClean($_POST['tfa_code']));
-							
+
 							Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
 							Redirect::to(URL::build('/user/settings'));
 							die();
@@ -123,45 +102,34 @@ if(isset($_GET['do'])){
 					$error = $language->get('general', 'invalid_token');
 				}
 			}
-			?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-  <head>
-    <!-- Standard Meta -->
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <!-- Site Properties -->
-	<?php 
-	$title = $language->get('user', 'user_cp');
-	require(ROOT_PATH . '/core/templates/header.php'); 
-	?>
-  
-  </head>
-  <body>
-	<?php
-	require(ROOT_PATH . '/core/templates/navbar.php');
-	require(ROOT_PATH . '/core/templates/footer.php');
-	if(isset($error)) $smarty->assign('ERROR', $error);
-	
-	$smarty->assign(array(
-		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
-		'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
-		'SUBMIT' => $language->get('general', 'submit'),
-		'TOKEN' => Token::get(),
-		'CANCEL' => $language->get('general', 'cancel'),
-		'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa')
-	));
-	
-	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/tfa.tpl');
+			if(isset($error)) $smarty->assign('ERROR', $error);
 
-	require(ROOT_PATH . '/core/templates/scripts.php');
-	?>
-  </body>
-</html>
-		<?php
+			$smarty->assign(array(
+				'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
+				'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
+				'SUBMIT' => $language->get('general', 'submit'),
+				'TOKEN' => Token::get(),
+				'CANCEL' => $language->get('general', 'cancel'),
+				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa')
+			));
+
+			// Load modules + template
+			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+			$page_load = microtime(true) - $start;
+			define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+			$template->onPageLoad();
+
+			require(ROOT_PATH . '/core/templates/navbar.php');
+			require(ROOT_PATH . '/core/templates/footer.php');
+
+			// Display template
+			$template->displayTemplate('user/tfa.tpl', $smarty);
+
 		}
+
 	} else if($_GET['do'] == 'disable_tfa') {
 		// Disable TFA
 		$queries->update('users', $user->data()->id, array(
@@ -170,9 +138,6 @@ if(isset($_GET['do'])){
 			'tfa_secret' => null,
 			'tfa_complete' => 0
 		));
-
-
-		Log::getInstance()->log(Log::Action('user/ucp/update'), $language->get('log', 'info_user_update_dtfa'));
 
 		Redirect::to(URL::build('/user/settings'));
 		die();
@@ -500,31 +465,47 @@ if(isset($_GET['do'])){
 			Session::flash('settings_error', $language->get('general', 'invalid_token'));
 		}
 	}
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-  <head>
-    <!-- Standard Meta -->
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <!-- Site Properties -->
-	<?php 
-	$title = $language->get('user', 'user_cp');
-	require(ROOT_PATH . '/core/templates/header.php'); 
-	?>
-  
-    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css">
-    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
-    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.min.css"/>
-    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.sprites.css"/>
-    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emojionearea/css/emojionearea.min.css"/>
-  </head>
-  <body>
-    <?php
-	require(ROOT_PATH . '/core/templates/navbar.php');
-	require(ROOT_PATH . '/core/templates/footer.php');
+	$template->addCSSFiles(array(
+		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css' => array(),
+		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
+		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
+		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
+		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array(),
+	));
+
+	$template->addJSFiles(array(
+		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' => array()
+	));
+
+	$template->addJSScript('$(\'.datepicker\').datepicker();');
+
+	$cache->setCache('post_formatting');
+	$formatting = $cache->retrieve('formatting');
+	if($formatting == 'markdown'){
+		$template->addJSFiles(array(
+			(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
+			(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => array()
+		));
+
+		$template->addJSScript('
+            $(document).ready(function() {
+                var el = $("#inputSignature").emojioneArea({
+                    pickerPosition: "bottom"
+                });
+            });
+		');
+
+	} else {
+		$template->addJSFiles(array(
+			(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
+			(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
+			(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
+			(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array()
+		));
+
+		$template->addJSScript(Input::createEditor('signature'));
+	}
 
 	// Error/success message?
 	if(Session::exists('settings_error')) $error = Session::flash('settings_error');
@@ -676,47 +657,18 @@ if(isset($_GET['do'])){
 		$smarty->assign('ENABLE', $language->get('user', 'enable'));
 		$smarty->assign('ENABLE_LINK', URL::build('/user/settings/', 'do=enable_tfa'));
 	}
-	
-	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/user/settings.tpl');
 
-    require(ROOT_PATH . '/core/templates/scripts.php');
-	?>
-	
-	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-	
-	<script>
-	$('.datepicker').datepicker();
-	</script>
+	// Load modules + template
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-    <?php
-    $cache->setCache('post_formatting');
-    $formatting = $cache->retrieve('formatting');
-    if($formatting == 'markdown'){
-        ?>
-        <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
-        <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emojionearea/js/emojionearea.min.js"></script>
+	$page_load = microtime(true) - $start;
+	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
-        <script type="text/javascript">
-            $(document).ready(function() {
-                var el = $("#inputSignature").emojioneArea({
-                    pickerPosition: "bottom"
-                });
-            });
-        </script>
-    <?php
-    } else {
-    ?>
-        <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
-        <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
-        <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/ckeditor.js"></script>
-        <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json"></script>
-        <?php
-        echo '<script type="text/javascript">' . Input::createEditor('signature') . '</script>';
-    }
-    ?>
-	
-  </body>
-</html>
-<?php
+	$template->onPageLoad();
+
+	require(ROOT_PATH . '/core/templates/navbar.php');
+	require(ROOT_PATH . '/core/templates/footer.php');
+
+	// Display template
+	$template->displayTemplate('user/settings.tpl', $smarty);
 }
-?>

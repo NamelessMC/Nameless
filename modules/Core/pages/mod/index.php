@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -23,42 +23,30 @@ if($user->isLoggedIn()){
 }
  
 define('PAGE', 'mod_overview');
+$page_title = $language->get('moderator', 'mod_cp');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require(ROOT_PATH . '/core/templates/mod_navbar.php');
 
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-  <head>
-    <!-- Standard Meta -->
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+// Count number of open reports
+$count_reports = $queries->getWhere('reports', array('status', '=', 0));
+$count_reports = count($count_reports);
 
-	<?php 
-	$title = $language->get('moderator', 'mod_cp');
-	require(ROOT_PATH . '/core/templates/header.php');
-	?>
-  
-  </head>
-  <body>
-    <?php
-	require(ROOT_PATH . '/core/templates/navbar.php');
-	require(ROOT_PATH . '/core/templates/footer.php');
-	require(ROOT_PATH . '/core/templates/mod_navbar.php');
-	
-	// Count number of open reports
-	$count_reports = $queries->getWhere('reports', array('status', '=', 0));
-	$count_reports = count($count_reports);
-	
-	// Smarty variables
-	$smarty->assign(array(
-		'OVERVIEW' => $language->get('admin', 'overview'),
-		'OPEN_REPORTS' => ($count_reports == 1) ? $language->get('moderator', '1_open_report') : str_replace('{x}', $count_reports, $language->get('moderator', 'open_reports'))
-	));
-	
-	// Display template
-	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/index.tpl');
+// Smarty variables
+$smarty->assign(array(
+	'OVERVIEW' => $language->get('admin', 'overview'),
+	'OPEN_REPORTS' => ($count_reports == 1) ? $language->get('moderator', '1_open_report') : str_replace('{x}', $count_reports, $language->get('moderator', 'open_reports'))
+));
 
-    require(ROOT_PATH . '/core/templates/scripts.php');
-	?>
-  </body>
-</html>
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+$template->onPageLoad();
+
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+
+// Display template
+$template->displayTemplate('mod/index.tpl', $smarty);

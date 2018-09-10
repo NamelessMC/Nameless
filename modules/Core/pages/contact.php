@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -11,6 +11,8 @@
 
 // Always define page name
 define('PAGE', 'contact');
+$page_title = $language->get('general', 'contact');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Use recaptcha?
 $recaptcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
@@ -162,59 +164,44 @@ if(Input::exists()){
     $error = $language->get('general', 'invalid_token');
   }
 }
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-<head>
-    <!-- Standard Meta -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-    <!-- Site Properties -->
-    <?php
-    $title = $language->get('general', 'contact');
-    require(ROOT_PATH . '/core/templates/header.php');
-    ?>
-</head>
-<body>
-<?php
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
 
 // Smarty variables
 if($recaptcha == 'true'){
-    $smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
+	$smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
+	$template->addJSFiles(array(
+		'https://www.google.com/recaptcha/api.js' => array()
+	));
 }
 
 if(isset($error))
-    $smarty->assign('ERROR', $error);
+	$smarty->assign('ERROR', $error);
 
 if(isset($erroremail))
-    $smarty->assign('ERROR_EMAIL', $erroremail);
+	$smarty->assign('ERROR_EMAIL', $erroremail);
 
 if(isset($errorcontent))
-    $smarty->assign('ERROR_CONTENT', $errorcontent);
+	$smarty->assign('ERROR_CONTENT', $errorcontent);
 
 if(isset($success))
-    $smarty->assign('SUCCESS', $success);
+	$smarty->assign('SUCCESS', $success);
 
 $smarty->assign(array(
-    'EMAIL' => $language->get('general', 'email_address'),
-    'CONTACT' => $language->get('general', 'contact'),
-    'MESSAGE' => $language->get('general', 'message'),
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+	'EMAIL' => $language->get('general', 'email_address'),
+	'CONTACT' => $language->get('general', 'contact'),
+	'MESSAGE' => $language->get('general', 'message'),
+	'TOKEN' => Token::get(),
+	'SUBMIT' => $language->get('general', 'submit')
 ));
 
-// Display template
-$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/contact.tpl');
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-require(ROOT_PATH . '/core/templates/scripts.php');
-if($recaptcha === "true"){
-    ?>
-  <script src="https://www.google.com/recaptcha/api.js"></script>
-    <?php
-}
-?>
-</body>
-</html>
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+$template->onPageLoad();
+
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+
+$template->displayTemplate('contact.tpl', $smarty);

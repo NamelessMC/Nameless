@@ -128,6 +128,7 @@ if($page != 'install'){
     // Page load timer?
     $cache->setCache('page_load_cache');
     $page_loading = $cache->retrieve('page_load');
+    define('PAGE_LOADING', $page_loading);
 
     // Error reporting
     $cache->setCache('error_cache');
@@ -270,6 +271,14 @@ if($page != 'install'){
     // Smarty
     $smarty = new Smarty();
 
+    // Basic Smarty variables
+	$smarty->assign(array(
+		'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
+		'OG_URL' => Output::getClean(rtrim(Util::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
+		'SITE_NAME' => SITE_NAME,
+		'SITE_HOME' => URL::build('/')
+	));
+
     // Cookie notice
     if(!$user->isLoggedIn()){
         // Cookie notice for guests
@@ -282,17 +291,6 @@ if($page != 'install'){
             define('COOKIE_NOTICE', true);
         }
     }
-
-    $template_path = ROOT_PATH . '/custom/templates/' . TEMPLATE;
-    $smarty->setTemplateDir($template_path);
-    $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
-    $smarty->assign('SITE_NAME', SITE_NAME);
-    $smarty->assign('SITE_HOME', URL::build('/'));
-
-    if(file_exists(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php'))
-        require(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php');
-    else
-        require(ROOT_PATH . '/custom/templates/Default/template.php');
 
     // Avatars
     $cache->setCache('avatar_settings_cache');
@@ -351,7 +349,16 @@ if($page != 'install'){
     // Navbar links
     $navigation = new Navigation();
     $cc_nav 	= new Navigation();
+    //$panel_nav  = new Navigation();
+
+    // old
     $mod_nav	= new Navigation();
+
+    // Add links to cc_nav
+	$cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/user'));
+	$cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/user/alerts'));
+	$cc_nav->add('cc_messaging', $language->get('user', 'messaging'), URL::build('/user/messaging'));
+	$cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/user/settings'));
 
     // Add homepage to navbar
     // Check navbar order + icon in cache
@@ -378,6 +385,20 @@ if($page != 'install'){
     // Modules
     $cache->setCache('modulescache');
     $enabled_modules = $cache->retrieve('enabled_modules');
+
+    foreach($enabled_modules as $module){
+    	if($module['name'] == 'Core'){
+    		$core_exists = true;
+    		break;
+	    }
+    }
+
+    if(!isset($core_exists)){
+    	$enabled_modules[] = array(
+    		'name' => 'Core',
+		    'priority' => 1
+	    );
+    }
 
     $pages = new Pages();
 
@@ -468,162 +489,10 @@ if($page != 'install'){
             'nickname' => Output::getClean($user->data()->nickname),
             'profile' => URL::build('/profile/' . Output::getClean($user->data()->username)),
             'username_style' => $user->getGroupClass($user->data()->id),
-            'avatar' => $user->getAvatar($user->data()->id)
+            'avatar' => $user->getAvatar($user->data()->id),
+	        'uuid' => Output::getClean($user->data()->uuid)
         ));
 
-
-        // Warnings
-        $warnings = $queries->getWhere('infractions', array('punished', '=', $user->data()->id));
-        if(count($warnings)){
-            foreach($warnings as $warning){
-                if($warning->revoked == 0 && $warning->acknowledged == 0){
-                    $smarty->assign(array(
-                        'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
-                        'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
-                        'GLOBAL_WARNING_ACKNOWLEDGE' => $language->get('user', 'acknowledge'),
-                        'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/' . $warning->id)
-                    ));
-                    break;
-                }
-            }
-        }
-
-        // Does the account need verifying?
-        // Get default group ID
-        $cache->setCache('default_group');
-        if($cache->isCached('default_group')) {
-            $default_group = $cache->retrieve('default_group');
-        } else {
-            try {
-                $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
-                $default_group = $default_group[0]->id;
-            } catch(Exception $e){
-                $default_group = 1;
-            }
-
-            $cache->store('default_group', $default_group);
-        }
-        if($user->data()->group_id == $default_group && ($user->data()->reset_code)){
-            // User needs to validate account
-            $smarty->assign('MUST_VALIDATE_ACCOUNT', str_replace('{x}', Output::getClean($user->data()->reset_code), $language->get('user', 'validate_account_command')));
-        }
-
-    }
-
-    // Minecraft integration?
-    if(defined('MINECRAFT') && MINECRAFT === true){
-        // Query main server
-        $cache->setCache('mc_default_server');
-
-        // Already cached?
-        if($cache->isCached('default_query')) {
-            $result = $cache->retrieve('default_query');
-            $default = $cache->retrieve('default');
-        } else {
-            if($cache->isCached('default')){
-                $default = $cache->retrieve('default');
-                $sub_servers = $cache->retrieve('default_sub');
-            } else {
-                // Get default server from database
-                $default = $queries->getWhere('mc_servers', array('is_default', '=', 1));
-                if(count($default)){
-                    // Get sub-servers of default server
-                    $sub_servers = $queries->getWhere('mc_servers', array('parent_server', '=', $default[0]->id));
-                    if(count($sub_servers))
-                        $cache->store('default_sub', $sub_servers);
-                    else
-                        $cache->store('default_sub', array());
-
-                    $default = $default[0];
-
-                    $cache->store('default', $default, 60);
-                } else
-                    $cache->store('default', null, 60);
-            }
-
-            if(!is_null($default) && isset($default->ip)){
-                $full_ip = array('ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name);
-
-                // Get query type
-                $query_type = $queries->getWhere('settings', array('name', '=', 'external_query'));
-                if(count($query_type)){
-                    if($query_type[0]->value == '1')
-                        $query_type = 'external';
-                    else
-                        $query_type = 'internal';
-                } else
-                    $query_type = 'internal';
-
-                if(count($sub_servers)){
-                    $servers = array($full_ip);
-
-                    foreach($sub_servers as $server)
-                        $servers[] = array('ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name);
-
-                    $result = MCQuery::multiQuery($servers, $query_type, $language, true, $queries);
-
-                    if(isset($result['status_value']) && $result['status_value'] == 1){
-                        $result['status'] = $language->get('general', 'online');
-
-                        if($result['total_count'] == 1){
-                            $result['status_full'] = $language->get('general', 'currently_1_player_online');
-                            $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
-                        } else {
-                            $result['status_full'] = str_replace('{x}', $result['total_count'], $language->get('general', 'currently_x_players_online'));
-                            $result['x_players_online'] = str_replace('{x}', $result['total_count'], $language->get('general', 'currently_x_players_online'));
-                        }
-
-                    } else {
-                        $result['status'] = $language->get('general', 'offline');
-                        $result['status_full'] = $language->get('general', 'server_offline');
-                        $result['server_offline'] = $language->get('general', 'server_offline');
-
-                    }
-
-                } else {
-                    $result = MCQuery::singleQuery($full_ip, $query_type, $language, $queries);
-
-                    if(isset($result['status_value']) && $result['status_value'] == 1){
-                        $result['status'] = $language->get('general', 'online');
-
-                        if($result['player_count'] == 1){
-                            $result['status_full'] = $language->get('general', 'currently_1_player_online');
-                            $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
-                        } else {
-                            $result['status_full'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
-                            $result['x_players_online'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
-                        }
-
-                    } else {
-                        $result['status'] = $language->get('general', 'offline');
-                        $result['status_full'] = $language->get('general', 'server_offline');
-                        $result['server_offline'] = $language->get('general', 'server_offline');
-
-                    }
-
-                }
-
-                // Cache for 1 minute
-                $cache->store('default_query', $result, 60);
-            }
-        }
-
-        $smarty->assign('MINECRAFT', true);
-
-        if(isset($result))
-            $smarty->assign('SERVER_QUERY', $result);
-
-        if(!is_null($default) && isset($default->ip)){
-            $smarty->assign('CONNECT_WITH', str_replace('{x}', '<span id="ip">' . Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')) . '</span>', $language->get('general', 'connect_with_ip_x')));
-            $smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')));
-            $smarty->assign('CLICK_TO_COPY_TOOLTIP', $language->get('general', 'click_to_copy_tooltip'));
-            $smarty->assign('COPIED', $language->get('general', 'copied'));
-        } else {
-            $smarty->assign('CONNECT_WITH', '');
-            $smarty->assign('DEFAULT_IP', '');
-        }
-
-        $smarty->assign('SERVER_OFFLINE', $language->get('general', 'server_offline'));
     }
 
     // Auto unset signin tfa variables if set
@@ -632,18 +501,6 @@ if($page != 'install'){
         unset($_SESSION['username']);
         unset($_SESSION['email']);
         unset($_SESSION['password']);
-    }
-
-    if(isset($_GET['route']) && $_GET['route'] != '/'){
-    	$route = rtrim($_GET['route'], '/');
-    } else {
-    	$route = '/';
-    }
-
-    $page_metadata = $queries->getWhere('page_descriptions', array('page', '=', $route));
-    if(count($page_metadata)){
-    	define('PAGE_DESCRIPTION', str_replace('{site}', SITE_NAME, $page_metadata[0]->description));
-    	define('PAGE_KEYWORDS', $page_metadata[0]->tags);
     }
 }
 

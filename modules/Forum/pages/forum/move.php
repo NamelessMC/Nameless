@@ -2,12 +2,16 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
  *  Move a topic
  */
+
+define('PAGE', 'forum');
+$page_title = $forum_language->get('forum', 'move_topic');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
@@ -77,56 +81,36 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 	Redirect::to(URL::build("/forum"));
 	die();
 }
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-  <head>
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo SITE_NAME; ?> - moving topic">
-	<meta name="robots" content="noindex">
-	
-    <!-- Site Properties -->
-	<?php 
-	$title = $forum_language->get('forum', 'move_topic');
-	require(ROOT_PATH . '/core/templates/header.php');
-	?>
-	
-	<!-- Custom style -->
-	<style>
-	html {
-		overflow-y: scroll;
-	}
-	</style>
-	
-  </head>
-  <body>
-	<?php 
-	// Generate navbar and footer
-	require(ROOT_PATH . '/core/templates/navbar.php');
-	require(ROOT_PATH . '/core/templates/footer.php');
-	
-	// Get a list of all forums
-	$forums = $queries->orderWhere('forums', 'parent <> 0', 'forum_order', 'ASC');
-	
-	// Assign Smarty variables
-	$smarty->assign(array(
-		'MOVE_TOPIC' => $forum_language->get('forum', 'move_topic'),
-		'MOVE_TO' => $forum_language->get('forum', 'move_topic_to'),
-		'TOKEN' => Token::get(),
-		'SUBMIT' => $language->get('general', 'submit'),
-		'CANCEL' => $language->get('general', 'cancel'),
-		'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-		'CANCEL_LINK' => URL::build('/forum/topic/' . $topic->id),
-		'FORUMS' => $forums
-	));
-	
-	// Load template
-	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/move.tpl');
-	
-	// Scripts
-	require(ROOT_PATH . '/core/templates/scripts.php');
-	?>
-  </body>
-</html>
+
+// Generate navbar and footer
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+
+// Get a list of all forums
+$forums = $queries->orderWhere('forums', 'parent <> 0', 'forum_order', 'ASC');
+
+// Assign Smarty variables
+$smarty->assign(array(
+	'MOVE_TOPIC' => $forum_language->get('forum', 'move_topic'),
+	'MOVE_TO' => $forum_language->get('forum', 'move_topic_to'),
+	'TOKEN' => Token::get(),
+	'SUBMIT' => $language->get('general', 'submit'),
+	'CANCEL' => $language->get('general', 'cancel'),
+	'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
+	'CANCEL_LINK' => URL::build('/forum/topic/' . $topic->id),
+	'FORUMS' => $forums
+));
+
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+$template->onPageLoad();
+
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+
+// Display template
+$template->displayTemplate('forum/move.tpl', $smarty);

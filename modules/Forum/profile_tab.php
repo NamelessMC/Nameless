@@ -2,15 +2,17 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
  *  Forum module - forum profile tab
  */
  
-if(!isset($forum) || (isset($forum) && !$forum instanceof Forum))
+if(!isset($forum) || (isset($forum) && !$forum instanceof Forum)){
+	require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 	$forum = new Forum();
+}
  
 // Get latest posts
 $latest_posts = $queries->orderWhere('posts', 'post_creator = ' . $query->id, 'post_date', 'DESC LIMIT 15');
@@ -78,7 +80,7 @@ if(!count($latest_posts)){
  
 // Smarty
 $smarty->assign(array(
-	'LATEST_POSTS' => (isset($posts)) ? $posts : array(),
-	'LATEST_POSTS_TITLE' => $forum_language->get('forum', 'latest_posts'),
+	'PF_LATEST_POSTS' => (isset($posts)) ? $posts : array(),
+	'PF_LATEST_POSTS_TITLE' => $forum_language->get('forum', 'latest_posts'),
 	'FORUM_TAB_TITLE' => $forum_language->get('forum', 'forum')
 ));

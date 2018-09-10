@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -19,54 +19,28 @@ else if(isset($_POST['email']))
 $_SESSION['password'] = $_POST['password'];
 $_SESSION['remember'] = $_POST['remember'];
 
-?>
-<!DOCTYPE html>
-<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo SITE_NAME; ?> - community login form">
-    <meta name="author" content="<?php echo SITE_NAME; ?>">
-	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
+if(Session::exists('tfa_signin')){
+	$smarty->assign('ERROR', Session::flash('tfa_signin'));
+}
 
-	<?php 
-	$title = $language->get('general', 'sign_in');
-    require(ROOT_PATH . '/core/templates/header.php');
-	?>
-	
-	<!-- Custom style -->
-	<style>
-	html {
-		overflow-y: scroll;
-	}
-	</style>
-	
-  </head>
-  
-  <body>
-	<?php
-	// Generate navbar and footer
-	require(ROOT_PATH . '/core/templates/navbar.php');
-	require(ROOT_PATH . '/core/templates/footer.php');
-	
-	if(Session::exists('tfa_signin')){
-		$smarty->assign('ERROR', Session::flash('tfa_signin'));
-	}
-	
-	// Smarty variables
-	$smarty->assign(array(
-		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
-		'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
-		'TOKEN' => Token::get(),
-		'SUBMIT' => $language->get('general', 'submit')
-	));
-	
-	// Display template
-	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/tfa.tpl');
+// Smarty variables
+$smarty->assign(array(
+	'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
+	'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
+	'TOKEN' => Token::get(),
+	'SUBMIT' => $language->get('general', 'submit')
+));
 
-	// Scripts 
-	require(ROOT_PATH . '/core/templates/scripts.php');
-    ?>
-  </body>
-</html>
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+$template->onPageLoad();
+
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+
+// Display template
+$template->displayTemplate('tfa.tpl', $smarty);

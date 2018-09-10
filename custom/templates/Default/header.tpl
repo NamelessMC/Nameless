@@ -1,3 +1,6 @@
+{*
+   There is generally no need to edit this header.tpl file
+*}
 <!DOCTYPE html>
 <html{if "HTML_CLASS"|defined} {$smarty.const.HTML_CLASS}{/if} lang="{if "HTML_LANG"|defined}{$smarty.const.HTML_LANG}{else}en{/if}" {if "HTML_RTL"|defined && $smarty.const.HTML_RTL eq true} dir="rtl"{/if}>
 <head>
@@ -31,29 +34,6 @@
         {$css}
     {/foreach}
 
-    <meta name="robots" content="noindex">
-
 </head>
 
 <body>
-
-<br /><br /><br />
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <div class="jumbotron">
-                <center>
-                    <h2>{$MAINTENANCE_TITLE}</h2>
-                    <hr />
-                    <h4>{$MAINTENANCE_MESSAGE}</h4>
-                    <div class="btn-group" role="group">
-                        <a href="#" class="btn btn-primary btn-lg" onclick="window.location.reload()">{$RETRY}</a>
-                    </div>
-                </center>
-            </div>
-        </div>
-    </div>
-</div>
-
-</body>
-</html>

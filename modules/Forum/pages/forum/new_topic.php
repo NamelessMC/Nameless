@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -11,6 +11,8 @@
 
 // Always define page name
 define('PAGE', 'forum');
+$page_title = $forum_language->get('forum', 'new_topic');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // User must be logged in to proceed
 if(!$user->isLoggedIn()){
@@ -209,122 +211,108 @@ if(Input::exists()) {
 // Generate a token
 $token = Token::get();
 
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-  <head>
-    <!-- Standard Meta -->
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-	<meta name="robots" content="noindex">
+$template->addCSSFiles(array(
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array(),
+));
 
-    <!-- Site Properties -->
-	<?php
-	$title = $forum_language->get('forum', 'new_topic');
-	require(ROOT_PATH . '/core/templates/header.php');
-	?>
+// Generate content for template
+if(isset($error)){
+	$smarty->assign('ERROR', $error);
+}
 
-	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css">
-    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.min.css"/>
-	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/css/emojione.sprites.css"/>
-    <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emojionearea/css/emojionearea.min.css"/>
-  </head>
+$creating_topic_in = str_replace('{x}', Output::getPurified(htmlspecialchars_decode($forum_title)), $forum_language->get('forum', 'creating_topic_in_x'));
+$smarty->assign('CREATING_TOPIC_IN', $creating_topic_in);
 
-  <body>
-	<?php
-	require(ROOT_PATH . '/core/templates/navbar.php');
-	require(ROOT_PATH . '/core/templates/footer.php');
+// Topic labels
+$smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
+$labels = array();
 
-	// Generate content for template
-	if(isset($error)){
-		$smarty->assign('ERROR', $error);
-	}
+$forum_labels = $queries->getWhere('forums_topic_labels', array('id', '<>', 0));
+if(count($forum_labels)){
+	$labels[] = array(
+		'id' => 0,
+		'html' => $forum_language->get('forum', 'no_label')
+	);
 
-	$creating_topic_in = str_replace('{x}', Output::getPurified(htmlspecialchars_decode($forum_title)), $forum_language->get('forum', 'creating_topic_in_x'));
-	$smarty->assign('CREATING_TOPIC_IN', $creating_topic_in);
+	foreach($forum_labels as $label){
+		$forum_ids = explode(',', $label->fids);
 
-	// Topic labels
-	$smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
-	$labels = array();
+		if(in_array($fid, $forum_ids)){
+			// Check permissions
+			$groups = explode(',', $label->gids);
+			if (!in_array($user->data()->group_id, $groups))
+				continue;
 
-	$forum_labels = $queries->getWhere('forums_topic_labels', array('id', '<>', 0));
-	if(count($forum_labels)){
-		$labels[] = array(
-			'id' => 0,
-			'html' => $forum_language->get('forum', 'no_label')
-		);
+			// Get label HTML
+			$label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+			if(!count($label_html)) continue;
+			else $label_html = str_replace('{x}', Output::getClean($label->name), $label_html[0]->html);
 
-		foreach($forum_labels as $label){
-			$forum_ids = explode(',', $label->fids);
-
-			if(in_array($fid, $forum_ids)){
-				// Check permissions
-                $groups = explode(',', $label->gids);
-                if (!in_array($user->data()->group_id, $groups))
-                    continue;
-
-				// Get label HTML
-				$label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
-				if(!count($label_html)) continue;
-				else $label_html = str_replace('{x}', Output::getClean($label->name), $label_html[0]->html);
-
-				$labels[] = array(
-					'id' => $label->id,
-					'html' => $label_html
-				);
-			}
+			$labels[] = array(
+				'id' => $label->id,
+				'html' => $label_html
+			);
 		}
 	}
+}
 
-	// Smarty variables
-	$smarty->assign('LABELS', $labels);
-	$smarty->assign('TOPIC_TITLE', $forum_language->get('forum', 'topic_title'));
-	$smarty->assign('LABEL', $forum_language->get('forum', 'label'));
-	$smarty->assign('SUBMIT', $language->get('general', 'submit'));
-	$smarty->assign('CANCEL', $language->get('general', 'cancel'));
-	$smarty->assign('CLOSE', $language->get('general', 'close'));
-	$smarty->assign('CONFIRM_CANCEL', $language->get('general', 'confirm_cancel'));
-	$smarty->assign('TOKEN', '<input type="hidden" name="token" value="' . $token . '">');
-	$smarty->assign('FORUM_LINK', URL::build('/forum'));
-	$smarty->assign('CONTENT', Output::getPurified(Input::get('content')));
+// Smarty variables
+$smarty->assign('LABELS', $labels);
+$smarty->assign('TOPIC_TITLE', $forum_language->get('forum', 'topic_title'));
+$smarty->assign('LABEL', $forum_language->get('forum', 'label'));
+$smarty->assign('SUBMIT', $language->get('general', 'submit'));
+$smarty->assign('CANCEL', $language->get('general', 'cancel'));
+$smarty->assign('CLOSE', $language->get('general', 'close'));
+$smarty->assign('CONFIRM_CANCEL', $language->get('general', 'confirm_cancel'));
+$smarty->assign('TOKEN', '<input type="hidden" name="token" value="' . $token . '">');
+$smarty->assign('FORUM_LINK', URL::build('/forum'));
+$smarty->assign('CONTENT', Output::getPurified(Input::get('content')));
 
-	// Get post formatting type (HTML or Markdown)
-	$cache->setCache('post_formatting');
-	$formatting = $cache->retrieve('formatting');
+// Get post formatting type (HTML or Markdown)
+$cache->setCache('post_formatting');
+$formatting = $cache->retrieve('formatting');
 
-	if($formatting == 'markdown'){
-		// Markdown
-		$smarty->assign('MARKDOWN', true);
-		$smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-	}
+if($formatting == 'markdown'){
+	// Markdown
+	$smarty->assign('MARKDOWN', true);
+	$smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
 
-	// Display template
-	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/new_topic.tpl');
+	$template->addJSFiles(array(
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => array()
+	));
 
-	require(ROOT_PATH . '/core/templates/scripts.php');
-
-	if($formatting == 'markdown'){
-	?>
-	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
-	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emojionearea/js/emojionearea.min.js"></script>
-
-	<script type="text/javascript">
+	$template->addJSScript('
 	  $(document).ready(function() {
-	    var el = $("#markdown").emojioneArea({
+		var el = $("#markdown").emojioneArea({
 			pickerPosition: "bottom"
 		});
 	  });
-	</script>
-	<?php } else { ?>
-	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/emoji/js/emojione.min.js"></script>
-	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js"></script>
-	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/ckeditor.js"></script>
-	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json"></script>
+	');
+} else {
+	$template->addJSFiles(array(
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array(),
+	));
 
-	<?php
-		echo '<script>' . Input::createEditor('reply') . '</script>';
-	}
-	?>
-  </body>
-</html>
+	$template->addJSScript(Input::createEditor('reply'));
+}
+
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+$template->onPageLoad();
+
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+
+// Display template
+$template->displayTemplate('forum/new_topic.tpl', $smarty);

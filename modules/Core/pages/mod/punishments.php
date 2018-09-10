@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -29,25 +29,8 @@ if($user->isLoggedIn()){
 $timeago = new Timeago(TIMEZONE);
 
 define('PAGE', 'mod_punishments');
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-<head>
-    <!-- Standard Meta -->
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-    <?php
-    $title = $language->get('moderator', 'mod_cp');
-    require(ROOT_PATH . '/core/templates/header.php');
-    ?>
-
-</head>
-<body>
-<?php
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+$page_title = $language->get('moderator', 'mod_cp');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require(ROOT_PATH . '/core/templates/mod_navbar.php');
 
 $smarty->assign(array(
@@ -138,7 +121,20 @@ if(isset($_GET['view'])){
             $smarty->assign('NO_PUNISHMENTS', $language->get('moderator', 'no_punishments_found'));
         }
 
-        $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/all_punishments.tpl');
+	    // Load modules + template
+	    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+	    $page_load = microtime(true) - $start;
+	    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+	    $template->onPageLoad();
+
+	    require(ROOT_PATH . '/core/templates/navbar.php');
+	    require(ROOT_PATH . '/core/templates/footer.php');
+
+		// Display template
+	    $template->displayTemplate('mod/all_punishments.tpl', $smarty);
+
     } else {
         Redirect::to(URL::build('/mod/punishments'));
         die();
@@ -399,7 +395,19 @@ if(isset($_GET['view'])){
             'ACKNOWLEDGED' => $language->get('moderator', 'acknowledged')
         ));
 
-        $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/punishments_user.tpl');
+		// Load modules + template
+	    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+	    $page_load = microtime(true) - $start;
+	    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+	    $template->onPageLoad();
+
+	    require(ROOT_PATH . '/core/templates/navbar.php');
+	    require(ROOT_PATH . '/core/templates/footer.php');
+
+		// Display template
+	    $template->displayTemplate('mod/punishments_user.tpl', $smarty);
 
     } else {
         // View all users
@@ -429,38 +437,46 @@ if(isset($_GET['view'])){
             'BANNED' => $language->get('moderator', 'banned'),
             'USERS' => $user_array
         ));
-        $smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/mod/punishments.tpl');
-    }
-}
 
-require(ROOT_PATH . '/core/templates/scripts.php');
+        $template->addJSFiles(array(
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => array(),
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/dataTables.bootstrap4.min.js' => array(),
+		));
 
-if(!isset($_GET['view'])){
-?>
-    <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dataTables/jquery.dataTables.min.js"></script>
-    <script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
-
-    <script type="text/javascript">
+        $template->addJSScript('
         $(document).ready(function() {
-            $('.dataTables-users').dataTable({
+            $(\'.dataTables-users\').dataTable({
                 responsive: true,
                 language: {
-                    "lengthMenu": "<?php echo $language->get('table', 'display_records_per_page'); ?>",
-                    "zeroRecords": "<?php echo $language->get('table', 'nothing_found'); ?>",
-                    "info": "<?php echo $language->get('table', 'page_x_of_y'); ?>",
-                    "infoEmpty": "<?php echo $language->get('table', 'no_records'); ?>",
-                    "infoFiltered": "<?php echo $language->get('table', 'filtered'); ?>",
-                    "search": "<?php echo $language->get('general', 'search'); ?> ",
+                    "lengthMenu": "' . $language->get('table', 'display_records_per_page') . '",
+                    "zeroRecords": "' . $language->get('table', 'nothing_found') . '",
+                    "info": "' . $language->get('table', 'page_x_of_y') . '",
+                    "infoEmpty": "' . $language->get('table', 'no_records') . '",
+                    "infoFiltered": "' . $language->get('table', 'filtered') . '",
+                    "search": "' . $language->get('general', 'search'). '",
                     "paginate": {
-                        "next": "<?php echo $language->get('general', 'next'); ?>",
-                        "previous": "<?php echo $language->get('general', 'previous'); ?>"
+                        "next": "' . $language->get('general', 'next') . '",
+                        "previous": "' . $language->get('general', 'previous') . '"
                     }
                 }
             });
         });
-    </script>
-<?php
+        ');
+
+		// Load modules + template
+	    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+	    $page_load = microtime(true) - $start;
+	    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+	    $template->onPageLoad();
+
+	    $smarty->assign('WIDGETS', $widgets->getWidgets());
+
+	    require(ROOT_PATH . '/core/templates/navbar.php');
+	    require(ROOT_PATH . '/core/templates/footer.php');
+
+		// Display template
+	    $template->displayTemplate('mod/punishments.tpl', $smarty);
+    }
 }
-?>
-</body>
-</html>

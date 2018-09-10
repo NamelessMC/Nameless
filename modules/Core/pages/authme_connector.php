@@ -2,12 +2,15 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
  *  Authme connector
  */
+
+$page_title = $language->get('general', 'register');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Ensure AuthMe is enabled
 $authme_enabled = $queries->getWhere('settings', array('name', '=', 'authme'));
@@ -389,7 +392,7 @@ if(!isset($_GET['step'])){
         $smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
     }
 
-    $template = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme.tpl';
+    $template_file = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme.tpl';
 } else {
     // Step 2
     // Are custom usernames enabled?
@@ -411,49 +414,24 @@ if(!isset($_GET['step'])){
         'SUBMIT' => $language->get('general', 'submit')
     ));
 
-    $template = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme_email.tpl';
+    $template_file = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme_email.tpl';
 }
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-  <head>
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo $sitename; ?> - registration form">
 
-    <!-- Site Properties -->
-    <?php
-    $title = $language->get('general', 'register');
-    require(ROOT_PATH . '/core/templates/header.php');
-    ?>
+if($recaptcha === "true"){
+	$template->addJSFiles(array(
+		'https://www.google.com/recaptcha/api.js' => array()
+	));
+}
 
-    <!-- Custom style -->
-    <style>
-        html {
-            overflow-y: scroll;
-        }
-    </style>
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-  </head>
-  <body>
-    <?php
-    // Generate navbar and footer
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
-    // Display template
-    $smarty->display($template);
+$template->onPageLoad();
 
-    // Scripts
-    require(ROOT_PATH . '/core/templates/scripts.php');
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
 
-    if($recaptcha === "true"){
-        ?>
-
-        <script src="https://www.google.com/recaptcha/api.js"></script>
-        <?php
-    }
-    ?>
-  </body>
-</html>
+$template->displayTemplate($template_file, $smarty);

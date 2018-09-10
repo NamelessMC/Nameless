@@ -2,35 +2,22 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
  *  Maintenance Mode page
  */
-?>
 
-<!DOCTYPE html>
-<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo SITE_NAME; ?> - Maintenance Mode">
-    <meta name="robots" content="noindex">
+$pages = new Pages();
 
-    <?php if(isset($custom_meta)){ echo $custom_meta; } ?>
+define('PAGE', 'maintenance');
+$page_title = $language->get('errors', 'maintenance_title');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-    <?php $title = 'Maintenance'; ?>
-
-    <?php require(ROOT_PATH . '/core/templates/header.php'); ?>
-
-</head>
-<body>
-<?php
 // Assign Smarty variables
 $smarty->assign(array(
-    'TITLE' => $language->get('errors', 'maintenance_title'),
+    'MAINTENANCE_TITLE' => $language->get('errors', 'maintenance_title'),
     'RETRY' => $language->get('errors', 'maintenance_retry')
 ));
 
@@ -39,8 +26,13 @@ $maintenance_message = $maintenance['message'];
 if(!empty($maintenance_message)) $smarty->assign('MAINTENANCE_MESSAGE', Output::getPurified(htmlspecialchars_decode($maintenance_message)));
 else $smarty->assign('MAINTENANCE_MESSAGE', 'Maintenance mode is enabled.');
 
-// Maintenance template
-$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/maintenance.tpl');
-?>
-</body>
-</html>
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+$template->onPageLoad();
+
+// Display template
+$template->displayTemplate('maintenance.tpl', $smarty);

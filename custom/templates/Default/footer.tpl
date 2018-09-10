@@ -72,3 +72,10 @@
   </div>
 </footer>
 <br />
+
+{foreach from=$TEMPLATE_JS item=script}
+	{$script}
+{/foreach}
+
+</body>
+</html>

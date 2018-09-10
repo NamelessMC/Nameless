@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -15,6 +15,7 @@ class Pages {
 	private $_pages = array();
 	private $_sm_methods = array();
 	private $_id = 1;
+	private $_ajax_requests = array();
 
 	// Construct Pages class
 	public function __construct(){
@@ -95,5 +96,18 @@ class Pages {
 			}
 		}
 		return null;
+	}
+
+	// Add a script for Javascript to perform a GET request to
+	public function addAjaxScript($script = null){
+		if($script){
+			$this->_ajax_requests[] = $script;
+		}
+		return false;
+	}
+
+	// Get scripts for Javascript to perform a GET request to
+	public function getAjaxScripts(){
+		return $this->_ajax_requests;
 	}
 }

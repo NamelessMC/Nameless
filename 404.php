@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -12,50 +12,31 @@
 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found"); 
 
 define('PAGE', 404);
-?>
+$page_title = '404';
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-<!DOCTYPE html>
-<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-  <head>
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo SITE_NAME; ?> - 404">
-	<meta name="robots" content="noindex">
-	
-	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
-	
-	<?php
-	$title = '404';
-	require(ROOT_PATH . '/core/templates/header.php');
-	?>
-	
-	<!-- Custom style -->
-	<style>
-	html {
-		overflow-y: scroll;
-	}
-	</style>
-	
-  </head>
-  <body>
-	<?php
-	// Generate navbar and footer
-	require(ROOT_PATH . '/core/templates/navbar.php');
-	require(ROOT_PATH . '/core/templates/footer.php');
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-	// Assign Smarty variables
-	$smarty->assign(array(
-		'TITLE' => $language->get('errors', '404_title'),
-		'CONTENT' => $language->get('errors', '404_content'),
-		'BACK' => $language->get('errors', '404_back'),
-		'HOME' => $language->get('errors', '404_home'),
-		'ERROR' => str_replace(array('{x}', '{y}'), array('<a href="' . URL::build('/contact') . '">', '</a>'), $language->get('errors', '404_error')),
-		'PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '')
-	));
-	
-	// 404 template
-	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/404.tpl');
-	?>
-  </body>
-</html>
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+$template->onPageLoad();
+
+$smarty->assign('WIDGETS', $widgets->getWidgets());
+
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+
+// Assign Smarty variables
+$smarty->assign(array(
+	'404_TITLE' => $language->get('errors', '404_title'),
+	'CONTENT' => $language->get('errors', '404_content'),
+	'BACK' => $language->get('errors', '404_back'),
+	'HOME' => $language->get('errors', '404_home'),
+	'ERROR' => str_replace(array('{x}', '{y}'), array('<a href="' . URL::build('/contact') . '">', '</a>'), $language->get('errors', '404_error')),
+	'PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '')
+));
+
+// Display template
+$template->displayTemplate('404.tpl', $smarty);

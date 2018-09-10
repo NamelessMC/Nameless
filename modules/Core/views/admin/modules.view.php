@@ -35,36 +35,44 @@
 
 			  // Get all modules
 			  $modules = $queries->getWhere('modules', array('id', '<>', 0));
+			  $enabled_modules = Module::getModules();
 
-			  foreach($modules as $module){
-				  if(isset($module_author)) unset($module_author);
-				  if(isset($module_version)) unset($module_version);
-				  if(isset($nameless_version)) unset($nameless_version);
+			  foreach($modules as $item){
+				  $exists = false;
+				  foreach($enabled_modules as $enabled_item){
+					  if($enabled_item->getName() == $item->name){
+						  $exists = true;
+						  $module = $enabled_item;
+						  break;
+					  }
+				  }
 
-				  if(file_exists(ROOT_PATH . '/modules/' . $module->name . '/module.php')) require(ROOT_PATH . '/modules/' . $module->name . '/module.php');
+				  if(!$exists){
+					  require_once(ROOT_PATH . '/modules/' . $item->name . '/init.php');
+				  }
 			  ?>
 			  <div class="row">
 			    <div class="col-md-9">
-			      <strong><?php echo htmlspecialchars($module->name); ?></strong> <?php if(isset($module_version)){ ?><small><?php echo $module_version; ?></small><?php } ?>
-				  <?php if(isset($module_author)){ ?></br><small><?php echo $language->get('admin', 'author'); ?> <?php echo $module_author; ?></small><?php } ?>
+				    <strong><?php echo htmlspecialchars($module->getName()); ?></strong> <small><?php echo $module->getVersion(); ?></small>
+					<br /><small><?php echo $language->get('admin', 'author'); ?> <?php echo $module->getAuthor(); ?></small>
 				</div>
 				<div class="col-md-3">
 				  <span class="pull-right">
 				    <?php
-					if($module->id == 1){
+				    if($module->getName() == 'Core'){
 					?>
 				    <a href="#" class="btn btn-warning disabled"><i class="fa fa-lock" aria-hidden="true"></i></a>
 					<!--<a href="<?php //echo URL::build('/admin/modules/', 'action=edit&m=' . $module->id); ?>" class="btn btn-primary"><i class="fa fa-cogs" aria-hidden="true"></i></a>-->
 					<?php
 					} else {
-						if($module->enabled == 1){
+						if($item->enabled == 1){
 					?>
-					<a href="<?php echo URL::build('/admin/modules/', 'action=disable&m=' . $module->id); ?>" class="btn btn-danger"><?php echo $language->get('admin', 'disable'); ?></a>
+					<a href="<?php echo URL::build('/admin/modules/', 'action=disable&m=' . $item->id); ?>" class="btn btn-danger"><?php echo $language->get('admin', 'disable'); ?></a>
 					<!--<a href="<?php //echo URL::build('/admin/modules/', 'action=edit&m=' . $module->id); ?>" class="btn btn-primary"><i class="fa fa-cogs" aria-hidden="true"></i></a>-->
 					<?php
 						} else {
 					?>
-					<a href="<?php echo URL::build('/admin/modules/', 'action=enable&m=' . $module->id); ?>" class="btn btn-success"><?php echo $language->get('admin', 'enable'); ?></a>
+					<a href="<?php echo URL::build('/admin/modules/', 'action=enable&m=' . $item->id); ?>" class="btn btn-success"><?php echo $language->get('admin', 'enable'); ?></a>
 					<?php
 						}
 					}

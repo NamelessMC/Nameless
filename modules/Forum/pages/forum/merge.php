@@ -2,18 +2,19 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
  *  Merge two topics together
  */
 
+define('PAGE', 'forum');
+$page_title = $forum_language->get('forum', 'merge_topics');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
- 
-// Set the page name for the active link in navbar
-$page = "forum";
 
 // User must be logged in to proceed
 if(!$user->isLoggedIn()){
@@ -71,56 +72,32 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 }
 
 $token = Token::get();
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-  <head>
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo SITE_NAME; ?> - merging topics">
-	<meta name="robots" content="noindex">
-	
-    <!-- Site Properties -->
-	<?php 
-	$title = $forum_language->get('forum', 'merge_topics');
-	require(ROOT_PATH . '/core/templates/header.php');
-	?>
-	
-	<!-- Custom style -->
-	<style>
-	html {
-		overflow-y: scroll;
-	}
-	</style>
-	
-  </head>
-  <body>
-	<?php
-	// Generate navbar and footer
-	require(ROOT_PATH . '/core/templates/navbar.php');
-	require(ROOT_PATH . '/core/templates/footer.php');
-	
-	// Get topics
-	$topics = $queries->orderWhere('topics', 'forum_id = ' . $forum_id . ' AND deleted = 0 AND id <> ' . $topic_id, 'id', 'ASC');
-	
-	// Smarty
-	$smarty->assign(array(
-		'MERGE_TOPICS' => $forum_language->get('forum', 'merge_topics'),
-		'MERGE_INSTRUCTIONS' => $forum_language->get('forum', 'merge_instructions'),
-		'TOKEN' => Token::get(),
-		'SUBMIT' => $language->get('general', 'submit'),
-		'CANCEL' => $language->get('general', 'cancel'),
-		'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-		'CANCEL_LINK' => URL::build('/forum/topic/' . $topic_id),
-		'TOPICS' => $topics
-	));
-	
-	// Load template
-	$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/forum/merge.tpl');
-	
-	// Scripts
-	require(ROOT_PATH . '/core/templates/scripts.php');
-	?>
-  </body>
-</html>
+
+// Get topics
+$topics = $queries->orderWhere('topics', 'forum_id = ' . $forum_id . ' AND deleted = 0 AND id <> ' . $topic_id, 'id', 'ASC');
+
+// Smarty
+$smarty->assign(array(
+	'MERGE_TOPICS' => $forum_language->get('forum', 'merge_topics'),
+	'MERGE_INSTRUCTIONS' => $forum_language->get('forum', 'merge_instructions'),
+	'TOKEN' => Token::get(),
+	'SUBMIT' => $language->get('general', 'submit'),
+	'CANCEL' => $language->get('general', 'cancel'),
+	'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
+	'CANCEL_LINK' => URL::build('/forum/topic/' . $topic_id),
+	'TOPICS' => $topics
+));
+
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+$template->onPageLoad();
+
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+
+// Display template
+$template->displayTemplate('forum/merge.tpl', $smarty);

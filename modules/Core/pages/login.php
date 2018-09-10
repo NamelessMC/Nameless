@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -11,6 +11,8 @@
 
 // Set page name variable
 define('PAGE', 'login');
+$page_title = $language->get('general', 'sign_in');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Requirements
 require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
@@ -259,71 +261,46 @@ if (Input::exists()) {
         $return_error = array($language->get('general', 'invalid_token'));
     }
 }
-?>
-<!DOCTYPE html>
-<html<?php if(defined('HTML_CLASS')) echo ' class="' . HTML_CLASS . '"'; ?> lang="<?php echo(defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
-<head>
-    <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo SITE_NAME; ?> - community login form">
-    <?php if (isset($custom_meta)) {
-        echo $custom_meta;
-    } ?>
-
-    <?php
-    $title = $language->get('general', 'sign_in');
-    require(ROOT_PATH . '/core/templates/header.php');
-    ?>
-
-    <!-- Custom style -->
-    <style>
-        html {
-            overflow-y: scroll;
-        }
-    </style>
-
-</head>
-<body>
-<?php
-// Generate navbar and footer
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
 
 // Sign in template
 // Generate content
 if($method == 'email')
-    $smarty->assign('EMAIL', $language->get('user', 'email'));
+	$smarty->assign('EMAIL', $language->get('user', 'email'));
 else
-    $smarty->assign('USERNAME', (($custom_usernames == 'false') ? $language->get('user', 'minecraft_username') : $language->get('user', 'username')));
+	$smarty->assign('USERNAME', (($custom_usernames == 'false') ? $language->get('user', 'minecraft_username') : $language->get('user', 'username')));
 
 $smarty->assign(array(
-    'USERNAME_INPUT' => ($method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
-    'PASSWORD' => $language->get('user', 'password'),
-    'REMEMBER_ME' => $language->get('user', 'remember_me'),
-    'FORGOT_PASSWORD_URL' => URL::build('/forgot_password'),
-    'FORGOT_PASSWORD' => $language->get('user', 'forgot_password'),
-    'FORM_TOKEN' => Token::generate(),
-    'SIGN_IN' => $language->get('general', 'sign_in'),
-    'REGISTER_URL' => URL::build('/register'),
-    'REGISTER' => $language->get('general', 'register'),
-    'ERROR' => (isset($return_error) ? $return_error : array()),
+	'USERNAME_INPUT' => ($method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
+	'PASSWORD' => $language->get('user', 'password'),
+	'REMEMBER_ME' => $language->get('user', 'remember_me'),
+	'FORGOT_PASSWORD_URL' => URL::build('/forgot_password'),
+	'FORGOT_PASSWORD' => $language->get('user', 'forgot_password'),
+	'FORM_TOKEN' => Token::generate(),
+	'SIGN_IN' => $language->get('general', 'sign_in'),
+	'REGISTER_URL' => URL::build('/register'),
+	'REGISTER' => $language->get('general', 'register'),
+	'ERROR' => (isset($return_error) ? $return_error : array()),
 ));
 
 if (isset($return_error)) {
-    $smarty->assign('SESSION_FLASH', $return_error);
+	$smarty->assign('SESSION_FLASH', $return_error);
 } else {
-    $smarty->assign('SESSION_FLASH', '');
+	$smarty->assign('SESSION_FLASH', '');
 }
 
 if (Session::exists('login_success'))
-    $smarty->assign('SUCCESS', Session::flash('login_success'));
+	$smarty->assign('SUCCESS', Session::flash('login_success'));
+
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+$template->onPageLoad();
+
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$smarty->display(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/login.tpl');
-
-// Scripts
-require(ROOT_PATH . '/core/templates/scripts.php');
-?>
-</body>
-</html>
+$template->displayTemplate('login.tpl', $smarty);

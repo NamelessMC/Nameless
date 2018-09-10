@@ -6,9 +6,8 @@
  *
  *  License: MIT
  *
- *  UserCP navbar generation
+ *  Backend template initialisation
  */
 
-$smarty->assign(array(
-	'CC_NAV_LINKS' => $cc_nav->returnNav('top')
-));
+define('BACK_END', true);
+
