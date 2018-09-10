@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -95,7 +95,7 @@ $admin_page = 'auth';
 
 	<?php 
 	$title = $language->get('admin', 'admin_cp');
-	require(ROOT_PATH . '/core/templates/header.php');
+	require(ROOT_PATH . '/core/templates/admin_header.php');
 	?>
   
   </head>
