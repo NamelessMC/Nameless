@@ -100,12 +100,10 @@ $background_image = $cache->retrieve('background_image');
 
 if(!empty($background_image))
 	$template->addCSSStyle('
-		<style>
 			body {
 				background-image: url(\'' . $background_image . '\');
 				background-repeat: no-repeat;
 				background-attachment: fixed;
 				background-size: cover;
 			}
-		</style>
-	');
+			');
