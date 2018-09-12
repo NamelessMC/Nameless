@@ -131,7 +131,7 @@ if(Input::exists()){
 							} else
 								$updated = $language->get('admin', 'unknown');
 
-							echo '<div class="alert alert-info"><p>' . str_replace('{x}', $updated, $language->get('admin', 'sitemap_last_generated_x')) . '</p><a class="btn btn-primary" href="' . (defined('CONFIG_PATH') ? CONFIG_PATH : '/') . 'cache/sitemaps/sitemap-index.xml' . '" download>' . $language->get('admin', 'download_sitemap') . '</a></div>';
+							echo '<div class="alert alert-info"><p>' . str_replace('{x}', $updated, $language->get('admin', 'sitemap_last_generated_x')) . '</p><a class="btn btn-primary" href="' . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml' . '" download>' . $language->get('admin', 'download_sitemap') . '</a></div>';
 
 						} else {
 							echo '<div class="alert alert-info">' . $language->get('admin', 'sitemap_not_generated_yet') . '</div>';
