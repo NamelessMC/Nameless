@@ -132,3 +132,10 @@ a > img {
 	border: none;
 	outline: 1px solid #0782C1;
 }
+
+code {
+	display: block;
+	padding: 0.5em;
+	background: #F0F0F0;
+	color: black;
+}
