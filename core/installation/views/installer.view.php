@@ -1375,7 +1375,7 @@
 										'forum_title' => $item->forum_title,
 										'forum_description' => $item->forum_description,
 										'forum_type' => $item->forum_type,
-										'last_post_date' => strtotime($item->last_post_date),
+										'last_post_date' => ($item->last_post_date) ? strtotime($item->last_post_date) : null,
 										'last_user_posted' => $item->last_user_posted,
 										'last_topic_posted' => $item->last_topic_posted,
 										'parent' => $item->parent,
