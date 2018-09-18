@@ -71,7 +71,8 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 		require(ROOT_PATH . '/modules/Core/pages/index.php');
 
 } else {
-	if(!isset($route)) $route = rtrim($_GET['route'], '/');
+	$route = rtrim(strtok($_GET['route'], '?'), '/');
+
 	// Check modules
 	$modules = $pages->returnPages();
 
@@ -87,7 +88,6 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 	        die();
         }
 	} else {
-
 		// Use recursion to check - might have URL parameters in path
 		$path_array = explode('/', $route);
 
