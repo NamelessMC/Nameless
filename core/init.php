@@ -221,7 +221,10 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 		$smarty->assign('LOGGED_IN_USER', array(
 			'username' => Output::getClean($user->data()->username),
 			'mcname' => Output::getClean($user->data()->mcname),
-			'profile' => '/profile/' . Output::getClean($user->data()->mcname)
+			'profile' => '/profile/' . Output::getClean($user->data()->mcname),
+			'uuid' => Output::getClean($user->data()->uuid),
+			'modcp' => $user->canViewMCP($user->data()->id),
+			'admincp' => $user->canViewACP($user->data()->id)
 		));
 
 	} else {
