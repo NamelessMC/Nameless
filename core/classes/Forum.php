@@ -381,7 +381,8 @@ class Forum {
 					"topic_views" => $item->topic_views,
 					"author" => $item->topic_creator,
 					"content" => $post,
-					"replies" => $posts
+					"replies" => $posts,
+					"label" => $item->label
 				);
 			}
 		}
