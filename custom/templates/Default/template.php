@@ -327,7 +327,10 @@ class Default_Template extends TemplateBase {
 		}
 
 		// Editor skin (moono-lisa or moono-dark)
-		define('TEMPLATE_EDITOR_STYLE', 'moono-lisa');
+		if($theme != 'darkly')
+			define('TEMPLATE_EDITOR_STYLE', 'moono-lisa');
+		else
+			define('TEMPLATE_EDITOR_STYLE', 'moono-dark');
 
 		// Assign any Smarty variables
 		$smarty->assign('NAV_STYLE', Output::getClean($nav_style));
