@@ -674,14 +674,14 @@ class Nameless2API
             $return = array();
 
             // Get unread alerts
-            $alerts = $this->_db->query('SELECT type, url, content_short FROM nl2_alerts WHERE user_id = ? AND `read` = 0', array($user));
+            $alerts = $this->_db->query('SELECT id, type, url, content_short FROM nl2_alerts WHERE user_id = ? AND `read` = 0', array($user));
             if($alerts->count()){
                 foreach($alerts->results() as $result){
                     $return[] = array(
                         'type' => $result->type,
                         'message_short' => $result->content_short,
                         'message' => strip_tags($result->content),
-                        'url' => Util::getSelfURL() . ltrim($result->url, '/')
+                        'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/user/alerts/', 'view=' . $result->id)
                     );
                 }
             }
