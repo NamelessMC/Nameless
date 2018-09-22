@@ -551,7 +551,7 @@
                 'group_html' => '<span class="badge badge-primary">Moderator</span>',
                 'group_html_lg' => '<span class="badge badge-primary">Moderator</span>',
                 'mod_cp' => 1,
-                'permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1}'
+                'permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1}'
             ));
 
             $queries->create('groups', array(

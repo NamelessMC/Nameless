@@ -187,5 +187,13 @@ $language = array(
     // Hooks
     'new_topic_hook_info' => 'Subiect nou',
     'new_topic_text' => 'Subiect creat în {x} de {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
-    'include_in_hook' => 'Includeți subiecte noi din acest forum în webhook?'
+    'include_in_hook' => 'Includeți subiecte noi din acest forum în webhook?',
+
+	// Panel statistics
+	'recent_topics' => 'Recent Topics',
+	'recent_topics_statistic_icon' => '<i class="fa fa-comment"></i>',
+	'recent_posts' => 'Recent Posts',
+	'recent_posts_statistic_icon' => '<i class="fa fa-comments-o"></i>',
+	'topics_title' => 'Topics',
+	'posts_title' => 'Posts',
 );

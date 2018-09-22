@@ -59,6 +59,10 @@ $language = array(
 	'open_reports' => 'Es sind aktuell <strong>{x}</strong> Reports geöffnet.', // Don't replace {x}
 	'no_open_reports' => 'There are currently no open reports.',
 	'no_closed_reports' => 'There are currently no closed reports.',
+	'recent_reports' => 'Recent Reports',
+	'reported_by' => 'Reported by:',
+	'website' => 'Website',
+	'ingame' => 'Ingame',
 	
 	// Punishments
 	'punishments' => 'Strafen',

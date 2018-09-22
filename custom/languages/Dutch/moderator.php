@@ -53,6 +53,10 @@ $language = array(
 	'open_reports' => 'Er zijn nu <strong>{x}</strong> open rapporten.', // Verander {x} niet
 	'no_open_reports' => 'There are currently no open reports.',
 	'no_closed_reports' => 'There are currently no closed reports.',
+	'recent_reports' => 'Recent Reports',
+	'reported_by' => 'Reported by:',
+	'website' => 'Website',
+	'ingame' => 'Ingame',
 	
 	// Straffen
 	'punishments' => 'Straffen',

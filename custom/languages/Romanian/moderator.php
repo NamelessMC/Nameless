@@ -53,6 +53,10 @@ $language = array(
     'open_reports' => 'În momentul de față există <strong>{x}</strong> rapoarte deschise.', // Don't replace {x}
     'no_open_reports' => 'În momentul de față nu există rapoarte deschise.',
     'no_closed_reports' => 'În momentul de față nu există rapoarte închise.',
+	'recent_reports' => 'Recent Reports',
+	'reported_by' => 'Reported by:',
+	'website' => 'Website',
+	'ingame' => 'Ingame',
     
     // Punishments
     'punishments' => 'Sancțiuni',

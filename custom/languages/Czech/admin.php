@@ -17,6 +17,10 @@ $language = array(
 	're-authenticate' => 'Prosím ověřte přihlášení',
 	
 	// Sidebar
+	'dashboard' => 'Dashboard',
+	'configuration' => 'Configuration',
+	'layout' => 'Layout',
+	'user_management' => 'User Management',
 	'admin_cp' => 'Ovládací panel administrátora',
 	'administration' => 'Administrace',
 	'overview' => 'Přehled',
@@ -37,7 +41,7 @@ $language = array(
 	'posts' => 'Posts',
     'notices' => 'Upozornění',
     'no_notices' => 'Žádná upozornění.',
-    'email_errors_logged' => 'Chyby s e-maily byly zaznamenány. Pro zobrazení klikněte <a href="{x}">zde</a>.', // Don't replace "{x}"
+    'email_errors_logged' => 'Chyby s e-maily byly zaznamenány',
 	
 	// Core
 	'settings' => 'Nastavení',
@@ -45,6 +49,10 @@ $language = array(
 	'sitename' => 'Název stránky',
 	'default_language' => 'Hlavní jazyk',
 	'default_language_help' => 'Uživatelé si budou moci vybrat z libovolných nainstalovaných jazyků.',
+	'install_language' => 'Install Language',
+	'update_user_languages' => 'Update User Languages',
+	'update_user_languages_warning' => 'This will update the language for all users on your site, even if they have already selected one!',
+	'updated_user_languages' => 'User languages have been updated.',
 	'installed_languages' => 'Všechny nové jazyky byly úspěšně nainstalovány.',
 	'default_timezone' => 'Základní časové pásmo',
 	'registration' => 'Registrace',
@@ -54,10 +62,13 @@ $language = array(
 	'homepage_type' => 'Typ hlavní stránky',
 	'post_formatting_type' => 'Typ formátování',
 	'portal' => 'Portál',
+	'private_profiles' => 'Private Profiles',
 	'missing_sitename' => 'Vložte název webu o délce 2 až 64 znaků.',
+	'missing_contact_address' => 'Please insert a contact email address between 3 and 255 characters long.',
 	'use_friendly_urls' => 'Přátelské URL adresy?',
 	'use_friendly_urls_help' => 'DŮLEŽITÉ: Váš server musí být nakonfigurován tak, aby umožnil použití souborů mod_rewrite a .htaccess.',
 	'config_not_writable' => 'Váš <strong>core/config.php</strong> není přepisovatelný. Zkontrolujte oprávnění pro tento soubour.',
+	'settings_updated_successfully' => 'General settings updated successfully.',
 	'social_media' => 'Sociální média',
 	'youtube_url' => 'Youtube URL',
 	'twitter_url' => 'Twitter URL',
@@ -70,6 +81,7 @@ $language = array(
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Úspěšně aktualizováno',
     'debugging_and_maintenance' => 'Debugging a údržba',
+    'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Zapnout debug mód?',
     'force_https' => 'Vynucené https?',
     'force_https_help' => 'Pokud je zapnuto, všechny požadavky na Váš web budou přesměrovány na https. Jestli chcete, aby to tato možnost fungovala správně, tak musíte mít platný a aktivovaný SSL certifikát.',
@@ -110,6 +122,7 @@ $language = array(
     'minecraft_avatar_perspective' => 'Perspektiva Minecraft avatara',
     'face' => 'Obličej',
     'head' => 'Hlava',
+	'bust' => 'Bust',
     'select_default_avatar' => 'Vyberte nového výchozího avatara:',
     'no_avatars_available' => 'Žádný avatar není dostupný. Nahrajte prosím nový obrázek výše.',
     'avatar_settings_updated_successfully' => 'Nastavení avatarů úspěšně aktualizováno.',
@@ -128,7 +141,7 @@ $language = array(
     'validation_promote_group' => 'Post-validation group',
     'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
     'login_method' => 'Login Method',
-    'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+    'privacy_and_terms' => 'Privacy & Terms',
 
 	// Reactions
 	'icon' => 'Ikonka',
@@ -161,6 +174,9 @@ $language = array(
 	'profile_field_forum_help' => 'Pokud je zapnuto, pole bude zobrazeno vedle příspěvku uživatele.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 	'no_custom_fields' => 'There are no custom fields yet.',
+	'profile_field_updated_successfully' => 'The profile field was updated successfully.',
+	'profile_field_created_successfully' => 'The profile field was created successfully.',
+	'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
 	
 	// Minecraft
 	'enable_minecraft_integration' => 'Povolit Minecraft?',
@@ -232,6 +248,11 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> Nový banner',
     'purge_errors' => 'Vymazat chyby',
     'confirm_purge_errors' => 'Jste si jist, že chcete vymazat všechny chyby?',
+	'email_errors_purged_successfully' => 'Email errors have been purged successfully.',
+	'error_deleted_successfully' => 'The error has been deleted successfully.',
+	'no_email_errors' => 'No email errors logged.',
+	'email_settings_updated_successfully' => 'Email settings have been updated successfully.',
+	'content' => 'Content',
     'mcassoc_help' => 'mcassoc je externí služba, která může být použita k ověření, zda uživatelé vlastní Minecraft účet, se kterým se zaregistrovali. Pro použití této možnosti se budete muset zaregistrovat pro získání sdíleného klíče <a href="https://mcassoc.lukegb.com/" target="_blank">zde</a>.',
     'mcassoc_key' => 'mcassoc sdílený klíč',
     'mcassoc_instance' => 'mcassoc případový klíč',
@@ -368,6 +389,7 @@ $language = array(
 	'current_version_x' => 'Současná verze: <strong>{x}</strong>', // Don't replaec {x}
 	'new_version_x' => 'Nová verze: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => 'K dispozici je nová aktualizace',
+	'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
 	'up_to_date' => 'Používáte nejnovější verzi!',
 	'urgent' => 'Tato aktualizace je důležitá!',
 	'changelog' => 'Seznam změn',
@@ -430,12 +452,17 @@ $language = array(
 	'enable_legacy_api' => 'Enable legacy API?',
 	'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
 	'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
+	'api_key' => 'API Key',
+	'api_url' => 'API URL',
+	'copy' => 'Copy',
+	'api_key_regenerated' => 'The API key has been regenerated successfully.',
 	'api_registration_email' => 'API Registration Email',
 	'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
 	'api_verification' => 'Enable API verification?',
 	'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
 	'enable_username_sync' => 'Enable username sync?',
 	'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
+	'api_settings_updated_successfully' => 'API settings updated successfully.',
 
 	// File uploads
 	'drag_files_here' => 'Soubory přetáhněte sem pro nahrání.',
@@ -452,6 +479,7 @@ $language = array(
 	'other_log' => 'Other log',
 	'fatal_log' => 'Fatal log',
 	'log_file_not_found' => 'Log file not found.',
+	'log_purged_successfully' => 'The log has been purged successfully.',
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
@@ -476,4 +504,20 @@ $language = array(
 	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
 	'keywords' => 'Keywords',
 	'description_max_500' => 'The description must be at most 500 characters.',
+
+	// Dashboard
+	'total_users' => 'Total Users',
+	'total_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'recent_users' => 'New Users',
+	'recent_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'average_players' => 'Average Players',
+	'nameless_news' => 'NamelessMC News',
+	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
+	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'server_compatibility' => 'Server Compatibility',
+	'issues' => 'Issues',
+
+	// Other
+	'source' => 'Source',
+	'support' => 'Support'
 );

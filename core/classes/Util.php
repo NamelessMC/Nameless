@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -195,28 +195,58 @@ class Util {
 			switch(DEFAULT_AVATAR_SOURCE){
 				case 'crafatar':
 					if($perspective == 'face')
-						return 'https://crafatar.com/avatars/' . $uuid . '?size=' . $size . '&amp;overlay';
+						return 'https://crafatar.com/avatars/' . Output::getClean($uuid) . '?size=' . $size . '&amp;overlay';
 					else
-						return 'https://crafatar.com/renders/head/' . $uuid . '?overlay';
+						return 'https://crafatar.com/renders/head/' . Output::getClean($uuid) . '?overlay';
+
 					break;
+
 				case 'nameless':
 					// Only supports face currently
 					if(defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
 						return URL::build('/avatar/' . Output::getClean($uuid));
 					else
 						return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($uuid);
+
 					break;
+
+				case 'mc-heads':
+					if($perspective == 'face')
+						return 'https://mc-heads.net/avatar/' . Output::getClean($uuid) . '/' . $size;
+					else
+						return 'https://mc-heads.net/head/' . Output::getClean($uuid) . '/' . $size;
+
+					break;
+
+				case 'minotar':
+					if($perspective == 'face')
+						return 'https://minotar.net/helm/'.  Output::getClean($uuid) . '/' . $size . '.png';
+					else
+						return 'https://minotar.net/cube/'.  Output::getClean($uuid) . '/' . $size . '.png';
+
+					break;
+
+				case 'visage':
+					if($perspective == 'face')
+						return 'https://visage.surgeplay.com/face/' . $size . '/' . Output::getClean($uuid);
+					else if($perspective == 'bust')
+						return 'https://visage.surgeplay.com/bust/' . $size . '/' . Output::getClean($uuid);
+					else
+						return 'https://visage.surgeplay.com/head/' . $size . '/' . Output::getClean($uuid);
+
+					break;
+
 				case 'cravatar':
 				default:
 					if($perspective == 'face')
-						return 'https://cravatar.eu/helmavatar/' . $uuid . '/' . $size . '.png';
+						return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
 					else
-						return 'https://cravatar.eu/helmhead/' . $uuid . '/' . $size . '.png';
+						return 'https://cravatar.eu/helmhead/' . Output::getClean($uuid) . '/' . $size . '.png';
 					break;
 			}
 		} else {
 			// Fall back to cravatar
-			return 'https://cravatar.eu/helmavatar/' . $uuid . '/' . $size . '.png';
+			return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
 		}
 	}
 
@@ -241,6 +271,31 @@ class Util {
 						return URL::build('/avatar/{x}');
 					else
 						return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={x}';
+					break;
+				case 'mc-heads':
+					if($perspective == 'face')
+						return 'https://mc-heads.net/avatar/{x}/{y}';
+					else
+						return 'https://mc-heads.net/head/{x}/{y}';
+
+					break;
+
+				case 'minotar':
+					if($perspective == 'face')
+						return 'https://minotar.net/helm/{x}/{y}.png';
+					else
+						return 'https://minotar.net/cube/{x}/{y}.png';
+
+					break;
+
+				case 'visage':
+					if($perspective == 'face')
+						return 'https://visage.surgeplay.com/face/{y}/{x}';
+					else if($perspective == 'bust')
+						return 'https://visage.surgeplay.com/bust/{y}/{x}';
+					else
+						return 'https://visage.surgeplay.com/head/{y}/{x}';
+
 					break;
 				case 'cravatar':
 				default:
@@ -400,5 +455,73 @@ class Util {
         }
 
         return $truncate;
+    }
+
+    /*
+     *  Check for Nameless updates
+     *  Returns JSON object with information about any updates
+     */
+    public static function updateCheck($current_version = null){
+    	$queries = new Queries();
+
+	    // Check for updates
+	    if(!$current_version){
+		    $current_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+		    $current_version = $current_version[0]->value;
+	    }
+
+	    $uid = $queries->getWhere('settings', array('name', '=', 'unique_id'));
+	    $uid = $uid[0]->value;
+
+	    $ch = curl_init();
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	    curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version);
+
+	    $update_check = curl_exec($ch);
+
+	    if(curl_error($ch)){
+		    $error = curl_error($ch);
+	    } else {
+		    if($update_check == 'Failed'){
+			    $error = 'Unknown error';
+		    }
+	    }
+
+	    curl_close($ch);
+
+	    if(isset($error)){
+	    	return json_encode(array('error' => $error));
+	    } else {
+	    	if($update_check == 'None'){
+	    		return json_encode(array('no_update' => true));
+		    } else {
+			    return $update_check;
+		    }
+	    }
+    }
+
+    /*
+     *  Get the latest Nameless news
+     */
+    public static function getLatestNews(){
+	    $ch = curl_init();
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	    curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/news');
+
+	    $news = curl_exec($ch);
+
+	    if(curl_error($ch)){
+		    $error = curl_error($ch);
+	    }
+
+	    curl_close($ch);
+
+	    if(isset($error)){
+		    return json_encode(array('error' => $error));
+	    } else {
+		    return $news;
+	    }
     }
 }

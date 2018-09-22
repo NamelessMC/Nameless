@@ -185,5 +185,13 @@ $language = array(
     // Hooks
     'new_topic_hook_info' => '新しいトピック',
     'new_topic_text' => '{x} に {y} がトピックを作成しました。', // Don't replace {x} (forum name), optional variable {y} (topic author)
-    'include_in_hook' => 'このフォーラムの新しいトピックをWebhookに通知しますか？'
+    'include_in_hook' => 'このフォーラムの新しいトピックをWebhookに通知しますか？',
+
+	// Panel statistics
+	'recent_topics' => 'Recent Topics',
+	'recent_topics_statistic_icon' => '<i class="fa fa-comment"></i>',
+	'recent_posts' => 'Recent Posts',
+	'recent_posts_statistic_icon' => '<i class="fa fa-comments-o"></i>',
+	'topics_title' => 'Topics',
+	'posts_title' => 'Posts',
 );

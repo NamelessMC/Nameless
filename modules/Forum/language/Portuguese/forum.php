@@ -187,5 +187,13 @@ $language = array(
     // Hooks
     'new_topic_hook_info' => 'Novo tópico',
     'new_topic_text' => 'Tópico criado em {x} por {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
-    'include_in_hook' => 'Incluir novos tópicos a partir deste fórum no webhook?'
+    'include_in_hook' => 'Incluir novos tópicos a partir deste fórum no webhook?',
+
+	// Panel statistics
+	'recent_topics' => 'Recent Topics',
+	'recent_topics_statistic_icon' => '<i class="fa fa-comment"></i>',
+	'recent_posts' => 'Recent Posts',
+	'recent_posts_statistic_icon' => '<i class="fa fa-comments-o"></i>',
+	'topics_title' => 'Topics',
+	'posts_title' => 'Posts',
 );

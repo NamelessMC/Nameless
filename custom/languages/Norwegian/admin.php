@@ -17,6 +17,10 @@ $language = array(
 	're-authenticate' => 'Vennligst logg inn på nytt.',
 
 	// Sidebar
+	'dashboard' => 'Dashboard',
+	'configuration' => 'Configuration',
+	'layout' => 'Layout',
+	'user_management' => 'User Management',
 	'admin_cp' => 'AdminCP',
 	'administration' => 'Administrasjon',
 	'overview' => 'Oppsummering',
@@ -37,7 +41,7 @@ $language = array(
 	'posts' => 'Tråder',
     'notices' => 'Varsler',
     'no_notices' => 'Ingen varsler.',
-    'email_errors_logged' => 'En email error har blitt logget. Klikk <a href="{x}">her</a> for å se dem.', // Don't replace "{x}"
+    'email_errors_logged' => 'En email error har blitt logget',
 
 	// Core
 	'settings' => 'Instillinger',
@@ -45,6 +49,10 @@ $language = array(
 	'sitename' => 'Nettstedets navn',
 	'default_language' => 'Standardspråk',
 	'default_language_help' => 'Tilskuere på nettstedet kan benytte alle installerte språk',
+	'install_language' => 'Install Language',
+	'update_user_languages' => 'Update User Languages',
+	'update_user_languages_warning' => 'This will update the language for all users on your site, even if they have already selected one!',
+	'updated_user_languages' => 'User languages have been updated.',
 	'installed_languages' => 'Installasjonen av språket var vellykket!',
 	'default_timezone' => 'Standard tidssone',
 	'registration' => 'Registrering',
@@ -54,10 +62,13 @@ $language = array(
 	'homepage_type' => 'Forsidetype',
 	'post_formatting_type' => 'Formatteringstype for poster',
 	'portal' => 'Portal',
+	'private_profiles' => 'Private Profiles',
 	'missing_sitename' => 'Navnet på nettstedet må være mellom 2 og 64 tegn.',
+	'missing_contact_address' => 'Please insert a contact email address between 3 and 255 characters long.',
 	'use_friendly_urls' => 'Søkemotorvennlige URL-adresser',
 	'use_friendly_urls_help' => 'VIKTIG! For at denne funksjonen skal fungere må du ha mod_rewrite og .htaccess tilgjengelig for web-serveren din. (Kun Apache2 er støttet for øyeblikket)',
 	'config_not_writable' => '<strong>core/config.php</strong> er ikke skrivbar. Sjekk filens rettigheter og web-serverens tilgang. (www-data og chmod g+rw)',
+	'settings_updated_successfully' => 'General settings updated successfully.',
 	'social_media' => 'Sosiale medier',
 	'youtube_url' => 'YouTube-URL',
 	'twitter_url' => 'Twitter-URL',
@@ -70,6 +81,7 @@ $language = array(
 	'facebook_url' => 'Facebook-URL',
 	'successfully_updated' => 'Vellykket endring i innstillinger!',
     'debugging_and_maintenance' => 'Feilsøk og vedlikehold',
+	'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Tillatt feilsøkingsmodus?',
     'force_https' => 'Overstyr https?',
     'force_https_help' => 'Hvis aktivert, alle forespørsler på din nettside vil bli videresendt til https. Du må ha en gyldig SSL sertifikat aktiv for at dette skal funke.',
@@ -110,6 +122,7 @@ $language = array(
     'minecraft_avatar_perspective' => 'Minecraft avatar perspektiv',
     'face' => 'Ansikt',
     'head' => 'Hode',
+	'bust' => 'Bust',
     'select_default_avatar' => 'Velg en ny standard avatar:',
     'no_avatars_available' => 'Ingen avatarer for øyeblikket. Vennligst last opp et nytt bilde oppe først.',
     'avatar_settings_updated_successfully' => 'Avatar instillinger har blitt oppdatert',
@@ -128,7 +141,7 @@ $language = array(
     'validation_promote_group' => 'Post-valideringsgruppe',
     'validation_promote_group_info' => 'Dette er gruppen brukeren vil bli forfremmet til når personen har verifisert kontoen sin.',
     'login_method' => 'Login Metode',
-    'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+    'privacy_and_terms' => 'Privacy & Terms',
 
 	// Reactions
 	'icon' => 'Ikon',
@@ -161,6 +174,9 @@ $language = array(
 	'profile_field_forum_help' => 'Hvis "Synlig på forumet" er aktivert vil alle som bruker forumet kunne se feltet.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 	'no_custom_fields' => 'There are no custom fields yet.',
+	'profile_field_updated_successfully' => 'The profile field was updated successfully.',
+	'profile_field_created_successfully' => 'The profile field was created successfully.',
+	'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Aktiver Minecraft-integrasjon',
@@ -232,6 +248,11 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> Ny banner',
     'purge_errors' => 'Rens alle error',
     'confirm_purge_errors' => 'Er du sikker på at du vil fjerne alle errorer?',
+	'email_errors_purged_successfully' => 'Email errors have been purged successfully.',
+	'error_deleted_successfully' => 'The error has been deleted successfully.',
+	'no_email_errors' => 'No email errors logged.',
+	'email_settings_updated_successfully' => 'Email settings have been updated successfully.',
+	'content' => 'Content',
     'mcassoc_help' => 'mcassoc er en ekstern service som kan bli brukt for å verifisere deres Minecraft bruker de har registrert med. For å bruke denne funksjonen må du registrere deg for å motta en delt nøkkel <a href="https://mcassoc.lukegb.com/" target="_blank">her</a>.',
     'mcassoc_key' => 'mcassoc delt nøkkel (Shared key)',
     'mcassoc_instance' => 'mcassoc Instance Key',
@@ -368,6 +389,7 @@ $language = array(
 	'current_version_x' => 'Denne versjonen: <strong>{x}</strong>', // Don't replaec {x}
 	'new_version_x' => 'Ny versjon:: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => 'Det er en ny oppdatering tilgjengelig',
+	'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
 	'up_to_date' => 'Din NamelessMC kjører den nyeste versjonen!',
 	'urgent' => 'Denne oppdateringen er en midlertidig versjon.',
 	'changelog' => 'Oppdateringshistorikk',
@@ -430,12 +452,17 @@ $language = array(
     'enable_legacy_api' => 'Aktiver legacy API?',
     'legacy_api_info' => 'Legacy APIen tillatter plugins som bruker Nameless versjon 1 APIen til å fungere med din versjon 2 nettside.',
     'confirm_api_regen' => 'Er du sikker på at du vil regenere API nøkkelen din?Are you sure you want to regenerate your API key?',
+	'api_key' => 'API Key',
+	'api_url' => 'API URL',
+	'copy' => 'Copy',
+	'api_key_regenerated' => 'The API key has been regenerated successfully.',
     'api_registration_email' => 'API RegistreringsemailAPI Registration Email',
     'link_to_complete_registration' => 'Link for å fullføre registrering: {x}', // Don't replace {x}
     'api_verification' => 'Enable API verification?',
     'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
     'enable_username_sync' => 'Enable username sync?',
     'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
+	'api_settings_updated_successfully' => 'API settings updated successfully.',
 
 	// File uploads
 	'drag_files_here' => 'Dra filene hit for å laste opp.',
@@ -452,6 +479,7 @@ $language = array(
 	'other_log' => 'Andre logg',
 	'fatal_log' => 'Fatale logg',
 	'log_file_not_found' => 'Logg fil ikke funnet.',
+	'log_purged_successfully' => 'The log has been purged successfully.',
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
@@ -476,4 +504,20 @@ $language = array(
 	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
 	'keywords' => 'Keywords',
 	'description_max_500' => 'The description must be at most 500 characters.',
+
+	// Dashboard
+	'total_users' => 'Total Users',
+	'total_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'recent_users' => 'New Users',
+	'recent_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'average_players' => 'Average Players',
+	'nameless_news' => 'NamelessMC News',
+	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
+	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'server_compatibility' => 'Server Compatibility',
+	'issues' => 'Issues',
+
+	// Other
+	'source' => 'Source',
+	'support' => 'Support'
 );

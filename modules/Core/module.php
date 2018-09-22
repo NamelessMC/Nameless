@@ -11,6 +11,7 @@
 
 class Core_Module extends Module {
 	private $_language;
+	private static $_dashboard_graph = array(), $_notices = array();
 
 	public function __construct($language, $pages, $user, $queries, $navigation, $cache){
 		$this->_language = $language;
@@ -28,6 +29,41 @@ class Core_Module extends Module {
 		$pages->add('Core', '/api/v2', 'pages/api/v2/index.php');
 		$pages->add('Core', '/contact', 'pages/contact.php');
 		$pages->add('Core', '/home', 'pages/home.php', 'index', true);
+
+		$pages->add('Core', '/login', 'pages/login.php');
+		$pages->add('Core', '/logout', 'pages/logout.php');
+		$pages->add('Core', '/profile', 'pages/profile.php', 'profile', true);
+		$pages->add('Core', '/register', 'pages/register.php');
+		$pages->add('Core', '/validate', 'pages/validate.php');
+		$pages->add('Core', '/queries/alerts', 'queries/alerts.php');
+		$pages->add('Core', '/queries/pms', 'queries/pms.php');
+		$pages->add('Core', '/queries/servers', 'queries/servers.php');
+		$pages->add('Core', '/queries/server', 'queries/server.php');
+		$pages->add('Core', '/banner', 'pages/minecraft/banner.php');
+		$pages->add('Core', '/terms', 'pages/terms.php');
+		$pages->add('Core', '/privacy', 'pages/privacy.php');
+		$pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
+		$pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
+		$pages->add('Core', '/status', 'pages/status.php');
+
+		$pages->add('Core', '/user', 'pages/user/index.php');
+		$pages->add('Core', '/user/settings', 'pages/user/settings.php');
+		$pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
+		$pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
+		$pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
+
+		// Panel
+		$pages->add('Core', '/panel', 'pages/panel/index.php');
+		$pages->add('Core', '/panel/auth', 'pages/panel/auth.php');
+		$pages->add('Core', '/panel/core/general_settings', 'pages/panel/general_settings.php');
+		$pages->add('Core', '/panel/core/api', 'pages/panel/api.php');
+		$pages->add('Core', '/panel/core/avatars', 'pages/panel/avatars.php');
+		$pages->add('Core', '/panel/core/profile_fields', 'pages/panel/profile_fields.php');
+		$pages->add('Core', '/panel/core/debugging_and_maintenance', 'pages/panel/debugging_and_maintenance.php');
+		$pages->add('Core', '/panel/core/errors', 'pages/panel/errors.php');
+		$pages->add('Core', '/panel/core/emails', 'pages/panel/emails.php');
+		$pages->add('Core', '/panel/core/emails/errors', 'pages/panel/emails_errors.php');
+
 		$pages->add('Core', '/admin', 'pages/admin/index.php');
 		$pages->add('Core', '/admin/auth', 'pages/admin/auth.php');
 		$pages->add('Core', '/admin/api', 'pages/admin/api.php');
@@ -50,30 +86,11 @@ class Core_Module extends Module {
 		$pages->add('Core', '/admin/reset_password', 'pages/admin/reset_password.php');
 		$pages->add('Core', '/admin/night_mode', 'pages/admin/night_mode.php');
 		$pages->add('Core', '/admin/widgets', 'pages/admin/widgets.php');
-		$pages->add('Core', '/user', 'pages/user/index.php');
-		$pages->add('Core', '/user/settings', 'pages/user/settings.php');
-		$pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
-		$pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
-		$pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
+
 		$pages->add('Core', '/mod', 'pages/mod/index.php');
 		$pages->add('Core', '/mod/punishments', 'pages/mod/punishments.php');
 		$pages->add('Core', '/mod/reports', 'pages/mod/reports.php');
 		$pages->add('Core', '/mod/ip_lookup', 'pages/mod/ip_lookup.php');
-		$pages->add('Core', '/login', 'pages/login.php');
-		$pages->add('Core', '/logout', 'pages/logout.php');
-		$pages->add('Core', '/profile', 'pages/profile.php', 'profile', true);
-		$pages->add('Core', '/register', 'pages/register.php');
-		$pages->add('Core', '/validate', 'pages/validate.php');
-		$pages->add('Core', '/queries/alerts', 'queries/alerts.php');
-		$pages->add('Core', '/queries/pms', 'queries/pms.php');
-		$pages->add('Core', '/queries/servers', 'queries/servers.php');
-		$pages->add('Core', '/queries/server', 'queries/server.php');
-		$pages->add('Core', '/banner', 'pages/minecraft/banner.php');
-		$pages->add('Core', '/terms', 'pages/terms.php');
-		$pages->add('Core', '/privacy', 'pages/privacy.php');
-		$pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
-		$pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
-		$pages->add('Core', '/status', 'pages/status.php');
 
 		// Ajax GET requests
 		$pages->addAjaxScript(URL::build('/queries/servers'));
@@ -247,7 +264,7 @@ class Core_Module extends Module {
 			'admincp.styles.templates.edit' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'templates') . ' &raquo; ' . $language->get('general', 'edit'),
 			'admincp.styles.images' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'images'),
 			'admincp.update' => $language->get('admin', 'update'),
-			'admincp.users' => $language->get('admin', 'users'),
+			'admincp.users' => $language->get('admin', 'user_management'),
 			'admincp.groups' => $language->get('admin', 'groups'),
 			'admincp.groups.self' => $language->get('admin', 'groups') . ' &raquo; ' . $language->get('admin', 'can_edit_own_group'),
 			'admincp.widgets' => $language->get('admin', 'widgets')
@@ -331,7 +348,7 @@ class Core_Module extends Module {
 		$cache->setCache('discord_hook');
 		if($cache->isCached('events')){
 			$events = $cache->retrieve('events');
-			if(count($events)){
+			if(is_array($events) && count($events)){
 				foreach($events as $event){
 					HookHandler::registerHook($event, 'DiscordHook::execute');
 				}
@@ -358,6 +375,35 @@ class Core_Module extends Module {
 			require_once(ROOT_PATH . '/modules/Core/hooks/ValidateHook.php');
 			HookHandler::registerHook('validateUser', 'ValidateHook::validatePromote');
 			define('VALIDATED_DEFAULT', $validate_action['group']);
+		}
+
+		// Check for updates
+		if($user->isLoggedIn()){
+			if($user->hasPermission('admincp.update')){
+				$cache->setCache('update_check');
+				if($cache->isCached('update_check')){
+					$update_check = $cache->retrieve('update_check');
+				} else {
+					$update_check = Util::updateCheck();
+					$cache->store('update_check', $update_check, 3600);
+				}
+
+				$current_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+				$current_version = $current_version[0]->value;
+
+				$update_check = json_decode($update_check);
+
+				if(!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)){
+					$smarty->assign(array(
+						'NEW_UPDATE' => (isset($update_check->urgent) && $update_check->urgent == 'true') ? $language->get('admin', 'new_urgent_update_available') : $language->get('admin', 'new_update_available'),
+						'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
+						'CURRENT_VERSION' => str_replace('{x}', Output::getClean($current_version), $language->get('admin', 'current_version_x')),
+						'NEW_VERSION' => str_replace('{x}', Output::getClean($update_check->new_version), $language->get('admin', 'new_version_x')),
+						'UPDATE' => $language->get('admin', 'update'),
+						'UPDATE_LINK' => URL::build('/panel/update')
+					));
+				}
+			}
 		}
 
 		// Check page type (frontend or backend)
@@ -514,7 +560,384 @@ class Core_Module extends Module {
 			}
 
 		} else {
+			// Navigation
+			$cache->setCache('panel_sidebar');
+			if(!$cache->isCached('dashboard_order')){
+				$order = 1;
+				$cache->store('dashboard_order', 1);
+			} else {
+				$order = $cache->retrieve('dashboard_order');
+			}
 
+			if(!$cache->isCached('dashboard_icon')){
+				$icon = '<i class="nav-icon fa fa-home"></i>';
+				$cache->store('dashboard_icon', $icon);
+			} else
+				$icon = $cache->retrieve('dashboard_icon');
+
+			$navs[2]->add('core_divider', mb_strtoupper($language->get('admin', 'core')), 'divider', 'top', null, $order, '');
+			$navs[2]->add('dashboard', $language->get('admin', 'dashboard'), URL::build('/panel'), 'top', null, $order, $icon);
+
+			if($user->hasPermission('admincp.core')){
+				if(!$cache->isCached('configuration_order')){
+					$order = 2;
+					$cache->store('configuration_order', 2);
+				} else {
+					$order = $cache->retrieve('configuration_order');
+				}
+
+				if(!$cache->isCached('configuration_icon')){
+					$icon = '<i class="nav-icon fa fa-wrench"></i>';
+					$cache->store('configuration_icon', $icon);
+				} else
+					$icon = $cache->retrieve('configuration_icon');
+
+				$navs[2]->addDropdown('core_configuration', $language->get('admin', 'configuration'), 'top', $order, $icon);
+
+				if($user->hasPermission('admincp.core.general')){
+					if(!$cache->isCached('general_settings_icon')){
+						$icon = '<i class="nav-icon fa fa-cogs"></i>';
+						$cache->store('general_settings_icon', $icon);
+					} else
+						$icon = $cache->retrieve('general_settings_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'general_settings', $language->get('admin', 'general_settings'), URL::build('/panel/core/general_settings'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.core.api')){
+					if(!$cache->isCached('api_icon')){
+						$icon = '<i class="nav-icon fa fa-code"></i>';
+						$cache->store('api_icon', $icon);
+					} else
+						$icon = $cache->retrieve('api_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'api', $language->get('admin', 'api'), URL::build('/panel/core/api'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.core.avatars')){
+					if(!$cache->isCached('avatars_icon')){
+						$icon = '<i class="nav-icon fa fa-image"></i>';
+						$cache->store('avatars_icon', $icon);
+					} else
+						$icon = $cache->retrieve('avatars_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'avatars', $language->get('admin', 'avatars'), URL::build('/panel/core/avatars'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.core.fields')){
+					if(!$cache->isCached('custom_profile_fields_icon')){
+						$icon = '<i class="nav-icon fa fa-id-card"></i>';
+						$cache->store('custom_profile_fields_icon', $icon);
+					} else
+						$icon = $cache->retrieve('custom_profile_fields_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'custom_profile_fields', $language->get('admin', 'custom_fields'), URL::build('/panel/core/profile_fields'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.core.debugging')){
+					if(!$cache->isCached('debugging_icon')){
+						$icon = '<i class="nav-icon fa fa-tachometer"></i>';
+						$cache->store('debugging_icon', $icon);
+					} else
+						$icon = $cache->retrieve('debugging_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'debugging_and_maintenance'), URL::build('/panel/core/debugging_and_maintenance'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.core.emails')){
+					if(!$cache->isCached('email_icon')){
+						$icon = '<i class="nav-icon fa fa-envelope"></i>';
+						$cache->store('email_icon', $icon);
+					} else
+						$icon = $cache->retrieve('email_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'emails', $language->get('admin', 'emails'), URL::build('/panel/core/emails'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.core.navigation')){
+					if(!$cache->isCached('navigation_icon')){
+						$icon = '<i class="nav-icon fa fa-bars"></i>';
+						$cache->store('navigation_icon', $icon);
+					} else
+						$icon = $cache->retrieve('navigation_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'navigation', $language->get('admin', 'navigation'), URL::build('/panel/core/navigation'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.core.terms')){
+					if(!$cache->isCached('privacy_and_terms_icon')){
+						$icon = '<i class="nav-icon fa fa-file-text"></i>';
+						$cache->store('privacy_and_terms_icon', $icon);
+					} else
+						$icon = $cache->retrieve('privacy_and_terms_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'privacy_and_terms', $language->get('admin', 'privacy_and_terms'), URL::build('/panel/core/privacy_and_terms'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.core.reactions')){
+					if(!$cache->isCached('reactions_icon')){
+						$icon = '<i class="nav-icon fa fa-smile-o"></i>';
+						$cache->store('reactions_icon', $icon);
+					} else
+						$icon = $cache->retrieve('reactions_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'reactions', $language->get('user', 'reactions'), URL::build('/panel/core/reactions'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.core.registration')){
+					if(!$cache->isCached('registration_icon')){
+						$icon = '<i class="nav-icon fa fa-user-plus"></i>';
+						$cache->store('registration_icon', $icon);
+					} else
+						$icon = $cache->retrieve('registration_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'registration', $language->get('admin', 'registration'), URL::build('/panel/core/registration'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.core.social_media')){
+					if(!$cache->isCached('social_media_icon')){
+						$icon = '<i class="nav-icon fa fa-users"></i>';
+						$cache->store('social_media_icon', $icon);
+					} else
+						$icon = $cache->retrieve('social_media_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'social_media', $language->get('admin', 'social_media'), URL::build('/panel/core/social_media'), 'top', $order, $icon);
+				}
+			}
+
+			if($user->hasPermission('admincp.groups')){
+				if(!$cache->isCached('groups_order')){
+					$order = 3;
+					$cache->store('groups_order', 3);
+				} else {
+					$order = $cache->retrieve('groups_order');
+				}
+
+				if(!$cache->isCached('groups_icon')){
+					$icon = '<i class="nav-icon fa fa-address-book"></i>';
+					$cache->store('group_icon', $icon);
+				} else
+					$icon = $cache->retrieve('group_icon');
+
+				$navs[2]->add('groups', $language->get('admin', 'groups'), URL::build('/panel/core/groups'), 'top', null, $order, $icon);
+			}
+
+			if($user->hasPermission('admincp.styles')){
+				if(!$cache->isCached('layout_order')){
+					$order = 4;
+					$cache->store('layout_order', 4);
+				} else {
+					$order = $cache->retrieve('layout_order');
+				}
+
+				if(!$cache->isCached('layout_icon')){
+					$icon = '<i class="nav-icon fa fa-object-group"></i>';
+					$cache->store('layout_icon', $icon);
+				} else
+					$icon = $cache->retrieve('layout_icon');
+
+				$navs[2]->addDropdown('layout', $language->get('admin', 'layout'), 'top', $order, $icon);
+
+				if(!$cache->isCached('templates_icon')){
+					$icon = '<i class="nav-icon fa fa-paint-brush"></i>';
+					$cache->store('templates_icon', $icon);
+				} else
+					$icon = $cache->retrieve('templates_icon');
+
+				$navs[2]->addItemToDropdown('layout', 'template', $language->get('admin', 'templates'), URL::build('/panel/core/templates'), 'top', $order, $icon);
+
+				if(!$cache->isCached('widgets_icon')){
+					$icon = '<i class="nav-icon fa fa-th"></i>';
+					$cache->store('widgets_icon', $icon);
+				} else
+					$icon = $cache->retrieve('widgets_icon');
+
+				$navs[2]->addItemToDropdown('layout', 'widgets', $language->get('admin', 'widgets'), URL::build('/panel/core/widgets'), 'top', $order, $icon);
+			}
+
+			if($user->hasPermission('admincp.modules')){
+				if(!$cache->isCached('modules_icon')){
+					$icon = '<i class="nav-icon fa fa-puzzle-piece"></i>';
+					$cache->store('modules_icon', $icon);
+				} else
+					$icon = $cache->retrieve('modules_icon');
+
+				$navs[2]->add('modules', $language->get('admin', 'modules'), URL::build('/panel/core/modules'), 'top', null, $order, $icon);
+			}
+
+			if($user->hasPermission('admincp.pages') || $user->hasPermission('admincp.pages.metadata')){
+				if(!$cache->isCached('pages_icon')){
+					$icon = '<i class="nav-icon fa fa-file"></i>';
+					$cache->store('pages_icon', $icon);
+				} else
+					$icon = $cache->retrieve('pages_icon');
+
+				$navs[2]->addDropdown('pages', $language->get('admin', 'pages'), 'top', $order, $icon);
+
+				if($user->hasPermission('admincp.pages')){
+					if(!$cache->isCached('custom_pages_icon')){
+						$icon = '<i class="nav-icon fa fa-file-text"></i>';
+						$cache->store('custom_pages_icon', $icon);
+					} else
+						$icon = $cache->retrieve('custom_pages_icon');
+
+					$navs[2]->addItemToDropdown('pages', 'custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/pages'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.pages.metadata')){
+					if(!$cache->isCached('page_metadata_icon')){
+						$icon = '<i class="nav-icon fa fa-tag"></i>';
+						$cache->store('page_metadata_icon', $icon);
+					} else
+						$icon = $cache->retrieve('page_metadata_icon');
+
+					$navs[2]->addItemToDropdown('pages', 'page_metadata', $language->get('admin', 'page_metadata'), URL::build('/panel/core/metadata'), 'top', $order, $icon);
+				}
+			}
+
+			if($user->hasPermission('admincp.users')){
+				if(!$cache->isCached('users_icon')){
+					$icon = '<i class="nav-icon fa fa-user-circle"></i>';
+					$cache->store('users_icon', $icon);
+				} else
+					$icon = $cache->retrieve('users_icon');
+
+				$navs[2]->addDropdown('users', $language->get('admin', 'user_management'), 'top', $order, $icon);
+
+				if(!$cache->isCached('user_icon')){
+					$icon = '<i class="nav-icon fa fa-users"></i>';
+					$cache->store('user_icon', $icon);
+				} else
+					$icon = $cache->retrieve('user_icon');
+
+				$navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/core/users'), 'top', $order, $icon);
+			}
+
+			// Notices
+			$cache->setCache('notices_cache');
+
+			// Email errors?
+			if($cache->isCached('email_errors')){
+				$email_errors = $cache->retrieve('email_errors');
+			} else {
+				$email_errors = $queries->getWhere('email_errors', array('id', '<>', 0));
+				$cache->store('email_errors', $email_errors, 120);
+			}
+
+			if(count($email_errors))
+				self::addNotice(URL::build('/panel/core/emails/errors'), $language->get('admin', 'email_errors_logged'));
+
+			if(defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard'){
+				// Dashboard graph
+				$cache->setCache('dashboard_graph');
+				if($cache->isCached('core_data')){
+					$data = $cache->retrieve('core_data');
+
+				} else {
+					$users = $queries->orderWhere('users', 'joined > ' . strtotime("-1 week"), 'joined', 'ASC');
+
+					// Output array
+					$data = array();
+
+					$data['datasets']['users']['label'] = 'language/admin/registrations'; // for $language->get('admin', 'registrations');
+					$data['datasets']['users']['colour'] = '#0004FF';
+
+					foreach($users as $member){
+						// Turn into format for graph
+						// First, order them per day
+						$date = date('d M Y', $member->joined);
+						$date = '_' . strtotime($date);
+
+						if(isset($data[$date]['users'])){
+							$data[$date]['users'] = $data[$date]['users'] + 1;
+						} else {
+							$data[$date]['users'] = 1;
+						}
+					}
+
+					$users = null;
+
+					if(defined('MINECRAFT') && MINECRAFT){
+						$players = DB::getInstance()->query('SELECT ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+
+						$data['datasets']['players']['axis'] = 2; // second axis
+						$data['datasets']['players']['axis_side'] = 'right'; // right side
+						$data['datasets']['players']['label'] = 'language/admin/average_players';
+						$data['datasets']['players']['colour'] = '#ff0c00';
+
+						foreach($players as $player){
+							$date = '_' . strtotime($player->date);
+							$data[$date]['players'] = $player->players;
+						}
+
+						$players = null;
+					}
+
+					// Fill in missing dates, set registrations/players to 0
+					$start = strtotime("-1 week");
+					$start = date('d M Y', $start);
+					$start = strtotime($start);
+					$end = strtotime(date('d M Y'));
+					while($start <= $end){
+						if(!isset($data['_' . $start]['users']))
+							$data['_' . $start]['users'] = 0;
+
+						if(defined('MINECRAFT') && MINECRAFT && !isset($data['_' . $start]['players']))
+							$data['_' . $start]['players'] = 0;
+
+						$start = $start + 86400;
+					}
+
+					// Sort by date
+					ksort($data);
+
+					$cache->store('core_data', $data, 120);
+				}
+
+				self::addDataToDashboardGraph($language->get('admin', 'overview'), $data);
+
+				// Dashboard stats
+				require_once(ROOT_PATH . '/modules/Core/collections/panel/TotalUsers.php');
+				CollectionManager::addItemToCollection('dashboard_stats', new TotalUsersItem($smarty, $language, $cache));
+
+				require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentUsers.php');
+				CollectionManager::addItemToCollection('dashboard_stats', new RecentUsersItem($smarty, $language, $cache));
+
+				// Dashboard items
+				if($user->hasPermission('modcp.punishments')){
+					require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentPunishments.php');
+					CollectionManager::addItemToCollection('dashboard_main_items', new RecentPunishmentsItem($smarty, $language, $cache, $user));
+				}
+
+				if($user->hasPermission('modcp.reports')){
+					require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentReports.php');
+					CollectionManager::addItemToCollection('dashboard_main_items', new RecentReportsItem($smarty, $language, $cache, $user));
+				}
+
+				if($user->hasPermission('admincp.users')){
+					require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentRegistrations.php');
+					CollectionManager::addItemToCollection('dashboard_main_items', new RecentRegistrationsItem($smarty, $language, $cache, $user));
+				}
+			}
 		}
+	}
+
+	public static function addDataToDashboardGraph($title, $data){
+		if(isset(self::$_dashboard_graph[$title]))
+			self::$_dashboard_graph[$title] = array_merge_recursive(self::$_dashboard_graph[$title], $data);
+		else
+			self::$_dashboard_graph[$title] = $data;
+	}
+
+	public static function getDashboardGraphs(){
+		return self::$_dashboard_graph;
+	}
+
+	public static function addNotice($url, $text){
+		self::$_notices[$url] = $text;
+	}
+
+	public static function getNotices(){
+		return self::$_notices;
 	}
 }

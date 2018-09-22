@@ -66,6 +66,9 @@ $language = array(
     'content' => 'Content',
     'full_content' => 'Full Content',
     'url' => 'URL',
+	'success' => 'Success',
+	'error' => 'Error',
+	'are_you_sure' => 'Are you sure?',
 
     /*
      *  Contact form

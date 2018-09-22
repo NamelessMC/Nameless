@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -51,6 +51,10 @@ $language = array(
 	'open_reports' => 'There are currently <strong>{x}</strong> open reports.', // Don't replace {x}
 	'no_open_reports' => 'There are currently no open reports.',
 	'no_closed_reports' => 'There are currently no closed reports.',
+	'recent_reports' => 'Recent Reports',
+	'reported_by' => 'Reported by:',
+	'website' => 'Website',
+	'ingame' => 'Ingame',
 	
 	// Punishments
 	'punishments' => 'Punishments',
@@ -85,6 +89,13 @@ $language = array(
     'view_user' => 'View User',
     'when' => 'When',
     'staff' => 'Staff',
-    'type' => 'Type'
+    'type' => 'Type',
+	'recent_punishments' => 'Recent Punishments',
+	'created' => 'Created:',
+	'staff:' => 'Staff:',
+	'reason:' => 'Reason:',
+
+	// Users
+	'recent_registrations' => 'Recent Registrations'
 
 );

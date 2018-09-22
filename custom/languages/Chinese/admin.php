@@ -21,6 +21,10 @@ $language = array(
 	're-authenticate' => '請重新驗證',
 
 	// Sidebar
+	'dashboard' => 'Dashboard',
+	'configuration' => 'Configuration',
+	'layout' => 'Layout',
+	'user_management' => 'User Management',
 	'admin_cp' => '管理員控制台',
 	'administration' => '管理者',
 	'overview' => '總覽',
@@ -41,7 +45,7 @@ $language = array(
 	'posts' => 'Posts',
 	'notices' => '通知',
 	'no_notices' => '沒有通知.',
-	'email_errors_logged' => '電子郵件錯誤已被紀錄. 點擊<a href="{x}">這裡</a>查看.', // Don't replace "{x}"
+	'email_errors_logged' => '電子郵件錯誤已被紀錄',
 
 	// Core
 	'settings' => '設置',
@@ -49,6 +53,10 @@ $language = array(
 	'sitename' => '網站名稱',
 	'default_language' => '預設語言',
 	'default_language_help' => '使用者可選擇已安裝的語言.',
+	'install_language' => 'Install Language',
+	'update_user_languages' => 'Update User Languages',
+	'update_user_languages_warning' => 'This will update the language for all users on your site, even if they have already selected one!',
+	'updated_user_languages' => 'User languages have been updated.',
 	'installed_languages' => '語言已經安裝成功.',
 	'default_timezone' => '預設時區',
 	'registration' => '註冊',
@@ -58,10 +66,13 @@ $language = array(
 	'homepage_type' => '首頁類型',
 	'post_formatting_type' => '發布格式',
 	'portal' => 'Portal',
+	'private_profiles' => 'Private Profiles',
 	'missing_sitename' => '請輸入 2 ~ 64 字元的網站名稱.',
+	'missing_contact_address' => 'Please insert a contact email address between 3 and 255 characters long.',
 	'use_friendly_urls' => '友好連結.',
 	'use_friendly_urls_help' => '重要提示: 您的伺服器必須允許使用 mod_rewrite 和 .htaccess 檔案才可以運作.',
 	'config_not_writable' => '您的<strong>core/config.php</strong>檔案無法存取，請檢查權限.',
+	'settings_updated_successfully' => 'General settings updated successfully.',
 	'social_media' => '社交媒體',
 	'youtube_url' => 'Youtube URL',
 	'twitter_url' => 'Twitter URL',
@@ -74,6 +85,7 @@ $language = array(
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => '成功更新',
     'debugging_and_maintenance' => '調整與維護',
+    'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => '啟用除錯模式?',
 	'force_https' => '強制加密連線(https)?',
 	'force_https_help' => '如果此選項被啟用，網站將會自動導向Https加密連線網頁，必須有正確的SSL證書才可以正常運作，請再次檢查再開啟.',
@@ -114,6 +126,7 @@ $language = array(
 	'minecraft_avatar_perspective' => 'Minecraft avatar 視角',
 	'face' => '臉',
 	'head' => '頭',
+	'bust' => 'Bust',
 	'select_default_avatar' => '選擇新的預設頭顱:',
 	'no_avatars_available' => '沒有已知頭顱. 請上傳新的頭顱.',
 	'avatar_settings_updated_successfully' => '頭顱更新成功.',
@@ -132,7 +145,7 @@ $language = array(
 	'validation_promote_group' => 'Post-validation group',
 	'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
 	'login_method' => 'Login Method',
-    'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+    'privacy_and_terms' => 'Privacy & Terms',
 
 	// Reactions
 	'icon' => '圖標',
@@ -165,6 +178,9 @@ $language = array(
 	'profile_field_forum_help' => '如果啟用，區域的文字將會在論壇中被顯示.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 	'no_custom_fields' => 'There are no custom fields yet.',
+	'profile_field_updated_successfully' => 'The profile field was updated successfully.',
+	'profile_field_created_successfully' => 'The profile field was created successfully.',
+	'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
 
 	// Minecraft
 	'enable_minecraft_integration' => '啟用 Minecraft integration?',
@@ -236,6 +252,11 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> 新橫幅',
 	'purge_errors' => '清除錯誤',
 	'confirm_purge_errors' => '您確定要清除所有錯誤?',
+	'email_errors_purged_successfully' => 'Email errors have been purged successfully.',
+	'error_deleted_successfully' => 'The error has been deleted successfully.',
+	'no_email_errors' => 'No email errors logged.',
+	'email_settings_updated_successfully' => 'Email settings have been updated successfully.',
+	'content' => 'Content',
 	'mcassoc_help' => 'mcassoc是一個外部驗證服務，可以用來驗證用戶他們已經註冊Minecraft帳號，要使用此功能請至 <a href="https://mcassoc.lukegb.com/" target="_blank">此處</a> 領取共享密鑰.',
 	'mcassoc_key' => 'mcassoc 共享密鑰',
 	'mcassoc_instance' => 'mcassoc 實例密鑰',
@@ -372,6 +393,7 @@ $language = array(
 	'current_version_x' => '目前版本: <strong>{x}</strong>', // Don't replaec {x}
 	'new_version_x' => '新版本: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => '已找到一個新的更新',
+	'new_urgent_update_available' => 'There is a new urgent upgrade available. Please update as soon as possible!',
 	'up_to_date' => '您的 NamelessMC 是最新版本的!',
 	'urgent' => '此更新是一個緊急更新!',
 	'changelog' => '更新紀錄',
@@ -434,12 +456,17 @@ $language = array(
 	'enable_legacy_api' => 'Enable legacy API?',
 	'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
 	'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
+	'api_key' => 'API Key',
+	'api_url' => 'API URL',
+	'copy' => 'Copy',
+	'api_key_regenerated' => 'The API key has been regenerated successfully.',
 	'api_registration_email' => 'API Registration Email',
 	'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
 	'api_verification' => 'Enable API verification?',
 	'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
 	'enable_username_sync' => 'Enable username sync?',
 	'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
+	'api_settings_updated_successfully' => 'API settings updated successfully.',
 
 	// File uploads
 	'drag_files_here' => '拖曳檔案至此上傳.',
@@ -456,6 +483,7 @@ $language = array(
 	'other_log' => 'Other log',
 	'fatal_log' => 'Fatal log',
 	'log_file_not_found' => 'Log file not found.',
+	'log_purged_successfully' => 'The log has been purged successfully.',
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
@@ -480,4 +508,20 @@ $language = array(
 	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
 	'keywords' => 'Keywords',
 	'description_max_500' => 'The description must be at most 500 characters.',
+
+	// Dashboard
+	'total_users' => 'Total Users',
+	'total_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'recent_users' => 'New Users',
+	'recent_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'average_players' => 'Average Players',
+	'nameless_news' => 'NamelessMC News',
+	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
+	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'server_compatibility' => 'Server Compatibility',
+	'issues' => 'Issues',
+
+	// Other
+	'source' => 'Source',
+	'support' => 'Support'
 );

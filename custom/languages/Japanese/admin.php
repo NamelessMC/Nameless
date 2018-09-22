@@ -19,6 +19,10 @@ $language = array(
 	're-authenticate' => '再認証してください。',
 
 	// Sidebar
+	'dashboard' => 'Dashboard',
+	'configuration' => 'Configuration',
+	'layout' => 'Layout',
+	'user_management' => 'User Management',
 	'admin_cp' => 'AdminCP',
 	'administration' => '管理',
 	'overview' => '概要',
@@ -39,7 +43,7 @@ $language = array(
 	'posts' => 'Posts',
     'notices' => '通知',
     'no_notices' => '通知はありません。',
-    'email_errors_logged' => '電子メールエラーが記録されました。<a href="{x}">ここ</a>をクリックして確認。', // Don't replace "{x}"
+    'email_errors_logged' => '電子メールエラーが記録されました。',
 
 	// Core
 	'settings' => '設定',
@@ -47,6 +51,10 @@ $language = array(
 	'sitename' => 'サイト名',
 	'default_language' => 'デフォルト言語',
 	'default_language_help' => 'ユーザーはインストールされている言語から選択できます。',
+	'install_language' => 'Install Language',
+	'update_user_languages' => 'Update User Languages',
+	'update_user_languages_warning' => 'This will update the language for all users on your site, even if they have already selected one!',
+	'updated_user_languages' => 'User languages have been updated.',
 	'installed_languages' => '新しい言語がすべて正常にインストールされました。',
 	'default_timezone' => 'デフォルトタイムゾーン',
 	'registration' => '登録',
@@ -56,10 +64,13 @@ $language = array(
 	'homepage_type' => 'ホームページタイプ',
 	'post_formatting_type' => 'ポストフォーマットタイプ',
 	'portal' => 'ポータル',
+	'private_profiles' => 'Private Profiles',
 	'missing_sitename' => '2~64文字でサイト名を入力してください。',
+	'missing_contact_address' => 'Please insert a contact email address between 3 and 255 characters long.',
 	'use_friendly_urls' => 'フレンドリーURL',
 	'use_friendly_urls_help' => '重要: あなたのサーバーで mod_rewrite と .htaccess ファイルを使用できるように設定を変更する必要があります。',
 	'config_not_writable' => '<strong>core/config.php</strong> ファイルへの書き込み許可がありません。ファイルアクセス権利を確認して下さい。',
+	'settings_updated_successfully' => 'General settings updated successfully.',
 	'social_media' => 'ソーシャルメディア',
 	'youtube_url' => 'YouTube URL',
 	'twitter_url' => 'Twitter URL',
@@ -73,6 +84,7 @@ $language = array(
 	'successfully_updated' => '正常に更新されました',
     'debugging_and_maintenance' => 'デバッグとメンテナンス',
     'enable_debug_mode' => 'デバッグモードを有効にしますか？',
+	'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'force_https' => 'Https を強制させますか？',
     'force_https_help' => '有効にするとウェブサイトへのリクエストはすべて https にリダイレクトされます。 これが正しく機能するには、有効なSSL証明書を有効にする必要があります。',
     'force_www' => 'Force www?',
@@ -112,6 +124,7 @@ $language = array(
     'minecraft_avatar_perspective' => 'Minecraft アバターのパースペクティブ',
     'face' => '顔',
     'head' => '頭',
+	'bust' => 'Bust',
     'select_default_avatar' => '新しいデフォルトのアバターを選択:',
     'no_avatars_available' => 'アバターは利用できません。 最初に新しい画像をアップロードしてください。',
     'avatar_settings_updated_successfully' => 'アバター設定が正常に更新されました。',
@@ -130,7 +143,7 @@ $language = array(
     'validation_promote_group' => '昇格検証グループ',
     'validation_promote_group_info' => 'アカウントの有効を確認したユーザーに昇格されるグループです。',
     'login_method' => 'Login Method',
-    'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+    'privacy_and_terms' => 'Privacy & Terms',
 
 	// Reactions
 	'icon' => 'アイコン',
@@ -163,6 +176,9 @@ $language = array(
 	'profile_field_forum_help' => '有効にすると、ユーザはフォーラムの投稿の横にフィールドを表示します。',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 	'no_custom_fields' => 'There are no custom fields yet.',
+	'profile_field_updated_successfully' => 'The profile field was updated successfully.',
+	'profile_field_created_successfully' => 'The profile field was created successfully.',
+	'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
 
     // Minecraft
     'enable_minecraft_integration' => 'Minecraft 統合を有効にしますか？',
@@ -234,6 +250,11 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> 新しいバナー',
     'purge_errors' => 'エラーを消去',
     'confirm_purge_errors' => 'すべてのエラーを消去してもよろしいですか？',
+	'email_errors_purged_successfully' => 'Email errors have been purged successfully.',
+	'error_deleted_successfully' => 'The error has been deleted successfully.',
+	'no_email_errors' => 'No email errors logged.',
+	'email_settings_updated_successfully' => 'Email settings have been updated successfully.',
+	'content' => 'Content',
     'mcassoc_help' => 'mcassoc はユーザーが登録したMinecraftアカウントを所有していることを確認するために使用できる外部サービスです。 この機能を使用するには、共有キーが必要で <a href="https://mcassoc.lukegb.com/" target="_blank"> ここ </a> でサインアップする必要があります。',
     'mcassoc_key' => 'mcassoc 共有キー',
     'mcassoc_instance' => 'mcassoc インスタンスキー',
@@ -370,6 +391,7 @@ $language = array(
 	'current_version_x' => '現在のバージョン: <strong>{x}</strong>', // Don't replaec {x}
 	'new_version_x' => '新しいバージョン: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => '新しいアップデートがあります',
+	'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
 	'up_to_date' => 'あなたの使用している NamelessMC バージョンは最新です！',
 	'urgent' => 'このアップデートは緊急アップデートです',
 	'changelog' => '変更ログ',
@@ -432,12 +454,17 @@ $language = array(
     'enable_legacy_api' => '従来の API を有効にしますか？',
     'legacy_api_info' => '従来の API では、 Nameless v1 APIを使用するプラグインで、 v2 のWebサイトで動作することができます。',
     'confirm_api_regen' => 'APIキーを再生成してもよろしいですか？',
+	'api_key' => 'API Key',
+	'api_url' => 'API URL',
+	'copy' => 'Copy',
+	'api_key_regenerated' => 'The API key has been regenerated successfully.',
     'api_registration_email' => 'API登録メール',
     'link_to_complete_registration' => '登録を完了するためのリンク: {x}', // Don't replace {x}
     'api_verification' => 'APIの確認を有効にしますか？',
     'api_verification_info' => '有効にすると、APIを介してアカウントを確認することができます。たとえば、公式のNamelessプラグインを使用してアカウントを確認することができます。<strong>このオプションは電子メールの検証より優先され、アカウントは自動的に有効になります！</strong><br />既定のグループを設定して、アクセス許可を制限し、AdminCP - >コア - >登録タブのポスト検証グループを、通常のアクセス許可を持つフルメンバーグループに更新する必要があります。',
     'enable_username_sync' => 'Enable username sync?',
     'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
+	'api_settings_updated_successfully' => 'API settings updated successfully.',
 
 	// File uploads
 	'drag_files_here' => 'アップロードするファイルをここにドラッグします。',
@@ -454,6 +481,7 @@ $language = array(
 	'other_log' => 'その他のログ',
 	'fatal_log' => '致命的なログ',
 	'log_file_not_found' => 'ログファイルが見つかりませんでした。',
+	'log_purged_successfully' => 'The log has been purged successfully.',
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
@@ -478,4 +506,20 @@ $language = array(
 	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
 	'keywords' => 'Keywords',
 	'description_max_500' => 'The description must be at most 500 characters.',
+
+	// Dashboard
+	'total_users' => 'Total Users',
+	'total_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'recent_users' => 'New Users',
+	'recent_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'average_players' => 'Average Players',
+	'nameless_news' => 'NamelessMC News',
+	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
+	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'server_compatibility' => 'Server Compatibility',
+	'issues' => 'Issues',
+
+	// Other
+	'source' => 'Source',
+	'support' => 'Support'
 );

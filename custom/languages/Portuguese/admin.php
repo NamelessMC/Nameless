@@ -18,6 +18,10 @@ $language = array(
 	're-authenticate' => 'Por favor, logue-se novamente',
 
 	// Sidebar
+	'dashboard' => 'Dashboard',
+	'configuration' => 'Configuration',
+	'layout' => 'Layout',
+	'user_management' => 'User Management',
 	'admin_cp' => 'AdminCP',
 	'administration' => 'Administração',
 	'overview' => 'Visão Geral',
@@ -38,7 +42,7 @@ $language = array(
 	'posts' => 'Posts',
     'notices' => 'Avisos',
     'no_notices' => 'Sem avisos.',
-    'email_errors_logged' => 'Erros de e-mail foram registrados. Clique <a href="{x}">aqui</a> para ver.', // Don't replace "{x}"
+    'email_errors_logged' => 'Erros de e-mail foram registrados',
 
 	// Core
 	'settings' => 'Configurações',
@@ -46,6 +50,10 @@ $language = array(
 	'sitename' => 'Nome do site',
 	'default_language' => 'Linguagem padrão',
 	'default_language_help' => 'Os usuários poderão escolher entre os idiomas instalados.',
+	'install_language' => 'Install Language',
+	'update_user_languages' => 'Update User Languages',
+	'update_user_languages_warning' => 'This will update the language for all users on your site, even if they have already selected one!',
+	'updated_user_languages' => 'User languages have been updated.',
 	'installed_languages' => 'Todos os novos idiomas foram instalados com êxito.',
 	'default_timezone' => 'Fuso horário padrão',
 	'registration' => 'Cadastro',
@@ -55,10 +63,13 @@ $language = array(
 	'homepage_type' => 'Tipo de Homepage',
 	'post_formatting_type' => 'Tipo de formatação de postagem',
 	'portal' => 'Portal',
+	'private_profiles' => 'Private Profiles',
 	'missing_sitename' => 'Por favor, insira o nome do site contendo de 2 a 64 caracteres.',
+	'missing_contact_address' => 'Please insert a contact email address between 3 and 255 characters long.',
 	'use_friendly_urls' => 'URLs Amigáveis',
 	'use_friendly_urls_help' => 'IMPORTANTE: Seu servidor deverá permitir o uso do mod_rewrite e do .htaccess para que isso funcione.',
 	'config_not_writable' => 'Seu arquivo <strong>core/config.php</strong> não é gravável. Por favor, verifique as permissões do arquivo.',
+	'settings_updated_successfully' => 'General settings updated successfully.',
 	'social_media' => 'Social',
 	'youtube_url' => 'URL do Youtube',
 	'twitter_url' => 'URL do Twitter',
@@ -71,6 +82,7 @@ $language = array(
 	'facebook_url' => 'URL do Facebook',
 	'successfully_updated' => 'Atualizado com sucesso!',
     'debugging_and_maintenance' => 'Depuração e manutenção',
+    'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Habilitar o modo de depuração?',
     'force_https' => 'Forçar o uso do https?',
     'force_https_help' => 'Se ativado, todas as requisições para o seu site serão redirecionadas para o https. Você deve ter um certificado SSL válido ativo para que isso funcione corretamente.',
@@ -111,6 +123,7 @@ $language = array(
     'minecraft_avatar_perspective' => 'Perspectiva do Minecraft avatar',
     'face' => 'Face',
     'head' => 'Head',
+    'bust' => 'Bust',
     'select_default_avatar' => 'Selecione um novo avatar padrão:',
     'no_avatars_available' => 'Não há avatares disponíveis. Por favor, envie uma nova imagem acima primeiro.',
     'avatar_settings_updated_successfully' => 'Configurações do Avatar atualizadas com sucesso.',
@@ -129,7 +142,7 @@ $language = array(
     'validation_promote_group' => 'Grupo pós-validação',
     'validation_promote_group_info' => 'Este é o grupo para o qual um usuário será promovido depois de ter validado sua conta.',
     'login_method' => 'Método de login',
-    'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+    'privacy_and_terms' => 'Privacy & Terms',
 
 	// Reactions
 	'icon' => 'Ícone',
@@ -162,6 +175,9 @@ $language = array(
 	'profile_field_forum_help' => 'Se ativado, o campo será exibido pelo usuário próximo aos posts do fórum.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 	'no_custom_fields' => 'There are no custom fields yet.',
+	'profile_field_updated_successfully' => 'The profile field was updated successfully.',
+	'profile_field_created_successfully' => 'The profile field was created successfully.',
+	'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Ativar a integração do Minecraft?',
@@ -233,6 +249,11 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> Novo Banner',
     'purge_errors' => 'Limpar os erros',
     'confirm_purge_errors' => 'Tem certeza de que deseja limpar todos os erros?',
+	'email_errors_purged_successfully' => 'Email errors have been purged successfully.',
+	'error_deleted_successfully' => 'The error has been deleted successfully.',
+	'no_email_errors' => 'No email errors logged.',
+	'email_settings_updated_successfully' => 'Email settings have been updated successfully.',
+	'content' => 'Content',
     'mcassoc_help' => 'O mcassoc é um serviço externo que pode ser usado para verificar que os usuários possuem a conta Minecraft com a qual se registraram. Para usar este recurso, você precisará se inscrever para uma chave compartilhada <a href="https://mcassoc.lukegb.com/" target="_blank">aqui</a>.',
     'mcassoc_key' => 'Chave compartilhada mcassoc',
     'mcassoc_instance' => 'Chave de instância do mcassoc',
@@ -369,6 +390,7 @@ $language = array(
 	'current_version_x' => 'Versão atual: <strong>{x}</strong>', // Don't replaec {x}
 	'new_version_x' => 'Nova versão: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => 'Há uma nova atualização disponível',
+	'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
 	'up_to_date' => 'A sua instalação do NamelessMC está atualizada!',
 	'urgent' => 'Esta atualização é uma atualização crítica',
 	'changelog' => 'Changelog',
@@ -431,12 +453,17 @@ $language = array(
     'enable_legacy_api' => 'Ativar API legacy?',
     'legacy_api_info' => 'A API legacy permite que plugins que usam a API antiga do Nameless v1 para trabalhar com o seu site da versão 2.',
     'confirm_api_regen' => 'Tem certeza de que deseja gerar uma nova chave para API?',
+	'api_key' => 'API Key',
+	'api_url' => 'API URL',
+	'copy' => 'Copy',
+	'api_key_regenerated' => 'The API key has been regenerated successfully.',
     'api_registration_email' => 'E-mail de registro da API',
     'link_to_complete_registration' => 'Link para o registro completo: {x}', // Don't replace {x}
     'api_verification' => 'Ativar verificação de API?',
     'api_verification_info' => 'Se ativado, as contas só podem ser verificadas por meio da API, por exemplo, usando o plugin oficial Nameless. <strong>Essa opção substituirá a verificação de e-mail e as contas serão ativadas automaticamente.</strong><br />Você deve configurar seu grupo padrão para ter permissões limitadas e, em seguida, atualizar o grupo de pós-validação na guia AdminCP -> Core -> Cadastro para o grupo de membros completo com permissões normais.',
     'enable_username_sync' => 'Ativar sincronização de nome de usuário?',
     'enable_username_sync_info' => 'Se ativado, os nomes de usuário do site serão atualizados para corresponder aos nomes de usuário do jogo.',
+	'api_settings_updated_successfully' => 'API settings updated successfully.',
 
 	// File uploads
 	'drag_files_here' => 'Arraste arquivos aqui para fazer o upload.',
@@ -453,6 +480,7 @@ $language = array(
 	'other_log' => 'Outros logs',
 	'fatal_log' => 'Logs fatais',
 	'log_file_not_found' => 'Arquivo de log não encontrado.',
+	'log_purged_successfully' => 'The log has been purged successfully.',
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
@@ -477,4 +505,20 @@ $language = array(
 	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
 	'keywords' => 'Keywords',
 	'description_max_500' => 'The description must be at most 500 characters.',
+
+	// Dashboard
+	'total_users' => 'Total Users',
+	'total_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'recent_users' => 'New Users',
+	'recent_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'average_players' => 'Average Players',
+	'nameless_news' => 'NamelessMC News',
+	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
+	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'server_compatibility' => 'Server Compatibility',
+	'issues' => 'Issues',
+
+	// Other
+	'source' => 'Source',
+	'support' => 'Support'
 );

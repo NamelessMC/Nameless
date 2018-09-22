@@ -133,4 +133,11 @@ class Widgets {
         }
         return array();
     }
+
+    /*
+     *  Get the name of this collection of widgets
+     */
+    public function getName(){
+    	return $this->_name;
+    }
 }

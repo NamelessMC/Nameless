@@ -19,6 +19,10 @@ $language = array(
 	're-authenticate' => 'Gelieve opnieuw te verifiëren',
 
 	// Navigatiebalk
+	'dashboard' => 'Dashboard',
+	'configuration' => 'Configuration',
+	'layout' => 'Layout',
+	'user_management' => 'User Management',
 	'admin_cp' => 'Controle Paneel',
 	'administration' => 'Administratie',
 	'overview' => 'Overzicht',
@@ -39,7 +43,7 @@ $language = array(
 	'posts' => 'Posts',
 	'notices' => 'Berichten',
 	'no_notices' => 'Geen berichten.',
-	'email_errors_logged' => 'Email fouten zijn vastgesteld. Klik <a href="{x}">hier</a> om ze te bekijken.', // Verander "{x}" niet
+	'email_errors_logged' => 'Email fouten zijn vastgesteld',
 
 	// Kern
 	'settings' => 'Instellingen',
@@ -47,6 +51,10 @@ $language = array(
 	'sitename' => 'Site naam',
 	'default_language' => 'Standaard taal',
 	'default_language_help' => 'Gebruikers kunnen kiezen uit alle geinstalleerde talen.',
+	'install_language' => 'Install Language',
+	'update_user_languages' => 'Update User Languages',
+	'update_user_languages_warning' => 'This will update the language for all users on your site, even if they have already selected one!',
+	'updated_user_languages' => 'User languages have been updated.',
 	'installed_languages' => 'Alle nieuwe talen zijn toegevoegd.',
 	'default_timezone' => 'Standaard tijdzone',
 	'registration' => 'Registratie',
@@ -56,10 +64,13 @@ $language = array(
 	'homepage_type' => 'Beginpagina type',
 	'post_formatting_type' => 'Bericht opmaak soort',
 	'portal' => 'Portaal',
+	'private_profiles' => 'Private Profiles',
 	'missing_sitename' => 'Graag een sitenaam invullen van 2 tot 64 karakters lang.',
+	'missing_contact_address' => 'Please insert a contact email address between 3 and 255 characters long.',
 	'use_friendly_urls' => 'Vriendelijke URLs',
 	'use_friendly_urls_help' => 'BELANGRIJK: Je webserver/webhosting moet geconfigureerd zijn om gebruik te maken van mod_rewrite en .htaccess vooraleer dit werkt.',
 	'config_not_writable' => 'Uw <strong>core/config.php</strong> bestand is niet schrijfbaar. Controleer de permissies.',
+	'settings_updated_successfully' => 'General settings updated successfully.',
 	'social_media' => 'Sociale Media',
 	'youtube_url' => 'Youtube URL',
 	'discord_id' => 'Discord Server ID',
@@ -72,6 +83,7 @@ $language = array(
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Succesvol bijgewerkt',
 	'debugging_and_maintenance' => 'Debugging en beheer',
+	'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
 	'enable_debug_mode' => 'Wil je debug modus inschakelen?',
 	'force_https' => 'Forceer https?',
 	'force_https_help' => 'Als dit aanstaat, worden alle verzoeken naar deze website doorgestuurd via https. Je moet een geldig SSL certificaat hebben die actief is om dit te laten werken.',
@@ -112,6 +124,7 @@ $language = array(
     'minecraft_avatar_perspective' => 'Minecraft avatar perspectief',
     'face' => 'Gezicht',
     'head' => 'Hoofd',
+	'bust' => 'Bust',
     'select_default_avatar' => 'Selecteer een nieuwe standaard avatar:',
     'no_avatars_available' => 'Geen avatars beschikbaar. Graag eerst een niewe afbeelding uploaden hierboven.',
     'avatar_settings_updated_successfully' => 'Avatar instellingen succesvol geüpdatet.',
@@ -130,7 +143,7 @@ $language = array(
     'validation_promote_group' => 'Post-validation group',
     'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
     'login_method' => 'Login Method',
-    'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+    'privacy_and_terms' => 'Privacy & Terms',
 
 	// Reacties
 	'icon' => 'Icoon',
@@ -163,6 +176,9 @@ $language = array(
 	'profile_field_forum_help' => 'Als dit aan staat, wordt het veld weergegeven bij de gebruiker naast de forum berichten.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
  	'no_custom_fields' => 'There are no custom fields yet.',
+	'profile_field_updated_successfully' => 'The profile field was updated successfully.',
+	'profile_field_created_successfully' => 'The profile field was created successfully.',
+	'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Minecraft integratie aan?',
@@ -233,6 +249,11 @@ $language = array(
 	'new_banner' => '<i class="fa fa-plus-circle"></i> Nieuwe banner',
 	'purge_errors' => 'Verwijder fouten',
 	'confirm_purge_errors' => 'Weet je zeker dat je alle fouten wilt verwijderen?',
+	'email_errors_purged_successfully' => 'Email errors have been purged successfully.',
+	'error_deleted_successfully' => 'The error has been deleted successfully.',
+	'no_email_errors' => 'No email errors logged.',
+	'email_settings_updated_successfully' => 'Email settings have been updated successfully.',
+	'content' => 'Content',
 	'mcassoc_help' => 'mcassoc is een externe dienst die gebruikt kan worden om te controleren of gebruikers het Minecraft account hebben gekocht waarmee zij zich hebben geregistreerd. Om deze functie te gebruiken, dien je je aan te melden voor een "shared key". Je kan deze krijgen op de <a href="https://mcassoc.lukegb.com/" target="_blank">mcassoc website</a>.',
 	'mcassoc_key' => 'mcassoc Shared Key',
 	'mcassoc_instance' => 'mcassoc Instance Key',
@@ -369,6 +390,7 @@ $language = array(
 	'current_version_x' => 'Huidige versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'new_version_x' => 'Nieuwe versie: <strong>{x}</strong>', // Verander "{x}" niet
 	'new_update_available' => 'Er is een nieuwe versie beschikbaar',
+	'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
 	'up_to_date' => 'Deze website draait al de nieuwste versie!',
 	'urgent' => 'Je moet je website dringend bijwerken',
 	'changelog' => 'Lijst van veranderingen',
@@ -431,12 +453,17 @@ $language = array(
 	'enable_legacy_api' => 'Legacy API aanzetten?',
 	'legacy_api_info' => 'De legacy API staat toe dat plugins die de verouderde versie (1) API gebruiken werken met uw huidige versie (2).',
 	'confirm_api_regen' => 'Weet je zeker dat jij jouw API key wilt vernieuwen?',
+	'api_key' => 'API Key',
+	'api_url' => 'API URL',
+	'copy' => 'Copy',
+	'api_key_regenerated' => 'The API key has been regenerated successfully.',
 	'api_registration_email' => 'API Registratie Email',
 	'link_to_complete_registration' => 'Link voor het voltooien van de registratie: {x}', // Don't replace {x}
 	'api_verification' => 'Enable API verification?',
 	'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
 	'enable_username_sync' => 'Enable username sync?',
 	'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
+	'api_settings_updated_successfully' => 'API settings updated successfully.',
 
 	// Bestand uploads
 	'drag_files_here' => 'Sleep bestand(en) hier naartoe om te uploaden.',
@@ -453,6 +480,7 @@ $language = array(
 	'other_log' => 'Other log',
 	'fatal_log' => 'Fatal log',
 	'log_file_not_found' => 'Log file not found.',
+	'log_purged_successfully' => 'The log has been purged successfully.',
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
@@ -476,4 +504,20 @@ $language = array(
 	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
 	'keywords' => 'Keywords',
 	'description_max_500' => 'The description must be at most 500 characters.',
+
+	// Dashboard
+	'total_users' => 'Total Users',
+	'total_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'recent_users' => 'New Users',
+	'recent_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'average_players' => 'Average Players',
+	'nameless_news' => 'NamelessMC News',
+	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
+	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'server_compatibility' => 'Server Compatibility',
+	'issues' => 'Issues',
+
+	// Other
+	'source' => 'Source',
+	'support' => 'Support'
 );

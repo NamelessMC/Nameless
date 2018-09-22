@@ -268,6 +268,15 @@ if($page != 'install'){
         define('TEMPLATE', $template);
     }
 
+	// Panel template
+	$template = $cache->retrieve('panel_default');
+
+	if(!$template){
+		define('PANEL_TEMPLATE', 'Default');
+	} else {
+		define('PANEL_TEMPLATE', $template);
+	}
+
     // Smarty
     $smarty = new Smarty();
 
@@ -349,10 +358,7 @@ if($page != 'install'){
     // Navbar links
     $navigation = new Navigation();
     $cc_nav 	= new Navigation();
-    //$panel_nav  = new Navigation();
-
-    // old
-    $mod_nav	= new Navigation();
+    $mod_nav	= new Navigation(); // $mod_nav = panel nav
 
     // Add links to cc_nav
 	$cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/user'));
@@ -488,6 +494,7 @@ if($page != 'install'){
             'username' => Output::getClean($user->data()->username),
             'nickname' => Output::getClean($user->data()->nickname),
             'profile' => URL::build('/profile/' . Output::getClean($user->data()->username)),
+            'panel_profile' => URL::build('/panel/user/' . Output::getClean($user->data()->id) . '-' . Output::getClean($user->data()->username)),
             'username_style' => $user->getGroupClass($user->data()->id),
             'avatar' => $user->getAvatar($user->data()->id),
 	        'uuid' => Output::getClean($user->data()->uuid)
