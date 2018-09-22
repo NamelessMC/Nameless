@@ -671,13 +671,13 @@ class Nameless2API
             }
             $user = $user->first()->id;
 
-            $return = array();
+            $return = array('notifications' => array());
 
             // Get unread alerts
             $alerts = $this->_db->query('SELECT id, type, url, content_short FROM nl2_alerts WHERE user_id = ? AND `read` = 0', array($user));
             if($alerts->count()){
                 foreach($alerts->results() as $result){
-                    $return[] = array(
+                    $return['notifications'][] = array(
                         'type' => $result->type,
                         'message_short' => $result->content_short,
                         'message' => strip_tags($result->content),
@@ -691,7 +691,7 @@ class Nameless2API
 
             if($messages->count()){
                 foreach($messages->results() as $result){
-                    $return[] = array(
+                    $return['notifications'][] = array(
                         'type' => 'message',
                         'url' => Util::getSelfURL() . ltrim(URL::build('/user/messaging/', 'action=view&message=' . $result->id), '/'),
                         'message_short' => $result->title,
