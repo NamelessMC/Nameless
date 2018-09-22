@@ -680,7 +680,7 @@ class Nameless2API
                     $return['notifications'][] = array(
                         'type' => $result->type,
                         'message_short' => $result->content_short,
-                        'message' => strip_tags($result->content),
+                        'message' => ($result->content) ? strip_tags($result->content) : $result->content_short,
                         'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/user/alerts/', 'view=' . $result->id)
                     );
                 }
