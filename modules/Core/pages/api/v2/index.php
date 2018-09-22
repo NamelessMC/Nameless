@@ -528,6 +528,8 @@ class Nameless2API
             }
             $user = $user->first();
             $user->exists = true;
+            $user->banned = ($user->banned) ? true : false;
+            $user->validated = ($user->validated) ? true : false;
 
             $this->returnArray((array)$user);
 
