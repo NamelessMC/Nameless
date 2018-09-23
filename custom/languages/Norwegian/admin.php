@@ -101,7 +101,7 @@ $language = array(
     'enable_mailer_help' => 'Aktiver denne funksjonen hvis mailene ikke blir sendt automatisk. Bruk av PHPMailer krever at du har tilgang til foreksempel Gmail eller en SMTP støtter.',
     'outgoing_email' => 'Utgående email adresser',
     'outgoing_email_info' => 'Dette er emailen NamelesMC vil bruke til å sende ut mails.',
-    'mailer_settings_info' => 'De markerte feltene må være utfylt hvis du har PHPMailer aktivert. For mer informasjon om hvordan du fyller ut disse feltene, sjekk ut <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">wiki</a>.',
+    'mailer_settings_info' => 'De markerte feltene må være utfylt hvis du har PHPMailer aktivert. For mer informasjon om hvordan du fyller ut disse feltene, sjekk ut <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki</a>.',
     'host' => 'Vert',
     'email_port' => 'Port',
     'email_password_hidden' => 'Passordet vises ikke på grunn av sikkerhetsmessige årsaker.',

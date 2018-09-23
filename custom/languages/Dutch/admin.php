@@ -103,7 +103,7 @@ $language = array(
 	'enable_mailer_help' => 'Zet dit aan als de emails standaard niet worden verzonden. Als je gebruik wilt maken van PHPMailer heb je een email dienst nodig waarmee je emails kan verzenden, zoals Gmail of een SMTP provider (Outlook/Hotmail).',
 	'outgoing_email' => 'Uitgaand Emailadres',
 	'outgoing_email_info' => 'Dit is het email adres waarmee NamelessMC emails gaat verzenden.',
-	'mailer_settings_info' => 'De volgende velden zijn nodig als je PHPMailer aan hebt gezet. Voor meer informatie hoe je deze velden moet invullen, bekijk dan <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">de wiki</a>.',
+	'mailer_settings_info' => 'De volgende velden zijn nodig als je PHPMailer aan hebt gezet. Voor meer informatie hoe je deze velden moet invullen, bekijk dan <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">de wiki</a>.',
 	'host' => 'Host',
 	'email_port' => 'Port',
 	'email_password_hidden' => 'Het wachtwoord wordt om veiligheidsredenen niet getoond.',

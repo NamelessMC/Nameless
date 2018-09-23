@@ -105,7 +105,7 @@ $language = array(
 	'enable_mailer_help' => '如果電子郵件無法發送，請使用此功能，PHPMailer可以使您正常發送郵件，EX: Google的SMTP.',
 	'outgoing_email' => '外部電子郵件',
 	'outgoing_email_info' => '這個電子郵件將是NamelessMC拿來發送驗證信的電子郵件.',
-	'mailer_settings_info' => '如果您啟用的PHPMailer，則以下字段都必須要，不知道是什麼請造訪 <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">維基</a>.',
+	'mailer_settings_info' => '如果您啟用的PHPMailer，則以下字段都必須要，不知道是什麼請造訪 <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">維基</a>.',
 	'host' => '伺服器',
 	'email_port' => '端口',
 	'email_password_hidden' => '安全原因，密碼不顯示.',

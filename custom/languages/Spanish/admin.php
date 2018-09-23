@@ -100,7 +100,7 @@ $language = array(
     'enable_mailer_help' => 'Habilite esto si los correos electrónico no se envian por defecto. El uso de PHPMailer requiere que usted tenga un servicio capaz de enviar correos electrónico, como Gmail o un proveedor de SMTP.',
     'outgoing_email' => 'Dirección de correo saliente',
     'outgoing_email_info' => 'Esta es la dirección de correo electrónico que NamelessMC utilizará para enviar correos electronicos.',
-    'mailer_settings_info' => 'Los campos siguientes son obligatorios si ha habilitado PHPMailer. Para obtener más información sobre como rellenar estos campos, consulta en <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">the wiki</a>.',
+    'mailer_settings_info' => 'Los campos siguientes son obligatorios si ha habilitado PHPMailer. Para obtener más información sobre como rellenar estos campos, consulta en <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">the wiki</a>.',
     'host' => 'Host',
 	'email_port' => 'Port',
     'email_password_hidden' => 'La contraseña no se muestra por razones de seguridad.',

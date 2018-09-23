@@ -103,7 +103,7 @@ $language = array(
     'enable_mailer_help' => '電子メールがデフォルトで送信されていない場合は、これを有効にします。 PHPMailer を使用するには、Gmail や SMTP プロバイダなどの電子メールを送信できるサービスが必要です。',
     'outgoing_email' => '送信メールアドレス',
     'outgoing_email_info' => 'これは NamelessMC が電子メールの送信に使用する電子メールアドレスです。',
-    'mailer_settings_info' => 'PHPMailer を有効にしている場合は、次のフィールドが必要です。 これらのフィールドに記入する方法の詳細については、<a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">Wiki</a> を確認して下さい。',
+    'mailer_settings_info' => 'PHPMailer を有効にしている場合は、次のフィールドが必要です。 これらのフィールドに記入する方法の詳細については、<a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">Wiki</a> を確認して下さい。',
     'host' => 'ホスト',
     'email_port' => 'ポート',
     'email_password_hidden' => 'セキュリティ上の理由から、パスワードは表示されません。',
