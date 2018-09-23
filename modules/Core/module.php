@@ -63,6 +63,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/errors', 'pages/panel/errors.php');
 		$pages->add('Core', '/panel/core/emails', 'pages/panel/emails.php');
 		$pages->add('Core', '/panel/core/emails/errors', 'pages/panel/emails_errors.php');
+		$pages->add('Core', '/panel/core/navigation', 'pages/panel/navigation.php');
 
 		$pages->add('Core', '/admin', 'pages/admin/index.php');
 		$pages->add('Core', '/admin/auth', 'pages/admin/auth.php');
@@ -119,23 +120,23 @@ class Core_Module extends Module {
 										} else
 											$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
 
+										// Check cache for order
+										if(!$cache->isCached($custom_page->id . '_order')){
+											// Create cache entry now
+											$page_order = 200;
+											$cache->store($custom_page->id . '_order', 200);
+										} else {
+											$page_order = $cache->retrieve($custom_page->id . '_order');
+										}
+
 										switch($custom_page->link_location){
 											case 1:
 												// Navbar
-												// Check cache first
-												if(!$cache->isCached($custom_page->id . '_order')){
-													// Create cache entry now
-													$page_order = 200;
-													$cache->store($custom_page->id . '_order', 200);
-												} else {
-													$page_order = $cache->retrieve($custom_page->id . '_order');
-												}
-
 												$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order, $custom_page->icon);
 												break;
 											case 2:
 												// "More" dropdown
-												$more[] = array('id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'icon' => $custom_page->icon);
+												$more[] = array('id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'icon' => $custom_page->icon, 'order' => $page_order);
 												break;
 											case 3:
 												// Footer
@@ -163,23 +164,23 @@ class Core_Module extends Module {
 									} else
 										$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), FALSE);
 
+									// Check cache for order
+									if(!$cache->isCached($custom_page->id . '_order')){
+										// Create cache entry now
+										$page_order = 200;
+										$cache->store($custom_page->id . '_order', 200);
+									} else {
+										$page_order = $cache->retrieve($custom_page->id . '_order');
+									}
+
 									switch($custom_page->link_location){
 										case 1:
 											// Navbar
-											// Check cache first
-											if(!$cache->isCached($custom_page->id . '_order')){
-												// Create cache entry now
-												$page_order = 200;
-												$cache->store($custom_page->id . '_order', 200);
-											} else {
-												$page_order = $cache->retrieve($custom_page->id . '_order');
-											}
-
 											$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order, $custom_page->icon);
 											break;
 										case 2:
 											// "More" dropdown
-											$more[] = array('id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'icon' => $custom_page->icon);
+											$more[] = array('id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'icon' => $custom_page->icon, 'order' => $page_order);
 											break;
 										case 3:
 											// Footer
@@ -202,9 +203,15 @@ class Core_Module extends Module {
 				} else
 					$icon = '';
 
-				$navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', 2500, $icon);
+				$cache->setCache('navbar_order');
+				if($cache->isCached('more_dropdown_order')){
+					$order = $cache->retrieve('more_dropdown_order');
+				} else
+					$order = 2500;
+
+				$navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', $order, $icon);
 				foreach($more as $item)
-					$navigation->addItemToDropdown('more_dropdown', $item['id'], $item['title'], $item['url'], 'top', ($item['redirect']) ? '_blank' : null, $item['icon']);
+					$navigation->addItemToDropdown('more_dropdown', $item['id'], $item['title'], $item['url'], 'top', ($item['redirect']) ? '_blank' : null, $item['icon'], $item['order']);
 			}
 		}
 		$custom_pages = null;
@@ -406,6 +413,43 @@ class Core_Module extends Module {
 			}
 		}
 
+		if(defined('MINECRAFT') && MINECRAFT === true){
+			// Status page?
+			$cache->setCache('status_page');
+			if($cache->isCached('enabled')){
+				$status_enabled = $cache->retrieve('enabled');
+
+			} else {
+				$status_enabled = $queries->getWhere('settings', array('name', '=', 'status_page'));
+				if($status_enabled[0]->value == 1)
+					$status_enabled = 1;
+				else
+					$status_enabled = 0;
+
+				$cache->store('enabled', $status_enabled);
+
+			}
+
+			if($status_enabled == 1){
+				// Add status link to navbar
+				$cache->setCache('navbar_order');
+				if(!$cache->isCached('status_order')){
+					$status_order = 3;
+					$cache->store('status_order', 3);
+				} else{
+					$status_order = $cache->retrieve('status_order');
+				}
+
+				$cache->setCache('navbar_icons');
+				if(!$cache->isCached('status_icon'))
+					$icon = '';
+				else
+					$icon = $cache->retrieve('status_icon');
+
+				$navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
+			}
+		}
+
 		// Check page type (frontend or backend)
 		if(defined('FRONT_END')){
 			// Minecraft integration?
@@ -522,40 +566,6 @@ class Core_Module extends Module {
 				}
 
 				$smarty->assign('SERVER_OFFLINE', $language->get('general', 'server_offline'));
-
-				$cache->setCache('status_page');
-				if($cache->isCached('enabled')){
-					$status_enabled = $cache->retrieve('enabled');
-
-				} else {
-					$status_enabled = $queries->getWhere('settings', array('name', '=', 'status_page'));
-					if($status_enabled[0]->value == 1)
-						$status_enabled = 1;
-					else
-						$status_enabled = 0;
-
-					$cache->store('enabled', $status_enabled);
-
-				}
-
-				if($status_enabled == 1){
-					// Add status link to navbar
-					$cache->setCache('navbar_order');
-					if(!$cache->isCached('status_order')){
-						$status_order = 3;
-						$cache->store('status_order', 3);
-					} else{
-						$status_order = $cache->retrieve('status_order');
-					}
-
-					$cache->setCache('navbar_icons');
-					if(!$cache->isCached('status_icon'))
-						$icon = '';
-					else
-						$icon = $cache->retrieve('status_icon');
-
-					$navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
-				}
 
 			}
 

@@ -133,6 +133,7 @@ $language = array(
     'navbar_order_instructions' => 'You can give each item a number above 0 to order items in the navbar, with 1 being the first item and higher numbers coming after it.',
     'navbar_icon' => 'Navbar Icon',
     'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+    'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Enable page load timer?',
     'google_recaptcha' => 'Enable Google reCAPTCHA?',

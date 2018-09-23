@@ -90,7 +90,8 @@ class Navigation {
 	//			$location (string)	- location to add item to, either 'top' or 'footer' (defaults to 'top')
 	//			$target (string)	- HTML target attribute (eg '_blank') (optional)
     //          $icon (string)      - icon to prepend to nav item (default '')
-	public function addItemToDropdown($dropdown, $name, $title, $link, $location = 'top', $target = null, $icon = ''){
+	//          $order (int)        - nav item order (default 10)
+	public function addItemToDropdown($dropdown, $name, $title, $link, $location = 'top', $target = null, $icon = '', $order = 10){
 		// Add the item
 		if($location == 'top' && isset($this->_topNavbar[$dropdown])){
 			// Navbar
@@ -98,7 +99,8 @@ class Navigation {
 				'title' => $title,
 				'link' => $link,
 				'target' => $target,
-                'icon' => $icon
+                'icon' => $icon,
+				'order' => $order
 			);
 			
 		} else if(isset($this->_footerNav[$dropdown])){
@@ -107,7 +109,8 @@ class Navigation {
 				'title' => $title,
 				'link' => $link,
 				'target' => $target,
-                'icon' => $icon
+                'icon' => $icon,
+				'order' => $order
 			);
 			
 		}
@@ -127,6 +130,13 @@ class Navigation {
 					if(defined('PAGE') && PAGE == $key){
 						$return[$key]['active'] = true;
 					}
+
+					// Sort dropdown
+					if(isset($return[$key]['items']) && count($return[$key]['items'])){
+						uasort($return[$key]['items'], function($a, $b){
+							return $a['order'] - $b['order'];
+						});
+					}
 				}
 			}
 		} else {
@@ -135,6 +145,13 @@ class Navigation {
 					$return[$key] = $item;
 					if(defined('PAGE') && PAGE == $key){
 						$return[$key]['active'] = true;
+					}
+
+					// Sort dropdown
+					if(isset($return[$key]['items']) && count($return[$key]['items'])){
+						uasort($return[$key]['items'], function($a, $b){
+							return $a['order'] - $b['order'];
+						});
 					}
 				}
 			}

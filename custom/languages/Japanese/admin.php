@@ -133,6 +133,7 @@ $language = array(
     'navbar_order_instructions' => '各アイテムに 0 以上の数字を付けて、ナビゲーションバーのアイテムを注文することができます。最初のアイテムは 1、それ以降は上位のアイテムです。',
     'navbar_icon' => 'Navbar Icon',
     'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+    'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'ページロードタイマーを有効にしますか？',
     'google_recaptcha' => 'Google reCAPTCHA を有効にしますか？',
