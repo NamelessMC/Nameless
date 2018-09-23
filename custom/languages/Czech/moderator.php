@@ -11,6 +11,7 @@
 
 $language = array(
 	'mod_cp' => 'Ovládací panel moderátora',
+	'staff_cp' => 'StaffCP',
 	'overview' => 'Přehled',
 	
 	// Spam

@@ -15,6 +15,7 @@
 
 $language = array(
 	'mod_cp' => '控制者後台',
+	'staff_cp' => 'StaffCP',
 	'overview' => '總覽',
 	
 	// Spam

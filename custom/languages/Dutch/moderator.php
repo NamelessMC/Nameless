@@ -13,6 +13,7 @@
 
 $language = array(
 	'mod_cp' => 'Beheerders Paneel',
+	'staff_cp' => 'StaffCP',
 	'overview' => 'Overzicht',
 	
 	// Spam

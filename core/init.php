@@ -500,6 +500,14 @@ if($page != 'install'){
 	        'uuid' => Output::getClean($user->data()->uuid)
         ));
 
+        // Panel access?
+        if($user->canViewACP()){
+        	$smarty->assign(array(
+        		'PANEL_LINK' => URL::build('/panel'),
+		        'PANEL' => $language->get('moderator', 'staff_cp')
+	        ));
+        }
+
     }
 
     // Auto unset signin tfa variables if set

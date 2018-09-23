@@ -13,6 +13,7 @@
 
 $language = array(
     'mod_cp' => 'Panou Moderator',
+	'staff_cp' => 'StaffCP',
     'overview' => 'Prezentare generală',
     
     // Spam

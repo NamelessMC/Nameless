@@ -11,6 +11,7 @@
 
 $language = array(
 	'mod_cp' => 'Panel de Moderación',
+	'staff_cp' => 'StaffCP',
 	'overview' => 'Visión de Conjunto',
 	
 	// Spam

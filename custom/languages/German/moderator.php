@@ -19,6 +19,7 @@
 
 $language = array(
 	'mod_cp' => 'ModCP',
+	'staff_cp' => 'StaffCP',
 	'overview' => 'Überblick',
 	
 	// Spam
