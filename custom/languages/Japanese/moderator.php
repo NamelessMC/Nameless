@@ -92,6 +92,13 @@ $language = array(
     'view_user' => 'ユーザーを表示',
     'when' => 'いつ',
     'staff' => 'スタッフ',
-    'type' => 'タイプ'
+    'type' => 'タイプ',
+    'recent_punishments' => 'Recent Punishments',
+    'created' => 'Created:',
+    'staff:' => 'Staff:',
+    'reason:' => 'Reason:',
+	
+    // Users
+    'recent_registrations' => 'Recent Registrations'
 
 );
