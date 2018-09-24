@@ -115,8 +115,8 @@ $language = array(
     'send' => 'Trimite',
     'test_email_error' => 'Eroare e-mail de test:',
     'test_email_success' => 'Email-ul de test a fost trimis cu succes!',
-    'terms_error' => 'Asigurați-vă că termenii și condițiile dvs. nu depășesc 100000 de caractere.',
-    'privacy_policy_error' => 'Please enter a privacy policy no longer than 100000 characters.',
+    'terms_error' => 'Asigurați-vă că termenii și condițiile nu depășesc 100000 de caractere.',
+    'privacy_policy_error' => 'Asigurați-vă că politica de confidențialitate nu depășește 100000 de caractere.',
     'terms_updated' => 'Termenii și condițiile s-au actualizat cu succes.',
     'avatars' => 'Avatare',
     'allow_custom_avatars' => 'Permiteți utilizatorului să utilizeze avatare personalizate?',
@@ -517,7 +517,7 @@ $language = array(
 	'average_players' => 'Media jucătorilor',
 	'nameless_news' => 'Știri NamelessMC',
 	'unable_to_retrieve_nameless_news' => 'Nu se pot obține cele mai recente știri',
-	'confirm_leave_site' => 'Sunteți pe cale să părăsiți acest site! Sunteți sigur că doriți să vizitați <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'confirm_leave_site' => 'Sunteți pe cale să părăsiți acest site! Sunteți sigur că doriți să vizitați <strong id="leaveSiteURL">{x}</strong> ?', // don't replace {x} and make sure it has the id leaveSiteURL
 	'server_compatibility' => 'Compatibilitatea serverului',
 	'issues' => 'Probleme',
 
