@@ -91,5 +91,12 @@ $language = array(
     'view_user' => 'Visualizando usuário',
     'when' => 'Quando',
     'staff' => 'Staff',
-    'type' => 'Tipo'
+    'type' => 'Tipo',
+    'recent_punishments' => 'Recent Punishments',
+    'created' => 'Created:',
+    'staff:' => 'Staff:',
+    'reason:' => 'Reason:',
+	
+    // Users
+    'recent_registrations' => 'Recent Registrations'
 );
