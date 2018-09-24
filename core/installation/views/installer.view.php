@@ -717,8 +717,8 @@
                 'value' => 'By registering on our website, you agree to the following:<p>This website uses "Nameless" website software. The "Nameless" software creators will not be held responsible for any content that may be experienced whilst browsing this site, nor are they responsible for any loss of data which may come about, for example a hacking attempt. The website is run independently from the software creators, and any content is the responsibility of the website administration.</p>'
             ));
 
-            $queries->create('settings', array(
-                'name' => 't_and_c_site',
+            $queries->create('privacy_terms', array(
+                'name' => 'terms',
                 'value' => '<p>You agree to be bound by our website rules and any laws which may apply to this website and your participation.</p><p>The website administration have the right to terminate your account at any time, delete any content you may have posted, and your IP address and any data you input to the website is recorded to assist the site staff with their moderation duties.</p><p>The site administration have the right to change these terms and conditions, and any site rules, at any point without warning. Whilst you may be informed of any changes, it is your responsibility to check these terms and the rules at any point.</p>'
             ));
 
@@ -969,8 +969,8 @@
                 'value' => '1'
             ));
 
-            $queries->create('settings', array(
-                'name' => 'privacy_policy',
+            $queries->create('privacy_terms', array(
+                'name' => 'privacy',
                 'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.'
             ));
 
@@ -2358,10 +2358,18 @@
 						    'value' => '1'
 						));
 
-						$queries->create('settings', array(
-						    'name' => 'privacy_policy',
+						$queries->create('privacy_terms', array(
+						    'name' => 'privacy',
 						    'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.'
 						));
+
+						$terms = $queries->getWhere('settings', array('name', '=', 't_and_c_site'));
+						if(count($terms)){
+							$queries->create('privacy_terms', array(
+								'name' => 'terms',
+								'value' => $terms[0]->value
+							));
+						}
 
 						$queries->create('settings', array(
 							'name' => 'status_page',

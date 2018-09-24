@@ -113,6 +113,7 @@ $language = array(
     'test_email_error' => 'テストメールエラー:',
     'test_email_success' => 'テストメールが正常に送信されました！',
     'terms_error' => '利用条件が2048文字以下であることをご確認ください。',
+    'privacy_policy_error' => 'Please enter a privacy policy no longer than 100,000 characters.',
     'terms_updated' => '利用規約が更新されました。',
     'avatars' => 'アバター',
     'allow_custom_avatars' => 'カスタムユーザーアバターを許可にしますか？',
