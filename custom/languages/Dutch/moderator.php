@@ -92,6 +92,10 @@ $language = array(
     'view_user' => 'Bekijk gebruiker',
    	'when' => 'Wanneer',
    	'staff' => 'Staff',
-    'type' => 'Type'
+    'type' => 'Type',
+    'recent_punishments' => 'Recent Punishments',
+	
+    // Users
+    'recent_registrations' => 'Recent Registrations'
 
 );
