@@ -8,7 +8,7 @@
  *
  *  Romanian Language - General terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ASMODΣUS
- *  Last Update: 04/09/2018
+ *  Last Update: 24/09/2018
  */
 
 $language = array(
@@ -60,9 +60,9 @@ $language = array(
     'content' => 'Conţinut',
     'full_content' => 'Conținut complet',
     'url' => 'URL',
-	'success' => 'Success',
-	'error' => 'Error',
-	'are_you_sure' => 'Are you sure?',
+	'success' => 'Succes',
+	'error' => 'Eroare',
+	'are_you_sure' => 'Esti sigur?',
 
     /*
      *  Contact form
