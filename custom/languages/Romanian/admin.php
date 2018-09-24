@@ -517,7 +517,7 @@ $language = array(
 	'average_players' => 'Media jucătorilor',
 	'nameless_news' => 'Știri NamelessMC',
 	'unable_to_retrieve_nameless_news' => 'Nu se pot obține cele mai recente știri',
-	'confirm_leave_site' => 'Sunteți pe cale să părăsiți acest site! Sunteți sigur că doriți să vizitați <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'confirm_leave_site' => 'Sunteți pe cale să părăsiți acest site! Sunteți sigur că doriți să vizitați <strong id="leaveSiteURL">{x}</strong> ?', // don't replace {x} and make sure it has the id leaveSiteURL
 	'server_compatibility' => 'Compatibilitatea serverului',
 	'issues' => 'Probleme',
 
