@@ -8,7 +8,7 @@
  *
  *  Romanian Language for Forum module
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ImGladius
- *  Last Update: 26/07/2018
+ *  Last Update: 24/09/2018
  */
 
 $language = array(
@@ -190,10 +190,10 @@ $language = array(
     'include_in_hook' => 'Includeți subiecte noi din acest forum în webhook?',
 
 	// Panel statistics
-	'recent_topics' => 'Recent Topics',
+	'recent_topics' => 'Subiecte recente',
 	'recent_topics_statistic_icon' => '<i class="fa fa-comment"></i>',
-	'recent_posts' => 'Recent Posts',
+	'recent_posts' => 'Mesaje recente',
 	'recent_posts_statistic_icon' => '<i class="fa fa-comments-o"></i>',
-	'topics_title' => 'Topics',
-	'posts_title' => 'Posts',
+	'topics_title' => 'Subiecte',
+	'posts_title' => 'Mesaje',
 );
