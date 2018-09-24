@@ -90,6 +90,10 @@ $language = array(
     'view_user' => 'Prohlédnout hráče',
     'when' => 'Kdy',
     'staff' => 'Člen AT',
-    'type' => 'Typ'
+    'type' => 'Typ',
+    'recent_punishments' => 'Recent Punishments',
+	
+    // Users
+    'recent_registrations' => 'Recent Registrations'
 
 );
