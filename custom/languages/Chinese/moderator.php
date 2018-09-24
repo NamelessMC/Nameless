@@ -94,6 +94,13 @@ $language = array(
     'view_user' => '查看使用者',
     'when' => '何時',
     'staff' => '管理',
-    'type' => '類型'
+    'type' => '類型',
+    'recent_punishments' => 'Recent Punishments',
+    'created' => 'Created:',
+    'staff:' => 'Staff:',
+    'reason:' => 'Reason:',
+	
+    // Users
+    'recent_registrations' => 'Recent Registrations'
 
 );

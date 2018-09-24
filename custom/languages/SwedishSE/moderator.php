@@ -91,6 +91,13 @@ $language = array(
     'view_user' => 'Visa Användrare',
     'when' => 'När',
     'staff' => 'Personal',
-    'type' => 'Typ'
+    'type' => 'Typ',
+    'recent_punishments' => 'Recent Punishments',
+    'created' => 'Created:',
+    'staff:' => 'Staff:',
+    'reason:' => 'Reason:',
+	
+    // Users
+    'recent_registrations' => 'Recent Registrations'
 
 );

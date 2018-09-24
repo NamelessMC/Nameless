@@ -90,6 +90,13 @@ $language = array(
     'view_user' => 'Se bruker',
     'when' => 'Når',
     'staff' => 'Staff',
-    'type' => 'Type'
+    'type' => 'Type',
+    'recent_punishments' => 'Recent Punishments',
+    'created' => 'Created:',
+    'staff:' => 'Staff:',
+    'reason:' => 'Reason:',
+	
+    // Users
+    'recent_registrations' => 'Recent Registrations'
 
 );

@@ -92,6 +92,13 @@ $language = array(
     'view_user' => 'Vizualizare istoric',
     'when' => 'Când',
     'staff' => 'Moderator',
-    'type' => 'Tip'
+    'type' => 'Tip',
+    'recent_punishments' => 'Sancțiuni recente',
+    'created' => 'Creat:',
+    'staff:' => 'Moderator:',
+    'reason:' => 'Motiv:',
+	
+    // Users
+    'recent_registrations' => 'Înregistrări recente'
 
 );
