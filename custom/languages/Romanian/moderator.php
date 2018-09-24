@@ -8,12 +8,12 @@
  *
  *  Romanian Language - Moderator terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 06/07/2018
+ *  Last Update: 24/09/2018
  */
 
 $language = array(
     'mod_cp' => 'Panou Moderator',
-	'staff_cp' => 'StaffCP',
+	'staff_cp' => 'Panoul de control',
     'overview' => 'Prezentare generală',
     
     // Spam
@@ -54,10 +54,10 @@ $language = array(
     'open_reports' => 'În momentul de față există <strong>{x}</strong> rapoarte deschise.', // Don't replace {x}
     'no_open_reports' => 'În momentul de față nu există rapoarte deschise.',
     'no_closed_reports' => 'În momentul de față nu există rapoarte închise.',
-	'recent_reports' => 'Recent Reports',
-	'reported_by' => 'Reported by:',
+	'recent_reports' => 'Rapoarte recente',
+	'reported_by' => 'Raportat de:',
 	'website' => 'Website',
-	'ingame' => 'Ingame',
+	'ingame' => 'InGame',
     
     // Punishments
     'punishments' => 'Sancțiuni',
