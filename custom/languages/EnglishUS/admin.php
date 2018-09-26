@@ -155,6 +155,16 @@ $language = array(
 	'html' => 'HTML',
 	'new_reaction' => '<i class="fa fa-plus-circle"></i> New Reaction',
 	'creating_reaction' => 'Creating Reaction',
+	'no_reactions' => 'There are no reactions yet.',
+	'reaction_created_successfully' => 'Reaction created successfully.',
+	'reaction_edited_successfully' => 'Reaction edited successfully.',
+	'reaction_deleted_successfully' => 'Reaction deleted successfully.',
+	'name_required' => 'A name is required',
+	'html_required' => 'HTML is required',
+	'type_required' => 'A type is required',
+	'name_maximum_16' => 'The name must be no more than 16 characters',
+	'html_maximum_255' => 'The HTML must be no more than 255 characters',
+	'confirm_delete_reaction' => 'Are you sure you want to delete this reaction?',
 
 	// Custom profile fields
 	'custom_fields' => 'Custom Profile Fields',
