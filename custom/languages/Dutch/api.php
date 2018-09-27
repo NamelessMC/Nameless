@@ -47,5 +47,6 @@ $language = array(
     'report_created' => 'Rapport succesvol gemaakt',
     'new_private_message_from' => 'Nieuw privé bericht van {x}', // Don't replace {x}
     'username_updated' => 'Gebruikersnaam succesvol bijgewerkt',
-    'server_info_updated' => 'Server informatie succesvol bijgwerkt'
+    'server_info_updated' => 'Server informatie succesvol bijgwerkt',
+	'account_validated' => 'Account validated successfully'
 );

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -47,5 +47,6 @@ $language = array(
     'report_created' => 'Report created successfully',
     'new_private_message_from' => 'New private message from {x}', // Don't replace {x}
     'username_updated' => 'Username updated successfully',
-    'server_info_updated' => 'Server info updated successfully'
+    'server_info_updated' => 'Server info updated successfully',
+	'account_validated' => 'Account validated successfully'
 );

@@ -2,16 +2,22 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
  *  Version 2.0.0 API
- *  API version 1.0.3
+ *  API version 1.0.4
  */
 
 // Headers
 header("Content-Type: application/json; charset=UTF-8");
+
+$page_title = 'api';
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
 // Ensure API is actually enabled
 $is_enabled = $queries->getWhere('settings', array('name', '=', 'use_api'));
@@ -853,6 +859,7 @@ class Nameless2API
                 $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
             }
 
+	        $this->_db = DB::getInstance();
             $user_query = $this->_db->get('users', array('uuid', '=', str_replace('-', '', $_POST['uuid'])));
             if($user_query->count()){
                 $user_query = $user_query->first();
@@ -863,12 +870,20 @@ class Nameless2API
                         'active' => 1
                     ));
 
-                    HookHandler::executeEvent('validateUser', array(
-                        'event' => 'validateUser',
-                        'user_id' => $user_query->id,
-                        'username' => Output::getClean($user_query->username),
-                        'language' => $this->_language
-                    ));
+                    try {
+	                    HookHandler::executeEvent('validateUser', array(
+		                    'event' => 'validateUser',
+		                    'user_id' => $user_query->id,
+		                    'username' => Output::getClean($user_query->username),
+		                    'language' => $this->_language
+	                    ));
+                    } catch(Exception $e){
+                    	// Error
+                    }
+
+	                $this->returnArray(array('message' => $this->_language->get('api', 'server_info_updated')));
+
+                    $this->returnArray(array('message' => $this->_language->get('api', 'account_validated')));
 
                 } else
                     $this->throwError(28, $this->_language->get('api', 'invalid_code'));

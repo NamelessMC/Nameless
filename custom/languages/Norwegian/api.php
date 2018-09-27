@@ -47,5 +47,6 @@ $language = array(
     'report_created' => 'Rapportering suksessfullt opprettet',
     'new_private_message_from' => 'Ny privatmelding fra {x}', // Don't replace {x}
     'username_updated' => 'Brukernavn suksessfullt oppdatert',
-    'server_info_updated' => 'Server info suksessfullt oppdatert'
+    'server_info_updated' => 'Server info suksessfullt oppdatert',
+	'account_validated' => 'Account validated successfully'
 );

@@ -47,5 +47,6 @@ $language = array(
     'report_created' => 'Reporte creado correctamente.',
     'new_private_message_from' => 'Nuevo mensaje privado de {x}', // Don't replace {x}
     'username_updated' => 'Nombre de usuario actualizado correctamente.',
-    'server_info_updated' => 'Información del Servidor actualizada correctamnete.'
+    'server_info_updated' => 'Información del Servidor actualizada correctamnete.',
+	'account_validated' => 'Account validated successfully'
 );

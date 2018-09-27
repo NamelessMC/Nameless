@@ -49,5 +49,6 @@ $language = array(
     'report_created' => 'レポートが正常に作成されました',
     'new_private_message_from' => '{x} からの新しいプライベートメッセージ', // Don't replace {x}
     'username_updated' => 'ユーザー名が正常に更新されました',
-    'server_info_updated' => 'サーバー情報が正常に更新されました'
+    'server_info_updated' => 'サーバー情報が正常に更新されました',
+	'account_validated' => 'Account validated successfully'
 );
