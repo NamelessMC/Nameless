@@ -107,7 +107,8 @@ if(isset($_GET['do'])){
 			'CONFIRM_DELETE_ERROR' => $language->get('admin', 'confirm_email_error_deletion'),
 			'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
 			'YES' => $language->get('general', 'yes'),
-			'NO' => $language->get('general', 'no')
+			'NO' => $language->get('general', 'no'),
+			'CLOSE' => $language->get('general', 'close')
 		));
 
 		if($error->type == 1){
@@ -127,7 +128,9 @@ if(isset($_GET['do'])){
 				$user_error = $user_error[0];
 				if($user_error->active == 0 && !is_null($user_error->reset_code)){
 					$smarty->assign(array(
-						'COMPLETE_SIGNUP_TEXT' => str_replace('{x}', rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . Output::getClean($user_error->reset_code)), $language->get('admin', 'link_to_complete_registration'))
+						'REGISTRATION_LINK' => $language->get('admin', 'registration_link'),
+						'SHOW_REGISTRATION_LINK' => $language->get('admin', 'show_registration_link'),
+						'REGISTRATION_LINK_VALUE' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . Output::getClean($user_error->reset_code))
 					));
 				}
 			}

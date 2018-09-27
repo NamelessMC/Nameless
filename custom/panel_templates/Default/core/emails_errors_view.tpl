@@ -101,7 +101,7 @@
                             {if $TYPE_ID eq 1}
                                 <a class="btn btn-secondary" href="{$VALIDATE_USER_LINK}">{$VALIDATE_USER_TEXT}</a>
                             {elseif $TYPE_ID eq 4}
-                                a
+                                <button class="btn btn-secondary" type="button" onclick="showRegistrationModal()">{$SHOW_REGISTRATION_LINK}</button>
                             {/if}
 
                             <a class="btn btn-danger" href="#" onclick="showDeleteModal()">{$DELETE_ERROR}</a>
@@ -115,6 +115,26 @@
                 </div>
             </div>
         </section>
+    </div>
+
+    <!-- Show registration link modal -->
+    <div class="modal fade" id="registrationModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{$REGISTRATION_LINK}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {$REGISTRATION_LINK_VALUE}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{$CLOSE}</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Delete error modal -->
@@ -148,6 +168,9 @@
 <script type="text/javascript">
     function showDeleteModal(){
         $('#deleteModal').modal().show();
+    }
+    function showRegistrationModal(){
+        $('#registrationModal').modal().show();
     }
 </script>
 
