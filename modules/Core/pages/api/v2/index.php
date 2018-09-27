@@ -444,7 +444,7 @@ class Nameless2API
 
                 if(isset($sent['error'])){
                     // Error, log it
-                    $this->_db->create('email_errors', array(
+                    $this->_db->insert('email_errors', array(
                         'type' => 4, // 4 = API registration email
                         'content' => $sent['error'],
                         'at' => date('U'),
@@ -479,7 +479,7 @@ class Nameless2API
 
                 if(isset($sent['error'])){
                     // Error, log it
-                    $this->_db->create('email_errors', array(
+                    $this->_db->insert('email_errors', array(
                         'type' => 4,
                         'content' => $sent['error'],
                         'at' => date('U'),
