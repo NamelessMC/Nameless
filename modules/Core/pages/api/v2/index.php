@@ -331,7 +331,7 @@ class Nameless2API
             // Register user + send link
             $code = $this->createUser($_POST['username'], $_POST['uuid'], $_POST['email']);
 
-            $this->returnArray(array('message' => $this->_language->get('api', 'finish_registration_link'), 'link' => URL::build('/complete_signup/', 'c=' . $code['code'])));
+            $this->returnArray(array('message' => $this->_language->get('api', 'finish_registration_link'), 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . $code['code'])));
 
         }
     }
