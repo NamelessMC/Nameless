@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 24/09/2018
+ *  Last Update: 28/09/2018
  */
 
 $language = array(
@@ -160,16 +160,16 @@ $language = array(
     'html' => 'HTML iconiță',
     'new_reaction' => '<i class="fa fa-plus-circle"></i> Reacție nouă',
     'creating_reaction' => 'Adaugă reacție',
-	'no_reactions' => 'There are no reactions yet.',
-	'reaction_created_successfully' => 'Reaction created successfully.',
-	'reaction_edited_successfully' => 'Reaction edited successfully.',
-	'reaction_deleted_successfully' => 'Reaction deleted successfully.',
-	'name_required' => 'A name is required',
-	'html_required' => 'HTML is required',
-	'type_required' => 'A type is required',
-	'name_maximum_16' => 'The name must be no more than 16 characters',
-	'html_maximum_255' => 'The HTML must be no more than 255 characters',
-	'confirm_delete_reaction' => 'Are you sure you want to delete this reaction?',
+	'no_reactions' => 'Nu există încă reacții.',
+	'reaction_created_successfully' => 'Reacția a fost creată cu succes.',
+	'reaction_edited_successfully' => 'Reacția a fost editată cu succes.',
+	'reaction_deleted_successfully' => 'Reacția a fost ștearsă cu succes.',
+	'name_required' => 'Este necesar un nume',
+	'html_required' => 'Câmpul HTML iconiță este necesar',
+	'type_required' => 'Este necesar un tip pentru reacție',
+	'name_maximum_16' => 'Numele nu trebuie să depășească 16 caractere',
+	'html_maximum_255' => 'Câmpul HTML iconiță nu trebuie să depășească 255 de caractere',
+	'confirm_delete_reaction' => 'Sigur doriți să ștergeți această reacție?',
 
     // Custom profile fields
     'custom_fields' => 'Câmpuri personalizate pentru profil',
