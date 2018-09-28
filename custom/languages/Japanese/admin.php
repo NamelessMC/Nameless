@@ -61,6 +61,7 @@ $language = array(
 	'enable_registration' => '登録を有効にしますか？',
 	'verify_with_mcassoc' => 'MCAssocでユーザーアカウントを確認しますか？',
 	'email_verification' => 'メールの確認を有効にしますか？',
+	'registration_settings_updated' => 'Registration settings updated successfully.',
 	'homepage_type' => 'ホームページタイプ',
 	'post_formatting_type' => 'ポストフォーマットタイプ',
 	'portal' => 'ポータル',

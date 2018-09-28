@@ -67,6 +67,7 @@ $language = array(
 	'enable_registration' => 'Registrierung aktivieren?',
 	'verify_with_mcassoc' => 'Sollen sich Nutzer mit MCAssoc verifizieren?',
 	'email_verification' => 'Email Verifikation aktivieren?',
+	'registration_settings_updated' => 'Registration settings updated successfully.',
 	'homepage_type' => 'Seiten Typ',
 	'post_formatting_type' => 'Post Format Typ',
 	'portal' => 'Portal',

@@ -60,6 +60,7 @@ $language = array(
 	'enable_registration' => 'Ativar cadastro?',
 	'verify_with_mcassoc' => 'Verificar contas dos usuários com MCAssoc?',
 	'email_verification' => 'Ativar verificação de e-mail?',
+	'registration_settings_updated' => 'Registration settings updated successfully.',
 	'homepage_type' => 'Tipo de Homepage',
 	'post_formatting_type' => 'Tipo de formatação de postagem',
 	'portal' => 'Portal',

@@ -61,6 +61,7 @@ $language = array(
 	'enable_registration' => 'Schakel registratie in?',
 	'verify_with_mcassoc' => 'Verifieer gebruiker accounts met MCAssoc?',
 	'email_verification' => 'Schakel email verificatie in?',
+	'registration_settings_updated' => 'Registration settings updated successfully.',
 	'homepage_type' => 'Beginpagina type',
 	'post_formatting_type' => 'Bericht opmaak soort',
 	'portal' => 'Portaal',

@@ -63,6 +63,7 @@ $language = array(
 	'enable_registration' => '啟用註冊?',
 	'verify_with_mcassoc' => '使用MCAssoc驗證?',
 	'email_verification' => '使用電子郵件驗證?',
+	'registration_settings_updated' => 'Registration settings updated successfully.',
 	'homepage_type' => '首頁類型',
 	'post_formatting_type' => '發布格式',
 	'portal' => 'Portal',

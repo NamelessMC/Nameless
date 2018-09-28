@@ -64,6 +64,7 @@ $language = array(
     'enable_registration' => 'Activați înregistrarea?',
     'verify_with_mcassoc' => 'Verificați conturile de utilizator cu MCAssoc?',
     'email_verification' => 'Activați verificarea prin e-mail?',
+	'registration_settings_updated' => 'Registration settings updated successfully.',
     'homepage_type' => 'Tipul paginii principale',
     'post_formatting_type' => 'Tip de formatare textarea',
     'portal' => 'Portal',

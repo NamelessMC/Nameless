@@ -59,6 +59,7 @@ $language = array(
 	'enable_registration' => 'Povoliť registráciu?',
 	'verify_with_mcassoc' => 'Povoliť overovanie pomocou MCAssoc?',
 	'email_verification' => 'Povoliť overovanie pomocou e-mailu?',
+	'registration_settings_updated' => 'Registration settings updated successfully.',
 	'homepage_type' => 'Typ hlavnej stránky',
 	'post_formatting_type' => 'Typ formátovania',
 	'portal' => 'Portál',

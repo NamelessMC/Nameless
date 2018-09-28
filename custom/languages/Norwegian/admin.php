@@ -59,6 +59,7 @@ $language = array(
 	'enable_registration' => 'Vil du åpne for registrering?',
 	'verify_with_mcassoc' => 'Verifiser bruker med MCAssoc-tillegget?',
 	'email_verification' => 'Vil du kreve e-postverifikasjon av nye kontoer?',
+	'registration_settings_updated' => 'Registration settings updated successfully.',
 	'homepage_type' => 'Forsidetype',
 	'post_formatting_type' => 'Formatteringstype for poster',
 	'portal' => 'Portal',

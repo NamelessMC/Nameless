@@ -60,6 +60,7 @@ $language = array(
 	'enable_registration' => 'Aktivera registrering?',
 	'verify_with_mcassoc' => 'Verifiera användarkonton med MCAssoc?',
 	'email_verification' => 'Aktivera E-post verifiering?',
+	'registration_settings_updated' => 'Registration settings updated successfully.',
 	'homepage_type' => 'Hemsida typ',
 	'post_formatting_type' => 'Post formaterings typ',
 	'portal' => 'Portal',

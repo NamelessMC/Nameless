@@ -184,6 +184,43 @@ class Default_Panel_Template extends TemplateBase {
 					$this->addJSScript(Input::createEditor('InputPrivacy'));
 					$this->addJSScript(Input::createEditor('InputTerms'));
 					break;
+
+				case 'registration':
+					$this->addCSSFiles(array(
+						(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.css' => array()
+					));
+
+					$this->addJSFiles(array(
+						(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.js' => array()
+					));
+
+					$this->addJSFiles(array(
+						(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
+						(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
+						(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
+						(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array()
+					));
+
+					$this->addJSScript(Input::createEditor('InputRegistrationDisabledMessage'));
+
+					$this->addJSScript('
+					var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
+
+					elems.forEach(function(html) {
+					  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
+					});
+
+					/*
+					 *  Submit form on clicking enable/disable registration
+					 */
+					var changeCheckbox = document.querySelector(\'.js-check-change\');
+
+					changeCheckbox.onchange = function() {
+					  $(\'#enableRegistration\').submit();
+					};
+					');
+
+					break;
 			}
 		}
 	}

@@ -61,6 +61,7 @@ $language = array(
 	'enable_registration' => 'Ενεργοποίηση εγγραφής?',
 	'verify_with_mcassoc' => 'Verify user accounts με MCAssoc?',
 	'email_verification' => 'Ενεργοποίηση επαλήθευσης ηλεκτρονικού ταχυδρομείου?',
+	'registration_settings_updated' => 'Registration settings updated successfully.',
 	'homepage_type' => 'Αρχική Σελίδα τύπος',
 	'post_formatting_type' => 'Αλληλογραφία μορφοποίηση τύπος',
 	'portal' => 'Πύλη',
