@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 24/09/2018
+ *  Last Update: 28/09/2018
  */
 
 $language = array(
@@ -160,16 +160,16 @@ $language = array(
     'html' => 'HTML iconiță',
     'new_reaction' => '<i class="fa fa-plus-circle"></i> Reacție nouă',
     'creating_reaction' => 'Adaugă reacție',
-	'no_reactions' => 'There are no reactions yet.',
-	'reaction_created_successfully' => 'Reaction created successfully.',
-	'reaction_edited_successfully' => 'Reaction edited successfully.',
-	'reaction_deleted_successfully' => 'Reaction deleted successfully.',
-	'name_required' => 'A name is required',
-	'html_required' => 'HTML is required',
-	'type_required' => 'A type is required',
-	'name_maximum_16' => 'The name must be no more than 16 characters',
-	'html_maximum_255' => 'The HTML must be no more than 255 characters',
-	'confirm_delete_reaction' => 'Are you sure you want to delete this reaction?',
+	'no_reactions' => 'Nu există încă reacții.',
+	'reaction_created_successfully' => 'Reacția a fost creată cu succes.',
+	'reaction_edited_successfully' => 'Reacția a fost editată cu succes.',
+	'reaction_deleted_successfully' => 'Reacția a fost ștearsă cu succes.',
+	'name_required' => 'Este necesar un nume',
+	'html_required' => 'Câmpul HTML iconiță este necesar',
+	'type_required' => 'Este necesar un tip pentru reacție',
+	'name_maximum_16' => 'Numele nu trebuie să depășească 16 caractere',
+	'html_maximum_255' => 'Câmpul HTML iconiță nu trebuie să depășească 255 de caractere',
+	'confirm_delete_reaction' => 'Sigur doriți să ștergeți această reacție?',
 
     // Custom profile fields
     'custom_fields' => 'Câmpuri personalizate pentru profil',
@@ -471,8 +471,8 @@ $language = array(
 	'copy' => 'Copiați',
 	'api_key_regenerated' => 'Cheia API a fost regenerată cu succes.',
     'api_registration_email' => 'API pentru înregistrarea e-mail',
-	'show_registration_link' => 'Show registration link',
-	'registration_link' => 'Registration Link',
+	'show_registration_link' => 'Afișați linkul de înregistrare',
+	'registration_link' => 'Link-ul de înregistrare',
     'link_to_complete_registration' => 'Adresa pentru finalizarea înregistrări:', // Don't replace {x}
     'api_verification' => 'Activați verificarea API?',
     'api_verification_info' => 'Dacă este activat, conturile pot fi verificate numai prin API, de exemplu, utilizând pluginul oficial Nameless in joc.<strong> Această opțiune va înlocui verificarea prin e-mail și conturile vor fi activate automat! </strong> <br />Ar trebui să vă configurați grupul implicit pentru a avea permisiuni limitate și apoi să actualizați grupul de post-validare (în ACP -> Bază -> Înregistrare) cu permisiunile obișnuite.',
