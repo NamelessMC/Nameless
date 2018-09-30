@@ -85,6 +85,7 @@ $language = array(
 	'light' => 'Deschisă',
     'google_plus_url' => 'Adresă Google Plus',
     'facebook_url' => 'Adresă Facebook',
+    'social_media_settings_updated' => 'Social media settings updated successfully.',
     'successfully_updated' => 'Actualizat cu succes',
     'debugging_and_maintenance' => 'Depanare și întreținere',
 	'debugging_settings_updated_successfully' => 'Setările de depanare au fost actualizate cu succes.',

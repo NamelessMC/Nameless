@@ -82,6 +82,7 @@ $language = array(
 	'twitter_dark_theme' => 'Gebruik het donkere thema voor Twitter?',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
+	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => 'Succesvol bijgewerkt',
 	'debugging_and_maintenance' => 'Debugging en beheer',
 	'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',

@@ -67,6 +67,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/privacy_and_terms', 'pages/panel/privacy_and_terms.php');
 		$pages->add('Core', '/panel/core/reactions', 'pages/panel/reactions.php');
 		$pages->add('Core', '/panel/core/registration', 'pages/panel/registration.php');
+		$pages->add('Core', '/panel/core/social_media', 'pages/panel/social_media.php');
 
 		$pages->add('Core', '/admin', 'pages/admin/index.php');
 		$pages->add('Core', '/admin/auth', 'pages/admin/auth.php');

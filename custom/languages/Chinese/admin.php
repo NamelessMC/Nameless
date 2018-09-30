@@ -84,6 +84,7 @@ $language = array(
 	'light' => 'Light',
 	'google_plus_url' => 'Google+ URL',
 	'facebook_url' => 'Facebook URL',
+	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => '成功更新',
     'debugging_and_maintenance' => '調整與維護',
     'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
