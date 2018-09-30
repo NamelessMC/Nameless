@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -194,6 +194,9 @@ class Forum {
 				$secondary_groups = json_decode($secondary_groups, true);
 		}
 
+		if(!$secondary_groups)
+			$secondary_groups = array();
+
 		if(!$user_id)
 			$user_id = 0;
 
@@ -201,6 +204,8 @@ class Forum {
 
 		if($user_id > 0)
 			$own_topics_forums = DB::getInstance()->query("SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (" . rtrim($group_id . ',' . implode(',', $secondary_groups), ',') . ") AND `view` = 1 AND view_other_topics = 0")->results();
+		else
+			$own_topics_forums = array();
 
 		if(!count($all_topics_forums) && !count($own_topics_forums))
 			return array();
