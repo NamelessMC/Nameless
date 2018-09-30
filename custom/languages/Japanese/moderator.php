@@ -52,8 +52,12 @@ $language = array(
 	'reopen_report' => 'レポートを未読',
 	'1_open_report' => '現在 <strong>1</strong> 件の公開レポートがあります。',
 	'open_reports' => '現在 <strong>{x}</strong> 件の公開レポートがあります。', // Don't replace {x}
-	'no_open_reports' => '未読のレポートはありません。'、
-	'no_closed_reports' => '既読のレポートはありません。'、
+	'no_open_reports' => '未読のレポートはありません。',
+	'no_closed_reports' => '既読のレポートはありません。',
+	'recent_reports' => 'Recent Reports',
+	'reported_by' => 'Reported by:',
+	'website' => 'Website',
+	'ingame' => 'Ingame',
 
 	// Punishments
 	'punishments' => '処罰',
@@ -83,11 +87,18 @@ $language = array(
 	'punishment_revoked' => '処罰は取り消されました。',
 	'punishment_revoked_alert' => '{x} がユーザー {y} の処罰を取り消しました。', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
 	'cant_punish_admin' => '管理者を処罰することはできません。',
-    'viewing_all_punishments' => '処罰履歴を確認',
-    'no_punishments_found' => '処罰は見つかりませんでした。',
-    'view_user' => 'ユーザーを表示',
-    'when' => 'いつ',
-    'staff' => 'スタッフ',
-    'type' => 'タイプ'
+	'viewing_all_punishments' => '処罰履歴を確認',
+	'no_punishments_found' => '処罰は見つかりませんでした。',
+	'view_user' => 'ユーザーを表示',
+	'when' => 'いつ',
+	'staff' => 'スタッフ',
+	'type' => 'タイプ',
+	'recent_punishments' => 'Recent Punishments',
+	'created' => 'Created:',
+	'staff:' => 'Staff:',
+	'reason:' => 'Reason:',
+	
+	// Users
+	'recent_registrations' => 'Recent Registrations'
 
 );
