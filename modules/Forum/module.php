@@ -120,6 +120,19 @@ class Forum_Module extends Module {
 				));
 			}
 
+			if(defined('PAGE') && PAGE == 'user_query'){
+				$user_id = $smarty->getTemplateVars('USER_ID');
+
+				$timeago = new Timeago(TIMEZONE);
+
+				if($user_id){
+					$topic_count = $queries->getWhere('topics', array('topic_creator', '=', $user_id));
+					$smarty->assign('TOPICS', str_replace('{x}', count($topic_count), $this->_forum_language->get('forum', 'x_topics')));
+					$post_count = $queries->getWhere('posts', array('post_creator', '=', $user_id));
+					$smarty->assign('POSTS', str_replace('{x}', count($topic_count), $this->_forum_language->get('forum', 'x_posts')));
+				}
+			}
+
 		} else if(defined('BACK_END')){
 			$cache->setCache('panel_sidebar');
 			if(!$cache->isCached('forum_order')){

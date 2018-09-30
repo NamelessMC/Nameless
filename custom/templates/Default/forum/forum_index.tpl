@@ -45,7 +45,7 @@
 					  <div class="col-md-9">
 					    <a href="{$subforum->last_post->link}">{$subforum->last_post->title}</a>
 					    <br />
-					    <span data-toggle="tooltip" data-trigger="hover" data-original-title="{$subforum->last_post->post_date}">{$subforum->last_post->date_friendly}</span><br />{$BY} <a style="{$subforum->last_post->user_style}" href="{$subforum->last_post->profile}">{$subforum->last_post->username}</a>
+					    <span data-toggle="tooltip" data-trigger="hover" data-original-title="{$subforum->last_post->post_date}">{$subforum->last_post->date_friendly}</span><br />{$BY} <a data-poload="{$USER_INFO_URL}{$subforum->last_post->post_creator}" data-html="true" data-placement="top" style="{$subforum->last_post->user_style}" href="{$subforum->last_post->profile}">{$subforum->last_post->username}</a>
 					  </div>
 					</div>
 					{else}

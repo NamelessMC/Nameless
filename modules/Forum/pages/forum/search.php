@@ -189,6 +189,7 @@ if(isset($_GET['s'])){
 
 			$posts[$n] = array(
 				'post_author' => Output::getClean($user->idToNickname($results->data[$n]['post_author'])),
+				'post_author_id' => Output::getClean($results->data[$n]['post_author']),
 				'post_author_avatar' => $user->getAvatar($results->data[$n]['post_author'], '../', 25),
 				'post_author_profile' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]['post_author']))),
 				'post_author_style' => $user->getGroupClass($results->data[$n]['post_author']),

@@ -18,7 +18,7 @@
                         <div class="card-body">
                             {$result.content}
                             <hr />
-                            <a href="{$result.post_author_profile}"><img class="rounded-circle" src="{$result.post_author_avatar}" style="max-height:40px; max-width:40px;"/></a> <a href="{$result.post_author_profile}" style="{$result.post_author_style}">{$result.post_author}</a>
+                            <a href="{$result.post_author_profile}"><img class="rounded-circle" src="{$result.post_author_avatar}" style="max-height:40px; max-width:40px;"/></a> <a href="{$result.post_author_profile}" style="{$result.post_author_style}" data-poload="{$USER_INFO_URL}{$result.post_author_id}" data-html="true" data-placement="top">{$result.post_author}</a>
                             <span class="pull-right"><a href="{$result.post_url}" class="btn btn-primary btn-sm">{$READ_FULL_POST} &raquo;</a></span>
                         </div>
                     </div>

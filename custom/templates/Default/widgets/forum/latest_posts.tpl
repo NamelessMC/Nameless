@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-md-9">
                     <a href="{$post.last_reply_link}">{$post.topic_title}</a><br />
-                    {$BY} <a href="{$post.last_reply_profile_link}" style="{$post.last_reply_style}">{$post.last_reply_username}</a><br />
+                    {$BY} <a href="{$post.last_reply_profile_link}" style="{$post.last_reply_style}" data-poload="{$USER_INFO_URL}{$post.last_reply_user_id}" data-html="true" data-placement="top">{$post.last_reply_username}</a><br />
                     <span data-toggle="tooltip" data-trigger="hover" data-original-title="{$post.last_reply}">{$post.last_reply_rough}</span>
                 </div>
             </div>

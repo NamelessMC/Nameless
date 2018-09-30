@@ -164,6 +164,7 @@ $language = array(
 	'replies' => 'Svar',
 	'new_reply' => 'Ny svar',
 	'registered' => 'Registrerad:',
+	'registered_x' => 'Registrerad: {x}',
 	'last_seen' => 'Senast Inloggad:',
 	'new_wall_post' => '{x} har skrivit på din profil.',
 	'couldnt_find_that_user' => 'Kunde inte hitta det där användraren.',

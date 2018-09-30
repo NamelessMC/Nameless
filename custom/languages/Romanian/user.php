@@ -166,6 +166,7 @@ $language = array(
     'replies' => 'Răspunsuri',
     'new_reply' => 'Adaugă un răspuns nou',
     'registered' => 'Înregistrat:',
+    'registered_x' => 'Înregistrat: {x}',
     'last_seen' => 'Vazut ultima data:',
     'couldnt_find_that_user' => 'Utilizatorul specificat nu a fost găsit.',
     'block_user' => 'Blocați utilizatorul',

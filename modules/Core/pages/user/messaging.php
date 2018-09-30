@@ -113,6 +113,7 @@ if(!isset($_GET['action'])){
 			'title' => Output::getClean($results->data[$n]['title']),
 			'participants' => $participants,
 			'link' => URL::build('/user/messaging/', 'action=view&amp;message=' . $results->data[$n]['id']),
+			'last_message_user_id' => Output::getClean($results->data[$n]['user_updated']),
 			'last_message_user' => Output::getClean($user->idToNickname($results->data[$n]['user_updated'])),
 			'last_message_user_profile' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]['user_updated']))),
 			'last_message_user_avatar' => $user->getAvatar($results->data[$n]['user_updated'], "../", 30),

@@ -162,6 +162,7 @@ $language = array(
 	'replies' => 'Svar',
 	'new_reply' => 'Nytt svar',
 	'registered' => 'Registrerte seg:',
+	'registered_x' => 'Registrerte seg: {x}',
 	'last_seen' => 'Sist sett:',
 	'new_wall_post' => '{x} har kommentert på profilen din.',
 	'couldnt_find_that_user' => 'Kunne ikke finne den brukeren.',

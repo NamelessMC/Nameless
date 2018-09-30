@@ -59,7 +59,8 @@ class OnlineUsersWidget extends WidgetBase {
 				    'style' => $user->getGroupClass($item->id),
 				    'username' => Output::getClean($item->username),
 				    'nickname' => Output::getClean($item->nickname),
-				    'avatar' => $user->getAvatar($item->id)
+				    'avatar' => $user->getAvatar($item->id),
+				    'id' => Output::getClean($item->id)
 			    );
 
 		    $this->_smarty->assign(array(

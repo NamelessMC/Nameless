@@ -168,6 +168,7 @@ $language = array(
 	'replies' => '回覆',
 	'new_reply' => '新回覆',
 	'registered' => '已註冊:',
+	'registered_x' => '已註冊: {x}',
 	'last_seen' => '上次上線:',
 	'new_wall_post' => '{x} 在你的塗鴉牆上發文.',
 	'couldnt_find_that_user' => '找不到使用者.',

@@ -561,6 +561,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 					*/
 
 					$reactions['reactions'][] = array(
+						'user_id' => Output::getClean($reaction->user_id),
 						'username' => Output::getClean($user->idToName($reaction->user_id)),
 						'nickname' => Output::getClean($user->idToNickname($reaction->user_id)),
 						'style' => $user->getGroupClass($reaction->user_id),
@@ -582,6 +583,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 				foreach($replies_query as $reply){
 					$replies['replies'][] = array(
+						'user_id' => Output::getClean($reply->author_id),
 						'username' => Output::getClean($user->idToName($reply->author_id)),
 						'nickname' => Output::getClean($user->idToNickname($reply->author_id)),
 						'style' => $user->getGroupClass($reply->author_id),
@@ -599,6 +601,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 			$wall_posts[] = array(
 				'id' => $results->data[$n]->id,
+				'user_id' => Output::getClean($post_user[0]->id),
 				'username' => Output::getClean($post_user[0]->username),
 				'nickname' => Output::getClean($post_user[0]->nickname),
 				'profile' => URL::build('/profile/' . Output::getClean($post_user[0]->username)),

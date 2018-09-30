@@ -171,6 +171,7 @@ $language = array(
 	'replies' => 'Antwoeren',
 	'new_reply' => 'Neue Antwort',
 	'registered' => 'Registriert seit:',
+	'registered_x' => 'Registriert seit: {x}',
 	'last_seen' => 'Zuletzt gesehen:',
 	'new_wall_post' => '{x} hat etwas auf deine Profilpinwand geschrieben.',
 	'couldnt_find_that_user' => 'Konnte den Benutzer nicht finden.',

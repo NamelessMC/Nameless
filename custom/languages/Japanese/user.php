@@ -166,6 +166,7 @@ $language = array(
 	'replies' => '返信',
 	'new_reply' => '新しい返信',
 	'registered' => '登録:',
+	'registered_x' => '登録: {x}',
 	'last_seen' => '最後に見たのは:',
 	'new_wall_post' => '{x} さんがあなたのプロフィールに投稿しました。',
 	'couldnt_find_that_user' => 'そのユーザーを見つけることができませんでした。',

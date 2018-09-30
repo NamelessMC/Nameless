@@ -50,7 +50,8 @@ class OnlineStaffWidget extends WidgetBase {
 				    'style' => $user->getGroupClass($staff->id),
 				    'username' => Output::getClean($staff->username),
 				    'nickname' => Output::getClean($staff->nickname),
-				    'avatar' => $user->getAvatar($staff->id)
+				    'avatar' => $user->getAvatar($staff->id),
+				    'id' => Output::getClean($staff->id)
 			    );
 
 		    $this->_smarty->assign(array(

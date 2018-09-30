@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -285,7 +285,9 @@ if($page != 'install'){
 		'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
 		'OG_URL' => Output::getClean(rtrim(Util::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
 		'SITE_NAME' => SITE_NAME,
-		'SITE_HOME' => URL::build('/')
+		'SITE_HOME' => URL::build('/'),
+		'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
+		'GUEST' => $language->get('user', 'guest')
 	));
 
     // Cookie notice

@@ -39,6 +39,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/queries/pms', 'queries/pms.php');
 		$pages->add('Core', '/queries/servers', 'queries/servers.php');
 		$pages->add('Core', '/queries/server', 'queries/server.php');
+		$pages->add('Core', '/queries/user', 'queries/user.php');
 		$pages->add('Core', '/banner', 'pages/minecraft/banner.php');
 		$pages->add('Core', '/terms', 'pages/terms.php');
 		$pages->add('Core', '/privacy', 'pages/privacy.php');
@@ -571,6 +572,21 @@ class Core_Module extends Module {
 
 				$smarty->assign('SERVER_OFFLINE', $language->get('general', 'server_offline'));
 
+			}
+
+			if(defined('PAGE') && PAGE == 'user_query'){
+				// Collection
+				$user_id = $smarty->getTemplateVars('USER_ID');
+
+				$timeago = new Timeago(TIMEZONE);
+
+				if($user_id){
+					$user_query = $queries->getWhere('users', array('id', '=', $user_id));
+					if(count($user_query)){
+						$user_query = $user_query[0];
+						$smarty->assign('REGISTERED', str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $user_query->joined), $language->getTimeLanguage()), $language->get('user', 'registered_x')));
+					}
+				}
 			}
 
 		} else {

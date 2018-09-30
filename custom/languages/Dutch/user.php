@@ -165,6 +165,7 @@ $language = array(
 	'replies' => 'Antwoorden',
 	'new_reply' => 'Nieuw antwoord',
 	'registered' => 'Geregistreerd sinds:',
+	'registered_x' => 'Geregistreerd sinds: {x}',
 	'last_seen' => 'Laatst gezien:',
 	'new_wall_post' => '{x} heeft een bericht geplaatst op je profiel.',
 	'couldnt_find_that_user' => 'Kan gebruiker niet vinden.',

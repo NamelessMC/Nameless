@@ -107,6 +107,33 @@ class Default_Template extends TemplateBase {
 			      }, 300);
 				});
 				
+				$(document).ready(function(){
+					var cachedUsers = {};
+
+				   $(\'*[data-poload]\').mouseenter(function (){
+					  if(!($(this).data(\'poload\') in cachedUsers)){
+					  	var _this = this;
+					  	$(this).popover({trigger:"manual",animation:false,content:"<i class=\'fa fa-circle-o-notch fa-fw fa-2x fa-spin\'></i>"}).popover("show");
+				        $.get($(this).data(\'poload\'), function(d) {
+				        	' . ((defined('DEBUGGING') && DEBUGGING == 1) ? 'console.log(d);' : '') . '
+				        	var data = JSON.parse(d);
+					        cachedUsers[$(_this).data(\'poload\')] = data;
+							$(_this).popover("dispose").popover({trigger:"manual",animation:false,content:data.html}).popover("show");
+					    });
+					  } else {
+					  	var data = cachedUsers[$(this).data(\'poload\')];
+					    $(this).popover({trigger:"manual",animation:false,content:data.html}).popover("show");
+					  }
+				   }).mouseleave(function (){
+				      var _this = this;
+				      setTimeout(function () {
+				        if (!$(".popover:hover").length) {
+				          $(_this).popover("hide");
+				        }
+				      }, 200);
+				   });
+				});
+				
 			    function copyToClipboard(element) {
 			      var $temp = $("<input>");
 			      $("body").append($temp);
