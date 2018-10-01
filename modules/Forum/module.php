@@ -106,7 +106,7 @@ class Forum_Module extends Module {
 		// Front end or back end?
 		if(defined('FRONT_END')){
 			$queries = new Queries();
-			
+
 			// Global variables if user is logged in
 			if($user->isLoggedIn()){
 				// Basic user variables

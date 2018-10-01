@@ -364,6 +364,12 @@ $language = array(
 	'default_group' => 'Grupo padrão (para novos usuários)?',
 	'user_id' => 'User ID',
 	'uuid' => 'UUID',
+	'group_order' => 'Group Order',
+	'group_created_successfully' => 'Group created successfully.',
+	'group_updated_successfully' => 'Group updated successfully.',
+	'group_deleted_successfully' => 'Group deleted successfully.',
+	'unable_to_delete_group' => 'Unable to delete a default group, or a group that can view the StaffCP. Please update the group settings first!',
+	'can_view_staffcp' => 'Can the group view the StaffCP?',
 
 	// Permissions
 	'select_all' => 'Selecionar Todos',
