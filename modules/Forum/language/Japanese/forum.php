@@ -2,11 +2,14 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
+ *
+ *  Translation by SimplyRin( @SimplyRin_, https://www.simplyrin.net )
+ *  Additional translation by Mari0914( @Mari0914_Main, https://mari0914.japanminigame.net )
  *
  *  License: MIT
  *
- *  EnglishUS Language for Forum module
+ *  Japanese Language - Forum module
  */
 
 $language = array(
@@ -188,10 +191,10 @@ $language = array(
     'include_in_hook' => 'このフォーラムの新しいトピックをWebhookに通知しますか？',
 
 	// Panel statistics
-	'recent_topics' => 'Recent Topics',
-	'recent_topics_statistic_icon' => '<i class="fa fa-comment"></i>',
-	'recent_posts' => 'Recent Posts',
-	'recent_posts_statistic_icon' => '<i class="fa fa-comments-o"></i>',
-	'topics_title' => 'Topics',
-	'posts_title' => 'Posts',
+	'recent_topics' => '最近のトピック',
+	'recent_topics_statistic_icon' => '<i class = "fa fa-comment"> </i>',
+	'recent_posts' => '最近の投稿',
+	'recent_posts_statistic_icon' => '<i class = "fa fa-comments-o"> </i>',
+	'topics_title' => 'トピック',
+	'posts_title' => '投稿',
 );
