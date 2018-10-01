@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 28/09/2018
+ *  Last Update: 01/10/2018
  */
 
 $language = array(
@@ -19,10 +19,10 @@ $language = array(
     're-authenticate' => 'Vă rugăm să vă re-autentificati',
 
     // Sidebar
-	'dashboard' => 'Prezentare generala',
-	'configuration' => 'Configurație',
-	'layout' => 'Sabloane',
-	'user_management' => 'Gestionarea utilizatorilor',
+    'dashboard' => 'Prezentare generala',
+    'configuration' => 'Configurație',
+    'layout' => 'Sabloane',
+    'user_management' => 'Gestionarea utilizatorilor',
     'admin_cp' => 'Panou Administrare',
     'administration' => 'Administrare',
     'overview' => 'Prezentare generală',
@@ -54,41 +54,41 @@ $language = array(
     'sitename' => 'Nume site',
     'default_language' => 'Limbă implicită',
     'default_language_help' => 'Utilizatorii vor putea alege din limbile instalate.',
-	'install_language' => 'Instalați limba',
-	'update_user_languages' => 'Actualizați limbile pentru utilizatori',
-	'update_user_languages_warning' => 'Acest lucru va actualiza limba pentru toți utilizatorii de pe site-ul dvs., chiar dacă au selectat deja una!',
-	'updated_user_languages' => 'Limbile utilizatorilor au fost actualizate.',
+    'install_language' => 'Instalați limba',
+    'update_user_languages' => 'Actualizați limbile pentru utilizatori',
+    'update_user_languages_warning' => 'Acest lucru va actualiza limba pentru toți utilizatorii de pe site-ul dvs., chiar dacă au selectat deja una!',
+    'updated_user_languages' => 'Limbile utilizatorilor au fost actualizate.',
     'installed_languages' => 'Toate limbile noi au fost instalate cu succes.',
     'default_timezone' => 'Fusul orar prestabilit',
     'registration' => 'Înregistrare',
     'enable_registration' => 'Activați înregistrarea?',
     'verify_with_mcassoc' => 'Verificați conturile de utilizator cu MCAssoc?',
     'email_verification' => 'Activați verificarea prin e-mail?',
-	'registration_settings_updated' => 'Registration settings updated successfully.',
+    'registration_settings_updated' => 'Setările de înregistrare au fost actualizate cu succes.',
     'homepage_type' => 'Tipul paginii principale',
     'post_formatting_type' => 'Tip de formatare textarea',
     'portal' => 'Portal',
-	'private_profiles' => 'Profiluri private',
+    'private_profiles' => 'Profiluri private',
     'missing_sitename' => 'Introduceți un nume de site între 2 și 64 de caractere.',
-	'missing_contact_address' => 'Introduceți o adresă de e-mail de la 3 până la 255 de caractere.',
+    'missing_contact_address' => 'Introduceți o adresă de e-mail de la 3 până la 255 de caractere.',
     'use_friendly_urls' => 'SEO URL',
     'use_friendly_urls_help' => 'IMPORTANT: Serverul dvs. trebuie să fie configurat pentru a permite utilizarea fișierelor mod_rewrite și .htaccess pentru a funcționa.',
     'config_not_writable' => 'Fisierul <strong>core/config.php</strong> nu are permisiunea de scriere. Vă rugăm să verificați permisiunile.',
-	'settings_updated_successfully' => 'Setările generale au fost actualizate cu succes.',
+    'settings_updated_successfully' => 'Setările generale au fost actualizate cu succes.',
     'social_media' => 'Social Media',
     'youtube_url' => 'Adresă Youtube',
     'twitter_url' => 'Adresă Twitter',
     'twitter_dark_theme' => 'Utilizați tema închisă Twitter?',
-	'discord_id' => 'ID Server Discord',
-	'discord_widget_theme' => 'Temă Widget Discord',
-	'dark' => 'Închisă',
-	'light' => 'Deschisă',
+    'discord_id' => 'ID Server Discord',
+    'discord_widget_theme' => 'Temă Widget Discord',
+    'dark' => 'Închisă',
+    'light' => 'Deschisă',
     'google_plus_url' => 'Adresă Google Plus',
     'facebook_url' => 'Adresă Facebook',
-    'social_media_settings_updated' => 'Social media settings updated successfully.',
+    'social_media_settings_updated' => 'Setările sociale au fost actualizate cu succes.',
     'successfully_updated' => 'Actualizat cu succes',
     'debugging_and_maintenance' => 'Depanare și întreținere',
-	'debugging_settings_updated_successfully' => 'Setările de depanare au fost actualizate cu succes.',
+    'debugging_settings_updated_successfully' => 'Setările de depanare au fost actualizate cu succes.',
     'enable_debug_mode' => 'Activați modul de depanare?',
     'force_https' => 'Forțează https?',
     'force_https_help' => 'Dacă este activată setarea, toate solicitările către site-ul dvs. vor fi redirecționate către https de la http. Trebuie să aveți un certificat SSL valabil activ pentru ca aceasta să funcționeze corect.',
@@ -130,7 +130,7 @@ $language = array(
     'minecraft_avatar_perspective' => 'Avatar Minecraft în perspectivă',
     'face' => 'Față',
     'head' => 'Cap',
-	'bust' => 'Bust',
+    'bust' => 'Bust',
     'select_default_avatar' => 'Selectați un nou avatar implicit:',
     'no_avatars_available' => 'Nu există avatare disponibile. Vă rugăm să încărcați mai întâi o imagine nouă.',
     'avatar_settings_updated_successfully' => 'Setările avatarelor s-au actualizat cu succes.',
@@ -162,22 +162,22 @@ $language = array(
     'html' => 'HTML iconiță',
     'new_reaction' => '<i class="fa fa-plus-circle"></i> Reacție nouă',
     'creating_reaction' => 'Adaugă reacție',
-	'no_reactions' => 'Nu există încă reacții.',
-	'reaction_created_successfully' => 'Reacția a fost creată cu succes.',
-	'reaction_edited_successfully' => 'Reacția a fost editată cu succes.',
-	'reaction_deleted_successfully' => 'Reacția a fost ștearsă cu succes.',
-	'name_required' => 'Este necesar un nume',
-	'html_required' => 'Câmpul HTML iconiță este necesar',
-	'type_required' => 'Este necesar un tip pentru reacție',
-	'name_maximum_16' => 'Numele nu trebuie să depășească 16 caractere',
-	'html_maximum_255' => 'Câmpul HTML iconiță nu trebuie să depășească 255 de caractere',
-	'confirm_delete_reaction' => 'Sigur doriți să ștergeți această reacție?',
+    'no_reactions' => 'Nu există încă reacții.',
+    'reaction_created_successfully' => 'Reacția a fost creată cu succes.',
+    'reaction_edited_successfully' => 'Reacția a fost editată cu succes.',
+    'reaction_deleted_successfully' => 'Reacția a fost ștearsă cu succes.',
+    'name_required' => 'Este necesar un nume',
+    'html_required' => 'Câmpul HTML iconiță este necesar',
+    'type_required' => 'Este necesar un tip pentru reacție',
+    'name_maximum_16' => 'Numele nu trebuie să depășească 16 caractere',
+    'html_maximum_255' => 'Câmpul HTML iconiță nu trebuie să depășească 255 de caractere',
+    'confirm_delete_reaction' => 'Sigur doriți să ștergeți această reacție?',
 
     // Custom profile fields
     'custom_fields' => 'Câmpuri personalizate pentru profil',
     'new_field' => '<i class="fa fa-plus-circle"></i> Adăugați un câmp nou',
     'required' => 'Necesar',
-	'editable' => 'Editabil',
+    'editable' => 'Editabil',
     'public' => 'Public',
     'text' => 'Text',
     'textarea' => 'Zona Text',
@@ -191,11 +191,11 @@ $language = array(
     'description' => 'Descriere',
     'display_field_on_forum' => 'Afișați câmpul pe forum?',
     'profile_field_forum_help' => 'Dacă este activată, câmpul va fi afișat în dreptul postărilor pe forum sub numele utilizatorului.',
-	'profile_field_editable_help' => 'Dacă este activată, utilizatorii vor avea permisiunea de a edita câmpul în setările profilului.',
-	'no_custom_fields' => 'Momentan nu a fost adăugat nici un câmp personalizat pentru profil.',
-	'profile_field_updated_successfully' => 'Câmpul de profil a fost actualizat cu succes.',
-	'profile_field_created_successfully' => 'Câmpul de profil a fost creat cu succes.',
-	'profile_field_deleted_successfully' => 'Câmpul de profil a fost șters cu succes.',
+    'profile_field_editable_help' => 'Dacă este activată, utilizatorii vor avea permisiunea de a edita câmpul în setările profilului.',
+    'no_custom_fields' => 'Momentan nu a fost adăugat nici un câmp personalizat pentru profil.',
+    'profile_field_updated_successfully' => 'Câmpul de profil a fost actualizat cu succes.',
+    'profile_field_created_successfully' => 'Câmpul de profil a fost creat cu succes.',
+    'profile_field_deleted_successfully' => 'Câmpul de profil a fost șters cu succes.',
 
     // Minecraft
     'enable_minecraft_integration' => 'Activați integrarea Minecraft?',
@@ -268,11 +268,11 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> Adăugare Banner',
     'purge_errors' => 'Golește erorile',
     'confirm_purge_errors' => 'Sigur doriți să eliminați toate erorile?',
-	'email_errors_purged_successfully' => 'Eroare de e-mail au fost eliminate cu succes.',
-	'error_deleted_successfully' => 'Eroarea a fost ștearsă cu succes.',
-	'no_email_errors' => 'Nu s-au înregistrat erori de e-mail.',
-	'email_settings_updated_successfully' => 'Setările pentru e-mail au fost actualizate cu succes.',
-	'content' => 'Conţinut',
+    'email_errors_purged_successfully' => 'Eroare de e-mail au fost eliminate cu succes.',
+    'error_deleted_successfully' => 'Eroarea a fost ștearsă cu succes.',
+    'no_email_errors' => 'Nu s-au înregistrat erori de e-mail.',
+    'email_settings_updated_successfully' => 'Setările pentru e-mail au fost actualizate cu succes.',
+    'content' => 'Conţinut',
     'mcassoc_help' => 'Mcassoc este un serviciu extern care poate fi folosit pentru a verifica dacă utilizatorii dețin contul Minecraft la care s-au înregistrat. Pentru a utiliza această funcție, va trebui să vă înscrieți pentru o cheie distribuită <a href="https://mcassoc.lukegb.com/" target="_blank">aici</a>.',
     'mcassoc_key' => 'Cheie partajată mcassoc',
     'mcassoc_instance' => 'Cheia instanței mcassoc',
@@ -405,7 +405,7 @@ $language = array(
     'current_version_x' => 'Versiune curentă: <strong>{x}</strong>', // Don't replaec {x}
     'new_version_x' => 'Versiune nouă: <strong>{x}</strong>', // Don't replace {x}
     'new_update_available' => 'Există o nouă actualizare disponibilă.',
-	'new_urgent_update_available' => 'Există o nouă actualizare urgentă disponibilă. Actualizați cât mai curând posibil!',
+    'new_urgent_update_available' => 'Există o nouă actualizare urgentă disponibilă. Actualizați cât mai curând posibil!',
     'up_to_date' => 'Instalarea dvs. NamelessMC este actualizată!',
     'urgent' => 'Această actualizare este o actualizare urgentă (importantă).',
     'changelog' => 'Istoric modificări',
@@ -427,7 +427,7 @@ $language = array(
 
     // Custom Pages
     'pages' => 'Pagini',
-	'custom_pages' => 'Pagini personalizate',
+    'custom_pages' => 'Pagini personalizate',
     'new_page' => '<i class="fa fa-plus-circle"></i> Pagină nouă',
     'no_custom_pages' => 'Nici o pagină nu a fost creată încă.',
     'creating_new_page' => 'Creare pagină',
@@ -468,19 +468,19 @@ $language = array(
     'enable_legacy_api' => 'Activați API-ul vechi?',
     'legacy_api_info' => 'API-ul vechi permite pluginurilor care utilizează API-ul versiunii vechi Nameless 1 să lucreze cu site-ul dvs. Nameless versiunea 2.',
     'confirm_api_regen' => 'Sigur doriți să vă regenerați cheia API?',
-	'api_key' => 'Cheia API',
-	'api_url' => 'Adresa URL API',
-	'copy' => 'Copiați',
-	'api_key_regenerated' => 'Cheia API a fost regenerată cu succes.',
+    'api_key' => 'Cheia API',
+    'api_url' => 'Adresa URL API',
+    'copy' => 'Copiați',
+    'api_key_regenerated' => 'Cheia API a fost regenerată cu succes.',
     'api_registration_email' => 'API pentru înregistrarea e-mail',
-	'show_registration_link' => 'Afișați linkul de înregistrare',
-	'registration_link' => 'Link-ul de înregistrare',
+    'show_registration_link' => 'Afișați linkul de înregistrare',
+    'registration_link' => 'Link-ul de înregistrare',
     'link_to_complete_registration' => 'Adresa pentru finalizarea înregistrări:', // Don't replace {x}
     'api_verification' => 'Activați verificarea API?',
     'api_verification_info' => 'Dacă este activat, conturile pot fi verificate numai prin API, de exemplu, utilizând pluginul oficial Nameless in joc.<strong> Această opțiune va înlocui verificarea prin e-mail și conturile vor fi activate automat! </strong> <br />Ar trebui să vă configurați grupul implicit pentru a avea permisiuni limitate și apoi să actualizați grupul de post-validare (în ACP -> Bază -> Înregistrare) cu permisiunile obișnuite.',
     'enable_username_sync' => 'Activați sincronizarea numelor de utilizator?',
     'enable_username_sync_info' => 'Dacă este activat, numele de utilizator de pe site va fi actualizat pentru a se potrivi cu numele de utilizator din joc.',
-	'api_settings_updated_successfully' => 'Setările API s-au actualizat cu succes.',
+    'api_settings_updated_successfully' => 'Setările API s-au actualizat cu succes.',
 
     // File uploads
     'drag_files_here' => 'Trageți fișierele aici pentru a le încărca.',
@@ -497,7 +497,7 @@ $language = array(
     'other_log' => 'Jurnale diverse',
     'fatal_log' => 'Jurnale erori fatale',
     'log_file_not_found' => 'Fișierul jurnalului nu a fost găsit.',
-	'log_purged_successfully' => 'Jurnalul a fost curățat cu succes.',
+    'log_purged_successfully' => 'Jurnalul a fost curățat cu succes.',
 
     // Hooks
     'discord_hooks' => 'Discord Hooks',
@@ -507,35 +507,35 @@ $language = array(
     'register_hook_info' => 'Înregistrare cont utilizator',
     'validate_hook_info' => 'Validare cont utilizator',
 
-	// Sitemap
-	'unable_to_load_sitemap_file_x' => 'Imposibil de încărcat fișierul hartă site {x}', // Don't replace {x}
-	'sitemap_generated' => 'Harta site-ului a fost generată cu succes',
-	'sitemap_not_writable' => 'Directorul <strong>cache/sitemaps</strong> nu poate fi scris.',
-	'cache_not_writable' => 'Directorul <strong>cache</strong> nu poate fi scris.',
-	'generate_sitemap' => 'Generați harta site-ului',
-	'download_sitemap' => 'Descărcați harta site-ului',
-	'sitemap_not_generated_yet' => 'O hartă a site-ului nu a fost încă generată!',
-	'sitemap_last_generated_x' => 'Harta ultimului site a fost generată {x}', // Don't replace {x}
+    // Sitemap
+    'unable_to_load_sitemap_file_x' => 'Imposibil de încărcat fișierul hartă site {x}', // Don't replace {x}
+    'sitemap_generated' => 'Harta site-ului a fost generată cu succes',
+    'sitemap_not_writable' => 'Directorul <strong>cache/sitemaps</strong> nu poate fi scris.',
+    'cache_not_writable' => 'Directorul <strong>cache</strong> nu poate fi scris.',
+    'generate_sitemap' => 'Generați harta site-ului',
+    'download_sitemap' => 'Descărcați harta site-ului',
+    'sitemap_not_generated_yet' => 'O hartă a site-ului nu a fost încă generată!',
+    'sitemap_last_generated_x' => 'Harta ultimului site a fost generată {x}', // Don't replace {x}
 
-	// Page metadata
-	'page_metadata' => 'Metadatele paginilor',
-	'metadata_page_x' => 'Vizualizarea metadatelor pentru pagina: {x}', // Don't replace {x}
-	'keywords' => 'Cuvinte cheie',
-	'description_max_500' => 'Descrierea trebuie să aibă cel mult 500 de caractere.',
+    // Page metadata
+    'page_metadata' => 'Metadatele paginilor',
+    'metadata_page_x' => 'Vizualizarea metadatelor pentru pagina: {x}', // Don't replace {x}
+    'keywords' => 'Cuvinte cheie',
+    'description_max_500' => 'Descrierea trebuie să aibă cel mult 500 de caractere.',
 
-	// Dashboard
-	'total_users' => 'Total utilizatori',
-	'total_users_statistic_icon' => '<i class="fa fa-users"></i>',
-	'recent_users' => 'Utilizatori noi',
-	'recent_users_statistic_icon' => '<i class="fa fa-users"></i>',
-	'average_players' => 'Media jucătorilor',
-	'nameless_news' => 'Știri NamelessMC',
-	'unable_to_retrieve_nameless_news' => 'Nu se pot obține cele mai recente știri',
-	'confirm_leave_site' => 'Sunteți pe cale să părăsiți acest site! Sunteți sigur că doriți să vizitați <strong id="leaveSiteURL">{x}</strong> ?', // don't replace {x} and make sure it has the id leaveSiteURL
-	'server_compatibility' => 'Compatibilitatea serverului',
-	'issues' => 'Probleme',
+    // Dashboard
+    'total_users' => 'Total utilizatori',
+    'total_users_statistic_icon' => '<i class="fa fa-users"></i>',
+    'recent_users' => 'Utilizatori noi',
+    'recent_users_statistic_icon' => '<i class="fa fa-users"></i>',
+    'average_players' => 'Media jucătorilor',
+    'nameless_news' => 'Știri NamelessMC',
+    'unable_to_retrieve_nameless_news' => 'Nu se pot obține cele mai recente știri',
+    'confirm_leave_site' => 'Sunteți pe cale să părăsiți acest site! Sunteți sigur că doriți să vizitați <strong id="leaveSiteURL">{x}</strong> ?', // don't replace {x} and make sure it has the id leaveSiteURL
+    'server_compatibility' => 'Compatibilitatea serverului',
+    'issues' => 'Probleme',
 
-	// Other
-	'source' => 'Sursă',
-	'support' => 'Asistenţă'
+    // Other
+    'source' => 'Sursă',
+    'support' => 'Asistenţă'
 );
