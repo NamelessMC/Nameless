@@ -83,7 +83,7 @@ $language = array(
 	'light' => 'ライト',
 	'google_plus_url' => 'Google+ URL',
 	'facebook_url' => 'Facebook URL',
-	'social_media_settings_updated' => 'Social media settings updated successfully.',
+	'social_media_settings_updated' => 'ソーシャルメディア設定が正常に更新されました。',
 	'successfully_updated' => '正常に更新されました。',
     'debugging_and_maintenance' => 'デバッグ・メンテナンス',
     'enable_debug_mode' => 'デバッグモードを有効にしますか？',
@@ -172,7 +172,7 @@ $language = array(
 	'confirm_delete_reaction' => '選択中のリアクションを削除してもよろしいですか？',
 
 	// Custom profile fields
-	'custom_fields' => 'カスタムプロフィールフィールド',
+	'custom_fields' => 'カスタムプロフィール',
 	'new_field' => '<i class="fa fa-plus-circle"></i> 新しいフィールド',
 	'required' => '必須',
 	'editable' => '編集許可',
