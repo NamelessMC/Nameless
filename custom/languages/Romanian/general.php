@@ -60,9 +60,9 @@ $language = array(
     'content' => 'Conţinut',
     'full_content' => 'Conținut complet',
     'url' => 'URL',
-	'success' => 'Succes',
-	'error' => 'Eroare',
-	'are_you_sure' => 'Esti sigur?',
+    'success' => 'Succes',
+    'error' => 'Eroare',
+    'are_you_sure' => 'Esti sigur?',
 
     /*
      *  Contact form
