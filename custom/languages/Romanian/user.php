@@ -36,7 +36,7 @@ $language = array(
     'administration' => 'Administrare',
     'alerts' => 'Notificări',
     'delete_all' => 'Şterge tot',
-	'private_profile' => 'Profil privat',
+    'private_profile' => 'Profil privat',
     
     // Profile settings
     'field_is_required' => 'Câmpul "{x}" este necesar.', // Don't replace {x}
@@ -48,7 +48,7 @@ $language = array(
     'confirm_new_password' => 'Confirma noua parolă',
     'incorrect_password' => 'Parola dvs. este incorectă.',
     'two_factor_auth' => 'Autentificare în doi pași',
-	'enabled' => 'Activat',
+    'enabled' => 'Activat',
     'disabled' => 'Dezactivat',
     'enable' => 'Activează',
     'disable' => 'Dezactivează',
@@ -175,11 +175,11 @@ $language = array(
     'confirm_unblock_user' => 'Sigur doriți să deblocați acest utilizator? Va putea din nou să vă trimită mesaje private și să vă eticheteze în postări.',
     'user_blocked' => 'Utilizatorul a fost blocat.',
     'user_unblocked' => 'Utilizatorul a fost deblocat.',
-	'views' => 'Vizualizări profil:',
-	'private_profile_page' => 'Acest profil este privat!',
-	'new_wall_post_reply' => '{x} a răspuns la postarea ta pe profilul lui {y}.', // Don't replace {x} or {y}
-	'new_wall_post_reply_your_profile' => '{x} a răspuns la postarea de pe profilul tău.', // Don't replace {x}
-	'no_about_fields' => 'Acest utilizator nu si-a completat inca nici un camp aici.',
+    'views' => 'Vizualizări profil:',
+    'private_profile_page' => 'Acest profil este privat!',
+    'new_wall_post_reply' => '{x} a răspuns la postarea ta pe profilul lui {y}.', // Don't replace {x} or {y}
+    'new_wall_post_reply_your_profile' => '{x} a răspuns la postarea de pe profilul tău.', // Don't replace {x}
+    'no_about_fields' => 'Acest utilizator nu si-a completat inca nici un camp aici.',
     
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',
