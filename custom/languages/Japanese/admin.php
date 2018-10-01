@@ -172,7 +172,7 @@ $language = array(
 	'confirm_delete_reaction' => '選択中のリアクションを削除してもよろしいですか？',
 
 	// Custom profile fields
-	'custom_fields' => 'カスタムプロフィールフィールド',
+	'custom_fields' => 'カスタムプロフィール',
 	'new_field' => '<i class="fa fa-plus-circle"></i> 新しいフィールド',
 	'required' => '必須',
 	'editable' => '編集許可',
