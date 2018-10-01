@@ -105,10 +105,10 @@ class Forum_Module extends Module {
 
 		// Front end or back end?
 		if(defined('FRONT_END')){
+			$queries = new Queries();
+			
 			// Global variables if user is logged in
 			if($user->isLoggedIn()){
-				$queries = new Queries();
-
 				// Basic user variables
 				$topic_count = $queries->getWhere('topics', array('topic_creator', '=', $user->data()->id));
 				$topic_count = count($topic_count);
