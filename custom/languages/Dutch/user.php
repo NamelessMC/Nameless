@@ -15,7 +15,7 @@ $language = array(
 	/*
 	 *  Change this for the account validation message
 	 */
-	'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+	'validate_account_command' => 'Om de registratie te voltooien, run alstublieft het commando <strong>/validate {x}</strong> ingame.', // Don't replace {x}
 
 	/*
 	 *  Gebruiker gerelateerd
@@ -124,7 +124,7 @@ $language = array(
 	'verification_failed' => 'Validatie gefaald, probeer het opnieuw.',
 	'verification_success' => 'Succesvol gevalideerd! Je kunt nu inloggen.',
 	'authme_username_exists' => 'Je Authme account is al verbonden met de website!',
-	'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
+	'uuid_already_exists' => 'Je UUID bestaat al, wat betekent dat dit Minecraft account al geregistreerd is.',
 	
 	// Inloggen
 	'successful_login' => 'Je bent nu ingelogd.',
@@ -133,7 +133,7 @@ $language = array(
 	'account_banned' => 'Dit account is verbannen.',
 	'forgot_password' => 'Wachtwoord vergeten?',
 	'remember_me' => 'Onthoud mij',
-	'must_input_email' => 'You must input an email address.',
+	'must_input_email' => 'Je moet een emailadres invoeren.',
 	'must_input_username' => 'Je moet een gebruikersnaam invoeren.',
 	'must_input_password' => 'Je moet een wachtwoord invoeren.',
 
@@ -177,9 +177,9 @@ $language = array(
 	'user_unblocked' => 'Gebruiker gedeblokkeerd.',
 	'views' => 'Profiel weergaven:',
 	'private_profile_page' => 'Dit profiel is privé!',
-	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
-	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
-	'no_about_fields' => 'This user has not added any about fields yet.',
+	'new_wall_post_reply' => '{x} heeft gereageerd op jouw post op {y}\'s profiel.', // Don't replace {x} or {y}
+	'new_wall_post_reply_your_profile' => '{x} heeft gereageerd op jouw post op jouw eigen profiel.', // Don't replace {x}
+	'no_about_fields' => 'Deze gebruiker heeft nog geen over-velden toegevoegd.',
 	
 	// Rapporten
 	'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
@@ -190,7 +190,7 @@ $language = array(
 	'no_messages' => 'Geen nieuwe berichten',
 	'no_messages_full' => 'Je hebt geen berichten.',
 	'view_messages' => 'Bekijk berichten',
-	'1_new_message' => 'You have 1 new message',
+	'1_new_message' => 'Je hebt 1 nieuw bericht',
 	'x_new_messages' => 'Je hebt {x} nieuwe berichten', // Verander {x} niet
 	'new_message' => 'Nieuw bericht',
 	'message_title' => 'Titel van bericht',
@@ -232,5 +232,5 @@ $language = array(
 	/*
 	 *  Hooks
 	 */
-	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
+	'user_x_has_registered' => '{x} is lid geworden van ' . SITE_NAME . '!'
 );
