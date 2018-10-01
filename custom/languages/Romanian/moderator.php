@@ -13,7 +13,7 @@
 
 $language = array(
     'mod_cp' => 'Panou Moderator',
-	'staff_cp' => 'Panoul de control',
+    'staff_cp' => 'Panoul de control',
     'overview' => 'Prezentare generală',
     
     // Spam
@@ -31,8 +31,8 @@ $language = array(
     'count_accounts_with_ip' => 'Am găsit {x} conturi de utilizatori pentru adresa IP {y}', // Don't replace "{x}" or "{y}"
     'count_ips_with_name' => 'Am găsit {x} adrese IP pentru utilizatorul {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Nu a fost găsit nici un cont de utilizator sau adresă IP.',
-	'1_account_with_ip' => 'Am găsit un cont de utilizatori pentru adresa IP {y}', // Don't replace "{y}"
-	'1_ip_with_name' => 'Am găsit o adresă IP pentru utilizatorul {y}', // Don't replace "{y}"
+    '1_account_with_ip' => 'Am găsit un cont de utilizatori pentru adresa IP {y}', // Don't replace "{y}"
+    '1_ip_with_name' => 'Am găsit o adresă IP pentru utilizatorul {y}', // Don't replace "{y}"
     
     // Reports
     'reports' => 'Rapoarte',
@@ -54,10 +54,10 @@ $language = array(
     'open_reports' => 'În momentul de față există <strong>{x}</strong> rapoarte deschise.', // Don't replace {x}
     'no_open_reports' => 'În momentul de față nu există rapoarte deschise.',
     'no_closed_reports' => 'În momentul de față nu există rapoarte închise.',
-	'recent_reports' => 'Rapoarte recente',
-	'reported_by' => 'Raportat de:',
-	'website' => 'Website',
-	'ingame' => 'InGame',
+    'recent_reports' => 'Rapoarte recente',
+    'reported_by' => 'Raportat de:',
+    'website' => 'Website',
+    'ingame' => 'InGame',
     
     // Punishments
     'punishments' => 'Sancțiuni',
@@ -97,7 +97,7 @@ $language = array(
     'created' => 'Creat:',
     'staff:' => 'Moderator:',
     'reason:' => 'Motiv:',
-	
+    
     // Users
     'recent_registrations' => 'Înregistrări recente'
 
