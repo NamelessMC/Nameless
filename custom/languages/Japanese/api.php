@@ -51,5 +51,5 @@ $language = array(
     'new_private_message_from' => '{x} から新しいプライベートメッセージが届いています。', // Don't replace {x}
     'username_updated' => 'ユーザー名が正常に更新されました。',
     'server_info_updated' => 'サーバー情報が正常に更新されました。',
-    'account_validated' => 'Account validated successfully'
+    'account_validated' => 'アカウントの検証が完了しました。'
 );
