@@ -74,7 +74,6 @@ if(!isset($_GET['s'])){
 
     $cache->setCache($search . '-' . $user_group . '-' . $secondary_groups);
     if(!$cache->isCached('result')){
-        Log::getInstance()->log(Log::Action('forums/search'), $search);
         // Execute search
         $search_topics = $queries->getLike('topics', 'topic_title', '%' . $search . '%');
         $search_posts = $queries->getLike('posts', 'post_content', '%' . $search . '%');
