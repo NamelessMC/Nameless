@@ -58,16 +58,16 @@ $language = array(
 	'reopen_report' => 'Report erneut öffnen',
 	'1_open_report' => 'There is currently <strong>1</strong> open report.',
 	'open_reports' => 'Es sind aktuell <strong>{x}</strong> Reports geöffnet.', // Don't replace {x}
-	'no_open_reports' => 'There are currently no open reports.',
-	'no_closed_reports' => 'There are currently no closed reports.',
-	'recent_reports' => 'Recent Reports',
-	'reported_by' => 'Reported by:',
+	'no_open_reports' => 'Es sind keine Reports verfügbar.',
+	'no_closed_reports' => 'Es sind keine Geschlossenen Reports verfügbar.',
+	'recent_reports' => 'Aktuelle Reports',
+	'reported_by' => 'Reportet von:',
 	'website' => 'Website',
 	'ingame' => 'Ingame',
 	
 	// Punishments
 	'punishments' => 'Strafen',
-	'view_punishments' => 'View Punishments',
+	'view_punishments' => 'Bans anzeigen',
 	'banned' => 'Gebannt',
 	'groups' => 'Gruppen',
 	'punish' => 'Bestrafungen',
@@ -93,18 +93,18 @@ $language = array(
 	'punishment_revoked' => 'Bestrafung widerrufen.',
 	'punishment_revoked_alert' => '{x} hat eine Bestrafung für den Benutzer {y} zurückgezogen', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
 	'cant_punish_admin' => 'Sie können einen Administrator nicht bestrafen!',
-    'viewing_all_punishments' => 'Viewing all punishments',
-    'no_punishments_found' => 'No punishments found.',
-    'view_user' => 'View User',
-    'when' => 'When',
-    'staff' => 'Staff',
+    'viewing_all_punishments' => 'Alle Bans anzeigen',
+    'no_punishments_found' => 'Keine Bans gefunden',
+    'view_user' => 'User anschauen',
+    'when' => 'Wann',
+    'staff' => 'Teammitglied',
     'type' => 'Type',
-    'recent_punishments' => 'Recent Punishments',
-    'created' => 'Created:',
-    'staff:' => 'Staff:',
-    'reason:' => 'Reason:',
+    'recent_punishments' => 'Aktuelle Bans',
+    'created' => 'Erstellt:',
+    'staff:' => 'Teammitglied:',
+    'reason:' => 'Grund:',
 	
     // Users
-    'recent_registrations' => 'Recent Registrations'
+    'recent_registrations' => 'Aktuelle Registrierungen'
 
 );

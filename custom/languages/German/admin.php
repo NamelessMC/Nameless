@@ -59,7 +59,7 @@ $language = array(
 	'default_language_help' => 'Benutzer können aus einer Liste ihre eigene Sprache auswählen.',
 	'install_language' => 'Install Language',
 	'update_user_languages' => 'Update User Languages',
-	'update_user_languages_warning' => 'This will update the language for all users on your site, even if they have already selected one!',
+	'update_user_languages_warning' => 'Diese Einstellung wird für alle User verwendet.',
 	'updated_user_languages' => 'User languages have been updated.',
 	'installed_languages' => 'Es wurden alle neuen Sprachen erfolgreich installiert.',
 	'default_timezone' => 'Standart Zeitzone',
@@ -72,11 +72,11 @@ $language = array(
 	'portal' => 'Portal',
 	'private_profiles' => 'Private Profiles',
 	'missing_sitename' => 'Der Seiten-Name muss zwischen 2 und 64 Zeichen lang sein.',
-	'missing_contact_address' => 'Please insert a contact email address between 3 and 255 characters long.',
+	'missing_contact_address' => 'Bitte gebe eine Kontakt Email mit  3 bis 255 Zeichen an.',
 	'use_friendly_urls' => 'Benutzerfreundliche URLs nutzen?',
 	'use_friendly_urls_help' => 'Wichtig: Du musst das Apache2 Rewrite_Module aktiviert haben!',
 	'config_not_writable' => 'Deine <strong>core/config.php</strong> Config ist nicht beschreibbar. Bitte überprüfe die Berechtigungen.',
-	'settings_updated_successfully' => 'General settings updated successfully.',
+	'settings_updated_successfully' => 'Allgemeine Einstellungen wurden gespeichert.',
 	'social_media' => 'Soziale Medien',
 	'youtube_url' => 'Youtube URL',
 	'twitter_url' => 'Twitter URL',
@@ -89,7 +89,7 @@ $language = array(
 	'facebook_url' => 'Facebook URL',
 	'successfully_updated' => 'Erfolgreich geupdatet.',
     'debugging_and_maintenance' => 'Fehlerbenachrichtigung',
-	'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
+	'debugging_settings_updated_successfully' => 'Debugging Einstellungen wurden gespeichert.',
     'enable_debug_mode' => 'Aktiviere den Fehlerbenachrichtungs Modus?',
     'force_https' => 'Erzwinge https? (Gesicherte Webseitenverbindung)',
     'force_https_help' => 'Falls https aktiviert wird, werden alle Anfragen auf das https Protokoll umgeleitet. Bitte überprüfe ob dein SSL Zertifikat gültig und richtig eingerichtet worden ist.',
@@ -119,7 +119,7 @@ $language = array(
     'test_email_error' => 'Test Email Fehler:',
     'test_email_success' => 'Test Email erfolgreich versendet!',
     'terms_error' => 'Bitte stellen Sie sicher, dass Ihre Geschäftsbedingungen nicht länger als 100000 Zeichen sind.',
-    'privacy_policy_error' => 'Please enter a privacy policy no longer than 100000 characters.',
+    'privacy_policy_error' => 'Bitte stellen Sie sicher, dass Ihr Datenschutz nicht länger als 100000 Zeichen sind.',
     'terms_updated' => 'Bedingungen erfolgreich aktualisiert.',
     'avatars' => 'Avatare',
     'allow_custom_avatars' => 'Erlaube eigene Benutzer Avatare?',
@@ -140,18 +140,18 @@ $language = array(
     'navbar_order_instructions' => 'Sie können jedem Artikel eine Zahl über 0 geben, um Artikel in der Navigationsleiste zu ordnen, wobei 1 der erste Artikel ist und höhere Zahlen danach.',
     'navbar_icon' => 'Navbar Icon',
     'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
-    'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
+    'navigation_settings_updated_successfully' => 'Navigations Einstellungen wurden gespeichert',
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Aktivieren Sie den Seitenlade-Timer?',
     'google_recaptcha' => 'Google ReCAPTCHA aktivieren?',
     'recaptcha_site_key' => 'reCAPTCHA-Standortschlüssel',
     'recaptcha_secret_key' => 'reCAPTCHA Geheimschlüssel',
-    'registration_disabled_message' => 'Registration disabled message',
-    'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
-    'validation_promote_group' => 'Post-validation group',
-    'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
-    'login_method' => 'Login Method',
-    'privacy_and_terms' => 'Privacy & Terms',
+    'registration_disabled_message' => 'Registration Deaktiviert Nachricht',
+    'enable_nicknames_on_registration' => 'Aktiviertung von Nicknames für die Registrierten User?',
+    'validation_promote_group' => 'Verifiezierten Gruppe',
+    'validation_promote_group_info' => 'Diese Gruppe erhält der Spieler wenn er sich Verifieziert hat.',
+    'login_method' => 'Login Methode',
+    'privacy_and_terms' => 'Datenschutz & Geschäftsbedingungen',
 
 	// Reactions
 	'icon' => 'Icon',
@@ -184,9 +184,9 @@ $language = array(
 	'profile_field_forum_help' => 'Wenn dies aktiviert ist wird das Feld unter dem Namen angezeigt.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 	'no_custom_fields' => 'There are no custom fields yet.',
-	'profile_field_updated_successfully' => 'The profile field was updated successfully.',
-	'profile_field_created_successfully' => 'The profile field was created successfully.',
-	'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
+	'profile_field_updated_successfully' => 'Das Profil Feld wurde gespeichert.',
+	'profile_field_created_successfully' => 'Das Profil Feld wurde erstellt.',
+	'profile_field_deleted_successfully' => 'Das Profil Feld wurde gelöscht.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Minecraft Integration aktivieren.',
@@ -258,10 +258,10 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> Neuer Banner',
     'purge_errors' => 'Lösche Fehler',
     'confirm_purge_errors' => 'Bist du sicher, dass du alle Fehler löschen willst?',
-	'email_errors_purged_successfully' => 'Email errors have been purged successfully.',
-	'error_deleted_successfully' => 'The error has been deleted successfully.',
-	'no_email_errors' => 'No email errors logged.',
-	'email_settings_updated_successfully' => 'Email settings have been updated successfully.',
+	'email_errors_purged_successfully' => 'E-Mail-Fehler wurden erfolgreich gelöscht.',
+	'error_deleted_successfully' => 'Der Fehler wurde erfolgreich gelöscht.',
+	'no_email_errors' => 'Keine E-Mail-Fehler protokolliert.',
+	'email_settings_updated_successfully' => 'Die E-Mail-Einstellungen wurden erfolgreich aktualisiert.',
 	'content' => 'Content',
     'mcassoc_help' => 'Mcassoc ist ein externer Dienst, der verwendet werden kann, um zu verifizieren, dass Benutzer das Minecraft-Konto besitzen, mit dem sie sich registriert haben. Um diese Funktion nutzen zu können, musst du dich für einen freigegebenen Schlüssel <a href="https://mcassoc.lukegb.com/" target="_blank">hier</a> anmelden.',
     'mcassoc_key' => 'Mcassoc Gemeinsamer Schlüssel',
@@ -274,7 +274,7 @@ $language = array(
     'query_interval' => 'Abfrageintervall (in Minuten muss zwischen 5 und 60 liegen)',
     'player_graphs' => 'Spielertafeln',
     'player_count_cronjob_info' => 'Sie können einen Cron-Job einrichten, um Ihre Server alle {x} Minuten mit dem folgenden Befehl abzufragen:',
-    'status_page' => 'Enable status page?',
+    'status_page' => 'Statis Seite aktivieren?',
 
 	// Modules
 	'modules_installed_successfully' => 'Alle neuen Module wurden erfolgreich installiert.',
@@ -356,7 +356,7 @@ $language = array(
 	'secondary_groups' => 'Sekundärgruppen',
 	'secondary_groups_info' => 'Der Benutzer erhält zusätzliche Berechtigungen aus diesen Gruppen',
 	'unable_to_update_uuid' => 'Unmöglich die UUID zu aktualisieren.',
-	'default_group' => 'Is the group the default group (for new users)?',
+	'default_group' => 'Ist diese Gruppe die Standard Gruppe (Für neue User)??',
 	'user_id' => 'User ID',
 	'uuid' => 'UUID',
 
@@ -399,7 +399,7 @@ $language = array(
 	'current_version_x' => 'Aktuelle Version: <strong>{x}</strong>', // Don't replaec {x}
 	'new_version_x' => 'Neue version: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => 'Es ist ein Update verfügbar!',
-	'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
+	'new_urgent_update_available' => 'Es ist ein neues dringendes Update verfügbar. Bitte update so schnell wie möglich!',
 	'up_to_date' => 'Deine NamelessMC Version ist aktuell!',
 	'urgent' => 'Dieses Update ist ein wichtiges Update!',
 	'changelog' => 'Changelog',
@@ -417,7 +417,7 @@ $language = array(
 	'widget_order' => 'Widget Order',
 
     // Online users widget
-    'include_staff_in_user_widget' => 'Include staff members in user widget?',
+    'include_staff_in_user_widget' => 'Teammitglieder in User-Widget aufnehmen?',
 
     // Custom Pages
     'pages' => 'Seiten',
@@ -465,67 +465,67 @@ $language = array(
 	'api_key' => 'API Key',
 	'api_url' => 'API URL',
 	'copy' => 'Copy',
-	'api_key_regenerated' => 'The API key has been regenerated successfully.',
+	'api_key_regenerated' => 'API-Key wurde erfolgreich neugeneriert',
     'api_registration_email' => 'API Registrierung E-Mail',
     'link_to_complete_registration' => 'Link zur vollständigen Registrierung: {x}', // Don't replace {x}
-    'api_verification' => 'Enable API verification?',
-    'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
-    'enable_username_sync' => 'Enable username sync?',
-    'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
-	'api_settings_updated_successfully' => 'API settings updated successfully.',
+    'api_verification' => 'API Verifizierung aktivieren?',
+    'api_verification_info' => 'Wenn diese Option aktiviert ist, können Konten nur über die API überprüft werden, z. B. im Spiel mit dem offiziellen Nameless-Plugin. <strong> Diese Option überschreibt die E-Mail-Überprüfung, und die Konten werden automatisch aktiviert! </strong> <br /> Sie sollten Ihre Standardgruppe mit eingeschränkten Berechtigungen einrichten und anschließend die Post-Validierungsgruppe im AdminCP -> aktualisieren Core -> Registerkarte Registrierung für die vollständige Mitgliedergruppe mit normalen Berechtigungen.',
+    'enable_username_sync' => 'Username Synchronisation aktivieren??',
+    'enable_username_sync_info' => 'Wenn diese Option aktiviert ist, werden die Nutzernamen der Website aktualisiert, damit sie mit den Benutzernamen im Spiel übereinstimmen.',
+	'api_settings_updated_successfully' => 'API Einstellungen wurden gespeichert.',
 
 	// File uploads
 	'drag_files_here' => 'Ziehe ein Bild hierhin.',
 	'invalid_file_type' => 'Ungültiges Dateiformat!',
 	'file_too_big' => 'Datei zu groß! Die Datei hat eine größe von {{filesize}}, das Limit ist {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
-	'allowed_proxies' => 'Allowed Proxies',
-	'allowed_proxies_info' => 'Line separated list of allowed proxy IPs.',
+	'allowed_proxies' => 'Proxies Erlaubt',
+	'allowed_proxies_info' => 'Zeilenweise Liste der erlaubten Proxy-IPs.',
 
 	// Error logs
-	'error_logs' => 'Error Logs',
+	'error_logs' => 'Fehöer Logs',
 	'notice_log' => 'Notice log',
 	'warning_log' => 'Warning log',
 	'custom_log' => 'Custom log',
 	'other_log' => 'Other log',
 	'fatal_log' => 'Fatal log',
-	'log_file_not_found' => 'Log file not found.',
-	'log_purged_successfully' => 'The log has been purged successfully.',
+	'log_file_not_found' => 'Log file wurde nicht gefunden.',
+	'log_purged_successfully' => 'Das Protokoll wurde erfolgreich gelöscht.',
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
-	'discord_hooks_info' => 'Send a message to a Discord channel when something happens on your site. Create a Discord hook in your Discord Server Settings -> Webhooks tab.',
+	'discord_hooks_info' => 'Sende eine Nachricht an einen Discord-Kanal, wenn auf deiner Website etwas passiert. Erstelle einen Discord-Hook in deinem Discord Server Settings -> Webhooks Tab.',
 	'discord_hook_url' => 'Discord webhook URL',
-	'discord_hook_events' => 'Enabled Discord hook events (Ctrl+click to select multiple events)',
-	'register_hook_info' => 'User registration',
-	'validate_hook_info' => 'User validation',
+	'discord_hook_events' => 'Aktiviert Discord Hook-Ereignisse (Strg + Klick zum Auswählen mehrerer Ereignisse)',
+	'register_hook_info' => 'User Registration',
+	'validate_hook_info' => 'User Verifizierung',
 
 	// Sitemap
-	'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
-	'sitemap_generated' => 'Sitemap generated successfully',
-	'sitemap_not_writable' => 'The <strong>cache/sitemaps</strong> directory is not writable.',
-	'cache_not_writable' => 'The <strong>cache</strong> directory is not writable.',
-	'generate_sitemap' => 'Generate Sitemap',
+	'unable_to_load_sitemap_file_x' => 'Die Sitemap-Datei {x} konnte nicht geladen werden', // Don't replace {x}
+	'sitemap_generated' => 'Sitemap wurde erstellt',
+	'sitemap_not_writable' => 'Der Ordner <strong>cache/sitemaps</strong> braucht die Berichtigung 777 (chmod cache/sitemaps 777)',
+	'cache_not_writable' => 'Der Ordner <strong>cache</strong> braucht die Berichtigung 777 (chmod cache 777).',
+	'generate_sitemap' => 'Erstelle Sitemap',
 	'download_sitemap' => 'Download Sitemap',
-	'sitemap_not_generated_yet' => 'A sitemap has not been generated yet!',
-	'sitemap_last_generated_x' => 'The sitemap was last generated {x}', // Don't replace {x}
+	'sitemap_not_generated_yet' => 'Eine Sitemap wurde noch nicht erstellt',
+	'sitemap_last_generated_x' => 'Letzte Sitemap wurde erstellt {x}', // Don't replace {x}
 
 	// Page metadata
-	'page_metadata' => 'Page Metadata',
+	'page_metadata' => 'Seiten Metadaten',
 	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
-	'keywords' => 'Keywords',
+	'keywords' => 'Keywörter',
 	'description_max_500' => 'The description must be at most 500 characters.',
 
 	// Dashboard
-	'total_users' => 'Total Users',
+	'total_users' => 'Gesamtbenutzer',
 	'total_users_statistic_icon' => '<i class="fa fa-users"></i>',
 	'recent_users' => 'New Users',
 	'recent_users_statistic_icon' => '<i class="fa fa-users"></i>',
 	'average_players' => 'Average Players',
-	'nameless_news' => 'NamelessMC News',
-	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
+	'nameless_news' => 'NamelessMC Neuigkeiten',
+	'unable_to_retrieve_nameless_news' => 'Die neuesten Nachrichten konnten nicht abgerufen werden',
 	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
-	'server_compatibility' => 'Server Compatibility',
-	'issues' => 'Issues',
+	'server_compatibility' => 'Serverkompatibilität',
+	'issues' => 'Probleme',
 
 	// Other
 	'source' => 'Source',
