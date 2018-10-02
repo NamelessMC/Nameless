@@ -364,12 +364,12 @@ $language = array(
 	'default_group' => 'Is de standaardgroep (voor nieuwe gebruikers)?',
 	'user_id' => 'User ID',
 	'uuid' => 'UUID',
-	'group_order' => 'Group Order',
-	'group_created_successfully' => 'Group created successfully.',
-	'group_updated_successfully' => 'Group updated successfully.',
-	'group_deleted_successfully' => 'Group deleted successfully.',
-	'unable_to_delete_group' => 'Unable to delete a default group, or a group that can view the StaffCP. Please update the group settings first!',
-	'can_view_staffcp' => 'Can the group view the StaffCP?',
+	'group_order' => 'Groep Volgorde',
+	'group_created_successfully' => 'Groep succesvol aangemaakt.',
+	'group_updated_successfully' => 'Groep succesvol aangepast.',
+	'group_deleted_successfully' => 'Groep succesvol verwijderd.',
+	'unable_to_delete_group' => 'Kan een standaardgroep of een groep die de StaffCP kan bekijken, niet verwijderen. Wijzig eerst de instellingen van de groep!',
+	'can_view_staffcp' => 'Kan de groep de StaffCP bekijken?',
 
 	// Permissies
 	'select_all' => 'Selecteer Allemaal',
@@ -401,9 +401,9 @@ $language = array(
 	'ip_address' => 'IP Adres',
 	'template_changes' => 'Sjabloon veranderingen',
 	'file_changed' => 'Veranderde bestanden',
-	'all_logs' => 'All Logs',
-	'action' => 'Action',
-	'action_info' => 'Action Info',
+	'all_logs' => 'Alle Logboeken',
+	'action' => 'Actie',
+	'action_info' => 'Actie Info',
 
 	// Updates
 	'update' => 'Bijwerken',
