@@ -21,7 +21,7 @@ $language = array(
 	/*
 	 *  Change this for the account validation message
 	 */
-	'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+	'validate_account_command' => 'Um die Registrierung abzuschließen, führen Sie bitte den Befehl <strong>/validate {x}</strong> ingame aus.', // Don't replace {x}
 
 	/*
 	 *  User Related
