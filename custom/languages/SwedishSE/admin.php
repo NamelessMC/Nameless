@@ -290,6 +290,7 @@ $language = array(
 	'module_enabled' => 'Modul aktiverat.',
 	'module_disabled' => 'Modul inaktiverat.',
 	'author' => 'Skapare:',
+	'author_x' => 'Skapare: {x}', // Don't replace {x}
 
 	// Styles
 	'templates' => 'Mallar',
@@ -314,7 +315,18 @@ $language = array(
 	'confirm_delete_template' => 'Är du säker på att du vill radera den här mallen?',
 	'delete' => 'Radera',
 	'template_deleted_successfully' => 'Mallen har tagits bort!',
-    'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+	'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+	'find_templates' => 'Find Templates',
+	'view_all_templates' => 'View all templates',
+	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
+	'template' => 'Template',
+	'stats' => 'Stats',
+	'downloads_x' => 'Downloads: {x}',
+	'views_x' => 'Views: {x}',
+	'rating_x' => 'Rating: {x}',
+	'editing_template_x' => 'Editing template {x}', // Don't replace {x}
+	'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
+	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
 
 	// Users & groups
 	'users' => 'Användrare',

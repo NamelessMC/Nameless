@@ -290,6 +290,7 @@ $language = array(
 	'module_enabled' => 'Módulo ativado.',
 	'module_disabled' => 'Módulo desativado.',
 	'author' => 'Autor:',
+	'author_x' => 'Autor: {x}', // Don't replace {x}
 
 	// Styles
 	'templates' => 'Templates',
@@ -314,7 +315,18 @@ $language = array(
 	'confirm_delete_template' => 'Tem certeza que você quer remover esse template?',
 	'delete' => 'Remover',
 	'template_deleted_successfully' => 'Template removido com sucesso.',
-    'background_image_x' => 'Imagem de fundo: <strong>{x}</strong>', // Don't replace {x}
+	'background_image_x' => 'Imagem de fundo: <strong>{x}</strong>', // Don't replace {x}
+	'find_templates' => 'Find Templates',
+	'view_all_templates' => 'View all templates',
+	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
+	'template' => 'Template',
+	'stats' => 'Stats',
+	'downloads_x' => 'Downloads: {x}',
+	'views_x' => 'Views: {x}',
+	'rating_x' => 'Rating: {x}',
+	'editing_template_x' => 'Editing template {x}', // Don't replace {x}
+	'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
+	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
 
 	// Users & groups
 	'users' => 'Usuários',

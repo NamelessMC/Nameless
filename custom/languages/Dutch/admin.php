@@ -290,6 +290,7 @@ $language = array(
 	'module_enabled' => 'Module ingeschakeld.',
 	'module_disabled' => 'Module uitgeschakeld.',
 	'author' => 'Auteur:',
+	'author_x' => 'Auteur: {x}', // Don't replace {x}
 
 	// Stijlen
 	'templates' => 'Sjablonen',
@@ -314,7 +315,18 @@ $language = array(
 	'confirm_delete_template' => 'Weet je zeker dat je dit sjabloon wilt verwijderen?',
 	'delete' => 'Verwijder',
 	'template_deleted_successfully' => 'Sjabloon succesvol verwijderd.',
-    'background_image_x' => 'Achtergrondafbeelding: <strong>{x}</strong>', // Don't replace {x}
+	'background_image_x' => 'Achtergrondafbeelding: <strong>{x}</strong>', // Don't replace {x}
+	'find_templates' => 'Find Templates',
+	'view_all_templates' => 'View all templates',
+	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
+	'template' => 'Template',
+	'stats' => 'Stats',
+	'downloads_x' => 'Downloads: {x}',
+	'views_x' => 'Views: {x}',
+	'rating_x' => 'Rating: {x}',
+	'editing_template_x' => 'Editing template {x}', // Don't replace {x}
+	'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
+	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
 
 	// Gebruikers & groepen
 	'users' => 'Gebruikers',

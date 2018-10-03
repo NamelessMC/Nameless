@@ -292,6 +292,7 @@ $language = array(
 	'module_enabled' => 'モジュールを有効にしました。',
 	'module_disabled' => 'モジュールを無効にしました。',
 	'author' => '作成者:',
+	'author_x' => '作成者: {x}', // Don't replace {x}
 
 	// Styles
 	'templates' => 'テンプレート',
@@ -316,7 +317,18 @@ $language = array(
 	'confirm_delete_template' => 'このテンプレートを削除してもよろしいですか？',
 	'delete' => '削除',
 	'template_deleted_successfully' => 'テンプレートが正常に削除されました。',
-    'background_image_x' => '背景画像: <strong>{x}</strong>', // Don't replace {x}
+	'background_image_x' => '背景画像: <strong>{x}</strong>', // Don't replace {x}
+	'find_templates' => 'Find Templates',
+	'view_all_templates' => 'View all templates',
+	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
+	'template' => 'Template',
+	'stats' => 'Stats',
+	'downloads_x' => 'Downloads: {x}',
+	'views_x' => 'Views: {x}',
+	'rating_x' => 'Rating: {x}',
+	'editing_template_x' => 'Editing template {x}', // Don't replace {x}
+	'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
+	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
 
 	// Users & groups
 	'users' => 'ユーザー',

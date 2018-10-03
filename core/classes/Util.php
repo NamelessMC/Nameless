@@ -27,9 +27,11 @@ class Util {
 		
 		foreach(glob($directory . '/*') as $file){
 			if(is_dir($file)) { 
-				self::recursiveRemoveDirectory($file);
+				if(!self::recursiveRemoveDirectory($file))
+					return false;
 			} else {
-				unlink($file);
+				if(!unlink($file))
+					return false;
 			}
 		}
 		rmdir($directory);

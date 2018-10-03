@@ -243,6 +243,21 @@ class Default_Panel_Template extends TemplateBase {
 					');
 
 					break;
+
+				case 'template':
+					if(isset($_GET['file'])){
+						$this->addCSSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/lib/codemirror.css' => array()
+						));
+
+						$this->addJSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/lib/codemirror.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/mode/smarty/smarty.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/mode/css/css.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/mode/javascript/javascript.js' => array()
+						));
+					}
+					break;
 			}
 		}
 	}

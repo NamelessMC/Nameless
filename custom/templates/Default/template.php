@@ -23,7 +23,7 @@ class Default_Template extends TemplateBase {
 			'Default',  // Template name
 			'2.0.0-pr5',  // Template version
 			'2.0.0-pr5',  // Nameless version template is made for
-			'<a href="https://namelessmc.com/">Samerton</a>'  // Author, you can use HTML here
+			'<a href="https://namelessmc.com/" target="_blank">Samerton</a>'  // Author, you can use HTML here
 		);
 
 		// The following is used for the Default theme switcher; you do not need this in custom templates
