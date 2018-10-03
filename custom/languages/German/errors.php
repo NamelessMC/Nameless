@@ -28,10 +28,10 @@ $language = array(
 	'404_error' => 'Wenn du glaubst das dies ein Fehler ist, {x}Kontaktieren einen Administrator {y}',
 	'maintenance_title' => 'Wartungsmodus.',
 	'maintenance_retry' => 'Wiederholen',
-	'fatal_error' => 'Fatal Error',
+	'fatal_error' => 'Fataler Fehler',
 	'fatal_error_title' => 'Sorry!',
-	'fatal_error_message_user' => 'Sorry, but something went wrong while loading the page. Please contact an administrator.',
-	'fatal_error_message_admin' => 'Sorry, but something went wrong while loading the page. Error details:',
-	'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
-	'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
+	'fatal_error_message_user' => 'Entschuldigung, aber beim Laden der Seite ist etwas schiefgelaufen. Bitte kontaktieren Sie einen Administrator',
+	'fatal_error_message_admin' => 'Entschuldigung, aber beim Laden der Seite ist etwas schief gelaufen. Fehlerdetails:',
+	'in_file' => 'In File <strong>{x}</strong>', // Don't replace {x}
+	'on_line' => 'In Zeile <strong>{x}</strong>' // Don't replace {x}
 );

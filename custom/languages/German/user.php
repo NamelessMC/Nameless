@@ -21,7 +21,7 @@ $language = array(
 	/*
 	 *  Change this for the account validation message
 	 */
-	'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+	'validate_account_command' => 'Um die Registrierung abzuschließen, führen Sie bitte den Befehl <strong>/validate {x}</strong> ingame aus.', // Don't replace {x}
 
 	/*
 	 *  User Related
@@ -130,7 +130,7 @@ $language = array(
     'verification_failed' => 'Verifikation fehlgeschlagen.',
     'verification_success' => 'Erfolgreich freigeschaltet.',
     'authme_username_exists' => 'Ihr Authme-Konto wurde bereits mit der Website verbunden!',
-    'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
+    'uuid_already_exists' => 'Deine UUID existiert bereits, was bedeutet, dass dieser Minecraft-Account bereits registriert ist.',
 	
 	// Login
 	'successful_login' => 'Du hast dich erfolgreich angemeldet.',
@@ -183,9 +183,9 @@ $language = array(
 	'user_unblocked' => 'Benutzer blockierung aufgehoben.',
 	'views' => 'Profile Views:',
 	'private_profile_page' => 'Dies ist ein privates Profil!',
-	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
-	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
-	'no_about_fields' => 'This user has not added any about fields yet.',
+	'new_wall_post_reply' => '{x} hat auf deinen Beitrag im Profil von {y} geantwortet.', // Don't replace {x} or {y}
+	'new_wall_post_reply_your_profile' => '{x} hat auf deinen Beitrag in deinem Profil geantwortet.', // Don't replace {x}
+	'no_about_fields' => 'Dieser Benutzer hat noch keine Felder hinzugefügt.',
 	
 	// Reports
 	'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
@@ -237,5 +237,5 @@ $language = array(
 	/*
 	 *  Hooks
 	 */
-	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
+	'user_x_has_registered' => '{x} ist beigetreten ' . SITE_NAME . '!'
 );
