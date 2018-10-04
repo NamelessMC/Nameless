@@ -129,7 +129,7 @@ if(!isset($_GET['action'])){
 				);
 			}
 
-			$cache->store('all_templates', $all_templates);
+			$cache->store('all_templates', $all_templates, 3600);
 		}
 
 	}
