@@ -67,7 +67,7 @@ class Forum_Module extends Module {
 		// No actions necessary
 	}
 
-	public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets){
+	public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template){
 		// AdminCP
 		PermissionHandler::registerPermissions('Forum', array(
 			'admincp.forums' => $this->_language->get('admin', 'admin_cp') . ' &raquo; ' . $this->_forum_language->get('forum', 'forum')
