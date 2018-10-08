@@ -136,7 +136,7 @@ if($cache->isCached('discussions')){
 			'forum_link' => URL::build('/forum/view/' . $discussions[$n]['forum_id'] . '-' . $forum->titleToURL($forum_name)),
 			'author_link' => URL::build('/profile/' . Output::getClean($user->idToName($discussions[$n]['topic_creator']))),
 			'last_reply_profile_link' => URL::build('/profile/' . Output::getClean($user->idToName($discussions[$n]['topic_last_user']))),
-			'last_reply_link' => URL::build('/profile/' . Output::getClean($user->idToName($discussions[$n]['topic_last_user']))),
+			'last_reply_link' => URL::build('/forum/topic/' . $discussions[$n]['id'] . '-' . $forum->titleToURL($discussions[$n]['topic_title']), 'pid=' . $discussions[$n]['last_post_id']),
 			'last_reply_user_id' => Output::getClean($discussions[$n]['topic_last_user'])
 		);
 
