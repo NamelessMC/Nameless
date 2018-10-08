@@ -207,13 +207,19 @@ if(isset($_GET['action'])){
 							else if(!count($default_group) && $default == 0)
 								$default = 1;
 
+							if($group->id == 2){
+								$staff_cp = 1;
+							} else {
+								$staff_cp = Input::get('staffcp');
+							}
+
 							$queries->update('groups', $_GET['group'], array(
 								'name' => Input::get('groupname'),
 								'group_html' => Input::get('html'),
 								'group_html_lg' => Input::get('html'),
 								'group_username_css' => ($_POST['username_style'] ? Input::get('username_style') : null),
-								'mod_cp' => Input::get('staffcp'),
-								'admin_cp' => Input::get('staffcp'),
+								'mod_cp' => $staff_cp,
+								'admin_cp' => $staff_cp,
 								'staff' => Input::get('staff'),
 								'default_group' => $default,
 								'`order`' => Input::get('order')
