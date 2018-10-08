@@ -109,28 +109,49 @@ class Default_Template extends TemplateBase {
 				
 				$(document).ready(function(){
 					var cachedUsers = {};
+					var timeoutId;
 
 				   $(\'*[data-poload]\').mouseenter(function (){
-					  if(!($(this).data(\'poload\') in cachedUsers)){
-					  	var _this = this;
-					  	$(this).popover({trigger:"manual",animation:false,content:"<i class=\'fa fa-circle-o-notch fa-fw fa-2x fa-spin\'></i>"}).popover("show");
-				        $.get($(this).data(\'poload\'), function(d) {
-				        	' . ((defined('DEBUGGING') && DEBUGGING == 1) ? 'console.log(d);' : '') . '
-				        	var data = JSON.parse(d);
-					        cachedUsers[$(_this).data(\'poload\')] = data;
-							$(_this).popover("dispose").popover({trigger:"manual",animation:false,content:data.html}).popover("show");
-					    });
-					  } else {
-					  	var data = cachedUsers[$(this).data(\'poload\')];
-					    $(this).popover({trigger:"manual",animation:false,content:data.html}).popover("show");
-					  }
+				   	var elem = this;
+				   	if(!timeoutId){
+				        timeoutId = window.setTimeout(function() {
+				            timeoutId = null;
+				            if(!($(elem).data(\'poload\') in cachedUsers)){
+							    $(elem).popover({trigger:"manual",animation:false,content:"<i class=\'fa fa-circle-o-notch fa-fw fa-2x fa-spin\'></i>"}).popover("show");
+						        $.get($(elem).data(\'poload\'), function(d) {
+						            ' . ((defined('DEBUGGING') && DEBUGGING == 1) ? 'console.log(d);' : '') . '
+						            var data = JSON.parse(d);
+							        cachedUsers[$(elem).data(\'poload\')] = data;
+									$(elem).popover("dispose").popover({trigger:"manual",animation:false,content:data.html}).popover("show");
+									$(\'.popover\').mouseleave(function (){
+								        if(!$(".popover:hover").length){
+								          $(this).popover("hide");
+								        }
+									});
+							    });
+				            } else {
+							    var data = cachedUsers[$(elem).data(\'poload\')];
+							    $(elem).popover({trigger:"manual",animation:false,content:data.html}).popover("show");
+							    $(\'.popover\').mouseleave(function (){
+							        if(!$(".popover:hover").length){
+							          $(this).popover("hide");
+							        }
+							    });
+				            }
+				       }, 1000);
+				    }
 				   }).mouseleave(function (){
-				      var _this = this;
-				      setTimeout(function () {
-				        if (!$(".popover:hover").length) {
-				          $(_this).popover("hide");
-				        }
-				      }, 200);
+					   var elem = this;
+					   if(timeoutId){
+					        window.clearTimeout(timeoutId);
+					        timeoutId = null;
+					   } else {
+					      setTimeout(function () {
+					        if(!$(".popover:hover").length){
+					          $(elem).popover("hide");
+					        }
+					      }, 200);
+					   }
 				   });
 				});
 				
