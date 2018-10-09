@@ -12,7 +12,7 @@
 define('FRONT_END', true);
 
 // Set current page URL in session, provided it's not the login page
-if(defined('PAGE') && PAGE != 'login' && PAGE != 404){
+if(defined('PAGE') && PAGE != 'login' && PAGE != 404 && (!isset($_GET['route']) || strpos($_GET['route'], '/queries') === false)){
 	if(FRIENDLY_URLS === true){
 		$split = explode('?', $_SERVER['REQUEST_URI']);
 
