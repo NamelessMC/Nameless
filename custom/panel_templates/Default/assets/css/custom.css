@@ -11,3 +11,6 @@
 .thumbnails li img {
 	width: 60px;
 }
+.dropdown-menu-lg {
+	max-width: none;
+}
