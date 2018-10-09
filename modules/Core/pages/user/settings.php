@@ -20,8 +20,6 @@ define('PAGE', 'cc_settings');
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-require(ROOT_PATH . '/core/templates/cc_navbar.php');
-
 require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
 require(ROOT_PATH . '/core/includes/phpass.php'); // phpass for Wordpress auth
 require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
@@ -65,6 +63,8 @@ if(isset($_GET['do'])){
 
 			// Load modules + template
 			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+			require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
 			$page_load = microtime(true) - $start;
 			define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
@@ -116,6 +116,8 @@ if(isset($_GET['do'])){
 
 			// Load modules + template
 			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+			require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
 			$page_load = microtime(true) - $start;
 			define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
@@ -660,6 +662,8 @@ if(isset($_GET['do'])){
 
 	// Load modules + template
 	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+	require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
 	$page_load = microtime(true) - $start;
 	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

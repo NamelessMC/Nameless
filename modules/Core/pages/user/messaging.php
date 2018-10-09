@@ -82,8 +82,6 @@ if(isset($_GET['p'])){
 	$p = 1;
 }
 
-require(ROOT_PATH . '/core/templates/cc_navbar.php');
-
 if(!isset($_GET['action'])){
 	// Get private messages
 	$messages = $user->listPMs($user->data()->id);
@@ -145,6 +143,8 @@ if(!isset($_GET['action'])){
 
 	// Load modules + template
 	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+	require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
 	$page_load = microtime(true) - $start;
 	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
@@ -383,6 +383,8 @@ if(!isset($_GET['action'])){
 		// Load modules + template
 		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
+		require(ROOT_PATH . '/core/templates/cc_navbar.php');
+
 		$page_load = microtime(true) - $start;
 		define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
@@ -556,6 +558,8 @@ if(!isset($_GET['action'])){
 		else $smarty->assign('CONTENT', '');
 
 		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+		require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
 		$page_load = microtime(true) - $start;
 		define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
