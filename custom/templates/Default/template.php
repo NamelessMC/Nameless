@@ -116,29 +116,27 @@ class Default_Template extends TemplateBase {
 				   	if(!timeoutId){
 				        timeoutId = window.setTimeout(function() {
 				            timeoutId = null;
-				            if(!($(elem).data(\'poload\') in cachedUsers)){
-							    $(elem).popover({trigger:"manual",animation:false,content:"<i class=\'fa fa-circle-o-notch fa-fw fa-2x fa-spin\'></i>"}).popover("show");
-						        $.get($(elem).data(\'poload\'), function(d) {
-						            ' . ((defined('DEBUGGING') && DEBUGGING == 1) ? 'console.log(d);' : '') . '
-						            var data = JSON.parse(d);
-							        cachedUsers[$(elem).data(\'poload\')] = data;
-									$(elem).popover("dispose").popover({trigger:"manual",animation:false,content:data.html}).popover("show");
-									$(\'.popover\').mouseleave(function (){
-								        if(!$(".popover:hover").length){
-								          $(this).popover("hide");
-								        }
-									});
-							    });
-				            } else {
-							    var data = cachedUsers[$(elem).data(\'poload\')];
-							    $(elem).popover({trigger:"manual",animation:false,content:data.html}).popover("show");
-							    $(\'.popover\').mouseleave(function (){
-							        if(!$(".popover:hover").length){
-							          $(this).popover("hide");
-							        }
-							    });
-				            }
+						    var data = cachedUsers[$(elem).data(\'poload\')];
+						    $(elem).popover({trigger:"manual",animation:false,content:data.html}).popover("show");
+						    $(\'.popover\').mouseleave(function (){
+						        if(!$(".popover:hover").length){
+						          $(this).popover("hide");
+						        }
+						    });
 				       }, 1000);
+				       
+				       // Get data now
+				       $.get($(elem).data(\'poload\'), function(d) {
+				            ' . ((defined('DEBUGGING') && DEBUGGING == 1) ? 'console.log(d);' : '') . '
+				            var data = JSON.parse(d);
+					        cachedUsers[$(elem).data(\'poload\')] = data;
+					        // Preload image
+					        var tmp = document.createElement(\'div\');
+					        tmp.innerHTML = data.html;
+					        var img = tmp.getElementsByTagName(\'img\')[0];
+					        var image = new Image();
+					        image.src = img.src;
+				       });
 				    }
 				   }).mouseleave(function (){
 					   var elem = this;
