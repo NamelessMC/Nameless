@@ -57,7 +57,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'test'){
 			$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', $template, 'email', 'register.html'));
 			$html = file_get_contents($path);
 
-			$html = SITE_NAME . ' - Test email successful!';;
+			$html = SITE_NAME . ' - Test email successful!';
 
 			$email = array(
 				'to' => array('email' => Output::getClean($user->data()->email), 'name' => Output::getClean($user->data()->nickname)),
