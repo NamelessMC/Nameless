@@ -27,7 +27,7 @@ class MCQuery {
 						$query_ip[1] = 25565;
 
                     if(count($query_ip) == 2){
-                        $ping = new MinecraftPing($query_ip[0], $query_ip[1], 1);
+                        $ping = new MinecraftPing($query_ip[0], $query_ip[1], 5);
 
                         if($ip['pre'] == 1)
                             $query = $ping->QueryOldPre17();
@@ -122,7 +122,7 @@ class MCQuery {
 
                     if(count($query_ip) <= 2){
                         try {
-                            $ping = new MinecraftPing($query_ip[0], (isset($query_ip[1]) ? $query_ip[1] : 25565), 1);
+                            $ping = new MinecraftPing($query_ip[0], (isset($query_ip[1]) ? $query_ip[1] : 25565), 5);
 
                             if($server['pre'] == 1)
                                 $query = $ping->QueryOldPre17();
