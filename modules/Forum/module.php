@@ -49,6 +49,9 @@ class Forum_Module extends Module {
 		// Redirects
 		$pages->add('Forum', '/forum/view_topic', 'pages/forum/redirect.php');
 		$pages->add('Forum', '/forum/view_forum', 'pages/forum/redirect.php');
+
+		// Hooks
+		HookHandler::registerEvent('newTopic', $this->_forum_language->get('forum', 'new_topic_hook_info'), array('uuid' => $this->_language->get('admin', 'uuid'), 'username' => $this->_language->get('user', 'username'), 'nickname' => $this->_language->get('user', 'nickname'), 'content' => $this->_language->get('general', 'content'), 'content_full' => $this->_language->get('general', 'full_content'), 'avatar_url' => $this->_language->get('user', 'avatar'), 'title' => $this->_forum_language->get('forum', 'topic_title'), 'url' => $this->_language->get('general', 'url')));
 	}
 
 	public function onInstall(){
@@ -72,9 +75,6 @@ class Forum_Module extends Module {
 		PermissionHandler::registerPermissions('Forum', array(
 			'admincp.forums' => $this->_language->get('admin', 'admin_cp') . ' &raquo; ' . $this->_forum_language->get('forum', 'forum')
 		));
-
-		// Hooks
-		HookHandler::registerEvent('newTopic', $this->_forum_language->get('forum', 'new_topic_hook_info'), array('uuid' => $this->_language->get('admin', 'uuid'), 'username' => $this->_language->get('user', 'username'), 'nickname' => $this->_language->get('user', 'nickname'), 'content' => $this->_language->get('general', 'content'), 'content_full' => $this->_language->get('general', 'full_content'), 'avatar_url' => $this->_language->get('user', 'avatar'), 'title' => $this->_forum_language->get('forum', 'topic_title'), 'url' => $this->_language->get('general', 'url')));
 
 		// Sitemap
 		$pages->registerSitemapMethod(ROOT_PATH . '/modules/Forum/classes/Forum_Sitemap.php', 'Forum_Sitemap::generateSitemap');

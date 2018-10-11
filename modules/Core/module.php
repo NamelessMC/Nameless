@@ -223,6 +223,24 @@ class Core_Module extends Module {
 			}
 		}
 		$custom_pages = null;
+
+		// Hooks
+		HookHandler::registerEvent('registerUser', $language->get('admin', 'register_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid'), 'avatar_url' => $language->get('user', 'avatar'), 'content' => $language->get('general', 'content'), 'url' => $language->get('user', 'profile')));
+		HookHandler::registerEvent('validateUser', $language->get('admin', 'validate_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid')));
+
+		// Discord hook
+		require_once(ROOT_PATH . '/modules/Core/hooks/DiscordHook.php');
+		$cache->setCache('discord_hook');
+		if($cache->isCached('events')){
+			$events = $cache->retrieve('events');
+			if(is_array($events) && count($events)){
+				foreach($events as $event){
+					HookHandler::registerHook($event, 'DiscordHook::execute');
+				}
+			}
+		}
+		if($cache->isCached('url'))
+			DiscordHook::setURL($cache->retrieve('url'));
 	}
 
 	public function onInstall(){
@@ -309,10 +327,6 @@ class Core_Module extends Module {
 			'profile.private.bypass' => $language->get('general', 'bypass') . ' &raquo; ' . $language->get('user', 'private_profile')
 		));
 
-		// Hooks
-		HookHandler::registerEvent('registerUser', $language->get('admin', 'register_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid'), 'avatar_url' => $language->get('user', 'avatar'), 'content' => $language->get('general', 'content'), 'url' => $language->get('user', 'profile')));
-		HookHandler::registerEvent('validateUser', $language->get('admin', 'validate_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid')));
-
 		// Sitemap
 		$pages->registerSitemapMethod(ROOT_PATH . '/modules/Core/classes/Core_Sitemap.php', 'Core_Sitemap::generateSitemap');
 
@@ -357,20 +371,6 @@ class Core_Module extends Module {
 		require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsers.php');
 		$module_pages = $widgets->getPages('Online Users');
 		$widgets->add(new OnlineUsersWidget($module_pages, $cache, $smarty, array('title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'))));
-
-		// Discord hook
-		require_once(ROOT_PATH . '/modules/Core/hooks/DiscordHook.php');
-		$cache->setCache('discord_hook');
-		if($cache->isCached('events')){
-			$events = $cache->retrieve('events');
-			if(is_array($events) && count($events)){
-				foreach($events as $event){
-					HookHandler::registerHook($event, 'DiscordHook::execute');
-				}
-			}
-		}
-		if($cache->isCached('url'))
-			DiscordHook::setURL($cache->retrieve('url'));
 
 		// Validate user hook
 		$cache->setCache('validate_action');
