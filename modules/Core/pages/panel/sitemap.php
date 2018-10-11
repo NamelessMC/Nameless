@@ -40,6 +40,9 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 $timeago = new Timeago(TIMEZONE);
 
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
 // Deal with input
 if(Input::exists()){
 	$errors = array();
@@ -74,9 +77,6 @@ if(Input::exists()){
 		$errors[] = $language->get('general', 'invalid_token');
 	}
 }
-
-// Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
 if(!is_dir(ROOT_PATH . '/cache/sitemaps')){
 	if(!is_writable(ROOT_PATH . '/cache')){
