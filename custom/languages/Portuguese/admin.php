@@ -462,6 +462,7 @@ $language = array(
     'unsafe_html' => 'Permitir tags HTML não seguras?',
     'unsafe_html_warning' => 'Ativando está opção, siginifica que qualquer HTML pode ser usada nesta página, incluindo JavaScript potencialmente perigosos. Somente ativa esta opção se você está ciente que o seu HTML é seguro.',
     'include_in_sitemap' => 'Include in sitemap?',
+    'sitemap_link' => 'Sitemap link:',
     'page_permissions' => 'Permisões da Página',
     'view_page' => 'Ver Página?',
     'editing_page_x' => 'Editando a Página {x}', // Don't replace {x}

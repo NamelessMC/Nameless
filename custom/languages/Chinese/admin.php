@@ -465,6 +465,7 @@ $language = array(
 	'unsafe_html' => '允許使用不安全的 HTML?',
 	'unsafe_html_warning' => '啟用此選項表示你可以使用任何的HTML標籤，包括未加密的JavaScript，確定HTML是安全的再開啟',
 	'include_in_sitemap' => 'Include in sitemap?',
+	'sitemap_link' => 'Sitemap link:',
 	'page_permissions' => '自訂頁面權限',
 	'view_page' => '查看自訂頁面?',
 	'editing_page_x' => '編輯自訂頁面 {x}', // Don't replace {x}

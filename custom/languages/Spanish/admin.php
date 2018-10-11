@@ -458,6 +458,7 @@ $language = array(
     'unsafe_html' => '¿Permitir HTML inseguro?',
     'unsafe_html_warning' => 'Al habilitar esta opción, se puede usar cualquier HTML en la página, incluido un JavaScript potencialmente peligroso. Solo habilite esto si está seguro de que su HTML es seguro.',
     'include_in_sitemap' => 'Include in sitemap?',
+    'sitemap_link' => 'Sitemap link:',
     'page_permissions' => 'Permisos de la página',
     'view_page' => '¿Ver página?',
     'editing_page_x' => 'Editando página {x}', // Don't replace {x}

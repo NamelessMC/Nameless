@@ -463,6 +463,7 @@ $language = array(
     'unsafe_html' => 'Allow unsafe HTML?',
     'unsafe_html_warning' => 'Enabling this option means any HTML can be used on the page, including potentially dangerous JavaScript. Only enable this if you are sure your HTML is safe.',
     'include_in_sitemap' => 'Include in sitemap?',
+    'sitemap_link' => 'Sitemap link:',
     'page_permissions' => 'Page Permissions',
     'view_page' => 'View Page?',
     'editing_page_x' => 'Editing Page {x}', // Don't replace {x}

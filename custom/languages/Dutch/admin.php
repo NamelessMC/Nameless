@@ -462,6 +462,7 @@ $language = array(
     'unsafe_html' => 'Toestaan van onveilige HTML?',
     'unsafe_html_warning' => 'Dit aanzetten betekent dat je HTML kan gebruiken op je pagina, inclusief potentieel gevaarlijke JavaScript. Alleen aanzetten als je weet dat je HTML veilig is.',
     'include_in_sitemap' => 'Include in sitemap?',
+    'sitemap_link' => 'Sitemap link:',
     'page_permissions' => 'Pagina toestemmingen',
     'view_page' => 'Pagina bekijken?',
     'editing_page_x' => 'Pagina {x} aan het bewerken', // Verander {x} niet

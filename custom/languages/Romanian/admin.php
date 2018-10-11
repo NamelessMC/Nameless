@@ -463,6 +463,7 @@ $language = array(
     'unsafe_html' => 'Permiteți HTML (nesigur) ?',
     'unsafe_html_warning' => 'Activarea acestei opțiuni înseamnă că orice HTML poate fi folosit pe pagină, incluzând JavaScript potențial periculos. Activați acest lucru numai dacă sunteți sigur că codul dvs. HTML este sigur.',
     'include_in_sitemap' => 'Includeți în harta site-ului?',
+    'sitemap_link' => 'Sitemap link:',
     'page_permissions' => 'Permisiuni pentru pagină',
     'view_page' => 'Vizualizare pagină?',
     'editing_page_x' => 'Editare pagină: {x}', // Don't replace {x}

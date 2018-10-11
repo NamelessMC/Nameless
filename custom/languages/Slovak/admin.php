@@ -462,6 +462,7 @@ $language = array(
 	'unsafe_html' => 'Povoliť nebezpečné HTML?',
 	'unsafe_html_warning' => 'Povolením tejto možnosti, akékoľvek HTML môže byť na tejto strane použité, okrem potenciálne nebezpečného jazyka JavaScript. Povoľte to len v prípade, či ste si istý, že Váš HTML kód je bezpečný.',
 	'include_in_sitemap' => 'Include in sitemap?',
+	'sitemap_link' => 'Sitemap link:',
 	'page_permissions' => 'Oprávnenia stránky',
 	'view_page' => 'Môže túto stránku vidieť?',
 	'editing_page_x' => 'Upravovanie stránky {x}', // Don't replace {x}

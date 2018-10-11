@@ -462,6 +462,7 @@ $language = array(
     'unsafe_html' => 'Tillåt osäker HTML?',
     'unsafe_html_warning' => 'Aktivering av det här alternativet innebär att alla HTML kan användas på sidan, inklusive potentiellt farlig JavaScript. Aktivera bara detta om du är säker på att din HTML är säker.',
     'include_in_sitemap' => 'Include in sitemap?',
+    'sitemap_link' => 'Sitemap link:',
     'page_permissions' => 'Sido Behörigheter',
     'view_page' => 'Visa Sida?',
     'editing_page_x' => 'Redigerar Sidan {x}', // Don't replace {x}

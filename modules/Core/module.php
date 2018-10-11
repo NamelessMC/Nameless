@@ -71,6 +71,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/social_media', 'pages/panel/social_media.php');
 		$pages->add('Core', '/panel/core/groups', 'pages/panel/groups.php');
 		$pages->add('Core', '/panel/core/templates', 'pages/panel/templates.php');
+		$pages->add('Core', '/panel/core/sitemap', 'pages/panel/sitemap.php');
 
 		$pages->add('Core', '/admin', 'pages/admin/index.php');
 		$pages->add('Core', '/admin/auth', 'pages/admin/auth.php');
@@ -843,6 +844,16 @@ class Core_Module extends Module {
 					$icon = $cache->retrieve('user_icon');
 
 				$navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/core/users'), 'top', $order, $icon);
+			}
+
+			if($user->hasPermission('admincp.sitemap')){
+				if(!$cache->isCached('sitemap_icon')){
+					$icon = '<i class="nav-icon fa fa-sitemap"></i>';
+					$cache->store('sitemap_icon', $icon);
+				} else
+					$icon = $cache->retrieve('sitemap_icon');
+
+				$navs[2]->add('sitemap', $language->get('admin', 'sitemap'), URL::build('/panel/core/sitemap'), 'top', null, $order, $icon);
 			}
 
 			// Notices
