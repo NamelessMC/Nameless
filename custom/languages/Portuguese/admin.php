@@ -435,6 +435,7 @@ $language = array(
 	'widgets' => 'Widgets',
 	'widget_enabled' => 'Widget ativado.',
 	'widget_disabled' => 'Widget desativado.',
+	'widget_updated' => 'Widget updated.',
 	'editing_widget_x' => 'Editando o widget {x}', // Don't replace {x}
 	'module_x' => 'Módulo: {x}', // Don't replace {x}
 	'widget_order' => 'Widget Order',

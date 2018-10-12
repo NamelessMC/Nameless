@@ -438,6 +438,7 @@ $language = array(
 	'widgets' => '小工具',
 	'widget_enabled' => '小工具啟用.',
 	'widget_disabled' => '小工具禁用.',
+	'widget_updated' => 'Widget updated.',
 	'editing_widget_x' => '編輯小工具 {x}', // Don't replace {x}
 	'module_x' => '模組: {x}', // Don't replace {x}
 	'widget_order' => 'Widget Order',

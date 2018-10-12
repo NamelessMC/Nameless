@@ -436,6 +436,7 @@ $language = array(
     'widgets' => 'Piese',
     'widget_enabled' => 'Piesă activată.',
     'widget_disabled' => 'Piesă dezactivată .',
+    'widget_updated' => 'Widget updated.',
     'editing_widget_x' => 'Modificare piesă: {x}', // Don't replace {x}
     'module_x' => 'Module: {x}', // Don't replace {x}
     'widget_order' => 'Ordinea piesei',

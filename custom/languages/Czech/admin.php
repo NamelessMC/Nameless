@@ -434,6 +434,7 @@ $language = array(
 	'widgets' => 'Widgety',
 	'widget_enabled' => 'Widget zapnut.',
 	'widget_disabled' => 'Widget vypnut.',
+	'widget_updated' => 'Widget updated.',
 	'editing_widget_x' => 'Upravování widgetu {x}', // Don't replace {x}
 	'module_x' => 'Doplněk: {x}', // Don't replace {x}
 	'widget_order' => 'Widget Order',

@@ -117,6 +117,7 @@ class Default_Panel_Template extends TemplateBase {
 				case 'emails':
 				case 'reactions':
 				case 'social_media':
+				case 'widgets':
 					$this->addCSSFiles(array(
 						(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.css' => array()
 					));

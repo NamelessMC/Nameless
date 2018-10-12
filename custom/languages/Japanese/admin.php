@@ -437,6 +437,7 @@ $language = array(
 	'widgets' => 'ウィジェット',
 	'widget_enabled' => 'ウィジェットを有効化しました。',
 	'widget_disabled' => 'ウィジェットを無効化しました。',
+	'widget_updated' => 'Widget updated.',
 	'editing_widget_x' => 'ウィジェット {x} の編集', // Don't replace {x}
 	'module_x' => 'モジュール: {x}', // Don't replace {x}
 	'widget_order' => 'ウィジェット順番',
