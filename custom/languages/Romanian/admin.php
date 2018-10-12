@@ -2,13 +2,13 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 01/10/2018
+ *  Last Update: 12/10/2018
  */
 
 $language = array(
@@ -436,7 +436,7 @@ $language = array(
     'widgets' => 'Piese',
     'widget_enabled' => 'Piesă activată.',
     'widget_disabled' => 'Piesă dezactivată .',
-    'widget_updated' => 'Widget updated.',
+    'widget_updated' => 'Piesă actualizată.',
     'editing_widget_x' => 'Modificare piesă: {x}', // Don't replace {x}
     'module_x' => 'Module: {x}', // Don't replace {x}
     'widget_order' => 'Ordinea piesei',
@@ -464,7 +464,7 @@ $language = array(
     'unsafe_html' => 'Permiteți HTML (nesigur) ?',
     'unsafe_html_warning' => 'Activarea acestei opțiuni înseamnă că orice HTML poate fi folosit pe pagină, incluzând JavaScript potențial periculos. Activați acest lucru numai dacă sunteți sigur că codul dvs. HTML este sigur.',
     'include_in_sitemap' => 'Includeți în harta site-ului?',
-    'sitemap_link' => 'Sitemap link:',
+    'sitemap_link' => 'Adresa hartă site:',
     'page_permissions' => 'Permisiuni pentru pagină',
     'view_page' => 'Vizualizare pagină?',
     'editing_page_x' => 'Editare pagină: {x}', // Don't replace {x}
