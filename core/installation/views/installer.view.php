@@ -1062,6 +1062,7 @@
                         die();
                     } else {
                         $error = $language['unable_to_login'];
+                        $queries = new Queries();
                         $queries->delete('users', array('id', '=', 1));
                     }
 
