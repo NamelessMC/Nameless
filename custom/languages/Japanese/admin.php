@@ -318,17 +318,17 @@ $language = array(
 	'delete' => '削除',
 	'template_deleted_successfully' => 'テンプレートが正常に削除されました。',
 	'background_image_x' => '背景画像: <strong>{x}</strong>', // Don't replace {x}
-	'find_templates' => 'Find Templates',
-	'view_all_templates' => 'View all templates',
-	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
-	'template' => 'Template',
-	'stats' => 'Stats',
-	'downloads_x' => 'Downloads: {x}',
-	'views_x' => 'Views: {x}',
-	'rating_x' => 'Rating: {x}',
-	'editing_template_x' => 'Editing template {x}', // Don't replace {x}
-	'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
-	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
+	'find_templates' => 'テンプレートを探す',
+	'view_all_templates' => 'すべてのテンプレートを見る',
+	'unable_to_retrieve_templates' => 'テンプレートを取得できませんでした。',
+	'template' => 'テンプレート',
+	'stats' => '統計',
+	'downloads_x' => 'ダウンロード: {x}',
+	'views_x' => 'ビュー: {x}',
+	'rating_x' => '評価: {x}',
+	'editing_template_x' => 'テンプレート編集 {x}', // Don't replace {x}
+	'cant_write_to_template' => 'テンプレートファイルに書き込み出来ませんでした。ファイルのアクセス許可を確認してください。',
+	'unable_to_delete_template' => 'テンプレートを完全に削除できませんでした。 ファイルのアクセス許可を確認してください。',
 
 	// Users & groups
 	'users' => 'ユーザー',
@@ -379,11 +379,11 @@ $language = array(
 	'user_id' => 'User ID',
 	'uuid' => 'UUID',
 	'group_order' => 'Group Order',
-	'group_created_successfully' => 'Group created successfully.',
-	'group_updated_successfully' => 'Group updated successfully.',
-	'group_deleted_successfully' => 'Group deleted successfully.',
-	'unable_to_delete_group' => 'Unable to delete a default group, or a group that can view the StaffCP. Please update the group settings first!',
-	'can_view_staffcp' => 'Can the group view the StaffCP?',
+	'group_created_successfully' => 'グループが正常に作成されました。',
+	'group_updated_successfully' => 'グループが正常に更新されました。',
+	'group_deleted_successfully' => 'グループは正常に削除されました。',
+	'unable_to_delete_group' => 'デフォルトのグループ、またはStaffCPを表示できるグループを削除できません。 グループ設定を更新してください。',
+	'can_view_staffcp' => 'StaffCPを表示差せますか？',
 
 	// Permissions
 	'select_all' => 'すべて選択',
