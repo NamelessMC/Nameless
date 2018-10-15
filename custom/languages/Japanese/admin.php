@@ -293,6 +293,11 @@ $language = array(
 	'module_disabled' => 'モジュールを無効にしました。',
 	'author' => '作成者:',
 	'author_x' => '作成者: {x}', // Don't replace {x}
+	'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
+	'find_modules' => 'Find Modules',
+	'view_all_modules' => 'View all modules',
+	'unable_to_retrieve_modules' => 'Unable to retrieve modules',
+	'module' => 'Module',
 
 	// Styles
 	'templates' => 'テンプレート',
