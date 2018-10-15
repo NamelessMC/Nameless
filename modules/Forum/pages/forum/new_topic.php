@@ -259,17 +259,26 @@ if(count($forum_labels)){
 	}
 }
 
+// Get info about forum
+$forum_query = $queries->getWhere('forums', array('id', '=', $fid));
+$forum_query = $forum_query[0];
+
 // Smarty variables
-$smarty->assign('LABELS', $labels);
-$smarty->assign('TOPIC_TITLE', $forum_language->get('forum', 'topic_title'));
-$smarty->assign('LABEL', $forum_language->get('forum', 'label'));
-$smarty->assign('SUBMIT', $language->get('general', 'submit'));
-$smarty->assign('CANCEL', $language->get('general', 'cancel'));
-$smarty->assign('CLOSE', $language->get('general', 'close'));
-$smarty->assign('CONFIRM_CANCEL', $language->get('general', 'confirm_cancel'));
-$smarty->assign('TOKEN', '<input type="hidden" name="token" value="' . $token . '">');
-$smarty->assign('FORUM_LINK', URL::build('/forum'));
-$smarty->assign('CONTENT', Output::getPurified(Input::get('content')));
+$smarty->assign(array(
+	'LABELS' => $labels,
+	'TOPIC_TITLE' => $forum_language->get('forum', 'topic_title'),
+	'LABEL' => $forum_language->get('forum', 'label'),
+	'SUBMIT' => $language->get('general', 'submit'),
+	'CANCEL' => $language->get('general', 'cancel'),
+	'CLOSE' => $language->get('general', 'close'),
+	'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
+	'TOKEN' => '<input type="hidden" name="token" value="' . $token . '">',
+	'FORUM_LINK' => URL::build('/forum'),
+	'CONTENT' => Output::getPurified(Input::get('content')),
+	'FORUM_TITLE' => Output::getClean($forum_title),
+	'FORUM_DESCRIPTION' => Output::getPurified($forum_query->forum_description),
+	'NEWS_FORUM' => $forum_query->news
+));
 
 // Get post formatting type (HTML or Markdown)
 $cache->setCache('post_formatting');
