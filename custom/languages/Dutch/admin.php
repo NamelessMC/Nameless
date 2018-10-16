@@ -484,6 +484,9 @@ $language = array(
     'page_content_maximum_100000' => 'De pagina inhoud moet minimaal uit 100000 karakters bestaan.',
     'page_redirect_link_maximum_512' => 'De pagina doorstuur link moet minimaal uit 512 karakters bestaan.',
     'confirm_delete_page' => 'Weet je zeker dat je deze pagina wilt verwijderen?',
+    'page_created_successfully' => 'Page created successfully.',
+    'page_updated_successfully' => 'Page updated successfully.',
+    'page_deleted_successfully' => 'Page deleted successfully.',
 
 	// API
 	'api' => 'API',

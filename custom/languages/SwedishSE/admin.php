@@ -484,6 +484,9 @@ $language = array(
     'page_content_maximum_100000' => 'Sido innehållet måste högst vara 100000 tecken.',
     'page_redirect_link_maximum_512' => 'Sido omdirigerings länken måste högst vara 512 tecken.',
     'confirm_delete_page' => 'Är du säker på att du vill ta bort den här sidan?',
+    'page_created_successfully' => 'Page created successfully.',
+    'page_updated_successfully' => 'Page updated successfully.',
+    'page_deleted_successfully' => 'Page deleted successfully.',
 
     // API
     'api' => 'API',

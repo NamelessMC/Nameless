@@ -484,6 +484,9 @@ $language = array(
 	'page_content_maximum_100000' => 'Zaistite, aby obsah vašej stránky bol maximálne 100000 znakov dlhý.',
 	'page_redirect_link_maximum_512' => 'Zaistite, aby odkaz na presmerovanie vašej stránky bol maximálne 512 znakov dlhý.',
 	'confirm_delete_page' => 'Ste si istý, že chcete túto stránku odstrániť?',
+	'page_created_successfully' => 'Page created successfully.',
+	'page_updated_successfully' => 'Page updated successfully.',
+	'page_deleted_successfully' => 'Page deleted successfully.',
 
     // API
     'api' => 'API',

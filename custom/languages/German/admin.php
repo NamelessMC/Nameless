@@ -491,6 +491,9 @@ $language = array(
     'page_content_maximum_100000' => 'Der Seiteninhalt darf maximal 100000 Zeichen lang sein.',
     'page_redirect_link_maximum_512' => 'Der Seitenumleitungslink darf maximal 512 Zeichen lang sein.',
     'confirm_delete_page' => 'Möchten Sie diese Seite wirklich löschen?',
+    'page_created_successfully' => 'Page created successfully.',
+    'page_updated_successfully' => 'Page updated successfully.',
+    'page_deleted_successfully' => 'Page deleted successfully.',
 
     // API
     'api' => 'API',

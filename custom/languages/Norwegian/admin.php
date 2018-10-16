@@ -483,6 +483,9 @@ $language = array(
     'page_content_maximum_100000' => 'Sideinnholdet må være maks 100000 tegn.',
     'page_redirect_link_maximum_512' => 'Sideredirecten må være maks 512 tegn.',
     'confirm_delete_page' => 'Er du sikker på at du vil slette denne siden?',
+    'page_created_successfully' => 'Page created successfully.',
+    'page_updated_successfully' => 'Page updated successfully.',
+    'page_deleted_successfully' => 'Page deleted successfully.',
 
     // API
     'api' => 'API',

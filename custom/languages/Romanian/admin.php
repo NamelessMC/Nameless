@@ -485,6 +485,9 @@ $language = array(
     'page_content_maximum_100000' => 'Conținutul paginii trebuie să aibă maximum 100000 de caractere.',
     'page_redirect_link_maximum_512' => 'Legătura redirecționării paginii trebuie să aibă maximum 512 caractere.',
     'confirm_delete_page' => 'Sigur doriți să ștergeți această pagină?',
+    'page_created_successfully' => 'Page created successfully.',
+    'page_updated_successfully' => 'Page updated successfully.',
+    'page_deleted_successfully' => 'Page deleted successfully.',
 
     // API
     'api' => 'API',

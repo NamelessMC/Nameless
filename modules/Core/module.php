@@ -74,6 +74,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/sitemap', 'pages/panel/sitemap.php');
 		$pages->add('Core', '/panel/core/widgets', 'pages/panel/widgets.php');
 		$pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
+		$pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
 
 		$pages->add('Core', '/admin', 'pages/admin/index.php');
 		$pages->add('Core', '/admin/auth', 'pages/admin/auth.php');

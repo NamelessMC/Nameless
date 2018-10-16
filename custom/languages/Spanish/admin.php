@@ -480,6 +480,9 @@ $language = array(
     'page_content_maximum_100000' => 'El contenido de la página debe ser máximo de 100000 carácteres.',
     'page_redirect_link_maximum_512' => 'The page redirect link must be a maximum of 512 characters.',
     'confirm_delete_page' => '¿Estás seguro de que quieres eliminar esa página?',
+    'page_created_successfully' => 'Page created successfully.',
+    'page_updated_successfully' => 'Page updated successfully.',
+    'page_deleted_successfully' => 'Page deleted successfully.',
 
     // API
     'api' => 'API',

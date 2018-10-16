@@ -486,6 +486,9 @@ $language = array(
     'page_content_maximum_100000' => 'ページの内容は <strong>100000文字</strong> 以下にする必要があります。',
     'page_redirect_link_maximum_512' => 'ページリダイレクトリンクは <strong>512文字</strong> 以下にする必要があります。',
     'confirm_delete_page' => '選択中のページを削除してもよろしいですか？',
+    'page_created_successfully' => 'Page created successfully.',
+    'page_updated_successfully' => 'Page updated successfully.',
+    'page_deleted_successfully' => 'Page deleted successfully.',
 
     // API
     'api' => 'API',

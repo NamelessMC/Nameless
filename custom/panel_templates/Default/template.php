@@ -259,6 +259,32 @@ class Default_Panel_Template extends TemplateBase {
 						));
 					}
 					break;
+
+				case 'custom_pages':
+					if(isset($_GET['action'])){
+						$this->addCSSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.css' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
+						));
+
+						$this->addJSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array()
+						));
+
+						$this->addJSScript(Input::createEditor('inputContent'));
+						$this->addJSScript('
+						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
+	
+						elems.forEach(function(html) {
+						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
+						});
+						');
+					}
+					break;
 			}
 		}
 	}

@@ -487,6 +487,9 @@ $language = array(
 	'page_content_maximum_100000' => '自訂頁面的內文最高限制 100000 字元.',
 	'page_redirect_link_maximum_512' => '自訂頁面的轉址網址最高限制 512 字元',
 	'confirm_delete_page' => '移除自訂頁面?',
+	'page_created_successfully' => 'Page created successfully.',
+	'page_updated_successfully' => 'Page updated successfully.',
+	'page_deleted_successfully' => 'Page deleted successfully.',
 
 	// API
     'api' => 'API',
