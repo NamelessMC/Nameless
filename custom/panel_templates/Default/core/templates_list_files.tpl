@@ -86,7 +86,7 @@
                                                 <td>
                                                     <i class="fa fa-folder"></i> {$dir.name}
                                                     <div class="float-right">
-                                                        <a href="{$dir.link}" class="btn btn-primary btn-sm"><i class="fa fa-search fa-fw"></i></a>
+                                                        <a href="{$dir.link}" class="btn btn-primary btn-sm"><i class="fas fa-search fa-fw"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -98,7 +98,7 @@
                                                 <td>
                                                     <i class="fa fa-file"></i> {$file.name}
                                                     <div class="float-right">
-                                                        <a href="{$file.link}" class="btn btn-primary btn-sm"><i class="fa fa-pencil fa-fw"></i></a>
+                                                        <a href="{$file.link}" class="btn btn-primary btn-sm"><i class="fas fa-edit fa-fw"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>

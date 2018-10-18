@@ -93,27 +93,27 @@
 
                                 <div class="form-group">
                                     <label for="inputRequired">{$REQUIRED}</label>
-                                    <span class="badge badge-info" style="margin-right:10px"><i class="fa fa-question" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$REQUIRED_HELP}"></i></span>
+                                    <span class="badge badge-info" style="margin-right:10px"><i class="fas fa-question-circle" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$REQUIRED_HELP}"></i></span>
                                     <input type="checkbox" id="inputRequired" name="required"
                                            class="js-switch" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="inputEditable">{$EDITABLE}</label>
-                                    <span class="badge badge-info" style="margin-right:10px"><i class="fa fa-question" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$EDITABLE_HELP}"></i></span>
+                                    <span class="badge badge-info" style="margin-right:10px"><i class="fas fa-question-circle" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$EDITABLE_HELP}"></i></span>
                                     <input type="checkbox" id="inputEditable" name="editable"
                                            class="js-switch" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="inputPublic">{$PUBLIC}</label>
-                                    <span class="badge badge-info" style="margin-right:10px"><i class="fa fa-question" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$PUBLIC_HELP}"></i></span>
+                                    <span class="badge badge-info" style="margin-right:10px"><i class="fas fa-question-circle" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$PUBLIC_HELP}"></i></span>
                                     <input type="checkbox" id="inputPublic" name="public" class="js-switch" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="inputForum">{$DISPLAY_FIELD_ON_FORUM}</label>
-                                    <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$DISPLAY_FIELD_ON_FORUM_HELP}"></i></span>
+                                    <span class="badge badge-info"><i class="fas fa-question-circle" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$DISPLAY_FIELD_ON_FORUM_HELP}"></i></span>
                                     <input type="checkbox" id="inputForum" name="forum" class="js-switch" />
                                 </div>
 

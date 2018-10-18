@@ -100,7 +100,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="enable_legacy_api">{$ENABLE_LEGACY_API}</label> <span class="badge badge-info" style="margin-right:10px" data-toggle="popover" data-title="{$INFO}" data-content="{$LEGACY_API_INFO}"><i class="fa fa-question"></i></span>
+                                    <label for="enable_legacy_api">{$ENABLE_LEGACY_API}</label> <span class="badge badge-info" style="margin-right:10px" data-toggle="popover" data-title="{$INFO}" data-content="{$LEGACY_API_INFO}"><i class="fas fa-question-circle"></i></span>
                                     <input type="hidden" name="enable_legacy_api" value="0">
                                     <input id="enable_legacy_api" name="enable_legacy_api" type="checkbox"
                                            class="js-switch"
@@ -113,12 +113,12 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="api_verification">{$API_VERIFICATION}</label> <span class="badge badge-info" style="margin-right:10px" data-toggle="popover" data-title="{$INFO}" data-content="{$API_VERIFICATION_INFO}"><i class="fa fa-question"></i></span>
+                                    <label for="api_verification">{$API_VERIFICATION}</label> <span class="badge badge-info" style="margin-right:10px" data-toggle="popover" data-title="{$INFO}" data-content="{$API_VERIFICATION_INFO}"><i class="fas fa-question-circle"></i></span>
                                     <input name="api_verification" id="api_verification" type="checkbox" class="js-switch"{if $API_VERIFICATION_VALUE eq 1} checked{/if} />
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="username_sync">{$USERNAME_SYNC}</label> <span class="badge badge-info" style="margin-right:10px" data-toggle="popover" data-html="true" data-title="{$INFO}" data-content="{$USERNAME_SYNC_INFO}"><i class="fa fa-question"></i></span>
+                                    <label for="username_sync">{$USERNAME_SYNC}</label> <span class="badge badge-info" style="margin-right:10px" data-toggle="popover" data-html="true" data-title="{$INFO}" data-content="{$USERNAME_SYNC_INFO}"><i class="fas fa-question-circle"></i></span>
                                     <input name="username_sync" id="username_sync" type="checkbox" class="js-switch"{if $USERNAME_SYNC_VALUE eq 1} checked{/if} />
                                 </div>
 

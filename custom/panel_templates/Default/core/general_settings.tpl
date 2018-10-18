@@ -87,7 +87,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="inputDefaultLanguage">{$DEFAULT_LANGUAGE}</label> <span class="badge badge-info"><i class="fa fa-question" data-container="body" data-toggle="popover" data-placement="top" title="{$INFO}" data-content="{$DEFAULT_LANGUAGE_HELP}"></i></span>
+                                            <label for="inputDefaultLanguage">{$DEFAULT_LANGUAGE}</label> <span class="badge badge-info"><i class="fas fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="{$INFO}" data-content="{$DEFAULT_LANGUAGE_HELP}"></i></span>
                                             <div class="input-group">
                                                 <select name="language" class="form-control" id="inputDefaultLanguage">
                                                     {foreach from=$DEFAULT_LANGUAGE_VALUES item=item}
@@ -96,10 +96,10 @@
                                                 </select>
                                                 <div class="input-group-append">
                                                     <a class="btn btn-default" data-toggle="tooltip" title="{$INSTALL_LANGUAGE}" href="{$INSTALL_LANGUAGE_LINK}">
-                                                        <i class="fa fa-plus-circle"></i>
+                                                        <i class="fas fa-plus-circle"></i>
                                                     </a>
                                                     <a class="btn btn-default" data-toggle="tooltip" title="{$UPDATE_USER_LANGUAGES}" onclick="showLanguageModal()">
-                                                        <i class="fa fa-sign-out"></i>
+                                                        <i class="fas fa-upload"></i>
                                                     </a>
                                                 </div>
                                             </div>
@@ -140,7 +140,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="inputFriendlyURL">{$USE_FRIENDLY_URLS}</label>
-                                            <span class="badge badge-info"><i class="fa fa-question" data-container="body"
+                                            <span class="badge badge-info"><i class="fas fa-question-circle" data-container="body"
                                                                               data-toggle="popover" data-placement="top"
                                                                               title="{$INFO}"
                                                                               data-content="{$USE_FRIENDLY_URLS_HELP}"></i></span>
@@ -163,7 +163,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="inputForceHTTPS">{$FORCE_HTTPS}</label>
-                                            <span class="badge badge-info"><i class="fa fa-question" data-container="body"
+                                            <span class="badge badge-info"><i class="fas fa-question-circle" data-container="body"
                                                                               data-toggle="popover" data-placement="top"
                                                                               title="{$INFO}"
                                                                               data-content="{$FORCE_HTTPS_HELP}"></i></span>

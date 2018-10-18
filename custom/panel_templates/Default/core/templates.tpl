@@ -152,11 +152,11 @@
                                                     </td>
                                                     <td>
                                                         <div class="star-rating view">
-                                                            <span class="fa fa-star-o" data-rating="1" style="color:gold;"></span>
-                                                            <span class="fa fa-star-o" data-rating="2" style="color:gold"></span>
-                                                            <span class="fa fa-star-o" data-rating="3" style="color:gold;"></span>
-                                                            <span class="fa fa-star-o" data-rating="4" style="color:gold;"></span>
-                                                            <span class="fa fa-star-o" data-rating="5" style="color:gold;"></span>
+                                                            <span class="far fa-star" data-rating="1" style="color:gold;"></span>
+                                                            <span class="far fa-star" data-rating="2" style="color:gold"></span>
+                                                            <span class="far fa-star" data-rating="3" style="color:gold;"></span>
+                                                            <span class="far fa-star" data-rating="4" style="color:gold;"></span>
+                                                            <span class="far fa-star" data-rating="5" style="color:gold;"></span>
                                                             <input type="hidden" name="rating" class="rating-value" value="{($item.rating/10)|round}">
                                                         </div>
                                                         {$item.downloads_full}<br />
@@ -219,15 +219,15 @@
         $('#deleteModal').modal().show();
     }
 
-    var $star_rating = $('.star-rating.view .fa');
+    var $star_rating = $('.star-rating.view .fa-star');
 
     var SetRatingStar = function(type = 0) {
         if(type === 0) {
             return $star_rating.each(function () {
                 if (parseInt($(this).parent().children('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
-                    return $(this).removeClass('fa-star-o').addClass('fa-star');
+                    return $(this).removeClass('far').addClass('fas');
                 } else {
-                    return $(this).removeClass('fa-star').addClass('fa-star-o');
+                    return $(this).removeClass('fas').addClass('far');
                 }
             });
         }

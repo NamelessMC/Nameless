@@ -16,7 +16,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 {foreach from=$NAV_LINKS key=name item=item}
-                    {if $item.link eq "divider"}
+                    {if isset($item.link) && $item.link eq "divider"}
                         <li class="nav-header">{$item.title}</li>
                     {else}
                         {if isset($item.items)}

@@ -83,8 +83,8 @@
                                                 </td>
                                                 <td>
                                                     <div class="float-md-right">
-                                                        <a class="btn btn-warning btn-sm" href="{$custom_page.edit_link}"><i class="fa fa-pencil-square-o fa-fw"></i></a>
-                                                        <button class="btn btn-danger btn-sm" type="button" onclick="showDeleteModal('{$custom_page.delete_link}')"><i class="fa fa-trash fa-fw"></i></button>
+                                                        <a class="btn btn-warning btn-sm" href="{$custom_page.edit_link}"><i class="fas fa-edit fa-fw"></i></a>
+                                                        <button class="btn btn-danger btn-sm" type="button" onclick="showDeleteModal('{$custom_page.delete_link}')"><i class="fas fa-trash fa-fw"></i></button>
                                                     </div>
                                                 </td>
                                             </tr>
