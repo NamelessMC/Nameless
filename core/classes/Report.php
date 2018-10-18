@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -18,7 +18,7 @@ class Report {
 
 	// Create a report
 	// Params: $post - array containing fields
-	public function create($post = array(), $alert_language){
+	public function create($post = array()){
 		// Insert into database
 		if(!$this->_db->insert('reports', $post)) {
 			throw new Exception('There was a problem creating the report.');
@@ -37,7 +37,8 @@ class Report {
 				if(count($moderators)){
 					foreach($moderators as $moderator){
 						try {
-							Alert::create($moderator->id, 'report', $alert_language, $alert_language, URL::build('/mod/reports/', 'report=' . $id));
+							// Get language
+							Alert::create($moderator->id, 'report', array('path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'), array('path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'), URL::build('/mod/reports/', 'report=' . $id));
 						} catch(Exception $e){
 							// Unable to alert moderator
 							die($e->getMessage());

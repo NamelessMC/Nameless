@@ -116,7 +116,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 								if($query->id !== $user->data()->id){
 									// Alert user
-									Alert::create($query->id, 'profile_post', str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), URL::build('/profile/' . Output::getClean($query->username)));
+									Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username)));
 								}
 
 								// Redirect to clear input
@@ -168,14 +168,14 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 								));
 
 								if($post[0]->author_id != $query->id && $query->id != $user->data()->id)
-									Alert::create($query->id, 'profile_post', str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), URL::build('/profile/' . Output::getClean($query->username)));
+									Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username)));
 
 								else if($post[0]->author_id != $user->data()->id){
 									// Alert post author
 									if($post[0]->author_id == $query->id)
-										Alert::create($query->id, 'profile_post_reply', str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post_reply_your_profile')), str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post_reply_your_profile')), URL::build('/profile/' . Output::getClean($query->username)));
+										Alert::create($query->id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username)));
 									else
-										Alert::create($post[0]->author_id, 'profile_post_reply', str_replace(array('{x}', '{y}'), array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname)), $language->get('user', 'new_wall_post_reply')), str_replace(array('{x}', '{y}'), array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname)), $language->get('user', 'new_wall_post_reply')), URL::build('/profile/' . Output::getClean($query->username)));
+										Alert::create($post[0]->author_id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), URL::build('/profile/' . Output::getClean($query->username)));
 								}
 
 								// Redirect to clear input

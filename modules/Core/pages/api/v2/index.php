@@ -644,7 +644,7 @@ class Nameless2API
                     'date_updated' => date('Y-m-d H:i:s'),
                     'report_reason' => Output::getClean($_POST['content']),
                     'updated_by' => $user_reporting->id
-                ), $this->_language->get('moderator', 'report_alert'));
+                ));
 
                 // Success
                 $this->returnArray(array('message' => $this->_language->get('api', 'report_created')));

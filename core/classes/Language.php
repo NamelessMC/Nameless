@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -33,6 +33,11 @@ class Language {
 			$this->_module = 'Core';
 		} else {
 			$path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . $this->_activeLanguage;
+
+			if(!is_dir($path)){
+				$path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . 'EnglishUK';
+			}
+
 			$this->_module = htmlspecialchars($module);
 		}
 		

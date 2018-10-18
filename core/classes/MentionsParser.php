@@ -7,7 +7,7 @@
  *
  * Modified by Samerton for NamelessMC
  * https://github.com/NamelessMC/Nameless/
- * NamelessMC version 2.0.0-pr2
+ * NamelessMC version 2.0.0-pr5
  */
 class MentionsParser {
 	/*
@@ -27,28 +27,30 @@ class MentionsParser {
 
     /**
      * Parse the given HTML to include @username tags.
+     * @param $author_id - user ID of post creator
+     * @param $value - post content
+     * @param $link - link back to post
+     * @param $alert_short - short alert info
+     * @param $alert_full - full alert info
      *
+     * @throws Exception if alert is not created (see Alert::create())
+     *
+     * @return String parsed post content
      */
-    public function parse($author_id, $value = '', $topic_id = null, $post_id = null, $user_tag = 'User tag', $user_tag_info = 'You have been tagged in a post by {x}.'){
+    public function parse($author_id, $value, $link, $alert_short, $alert_full){
         if(preg_match_all("/\@([A-Za-z0-9\-_!\.\s]+)/", $value, $matches)){
-			// Get username of author
-			$author_name = $this->_db->get('users', array('id', '=', $author_id))->results();
-			if(count($author_name)){
-			    $author_id = $author_name[0]->id;
-			    $author_name = Output::getClean($author_name[0]->username);
-            }
-			else $author_name = 'Anonymous';
-			
             $matches = $matches[1];
 			
             foreach($matches as $possible_username){
                 $user = null;
 				
                 while((strlen($possible_username) > 0) && !$user){
-					$user = $this->_db->get('users', array('username', '=', $possible_username));
-					$user = $user->first();
-                    if($user){
-                        $value = preg_replace("/".preg_quote("@{$possible_username}", "/")."/", "<a href=\"" . URL::build('/profile/' . rtrim($possible_username, ' ')) . "\">@{$possible_username}</a>", $value);
+                	$user = $this->_db->query('SELECT nl2_users.id AS id, nl2_groups.group_username_css AS group_username_css FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id WHERE nl2_users.nickname = ?', array($possible_username));
+
+                    if($user->count()){
+                    	$user = $user->first();
+
+                        $value = preg_replace("/".preg_quote("@{$possible_username}", "/")."/", "<a style=\"color:" . Output::getClean($user->group_username_css) . "\" href=\"" . URL::build('/profile/' . rtrim($possible_username, ' ')) . "\">@{$possible_username}</a>", $value);
 
                         // Check if user is blocked by OP
                         if(isset($author_id)){
@@ -64,7 +66,7 @@ class MentionsParser {
                             }
                         }
 
-                        Alert::create($user->id, 'tag', $user_tag, str_replace('{x}', '<a href="' . URL::build('/profile/' . $author_name) . '">' . $author_name . '</a>', $user_tag_info),  URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id));
+                        Alert::create($user->id, 'tag', $alert_short, $alert_full, $link);
 
 						break;
                     }

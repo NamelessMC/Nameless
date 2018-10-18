@@ -125,7 +125,7 @@ if(Input::exists()) {
 
 					// Get last post ID
 					$last_post_id = $queries->getLastId();
-					$content = $mentionsParser->parse($user->data()->id, $content, $topic_id, $last_post_id, $forum_language->get('forum', 'user_tag'), $forum_language->get('forum', 'user_tag_info'));
+					$content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $topic_id, 'pid=' . $last_post_id), array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'), array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)));
 
 					$queries->update("posts", $last_post_id, array(
 						'post_content' => $content
