@@ -123,13 +123,11 @@ class Forum_Module extends Module {
 			if(defined('PAGE') && PAGE == 'user_query'){
 				$user_id = $smarty->getTemplateVars('USER_ID');
 
-				$timeago = new Timeago(TIMEZONE);
-
 				if($user_id){
 					$topic_count = $queries->getWhere('topics', array('topic_creator', '=', $user_id));
 					$smarty->assign('TOPICS', str_replace('{x}', count($topic_count), $this->_forum_language->get('forum', 'x_topics')));
 					$post_count = $queries->getWhere('posts', array('post_creator', '=', $user_id));
-					$smarty->assign('POSTS', str_replace('{x}', count($topic_count), $this->_forum_language->get('forum', 'x_posts')));
+					$smarty->assign('POSTS', str_replace('{x}', count($post_count), $this->_forum_language->get('forum', 'x_posts')));
 				}
 			}
 
@@ -143,7 +141,7 @@ class Forum_Module extends Module {
 			}
 
 			if(!$cache->isCached('forum_icon')){
-				$icon = '<i class="nav-icon fa fa-comments-o"></i>';
+				$icon = '<i class="nav-icon fas fa-comments"></i>';
 				$cache->store('forum_icon', $icon);
 			} else
 				$icon = $cache->retrieve('forum_icon');
@@ -152,7 +150,7 @@ class Forum_Module extends Module {
 			$navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, $order, $icon);
 
 			if(!$cache->isCached('forum_label_icon')){
-				$icon = '<i class="nav-icon fa fa-tags"></i>';
+				$icon = '<i class="nav-icon fas fa-tags"></i>';
 				$cache->store('forum_label_icon', $icon);
 			} else
 				$icon = $cache->retrieve('forum_label_icon');

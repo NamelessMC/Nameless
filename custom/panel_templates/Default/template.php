@@ -27,7 +27,7 @@ class Default_Panel_Template extends TemplateBase {
 		);
 
 		$this->addCSSFiles(array(
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/plugins/font-awesome/css/font-awesome.min.css' => array(),
+			'https://use.fontawesome.com/releases/v5.4.1/css/all.css' => array('integrity' => 'sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz', 'crossorigin' => 'anonymous'),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/adminlte.min.css' => array(),
 			'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700' => array(),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/custom.css' => array(),

@@ -561,9 +561,9 @@ $language = array(
 
 	// Dashboard
 	'total_users' => 'Gesamtbenutzer',
-	'total_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
 	'recent_users' => 'New Users',
-	'recent_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
 	'average_players' => 'Average Players',
 	'nameless_news' => 'NamelessMC Neuigkeiten',
 	'unable_to_retrieve_nameless_news' => 'Die neuesten Nachrichten konnten nicht abgerufen werden',

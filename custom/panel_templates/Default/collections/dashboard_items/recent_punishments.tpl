@@ -1,6 +1,6 @@
 <div class="card h-100">
     <div class="card-header">
-        <i class="fa fa-gavel fa-fw"></i> {$RECENT_PUNISHMENTS}
+        <i class="fas fa-gavel fa-fw"></i> {$RECENT_PUNISHMENTS}
     </div>
     <div class="card-body">
         {if count($PUNISHMENTS)}

@@ -1,6 +1,6 @@
 <div class="card h-100">
     <div class="card-header">
-        <i class="fa fa-warning fa-fw"></i> {$RECENT_REPORTS}
+        <i class="fas fa-exclamation-triangle fa-fw"></i> {$RECENT_REPORTS}
     </div>
     <div class="card-body">
         {if count($REPORTS)}

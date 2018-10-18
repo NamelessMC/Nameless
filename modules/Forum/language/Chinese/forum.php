@@ -193,9 +193,9 @@ $language = array(
 
 	// Panel statistics
 	'recent_topics' => 'Recent Topics',
-	'recent_topics_statistic_icon' => '<i class="fa fa-comment"></i>',
+	'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
 	'recent_posts' => 'Recent Posts',
-	'recent_posts_statistic_icon' => '<i class="fa fa-comments-o"></i>',
+	'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
 	'topics_title' => 'Topics',
 	'posts_title' => 'Posts',
 );

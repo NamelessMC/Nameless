@@ -1,6 +1,6 @@
 <div class="card h-100">
     <div class="card-header">
-        <i class="fa fa-user fa-fw"></i> {$RECENT_REGISTRATIONS}
+        <i class="fas fa-user fa-fw"></i> {$RECENT_REGISTRATIONS}
     </div>
     <div class="card-body">
         {if count($REGISTRATIONS)}

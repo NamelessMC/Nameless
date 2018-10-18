@@ -553,9 +553,9 @@ $language = array(
 
 	// Dashboard
 	'total_users' => 'Totaal Aantal Gebruikers',
-	'total_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
 	'recent_users' => 'Nieuwe Gebruikers',
-	'recent_users_statistic_icon' => '<i class="fa fa-users"></i>',
+	'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
 	'average_players' => 'Gemiddelde Spelers',
 	'nameless_news' => 'NamelessMC Nieuws',
 	'unable_to_retrieve_nameless_news' => 'Niet in staat om het laatste nieuws op te halen',

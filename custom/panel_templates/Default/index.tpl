@@ -11,14 +11,6 @@
                     <div class="col-sm-6">
                         <h1 class="m-0 text-dark">{$DASHBOARD}</h1>
                     </div>
-                    <!-- breadcrumbs
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v2</li>
-                        </ol>
-                    </div>
-                    -->
                 </div>
             </div>
         </div>
@@ -63,7 +55,7 @@
                         {if count($GRAPHS)}
                             <div class="card">
                                 <div class="card-header">
-                                    <i class="fa fa-bar-chart"></i> {$STATISTICS}
+                                    <i class="far fa-chart-bar"></i> {$STATISTICS}
 
                                     <div class="card-tools">
                                         <div class="dropdown float-md-right">
@@ -110,7 +102,7 @@
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-header">
-                                <i class="fa fa-newspaper-o"></i> {$NAMELESS_NEWS}
+                                <i class="far fa-newspaper"></i> {$NAMELESS_NEWS}
                             </div>
                             <div class="card-body">
                                 {if isset($NO_NEWS)}
@@ -128,19 +120,19 @@
                         {if isset($SERVER_COMPATIBILITY)}
                             <div class="card">
                                 <div class="card-header">
-                                    <i class="fa fa-wrench"></i>
+                                    <i class="fas fa-wrench"></i>
                                     {$SERVER_COMPATIBILITY}
                                 </div>
                                 <div class="card-body">
                                     {$NAMELESS_VERSION}
                                     <hr />
                                     {foreach from=$COMPAT_SUCCESS item=item}
-                                        {$item} <i class="fa fa-check-circle text-success"></i><br />
+                                        {$item} <i class="fas fa-check-circle text-success"></i><br />
                                     {/foreach}
                                     {if count($COMPAT_ERRORS)}
                                         <hr />
                                         {foreach from=$COMPAT_ERRORS item=item}
-                                            {$item} <i class="fa fa-times-circle text-danger"></i><br />
+                                            {$item} <i class="fas fa-times-circle text-danger"></i><br />
                                         {/foreach}
                                     {/if}
                                 </div>
