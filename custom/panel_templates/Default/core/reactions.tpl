@@ -72,7 +72,7 @@
                                 </div>
                             {/if}
 
-                            {if count($REACTIONS)}
+                            {if count($REACTIONS_LIST)}
                                 <div class="table-responsive">
                                     <table class="table table-striped">
                                         <thead>

@@ -74,8 +74,7 @@ if(!isset($_GET['action'])){
 			'version_mismatch' => (($module->getNamelessVersion() != NAMELESS_VERSION) ? str_replace(array('{x}', '{y}'), array(Output::getClean($module->getNamelessVersion()), NAMELESS_VERSION), $language->get('admin', 'module_outdated')) : false),
 			'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . Output::getClean($item->id)) : null),
 			'enable_link' => (($module->getName() != 'Core' && !$item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m=' . Output::getClean($item->id)) : null),
-			'enabled' => $item->enabled,
-			'disabled' => $item->disabled
+			'enabled' => $item->enabled
 		);
 	}
 
@@ -157,7 +156,8 @@ if(!isset($_GET['action'])){
 		'VIEW' => $language->get('general', 'view'),
 		'MODULE' => $language->get('admin', 'module'),
 		'STATS' => $language->get('admin', 'stats'),
-		'ACTIONS' => $language->get('general', 'actions')
+		'ACTIONS' => $language->get('general', 'actions'),
+		'WARNING' => $language->get('general', 'warning')
 	));
 
 } else {

@@ -96,28 +96,6 @@
 
                 </div>
         </section>
-    </div>
-
-    <!-- Key regen modal -->
-    <div class="modal fade" id="regenModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {$CONFIRM_API_REGEN}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                    <a href="{$API_KEY_REGEN_URL}" class="btn btn-primary">{$YES}</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     {include file='footer.tpl'}
 
