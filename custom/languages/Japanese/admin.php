@@ -551,6 +551,8 @@ $language = array(
 	'metadata_page_x' => '{x} のメタデータを表示',// {x}を置き換えない
 	'keywords' => 'キーワード',
 	'description_max_500' => '説明は　<strong>500文字</strong>　以下にする必要があります。',
+	'page' => 'Page',
+	'metadata_updated_successfully' => 'Metadata updated successfully.',
 
 	//ダッシュボード
 	'total_users' => '合計ユーザー',

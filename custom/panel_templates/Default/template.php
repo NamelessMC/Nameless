@@ -285,6 +285,39 @@ class Default_Panel_Template extends TemplateBase {
 						');
 					}
 					break;
+
+				case 'page_metadata':
+					if(!isset($_GET['id'])){
+						$this->addCSSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => array()
+						));
+
+						$this->addJSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => array()
+						));
+
+						$this->addJSScript('
+						$(document).ready(function() {
+				            $(\'.dataTables-pages\').dataTable({
+				                responsive: true,
+								language: {
+									"lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
+									"zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
+									"info": "' . $this->_language->get('table', 'page_x_of_y') . '",
+									"infoEmpty": "' . $this->_language->get('table', 'no_records') . '",
+									"infoFiltered": "' . $this->_language->get('table', 'filtered') . '",
+									"search": "' . $this->_language->get('general', 'search') . '",
+									"paginate": {
+									    "next": "' . $this->_language->get('general', 'next') . '",
+									    "previous": "' . $this->_language->get('general', 'previous') . '"
+									}
+								}
+				            });
+						});
+						');
+					}
+					break;
 			}
 		}
 	}

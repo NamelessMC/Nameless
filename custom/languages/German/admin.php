@@ -556,6 +556,8 @@ $language = array(
 	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
 	'keywords' => 'Keywörter',
 	'description_max_500' => 'The description must be at most 500 characters.',
+	'page' => 'Page',
+	'metadata_updated_successfully' => 'Metadata updated successfully.',
 
 	// Dashboard
 	'total_users' => 'Gesamtbenutzer',

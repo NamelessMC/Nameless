@@ -550,6 +550,8 @@ $language = array(
     'metadata_page_x' => 'Vizualizarea metadatelor pentru pagina: {x}', // Don't replace {x}
     'keywords' => 'Cuvinte cheie',
     'description_max_500' => 'Descrierea trebuie să aibă cel mult 500 de caractere.',
+    'page' => 'Page',
+    'metadata_updated_successfully' => 'Metadata updated successfully.',
 
     // Dashboard
     'total_users' => 'Total utilizatori',

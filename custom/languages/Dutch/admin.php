@@ -548,6 +548,8 @@ $language = array(
 	'metadata_page_x' => 'Metagegevens aan het bekijken voor pagina {x}', // Don't replace {x}
 	'keywords' => 'Sleutelwoorden',
 	'description_max_500' => 'De beschrijving mag maximaal 500 karakters bevatten.',
+	'page' => 'Page',
+	'metadata_updated_successfully' => 'Metadata updated successfully.',
 
 	// Dashboard
 	'total_users' => 'Totaal Aantal Gebruikers',
