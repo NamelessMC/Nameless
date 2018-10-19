@@ -13,7 +13,7 @@
  */
 
 $language = array(
-    // Errors
+    // エラー
     'unknown_error' => '不明なエラー',
     'invalid_api_key' => '無効な API キー',
     'invalid_language_file' => '言語ファイルが無効です。',
@@ -43,7 +43,7 @@ $language = array(
     'invalid_server_id' => '無効なサーバーID',
     'invalid_code' => '指定されたコードは無効です。',
 
-    // Success messages
+    // 完了メッセージ
     'finish_registration_link' => '登録を完了するには次のリンクをクリックしてください:',
     'finish_registration_email' => '登録を完了するにはメールを確認して処理を完了してください。',
     'group_updated' => 'グループを正常に更新しました。',
