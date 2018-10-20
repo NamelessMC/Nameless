@@ -2,7 +2,11 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
+<<<<<<< HEAD
  *  NamelessMC version 2.0.0-pr4
+=======
+ *  NamelessMC version 2.0.0-pr5
+>>>>>>> upstream/v2
  *
  *  User class
  */
@@ -439,6 +443,7 @@ class User {
             return(($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE);
         } else {
             // Minecraft avatar
+<<<<<<< HEAD
             if(defined('DEFAULT_AVATAR_SOURCE')){
                 if(defined('DEFAULT_AVATAR_PERSPECTIVE'))
                     $perspective = DEFAULT_AVATAR_PERSPECTIVE;
@@ -471,6 +476,70 @@ class User {
                 // Fall back to cravatar
                 return 'https://cravatar.eu/helmavatar/' . $uuid . '/' . $size . '.png';
             }
+=======
+	        if(defined('DEFAULT_AVATAR_SOURCE')){
+		        if(defined('DEFAULT_AVATAR_PERSPECTIVE'))
+			        $perspective = DEFAULT_AVATAR_PERSPECTIVE;
+		        else
+			        $perspective = 'face';
+
+		        switch(DEFAULT_AVATAR_SOURCE){
+			        case 'crafatar':
+				        if($perspective == 'face')
+					        return 'https://crafatar.com/avatars/' . Output::getClean($uuid) . '?size=' . $size . '&amp;overlay';
+				        else
+					        return 'https://crafatar.com/renders/head/' . Output::getClean($uuid) . '?overlay';
+
+				        break;
+
+			        case 'nameless':
+				        // Only supports face currently
+				        if(defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
+					        return URL::build('/avatar/' . Output::getClean($uuid));
+				        else
+					        return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($uuid);
+
+				        break;
+
+			        case 'mc-heads':
+				        if($perspective == 'face')
+					        return 'https://mc-heads.net/avatar/' . Output::getClean($uuid) . '/' . $size;
+				        else
+					        return 'https://mc-heads.net/head/' . Output::getClean($uuid) . '/' . $size;
+
+				        break;
+
+			        case 'minotar':
+				        if($perspective == 'face')
+					        return 'https://minotar.net/helm/'.  Output::getClean($uuid) . '/' . $size . '.png';
+				        else
+					        return 'https://minotar.net/cube/'.  Output::getClean($uuid) . '/' . $size . '.png';
+
+				        break;
+
+			        case 'visage':
+				        if($perspective == 'face')
+					        return 'https://visage.surgeplay.com/face/' . $size . '/' . Output::getClean($uuid);
+				        else if($perspective == 'bust')
+					        return 'https://visage.surgeplay.com/bust/' . $size . '/' . Output::getClean($uuid);
+				        else
+					        return 'https://visage.surgeplay.com/head/' . $size . '/' . Output::getClean($uuid);
+
+				        break;
+
+			        case 'cravatar':
+			        default:
+				        if($perspective == 'face')
+					        return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
+				        else
+					        return 'https://cravatar.eu/helmhead/' . Output::getClean($uuid) . '/' . $size . '.png';
+				        break;
+		        }
+	        } else {
+		        // Fall back to cravatar
+		        return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
+	        }
+>>>>>>> upstream/v2
         }
 	}
 

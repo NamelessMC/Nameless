@@ -218,6 +218,10 @@ if($forum_query->redirect_forum == 1){
 					$latest_post_style = $user->getGroupClass($latest_post->topic_last_user);
 					$latest_post_date_timeago = $timeago->inWords(date('d M Y, H:i', $latest_post->topic_reply_date), $language->getTimeLanguage());
 					$latest_post_time = date('d M Y, H:i', $latest_post->topic_reply_date);
+<<<<<<< HEAD
+=======
+					$latest_post_user_id = Output::getClean($latest_post->topic_last_user);
+>>>>>>> upstream/v2
 
 					$latest_post = array(
 						'link' => $latest_post_link,
@@ -227,7 +231,8 @@ if($forum_query->redirect_forum == 1){
 						'last_user_style' => $latest_post_style,
 						'last_user_link' => $latest_post_user_link,
 						'timeago' => $latest_post_date_timeago,
-						'time' => $latest_post_time
+						'time' => $latest_post_time,
+						'last_user_id' => $latest_post_user_id
 					);
 				} else $latest_post = array();
 
@@ -323,6 +328,7 @@ if($forum_query->redirect_forum == 1){
 				'topic_created_username' => Output::getClean($user->idToNickname($sticky->topic_creator)),
 				'topic_created_mcname' => Output::getClean($user->idToName($sticky->topic_creator)),
 				'topic_created_style' => $user->getGroupClass($sticky->topic_creator),
+				'topic_created_user_id' => Output::getClean($sticky->topic_creator),
 				'views' => $sticky->topic_views,
 				'locked' => $sticky->locked,
 				'posts' => $replies,
@@ -332,6 +338,7 @@ if($forum_query->redirect_forum == 1){
 				'last_reply_username' => Output::getClean($user->idToNickname($sticky->topic_last_user)),
 				'last_reply_mcname' => Output::getClean($user->idToName($sticky->topic_last_user)),
 				'last_reply_style' => $user->getGroupClass($sticky->topic_last_user),
+				'last_reply_user_id' => Output::getClean($sticky->topic_last_user),
 				'label' => $label,
 				'author_link' => URL::build('/profile/' . Output::getClean($user->idToName($sticky->topic_creator))),
 				'link' => URL::build('/forum/topic/' . $sticky->id . '-' . $forum->titleToURL($sticky->topic_title)),
@@ -389,6 +396,10 @@ if($forum_query->redirect_forum == 1){
 				'topic_created_username' => Output::getClean($user->idToNickname($results->data[$n]->topic_creator)),
 				'topic_created_mcname' => Output::getClean($user->idToName($results->data[$n]->topic_creator)),
 				'topic_created_style' => $user->getGroupClass($results->data[$n]->topic_creator),
+<<<<<<< HEAD
+=======
+				'topic_created_user_id' => Output::getClean($results->data[$n]->topic_creator),
+>>>>>>> upstream/v2
 				'locked' => $results->data[$n]->locked,
 				'views' => $results->data[$n]->topic_views,
 				'posts' => $replies,
@@ -401,7 +412,12 @@ if($forum_query->redirect_forum == 1){
 				'label' => $label,
 				'author_link' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]->topic_creator))),
 				'link' => URL::build('/forum/topic/' . $results->data[$n]->id . '-' . $forum->titleToURL($results->data[$n]->topic_title)),
+<<<<<<< HEAD
 				'last_reply_link' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]->topic_last_user)))
+=======
+				'last_reply_link' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]->topic_last_user))),
+				'last_reply_user_id' => Output::getClean($results->data[$n]->topic_last_user)
+>>>>>>> upstream/v2
 			);
 		}
 
@@ -427,7 +443,12 @@ if($forum_query->redirect_forum == 1){
 			'profile' => URL::build('/profile/' . Output::getClean($users_query[0]->username)),
 			'avatar' => $user->getAvatar($users_query[0]->id),
 			'username' => Output::getClean($users_query[0]->username),
+<<<<<<< HEAD
 			'nickname' => Output::getClean($users_query[0]->nickname)
+=======
+			'nickname' => Output::getClean($users_query[0]->nickname),
+			'id' => Output::getClean($users_query[0]->id)
+>>>>>>> upstream/v2
 		);
 
 		$users_query = null;
@@ -439,7 +460,11 @@ if($forum_query->redirect_forum == 1){
 	}
 
 	$smarty->assign('USERS_REGISTERED', str_replace('{x}', $users_registered, $forum_language->get('forum', 'users_registered')));
+<<<<<<< HEAD
 	$smarty->assign('LATEST_MEMBER', str_replace('{x}', '<a style="' . $latest_member['style'] . '" href="' . $latest_member['profile'] . '">' . $latest_member['nickname'] . '</a>', $forum_language->get('forum', 'latest_member')));
+=======
+	$smarty->assign('LATEST_MEMBER', str_replace('{x}', '<a style="' . $latest_member['style'] . '" href="' . $latest_member['profile'] . '" data-poload="' . URL::build('/queries/user/', 'id=' . $latest_member['id']) . '" data-html="true" data-placement="top">' . $latest_member['nickname'] . '</a>', $forum_language->get('forum', 'latest_member')));
+>>>>>>> upstream/v2
 
 	// Load modules + template
 	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);

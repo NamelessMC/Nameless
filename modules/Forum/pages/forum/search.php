@@ -74,7 +74,10 @@ if(!isset($_GET['s'])){
 
     $cache->setCache($search . '-' . $user_group . '-' . $secondary_groups);
     if(!$cache->isCached('result')){
+<<<<<<< HEAD
         Log::getInstance()->log(Log::Action('forums/search'), $search);
+=======
+>>>>>>> upstream/v2
         // Execute search
         $search_topics = $queries->getLike('topics', 'topic_title', '%' . $search . '%');
         $search_posts = $queries->getLike('posts', 'post_content', '%' . $search . '%');
@@ -189,6 +192,10 @@ if(isset($_GET['s'])){
 
 			$posts[$n] = array(
 				'post_author' => Output::getClean($user->idToNickname($results->data[$n]['post_author'])),
+<<<<<<< HEAD
+=======
+				'post_author_id' => Output::getClean($results->data[$n]['post_author']),
+>>>>>>> upstream/v2
 				'post_author_avatar' => $user->getAvatar($results->data[$n]['post_author'], '../', 25),
 				'post_author_profile' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]['post_author']))),
 				'post_author_style' => $user->getGroupClass($results->data[$n]['post_author']),

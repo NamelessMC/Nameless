@@ -41,11 +41,19 @@ abstract class Module {
 	abstract function onUninstall();
 	abstract function onEnable();
 	abstract function onDisable();
+<<<<<<< HEAD
 	abstract function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets);
 
 	public static function loadPage($user, $pages, $cache, $smarty, $navs, $widgets){
 		foreach(self::$_modules as $module){
 			$module->onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets);
+=======
+	abstract function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template);
+
+	public static function loadPage($user, $pages, $cache, $smarty, $navs, $widgets, $template = null){
+		foreach(self::$_modules as $module){
+			$module->onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template);
+>>>>>>> upstream/v2
 		}
 	}
 

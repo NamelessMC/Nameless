@@ -11,6 +11,7 @@
 
 $language = array(
 	'mod_cp' => 'ModCP',
+	'staff_cp' => 'StaffCP',
 	'overview' => 'Overview',
 	
 	// Spam
@@ -85,6 +86,17 @@ $language = array(
     'view_user' => 'View User',
     'when' => 'When',
     'staff' => 'Staff',
+<<<<<<< HEAD
     'type' => 'Type'
+=======
+    'type' => 'Type',
+    'recent_punishments' => 'Recent Punishments',
+    'created' => 'Created:',
+    'staff:' => 'Staff:',
+    'reason:' => 'Reason:',
+	
+    // Users
+    'recent_registrations' => 'Recent Registrations'
+>>>>>>> upstream/v2
 
 );

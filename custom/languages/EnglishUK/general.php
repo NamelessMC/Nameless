@@ -2,7 +2,11 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
+<<<<<<< HEAD
  *  NamelessMC version 2.0.0-pr4
+=======
+ *  NamelessMC version 2.0.0-pr5
+>>>>>>> upstream/v2
  *
  *  License: MIT
  *
@@ -58,6 +62,12 @@ $language = array(
 	'content' => 'Content',
 	'full_content' => 'Full Content',
 	'url' => 'URL',
+<<<<<<< HEAD
+=======
+	'success' => 'Success',
+	'error' => 'Error',
+	'are_you_sure' => 'Are you sure?',
+>>>>>>> upstream/v2
 
 	/*
 	 *  Contact form

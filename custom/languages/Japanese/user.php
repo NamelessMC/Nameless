@@ -2,9 +2,16 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
+<<<<<<< HEAD
  *  NamelessMC version 2.0.0-pr4
  *
  *  Translation by SimplyRin(@SimplyRin_, https://www.simplyrin.net)
+=======
+ *  NamelessMC version 2.0.0-pr5
+ *
+ *  Translation by SimplyRin( @SimplyRin_, https://www.simplyrin.net )
+ *  Additional translation by Mari0914( @Mari0914_Main, https://mari0914.japanminigame.net )
+>>>>>>> upstream/v2
  *
  *  License: MIT
  *
@@ -165,6 +172,10 @@ $language = array(
 	'replies' => '返信',
 	'new_reply' => '新しい返信',
 	'registered' => '登録:',
+<<<<<<< HEAD
+=======
+	'registered_x' => '登録: {x}',
+>>>>>>> upstream/v2
 	'last_seen' => '最後に見たのは:',
 	'new_wall_post' => '{x} さんがあなたのプロフィールに投稿しました。',
 	'couldnt_find_that_user' => 'そのユーザーを見つけることができませんでした。',

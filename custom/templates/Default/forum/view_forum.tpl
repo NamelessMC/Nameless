@@ -38,7 +38,7 @@
 				    <div class="col-md-9">
 					  <a href="{$subforum.latest_post.link}">{$subforum.latest_post.title}</a>
 					  <br />
-					  <span data-toggle="tooltip" data-trigger="hover" data-original-title="{$subforum.latest_post.time}">{$subforum.latest_post.timeago}</span><br />{$BY} <a style="{$subforum.latest_post.last_user_style}" href="{$subforum.latest_post.last_user_link}">{$subforum.latest_post.last_user}</a>
+					  <span data-toggle="tooltip" data-trigger="hover" data-original-title="{$subforum.latest_post.time}">{$subforum.latest_post.timeago}</span><br />{$BY} <a style="{$subforum.latest_post.last_user_style}" href="{$subforum.latest_post.last_user_link}" data-poload="{$USER_INFO_URL}{$subforum.latest_post.last_user_id}" data-html="true" data-placement="top">{$subforum.latest_post.last_user}</a>
 				    </div>
 				  </div>
 				  {else}
@@ -62,7 +62,7 @@
 			<tr>
 			  <td>
 				<i class="fa fa-thumb-tack"></i> {if $sticky.locked == 1}<i class="fa fa-lock"></i> {/if}{$sticky.label} <a href="{$sticky.link}">{$sticky.topic_title}</a><br />
-				<small><span data-toggle="tooltip" data-trigger="hover" data-original-title="{$sticky.topic_created}">{$sticky.topic_created_rough}</span> {$BY} <a style="{$sticky.topic_created_style}" href="{$sticky.author_link}">{$sticky.topic_created_username}</a></small>
+				<small><span data-toggle="tooltip" data-trigger="hover" data-original-title="{$sticky.topic_created}">{$sticky.topic_created_rough}</span> {$BY} <a style="{$sticky.topic_created_style}" href="{$sticky.author_link}" data-poload="{$USER_INFO_URL}{$sticky.topic_created_user_id}" data-html="true" data-placement="top">{$sticky.topic_created_username}</a></small>
 			  </td>
 			  <td>
 				<strong>{$sticky.views}</strong> {$VIEWS}<br />
@@ -76,7 +76,7 @@
 					</div>
 				  </div>
 				  <div class="col-md-9">
-					<span data-toggle="tooltip" data-trigger="hover" data-original-title="{$sticky.last_reply}">{$sticky.last_reply_rough}</span><br />{$BY} <a style="{$sticky.last_reply_style}" href="{$sticky.last_reply_link}">{$sticky.last_reply_username}</a>
+					<span data-toggle="tooltip" data-trigger="hover" data-original-title="{$sticky.last_reply}">{$sticky.last_reply_rough}</span><br />{$BY} <a style="{$sticky.last_reply_style}" href="{$sticky.last_reply_link}" data-poload="{$USER_INFO_URL}{$sticky.last_reply_user_id}" data-html="true" data-placement="top">{$sticky.last_reply_username}</a>
 				  </div>
 				</div>
 			  </td>
@@ -86,7 +86,7 @@
 			<tr>
 			  <td>
 				{if $discussion.locked == 1}<i class="fa fa-lock"></i> {/if}{$discussion.label} <a href="{$discussion.link}">{$discussion.topic_title}</a><br />
-				<small><span data-toggle="tooltip" data-trigger="hover" data-original-title="{$discussion.topic_created}">{$discussion.topic_created_rough}</span> {$BY} <a style="{$discussion.topic_created_style}" href="{$discussion.author_link}">{$discussion.topic_created_username}</a></small>
+				<small><span data-toggle="tooltip" data-trigger="hover" data-original-title="{$discussion.topic_created}">{$discussion.topic_created_rough}</span> {$BY} <a style="{$discussion.topic_created_style}" href="{$discussion.author_link}" data-poload="{$USER_INFO_URL}{$discussion.topic_created_user_id}" data-html="true" data-placement="top">{$discussion.topic_created_username}</a></small>
 			  </td>
 			  <td>
 				<strong>{$discussion.views}</strong> {$VIEWS}<br />
@@ -100,7 +100,7 @@
 					</div>
 				  </div>
 				  <div class="col-md-9">
-					<span data-toggle="tooltip" data-trigger="hover" data-original-title="{$discussion.last_reply}">{$discussion.last_reply_rough}</span><br />{$BY} <a style="{$discussion.last_reply_style}" href="{$discussion.last_reply_link}">{$discussion.last_reply_username}</a>
+					<span data-toggle="tooltip" data-trigger="hover" data-original-title="{$discussion.last_reply}">{$discussion.last_reply_rough}</span><br />{$BY} <a style="{$discussion.last_reply_style}" href="{$discussion.last_reply_link}" data-poload="{$USER_INFO_URL}{$discussion.last_reply_user_id}" data-html="true" data-placement="top">{$discussion.last_reply_username}</a>
 				  </div>
 				</div>
 			  </td>

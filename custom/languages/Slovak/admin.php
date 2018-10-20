@@ -17,6 +17,13 @@ $language = array(
 	're-authenticate' => 'Prosím overte prihlásenie',
 	
 	// Sidebar
+<<<<<<< HEAD
+=======
+	'dashboard' => 'Dashboard',
+	'configuration' => 'Configuration',
+	'layout' => 'Layout',
+	'user_management' => 'User Management',
+>>>>>>> upstream/v2
 	'admin_cp' => 'Ovládací panel Administrátora',
 	'administration' => 'Administrácia',
 	'overview' => 'Prehľad',
@@ -37,7 +44,11 @@ $language = array(
 	'posts' => 'Posts',
     'notices' => 'Upozornenia',
     'no_notices' => 'Žiadné upozornenia.',
+<<<<<<< HEAD
     'email_errors_logged' => 'Chyby s e-mailami boli zaznamenané. Pre zobrazenie kliknite <a href="{x}">zde</a>.', // Don't replace "{x}"
+=======
+    'email_errors_logged' => 'Chyby s e-mailami boli zaznamenané',
+>>>>>>> upstream/v2
 	
 	// Core
 	'settings' => 'Nastavenia',
@@ -45,12 +56,20 @@ $language = array(
 	'sitename' => 'Názov stránky',
 	'default_language' => 'Hlavný jazyk',
 	'default_language_help' => 'Užívatelia si budú môcť vybrať z ľubovoľných nainštalovaných jazykov.',
+<<<<<<< HEAD
+=======
+	'install_language' => 'Install Language',
+	'update_user_languages' => 'Update User Languages',
+	'update_user_languages_warning' => 'This will update the language for all users on your site, even if they have already selected one!',
+	'updated_user_languages' => 'User languages have been updated.',
+>>>>>>> upstream/v2
 	'installed_languages' => 'Všetké nové jazyky boly úspešne nainštalováné.',
 	'default_timezone' => 'Základné časové pásmo',
 	'registration' => 'Registrácia',
 	'enable_registration' => 'Povoliť registráciu?',
 	'verify_with_mcassoc' => 'Povoliť overovanie pomocou MCAssoc?',
 	'email_verification' => 'Povoliť overovanie pomocou e-mailu?',
+<<<<<<< HEAD
 	'homepage_type' => 'Typ hlavnej stránky',
 	'post_formatting_type' => 'Typ formátovania',
 	'portal' => 'Portál',
@@ -58,6 +77,19 @@ $language = array(
 	'use_friendly_urls' => 'Přiateľské URL adresy?',
 	'use_friendly_urls_help' => 'Dôležité: Váš server musí byť nakonfigurovany tak, aby umožnil použitie súboru mod_rewrite a .htaccess.',
 	'config_not_writable' => 'Váš <strong>core/config.php</strong> není prepisovateľný. Skontrolujte oprávnenia pre tento súbor.',
+=======
+	'registration_settings_updated' => 'Registration settings updated successfully.',
+	'homepage_type' => 'Typ hlavnej stránky',
+	'post_formatting_type' => 'Typ formátovania',
+	'portal' => 'Portál',
+	'private_profiles' => 'Private Profiles',
+	'missing_sitename' => 'Vložte názov webu o dĺžke 2 až 64 znakov.',
+	'missing_contact_address' => 'Please insert a contact email address between 3 and 255 characters long.',
+	'use_friendly_urls' => 'Přiateľské URL adresy?',
+	'use_friendly_urls_help' => 'Dôležité: Váš server musí byť nakonfigurovany tak, aby umožnil použitie súboru mod_rewrite a .htaccess.',
+	'config_not_writable' => 'Váš <strong>core/config.php</strong> není prepisovateľný. Skontrolujte oprávnenia pre tento súbor.',
+	'settings_updated_successfully' => 'General settings updated successfully.',
+>>>>>>> upstream/v2
 	'social_media' => 'Sociálne média',
 	'youtube_url' => 'Youtube URL',
 	'twitter_url' => 'Twitter URL',
@@ -68,8 +100,15 @@ $language = array(
 	'light' => 'Light',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
+<<<<<<< HEAD
 	'successfully_updated' => 'Úspešne aktualizované',
     'debugging_and_maintenance' => 'Debugging a údržba',
+=======
+	'social_media_settings_updated' => 'Social media settings updated successfully.',
+	'successfully_updated' => 'Úspešne aktualizované',
+    'debugging_and_maintenance' => 'Debugging a údržba',
+	'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
+>>>>>>> upstream/v2
     'enable_debug_mode' => 'Zapnúť debug mód?',
     'force_https' => 'Vynúcene https?',
     'force_https_help' => 'Pokiaľ je zapnuté, všetké požiadavky na Váš web budú presmerované na https. Ak chcete, aby to táto možnosť fungovala správne, tak musíte mať platný a aktivovaný SSL certifikát.',
@@ -89,7 +128,11 @@ $language = array(
     'enable_mailer_help' => 'Zapnite túto možnosť, pokiaľ niesu emaily posielané štandardne. Použitie PHPMailer vyžaduje, aby ste mali službu schopnú posielať emaily, ako Gmail alebo poskytovateť SMTP.',
     'outgoing_email' => 'Odchazádzajúca e-mailová adresa',
     'outgoing_email_info' => 'Toto je e-mailová adresa, z akej NamelessMC posiela e-maily.',
+<<<<<<< HEAD
     'mailer_settings_info' => 'Ak máte zapnutý PHPMailer, tak sú nasledujúce polia povinné. Pre viac informácií, ako tieto polia vyplniť, sa pozrite na <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">wiki</a>.',
+=======
+    'mailer_settings_info' => 'Ak máte zapnutý PHPMailer, tak sú nasledujúce polia povinné. Pre viac informácií, ako tieto polia vyplniť, sa pozrite na <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki</a>.',
+>>>>>>> upstream/v2
     'host' => 'Hosť',
 	'email_port' => 'Port',
     'email_password_hidden' => 'Z bezpečnostných dôvodov neni heslo zobrazené.',
@@ -98,7 +141,12 @@ $language = array(
     'send' => 'Odoslať',
     'test_email_error' => 'Chyby skúšobného e-mailu:',
     'test_email_success' => 'Skúšobný e-mail úspešne odoslaný!',
+<<<<<<< HEAD
     'terms_error' => 'Uistite sa prosím, že vaše podmienky niesu dlhšie ako 2048 znakov.',
+=======
+    'terms_error' => 'Uistite sa prosím, že vaše podmienky niesu dlhšie ako 100000 znakov.',
+    'privacy_policy_error' => 'Please enter a privacy policy no longer than 100000 characters.',
+>>>>>>> upstream/v2
     'terms_updated' => 'Podmienky úspešne aktualizované.',
     'avatars' => 'Avatari',
     'allow_custom_avatars' => 'Povoliť vlastné avatari užívateľov?',
@@ -110,6 +158,10 @@ $language = array(
     'minecraft_avatar_perspective' => 'Perspektíva Minecraft avatara',
     'face' => 'Tvár',
     'head' => 'Hlava',
+<<<<<<< HEAD
+=======
+	'bust' => 'Bust',
+>>>>>>> upstream/v2
     'select_default_avatar' => 'Vyberte nového východzieho avatara:',
     'no_avatars_available' => 'Žiadný avatar není dostupný. Nahrajte prosím nový obrázok vyžšie.',
     'avatar_settings_updated_successfully' => 'Nastavenie avataru úspešne aktualizované.',
@@ -118,6 +170,10 @@ $language = array(
     'navbar_order_instructions' => 'Každej položke môžete dať číslo 0 k zoradeniu položiek v navigačnej lište, číslo 1 bude prvá položka navigačnej lišty a ďalšie čísla za 1 sa v nej budú ďalej zoraďovať.',
     'navbar_icon' => 'Navbar Icon',
     'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+<<<<<<< HEAD
+=======
+    'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
+>>>>>>> upstream/v2
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Zapnúť čas načítania stránky?',
     'google_recaptcha' => 'Enable Google reCAPTCHA?',
@@ -128,7 +184,11 @@ $language = array(
     'validation_promote_group' => 'Post-validation group',
     'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
     'login_method' => 'Login Method',
+<<<<<<< HEAD
     'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+=======
+    'privacy_and_terms' => 'Privacy & Terms',
+>>>>>>> upstream/v2
 
 	// Reactions
 	'icon' => 'Ikonka',
@@ -140,6 +200,19 @@ $language = array(
 	'html' => 'HTML',
 	'new_reaction' => '<i class="fa fa-plus-circle"></i> Nová reakcia',
 	'creating_reaction' => 'Vytvoriť reakciu',
+<<<<<<< HEAD
+=======
+	'no_reactions' => 'There are no reactions yet.',
+	'reaction_created_successfully' => 'Reaction created successfully.',
+	'reaction_edited_successfully' => 'Reaction edited successfully.',
+	'reaction_deleted_successfully' => 'Reaction deleted successfully.',
+	'name_required' => 'A name is required',
+	'html_required' => 'HTML is required',
+	'type_required' => 'A type is required',
+	'name_maximum_16' => 'The name must be no more than 16 characters',
+	'html_maximum_255' => 'The HTML must be no more than 255 characters',
+	'confirm_delete_reaction' => 'Are you sure you want to delete this reaction?',
+>>>>>>> upstream/v2
 	
 	// Custom profile fields
 	'custom_fields' => 'Vlastné profilové polia',
@@ -161,6 +234,12 @@ $language = array(
 	'profile_field_forum_help' => 'Pokiaľ je zapnuté, pole bude zobrazené vedľa príspevku užívateľa.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 	'no_custom_fields' => 'There are no custom fields yet.',
+<<<<<<< HEAD
+=======
+	'profile_field_updated_successfully' => 'The profile field was updated successfully.',
+	'profile_field_created_successfully' => 'The profile field was created successfully.',
+	'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
+>>>>>>> upstream/v2
 	
 	// Minecraft
 	'enable_minecraft_integration' => 'Povoliť Minecraft?',
@@ -232,6 +311,14 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> Nový banner',
     'purge_errors' => 'Vymazať chyby',
     'confirm_purge_errors' => 'Ste si istý, že chcete vymazať všetké chyby?',
+<<<<<<< HEAD
+=======
+	'email_errors_purged_successfully' => 'Email errors have been purged successfully.',
+	'error_deleted_successfully' => 'The error has been deleted successfully.',
+	'no_email_errors' => 'No email errors logged.',
+	'email_settings_updated_successfully' => 'Email settings have been updated successfully.',
+	'content' => 'Content',
+>>>>>>> upstream/v2
     'mcassoc_help' => 'mcassoc je externá služba, ktorá môže byť použitá k overeniu, či užívatelia vlastní Minecraft účet, s ktorým sa zaregistrovali. Pre použití tejto možnosti sa budete musieť zaregistrovať pre získanie zdialeného klúča <a href="https://mcassoc.lukegb.com/" target="_blank">tu</a>.',
     'mcassoc_key' => 'mcassoc sdílený klíč',
     'mcassoc_instance' => 'mcassoc prípadový kľúč',
@@ -254,6 +341,15 @@ $language = array(
 	'module_enabled' => 'Modul povolen.',
 	'module_disabled' => 'Modul zakázaný.',
 	'author' => 'Autor:',
+<<<<<<< HEAD
+=======
+	'author_x' => 'Autor: {x}', // Don't replace {x}
+	'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
+	'find_modules' => 'Find Modules',
+	'view_all_modules' => 'View all modules',
+	'unable_to_retrieve_modules' => 'Unable to retrieve modules',
+	'module' => 'Module',
+>>>>>>> upstream/v2
 	
 	// Styles
 	'templates' => 'Šablóny',
@@ -278,7 +374,22 @@ $language = array(
 	'confirm_delete_template' => 'Jste si jist, že chcete smazat tuto šablonu?',
 	'delete' => 'Smazat',
 	'template_deleted_successfully' => 'Šablona úspešne odstraněna.',
+<<<<<<< HEAD
     'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+=======
+	'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+	'find_templates' => 'Find Templates',
+	'view_all_templates' => 'View all templates',
+	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
+	'template' => 'Template',
+	'stats' => 'Stats',
+	'downloads_x' => 'Downloads: {x}',
+	'views_x' => 'Views: {x}',
+	'rating_x' => 'Rating: {x}',
+	'editing_template_x' => 'Editing template {x}', // Don't replace {x}
+	'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
+	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
+>>>>>>> upstream/v2
 
 	// Users & groups
 	'users' => 'Užívateľ',
@@ -328,6 +439,15 @@ $language = array(
 	'default_group' => 'Is the group the default group (for new users)?',
 	'user_id' => 'User ID',
 	'uuid' => 'UUID',
+<<<<<<< HEAD
+=======
+	'group_order' => 'Group Order',
+	'group_created_successfully' => 'Group created successfully.',
+	'group_updated_successfully' => 'Group updated successfully.',
+	'group_deleted_successfully' => 'Group deleted successfully.',
+	'unable_to_delete_group' => 'Unable to delete a default group, or a group that can view the StaffCP. Please update the group settings first!',
+	'can_view_staffcp' => 'Can the group view the StaffCP?',
+>>>>>>> upstream/v2
 
 	// Permissions
 	'select_all' => 'Select All',
@@ -368,6 +488,10 @@ $language = array(
 	'current_version_x' => 'Súčasná verzia: <strong>{x}</strong>', // Don't replaec {x}
 	'new_version_x' => 'Nová verzia: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => 'K dispozícií je nová aktualizácia',
+<<<<<<< HEAD
+=======
+	'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
+>>>>>>> upstream/v2
 	'up_to_date' => 'Používate najnovšiu verziu!',
 	'urgent' => 'Tato aktualizáce je dôležitá!',
 	'changelog' => 'Zoznam zmien',
@@ -380,6 +504,10 @@ $language = array(
 	'widgets' => 'Widgety',
 	'widget_enabled' => 'Widget zapnutý.',
 	'widget_disabled' => 'Widget vypnutý.',
+<<<<<<< HEAD
+=======
+	'widget_updated' => 'Widget updated.',
+>>>>>>> upstream/v2
 	'editing_widget_x' => 'Upravenie widgetov {x}', // Don't replace {x}
 	'module_x' => 'Doplněk: {x}', // Don't replace {x}
 	'widget_order' => 'Widget Order',
@@ -408,6 +536,10 @@ $language = array(
 	'unsafe_html' => 'Povoliť nebezpečné HTML?',
 	'unsafe_html_warning' => 'Povolením tejto možnosti, akékoľvek HTML môže byť na tejto strane použité, okrem potenciálne nebezpečného jazyka JavaScript. Povoľte to len v prípade, či ste si istý, že Váš HTML kód je bezpečný.',
 	'include_in_sitemap' => 'Include in sitemap?',
+<<<<<<< HEAD
+=======
+	'sitemap_link' => 'Sitemap link:',
+>>>>>>> upstream/v2
 	'page_permissions' => 'Oprávnenia stránky',
 	'view_page' => 'Môže túto stránku vidieť?',
 	'editing_page_x' => 'Upravovanie stránky {x}', // Don't replace {x}
@@ -423,6 +555,12 @@ $language = array(
 	'page_content_maximum_100000' => 'Zaistite, aby obsah vašej stránky bol maximálne 100000 znakov dlhý.',
 	'page_redirect_link_maximum_512' => 'Zaistite, aby odkaz na presmerovanie vašej stránky bol maximálne 512 znakov dlhý.',
 	'confirm_delete_page' => 'Ste si istý, že chcete túto stránku odstrániť?',
+<<<<<<< HEAD
+=======
+	'page_created_successfully' => 'Page created successfully.',
+	'page_updated_successfully' => 'Page updated successfully.',
+	'page_deleted_successfully' => 'Page deleted successfully.',
+>>>>>>> upstream/v2
 
     // API
     'api' => 'API',
@@ -431,12 +569,26 @@ $language = array(
     'enable_legacy_api' => 'Enable legacy API?',
     'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
     'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
+<<<<<<< HEAD
     'api_registration_email' => 'API Registration Email',
+=======
+	'api_key' => 'API Key',
+	'api_url' => 'API URL',
+	'copy' => 'Copy',
+	'api_key_regenerated' => 'The API key has been regenerated successfully.',
+    'api_registration_email' => 'API Registration Email',
+	'show_registration_link' => 'Show registration link',
+	'registration_link' => 'Registration Link',
+>>>>>>> upstream/v2
     'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
     'api_verification' => 'Enable API verification?',
     'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
     'enable_username_sync' => 'Enable username sync?',
     'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
+<<<<<<< HEAD
+=======
+	'api_settings_updated_successfully' => 'API settings updated successfully.',
+>>>>>>> upstream/v2
 
 	// File uploads
 	'drag_files_here' => 'Súbory pretiahnite sem pre nahranie.',
@@ -453,6 +605,10 @@ $language = array(
 	'other_log' => 'Other log',
 	'fatal_log' => 'Fatal log',
 	'log_file_not_found' => 'Log file not found.',
+<<<<<<< HEAD
+=======
+	'log_purged_successfully' => 'The log has been purged successfully.',
+>>>>>>> upstream/v2
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
@@ -477,4 +633,25 @@ $language = array(
 	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
 	'keywords' => 'Keywords',
 	'description_max_500' => 'The description must be at most 500 characters.',
+<<<<<<< HEAD
+=======
+	'page' => 'Page',
+	'metadata_updated_successfully' => 'Metadata updated successfully.',
+
+	// Dashboard
+	'total_users' => 'Total Users',
+	'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
+	'recent_users' => 'New Users',
+	'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
+	'average_players' => 'Average Players',
+	'nameless_news' => 'NamelessMC News',
+	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
+	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'server_compatibility' => 'Server Compatibility',
+	'issues' => 'Issues',
+
+	// Other
+	'source' => 'Source',
+	'support' => 'Support'
+>>>>>>> upstream/v2
 );

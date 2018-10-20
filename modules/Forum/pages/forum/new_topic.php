@@ -125,7 +125,11 @@ if(Input::exists()) {
 
 					// Get last post ID
 					$last_post_id = $queries->getLastId();
+<<<<<<< HEAD
 					$content = $mentionsParser->parse($user->data()->id, $content, $topic_id, $last_post_id, $forum_language->get('forum', 'user_tag'), $forum_language->get('forum', 'user_tag_info'));
+=======
+					$content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $topic_id, 'pid=' . $last_post_id), array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'), array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)));
+>>>>>>> upstream/v2
 
 					$queries->update("posts", $last_post_id, array(
 						'post_content' => $content
@@ -259,6 +263,7 @@ if(count($forum_labels)){
 	}
 }
 
+<<<<<<< HEAD
 // Smarty variables
 $smarty->assign('LABELS', $labels);
 $smarty->assign('TOPIC_TITLE', $forum_language->get('forum', 'topic_title'));
@@ -270,6 +275,28 @@ $smarty->assign('CONFIRM_CANCEL', $language->get('general', 'confirm_cancel'));
 $smarty->assign('TOKEN', '<input type="hidden" name="token" value="' . $token . '">');
 $smarty->assign('FORUM_LINK', URL::build('/forum'));
 $smarty->assign('CONTENT', Output::getPurified(Input::get('content')));
+=======
+// Get info about forum
+$forum_query = $queries->getWhere('forums', array('id', '=', $fid));
+$forum_query = $forum_query[0];
+
+// Smarty variables
+$smarty->assign(array(
+	'LABELS' => $labels,
+	'TOPIC_TITLE' => $forum_language->get('forum', 'topic_title'),
+	'LABEL' => $forum_language->get('forum', 'label'),
+	'SUBMIT' => $language->get('general', 'submit'),
+	'CANCEL' => $language->get('general', 'cancel'),
+	'CLOSE' => $language->get('general', 'close'),
+	'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
+	'TOKEN' => '<input type="hidden" name="token" value="' . $token . '">',
+	'FORUM_LINK' => URL::build('/forum'),
+	'CONTENT' => Output::getPurified(Input::get('content')),
+	'FORUM_TITLE' => Output::getClean($forum_title),
+	'FORUM_DESCRIPTION' => Output::getPurified($forum_query->forum_description),
+	'NEWS_FORUM' => $forum_query->news
+));
+>>>>>>> upstream/v2
 
 // Get post formatting type (HTML or Markdown)
 $cache->setCache('post_formatting');

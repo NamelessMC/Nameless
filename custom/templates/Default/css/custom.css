@@ -23,7 +23,8 @@
 
 .home-header {
 	background-image: url('../img/homepage_bg_trimmed.jpg');
-	height: 450px;
+	min-height: 450px;
+	background-size: cover;
 }
 
 .jumbotron.home-header .container .container {

@@ -116,7 +116,11 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 								if($query->id !== $user->data()->id){
 									// Alert user
+<<<<<<< HEAD
 									Alert::create($query->id, 'profile_post', str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), URL::build('/profile/' . Output::getClean($query->username)));
+=======
+									Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username)));
+>>>>>>> upstream/v2
 								}
 
 								// Redirect to clear input
@@ -168,14 +172,24 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 								));
 
 								if($post[0]->author_id != $query->id && $query->id != $user->data()->id)
+<<<<<<< HEAD
 									Alert::create($query->id, 'profile_post', str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post')), URL::build('/profile/' . Output::getClean($query->username)));
+=======
+									Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username)));
+>>>>>>> upstream/v2
 
 								else if($post[0]->author_id != $user->data()->id){
 									// Alert post author
 									if($post[0]->author_id == $query->id)
+<<<<<<< HEAD
 										Alert::create($query->id, 'profile_post_reply', str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post_reply_your_profile')), str_replace('{x}', Output::getClean($user->data()->nickname), $language->get('user', 'new_wall_post_reply_your_profile')), URL::build('/profile/' . Output::getClean($query->username)));
 									else
 										Alert::create($post[0]->author_id, 'profile_post_reply', str_replace(array('{x}', '{y}'), array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname)), $language->get('user', 'new_wall_post_reply')), str_replace(array('{x}', '{y}'), array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname)), $language->get('user', 'new_wall_post_reply')), URL::build('/profile/' . Output::getClean($query->username)));
+=======
+										Alert::create($query->id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username)));
+									else
+										Alert::create($post[0]->author_id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), URL::build('/profile/' . Output::getClean($query->username)));
+>>>>>>> upstream/v2
 								}
 
 								// Redirect to clear input
@@ -561,6 +575,10 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 					*/
 
 					$reactions['reactions'][] = array(
+<<<<<<< HEAD
+=======
+						'user_id' => Output::getClean($reaction->user_id),
+>>>>>>> upstream/v2
 						'username' => Output::getClean($user->idToName($reaction->user_id)),
 						'nickname' => Output::getClean($user->idToNickname($reaction->user_id)),
 						'style' => $user->getGroupClass($reaction->user_id),
@@ -582,6 +600,10 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 				foreach($replies_query as $reply){
 					$replies['replies'][] = array(
+<<<<<<< HEAD
+=======
+						'user_id' => Output::getClean($reply->author_id),
+>>>>>>> upstream/v2
 						'username' => Output::getClean($user->idToName($reply->author_id)),
 						'nickname' => Output::getClean($user->idToNickname($reply->author_id)),
 						'style' => $user->getGroupClass($reply->author_id),
@@ -599,6 +621,10 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 			$wall_posts[] = array(
 				'id' => $results->data[$n]->id,
+<<<<<<< HEAD
+=======
+				'user_id' => Output::getClean($post_user[0]->id),
+>>>>>>> upstream/v2
 				'username' => Output::getClean($post_user[0]->username),
 				'nickname' => Output::getClean($post_user[0]->nickname),
 				'profile' => URL::build('/profile/' . Output::getClean($post_user[0]->username)),

@@ -66,6 +66,12 @@ $language = array(
     'content' => 'Content',
     'full_content' => 'Full Content',
     'url' => 'URL',
+<<<<<<< HEAD
+=======
+	'success' => 'Erfolgreich',
+	'error' => 'Fehler',
+	'are_you_sure' => 'Bist du sicher?',
+>>>>>>> upstream/v2
 
     /*
      *  Contact form
@@ -105,34 +111,62 @@ $language = array(
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Version: {x}', // Don't replace {x}
+<<<<<<< HEAD
     'currently_1_player_online' => 'There is currently 1 player online.',
+=======
+    'currently_1_player_online' => 'Es ist 1 Spieler online',
+>>>>>>> upstream/v2
     'currently_x_players_online' => 'Derzeit sind <strong>{x}</strong> Spieler online.', // Don't replace {x}
     'server_offline' => 'Der Server ist zurzeit Offline.',
     'connect_with_ip_x' => 'Verbinde dich jetzt mit folgender Adresse: {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'In Zwischenablage kopieren',
+<<<<<<< HEAD
     'copied' => 'Copied!',
     'no_servers' => 'There are no servers to display!',
     'bungee_instance' => 'This server is a Bungee instance.',
     'no_players_online' => 'There are no players online.',
+=======
+    'copied' => 'In Zwischenablage kopiert!',
+    'no_servers' => 'Es sind keine Server verfügbar!',
+    'bungee_instance' => 'Der Server ist eine Bungeecord Instanz',
+    'no_players_online' => 'Es sind keine Spieler Online.',
+>>>>>>> upstream/v2
     'and_x_more' => 'and {x} more', // Don't replace {x}
 
     /*
      *  Cookie notice
      */
+<<<<<<< HEAD
     'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
     'cookie_agree' => 'Agree',
+=======
+    'cookie_notice' => 'Diese Website verwendet Cookies, um Ihre Browser-Erfahrung zu verbessern. Mit der Registrierung auf unserer Website oder dem Schließen dieses Hinweises stimmen Sie der Verwendung zu.',
+    'cookie_agree' => 'Akzeptieren',
+>>>>>>> upstream/v2
 
     /*
      *  Widgets
      */
+<<<<<<< HEAD
     'online_staff' => '>Online Staff',
     'no_online_staff' => 'There are no staff members online.',
     'online_users' => 'Online Users',
     'no_online_users' => 'There are no users online.',
     'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
+=======
+    'online_staff' => 'Aktivere Teammitglieder',
+    'no_online_staff' => 'Derzeit sind keine Teammitglieder online',
+    'online_users' => 'Aktive User',
+    'no_online_users' => 'Es sind keine User online',
+    'discord_widget_disabled' => 'Das Widget ist für den angegebenen Discord-Server deaktiviert. Bitte gehen Sie auf die Registerkarte \"Widget\" in Ihren Discord-Server-Einstellungen und stellen Sie sicher, dass das Discord-Widget aktiviert ist und dass die ID korrekt ist.',
+>>>>>>> upstream/v2
 
     /*
      *  Privacy policy
      */
+<<<<<<< HEAD
     'privacy_policy' => 'Privacy Policy'
+=======
+    'privacy_policy' => 'Datenschutzerklärung'
+>>>>>>> upstream/v2
 );

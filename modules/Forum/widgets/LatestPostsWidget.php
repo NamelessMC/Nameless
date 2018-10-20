@@ -113,6 +113,10 @@ class LatestPostsWidget extends WidgetBase {
 				    'topic_created_username' => Output::getClean($this->_user->idToNickname($discussions[$n]['topic_creator'])),
 				    'topic_created_mcname' => Output::getClean($this->_user->idToName($discussions[$n]['topic_creator'])),
 				    'topic_created_style' => $this->_user->getGroupClass($discussions[$n]['topic_creator']),
+<<<<<<< HEAD
+=======
+				    'topic_created_user_id' => Output::getClean($discussions[$n]['topic_creator']),
+>>>>>>> upstream/v2
 				    'locked' => $discussions[$n]['locked'],
 				    'forum_name' => $forum_name,
 				    'forum_id' => $discussions[$n]['forum_id'],
@@ -124,6 +128,10 @@ class LatestPostsWidget extends WidgetBase {
 				    'last_reply_username' => Output::getClean($this->_user->idToNickname($discussions[$n]['topic_last_user'])),
 				    'last_reply_mcname' => Output::getClean($this->_user->idToName($discussions[$n]['topic_last_user'])),
 				    'last_reply_style' => $this->_user->getGroupClass($discussions[$n]['topic_last_user']),
+<<<<<<< HEAD
+=======
+				    'last_reply_user_id' => Output::getClean($discussions[$n]['topic_last_user']),
+>>>>>>> upstream/v2
 				    'label' => $label,
 				    'link' => URL::build('/forum/topic/' . $discussions[$n]['id'] . '-' . $forum->titleToURL($discussions[$n]['topic_title'])),
 				    'forum_link' => URL::build('/forum/forum/' . $discussions[$n]['forum_id']),

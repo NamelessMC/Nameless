@@ -2,7 +2,11 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
+<<<<<<< HEAD
  *  NamelessMC version 2.0.0-pr2
+=======
+ *  NamelessMC version 2.0.0-pr5
+>>>>>>> upstream/v2
  *
  *  License: MIT
  *
@@ -77,7 +81,11 @@ if(Token::check(Input::get('token'))){
 				'report_reason' => Output::getClean($_POST['reason']),
 				'updated_by' => $user->data()->id,
 				'link' => URL::build('/forum/topic/' . Output::getClean($_POST['topic']), 'pid=' . Output::getClean($_POST['post']))
+<<<<<<< HEAD
 			), $language->get('moderator', 'report_alert'));
+=======
+			));
+>>>>>>> upstream/v2
 			Log::getInstance()->log(Log::Action('misc/report'), $post->post_creator);
 			
 		} catch(Exception $e){

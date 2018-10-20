@@ -12,6 +12,10 @@
 
 $language = array(
 	'mod_cp' => 'ModKP',
+<<<<<<< HEAD
+=======
+	'staff_cp' => 'StaffCP',
+>>>>>>> upstream/v2
 	'overview' => 'Översikt',
 	
 	// Spam
@@ -52,6 +56,13 @@ $language = array(
 	'open_reports' => 'Det finns för närvarande <strong>{x}</strong> öppnade anmälningar.', // Don't replace {x}
 	'no_open_reports' => 'There are currently no open reports.',
 	'no_closed_reports' => 'There are currently no closed reports.',
+<<<<<<< HEAD
+=======
+	'recent_reports' => 'Recent Reports',
+	'reported_by' => 'Reported by:',
+	'website' => 'Website',
+	'ingame' => 'Ingame',
+>>>>>>> upstream/v2
 	
 	// Punishments
 	'punishments' => 'Straffar',
@@ -86,6 +97,19 @@ $language = array(
     'view_user' => 'Visa Användrare',
     'when' => 'När',
     'staff' => 'Personal',
+<<<<<<< HEAD
     'type' => 'Typ'
 
 );
+=======
+    'type' => 'Typ',
+    'recent_punishments' => 'Recent Punishments',
+    'created' => 'Created:',
+    'staff:' => 'Staff:',
+    'reason:' => 'Reason:',
+	
+    // Users
+    'recent_registrations' => 'Recent Registrations'
+
+);
+>>>>>>> upstream/v2

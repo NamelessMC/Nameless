@@ -2,7 +2,11 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
+<<<<<<< HEAD
  *  NamelessMC version 2.0.0-pr4
+=======
+ *  NamelessMC version 2.0.0-pr5
+>>>>>>> upstream/v2
  *
  *  License: MIT
  *
@@ -34,8 +38,15 @@ if(Input::exists()){
 
         $cache->store('discord', Output::getClean($discord_api_key));
 
+<<<<<<< HEAD
     } else {
         $error = $language->get('general', 'invalid_token');
+=======
+        $success = $language->get('admin', 'widget_updated');
+
+    } else {
+        $errors = array($language->get('general', 'invalid_token'));
+>>>>>>> upstream/v2
     }
 }
 
@@ -48,6 +59,7 @@ if($cache->isCached('discord_widget_theme'))
     $discord_theme = $cache->retrieve('discord_widget_theme');
 else
     $discord_theme = 'dark';
+<<<<<<< HEAD
 ?>
 
 <h4 style="display:inline;"><?php echo str_replace('{x}', Output::getClean($widget->name), $language->get('admin', 'editing_widget_x')); ?></h4>
@@ -81,3 +93,15 @@ if(isset($error))
         <input type="submit" class="btn btn-primary" value="<?php echo $language->get('general', 'submit'); ?>">
     </div>
 </form>
+=======
+
+$smarty->assign(array(
+	'DISCORD_ID' => $language->get('admin', 'discord_id'),
+	'DISCORD_ID_VALUE' => Output::getClean($discord_api),
+	'DISCORD_THEME' => $language->get('admin', 'discord_widget_theme'),
+	'DISCORD_THEME_VALUE' => $discord_theme,
+	'SETTINGS_TEMPLATE' => 'core/widgets/discord.tpl',
+	'DARK' => $language->get('admin', 'dark'),
+	'LIGHT' => $language->get('admin', 'light')
+));
+>>>>>>> upstream/v2

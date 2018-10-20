@@ -41,11 +41,20 @@ $language = array(
     'invalid_code' => 'Ongeldige code voorzien',
 
     // Success messages
+<<<<<<< HEAD
     'finish_registration_link' => 'Klik alstublieft de volgende link om de registratie te voltooien:',
+=======
+    'finish_registration_link' => 'Klik alstublieft op de volgende link om de registratie te voltooien:',
+>>>>>>> upstream/v2
     'finish_registration_email' => 'Bekijkt u alstublieft uw email om de registratie te voltooien.',
     'group_updated' => 'Groep succesvol bijgewerkt',
     'report_created' => 'Rapport succesvol gemaakt',
     'new_private_message_from' => 'Nieuw privé bericht van {x}', // Don't replace {x}
     'username_updated' => 'Gebruikersnaam succesvol bijgewerkt',
+<<<<<<< HEAD
     'server_info_updated' => 'Server informatie succesvol bijgwerkt'
+=======
+    'server_info_updated' => 'Server informatie succesvol bijgwerkt',
+    'account_validated' => 'Account succesvol gevalideerd'
+>>>>>>> upstream/v2
 );

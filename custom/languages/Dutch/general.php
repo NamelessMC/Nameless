@@ -60,6 +60,12 @@ $language = array(
 	'content' => 'Content',
 	'full_content' => 'Full Content',
 	'url' => 'URL',
+<<<<<<< HEAD
+=======
+	'success' => 'Success',
+	'error' => 'Error',
+	'are_you_sure' => 'Are you sure?',
+>>>>>>> upstream/v2
 
 	/*
 	 *  Contact formulier
@@ -103,30 +109,56 @@ $language = array(
 	'currently_x_players_online' => 'Er zijn nu <strong>{x}</strong> spelers online.', // Verander "{x}" niet
 	'server_offline' => 'De server is nu offline.',
 	'connect_with_ip_x' => 'Verbind met dit IP adres: {x}', // Verander "{x}" niet
+<<<<<<< HEAD
     'click_to_copy_tooltip' => 'Click to copy',
     'copied' => 'Copied!',
     'no_servers' => 'There are no servers to display!',
     'bungee_instance' => 'This server is a Bungee instance.',
     'no_players_online' => 'There are no players online.',
     'and_x_more' => 'and {x} more', // Don't replace {x}
+=======
+    'click_to_copy_tooltip' => 'Klik om te kopiëren',
+    'copied' => 'Gekopieerd!',
+    'no_servers' => 'Er zijn geen servers om weer te geven!',
+    'bungee_instance' => 'Deze server is een Bungee instance.',
+    'no_players_online' => 'Er zijn geen spelers online.',
+    'and_x_more' => 'en {x} meer', // Don't replace {x}
+>>>>>>> upstream/v2
 
 	/*
 	 *  Cookie notice
 	 */
+<<<<<<< HEAD
 	'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
 	'cookie_agree' => 'Agree',
+=======
+	'cookie_notice' => 'Deze website maakt gebruik van cookies om uw surfervaring te verbeteren. Door u te registreren op onze website of door deze mededeling te sluiten gaat u akkoord met het gebruik ervan.',
+	'cookie_agree' => 'Akkoord',
+>>>>>>> upstream/v2
 
     /*
      *  Widgets
      */
+<<<<<<< HEAD
     'online_staff' => 'Online Staff',
     'no_online_staff' => 'There are no staff members online.',
     'online_users' => 'Online Users',
     'no_online_users' => 'There are no users online.',
     'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
+=======
+    'online_staff' => 'Online Personeel',
+    'no_online_staff' => 'Er zijn geen personeelsleden online.',
+    'online_users' => 'Online Gebruikers',
+    'no_online_users' => 'Er zijn geen gebruikes online.',
+    'discord_widget_disabled' => 'De widget is uitgeschakeld voor de opgegeven Discord server. Ga naar het tabblad \'Widget\' in uw Discord server instellingen, en zorg ervoor dat de Discord widget is ingeschakeld en dat de ID correct is.',
+>>>>>>> upstream/v2
 
     /*
      *  Privacy policy
      */
+<<<<<<< HEAD
     'privacy_policy' => 'Privacy Policy'
+=======
+    'privacy_policy' => 'Privacy Verklaring'
+>>>>>>> upstream/v2
 );

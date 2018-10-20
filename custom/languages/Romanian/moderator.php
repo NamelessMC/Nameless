@@ -8,11 +8,19 @@
  *
  *  Romanian Language - Moderator terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
+<<<<<<< HEAD
  *  Last Update: 06/07/2018
+=======
+ *  Last Update: 24/09/2018
+>>>>>>> upstream/v2
  */
 
 $language = array(
     'mod_cp' => 'Panou Moderator',
+<<<<<<< HEAD
+=======
+    'staff_cp' => 'Panoul de control',
+>>>>>>> upstream/v2
     'overview' => 'Prezentare generală',
     
     // Spam
@@ -30,8 +38,13 @@ $language = array(
     'count_accounts_with_ip' => 'Am găsit {x} conturi de utilizatori pentru adresa IP {y}', // Don't replace "{x}" or "{y}"
     'count_ips_with_name' => 'Am găsit {x} adrese IP pentru utilizatorul {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Nu a fost găsit nici un cont de utilizator sau adresă IP.',
+<<<<<<< HEAD
 	'1_account_with_ip' => 'Am găsit un cont de utilizatori pentru adresa IP {y}', // Don't replace "{y}"
 	'1_ip_with_name' => 'Am găsit o adresă IP pentru utilizatorul {y}', // Don't replace "{y}"
+=======
+    '1_account_with_ip' => 'Am găsit un cont de utilizatori pentru adresa IP {y}', // Don't replace "{y}"
+    '1_ip_with_name' => 'Am găsit o adresă IP pentru utilizatorul {y}', // Don't replace "{y}"
+>>>>>>> upstream/v2
     
     // Reports
     'reports' => 'Rapoarte',
@@ -53,6 +66,13 @@ $language = array(
     'open_reports' => 'În momentul de față există <strong>{x}</strong> rapoarte deschise.', // Don't replace {x}
     'no_open_reports' => 'În momentul de față nu există rapoarte deschise.',
     'no_closed_reports' => 'În momentul de față nu există rapoarte închise.',
+<<<<<<< HEAD
+=======
+    'recent_reports' => 'Rapoarte recente',
+    'reported_by' => 'Raportat de:',
+    'website' => 'Website',
+    'ingame' => 'InGame',
+>>>>>>> upstream/v2
     
     // Punishments
     'punishments' => 'Sancțiuni',
@@ -87,6 +107,17 @@ $language = array(
     'view_user' => 'Vizualizare istoric',
     'when' => 'Când',
     'staff' => 'Moderator',
+<<<<<<< HEAD
     'type' => 'Tip'
+=======
+    'type' => 'Tip',
+    'recent_punishments' => 'Sancțiuni recente',
+    'created' => 'Creat:',
+    'staff:' => 'Moderator:',
+    'reason:' => 'Motiv:',
+    
+    // Users
+    'recent_registrations' => 'Înregistrări recente'
+>>>>>>> upstream/v2
 
 );

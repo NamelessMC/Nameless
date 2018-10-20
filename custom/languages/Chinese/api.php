@@ -47,5 +47,10 @@ $language = array(
     'report_created' => 'Report created successfully',
     'new_private_message_from' => 'New private message from {x}', // Don't replace {x}
     'username_updated' => 'Username updated successfully',
+<<<<<<< HEAD
     'server_info_updated' => 'Server info updated successfully'
+=======
+    'server_info_updated' => 'Server info updated successfully',
+	'account_validated' => 'Account validated successfully'
+>>>>>>> upstream/v2
 );

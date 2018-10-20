@@ -397,7 +397,11 @@ if(Input::exists()){
                                     if ($php_mailer == '1') {
                                         // PHP Mailer
                                         // HTML to display in message
+<<<<<<< HEAD
                                         $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', $template, 'email', 'register.html'));
+=======
+                                        $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'register.html'));
+>>>>>>> upstream/v2
                                         $html = file_get_contents($path);
 
                                         $link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code);

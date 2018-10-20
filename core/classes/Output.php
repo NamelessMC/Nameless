@@ -2,7 +2,11 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
+<<<<<<< HEAD
  *  NamelessMC version 2.0.0-pr4
+=======
+ *  NamelessMC version 2.0.0-pr5
+>>>>>>> upstream/v2
  *
  *  License: MIT
  *
@@ -50,10 +54,17 @@ class Output {
 			$purifierConfig->set('HTML.DefinitionID', 'namelessmc');
 			$purifierConfig->set('HTML.DefinitionRev', 1);
 			$purifierConfig->set('Cache.DefinitionImpl', null);
+<<<<<<< HEAD
 			$def = $purifierConfig->getHTMLDefinition(true);
 			$def->addElement('figure', 'Block', 'Optional: (figcaption, Flow) | (Flow, figcaption) | Flow', 'Common');
 			$def->addElement('figcaption', 'Inline', 'Flow', 'Common');
 
+=======
+			if($def = $purifierConfig->maybeGetRawHTMLDefinition()){
+				$def->addElement('figure', 'Block', 'Optional: (figcaption, Flow) | (Flow, figcaption) | Flow', 'Common');
+				$def->addElement('figcaption', 'Inline', 'Flow', 'Common');
+			}
+>>>>>>> upstream/v2
 			self::$_purifier = new HTMLPurifier($purifierConfig);
 		}
 

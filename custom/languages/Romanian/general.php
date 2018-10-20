@@ -8,7 +8,11 @@
  *
  *  Romanian Language - General terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ASMODΣUS
+<<<<<<< HEAD
  *  Last Update: 04/09/2018
+=======
+ *  Last Update: 24/09/2018
+>>>>>>> upstream/v2
  */
 
 $language = array(
@@ -60,6 +64,12 @@ $language = array(
     'content' => 'Conţinut',
     'full_content' => 'Conținut complet',
     'url' => 'URL',
+<<<<<<< HEAD
+=======
+    'success' => 'Succes',
+    'error' => 'Eroare',
+    'are_you_sure' => 'Esti sigur?',
+>>>>>>> upstream/v2
 
     /*
      *  Contact form

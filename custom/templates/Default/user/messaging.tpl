@@ -35,7 +35,7 @@
 					    </div>
 				      </div>
 				      <div class="col-md-9">
-					    <span data-toggle="tooltip" data-trigger="hover" data-original-title="{$message.last_message_date_full}">{$message.last_message_date}</span><br /> {$BY} <a style="{$message.last_message_user_style}" href="{$message.last_message_user_profile}">{$message.last_message_user}</a>
+					    <span data-toggle="tooltip" data-trigger="hover" data-original-title="{$message.last_message_date_full}">{$message.last_message_date}</span><br /> {$BY} <a style="{$message.last_message_user_style}" data-poload="{$USER_INFO_URL}{$message.last_message_user_id}" data-html="true" data-placement="top" href="{$message.last_message_user_profile}">{$message.last_message_user}</a>
 				      </div>
 				    </div>
 				  </td>

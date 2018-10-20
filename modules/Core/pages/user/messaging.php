@@ -82,12 +82,19 @@ if(isset($_GET['p'])){
 	$p = 1;
 }
 
+<<<<<<< HEAD
 require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
 if(!isset($_GET['action'])){
 	// Get private messages
 	$messages = $user->listPMs($user->data()->id);
 
+=======
+if(!isset($_GET['action'])){
+	// Get private messages
+	$messages = $user->listPMs($user->data()->id);
+
+>>>>>>> upstream/v2
 	// Pagination
 	$paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
 	$results = $paginator->getLimited($messages, 10, $p, count($messages));
@@ -113,6 +120,10 @@ if(!isset($_GET['action'])){
 			'title' => Output::getClean($results->data[$n]['title']),
 			'participants' => $participants,
 			'link' => URL::build('/user/messaging/', 'action=view&amp;message=' . $results->data[$n]['id']),
+<<<<<<< HEAD
+=======
+			'last_message_user_id' => Output::getClean($results->data[$n]['user_updated']),
+>>>>>>> upstream/v2
 			'last_message_user' => Output::getClean($user->idToNickname($results->data[$n]['user_updated'])),
 			'last_message_user_profile' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]['user_updated']))),
 			'last_message_user_avatar' => $user->getAvatar($results->data[$n]['user_updated'], "../", 30),
@@ -145,6 +156,11 @@ if(!isset($_GET['action'])){
 	// Load modules + template
 	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
+<<<<<<< HEAD
+=======
+	require(ROOT_PATH . '/core/templates/cc_navbar.php');
+
+>>>>>>> upstream/v2
 	$page_load = microtime(true) - $start;
 	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
@@ -381,6 +397,7 @@ if(!isset($_GET['action'])){
 
 		// Load modules + template
 		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+<<<<<<< HEAD
 
 		$page_load = microtime(true) - $start;
 		define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
@@ -429,6 +446,58 @@ if(!isset($_GET['action'])){
 					$cache->setCache('post_formatting');
 					$formatting = $cache->retrieve('formatting');
 
+=======
+
+		require(ROOT_PATH . '/core/templates/cc_navbar.php');
+
+		$page_load = microtime(true) - $start;
+		define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+		$template->onPageLoad();
+
+		require(ROOT_PATH . '/core/templates/navbar.php');
+		require(ROOT_PATH . '/core/templates/footer.php');
+
+		// Display template
+		$template->displayTemplate('user/new_message.tpl', $smarty);
+
+	} else if($_GET['action'] == 'view'){
+		// Ensure message is specified
+		if(!isset($_GET['message']) || !is_numeric($_GET['message'])){
+			Redirect::to(URL::build('/user/messaging'));
+			die();
+		}
+
+		// Ensure message exists
+		$pm = $user->getPM($_GET['message'], $user->data()->id); // Get the PM - this also handles setting it as "read"
+
+		if($pm == false){ // Either PM doesn't exist, or the user doesn't have permission to view it
+			Redirect::to(URL::build('/user/messaging'));
+			die();
+		}
+
+		// Deal with input
+		if(Input::exists()){
+			// Check token
+			if(Token::check(Input::get('token'))){
+				// Valid token
+				// Validate input
+				$validate = new Validate();
+
+				$validation = $validate->check($_POST, array(
+					'content' => array(
+						'required' => true,
+						'min' => 2,
+						'max' => 20480
+					)
+				));
+
+				if($validation->passed()){
+					// Parse markdown
+					$cache->setCache('post_formatting');
+					$formatting = $cache->retrieve('formatting');
+
+>>>>>>> upstream/v2
 					if($formatting == 'markdown'){
 						$content = Michelf\Markdown::defaultTransform(Input::get('content'));
 						$content = Output::getClean($content);
@@ -440,6 +509,7 @@ if(!isset($_GET['action'])){
 						'author_id' => $user->data()->id,
 						'created' => date('U'),
 						'content' => $content
+<<<<<<< HEAD
 					));
 
 					// Update last reply PM information
@@ -451,6 +521,19 @@ if(!isset($_GET['action'])){
 					// Update PM as unread for all users
 					$users = $queries->getWhere('private_messages_users', array('pm_id', '=', $pm[0]->id));
 
+=======
+					));
+
+					// Update last reply PM information
+					$queries->update('private_messages', $pm[0]->id, array(
+						'last_reply_user' => $user->data()->id,
+						'last_reply_date' => date('U')
+					));
+
+					// Update PM as unread for all users
+					$users = $queries->getWhere('private_messages_users', array('pm_id', '=', $pm[0]->id));
+
+>>>>>>> upstream/v2
 					foreach($users as $item){
 						if($item->user_id != $user->data()->id){
 							$queries->update('private_messages_users', $item->id, array(
@@ -556,6 +639,11 @@ if(!isset($_GET['action'])){
 
 		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
+<<<<<<< HEAD
+=======
+		require(ROOT_PATH . '/core/templates/cc_navbar.php');
+
+>>>>>>> upstream/v2
 		$page_load = microtime(true) - $start;
 		define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 

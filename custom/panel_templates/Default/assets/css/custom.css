@@ -1,0 +1,16 @@
+.show .nl-copyright:not(.active) {
+	color: #fff !important;
+}
+.callout a {
+	color: #000;
+	text-decoration: underline;
+}
+.callout a:hover {
+	color: #000;
+}
+.thumbnails li img {
+	width: 60px;
+}
+.dropdown-menu-lg {
+	max-width: none;
+}

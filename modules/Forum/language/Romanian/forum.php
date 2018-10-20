@@ -8,7 +8,11 @@
  *
  *  Romanian Language for Forum module
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ImGladius
+<<<<<<< HEAD
  *  Last Update: 26/07/2018
+=======
+ *  Last Update: 24/09/2018
+>>>>>>> upstream/v2
  */
 
 $language = array(
@@ -187,5 +191,17 @@ $language = array(
     // Hooks
     'new_topic_hook_info' => 'Subiect nou',
     'new_topic_text' => 'Subiect creat în {x} de {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+<<<<<<< HEAD
     'include_in_hook' => 'Includeți subiecte noi din acest forum în webhook?'
+=======
+    'include_in_hook' => 'Includeți subiecte noi din acest forum în webhook?',
+
+	// Panel statistics
+	'recent_topics' => 'Subiecte recente',
+	'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
+	'recent_posts' => 'Mesaje recente',
+	'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
+	'topics_title' => 'Subiecte',
+	'posts_title' => 'Mesaje',
+>>>>>>> upstream/v2
 );

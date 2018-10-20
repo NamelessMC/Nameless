@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -18,16 +18,23 @@ class Alert {
 	//			$link (string,optional) - contains link to view the alert, defaults to #
 	public static function create($user_id, $type, $text_short, $text, $link = '#'){	
 		$db = DB::getInstance();
-		
-		if(!$db->insert('alerts', array(
-			'user_id' => $user_id,
-			'type' => $type,
-			'url' => $link,
-			'content_short' => $text_short,
-			'content' => $text,
-			'created' => date('U')
+
+		$language = $db->query('SELECT nl2_languages.name AS `name` FROM nl2_users LEFT JOIN nl2_languages ON nl2_languages.id = nl2_users.language_id WHERE nl2_users.id = ?', array($user_id));
+
+		if($language->count()){
+			$language_name = $language->first()->name;
+			$language = new Language($text_short['path'], $language_name);
+
+			if(!$db->insert('alerts', array(
+				'user_id' => $user_id,
+				'type' => $type,
+				'url' => $link,
+				'content_short' => str_replace((isset($text_short['replace']) ? $text_short['replace'] : ''), (isset($text_short['replace_with']) ? $text_short['replace_with'] : ''), $language->get($text_short['file'], $text_short['term'])),
+				'content' => str_replace((isset($text['replace']) ? $text['replace'] : ''), (isset($text['replace_with']) ? $text['replace_with'] : ''), $language->get($text['file'], $text['term'])),
+				'created' => date('U')
 			))){
-			throw new Exception('There was a problem creating an alert.');
+				throw new Exception('There was a problem creating an alert.');
+			}
 		}
 	}
 	

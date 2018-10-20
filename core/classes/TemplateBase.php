@@ -77,4 +77,16 @@ abstract class TemplateBase {
 		$smarty->display($template);
 	}
 
+<<<<<<< HEAD
+=======
+	public function getTemplate($template, $smarty){
+		// Template Smarty variables
+		$smarty->assign(array(
+			'TEMPLATE_CSS' => $this->getCSS(),
+			'TEMPLATE_JS' => $this->getJS()
+		));
+		return $smarty->fetch($template);
+	}
+
+>>>>>>> upstream/v2
 }

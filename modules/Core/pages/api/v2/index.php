@@ -2,17 +2,34 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
+<<<<<<< HEAD
  *  NamelessMC version 2.0.0-pr4
+=======
+ *  NamelessMC version 2.0.0-pr5
+>>>>>>> upstream/v2
  *
  *  License: MIT
  *
  *  Version 2.0.0 API
+<<<<<<< HEAD
  *  API version 1.0.3
+=======
+ *  API version 1.0.4
+>>>>>>> upstream/v2
  */
 
 // Headers
 header("Content-Type: application/json; charset=UTF-8");
 
+<<<<<<< HEAD
+=======
+$page_title = 'api';
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+
+>>>>>>> upstream/v2
 // Ensure API is actually enabled
 $is_enabled = $queries->getWhere('settings', array('name', '=', 'use_api'));
 if ($is_enabled[0]->value != '1') {
@@ -331,7 +348,11 @@ class Nameless2API
             // Register user + send link
             $code = $this->createUser($_POST['username'], $_POST['uuid'], $_POST['email']);
 
+<<<<<<< HEAD
             $this->returnArray(array('message' => $this->_language->get('api', 'finish_registration_link'), 'link' => URL::build('/complete_signup/', 'c=' . $code['code'])));
+=======
+            $this->returnArray(array('message' => $this->_language->get('api', 'finish_registration_link'), 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . $code['code'])));
+>>>>>>> upstream/v2
 
         }
     }
@@ -444,7 +465,11 @@ class Nameless2API
 
                 if(isset($sent['error'])){
                     // Error, log it
+<<<<<<< HEAD
                     $this->_db->create('email_errors', array(
+=======
+                    $this->_db->insert('email_errors', array(
+>>>>>>> upstream/v2
                         'type' => 4, // 4 = API registration email
                         'content' => $sent['error'],
                         'at' => date('U'),
@@ -479,7 +504,11 @@ class Nameless2API
 
                 if(isset($sent['error'])){
                     // Error, log it
+<<<<<<< HEAD
                     $this->_db->create('email_errors', array(
+=======
+                    $this->_db->insert('email_errors', array(
+>>>>>>> upstream/v2
                         'type' => 4,
                         'content' => $sent['error'],
                         'at' => date('U'),
@@ -528,6 +557,11 @@ class Nameless2API
             }
             $user = $user->first();
             $user->exists = true;
+<<<<<<< HEAD
+=======
+            $user->banned = ($user->banned) ? true : false;
+            $user->validated = ($user->validated) ? true : false;
+>>>>>>> upstream/v2
 
             $this->returnArray((array)$user);
 
@@ -636,7 +670,11 @@ class Nameless2API
                     'date_updated' => date('Y-m-d H:i:s'),
                     'report_reason' => Output::getClean($_POST['content']),
                     'updated_by' => $user_reporting->id
+<<<<<<< HEAD
                 ), $this->_language->get('moderator', 'report_alert'));
+=======
+                ));
+>>>>>>> upstream/v2
 
                 // Success
                 $this->returnArray(array('message' => $this->_language->get('api', 'report_created')));
@@ -669,6 +707,7 @@ class Nameless2API
             }
             $user = $user->first()->id;
 
+<<<<<<< HEAD
             $return = array();
 
             // Get unread alerts
@@ -680,6 +719,19 @@ class Nameless2API
                         'message_short' => $result->content_short,
                         'message' => strip_tags($result->content),
                         'url' => Util::getSelfURL() . ltrim($result->url, '/')
+=======
+            $return = array('notifications' => array());
+
+            // Get unread alerts
+            $alerts = $this->_db->query('SELECT id, type, url, content_short FROM nl2_alerts WHERE user_id = ? AND `read` = 0', array($user));
+            if($alerts->count()){
+                foreach($alerts->results() as $result){
+                    $return['notifications'][] = array(
+                        'type' => $result->type,
+                        'message_short' => $result->content_short,
+                        'message' => ($result->content) ? strip_tags($result->content) : $result->content_short,
+                        'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/user/alerts/', 'view=' . $result->id)
+>>>>>>> upstream/v2
                     );
                 }
             }
@@ -689,7 +741,11 @@ class Nameless2API
 
             if($messages->count()){
                 foreach($messages->results() as $result){
+<<<<<<< HEAD
                     $return[] = array(
+=======
+                    $return['notifications'][] = array(
+>>>>>>> upstream/v2
                         'type' => 'message',
                         'url' => Util::getSelfURL() . ltrim(URL::build('/user/messaging/', 'action=view&message=' . $result->id), '/'),
                         'message_short' => $result->title,
@@ -851,6 +907,10 @@ class Nameless2API
                 $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
             }
 
+<<<<<<< HEAD
+=======
+	        $this->_db = DB::getInstance();
+>>>>>>> upstream/v2
             $user_query = $this->_db->get('users', array('uuid', '=', str_replace('-', '', $_POST['uuid'])));
             if($user_query->count()){
                 $user_query = $user_query->first();
@@ -861,12 +921,29 @@ class Nameless2API
                         'active' => 1
                     ));
 
+<<<<<<< HEAD
                     HookHandler::executeEvent('validateUser', array(
                         'event' => 'validateUser',
                         'user_id' => $user_query->id,
                         'username' => Output::getClean($user_query->username),
                         'language' => $this->_language
                     ));
+=======
+                    try {
+	                    HookHandler::executeEvent('validateUser', array(
+		                    'event' => 'validateUser',
+		                    'user_id' => $user_query->id,
+		                    'username' => Output::getClean($user_query->username),
+		                    'language' => $this->_language
+	                    ));
+                    } catch(Exception $e){
+                    	// Error
+                    }
+
+	                $this->returnArray(array('message' => $this->_language->get('api', 'server_info_updated')));
+
+                    $this->returnArray(array('message' => $this->_language->get('api', 'account_validated')));
+>>>>>>> upstream/v2
 
                 } else
                     $this->throwError(28, $this->_language->get('api', 'invalid_code'));

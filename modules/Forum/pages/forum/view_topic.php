@@ -147,10 +147,30 @@ if(isset($_GET['action'])){
 
 $forum_parent = $queries->getWhere('forums', array('id', '=', $topic->forum_id));
 
+<<<<<<< HEAD
 $page_metadata = $queries->getWhere('page_descriptions', array('page', '=', '/forum/view_topic'));
 if(count($page_metadata)){
 	define('PAGE_DESCRIPTION', str_replace(array('{site}', '{title}', '{author}', '{forum_title}', '{page}'), array(SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p)), $page_metadata[0]->description));
 	define('PAGE_KEYWORDS', $page_metadata[0]->tags);
+=======
+$page_metadata = $queries->getWhere('page_descriptions', array('page', '=', '/forum/topic'));
+if(count($page_metadata)){
+	$first_post = $queries->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1');
+	$first_post = strip_tags(str_ireplace(array('<br />', '<br>', '<br/>', '&nbsp;'), array("\n", "\n", "\n", ' '), Output::getDecoded($first_post[0]->post_content)));
+
+	define('PAGE_DESCRIPTION', str_replace(array('{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'), array(SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'), $page_metadata[0]->description));
+	define('PAGE_KEYWORDS', $page_metadata[0]->tags);
+} else {
+	$page_metadata = $queries->getWhere('page_descriptions', array('page', '=', '/forum/view_topic'));
+
+	if(count($page_metadata)){
+		$first_post = $queries->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1');
+		$first_post = strip_tags(str_ireplace(array('<br />', '<br>', '<br/>', '&nbsp;'), array("\n", "\n", "\n", ' '), Output::getDecoded($first_post[0]->post_content)));
+
+		define('PAGE_DESCRIPTION', str_replace(array('{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'), array(SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'), $page_metadata[0]->description));
+		define('PAGE_KEYWORDS', $page_metadata[0]->tags);
+	}
+>>>>>>> upstream/v2
 }
 
 $page_title = ((strlen(Output::getClean($topic->topic_title)) > 20) ? Output::getClean(substr($topic->topic_title, 0, 20)) . '...' : Output::getClean($topic->topic_title)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
@@ -216,7 +236,11 @@ if(Input::exists()) {
 				
 				// Get last post ID
 				$last_post_id = $queries->getLastId();
+<<<<<<< HEAD
 				$content = $mentionsParser->parse($user->data()->id, $content, $tid, $last_post_id, $forum_language->get('forum', 'user_tag'), $forum_language->get('forum', 'user_tag_info'));
+=======
+				$content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $tid, 'pid=' . $last_post_id), array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'), array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)));
+>>>>>>> upstream/v2
 
 				$queries->update("posts", $last_post_id, array(
 					'post_content' => $content

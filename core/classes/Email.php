@@ -70,6 +70,11 @@ class Email {
             if(isset($email['replyto']))
                 $mail->AddReplyTo($email['replyto']['email'], $email['replyto']['name']);
 
+<<<<<<< HEAD
+=======
+            $mail->CharSet = "UTF-8";
+			$mail->Encoding = "base64";
+>>>>>>> upstream/v2
             $mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
             $mail->From = $GLOBALS['email']['username'];
             $mail->FromName = $GLOBALS['email']['name'];
@@ -90,4 +95,8 @@ class Email {
             return array('error' => $e->getMessage());
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/v2

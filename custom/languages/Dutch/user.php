@@ -15,7 +15,11 @@ $language = array(
 	/*
 	 *  Change this for the account validation message
 	 */
+<<<<<<< HEAD
 	'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+=======
+	'validate_account_command' => 'Om de registratie te voltooien, run alstublieft het commando <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+>>>>>>> upstream/v2
 
 	/*
 	 *  Gebruiker gerelateerd
@@ -124,7 +128,11 @@ $language = array(
 	'verification_failed' => 'Validatie gefaald, probeer het opnieuw.',
 	'verification_success' => 'Succesvol gevalideerd! Je kunt nu inloggen.',
 	'authme_username_exists' => 'Je Authme account is al verbonden met de website!',
+<<<<<<< HEAD
 	'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
+=======
+	'uuid_already_exists' => 'Je UUID bestaat al, wat betekent dat dit Minecraft account al geregistreerd is.',
+>>>>>>> upstream/v2
 	
 	// Inloggen
 	'successful_login' => 'Je bent nu ingelogd.',
@@ -133,7 +141,11 @@ $language = array(
 	'account_banned' => 'Dit account is verbannen.',
 	'forgot_password' => 'Wachtwoord vergeten?',
 	'remember_me' => 'Onthoud mij',
+<<<<<<< HEAD
 	'must_input_email' => 'You must input an email address.',
+=======
+	'must_input_email' => 'Je moet een emailadres invoeren.',
+>>>>>>> upstream/v2
 	'must_input_username' => 'Je moet een gebruikersnaam invoeren.',
 	'must_input_password' => 'Je moet een wachtwoord invoeren.',
 
@@ -165,6 +177,7 @@ $language = array(
 	'replies' => 'Antwoorden',
 	'new_reply' => 'Nieuw antwoord',
 	'registered' => 'Geregistreerd sinds:',
+	'registered_x' => 'Geregistreerd sinds: {x}',
 	'last_seen' => 'Laatst gezien:',
 	'new_wall_post' => '{x} heeft een bericht geplaatst op je profiel.',
 	'couldnt_find_that_user' => 'Kan gebruiker niet vinden.',
@@ -176,9 +189,15 @@ $language = array(
 	'user_unblocked' => 'Gebruiker gedeblokkeerd.',
 	'views' => 'Profiel weergaven:',
 	'private_profile_page' => 'Dit profiel is privé!',
+<<<<<<< HEAD
 	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
 	'no_about_fields' => 'This user has not added any about fields yet.',
+=======
+	'new_wall_post_reply' => '{x} heeft gereageerd op jouw post op {y}\'s profiel.', // Don't replace {x} or {y}
+	'new_wall_post_reply_your_profile' => '{x} heeft gereageerd op jouw post op jouw eigen profiel.', // Don't replace {x}
+	'no_about_fields' => 'Deze gebruiker heeft nog geen over-velden toegevoegd.',
+>>>>>>> upstream/v2
 	
 	// Rapporten
 	'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
@@ -189,7 +208,11 @@ $language = array(
 	'no_messages' => 'Geen nieuwe berichten',
 	'no_messages_full' => 'Je hebt geen berichten.',
 	'view_messages' => 'Bekijk berichten',
+<<<<<<< HEAD
 	'1_new_message' => 'You have 1 new message',
+=======
+	'1_new_message' => 'Je hebt 1 nieuw bericht',
+>>>>>>> upstream/v2
 	'x_new_messages' => 'Je hebt {x} nieuwe berichten', // Verander {x} niet
 	'new_message' => 'Nieuw bericht',
 	'message_title' => 'Titel van bericht',
@@ -231,5 +254,9 @@ $language = array(
 	/*
 	 *  Hooks
 	 */
+<<<<<<< HEAD
 	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
+=======
+	'user_x_has_registered' => '{x} is lid geworden van ' . SITE_NAME . '!'
+>>>>>>> upstream/v2
 );

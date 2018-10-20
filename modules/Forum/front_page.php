@@ -30,6 +30,10 @@ if($cache->isCached('news')){
 			'title' => Output::getClean($item['topic_title']),
 			'views' => $item['topic_views'],
 			'replies' => $item['replies'],
+<<<<<<< HEAD
+=======
+			'author_id' => Output::getClean($item['author']),
+>>>>>>> upstream/v2
 			'author_url' => URL::build('/profile/' . $user->idToName($item['author'])),
 			'author_style' => $user->getGroupClass($item['author']),
 			'author_name' => Output::getClean($user->idToName($item['author'])),

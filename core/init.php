@@ -2,7 +2,11 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
+<<<<<<< HEAD
  *  NamelessMC version 2.0.0-pr3
+=======
+ *  NamelessMC version 2.0.0-pr5
+>>>>>>> upstream/v2
  *
  *  License: MIT
  *
@@ -268,6 +272,18 @@ if($page != 'install'){
         define('TEMPLATE', $template);
     }
 
+<<<<<<< HEAD
+=======
+	// Panel template
+	$template = $cache->retrieve('panel_default');
+
+	if(!$template){
+		define('PANEL_TEMPLATE', 'Default');
+	} else {
+		define('PANEL_TEMPLATE', $template);
+	}
+
+>>>>>>> upstream/v2
     // Smarty
     $smarty = new Smarty();
 
@@ -276,7 +292,13 @@ if($page != 'install'){
 		'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
 		'OG_URL' => Output::getClean(rtrim(Util::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
 		'SITE_NAME' => SITE_NAME,
+<<<<<<< HEAD
 		'SITE_HOME' => URL::build('/')
+=======
+		'SITE_HOME' => URL::build('/'),
+		'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
+		'GUEST' => $language->get('user', 'guest')
+>>>>>>> upstream/v2
 	));
 
     // Cookie notice
@@ -349,10 +371,14 @@ if($page != 'install'){
     // Navbar links
     $navigation = new Navigation();
     $cc_nav 	= new Navigation();
+<<<<<<< HEAD
     //$panel_nav  = new Navigation();
 
     // old
     $mod_nav	= new Navigation();
+=======
+    $mod_nav	= new Navigation(); // $mod_nav = panel nav
+>>>>>>> upstream/v2
 
     // Add links to cc_nav
 	$cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/user'));
@@ -488,11 +514,16 @@ if($page != 'install'){
             'username' => Output::getClean($user->data()->username),
             'nickname' => Output::getClean($user->data()->nickname),
             'profile' => URL::build('/profile/' . Output::getClean($user->data()->username)),
+<<<<<<< HEAD
+=======
+            'panel_profile' => URL::build('/panel/user/' . Output::getClean($user->data()->id) . '-' . Output::getClean($user->data()->username)),
+>>>>>>> upstream/v2
             'username_style' => $user->getGroupClass($user->data()->id),
             'avatar' => $user->getAvatar($user->data()->id),
 	        'uuid' => Output::getClean($user->data()->uuid)
         ));
 
+<<<<<<< HEAD
     }
 
     // Auto unset signin tfa variables if set
@@ -502,5 +533,24 @@ if($page != 'install'){
         unset($_SESSION['email']);
         unset($_SESSION['password']);
     }
+=======
+        // Panel access?
+        if($user->canViewACP()){
+        	$smarty->assign(array(
+        		'PANEL_LINK' => URL::build('/panel'),
+		        'PANEL' => $language->get('moderator', 'staff_cp')
+	        ));
+        }
+
+    }
+
+    // Auto unset signin tfa variables if set
+	if(strpos($_GET['route'], '/queries/') === false && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (!isset($_POST['tfa_code']) && !isset($_SESSION['mcassoc']))){
+		unset($_SESSION['remember']);
+		unset($_SESSION['username']);
+		unset($_SESSION['email']);
+		unset($_SESSION['password']);
+	}
+>>>>>>> upstream/v2
 }
 

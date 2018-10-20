@@ -11,6 +11,10 @@
 
 $language = array(
 	'mod_cp' => 'Ovládací panel moderátora',
+<<<<<<< HEAD
+=======
+	'staff_cp' => 'StaffCP',
+>>>>>>> upstream/v2
 	'overview' => 'Přehled',
 	
 	// Spam
@@ -51,6 +55,13 @@ $language = array(
 	'open_reports' => 'V současné době je <strong>{x}</strong> otevřených nahlášení.', // Don't replace {x}
 	'no_open_reports' => 'There are currently no open reports.',
 	'no_closed_reports' => 'There are currently no closed reports.',
+<<<<<<< HEAD
+=======
+	'recent_reports' => 'Recent Reports',
+	'reported_by' => 'Reported by:',
+	'website' => 'Website',
+	'ingame' => 'Ingame',
+>>>>>>> upstream/v2
 	
 	// Punishments
 	'punishments' => 'Tresty',
@@ -85,6 +96,17 @@ $language = array(
     'view_user' => 'Prohlédnout hráče',
     'when' => 'Kdy',
     'staff' => 'Člen AT',
+<<<<<<< HEAD
     'type' => 'Typ'
+=======
+    'type' => 'Typ',
+    'recent_punishments' => 'Recent Punishments',
+    'created' => 'Created:',
+    'staff:' => 'Staff:',
+    'reason:' => 'Reason:',
+	
+    // Users
+    'recent_registrations' => 'Recent Registrations'
+>>>>>>> upstream/v2
 
 );

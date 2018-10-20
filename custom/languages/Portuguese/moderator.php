@@ -12,6 +12,7 @@
  */
 $language = array(
 	'mod_cp' => 'ModCP',
+	'staff_cp' => 'StaffCP',
 	'overview' => 'Visão Geral',
 	
 	// Spam
@@ -52,6 +53,13 @@ $language = array(
 	'open_reports' => 'Há atualmente <strong>{x}</strong> alertas abertos.', // Don't replace {x}
 	'no_open_reports' => 'There are currently no open reports.',
 	'no_closed_reports' => 'There are currently no closed reports.',
+<<<<<<< HEAD
+=======
+	'recent_reports' => 'Recent Reports',
+	'reported_by' => 'Reported by:',
+	'website' => 'Website',
+	'ingame' => 'Ingame',
+>>>>>>> upstream/v2
 	
 	// Punishments
 	'punishments' => 'Punições',
@@ -86,5 +94,16 @@ $language = array(
     'view_user' => 'Visualizando usuário',
     'when' => 'Quando',
     'staff' => 'Staff',
+<<<<<<< HEAD
     'type' => 'Tipo'
+=======
+    'type' => 'Tipo',
+    'recent_punishments' => 'Recent Punishments',
+    'created' => 'Created:',
+    'staff:' => 'Staff:',
+    'reason:' => 'Reason:',
+	
+    // Users
+    'recent_registrations' => 'Recent Registrations'
+>>>>>>> upstream/v2
 );

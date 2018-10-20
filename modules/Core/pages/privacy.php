@@ -23,7 +23,14 @@ $template->addJSFiles(array(
 ));
 
 // Retrieve privacy policy from database
+<<<<<<< HEAD
 $policy = $queries->getWhere('settings', array('name', '=', 'privacy_policy'));
+=======
+$policy = $queries->getWhere('privacy_terms', array('name', '=', 'privacy'));
+if(!count($policy)){
+	$policy = $queries->getWhere('settings', array('name', '=', 'privacy_policy'));
+}
+>>>>>>> upstream/v2
 $policy = Output::getPurified($policy[0]->value);
 
 $smarty->assign(array(

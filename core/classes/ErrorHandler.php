@@ -2,7 +2,11 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
+<<<<<<< HEAD
  *  NamelessMC version 2.0.0-pr3
+=======
+ *  NamelessMC version 2.0.0-pr5
+>>>>>>> upstream/v2
  *
  *  License: MIT
  *
@@ -69,4 +73,12 @@ class ErrorHandler {
 			// Unable to write to file, ignore for now
 		}
 	}
+<<<<<<< HEAD
+=======
+
+	// Log a custom error
+	public static function logCustomError($contents){
+		self::logError('other', $contents);
+	}
+>>>>>>> upstream/v2
 }

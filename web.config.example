@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+        <rewrite>
+            <rules>
+                <rule name="Rule 1">
+                    <match url="^(.*)$" ignoreCase="false" />
+                    <conditions logicalGrouping="MatchAll">
+                        <add input="{URL}::{R:1}" pattern="^(.*?/)(.*)::\2$" ignoreCase="false" />
+                    </conditions>
+                    <action type="None" />
+                </rule>
+                <rule name="Rule 2" stopProcessing="true">
+                    <match url="^(.+)/$" ignoreCase="false" />
+                    <conditions logicalGrouping="MatchAll">
+                        <add input="{REQUEST_FILENAME}" matchType="IsDirectory" ignoreCase="false" negate="true" />
+                    </conditions>
+                    <action type="Redirect" url="{R:1}" redirectType="Permanent" />
+                </rule>
+                <rule name="Rule 3">
+                    <match url="^avatar/([^/]+)/([^/]+)/(f|l|r|b|front|left|right|back)/?$" ignoreCase="false" />
+                    <action type="Rewrite" url="core/avatar/face.php?u={R:1}&amp;s={R:2}&amp;v={R:3}" appendQueryString="false" />
+                </rule>
+                <rule name="Rule 4">
+                    <match url="^avatar/([^/]+)/(f|l|r|b|front|left|right|back)/?$" ignoreCase="false" />
+                    <action type="Rewrite" url="core/avatar/face.php?u={R:1}&amp;v={R:2}" appendQueryString="false" />
+                </rule>
+                <rule name="Rule 5">
+                    <match url="^avatar/([^/]+)/([^/]+)/?$" ignoreCase="false" />
+                    <action type="Rewrite" url="core/avatar/face.php?u={R:1}&amp;s={R:2}" appendQueryString="false" />
+                </rule>
+                <rule name="Rule 6" stopProcessing="true">
+                    <match url="^avatar/([^/]+)/?$" ignoreCase="false" />
+                    <action type="Rewrite" url="core/avatar/face.php?u={R:1}" appendQueryString="false" />
+                </rule>
+                <rule name="Rule 7" stopProcessing="true">
+                    <match url="^(.*)$" />
+                    <conditions logicalGrouping="MatchAll">
+                        <add input="{REQUEST_FILENAME}" matchType="IsFile" ignoreCase="false" negate="true" />
+                        <add input="{REQUEST_FILENAME}" matchType="IsDirectory" ignoreCase="false" negate="true" />
+                    </conditions>
+                    <action type="Rewrite" url="index.php?route=/{R:1}" appendQueryString="true" />
+                </rule>
+            </rules>
+        </rewrite>
+    </system.webServer>
+</configuration>

@@ -8,7 +8,11 @@
  *
  *  Romanian Language - Users
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
+<<<<<<< HEAD
  *  Last Update: 30/07/2018
+=======
+ *  Last Update: 24/09/2018
+>>>>>>> upstream/v2
  */
 
 $language = array(
@@ -36,7 +40,11 @@ $language = array(
     'administration' => 'Administrare',
     'alerts' => 'Notificări',
     'delete_all' => 'Şterge tot',
+<<<<<<< HEAD
 	'private_profile' => 'Profil privat',
+=======
+    'private_profile' => 'Profil privat',
+>>>>>>> upstream/v2
     
     // Profile settings
     'field_is_required' => 'Câmpul "{x}" este necesar.', // Don't replace {x}
@@ -48,7 +56,11 @@ $language = array(
     'confirm_new_password' => 'Confirma noua parolă',
     'incorrect_password' => 'Parola dvs. este incorectă.',
     'two_factor_auth' => 'Autentificare în doi pași',
+<<<<<<< HEAD
 	'enabled' => 'Activat',
+=======
+    'enabled' => 'Activat',
+>>>>>>> upstream/v2
     'disabled' => 'Dezactivat',
     'enable' => 'Activează',
     'disable' => 'Dezactivează',
@@ -166,6 +178,10 @@ $language = array(
     'replies' => 'Răspunsuri',
     'new_reply' => 'Adaugă un răspuns nou',
     'registered' => 'Înregistrat:',
+<<<<<<< HEAD
+=======
+    'registered_x' => 'Înregistrat: {x}',
+>>>>>>> upstream/v2
     'last_seen' => 'Vazut ultima data:',
     'couldnt_find_that_user' => 'Utilizatorul specificat nu a fost găsit.',
     'block_user' => 'Blocați utilizatorul',
@@ -174,11 +190,19 @@ $language = array(
     'confirm_unblock_user' => 'Sigur doriți să deblocați acest utilizator? Va putea din nou să vă trimită mesaje private și să vă eticheteze în postări.',
     'user_blocked' => 'Utilizatorul a fost blocat.',
     'user_unblocked' => 'Utilizatorul a fost deblocat.',
+<<<<<<< HEAD
 	'views' => 'Vizualizări profil:',
 	'private_profile_page' => 'Acest profil este privat!',
 	'new_wall_post_reply' => '{x} a răspuns la postarea ta pe profilul lui {y}.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} a răspuns la postarea de pe profilul tău.', // Don't replace {x}
 	'no_about_fields' => 'Acest utilizator nu si-a completat inca nici un camp aici.',
+=======
+    'views' => 'Vizualizări profil:',
+    'private_profile_page' => 'Acest profil este privat!',
+    'new_wall_post_reply' => '{x} a răspuns la postarea ta pe profilul lui {y}.', // Don't replace {x} or {y}
+    'new_wall_post_reply_your_profile' => '{x} a răspuns la postarea de pe profilul tău.', // Don't replace {x}
+    'no_about_fields' => 'Acest utilizator nu si-a completat inca nici un camp aici.',
+>>>>>>> upstream/v2
     
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',

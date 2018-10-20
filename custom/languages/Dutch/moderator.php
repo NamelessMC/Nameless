@@ -13,6 +13,7 @@
 
 $language = array(
 	'mod_cp' => 'Beheerders Paneel',
+	'staff_cp' => 'StaffCP',
 	'overview' => 'Overzicht',
 	
 	// Spam
@@ -53,6 +54,13 @@ $language = array(
 	'open_reports' => 'Er zijn nu <strong>{x}</strong> open rapporten.', // Verander {x} niet
 	'no_open_reports' => 'There are currently no open reports.',
 	'no_closed_reports' => 'There are currently no closed reports.',
+<<<<<<< HEAD
+=======
+	'recent_reports' => 'Recent Reports',
+	'reported_by' => 'Reported by:',
+	'website' => 'Website',
+	'ingame' => 'Ingame',
+>>>>>>> upstream/v2
 	
 	// Straffen
 	'punishments' => 'Straffen',
@@ -87,6 +95,17 @@ $language = array(
     'view_user' => 'Bekijk gebruiker',
    	'when' => 'Wanneer',
    	'staff' => 'Staff',
+<<<<<<< HEAD
     'type' => 'Type'
+=======
+    'type' => 'Type',
+    'recent_punishments' => 'Recent Punishments',
+    'created' => 'Created:',
+    'staff:' => 'Staff:',
+    'reason:' => 'Reason:',
+	
+    // Users
+    'recent_registrations' => 'Recent Registrations'
+>>>>>>> upstream/v2
 
 );

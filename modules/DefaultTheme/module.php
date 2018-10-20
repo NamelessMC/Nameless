@@ -38,7 +38,11 @@ class DefaultTheme_Module extends Module {
 		// Not necessary for Core
 	}
 
+<<<<<<< HEAD
 	public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets){
+=======
+	public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template){
+>>>>>>> upstream/v2
 
 	}
 }

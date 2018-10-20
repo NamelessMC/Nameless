@@ -17,6 +17,13 @@ $language = array(
 	're-authenticate' => 'Prosím ověřte přihlášení',
 	
 	// Sidebar
+<<<<<<< HEAD
+=======
+	'dashboard' => 'Dashboard',
+	'configuration' => 'Configuration',
+	'layout' => 'Layout',
+	'user_management' => 'User Management',
+>>>>>>> upstream/v2
 	'admin_cp' => 'Ovládací panel administrátora',
 	'administration' => 'Administrace',
 	'overview' => 'Přehled',
@@ -37,7 +44,11 @@ $language = array(
 	'posts' => 'Posts',
     'notices' => 'Upozornění',
     'no_notices' => 'Žádná upozornění.',
+<<<<<<< HEAD
     'email_errors_logged' => 'Chyby s e-maily byly zaznamenány. Pro zobrazení klikněte <a href="{x}">zde</a>.', // Don't replace "{x}"
+=======
+    'email_errors_logged' => 'Chyby s e-maily byly zaznamenány',
+>>>>>>> upstream/v2
 	
 	// Core
 	'settings' => 'Nastavení',
@@ -45,19 +56,30 @@ $language = array(
 	'sitename' => 'Název stránky',
 	'default_language' => 'Hlavní jazyk',
 	'default_language_help' => 'Uživatelé si budou moci vybrat z libovolných nainstalovaných jazyků.',
+	'install_language' => 'Install Language',
+	'update_user_languages' => 'Update User Languages',
+	'update_user_languages_warning' => 'This will update the language for all users on your site, even if they have already selected one!',
+	'updated_user_languages' => 'User languages have been updated.',
 	'installed_languages' => 'Všechny nové jazyky byly úspěšně nainstalovány.',
 	'default_timezone' => 'Základní časové pásmo',
 	'registration' => 'Registrace',
 	'enable_registration' => 'Povolit registraci?',
 	'verify_with_mcassoc' => 'Povolit ověřování pomocí MCAssoc?',
 	'email_verification' => 'Povolit ověřování pomocí e-mailu?',
+<<<<<<< HEAD
+=======
+	'registration_settings_updated' => 'Registration settings updated successfully.',
+>>>>>>> upstream/v2
 	'homepage_type' => 'Typ hlavní stránky',
 	'post_formatting_type' => 'Typ formátování',
 	'portal' => 'Portál',
+	'private_profiles' => 'Private Profiles',
 	'missing_sitename' => 'Vložte název webu o délce 2 až 64 znaků.',
+	'missing_contact_address' => 'Please insert a contact email address between 3 and 255 characters long.',
 	'use_friendly_urls' => 'Přátelské URL adresy?',
 	'use_friendly_urls_help' => 'DŮLEŽITÉ: Váš server musí být nakonfigurován tak, aby umožnil použití souborů mod_rewrite a .htaccess.',
 	'config_not_writable' => 'Váš <strong>core/config.php</strong> není přepisovatelný. Zkontrolujte oprávnění pro tento soubour.',
+	'settings_updated_successfully' => 'General settings updated successfully.',
 	'social_media' => 'Sociální média',
 	'youtube_url' => 'Youtube URL',
 	'twitter_url' => 'Twitter URL',
@@ -68,8 +90,13 @@ $language = array(
 	'light' => 'Light',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
+	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => 'Úspěšně aktualizováno',
     'debugging_and_maintenance' => 'Debugging a údržba',
+<<<<<<< HEAD
+=======
+    'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
+>>>>>>> upstream/v2
     'enable_debug_mode' => 'Zapnout debug mód?',
     'force_https' => 'Vynucené https?',
     'force_https_help' => 'Pokud je zapnuto, všechny požadavky na Váš web budou přesměrovány na https. Jestli chcete, aby to tato možnost fungovala správně, tak musíte mít platný a aktivovaný SSL certifikát.',
@@ -89,7 +116,11 @@ $language = array(
     'enable_mailer_help' => 'Zapněte tuto možnost, pokud nejsou emaily posílány standartně. Použití PHPMailer vyžaduje, abyste měli službu schopnou posílat emaily, jako Gmail nebo poskytovatel SMTP.',
     'outgoing_email' => 'Odchozí e-mailová adresa',
     'outgoing_email_info' => 'Toto je e-mailová adresa, z jaké NamelessMC posílá e-maily.',
+<<<<<<< HEAD
     'mailer_settings_info' => 'Jestliže máte zapnutý PHPMailer, tak jsou následující pole povinná. Pro více informací, jak tyto pole vyplnit, se podívejte na <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">wiki</a>.',
+=======
+    'mailer_settings_info' => 'Jestliže máte zapnutý PHPMailer, tak jsou následující pole povinná. Pro více informací, jak tyto pole vyplnit, se podívejte na <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki</a>.',
+>>>>>>> upstream/v2
     'host' => 'Host',
 	'email_port' => 'Port',
     'email_password_hidden' => 'Z bezpečnostních důvodů neni heslo zobrazeno.',
@@ -98,7 +129,12 @@ $language = array(
     'send' => 'Odeslat',
     'test_email_error' => 'Chyby zkušebního e-mailu:',
     'test_email_success' => 'Zkušební e-mail úspěšně odeslán!',
+<<<<<<< HEAD
     'terms_error' => 'Ujistěte se prosím, že Vaše podmínky nejsou delší než 2048 znaků.',
+=======
+    'terms_error' => 'Ujistěte se prosím, že Vaše podmínky nejsou delší než 100000 znaků.',
+    'privacy_policy_error' => 'Please enter a privacy policy no longer than 100000 characters.',
+>>>>>>> upstream/v2
     'terms_updated' => 'Podmínky úspěšně aktualizovány.',
     'avatars' => 'Avatary',
     'allow_custom_avatars' => 'Povolit vlastní avatary uživatelů?',
@@ -110,6 +146,10 @@ $language = array(
     'minecraft_avatar_perspective' => 'Perspektiva Minecraft avatara',
     'face' => 'Obličej',
     'head' => 'Hlava',
+<<<<<<< HEAD
+=======
+	'bust' => 'Bust',
+>>>>>>> upstream/v2
     'select_default_avatar' => 'Vyberte nového výchozího avatara:',
     'no_avatars_available' => 'Žádný avatar není dostupný. Nahrajte prosím nový obrázek výše.',
     'avatar_settings_updated_successfully' => 'Nastavení avatarů úspěšně aktualizováno.',
@@ -118,6 +158,10 @@ $language = array(
     'navbar_order_instructions' => 'Každé položce můžete dát číslo 0 k seřazení položek v navigační liště, číslo 1 bude první položka navigační lišty a další čísla za 1 se v ní budou dale seřazovat.',
     'navbar_icon' => 'Navbar Icon',
     'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+<<<<<<< HEAD
+=======
+    'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
+>>>>>>> upstream/v2
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Zapnout čas načítání stránky?',
     'google_recaptcha' => 'Enable Google reCAPTCHA?',
@@ -128,7 +172,11 @@ $language = array(
     'validation_promote_group' => 'Post-validation group',
     'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
     'login_method' => 'Login Method',
+<<<<<<< HEAD
     'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+=======
+    'privacy_and_terms' => 'Privacy & Terms',
+>>>>>>> upstream/v2
 
 	// Reactions
 	'icon' => 'Ikonka',
@@ -140,6 +188,16 @@ $language = array(
 	'html' => 'HTML',
 	'new_reaction' => '<i class="fa fa-plus-circle"></i> Nová reakce',
 	'creating_reaction' => 'Vytvořit reakci',
+	'no_reactions' => 'There are no reactions yet.',
+	'reaction_created_successfully' => 'Reaction created successfully.',
+	'reaction_edited_successfully' => 'Reaction edited successfully.',
+	'reaction_deleted_successfully' => 'Reaction deleted successfully.',
+	'name_required' => 'A name is required',
+	'html_required' => 'HTML is required',
+	'type_required' => 'A type is required',
+	'name_maximum_16' => 'The name must be no more than 16 characters',
+	'html_maximum_255' => 'The HTML must be no more than 255 characters',
+	'confirm_delete_reaction' => 'Are you sure you want to delete this reaction?',
 	
 	// Custom profile fields
 	'custom_fields' => 'Vlastní profilová pole',
@@ -161,6 +219,12 @@ $language = array(
 	'profile_field_forum_help' => 'Pokud je zapnuto, pole bude zobrazeno vedle příspěvku uživatele.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 	'no_custom_fields' => 'There are no custom fields yet.',
+<<<<<<< HEAD
+=======
+	'profile_field_updated_successfully' => 'The profile field was updated successfully.',
+	'profile_field_created_successfully' => 'The profile field was created successfully.',
+	'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
+>>>>>>> upstream/v2
 	
 	// Minecraft
 	'enable_minecraft_integration' => 'Povolit Minecraft?',
@@ -232,6 +296,14 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> Nový banner',
     'purge_errors' => 'Vymazat chyby',
     'confirm_purge_errors' => 'Jste si jist, že chcete vymazat všechny chyby?',
+<<<<<<< HEAD
+=======
+	'email_errors_purged_successfully' => 'Email errors have been purged successfully.',
+	'error_deleted_successfully' => 'The error has been deleted successfully.',
+	'no_email_errors' => 'No email errors logged.',
+	'email_settings_updated_successfully' => 'Email settings have been updated successfully.',
+	'content' => 'Content',
+>>>>>>> upstream/v2
     'mcassoc_help' => 'mcassoc je externí služba, která může být použita k ověření, zda uživatelé vlastní Minecraft účet, se kterým se zaregistrovali. Pro použití této možnosti se budete muset zaregistrovat pro získání sdíleného klíče <a href="https://mcassoc.lukegb.com/" target="_blank">zde</a>.',
     'mcassoc_key' => 'mcassoc sdílený klíč',
     'mcassoc_instance' => 'mcassoc případový klíč',
@@ -254,6 +326,15 @@ $language = array(
 	'module_enabled' => 'Modul povolen.',
 	'module_disabled' => 'Modul zakázán.',
 	'author' => 'Autor:',
+<<<<<<< HEAD
+=======
+	'author_x' => 'Autor: {x}', // Don't replace {x}
+	'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
+	'find_modules' => 'Find Modules',
+	'view_all_modules' => 'View all modules',
+	'unable_to_retrieve_modules' => 'Unable to retrieve modules',
+	'module' => 'Module',
+>>>>>>> upstream/v2
 	
 	// Styles
 	'templates' => 'Šablony',
@@ -278,7 +359,22 @@ $language = array(
 	'confirm_delete_template' => 'Jste si jist, že chcete smazat tuto šablonu?',
 	'delete' => 'Smazat',
 	'template_deleted_successfully' => 'Šablona úspěšně odstraněna.',
+<<<<<<< HEAD
     'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+=======
+	'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+	'find_templates' => 'Find Templates',
+	'view_all_templates' => 'View all templates',
+	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
+	'template' => 'Template',
+	'stats' => 'Stats',
+	'downloads_x' => 'Downloads: {x}',
+	'views_x' => 'Views: {x}',
+	'rating_x' => 'Rating: {x}',
+	'editing_template_x' => 'Editing template {x}', // Don't replace {x}
+	'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
+	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
+>>>>>>> upstream/v2
 
 	// Users & groups
 	'users' => 'Uživatel',
@@ -328,6 +424,15 @@ $language = array(
 	'default_group' => 'Is the group the default group (for new users)?',
 	'user_id' => 'User ID',
 	'uuid' => 'UUID',
+<<<<<<< HEAD
+=======
+	'group_order' => 'Group Order',
+	'group_created_successfully' => 'Group created successfully.',
+	'group_updated_successfully' => 'Group updated successfully.',
+	'group_deleted_successfully' => 'Group deleted successfully.',
+	'unable_to_delete_group' => 'Unable to delete a default group, or a group that can view the StaffCP. Please update the group settings first!',
+	'can_view_staffcp' => 'Can the group view the StaffCP?',
+>>>>>>> upstream/v2
 
 	// Permissions
 	'select_all' => 'Select All',
@@ -368,6 +473,10 @@ $language = array(
 	'current_version_x' => 'Současná verze: <strong>{x}</strong>', // Don't replaec {x}
 	'new_version_x' => 'Nová verze: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => 'K dispozici je nová aktualizace',
+<<<<<<< HEAD
+=======
+	'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
+>>>>>>> upstream/v2
 	'up_to_date' => 'Používáte nejnovější verzi!',
 	'urgent' => 'Tato aktualizace je důležitá!',
 	'changelog' => 'Seznam změn',
@@ -380,6 +489,10 @@ $language = array(
 	'widgets' => 'Widgety',
 	'widget_enabled' => 'Widget zapnut.',
 	'widget_disabled' => 'Widget vypnut.',
+<<<<<<< HEAD
+=======
+	'widget_updated' => 'Widget updated.',
+>>>>>>> upstream/v2
 	'editing_widget_x' => 'Upravování widgetu {x}', // Don't replace {x}
 	'module_x' => 'Doplněk: {x}', // Don't replace {x}
 	'widget_order' => 'Widget Order',
@@ -407,6 +520,10 @@ $language = array(
 	'unsafe_html' => 'Povolit nebezpečné HTML?',
 	'unsafe_html_warning' => 'Povolením této možnosti, jakékoli HTML může být na této straně použito, včetně potenciálně nebezpečného jazyku JavaScript. Povolte to pouze v případě, zda jste si jist, že Váš HTML kód je bezpečný.',
 	'include_in_sitemap' => 'Include in sitemap?',
+<<<<<<< HEAD
+=======
+	'sitemap_link' => 'Sitemap link:',
+>>>>>>> upstream/v2
 	'page_permissions' => 'Oprávnění stránky',
 	'view_page' => 'Může tuto stránku vidět?',
 	'editing_page_x' => 'Upravování stránky {x}', // Don't replace {x}
@@ -422,6 +539,12 @@ $language = array(
 	'page_content_maximum_100000' => 'Zajistětě, aby obsah Vaší stránky byl maximálně 100000 znaků dlouhý.',
 	'page_redirect_link_maximum_512' => 'Zajistětě, aby odkaz na přesměrování Vaší stránky byl maximálně 512 znaků dlouhý.',
 	'confirm_delete_page' => 'Jste si jist, že chcete tuto stránku odstranit?',
+<<<<<<< HEAD
+=======
+	'page_created_successfully' => 'Page created successfully.',
+	'page_updated_successfully' => 'Page updated successfully.',
+	'page_deleted_successfully' => 'Page deleted successfully.',
+>>>>>>> upstream/v2
 
 	// API
 	'api' => 'API',
@@ -430,12 +553,26 @@ $language = array(
 	'enable_legacy_api' => 'Enable legacy API?',
 	'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
 	'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
+<<<<<<< HEAD
 	'api_registration_email' => 'API Registration Email',
+=======
+	'api_key' => 'API Key',
+	'api_url' => 'API URL',
+	'copy' => 'Copy',
+	'api_key_regenerated' => 'The API key has been regenerated successfully.',
+	'api_registration_email' => 'API Registration Email',
+	'show_registration_link' => 'Show registration link',
+	'registration_link' => 'Registration Link',
+>>>>>>> upstream/v2
 	'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
 	'api_verification' => 'Enable API verification?',
 	'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
 	'enable_username_sync' => 'Enable username sync?',
 	'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
+<<<<<<< HEAD
+=======
+	'api_settings_updated_successfully' => 'API settings updated successfully.',
+>>>>>>> upstream/v2
 
 	// File uploads
 	'drag_files_here' => 'Soubory přetáhněte sem pro nahrání.',
@@ -452,6 +589,10 @@ $language = array(
 	'other_log' => 'Other log',
 	'fatal_log' => 'Fatal log',
 	'log_file_not_found' => 'Log file not found.',
+<<<<<<< HEAD
+=======
+	'log_purged_successfully' => 'The log has been purged successfully.',
+>>>>>>> upstream/v2
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
@@ -476,4 +617,25 @@ $language = array(
 	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
 	'keywords' => 'Keywords',
 	'description_max_500' => 'The description must be at most 500 characters.',
+<<<<<<< HEAD
+=======
+	'page' => 'Page',
+	'metadata_updated_successfully' => 'Metadata updated successfully.',
+
+	// Dashboard
+	'total_users' => 'Total Users',
+	'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
+	'recent_users' => 'New Users',
+	'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
+	'average_players' => 'Average Players',
+	'nameless_news' => 'NamelessMC News',
+	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
+	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'server_compatibility' => 'Server Compatibility',
+	'issues' => 'Issues',
+
+	// Other
+	'source' => 'Source',
+	'support' => 'Support'
+>>>>>>> upstream/v2
 );

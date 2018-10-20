@@ -40,6 +40,7 @@ if(isset($_GET['action'])){
 	if($_GET['action'] == 'install'){
 		// Install any new modules
 		$directories = glob(ROOT_PATH . '/modules/*' , GLOB_ONLYDIR);
+<<<<<<< HEAD
 
 		foreach($directories as $directory){
 			$folders = explode('/', $directory);
@@ -54,6 +55,27 @@ if(isset($_GET['action'])){
 				// Require installer if necessary
 				if(file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/install.php')){
 					require(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/install.php');
+=======
+
+		define('MODULE_INSTALL', true);
+
+		foreach($directories as $directory){
+			$folders = explode('/', $directory);
+
+			if(file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')){
+				// Is it already in the database?
+				$exists = $queries->getWhere('modules', array('name', '=', htmlspecialchars($folders[count($folders) - 1])));
+
+				if(!count($exists)){
+					// No, add it now
+					$queries->create('modules', array(
+						'name' => htmlspecialchars($folders[count($folders) - 1])
+					));
+
+					require_once(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php');
+
+					$module->onInstall();
+>>>>>>> upstream/v2
 				}
 			}
 		}
@@ -63,7 +85,6 @@ if(isset($_GET['action'])){
 		Session::flash('admin_modules', '<div class="alert alert-success">' . $language->get('admin', 'modules_installed_successfully') . '</div>');
 
 		Redirect::to(URL::build('/admin/modules'));
-
 		die();
 
 	} else if($_GET['action'] == 'enable'){

@@ -19,7 +19,7 @@ if($user->isLoggedIn()){
 		// Check the user has re-authenticated
 		if(!$user->isAdmLoggedIn()){
 			// They haven't, do so now
-			Redirect::to(URL::build('/admin/auth'));
+			Redirect::to(URL::build('/panel/auth'));
 			die();
 		}
 	}

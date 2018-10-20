@@ -15,6 +15,10 @@
 
 $language = array(
 	'mod_cp' => '控制者後台',
+<<<<<<< HEAD
+=======
+	'staff_cp' => 'StaffCP',
+>>>>>>> upstream/v2
 	'overview' => '總覽',
 	
 	// Spam
@@ -55,6 +59,13 @@ $language = array(
 	'open_reports' => '目前有 <strong>{x}</strong> 開啟的回報.', // Don't replace {x}
 	'no_open_reports' => 'There are currently no open reports.',
 	'no_closed_reports' => 'There are currently no closed reports.',
+<<<<<<< HEAD
+=======
+	'recent_reports' => 'Recent Reports',
+	'reported_by' => 'Reported by:',
+	'website' => 'Website',
+	'ingame' => 'Ingame',
+>>>>>>> upstream/v2
 	
 	// Punishments
 	'punishments' => '懲罰',
@@ -89,6 +100,19 @@ $language = array(
     'view_user' => '查看使用者',
     'when' => '何時',
     'staff' => '管理',
+<<<<<<< HEAD
     'type' => '類型'
 
 );
+=======
+    'type' => '類型',
+    'recent_punishments' => 'Recent Punishments',
+    'created' => 'Created:',
+    'staff:' => 'Staff:',
+    'reason:' => 'Reason:',
+	
+    // Users
+    'recent_registrations' => 'Recent Registrations'
+
+);
+>>>>>>> upstream/v2

@@ -153,6 +153,7 @@ $admin_page = 'forums';
 				  </div>
 				</div>
 				
+				<br>
 				<form action="" method="post">
 					<div class="form-group">
 					  <label for="InputEnabled"><?php echo $forum_language->get('forum', 'use_reactions'); ?></label>

@@ -1,6 +1,10 @@
 <?php
 /*
+<<<<<<< HEAD
  *	Made by Samerton
+=======
+ *    Made by Samerton
+>>>>>>> upstream/v2
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr4
  *
@@ -49,5 +53,10 @@ $language = array(
     'report_created' => 'Raportul a fost creat cu succes',
     'new_private_message_from' => 'Mesaj privat nou de la {x}', // Don't replace {x}
     'username_updated' => 'Numele de utilizator a fost actualizat cu succes',
+<<<<<<< HEAD
     'server_info_updated' => 'Informațiile serverului s-au actualizat cu succes'
+=======
+    'server_info_updated' => 'Informațiile serverului s-au actualizat cu succes',
+    'account_validated' => 'Contul a fost validat cu succes'
+>>>>>>> upstream/v2
 );

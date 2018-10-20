@@ -164,6 +164,7 @@ $language = array(
 	'replies' => 'Respostas',
 	'new_reply' => 'Nova Resposta',
 	'registered' => 'Cadastrado:',
+	'registered_x' => 'Cadastrado: {x}',
 	'last_seen' => 'Visto pela última vez:',
 	'new_wall_post' => '{x} postou no seu perfil.',
 	'couldnt_find_that_user' => 'Não encontramos este usuário.',

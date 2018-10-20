@@ -21,6 +21,13 @@ $language = array(
 	're-authenticate' => '請重新驗證',
 
 	// Sidebar
+<<<<<<< HEAD
+=======
+	'dashboard' => 'Dashboard',
+	'configuration' => 'Configuration',
+	'layout' => 'Layout',
+	'user_management' => 'User Management',
+>>>>>>> upstream/v2
 	'admin_cp' => '管理員控制台',
 	'administration' => '管理者',
 	'overview' => '總覽',
@@ -41,7 +48,11 @@ $language = array(
 	'posts' => 'Posts',
 	'notices' => '通知',
 	'no_notices' => '沒有通知.',
+<<<<<<< HEAD
 	'email_errors_logged' => '電子郵件錯誤已被紀錄. 點擊<a href="{x}">這裡</a>查看.', // Don't replace "{x}"
+=======
+	'email_errors_logged' => '電子郵件錯誤已被紀錄',
+>>>>>>> upstream/v2
 
 	// Core
 	'settings' => '設置',
@@ -49,12 +60,20 @@ $language = array(
 	'sitename' => '網站名稱',
 	'default_language' => '預設語言',
 	'default_language_help' => '使用者可選擇已安裝的語言.',
+<<<<<<< HEAD
+=======
+	'install_language' => 'Install Language',
+	'update_user_languages' => 'Update User Languages',
+	'update_user_languages_warning' => 'This will update the language for all users on your site, even if they have already selected one!',
+	'updated_user_languages' => 'User languages have been updated.',
+>>>>>>> upstream/v2
 	'installed_languages' => '語言已經安裝成功.',
 	'default_timezone' => '預設時區',
 	'registration' => '註冊',
 	'enable_registration' => '啟用註冊?',
 	'verify_with_mcassoc' => '使用MCAssoc驗證?',
 	'email_verification' => '使用電子郵件驗證?',
+<<<<<<< HEAD
 	'homepage_type' => '首頁類型',
 	'post_formatting_type' => '發布格式',
 	'portal' => 'Portal',
@@ -62,6 +81,19 @@ $language = array(
 	'use_friendly_urls' => '友好連結.',
 	'use_friendly_urls_help' => '重要提示: 您的伺服器必須允許使用 mod_rewrite 和 .htaccess 檔案才可以運作.',
 	'config_not_writable' => '您的<strong>core/config.php</strong>檔案無法存取，請檢查權限.',
+=======
+	'registration_settings_updated' => 'Registration settings updated successfully.',
+	'homepage_type' => '首頁類型',
+	'post_formatting_type' => '發布格式',
+	'portal' => 'Portal',
+	'private_profiles' => 'Private Profiles',
+	'missing_sitename' => '請輸入 2 ~ 64 字元的網站名稱.',
+	'missing_contact_address' => 'Please insert a contact email address between 3 and 255 characters long.',
+	'use_friendly_urls' => '友好連結.',
+	'use_friendly_urls_help' => '重要提示: 您的伺服器必須允許使用 mod_rewrite 和 .htaccess 檔案才可以運作.',
+	'config_not_writable' => '您的<strong>core/config.php</strong>檔案無法存取，請檢查權限.',
+	'settings_updated_successfully' => 'General settings updated successfully.',
+>>>>>>> upstream/v2
 	'social_media' => '社交媒體',
 	'youtube_url' => 'Youtube URL',
 	'twitter_url' => 'Twitter URL',
@@ -72,8 +104,15 @@ $language = array(
 	'light' => 'Light',
 	'google_plus_url' => 'Google+ URL',
 	'facebook_url' => 'Facebook URL',
+<<<<<<< HEAD
 	'successfully_updated' => '成功更新',
     'debugging_and_maintenance' => '調整與維護',
+=======
+	'social_media_settings_updated' => 'Social media settings updated successfully.',
+	'successfully_updated' => '成功更新',
+    'debugging_and_maintenance' => '調整與維護',
+    'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
+>>>>>>> upstream/v2
     'enable_debug_mode' => '啟用除錯模式?',
 	'force_https' => '強制加密連線(https)?',
 	'force_https_help' => '如果此選項被啟用，網站將會自動導向Https加密連線網頁，必須有正確的SSL證書才可以正常運作，請再次檢查再開啟.',
@@ -93,7 +132,11 @@ $language = array(
 	'enable_mailer_help' => '如果電子郵件無法發送，請使用此功能，PHPMailer可以使您正常發送郵件，EX: Google的SMTP.',
 	'outgoing_email' => '外部電子郵件',
 	'outgoing_email_info' => '這個電子郵件將是NamelessMC拿來發送驗證信的電子郵件.',
+<<<<<<< HEAD
 	'mailer_settings_info' => '如果您啟用的PHPMailer，則以下字段都必須要，不知道是什麼請造訪 <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">維基</a>.',
+=======
+	'mailer_settings_info' => '如果您啟用的PHPMailer，則以下字段都必須要，不知道是什麼請造訪 <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">維基</a>.',
+>>>>>>> upstream/v2
 	'host' => '伺服器',
 	'email_port' => '端口',
 	'email_password_hidden' => '安全原因，密碼不顯示.',
@@ -102,7 +145,12 @@ $language = array(
     'send' => '傳送',
 	'test_email_error' => '測試電子郵件錯誤:',
 	'test_email_success' => '測試電子郵件傳送成功!',
+<<<<<<< HEAD
 	'terms_error' => '請輸入您的服務條款 (最大字元 2048).',
+=======
+	'terms_error' => '請輸入您的服務條款 (最大字元 100000).',
+	'privacy_policy_error' => 'Please enter a privacy policy no longer than 100,000 characters.',
+>>>>>>> upstream/v2
 	'terms_updated' => '服務條款更新成功.',
 	'avatars' => '頭顱',
 	'allow_custom_avatars' => '允許使用者使用自訂頭顱?',
@@ -114,6 +162,10 @@ $language = array(
 	'minecraft_avatar_perspective' => 'Minecraft avatar 視角',
 	'face' => '臉',
 	'head' => '頭',
+<<<<<<< HEAD
+=======
+	'bust' => 'Bust',
+>>>>>>> upstream/v2
 	'select_default_avatar' => '選擇新的預設頭顱:',
 	'no_avatars_available' => '沒有已知頭顱. 請上傳新的頭顱.',
 	'avatar_settings_updated_successfully' => '頭顱更新成功.',
@@ -122,6 +174,10 @@ $language = array(
 	'navbar_order_instructions' => '您可以給予比0更大的數字，以便在導航欄選擇連結.',
     'navbar_icon' => 'Navbar Icon',
     'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+<<<<<<< HEAD
+=======
+    'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
+>>>>>>> upstream/v2
     'dropdown_items' => 'Dropdown Items',
 	'enable_page_load_timer' => '啟用畫面讀取計時?',
 	'google_recaptcha' => 'Enable Google reCAPTCHA?',
@@ -132,7 +188,11 @@ $language = array(
 	'validation_promote_group' => 'Post-validation group',
 	'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
 	'login_method' => 'Login Method',
+<<<<<<< HEAD
     'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+=======
+    'privacy_and_terms' => 'Privacy & Terms',
+>>>>>>> upstream/v2
 
 	// Reactions
 	'icon' => '圖標',
@@ -144,6 +204,19 @@ $language = array(
 	'html' => 'HTML',
 	'new_reaction' => '<i class="fa fa-plus-circle"></i> 新符號',
 	'creating_reaction' => '建立符號',
+<<<<<<< HEAD
+=======
+	'no_reactions' => 'There are no reactions yet.',
+	'reaction_created_successfully' => 'Reaction created successfully.',
+	'reaction_edited_successfully' => 'Reaction edited successfully.',
+	'reaction_deleted_successfully' => 'Reaction deleted successfully.',
+	'name_required' => 'A name is required',
+	'html_required' => 'HTML is required',
+	'type_required' => 'A type is required',
+	'name_maximum_16' => 'The name must be no more than 16 characters',
+	'html_maximum_255' => 'The HTML must be no more than 255 characters',
+	'confirm_delete_reaction' => 'Are you sure you want to delete this reaction?',
+>>>>>>> upstream/v2
 
 	// Custom profile fields
 	'custom_fields' => '自訂個人檔區域',
@@ -165,6 +238,12 @@ $language = array(
 	'profile_field_forum_help' => '如果啟用，區域的文字將會在論壇中被顯示.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 	'no_custom_fields' => 'There are no custom fields yet.',
+<<<<<<< HEAD
+=======
+	'profile_field_updated_successfully' => 'The profile field was updated successfully.',
+	'profile_field_created_successfully' => 'The profile field was created successfully.',
+	'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
+>>>>>>> upstream/v2
 
 	// Minecraft
 	'enable_minecraft_integration' => '啟用 Minecraft integration?',
@@ -236,6 +315,14 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> 新橫幅',
 	'purge_errors' => '清除錯誤',
 	'confirm_purge_errors' => '您確定要清除所有錯誤?',
+<<<<<<< HEAD
+=======
+	'email_errors_purged_successfully' => 'Email errors have been purged successfully.',
+	'error_deleted_successfully' => 'The error has been deleted successfully.',
+	'no_email_errors' => 'No email errors logged.',
+	'email_settings_updated_successfully' => 'Email settings have been updated successfully.',
+	'content' => 'Content',
+>>>>>>> upstream/v2
 	'mcassoc_help' => 'mcassoc是一個外部驗證服務，可以用來驗證用戶他們已經註冊Minecraft帳號，要使用此功能請至 <a href="https://mcassoc.lukegb.com/" target="_blank">此處</a> 領取共享密鑰.',
 	'mcassoc_key' => 'mcassoc 共享密鑰',
 	'mcassoc_instance' => 'mcassoc 實例密鑰',
@@ -258,6 +345,15 @@ $language = array(
 	'module_enabled' => '模組啟用.',
 	'module_disabled' => '模組禁用.',
 	'author' => '作者:',
+<<<<<<< HEAD
+=======
+	'author_x' => '作者: {x}', // Don't replace {x}
+	'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
+	'find_modules' => 'Find Modules',
+	'view_all_modules' => 'View all modules',
+	'unable_to_retrieve_modules' => 'Unable to retrieve modules',
+	'module' => 'Module',
+>>>>>>> upstream/v2
 
 	// Styles
 	'templates' => '樣式',
@@ -283,6 +379,20 @@ $language = array(
 	'delete' => '移除',
 	'template_deleted_successfully' => '樣式移除成功.',
 	'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+<<<<<<< HEAD
+=======
+	'find_templates' => 'Find Templates',
+	'view_all_templates' => 'View all templates',
+	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
+	'template' => 'Template',
+	'stats' => 'Stats',
+	'downloads_x' => 'Downloads: {x}',
+	'views_x' => 'Views: {x}',
+	'rating_x' => 'Rating: {x}',
+	'editing_template_x' => 'Editing template {x}', // Don't replace {x}
+	'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
+	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
+>>>>>>> upstream/v2
 
 	// Users & groups
 	'users' => '使用者',
@@ -332,6 +442,15 @@ $language = array(
 	'default_group' => 'Is the group the default group (for new users)?',
 	'user_id' => 'User ID',
 	'uuid' => 'UUID',
+<<<<<<< HEAD
+=======
+	'group_order' => 'Group Order',
+	'group_created_successfully' => 'Group created successfully.',
+	'group_updated_successfully' => 'Group updated successfully.',
+	'group_deleted_successfully' => 'Group deleted successfully.',
+	'unable_to_delete_group' => 'Unable to delete a default group, or a group that can view the StaffCP. Please update the group settings first!',
+	'can_view_staffcp' => 'Can the group view the StaffCP?',
+>>>>>>> upstream/v2
 
 	// Permissions
     'select_all' => 'Select All',
@@ -372,6 +491,10 @@ $language = array(
 	'current_version_x' => '目前版本: <strong>{x}</strong>', // Don't replaec {x}
 	'new_version_x' => '新版本: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => '已找到一個新的更新',
+<<<<<<< HEAD
+=======
+	'new_urgent_update_available' => 'There is a new urgent upgrade available. Please update as soon as possible!',
+>>>>>>> upstream/v2
 	'up_to_date' => '您的 NamelessMC 是最新版本的!',
 	'urgent' => '此更新是一個緊急更新!',
 	'changelog' => '更新紀錄',
@@ -384,6 +507,10 @@ $language = array(
 	'widgets' => '小工具',
 	'widget_enabled' => '小工具啟用.',
 	'widget_disabled' => '小工具禁用.',
+<<<<<<< HEAD
+=======
+	'widget_updated' => 'Widget updated.',
+>>>>>>> upstream/v2
 	'editing_widget_x' => '編輯小工具 {x}', // Don't replace {x}
 	'module_x' => '模組: {x}', // Don't replace {x}
 	'widget_order' => 'Widget Order',
@@ -411,6 +538,10 @@ $language = array(
 	'unsafe_html' => '允許使用不安全的 HTML?',
 	'unsafe_html_warning' => '啟用此選項表示你可以使用任何的HTML標籤，包括未加密的JavaScript，確定HTML是安全的再開啟',
 	'include_in_sitemap' => 'Include in sitemap?',
+<<<<<<< HEAD
+=======
+	'sitemap_link' => 'Sitemap link:',
+>>>>>>> upstream/v2
 	'page_permissions' => '自訂頁面權限',
 	'view_page' => '查看自訂頁面?',
 	'editing_page_x' => '編輯自訂頁面 {x}', // Don't replace {x}
@@ -426,6 +557,12 @@ $language = array(
 	'page_content_maximum_100000' => '自訂頁面的內文最高限制 100000 字元.',
 	'page_redirect_link_maximum_512' => '自訂頁面的轉址網址最高限制 512 字元',
 	'confirm_delete_page' => '移除自訂頁面?',
+<<<<<<< HEAD
+=======
+	'page_created_successfully' => 'Page created successfully.',
+	'page_updated_successfully' => 'Page updated successfully.',
+	'page_deleted_successfully' => 'Page deleted successfully.',
+>>>>>>> upstream/v2
 
 	// API
     'api' => 'API',
@@ -434,12 +571,26 @@ $language = array(
 	'enable_legacy_api' => 'Enable legacy API?',
 	'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
 	'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
+<<<<<<< HEAD
 	'api_registration_email' => 'API Registration Email',
+=======
+	'api_key' => 'API Key',
+	'api_url' => 'API URL',
+	'copy' => 'Copy',
+	'api_key_regenerated' => 'The API key has been regenerated successfully.',
+	'api_registration_email' => 'API Registration Email',
+	'show_registration_link' => 'Show registration link',
+	'registration_link' => 'Registration Link',
+>>>>>>> upstream/v2
 	'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
 	'api_verification' => 'Enable API verification?',
 	'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
 	'enable_username_sync' => 'Enable username sync?',
 	'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
+<<<<<<< HEAD
+=======
+	'api_settings_updated_successfully' => 'API settings updated successfully.',
+>>>>>>> upstream/v2
 
 	// File uploads
 	'drag_files_here' => '拖曳檔案至此上傳.',
@@ -456,6 +607,10 @@ $language = array(
 	'other_log' => 'Other log',
 	'fatal_log' => 'Fatal log',
 	'log_file_not_found' => 'Log file not found.',
+<<<<<<< HEAD
+=======
+	'log_purged_successfully' => 'The log has been purged successfully.',
+>>>>>>> upstream/v2
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
@@ -480,4 +635,25 @@ $language = array(
 	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
 	'keywords' => 'Keywords',
 	'description_max_500' => 'The description must be at most 500 characters.',
+<<<<<<< HEAD
+=======
+	'page' => 'Page',
+	'metadata_updated_successfully' => 'Metadata updated successfully.',
+
+	// Dashboard
+	'total_users' => 'Total Users',
+	'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
+	'recent_users' => 'New Users',
+	'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
+	'average_players' => 'Average Players',
+	'nameless_news' => 'NamelessMC News',
+	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
+	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'server_compatibility' => 'Server Compatibility',
+	'issues' => 'Issues',
+
+	// Other
+	'source' => 'Source',
+	'support' => 'Support'
+>>>>>>> upstream/v2
 );

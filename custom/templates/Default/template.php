@@ -23,7 +23,11 @@ class Default_Template extends TemplateBase {
 			'Default',  // Template name
 			'2.0.0-pr5',  // Template version
 			'2.0.0-pr5',  // Nameless version template is made for
+<<<<<<< HEAD
 			'<a href="https://namelessmc.com/">Samerton</a>'  // Author, you can use HTML here
+=======
+			'<a href="https://namelessmc.com/" target="_blank">Samerton</a>'  // Author, you can use HTML here
+>>>>>>> upstream/v2
 		);
 
 		// The following is used for the Default theme switcher; you do not need this in custom templates
@@ -107,6 +111,55 @@ class Default_Template extends TemplateBase {
 			      }, 300);
 				});
 				
+<<<<<<< HEAD
+=======
+				$(document).ready(function(){
+					var cachedUsers = {};
+					var timeoutId;
+
+				   $(\'*[data-poload]\').mouseenter(function (){
+				   	var elem = this;
+				   	if(!timeoutId){
+				        timeoutId = window.setTimeout(function() {
+				            timeoutId = null;
+						    var data = cachedUsers[$(elem).data(\'poload\')];
+						    $(elem).popover({trigger:"manual",animation:false,content:data.html}).popover("show");
+						    $(\'.popover\').mouseleave(function (){
+						        if(!$(".popover:hover").length){
+						          $(this).popover("hide");
+						        }
+						    });
+				       }, 1000);
+				       
+				       // Get data now
+				       $.get($(elem).data(\'poload\'), function(d) {
+				            ' . ((defined('DEBUGGING') && DEBUGGING == 1) ? 'console.log(d);' : '') . '
+				            var data = JSON.parse(d);
+					        cachedUsers[$(elem).data(\'poload\')] = data;
+					        // Preload image
+					        var tmp = document.createElement(\'div\');
+					        tmp.innerHTML = data.html;
+					        var img = tmp.getElementsByTagName(\'img\')[0];
+					        var image = new Image();
+					        image.src = img.src;
+				       });
+				    }
+				   }).mouseleave(function (){
+					   var elem = this;
+					   if(timeoutId){
+					        window.clearTimeout(timeoutId);
+					        timeoutId = null;
+					   } else {
+					      setTimeout(function () {
+					        if(!$(".popover:hover").length){
+					          $(elem).popover("hide");
+					        }
+					      }, 200);
+					   }
+				   });
+				});
+				
+>>>>>>> upstream/v2
 			    function copyToClipboard(element) {
 			      var $temp = $("<input>");
 			      $("body").append($temp);
@@ -327,7 +380,14 @@ class Default_Template extends TemplateBase {
 		}
 
 		// Editor skin (moono-lisa or moono-dark)
+<<<<<<< HEAD
 		define('TEMPLATE_EDITOR_STYLE', 'moono-lisa');
+=======
+		if($theme != 'darkly')
+			define('TEMPLATE_EDITOR_STYLE', 'moono-lisa');
+		else
+			define('TEMPLATE_EDITOR_STYLE', 'moono-dark');
+>>>>>>> upstream/v2
 
 		// Assign any Smarty variables
 		$smarty->assign('NAV_STYLE', Output::getClean($nav_style));

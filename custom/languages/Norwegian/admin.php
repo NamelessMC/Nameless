@@ -17,6 +17,10 @@ $language = array(
 	're-authenticate' => 'Vennligst logg inn på nytt.',
 
 	// Sidebar
+	'dashboard' => 'Dashboard',
+	'configuration' => 'Configuration',
+	'layout' => 'Layout',
+	'user_management' => 'User Management',
 	'admin_cp' => 'AdminCP',
 	'administration' => 'Administrasjon',
 	'overview' => 'Oppsummering',
@@ -37,7 +41,11 @@ $language = array(
 	'posts' => 'Tråder',
     'notices' => 'Varsler',
     'no_notices' => 'Ingen varsler.',
+<<<<<<< HEAD
     'email_errors_logged' => 'En email error har blitt logget. Klikk <a href="{x}">her</a> for å se dem.', // Don't replace "{x}"
+=======
+    'email_errors_logged' => 'En email error har blitt logget',
+>>>>>>> upstream/v2
 
 	// Core
 	'settings' => 'Instillinger',
@@ -45,19 +53,27 @@ $language = array(
 	'sitename' => 'Nettstedets navn',
 	'default_language' => 'Standardspråk',
 	'default_language_help' => 'Tilskuere på nettstedet kan benytte alle installerte språk',
+	'install_language' => 'Install Language',
+	'update_user_languages' => 'Update User Languages',
+	'update_user_languages_warning' => 'This will update the language for all users on your site, even if they have already selected one!',
+	'updated_user_languages' => 'User languages have been updated.',
 	'installed_languages' => 'Installasjonen av språket var vellykket!',
 	'default_timezone' => 'Standard tidssone',
 	'registration' => 'Registrering',
 	'enable_registration' => 'Vil du åpne for registrering?',
 	'verify_with_mcassoc' => 'Verifiser bruker med MCAssoc-tillegget?',
 	'email_verification' => 'Vil du kreve e-postverifikasjon av nye kontoer?',
+	'registration_settings_updated' => 'Registration settings updated successfully.',
 	'homepage_type' => 'Forsidetype',
 	'post_formatting_type' => 'Formatteringstype for poster',
 	'portal' => 'Portal',
+	'private_profiles' => 'Private Profiles',
 	'missing_sitename' => 'Navnet på nettstedet må være mellom 2 og 64 tegn.',
+	'missing_contact_address' => 'Please insert a contact email address between 3 and 255 characters long.',
 	'use_friendly_urls' => 'Søkemotorvennlige URL-adresser',
 	'use_friendly_urls_help' => 'VIKTIG! For at denne funksjonen skal fungere må du ha mod_rewrite og .htaccess tilgjengelig for web-serveren din. (Kun Apache2 er støttet for øyeblikket)',
 	'config_not_writable' => '<strong>core/config.php</strong> er ikke skrivbar. Sjekk filens rettigheter og web-serverens tilgang. (www-data og chmod g+rw)',
+	'settings_updated_successfully' => 'General settings updated successfully.',
 	'social_media' => 'Sosiale medier',
 	'youtube_url' => 'YouTube-URL',
 	'twitter_url' => 'Twitter-URL',
@@ -68,8 +84,10 @@ $language = array(
 	'light' => 'Light',
 	'google_plus_url' => 'Google+ URL',
 	'facebook_url' => 'Facebook-URL',
+	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => 'Vellykket endring i innstillinger!',
     'debugging_and_maintenance' => 'Feilsøk og vedlikehold',
+	'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Tillatt feilsøkingsmodus?',
     'force_https' => 'Overstyr https?',
     'force_https_help' => 'Hvis aktivert, alle forespørsler på din nettside vil bli videresendt til https. Du må ha en gyldig SSL sertifikat aktiv for at dette skal funke.',
@@ -89,7 +107,11 @@ $language = array(
     'enable_mailer_help' => 'Aktiver denne funksjonen hvis mailene ikke blir sendt automatisk. Bruk av PHPMailer krever at du har tilgang til foreksempel Gmail eller en SMTP støtter.',
     'outgoing_email' => 'Utgående email adresser',
     'outgoing_email_info' => 'Dette er emailen NamelesMC vil bruke til å sende ut mails.',
+<<<<<<< HEAD
     'mailer_settings_info' => 'De markerte feltene må være utfylt hvis du har PHPMailer aktivert. For mer informasjon om hvordan du fyller ut disse feltene, sjekk ut <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">wiki</a>.',
+=======
+    'mailer_settings_info' => 'De markerte feltene må være utfylt hvis du har PHPMailer aktivert. For mer informasjon om hvordan du fyller ut disse feltene, sjekk ut <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki</a>.',
+>>>>>>> upstream/v2
     'host' => 'Vert',
     'email_port' => 'Port',
     'email_password_hidden' => 'Passordet vises ikke på grunn av sikkerhetsmessige årsaker.',
@@ -98,7 +120,12 @@ $language = array(
     'send' => 'Send',
     'test_email_error' => 'Test email error:',
     'test_email_success' => 'Test email ble suksessfullt sendt!',
+<<<<<<< HEAD
     'terms_error' => 'Pass på at dine betingelser og vilkår ikke er mer enn 2048 tegn.',
+=======
+    'terms_error' => 'Pass på at dine betingelser og vilkår ikke er mer enn 100000 tegn.',
+    'privacy_policy_error' => 'Please enter a privacy policy no longer than 100000 characters.',
+>>>>>>> upstream/v2
     'terms_updated' => 'Vilkår har suksessfullt blitt oppdatert!',
     'avatars' => 'Avatarer',
     'allow_custom_avatars' => 'Tillatt egne avatarer?',
@@ -110,6 +137,10 @@ $language = array(
     'minecraft_avatar_perspective' => 'Minecraft avatar perspektiv',
     'face' => 'Ansikt',
     'head' => 'Hode',
+<<<<<<< HEAD
+=======
+	'bust' => 'Bust',
+>>>>>>> upstream/v2
     'select_default_avatar' => 'Velg en ny standard avatar:',
     'no_avatars_available' => 'Ingen avatarer for øyeblikket. Vennligst last opp et nytt bilde oppe først.',
     'avatar_settings_updated_successfully' => 'Avatar instillinger har blitt oppdatert',
@@ -118,6 +149,10 @@ $language = array(
     'navbar_order_instructions' => 'Du kan gi hver ting et tall over 0 for å plassere i rekkefølge.',
     'navbar_icon' => 'Navbar Icon',
     'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+<<<<<<< HEAD
+=======
+    'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
+>>>>>>> upstream/v2
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Aktiver side timer?',
     'google_recaptcha' => 'Aktiver Google reCAPTCHA?',
@@ -128,7 +163,11 @@ $language = array(
     'validation_promote_group' => 'Post-valideringsgruppe',
     'validation_promote_group_info' => 'Dette er gruppen brukeren vil bli forfremmet til når personen har verifisert kontoen sin.',
     'login_method' => 'Login Metode',
+<<<<<<< HEAD
     'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+=======
+    'privacy_and_terms' => 'Privacy & Terms',
+>>>>>>> upstream/v2
 
 	// Reactions
 	'icon' => 'Ikon',
@@ -140,6 +179,16 @@ $language = array(
 	'html' => 'HTML',
 	'new_reaction' => '<i class="fa fa-plus-circle"></i> Ny reaksjon',
 	'creating_reaction' => 'Oppretter ny reaksjon',
+	'no_reactions' => 'There are no reactions yet.',
+	'reaction_created_successfully' => 'Reaction created successfully.',
+	'reaction_edited_successfully' => 'Reaction edited successfully.',
+	'reaction_deleted_successfully' => 'Reaction deleted successfully.',
+	'name_required' => 'A name is required',
+	'html_required' => 'HTML is required',
+	'type_required' => 'A type is required',
+	'name_maximum_16' => 'The name must be no more than 16 characters',
+	'html_maximum_255' => 'The HTML must be no more than 255 characters',
+	'confirm_delete_reaction' => 'Are you sure you want to delete this reaction?',
 
 	// Custom profile fields
 	'custom_fields' => 'Egendefinerbare profilfelt',
@@ -161,6 +210,12 @@ $language = array(
 	'profile_field_forum_help' => 'Hvis "Synlig på forumet" er aktivert vil alle som bruker forumet kunne se feltet.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 	'no_custom_fields' => 'There are no custom fields yet.',
+<<<<<<< HEAD
+=======
+	'profile_field_updated_successfully' => 'The profile field was updated successfully.',
+	'profile_field_created_successfully' => 'The profile field was created successfully.',
+	'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
+>>>>>>> upstream/v2
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Aktiver Minecraft-integrasjon',
@@ -232,6 +287,14 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> Ny banner',
     'purge_errors' => 'Rens alle error',
     'confirm_purge_errors' => 'Er du sikker på at du vil fjerne alle errorer?',
+<<<<<<< HEAD
+=======
+	'email_errors_purged_successfully' => 'Email errors have been purged successfully.',
+	'error_deleted_successfully' => 'The error has been deleted successfully.',
+	'no_email_errors' => 'No email errors logged.',
+	'email_settings_updated_successfully' => 'Email settings have been updated successfully.',
+	'content' => 'Content',
+>>>>>>> upstream/v2
     'mcassoc_help' => 'mcassoc er en ekstern service som kan bli brukt for å verifisere deres Minecraft bruker de har registrert med. For å bruke denne funksjonen må du registrere deg for å motta en delt nøkkel <a href="https://mcassoc.lukegb.com/" target="_blank">her</a>.',
     'mcassoc_key' => 'mcassoc delt nøkkel (Shared key)',
     'mcassoc_instance' => 'mcassoc Instance Key',
@@ -254,6 +317,15 @@ $language = array(
 	'module_enabled' => 'Modul aktivert.',
 	'module_disabled' => 'Modul deaktivert.',
 	'author' => 'Utgiver:',
+<<<<<<< HEAD
+=======
+	'author_x' => 'Utgiver: {x}', // Don't replace {x}
+	'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
+	'find_modules' => 'Find Modules',
+	'view_all_modules' => 'View all modules',
+	'unable_to_retrieve_modules' => 'Unable to retrieve modules',
+	'module' => 'Module',
+>>>>>>> upstream/v2
 
 	// Styles
 	'templates' => 'Maler',
@@ -278,7 +350,22 @@ $language = array(
 	'confirm_delete_template' => 'Er du sikker på at du vil slette denne malen?',
 	'delete' => 'Slett',
 	'template_deleted_successfully' => 'Mal suksessfullt slettet.',
+<<<<<<< HEAD
     'background_image_x' => 'Bakgrunnsbilde: <strong>{x}</strong>', // Don't replace {x}
+=======
+	'background_image_x' => 'Bakgrunnsbilde: <strong>{x}</strong>', // Don't replace {x}
+	'find_templates' => 'Find Templates',
+	'view_all_templates' => 'View all templates',
+	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
+	'template' => 'Template',
+	'stats' => 'Stats',
+	'downloads_x' => 'Downloads: {x}',
+	'views_x' => 'Views: {x}',
+	'rating_x' => 'Rating: {x}',
+	'editing_template_x' => 'Editing template {x}', // Don't replace {x}
+	'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
+	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
+>>>>>>> upstream/v2
 
 	// Users & groups
 	'users' => 'Brukere',
@@ -328,6 +415,15 @@ $language = array(
 	'default_group' => 'Er denne gruppen standardgruppen (for nye brukere)?',
 	'user_id' => 'User ID',
 	'uuid' => 'UUID',
+<<<<<<< HEAD
+=======
+	'group_order' => 'Group Order',
+	'group_created_successfully' => 'Group created successfully.',
+	'group_updated_successfully' => 'Group updated successfully.',
+	'group_deleted_successfully' => 'Group deleted successfully.',
+	'unable_to_delete_group' => 'Unable to delete a default group, or a group that can view the StaffCP. Please update the group settings first!',
+	'can_view_staffcp' => 'Can the group view the StaffCP?',
+>>>>>>> upstream/v2
 
 	// Permissions
 	'select_all' => 'Velg alle',
@@ -368,6 +464,7 @@ $language = array(
 	'current_version_x' => 'Denne versjonen: <strong>{x}</strong>', // Don't replaec {x}
 	'new_version_x' => 'Ny versjon:: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => 'Det er en ny oppdatering tilgjengelig',
+	'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
 	'up_to_date' => 'Din NamelessMC kjører den nyeste versjonen!',
 	'urgent' => 'Denne oppdateringen er en midlertidig versjon.',
 	'changelog' => 'Oppdateringshistorikk',
@@ -380,6 +477,10 @@ $language = array(
 	'widgets' => 'Widgets',
 	'widget_enabled' => 'Widget aktivert.',
 	'widget_disabled' => 'Widget deaktivert.',
+<<<<<<< HEAD
+=======
+	'widget_updated' => 'Widget updated.',
+>>>>>>> upstream/v2
 	'editing_widget_x' => 'Redigerer widget {x}', // Don't replace {x}
 	'module_x' => 'Modul: {x}', // Don't replace {x}
 	'widget_order' => 'Widget Order',
@@ -407,6 +508,10 @@ $language = array(
     'unsafe_html' => 'Tillatt usikker HTML?',
     'unsafe_html_warning' => 'Ved å aktivere denne funksjonen vil all HTML kunne bli brukt på siden, også skadelig JavaScript. Bruk kun om du er sikker på at det er trygt.',
     'include_in_sitemap' => 'Include in sitemap?',
+<<<<<<< HEAD
+=======
+    'sitemap_link' => 'Sitemap link:',
+>>>>>>> upstream/v2
     'page_permissions' => 'Siden permisjoner',
     'view_page' => 'Se side?',
     'editing_page_x' => 'Redigerer side {x}', // Don't replace {x}
@@ -422,6 +527,12 @@ $language = array(
     'page_content_maximum_100000' => 'Sideinnholdet må være maks 100000 tegn.',
     'page_redirect_link_maximum_512' => 'Sideredirecten må være maks 512 tegn.',
     'confirm_delete_page' => 'Er du sikker på at du vil slette denne siden?',
+<<<<<<< HEAD
+=======
+    'page_created_successfully' => 'Page created successfully.',
+    'page_updated_successfully' => 'Page updated successfully.',
+    'page_deleted_successfully' => 'Page deleted successfully.',
+>>>>>>> upstream/v2
 
     // API
     'api' => 'API',
@@ -430,12 +541,26 @@ $language = array(
     'enable_legacy_api' => 'Aktiver legacy API?',
     'legacy_api_info' => 'Legacy APIen tillatter plugins som bruker Nameless versjon 1 APIen til å fungere med din versjon 2 nettside.',
     'confirm_api_regen' => 'Er du sikker på at du vil regenere API nøkkelen din?Are you sure you want to regenerate your API key?',
+<<<<<<< HEAD
     'api_registration_email' => 'API RegistreringsemailAPI Registration Email',
+=======
+	'api_key' => 'API Key',
+	'api_url' => 'API URL',
+	'copy' => 'Copy',
+	'api_key_regenerated' => 'The API key has been regenerated successfully.',
+    'api_registration_email' => 'API RegistreringsemailAPI Registration Email',
+	'show_registration_link' => 'Show registration link',
+	'registration_link' => 'Registration Link',
+>>>>>>> upstream/v2
     'link_to_complete_registration' => 'Link for å fullføre registrering: {x}', // Don't replace {x}
     'api_verification' => 'Enable API verification?',
     'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
     'enable_username_sync' => 'Enable username sync?',
     'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
+<<<<<<< HEAD
+=======
+	'api_settings_updated_successfully' => 'API settings updated successfully.',
+>>>>>>> upstream/v2
 
 	// File uploads
 	'drag_files_here' => 'Dra filene hit for å laste opp.',
@@ -452,6 +577,10 @@ $language = array(
 	'other_log' => 'Andre logg',
 	'fatal_log' => 'Fatale logg',
 	'log_file_not_found' => 'Logg fil ikke funnet.',
+<<<<<<< HEAD
+=======
+	'log_purged_successfully' => 'The log has been purged successfully.',
+>>>>>>> upstream/v2
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
@@ -476,4 +605,25 @@ $language = array(
 	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
 	'keywords' => 'Keywords',
 	'description_max_500' => 'The description must be at most 500 characters.',
+<<<<<<< HEAD
+=======
+	'page' => 'Page',
+	'metadata_updated_successfully' => 'Metadata updated successfully.',
+
+	// Dashboard
+	'total_users' => 'Total Users',
+	'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
+	'recent_users' => 'New Users',
+	'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
+	'average_players' => 'Average Players',
+	'nameless_news' => 'NamelessMC News',
+	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
+	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'server_compatibility' => 'Server Compatibility',
+	'issues' => 'Issues',
+
+	// Other
+	'source' => 'Source',
+	'support' => 'Support'
+>>>>>>> upstream/v2
 );

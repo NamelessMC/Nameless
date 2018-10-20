@@ -2,7 +2,11 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
+<<<<<<< HEAD
  *  NamelessMC version 2.0.0-pr4
+=======
+ *  NamelessMC version 2.0.0-pr5
+>>>>>>> upstream/v2
  *
  *  License: MIT
  *
@@ -17,6 +21,10 @@ $language = array(
 	're-authenticate' => 'Please re-authenticate',
 
 	// Sidebar
+	'dashboard' => 'Dashboard',
+	'configuration' => 'Configuration',
+	'layout' => 'Layout',
+	'user_management' => 'User Management',
 	'admin_cp' => 'AdminCP',
 	'administration' => 'Administration',
 	'overview' => 'Overview',
@@ -37,27 +45,39 @@ $language = array(
 	'posts' => 'Posts',
     'notices' => 'Notices',
     'no_notices' => 'No notices.',
+<<<<<<< HEAD
     'email_errors_logged' => 'Email errors have been logged. Click <a href="{x}">here</a> to view.', // Don't replace "{x}"
+=======
+    'email_errors_logged' => 'Email errors have been logged',
+>>>>>>> upstream/v2
 
 	// Core
 	'settings' => 'Settings',
 	'general_settings' => 'General Settings',
-	'sitename' => 'Site name',
-	'default_language' => 'Default language',
+	'sitename' => 'Site Name',
+	'default_language' => 'Default Language',
 	'default_language_help' => 'Users will be able to choose from any installed languages.',
+	'install_language' => 'Install Language',
+	'update_user_languages' => 'Update User Languages',
+	'update_user_languages_warning' => 'This will update the language for all users on your site, even if they have already selected one!',
+	'updated_user_languages' => 'User languages have been updated.',
 	'installed_languages' => 'Any new languages have been installed successfully.',
-	'default_timezone' => 'Default timezone',
+	'default_timezone' => 'Default Timezone',
 	'registration' => 'Registration',
 	'enable_registration' => 'Enable registration?',
 	'verify_with_mcassoc' => 'Verify user accounts with MCAssoc?',
 	'email_verification' => 'Enable email verification?',
-	'homepage_type' => 'Homepage type',
-	'post_formatting_type' => 'Post formatting type',
+	'registration_settings_updated' => 'Registration settings updated successfully.',
+	'homepage_type' => 'Homepage Type',
+	'post_formatting_type' => 'Post Formatting Type',
 	'portal' => 'Portal',
+	'private_profiles' => 'Private Profiles',
 	'missing_sitename' => 'Please insert a site name between 2 and 64 characters long.',
+	'missing_contact_address' => 'Please insert a contact email address between 3 and 255 characters long.',
 	'use_friendly_urls' => 'Friendly URLs',
 	'use_friendly_urls_help' => 'IMPORTANT: Your server must be configured to allow the use of mod_rewrite and .htaccess files for this to work.',
 	'config_not_writable' => 'Your <strong>core/config.php</strong> file is not writable. Please check file permissions.',
+	'settings_updated_successfully' => 'General settings updated successfully.',
 	'social_media' => 'Social Media',
 	'youtube_url' => 'Youtube URL',
 	'twitter_url' => 'Twitter URL',
@@ -68,8 +88,10 @@ $language = array(
 	'light' => 'Light',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
+	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => 'Successfully updated',
-    'debugging_and_maintenance' => 'Debugging and Maintenance',
+    'debugging_and_maintenance' => 'Debugging & Maintenance',
+    'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Enable debug mode?',
     'force_https' => 'Force https?',
     'force_https_help' => 'If enabled, all requests to your website will be redirected to https. You must have a valid SSL certificate active for this to work correctly.',
@@ -89,7 +111,11 @@ $language = array(
     'enable_mailer_help' => 'Enable this if emails aren\'t being sent by default. The use of PHPMailer requires you to have a service capable of sending emails, such as Gmail or an SMTP provider.',
     'outgoing_email' => 'Outgoing Email Address',
     'outgoing_email_info' => 'This is the email address which NamelessMC will use to send emails from.',
+<<<<<<< HEAD
     'mailer_settings_info' => 'The following fields are required if you have enabled PHPMailer. For more information on how to fill out these fields, check out <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">the wiki</a>.',
+=======
+    'mailer_settings_info' => 'The following fields are required if you have enabled PHPMailer. For more information on how to fill out these fields, check out <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">the wiki</a>.',
+>>>>>>> upstream/v2
     'host' => 'Host',
     'email_port' => 'Port',
     'email_password_hidden' => 'The password is not shown for security reasons.',
@@ -98,11 +124,20 @@ $language = array(
     'send' => 'Send',
     'test_email_error' => 'Test email error:',
     'test_email_success' => 'Test email sent successfully!',
+<<<<<<< HEAD
     'terms_error' => 'Please ensure your terms and conditions are no longer than 2048 characters.',
     'terms_updated' => 'Terms updated successfully.',
     'avatars' => 'Avatars',
     'allow_custom_avatars' => 'Allow custom user avatars?',
     'default_avatar' => 'Default avatar',
+=======
+    'terms_error' => 'Please enter terms and conditions no longer than 100,000 characters.',
+    'privacy_policy_error' => 'Please enter a privacy policy no longer than 100,000 characters.',
+    'terms_updated' => 'Privacy policy and terms & conditions updated successfully.',
+    'avatars' => 'Avatars',
+    'allow_custom_avatars' => 'Allow custom user avatars?',
+    'default_avatar' => 'Default Avatar',
+>>>>>>> upstream/v2
     'custom_avatar' => 'Custom avatar',
     'minecraft_avatar' => 'Minecraft avatar',
     'minecraft_avatar_source' => 'Minecraft avatar source',
@@ -110,6 +145,10 @@ $language = array(
     'minecraft_avatar_perspective' => 'Minecraft avatar perspective',
     'face' => 'Face',
     'head' => 'Head',
+<<<<<<< HEAD
+=======
+	'bust' => 'Bust',
+>>>>>>> upstream/v2
     'select_default_avatar' => 'Select a new default avatar:',
     'no_avatars_available' => 'No avatars available. Please upload a new image above first.',
     'avatar_settings_updated_successfully' => 'Avatar settings updated successfully.',
@@ -118,6 +157,10 @@ $language = array(
     'navbar_order_instructions' => 'You can give each item a number above 0 to order items in the navbar, with 1 being the first item and higher numbers coming after it.',
     'navbar_icon' => 'Navbar Icon',
     'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+<<<<<<< HEAD
+=======
+    'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
+>>>>>>> upstream/v2
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Enable page load timer?',
     'google_recaptcha' => 'Enable Google reCAPTCHA?',
@@ -128,7 +171,11 @@ $language = array(
     'validation_promote_group' => 'Post-validation group',
     'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
     'login_method' => 'Login Method',
+<<<<<<< HEAD
     'privacy_and_terms' => 'Privacy Policy and Terms & Conditions',
+=======
+    'privacy_and_terms' => 'Privacy & Terms',
+>>>>>>> upstream/v2
 
 	// Reactions
 	'icon' => 'Icon',
@@ -140,6 +187,16 @@ $language = array(
 	'html' => 'HTML',
 	'new_reaction' => '<i class="fa fa-plus-circle"></i> New Reaction',
 	'creating_reaction' => 'Creating Reaction',
+	'no_reactions' => 'There are no reactions yet.',
+	'reaction_created_successfully' => 'Reaction created successfully.',
+	'reaction_edited_successfully' => 'Reaction edited successfully.',
+	'reaction_deleted_successfully' => 'Reaction deleted successfully.',
+	'name_required' => 'A name is required',
+	'html_required' => 'HTML is required',
+	'type_required' => 'A type is required',
+	'name_maximum_16' => 'The name must be no more than 16 characters',
+	'html_maximum_255' => 'The HTML must be no more than 255 characters',
+	'confirm_delete_reaction' => 'Are you sure you want to delete this reaction?',
 
 	// Custom profile fields
 	'custom_fields' => 'Custom Profile Fields',
@@ -161,6 +218,12 @@ $language = array(
 	'profile_field_forum_help' => 'If enabled, the field will display by the user next to forum posts.',
 	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
 	'no_custom_fields' => 'There are no custom fields yet.',
+<<<<<<< HEAD
+=======
+	'profile_field_updated_successfully' => 'The profile field was updated successfully.',
+	'profile_field_created_successfully' => 'The profile field was created successfully.',
+	'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
+>>>>>>> upstream/v2
 
     // Minecraft
     'enable_minecraft_integration' => 'Enable Minecraft integration?',
@@ -232,6 +295,14 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> New Banner',
     'purge_errors' => 'Purge Errors',
     'confirm_purge_errors' => 'Are you sure you want to purge all errors?',
+<<<<<<< HEAD
+=======
+	'email_errors_purged_successfully' => 'Email errors have been purged successfully.',
+	'error_deleted_successfully' => 'The error has been deleted successfully.',
+	'no_email_errors' => 'No email errors logged.',
+	'email_settings_updated_successfully' => 'Email settings have been updated successfully.',
+	'content' => 'Content',
+>>>>>>> upstream/v2
     'mcassoc_help' => 'mcassoc is an external service which can be used to verify users own the Minecraft account they have registered with. To use this feature, you will need to sign up for a shared key <a href="https://mcassoc.lukegb.com/" target="_blank">here</a>.',
     'mcassoc_key' => 'mcassoc Shared Key',
     'mcassoc_instance' => 'mcassoc Instance Key',
@@ -254,6 +325,15 @@ $language = array(
 	'module_enabled' => 'Module enabled.',
 	'module_disabled' => 'Module disabled.',
 	'author' => 'Author:',
+<<<<<<< HEAD
+=======
+	'author_x' => 'Author: {x}', // Don't replace {x}
+	'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
+	'find_modules' => 'Find Modules',
+	'view_all_modules' => 'View all modules',
+	'unable_to_retrieve_modules' => 'Unable to retrieve modules',
+	'module' => 'Module',
+>>>>>>> upstream/v2
 
 	// Styles
 	'templates' => 'Templates',
@@ -278,7 +358,22 @@ $language = array(
 	'confirm_delete_template' => 'Are you sure you want to delete this template?',
 	'delete' => 'Delete',
 	'template_deleted_successfully' => 'Template deleted successfully.',
+<<<<<<< HEAD
     'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+=======
+	'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+	'find_templates' => 'Find Templates',
+	'view_all_templates' => 'View all templates',
+	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
+	'template' => 'Template',
+	'stats' => 'Stats',
+	'downloads_x' => 'Downloads: {x}',
+	'views_x' => 'Views: {x}',
+	'rating_x' => 'Rating: {x}',
+	'editing_template_x' => 'Editing template {x}', // Don't replace {x}
+	'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
+	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
+>>>>>>> upstream/v2
 
 	// Users & groups
 	'users' => 'Users',
@@ -328,6 +423,15 @@ $language = array(
 	'default_group' => 'Is the group the default group (for new users)?',
 	'user_id' => 'User ID',
 	'uuid' => 'UUID',
+<<<<<<< HEAD
+=======
+	'group_order' => 'Group Order',
+	'group_created_successfully' => 'Group created successfully.',
+	'group_updated_successfully' => 'Group updated successfully.',
+	'group_deleted_successfully' => 'Group deleted successfully.',
+	'unable_to_delete_group' => 'Unable to delete a default group, or a group that can view the StaffCP. Please update the group settings first!',
+	'can_view_staffcp' => 'Can the group view the StaffCP?',
+>>>>>>> upstream/v2
 
 	// Permissions
 	'select_all' => 'Select All',
@@ -365,9 +469,10 @@ $language = array(
 
 	// Updates
 	'update' => 'Update',
-	'current_version_x' => 'Current version: <strong>{x}</strong>', // Don't replaec {x}
+	'current_version_x' => 'Current version: <strong>{x}</strong>', // Don't replace {x}
 	'new_version_x' => 'New version: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => 'There is a new update available',
+	'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
 	'up_to_date' => 'Your NamelessMC installation is up to date!',
 	'urgent' => 'This update is an urgent update',
 	'changelog' => 'Changelog',
@@ -380,6 +485,10 @@ $language = array(
 	'widgets' => 'Widgets',
 	'widget_enabled' => 'Widget enabled.',
 	'widget_disabled' => 'Widget disabled.',
+<<<<<<< HEAD
+=======
+	'widget_updated' => 'Widget updated.',
+>>>>>>> upstream/v2
 	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
 	'module_x' => 'Module: {x}', // Don't replace {x}
 	'widget_order' => 'Widget Order',
@@ -407,6 +516,10 @@ $language = array(
     'unsafe_html' => 'Allow unsafe HTML?',
     'unsafe_html_warning' => 'Enabling this option means any HTML can be used on the page, including potentially dangerous JavaScript. Only enable this if you are sure your HTML is safe.',
     'include_in_sitemap' => 'Include in sitemap?',
+<<<<<<< HEAD
+=======
+    'sitemap_link' => 'Sitemap link:',
+>>>>>>> upstream/v2
     'page_permissions' => 'Page Permissions',
     'view_page' => 'View Page?',
     'editing_page_x' => 'Editing Page {x}', // Don't replace {x}
@@ -422,6 +535,12 @@ $language = array(
     'page_content_maximum_100000' => 'The page content must be a maximum of 100000 characters.',
     'page_redirect_link_maximum_512' => 'The page redirect link must be a maximum of 512 characters.',
     'confirm_delete_page' => 'Are you sure you want to delete this page?',
+<<<<<<< HEAD
+=======
+    'page_created_successfully' => 'Page created successfully.',
+    'page_updated_successfully' => 'Page updated successfully.',
+    'page_deleted_successfully' => 'Page deleted successfully.',
+>>>>>>> upstream/v2
 
     // API
     'api' => 'API',
@@ -430,12 +549,26 @@ $language = array(
     'enable_legacy_api' => 'Enable legacy API?',
     'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
     'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
+<<<<<<< HEAD
     'api_registration_email' => 'API Registration Email',
+=======
+	'api_key' => 'API Key',
+	'api_url' => 'API URL',
+	'copy' => 'Copy',
+	'api_key_regenerated' => 'The API key has been regenerated successfully.',
+    'api_registration_email' => 'API Registration Email',
+	'show_registration_link' => 'Show registration link',
+	'registration_link' => 'Registration Link',
+>>>>>>> upstream/v2
     'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
     'api_verification' => 'Enable API verification?',
     'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
     'enable_username_sync' => 'Enable username sync?',
     'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
+<<<<<<< HEAD
+=======
+	'api_settings_updated_successfully' => 'API settings updated successfully.',
+>>>>>>> upstream/v2
 
 	// File uploads
 	'drag_files_here' => 'Drag files here to upload.',
@@ -452,6 +585,10 @@ $language = array(
 	'other_log' => 'Other log',
 	'fatal_log' => 'Fatal log',
 	'log_file_not_found' => 'Log file not found.',
+<<<<<<< HEAD
+=======
+	'log_purged_successfully' => 'The log has been purged successfully.',
+>>>>>>> upstream/v2
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
@@ -476,4 +613,25 @@ $language = array(
 	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
 	'keywords' => 'Keywords',
 	'description_max_500' => 'The description must be at most 500 characters.',
+<<<<<<< HEAD
+=======
+	'page' => 'Page',
+	'metadata_updated_successfully' => 'Metadata updated successfully.',
+
+	// Dashboard
+	'total_users' => 'Total Users',
+	'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
+	'recent_users' => 'New Users',
+	'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
+	'average_players' => 'Average Players',
+	'nameless_news' => 'NamelessMC News',
+	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
+	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'server_compatibility' => 'Server Compatibility',
+	'issues' => 'Issues',
+
+	// Other
+	'source' => 'Source',
+	'support' => 'Support'
+>>>>>>> upstream/v2
 );

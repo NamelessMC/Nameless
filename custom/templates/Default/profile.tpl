@@ -88,7 +88,11 @@
 
 			<div class="card card-default">
 			  <div class="card-header">
+<<<<<<< HEAD
 				<img class="rounded-circle" style="max-height:25px; max-width=25px;" src="{$post.avatar}" /> <a href="{$post.profile}" style="{$post.user_style}">{$post.nickname}:</a>
+=======
+				<img class="rounded-circle" style="max-height:25px; max-width=25px;" src="{$post.avatar}" /> <a data-poload="{$USER_INFO_URL}{$post.user_id}" data-html="true" data-placement="top" href="{$post.profile}" style="{$post.user_style}">{$post.nickname}:</a>
+>>>>>>> upstream/v2
 				<span class="pull-right"><span rel="tooltip" data-original-title="{$post.date}">{$post.date_rough}</span></span>
 			  </div>
 

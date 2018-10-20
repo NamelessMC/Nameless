@@ -163,6 +163,10 @@ $language = array(
 	'replies' => 'Replies',
 	'new_reply' => 'New Reply',
 	'registered' => 'Registered:',
+<<<<<<< HEAD
+=======
+	'registered_x' => 'Registered: {x}',
+>>>>>>> upstream/v2
 	'last_seen' => 'Last Seen:',
 	'new_wall_post' => '{x} has posted on your profile.',
 	'couldnt_find_that_user' => 'Couldn\'t find that user.',

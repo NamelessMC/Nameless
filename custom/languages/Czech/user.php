@@ -163,6 +163,7 @@ $language = array(
 	'replies' => 'Odpovědi',
 	'new_reply' => 'Nová odpověď',
 	'registered' => 'Registrován:',
+	'registered_x' => 'Registrován: {x}',
 	'last_seen' => 'Poslední přihlášení:',
 	'new_wall_post' => 'Hráč {x} napsal na Váš profil.',
 	'couldnt_find_that_user' => 'Nepodařilo se najít tohoto uživatele.',

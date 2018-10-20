@@ -24,7 +24,11 @@ $language = array(
 	'config_writable' => 'core/config.php Schrijfbaar',
 	'cache_writable' => 'Cache Schrijfbaar',
 	'template_cache_writable' => 'Sjabloon Cache Schrijfbaar',
+<<<<<<< HEAD
 	'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
+=======
+	'exif_imagetype_banners_disabled' => 'Zonder de exif_imagetype functie worden server banners uitgeschakeld.',
+>>>>>>> upstream/v2
 	'requirements_error' => 'Je moet alle extensies hebben geinstalleerd, en de juiste machtigingen hebben ingesteld, om door te gaan met de installatie.',
 	'proceed' => 'Doorgaan',
 	'database_configuration' => 'Database Configuratie',
@@ -33,6 +37,7 @@ $language = array(
 	'database_username' => 'Database Gebruikersnaam',
 	'database_password' => 'Database Wachtwoord',
 	'database_name' => 'Database Naam',
+<<<<<<< HEAD
     'nameless_path' => 'Installation Path',
     'nameless_path_info' => 'This is the path Nameless is installed in, relative to your domain. For example, if Nameless is installed at example.com/forum, this needs to be <strong>forum</strong>. Leave empty if Nameless is not in a subfolder.',
     'friendly_urls' => 'Friendly URLs',
@@ -43,6 +48,18 @@ $language = array(
 	'database_engine' => 'Gegevens opslag progamma',
 	'host' => 'Hostname',
 	'host_help' => 'The hostname is the <strong>base URL</strong> for your website. Do not include the subfolders from the Installation Path field, or http(s):// here!',
+=======
+	'nameless_path' => 'Installatiepad',
+	'nameless_path_info' => 'Dit is het pad waarin Nameless is geïnstalleerd ten opzichte van uw domein. Als Nameless bijvoorbeeld is geïnstalleerd op example.com/forum, moet dit <strong>forum</strong> zijn. Laat leeg als Nameless zich niet in een submap bevindt.',
+	'friendly_urls' => 'Vriendelijke URL\'s',
+	'friendly_urls_info' => 'Vriendelijke URL\'s verbeteren de leesbaarheid van URL\'s in uw browser.<br />Bijvoorbeeld: <br />voorbeeld.com/index.php?route=/forum<br/forum<br />wordt<br />voorbeeld.com/forum.<br /><strong>Belangrijk!</strong><br />Uw server moet correct zijn geconfigureerd om dit te laten werken. U kunt zien of u deze optie kunt inschakelen door <a href=\'./rewrite_test\' target=\'_blank\'>hier</a> te klikken.',
+	'enabled' => 'Ingeschakeld',
+	'disabled' => 'Uitgeschakeld',
+	'character_set' => 'Karakterset',
+	'database_engine' => 'Gegevens opslag progamma',
+	'host' => 'Hostnaam',
+	'host_help' => 'De hostnaam is de <strong>basis URL</strong> voor uw website. Voeg hier geen submappen toe uit het Installatiepad veld, of http(s):// !',
+>>>>>>> upstream/v2
 	'database_error' => 'Zorg ervoor dat alle velden zijn ingevuld.',
 	'submit' => 'Indienen',
 	'installer_now_initialising_database' => 'De installateur is de database aan het instellen. Dit kan een tijdje duren...',
@@ -58,7 +75,11 @@ $language = array(
 	'input_required' => 'Graag een geldige gebruikersnaam, email adres en wachtwoord invullen.',
 	'input_minimum' => 'Zorg ervoor dat uw gebruikersnaam een minimum van 3 karakters, je e-mailadres een minimum van 4 karakters, en uw wachtwoord minimaal 6 karakters heeft.',
 	'input_maximum' => 'Zorg ervoor dat uw gebruikersnaam een maximum van 20 karakters, en uw e-mailadres en wachtwoord maximaal 64 tekens bevatten.',
+<<<<<<< HEAD
 	'email_invalid' => 'Your email is not valid.',
+=======
+	'email_invalid' => 'Uw e-mail is niet geldig.',
+>>>>>>> upstream/v2
 	'passwords_must_match' => 'Uw wachtwoorden komen niet overeen.',
 	'creating_admin_account' => 'Admin account maken',
 	'enter_admin_details' => 'Vul de gegevens in voor het Admin account',
