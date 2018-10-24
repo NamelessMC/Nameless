@@ -390,6 +390,7 @@ $language = array(
 	'user_validated_successfully' => 'User validated successfully.',
 	'user_updated_successfully' => 'User updated successfully,',
 	'editing_user_x' => 'Editing user {x}', // Don't replace {x}
+	'details' => 'Details',
 
 	// Permissions
 	'select_all' => 'Velg alle',

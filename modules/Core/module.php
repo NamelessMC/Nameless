@@ -983,8 +983,6 @@ class Core_Module extends Module {
 
 			if($user->hasPermission('modcp.reports'))
 				self::addUserAction($language->get('moderator', 'reports'), URL::build('/panel/reports/user/', 'uid={id}'));
-
-			self::addUserAction($language->get('general', 'view'), URL::build('/panel/user/{id}'));
 		}
 
 		require_once(ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php');
