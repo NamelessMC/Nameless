@@ -394,6 +394,10 @@ $language = array(
 	'group_deleted_successfully' => 'Group deleted successfully.',
 	'unable_to_delete_group' => 'Unable to delete a default group, or a group that can view the StaffCP. Please update the group settings first!',
 	'can_view_staffcp' => 'Can the group view the StaffCP?',
+	'user' => 'User',
+	'user_validated_successfully' => 'User validated successfully.',
+	'user_updated_successfully' => 'User updated successfully,',
+	'editing_user_x' => 'Editing user {x}', // Don't replace {x}
 
     // Permissions
     'select_all' => 'Alle auswählen',
@@ -540,6 +544,7 @@ $language = array(
 	'discord_hook_events' => 'Aktiviert Discord Hook-Ereignisse (Strg + Klick zum Auswählen mehrerer Ereignisse)',
 	'register_hook_info' => 'User Registration',
 	'validate_hook_info' => 'User Verifizierung',
+	'delete_hook_info' => 'User deletion',
 
 	// Sitemap
 	'unable_to_load_sitemap_file_x' => 'Die Sitemap-Datei {x} konnte nicht geladen werden', // Don't replace {x}

@@ -299,8 +299,8 @@ class Default_Panel_Template extends TemplateBase {
 
 						$this->addJSScript('
 						$(document).ready(function() {
-				            $(\'.dataTables-pages\').dataTable({
-				                responsive: true,
+							$(\'.dataTables-pages\').dataTable({
+								responsive: true,
 								language: {
 									"lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
 									"zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
@@ -313,9 +313,63 @@ class Default_Panel_Template extends TemplateBase {
 									    "previous": "' . $this->_language->get('general', 'previous') . '"
 									}
 								}
-				            });
+							});
 						});
 						');
+					}
+					break;
+
+				case 'users':
+					if(!defined('EDITING_USER')){
+						$this->addCSSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => array()
+						));
+
+						$this->addJSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => array()
+						));
+
+						$this->addJSScript('
+						$(document).ready(function() {
+							$(\'.dataTables-users\').dataTable({
+								columnDefs: [
+									{ "width": "30%", target: 0 },
+									{ "width": "30%", target: 1 },
+									{ "width": "20%", target: 2 },
+									{ "width": "20%", target: 3 }
+								],
+								responsive: true,
+								language: {
+									"lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
+									"zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
+									"info": "' . $this->_language->get('table', 'page_x_of_y') . '",
+									"infoEmpty": "' . $this->_language->get('table', 'no_records') . '",
+									"infoFiltered": "' . $this->_language->get('table', 'filtered') . '",
+									"search": "' . $this->_language->get('general', 'search') . '",
+									"paginate": {
+									    "next": "' . $this->_language->get('general', 'next') . '",
+									    "previous": "' . $this->_language->get('general', 'previous') . '"
+									}
+								}
+							});
+						});
+						');
+
+					} else {
+						$this->addCSSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
+						));
+
+						$this->addJSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array()
+						));
+
+						$this->addJSScript(Input::createEditor('InputSignature'));
+
 					}
 					break;
 			}

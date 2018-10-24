@@ -388,6 +388,10 @@ $language = array(
 	'group_deleted_successfully' => 'Group deleted successfully.',
 	'unable_to_delete_group' => 'Unable to delete a default group, or a group that can view the StaffCP. Please update the group settings first!',
 	'can_view_staffcp' => 'Can the group view the StaffCP?',
+	'user' => 'User',
+	'user_validated_successfully' => 'User validated successfully.',
+	'user_updated_successfully' => 'User updated successfully,',
+	'editing_user_x' => 'Editing user {x}', // Don't replace {x}
 
     // Permissions
     'select_all' => 'Selectează tot',
@@ -534,6 +538,7 @@ $language = array(
     'discord_hook_events' => 'Activează evenimentele Discord hook (Ctrl+click pentru a selecta mai multe evenimente)',
     'register_hook_info' => 'Înregistrare cont utilizator',
     'validate_hook_info' => 'Validare cont utilizator',
+    'delete_hook_info' => 'User deletion',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Imposibil de încărcat fișierul hartă site {x}', // Don't replace {x}

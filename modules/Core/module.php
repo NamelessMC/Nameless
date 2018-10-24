@@ -11,7 +11,7 @@
 
 class Core_Module extends Module {
 	private $_language;
-	private static $_dashboard_graph = array(), $_notices = array();
+	private static $_dashboard_graph = array(), $_notices = array(), $_user_actions = array();
 
 	public function __construct($language, $pages, $user, $queries, $navigation, $cache){
 		$this->_language = $language;
@@ -76,6 +76,9 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
 		$pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
 		$pages->add('Core', '/panel/core/metadata', 'pages/panel/metadata.php');
+		$pages->add('Core', '/panel/users', 'pages/panel/users.php');
+		$pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
+		$pages->add('Core', '/panel/user', 'pages/panel/user.php');
 
 		$pages->add('Core', '/admin', 'pages/admin/index.php');
 		$pages->add('Core', '/admin/auth', 'pages/admin/auth.php');
@@ -231,6 +234,7 @@ class Core_Module extends Module {
 		// Hooks
 		HookHandler::registerEvent('registerUser', $language->get('admin', 'register_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid'), 'avatar_url' => $language->get('user', 'avatar'), 'content' => $language->get('general', 'content'), 'url' => $language->get('user', 'profile')));
 		HookHandler::registerEvent('validateUser', $language->get('admin', 'validate_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid')));
+		HookHandler::registerEvent('deleteUser', $language->get('admin', 'delete_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid'), 'email_address' => $language->get('user', 'email_address')));
 
 		// Discord hook
 		require_once(ROOT_PATH . '/modules/Core/hooks/DiscordHook.php');
@@ -302,6 +306,7 @@ class Core_Module extends Module {
 			'admincp.styles.images' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'images'),
 			'admincp.update' => $language->get('admin', 'update'),
 			'admincp.users' => $language->get('admin', 'user_management'),
+			'admincp.users.edit' => $language->get('admin', 'users') . ' &raquo; ' . $language->get('general', 'edit'),
 			'admincp.groups' => $language->get('admin', 'groups'),
 			'admincp.groups.self' => $language->get('admin', 'groups') . ' &raquo; ' . $language->get('admin', 'can_edit_own_group'),
 			'admincp.widgets' => $language->get('admin', 'widgets')
@@ -847,7 +852,7 @@ class Core_Module extends Module {
 				} else
 					$icon = $cache->retrieve('user_icon');
 
-				$navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/core/users'), 'top', $order, $icon);
+				$navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/users'), 'top', $order, $icon);
 			}
 
 			if($user->hasPermission('admincp.sitemap')){
@@ -966,7 +971,24 @@ class Core_Module extends Module {
 					CollectionManager::addItemToCollection('dashboard_main_items', new RecentRegistrationsItem($smarty, $language, $cache, $user));
 				}
 			}
+
+			if($user->hasPermission('admincp.users.edit'))
+				self::addUserAction($language->get('general', 'edit'), URL::build('/panel/users/edit/', 'id={id}'));
+
+			if($user->hasPermission('modcp.ip_lookup'))
+				self::addUserAction($language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup/', 'uid={id}'));
+
+			if($user->hasPermission('modcp.punishments'))
+				self::addUserAction($language->get('moderator', 'punish'), URL::build('/panel/punishments/new/', 'uid={id}'));
+
+			if($user->hasPermission('modcp.reports'))
+				self::addUserAction($language->get('moderator', 'reports'), URL::build('/panel/reports/user/', 'uid={id}'));
+
+			self::addUserAction($language->get('general', 'view'), URL::build('/panel/user/{id}'));
 		}
+
+		require_once(ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php');
+		HookHandler::registerHook('deleteUser', 'DeleteUserHook::deleteUser');
 	}
 
 	public static function addDataToDashboardGraph($title, $data){
@@ -986,5 +1008,19 @@ class Core_Module extends Module {
 
 	public static function getNotices(){
 		return self::$_notices;
+	}
+
+	public static function addUserAction($title, $link){
+		self::$_user_actions[] = array('title' => $title, 'link' => $link);
+	}
+
+	public static function getUserActions(){
+		$return = self::$_user_actions;
+
+		uasort($return, function($a, $b){
+			return $a['title'] > $b['title'];
+		});
+
+		return $return;
 	}
 }

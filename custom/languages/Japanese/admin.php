@@ -389,6 +389,10 @@ $language = array(
 	'group_deleted_successfully' => 'グループは正常に削除されました。',
 	'unable_to_delete_group' => 'デフォルトのグループ、またはStaffCPを表示できるグループを削除できません。 グループ設定を更新してください。',
 	'can_view_staffcp' => 'StaffCPを表示差せますか？',
+	'user' => 'User',
+	'user_validated_successfully' => 'User validated successfully.',
+	'user_updated_successfully' => 'User updated successfully,',
+	'editing_user_x' => 'Editing user {x}', // Don't replace {x}
 
 	// Permissions
 	'select_all' => 'すべて選択',
@@ -535,6 +539,7 @@ $language = array(
 	'discord_hook_events' => 'Discord Hook を送信するイベントを選択してください。 (複数のイベントを選択するには 「Ctrl+クリック」 )',
 	'register_hook_info' => 'ユーザー登録',
 	'validate_hook_info' => 'ユーザー検証',
+	'delete_hook_info' => 'User deletion',
 
 	//サイトマップ
 	'unable_to_load_sitemap_file_x' => 'サイトマップファイル {x} を読み込むことができませんでした。',// {x}を置き換えない

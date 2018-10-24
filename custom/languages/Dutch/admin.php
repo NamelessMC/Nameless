@@ -387,6 +387,10 @@ $language = array(
 	'group_deleted_successfully' => 'Groep succesvol verwijderd.',
 	'unable_to_delete_group' => 'Kan een standaardgroep of een groep die de StaffCP kan bekijken, niet verwijderen. Wijzig eerst de instellingen van de groep!',
 	'can_view_staffcp' => 'Kan de groep de StaffCP bekijken?',
+	'user' => 'User',
+	'user_validated_successfully' => 'User validated successfully.',
+	'user_updated_successfully' => 'User updated successfully,',
+	'editing_user_x' => 'Editing user {x}', // Don't replace {x}
 
 	// Permissies
 	'select_all' => 'Selecteer Allemaal',
@@ -532,6 +536,8 @@ $language = array(
 	'discord_hook_url' => 'Discord webhook URL',
 	'discord_hook_events' => 'Ingeschakelde Discord hook-gebeurtenissen (Ctrl+klik om meerdere gebeurtenissen te selecteren)',
 	'register_hook_info' => 'Gebruikersregistratie',
+	'validate_hook_info' => 'User validation',
+	'delete_hook_info' => 'User deletion',
 
 	// Sitemap
 	'unable_to_load_sitemap_file_x' => 'Kan geen sitemap-bestand laden {x}', // Don't replace {x}

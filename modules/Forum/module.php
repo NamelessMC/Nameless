@@ -232,5 +232,8 @@ class Forum_Module extends Module {
 
 			}
 		}
+
+		require_once(ROOT_PATH . '/modules/Forum/hooks/DeleteUserForumHook.php');
+		HookHandler::registerHook('deleteUser', 'DeleteUserForumHook::deleteUser');
 	}
 }
