@@ -170,12 +170,18 @@ $page_title = ((strlen(Output::getClean($topic->topic_title)) > 20) ? Output::ge
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Assign author + title to Smarty variables
+// Get first post
+$first_post = $queries->orderWhere('posts', 'topic_id = ' . $tid, 'id', 'ASC LIMIT 1');
+$first_post = $first_post[0];
+
 $smarty->assign(array(
 	'TOPIC_TITLE' => Output::getClean($topic->topic_title),
 	'TOPIC_AUTHOR_USERNAME' => Output::getClean($user->idToName($topic->topic_creator)),
 	'TOPIC_AUTHOR_MCNAME' => Output::getClean($user->idToName($topic->topic_creator)),
 	'TOPIC_ID' => $topic->id,
-	'FORUM_ID' => $topic->forum_id
+	'FORUM_ID' => $topic->forum_id,
+	'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords(date('d M Y, H:i', $first_post->last_edited), $language->getTimeLanguage()) : null),
+	'TOPIC_LAST_EDITED_FULL' => ($first_post->last_edited ? date('d M Y, H:i', $first_post->last_edited) : null)
 ));
 
 // Get all posts in the topic
@@ -401,7 +407,6 @@ if($topic->locked == 1)
 	$smarty->assign('LOCKED', true);
 
 // Is the user a moderator?
-$buttons = '<span class="pull-right">';
 if($user->isLoggedIn() && $forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups)){
 	$smarty->assign(array(
 		'CAN_MODERATE' => true,
