@@ -981,6 +981,8 @@ class Core_Module extends Module {
 			if($user->hasPermission('modcp.punishments'))
 				self::addUserAction($language->get('moderator', 'punish'), URL::build('/panel/punishments/new/', 'uid={id}'));
 
+			self::addUserAction($language->get('user', 'profile'), URL::build('/profile/{username}'));
+
 			if($user->hasPermission('modcp.reports'))
 				self::addUserAction($language->get('moderator', 'reports'), URL::build('/panel/reports/user/', 'uid={id}'));
 		}

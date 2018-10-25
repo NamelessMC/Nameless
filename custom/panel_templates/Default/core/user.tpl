@@ -100,7 +100,7 @@
                                                 </li>
                                                 {foreach from=$LINKS item=item}
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="{$item.link|replace:'{id}':$USER_ID}">{$item.title}</a>
+                                                        <a class="nav-link" href="{($item.link|replace:'{id}':$USER_ID)|replace:'{username}':$USERNAME}">{$item.title}</a>
                                                     </li>
                                                 {/foreach}
                                             </ul>

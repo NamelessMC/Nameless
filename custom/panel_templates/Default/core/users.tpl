@@ -92,7 +92,7 @@
                                                     </button>
                                                     <div class="dropdown-menu">
                                                         {foreach from=$ACTIONS_LIST item=action}
-                                                            <a class="dropdown-item" href="{$action.link|replace:'{id}':$item.id}">{$action.title}</a>
+                                                            <a class="dropdown-item" href="{($action.link|replace:'{id}':$item.id)|replace:'{username}':$item.username}">{$action.title}</a>
                                                         {/foreach}
                                                     </div>
                                                 </div>
