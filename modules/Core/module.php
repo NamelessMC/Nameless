@@ -78,6 +78,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/metadata', 'pages/panel/metadata.php');
 		$pages->add('Core', '/panel/users', 'pages/panel/users.php');
 		$pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
+		$pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
 		$pages->add('Core', '/panel/user', 'pages/panel/user.php');
 
 		$pages->add('Core', '/admin', 'pages/admin/index.php');
@@ -853,6 +854,14 @@ class Core_Module extends Module {
 					$icon = $cache->retrieve('user_icon');
 
 				$navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/users'), 'top', $order, $icon);
+
+				if(!$cache->isCached('ip_lookup_icon')){
+					$icon = '<i class="nav-icon fas fa-binoculars"></i>';
+					$cache->store('ip_lookup_icon', $icon);
+				} else
+					$icon = $cache->retrieve('ip_lookup_icon');
+
+				$navs[2]->addItemToDropdown('users', 'ip_lookup', $language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup'), 'top', $order, $icon);
 			}
 
 			if($user->hasPermission('admincp.sitemap')){

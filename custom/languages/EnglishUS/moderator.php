@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -23,7 +23,7 @@ $language = array(
 	
 	// IP Lookup
 	'ip_lookup' => 'IP Lookup',
-	'search_for_ip' => 'Search for a username or IP address:',
+	'search_for_ip' => 'Search for a username or IP address',
 	'no_ips_with_username' => 'No IP addresses for that user found.',
 	'no_accounts_with_that_ip' => 'No accounts for that IP address found.',
 	'1_account_with_ip' => 'Found 1 account with the IP {y}', // Don't replace "{y}"
