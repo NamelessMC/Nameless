@@ -217,8 +217,8 @@ $language = array(
 	/*
 	 *  Infractions area
 	 */
-	'you_have_been_banned' => '指定されたアカウントは 法令 又は 利用規約に違反したため使用が禁止されています。',
-	'you_have_received_a_warning' => '指定されたアカウントは 法令 又は 利用規約に違反 又は 違反の恐れがあるため警告を受信しています。',
+	'you_have_been_banned' => '指定されたアカウントは使用が禁止されています。',
+	'you_have_received_a_warning' => '指定されたアカウントは警告を受信しています。',
 	'acknowledge' => '承認する',
 
 
