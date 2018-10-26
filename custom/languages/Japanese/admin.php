@@ -85,7 +85,7 @@ $language = array(
 	'facebook_url' => 'Facebook URL',
 	'social_media_settings_updated' => 'ソーシャルメディア設定が正常に更新されました。',
 	'successfully_updated' => '正常に更新されました。',
-    'debugging_and_maintenance' => 'デバッグ・メンテナンス',
+    'debugging_and_maintenance' => 'メンテナンス',
     'enable_debug_mode' => 'デバッグモードを有効にしますか？',
 	'debugging_settings_updated_successfully' => 'デバッグ・メンテナンス設定が正常に更新されました。',
     'force_https' => 'Https を強制させますか？',
@@ -130,7 +130,7 @@ $language = array(
     'head' => '頭',
 	'bust' => '胸',
     'select_default_avatar' => '新しいデフォルトアバターを選択:',
-    'no_avatars_available' => 'デフォルトアバターがアップロードされていません。「画像のアップロード」を選択後、デフォルトにするアバターを選択してください。',
+    'no_avatars_available' => 'デフォルトアバターがアップロードされていません。「画像アップロード」を選択後、デフォルトにするアバターを選択してください。',
     'avatar_settings_updated_successfully' => 'アバター設定が正常に更新されました。',
     'navigation' => 'ナビゲーション',
     'navbar_order' => 'ナビゲーションバー順番',
@@ -148,7 +148,7 @@ $language = array(
     'validation_promote_group' => '検証後昇格先グループ',
     'validation_promote_group_info' => 'アカウントの検証が完了したユーザーが昇格されるグループです。',
     'login_method' => 'ログイン使用メゾット',
-    'privacy_and_terms' => 'プライバシー・利用規約',
+    'privacy_and_terms' => '規約設定',
 
 	// Reactions
 	'icon' => 'アイコン',
@@ -293,11 +293,11 @@ $language = array(
 	'module_disabled' => 'モジュールを無効にしました。',
 	'author' => '作成者:',
 	'author_x' => '作成者: {x}', // Don't replace {x}
-	'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
-	'find_modules' => 'Find Modules',
-	'view_all_modules' => 'View all modules',
+	'module_outdated' => '選択したモジュールは NamelessMC バージョン 【{x}】 を推奨しています。現在の NamelessMC バージョンは 【{y}】 です。', // Don't replace "{x}" or "{y}"
+	'find_modules' => 'モジュール検索',
+	'view_all_modules' => 'すべてのモジュールを見る',
 	'unable_to_retrieve_modules' => 'Unable to retrieve modules',
-	'module' => 'Module',
+	'module' => 'モジュール',
 
 	// Styles
 	'templates' => 'テンプレート',
@@ -307,7 +307,7 @@ $language = array(
 	'activate' => 'アクティベート',
 	'warning_editing_default_template' => '<strong>警告</strong>: デフォルトテンプレートの編集は推奨しません。',
 	'images' => '背景画像',
-	'upload_new_image' => '背景画像アップロード',
+	'upload_new_image' => '画像アップロード',
 	'reset_background' => '背景画像リセット',
 	'install' => '<i class="fa fa-plus-circle"></i> インストール',
 	'template_updated' => 'テンプレートが正常に更新されました。',
@@ -383,17 +383,17 @@ $language = array(
 	'default_group' => 'デフォルトグループに設定しますか？ (新規ユーザー向け)',
 	'user_id' => 'User ID',
 	'uuid' => 'UUID',
-	'group_order' => 'Group Order',
+	'group_order' => 'グループ順番',
 	'group_created_successfully' => 'グループが正常に作成されました。',
 	'group_updated_successfully' => 'グループが正常に更新されました。',
-	'group_deleted_successfully' => 'グループは正常に削除されました。',
+	'group_deleted_successfully' => 'グループが正常に削除されました。',
 	'unable_to_delete_group' => 'デフォルトのグループ、またはStaffCPを表示できるグループを削除できません。 グループ設定を更新してください。',
-	'can_view_staffcp' => 'StaffCPを表示差せますか？',
-	'user' => 'User',
-	'user_validated_successfully' => 'User validated successfully.',
-	'user_updated_successfully' => 'User updated successfully,',
-	'editing_user_x' => 'Editing user {x}', // Don't replace {x}
-	'details' => 'Details',
+	'can_view_staffcp' => 'StaffCPを表示させますか？',
+	'user' => 'ユーザー',
+	'user_validated_successfully' => 'ユーザーが正常に認証されました。',
+	'user_updated_successfully' => 'ユーザーが正常に更新されました。',
+	'editing_user_x' => 'ユーザー編集 {x}', // Don't replace {x}
+	'details' => '詳細',
 
 	// Permissions
 	'select_all' => 'すべて選択',
@@ -409,7 +409,7 @@ $language = array(
 	'enable_night_mode' => 'ナイトモード有効化',
 	'disable_night_mode' => 'ナイトモード無効化',
 	'view_site' => 'ホームページ表示',
-	'signed_in_as_x' => '【運営員】 {x} でログイン中', // Don't replace {x}
+	'signed_in_as_x' => '{x} でログイン中', // Don't replace {x}
     'warning' => '警告',
 
     // Maintenance
@@ -447,7 +447,7 @@ $language = array(
 	'widgets' => 'ウィジェット',
 	'widget_enabled' => 'ウィジェットを有効化しました。',
 	'widget_disabled' => 'ウィジェットを無効化しました。',
-	'widget_updated' => 'Widget updated.',
+	'widget_updated' => 'ウィジェットを更新しました。',
 	'editing_widget_x' => 'ウィジェット {x} の編集', // Don't replace {x}
 	'module_x' => 'モジュール: {x}', // Don't replace {x}
 	'widget_order' => 'ウィジェット順番',
@@ -491,9 +491,9 @@ $language = array(
     'page_content_maximum_100000' => 'ページの内容は <strong>100000文字</strong> 以下にする必要があります。',
     'page_redirect_link_maximum_512' => 'ページリダイレクトリンクは <strong>512文字</strong> 以下にする必要があります。',
     'confirm_delete_page' => '選択中のページを削除してもよろしいですか？',
-    'page_created_successfully' => 'Page created successfully.',
-    'page_updated_successfully' => 'Page updated successfully.',
-    'page_deleted_successfully' => 'Page deleted successfully.',
+    'page_created_successfully' => 'ページが正常に作成されました。',
+    'page_updated_successfully' => 'ページが正常に更新されました。',
+    'page_deleted_successfully' => 'ページが正常に削除されました。',
 
     // API
     'api' => 'API',
@@ -507,8 +507,8 @@ $language = array(
 	'copy' => 'コピー',
 	'api_key_regenerated' => 'APIキーが正常に再生成されました。',
     'api_registration_email' => 'API登録メール',
-    'show_registration_link' => 'Show registration link',
-    'registration_link' => 'Registration Link',
+    'show_registration_link' => '登録リンクを表示する',
+    'registration_link' => '登録リンク',
     'link_to_complete_registration' => '登録を完了するためのリンク: {x}', // Don't replace {x}
     'api_verification' => 'APIの確認を有効にしますか？',
     'api_verification_info' => '有効にすると、登録時のアカウント検証に Namelessプラグイン を使用できるようになり、本当にMinecraftアカウントを所持しているのかがわかるようになります。</br><strong>このオプションは、メール認証が有効になっていても優先になります。検証が完了すると自動でアカウントが有効になります。</strong></br>初期グループを設定し、未検証アカウントのアクセス許可を確認してください。その後、「AdminCP → コンフィグ → 登録」の検証後昇格先グループを、通常のアクセス許可を持つグループに更新する必要があります。',
@@ -521,7 +521,7 @@ $language = array(
 	'invalid_file_type' => '許可されていない拡張子または種類です。',
 	'file_too_big' => 'ファイルサイズが大きすぎます。圧縮や画質を下げてもう一度お試しください。 送信されたファイルは {{filesize}} です。上限は {{maxFilesize}} です。', // Don't replace {{filesize}} or {{maxFilesize}}
 	'allowed_proxies' => '許可されるプロキシ',
-	'allowed_proxies_info' => '許可されたプロキシIPの行区切りリスト',
+	'allowed_proxies_info' => '許可されたプロキシIPのリスト',
 
 	// Error logs
 	'error_logs' => 'エラーログ',
@@ -540,7 +540,7 @@ $language = array(
 	'discord_hook_events' => 'Discord Hook を送信するイベントを選択してください。 (複数のイベントを選択するには 「Ctrl+クリック」 )',
 	'register_hook_info' => 'ユーザー登録',
 	'validate_hook_info' => 'ユーザー検証',
-	'delete_hook_info' => 'User deletion',
+	'delete_hook_info' => 'ユーザー削除',
 
 	//サイトマップ
 	'unable_to_load_sitemap_file_x' => 'サイトマップファイル {x} を読み込むことができませんでした。',// {x}を置き換えない
@@ -558,7 +558,7 @@ $language = array(
 	'keywords' => 'キーワード',
 	'description_max_500' => '説明は　<strong>500文字</strong>　以下にする必要があります。',
 	'page' => 'Page',
-	'metadata_updated_successfully' => 'Metadata updated successfully.',
+	'metadata_updated_successfully' => 'メタデータが正常に更新されました。',
 
 	//ダッシュボード
 	'total_users' => '合計ユーザー',
