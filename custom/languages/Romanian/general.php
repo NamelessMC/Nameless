@@ -111,7 +111,7 @@ $language = array(
     'no_servers' => 'Momentan nu există servere de afișat!',
     'bungee_instance' => 'Acest server este o instanță Bungee.',
     'no_players_online' => 'Momentan nu sunt jucători online.',
-    'and_x_more' => 'şi alţi {x}', // Don't replace {x}
+    'and_x_more' => 'şi alţii {x}', // Don't replace {x}
 
     /*
      *  Cookie notice
