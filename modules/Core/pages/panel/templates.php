@@ -512,8 +512,14 @@ if(!isset($_GET['action'])){
 
 			}
 
+			if(isset($_GET['dir']))
+				$template_path = Output::getClean($_GET['dir'] . DIRECTORY_SEPARATOR . $_GET['file']);
+			else
+				$template_path = Output::getClean($_GET['file']);
+
 			$smarty->assign(array(
-				'EDITING_TEMPLATE' => str_replace('{x}', Output::getClean($template_query->name), $language->get('admin', 'editing_template_x'))
+				'EDITING_TEMPLATE' => str_replace('{x}', Output::getClean($template_query->name), $language->get('admin', 'editing_template_x')),
+				'EDITING_FILE' => str_replace(array('{x}', '{y}'), array($template_path, Output::getClean($template_query->name)), $language->get('admin', 'editing_template_file_in_template'))
 			));
 
 			break;

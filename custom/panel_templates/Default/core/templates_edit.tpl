@@ -46,7 +46,7 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h5 style="display:inline">{$EDITING_TEMPLATE}</h5>
+                            <h5 style="display:inline">{$EDITING_FILE}</h5>
                             <div class="float-md-right">
                                 <button class="btn btn-warning" role="button" onclick="showCancelModal();">{$CANCEL}</button>
                             </div>

@@ -337,6 +337,7 @@ $language = array(
 	'views_x' => 'Views: {x}',
 	'rating_x' => 'Rating: {x}',
 	'editing_template_x' => 'Editing template {x}', // Don't replace {x}
+	'editing_template_file_in_template' => 'Editing file {x} in template {y}', // Don't replace {x} or {y}
 	'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
 	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
 
