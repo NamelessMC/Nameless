@@ -327,12 +327,12 @@ if(isset($_GET['user'])){
 		// Get page
 		if(isset($_GET['p'])){
 			if(!is_numeric($_GET['p'])){
-				Redirect::to(URL::build('/mod/punishments/', 'view=punishments'));
+				Redirect::to(URL::build('/panel/users/punishments'));
 				die();
 			} else {
 				if($_GET['p'] == 1){
 					// Avoid bug in pagination class
-					Redirect::to(URL::build('/mod/punishments/', 'view=punishments'));
+					Redirect::to(URL::build('/panel/users/punishments'));
 					die();
 				}
 				$p = $_GET['p'];
