@@ -56,6 +56,11 @@ $language = array(
 	'reported_by' => 'Reported by:',
 	'website' => 'Website',
 	'ingame' => 'Ingame',
+	'x_closed_report' => '{x} closed this report.', // Don't replace {x} (username)
+	'x_reopened_report' => '{x} reopened this report.', // Don't replace {x} (username)
+	'report_reopened' => 'Report reopened successfully.',
+	'report_closed' => 'Report closed successfully.',
+	'comment_created' => 'Comment created successfully.',
 	
 	// Punishments
 	'punishments' => 'Castigos',

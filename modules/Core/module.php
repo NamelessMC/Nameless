@@ -80,6 +80,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
 		$pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
 		$pages->add('Core', '/panel/users/punishments', 'pages/panel/users_punishments.php');
+		$pages->add('Core', '/panel/users/reports', 'pages/panel/users_reports.php');
 		$pages->add('Core', '/panel/user', 'pages/panel/user.php');
 
 		$pages->add('Core', '/admin', 'pages/admin/index.php');
@@ -875,6 +876,16 @@ class Core_Module extends Module {
 
 					$navs[2]->addItemToDropdown('users', 'punishments', $language->get('moderator', 'punishments'), URL::build('/panel/users/punishments'), 'top', $order, $icon);
 				}
+
+				if($user->hasPermission('modcp.reports')){
+					if(!$cache->isCached('reports_icon')){
+						$icon = '<i class="nav-icon fas fa-exclamation-triangle"></i>';
+						$cache->store('reports_icon', $icon);
+					} else
+						$icon = $cache->retrieve('reports_icon');
+
+					$navs[2]->addItemToDropdown('users', 'reports', $language->get('moderator', 'reports'), URL::build('/panel/users/reports'), 'top', $order, $icon);
+				}
 			}
 
 			if($user->hasPermission('admincp.sitemap')){
@@ -1006,7 +1017,7 @@ class Core_Module extends Module {
 			self::addUserAction($language->get('user', 'profile'), URL::build('/profile/{username}'));
 
 			if($user->hasPermission('modcp.reports'))
-				self::addUserAction($language->get('moderator', 'reports'), URL::build('/panel/reports/user/', 'uid={id}'));
+				self::addUserAction($language->get('moderator', 'reports'), URL::build('/panel/users/reports/', 'uid={id}'));
 		}
 
 		require_once(ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php');
