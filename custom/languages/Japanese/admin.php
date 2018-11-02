@@ -28,6 +28,7 @@ $language = array(
 	'administration' => '管理',
 	'overview' => '概要',
 	'core' => 'コア',
+	'integrations' => 'Integrations',
 	'minecraft' => 'Minecraft',
 	'modules' => 'モジュール',
 	'security' => 'セキュリティ',

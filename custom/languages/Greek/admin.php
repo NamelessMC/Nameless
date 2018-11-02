@@ -27,6 +27,7 @@ $language = array(
 	'administration' => 'Διαχείριση',
 	'overview' => 'Επισκόπηση',
 	'core' => 'Πυρήνας',
+	'integrations' => 'Integrations',
 	'minecraft' => 'Minecraft',
 	'modules' => 'Modules',
 	'security' => 'Ασφάλεια',

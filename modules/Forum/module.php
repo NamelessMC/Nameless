@@ -134,8 +134,8 @@ class Forum_Module extends Module {
 		} else if(defined('BACK_END')){
 			$cache->setCache('panel_sidebar');
 			if(!$cache->isCached('forum_order')){
-				$order = 5;
-				$cache->store('forum_order', 5);
+				$order = 10;
+				$cache->store('forum_order', 10);
 			} else {
 				$order = $cache->retrieve('forum_order');
 			}

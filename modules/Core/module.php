@@ -76,6 +76,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
 		$pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
 		$pages->add('Core', '/panel/core/metadata', 'pages/panel/metadata.php');
+		$pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
 		$pages->add('Core', '/panel/users', 'pages/panel/users.php');
 		$pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
 		$pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
@@ -284,6 +285,7 @@ class Core_Module extends Module {
 			'admincp.core.registration' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'registration'),
 			'admincp.core.social_media' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'social_media'),
 			'admincp.core.terms' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'privacy_and_terms'),
+			'admincp.integrations' => $language->get('admin', 'integrations'),
 			'admincp.minecraft' => $language->get('admin', 'minecraft'),
 			'admincp.minecraft.authme' => $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
 			'admincp.minecraft.verification' => $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
@@ -762,10 +764,37 @@ class Core_Module extends Module {
 				$navs[2]->add('groups', $language->get('admin', 'groups'), URL::build('/panel/core/groups'), 'top', null, $order, $icon);
 			}
 
+			if($user->hasPermission('admincp.integrations')){
+				if(!$cache->isCached('integrations_order')){
+					$order = 4;
+					$cache->store('integrations_order', 4);
+				} else {
+					$order = $cache->retrieve('integrations_order');
+				}
+
+				if(!$cache->isCached('integrations_icon')){
+					$icon = '<i class="nav-icon fas fa-plug"></i>';
+					$cache->store('integrations_icon', $icon);
+				} else
+					$icon = $cache->retrieve('integrations_icon');
+
+				$navs[2]->addDropdown('integrations', $language->get('admin', 'integrations'), 'top', $order, $icon);
+			}
+
+			if($user->hasPermission('admincp.minecraft')){
+				if(!$cache->isCached('minecraft_icon')){
+					$icon = '';
+					$cache->store('minecraft_icon', $icon);
+				} else
+					$icon = $cache->retrieve('minecraft_icon');
+
+				$navs[2]->addItemToDropdown('integrations', 'minecraft', $language->get('admin', 'minecraft'), URL::build('/panel/minecraft'), 'top', $order, $icon);
+			}
+
 			if($user->hasPermission('admincp.styles')){
 				if(!$cache->isCached('layout_order')){
-					$order = 4;
-					$cache->store('layout_order', 4);
+					$order = 5;
+					$cache->store('layout_order', 5);
 				} else {
 					$order = $cache->retrieve('layout_order');
 				}
@@ -796,6 +825,13 @@ class Core_Module extends Module {
 			}
 
 			if($user->hasPermission('admincp.modules')){
+				if(!$cache->isCached('modules_order')){
+					$order = 6;
+					$cache->store('modules_order', 6);
+				} else {
+					$order = $cache->retrieve('modules_order');
+				}
+
 				if(!$cache->isCached('modules_icon')){
 					$icon = '<i class="nav-icon fas fa-puzzle-piece"></i>';
 					$cache->store('modules_icon', $icon);
@@ -806,6 +842,13 @@ class Core_Module extends Module {
 			}
 
 			if($user->hasPermission('admincp.pages') || $user->hasPermission('admincp.pages.metadata')){
+				if(!$cache->isCached('pages_order')){
+					$order = 7;
+					$cache->store('pages_order', 7);
+				} else {
+					$order = $cache->retrieve('pages_order');
+				}
+
 				if(!$cache->isCached('pages_icon')){
 					$icon = '<i class="nav-icon fas fa-file"></i>';
 					$cache->store('pages_icon', $icon);
@@ -836,6 +879,13 @@ class Core_Module extends Module {
 			}
 
 			if($user->hasPermission('admincp.users')){
+				if(!$cache->isCached('users_order')){
+					$order = 8;
+					$cache->store('users_order', 8);
+				} else {
+					$order = $cache->retrieve('users_order');
+				}
+
 				if(!$cache->isCached('users_icon')){
 					$icon = '<i class="nav-icon fas fa-user-circle"></i>';
 					$cache->store('users_icon', $icon);
@@ -884,6 +934,13 @@ class Core_Module extends Module {
 			}
 
 			if($user->hasPermission('admincp.sitemap')){
+				if(!$cache->isCached('sitemap_order')){
+					$order = 9;
+					$cache->store('sitemap_order', 9);
+				} else {
+					$order = $cache->retrieve('sitemap_order');
+				}
+
 				if(!$cache->isCached('sitemap_icon')){
 					$icon = '<i class="nav-icon fas fa-sitemap"></i>';
 					$cache->store('sitemap_icon', $icon);

@@ -33,6 +33,7 @@ $language = array(
 	'administration' => 'Administration',
 	'overview' => 'Übersicht',
 	'core' => 'Core',
+	'integrations' => 'Integrations',
 	'minecraft' => 'Minecraft',
 	'modules' => 'Modul',
 	'security' => 'Sicherheit',

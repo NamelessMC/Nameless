@@ -26,6 +26,7 @@ $language = array(
 	'administration' => 'Administration',
 	'overview' => 'Översikt',
 	'core' => 'Kärna',
+	'integrations' => 'Integrations',
 	'minecraft' => 'Minecraft',
 	'modules' => 'Moduler',
 	'security' => 'Säkerhet',

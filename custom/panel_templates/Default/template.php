@@ -372,6 +372,35 @@ class Default_Panel_Template extends TemplateBase {
 
 					}
 					break;
+
+				case 'minecraft':
+					if(!defined('MINECRAFT_PAGE')){
+						$this->addCSSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.css' => array()
+						));
+
+						$this->addJSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.js' => array()
+						));
+
+						$this->addJSScript('
+						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
+	
+						elems.forEach(function(html) {
+						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
+						});
+						
+						if($(\'.js-check-change\').length) {
+					        var changeCheckbox = document.querySelector(\'.js-check-change\');
+					
+					        changeCheckbox.onchange = function () {
+					            $(\'#enableMinecraft\').submit();
+					        };
+					    }
+						');
+					}
+
+					break;
 			}
 		}
 	}

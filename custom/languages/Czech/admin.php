@@ -25,6 +25,7 @@ $language = array(
 	'administration' => 'Administrace',
 	'overview' => 'Přehled',
 	'core' => 'Nastavení',
+	'integrations' => 'Integrations',
 	'minecraft' => 'Minecraft',
 	'modules' => 'Doplňky',
 	'security' => 'Zabezpečení',
