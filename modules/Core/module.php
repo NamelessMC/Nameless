@@ -79,6 +79,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/users', 'pages/panel/users.php');
 		$pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
 		$pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
+		$pages->add('Core', '/panel/users/punishments', 'pages/panel/users_punishments.php');
 		$pages->add('Core', '/panel/user', 'pages/panel/user.php');
 
 		$pages->add('Core', '/admin', 'pages/admin/index.php');
@@ -855,13 +856,25 @@ class Core_Module extends Module {
 
 				$navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/users'), 'top', $order, $icon);
 
-				if(!$cache->isCached('ip_lookup_icon')){
-					$icon = '<i class="nav-icon fas fa-binoculars"></i>';
-					$cache->store('ip_lookup_icon', $icon);
-				} else
-					$icon = $cache->retrieve('ip_lookup_icon');
+				if($user->hasPermission('modcp.ip_lookup')){
+					if(!$cache->isCached('ip_lookup_icon')){
+						$icon = '<i class="nav-icon fas fa-binoculars"></i>';
+						$cache->store('ip_lookup_icon', $icon);
+					} else
+						$icon = $cache->retrieve('ip_lookup_icon');
 
-				$navs[2]->addItemToDropdown('users', 'ip_lookup', $language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup'), 'top', $order, $icon);
+					$navs[2]->addItemToDropdown('users', 'ip_lookup', $language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('modcp.punishments')){
+					if(!$cache->isCached('punishments_icon')){
+						$icon = '<i class="nav-icon fas fa-gavel"></i>';
+						$cache->store('punishments_icon', $icon);
+					} else
+						$icon = $cache->retrieve('punishments_icon');
+
+					$navs[2]->addItemToDropdown('users', 'punishments', $language->get('moderator', 'punishments'), URL::build('/panel/users/punishments'), 'top', $order, $icon);
+				}
 			}
 
 			if($user->hasPermission('admincp.sitemap')){
@@ -988,7 +1001,7 @@ class Core_Module extends Module {
 				self::addUserAction($language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup/', 'uid={id}'));
 
 			if($user->hasPermission('modcp.punishments'))
-				self::addUserAction($language->get('moderator', 'punish'), URL::build('/panel/punishments/new/', 'uid={id}'));
+				self::addUserAction($language->get('moderator', 'punish'), URL::build('/panel/users/punishments/', 'user={id}'));
 
 			self::addUserAction($language->get('user', 'profile'), URL::build('/profile/{username}'));
 
