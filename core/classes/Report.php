@@ -38,7 +38,7 @@ class Report {
 					foreach($moderators as $moderator){
 						try {
 							// Get language
-							Alert::create($moderator->id, 'report', array('path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'), array('path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'), URL::build('/mod/reports/', 'report=' . $id));
+							Alert::create($moderator->id, 'report', array('path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'), array('path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'), URL::build('/panel/users/reports/', 'id=' . $id));
 						} catch(Exception $e){
 							// Unable to alert moderator
 							die($e->getMessage());
