@@ -106,11 +106,6 @@ class Core_Module extends Module {
 		$pages->add('Core', '/admin/night_mode', 'pages/admin/night_mode.php');
 		$pages->add('Core', '/admin/widgets', 'pages/admin/widgets.php');
 
-		$pages->add('Core', '/mod', 'pages/mod/index.php');
-		$pages->add('Core', '/mod/punishments', 'pages/mod/punishments.php');
-		$pages->add('Core', '/mod/reports', 'pages/mod/reports.php');
-		$pages->add('Core', '/mod/ip_lookup', 'pages/mod/ip_lookup.php');
-
 		// Ajax GET requests
 		$pages->addAjaxScript(URL::build('/queries/servers'));
 

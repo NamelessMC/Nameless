@@ -44,19 +44,11 @@ if($user->isLoggedIn()){
 		)
 	);
 	
-	if($user->canViewMCP()){
-		$user_area_left['account']['items']['mod'] = array(
-			'link' => URL::build('/mod'),
-			'target' => '',
-			'title' => $language->get('moderator', 'mod_cp')
-		);
-	}
-	
 	if($user->canViewACP()){
-		$user_area_left['account']['items']['admin'] = array(
-			'link' => URL::build('/admin'),
+		$user_area_left['account']['items']['panel'] = array(
+			'link' => URL::build('/panel'),
 			'target' => '',
-			'title' => $language->get('admin', 'admin_cp')
+			'title' => $language->get('moderator', 'staff_cp')
 		);
 	}
 	
