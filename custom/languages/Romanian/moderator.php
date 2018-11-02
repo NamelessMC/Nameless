@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Moderator terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 24/09/2018
+ *  Last Update: 02/11/2018
  */
 
 $language = array(
@@ -58,11 +58,11 @@ $language = array(
     'reported_by' => 'Raportat de:',
     'website' => 'Website',
     'ingame' => 'InGame',
-    'x_closed_report' => '{x} closed this report.', // Don't replace {x} (username)
-    'x_reopened_report' => '{x} reopened this report.', // Don't replace {x} (username)
-    'report_reopened' => 'Report reopened successfully.',
-    'report_closed' => 'Report closed successfully.',
-    'comment_created' => 'Comment created successfully.',
+    'x_closed_report' => '{x} a închis acest raport.', // Don't replace {x} (username)
+    'x_reopened_report' => '{x} a redeschis acest raport.', // Don't replace {x} (username)
+    'report_reopened' => 'Raportul a fost redeschis cu succes.',
+    'report_closed' => 'Raportul a fost închis cu succes.',
+    'comment_created' => 'Comentariul a fost adăugat cu succes.',
     
     // Punishments
     'punishments' => 'Sancțiuni',
