@@ -27,8 +27,7 @@ class Report {
 		$id = $this->_db->lastid();
 		
 		// Alert moderators
-        // TODO: improve to use permissions
-		$moderator_groups = $this->_db->get('groups', array('mod_cp', '=', 1))->results();
+		$moderator_groups = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.reports":1%\'')->results();
 		
 		if(count($moderator_groups)){
 			foreach($moderator_groups as $group){
