@@ -211,7 +211,7 @@ class Forum_Module extends Module {
 						if(!isset($output['_' . $start]['posts']))
 							$output['_' . $start]['posts'] = 0;
 
-						$start = $start + 86400;
+						$start = strtotime('+1 day', $start);
 					}
 
 					// Sort by date

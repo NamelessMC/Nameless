@@ -946,7 +946,7 @@ class Core_Module extends Module {
 						if(defined('MINECRAFT') && MINECRAFT && !isset($data['_' . $start]['players']))
 							$data['_' . $start]['players'] = 0;
 
-						$start = $start + 86400;
+						$start = strtotime('+1 day', $start);
 					}
 
 					// Sort by date
