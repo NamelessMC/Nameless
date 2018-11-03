@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 12/10/2018
+ *  Last Update: 02/11/2018
  */
 
 $language = array(
@@ -21,13 +21,13 @@ $language = array(
     // Sidebar
     'dashboard' => 'Prezentare generala',
     'configuration' => 'Configurație',
-    'layout' => 'Sabloane',
+    'layout' => 'Aspect',
     'user_management' => 'Gestionarea utilizatorilor',
     'admin_cp' => 'Panou Administrare',
     'administration' => 'Administrare',
     'overview' => 'Prezentare generală',
     'core' => 'Bază',
-    'integrations' => 'Integrations',
+    'integrations' => 'Integrări',
     'minecraft' => 'Minecraft',
     'modules' => 'Module',
     'security' => 'Securitate',
@@ -293,14 +293,14 @@ $language = array(
     'module_disabled' => 'Modulul este dezactivat.',
     'author' => 'Autor:',
     'author_x' => 'Autor: {x}', // Don't replace {x}
-    'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
-    'find_modules' => 'Find Modules',
-    'view_all_modules' => 'View all modules',
-    'unable_to_retrieve_modules' => 'Unable to retrieve modules',
-    'module' => 'Module',
+    'module_outdated' => 'Am descoperit că acest modul este destinat pentru Nameless versiunea {x}, dar utilizati Nameless versiunea {y}', // Don't replace "{x}" or "{y}"
+    'find_modules' => 'Găsiți module',
+    'view_all_modules' => 'Vizualizați toate modulele',
+    'unable_to_retrieve_modules' => 'Imposibil de obținut module',
+    'module' => 'Modul',
 
     // Styles
-    'templates' => 'Template-uri',
+    'templates' => 'Șabloane',
     'template_outdated' => 'Am detectat că șablonul dvs. este destinat versiunii NamelessMC {x}, dar executați versiunea NamelessMC {y}.', // Don't replace "{x}" or "{y}"
     'active' => 'Activ',
     'deactivate' => 'Dezactivare',
@@ -323,18 +323,18 @@ $language = array(
     'delete' => 'Șterge',
     'template_deleted_successfully' => 'Șablonul a fost șters cu succes.',
     'background_image_x' => 'Imagine de fundal: <strong>{x}</strong>', // Don't replace {x}
-    'find_templates' => 'Find Templates',
-    'view_all_templates' => 'View all templates',
-    'unable_to_retrieve_templates' => 'Unable to retrieve templates',
-    'template' => 'Template',
-    'stats' => 'Stats',
-    'downloads_x' => 'Downloads: {x}',
-    'views_x' => 'Views: {x}',
-    'rating_x' => 'Rating: {x}',
-    'editing_template_x' => 'Editing template {x}', // Don't replace {x}
-	'editing_template_file_in_template' => 'Editing file {x} in template {y}', // Don't replace {x} or {y}
-    'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
-	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
+    'find_templates' => 'Găsiți șabloane',
+    'view_all_templates' => 'Vizualizați toate șabloanele',
+    'unable_to_retrieve_templates' => 'Nu s-au putut obține șabloanele',
+    'template' => 'Șablon',
+    'stats' => 'Statistici',
+    'downloads_x' => 'Descărcări: {x}',
+    'views_x' => 'Vizualizări: {x}',
+    'rating_x' => 'Evaluare: {x}',
+    'editing_template_x' => 'Editare șablon: {x}', // Don't replace {x}
+	'editing_template_file_in_template' => 'Editare fișier {x} din șablonul {y}', // Don't replace {x} or {y}
+    'cant_write_to_template' => 'Nu se poate scrie fișierul! Verificați permisiunile fișierelor.',
+	'unable_to_delete_template' => 'Nu se poate șterge complet șablonul. Verificați permisiunile fișierelor.',
 
     // Users & groups
     'users' => 'Utilizatori',
@@ -384,17 +384,17 @@ $language = array(
     'default_group' => 'Grupul este grupul implicit pentru utilizatorii noi?',
     'user_id' => 'ID utilizator',
     'uuid' => 'UUID',
-	'group_order' => 'Group Order',
-	'group_created_successfully' => 'Group created successfully.',
-	'group_updated_successfully' => 'Group updated successfully.',
-	'group_deleted_successfully' => 'Group deleted successfully.',
-	'unable_to_delete_group' => 'Unable to delete a default group, or a group that can view the StaffCP. Please update the group settings first!',
-	'can_view_staffcp' => 'Can the group view the StaffCP?',
-	'user' => 'User',
-	'user_validated_successfully' => 'User validated successfully.',
-	'user_updated_successfully' => 'User updated successfully,',
-	'editing_user_x' => 'Editing user {x}', // Don't replace {x}
-	'details' => 'Details',
+	'group_order' => 'Număr de ordine',
+	'group_created_successfully' => 'Grupul a fost creat cu succes.',
+	'group_updated_successfully' => 'Grupul a fost actualizat cu succes.',
+	'group_deleted_successfully' => 'Grupul a fost șters cu succes.',
+	'unable_to_delete_group' => 'Nu se poate șterge un grup prestabilit sau un grup care poate vedea StaffCP. Actualizați mai întâi setările grupului!',
+	'can_view_staffcp' => 'Grupul poate vizualiza StaffCP?',
+	'user' => 'Utilizator',
+	'user_validated_successfully' => 'Utilizatorul a fost validat cu succes.',
+	'user_updated_successfully' => 'Utilizatorul a fost actualizat cu succes.',
+	'editing_user_x' => 'Editare utilizator: {x}', // Don't replace {x}
+	'details' => 'Detalii',
 
     // Permissions
     'select_all' => 'Selectează tot',
@@ -492,9 +492,9 @@ $language = array(
     'page_content_maximum_100000' => 'Conținutul paginii trebuie să aibă maximum 100000 de caractere.',
     'page_redirect_link_maximum_512' => 'Legătura redirecționării paginii trebuie să aibă maximum 512 caractere.',
     'confirm_delete_page' => 'Sigur doriți să ștergeți această pagină?',
-    'page_created_successfully' => 'Page created successfully.',
-    'page_updated_successfully' => 'Page updated successfully.',
-    'page_deleted_successfully' => 'Page deleted successfully.',
+    'page_created_successfully' => 'Pagina a fost creată cu succes.',
+    'page_updated_successfully' => 'Pagina a fost actualizată cu succes.',
+    'page_deleted_successfully' => 'Pagina a fost ștearsă cu succes.',
 
     // API
     'api' => 'API',
@@ -541,7 +541,7 @@ $language = array(
     'discord_hook_events' => 'Activează evenimentele Discord hook (Ctrl+click pentru a selecta mai multe evenimente)',
     'register_hook_info' => 'Înregistrare cont utilizator',
     'validate_hook_info' => 'Validare cont utilizator',
-    'delete_hook_info' => 'User deletion',
+    'delete_hook_info' => 'Ştergere utilizator',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Imposibil de încărcat fișierul hartă site {x}', // Don't replace {x}
@@ -558,8 +558,8 @@ $language = array(
     'metadata_page_x' => 'Vizualizarea metadatelor pentru pagina: {x}', // Don't replace {x}
     'keywords' => 'Cuvinte cheie',
     'description_max_500' => 'Descrierea trebuie să aibă cel mult 500 de caractere.',
-    'page' => 'Page',
-    'metadata_updated_successfully' => 'Metadata updated successfully.',
+    'page' => 'Pagină',
+    'metadata_updated_successfully' => 'Metadatele s-au actualizat cu succes.',
 
     // Dashboard
     'total_users' => 'Total utilizatori',
