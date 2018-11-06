@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Users
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 24/09/2018
+ *  Last Update: 06/11/2018
  */
 
 $language = array(
@@ -28,7 +28,7 @@ $language = array(
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Panou Utilizator</span>',
     'overview' => 'Prezentare generală',
     'user_details' => 'Detalii utilizator',
-    'profile_settings' => 'Setările profilului',
+    'profile_settings' => 'Setările contului',
     'successfully_logged_out' => 'Ați fost deconectat cu succes.',
     'messaging' => 'Mesaje Private',
     'click_here_to_view' => 'Faceți clic aici pentru a vedea.',
