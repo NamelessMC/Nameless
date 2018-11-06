@@ -206,6 +206,7 @@ $language = array(
 	'authme_db_name' => 'AuthMe Databas Namn',
 	'authme_db_user' => 'AuthMe Databas Användrarnamn',
 	'authme_db_password' => 'AuthMe Database Lösenord',
+	'authme_db_password_hidden' => 'The AuthMe database password is hidden for security reasons.',
 	'authme_hash_algorithm' => 'AuthMe Hashing Algoritm',
 	'authme_db_table' => 'AuthMe Användartabell',
 	'enter_authme_db_details' => 'Var god och ange giltiga databasuppgifter.',

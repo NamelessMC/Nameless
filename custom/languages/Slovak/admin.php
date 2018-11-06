@@ -205,6 +205,7 @@ $language = array(
     'authme_db_name' => 'Názov databázi',
     'authme_db_user' => 'Užívateľské meno k databázi',
     'authme_db_password' => 'Heslo k databázi',
+    'authme_db_password_hidden' => 'The AuthMe database password is hidden for security reasons.',
     'authme_hash_algorithm' => 'AuthMe Hashing Algorithm',
     'authme_db_table' => 'Hráčská tabulka',
     'enter_authme_db_details' => 'Zadajte prosím správné údaje databáze.',

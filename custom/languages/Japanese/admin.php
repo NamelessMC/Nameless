@@ -208,6 +208,7 @@ $language = array(
     'authme_db_name' => 'AuthMe データベース名',
     'authme_db_user' => 'AuthMe データベースユーザー名',
     'authme_db_password' => 'AuthMe データベースパスワード',
+    'authme_db_password_hidden' => 'The AuthMe database password is hidden for security reasons.',
     'authme_hash_algorithm' => 'AuthMe ハッシュアルゴリズム',
     'authme_db_table' => 'AuthMe ユーザーテーブル',
     'enter_authme_db_details' => '有効なデータベース情報を入力してください。',

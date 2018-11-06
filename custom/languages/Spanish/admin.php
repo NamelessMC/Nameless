@@ -202,6 +202,7 @@ $language = array(
     'authme_db_name' => 'Nombre de la base de datos del AuthMe',
     'authme_db_user' => 'Nombre de usuario de la base de datos del AuthMe',
     'authme_db_password' => 'Contraseña de la base de datos del AuthMe',
+    'authme_db_password_hidden' => 'The AuthMe database password is hidden for security reasons.',
     'authme_hash_algorithm' => 'Algoritmo del hash (AuthMe)',
     'authme_db_table' => 'Tabla de usuarios de AuthMe',
     'enter_authme_db_details' => 'Introduce datos válidos de la base de datos.',

@@ -209,6 +209,7 @@ $language = array(
 	'authme_db_name' => 'AuthMe 資料庫名稱',
 	'authme_db_user' => 'AuthMe 資料庫使用者',
 	'authme_db_password' => 'AuthMe 資料庫密碼',
+	'authme_db_password_hidden' => 'The AuthMe database password is hidden for security reasons.',
 	'authme_hash_algorithm' => 'AuthMe 加密機制',
 	'authme_db_table' => 'AuthMe 使用者資料表',
 	'enter_authme_db_details' => '請輸入正確的資料庫資料.',

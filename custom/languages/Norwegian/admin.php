@@ -205,6 +205,7 @@ $language = array(
     'authme_db_name' => 'Databasenavn for AuthMe (MySQL)',
     'authme_db_user' => 'Brukernavn for AuthMe (MySQL)',
     'authme_db_password' => 'Passord for AuthMe (MySQL)',
+    'authme_db_password_hidden' => 'The AuthMe database password is hidden for security reasons.',
     'authme_hash_algorithm' => 'AuthMe hashing-algoritme',
     'authme_db_table' => 'Tabellen for AuthMe (MySQL)',
     'enter_authme_db_details' => 'Fyll inn databasekonfigurasjonsdataen for å koble sammen nettstedet og AuthMe.',

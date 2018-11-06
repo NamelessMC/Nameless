@@ -205,6 +205,7 @@ $language = array(
 	'authme_db_name' => 'AuthMe Database Name',
 	'authme_db_user' => 'AuthMe Database Username',
 	'authme_db_password' => 'AuthMe Database Password',
+	'authme_db_password_hidden' => 'The AuthMe database password is hidden for security reasons.',
 	'authme_hash_algorithm' => 'AuthMe Hashing Algorithm',
 	'authme_db_table' => 'AuthMe User Table',
 	'enter_authme_db_details' => 'Please enter valid database details.',

@@ -77,6 +77,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
 		$pages->add('Core', '/panel/core/metadata', 'pages/panel/metadata.php');
 		$pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
+		$pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
 		$pages->add('Core', '/panel/users', 'pages/panel/users.php');
 		$pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
 		$pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
