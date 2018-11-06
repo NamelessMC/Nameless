@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 02/11/2018
+ *  Last Update: 06/11/2018
  */
 
 $language = array(
@@ -210,7 +210,7 @@ $language = array(
     'authme_db_name' => 'Numele bazei de date AuthMe',
     'authme_db_user' => 'Utilizatorul bazei de date AuthMe',
     'authme_db_password' => 'Parola bazei de date AuthMe',
-    'authme_db_password_hidden' => 'The AuthMe database password is hidden for security reasons.',
+    'authme_db_password_hidden' => 'Parola pentru baza de date AuthMe este ascunsă din motive de securitate.',
     'authme_hash_algorithm' => 'Algoritmul de criptare AuthMe',
     'authme_db_table' => 'Tabel utilizatori AuthMe',
     'enter_authme_db_details' => 'Vă rugăm să introduceți datele valide ale bazei de date.',
