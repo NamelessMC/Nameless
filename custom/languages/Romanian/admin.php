@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 02/11/2018
+ *  Last Update: 06/11/2018
  */
 
 $language = array(
