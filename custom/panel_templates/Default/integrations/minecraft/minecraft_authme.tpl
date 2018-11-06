@@ -9,13 +9,14 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">{$MINECRAFT}</h1>
+                        <h1 class="m-0 text-dark">{$AUTHME}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
                             <li class="breadcrumb-item active">{$INTEGRATIONS}</li>
-                            <li class="breadcrumb-item active">{$MINECRAFT}</li>
+                            <li class="breadcrumb-item"><a href="{$MINECRAFT_LINK}">{$MINECRAFT}</a></li>
+                            <li class="breadcrumb-item active">{$AUTHME}</li>
                         </ol>
                     </div>
                 </div>
