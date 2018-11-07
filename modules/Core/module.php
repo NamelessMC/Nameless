@@ -82,6 +82,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/minecraft/servers', 'pages/panel/minecraft_servers.php');
 		$pages->add('Core', '/panel/minecraft/query_errors', 'pages/panel/minecraft_query_errors.php');
 		$pages->add('Core', '/panel/minecraft/banners', 'pages/panel/minecraft_server_banners.php');
+		$pages->add('Core', '/panel/security', 'pages/panel/security.php');
 		$pages->add('Core', '/panel/users', 'pages/panel/users.php');
 		$pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
 		$pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
@@ -897,10 +898,27 @@ class Core_Module extends Module {
 				}
 			}
 
+			if($user->hasPermission('admincp.security')){
+				if(!$cache->isCached('security_order')){
+					$order = 8;
+					$cache->store('security_order', 8);
+				} else {
+					$order = $cache->retrieve('security_order');
+				}
+
+				if(!$cache->isCached('security_icon')){
+					$icon = '<i class="nav-icon fas fa-lock"></i>';
+					$cache->store('security_icon', $icon);
+				} else
+					$icon = $cache->retrieve('security_icon');
+
+				$navs[2]->add('security', $language->get('admin', 'security'), URL::build('/panel/security'), 'top', null, $order, $icon);
+			}
+
 			if($user->hasPermission('admincp.users')){
 				if(!$cache->isCached('users_order')){
-					$order = 8;
-					$cache->store('users_order', 8);
+					$order = 9;
+					$cache->store('users_order', 9);
 				} else {
 					$order = $cache->retrieve('users_order');
 				}

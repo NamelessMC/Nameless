@@ -60,7 +60,7 @@
 			</div>
 			<hr />
 			<a href="{$item.author_url}"><img class="rounded-circle" style="height:30px;width=30px;" src="{$item.author_avatar}" /></a> <a data-poload="{$USER_INFO_URL}{$item.author_id}" data-html="true" data-placement="top" href="{$item.author_url}" style="{$item.author_style}">{$item.author_name}</a>
-		    <span class="pull-right"><a href="{$item.url}" class="btn btn-primary btn-sm">{$READ_FULL_POST} &raquo;</a></span>
+		    <span class="pull-right"><a href="{$item.url}" class="btn btn-primary btn-sm">{$READ_FULL_POST} »</a></span>
 		  </div>
 		</div>
 		<br />
