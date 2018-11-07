@@ -33,7 +33,7 @@ if($user->isLoggedIn()){
 }
 
 define('PAGE', 'panel');
-define('PARENT_PAGE', 'sitemap');
+define('PARENT_PAGE', 'layout');
 define('PANEL_PAGE', 'sitemap');
 $page_title = $language->get('admin', 'sitemap');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
@@ -128,6 +128,7 @@ if(isset($errors) && count($errors))
 $smarty->assign(array(
 	'PARENT_PAGE' => PARENT_PAGE,
 	'DASHBOARD' => $language->get('admin', 'dashboard'),
+	'LAYOUT' => $language->get('admin', 'layout'),
 	'SITEMAP' => $language->get('admin', 'sitemap'),
 	'PAGE' => PANEL_PAGE,
 	'TOKEN' => Token::get(),

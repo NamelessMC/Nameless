@@ -796,7 +796,7 @@ class Core_Module extends Module {
 				$navs[2]->addItemToDropdown('integrations', 'minecraft', $language->get('admin', 'minecraft'), URL::build('/panel/minecraft'), 'top', $order, $icon);
 			}
 
-			if($user->hasPermission('admincp.styles')){
+			if($user->hasPermission('admincp.styles') || $user->hasPermission('admincp.sitemap') || $user->hasPermission('admincp.widgets')){
 				if(!$cache->isCached('layout_order')){
 					$order = 5;
 					$cache->store('layout_order', 5);
@@ -812,21 +812,35 @@ class Core_Module extends Module {
 
 				$navs[2]->addDropdown('layout', $language->get('admin', 'layout'), 'top', $order, $icon);
 
-				if(!$cache->isCached('templates_icon')){
-					$icon = '<i class="nav-icon fas fa-paint-brush"></i>';
-					$cache->store('templates_icon', $icon);
-				} else
-					$icon = $cache->retrieve('templates_icon');
+				if($user->hasPermission('admincp.sitemap')){
+					if(!$cache->isCached('sitemap_icon')){
+						$icon = '<i class="nav-icon fas fa-sitemap"></i>';
+						$cache->store('sitemap_icon', $icon);
+					} else
+						$icon = $cache->retrieve('sitemap_icon');
 
-				$navs[2]->addItemToDropdown('layout', 'template', $language->get('admin', 'templates'), URL::build('/panel/core/templates'), 'top', $order, $icon);
+					$navs[2]->addItemToDropdown('layout', 'sitemap', $language->get('admin', 'sitemap'), URL::build('/panel/core/sitemap'), 'top', $order, $icon);
+				}
 
-				if(!$cache->isCached('widgets_icon')){
-					$icon = '<i class="nav-icon fas fa-th"></i>';
-					$cache->store('widgets_icon', $icon);
-				} else
-					$icon = $cache->retrieve('widgets_icon');
+				if($user->hasPermission('admincp.styles')){
+					if(!$cache->isCached('templates_icon')){
+						$icon = '<i class="nav-icon fas fa-paint-brush"></i>';
+						$cache->store('templates_icon', $icon);
+					} else
+						$icon = $cache->retrieve('templates_icon');
 
-				$navs[2]->addItemToDropdown('layout', 'widgets', $language->get('admin', 'widgets'), URL::build('/panel/core/widgets'), 'top', $order, $icon);
+					$navs[2]->addItemToDropdown('layout', 'template', $language->get('admin', 'templates'), URL::build('/panel/core/templates'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.widgets')){
+					if(!$cache->isCached('widgets_icon')){
+						$icon = '<i class="nav-icon fas fa-th"></i>';
+						$cache->store('widgets_icon', $icon);
+					} else
+						$icon = $cache->retrieve('widgets_icon');
+
+					$navs[2]->addItemToDropdown('layout', 'widgets', $language->get('admin', 'widgets'), URL::build('/panel/core/widgets'), 'top', $order, $icon);
+				}
 			}
 
 			if($user->hasPermission('admincp.modules')){
@@ -936,23 +950,6 @@ class Core_Module extends Module {
 
 					$navs[2]->addItemToDropdown('users', 'reports', $language->get('moderator', 'reports'), URL::build('/panel/users/reports'), 'top', $order, $icon);
 				}
-			}
-
-			if($user->hasPermission('admincp.sitemap')){
-				if(!$cache->isCached('sitemap_order')){
-					$order = 9;
-					$cache->store('sitemap_order', 9);
-				} else {
-					$order = $cache->retrieve('sitemap_order');
-				}
-
-				if(!$cache->isCached('sitemap_icon')){
-					$icon = '<i class="nav-icon fas fa-sitemap"></i>';
-					$cache->store('sitemap_icon', $icon);
-				} else
-					$icon = $cache->retrieve('sitemap_icon');
-
-				$navs[2]->add('sitemap', $language->get('admin', 'sitemap'), URL::build('/panel/core/sitemap'), 'top', null, $order, $icon);
 			}
 
 			// Notices
