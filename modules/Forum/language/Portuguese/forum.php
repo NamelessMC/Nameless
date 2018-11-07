@@ -165,6 +165,9 @@ $language = array(
 	'invalid_redirect_url' => 'Você habilitou o redirecionamento do fórum, mas você não digitou uma URL válida entre 1 e 512 caracteres.',
 	'forum_icon' => 'Forum Icon',
 	'forum_icon_maximum' => 'The forum icon must be a maximum of 256 characters.',
+	'settings_updated_successfully' => 'Settings updated successfully.',
+	'forum_updated_successfully' => 'Forum updated successfully.',
+	'forum_deleted_successfully' => 'Forum deleted successfully.',
 
     // Search
     'forum_search' => 'Pesquisa no Fórum',

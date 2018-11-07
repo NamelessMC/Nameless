@@ -166,6 +166,9 @@ $language = array(
 	'invalid_redirect_url' => 'フォーラムのリダイレクトを有効にしましたが、1〜512文字の有効なURLを入力していません。',
 	'forum_icon' => 'フォーラムアイコン',
 	'forum_icon_maximum' => 'フォーラムアイコンは256文字以下にしてください。',
+	'settings_updated_successfully' => 'Settings updated successfully.',
+	'forum_updated_successfully' => 'Forum updated successfully.',
+	'forum_deleted_successfully' => 'Forum deleted successfully.',
 
     // Search
     'forum_search' => 'フォーラム検索',

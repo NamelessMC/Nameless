@@ -163,6 +163,9 @@ $language = array(
 	'invalid_redirect_url' => 'You have enabled the forum redirect, but you have not entered a valid URL between 1 and 512 characters.',
 	'forum_icon' => 'Forum Icon',
 	'forum_icon_maximum' => 'The forum icon must be a maximum of 256 characters.',
+	'settings_updated_successfully' => 'Settings updated successfully.',
+	'forum_updated_successfully' => 'Forum updated successfully.',
+	'forum_deleted_successfully' => 'Forum deleted successfully.',
 
 	// Search
     'forum_search' => 'Søk i forunet',

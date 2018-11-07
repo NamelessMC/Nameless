@@ -165,6 +165,9 @@ $language = array(
 	'invalid_redirect_url' => 'Ai activat redirecționarea forumului, dar nu ai introdus o adresă URL validă între 1 și 512 de caractere.',
 	'forum_icon' => 'Cod HTML Pictogramă',
 	'forum_icon_maximum' => 'Pictograma forumului trebuie să aibă maxim 256 de caractere.',
+	'settings_updated_successfully' => 'Settings updated successfully.',
+	'forum_updated_successfully' => 'Forum updated successfully.',
+	'forum_deleted_successfully' => 'Forum deleted successfully.',
 
     // Search
     'forum_search' => 'Căutare în forum',

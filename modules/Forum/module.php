@@ -27,6 +27,7 @@ class Forum_Module extends Module {
 		$pages->add('Forum', '/admin/forums', 'pages/admin/forums.php');
 
 		$pages->add('Forum', '/panel/forums', 'pages/panel/forums.php');
+		$pages->add('Forum', '/panel/forums/labels', 'pages/panel/labels.php');
 
 		$pages->add('Forum', '/forum', 'pages/forum/index.php', 'forum', true);
 		$pages->add('Forum', '/forum/error', 'pages/forum/error.php');
