@@ -482,6 +482,24 @@ class Default_Panel_Template extends TemplateBase {
 	                    }
 						');
 
+					} else if(MINECRAFT_PAGE == 'server_banners'){
+						if(isset($_GET['edit'])){
+							$this->addCSSFiles(array(
+								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => array()
+							));
+
+							$this->addCSSStyle('
+						    .thumbnails li img{
+						        width: 200px;
+						    }
+							');
+
+							$this->addJSFiles(array(
+								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.min.js' => array()
+							));
+
+							$this->addJSScript('$(".image-picker").imagepicker();');
+						}
 					}
 
 					break;

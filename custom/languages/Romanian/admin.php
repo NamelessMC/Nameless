@@ -289,6 +289,7 @@ $language = array(
     'query_information' => 'Query Information',
     'query_errors_purged_successfully' => 'Query errors purged successfully.',
     'query_error_deleted_successfully' => 'Query error deleted successfully.',
+    'banner_updated_successfully' => 'Banner updated successfully. It may take a while for your changes to take effect.',
 
     // Modules
     'modules_installed_successfully' => 'Toate modulele noi au fost instalate cu succes (daca exista).',
