@@ -70,6 +70,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/registration', 'pages/panel/registration.php');
 		$pages->add('Core', '/panel/core/social_media', 'pages/panel/social_media.php');
 		$pages->add('Core', '/panel/core/groups', 'pages/panel/groups.php');
+		$pages->add('Core', '/panel/core/images', 'pages/panel/images.php');
 		$pages->add('Core', '/panel/core/templates', 'pages/panel/templates.php');
 		$pages->add('Core', '/panel/core/sitemap', 'pages/panel/sitemap.php');
 		$pages->add('Core', '/panel/core/widgets', 'pages/panel/widgets.php');
@@ -812,6 +813,16 @@ class Core_Module extends Module {
 					$icon = $cache->retrieve('layout_icon');
 
 				$navs[2]->addDropdown('layout', $language->get('admin', 'layout'), 'top', $order, $icon);
+
+				if($user->hasPermission('admincp.styles.images')){
+					if(!$cache->isCached('images_icon')){
+						$icon = '<i class="nav-icon fas fa-images"></i>';
+						$cache->store('images_icon', $icon);
+					} else
+						$icon = $cache->retrieve('images_icon');
+
+					$navs[2]->addItemToDropdown('layout', 'images', $language->get('admin', 'images'), URL::build('/panel/core/images'), 'top', $order, $icon);
+				}
 
 				if($user->hasPermission('admincp.sitemap')){
 					if(!$cache->isCached('sitemap_icon')){

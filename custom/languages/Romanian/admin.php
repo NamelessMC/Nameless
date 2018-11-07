@@ -343,6 +343,8 @@ $language = array(
 	'editing_template_file_in_template' => 'Editare fișier {x} din șablonul {y}', // Don't replace {x} or {y}
     'cant_write_to_template' => 'Nu se poate scrie fișierul! Verificați permisiunile fișierelor.',
 	'unable_to_delete_template' => 'Nu se poate șterge complet șablonul. Verificați permisiunile fișierelor.',
+	'background_reset_successfully' => 'Background reset successfully.',
+	'background_updated_successfully' => 'Background updated successfully.',
 
     // Users & groups
     'users' => 'Utilizatori',

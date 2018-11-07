@@ -537,6 +537,40 @@ class Default_Panel_Template extends TemplateBase {
 						');
 					}
 					break;
+
+				case 'images':
+					$this->addCSSFiles(array(
+						(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dropzone/dropzone.min.css' => array(),
+						(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => array()
+					));
+
+					$this->addJSFiles(array(
+						(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dropzone/dropzone.min.js' => array(),
+						(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.min.js' => array(),
+					));
+
+					$this->addJSScript('
+					// Dropzone options
+					Dropzone.options.upload_avatar_dropzone = {
+					    maxFilesize: 2,
+					    dictDefaultMessage: "' . $this->_language->get('admin', 'drag_files_here') . '",
+					    dictInvalidFileType: "' . $this->_language->get('admin', 'invalid_file_type') . '",
+					    dictFileTooBig: "' . $this->_language->get('admin', 'file_too_big') . '",
+				        error: function(file, response) {
+				            console.log("ERROR");
+				            console.log(file);
+				            console.log(response);
+				        },
+				        success: function(file, response){
+				            console.log("ACCEPTED");
+				            console.log(file);
+				            console.log(response);
+				        }
+					};
+			
+					$(".image-picker").imagepicker();
+					');
+					break;
 			}
 		}
 	}

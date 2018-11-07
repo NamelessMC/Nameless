@@ -343,6 +343,8 @@ $language = array(
 	'editing_template_file_in_template' => 'Editing file {x} in template {y}', // Don't replace {x} or {y}
 	'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
 	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
+	'background_reset_successfully' => 'Background reset successfully.',
+	'background_updated_successfully' => 'Background updated successfully.',
 
 	// Users & groups
 	'users' => 'Χρήστες',

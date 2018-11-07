@@ -344,6 +344,8 @@ $language = array(
 	'editing_template_file_in_template' => 'Editing file {x} in template {y}', // Don't replace {x} or {y}
 	'cant_write_to_template' => 'テンプレートファイルに書き込み出来ませんでした。ファイルのアクセス許可を確認してください。',
 	'unable_to_delete_template' => 'テンプレートを完全に削除できませんでした。 ファイルのアクセス許可を確認してください。',
+	'background_reset_successfully' => 'Background reset successfully.',
+	'background_updated_successfully' => 'Background updated successfully.',
 
 	// Users & groups
 	'users' => 'ユーザー',
