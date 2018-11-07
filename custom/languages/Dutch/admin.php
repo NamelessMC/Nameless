@@ -452,6 +452,7 @@ $language = array(
 	'instructions' => 'Instructies',
 	'download' => 'Download',
 	'install_confirm' => 'Zorg ervoor dat je het bestand hebt gedownload en de bestanden hebt geupload voordat je verder gaat!',
+	'check_again' => 'Check again',
 
 	 // Widgets
 	'widgets' => 'Widgets',

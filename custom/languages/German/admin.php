@@ -459,6 +459,7 @@ $language = array(
 	'instructions' => 'Anleitung',
 	'download' => 'Download',
 	'install_confirm' => 'Sei sicher dass du die Dateien zuerst hochgeladen hast!',
+	'check_again' => 'Check again',
 
 	// Widgets
 	'widgets' => 'Widgets',

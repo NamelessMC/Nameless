@@ -448,6 +448,7 @@ $language = array(
 	'instructions' => 'Instrucciones',
 	'download' => 'Descargar',
 	'install_confirm' => 'Asegúrese de haber descargado el paquete y cargado primero los archivos contenidos.',
+	'check_again' => 'Check again',
 
 	// Widgets
 	'widgets' => 'Widgets',

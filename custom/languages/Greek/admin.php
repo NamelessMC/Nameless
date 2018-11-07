@@ -453,6 +453,7 @@ $language = array(
 	'instructions' => 'Οδηγίες',
 	'download' => 'Λήψη',
 	'install_confirm' => 'Παρακαλούμε βεβαιωθείτε ότι έχετε κατεβάσει το πακέτο και να έχετε ανεβάσει τα αρχεία πρώτα!',
+	'check_again' => 'Check again',
 
 	// Widgets
 	'widgets' => 'Widgets',

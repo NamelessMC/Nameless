@@ -453,6 +453,7 @@ $language = array(
     'instructions' => 'Instrucțiuni',
     'download' => '<i class="fa fa-arrow-circle-down" aria-hidden="true"></i> Descarcă',
     'install_confirm' => 'Asigurați-vă că ați descărcat pachetul și ați încărcat mai întâi fișierele conținute!',
+    'check_again' => 'Check again',
 
     // Widgets
     'widgets' => 'Piese',

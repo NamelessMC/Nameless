@@ -451,6 +451,7 @@ $language = array(
 	'instructions' => 'Instruksjoner',
 	'download' => 'Last ned',
 	'install_confirm' => 'Pass på at du har lastet opp filene først!',
+	'check_again' => 'Check again',
 
 	// Widgets
 	'widgets' => 'Widgets',

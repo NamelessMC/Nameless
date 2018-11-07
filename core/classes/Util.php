@@ -498,6 +498,21 @@ class Util {
 	    	if($update_check == 'None'){
 	    		return json_encode(array('no_update' => true));
 		    } else {
+	    		$info = json_decode($update_check);
+
+			    if(!isset($info->error) && !isset($info->no_update) && isset($info->new_version)){
+			    	if(isset($info->urgent) && $info->urgent == 'true')
+			    		$to_db = 'urgent';
+			    	else
+			    		$to_db = 'true';
+
+			    	$update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+			    	$update_id = $update_id[0]->id;
+			    	$queries->update('settings', $update_id, array(
+			    		'value' => $to_db
+				    ));
+			    }
+
 			    return $update_check;
 		    }
 	    }

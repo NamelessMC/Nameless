@@ -455,6 +455,7 @@ $language = array(
 	'instructions' => '說明',
 	'download' => '下載',
 	'install_confirm' => '請確保您已經下載了軟件包並已上傳包含的檔案!',
+	'check_again' => 'Check again',
 
 	// Widgets
 	'widgets' => '小工具',

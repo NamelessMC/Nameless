@@ -451,6 +451,7 @@ $language = array(
 	'instructions' => 'Instrukce',
 	'download' => 'Stáhnout',
 	'install_confirm' => 'Ujistěte se prosím, že jste stáhl balíček a nejprve jste nahrál obsažené soubory!',
+	'check_again' => 'Check again',
 
 	// Widgets
 	'widgets' => 'Widgety',

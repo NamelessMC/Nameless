@@ -452,6 +452,7 @@ $language = array(
 	'instructions' => 'Instruktioner',
 	'download' => 'Ladda ner',
 	'install_confirm' => 'Var god och se till att du har laddat ner paketet och laddat upp filerna inuti först!',
+	'check_again' => 'Check again',
 
 	// Widgets
 	'widgets' => 'Widgetar',

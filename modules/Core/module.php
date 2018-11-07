@@ -84,6 +84,8 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/minecraft/query_errors', 'pages/panel/minecraft_query_errors.php');
 		$pages->add('Core', '/panel/minecraft/banners', 'pages/panel/minecraft_server_banners.php');
 		$pages->add('Core', '/panel/security', 'pages/panel/security.php');
+		$pages->add('Core', '/panel/update', 'pages/panel/update.php');
+		$pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
 		$pages->add('Core', '/panel/users', 'pages/panel/users.php');
 		$pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
 		$pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
@@ -924,6 +926,23 @@ class Core_Module extends Module {
 					$icon = $cache->retrieve('security_icon');
 
 				$navs[2]->add('security', $language->get('admin', 'security'), URL::build('/panel/security'), 'top', null, $order, $icon);
+			}
+
+			if($user->hasPermission('admincp.update')){
+				if(!$cache->isCached('update_order')){
+					$order = 9;
+					$cache->store('update_order', 9);
+				} else {
+					$order = $cache->retrieve('update_order');
+				}
+
+				if(!$cache->isCached('update_icon')){
+					$icon = '<i class="nav-icon fas fa-download"></i>';
+					$cache->store('update_icon', $icon);
+				} else
+					$icon = $cache->retrieve('update_icon');
+
+				$navs[2]->add('update', $language->get('admin', 'update'), URL::build('/panel/update'), 'top', null, $order, $icon);
 			}
 
 			if($user->hasPermission('admincp.users')){

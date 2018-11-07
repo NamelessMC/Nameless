@@ -454,6 +454,7 @@ $language = array(
 	'instructions' => '指示',
 	'download' => 'ダウンロード',
 	'install_confirm' => 'パッケージをダウンロードし、含まれているファイルを最初にアップロードしたことを確認してください。',
+	'check_again' => 'Check again',
 
 	// Widgets
 	'widgets' => 'ウィジェット',

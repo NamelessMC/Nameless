@@ -451,6 +451,7 @@ $language = array(
 	'instructions' => 'Instructions',
 	'download' => 'Download',
 	'install_confirm' => 'Please ensure you have downloaded the package and uploaded the contained files first!',
+	'check_again' => 'Check again',
 
 	// Widgets
 	'widgets' => 'Widgets',
