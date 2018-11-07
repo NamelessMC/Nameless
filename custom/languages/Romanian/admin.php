@@ -283,6 +283,10 @@ $language = array(
     'updated_mcassoc_successfully' => 'Setările mcassoc s-au actualizat cu succes.',
     'force_premium_accounts' => 'Forțează deținere unui cont de Minecraft permium?',
     'status_page' => 'Activați pagina de stare <small>(status)</small>?',
+    'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
+    'server_id_x' => 'Server ID: {x}', // Don't replace {x}
+    'server_information' => 'Server Information',
+    'query_information' => 'Query Information',
 
     // Modules
     'modules_installed_successfully' => 'Toate modulele noi au fost instalate cu succes (daca exista).',

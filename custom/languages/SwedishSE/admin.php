@@ -282,6 +282,10 @@ $language = array(
 	'player_graphs' => 'Player Grafer',
 	'player_count_cronjob_info' => 'Du kan ställa in ett cron-jobb för att queria dina servrar varenda {x} minuter med följande kommando:',
 	'status_page' => 'Enable status page?',
+	'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
+	'server_id_x' => 'Server ID: {x}', // Don't replace {x}
+	'server_information' => 'Server Information',
+	'query_information' => 'Query Information',
 
 	// Modules
 	'modules_installed_successfully' => 'Alla nya moduler har installerats!',

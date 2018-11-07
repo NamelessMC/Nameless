@@ -282,6 +282,10 @@ $language = array(
     'player_graphs' => 'Gráficos de Jogadores',
     'player_count_cronjob_info' => 'Você pode configurar uma cron job para consultar o seu servidor a cada {x} minutos com os seguintes comandos:',
     'status_page' => 'Enable status page?',
+    'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
+    'server_id_x' => 'Server ID: {x}', // Don't replace {x}
+    'server_information' => 'Server Information',
+    'query_information' => 'Query Information',
 
 	// Modules
 	'modules_installed_successfully' => 'Todos os novos módulos foram instalados com êxito.',

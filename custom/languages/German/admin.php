@@ -289,6 +289,10 @@ $language = array(
     'player_graphs' => 'Spielertafeln',
     'player_count_cronjob_info' => 'Sie können einen Cron-Job einrichten, um Ihre Server alle {x} Minuten mit dem folgenden Befehl abzufragen:',
     'status_page' => 'Statis Seite aktivieren?',
+    'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
+    'server_id_x' => 'Server ID: {x}', // Don't replace {x}
+    'server_information' => 'Server Information',
+    'query_information' => 'Query Information',
 
 	// Modules
 	'modules_installed_successfully' => 'Alle neuen Module wurden erfolgreich installiert.',

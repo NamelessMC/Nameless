@@ -284,6 +284,10 @@ $language = array(
     'player_graphs' => 'プレイヤーグラフ',
     'player_count_cronjob_info' => '次のコマンドを使用して {x} 分ごとにサーバーに照会するようにジョブを設定できます。',
     'status_page' => 'ステータスページを表示しますか？',
+    'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
+    'server_id_x' => 'Server ID: {x}', // Don't replace {x}
+    'server_information' => 'Server Information',
+    'query_information' => 'Query Information',
 
 	// Modules
 	'modules_installed_successfully' => '新しいモジュールが正常にインストールされました。',

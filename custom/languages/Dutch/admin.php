@@ -282,6 +282,10 @@ $language = array(
 	'player_graphs' => 'Speler grafieken',
 	'player_count_cronjob_info' => 'Je kan een cron job instellen om je servers op tevragen elke {x} minuten met de volgende commando:',
 	'status_page' => 'Statuspagina inschakelen?',
+	'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
+	'server_id_x' => 'Server ID: {x}', // Don't replace {x}
+	'server_information' => 'Server Information',
+	'query_information' => 'Query Information',
 
 	// Modulen
 	'modules_installed_successfully' => 'Alle nieuwe modules zijn succesvol toegevoegd.',

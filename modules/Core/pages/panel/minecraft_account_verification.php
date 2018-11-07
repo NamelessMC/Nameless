@@ -36,7 +36,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'integrations');
 define('PANEL_PAGE', 'minecraft');
 define('MINECRAFT_PAGE', 'verification');
-$page_title = $language->get('admin', 'minecraft');
+$page_title = $language->get('admin', 'account_verification');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Handle input

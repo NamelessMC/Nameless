@@ -285,6 +285,10 @@ $language = array(
 	'player_graphs' => '玩家圖表',
 	'player_count_cronjob_info' => '你可以設置一個cron作業，每間格 {x} 分鐘就使用下列指令查詢伺服器:',
 	'status_page' => 'Enable status page?',
+	'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
+	'server_id_x' => 'Server ID: {x}', // Don't replace {x}
+	'server_information' => 'Server Information',
+	'query_information' => 'Query Information',
 
 	// Modules
 	'modules_installed_successfully' => '全部模組都已經安裝成功.',

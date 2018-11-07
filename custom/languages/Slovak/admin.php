@@ -281,6 +281,10 @@ $language = array(
     'player_graphs' => 'Grafy hráčov',
     'player_count_cronjob_info' => 'Následujúcim príkazom môžete nastaviť "cron job" k query vašich serverov každých {x} minut:', // Don't replace "{x}" or "{y}"
     'status_page' => 'Enable status page?',
+    'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
+    'server_id_x' => 'Server ID: {x}', // Don't replace {x}
+    'server_information' => 'Server Information',
+    'query_information' => 'Query Information',
 	
 	// Modules
 	'modules_installed_successfully' => 'Všetky nové moduly sa nainštalovali.',

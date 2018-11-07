@@ -281,6 +281,10 @@ $language = array(
     'player_graphs' => 'Spillergrafer',
     'player_count_cronjob_info' => 'Du kan sette opp et cron job for å querye serveren hvert {x} minutt med denne kommandoen:',
     'status_page' => 'Enable status page?',
+    'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
+    'server_id_x' => 'Server ID: {x}', // Don't replace {x}
+    'server_information' => 'Server Information',
+    'query_information' => 'Query Information',
 
 	// Modules
 	'modules_installed_successfully' => 'Modulene er nå oppdatert',
