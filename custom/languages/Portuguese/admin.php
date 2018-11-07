@@ -286,6 +286,8 @@ $language = array(
     'server_id_x' => 'Server ID: {x}', // Don't replace {x}
     'server_information' => 'Server Information',
     'query_information' => 'Query Information',
+    'query_errors_purged_successfully' => 'Query errors purged successfully.',
+    'query_error_deleted_successfully' => 'Query error deleted successfully.',
 
 	// Modules
 	'modules_installed_successfully' => 'Todos os novos módulos foram instalados com êxito.',

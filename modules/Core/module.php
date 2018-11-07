@@ -80,6 +80,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
 		$pages->add('Core', '/panel/minecraft/account_verification', 'pages/panel/minecraft_account_verification.php');
 		$pages->add('Core', '/panel/minecraft/servers', 'pages/panel/minecraft_servers.php');
+		$pages->add('Core', '/panel/minecraft/query_errors', 'pages/panel/minecraft_query_errors.php');
 		$pages->add('Core', '/panel/users', 'pages/panel/users.php');
 		$pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
 		$pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');

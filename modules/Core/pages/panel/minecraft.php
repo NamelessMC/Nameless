@@ -115,7 +115,7 @@ if($minecraft_enabled == 1){
 
 	if($user->hasPermission('admincp.minecraft.query_errors')){
 		$smarty->assign(array(
-			'QUERY_ERRORS' => $language->get('admin', 'account_verification'),
+			'QUERY_ERRORS' => $language->get('admin', 'query_errors'),
 			'QUERY_ERRORS_LINK' => URL::build('/panel/minecraft/query_errors')
 		));
 	}

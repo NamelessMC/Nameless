@@ -466,6 +466,22 @@ class Default_Panel_Template extends TemplateBase {
 						});
 						');
 
+					} else if(MINECRAFT_PAGE == 'query_errors'){
+						$this->addCSSStyle('
+						.error_log {
+	                        width: 100%;
+	                        height: 50px;
+	                        padding: 0 10px;
+	                        -webkit-box-sizing: border-box;
+	                        -moz-box-sizing: border-box;
+	                        box-sizing: border-box;
+	                        overflow-y: scroll;
+	                        overflow-x: scroll;
+	                        white-space: initial;
+	                        background-color: #eceeef;
+	                    }
+						');
+
 					}
 
 					break;
