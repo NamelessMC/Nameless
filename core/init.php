@@ -394,11 +394,9 @@ if($page != 'install'){
     $cache->setCache('modulescache');
     if(!$cache->isCached('enabled_modules')){
     	$cache->store('enabled_modules', array(
-		    array('name' => 'Core', 'priority' => 1),
-		    array('name' => 'Forum', 'priority' => 4)
+		    array('name' => 'Core', 'priority' => 1)
 	    ));
 	    $cache->store('module_core', true);
-	    $cache->store('module_forum', true);
     }
     $enabled_modules = $cache->retrieve('enabled_modules');
 
