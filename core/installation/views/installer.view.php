@@ -533,7 +533,8 @@
                 'group_html' => '<span class="badge badge-success">Member</span>',
                 'group_html_lg' => '<span class="badge badge-success">Member</span>',
                 'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1}',
-                'default_group' => 1
+                'default_group' => 1,
+				'order' => 3
             ));
 
             $queries->create('groups', array(
@@ -543,22 +544,27 @@
                 'group_username_css' => '#ff0000',
                 'mod_cp' => 1,
                 'admin_cp' => 1,
-                'permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1, "admincp.security.all":1}'
+                'permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1, "admincp.security.all":1}',
+				'order' => 1,
+				'staff' => 1
             ));
 
             $queries->create('groups', array(
                 'name' => 'Moderator',
                 'group_html' => '<span class="badge badge-primary">Moderator</span>',
                 'group_html_lg' => '<span class="badge badge-primary">Moderator</span>',
-                'mod_cp' => 1,
-                'permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1}'
+                'admin_cp' => 1,
+                'permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1}',
+				'order' => 2,
+				'staff' => 1
             ));
 
             $queries->create('groups', array(
                 'name' => 'Unconfirmed Member',
                 'group_html' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
                 'group_html_lg' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
-                'group_username_css' => '#6c757d'
+                'group_username_css' => '#6c757d',
+				'order' => 4
             ));
 
             // Languages
@@ -1465,7 +1471,7 @@
 										'group_html' => $item->group_html,
 										'group_html_lg' => $item->group_html_lg,
 										'mod_cp' => $item->mod_cp,
-										'admin_cp' => $item->staff,
+										'admin_cp' => ($item->staff || $item->mod_cp),
 										'default_group' => (($item->id == 1) ? 1 : 0)
 									));
 								}
