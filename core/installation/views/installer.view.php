@@ -2454,7 +2454,7 @@
                 <h3><?php echo $language['finish']; ?></h3>
                 <p><?php echo $language['finish_message']; ?></p>
                 <p><?php echo $language['support_message']; ?></p>
-                <p><a href="index.php?route=/admin" class="btn btn-success btn-lg"><?php echo $language['finish']; ?></a></p>
+                <p><a href="index.php?route=/panel" class="btn btn-success btn-lg"><?php echo $language['finish']; ?></a></p>
     			<hr />
     			<h3><?php echo $language['credits']; ?></h3>
     			<p><?php echo $language['credits_message']; ?></p>
