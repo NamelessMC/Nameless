@@ -24,8 +24,6 @@ class Forum_Module extends Module {
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
 		// Define URLs which belong to this module
-		$pages->add('Forum', '/admin/forums', 'pages/admin/forums.php');
-
 		$pages->add('Forum', '/panel/forums', 'pages/panel/forums.php');
 		$pages->add('Forum', '/panel/forums/labels', 'pages/panel/labels.php');
 

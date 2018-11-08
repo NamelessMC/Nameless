@@ -317,3 +317,22 @@ NamelessMC version 2 Changelog
 - Remove user logs upon account deletion
 - Remove more user data upon account deletion
 - Fix update execute issues
+
+2.0.0 pr-5
+- Full list https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr4...v2.0.0-pr5
+- Many bugfixes
+- Translation updates
+- New staff panel
+- RTL language support
+- User popovers
+- Template + module system changes
+- API rank sync
+- Ability for templates to toggle editor dark mode
+- Navbar + forum icons
+- Full multi language alert support
+- Follow topics
+- Sitemap generator
+- Click-to-copy IP
+- Minecraft server status page
+- Auto close spoilers
+- Other minor additions
