@@ -168,6 +168,8 @@ $language = array(
 	'settings_updated_successfully' => 'Settings updated successfully.',
 	'forum_updated_successfully' => 'Forum updated successfully.',
 	'forum_deleted_successfully' => 'Forum deleted successfully.',
+	'label_deleted_successfully' => 'Label deleted successfully.',
+	'label_type_deleted_successfully' => 'Label type deleted successfully.',
 
 	// Search
     'forum_search' => 'Forum Search',
