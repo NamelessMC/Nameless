@@ -90,6 +90,11 @@ if(!defined('PAGE_DESCRIPTION')){
 			'PAGE_KEYWORDS' => $page_metadata[0]->tags
 		));
 	}
+} else {
+	$smarty->assign(array(
+		'PAGE_DESCRIPTION' => str_replace('{site}', SITE_NAME, PAGE_DESCRIPTION),
+		'PAGE_KEYWORDS' => (defined('PAGE_KEYWORDS') ? PAGE_KEYWORDS : '')
+	));
 }
 
 $smarty->assign('TITLE', $page_title);
