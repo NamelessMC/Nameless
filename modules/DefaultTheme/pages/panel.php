@@ -101,9 +101,9 @@ if($cache->isCached('nav_bg')){
 
 $themes = array(
 	0 => array(
-		'value' => 'default',
+		'value' => 'bootstrap',
 		'name' => 'Default',
-		'selected' => ($selected_theme == 'default')
+		'selected' => ($selected_theme == 'bootstrap')
 	),
 	1 => array(
 		'value' => 'cerulean',
