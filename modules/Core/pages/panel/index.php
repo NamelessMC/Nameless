@@ -135,6 +135,11 @@ if($user->hasPermission('admincp.core.debugging')){
 	} else {
 		$compat_success[] = 'PHP GD ' . phpversion('gd');
 	}
+	if(!extension_loaded('mbstring')){
+		$compat_errors[] = 'PHP mbstring';
+	} else {
+		$compat_success[] = 'PHP mbstring ' . phpversion('mbstring');
+	}
 	if(!extension_loaded('PDO')){
 		$compat_errors[] = 'PHP PDO';
 	} else {

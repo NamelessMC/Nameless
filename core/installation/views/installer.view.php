@@ -84,6 +84,12 @@
             } else {
                 echo 'PHP GD Extension - ' . $success;
             }
+	        if(!extension_loaded('mbstring')){
+		        echo 'PHP mbstring Extension - ' . $error;
+		        $php_error = true;
+	        } else {
+		        echo 'PHP mbstring Extension - ' . $success;
+	        }
             if(!extension_loaded('PDO')){
                 echo 'PHP PDO Extension - ' . $error;
                 $php_error = true;
