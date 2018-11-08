@@ -21,7 +21,7 @@
                             <div class="card-body">
                                 {$REGISTERED} <span data-toggle="tooltip" data-title="{$registration.time_full}">{$registration.time}</span><br />
                                 <hr />
-                                <a class="btn btn-primary btn-block text-white" href="{$report.url}">{$VIEW}</a>
+                                <a class="btn btn-primary btn-block text-white" href="{$registration.url}">{$VIEW}</a>
                             </div>
                         </div>
                     </div>
