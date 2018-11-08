@@ -771,7 +771,7 @@ class Core_Module extends Module {
 
 			if($user->hasPermission('admincp.minecraft')){
 				if(!$cache->isCached('minecraft_icon')){
-					$icon = '';
+					$icon = '<i class="nav-icon fas fa-cubes"></i>';
 					$cache->store('minecraft_icon', $icon);
 				} else
 					$icon = $cache->retrieve('minecraft_icon');
