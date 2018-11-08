@@ -41,15 +41,6 @@ $front_page_modules[] = 'modules/Forum/front_page.php';
 if(!isset($profile_tabs)) $profile_tabs = array();
 $profile_tabs['forum'] = array('title' => $forum_language->get('forum', 'forum'), 'smarty_template' => 'forum/profile_tab.tpl', 'require' => ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Forum' . DIRECTORY_SEPARATOR . 'profile_tab.php');
 
-// Add link to admin sidebar
-if($user->hasPermission('admincp.forums')){
-	if(!isset($admin_sidebar)) $admin_sidebar = array();
-	$admin_sidebar['forums'] = array(
-		'title' => $forum_language->get('forum', 'forums'),
-		'url' => URL::build('/admin/forums')
-	);
-}
-
 // Initialise module
 require_once(ROOT_PATH . '/modules/Forum/module.php');
 $module = new Forum_Module($language, $forum_language, $pages);
