@@ -306,6 +306,7 @@ $language = array(
     'view_all_modules' => 'Vizualizați toate modulele',
     'unable_to_retrieve_modules' => 'Imposibil de obținut module',
     'module' => 'Modul',
+    'unable_to_enable_module' => 'Unable to enable incompatible module.',
 
     // Styles
     'templates' => 'Șabloane',
@@ -345,6 +346,7 @@ $language = array(
 	'unable_to_delete_template' => 'Nu se poate șterge complet șablonul. Verificați permisiunile fișierelor.',
 	'background_reset_successfully' => 'Background reset successfully.',
 	'background_updated_successfully' => 'Background updated successfully.',
+	'unable_to_enable_template' => 'Unable to enable incompatible template.',
 
     // Users & groups
     'users' => 'Utilizatori',

@@ -312,6 +312,7 @@ $language = array(
 	'view_all_modules' => 'View all modules',
 	'unable_to_retrieve_modules' => 'Unable to retrieve modules',
 	'module' => 'Module',
+	'unable_to_enable_module' => 'Unable to enable incompatible module.',
 
 	// Styles
 	'templates' => 'Vorlagen',
@@ -351,6 +352,7 @@ $language = array(
 	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
 	'background_reset_successfully' => 'Background reset successfully.',
 	'background_updated_successfully' => 'Background updated successfully.',
+	'unable_to_enable_template' => 'Unable to enable incompatible template.',
 
 	// Users & groups
 	'users' => 'Benutzer',

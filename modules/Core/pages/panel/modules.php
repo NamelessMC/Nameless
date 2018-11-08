@@ -165,40 +165,58 @@ if(!isset($_GET['action'])){
 		// Enable a module
 		if(!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) die('Invalid module!');
 
-		$queries->update('modules', $_GET['m'], array(
-			'enabled' => 1
-		));
-
 		// Get module name
 		$name = $queries->getWhere('modules', array('id', '=', $_GET['m']));
+		if(!count($name)){
+			Redirect::to(URL::build('/panel/modules'));
+			die();
+		}
+
 		$name = Output::getClean($name[0]->name);
 
-		// Cache
-		$cache->setCache('modulescache');
-
-		// Get existing enabled modules
-		$enabled_modules = $cache->retrieve('enabled_modules');
-
-		$modules = array();
-
-		foreach($enabled_modules as $item){
-			$modules[] = $item;
+		// Ensure module is valid
+		if(!file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')){
+			Redirect::to(URL::build('/panel/modules'));
+			die();
 		}
 
-		$modules[] = array(
-			'name' => $name,
-			'priority' => 4
-		);
+		$module = null;
 
-		// Store
-		$cache->store('enabled_modules', $modules);
+		require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
 
-		if(file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')){
-			require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
+		if($module instanceof Module){
+			$queries->update('modules', $_GET['m'], array(
+				'enabled' => 1
+			));
+
+			// Cache
+			$cache->setCache('modulescache');
+
+			// Get existing enabled modules
+			$enabled_modules = $cache->retrieve('enabled_modules');
+
+			$modules = array();
+
+			foreach($enabled_modules as $item){
+				$modules[] = $item;
+			}
+
+			$modules[] = array(
+				'name' => $name,
+				'priority' => 4
+			);
+
+			// Store
+			$cache->store('enabled_modules', $modules);
+
+			// OK to enable
 			$module->onEnable();
-		}
 
-		Session::flash('admin_modules', $language->get('admin', 'module_enabled'));
+			Session::flash('admin_modules', $language->get('admin', 'module_enabled'));
+
+		} else
+			Session::flash('admin_modules_error', $language->get('admin', 'unable_to_enable_module'));
+
 		Redirect::to(URL::build('/panel/core/modules'));
 		die();
 
@@ -252,14 +270,17 @@ if(!isset($_GET['action'])){
 				$exists = $queries->getWhere('modules', array('name', '=', Output::getClean($folders[count($folders) - 1])));
 
 				if(!count($exists)){
-					// No, add it now
-					$queries->create('modules', array(
-						'name' => Output::getClean($folders[count($folders) - 1])
-					));
+					$module = null;
 
+					// No, add it now
 					require_once(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php');
 
-					$module->onInstall();
+					if($module instanceof Module){
+						$queries->create('modules', array(
+							'name' => Output::getClean($folders[count($folders) - 1])
+						));
+						$module->onInstall();
+					}
 				}
 			}
 		}
@@ -272,6 +293,9 @@ if(!isset($_GET['action'])){
 
 if(Session::exists('admin_modules'))
 	$success = Session::flash('admin_modules');
+
+if(Session::exists('admin_modules_error'))
+	$errors = array(Session::flash('admin_modules_error'));
 
 if(isset($success))
 	$smarty->assign(array(

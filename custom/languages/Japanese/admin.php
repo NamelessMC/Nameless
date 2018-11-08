@@ -307,6 +307,7 @@ $language = array(
 	'view_all_modules' => 'すべてのモジュールを見る',
 	'unable_to_retrieve_modules' => 'Unable to retrieve modules',
 	'module' => 'モジュール',
+	'unable_to_enable_module' => 'Unable to enable incompatible module.',
 
 	// Styles
 	'templates' => 'テンプレート',
@@ -346,6 +347,7 @@ $language = array(
 	'unable_to_delete_template' => 'テンプレートを完全に削除できませんでした。 ファイルのアクセス許可を確認してください。',
 	'background_reset_successfully' => 'Background reset successfully.',
 	'background_updated_successfully' => 'Background updated successfully.',
+	'unable_to_enable_template' => 'Unable to enable incompatible template.',
 
 	// Users & groups
 	'users' => 'ユーザー',

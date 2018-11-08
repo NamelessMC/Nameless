@@ -181,11 +181,16 @@ if(!isset($_GET['action'])){
 
 				// Is it already in the database?
 				$exists = $queries->getWhere('templates', array('name', '=', htmlspecialchars($folders[count($folders) - 1])));
-				if(!count($exists)){
-					// No, add it now
-					$queries->create('templates', array(
-						'name' => htmlspecialchars($folders[count($folders) - 1])
-					));
+				if(!count($exists) && file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . str_replace(array('../', '/', '..'), '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php')){
+					$template = null;
+					require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . str_replace(array('../', '/', '..'), '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php');
+
+					if($template instanceof TemplateBase){
+						// No, add it now
+						$queries->create('templates', array(
+							'name' => htmlspecialchars($folders[count($folders) - 1])
+						));
+					}
 				}
 			}
 
@@ -204,16 +209,29 @@ if(!isset($_GET['action'])){
 				Redirect::to(URL::build('/panel/core/templates/'));
 				die();
 			}
+			$name = str_replace(array('../', '/', '..'), '', $template[0]->name);
 
-			$template = $template[0]->id;
+			if(file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . 'template.php')){
+				$id = $template[0]->id;
+				$template = null;
 
-			// Activate the template
-			$queries->update('templates', $template, array(
-				'enabled' => 1
-			));
+				require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . 'template.php');
 
-			// Session
-			Session::flash('admin_templates', $language->get('admin', 'template_activated'));
+				if($template instanceof TemplateBase){
+					// Activate the template
+					$queries->update('templates', $id, array(
+						'enabled' => 1
+					));
+
+					// Session
+					Session::flash('admin_templates', $language->get('admin', 'template_activated'));
+
+				} else {
+					// Session
+					Session::flash('admin_templates_error', $language->get('admin', 'unable_to_enable_template'));
+				}
+			}
+
 			Redirect::to(URL::build('/panel/core/templates/'));
 			die();
 
