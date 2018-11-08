@@ -45,6 +45,9 @@
 
                     <div class="card">
                         <div class="card-body">
+                            <a class="btn btn-primary" href="{$GROUP_SYNC_LINK}">{$GROUP_SYNC}</a>
+                            <hr />
+
                             {if isset($SUCCESS)}
                                 <div class="alert alert-success alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

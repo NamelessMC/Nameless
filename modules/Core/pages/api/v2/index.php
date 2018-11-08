@@ -7,7 +7,7 @@
  *  License: MIT
  *
  *  Version 2.0.0 API
- *  API version 1.0.4
+ *  API version 1.0.5
  */
 
 // Headers
@@ -845,6 +845,60 @@ class Nameless2API
             } catch(Exception $e){
                 $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
             }
+
+            // Group sync
+	        try {
+            	$group_sync = $this->_db->get('group_sync', array('id', '<>', 0));
+
+            	if($group_sync->count()){
+            		$group_sync = $group_sync->results();
+            		$group_sync_updates = array();
+            		foreach($group_sync as $item){
+            			$group_sync_updates[strtolower($item->ingame_rank_name)] = array(
+            				'website' => $item->website_group_id,
+				            'primary' => $item->primary
+			            );
+		            }
+
+		            if(count($info['players'])){
+			            foreach($info['players'] as $uuid => $player){
+				            $user = new User();
+				            if($user->find($uuid, 'uuid')){
+				            	if($user->data()->id != 1){
+				            		// Can't update root user
+						            $rank = strtolower($player['rank']);
+
+						            if(array_key_exists($rank, $group_sync_updates) && $user->data()->group_id != $group_sync_updates[$rank]['website']){
+						            	$new_rank = $group_sync_updates[$rank];
+
+						            	if($new_rank['primary']){
+						            		$user->update(array(
+						            			'group_id' => $new_rank['website']
+								            ), $user->data()->id);
+							            } else {
+						            		if($user->data()->secondary_groups)
+						            		    $secondary = json_decode($user->data()->secondary_groups, true);
+						            		else
+						            			$secondary = array();
+
+						            		if(!in_array($new_rank['website'], $secondary)){
+									            $secondary[] = $new_rank['website'];
+
+									            $user->update(array(
+									            	'secondary_groups' => json_encode($secondary)
+									            ), $user->data()->id);
+								            }
+							            }
+						            }
+					            }
+				            }
+			            }
+		            }
+	            }
+
+	        } catch(Exception $e){
+		        $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
+	        }
 
             $this->returnArray(array('message' => $this->_language->get('api', 'server_info_updated')));
 
