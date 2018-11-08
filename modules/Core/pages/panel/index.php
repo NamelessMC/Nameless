@@ -179,6 +179,16 @@ if($user->hasPermission('admincp.core.debugging')){
 	));
 }
 
+if(is_dir(ROOT_PATH . '/modules/Core/pages/admin'))
+	$smarty->assign(array(
+		'DIRECTORY_WARNING' => $language->get('admin', 'admin_dir_still_exists')
+	));
+
+else if(is_dir(ROOT_PATH . '/modules/Core/pages/mod'))
+	$smarty->assign(array(
+		'DIRECTORY_WARNING' => $language->get('admin', 'mod_dir_still_exists')
+	));
+
 $smarty->assign(array(
 	'DASHBOARD' => $language->get('admin', 'dashboard'),
 	'DASHBOARD_STATS' => CollectionManager::getEnabledCollection('dashboard_stats'),

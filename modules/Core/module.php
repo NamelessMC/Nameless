@@ -93,28 +93,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/users/reports', 'pages/panel/users_reports.php');
 		$pages->add('Core', '/panel/user', 'pages/panel/user.php');
 
-		$pages->add('Core', '/admin', 'pages/admin/index.php');
-		$pages->add('Core', '/admin/auth', 'pages/admin/auth.php');
-		$pages->add('Core', '/admin/api', 'pages/admin/api.php');
-		$pages->add('Core', '/admin/core', 'pages/admin/core.php');
-		$pages->add('Core', '/admin/groups', 'pages/admin/groups.php');
-		$pages->add('Core', '/admin/images', 'pages/admin/images.php');
-		$pages->add('Core', '/admin/minecraft', 'pages/admin/minecraft.php');
-		$pages->add('Core', '/admin/modules', 'pages/admin/modules.php');
-		$pages->add('Core', '/admin/pages', 'pages/admin/pages.php');
-		$pages->add('Core', '/admin/metadata', 'pages/admin/metadata.php');
-		$pages->add('Core', '/admin/registration', 'pages/admin/registration.php');
-		$pages->add('Core', '/admin/security', 'pages/admin/security.php');
-		$pages->add('Core', '/admin/sitemap', 'pages/admin/sitemap.php');
-		$pages->add('Core', '/admin/styles', 'pages/admin/styles.php');
-		$pages->add('Core', '/admin/users', 'pages/admin/users.php');
-		$pages->add('Core', '/admin/update', 'pages/admin/update.php');
 		$pages->add('Core', '/admin/update_execute', 'pages/admin/update_execute.php');
-		$pages->add('Core', '/admin/update_uuids', 'pages/admin/update_uuids.php');
-		$pages->add('Core', '/admin/update_mcnames', 'pages/admin/update_mcnames.php');
-		$pages->add('Core', '/admin/reset_password', 'pages/admin/reset_password.php');
-		$pages->add('Core', '/admin/night_mode', 'pages/admin/night_mode.php');
-		$pages->add('Core', '/admin/widgets', 'pages/admin/widgets.php');
 
 		// Ajax GET requests
 		$pages->addAjaxScript(URL::build('/queries/servers'));

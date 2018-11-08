@@ -36,6 +36,12 @@
                     </div>
                 {/if}
 
+                {if isset($DIRECTORY_WARNING)}
+                    <div class="alert alert-warning">
+                        {$DIRECTORY_WARNING}
+                    </div>
+                {/if}
+
                 {if count($DASHBOARD_STATS)}
                     {assign var="i" value=0}
                     <div class="row">

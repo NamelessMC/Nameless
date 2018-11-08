@@ -586,5 +586,7 @@ $language = array(
 
     // Other
     'source' => 'Sursă',
-    'support' => 'Asistenţă'
+    'support' => 'Asistenţă',
+    'admin_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/admin</strong> directory still exists. Please remove this directory.',
+    'mod_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/mod</strong> directory still exists. Please remove this directory.'
 );
