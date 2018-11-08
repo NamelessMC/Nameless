@@ -44,22 +44,24 @@ class DefaultTheme_Module extends Module {
 
 	public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template){
 		if(defined('BACK_END')){
-			$cache->setCache('panel_sidebar');
-			if(!$cache->isCached('default_themes_order')){
-				$order = 30;
-				$cache->store('default_themes_order', 30);
-			} else {
-				$order = $cache->retrieve('default_themes_order');
+			if($user->hasPermission('admincp.styles.templates')){
+				$cache->setCache('panel_sidebar');
+				if(!$cache->isCached('default_themes_order')){
+					$order = 30;
+					$cache->store('default_themes_order', 30);
+				} else {
+					$order = $cache->retrieve('default_themes_order');
+				}
+
+				if(!$cache->isCached('default_themes_icon')){
+					$icon = '<i class="nav-icon fas fa-paint-brush"></i>';
+					$cache->store('default_themes_icon', $icon);
+				} else
+					$icon = $cache->retrieve('default_themes_icon');
+
+				$navs[2]->add('default_themes_divider', mb_strtoupper($this->_language->get('language', 'default_theme_title')), 'divider', 'top', null, $order, '');
+				$navs[2]->add('default_themes', $this->_language->get('language', 'default_theme_title'), URL::build('/panel/defaulttheme'), 'top', null, $order, $icon);
 			}
-
-			if(!$cache->isCached('default_themes_icon')){
-				$icon = '<i class="nav-icon fas fa-paint-brush"></i>';
-				$cache->store('default_themes_icon', $icon);
-			} else
-				$icon = $cache->retrieve('default_themes_icon');
-
-			$navs[2]->add('default_themes_divider', mb_strtoupper($this->_language->get('language', 'default_theme_title')), 'divider', 'top', null, $order, '');
-			$navs[2]->add('default_themes', $this->_language->get('language', 'default_theme_title'), URL::build('/panel/defaulttheme'), 'top', null, $order, $icon);
 		}
 	}
 }

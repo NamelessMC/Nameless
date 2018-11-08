@@ -133,30 +133,32 @@ class Forum_Module extends Module {
 			}
 
 		} else if(defined('BACK_END')){
-			$cache->setCache('panel_sidebar');
-			if(!$cache->isCached('forum_order')){
-				$order = 10;
-				$cache->store('forum_order', 10);
-			} else {
-				$order = $cache->retrieve('forum_order');
+			if($user->hasPermission('admincp.forums')){
+				$cache->setCache('panel_sidebar');
+				if(!$cache->isCached('forum_order')){
+					$order = 10;
+					$cache->store('forum_order', 10);
+				} else {
+					$order = $cache->retrieve('forum_order');
+				}
+
+				if(!$cache->isCached('forum_icon')){
+					$icon = '<i class="nav-icon fas fa-comments"></i>';
+					$cache->store('forum_icon', $icon);
+				} else
+					$icon = $cache->retrieve('forum_icon');
+
+				$navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, $order, '');
+				$navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, $order, $icon);
+
+				if(!$cache->isCached('forum_label_icon')){
+					$icon = '<i class="nav-icon fas fa-tags"></i>';
+					$cache->store('forum_label_icon', $icon);
+				} else
+					$icon = $cache->retrieve('forum_label_icon');
+
+				$navs[2]->add('forum_labels', $this->_forum_language->get('forum', 'labels'), URL::build('/panel/forums/labels'), 'top', null, $order, $icon);
 			}
-
-			if(!$cache->isCached('forum_icon')){
-				$icon = '<i class="nav-icon fas fa-comments"></i>';
-				$cache->store('forum_icon', $icon);
-			} else
-				$icon = $cache->retrieve('forum_icon');
-
-			$navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, $order, '');
-			$navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, $order, $icon);
-
-			if(!$cache->isCached('forum_label_icon')){
-				$icon = '<i class="nav-icon fas fa-tags"></i>';
-				$cache->store('forum_label_icon', $icon);
-			} else
-				$icon = $cache->retrieve('forum_label_icon');
-
-			$navs[2]->add('forum_labels', $this->_forum_language->get('forum', 'labels'), URL::build('/panel/forums/labels'), 'top', null, $order, $icon);
 
 			if(defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard'){
 				// Dashboard graph
