@@ -106,7 +106,7 @@ class Queries {
 		if(!empty($data)){
 			return '<div class="alert alert-warning">Database already initialised!</div>';
 		} else {
-			$data = $this->_db->createTable("alerts", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `type` varchar(64) NOT NULL, `url` varchar(255) NOT NULL, `content_short` varchar(64) NOT NULL, `content` varchar(512) NOT NULL, `created` int(11) NOT NULL, `read` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+			$data = $this->_db->createTable("alerts", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `type` varchar(64) NOT NULL, `url` varchar(255) NOT NULL, `content_short` varchar(128) NOT NULL, `content` varchar(512) NOT NULL, `created` int(11) NOT NULL, `read` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			$data = $this->_db->createTable("announcements", " `id` int(11) NOT NULL AUTO_INCREMENT, `content` mediumtext NOT NULL, `can_close` tinyint(1) NOT NULL DEFAULT '0', `type` varchar(16) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			$data = $this->_db->createTable("announcements_pages", " `id` int(11) NOT NULL AUTO_INCREMENT, `announcement_id` int(11) NOT NULL, `page` varchar(64) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			$data = $this->_db->createTable("announcements_permissions", " `id` int(11) NOT NULL AUTO_INCREMENT, `announcement_id` int(11) NOT NULL, `group_id` int(11) DEFAULT NULL, `user_id` int(11) DEFAULT NULL, `view` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
