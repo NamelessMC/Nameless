@@ -49,7 +49,7 @@ Support can be found in one of the following places:
 - [Official support forum](https://namelessmc.com/forum)
 - [SpigotMC](https://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
 
-Feature requests can be posted on the [forum](https://namelessmc.com/forum/view/7-web-feature-requests/), and bugs can be reported in the []GitHub Issues](https://github.com/NamelessMC/Nameless/issues) tab.
+Feature requests can be posted on the [forum](https://namelessmc.com/forum/view/7-web-feature-requests/), and bugs can be reported in the [GitHub Issues](https://github.com/NamelessMC/Nameless/issues) tab.
 
 ## Translations
 NamelessMC translations are kindly provided by the community. Currently available translations can be found [here](https://github.com/NamelessMC/Nameless/tree/v2/custom/languages). Please note, not all translations may be up to date.
