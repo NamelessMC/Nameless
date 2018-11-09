@@ -391,8 +391,6 @@ $language = array(
 	'group_html_lg' => 'Gruppen HTML (Groß)',
 	'group_username_colour' => 'Benutzernamenfarbe der Gruppe',
 	'group_staff' => 'Ist diese Gruppe eine Teamgruppe?',
-	'group_modcp' => 'Kann diese Gruppe auf das ModCP zugreifen?',
-	'group_admincp' => 'Kann diese Gruppe auf das AdminCP zugreifen?',
 	'delete_group' => 'Gruppe Löschen',
 	'confirm_group_deletion' => 'Möchtest du die Gruppe {x} wirklich löschen?', // Don't replace {x}
 	'group_not_exist' => 'Diese Gruppe existiert nicht.',
@@ -439,7 +437,7 @@ $language = array(
     'maintenance_message_max_1024' => 'Bitte stellen Sie sicher, dass Ihre Wartungsnachricht maximal 1024 Zeichen beträgt.',
 
 	// Security
-	'acp_logins' => 'AdminCP Logins',
+	'acp_logins' => 'StaffCP Logins',
 	'please_select_logs' => 'Bitte wähle die Logs aus.',
 	'ip_address' => 'IP Addresse',
 	'template_changes' => 'Template Editierungen',
@@ -531,7 +529,7 @@ $language = array(
 	'registration_link' => 'Registration Link',
     'link_to_complete_registration' => 'Link zur vollständigen Registrierung: {x}', // Don't replace {x}
     'api_verification' => 'API Verifizierung aktivieren?',
-    'api_verification_info' => 'Wenn diese Option aktiviert ist, können Konten nur über die API überprüft werden, z. B. im Spiel mit dem offiziellen Nameless-Plugin. <strong> Diese Option überschreibt die E-Mail-Überprüfung, und die Konten werden automatisch aktiviert! </strong> <br /> Sie sollten Ihre Standardgruppe mit eingeschränkten Berechtigungen einrichten und anschließend die Post-Validierungsgruppe im AdminCP -> aktualisieren Core -> Registerkarte Registrierung für die vollständige Mitgliedergruppe mit normalen Berechtigungen.',
+    'api_verification_info' => 'Wenn diese Option aktiviert ist, können Konten nur über die API überprüft werden, z. B. im Spiel mit dem offiziellen Nameless-Plugin. <strong> Diese Option überschreibt die E-Mail-Überprüfung, und die Konten werden automatisch aktiviert! </strong> <br /> Sie sollten Ihre Standardgruppe mit eingeschränkten Berechtigungen einrichten und anschließend die Post-Validierungsgruppe im StaffCP -> aktualisieren Core -> Registerkarte Registrierung für die vollständige Mitgliedergruppe mit normalen Berechtigungen.',
     'enable_username_sync' => 'Username Synchronisation aktivieren??',
     'enable_username_sync_info' => 'Wenn diese Option aktiviert ist, werden die Nutzernamen der Website aktualisiert, damit sie mit den Benutzernamen im Spiel übereinstimmen.',
 	'api_settings_updated_successfully' => 'API Einstellungen wurden gespeichert.',

@@ -77,7 +77,7 @@ $language = array(
     'yes' => 'Ano',
     'no' => 'Ne',
     'finish' => 'Dokončit',
-    'finish_message' => 'Děkujeme Vám za instalaci služby NamelessMC! Nyní můžete pokračovat do ovládacího panelu administrátora (AdminCP), kde můžete nakonfigurovat svůj web blíže.',
+    'finish_message' => 'Děkujeme Vám za instalaci služby NamelessMC! Nyní můžete pokračovat do ovládacího panelu administrátora (StaffCP), kde můžete nakonfigurovat svůj web blíže.',
     'support_message' => 'Pokud potřebujete nějakou pomoc, podívejte se <a href="https://namelessmc.com" target="_blank">zde</a> na náš web, nebo můžete navštívit i  <a href="https://discord.gg/9vk93VR" target="_blank">Discord server</a> nebo naše <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub uložiště</a>.',
     'credits' => 'Zásluha',
     'credits_message' => 'Velké poděkování všem <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC spolupracovníkům</a> od roku 2014'

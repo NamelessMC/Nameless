@@ -79,7 +79,7 @@ $language = array(
     'yes' => 'はい',
     'no' => 'いいえ',
     'finish' => 'フィニッシュ',
-    'finish_message' => 'NamelessMCをインストールしていただきありがとうございます！ AdminCP に進み、Web サイトをさらに構成することができます。',
+    'finish_message' => 'NamelessMCをインストールしていただきありがとうございます！ StaffCP に進み、Web サイトをさらに構成することができます。',
     'support_message' => 'サポートが必要な場合は、当社のウェブサイト <a href="https://namelessmc.com" target="_blank">こちら</a> をご覧いただくか、 <a href="https://discord.gg/9vk93VR" target="_blank">Discord サーバー</a> または <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHubリポジトリ</a> へ',
     'credits' => 'クレジット',
     'credits_message' => '2014年以降のすべての <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMCの貢献者</a>に感謝します'

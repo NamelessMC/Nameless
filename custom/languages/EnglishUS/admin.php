@@ -383,8 +383,6 @@ $language = array(
 	'group_html_lg' => 'Group HTML Large',
 	'group_username_colour' => 'Group Username Color',
 	'group_staff' => 'Is the group a staff group?',
-	'group_modcp' => 'Can the group view the ModCP?',
-	'group_admincp' => 'Can the group view the AdminCP?',
 	'delete_group' => 'Delete Group',
 	'confirm_group_deletion' => 'Are you sure you want to delete the group {x}?', // Don't replace {x}
 	'group_not_exist' => 'That group doesn\'t exist.',
@@ -431,7 +429,7 @@ $language = array(
     'maintenance_message_max_1024' => 'Please ensure your maintenance message is a maximum of 1024 characters.',
 
 	// Security
-	'acp_logins' => 'AdminCP Logins',
+	'acp_logins' => 'StaffCP Logins',
 	'please_select_logs' => 'Please select logs to view',
 	'ip_address' => 'IP Address',
 	'template_changes' => 'Template Changes',
@@ -523,7 +521,7 @@ $language = array(
 	'registration_link' => 'Registration Link',
     'link_to_complete_registration' => 'Link to complete registration: {x}', // Don't replace {x}
     'api_verification' => 'Enable API verification?',
-    'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the AdminCP -> Core -> Registration tab to the full member group with normal permissions.',
+    'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the StaffCP -> Configuration -> Registration tab to the full member group with normal permissions.',
     'enable_username_sync' => 'Enable username sync?',
     'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
 	'api_settings_updated_successfully' => 'API settings updated successfully.',

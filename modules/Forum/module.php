@@ -72,7 +72,7 @@ class Forum_Module extends Module {
 	public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template){
 		// AdminCP
 		PermissionHandler::registerPermissions('Forum', array(
-			'admincp.forums' => $this->_language->get('admin', 'admin_cp') . ' &raquo; ' . $this->_forum_language->get('forum', 'forum')
+			'admincp.forums' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_forum_language->get('forum', 'forum')
 		));
 
 		// Sitemap

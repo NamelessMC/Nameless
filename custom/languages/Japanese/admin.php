@@ -386,8 +386,6 @@ $language = array(
 	'group_html_lg' => 'グループ HTML(大)',
 	'group_username_colour' => 'グループテーマカラー',
 	'group_staff' => 'スタッフグループに設定しますか？',
-	'group_modcp' => 'このグループに ModCP を表示させますか？',
-	'group_admincp' => 'このグループに AdminCP を表示させますか？',
 	'delete_group' => 'グループ削除',
 	'confirm_group_deletion' => 'グループ {x} を削除してもよろしいですか？', // Don't replace {x}
 	'group_not_exist' => '指定したグループは存在しません。',
@@ -434,7 +432,7 @@ $language = array(
     'maintenance_message_max_1024' => 'メンテナンスメッセージが <strong>1024文字</strong>　以下であることをご確認ください。',
 
 	// Security
-	'acp_logins' => 'AdminCP ログイン',
+	'acp_logins' => 'StaffCP ログイン',
 	'please_select_logs' => '表示するログを選択してください。',
 	'ip_address' => 'IP アドレス',
 	'template_changes' => 'テンプレート変更',
@@ -526,7 +524,7 @@ $language = array(
     'registration_link' => '登録リンク',
     'link_to_complete_registration' => '登録を完了するためのリンク: {x}', // Don't replace {x}
     'api_verification' => 'APIの確認を有効にしますか？',
-    'api_verification_info' => '有効にすると、登録時のアカウント検証に Namelessプラグイン を使用できるようになり、本当にMinecraftアカウントを所持しているのかがわかるようになります。</br><strong>このオプションは、メール認証が有効になっていても優先になります。検証が完了すると自動でアカウントが有効になります。</strong></br>初期グループを設定し、未検証アカウントのアクセス許可を確認してください。その後、「AdminCP → コンフィグ → 登録」の検証後昇格先グループを、通常のアクセス許可を持つグループに更新する必要があります。',
+    'api_verification_info' => '有効にすると、登録時のアカウント検証に Namelessプラグイン を使用できるようになり、本当にMinecraftアカウントを所持しているのかがわかるようになります。</br><strong>このオプションは、メール認証が有効になっていても優先になります。検証が完了すると自動でアカウントが有効になります。</strong></br>初期グループを設定し、未検証アカウントのアクセス許可を確認してください。その後、「StaffCP → コンフィグ → 登録」の検証後昇格先グループを、通常のアクセス許可を持つグループに更新する必要があります。',
     'enable_username_sync' => 'ユーザーネームの同期を有効にしますか？',
     'enable_username_sync_info' => '有効にすると、WebサイトのユーザーネームをMinecraftユーザーネームと同期します。',
 	'api_settings_updated_successfully' => 'API設定が正常に更新されました。',
