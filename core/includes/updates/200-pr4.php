@@ -77,6 +77,13 @@ try {
 }
 
 try {
+	$queries->alterTable('groups', '`order`', "int(11) NOT NULL DEFAULT '1'");
+} catch(Exception $e){
+	// unable to update table
+	echo $e->getMessage() . '<br />';
+}
+
+try {
 	$queries->alterTable('infractions', 'created', "int(11) DEFAULT NULL");
 } catch(Exception $e){
 	// unable to update table
