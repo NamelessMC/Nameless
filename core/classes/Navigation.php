@@ -134,7 +134,12 @@ class Navigation {
 					// Sort dropdown
 					if(isset($return[$key]['items']) && count($return[$key]['items'])){
 						uasort($return[$key]['items'], function($a, $b){
-							return $a['order'] - $b['order'];
+							if($a['order'] > $b['order']){
+								$result = 1;
+							} else if($a['order'] < $b['order']){
+								$result = -1;
+							}
+							return $result;
 						});
 					}
 				}
@@ -150,7 +155,12 @@ class Navigation {
 					// Sort dropdown
 					if(isset($return[$key]['items']) && count($return[$key]['items'])){
 						uasort($return[$key]['items'], function($a, $b){
-							return $a['order'] - $b['order'];
+							if($a['order'] > $b['order']){
+								$result = 1;
+							} else if($a['order'] < $b['order']){
+								$result = -1;
+							}
+							return $result;
 						});
 					}
 				}
@@ -158,7 +168,13 @@ class Navigation {
 		}
 
         uasort($return, function($a, $b){
-            return $a['order'] - $b['order'];
+	        $result = 0;
+	        if($a['order'] > $b['order']){
+		        $result = 1;
+	        } else if($a['order'] < $b['order']){
+		        $result = -1;
+	        }
+	        return $result;
         });
 
 		return $return;

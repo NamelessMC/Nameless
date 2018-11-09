@@ -60,7 +60,7 @@ class DefaultTheme_Module extends Module {
 					$icon = $cache->retrieve('default_themes_icon');
 
 				$navs[2]->add('default_themes_divider', mb_strtoupper($this->_language->get('language', 'default_theme_title')), 'divider', 'top', null, $order, '');
-				$navs[2]->add('default_themes', $this->_language->get('language', 'default_theme_title'), URL::build('/panel/defaulttheme'), 'top', null, $order, $icon);
+				$navs[2]->add('default_themes', $this->_language->get('language', 'default_theme_title'), URL::build('/panel/defaulttheme'), 'top', null, ($order + 0.1), $icon);
 			}
 		}
 	}
