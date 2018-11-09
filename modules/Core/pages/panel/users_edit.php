@@ -51,6 +51,7 @@ define('PANEL_PAGE', 'users');
 define('EDITING_USER', true);
 $page_title = $language->get('admin', 'users');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php');
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
@@ -406,6 +407,40 @@ $smarty->assign(array(
 	'SECONDARY_GROUPS_INFO' => $language->get('admin', 'secondary_groups_info'),
 	'SECONDARY_GROUPS_VALUE' => ((($user_secondary_groups = json_decode($user_query->secondary_groups, true)) == null) ? array() : $user_secondary_groups),
 	'INFO' => $language->get('general', 'info')
+));
+
+$cache->setCache('post_formatting');
+$formatting = $cache->retrieve('formatting');
+if($formatting == 'markdown'){
+	$template->addJSFiles(array(
+		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
+		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => array()
+	));
+
+	$template->addJSScript('
+            $(document).ready(function() {
+                var el = $("#InputSignature").emojioneArea({
+                    pickerPosition: "bottom"
+                });
+            });
+		');
+
+} else {
+	$template->addJSFiles(array(
+		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
+		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
+		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
+		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array()
+	));
+
+	$template->addJSScript(Input::createEditor('InputSignature'));
+}
+
+$template->addCSSFiles(array(
+	(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
+	(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
+	(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
+	(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array(),
 ));
 
 $page_load = microtime(true) - $start;
