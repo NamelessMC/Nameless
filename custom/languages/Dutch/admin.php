@@ -403,7 +403,7 @@ $language = array(
 	'can_view_staffcp' => 'Kan de groep de StaffCP bekijken?',
 	'user' => 'User',
 	'user_validated_successfully' => 'User validated successfully.',
-	'user_updated_successfully' => 'User updated successfully,',
+	'user_updated_successfully' => 'User updated successfully.',
 	'editing_user_x' => 'Editing user {x}', // Don't replace {x}
 	'details' => 'Details',
 
