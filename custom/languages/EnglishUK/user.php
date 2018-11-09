@@ -22,8 +22,8 @@ $language = array(
 	'guests' => 'Guests',
 	
 	// UserCP
-	'user_cp' => 'UserCP',
-	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">UserCP</span>',
+	'user_cp' => 'Account',
+	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Account</span>',
 	'overview' => 'Overview',
 	'user_details' => 'User Details',
 	'profile_settings' => 'Profile Settings',
