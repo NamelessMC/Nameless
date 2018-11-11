@@ -314,7 +314,7 @@ if($formatting == 'markdown'){
 	require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
 	$converter = new League\HTMLToMarkdown\HtmlConverter(array('strip_tags' => true));
 
-	$clean = $converter->convert(htmlspecialchars_decode($post_editing[0]->post_content));
+	$clean = $converter->convert(Output::getDecoded($post_editing[0]->post_content));
 	$clean = Output::getPurified($clean);
 
 	$template->addJSFiles(array(
@@ -328,11 +328,11 @@ if($formatting == 'markdown'){
 			pickerPosition: "bottom"
 		});
 
-		el[0].emojioneArea.setText(\'' . str_replace(array("\'", "&gt;", "&amp;"), array("&#39;", ">", "&"), str_replace(array("\r", "\n"), array("\\r", "\\n"), $clean)) . '\');
+		el[0].emojioneArea.setText(\'' . str_replace(array("'", "&gt;", "&amp;"), array("&#39;", ">", "&"), str_replace(array("\r", "\n"), array("\\r", "\\n"), $clean)) . '\');
  	 });
 	');
 } else {
-	$clean = htmlspecialchars_decode($post_editing[0]->post_content);
+	$clean = Output::getDecoded($post_editing[0]->post_content);
 	$clean = Output::getPurified($clean);
 
 	$template->addJSFiles(array(
@@ -348,7 +348,7 @@ if($formatting == 'markdown'){
 	if(!Session::exists('failure_post')){
 		$template->addJSScript('
 		CKEDITOR.on(\'instanceReady\', function(ev) {
-			CKEDITOR.instances.editor.insertHtml(\'' . str_replace("\'", "&#39;", str_replace(array("\r", "\n"), '', $clean)) . '\');
+			CKEDITOR.instances.editor.insertHtml(\'' . str_replace("'", "&#39;", str_replace(array("\r", "\n"), '', $clean)) . '\');
 		});
 		');
 	}
