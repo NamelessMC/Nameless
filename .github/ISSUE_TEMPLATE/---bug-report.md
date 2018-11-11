@@ -8,7 +8,7 @@ about: Inform us of any bugs/issues you may have found
 Please describe the issue in as much detail as possible
 
 **To Reproduce**
-Steps to reproduce the behaviour:
+Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
