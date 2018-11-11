@@ -1477,7 +1477,7 @@
 										'group_html' => $item->group_html,
 										'group_html_lg' => $item->group_html_lg,
 										'mod_cp' => $item->mod_cp,
-										'admin_cp' => ($item->staff || $item->mod_cp),
+										'admin_cp' => $item->staff,
 										'default_group' => (($item->id == 1) ? 1 : 0)
 									));
 								}
