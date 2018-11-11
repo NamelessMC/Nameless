@@ -46,13 +46,14 @@ if(isset($_GET['do'])){
 		foreach($languages as $item){
 			if(file_exists($item . DIRECTORY_SEPARATOR . 'version.php')){
 				$folders = explode(DIRECTORY_SEPARATOR, $item);
+				$folder_name = $folders[count($folders) - 1];
 
 				// Is it already in the database?
-				$exists = $queries->getWhere('languages', array('name', '=', Output::getClean($folders[2])));
+				$exists = $queries->getWhere('languages', array('name', '=', Output::getClean($folder_name)));
 				if(!count($exists)){
 					// No, add it now
 					$queries->create('languages', array(
-						'name' => Output::getClean($folders[2])
+						'name' => Output::getClean($folder_name)
 					));
 				}
 			}
