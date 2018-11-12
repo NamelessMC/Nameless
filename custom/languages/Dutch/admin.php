@@ -527,20 +527,20 @@ $language = array(
 	'enable_username_sync' => 'Gebruikersnaam synchroniseren?',
 	'enable_username_sync_info' => 'Indien ingeschakeld, zullen de gebruikersnamen van de website worden aangepast aan de ingame gebruikersnamen.',
 	'api_settings_updated_successfully' => 'API-instellingen succesvol bijgewerkt.',
-	'group_sync' => 'Group Sync',
-	'group_sync_info' => 'You can configure the API to automatically update a user\'s website group when their ingame group is changed. Simply enter the ingame group name and the website group it should be synchronised with below.',
-	'ingame_group' => 'Ingame Group Name',
-	'website_group' => 'Website Group',
-	'set_as_primary_group' => 'Set as primary group?',
-	'set_as_primary_group_info' => 'If enabled, the user\'s primary website group will be updated. If disabled, the ingame group will be added to the user\'s website secondary groups.',
-	'ingame_group_maximum' => 'Please ensure your group name is a maximum of 64 characters long.',
-	'select_website_group' => 'Please select a website group.',
-	'ingame_group_already_exists' => 'A rank sync rule has already been created for that ingame group.',
-	'group_sync_rule_created_successfully' => 'The group sync rule has been created successfully.',
-	'group_sync_rules_updated_successfully' => 'Group sync rules have been updated successfully.',
-	'group_sync_rule_deleted_successfully' => 'The group sync rule has been deleted successfully.',
-	'existing_rules' => 'Existing Rules',
-	'new_rule' => 'New Rule',
+	'group_sync' => 'Groep synchronisatie',
+	'group_sync_info' => 'De groep van een gebruiker op de website zal aangepast worden aan de hand van de in-game groep.',
+	'ingame_group' => 'In-game groep',
+	'website_group' => 'Website groep',
+	'set_as_primary_group' => 'Instellen als primaire groep?',
+	'set_as_primary_group_info' => 'Als dit aan staat, zal de primaire groep op de website vervangen worden. Als dit uit staat, zal de groep bijgevoegd worden aan de lijst van secundaire groepen.',
+	'ingame_group_maximum' => 'Zorg dat de group naam niet langer is dan 64 tekens.',
+	'select_website_group' => 'Selecteer een website groep.',
+	'ingame_group_already_exists' => 'Er bestaat al een groep synchronisatie regel voor deze in-game groep.',
+	'group_sync_rule_created_successfully' => 'De groep synchronisatie regel is succesvol aangemaakt.',
+	'group_sync_rules_updated_successfully' => 'Group synchronisatie regels zijn succesvol bijgewerkt.',
+	'group_sync_rule_deleted_successfully' => 'De group synchronisatie regel is succesvol verwijderd.',
+	'existing_rules' => 'Bestaande Regels',
+	'new_rule' => 'Nieuwe Regel',
 
 	// Bestand uploads
 	'drag_files_here' => 'Sleep bestand(en) hier naartoe om te uploaden.',
@@ -565,8 +565,8 @@ $language = array(
 	'discord_hook_url' => 'Discord webhook URL',
 	'discord_hook_events' => 'Ingeschakelde Discord hook-gebeurtenissen (Ctrl+klik om meerdere gebeurtenissen te selecteren)',
 	'register_hook_info' => 'Gebruikersregistratie',
-	'validate_hook_info' => 'User validation',
-	'delete_hook_info' => 'User deletion',
+	'validate_hook_info' => 'Gebruikervalidatie',
+	'delete_hook_info' => 'Gebruikerverwijdering',
 
 	// Sitemap
 	'unable_to_load_sitemap_file_x' => 'Kan geen sitemap-bestand laden {x}', // Don't replace {x}
@@ -601,6 +601,6 @@ $language = array(
 	// Other
 	'source' => 'Bron',
 	'support' => 'Ondersteuning',
-	'admin_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/admin</strong> directory still exists. Please remove this directory.',
-	'mod_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/mod</strong> directory still exists. Please remove this directory.'
+	'admin_dir_still_exists' => 'Waarschuwing! De map <strong>modules/Core/pages/admin</strong> bestaat nog steeds. Gelieve deze te verwijderen.',
+	'mod_dir_still_exists' => 'Waarschuwing! De map <strong>modules/Core/pages/mod</strong> bestaat nog steeds. Gelieve deze te verwijderen.'
 );
