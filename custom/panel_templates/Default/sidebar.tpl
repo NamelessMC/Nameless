@@ -33,7 +33,7 @@
                                     {if count($item.items)}
                                         {foreach from=$item.items key=subKey item=subItem}
                                             <li class="nav-item">
-                                                <a href="{$subItem.link}" class="nav-link{if $PAGE eq $subKey} active{/if}">
+                                                <a href="{$subItem.link}" style="margin-left:10px;" class="nav-link{if $PAGE eq $subKey} active{/if}">
                                                     {$subItem.icon}
                                                     <p>{$subItem.title}</p>
                                                 </a>
