@@ -83,6 +83,7 @@ $language = array(
 	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => 'Actualizado exitosamente',
     'debugging_and_maintenance' => 'Depuración y mantenimiento',
+    'maintenance' => 'Mantenimiento',
     'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => '¿Habilitar modo de depuracion?',
     'force_https' => '¿Forzar HTTPs?',

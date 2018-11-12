@@ -82,6 +82,7 @@ $language = array(
 	'social_media_settings_updated' => 'Socialinių tinklų nustatymai sėkmingai atnaujinti.',
 	'successfully_updated' => 'Sėkmingai atnaujinta',
   'debugging_and_maintenance' => 'Derinimas ir Priežiūra',
+  'maintenance' => 'Priežiūra',
   'debugging_settings_updated_successfully' => 'Derinimo nustatymai sėkmingai atnaujinti.',
   'enable_debug_mode' => 'Įjungti derinimo režimą?',
   'force_https' => 'Priversti https?',

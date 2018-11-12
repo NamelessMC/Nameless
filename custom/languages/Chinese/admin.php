@@ -88,6 +88,7 @@ $language = array(
 	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => '成功更新',
     'debugging_and_maintenance' => '調整與維護',
+    'maintenance' => '調整與維護',
     'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => '啟用除錯模式?',
 	'force_https' => '強制加密連線(https)?',

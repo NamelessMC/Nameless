@@ -84,6 +84,7 @@ $language = array(
 	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => 'Vellykket endring i innstillinger!',
     'debugging_and_maintenance' => 'Feilsøk og vedlikehold',
+    'maintenance' => 'Vedlikehold',
 	'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Tillatt feilsøkingsmodus?',
     'force_https' => 'Overstyr https?',

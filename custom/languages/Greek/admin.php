@@ -86,6 +86,7 @@ $language = array(
 	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => 'Επιτυχής ενημέρωση',
     'debugging_and_maintenance' => 'Debugging and Maintenance',
+    'maintenance' => 'Maintenance',
 	'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Enable debug mode?',
     'force_https' => 'Force https?',

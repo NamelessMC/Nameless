@@ -92,6 +92,7 @@ $language = array(
 	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => 'Erfolgreich geupdatet.',
     'debugging_and_maintenance' => 'Fehlerbenachrichtigung',
+    'maintenance' => 'Fehlerbenachrichtigung',
 	'debugging_settings_updated_successfully' => 'Debugging Einstellungen wurden gespeichert.',
     'enable_debug_mode' => 'Aktiviere den Fehlerbenachrichtungs Modus?',
     'force_https' => 'Erzwinge https? (Gesicherte Webseitenverbindung)',

@@ -84,6 +84,7 @@ $language = array(
 	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => 'Úspešne aktualizované',
     'debugging_and_maintenance' => 'Debugging a údržba',
+    'maintenance' => 'Debugging a údržba',
 	'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Zapnúť debug mód?',
     'force_https' => 'Vynúcene https?',

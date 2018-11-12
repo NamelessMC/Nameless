@@ -87,6 +87,7 @@ $language = array(
 	'social_media_settings_updated' => 'ソーシャルメディア設定が正常に更新されました。',
 	'successfully_updated' => '正常に更新されました。',
     'debugging_and_maintenance' => 'メンテナンス',
+    'maintenance' => 'メンテナンス',
     'enable_debug_mode' => 'デバッグモードを有効にしますか？',
 	'debugging_settings_updated_successfully' => 'デバッグ・メンテナンス設定が正常に更新されました。',
     'force_https' => 'Https を強制させますか？',

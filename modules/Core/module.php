@@ -667,7 +667,7 @@ class Core_Module extends Module {
 					} else
 						$icon = $cache->retrieve('debugging_icon');
 
-					$navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'debugging_and_maintenance'), URL::build('/panel/core/debugging_and_maintenance'), 'top', $order, $icon);
+					$navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'maintenance'), URL::build('/panel/core/debugging_and_maintenance'), 'top', $order, $icon);
 				}
 
 				if($user->hasPermission('admincp.core.emails')){

@@ -86,6 +86,7 @@ $language = array(
 	'social_media_settings_updated' => 'Social media instellingen succesvol bijgewerkt.',
 	'successfully_updated' => 'Succesvol bijgewerkt',
 	'debugging_and_maintenance' => 'Debugging en beheer',
+	'maintenance' => 'Debugging en beheer',
 	'debugging_settings_updated_successfully' => 'Debugging instellingen succesvol bijgewerkt.',
 	'enable_debug_mode' => 'Wil je debug modus inschakelen?',
 	'force_https' => 'Forceer https?',

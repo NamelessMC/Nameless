@@ -89,6 +89,7 @@ $language = array(
     'social_media_settings_updated' => 'Setările sociale au fost actualizate cu succes.',
     'successfully_updated' => 'Actualizat cu succes',
     'debugging_and_maintenance' => 'Depanare și întreținere',
+    'maintenance' => 'Depanare și întreținere',
     'debugging_settings_updated_successfully' => 'Setările de depanare au fost actualizate cu succes.',
     'enable_debug_mode' => 'Activați modul de depanare?',
     'force_https' => 'Forțează https?',

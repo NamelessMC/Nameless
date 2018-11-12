@@ -85,6 +85,7 @@ $language = array(
 	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => 'Uppdaterat!',
     'debugging_and_maintenance' => 'Felsökning och uppbyggnadsläge',
+    'maintenance' => 'Uppbyggnadsläge',
     'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Aktivera debug-läge?',
 	'force_https' => 'Tvinga https?',
