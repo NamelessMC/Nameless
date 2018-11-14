@@ -70,7 +70,8 @@ foreach($users as $item){
 		'panel_profile' => URL::build('/panel/user/' . Output::getClean($item->id . '-' . $item->username)),
 		'primary_group' => Output::getClean($user->getGroupName($item->group_id)),
 		'all_groups' => $user->getAllGroups($item->id, true),
-		'registered' => date('d M Y', $item->joined)
+		'registered' => date('d M Y', $item->joined),
+		'registered_unix' => Output::getClean($item->joined)
 	);
 }
 
