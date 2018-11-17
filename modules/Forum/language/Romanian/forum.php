@@ -8,7 +8,7 @@
  *
  *  Romanian Language for Forum module
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ImGladius
- *  Last Update: 24/09/2018
+ *  Last Update: 17/11/2018
  */
 
 $language = array(
@@ -165,11 +165,11 @@ $language = array(
 	'invalid_redirect_url' => 'Ai activat redirecționarea forumului, dar nu ai introdus o adresă URL validă între 1 și 512 de caractere.',
 	'forum_icon' => 'Cod HTML Pictogramă',
 	'forum_icon_maximum' => 'Pictograma forumului trebuie să aibă maxim 256 de caractere.',
-	'settings_updated_successfully' => 'Settings updated successfully.',
-	'forum_updated_successfully' => 'Forum updated successfully.',
-	'forum_deleted_successfully' => 'Forum deleted successfully.',
-	'label_deleted_successfully' => 'Label deleted successfully.',
-	'label_type_deleted_successfully' => 'Label type deleted successfully.',
+	'settings_updated_successfully' => 'Setările au fost actualizate cu succes.',
+	'forum_updated_successfully' => 'Forumul a fost actualizat cu succes.',
+	'forum_deleted_successfully' => 'Forumul a fost șters cu succes.',
+	'label_deleted_successfully' => 'Eticheta a fost ștearsă cu succes.',
+	'label_type_deleted_successfully' => 'Tipul de etichetă a fost șters cu succes.',
 
     // Search
     'forum_search' => 'Căutare în forum',
