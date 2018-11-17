@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 06/11/2018
+ *  Last Update: 17/11/2018
  */
 
 $language = array(
@@ -89,7 +89,7 @@ $language = array(
     'social_media_settings_updated' => 'Setările sociale au fost actualizate cu succes.',
     'successfully_updated' => 'Actualizat cu succes',
     'debugging_and_maintenance' => 'Depanare și întreținere',
-    'maintenance' => 'Depanare și întreținere',
+    'maintenance' => 'Întreținere',
     'debugging_settings_updated_successfully' => 'Setările de depanare au fost actualizate cu succes.',
     'enable_debug_mode' => 'Activați modul de depanare?',
     'force_https' => 'Forțează https?',
@@ -284,13 +284,13 @@ $language = array(
     'updated_mcassoc_successfully' => 'Setările mcassoc s-au actualizat cu succes.',
     'force_premium_accounts' => 'Forțează deținere unui cont de Minecraft permium?',
     'status_page' => 'Activați pagina de stare <small>(status)</small>?',
-    'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
-    'server_id_x' => 'Server ID: {x}', // Don't replace {x}
-    'server_information' => 'Server Information',
-    'query_information' => 'Query Information',
-    'query_errors_purged_successfully' => 'Query errors purged successfully.',
-    'query_error_deleted_successfully' => 'Query error deleted successfully.',
-    'banner_updated_successfully' => 'Banner updated successfully. It may take a while for your changes to take effect.',
+    'minecraft_settings_updated_successfully' => 'Setările au fost actualizate cu succes.',
+    'server_id_x' => 'ID server: {x}', // Don't replace {x}
+    'server_information' => 'Informații despre server',
+    'query_information' => 'Informații privind interogările',
+    'query_errors_purged_successfully' => 'Erorile de interogare au fost eliminate cu succes.',
+    'query_error_deleted_successfully' => 'Eroarea de interogare a fost ștearsă cu succes.',
+    'banner_updated_successfully' => 'Bannerul a fost actualizat cu succes. Ar putea dura ceva timp pentru ca modificările să fie vizibile.',
 
     // Modules
     'modules_installed_successfully' => 'Toate modulele noi au fost instalate cu succes (daca exista).',
@@ -307,7 +307,7 @@ $language = array(
     'view_all_modules' => 'Vizualizați toate modulele',
     'unable_to_retrieve_modules' => 'Imposibil de obținut module',
     'module' => 'Modul',
-    'unable_to_enable_module' => 'Unable to enable incompatible module.',
+    'unable_to_enable_module' => 'Modulele incompatibile nu pot fi activate.',
 
     // Styles
     'templates' => 'Șabloane',
@@ -345,9 +345,9 @@ $language = array(
 	'editing_template_file_in_template' => 'Editare fișier {x} din șablonul {y}', // Don't replace {x} or {y}
     'cant_write_to_template' => 'Nu se poate scrie fișierul! Verificați permisiunile fișierelor.',
 	'unable_to_delete_template' => 'Nu se poate șterge complet șablonul. Verificați permisiunile fișierelor.',
-	'background_reset_successfully' => 'Background reset successfully.',
-	'background_updated_successfully' => 'Background updated successfully.',
-	'unable_to_enable_template' => 'Unable to enable incompatible template.',
+	'background_reset_successfully' => 'Imaginea de fundal a fost resetată cu succes.',
+	'background_updated_successfully' => 'Imaginea de fundal a fost actualizată cu succes.',
+	'unable_to_enable_template' => 'Șabloanele incompatibile nu pot fi activate.',
 
     // Users & groups
     'users' => 'Utilizatori',
@@ -432,7 +432,7 @@ $language = array(
     'maintenance_message_max_1024' => 'Asigurați-vă că mesajul de întreținere este de maximum 1024 de caractere.',
 
     // Security
-    'acp_logins' => 'Conectări în Panoul de Administrare',
+    'acp_logins' => 'Conectări în Panoul de Control',
     'please_select_logs' => 'Selectați jurnalele de afișat',
     'ip_address' => 'Adresa IP',
     'template_changes' => 'Modificări șabloane',
@@ -454,7 +454,7 @@ $language = array(
     'instructions' => 'Instrucțiuni',
     'download' => '<i class="fa fa-arrow-circle-down" aria-hidden="true"></i> Descarcă',
     'install_confirm' => 'Asigurați-vă că ați descărcat pachetul și ați încărcat mai întâi fișierele conținute!',
-    'check_again' => 'Check again',
+    'check_again' => 'Verificați din nou',
 
     // Widgets
     'widgets' => 'Piese',
@@ -524,24 +524,24 @@ $language = array(
     'registration_link' => 'Link-ul de înregistrare',
     'link_to_complete_registration' => 'Adresa pentru finalizarea înregistrări:', // Don't replace {x}
     'api_verification' => 'Activați verificarea API?',
-    'api_verification_info' => 'Dacă este activat, conturile pot fi verificate numai prin API, de exemplu, utilizând pluginul oficial Nameless in joc.<strong> Această opțiune va înlocui verificarea prin e-mail și conturile vor fi activate automat! </strong> <br />Ar trebui să vă configurați grupul implicit pentru a avea permisiuni limitate și apoi să actualizați grupul de post-validare (în ACP -> Bază -> Înregistrare) cu permisiunile obișnuite.',
+    'api_verification_info' => 'Dacă este activat, conturile pot fi verificate numai prin API, de exemplu, utilizând pluginul oficial Nameless in joc.<strong> Această opțiune va înlocui verificarea prin e-mail și conturile vor fi activate automat! </strong> <br />Ar trebui să vă configurați grupul implicit pentru a avea permisiuni limitate și apoi să actualizați grupul de post-validare (în Panou de Control -> Configurație -> Înregistrare) cu permisiunile obișnuite.',
     'enable_username_sync' => 'Activați sincronizarea numelor de utilizator?',
     'enable_username_sync_info' => 'Dacă este activat, numele de utilizator de pe site va fi actualizat pentru a se potrivi cu numele de utilizator din joc.',
     'api_settings_updated_successfully' => 'Setările API s-au actualizat cu succes.',
-    'group_sync' => 'Group Sync',
-    'group_sync_info' => 'You can configure the API to automatically update a user\'s website group when their ingame group is changed. Simply enter the ingame group name and the website group it should be synchronised with below.',
-    'ingame_group' => 'Ingame Group Name',
-    'website_group' => 'Website Group',
-    'set_as_primary_group' => 'Set as primary group?',
-    'set_as_primary_group_info' => 'If enabled, the user\'s primary website group will be updated. If disabled, the ingame group will be added to the user\'s website secondary groups.',
-    'ingame_group_maximum' => 'Please ensure your group name is a maximum of 64 characters long.',
-    'select_website_group' => 'Please select a website group.',
-    'ingame_group_already_exists' => 'A rank sync rule has already been created for that ingame group.',
-    'group_sync_rule_created_successfully' => 'The group sync rule has been created successfully.',
-    'group_sync_rules_updated_successfully' => 'Group sync rules have been updated successfully.',
-    'group_sync_rule_deleted_successfully' => 'The group sync rule has been deleted successfully.',
-    'existing_rules' => 'Existing Rules',
-    'new_rule' => 'New Rule',
+    'group_sync' => 'Sincronizare grup',
+    'group_sync_info' => 'Puteți configura API-ul pentru a actualiza automat grupul unui utilizator de pe site atunci când i se schimbă grupul din joc. Trebuie doar să introduceți numele grupului în joc și grupul de pe site care ar trebui să se sincronizeze automat, mai jos.',
+    'ingame_group' => 'Numele grupului în joc',
+    'website_group' => 'Grupul de pe site',
+    'set_as_primary_group' => 'Setați ca grup implicit?',
+    'set_as_primary_group_info' => 'Dacă este activat, grupul principal (implicit) de pe site al utilizatorului va fi actualizat. Dacă este dezactivat, grupul din joc al utilizatorului va fi adăugat la grupurile secundare ale utilizatorului de pe site.',
+    'ingame_group_maximum' => 'Asigurați-vă că numele grupului este de maxim 64 de caractere.',
+    'select_website_group' => 'Selectați un grup de pe site.',
+    'ingame_group_already_exists' => 'O regulă de sincronizare a fost deja creată pentru acest grup din joc.',
+    'group_sync_rule_created_successfully' => 'Regula de sincronizare a grupului a fost creată cu succes.',
+    'group_sync_rules_updated_successfully' => 'Regula de sincronizare a grupului a fost actualizată cu succes.',
+    'group_sync_rule_deleted_successfully' => 'Regula de sincronizare a grupului a fost ștearsă cu succes.',
+    'existing_rules' => 'Reguli existente',
+    'new_rule' => 'Regulă nouă',
 
     // File uploads
     'drag_files_here' => 'Trageți fișierele aici pentru a le încărca.',
