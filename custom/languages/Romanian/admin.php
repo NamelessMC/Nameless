@@ -138,7 +138,7 @@ $language = array(
     'avatar_settings_updated_successfully' => 'Setările avatarelor s-au actualizat cu succes.',
     'navigation' => 'Navigare',
     'navbar_order' => 'Număr de ordine',
-    'navbar_order_instructions' => 'Puteți da fiecărui element un număr mai mare de 0 pentru a ordona elemente în bara de navigare, cu 1 fiind primul element și numerele mai mari care vin după el.',
+    'navbar_order_instructions' => 'Puteți da fiecărui element un număr mai mare de 0 pentru a ordona elemente în bara de navigare, 1 fiind primul element, iar numerele mai mari urmează după el în ordine crescătoare.',
     'navbar_icon' => 'Pictogramă',
     'navbar_icon_instructions' => 'De asemenea, puteți adăuga o pictogramă în fiecare element de navigare aici, de exemplu utilizând <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
     'navigation_settings_updated_successfully' => 'Setările de navigare au fost actualizate cu succes.',
