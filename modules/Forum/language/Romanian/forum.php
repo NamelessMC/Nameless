@@ -97,7 +97,7 @@ $language = array(
 	'new_reply_in_topic' => '{x} a răspuns la subiectul {y}', // Don't replace {x} (username) or {y} (topic title)
 	
 	// Homepage
-	'latest_announcements' => 'Cele mai recente articole',
+	'latest_announcements' => 'Cele mai recente noutăti',
 	'read_full_post' => 'Subiect complet',
 	
 	// Admin tab
