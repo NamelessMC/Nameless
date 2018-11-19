@@ -70,7 +70,7 @@
                             {/if}
 
                             <div class="table-responsive">
-                                <table class="table table-striped dataTables-users">
+                                <table class="table table-striped dataTables-users" style="width:100%">
                                     <thead>
                                     <tr>
                                         <th>{$USER}</th>
