@@ -231,5 +231,5 @@ $language = array(
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} s-a alaturat ' . SITE_NAME . '!'
+    'user_x_has_registered' => '{x} s-a alaturat comunităţii!'
 );
