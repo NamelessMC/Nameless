@@ -123,6 +123,9 @@ if(Input::exists()){
 			} catch(Exception $e){
 				$errors[] = $e->getMessage();
 			}
+
+			$cache->setCache('validate_action');
+			$cache->store('validate_action', array('action' => $validation_action, 'group' => $_POST['promote_group']));
 		}
 
 		if(!count($errors)){
