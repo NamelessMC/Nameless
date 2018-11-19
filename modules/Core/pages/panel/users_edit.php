@@ -284,7 +284,7 @@ if(Input::exists()){
 					'email_address' => Output::getClean($user_query->email)
 				));
 
-				Session::flash('users_session', $language->getWhere('admin', 'user_deleted'));
+				Session::flash('users_session', $language->get('admin', 'user_deleted'));
 			}
 
 			Redirect::to(URL::build('/panel/users'));
