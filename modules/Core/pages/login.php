@@ -270,6 +270,7 @@ else
 	$smarty->assign('USERNAME', (($custom_usernames == 'false') ? $language->get('user', 'minecraft_username') : $language->get('user', 'username')));
 
 $smarty->assign(array(
+	'NICKNAME' => $language->get('user', 'username'),
 	'USERNAME_INPUT' => ($method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
 	'PASSWORD' => $language->get('user', 'password'),
 	'REMEMBER_ME' => $language->get('user', 'remember_me'),
