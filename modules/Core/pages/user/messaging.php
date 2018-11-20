@@ -142,7 +142,7 @@ if(!isset($_GET['action'])){
 	}
 
 	// Load modules + template
-	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 	require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -381,7 +381,7 @@ if(!isset($_GET['action'])){
 		));
 
 		// Load modules + template
-		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 		require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -557,7 +557,7 @@ if(!isset($_GET['action'])){
 			$smarty->assign('CONTENT', Output::getClean($_POST['content']));
 		else $smarty->assign('CONTENT', '');
 
-		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 		require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

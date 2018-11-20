@@ -62,7 +62,7 @@ if(isset($_GET['do'])){
 			));
 
 			// Load modules + template
-			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 			require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -115,7 +115,7 @@ if(isset($_GET['do'])){
 			));
 
 			// Load modules + template
-			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 			require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -661,7 +661,7 @@ if(isset($_GET['do'])){
 	}
 
 	// Load modules + template
-	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 	require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

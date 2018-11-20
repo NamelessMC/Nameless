@@ -92,7 +92,7 @@ if($forum_query->redirect_forum == 1){
 	));
 
 	// Load modules + template
-	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 	$page_load = microtime(true) - $start;
 	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
@@ -449,7 +449,7 @@ if($forum_query->redirect_forum == 1){
 	$smarty->assign('LATEST_MEMBER', str_replace('{x}', '<a style="' . $latest_member['style'] . '" href="' . $latest_member['profile'] . '" data-poload="' . URL::build('/queries/user/', 'id=' . $latest_member['id']) . '" data-html="true" data-placement="top">' . $latest_member['nickname'] . '</a>', $forum_language->get('forum', 'latest_member')));
 
 	// Load modules + template
-	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 	$page_load = microtime(true) - $start;
 	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
