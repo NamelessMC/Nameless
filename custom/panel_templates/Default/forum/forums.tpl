@@ -73,29 +73,29 @@
                             {/if}
 
                             {if count($FORUMS_ARRAY)}
-                                <div class="card card-default">
-                                    <div class="card-header">{$FORUMS}</div>
-                                    <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody id="sortable">
                                         {foreach from=$FORUMS_ARRAY item=item name=forum_array}
-                                        <div class="row">
-                                            <div class="col-md-9">
-                                                <a href="{$item.edit_link}">{$item.title}</a><br />{$item.description}
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="float-md-right">
-                                                    {if $item.up_link}
-                                                        <a href="{$item.up_link}" class="btn btn-success btn-sm"><i class="fas fa-chevron-up"></i></a>
-                                                    {/if}
-                                                    {if $item.down_link}
-                                                        <a href="{$item.down_link}" class="btn btn-warning btn-sm"><i class="fas fa-chevron-down"></i></a>
-                                                    {/if}
-                                                    <a href="{$item.delete_link}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                            {if not $smarty.foreach.forum_array.last}<hr />{/if}
+                                            <tr data-id="{$item.id}">
+                                                <td>
+                                                    <a href="{$item.edit_link}">{$item.title}</a><br />{$item.description}
+                                                </td>
+                                                <td>
+                                                    <div class="float-md-right">
+                                                        {if $item.up_link}
+                                                            <a href="{$item.up_link}" class="btn btn-success btn-sm"><i class="fas fa-chevron-up"></i></a>
+                                                        {/if}
+                                                        {if $item.down_link}
+                                                            <a href="{$item.down_link}" class="btn btn-warning btn-sm"><i class="fas fa-chevron-down"></i></a>
+                                                        {/if}
+                                                        <a href="{$item.delete_link}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         {/foreach}
-                                    </div>
+                                        </tbody>
+                                    </table>
                                 </div>
                             {else}
                                 <p>{$NO_FORUMS}</p>
@@ -126,6 +126,41 @@
 <!-- ./wrapper -->
 
 {include file='scripts.tpl'}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#sortable").sortable({
+            start: function(event, ui) {
+                let start_pos = ui.item.index();
+                ui.item.data('startPos', start_pos);
+            },
+            update: function(event, ui){
+                let forums = $("#sortable").children();
+                let toSubmit = [];
+                forums.each(function(){
+                    toSubmit.push($(this).data().id);
+                });
+
+                $.ajax({
+                    url: "{$REORDER_DRAG_URL}",
+                    type: "GET",
+                    data: {
+                        action: "order",
+                        dir: "drag",
+                        {literal}forums: JSON.stringify({"forums": toSubmit}){/literal}
+                    },
+                    success: function(response) {
+                        // Success
+                    },
+                    error: function(xhr) {
+                        // Error
+                        console.log(xhr);
+                    }
+                });
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

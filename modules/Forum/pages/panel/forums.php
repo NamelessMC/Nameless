@@ -80,7 +80,8 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 				'up_link' => ($i > 1 ? URL::build('/panel/forums/', 'action=order&dir=up&fid=' . Output::getClean($item->id)) : null),
 				'down_link' => ($i < $count ? URL::build('/panel/forums/', 'action=order&dir=down&fid=' . Output::getClean($item->id)) : null),
 				'title' => Output::getClean(Output::getDecoded($item->forum_title)),
-				'description' => Output::getPurified(Output::getDecoded($item->forum_description))
+				'description' => Output::getPurified(Output::getDecoded($item->forum_description)),
+				'id' => Output::getClean($item->id)
 			);
 			$i++;
 		}
@@ -95,7 +96,8 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 		'FORUMS_ARRAY' => $template_array,
 		'USE_REACTIONS' => $forum_language->get('forum', 'use_reactions'),
 		'USE_REACTIONS_VALUE' => ($forum_reactions == 1),
-		'NO_FORUMS' => $forum_language->get('forum', 'no_forums')
+		'NO_FORUMS' => $forum_language->get('forum', 'no_forums'),
+		'REORDER_DRAG_URL' => URL::build('/panel/forums')
 	));
 
 	$template_file = 'forum/forums.tpl';
@@ -324,78 +326,101 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 			break;
 
 		case 'order':
-			if(!isset($_GET['dir']) || !isset($_GET['fid']) || !is_numeric($_GET['fid'])){
+			if(!isset($_GET['dir'])){
 				echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forums') . '">' . $language->get('general', 'back') . '</a>';
 				die();
 			}
 			if($_GET['dir'] == 'up' || $_GET['dir'] == 'down'){
+				if(!isset($_GET['fid']) || !is_numeric($_GET['fid'])){
+					echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forums') . '">' . $language->get('general', 'back') . '</a>';
+					die();
+				}
+
 				$dir = $_GET['dir'];
+
+				$forum_id = $queries->getWhere('forums', array('id', '=', $_GET['fid']));
+				$forum_id = $forum_id[0]->id;
+
+				$forum_order = $queries->getWhere('forums', array('id', '=', $_GET['fid']));
+				$forum_order = $forum_order[0]->forum_order;
+
+				$previous_forums = $queries->orderAll('forums', 'forum_order', 'ASC');
+
+				if($dir == 'up'){
+					$n = 0;
+					foreach($previous_forums as $previous_forum){
+						if($previous_forum->id == $_GET['fid']){
+							$previous_fid = $previous_forums[$n - 1]->id;
+							$previous_f_order = $previous_forums[$n - 1]->forum_order;
+							break;
+						}
+						$n++;
+					}
+
+					try {
+						if(isset($previous_fid) && isset($previous_f_order)){
+							$queries->update('forums', $forum_id, array(
+								'forum_order' => $previous_f_order
+							));
+							$queries->update('forums', $previous_fid, array(
+								'forum_order' => $previous_f_order + 1
+							));
+						}
+					} catch(Exception $e){
+						$errors = array($e->getMessage());
+					}
+
+					Redirect::to(URL::build('/panel/forums'));
+					die();
+
+				} else if($dir == 'down'){
+					$n = 0;
+					foreach($previous_forums as $previous_forum){
+						if($previous_forum->id == $_GET['fid']){
+							$previous_fid = $previous_forums[$n + 1]->id;
+							$previous_f_order = $previous_forums[$n + 1]->forum_order;
+							break;
+						}
+						$n++;
+					}
+					try {
+						if(isset($previous_fid) && isset($previous_f_order)){
+							$queries->update('forums', $forum_id, array(
+								'forum_order' => $previous_f_order
+							));
+							$queries->update('forums', $previous_fid, array(
+								'forum_order' => $previous_f_order - 1
+							));
+						}
+					} catch(Exception $e){
+						$errors = array($e->getMessage());
+					}
+
+					Redirect::to(URL::build('/panel/forums'));
+					die();
+
+				}
+
+			} else if($_GET['dir'] == 'drag'){
+				// Get forums
+				if(isset($_GET['forums'])){
+					$forums = json_decode($_GET['forums'])->forums;
+
+					$i = 0;
+					foreach($forums as $item){
+						$queries->update('forums', $item, array(
+							'forum_order' => $i
+						));
+
+						$i++;
+					}
+				}
+
+				die('Complete');
+
 			} else {
 				echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forums') . '">' . $language->get('general', 'back') . '</a>';
 				die();
-			}
-
-			$forum_id = $queries->getWhere('forums', array('id', '=', $_GET['fid']));
-			$forum_id = $forum_id[0]->id;
-
-			$forum_order = $queries->getWhere('forums', array('id', '=', $_GET['fid']));
-			$forum_order = $forum_order[0]->forum_order;
-
-			$previous_forums = $queries->orderAll('forums', 'forum_order', 'ASC');
-
-			if($dir == 'up'){
-				$n = 0;
-				foreach($previous_forums as $previous_forum){
-					if($previous_forum->id == $_GET['fid']){
-						$previous_fid = $previous_forums[$n - 1]->id;
-						$previous_f_order = $previous_forums[$n - 1]->forum_order;
-						break;
-					}
-					$n++;
-				}
-
-				try {
-					if(isset($previous_fid) && isset($previous_f_order)){
-						$queries->update('forums', $forum_id, array(
-							'forum_order' => $previous_f_order
-						));
-						$queries->update('forums', $previous_fid, array(
-							'forum_order' => $previous_f_order + 1
-						));
-					}
-				} catch(Exception $e){
-					$errors = array($e->getMessage());
-				}
-
-				Redirect::to(URL::build('/panel/forums'));
-				die();
-
-			} else if($dir == 'down'){
-				$n = 0;
-				foreach($previous_forums as $previous_forum){
-					if($previous_forum->id == $_GET['fid']){
-						$previous_fid = $previous_forums[$n + 1]->id;
-						$previous_f_order = $previous_forums[$n + 1]->forum_order;
-						break;
-					}
-					$n++;
-				}
-				try {
-					if(isset($previous_fid) && isset($previous_f_order)){
-						$queries->update('forums', $forum_id, array(
-							'forum_order' => $previous_f_order
-						));
-						$queries->update('forums', $previous_fid, array(
-							'forum_order' => $previous_f_order - 1
-						));
-					}
-				} catch(Exception $e){
-					$errors = array($e->getMessage());
-				}
-
-				Redirect::to(URL::build('/panel/forums'));
-				die();
-
 			}
 			break;
 

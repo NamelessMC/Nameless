@@ -147,7 +147,7 @@ class Forum_Module extends Module {
 					$icon = $cache->retrieve('forum_icon');
 
 				$navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, $order, '');
-				$navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, $order, $icon);
+				$navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, $order + 0.1, $icon);
 
 				if(!$cache->isCached('forum_label_icon')){
 					$icon = '<i class="nav-icon fas fa-tags"></i>';
@@ -155,7 +155,7 @@ class Forum_Module extends Module {
 				} else
 					$icon = $cache->retrieve('forum_label_icon');
 
-				$navs[2]->add('forum_labels', $this->_forum_language->get('forum', 'labels'), URL::build('/panel/forums/labels'), 'top', null, $order, $icon);
+				$navs[2]->add('forum_labels', $this->_forum_language->get('forum', 'labels'), URL::build('/panel/forums/labels'), 'top', null, $order + 0.2, $icon);
 			}
 
 			if(defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard'){
