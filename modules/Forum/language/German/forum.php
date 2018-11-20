@@ -142,6 +142,7 @@ $language = array(
     'forum_permissions' => 'Forum Berechtigungen',
     'select_a_parent_forum' => 'Wähle ein übergeordnetes Forum',
     'parent_forum' => 'Übergeordnetes Forum',
+    'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
     'has_no_parent' => 'Kein übergeordnetes Forum',
     'guests' => 'Gäste',
     'group' => 'Gruppe',

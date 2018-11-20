@@ -138,6 +138,7 @@ $language = array(
 	'forum_permissions' => '論壇權限',
 	'select_a_parent_forum' => '選擇父論壇',
 	'parent_forum' => '父論壇',
+	'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
 	'has_no_parent' => '沒有父論壇',
 	'guests' => '遊客',
 	'group' => '群組',

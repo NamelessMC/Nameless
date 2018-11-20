@@ -74,6 +74,26 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 		$i = 1;
 		$count = count($forums);
 		foreach($forums as $item){
+			if($item->parent > 0){
+				$parent_forum_query = $queries->getWhere('forums', array('id', '=', $item->parent));
+				if(count($parent_forum_query)){
+					$parent_forum_count = 1;
+					$parent_forum = str_replace('{x}', Output::getClean(Output::getDecoded($parent_forum_query[0]->forum_title)), $forum_language->get('forum', 'parent_forum_x'));
+					$id = $parent_forum_query[0]->parent;
+
+					while($id > 0){
+						$parent_forum_query = $queries->getWhere('forums', array('id', '=', $parent_forum_query[0]->parent));
+						$id = $parent_forum_query[0]->parent;
+						$parent_forum_count++;
+					}
+
+				} else {
+					$parent_forum = null;
+					$parent_forum_count = 0;
+				}
+			} else
+				$parent_forum_count = 0;
+
 			$template_array[] = array(
 				'edit_link' => URL::build('/panel/forums/', 'forum=' . Output::getClean($item->id)),
 				'delete_link' => URL::build('/panel/forums/', 'action=delete&fid=' . Output::getClean($item->id)),
@@ -81,7 +101,9 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 				'down_link' => ($i < $count ? URL::build('/panel/forums/', 'action=order&dir=down&fid=' . Output::getClean($item->id)) : null),
 				'title' => Output::getClean(Output::getDecoded($item->forum_title)),
 				'description' => Output::getPurified(Output::getDecoded($item->forum_description)),
-				'id' => Output::getClean($item->id)
+				'id' => Output::getClean($item->id),
+				'parent_forum' => (($item->parent > 0) ? $parent_forum : null),
+				'parent_forum_count' => $parent_forum_count
 			);
 			$i++;
 		}

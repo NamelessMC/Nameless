@@ -134,6 +134,7 @@ $language = array(
 	'forum_permissions' => 'Forum tilganger',
 	'select_a_parent_forum' => 'Velg et overforum',
 	'parent_forum' => 'Overforum',
+	'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
 	'has_no_parent' => 'Ingen overforum',
 	'guests' => 'Gjester',
 	'group' => 'Gruppe',

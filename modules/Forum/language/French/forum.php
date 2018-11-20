@@ -136,6 +136,7 @@ $language = array(
 	'forum_permissions' => 'Permissions du forum',
 	'select_a_parent_forum' => 'Séléctionner un forum parent',
 	'parent_forum' => 'Forum parent',
+	'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
 	'has_no_parent' => 'Aucun parent',
 	'guests' => 'Invités',
 	'group' => 'Groupe',

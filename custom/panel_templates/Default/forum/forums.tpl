@@ -78,8 +78,8 @@
                                         <tbody id="sortable">
                                         {foreach from=$FORUMS_ARRAY item=item name=forum_array}
                                             <tr data-id="{$item.id}">
-                                                <td>
-                                                    <a href="{$item.edit_link}">{$item.title}</a><br />{$item.description}
+                                                <td{if $item.parent_forum} style="padding-left:{math equation="x * y" x=25 y=$item.parent_forum_count}px"{/if}>
+                                                    <a href="{$item.edit_link}">{$item.title}</a>{if $item.parent_forum} <small>| {$item.parent_forum}</small>{/if}<br />{$item.description}
                                                 </td>
                                                 <td>
                                                     <div class="float-md-right">

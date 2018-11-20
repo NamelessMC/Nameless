@@ -135,6 +135,7 @@ $language = array(
 	'forum_permissions' => 'Forum toestemmingen',
 	'select_a_parent_forum' => 'Selecteer een ouder forum',
 	'parent_forum' => 'Ouder Forum',
+	'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
 	'has_no_parent' => 'Geen ouder',
 	'guests' => 'Gasten',
 	'group' => 'Groep',

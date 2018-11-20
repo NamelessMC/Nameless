@@ -137,6 +137,7 @@ $language = array(
 	'forum_permissions' => 'フォーラム権限',
 	'select_a_parent_forum' => '親フォーラムの選択',
 	'parent_forum' => '親フォーラム',
+	'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
 	'has_no_parent' => '親フォーラムなし',
 	'guests' => 'ゲスト',
 	'group' => 'グループ',
