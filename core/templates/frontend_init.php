@@ -20,11 +20,13 @@ if(defined('PAGE') && PAGE != 'login' && PAGE != 404 && (!isset($_GET['route']) 
 			$_SESSION['last_page'] = URL::build($split[0], $split[1]);
 		else
 			$_SESSION['last_page'] = URL::build($split[0]);
+
+		if(defined('CONFIG_PATH'))
+			$_SESSION['last_page'] = substr($_SESSION['last_page'], strlen(CONFIG_PATH));
+
 	} else
 		$_SESSION['last_page'] = URL::build($_GET['route']);
 
-	if(defined('CONFIG_PATH'))
-		$_SESSION['last_page'] = substr($_SESSION['last_page'], strlen(CONFIG_PATH));
 }
 
 $template_path = ROOT_PATH . '/custom/templates/' . TEMPLATE;
