@@ -95,7 +95,7 @@ if(isset($_GET['p'])){
 
 // Is the URL pointing to a specific post?
 if(isset($_GET['pid'])){
-	$posts = $queries->getWhere('posts', array('topic_id', '=', $tid));
+	$posts = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? AND deleted = 0', array($tid))->results();
 	if(count($posts)){
 		$i = 0;
 		while($i < count($posts)){
