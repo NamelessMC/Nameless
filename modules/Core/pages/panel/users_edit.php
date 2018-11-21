@@ -205,11 +205,23 @@ if(Input::exists()){
 						$secondary_groups = '';
 					}
 
+					// Nicknames?
+					$displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+					$displaynames = $displaynames[0]->value;
+
+					if($displaynames == 'true'){
+						$username = Input::get('username');
+						$nickname = Input::get('nickname');
+					} else {
+						$username = Input::get('username');
+						$nickname = Input::get('username');
+					}
+
 					$queries->update('users', $user_query->id, array(
-						'nickname' => Output::getClean(Input::get('nickname')),
+						'nickname' => Output::getClean($nickname),
 						'email' => Output::getClean(Input::get('email')),
 						'group_id' => $group,
-						'username' => Output::getClean(Input::get('username')),
+						'username' => Output::getClean($username),
 						'user_title' => Output::getClean(Input::get('title')),
 						'uuid' => Output::getClean(Input::get('UUID')),
 						'signature' => $signature,
