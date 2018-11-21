@@ -45,10 +45,11 @@ if(!isset($_GET['step'])){
 	  <center>
 	    <iframe id="mcassoc" width="100%" height="400" frameBorder="0" seamless scrolling="no"></iframe>
 	  </center>
-	  <script>
-	  MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");
-	  </script>
     ');
+
+	$template->addJSScript('
+	  MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");
+	');
 
 } else if($_GET['step'] == 2){
 	// Final step - verify data matches form
