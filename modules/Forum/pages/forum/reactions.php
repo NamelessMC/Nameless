@@ -18,6 +18,13 @@ if(!$user->isLoggedIn()){
 	die();
 }
 
+// Are reactions enabled?
+$reactions_enabled = $queries->getWhere('settings', array('name', '=', 'forum_reactions'));
+if($reactions_enabled[0]->value != '1'){
+	Redirect::to(URL::build('/forum'));
+	die();
+}
+
 // Deal with input
 if(Input::exists()){
 	// Validate form input

@@ -320,6 +320,13 @@ if($user->isLoggedIn())
 require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
+// Are reactions enabled?
+$reactions_enabled = $queries->getWhere('settings', array('name', '=', 'forum_reactions'));
+if($reactions_enabled[0]->value == '1')
+	$reactions_enabled = true;
+else
+	$reactions_enabled = false;
+
 // Assign Smarty variables to pass to template
 $parent_category = $queries->getWhere('forums', array('id', '=', $forum_parent[0]->parent));
 
@@ -526,32 +533,34 @@ for($n = 0; $n < count($results->data); $n++){
 
 	// Get post reactions
 	$post_reactions = array();
-	$total_karma = 0;
+	if($reactions_enabled){
+		$total_karma = 0;
 
-	$post_reactions_query = $queries->getWhere('forums_reactions', array('post_id', '=', $results->data[$n]->id));
+		$post_reactions_query = $queries->getWhere('forums_reactions', array('post_id', '=', $results->data[$n]->id));
 
-	if(count($post_reactions_query)){
-		foreach($post_reactions_query as $item){
-			if(!isset($post_reactions[$item->reaction_id])){
-				$post_reactions[$item->reaction_id]['count'] = 1;
+		if(count($post_reactions_query)){
+			foreach($post_reactions_query as $item){
+				if(!isset($post_reactions[$item->reaction_id])){
+					$post_reactions[$item->reaction_id]['count'] = 1;
 
-				$reaction = $queries->getWhere('reactions', array('id', '=', $item->reaction_id));
-				$post_reactions[$item->reaction_id]['html'] = $reaction[0]->html;
-				$post_reactions[$item->reaction_id]['name'] = $reaction[0]->name;
+					$reaction = $queries->getWhere('reactions', array('id', '=', $item->reaction_id));
+					$post_reactions[$item->reaction_id]['html'] = $reaction[0]->html;
+					$post_reactions[$item->reaction_id]['name'] = $reaction[0]->name;
 
-				if($reaction[0]->type == 2) $total_karma++;
-				else if($reaction[0]->type == 0) $total_karma--;
-			} else {
-				$post_reactions[$item->reaction_id]['count']++;
+					if($reaction[0]->type == 2) $total_karma++;
+					else if($reaction[0]->type == 0) $total_karma--;
+				} else {
+					$post_reactions[$item->reaction_id]['count']++;
+				}
+
+				$post_reactions[$item->reaction_id]['users'][] = array(
+					'username' => Output::getClean($user->idToName($item->user_given)),
+					'nickname' => Output::getClean($user->idToNickname($item->user_given)),
+					'style' => $user->getGroupClass($item->user_given),
+					'avatar' => $user->getAvatar($item->user_given, '../', 500),
+					'profile' => URL::build('/profile/' . Output::getClean($user->idToName($item->user_given)))
+				);
 			}
-
-			$post_reactions[$item->reaction_id]['users'][] = array(
-				'username' => Output::getClean($user->idToName($item->user_given)),
-				'nickname' => Output::getClean($user->idToNickname($item->user_given)),
-				'style' => $user->getGroupClass($item->user_given),
-				'avatar' => $user->getAvatar($item->user_given, '../', 500),
-				'profile' => URL::build('/profile/' . Output::getClean($user->idToName($item->user_given)))
-			);
 		}
 	}
 
@@ -603,11 +612,13 @@ $smarty->assign('REPLIES', $replies);
 
 if($user->isLoggedIn()){
 	// Reactions
-	$reactions = $queries->getWhere('reactions', array('enabled', '=', 1));
-	if(!count($reactions)) $reactions = array();
+	if($reactions_enabled){
+		$reactions = $queries->getWhere('reactions', array('enabled', '=', 1));
+		if(!count($reactions)) $reactions = array();
 
-	$smarty->assign('REACTIONS', $reactions);
-	$smarty->assign('REACTIONS_URL', URL::build('/forum/reactions'));
+		$smarty->assign('REACTIONS', $reactions);
+		$smarty->assign('REACTIONS_URL', URL::build('/forum/reactions'));
+	}
 
 	// Following?
 	$is_user_following = DB::getInstance()->query('SELECT id, existing_alerts FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
