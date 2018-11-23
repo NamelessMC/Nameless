@@ -57,6 +57,9 @@ $language = array(
 	'content' => 'Turinys',
 	'full_content' => 'Pilnas Turinys',
 	'url' => 'URL',
+	'success' => 'Sėkmė',
+	'error' => 'Klaida',
+	'are_you_sure' => 'Ar jūs tikras?',
 
  	// Contact form
 	'contact' => 'Susisiekti',
