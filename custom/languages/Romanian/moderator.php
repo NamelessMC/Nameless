@@ -8,12 +8,12 @@
  *
  *  Romanian Language - Moderator terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 02/11/2018
+ *  Last Update: 23/11/2018
  */
 
 $language = array(
     'mod_cp' => 'Panou Moderator',
-    'staff_cp' => 'Panoul de control',
+    'staff_cp' => 'Panoul de Control',
     'overview' => 'Prezentare generală',
     
     // Spam
