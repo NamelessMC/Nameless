@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Moderator terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 02/11/2018
+ *  Last Update: 23/11/2018
  */
 
 $language = array(
