@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Users
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 06/11/2018
+ *  Last Update: 23/11/2018
  */
 
 $language = array(
