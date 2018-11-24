@@ -8,7 +8,7 @@
  *
  *  Romanian Language for Forum module
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ImGladius
- *  Last Update: 17/11/2018
+ *  Last Update: 24/11/2018
  */
 
 $language = array(
@@ -144,7 +144,7 @@ $language = array(
 	'can_view_other_topics' => 'Poate vizualiza subiectele altor utilizatori?',
 	'can_create_topic' => 'Poate crea subiecte?',
 	'can_post_reply' => 'Poate răspunde la subiecte?',
-	'can_moderate_forum' => 'Poate moderata forumul?',
+	'can_moderate_forum' => 'Poate modera forumul?',
 	'display_topics_as_news' => 'Afișați subiectele ca știri pe prima pagină?',
 	'forum_created_successfully' => 'Forumul a fost creat cu succes.',
 	'forum_layout' => 'Aspectul forumului', // removed
