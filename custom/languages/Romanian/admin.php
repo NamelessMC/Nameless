@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 17/11/2018
+ *  Last Update: 26/11/2018
  */
 
 $language = array(
@@ -237,7 +237,7 @@ $language = array(
     'parent_server' => 'Server părinte',
     'parent_server_help' => 'Un server părinte este de obicei instanța Bungee la care este conectat serverul, dacă există.',
     'no_parent_server' => 'Fără server părinte',
-    'bungee_instance' => 'Instanțpă BungeeCord?',
+    'bungee_instance' => 'Instanță BungeeCord?',
     'bungee_instance_help' => 'Selectați această opțiune dacă serverul este o instanță BungeeCord.',
     'server_query_information' => 'Pentru a afișa o listă cu jucători online pe site-ul dvs. web, serverul <strong>trebuie</strong> să aibă opțiunea \'enable-query\' activată în fişierul <strong>server.properties</strong>.',
     'enable_status_query' => 'Activați interogarea de stare?',
