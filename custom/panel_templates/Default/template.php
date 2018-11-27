@@ -289,7 +289,7 @@ class Default_Panel_Template extends TemplateBase {
 							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array()
 						));
 
-						$this->addJSScript(Input::createEditor('inputContent'));
+						$this->addJSScript(Input::createEditor('inputContent', true));
 						$this->addJSScript('
 						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 	
