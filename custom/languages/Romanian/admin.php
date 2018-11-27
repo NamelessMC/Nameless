@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 26/11/2018
+ *  Last Update: 27/11/2018
  */
 
 $language = array(
@@ -577,7 +577,7 @@ $language = array(
     'generate_sitemap' => 'Generați harta site-ului',
     'download_sitemap' => 'Descărcați harta site-ului',
     'sitemap_not_generated_yet' => 'O hartă a site-ului nu a fost încă generată!',
-    'sitemap_last_generated_x' => 'Harta ultimului site a fost generată {x}', // Don't replace {x}
+    'sitemap_last_generated_x' => 'Harta site-ului a fost generată: {x}', // Don't replace {x}
 
     // Page metadata
     'page_metadata' => 'Metadatele paginilor',
