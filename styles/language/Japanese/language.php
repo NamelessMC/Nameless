@@ -34,7 +34,7 @@ $admin_language = array(
 	// Admin sidebar
 	'index' => '概要',
 	'announcements' => 'お知らせ',
-	'core' => 'コア',
+	'core' => '設定',
 	'custom_pages' => 'カスタムページ',
 	'general' => '一般',
 	'forums' => 'フォーラム',
@@ -71,7 +71,7 @@ $admin_language = array(
 	'can_view_announcement' => 'アナウンスメントを表示することができますか？',
 	
 	// Admin core page
-	'general_settings' => '全般的な設定',
+	'general_settings' => '全般設定',
 	'modules' => 'モジュール',
 	'module_not_exist' => 'そのモジュールが存在しません!',
 	'module_enabled' => 'モジュールを有効にしました。',
@@ -139,7 +139,7 @@ $admin_language = array(
 	'text' => 'テキスト',
 	'textarea' => 'テキスト エリア',
 	'question_deleted' => '質問が削除されました',
-	'use_followers' => 'フォロワーを使いますか？',
+	'use_followers' => 'フォロワーシステムを使いますか？',
 	'use_followers_help' => '無効にした場合は、フレンド システムが使用されます。',
 	
 	// Admin custom pages page
@@ -222,7 +222,7 @@ $admin_language = array(
 	'validate_user' => 'ユーザーを検証します。',
 	'update_uuid' => 'UUID を更新します。',
 	'unable_to_update_uuid' => 'UUID を更新できません。',
-	'update_mc_name' => 'Minecraft の名前を更新する',
+	'update_mc_name' => 'Minecraft 名前を更新する',
 	'reset_password' => 'パスワードをリセット',
 	'punish_user' => '悪質なユーザー',
 	'delete_user' => 'ユーザーを削除',
@@ -259,7 +259,7 @@ $admin_language = array(
 	'select_user_group' => 'ユーザーはグループに属している必要があります。',
 	'uuid_max_32' => 'UUID は、最大 32 文字にする必要があります。',
 	'cant_delete_root_user' => 'Root ユーザーは削除できません!',
-	'cant_modify_root_user' => 'ルート ユーザーのグループを変更することはできません。',
+	'cant_modify_root_user' => '管理者のグループを変更することはできません。',
 	
 	// Admin Minecraft page
 	'minecraft_settings' => 'Minecraft の設定',
@@ -329,9 +329,9 @@ $admin_language = array(
 	'install_a_theme' => 'テーマをインストール',
 	'install_a_template' => 'テンプレートをインストール',
 	'install_an_addon' => 'アドオンをインストール',
-	'active' => 'アクティブ',
-	'activate' => 'アクティベート',
-	'deactivate' => '非アクティブ',
+	'active' => '有効',
+	'activate' => '有効化',
+	'deactivate' => '無効化',
 	'theme_install_instructions' => 'テーマを <strong>styles/themes</strong> ディレクトリにアップロードしてください。 次に、下の「スキャン」ボタンをクリックしてください。',
 	'template_install_instructions' => 'テンプレートを <strong>styles/templates</strong> ディレクトリにアップロードしてください。 次に、下の「スキャン」ボタンをクリックしてください。',
 	'addon_install_instructions' => 'アドオンを <strong>addons</strong> ディレクトリにアップロードしてください。 次に、下の「スキャン」ボタンをクリックしてください。',
@@ -359,11 +359,11 @@ $admin_language = array(
 	'display_page_load_time' => 'ページの読み込み時間を表示しますか？',
 	'page_load_time_description' => 'これを有効にすると、フッターにスピードメーターが表示され、ページの読み込み時間が表示されます。',
 	'reset_website' => 'ウェブサイトをリセット',
-	'reset_website_info' => 'これはにより Web サイトの設定がリセットされます。<strong>アドオンは無効になりますが削除されず、設定は変更されません。</strong> 定義された Minecraft サーバーも残ります。',
+	'reset_website_info' => 'これはにより Web サイトの設定がリセットされます。<strong>アドオンは無効になりますが削除されず、設定は変更されません。</strong> 設定された Minecraft サーバーも残ります。',
 	'confirm_reset_website' => 'ウェブサイトの設定をリセットしてもよろしいですか？',
 	
 	// Admin Update page
-	'installation_up_to_date' => 'あなたは最新バージョンを使用しています。',
+	'installation_up_to_date' => '最新バージョンの NamelessMC を使用しています。',
 	'update_check_error' => '更新を確認できません。 後でもう一度お試しください。',
 	'new_update_available' => '新しいアップデートが利用可能です。',
 	'your_version' => '現在のバージョン:',
@@ -397,10 +397,10 @@ $navbar_language = array(
  */
 $user_language = array(
 	// Registration
-	'create_an_account' => 'アカウントを作成します。',
+	'create_an_account' => 'アカウントを作成',
 	'authme_password' => 'AuthMe パスワード',
 	'username' => 'ユーザー名',
-	'minecraft_username' => 'Minecraft のユーザー名',
+	'minecraft_username' => 'Minecraft ユーザー名',
 	'email' => 'メールアドレス',
 	'user_title' => 'タイトル',
 	'email_address' => 'メール アドレス',
@@ -607,7 +607,7 @@ $mod_language = array(
 	'ip_lookup' => 'IP 検索:',
 	'registered' => '登録',
 	'reason' => '理由:',
-	'cant_ban_root_user' => 'ルート ユーザーを罰することはできません!',
+	'cant_ban_root_user' => '管理者を処罰することはできません!',
 	'invalid_reason' => '2 ~ 256 文字の有効な理由を入力してください。',
 	'punished_successfully' => '罰は正常に追加されました。',
 	
@@ -658,7 +658,7 @@ $general_language = array(
 	// General terms
 	'submit' => '送信',
 	'close' => '閉じる',
-	'cookie_message' => '<strong>このサイトは、あなたの経験を向上させるためにクッキーを使用します。</strong><p>このウェブサイトを閲覧し、対話を続けることにより、その使用に同意したことになります。</p>',
+	'cookie_message' => '<strong>このサイトは、あなたの体験を向上させるためにクッキーを使用します。</strong><p>このウェブサイトを閲覧することで、それに同意したことになります。</p>',
 	'theme_not_exist' => '選択したテーマが存在しません。',
 	'confirm' => '確認',
 	'cancel' => 'キャンセル',
@@ -674,7 +674,7 @@ $general_language = array(
 	'next' => '次へ',
 	
 	// Play page
-	'connect_with' => 'サーバーへの接続IPは -> {x}', // Don't replace {x}
+	'connect_with' => 'サーバーアドレスは {x} です', // Don't replace {x}
 	'online' => 'オンライン',
 	'offline' => 'オフライン',
 	'status' => 'ステータス:',
@@ -686,9 +686,9 @@ $general_language = array(
 	'x_players_online' => '{x} 人のプレーヤーがオンラインです。', // Don't replace {x}
 	
 	// Other
-	'page_loaded_in' => '{x} ミリ秒で読み込まれました。', // Don't replace {x}; 's' stands for 'seconds'
-	'none' => '無し',
-	'404' => '404！このページはありません！'
+	'page_loaded_in' => '応答速度: {x}ms', // Don't replace {x}; 's' stands for 'seconds'
+	'none' => 'なし',
+	'404' => 'ページを見つけることができませんでした'
 );
 
 /* 
