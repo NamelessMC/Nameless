@@ -110,7 +110,7 @@
             }
             if(!function_exists('exif_imagetype')){
                 echo 'PHP exif_imagetype Function - ' . $error;
-                $exif_error = true;
+                $php_error = true;
             } else {
                 echo 'PHP exif_imagetype Function - ' . $success;
             }
