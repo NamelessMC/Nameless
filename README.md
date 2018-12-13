@@ -122,7 +122,7 @@ Core modules:
 **NamelessMC Translations**
 * Chinese: @BirkhoffLee
 * Czech: @SnooWiK, @Root3287, @godleydemon, @yshf9
-* Dutch: Sander Jochems, @Azoraqua, @Headhunterzpw, @melerpe, @aycgit, @yshf9, @GodleyDemon, @Tim-NL, @Derkades, smessie, @DoraKlikOpDora, @TheSander562
+* Dutch: @Sander0542, @Azoraqua, @Headhunterzpw, @melerpe, @aycgit, @yshf9, @GodleyDemon, @Tim-NL, @Derkades, smessie, @DoraKlikOpDora, @TheSander562
 * EnglishUK: @Samerton, @Awtra
 * Finnish: -kakara-, @Root3287, @godleydemon, @yshf9
 * French: @Pandalyser, CreaModZ, Aviortheking, @Noiknez, @yshf9, @Root3287
