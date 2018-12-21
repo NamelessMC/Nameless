@@ -1,12 +1,12 @@
 <?php 
 /*
- *  Translations by Maiu [Discord: Maiu#1152] & OscarWoHA
+ *  Translations by Maiu#7777 and OscarWoHA
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr4
+ *  NamelessMC versjon 2.0.0-pr5
  *
  *  License: MIT
  *
- *  Norsk oversettelse - User
+ *  Norwegian translation (norsk bokmål) - User
  */
 
 $language = array(
@@ -22,7 +22,7 @@ $language = array(
 	'guests' => 'Gjester',
 	
 	// UserCP
-	'user_cp' => 'BrukerKP',
+	'user_cp' => 'BrukerCP',
 	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
 	'overview' => 'Oversikt',
 	'user_details' => 'Dine detaljer',
@@ -59,9 +59,9 @@ $language = array(
 	'timezone' => 'Tidssone',
 	'upload_new_avatar' => 'Last opp et nytt avatar.',
 	'nickname_already_exists' => 'Brukernavnet du har valgt er allerede i bruk.',
-	'change_email_address' => 'Change Email Address',
-	'email_already_exists' => 'The email address you have entered already exists.',
-	'email_changed_successfully' => 'Email address changed successfully.',
+	'change_email_address' => 'Endre emailadresse',
+	'email_already_exists' => 'Emailadressen eksisterer allerede',
+	'email_changed_successfully' => 'Emailadressen har blitt endret',
 	'avatar' => 'Avatar',
 	
 	// Alerts
@@ -120,8 +120,8 @@ $language = array(
 	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Verifisering feilet, prøv igjen.',
 	'verification_success' => 'Suksessfullt verifisert, du kan nå logge inn!',
-	'authme_username_exists' => 'Din Authme bruker har allerede blitt koblet til denne nettsida!',
-	'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
+	'authme_username_exists' => 'Din AuthMe bruker har allerede blitt koblet til denne nettsida!',
+	'uuid_already_exists' => 'Din UUID eksisterer allerede, som betyr at denne brukeren allerede har blitt registrert.',
 	
 	// Login
 	'successful_login' => 'Du har nå logget inn.',
@@ -174,9 +174,9 @@ $language = array(
 	'user_unblocked' => 'Fjernet blokkering.',
 	'views' => 'Profilvisninger:',
 	'private_profile_page' => 'Dette er en privat profil!',
-	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
-	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
-	'no_about_fields' => 'This user has not added any about fields yet.',
+	'new_wall_post_reply' => '{x} har svart på posten din på {y}\ sin profil.', // Don't replace {x} or {y}
+	'new_wall_post_reply_your_profile' => '{x} har svart på posten din på din profil', // Don't replace {x}
+	'no_about_fields' => 'Denne brukeren har ikke laget en om meg-felt enda.',
 	
 	
 	// Reports
