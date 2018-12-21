@@ -1,12 +1,12 @@
 <?php
 /*
- *  Translations by Maiu | Discord: Maiu#1152
+ *  Translations by Maiu#7777
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr3
+ *  NamelessMC versjon 2.0.0-pr5
  *
  *  License: MIT
  *
- *  Norsk oversettelse - API
+ *  Norwegian translation (norsk bokmål) - API
  */
 
 $language = array(
@@ -47,6 +47,6 @@ $language = array(
     'report_created' => 'Rapportering suksessfullt opprettet',
     'new_private_message_from' => 'Ny privatmelding fra {x}', // Don't replace {x}
     'username_updated' => 'Brukernavn suksessfullt oppdatert',
-    'server_info_updated' => 'Server info suksessfullt oppdatert',
-	'account_validated' => 'Account validated successfully'
+    'server_info_updated' => 'Serverinfo suksessfullt oppdatert',
+	'account_validated' => 'Brukeren har blitt validert'
 );
