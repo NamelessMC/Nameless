@@ -1,12 +1,12 @@
 <?php
 /*
- *  Translations by Maiu | Discord: Maiu#1152
+ *  Translations by Maiu#7777
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr3
+ *  NamelessMC versjon 2.0.0-pr5
  *
  *  License: MIT
  *
- *  Norsk oversettelse - Installation
+ *  Norwegian translation (norsk bokmål) - Installation
  */
 
 $language = array(
@@ -34,18 +34,18 @@ $language = array(
     'database_username' => 'Database Brukernavn',
     'database_password' => 'Database Passord',
     'database_name' => 'Database Navn',
-    'nameless_path' => 'Installation Path',
-    'nameless_path_info' => 'This is the path Nameless is installed in, relative to your domain. For example, if Nameless is installed at example.com/forum, this needs to be <strong>forum</strong>. Leave empty if Nameless is not in a subfolder.',
-    'friendly_urls' => 'Friendly URLs',
-    'friendly_urls_info' => 'Friendly URLs will improve the readability of URLs in your browser.<br />For example: <br />example.com/index.php?route=/forum<br />would become<br />example.com/forum.<br /><strong>Important!</strong><br />Your server must be configured correctly for this to work. You can see whether you can enable this option by clicking <a href=\'./rewrite_test\' target=\'_blank\'>here</a>.',
-    'enabled' => 'Enabled',
-    'disabled' => 'Disabled',
+    'nameless_path' => 'Installeringspath',
+    'nameless_path_info' => 'Dette er pathen Nameless er installert i. Hvis Nameless for eksempel er installert i eksempel.no/forum, vil dette da være <strong>forum</strong>. La feltet være tomt hvis den ikke er installert i en subfolder.',
+    'friendly_urls' => 'Forenklede URLs',
+    'friendly_urls_info' => 'Forenklede URLS vil gjøre URLen mer leselig.<br />For eksempel: <br />eksempel.no/index.php?route=/forum<br />vil bli<br />eksempel.no/forum.<br /><strong>Viktig!</strong><br />Serveren din må være konfigurert riktig for at dette skal funke. Sjekk <a href=\'./rewrite_test\' target=\'_blank\'>her</a>.',
+    'enabled' => 'Aktivert',
+    'disabled' => 'Deaktivert',
     'character_set' => 'Tegnsetting',
     'database_engine' => 'Database Storage Engine',
-    'host' => 'Hostname',
-    'host_help' => 'The hostname is the <strong>base URL</strong> for your website. Do not include the subfolders from the Installation Path field, or http(s):// here!',
+    'host' => 'Hostnavn',
+    'host_help' => 'Hostnavnet er <strong>URLen</strong> for nettsiden din. Ikke inkluder subfolderen eller http(s):// her!',
     'database_error' => 'Pass på at alle rutene har blitt fylt.',
-    'submit' => 'Enter',
+    'submit' => 'Gjør',
     'installer_now_initialising_database' => 'Installereren kobler til databasen. Dette kan ta litt tid...',
     'configuration' => 'Konfigurering',
     'configuration_info' => 'Skriv inn informasjon om nettsiden din. Denne informasjonen kan bli redigert senere gjennom admin panelet.',
