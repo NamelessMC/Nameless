@@ -1,12 +1,12 @@
 <?php 
 /*
- *  Translations by Maiu | Discord: Maiu#1152
+ *  Translations by Maiu#7777
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr3
+ *  NamelessMC versjon 2.0.0-pr5
  *
  *  License: MIT
  *
- *  Norsk oversettelse - Moderator
+ *  Norwegian translation (norsk bokmål) - Moderator
  */
 
 $language = array(
@@ -26,10 +26,10 @@ $language = array(
 	'search_for_ip' => 'Søk etter en bruker eller IP adresse:',
 	'no_ips_with_username' => 'IP adresse for denne spilleren ble ikke funnet.',
 	'no_accounts_with_that_ip' => 'IP adresse for denne brukeren ble ikke funnet.',
-	'1_account_with_ip' => 'Found 1 account with the IP {y}', // Don't replace "{y}"
+	'1_account_with_ip' => 'Fant 1 bruker med IP {y}', // Don't replace "{y}"
 	'count_accounts_with_ip' => 'Fant {x} brukere med IPen {y}', // Don't replace "{x}" or "{y}"
-	'1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
-	'count_ips_with_name' => 'Fant {x} IP addresse(r) for bruker {y}', // Don't replace "{x}" or "{y}"
+	'1_ip_with_name' => 'Fant 1 IP adresse for brukeren {y}', // Don't replace "{y}"
+	'count_ips_with_name' => 'Fant {x} IP adresser for bruker {y}', // Don't replace "{x}" or "{y}"
 	'no_users_or_ips_found' => 'Spillerens IP adresse ble ikke funnet.',
 	
 	// Reports
@@ -48,19 +48,19 @@ $language = array(
 	'report_comment_invalid' => 'Ugyldig innhold. Pass på at du har mellom 1 til 1000 tegn.',
 	'close_report' => 'Lukk rapport',
 	'reopen_report' => 'Åpne rapport på nytt',
-	'1_open_report' => 'There is currently <strong>1</strong> open report.',
-	'open_reports' => 'Det er foreløpig<strong>{x}</strong> åpne rapport(er).', // Don't replace {x}
-	'no_open_reports' => 'There are currently no open reports.',
-	'no_closed_reports' => 'There are currently no closed reports.',
-	'recent_reports' => 'Recent Reports',
-	'reported_by' => 'Reported by:',
-	'website' => 'Website',
+	'1_open_report' => 'Det er kun <strong>1</strong> åpen rapport.',
+	'open_reports' => 'Det er foreløpig <strong>{x}</strong> åpne rapporter.', // Don't replace {x}
+	'no_open_reports' => 'Det er ingen åpne rapporter for øyeblikket.',
+	'no_closed_reports' => 'Det er ingen lukkede rapporter for øyeblikket.',
+	'recent_reports' => 'Nylige rapporter',
+	'reported_by' => 'Rapportert av:',
+	'website' => 'Nettside',
 	'ingame' => 'Ingame',
-	'x_closed_report' => '{x} closed this report.', // Don't replace {x} (username)
-	'x_reopened_report' => '{x} reopened this report.', // Don't replace {x} (username)
-	'report_reopened' => 'Report reopened successfully.',
-	'report_closed' => 'Report closed successfully.',
-	'comment_created' => 'Comment created successfully.',
+	'x_closed_report' => '{x} lukket denne rapporten.', // Don't replace {x} (username)
+	'x_reopened_report' => '{x} reåpnet denne rapporten..', // Don't replace {x} (username)
+	'report_reopened' => 'Rapport har blitt reåpnet.',
+	'report_closed' => 'Rapport har blitt lukket.',
+	'comment_created' => 'Kommentar har blitt sendt.',
 	
 	// Punishments
 	'punishments' => 'Straffer',
@@ -96,12 +96,12 @@ $language = array(
     'when' => 'Når',
     'staff' => 'Staff',
     'type' => 'Type',
-    'recent_punishments' => 'Recent Punishments',
-    'created' => 'Created:',
+    'recent_punishments' => 'Nylige straffer',
+    'created' => 'Laget:',
     'staff:' => 'Staff:',
-    'reason:' => 'Reason:',
+    'reason:' => 'Grunn:',
 	
     // Users
-    'recent_registrations' => 'Recent Registrations'
+    'recent_registrations' => 'Nylige registreringer'
 
 );
