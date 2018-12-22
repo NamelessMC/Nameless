@@ -1,12 +1,12 @@
 <?php 
 /*
- *  Translations by Maiu | Discord: Maiu#1152
+ *  Translations by Maiu#7777
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr3
+ *  NamelessMC versjon 2.0.0-pr5
  *
  *  License: MIT
  *
- *  Norsk oversettelse - Time
+ *  Norwegian translation (norsk bokmål) - Time
  */
 
 $language = array(
