@@ -1,12 +1,12 @@
 <?php
 /*
- *  Translations by Maiu | Discord: Maiu#1152
+ *  Translations by Maiu#7777
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr3
+ *  NamelessMC versjon 2.0.0-pr5
  *
  *  License: MIT
  *
- *  Norsk oversettelse - Admin
+ *  Norwegian translation (norsk bokmål) - Admin
  */
 
 $language = array(
@@ -18,14 +18,14 @@ $language = array(
 
 	// Sidebar
 	'dashboard' => 'Dashboard',
-	'configuration' => 'Configuration',
+	'configuration' => 'Konfigurering',
 	'layout' => 'Layout',
-	'user_management' => 'User Management',
+	'user_management' => 'Brukeradministering',
 	'admin_cp' => 'AdminCP',
 	'administration' => 'Administrasjon',
 	'overview' => 'Oppsummering',
 	'core' => 'Kjerne',
-	'integrations' => 'Integrations',
+	'integrations' => 'Integreringer',
 	'minecraft' => 'Minecraft',
 	'modules' => 'Moduler',
 	'security' => 'Sikkerhet',
@@ -64,13 +64,13 @@ $language = array(
 	'homepage_type' => 'Forsidetype',
 	'post_formatting_type' => 'Formatteringstype for poster',
 	'portal' => 'Portal',
-	'private_profiles' => 'Private Profiles',
+	'private_profiles' => 'Privatprofiler',
 	'missing_sitename' => 'Navnet på nettstedet må være mellom 2 og 64 tegn.',
-	'missing_contact_address' => 'Please insert a contact email address between 3 and 255 characters long.',
+	'missing_contact_address' => 'Legg til en email adresse mellom 3 og 255 tegn.',
 	'use_friendly_urls' => 'Søkemotorvennlige URL-adresser',
 	'use_friendly_urls_help' => 'VIKTIG! For at denne funksjonen skal fungere må du ha mod_rewrite og .htaccess tilgjengelig for web-serveren din. (Kun Apache2 er støttet for øyeblikket)',
 	'config_not_writable' => '<strong>core/config.php</strong> er ikke skrivbar. Sjekk filens rettigheter og web-serverens tilgang. (www-data og chmod g+rw)',
-	'settings_updated_successfully' => 'General settings updated successfully.',
+	'settings_updated_successfully' => 'Instillingene har blitt lagret.',
 	'social_media' => 'Sosiale medier',
 	'youtube_url' => 'YouTube-URL',
 	'twitter_url' => 'Twitter-URL',
@@ -81,11 +81,11 @@ $language = array(
 	'light' => 'Light',
 	'google_plus_url' => 'Google+ URL',
 	'facebook_url' => 'Facebook-URL',
-	'social_media_settings_updated' => 'Social media settings updated successfully.',
+	'social_media_settings_updated' => 'Sosiale medier-instillinger har blitt oppdatert.',
 	'successfully_updated' => 'Vellykket endring i innstillinger!',
     'debugging_and_maintenance' => 'Feilsøk og vedlikehold',
     'maintenance' => 'Vedlikehold',
-	'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
+	'debugging_settings_updated_successfully' => 'Feilsøk-instillinger har blitt oppdatert.',
     'enable_debug_mode' => 'Tillatt feilsøkingsmodus?',
     'force_https' => 'Overstyr https?',
     'force_https_help' => 'Hvis aktivert, alle forespørsler på din nettside vil bli videresendt til https. Du må ha en gyldig SSL sertifikat aktiv for at dette skal funke.',
@@ -135,10 +135,10 @@ $language = array(
     'navbar_order' => 'Navigasjonsbar rekkefølge',
     'navbar_order_instructions' => 'Du kan gi hver ting et tall over 0 for å plassere i rekkefølge.',
     'navbar_icon' => 'Navbar Icon',
-    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
-    'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
-    'dropdown_items' => 'Dropdown Items',
-    'enable_page_load_timer' => 'Aktiver side timer?',
+    'navbar_icon_instructions' => 'Du kan også legge til ikoner med f.eks <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+    'navigation_settings_updated_successfully' => 'Navigasjonsinstillinger har blitt oppdatert.',
+    'dropdown_items' => 'Dropdown-meny',
+    'enable_page_load_timer' => 'Aktiver nettside timer?',
     'google_recaptcha' => 'Aktiver Google reCAPTCHA?',
     'recaptcha_site_key' => 'reCAPTCHA nettsidenøkkel (Site key)',
     'recaptcha_secret_key' => 'reCAPTCHA hemmelig nøkkel (Secret key)',
@@ -147,7 +147,7 @@ $language = array(
     'validation_promote_group' => 'Post-valideringsgruppe',
     'validation_promote_group_info' => 'Dette er gruppen brukeren vil bli forfremmet til når personen har verifisert kontoen sin.',
     'login_method' => 'Login Metode',
-    'privacy_and_terms' => 'Privacy & Terms',
+    'privacy_and_terms' => 'Personvern og vilkår',
 
 	// Reactions
 	'icon' => 'Ikon',
@@ -159,16 +159,16 @@ $language = array(
 	'html' => 'HTML',
 	'new_reaction' => '<i class="fa fa-plus-circle"></i> Ny reaksjon',
 	'creating_reaction' => 'Oppretter ny reaksjon',
-	'no_reactions' => 'There are no reactions yet.',
-	'reaction_created_successfully' => 'Reaction created successfully.',
-	'reaction_edited_successfully' => 'Reaction edited successfully.',
-	'reaction_deleted_successfully' => 'Reaction deleted successfully.',
-	'name_required' => 'A name is required',
-	'html_required' => 'HTML is required',
-	'type_required' => 'A type is required',
-	'name_maximum_16' => 'The name must be no more than 16 characters',
-	'html_maximum_255' => 'The HTML must be no more than 255 characters',
-	'confirm_delete_reaction' => 'Are you sure you want to delete this reaction?',
+	'no_reactions' => 'Det finnes ingen reaksjoner enda.',
+	'reaction_created_successfully' => 'Reaksjonen har blitt lagt til.',
+	'reaction_edited_successfully' => 'Reaksjonen har blitt endret',
+	'reaction_deleted_successfully' => 'Reaksjonen har blitt fjernet.',
+	'name_required' => 'Et navn er obligatorisk.',
+	'html_required' => 'HTML er obligatorisk.',
+	'type_required' => 'En type er obligatorisk',
+	'name_maximum_16' => 'Navnet kan ikke være lenger enn 16 tegn.',
+	'html_maximum_255' => 'HTMLen kan ikke være lenger enn 255 tegn.',
+	'confirm_delete_reaction' => 'Er du sikker på at du vil slette denne reaksjonen?',
 
 	// Custom profile fields
 	'custom_fields' => 'Egendefinerbare profilfelt',
@@ -188,11 +188,11 @@ $language = array(
 	'description' => 'Beskrivelse',
 	'display_field_on_forum' => 'Synlig på forumet',
 	'profile_field_forum_help' => 'Hvis "Synlig på forumet" er aktivert vil alle som bruker forumet kunne se feltet.',
-	'profile_field_editable_help' => 'If enabled, users will have permission to edit the field in their profile settings.',
-	'no_custom_fields' => 'There are no custom fields yet.',
-	'profile_field_updated_successfully' => 'The profile field was updated successfully.',
-	'profile_field_created_successfully' => 'The profile field was created successfully.',
-	'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
+	'profile_field_editable_help' => 'Hvis aktivert, vil brukere ha tilgang til å endre feltet på deres profilside.',
+	'no_custom_fields' => 'Det finnes ingen egendefinerte profilfelt enda.',
+	'profile_field_updated_successfully' => 'Profilfeltet har blitt oppdatert.',
+	'profile_field_created_successfully' => 'Profilfeltet har blitt lagt til.',
+	'profile_field_deleted_successfully' => 'Profilfeltet har blitt fjernet.',
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Aktiver Minecraft-integrasjon',
@@ -206,7 +206,7 @@ $language = array(
     'authme_db_name' => 'Databasenavn for AuthMe (MySQL)',
     'authme_db_user' => 'Brukernavn for AuthMe (MySQL)',
     'authme_db_password' => 'Passord for AuthMe (MySQL)',
-    'authme_db_password_hidden' => 'The AuthMe database password is hidden for security reasons.',
+    'authme_db_password_hidden' => 'AuthMe databasepassordet er skjult for sikkerhetsmessige årsaker.',
     'authme_hash_algorithm' => 'AuthMe hashing-algoritme',
     'authme_db_table' => 'Tabellen for AuthMe (MySQL)',
     'enter_authme_db_details' => 'Fyll inn databasekonfigurasjonsdataen for å koble sammen nettstedet og AuthMe.',
@@ -265,11 +265,11 @@ $language = array(
     'new_banner' => '<i class="fa fa-plus-circle"></i> Ny banner',
     'purge_errors' => 'Rens alle error',
     'confirm_purge_errors' => 'Er du sikker på at du vil fjerne alle errorer?',
-	'email_errors_purged_successfully' => 'Email errors have been purged successfully.',
-	'error_deleted_successfully' => 'The error has been deleted successfully.',
-	'no_email_errors' => 'No email errors logged.',
-	'email_settings_updated_successfully' => 'Email settings have been updated successfully.',
-	'content' => 'Content',
+	'email_errors_purged_successfully' => 'Email errors har blitt fjernet.',
+	'error_deleted_successfully' => 'Erroren har blitt fjernet.',
+	'no_email_errors' => 'Ingen errors har blitt logget.',
+	'email_settings_updated_successfully' => 'Emailinstillinger har blitt oppdatert.',
+	'content' => 'Innhold',
     'mcassoc_help' => 'mcassoc er en ekstern service som kan bli brukt for å verifisere deres Minecraft bruker de har registrert med. For å bruke denne funksjonen må du registrere deg for å motta en delt nøkkel <a href="https://mcassoc.lukegb.com/" target="_blank">her</a>.',
     'mcassoc_key' => 'mcassoc delt nøkkel (Shared key)',
     'mcassoc_instance' => 'mcassoc Instance Key',
@@ -281,14 +281,14 @@ $language = array(
     'query_interval' => 'Query interval (i minutter, må være mellom 5 og 60)',
     'player_graphs' => 'Spillergrafer',
     'player_count_cronjob_info' => 'Du kan sette opp et cron job for å querye serveren hvert {x} minutt med denne kommandoen:',
-    'status_page' => 'Enable status page?',
-    'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
+    'status_page' => 'Aktiver statusside?',
+    'minecraft_settings_updated_successfully' => 'Instillingene har blitt oppdatert.',
     'server_id_x' => 'Server ID: {x}', // Don't replace {x}
-    'server_information' => 'Server Information',
-    'query_information' => 'Query Information',
-    'query_errors_purged_successfully' => 'Query errors purged successfully.',
-    'query_error_deleted_successfully' => 'Query error deleted successfully.',
-    'banner_updated_successfully' => 'Banner updated successfully. It may take a while for your changes to take effect.',
+    'server_information' => 'Serverinformasjon',
+    'query_information' => 'Query informasjon',
+    'query_errors_purged_successfully' => 'Alle Query errors har blitt fjernet.',
+    'query_error_deleted_successfully' => 'Query erroren har blitt fjernet.',
+    'banner_updated_successfully' => 'Banneren har blitt oppdatert. Det kan ta tid før nettsiden oppdateres.',
 
 	// Modules
 	'modules_installed_successfully' => 'Modulene er nå oppdatert',
@@ -300,12 +300,12 @@ $language = array(
 	'module_disabled' => 'Modul deaktivert.',
 	'author' => 'Utgiver:',
 	'author_x' => 'Utgiver: {x}', // Don't replace {x}
-	'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
-	'find_modules' => 'Find Modules',
-	'view_all_modules' => 'View all modules',
-	'unable_to_retrieve_modules' => 'Unable to retrieve modules',
-	'module' => 'Module',
-	'unable_to_enable_module' => 'Unable to enable incompatible module.',
+	'module_outdated' => 'Det ser ut som denne modulen hører til Nameless versjon {x}, men du bruker versjon {y}', // Don't replace "{x}" or "{y}"
+	'find_modules' => 'Finn moduler',
+	'view_all_modules' => 'Vis alle moduler',
+	'unable_to_retrieve_modules' => 'Kunne ikke finne moduler.',
+	'module' => 'Modul',
+	'unable_to_enable_module' => 'Kunne ikke aktivere modulen.',
 
 	// Styles
 	'templates' => 'Maler',
@@ -331,21 +331,21 @@ $language = array(
 	'delete' => 'Slett',
 	'template_deleted_successfully' => 'Mal suksessfullt slettet.',
 	'background_image_x' => 'Bakgrunnsbilde: <strong>{x}</strong>', // Don't replace {x}
-	'find_templates' => 'Find Templates',
-	'view_all_templates' => 'View all templates',
-	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
-	'template' => 'Template',
-	'stats' => 'Stats',
-	'downloads_x' => 'Downloads: {x}',
-	'views_x' => 'Views: {x}',
-	'rating_x' => 'Rating: {x}',
-	'editing_template_x' => 'Editing template {x}', // Don't replace {x}
-	'editing_template_file_in_template' => 'Editing file {x} in template {y}', // Don't replace {x} or {y}
-	'cant_write_to_template' => 'Can\'t write to template file! Please check file permissions.',
-	'unable_to_delete_template' => 'Unable to fully delete template. Please check file permissions.',
-	'background_reset_successfully' => 'Background reset successfully.',
-	'background_updated_successfully' => 'Background updated successfully.',
-	'unable_to_enable_template' => 'Unable to enable incompatible template.',
+	'find_templates' => 'Finn alle maler',
+	'view_all_templates' => 'Vis alle maler',
+	'unable_to_retrieve_templates' => 'Kunne ikke finne maler',
+	'template' => 'Mal',
+	'stats' => 'Statistikk',
+	'downloads_x' => 'Nedlastninger: {x}',
+	'views_x' => 'Visninger: {x}',
+	'rating_x' => 'Rangering: {x}',
+	'editing_template_x' => 'Redigerer mal {x}', // Don't replace {x}
+	'editing_template_file_in_template' => 'Redigerer filen {x} i malen {y}', // Don't replace {x} or {y}
+	'cant_write_to_template' => 'Kunne ikke redigere filen! Vennligst sjekk rettighetene.',
+	'unable_to_delete_template' => 'Kunne ikke slette malen. Vennligst sjekk rettighetene.',
+	'background_reset_successfully' => 'Bakgrunnen har blitt resatt.',
+	'background_updated_successfully' => 'Bakgrunnen har blitt oppdatert.',
+	'unable_to_enable_template' => 'Kunne ikke aktivere malen.',
 
 	// Users & groups
 	'users' => 'Brukere',
@@ -391,19 +391,19 @@ $language = array(
 	'secondary_groups_info' => 'Denne brukeren vil få all tilgang som denne gruppen har.',
 	'unable_to_update_uuid' => 'Kan ikke oppdatere UUID.',
 	'default_group' => 'Er denne gruppen standardgruppen (for nye brukere)?',
-	'user_id' => 'User ID',
+	'user_id' => 'Bruker ID',
 	'uuid' => 'UUID',
-	'group_order' => 'Group Order',
-	'group_created_successfully' => 'Group created successfully.',
-	'group_updated_successfully' => 'Group updated successfully.',
-	'group_deleted_successfully' => 'Group deleted successfully.',
-	'unable_to_delete_group' => 'Unable to delete a default group, or a group that can view the StaffCP. Please update the group settings first!',
+	'group_order' => 'Rekkefølge',
+	'group_created_successfully' => 'Gruppen har blitt lagt til.',
+	'group_updated_successfully' => 'Gruppen har blitt oppdatert.',
+	'group_deleted_successfully' => 'Gruppen har blitt fjernet.',
+	'unable_to_delete_group' => 'Kan ikke slette en standardgruppe eller en gruppe med StaffCP. Vennligst oppdater gruppeinstillingene!',
 	'can_view_staffcp' => 'Har denne gruppa tilgang til StaffCP?',
-	'user' => 'User',
-	'user_validated_successfully' => 'User validated successfully.',
-	'user_updated_successfully' => 'User updated successfully.',
-	'editing_user_x' => 'Editing user {x}', // Don't replace {x}
-	'details' => 'Details',
+	'user' => 'Bruker',
+	'user_validated_successfully' => 'Brukeren har blitt validert.',
+	'user_updated_successfully' => 'Brukeren har blitt oppdatert.',
+	'editing_user_x' => 'Redigerer bruker {x}', // Don't replace {x}
+	'details' => 'Detaljer',
 
 	// Permissions
 	'select_all' => 'Velg alle',
@@ -433,18 +433,18 @@ $language = array(
 	'acp_logins' => 'StaffCP Logg inns',
 	'please_select_logs' => 'Velg logs du vil vise.',
 	'ip_address' => 'IP Addresser',
-	'template_changes' => 'Template forandringer',
-	'file_changed' => 'File endringer',
-	'all_logs' => 'All Logs',
-	'action' => 'Action',
-	'action_info' => 'Action Info',
+	'template_changes' => 'Malforandringer',
+	'file_changed' => 'Fil endringer',
+	'all_logs' => 'Alle logg',
+	'action' => 'Handling',
+	'action_info' => 'Info',
 
 	// Updates
 	'update' => 'Oppdater',
 	'current_version_x' => 'Denne versjonen: <strong>{x}</strong>', // Don't replaec {x}
 	'new_version_x' => 'Ny versjon:: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => 'Det er en ny oppdatering tilgjengelig',
-	'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
+	'new_urgent_update_available' => 'Det er en ny viktig oppdatering tilgjengelig. Oppdater så fort som mulig!',
 	'up_to_date' => 'Din NamelessMC kjører den nyeste versjonen!',
 	'urgent' => 'Denne oppdateringen er en midlertidig versjon.',
 	'changelog' => 'Oppdateringshistorikk',
@@ -452,7 +452,7 @@ $language = array(
 	'instructions' => 'Instruksjoner',
 	'download' => 'Last ned',
 	'install_confirm' => 'Pass på at du har lastet opp filene først!',
-	'check_again' => 'Check again',
+	'check_again' => 'Sjekk igjen',
 
 	// Widgets
 	'widgets' => 'Widgets',
@@ -461,10 +461,10 @@ $language = array(
 	'widget_updated' => 'Widget updated.',
 	'editing_widget_x' => 'Redigerer widget {x}', // Don't replace {x}
 	'module_x' => 'Modul: {x}', // Don't replace {x}
-	'widget_order' => 'Widget Order',
+	'widget_order' => 'Widget rekkefølge',
 
     // Online users widget
-    'include_staff_in_user_widget' => 'Include staff members in user widget?',
+    'include_staff_in_user_widget' => 'Inkluder staffmedlemmer i bruker widget?',
 
     // Custom Pages
     'pages' => 'Sider',
@@ -472,9 +472,9 @@ $language = array(
     'new_page' => '<i class="fa fa-plus-circle"></i> Ny side',
     'no_custom_pages' => 'Ingen sider har blitt laget enda.',
     'creating_new_page' => 'Oppretter side',
-    'page_title' => 'Side tittel',
-    'page_path' => 'Side path (with preceding /, eg /example)',
-    'page_icon' => 'Side ikon',
+    'page_title' => 'Sidetittel',
+    'page_path' => 'Side url (inkluder /, slik: /eksempel)',
+    'page_icon' => 'Sideikon',
     'page_link_location' => 'Side link plassering',
     'page_link_navbar' => 'Navigasjonsbar',
     'page_link_footer' => 'Footer',
@@ -482,29 +482,29 @@ $language = array(
     'page_link_none' => 'Ingen link',
     'page_content' => 'Side innhold',
     'page_redirect' => 'Side Redirect?',
-    'page_redirect_to' => 'Redirect lenke (med følgende start http://)',
+    'page_redirect_to' => 'Redirect lenke (med følgende start: http://)',
     'unsafe_html' => 'Tillatt usikker HTML?',
     'unsafe_html_warning' => 'Ved å aktivere denne funksjonen vil all HTML kunne bli brukt på siden, også skadelig JavaScript. Bruk kun om du er sikker på at det er trygt.',
-    'include_in_sitemap' => 'Include in sitemap?',
+    'include_in_sitemap' => 'Inkluder i sitemap?',
     'sitemap_link' => 'Sitemap link:',
-    'page_permissions' => 'Siden permisjoner',
+    'page_permissions' => 'Siderettigheter',
     'view_page' => 'Se side?',
     'editing_page_x' => 'Redigerer side {x}', // Don't replace {x}
     'unable_to_create_page' => 'Kunne ikke opprette side:',
-    'page_title_required' => 'En side tittel er påkrevd.',
+    'page_title_required' => 'En sidetittel er påkrevd.',
     'page_url_required' => 'En side path er påkrevd.',
-    'link_location_required' => 'En link plassering er påkrevd.',
-    'page_title_minimum_2' => 'Side tittelen må være minst 2 tegn.',
-    'page_url_minimum_2' => 'Siden pathen må være minst 2 tegn.',
-    'page_title_maximum_30' => 'Side tittelen må være maks 30 tegn.',
-    'page_icon_maximum_64' => 'Side iconet må være maks 64 tegn.',
+    'link_location_required' => 'En linkplassering er påkrevd.',
+    'page_title_minimum_2' => 'Sidetittelen må være minst 2 tegn.',
+    'page_url_minimum_2' => 'Side pathen må være minst 2 tegn.',
+    'page_title_maximum_30' => 'Sidetittelen må være maks 30 tegn.',
+    'page_icon_maximum_64' => 'Sideikonet må være maks 64 tegn.',
     'page_url_maximum_20' => 'Side pathen må være maks 20 tegn.',
     'page_content_maximum_100000' => 'Sideinnholdet må være maks 100000 tegn.',
     'page_redirect_link_maximum_512' => 'Sideredirecten må være maks 512 tegn.',
     'confirm_delete_page' => 'Er du sikker på at du vil slette denne siden?',
-    'page_created_successfully' => 'Page created successfully.',
-    'page_updated_successfully' => 'Page updated successfully.',
-    'page_deleted_successfully' => 'Page deleted successfully.',
+    'page_created_successfully' => 'Siden har blitt lagt til.',
+    'page_updated_successfully' => 'Siden har blitt oppdatert.',
+    'page_deleted_successfully' => 'Siden har blitt fjernet.',
 
     // API
     'api' => 'API',
@@ -513,50 +513,50 @@ $language = array(
     'enable_legacy_api' => 'Aktiver legacy API?',
     'legacy_api_info' => 'Legacy APIen tillatter plugins som bruker Nameless versjon 1 APIen til å fungere med din versjon 2 nettside.',
     'confirm_api_regen' => 'Er du sikker på at du vil regenere API nøkkelen din?Are you sure you want to regenerate your API key?',
-	'api_key' => 'API Key',
+	'api_key' => 'API Nøkkel',
 	'api_url' => 'API URL',
-	'copy' => 'Copy',
-	'api_key_regenerated' => 'The API key has been regenerated successfully.',
-    'api_registration_email' => 'API RegistreringsemailAPI Registration Email',
-	'show_registration_link' => 'Show registration link',
-	'registration_link' => 'Registration Link',
+	'copy' => 'Kopier',
+	'api_key_regenerated' => 'API nøkkelen har blitt regenerert.',
+    'api_registration_email' => 'API Registreringsemail',
+	'show_registration_link' => 'Hvis registeringslink',
+	'registration_link' => 'Registreringslink',
     'link_to_complete_registration' => 'Link for å fullføre registrering: {x}', // Don't replace {x}
-    'api_verification' => 'Enable API verification?',
-    'api_verification_info' => 'If enabled, accounts can only be verified through the API, for example ingame using the official Nameless plugin. <strong>This option will override email verification, and accounts will be automatically activated!</strong><br />You should set up your default group to have limited permissions, and then update the post-validation group in the StaffCP -> Configuration -> Registration tab to the full member group with normal permissions.',
-    'enable_username_sync' => 'Enable username sync?',
-    'enable_username_sync_info' => 'If enabled, website usernames will be updated to match ingame usernames.',
-	'api_settings_updated_successfully' => 'API settings updated successfully.',
-	'group_sync' => 'Group Sync',
-	'group_sync_info' => 'You can configure the API to automatically update a user\'s website group when their ingame group is changed. Simply enter the ingame group name and the website group it should be synchronised with below.',
-	'ingame_group' => 'Ingame Group Name',
-	'website_group' => 'Website Group',
-	'set_as_primary_group' => 'Set as primary group?',
-	'set_as_primary_group_info' => 'If enabled, the user\'s primary website group will be updated. If disabled, the ingame group will be added to the user\'s website secondary groups.',
-	'ingame_group_maximum' => 'Please ensure your group name is a maximum of 64 characters long.',
-	'select_website_group' => 'Please select a website group.',
-	'ingame_group_already_exists' => 'A rank sync rule has already been created for that ingame group.',
-	'group_sync_rule_created_successfully' => 'The group sync rule has been created successfully.',
-	'group_sync_rules_updated_successfully' => 'Group sync rules have been updated successfully.',
-	'group_sync_rule_deleted_successfully' => 'The group sync rule has been deleted successfully.',
-	'existing_rules' => 'Existing Rules',
-	'new_rule' => 'New Rule',
+    'api_verification' => 'Aktiver API verifisering?',
+    'api_verification_info' => 'Hvis aktivert, kan brukerne kun bli aktivert gjennom API, som f.eks Nameless pluginen.<strong>Dette vil overstyre emailverisifering og brukere vil automatisk bli verifisert.</strong>',
+    'enable_username_sync' => 'Aktiver brukernavnsynkronisering?',
+    'enable_username_sync_info' => 'Hvis aktivert, vil alle brukernavn bli oppdatert til å matche ingame brukernavnet.',
+	'api_settings_updated_successfully' => 'API instillinger har blitt oppdatert.',
+	'group_sync' => 'Gruppe synkronisering',
+	'group_sync_info' => 'Du kan konfigurere API til å automatisk oppdatere brukerens gruppe når ingame gruppen har blitt oppdatert. Skriv inn ingame-gruppenavnet slik at begge gruppene vil være synkronisert.',
+	'ingame_group' => 'Ingame gruppenavn',
+	'website_group' => 'Nettsidegruppe',
+	'set_as_primary_group' => 'Sett som hovedgruppe?',
+	'set_as_primary_group_info' => 'Hvis aktivert, vil brukerens hovedgruppe bli oppdatert. Hvis deaktivert, vil ingamegruppen bli lagt til som brukerens sekundærgruppe på nettsiden.',
+	'ingame_group_maximum' => 'Pass på at gruppenavnet er under 64 tegn.',
+	'select_website_group' => 'Velg en nettsidegruppe',
+	'ingame_group_already_exists' => 'En modifikasjon eksisterer allerede til den ingamegruppen.',
+	'group_sync_rule_created_successfully' => 'Modifikasjonen har blitt laget.',
+	'group_sync_rules_updated_successfully' => 'Modifikasjonen har blitt oppdatert.',
+	'group_sync_rule_deleted_successfully' => 'Modifikasjonen har blitt fjernet.',
+	'existing_rules' => 'Eksisterende modifikasjoner',
+	'new_rule' => 'Ny modifikasjon',
 
 	// File uploads
 	'drag_files_here' => 'Dra filene hit for å laste opp.',
 	'invalid_file_type' => 'Ugyldig filtype.',
 	'file_too_big' => 'Filen er for stor! Din fil var {{filesize}} og maksimum er {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
-	'allowed_proxies' => 'Allowed Proxies',
-	'allowed_proxies_info' => 'Line separated list of allowed proxy IPs.',
+	'allowed_proxies' => 'Tillatte proxier',
+	'allowed_proxies_info' => 'Liste over alle tillatte proxier',
 
 	// Error logs
 	'error_logs' => 'Error Logg',
-	'notice_log' => 'Varsler logg',
+	'notice_log' => 'Varsellogg',
 	'warning_log' => 'Advarselslog',
 	'custom_log' => 'Egendefinert logg',
 	'other_log' => 'Andre logg',
 	'fatal_log' => 'Fatale logg',
 	'log_file_not_found' => 'Logg fil ikke funnet.',
-	'log_purged_successfully' => 'The log has been purged successfully.',
+	'log_purged_successfully' => 'Loggen har blitt fjernet.',
 
 	// Hooks
 	'discord_hooks' => 'Discord Hooks',
@@ -568,38 +568,38 @@ $language = array(
 	'delete_hook_info' => 'User deletion',
 
 	// Sitemap
-	'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
-	'sitemap_generated' => 'Sitemap generated successfully',
-	'sitemap_not_writable' => 'The <strong>cache/sitemaps</strong> directory is not writable.',
-	'cache_not_writable' => 'The <strong>cache</strong> directory is not writable.',
-	'generate_sitemap' => 'Generate Sitemap',
-	'download_sitemap' => 'Download Sitemap',
-	'sitemap_not_generated_yet' => 'A sitemap has not been generated yet!',
-	'sitemap_last_generated_x' => 'The sitemap was last generated {x}', // Don't replace {x}
+	'unable_to_load_sitemap_file_x' => 'Kunne ikke laste inn sitemapfilen {x}', // Don't replace {x}
+	'sitemap_generated' => 'Sitemap har blitt generert.',
+	'sitemap_not_writable' => '<strong>cache/sitemaps</strong> mappen er ikke redigerbar.',
+	'cache_not_writable' => '<strong>cache</strong> mappen er ikke redigerbar.',
+	'generate_sitemap' => 'Generer Sitemap',
+	'download_sitemap' => 'Last ned Sitemap',
+	'sitemap_not_generated_yet' => 'Det har ikke blitt generert en sitemap enda.',
+	'sitemap_last_generated_x' => 'Sitemapen ble sist generert {x}', // Don't replace {x}
 
 	// Page metadata
-	'page_metadata' => 'Page Metadata',
-	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
-	'keywords' => 'Keywords',
-	'description_max_500' => 'The description must be at most 500 characters.',
-	'page' => 'Page',
-	'metadata_updated_successfully' => 'Metadata updated successfully.',
+	'page_metadata' => 'Metadata',
+	'metadata_page_x' => 'Viser metadata for siden {x}', // Don't replace {x}
+	'keywords' => 'Nøkkelord',
+	'description_max_500' => 'Beskrivelsen må være mindre enn 500 tegn.',
+	'page' => 'Side',
+	'metadata_updated_successfully' => 'Metadata har blitt oppdatert',
 
 	// Dashboard
-	'total_users' => 'Total Users',
+	'total_users' => 'Alle brukere',
 	'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
-	'recent_users' => 'New Users',
+	'recent_users' => 'Ny bruker',
 	'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
-	'average_players' => 'Average Players',
-	'nameless_news' => 'NamelessMC News',
-	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
-	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
-	'server_compatibility' => 'Server Compatibility',
-	'issues' => 'Issues',
+	'average_players' => 'Gjennomsnittlige spillere',
+	'nameless_news' => 'NamelessMC Nyheter',
+	'unable_to_retrieve_nameless_news' => 'Kunne ikke laste inn nyeste nytt',
+	'confirm_leave_site' => 'Du er i ferd med å forlate denne siden! Er du sikker på at du vil besøke <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'server_compatibility' => 'Serverkompatibilitet',
+	'issues' => 'Feil',
 
 	// Other
-	'source' => 'Source',
+	'source' => 'Kilde',
 	'support' => 'Support',
-	'admin_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/admin</strong> directory still exists. Please remove this directory.',
-	'mod_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/mod</strong> directory still exists. Please remove this directory.'
+	'admin_dir_still_exists' => 'Advarsel! <strong>modules/Core/pages/admin</strong> mappen eksisterer fortsatt. Vennligst slett denne mappen.',
+	'mod_dir_still_exists' => 'Advarsel! <strong>modules/Core/pages/mod</strong> mappen eksisterer fortsatt. Vennligst slett denne mappen.'
 );
