@@ -93,7 +93,7 @@ class MinecraftPing
 
 		if( !$this->Socket )
 		{
-			throw new MinecraftPingException( "Failed to connect or create a socket: $errno ($errstr)" );
+			throw new Exception( "Failed to connect or create a socket: $errno ($errstr)" );
 		}
 
 		// Set Read/Write timeout
