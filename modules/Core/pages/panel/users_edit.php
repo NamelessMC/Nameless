@@ -171,8 +171,17 @@ if(Input::exists()){
 					'required' => true
 				);
 				$group = Input::get('group');
+
+				// Get secondary groups
+				if(isset($_POST['secondary_groups']) && count($_POST['secondary_groups'])){
+					$secondary_groups = json_encode($_POST['secondary_groups']);
+				} else {
+					$secondary_groups = '';
+				}
+
 			} else {
 				$group = $user_query->group_id;
+				$secondary_groups = $user_query->secondary_groups;
 			}
 
 			$validation = $validate->check($_POST, $to_validation);
@@ -196,13 +205,6 @@ if(Input::exists()){
 
 					if($private_profile_active){
 						$private_profile = Input::get('privateProfile');
-					}
-
-					// Get secondary groups
-					if(isset($_POST['secondary_groups']) && count($_POST['secondary_groups'])){
-						$secondary_groups = json_encode($_POST['secondary_groups']);
-					} else {
-						$secondary_groups = '';
 					}
 
 					// Nicknames?

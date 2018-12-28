@@ -147,7 +147,7 @@
                                         <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
                                         {$SECONDARY_GROUPS_INFO}
                                     </div>
-                                    <select class="form-control" name="secondary_groups[]" id="inputSecondaryGroups" multiple>
+                                    <select class="form-control" name="secondary_groups[]" id="inputSecondaryGroups" multiple{if isset($CANT_EDIT_GROUP)} disabled{/if}>
                                         {foreach from=$ALL_GROUPS item=item}
                                             {if $item->id neq $GROUP_ID}
                                                 <option value="{$item->id}"{if in_array($item->id, $SECONDARY_GROUPS_VALUE)} selected{/if}>{$item->name|escape}</option>
