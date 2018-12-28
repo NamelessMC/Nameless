@@ -236,5 +236,30 @@ class Forum_Module extends Module {
 
 		require_once(ROOT_PATH . '/modules/Forum/hooks/DeleteUserForumHook.php');
 		HookHandler::registerHook('deleteUser', 'DeleteUserForumHook::deleteUser');
+
+		// Variables
+		$cache->setCache('forum_stats');
+		if(!$cache->isCached('total_topics')){
+			$total_topics = DB::getInstance()->query('SELECT count(*) FROM nl2_topics WHERE deleted = 0')->first();
+			$total_topics = $total_topics->{'count(*)'};
+			$cache->store('total_topics', $total_topics, 60);
+		} else {
+			$total_topics = $cache->retrieve('total_topics');
+		}
+
+		if(!$cache->isCached('total_posts')){
+			$total_posts = DB::getInstance()->query('SELECT count(*) FROM nl2_posts WHERE deleted = 0')->first();
+			$total_posts = $total_posts->{'count(*)'};
+			$cache->store('total_posts', $total_posts, 60);
+		} else {
+			$total_posts = $cache->retrieve('total_posts');
+		}
+
+		$smarty->assign(array(
+			'TOTAL_TOPICS' => $this->_forum_language->get('forum', 'topics_title'),
+			'TOTAL_TOPICS_VALUE' => $total_topics,
+			'TOTAL_POSTS' => $this->_forum_language->get('forum', 'posts_title'),
+			'TOTAL_POSTS_VALUE' => $total_posts
+		));
 	}
 }
