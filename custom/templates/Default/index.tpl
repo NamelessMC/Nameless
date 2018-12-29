@@ -51,7 +51,7 @@
 		{foreach from=$NEWS item=item}
 		<div class="card">
 		  <div class="card-header">
-			<a href="{$item.url}">{$item.title}</a>
+			{if $item.label}{$item.label} {/if}<a href="{$item.url}">{$item.title}</a>
 			<span class="pull-right" data-toggle="tooltip" title="{$item.date}">{$item.time_ago}</span>
 		  </div>
 		  <div class="card-body">
