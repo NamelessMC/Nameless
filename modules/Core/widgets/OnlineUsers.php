@@ -43,7 +43,12 @@ class OnlineUsersWidget extends WidgetBase {
 			    $this->_cache->store('include_staff_in_users', 0);
 		    }
 
-		    $online = DB::getInstance()->query('SELECT id, username, nickname FROM nl2_users WHERE last_online > ? AND group_id IN (SELECT id FROM nl2_groups WHERE staff = ?)', array(strtotime('-5 minutes'), $include_staff))->results();
+		    if($include_staff){
+			    $online = DB::getInstance()->query('SELECT id, username, nickname FROM nl2_users WHERE last_online > ?', array(strtotime('-5 minutes')))->results();
+		    } else {
+			    $online = DB::getInstance()->query('SELECT id, username, nickname FROM nl2_users WHERE last_online > ? AND group_id IN (SELECT id FROM nl2_groups WHERE staff = 0)', array(strtotime('-5 minutes')))->results();
+		    }
+
 		    $this->_cache->store('users', $online, 120);
 	    }
 
