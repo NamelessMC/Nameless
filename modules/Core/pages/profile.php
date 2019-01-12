@@ -505,7 +505,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 		'USER_TITLE' => Output::getClean($query->user_title),
 		'FOLLOW' => $language->get('user', 'follow'),
 		'AVATAR' => $user->getAvatar($query->id, '../', 500),
-		'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH : '/') . 'uploads/profile_images/' . (($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
+		'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . (($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
 		'POST_ON_WALL' => str_replace('{x}', Output::getClean($query->nickname), $language->get('user', 'post_on_wall')),
 		'FEED' => $language->get('user', 'feed'),
 		'ABOUT' => $language->get('user', 'about'),
