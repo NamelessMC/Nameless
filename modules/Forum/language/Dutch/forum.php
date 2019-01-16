@@ -170,6 +170,7 @@ $language = array(
 	'forum_deleted_successfully' => 'Forum deleted successfully.',
 	'label_deleted_successfully' => 'Label deleted successfully.',
 	'label_type_deleted_successfully' => 'Label type deleted successfully.',
+	'topic_placeholder' => 'Topic placeholder',
 
     // Search
     'forum_search' => 'Forum Search',

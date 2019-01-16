@@ -620,7 +620,8 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 							'news' => Input::get('display'),
 							'parent' => $parent,
 							'redirect_forum' => $redirect,
-							'icon' => Output::getClean(Input::get('icon'))
+							'icon' => Output::getClean(Input::get('icon')),
+							'topic_placeholder' => Input::get('topic_placeholder')
 						);
 
 						if(!isset($redirect_error))
@@ -861,7 +862,9 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 		'CAN_CREATE_TOPIC' => $forum_language->get('forum', 'can_create_topic'),
 		'CAN_POST_REPLY' => $forum_language->get('forum', 'can_post_reply'),
 		'CAN_VIEW_OTHER_TOPICS' => $forum_language->get('forum', 'can_view_other_topics'),
-		'CAN_MODERATE_FORUM' => $forum_language->get('forum', 'can_moderate_forum')
+		'CAN_MODERATE_FORUM' => $forum_language->get('forum', 'can_moderate_forum'),
+		'TOPIC_PLACEHOLDER' => $forum_language->get('forum', 'topic_placeholder'),
+		'TOPIC_PLACEHOLDER_VALUE' => Output::getPurified($forum[0]->topic_placeholder)
 	));
 
 	$template_file = 'forum/forums_edit.tpl';

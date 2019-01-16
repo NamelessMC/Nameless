@@ -171,6 +171,7 @@ $language = array(
 	'forum_deleted_successfully' => 'Forumul a fost șters cu succes.',
 	'label_deleted_successfully' => 'Eticheta a fost ștearsă cu succes.',
 	'label_type_deleted_successfully' => 'Tipul de etichetă a fost șters cu succes.',
+	'topic_placeholder' => 'Topic placeholder',
 
     // Search
     'forum_search' => 'Căutare în forum',

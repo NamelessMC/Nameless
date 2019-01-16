@@ -263,6 +263,11 @@ if(count($forum_labels)){
 $forum_query = $queries->getWhere('forums', array('id', '=', $fid));
 $forum_query = $forum_query[0];
 
+// Placeholder?
+if($forum_query->topic_placeholder){
+	$placeholder = Output::getPurified($forum_query->topic_placeholder);
+}
+
 // Smarty variables
 $smarty->assign(array(
 	'LABELS' => $labels,
@@ -274,7 +279,7 @@ $smarty->assign(array(
 	'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
 	'TOKEN' => '<input type="hidden" name="token" value="' . $token . '">',
 	'FORUM_LINK' => URL::build('/forum'),
-	'CONTENT' => Output::getPurified(Input::get('content')),
+	'CONTENT' => ((isset($_POST['content']) && $_POST['content']) ? Output::getPurified(Input::get('content')) : (isset($placeholder) ? $placeholder : '')),
 	'FORUM_TITLE' => Output::getClean($forum_title),
 	'FORUM_DESCRIPTION' => Output::getPurified($forum_query->forum_description),
 	'NEWS_FORUM' => $forum_query->news

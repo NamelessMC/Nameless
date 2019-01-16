@@ -124,6 +124,11 @@
                                     <input name="webhook" id="InputForumWebhook" type="checkbox" class="js-switch" value="1"{if $INCLUDE_IN_HOOK_VALUE} checked{/if} />
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="InputPlaceholder">{$TOPIC_PLACEHOLDER}</label>
+                                    <textarea id="InputPlaceholder" name="topic_placeholder">{$TOPIC_PLACEHOLDER_VALUE}</textarea>
+                                </div>
+
                                 <strong>{$FORUM_PERMISSIONS}</strong>
                                 <script>
                                     var groups = [];

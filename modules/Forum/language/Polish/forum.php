@@ -168,6 +168,7 @@ $language = array(
 	'forum_deleted_successfully' => 'Forum zostało usunięte pomyślnie.',
 	'label_deleted_successfully' => 'Etykieta została usunięta pomyślnie.',
 	'label_type_deleted_successfully' => 'Typ etykiet został usunięty pomyślnie.',
+	'topic_placeholder' => 'Topic placeholder',
 
 	 // Search
    'forum_search' => 'Szukaj na forum',
