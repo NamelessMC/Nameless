@@ -607,7 +607,7 @@ if($recaptcha == 'true'){
 
 // Assign Smarty variables
 $smarty->assign(array(
-	'NICKNAME' => $language->get('user', 'username'),
+	'NICKNAME' => ($custom_usernames == 'false' && !MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
 	'MINECRAFT_USERNAME' => $language->get('user', 'minecraft_username'),
 	'EMAIL' => $language->get('user', 'email_address'),
 	'PASSWORD' => $language->get('user', 'password'),
