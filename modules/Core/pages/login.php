@@ -279,7 +279,7 @@ $smarty->assign(array(
 	'REMEMBER_ME' => $language->get('user', 'remember_me'),
 	'FORGOT_PASSWORD_URL' => URL::build('/forgot_password'),
 	'FORGOT_PASSWORD' => $language->get('user', 'forgot_password'),
-	'FORM_TOKEN' => Token::generate(),
+	'FORM_TOKEN' => Token::get(),
 	'SIGN_IN' => $language->get('general', 'sign_in'),
 	'REGISTER_URL' => URL::build('/register'),
 	'REGISTER' => $language->get('general', 'register'),

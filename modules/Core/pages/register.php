@@ -195,9 +195,11 @@ if(Input::exists()){
 					'required' => true
 				);
 			}
-			
-			if($uuid_linking == '1'){
-				if($custom_usernames == "true"){ // validate username and Minecraft name
+
+			// Minecraft username?
+			if(MINECRAFT){
+				if($custom_usernames == 'true'){
+					// Nickname enabled
 					$to_validation['username'] = array(
 						'required' => true,
 						'min' => 3,
@@ -210,64 +212,56 @@ if(Input::exists()){
 						'max' => 20,
 						'unique' => 'users'
 					);
-					$mcname = htmlspecialchars(Input::get('username'));
-					
-					// Perform validation on Minecraft name
-					$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-					$mcname_result = $profile->getProfileAsArray();
-					
-					if(isset($mcname_result['username']) && !empty($mcname_result['username'])){
-						// Valid
-					} else {
-						// Invalid
-						$invalid_mcname = true;
-					}
-					
-				} else { // only validate Minecraft name
+
+					$nickname = Output::getClean(Input::get('nickname'));
+					$username = Output::getClean(Input::get('username'));
+
+				} else {
 					$to_validation['username'] = array(
 						'required' => true,
 						'min' => 3,
 						'max' => 20,
 						'unique' => 'users'
 					);
-					$mcname = htmlspecialchars(Input::get('username'));
-					
+
+					$nickname = Output::getClean(Input::get('username'));
+					$username = Output::getClean(Input::get('username'));
+
+				}
+
+				if($uuid_linking == 1){
 					// Perform validation on Minecraft name
-					$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
+					$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
 					$mcname_result = $profile->getProfileAsArray();
-					
-					if(isset($mcname_result['username']) && !empty($mcname_result['username'])){
+
+					if(isset($mcname_result['username']) && !empty($mcname_result['username']) && isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])){
 						// Valid
+						$uuid = Output::getClean($mcname_result['uuid']);
+
+						// Ensure UUID is unique
+						$uuid_query = $queries->getWhere('users', array('uuid', '=', $uuid));
+						if(count($uuid_query)){
+							$uuid_error = $language->get('user', 'uuid_already_exists');
+						}
+
 					} else {
 						// Invalid
 						$invalid_mcname = true;
 					}
-					
 				}
+
 			} else {
-				if($custom_usernames == "true"){ // validate username and Minecraft name
-					$to_validation['username'] = array(
-						'required' => true,
-						'min' => 3,
-						'max' => 20,
-						'unique' => 'users'
-					);
-					$to_validation['nickname'] = array(
-						'required' => true,
-						'min' => 3,
-						'max' => 20,
-						'unique' => 'users'
-					);
-					$mcname = htmlspecialchars(Input::get('username'));
-				} else { // only validate Minecraft name
-					$to_validation['username'] = array(
-						'required' => true,
-						'min' => 3,
-						'max' => 20,
-						'unique' => 'users'
-					);
-					$mcname = htmlspecialchars(Input::get('username'));
-				}
+				// Just check username
+				$to_validation['username'] = array(
+					'required' => true,
+					'min' => 3,
+					'max' => 20,
+					'unique' => 'users'
+				);
+
+				$nickname = Output::getClean(Input::get('username'));
+				$username = Output::getClean(Input::get('username'));
+
 			}
 			
 			// Check to see if the Minecraft username was valid
@@ -276,26 +270,8 @@ if(Input::exists()){
 				$validation = $validate->check($_POST, $to_validation); // Execute validation
 				
 				if($validation->passed()){
-					if($uuid_linking == '1'){
-						if(!isset($mcname_result)){
-							$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-							$mcname_result = $profile->getProfileAsArray();
-						}
-						if(isset($mcname_result["uuid"]) && !empty($mcname_result['uuid'])){
-							$uuid = $mcname_result['uuid'];
-
-							// Ensure UUID is unique
-                            $uuid_query = $queries->getWhere('users', array('uuid', '=', $uuid));
-                            if(count($uuid_query)){
-                                $uuid_error = $language->get('user', 'uuid_already_exists');
-                            }
-
-						} else {
-							$uuid = '';
-						}
-					} else {
+					if(!isset($uuid))
 						$uuid = '';
-					}
 
 					if(!isset($uuid_error)){
                         // Minecraft user account association
@@ -370,16 +346,16 @@ if(Input::exists()){
 
                                 // Create user
                                 $user->create(array(
-                                    'username' => $mcname,
-                                    'nickname' => htmlspecialchars(Input::get('username')),
+                                    'username' => $username,
+                                    'nickname' => $nickname,
                                     'uuid' => $uuid,
                                     'password' => $password,
                                     'pass_method' => 'default',
                                     'joined' => $date,
                                     'group_id' => $default_group,
-                                    'email' => htmlspecialchars(Input::get('email')),
+                                    'email' => Output::getClean(Input::get('email')),
                                     'reset_code' => $code,
-                                    'lastip' => htmlspecialchars($ip),
+                                    'lastip' => Output::getClean($ip),
                                     'last_online' => $date,
                                     'language_id' => $language_id,
                                     'active' => $active
@@ -617,7 +593,7 @@ $smarty->assign(array(
 	'REGISTER' => $language->get('general', 'register'),
 	'LOG_IN' => $language->get('general', 'sign_in'),
 	'LOGIN_URL' => URL::build('/login'),
-	'TOKEN' => Token::generate(),
+	'TOKEN' => Token::get(),
 	'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
 ));
 
