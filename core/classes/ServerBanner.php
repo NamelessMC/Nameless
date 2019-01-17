@@ -50,7 +50,7 @@ class ServerBanner
         $favicon_posY = (80 - 64) / 2;
         imagecopy($canvas, $favicon, 3, $favicon_posY, 0, 0, 64, 64);
 
-        $startX = 3 + 64 + 3;
+        $startX = 5 + 64 + 5;
 
         $white = imagecolorallocate($canvas, 255, 255, 255);
         $titleY = $favicon_posY + 3 * 2 + 13;

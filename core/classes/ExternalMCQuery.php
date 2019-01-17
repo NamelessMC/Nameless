@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -10,59 +10,11 @@
  */
 
 class ExternalMCQuery {
-    private static  $_count = 0,
-                    $_servers = array();
-
-    // Add a server to the query
-    // Params: $server - IP address/domain for server, with port
-    public static function addServer($server){
-        self::$_servers[] = $server;
-        self::$_count++;
-    }
-
-    // Query all servers
-    // Returns array containing server query data
-    // Params: $type - Query type - basic, playerlist or extensive
-    public static function queryServers($type = 'basic'){
-        if(self::$_count == 0)
-            return false;
-
-        switch($type){
-            case 'playerlist':
-                return self::playerListQuery();
-                break;
-
-            case 'extensive':
-            case 'basic':
-                return self::query($type);
-                break;
-        }
-    }
-
     // Basic server query
     // Returns array containing query result
-    // Params: $type = Query type - basic or extensive
-    private static function query($type){
-        if($type == 'basic'){
-            $action = '/info/';
-
-        } else if($type == 'extensive'){
-            $action = '/extensive/';
-
-        } else return false;
-
-        // Single or batch?
-        if(self::$_count > 1){
-            // Batch
-            $queryUrl = 'https://use.gameapis.net/mc/query' . $action;
-            foreach(self::$_servers as $server){
-                $queryUrl .= $server . ',';
-            }
-
-            $queryUrl = rtrim($queryUrl, ',');
-        } else
-            // Single
-            $queryUrl = 'https://use.gameapis.net/mc/query' . $action . self::$_servers[0];
+    // Params: $ip = IP to query, $port = port to query
+    public static function query($ip, $port = 25565){
+    	$queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
 
         try {
             // cURL
@@ -88,85 +40,43 @@ class ExternalMCQuery {
         }
     }
 
-    // Query servers for playerlist
-    // Returns array containing query result
-    private static function playerListQuery(){
-        // No batch method available in API
-        $results = array();
-
-        foreach(self::$_servers as $server){
-            try {
-                // cURL
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-                curl_setopt($ch, CURLOPT_URL, 'https://use.gameapis.net/mc/query/players/' . $server);
-
-                $result = curl_exec($ch);
-                $result = json_decode($result);
-
-                curl_close($ch);
-
-                // Add result to return array
-                $results[$server] = $result;
-
-            } catch(Exception $e){
-                // Exception
-                $results[$server] = array(
-                    'error' => true,
-                    'value' => $e->getMessage()
-                );
-            }
-        }
-
-        return $results;
-    }
-
-    // Check Minecraft service status
-    // Returns array containing query response
-    public static function queryMinecraftServices(){
-        try {
-            // cURL
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_URL, 'https://use.gameapis.net/mc/extra/status');
-
-            $result = curl_exec($ch);
-            $result = json_decode($result);
-
-            curl_close($ch);
-
-        } catch(Exception $e){
-            $result = array(
-                'error' => true,
-                'value' => $e->getMessage()
-            );
-        }
-
-        return $result;
-    }
-
     // Get a server's favicon
     // Params: $ip - server IP address
     public static function getFavicon($ip = null){
         if($ip){
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_URL, 'https://use.gameapis.net/mc/query/icon/' . $ip);
+	        $query_ip = explode(':', $ip);
 
-            $result = curl_exec($ch);
+	        if(count($query_ip) == 2){
+		        $ip = $query_ip[0];
+		        $port = $query_ip[1];
+	        } else if(count($query_ip) == 1) {
+	        	$ip = $query_ip[0];
+	        	$port = $query_ip[1];
+	        } else
+	        	return false;
 
-            curl_close($ch);
+	        $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
 
-            return $result;
+	        try {
+		        // cURL
+		        $ch = curl_init();
+		        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+		        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+		        curl_setopt($ch, CURLOPT_URL, $queryUrl);
+
+		        $result = curl_exec($ch);
+		        $result = json_decode($result);
+
+		        curl_close($ch);
+
+		        if(!$result->error && $result->response->description->favicon)
+		            return $result->response->description->favicon;
+
+	        } catch(Exception $e){
+
+	        }
         }
         return false;
     }
