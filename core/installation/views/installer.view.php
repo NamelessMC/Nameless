@@ -358,12 +358,54 @@
 
                 $queries = new Queries();
                 $queries->dbInitialise($charset, $engine);
+
+                if($_SESSION['action'] == "install"){
+                    // Groups
+                    $queries->create('groups', array(
+                        'name' => 'Member',
+                        'group_html' => '<span class="badge badge-success">Member</span>',
+                        'group_html_lg' => '<span class="badge badge-success">Member</span>',
+                        'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1}',
+                        'default_group' => 1,
+                        'order' => 3
+                    ));
+
+                    $queries->create('groups', array(
+                        'name' => 'Admin',
+                        'group_html' => '<span class="badge badge-danger">Admin</span>',
+                        'group_html_lg' => '<span class="badge badge-danger">Admin</span>',
+                        'group_username_css' => '#ff0000',
+                        'mod_cp' => 1,
+                        'admin_cp' => 1,
+                        'permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1, "admincp.security.all":1}',
+                        'order' => 1,
+                        'staff' => 1
+                    ));
+
+                    $queries->create('groups', array(
+                        'name' => 'Moderator',
+                        'group_html' => '<span class="badge badge-primary">Moderator</span>',
+                        'group_html_lg' => '<span class="badge badge-primary">Moderator</span>',
+                        'admin_cp' => 1,
+                        'permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1}',
+                        'order' => 2,
+                        'staff' => 1
+                    ));
+
+                    $queries->create('groups', array(
+                        'name' => 'Unconfirmed Member',
+                        'group_html' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
+                        'group_html_lg' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
+                        'group_username_css' => '#6c757d',
+                        'order' => 4
+                    ));
+                }
             } catch(Exception $e){
                 die($e->getMessage());
             }
 
 			if($_SESSION['action'] == 'install'){
-				Redirect::to('?step=configuration');
+				Redirect::to('?step=user');
 				die();
 			} else {
 				Redirect::to('?step=upgrade');
@@ -400,7 +442,7 @@
 
             if($validation->passed()){
                 $queries = new Queries();
-
+            
                 $queries->create('settings', array(
                     'name' => 'sitename',
                     'value' => Output::getClean(Input::get('sitename'))
@@ -410,7 +452,7 @@
                 $cache = new Cache();
                 $cache->setCache('sitenamecache');
                 $cache->store('sitename', Output::getClean(Input::get('sitename')));
-
+                
                 $queries->create('settings', array(
                     'name' => 'incoming_email',
                     'value' => Output::getClean(Input::get('incoming'))
@@ -470,37 +512,7 @@
 
             $queries = new Queries();
             $cache = new Cache();
-
-            // Create first category + forum
-            $queries->create('forums', array(
-                'forum_title' => 'Category',
-                'forum_description' => 'The first forum category!',
-                'forum_order' => 1,
-                'forum_type' => 'category'
-            ));
-
-            $queries->create('forums', array(
-                'forum_title' => 'Forum',
-                'forum_description' => 'The first discussion forum!',
-                'forum_order' => 2,
-                'parent' => 1,
-                'forum_type' => 'forum'
-            ));
-
-            // Permissions
-            for($i = 0; $i < 4; $i++){
-                for($n = 1; $n < 3; $n++){
-                    $queries->create('forums_permissions', array(
-                        'group_id' => $i,
-                        'forum_id' => $n,
-                        'view' => 1,
-                        'create_topic' => (($i == 0 || $i == 4) ? 0 : 1),
-                        'create_post' => (($i == 0 || $i == 4) ? 0 : 1),
-                        'view_other_topics' => 1,
-                        'moderate' => (($i == 2 || $i == 3) ? 1 : 0),
-                    ));
-                }
-            }
+            try{
 
             // Forum Labels
             $queries->create('forums_labels', array(
@@ -533,45 +545,38 @@
                 'html' => '<span class="badge badge-danger">{x}</span>'
             ));
 
-            // Groups
-            $queries->create('groups', array(
-                'name' => 'Member',
-                'group_html' => '<span class="badge badge-success">Member</span>',
-                'group_html_lg' => '<span class="badge badge-success">Member</span>',
-                'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1}',
-                'default_group' => 1,
-				'order' => 3
+            // Create first category + forum
+            $queries->create('forums', array(
+                'forum_title' => 'Category',
+                'forum_description' => 'The first forum category!',
+                'forum_order' => 1,
+                'forum_type' => 'category',
+                'last_user_posted' => 1,
             ));
 
-            $queries->create('groups', array(
-                'name' => 'Admin',
-                'group_html' => '<span class="badge badge-danger">Admin</span>',
-                'group_html_lg' => '<span class="badge badge-danger">Admin</span>',
-                'group_username_css' => '#ff0000',
-                'mod_cp' => 1,
-                'admin_cp' => 1,
-                'permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1, "admincp.security.all":1}',
-				'order' => 1,
-				'staff' => 1
+            $queries->create('forums', array(
+                'forum_title' => 'Forum',
+                'forum_description' => 'The first discussion forum!',
+                'forum_order' => 2,
+                'parent' => 1,
+                'forum_type' => 'forum',
+                'last_user_posted' => 1,
             ));
 
-            $queries->create('groups', array(
-                'name' => 'Moderator',
-                'group_html' => '<span class="badge badge-primary">Moderator</span>',
-                'group_html_lg' => '<span class="badge badge-primary">Moderator</span>',
-                'admin_cp' => 1,
-                'permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1}',
-				'order' => 2,
-				'staff' => 1
-            ));
-
-            $queries->create('groups', array(
-                'name' => 'Unconfirmed Member',
-                'group_html' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
-                'group_html_lg' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
-                'group_username_css' => '#6c757d',
-				'order' => 4
-            ));
+            // Permissions
+            for($i = 1; $i < 4; $i++){
+                for($n = 1; $n < 3; $n++){
+                    $queries->create('forums_permissions', array(
+                        'group_id' => $i,
+                        'forum_id' => $n,
+                        'view' => 1,
+                        'create_topic' => (($i == 0 || $i == 4) ? 0 : 1),
+                        'create_post' => (($i == 0 || $i == 4) ? 0 : 1),
+                        'view_other_topics' => 1,
+                        'moderate' => (($i == 2 || $i == 3) ? 1 : 0),
+                    ));
+                }
+            }
 
             // Languages
             $queries->create('languages', array(
@@ -999,9 +1004,11 @@
             ));
             $cache->setCache('templatecache');
             $cache->store('default', 'Default');
-
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
             // Success
-            Redirect::to('?step=user');
+            Redirect::to('?step=convert');
             die();
 
             break;
@@ -1070,7 +1077,7 @@
                     $login = $user->login(Input::get('email'), Input::get('password'), true);
 
                     if($login){
-                        Redirect::to('?step=convert');
+                        Redirect::to('?step=configuration');
                         die();
                     } else {
                         $error = $language['unable_to_login'];
