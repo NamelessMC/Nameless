@@ -31,7 +31,7 @@ $smarty->assign(array(
 	'USER_CP' => $language->get('user', 'user_cp'),
 	'USER_DETAILS' => $language->get('user', 'user_details'),
 	'USER_DETAILS_VALUES' => $user_details,
-	'OVERVIEW' => $language->get('user', 'overview')
+	'OVERVIEW' => $language->get('user', 'overview'),
 ));
 
 // Get graph data

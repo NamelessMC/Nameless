@@ -52,6 +52,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
 		$pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
 		$pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
+		$pages->add('Core', '/user/data', 'pages/user/data.php');
 
 		// Panel
 		$pages->add('Core', '/panel', 'pages/panel/index.php');
