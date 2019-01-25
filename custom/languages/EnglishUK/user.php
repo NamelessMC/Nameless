@@ -36,6 +36,7 @@ $language = array(
 	'delete_all' => 'Delete All',
 	'private_profile' => 'Private profile',
 	'data' => 'Data',
+	'data_not_availible' => 'User data is not availible!',
 	
 	// Profile settings
 	'field_is_required' => '{x} is required.', // Don't replace {x}

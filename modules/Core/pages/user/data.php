@@ -30,6 +30,10 @@ $smarty->assign(array(
 	'USER_DATA' => $userData,
 ));
 
+if(Config::get('mysql/engine') == "MyISAM"){
+	$smarty->assign("BAD_ENGINE", $language->get('user', 'data_not_availible'));
+}
+
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 

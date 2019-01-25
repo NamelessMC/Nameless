@@ -11,6 +11,9 @@
 		<div class="card-body">
 		  <h2 class="card-title">{$DATA}</h2>
 			{nocache}
+			{if isset($BAD_ENGINE)}
+			<div class="alert alert-danger">{$BAD_ENGINE}</div>
+		  	{else}
 			{foreach from=$USER_DATA key=tblname item=value}
 			<div class="card mb-3">
 				<div class="card-header">{$tblname}</div>
@@ -40,6 +43,7 @@
 				</div>
 			</div>
 			{/foreach}
+			{/if}
 			{/nocache}
 		</div>
 	  </div>
