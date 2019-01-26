@@ -463,8 +463,9 @@ $language = array(
 	'module_x' => 'Module: {x}', // Don't replace {x}
 	'widget_order' => 'Widget Order',
 
-    // Online users widget
-    'include_staff_in_user_widget' => 'Include staff members in user widget?',
+	// Online users widget
+	'include_staff_in_user_widget' => 'Include staff members in user widget?',
+	'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
 
 	// Custom Pages
 	'pages' => 'Pages',
