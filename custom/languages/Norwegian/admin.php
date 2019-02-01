@@ -465,6 +465,7 @@ $language = array(
 
     // Online users widget
     'include_staff_in_user_widget' => 'Inkluder staffmedlemmer i bruker widget?',
+    'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
 
     // Custom Pages
     'pages' => 'Sider',
