@@ -364,7 +364,19 @@ class Core_Module extends Module {
 		require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsers.php');
 		$module_pages = $widgets->getPages('Online Users');
 		$widgets->add(new OnlineUsersWidget($module_pages, $cache, $smarty, array('title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'))));
-
+		
+		// Statistics
+		require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
+		$module_pages = $widgets->getPages('Statistics');
+		$widgets->add(new StatsWidget($module_pages, $smarty, array(
+			'statistics' => $language->get('general', 'statistics'),
+			'users_registered' => $language->get('general', 'users_registered'),
+			'latest_member' => $language->get('general', 'latest_member'),
+			'forum_stats' => $language->get('general', 'forum_statistics'),
+			'total_threads' => $language->get('general', 'total_threads'),
+			'total_posts' => $language->get('general', 'total_posts')
+		), $cache));
+		
 		// Validate user hook
 		$cache->setCache('validate_action');
 		if($cache->isCached('validate_action')){

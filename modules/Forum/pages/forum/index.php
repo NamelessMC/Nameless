@@ -214,37 +214,6 @@ $smarty->assign('FORUMS', $forums);
 $smarty->assign('YES', $language->get('general', 'yes'));
 $smarty->assign('NO', $language->get('general', 'no'));
 
-// Statistics
-// Check cache
-$cache->setCache('forum_stats');
-
-if($cache->isCached('stats')){
-	$users_query = $cache->retrieve('stats');
-	$users_registered = $users_query['users_registered'];
-	$latest_member = $users_query['latest_member'];
-
-} else {
-	$users_query = $queries->orderAll('users', 'joined', 'DESC');
-	$users_registered = count($users_query);
-	$latest_member = array(
-		'style' => $user->getGroupClass($users_query[0]->id),
-		'profile' => URL::build('/profile/' . Output::getClean($users_query[0]->username)),
-		'avatar' => $user->getAvatar($users_query[0]->id),
-		'username' => Output::getClean($users_query[0]->username),
-		'nickname' => Output::getClean($users_query[0]->nickname),
-		'id' => Output::getClean($users_query[0]->id)
-	);
-
-	$users_query = null;
-
-	$cache->store('stats', array(
-		'users_registered' => $users_registered,
-		'latest_member' => $latest_member
-	), 120);
-}
-
-$smarty->assign('USERS_REGISTERED', str_replace('{x}', $users_registered, $forum_language->get('forum', 'users_registered')));
-$smarty->assign('LATEST_MEMBER', str_replace('{x}', '<a style="' . $latest_member['style'] . '" href="' . $latest_member['profile'] . '" data-poload="' . URL::build('/queries/user/', 'id=' . $latest_member['id']) . '" data-html="true" data-placement="top">' . $latest_member['nickname'] . '</a>', $forum_language->get('forum', 'latest_member')));
 $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
 
 // Load modules + template
