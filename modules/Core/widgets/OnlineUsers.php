@@ -33,14 +33,22 @@ class OnlineUsersWidget extends WidgetBase {
     public function initialise(){
 	    $this->_cache->setCache('online_members');
 
-	    if($this->_cache->isCached('users'))
+	    if($this->_cache->isCached('users')){
 		    $online = $this->_cache->retrieve('users');
+		    $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
+	    }
 	    else {
 		    if($this->_cache->isCached('include_staff_in_users'))
 			    $include_staff = $this->_cache->retrieve('include_staff_in_users');
 		    else {
 			    $include_staff = 0;
 			    $this->_cache->store('include_staff_in_users', 0);
+		    }
+		    if($this->_cache->isCached('show_nickname_instead'))
+			    $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
+		    else {
+			    $use_nickname_show = 0;
+			    $this->_cache->store('show_nickname_instead', 0);
 		    }
 
 		    if($include_staff){
@@ -69,6 +77,7 @@ class OnlineUsersWidget extends WidgetBase {
 			    );
 
 		    $this->_smarty->assign(array(
+		        'SHOW_NICKNAME_INSTEAD' => $use_nickname_show,
 			    'ONLINE_USERS' => $this->_language['title'],
 			    'ONLINE_USERS_LIST' => $users
 		    ));
