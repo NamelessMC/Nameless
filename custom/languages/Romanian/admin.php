@@ -467,7 +467,7 @@ $language = array(
 
     // Online users widget
     'include_staff_in_user_widget' => 'Includeți membrii (staff) personalului în widget-ul utilizatorului?',
-    'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
+    'show_nickname_instead_of_username' => 'Afișați porecla utilizatorului în locul numelui de utilizator?',
 
     // Custom Pages
     'pages' => 'Pagini',
