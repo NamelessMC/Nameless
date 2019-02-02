@@ -122,12 +122,12 @@ $language = array(
     /*
      *  Widgets
      */
-    'statistics' => 'Statistics',
-    'users_registered' => 'Users Registered',
-    'latest_member' => 'Latest Member',
-    'forum_statistics' => 'Forum Statistics',
-    'total_threads' => 'Total Threads',
-    'total_posts' => 'Total Posts',
+    'statistics' => 'Statistici',
+    'users_registered' => 'Utilizatori înregistrați',
+    'latest_member' => 'Cel mai nou membru',
+    'forum_statistics' => 'Statistici Forum',
+    'total_threads' => 'Subiecte',
+    'total_posts' => 'Postări',
     'online_staff' => 'Staff online',
     'no_online_staff' => 'Nu există membri staff online momentan.',
     'online_users' => 'Utilizatori online',
