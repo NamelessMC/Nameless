@@ -466,6 +466,7 @@ $language = array(
 
     // Online users widget
     'include_staff_in_user_widget' => 'Personeelsleden opnemen in user widget?',
+    'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
 
     // aangepaste pagina's
     'pages' => 'Pagina\'s',

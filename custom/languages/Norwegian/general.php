@@ -120,6 +120,12 @@ $language = array(
     /*
      *  Widgets
      */
+    'statistics' => 'Statistics',
+    'users_registered' => 'Users Registered',
+    'latest_member' => 'Latest Member',
+    'forum_statistics' => 'Forum Statistics',
+    'total_threads' => 'Total Threads',
+    'total_posts' => 'Total Posts',
     'online_staff' => 'Pålogget staff',
     'no_online_staff' => 'Det er ingen stabmedlemmer pålogget.',
     'online_users' => 'Påloggede brukere',

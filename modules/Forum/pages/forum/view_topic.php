@@ -316,10 +316,6 @@ $template->addCSSFiles(array(
 if($user->isLoggedIn())
 	$template->addJSScript('var quotedPosts = [];');
 
-// Load navbar
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
-
 // Are reactions enabled?
 $reactions_enabled = $queries->getWhere('settings', array('name', '=', 'forum_reactions'));
 if($reactions_enabled[0]->value == '1')

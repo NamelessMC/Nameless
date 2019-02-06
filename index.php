@@ -44,17 +44,17 @@ $directory = $_SERVER['REQUEST_URI'];
 $directories = explode("/", $directory);
 $lim = count($directories);
 
+if(isset($_GET['route']) && $_GET['route'] == '/rewrite_test'){
+    require_once('rewrite_test.php');
+    die();
+}
+
 try {
 	// Start initialising the page
 	require(ROOT_PATH . '/core/init.php');
 }
 catch(Exception $e) {
 	die($e->getMessage());
-}
-
-if(isset($_GET['route']) && $_GET['route'] == '/rewrite_test'){
-    require_once('rewrite_test.php');
-    die();
 }
 
 if(!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {

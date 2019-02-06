@@ -134,6 +134,7 @@ class Navigation {
 					// Sort dropdown
 					if(isset($return[$key]['items']) && count($return[$key]['items'])){
 						uasort($return[$key]['items'], function($a, $b){
+							$result = 0;
 							if($a['order'] > $b['order']){
 								$result = 1;
 							} else if($a['order'] < $b['order']){
@@ -155,6 +156,7 @@ class Navigation {
 					// Sort dropdown
 					if(isset($return[$key]['items']) && count($return[$key]['items'])){
 						uasort($return[$key]['items'], function($a, $b){
+							$result = 0;
 							if($a['order'] > $b['order']){
 								$result = 1;
 							} else if($a['order'] < $b['order']){

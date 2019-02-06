@@ -462,6 +462,7 @@ $language = array(
 
     // Online users widget
     'include_staff_in_user_widget' => '¿Incluir a los miembros del Staff en el widget de los Usuarios?',
+    'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
 
     // Custom Pages
     'pages' => 'Páginas',

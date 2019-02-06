@@ -122,6 +122,12 @@ $language = array(
     /*
      *  Widgets
      */
+    'statistics' => 'Statistici',
+    'users_registered' => 'Utilizatori înregistrați',
+    'latest_member' => 'Cel mai nou membru',
+    'forum_statistics' => 'Statistici Forum',
+    'total_threads' => 'Subiecte',
+    'total_posts' => 'Postări',
     'online_staff' => 'Staff online',
     'no_online_staff' => 'Nu există membri staff online momentan.',
     'online_users' => 'Utilizatori online',

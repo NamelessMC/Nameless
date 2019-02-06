@@ -464,8 +464,9 @@ $language = array(
 	'module_x' => 'Moduł: {x}', // Don't replace {x}
 	'widget_order' => 'Kolejność widżetu',
 
-	 // Online users widget
-   'include_staff_in_user_widget' => 'Pokazywać administrację w widżecie użytkownika?',
+	// Online users widget
+	'include_staff_in_user_widget' => 'Pokazywać administrację w widżecie użytkownika?',
+	'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
 
    // Custom Pages
 	 'pages' => 'Strony',
