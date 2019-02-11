@@ -662,7 +662,8 @@ $smarty->assign(array(
 	'BY' => ucfirst($forum_language->get('forum', 'by')),
 	'CANCEL' => $language->get('general', 'cancel'),
 	'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id  : 0),
-	'INSERT_QUOTES' => $forum_language->get('forum', 'insert_quotes')
+	'INSERT_QUOTES' => $forum_language->get('forum', 'insert_quotes'),
+	'FORUM_TITLE' => Output::getClean($forum_parent[0]->forum_title)
 ));
 
 // Get post formatting type (HTML or Markdown)
