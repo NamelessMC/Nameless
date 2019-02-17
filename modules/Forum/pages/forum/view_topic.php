@@ -256,7 +256,13 @@ if(Input::exists()) {
 				if(count($users_following)){
 					foreach($users_following as $user_following){
 						if($user_following->user_id != $user->data()->id && $user_following->existing_alerts == 0){
-							Alert::create($user_following->user_id, 'new_reply', str_replace(array('{x}', '{y}'), array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)), $forum_language->get('forum', 'new_reply_in_topic')), str_replace(array('{x}', '{y}'), array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)), $forum_language->get('forum', 'new_reply_in_topic')), URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
+							Alert::create(
+								$user_following->user_id,
+								'new_reply',
+								array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title))),
+								array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title))),
+								URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
+							);
 							$queries->update('topics_following', $user_following->id, array(
 								'existing_alerts' => 1
 							));
