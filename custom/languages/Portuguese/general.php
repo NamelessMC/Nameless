@@ -62,6 +62,7 @@ $language = array(
 	'success' => 'Success',
 	'error' => 'Error',
 	'are_you_sure' => 'Are you sure?',
+	'spoiler' => 'Spoiler',
 
 	/*
 	*  Contact form

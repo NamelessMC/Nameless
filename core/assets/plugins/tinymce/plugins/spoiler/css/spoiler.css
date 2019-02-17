@@ -1,0 +1,17 @@
+.spoiler {
+  border: 1px solid #000;
+  background-color: #f5f5f5;;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.spoiler-toggle {
+  font-weight: bold;
+  cursor: default;
+  padding: 5px;
+  font-size: 12px;
+  color: #000;
+}
+.spoiler-text {
+  padding: 5px;
+}

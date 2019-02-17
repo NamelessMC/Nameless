@@ -116,4 +116,27 @@ class Input {
 		}
 		return null;
 	}
+
+	// Create a new TinyMCE instance
+	// Params:  $language (Language) - language instance
+	//          $name (string) - name of input field ID
+	public static function createTinyEditor($language, $name = null){
+		if($name){
+			$editor = '
+			tinymce.init({
+			  selector: \'#' . $name . '\',
+			  branding: false,
+			  menubar: false,
+			  plugins: \'autolink,codesample,directionality,emoticons,hr,image,link,lists,spoiler\',
+			  toolbar: \'undo redo | bold italic underline strikethrough forecolor backcolor ltr rtl | alignleft aligncenter alignright alignjustify | codesample emoticons image link numlist bullist | spoiler-add spoiler-remove\',
+			  spoiler_caption: \'' . $language->get('general', 'spoiler') . '\',
+			  default_link_target: \'_blank\',
+			  skin: "' . (defined('TEMPLATE_TINY_EDITOR_STYLE') ? TEMPLATE_TINY_EDITOR_STYLE : 'oxide') . '"
+			});
+			';
+
+			return $editor;
+		}
+		return null;
+	}
 }

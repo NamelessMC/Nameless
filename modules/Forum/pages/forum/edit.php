@@ -16,6 +16,8 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->addCSSFiles(array(
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => array(),
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array(),
@@ -299,7 +301,8 @@ $smarty->assign(array(
 	'SUBMIT' => $language->get('general', 'submit'),
 	'CANCEL' => $language->get('general', 'cancel'),
 	'CANCEL_LINK' => URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id),
-	'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel')
+	'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
+	'CONTENT' => Output::getClean(Output::getDecoded($post_editing[0]->post_content))
 ));
 
 // Get post formatting type (HTML or Markdown)
@@ -337,19 +340,13 @@ if($formatting == 'markdown'){
 
 	$template->addJSFiles(array(
 		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array()
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => array()
 	));
 
-	$template->addJSScript(Input::createEditor('editor'));
+	$template->addJSScript(Input::createTinyEditor($language, 'editor'));
 
-	// Insert
-	if(!Session::exists('failure_post')){
-		$template->addJSScript('
-		CKEDITOR.on(\'instanceReady\', function(ev) {
-			CKEDITOR.instances.editor.insertHtml(\'' . str_replace("'", "&#39;", str_replace(array("\r", "\n"), '', $clean)) . '\');
-		});
-		');
-	}
 }
 
 // Load modules + template

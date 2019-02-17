@@ -39,7 +39,7 @@
 	    </div>
 		{else}
 		<div class="form-group">
-		  <textarea name="content" id="editor" rows="3"></textarea>
+		  <textarea name="content" id="editor" rows="3">{$CONTENT}</textarea>
 		</div>
 		{/if}
 		

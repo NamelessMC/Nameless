@@ -127,7 +127,7 @@ class Util {
 		       $text = substr($text, 0, $last) . "&hellip;";
 		   }
 
-		   return sprintf(\'<a rel="nofollow" target="_blank" href="%s">%s</a>\', $url, $text);
+		   return sprintf(\'<a rel="nofollow noopener" target="_blank" href="%s">%s</a>\', $url, $text);
 	   ');
 
 	   return preg_replace_callback($pattern, $callback, $text);
@@ -541,4 +541,18 @@ class Util {
 		    return $news;
 	    }
     }
+
+    /*
+     *  Add target and rel attributes to external links only
+     *  From https://stackoverflow.com/a/53461987
+     */
+	public static function replaceAnchorsWithText($data) {
+		$data = preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', function($m) {
+			if(strpos($m[1], self::getSelfURL()) === false)
+				return '<a href="'.$m[1].'" rel="nofollow noopener" target="_blank">'.$m[2].'</a>';
+			else
+				return '<a href="'.$m[1].'" target="_blank">'.$m[2].'</a>';
+		}, $data);
+		return $data;
+	}
 }
