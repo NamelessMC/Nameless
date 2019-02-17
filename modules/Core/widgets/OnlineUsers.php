@@ -52,9 +52,9 @@ class OnlineUsersWidget extends WidgetBase {
 		    }
 
 		    if($include_staff){
-			    $online = DB::getInstance()->query('SELECT id, username, nickname FROM nl2_users WHERE last_online > ?', array(strtotime('-5 minutes')))->results();
+			    $online = DB::getInstance()->query('SELECT id, username, nickname, user_title FROM nl2_users WHERE last_online > ?', array(strtotime('-5 minutes')))->results();
 		    } else {
-			    $online = DB::getInstance()->query('SELECT id, username, nickname FROM nl2_users WHERE last_online > ? AND group_id IN (SELECT id FROM nl2_groups WHERE staff = 0)', array(strtotime('-5 minutes')))->results();
+			    $online = DB::getInstance()->query('SELECT id, username, nickname, user_title FROM nl2_users WHERE last_online > ? AND group_id IN (SELECT id FROM nl2_groups WHERE staff = 0)', array(strtotime('-5 minutes')))->results();
 		    }
 
 		    $this->_cache->store('users', $online, 120);
@@ -73,7 +73,8 @@ class OnlineUsersWidget extends WidgetBase {
 				    'username' => Output::getClean($item->username),
 				    'nickname' => Output::getClean($item->nickname),
 				    'avatar' => $user->getAvatar($item->id),
-				    'id' => Output::getClean($item->id)
+				    'id' => Output::getClean($item->id),
+				    'title' => Output::getClean($item->user_title)
 			    );
 
 		    $this->_smarty->assign(array(
