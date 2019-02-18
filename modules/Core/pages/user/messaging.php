@@ -509,6 +509,7 @@ if(!isset($_GET['action'])){
 		for($n = 0; $n < count($results->data); $n++){
 			$template_array[] = array(
 				'id' => $results->data[$n]->id,
+				'author_id' => $results->data[$n]->author_id,
 				'author_username' => Output::getClean($user->idToNickname($results->data[$n]->author_id)),
 				'author_profile' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]->author_id))),
 				'author_avatar' => $user->getAvatar($results->data[$n]->author_id, "../", 100),
