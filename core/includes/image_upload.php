@@ -33,7 +33,9 @@ if(Input::exists()){
 		
 		if(Input::get('type') == 'background') {
             $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'backgrounds')));
-        } else if(Input::get('type') == 'default_avatar') {
+        } else if(Input::get('type') == 'template_banner'){
+			$image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'template_banners')));
+		} else if(Input::get('type') == 'default_avatar') {
 		    $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'avatars', 'defaults')));
 		} else {
             // Default to normal avatar upload

@@ -1,6 +1,6 @@
 {include file='header.tpl'}
 
-<div class="jumbotron home-header">
+<div class="jumbotron home-header"{if isset($BANNER_IMAGE)} style="background-image:url('{$BANNER_IMAGE}')"{/if}>
   <div class="container">
 	{include file='navbar.tpl'}
 	<center>

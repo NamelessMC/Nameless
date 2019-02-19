@@ -105,12 +105,18 @@ $smarty->assign('TITLE', $page_title);
 $cache->setCache('backgroundcache');
 $background_image = $cache->retrieve('background_image');
 
-if(!empty($background_image))
+if(!empty($background_image)){
 	$template->addCSSStyle('
 			body {
-				background-image: url(\'' . $background_image . '\');
+				background-image: url(\'' . Output::getClean($background_image) . '\');
 				background-repeat: no-repeat;
 				background-attachment: fixed;
 				background-size: cover;
 			}
 			');
+}
+
+$banner_image = $cache->retrieve('banner_image');
+
+if(!empty($banner_image))
+	$smarty->assign('BANNER_IMAGE', Output::getClean($banner_image));
