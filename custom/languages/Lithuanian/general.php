@@ -60,7 +60,7 @@ $language = array(
 	'success' => 'Sėkmė',
 	'error' => 'Klaida',
 	'are_you_sure' => 'Ar jūs tikras?',
-	'spoiler' => 'Spoiler',
+	'spoiler' => 'Spoileris',
 
  	// Contact form
 	'contact' => 'Susisiekti',
