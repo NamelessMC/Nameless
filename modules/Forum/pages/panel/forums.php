@@ -162,7 +162,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 									'forum_title' => Output::getClean(Input::get('forumname')),
 									'forum_description' => Output::getClean($description),
 									'forum_order' => $last_forum_order + 1,
-									'forum_type' => Input::get('forum_type'),
+									'forum_type' => Output::getClean(Input::get('forum_type')),
 									'icon' => Output::getClean(Input::get('forum_icon'))
 								));
 
@@ -621,6 +621,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 							'parent' => $parent,
 							'redirect_forum' => $redirect,
 							'icon' => Output::getClean(Input::get('icon')),
+							'forum_type' => Output::getClean(Input::get('forum_type')),
 							'topic_placeholder' => Input::get('topic_placeholder')
 						);
 
@@ -836,6 +837,10 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 		'YES' => $language->get('general', 'yes'),
 		'NO' => $language->get('general', 'no'),
 		'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
+		'FORUM_TYPE' => $forum_language->get('forum', 'forum_type'),
+		'FORUM_TYPE_FORUM' => $forum_language->get('forum', 'forum_type_forum'),
+		'FORUM_TYPE_CATEGORY' => $forum_language->get('forum', 'forum_type_category'),
+		'FORUM_TYPE_VALUE' => ($forum[0]->forum_type == 'category') ? 'category' : 'forum',
 		'FORUM_TITLE' => $forum_language->get('forum', 'forum_name'),
 		'FORUM_TITLE_VALUE' => Output::getClean(Output::getDecoded($forum[0]->forum_title)),
 		'FORUM_DESCRIPTION' => $forum_language->get('forum', 'forum_description'),

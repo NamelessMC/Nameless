@@ -87,6 +87,16 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="InputType">{$FORUM_TYPE}</label>
+                                        <select class="form-control" id="InputType" name="forum_type">
+                                            <option value="forum"{if $FORUM_TYPE_VALUE == 'forum'} selected{/if}>{$FORUM_TYPE_FORUM}</option>
+                                            <option value="category"{if $FORUM_TYPE_VALUE == 'category'} selected{/if}>{$FORUM_TYPE_CATEGORY}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="InputIcon">{$FORUM_ICON}</label>
                                     <input type="text" name="icon" class="form-control" id="InputIcon" placeholder="{$FORUM_ICON}" value="{$FORUM_ICON_VALUE}">
                                 </div>
