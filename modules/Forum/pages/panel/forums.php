@@ -569,7 +569,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 		die();
 	}
 
-	$available_forums = $queries->getWhere('forums', array('id', '<>', 0)); // Get a list of all forums which can be chosen as a parent
+	$available_forums = $queries->orderWhere('forums', 'id > 0', 'forum_order', 'ASC'); // Get a list of all forums which can be chosen as a parent
 	$groups = $queries->getWhere('groups', array('id', '<>', '0')); // Get a list of all groups
 
 	if(Input::exists()){
@@ -817,6 +817,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 	$template_forums_array = array();
 	if(count($available_forums)){
 		foreach($available_forums as $item){
+			if($item->id == $forum[0]->id) continue;
 			$template_forums_array[] = array(
 				'id' => $item->id,
 				'title' => Output::getClean($item->forum_title)
