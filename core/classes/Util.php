@@ -317,19 +317,14 @@ class Util {
 	 *  Get the server name
 	 */
     public static function getSelfURL(){
-        if(isset($_SERVER['REQUEST_SCHEME']))
-            $req_scheme = $_SERVER['REQUEST_SCHEME'];
-        else
-            $req_scheme = 'http';
-
         $hostname = Config::get('core/hostname');
         if(is_array($hostname))
             $hostname = $_SERVER['SERVER_NAME'];
 
         if($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443){
-            $url = $req_scheme . "://" . Output::getClean($hostname);
+            $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . Output::getClean($hostname);
         } else {
-            $url = $req_scheme . "://" . Output::getClean($hostname) . ":" . $_SERVER['SERVER_PORT'];
+            $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . Output::getClean($hostname) . ":" . $_SERVER['SERVER_PORT'];
         }
 
         if(substr($url, -1) !== '/') $url .= '/';
