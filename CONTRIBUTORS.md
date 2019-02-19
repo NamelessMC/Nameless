@@ -15,7 +15,7 @@ Unfortunately it's only possible to view master branch contributions. Once the v
 - German: [BattleDev](https://github.com/BinFlauschigDEV), [BukkitTNT](https://github.com/BukkitTNT), [H4nSolo](https://github.com/H4nSolo)
 - Greek: [ArisC](https://github.com/Ar1sC)
 - Japanese: [Mari0914](https://github.com/Mari0914), [SimplyRin](https://www.simplyrin.net)
-- Lithuanian: [Locus](https://github.com/justasofficial)
+- Lithuanian: [Locus](https://gitlab.com/justas)
 - Norwegian: [Maiu](https://github.com/Thesevs), [OscarWoHA](https://github.com/OscarWoHA)
 - Portuguese: [dasilvaj4](https://github.com/dasilvaj4), [Douglas Teles](https://github.com/dgateles)
 - Romanian: [BaxAndrei](https://github.com/baxandrei)
