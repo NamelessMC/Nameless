@@ -614,10 +614,20 @@
                 'is_default' => 0
             ));
 
+	        $queries->create('languages', array(
+		        'name' => 'Lithuanian',
+		        'is_default' => 0
+	        ));
+
             $queries->create('languages', array(
                 'name' => 'Norwegian',
                 'is_default' => 0
             ));
+
+	        $queries->create('languages', array(
+		        'name' => 'Polish',
+		        'is_default' => 0
+	        ));
 
             $queries->create('languages', array(
                 'name' => 'Portuguese',
@@ -628,6 +638,11 @@
                 'name' => 'Romanian',
                 'is_default' => 0
             ));
+
+	        $queries->create('languages', array(
+		        'name' => 'Slovak',
+		        'is_default' => 0
+	        ));
 
             $queries->create('languages', array(
                 'name' => 'Spanish',
@@ -999,6 +1014,25 @@
             ));
             $cache->setCache('templatecache');
             $cache->store('default', 'Default');
+
+            // Widgets - initialise just a few default ones for now
+	        $queries->create('widgets', array(
+		        'name' => 'Online Staff',
+		        'enabled' => 1,
+				'pages' => '["index","forum"]'
+	        ));
+
+	        $queries->create('widgets', array(
+		        'name' => 'Online Users',
+		        'enabled' => 1,
+		        'pages' => '["index","forum"]'
+	        ));
+
+	        $queries->create('widgets', array(
+		        'name' => 'Statistics',
+		        'enabled' => 1,
+		        'pages' => '["index","forum"]'
+	        ));
 
             // Success
             Redirect::to('?step=user');
@@ -2071,12 +2105,12 @@
                             'name' => 'Czech',
                             'is_default' => 0
                         ));
+						$queries->create('languages', array(
+							'name' => 'Dutch',
+							'is_default' => 0
+						));
                         $queries->create('languages', array(
                             'name' => 'EnglishUS',
-                            'is_default' => 0
-                        ));
-                        $queries->create('languages', array(
-                            'name' => 'Dutch',
                             'is_default' => 0
                         ));
                         $queries->create('languages', array(
@@ -2091,10 +2125,18 @@
                             'name' => 'Japanese',
                             'is_default' => 0
                         ));
+						$queries->create('languages', array(
+							'name' => 'Lithuanian',
+							'is_default' => 0
+						));
                         $queries->create('languages', array(
                             'name' => 'Norwegian',
                             'is_default' => 0
                         ));
+						$queries->create('languages', array(
+							'name' => 'Polish',
+							'is_default' => 0
+						));
                         $queries->create('languages', array(
                             'name' => 'Portuguese',
                             'is_default' => 0
@@ -2103,6 +2145,10 @@
                             'name' => 'Romanian',
                             'is_default' => 0
                         ));
+						$queries->create('languages', array(
+							'name' => 'Slovak',
+							'is_default' => 0
+						));
                         $queries->create('languages', array(
                             'name' => 'Spanish',
                             'is_default' => 0
@@ -2397,6 +2443,25 @@
 						));
 						$cache->setCache('templatecache');
 						$cache->store('default', 'Default');
+
+						// Widgets - initialise just a few default ones for now
+						$queries->create('widgets', array(
+							'name' => 'Online Staff',
+							'enabled' => 1,
+							'pages' => '["index","forum"]'
+						));
+
+						$queries->create('widgets', array(
+							'name' => 'Online Users',
+							'enabled' => 1,
+							'pages' => '["index","forum"]'
+						));
+
+						$queries->create('widgets', array(
+							'name' => 'Statistics',
+							'enabled' => 1,
+							'pages' => '["index","forum"]'
+						));
 
 						unset($_SESSION['db_address']);
 						unset($_SESSION['db_port']);
