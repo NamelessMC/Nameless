@@ -29,6 +29,7 @@ $language = array(
 	'x_posts' => '{x} posts', // Don't replace {x}
 	'x_topics' => '{x} temas', // Don't replace {x}
 	'registered_x' => 'Registrado el: {x}', // Don't replace {x}
+	'by' => 'by',
 	'in' => 'en',
 	'last_reply' => 'Última Respuesta',
 	'latest_discussions' => 'Última Discusión',
