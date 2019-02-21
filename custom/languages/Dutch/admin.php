@@ -260,6 +260,7 @@ $language = array(
 	'editing_server' => 'Server bewerken',
 	'server_deleted' => 'Server succesvol verwijderd',
 	'unable_to_delete_server' => 'Deze server kan niet worden verwijderd.',
+	'leave_port_empty_for_srv' => 'You can leave the port empty if it is 25565, or if your domain uses an SRV record',
 	'viewing_query_error' => 'Query fout aan het bekijken',
 	'confirm_query_error_deletion' => 'Weet je zeker dat je deze query fout wilt verwijderen?',
 	'no_query_errors' => 'Geen query fouten vastgesteld.',
