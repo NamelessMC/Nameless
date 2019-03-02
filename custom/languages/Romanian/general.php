@@ -8,7 +8,7 @@
  *
  *  Romanian Language - General terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ASMODΣUS
- *  Last Update: 24/09/2018
+ *  Last Update: 02/03/2019
  */
 
 $language = array(
