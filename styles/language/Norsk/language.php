@@ -17,30 +17,30 @@
 $admin_language = array(
 	// General terms
 	'admin_cp' => 'AdminCP',
-	'infractions' => 'brudd',
+	'infractions' => 'Brudd',
 	'invalid_token' => 'Ugyldig token, prøv igjen.',
 	'invalid_action' => 'Ugyldig handling',
 	'successfully_updated' => 'Vellykket oppdatering',
 	'settings' => 'Innstillinger',
 	'confirm_action' => 'Bekreft handling',
-	'edit' => 'Redigere',
+	'edit' => 'Rediger',
 	'actions' => 'Handlinger',
-	'task_successful' => 'kjørte oppgaven med hell',
+	'task_successful' => 'Kjørte oppgaven med hell',
 
 	// Admin login
-	're-authenticate' => 'Vennligst re-godkjenne',
+	're-authenticate' => 'Vennligst re-godkjenn',
 
 	// Admin sidebar
 	'index' => 'Oversikt',
 	'announcements' => 'Annonser',
 	'core' => 'Kjerne',
-	'custom_pages' => 'Custom Sider',
-	'general' => 'General',
-	'forums' => 'Forums',
+	'custom_pages' => 'Custom sider',
+	'general' => 'Generell',
+	'forums' => 'Forum',
 	'users_and_groups' => 'Brukere og grupper',
 	'minecraft' => 'Minecraft',
 	'style' => 'Utseende',
-	'addons' => 'Addons',
+	'addons' => 'Plugins',
 	'update' => 'Oppdater',
 	'misc' => 'Diverse',
 	'help' => 'Hjelp',
@@ -51,7 +51,7 @@ $admin_language = array(
 
 	// Admin announcements page
 	'current_announcements' => 'Nåværende Annonser',
-	'create_announcement' => 'opprett Annonse',
+	'create_announcement' => 'Opprett annonse',
 	'announcement_content' => 'Annonseinnhold',
 	'announcement_location' => 'Annonseplassering',
 	'announcement_can_close' => 'Kan lukke annonse?',
@@ -111,16 +111,16 @@ $admin_language = array(
 	'registration' => 'Registrering',
 	'registration_warning' => 'Dersom denne modulen er deaktivert, deaktiveres registreringssiden seg på nettstedet.',
 	'google_recaptcha' => 'Aktiver Google reCAPTCHA',
-	'recaptcha_site_key' => 'reCAPTCHA Side nøkkel',
-	'recaptcha_secret_key' => 'reCAPTCHA Hemmelig nøkkel',
+	'recaptcha_site_key' => 'reCAPTCHA side nøkkel',
+	'recaptcha_secret_key' => 'reCAPTCHA hemmelig nøkkel',
 	'registration_terms_and_conditions' => 'Registreringsbetingelser',
-	'voice_server_module' => 'Voice Server Modul',
+	'voice_server_module' => 'Tale Server Modul',
 	'only_works_with_teamspeak' => 'Denne modulen fungerer foreløpig bare med Teamspeak',
 	'discord_id' => 'Discord Server ID',
 	'voice_server_help' => 'Fyll inn detaljene for ServerQuery-brukeren',
 	'ip_without_port' => 'IP (uten port)',
 	'voice_server_port' => 'Port (vanligvis 10 011)',
-	'virtual_port' => 'Virtual Port (vanligvis 9987)',
+	'virtual_port' => 'Virtuell Port (vanligvis 9987)',
 	'permissions' => 'Tillatelser:',
 	'view_applications' => 'Se søknader?',
 	'accept_reject_applications' => 'Aksepter / avslå søknader?',
@@ -137,12 +137,12 @@ $admin_language = array(
 	'text' => 'Tekst',
 	'textarea' => 'Tekstfelt',
 	'question_deleted' => 'Spørsmål slettet',
-	'name_required' => 'Name is required.',
+	'name_required' => 'Navn kreves.',
 	'question_required' => 'Question is required.',
-	'name_minimum' => 'Name must be a minimum of 2 characters.',
-	'question_minimum' => 'Question must be a minimum of 2 characters.',
-	'name_maximum' => 'Name must be a maximum of 16 characters.',
-	'question_maximum' => 'Question must be a maximum of 16 characters.',
+	'name_minimum' => 'Navnet må være minst 2 tegn langt.',
+	'question_minimum' => 'Spørsmålet må være minst 2 tegn langt.',
+	'name_maximum' => 'Navnet kan ikke være lengere enn 16 tegn.',
+	'question_maximum' => 'Spørsmålet kan ikke være mer enn 16 tegn.',
 	'use_followers' => 'Bruk følgere?',
 	'use_followers_help' => 'Hvis deaktivert, vil venner systemet brukes.',
 
@@ -187,7 +187,7 @@ $admin_language = array(
 	'label_creation_success' => 'Etikett opprettet',
 	'label_edit_success' => 'Etikett er redigert',
 	'label_default' => 'Default',
-	'label_primary' => 'Primary',
+	'label_primary' => 'Primær',
 	'label_success' => 'Suksess',
 	'label_info' => 'Info',
 	'label_warning' => 'Advarsel',
@@ -302,7 +302,7 @@ $admin_language = array(
 	'viewing_error' => 'Vis Feil',
 	'confirm_error_deletion' => 'Er du sikker på at du vil slette denne feilen?',
 	'display_server_status' => 'Vis serverstatusmodul?',
-	'server_name_required' => 'Du må sette inn et servernavn .',
+	'server_name_required' => 'Du må sette inn et servernavn.',
 	'server_ip_required' => 'Du må sette inn serverens IP.',
 	'server_name_minimum' => 'Servernavnet må være minst 2 tegn.',
 	'server_ip_minimum' => 'Serveren IP må være minst 2 tegn.',
@@ -327,8 +327,8 @@ $admin_language = array(
 	'templates' => 'Templates',
 	'installed_themes' => 'Installerte temaer',
 	'installed_templates' => 'Installerte templates',
-	'installed_addons' => 'Installerte addons',
-	'install_theme' => 'Installer Theme',
+	'installed_addons' => 'Installerte plugins',
+	'install_theme' => 'Installer tema',
 	'install_template' => 'Installer Template',
 	'install_addon' => 'Installer Addon',
 	'install_a_theme' => 'Installer en tema',
@@ -349,10 +349,10 @@ $admin_language = array(
 	'addon_scan_complete' => 'Fullført, nye addons er installert.',
 	'theme_enabled' => 'Tema aktivert.',
 	'template_enabled' => 'Template aktivert.',
-	'addon_enabled' => 'Addon aktivert.',
-	'theme_deleted' => 'tema slettet.',
+	'addon_enabled' => 'Plugin aktivert.',
+	'theme_deleted' => 'Tema slettet.',
 	'template_deleted' => 'Template slettet.',
-	'addon_disabled' => 'Addon deaktivert.',
+	'addon_disabled' => 'Plugin deaktivert.',
 	'inverse_navbar' => 'Omvendt Navigasjonsbar',
 	'confirm_theme_deletion' => 'Er du sikker på at du vil slette temaet <strong>{x}</strong>?<br /><br />Temaet vil bli slettet fra <strong>styles/themes</strong> mappa.', // Don't replace {x}
 	'confirm_template_deletion' => 'Er du sikker på at du vil slette template <strong>{x}</strong>?<br /><br />Template vil bli slettet fra <strong>styles/templates</strong> mappa.', // Don't replace {x}
@@ -387,7 +387,7 @@ $navbar_language = array(
 	'play' => 'Spill',
 	'forum' => 'Forum',
 	'more' => 'Mer',
-	'staff_apps' => 'Staff-søknader',
+	'staff_apps' => 'Stab-søknader',
 	'view_messages' => 'Vis Meldinger',
 	'view_alerts' => 'Vis Varsler',
 
@@ -403,7 +403,7 @@ $navbar_language = array(
  */
 $user_language = array(
 	// Registration
-	'create_an_account' => 'Opprett en bruker',
+	'create_an_account' => 'Opprett en brukerkonto',
 	'authme_password' => 'AuthMe Passord',
 	'username' => 'Brukernavn',
 	'minecraft_username' => 'Minecraft Brukernavn',
@@ -421,7 +421,7 @@ $user_language = array(
 	'sign_out' => 'Logg ut',
 	'terms_and_conditions' => 'Vilkår og betingelser',
 	'successful_signin' => 'Du har blitt logget inn',
-	'incorrect_details' => 'uriktige opplysninger',
+	'incorrect_details' => 'Uriktige opplysninger',
 	'remember_me' => 'Husk meg',
 	'forgot_password' => 'Glemt passord',
 	'must_input_username' => 'Du må skrive inn et brukernavn.',
@@ -473,7 +473,7 @@ $user_language = array(
 	'posts' => 'Innlegg',
 	'reputation' => 'Rykte',
 	'friends' => 'Venner',
-	'alerts' => 'Alerts',
+	'alerts' => 'Varsler',
 
 	// Messaging
 	'new_message' => 'Ny Melding',
@@ -503,7 +503,7 @@ $user_language = array(
 	'display_age_on_profile' => 'Vis alder på profilen?',
 	'two_factor_authentication' => 'To-trinns autentisering',
 	'enable_tfa' => 'Aktiver to-trinns autentisering',
-	'tfa_type' => 'to-trinns autentisering type:',
+	'tfa_type' => 'To-trinns autentisering type:',
 	'authenticator_app' => 'Autentiserings-App',
 	'tfa_scan_code' => 'Vennligst skanne følgende kode i autentiseringsappen:',
 	'tfa_code' => 'Hvis enheten ikke har et kamera, eller du ikke er i stand til å skanne QR-koden, legg inn følgende kode:',
@@ -579,14 +579,14 @@ $user_language = array(
 	'no_posts' => 'Ingen innlegg.',
 	'last_5_posts' => 'Siste 5 innlegg',
 	'follow' => 'Følg',
-	'unfollow' => 'Slutt å flkge',
+	'unfollow' => 'Slutt å følge',
 	'name_history' => 'Navnehistorikk',
  	'changed_name_to' => 'Endret navn til: {x} på {y}', // Don't replace {x} or {y}
  	'original_name' => 'Opprinnelig navn:',
 	'name_history_error' => 'Kan ikke hente brukernavnshistorikk.',
 
 	// Staff applications
-	'staff_application' => 'Staff Søknad',
+	'staff_application' => 'Stab Søknad',
 	'application_submitted' => 'Søknad sendt.',
 	'application_already_submitted' => 'Du har allerede sendt inn en søknad. Vent til den er ferdig før du sender en annen.',
 	'not_logged_in' => 'Vennligst logg inn for å se denne siden.',
@@ -602,7 +602,7 @@ $mod_language = array(
 	'overview' => 'Oversikt',
 	'reports' => 'Rapporter',
 	'punishments' => 'Straff',
-	'staff_applications' => 'Staff Søknader',
+	'staff_applications' => 'Stab Søknader',
 
 	// Punishments
 	'ban' => 'Utesteng',
@@ -610,7 +610,7 @@ $mod_language = array(
 	'warn' => 'Varsle',
 	'search_for_a_user' => 'Søk etter en bruker',
 	'user' => 'Bruker:',
-	'ip_lookup' => 'IP Lookup:',
+	'ip_lookup' => 'Søk opp IP-adresse:',
 	'registered' => 'Registrert',
 	'reason' => 'Grunn:',
 	'cant_ban_root_user' => 'Kan ikke straffe root bruker!',
@@ -621,7 +621,7 @@ $mod_language = array(
 	'report_closed' => 'Rapporter lukket.',
 	'new_comment' => 'Ny kommentar',
 	'comments' => 'Kommentarer',
-	'only_viewed_by_staff' => 'Kan bare bli sett av ansatte',
+	'only_viewed_by_staff' => 'Kan bare bli sett av stab',
 	'reported_by' => 'Rapportert av',
 	'close_issue' => 'Lukk saken',
 	'report' => 'Rapportere:',
@@ -663,7 +663,7 @@ $general_language = array(
 
 	// General terms
 	'submit' => 'Send inn',
-	'close' => 'Lukke',
+	'close' => 'Lukk',
 	'cookie_message' => '<strong>Dette nettstedet bruker cookies for å forbedre din opplevelse.</strong><p>Ved å fortsette å bla gjennom og samhandle med dette nettstedet, samtykker du med deres bruk.</p>',
 	'theme_not_exist' => 'Den valgte temaet finnes ikke.',
 	'confirm' => 'Bekrefte',
@@ -681,15 +681,15 @@ $general_language = array(
 
 	// Play page
 	'connect_with' => 'Koble til serveren med IP {x}', // Don't replace {x}
-	'online' => 'Online',
-	'offline' => 'Offline',
+	'online' => 'Tilkoblet',
+	'offline' => 'Avlogget',
 	'status' => 'Status:',
-	'players_online' => 'Spillere Online:',
+	'players_online' => 'Spillere Tilkoblet:',
 	'queried_in' => 'Spørres i:',
 	'server_status' => 'Serverstatus',
-	'no_players_online' => 'Det er ingen spillere online!',
-	'1_player_online' => 'There is 1 player online.',
-	'x_players_online' => 'Det er {x} spillere online.', // Don't replace {x}
+	'no_players_online' => 'Det er ingen spillere tilkoblet!',
+	'1_player_online' => 'Det er 1 spiller tilkoblet.',
+	'x_players_online' => 'Det er {x} spillere tilkoblet.', // Don't replace {x}
 
 	// Other
 	'page_loaded_in' => 'Siden lastet inn på {x}s', // Don't replace {x}; 's' stands for 'seconds'
@@ -702,16 +702,16 @@ $general_language = array(
  */
 $forum_language = array(
 	// Latest discussions view
-	'forums' => 'Forums',
+	'forums' => 'Forum',
 	'discussion' => 'Diskusjon',
 	'stats' => 'Statistikk',
 	'last_reply' => 'Siste svar',
 	'ago' => 'siden',
 	'by' => 'av',
 	'in' => 'i',
-	'views' => 'visninger',
-	'posts' => 'innlegg',
-	'topics' => 'emner',
+	'views' => 'Visninger',
+	'posts' => 'Innlegg',
+	'topics' => 'Emner',
 	'topic' => 'Emne',
 	'statistics' => 'Statistikk',
 	'overview' => 'Oversikt',
@@ -785,7 +785,7 @@ $forum_language = array(
 	// Other
 	'forum_error' => 'Beklager, men vi kunne ikke finne et forum eller et emne med dette emnet',
 	'are_you_logged_in' => 'Er du logget inn?',
-	'online_users' => 'Brukere Online',
+	'online_users' => 'Brukere Tilkoblet',
 	'no_users_online' => 'Det er ingen brukere online',
 
 	// Search
@@ -804,8 +804,8 @@ $forum_language = array(
 $email_language = array(
 	// Registration email
 	'greeting' => 'Hei',
-	'message' => 'Takk for at du registrerer deg! For å fullføre registreringen, vennligst klikk på følgende link:',
-	'thanks' => 'Takk,'
+	'message' => 'Tusen takk for at du registrerer deg! For å fullføre registreringen, vennligst klikk på følgende link:',
+	'thanks' => 'Tusen takk,'
 );
 
 /*
