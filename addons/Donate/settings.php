@@ -156,7 +156,7 @@ if(empty($donation_settings)){
   <strong>Donation Plugin</strong><br />
   <div class="btn-group" data-toggle="buttons">
     <label class="btn btn-primary<?php if($donation_settings[0]->value == 'bc'){ ?> active<?php } ?>">
-	  <input type="radio" name="store_type" id="InputStoreType1" value="bc" autocomplete="off"<?php if($donation_settings[0]->value == 'bc'){ ?> checked<?php } ?>> Buycraft
+	  <input type="radio" name="store_type" id="InputStoreType1" value="bc" autocomplete="off"<?php if($donation_settings[0]->value == 'bc'){ ?> checked<?php } ?>> Tebex
     </label>
     <label class="btn btn-primary<?php if($donation_settings[0]->value == 'cs'){ ?> active<?php } ?>">
 	  <input type="radio" name="store_type" id="InputStoreType3" value="cs" autocomplete="off"<?php if($donation_settings[0]->value == 'cs'){ ?> checked<?php } ?>> CraftingStore
