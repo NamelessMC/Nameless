@@ -34,15 +34,15 @@ $language = array(
 	'users_and_groups' => 'Brukere og grupper',
 
 	// Overview
-	'running_nameless_version' => 'Kjører NamelessMC versjon <strong>{x}</strong>', // Don't replace "{x}"
-	'running_php_version' => 'Kjører PHP versjon <strong>{x}</strong>', // Don't replace "{x}"
+	'running_nameless_version' => 'Bruker NamelessMC versjon <strong>{x}</strong>', // Don't replace "{x}"
+	'running_php_version' => 'Bruker PHP versjon <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Statistikk',
 	'registrations' => 'Registreringer',
 	'topics' => 'Emner',
 	'posts' => 'Tråder',
     'notices' => 'Varsler',
     'no_notices' => 'Ingen varsler.',
-    'email_errors_logged' => 'En email error har blitt logget',
+    'email_errors_logged' => 'En epost feil har blitt logget',
 
 	// Core
 	'settings' => 'Instillinger',
@@ -50,10 +50,10 @@ $language = array(
 	'sitename' => 'Nettstedets navn',
 	'default_language' => 'Standardspråk',
 	'default_language_help' => 'Tilskuere på nettstedet kan benytte alle installerte språk',
-	'install_language' => 'Install Language',
-	'update_user_languages' => 'Update User Languages',
+	'install_language' => 'Installer språk',
+	'update_user_languages' => 'Bytt bruker språk',
 	'update_user_languages_warning' => 'This will update the language for all users on your site, even if they have already selected one!',
-	'updated_user_languages' => 'User languages have been updated.',
+	'updated_user_languages' => 'Bruker språk er blitt byttet.',
 	'installed_languages' => 'Installasjonen av språket var vellykket!',
 	'default_timezone' => 'Standard tidssone',
 	'registration' => 'Registrering',
@@ -76,7 +76,7 @@ $language = array(
 	'twitter_url' => 'Twitter-URL',
 	'twitter_dark_theme' => 'Bruk mørkt tema for Twitter-modulen?',
 	'discord_id' => 'Discord Server ID',
-	'discord_widget_theme' => 'Discord Widget Theme',
+	'discord_widget_theme' => 'Discord Widget Tema',
 	'dark' => 'Dark',
 	'light' => 'Light',
 	'google_plus_url' => 'Google+ URL',
@@ -89,10 +89,10 @@ $language = array(
     'enable_debug_mode' => 'Tillatt feilsøkingsmodus?',
     'force_https' => 'Overstyr https?',
     'force_https_help' => 'Hvis aktivert, alle forespørsler på din nettside vil bli videresendt til https. Du må ha en gyldig SSL sertifikat aktiv for at dette skal funke.',
-    'force_www' => 'Force www?',
-    'contact_email_address' => 'Kontakt email adresse',
-    'emails' => 'Email',
-    'email_errors' => 'Email error',
+    'force_www' => 'Tving www?',
+    'contact_email_address' => 'Kontakt epost adresse',
+    'emails' => 'Epost',
+    'email_errors' => 'Epost Feil',
     'registration_email' => 'Registreringsemail',
     'contact_email' => 'Kontaktemail',
     'forgot_password_email' => 'Glemt email passord',
@@ -112,8 +112,8 @@ $language = array(
     'send_test_email' => 'Send test email',
     'send_test_email_info' => 'Denne knappen vil prøve å sende en test email til din email adresse, <strong>{x}</strong>. Alle errorene som blir oppdaget, vil bli listet her.', // Don't replace {x}
     'send' => 'Send',
-    'test_email_error' => 'Test email error:',
-    'test_email_success' => 'Test email ble suksessfullt sendt!',
+    'test_email_error' => 'Test epost feil:',
+    'test_email_success' => 'Test epost ble suksessfullt sendt!',
     'terms_error' => 'Pass på at dine betingelser og vilkår ikke er mer enn 100000 tegn.',
     'privacy_policy_error' => 'Please enter a privacy policy no longer than 100000 characters.',
     'terms_updated' => 'Vilkår har suksessfullt blitt oppdatert!',
@@ -264,10 +264,10 @@ $language = array(
     'no_query_errors' => 'Ingen query error har blitt lagret.',
     'new_banner' => '<i class="fa fa-plus-circle"></i> Ny banner',
     'purge_errors' => 'Rens alle error',
-    'confirm_purge_errors' => 'Er du sikker på at du vil fjerne alle errorer?',
-	'email_errors_purged_successfully' => 'Email errors har blitt fjernet.',
+    'confirm_purge_errors' => 'Er du sikker på at du vil fjerne alle feil?',
+	'email_errors_purged_successfully' => 'Epost feil har blitt fjernet.',
 	'error_deleted_successfully' => 'Erroren har blitt fjernet.',
-	'no_email_errors' => 'Ingen errors har blitt logget.',
+	'no_email_errors' => 'Ingen feil har blitt logget.',
 	'email_settings_updated_successfully' => 'Emailinstillinger har blitt oppdatert.',
 	'content' => 'Innhold',
     'mcassoc_help' => 'mcassoc er en ekstern service som kan bli brukt for å verifisere deres Minecraft bruker de har registrert med. For å bruke denne funksjonen må du registrere deg for å motta en delt nøkkel <a href="https://mcassoc.lukegb.com/" target="_blank">her</a>.',
@@ -464,18 +464,18 @@ $language = array(
 	'widgets' => 'Widgets',
 	'widget_enabled' => 'Widget aktivert.',
 	'widget_disabled' => 'Widget deaktivert.',
-	'widget_updated' => 'Widget updated.',
+	'widget_updated' => 'Widget oppdatert.',
 	'editing_widget_x' => 'Redigerer widget {x}', // Don't replace {x}
 	'module_x' => 'Modul: {x}', // Don't replace {x}
 	'widget_order' => 'Widget rekkefølge',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Inkluder staffmedlemmer i bruker widget?',
-    'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
+    'show_nickname_instead_of_username' => 'Vis brukereren sitt kallenavn i stedet for brukernavnet?',
 
     // Custom Pages
     'pages' => 'Sider',
-    'custom_pages' => 'Sider',
+    'custom_pages' => 'Egendefinerte Sider',
     'new_page' => '<i class="fa fa-plus-circle"></i> Ny side',
     'no_custom_pages' => 'Ingen sider har blitt laget enda.',
     'creating_new_page' => 'Oppretter side',
@@ -486,7 +486,7 @@ $language = array(
     'page_link_navbar' => 'Navigasjonsbar',
     'page_link_footer' => 'Footer',
     'page_link_more' => '"Mer" Dropdown',
-    'page_link_none' => 'Ingen link',
+    'page_link_none' => 'Ingen lenke',
     'page_content' => 'Side innhold',
     'page_redirect' => 'Side Redirect?',
     'page_redirect_to' => 'Redirect lenke (med følgende start: http://)',
