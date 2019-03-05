@@ -71,7 +71,7 @@ $language = array(
     'email_address' => 'Email Address',
     'contact_email_subject' => 'Ny kontaktskjema',
     'contact_message_failed' => 'Kunne ikke sende melding. Pass på at meldingen er mellom 10 og 5000 tegn lang',
-    'contact_message_email' => 'Emailen er ugyldig.',
+    'contact_message_email' => 'Eposten er ugyldig.',
     'contact_message_sent' => 'Melding suksessfullt sendt!',
     'contact_message_limit' => 'Du kan kun sende èn melding hver time. Du kan sende en ny melding om {x} minutter.', // Don't replace {x}
 	
@@ -96,8 +96,8 @@ $language = array(
     /*
      *  Server query
      */
-    'online' => 'Oppe',
-    'offline' => 'Nede',
+    'online' => 'Pålogget',
+    'offline' => 'Frakoblet',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Versjon: {x}', // Don't replace {x}
@@ -121,13 +121,13 @@ $language = array(
     /*
      *  Widgets
      */
-    'statistics' => 'Statistics',
-    'users_registered' => 'Users Registered',
-    'latest_member' => 'Latest Member',
-    'forum_statistics' => 'Forum Statistics',
-    'total_threads' => 'Total Threads',
-    'total_posts' => 'Total Posts',
-    'online_staff' => 'Pålogget staff',
+    'statistics' => 'Statistikk',
+    'users_registered' => 'Brukere Regeristrert',
+    'latest_member' => 'Siste Bruker Regerisrert',
+    'forum_statistics' => 'Forum Statistikk',
+    'total_threads' => 'Totalt antall tråder',
+    'total_posts' => 'Totalt antall poster',
+    'online_staff' => 'Pålogget Stabmedlemmer',
     'no_online_staff' => 'Det er ingen stabmedlemmer pålogget.',
     'online_users' => 'Påloggede brukere',
     'no_online_users' => 'Det er ingen brukere pålogget',
