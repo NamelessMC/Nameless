@@ -310,6 +310,7 @@ $language = array(
 
 	// Styles
 	'templates' => 'Mallar',
+	'panel_templates' => 'Panel Templates',
 	'template_outdated' => 'Vi har upptäckt att din mall är för Nameless version {x}, men du kör Nameless version {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Aktiv',
 	'deactivate' => 'Avaktivera',

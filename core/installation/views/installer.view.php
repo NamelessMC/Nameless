@@ -550,7 +550,7 @@
                 'group_username_css' => '#ff0000',
                 'mod_cp' => 1,
                 'admin_cp' => 1,
-                'permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1, "admincp.security.all":1}',
+                'permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1, "admincp.security.all":1}',
 				'order' => 1,
 				'staff' => 1
             ));
@@ -1014,6 +1014,13 @@
             ));
             $cache->setCache('templatecache');
             $cache->store('default', 'Default');
+
+	        $queries->create('panel_templates', array(
+		        'name' => 'Default',
+		        'enabled' => 1,
+		        'is_default' => 1
+	        ));
+	        $cache->store('panel_default', 'Default');
 
             // Widgets - initialise just a few default ones for now
 	        $queries->create('widgets', array(
@@ -1520,7 +1527,7 @@
 								}
 
 								$queries->update('groups', 1, array('permissions' => '{"usercp.messaging":1,"usercp.signature":1}'));
-								$queries->update('groups', 2, array('permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1,"admincp.security.all":1}'));
+								$queries->update('groups', 2, array('permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"profile.private.bypass":1,"admincp.security.all":1}'));
 								$queries->update('groups', 3, array('permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"usercp.messaging":1,"usercp.signature":1}'));
 							}
 						} catch(Exception $e){
@@ -2447,6 +2454,13 @@
 						$cache->setCache('templatecache');
 						$cache->store('default', 'Default');
 
+						$queries->create('panel_templates', array(
+							'name' => 'Default',
+							'enabled' => 1,
+							'is_default' => 1
+						));
+						$cache->store('panel_default', 'Default');
+
 						// Widgets - initialise just a few default ones for now
 						$queries->create('widgets', array(
 							'name' => 'Online Staff',
@@ -2503,14 +2517,132 @@
 
                 <h3><?php echo $language['convert']; ?></h3>
                 <p><?php echo $language['convert_message']; ?></p>
-                <a class="btn btn-success btn-lg disabled" href="?step=convert&amp;convert=yes"><?php echo $language['yes']; ?></a>
+                <a class="btn btn-success btn-lg" href="?step=convert&amp;convert=yes"><?php echo $language['yes']; ?></a>
                 <a class="btn btn-primary btn-lg" href="?step=finish"><?php echo $language['no']; ?></a>
 
                 <?php
             } else {
-				// Display list of converters
+            	if($_GET['convert'] == 'yes'){
+		            // Display list of converters
+		            $available_converters = array_filter(glob(ROOT_PATH . '/custom/converters/*'), 'is_dir');
+		            $converters = array();
 
+		            if(count($available_converters)){
+		            	foreach($available_converters as $converter){
+		            		if(file_exists($converter . '/converter.php')){
+		            			$path = explode(DIRECTORY_SEPARATOR, $converter);
+		            			$converters[] = $path[count($path) - 1];
+							}
+						}
+					}
 
+		            if(count($converters)){
+		            	if(isset($_POST) && !empty($_POST)){
+							// Ensure all fields are filled
+							$validate = new Validate();
+
+							$validation = $validate->check($_POST, array(
+								'db_address' => array(
+									'required' => true
+								),
+								'db_port' => array(
+									'required' => true
+								),
+								'db_username' => array(
+									'required' => true
+								),
+								'db_name' => array(
+									'required' => true
+								)
+							));
+
+							if($validation->passed()){
+								// Check database connection
+								if(isset($_POST['db_password']) && !empty($_POST['db_password'])){
+									$password = str_replace('\'', '\\\'', $_POST['db_password']);
+								} else {
+									$password = '';
+								}
+
+								$mysqli = new mysqli(Input::get('db_address'), Input::get('db_username'), $password, Input::get('db_name'), Input::get('db_port'));
+								if($mysqli->connect_errno) {
+									$error = $mysqli->connect_errno . ' - ' . $mysqli->connect_error;
+								} else {
+									// Load converter
+									if(isset($_POST['converter']) && in_array($_POST['converter'], $converters)){
+										$mysqli->close();
+
+										// Re-open as PDO
+										$conn = DB_Custom::getInstance(Input::get('db_address'), Input::get('db_name'), Input::get('db_username'), $password, Input::get('db_port'));
+
+										require_once(ROOT_PATH . '/custom/converters/' . $_POST['converter'] . '/converter.php');
+
+										if(!isset($error)){
+											Redirect::to('?step=finish');
+											die();
+										}
+									} else {
+										$error = $language['unable_to_load_converter'];
+									}
+								}
+							} else
+								$error = $language['database_error'];
+
+						}
+
+		            	?>
+						</div>
+						<div class="row">
+							<div class="col-md-6 offset-md-3">
+								<?php if(isset($error)){ ?><div class="alert alert-danger"><?php echo $error; ?></div><?php } ?>
+								<form action="" method="post">
+									<div class="form-group">
+										<label for="inputConverter"><?php echo $language['converter']; ?></label>
+										<select class="form-control" name="converter" id="inputConverter">
+											<?php
+											foreach($converters as $converter){
+												?>
+												<option value="<?php echo Output::getClean($converter); ?>"><?php echo str_replace('_', ' ', Output::getClean($converter)); ?></option>
+												<?php
+											}
+											?>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="inputDBAddress"><?php echo $language['database_address']; ?></label>
+										<input type="text" class="form-control" name="db_address" id="inputDBAddress" value="127.0.0.1" placeholder="<?php echo $language['database_address']; ?>">
+									</div>
+
+									<div class="form-group">
+										<label for="inputDBPort"><?php echo $language['database_port']; ?></label>
+										<input type="text" class="form-control" name="db_port" id="inputDBPort" placeholder="<?php echo $language['database_port']; ?>" value="3306">
+									</div>
+
+									<div class="form-group">
+										<label for="inputDBUsername"><?php echo $language['database_username']; ?></label>
+										<input type="text" class="form-control" name="db_username" id="inputDBUsername" placeholder="<?php echo $language['database_username']; ?>">
+									</div>
+
+									<div class="form-group">
+										<label for="inputDBPassword"><?php echo $language['database_password']; ?></label>
+										<input type="password" class="form-control" name="db_password" id="inputDBPassword" placeholder="<?php echo $language['database_password']; ?>">
+									</div>
+
+									<div class="form-group">
+										<label for="inputDBName"><?php echo $language['database_name']; ?></label>
+										<input type="text" class="form-control" name="db_name" id="inputDBName" placeholder="<?php echo $language['database_name']; ?>">
+									</div>
+
+									<div class="form-group">
+										<input type="submit" class="btn btn-primary" value="<?php echo $language['submit']; ?>">
+										<a href="./install.php?step=convert" class="btn btn-warning"><?php echo $language['back']; ?></a>
+									</div>
+								</form>
+							</div>
+						</div>
+						<?php
+					}
+				}
             }
             break;
 

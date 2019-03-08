@@ -310,6 +310,7 @@ $language = array(
 
 	// Styles
 	'templates' => 'Templates',
+	'panel_templates' => 'Panel Templates',
 	'template_outdated' => 'Você está utilizando um template para a versão {x} do Nameless, porém sua versão do Nameless é {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Ativo',
 	'deactivate' => 'Desativar',

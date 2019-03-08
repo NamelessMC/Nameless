@@ -311,6 +311,7 @@ $language = array(
 
     // Styles
     'templates' => 'Șabloane',
+    'panel_templates' => 'Panel Templates',
     'template_outdated' => 'Am detectat că șablonul dvs. este destinat versiunii NamelessMC {x}, dar executați versiunea NamelessMC {y}.', // Don't replace "{x}" or "{y}"
     'active' => 'Activ',
     'deactivate' => 'Dezactivare',

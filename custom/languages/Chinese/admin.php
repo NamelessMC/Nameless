@@ -313,6 +313,7 @@ $language = array(
 
 	// Styles
 	'templates' => '樣式',
+	'panel_templates' => 'Panel Templates',
 	'template_outdated' => '我們偵測到您使用的樣式為適用於NamelessMC版本 {x}，但您使用的版本為 {y}', // Don't replace "{x}" or "{y}"
 	'active' => '使用',
 	'deactivate' => '停用',

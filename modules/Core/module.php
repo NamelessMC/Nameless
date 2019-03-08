@@ -71,6 +71,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/social_media', 'pages/panel/social_media.php');
 		$pages->add('Core', '/panel/core/groups', 'pages/panel/groups.php');
 		$pages->add('Core', '/panel/core/images', 'pages/panel/images.php');
+		$pages->add('Core', '/panel/core/panel_templates', 'pages/panel/panel_templates.php');
 		$pages->add('Core', '/panel/core/templates', 'pages/panel/templates.php');
 		$pages->add('Core', '/panel/core/sitemap', 'pages/panel/sitemap.php');
 		$pages->add('Core', '/panel/core/widgets', 'pages/panel/widgets.php');
@@ -289,6 +290,7 @@ class Core_Module extends Module {
 			'admincp.security.all' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'all_logs'),
 			'admincp.sitemap' => $language->get('admin', 'sitemap'),
 			'admincp.styles' => $language->get('admin', 'styles'),
+			'admincp.styles.panel_templates' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'panel_templates'),
 			'admincp.styles.templates' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'templates'),
 			'admincp.styles.templates.edit' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'templates') . ' &raquo; ' . $language->get('general', 'edit'),
 			'admincp.styles.images' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'images'),
@@ -811,6 +813,16 @@ class Core_Module extends Module {
 						$icon = $cache->retrieve('images_icon');
 
 					$navs[2]->addItemToDropdown('layout', 'images', $language->get('admin', 'images'), URL::build('/panel/core/images'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.styles.panel_templates')){
+					if(!$cache->isCached('panel_templates_icon')){
+						$icon = '<i class="nav-icon fas fa-tachometer-alt"></i>';
+						$cache->store('panel_templates_icon', $icon);
+					} else
+						$icon = $cache->retrieve('panel_templates_icon');
+
+					$navs[2]->addItemToDropdown('layout', 'panel_templates', $language->get('admin', 'panel_templates'), URL::build('/panel/core/panel_templates'), 'top', $order, $icon);
 				}
 
 				if($user->hasPermission('admincp.sitemap')){

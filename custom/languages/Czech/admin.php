@@ -309,6 +309,7 @@ $language = array(
 	
 	// Styles
 	'templates' => 'Šablony',
+	'panel_templates' => 'Panel Templates',
 	'template_outdated' => 'Zjistili jsme, že šablona je určena pro verze {x} , ale Vy používáte verzi {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Aktivní',
 	'deactivate' => 'Deaktivovat',

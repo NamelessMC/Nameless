@@ -308,6 +308,7 @@ $language = array(
 
 	// Styles
 	'templates' => 'Szablony',
+	'panel_templates' => 'Panel Templates',
 	'template_outdated' => 'Wykryliśmy że ten szablon jest przeznaczony do wersji Nameless {x}, a ty używasz wersji Nameless {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Aktywny',
 	'deactivate' => 'Dezaktywuj',

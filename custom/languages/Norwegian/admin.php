@@ -309,6 +309,7 @@ $language = array(
 
 	// Styles
 	'templates' => 'Maler',
+	'panel_templates' => 'Panel Templates',
 	'template_outdated' => 'Malen er kun kompatibel med NamelessMC versjon {x}, men du kjører versjon {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Aktiv',
 	'deactivate' => 'Ikke aktiv',

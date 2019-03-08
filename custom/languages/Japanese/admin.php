@@ -312,6 +312,7 @@ $language = array(
 
 	// Styles
 	'templates' => 'テンプレート',
+	'panel_templates' => 'Panel Templates',
 	'template_outdated' => '選択したテンプレートは NamelessMC バージョン {x} に対応していますが、現在 NamelessMC バージョン {y} を実行しています。', // Don't replace "{x}" or "{y}"
 	'active' => 'アクティブ',
 	'deactivate' => '非アクティブ',

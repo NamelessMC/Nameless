@@ -311,6 +311,7 @@ $language = array(
 
 	// Styles
 	'templates' => 'Templates',
+	'panel_templates' => 'Panel Templates',
 	'template_outdated' => 'We have detected that your template is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Ενεργός',
 	'deactivate' => 'Απενεργοποίηση',
