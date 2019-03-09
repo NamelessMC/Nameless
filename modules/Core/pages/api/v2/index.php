@@ -390,7 +390,8 @@ class Nameless2API
                     'joined' => date('U'),
                     'group_id' => $default_group,
                     'lastip' => 'Unknown',
-                    'reset_code' => $code
+                    'reset_code' => $code,
+	                'last_online' => date('U')
                 ));
 
                 $user_id = $this->_db->lastid();
