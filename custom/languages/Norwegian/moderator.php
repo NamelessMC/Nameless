@@ -102,6 +102,7 @@ $language = array(
     'reason:' => 'Grunn:',
 	
     // Users
-    'recent_registrations' => 'Nylige registreringer'
+    'recent_registrations' => 'Nylige registreringer',
+	'reset_profile_banner' => 'Reset Profile Banner'
 
 );

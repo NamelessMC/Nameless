@@ -63,6 +63,9 @@ $language = array(
 	'email_already_exists' => 'Emailadressen eksisterer allerede',
 	'email_changed_successfully' => 'Emailadressen har blitt endret',
 	'avatar' => 'Avatar',
+	'profile_banner' => 'Profile Banner',
+	'upload_profile_banner' => 'Upload Profile Banner',
+	'upload' => 'Upload',
 	
 	// Alerts
 	'user_tag_info' => 'Du har blitt tagget i et innlegg av {x}.', // Don't replace {x}

@@ -2,7 +2,7 @@
 {include file='navbar.tpl'}
 
 <div class="container">
-  <div class="jumbotron" style="background-image:url('{$BANNER}');">
+  <div class="jumbotron" style="background-image:url('{$BANNER}');background-size:cover;">
 	<div class="row">
 	  <div class="col-md-8">
 		<h2>
@@ -20,6 +20,11 @@
 			<!--<a href="{$FOLLOW_LINK}" class="btn btn-primary btn-lg"><i class="fa fa-users fa-fw"></i> {$FOLLOW}</a>-->
 			{if $MOD_OR_ADMIN ne true}<a href="#" data-toggle="modal" data-target="#blockModal" class="btn btn-danger btn-lg"><i class="fa fa-ban fa-fw"></i></a>{/if}
 			<a href="{$MESSAGE_LINK}" class="btn btn-secondary btn-lg"><i class="fa fa-envelope fa-fw"></i></a>
+			{if isset($RESET_PROFILE_BANNER)}
+			  <a href="{$RESET_PROFILE_BANNER_LINK}" class="btn btn-danger btn-lg" rel="tooltip" data-title="{$RESET_PROFILE_BANNER}">
+			    <i class="fa fa-picture-o fa-fw"></i>
+			  </a>
+			{/if}
 		  </div>
 		    {else}
 		  <div class="btn-group">
@@ -242,9 +247,9 @@
 			      </center>
 			      <hr />
 			      <ul>
-			        <li>{$ABOUT_FIELDS.registered.title}</strong> <span rel="tooltip" title="{$ABOUT_FIELDS.registered.tooltip}">{$ABOUT_FIELDS.registered.value}</li>
-			        <li>{$ABOUT_FIELDS.last_seen.title}</strong> <span rel="tooltip" title="{$ABOUT_FIELDS.last_seen.tooltip}">{$ABOUT_FIELDS.last_seen.value}</li>
-			        <li>{$ABOUT_FIELDS.profile_views.title}</strong> {$ABOUT_FIELDS.profile_views.value}</li>
+			        <li><strong>{$ABOUT_FIELDS.registered.title}</strong> <span rel="tooltip" title="{$ABOUT_FIELDS.registered.tooltip}">{$ABOUT_FIELDS.registered.value}</li>
+			        <li><strong>{$ABOUT_FIELDS.last_seen.title}</strong> <span rel="tooltip" title="{$ABOUT_FIELDS.last_seen.tooltip}">{$ABOUT_FIELDS.last_seen.value}</li>
+			        <li><strong>{$ABOUT_FIELDS.profile_views.title}</strong> {$ABOUT_FIELDS.profile_views.value}</li>
 			      </ul>
 			    </div>
 			  </div>
@@ -307,8 +312,8 @@
 			  <span aria-hidden="true">&times;</span>
 			</button>
 		  </div>
-		  <form action="" method="post" style="display:inline;" >
-		    <div class="modal-body">
+		  <div class="modal-body">
+			<form action="" name="updateBanner" method="post" style="display:inline;">
 			  <select name="banner" class="image-picker show-html">
 			    {foreach from=$BANNERS item=banner}
 				  <option data-img-src="{$banner.src}" value="{$banner.name}"{if $banner.active == true} selected{/if}>{$banner.name}</option>
@@ -316,12 +321,25 @@
 			  </select>
 			  <input type="hidden" name="token" value="{$TOKEN}">
 			  <input type="hidden" name="action" value="banner">
-		    </div>
-		    <div class="modal-footer">
-			  <button type="button" class="btn btn-danger" data-dismiss="modal">{$CANCEL}</button>
-			  <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
-		    </div>
-		  </form>
+			</form>
+
+			{if isset($PROFILE_BANNER)}
+			  <hr />
+			  <strong>{$UPLOAD_PROFILE_BANNER}</strong>
+			  <br />
+			  <form action="{$UPLOAD_BANNER_URL}" method="post" enctype="multipart/form-data" style="display:inline;">
+				  <label class="btn btn-secondary" style="margin-bottom: 0">
+				    {$BROWSE} <input type="file" name="file" hidden/>
+				  </label>
+				  <input type="hidden" name="token" value="{$TOKEN}">
+				  <input type="hidden" name="type" value="profile_banner">
+				  <input type="submit" value="{$UPLOAD}" class="btn btn-primary">
+			{/if}
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-danger" data-dismiss="modal">{$CANCEL}</button>
+			<button type="button" onclick="document.updateBanner.submit()" class="btn btn-primary">{$SUBMIT}</button>
+		  </div>
 		</div>
 	  </div>
 	</div>

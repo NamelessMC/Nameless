@@ -64,6 +64,9 @@ $language = array(
 	'email_already_exists' => 'The email address you have entered already exists.',
 	'email_changed_successfully' => 'Email address changed successfully.',
 	'avatar' => 'Avatar',
+	'profile_banner' => 'Profile Banner',
+	'upload_profile_banner' => 'Upload Profile Banner',
+	'upload' => 'Upload',
 	
 	// Alerts
 	'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}

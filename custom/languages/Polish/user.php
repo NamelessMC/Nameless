@@ -56,13 +56,16 @@ $language = array(
 	'invalid_tfa' => 'Zły kod, spróbuj ponownie.',
 	'tfa_successful' => 'Podwójna weryfikacja została włączona. Od teraz będziesz musiał zweryfikować się zawsze przy logowaniu.',
 	'active_language' => 'Język',
-	 'timezone' => 'Strefa czasowa',
-	 'upload_new_avatar' => 'Prześlij nowy awatar',
-	 'nickname_already_exists' => 'Ktoś ma już nick który wybrałeś.',
-	 'change_email_address' => 'Zmień adres email',
-	 'email_already_exists' => 'Konto zarejestrowane na adres email który podałeś już istnieje.',
-	 'email_changed_successfully' => 'Adres email został zmieniony pomyślnie.',
-	 'avatar' => 'Awatar',
+	'timezone' => 'Strefa czasowa',
+	'upload_new_avatar' => 'Prześlij nowy awatar',
+	'nickname_already_exists' => 'Ktoś ma już nick który wybrałeś.',
+	'change_email_address' => 'Zmień adres email',
+	'email_already_exists' => 'Konto zarejestrowane na adres email który podałeś już istnieje.',
+	'email_changed_successfully' => 'Adres email został zmieniony pomyślnie.',
+	'avatar' => 'Awatar',
+	'profile_banner' => 'Profile Banner',
+	'upload_profile_banner' => 'Upload Profile Banner',
+	'upload' => 'Upload',
 
 	// Alerts
 	'user_tag_info' => 'Zostałeś oznaczony w poście przez {x}.', // Don't replace {x}

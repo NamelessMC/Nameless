@@ -31,12 +31,24 @@ if(Input::exists()){
 		$image->setDimension(2000, 2000); // 2k x 2k pixel maximum
 		$image->setMime(array('jpg', 'png', 'gif', 'jpeg'));
 		
-		if(Input::get('type') == 'background') {
+		if(Input::get('type') == 'background'){
             $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'backgrounds')));
         } else if(Input::get('type') == 'template_banner'){
 			$image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'template_banners')));
-		} else if(Input::get('type') == 'default_avatar') {
+		} else if(Input::get('type') == 'default_avatar'){
 		    $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'avatars', 'defaults')));
+		} else if(Input::get('type') == 'profile_banner'){
+			if(!$user->hasPermission('usercp.profile_banner')){
+				Redirect::to(URL::build('/profile/' . Output::getClean($user->data()->username)));
+				die();
+			}
+
+			if(!is_dir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)))){
+				if(!mkdir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id))))
+					die('uploads/profile_images folder not writable! <a href="' . URL::build('/profile/' . Output::getClean($user->data()->username)) . '">Back</a>');
+			}
+
+			$image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)));
 		} else {
             // Default to normal avatar upload
             if(!defined('CUSTOM_AVATARS'))
@@ -60,6 +72,13 @@ if(Input::exists()){
 
                         Redirect::to(URL::build('/user/settings'));
                         die();
+                    } else if(Input::get('type') == 'profile_banner'){
+	                    $user->update(array(
+		                    'banner' => Output::getClean($user->data()->id . '/' . $upload->getName() . '.' . $upload->getMime())
+	                    ));
+
+	                    Redirect::to(URL::build('/profile/' . Output::getClean($user->data()->username)));
+	                    die();
                     } else {
 						die('OK');
 					}

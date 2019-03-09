@@ -53,13 +53,16 @@ $language = array(
 	'invalid_tfa' => 'Neteisingas kodas, bandykite dar kartą.',
 	'tfa_successful' => 'Sėkmingai nustatytas dviejų veiksnių autentifikavimas. Jums reikės autentifikuoti kiekvieną kartą, kai nuo šiol prisijungsite.',
 	'active_language' => 'Aktyvi kalba',
-  'timezone' => 'Laiko Zona',
-  'upload_new_avatar' => 'Įkelkite naują avatarą',
-  'nickname_already_exists' => 'Jūsų pasirinktas slapyvardis jau egzistuoja.',
-  'change_email_address' => 'Pakeisti el. Pašto adresą',
-  'email_already_exists' => 'Jūsų įvestas el. Pašto adresas jau egzistuoja.',
-  'email_changed_successfully' => 'El. Pašto adresas sėkmingai pakeistas.',
-  'avatar' => 'Avataras',
+	'timezone' => 'Laiko Zona',
+	'upload_new_avatar' => 'Įkelkite naują avatarą',
+	'nickname_already_exists' => 'Jūsų pasirinktas slapyvardis jau egzistuoja.',
+	'change_email_address' => 'Pakeisti el. Pašto adresą',
+	'email_already_exists' => 'Jūsų įvestas el. Pašto adresas jau egzistuoja.',
+	'email_changed_successfully' => 'El. Pašto adresas sėkmingai pakeistas.',
+	'avatar' => 'Avataras',
+	'profile_banner' => 'Profile Banner',
+	'upload_profile_banner' => 'Upload Profile Banner',
+	'upload' => 'Upload',
 
 	// Alerts
 	'user_tag_info' => 'Jūs buvote pažymėtas {x} "post".', // Don't replace {x}

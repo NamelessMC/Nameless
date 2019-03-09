@@ -66,6 +66,9 @@ $language = array(
 	'email_already_exists' => '指定されたメールアドレスは既に登録されています。別のメールアドレスを指定してください。',
 	'email_changed_successfully' => 'メールアドレスが正常に更新されました。',
 	'avatar' => 'アバター',
+	'profile_banner' => 'Profile Banner',
+	'upload_profile_banner' => 'Upload Profile Banner',
+	'upload' => 'Upload',
 
 	// Alerts
 	'user_tag_info' => '{x} の投稿にタグがつけられました。', // Don't replace {x}

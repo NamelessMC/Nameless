@@ -104,6 +104,7 @@ $language = array(
     'reason:' => 'Motiv:',
     
     // Users
-    'recent_registrations' => 'Înregistrări recente'
+    'recent_registrations' => 'Înregistrări recente',
+	'reset_profile_banner' => 'Reset Profile Banner'
 
 );
