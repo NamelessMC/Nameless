@@ -1,8 +1,8 @@
 <?php 
 /*
- *  Translations by Maiu#7777 and OscarWoHA
+ *  Translations by Maiu and OscarWoHA
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr5
+ *  NamelessMC versjon 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -63,15 +63,15 @@ $language = array(
 	'email_already_exists' => 'Emailadressen eksisterer allerede',
 	'email_changed_successfully' => 'Emailadressen har blitt endret',
 	'avatar' => 'Avatar',
-	'profile_banner' => 'Profile Banner',
-	'upload_profile_banner' => 'Upload Profile Banner',
-	'upload' => 'Upload',
+	'profile_banner' => 'Profilbanner',
+	'upload_profile_banner' => 'Last opp et profilbanner',
+	'upload' => 'Last opp',
 	
 	// Alerts
 	'user_tag_info' => 'Du har blitt tagget i et innlegg av {x}.', // Don't replace {x}
 	'no_alerts' => 'Ingen nye viktige meldinger',
 	'view_alerts' => 'Vis meldinger',
-	'1_new_alert' => 'You have 1 new alert',
+	'1_new_alert' => 'Du har 1 ny varsling',
 	'x_new_alerts' => 'Du har {x} nye viktige meldinger.', // Don't replace {x}
 	'no_alerts_usercp' => 'Du har ingen nye viktige meldinger',
 	
@@ -120,7 +120,7 @@ $language = array(
 	'invalid_recaptcha' => 'Feil reCAPTCHA',
 	'verify_account' => 'Verifiser bruker.',
 	'verify_account_help' => 'Vennligst følg instruksjonene så vi kan verifisere at dette er din bruker.',
-	'validate_account' => 'Validate Account',
+	'validate_account' => 'Valider bruker',
 	'verification_failed' => 'Verifisering feilet, prøv igjen.',
 	'verification_success' => 'Suksessfullt verifisert, du kan nå logge inn!',
 	'authme_username_exists' => 'Din AuthMe bruker har allerede blitt koblet til denne nettsida!',
@@ -180,7 +180,7 @@ $language = array(
 	'new_wall_post_reply' => '{x} har svart på posten din på {y}\ sin profil.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} har svart på posten din på din profil', // Don't replace {x}
 	'no_about_fields' => 'Denne brukeren har ikke laget en om meg-felt enda.',
-	'reply' => 'Reply',
+	'reply' => 'Svar',
 	
 	// Reports
 	'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Har du sjekket at den er mellom 2 og 1024 tegn?',
@@ -213,7 +213,7 @@ $language = array(
 	'leave_conversation' => 'Forlat samtale',
 	'confirm_leave' => 'Er du sikker på at du vil forlate denne samtalen?',
 	'one_or_more_users_blocked' => 'Du kan ikke sende private meldinger til minst en person i samtalen.',
-	'messages' => 'Messages',
+	'messages' => 'Meldinger',
 
 	/*
 	 *  Infractions area
