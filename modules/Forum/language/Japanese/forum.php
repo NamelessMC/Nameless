@@ -96,6 +96,8 @@ $language = array(
 	'now_following_topic' => 'このトピックをフォローしており、新しい返信があれば通知されます。',
 	'no_longer_following_topic' => 'このトピックのフォローを解除したので、新しい返信が来ても通知されません。',
 	'new_reply_in_topic' => '{x}が{y}に返信しました。', // Don't replace {x} (username) or {y} (topic title)
+	'started_by_x' => 'Started by {x}', // Don't replace {x}
+	'sticky_topics' => 'Sticky Topics',
 
 	// Homepage
 	'latest_announcements' => '最新のお知らせ',

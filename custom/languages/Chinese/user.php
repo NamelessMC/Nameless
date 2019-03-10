@@ -186,6 +186,7 @@ $language = array(
 	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
 	'no_about_fields' => 'This user has not added any about fields yet.',
+	'reply' => 'Reply',
 	
 	// Reports
 	'invalid_report_content' => '無法建立回報. 請確認你輸入的內容有在 2-1024 字元以內.',
@@ -218,6 +219,7 @@ $language = array(
 	'leave_conversation' => '離開對話',
 	'confirm_leave' => '你要離開對話嗎?',
 	'one_or_more_users_blocked' => '你無法傳送私人對話，因為有使用者封鎖你.',
+	'messages' => 'Messages',
 	
 	/*
 	 *  Infractions area

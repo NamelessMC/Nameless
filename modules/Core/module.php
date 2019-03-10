@@ -362,12 +362,12 @@ class Core_Module extends Module {
 		// Online staff
 		require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php');
 		$module_pages = $widgets->getPages('Online Staff');
-		$widgets->add(new OnlineStaffWidget($module_pages, $smarty, array('title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff')), $cache));
+		$widgets->add(new OnlineStaffWidget($module_pages, $smarty, array('title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'), 'total_online_staff' => $language->get('general', 'total_online_staff')), $cache));
 
 		// Online users
 		require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsers.php');
 		$module_pages = $widgets->getPages('Online Users');
-		$widgets->add(new OnlineUsersWidget($module_pages, $cache, $smarty, array('title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'))));
+		$widgets->add(new OnlineUsersWidget($module_pages, $cache, $smarty, array('title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'), 'total_online_users' => $language->get('general', 'total_online_users'))));
 		
 		// Statistics
 		require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');

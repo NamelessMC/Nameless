@@ -93,6 +93,8 @@ $language = array(
 	'now_following_topic' => 'Obserwujesz teraz ten temat, będziesz dostawać powiadomienia o każdej nowej odpowiedzi w nim zamieszczonej.',
 	'no_longer_following_topic' => 'Nie obserwujesz już tego tematu, nie będziesz już dostawać powiadomień o nowych odpowiedziach w nim zamieszczonych.',
 	'new_reply_in_topic' => '{x} dodał odpowiedź do tematu {y}', // Don't replace {x} (username) or {y} (topic title)
+	'started_by_x' => 'Started by {x}', // Don't replace {x}
+	'sticky_topics' => 'Sticky Topics',
 
 	// Homepage
 	'latest_announcements' => 'Najnowsze ogłoszenia',

@@ -182,6 +182,7 @@ $language = array(
 	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
 	'no_about_fields' => 'This user has not added any about fields yet.',
+	'reply' => 'Reply',
 	
 	// Reports
 	'invalid_report_content' => 'Det gick inte att skapa en anmäla. Var god och se till att din anmälnings orsak är mellan 2 och 1024 tecken.',
@@ -214,6 +215,7 @@ $language = array(
 	'leave_conversation' => 'Lämna konversationen',
 	'confirm_leave' => 'Är du säker på att du vill lämna den här konversationen?',
 	'one_or_more_users_blocked' => 'Du kan inte skicka privata meddelanden till minst en medlem i samtalet.',
+	'messages' => 'Messages',
 
 	/*
 	 *  Infractions area

@@ -237,7 +237,11 @@ if(Input::exists()){
 	}
 }
 
-if(isset($errors)) $smarty->assign('ERRORS', $errors);
+if(isset($errors))
+	$smarty->assign(array(
+		'ERROR_TITLE' => $language->get('general', 'error'),
+		'ERRORS' => $errors
+	));
 
 $smarty->assign('EDITING_POST', $forum_language->get('forum', 'edit_post'));
 

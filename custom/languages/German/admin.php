@@ -143,7 +143,7 @@ $language = array(
     'navbar_order' => 'Navbar Ordnen',
     'navbar_order_instructions' => 'Sie können jedem Artikel eine Zahl über 0 geben, um Artikel in der Navigationsleiste zu ordnen, wobei 1 der erste Artikel ist und höhere Zahlen danach.',
     'navbar_icon' => 'Navbar Icon',
-    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'navigation_settings_updated_successfully' => 'Navigations Einstellungen wurden gespeichert',
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Aktivieren Sie den Seitenlade-Timer?',

@@ -74,19 +74,22 @@ class OnlineUsersWidget extends WidgetBase {
 				    'nickname' => Output::getClean($item->nickname),
 				    'avatar' => $user->getAvatar($item->id),
 				    'id' => Output::getClean($item->id),
-				    'title' => Output::getClean($item->user_title)
+				    'title' => Output::getClean($item->user_title),
+				    'group' => $user->getGroup($item->id, true)
 			    );
 
 		    $this->_smarty->assign(array(
 		        'SHOW_NICKNAME_INSTEAD' => $use_nickname_show,
 			    'ONLINE_USERS' => $this->_language['title'],
-			    'ONLINE_USERS_LIST' => $users
+			    'ONLINE_USERS_LIST' => $users,
+			    'TOTAL_ONLINE_USERS' => str_replace('{x}', count($users), $this->_language['total_online_users'])
 		    ));
 
 	    } else
 		    $this->_smarty->assign(array(
 			    'ONLINE_USERS' => $this->_language['title'],
-			    'NO_USERS_ONLINE' => $this->_language['no_online_users']
+			    'NO_USERS_ONLINE' => $this->_language['no_online_users'],
+			    'TOTAL_ONLINE_USERS' => str_replace('{x}', 0, $this->_language['total_online_users'])
 		    ));
 
 	    $this->_content = $this->_smarty->fetch('widgets/online_users.tpl');

@@ -684,21 +684,21 @@
             // Reactions
             $queries->create('reactions', array(
                 'name' => 'Like',
-                'html' => '<i class="fa fa-thumbs-up text-success"></i>',
+                'html' => '<i class="fas fa-thumbs-up text-success"></i>',
                 'enabled' => 1,
                 'type' => 2
             ));
 
             $queries->create('reactions', array(
                 'name' => 'Dislike',
-                'html' => '<i class="fa fa-thumbs-down text-danger"></i>',
+                'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
                 'enabled' => 1,
                 'type' => 0
             ));
 
             $queries->create('reactions', array(
                 'name' => 'Meh',
-                'html' => '<i class="fa fa-meh-o text-warning"></i>',
+                'html' => '<i class="fas fa-meh text-warning"></i>',
                 'enabled' => 1,
                 'type' => 1
             ));
@@ -1010,10 +1010,17 @@
             $queries->create('templates', array(
                 'name' => 'Default',
                 'enabled' => 1,
-                'is_default' => 1
+                'is_default' => 0
             ));
+
+	        $queries->create('templates', array(
+		        'name' => 'DefaultRevamp',
+		        'enabled' => 1,
+		        'is_default' => 1
+	        ));
+
             $cache->setCache('templatecache');
-            $cache->store('default', 'Default');
+            $cache->store('default', 'DefaultRevamp');
 
 	        $queries->create('panel_templates', array(
 		        'name' => 'Default',
@@ -1040,9 +1047,6 @@
 		        'enabled' => 1,
 		        'pages' => '["index","forum"]'
 	        ));
-
-	        $cache->setCache('backgroundcache');
-	        $cache->store('banner_image', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg');
 
             // Success
             Redirect::to('?step=user');
@@ -2194,19 +2198,19 @@
 						// Reactions
 						$queries->create('reactions', array(
 							'name' => 'Like',
-							'html' => '<i class="fa fa-thumbs-up text-success"></i>',
+							'html' => '<i class="fas fa-thumbs-up text-success"></i>',
 							'enabled' => 1,
 							'type' => 2
 						));
 						$queries->create('reactions', array(
 							'name' => 'Dislike',
-							'html' => '<i class="fa fa-thumbs-down text-danger"></i>',
+							'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
 							'enabled' => 1,
 							'type' => 0
 						));
 						$queries->create('reactions', array(
 							'name' => 'Meh',
-							'html' => '<i class="fa fa-meh-o text-warning"></i>',
+							'html' => '<i class="fas fa-meh text-warning"></i>',
 							'enabled' => 1,
 							'type' => 1
 						));
@@ -2449,10 +2453,17 @@
 						$queries->create('templates', array(
 							'name' => 'Default',
 							'enabled' => 1,
+							'is_default' => 0
+						));
+
+						$queries->create('templates', array(
+							'name' => 'DefaultRevamp',
+							'enabled' => 1,
 							'is_default' => 1
 						));
+
 						$cache->setCache('templatecache');
-						$cache->store('default', 'Default');
+						$cache->store('default', 'DefaultRevamp');
 
 						$queries->create('panel_templates', array(
 							'name' => 'Default',
@@ -2479,9 +2490,6 @@
 							'enabled' => 1,
 							'pages' => '["index","forum"]'
 						));
-
-						$cache->setCache('backgroundcache');
-						$cache->store('banner_image', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg');
 
 						unset($_SESSION['db_address']);
 						unset($_SESSION['db_port']);

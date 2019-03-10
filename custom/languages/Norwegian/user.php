@@ -180,7 +180,7 @@ $language = array(
 	'new_wall_post_reply' => '{x} har svart på posten din på {y}\ sin profil.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} har svart på posten din på din profil', // Don't replace {x}
 	'no_about_fields' => 'Denne brukeren har ikke laget en om meg-felt enda.',
-	
+	'reply' => 'Reply',
 	
 	// Reports
 	'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Har du sjekket at den er mellom 2 og 1024 tegn?',
@@ -213,6 +213,7 @@ $language = array(
 	'leave_conversation' => 'Forlat samtale',
 	'confirm_leave' => 'Er du sikker på at du vil forlate denne samtalen?',
 	'one_or_more_users_blocked' => 'Du kan ikke sende private meldinger til minst en person i samtalen.',
+	'messages' => 'Messages',
 
 	/*
 	 *  Infractions area

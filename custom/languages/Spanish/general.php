@@ -129,8 +129,10 @@ $language = array(
     'total_posts' => 'Total Posts',
     'online_staff' => 'Staff online',
     'no_online_staff' => 'No hay miembros del Staff online.',
+	'total_online_staff' => 'Total online staff: {x}',
     'online_users' => 'Usuarios online',
     'no_online_users' => 'No hay usuarios online.',
+	'total_online_users' => 'Total online users: {x}',
     'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
 
     /*

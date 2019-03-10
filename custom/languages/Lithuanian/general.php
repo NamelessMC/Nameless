@@ -113,8 +113,10 @@ $language = array(
 	'total_posts' => 'Total Posts',
 	'online_staff' => 'Prisijunges Personalas',
 	'no_online_staff' => 'Nėra prisijungusių personalo narių.',
+	'total_online_staff' => 'Total online staff: {x}',
 	'online_users' => 'Prisijungę Vartotojai',
 	'no_online_users' => 'Nėra prisijungusių vartotojų.',
+	'total_online_users' => 'Total online users: {x}',
 	'discord_widget_disabled' => 'Valdiklis yra išjungtas nurodytam Discord serveriui. Prašome eikite į Discord serverio nustatymus skirtuke \'widget\' ir įsitikinkite, kad Discord valdiklis yra įjungtas ir kad ID yra teisingas.',
 
 	// Privacy policy

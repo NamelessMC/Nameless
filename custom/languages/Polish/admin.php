@@ -134,7 +134,7 @@ $language = array(
 	 'navbar_order' => 'Kolejność na pasku nawigacji',
 	 'navbar_order_instructions' => 'Możesz podać dowolny numer wyższy niż 0, by ułożyć zakładki na pasku nawigacji w wybranej kolejności. Numer 1 będzie pierwszy w kolejności, 2 drugi w kolejności, itd.',
 	 'navbar_icon' => 'Ikona na pasku nawigacji',
-	 'navbar_icon_instructions' => 'Możesz dodać ikonę do każdego elementu na pasku nawigacji, używając na przykład serwisu <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+	 'navbar_icon_instructions' => 'Możesz dodać ikonę do każdego elementu na pasku nawigacji, używając na przykład serwisu <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
 	 'navigation_settings_updated_successfully' => 'Ustawienia paska nawigacji zostały zaktualizowane.',
 	 'dropdown_items' => 'Rozwijane elementy',
 	 'enable_page_load_timer' => 'Włączyć wskaźnik czasu ładowania strony?',

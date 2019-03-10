@@ -36,7 +36,7 @@
 			<a class="dropdown-item" href="{$MESSAGING_LINK}">{$VIEW_MESSAGES}</a>
 		  </div>
 		</li>
-		
+
 		<li class="nav-item dropdown alert-dropdown">
 		  <a href="#" class="nav-link dropdown-toggle no-caret" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span style="margin: -10px 0px; font-size: 16px;"><i class="fa fa-flag"></i> <span class="mobile_only">{$ALERTS}</span> <div style="display: inline;" id="alerts"></div></span></a>
 		  <div class="dropdown-menu alert-dropdown-menu dropdown-menu-right">
@@ -46,7 +46,7 @@
 		  </div>
 		</li>
 		{/if}
-	  
+
 		{foreach from=$USER_AREA key=name item=item}
 		  {if isset($item.items)}
 			{* Dropdown *}

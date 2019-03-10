@@ -183,6 +183,7 @@ $language = array(
     'new_wall_post_reply' => '{x} a răspuns la postarea ta pe profilul lui {y}.', // Don't replace {x} or {y}
     'new_wall_post_reply_your_profile' => '{x} a răspuns la postarea de pe profilul tău.', // Don't replace {x}
     'no_about_fields' => 'Acest utilizator nu și-a completat încă nici un câmp aici.',
+	'reply' => 'Reply',
     
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',
@@ -215,6 +216,7 @@ $language = array(
     'leave_conversation' => 'Părăsește conversația',
     'confirm_leave' => 'Sunteți sigur că doriți să părăsiți această conversație?',
     'one_or_more_users_blocked' => 'Nu puteți trimite mesajul privat deoarece unul sau mai mulți destinatari sunt blocați.',
+	'messages' => 'Messages',
 
     /*
      *  Infractions area

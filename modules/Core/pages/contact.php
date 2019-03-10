@@ -190,7 +190,9 @@ $smarty->assign(array(
 	'CONTACT' => $language->get('general', 'contact'),
 	'MESSAGE' => $language->get('general', 'message'),
 	'TOKEN' => Token::get(),
-	'SUBMIT' => $language->get('general', 'submit')
+	'SUBMIT' => $language->get('general', 'submit'),
+	'ERROR_TITLE' => $language->get('general', 'error'),
+	'SUCCESS_TITLE' => $language->get('general', 'success')
 ));
 
 // Load modules + template

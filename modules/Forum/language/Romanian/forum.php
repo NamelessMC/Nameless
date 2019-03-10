@@ -95,6 +95,8 @@ $language = array(
 	'now_following_topic' => 'Acum urmăriți acest subiect și veți primi notificări cu privire la orice răspuns nou.',
 	'no_longer_following_topic' => 'Nu mai urmăriți acest subiect și nu veți mai fi notificat cu privire la niciun răspuns nou.',
 	'new_reply_in_topic' => '{x} a răspuns la subiectul {y}', // Don't replace {x} (username) or {y} (topic title)
+	'started_by_x' => 'Started by {x}', // Don't replace {x}
+	'sticky_topics' => 'Sticky Topics',
 	
 	// Homepage
 	'latest_announcements' => 'Cele mai recente noutăti',

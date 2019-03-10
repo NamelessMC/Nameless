@@ -181,6 +181,7 @@ $language = array(
 	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
 	'no_about_fields' => 'This user has not added any about fields yet.',
+	'reply' => 'Reply',
 	
 	// Reports
 	'invalid_report_content' => 'Unable to create report. Please ensure your report reason is between 2 and 1024 characters.',
@@ -213,6 +214,7 @@ $language = array(
 	'leave_conversation' => 'Leave Conversation',
 	'confirm_leave' => 'Are you sure you want to leave this conversation?',
 	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
+	'messages' => 'Messages',
 
 	/*
 	 *  Infractions area

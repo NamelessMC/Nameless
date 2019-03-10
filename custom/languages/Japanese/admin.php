@@ -138,7 +138,7 @@ $language = array(
     'navbar_order' => 'ナビゲーションバー順番',
     'navbar_order_instructions' => 'ナビゲーションバー順番は、各メニューの順番を設定できます。一番最初は「1」、二番目以降はそれ以上の数字を設定することで順番を調節できます。',
     'navbar_icon' => 'ナビゲーションバーアイコン',
-    'navbar_icon_instructions' => 'ナビゲーションバーアイコンは <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a> を参照して使用したいアイコンのHTMLソースを貼り付けてください。',
+    'navbar_icon_instructions' => 'ナビゲーションバーアイコンは <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a> を参照して使用したいアイコンのHTMLソースを貼り付けてください。',
     'navigation_settings_updated_successfully' => 'ナビゲーションバーの設定が正常に更新されました。',
     'dropdown_items' => 'ドロップダウンメニュー',
     'enable_page_load_timer' => 'ページロード時間を表示しますか？',

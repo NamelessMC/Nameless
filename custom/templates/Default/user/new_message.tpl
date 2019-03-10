@@ -10,7 +10,7 @@
 	  <div class="card">
 		<div class="card-body">
 		  <h2 class="card-title" style="display:inline;">{$NEW_MESSAGE}</h2>
-		  <span class="pull-right"><a href="{$CANCEL_LINK}" onclick="return confirm('{$CONFIRM_CANCEL}');" class="btn btn-danger">{$CANCEL}</a></span>
+		  <span class="float-md-right"><a href="{$CANCEL_LINK}" onclick="return confirm('{$CONFIRM_CANCEL}');" class="btn btn-danger">{$CANCEL}</a></span>
 		  <br /><br />
 		  
 		  {if isset($ERROR)}
@@ -41,7 +41,7 @@
 			{else}
 			<div class="form-group">
 			  <textarea class="form-control" style="width:100%" id="markdown" name="content" rows="15">{$CONTENT}</textarea>
-			  <span class="pull-right"><i data-toggle="popover" data-placement="top" data-html="true" data-content="{$MARKDOWN_HELP}" class="fa fa-question-circle text-info" aria-hidden="true"></i></span>
+			  <span class="float-md-right"><i data-toggle="popover" data-placement="top" data-html="true" data-content="{$MARKDOWN_HELP}" class="fa fa-question-circle text-info" aria-hidden="true"></i></span>
 			</div>
 			{/if}
 		

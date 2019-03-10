@@ -137,7 +137,7 @@ $language = array(
     'navbar_order' => 'Navbar ordening',
     'navbar_order_instructions' => 'Je kan elk item een nummer boven de 0 geven om items te ordenen in de navbar, met 1 de eerste en hogere nummers erna.',
     'navbar_icon' => 'Navbar Icon',
-    'navbar_icon_instructions' => 'U kunt hier ook een pictogram aan elk item op de navigatiebalk toevoegen, bijvoorbeeld met behulp van <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+    'navbar_icon_instructions' => 'U kunt hier ook een pictogram aan elk item op de navigatiebalk toevoegen, bijvoorbeeld met behulp van <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'navigation_settings_updated_successfully' => 'Navigatie-instellingen succesvol bijgewerkt.',
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Pagina laad timer inschakelen?',

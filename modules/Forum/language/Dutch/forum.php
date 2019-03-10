@@ -95,6 +95,8 @@ $language = array(
 	'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
 	'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
 	'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
+	'started_by_x' => 'Started by {x}', // Don't replace {x}
+	'sticky_topics' => 'Sticky Topics',
 	
 	// Homepagina
 	'latest_announcements' => 'Laatste aankondigingen',

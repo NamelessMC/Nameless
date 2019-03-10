@@ -132,8 +132,10 @@ $language = array(
     'total_posts' => 'Total Posts',
     'online_staff' => 'オンラインスタッフ',
     'no_online_staff' => 'オンラインのスタッフはいません。',
+	'total_online_staff' => 'Total online staff: {x}',
     'online_users' => 'オンラインユーザー',
     'no_online_users' => 'オンラインのユーザーはいません。',
+	'total_online_users' => 'Total online users: {x}',
     'discord_widget_disabled' => 'Discordウィジェットは、指定されたDiscordサーバーでは無効になっています。 Discordサーバー設定のウィジェットタブに移動し、Discordウィジェットが有効で、IDが正しいことを確認してください。',
 
     /*

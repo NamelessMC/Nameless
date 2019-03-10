@@ -133,7 +133,7 @@ $language = array(
   'navbar_order' => 'Naršymo Juostos Tvarka',
   'navbar_order_instructions' => 'Jūs galite nurodyti kiekvienam elementui didesnį skaičių nei 0, kad būtų galima užsisakyti elementus juostoje pirmasis elementas yra 1 ir didesni skaičiai po jo.',
   'navbar_icon' => 'Naršymo Juostos Piktograma',
-  'navbar_icon_instructions' => 'Čia galite pridėti piktogramą kiekvienam juostos elementui, pavyzdžiui, naudojant <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+  'navbar_icon_instructions' => 'Čia galite pridėti piktogramą kiekvienam juostos elementui, pavyzdžiui, naudojant <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
   'navigation_settings_updated_successfully' => 'Navigacijos nustatymai buvo sėkmingai atnaujinti.',
 	'dropdown_items' => 'Išskleidžiamieji Elementai',
   'enable_page_load_timer' => 'Įjungti puslapio įkėlimo laikmatį?',

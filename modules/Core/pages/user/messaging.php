@@ -63,6 +63,10 @@ require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
+$smarty->assign(array(
+	'ERROR_TITLE' => $language->get('general', 'error')
+));
+
 // Get page
 if(isset($_GET['p'])){
 	if(!is_numeric($_GET['p'])){

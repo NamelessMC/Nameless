@@ -52,18 +52,21 @@ class OnlineStaffWidget extends WidgetBase {
 				    'nickname' => Output::getClean($staff->nickname),
 				    'avatar' => $user->getAvatar($staff->id),
 				    'id' => Output::getClean($staff->id),
-				    'title' => Output::getClean($staff->user_title)
+				    'title' => Output::getClean($staff->user_title),
+				    'group' => $user->getGroup($staff->id, true)
 			    );
 
 		    $this->_smarty->assign(array(
 			    'ONLINE_STAFF' => $this->_language['title'],
-			    'ONLINE_STAFF_LIST' => $staff_members
+			    'ONLINE_STAFF_LIST' => $staff_members,
+			    'TOTAL_ONLINE_STAFF' => str_replace('{x}', count($staff_members), $this->_language['total_online_staff'])
 		    ));
 
 	    } else
 		    $this->_smarty->assign(array(
 			    'ONLINE_STAFF' => $this->_language['title'],
-			    'NO_STAFF_ONLINE' => $this->_language['no_online_staff']
+			    'NO_STAFF_ONLINE' => $this->_language['no_online_staff'],
+			    'TOTAL_ONLINE_STAFF' => str_replace('{x}', '0', $this->_language['total_online_staff'])
 		    ));
 
 	    $this->_content = $this->_smarty->fetch('widgets/online_staff.tpl');

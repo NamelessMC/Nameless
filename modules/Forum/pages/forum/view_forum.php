@@ -263,6 +263,7 @@ if($forum_query->redirect_forum == 1){
 	$smarty->assign('SUBFORUM_LANGUAGE', $forum_language->get('forum', 'subforums'));
 	$smarty->assign('FORUM_TITLE', Output::getPurified(htmlspecialchars_decode($forum_query->forum_title)));
 	$smarty->assign('FORUM_ICON', htmlspecialchars_decode($forum_query->icon));
+	$smarty->assign('STICKY_TOPICS', $forum_language->get('forum', 'sticky_topics'));
 
 	// Can the user post here?
 	if ($user->isLoggedIn() && $forum->canPostTopic($fid, $user_group, $secondary_groups)) {

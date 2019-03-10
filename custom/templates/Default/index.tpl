@@ -52,7 +52,7 @@
 		<div class="card">
 		  <div class="card-header">
 			{if $item.label}{$item.label} {/if}<a href="{$item.url}">{$item.title}</a>
-			<span class="pull-right" data-toggle="tooltip" title="{$item.date}">{$item.time_ago}</span>
+			<span class="float-md-right" data-toggle="tooltip" title="{$item.date}">{$item.time_ago}</span>
 		  </div>
 		  <div class="card-body">
 			<div class="forum_post">
@@ -60,7 +60,7 @@
 			</div>
 			<hr />
 			<a href="{$item.author_url}"><img class="rounded-circle" style="height:30px;width=30px;" src="{$item.author_avatar}" /></a> <a data-poload="{$USER_INFO_URL}{$item.author_id}" data-html="true" data-placement="top" href="{$item.author_url}" style="{$item.author_style}">{$item.author_name}</a>
-		    <span class="pull-right"><a href="{$item.url}" class="btn btn-primary btn-sm">{$READ_FULL_POST} »</a></span>
+		    <span class="float-md-right"><a href="{$item.url}" class="btn btn-primary btn-sm">{$READ_FULL_POST} »</a></span>
 		  </div>
 		</div>
 		<br />

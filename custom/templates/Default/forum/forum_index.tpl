@@ -23,7 +23,7 @@
 			  {foreach from=$forum.subforums item=subforum}
 			    <div class="row align-items-center">
 					<div class="col-md-1">
-						{if empty($subforum->icon)}<i class="fa fa-comments-o fa-fw fa-2x" aria-hidden="true"></i>{else}{$subforum->icon}{/if}
+						{if empty($subforum->icon)}<i class="fas fa-comments fa-fw fa-2x" aria-hidden="true"></i>{else}{$subforum->icon}{/if}
 					</div>
 				  <div class="col-md-5">
 				    <a href="{if !isset($subforum->redirect_confirm)}{$subforum->link}{else}#" data-toggle="modal" data-target="#confirmRedirectModal{$subforum->id}{/if}">{$subforum->forum_title}</a><br />

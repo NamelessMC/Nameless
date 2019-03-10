@@ -25,10 +25,10 @@
 	    {*Social media*}
 		{if !empty($SOCIAL_MEDIA_ICONS)}
 		  {foreach from=$SOCIAL_MEDIA_ICONS item=icon}
-		    <a href="{$icon.link}" target="_blank"><i id="social-{$icon.short}" class="fa fa-{$icon.long}-square fa-3x social"></i></a>
+			<a href="{$icon.link}" target="_blank"><i id="social-{$icon.short}" class="{if $icon.long neq 'envelope'}fab{else}fas{/if} fa-{$icon.long}-square fa-3x social"></i></a>
 		  {/foreach}
 		{/if}
-        <span class="pull-right">
+        <span class="float-md-right">
 		  <ul class="nav nav-inline dropup">
 		    {if $PAGE_LOAD_TIME}
 		    <li class="nav-item">

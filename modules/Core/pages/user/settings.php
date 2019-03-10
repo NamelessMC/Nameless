@@ -58,7 +58,8 @@ if(isset($_GET['do'])){
 				'NEXT' => $language->get('general', 'next'),
 				'LINK' => URL::build('/user/settings/', 'do=enable_tfa&amp;s=2'),
 				'CANCEL' => $language->get('general', 'cancel'),
-				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa')
+				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
+				'ERROR_TITLE' => $language->get('general', 'error')
 			));
 
 			// Load modules + template
@@ -640,7 +641,9 @@ if(isset($_GET['do'])){
 		'SELECTED_TIMEZONE' => $user->data()->timezone,
         'CURRENT_EMAIL' => Output::getClean($user->data()->email),
         'CHANGE_EMAIL_ADDRESS' => $language->get('user', 'change_email_address'),
-        'EMAIL_ADDRESS' => $language->get('user', 'email_address')
+        'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
+		'SUCCESS_TITLE' => $language->get('general', 'success'),
+		'ERROR_TITLE' => $language->get('general', 'error')
 	));
 
 	if(defined('CUSTOM_AVATARS')) {

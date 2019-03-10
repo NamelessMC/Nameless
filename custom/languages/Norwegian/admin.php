@@ -135,7 +135,7 @@ $language = array(
     'navbar_order' => 'Navigasjonsbar rekkefølge',
     'navbar_order_instructions' => 'Du kan gi hver ting et tall over 0 for å plassere i rekkefølge.',
     'navbar_icon' => 'Navbar Icon',
-    'navbar_icon_instructions' => 'Du kan også legge til ikoner med f.eks <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+    'navbar_icon_instructions' => 'Du kan også legge til ikoner med f.eks <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'navigation_settings_updated_successfully' => 'Navigasjonsinstillinger har blitt oppdatert.',
     'dropdown_items' => 'Dropdown-meny',
     'enable_page_load_timer' => 'Aktiver nettside timer?',

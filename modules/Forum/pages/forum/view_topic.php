@@ -174,15 +174,39 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $first_post = $queries->orderWhere('posts', 'topic_id = ' . $tid, 'id', 'ASC LIMIT 1');
 $first_post = $first_post[0];
 
+$topic_author_username = Output::getClean($user->idToName($topic->topic_creator));
+$topic_author_nickname = Output::getClean($user->idToNickname($topic->topic_creator));
+
 $smarty->assign(array(
 	'TOPIC_TITLE' => Output::getClean($topic->topic_title),
-	'TOPIC_AUTHOR_USERNAME' => Output::getClean($user->idToName($topic->topic_creator)),
-	'TOPIC_AUTHOR_MCNAME' => Output::getClean($user->idToName($topic->topic_creator)),
+	'TOPIC_AUTHOR_USERNAME' => $topic_author_username,
+	'TOPIC_AUTHOR_MCNAME' => $topic_author_nickname,
+	'TOPIC_AUTHOR_PROFILE' => URL::build('/profile/' . Output::getClean($topic_author_username)),
+	'TOPIC_AUTHOR_STYLE' => $user->getGroupClass($topic->topic_creator),
 	'TOPIC_ID' => $topic->id,
 	'FORUM_ID' => $topic->forum_id,
 	'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords(date('d M Y, H:i', $first_post->last_edited), $language->getTimeLanguage()) : null),
 	'TOPIC_LAST_EDITED_FULL' => ($first_post->last_edited ? date('d M Y, H:i', $first_post->last_edited) : null)
 ));
+
+// Is there a label?
+if ($topic->label != 0) { // yes
+	// Get label
+	$label = $queries->getWhere('forums_topic_labels', array('id', '=', $topic->label));
+	if (count($label)) {
+		$label = $label[0];
+
+		$label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+		if (count($label_html)) {
+			$label_html = $label_html[0]->html;
+			$label = str_replace('{x}', Output::getClean($label->name), $label_html);
+		} else $label = '';
+	} else $label = '';
+} else { // no
+	$label = '';
+}
+
+$smarty->assign('TOPIC_LABEL', $label);
 
 // Get all posts in the topic
 $posts = $forum->getPosts($tid);
@@ -391,7 +415,10 @@ if(Session::exists('failure_post')){
 	$smarty->assign('SESSION_FAILURE_POST', Session::flash('failure_post'));
 }
 if(isset($error) && count($error)){
-	$smarty->assign('ERRORS', $error);
+	$smarty->assign(array(
+		'ERROR_TITLE' => $language->get('general', 'error'),
+		'ERRORS' => $error
+	));
 }
 
 // Display "new reply" button and "mod actions" if the user has access to them
@@ -671,7 +698,8 @@ $smarty->assign(array(
 	'CANCEL' => $language->get('general', 'cancel'),
 	'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id  : 0),
 	'INSERT_QUOTES' => $forum_language->get('forum', 'insert_quotes'),
-	'FORUM_TITLE' => Output::getClean($forum_parent[0]->forum_title)
+	'FORUM_TITLE' => Output::getClean($forum_parent[0]->forum_title),
+	'STARTED_BY' => $forum_language->get('forum', 'started_by_x')
 ));
 
 // Get post formatting type (HTML or Markdown)

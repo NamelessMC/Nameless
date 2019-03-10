@@ -134,7 +134,7 @@ $language = array(
     'navbar_order' => 'Orden de la barra de Navegación',
     'navbar_order_instructions' => 'Puede dar a cada elemento un número superior a 0 para pedir artículos en la barra de navegación, siendo 1 el primer artículo y los números más altos que vendrán después.',
     'navbar_icon' => 'Navbar Icon',
-    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
     'enable_page_load_timer' => '¿Habilitar el tiempo de carga de la página?',
     'google_recaptcha' => '¿Habilitar Google reCAPTCHA?',

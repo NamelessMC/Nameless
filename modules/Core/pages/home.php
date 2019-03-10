@@ -28,9 +28,11 @@ $template->addJSFiles(array(
 
 if(Session::exists('home')){
     $smarty->assign('HOME_SESSION_FLASH', Session::flash('home'));
+    $smarty->assign('SUCCESS_TITLE', $language->get('general', 'success'));
 }
 if(Session::exists('home_error')){
     $smarty->assign('HOME_SESSION_ERROR_FLASH', Session::flash('home_error'));
+    $smarty->assign('ERROR_TITLE', $language->get('general', 'error'));
 }
 
 if(isset($front_page_modules)){

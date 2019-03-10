@@ -128,8 +128,10 @@ $language = array(
     'total_posts' => 'Total Posts',
     'online_staff' => '<h2>Administracja online</h2>',
     'no_online_staff' => 'Aktualnie żadna osoba z administracji nie jest online.',
+	'total_online_staff' => 'Total online staff: {x}',
     'online_users' => '<h2>Użytkownicy online</h2>',
     'no_online_users' => 'Aktualnie nie ma żadnych użytkowników online.',
+	'total_online_users' => 'Total online users: {x}',
     'discord_widget_disabled' => 'Ten serwer Discord ma wyłączoną opcję widżetu. Wejdź do sekcji \'Widget\' w ustawieniach serwera Discord, upewnij się że opcja \'Włącz widżet serwera\' jest włączona, i że podałeś w ustawieniach poprawne ID serwera Discord.',
 
     /*

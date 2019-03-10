@@ -53,7 +53,7 @@ class Default_Template extends TemplateBase {
 		$this->addCSSFiles(array(
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/css/' . Output::getClean($theme) . '.min.css' => array(),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/custom.css' => array(),
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/font-awesome.min.css' => array(),
+			'https://use.fontawesome.com/releases/v5.7.2/css/all.css' => array('integrity' => 'sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr', 'crossorigin' => 'anonymous'),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => array(),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/css/custom.css' => array()
 		));
@@ -433,10 +433,10 @@ class Default_Template extends TemplateBase {
 					                color = $button.data(\'color\'),
 					                settings = {
 					                    on: {
-					                        icon: \'fa fa-check-square-o\'
+					                        icon: \'far fa-check-square\'
 					                    },
 					                    off: {
-					                        icon: \'fa fa-square-o\'
+					                        icon: \'far fa-square\'
 					                    }
 					                };
 					            // Event Handlers
@@ -538,12 +538,12 @@ class Default_Template extends TemplateBase {
 				if($this->_user->isLoggedIn()){
 					$this->addJSScript('
 					    function deletePost(post) {
-				            if(confirm("' . $this->_language->get('user', 'confirm_delete') . '")){
+				            if(confirm("' . $this->_language->get('general', 'confirm_deletion') . '")){
 				                document.getElementById("delete" + post).submit();
 				            }
 				        }
 				        function deleteReply(post) {
-				            if(confirm("' . $this->_language->get('user', 'confirm_delete') . '")){
+				            if(confirm("' . $this->_language->get('general', 'confirm_deletion') . '")){
 				                document.getElementById("deleteReply" + post).submit();
 				            }
 				        }

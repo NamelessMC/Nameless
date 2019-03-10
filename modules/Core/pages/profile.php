@@ -486,7 +486,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 					$banners[] = array(
 						'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($user->data()->id) . '/' . Output::getClean($image),
-						'name' => Output::getClean($image),
+						'name' => Output::getClean($user->data()->id) . '/' . Output::getClean($image),
 						'active' => ($user->data()->banner == $image) ? true : false
 					);
 				}
@@ -568,7 +568,10 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 		'NEW_REPLY' => $language->get('user', 'new_reply'),
 		'DELETE' => $language->get('general', 'delete'),
 		'CONFIRM_DELETE' => $language->get('general', 'confirm_deletion'),
-		'EDIT' => $language->get('general', 'edit')
+		'EDIT' => $language->get('general', 'edit'),
+		'SUCCESS_TITLE' => $language->get('general', 'success'),
+		'ERROR_TITLE' => $language->get('general', 'error'),
+		'REPLY' => $language->get('user', 'reply')
 	));
 
 	// Wall posts

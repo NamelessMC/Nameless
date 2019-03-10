@@ -129,8 +129,10 @@ $language = array(
     'total_posts' => 'Totalt antall poster',
     'online_staff' => 'Pålogget Stabmedlemmer',
     'no_online_staff' => 'Det er ingen stabmedlemmer pålogget.',
+	'total_online_staff' => 'Total online staff: {x}',
     'online_users' => 'Påloggede brukere',
     'no_online_users' => 'Det er ingen brukere pålogget',
+	'total_online_users' => 'Total online users: {x}',
     'discord_widget_disabled' => 'Widget er deaktivert for denne Discord serveren. Gå til \'Widget\' i Discord serverinstillinger, og sjekk at widgets er aktivert og at IDen stemmer.',
 
     /*

@@ -12,24 +12,24 @@
 		</h2>
 	  </div>
 	  <div class="col-md-4">
-		<span class="pull-right">
+		<span class="float-md-right">
 		  {nocache}
 		  {if isset($LOGGED_IN)}
 		    {if !isset($SELF)}
 		  <div class="btn-group">
-			<!--<a href="{$FOLLOW_LINK}" class="btn btn-primary btn-lg"><i class="fa fa-users fa-fw"></i> {$FOLLOW}</a>-->
-			{if $MOD_OR_ADMIN ne true}<a href="#" data-toggle="modal" data-target="#blockModal" class="btn btn-danger btn-lg"><i class="fa fa-ban fa-fw"></i></a>{/if}
-			<a href="{$MESSAGE_LINK}" class="btn btn-secondary btn-lg"><i class="fa fa-envelope fa-fw"></i></a>
+			<!--<a href="{$FOLLOW_LINK}" class="btn btn-primary btn-lg"><i class="fas fa-users fa-fw"></i> {$FOLLOW}</a>-->
+			{if $MOD_OR_ADMIN ne true}<a href="#" data-toggle="modal" data-target="#blockModal" class="btn btn-danger btn-lg"><i class="fas fa-ban fa-fw"></i></a>{/if}
+			<a href="{$MESSAGE_LINK}" class="btn btn-secondary btn-lg"><i class="fas fa-envelope fa-fw"></i></a>
 			{if isset($RESET_PROFILE_BANNER)}
 			  <a href="{$RESET_PROFILE_BANNER_LINK}" class="btn btn-danger btn-lg" rel="tooltip" data-title="{$RESET_PROFILE_BANNER}">
-			    <i class="fa fa-picture-o fa-fw"></i>
+			    <i class="fas fa-image fa-fw"></i>
 			  </a>
 			{/if}
 		  </div>
 		    {else}
 		  <div class="btn-group">
-		    <a href="{$SETTINGS_LINK}" class="btn btn-secondary btn-lg"><i class="fa fa-cogs fa-fw"></i></a>
-		    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#imageModal"><i class="fa fa-picture-o fa-fw" aria-hidden="true"></i></button>
+		    <a href="{$SETTINGS_LINK}" class="btn btn-secondary btn-lg"><i class="fas fa-cogs fa-fw"></i></a>
+		    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#imageModal"><i class="fas fa-image fa-fw" aria-hidden="true"></i></button>
 		  </div>
 		    {/if}
 		  {/if}
@@ -94,7 +94,7 @@
 			<div class="card card-default">
 			  <div class="card-header">
 				<img class="rounded-circle" style="max-height:25px; max-width:25px;" src="{$post.avatar}" /> <a data-poload="{$USER_INFO_URL}{$post.user_id}" data-html="true" data-placement="top" href="{$post.profile}" style="{$post.user_style}">{$post.nickname}:</a>
-				<span class="pull-right"><span rel="tooltip" data-original-title="{$post.date}">{$post.date_rough}</span></span>
+				<span class="float-md-right"><span rel="tooltip" data-original-title="{$post.date}">{$post.date_rough}</span></span>
 			  </div>
 
 			  <div class="card-body">
@@ -104,8 +104,8 @@
 			  </div>
 
 			  <div class="card-footer">
-				<a href="{if $post.reactions_link ne "#"}{$post.reactions_link}{else}#{/if}" class="pop" data-content='{if isset($post.reactions.reactions)} {foreach from=$post.reactions.reactions item=reaction name=reactions}<a href="{$reaction.profile}" style="{$reaction.style}"><img class="rounded" src="{$reaction.avatar}" alt="{$reaction.username}" style="max-height:30px; max-width:30px;" /> {$reaction.nickname}</a>{if !$smarty.foreach.reactions.last}<br />{/if}{/foreach} {else}{$post.reactions.count}{/if}'><i class="fa fa-thumbs-up"></i> {$post.reactions.count} </a> | <a href="#" data-toggle="modal" data-target="#replyModal{$post.id}"><i class="fa fa-comments"></i> {$post.replies.count}</a>
-				<span class="pull-right">
+				<a href="{if $post.reactions_link ne "#"}{$post.reactions_link}{else}#{/if}" class="pop" data-content='{if isset($post.reactions.reactions)} {foreach from=$post.reactions.reactions item=reaction name=reactions}<a href="{$reaction.profile}" style="{$reaction.style}"><img class="rounded" src="{$reaction.avatar}" alt="{$reaction.username}" style="max-height:30px; max-width:30px;" /> {$reaction.nickname}</a>{if !$smarty.foreach.reactions.last}<br />{/if}{/foreach} {else}{$post.reactions.count}{/if}'><i class="fas fa-thumbs-up"></i> {$post.reactions.count} </a> | <a href="#" data-toggle="modal" data-target="#replyModal{$post.id}"><i class="fas fa-comments"></i> {$post.replies.count}</a>
+				<span class="float-md-right">
 				  {if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
 				    <form action="" method="post" id="delete{$post.id}">
 					  <input type="hidden" name="post_id" value="{$post.id}">
@@ -182,7 +182,7 @@
 				    {if isset($post.replies.replies)}
 					  {foreach from=$post.replies.replies name=replies item=reply}
 					  <img src="{$reply.avatar}" alt="{$reply.username}" style="max-height:20px; max-width:20px;" class="rounded" /> <a href="{$reply.profile}" style="{$reply.style}">{$reply.nickname}</a> &raquo;
-					  <span class="pull-right">
+					  <span class="float-md-right">
 					    <span rel="tooltip" title="{$reply.time_full}">{$reply.time_friendly}</span>
 					  </span>
 					  <div style="height:15px;"></div>

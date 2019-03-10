@@ -181,6 +181,7 @@ $language = array(
 	'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
 	'no_about_fields' => 'This user has not added any about fields yet.',
+	'reply' => 'Reply',
 	
 	// Reports
 	'invalid_report_content' => 'Nelze vytvořit nahlášení. Musíte zadat důvod v rozmezí 2 až 1024 znaků.',
@@ -214,6 +215,7 @@ $language = array(
 	'leave_conversation' => 'Opustit konverzaci',
 	'confirm_leave' => 'Opravdu chcete opustit konverzaci?',
 	'one_or_more_users_blocked' => 'Alespoň jednomu členovi konverzace nemůžete odeslat soukromé zprávy.',
+	'messages' => 'Messages',
 	
 	/*
 	 *  Infractions area

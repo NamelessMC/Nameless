@@ -213,6 +213,7 @@ if($cache->isCached('forums')){
 $smarty->assign('FORUMS', $forums);
 $smarty->assign('YES', $language->get('general', 'yes'));
 $smarty->assign('NO', $language->get('general', 'no'));
+$smarty->assign('SUBFORUMS', $forum_language->get('forum', 'subforums'));
 
 $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
 
