@@ -1,8 +1,8 @@
 <?php
 /*
- *  Translations by Maiu#7777
+ *  Translations by Maiu
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr5
+ *  NamelessMC versjon 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -115,16 +115,16 @@ $language = array(
     'test_email_error' => 'Test epost feil:',
     'test_email_success' => 'Test epost ble suksessfullt sendt!',
     'terms_error' => 'Pass på at dine betingelser og vilkår ikke er mer enn 100000 tegn.',
-    'privacy_policy_error' => 'Please enter a privacy policy no longer than 100000 characters.',
+    'privacy_policy_error' => 'Skriv inn en personvernspolicy på maks 100000 tegn.',
     'terms_updated' => 'Vilkår har suksessfullt blitt oppdatert!',
     'avatars' => 'Avatarer',
     'allow_custom_avatars' => 'Tillatt egne avatarer?',
     'default_avatar' => 'Standard avatar',
     'custom_avatar' => 'Egen avatar',
     'minecraft_avatar' => 'Minecraft avatar',
-    'minecraft_avatar_source' => 'Minecraft avatar source',
+    'minecraft_avatar_source' => 'Minecraft avatarkilde',
     'built_in_avatars' => 'Innebygd avatarservice',
-    'minecraft_avatar_perspective' => 'Minecraft avatar perspektiv',
+    'minecraft_avatar_perspective' => 'Minecraft avatarperspektiv',
     'face' => 'Ansikt',
     'head' => 'Hode',
 	'bust' => 'Bust',
@@ -134,7 +134,7 @@ $language = array(
     'navigation' => 'Navigasjon',
     'navbar_order' => 'Navigasjonsbar rekkefølge',
     'navbar_order_instructions' => 'Du kan gi hver ting et tall over 0 for å plassere i rekkefølge.',
-    'navbar_icon' => 'Navbar Icon',
+    'navbar_icon' => 'Navigasjonsbarikon',
     'navbar_icon_instructions' => 'Du kan også legge til ikoner med f.eks <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'navigation_settings_updated_successfully' => 'Navigasjonsinstillinger har blitt oppdatert.',
     'dropdown_items' => 'Dropdown-meny',
@@ -173,7 +173,7 @@ $language = array(
 	// Custom profile fields
 	'custom_fields' => 'Egendefinerbare profilfelt',
 	'new_field' => '<i class="fa fa-plus-circle"></i> Nytt felt',
-	'editable' => 'Editable',
+	'editable' => 'Redigerbar',
 	'required' => 'Påkrevd',
 	'public' => 'Synlig for offentligheten',
 	'text' => 'Tekst',
@@ -240,7 +240,7 @@ $language = array(
     'pre_1.7' => 'Minecraft versjon eldre enn 1.7?',
     'player_list_help' => 'Hvis dette er aktivert, vile statussiden vise de påloggede spillerne.',
     'server_query_port' => 'Server Query Port',
-    'server_query_port_help' => 'This is the query.port option in your server\'s server.properties file, provided the enable-query option in the same file is set to true.',
+    'server_query_port_help' => 'Dette er query.port-instillingen i serveren din sin server.properties-fil, forutsatt at alternativet for å aktivere spørringen i samme fil er satt til det riktige.',
     'server_name_required' => 'Skriv inn servernavnet.',
     'server_name_minimum' => 'Servernavnet må være minst 1 tegn.',
     'server_name_maximum' => 'Servernavnet må være maksimum 20 tegn.',
@@ -332,12 +332,12 @@ $language = array(
 	'delete' => 'Slett',
 	'template_deleted_successfully' => 'Mal suksessfullt slettet.',
 	'background_image_x' => 'Bakgrunnsbilde: <strong>{x}</strong>', // Don't replace {x}
-	'banner_image_x' => 'Banner image: <strong>{x}</strong>', // Don't replace {x}
-	'background_directory_not_writable' => 'The <strong>uploads/backgrounds</strong> directory is not writable!',
-	'template_banners_directory_not_writable' => 'The <strong>uploads/template_banners</strong> directory is not writable!',
-	'template_banner_reset_successfully' => 'Banner reset successfully.',
-	'template_banner_updated_successfully' => 'Banner updated successfully.',
-	'reset_banner' => 'Reset Banner',
+	'banner_image_x' => 'Banner: <strong>{x}</strong>', // Don't replace {x}
+	'background_directory_not_writable' => '<strong>uploads/backgrounds</strong> mappen er ikke redigerbar!',
+	'template_banners_directory_not_writable' => '<strong>uploads/template_banners</strong> mappen er ikke redigerbar!',
+	'template_banner_reset_successfully' => 'Banneret har blitt resatt.',
+	'template_banner_updated_successfully' => 'Banneret har blitt oppdatert.',
+	'reset_banner' => 'Resett Banner',
 	'find_templates' => 'Finn alle maler',
 	'view_all_templates' => 'Vis alle maler',
 	'unable_to_retrieve_templates' => 'Kunne ikke finne maler',
@@ -449,7 +449,7 @@ $language = array(
 	// Updates
 	'update' => 'Oppdater',
 	'current_version_x' => 'Denne versjonen: <strong>{x}</strong>', // Don't replaec {x}
-	'new_version_x' => 'Ny versjon:: <strong>{x}</strong>', // Don't replace {x}
+	'new_version_x' => 'Ny versjon: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => 'Det er en ny oppdatering tilgjengelig',
 	'new_urgent_update_available' => 'Det er en ny viktig oppdatering tilgjengelig. Oppdater så fort som mulig!',
 	'up_to_date' => 'Din NamelessMC kjører den nyeste versjonen!',
@@ -534,7 +534,7 @@ $language = array(
     'enable_username_sync' => 'Aktiver brukernavnsynkronisering?',
     'enable_username_sync_info' => 'Hvis aktivert, vil alle brukernavn bli oppdatert til å matche ingame brukernavnet.',
 	'api_settings_updated_successfully' => 'API instillinger har blitt oppdatert.',
-	'group_sync' => 'Gruppe synkronisering',
+	'group_sync' => 'Gruppesynkronisering',
 	'group_sync_info' => 'Du kan konfigurere API til å automatisk oppdatere brukerens gruppe når ingame gruppen har blitt oppdatert. Skriv inn ingame-gruppenavnet slik at begge gruppene vil være synkronisert.',
 	'ingame_group' => 'Ingame gruppenavn',
 	'website_group' => 'Nettsidegruppe',
