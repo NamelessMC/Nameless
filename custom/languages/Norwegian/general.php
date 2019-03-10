@@ -1,8 +1,8 @@
 <?php 
 /*
- *  Translations by Maiu#7777
+ *  Translations by Maiu
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr5
+ *  NamelessMC versjon 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -68,7 +68,7 @@ $language = array(
      */
     'contact' => 'Kontakt',
     'message' => 'Melding',
-    'email_address' => 'Email Address',
+    'email_address' => 'Emailadresse',
     'contact_email_subject' => 'Ny kontaktskjema',
     'contact_message_failed' => 'Kunne ikke sende melding. Pass på at meldingen er mellom 10 og 5000 tegn lang',
     'contact_message_email' => 'Eposten er ugyldig.',
@@ -122,17 +122,17 @@ $language = array(
      *  Widgets
      */
     'statistics' => 'Statistikk',
-    'users_registered' => 'Brukere Regeristrert',
-    'latest_member' => 'Siste Bruker Regerisrert',
-    'forum_statistics' => 'Forum Statistikk',
+    'users_registered' => 'Brukere registrert',
+    'latest_member' => 'Siste bruker registrert',
+    'forum_statistics' => 'Forum statistikk',
     'total_threads' => 'Totalt antall tråder',
     'total_posts' => 'Totalt antall poster',
-    'online_staff' => 'Pålogget Stabmedlemmer',
+    'online_staff' => 'Påloggede stabmedlemmer',
     'no_online_staff' => 'Det er ingen stabmedlemmer pålogget.',
-	'total_online_staff' => 'Total online staff: {x}',
+	'total_online_staff' => 'Totalt påloggede stabmedlemmer: {x}',
     'online_users' => 'Påloggede brukere',
     'no_online_users' => 'Det er ingen brukere pålogget',
-	'total_online_users' => 'Total online users: {x}',
+	'total_online_users' => 'Totalt påloggede brukere: {x}',
     'discord_widget_disabled' => 'Widget er deaktivert for denne Discord serveren. Gå til \'Widget\' i Discord serverinstillinger, og sjekk at widgets er aktivert og at IDen stemmer.',
 
     /*
