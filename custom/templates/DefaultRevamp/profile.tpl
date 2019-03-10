@@ -295,7 +295,7 @@
     {/if}
   {else}
     <!-- Change background image modal -->
-    <div class="ui modal" id="imageModal">
+    <div class="ui small modal" id="imageModal">
       <div class="header">
         {$CHANGE_BANNER}
       </div>
@@ -309,25 +309,24 @@
           <input type="hidden" name="token" value="{$TOKEN}">
           <input type="hidden" name="action" value="banner">
         </form>
-
         {if isset($PROFILE_BANNER)}
-        <div class="ui divider"></div>
-        <strong>{$UPLOAD_PROFILE_BANNER}</strong>
-        <br />
-        <form action="{$UPLOAD_BANNER_URL}" class="ui form" method="post" enctype="multipart/form-data" style="display:inline;">
-          <input type="file" class="inputFile" name="file" id="uploadBannerInput" hidden />
-          <label for="uploadBannerInput" class="ui blue button">
-            <i class="ui upload icon"></i>
-            {$BROWSE}
-          </label>
-          <input type="hidden" name="token" value="{$TOKEN}">
-          <input type="hidden" name="type" value="profile_banner">
-          <input type="submit" value="{$UPLOAD}" class="ui green button">
-          {/if}
+          <div class="ui horizontal divider">Or {$UPLOAD_PROFILE_BANNER}</div>
+          <center>
+            <form class="ui form" action="{$UPLOAD_BANNER_URL}" method="post" enctype="multipart/form-data" id="form-banner">
+              <input type="file" class="inputFile" name="file" id="uploadBannerInput" hidden />
+              <label class="ui icon labeled default button" for="uploadBannerInput">
+                <i class="ui cloud upload icon"></i> {$BROWSE}
+              </label>
+              <input type="hidden" name="token" value="{$TOKEN}">
+              <input type="hidden" name="type" value="profile_banner">
+              <button type="submit" class="ui icon labeled primary button" type="submit"><i class="ui upload icon"></i> {$UPLOAD}</button>
+            </form>
+          </center>
+        {/if}
       </div>
       <div class="actions">
-        <button type="button" class="ui negative button">{$CANCEL}</button>
-        <button type="button" onclick="document.updateBanner.submit()" class="ui blue button">{$SUBMIT}</button>
+        <button class="ui negative button">{$CANCEL}</button>
+        <button class="ui positive button" onclick="document.updateBanner.submit()">{$SUBMIT}</button>
       </div>
     </div>
   {/if}
