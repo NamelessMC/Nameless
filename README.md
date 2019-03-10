@@ -1,4 +1,4 @@
-# NamelessMC - v2 pre-release 5
+# NamelessMC - v2 pre-release 6
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
 NamelessMC version 2.0.0 is still a pre-release, and is not yet recommended for production use. Keep up to date with development in our [Spigot thread](https://www.spigotmc.org/threads/nameless-minecraft-website-software.34810) and our [Discord server](https://discord.gg/k8J97xf).

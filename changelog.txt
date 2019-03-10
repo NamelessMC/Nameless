@@ -336,3 +336,77 @@ NamelessMC version 2 Changelog
 - Minecraft server status page
 - Auto close spoilers
 - Other minor additions
+
+2.0.0 pr-6
+- Translation updates
+- Add Lithuanian and Polish languages
+- Update nav ordering
+- Rename UserCP to Account
+- Fix panel user edit Markdown issue
+- Fixed install language
+- Fix v1 upgrader issue
+- Fix apostrophes not showing when editing posts
+- Add indentation to panel sidebar child links
+- Shorten Debugging + Maintenance in sidebar to Maintenance
+- Allow popover hover in StaffCP
+- Add timeout to dashboard player count graph
+- Update user list date sort
+- Fix sidebar links not expanding on iOS
+- Fix terms page footer
+- Fix error when deleting user
+- Fix users not being promoted after validating
+- Fix users table width sometimes being too large
+- Fix post validation group not updating
+- Update login username title if Minecraft is disabled
+- Add forum drag reordering
+- Add subforum indentations in StaffCP
+- Add $template object to all loadPage calls
+- Show normal avatar if Minecraft is disabled on profile pages
+- Fix non-friendly URL subfolder login redirect
+- Replace &nbsp and &bull in Discord hook
+- Fix post link potentially being incorrect
+- Fix nickname not updating in StaffCP if disabled
+- Move MCAssoc JS to after include
+- Fix disabling reactions
+- Fix custom page editor not having Source tab
+- Change exif to full requirement
+- Fix registration username required message in some situations
+- Use generic Minecraft query exception
+- Fix date issue when updating forum latest post/topic
+- Prevent editing own secondary groups without permission
+- Add topic + post counts as global variables
+- Add topic label to news posts
+- Don't save last page if maintenance mode is disabled
+- Don't set register page as last page
+- Fix subdirectory profile page banner issue
+- Fix online users widget issue
+- Improve registration nickname label
+- Improve login username label
+- Fix registration nicknames not working
+- Add topic placeholders
+- Use new external server query
+- Add "Show nickname instead of username" option to online users widget
+- Add statistics widget
+- Fix user punishment alert
+- Remove config path issues on user settings page
+- Fix navigation error
+- Fix rewrite test in installer
+- Add forum title variable to view topic template
+- Fix error when replying to a topic that at least 1 user is following
+- Remove unneeded panel template files
+- Update CKEditor
+- Add user title variable to online staff + users widgets
+- Change front end editor
+- Add author IDs to messaging template variables
+- Auto enable some widgets on installation
+- Update getSelfURL to detect HTTPS more reliably
+- Add ability to upload + choose new homepage banner
+- Order parent forum dropdown
+- Allow switching a forum between forum + category
+- Add installer converter support
+- Add ability to switch panel template
+- Fix broken icon
+- Add ability to upload custom profile banners
+- Fix incorrect last online date for users registered through the API
+- New default template
+- Only show PM suggested user list after 3 characters typed

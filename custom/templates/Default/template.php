@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -21,8 +21,8 @@ class Default_Template extends TemplateBase {
 
 		parent::__construct(
 			'Default',  // Template name
-			'2.0.0-pr5',  // Template version
-			'2.0.0-pr5',  // Nameless version template is made for
+			'2.0.0-pr6',  // Template version
+			'2.0.0-pr6',  // Nameless version template is made for
 			'<a href="https://namelessmc.com/" target="_blank">Samerton</a>'  // Author, you can use HTML here
 		);
 

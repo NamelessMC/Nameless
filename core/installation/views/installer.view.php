@@ -751,7 +751,7 @@
 
             $queries->create('settings', array(
                 'name' => 'nameless_version',
-                'value' => '2.0.0-pr5'
+                'value' => '2.0.0-pr6'
             ));
 
             $queries->create('settings', array(
@@ -2251,12 +2251,12 @@
 						if(count($version)){
 							$queries->update('settings', $version[0]->id, array(
 								'name' => 'nameless_version',
-								'value' => '2.0.0-pr5'
+								'value' => '2.0.0-pr6'
 							));
 						} else {
 							$queries->create('settings', array(
 								'name' => 'nameless_version',
-								'value' => '2.0.0-pr5'
+								'value' => '2.0.0-pr6'
 							));
 						}
 
