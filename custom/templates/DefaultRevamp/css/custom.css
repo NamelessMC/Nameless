@@ -61,6 +61,9 @@ body.pushable>.pusher {
 
 .ui.masthead {
 	background: linear-gradient(90deg, rgb(41, 117, 286) 0%, rgb(2, 117, 216) 100%);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 	margin-bottom: 20px;
 	padding: 4rem 0;
 	border-radius: 0;
@@ -303,6 +306,13 @@ body.pushable>.pusher {
 /*
  *  [ PROFILE PAGE ]
  */
+
+#profile-header {
+	background: #fff;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
 
 #profile-header .ui.header {
 	margin: 8px 0;
