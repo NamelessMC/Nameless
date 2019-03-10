@@ -1,8 +1,8 @@
 <?php 
 /*
- *  Translations by Maiu#7777
+ *  Translations by Maiu
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr5
+ *  NamelessMC versjon 2.0.0-pr6
  *
  *  License: MIT
  *
