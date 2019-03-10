@@ -29,11 +29,11 @@
 			<input type="text" name="title" id="inputTitle" placeholder="{$MESSAGE_TITLE}" value="{$MESSAGE_TITLE_VALUE}">
 		  </div>
 		  <div class="field">
-			<label for="InputTo">{$TO} ({$SEPARATE_USERS_WITH_COMMAS})</label>
+			<label for="InputTo">{$TO}</label>
 			<div class="ui fluid multiple search selection dropdown">
  			 <input name="to" id="InputTo" type="hidden">
  			 <i class="dropdown icon"></i>
- 			 <div class="default text">To</div>
+ 			 <div class="default text">{$TO}</div>
  			 <div class="menu">
  			   {foreach from=","|explode:$ALL_USERS|replace:'"':'' item="item"}
  			     <div class="item" data-value="{$item}">{$item}</div>

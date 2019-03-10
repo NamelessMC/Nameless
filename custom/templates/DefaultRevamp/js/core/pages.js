@@ -51,6 +51,10 @@ if (page !== '') {
 				}
 			}).modal('show');
 		}
+	} else if (page === 'cc_messaging') {
+		$('.ui.search').dropdown({
+			minCharacters: 3
+		});
 	}
 	
 	else if (route.indexOf("/forum/topic/") != -1) {

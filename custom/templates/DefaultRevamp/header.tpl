@@ -21,7 +21,7 @@
     <meta property="og:title" content="{$TITLE} &bull; {$smarty.const.SITE_NAME}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{$OG_URL}" />
-    <meta property="og:image" content="{$CONFIG_PATH}core/assets/img/site_image.png'; ?>" />
+    <meta property="og:image" content="{$OG_IMAGE}" />
     <meta property='og:description' content='{$PAGEDESCRIPTION}' />
   
     {foreach from=$TEMPLATE_CSS item=css}

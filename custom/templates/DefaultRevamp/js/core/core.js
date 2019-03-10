@@ -26,7 +26,7 @@ $(function() {
     
     $('.ui.sidebar').sidebar('attach events', '.toc.item');
     
-    $('.ui.dropdown').dropdown();
+    $('.ui.dropdown:not(.search)').dropdown();
     
     $('[data-toggle="tooltip"]').popup({
         hoverable: true

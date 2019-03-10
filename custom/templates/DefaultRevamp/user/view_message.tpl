@@ -9,7 +9,7 @@
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
-      <div class="header">Error</div>
+      <div class="header">{$ERROR_TITLE}</div>
       {$ERROR}
     </div>
   </div>
@@ -19,7 +19,7 @@
   <div class="ui success icon message">
     <i class="check icon"></i>
     <div class="content">
-      <div class="header">Success</div>
+      <div class="header">{$SUCCESS_TITLE}</div>
       {$MESSAGE_SENT}
     </div>
   </div>
@@ -47,12 +47,12 @@
           <div class="content">
             <img class="ui left floated mini circular image" src="{$message.author_avatar}">
             <div class="header">
-              <a href="{$message.author_profile}" data-poload="{$USER_INFO_URL}{$message.author_id}">{$message.author_username}</a>
+              <a href="{$message.author_profile}" data-poload="{$USER_INFO_URL}{$message.author_id}" style="{$message.author_style}">{$message.author_username}</a>
             </div>
             <div class="meta">
-              {$message.message_date}
+              <span data-toggle="tooltip" data-content="{$message.message_date_full}">{$message.message_date}</span>
             </div>
-            <div class="description">
+            <div class="description forum_post">
               {$message.content}
             </div>
           </div>

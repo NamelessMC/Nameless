@@ -415,7 +415,8 @@ class Default_Template extends TemplateBase {
 					 	$(\'#InputTo\').tokenfield({
 					      autocomplete: {
 					        source: allUsers,
-					        delay: 100
+					        delay: 100,
+					        minLength: 3
 					      },
 					      showAutocompleteOnFocus: true
 					    });
