@@ -563,6 +563,47 @@ body.pushable>.pusher {
 }
 
 /*
+ *  [ MESSAGE ]
+ */
+
+.ui.message>.close.icon {
+    right: .8em;
+}
+
+/*
+ *  [ UPDATE MESSAGE ]
+ */
+
+#update-message {
+    margin-bottom: 1rem;
+}
+
+#update-message>a {
+   color: inherit;
+   transition: all .2s ease;
+}
+
+#update-message>a:hover {
+    filter: contrast(2);
+}
+
+#update-message>a>.icon {
+    margin-right: .5em;
+}
+
+#update-message>a>.icon:not(.close) {
+    display: block;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: auto;
+    line-height: 1;
+    vertical-align: middle;
+    font-size: 3em;
+    opacity: .8;
+}
+
+/*
  *  [ PAGINATION ]
  */
 
