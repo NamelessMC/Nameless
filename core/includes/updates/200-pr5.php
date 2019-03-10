@@ -42,18 +42,18 @@ try {
 // Permissions
 $existing_user_permissions = $queries->getWhere('groups', array('id', '=', 1));
 $existing_user_permissions = $existing_user_permissions[0]->permissions;
-$existing_user_permissions = json_decode($existing_user_permissions);
+$existing_user_permissions = json_decode($existing_user_permissions, true);
 $existing_user_permissions['usercp.profile_banner'] = 1;
 
 $existing_mod_permissions = $queries->getWhere('groups', array('id', '=', 3));
 $existing_mod_permissions = $existing_mod_permissions[0]->permissions;
-$existing_mod_permissions = json_decode($existing_mod_permissions);
+$existing_mod_permissions = json_decode($existing_mod_permissions, true);
 $existing_mod_permissions['modcp.profile_banner_reset'] = 1;
 $existing_mod_permissions['usercp.profile_banner'] = 1;
 
 $existing_admin_permissions = $queries->getWhere('groups', array('id', '=', 2));
 $existing_admin_permissions = $existing_admin_permissions[0]->permissions;
-$existing_admin_permissions = json_decode($existing_admin_permissions);
+$existing_admin_permissions = json_decode($existing_admin_permissions, true);
 $existing_admin_permissions['admincp.styles.panel_templates'] = 1;
 $existing_admin_permissions['modcp.profile_banner_reset'] = 1;
 $existing_admin_permissions['usercp.profile_banner'] = 1;
