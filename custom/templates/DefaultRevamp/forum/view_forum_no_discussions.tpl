@@ -24,7 +24,7 @@
       
 <div class="ui stackable padded grid" id="forum-view">
   <div class="ui centered row">
-    <div class="ui {if count($WIDGETS)}eleven wide tablet twelve wide computer{else}sixteen wide{/if} column">
+    <div class="ui eleven wide tablet twelve wide computer column">
       {if count($SUBFORUMS)}
         <table class="ui fixed single line selectable unstackable small padded res table" id="subforums-table">
           <thead>
