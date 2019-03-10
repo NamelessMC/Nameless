@@ -846,3 +846,8 @@ select {
 	max-width: 100%;
 	height: auto;
 }
+
+img.emojione {
+	height: 24px;
+	width: 24px;
+}
