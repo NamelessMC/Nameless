@@ -126,7 +126,7 @@
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="hidden" name="post_id" value="{$item.id}">
                                   </form>
-                                  <a onclick="{literal}if(confirm(confirmDelete)){$('form-delete-{/literal}{$item.id}{literal}').submit();}{/literal}">{$DELETE}</a>
+                                  <a onclick="{literal}if(confirm(confirmDelete)){$('#form-delete-{/literal}{$item.id}{literal}').submit();}{/literal}">{$DELETE}</a>
                                 {/if}
                               </div>
                             </div>
