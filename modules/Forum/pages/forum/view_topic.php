@@ -363,7 +363,7 @@ $breadcrumbs = array(
 		'id' => 0,
 		'forum_title' => Output::getClean($topic->topic_title),
 		'active' => 1,
-		'link' => URL::build('/forum/view/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title))
+		'link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title))
 	),
 	1 => array(
 		'id' => $forum_parent[0]->id,
