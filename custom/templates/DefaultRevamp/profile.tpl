@@ -95,7 +95,7 @@
                       {/if}
                       {if (isset($CAN_MODERATE) && $CAN_MODERATE == 1) || $post.self == 1}
                         <a data-toggle="modal" data-target="#modal-edit-{$post.id}">{$EDIT}</a>
-                        <a onclick="{literal}if(confirm(confirmDelete)){$('form-delete-{/literal}{$post.id}{literal}').submit();}{/literal}">{$DELETE}</a>
+                        <a onclick="{literal}if(confirm(confirmDelete)){$('#form-delete-{/literal}{$post.id}{literal}').submit();}{/literal}">{$DELETE}</a>
                         <form action="" method="post" id="form-delete-{$post.id}">
                           <input type="hidden" name="post_id" value="{$post.id}">
                           <input type="hidden" name="action" value="delete">
