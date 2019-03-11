@@ -102,16 +102,14 @@
             <div class="eight wide column">
               {if isset($MINECRAFT) && isset($SERVER_QUERY)}
                 <div class="connect-server">
-                  {if isset($SERVER_QUERY)}
-                    {if isset($SERVER_QUERY.status_value) && $SERVER_QUERY.status_value == 1}
-                      {if isset($SERVER_QUERY.status_full)}
-                        <h4 class="ui header">{$SERVER_QUERY.status_full}</h4>
-                      {else}
-                        <h4 class="ui header">{$SERVER_QUERY.x_players_online}</h4>
-                      {/if}
+                  {if isset($SERVER_QUERY.status_value) && ($SERVER_QUERY.status_value == 1)}
+                    {if isset($SERVER_QUERY.status_full)}
+                      <h4 class="ui header">{$SERVER_QUERY.status_full}</h4>
                     {else}
-                      <h4 class="ui header">{$SERVER_OFFLINE}</h4>
+                      <h4 class="ui header">{$SERVER_QUERY.x_players_online}</h4>
                     {/if}
+                  {else}
+                    <h4 class="ui header">{$SERVER_OFFLINE}</h4>
                   {/if}
                   {if isset($CLICK_TO_COPY_TOOLTIP)}
                     <h4 class="ui header">
