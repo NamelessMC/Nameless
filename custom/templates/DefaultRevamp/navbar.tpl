@@ -49,42 +49,36 @@
         <div class="right menu">
           {foreach from=$USER_SECTION key=name item=item}
             {if isset($item.items)}
-              {if ($name == "alerts") || ($name == "pms")}
+              {if ($name == "account")}
+                <a class="ui medium image label" data-toggle="popup" data-position="bottom right" id="button-{$name}">{$item.icon} {$item.title}</a>
+              {else}
                 <a class="ui small default icon button" data-toggle="popup" data-position="bottom right" id="button-{$name}">{$item.icon}</a>
-                <div class="ui wide basic popup">
-                  <h4 class="ui header">{$item.title}</h4>
-                  <div class="ui relaxed link list" id="list-{$name}">
-                    <a class="item">{$LOADING}</a>
-                  </div>
+              {/if}
+              <div class="ui wide basic popup">
+                <h4 class="ui header">{$item.title}</h4>
+                <div class="ui relaxed link list" id="list-{$name}">
+                  {foreach from=$item.items item=dropdown}
+                    {if isset($dropdown.seperator)}
+                      <div class="ui divider"></div>
+                    {else}
+                      <a class="item" href="{$dropdown.link}" target="{$dropdown.target}">{$dropdown.icon} {$dropdown.title}</a>
+                    {/if}
+                  {/foreach}
+                </div>
+                {if !empty($item.meta)}
                   <div class="ui link list">
                     <div class="ui divider"></div>
                     <a class="item" href="{$item.link}">{$item.meta}</a>
                   </div>
-                </div>
-              {elseif ($name == "account")}
-                <a class="ui medium image label" data-toggle="popup" data-position="bottom right" id="button-{$name}">
-                  <img src="{$LOGGED_IN_USER.avatar}" alt="{$LOGGED_IN_USER.username}"> {$LOGGED_IN_USER.username}
-                </a>
-                <div class="ui wide basic popup">
-                  <h4 class="ui header">{$item.title}</h4>
-                  <div class="ui relaxed link list" id="list-{$name}">
-                    {foreach from=$item.items item=dropdown}
-                      {if isset($dropdown.seperator)}
-                          <div class="ui divider"></div>
-                      {else}
-                        <a class="item" href="{$dropdown.link}" target="{$dropdown.target}">{$dropdown.icon} {$dropdown.title}</a>
-                      {/if}
-                    {/foreach}
-                  </div>
-                </div>
-              {/if}
+                {/if}
+              </div>
             {else}
               {if ($name == "panel")}
                 <a class="ui small primary icon button" href="{$item.link}" target="{$item.target}">{$item.icon}</a>
               {elseif ($name == "register")}
-                <a class="ui small primary button" href="{$item.link}" target="{$item.target}">{$item.icon} {$item.title}</a>
+                <a class="ui small primary button" href="{$item.link}" target="{$item.target}">{$item.title}</a>
               {else}
-                <a class="ui small default button" href="{$item.link}" target="{$item.target}">{$item.icon} {$item.title}</a>
+                <a class="ui small default button" href="{$item.link}" target="{$item.target}">{$item.title}</a>
               {/if}
             {/if}
           {/foreach}
