@@ -1,7 +1,7 @@
 <div id="user-popup">
   <div class="header">
     <img class="ui tiny circular image" src="{$AVATAR}" alt="{$USERNAME}" />
-    <h4 class="ui header" style="{$STYLE}">{$NICKNAME}</h4>
+    <a href="/profile/{$USERNAME}"><h4 class="ui header" style="{$STYLE}">{$NICKNAME}</h4></a>
     {if count($GROUPS)}
       {foreach from=$GROUPS item=group}
         {$group}
