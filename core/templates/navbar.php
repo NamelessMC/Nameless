@@ -72,7 +72,7 @@ if($user->isLoggedIn()){
 	$user_section = array(
 		'pms' => array(
 			'title' => $language->get('user', 'messages'),
-			'icon' => '<i class="ui envelope icon"></i>',
+			'icon' => '<i class="fas fa-envelope icon"></i>',
 			'link' =>  URL::build('/user/messaging'),
 			'meta' => $language->get('user', 'view_messages'),
 			'target' => '',
@@ -86,7 +86,7 @@ if($user->isLoggedIn()){
 		),
 		'alerts' => array(
 			'title' => $language->get('user', 'alerts'),
-			'icon' => '<i class="ui flag icon"></i>',
+			'icon' => '<i class="fas fa-flag icon"></i>',
 			'link' =>  URL::build('/user/alerts'),
 			'meta' => $language->get('user', 'view_alerts'),
 			'target' => '',
@@ -103,7 +103,7 @@ if($user->isLoggedIn()){
 	if($user->canViewACP()){
 		$user_section['panel'] = array(
 			'title' => $language->get('moderator', 'staff_cp'),
-			'icon' => '<i class="ui cogs icon"></i>',
+			'icon' => '<i class="fas fa-cogs icon"></i>',
 			'link' => URL::build('/panel'),
 			'meta' => '',
 			'target' => '',
@@ -112,7 +112,7 @@ if($user->isLoggedIn()){
 
 	$user_section['account'] = array(
 		'title' => Output::getClean($user->data()->nickname),
-		'icon' => '<i class="ui user icon"></i>',
+		'icon' => '<img src="' . $user->getAvatar($user->data()->id). '">',
 		'link' => '',
 		'meta' => '',
 		'target' => '',
@@ -160,12 +160,14 @@ if($user->isLoggedIn()){
 	$user_section = array(
 		'login' => array(
 			'title' => $language->get('general', 'sign_in'),
+			'icon' => '<i class="fas fa-key icon"></i>',
 			'link' => URL::build('/login'),
 			'meta' => '',
 			'target' => '',
 		),
 		'register' => array(
 			'title' => $language->get('general', 'register'),
+			'icon' => '<i class="fas fa-clipboard icon"></i>',
 			'link' => URL::build('/register'),
 			'meta' => '',
 			'target' => '',
