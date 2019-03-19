@@ -61,7 +61,7 @@
 			{foreach from=$STICKY_DISCUSSIONS item=sticky}
 			<tr>
 			  <td>
-				<i class="fa fa-thumb-tack"></i> {if $sticky.locked == 1}<i class="fa fa-lock"></i> {/if}{$sticky.label} <a href="{$sticky.link}">{$sticky.topic_title}</a><br />
+				<i class="fas fa-thumbtack"></i> {if $sticky.locked == 1}<i class="fa fa-lock"></i> {/if}{$sticky.label} <a href="{$sticky.link}">{$sticky.topic_title}</a><br />
 				<small><span data-toggle="tooltip" data-trigger="hover" data-original-title="{$sticky.topic_created}">{$sticky.topic_created_rough}</span> {$BY} <a style="{$sticky.topic_created_style}" href="{$sticky.author_link}" data-poload="{$USER_INFO_URL}{$sticky.topic_created_user_id}" data-html="true" data-placement="top">{$sticky.topic_created_username}</a></small>
 			  </td>
 			  <td>
