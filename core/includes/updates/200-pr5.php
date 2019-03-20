@@ -39,6 +39,16 @@ try {
 	echo $e->getMessage() . '<br />';
 }
 
+try {
+	$queries->create('panel_templates', array(
+		'name' => 'Default',
+		'enabled' => 1,
+		'is_default' => 1
+	));
+} catch(Exception $e){
+	echo $e->getMessage() . '<br />';
+}
+
 // Permissions
 $existing_user_permissions = $queries->getWhere('groups', array('id', '=', 1));
 $existing_user_permissions = $existing_user_permissions[0]->permissions;

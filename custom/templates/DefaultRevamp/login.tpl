@@ -42,7 +42,7 @@
           <div class="inline field">
             <div class="ui checkbox">
               <input type="checkbox" name="remember" id="remember" value="1" tabindex="3">
-              <label>{$REMEMBER_ME}</label>
+              <label for="remember">{$REMEMBER_ME}</label>
             </div>
           </div>
           <input type="hidden" name="token" value="{$FORM_TOKEN}">
