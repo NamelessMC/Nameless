@@ -91,7 +91,7 @@ class DefaultRevamp_Template extends TemplateBase {
 	    $JSVars = '';
 	    $i = 0;
 		foreach ($JSVariables as $var => $value) {
-		    $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = \'' . $value . '\'';
+		    $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = "' . $value . '"';
 		    $i++;
 		}
 		
