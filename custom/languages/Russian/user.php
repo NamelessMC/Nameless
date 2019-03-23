@@ -13,64 +13,64 @@ $language = array(
 	/*
 	 *  Change this for the account validation message
 	 */
-	'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+	'validate_account_command' => 'Для завершения регистрации, пожалуйста выполните в игре на сервере команду <strong>/validate {x}</strong>.', // Don't replace {x}
 
 	/*
 	 *  User Related
 	 */
-	'guest' => 'Guest',
-	'guests' => 'Guests',
+	'guest' => 'Гость',
+	'guests' => 'Гости',
 	
 	// UserCP
-	'user_cp' => 'Account',
-	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Account</span>',
-	'overview' => 'Overview',
-	'user_details' => 'User Details',
-	'profile_settings' => 'Profile Settings',
-	'successfully_logged_out' => 'You have been logged out successfully.',
-	'messaging' => 'Messaging',
-	'click_here_to_view' => 'Click here to view.',
-	'moderation' => 'Moderation',
-	'administration' => 'Administration',
-	'alerts' => 'Alerts',
-	'delete_all' => 'Delete All',
-	'private_profile' => 'Private profile',
+	'user_cp' => 'Профиль',
+	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Профиль</span>',
+	'overview' => 'Обзор',
+	'user_details' => 'Детали профиля',
+	'profile_settings' => 'Настройки профиля',
+	'successfully_logged_out' => 'Вы вышли.',
+	'messaging' => 'Сообщения',
+	'click_here_to_view' => 'Нажмите здесь для просмотра.',
+	'moderation' => 'Модерация',
+	'administration' => 'Администрация',
+	'alerts' => 'Уведомления',
+	'delete_all' => 'Удалить все',
+	'private_profile' => 'Закрытый профиль',
 	
 	// Profile settings
-	'field_is_required' => '{x} is required.', // Don't replace {x}
-	'settings_updated_successfully' => 'Settings updated successfully.',
-	'password_changed_successfully' => 'Password changed successfully.',
-	'change_password' => 'Change Password',
-	'current_password' => 'Current Password',
-	'new_password' => 'New Password',
-	'confirm_new_password' => 'Confirm New Password',
-	'incorrect_password' => 'Your password is incorrect.',
-	'two_factor_auth' => 'Two Factor Authentication',
-	'enabled' => 'Enabled',
-	'disabled' => 'Disabled',
-	'enable' => 'Enable',
-	'disable' => 'Disable',
-	'tfa_scan_code' => 'Please scan the following code within your authentication app:',
-	'tfa_code' => 'If your device does not have a camera, or you are unable to scan the QR code, please input the following code:',
-	'tfa_enter_code' => 'Please enter the code displaying within your authentication app:',
-	'invalid_tfa' => 'Invalid code, please try again.',
-	'tfa_successful' => 'Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.',
-	'active_language' => 'Active Language',
-    'timezone' => 'Timezone',
-    'upload_new_avatar' => 'Upload a new avatar',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
-    'change_email_address' => 'Change Email Address',
-    'email_already_exists' => 'The email address you have entered already exists.',
-    'email_changed_successfully' => 'Email address changed successfully.',
-    'avatar' => 'Avatar',
+	'field_is_required' => '{x} обязательно для заполнения.', // Don't replace {x}
+	'settings_updated_successfully' => 'Настройки обновлены.',
+	'password_changed_successfully' => 'Пароль обновлён.',
+	'change_password' => 'Изменить пароль',
+	'current_password' => 'Текущий пароль',
+	'new_password' => 'Новый пароль',
+	'confirm_new_password' => 'Подтверждение пароля',
+	'incorrect_password' => 'Пароль не верен.',
+	'two_factor_auth' => '2-факторная авторизация',
+	'enabled' => 'Включено',
+	'disabled' => 'Выключено',
+	'enable' => 'Включить',
+	'disable' => 'Выключить',
+	'tfa_scan_code' => 'Пожалуйста отсканируйте код с помощью приложения:',
+	'tfa_code' => 'Если вы не можете сосканировать QR код, используйте следующий код:',
+	'tfa_enter_code' => 'Пожалуйста введите код из приложения:',
+	'invalid_tfa' => 'Неверный код, попробуйте ещё раз.',
+	'tfa_successful' => '2-факторная аутентификация успешно настроена. При каждом следующем входе будет запрошен код',
+	'active_language' => 'Текущий Язык',
+    'timezone' => 'Временная зона',
+    'upload_new_avatar' => 'Загрузить новый аватар',
+    'nickname_already_exists' => 'Выбранный вами логин уже занят.',
+    'change_email_address' => 'Изменить Email',
+    'email_already_exists' => 'Указанный email уже используется на портале.',
+    'email_changed_successfully' => 'Email успешно изменён.',
+    'avatar' => 'Аватар',
 	
 	// Alerts
-	'user_tag_info' => 'You have been tagged in a post by {x}.', // Don't replace {x}
-	'no_alerts' => 'No new alerts',
-	'view_alerts' => 'View alerts',
-	'1_new_alert' => 'You have 1 new alert',
-	'x_new_alerts' => 'You have {x} new alerts', // Don't replace {x}
-	'no_alerts_usercp' => 'You do not have any alerts.',
+	'user_tag_info' => 'Вас упомянул в сообщении пользователь {x}.', // Don't replace {x}
+	'no_alerts' => 'Нет новых уведомлений',
+	'view_alerts' => 'Просмотреть уведомления',
+	'1_new_alert' => 'У вас 1 новое уведомление',
+	'x_new_alerts' => 'Новых уведомлений для вас: {x}', // Don't replace {x}
+	'no_alerts_usercp' => 'У вас не уведомлений.',
 	
 	// Registraton
 	'registration_check_email' => 'Thanks for registering! Please check your emails for a validation link in order to complete your registration. If you are unable to find the email, check your junk folder.',
@@ -185,50 +185,50 @@ $language = array(
 	'report_created' => 'Report created successfully',
 	
 	// Messaging
-	'no_messages' => 'No new messages',
-	'no_messages_full' => 'You do not have any messages.',
-	'view_messages' => 'View messages',
-	'1_new_message' => 'You have 1 new message',
-	'x_new_messages' => 'You have {x} new messages', // Don't replace {x}
-	'new_message' => 'New Message',
-	'message_title' => 'Message Title',
-	'to' => 'To',
-	'separate_users_with_commas' => 'Separate users with commas',
-	'title_required' => 'Please input a title',
-	'content_required' => 'Please input some content',
-	'users_to_required' => 'Please input some message recipients',
-	'cant_send_to_self' => 'You can\'t send a message to yourself!',
-	'title_min_2' => 'The title must be a minimum of 2 characters',
-	'content_min_2' => 'The content must be a minimum of 2 characters',
-	'title_max_64' => 'The title must be a maximum of 64 characters',
-	'content_max_20480' => 'The content must be a maximum of 20480 characters',
-	'max_pm_10_users' => 'You can only send a message to a maximum of 10 users',
-	'message_sent_successfully' => 'Message sent successfully',
-	'participants' => 'Participants',
-	'last_message' => 'Last Message',
-	'by' => 'by',
-	'leave_conversation' => 'Leave Conversation',
-	'confirm_leave' => 'Are you sure you want to leave this conversation?',
-	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
+	'no_messages' => 'Нет новых сообщений',
+	'no_messages_full' => 'У вас нет сообшений.',
+	'view_messages' => 'Просмотр сообщений',
+	'1_new_message' => 'У вас 1 новое сообщение',
+	'x_new_messages' => 'Новых сообщений для вас: {x}', // Don't replace {x}
+	'new_message' => 'Новое сообщение',
+	'message_title' => 'Тема сообщения',
+	'to' => 'Кому',
+	'separate_users_with_commas' => 'Перечислите пользователей через запятую',
+	'title_required' => 'Пожалуйста укажите тему сообщения',
+	'content_required' => 'Пожалуйста укажите текст сообщения',
+	'users_to_required' => 'Пожалуйста укажите получателей',
+	'cant_send_to_self' => 'Вы не можете отправлять сообщения самому себе!',
+	'title_min_2' => 'Тема сообщения должна содержать минимум 2 символа',
+	'content_min_2' => 'Текст сообщения должен содержать минимум 2 символа',
+	'title_max_64' => 'Тема сообщения не может превышать 64 символов',
+	'content_max_20480' => 'Текст сообщения не может превышать 20480 символов',
+	'max_pm_10_users' => 'Вы не можете отправлять сообщение более чем 10 пользователям',
+	'message_sent_successfully' => 'Сообщение отправлено',
+	'participants' => 'Участникиs',
+	'last_message' => 'Последнее сообщение',
+	'by' => 'от',
+	'leave_conversation' => 'Покинуть обсуждение',
+	'confirm_leave' => 'Вы действительно хотите покинуть это обсуждение?',
+	'one_or_more_users_blocked' => 'Вы не можете отправлять сообщения как минимум одному из участников беседы.',
 
 	/*
 	 *  Infractions area
 	 */
-	'you_have_been_banned' => 'You have been banned!',
-	'you_have_received_a_warning' => 'You have received a warning!',
-	'acknowledge' => 'Acknowledge',
+	'you_have_been_banned' => 'Вы забанены!',
+	'you_have_received_a_warning' => 'Вы получили предупреждение!',
+	'acknowledge' => 'Подтвердить',
 	
 	
 	/*
 	 *  Emails
 	 */
-	'email_greeting' => 'Hi,',
-	'email_message' => 'Thanks for registering! In order to complete your registration, please click the following link:',
-	'forgot_password_email_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
-	'email_thanks' => 'Thanks,',
+	'email_greeting' => 'Привет,',
+	'email_message' => 'Спасибо за регистрацию. Что бы завершить процесс, щёлкните по следующей ссылке:',
+	'forgot_password_email_message' => 'Что-бы сбросить пароль, перейдите по следующей ссылке. Если вы не делали запроса на сброс пароля, просто проигнорируйте это письмо.',
+	'email_thanks' => 'Спасибо,',
 
 	/*
 	 *  Hooks
 	 */
-	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
+	'user_x_has_registered' => '{x} присоединился к ' . SITE_NAME . '!'
 );
