@@ -7,7 +7,7 @@
  *  License: MIT
  *
  *  Russian Language - Admin
- *  Community translate by kobel169.
+ *  Community translate by ImmaP (https://github.com/immapltd/) .
  *
  */
 
@@ -281,8 +281,8 @@ $language = array(
     'force_premium_accounts' => 'Force premium Minecraft accounts?', // TODO: Check functionality and translate
     'banner_background' => 'Фоновый баннер',
     'query_interval' => 'Интервал запросов (в минутах, от 5 до 60)',
-    'player_graphs' => 'Player Graphs',
-    'player_count_cronjob_info' => 'You can set up a cron job to query your servers every {x} minutes with the following command:',
+    'player_graphs' => 'Графики игрока',
+    'player_count_cronjob_info' => 'Вы можете создать задание cron, чтобы опрашивать сервер каждые {х} минут с помощью следующей команды:',
     'status_page' => 'Включить страницу статуса?',
     'minecraft_settings_updated_successfully' => 'Настройки успешно обновлены.',
     'server_id_x' => 'Server ID: {x}', // Don't replace {x}
@@ -389,7 +389,7 @@ $language = array(
 	'group_name_maximum' => 'Имя группы должно состоять из 20 и менее символов.',
 	'creating_group' => 'Создание новой группы',
 	'group_html_maximum' => 'HTML код группы должен состоять максимум из 1024 символов.',
-	'group_html' => 'HTML код группы', 
+	'group_html' => 'HTML код группы',
 	'group_html_lg' => 'Group HTML Large', //TODO
 	'group_username_colour' => 'Цвет группы',
 	'group_staff' => 'Персонал',
@@ -397,136 +397,136 @@ $language = array(
 	'confirm_group_deletion' => 'Вы уверены, что зотите удалить группу {x}?', // Don't replace {x}
 	'group_not_exist' => 'Такой группы не существует.',
 	'secondary_groups' => 'Вторичные группы',
-	'secondary_groups_info' => 'The user will gain any additional permissions from these groups. Ctrl+click to select/deselect multiple groups.',
-	'unable_to_update_uuid' => 'Unable to update UUID.',
-	'default_group' => 'Is the group the default group (for new users)?',
-	'user_id' => 'User ID',
+	'secondary_groups_info' => 'Пользователь будет получать никаких дополнительных разрешений от этих групп. Нажмите клавишу Ctrl для выбора/отмены выбора нескольких групп.',
+	'unable_to_update_uuid' => 'Не удалось обновить UUID.',
+	'default_group' => 'Это группа по умолчанию (для новых пользователей)?',
+	'user_id' => 'ID пользоватея',
 	'uuid' => 'UUID',
-	'group_order' => 'Group Order',
-	'group_created_successfully' => 'Group created successfully.',
-	'group_updated_successfully' => 'Group updated successfully.',
-	'group_deleted_successfully' => 'Group deleted successfully.',
-	'unable_to_delete_group' => 'Unable to delete a default group, or a group that can view the StaffCP. Please update the group settings first!',
-	'can_view_staffcp' => 'Can the group view the StaffCP?',
-	'user' => 'User',
-	'user_validated_successfully' => 'User validated successfully.',
-	'user_updated_successfully' => 'User updated successfully.',
-	'editing_user_x' => 'Editing user {x}', // Don't replace {x}
-	'details' => 'Details',
+	'group_order' => 'Порядок Группы',
+	'group_created_successfully' => 'Группа создана успешно.',
+	'group_updated_successfully' => 'Группа успешно обновлена.',
+	'group_deleted_successfully' => 'Группа успешно удалена.',
+	'unable_to_delete_group' => 'Невозможно удалить группу по умолчанию, или группы, которые могут просматривать панель управления. Пожалуйста, сначала обновите настройки группы!',
+	'can_view_staffcp' => 'Группа имеет доступ к панели управления?',
+	'user' => 'Пользователь',
+	'user_validated_successfully' => 'Пользователь успешно подтвержден.',
+	'user_updated_successfully' => 'Пользователь успешно обновлен.',
+	'editing_user_x' => 'Редактирование пользователя {x}', // Don't replace {x}
+	'details' => 'Детали',
 
 	// Permissions
-	'select_all' => 'Select All',
-	'deselect_all' => 'Deselect All',
-	'background_image' => 'Background image',
-	'can_edit_own_group' => 'Can edit own group\'s permissions',
-	'permissions_updated_successfully' => 'Permissions updated successfully.',
-	'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
+	'select_all' => 'Выбрать все',
+	'deselect_all' => 'Отменить выбор',
+	'background_image' => 'Фоновое изображение',
+	'can_edit_own_group' => 'Могут изменять разрешения собственной группы',
+	'permissions_updated_successfully' => 'Разрешения успешно обновлены .',
+	'cant_edit_this_group' => 'Вы не можете изменить разрешения для этой группы!',
 
 	// General Admin language
-	'task_successful' => 'Task successful.',
-	'invalid_action' => 'Invalid action.',
-	'enable_night_mode' => 'Enable Night Mode',
-	'disable_night_mode' => 'Disable Night Mode',
-	'view_site' => 'View Site',
-	'signed_in_as_x' => 'Signed in as {x}', // Don't replace {x}
-    'warning' => 'Warning',
+	'task_successful' => 'Задача успешно выполнена.',
+	'invalid_action' => 'Недопустимое действие.',
+	'enable_night_mode' => 'Включить Ночной Режим',
+	'disable_night_mode' => 'Отключить Ночной Режим',
+	'view_site' => 'Посмотреть Сайт',
+	'signed_in_as_x' => 'Вошёл как {x}', // Don't replace {x}
+    'warning' => 'Предупреждение',
 
     // Maintenance
-    'maintenance_mode' => 'Maintenance Mode',
-    'maintenance_enabled' => 'Maintenance mode is currently enabled.',
-    'enable_maintenance_mode' => 'Enable maintenance mode?',
-    'maintenance_mode_message' => 'Maintenance mode message',
-    'maintenance_message_max_1024' => 'Please ensure your maintenance message is a maximum of 1024 characters.',
+    'maintenance_mode' => 'Режим Обслуживания',
+    'maintenance_enabled' => 'В настоящее время режим обслуживания включен.',
+    'enable_maintenance_mode' => 'Включить режим обслуживания?',
+    'maintenance_mode_message' => 'Сообщение режим обслуживания',
+    'maintenance_message_max_1024' => 'Пожалуйста, убедитесь, что ваше сообщение обслуживания содержит не более 1024 символов.',
 
 	// Security
-	'acp_logins' => 'StaffCP Logins',
-	'please_select_logs' => 'Please select logs to view',
-	'ip_address' => 'IP Address',
-	'template_changes' => 'Template Changes',
-	'file_changed' => 'File Changed',
-	'all_logs' => 'All Logs',
-	'action' => 'Action',
-	'action_info' => 'Action Info',
+	'acp_logins' => 'Входы в панель',
+	'please_select_logs' => 'Пожалуйста, выберите журналы для просмотра',
+	'ip_address' => 'IP Адрес',
+	'template_changes' => 'Изменения шаблонов',
+	'file_changed' => 'Изменения файлов',
+	'all_logs' => 'Все Журналы',
+	'action' => 'Действия',
+	'action_info' => 'Информация о действиях',
 
 	// Updates
 	'update' => 'Update',
-	'current_version_x' => 'Current version: <strong>{x}</strong>', // Don't replace {x}
-	'new_version_x' => 'New version: <strong>{x}</strong>', // Don't replace {x}
-	'new_update_available' => 'There is a new update available',
-	'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
-	'up_to_date' => 'Your NamelessMC installation is up to date!',
-	'urgent' => 'This update is an urgent update',
-	'changelog' => 'Changelog',
-	'update_check_error' => 'There was an error whilst checking for an update:',
-	'instructions' => 'Instructions',
-	'download' => 'Download',
-	'install_confirm' => 'Please ensure you have downloaded the package and uploaded the contained files first!',
-	'check_again' => 'Check again',
+	'current_version_x' => 'Текущая версия: <strong>{x}</strong>', // Don't replace {x}
+	'new_version_x' => 'Новая версия: <strong>{x}</strong>', // Don't replace {x}
+	'new_update_available' => 'Есть новые доступные обновления ',
+	'new_urgent_update_available' => 'Есть новое срочное обновление. Пожалуйста, обновите как можно скорее!',
+	'up_to_date' => 'Ваш NamelessMC последней версии!',
+	'urgent' => 'Это обновление является срочным обновлением',
+	'changelog' => 'Список изменений',
+	'update_check_error' => 'Произошла ошибка при проверке обновления:',
+	'instructions' => 'Инструкции',
+	'download' => 'Скачать',
+	'install_confirm' => 'Пожалуйста, убедитесь, что вы скачали пакет и распоковали содержащиеся в нем файлы!',
+	'check_again' => 'Проверьте еще раз',
 
 	// Widgets
-	'widgets' => 'Widgets',
-	'widget_enabled' => 'Widget enabled.',
-	'widget_disabled' => 'Widget disabled.',
-	'widget_updated' => 'Widget updated.',
-	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
-	'module_x' => 'Module: {x}', // Don't replace {x}
-	'widget_order' => 'Widget Order',
+	'widgets' => 'Виджеты',
+	'widget_enabled' => 'Виджет включен.',
+	'widget_disabled' => 'Виджет выключен.',
+	'widget_updated' => 'Виджет обновлён.',
+	'editing_widget_x' => 'Редактирование виджета {x}', // Don't replace {x}
+	'module_x' => 'Модуль: {x}', // Don't replace {x}
+	'widget_order' => 'Порядок Виджета',
 
     // Online users widget
-    'include_staff_in_user_widget' => 'Include staff members in user widget?',
-    'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
+    'include_staff_in_user_widget' => 'Включать пользователей панели в виджете пользователей?',
+    'show_nickname_instead_of_username' => 'Показать нико вместо имени пользователя?',
 
     // Custom Pages
-    'pages' => 'Pages',
-    'custom_pages' => 'Custom Pages',
-    'new_page' => '<i class="fa fa-plus-circle"></i> New Page',
-    'no_custom_pages' => 'No pages have been created yet.',
-    'creating_new_page' => 'Creating Page',
-    'page_title' => 'Page Title',
-    'page_path' => 'Page Path (with preceding /, eg /example)',
-    'page_icon' => 'Page Icon',
-    'page_link_location' => 'Page Link Location',
-    'page_link_navbar' => 'Navbar',
-    'page_link_footer' => 'Footer',
-    'page_link_more' => '"More" Dropdown',
-    'page_link_none' => 'No link',
-    'page_content' => 'Page Content',
-    'page_redirect' => 'Page Redirect?',
-    'page_redirect_to' => 'Redirect Link (with preceding http://)',
-    'unsafe_html' => 'Allow unsafe HTML?',
-    'unsafe_html_warning' => 'Enabling this option means any HTML can be used on the page, including potentially dangerous JavaScript. Only enable this if you are sure your HTML is safe.',
-    'include_in_sitemap' => 'Include in sitemap?',
-    'sitemap_link' => 'Sitemap link:',
-    'page_permissions' => 'Page Permissions',
-    'view_page' => 'View Page?',
-    'editing_page_x' => 'Editing Page {x}', // Don't replace {x}
-    'unable_to_create_page' => 'Unable to create page:',
-    'page_title_required' => 'A page title is required.',
-    'page_url_required' => 'A page path is required.',
-    'link_location_required' => 'A link location is required.',
-    'page_title_minimum_2' => 'The page title must be a minimum of 2 characters.',
-    'page_url_minimum_2' => 'The page path must be a minimum of 2 characters.',
-    'page_title_maximum_30' => 'The page title must be a maximum of 30 characters.',
-    'page_icon_maximum_64' => 'The page icon must be a maximum of 64 characters.',
-    'page_url_maximum_20' => 'The page path must be a maximum of 20 characters.',
-    'page_content_maximum_100000' => 'The page content must be a maximum of 100000 characters.',
-    'page_redirect_link_maximum_512' => 'The page redirect link must be a maximum of 512 characters.',
-    'confirm_delete_page' => 'Are you sure you want to delete this page?',
-    'page_created_successfully' => 'Page created successfully.',
-    'page_updated_successfully' => 'Page updated successfully.',
-    'page_deleted_successfully' => 'Page deleted successfully.',
+    'pages' => 'Страницы',
+    'custom_pages' => 'Пользовательские Страницы',
+    'new_page' => '<i class="fa fa-plus-circle"></i> Новая Страница',
+    'no_custom_pages' => 'Нет страниц, которые были созданы.',
+    'creating_new_page' => 'Создание Страницы',
+    'page_title' => 'Заголовок Страницы',
+    'page_path' => 'Путь к странице (с ведущим /, напр /example)',
+    'page_icon' => 'Иконка страницы',
+		'page_link_location' => 'Расположение ссылки на страницу ',
+    'page_link_navbar' => 'Бар Навигации',
+    'page_link_footer' => 'Подвал',
+    'page_link_more' => 'Выпадающий список "Еще"',
+    'page_link_none' => 'Не размещать ссылку',
+    'page_content' => 'Содержимое страницы',
+    'page_redirect' => 'Странцца с редиректом?',
+    'page_redirect_to' => 'Ссылка для редиректа (с указанием протокола http://)',
+    'unsafe_html' => 'Разрешить небезопасный HTML?',
+    'unsafe_html_warning' => 'Включение этой опции означает, что любой HTML можно использовать на странице, в том числе потенциально опасных для исполнения JavaScript. Включите этот параметр, если вы уверены, что ваш HTML является безопасным.',
+    'include_in_sitemap' => 'Включить в карту сайта?',
+    'sitemap_link' => 'Ссылка на карту сайта:',
+    'page_permissions' => 'Права на страницу',
+    'view_page' => 'Разрешить просмотр?',
+    'editing_page_x' => 'Редактирование страницы {x}', // Don't replace {x}
+    'unable_to_create_page' => 'Не могу создать страницу:',
+    'page_title_required' => 'Требуется название страницы.',
+    'page_url_required' => 'Требуется путь страницы.',
+    'link_location_required' => 'Расположение ссылки на страницу должно быть указано.',
+    'page_title_minimum_2' => 'Название страницы должно быть не менее 2 символов.',
+    'page_url_minimum_2' => 'Путь к странице должен быть не менее 2 символов.',
+    'page_title_maximum_30' => 'Название страницы должно быть не более 30 символов.',
+    'page_icon_maximum_64' => 'Значок страницы должен быть не более 64 символов.',
+    'page_url_maximum_20' => 'Путь к странице должен быть максимум 20 символов.',
+    'page_content_maximum_100000' => 'Контент страницы должен быть не более 100000 символов.',
+    'page_redirect_link_maximum_512' => 'Ссылка для редиректа должна быть не более 512 символов.',
+    'confirm_delete_page' => 'Вы уверены, что хотите удалить эту страницу?',
+    'page_created_successfully' => 'Страница успешно создана.',
+    'page_updated_successfully' => 'Страница успешно обновлена.',
+    'page_deleted_successfully' => 'Страница успешно удалена.',
 
     // API
     'api' => 'API',
-    'enable_api' => 'Enable API?',
-    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>.',
-    'enable_legacy_api' => 'Enable legacy API?',
-    'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
-    'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
-	'api_key' => 'API Key',
+    'enable_api' => 'Включить API?',
+    'api_info' => 'API позволяет плагинам и другим сервисам взаимодействовать с вашим сайтом, например как <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >официальный плагин Nameless</a>.',
+    'enable_legacy_api' => 'Включить старый API?',
+    'legacy_api_info' => 'Устаревший API для плагинов которые используют старый Nameless v1 API для работы с вашим веб-сайтом версии 2.',
+    'confirm_api_regen' => 'Вы уверены, что хотите, перегенерировать ваш ключ API?',
+	'api_key' => 'API Ключ',
 	'api_url' => 'API URL',
-	'copy' => 'Copy',
-	'api_key_regenerated' => 'The API key has been regenerated successfully.',
+	'copy' => 'Копировать',
+	'api_key_regenerated' => 'API-ключ был успешно обновлён',
     'api_registration_email' => 'API Registration Email',
 	'show_registration_link' => 'Show registration link',
 	'registration_link' => 'Registration Link',
@@ -578,38 +578,38 @@ $language = array(
 	'delete_hook_info' => 'User deletion',
 
 	// Sitemap
-	'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
-	'sitemap_generated' => 'Sitemap generated successfully',
-	'sitemap_not_writable' => 'The <strong>cache/sitemaps</strong> directory is not writable.',
-	'cache_not_writable' => 'The <strong>cache</strong> directory is not writable.',
-	'generate_sitemap' => 'Generate Sitemap',
-	'download_sitemap' => 'Download Sitemap',
-	'sitemap_not_generated_yet' => 'A sitemap has not been generated yet!',
-	'sitemap_last_generated_x' => 'The sitemap was last generated {x}', // Don't replace {x}
+	'unable_to_load_sitemap_file_x' => 'Не удалось загрузить файл sitemap {x}', // Don't replace {x}
+	'sitemap_generated' => 'Sitemap создан успешно',
+	'sitemap_not_writable' => '<strong>cache/sitemaps</strong> каталог недоступен для записи.',
+	'cache_not_writable' => '<strong>cache</strong> каталог недоступен для записи.',
+	'generate_sitemap' => 'Генерировать Sitemap',
+	'download_sitemap' => 'Скачать Sitemap',
+	'sitemap_not_generated_yet' => 'Файл sitemap ещё не был сгенерирован!',
+	'sitemap_last_generated_x' => 'Файл sitemap был создан {x}', // Don't replace {x}
 
 	// Page metadata
-	'page_metadata' => 'Page Metadata',
-	'metadata_page_x' => 'Viewing metadata for page {x}', // Don't replace {x}
-	'keywords' => 'Keywords',
-	'description_max_500' => 'The description must be at most 500 characters.',
-	'page' => 'Page',
-	'metadata_updated_successfully' => 'Metadata updated successfully.',
+	'page_metadata' => 'Метаданные страницы',
+	'metadata_page_x' => 'Просмотр метаданных для страницы {x}', // Don't replace {x}
+	'keywords' => 'Ключевые слова',
+	'description_max_500' => 'Описание должно быть не более 500 символов.',
+	'page' => 'Страницы',
+	'metadata_updated_successfully' => 'Метаданные успешно обновлены.',
 
 	// Dashboard
-	'total_users' => 'Total Users',
+	'total_users' => 'Всего Пользователей',
 	'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
-	'recent_users' => 'New Users',
+	'recent_users' => 'Новых пользователей',
 	'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
-	'average_players' => 'Average Players',
-	'nameless_news' => 'NamelessMC News',
-	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
-	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
-	'server_compatibility' => 'Server Compatibility',
+	'average_players' => 'В среднем игроков',
+	'nameless_news' => 'Новости NamelessMC',
+	'unable_to_retrieve_nameless_news' => 'Не удается получить последние новости',
+	'confirm_leave_site' => 'Вы собираетесь покинуть этот сайт! Вы уверены, что хотите посетить <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+	'server_compatibility' => 'Совместимость с сервером',
 	'issues' => 'Issues',
 
 	// Other
-	'source' => 'Source',
-	'support' => 'Support',
-	'admin_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/admin</strong> directory still exists. Please remove this directory.',
-	'mod_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/mod</strong> directory still exists. Please remove this directory.'
+	'source' => 'Исходники',
+	'support' => 'Поддержка',
+	'admin_dir_still_exists' => 'Предупреждение! <strong>modules/Core/pages/admin</strong> каталог еще существует. Пожалуйста, удалите этот каталог.',
+	'mod_dir_still_exists' => 'Предупреждение! <strong>modules/Core/pages/mod</strong> каталог еще существует. Пожалуйста, удалите этот каталог.'
 );
