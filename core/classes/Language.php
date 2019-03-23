@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -38,7 +38,7 @@ class Language {
 				$path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . 'EnglishUK';
 			}
 
-			$this->_module = htmlspecialchars($module);
+			$this->_module = Output::getClean($module);
 		}
 		
 		$this->_activeLanguageDirectory = $path;
@@ -64,7 +64,8 @@ class Language {
 	// Return a term in the currently active language
 	// Params: 	$file (string) - name of file to look in, without file extension (required)
 	//			$term (string) - contains the term to translate (required)
-	public function get($file, $term){
+	//          $number (int)  - contains the number of items to pass through to a plural function (optional)
+	public function get($file, $term, $number = null){
 		// Ensure the file exists + term is set
 		if(!is_file($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php')){
 			if($this->_activeLanguage != 'EnglishUK'){
@@ -74,10 +75,10 @@ class Language {
 						$this->_activeLanguageEntries[$file] = $language;
 					}
 				} else {
-					die('Error loading language file ' . htmlspecialchars($file) . '.php in ' . ($this->_module == 'Core' ? 'Core' : $this->_module));
+					die('Error loading language file ' . Output::getClean($file) . '.php in ' . ($this->_module == 'Core' ? 'Core' : $this->_module));
 				}
 			} else {
-				die('Error loading language file ' . htmlspecialchars($file) . '.php in ' . ($this->_module == 'Core' ? 'Core' : $this->_module));
+				die('Error loading language file ' . Output::getClean($file) . '.php in ' . ($this->_module == 'Core' ? 'Core' : $this->_module));
 			}
 		} else {
 			if(!isset($this->_activeLanguageEntries[$file])){
@@ -88,10 +89,18 @@ class Language {
 
 		if(isset($this->_activeLanguageEntries[$file][$term])){
 			// It is set, return it
-			return $this->_activeLanguageEntries[$file][$term];
+			if(is_array($this->_activeLanguageEntries[$file][$term])){
+				if(function_exists('pluralForm') && $number != null){
+					return pluralForm($number, $this->_activeLanguageEntries[$file][$term]);
+				} else {
+					return 'Plural form not set for ' . Output::getClean($term);
+				}
+			} else {
+				return $this->_activeLanguageEntries[$file][$term];
+			}
 		} else {
 			// Not set, display an error
-			return 'Term ' . htmlspecialchars($term) . ' not set';
+			return 'Term ' . Output::getClean($term) . ' not set';
 		}
 	}
 	
