@@ -1,8 +1,9 @@
 <?php
 /*
  *	Made by Samerton
+ *  Translated to Czech by ramenhair (WarfareMC.eu)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -11,42 +12,42 @@
 
 $language = array(
     // Errors
-    'unknown_error' => 'Unknown error',
-    'invalid_api_key' => 'Invalid API key',
-    'invalid_language_file' => 'Invalid language file',
-    'invalid_api_method' => 'Invalid API method',
-    'no_unique_site_id' => 'No unique site ID available',
-    'unable_to_check_for_updates' => 'Unable to check for updates',
-    'invalid_post_contents' => 'Invalid POST contents',
-    'invalid_get_contents' => 'Invalid GET contents',
-    'invalid_email_address' => 'Invalid email address',
-    'invalid_username' => 'Invalid username',
-    'invalid_uuid' => 'Invalid UUID',
-    'email_already_exists' => 'Email already exists',
-    'username_already_exists' => 'Username already exists',
-    'uuid_already_exists' => 'UUID already exists',
-    'unable_to_create_account' => 'Unable to create account',
-    'unable_to_send_registration_email' => 'Unable to send registration email, please contact an admin to activate your account',
-    'unable_to_find_user' => 'Unable to find user',
-    'unable_to_find_group' => 'Unable to find group',
-    'unable_to_update_group' => 'Unable to update user\'s group',
-    'report_content_too_long' => 'The report content must be 255 characters or less',
-    'you_must_register_to_report' => 'You must register on our website to be able to create a report',
-    'you_have_been_banned_from_website' => 'You have been banned from the website',
-    'you_have_open_report_already' => 'You already have an open report regarding this player',
-    'unable_to_create_report' => 'Unable to create report',
-    'unable_to_update_username' => 'Unable to update username',
-    'unable_to_update_server_info' => 'Unable to update server info',
-    'invalid_server_id' => 'Invalid server ID',
-    'invalid_code' => 'Invalid code provided',
+    'unknown_error' => 'Neznámá chyba',
+    'invalid_api_key' => 'Neplatný API Key',
+    'invalid_language_file' => 'Neplatný soubor jazyk',
+    'invalid_api_method' => 'Neplatná API metoda',
+    'no_unique_site_id' => 'Není dostupné žádné ID stránky',
+    'unable_to_check_for_updates' => 'Nelze zjistit aktualizace',
+    'invalid_post_contents' => 'Neplatný obsah POST',
+    'invalid_get_contents' => 'neplatný obsah GET',
+    'invalid_email_address' => 'Neplatný e-mail',
+    'invalid_username' => 'Neplatné jméno',
+    'invalid_uuid' => 'neplatné UUID',
+    'email_already_exists' => 'Email již existuje',
+    'username_already_exists' => 'Jméno již existuje',
+    'uuid_already_exists' => 'UUID již existuje',
+    'unable_to_create_account' => 'Nelze vytvořit účetm',
+    'unable_to_send_registration_email' => 'Nelze poslat registrační mail, kontaktuj administrátora',
+    'unable_to_find_user' => 'Nelze najít uživatele',
+    'unable_to_find_group' => 'Nelze najít skupinu',
+    'unable_to_update_group' => 'Nelze aktualizovat hráčovu skupinu',
+    'report_content_too_long' => 'Nahlášení nesmí být delší jak 255 znaků',
+    'you_must_register_to_report' => 'Musíš být registrován a ověřen, aby jsi mohl napsat nahlášení',
+    'you_have_been_banned_from_website' => 'Byl jsi zabanován z této stránky',
+    'you_have_open_report_already' => 'Již jsi otevřel nahlášení na tohoto hráče',
+    'unable_to_create_report' => 'nelze vytvořit nahlášení',
+    'unable_to_update_username' => 'Nelze aktualizovat jméno',
+    'unable_to_update_server_info' => 'Nelze aktualizovat informace o serveru',
+    'invalid_server_id' => 'Neznámé ID serveru',
+    'invalid_code' => 'Byl vložen neznámý kód',
 
     // Success messages
-    'finish_registration_link' => 'Please click on the following link to complete registration:',
-    'finish_registration_email' => 'Please check your emails to complete registration.',
-    'group_updated' => 'Group updated successfully',
-    'report_created' => 'Report created successfully',
-    'new_private_message_from' => 'New private message from {x}', // Don't replace {x}
-    'username_updated' => 'Username updated successfully',
-    'server_info_updated' => 'Server info updated successfully',
-	'account_validated' => 'Account validated successfully'
+    'finish_registration_link' => 'Prosím klikni na tento odkaz pro dokončení registrace:',
+    'finish_registration_email' => 'Zkontroluj email pro dokončení registrace.',
+    'group_updated' => 'Skupina úspěšně aktualizována',
+    'report_created' => 'Nahlášení úspěšně vytvořeno',
+    'new_private_message_from' => 'Nová soukromá zpráva od {x}', // Don't replace {x}
+    'username_updated' => 'Jméno úspěšně aktualizováno',
+    'server_info_updated' => 'Informace o serveru aktualizovány',
+	'account_validated' => 'Účet úspěšně ověřen'
 );
