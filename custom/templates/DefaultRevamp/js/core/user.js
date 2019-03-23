@@ -40,7 +40,7 @@ if (loggedIn == 1) {
         			);
         		}
         		notification.onclick = function () {
-        			window.open(URLBuild('user/alerts'));
+        			window.open(URLBuild('user/alerts', true));
         		};
         	}
             countAlerts = data.value;
@@ -84,7 +84,7 @@ if (loggedIn == 1) {
         			);
         		}
         		notification.onclick = function () {
-        			window.open(URLBuild('user/messaging'));
+        			window.open(URLBuild('user/messaging', true));
         		};
         	}
             countPms = data.value;
