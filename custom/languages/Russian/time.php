@@ -14,16 +14,18 @@ $language = array(
 	 *  Time
 	 */
 	'time' => 'time', // Placeholder, no need to translate
-	'seconds_short' => 's', // Shortened "seconds", eg "s"
-	'less_than_a_minute' => 'less than a minute ago',
-	'1_minute' => '1 minute ago',
-	'_minutes' => '{x} minutes ago',
-	'about_1_hour' => 'about 1 hour ago',
-	'_hours' => '{x} hours ago',
-	'1_day' => '1 day ago',
-	'_days' => '{x} days ago',
-	'about_1_month' => 'about 1 month ago',
-	'_months' => '{x} months ago',
-	'about_1_year' => 'about 1 year ago',
-	'over_x_years' => 'over {x} years ago'
+	'seconds_short' => 'с', // Shortened "seconds", eg "s"
+
+	'_seconds' => array('{x} секунда назад', '{x} секунды назад', '{x} секунд назад'),
+	'_minutes' => array('{x} минуту назад','{x} минуты назад','{x} минут назад'),
+	'_hours' => array('{x} час назад','{x} часа назад','{x} часов назад'),
+	'_days' => array('{x} день назад', '{x} дня назад', '{x} дней назад'),
+	'_months' => array('{x} месяц назад', '{x} месяца назад', '{x} месяцев назад'),
+	'_years' => array('{x} год назад', '{x} года назад', '{x} лет назад'),
+	'_over_x_years' => array('Более {x} года назад', 'Более {x} лет назад', 'Более {x} лет назад'),
+
+	'less_than_a_minute' => 'Меньше минуты назад',
+	'about_1_hour' => 'Около часа назад',
+	'about_1_month' => 'Около месяца назад',
+	'about_1_year' => 'Около года назад',
 );
