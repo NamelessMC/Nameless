@@ -210,7 +210,7 @@ class TimeAgo {
     if(is_array($time_language[$key])){
     	if(function_exists('pluralForm')){
     		if(isset($replace)){
-    			return pluralForm($replace, $time_language[$key]);
+    			return str_replace('{x}', $replace, pluralForm($replace, $time_language[$key]));
 		    } else {
     			return 'Plural specified but replace not set for ' . Output::getClean($key);
 		    }
