@@ -7,8 +7,10 @@ if (page !== '') {
 				let serverBungee = $(this).data("bungee");
 				let serverPlayerList = $(this).data("players");
 				let serverElem = '#server' + serverID + '[data-id=' + serverID + ']';
-				
-				$.getJSON(URLBuild('queries/server/?id=' + serverID), function(data){
+
+				const paramChar = URLBuild('').includes('?') ? '&' : '?';
+
+				$.getJSON(URLBuild('queries/server/' + paramChar + 'id=' + serverID), function(data){
 					var content = '';
 					var players = '';
 					if (data.status_value === 1) {

@@ -1,14 +1,14 @@
 <?php 
 /*
- *	Made by Samerton, translated by Zemos, Renzotom and ramenhair (WarfareMC.eu)
+ *	Made by alsoGAMER
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
- *  Czech Language - Language version
+ *  Italian Language - Language version
  */
 
 // Which version of NamelessMC is this language file updated to?
 $language_version = '2.0.0-pr6';
-$language_html = 'cs';
+$language_html = 'it';

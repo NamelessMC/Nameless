@@ -6,8 +6,8 @@ toastr.options = {
 	positionClass: 'toast-bottom-left'
 };
 
-function URLBuild(path) {
-    return siteURL + path;
+function URLBuild(path, full = false) {
+    return (full ? fullSiteURL : siteURL) + path;
 }
 
 function redirect(url) {

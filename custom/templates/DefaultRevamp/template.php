@@ -59,7 +59,8 @@ class DefaultRevamp_Template extends TemplateBase {
 
 		$JSVariables = array(
 		    'siteName' => SITE_NAME,
-		    'siteURL' => Util::getSelfURL() . ltrim(URL::build('/'), '/'),
+		    'siteURL' => URL::build('/'),
+		    'fullSiteUrl' => Util::getSelfURL() . ltrim(URL::build('/'), '/'),
 		    'page' => PAGE,
 		    'avatarSource' => Util::getAvatarSource(),
 		    'copied' => $this->_language->get('general', 'copied'),
@@ -91,7 +92,7 @@ class DefaultRevamp_Template extends TemplateBase {
 	    $JSVars = '';
 	    $i = 0;
 		foreach ($JSVariables as $var => $value) {
-		    $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = \'' . $value . '\'';
+		    $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = "' . $value . '"';
 		    $i++;
 		}
 		

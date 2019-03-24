@@ -81,7 +81,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 					$parent_forum = str_replace('{x}', Output::getClean(Output::getDecoded($parent_forum_query[0]->forum_title)), $forum_language->get('forum', 'parent_forum_x'));
 					$id = $parent_forum_query[0]->parent;
 
-					while($id > 0){
+					while($parent_forum_count < 100 && $id > 0){
 						$parent_forum_query = $queries->getWhere('forums', array('id', '=', $parent_forum_query[0]->parent));
 						$id = $parent_forum_query[0]->parent;
 						$parent_forum_count++;
