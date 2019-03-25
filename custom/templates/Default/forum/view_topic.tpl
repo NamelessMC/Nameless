@@ -129,7 +129,7 @@
                                     {if isset($reply.buttons.edit)}
                                         <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-trigger="hover"
                                            data-original-title="{$reply.buttons.edit.TEXT}"
-                                           href="{$reply.buttons.edit.URL}"><i class="fa fa-pencil fa-fw"
+                                           href="{$reply.buttons.edit.URL}"><i class="fa fa-pencil-alt fa-fw"
                                                                                aria-hidden="true"></i></a>
                                     {/if}
 
