@@ -26,7 +26,7 @@ class DiscordWidget extends WidgetBase {
         $this->_module = 'Core';
         $this->_name = 'Discord';
         $this->_location = 'right';
-        $this->_description = 'Display your Discord channel on your site. Make sure you have entered your Discord widget details in the AdminCP -> Core -> Social Media tab first!';
+        $this->_description = 'Display your Discord channel on your site. Make sure you have entered your Discord widget details in the StaffCP -> Configuration -> Social Media tab first!';
         $this->_settings = ROOT_PATH . '/modules/Core/includes/admin_widgets/discord.php';
         $this->_order = $order->order;
     }
