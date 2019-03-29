@@ -63,15 +63,15 @@ $language = array(
 	'email_already_exists' => 'El correo electronico que ha introducido está en uso.',
 	'email_changed_successfully' => 'La dirección de correo electrónico fue actualizada con éxito.',
 	'avatar' => 'Avatar',
-	'profile_banner' => 'Profile Banner',
-	'upload_profile_banner' => 'Upload Profile Banner',
-	'upload' => 'Upload',
+	'profile_banner' => 'Banner del Perfil',
+	'upload_profile_banner' => 'Subir Banner del Perfil',
+	'upload' => 'Subir',
 	
 	// Alerts
 	'user_tag_info' => 'Has sido etiquetado en un post por {x}.', // Don't replace {x}
 	'no_alerts' => 'No hay nuevas alertas',
 	'view_alerts' => 'Ver alertas',
-	'1_new_alert' => 'You have 1 new alert',
+	'1_new_alert' => 'Tienes 1 nueva alerta.',
 	'x_new_alerts' => 'Tienes {x} nuevas alertas', // Don't replace {x}
 	'no_alerts_usercp' => 'No tienes alertas.',
 	
@@ -121,7 +121,7 @@ $language = array(
 	'invalid_recaptcha' => 'La respuesta de reCAPTCHA no es válida...',
 	'verify_account' => 'Verificar Cuenta',
 	'verify_account_help' => 'Siga las instrucciones a continuación para verificar que posee la cuenta de Minecraft en cuestión.',
-	'validate_account' => 'Validate Account',
+	'validate_account' => 'Validar cuenta',
 	'verification_failed' => 'Verificación fallida. Por favor intenta de nuevo.',
 	'verification_success' => '¡Con éxito validado! Ahora puede iniciar sesión.',
 	'authme_username_exists' => 'Tu cuenta de AuthMe ya está conectada con nuestra web.',
@@ -134,7 +134,7 @@ $language = array(
 	'account_banned' => 'Esa cuenta está prohibida.',
 	'forgot_password' => '¿Se te olvidó tu contraseña?',
 	'remember_me' => 'Recuérdame',
-	'must_input_email' => 'You must input an email address.',
+	'must_input_email' => 'Debe introducir una dirección de correo electrónico.',
 	'must_input_username' => 'Debe introducir un nombre de usuario.',
 	'must_input_password' => 'Debe introducir una contraseña.',
 
@@ -153,7 +153,7 @@ $language = array(
 	'change_banner' => 'Cambiar banner',
 	'post_on_wall' => 'Publicar en el muro de {x}', // Don't replace {x}
 	'invalid_wall_post' => 'Asegúrese de que su publicación tenga entre 1 y 10000 caracteres.',
-	'1_reaction' => '1 reaccion',
+	'1_reaction' => '1 reacción',
 	'x_reactions' => '{x} reaccciones', // Don't replace {x}
 	'1_like' => '1 Me gusta',
 	'x_likes' => '{x} Me gustas', // Don't replace {x}
@@ -180,8 +180,8 @@ $language = array(
 	'private_profile_page' => '¡Este es un Perfil privado!',
 	'new_wall_post_reply' => '{x} ha respondido a tu publicación en el Perfil de {y}.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} ha respondido a tu publicación en tu Perfil.', // Don't replace {x}
-	'no_about_fields' => 'This user has not added any about fields yet.',
-	'reply' => 'Reply',
+	'no_about_fields' => 'Este usuario todavía no ha agregado ningún campo sobre el.',
+	'reply' => 'Responder',
 	
 	// Reports
 	'invalid_report_content' => 'No se puede crear el informe. Asegúrese de que la razón de su informe es entre 2 y 1024 caracteres.',
@@ -192,7 +192,7 @@ $language = array(
 	'no_messages' => 'No hay mensajes nuevos',
 	'no_messages_full' => 'No tienes ningún mensaje.',
 	'view_messages' => 'Ver mensajes',
-	'1_new_message' => 'You have 1 new message',
+	'1_new_message' => 'Tienes 1 nuevo mensaje',
 	'x_new_messages' => 'Tienes {x} nuevos mensajes', // Don't replace {x}
 	'new_message' => 'Nuevo mensaje',
 	'message_title' => 'Titulo del Mensaje',
@@ -212,9 +212,9 @@ $language = array(
 	'last_message' => 'Último mensaje',
 	'by' => 'por',
 	'leave_conversation' => 'Dejar la conversación',
-	'confirm_leave' => '¿Seguro que quieres dejar esta conversación??',
+	'confirm_leave' => '¿Seguro que quieres dejar esta conversación?',
 	'one_or_more_users_blocked' => 'No puede enviar mensajes privados a al menos un miembro de la conversación.',
-	'messages' => 'Messages',
+	'messages' => 'Mensajes',
 	/*
 	 *  Infractions area
 	 */
