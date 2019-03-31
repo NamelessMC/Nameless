@@ -1047,6 +1047,16 @@
 		        'enabled' => 1,
 		        'pages' => '["index","forum"]'
 	        ));
+			
+		$cache->setCache('Core-widgets');
+		$cache->store('enabled', array(
+			'Online Staff' => 1,
+			'Online Users' => 1,
+			'Statistics' => 1
+		));
+			
+		$cache->setCache('backgroundcache');
+		$cache->store('banner_image', '/uploads/template_banners/homepage_bg_trimmed.jpg');
 
             // Success
             Redirect::to('?step=user');
@@ -2490,6 +2500,16 @@
 							'enabled' => 1,
 							'pages' => '["index","forum"]'
 						));
+						
+						$cache->setCache('Core-widgets');
+						$cache->store('enabled', array(
+							'Online Staff' => 1,
+							'Online Users' => 1,
+							'Statistics' => 1
+						));
+
+						$cache->setCache('backgroundcache');
+						$cache->store('banner_image', '/uploads/template_banners/homepage_bg_trimmed.jpg');
 
 						unset($_SESSION['db_address']);
 						unset($_SESSION['db_port']);
