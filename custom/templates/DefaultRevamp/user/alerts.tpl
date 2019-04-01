@@ -2,7 +2,7 @@
 {include file='navbar.tpl'}
 
 <h2 class="ui header">
-  {$ACCOUNT}
+  {$TITLE}
 </h2>
 
 <div class="ui stackable grid" id="alerts">
