@@ -58,8 +58,15 @@
             <label>{$MESSAGE}</label>
             <textarea id="inputMessage" name="content" placeholder="{$MESSAGE}" tabindex="2"></textarea>
           </div>
-          <input type="hidden" name="token" value="{$TOKEN}">
-          <input type="submit" class="ui primary button" value="{$SUBMIT}" tabindex="3">
+          {if isset($RECAPTCHA)}
+            <div class="field">
+              <div class="g-recaptcha" data-sitekey="{$RECAPTCHA}"></div>
+            </div>
+          {/if}
+          <div class="field">
+            <input type="hidden" name="token" value="{$TOKEN}">
+            <input type="submit" class="ui primary button" value="{$SUBMIT}" tabindex="3">
+          </div>
         </form>
       </div>
     </div>
