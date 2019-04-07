@@ -190,7 +190,7 @@ if($registration_enabled == 1){
 		'VALIDATE_PROMOTE_GROUP' => $language->get('admin', 'validation_promote_group'),
 		'VALIDATE_PROMOTE_GROUP_INFO' => $language->get('admin', 'validation_promote_group_info'),
 		'INFO' => $language->get('general', 'info'),
-		'GROUPS' => $queries->getWhere('groups', array('id', '<>', 0)),
+		'GROUPS' => $queries->getWhere('groups', array('staff', '=', 0)),
 		'VALIDATION_GROUP' => $validation_group
 	));
 }
