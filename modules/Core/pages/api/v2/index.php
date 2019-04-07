@@ -771,8 +771,6 @@ class Nameless2API
             $server_query = $this->_db->get('mc_servers', array('id', '=', $info['server-id']));
             if(!$server_query->count()) $this->throwError(27, $this->_language->get('api', 'invalid_server_id'));
 
-            echo '<pre>', print_r($info->{'players'}), '</pre>';
-
             try {
                 $this->_db->insert('query_results', array(
                     'server_id' => $info['server-id'],
