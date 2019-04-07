@@ -92,7 +92,7 @@ $custom_usernames = $custom_usernames[0]->value;
 
 if(isset($_GET['step']) && isset($_SESSION['mcassoc'])){
 	// Get site details for MCAssoc
-	$mcassoc_site_id = $sitename;
+	$mcassoc_site_id = SITE_NAME;
 	
 	$mcassoc_shared_secret = $queries->getWhere('settings', array('name', '=', 'mcassoc_key'));
 	$mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
@@ -229,27 +229,6 @@ if(Input::exists()){
 
 				}
 
-				if($uuid_linking == 1){
-					// Perform validation on Minecraft name
-					$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
-					$mcname_result = $profile->getProfileAsArray();
-
-					if(isset($mcname_result['username']) && !empty($mcname_result['username']) && isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])){
-						// Valid
-						$uuid = Output::getClean($mcname_result['uuid']);
-
-						// Ensure UUID is unique
-						$uuid_query = $queries->getWhere('users', array('uuid', '=', $uuid));
-						if(count($uuid_query)){
-							$uuid_error = $language->get('user', 'uuid_already_exists');
-						}
-
-					} else {
-						// Invalid
-						$invalid_mcname = true;
-					}
-				}
-
 			} else {
 				// Just check username
 				$to_validation['username'] = array(
@@ -263,222 +242,249 @@ if(Input::exists()){
 				$username = Output::getClean(Input::get('username'));
 
 			}
-			
-			// Check to see if the Minecraft username was valid
-			if(!isset($invalid_mcname)){
 				// Valid, continue with validation
 				$validation = $validate->check($_POST, $to_validation); // Execute validation
 				
 				if($validation->passed()){
-					if(!isset($uuid))
-						$uuid = '';
+					if(MINECRAFT && $uuid_linking == 1){
+						// Perform validation on Minecraft name
+						$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
 
-					if(!isset($uuid_error)){
-                        // Minecraft user account association
-                        if (isset($account_verification) && $account_verification == '1') {
-                            // MCAssoc enabled
-                            // Get data from database
-                            $mcassoc_site_id = SITE_NAME;
+						$mcname_result = $profile->getProfileAsArray();
 
-                            $mcassoc_shared_secret = $queries->getWhere('settings', array('name', '=', 'mcassoc_key'));
-                            $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
+						if(isset($mcname_result['username']) && !empty($mcname_result['username']) && isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])){
+							// Valid
+							$uuid = Output::getClean($mcname_result['uuid']);
 
-                            $mcassoc_instance_secret = $queries->getWhere('settings', array('name', '=', 'mcassoc_instance'));
-                            $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
+							// Ensure UUID is unique
+							$uuid_query = $queries->getWhere('users', array('uuid', '=', $uuid));
+							if(count($uuid_query)){
+								$uuid_error = $language->get('user', 'uuid_already_exists');
+							}
 
-                            define('MCASSOC', true);
+						} else {
+							// Invalid
+							$invalid_mcname = true;
+						}
+					}
 
-                            // Hash password first
-                            $password = password_hash($_POST['password'], PASSWORD_BCRYPT, array("cost" => 13));
-                            $_SESSION['password'] = $password;
-                            unset($_POST['password']);
+					// Check to see if the Minecraft username was valid
+					if(!isset($invalid_mcname)){
+						if(!isset($uuid))
+							$uuid = '';
 
-                            // Initialise
-                            $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
-                            $mcassoc->enableInsecureMode();
+						if(!isset($uuid_error)){
+	                        // Minecraft user account association
+	                        if (isset($account_verification) && $account_verification == '1') {
+	                            // MCAssoc enabled
+	                            // Get data from database
+	                            $mcassoc_site_id = SITE_NAME;
 
-                            require(ROOT_PATH . '/core/integration/run_mcassoc.php');
-                            die();
+	                            $mcassoc_shared_secret = $queries->getWhere('settings', array('name', '=', 'mcassoc_key'));
+	                            $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
 
-                        } else {
-                            // Disabled
-                            $user = new User();
+	                            $mcassoc_instance_secret = $queries->getWhere('settings', array('name', '=', 'mcassoc_instance'));
+	                            $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
 
-                            $ip = $user->getIP();
-                            if (filter_var($ip, FILTER_VALIDATE_IP)) {
-                                // Valid IP
-                            } else {
-                                // TODO: Invalid IP, do something else
-                            }
+	                            define('MCASSOC', true);
 
-                            $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
-                            // Get current unix time
-                            $date = new DateTime();
-                            $date = $date->getTimestamp();
+	                            // Hash password first
+	                            $password = password_hash($_POST['password'], PASSWORD_BCRYPT, array("cost" => 13));
+	                            $_SESSION['password'] = $password;
+	                            unset($_POST['password']);
 
-                            try {
-                                if ($api_verification == '1') {
-                                    // Generate shorter code for API validation
-                                    $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
-                                    $active = 1;
-                                } else {
-                                    // Generate random code for email
-                                    $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
-                                    $active = 0;
-                                }
+	                            // Initialise
+	                            $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
+	                            $mcassoc->enableInsecureMode();
 
-                                // Get default language ID before creating user
-                                $language_id = $queries->getWhere('languages', array('name', '=', LANGUAGE));
+	                            require(ROOT_PATH . '/core/integration/run_mcassoc.php');
+	                            die();
 
-                                if (count($language_id)) $language_id = $language_id[0]->id;
-                                else $language_id = 1; // fallback to EnglishUK
+	                        } else {
+	                            // Disabled
+	                            $user = new User();
 
-                                // Get default group ID
-                                $cache->setCache('default_group');
-                                if ($cache->isCached('default_group')) {
-                                    $default_group = $cache->retrieve('default_group');
-                                } else {
-                                    $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
-                                    $default_group = $default_group[0]->id;
+	                            $ip = $user->getIP();
+	                            if (filter_var($ip, FILTER_VALIDATE_IP)) {
+	                                // Valid IP
+	                            } else {
+	                                // TODO: Invalid IP, do something else
+	                            }
 
-                                    $cache->store('default_group', $default_group);
-                                }
+	                            $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
+	                            // Get current unix time
+	                            $date = new DateTime();
+	                            $date = $date->getTimestamp();
 
-                                // Create user
-                                $user->create(array(
-                                    'username' => $username,
-                                    'nickname' => $nickname,
-                                    'uuid' => $uuid,
-                                    'password' => $password,
-                                    'pass_method' => 'default',
-                                    'joined' => $date,
-                                    'group_id' => $default_group,
-                                    'email' => Output::getClean(Input::get('email')),
-                                    'reset_code' => $code,
-                                    'lastip' => Output::getClean($ip),
-                                    'last_online' => $date,
-                                    'language_id' => $language_id,
-                                    'active' => $active
-                                ));
+	                            try {
+	                                if ($api_verification == '1') {
+	                                    // Generate shorter code for API validation
+	                                    $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
+	                                    $active = 1;
+	                                } else {
+	                                    // Generate random code for email
+	                                    $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+	                                    $active = 0;
+	                                }
 
-                                // Get user ID
-                                $user_id = $queries->getLastId();
+	                                // Get default language ID before creating user
+	                                $language_id = $queries->getWhere('languages', array('name', '=', LANGUAGE));
 
-                                Log::getInstance()->log(Log::Action('user/register'), "", $user_id);
+	                                if (count($language_id)) $language_id = $language_id[0]->id;
+	                                else $language_id = 1; // fallback to EnglishUK
 
-                                if ($api_verification != '1' && $email_verification == '1') {
-                                    $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
-                                    $php_mailer = $php_mailer[0]->value;
+	                                // Get default group ID
+	                                $cache->setCache('default_group');
+	                                if ($cache->isCached('default_group')) {
+	                                    $default_group = $cache->retrieve('default_group');
+	                                } else {
+	                                    $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
+	                                    $default_group = $default_group[0]->id;
 
-                                    if ($php_mailer == '1') {
-                                        // PHP Mailer
-                                        // HTML to display in message
-                                        $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'register.html'));
-                                        $html = file_get_contents($path);
+	                                    $cache->store('default_group', $default_group);
+	                                }
 
-                                        $link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code);
+	                                // Create user
+	                                $user->create(array(
+	                                    'username' => $username,
+	                                    'nickname' => $nickname,
+	                                    'uuid' => $uuid,
+	                                    'password' => $password,
+	                                    'pass_method' => 'default',
+	                                    'joined' => $date,
+	                                    'group_id' => $default_group,
+	                                    'email' => Output::getClean(Input::get('email')),
+	                                    'reset_code' => $code,
+	                                    'lastip' => Output::getClean($ip),
+	                                    'last_online' => $date,
+	                                    'language_id' => $language_id,
+	                                    'active' => $active
+	                                ));
 
-                                        $html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array(SITE_NAME, $language->get('user', 'validate_account'), $language->get('user', 'email_greeting'), $language->get('user', 'email_message'), $link, $language->get('user', 'email_thanks')), $html);
+	                                // Get user ID
+	                                $user_id = $queries->getLastId();
 
-                                        $email = array(
-                                            'to' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('username'))),
-                                            'subject' => SITE_NAME . ' - ' . $language->get('user', 'validate_account'),
-                                            'message' => $html
-                                        );
+	                                Log::getInstance()->log(Log::Action('user/register'), "", $user_id);
 
-                                        $sent = Email::send($email, 'mailer');
+	                                if ($api_verification != '1' && $email_verification == '1') {
+	                                    $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+	                                    $php_mailer = $php_mailer[0]->value;
 
-                                        if (isset($sent['error'])) {
-                                            // Error, log it
-                                            $queries->create('email_errors', array(
-                                                'type' => 1, // 1 = registration
-                                                'content' => $sent['error'],
-                                                'at' => date('U'),
-                                                'user_id' => $user_id
-                                            ));
-                                        }
+	                                    if ($php_mailer == '1') {
+	                                        // PHP Mailer
+	                                        // HTML to display in message
+	                                        $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'register.html'));
+	                                        $html = file_get_contents($path);
 
-                                    } else {
-                                        // PHP mail function
-                                        $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
-                                        $siteemail = $siteemail[0]->value;
+	                                        $link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code);
 
-                                        $to = Input::get('email');
-                                        $subject = SITE_NAME . ' - ' . $language->get('user', 'validate_account');
+	                                        $html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array(SITE_NAME, $language->get('user', 'validate_account'), $language->get('user', 'email_greeting'), $language->get('user', 'email_message'), $link, $language->get('user', 'email_thanks')), $html);
 
-                                        $message = $language->get('user', 'email_greeting') . PHP_EOL .
-                                            $language->get('user', 'email_message') . PHP_EOL . PHP_EOL .
-                                            'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code) . PHP_EOL . PHP_EOL .
-                                            $language->get('user', 'email_thanks') . PHP_EOL .
-                                            SITE_NAME;
+	                                        $email = array(
+	                                            'to' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('username'))),
+	                                            'subject' => SITE_NAME . ' - ' . $language->get('user', 'validate_account'),
+	                                            'message' => $html
+	                                        );
 
-                                        $headers = 'From: ' . $siteemail . "\r\n" .
-                                            'Reply-To: ' . $siteemail . "\r\n" .
-                                            'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                                            'MIME-Version: 1.0' . "\r\n" .
-                                            'Content-type: text/html; charset=UTF-8' . "\r\n";
+	                                        $sent = Email::send($email, 'mailer');
 
-                                        $email = array(
-                                            'to' => $to,
-                                            'subject' => $subject,
-                                            'message' => $message,
-                                            'headers' => $headers
-                                        );
+	                                        if (isset($sent['error'])) {
+	                                            // Error, log it
+	                                            $queries->create('email_errors', array(
+	                                                'type' => 1, // 1 = registration
+	                                                'content' => $sent['error'],
+	                                                'at' => date('U'),
+	                                                'user_id' => $user_id
+	                                            ));
+	                                        }
 
-                                        $sent = Email::send($email, 'php');
+	                                    } else {
+	                                        // PHP mail function
+	                                        $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
+	                                        $siteemail = $siteemail[0]->value;
 
-                                        if (isset($sent['error'])) {
-                                            // Error, log it
-                                            $queries->create('email_errors', array(
-                                                'type' => 1, // 1 = registration
-                                                'content' => $sent['error'],
-                                                'at' => date('U'),
-                                                'user_id' => $user_id
-                                            ));
-                                        }
+	                                        $to = Input::get('email');
+	                                        $subject = SITE_NAME . ' - ' . $language->get('user', 'validate_account');
 
-                                    }
-                                } else {
-                                    // Email verification disabled
-                                    HookHandler::executeEvent('registerUser', array(
-                                        'event' => 'registerUser',
-                                        'user_id' => $user_id,
-                                        'username' => Output::getClean(Input::get('username')),
-                                        'uuid' => $uuid,
-                                        'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
-                                        'avatar_url' => $user->getAvatar($user_id, null, 128, true),
-                                        'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
-                                        'language' => $language
-                                    ));
+	                                        $message = $language->get('user', 'email_greeting') . PHP_EOL .
+	                                            $language->get('user', 'email_message') . PHP_EOL . PHP_EOL .
+	                                            'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code) . PHP_EOL . PHP_EOL .
+	                                            $language->get('user', 'email_thanks') . PHP_EOL .
+	                                            SITE_NAME;
 
-                                    // Redirect straight to verification link
-                                    $url = URL::build('/validate/', 'c=' . $code);
-                                    Redirect::to($url);
-                                    die();
-                                }
+	                                        $headers = 'From: ' . $siteemail . "\r\n" .
+	                                            'Reply-To: ' . $siteemail . "\r\n" .
+	                                            'X-Mailer: PHP/' . phpversion() . "\r\n" .
+	                                            'MIME-Version: 1.0' . "\r\n" .
+	                                            'Content-type: text/html; charset=UTF-8' . "\r\n";
 
-                                HookHandler::executeEvent('registerUser', array(
-                                    'event' => 'registerUser',
-                                    'user_id' => $user_id,
-                                    'username' => Output::getClean(Input::get('username')),
-                                    'uuid' => $uuid,
-                                    'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
-                                    'avatar_url' => $user->getAvatar($user_id, null, 128, true),
-                                    'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
-                                    'language' => $language
-                                ));
+	                                        $email = array(
+	                                            'to' => $to,
+	                                            'subject' => $subject,
+	                                            'message' => $message,
+	                                            'headers' => $headers
+	                                        );
 
-                                Session::flash('home', $language->get('user', 'registration_check_email'));
-                                Redirect::to(URL::build('/'));
-                                die();
+	                                        $sent = Email::send($email, 'php');
 
-                            } catch (Exception $e) {
-                                die($e->getMessage());
-                            }
-                        }
-                    } else {
-					    $errors = array($uuid_error);
-                    }
+	                                        if (isset($sent['error'])) {
+	                                            // Error, log it
+	                                            $queries->create('email_errors', array(
+	                                                'type' => 1, // 1 = registration
+	                                                'content' => $sent['error'],
+	                                                'at' => date('U'),
+	                                                'user_id' => $user_id
+	                                            ));
+	                                        }
+
+	                                    }
+	                                } else {
+	                                    // Email verification disabled
+	                                    HookHandler::executeEvent('registerUser', array(
+	                                        'event' => 'registerUser',
+	                                        'user_id' => $user_id,
+	                                        'username' => Output::getClean(Input::get('username')),
+	                                        'uuid' => $uuid,
+	                                        'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
+	                                        'avatar_url' => $user->getAvatar($user_id, null, 128, true),
+	                                        'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
+	                                        'language' => $language
+	                                    ));
+
+	                                    // Redirect straight to verification link
+	                                    $url = URL::build('/validate/', 'c=' . $code);
+	                                    Redirect::to($url);
+	                                    die();
+	                                }
+
+	                                HookHandler::executeEvent('registerUser', array(
+	                                    'event' => 'registerUser',
+	                                    'user_id' => $user_id,
+	                                    'username' => Output::getClean(Input::get('username')),
+	                                    'uuid' => $uuid,
+	                                    'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
+	                                    'avatar_url' => $user->getAvatar($user_id, null, 128, true),
+	                                    'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
+	                                    'language' => $language
+	                                ));
+
+	                                Session::flash('home', $language->get('user', 'registration_check_email'));
+	                                Redirect::to(URL::build('/'));
+	                                die();
+
+	                            } catch (Exception $e) {
+	                                die($e->getMessage());
+	                            }
+	                        }
+	                    } else {
+						    $errors = array($uuid_error);
+	                    }
+
+					} else {
+						// Invalid Minecraft name
+						$errors = array($language->get('user', 'invalid_mcname'));
+					}
+
 				} else {
 					// Errors
 					$errors = array();
@@ -552,10 +558,6 @@ if(Input::exists()){
 						}
 					}
 				}
-			} else {
-				// Invalid Minecraft name
-				$errors = array($language->get('user', 'invalid_mcname'));
-			}
 		
 		} else {
 			// reCAPTCHA failed
