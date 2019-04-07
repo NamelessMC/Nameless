@@ -15,6 +15,7 @@ $language = array(
 	 */
 	'submit' => 'Zatwierdź',
 	'register' => 'Zarejestruj',
+	'already_registered' => 'Already Registered?',
 	'sign_in' => 'Zaloguj się',
 	'log_out' => 'Wyloguj się',
 	'profile' => 'Profil',

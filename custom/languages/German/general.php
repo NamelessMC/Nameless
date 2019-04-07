@@ -23,6 +23,7 @@ $language = array(
 	 */ 
 	'submit' => 'Senden',
 	'register' => 'Registrieren',
+	'already_registered' => 'Already Registered?',
 	'sign_in' => 'Einloggen',
 	'log_out' => 'Ausloggen',
 	'profile' => 'Profil',

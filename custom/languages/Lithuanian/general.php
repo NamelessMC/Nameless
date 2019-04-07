@@ -14,6 +14,7 @@ $language = array(
  	// General terms
 	'submit' => 'Pateikti',
 	'register' => 'Registruotis',
+	'already_registered' => 'Already Registered?',
 	'sign_in' => 'Prisijungti',
 	'log_out' => 'Atsijungti',
 	'profile' => 'Profilis',

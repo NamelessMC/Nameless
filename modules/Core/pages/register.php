@@ -594,7 +594,8 @@ $smarty->assign(array(
 	'LOG_IN' => $language->get('general', 'sign_in'),
 	'LOGIN_URL' => URL::build('/login'),
 	'TOKEN' => Token::get(),
-	'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
+	'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
+	'ALREADY_REGISTERED' => $language->get('general', 'already_registered')
 ));
 
 if($recaptcha === "true"){

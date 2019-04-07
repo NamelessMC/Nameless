@@ -68,13 +68,13 @@
           <div class="inline field">
             <div class="ui checkbox">
               <input type="checkbox" name="t_and_c" id="t_and_c" value="1" tabindex="7">
-              <label>{$AGREE_TO_TERMS}</label>
+              <label for="t_and_c">{$AGREE_TO_TERMS}</label>
             </div>
           </div>
           <input type="hidden" name="token" value="{$TOKEN}">
           <input type="submit" class="ui primary button" value="{$REGISTER}" tabindex="8">
         </form>
-        <div class="ui horizontal divider">Already Registered?</div>
+        <div class="ui horizontal divider">{$ALREADY_REGISTERED}</div>
         <div class="ui center aligned">
           <a class="ui large positive button" href="{$LOGIN_URL}">{$LOG_IN}</a>
         </div>

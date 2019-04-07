@@ -17,6 +17,7 @@ $language = array(
 	 */
 	'submit' => 'Υποβολή',
 	'register' => 'Εγγραφή',
+	'already_registered' => 'Already Registered?',
 	'sign_in' => 'Σύνδεση',
 	'log_out' => 'Αποσυνδέση',
 	'profile' => 'Προφίλ',

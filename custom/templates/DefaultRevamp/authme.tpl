@@ -6,13 +6,13 @@
   <div class="sub header">{$AUTHME_INFO}</div>
 </h2>
 
-{if count($ERRORS)}
+{if count($ERROR)}
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
       <div class="header">Error</div>
       <ul class="list">
-        {foreach from=$ERRORS item=error}
+        {foreach from=$ERROR item=error}
           <li>{$error}</li>
         {/foreach}
       </ul>
@@ -20,33 +20,32 @@
   </div>
 {/if}
 
-{if isset($AUTHME_SUCCESS)}
-  <div class="ui success icon message">
-    <i class="check icon"></i>
-    <div class="content">
-      <div class="header">Success</div>
-      {$AUTHME_SUCCESS}
-    </div>
-  </div>
-{/if}
-
-<div class="ui padded segment" id="authme">
+<div class="ui padded segment" id="authme-email">
   <div class="ui stackable grid">
     <div class="ui centered row">
       <div class="ui sixteen wide tablet ten wide computer column">
-        <form class="ui form" action="" method="post" id="form-authme">
+        <form class="ui form" action="" method="post" id="form-authme-email">
           <div class="field">
-            <label for="inputEmail">{$EMAIL}</label>
-            <input type="email" id="inputEmail" name="email" placeholder="{$EMAIL}" tabindex="1">
+            <label for="inputUsername">{$USERNAME}</label>
+            <input type="text" id="inputUsername" name="username" placeholder="{$USERNAME}" tabindex="1">
           </div>
-          {if isset($NICKNAME)}
+          <div class="field">
+            <label for="inputPassword">{$PASSWORD}</label>
+            <input type="password" id="inputPassword" name="password" placeholder="{$PASSWORD}" tabindex="2">
+          </div>
+          {if isset($RECAPTCHA)}
             <div class="field">
-              <label for="inputNickname">{$NICKNAME}</label>
-              <input type="text" id="inputNickname" name="nickname" placeholder="{$NICKNAME}" tabindex="2">
+              <div class="g-recaptcha" data-sitekey="{$RECAPTCHA}" tabindex="3"></div>
             </div>
           {/if}
+          <div class="inline field">
+            <div class="ui checkbox">
+              <input type="checkbox" name="t_and_c" id="t_and_c" value="1" tabindex="7">
+              <label for="t_and_c">{$AGREE_TO_TERMS}</label>
+            </div>
+          </div>
           <input type="hidden" name="token" value="{$TOKEN}">
-          <input type="submit" class="ui primary button" value="{$SUBMIT}" tabindex="3">
+          <input type="submit" class="ui primary button" value="{$SUBMIT}" tabindex="5">
         </form>
       </div>
     </div>

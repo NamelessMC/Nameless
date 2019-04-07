@@ -15,6 +15,7 @@ $language = array(
 	 */ 
 	'submit' => 'Gjør',
 	'register' => 'Registrer',
+	'already_registered' => 'Already Registered?',
 	'sign_in' => 'Logg inn',
 	'log_out' => 'Logg ut',
 	'profile' => 'Profil',

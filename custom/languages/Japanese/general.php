@@ -18,6 +18,7 @@ $language = array(
 	 */ 
 	'submit' => '送信',
 	'register' => '登録',
+	'already_registered' => 'Already Registered?',
 	'sign_in' => 'ログイン',
 	'log_out' => 'ログアウト',
 	'profile' => 'プロフィール',

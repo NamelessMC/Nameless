@@ -771,7 +771,7 @@ class Nameless2API
             $server_query = $this->_db->get('mc_servers', array('id', '=', $info['server-id']));
             if(!$server_query->count()) $this->throwError(27, $this->_language->get('api', 'invalid_server_id'));
 
-            //echo '<pre>', print_r($info->{'players'}), '</pre>';
+            echo '<pre>', print_r($info->{'players'}), '</pre>';
 
             try {
                 $this->_db->insert('query_results', array(
@@ -780,7 +780,6 @@ class Nameless2API
                     'players_online' => count($info['players']),
                     'extra' => $_POST['info']
                 ));
-
 
                 if(file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
                     $query_cache = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache');
