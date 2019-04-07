@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -47,5 +47,6 @@ $language = array(
     'report_created' => 'Zgłoszenie zostało stworzone pomyślnie.',
     'new_private_message_from' => 'Nowa wiadomość od: {x}', // Don't replace {x}
     'username_updated' => 'Nazwa użytkownika została zaktualizowana pomyślnie.',
-    'server_info_updated' => 'Informacje o serwerze zostały zaktualizowane pomyślnie.'
+    'server_info_updated' => 'Informacje o serwerze zostały zaktualizowane pomyślnie.',
+    	'account_validated' => 'Konto zostało zweryfikowane pomyślnie.'
 );

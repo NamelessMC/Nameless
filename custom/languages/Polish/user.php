@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -56,16 +56,16 @@ $language = array(
 	'invalid_tfa' => 'Zły kod, spróbuj ponownie.',
 	'tfa_successful' => 'Podwójna weryfikacja została włączona. Od teraz będziesz musiał zweryfikować się zawsze przy logowaniu.',
 	'active_language' => 'Język',
-	'timezone' => 'Strefa czasowa',
-	'upload_new_avatar' => 'Prześlij nowy awatar',
-	'nickname_already_exists' => 'Ktoś ma już nick który wybrałeś.',
-	'change_email_address' => 'Zmień adres email',
-	'email_already_exists' => 'Konto zarejestrowane na adres email który podałeś już istnieje.',
-	'email_changed_successfully' => 'Adres email został zmieniony pomyślnie.',
-	'avatar' => 'Awatar',
-	'profile_banner' => 'Profile Banner',
-	'upload_profile_banner' => 'Upload Profile Banner',
-	'upload' => 'Upload',
+	 'timezone' => 'Strefa czasowa',
+	 'upload_new_avatar' => 'Prześlij nowy awatar',
+	 'nickname_already_exists' => 'Ktoś ma już nick który wybrałeś.',
+	 'change_email_address' => 'Zmień adres email',
+	 'email_already_exists' => 'Konto zarejestrowane na adres email który podałeś już istnieje.',
+	 'email_changed_successfully' => 'Adres email został zmieniony pomyślnie.',
+	 'avatar' => 'Awatar',
+	 'profile_banner' => 'Banner profilowy',
+   'upload_profile_banner' => 'Wgraj banner profilowy',
+   'upload' => 'Wgraj',
 
 	// Alerts
 	'user_tag_info' => 'Zostałeś oznaczony w poście przez {x}.', // Don't replace {x}
@@ -181,7 +181,7 @@ $language = array(
 	'new_wall_post_reply' => '{x} odpowiedział na twój post na profilu użytkownika {y}.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} odpowiedział na twój post na twoim profilu.', // Don't replace {x}
 	'no_about_fields' => 'Ten użytkownik nie dodał jeszcze żadnych informacji o sobie.',
-	'reply' => 'Reply',
+		'reply' => 'Odpowiedz',
 
 	// Reports
 	'invalid_report_content' => 'Nie można wysłać zgłoszenia. Upewnij się że treść zgłoszenia ma od 2 do 1024 znaków.',
@@ -214,7 +214,7 @@ $language = array(
 	'leave_conversation' => 'Opuść konwersację',
 	'confirm_leave' => 'Jesteś pewny że chcesz opuścić tą konwersację?',
 	'one_or_more_users_blocked' => 'Nie możesz wysyłać prywatnych wiadomości do co najmniej jednego członka rozmowy. (Jest on zablokowany)',
-	'messages' => 'Messages',
+		'messages' => 'Wiadomości',
 
 	/*
 	 *  Infractions area

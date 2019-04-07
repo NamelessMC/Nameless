@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -83,7 +83,8 @@ $language = array(
 	'facebook_url' => 'URL Facebook ',
 	'social_media_settings_updated' => 'Ustwanienia social mediów zostały zaktualizowane.',
 	'successfully_updated' => 'Pomyślnie zaktualizowano',
-   'debugging_and_maintenance' => 'Debugowanie i konserwacja',
+	'debugging_and_maintenance' => 'Debugowanie i konserwacja',
+	'maintenance' => 'Konserwacja',
    'debugging_settings_updated_successfully' => 'Ustawienia debugowania zostały zaktualizowane.',
    'enable_debug_mode' => 'Włączyć tryb debugowania?',
 	 'force_https' => 'Wymusić https?',
@@ -134,7 +135,7 @@ $language = array(
 	 'navbar_order' => 'Kolejność na pasku nawigacji',
 	 'navbar_order_instructions' => 'Możesz podać dowolny numer wyższy niż 0, by ułożyć zakładki na pasku nawigacji w wybranej kolejności. Numer 1 będzie pierwszy w kolejności, 2 drugi w kolejności, itd.',
 	 'navbar_icon' => 'Ikona na pasku nawigacji',
-	 'navbar_icon_instructions' => 'Możesz dodać ikonę do każdego elementu na pasku nawigacji, używając na przykład serwisu <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
+	 'navbar_icon_instructions' => 'Możesz dodać ikonę do każdego elementu na pasku nawigacji, używając na przykład serwisu <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
 	 'navigation_settings_updated_successfully' => 'Ustawienia paska nawigacji zostały zaktualizowane.',
 	 'dropdown_items' => 'Rozwijane elementy',
 	 'enable_page_load_timer' => 'Włączyć wskaźnik czasu ładowania strony?',
@@ -308,7 +309,7 @@ $language = array(
 
 	// Styles
 	'templates' => 'Szablony',
-	'panel_templates' => 'Panel Templates',
+	'panel_templates' => 'Szablony panelu administracji',
 	'template_outdated' => 'Wykryliśmy że ten szablon jest przeznaczony do wersji Nameless {x}, a ty używasz wersji Nameless {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Aktywny',
 	'deactivate' => 'Dezaktywuj',
@@ -331,12 +332,12 @@ $language = array(
 	'delete' => 'Usuń',
 	'template_deleted_successfully' => 'Szablon został usunięty pomyślnie.',
 	'background_image_x' => 'Grafika w tle: <strong>{x}</strong>', // Don't replace {x}
-	'banner_image_x' => 'Banner image: <strong>{x}</strong>', // Don't replace {x}
-	'background_directory_not_writable' => 'The <strong>uploads/backgrounds</strong> directory is not writable!',
-	'template_banners_directory_not_writable' => 'The <strong>uploads/template_banners</strong> directory is not writable!',
-	'template_banner_reset_successfully' => 'Banner reset successfully.',
-	'template_banner_updated_successfully' => 'Banner updated successfully.',
-	'reset_banner' => 'Reset Banner',
+	'banner_image_x' => 'Grafika na bannerze: <strong>{x}</strong>', // Don't replace {x}
+	'background_directory_not_writable' => 'Ścieżka <strong>uploads/backgrounds</strong> nie jest zapisywalna!',
+	'template_banners_directory_not_writable' => 'Ścieżka <strong>uploads/template_banners</strong> nie jest zapisywalna!',
+	'template_banner_reset_successfully' => 'Banner został zresetowany pomyślnie.',
+	'template_banner_updated_successfully' => 'Banner został zaktualizowany pomyślnie.',
+	'reset_banner' => 'Zresetuj banner',
 	'find_templates' => 'Znajdź szablony',
 	'view_all_templates' => 'Pokaż wszystkie szablony',
 	'unable_to_retrieve_templates' => 'Podczas pobierania szablonów wystąpił błąd.',
@@ -390,8 +391,6 @@ $language = array(
 	'group_html_lg' => 'HTML Grupy (duże)',
 	'group_username_colour' => 'Kolor nazwy użytkownika w grupie',
 	'group_staff' => 'Czy grupa jest grupą administarcji?',
-	'group_modcp' => 'Czy grupa może wejść do panelu moderatora?',
-	'group_admincp' => 'Czy grupa może wejśćdo panelu administratora?',
 	'delete_group' => 'Usuń grupę',
 	'confirm_group_deletion' => 'Jesteś pewien że chcesz usunąć grupę {x}?', // Don't replace {x}
 	'group_not_exist' => 'Ta grupa nie istnieje',
@@ -473,10 +472,10 @@ $language = array(
 
 	// Online users widget
 	'include_staff_in_user_widget' => 'Pokazywać administrację w widżecie użytkownika?',
-	'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
+	'show_nickname_instead_of_username' => 'Pokazywać nick użytkownika zamiast nazwy?',
 
-   // Custom Pages
-	 'pages' => 'Strony',
+	// Custom Pages
+	'pages' => 'Strony',
    'custom_pages' => 'Niestandardowe strony',
 	 'new_page' => '<i class="fa fa-plus-circle"></i> Nowa strona',
 	 'no_custom_pages' => 'Nie zostały stworzone jeszcze żadne strony.',
@@ -610,5 +609,5 @@ $language = array(
 	'source' => 'Źródło',
 	'support' => 'Pomoc',
 	'admin_dir_still_exists' => 'Uwaga! Katalog <strong>modules/Core/pages/admin</strong> nadal istnieje. Możesz go usunąć, ponieważ nie jest już do niczego potrzebny.',
-	'mod_dir_still_exists' => 'Uwaga! Katalog <strong>modules/Core/pages/mod</strong> nadal istnieje. Możesz go usunąć, poniewać nie jest już do niczego potrzebny.'
+	'mod_dir_still_exists' => 'Uwaga! Katalog <strong>modules/Core/pages/mod</strong> nadal istnieje. Możesz go usunąć, poniewać nie jest już do niczego potrzebny.',
 );

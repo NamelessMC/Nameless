@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -13,9 +13,9 @@ $language = array(
 	/*
 	 *  Tables
 	 */
-	'display_records_per_page' => 'Pokaż _MENU_  wyników na jednej stronie.', // Don't replace "_MENU_"
-	'nothing_found' => 'Nie znaleziono wyników wyszukiwania.',
+	'display_records_per_page' => 'Pokaż _MENU_ wyników na stronie', // Don't replace "_MENU_"
+	'nothing_found' => 'Brak wyników wyszukiwania',
 	'page_x_of_y' => 'Strona _PAGE_ z _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
-	'no_records' => 'Brak dostępnych wyników wyszukiwania',
-	'filtered' => '(filtrowane z wszystkich _MAX_ wyników wyszukiwania)' // Don't replace "_MAX_"
+	'no_records' => 'Brak dostępnych danych',
+	'filtered' => '(filtrowane z _MAX_ wszystkich wyników)' // Don't replace "_MAX_"
 );

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -120,19 +120,19 @@ $language = array(
     /*
      *  Widgets
      */
-    'statistics' => 'Statistics',
-    'users_registered' => 'Users Registered',
-    'latest_member' => 'Latest Member',
-    'forum_statistics' => 'Forum Statistics',
-    'total_threads' => 'Total Threads',
-    'total_posts' => 'Total Posts',
+		 'statistics' => 'Statystyki',
+		 'users_registered' => 'Zarejestrowani użytkownicy',
+		 'latest_member' => 'Ostatni użytkownik',
+		 'forum_statistics' => 'Statystyki forum',
+		 'total_threads' => 'Wszystkie tematy',
+		 'total_posts' => 'Wszystkie posty',
     'online_staff' => '<h2>Administracja online</h2>',
     'no_online_staff' => 'Aktualnie żadna osoba z administracji nie jest online.',
-	'total_online_staff' => 'Total online staff: {x}',
+		'total_online_staff' => 'Cała administracja online: {x}',
     'online_users' => '<h2>Użytkownicy online</h2>',
     'no_online_users' => 'Aktualnie nie ma żadnych użytkowników online.',
-	'total_online_users' => 'Total online users: {x}',
-    'discord_widget_disabled' => 'Ten serwer Discord ma wyłączoną opcję widżetu. Wejdź do sekcji \'Widget\' w ustawieniach serwera Discord, upewnij się że opcja \'Włącz widżet serwera\' jest włączona, i że podałeś w ustawieniach poprawne ID serwera Discord.',
+		'total_online_users' => 'Wszyscy użytkownicy online: {x}',
+		'discord_widget_disabled' => 'Ten serwer Discord ma wyłączoną opcję widżetu. Wejdź do sekcji \'Widget\' w ustawieniach serwera Discord, upewnij się że opcja \'Włącz widżet serwera\' jest włączona, i że podałeś w ustawieniach poprawne ID serwera Discord.',
 
     /*
      *  Privacy policy

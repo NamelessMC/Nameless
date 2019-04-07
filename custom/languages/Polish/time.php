@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -25,5 +25,5 @@ $language = array(
 	'about_1_month' => 'około miesiąc temu',
 	'_months' => '{x} miesięcy temu',
 	'about_1_year' => 'około rok temu',
-	'over_x_years' => 'ponad {x} lat temu'
+	'over_x_years' => 'ponad {x} lat temu',
 );
