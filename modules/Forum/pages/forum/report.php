@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -74,6 +74,8 @@ if(Token::check(Input::get('token'))){
 				'reported_id' => $post->post_creator,
 				'date_reported' => date('Y-m-d H:i:s'),
 				'date_updated' => date('Y-m-d H:i:s'),
+				'reported' => date('U'),
+				'updated' => date('U'),
 				'report_reason' => Output::getClean($_POST['reason']),
 				'updated_by' => $user->data()->id,
 				'link' => URL::build('/forum/topic/' . Output::getClean($_POST['topic']), 'pid=' . Output::getClean($_POST['post']))
