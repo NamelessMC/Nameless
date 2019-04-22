@@ -139,5 +139,10 @@ $language = array(
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Ochrana osobních údajů'
+    'privacy_policy' => 'Ochrana osobních údajů',
+
+	/*
+	 *  Custom page redirect
+	 */
+	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

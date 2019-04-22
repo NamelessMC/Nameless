@@ -142,5 +142,10 @@ $language = array(
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'プライバシーポリシー(個人情報保護方針)'
+    'privacy_policy' => 'プライバシーポリシー(個人情報保護方針)',
+
+	/*
+	 *  Custom page redirect
+	 */
+	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );
