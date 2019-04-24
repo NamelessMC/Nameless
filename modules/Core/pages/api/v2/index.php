@@ -956,7 +956,7 @@ class Nameless2API
 		if($this->_validated === true){
 			$this->_db = DB::getInstance();
 
-			$users = $this->_db->query('SELECT username, uuid FROM nl2_users')->results();
+			$users = $this->_db->query('SELECT username, uuid, isbanned AS banned, active FROM nl2_users')->results();
 
 			$this->returnArray(array('users' => $users));
 		}
