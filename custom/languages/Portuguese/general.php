@@ -2,13 +2,13 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
  *  Portuguese Language - General
- *  Translation By Douglas Teles & dasilvaj4
- *  Last Update: 11/04/2018
+ *  Translation by Douglas Teles
+ *  Last Update: 24/04/2019
  */
 $language = array(
 	/*
@@ -16,7 +16,7 @@ $language = array(
 	 */ 
 	'submit' => 'Enviar',
 	'register' => 'Cadastrar',
-	'already_registered' => 'Already Registered?',
+	'already_registered' => 'Já possui cadastro?',
 	'sign_in' => 'Entrar',
 	'log_out' => 'Sair',
 	'profile' => 'Perfil',
@@ -57,12 +57,12 @@ $language = array(
 	'bypass' => 'Burlar',
 	'yes' => 'Sim',
 	'no' => 'Não',
-	'content' => 'Content',
-	'full_content' => 'Full Content',
+	'content' => 'Conteúdo',
+	'full_content' => 'Conteúdo Completo',
 	'url' => 'URL',
-	'success' => 'Success',
-	'error' => 'Error',
-	'are_you_sure' => 'Are you sure?',
+	'success' => 'Sucesso',
+	'error' => 'Erro',
+	'are_you_sure' => 'Você tem certeza?',
 	'spoiler' => 'Spoiler',
 
 	/*
@@ -103,16 +103,16 @@ $language = array(
 	'player_count' => '{x}/{y}', // Don't replace {x} or {y}
 	'ping' => 'Ping: {x}', // Don't replace {x}
 	'version' => 'Versão: {x}', // Don't replace {x}
-	'currently_1_player_online' => 'There is currently 1 player online.',
+	'currently_1_player_online' => 'No momento, há 1 jogador online.',
 	'currently_x_players_online' => 'Há <strong>{x}</strong> jogadores online.', // Don't replace {x}
 	'server_offline' => 'O servidor está atualmente offline.',
 	'connect_with_ip_x' => 'Junte-se aos nossos jogadores: {x}', // Don't replace {x}
-    'click_to_copy_tooltip' => 'Click to copy',
-    'copied' => 'Copied!',
-    'no_servers' => 'There are no servers to display!',
-    'bungee_instance' => 'This server is a Bungee instance.',
-    'no_players_online' => 'There are no players online.',
-    'and_x_more' => 'and {x} more', // Don't replace {x}
+    'click_to_copy_tooltip' => 'Clique para copiar',
+    'copied' => 'Copiado!',
+    'no_servers' => 'Não há servidores para exibir!',
+    'bungee_instance' => 'Este servidor é uma instância do Bungee.',
+    'no_players_online' => 'Não há jogadores online.',
+    'and_x_more' => 'e {x} mais', // Don't replace {x}
 
 	/*
 	 *  Cookie notice
@@ -123,27 +123,27 @@ $language = array(
     /*
      *  Widgets
      */
-    'statistics' => 'Statistics',
-    'users_registered' => 'Users Registered',
-    'latest_member' => 'Latest Member',
-    'forum_statistics' => 'Forum Statistics',
-    'total_threads' => 'Total Threads',
-    'total_posts' => 'Total Posts',
-    'online_staff' => 'Online Staff',
-    'no_online_staff' => 'There are no staff members online.',
-	'total_online_staff' => 'Total online staff: {x}',
-    'online_users' => 'Online Users',
-    'no_online_users' => 'There are no users online.',
-	'total_online_users' => 'Total online users: {x}',
-    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
+    'statistics' => 'Estatisticas',
+    'users_registered' => 'Usuários Registrados',
+    'latest_member' => 'Membro mais Recente',
+    'forum_statistics' => 'Estatísticas do Fórum',
+    'total_threads' => 'Total de Tópicos',
+    'total_posts' => 'Total de Postagens',
+    'online_staff' => 'Staff Online',
+    'no_online_staff' => 'Não há membros da staff online.',
+	'total_online_staff' => 'Staff online: {x}',
+    'online_users' => 'Usuários Online',
+    'no_online_users' => 'Não há usuários online.',
+	'total_online_users' => 'Usuários online: {x}',
+    'discord_widget_disabled' => 'O widget está desativado para o servidor Discord especificado. Por favor, vá para a aba \'Widget\' nas configurações do servidor Discord, e assegure-se de que o widget Discord esteja habilitado e que o ID esteja correto.',
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Privacy Policy',
+    'privacy_policy' => 'Política de Privacidade',
 
 	/*
 	 *  Custom page redirect
 	 */
-	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+	'redirecting_message' => 'Redirecionando...<br />Se você não for redirecionado automaticamente, clique <a href="{x}" rel="nofollow noopener">aqui</a>.' // Don't replace {x} which is the redirect URL
 );
