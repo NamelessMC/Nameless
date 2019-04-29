@@ -22,8 +22,9 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->addCSSFiles(array(
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => array(),
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
-	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array()
 ));
 
@@ -46,13 +47,13 @@ if($formatting == 'markdown'){
 	');
  } else {
 	$template->addJSFiles(array(
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
 		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array()
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => array()
 	));
 
-	$template->addJSScript(Input::createEditor('reply'));
+	$template->addJSScript(Input::createTinyEditor($language, 'reply'));
 }
 
 $timeago = new Timeago(TIMEZONE);
@@ -61,6 +62,10 @@ require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of topics on a
 require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
+
+$smarty->assign(array(
+	'ERROR_TITLE' => $language->get('general', 'error')
+));
 
 // Get page
 if(isset($_GET['p'])){
@@ -142,7 +147,7 @@ if(!isset($_GET['action'])){
 	}
 
 	// Load modules + template
-	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 	require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -381,7 +386,7 @@ if(!isset($_GET['action'])){
 		));
 
 		// Load modules + template
-		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 		require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -507,6 +512,7 @@ if(!isset($_GET['action'])){
 		for($n = 0; $n < count($results->data); $n++){
 			$template_array[] = array(
 				'id' => $results->data[$n]->id,
+				'author_id' => $results->data[$n]->author_id,
 				'author_username' => Output::getClean($user->idToNickname($results->data[$n]->author_id)),
 				'author_profile' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]->author_id))),
 				'author_avatar' => $user->getAvatar($results->data[$n]->author_id, "../", 100),
@@ -514,7 +520,7 @@ if(!isset($_GET['action'])){
 				'author_groups' => $user->getAllGroups($results->data[$n]->author_id, 'true'),
 				'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
 				'message_date_full' => date('d M Y, H:i', $results->data[$n]->created),
-				'content' => Output::getPurified($emojione->unicodeToImage(htmlspecialchars_decode($results->data[$n]->content)))
+				'content' => Output::getPurified($emojione->unicodeToImage(Output::getDecoded($results->data[$n]->content)))
 			);
 		}
 
@@ -557,7 +563,7 @@ if(!isset($_GET['action'])){
 			$smarty->assign('CONTENT', Output::getClean($_POST['content']));
 		else $smarty->assign('CONTENT', '');
 
-		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 		require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

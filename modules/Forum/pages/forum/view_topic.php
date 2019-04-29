@@ -95,7 +95,7 @@ if(isset($_GET['p'])){
 
 // Is the URL pointing to a specific post?
 if(isset($_GET['pid'])){
-	$posts = $queries->getWhere('posts', array('topic_id', '=', $tid));
+	$posts = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? AND deleted = 0', array($tid))->results();
 	if(count($posts)){
 		$i = 0;
 		while($i < count($posts)){
@@ -174,15 +174,39 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $first_post = $queries->orderWhere('posts', 'topic_id = ' . $tid, 'id', 'ASC LIMIT 1');
 $first_post = $first_post[0];
 
+$topic_author_username = Output::getClean($user->idToName($topic->topic_creator));
+$topic_author_nickname = Output::getClean($user->idToNickname($topic->topic_creator));
+
 $smarty->assign(array(
 	'TOPIC_TITLE' => Output::getClean($topic->topic_title),
-	'TOPIC_AUTHOR_USERNAME' => Output::getClean($user->idToName($topic->topic_creator)),
-	'TOPIC_AUTHOR_MCNAME' => Output::getClean($user->idToName($topic->topic_creator)),
+	'TOPIC_AUTHOR_USERNAME' => $topic_author_username,
+	'TOPIC_AUTHOR_MCNAME' => $topic_author_nickname,
+	'TOPIC_AUTHOR_PROFILE' => URL::build('/profile/' . Output::getClean($topic_author_username)),
+	'TOPIC_AUTHOR_STYLE' => $user->getGroupClass($topic->topic_creator),
 	'TOPIC_ID' => $topic->id,
 	'FORUM_ID' => $topic->forum_id,
 	'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords(date('d M Y, H:i', $first_post->last_edited), $language->getTimeLanguage()) : null),
 	'TOPIC_LAST_EDITED_FULL' => ($first_post->last_edited ? date('d M Y, H:i', $first_post->last_edited) : null)
 ));
+
+// Is there a label?
+if ($topic->label != 0) { // yes
+	// Get label
+	$label = $queries->getWhere('forums_topic_labels', array('id', '=', $topic->label));
+	if (count($label)) {
+		$label = $label[0];
+
+		$label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+		if (count($label_html)) {
+			$label_html = $label_html[0]->html;
+			$label = str_replace('{x}', Output::getClean($label->name), $label_html);
+		} else $label = '';
+	} else $label = '';
+} else { // no
+	$label = '';
+}
+
+$smarty->assign('TOPIC_LABEL', $label);
 
 // Get all posts in the topic
 $posts = $forum->getPosts($tid);
@@ -256,7 +280,13 @@ if(Input::exists()) {
 				if(count($users_following)){
 					foreach($users_following as $user_following){
 						if($user_following->user_id != $user->data()->id && $user_following->existing_alerts == 0){
-							Alert::create($user_following->user_id, 'new_reply', str_replace(array('{x}', '{y}'), array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)), $forum_language->get('forum', 'new_reply_in_topic')), str_replace(array('{x}', '{y}'), array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)), $forum_language->get('forum', 'new_reply_in_topic')), URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
+							Alert::create(
+								$user_following->user_id,
+								'new_reply',
+								array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title))),
+								array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title))),
+								URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
+							);
 							$queries->update('topics_following', $user_following->id, array(
 								'existing_alerts' => 1
 							));
@@ -309,6 +339,8 @@ if($user->isLoggedIn() || Cookie::exists('alert-box')){
 
 $template->addCSSFiles(array(
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => array(),
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array()
 ));
@@ -316,9 +348,12 @@ $template->addCSSFiles(array(
 if($user->isLoggedIn())
 	$template->addJSScript('var quotedPosts = [];');
 
-// Load navbar
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+// Are reactions enabled?
+$reactions_enabled = $queries->getWhere('settings', array('name', '=', 'forum_reactions'));
+if($reactions_enabled[0]->value == '1')
+	$reactions_enabled = true;
+else
+	$reactions_enabled = false;
 
 // Assign Smarty variables to pass to template
 $parent_category = $queries->getWhere('forums', array('id', '=', $forum_parent[0]->parent));
@@ -328,7 +363,7 @@ $breadcrumbs = array(
 		'id' => 0,
 		'forum_title' => Output::getClean($topic->topic_title),
 		'active' => 1,
-		'link' => URL::build('/forum/view/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title))
+		'link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title))
 	),
 	1 => array(
 		'id' => $forum_parent[0]->id,
@@ -380,7 +415,10 @@ if(Session::exists('failure_post')){
 	$smarty->assign('SESSION_FAILURE_POST', Session::flash('failure_post'));
 }
 if(isset($error) && count($error)){
-	$smarty->assign('ERRORS', $error);
+	$smarty->assign(array(
+		'ERROR_TITLE' => $language->get('general', 'error'),
+		'ERRORS' => $error
+	));
 }
 
 // Display "new reply" button and "mod actions" if the user has access to them
@@ -526,37 +564,39 @@ for($n = 0; $n < count($results->data); $n++){
 
 	// Get post reactions
 	$post_reactions = array();
-	$total_karma = 0;
+	if($reactions_enabled){
+		$total_karma = 0;
 
-	$post_reactions_query = $queries->getWhere('forums_reactions', array('post_id', '=', $results->data[$n]->id));
+		$post_reactions_query = $queries->getWhere('forums_reactions', array('post_id', '=', $results->data[$n]->id));
 
-	if(count($post_reactions_query)){
-		foreach($post_reactions_query as $item){
-			if(!isset($post_reactions[$item->reaction_id])){
-				$post_reactions[$item->reaction_id]['count'] = 1;
+		if(count($post_reactions_query)){
+			foreach($post_reactions_query as $item){
+				if(!isset($post_reactions[$item->reaction_id])){
+					$post_reactions[$item->reaction_id]['count'] = 1;
 
-				$reaction = $queries->getWhere('reactions', array('id', '=', $item->reaction_id));
-				$post_reactions[$item->reaction_id]['html'] = $reaction[0]->html;
-				$post_reactions[$item->reaction_id]['name'] = $reaction[0]->name;
+					$reaction = $queries->getWhere('reactions', array('id', '=', $item->reaction_id));
+					$post_reactions[$item->reaction_id]['html'] = $reaction[0]->html;
+					$post_reactions[$item->reaction_id]['name'] = $reaction[0]->name;
 
-				if($reaction[0]->type == 2) $total_karma++;
-				else if($reaction[0]->type == 0) $total_karma--;
-			} else {
-				$post_reactions[$item->reaction_id]['count']++;
+					if($reaction[0]->type == 2) $total_karma++;
+					else if($reaction[0]->type == 0) $total_karma--;
+				} else {
+					$post_reactions[$item->reaction_id]['count']++;
+				}
+
+				$post_reactions[$item->reaction_id]['users'][] = array(
+					'username' => Output::getClean($user->idToName($item->user_given)),
+					'nickname' => Output::getClean($user->idToNickname($item->user_given)),
+					'style' => $user->getGroupClass($item->user_given),
+					'avatar' => $user->getAvatar($item->user_given, '../', 500),
+					'profile' => URL::build('/profile/' . Output::getClean($user->idToName($item->user_given)))
+				);
 			}
-
-			$post_reactions[$item->reaction_id]['users'][] = array(
-				'username' => Output::getClean($user->idToName($item->user_given)),
-				'nickname' => Output::getClean($user->idToNickname($item->user_given)),
-				'style' => $user->getGroupClass($item->user_given),
-				'avatar' => $user->getAvatar($item->user_given, '../', 500),
-				'profile' => URL::build('/profile/' . Output::getClean($user->idToName($item->user_given)))
-			);
 		}
 	}
 
 	// Purify post content
-	$content = htmlspecialchars_decode($results->data[$n]->post_content);
+	$content = Util::replaceAnchorsWithText(Output::getDecoded($results->data[$n]->post_content));
 	$content = $emojione->unicodeToImage($content);
 	$content = Output::getPurified($content);
 
@@ -603,11 +643,13 @@ $smarty->assign('REPLIES', $replies);
 
 if($user->isLoggedIn()){
 	// Reactions
-	$reactions = $queries->getWhere('reactions', array('enabled', '=', 1));
-	if(!count($reactions)) $reactions = array();
+	if($reactions_enabled){
+		$reactions = $queries->getWhere('reactions', array('enabled', '=', 1));
+		if(!count($reactions)) $reactions = array();
 
-	$smarty->assign('REACTIONS', $reactions);
-	$smarty->assign('REACTIONS_URL', URL::build('/forum/reactions'));
+		$smarty->assign('REACTIONS', $reactions);
+		$smarty->assign('REACTIONS_URL', URL::build('/forum/reactions'));
+	}
 
 	// Following?
 	$is_user_following = DB::getInstance()->query('SELECT id, existing_alerts FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
@@ -655,7 +697,9 @@ $smarty->assign(array(
 	'BY' => ucfirst($forum_language->get('forum', 'by')),
 	'CANCEL' => $language->get('general', 'cancel'),
 	'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id  : 0),
-	'INSERT_QUOTES' => $forum_language->get('forum', 'insert_quotes')
+	'INSERT_QUOTES' => $forum_language->get('forum', 'insert_quotes'),
+	'FORUM_TITLE' => Output::getClean($forum_parent[0]->forum_title),
+	'STARTED_BY' => $forum_language->get('forum', 'started_by_x')
 ));
 
 // Get post formatting type (HTML or Markdown)
@@ -668,7 +712,6 @@ if($formatting == 'markdown'){
 	$smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
 
 	$template->addJSFiles(array(
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
 		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => array()
 	));
 
@@ -681,14 +724,14 @@ if($formatting == 'markdown'){
 	');
 } else {
 	$template->addJSFiles(array(
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
 		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array()
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => array()
 	));
 
 	if($user->isLoggedIn())
-		$template->addJSScript(Input::createEditor('quickreply'));
+		$template->addJSScript(Input::createTinyEditor($language, 'quickreply'));
 }
 
 if($user->isLoggedIn()){
@@ -699,7 +742,7 @@ if($user->isLoggedIn()){
 		';
 	} else {
 		$js = '
-		CKEDITOR.instances.quickreply.insertHtml(\'<blockquote class="blockquote"><a href="\' + resultData[item].link + \'">\' + resultData[item].author_nickname + \':</a><br />\' + resultData[item].content + \'</blockquote><br />\');
+		tinymce.editors[0].execCommand(\'mceInsertContent\', false, \'<blockquote class="blockquote"><a href="\' + resultData[item].link + \'">\' + resultData[item].author_nickname + \':</a><br />\' + resultData[item].content + \'</blockquote><br />\');
 		';
 	}
 
@@ -790,7 +833,7 @@ if($user->isLoggedIn()){
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

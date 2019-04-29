@@ -8,7 +8,7 @@
  *
  *  Romanian Language for Forum module
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ImGladius
- *  Last Update: 24/09/2018
+ *  Last Update: 24/11/2018
  */
 
 $language = array(
@@ -95,9 +95,11 @@ $language = array(
 	'now_following_topic' => 'Acum urmăriți acest subiect și veți primi notificări cu privire la orice răspuns nou.',
 	'no_longer_following_topic' => 'Nu mai urmăriți acest subiect și nu veți mai fi notificat cu privire la niciun răspuns nou.',
 	'new_reply_in_topic' => '{x} a răspuns la subiectul {y}', // Don't replace {x} (username) or {y} (topic title)
+	'started_by_x' => 'Started by {x}', // Don't replace {x}
+	'sticky_topics' => 'Sticky Topics',
 	
 	// Homepage
-	'latest_announcements' => 'Cele mai recente articole',
+	'latest_announcements' => 'Cele mai recente noutăti',
 	'read_full_post' => 'Subiect complet',
 	
 	// Admin tab
@@ -136,6 +138,7 @@ $language = array(
 	'forum_permissions' => 'Permisiuni forum',
 	'select_a_parent_forum' => 'Selectați un forum părinte',
 	'parent_forum' => 'Forum părinte',
+	'parent_forum_x' => 'Forum părinte: {x}', // Don't replace {x}
 	'has_no_parent' => 'Fără forum părinte',
 	'guests' => 'Vizitatori',
 	'group' => 'Grup',
@@ -143,7 +146,7 @@ $language = array(
 	'can_view_other_topics' => 'Poate vizualiza subiectele altor utilizatori?',
 	'can_create_topic' => 'Poate crea subiecte?',
 	'can_post_reply' => 'Poate răspunde la subiecte?',
-	'can_moderate_forum' => 'Poate moderata forumul?',
+	'can_moderate_forum' => 'Poate modera forumul?',
 	'display_topics_as_news' => 'Afișați subiectele ca știri pe prima pagină?',
 	'forum_created_successfully' => 'Forumul a fost creat cu succes.',
 	'forum_layout' => 'Aspectul forumului', // removed
@@ -165,11 +168,13 @@ $language = array(
 	'invalid_redirect_url' => 'Ai activat redirecționarea forumului, dar nu ai introdus o adresă URL validă între 1 și 512 de caractere.',
 	'forum_icon' => 'Cod HTML Pictogramă',
 	'forum_icon_maximum' => 'Pictograma forumului trebuie să aibă maxim 256 de caractere.',
-	'settings_updated_successfully' => 'Settings updated successfully.',
-	'forum_updated_successfully' => 'Forum updated successfully.',
-	'forum_deleted_successfully' => 'Forum deleted successfully.',
-	'label_deleted_successfully' => 'Label deleted successfully.',
-	'label_type_deleted_successfully' => 'Label type deleted successfully.',
+	'settings_updated_successfully' => 'Setările au fost actualizate cu succes.',
+	'forum_updated_successfully' => 'Forumul a fost actualizat cu succes.',
+	'forum_deleted_successfully' => 'Forumul a fost șters cu succes.',
+	'label_deleted_successfully' => 'Eticheta a fost ștearsă cu succes.',
+	'label_type_deleted_successfully' => 'Tipul de etichetă a fost șters cu succes.',
+	'topic_placeholder' => 'Placeholdere subiect',
+	// mai e de lucru la asta cu "topic_placeholder"
 
     // Search
     'forum_search' => 'Căutare în forum',

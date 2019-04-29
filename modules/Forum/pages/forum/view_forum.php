@@ -92,7 +92,7 @@ if($forum_query->redirect_forum == 1){
 	));
 
 	// Load modules + template
-	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 	$page_load = microtime(true) - $start;
 	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
@@ -263,6 +263,7 @@ if($forum_query->redirect_forum == 1){
 	$smarty->assign('SUBFORUM_LANGUAGE', $forum_language->get('forum', 'subforums'));
 	$smarty->assign('FORUM_TITLE', Output::getPurified(htmlspecialchars_decode($forum_query->forum_title)));
 	$smarty->assign('FORUM_ICON', htmlspecialchars_decode($forum_query->icon));
+	$smarty->assign('STICKY_TOPICS', $forum_language->get('forum', 'sticky_topics'));
 
 	// Can the user post here?
 	if ($user->isLoggedIn() && $forum->canPostTopic($fid, $user_group, $secondary_groups)) {
@@ -416,40 +417,8 @@ if($forum_query->redirect_forum == 1){
 		$smarty->assign('LATEST_DISCUSSIONS', $template_array);
 	}
 
-	// Statistics
-	// Check cache
-	$cache->setCache('forum_stats');
-
-	if($cache->isCached('stats')){
-		$users_query = $cache->retrieve('stats');
-		$users_registered = $users_query['users_registered'];
-		$latest_member = $users_query['latest_member'];
-
-	} else {
-		$users_query = $queries->orderAll('users', 'joined', 'DESC');
-		$users_registered = count($users_query);
-		$latest_member = array(
-			'style' => $user->getGroupClass($users_query[0]->id),
-			'profile' => URL::build('/profile/' . Output::getClean($users_query[0]->username)),
-			'avatar' => $user->getAvatar($users_query[0]->id),
-			'username' => Output::getClean($users_query[0]->username),
-			'nickname' => Output::getClean($users_query[0]->nickname),
-			'id' => Output::getClean($users_query[0]->id)
-		);
-
-		$users_query = null;
-
-		$cache->store('stats', array(
-			'users_registered' => $users_registered,
-			'latest_member' => $latest_member
-		), 120);
-	}
-
-	$smarty->assign('USERS_REGISTERED', str_replace('{x}', $users_registered, $forum_language->get('forum', 'users_registered')));
-	$smarty->assign('LATEST_MEMBER', str_replace('{x}', '<a style="' . $latest_member['style'] . '" href="' . $latest_member['profile'] . '" data-poload="' . URL::build('/queries/user/', 'id=' . $latest_member['id']) . '" data-html="true" data-placement="top">' . $latest_member['nickname'] . '</a>', $forum_language->get('forum', 'latest_member')));
-
 	// Load modules + template
-	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 	$page_load = microtime(true) - $start;
 	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

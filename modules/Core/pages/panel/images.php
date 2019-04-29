@@ -39,13 +39,23 @@ $page_title = $language->get('admin', 'images');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Reset background
-if(isset($_GET['action']) && $_GET['action'] == 'reset_bg'){
-	$cache->setCache('backgroundcache');
-	$cache->store('background_image', '');
+if(isset($_GET['action'])){
+	if($_GET['action'] == 'reset_bg'){
+		$cache->setCache('backgroundcache');
+		$cache->store('background_image', '');
 
-	Session::flash('panel_images_success', $language->get('admin', 'background_reset_successfully'));
-	Redirect::to(URL::build('/panel/core/images'));
-	die();
+		Session::flash('panel_images_success', $language->get('admin', 'background_reset_successfully'));
+		Redirect::to(URL::build('/panel/core/images'));
+		die();
+
+	} else if($_GET['action'] == 'reset_banner'){
+		$cache->setCache('backgroundcache');
+		$cache->store('banner_image', '');
+
+		Session::flash('panel_images_success', $language->get('admin', 'template_banner_reset_successfully'));
+		Redirect::to(URL::build('/panel/core/images'));
+		die();
+	}
 }
 
 // Deal with input
@@ -54,9 +64,19 @@ if(Input::exists()){
 	if(Token::check(Input::get('token'))){
 		// Valid token
 		$cache->setCache('backgroundcache');
-		$cache->store('background_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/backgrounds/' . Input::get('bg'));
 
-		Session::flash('panel_images_success', $language->get('admin', 'background_updated_successfully'));
+		if(isset($_POST['bg'])){
+			$cache->store('background_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/backgrounds/' . Input::get('bg'));
+
+			Session::flash('panel_images_success', $language->get('admin', 'background_updated_successfully'));
+
+		} else if(isset($_POST['banner'])){
+			$cache->store('banner_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/template_banners/' . Input::get('banner'));
+
+			Session::flash('panel_images_success', $language->get('admin', 'template_banner_updated_successfully'));
+
+		}
+
 		Redirect::to(URL::build('/panel/core/images'));
 		die();
 
@@ -81,8 +101,7 @@ if(isset($success))
 
 if(isset($errors) && count($errors))
 	$smarty->assign(array(
-		'ERRORS' => $errors,
-		'ERRORS_TITLE' => $language->get('general', 'error')
+		'ERRORS' => $errors
 	));
 
 // Get background from cache
@@ -95,6 +114,20 @@ if($background_image == ''){
 	$bg_img = Output::getClean($background_image);
 }
 
+// Get background from cache
+if(!$cache->isCached('banner_image')){
+	$cache->store('banner_image', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg');
+	$banner_image = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg';
+} else {
+	$banner_image = $cache->retrieve('banner_image');
+}
+
+if($banner_image == ''){
+	$banner_img = $language->get('general', 'none');
+} else {
+	$banner_img = Output::getClean($banner_image);
+}
+
 $image_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'backgrounds'));
 $images = scandir($image_path);
 $template_images = array();
@@ -102,7 +135,6 @@ $template_images = array();
 // Only display jpeg, png, jpg, gif
 $allowed_exts = array('gif', 'png', 'jpg', 'jpeg');
 $n = 1;
-$template_images = array();
 
 foreach($images as $image){
 	$ext = pathinfo($image, PATHINFO_EXTENSION);
@@ -116,6 +148,34 @@ foreach($images as $image){
 		'n' => $n
 	);
 	$n++;
+}
+
+$image_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'template_banners'));
+$images = scandir($image_path);
+$template_banner_images = array();
+
+$n = 1;
+
+foreach($images as $image){
+	$ext = pathinfo($image, PATHINFO_EXTENSION);
+	if(!in_array($ext, $allowed_exts)){
+		continue;
+	}
+	$template_banner_images[] = array(
+		'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image,
+		'value' => $image,
+		'selected' => ($banner_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image),
+		'n' => $n
+	);
+	$n++;
+}
+
+if(!is_writable(ROOT_PATH . '/uploads/backgrounds')){
+	$smarty->assign('BACKGROUNDS_NOT_WRITABLE', $language->get('admin', 'background_directory_not_writable'));
+}
+
+if(!is_writable(ROOT_PATH . '/uploads/template_banners')){
+	$smarty->assign('TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'template_banners_directory_not_writable'));
 }
 
 $smarty->assign(array(
@@ -132,7 +192,12 @@ $smarty->assign(array(
 	'BACKGROUND_IMAGE' => str_replace('{x}', $bg_img, $language->get('admin', 'background_image_x')),
 	'RESET' => $language->get('admin', 'reset_background'),
 	'RESET_LINK' => URL::build('/panel/core/images/', 'action=reset_bg'),
-	'IMAGES_ARRAY' => $template_images
+	'RESET_BANNER' => $language->get('admin', 'reset_banner'),
+	'RESET_BANNER_LINK' => URL::build('/panel/core/images/', 'action=reset_banner'),
+	'BACKGROUND_IMAGES_ARRAY' => $template_images,
+	'BANNER_IMAGES_ARRAY' => $template_banner_images,
+	'BANNER_IMAGE' => str_replace('{x}', $banner_img, $language->get('admin', 'banner_image_x')),
+	'ERRORS_TITLE' => $language->get('general', 'error')
 ));
 
 $page_load = microtime(true) - $start;

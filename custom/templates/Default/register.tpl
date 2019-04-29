@@ -21,7 +21,7 @@
 			{if isset($NICKNAMES)}
 			  {* Custom usernames are enabled *}
 			  <div class="form-group">
-				<input type="text" name="nickname" id="username" autocomplete="off" class="form-control form-control-lg" placeholder="{$NICKNAME}" tabindex="1">
+				<input type="text" name="{if isset($MINECRAFT)}nickname{else}username{/if}" id="username" autocomplete="off" class="form-control form-control-lg" placeholder="{$NICKNAME}" tabindex="1">
 			  </div>
 			  
 			  {if isset($MINECRAFT)}

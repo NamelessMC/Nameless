@@ -10,7 +10,7 @@
 	  <div class="card">
 		<div class="card-body">
 		  <h2 class="card-title" style="display: inline;">{$ALERTS}</h2>
-		  <span class="pull-right"><a href="{$DELETE_ALL_LINK}" class="btn btn-danger">{$DELETE_ALL}</a></span>
+		  <span class="float-md-right"><a href="{$DELETE_ALL_LINK}" class="btn btn-danger">{$DELETE_ALL}</a></span>
 		  
 		  <br /><br />
 
@@ -26,7 +26,7 @@
 				<td>
 				  {if $alert->read eq 0}<strong>{/if}{$alert->content}{if $alert->read eq 0}</strong>{/if}
 				  <a href="{$alert->view_link}">{$CLICK_TO_VIEW}</a>
-				  <span class="pull-right">
+				  <span class="float-md-right">
 					<span data-toggle="tooltip" data-trigger="hover" data-original-title="{$alert->date}">{$alert->date_nice}</span>
 				  </span>
 				</td>

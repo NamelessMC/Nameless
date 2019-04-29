@@ -59,7 +59,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
 
             // Do we need to query for favicon?
             if(!$cache->isCached('favicon')){
-                $favicon = imagecreatefromstring(ExternalMCQuery::getFavicon($full_ip['ip']));
+                $favicon = imagecreatefromstring(base64_decode(ltrim(ExternalMCQuery::getFavicon($full_ip['ip']), 'data:image/png;base64')));
 
                 imageAlphaBlending($favicon, true);
                 imageSaveAlpha($favicon, true);
@@ -81,8 +81,6 @@ if(defined('MINECRAFT') && MINECRAFT === true){
                 $image = ServerBanner::server($display_ip, $query['motd'], '?', '?', $favicon, $server->background, 5);
 
             header('Content-type: image/png');
-
-            imagepng($image);
 
             imagepng($image, ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
             imagepng($image);

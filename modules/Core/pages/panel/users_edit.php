@@ -171,8 +171,17 @@ if(Input::exists()){
 					'required' => true
 				);
 				$group = Input::get('group');
+
+				// Get secondary groups
+				if(isset($_POST['secondary_groups']) && count($_POST['secondary_groups'])){
+					$secondary_groups = json_encode($_POST['secondary_groups']);
+				} else {
+					$secondary_groups = '';
+				}
+
 			} else {
 				$group = $user_query->group_id;
+				$secondary_groups = $user_query->secondary_groups;
 			}
 
 			$validation = $validate->check($_POST, $to_validation);
@@ -198,18 +207,23 @@ if(Input::exists()){
 						$private_profile = Input::get('privateProfile');
 					}
 
-					// Get secondary groups
-					if(isset($_POST['secondary_groups']) && count($_POST['secondary_groups'])){
-						$secondary_groups = json_encode($_POST['secondary_groups']);
+					// Nicknames?
+					$displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+					$displaynames = $displaynames[0]->value;
+
+					if($displaynames == 'true'){
+						$username = Input::get('username');
+						$nickname = Input::get('nickname');
 					} else {
-						$secondary_groups = '';
+						$username = Input::get('username');
+						$nickname = Input::get('username');
 					}
 
 					$queries->update('users', $user_query->id, array(
-						'nickname' => Output::getClean(Input::get('nickname')),
+						'nickname' => Output::getClean($nickname),
 						'email' => Output::getClean(Input::get('email')),
 						'group_id' => $group,
-						'username' => Output::getClean(Input::get('username')),
+						'username' => Output::getClean($username),
 						'user_title' => Output::getClean(Input::get('title')),
 						'uuid' => Output::getClean(Input::get('UUID')),
 						'signature' => $signature,
@@ -284,7 +298,7 @@ if(Input::exists()){
 					'email_address' => Output::getClean($user_query->email)
 				));
 
-				Session::flash('users_session', $language->getWhere('admin', 'user_deleted'));
+				Session::flash('users_session', $language->get('admin', 'user_deleted'));
 			}
 
 			Redirect::to(URL::build('/panel/users'));

@@ -55,15 +55,15 @@ $language = array(
 	'open_reports' => '現在 <strong>{x}</strong> 件の公開レポートがあります。', // Don't replace {x}
 	'no_open_reports' => '未読のレポートはありません。',
 	'no_closed_reports' => '既読のレポートはありません。',
-	'recent_reports' => 'Recent Reports',
-	'reported_by' => 'Reported by:',
-	'website' => 'Website',
-	'ingame' => 'Ingame',
-	'x_closed_report' => '{x} closed this report.', // Don't replace {x} (username)
-	'x_reopened_report' => '{x} reopened this report.', // Don't replace {x} (username)
-	'report_reopened' => 'Report reopened successfully.',
-	'report_closed' => 'Report closed successfully.',
-	'comment_created' => 'Comment created successfully.',
+	'recent_reports' => '最新のレポート',
+	'reported_by' => '報告者：',
+	'website' => 'ウェブサイト',
+	'ingame' => 'ゲーム内',
+	'x_closed_report' => '{x}がレポートを閉鎖しました。',// {x}（username）
+	'x_reopened_report' => '{x}がレポートを再開しました。',// {x}（ユーザー名）
+	'report_reopened' => 'レポートが正常に再開されました。',
+	'report_closed' => 'レポートが正常に閉鎖されました。',
+	'comment_created' => 'コメントが正常に作成されました。',
 
 	// Punishments
 	'punishments' => '処罰',
@@ -99,12 +99,13 @@ $language = array(
 	'when' => 'いつ',
 	'staff' => 'スタッフ',
 	'type' => 'タイプ',
-	'recent_punishments' => 'Recent Punishments',
-	'created' => 'Created:',
-	'staff:' => 'Staff:',
-	'reason:' => 'Reason:',
-	
-	// Users
-	'recent_registrations' => 'Recent Registrations'
+	'recent_punishments' => '最近の処罰',
+	'created' => '作成者：',
+	'staff：' => 'スタッフ：',
+	'reason：' => '理由：',
+
+	//ユーザー
+	'recent_registrations' => '最近の登録',
+	'reset_profile_banner' => 'Reset Profile Banner'
 
 );

@@ -19,6 +19,7 @@ $language = array(
 	 */ 
 	'submit' => '送出',
 	'register' => '註冊',
+	'already_registered' => 'Already Registered?',
 	'sign_in' => '登入',
 	'log_out' => '登出',
 	'profile' => '個人檔',
@@ -65,6 +66,7 @@ $language = array(
 	'success' => 'Success',
 	'error' => 'Error',
 	'are_you_sure' => 'Are you sure?',
+	'spoiler' => 'Spoiler',
 
 	/*
 	 *  Contact form
@@ -123,14 +125,27 @@ $language = array(
     /*
      *  Widgets
      */
+    'statistics' => 'Statistics',
+    'users_registered' => 'Users Registered',
+    'latest_member' => 'Latest Member',
+    'forum_statistics' => 'Forum Statistics',
+    'total_threads' => 'Total Threads',
+    'total_posts' => 'Total Posts',
     'online_staff' => 'Online Staff',
     'no_online_staff' => 'There are no staff members online.',
+	'total_online_staff' => 'Total online staff: {x}',
     'online_users' => 'Online Users',
     'no_online_users' => 'There are no users online.',
+	'total_online_users' => 'Total online users: {x}',
     'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Privacy Policy'
+    'privacy_policy' => 'Privacy Policy',
+
+	/*
+	 *  Custom page redirect
+	 */
+	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

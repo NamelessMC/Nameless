@@ -35,9 +35,10 @@ if($cache->isCached('news')){
 			'author_style' => $user->getGroupClass($item['author']),
 			'author_name' => Output::getClean($user->idToName($item['author'])),
 			'author_nickname' => Output::getClean($user->idToNickname($item['author'])),
-			'author_avatar' => $user->getAvatar($item["author"], "../", 25),
+			'author_avatar' => $user->getAvatar($item["author"], "../", 64),
 			'author_group' => $user->getGroupName($user->getGroup($item['author'])),
-			'content' => Output::getPurified($item['content'])
+			'content' => Output::getPurified($item['content']),
+			'label' => $item['label']
 		);
 	}
 

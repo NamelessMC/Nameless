@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Installation
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ASMODΣUS
- *  Last Update: 20/08/2018
+ *  Last Update: 17/11/2018
  */
 
 $language = array(
@@ -78,8 +78,11 @@ $language = array(
     'convert_message' => 'În încheiere, doriți să convertiți datele de la un alt software de tip forum?',
     'yes' => 'Da',
     'no' => 'Nu',
+    'converter' => 'Converter',
+    'back' => 'Back',
+    'unable_to_load_converter' => 'Unable to load converter!',
     'finish' => 'Finalizare',
-    'finish_message' => 'Vă mulțumim pentru instalarea NamelessMC! Acum puteți trece în Panoul de Administrare, unde puteți configura în continuare site-ul Web.',
+    'finish_message' => 'Vă mulțumim pentru instalarea NamelessMC! Acum puteți trece în Panoul de Control, unde puteți configura în continuare site-ul Web.',
     'support_message' => 'Dacă aveți nevoie de asistență, consultați site-ul nostru web <a href="https://namelessmc.com" target="_blank">aici</a>, sau puteți vizita și serverul nostru de <a href="https://discord.gg/9vk93VR" target="_blank">Discord</a> sau pagina noastra de <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub</a>.',
     'credits' => 'Credite',
     'credits_message' => 'O mulțime de mulțumiri tuturor <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">colaboratorilor NamelessMC</a> înca din 2014'

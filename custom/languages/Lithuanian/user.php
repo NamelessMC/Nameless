@@ -53,13 +53,16 @@ $language = array(
 	'invalid_tfa' => 'Neteisingas kodas, bandykite dar kartą.',
 	'tfa_successful' => 'Sėkmingai nustatytas dviejų veiksnių autentifikavimas. Jums reikės autentifikuoti kiekvieną kartą, kai nuo šiol prisijungsite.',
 	'active_language' => 'Aktyvi kalba',
-  'timezone' => 'Laiko Zona',
-  'upload_new_avatar' => 'Įkelkite naują avatarą',
-  'nickname_already_exists' => 'Jūsų pasirinktas slapyvardis jau egzistuoja.',
-  'change_email_address' => 'Pakeisti el. Pašto adresą',
-  'email_already_exists' => 'Jūsų įvestas el. Pašto adresas jau egzistuoja.',
-  'email_changed_successfully' => 'El. Pašto adresas sėkmingai pakeistas.',
-  'avatar' => 'Avataras',
+	'timezone' => 'Laiko Zona',
+	'upload_new_avatar' => 'Įkelkite naują avatarą',
+	'nickname_already_exists' => 'Jūsų pasirinktas slapyvardis jau egzistuoja.',
+	'change_email_address' => 'Pakeisti el. Pašto adresą',
+	'email_already_exists' => 'Jūsų įvestas el. Pašto adresas jau egzistuoja.',
+	'email_changed_successfully' => 'El. Pašto adresas sėkmingai pakeistas.',
+	'avatar' => 'Avataras',
+	'profile_banner' => 'Profile Banner',
+	'upload_profile_banner' => 'Upload Profile Banner',
+	'upload' => 'Upload',
 
 	// Alerts
 	'user_tag_info' => 'Jūs buvote pažymėtas {x} "post".', // Don't replace {x}
@@ -175,6 +178,7 @@ $language = array(
 	'new_wall_post_reply' => '{x} atsakė į jūsų "post" {y}\'s profilyje.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} atsakė į jūsų "post" jūsų profilyje.', // Don't replace {x}
 	'no_about_fields' => 'Šis vartotojas dar nepateikė jokių “apie” laukų.',
+	'reply' => 'Reply',
 
 	// Reports
 	'invalid_report_content' => 'Neįmanoma kurti ataskaitos. Patikrinkite, ar ataskaitos priežastis yra nuo 2 iki 1024 simbolių.',
@@ -207,6 +211,7 @@ $language = array(
 	'leave_conversation' => 'Palikti Pokalbį',
 	'confirm_leave' => 'Ar tikrai norite palikti šį pokalbį?',
 	'one_or_more_users_blocked' => 'Jūs negalite siųsti žinučių bent vienam pokalbio nariui.',
+	'messages' => 'Messages',
 
 	// Infractions area
 	'you_have_been_banned' => 'Jūs buvot užblokuotas!',

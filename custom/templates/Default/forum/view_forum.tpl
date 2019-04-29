@@ -11,7 +11,7 @@
 			<li class="breadcrumb-item{if isset($breadcrumb.active)} active{/if}">{if !isset($breadcrumb.active)}<a href="{$breadcrumb.link}">{/if}{$breadcrumb.forum_title}{if !isset($breadcrumb.active)}</a>{/if}</li>
 			{/foreach}
 		  </ol>
-		  <h3 style="display: inline;">{$FORUM_TITLE}</h3>{if $NEW_TOPIC_BUTTON}<span class="pull-right"><a href="{$NEW_TOPIC_BUTTON}" class="btn btn-primary">{$NEW_TOPIC}</a></span>{/if}<br /><br />
+		  <h3 style="display: inline;">{$FORUM_TITLE}</h3>{if $NEW_TOPIC_BUTTON}<span class="float-md-right"><a href="{$NEW_TOPIC_BUTTON}" class="btn btn-primary">{$NEW_TOPIC}</a></span>{/if}<br /><br />
 		  {if !empty($SUBFORUMS)}
 		  <div class="table-responsive">
 		    <table class="table table-striped">
@@ -61,7 +61,7 @@
 			{foreach from=$STICKY_DISCUSSIONS item=sticky}
 			<tr>
 			  <td>
-				<i class="fa fa-thumb-tack"></i> {if $sticky.locked == 1}<i class="fa fa-lock"></i> {/if}{$sticky.label} <a href="{$sticky.link}">{$sticky.topic_title}</a><br />
+				<i class="fas fa-thumbtack"></i> {if $sticky.locked == 1}<i class="fa fa-lock"></i> {/if}{$sticky.label} <a href="{$sticky.link}">{$sticky.topic_title}</a><br />
 				<small><span data-toggle="tooltip" data-trigger="hover" data-original-title="{$sticky.topic_created}">{$sticky.topic_created_rough}</span> {$BY} <a style="{$sticky.topic_created_style}" href="{$sticky.author_link}" data-poload="{$USER_INFO_URL}{$sticky.topic_created_user_id}" data-html="true" data-placement="top">{$sticky.topic_created_username}</a></small>
 			  </td>
 			  <td>
@@ -113,27 +113,15 @@
 		  
 		</div>
 		<div class="col-md-3">
-		  <form class="form-horizontal" role="form" method="post" action="{$SEARCH_URL}">
-		    <div class="input-group">
-			  <input type="text" class="form-control input-sm" name="forum_search" placeholder="{$SEARCH}">
-			  <input type="hidden" name="token" value="{$TOKEN}">
-			  <span class="input-group-btn">
-			    <button type="submit" class="btn btn-default">
-				  <i class="fa fa-search"></i>
-			    </button>
-			  </span>
-		    </div>
-		  </form>
-		  
-		  <br />
-		  
-		  <div class="card">
-		    <div class="card-body">
-			  <h2>{$STATS} <i class="fa fa-bar-chart"></i></h2>
-			  {$USERS_REGISTERED}<br />
-			  {$LATEST_MEMBER}
-			</div>
-		  </div>
+			<form class="form-horizontal" role="form" method="post" action="{$SEARCH_URL}">
+				<div class="input-group">
+					<input type="text" class="form-control input-sm" name="forum_search" placeholder="{$SEARCH}">
+					<input type="hidden" name="token" value="{$TOKEN}">
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
+					</div>
+				</div>
+			</form>
 
 		  {if count($WIDGETS)}
 		    <br />

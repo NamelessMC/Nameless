@@ -8,7 +8,7 @@
  *
  *  Portuguese Language - Installation
  *  Translation By Douglas Teles & dasilvaj4
- *  Last Update: 11/04/2018
+ *  Last Update: 23/04/2019
  */
 
 $language = array(
@@ -17,7 +17,7 @@ $language = array(
      */
     'install' => 'Instalar',
     'pre-release' => 'pre-release',
-    'installer_welcome' => 'Bem-vindo ao NamelessMC versão 2,0 pre-release.',
+    'installer_welcome' => 'Bem-vindo ao NamelessMC versão 2.0.',
     'pre-release_warning' => 'Por favor, note que esta pre-release não se destina ao uso em um site público.',
     'installer_information' => 'O instalador irá guiá-lo através do processo de instalação.',
     'new_installation_question' => 'Em primeiro lugar, esta é uma nova instalação?',
@@ -27,7 +27,7 @@ $language = array(
     'config_writable' => 'core/config.php é Gravável',
     'cache_writable' => 'Cache é Gravável',
     'template_cache_writable' => 'Template Cache é Gravável',
-    'exif_imagetype_banners_disabled' => 'Without the exif_imagetype function, server banners will be disabled.',
+    'exif_imagetype_banners_disabled' => 'Sem a função exif_imagetype ativa, os banners do servidor serão desativados.',
     'requirements_error' => 'Você deve ter todas as extensões necessárias instaladas e ter as permissões corretas definidas, a fim de prosseguir com a instalação.',
     'proceed' => 'Prosseguir',
     'database_configuration' => 'Configuração do banco de dados',
@@ -36,16 +36,16 @@ $language = array(
     'database_username' => 'Usuário do banco de dados',
     'database_password' => 'Senha do banbo de dados',
     'database_name' => 'Nome do banbo de dados',
-    'nameless_path' => 'Installation Path',
-    'nameless_path_info' => 'This is the path Nameless is installed in, relative to your domain. For example, if Nameless is installed at example.com/forum, this needs to be <strong>forum</strong>. Leave empty if Nameless is not in a subfolder.',
-    'friendly_urls' => 'Friendly URLs',
-    'friendly_urls_info' => 'Friendly URLs will improve the readability of URLs in your browser.<br />For example: <br />example.com/index.php?route=/forum<br />would become<br />example.com/forum.<br /><strong>Important!</strong><br />Your server must be configured correctly for this to work. You can see whether you can enable this option by clicking <a href=\'./rewrite_test\' target=\'_blank\'>here</a>.',
-    'enabled' => 'Enabled',
-    'disabled' => 'Disabled',
+    'nameless_path' => 'Caminho da instalação',
+    'nameless_path_info' => 'Este é o caminho relativo ao seu domínio, onde o Nameless será instalado. Por exemplo, se o Nameless for instalado em example.com/forum, então a configuração será <strong>forum</strong>. Deixe em branco caso não queira instalar em uma sub-pasta.',
+    'friendly_urls' => 'URLs Amigáveis',
+    'friendly_urls_info' => 'URLs amigáveis possibilitam que suas páginais sejam mais visíveis nos buscadores.<br />Por exemplo: <br />example.com/index.php?route=/forum<br />se tornará<br />example.com/forum.<br /><strong>Importante!</strong><br />Seu servidor deverá estar configurado para que funcione corretamente. Você pode ver se é possível ativar essa opção clicando <a href=\'./rewrite_test\' target=\'_blank\'>aqui</a>.',
+    'enabled' => 'Ativado',
+    'disabled' => 'Desativado',
     'character_set' => 'Conjunto de caracteres',
     'database_engine' => 'Database Storage Engine',
-    'host' => 'Hostname',
-    'host_help' => 'The hostname is the <strong>base URL</strong> for your website. Do not include the subfolders from the Installation Path field, or http(s):// here!',
+    'host' => 'Domínio',
+    'host_help' => 'O domínio é a <strong>URL</strong> do seu site. Não inclua sub-pastas ou http(s):// aqui!',
     'database_error' => 'Certifique-se de que todos os campos foram preenchidos.',
     'submit' => 'Enviar',
     'installer_now_initialising_database' => 'O instalador agora está inicializando o banco de dados. Isto pode demorar um pouco...',
@@ -78,8 +78,11 @@ $language = array(
     'convert_message' => 'Finalmente, você deseja converter de um software de fórum diferente?',
     'yes' => 'Sim',
     'no' => 'Não',
+    'converter' => 'Converter',
+    'back' => 'Voltar',
+    'unable_to_load_converter' => 'Falha ao carregar o conversor!',
     'finish' => 'Terminar',
-    'finish_message' => 'Obrigado por instalar o NamelessMC! Agora você pode prosseguir para o StaffCP, onde você pode configurar seu site.',
+    'finish_message' => 'Obrigado por instalar o NamelessMC! Agora você pode prosseguir para o Painel de Controle, onde você pode configurar seu site.',
     'support_message' => 'Se você precisar de qualquer suporte, consulte o nosso site <a href="https://namelessmc.com" target="_blank">aqui</a>, ou você também pode visitar nosso <a href="https://discord.gg/9vk93VR" target="_blank">servidor Discord</a> ou nosso <a href="https://github.com/NamelessMC/Nameless/" target="_blank">repositório GitHub</a>.',
     'credits' => 'Créditos',
     'credits_message' => 'Um grande agradecimento a todos os <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">colaboradores do NamelessMC</a> desde 2014'

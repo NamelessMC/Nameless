@@ -1,4 +1,4 @@
-﻿<?php 
+<?php
 /*
  *	Made by TheSuperSkills (Edited by iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
@@ -12,9 +12,10 @@
 $language = array(
 	/*
 	 *  General terms
-	 */ 
+	 */
 	'submit' => 'Enviar',
 	'register' => 'Registro',
+	'already_registered' => 'Already Registered?',
 	'sign_in' => 'Iniciar sesión',
 	'log_out' => 'Cerrar sesión',
 	'profile' => 'Perfil',
@@ -26,19 +27,19 @@ $language = array(
 	'search' => 'Buscar',
 	'edit' => 'Editar',
 	'next' => 'Siguiente',
-	'previous' => 'Previous',
+	'previous' => 'Anterior',
 	'confirm_cancel' => '¿Seguro que desea cancelar?',
 	'confirm_delete' => 'Confirmar la eliminación',
 	'confirm_deletion' => '¿Estás seguro de que deseas eliminarlo?',
 	'cancel' => 'Cancelar',
 	'delete' => 'Borrar',
-	'none' => 'Ninguna',
+	'none' => 'Nínguna',
 	'view' => 'Ver',
 	'change' => 'Cambiar',
 	'remove' => 'Remover',
 	'info' => 'Informacion',
 	'confirm' => 'Confirmar',
-	'actions' => 'Comportamiento',
+	'actions' => 'Acciones',
 	'alerts' => 'Alertas',
 	'view_alerts' => 'Ver alertas',
 	'no_alerts' => 'No alertas',
@@ -52,15 +53,16 @@ $language = array(
 	'page_loaded_in' => 'Página cargada en {x}s', // Don't replace {x}, time unit is seconds
 	'page_x' => 'Pagina {x}',
 	'browse' => 'Vistazo',
-	'bypass' => 'Bypass',
-	'yes' => 'Yes',
+	'bypass' => 'Saltarse',
+	'yes' => 'Sí',
 	'no' => 'No',
-	'content' => 'Content',
-	'full_content' => 'Full Content',
-	'url' => 'URL',
-	'success' => 'Success',
+	'content' => 'Contenido',
+	'full_content' => 'Contenido completo',
+	'url' => 'Enlace',
+	'success' => 'Exito',
 	'error' => 'Error',
-	'are_you_sure' => 'Are you sure?',
+	'are_you_sure' => '¿Estás seguro?',
+	'spoiler' => 'Spoiler',
 
 	/*
 	 *  Contact form
@@ -73,24 +75,24 @@ $language = array(
 	'contact_message_email' => 'Ese e-Mail es inválido.',
 	'contact_message_sent' => 'Mensaje enviado con éxito.',
 	'contact_message_limit' => 'Sólo puede enviar un mensaje por hora. Puede enviar un mensaje en {x} minutos.', // Don't replace {x}
-	
-	/* 
+
+	/*
 	 *  Navbar
 	 */
 	'home' => 'Inicio',
 	'more' => 'Más',
-	'status' => 'Status',
-	
+	'status' => 'Estado',
+
 	/*
 	 *  Homepage
 	 */
 	'social' => 'Social',
-	
-	
+
+
 	/*
 	 *  Help dialogues
 	 */
-	'markdown_help' => 'Puedes formatear tu publicación usando Markdown. Para más información, mira <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aquí</a>.',
+	'markdown_help' => 'Puedes redactar tu publicación usando Markdown. Para más información, mira <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aquí</a>.',
 
 	/*
 	 *  Server query
@@ -100,16 +102,16 @@ $language = array(
 	'player_count' => '{x}/{y}', // Don't replace {x} or {y}
 	'ping' => 'Conexión: {x}', // Don't replace {x}
 	'version' => 'Versión: {x}', // Don't replace {x}
-	'currently_1_player_online' => 'There is currently 1 player online.',
+	'currently_1_player_online' => 'Hay 1 jugador conectado.',
 	'currently_x_players_online' => 'Hay actualmente <strong>{x}</strong> jugadores conectados.', // Don't replace {x}
 	'server_offline' => 'El servidor está actualmente sin conexión.',
 	'connect_with_ip_x' => 'Conéctate ahora {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Haga clic para copiar',
-    'copied' => 'Copied!',
-    'no_servers' => 'There are no servers to display!',
-    'bungee_instance' => 'This server is a Bungee instance.',
-    'no_players_online' => 'There are no players online.',
-    'and_x_more' => 'and {x} more', // Don't replace {x}
+    'copied' => '¡Copiada!',
+    'no_servers' => '¡No hay servidores para mostrar!',
+    'bungee_instance' => 'Este servidor es una instancia de BungeeCord.',
+    'no_players_online' => 'No hay jugadores conectados.',
+    'and_x_more' => 'y {x} más', // Don't replace {x}
 
 	/*
 	 *  Cookie notice
@@ -120,14 +122,27 @@ $language = array(
     /*
      *  Widgets
      */
-    'online_staff' => 'Staff online',
-    'no_online_staff' => 'No hay miembros del Staff online.',
-    'online_users' => 'Usuarios online',
-    'no_online_users' => 'No hay usuarios online.',
-    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
+    'statistics' => 'Estadísticas',
+    'users_registered' => 'Usuarios Registrados',
+    'latest_member' => 'Último Miembro',
+    'forum_statistics' => 'Estadísticas del Foro',
+    'total_threads' => 'Hilos totales',
+    'total_posts' => 'Publicaciones totales',
+    'online_staff' => 'Staff Conectado',
+    'no_online_staff' => 'No hay miembros del Staff conectados.',
+	'total_online_staff' => 'Miembros del Staff conectados: {x}',
+    'online_users' => 'Usuarios conectados',
+    'no_online_users' => 'No hay usuarios conectados.',
+	'total_online_users' => 'Total de usuarios conectados: {x}',
+    'discord_widget_disabled' => 'El widget está deshabilitado para el servidor de Discord especificado.. Vaya a la pestaña Widget en la configuración del servidor de Discord y asegúrese de que el widget de Discord esté habilitado y que la ID sea correcta..',
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Política de privacidad'
+    'privacy_policy' => 'Política de privacidad',
+
+	/*
+	 *  Custom page redirect
+	 */
+	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

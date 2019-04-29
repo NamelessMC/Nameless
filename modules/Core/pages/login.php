@@ -266,8 +266,12 @@ if (Input::exists()) {
 // Generate content
 if($method == 'email')
 	$smarty->assign('EMAIL', $language->get('user', 'email'));
-else
-	$smarty->assign('USERNAME', (($custom_usernames == 'false') ? $language->get('user', 'minecraft_username') : $language->get('user', 'username')));
+else {
+	if(MINECRAFT)
+		$smarty->assign('USERNAME', $language->get('user', 'minecraft_username'));
+	else
+		$smarty->assign('USERNAME', $language->get('user', 'username'));
+}
 
 $smarty->assign(array(
 	'USERNAME_INPUT' => ($method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
@@ -275,7 +279,7 @@ $smarty->assign(array(
 	'REMEMBER_ME' => $language->get('user', 'remember_me'),
 	'FORGOT_PASSWORD_URL' => URL::build('/forgot_password'),
 	'FORGOT_PASSWORD' => $language->get('user', 'forgot_password'),
-	'FORM_TOKEN' => Token::generate(),
+	'FORM_TOKEN' => Token::get(),
 	'SIGN_IN' => $language->get('general', 'sign_in'),
 	'REGISTER_URL' => URL::build('/register'),
 	'REGISTER' => $language->get('general', 'register'),
@@ -292,7 +296,7 @@ if (Session::exists('login_success'))
 	$smarty->assign('SUCCESS', Session::flash('login_success'));
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

@@ -71,6 +71,9 @@ $language = array(
 	'email_already_exists' => 'The email address you have entered already exists.',
 	'email_changed_successfully' => 'Email address changed successfully.',
 	'avatar' => 'Avatar',
+	'profile_banner' => 'Profile Banner',
+	'upload_profile_banner' => 'Upload Profile Banner',
+	'upload' => 'Upload',
 	
 	// Alerts
 	'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace {x}
@@ -186,6 +189,7 @@ $language = array(
 	'new_wall_post_reply' => '{x} hat auf deinen Beitrag im Profil von {y} geantwortet.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} hat auf deinen Beitrag in deinem Profil geantwortet.', // Don't replace {x}
 	'no_about_fields' => 'Dieser Benutzer hat noch keine Felder hinzugefügt.',
+	'reply' => 'Reply',
 	
 	// Reports
 	'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
@@ -218,6 +222,7 @@ $language = array(
 	'leave_conversation' => 'Konversation verlassen.',
 	'confirm_leave' => 'Möchtest du die Konversation wirklich verlassen?',
 	'one_or_more_users_blocked' => 'Sie können keine privaten Nachrichten an mindestens ein Mitglied der Konversation senden.',
+	'messages' => 'Messages',
 
 	/*
 	 *  Infractions area

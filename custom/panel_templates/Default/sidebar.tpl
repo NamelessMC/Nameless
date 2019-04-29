@@ -22,7 +22,7 @@
                         {if isset($item.items)}
                             {* Dropdown *}
                             <li class="nav-item has-treeview{if isset($PARENT_PAGE) && $PARENT_PAGE eq $name} menu-open{/if}">
-                                <a class="nav-link{if isset($PARENT_PAGE) && $PARENT_PAGE eq $name} active{/if}">
+                                <a class="nav-link{if isset($PARENT_PAGE) && $PARENT_PAGE eq $name} active{/if}" style="cursor:pointer;">
                                     {$item.icon}
                                     <p>
                                         {$item.title}

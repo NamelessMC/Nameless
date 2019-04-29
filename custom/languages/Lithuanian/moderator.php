@@ -104,5 +104,6 @@ $language = array(
   'reason:' => 'Priežastis:',
 
   // Users
-  'recent_registrations' => 'Naujausios Registracijos'
+  'recent_registrations' => 'Naujausios Registracijos',
+  'reset_profile_banner' => 'Reset Profile Banner'
 );

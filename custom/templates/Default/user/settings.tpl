@@ -82,7 +82,7 @@
                                 <div class="form-group">
                                     <textarea class="form-control" style="width:100%" id="inputSignature" name="signature"
                                               rows="20">{$SIGNATURE_VALUE}</textarea>
-                                    <span class="pull-right"><i data-toggle="popover" data-placement="top"
+                                    <span class="float-md-right"><i data-toggle="popover" data-placement="top"
                                                                 data-html="true" data-content="{$MARKDOWN_HELP}"
                                                                 class="fa fa-question-circle text-info"
                                                                 aria-hidden="true"></i></span>

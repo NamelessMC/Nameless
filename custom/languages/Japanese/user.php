@@ -66,6 +66,9 @@ $language = array(
 	'email_already_exists' => '指定されたメールアドレスは既に登録されています。別のメールアドレスを指定してください。',
 	'email_changed_successfully' => 'メールアドレスが正常に更新されました。',
 	'avatar' => 'アバター',
+	'profile_banner' => 'Profile Banner',
+	'upload_profile_banner' => 'Upload Profile Banner',
+	'upload' => 'Upload',
 
 	// Alerts
 	'user_tag_info' => '{x} の投稿にタグがつけられました。', // Don't replace {x}
@@ -181,6 +184,7 @@ $language = array(
 	'new_wall_post_reply' => '{x}さんが{y}のプロフィールの投稿に返信しました。',// {x}か{y}
 	'new_wall_post_reply_your_profile' => '{x}さんがプロフィールの投稿に返信しました。',// {x}を置き換えないでください
 	'no_about_fields' => 'フィールドの内容を追加していません。',
+	'reply' => 'Reply',
 
 	// Reports
 	'invalid_report_content' => 'レポートを作成できません。 レポートの理由が 2~1024 文字であることを確認してください。',
@@ -213,6 +217,7 @@ $language = array(
 	'leave_conversation' => '会話から退出',
 	'confirm_leave' => '会話を退出しますか？',
 	'one_or_more_users_blocked' => '会話の少なくとも1人のメンバーにプライベートメッセージを送信することはできません。',
+	'messages' => 'Messages',
 
 	/*
 	 *  Infractions area

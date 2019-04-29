@@ -14,7 +14,7 @@
 	  <div class="forum_post">
 	    {$post.content}
 	  </div>
-	  <span class="pull-right">
+	  <span class="float-md-right">
 	    <span rel="tooltip" title="{$post.date_full}">{$post.date_friendly}</span>
 	  </span>
 	</div>

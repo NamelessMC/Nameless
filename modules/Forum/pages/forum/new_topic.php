@@ -213,6 +213,8 @@ $token = Token::get();
 
 $template->addCSSFiles(array(
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => array(),
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array(),
@@ -263,6 +265,11 @@ if(count($forum_labels)){
 $forum_query = $queries->getWhere('forums', array('id', '=', $fid));
 $forum_query = $forum_query[0];
 
+// Placeholder?
+if($forum_query->topic_placeholder){
+	$placeholder = Output::getPurified($forum_query->topic_placeholder);
+}
+
 // Smarty variables
 $smarty->assign(array(
 	'LABELS' => $labels,
@@ -274,7 +281,7 @@ $smarty->assign(array(
 	'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
 	'TOKEN' => '<input type="hidden" name="token" value="' . $token . '">',
 	'FORUM_LINK' => URL::build('/forum'),
-	'CONTENT' => Output::getPurified(Input::get('content')),
+	'CONTENT' => ((isset($_POST['content']) && $_POST['content']) ? Output::getPurified(Input::get('content')) : (isset($placeholder) ? $placeholder : '')),
 	'FORUM_TITLE' => Output::getClean($forum_title),
 	'FORUM_DESCRIPTION' => Output::getPurified($forum_query->forum_description),
 	'NEWS_FORUM' => $forum_query->news
@@ -303,17 +310,17 @@ if($formatting == 'markdown'){
 	');
 } else {
 	$template->addJSFiles(array(
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
 		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => array()
 	));
 
-	$template->addJSScript(Input::createEditor('reply'));
+	$template->addJSScript(Input::createTinyEditor($language, 'reply'));
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

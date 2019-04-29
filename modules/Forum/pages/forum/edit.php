@@ -16,6 +16,8 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->addCSSFiles(array(
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => array(),
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array(),
@@ -235,7 +237,11 @@ if(Input::exists()){
 	}
 }
 
-if(isset($errors)) $smarty->assign('ERRORS', $errors);
+if(isset($errors))
+	$smarty->assign(array(
+		'ERROR_TITLE' => $language->get('general', 'error'),
+		'ERRORS' => $errors
+	));
 
 $smarty->assign('EDITING_POST', $forum_language->get('forum', 'edit_post'));
 
@@ -299,7 +305,8 @@ $smarty->assign(array(
 	'SUBMIT' => $language->get('general', 'submit'),
 	'CANCEL' => $language->get('general', 'cancel'),
 	'CANCEL_LINK' => URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id),
-	'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel')
+	'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
+	'CONTENT' => Output::getClean(Output::getDecoded($post_editing[0]->post_content))
 ));
 
 // Get post formatting type (HTML or Markdown)
@@ -336,26 +343,18 @@ if($formatting == 'markdown'){
 	$clean = Output::getPurified($clean);
 
 	$template->addJSFiles(array(
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
 		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => array()
 	));
 
-	$template->addJSScript(Input::createEditor('editor'));
+	$template->addJSScript(Input::createTinyEditor($language, 'editor'));
 
-	// Insert
-	if(!Session::exists('failure_post')){
-		$template->addJSScript('
-		CKEDITOR.on(\'instanceReady\', function(ev) {
-			CKEDITOR.instances.editor.insertHtml(\'' . str_replace("'", "&#39;", str_replace(array("\r", "\n"), '', $clean)) . '\');
-		});
-		');
-	}
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

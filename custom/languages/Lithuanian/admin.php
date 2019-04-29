@@ -82,6 +82,7 @@ $language = array(
 	'social_media_settings_updated' => 'Socialinių tinklų nustatymai sėkmingai atnaujinti.',
 	'successfully_updated' => 'Sėkmingai atnaujinta',
   'debugging_and_maintenance' => 'Derinimas ir Priežiūra',
+  'maintenance' => 'Priežiūra',
   'debugging_settings_updated_successfully' => 'Derinimo nustatymai sėkmingai atnaujinti.',
   'enable_debug_mode' => 'Įjungti derinimo režimą?',
   'force_https' => 'Priversti https?',
@@ -132,7 +133,7 @@ $language = array(
   'navbar_order' => 'Naršymo Juostos Tvarka',
   'navbar_order_instructions' => 'Jūs galite nurodyti kiekvienam elementui didesnį skaičių nei 0, kad būtų galima užsisakyti elementus juostoje pirmasis elementas yra 1 ir didesni skaičiai po jo.',
   'navbar_icon' => 'Naršymo Juostos Piktograma',
-  'navbar_icon_instructions' => 'Čia galite pridėti piktogramą kiekvienam juostos elementui, pavyzdžiui, naudojant <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+  'navbar_icon_instructions' => 'Čia galite pridėti piktogramą kiekvienam juostos elementui, pavyzdžiui, naudojant <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
   'navigation_settings_updated_successfully' => 'Navigacijos nustatymai buvo sėkmingai atnaujinti.',
 	'dropdown_items' => 'Išskleidžiamieji Elementai',
   'enable_page_load_timer' => 'Įjungti puslapio įkėlimo laikmatį?',
@@ -306,6 +307,7 @@ $language = array(
 
 	// Styles
 	'templates' => 'Šablonai',
+	'panel_templates' => 'Panel Templates',
 	'template_outdated' => 'Mes aptikome, kad jūsų šablonas skirtas NamelessMC versijai {x}, bet jūs naudojate NamelessMC versija {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Aktyvus',
 	'deactivate' => 'Deaktyvuoti',
@@ -328,6 +330,12 @@ $language = array(
 	'delete' => 'Ištrinti',
 	'template_deleted_successfully' => 'Šablonas sėkmingai ištrintas.',
 	'background_image_x' => 'Fono vaizdas: <strong>{x}</strong>', // Don't replace {x}
+	'banner_image_x' => 'Banner image: <strong>{x}</strong>', // Don't replace {x}
+	'background_directory_not_writable' => 'The <strong>uploads/backgrounds</strong> directory is not writable!',
+	'template_banners_directory_not_writable' => 'The <strong>uploads/template_banners</strong> directory is not writable!',
+	'template_banner_reset_successfully' => 'Banner reset successfully.',
+	'template_banner_updated_successfully' => 'Banner updated successfully.',
+	'reset_banner' => 'Reset Banner',
 	'find_templates' => 'Rasti šablonus',
 	'view_all_templates' => 'Peržiūrėti visus šablonus',
 	'unable_to_retrieve_templates' => 'Nepavyko gauti šablonų',
@@ -460,8 +468,9 @@ $language = array(
 	'module_x' => 'Modulis: {x}', // Don't replace {x}
 	'widget_order' => 'Valdiklių Tvarka',
 
-  // Online users widget
-  'include_staff_in_user_widget' => 'Įtraukti darbuotojus į naudotojo valdiklį?',
+	// Online users widget
+	'include_staff_in_user_widget' => 'Įtraukti darbuotojus į naudotojo valdiklį?',
+	'show_nickname_instead_of_username' => 'Rodyti naudotojo slapyvardį vietoj naudotojo vardo?',
 
   // Custom Pages
   'pages' => 'Puslapiai',

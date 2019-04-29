@@ -97,6 +97,8 @@ $language = array(
 	'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
 	'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
 	'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
+	'started_by_x' => 'Started by {x}', // Don't replace {x}
+	'sticky_topics' => 'Sticky Topics',
 	
 	// Homepage
 	'latest_announcements' => '最新公告',
@@ -138,6 +140,7 @@ $language = array(
 	'forum_permissions' => '論壇權限',
 	'select_a_parent_forum' => '選擇父論壇',
 	'parent_forum' => '父論壇',
+	'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
 	'has_no_parent' => '沒有父論壇',
 	'guests' => '遊客',
 	'group' => '群組',
@@ -172,6 +175,7 @@ $language = array(
 	'forum_deleted_successfully' => 'Forum deleted successfully.',
 	'label_deleted_successfully' => 'Label deleted successfully.',
 	'label_type_deleted_successfully' => 'Label type deleted successfully.',
+	'topic_placeholder' => 'Topic placeholder',
 
 	// Search
     'forum_search' => '論壇搜尋',

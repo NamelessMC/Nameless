@@ -64,6 +64,9 @@ $language = array(
 	'email_already_exists' => 'The email address you have entered already exists.',
 	'email_changed_successfully' => 'Email address changed successfully.',
 	'avatar' => 'Avatar',
+	'profile_banner' => 'Profile Banner',
+	'upload_profile_banner' => 'Upload Profile Banner',
+	'upload' => 'Upload',
 	
 	// Alerts
 	'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}
@@ -179,6 +182,7 @@ $language = array(
 	'new_wall_post_reply' => '{x} respondeu a sua postagem no perfil de {y}.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} respondeu ao seu post no seu perfil.', // Don't replace {x}
 	'no_about_fields' => 'This user has not added any about fields yet.',
+	'reply' => 'Reply',
 	
 	// Reports
 	'invalid_report_content' => 'Não foi possível criar o alerta. Certifique-se de que o motivo do alerta está entre 2 e 1024 caracteres.',
@@ -211,6 +215,7 @@ $language = array(
 	'leave_conversation' => 'Deixar Conversa',
 	'confirm_leave' => 'Tem certeza de que deseja sair desta conversa?',
 	'one_or_more_users_blocked' => 'Você não pode enviar mensagens privadas para pelo menos um membro da conversa.',
+	'messages' => 'Messages',
 
 	/*
 	 *  Infractions area

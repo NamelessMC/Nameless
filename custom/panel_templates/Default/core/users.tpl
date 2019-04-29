@@ -70,7 +70,7 @@
                             {/if}
 
                             <div class="table-responsive">
-                                <table class="table table-striped dataTables-users">
+                                <table class="table table-striped dataTables-users" style="width:100%">
                                     <thead>
                                     <tr>
                                         <th>{$USER}</th>
@@ -84,7 +84,7 @@
                                         <tr>
                                             <td><a href="{$item.panel_profile}" style="{$item.style}"><img src="{$item.avatar}" class="rounded" alt="{$item.username}" style="max-width:20px;max-height:20px;"> {$item.nickname}</a></td>
                                             <td>{foreach from=$item.all_groups item=group}{$group} {/foreach}</td>
-                                            <td>{$item.registered}</td>
+                                            <td data-sort="{$item.registered_unix}">{$item.registered}</td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

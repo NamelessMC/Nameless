@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -21,8 +21,8 @@ class Default_Template extends TemplateBase {
 
 		parent::__construct(
 			'Default',  // Template name
-			'2.0.0-pr5',  // Template version
-			'2.0.0-pr5',  // Nameless version template is made for
+			'2.0.0-pr6',  // Template version
+			'2.0.0-pr6',  // Nameless version template is made for
 			'<a href="https://namelessmc.com/" target="_blank">Samerton</a>'  // Author, you can use HTML here
 		);
 
@@ -53,7 +53,7 @@ class Default_Template extends TemplateBase {
 		$this->addCSSFiles(array(
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/css/' . Output::getClean($theme) . '.min.css' => array(),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/custom.css' => array(),
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/font-awesome.min.css' => array(),
+			'https://use.fontawesome.com/releases/v5.7.2/css/all.css' => array('integrity' => 'sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr', 'crossorigin' => 'anonymous'),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => array(),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/css/custom.css' => array()
 		));
@@ -373,10 +373,14 @@ class Default_Template extends TemplateBase {
 		}
 
 		// Editor skin (moono-lisa or moono-dark)
-		if($theme != 'darkly')
+		if($theme != 'darkly') {
 			define('TEMPLATE_EDITOR_STYLE', 'moono-lisa');
-		else
+			define('TEMPLATE_TINY_EDITOR_STYLE', 'oxide');
+		} else {
 			define('TEMPLATE_EDITOR_STYLE', 'moono-dark');
+			define('TEMPLATE_TINY_EDITOR_STYLE', 'oxide-dark');
+		}
+
 
 		// Assign any Smarty variables
 		$smarty->assign('NAV_STYLE', Output::getClean($nav_style));
@@ -411,7 +415,8 @@ class Default_Template extends TemplateBase {
 					 	$(\'#InputTo\').tokenfield({
 					      autocomplete: {
 					        source: allUsers,
-					        delay: 100
+					        delay: 100,
+					        minLength: 3
 					      },
 					      showAutocompleteOnFocus: true
 					    });
@@ -429,10 +434,10 @@ class Default_Template extends TemplateBase {
 					                color = $button.data(\'color\'),
 					                settings = {
 					                    on: {
-					                        icon: \'fa fa-check-square-o\'
+					                        icon: \'far fa-check-square\'
 					                    },
 					                    off: {
-					                        icon: \'fa fa-square-o\'
+					                        icon: \'far fa-square\'
 					                    }
 					                };
 					            // Event Handlers
@@ -534,12 +539,12 @@ class Default_Template extends TemplateBase {
 				if($this->_user->isLoggedIn()){
 					$this->addJSScript('
 					    function deletePost(post) {
-				            if(confirm("' . $this->_language->get('user', 'confirm_delete') . '")){
+				            if(confirm("' . $this->_language->get('general', 'confirm_deletion') . '")){
 				                document.getElementById("delete" + post).submit();
 				            }
 				        }
 				        function deleteReply(post) {
-				            if(confirm("' . $this->_language->get('user', 'confirm_delete') . '")){
+				            if(confirm("' . $this->_language->get('general', 'confirm_deletion') . '")){
 				                document.getElementById("deleteReply" + post).submit();
 				            }
 				        }

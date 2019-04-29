@@ -54,7 +54,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
-				  <span class="pull-right">
+				  <span class="float-md-right">
 					<a class="btn btn-warning" href="{$FORGOT_PASSWORD_URL}">{$FORGOT_PASSWORD}</a>
 				  </span>
                                 </div>

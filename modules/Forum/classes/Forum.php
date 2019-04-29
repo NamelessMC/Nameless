@@ -230,7 +230,7 @@ class Forum {
 
 			$query = DB::getInstance()->query("(
 	        SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND topics.forum_id IN " . $all_topics_forums_string . " ORDER BY topics.topic_reply_date DESC LIMIT 50
-	        ) UNION ALL (
+	        ) UNION (
 	        SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND ((topics.forum_id IN " . $own_topics_forums_string . " AND topics.topic_creator = ?) OR topics.sticky = 1) ORDER BY topics.topic_reply_date DESC LIMIT 50
 	        ) ORDER BY topic_reply_date DESC LIMIT 50", array($user_id), PDO::FETCH_ASSOC)->results();
 		} else {
@@ -360,7 +360,10 @@ class Forum {
 							if(empty($topic_query)) continue;
 
 							$latest_posts[$n]["forum_id"] = $item->id;
-							$latest_posts[$n]["date"] = strtotime($latest_post->post_date);
+							if($latest_post->created)
+								$latest_posts[$n]["date"] = $latest_post->created;
+							else
+								$latest_posts[$n]["date"] = strtotime($latest_post->post_date);
 							$latest_posts[$n]["author"] = $latest_post->post_creator;
 							$latest_posts[$n]["topic_id"] = $latest_post->topic_id;
 
@@ -429,7 +432,7 @@ class Forum {
 		foreach($latest_posts as $latest_post){
 			if(!empty($latest_post["date"])){
 				$this->_db->update('topics', $latest_post["topic_id"], array(
-					'topic_reply_date' => date('U', $latest_post["date"]),
+					'topic_reply_date' => $latest_post["date"],
 					'topic_last_user' => $latest_post["author"]
 				));
 			}
@@ -472,6 +475,7 @@ class Forum {
 	// Params: $number (integer) - number to return (max 10)
 	public function getLatestNews($number = 5) {
 		$return = array(); // Array to return containing news
+		$labels = array(); // Array to contain labels
 
         $news_items = $this->_db->query("SELECT * FROM nl2_topics WHERE forum_id IN (SELECT id FROM nl2_forums WHERE news = 1) AND deleted = 0 ORDER BY topic_date DESC LIMIT 10")->results();
 
@@ -485,6 +489,30 @@ class Forum {
                 $post_date = date('d M Y, H:i', $news_post[0]->created);
             }
 
+            $label = null;
+
+            if($item->label){
+	            // Get label
+	            if(isset($labels[$item->label])){
+	            	$label = $labels[$item->label];
+	            } else {
+		            $label = $this->_db->get('forums_topic_labels', array('id', '=', $item->label));
+		            if($label->count()){
+			            $label = $label->first();
+
+			            $label_html = $this->_db->get('forums_labels', array('id', '=', $label->label));
+
+			            if($label_html->count()){
+				            $label_html = $label_html->first()->html;
+				            $label = str_replace('{x}', Output::getClean($label->name), $label_html);
+
+			            } else $label = '';
+		            } else $label = '';
+
+		            $labels[$item->label] = $label;
+	            }
+            }
+
             $post = $news_post[0]->post_content;
             $return[] = array(
                 "topic_id" => $item->id,
@@ -492,8 +520,9 @@ class Forum {
                 "topic_title"=> $item->topic_title,
                 "topic_views" => $item->topic_views,
                 "author" => $item->topic_creator,
-                "content" => Util::truncate(htmlspecialchars_decode($post)),
-                "replies" => $posts
+                "content" => Util::truncate(Output::getDecoded($post)),
+                "replies" => $posts,
+	            'label' => $label
             );
 		}
 

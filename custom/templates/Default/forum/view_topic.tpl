@@ -129,7 +129,7 @@
                                     {if isset($reply.buttons.edit)}
                                         <a class="btn btn-secondary btn-sm" data-toggle="tooltip" data-trigger="hover"
                                            data-original-title="{$reply.buttons.edit.TEXT}"
-                                           href="{$reply.buttons.edit.URL}"><i class="fa fa-pencil fa-fw"
+                                           href="{$reply.buttons.edit.URL}"><i class="fa fa-pencil-alt fa-fw"
                                                                                aria-hidden="true"></i></a>
                                     {/if}
 
@@ -167,7 +167,7 @@
                                                  data-original-title="{$reply.edited_full}">{$reply.edited}</span>
                                     </small>{/if}
                                 {if count($reply.post_reactions)}
-                                    <span class="pull-right" data-toggle="modal"
+                                    <span class="float-md-right" data-toggle="modal"
                                           data-target="#reactions{$reply.id}Modal">
 			  {foreach from=$reply.post_reactions name="reactions" item=reaction}
                   {$reaction.html} x {$reaction.count}
@@ -352,7 +352,7 @@
                             <div class="form-group">
                                 <textarea class="form-control" style="width:100%" id="markdown" name="content"
                                           rows="20">{$CONTENT}</textarea>
-                                <span class="pull-right"><i data-toggle="popover" data-placement="top" data-html="true"
+                                <span class="float-md-right"><i data-toggle="popover" data-placement="top" data-html="true"
                                                             data-content="{$MARKDOWN_HELP}"
                                                             class="fa fa-question-circle text-info"
                                                             aria-hidden="true"></i></span>

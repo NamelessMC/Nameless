@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -58,28 +58,30 @@ class MCQuery {
 
                 } else {
                     // External query
-                    ExternalMCQuery::addServer($ip['ip']);
-                    $query = ExternalMCQuery::queryServers('basic');
+	                $query_ip = explode(':', $ip['ip']);
 
-                    if(isset($query->status) && !empty($query->status))
-                        $return = array(
-                            'status_value' => 1,
-                            'status' => $language->get('general', 'online'),
-                            'player_count' => Output::getClean($query->players->online),
-                            'player_count_max' => Output::getClean($query->players->max),
-                            'player_list' => (isset($query->hover) ? (array)$query->hover : array()),
-                            'x_players_online' => str_replace('{x}', Output::getClean($query->players->online), $language->get('general', 'currently_x_players_online')),
-                            'motd' => $query->motds->ingame,
-                            'motd_formatted' => Output::getPurified($query->motds->html)
-                        );
-                    else
-                        $return = array(
-                            'status_value' => 0,
-                            'status' => $language->get('general', 'offline'),
-                            'server_offline' => $language->get('general', 'server_offline')
-                        );
+	                if(count($query_ip) <= 2){
+	                	$query = ExternalMCQuery::query($query_ip[0], (isset($query_ip[1]) ? $query_ip[1] : 25565));
 
-                    return $return;
+		                if(!$query->error && isset($query->response))
+			                $return = array(
+				                'status_value' => 1,
+				                'status' => $language->get('general', 'online'),
+				                'player_count' => Output::getClean($query->response->players->online),
+				                'player_count_max' => Output::getClean($query->response->players->max),
+				                'player_list' => $query->response->players->list,
+				                'x_players_online' => str_replace('{x}', Output::getClean($query->response->players->online), $language->get('general', 'currently_x_players_online')),
+				                'motd' => $query->response->description->text
+			                );
+		                else
+			                $return = array(
+				                'status_value' => 0,
+				                'status' => $language->get('general', 'offline'),
+				                'server_offline' => $language->get('general', 'server_offline')
+			                );
+
+		                return $return;
+	                }
                 }
             } catch(Exception $e){
                 $error = $e->getMessage();
@@ -182,56 +184,52 @@ class MCQuery {
                 return $to_return;
             } else {
                 // External query
-                foreach($servers as $server)
-                    ExternalMCQuery::addServer($server['ip']);
+	            $to_return = array();
+	            $total_count = 0;
+	            $status = 0;
 
-                $query = ExternalMCQuery::queryServers('basic');
+	            foreach($servers as $server){
+		            $query_ip = explode(':', $server['ip']);
 
-                $to_return = array();
-                if(count($query)){
-                    $total_count = 0;
-                    $status = 0;
-                    $i = 0;
+		            if(count($query_ip) <= 2){
+		            	$query = ExternalMCQuery::query($query_ip[0], (isset($query_ip[1]) ? $query_ip[1] : 25565));
 
-                    foreach($query as $item){
-                        if(isset($item->players)) {
-                            if($accumulate === false){
-                                $to_return[] = array(
-                                    'name' => Output::getClean($servers[$i]['name']),
-                                    'status_value' => 1,
-                                    'status' => $language->get('general', 'online'),
-                                    'player_count' => Output::getClean($item->players->online),
-                                    'player_count_max' => Output::getClean($item->players->max),
-                                    'x_players_online' => str_replace('{x}', Output::getClean($item->players->online), $language->get('general', 'currently_x_players_online'))
-                                );
-                            } else {
-                                if($status == 0)
-                                    $status = 1;
-                                $total_count += $item->players->online;
-                            }
-                        } else {
-                            if($accumulate === true)
-                                $to_return[] = array(
-                                    'name' => Output::getClean($server['name']),
-                                    'status_value' => 0,
-                                    'status' => $language->get('general', 'offline'),
-                                    'server_offline' => $language->get('general', 'server_offline')
-                                );
-                        }
+			            if(!$query->error && isset($query->response)) {
+				            if($accumulate === false){
+					            $to_return[] = array(
+						            'name' => Output::getClean($server['name']),
+						            'status_value' => 1,
+						            'status' => $language->get('general', 'online'),
+						            'player_count' => Output::getClean($query->response->players->online),
+						            'player_count_max' => Output::getClean($query->response->players->max),
+						            'x_players_online' => str_replace('{x}', Output::getClean($query->response->players->online), $language->get('general', 'currently_x_players_online'))
+					            );
+				            } else {
+					            if($status == 0)
+						            $status = 1;
+					            $total_count += $query->response->players->online;
+				            }
+			            } else {
+				            if($accumulate === true)
+					            $to_return[] = array(
+						            'name' => Output::getClean($server['name']),
+						            'status_value' => 0,
+						            'status' => $language->get('general', 'offline'),
+						            'server_offline' => $language->get('general', 'server_offline')
+					            );
+			            }
+		            }
+	            }
 
-                        $i++;
-                    }
-                }
+	            if($accumulate === true)
+		            $to_return = array(
+			            'status_value' => $status,
+			            'status' => (($status == 1) ? $language->get('general', 'online') : $language->get('general', 'offline')),
+			            'status_full' => (($status == 1) ? str_replace('{x}', $total_count, $language->get('general', 'currently_x_players_online')) : $language->get('general', 'server_offline')),
+			            'total_players' => $total_count
+		            );
 
-                if($accumulate === true)
-                    $to_return = array(
-                        'status_value' => $status,
-                        'status' => (($status == 1) ? $language->get('general', 'online') : $language->get('general', 'offline')),
-                        'status_full' => (($status == 1) ? str_replace('{x}', $total_count, $language->get('general', 'currently_x_players_online')) : $language->get('general', 'server_offline')),
-                        'total_players' => $total_count
-                    );
-
-                return $to_return;
+	            return $to_return;
             }
         }
         return false;

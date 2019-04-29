@@ -85,7 +85,8 @@ $language = array(
 	'facebook_url' => 'Facebook URL',
 	'social_media_settings_updated' => 'Social media instellingen succesvol bijgewerkt.',
 	'successfully_updated' => 'Succesvol bijgewerkt',
-	'debugging_and_maintenance' => 'Debugging en beheer',
+	'debugging_and_maintenance' => 'Debugging en onderhoud',
+	'maintenance' => 'Onderhoud',
 	'debugging_settings_updated_successfully' => 'Debugging instellingen succesvol bijgewerkt.',
 	'enable_debug_mode' => 'Wil je debug modus inschakelen?',
 	'force_https' => 'Forceer https?',
@@ -136,7 +137,7 @@ $language = array(
     'navbar_order' => 'Navbar ordening',
     'navbar_order_instructions' => 'Je kan elk item een nummer boven de 0 geven om items te ordenen in de navbar, met 1 de eerste en hogere nummers erna.',
     'navbar_icon' => 'Navbar Icon',
-    'navbar_icon_instructions' => 'U kunt hier ook een pictogram aan elk item op de navigatiebalk toevoegen, bijvoorbeeld met behulp van <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+    'navbar_icon_instructions' => 'U kunt hier ook een pictogram aan elk item op de navigatiebalk toevoegen, bijvoorbeeld met behulp van <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'navigation_settings_updated_successfully' => 'Navigatie-instellingen succesvol bijgewerkt.',
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Pagina laad timer inschakelen?',
@@ -259,6 +260,7 @@ $language = array(
 	'editing_server' => 'Server bewerken',
 	'server_deleted' => 'Server succesvol verwijderd',
 	'unable_to_delete_server' => 'Deze server kan niet worden verwijderd.',
+	'leave_port_empty_for_srv' => 'You can leave the port empty if it is 25565, or if your domain uses an SRV record',
 	'viewing_query_error' => 'Query fout aan het bekijken',
 	'confirm_query_error_deletion' => 'Weet je zeker dat je deze query fout wilt verwijderen?',
 	'no_query_errors' => 'Geen query fouten vastgesteld.',
@@ -309,6 +311,7 @@ $language = array(
 
 	// Stijlen
 	'templates' => 'Sjablonen',
+	'panel_templates' => 'Panel Templates',
 	'template_outdated' => 'We hebben ontdekt dat dit sjabloon voor versie {x} is, maar je gebruikt versie {y}', // Verander "{x}" of "{y}" niet
 	'active' => 'Actief',
 	'deactivate' => 'Deactiveer',
@@ -331,6 +334,12 @@ $language = array(
 	'delete' => 'Verwijder',
 	'template_deleted_successfully' => 'Sjabloon succesvol verwijderd.',
 	'background_image_x' => 'Achtergrondafbeelding: <strong>{x}</strong>', // Don't replace {x}
+	'banner_image_x' => 'Banner image: <strong>{x}</strong>', // Don't replace {x}
+	'background_directory_not_writable' => 'The <strong>uploads/backgrounds</strong> directory is not writable!',
+	'template_banners_directory_not_writable' => 'The <strong>uploads/template_banners</strong> directory is not writable!',
+	'template_banner_reset_successfully' => 'Banner reset successfully.',
+	'template_banner_updated_successfully' => 'Banner updated successfully.',
+	'reset_banner' => 'Reset Banner',
 	'find_templates' => 'Find Templates',
 	'view_all_templates' => 'View all templates',
 	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
@@ -465,6 +474,7 @@ $language = array(
 
     // Online users widget
     'include_staff_in_user_widget' => 'Personeelsleden opnemen in user widget?',
+    'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
 
     // aangepaste pagina's
     'pages' => 'Pagina\'s',

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by JozefSorokac
  *  https://github.com/NamelessMC/Nameless/
@@ -84,6 +84,7 @@ $language = array(
 	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => 'Úspešne aktualizované',
     'debugging_and_maintenance' => 'Debugging a údržba',
+    'maintenance' => 'Debugging a údržba',
 	'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Zapnúť debug mód?',
     'force_https' => 'Vynúcene https?',
@@ -134,7 +135,7 @@ $language = array(
     'navbar_order' => 'Poradie v navigačnej lište',
     'navbar_order_instructions' => 'Každej položke môžete dať číslo 0 k zoradeniu položiek v navigačnej lište, číslo 1 bude prvá položka navigačnej lišty a ďalšie čísla za 1 sa v nej budú ďalej zoraďovať.',
     'navbar_icon' => 'Navbar Icon',
-    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Zapnúť čas načítania stránky?',
@@ -308,6 +309,7 @@ $language = array(
 	
 	// Styles
 	'templates' => 'Šablóny',
+	'panel_templates' => 'Panel Templates',
 	'template_outdated' => 'Zistili sme, že šablóna je určena pre verzie {x} , ale vy používate verziu {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Aktívny',
 	'deactivate' => 'Deaktivovať',
@@ -330,6 +332,12 @@ $language = array(
 	'delete' => 'Smazat',
 	'template_deleted_successfully' => 'Šablona úspešne odstraněna.',
 	'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+	'banner_image_x' => 'Banner image: <strong>{x}</strong>', // Don't replace {x}
+	'background_directory_not_writable' => 'The <strong>uploads/backgrounds</strong> directory is not writable!',
+	'template_banners_directory_not_writable' => 'The <strong>uploads/template_banners</strong> directory is not writable!',
+	'template_banner_reset_successfully' => 'Banner reset successfully.',
+	'template_banner_updated_successfully' => 'Banner updated successfully.',
+	'reset_banner' => 'Reset Banner',
 	'find_templates' => 'Find Templates',
 	'view_all_templates' => 'View all templates',
 	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
@@ -464,6 +472,7 @@ $language = array(
 
     // Online users widget
     'include_staff_in_user_widget' => 'Include staff members in user widget?',
+    'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
 
 	// Custom Pages
 	'pages' => 'Stránky',

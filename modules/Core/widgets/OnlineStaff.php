@@ -35,7 +35,7 @@ class OnlineStaffWidget extends WidgetBase {
 	    if($this->_cache->isCached('staff'))
 		    $online = $this->_cache->retrieve('staff');
 	    else {
-		    $online = DB::getInstance()->query('SELECT id, username, nickname FROM nl2_users WHERE last_online > ' . strtotime('-5 minutes') . ' AND group_id IN (SELECT id FROM nl2_groups WHERE staff = 1)', array())->results();
+		    $online = DB::getInstance()->query('SELECT id, username, nickname, user_title FROM nl2_users WHERE last_online > ' . strtotime('-5 minutes') . ' AND group_id IN (SELECT id FROM nl2_groups WHERE staff = 1)', array())->results();
 		    $this->_cache->store('staff', $online, 120);
 	    }
 	    // Generate HTML code for widget
@@ -51,18 +51,22 @@ class OnlineStaffWidget extends WidgetBase {
 				    'username' => Output::getClean($staff->username),
 				    'nickname' => Output::getClean($staff->nickname),
 				    'avatar' => $user->getAvatar($staff->id),
-				    'id' => Output::getClean($staff->id)
+				    'id' => Output::getClean($staff->id),
+				    'title' => Output::getClean($staff->user_title),
+				    'group' => $user->getGroup($staff->id, true)
 			    );
 
 		    $this->_smarty->assign(array(
 			    'ONLINE_STAFF' => $this->_language['title'],
-			    'ONLINE_STAFF_LIST' => $staff_members
+			    'ONLINE_STAFF_LIST' => $staff_members,
+			    'TOTAL_ONLINE_STAFF' => str_replace('{x}', count($staff_members), $this->_language['total_online_staff'])
 		    ));
 
 	    } else
 		    $this->_smarty->assign(array(
 			    'ONLINE_STAFF' => $this->_language['title'],
-			    'NO_STAFF_ONLINE' => $this->_language['no_online_staff']
+			    'NO_STAFF_ONLINE' => $this->_language['no_online_staff'],
+			    'TOTAL_ONLINE_STAFF' => str_replace('{x}', '0', $this->_language['total_online_staff'])
 		    ));
 
 	    $this->_content = $this->_smarty->fetch('widgets/online_staff.tpl');

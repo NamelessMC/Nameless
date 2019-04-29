@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/samerton
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -15,8 +15,8 @@ class DefaultTheme_Module extends Module {
 	public function __construct($pages, $language){
 		$name = 'DefaultTheme';
 		$author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-		$module_version = '2.0.0-pr5';
-		$nameless_version = '2.0.0-pr5';
+		$module_version = '2.0.0-pr6';
+		$nameless_version = '2.0.0-pr6';
 
 		$this->_language = $language;
 

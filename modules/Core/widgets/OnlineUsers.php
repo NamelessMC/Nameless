@@ -33,8 +33,10 @@ class OnlineUsersWidget extends WidgetBase {
     public function initialise(){
 	    $this->_cache->setCache('online_members');
 
-	    if($this->_cache->isCached('users'))
+	    if($this->_cache->isCached('users')){
 		    $online = $this->_cache->retrieve('users');
+		    $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
+	    }
 	    else {
 		    if($this->_cache->isCached('include_staff_in_users'))
 			    $include_staff = $this->_cache->retrieve('include_staff_in_users');
@@ -42,8 +44,19 @@ class OnlineUsersWidget extends WidgetBase {
 			    $include_staff = 0;
 			    $this->_cache->store('include_staff_in_users', 0);
 		    }
+		    if($this->_cache->isCached('show_nickname_instead'))
+			    $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
+		    else {
+			    $use_nickname_show = 0;
+			    $this->_cache->store('show_nickname_instead', 0);
+		    }
 
-		    $online = DB::getInstance()->query('SELECT id, username, nickname FROM nl2_users WHERE last_online > ? AND group_id IN (SELECT id FROM nl2_groups WHERE staff = ?)', array(strtotime('-5 minutes'), $include_staff))->results();
+		    if($include_staff){
+			    $online = DB::getInstance()->query('SELECT id, username, nickname, user_title FROM nl2_users WHERE last_online > ?', array(strtotime('-5 minutes')))->results();
+		    } else {
+			    $online = DB::getInstance()->query('SELECT id, username, nickname, user_title FROM nl2_users WHERE last_online > ? AND group_id IN (SELECT id FROM nl2_groups WHERE staff = 0)', array(strtotime('-5 minutes')))->results();
+		    }
+
 		    $this->_cache->store('users', $online, 120);
 	    }
 
@@ -60,18 +73,23 @@ class OnlineUsersWidget extends WidgetBase {
 				    'username' => Output::getClean($item->username),
 				    'nickname' => Output::getClean($item->nickname),
 				    'avatar' => $user->getAvatar($item->id),
-				    'id' => Output::getClean($item->id)
+				    'id' => Output::getClean($item->id),
+				    'title' => Output::getClean($item->user_title),
+				    'group' => $user->getGroup($item->id, true)
 			    );
 
 		    $this->_smarty->assign(array(
+		        'SHOW_NICKNAME_INSTEAD' => $use_nickname_show,
 			    'ONLINE_USERS' => $this->_language['title'],
-			    'ONLINE_USERS_LIST' => $users
+			    'ONLINE_USERS_LIST' => $users,
+			    'TOTAL_ONLINE_USERS' => str_replace('{x}', count($users), $this->_language['total_online_users'])
 		    ));
 
 	    } else
 		    $this->_smarty->assign(array(
 			    'ONLINE_USERS' => $this->_language['title'],
-			    'NO_USERS_ONLINE' => $this->_language['no_online_users']
+			    'NO_USERS_ONLINE' => $this->_language['no_online_users'],
+			    'TOTAL_ONLINE_USERS' => str_replace('{x}', 0, $this->_language['total_online_users'])
 		    ));
 
 	    $this->_content = $this->_smarty->fetch('widgets/online_users.tpl');

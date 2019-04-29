@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -21,7 +21,8 @@ if($social_media){
 	$social_media_icons[] = array(
 		'short' => 'fb',
 		'long' => 'facebook',
-		'link' => Output::getClean($social_media)
+		'link' => Output::getClean($social_media),
+		'text' => 'Facebook'
 	);
 }
 
@@ -31,17 +32,8 @@ if($social_media){
 	$social_media_icons[] = array(
 		'short' => 'tw',
 		'long' => 'twitter',
-		'link' => Output::getClean($social_media)
-	);
-}
-
-// Google Plus
-$social_media = $cache->retrieve('google_plus');
-if($social_media){
-	$social_media_icons[] = array(
-		'short' => 'gp',
-		'long' => 'google-plus',
-		'link' => Output::getClean($social_media)
+		'link' => Output::getClean($social_media),
+		'text' => 'Twitter'
 	);
 }
 
@@ -51,7 +43,8 @@ if($social_media){
 	$social_media_icons[] = array(
 		'short' => 'gp',
 		'long' => 'youtube',
-		'link' => Output::getClean($social_media)
+		'link' => Output::getClean($social_media),
+		'text' => 'YouTube'
 	);
 }
 
@@ -59,7 +52,8 @@ if($social_media){
 $social_media_icons[] = array(
 	'short' => 'em',
 	'long' => 'envelope',
-	'link' => URL::build('/contact')
+	'link' => URL::build('/contact'),
+	'text' => $language->get('general', 'contact')
 );
 
 // Smarty template

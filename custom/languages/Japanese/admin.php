@@ -17,18 +17,18 @@ $language = array(
 	 *  Admin Control Panel
 	 */
 	// Login
-	're-authenticate' => 'AdminCPログイン',
+	're-authenticate' => 'StaffCP ログイン',
 
 	// Sidebar
 	'dashboard' => 'ダッシュボード',
 	'configuration' => 'コンフィグ',
 	'layout' => 'レイアウト',
 	'user_management' => 'ユーザー管理',
-	'admin_cp' => 'AdminCP',
+	'admin_cp' => 'StaffCP',
 	'administration' => '管理',
 	'overview' => '概要',
 	'core' => 'コア',
-	'integrations' => 'Integrations',
+	'integrations' => '連携',
 	'minecraft' => 'Minecraft',
 	'modules' => 'モジュール',
 	'security' => 'セキュリティ',
@@ -87,6 +87,7 @@ $language = array(
 	'social_media_settings_updated' => 'ソーシャルメディア設定が正常に更新されました。',
 	'successfully_updated' => '正常に更新されました。',
     'debugging_and_maintenance' => 'メンテナンス',
+    'maintenance' => 'メンテナンス',
     'enable_debug_mode' => 'デバッグモードを有効にしますか？',
 	'debugging_settings_updated_successfully' => 'デバッグ・メンテナンス設定が正常に更新されました。',
     'force_https' => 'Https を強制させますか？',
@@ -137,7 +138,7 @@ $language = array(
     'navbar_order' => 'ナビゲーションバー順番',
     'navbar_order_instructions' => 'ナビゲーションバー順番は、各メニューの順番を設定できます。一番最初は「1」、二番目以降はそれ以上の数字を設定することで順番を調節できます。',
     'navbar_icon' => 'ナビゲーションバーアイコン',
-    'navbar_icon_instructions' => 'ナビゲーションバーアイコンは <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a> を参照して使用したいアイコンのHTMLソースを貼り付けてください。',
+    'navbar_icon_instructions' => 'ナビゲーションバーアイコンは <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a> を参照して使用したいアイコンのHTMLソースを貼り付けてください。',
     'navigation_settings_updated_successfully' => 'ナビゲーションバーの設定が正常に更新されました。',
     'dropdown_items' => 'ドロップダウンメニュー',
     'enable_page_load_timer' => 'ページロード時間を表示しますか？',
@@ -284,13 +285,13 @@ $language = array(
     'player_graphs' => 'プレイヤーグラフ',
     'player_count_cronjob_info' => '次のコマンドを使用して {x} 分ごとにサーバーに照会するようにジョブを設定できます。',
     'status_page' => 'ステータスページを表示しますか？',
-    'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
-    'server_id_x' => 'Server ID: {x}', // Don't replace {x}
-    'server_information' => 'Server Information',
-    'query_information' => 'Query Information',
-    'query_errors_purged_successfully' => 'Query errors purged successfully.',
-    'query_error_deleted_successfully' => 'Query error deleted successfully.',
-    'banner_updated_successfully' => 'Banner updated successfully. It may take a while for your changes to take effect.',
+    'minecraft_settings_updated_successfully' => '設定が正常に更新されました。',
+	'server_id_x' => 'サーバーID：{x}',// {x}を置き換えない
+    'server_information' => 'サーバー情報',
+    'query_information' => 'クエリ情報',
+    'query_errors_purged_successfully' => 'クエリエラーが正常にパージされました。',
+    'query_error_deleted_successfully' => 'クエリエラーが正常に削除されました。',
+    'banner_updated_successfully' => 'バナーが正常に更新されました。 変更が有効になるまでに時間がかかることがあります。',
 
 	// Modules
 	'modules_installed_successfully' => '新しいモジュールが正常にインストールされました。',
@@ -305,12 +306,13 @@ $language = array(
 	'module_outdated' => '選択したモジュールは NamelessMC バージョン 【{x}】 を推奨しています。現在の NamelessMC バージョンは 【{y}】 です。', // Don't replace "{x}" or "{y}"
 	'find_modules' => 'モジュール検索',
 	'view_all_modules' => 'すべてのモジュールを見る',
-	'unable_to_retrieve_modules' => 'Unable to retrieve modules',
+	'unable_to_retrieve_modules' => 'モジュールを取得できませんでした。',
 	'module' => 'モジュール',
-	'unable_to_enable_module' => 'Unable to enable incompatible module.',
+	'unable_to_enable_module' => '互換性のないモジュールを有効にすることはできません。',
 
 	// Styles
 	'templates' => 'テンプレート',
+	'panel_templates' => 'Panel Templates',
 	'template_outdated' => '選択したテンプレートは NamelessMC バージョン {x} に対応していますが、現在 NamelessMC バージョン {y} を実行しています。', // Don't replace "{x}" or "{y}"
 	'active' => 'アクティブ',
 	'deactivate' => '非アクティブ',
@@ -333,6 +335,12 @@ $language = array(
 	'delete' => '削除',
 	'template_deleted_successfully' => 'テンプレートが正常に削除されました。',
 	'background_image_x' => '背景画像: <strong>{x}</strong>', // Don't replace {x}
+	'banner_image_x' => 'Banner image: <strong>{x}</strong>', // Don't replace {x}
+	'background_directory_not_writable' => 'The <strong>uploads/backgrounds</strong> directory is not writable!',
+	'template_banners_directory_not_writable' => 'The <strong>uploads/template_banners</strong> directory is not writable!',
+	'template_banner_reset_successfully' => 'Banner reset successfully.',
+	'template_banner_updated_successfully' => 'Banner updated successfully.',
+	'reset_banner' => 'Reset Banner',
 	'find_templates' => 'テンプレートを探す',
 	'view_all_templates' => 'すべてのテンプレートを見る',
 	'unable_to_retrieve_templates' => 'テンプレートを取得できませんでした。',
@@ -345,9 +353,9 @@ $language = array(
 	'editing_template_file_in_template' => 'Editing file {x} in template {y}', // Don't replace {x} or {y}
 	'cant_write_to_template' => 'テンプレートファイルに書き込み出来ませんでした。ファイルのアクセス許可を確認してください。',
 	'unable_to_delete_template' => 'テンプレートを完全に削除できませんでした。 ファイルのアクセス許可を確認してください。',
-	'background_reset_successfully' => 'Background reset successfully.',
-	'background_updated_successfully' => 'Background updated successfully.',
-	'unable_to_enable_template' => 'Unable to enable incompatible template.',
+	'background_reset_successfully' => '背景が正常にリセットされました。',
+	'background_updated_successfully' => '背景が正常に更新されました。',
+	'unable_to_enable_template' => '互換性のないテンプレートを有効にすることはできません。',
 
 	// Users & groups
 	'users' => 'ユーザー',
@@ -454,7 +462,7 @@ $language = array(
 	'instructions' => '指示',
 	'download' => 'ダウンロード',
 	'install_confirm' => 'パッケージをダウンロードし、含まれているファイルを最初にアップロードしたことを確認してください。',
-	'check_again' => 'Check again',
+	'check_again' => '確認する',
 
 	// Widgets
 	'widgets' => 'ウィジェット',
@@ -467,6 +475,7 @@ $language = array(
 
     // Online users widget
     'include_staff_in_user_widget' => 'スタッフウィジェットをユーザーウィジェットに含めますか？',
+    'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
 
     // Custom Pages
     'pages' => 'ページ',
@@ -528,20 +537,20 @@ $language = array(
     'enable_username_sync' => 'ユーザーネームの同期を有効にしますか？',
     'enable_username_sync_info' => '有効にすると、WebサイトのユーザーネームをMinecraftユーザーネームと同期します。',
 	'api_settings_updated_successfully' => 'API設定が正常に更新されました。',
-	'group_sync' => 'Group Sync',
-	'group_sync_info' => 'You can configure the API to automatically update a user\'s website group when their ingame group is changed. Simply enter the ingame group name and the website group it should be synchronised with below.',
-	'ingame_group' => 'Ingame Group Name',
-	'website_group' => 'Website Group',
-	'set_as_primary_group' => 'Set as primary group?',
-	'set_as_primary_group_info' => 'If enabled, the user\'s primary website group will be updated. If disabled, the ingame group will be added to the user\'s website secondary groups.',
-	'ingame_group_maximum' => 'Please ensure your group name is a maximum of 64 characters long.',
-	'select_website_group' => 'Please select a website group.',
-	'ingame_group_already_exists' => 'A rank sync rule has already been created for that ingame group.',
-	'group_sync_rule_created_successfully' => 'The group sync rule has been created successfully.',
-	'group_sync_rules_updated_successfully' => 'Group sync rules have been updated successfully.',
-	'group_sync_rule_deleted_successfully' => 'The group sync rule has been deleted successfully.',
-	'existing_rules' => 'Existing Rules',
-	'new_rule' => 'New Rule',
+	'group_sync' => 'グループ同期',
+	'group_sync_info' => 'ゲーム(サーバー)内グループが変更されたときにユーザーのウェブサイトグループを自動的に更新するようにAPIを設定できます。 ゲーム内のグループ名と同期するウェブサイトグループを入力してください。',
+	'ingame_group' => 'ゲーム内のグループ名',
+	'website_group' => 'ウェブサイトグループ',
+	'set_as_primary_group' => 'プライマリグループとして設定しますか？',
+	'set_as_primary_group_info' => '有効にするとユーザーのプライマリWebサイトグループが自動で更新されます。無効にするとゲーム内のグループがユーザーのウェブサイトのセカンダリグループに追加されます。 ',
+	'ingame_group_maximum' => 'グループ名は <strong>64文字</strong> 以下にする必要があります。',
+	'select_website_group' => 'ウェブサイトグループを選択してください。',
+	'ingame_group_already_exists' => '指定されたゲームグループのランク同期ルールはすでに作成されています。',
+	'group_sync_rule_created_successfully' => 'グループ同期ルールが正常に作成されました。',
+	'group_sync_rules_updated_successfully' => 'グループ同期ルールが正常に更新されました。',
+	'group_sync_rule_deleted_successfully' => 'グループ同期ルールが正常に削除されました。',
+	'existing_rules' => '既存のルール',
+	'new_rule' => '新しいルール',
 
 	// File uploads
 	'drag_files_here' => 'アップロードするファイルをここにドラッグします。',
@@ -602,6 +611,6 @@ $language = array(
 	//その他
 	'source' => 'ソース',
 	'support' => 'サポート',
-	'admin_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/admin</strong> directory still exists. Please remove this directory.',
-	'mod_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/mod</strong> directory still exists. Please remove this directory.'
+	'admin_dir_still_exists' => '【警告】 <strong> modules/Core/pages/admin </strong>ディレクトリがまだ存在しています。 ディレクトリを削除してください。 ',
+	'mod_dir_still_exists' => '【警告】 <strong> modules/Core/pages/mod </strong>ディレクトリがまだ存在しています。 ディレクトリを削除してください。'
 );

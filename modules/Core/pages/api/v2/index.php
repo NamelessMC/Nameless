@@ -172,6 +172,11 @@ class Nameless2API
                     $this->validateUser();
                     break;
 
+                case 'listUsers':
+                    // List registered usernames + their uuids
+                    $this->listUsers();
+                    break;
+
                 /*
                 case 'log':
                     $this->log();
@@ -390,7 +395,8 @@ class Nameless2API
                     'joined' => date('U'),
                     'group_id' => $default_group,
                     'lastip' => 'Unknown',
-                    'reset_code' => $code
+                    'reset_code' => $code,
+	                'last_online' => date('U')
                 ));
 
                 $user_id = $this->_db->lastid();
@@ -770,8 +776,6 @@ class Nameless2API
             $server_query = $this->_db->get('mc_servers', array('id', '=', $info['server-id']));
             if(!$server_query->count()) $this->throwError(27, $this->_language->get('api', 'invalid_server_id'));
 
-            //echo '<pre>', print_r($info->{'players'}), '</pre>';
-
             try {
                 $this->_db->insert('query_results', array(
                     'server_id' => $info['server-id'],
@@ -779,7 +783,6 @@ class Nameless2API
                     'players_online' => count($info['players']),
                     'extra' => $_POST['info']
                 ));
-
 
                 if(file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
                     $query_cache = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache');
@@ -946,6 +949,18 @@ class Nameless2API
                 $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
         }
     }
+
+    // List registered users
+	private function listUsers(){
+		// Ensure the API key is valid
+		if($this->_validated === true){
+			$this->_db = DB::getInstance();
+
+			$users = $this->_db->query('SELECT username, uuid, isbanned AS banned, active FROM nl2_users')->results();
+
+			$this->returnArray(array('users' => $users));
+		}
+	}
 
     /*
     private function log(){

@@ -1,20 +1,21 @@
 <?php 
 /*
- *  Translations by Maiu | Discord: Maiu#1152
+ *  Translations by Maiu
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr3
+ *  NamelessMC versjon 2.0.0-pr6
  *
  *  License: MIT
  *
- *  Norsk oversettelse - General
+ *  Norwegian translation (norsk bokmål) - General
  */
 
 $language = array(
 	/*
 	 *  General terms
 	 */ 
-	'submit' => 'Enter',
+	'submit' => 'Gjør',
 	'register' => 'Registrer',
+	'already_registered' => 'Already Registered?',
 	'sign_in' => 'Logg inn',
 	'log_out' => 'Logg ut',
 	'profile' => 'Profil',
@@ -26,7 +27,7 @@ $language = array(
 	'search' => 'Søk',
 	'edit' => 'Rediger',
 	'next' => 'Neste',
-	'previous' => 'Previous',
+	'previous' => 'Forrige',
 	'confirm_cancel' => 'Er du sikker på at du vil avslutte?',
 	'confirm_delete' => 'Aksepter avsluttelse',
 	'confirm_deletion' => 'Er du sikker på at du ønsker å slette dette?',
@@ -55,22 +56,23 @@ $language = array(
     'bypass' => 'Hopp over',
     'yes' => 'Ja',
     'no' => 'Nei',
-    'content' => 'Content',
-    'full_content' => 'Full Content',
+    'content' => 'Innhold',
+    'full_content' => 'Hele innhold',
     'url' => 'URL',
-	'success' => 'Success',
+	'success' => 'Suksess',
 	'error' => 'Error',
-	'are_you_sure' => 'Are you sure?',
+	'are_you_sure' => 'Er du sikker?',
+	'spoiler' => 'Spoiler',
 
     /*
      *  Contact form
      */
     'contact' => 'Kontakt',
     'message' => 'Melding',
-    'email_address' => 'Email Address',
+    'email_address' => 'Emailadresse',
     'contact_email_subject' => 'Ny kontaktskjema',
     'contact_message_failed' => 'Kunne ikke sende melding. Pass på at meldingen er mellom 10 og 5000 tegn lang',
-    'contact_message_email' => 'The provided email is invalid.',
+    'contact_message_email' => 'Eposten er ugyldig.',
     'contact_message_sent' => 'Melding suksessfullt sendt!',
     'contact_message_limit' => 'Du kan kun sende èn melding hver time. Du kan sende en ny melding om {x} minutter.', // Don't replace {x}
 	
@@ -95,21 +97,21 @@ $language = array(
     /*
      *  Server query
      */
-    'online' => 'Oppe',
-    'offline' => 'Nede',
+    'online' => 'Pålogget',
+    'offline' => 'Frakoblet',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Versjon: {x}', // Don't replace {x}
-    'currently_1_player_online' => 'There is currently 1 player online.',
-    'currently_x_players_online' => 'Det er <strong>{x}</strong> påloggede spillere.', // Don't replace {x}
+    'currently_1_player_online' => 'Det er for øyeblikket 1 spiller pålogget.',
+    'currently_x_players_online' => 'Det er for øyeblikket <strong>{x}</strong> påloggede spillere.', // Don't replace {x}
     'server_offline' => 'Serveren er nede for øyeblikket.',
     'connect_with_ip_x' => 'Koble til nå med IP {x}', // Don't replace {x}
-    'click_to_copy_tooltip' => 'Click to copy',
-    'copied' => 'Copied!',
-    'no_servers' => 'There are no servers to display!',
-    'bungee_instance' => 'This server is a Bungee instance.',
-    'no_players_online' => 'There are no players online.',
-    'and_x_more' => 'and {x} more', // Don't replace {x}
+    'click_to_copy_tooltip' => 'Klikk for å kopiere',
+    'copied' => 'Kopiert!',
+    'no_servers' => 'Det finnes ingen servere å vise!',
+    'bungee_instance' => 'Dette er en Bungee server',
+    'no_players_online' => 'Det er ingen spillere pålogget',
+    'and_x_more' => 'og {x} flere', // Don't replace {x}
 
     /*
      *  Cookie notice
@@ -120,14 +122,27 @@ $language = array(
     /*
      *  Widgets
      */
-    'online_staff' => 'Online Staff',
-    'no_online_staff' => 'There are no staff members online.',
-    'online_users' => 'Online Users',
-    'no_online_users' => 'There are no users online.',
-    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
+    'statistics' => 'Statistikk',
+    'users_registered' => 'Brukere registrert',
+    'latest_member' => 'Siste bruker registrert',
+    'forum_statistics' => 'Forum statistikk',
+    'total_threads' => 'Totalt antall tråder',
+    'total_posts' => 'Totalt antall poster',
+    'online_staff' => 'Påloggede stabmedlemmer',
+    'no_online_staff' => 'Det er ingen stabmedlemmer pålogget.',
+	'total_online_staff' => 'Totalt påloggede stabmedlemmer: {x}',
+    'online_users' => 'Påloggede brukere',
+    'no_online_users' => 'Det er ingen brukere pålogget',
+	'total_online_users' => 'Totalt påloggede brukere: {x}',
+    'discord_widget_disabled' => 'Widget er deaktivert for denne Discord serveren. Gå til \'Widget\' i Discord serverinstillinger, og sjekk at widgets er aktivert og at IDen stemmer.',
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Privacy Policy'
+    'privacy_policy' => 'Personvern',
+
+	/*
+	 *  Custom page redirect
+	 */
+	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

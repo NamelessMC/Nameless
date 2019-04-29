@@ -18,6 +18,7 @@ $language = array(
 	 */ 
 	'submit' => '送信',
 	'register' => '登録',
+	'already_registered' => 'Already Registered?',
 	'sign_in' => 'ログイン',
 	'log_out' => 'ログアウト',
 	'profile' => 'プロフィール',
@@ -64,6 +65,7 @@ $language = array(
 	'success' => '成功',
 	'error' => 'エラー',
 	'are_you_sure' => '【情報】',
+	'spoiler' => 'Spoiler',
 
     /*
      *  Contact form
@@ -123,14 +125,27 @@ $language = array(
     /*
      *  Widgets
      */
+    'statistics' => 'Statistics',
+    'users_registered' => 'Users Registered',
+    'latest_member' => 'Latest Member',
+    'forum_statistics' => 'Forum Statistics',
+    'total_threads' => 'Total Threads',
+    'total_posts' => 'Total Posts',
     'online_staff' => 'オンラインスタッフ',
     'no_online_staff' => 'オンラインのスタッフはいません。',
+	'total_online_staff' => 'Total online staff: {x}',
     'online_users' => 'オンラインユーザー',
     'no_online_users' => 'オンラインのユーザーはいません。',
+	'total_online_users' => 'Total online users: {x}',
     'discord_widget_disabled' => 'Discordウィジェットは、指定されたDiscordサーバーでは無効になっています。 Discordサーバー設定のウィジェットタブに移動し、Discordウィジェットが有効で、IDが正しいことを確認してください。',
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'プライバシーポリシー(個人情報保護方針)'
+    'privacy_policy' => 'プライバシーポリシー(個人情報保護方針)',
+
+	/*
+	 *  Custom page redirect
+	 */
+	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

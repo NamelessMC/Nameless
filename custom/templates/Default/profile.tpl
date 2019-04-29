@@ -2,29 +2,34 @@
 {include file='navbar.tpl'}
 
 <div class="container">
-  <div class="jumbotron" style="background-image:url('{$BANNER}');">
+  <div class="jumbotron" style="background-image:url('{$BANNER}');background-size:cover;">
 	<div class="row">
 	  <div class="col-md-8">
 		<h2>
-		  <img class="rounded" style="height:60px;width=60px;" src="{$AVATAR}" />
+		  <img class="rounded" style="height:60px;width:60px;" src="{$AVATAR}" />
 		  <strong{if $USERNAME_COLOUR != false} style="{$USERNAME_COLOUR}"{/if}>{$NICKNAME}</strong> 
 		  {$GROUP}
 		</h2>
 	  </div>
 	  <div class="col-md-4">
-		<span class="pull-right">
+		<span class="float-md-right">
 		  {nocache}
 		  {if isset($LOGGED_IN)}
 		    {if !isset($SELF)}
 		  <div class="btn-group">
-			<!--<a href="{$FOLLOW_LINK}" class="btn btn-primary btn-lg"><i class="fa fa-users fa-fw"></i> {$FOLLOW}</a>-->
-			{if $MOD_OR_ADMIN ne true}<a href="#" data-toggle="modal" data-target="#blockModal" class="btn btn-danger btn-lg"><i class="fa fa-ban fa-fw"></i></a>{/if}
-			<a href="{$MESSAGE_LINK}" class="btn btn-secondary btn-lg"><i class="fa fa-envelope fa-fw"></i></a>
+			<!--<a href="{$FOLLOW_LINK}" class="btn btn-primary btn-lg"><i class="fas fa-users fa-fw"></i> {$FOLLOW}</a>-->
+			{if $MOD_OR_ADMIN ne true}<a href="#" data-toggle="modal" data-target="#blockModal" class="btn btn-danger btn-lg"><i class="fas fa-ban fa-fw"></i></a>{/if}
+			<a href="{$MESSAGE_LINK}" class="btn btn-secondary btn-lg"><i class="fas fa-envelope fa-fw"></i></a>
+			{if isset($RESET_PROFILE_BANNER)}
+			  <a href="{$RESET_PROFILE_BANNER_LINK}" class="btn btn-danger btn-lg" rel="tooltip" data-title="{$RESET_PROFILE_BANNER}">
+			    <i class="fas fa-image fa-fw"></i>
+			  </a>
+			{/if}
 		  </div>
 		    {else}
 		  <div class="btn-group">
-		    <a href="{$SETTINGS_LINK}" class="btn btn-secondary btn-lg"><i class="fa fa-cogs fa-fw"></i></a>
-		    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#imageModal"><i class="fa fa-picture-o fa-fw" aria-hidden="true"></i></button>
+		    <a href="{$SETTINGS_LINK}" class="btn btn-secondary btn-lg"><i class="fas fa-cogs fa-fw"></i></a>
+		    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#imageModal"><i class="fas fa-image fa-fw" aria-hidden="true"></i></button>
 		  </div>
 		    {/if}
 		  {/if}
@@ -88,8 +93,8 @@
 
 			<div class="card card-default">
 			  <div class="card-header">
-				<img class="rounded-circle" style="max-height:25px; max-width=25px;" src="{$post.avatar}" /> <a data-poload="{$USER_INFO_URL}{$post.user_id}" data-html="true" data-placement="top" href="{$post.profile}" style="{$post.user_style}">{$post.nickname}:</a>
-				<span class="pull-right"><span rel="tooltip" data-original-title="{$post.date}">{$post.date_rough}</span></span>
+				<img class="rounded-circle" style="max-height:25px; max-width:25px;" src="{$post.avatar}" /> <a data-poload="{$USER_INFO_URL}{$post.user_id}" data-html="true" data-placement="top" href="{$post.profile}" style="{$post.user_style}">{$post.nickname}:</a>
+				<span class="float-md-right"><span rel="tooltip" data-original-title="{$post.date}">{$post.date_rough}</span></span>
 			  </div>
 
 			  <div class="card-body">
@@ -99,8 +104,8 @@
 			  </div>
 
 			  <div class="card-footer">
-				<a href="{if $post.reactions_link ne "#"}{$post.reactions_link}{else}#{/if}" class="pop" data-content='{if isset($post.reactions.reactions)} {foreach from=$post.reactions.reactions item=reaction name=reactions}<a href="{$reaction.profile}" style="{$reaction.style}"><img class="rounded" src="{$reaction.avatar}" alt="{$reaction.username}" style="max-height:30px; max-width:30px;" /> {$reaction.nickname}</a>{if !$smarty.foreach.reactions.last}<br />{/if}{/foreach} {else}{$post.reactions.count}{/if}'><i class="fa fa-thumbs-up"></i> {$post.reactions.count} </a> | <a href="#" data-toggle="modal" data-target="#replyModal{$post.id}"><i class="fa fa-comments"></i> {$post.replies.count}</a>
-				<span class="pull-right">
+				<a href="{if $post.reactions_link ne "#"}{$post.reactions_link}{else}#{/if}" class="pop" data-content='{if isset($post.reactions.reactions)} {foreach from=$post.reactions.reactions item=reaction name=reactions}<a href="{$reaction.profile}" style="{$reaction.style}"><img class="rounded" src="{$reaction.avatar}" alt="{$reaction.username}" style="max-height:30px; max-width:30px;" /> {$reaction.nickname}</a>{if !$smarty.foreach.reactions.last}<br />{/if}{/foreach} {else}{$post.reactions.count}{/if}'><i class="fas fa-thumbs-up"></i> {$post.reactions.count} </a> | <a href="#" data-toggle="modal" data-target="#replyModal{$post.id}"><i class="fas fa-comments"></i> {$post.replies.count}</a>
+				<span class="float-md-right">
 				  {if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
 				    <form action="" method="post" id="delete{$post.id}">
 					  <input type="hidden" name="post_id" value="{$post.id}">
@@ -177,7 +182,7 @@
 				    {if isset($post.replies.replies)}
 					  {foreach from=$post.replies.replies name=replies item=reply}
 					  <img src="{$reply.avatar}" alt="{$reply.username}" style="max-height:20px; max-width:20px;" class="rounded" /> <a href="{$reply.profile}" style="{$reply.style}">{$reply.nickname}</a> &raquo;
-					  <span class="pull-right">
+					  <span class="float-md-right">
 					    <span rel="tooltip" title="{$reply.time_full}">{$reply.time_friendly}</span>
 					  </span>
 					  <div style="height:15px;"></div>
@@ -235,23 +240,18 @@
 		    <div class="col-md-4">
 			  <div class="card">
 			    <div class="card-body">
-				  {if isset($ABOUT_FIELDS.minecraft)}
-				    <center>
-					  <img src="{$ABOUT_FIELDS.minecraft.image}" alt="{$USERNAME}" onerror="this.style.display='none'" />
-					  <h2{if $USERNAME_COLOUR != false} style="{$USERNAME_COLOUR}"{/if}>{$NICKNAME}</h2>
-					  {$USER_TITLE}
-					</center>
-					<hr />
-					<ul>
-					  <li>{$ABOUT_FIELDS.registered.title}</strong> <span rel="tooltip" title="{$ABOUT_FIELDS.registered.tooltip}">{$ABOUT_FIELDS.registered.value}</li>
-					  <li>{$ABOUT_FIELDS.last_seen.title}</strong> <span rel="tooltip" title="{$ABOUT_FIELDS.last_seen.tooltip}">{$ABOUT_FIELDS.last_seen.value}</li>
-					  <li>{$ABOUT_FIELDS.profile_views.title}</strong> {$ABOUT_FIELDS.profile_views.value}</li>
-					</ul>
-				  {else}
-				    <h2{if $USERNAME_COLOUR != false} style="{$USERNAME_COLOUR}"{/if}>{$NICKNAME}</h2>
-					<hr />
-				  {/if}
-				</div>
+			      <center>
+			        <img {if isset($ABOUT_FIELDS.minecraft)}src="{$ABOUT_FIELDS.minecraft.image}{else}class="rounded" style="max-height:75px;max-width:75px;" src="{$AVATAR}{/if}" alt="{$USERNAME}" onerror="this.style.display='none'" />
+			        <h2{if $USERNAME_COLOUR != false} style="{$USERNAME_COLOUR}"{/if}>{$NICKNAME}</h2>
+			        {$USER_TITLE}
+			      </center>
+			      <hr />
+			      <ul>
+			        <li><strong>{$ABOUT_FIELDS.registered.title}</strong> <span rel="tooltip" title="{$ABOUT_FIELDS.registered.tooltip}">{$ABOUT_FIELDS.registered.value}</li>
+			        <li><strong>{$ABOUT_FIELDS.last_seen.title}</strong> <span rel="tooltip" title="{$ABOUT_FIELDS.last_seen.tooltip}">{$ABOUT_FIELDS.last_seen.value}</li>
+			        <li><strong>{$ABOUT_FIELDS.profile_views.title}</strong> {$ABOUT_FIELDS.profile_views.value}</li>
+			      </ul>
+			    </div>
 			  </div>
 			</div>
 			
@@ -312,8 +312,8 @@
 			  <span aria-hidden="true">&times;</span>
 			</button>
 		  </div>
-		  <form action="" method="post" style="display:inline;" >
-		    <div class="modal-body">
+		  <div class="modal-body">
+			<form action="" name="updateBanner" method="post" style="display:inline;">
 			  <select name="banner" class="image-picker show-html">
 			    {foreach from=$BANNERS item=banner}
 				  <option data-img-src="{$banner.src}" value="{$banner.name}"{if $banner.active == true} selected{/if}>{$banner.name}</option>
@@ -321,12 +321,25 @@
 			  </select>
 			  <input type="hidden" name="token" value="{$TOKEN}">
 			  <input type="hidden" name="action" value="banner">
-		    </div>
-		    <div class="modal-footer">
-			  <button type="button" class="btn btn-danger" data-dismiss="modal">{$CANCEL}</button>
-			  <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
-		    </div>
-		  </form>
+			</form>
+
+			{if isset($PROFILE_BANNER)}
+			  <hr />
+			  <strong>{$UPLOAD_PROFILE_BANNER}</strong>
+			  <br />
+			  <form action="{$UPLOAD_BANNER_URL}" method="post" enctype="multipart/form-data" style="display:inline;">
+				  <label class="btn btn-secondary" style="margin-bottom: 0">
+				    {$BROWSE} <input type="file" name="file" hidden/>
+				  </label>
+				  <input type="hidden" name="token" value="{$TOKEN}">
+				  <input type="hidden" name="type" value="profile_banner">
+				  <input type="submit" value="{$UPLOAD}" class="btn btn-primary">
+			{/if}
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-danger" data-dismiss="modal">{$CANCEL}</button>
+			<button type="button" onclick="document.updateBanner.submit()" class="btn btn-primary">{$SUBMIT}</button>
+		  </div>
 		</div>
 	  </div>
 	</div>

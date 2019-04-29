@@ -1,4 +1,4 @@
-﻿<?php 
+<?php
 /*
  *	Made by TheSuperSkills (Edited by Ariuw and iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
@@ -11,16 +11,16 @@
 
 $language = array(
 	'mod_cp' => 'Panel de Moderación',
-	'staff_cp' => 'StaffCP',
-	'overview' => 'Visión de Conjunto',
-	
+	'staff_cp' => 'Panel Administrativo',
+	'overview' => 'Visión General',
+
 	// Spam
 	'spam' => 'Spam',
 	'mark_as_spam' => 'Marcar como correo no deseado',
 	'confirm_spam' => '<p>¿Estás seguro de que quieres marcar a este usuario como spam?</p><p>Se prohibirá la IP del usuario y todo su contenido se eliminará.</p>',
 	'user_marked_as_spam' => 'Usuario marcado como spam correctamente.',
 	'cant_ban_admin' => '¡No se puede prohibir a un administrador!',
-	
+
 	// IP Lookup
 	'ip_lookup' => 'Buscar IP',
 	'search_for_ip' => 'Buscar un nombre de usuario o una dirección IP:',
@@ -28,10 +28,10 @@ $language = array(
 	'no_accounts_with_that_ip' => 'No existen cuentas con esa dirección IP.',
 	'1_account_with_ip' => 'Found 1 account with the IP {y}', // Don't replace "{y}"
 	'count_accounts_with_ip' => 'Encontró {x} cuentas con la IP {y}', // Don't replace "{x}" or "{y}"
-	'1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
+	'1_ip_with_name' => 'Se encontró una dirección IP para el usuario {y}', // Don't replace "{y}"
 	'count_ips_with_name' => 'Encontró {x} Dirección(es) IP para el usuario {y}', // Don't replace "{x}" or "{y}"
 	'no_users_or_ips_found' => 'No se han encontrado usuarios ni direcciones IP.',
-	
+
 	// Reports
 	'reports' => 'Reportes',
 	'report_alert' => 'Nuevo informe presentado',
@@ -48,20 +48,20 @@ $language = array(
 	'report_comment_invalid' => 'Contenido de comentario no válido. Asegúrate de haber ingresado un comentario entre 1 y 10000 caracteres.',
 	'close_report' => 'Cerrar reporte',
 	'reopen_report' => 'Reabrir reporte',
-	'1_open_report' => 'There is currently <strong>1</strong> open report.',
+	'1_open_report' => 'Actualmente hay <strong>1</strong> informe abierto.',
 	'open_reports' => 'Hay actualmente <strong>{x}</strong> reportes abiertos.', // Don't replace {x}
-	'no_open_reports' => 'There are currently no open reports.',
-	'no_closed_reports' => 'There are currently no closed reports.',
-	'recent_reports' => 'Recent Reports',
-	'reported_by' => 'Reported by:',
-	'website' => 'Website',
-	'ingame' => 'Ingame',
-	'x_closed_report' => '{x} closed this report.', // Don't replace {x} (username)
-	'x_reopened_report' => '{x} reopened this report.', // Don't replace {x} (username)
-	'report_reopened' => 'Report reopened successfully.',
-	'report_closed' => 'Report closed successfully.',
-	'comment_created' => 'Comment created successfully.',
-	
+	'no_open_reports' => 'No hay ningún reporte abierto.',
+	'no_closed_reports' => 'No hay ningún reporte cerrado.',
+	'recent_reports' => 'Reportes Recientes',
+	'reported_by' => 'Reportado por:',
+	'website' => 'Sitio Web',
+	'ingame' => 'En Juego',
+	'x_closed_report' => '{x} cerró este reporte.', // Don't replace {x} (username)
+	'x_reopened_report' => '{x} reabrió este reporte.', // Don't replace {x} (username)
+	'report_reopened' => 'Reporte reabrierto correctamente.',
+	'report_closed' => 'Reporte cerrado correctamente.',
+	'comment_created' => 'Comentario publicado.',
+
 	// Punishments
 	'punishments' => 'Castigos',
 	'view_punishments' => 'Mirar sanciones',
@@ -96,12 +96,13 @@ $language = array(
     'when' => 'Cuando',
     'staff' => 'Staff',
     'type' => 'Tipo',
-    'recent_punishments' => 'Recent Punishments',
-    'created' => 'Created:',
+    'recent_punishments' => 'Sanciones Recientes',
+    'created' => 'Creada:',
     'staff:' => 'Staff:',
-    'reason:' => 'Reason:',
-	
+    'reason:' => 'Razón:',
+
     // Users
-    'recent_registrations' => 'Recent Registrations'
+    'recent_registrations' => 'Registros Recientes',
+	'reset_profile_banner' => 'Reiniciar Banner del Perfil'
 
 );

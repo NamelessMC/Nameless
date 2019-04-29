@@ -38,11 +38,15 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->addCSSFiles(array(
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
-	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => array()
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => array()
 ));
 
 $template->addJSFiles(array(
-	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array()
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => array()
 ));
 
 $template->addCSSStyle('
@@ -371,7 +375,17 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 					Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
 					die();
 
-				break;
+					break;
+
+				case 'reset_banner':
+					if($user->hasPermission('modcp.profile_banner_reset')){
+						$queries->update('users', $query->id, array(
+							'banner' => null
+						));
+					}
+
+					Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
+					break;
 			}
 		}
 	}
@@ -459,6 +473,25 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 				);
 			}
 
+			$image_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id));
+
+			if(is_dir($image_path)){
+				$images = scandir($image_path);
+
+				foreach($images as $image){
+					$ext = pathinfo($image, PATHINFO_EXTENSION);
+					if(!in_array($ext, $allowed_exts)){
+						continue;
+					}
+
+					$banners[] = array(
+						'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($user->data()->id) . '/' . Output::getClean($image),
+						'name' => Output::getClean($user->data()->id) . '/' . Output::getClean($image),
+						'active' => ($user->data()->banner == $image) ? true : false
+					);
+				}
+			}
+
 			$smarty->assign(array(
 				'SELF' => true,
 				'SETTINGS_LINK' => URL::build('/user/settings'),
@@ -466,6 +499,17 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 				'BANNERS' => $banners,
 				'CAN_VIEW' => true,
 			));
+
+			if($user->hasPermission('usercp.profile_banner')){
+				$smarty->assign(array(
+					'UPLOAD_PROFILE_BANNER' => $language->get('user', 'upload_profile_banner'),
+					'PROFILE_BANNER' => $language->get('user', 'profile_banner'),
+					'BROWSE' => $language->get('general', 'browse'),
+					'UPLOAD' => $language->get('user', 'upload'),
+					'UPLOAD_BANNER_URL' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/includes/image_upload.php'
+				));
+			}
+
 		} else {
 			$smarty->assign(array(
 				'MESSAGE_LINK' => URL::build('/user/messaging/', 'action=new&amp;uid=' . $query->id),
@@ -484,6 +528,13 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 				$smarty->assign(array(
 					'BLOCK_USER' => $language->get('user', 'block_user'),
 					'CONFIRM_BLOCK_USER' => $language->get('user', 'confirm_block_user')
+				));
+			}
+
+			if($user->hasPermission('modcp.profile_banner_reset')){
+				$smarty->assign(array(
+					'RESET_PROFILE_BANNER' => $language->get('moderator', 'reset_profile_banner'),
+					'RESET_PROFILE_BANNER_LINK' => URL::build('/profile/' . Output::getClean($query->username) . '/', 'action=reset_banner')
 				));
 			}
 		}
@@ -505,7 +556,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 		'USER_TITLE' => Output::getClean($query->user_title),
 		'FOLLOW' => $language->get('user', 'follow'),
 		'AVATAR' => $user->getAvatar($query->id, '../', 500),
-		'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH : '/') . 'uploads/profile_images/' . (($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
+		'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . (($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
 		'POST_ON_WALL' => str_replace('{x}', Output::getClean($query->nickname), $language->get('user', 'post_on_wall')),
 		'FEED' => $language->get('user', 'feed'),
 		'ABOUT' => $language->get('user', 'about'),
@@ -517,7 +568,10 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 		'NEW_REPLY' => $language->get('user', 'new_reply'),
 		'DELETE' => $language->get('general', 'delete'),
 		'CONFIRM_DELETE' => $language->get('general', 'confirm_deletion'),
-		'EDIT' => $language->get('general', 'edit')
+		'EDIT' => $language->get('general', 'edit'),
+		'SUCCESS_TITLE' => $language->get('general', 'success'),
+		'ERROR_TITLE' => $language->get('general', 'error'),
+		'REPLY' => $language->get('user', 'reply')
 	));
 
 	// Wall posts
@@ -720,7 +774,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 	}
 
 	// Load modules + template
-	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 	$page_load = microtime(true) - $start;
 	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
@@ -744,7 +798,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 			'NOT_FOUND' => $language->get('user', 'couldnt_find_that_user')
 		));
 		// Load modules + template
-		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 		$page_load = microtime(true) - $start;
 		define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

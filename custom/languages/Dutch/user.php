@@ -65,6 +65,9 @@ $language = array(
 	'email_already_exists' => 'The email address you have entered already exists.',
 	'email_changed_successfully' => 'Email address changed successfully.',
 	'avatar' => 'Avatar',
+	'profile_banner' => 'Profile Banner',
+	'upload_profile_banner' => 'Upload Profile Banner',
+	'upload' => 'Upload',
 	
 	// Meldingen
 	'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet
@@ -180,6 +183,7 @@ $language = array(
 	'new_wall_post_reply' => '{x} heeft gereageerd op jouw post op {y}\'s profiel.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} heeft gereageerd op jouw post op jouw eigen profiel.', // Don't replace {x}
 	'no_about_fields' => 'Deze gebruiker heeft nog geen over-velden toegevoegd.',
+	'reply' => 'Reply',
 	
 	// Rapporten
 	'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
@@ -212,6 +216,7 @@ $language = array(
 	'leave_conversation' => 'Verlaat gesprek',
 	'confirm_leave' => 'Weet je zeker dat je dit gesprek wilt verlaten?',
 	'one_or_more_users_blocked' => 'Je kan geen privé bericht sturen naar een of meerdere leden van het gesprek.',
+	'messages' => 'Messages',
 	
 	/*
 	 *  Overtredingen gebied

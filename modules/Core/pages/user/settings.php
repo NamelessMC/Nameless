@@ -58,11 +58,12 @@ if(isset($_GET['do'])){
 				'NEXT' => $language->get('general', 'next'),
 				'LINK' => URL::build('/user/settings/', 'do=enable_tfa&amp;s=2'),
 				'CANCEL' => $language->get('general', 'cancel'),
-				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa')
+				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
+				'ERROR_TITLE' => $language->get('general', 'error')
 			));
 
 			// Load modules + template
-			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 			require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -115,7 +116,7 @@ if(isset($_GET['do'])){
 			));
 
 			// Load modules + template
-			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 			require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -469,15 +470,17 @@ if(isset($_GET['do'])){
 	}
 
 	$template->addCSSFiles(array(
-		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css' => array(),
-		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
-		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
-		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
-		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array(),
 	));
 
 	$template->addJSFiles(array(
-		(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' => array()
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' => array()
 	));
 
 	$template->addJSScript('$(\'.datepicker\').datepicker();');
@@ -486,8 +489,8 @@ if(isset($_GET['do'])){
 	$formatting = $cache->retrieve('formatting');
 	if($formatting == 'markdown'){
 		$template->addJSFiles(array(
-			(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
-			(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => array()
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => array()
 		));
 
 		$template->addJSScript('
@@ -500,13 +503,13 @@ if(isset($_GET['do'])){
 
 	} else {
 		$template->addJSFiles(array(
-			(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
-			(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
-			(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
-			(defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array()
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => array(),
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => array(),
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => array()
 		));
 
-		$template->addJSScript(Input::createEditor('signature'));
+		$template->addJSScript(Input::createTinyEditor($language, 'inputSignature'));
 	}
 
 	// Error/success message?
@@ -638,7 +641,9 @@ if(isset($_GET['do'])){
 		'SELECTED_TIMEZONE' => $user->data()->timezone,
         'CURRENT_EMAIL' => Output::getClean($user->data()->email),
         'CHANGE_EMAIL_ADDRESS' => $language->get('user', 'change_email_address'),
-        'EMAIL_ADDRESS' => $language->get('user', 'email_address')
+        'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
+		'SUCCESS_TITLE' => $language->get('general', 'success'),
+		'ERROR_TITLE' => $language->get('general', 'error')
 	));
 
 	if(defined('CUSTOM_AVATARS')) {
@@ -661,7 +666,7 @@ if(isset($_GET['do'])){
 	}
 
 	// Load modules + template
-	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 	require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

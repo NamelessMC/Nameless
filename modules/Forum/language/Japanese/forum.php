@@ -96,6 +96,8 @@ $language = array(
 	'now_following_topic' => 'このトピックをフォローしており、新しい返信があれば通知されます。',
 	'no_longer_following_topic' => 'このトピックのフォローを解除したので、新しい返信が来ても通知されません。',
 	'new_reply_in_topic' => '{x}が{y}に返信しました。', // Don't replace {x} (username) or {y} (topic title)
+	'started_by_x' => 'Started by {x}', // Don't replace {x}
+	'sticky_topics' => 'Sticky Topics',
 
 	// Homepage
 	'latest_announcements' => '最新のお知らせ',
@@ -137,6 +139,7 @@ $language = array(
 	'forum_permissions' => 'フォーラム権限',
 	'select_a_parent_forum' => '親フォーラムの選択',
 	'parent_forum' => '親フォーラム',
+	'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
 	'has_no_parent' => '親フォーラムなし',
 	'guests' => 'ゲスト',
 	'group' => 'グループ',
@@ -171,6 +174,7 @@ $language = array(
 	'forum_deleted_successfully' => 'Forum deleted successfully.',
 	'label_deleted_successfully' => 'Label deleted successfully.',
 	'label_type_deleted_successfully' => 'Label type deleted successfully.',
+	'topic_placeholder' => 'Topic placeholder',
 
     // Search
     'forum_search' => 'フォーラム検索',

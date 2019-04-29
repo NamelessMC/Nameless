@@ -8,7 +8,7 @@
  *
  *  Romanian Language - General terms
  *  Translation By @BaxAndrei ( https://baxandrei.ro ) and ASMODΣUS
- *  Last Update: 24/09/2018
+ *  Last Update: 02/03/2019
  */
 
 $language = array(
@@ -17,6 +17,7 @@ $language = array(
      */ 
     'submit' => 'Trimite',
     'register' => 'Înregistrează-te ',
+    'already_registered' => 'Already Registered?',
     'sign_in' => 'Conectează-te',
     'log_out' => 'Deconectează-te',
     'profile' => 'Profil',
@@ -63,6 +64,7 @@ $language = array(
     'success' => 'Succes',
     'error' => 'Eroare',
     'are_you_sure' => 'Esti sigur?',
+    'spoiler' => 'Spoiler',
 
     /*
      *  Contact form
@@ -122,14 +124,27 @@ $language = array(
     /*
      *  Widgets
      */
+    'statistics' => 'Statistici',
+    'users_registered' => 'Utilizatori înregistrați',
+    'latest_member' => 'Cel mai nou membru',
+    'forum_statistics' => 'Statistici Forum',
+    'total_threads' => 'Subiecte',
+    'total_posts' => 'Postări',
     'online_staff' => 'Staff online',
     'no_online_staff' => 'Nu există membri staff online momentan.',
+	'total_online_staff' => 'Total online staff: {x}',
     'online_users' => 'Utilizatori online',
     'no_online_users' => 'Nu există utilizatori online momentan.',
+	'total_online_users' => 'Total online users: {x}',
     'discord_widget_disabled' => 'Widgetul este dezactivat pentru serverul de Discord specificat. Accesați fila \'Widget\' din setările pentru serverul de Discord și asigurați-vă că widgetul Discord este activat și că ID-ul este corect.',
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Politica de confidentialitate'
+    'privacy_policy' => 'Politica de confidentialitate',
+
+	/*
+	 *  Custom page redirect
+	 */
+	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

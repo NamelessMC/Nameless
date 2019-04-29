@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -18,8 +18,8 @@ class Core_Module extends Module {
 
 		$name = 'Core';
 		$author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-		$module_version = '2.0.0-pr5';
-		$nameless_version = '2.0.0-pr5';
+		$module_version = '2.0.0-pr6';
+		$nameless_version = '2.0.0-pr6';
 
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -71,6 +71,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/social_media', 'pages/panel/social_media.php');
 		$pages->add('Core', '/panel/core/groups', 'pages/panel/groups.php');
 		$pages->add('Core', '/panel/core/images', 'pages/panel/images.php');
+		$pages->add('Core', '/panel/core/panel_templates', 'pages/panel/panel_templates.php');
 		$pages->add('Core', '/panel/core/templates', 'pages/panel/templates.php');
 		$pages->add('Core', '/panel/core/sitemap', 'pages/panel/sitemap.php');
 		$pages->add('Core', '/panel/core/widgets', 'pages/panel/widgets.php');
@@ -117,10 +118,10 @@ class Core_Module extends Module {
 								if($permission->page_id == $custom_page->id){
 									if($permission->view == 1){
 										// Get redirect URL if enabled
-										if($custom_page->redirect == 1){
+										if($custom_page->redirect == 1)
 											$redirect = Output::getClean($custom_page->link);
-										} else
-											$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
+
+										$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
 
 										// Check cache for order
 										if(!$cache->isCached($custom_page->id . '_order')){
@@ -161,10 +162,10 @@ class Core_Module extends Module {
 						foreach($custom_page_permissions as $permission){
 							if($permission->page_id == $custom_page->id){
 								if($permission->view == 1){
-									if($custom_page->redirect == 1){
+									if($custom_page->redirect == 1)
 										$redirect = Output::getClean($custom_page->link);
-									} else
-										$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), FALSE);
+
+									$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
 
 									// Check cache for order
 									if(!$cache->isCached($custom_page->id . '_order')){
@@ -289,6 +290,7 @@ class Core_Module extends Module {
 			'admincp.security.all' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'all_logs'),
 			'admincp.sitemap' => $language->get('admin', 'sitemap'),
 			'admincp.styles' => $language->get('admin', 'styles'),
+			'admincp.styles.panel_templates' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'panel_templates'),
 			'admincp.styles.templates' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'templates'),
 			'admincp.styles.templates.edit' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'templates') . ' &raquo; ' . $language->get('general', 'edit'),
 			'admincp.styles.images' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'images'),
@@ -301,10 +303,11 @@ class Core_Module extends Module {
 			'modcp.punishments.banip' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'ban_ip'),
 			'modcp.punishments.revoke' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'revoke'),
 			'modcp.reports' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'reports'),
+			'modcp.profile_banner_reset' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'reset_profile_banner'),
 			'admincp.users.edit' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('admin', 'users') . ' &raquo; ' . $language->get('general', 'edit'),
 			'admincp.groups' => $language->get('admin', 'groups'),
 			'admincp.groups.self' => $language->get('admin', 'groups') . ' &raquo; ' . $language->get('admin', 'can_edit_own_group'),
-			'admincp.widgets' => $language->get('admin', 'widgets')
+			'admincp.widgets' => $language->get('admin', 'widgets'),
 		));
 
 		// UserCP
@@ -312,7 +315,8 @@ class Core_Module extends Module {
 			'usercp.messaging' => $language->get('user', 'messaging'),
 			'usercp.signature' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'signature'),
 			'usercp.private_profile' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'private_profile'),
-			'usercp.nickname' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'nickname')
+			'usercp.nickname' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'nickname'),
+			'usercp.profile_banner' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'upload_profile_banner')
 		));
 
 		// Profile Page
@@ -358,13 +362,25 @@ class Core_Module extends Module {
 		// Online staff
 		require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php');
 		$module_pages = $widgets->getPages('Online Staff');
-		$widgets->add(new OnlineStaffWidget($module_pages, $smarty, array('title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff')), $cache));
+		$widgets->add(new OnlineStaffWidget($module_pages, $smarty, array('title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'), 'total_online_staff' => $language->get('general', 'total_online_staff')), $cache));
 
 		// Online users
 		require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsers.php');
 		$module_pages = $widgets->getPages('Online Users');
-		$widgets->add(new OnlineUsersWidget($module_pages, $cache, $smarty, array('title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'))));
-
+		$widgets->add(new OnlineUsersWidget($module_pages, $cache, $smarty, array('title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'), 'total_online_users' => $language->get('general', 'total_online_users'))));
+		
+		// Statistics
+		require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
+		$module_pages = $widgets->getPages('Statistics');
+		$widgets->add(new StatsWidget($module_pages, $smarty, array(
+			'statistics' => $language->get('general', 'statistics'),
+			'users_registered' => $language->get('general', 'users_registered'),
+			'latest_member' => $language->get('general', 'latest_member'),
+			'forum_stats' => $language->get('general', 'forum_statistics'),
+			'total_threads' => $language->get('general', 'total_threads'),
+			'total_posts' => $language->get('general', 'total_posts')
+		), $cache));
+		
 		// Validate user hook
 		$cache->setCache('validate_action');
 		if($cache->isCached('validate_action')){
@@ -557,7 +573,7 @@ class Core_Module extends Module {
 					$smarty->assign('SERVER_QUERY', $result);
 
 				if(!is_null($default) && isset($default->ip)){
-					$smarty->assign('CONNECT_WITH', str_replace('{x}', '<span id="ip">' . Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')) . '</span>', $language->get('general', 'connect_with_ip_x')));
+					$smarty->assign('CONNECT_WITH', str_replace('{x}', '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</span>', $language->get('general', 'connect_with_ip_x')));
 					$smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')));
 					$smarty->assign('CLICK_TO_COPY_TOOLTIP', $language->get('general', 'click_to_copy_tooltip'));
 					$smarty->assign('COPIED', $language->get('general', 'copied'));
@@ -667,7 +683,7 @@ class Core_Module extends Module {
 					} else
 						$icon = $cache->retrieve('debugging_icon');
 
-					$navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'debugging_and_maintenance'), URL::build('/panel/core/debugging_and_maintenance'), 'top', $order, $icon);
+					$navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'maintenance'), URL::build('/panel/core/debugging_and_maintenance'), 'top', $order, $icon);
 				}
 
 				if($user->hasPermission('admincp.core.emails')){
@@ -799,6 +815,16 @@ class Core_Module extends Module {
 						$icon = $cache->retrieve('images_icon');
 
 					$navs[2]->addItemToDropdown('layout', 'images', $language->get('admin', 'images'), URL::build('/panel/core/images'), 'top', $order, $icon);
+				}
+
+				if($user->hasPermission('admincp.styles.panel_templates')){
+					if(!$cache->isCached('panel_templates_icon')){
+						$icon = '<i class="nav-icon fas fa-tachometer-alt"></i>';
+						$cache->store('panel_templates_icon', $icon);
+					} else
+						$icon = $cache->retrieve('panel_templates_icon');
+
+					$navs[2]->addItemToDropdown('layout', 'panel_templates', $language->get('admin', 'panel_templates'), URL::build('/panel/core/panel_templates'), 'top', $order, $icon);
 				}
 
 				if($user->hasPermission('admincp.sitemap')){
@@ -1020,19 +1046,55 @@ class Core_Module extends Module {
 					$users = null;
 
 					if(defined('MINECRAFT') && MINECRAFT){
-						$players = DB::getInstance()->query('SELECT ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+						$players = array();
 
-						$data['datasets']['players']['axis'] = 2; // second axis
-						$data['datasets']['players']['axis_side'] = 'right'; // right side
-						$data['datasets']['players']['label'] = 'language/admin/average_players';
-						$data['datasets']['players']['colour'] = '#ff0c00';
+						$version = DB::getInstance()->query('select version()')->first()->{'version()'};
 
-						foreach($players as $player){
-							$date = '_' . strtotime($player->date);
-							$data[$date]['players'] = $player->players;
+						if(strpos(strtolower($version), 'mariadb') !== false){
+							$version = preg_replace('#[^0-9\.]#', '', $version);
+
+							if(version_compare($version, '10.1', '>=')){
+								try {
+									$players = DB::getInstance()->query('SET STATEMENT MAX_STATEMENT_TIME = 1000 FOR SELECT ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+								} catch(Exception $e){
+									// Unable to obtain player count
+									$player_count_error = true;
+								}
+							}
+						} else {
+							$version = preg_replace('#[^0-9\.]#', '', $version);
+
+							if(version_compare($version, '5.7.4', '>=') && version_compare($version, '5.7.8', '<')){
+								try {
+									$players = DB::getInstance()->query('SELECT MAX_STATEMENT_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+								} catch(Exception $e){
+									// Unable to obtain player count
+									$player_count_error = true;
+								}
+							} else if(version_compare($version, '5.7.8', '>=')){
+								try {
+									$players = DB::getInstance()->query('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+								} catch(Exception $e){
+									// Unable to obtain player count
+									$player_count_error = true;
+								}
+							} else
+								$player_count_error = true;
 						}
 
-						$players = null;
+						if(!isset($player_count_error)){
+							$data['datasets']['players']['axis'] = 2; // second axis
+							$data['datasets']['players']['axis_side'] = 'right'; // right side
+							$data['datasets']['players']['label'] = 'language/admin/average_players';
+							$data['datasets']['players']['colour'] = '#ff0c00';
+
+							foreach($players as $player){
+								$date = '_' . strtotime($player->date);
+								$data[$date]['players'] = $player->players;
+							}
+
+							$players = null;
+						}
 					}
 
 					// Fill in missing dates, set registrations/players to 0
@@ -1044,7 +1106,7 @@ class Core_Module extends Module {
 						if(!isset($data['_' . $start]['users']))
 							$data['_' . $start]['users'] = 0;
 
-						if(defined('MINECRAFT') && MINECRAFT && !isset($data['_' . $start]['players']))
+						if(!isset($player_count_error) && defined('MINECRAFT') && MINECRAFT && !isset($data['_' . $start]['players']))
 							$data['_' . $start]['players'] = 0;
 
 						$start = strtotime('+1 day', $start);

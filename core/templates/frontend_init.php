@@ -12,7 +12,7 @@
 define('FRONT_END', true);
 
 // Set current page URL in session, provided it's not the login page
-if(defined('PAGE') && PAGE != 'login' && PAGE != 404 && (!isset($_GET['route']) || strpos($_GET['route'], '/queries') === false)){
+if(defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PAGE != 'maintenance' && (!isset($_GET['route']) || strpos($_GET['route'], '/queries') === false)){
 	if(FRIENDLY_URLS === true){
 		$split = explode('?', $_SERVER['REQUEST_URI']);
 
@@ -20,11 +20,13 @@ if(defined('PAGE') && PAGE != 'login' && PAGE != 404 && (!isset($_GET['route']) 
 			$_SESSION['last_page'] = URL::build($split[0], $split[1]);
 		else
 			$_SESSION['last_page'] = URL::build($split[0]);
+
+		if(defined('CONFIG_PATH'))
+			$_SESSION['last_page'] = substr($_SESSION['last_page'], strlen(CONFIG_PATH));
+
 	} else
 		$_SESSION['last_page'] = URL::build($_GET['route']);
 
-	if(defined('CONFIG_PATH'))
-		$_SESSION['last_page'] = substr($_SESSION['last_page'], strlen(CONFIG_PATH));
 }
 
 $template_path = ROOT_PATH . '/custom/templates/' . TEMPLATE;
@@ -103,12 +105,18 @@ $smarty->assign('TITLE', $page_title);
 $cache->setCache('backgroundcache');
 $background_image = $cache->retrieve('background_image');
 
-if(!empty($background_image))
+if(!empty($background_image)){
 	$template->addCSSStyle('
 			body {
-				background-image: url(\'' . $background_image . '\');
+				background-image: url(\'' . Output::getClean($background_image) . '\');
 				background-repeat: no-repeat;
 				background-attachment: fixed;
 				background-size: cover;
 			}
 			');
+}
+
+$banner_image = $cache->retrieve('banner_image');
+
+if(!empty($banner_image))
+	$smarty->assign('BANNER_IMAGE', Output::getClean($banner_image));

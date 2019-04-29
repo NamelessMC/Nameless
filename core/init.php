@@ -284,6 +284,7 @@ if($page != 'install'){
 	$smarty->assign(array(
 		'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
 		'OG_URL' => Output::getClean(rtrim(Util::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
+		'OG_IMAGE' => Output::getClean(rtrim(Util::getSelfURL(), '/') . '/core/assets/img/site_image.png'),
 		'SITE_NAME' => SITE_NAME,
 		'SITE_HOME' => URL::build('/'),
 		'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
@@ -338,7 +339,7 @@ if($page != 'install'){
         // Admins only beyond this point
         if(!$user->isLoggedIn() || !$user->canViewACP()){
             // Maintenance mode
-            if(isset($_GET['route']) && (rtrim($_GET['route'], '/') == '/login' || substr($_GET['route'], 0, 5) == '/api/')){
+            if(isset($_GET['route']) && (rtrim($_GET['route'], '/') == '/login' || rtrim($_GET['route'], '/') == '/forgot_password' || substr($_GET['route'], 0, 5) == '/api/')){
                 // Can continue as normal
             } else {
                 require(ROOT_PATH . '/maintenance.php');

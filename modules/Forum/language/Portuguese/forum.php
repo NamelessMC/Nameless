@@ -95,6 +95,8 @@ $language = array(
 	'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
 	'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
 	'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
+	'started_by_x' => 'Started by {x}', // Don't replace {x}
+	'sticky_topics' => 'Sticky Topics',
 	
 	// Homepage
 	'latest_announcements' => 'Últimos anúncios',
@@ -136,6 +138,7 @@ $language = array(
 	'forum_permissions' => 'Permissões do fórum',
 	'select_a_parent_forum' => 'Selecione um fórum pai',
 	'parent_forum' => 'Fórum pai',
+	'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
 	'has_no_parent' => 'Nenhum pai',
 	'guests' => 'Visitante',
 	'group' => 'Grupo',
@@ -170,6 +173,7 @@ $language = array(
 	'forum_deleted_successfully' => 'Forum deleted successfully.',
 	'label_deleted_successfully' => 'Label deleted successfully.',
 	'label_type_deleted_successfully' => 'Label type deleted successfully.',
+	'topic_placeholder' => 'Topic placeholder',
 
     // Search
     'forum_search' => 'Pesquisa no Fórum',

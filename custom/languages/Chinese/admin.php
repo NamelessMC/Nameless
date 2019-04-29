@@ -88,6 +88,7 @@ $language = array(
 	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => '成功更新',
     'debugging_and_maintenance' => '調整與維護',
+    'maintenance' => '調整與維護',
     'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => '啟用除錯模式?',
 	'force_https' => '強制加密連線(https)?',
@@ -138,7 +139,7 @@ $language = array(
 	'navbar_order' => '導航欄順序',
 	'navbar_order_instructions' => '您可以給予比0更大的數字，以便在導航欄選擇連結.',
     'navbar_icon' => 'Navbar Icon',
-    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener nofollow">Font Awesome</a>.',
+    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
     'dropdown_items' => 'Dropdown Items',
 	'enable_page_load_timer' => '啟用畫面讀取計時?',
@@ -312,6 +313,7 @@ $language = array(
 
 	// Styles
 	'templates' => '樣式',
+	'panel_templates' => 'Panel Templates',
 	'template_outdated' => '我們偵測到您使用的樣式為適用於NamelessMC版本 {x}，但您使用的版本為 {y}', // Don't replace "{x}" or "{y}"
 	'active' => '使用',
 	'deactivate' => '停用',
@@ -334,6 +336,12 @@ $language = array(
 	'delete' => '移除',
 	'template_deleted_successfully' => '樣式移除成功.',
 	'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
+	'banner_image_x' => 'Banner image: <strong>{x}</strong>', // Don't replace {x}
+	'background_directory_not_writable' => 'The <strong>uploads/backgrounds</strong> directory is not writable!',
+	'template_banners_directory_not_writable' => 'The <strong>uploads/template_banners</strong> directory is not writable!',
+	'template_banner_reset_successfully' => 'Banner reset successfully.',
+	'template_banner_updated_successfully' => 'Banner updated successfully.',
+	'reset_banner' => 'Reset Banner',
 	'find_templates' => 'Find Templates',
 	'view_all_templates' => 'View all templates',
 	'unable_to_retrieve_templates' => 'Unable to retrieve templates',
@@ -468,6 +476,7 @@ $language = array(
 
     // Online users widget
     'include_staff_in_user_widget' => 'Include staff members in user widget?',
+    'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
 
 	// Custom Pages
 	'pages' => '自訂頁面',
