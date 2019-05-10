@@ -505,8 +505,9 @@ if($page != 'install'){
             'profile' => URL::build('/profile/' . Output::getClean($user->data()->username)),
             'panel_profile' => URL::build('/panel/user/' . Output::getClean($user->data()->id) . '-' . Output::getClean($user->data()->username)),
             'username_style' => $user->getGroupClass($user->data()->id),
+            'user_title' => Output::getClean($user->data()->user_title),
             'avatar' => $user->getAvatar($user->data()->id),
-	        'uuid' => Output::getClean($user->data()->uuid)
+            'uuid' => Output::getClean($user->data()->uuid)
         ));
 
         // Panel access?
