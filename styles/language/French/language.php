@@ -838,7 +838,7 @@ $table_language = array(
  *  API language
  */
 $api_language = array(
-	'register' => 'Enregistrement complèté.'
+	'register' => 'Enregistrement complété.'
 );
  
 ?>
