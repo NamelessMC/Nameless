@@ -169,7 +169,7 @@
                                 <div class="alert alert-warning">{$UNABLE_TO_RETRIEVE_TEMPLATES}</div>
                             {/if}
 
-                            <a href="{$VIEW_ALL_TEMPLATES_LINK}" class="btn btn-primary" target="_blank">{$VIEW_ALL_TEMPLATES} &raquo;</a>
+                            <a href="{$VIEW_ALL_PANEL_TEMPLATES_LINK}" class="btn btn-primary" target="_blank">{$VIEW_ALL_PANEL_TEMPLATES} &raquo;</a>
 
                         </div>
                     </div>

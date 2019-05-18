@@ -159,6 +159,8 @@ if(!isset($_GET['action'])){
 		'WEBSITE_TEMPLATES' => $all_templates,
 		'VIEW_ALL_TEMPLATES' => $language->get('admin', 'view_all_templates'),
 		'VIEW_ALL_TEMPLATES_LINK' => 'https://namelessmc.com/resources/category/2-namelessmc-v2-templates/',
+		'VIEW_ALL_PANEL_TEMPLATES' => $language->get('admin', 'view_all_panel_templates'),
+		'VIEW_ALL_PANEL_TEMPLATES_LINK' => 'https://namelessmc.com/resources/category/8-namelessmc-panel-templates/',
 		'UNABLE_TO_RETRIEVE_TEMPLATES' => $language->get('admin', 'unable_to_retrieve_templates'),
 		'VIEW' => $language->get('general', 'view'),
 		'TEMPLATE' => $language->get('admin', 'template'),
