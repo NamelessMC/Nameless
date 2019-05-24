@@ -188,7 +188,9 @@ if(!isset($_GET['action'])){
 			'ORDER' => $order,
 			'WIDGET_ORDER' => $language->get('admin', 'widget_order'),
 			'ACTIVE_PAGES' => $active_pages,
-			'POSSIBLE_PAGES' => $pages->returnWidgetPages()
+			'POSSIBLE_PAGES' => $pages->returnWidgetPages(),
+			'MODULE' => $language->get('admin', 'module'),
+			'MODULE_SEPERATOR' => "&raquo"
 		));
 
 		$template_file = 'core/widgets_edit.tpl';
