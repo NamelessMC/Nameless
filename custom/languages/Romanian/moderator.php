@@ -105,6 +105,6 @@ $language = array(
     
     // Users
     'recent_registrations' => 'Înregistrări recente',
-	'reset_profile_banner' => 'Reset Profile Banner'
+	'reset_profile_banner' => 'Resetaţi bannerul profilului'
 
 );
