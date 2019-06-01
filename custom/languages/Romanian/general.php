@@ -17,7 +17,7 @@ $language = array(
      */ 
     'submit' => 'Trimite',
     'register' => 'Înregistrează-te ',
-    'already_registered' => 'Already Registered?',
+    'already_registered' => 'Deja înregistrat?',
     'sign_in' => 'Conectează-te',
     'log_out' => 'Deconectează-te',
     'profile' => 'Profil',
@@ -132,10 +132,10 @@ $language = array(
     'total_posts' => 'Postări',
     'online_staff' => 'Staff online',
     'no_online_staff' => 'Nu există membri staff online momentan.',
-	'total_online_staff' => 'Total online staff: {x}',
+	'total_online_staff' => 'Membri staff online: {x}',
     'online_users' => 'Utilizatori online',
     'no_online_users' => 'Nu există utilizatori online momentan.',
-	'total_online_users' => 'Total online users: {x}',
+	'total_online_users' => 'Utilizatori online: {x}',
     'discord_widget_disabled' => 'Widgetul este dezactivat pentru serverul de Discord specificat. Accesați fila \'Widget\' din setările pentru serverul de Discord și asigurați-vă că widgetul Discord este activat și că ID-ul este corect.',
 
     /*
@@ -146,5 +146,5 @@ $language = array(
 	/*
 	 *  Custom page redirect
 	 */
-	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+	'redirecting_message' => 'În curs de redirecționare...<br />Dacă nu ești redirecționat automat, te rog <a href="{x}" rel="nofollow noopener">apasă aici</a>.' // Don't replace {x} which is the redirect URL
 );
