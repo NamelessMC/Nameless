@@ -65,9 +65,9 @@ $language = array(
     'email_already_exists' => 'Adresa de e-mail pe care ați introdus-o este deja utilizată.',
     'email_changed_successfully' => 'Adresa de e-mail a fost modificată cu succes.',
     'avatar' => 'Avatar',
-	'profile_banner' => 'Profile Banner',
-	'upload_profile_banner' => 'Upload Profile Banner',
-	'upload' => 'Upload',
+	'profile_banner' => 'Banner profil',
+	'upload_profile_banner' => 'Încărcați banner profil',
+	'upload' => 'Încărcați',
     
     // Alerts
     'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace {x}
@@ -183,7 +183,7 @@ $language = array(
     'new_wall_post_reply' => '{x} a răspuns la postarea ta pe profilul lui {y}.', // Don't replace {x} or {y}
     'new_wall_post_reply_your_profile' => '{x} a răspuns la postarea de pe profilul tău.', // Don't replace {x}
     'no_about_fields' => 'Acest utilizator nu și-a completat încă nici un câmp aici.',
-	'reply' => 'Reply',
+	'reply' => 'Răspunde',
     
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',
@@ -216,7 +216,7 @@ $language = array(
     'leave_conversation' => 'Părăsește conversația',
     'confirm_leave' => 'Sunteți sigur că doriți să părăsiți această conversație?',
     'one_or_more_users_blocked' => 'Nu puteți trimite mesajul privat deoarece unul sau mai mulți destinatari sunt blocați.',
-	'messages' => 'Messages',
+	'messages' => 'Mesaje',
 
     /*
      *  Infractions area
