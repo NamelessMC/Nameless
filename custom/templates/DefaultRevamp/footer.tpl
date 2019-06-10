@@ -9,7 +9,6 @@
           <div class="ui inverted link list">
             <span class="item">&copy; {$SITE_NAME} {'Y'|date}</span>
             <span class="item">Powered By <a href="https://namelessmc.com">NamelessMC</a></span>
-            <span class="item">Template Designed By <a href="https://xemah.com">Xemah</a></span>
           </div>
         </div>
         <div class="five wide column">
