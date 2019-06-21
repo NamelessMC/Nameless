@@ -377,6 +377,13 @@ body.pushable>.pusher {
 	overflow: hidden;
 }
 
+[id*="widget"] .item .content .badge {
+	margin-top: .075rem;
+	padding: .325rem .65rem;
+	font-size: .675rem;
+	border-radius: .2rem;
+}
+
 #widget-online-users .content {
 	padding-bottom: .5rem;
 }
