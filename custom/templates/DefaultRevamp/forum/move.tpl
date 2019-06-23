@@ -11,12 +11,25 @@
       <div class="ui sixteen wide tablet ten wide computer column">
         <form class="ui form" action="" method="post" id="form-move-topic">
           <div class="field">
-            <label for="name">{$MOVE_TO}</label>
-            <select name="forum" id="InputForum">
-              {foreach from=$FORUMS item=forum}
-                <option value="{$forum->id}">{$forum->forum_title|escape}</option>
-              {/foreach}
-            </select>
+            <label for="InputForum">{$MOVE_TO}</label>
+            <div class="ui fluid selection dropdown" id="InputForum">
+              <input type="hidden" name="forum">
+              <i class="dropdown icon"></i>
+              <div class="default text">{$MOVE_TO}</div>
+              <div class="menu">
+                {foreach from=$FORUMS item=forum}
+                  {if $forum->category}
+                    <div class="header">
+                      {$forum->forum_title}
+                    </div>
+                  {else}
+                    <div class="item" data-value="{$forum->id}">
+                      {$forum->forum_title}
+                    </div>
+                  {/if}
+                {/foreach}
+              </div>
+            </div>
           </div>
           <input type="hidden" name="token" value="{$TOKEN}">
           <input type="submit" class="ui primary button" value="{$SUBMIT}">
