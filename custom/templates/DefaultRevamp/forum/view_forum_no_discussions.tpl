@@ -1,7 +1,7 @@
 {include file='header.tpl'}
 {include file='navbar.tpl'}
 
-<div class="ui breadcrumb">
+<div class="ui breadcrumb" style="margin-bottom:10px;">
   {assign i 1}
   {foreach from=$BREADCRUMBS item=breadcrumb}
     {if $i != 1}<i class="right angle icon divider"></i>{/if}
@@ -10,17 +10,30 @@
   {/foreach}
 </div>
 
-<br />
+<div class="ui stackable padded grid" id="forum-view">
+  <div class="ui centered row">
+    <div class="ui eleven wide tablet twelve wide computer column">
+      <h2 class="ui header">
+        {$FORUM_TITLE}
 
-<h2 class="ui header">
-  {$FORUM_TITLE}
-
-  {if $NEW_TOPIC_BUTTON}
-    <div class="res right floated">
-      <a class="ui small primary button" href="{$NEW_TOPIC_BUTTON}">{$NEW_TOPIC}</a>
+        {if $NEW_TOPIC_BUTTON}
+          <div class="res right floated">
+            <a class="ui small primary button" href="{$NEW_TOPIC_BUTTON}">{$NEW_TOPIC}</a>
+          </div>
+        {/if}
+      </h2>
     </div>
-  {/if}
-</h2>
+    <div class="ui five wide tablet four wide computer column">
+      <form class="ui form" method="post" action="{$SEARCH_URL}" name="searchForm">
+        <input type="hidden" name="token" value="{$TOKEN}">
+        <div class="ui fluid action input">
+          <input type="text" name="forum_search" placeholder="{$SEARCH}">
+          <button type="submit" class="ui primary icon button"><i class="search icon"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
       
 <div class="ui stackable padded grid" id="forum-view">
   <div class="ui centered row">
@@ -93,13 +106,6 @@
       </table>
     </div>
     <div class="ui five wide tablet four wide computer column">
-      <form class="ui form" method="post" action="{$SEARCH_URL}" name="searchForm">
-        <input type="hidden" name="token" value="{$TOKEN}">
-        <div class="ui fluid action input">
-          <input type="text" name="forum_search" placeholder="{$SEARCH}">
-          <button type="submit" class="ui primary icon button"><i class="search icon"></i></button>
-        </div>
-      </form>
       {if count($WIDGETS)}
         {foreach from=$WIDGETS item=widget}
           {$widget}
