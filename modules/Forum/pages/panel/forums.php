@@ -765,7 +765,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 					}
 
 					Session::flash('admin_forums', $forum_language->get('forum', 'forum_updated_successfully'));
-					Redirect::to(URL::build('/panel/forums/', 'forum=' . Output::getClean($_GET['forum'])));
+					Redirect::to(URL::build('/panel/forums'));
 					die();
 
 				} else {
