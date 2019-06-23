@@ -107,6 +107,7 @@ $language = array(
     'server_offline' => 'Server je aktuálne vypnutý (offline).',
     'connect_with_ip_x' => 'Pripojte sa teraz pomocou IP adresy {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Click to copy',
+    'ip' => 'IP',
     'copied' => 'Copied!',
     'no_servers' => 'There are no servers to display!',
     'bungee_instance' => 'This server is a Bungee instance.',

@@ -110,6 +110,7 @@ $language = array(
     'server_offline' => '現在サーバーはオフラインです。',
     'connect_with_ip_x' => 'サーバーIP → {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'クリックでコピー',
+    'ip' => 'IP',
     'copied' => 'クリップボードにコピーしました。',
     'no_servers' => '表示できるサーバーがありません。',
     'bungee_instance' => 'このサーバーはBungeeCordを使用しています。',

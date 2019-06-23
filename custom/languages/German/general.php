@@ -115,6 +115,7 @@ $language = array(
     'server_offline' => 'Der Server ist zurzeit Offline.',
     'connect_with_ip_x' => 'Verbinde dich jetzt mit folgender Adresse: {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'In Zwischenablage kopieren',
+    'ip' => 'IP',
     'copied' => 'In Zwischenablage kopiert!',
     'no_servers' => 'Es sind keine Server verfügbar!',
     'bungee_instance' => 'Der Server ist eine Bungeecord Instanz',

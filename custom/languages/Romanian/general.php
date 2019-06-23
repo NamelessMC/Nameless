@@ -109,6 +109,7 @@ $language = array(
     'server_offline' => 'Serverul este în prezent offline.',
     'connect_with_ip_x' => 'Conectați-vă acum folosind IP-ul: {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Apasa aici pentru a copia adresa IP',
+    'ip' => 'IP',
     'copied' => 'Copiat!',
     'no_servers' => 'Momentan nu există servere de afișat!',
     'bungee_instance' => 'Acest server este o instanță Bungee.',

@@ -107,6 +107,7 @@ $language = array(
 	'server_offline' => 'Servern är närvarande offline.',
 	'connect_with_ip_x' => 'Anslut nu med IP {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Click to copy',
+    'ip' => 'IP',
     'copied' => 'Copied!',
     'no_servers' => 'There are no servers to display!',
     'bungee_instance' => 'This server is a Bungee instance.',

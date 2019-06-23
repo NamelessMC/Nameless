@@ -108,6 +108,7 @@ $language = array(
 	'server_offline' => 'O servidor está atualmente offline.',
 	'connect_with_ip_x' => 'Junte-se aos nossos jogadores: {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Clique para copiar',
+    'ip' => 'IP',
     'copied' => 'Copiado!',
     'no_servers' => 'Não há servidores para exibir!',
     'bungee_instance' => 'Este servidor é uma instância do Bungee.',

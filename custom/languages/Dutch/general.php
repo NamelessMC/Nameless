@@ -109,6 +109,7 @@ $language = array(
 	'server_offline' => 'De server is nu offline.',
 	'connect_with_ip_x' => 'Verbind met dit IP adres: {x}', // Verander "{x}" niet
     'click_to_copy_tooltip' => 'Klik om te kopiëren',
+    'ip' => 'IP',
     'copied' => 'Gekopieerd!',
     'no_servers' => 'Er zijn geen servers om weer te geven!',
     'bungee_instance' => 'Deze server is een Bungee instance.',

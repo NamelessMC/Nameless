@@ -95,6 +95,7 @@ $language = array(
 	'server_offline' => 'Serveris šiuo metu yra įšjungats.',
 	'connect_with_ip_x' => 'Prisijungite dabar naudodami IP <strong>{x}</strong>', // Don't replace {x}
 	'click_to_copy_tooltip' => 'Spauskite, kad kopijuoti',
+	'ip' => 'IP',
 	'copied' => 'Nukopijuotas!',
 	'no_servers' => 'Nėra serverių, kuriuos būtų galima rodyti!',
 	'bungee_instance' => 'Šis serveris yra Bungee instancija.',
