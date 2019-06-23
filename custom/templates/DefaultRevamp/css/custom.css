@@ -385,6 +385,20 @@ body.pushable>.pusher {
 	margin-bottom: .5rem;
 }
 
+#widget-online-staff .ui.list .item {
+	display: flex;
+	align-items: center;
+}
+
+#widget-online-staff .ui.list .item .content {
+	display: flex;
+	align-items: center;
+}
+
+#widget-online-staff .ui.list .item .content .badge {
+	margin-left: .35rem;
+}
+
 /*
  *  -[ FOOTER ]-
  */
