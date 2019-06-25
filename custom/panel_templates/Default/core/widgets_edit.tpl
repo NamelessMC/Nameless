@@ -85,16 +85,18 @@
                                             <table class="table table-striped">
                                                 <thead>
                                                 <tr>
-                                                    <th>{$module|escape}</th>
+                                                    <th>{$MODULE} {$MODULE_SEPERATOR} {$module|escape}</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 {foreach from=$module_pages key=page item=value}
                                                     <tr>
                                                         <td>
-                                                            <label for="{$page|escape}">{($page|escape)|ucfirst}</label>
-                                                            <input class="js-switch" type="checkbox" name="pages[]" id="{$page|escape}" value="{$page|escape}"{if in_array($page, $ACTIVE_PAGES)} checked{/if} >
-                                                        </td>
+															<label for="{$page|escape}" style="font-weight: normal;">{($page|escape)|ucfirst}</label>
+															<div class="float-md-right">
+																<input class="js-switch" type="checkbox" name="pages[]" id="{$page|escape}" value="{$page|escape}"{if in_array($page, $ACTIVE_PAGES)} checked{/if} >
+															</div>
+														</td>
                                                     </tr>
                                                 {/foreach}
                                                 </tbody>

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -46,6 +46,13 @@ if($user->isLoggedIn()){
 if(!isset($can_view)){
     require(ROOT_PATH . '/404.php');
     die();
+}
+
+if($custom_page->redirect) {
+	header("X-Robots-Tag: noindex, nofollow", true);
+	header('Location: ' . Output::getClean($custom_page->link));
+
+	die(str_replace('{x}', Output::getClean($custom_page->link), $language->get('general', 'redirecting_message')));
 }
 
 // Always define page name

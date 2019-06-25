@@ -321,10 +321,16 @@ class Util {
         if(is_array($hostname))
             $hostname = $_SERVER['SERVER_NAME'];
 
-        if($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443){
-            $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . Output::getClean($hostname);
+        if(strpos($hostname, 'www') === false && defined('FORCE_WWW') && FORCE_WWW){
+        	$www = 'www.';
         } else {
-            $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . Output::getClean($hostname) . ":" . $_SERVER['SERVER_PORT'];
+        	$www = '';
+        }
+
+        if($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443){
+            $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . $www . Output::getClean($hostname);
+        } else {
+            $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . $www . Output::getClean($hostname) . ":" . $_SERVER['SERVER_PORT'];
         }
 
         if(substr($url, -1) !== '/') $url .= '/';

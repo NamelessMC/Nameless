@@ -250,7 +250,7 @@ if(Input::exists()){
 						// Perform validation on Minecraft name
 						$profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
 
-						$mcname_result = $profile->getProfileAsArray();
+						$mcname_result = $profile ? $profile->getProfileAsArray() : array();
 
 						if(isset($mcname_result['username']) && !empty($mcname_result['username']) && isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])){
 							// Valid

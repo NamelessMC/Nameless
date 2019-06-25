@@ -21,7 +21,8 @@
 
                     <div class="card server" id="server{$server->id}" data-id="{$server->id}" data-bungee="{$server->bungee}" data-players="{$server->player_list}">
                         <div class="card-header">
-                            {$server->name|escape:'html'}
+                            {$server->name|escape:'html'}<br />
+                            {if $server->show_ip}<span id="copy{$server->id|escape}" onclick="copyToClipboard('#copy{$server->id|escape}')">{$server->query_ip|escape:'html'}{if $server->port && $server->port != 25565}:{$server->port|escape:'html'}{/if}</span>{/if}
                         </div>
                         <div class="card-body" id="content{$server->id}">
                             <i class="fa fa-spinner fa-pulse fa-2x" id="spinner{$server->id}"></i>

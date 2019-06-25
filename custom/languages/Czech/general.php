@@ -107,6 +107,7 @@ $language = array(
     'server_offline' => 'Server je aktuálně vypnut (offline).',
     'connect_with_ip_x' => 'Připojte se nyní pomoci IP adresy {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Kliknutím okopíruješ',
+    'ip' => 'IP',
     'copied' => 'Okopírováno!',
     'no_servers' => 'Nejsou zde žádné servery na zobrazení!',
     'bungee_instance' => 'Jedná se o BungeeCord instanci.',
@@ -139,5 +140,10 @@ $language = array(
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Ochrana osobních údajů'
+    'privacy_policy' => 'Ochrana osobních údajů',
+
+	/*
+	 *  Custom page redirect
+	 */
+	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

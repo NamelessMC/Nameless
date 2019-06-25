@@ -69,8 +69,8 @@
     {$CONFIRM_CANCEL}
   </div>
   <div class="actions">
-    <button type="button" class="ui negative button">{$CLOSE}</button>
-    <a class="ui positive button" href="{$FORUM_LINK}">{$CANCEL}</a>
+    <button type="button" class="ui positive button">{$NO}</button>
+    <a class="ui negative button" href="{$FORUM_LINK}">{$YES}</a>
   </div>
 </div>
 

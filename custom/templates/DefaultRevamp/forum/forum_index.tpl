@@ -1,27 +1,43 @@
 {include file='header.tpl'}
 {include file='navbar.tpl'}
 
-<div class="ui breadcrumb">
+<div class="ui breadcrumb" style="margin-bottom:10px;">
     <a class="section active" href="{$BREADCRUMB_URL}">{$BREADCRUMB_TEXT}</a>
 </div>
-
-<h2 class="ui header">
-    {$TITLE}
-</h2>
-
-{if isset($SPAM_INFO)}
-    <div class="ui warning icon message">
-        <i class="exclamation icon"></i>
-        <div class="content">
-            <div class="header">{$FORUM_SPAM_WARNING_TITLE}</div>
-            {$SPAM_INFO}
-        </div>
-    </div>
-{/if}
 
 <div class="ui stackable padded grid" id="forum-index">
     <div class="ui centered row">
         <div class="ui eleven wide tablet twelve wide computer column">
+            <h2 class="ui header">
+                {$TITLE}
+            </h2>
+        </div>
+
+        <div class="ui five wide tablet four wide computer column">
+            <form class="ui form" method="post" action="{$SEARCH_URL}" name="searchForm">
+                <input type="hidden" name="token" value="{$TOKEN}">
+                <div class="ui fluid action input">
+                    <input type="text" name="forum_search" placeholder="{$SEARCH}">
+                    <button type="submit" class="ui primary icon button"><i class="search icon"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="ui stackable padded grid" id="forum-index">
+    <div class="ui centered row">
+        <div class="ui eleven wide tablet twelve wide computer column">
+            {if isset($SPAM_INFO)}
+                <div class="ui warning icon message">
+                    <i class="exclamation icon"></i>
+                    <div class="content">
+                        <div class="header">{$FORUM_SPAM_WARNING_TITLE}</div>
+                        {$SPAM_INFO}
+                    </div>
+                </div>
+            {/if}
+
             {foreach from=$FORUMS key=category item=forum}
                 {if !empty($forum.subforums)}
                     <div class="ui padded segment" id="forum-node">
@@ -127,13 +143,6 @@
             {/foreach}
         </div>
         <div class="ui five wide tablet four wide computer column">
-            <form class="ui form" method="post" action="{$SEARCH_URL}" name="searchForm">
-                <input type="hidden" name="token" value="{$TOKEN}">
-                <div class="ui fluid action input">
-                    <input type="text" name="forum_search" placeholder="{$SEARCH}">
-                    <button type="submit" class="ui primary icon button"><i class="search icon"></i></button>
-                </div>
-            </form>
             {if count($WIDGETS)}
                 {foreach from=$WIDGETS item=widget}
                     {$widget}

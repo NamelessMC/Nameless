@@ -110,6 +110,7 @@ $language = array(
     'server_offline' => '伺服器目前離線.',
     'connect_with_ip_x' => '使用 IP {x} 來連接伺服器', // Don't replace {x}
     'click_to_copy_tooltip' => 'Click to copy',
+    'ip' => 'IP',
     'copied' => 'Copied!',
     'no_servers' => 'There are no servers to display!',
     'bungee_instance' => 'This server is a Bungee instance.',
@@ -142,5 +143,10 @@ $language = array(
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Privacy Policy'
+    'privacy_policy' => 'Privacy Policy',
+
+	/*
+	 *  Custom page redirect
+	 */
+	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

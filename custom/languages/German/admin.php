@@ -1,8 +1,8 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -28,8 +28,8 @@ $language = array(
 	'dashboard' => 'Dashboard',
 	'configuration' => 'Configuration',
 	'layout' => 'Layout',
-	'user_management' => 'User Management',
-	'admin_cp' => 'AdminCP',
+	'user_management' => 'Benutzerverwaltung',
+	'admin_cp' => 'Administration',
 	'administration' => 'Administration',
 	'overview' => 'Übersicht',
 	'core' => 'Core',
@@ -45,25 +45,25 @@ $language = array(
 	'running_nameless_version' => 'Forum läuft auf der Version <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => 'Laufende PHP version <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Statistiken',
-	'registrations' => 'Registrations',
-	'topics' => 'Topics',
+	'registrations' => 'Anmeldungen',
+	'topics' => 'Themen',
 	'posts' => 'Posts',
-    'notices' => 'Ereignisse',
-    'no_notices' => 'Keine Ereignisse.',
-    'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
+    	'notices' => 'Ereignisse',
+    	'no_notices' => 'Keine Ereignisse.',
+    	'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
 
 	// Core
 	'settings' => 'Einstellungen',
 	'general_settings' => 'Allgemeine Einstellungen',
 	'sitename' => 'Name des Forum',
-	'default_language' => 'Standart Sprache',
+	'default_language' => 'Standardsprache',
 	'default_language_help' => 'Benutzer können aus einer Liste ihre eigene Sprache auswählen.',
-	'install_language' => 'Install Language',
-	'update_user_languages' => 'Update User Languages',
+	'install_language' => 'Sprache installieren',
+	'update_user_languages' => 'Benutzersprache aktualisieren',
 	'update_user_languages_warning' => 'Diese Einstellung wird für alle User verwendet.',
-	'updated_user_languages' => 'User languages have been updated.',
+	'updated_user_languages' => 'Benutersprache aktualisiert.',
 	'installed_languages' => 'Es wurden alle neuen Sprachen erfolgreich installiert.',
-	'default_timezone' => 'Standart Zeitzone',
+	'default_timezone' => 'Standard Zeitzone',
 	'registration' => 'Registrierung',
 	'enable_registration' => 'Registrierung aktivieren?',
 	'verify_with_mcassoc' => 'Sollen sich Nutzer mit MCAssoc verifizieren?',
@@ -127,7 +127,7 @@ $language = array(
     'terms_updated' => 'Bedingungen erfolgreich aktualisiert.',
     'avatars' => 'Avatare',
     'allow_custom_avatars' => 'Erlaube eigene Benutzer Avatare?',
-    'default_avatar' => 'Standart Avatar',
+    'default_avatar' => 'Standard Avatar',
     'custom_avatar' => 'Eigener Avatar',
     'minecraft_avatar' => 'Minecraft Avatar',
     'minecraft_avatar_source' => 'Minecraft Avatar Quelle',
@@ -136,7 +136,7 @@ $language = array(
     'face' => 'Gesicht',
     'head' => 'Kopf',
 	'bust' => 'Bust',
-    'select_default_avatar' => 'Wähle ein neues Standart Avatar:',
+    'select_default_avatar' => 'Wähle ein neues Standard Avatar:',
     'no_avatars_available' => 'Kein Avatar verfübar. Bitte laden Sie zuerst ein Neues Bild hoch.',
     'avatar_settings_updated_successfully' => 'Avatar Einstellungen erfolgreich geändert.',
     'navigation' => 'Navigation',
@@ -227,8 +227,8 @@ $language = array(
     'add_server' => '<i class="fa fa-plus-circle"></i> Server hinzufügen',
     'no_servers_defined' => 'Es wurden noch keine Server definiert',
     'query_settings' => 'Abfrage Einstellungen',
-    'default_server' => 'Standart Server',
-    'no_default_server' => 'Kein Standart Server',
+    'default_server' => 'Standardserver',
+    'no_default_server' => 'Kein Standard-Server',
     'external_query' => 'Benutze externe Abfragen?',
     'external_query_help' => 'Wenn die Standard-Serverabfrage nicht funktioniert, aktivieren Sie diese Option.',
     'adding_server' => 'Server hinzufügen',
@@ -244,6 +244,8 @@ $language = array(
     'server_query_information' => 'Um eine Liste von Online-Spielern auf Ihrer Website anzuzeigen, <strong> muss </strong> Ihr Server die Option \'enable-query\' in der <strong> server.properties </strong> des Servers aktiviert sein',
     'enable_status_query' => 'Aktiviere Status Abfrage?',
     'status_query_help' => 'Wenn dies aktiviert ist, zeigt die Statusseite diesen Server als online oder offline an.',
+    'show_ip_on_status_page' => 'Show IP on status page?',
+    'show_ip_on_status_page_info' => 'If this is enabled, users will be able to view and copy the IP address when viewing the Status page.',
     'enable_player_list' => 'Spielerliste aktivieren?',
     'pre_1.7' => 'Minecraft Version älter als 1.7?',
     'player_list_help' => 'Wenn dies aktiviert ist, zeigt die Statusseite eine Liste der Online-Spieler an.',
@@ -322,15 +324,15 @@ $language = array(
 	'active' => 'Aktiv',
 	'deactivate' => 'Deaktivieren',
 	'activate' => 'Aktivieren',
-	'warning_editing_default_template' => 'Warnung! Editiere nicht die Standart Vorlage.',
+	'warning_editing_default_template' => 'Warnung! Editiere nicht die Standard Vorlage.',
 	'images' => 'Bilder',
 	'upload_new_image' => 'Lade ein neues Bild hoch.',
 	'reset_background' => 'Hintergrund zurücksetzen.',
 	'install' => '<i class="fa fa-plus-circle"></i> Installieren',
-	'template_updated' => 'Vorlage erfolgreich geupdatet.',
-	'default' => 'Standart',
-	'make_default' => 'Als Standart setzen.',
-	'default_template_set' => 'Die Vorlage {x} wurde als Standart gesetzt.', // Don't replace {x}
+	'template_updated' => 'Vorlage erfolgreich aktualisiert.',
+	'default' => 'Voreinstellung',
+	'make_default' => 'Als Standard setzen.',
+	'default_template_set' => 'Die Vorlage {x} wurde als Standard gesetzt.', // Don't replace {x}
 	'template_deactivated' => 'Vorlage wurde deaktiviert.',
 	'template_activated' => 'Vorlage wurde aktiviert.',
 	'permissions' => 'Berechtigungen',
@@ -565,13 +567,13 @@ $language = array(
 	'allowed_proxies_info' => 'Zeilenweise Liste der erlaubten Proxy-IPs.',
 
 	// Error logs
-	'error_logs' => 'Fehöer Logs',
-	'notice_log' => 'Notice log',
-	'warning_log' => 'Warning log',
-	'custom_log' => 'Custom log',
-	'other_log' => 'Other log',
-	'fatal_log' => 'Fatal log',
-	'log_file_not_found' => 'Log file wurde nicht gefunden.',
+	'error_logs' => 'Fehler Protokolle',
+	'notice_log' => 'Notice Protokolle',
+	'warning_log' => 'Warnung Protokolle',
+	'custom_log' => 'Sonstige Protokolle',
+	'other_log' => 'Andere Protokolle',
+	'fatal_log' => 'Fatale Protokolle',
+	'log_file_not_found' => 'Log-Datei nicht gefunden.',
 	'log_purged_successfully' => 'Das Protokoll wurde erfolgreich gelöscht.',
 
 	// Hooks
@@ -579,9 +581,9 @@ $language = array(
 	'discord_hooks_info' => 'Sende eine Nachricht an einen Discord-Kanal, wenn auf deiner Website etwas passiert. Erstelle einen Discord-Hook in deinem Discord Server Settings -> Webhooks Tab.',
 	'discord_hook_url' => 'Discord webhook URL',
 	'discord_hook_events' => 'Aktiviert Discord Hook-Ereignisse (Strg + Klick zum Auswählen mehrerer Ereignisse)',
-	'register_hook_info' => 'User Registration',
-	'validate_hook_info' => 'User Verifizierung',
-	'delete_hook_info' => 'User deletion',
+	'register_hook_info' => 'Benutzer Anmledung',
+	'validate_hook_info' => 'Benutzer Verifizierung',
+	'delete_hook_info' => 'Benutzer Löschung',
 
 	// Sitemap
 	'unable_to_load_sitemap_file_x' => 'Die Sitemap-Datei {x} konnte nicht geladen werden', // Don't replace {x}
@@ -604,7 +606,7 @@ $language = array(
 	// Dashboard
 	'total_users' => 'Gesamtbenutzer',
 	'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
-	'recent_users' => 'New Users',
+	'recent_users' => 'Neue Benutzer',
 	'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
 	'average_players' => 'Average Players',
 	'nameless_news' => 'NamelessMC Neuigkeiten',
@@ -616,6 +618,6 @@ $language = array(
 	// Other
 	'source' => 'Source',
 	'support' => 'Support',
-	'admin_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/admin</strong> directory still exists. Please remove this directory.',
-	'mod_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/mod</strong> directory still exists. Please remove this directory.'
+	'admin_dir_still_exists' => 'Achtung! Das Verzeichnis <strong>modules/Core/pages/admin</strong> existiert. Bitte entferne dieses Verzeichnis.',
+	'mod_dir_still_exists' => 'Achtung! Das Verzeichnis <strong>modules/Core/pages/mod</strong> existiert. Bitte entferne dieses Verzeichnis.'
 );

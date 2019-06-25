@@ -2,13 +2,13 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
  *  Portuguese Language - API
- *  Translation By dasilvaj4
- *  Last Update: 11/04/2018
+ *  Translation by Douglas Teles
+ *  Last Update: 24/04/2019
  */
 
 $language = array(
@@ -50,5 +50,5 @@ $language = array(
     'new_private_message_from' => 'Nova mensagem privada de {x}', // Don't replace {x}
     'username_updated' => 'Nome de usuário atualizado com êxito',
     'server_info_updated' => 'Informações do servidor atualizadas com êxito',
-	'account_validated' => 'Account validated successfully'
+	'account_validated' => 'Conta validada com sucesso'
 );

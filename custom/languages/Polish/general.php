@@ -93,19 +93,20 @@ $language = array(
 	 */
 	'markdown_help' => 'Możesz formatować swój post za pomocą Markdown. Jeśli chcesz dowiedzieć się więcej o tej funkcji kliknij <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>tutaj</a>.',
 
-  /*
-   *  Server query
-   */
-  'online' => 'Online',
-  'offline' => 'Offline',
-  'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-  'ping' => 'Ping: {x}', // Don't replace {x}
-  'version' => 'Wersja: {x}', // Don't replace {x}
+	/*
+	 *  Server query
+	 */
+	'online' => 'Online',
+	'offline' => 'Offline',
+	'player_count' => '{x}/{y}', // Don't replace {x} or {y}
+	'ping' => 'Ping: {x}', // Don't replace {x}
+	'version' => 'Wersja: {x}', // Don't replace {x}
 	'currently_1_player_online' => 'Na serwerze jest aktualnie 1 gracz online.',
-  'currently_x_players_online' => 'Na serwerze jest aktualnie <strong>{x}</strong> graczy online.', // Don't replace {x}
-  'server_offline' => 'Serwer jest offline.',
-  'connect_with_ip_x' => 'Wejdź na serwer przez IP <strong>{x}</strong>', // Don't replace {x}
+	'currently_x_players_online' => 'Na serwerze jest aktualnie <strong>{x}</strong> graczy online.', // Don't replace {x}
+	'server_offline' => 'Serwer jest offline.',
+	'connect_with_ip_x' => 'Wejdź na serwer przez IP <strong>{x}</strong>', // Don't replace {x}
 	'click_to_copy_tooltip' => 'Kliknij aby skopiować',
+	'ip' => 'IP',
 	'copied' => 'Skopiowano!',
 	'no_servers' => 'Nie znaleziono serwerów do pokazania!',
 	'bungee_instance' => 'Ten serwer jest w sieci Bungeecord.',
@@ -139,4 +140,9 @@ $language = array(
      *  Privacy policy
      */
     'privacy_policy' => 'Polityka Prywatności',
+
+	/*
+	 *  Custom page redirect
+	 */
+	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

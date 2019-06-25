@@ -118,10 +118,10 @@ class Core_Module extends Module {
 								if($permission->page_id == $custom_page->id){
 									if($permission->view == 1){
 										// Get redirect URL if enabled
-										if($custom_page->redirect == 1){
+										if($custom_page->redirect == 1)
 											$redirect = Output::getClean($custom_page->link);
-										} else
-											$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
+
+										$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
 
 										// Check cache for order
 										if(!$cache->isCached($custom_page->id . '_order')){
@@ -162,10 +162,10 @@ class Core_Module extends Module {
 						foreach($custom_page_permissions as $permission){
 							if($permission->page_id == $custom_page->id){
 								if($permission->view == 1){
-									if($custom_page->redirect == 1){
+									if($custom_page->redirect == 1)
 										$redirect = Output::getClean($custom_page->link);
-									} else
-										$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), FALSE);
+
+									$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
 
 									// Check cache for order
 									if(!$cache->isCached($custom_page->id . '_order')){

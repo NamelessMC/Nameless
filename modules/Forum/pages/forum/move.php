@@ -87,6 +87,34 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Get a list of all forums
+$template_forums = array();
+
+$categories = $queries->orderWhere('forums', 'parent = 0', 'forum_order', 'ASC');
+foreach($categories as $category){
+	$to_add = new stdClass();
+	$to_add->id = Output::getClean($category->id);
+	$to_add->forum_title = Output::getClean($category->forum_title);
+	$to_add->category = true;
+	$template_forums[] = $to_add;
+
+
+	$forums = DB::getInstance()->query('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', array($category->id));
+
+	if($forums->count()){
+		$forums = $forums->results();
+		foreach($forums as $item){
+			if($item->id == $forum_id) continue;
+
+			$to_add = new stdClass();
+			$to_add->id = Output::getClean($item->id);
+			$to_add->forum_title = Output::getClean($item->forum_title);
+			$to_add->category = false;
+			$template_forums[] = $to_add;
+
+		}
+	}
+}
+
 $forums = $queries->orderWhere('forums', 'parent <> 0', 'forum_order', 'ASC');
 
 // Assign Smarty variables
@@ -98,7 +126,7 @@ $smarty->assign(array(
 	'CANCEL' => $language->get('general', 'cancel'),
 	'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
 	'CANCEL_LINK' => URL::build('/forum/topic/' . $topic->id),
-	'FORUMS' => $forums
+	'FORUMS' => $template_forums
 ));
 
 // Load modules + template

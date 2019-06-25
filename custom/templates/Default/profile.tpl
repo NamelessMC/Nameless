@@ -7,8 +7,10 @@
 	  <div class="col-md-8">
 		<h2>
 		  <img class="rounded" style="height:60px;width:60px;" src="{$AVATAR}" />
-		  <strong{if $USERNAME_COLOUR != false} style="{$USERNAME_COLOUR}"{/if}>{$NICKNAME}</strong> 
-		  {$GROUP}
+		  <strong{if $USERNAME_COLOUR != false} style="{$USERNAME_COLOUR}"{/if}>{$NICKNAME}</strong>
+		  {foreach from=$GROUPS item=group}
+			{$group}
+		  {/foreach}
 		</h2>
 	  </div>
 	  <div class="col-md-4">

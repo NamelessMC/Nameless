@@ -107,6 +107,7 @@ $language = array(
     'server_offline' => 'Serveren er nede for øyeblikket.',
     'connect_with_ip_x' => 'Koble til nå med IP {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Klikk for å kopiere',
+    'ip' => 'IP',
     'copied' => 'Kopiert!',
     'no_servers' => 'Det finnes ingen servere å vise!',
     'bungee_instance' => 'Dette er en Bungee server',
@@ -139,5 +140,10 @@ $language = array(
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Personvern'
+    'privacy_policy' => 'Personvern',
+
+	/*
+	 *  Custom page redirect
+	 */
+	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

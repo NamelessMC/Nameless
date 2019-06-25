@@ -339,7 +339,7 @@ if($page != 'install'){
         // Admins only beyond this point
         if(!$user->isLoggedIn() || !$user->canViewACP()){
             // Maintenance mode
-            if(isset($_GET['route']) && (rtrim($_GET['route'], '/') == '/login' || substr($_GET['route'], 0, 5) == '/api/')){
+            if(isset($_GET['route']) && (rtrim($_GET['route'], '/') == '/login' || rtrim($_GET['route'], '/') == '/forgot_password' || substr($_GET['route'], 0, 5) == '/api/')){
                 // Can continue as normal
             } else {
                 require(ROOT_PATH . '/maintenance.php');
@@ -505,8 +505,9 @@ if($page != 'install'){
             'profile' => URL::build('/profile/' . Output::getClean($user->data()->username)),
             'panel_profile' => URL::build('/panel/user/' . Output::getClean($user->data()->id) . '-' . Output::getClean($user->data()->username)),
             'username_style' => $user->getGroupClass($user->data()->id),
+            'user_title' => Output::getClean($user->data()->user_title),
             'avatar' => $user->getAvatar($user->data()->id),
-	        'uuid' => Output::getClean($user->data()->uuid)
+            'uuid' => Output::getClean($user->data()->uuid)
         ));
 
         // Panel access?

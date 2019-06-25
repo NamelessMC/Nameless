@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pre6
  *
  *  License: MIT
  *
@@ -21,7 +21,7 @@ $language = array(
 	/*
 	 *  Change this for the account validation message
 	 */
-	'validate_account_command' => 'Um die Registrierung abzuschließen, führen Sie bitte den Befehl <strong>/validate {x}</strong> ingame aus.', // Don't replace {x}
+	'validate_account_command' => 'Um die Registrierung abzuschließen, führe bitte den Befehl <strong>/validate {x}</strong> ingame aus.', // Don't replace {x}
 
 	/*
 	 *  User Related
@@ -30,7 +30,7 @@ $language = array(
 	'guests' => 'Gäste',
 	
 	// UserCP
-	'user_cp' => 'UserCP',
+	'user_cp' => 'Konto',
 	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
 	'overview' => 'Übersicht',
 	'user_details' => 'Benutzer Details',
@@ -55,7 +55,7 @@ $language = array(
 	'incorrect_password' => 'Dein Passwort ist falsch.',
 	'two_factor_auth' => '2 Schritt Authentifizierung',
 	'enabled' => 'Aktiviert',
-    'disabled' => 'Deaktiviert',
+    	'disabled' => 'Deaktiviert',
 	'enable' => 'Aktivieren',
 	'disable' => 'Deaktivieren',
 	'tfa_scan_code' => 'Scanne folgenden Code mit der APP:',
@@ -65,56 +65,56 @@ $language = array(
 	'tfa_successful' => '2 Schritt Authentifizierung wurde aktiviert.',
 	'active_language' => 'Ausgewählte Sprache:',
 	'timezone' => 'Zeitzone',
-	'upload_new_avatar' => 'Ein neuen Avatar hochladen',
+	'upload_new_avatar' => 'Ein neues Profilbild hochladen',
 	'nickname_already_exists' => 'Der gewählte Nickname existiert bereits.',
-	'change_email_address' => 'Change Email Address',
-	'email_already_exists' => 'The email address you have entered already exists.',
-	'email_changed_successfully' => 'Email address changed successfully.',
+	'change_email_address' => 'E-Mail-Adresse ändern',
+	'email_already_exists' => 'Die E-Mail-Adresse existiert bereits.',
+	'email_changed_successfully' => 'E-Mail-Adresse erfolgreich geändert.',
 	'avatar' => 'Avatar',
 	'profile_banner' => 'Profile Banner',
-	'upload_profile_banner' => 'Upload Profile Banner',
-	'upload' => 'Upload',
+	'upload_profile_banner' => 'Banner hochladen',
+	'upload' => 'Hochladen',
 	
 	// Alerts
 	'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace {x}
 	'no_alerts' => 'Keine Benachrichtigungen',
 	'view_alerts' => 'Benachrichtigungen ansehen',
-	'1_new_alert' => 'You have 1 new alert',
+	'1_new_alert' => 'Du hast 1 neue Benachrichtigung.',
 	'x_new_alerts' => 'Du hast {x} neue Benachrichtigungen', // Don't replace {x}
 	'no_alerts_usercp' => 'Du hast keine Benachrichtigungen.',
 	
 	// Registraton
-	'registration_check_email' => 'Danke für die Registrierung. Schalte nun bitte deine Email frei!',
+	'registration_check_email' => 'Registrierung erfolgreich abgeschlossen. Überprüfe bitte deine E-Mails. Falls du sie nicht finden kannst, überprüfen bitte deinen Spam-Ordner.',
 	'username' => 'Benutzername',
-	'nickname' => 'Nickname',
+	'nickname' => 'Spitzname',
 	'minecraft_username' => 'Minecraft Benutzername',
-	'email_address' => 'Email Addresse',
+	'email_address' => 'Email Adresse',
 	'email' => 'Email',
 	'password' => 'Passwort',
 	'confirm_password' => 'Passwort wiederholen',
 	'i_agree' => 'Ich akzeptiere',
-	'agree_t_and_c' => 'Wenn du auf <strong class="label label-primary">Register</strong> drückst stimmst du unseren <a href="{x}" target="_blank">Geschäftsbedingungen</a>.',
+	'agree_t_and_c' => 'Ich akzeptiere die <a href="{x}" target="_blank">Nutzungsbedingungen</a>.',
 	'create_an_account' => 'Erstelle einen Account',
-	'terms_and_conditions' => 'Geschäftsbedingungen',
+	'terms_and_conditions' => 'Nutzungsbedingungen',
 	'validation_complete' => 'Dein Account wurde verifiziert. Du kannst dich nun anmelden.',
 	'validation_error' => 'Mit deinem Account stimmt etwas nicht. Benachrichtige einen Administrator.',
 	'signature' => 'Signatur',
 	'signature_max_900' => 'Ihre Signatur darf maximal 900 Zeichen lang sein.',
 
     // Registration - Authme
-    'connect_with_authme' => 'Verbinden Sie Ihr Konto mit AuthMe',
-    'authme_help' => 'Bitte geben Sie Ihre Ingame AuthMe Konto Details an. Falls Sie ncoh kein Konto im Spiel haben, verbinden Sie sich einfach mit dem Spiele Server und folgen Sie den weiteren Anweisungen.',
-    'unable_to_connect_to_authme_db' => 'Es konnte keine Verbindung zur AuthMe-Datenbank hergestellt werden. Wenn dieser Fehler weiterhin besteht, wenden Sie sich bitte an einen Administrator.',
+    'connect_with_authme' => 'Verbinden dein Konto mit AuthMe',
+    'authme_help' => 'Bitte gib deine Ingame AuthMe Konto Details an. Falls du noch kein Konto im Spiel haben, verbinden dich einfach mit dem Server und folge den Anweisungen.',
+    'unable_to_connect_to_authme_db' => 'Es konnte keine Verbindung zur AuthMe-Datenbank hergestellt werden. Wenn dieser Fehler weiterhin besteht, wende dich bitte an einen Administrator.',
     'authme_account_linked' => 'Konto erfolgreich verknüpft.',
-    'authme_email_help_1' => 'Bitte geben Sie Ihre E-Mail-Adresse ein.',
-    'authme_email_help_2' => 'Geben Sie bitte Ihre E-Mail-Adresse ein und wählen Sie einen Anzeigenamen für Ihr Konto.',
+    'authme_email_help_1' => 'Bitte gib deine E-Mail-Adresse ein.',
+    'authme_email_help_2' => 'Gib bitte deine E-Mail-Adresse ein und wähle einen Anzeigenamen für Ihr Konto.',
 
 	// Registration errors
     'username_required' => 'Bitte gebe einen Nutzernamen an.',
     'password_required' => 'Bitte gebe ein Passwort an.',
     'email_required' => 'Bitte gebe eine gültige E-Mail-Adresse an.',
     'mcname_required' => 'Bitte gebe einen Minecraft Namen an.',
-    'accept_terms' => 'Du musst unsere AGBs akzeptieren, um dich zu registrieren.',
+    'accept_terms' => 'Du musst unsere AGB akzeptieren, um dich zu registrieren.',
     'username_minimum_3' => 'Dein Nutzername muss mindestens 3 Zeichen lang sein.',
     'username_maximum_20' => 'Dein Nutzername darf nicht länger als 20 Zeichen sein.',
     'mcname_minimum_3' => 'Dein Minecraftname muss mindestens 3 Zeichen lang sein.',
@@ -142,17 +142,17 @@ $language = array(
 	'account_banned' => 'Dieser Account wurde gebannt.',
 	'forgot_password' => 'Passwort vergessen?',
 	'remember_me' => 'Angemeldet bleiben.',
-	'must_input_email' => 'You must input an email address.',
+	'must_input_email' => 'Du musst eine E-Mail-Adresse eingeben.',
 	'must_input_username' => 'Du musst einen Benutzernamen eingeben.',
 	'must_input_password' => 'Du musst ein Passwort eingeben.',
 
     // Forgot password
-    'forgot_password_instructions' => 'Bitte geben Sie Ihre E-Mail-Adresse ein, damit wir Ihnen weitere Anweisungen zum Zurücksetzen Ihres Passworts zusenden können.',
-    'forgot_password_email_sent' => 'Wenn ein Konto mit der E-Mail-Adresse existiert, wurde eine E-Mail mit weiteren Anweisungen gesendet. Wenn Sie es nicht finden können, überprüfen Sie bitte Ihren Spam-Ordner.',
-    'unable_to_send_forgot_password_email' => 'Die Email zum zurücksetzen des Passworts konnte nicht versendet werden. Bitte wenden Sie sich an einen Administrator.',
-    'enter_new_password' => 'Bitte bestätigen Sie Ihre E-Mail-Adresse und geben Sie ein neues Passwort ein.',
+    'forgot_password_instructions' => 'Bitte erteile deine E-Mail-Adresse, damit wir dir weitere Anweisungen zum Zurücksetzen deines Passworts zusenden können.',
+    'forgot_password_email_sent' => 'Wenn ein Konto mit der E-Mail-Adresse existiert, wurde eine E-Mail mit weiteren Anweisungen gesendet. Falls du sie nicht finden kannst, überprüfen bitte deinen Spam-Ordner.',
+    'unable_to_send_forgot_password_email' => 'Die Email zum zurücksetzen des Passworts konnte nicht versendet werden. Bitte wende dich an einen Administrator.',
+    'enter_new_password' => 'Bitte bestätige deine E-Mail-Adresse und erteile ein neues Passwort.',
     'incorrect_email' => 'Die eingegebene E-Mail-Adresse stimmt nicht mit der Anfrage überein.',
-    'forgot_password_change_successful' => 'Ihr Passwort wurde erfolgreich geändert. Sie können sich jetzt anmelden.',
+    'forgot_password_change_successful' => 'Dein Passwort wurde erfolgreich geändert. Du kannst dich jetzt anmelden.',
 	
 	// Profile pages
 	'profile' => 'Profil',
@@ -168,28 +168,28 @@ $language = array(
 	'1_reply' => '1 Antwort',
 	'x_replies' => '{x} Antworten', // Don't replace {x}
 	'no_replies_yet' => 'Bisher keine Antworten',
-	'feed' => 'Feed',
-	'about' => 'Über',
-	'reactions' => 'Reaktioenen',
-	'replies' => 'Antwoeren',
+	'feed' => 'Pinnwand',
+	'about' => 'Über Mich',
+	'reactions' => 'Reaktionen',
+	'replies' => 'Antworten',
 	'new_reply' => 'Neue Antwort',
-	'registered' => 'Registriert seit:',
-	'registered_x' => 'Registriert seit: {x}',
+	'registered' => 'Mitglied seit:',
+	'registered_x' => 'Mitglied seit: {x}',
 	'last_seen' => 'Zuletzt gesehen:',
-	'new_wall_post' => '{x} hat etwas auf deine Profilpinwand geschrieben.',
+	'new_wall_post' => '{x} hat etwas in deine Pinnwand geschrieben.',
 	'couldnt_find_that_user' => 'Konnte den Benutzer nicht finden.',
 	'block_user' => 'Benutzer blockieren',
 	'unblock_user' => 'Benutzer blockierung aufheben',
-	'confirm_block_user' => 'Sind Sie sicher, dass Sie diesen Benutzer blockieren möchten? Sie werden nicht in der Lage sein, Ihnen private Nachrichten zu schicken oder Sie in Posts zu markieren.',
-	'confirm_unblock_user' => 'Sind Sie sicher, dass Sie diesen Benutzer freischalten möchten? Sie werden in der Lage sein, Ihnen private Nachrichten zu schicken und Sie in Posts zu markieren.',
+	'confirm_block_user' => 'Bist du sicher, dass du diesen Benutzer blockieren möchten? Du wirst nicht in der Lage sein, Ihnen private Nachrichten zu schicken oder Sie in Posts zu markieren.',
+	'confirm_unblock_user' => 'Sind du sicher, dass du diesen Benutzer freischalten möchten? Du wirst in der Lage sein, Ihnen private Nachrichten zu schicken und Sie in Posts zu markieren.',
 	'user_blocked' => 'Benutzer blockiert.',
 	'user_unblocked' => 'Benutzer blockierung aufgehoben.',
-	'views' => 'Profile Views:',
-	'private_profile_page' => 'Dies ist ein privates Profil!',
+	'views' => 'Profil-Aufrufe:',
+	'private_profile_page' => 'Der Benutzer hat den Zugriff auf sein vollständiges Profil eingeschränkt.',
 	'new_wall_post_reply' => '{x} hat auf deinen Beitrag im Profil von {y} geantwortet.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} hat auf deinen Beitrag in deinem Profil geantwortet.', // Don't replace {x}
 	'no_about_fields' => 'Dieser Benutzer hat noch keine Felder hinzugefügt.',
-	'reply' => 'Reply',
+	'reply' => 'Antworten',
 	
 	// Reports
 	'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
@@ -200,7 +200,7 @@ $language = array(
 	'no_messages' => 'Keine neuen Nachrichten',
 	'no_messages_full' => 'Du hast keine neuen Nachrichten.',
 	'view_messages' => 'Nachrichten ansehen',
-	'1_new_message' => 'You have 1 new message',
+	'1_new_message' => 'Du hast 1 neue Nachricht',
 	'x_new_messages' => 'Du hast {x} neue Nachrichten', // Don't replace {x}
 	'new_message' => 'Neue Nachricht',
 	'message_title' => 'Nachrichten Titel',
@@ -221,14 +221,14 @@ $language = array(
 	'by' => 'von',
 	'leave_conversation' => 'Konversation verlassen.',
 	'confirm_leave' => 'Möchtest du die Konversation wirklich verlassen?',
-	'one_or_more_users_blocked' => 'Sie können keine privaten Nachrichten an mindestens ein Mitglied der Konversation senden.',
-	'messages' => 'Messages',
+	'one_or_more_users_blocked' => 'Du kannst keine privaten Nachrichten an mindestens ein Mitglied der Konversation senden.',
+	'messages' => 'Nachrichten',
 
 	/*
 	 *  Infractions area
 	 */
-	'you_have_been_banned' => 'Sie wurden Gebannt!',
-	'you_have_received_a_warning' => 'Sie haben eine Verwarnung erhalten!',
+	'you_have_been_banned' => 'Du wurdest Gebannt!',
+	'you_have_received_a_warning' => 'Du hast eine Verwarnung erhalten!',
 	'acknowledge' => 'Bestätigen',
 
 	/*
@@ -236,7 +236,7 @@ $language = array(
 	 */
 	'email_greeting' => 'Hey,',
 	'email_message' => 'Danke für deine Registration! Um deine Registration abzuschließen klicke auf folgenden Link:',
-	'forgot_password_email_message' => 'Um Ihr Passwort zurückzusetzen, klicken Sie bitte auf den folgenden Link. Wenn Sie dies nicht selbst angefordert haben, können Sie diese E-Mail bedenkenlos löschen.',
+	'forgot_password_email_message' => 'Um dein Passwort zurückzusetzen, klicke bitte auf den folgenden Link. Wenn du dies nicht selbst angefordert haben, kannst du diese E-Mail bedenkenlos löschen.',
 	'email_thanks' => 'Liebe Grüße,',
 
 	/*

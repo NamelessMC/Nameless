@@ -279,6 +279,8 @@ $smarty->assign(array(
 	'CANCEL' => $language->get('general', 'cancel'),
 	'CLOSE' => $language->get('general', 'close'),
 	'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
+	'YES' => $language->get('general', 'yes'),
+	'NO' => $language->get('general', 'no'),
 	'TOKEN' => '<input type="hidden" name="token" value="' . $token . '">',
 	'FORUM_LINK' => URL::build('/forum'),
 	'CONTENT' => ((isset($_POST['content']) && $_POST['content']) ? Output::getPurified(Input::get('content')) : (isset($placeholder) ? $placeholder : '')),

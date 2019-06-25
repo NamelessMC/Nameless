@@ -10,9 +10,13 @@
 		  <div class="form-group">
 		    <label for="InputForum">{$MOVE_TO}</label>
 		    <select class="form-control" name="forum" id="InputForum">
-			  {foreach from=$FORUMS item=forum}
-			  <option value="{$forum->id}">{$forum->forum_title|escape}</option>
-			  {/foreach}
+			    {foreach from=$FORUMS item=forum}
+				    {if $forum->category}
+					    <option value="{$forum->id}" disabled>{$forum->forum_title}</option>
+				    {else}
+					    <option value="{$forum->id}">{$forum->forum_title}</option>
+				    {/if}
+			    {/foreach}
 			</select>
 		  </div>
 

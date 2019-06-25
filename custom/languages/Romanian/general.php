@@ -17,7 +17,7 @@ $language = array(
      */ 
     'submit' => 'Trimite',
     'register' => 'Înregistrează-te ',
-    'already_registered' => 'Already Registered?',
+    'already_registered' => 'Deja înregistrat?',
     'sign_in' => 'Conectează-te',
     'log_out' => 'Deconectează-te',
     'profile' => 'Profil',
@@ -109,6 +109,7 @@ $language = array(
     'server_offline' => 'Serverul este în prezent offline.',
     'connect_with_ip_x' => 'Conectați-vă acum folosind IP-ul: {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Apasa aici pentru a copia adresa IP',
+    'ip' => 'IP',
     'copied' => 'Copiat!',
     'no_servers' => 'Momentan nu există servere de afișat!',
     'bungee_instance' => 'Acest server este o instanță Bungee.',
@@ -132,14 +133,19 @@ $language = array(
     'total_posts' => 'Postări',
     'online_staff' => 'Staff online',
     'no_online_staff' => 'Nu există membri staff online momentan.',
-	'total_online_staff' => 'Total online staff: {x}',
+	'total_online_staff' => 'Membri staff online: {x}',
     'online_users' => 'Utilizatori online',
     'no_online_users' => 'Nu există utilizatori online momentan.',
-	'total_online_users' => 'Total online users: {x}',
+	'total_online_users' => 'Utilizatori online: {x}',
     'discord_widget_disabled' => 'Widgetul este dezactivat pentru serverul de Discord specificat. Accesați fila \'Widget\' din setările pentru serverul de Discord și asigurați-vă că widgetul Discord este activat și că ID-ul este corect.',
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Politica de confidentialitate'
+    'privacy_policy' => 'Politica de confidentialitate',
+
+	/*
+	 *  Custom page redirect
+	 */
+	'redirecting_message' => 'În curs de redirecționare...<br />Dacă nu ești redirecționat automat, te rog <a href="{x}" rel="nofollow noopener">apasă aici</a>.' // Don't replace {x} which is the redirect URL
 );

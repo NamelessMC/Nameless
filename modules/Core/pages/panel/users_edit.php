@@ -172,16 +172,15 @@ if(Input::exists()){
 				);
 				$group = Input::get('group');
 
-				// Get secondary groups
-				if(isset($_POST['secondary_groups']) && count($_POST['secondary_groups'])){
-					$secondary_groups = json_encode($_POST['secondary_groups']);
-				} else {
-					$secondary_groups = '';
-				}
-
 			} else {
 				$group = $user_query->group_id;
-				$secondary_groups = $user_query->secondary_groups;
+			}
+
+			// Get secondary groups
+			if(isset($_POST['secondary_groups']) && count($_POST['secondary_groups'])){
+				$secondary_groups = json_encode($_POST['secondary_groups']);
+			} else {
+				$secondary_groups = '';
 			}
 
 			$validation = $validate->check($_POST, $to_validation);

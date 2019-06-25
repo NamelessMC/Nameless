@@ -85,11 +85,18 @@ if(isset($_GET['action'])){
 								$pre = 1;
 							else
 								$pre = 0;
+
 							// Status enabled?
 							if(isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1)
 								$status = 1;
 							else
 								$status = 0;
+
+							// Show IP enabled?
+							if(isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1)
+								$show_ip = 1;
+							else
+								$show_ip = 0;
 
 							// Player list enabled?
 							if(isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1)
@@ -129,7 +136,8 @@ if(isset($_GET['action'])){
 								'parent_server' => $parent,
 								'bungee' => $bungee,
 								'port' => $port,
-								'query_port' => $query_port
+								'query_port' => $query_port,
+								'show_ip' => $show_ip
 							));
 
 							Session::flash('admin_mc_servers_success', $language->get('admin', 'server_created'));
@@ -232,6 +240,8 @@ if(isset($_GET['action'])){
 				'QUERY_INFORMATION' => $language->get('admin', 'query_information'),
 				'ENABLE_STATUS_QUERY' => $language->get('admin', 'enable_status_query'),
 				'ENABLE_STATUS_QUERY_INFO' => $language->get('admin', 'status_query_help'),
+				'SHOW_IP_ON_STATUS_PAGE' => $language->get('admin', 'show_ip_on_status_page'),
+				'SHOW_IP_ON_STATUS_PAGE_INFO' => $language->get('admin', 'show_ip_on_status_page_info'),
 				'ENABLE_PLAYER_LIST' => $language->get('admin', 'enable_player_list'),
 				'ENABLE_PLAYER_LIST_INFO' => $language->get('admin', 'player_list_help'),
 				'SERVER_QUERY_PORT' => $language->get('admin', 'server_query_port'),
@@ -305,6 +315,12 @@ if(isset($_GET['action'])){
 							else
 								$status = 0;
 
+							// Show IP enabled?
+							if(isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1)
+								$show_ip = 1;
+							else
+								$show_ip = 0;
+
 							// Player list enabled?
 							if(isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1)
 								$query = 1;
@@ -343,7 +359,8 @@ if(isset($_GET['action'])){
 								'parent_server' => $parent,
 								'bungee' => $bungee,
 								'port' => $port,
-								'query_port' => $query_port
+								'query_port' => $query_port,
+								'show_ip' => $show_ip
 							));
 
 							Session::flash('admin_mc_servers_success', $language->get('admin', 'server_updated'));
@@ -451,6 +468,9 @@ if(isset($_GET['action'])){
 				'ENABLE_STATUS_QUERY' => $language->get('admin', 'enable_status_query'),
 				'ENABLE_STATUS_QUERY_INFO' => $language->get('admin', 'status_query_help'),
 				'ENABLE_STATUS_QUERY_VALUE' => ($server_editing->display == 1),
+				'SHOW_IP_ON_STATUS_PAGE' => $language->get('admin', 'show_ip_on_status_page'),
+				'SHOW_IP_ON_STATUS_PAGE_INFO' => $language->get('admin', 'show_ip_on_status_page_info'),
+				'SHOW_IP_ON_STATUS_PAGE_VALUE' => ($server_editing->show_ip == 1),
 				'ENABLE_PLAYER_LIST' => $language->get('admin', 'enable_player_list'),
 				'ENABLE_PLAYER_LIST_INFO' => $language->get('admin', 'player_list_help'),
 				'ENABLE_PLAYER_LIST_VALUE' => ($server_editing->player_list == 1),

@@ -127,6 +127,7 @@ class Input {
 			  selector: \'#' . $name . '\',
 			  branding: false,
 			  menubar: false,
+			  convert_urls: false,
 			  plugins: \'autolink,codesample,directionality,emoticons,hr,image,link,lists,spoiler\',
 			  toolbar: \'undo redo | bold italic underline strikethrough fontsizeselect forecolor backcolor ltr rtl | alignleft aligncenter alignright alignjustify | codesample emoticons hr image link numlist bullist | spoiler-add spoiler-remove\',
 			  spoiler_caption: \'' . $language->get('general', 'spoiler') . '\',

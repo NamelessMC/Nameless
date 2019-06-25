@@ -108,6 +108,7 @@ $language = array(
 	'server_offline' => 'Il server è attualmente offline.',
     'connect_with_ip_x' => "Connettiti ora usando l'IP {x}", // Don't replace {x}
     'click_to_copy_tooltip' => 'Clicca per copiare',
+    'ip' => 'IP',
     'copied' => 'Copiato!',
     'no_servers' => 'Non ci sono server da mostrare!',
     'bungee_instance' => "Questo server è un'istanza Bungee.",
@@ -140,5 +141,10 @@ $language = array(
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Privacy Policy'
+    'privacy_policy' => 'Privacy Policy',
+
+	/*
+	 *  Custom page redirect
+	 */
+	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

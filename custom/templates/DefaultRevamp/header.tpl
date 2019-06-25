@@ -24,6 +24,15 @@
     <meta property="og:image" content="{$OG_IMAGE}" />
     <meta property='og:description' content='{$PAGEDESCRIPTION}' />
   
+	  <!-- Twitter Card Properties -->
+    <meta name="twitter:title" content="{$TITLE} &bull; {$smarty.const.SITE_NAME}" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content="{$OG_IMAGE}" />
+
+     {if isset($PAGE_DESCRIPTION) && $PAGE_DESCRIPTION|count_characters > 0}
+         <meta name="twitter:description" content="{$PAGE_DESCRIPTION}" />
+    {/if}
+  
     {foreach from=$TEMPLATE_CSS item=css}
       {$css}
     {/foreach}
