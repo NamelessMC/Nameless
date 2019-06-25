@@ -8,7 +8,7 @@
  *
  *  Romanian Language - Admin
  *  Translation By @BaxAndrei ( https://baxandrei.ro )
- *  Last Update: 27/11/2018
+ *  Last Update: 26/06/2019
  */
 
 $language = array(
@@ -242,8 +242,8 @@ $language = array(
     'server_query_information' => 'Pentru a afișa o listă cu jucători online pe site-ul dvs. web, serverul <strong>trebuie</strong> să aibă opțiunea \'enable-query\' activată în fişierul <strong>server.properties</strong>.',
     'enable_status_query' => 'Activați interogarea de stare?',
     'status_query_help' => 'Dacă aceasta este activată, pagina de stare va afișa acest server ca fiind online sau offline.',
-    'show_ip_on_status_page' => 'Show IP on status page?',
-    'show_ip_on_status_page_info' => 'If this is enabled, users will be able to view and copy the IP address when viewing the Status page.',
+    'show_ip_on_status_page' => 'Afișați adresa IP pe pagina de stare?',
+    'show_ip_on_status_page_info' => 'Dacă această opțiune este activată, utilizatorii vor putea vizualiza și copia adresa IP a serverului atunci când vizualizează pagina de stare.',
     'enable_player_list' => 'Activați lista de jucători?',
     'pre_1.7' => 'Versiunea Minecraft mai veche decât 1.7?',
     'player_list_help' => 'Dacă această opțiune este activată, pagina de stare va afișa o listă de jucători online.',
