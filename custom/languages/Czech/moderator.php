@@ -1,6 +1,6 @@
 <?php 
 /*
- *	Made by Samerton, translated by Zemos, Renzotom and ramenhair (WarfareMC.eu)
+ *	Made by Samerton, translated by Zemos, Renzotom and Ethxrnity
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr2
  *
@@ -10,8 +10,8 @@
  */
 
 $language = array(
-	'mod_cp' => 'Panel Moderátora',
-	'staff_cp' => 'Admin Panel',
+	'mod_cp' => 'Ovládací panel moderátora',
+	'staff_cp' => 'AdminPanel',
 	'overview' => 'Přehled',
 	
 	// Spam
@@ -26,9 +26,9 @@ $language = array(
 	'search_for_ip' => 'Vyhledejte uživatelské jméno nebo adresu IP:',
 	'no_ips_with_username' => 'Pro daného uživatele nebyly nalezeny žádné IP adresy.',
 	'no_accounts_with_that_ip' => 'Pro danou IP adresu nebyl nalezen žádný uživatel.',
-	'1_account_with_ip' => 'Nalezl jsem 1 účet pro IP {y}', // Don't replace "{y}"
+	'1_account_with_ip' => 'Nalezen 1 účet s IP {y}', // Don't replace "{y}"
 	'count_accounts_with_ip' => 'Nalezl jsem {x} účtů pro IP {y}', // Don't replace "{x}" or "{y}"
-	'1_ip_with_name' => 'Nalezl jsem 1 IP Adresu pro účet {y}', // Don't replace "{y}"
+	'1_ip_with_name' => 'Nalezena 1 IP adresa pro uživatele {y}', // Don't replace "{y}"
 	'count_ips_with_name' => 'Nalezl jsem {x} IP adres  pro uživatele {y}', // Don't replace "{x}" or "{y}"
 	'no_users_or_ips_found' => 'Žádný uživatel nebo IP adresa nenalezena.',
 	
@@ -48,19 +48,19 @@ $language = array(
 	'report_comment_invalid' => 'Nezadal jste komentář. Zajistěte, aby jste zadal komentář s minimálně 5 znaky.',
 	'close_report' => 'Zavřít nahlášení',
 	'reopen_report' => 'Znovu otevřít náhlášení',
-	'1_open_report' => 'V současné době je <strong>1</strong> otevřené nahlášení.',
+	'1_open_report' => 'V současné době je otevřeno <strong> 1 </strong> nahlášení.',
 	'open_reports' => 'V současné době je <strong>{x}</strong> otevřených nahlášení.', // Don't replace {x}
-	'no_open_reports' => 'Nejsou otevřené žádné nahlášení.',
-	'no_closed_reports' => 'Nejsou uzavřené žádné nahlášení.',
-	'recent_reports' => 'Redávné nahlášení',
-	'reported_by' => 'Nahlásil:',
-	'website' => 'Stránka',
+	'no_open_reports' => 'V současné době nejsou otevřené žádné nahlášení.',
+	'no_closed_reports' => 'V současné době není uzavřeno žádné nahlášení.',
+	'recent_reports' => 'Nedávná Nahlášení',
+	'reported_by' => 'Nahlášen od:',
+	'website' => 'Webová stránka',
 	'ingame' => 'Ve hře',
 	'x_closed_report' => '{x} uzavřel toto nahlášení.', // Don't replace {x} (username)
-	'x_reopened_report' => '{x} znovu otevřel toto nahlášení.', // Don't replace {x} (username)
-	'report_reopened' => 'Nahlášení znovu otevřeno.',
+	'x_reopened_report' => '{x} toto nahlášení znovu otevřel.', // Don't replace {x} (username)
+	'report_reopened' => 'Nahlášení bylo úspěšně znovu otevřeno.',
 	'report_closed' => 'Nahlášení bylo úspěšně uzavřeno.',
-	'comment_created' => 'Komentář úspěšně odeslán.',
+	'comment_created' => 'Komentář byl úspěšně vytvořen.',
 	
 	// Punishments
 	'punishments' => 'Tresty',
@@ -97,12 +97,12 @@ $language = array(
     'staff' => 'Člen AT',
     'type' => 'Typ',
     'recent_punishments' => 'Nedávné tresty',
-    'created' => 'Vytvořil:',
-    'staff:' => 'Administrátor:',
+    'created' => 'Vytvořeno:',
+    'staff:' => 'Admin:',
     'reason:' => 'Důvod:',
 	
     // Users
     'recent_registrations' => 'Nedávné registrace',
-	'reset_profile_banner' => 'Resetovat banner na profilu'
+	'reset_profile_banner' => 'Resetovat Banner profilu'
 
 );

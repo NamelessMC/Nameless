@@ -1,8 +1,8 @@
 <?php 
 /*
- *	Made by Samerton, translated by Zemos, Renzotom and ramenhair (WarfareMC.eu)
+ *	Made by Samerton, translated by Zemos, Renzotom and Ethxrnity
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -20,10 +20,10 @@ $language = array(
 	'404_error' => 'Pokud se domníváte, že je to chyba, {x}kontaktujte prosím administrátora{y}', // Don't replace {x} or {y}
 	'maintenance_title' => 'Údržba.',
 	'maintenance_retry' => 'Opakovat',
-	'fatal_error' => 'Kritická chyba',
-	'fatal_error_title' => 'Omlouváme se!',
-	'fatal_error_message_user' => 'Omlouváme se, ale vyskytla se chyba, prosím kontaktuj Administrátora.',
-	'fatal_error_message_admin' => 'Omlouváme se, ale vyskytla se chyba. Detaily chyby:',
-	'in_file' => 'v souboru <strong>{x}</strong>', // Don't replace {x}
-	'on_line' => 'na řádků <strong>{x}</strong>' // Don't replace {x}
+	'fatal_error' => 'Fatální chyba',
+	'fatal_error_title' => 'Promiň te!',
+	'fatal_error_message_user' => 'Litujeme, ale při načítání stránky se něco pokazilo. Obraťte se na správce.',
+	'fatal_error_message_admin' => 'Litujeme, ale při načítání stránky se něco pokazilo. Detaily chyby:',
+	'in_file' => 've složce <strong>{x}</strong>', // Don't replace {x}
+	'on_line' => 'na řádku <strong>{x}</strong>' // Don't replace {x}
 );

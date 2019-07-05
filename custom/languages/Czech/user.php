@@ -1,6 +1,6 @@
 <?php 
 /*
-  *	Made by Samerton, translated by Zemos and Renzotom
+  *	Made by Samerton, translated by Zemos, Renzotom and Ethxrnity
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr4
  *
@@ -13,7 +13,7 @@ $language = array(
 	/*
 	 *  Change this for the account validation message
 	 */
-	'validate_account_command' => 'Pro dokončení registrace použij <strong>/validate {x}</strong> ve hře.', // Don't replace {x}
+	'validate_account_command' => 'Chcete-li dokončit registraci, spusťte příkaz <strong> /validate {x} </strong> ve hře.', // Don't replace {x}
 
 	/*
 	 *  User Related
@@ -34,10 +34,10 @@ $language = array(
 	'administration' => 'Administrace',
 	'alerts' => 'Upozornění',
 	'delete_all' => 'Smazat vše',
-	'private_profile' => 'Soukromý profil',
+	'private_profile' => 'Private profile',
 	
 	// Profile settings
-	'field_is_required' => '{x} je povinné.', // Don't replace {x}
+	'field_is_required' => '{x} je .', // Don't replace {x}
 	'settings_updated_successfully' => 'Nastavení bylo úspěšné.',
 	'password_changed_successfully' => 'Změna hesla byla úspěšná.',
 	'change_password' => 'Změnit heslo',
@@ -46,8 +46,8 @@ $language = array(
 	'confirm_new_password' => 'Zopakujte nové heslo.',
 	'incorrect_password' => 'Vaše heslo je nesprávné.',
 	'two_factor_auth' => 'Dvoufázové ověření',
-	'enabled' => 'Zapnuto',
-    'disabled' => 'Vypnuto',
+	'enabled' => 'Povoleno',
+    'disabled' => 'Zakázáno',
 	'enable' => 'Povolit',
 	'disable' => 'Zakázat',
 	'tfa_scan_code' => 'Prosím, naskenujte QR kód pomocí autentifikační aplikace:',
@@ -58,12 +58,12 @@ $language = array(
 	'active_language' => 'Aktivní jazyk',
 	'timezone' => 'Časová zóna',
 	'upload_new_avatar' => 'Nahrát nového avatara.',
-	'nickname_already_exists' => 'Vybrané jméno již existuje.',
-	'change_email_address' => 'Změnit e-mail',
-	'email_already_exists' => 'E-Mail co jsi zadal již existuje.',
+	'nickname_already_exists' => 'Zvolená přezdívka již existuje.',
+	'change_email_address' => 'Změnit Email',
+	'email_already_exists' => 'Email, který jste uvedl již existuje.',
 	'email_changed_successfully' => 'Email úspěšně změněn.',
 	'avatar' => 'Avatar',
-	'profile_banner' => 'Banner na profilu',
+	'profile_banner' => 'Banner',
 	'upload_profile_banner' => 'Nahrát banner',
 	'upload' => 'Nahrát',
 	
@@ -71,7 +71,7 @@ $language = array(
 	'user_tag_info' => 'Byl jste označen v příspěvku {x}.', // Don't replace {x}
 	'no_alerts' => 'Žádná nové upozornění.',
 	'view_alerts' => 'Zobrazit upozornění',
-	'1_new_alert' => 'Máš 1 nové upozornění',
+	'1_new_alert' => 'Máte 1 nové upozornění',
 	'x_new_alerts' => 'Nových upororněních: {x}', // Don't replace {x}
 	'no_alerts_usercp' => 'Nemáte žádná upozornění.',
 	
@@ -121,11 +121,11 @@ $language = array(
 	'invalid_recaptcha' => 'Špatná reCAPTCHA.',
 	'verify_account' => 'Ověřit účet',
 	'verify_account_help' => 'Postupujte podle pokynů níže, abychom mohli ověřit, zda je tento Minecraft účet opravdu Váš.',
-	'validate_account' => 'Potvrdit účet',
+	'validate_account' => 'Validate Account',
 	'verification_failed' => 'Ověření selhalo, zkuste to prosím později.',
 	'verification_success' => 'Ověření úspěšné! Nyní se můžete přihlásit.',
 	'authme_username_exists' => 'Váš AuthMe účet byl právě připojen k webu!',
-	'uuid_already_exists' => 'Tvoje UUID již existuje, to znamená, že tvůj Minecraftový účet je již zaregistrován..',
+	'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
 	
 	// Login
 	'successful_login' => 'Úspěšně jste se přihlásil.',
@@ -134,7 +134,7 @@ $language = array(
 	'account_banned' => 'Tento účet je zabanován.',
 	'forgot_password' => 'Zapomenuté heslo?',
 	'remember_me' => 'Pamatovat si mě',
-	'must_input_email' => 'Musíš vložit e-mailovou adresu.',
+	'must_input_email' => 'You must input an email address.',
 	'must_input_username' => 'Musíte vložit uživatelské jméno.',
 	'must_input_password' => 'Musíte vložit heslo.',
 
@@ -156,7 +156,7 @@ $language = array(
 	'1_reaction' => '1 reakce',
 	'x_reactions' => '{x} reakce', // Don't replace {x}
 	'1_like' => '1 To se mi líbí',
-	'x_likes' => '{x} To se mi líbí', // Don't replace {x}
+	'x_likes' => '{x} To se m ilíbí', // Don't replace {x}
 	'1_reply' => '1 odpověď',
 	'x_replies' => '{x} odpovědi', // Don't replace {x}
 	'no_replies_yet' => 'Nemáte žádné odpovědi :(',
@@ -177,11 +177,11 @@ $language = array(
 	'user_blocked' => 'Uživatel zablokován.',
 	'user_unblocked' => 'Uživatel odblokován.',
 	'views' => 'Zobrazení profilu:',
-	'private_profile_page' => 'Tento profil je soukromý!',
-	'new_wall_post_reply' => '{x} odpověděl na tvůj příspěvek na profilu uživatele {y}.', // Don't replace {x} or {y}
-	'new_wall_post_reply_your_profile' => '{x} odpověděl na tvůj příspěvek.', // Don't replace {x}
-	'no_about_fields' => 'Tento uživatel nevyplnil nic o sobě.',
-	'reply' => 'Odpovědět',
+	'private_profile_page' => 'Toto je soukromý profil!',
+	'new_wall_post_reply' => '{x} odpověděl na váš příspěvek v profilu {y}.', // Don't replace {x} or {y}
+	'new_wall_post_reply_your_profile' => '{x} odpověděl na váš příspěvek na vašem profilu.', // Don't replace {x}
+	'no_about_fields' => 'Tento uživatel o sobě ještě nepřidal žádné údaje.',
+	'reply' => 'Odpověď',
 	
 	// Reports
 	'invalid_report_content' => 'Nelze vytvořit nahlášení. Musíte zadat důvod v rozmezí 2 až 1024 znaků.',
@@ -192,7 +192,7 @@ $language = array(
 	'no_messages' => 'Žádné nové zprávy.',
 	'no_messages_full' => 'Nemáte žádné zprávy.',
 	'view_messages' => 'Zobrazit zprávy',
-	'1_new_message' => 'Máš 1 novou zprávu',
+	'1_new_message' => 'Máte 1 novou zprávu',
 	'x_new_messages' => 'Nových zpráv: {x}', // Don't replace {x}
 	'new_message' => 'Nová zpráva',
 	'message_title' => 'Předmět',
@@ -236,5 +236,5 @@ $language = array(
 	/*
 	 *  Hooks
 	 */
-	'user_x_has_registered' => '{x} se registoval na stránce ' . SITE_NAME . '!'
+	'user_x_has_registered' => '{x} se přidal ' . SITE_NAME . '!'
 );

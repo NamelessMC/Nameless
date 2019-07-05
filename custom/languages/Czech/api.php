@@ -1,53 +1,52 @@
 <?php
 /*
- *	Made by Samerton
- *  Translated to Czech by ramenhair (WarfareMC.eu)
+ *	Made by Samerton, translated by Ethxrnity
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
- *  Czech Language - API
+ *  Czech Language - Api
  */
 
 $language = array(
     // Errors
-    'unknown_error' => 'NeznÃ¡mÃ¡ chyba',
-    'invalid_api_key' => 'NeplatnÃ½ API Key',
-    'invalid_language_file' => 'NeplatnÃ½ soubor jazyk',
-    'invalid_api_method' => 'NeplatnÃ¡ API metoda',
-    'no_unique_site_id' => 'NenÃ­ dostupnÃ© Å¾Ã¡dnÃ© ID strÃ¡nky',
-    'unable_to_check_for_updates' => 'Nelze zjistit aktualizace',
-    'invalid_post_contents' => 'NeplatnÃ½ obsah POST',
-    'invalid_get_contents' => 'neplatnÃ½ obsah GET',
-    'invalid_email_address' => 'NeplatnÃ½ e-mail',
-    'invalid_username' => 'NeplatnÃ© jmÃ©no',
-    'invalid_uuid' => 'neplatnÃ© UUID',
-    'email_already_exists' => 'Email jiÅ¾ existuje',
-    'username_already_exists' => 'JmÃ©no jiÅ¾ existuje',
-    'uuid_already_exists' => 'UUID jiÅ¾ existuje',
-    'unable_to_create_account' => 'Nelze vytvoÅ™it ÃºÄetm',
-    'unable_to_send_registration_email' => 'Nelze poslat registraÄnÃ­ mail, kontaktuj administrÃ¡tora',
-    'unable_to_find_user' => 'Nelze najÃ­t uÅ¾ivatele',
-    'unable_to_find_group' => 'Nelze najÃ­t skupinu',
-    'unable_to_update_group' => 'Nelze aktualizovat hrÃ¡Äovu skupinu',
-    'report_content_too_long' => 'NahlÃ¡Å¡enÃ­ nesmÃ­ bÃ½t delÅ¡Ã­ jak 255 znakÅ¯',
-    'you_must_register_to_report' => 'MusÃ­Å¡ bÃ½t registrovÃ¡n a ovÄ›Å™en, aby jsi mohl napsat nahlÃ¡Å¡enÃ­',
-    'you_have_been_banned_from_website' => 'Byl jsi zabanovÃ¡n z tÃ©to strÃ¡nky',
-    'you_have_open_report_already' => 'JiÅ¾ jsi otevÅ™el nahlÃ¡Å¡enÃ­ na tohoto hrÃ¡Äe',
-    'unable_to_create_report' => 'nelze vytvoÅ™it nahlÃ¡Å¡enÃ­',
-    'unable_to_update_username' => 'Nelze aktualizovat jmÃ©no',
+    'unknown_error' => 'Neznámá chyba',
+    'invalid_api_key' => 'Neplatnı klíè API',
+    'invalid_language_file' => 'Neplatnı jazykovı soubor',
+    'invalid_api_method' => 'Neplatná metoda rozhraní API',
+    'no_unique_site_id' => 'Není k dispozici ádné jedineèné ID webu',
+    'unable_to_check_for_updates' => 'Nelze zkontrolovat aktualizace',
+    'invalid_post_contents' => 'Neplatnı obsah pøíspìvku',
+    'invalid_get_contents' => 'Neplatnı obsahs',
+    'invalid_email_address' => 'Neplatná emailová adresa',
+    'invalid_username' => 'Neplatné uivatelské jméno',
+    'invalid_uuid' => 'Neplatné UUID',
+    'email_already_exists' => 'Email ji existuje',
+    'username_already_exists' => 'Uivatelské jméno ji existuje',
+    'uuid_already_exists' => 'UUID ji existuje',
+    'unable_to_create_account' => 'Úèet nelze vytvoøit',
+    'unable_to_send_registration_email' => 'Nelze odeslat registraèní e-mail, kontaktujte administrátora a aktivujte svùj úèet',
+    'unable_to_find_user' => 'Uivatele nelze najít',
+    'unable_to_find_group' => 'Skupinu nelze najít',
+    'unable_to_update_group' => 'Nelze aktualizovat skupinu uivatelù',
+    'report_content_too_long' => 'Obsah pøehledu musí bıt nejménì 255 znakù',
+    'you_must_register_to_report' => 'Chcete-li vytvoøit report, musíte se zaregistrovat na našich webovıch stránkách',
+    'you_have_been_banned_from_website' => 'Byli jste na stránkách zabanováni',
+    'you_have_open_report_already' => 'O tomto hráèi ji máte otevøenı report',
+    'unable_to_create_report' => 'Report nelze vytvoøit',
+    'unable_to_update_username' => 'Nelze aktualizovat uivatelské jméno',
     'unable_to_update_server_info' => 'Nelze aktualizovat informace o serveru',
-    'invalid_server_id' => 'NeznÃ¡mÃ© ID serveru',
-    'invalid_code' => 'Byl vloÅ¾en neznÃ¡mÃ½ kÃ³d',
+    'invalid_server_id' => 'Neplatné ID serveru',
+    'invalid_code' => 'Byl zadán neplatnı kód',
 
     // Success messages
-    'finish_registration_link' => 'ProsÃ­m klikni na tento odkaz pro dokonÄenÃ­ registrace:',
-    'finish_registration_email' => 'Zkontroluj email pro dokonÄenÃ­ registrace.',
-    'group_updated' => 'Skupina ÃºspÄ›Å¡nÄ› aktualizovÃ¡na',
-    'report_created' => 'NahlÃ¡Å¡enÃ­ ÃºspÄ›Å¡nÄ› vytvoÅ™eno',
-    'new_private_message_from' => 'NovÃ¡ soukromÃ¡ zprÃ¡va od {x}', // Don't replace {x}
-    'username_updated' => 'JmÃ©no ÃºspÄ›Å¡nÄ› aktualizovÃ¡no',
-    'server_info_updated' => 'Informace o serveru aktualizovÃ¡ny',
-	'account_validated' => 'ÃšÄet ÃºspÄ›Å¡nÄ› ovÄ›Å™en'
+    'finish_registration_link' => 'Pro dokonèení registrace kliknìte prosím na následující odkaz:',
+    'finish_registration_email' => 'Zkontrolujte prosím své e-maily a dokonèete registraci.',
+    'group_updated' => 'Skupina byla úspìšnì aktualizována',
+    'report_created' => 'Report byl úspìšnì vytvoøen',
+    'new_private_message_from' => 'Nová soukromá zpráva od uivatele {x}', // Don't replace {x}
+    'username_updated' => 'Uivatelské jméno bylo úspìšnì aktualizováno',
+    'server_info_updated' => 'Informace o serveru byly úspìšnì aktualizovány',
+	'account_validated' => 'Úèet byl úspìšnì ovìøen'
 );
