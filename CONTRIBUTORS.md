@@ -8,7 +8,7 @@ Unfortunately it's only possible to view master branch contributions. Once the v
 
 #### Translations
 - Chinese: [Hi_Michael](https://github.com/haer0248)
-- Czech: [Nekomitsuki](https://github.com/Nekomitsuki), [Renzotom](https://github.com/Renzotom), [Volgeop](https://github.com/Volgeop), Zemos
+- Czech: Ethxrnity, [Nekomitsuki](https://github.com/Nekomitsuki), [Renzotom](https://github.com/Renzotom), [Volgeop](https://github.com/Volgeop), Zemos
 - Dutch: [Akela](https://github.com/Akelah), [Derkades](https://github.com/Derkades), [Jesse Geerts](https://github.com/jesseke55), [Rody Molenaar](https://github.com/rodymolenaar), [Sander Lambrechts](https://github.com/TheSander562), [smessie](https://github.com/smessie)
 - English UK (default)
 - English US (default)
