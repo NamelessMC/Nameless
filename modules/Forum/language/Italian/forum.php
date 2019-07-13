@@ -2,7 +2,7 @@
 /*
  *	Made by alsoGAMER
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -94,7 +94,7 @@ $language = array(
 	'no_longer_following_topic' => 'Non stai più seguendo questo argomento e non riceverai alcuna notifica di nuove risposte.',
 	'new_reply_in_topic' => "{x} ha risposto all'argomento {y}", // Don't replace {x} (username) or {y} (topic title)
 	'started_by_x' => 'Avviato da {x}', // Don't replace {x}
-	'sticky_topics' => 'Sticky Topics',
+	'sticky_topics' => 'Argomenti in rilievo',
 	
 	// Homepage
 	'latest_announcements' => 'Ultimi Annunci',
