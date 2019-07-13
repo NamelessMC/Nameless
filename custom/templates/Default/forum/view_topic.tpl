@@ -85,7 +85,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <center>
-                                    <img class="rounded" style="width:100px; height:100px;" src="{$reply.avatar}"/>
+                                    <a href="{$reply.profile}"><img class="rounded" style="width:100px; height:100px;" src="{$reply.avatar}"/></a>
                                     <br/><br/>
                                     <strong><a style="{$reply.user_style}" href="{$reply.profile}" data-poload="{$USER_INFO_URL}{$reply.user_id}" data-html="true" data-placement="top">{$reply.username}</a></strong>
                                     <br/>

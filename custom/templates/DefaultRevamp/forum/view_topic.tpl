@@ -98,7 +98,7 @@
         <div class="ui row">
           <div class="ui five wide tablet three wide computer column" id="post-sidebar">
             <center>
-              <img class="ui small circular image" src="{$reply.avatar}" alt="{$reply.username}" />
+              <a href="{$reply.profile}"><img class="ui small circular image" src="{$reply.avatar}" alt="{$reply.username}" /></a>
               <h3 class="ui header">
                 <a href="{$reply.profile}" style="{$reply.user_style}">{$reply.username}</a>
                 {if isset($reply.user_title)}
