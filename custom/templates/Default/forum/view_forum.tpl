@@ -26,23 +26,25 @@
 			  {foreach from=$SUBFORUMS item=subforum}
 			  <tr>
 			    <td>{$subforum.icon} <a href="{$subforum.link}">{$subforum.title}</a></td>
-				<td><strong>{$subforum.topics}</strong> {$TOPICS}</td>
+				<td>{if !$subforum.redirect}<strong>{$subforum.topics}</strong> {$TOPICS}{/if}</td>
 				<td>
-				  {if count($subforum.latest_post)}
-				  <div class="row">
-				    <div class="col-md-3">
-					  <div class="frame">
-					    <a href="{$subforum.latest_post.last_user_link}"><img class="img-centre rounded" style="height:40px; width:40px;" src="{$subforum.latest_post.last_user_avatar}" alt="{$subforum.latest_post.last_user}" /></a>
-					  </div>
-				    </div>
-				    <div class="col-md-9">
-					  <a href="{$subforum.latest_post.link}">{$subforum.latest_post.title}</a>
-					  <br />
-					  <span data-toggle="tooltip" data-trigger="hover" data-original-title="{$subforum.latest_post.time}">{$subforum.latest_post.timeago}</span><br />{$BY} <a style="{$subforum.latest_post.last_user_style}" href="{$subforum.latest_post.last_user_link}" data-poload="{$USER_INFO_URL}{$subforum.latest_post.last_user_id}" data-html="true" data-placement="top">{$subforum.latest_post.last_user}</a>
-				    </div>
-				  </div>
-				  {else}
-				    {$NO_TOPICS}
+				  {if !$subforum.redirect}
+				    {if count($subforum.latest_post)}
+				      <div class="row">
+				        <div class="col-md-3">
+				          <div class="frame">
+				            <a href="{$subforum.latest_post.last_user_link}"><img class="img-centre rounded" style="height:40px; width:40px;" src="{$subforum.latest_post.last_user_avatar}" alt="{$subforum.latest_post.last_user}" /></a>
+				          </div>
+				        </div>
+				        <div class="col-md-9">
+				          <a href="{$subforum.latest_post.link}">{$subforum.latest_post.title}</a>
+				          <br />
+				          <span data-toggle="tooltip" data-trigger="hover" data-original-title="{$subforum.latest_post.time}">{$subforum.latest_post.timeago}</span><br />{$BY} <a style="{$subforum.latest_post.last_user_style}" href="{$subforum.latest_post.last_user_link}" data-poload="{$USER_INFO_URL}{$subforum.latest_post.last_user_id}" data-html="true" data-placement="top">{$subforum.latest_post.last_user}</a>
+				        </div>
+				      </div>
+				    {else}
+				      {$NO_TOPICS}
+				    {/if}
 				  {/if}
 				</td>
 			  </tr>

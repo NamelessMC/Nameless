@@ -61,30 +61,32 @@
                         {$TOPICS|capitalize}: <b>{$subforum.topics}</b>
                       </div>
                       <div class="sub header">
-                        {$TOPICS|capitalize}: <b>{$subforum.topics}</b>
+                        {if !$subforum.redirect}{$TOPICS|capitalize}: <b>{$subforum.topics}</b>{/if}
                       </div>
                    </div>
                   </h5> 
                 </td>
                 <td>
-                  {if !empty($subforum.latest_post)}
-                    <h5 class="ui header">
-                      <img class="ui mini circular image" src="{$subforum.latest_post.last_user_avatar}">
-                      <div class="content">
-                        <a href="{$subforum.latest_post.link}" data-toggle="popup">{$subforum.latest_post.title}</a>
-                        <div class="ui wide popup">
-                          <h4 class="ui header">{$subforum.latest_post.title}</h4>
-                          <br/>{$BY|capitalize} <a style="{$subforum.latest_post.last_user_style}"
+                  {if !$subforum.redirect}
+                    {if !empty($subforum.latest_post)}
+                      <h5 class="ui header">
+                        <img class="ui mini circular image" src="{$subforum.latest_post.last_user_avatar}">
+                        <div class="content">
+                          <a href="{$subforum.latest_post.link}" data-toggle="popup">{$subforum.latest_post.title}</a>
+                          <div class="ui wide popup">
+                            <h4 class="ui header">{$subforum.latest_post.title}</h4>
+                            <br/>{$BY|capitalize} <a style="{$subforum.latest_post.last_user_style}"
                                                    href="{$subforum.latest_post.last_user_link}">{$subforum.latest_post.last_user}</a>
-                          | {$subforum.latest_post.time}
+                            | {$subforum.latest_post.time}
+                          </div>
+                          <div class="sub header">
+                            <a href="{$subforum.latest_post.last_user_link}" data-poload="{$USER_INFO_URL}{$subforum.latest_post.last_user_id}" style="{$subforum.latest_post.last_user_style}">{$subforum.latest_post.last_user}</a> &middot; <span data-toggle="tooltip" data-content="{$subforum.latest_post.time}">{$subforum.latest_post.timeago}</span>
+                          </div>
                         </div>
-                        <div class="sub header">
-                          <a href="{$subforum.latest_post.last_user_link}" data-poload="{$USER_INFO_URL}{$subforum.latest_post.last_user_id}" style="{$subforum.latest_post.last_user_style}">{$subforum.latest_post.last_user}</a> &middot; <span data-toggle="tooltip" data-content="{$subforum.latest_post.time}">{$subforum.latest_post.timeago}</span>
-                        </div>
-                      </div>
-                    </h5>
-                  {else}
-                    {$NO_TOPICS}
+                      </h5>
+                    {else}
+                      {$NO_TOPICS}
+                    {/if}
                   {/if}
                 </td>
               </tr>
