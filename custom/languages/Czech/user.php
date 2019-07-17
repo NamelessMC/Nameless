@@ -1,6 +1,6 @@
 <?php 
 /*
-  *	Made by Samerton, translated by Zemos, Renzotom and Ethxrnity
+  *	Made by Samerton, translated by Zemos, Renzotom, Ethxrnity and sad_mirai
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr4
  *
@@ -34,11 +34,11 @@ $language = array(
 	'administration' => 'Administrace',
 	'alerts' => 'Upozornění',
 	'delete_all' => 'Smazat vše',
-	'private_profile' => 'Private profile',
+	'private_profile' => 'Soukromý profil',
 	
 	// Profile settings
-	'field_is_required' => '{x} je .', // Don't replace {x}
-	'settings_updated_successfully' => 'Nastavení bylo úspěšné.',
+	'field_is_required' => '{x} je povinné.', // Don't replace {x}
+	'settings_updated_successfully' => 'Nastavení bylo úspěšně aktualizováno.',
 	'password_changed_successfully' => 'Změna hesla byla úspěšná.',
 	'change_password' => 'Změnit heslo',
 	'current_password' => 'Staré heslo',
@@ -78,7 +78,7 @@ $language = array(
 	// Registraton
 	'registration_check_email' => 'Děkujeme za registraci! Prosím, zkontrolujte si email, pro ověření emailu. Pokud ho nemůžete najít, zkuste složku SPAM. Pokud není ani tam, kontaktujte administrátora.',
 	'username' => 'Uživatelské jméno',
-	'nickname' => 'přezdívka',
+	'nickname' => 'Přezdívka',
 	'minecraft_username' => 'Jméno v Minecraftu',
 	'email_address' => 'E-mailová Adresa',
 	'email' => 'E-mail',
@@ -97,7 +97,7 @@ $language = array(
 	'connect_with_authme' => 'Propojte Váš účet s AuthMe',
 	'authme_help' => 'Zadejte prosím Vaše herní AuthMe detaily účtu. Pokud ještě nemáte účet ve hře, připojte se na server nyní a postupujte podle uvedených pokynů.',
 	'unable_to_connect_to_authme_db' => 'Nepodařilo se připojit do AuthMe databáze. Pokud tato chyba přetrvává, obraťte se prosím na správce.',
-	'authme_account_linked' => 'Účet úspěšně propojen..',
+	'authme_account_linked' => 'Účet úspěšně propojen.',
 	'authme_email_help_1' => 'Nakonec prosím zadejte svou e-mailovou adresu.',
 	'authme_email_help_2' => 'Nakonec prosím zadejte svou e-mailovou adresu a také si vyberte zobrazované jméno pro Váš účet.',
 
@@ -125,7 +125,7 @@ $language = array(
 	'verification_failed' => 'Ověření selhalo, zkuste to prosím později.',
 	'verification_success' => 'Ověření úspěšné! Nyní se můžete přihlásit.',
 	'authme_username_exists' => 'Váš AuthMe účet byl právě připojen k webu!',
-	'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
+	'uuid_already_exists' => 'Vaše UUID již existuje. To znamená, že tento Minecraft účet je již registrován.',
 	
 	// Login
 	'successful_login' => 'Úspěšně jste se přihlásil.',
@@ -134,7 +134,7 @@ $language = array(
 	'account_banned' => 'Tento účet je zabanován.',
 	'forgot_password' => 'Zapomenuté heslo?',
 	'remember_me' => 'Pamatovat si mě',
-	'must_input_email' => 'You must input an email address.',
+	'must_input_email' => 'Musíte vložit email.',
 	'must_input_username' => 'Musíte vložit uživatelské jméno.',
 	'must_input_password' => 'Musíte vložit heslo.',
 
@@ -156,10 +156,10 @@ $language = array(
 	'1_reaction' => '1 reakce',
 	'x_reactions' => '{x} reakce', // Don't replace {x}
 	'1_like' => '1 To se mi líbí',
-	'x_likes' => '{x} To se m ilíbí', // Don't replace {x}
+	'x_likes' => '{x} To se mi líbí', // Don't replace {x}
 	'1_reply' => '1 odpověď',
 	'x_replies' => '{x} odpovědi', // Don't replace {x}
-	'no_replies_yet' => 'Nemáte žádné odpovědi :(',
+	'no_replies_yet' => 'Nemáte žádné odpovědi',
 	'feed' => 'Komentáře',
 	'about' => 'O mně',
 	'reactions' => 'Reakce',
@@ -196,7 +196,7 @@ $language = array(
 	'x_new_messages' => 'Nových zpráv: {x}', // Don't replace {x}
 	'new_message' => 'Nová zpráva',
 	'message_title' => 'Předmět',
-	'to' => 'pro',
+	'to' => 'Pro',
 	'separate_users_with_commas' => 'Oddělujte více uživatelů pomocí čárky.',
 	'title_required' => 'Musíte zadat předmět',
 	'content_required' => 'Musíte vložit nějaký obsah',
@@ -210,7 +210,7 @@ $language = array(
 	'message_sent_successfully' => 'Zpráva úspěšně odeslána.',
 	'participants' => 'Učastníci',
 	'last_message' => 'Poslední zpráva',
-	'by' => 'od',
+	'by' => 'Od',
 	'new_reply' => 'Nová odpověď',
 	'leave_conversation' => 'Opustit konverzaci',
 	'confirm_leave' => 'Opravdu chcete opustit konverzaci?',
@@ -236,5 +236,5 @@ $language = array(
 	/*
 	 *  Hooks
 	 */
-	'user_x_has_registered' => '{x} se přidal ' . SITE_NAME . '!'
+	'user_x_has_registered' => '{x} se přidal na ' . SITE_NAME . '!'
 );
