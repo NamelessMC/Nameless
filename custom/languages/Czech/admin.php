@@ -1,6 +1,6 @@
 <?php 
 /*
- *	Made by Samerton, translated by Zemos, Renzotom and Ethxrnity
+ *	Made by Samerton, translated by Zemos, Renzotom, Ethxrnity and sad_mirai
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr3
  *
@@ -84,7 +84,7 @@ $language = array(
 	'social_media_settings_updated' => 'Nastavení sociálních médií bylo úspěšně aktualizováno.',
 	'successfully_updated' => 'Úspěšně aktualizováno',
     'debugging_and_maintenance' => 'Ladění a údržba',
-    'maintenance' => 'Ladění a údržba',
+    'maintenance' => 'Údržba',
     'debugging_settings_updated_successfully' => 'Nastavení ladění bylo úspěšně aktualizováno.',
     'enable_debug_mode' => 'Povolit režim ladění?',
     'force_https' => 'Vynucené https?',
@@ -147,7 +147,7 @@ $language = array(
     'validation_promote_group' => 'Skupina po validaci',
     'validation_promote_group_info' => 'Toto je skupina, na kterou bude uživatel povýšen, jakmile potvrdí svůj účet.',
     'login_method' => 'Metoda přihlášení',
-    'privacy_and_terms' => 'Ochrana osobních údajů & podmínky',
+    'privacy_and_terms' => 'Ochrana osobních údajů a podmínky',
 
 	// Reactions
 	'icon' => 'Ikonka',
@@ -277,13 +277,13 @@ $language = array(
     'mcassoc_instance' => 'mcassoc případový klíč',
     'mcassoc_instance_help' => '<a href="#" onclick="generateInstance();">Klikněte k vygenerování případového klíče</a>',
     'mcassoc_error' => 'Ujistěte se prosím, zda jste zadal Váš sdílený klíč správně, a následně správně vygeneroval případový klíč.',
-    'updated_mcassoc_successfully' => 'nastavení mcassoc úspěšně aktualizováno.',
+    'updated_mcassoc_successfully' => 'Nastavení mcassoc úspěšně aktualizováno.',
     'force_premium_accounts' => 'Vyžadovat prémiové účty?',
     'banner_background' => 'Pozadí banneru',
     'query_interval' => 'Interval Query (v minutách, musí být mezi 5 a 60)',
     'player_graphs' => 'Grafy hráčů',
     'player_count_cronjob_info' => 'Následujícím příkazem můžete nastavit "cron job" k query Vašich serverů každých {x} minut:', // Don't replace "{x}" or "{y}"
-    'status_page' => 'Enable status page?',
+    'status_page' => 'Zapnout stránku statusu?',
     'minecraft_settings_updated_successfully' => 'Nastavení bylo úspěšně aktualizováno.',
     'server_id_x' => 'ID Serveru: {x}', // Don't replace {x}
     'server_information' => 'Informace o Serveru',
@@ -300,7 +300,7 @@ $language = array(
 	'disable' => 'Zakázat',
 	'module_enabled' => 'Modul povolen.',
 	'module_disabled' => 'Modul zakázán.',
-	'author' => 'Autor:',
+	'author' => 'Autor',
 	'author_x' => 'Autor: {x}', // Don't replace {x}
 	'module_outdated' => 'Zjistili jsme, že tento modul je určen pro Nameless verzi {x}, ale používáte Nameless verzi {y}', // Don't replace "{x}" or "{y}"
 	'find_modules' => 'Najít moduly',
@@ -341,9 +341,9 @@ $language = array(
 	'template_banner_updated_successfully' => 'Banner byl úspěšně aktualizován.',
 	'reset_banner' => 'Obnovit Banner',
 	'find_templates' => 'Najít Template',
-	'view_all_templates' => 'Zobrazit všechny Templaty',
-	'unable_to_retrieve_templates' => 'Nelze načíst Templaty',
-	'template' => 'Template',
+	'view_all_templates' => 'Zobrazit všechny šablony',
+	'unable_to_retrieve_templates' => 'Nelze načíst šablony',
+	'template' => 'Šablona',
 	'stats' => 'Statistiky',
 	'downloads_x' => 'Stažení: {x}',
 	'views_x' => 'Zobrazení: {x}',
@@ -470,7 +470,7 @@ $language = array(
 	'widget_updated' => 'Widget updated.',
 	'editing_widget_x' => 'Upravování widgetu {x}', // Don't replace {x}
 	'module_x' => 'Doplněk: {x}', // Don't replace {x}
-	'widget_order' => 'Widget Order',
+	'widget_order' => 'Pořadí Widgetů',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Zahrnout AdminTeam do uživatelského widgetu?',
