@@ -1,6 +1,6 @@
 <?php 
 /*
- *	Made by Samerton, translated by Zemos, Renzotom and Ethxrnity
+ *	Made by Samerton, translated by Zemos, Renzotom, Ethxrnity and sad_mirai
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr3
  *
@@ -21,7 +21,7 @@ $language = array(
 	'maintenance_title' => 'Údržba.',
 	'maintenance_retry' => 'Opakovat',
 	'fatal_error' => 'Fatální chyba',
-	'fatal_error_title' => 'Promiň te!',
+	'fatal_error_title' => 'Omlouváme se!',
 	'fatal_error_message_user' => 'Litujeme, ale při načítání stránky se něco pokazilo. Obraťte se na správce.',
 	'fatal_error_message_admin' => 'Litujeme, ale při načítání stránky se něco pokazilo. Detaily chyby:',
 	'in_file' => 've složce <strong>{x}</strong>', // Don't replace {x}
