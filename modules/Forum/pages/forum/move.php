@@ -91,6 +91,8 @@ $template_forums = array();
 
 $categories = $queries->orderWhere('forums', 'parent = 0', 'forum_order', 'ASC');
 foreach($categories as $category){
+	if(!$forum->forumExist($category->id, $user->data()->group_id, $user->data()->secondary_groups)) continue;
+
 	$to_add = new stdClass();
 	$to_add->id = Output::getClean($category->id);
 	$to_add->forum_title = Output::getClean($category->forum_title);
@@ -103,19 +105,27 @@ foreach($categories as $category){
 	if($forums->count()){
 		$forums = $forums->results();
 		foreach($forums as $item){
-			if($item->id == $forum_id) continue;
+			if(!$forum->forumExist($item->id, $user->data()->group_id, $user->data()->secondary_groups)) continue;
 
-			$to_add = new stdClass();
-			$to_add->id = Output::getClean($item->id);
-			$to_add->forum_title = Output::getClean($item->forum_title);
-			$to_add->category = false;
-			$template_forums[] = $to_add;
+			if($item->id !== $forum_id){
+				$to_add = new stdClass();
+				$to_add->id = Output::getClean($item->id);
+				$to_add->forum_title = Output::getClean($item->forum_title);
+				$to_add->category = false;
+				$template_forums[] = $to_add;
+			}
 
+			// Subforums
+			$subforums = $forum->getAnySubforums($item->id, $user->data()->group_id, $user->data()->secondary_groups);
+
+			if(count($subforums)){
+				foreach($subforums as $subforum){
+					$template_forums[] = $subforum;
+				}
+			}
 		}
 	}
 }
-
-$forums = $queries->orderWhere('forums', 'parent <> 0', 'forum_order', 'ASC');
 
 // Assign Smarty variables
 $smarty->assign(array(

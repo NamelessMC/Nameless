@@ -615,4 +615,40 @@ class Forum {
         return false;
     }
 
+    // Get any subforums at any level for a forum
+	// Params: $forum_id - forum ID (int), $group_id - group ID of user (int), $secondary_groups - array of group IDs user is in (array of ints)
+	public function getAnySubforums($forum_id, $group_id = null, $secondary_groups = null, $depth = 0){
+		if($depth == 10){
+			return array();
+		}
+
+		$ret = array();
+
+		$subforums_query = $this->_db->query('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', array($forum_id));
+
+		if(!$subforums_query->count()){
+			return $ret;
+		}
+
+		foreach($subforums_query->results() as $result){
+			if($this->forumExist($result->id, $group_id, $secondary_groups)){
+				$to_add = new stdClass();
+				$to_add->id = Output::getClean($result->id);
+				$to_add->forum_title = Output::getClean($result->forum_title);
+				$to_add->category = false;
+				$ret[] = $to_add;
+
+				$subforums = $this->getAnySubforums($result->id, $group_id, $secondary_groups, ++$depth);
+
+				if(count($subforums)){
+					foreach($subforums as $subforum){
+						$ret[] = $subforum;
+					}
+				}
+			}
+		}
+
+		return $ret;
+	}
+
 }
