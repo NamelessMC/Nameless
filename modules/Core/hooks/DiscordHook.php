@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr6
  *
  *  Discord hook handler class
  */
@@ -51,7 +51,11 @@ class DiscordHook {
 
             $ch = curl_init();
 
-            curl_setopt($ch, CURLOPT_URL, self::$_url);
+			if(isset($params['webhook'])) {
+				curl_setopt($ch, CURLOPT_URL, $params['webhook']);
+			} else {
+				curl_setopt($ch, CURLOPT_URL, self::$_url);
+			}
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
