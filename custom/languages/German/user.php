@@ -176,6 +176,7 @@ $language = array(
 	'registered' => 'Mitglied seit:',
 	'registered_x' => 'Mitglied seit: {x}',
 	'last_seen' => 'Zuletzt gesehen:',
+	'last_seen_x' => 'Zuletzt gesehen: {x}', // Don't replace {x}
 	'new_wall_post' => '{x} hat etwas in deine Pinnwand geschrieben.',
 	'couldnt_find_that_user' => 'Konnte den Benutzer nicht finden.',
 	'block_user' => 'Benutzer blockieren',

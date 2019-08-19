@@ -169,6 +169,7 @@ $language = array(
 	'registered' => 'Registrerad:',
 	'registered_x' => 'Registrerad: {x}',
 	'last_seen' => 'Senast Inloggad:',
+	'last_seen_x' => 'Senast Inloggad: {x}', // Don't replace {x}
 	'new_wall_post' => '{x} har skrivit på din profil.',
 	'couldnt_find_that_user' => 'Kunde inte hitta det där användraren.',
 	'block_user' => 'Blockera Användrare',

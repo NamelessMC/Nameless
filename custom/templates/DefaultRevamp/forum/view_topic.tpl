@@ -119,6 +119,12 @@
               </div>
               <div class="item">
                 <div class="content">
+                  <div class="header">{$reply.last_seen|regex_replace:'/[:].*/':''}</div>
+                  <div class="res right floated description">{$reply.last_seen_full}</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="content">
                   <div class="header">{$reply.user_topics_count|regex_replace:'/[0-9]+/':''|capitalize}</div>
                   <div class="res right floated description">{$reply.user_topics_count|regex_replace:'/[^0-9]+/':''}</div>
                 </div>

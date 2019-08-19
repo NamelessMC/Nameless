@@ -164,6 +164,7 @@ $language = array(
     'registered' => 'Cadastrado:',
     'registered_x' => 'Cadastrado: {x}',
     'last_seen' => 'Visto pela última vez:',
+    'last_seen_x' => 'Visto pela última vez: {x}', // Don't replace {x}
     'new_wall_post' => '{x} postou no seu perfil.',
     'couldnt_find_that_user' => 'Não encontramos este usuário.',
     'block_user' => 'Bloquear Usuário',

@@ -168,6 +168,7 @@ $language = array(
 	'registered' => 'Zarejestrowany:',
 	'registered_x' => 'Zarejestrowany: {x}',
 	'last_seen' => 'Ostatnio online:',
+	'last_seen_x' => 'Ostatnio online: {x}', // Don't replace {x}
 	'new_wall_post' => '{x} dodał komentarz w twoim profilu.',
 	'couldnt_find_that_user' => 'Nie znaleziono tego użytkownika.',
 	'block_user' => 'Zablokuj użytkownika',

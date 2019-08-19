@@ -167,6 +167,7 @@ $language = array(
 	'registered' => 'Registrerte seg:',
 	'registered_x' => 'Registrerte seg: {x}',
 	'last_seen' => 'Sist sett:',
+	'last_seen_x' => 'Sist sett: {x}', // Don't replace {x}
 	'new_wall_post' => '{x} har kommentert på profilen din.',
 	'couldnt_find_that_user' => 'Kunne ikke finne den brukeren.',
 	'block_user' => 'Blokker bruker',

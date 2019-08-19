@@ -168,6 +168,7 @@ $language = array(
 	'registered' => 'Registrován:',
 	'registered_x' => 'Registrován: {x}',
 	'last_seen' => 'Poslední přihlášení:',
+	'last_seen_x' => 'Poslední přihlášení: {x}', // Don't replace {x}
 	'new_wall_post' => 'Hráč {x} napsal na Váš profil.',
 	'couldnt_find_that_user' => 'Nepodařilo se najít tohoto uživatele.',
 	'block_user' => 'Zablokovat uživatele',

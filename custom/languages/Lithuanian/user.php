@@ -165,6 +165,7 @@ $language = array(
 	'registered' => 'Prisiregistravo:',
 	'registered_x' => 'Prisiregistravo: {x}',
 	'last_seen' => 'Paskutinį kartą matytas:',
+	'last_seen_x' => 'Paskutinį kartą matytas: {x}', // Don't replace {x}
 	'new_wall_post' => '{x} paskelbė ant jūsų profilio.',
 	'couldnt_find_that_user' => 'Nepavyko rasti šio vartotojo.',
 	'block_user' => 'Užblokuoti Vartotoją',

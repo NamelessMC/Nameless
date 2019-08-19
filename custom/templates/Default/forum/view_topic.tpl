@@ -100,6 +100,8 @@
                                     <hr/>
                                     <span rel="tooltip" data-toggle="hover"
                                           data-original-title="{$reply.user_registered_full}">{$reply.user_registered}</span><br/>
+                                    <span rel="tooltip" data-toggle="hover"
+                                          data-original-title="{$reply.last_seen_full}">{$reply.last_seen}</span><br/>
                                     {$reply.user_topics_count}<br/>
                                     {$reply.user_posts_count}<br/>
                                     <hr/>

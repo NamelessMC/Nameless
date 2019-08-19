@@ -236,6 +236,7 @@ if($forum_query->redirect_forum == 1){
 				$subforum_array[] = array(
 					'id' => $subforum->id,
 					'title' => Output::getPurified(Output::getDecoded($subforum->forum_title)),
+					'description' => Output::getPurified(Output::getDecoded($subforum->forum_description)),
 					'topics' => $subforum_topics,
 					'link' => URL::build('/forum/view/' . $subforum->id . '-' . $forum->titleToURL($subforum->forum_title)),
 					'latest_post' => $latest_post,

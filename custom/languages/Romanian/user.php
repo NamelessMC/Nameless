@@ -171,6 +171,7 @@ $language = array(
     'registered' => 'Înregistrat:',
     'registered_x' => 'Înregistrat: {x}',
     'last_seen' => 'Vazut ultima data:',
+    'last_seen_x' => 'Vazut ultima data: {x}', // Don't replace {x}
     'couldnt_find_that_user' => 'Utilizatorul specificat nu a fost găsit.',
     'block_user' => 'Blocați utilizatorul',
     'unblock_user' => 'Deblocați utilizatorul',

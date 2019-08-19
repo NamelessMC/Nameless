@@ -170,6 +170,7 @@ $language = array(
 	'registered' => 'Geregistreerd sinds:',
 	'registered_x' => 'Geregistreerd sinds: {x}',
 	'last_seen' => 'Laatst gezien:',
+	'last_seen_x' => 'Laatst gezien: {x}', // Don't replace {x}
 	'new_wall_post' => '{x} heeft een bericht geplaatst op je profiel.',
 	'couldnt_find_that_user' => 'Kan gebruiker niet vinden.',
 	'block_user' => 'Blokkeer gebruiker',

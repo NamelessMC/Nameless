@@ -173,6 +173,7 @@ $language = array(
 	'registered' => '已註冊:',
 	'registered_x' => '已註冊: {x}',
 	'last_seen' => '上次上線:',
+	'last_seen_x' => '上次上線: {x}', // Don't replace {x}
 	'new_wall_post' => '{x} 在你的塗鴉牆上發文.',
 	'couldnt_find_that_user' => '找不到使用者.',
 	'block_user' => '封鎖使用者',

@@ -171,6 +171,7 @@ $language = array(
 	'registered' => '登録:',
 	'registered_x' => '登録: {x}',
 	'last_seen' => '最終オンライン時:',
+	'last_seen_x' => '最終オンライン時: {x}', // Don't replace {x}
 	'new_wall_post' => '{x} さんがあなたのプロフィールに投稿しました。',
 	'couldnt_find_that_user' => '指定されたユーザーを見つけることができませんでした。',
 	'block_user' => 'ユーザをブロック',

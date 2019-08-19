@@ -168,6 +168,7 @@ $language = array(
 	'registered' => 'Registrato:',
 	'registered_x' => 'Registrato: {x}',
 	'last_seen' => 'Ultimo Accesso:',
+	'last_seen_x' => 'Ultimo Accesso: {x}', // Don't replace {x}
 	'new_wall_post' => '{x} ha pubblicato sul tuo profilo.',
 	'couldnt_find_that_user' => "Impossibile trovare quell'utente.",
 	'block_user' => 'Blocca Utente',
