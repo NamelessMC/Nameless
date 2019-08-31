@@ -423,7 +423,7 @@ class User {
                 $exts = array('gif','png','jpg','jpeg');
                 foreach($exts as $ext) {
                     if(file_exists(ROOT_PATH . "/uploads/avatars/" . $id . "." . $ext)){
-                        $avatar_path = ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . "uploads/avatars/" . $id . "." . $ext;
+                        $avatar_path = ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . "uploads/avatars/" . $id . "." . $ext . '?v=' . $data[0]->avatar_updated;
                         break;
                     }
                 }

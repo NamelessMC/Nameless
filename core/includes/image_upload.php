@@ -21,6 +21,8 @@ require(ROOT_PATH . '/core/includes/bulletproof/bulletproof.php');
 if(!$user->isLoggedIn())
     die();
 
+$image_extensions = array('jpg', 'png', 'gif', 'jpeg');
+
 // Deal with input
 if(Input::exists()){
 	// Check token
@@ -29,7 +31,7 @@ if(Input::exists()){
 		$image = new Bulletproof\Image($_FILES);
 		$image->setSize(1, 2097152); // between 1b and 2mb
 		$image->setDimension(2000, 2000); // 2k x 2k pixel maximum
-		$image->setMime(array('jpg', 'png', 'gif', 'jpeg'));
+		$image->setMime($image_extensions);
 		
 		if(Input::get('type') == 'background'){
             $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'backgrounds')));
@@ -66,8 +68,21 @@ if(Input::exists()){
                     // OK
                     // Avatar?
                     if(Input::get('type') == 'avatar'){
+	                    // Need to delete any other avatars
+	                    $diff = array_diff($image_extensions, array(strtolower($upload->getMime())));
+	                    $diff_str = rtrim(implode(',', $diff), ',');
+
+	                    $to_remove = glob(ROOT_PATH . '/uploads/avatars/' . $user->data()->id . '.{' . $diff_str . '}', GLOB_BRACE);
+
+	                    if($to_remove){
+		                    foreach($to_remove as $item){
+			                    unlink($item);
+		                    }
+	                    }
+
                         $user->update(array(
-                            'has_avatar' => 1
+                            'has_avatar' => 1,
+	                        'avatar_updated' => date('U')
                         ));
 
                         Redirect::to(URL::build('/user/settings'));
