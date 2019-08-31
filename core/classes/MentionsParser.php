@@ -7,7 +7,7 @@
  *
  * Modified by Samerton for NamelessMC
  * https://github.com/NamelessMC/Nameless/
- * NamelessMC version 2.0.0-pr5
+ * NamelessMC version 2.0.0-pr6
  */
 class MentionsParser {
 	/*
@@ -38,7 +38,7 @@ class MentionsParser {
      * @return String parsed post content
      */
     public function parse($author_id, $value, $link, $alert_short, $alert_full){
-        if(preg_match_all("/\@([A-Za-z0-9\-_!\.\s]+)/", $value, $matches)){
+        if(preg_match_all("/\@([A-Za-z0-9\-_!\.]+)/", $value, $matches)){
             $matches = $matches[1];
 			
             foreach($matches as $possible_username){
