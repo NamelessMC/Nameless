@@ -67,20 +67,14 @@ if(isset($_GET['action'])){
 
 				if($validation->passed()){
 					try {
-						if(isset($_POST['default']) && $_POST['default'] == 1){
+						if(isset($_POST['default']) && $_POST['default'] == 1)
 							$default = 1;
-							$cache->setCache('default_group');
-							$cache->store('default_group', $_GET['group']);
-						} else
+						else
 							$default = 0;
 
 						// If this is the new default group, update old default group
 						$default_group = $queries->getWhere('groups', array('default_group', '=', 1));
-						if(count($default_group) && $default == 1 && $default_group[0]->id != $_GET['group'])
-							$queries->update('groups', $default_group[0]->id, array(
-								'default_group' => 0
-							));
-						else if(!count($default_group) && $default == 0)
+						if(!count($default_group) && $default == 0)
 							$default = 1;
 
 						$queries->create('groups', array(
@@ -94,6 +88,19 @@ if(isset($_GET['action'])){
 							'default_group' => $default,
 							'order' => Input::get('order')
 						));
+
+						$group_id = $queries->getLastId();
+
+						if($default == 1){
+							if(count($default_group) && $default_group[0]->id != $group_id){
+								$queries->update('groups', $default_group[0]->id, array(
+									'default_group' => 0
+								));
+							}
+
+							$cache->setCache('default_group');
+							$cache->store('default_group', $group_id);
+						}
 
 						Session::flash('admin_groups', $language->get('admin', 'group_created_successfully'));
 						Redirect::to(URL::build('/panel/core/groups'));
