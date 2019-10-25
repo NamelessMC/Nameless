@@ -438,7 +438,7 @@ if(Input::exists()){
 	                                        }
 
 	                                    }
-	                                } else {
+	                                } else if($api_verification != '1') {
 	                                    // Email verification disabled
 	                                    HookHandler::executeEvent('registerUser', array(
 	                                        'event' => 'registerUser',
@@ -468,7 +468,11 @@ if(Input::exists()){
 	                                    'language' => $language
 	                                ));
 
-	                                Session::flash('home', $language->get('user', 'registration_check_email'));
+		                            if ($api_verification != '1')
+			                            Session::flash('home', $language->get('user', 'registration_check_email'));
+		                            else
+			                            Session::flash('home', $language->get('user', 'validation_complete'));
+
 	                                Redirect::to(URL::build('/'));
 	                                die();
 
