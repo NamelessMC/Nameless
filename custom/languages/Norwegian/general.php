@@ -15,7 +15,7 @@ $language = array(
 	 */ 
 	'submit' => 'Gjør',
 	'register' => 'Registrer',
-	'already_registered' => 'Already Registered?',
+	'already_registered' => 'Allerede registrert?',
 	'sign_in' => 'Logg inn',
 	'log_out' => 'Logg ut',
 	'profile' => 'Profil',
@@ -145,5 +145,5 @@ $language = array(
 	/*
 	 *  Custom page redirect
 	 */
-	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+	'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke blir omdirigert automatisk, vennligst trykk <a href="{x}" rel="nofollow noopener">her</a>.' // Don't replace {x} which is the redirect URL
 );
