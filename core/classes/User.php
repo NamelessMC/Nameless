@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  User class
  */
@@ -13,7 +13,8 @@ class User {
 			$_cookieName,
 			$_isLoggedIn,
 			$_admSessionName,
-			$_isAdmLoggedIn;
+			$_isAdmLoggedIn,
+			$_permissions;
 
 	// Construct User class
 	public function __construct($user = null) {
@@ -926,6 +927,12 @@ class User {
      *          $user_id (int) - user ID of user to check - optional, default to logged in user
      */
     public function hasPermission($permission, $user_id = null){
+	if($this->_permissions != null) {
+            if(isset($this->_permissions[$permission]) && $this->_permissions[$permission] == 1){
+                return true;
+            }
+	}
+		
         if(!$user_id){
             if($this->isLoggedIn())
                 $group = $this->_db->get('groups', array('id', '=', $this->data()->group_id));
@@ -942,9 +949,9 @@ class User {
 
         if($group->count()){
             $group = $group->first();
-            $permissions = json_decode($group->permissions, true);
-
-            if(isset($permissions[$permission]) && $permissions[$permission] == 1){
+            $this->_permissions = json_decode($group->permissions, true);
+			
+            if(isset($this->_permissions[$permission]) && $this->_permissions[$permission] == 1){
                 return true;
             }
         }
