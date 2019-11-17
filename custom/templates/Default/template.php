@@ -46,7 +46,7 @@ class Default_Template extends TemplateBase {
 			$nav_bg = $cache->retrieve('nav_bg');
 		} else {
 			$nav_bg = 'light';
-			$cache->store('nav_style', 'light');
+			$cache->store('nav_bg', 'light');
 		}
 
 		// Add any CSS files here
