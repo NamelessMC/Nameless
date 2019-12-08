@@ -410,11 +410,12 @@ class User {
 
         if($data[0]->uuid != null && $data[0]->uuid != 'none')
             $uuid = Output::getClean($data[0]->uuid);
-        else
+        else {
             $uuid = Output::getClean($data[0]->username);
             //fix accounts with special characters in name having no avatar                                             
             if(preg_match("#[^][_A-Za-z0-9]#", $uuid)) 
                 $uuid = 'Steve';
+	}
         // Get avatar type
         if(defined('CUSTOM_AVATARS')){
             // Custom avatars
