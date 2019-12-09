@@ -19,7 +19,7 @@ $language = array(
 	// Spam
 	'spam' => 'Šlamštas',
 	'mark_as_spam' => 'Pažymėti kaip šlamštą',
-	'confirm_spam' => '<p>Ar tikrai norite pažymėti šį naudotoją kaip šlamštą?</p><p>Vartotojui bus užblokuotas IP, o visas jo turinys bus pašalintas.</p>',
+	'confirm_spam' => '<p>Ar tikrai norite pažymėti šį vartotoją kaip šlamštą?</p><p>Vartotojui bus užblokuotas IP, o visas jo turinys bus pašalintas.</p>',
 	'user_marked_as_spam' => 'Vartotojas sėkmingai pažymėtas kaip šlamštas.',
 	'cant_ban_admin' => 'Jūs negalite užblokuoti administratoriaus!',
 
@@ -30,9 +30,9 @@ $language = array(
 	'no_accounts_with_that_ip' => 'Neatsirado šio IP adreso paskyrų.',
 	'1_account_with_ip' => 'Rasta 1 paskyra su IP {y}', // Don't replace "{y}"
 	'count_accounts_with_ip' => 'Rasta {x} paskyrų su IP {y}', // Don't replace "{x}" or "{y}"
-	'1_ip_with_name' => 'Rastas 1 IP adresas vortotojui {y}', // Don't replace "{y}"
-	'count_ips_with_name' => 'Rastas {x} IP adresas(-ai) vartotojui {y}', // Don't replace "{x}" or "{y}"
-	'no_users_or_ips_found' => 'Nerasta jokių naudotojų ar IP adresų.',
+	'1_ip_with_name' => 'Rastas 1 IP adresas vartotojui {y}', // Don't replace "{y}"
+	'count_ips_with_name' => 'Rasti {x} IP adresas(-ai) vartotojui {y}', // Don't replace "{x}" or "{y}"
+	'no_users_or_ips_found' => 'Nerasta jokių vartotojų ar IP adresų.',
 
 	// Reports
 	'reports' => 'Ataskaitos',

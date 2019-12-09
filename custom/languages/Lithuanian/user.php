@@ -12,7 +12,7 @@
 
 $language = array(
 	// Change this for the account validation message
-	'validate_account_command' => 'Norėdami užbaigti registraciją, vykdykite komandą <strong>/validate {x}</strong> žaidime.', // Don't replace {x}
+	'validate_account_command' => 'Norėdami užbaigti registraciją, rašykite komandą <strong>/validate {x}</strong> žaidime.', // Don't replace {x}
 
 	// User Related
 	'guest' => 'Svečias',
@@ -73,7 +73,7 @@ $language = array(
 	'no_alerts_usercp' => 'Jūs neturite jokių įspėjimų.',
 
 	// Registraton
-	'registration_check_email' => 'Dėkojame už registraciją! Norėdami užbaigti registraciją, patikrinkite savo el. Paštą. Jei negalite rasti el. Laiško, patikrinkite savo nepageidaujamu laišku aplanką.',
+	'registration_check_email' => 'Dėkojame už registraciją! Norėdami užbaigti registraciją, patikrinkite savo el. paštą. Jei negalite rasti el. laiško, patikrinkite savo nepageidaujamu laišku aplanką.',
 	'username' => 'Vartotojo Vardas',
 	'nickname' => 'Slapyvardis',
 	'minecraft_username' => 'Minecraft Vartotojo Vardas',
@@ -131,29 +131,29 @@ $language = array(
 	'account_banned' => 'Šita paskyra yra užblokota.',
 	'forgot_password' => 'Pamiršote slaptažodį?',
 	'remember_me' => 'Prisimink Mane',
-	'must_input_email' => 'Jūs turite įvesti el. Pašto adresą.',
+	'must_input_email' => 'Jūs turite įvesti el. pašto adresą.',
 	'must_input_username' => 'Jūs turite įvesti vartotojo vardą.',
 	'must_input_password' => 'Jūs turite įvesti slaptažodį.',
 
   // Forgot password
-  'forgot_password_instructions' => 'Įveskite savo el. Pašto adresą, kad galėtume atsiųsti jums daugiau instrukcijų, kaip iš naujo nustatyti slaptažodį.',
-  'forgot_password_email_sent' => 'Jei paskyra su tuo el. Pašto adreso jau egzistuoja, bus išsiųstas el. Laiškas su papildomomis instrukcijomis. Jei negalėsite jo rasti, pabandykite patikrinti savo nepageidaujamų laiškų aplanką.',
-  'unable_to_send_forgot_password_email' => 'Nepavyko išsiųsti pamiršto slaptažodžio el. Laišku. Susisiekite su administratoriumi.',
-  'enter_new_password' => 'Patvirtinkite savo el. Pašto adresą ir žemiau įveskite naują slaptažodį.',
-  'incorrect_email' => 'Įvestas el. Pašto adresas neatitinka prašymo.',
+  'forgot_password_instructions' => 'Įveskite savo el. pašto adresą, kad galėtume atsiųsti jums daugiau instrukcijų, kaip iš naujo nustatyti slaptažodį.',
+  'forgot_password_email_sent' => 'Jei paskyra su tuo el. pašto adresu jau egzistuoja, bus išsiųstas el. laiškas su papildomomis instrukcijomis. Jei negalėsite jo rasti, pabandykite patikrinti šlamšto aplanką.',
+  'unable_to_send_forgot_password_email' => 'Nepavyko išsiųsti pamiršto slaptažodžio el. laišku. Susisiekite su administratoriumi.',
+  'enter_new_password' => 'Patvirtinkite savo el. pašto adresą ir žemiau įveskite naują slaptažodį.',
+  'incorrect_email' => 'Įvestas el. pašto adresas neatitinka prašymo.',
   'forgot_password_change_successful' => 'Jūsų slaptažodis sėkmingai pakeistas. Dabar galite prisijungti.',
 
 	// Profile pages
 	'profile' => 'Profilis',
-	'follow' => 'Sekite',
+	'follow' => 'Sekti',
 	'no_wall_posts' => 'Čia dar nėra sienos "post".',
 	'change_banner' => 'Keisti Banerį',
 	'post_on_wall' => '"Post" ant {x}\'s sienos', // Don't replace {x}
 	'invalid_wall_post' => 'Patikrinkite, ar jūsų "post" yra nuo 1 iki 10000 simbolių.',
 	'1_reaction' => '1 reakcija',
 	'x_reactions' => '{x} reakcijos', // Don't replace {x}
-	'1_like' => '1 "like"',
-	'x_likes' => '{x} "likes"', // Don't replace {x}
+	'1_like' => '1 Patinka',
+	'x_likes' => '{x} Patinka', // Don't replace {x}
 	'1_reply' => '1 atsakymas',
 	'x_replies' => '{x} atsakymai', // Don't replace {x}
 	'no_replies_yet' => 'Dar nėra atsakymų',
@@ -170,20 +170,20 @@ $language = array(
 	'couldnt_find_that_user' => 'Nepavyko rasti šio vartotojo.',
 	'block_user' => 'Užblokuoti Vartotoją',
 	'unblock_user' => 'Atblokuoti Vartotoją',
-	'confirm_block_user' => 'Ar tikrai norite blokuoti šį naudotoją? Jis negalės atsiųsti privačių žinučių arba pažymeti jus į “posts”.',
-	'confirm_unblock_user' => 'Ar tikrai norite atblokuoti šį naudotoją? Jis galės atsiųsti jums privačių žinučių ir pažymeti jus į “posts”',
+	'confirm_block_user' => 'Ar tikrai norite blokuoti šį naudotoją? Jie nebegalės siųsti jums privačių žinučių arba pažymeti jus savo "postuose".',
+	'confirm_unblock_user' => 'Ar tikrai norite atblokuoti šį naudotoją? Jie galės siųsti jums privačias žinutes ir pažymėti jus savo "postuose".',
 	'user_blocked' => 'Vartotojas užblokuotas.',
 	'user_unblocked' => 'Vartotojas atblokuotas.',
 	'views' => 'Profilio Peržiūros:',
 	'private_profile_page' => 'Tai yra privatus profilis!',
-	'new_wall_post_reply' => '{x} atsakė į jūsų "post" {y}\'s profilyje.', // Don't replace {x} or {y}
-	'new_wall_post_reply_your_profile' => '{x} atsakė į jūsų "post" jūsų profilyje.', // Don't replace {x}
+	'new_wall_post_reply' => '{x} atsakė į jūsų "postą" {y}\'s profilyje.', // Don't replace {x} or {y}
+	'new_wall_post_reply_your_profile' => '{x} atsakė į jūsų "postą" jūsų profilyje.', // Don't replace {x}
 	'no_about_fields' => 'Šis vartotojas dar nepateikė jokių “apie” laukų.',
-	'reply' => 'Reply',
+	'reply' => 'Atsakyti',
 
 	// Reports
-	'invalid_report_content' => 'Neįmanoma kurti ataskaitos. Patikrinkite, ar ataskaitos priežastis yra nuo 2 iki 1024 simbolių.',
-	'report_post_content' => 'Įveskite savo atąskaitos priežastis',
+	'invalid_report_content' => 'Neįmanoma kurti ataskaitos. Patikrinkite, ar ataskaitos priežasties ilgis yra nuo 2 iki 1024 simbolių.',
+	'report_post_content' => 'Įveskite savo atąskaitos priežastį',
 	'report_created' => 'Ataskaita sėkmingai sukurta',
 
 	// Messaging
@@ -200,10 +200,10 @@ $language = array(
 	'content_required' => 'Įveskite tam tikrą turinį',
 	'users_to_required' => 'Prašau įvesti žinutės gaveją(us)',
 	'cant_send_to_self' => 'Jūs negalite siųsti žinutės sau!',
-	'title_min_2' => 'Pavadinimas turi būti ne mažiau kaip 2 simboliai.',
+	'title_min_2' => 'Pavadinimas turi būti ne trumpesnis kaip 2 simboliai.',
 	'content_min_2' => 'Turinys turi būti bent 2 simboliai.',
-	'title_max_64' => 'Antraštė turi būti ne daugiau kaip 64 simboliai.',
-	'content_max_20480' => 'Turinys turi būti ne daugiau kaip 20480 simbolių.',
+	'title_max_64' => 'Antraštė turi būti ne ilgesnė kaip 64 simboliai.',
+	'content_max_20480' => 'Turinys turi būti ne ilgesnis kaip 20480 simbolių.',
 	'max_pm_10_users' => 'Galite siųsti žinutę ne daugiau kaip 10 vartotojų.',
 	'message_sent_successfully' => 'Pranešimas sėkmingai išsiųstas',
 	'participants' => 'Dalyviai',
@@ -212,7 +212,7 @@ $language = array(
 	'leave_conversation' => 'Palikti Pokalbį',
 	'confirm_leave' => 'Ar tikrai norite palikti šį pokalbį?',
 	'one_or_more_users_blocked' => 'Jūs negalite siųsti žinučių bent vienam pokalbio nariui.',
-	'messages' => 'Messages',
+	'messages' => 'Žinutės',
 
 	// Infractions area
 	'you_have_been_banned' => 'Jūs buvot užblokuotas!',
@@ -222,7 +222,7 @@ $language = array(
 	// Emails
 	'email_greeting' => 'Labas,',
 	'email_message' => 'Dėkojame už registraciją! Norėdami užbaigti registraciją, spauskite šią nuorodą:',
-	'forgot_password_email_message' => 'Jei norite iš naujo nustatyti slaptažodį, spauskite šią nuorodą. Jei to neprašėte patys, galite saugiai ištrinti šį el. Laišką.',
+	'forgot_password_email_message' => 'Jei norite iš naujo nustatyti slaptažodį, spauskite šią nuorodą. Jei to neprašėte patys, galite saugiai ištrinti šį el. laišką.',
 	'email_thanks' => 'Ačiū,',
 
 	// Hooks
