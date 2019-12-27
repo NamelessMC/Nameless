@@ -363,7 +363,7 @@ $uuid_linking = $uuid_linking[0]->value;
 $private_profile = $queries->getWhere('settings', array('name', '=', 'private_profile'));
 $private_profile = $private_profile[0]->value;
 
-$groups = $queries->orderAll('groups', 'name', 'ASC');
+$groups = $queries->orderAll('groups', '`order`', 'ASC');
 
 // HTML -> Markdown if necessary
 $cache->setCache('post_formatting');
