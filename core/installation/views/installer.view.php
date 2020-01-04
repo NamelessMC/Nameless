@@ -724,6 +724,11 @@
                 'value' => 'false'
             ));
 
+	        $queries->create('settings', array(
+		        'name' => 'recaptcha_login',
+		        'value' => 'false'
+	        ));
+
             $queries->create('settings', array(
                 'name' => 'recaptcha_key',
                 'value' => null
@@ -2255,6 +2260,11 @@
 						$queries->create('settings', array(
 							'name' => 'registration_enabled',
 							'value' => 1
+						));
+
+						$queries->create('settings', array(
+							'name' => 'recaptcha_login',
+							'value' => 'false'
 						));
 
 						$version = $queries->getWhere('settings', array('name', '=', 'version'));

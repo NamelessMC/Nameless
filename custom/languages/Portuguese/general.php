@@ -17,6 +17,7 @@ $language = array(
 	'submit' => 'Enviar',
 	'register' => 'Cadastrar',
 	'already_registered' => 'Já possui cadastro?',
+	'not_registered_yet' => 'Not registered yet?',
 	'sign_in' => 'Entrar',
 	'log_out' => 'Sair',
 	'profile' => 'Perfil',

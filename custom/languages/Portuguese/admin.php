@@ -138,6 +138,7 @@ $language = array(
     'dropdown_items' => 'Itens de menu suspenso',
     'enable_page_load_timer' => 'Ativar o page load timer?',
     'google_recaptcha' => 'Ativar Google reCAPTCHA?',
+    'google_recaptcha_login' => 'Enable Google reCAPTCHA on login?',
     'recaptcha_site_key' => 'reCAPTCHA Site Key',
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
     'registration_disabled_message' => 'Motivo do registro está desativado',

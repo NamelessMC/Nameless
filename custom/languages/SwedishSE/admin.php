@@ -141,6 +141,7 @@ $language = array(
     'dropdown_items' => 'Dropdown Items',
 	'enable_page_load_timer' => 'Aktivera sidladdningstimer?',
     'google_recaptcha' => 'Aktivera Google reCAPTCHA?',
+    'google_recaptcha_login' => 'Enable Google reCAPTCHA on login?',
     'recaptcha_site_key' => 'reCAPTCHA Sido Nyckel',
     'recaptcha_secret_key' => 'reCAPTCHA Privat Nyckel',
     'registration_disabled_message' => 'Registrering inaktiverad text',

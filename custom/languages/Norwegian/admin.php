@@ -140,6 +140,7 @@ $language = array(
     'dropdown_items' => 'Dropdown-meny',
     'enable_page_load_timer' => 'Aktiver nettside timer?',
     'google_recaptcha' => 'Aktiver Google reCAPTCHA?',
+    'google_recaptcha_login' => 'Enable Google reCAPTCHA on login?',
     'recaptcha_site_key' => 'reCAPTCHA nettsidenøkkel (Site key)',
     'recaptcha_secret_key' => 'reCAPTCHA hemmelig nøkkel (Secret key)',
     'registration_disabled_message' => 'Registrering deaktivert melding',

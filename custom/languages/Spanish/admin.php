@@ -138,6 +138,7 @@ $language = array(
     'navigation_settings_updated_successfully' => 'Ajustes de navegación actualizadas correctamente.',
     'enable_page_load_timer' => '¿Habilitar el tiempo de carga de la página?',
     'google_recaptcha' => '¿Habilitar Google reCAPTCHA?',
+    'google_recaptcha_login' => 'Enable Google reCAPTCHA on login?',
     'recaptcha_site_key' => 'Clave de sitio de reCAPTCHA (Site key)',
     'recaptcha_secret_key' => 'Clave secreta de reCAPTCHA (Secret Key)',
     'registration_disabled_message' => 'Mensaje de registración desactivada',

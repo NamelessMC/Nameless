@@ -47,16 +47,16 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group">
-					<span class="button-checkbox">
-						<button type="button" class="btn" data-color="info" tabindex="7"> {$REMEMBER_ME}</button>
-						<input type="checkbox" name="remember" id="remember" style="display:none;" value="1">
-					</span>
+                                        <span class="button-checkbox">
+                                            <button type="button" class="btn" data-color="info" tabindex="7"> {$REMEMBER_ME}</button>
+                                            <input type="checkbox" name="remember" id="remember" style="display:none;" value="1">
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
-				  <span class="float-md-right">
-					<a class="btn btn-warning" href="{$FORGOT_PASSWORD_URL}">{$FORGOT_PASSWORD}</a>
-				  </span>
+                                    <span class="float-md-right">
+                                        <a class="btn btn-warning" href="{$FORGOT_PASSWORD_URL}">{$FORGOT_PASSWORD}</a>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -64,6 +64,14 @@
                         <input type="hidden" name="token" value="{$FORM_TOKEN}">
 
                         <hr class="colorgraph">
+                        {if isset($RECAPTCHA)}
+                            <div class="form-group">
+                                <center>
+                                    <div class="g-recaptcha" data-sitekey="{$RECAPTCHA}"></div>
+                                </center>
+                            </div>
+                        {/if}
+
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
                                 <input type="submit" class="btn btn-primary btn-block btn-lg" value="{$SIGN_IN}">

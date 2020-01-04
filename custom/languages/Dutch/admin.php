@@ -142,6 +142,7 @@ $language = array(
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Pagina laad timer inschakelen?',
     'google_recaptcha' => 'Google reCAPTCHA aanzetten?',
+    'google_recaptcha_login' => 'Enable Google reCAPTCHA on login?',
     'recaptcha_site_key' => 'reCAPTCHA Site Key',
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key',
     'registration_disabled_message' => 'Bericht voor uitgezette registratie',

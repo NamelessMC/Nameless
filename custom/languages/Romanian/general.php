@@ -18,6 +18,7 @@ $language = array(
     'submit' => 'Trimite',
     'register' => 'Înregistrează-te ',
     'already_registered' => 'Deja înregistrat?',
+    'not_registered_yet' => 'Not registered yet?',
     'sign_in' => 'Conectează-te',
     'log_out' => 'Deconectează-te',
     'profile' => 'Profil',

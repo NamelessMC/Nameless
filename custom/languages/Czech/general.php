@@ -16,6 +16,7 @@ $language = array(
 	'submit' => 'Potvrdit',
 	'register' => 'Registrovat se',
 	'already_registered' => 'Již jste se registroval?',
+	'not_registered_yet' => 'Not registered yet?',
 	'sign_in' => 'Přihlásit se',
 	'log_out' => 'Odhlásit se',
 	'profile' => 'Profil',

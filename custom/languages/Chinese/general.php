@@ -20,6 +20,7 @@ $language = array(
 	'submit' => '送出',
 	'register' => '註冊',
 	'already_registered' => 'Already Registered?',
+	'not_registered_yet' => 'Not registered yet?',
 	'sign_in' => '登入',
 	'log_out' => '登出',
 	'profile' => '個人檔',

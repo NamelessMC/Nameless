@@ -33,229 +33,265 @@ $custom_usernames = $custom_usernames[0]->value;
 $method = $queries->getWhere('settings', array('name', '=', 'login_method'));
 $method = $method[0]->value;
 
+// Use recaptcha?
+$recaptcha = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
+$recaptcha = count($recaptcha) ? $recaptcha[0]->value : 'false';
+
+$recaptcha_key = $queries->getWhere("settings", array("name", "=", "recaptcha_key"));
+$recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
+
 // Deal with input
 if (Input::exists()) {
     // Check form token
     if (Token::check(Input::get('token'))) {
         // Valid token
-        if (isset($_SESSION['password'])) {
-            if(isset($_SESSION['username'])){
-                $_POST['username'] = $_SESSION['username'];
-                unset($_SESSION['username']);
-                
-            } else if(isset($_SESSION['email'])){
-                $_POST['email'] = $_SESSION['email'];
-                unset($_SESSION['email']);
-            }
-            
-            $_POST['remember'] = $_SESSION['remember'];
-            $_POST['password'] = $_SESSION['password'];
+	    if($recaptcha == 'true'){
+		    // Check reCAPCTHA
+		    $url = 'https://www.google.com/recaptcha/api/siteverify';
 
-            unset($_SESSION['remember']);
-            unset($_SESSION['password']);
-        }
+		    $post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . Input::get('g-recaptcha-response');
 
-        // Initialise validation
-        $validate = new Validate();
-        if($method == 'email')
-            $to_validate = array(
-                'email' => array('required' => true, 'isbanned' => true, 'isactive' => true),
-                'password' => array('required' => true)
-            );
-        else
-            $to_validate = array(
-                'username' => array('required' => true, 'isbanned' => true, 'isactive' => true),
-                'password' => array('required' => true)
-            );
+		    $ch = curl_init($url);
+		    curl_setopt($ch, CURLOPT_POST, 1);
+		    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+		    curl_setopt($ch, CURLOPT_HEADER, 0);
+		    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-        $validation = $validate->check($_POST, $to_validate);
+		    $result = curl_exec($ch);
 
-        // Check if validation passed
-        if ($validation->passed()) {
-            if($method == 'email')
-                $username = Input::get('email');
-            else
-                $username = Input::get('username');
+		    $result = json_decode($result, true);
+	    } else {
+		    // reCAPTCHA is disabled
+		    $result = array(
+			    'success' => 'true'
+		    );
+	    }
 
-            $user_query = $queries->getWhere('users', array($method, '=', $username));
-            if (count($user_query)) {
-                if ($user_query[0]->tfa_enabled == 1 && $user_query[0]->tfa_complete == 1) {
-                    // Verify password first
-                    if($user->checkCredentials($username, Input::get('password'), $method)) {
-                        if (!isset($_POST['tfa_code'])) {
-                            if ($user_query[0]->tfa_type == 0) {
-                                // Emails
-                                // TODO
+	    if(isset($result['success']) && $result['success'] == 'true'){
+		    if (isset($_SESSION['password'])) {
+			    if(isset($_SESSION['username'])){
+				    $_POST['username'] = $_SESSION['username'];
+				    unset($_SESSION['username']);
 
-                            } else {
-                                // App
-                                require(ROOT_PATH . '/core/includes/tfa_signin.php');
-                                die();
-                            }
-                        } else {
-                            // Validate code
-                            if ($user_query[0]->tfa_type == 1) {
-                                // App
-                                $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
+			    } else if(isset($_SESSION['email'])){
+				    $_POST['email'] = $_SESSION['email'];
+				    unset($_SESSION['email']);
+			    }
 
-                                if ($tfa->verifyCode($user_query[0]->tfa_secret, $_POST['tfa_code']) !== true) {
-                                    Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
-                                    require(ROOT_PATH . '/core/includes/tfa_signin.php');
-                                    die();
-                                }
+			    $_POST['remember'] = $_SESSION['remember'];
+			    $_POST['password'] = $_SESSION['password'];
 
-                            } else {
-                                // Email
-                                // TODO
-                            }
-                        }
-                    } else {
-                        $return_error = array($language->get('user', 'incorrect_details'));
-                    }
-                }
+			    unset($_SESSION['remember']);
+			    unset($_SESSION['password']);
+		    }
 
-                if(!isset($return_error)) {
+		    // Initialise validation
+		    $validate = new Validate();
+		    if($method == 'email')
+			    $to_validate = array(
+				    'email' => array('required' => true, 'isbanned' => true, 'isactive' => true),
+				    'password' => array('required' => true)
+			    );
+		    else
+			    $to_validate = array(
+				    'username' => array('required' => true, 'isbanned' => true, 'isactive' => true),
+				    'password' => array('required' => true)
+			    );
 
-                    // Validation passed
-                    // Initialise user class
-                    $user = new User();
+		    $validation = $validate->check($_POST, $to_validate);
 
-                    // Did the user check 'remember me'?
-                    $remember = (Input::get('remember') == 1) ? true : false;
+		    // Check if validation passed
+		    if ($validation->passed()) {
+			    if($method == 'email')
+				    $username = Input::get('email');
+			    else
+				    $username = Input::get('username');
 
-                    // Is Minecraft and AuthMe integration enabled?
-                    $minecraft = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
-                    $minecraft = $minecraft[0]->value;
+			    $user_query = $queries->getWhere('users', array($method, '=', $username));
+			    if (count($user_query)) {
+				    if ($user_query[0]->tfa_enabled == 1 && $user_query[0]->tfa_complete == 1) {
+					    // Verify password first
+					    if($user->checkCredentials($username, Input::get('password'), $method)) {
+						    if (!isset($_POST['tfa_code'])) {
+							    if ($user_query[0]->tfa_type == 0) {
+								    // Emails
+								    // TODO
 
-                    $authme_enabled = $queries->getWhere('settings', array('name', '=', 'authme'));
-                    $authme_enabled = $authme_enabled[0]->value;
+							    } else {
+								    // App
+								    require(ROOT_PATH . '/core/includes/tfa_signin.php');
+								    die();
+							    }
+						    } else {
+							    // Validate code
+							    if ($user_query[0]->tfa_type == 1) {
+								    // App
+								    $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
 
-                    $cache->setCache('authme_cache');
-                    $authme_db = $cache->retrieve('authme');
+								    if ($tfa->verifyCode($user_query[0]->tfa_secret, $_POST['tfa_code']) !== true) {
+									    Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
+									    require(ROOT_PATH . '/core/includes/tfa_signin.php');
+									    die();
+								    }
 
-                    if ($minecraft == '1' && $authme_enabled == '1' && $authme_db['sync'] == '1') {
+							    } else {
+								    // Email
+								    // TODO
+							    }
+						    }
+					    } else {
+						    $return_error = array($language->get('user', 'incorrect_details'));
+					    }
+				    }
 
-                        // Sync AuthMe password
-                        try {
-                            $authme_conn = new mysqli($authme_db['address'], $authme_db['user'], $authme_db['pass'], $authme_db['db'], $authme_db['port']);
+				    if(!isset($return_error)) {
 
-                            if ($authme_conn->connect_errno) {
-                                // Connection error
-                                // Continue anyway, and use already stored password
-                            } else {
-                                // Success, check user exists in database and validate password
-                                if ($method == 'email')
-                                    $field = 'email';
-                                else
-                                    $field = 'realname';
+					    // Validation passed
+					    // Initialise user class
+					    $user = new User();
 
-                                $stmt = $authme_conn->prepare("SELECT password FROM " . $authme_db['table'] . " WHERE " . $field . " = ?");
-                                if ($stmt) {
-                                    $stmt->bind_param('s', $username);
-                                    $stmt->execute();
-                                    $stmt->bind_result($password);
+					    // Did the user check 'remember me'?
+					    $remember = (Input::get('remember') == 1) ? true : false;
 
-                                    while ($stmt->fetch()) {
-                                        // Retrieve result
-                                    }
+					    // Is Minecraft and AuthMe integration enabled?
+					    $minecraft = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
+					    $minecraft = $minecraft[0]->value;
 
-                                    $stmt->free_result();
-                                    $stmt->close();
+					    $authme_enabled = $queries->getWhere('settings', array('name', '=', 'authme'));
+					    $authme_enabled = $authme_enabled[0]->value;
 
-                                    switch ($authme_db['hash']) {
-                                        case 'sha256':
-                                            $exploded = explode('$', $password);
-                                            $salt = $exploded[2];
+					    $cache->setCache('authme_cache');
+					    $authme_db = $cache->retrieve('authme');
 
-                                            $password = $salt . '$' . $exploded[3];
+					    if ($minecraft == '1' && $authme_enabled == '1' && $authme_db['sync'] == '1') {
 
-                                            break;
+						    // Sync AuthMe password
+						    try {
+							    $authme_conn = new mysqli($authme_db['address'], $authme_db['user'], $authme_db['pass'], $authme_db['db'], $authme_db['port']);
 
-                                        case 'pbkdf2':
-                                            $exploded = explode('$', $password);
+							    if ($authme_conn->connect_errno) {
+								    // Connection error
+								    // Continue anyway, and use already stored password
+							    } else {
+								    // Success, check user exists in database and validate password
+								    if ($method == 'email')
+									    $field = 'email';
+								    else
+									    $field = 'realname';
 
-                                            $iterations = $exploded[1];
-                                            $salt = $exploded[2];
-                                            $pass = $exploded[3];
+								    $stmt = $authme_conn->prepare("SELECT password FROM " . $authme_db['table'] . " WHERE " . $field . " = ?");
+								    if ($stmt) {
+									    $stmt->bind_param('s', $username);
+									    $stmt->execute();
+									    $stmt->bind_result($password);
 
-                                            $password = $iterations . '$' . $salt . '$' . $pass;
+									    while ($stmt->fetch()) {
+										    // Retrieve result
+									    }
 
-                                            break;
-                                    }
+									    $stmt->free_result();
+									    $stmt->close();
 
-                                    // Update password
-                                    if (!is_null($password)) {
-                                        if ($method == 'email')
-                                            $user_id = $user->emailToId($username);
-                                        else
-                                            $user_id = $user->NameToId($username);
+									    switch ($authme_db['hash']) {
+										    case 'sha256':
+											    $exploded = explode('$', $password);
+											    $salt = $exploded[2];
 
-                                        $queries->update('users', $user_id, array(
-                                            'password' => $password,
-                                            'pass_method' => $authme_db['hash']
-                                        ));
-                                    }
-                                }
-                            }
+											    $password = $salt . '$' . $exploded[3];
 
-                        } catch (Exception $e) {
-                            // Error, continue as we can use the already stored password
-                        }
-                    }
+											    break;
 
-                    $login = $user->login($username, Input::get('password'), $remember, $method);
+										    case 'pbkdf2':
+											    $exploded = explode('$', $password);
 
-                    // Successful login?
-                    if ($login) {
-                        // Yes
-                        Log::getInstance()->log(Log::Action('user/login'));
+											    $iterations = $exploded[1];
+											    $salt = $exploded[2];
+											    $pass = $exploded[3];
 
-                        // Redirect to a certain page?
-                        if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
-                            Redirect::to($_SESSION['last_page']);
-                            die();
+											    $password = $iterations . '$' . $salt . '$' . $pass;
 
-                        } else {
-                            Session::flash('home', $language->get('user', 'successful_login'));
-                            Redirect::to(URL::build('/'));
-                            die();
-                        }
-                    } else {
-                        // No, output error
-                        $return_error = array($language->get('user', 'incorrect_details'));
-                    }
+											    break;
+									    }
 
-                }
+									    // Update password
+									    if (!is_null($password)) {
+										    if ($method == 'email')
+											    $user_id = $user->emailToId($username);
+										    else
+											    $user_id = $user->NameToId($username);
 
-            } else $return_error = array($language->get('user', 'incorrect_details'));
+										    $queries->update('users', $user_id, array(
+											    'password' => $password,
+											    'pass_method' => $authme_db['hash']
+										    ));
+									    }
+								    }
+							    }
+
+						    } catch (Exception $e) {
+							    // Error, continue as we can use the already stored password
+						    }
+					    }
+
+					    $login = $user->login($username, Input::get('password'), $remember, $method);
+
+					    // Successful login?
+					    if ($login) {
+						    // Yes
+						    Log::getInstance()->log(Log::Action('user/login'));
+
+						    // Redirect to a certain page?
+						    if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
+							    Redirect::to($_SESSION['last_page']);
+							    die();
+
+						    } else {
+							    Session::flash('home', $language->get('user', 'successful_login'));
+							    Redirect::to(URL::build('/'));
+							    die();
+						    }
+					    } else {
+						    // No, output error
+						    $return_error = array($language->get('user', 'incorrect_details'));
+					    }
+
+				    }
+
+			    } else $return_error = array($language->get('user', 'incorrect_details'));
 
 
-        } else {
-            // Validation failed
-            $return_error = array();
-            foreach ($validation->errors() as $error) {
-                if (strpos($error, 'is required') !== false) {
-                    if (strpos($error, 'username') !== false) {
-                        // Empty username field
-                        $return_error[] = $language->get('user', 'must_input_username');
-                    } else if (strpos($error, 'email') !== false) {
-                        // Empty email field
-                        $return_error[] = $language->get('user', 'must_input_email');
-                    } else if (strpos($error, 'password') !== false) {
-                        // Empty password field
-                        $return_error[] = $language->get('user', 'must_input_password');
-                    }
-                }
-                if (strpos($error, 'active') !== false) {
-                    // Account hasn't been activated
-                    $return_error[] = $language->get('user', 'inactive_account');
-                }
-                if (strpos($error, 'banned') !== false) {
-                    // Account is banned
-                    $return_error[] = $language->get('user', 'account_banned');
-                }
-            }
-        }
+		    } else {
+			    // Validation failed
+			    $return_error = array();
+			    foreach ($validation->errors() as $error) {
+				    if (strpos($error, 'is required') !== false) {
+					    if (strpos($error, 'username') !== false) {
+						    // Empty username field
+						    $return_error[] = $language->get('user', 'must_input_username');
+					    } else if (strpos($error, 'email') !== false) {
+						    // Empty email field
+						    $return_error[] = $language->get('user', 'must_input_email');
+					    } else if (strpos($error, 'password') !== false) {
+						    // Empty password field
+						    $return_error[] = $language->get('user', 'must_input_password');
+					    }
+				    }
+				    if (strpos($error, 'active') !== false) {
+					    // Account hasn't been activated
+					    $return_error[] = $language->get('user', 'inactive_account');
+				    }
+				    if (strpos($error, 'banned') !== false) {
+					    // Account is banned
+					    $return_error[] = $language->get('user', 'account_banned');
+				    }
+			    }
+		    }
+
+	    } else {
+		    // reCAPTCHA failed
+		    $errors = array($language->get('user', 'invalid_recaptcha'));
+	    }
+
     } else {
         // Invalid token
         $return_error = array($language->get('general', 'invalid_token'));
@@ -284,6 +320,7 @@ $smarty->assign(array(
 	'REGISTER_URL' => URL::build('/register'),
 	'REGISTER' => $language->get('general', 'register'),
 	'ERROR' => (isset($return_error) ? $return_error : array()),
+	'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
 ));
 
 if (isset($return_error)) {
@@ -294,6 +331,13 @@ if (isset($return_error)) {
 
 if (Session::exists('login_success'))
 	$smarty->assign('SUCCESS', Session::flash('login_success'));
+
+if($recaptcha === 'true'){
+	$smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
+	$template->addJSFiles(array(
+		'https://www.google.com/recaptcha/api.js' => array()
+	));
+}
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);

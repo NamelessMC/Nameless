@@ -18,6 +18,7 @@ $language = array(
 	'submit' => 'Verstuur',
 	'register' => 'Registreren',
 	'already_registered' => 'Already Registered?',
+	'not_registered_yet' => 'Not registered yet?',
 	'sign_in' => 'Inloggen',
 	'log_out' => 'Uitloggen',
 	'profile' => 'Profiel',

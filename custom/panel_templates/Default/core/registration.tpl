@@ -89,6 +89,10 @@
                                         <input id="InputEnableRecaptcha" name="enable_recaptcha" type="checkbox" class="js-switch" value="1"{if $GOOGLE_RECAPTCHA_VALUE eq 'true'} checked{/if} />
                                     </div>
                                     <div class="form-group">
+                                        <label for="InputEnableRecaptchaLogin">{$GOOGLE_RECAPTCHA_LOGIN}</label>
+                                        <input id="InputEnableRecaptchaLogin" name="enable_recaptcha_login" type="checkbox" class="js-switch" value="1"{if $GOOGLE_RECAPTCHA_LOGIN_VALUE eq 'true'} checked{/if} />
+                                    </div>
+                                    <div class="form-group">
                                         <label for="InputRecaptcha">{$RECAPTCHA_SITE_KEY}</label>
                                         <input type="text" name="recaptcha" class="form-control" id="InputRecaptcha" placeholder="{$RECAPTCHA_SITE_KEY}" value="{$RECAPTCHA_SITE_KEY_VALUE}">
                                     </div>
