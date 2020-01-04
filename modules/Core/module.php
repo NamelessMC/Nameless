@@ -1005,15 +1005,17 @@ class Core_Module extends Module {
 			$cache->setCache('notices_cache');
 
 			// Email errors?
-			if($cache->isCached('email_errors')){
-				$email_errors = $cache->retrieve('email_errors');
-			} else {
-				$email_errors = $queries->getWhere('email_errors', array('id', '<>', 0));
-				$cache->store('email_errors', $email_errors, 120);
-			}
+			if($user->hasPermission('admincp.core.emails')){
+				if($cache->isCached('email_errors')){
+					$email_errors = $cache->retrieve('email_errors');
+				} else {
+					$email_errors = $queries->getWhere('email_errors', array('id', '<>', 0));
+					$cache->store('email_errors', $email_errors, 120);
+				}
 
-			if(count($email_errors))
-				self::addNotice(URL::build('/panel/core/emails/errors'), $language->get('admin', 'email_errors_logged'));
+				if(count($email_errors))
+					self::addNotice(URL::build('/panel/core/emails/errors'), $language->get('admin', 'email_errors_logged'));
+			}
 
 			if(defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard'){
 				// Dashboard graph
