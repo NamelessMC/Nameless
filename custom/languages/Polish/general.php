@@ -123,19 +123,21 @@ $language = array(
     /*
      *  Widgets
      */
-		 'statistics' => 'Statystyki',
-		 'users_registered' => 'Zarejestrowani użytkownicy',
-		 'latest_member' => 'Ostatni użytkownik',
-		 'forum_statistics' => 'Statystyki forum',
-		 'total_threads' => 'Wszystkie tematy',
-		 'total_posts' => 'Wszystkie posty',
-    'online_staff' => '<h2>Administracja online</h2>',
-    'no_online_staff' => 'Aktualnie żadna osoba z administracji nie jest online.',
-		'total_online_staff' => 'Cała administracja online: {x}',
-    'online_users' => '<h2>Użytkownicy online</h2>',
-    'no_online_users' => 'Aktualnie nie ma żadnych użytkowników online.',
-		'total_online_users' => 'Wszyscy użytkownicy online: {x}',
-		'discord_widget_disabled' => 'Ten serwer Discord ma wyłączoną opcję widżetu. Wejdź do sekcji \'Widget\' w ustawieniach serwera Discord, upewnij się że opcja \'Włącz widżet serwera\' jest włączona, i że podałeś w ustawieniach poprawne ID serwera Discord.',
+	'statistics' => 'Statystyki',
+	'users_registered' => 'Zarejestrowani użytkownicy',
+	'latest_member' => 'Ostatni użytkownik',
+	'forum_statistics' => 'Statystyki forum',
+	'total_threads' => 'Wszystkie tematy',
+	'total_posts' => 'Wszystkie posty',
+	'online_staff' => '<h2>Administracja online</h2>',
+	'no_online_staff' => 'Aktualnie żadna osoba z administracji nie jest online.',
+	'total_online_staff' => 'Cała administracja online: {x}',
+	'online_users' => '<h2>Użytkownicy online</h2>',
+	'no_online_users' => 'Aktualnie nie ma żadnych użytkowników online.',
+	'total_online_users' => 'Wszyscy użytkownicy online: {x}',
+	'discord_widget_disabled' => 'Ten serwer Discord ma wyłączoną opcję widżetu. Wejdź do sekcji \'Widget\' w ustawieniach serwera Discord, upewnij się że opcja \'Włącz widżet serwera\' jest włączona, i że podałeś w ustawieniach poprawne ID serwera Discord.',
+	'online_guests' => 'Online Guests',
+	'total_online' => 'Total Online', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy

@@ -134,11 +134,13 @@ $language = array(
     'total_posts' => 'Total Posts',
     'online_staff' => 'Online Personeel',
     'no_online_staff' => 'Er zijn geen personeelsleden online.',
-	'total_online_staff' => 'Total online staff: {x}',
+    'total_online_staff' => 'Total online staff: {x}',
     'online_users' => 'Online Gebruikers',
     'no_online_users' => 'Er zijn geen gebruikes online.',
-	'total_online_users' => 'Total online users: {x}',
+    'total_online_users' => 'Total online users: {x}',
     'discord_widget_disabled' => 'De widget is uitgeschakeld voor de opgegeven Discord server. Ga naar het tabblad \'Widget\' in uw Discord server instellingen, en zorg ervoor dat de Discord widget is ingeschakeld en dat de ID correct is.',
+    'online_guests' => 'Online Guests',
+    'total_online' => 'Total Online', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy

@@ -121,6 +121,8 @@ $language = array(
 	'no_online_users' => 'Nėra prisijungusių vartotojų.',
 	'total_online_users' => 'Prisijungę vartotojai: {x}',
 	'discord_widget_disabled' => 'Valdiklis yra išjungtas nurodytam Discord serveriui. Prašome eikite į Discord serverio nustatymus skirtuke \'widget\' ir įsitikinkite, kad Discord valdiklis yra įjungtas ir kad ID yra teisingas.',
+	'online_guests' => 'Online Guests',
+	'total_online' => 'Total Online', // this is Online Users + Online Guests
 
 	// Privacy policy
 	'privacy_policy' => 'Privatumo Politika',

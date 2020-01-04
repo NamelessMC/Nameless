@@ -136,6 +136,8 @@ $language = array(
     'no_online_users' => 'There are no users online.',
     'total_online_users' => 'Total online users: {x}',
     'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
+	'online_guests' => 'Online Guests',
+	'total_online' => 'Total Online', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy

@@ -380,7 +380,10 @@ class Core_Module extends Module {
 			'latest_member' => $language->get('general', 'latest_member'),
 			'forum_stats' => $language->get('general', 'forum_statistics'),
 			'total_threads' => $language->get('general', 'total_threads'),
-			'total_posts' => $language->get('general', 'total_posts')
+			'total_posts' => $language->get('general', 'total_posts'),
+			'users_online' => $language->get('general', 'online_users'),
+			'guests_online' => $language->get('general', 'online_guests'),
+			'total_online' => $language->get('general', 'total_online'),
 		), $cache));
 		
 		// Validate user hook

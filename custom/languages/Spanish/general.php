@@ -132,11 +132,13 @@ $language = array(
     'total_posts' => 'Publicaciones totales',
     'online_staff' => 'Staff Conectado',
     'no_online_staff' => 'No hay miembros del Staff conectados.',
-	'total_online_staff' => 'Miembros del Staff conectados: {x}',
+    'total_online_staff' => 'Miembros del Staff conectados: {x}',
     'online_users' => 'Usuarios conectados',
     'no_online_users' => 'No hay usuarios conectados.',
-	'total_online_users' => 'Total de usuarios conectados: {x}',
+    'total_online_users' => 'Total de usuarios conectados: {x}',
     'discord_widget_disabled' => 'El widget está deshabilitado para el servidor de Discord especificado.. Vaya a la pestaña Widget en la configuración del servidor de Discord y asegúrese de que el widget de Discord esté habilitado y que la ID sea correcta..',
+    'online_guests' => 'Online Guests',
+    'total_online' => 'Total Online', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy
