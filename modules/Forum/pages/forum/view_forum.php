@@ -23,13 +23,13 @@ $fid = explode('/', $route);
 $fid = $fid[count($fid) - 1];
 
 if(!isset($fid[count($fid) - 1])){
-	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	require_once(ROOT_PATH . '/404.php');
 	die();
 }
 
 $fid = explode('-', $fid);
 if(!is_numeric($fid[0])){
-	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	require_once(ROOT_PATH . '/404.php');
 	die();
 }
 $fid = $fid[0];
@@ -44,9 +44,9 @@ if($user->isLoggedIn()) {
 }
 
 // Does the forum exist, and can the user view it?
-$list = $forum->forumExist($fid, $user_group, $secondary_groups);
+$list = $forum->canViewForum($fid, $user_group, $secondary_groups);
 if(!$list){
-	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	require_once(ROOT_PATH . '/403.php');
 	die();
 }
 

@@ -44,7 +44,7 @@ if($user->isLoggedIn()){
 }
 
 if(!isset($can_view)){
-    require(ROOT_PATH . '/404.php');
+    require(ROOT_PATH . '/403.php');
     die();
 }
 

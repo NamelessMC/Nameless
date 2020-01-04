@@ -28,13 +28,13 @@ $tid = explode('/', $route);
 $tid = $tid[count($tid) - 1];
 
 if(!isset($tid[count($tid) - 1])){
-	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	require_once(ROOT_PATH . '/404.php');
 	die();
 }
 
 $tid = explode('-', $tid);
 if(!is_numeric($tid[0])){
-	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	require_once(ROOT_PATH . '/404.php');
 	die();
 }
 $tid = $tid[0];
@@ -50,7 +50,7 @@ if($user->isLoggedIn()){
 
 $list = $forum->topicExist($tid, $group_id, $secondary_groups);
 if(!$list){
-	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	require_once(ROOT_PATH . '/404.php');
 	die();
 }
 
@@ -59,7 +59,13 @@ $topic = $queries->getWhere('topics', array('id', '=', $tid));
 $topic = $topic[0];
 
 if($topic->deleted == 1){
-	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	require_once(ROOT_PATH . '/404.php');
+	die();
+}
+
+$list = $forum->canViewForum($topic->forum_id, $group_id, $secondary_groups);
+if(!$list){
+	require_once(ROOT_PATH . '/403.php');
 	die();
 }
 
@@ -71,7 +77,7 @@ else
 if($topic->topic_creator != $user_id && !$forum->canViewOtherTopics($topic->forum_id, $group_id, $secondary_groups)){
     // Only allow viewing stickied topics
     if($topic->sticky == 0) {
-        Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	    require_once(ROOT_PATH . '/403.php');
         die();
     }
 }
@@ -114,7 +120,7 @@ if(isset($_GET['pid'])){
 		}
 		
 	} else {
-		Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+		require_once(ROOT_PATH . '/404.php');
 		die();
 	}
 }

@@ -267,27 +267,30 @@ class Forum {
 		return false;
 	}
 
-	// Returns true/false, depending on whether the specified topic exists and whether the user can view it
+	// Returns true/false, depending on whether the specified topic exists
 	// Params: $topic_id (integer) - topic id to check, $group_id (integer) - group id of the user, $secondary_groups - json object containing any secondary groups
-	public function topicExist($topic_id, $group_id = null, $secondary_groups = null) {
+	public function topicExist($topic_id) {
+		// Does the topic exist?
+		$exists = $this->_db->get("topics", array("id", "=", $topic_id))->results();
+		return count($exists) > 0;
+	}
+
+	// Returns true/false depending on whether the current user can view a forum
+	// Params: $forum_id (integer) - forum id to check, $group_id (integer) - group id of the user, $secondary_groups - json object containing any secondary groups
+	public function canViewForum($forum_id, $group_id = null, $secondary_groups = null) {
 		if($group_id == null){
 			$group_id = 0; // Guest
 		} else {
-            if($secondary_groups)
-                $secondary_groups = json_decode($secondary_groups, true);
-        }
-		// Does the topic exist?
-		$exists = $this->_db->get("topics", array("id", "=", $topic_id))->results();
-		if(count($exists)){
-			// Can the user view it?
-			$forum_id = $exists[0]->forum_id;
-			$access = $this->_db->get("forums_permissions", array("forum_id", "=", $forum_id))->results();
+			if($secondary_groups)
+				$secondary_groups = json_decode($secondary_groups, true);
+		}
 
-			foreach($access as $item){
-				if($item->group_id == $group_id || (is_array($secondary_groups) && count($secondary_groups) && in_array($item->group_id, $secondary_groups))){
-					if($item->view == 1){
-						return true;
-					}
+		$access = $this->_db->get("forums_permissions", array("forum_id", "=", $forum_id))->results();
+
+		foreach($access as $item){
+			if($item->group_id == $group_id || (is_array($secondary_groups) && count($secondary_groups) && in_array($item->group_id, $secondary_groups))){
+				if($item->view == 1){
+					return true;
 				}
 			}
 		}

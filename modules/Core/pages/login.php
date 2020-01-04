@@ -289,7 +289,7 @@ if (Input::exists()) {
 
 	    } else {
 		    // reCAPTCHA failed
-		    $errors = array($language->get('user', 'invalid_recaptcha'));
+		    $return_error = array($language->get('user', 'invalid_recaptcha'));
 	    }
 
     } else {

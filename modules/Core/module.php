@@ -111,18 +111,19 @@ class Core_Module extends Module {
 
 				foreach($custom_pages as $custom_page){
 					$redirect = null;
+
+					// Get redirect URL if enabled
+					if($custom_page->redirect == 1)
+						$redirect = Output::getClean($custom_page->link);
+
+					$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
+
 					foreach($user_groups as $user_group){
 						$custom_page_permissions = $queries->getWhere('custom_pages_permissions', array('group_id', '=', $user_group));
 						if(count($custom_page_permissions)){
 							foreach($custom_page_permissions as $permission){
 								if($permission->page_id == $custom_page->id){
 									if($permission->view == 1){
-										// Get redirect URL if enabled
-										if($custom_page->redirect == 1)
-											$redirect = Output::getClean($custom_page->link);
-
-										$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
-
 										// Check cache for order
 										if(!$cache->isCached($custom_page->id . '_order')){
 											// Create cache entry now
@@ -159,14 +160,15 @@ class Core_Module extends Module {
 				if(count($custom_page_permissions)){
 					foreach($custom_pages as $custom_page){
 						$redirect = null;
+
+						if($custom_page->redirect == 1)
+							$redirect = Output::getClean($custom_page->link);
+
+						$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
+
 						foreach($custom_page_permissions as $permission){
 							if($permission->page_id == $custom_page->id){
 								if($permission->view == 1){
-									if($custom_page->redirect == 1)
-										$redirect = Output::getClean($custom_page->link);
-
-									$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
-
 									// Check cache for order
 									if(!$cache->isCached($custom_page->id . '_order')){
 										// Create cache entry now

@@ -287,12 +287,14 @@ body.pushable>.pusher {
  *  -[ 404 ERROR ]-
  */
 
+#error-403 .ui.container,
 #error-404 .ui.container,
 #maintenance .ui.container {
 	position: relative;
 	min-height: 100vh;
 }
 
+#error-403 .ui.segment,
 #error-404 .ui.segment,
 #maintenance .ui.segment {
 	position: absolute;

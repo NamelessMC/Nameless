@@ -38,19 +38,22 @@
 <body>
 <br /><br /><br />
 <div class="container">
-  <center><h1>404</h1></center>
+  <center><h1>403</h1></center>
   <div class="row">
 	<div class="col-md-6 offset-md-3">
 	  <div class="jumbotron">
 		<center>
-		  <h2>{$404_TITLE}</h2>
-		  <h4>{$CONTENT}</h4>
+		  <h4>{$403_TITLE}</h4>
+		  <p>{$CONTENT}</p>
+		  {if !isset($LOGGED_IN_USER)}<p>{$CONTENT_LOGIN}</p>{/if}
 		  <div class="btn-group" role="group" aria-label="...">
 			<button class="btn btn-primary btn-lg" onclick="javascript:history.go(-1)">{$BACK}</button>
-			<a href="{$SITE_HOME}" class="btn btn-success btn-lg">{$HOME}</a>
+			{if isset($LOGGED_IN_USER)}
+			  <a href="{$SITE_HOME}" class="btn btn-success btn-lg">{$HOME}</a>
+			{else}
+			  <a href="{$LOGIN_LINK}" class="btn btn-success btn-lg">{$LOGIN}</a>
+			{/if}
 		  </div>
-		  <hr />
-		  {$ERROR}
 		</center>
 	  </div>
 	</div>
