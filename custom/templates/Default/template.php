@@ -21,10 +21,13 @@ class Default_Template extends TemplateBase {
 
 		parent::__construct(
 			'Default',  // Template name
-			'2.0.0-pr6',  // Template version
-			'2.0.0-pr6',  // Nameless version template is made for
+			'2.0.0-pr7',  // Template version
+			'2.0.0-pr7',  // Nameless version template is made for
 			'<a href="https://namelessmc.com/" target="_blank">Samerton</a>'  // Author, you can use HTML here
 		);
+
+		// Register settings page
+		$this->_settings = ROOT_PATH . '/custom/templates/Default/template_settings/settings.php';
 
 		// The following is used for the Default theme switcher; you do not need this in custom templates
 		$cache->setCache('default_template');

@@ -77,8 +77,8 @@
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <colgroup>
-                                        <col width="75%">
-                                        <col width="25%">
+                                        <col width="60%">
+                                        <col width="40%">
                                     </colgroup>
                                     {foreach from=$TEMPLATE_LIST item=template}
                                         <tr>
@@ -111,6 +111,10 @@
 
                                                     {if $template.edit_link}
                                                         <a class="btn btn-primary btn-sm" href="{$template.edit_link}">{$EDIT}</a>
+                                                    {/if}
+
+                                                    {if $template.settings_link}
+                                                        <a class="btn btn-info btn-sm" href="{$template.settings_link}">{$SETTINGS}</a>
                                                     {/if}
                                                 </div>
                                             </td>

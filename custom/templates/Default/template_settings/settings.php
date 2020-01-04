@@ -2,41 +2,15 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
- *  Panel default themes page
+ *  Default template settings
  */
 
-// Can the user view the panel?
-if($user->isLoggedIn()){
-	if(!$user->canViewACP()){
-		// No
-		Redirect::to(URL::build('/'));
-		die();
-	}
-	if(!$user->isAdmLoggedIn()){
-		// Needs to authenticate
-		Redirect::to(URL::build('/panel/auth'));
-		die();
-	} else {
-		if(!$user->hasPermission('admincp.styles.templates')){
-			require_once(ROOT_PATH . '/403.php');
-			die();
-		}
-	}
-} else {
-	// Not logged in
-	Redirect::to(URL::build('/login'));
-	die();
-}
-
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'default_themes');
-define('PANEL_PAGE', 'default_themes');
-$page_title = $default_theme_language->get('language', 'default_theme_title');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+// Custom language
+$default_theme_language = new Language(ROOT_PATH . '/custom/templates/Default/template_settings/language', LANGUAGE);
 
 if(Input::exists()){
 	if(Token::check(Input::get('token'))){
@@ -54,27 +28,11 @@ if(Input::exists()){
 			$cache->store('nav_bg', $_POST['navbarColour']);
 		}
 
-		Redirect::to(URL::build('/panel/defaulttheme'));
-		die();
+		Session::flash('admin_templates', $language->get('admin', 'successfully_updated'));
 
 	} else
-		$error = $language->get('admin', 'invalid_token');
+		$errors = array($language->get('general', 'invalid_token'));
 }
-
-// Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
-
-if(isset($success))
-	$smarty->assign(array(
-		'SUCCESS' => $success,
-		'SUCCESS_TITLE' => $language->get('general', 'success')
-	));
-
-if(isset($errors) && count($errors))
-	$smarty->assign(array(
-		'ERRORS' => $errors,
-		'ERRORS_TITLE' => $language->get('general', 'error')
-	));
 
 // Get values
 $cache->setCache('default_template');
@@ -256,26 +214,13 @@ $nav_colours = array(
 );
 
 $smarty->assign(array(
-	'PARENT_PAGE' => PARENT_PAGE,
-	'DASHBOARD' => $language->get('admin', 'dashboard'),
 	'DEFAULT_THEME' => $default_theme_language->get('language', 'default_theme_title'),
-	'PAGE' => PANEL_PAGE,
-	'TOKEN' => Token::get(),
 	'SUBMIT' => $language->get('general', 'submit'),
 	'THEME' => $default_theme_language->get('language', 'theme'),
 	'THEMES' => $themes,
 	'NAVBAR_STYLE' => $default_theme_language->get('language', 'navbar_style'),
 	'NAVBAR_STYLE_VALUE' => $nav_style,
 	'NAVBAR_COLOUR' => $default_theme_language->get('language', 'navbar_colour'),
-	'NAVBAR_COLOURS' => $nav_colours
+	'NAVBAR_COLOURS' => $nav_colours,
+	'SETTINGS_TEMPLATE' => ROOT_PATH . '/custom/templates/Default/template_settings/settings.tpl'
 ));
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
-
-$template->onPageLoad();
-
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
-
-// Display template
-$template->displayTemplate('default_themes/index.tpl', $smarty);

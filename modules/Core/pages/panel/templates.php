@@ -71,7 +71,8 @@ if(!isset($_GET['action'])){
 			'default' => $item->is_default,
 			'deactivate_link' => (($item->enabled && count($active_templates) > 1 && !$item->is_default) ? URL::build('/panel/core/templates/', 'action=deactivate&template=' . Output::getClean($item->id)) : null),
 			'default_link' => (($item->enabled && !$item->is_default) ? URL::build('/panel/core/templates/', 'action=make_default&template=' . Output::getClean($item->id)) : null),
-			'edit_link' => ($user->hasPermission('admincp.styles.templates.edit') ? URL::build('/panel/core/templates/', 'action=edit&template=' . Output::getClean($item->id)) : null)
+			'edit_link' => ($user->hasPermission('admincp.styles.templates.edit') ? URL::build('/panel/core/templates/', 'action=edit&template=' . Output::getClean($item->id)) : null),
+			'settings_link' => ($template->getSettings() && $user->hasPermission('admincp.styles.templates.edit') ? URL::build('/panel/core/templates/', 'action=settings&template=' . Output::getClean($item->id)) : null)
 		);
 
 	}
@@ -154,6 +155,7 @@ if(!isset($_GET['action'])){
 		'DEFAULT' => $language->get('admin', 'default'),
 		'MAKE_DEFAULT' => $language->get('admin', 'make_default'),
 		'EDIT' => $language->get('general', 'edit'),
+		'SETTINGS' => $language->get('admin', 'settings'),
 		'TEMPLATE_LIST' => $templates_template,
 		'INSTALL_TEMPLATE' => $language->get('admin', 'install'),
 		'INSTALL_TEMPLATE_LINK' => URL::build('/panel/core/templates/', 'action=install'),
@@ -339,6 +341,52 @@ if(!isset($_GET['action'])){
 			Session::flash('admin_templates', str_replace('{x}', Output::getClean($new_default_template), $language->get('admin', 'default_template_set')));
 			Redirect::to(URL::build('/panel/core/templates/'));
 			die();
+
+			break;
+
+		case 'settings':
+			// Editing template settings
+			if(!$user->hasPermission('admincp.styles.templates.edit')){
+				Redirect::to(URL::build('/panel/core/templates'));
+				die();
+			}
+
+			$current_template = $template;
+
+			// Get the template
+			$template_query = $queries->getWhere('templates', array('id', '=', $_GET['template']));
+			if(count($template_query)){
+				$template_query = $template_query[0];
+			} else {
+				Redirect::to(URL::build('/panel/core/templates'));
+				die();
+			}
+
+			require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . str_replace(array('../', '/', '..'), '', $template_query->name) . DIRECTORY_SEPARATOR . 'template.php');
+
+			if($template && $template instanceof TemplateBase){
+				if($template->getSettings()){
+					require_once($template->getSettings());
+
+					$smarty->assign(array(
+						'EDITING_TEMPLATE' => str_replace('{x}', Output::getClean($template_query->name), $language->get('admin', 'editing_template_x')),
+						'BACK' => $language->get('general', 'back'),
+						'BACK_LINK' => URL::build('/panel/core/templates')
+					));
+
+					$template_file = 'core/template_settings.tpl';
+
+				} else {
+					Redirect::to(URL::build('/panel/core/templates'));
+					die();
+				}
+
+			} else {
+				Redirect::to(URL::build('/panel/core/templates'));
+				die();
+			}
+
+			$template = $current_template;
 
 			break;
 
