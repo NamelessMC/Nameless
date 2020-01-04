@@ -131,5 +131,6 @@ if (loggedIn == 1) {
 } else if (cookie == 1) {
 	toastr.options.onclick = () => $('.toast .toast-close-button').focus();
 	toastr.options.onHidden = () => $.cookie('accept', 'accepted', {path: '/'});
+	toastr.options.timeOut = 0;
 	toastr.info(cookieNotice);
 }
