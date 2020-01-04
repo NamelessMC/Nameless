@@ -99,6 +99,21 @@ class Core_Module extends Module {
 		// Ajax GET requests
 		$pages->addAjaxScript(URL::build('/queries/servers'));
 
+		// "More" dropdown
+		$cache->setCache('navbar_icons');
+		if($cache->isCached('more_dropdown_icon')){
+			$icon = $cache->retrieve('more_dropdown_icon');
+		} else
+			$icon = '';
+
+		$cache->setCache('navbar_order');
+		if($cache->isCached('more_dropdown_order')){
+			$order = $cache->retrieve('more_dropdown_order');
+		} else
+			$order = 2500;
+
+		$navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', $order, $icon);
+
 		// Custom pages
 		$custom_pages = $queries->getWhere('custom_pages', array('id', '<>', 0));
 		if(count($custom_pages)){
@@ -202,19 +217,6 @@ class Core_Module extends Module {
 			$custom_page_permissions = null;
 
 			if(count($more)){
-				$cache->setCache('navbar_icons');
-				if($cache->isCached('more_dropdown_icon')){
-					$icon = $cache->retrieve('more_dropdown_icon');
-				} else
-					$icon = '';
-
-				$cache->setCache('navbar_order');
-				if($cache->isCached('more_dropdown_order')){
-					$order = $cache->retrieve('more_dropdown_order');
-				} else
-					$order = 2500;
-
-				$navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', $order, $icon);
 				foreach($more as $item)
 					$navigation->addItemToDropdown('more_dropdown', $item['id'], $item['title'], $item['url'], 'top', ($item['redirect']) ? '_blank' : null, $item['icon'], $item['order']);
 			}
