@@ -15,6 +15,13 @@ define('PAGE', 'maintenance');
 $page_title = $language->get('errors', 'maintenance_title');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
+if(!$user->isLoggedIn()){
+	$smarty->assign(array(
+		'LOGIN' => $language->get('general', 'sign_in'),
+		'LOGIN_LINK' => URL::build('/login')
+	));
+}
+
 // Assign Smarty variables
 $smarty->assign(array(
     'MAINTENANCE_TITLE' => $language->get('errors', 'maintenance_title'),

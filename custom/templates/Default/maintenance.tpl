@@ -49,6 +49,10 @@
                     <div class="btn-group" role="group">
                         <a href="#" class="btn btn-primary btn-lg" onclick="window.location.reload()">{$RETRY}</a>
                     </div>
+                    {if isset($LOGIN)}
+                        <hr />
+                        <a href="{$LOGIN_LINK}" style="color: #fff">{$LOGIN}</a>
+                    {/if}
                 </center>
             </div>
         </div>
