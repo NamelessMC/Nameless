@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -23,8 +23,8 @@ if(!class_exists('Default_Panel_Template')){
 
 			parent::__construct(
 				'Default',  // Template name
-				'2.0.0-pr6',  // Template version
-				'2.0.0-pr6',  // Nameless version template is made for
+				'2.0.0-pr7',  // Template version
+				'2.0.0-pr7',  // Nameless version template is made for
 				'<a href="https://namelessmc.com/">Samerton</a>'  // Author, you can use HTML here
 			);
 
