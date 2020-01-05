@@ -58,6 +58,7 @@ $language = array(
 	'invalid_tfa' => 'Verkeerde code, probeer opnieuw.',
 	'tfa_successful' => 'Twee factor authenticatie succesvol ingesteld. Je moet nu elke keer een code hebben om in te kunnen loggen.',
 	'active_language' => 'Actieve taal',
+	'active_template' => 'Active Template',
 	'timezone' => 'Tijdzone',
 	'upload_new_avatar' => 'Upload een nieuwe avatar',
 	'nickname_already_exists' => 'Je gekozen nicknaam bestaat al.',

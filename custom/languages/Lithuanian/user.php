@@ -53,6 +53,7 @@ $language = array(
 	'invalid_tfa' => 'Neteisingas kodas, bandykite dar kartą.',
 	'tfa_successful' => 'Sėkmingai nustatytas dviejų veiksnių autentifikavimas. Jums reikės autentifikuoti kiekvieną kartą, kai nuo šiol prisijungsite.',
 	'active_language' => 'Aktyvi kalba',
+	'active_template' => 'Active Template',
 	'timezone' => 'Laiko Zona',
 	'upload_new_avatar' => 'Įkelkite naują avatarą',
 	'nickname_already_exists' => 'Jūsų pasirinktas slapyvardis jau egzistuoja.',

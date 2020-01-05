@@ -56,6 +56,7 @@ $language = array(
 	'invalid_tfa' => 'Ugyldig kode, prøv igjen.',
 	'tfa_successful' => 'To-stegs-verifikasjon fullført.',
 	'active_language' => 'Språk',
+	'active_template' => 'Active Template',
 	'timezone' => 'Tidssone',
 	'upload_new_avatar' => 'Last opp et nytt avatar.',
 	'nickname_already_exists' => 'Brukernavnet du har valgt er allerede i bruk.',

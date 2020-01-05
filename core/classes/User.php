@@ -930,12 +930,12 @@ class User {
      *          $user_id (int) - user ID of user to check - optional, default to logged in user
      */
     public function hasPermission($permission, $user_id = null){
-	if($this->_permissions != null) {
+        if($this->_permissions != null) {
             if(isset($this->_permissions[$permission]) && $this->_permissions[$permission] == 1){
                 return true;
             }
-	}
-		
+        }
+
         if(!$user_id){
             if($this->isLoggedIn())
                 $group = $this->_db->get('groups', array('id', '=', $this->data()->group_id));
@@ -994,5 +994,38 @@ class User {
             return false;
         }
     }
+
+    // Get templates a user's group has access to
+	public function getUserTemplates($group_id = null, $secondary_groups = null) {
+    	if(!$group_id){
+    		if(!$this->isLoggedIn()){
+    			return [];
+		    }
+
+    		$group_id = $this->_data->group_id;
+	    }
+
+    	if(!$secondary_groups){
+    		if(!$this->isLoggedIn()){
+    			return [];
+		    }
+
+    		$secondary_groups = $this->_data->secondary_groups;
+	    }
+
+    	$decoded = json_decode($secondary_groups);
+    	$decoded[] = $group_id;
+
+    	$groups = '(';
+    	foreach($decoded as $item){
+    		if(is_numeric($item)){
+    			$groups .= ((int) $item) . ',';
+		    }
+	    }
+
+    	$groups = rtrim($groups, ',') . ')';
+
+    	return $this->_db->query('SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN ' . $groups . ')')->results();
+	}
 
 }

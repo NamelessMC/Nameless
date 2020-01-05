@@ -47,7 +47,10 @@
                         <div class="card-body">
 
                             <h5 style="display:inline">{$EDITING_TEMPLATE}</h5>
-                            <div class="float-md-right"><a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a></div>
+                            <div class="float-md-right">
+                                {if $PERMISSIONS_LINK}<a class="btn btn-info" href="{$PERMISSIONS_LINK}">{$PERMISSIONS}</a>{/if}
+                                <a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a>
+                            </div>
                             <hr />
 
                             {if isset($SUCCESS)}

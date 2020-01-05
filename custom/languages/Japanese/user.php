@@ -59,6 +59,7 @@ $language = array(
 	'invalid_tfa' => '無効なコードです。再試行してください。',
 	'tfa_successful' => '二段階認証が設定されました。次回ログイン時から二段階認証が有効になります。',
 	'active_language' => '有効な言語',
+	'active_template' => 'Active Template',
 	'timezone' => 'タイムゾーン',
 	'upload_new_avatar' => '新しいアバターをアップロード',
 	'nickname_already_exists' => '指定したニックネームは既に存在します。別のニックネームを指定してください。',

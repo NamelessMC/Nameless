@@ -56,6 +56,7 @@ $language = array(
 	'invalid_tfa' => 'Invalid code, please try again.',
 	'tfa_successful' => 'Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.',
 	'active_language' => 'Active Language',
+	'active_template' => 'Active Template',
 	'timezone' => 'Timezone',
 	'upload_new_avatar' => 'Upload a new avatar',
 	'nickname_already_exists' => 'Your chosen nickname already exists.',

@@ -203,11 +203,30 @@ if(isset($_GET['do'])){
 					// Update profile fields
                     if(!isset($nickname_error)) {
                         try {
-                            // Update language and timezone
+                            // Update language, template and timezone
                             $new_language = $queries->getWhere('languages', array('name', '=', Input::get('language')));
 
                             if (count($new_language)) $new_language = $new_language[0]->id;
                             else $new_language = $user->data()->language_id;
+
+	                        $new_template = $queries->getWhere('templates', array('id', '=', Input::get('template')));
+
+	                        if (count($new_template)) $new_template = $new_template[0]->id;
+	                        else $new_template = $user->data()->template_id;
+
+	                        // Check permissions
+	                        $available_templates = $user->getUserTemplates();
+
+	                        foreach($available_templates as $available_template){
+	                        	if($available_template->id == $new_template){
+	                        		$can_update = true;
+	                        		break;
+		                        }
+	                        }
+
+	                        if(!isset($can_update)){
+	                        	$new_template = $user->data()->template_id;
+	                        }
 
                             $timezone = Input::get('timezone');
 
@@ -237,7 +256,8 @@ if(isset($_GET['do'])){
                                 'timezone' => $timezone,
                                 'signature' => $signature,
                                 'nickname' => $displayname,
-                                'private_profile' => $privateProfile
+                                'private_profile' => $privateProfile,
+	                            'theme_id' => $new_template
                             ));
 
                             Log::getInstance()->log(Log::Action('user/ucp/update'));
@@ -526,7 +546,19 @@ if(isset($_GET['do'])){
 			'active' => (($user->data()->language_id == $item->id) ? true : false)
 		);
 	}
-	
+
+	// Get templates
+	$templates = array();
+	$templates_query = $user->getUserTemplates();
+
+	foreach($templates_query as $item){
+		$templates[] = array(
+			'id' => Output::getClean($item->id),
+			'active' => $item->id === $user->data()->theme_id,
+			'name' => Output::getClean($item->name)
+		);
+	}
+
 	// Get custom fields
 	$custom_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
 	$user_custom_fields = $queries->getWhere('users_profile_fields', array('user_id', '=', $user->data()->id));
@@ -626,6 +658,8 @@ if(isset($_GET['do'])){
 		'SETTINGS' => $language->get('user', 'profile_settings'),
 		'ACTIVE_LANGUAGE' => $language->get('user', 'active_language'),
 		'LANGUAGES' => $languages,
+		'ACTIVE_TEMPLATE' => $language->get('user', 'active_template'),
+		'TEMPLATES' => $templates,
 		'PROFILE_FIELDS' => $custom_fields_template,
 		'SUBMIT' => $language->get('general', 'submit'),
 		'TOKEN' => Token::get(),

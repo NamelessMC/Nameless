@@ -268,6 +268,25 @@ if(!class_exists('Default_Panel_Template')){
 								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/mode/javascript/javascript.js' => array()
 							));
 						}
+
+						if(isset($_GET['action']) && $_GET['action'] == 'permissions'){
+							$this->addCSSFiles(array(
+								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.css' => array(),
+							));
+
+							$this->addJSFiles(array(
+								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.js' => array(),
+							));
+
+							$this->addJSScript('
+							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
+		
+							elems.forEach(function(html) {
+							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
+							});
+							');
+						}
+
 						break;
 
 					case 'custom_pages':

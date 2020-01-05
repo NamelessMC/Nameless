@@ -57,6 +57,7 @@ $language = array(
 	'invalid_tfa' => 'Ogiltig kod, försök igen.',
 	'tfa_successful' => 'Two factor authentication har upprättats. Du måste autentisera varje gång du loggar in från och med nu.',
 	'active_language' => 'Aktiv Språk',
+	'active_template' => 'Active Template',
 	'timezone' => 'Tidzon',
 	'upload_new_avatar' => 'Ladda upp en ny avatar',
 	'nickname_already_exists' => 'Your chosen nickname already exists.',

@@ -56,6 +56,7 @@ $language = array(
 	'invalid_tfa' => 'Špatný kód.',
 	'tfa_successful' => 'Dvoufázové ověření bylo úspěšně nastaveno. Nyní budete pokaždé vyzván pro ověření přihlášení.',
 	'active_language' => 'Aktivní jazyk',
+	'active_template' => 'Active Template',
 	'timezone' => 'Časová zóna',
 	'upload_new_avatar' => 'Nahrát nového avatara.',
 	'nickname_already_exists' => 'Zvolená přezdívka již existuje.',

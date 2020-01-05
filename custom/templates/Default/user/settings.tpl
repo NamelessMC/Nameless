@@ -34,6 +34,14 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label for="inputTemplate">{$ACTIVE_TEMPLATE}</label>
+                                <select name="template" id="inputTemplate" class="form-control">
+                                    {foreach from=$TEMPLATES item=template}
+                                        <option value="{$template.id}"{if $template.active == true} selected{/if}>{$template.name}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="inputTimezone">{$TIMEZONE}</label>
                                 <select name="timezone" class="form-control" id="inputTimezone">
                                     {foreach from=$TIMEZONES key=KEY item=ITEM}

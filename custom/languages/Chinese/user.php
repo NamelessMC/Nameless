@@ -61,6 +61,7 @@ $language = array(
 	'invalid_tfa' => '代碼錯誤，請重試.',
 	'tfa_successful' => 'TFA二次驗證設定成功. 每次登入時必須二次驗證才能登入成功.',
 	'active_language' => '啟用語言',
+	'active_template' => 'Active Template',
 	'timezone' => '時區',
 	'upload_new_avatar' => '上傳新的頭像',
 	'nickname_already_exists' => 'Your chosen nickname already exists.',

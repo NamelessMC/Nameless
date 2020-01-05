@@ -41,9 +41,9 @@
                   <label for="input{$field.id}">{$field.name}</label>
                   {if $field.type == "text"}
                     <input type="text" name="{$field.id}" id="input{$field.id}" value="{$field.value}" placeholder="{$field.name}">
-                  {else if $field.type == "textarea"}
+                  {elseif $field.type == "textarea"}
                     <textarea name="{$field.id}" id="input{$field.id}">{$field.value}</textarea>
-                  {else if $field.type == "date"}
+                  {elseif $field.type == "date"}
                     <input type="text" name="{$field.id}" id="input{$field.id}" value="{$field.value}">
                   {/if}
                 {/if}
@@ -52,23 +52,33 @@
             {if isset($PRIVATE_PROFILE)}
               <div class="field">
                 <label for="inputPrivateProfile">{$PRIVATE_PROFILE}</label>
-                <select name="privateProfile" id="inputPrivateProfile">
+                <select class="ui fluid dropdown" name="privateProfile" id="inputPrivateProfile">
                   <option value="1"{if ($PRIVATE_PROFILE_ENABLED == true)} selected {/if}>{$ENABLED}</option>
                   <option value="0"{if ($PRIVATE_PROFILE_ENABLED == false)} selected {/if}>{$DISABLED}</option>
                 </select>
               </div>
             {/if}
             <div class="field">
-              <label for="input{$field.id}">{$ACTIVE_LANGUAGE}</label>
-              <select name="language" id="inputLanguage">
+              <label for="inputLanguage">{$ACTIVE_LANGUAGE}</label>
+              <select class="ui fluid dropdown" name="language" id="inputLanguage">
                 {foreach from=$LANGUAGES item=language}
                   <option value="{$language.name}"{if $language.active == true} selected{/if}>{$language.name}</option>
                  {/foreach}
               </select>
             </div>
+            {if count($TEMPLATES)}
+              <div class="field">
+                <label for="inputTemplate">{$ACTIVE_TEMPLATE}</label>
+                <select class="ui fluid dropdown" name="template" id="inputTemplate">
+                  {foreach from=$TEMPLATES item=template}
+                    <option value="{$template.id}"{if $template.active == true} selected{/if}>{$template.name}</option>
+                  {/foreach}
+                </select>
+              </div>
+            {/if}
             <div class="field">
               <label for="inputTimezone">{$TIMEZONE}</label>
-              <select name="timezone" id="inputTimezone">
+              <select class="ui fluid dropdown" name="timezone" id="inputTimezone">
                 {foreach from=$TIMEZONES key=KEY item=ITEM}
                   <option value="{$KEY}"{if $SELECTED_TIMEZONE eq $KEY} selected{/if}>
                     ({$ITEM.offset}) {$ITEM.name} &middot; ({$ITEM.time})
@@ -109,7 +119,7 @@
         </form>
       </div>
       <div class="ui segment">
-        <h3 class="ui header">{$CHANGE_PASSWORD}</h4>
+        <h3 class="ui header">{$CHANGE_PASSWORD}</h3>
         <form class="ui form" action="" method="post" id="form-user-password">
           <div class="field">
             <label for="inputOldPassword">{$CURRENT_PASSWORD}</label>
@@ -129,7 +139,7 @@
         </form>
       </div>
       <div class="ui segment">
-        <h3 class="ui header">{$TWO_FACTOR_AUTH}</h4>
+        <h3 class="ui header">{$TWO_FACTOR_AUTH}</h3>
         {if isset($ENABLE)}
           <a class="ui positive button" href="{$ENABLE_LINK}">{$ENABLE}</a>
          {else}

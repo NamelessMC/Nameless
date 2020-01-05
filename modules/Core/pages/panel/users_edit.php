@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -206,6 +206,12 @@ if(Input::exists()){
 						$private_profile = Input::get('privateProfile');
 					}
 
+					// Template
+					$new_template = $queries->getWhere('templates', array('id', '=', Input::get('template')));
+
+					if (count($new_template)) $new_template = $new_template[0]->id;
+					else $new_template = $user_query->template_id;
+
 					// Nicknames?
 					$displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
 					$displaynames = $displaynames[0]->value;
@@ -227,7 +233,8 @@ if(Input::exists()){
 						'uuid' => Output::getClean(Input::get('UUID')),
 						'signature' => $signature,
 						'secondary_groups' => $secondary_groups,
-						'private_profile' => $private_profile
+						'private_profile' => $private_profile,
+						'theme_id' => $new_template
 					));
 
 					Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
@@ -363,6 +370,17 @@ $uuid_linking = $uuid_linking[0]->value;
 $private_profile = $queries->getWhere('settings', array('name', '=', 'private_profile'));
 $private_profile = $private_profile[0]->value;
 
+$templates = array();
+$templates_query = $queries->getWhere('templates', array('id', '<>', 0));
+
+foreach($templates_query as $item){
+	$templates[] = array(
+		'id' => Output::getClean($item->id),
+		'name' => Output::getClean($item->name),
+		'active' => $item->id === $user_query->theme_id
+	);
+}
+
 $groups = $queries->orderAll('groups', '`order`', 'ASC');
 
 // HTML -> Markdown if necessary
@@ -419,7 +437,9 @@ $smarty->assign(array(
 	'SECONDARY_GROUPS' => $language->get('admin', 'secondary_groups'),
 	'SECONDARY_GROUPS_INFO' => $language->get('admin', 'secondary_groups_info'),
 	'SECONDARY_GROUPS_VALUE' => ((($user_secondary_groups = json_decode($user_query->secondary_groups, true)) == null) ? array() : $user_secondary_groups),
-	'INFO' => $language->get('general', 'info')
+	'INFO' => $language->get('general', 'info'),
+	'ACTIVE_TEMPLATE' => $language->get('user', 'active_template'),
+	'TEMPLATES' => $templates
 ));
 
 $cache->setCache('post_formatting');
