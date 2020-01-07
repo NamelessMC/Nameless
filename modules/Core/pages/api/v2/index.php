@@ -533,7 +533,7 @@ class Nameless2API
             $this->_db = DB::getInstance();
 
             // Check UUID
-            $user = $this->_db->query('SELECT nl2_users.username, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.group_id, nl2_users.joined as registered, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_groups.name as group_name FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id WHERE nl2_users.username = ? OR nl2_users.uuid = ?', array($query, $query));
+            $user = $this->_db->query('SELECT nl2_users.id, nl2_users.username, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.group_id, nl2_users.joined as registered, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as userTitle, nl2_groups.name as group_name FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id WHERE nl2_users.username = ? OR nl2_users.uuid = ?', array($query, $query));
 
             if(!$user->count()){
                 $this->returnArray(array('exists' => false));
@@ -542,6 +542,11 @@ class Nameless2API
             $user->exists = true;
             $user->banned = ($user->banned) ? true : false;
             $user->validated = ($user->validated) ? true : false;
+
+            $custom_profile_fields = $this->_db->query('SELECT fields.name, fields.type, fields.public, fields.description, pf_values.value FROM nl2_users_profile_fields pf_values LEFT JOIN nl2_profile_fields fields ON pf_values.field_id = fields.id WHERE pf_values.user_id = ?', array($user->id));
+            $user->profile_fields = $custom_profile_fields->results();
+
+            unset($user->id);
 
             $this->returnArray((array)$user);
 
