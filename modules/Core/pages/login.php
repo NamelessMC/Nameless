@@ -25,10 +25,6 @@ if ($user->isLoggedIn()) {
     die();
 }
 
-// Are custom usernames enabled?
-$custom_usernames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
-$custom_usernames = $custom_usernames[0]->value;
-
 // Get login method
 $method = $queries->getWhere('settings', array('name', '=', 'login_method'));
 $method = $method[0]->value;

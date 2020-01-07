@@ -8,9 +8,9 @@
  *
  *  Log user out
  */
-Log::getInstance()->log(Log::Action('user/logout'));
 
 if($user->isLoggedIn()){
+	Log::getInstance()->log(Log::Action('user/logout'));
 	$user->admLogout();
 	$user->logout();
 	
