@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -601,7 +601,8 @@ $smarty->assign(array(
 	'LOGIN_URL' => URL::build('/login'),
 	'TOKEN' => Token::get(),
 	'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
-	'ALREADY_REGISTERED' => $language->get('general', 'already_registered')
+	'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
+	'ERROR_TITLE' => $language->get('general', 'error'),
 ));
 
 if($recaptcha === "true"){

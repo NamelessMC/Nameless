@@ -9,7 +9,7 @@
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
-      <div class="header">Error</div>
+      <div class="header">{$ERROR_TITLE}</div>
       <ul class="list">
         {foreach from=$REGISTRATION_ERROR item=error}
           <li>{$error}</li>

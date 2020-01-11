@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -315,6 +315,7 @@ $smarty->assign(array(
 	'SIGN_IN' => $language->get('general', 'sign_in'),
 	'REGISTER_URL' => URL::build('/register'),
 	'REGISTER' => $language->get('general', 'register'),
+	'ERROR_TITLE' => $language->get('general', 'error'),
 	'ERROR' => (isset($return_error) ? $return_error : array()),
 	'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
 ));
