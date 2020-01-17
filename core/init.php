@@ -315,6 +315,7 @@ if($page != 'install'){
 	}
 
 	// Panel template
+	$cache->setCache('templatecache');
 	$template = $cache->retrieve('panel_default');
 
 	if(!$template){

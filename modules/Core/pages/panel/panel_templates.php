@@ -215,7 +215,7 @@ if(!isset($_GET['action'])){
 				$id = $template[0]->id;
 				$template = null;
 
-				require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . 'template.php');
+				require(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . 'template.php');
 
 				if($template instanceof TemplateBase){
 					// Activate the template
