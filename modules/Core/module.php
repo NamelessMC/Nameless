@@ -531,12 +531,12 @@ class Core_Module extends Module {
 							if(isset($result['status_value']) && $result['status_value'] == 1){
 								$result['status'] = $language->get('general', 'online');
 
-								if($result['total_count'] == 1){
+								if($result['total_players'] == 1){
 									$result['status_full'] = $language->get('general', 'currently_1_player_online');
 									$result['x_players_online'] = $language->get('general', 'currently_1_player_online');
 								} else {
-									$result['status_full'] = str_replace('{x}', $result['total_count'], $language->get('general', 'currently_x_players_online'));
-									$result['x_players_online'] = str_replace('{x}', $result['total_count'], $language->get('general', 'currently_x_players_online'));
+									$result['status_full'] = str_replace('{x}', $result['total_players'], $language->get('general', 'currently_x_players_online'));
+									$result['x_players_online'] = str_replace('{x}', $result['total_players'], $language->get('general', 'currently_x_players_online'));
 								}
 
 							} else {

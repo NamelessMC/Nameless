@@ -178,7 +178,8 @@ class MCQuery {
                         'status_value' => $status,
                         'status' => (($status == 1) ? $language->get('general', 'online') : $language->get('general', 'offline')),
                         'status_full' => (($status == 1) ? str_replace('{x}', $total_count, $language->get('general', 'currently_x_players_online')) : $language->get('general', 'server_offline')),
-                        'total_players' => $total_count
+                        'total_players' => $total_count,
+	                    'player_count' => $total_count
                     );
 
                 return $to_return;
@@ -226,7 +227,8 @@ class MCQuery {
 			            'status_value' => $status,
 			            'status' => (($status == 1) ? $language->get('general', 'online') : $language->get('general', 'offline')),
 			            'status_full' => (($status == 1) ? str_replace('{x}', $total_count, $language->get('general', 'currently_x_players_online')) : $language->get('general', 'server_offline')),
-			            'total_players' => $total_count
+			            'total_players' => $total_count,
+			            'player_count' => $total_count
 		            );
 
 	            return $to_return;
