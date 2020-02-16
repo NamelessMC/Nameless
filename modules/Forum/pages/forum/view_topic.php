@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -570,9 +570,8 @@ for($n = 0; $n < count($results->data); $n++){
 
 	// Get post reactions
 	$post_reactions = array();
+	$total_karma = 0;
 	if($reactions_enabled){
-		$total_karma = 0;
-
 		$post_reactions_query = $queries->getWhere('forums_reactions', array('post_id', '=', $results->data[$n]->id));
 
 		if(count($post_reactions_query)){
