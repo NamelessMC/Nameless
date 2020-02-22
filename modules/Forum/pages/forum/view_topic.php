@@ -538,7 +538,7 @@ for($n = 0; $n < count($results->data); $n++){
 			$buttons['delete'] = array(
 				'URL' => URL::build('/forum/delete_post/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
 				'TEXT' => $language->get('general', 'delete'),
-				'NUMBER' => $n
+				'NUMBER' => $p . $n
 			);
 			$buttons['spam'] = array(
 				'URL' => URL::build('/forum/spam/'),
