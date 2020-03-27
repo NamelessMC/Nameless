@@ -15,7 +15,7 @@ if(!isset($forum) || (isset($forum) && !$forum instanceof Forum)){
 }
  
 // Get latest posts
-$latest_posts = $queries->orderWhere('posts', 'post_creator = ' . $query->id, 'post_date', 'DESC LIMIT 15');
+$latest_posts = $queries->orderWhere('posts', 'post_creator = ' . $query->id.' AND deleted = 0', 'post_date', 'DESC LIMIT 15');
 if(!count($latest_posts)){
 	$smarty->assign('NO_POSTS', $forum_language->get('forum', 'user_no_posts'));
 } else {
