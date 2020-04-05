@@ -214,3 +214,134 @@ a {
         display: none;
     }
 }
+footer.installer {
+  background-color: #1b1c1d;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-top: 15vh;
+}
+.installer_logo {
+  width: 7.5%;
+}
+.installer_logo_footer:hover {
+  filter: grayscale(0);
+  transform: scale(1.1);
+}
+.installer_logo_footer {
+  width: 15%;
+  transition: 0.5s;
+  filter: grayscale(1);
+}
+.installer.header {
+  text-align: center;
+  margin-bottom: 2.5vh;
+}
+.i_3 {
+  display: inline-block;
+  width: 33.333333%;
+}
+body.installer {
+  text-align: center;
+  background-color: #f3f6fa;
+}
+.subimg {
+  vertical-align: top;
+}
+.git {
+  color: #ccc;
+  font-size: 250%;
+  transition: 0.5s;
+  vertical-align: middle;
+}
+.git:hover {
+  font-size: 275%;
+  color: white;
+}
+.i_3 > .dropup {
+  display: inline-block;
+}
+.container > .content {
+  background-color: #fff;
+  border-radius: 4px;
+  padding-top: 2.5vh;
+  padding-bottom: 2.5vh;
+  box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+  position: relative;
+}
+.btn-primary {
+  background-color: #2185d0;
+  color: #fff;
+  text-shadow: none;
+  background-image: none;
+  border: none;
+}
+.btn-default {
+  background-color: #e0e1e2;
+  color: #555;
+  border: none;
+}
+.btn-default:hover {
+  background-color: #c1c1e2;
+  color: #444;
+}
+.btn-primary:hover {
+  background-color: #1678c2 !important;
+  border: none; 
+}
+* {
+  font-family: "Lato";
+}
+.step_back {
+  position: absolute;
+  left: 25px;
+  top: 15px;
+}
+.step_back > a > i {
+  font-size: 15px;
+  cursor: pointer;
+  color: initial;
+}
+.req_table {
+  box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+  display: inline-block;
+  width: 40%;
+  border-radius: 4px;
+  position: relative;
+  background-color: #eee;
+  overflow: hidden;
+  margin-bottom: 2vh;
+}
+.req_item {
+  display: inline-block;
+  background-color: #e8e8e8;
+  width: 50%;
+}
+.req_res {
+  display: inline-block;
+  width: 50%;
+}
+form.install > .input-group {
+  margin-bottom: 1vh;
+}
+.input-group {
+  text-align: center;
+}
+.db-install {
+  display: inline-block;
+}
+.footerie {
+  color: #999;
+}
+.i_3.y {
+  vertical-align: middle;
+}
+.credits_box {
+  background-color: #eee;
+  border-radius: 4px;
+  display: inline-block;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 12px;
+}
