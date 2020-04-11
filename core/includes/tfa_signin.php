@@ -18,6 +18,7 @@ else if(isset($_POST['email']))
 
 $_SESSION['password'] = $_POST['password'];
 $_SESSION['remember'] = $_POST['remember'];
+$_SESSION['tfa'] = true;
 
 if(Session::exists('tfa_signin')){
 	$smarty->assign('ERROR', Session::flash('tfa_signin'));

@@ -82,12 +82,12 @@
             <?php
             if(version_compare(phpversion(), '5.4', '<')){
             ?>
-            	<div class="req_item">PHP</div><div class="req_res"><?php echo $error; ?></div>
+            	<div class="req_item">PHP 5.4+</div><div class="req_res"><?php echo $error; ?></div>
             <?php
                 $php_error = true;
             } else {
             ?>
-            	<div class="req_item">PHP</div><div class="req_res"><?php echo $success; ?></div>
+            	<div class="req_item">PHP 5.4+</div><div class="req_res"><?php echo $success; ?></div>
             <?php
             }
 

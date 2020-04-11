@@ -41,8 +41,8 @@ if (Input::exists()) {
     // Check form token
     if (Token::check(Input::get('token'))) {
         // Valid token
-	    if($recaptcha == 'true'){
-		    // Check reCAPCTHA
+	    if(!isset($_SESSION['tfa']) && $recaptcha == 'true'){
+		    // Check reCAPTCHA
 		    $url = 'https://www.google.com/recaptcha/api/siteverify';
 
 		    $post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . Input::get('g-recaptcha-response');
@@ -79,6 +79,7 @@ if (Input::exists()) {
 
 			    unset($_SESSION['remember']);
 			    unset($_SESSION['password']);
+			    unset($_SESSION['tfa']);
 		    }
 
 		    // Initialise validation
