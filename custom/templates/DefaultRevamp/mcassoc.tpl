@@ -7,7 +7,7 @@
 </h2>
 
 {if !isset($STEP)}
-  <div class="ui padded segment" id="mcassoc">
+  <div class="ui padded segment" id="mcassoc-body">
     {$MCASSOC}
   </div>
 {else}
