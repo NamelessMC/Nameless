@@ -149,6 +149,7 @@ $language = array(
     'enable_page_load_timer' => 'Aktivieren Sie den Seitenlade-Timer?',
     'google_recaptcha' => 'Google ReCAPTCHA aktivieren?',
     'google_recaptcha_login' => 'Enable Google reCAPTCHA on login?',
+    'captcha_type' => 'Captcha Type',
     'recaptcha_site_key' => 'reCAPTCHA-Standortschlüssel',
     'recaptcha_secret_key' => 'reCAPTCHA Geheimschlüssel',
     'registration_disabled_message' => 'Registration Deaktiviert Nachricht',

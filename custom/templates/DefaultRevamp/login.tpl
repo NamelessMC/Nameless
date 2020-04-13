@@ -47,7 +47,7 @@
           </div>
           {if isset($RECAPTCHA)}
             <div class="field">
-              <div class="g-recaptcha" data-sitekey="{$RECAPTCHA}" tabindex="4"></div>
+              <div class="{$CAPTCHA_CLASS}" data-sitekey="{$RECAPTCHA}" tabindex="4"></div>
             </div>
           {/if}
           <input type="hidden" name="token" value="{$FORM_TOKEN}">

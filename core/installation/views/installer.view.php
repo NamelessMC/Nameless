@@ -793,6 +793,11 @@
                 'value' => 'false'
             ));
 
+            $queries->create('settings', array(
+                'name' => 'recaptcha_type',
+                'value' => 'reCaptcha'
+            ));
+
 	        $queries->create('settings', array(
 		        'name' => 'recaptcha_login',
 		        'value' => 'false'
@@ -2338,6 +2343,11 @@
 						$queries->create('settings', array(
 							'name' => 'recaptcha_login',
 							'value' => 'false'
+						));
+
+						$queries->create('settings', array(
+							'name' => 'recaptcha_type',
+							'value' => 'reCaptcha'
 						));
 
 						$version = $queries->getWhere('settings', array('name', '=', 'version'));

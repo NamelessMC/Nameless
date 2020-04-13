@@ -33,6 +33,9 @@ $method = $method[0]->value;
 $recaptcha = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
 $recaptcha = count($recaptcha) ? $recaptcha[0]->value : 'false';
 
+$captcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
+$captcha_type= $captcha_type[0]->value;
+
 $recaptcha_key = $queries->getWhere("settings", array("name", "=", "recaptcha_key"));
 $recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
 
@@ -43,9 +46,9 @@ if (Input::exists()) {
         // Valid token
 	    if(!isset($_SESSION['tfa']) && $recaptcha == 'true'){
 		    // Check reCAPTCHA
-		    $url = 'https://www.google.com/recaptcha/api/siteverify';
+		    $url = $captcha_type === 'hCaptcha' ? 'https://hcaptcha.com/siteverify' : 'https://www.google.com/recaptcha/api/siteverify';
 
-		    $post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . Input::get('g-recaptcha-response');
+		    $post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . ($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
 
 		    $ch = curl_init($url);
 		    curl_setopt($ch, CURLOPT_POST, 1);
@@ -319,6 +322,7 @@ $smarty->assign(array(
 	'ERROR_TITLE' => $language->get('general', 'error'),
 	'ERROR' => (isset($return_error) ? $return_error : array()),
 	'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
+	'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha'
 ));
 
 if (isset($return_error)) {
@@ -332,9 +336,16 @@ if (Session::exists('login_success'))
 
 if($recaptcha === 'true'){
 	$smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
-	$template->addJSFiles(array(
-		'https://www.google.com/recaptcha/api.js' => array()
-	));
+
+	if($captcha_type === 'hCaptcha') {
+		$template->addJSFiles(array(
+			'https://hcaptcha.com/1/api.js' => array()
+		));
+	} else {
+		$template->addJSFiles(array(
+			'https://www.google.com/recaptcha/api.js' => array()
+		));
+	}
 }
 
 // Load modules + template

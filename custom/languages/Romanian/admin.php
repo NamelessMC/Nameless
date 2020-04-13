@@ -146,6 +146,7 @@ $language = array(
     'enable_page_load_timer' => 'Activați cronometrarea încărcării paginii?',
     'google_recaptcha' => 'Activați Google reCAPTCHA?',
     'google_recaptcha_login' => 'Enable Google reCAPTCHA on login?',
+    'captcha_type' => 'Captcha Type',
     'recaptcha_site_key' => 'Cheie site reCAPTCHA',
     'recaptcha_secret_key' => 'Cheie secreta reCAPTCHA',
     'registration_disabled_message' => 'Mesaj afișat când înregistrarea este dezactivată',

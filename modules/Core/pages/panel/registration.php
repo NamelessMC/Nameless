@@ -88,6 +88,13 @@ if(Input::exists()){
 				'value' => $recaptcha
 			));
 
+			// reCAPTCHA type
+			$recaptcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
+			$recaptcha_type = $recaptcha_type[0]->id;
+			$queries->update('settings', $recaptcha_type, array(
+				'value' => Input::get('captcha_type')
+			));
+
 			// reCAPTCHA key
 			$recaptcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
 			$recaptcha_id = $recaptcha_id[0]->id;
@@ -178,6 +185,7 @@ if($registration_enabled == 1){
 	// Recaptcha
 	$recaptcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha'));
 	$recaptcha_login = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
+	$recaptcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
 	$recaptcha_key = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
 	$recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
 	$registration_disabled_message = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
@@ -198,6 +206,8 @@ if($registration_enabled == 1){
 		'GOOGLE_RECAPTCHA_VALUE' => $recaptcha_id[0]->value,
 		'GOOGLE_RECAPTCHA_LOGIN' => $language->get('admin', 'google_recaptcha_login'),
 		'GOOGLE_RECAPTCHA_LOGIN_VALUE' => $recaptcha_login[0]->value,
+		'CAPTCHA_TYPE' => $language->get('admin', 'captcha_type'),
+		'CAPTCHA_TYPE_VALUE' => $recaptcha_type[0]->value,
 		'RECAPTCHA_SITE_KEY' => $language->get('admin', 'recaptcha_site_key'),
 		'RECAPTCHA_SITE_KEY_VALUE' => Output::getClean($recaptcha_key[0]->value),
 		'RECAPTCHA_SECRET_KEY' => $language->get('admin', 'recaptcha_secret_key'),

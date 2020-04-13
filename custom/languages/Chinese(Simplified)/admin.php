@@ -143,6 +143,7 @@ $language = array(
     'enable_page_load_timer' => '是否启用页面加载计时器?',
     'google_recaptcha' => '是否在注册时启用 Google reCAPTCHA(在大陆你可能需要修改部分配置) ?',
     'google_recaptcha_login' => '是否在登录时启用 Google reCAPTCHA(在大陆你可能需要修改部分配置) ?',
+    'captcha_type' => 'Captcha Type',
     'recaptcha_site_key' => 'reCAPTCHA Site Key(将验证码的域名更换为recaptcha.net可在中国大陆使用)',
     'recaptcha_secret_key' => 'reCAPTCHA Secret Key(将验证码的域名更换为recaptcha.net可在中国大陆使用)',
     'registration_disabled_message' => '禁用注册消息',

@@ -144,6 +144,7 @@ $language = array(
     'enable_page_load_timer' => 'ページロード時間を表示しますか？',
     'google_recaptcha' => 'Google reCAPTCHA を有効にしますか？',
     'google_recaptcha_login' => 'Enable Google reCAPTCHA on login?',
+    'captcha_type' => 'Captcha Type',
     'recaptcha_site_key' => 'reCAPTCHA サイトキー',
     'recaptcha_secret_key' => 'reCAPTCHA シークレットキー',
     'registration_disabled_message' => '新規登録無効時メッセージ',

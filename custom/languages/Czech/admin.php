@@ -141,6 +141,7 @@ $language = array(
     'enable_page_load_timer' => 'Zapnout čas načítání stránky?',
     'google_recaptcha' => 'Povolit Google reCAPTCHA?',
     'google_recaptcha_login' => 'Enable Google reCAPTCHA on login?',
+    'captcha_type' => 'Captcha Type',
     'recaptcha_site_key' => 'reCAPTCHA Klíč webu',
     'recaptcha_secret_key' => 'reCAPTCHA Tajný klíč',
     'registration_disabled_message' => 'Zpráva zakázána',
