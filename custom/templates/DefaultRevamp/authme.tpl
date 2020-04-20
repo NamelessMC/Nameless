@@ -6,13 +6,13 @@
   <div class="sub header">{$AUTHME_INFO}</div>
 </h2>
 
-{if count($ERROR)}
+{if count($ERRORS)}
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
       <div class="header">Error</div>
       <ul class="list">
-        {foreach from=$ERROR item=error}
+        {foreach from=$ERRORS item=error}
           <li>{$error}</li>
         {/foreach}
       </ul>
