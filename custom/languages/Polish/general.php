@@ -15,14 +15,15 @@ $language = array(
 	 */
 	'submit' => 'Zatwierdź',
 	'register' => 'Zarejestruj',
-	'already_registered' => 'Already Registered?',
+	'already_registered' => 'Masz już konto?',
+	'not_registered_yet' => 'Nie masz konta?',
 	'sign_in' => 'Zaloguj się',
 	'log_out' => 'Wyloguj się',
 	'profile' => 'Profil',
 	'invalid_token' => 'Wystąpił błąd, spróbuj ponownie później.',
 	'close' => 'Zamknij',
 	'back' => 'Powrót',
-	'warning' => 'Warning',
+	'warning' => 'Ostrzeżenie',
 	'date' => 'Data',
 	'search' => 'Szukaj',
 	'edit' => 'Edytuj',
@@ -30,7 +31,7 @@ $language = array(
 	'previous' => 'Wstecz',
 	'confirm_cancel' => 'Czy na pewno chcesz anulować?',
 	'confirm_delete' => 'Usuń',
-	'confirm_deletion' => 'Jesteś pewny że chcesz to usunąć',
+	'confirm_deletion' => 'Potwierdź',
 	'cancel' => 'Anuluj',
 	'delete' => 'Usuń',
 	'none' => 'Brak',
@@ -50,7 +51,7 @@ $language = array(
 	'x_new_messages' => 'Masz {x} nowych wiadomości.', // Don't replace {x}
 	'loading' => 'Ładowanie...',
 	'report' => 'Zgłoś',
-	'page_loaded_in' => 'Strona została załadowan w {x}s', // Don't replace {x}, time unit is seconds
+	'page_loaded_in' => 'Strona została załadowana w {x}s', // Don't replace {x}, time unit is seconds
 	'page_x' => 'Strona {x}',
 	'browse' => 'Szukaj',
 	'bypass' => 'Pomiń',
@@ -74,7 +75,7 @@ $language = array(
 	'contact_message_failed' => 'Nie można wysłać wiadomości. Upewnij się że twoja wiadomość ma od 10 do 5000 znaków długości.',
 	'contact_message_email' => 'Podany adres email jest nieprawidłowy.',
 	'contact_message_sent' => 'Wiadomość została wysłana.',
-	'contact_message_limit' => 'Możesz wysłąćtylko jedną wiadomość na godzinę. Następną wiadomość możesz wysłąć za {x} minut.', // Don't replace {x}
+	'contact_message_limit' => 'Możesz wysłać tylko jedną wiadomość na godzinę. Następną wiadomość możesz wysłać za {x} minut.', // Don't replace {x}
 
 	/*
 	 *  Navbar
@@ -86,7 +87,7 @@ $language = array(
 	/*
 	 *  Homepage
 	 */
-	'social' => 'SocialMedia',
+	'social' => 'Media',
 
 	/*
 	 *  Help dialogues
@@ -122,19 +123,21 @@ $language = array(
     /*
      *  Widgets
      */
-		 'statistics' => 'Statystyki',
-		 'users_registered' => 'Zarejestrowani użytkownicy',
-		 'latest_member' => 'Ostatni użytkownik',
-		 'forum_statistics' => 'Statystyki forum',
-		 'total_threads' => 'Wszystkie tematy',
-		 'total_posts' => 'Wszystkie posty',
-    'online_staff' => '<h2>Administracja online</h2>',
-    'no_online_staff' => 'Aktualnie żadna osoba z administracji nie jest online.',
-		'total_online_staff' => 'Cała administracja online: {x}',
-    'online_users' => '<h2>Użytkownicy online</h2>',
-    'no_online_users' => 'Aktualnie nie ma żadnych użytkowników online.',
-		'total_online_users' => 'Wszyscy użytkownicy online: {x}',
-		'discord_widget_disabled' => 'Ten serwer Discord ma wyłączoną opcję widżetu. Wejdź do sekcji \'Widget\' w ustawieniach serwera Discord, upewnij się że opcja \'Włącz widżet serwera\' jest włączona, i że podałeś w ustawieniach poprawne ID serwera Discord.',
+	'statistics' => 'Statystyki',
+	'users_registered' => 'Zarejestrowani użytkownicy',
+	'latest_member' => 'Ostatni użytkownik',
+	'forum_statistics' => 'Statystyki forum',
+	'total_threads' => 'Wszystkie tematy',
+	'total_posts' => 'Wszystkie posty',
+	'online_staff' => 'Administracja online',
+	'no_online_staff' => 'Aktualnie żadna osoba z administracji nie jest online.',
+	'total_online_staff' => 'Łączna administracja online: {x}',
+	'online_users' => 'Użytkownicy online',
+	'no_online_users' => 'Aktualnie nie ma żadnych użytkowników online.',
+	'total_online_users' => 'Łączni użytkownicy online: {x}',
+	'discord_widget_disabled' => 'Ten serwer Discord ma wyłączoną opcję widżetu. Wejdź do sekcji \'Widget\' w ustawieniach serwera Discord, upewnij się że opcja \'Włącz widżet serwera\' jest włączona, i że podałeś w ustawieniach poprawne ID serwera Discord.',
+	'online_guests' => 'Goście Online',
+	'total_online' => 'Łącznie Online', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy
@@ -144,5 +147,5 @@ $language = array(
 	/*
 	 *  Custom page redirect
 	 */
-	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+	'redirecting_message' => 'Przekierowywanie...<br />Jeżeli nie przenieśliśmy cię automatycznie kliknij <a href="{x}" rel="nofollow noopener">tutaj</a>.' // Don't replace {x} which is the redirect URL
 );
