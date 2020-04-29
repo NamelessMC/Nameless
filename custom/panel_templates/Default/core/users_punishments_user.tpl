@@ -120,7 +120,7 @@
                                             {$punishment.reason}
                                             {if $punishment.revoked == 0 && $punishment.revoke_link != 'none'}
                                                 <hr />
-                                                <button class="btn btn-warning" onclick="showRevokeModal('{$punishment.revoke_link}', '{$punishment.confirm_revoke_punishment}')">{$REVOKE}</button>
+                                                <button class="btn btn-warning" onclick="showRevokeModal('{$punishment.revoke_link}', '{$punishment.confirm_revoke_punishment|replace:"'":"\'"}')">{$REVOKE}</button>
                                             {/if}
                                         </div>
                                     </div>
