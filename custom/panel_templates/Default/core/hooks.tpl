@@ -9,13 +9,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">{$SOCIAL_MEDIA}</h1>
+                        <h1 class="m-0 text-dark">{$HOOKS}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
                             <li class="breadcrumb-item active">{$CONFIGURATION}</li>
-                            <li class="breadcrumb-item active">{$SOCIAL_MEDIA}</li>
+                            <li class="breadcrumb-item active">{$HOOKS}</li>
                         </ol>
                     </div>
                 </div>
@@ -45,7 +45,11 @@
 
                     <div class="card">
                         <div class="card-body">
-                            {if isset($SUCCESS)}
+							<p style="display:inline;">{$HOOKS_INFO}</p>
+							<span class="float-md-right"><a href="{$NEW_HOOK_LINK}" class="btn btn-primary">{$NEW_HOOK}</a></span>
+							<hr />
+							
+							{if isset($SUCCESS)}
                                 <div class="alert alert-success alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -69,47 +73,21 @@
                                 </div>
                             {/if}
 
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label for="InputYoutube">{$YOUTUBE_URL}</label>
-                                    <input type="text" name="youtubeurl" class="form-control" id="InputYoutube"
-                                           placeholder="{$YOUTUBE_URL}"
-                                           value="{$YOUTUBE_URL_VALUE}">
+                            {foreach from=$HOOKS_LIST item=hook name=hook_list}
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <a href="{$hook.edit_link}">{$hook.url}</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="float-md-right">
+                                            <a href="{$hook.edit_link}" class="btn btn-warning btn-sm"><i class="fas fa-edit fa-fw"></i></a>
+											<button class="btn btn-danger btn-sm" type="button" onclick="showDeleteModal('{$hook.delete_link}')"><i class="fas fa-trash fa-fw"></i></button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="InputTwitter">{$TWITTER_URL}</label>
-                                    <input type="text" name="twitterurl" class="form-control" id="InputTwitter"
-                                           placeholder="{$TWITTER_URL}"
-                                           value="{$TWITTER_URL_VALUE}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputTwitterStyle">{$TWITTER_STYLE}</label>
-                                    <input id="InputTwitterStyle" name="twitter_dark_theme" type="checkbox"
-                                           class="js-switch"
-                                           value="1"{if $TWITTER_STYLE_VALUE eq 'dark'} checked{/if} />
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputDiscord">{$DISCORD_SERVER_ID}</label>
-                                    <input type="text" name="discordid" class="form-control" id="InputDiscord"
-                                           placeholder="{$DISCORD_SERVER_ID}"
-                                           value="{$DISCORD_SERVER_ID_VALUE}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputGPlus">{$GOOGLE_PLUS_URL}</label>
-                                    <input type="text" name="gplusurl" class="form-control" id="InputGPlus"
-                                           placeholder="{$GOOGLE_PLUS_URL}"
-                                           value="{$GOOGLE_PLUS_URL_VALUE}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputFacebook">{$FACEBOOK_URL}</label>
-                                    <input type="text" name="fburl" class="form-control" id="InputFacebook"
-                                           placeholder="{$FACEBOOK_URL}"
-                                           value="{$FACEBOOK_URL_VALUE}">
-                                </div>
-                                <input type="hidden" name="token" value="{$TOKEN}">
-                                <input type="submit" class="btn btn-primary"
-                                       value="{$SUBMIT}">
-                            </form>
+
+                                {if not $smarty.foreach.hook_list.last}<hr />{/if}
+                            {/foreach}
 
                         </div>
                     </div>
@@ -120,6 +98,26 @@
                 </div>
         </section>
     </div>
+	
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {$CONFIRM_DELETE_HOOK}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                    <a href="#" id="deleteLink" class="btn btn-primary">{$YES}</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {include file='footer.tpl'}
 
@@ -127,6 +125,13 @@
 <!-- ./wrapper -->
 
 {include file='scripts.tpl'}
+
+<script type="text/javascript">
+    function showDeleteModal(id){
+        $('#deleteLink').attr('href', id);
+        $('#deleteModal').modal().show();
+    }
+</script>
 
 </body>
 </html>

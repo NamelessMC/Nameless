@@ -78,6 +78,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
 		$pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
 		$pages->add('Core', '/panel/core/metadata', 'pages/panel/metadata.php');
+		$pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
 		$pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
 		$pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
 		$pages->add('Core', '/panel/minecraft/account_verification', 'pages/panel/minecraft_account_verification.php');
@@ -230,17 +231,35 @@ class Core_Module extends Module {
 
 		// Discord hook
 		require_once(ROOT_PATH . '/modules/Core/hooks/DiscordHook.php');
-		$cache->setCache('discord_hook');
-		if($cache->isCached('events')){
-			$events = $cache->retrieve('events');
-			if(is_array($events) && count($events)){
-				foreach($events as $event){
-					HookHandler::registerHook($event, 'DiscordHook::execute');
+		
+		// Webhooks
+		$cache->setCache('hooks');
+		if($cache->isCached('hooks')){
+			$hook_array = $cache->retrieve('hooks');
+		} else {
+			$hook_array = array();
+			$hooks = $queries->getWhere('hooks', array('id', '<>', 0));
+			if(count($hooks)) {
+				foreach($hooks as $hook) {
+					switch($hook->action) {
+						case 2:
+							$action = 'DiscordHook::execute';
+						break;
+						default:
+							continue;
+						break;
+					}
+					
+					$hook_array[] = array(
+						'url' => Output::getClean($hook->url),
+						'action' => $action,
+						'events' => json_decode($hook->events, true)
+					);
 				}
+				$cache->store('hooks', $hook_array);
 			}
 		}
-		if($cache->isCached('url'))
-			DiscordHook::setURL($cache->retrieve('url'));
+		HookHandler::registerHooks($hook_array);
 	}
 
 	public function onInstall(){
@@ -278,6 +297,7 @@ class Core_Module extends Module {
 			'admincp.core.registration' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'registration'),
 			'admincp.core.social_media' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'social_media'),
 			'admincp.core.terms' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'privacy_and_terms'),
+			'admincp.core.hooks' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'hooks'),
 			'admincp.integrations' => $language->get('admin', 'integrations'),
 			'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
 			'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),

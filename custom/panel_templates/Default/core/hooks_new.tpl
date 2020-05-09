@@ -9,13 +9,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">{$SOCIAL_MEDIA}</h1>
+                        <h1 class="m-0 text-dark">{$HOOKS}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
                             <li class="breadcrumb-item active">{$CONFIGURATION}</li>
-                            <li class="breadcrumb-item active">{$SOCIAL_MEDIA}</li>
+                            <li class="breadcrumb-item active">{$HOOKS}</li>
                         </ol>
                     </div>
                 </div>
@@ -45,6 +45,12 @@
 
                     <div class="card">
                         <div class="card-body">
+                          <h5 style="display:inline">{$CREATING_NEW_HOOK}</h5>
+                          <div class="float-md-right">
+							<a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
+                          </div>
+						  <hr>
+						
                             {if isset($SUCCESS)}
                                 <div class="alert alert-success alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -69,47 +75,29 @@
                                 </div>
                             {/if}
 
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label for="InputYoutube">{$YOUTUBE_URL}</label>
-                                    <input type="text" name="youtubeurl" class="form-control" id="InputYoutube"
-                                           placeholder="{$YOUTUBE_URL}"
-                                           value="{$YOUTUBE_URL_VALUE}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputTwitter">{$TWITTER_URL}</label>
-                                    <input type="text" name="twitterurl" class="form-control" id="InputTwitter"
-                                           placeholder="{$TWITTER_URL}"
-                                           value="{$TWITTER_URL_VALUE}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputTwitterStyle">{$TWITTER_STYLE}</label>
-                                    <input id="InputTwitterStyle" name="twitter_dark_theme" type="checkbox"
-                                           class="js-switch"
-                                           value="1"{if $TWITTER_STYLE_VALUE eq 'dark'} checked{/if} />
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputDiscord">{$DISCORD_SERVER_ID}</label>
-                                    <input type="text" name="discordid" class="form-control" id="InputDiscord"
-                                           placeholder="{$DISCORD_SERVER_ID}"
-                                           value="{$DISCORD_SERVER_ID_VALUE}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputGPlus">{$GOOGLE_PLUS_URL}</label>
-                                    <input type="text" name="gplusurl" class="form-control" id="InputGPlus"
-                                           placeholder="{$GOOGLE_PLUS_URL}"
-                                           value="{$GOOGLE_PLUS_URL_VALUE}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputFacebook">{$FACEBOOK_URL}</label>
-                                    <input type="text" name="fburl" class="form-control" id="InputFacebook"
-                                           placeholder="{$FACEBOOK_URL}"
-                                           value="{$FACEBOOK_URL_VALUE}">
-                                </div>
-                                <input type="hidden" name="token" value="{$TOKEN}">
-                                <input type="submit" class="btn btn-primary"
-                                       value="{$SUBMIT}">
-                            </form>
+                            <form role="form" action="" method="post">
+							  <div class="form-group">
+								<label for="InputURL">{$HOOK_URL}</label>
+								<input type="text" name="hook_url" class="form-control" id="InputURL" placeholder="https://example.com/examplelistener">
+							  </div>
+							  <div class="form-group">
+							  <label for="link_location">{$HOOK_TYPE}</label>
+							    <select class="form-control" id="hook_type" name="hook_type">
+								  <option value="2">Discord</option>
+							    </select>
+							  </div>
+							  <label for="InputName">{$HOOK_EVENTS}</label>
+							  {foreach from=$ALL_HOOKS key=key item=item}
+							  <div class="form-group">
+								<input type="checkbox" name="events[{$key|escape}]" class="js-switch" value="1"> {$item|escape}
+								</br>
+							  </div>
+							  {/foreach}
+							  <div class="form-group">
+								<input type="hidden" name="token" value="{$TOKEN}">
+								<input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+							  </div>
+							</form>
 
                         </div>
                     </div>
