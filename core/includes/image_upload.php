@@ -13,6 +13,10 @@
 $page = 'image_uploads';
 define('ROOT_PATH', '../..');
 
+// Get the directory the user is trying to access
+$directory = $_SERVER['REQUEST_URI'];
+$directories = explode('/', $directory);
+
 require(ROOT_PATH . '/core/init.php');
 
 // Require Bulletproof

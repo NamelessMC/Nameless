@@ -19,6 +19,7 @@ $language = array(
 	'submit' => '送信',
 	'register' => '登録',
 	'already_registered' => 'Already Registered?',
+	'not_registered_yet' => 'Not registered yet?',
 	'sign_in' => 'ログイン',
 	'log_out' => 'ログアウト',
 	'profile' => 'プロフィール',
@@ -134,11 +135,13 @@ $language = array(
     'total_posts' => 'Total Posts',
     'online_staff' => 'オンラインスタッフ',
     'no_online_staff' => 'オンラインのスタッフはいません。',
-	'total_online_staff' => 'Total online staff: {x}',
+    'total_online_staff' => 'Total online staff: {x}',
     'online_users' => 'オンラインユーザー',
     'no_online_users' => 'オンラインのユーザーはいません。',
-	'total_online_users' => 'Total online users: {x}',
+    'total_online_users' => 'Total online users: {x}',
     'discord_widget_disabled' => 'Discordウィジェットは、指定されたDiscordサーバーでは無効になっています。 Discordサーバー設定のウィジェットタブに移動し、Discordウィジェットが有効で、IDが正しいことを確認してください。',
+    'online_guests' => 'Online Guests',
+    'total_online' => 'Total Online', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy

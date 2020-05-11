@@ -259,16 +259,63 @@ if($page != 'install'){
     }
 
     // Template
-    $cache->setCache('templatecache');
-    $template = $cache->retrieve('default');
+	if(!$user->isLoggedIn() || !($user->data()->theme_id)){
+		// Default template for guests
+		$cache->setCache('templatecache');
+		$template = $cache->retrieve('default');
 
-    if(!$template){
-        define('TEMPLATE', 'Default');
-    } else {
-        define('TEMPLATE', $template);
-    }
+		if(!$template){
+			define('TEMPLATE', 'Default');
+		} else {
+			define('TEMPLATE', $template);
+		}
+	} else {
+		// User selected template
+		$template = $queries->getWhere('templates', array('id', '=', $user->data()->theme_id));
+		if(!count($template)){
+			// Get default template
+			$cache->setCache('templatecache');
+			$template = $cache->retrieve('default');
+
+			if(!$template){
+				define('TEMPLATE', 'Default');
+			} else {
+				define('TEMPLATE', $template);
+			}
+		} else {
+			// Check permissions
+			$template = $template[0];
+			$hasPermission = false;
+
+			if($template->enabled){
+				$user_templates = $user->getUserTemplates();
+
+				foreach($user_templates as $user_template){
+					if($user_template->id === $template->id){
+						$hasPermission = true;
+						define('TEMPLATE', $template->name);
+						break;
+					}
+				}
+			}
+
+			if(!$hasPermission){
+				// Get default template
+				$cache->setCache('templatecache');
+				$template = $cache->retrieve('default');
+
+				if(!$template){
+					define('TEMPLATE', 'Default');
+				} else {
+					define('TEMPLATE', $template);
+				}
+			}
+
+		}
+	}
 
 	// Panel template
+	$cache->setCache('templatecache');
 	$template = $cache->retrieve('panel_default');
 
 	if(!$template){
@@ -427,6 +474,9 @@ if($page != 'install'){
             require(ROOT_PATH . '/modules/' . $module['name'] . '/init.php');
     }
 
+    // Get IP
+	$ip = $user->getIP();
+
     // Perform tasks if the user is logged in
     if($user->isLoggedIn()){
         // Ensure a user is not banned
@@ -438,7 +488,6 @@ if($page != 'install'){
         }
 
         // Update a user's IP
-        $ip = $user->getIP();
         if(filter_var($ip, FILTER_VALIDATE_IP)){
             $user->update(array(
                 'lastip' => $ip
@@ -518,6 +567,21 @@ if($page != 'install'){
 	        ));
         }
 
+    } else {
+    	// Perform tasks for guests
+	    if(!$_SESSION['checked'] || $_SESSION['checked'] <= strtotime('-5 minutes')){
+		    $already_online = $queries->getWhere('online_guests', array('ip', '=', $ip));
+
+		    $date = date('U');
+
+		    if(count($already_online)){
+			    $queries->update('online_guests', $already_online[0]->id, array('last_seen' => $date));
+		    } else{
+			    $queries->create('online_guests', array('ip' => $ip, 'last_seen' => $date));
+		    }
+
+		    $_SESSION['checked'] = $date;
+	    }
     }
 
     // Auto unset signin tfa variables if set

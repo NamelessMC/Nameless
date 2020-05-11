@@ -6,27 +6,36 @@
     <!-- Global CSS -->
     <link rel="stylesheet" href="core/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="core/assets/css/custom.css">
-    <link rel="stylesheet" href="core/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.13.0/css/pro.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin">
 
     <style>
         html {
+            overflow-x: hidden;
             overflow-y: scroll;
         }
     </style>
 </head>
 
-<body style="background-color:#eceeef;">
-    <div style="text-align:center">
-        <br /><br /><br />
-        <h1>NamelessMC v2 <sup><span style="font-size: small;"><?php echo $language['pre-release']; ?></span></sup></h1>
+<body class="installer">
+	<div class="container">
+        <br />
+        <div class="installer header">
+        	<div class="i">
+        		<img src="core/assets/img/namelessmc_logo.png" class="installer_logo" />
+        	</div><div class="i mid">
+        		<h3>NamelessMC Installer</h3>
+        		<small>v2.0.0-pr7</small>
+        	</div><div class="i">
+        	</div>
+       	</div>
 
-        <hr />
+    	<div class="content">
 
         <?php
         if(!isset($_GET['do']) && !isset($_GET['step'])){
             ?>
             <p><?php echo $language['installer_welcome']; ?></p>
-
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <div class="alert alert-danger">
@@ -38,14 +47,13 @@
             <p><?php echo $language['installer_information']; ?></p>
 
             <p><?php echo $language['new_installation_question']; ?></p>
-
-            <a href="?do=install" class="btn btn-primary btn-lg">
-                <?php echo $language['new_installation']; ?>
-            </a>
-
-            <a href="?do=upgrade" class="btn btn-warning btn-lg">
-                <?php echo $language['upgrading_from_v1']; ?>
-            </a>
+            <div class="btn btn-group">
+            	<a href="?do=install" class="btn btn-primary">
+                	<?php echo $language['new_installation']; ?>
+            	</a><a href="?do=upgrade" class="btn btn-default">
+                	<?php echo $language['upgrading_from_v1']; ?>
+            	</a>
+            </div>
 
             <?php
         } else {
@@ -69,80 +77,127 @@
 
             ?>
             <h4><?php echo $language['requirements']; ?></h4>
-
+            <div class="step_back"><a href="install.php"><i class="fad fa-arrow-left"></i></a></div>
+            <div class="req_table">
             <?php
             if(version_compare(phpversion(), '5.4', '<')){
-                echo 'PHP > 5.4 - ' . $error;
+            ?>
+            	<div class="req_item">PHP 5.4+</div><div class="req_res"><?php echo $error; ?></div>
+            <?php
                 $php_error = true;
             } else {
-                echo 'PHP > 5.4 - ' . $success;
+            ?>
+            	<div class="req_item">PHP 5.4+</div><div class="req_res"><?php echo $success; ?></div>
+            <?php
             }
 
             if(!extension_loaded('gd')){
-                echo 'PHP GD Extension - ' . $error;
+            ?>
+            	<div class="req_item">PHP GD</div><div class="req_res"><?php echo $error; ?></div>
+            <?php
                 $php_error = true;
             } else {
-                echo 'PHP GD Extension - ' . $success;
+            ?>
+            	<div class="req_item">PHP GD</div><div class="req_res"><?php echo $success; ?></div>
+            <?php
             }
 	        if(!extension_loaded('mbstring')){
-		        echo 'PHP mbstring Extension - ' . $error;
+            ?>
+            	<div class="req_item">PHP MBString</div><div class="req_res"><?php echo $error; ?></div>
+            <?php
 		        $php_error = true;
 	        } else {
-		        echo 'PHP mbstring Extension - ' . $success;
+            ?>
+            	<div class="req_item">PHP MBString</div><div class="req_res"><?php echo $success; ?></div>
+            <?php
 	        }
             if(!extension_loaded('PDO')){
-                echo 'PHP PDO Extension - ' . $error;
+            ?>
+            	<div class="req_item">PHP PDO</div><div class="req_res"><?php echo $error; ?></div>
+            <?php
                 $php_error = true;
             } else {
-                echo 'PHP PDO Extension - ' . $success;
+            ?>
+            	<div class="req_item">PHP PDO</div><div class="req_res"><?php echo $success; ?></div>
+            <?php
             }
             if(!function_exists('curl_version')){
-                echo 'PHP cURL Extension - ' . $error;
+            ?>
+            	<div class="req_item">PHP cURL</div><div class="req_res"><?php echo $error; ?></div>
+            <?php
                 $php_error = true;
             } else {
-                echo 'PHP cURL Extension - ' . $success;
+            ?>
+            	<div class="req_item">PHP cURL</div><div class="req_res"><?php echo $success; ?></div>
+            <?php
             }
             if(!extension_loaded('xml')){
-                echo 'PHP XML Extension - ' . $error;
+            ?>
+            	<div class="req_item">PHP XML</div><div class="req_res"><?php echo $error; ?></div>
+            <?php
                 $php_error = true;
             } else {
-                echo 'PHP XML Extension - ' . $success;
+            ?>
+            	<div class="req_item">PHP XML</div><div class="req_res"><?php echo $success; ?></div>
+            <?php
             }
             if(!function_exists('exif_imagetype')){
-                echo 'PHP exif_imagetype Function - ' . $error;
+            ?>
+            	<div class="req_item">PHP exif_imagetype</div><div class="req_res"><?php echo $error; ?></div>
+            <?php
                 $php_error = true;
             } else {
-                echo 'PHP exif_imagetype Function - ' . $success;
+            ?>
+            	<div class="req_item">PHP exif_imagetype</div><div class="req_res"><?php echo $success; ?></div>
+            <?php
             }
             if(!extension_loaded('mysql') && !extension_loaded('mysqlnd')){
-                echo 'PHP MySQL Extension - ' . $error;
+            ?>
+            	<div class="req_item">PHP MySQL</div><div class="req_res"><?php echo $error; ?></div>
+            <?php
                 $php_error = true;
             } else {
-                echo 'PHP MySQL Extension - ' . $success;
+            ?>
+            	<div class="req_item">PHP MySQL</div><div class="req_res"><?php echo $success; ?></div>
+            <?php
             }
 
             // Permissions
             if(is_writable('core/config.php')){
-                echo $language['config_writable'] . ' - ' . $success;
+            ?>
+            	<div class="req_item">core/config Writable</div><div class="req_res"><?php echo $success; ?></div>
+            <?php
             } else {
-                echo $language['config_writable'] . ' - ' . $error;
+            ?>
+            	<div class="req_item">core/config Writable</div><div class="req_res"><?php echo $error; ?></div>
+            <?php
                 $php_error = true;
             }
 
             if(is_writable('cache')){
-                echo $language['cache_writable'] . ' - ' . $success;
+            ?>
+            	<div class="req_item">Cache Writable</div><div class="req_res"><?php echo $success; ?></div>
+            <?php
             } else {
-                echo $language['cache_writable'] . ' - ' . $error;
+            ?>
+            	<div class="req_item">Cache Writable</div><div class="req_res"><?php echo $error; ?></div>
+            <?php
                 $php_error = true;
             }
 
             if(is_writable('cache/templates_c')){
-                echo $language['template_cache_writable'] . ' - ' . $success;
+            ?>
+            	<div class="req_item">Template Cache Writable</div><div class="req_res"><?php echo $success; ?></div>
+            <?php
             } else {
-                echo $language['template_cache_writable'] . ' - ' . $error;
+            ?>
+            	<div class="req_item">Template Cache Writable</div><div class="req_res"><?php echo $error; ?></div>
+            <?php
                 $php_error = true;
             }
-
+            ?>
+        	</div>
+            <?php
             if(isset($php_error)){
                 ?>
                 <br />
@@ -158,7 +213,7 @@
                 echo '<br />';
                 if(isset($exif_error))
                   echo '<div class="alert alert-warning" style="display: inline-block;">' . $language['exif_imagetype_banners_disabled'] . '</div><br /><br />';
-                echo '<a class="btn btn-primary btn-lg" href="?step=database">' . $language['proceed'] . ' &raquo;</a>';
+                echo '<a class="btn btn-primary" href="?step=database">' . $language['proceed'] . ' &raquo;</a>';
             }
             break;
 
@@ -244,11 +299,11 @@
 									');' . PHP_EOL;
 									
 
-						if(is_writable('core/config.php')){
+						if(is_writable('core/config.php')) {
 							$file = fopen('core/config.php','w');
 							fwrite($file, $insert);
 							fclose($file);
-						} else {
+						}else{
 							die('Config not writable');
 						}
 
@@ -268,78 +323,90 @@
             }
         }
         ?>
-    </div>
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+
+    	<div class="step_back"><a href="install.php?step=requirements"><i class="fad fa-arrow-left"></i></a></div>
+        <div class="col-md-4 offset-md-4">
             <h3><?php echo $language['database_configuration']; ?></h3>
 
             <?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
-            <form action="" method="post">
-                <div class="form-group">
-                    <label for="inputDBAddress"><?php echo $language['database_address']; ?></label>
-                    <input type="text" class="form-control" name="db_address" id="inputDBAddress" value="127.0.0.1" placeholder="<?php echo $language['database_address']; ?>">
+            <form class="install" action="" method="post">
+            	<label for="inputDBAddress"><?php echo $language['database_address']; ?></label>
+                <div class="input-group">
+                	<span class="input-group-addon"><i class="fad fa-database"></i></span>
+                    <input type="text" class="form-control" name="db_address" id="inputDBAddress" placeholder="<?php echo $language['database_address']; ?>">
                 </div>
 
-                <div class="form-group">
-                    <label for="inputDBPort"><?php echo $language['database_port']; ?></label>
+                <label for="inputDBPort"><?php echo $language['database_port']; ?></label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-ellipsis-h"></i></span>
                     <input type="text" class="form-control" name="db_port" id="inputDBPort" placeholder="<?php echo $language['database_port']; ?>" value="3306">
                 </div>
 
-                <div class="form-group">
-                    <label for="inputDBUsername"><?php echo $language['database_username']; ?></label>
+                <label for="inputDBUsername"><?php echo $language['database_username']; ?></label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-user"></i></span>
                     <input type="text" class="form-control" name="db_username" id="inputDBUsername" placeholder="<?php echo $language['database_username']; ?>">
                 </div>
 
-                <div class="form-group">
-                    <label for="inputDBPassword"><?php echo $language['database_password']; ?></label>
+                <label for="inputDBPassword"><?php echo $language['database_password']; ?></label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-key"></i></span>
                     <input type="password" class="form-control" name="db_password" id="inputDBPassword" placeholder="<?php echo $language['database_password']; ?>">
                 </div>
 
-                <div class="form-group">
-                    <label for="inputDBName"><?php echo $language['database_name']; ?></label>
+                <label for="inputDBName"><?php echo $language['database_name']; ?></label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-stream"></i></span>
                     <input type="text" class="form-control" name="db_name" id="inputDBName" placeholder="<?php echo $language['database_name']; ?>">
                 </div>
 
-                <div class="form-group">
-                    <label for="inputHostname"><?php echo $language['host']; ?></label> <span class="badge badge-info" data-toggle="popover" data-placement="top" data-content="<?php echo $language['host_help']; ?>"><i class="fa fa-question"></i></span>
+                <label for="inputHostname"><?php echo $language['host']; ?></label> <span class="badge badge-info" data-toggle="popover" data-placement="top" data-content="<?php echo $language['host_help']; ?>"><i class="fa fa-question"></i></span>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-globe"></i></span>
                     <input type="text" class="form-control" name="hostname" id="inputHostname" value="<?php echo Output::getClean($_SERVER['SERVER_NAME']); ?>" placeholder="<?php echo $language['host']; ?>">
                 </div>
 
-                <div class="form-group">
-                    <label for="inputPath"><?php echo $language['nameless_path']; ?></label> <span class="badge badge-info" data-toggle="popover" data-placement="top" data-content="<?php echo $language['nameless_path_info']; ?>"><i class="fa fa-question"></i></span>
+                <label for="inputPath"><?php echo $language['nameless_path']; ?></label> <span class="badge badge-info" data-toggle="popover" data-placement="top" data-content="<?php echo $language['nameless_path_info']; ?>"><i class="fa fa-question"></i></span>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-folders"></i></span>
                     <input type="text" class="form-control" name="install_path" id="inputPath" value="<?php echo Output::getClean($install_path); ?>" placeholder="<?php echo $language['nameless_path']; ?>">
                 </div>
                 
-                <div class="form-group">
-                    <label for="inputFriendly"><?php echo $language['friendly_urls']; ?></label> <span class="badge badge-info" data-toggle="popover" data-placement="top" data-content="<?php echo $language['friendly_urls_info']; ?>"><i class="fa fa-question"></i></span>
+                <label for="inputFriendly"><?php echo $language['friendly_urls']; ?></label> <span class="badge badge-info" data-toggle="popover" data-placement="top" data-content="<?php echo $language['friendly_urls_info']; ?>"><i class="fa fa-question"></i></span>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-slash"></i></span>
 				    <select class="form-control" name="friendly" id="inputFriendly">
 					    <option value="true"><?php echo $language['enabled']; ?></option>
 					    <option value="false" selected><?php echo $language['disabled']; ?></option>
 					</select>
                 </div>
 
-				<div class="form-group">
-				    <label for="inputCharset"><?php echo $language['character_set']; ?></label>
+                <label for="inputCharset"><?php echo $language['character_set']; ?></label>
+				<div class="input-group">
+				    <span class="input-group-addon"><i class="fad fa-text"></i></span>
 				    <select class="form-control" name="charset" id="inputCharset">
 					    <option value="latin1">latin1</option>
 					    <option value="utf8mb4" selected>Unicode</option>
 					</select>
 				</div>
 				
-				<div class="form-group">
-				    <label for="inputEngine"><?php echo $language['database_engine']; ?></label>
+				<label for="inputEngine"><?php echo $language['database_engine']; ?></label>
+				<div class="input-group">
+				    <span class="input-group-addon"><i class="fad fa-scrubber"></i></span>
 				    <select class="form-control" name="engine" id="inputEngine">
 					    <option value="InnoDB" selected>InnoDB</option>
 						<option value="MyISAM">MyISAM</option>
 					</select>
 				</div>
 
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="<?php echo $language['submit']; ?>">
+                <div class="input-form">
+                    <input type="submit" class="btn btn-primary db-install" value="<?php echo $language['submit']; ?>">
                 </div>
             </form>
         </div>
     </div>
+</div>
     <div style="text-align:center">
         <?php
         break;
@@ -430,37 +497,39 @@
         }
 
         ?>
-    </div>
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <form action="" method="post">
+            <form class="install" action="" method="post">
                 <h3><?php echo $language['configuration']; ?></h3>
                 <p><?php echo $language['configuration_info']; ?></p>
 
                 <?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
 
-                <div class="form-group">
-                    <label for="inputSitename"><?php echo $language['site_name']; ?></label>
+                <label for="inputSitename"><?php echo $language['site_name']; ?></label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-book"></i></span>
                     <input type="text" class="form-control" name="sitename" id="inputSitename" placeholder="<?php echo $language['site_name']; ?>">
                 </div>
 
-                <div class="form-group">
-                    <label for="inputContactEmail"><?php echo $language['contact_email']; ?></label>
+                <label for="inputContactEmail"><?php echo $language['contact_email']; ?></label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-at"></i></span>
                     <input type="email" class="form-control" name="incoming" id="inputContactEmail" placeholder="<?php echo $language['contact_email']; ?>">
                 </div>
 
-                <div class="form-group">
-                    <label for="inputOutgoingEmail"><?php echo $language['outgoing_email']; ?></label>
+                <label for="inputOutgoingEmail"><?php echo $language['outgoing_email']; ?></label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-at"></i></span>
                     <input type="email" class="form-control" name="outgoing" id="inputOutgoingEmail" placeholder="<?php echo $language['outgoing_email']; ?>">
                 </div>
 
-                <div class="form-group">
+                <div class="input-form">
                     <input type="submit" class="btn btn-primary" value="<?php echo $language['submit']; ?>">
                 </div>
             </form>
         </div>
     </div>
-    <div style="text-align:center">
+    <div style="text-align:center"></div>
         <?php
         break;
 
@@ -550,7 +619,7 @@
                 'group_username_css' => '#ff0000',
                 'mod_cp' => 1,
                 'admin_cp' => 1,
-                'permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1}',
+                'permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1}',
 				'order' => 1,
 				'staff' => 1
             ));
@@ -725,6 +794,16 @@
             ));
 
             $queries->create('settings', array(
+                'name' => 'recaptcha_type',
+                'value' => 'reCaptcha'
+            ));
+
+	        $queries->create('settings', array(
+		        'name' => 'recaptcha_login',
+		        'value' => 'false'
+	        ));
+
+            $queries->create('settings', array(
                 'name' => 'recaptcha_key',
                 'value' => null
             ));
@@ -751,7 +830,7 @@
 
             $queries->create('settings', array(
                 'name' => 'nameless_version',
-                'value' => '2.0.0-pr6'
+                'value' => '2.0.0-pr7'
             ));
 
             $queries->create('settings', array(
@@ -1159,7 +1238,6 @@
             }
         }
         ?>
-    </div>
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <h3><?php echo $language['creating_admin_account']; ?></h3>
@@ -1167,33 +1245,38 @@
             <p><?php echo $language['enter_admin_details']; ?></p>
 
             <?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
-            <form action="" method="post">
-                <div class="form-group">
-                    <label for="inputUsername"><?php echo $language['username']; ?></label>
+            <form class="install" action="" method="post">
+                <label for="inputUsername"><?php echo $language['username']; ?></label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-user"></i></span>
                     <input type="text" class="form-control" name="username" id="inputUsername" placeholder="<?php echo $language['username']; ?>" tabindex="1">
                 </div>
 
-                <div class="form-group">
-                    <label for="inputEmail"><?php echo $language['email_address']; ?></label>
+                <label for="inputEmail"><?php echo $language['email_address']; ?></label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-at"></i></span>
                     <input type="email" class="form-control" name="email" id="inputEmail" placeholder="<?php echo $language['email_address']; ?>" tabindex="2">
                 </div>
 
-                <div class="form-group">
-                    <label for="inputPassword"><?php echo $language['password']; ?></label>
+                <label for="inputPassword"><?php echo $language['password']; ?></label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-key"></i></span>
                     <input type="password" class="form-control" name="password" id="inputPassword" placeholder="<?php echo $language['password']; ?>" tabindex="3">
                 </div>
 
-                <div class="form-group">
-                    <label for="inputPasswordAgain"><?php echo $language['confirm_password']; ?></label>
+                <label for="inputPasswordAgain"><?php echo $language['confirm_password']; ?></label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fad fa-key"></i></span>
                     <input type="password" class="form-control" name="password_again" id="inputPasswordAgain" placeholder="<?php echo $language['confirm_password']; ?>" tabindex="4">
                 </div>
 
-                <div class="form-group">
+                <div class="input-form">
                     <input type="submit" value="<?php echo $language['submit']; ?>" class="btn btn-primary">
                 </div>
             </form>
         </div>
     </div>
+</div>
     <div style="text-align:center">
         <?php
         break;
@@ -1251,32 +1334,32 @@
 			<p><?php echo $language['input_v1_details']; ?></p>
             <?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
             <form action="" method="post">
-                <div class="form-group">
+                <div class="input-group">
                     <label for="inputDBAddress"><?php echo $language['database_address']; ?></label>
                     <input type="text" class="form-control" name="db_address" id="inputDBAddress" placeholder="<?php echo $language['database_address']; ?>">
                 </div>
 
-                <div class="form-group">
+                <div class="input-group">
                     <label for="inputDBPort"><?php echo $language['database_port']; ?></label>
                     <input type="text" class="form-control" name="db_port" id="inputDBPort" placeholder="<?php echo $language['database_port']; ?>" value="3306">
                 </div>
 
-                <div class="form-group">
+                <div class="input-group">
                     <label for="inputDBUsername"><?php echo $language['database_username']; ?></label>
                     <input type="text" class="form-control" name="db_username" id="inputDBUsername" placeholder="<?php echo $language['database_username']; ?>">
                 </div>
 
-                <div class="form-group">
+                <div class="input-group">
                     <label for="inputDBPassword"><?php echo $language['database_password']; ?></label>
                     <input type="password" class="form-control" name="db_password" id="inputDBPassword" placeholder="<?php echo $language['database_password']; ?>">
                 </div>
 
-                <div class="form-group">
+                <div class="input-group">
                     <label for="inputDBName"><?php echo $language['database_name']; ?></label>
                     <input type="text" class="form-control" name="db_name" id="inputDBName" placeholder="<?php echo $language['database_name']; ?>">
                 </div>
 
-                <div class="form-group">
+                <div class="input-form">
                     <input type="submit" class="btn btn-primary" value="<?php echo $language['submit']; ?>">
                 </div>
             </form>
@@ -1541,7 +1624,7 @@
 								}
 
 								$queries->update('groups', 1, array('permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1,"usercp.profile_banner":1}'));
-								$queries->update('groups', 2, array('permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1}'));
+								$queries->update('groups', 2, array('permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1}'));
 								$queries->update('groups', 3, array('permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1}'));
 							}
 						} catch(Exception $e){
@@ -2257,16 +2340,26 @@
 							'value' => 1
 						));
 
+						$queries->create('settings', array(
+							'name' => 'recaptcha_login',
+							'value' => 'false'
+						));
+
+						$queries->create('settings', array(
+							'name' => 'recaptcha_type',
+							'value' => 'reCaptcha'
+						));
+
 						$version = $queries->getWhere('settings', array('name', '=', 'version'));
 						if(count($version)){
 							$queries->update('settings', $version[0]->id, array(
 								'name' => 'nameless_version',
-								'value' => '2.0.0-pr6'
+								'value' => '2.0.0-pr7'
 							));
 						} else {
 							$queries->create('settings', array(
 								'name' => 'nameless_version',
-								'value' => '2.0.0-pr6'
+								'value' => '2.0.0-pr7'
 							));
 						}
 
@@ -2545,8 +2638,10 @@
 
                 <h3><?php echo $language['convert']; ?></h3>
                 <p><?php echo $language['convert_message']; ?></p>
-                <a class="btn btn-success btn-lg" href="?step=convert&amp;convert=yes"><?php echo $language['yes']; ?></a>
-                <a class="btn btn-primary btn-lg" href="?step=finish"><?php echo $language['no']; ?></a>
+                <div class="btn btn-group">
+                	<a class="btn btn-default" href="?step=convert&amp;convert=yes"><?php echo $language['yes']; ?></a>
+                	<a class="btn btn-primary" href="?step=finish"><?php echo $language['no']; ?></a>
+                </div>
 
                 <?php
             } else {
@@ -2624,7 +2719,7 @@
 							<div class="col-md-6 offset-md-3">
 								<?php if(isset($error)){ ?><div class="alert alert-danger"><?php echo $error; ?></div><?php } ?>
 								<form action="" method="post">
-									<div class="form-group">
+									<div class="input-group">
 										<label for="inputConverter"><?php echo $language['converter']; ?></label>
 										<select class="form-control" name="converter" id="inputConverter">
 											<?php
@@ -2636,32 +2731,32 @@
 											?>
 										</select>
 									</div>
-									<div class="form-group">
+									<div class="input-group">
 										<label for="inputDBAddress"><?php echo $language['database_address']; ?></label>
 										<input type="text" class="form-control" name="db_address" id="inputDBAddress" value="127.0.0.1" placeholder="<?php echo $language['database_address']; ?>">
 									</div>
 
-									<div class="form-group">
+									<div class="input-group">
 										<label for="inputDBPort"><?php echo $language['database_port']; ?></label>
 										<input type="text" class="form-control" name="db_port" id="inputDBPort" placeholder="<?php echo $language['database_port']; ?>" value="3306">
 									</div>
 
-									<div class="form-group">
+									<div class="input-group">
 										<label for="inputDBUsername"><?php echo $language['database_username']; ?></label>
 										<input type="text" class="form-control" name="db_username" id="inputDBUsername" placeholder="<?php echo $language['database_username']; ?>">
 									</div>
 
-									<div class="form-group">
+									<div class="input-group">
 										<label for="inputDBPassword"><?php echo $language['database_password']; ?></label>
 										<input type="password" class="form-control" name="db_password" id="inputDBPassword" placeholder="<?php echo $language['database_password']; ?>">
 									</div>
 
-									<div class="form-group">
+									<div class="input-group">
 										<label for="inputDBName"><?php echo $language['database_name']; ?></label>
 										<input type="text" class="form-control" name="db_name" id="inputDBName" placeholder="<?php echo $language['database_name']; ?>">
 									</div>
 
-									<div class="form-group">
+									<div class="input-form">
 										<input type="submit" class="btn btn-primary" value="<?php echo $language['submit']; ?>">
 										<a href="./install.php?step=convert" class="btn btn-warning"><?php echo $language['back']; ?></a>
 									</div>
@@ -2697,10 +2792,11 @@
                 <h3><?php echo $language['finish']; ?></h3>
                 <p><?php echo $language['finish_message']; ?></p>
                 <p><?php echo $language['support_message']; ?></p>
-                <p><a href="index.php?route=/panel" class="btn btn-success btn-lg"><?php echo $language['finish']; ?></a></p>
-    			<hr />
-    			<h3><?php echo $language['credits']; ?></h3>
-    			<p><?php echo $language['credits_message']; ?></p>
+                <p><a href="index.php?route=/panel" class="btn btn-primary"><?php echo $language['finish']; ?></a></p>
+    			<div class="credits_box">
+    				<h5><?php echo $language["credits"]; ?></h5>
+    				<p><?php echo $language['credits_message']; ?></p>
+    			</div>
             <?php
             break;
         default:
@@ -2710,31 +2806,37 @@
         }
         }
         ?>
-        <hr />
-
-        <div class="container">
-		  <span class="pull-right">
-            <div class="btn-group dropup">
-              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <i class="fa fa-globe" aria-hidden="true"></i>
-              </button>
-              <div class="dropdown-menu">
-                  <?php
-                  // Display all languages
-                  $languages = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
-                  foreach($languages as $item){
-                      $folders = explode(DIRECTORY_SEPARATOR, $item);
-                  ?>
-                <a class="dropdown-item" href="#" onclick="setLanguage($(this).text())"><?php echo Output::getClean($folders[2]); ?></a>
-                  <?php
-                  }
-                  ?>
-              </div>
-            </div>
-		    <a class="btn btn-primary" href="https://github.com/NamelessMC/Nameless" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
-		  </span>
-        </div>
     </div>
+    </div>
+        <footer class="installer">
+        	<div class="i_3 x">
+        		<a href="https://www.namelessmc.com" target="_blank_"><img src="core/assets/img/namelessmc_logo.png" class="installer_logo_footer" /></a>
+        	</div><div class="i_3 y">
+        		<span>
+        			<a class="git" href="https://github.com/NamelessMC/Nameless" target="_blank"><i class="fab fa-github"></i></a><br><br>
+        			<p class="footerie">Thanks to all <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC contributors</a> since 2014</p>
+        		</span>
+        	</div><div class="i_3">
+            	<div class="dropup">
+              		<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               			<i class="fa fa-globe" aria-hidden="true"></i>
+              		</button>
+              		<div class="dropdown-menu">
+                  	<?php
+                  	// Display all languages
+                  	$languages = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
+                  	foreach($languages as $item){
+                      	$folders = explode(DIRECTORY_SEPARATOR, $item);
+                  	?>
+                	<a class="dropdown-item" href="#" onclick="setLanguage($(this).text())"><?php echo Output::getClean($folders[2]); ?></a>
+                  	<?php
+                  	}
+                  	?>
+                  	</div>
+        		</div>
+            </div>
+        </div>
+    </footer>
 <script src="core/assets/js/jquery.min.js"></script>
 <script src="core/assets/js/tether.min.js"></script>
 <script src="core/assets/js/bootstrap.min.js"></script>

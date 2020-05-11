@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -22,7 +22,7 @@ if($user->isLoggedIn()){
 		die();
 	} else {
 		if(!$user->hasPermission('admincp.core.social_media')){
-			require_once(ROOT_PATH . '/404.php');
+			require_once(ROOT_PATH . '/403.php');
 			die();
 		}
 	}
@@ -108,30 +108,6 @@ if(Input::exists()){
 
 		$cache->store('facebook', Output::getClean(Input::get('fburl')));
 
-		// Discord hook
-		$discord_url_id = $queries->getWhere('settings', array('name', '=', 'discord_url'));
-		$discord_url_id = $discord_url_id[0]->id;
-
-		$queries->update('settings', $discord_url_id, array(
-			'value' => Output::getClean(Input::get('discord_url'))
-		));
-
-		$discord_hooks_id = $queries->getWhere('settings', array('name', '=', 'discord_hooks'));
-		$discord_hooks_id = $discord_hooks_id[0]->id;
-
-		if(isset($_POST['discord_hooks']))
-			$hooks = $_POST['discord_hooks'];
-		else
-			$hooks = array();
-
-		$queries->update('settings', $discord_hooks_id, array(
-			'value' => json_encode($hooks)
-		));
-
-		$cache->setCache('discord_hook');
-		$cache->store('events', $_POST['discord_hooks']);
-		$cache->store('url', $_POST['discord_url']);
-
 		$success = $language->get('admin', 'social_media_settings_updated');
 
 	} else {
@@ -162,9 +138,6 @@ $twitter_style = $queries->getWhere('settings', array('name', '=', 'twitter_styl
 $discord = $queries->getWhere('settings', array('name', '=', 'discord'));
 $gplus_url = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
 $fb_url = $queries->getWhere('settings', array('name', '=', 'fb_url'));
-$discord_url = $queries->getWhere('settings', array('name', '=', 'discord_url'));
-$discord_hooks = $queries->getWhere('settings', array('name', '=', 'discord_hooks'));
-$discord_hooks = json_decode($discord_hooks[0]->value, true);
 
 $smarty->assign(array(
 	'PARENT_PAGE' => PARENT_PAGE,
@@ -186,14 +159,6 @@ $smarty->assign(array(
 	'GOOGLE_PLUS_URL_VALUE' => Output::getClean($gplus_url[0]->value),
 	'FACEBOOK_URL' => $language->get('admin', 'facebook_url'),
 	'FACEBOOK_URL_VALUE' => Output::getClean($fb_url[0]->value),
-	'DISCORD_HOOKS' => $language->get('admin', 'discord_hooks'),
-	'DISCORD_HOOKS_INFO' => $language->get('admin', 'discord_hooks_info'),
-	'INFO' => $language->get('general', 'info'),
-	'DISCORD_HOOK_URL' => $language->get('admin', 'discord_hook_url'),
-	'DISCORD_HOOK_URL_VALUE' => Output::getClean($discord_url[0]->value),
-	'DISCORD_HOOK_EVENTS' => $language->get('admin', 'discord_hook_events'),
-	'DISCORD_ALL_HOOKS' => HookHandler::getHooks(),
-	'DISCORD_ENABLED_HOOKS' => $discord_hooks
 ));
 
 $page_load = microtime(true) - $start;

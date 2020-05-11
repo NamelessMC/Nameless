@@ -125,6 +125,14 @@
                                     <input type="hidden" name="privateProfile" value="0">
                                 {/if}
                                 <div class="form-group">
+                                    <label for="inputTemplate">{$ACTIVE_TEMPLATE}</label>
+                                    <select name="template" class="form-control" id="inputTemplate">
+                                        {foreach from=$TEMPLATES item=template}
+                                            <option value="{$template.id}"{if $template.active eq true} selected{/if}>{$template.name}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="InputSignature">{$SIGNATURE}</label>
                                     <textarea style="width:100%" rows="10" name="signature" id="InputSignature">{$SIGNATURE_VALUE}</textarea>
                                 </div>

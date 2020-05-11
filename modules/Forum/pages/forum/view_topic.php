@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -28,13 +28,13 @@ $tid = explode('/', $route);
 $tid = $tid[count($tid) - 1];
 
 if(!isset($tid[count($tid) - 1])){
-	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	require_once(ROOT_PATH . '/404.php');
 	die();
 }
 
 $tid = explode('-', $tid);
 if(!is_numeric($tid[0])){
-	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	require_once(ROOT_PATH . '/404.php');
 	die();
 }
 $tid = $tid[0];
@@ -50,7 +50,7 @@ if($user->isLoggedIn()){
 
 $list = $forum->topicExist($tid, $group_id, $secondary_groups);
 if(!$list){
-	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	require_once(ROOT_PATH . '/404.php');
 	die();
 }
 
@@ -59,7 +59,13 @@ $topic = $queries->getWhere('topics', array('id', '=', $tid));
 $topic = $topic[0];
 
 if($topic->deleted == 1){
-	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	require_once(ROOT_PATH . '/404.php');
+	die();
+}
+
+$list = $forum->canViewForum($topic->forum_id, $group_id, $secondary_groups);
+if(!$list){
+	require_once(ROOT_PATH . '/403.php');
 	die();
 }
 
@@ -71,7 +77,7 @@ else
 if($topic->topic_creator != $user_id && !$forum->canViewOtherTopics($topic->forum_id, $group_id, $secondary_groups)){
     // Only allow viewing stickied topics
     if($topic->sticky == 0) {
-        Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+	    require_once(ROOT_PATH . '/403.php');
         die();
     }
 }
@@ -114,7 +120,7 @@ if(isset($_GET['pid'])){
 		}
 		
 	} else {
-		Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+		require_once(ROOT_PATH . '/404.php');
 		die();
 	}
 }
@@ -532,7 +538,7 @@ for($n = 0; $n < count($results->data); $n++){
 			$buttons['delete'] = array(
 				'URL' => URL::build('/forum/delete_post/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
 				'TEXT' => $language->get('general', 'delete'),
-				'NUMBER' => $n
+				'NUMBER' => $p . $n
 			);
 			$buttons['spam'] = array(
 				'URL' => URL::build('/forum/spam/'),
@@ -564,9 +570,8 @@ for($n = 0; $n < count($results->data); $n++){
 
 	// Get post reactions
 	$post_reactions = array();
+	$total_karma = 0;
 	if($reactions_enabled){
-		$total_karma = 0;
-
 		$post_reactions_query = $queries->getWhere('forums_reactions', array('post_id', '=', $results->data[$n]->id));
 
 		if(count($post_reactions_query)){

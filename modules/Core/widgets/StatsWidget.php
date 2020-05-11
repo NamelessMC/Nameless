@@ -63,38 +63,53 @@ class StatsWidget extends WidgetBase {
     		), 120);
     		
     	};
+
+	    if(!$this->_cache->isCached('online_users')){
+		    $online_users = DB::getInstance()->query('SELECT count(*) FROM nl2_users WHERE last_online > ?', array(strtotime('-5 minutes')))->first();
+		    $online_users = $online_users->{'count(*)'};
+		    $this->_cache->store('online_users', $online_users, 60);
+	    } else {
+		    $online_users = $this->_cache->retrieve('online_users');
+	    }
+
+	    if(!$this->_cache->isCached('online_guests')){
+	    	try {
+			    $online_guests = DB::getInstance()->query('SELECT count(*) FROM nl2_online_guests WHERE last_seen > ?', array(strtotime('-5 minutes')))->first();
+			    $online_guests = $online_guests->{'count(*)'};
+			    $this->_cache->store('online_guests', $online_guests, 60);
+		    } catch(Exception $e){
+	    		// Upgrade script hasn't been run
+			    $online_guests = 0;
+		    }
+	    } else {
+		    $online_guests = $this->_cache->retrieve('online_guests');
+	    }
     	
         $forum_module = $queries->getWhere('modules', array('name', '=', 'Forum'));
         $forum_module = $forum_module[0];
         
     	if ($forum_module->enabled) {
-    	    $this->_cache->setCache('forum_statistics');
-        
-    	    if($this->_cache->isCached('forum_statistics')){
-    	        
-    	        $forum_statistics = $this->_cache->retrieve('forum_statistics');
-        		$total_threads = $forum_statistics['total_threads'];
-        		$total_posts = $forum_statistics['total_posts'];
-        		
-    	    } else {
-    	        
-        		$threads_query = $queries->orderAll('topics', 'topic_date', 'DESC');
-        		$posts_query = $queries->orderAll('posts', 'post_date', 'DESC');
-        		$total_threads = count($threads_query);
-        		$total_posts = count($posts_query);
-        		$posts_query = null;
-                $threads_query = null;
-                
-                $this->_cache->store('forum_statistics', array(
-        			'total_threads' => $total_threads,
-        			'total_posts' => $total_posts,
-        		), 120);
-        	};
+		    $this->_cache->setCache('forum_stats');
+		    if(!$this->_cache->isCached('total_topics')){
+			    $total_topics = DB::getInstance()->query('SELECT count(*) FROM nl2_topics WHERE deleted = 0')->first();
+			    $total_topics = $total_topics->{'count(*)'};
+			    $this->_cache->store('total_topics', $total_topics, 60);
+		    } else {
+			    $total_topics = $this->_cache->retrieve('total_topics');
+		    }
+
+		    if(!$this->_cache->isCached('total_posts')){
+			    $total_posts = DB::getInstance()->query('SELECT count(*) FROM nl2_posts WHERE deleted = 0')->first();
+			    $total_posts = $total_posts->{'count(*)'};
+			    $this->_cache->store('total_posts', $total_posts, 60);
+		    } else {
+			    $total_posts = $this->_cache->retrieve('total_posts');
+		    }
         	
         	$this->_smarty->assign(array(
         	    'FORUM_STATISTICS' => $this->_language['forum_stats'],
                 'TOTAL_THREADS' =>  $this->_language['total_threads'],
-                'TOTAL_THREADS_VALUE' => $total_threads,
+                'TOTAL_THREADS_VALUE' => $total_topics,
                 'TOTAL_POSTS' =>  $this->_language['total_posts'],
                 'TOTAL_POSTS_VALUE' => $total_posts,
         	));
@@ -106,6 +121,12 @@ class StatsWidget extends WidgetBase {
             'USERS_REGISTERED_VALUE' => $users_registered,
             'LATEST_MEMBER' =>  $this->_language['latest_member'],
             'LATEST_MEMBER_VALUE' => $latest_member,
+	        'USERS_ONLINE' => $this->_language['users_online'],
+	        'USERS_ONLINE_VALUE' => $online_users,
+	        'GUESTS_ONLINE' => $this->_language['guests_online'],
+	        'GUESTS_ONLINE_VALUE' => $online_guests,
+	        'TOTAL_ONLINE' => $this->_language['total_online'],
+	        'TOTAL_ONLINE_VALUE' => $online_guests + $online_users
         ));
         
 	    $this->_content = $this->_smarty->fetch('widgets/statistics.tpl');

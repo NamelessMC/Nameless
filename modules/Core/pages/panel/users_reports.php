@@ -22,7 +22,7 @@ if($user->isLoggedIn()){
 		die();
 	} else {
 		if(!$user->hasPermission('modcp.reports')){
-			require_once(ROOT_PATH . '/404.php');
+			require_once(ROOT_PATH . '/403.php');
 			die();
 		}
 	}

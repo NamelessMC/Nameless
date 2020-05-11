@@ -47,6 +47,7 @@ if(!isset($_GET['step'])){
 	  </center>
     ');
 
+	$template->addJSFiles(array((defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/client.js' => array()));
 	$template->addJSScript('
 	  MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");
 	');

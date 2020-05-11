@@ -42,7 +42,7 @@ if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->s
 		if(Token::check(Input::get('token'))) {
 			if(isset($_POST['tid'])){
 				// Is it the OP?
-				if(isset($_POST['number']) && Input::get('number') == 0){
+				if(isset($_POST['number']) && Input::get('number') == 10){
 					try {
 						$queries->update('topics', Input::get('tid'), array(
 							'deleted' => 1

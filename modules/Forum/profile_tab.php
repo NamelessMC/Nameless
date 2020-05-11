@@ -15,7 +15,7 @@ if(!isset($forum) || (isset($forum) && !$forum instanceof Forum)){
 }
  
 // Get latest posts
-$latest_posts = $queries->orderWhere('posts', 'post_creator = ' . $query->id, 'post_date', 'DESC LIMIT 15');
+$latest_posts = $queries->orderWhere('posts', 'post_creator = ' . $query->id.' AND deleted = 0', 'post_date', 'DESC LIMIT 15');
 if(!count($latest_posts)){
 	$smarty->assign('NO_POSTS', $forum_language->get('forum', 'user_no_posts'));
 } else {
@@ -41,7 +41,7 @@ if(!count($latest_posts)){
 		$forum_permissions = $queries->getWhere('forums_permissions', array('forum_id', '=', $latest_post->forum_id));
 		foreach($forum_permissions as $forum_permission){
 			if($forum_permission->group_id == $group_id || (is_array($secondary_groups) && in_array($forum_permission->group_id, $secondary_groups))){
-				if($forum_permission->view == 1){
+				if($forum_permission->view == 1 && $forum_permission->view_other_topics == 1){
 					$permission = true;
 					break;
 				}

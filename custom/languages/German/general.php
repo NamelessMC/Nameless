@@ -24,6 +24,7 @@ $language = array(
 	'submit' => 'Senden',
 	'register' => 'Registrieren',
 	'already_registered' => 'Already Registered?',
+	'not_registered_yet' => 'Not registered yet?',
 	'sign_in' => 'Einloggen',
 	'log_out' => 'Ausloggen',
 	'profile' => 'Profil',
@@ -139,11 +140,13 @@ $language = array(
     'total_posts' => 'Total Posts',
     'online_staff' => 'Aktivere Teammitglieder',
     'no_online_staff' => 'Derzeit sind keine Teammitglieder online',
-	'total_online_staff' => 'Total online staff: {x}',
+    'total_online_staff' => 'Total online staff: {x}',
     'online_users' => 'Aktive User',
     'no_online_users' => 'Es sind keine User online',
-	'total_online_users' => 'Total online users: {x}',
+    'total_online_users' => 'Total online users: {x}',
     'discord_widget_disabled' => 'Das Widget ist für den angegebenen Discord-Server deaktiviert. Bitte gehen Sie auf die Registerkarte \"Widget\" in Ihren Discord-Server-Einstellungen und stellen Sie sicher, dass das Discord-Widget aktiviert ist und dass die ID korrekt ist.',
+    'online_guests' => 'Online Guests',
+    'total_online' => 'Total Online', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy

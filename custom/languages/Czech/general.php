@@ -16,6 +16,7 @@ $language = array(
 	'submit' => 'Potvrdit',
 	'register' => 'Registrovat se',
 	'already_registered' => 'Již jste se registroval?',
+	'not_registered_yet' => 'Not registered yet?',
 	'sign_in' => 'Přihlásit se',
 	'log_out' => 'Odhlásit se',
 	'profile' => 'Profil',
@@ -130,11 +131,13 @@ $language = array(
     'total_posts' => 'Celkem příspěvků',
     'online_staff' => 'AdminTeam Online',
     'no_online_staff' => 'Momentálně není žádný člen online.',
-	'total_online_staff' => 'Celkem online členů: {x}',
+    'total_online_staff' => 'Celkem online členů: {x}',
     'online_users' => 'Uživatelé Online',
     'no_online_users' => 'Žádný uživatelé nejsou online.',
-	'total_online_users' => 'Celkem online uživatelů: {x}',
+    'total_online_users' => 'Celkem online uživatelů: {x}',
     'discord_widget_disabled' => 'Widget je momentálně mimo provoz, podívejte se do vašeho serverového nastavení, jestli jste Widget polivili.',
+    'online_guests' => 'Online Guests',
+    'total_online' => 'Total Online', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy

@@ -18,6 +18,7 @@ $language = array(
     'submit' => 'Trimite',
     'register' => 'Înregistrează-te ',
     'already_registered' => 'Deja înregistrat?',
+    'not_registered_yet' => 'Not registered yet?',
     'sign_in' => 'Conectează-te',
     'log_out' => 'Deconectează-te',
     'profile' => 'Profil',
@@ -133,11 +134,13 @@ $language = array(
     'total_posts' => 'Postări',
     'online_staff' => 'Staff online',
     'no_online_staff' => 'Nu există membri staff online momentan.',
-	'total_online_staff' => 'Membri staff online: {x}',
+    'total_online_staff' => 'Membri staff online: {x}',
     'online_users' => 'Utilizatori online',
     'no_online_users' => 'Nu există utilizatori online momentan.',
-	'total_online_users' => 'Utilizatori online: {x}',
+    'total_online_users' => 'Utilizatori online: {x}',
     'discord_widget_disabled' => 'Widgetul este dezactivat pentru serverul de Discord specificat. Accesați fila \'Widget\' din setările pentru serverul de Discord și asigurați-vă că widgetul Discord este activat și că ID-ul este corect.',
+    'online_guests' => 'Online Guests',
+    'total_online' => 'Total Online', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy

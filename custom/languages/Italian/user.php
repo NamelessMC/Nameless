@@ -56,6 +56,7 @@ $language = array(
 	'invalid_tfa' => 'Codice non valido, per favore riprovare.',
 	'tfa_successful' => 'Autenticazione a due fattori impostata con successo. È necessario autenticarsi ogni volta che si accede da ora in poi.',
 	'active_language' => 'Lingua attiva',
+	'active_template' => 'Active Template',
     'timezone' => 'Fuso orario',
     'upload_new_avatar' => 'Carica un nuovo avatar',
     'nickname_already_exists' => 'Il tuo username scelto esiste già.',

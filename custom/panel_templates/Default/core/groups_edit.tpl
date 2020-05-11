@@ -100,12 +100,12 @@
                                            placeholder="{$GROUP_HTML}"
                                            value="{$GROUP_HTML_VALUE}">
                                 </div>
-                                <div class="form-group groupColour">
+                                <div class="form-group">
                                     <label for="InputColour">{$GROUP_USERNAME_COLOUR}</label>
                                     <div class="input-group">
                                         <input type="text" name="username_style" class="form-control" id="InputColour"
                                                value="{$GROUP_USERNAME_COLOUR_VALUE}">
-                                        <span class="input-group-append">
+                                        <span class="input-group-append groupColour">
                                             <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                         </span>
                                     </div>
@@ -219,6 +219,14 @@
         $('.groupColour').colorpicker({
             format: 'hex',
             'color': {if $GROUP_USERNAME_COLOUR_VALUE}'{$GROUP_USERNAME_COLOUR_VALUE}'{else}false{/if}
+        });
+
+        $('.groupColour').on('colorpickerChange', function(event) {
+            $('#InputColour').val(event.color.toString());
+        });
+
+        $('#InputColour').change(function() {
+            $('.groupColour').colorpicker('setValue', $(this).val());
         });
     });
 </script>

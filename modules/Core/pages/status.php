@@ -25,7 +25,7 @@ if($cache->isCached('enabled')){
 }
 
 if(!defined('MINECRAFT') || MINECRAFT !== true || $status_enabled != 1){
-	require_once(ROOT_PATH . '/404.php');
+	require_once(ROOT_PATH . '/403.php');
 	die();
 }
 

@@ -3,7 +3,7 @@ class Config {
 	public static function get($path = null) {
 		if($path) {
 			if(!isset($GLOBALS['config'])) {
-				throw new Exception('Config unavailable.');
+				throw new Exception('Config unavailable. Please refresh the page.');
 			}
 
 			$config = $GLOBALS['config'];

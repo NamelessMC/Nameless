@@ -218,23 +218,27 @@ class Forum {
 		$all_topics_forums_string .= ')';
 		$all_topic_forums = null;
 
+		try {
+			if(count($own_topics_forums)){
+				$own_topics_forums_string = '(';
+				foreach($own_topics_forums as $forum)
+					$own_topics_forums_string .= $forum->forum_id . ',';
 
-		if(count($own_topics_forums)){
-			$own_topics_forums_string = '(';
-			foreach($own_topics_forums as $forum)
-				$own_topics_forums_string .= $forum->forum_id . ',';
+				$own_topics_forums_string = rtrim($own_topics_forums_string, ',');
+				$own_topics_forums_string .= ')';
+				$own_topic_forums = null;
 
-			$own_topics_forums_string = rtrim($own_topics_forums_string, ',');
-			$own_topics_forums_string .= ')';
-			$own_topic_forums = null;
-
-			$query = DB::getInstance()->query("(
-	        SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND topics.forum_id IN " . $all_topics_forums_string . " ORDER BY topics.topic_reply_date DESC LIMIT 50
-	        ) UNION (
-	        SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND ((topics.forum_id IN " . $own_topics_forums_string . " AND topics.topic_creator = ?) OR topics.sticky = 1) ORDER BY topics.topic_reply_date DESC LIMIT 50
-	        ) ORDER BY topic_reply_date DESC LIMIT 50", array($user_id), PDO::FETCH_ASSOC)->results();
-		} else {
-			$query = DB::getInstance()->query("SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND topics.forum_id IN " . $all_topics_forums_string . " ORDER BY topics.topic_reply_date DESC LIMIT 50", array(), PDO::FETCH_ASSOC)->results();
+				$query = DB::getInstance()->query("(
+		        SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND topics.forum_id IN " . $all_topics_forums_string . " ORDER BY topics.topic_reply_date DESC LIMIT 50
+		        ) UNION (
+		        SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND ((topics.forum_id IN " . $own_topics_forums_string . " AND topics.topic_creator = ?) OR topics.sticky = 1) ORDER BY topics.topic_reply_date DESC LIMIT 50
+		        ) ORDER BY topic_reply_date DESC LIMIT 50", array($user_id), PDO::FETCH_ASSOC)->results();
+			} else {
+				$query = DB::getInstance()->query("SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND topics.forum_id IN " . $all_topics_forums_string . " ORDER BY topics.topic_reply_date DESC LIMIT 50", array(), PDO::FETCH_ASSOC)->results();
+			}
+		} catch(Exception $e){
+			// Likely no permissions to view any forums
+			$query = [];
 		}
 
 		return $query;
@@ -267,27 +271,30 @@ class Forum {
 		return false;
 	}
 
-	// Returns true/false, depending on whether the specified topic exists and whether the user can view it
+	// Returns true/false, depending on whether the specified topic exists
 	// Params: $topic_id (integer) - topic id to check, $group_id (integer) - group id of the user, $secondary_groups - json object containing any secondary groups
-	public function topicExist($topic_id, $group_id = null, $secondary_groups = null) {
+	public function topicExist($topic_id) {
+		// Does the topic exist?
+		$exists = $this->_db->get("topics", array("id", "=", $topic_id))->results();
+		return count($exists) > 0;
+	}
+
+	// Returns true/false depending on whether the current user can view a forum
+	// Params: $forum_id (integer) - forum id to check, $group_id (integer) - group id of the user, $secondary_groups - json object containing any secondary groups
+	public function canViewForum($forum_id, $group_id = null, $secondary_groups = null) {
 		if($group_id == null){
 			$group_id = 0; // Guest
 		} else {
-            if($secondary_groups)
-                $secondary_groups = json_decode($secondary_groups, true);
-        }
-		// Does the topic exist?
-		$exists = $this->_db->get("topics", array("id", "=", $topic_id))->results();
-		if(count($exists)){
-			// Can the user view it?
-			$forum_id = $exists[0]->forum_id;
-			$access = $this->_db->get("forums_permissions", array("forum_id", "=", $forum_id))->results();
+			if($secondary_groups)
+				$secondary_groups = json_decode($secondary_groups, true);
+		}
 
-			foreach($access as $item){
-				if($item->group_id == $group_id || (is_array($secondary_groups) && count($secondary_groups) && in_array($item->group_id, $secondary_groups))){
-					if($item->view == 1){
-						return true;
-					}
+		$access = $this->_db->get("forums_permissions", array("forum_id", "=", $forum_id))->results();
+
+		foreach($access as $item){
+			if($item->group_id == $group_id || (is_array($secondary_groups) && count($secondary_groups) && in_array($item->group_id, $secondary_groups))){
+				if($item->view == 1){
+					return true;
 				}
 			}
 		}

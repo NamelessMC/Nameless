@@ -16,6 +16,7 @@ $language = array(
 	'submit' => 'Gjør',
 	'register' => 'Registrer',
 	'already_registered' => 'Allerede registrert?',
+	'not_registered_yet' => 'Not registered yet?',
 	'sign_in' => 'Logg inn',
 	'log_out' => 'Logg ut',
 	'profile' => 'Profil',
@@ -131,11 +132,13 @@ $language = array(
     'total_posts' => 'Totalt antall poster',
     'online_staff' => 'Påloggede stabmedlemmer',
     'no_online_staff' => 'Det er ingen stabmedlemmer pålogget.',
-	'total_online_staff' => 'Totalt påloggede stabmedlemmer: {x}',
+    'total_online_staff' => 'Totalt påloggede stabmedlemmer: {x}',
     'online_users' => 'Påloggede brukere',
     'no_online_users' => 'Det er ingen brukere pålogget',
-	'total_online_users' => 'Totalt påloggede brukere: {x}',
+    'total_online_users' => 'Totalt påloggede brukere: {x}',
     'discord_widget_disabled' => 'Widget er deaktivert for denne Discord serveren. Gå til \'Widget\' i Discord serverinstillinger, og sjekk at widgets er aktivert og at IDen stemmer.',
+    'online_guests' => 'Online Guests',
+    'total_online' => 'Total Online', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy

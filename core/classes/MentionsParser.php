@@ -45,12 +45,12 @@ class MentionsParser {
                 $user = null;
 				
                 while((strlen($possible_username) > 0) && !$user){
-                	$user = $this->_db->query('SELECT nl2_users.id AS id, nl2_groups.group_username_css AS group_username_css FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id WHERE nl2_users.nickname = ?', array($possible_username));
+                	$user = $this->_db->query('SELECT nl2_users.id AS id, nl2_users.username AS username, nl2_groups.group_username_css AS group_username_css FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id WHERE nl2_users.nickname = ?', array($possible_username));
 
                     if($user->count()){
                     	$user = $user->first();
 
-                        $value = preg_replace("/".preg_quote("@{$possible_username}", "/")."/", "<a style=\"color:" . Output::getClean($user->group_username_css) . "\" href=\"" . URL::build('/profile/' . rtrim($possible_username, ' ')) . "\">@{$possible_username}</a>", $value);
+                        $value = preg_replace("/".preg_quote("@{$possible_username}", "/")."/", "<a style=\"color:" . Output::getClean($user->group_username_css) . "\" href=\"" . URL::build('/profile/' . Output::getClean($user->username)) . "\">@{$possible_username}</a>", $value);
 
                         // Check if user is blocked by OP
                         if(isset($author_id)){

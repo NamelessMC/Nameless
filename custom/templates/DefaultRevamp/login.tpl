@@ -9,7 +9,7 @@
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
-      <div class="header">Error</div>
+      <div class="header">{$ERROR_TITLE}</div>
       <ul class="list">
         {foreach from=$ERROR item=error}
           <li>{$error}</li>
@@ -45,11 +45,16 @@
               <label for="remember">{$REMEMBER_ME}</label>
             </div>
           </div>
+          {if isset($RECAPTCHA)}
+            <div class="field">
+              <div class="{$CAPTCHA_CLASS}" data-sitekey="{$RECAPTCHA}" tabindex="4"></div>
+            </div>
+          {/if}
           <input type="hidden" name="token" value="{$FORM_TOKEN}">
-          <input type="submit" class="ui primary button" value="{$SIGN_IN}" tabindex="4">
+          <input type="submit" class="ui primary button" value="{$SIGN_IN}" tabindex="5">
           <a class="ui negative button right floated" href="{$FORGOT_PASSWORD_URL}">{$FORGOT_PASSWORD}</a>
         </form>
-        <div class="ui horizontal divider">Not Registered Yet?</div>
+        <div class="ui horizontal divider">{$NOT_REGISTERED_YET}</div>
         <div class="ui center aligned">
           <a class="ui large positive button" href="{$REGISTER_URL}">{$REGISTER}</a>
         </div>

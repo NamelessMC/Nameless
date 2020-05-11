@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -18,8 +18,8 @@ class Core_Module extends Module {
 
 		$name = 'Core';
 		$author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-		$module_version = '2.0.0-pr6';
-		$nameless_version = '2.0.0-pr6';
+		$module_version = '2.0.0-pr7';
+		$nameless_version = '2.0.0-pr7';
 
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -78,6 +78,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
 		$pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
 		$pages->add('Core', '/panel/core/metadata', 'pages/panel/metadata.php');
+		$pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
 		$pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
 		$pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
 		$pages->add('Core', '/panel/minecraft/account_verification', 'pages/panel/minecraft_account_verification.php');
@@ -99,6 +100,21 @@ class Core_Module extends Module {
 		// Ajax GET requests
 		$pages->addAjaxScript(URL::build('/queries/servers'));
 
+		// "More" dropdown
+		$cache->setCache('navbar_icons');
+		if($cache->isCached('more_dropdown_icon')){
+			$icon = $cache->retrieve('more_dropdown_icon');
+		} else
+			$icon = '';
+
+		$cache->setCache('navbar_order');
+		if($cache->isCached('more_dropdown_order')){
+			$order = $cache->retrieve('more_dropdown_order');
+		} else
+			$order = 2500;
+
+		$navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', $order, $icon);
+
 		// Custom pages
 		$custom_pages = $queries->getWhere('custom_pages', array('id', '<>', 0));
 		if(count($custom_pages)){
@@ -111,18 +127,19 @@ class Core_Module extends Module {
 
 				foreach($custom_pages as $custom_page){
 					$redirect = null;
+
+					// Get redirect URL if enabled
+					if($custom_page->redirect == 1)
+						$redirect = Output::getClean($custom_page->link);
+
+					$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
+
 					foreach($user_groups as $user_group){
 						$custom_page_permissions = $queries->getWhere('custom_pages_permissions', array('group_id', '=', $user_group));
 						if(count($custom_page_permissions)){
 							foreach($custom_page_permissions as $permission){
 								if($permission->page_id == $custom_page->id){
 									if($permission->view == 1){
-										// Get redirect URL if enabled
-										if($custom_page->redirect == 1)
-											$redirect = Output::getClean($custom_page->link);
-
-										$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
-
 										// Check cache for order
 										if(!$cache->isCached($custom_page->id . '_order')){
 											// Create cache entry now
@@ -159,14 +176,15 @@ class Core_Module extends Module {
 				if(count($custom_page_permissions)){
 					foreach($custom_pages as $custom_page){
 						$redirect = null;
+
+						if($custom_page->redirect == 1)
+							$redirect = Output::getClean($custom_page->link);
+
+						$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
+
 						foreach($custom_page_permissions as $permission){
 							if($permission->page_id == $custom_page->id){
 								if($permission->view == 1){
-									if($custom_page->redirect == 1)
-										$redirect = Output::getClean($custom_page->link);
-
-									$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
-
 									// Check cache for order
 									if(!$cache->isCached($custom_page->id . '_order')){
 										// Create cache entry now
@@ -200,19 +218,6 @@ class Core_Module extends Module {
 			$custom_page_permissions = null;
 
 			if(count($more)){
-				$cache->setCache('navbar_icons');
-				if($cache->isCached('more_dropdown_icon')){
-					$icon = $cache->retrieve('more_dropdown_icon');
-				} else
-					$icon = '';
-
-				$cache->setCache('navbar_order');
-				if($cache->isCached('more_dropdown_order')){
-					$order = $cache->retrieve('more_dropdown_order');
-				} else
-					$order = 2500;
-
-				$navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', $order, $icon);
 				foreach($more as $item)
 					$navigation->addItemToDropdown('more_dropdown', $item['id'], $item['title'], $item['url'], 'top', ($item['redirect']) ? '_blank' : null, $item['icon'], $item['order']);
 			}
@@ -226,17 +231,35 @@ class Core_Module extends Module {
 
 		// Discord hook
 		require_once(ROOT_PATH . '/modules/Core/hooks/DiscordHook.php');
-		$cache->setCache('discord_hook');
-		if($cache->isCached('events')){
-			$events = $cache->retrieve('events');
-			if(is_array($events) && count($events)){
-				foreach($events as $event){
-					HookHandler::registerHook($event, 'DiscordHook::execute');
+		
+		// Webhooks
+		$cache->setCache('hooks');
+		if($cache->isCached('hooks')){
+			$hook_array = $cache->retrieve('hooks');
+		} else {
+			$hook_array = array();
+			$hooks = $queries->getWhere('hooks', array('id', '<>', 0));
+			if(count($hooks)) {
+				foreach($hooks as $hook) {
+					switch($hook->action) {
+						case 2:
+							$action = 'DiscordHook::execute';
+						break;
+						default:
+							continue;
+						break;
+					}
+					
+					$hook_array[] = array(
+						'url' => Output::getClean($hook->url),
+						'action' => $action,
+						'events' => json_decode($hook->events, true)
+					);
 				}
+				$cache->store('hooks', $hook_array);
 			}
 		}
-		if($cache->isCached('url'))
-			DiscordHook::setURL($cache->retrieve('url'));
+		HookHandler::registerHooks($hook_array);
 	}
 
 	public function onInstall(){
@@ -274,6 +297,7 @@ class Core_Module extends Module {
 			'admincp.core.registration' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'registration'),
 			'admincp.core.social_media' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'social_media'),
 			'admincp.core.terms' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'privacy_and_terms'),
+			'admincp.core.hooks' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'hooks'),
 			'admincp.integrations' => $language->get('admin', 'integrations'),
 			'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
 			'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
@@ -378,7 +402,10 @@ class Core_Module extends Module {
 			'latest_member' => $language->get('general', 'latest_member'),
 			'forum_stats' => $language->get('general', 'forum_statistics'),
 			'total_threads' => $language->get('general', 'total_threads'),
-			'total_posts' => $language->get('general', 'total_posts')
+			'total_posts' => $language->get('general', 'total_posts'),
+			'users_online' => $language->get('general', 'online_users'),
+			'guests_online' => $language->get('general', 'online_guests'),
+			'total_online' => $language->get('general', 'total_online'),
 		), $cache));
 		
 		// Validate user hook
@@ -524,12 +551,12 @@ class Core_Module extends Module {
 							if(isset($result['status_value']) && $result['status_value'] == 1){
 								$result['status'] = $language->get('general', 'online');
 
-								if($result['total_count'] == 1){
+								if($result['total_players'] == 1){
 									$result['status_full'] = $language->get('general', 'currently_1_player_online');
 									$result['x_players_online'] = $language->get('general', 'currently_1_player_online');
 								} else {
-									$result['status_full'] = str_replace('{x}', $result['total_count'], $language->get('general', 'currently_x_players_online'));
-									$result['x_players_online'] = str_replace('{x}', $result['total_count'], $language->get('general', 'currently_x_players_online'));
+									$result['status_full'] = str_replace('{x}', $result['total_players'], $language->get('general', 'currently_x_players_online'));
+									$result['x_players_online'] = str_replace('{x}', $result['total_players'], $language->get('general', 'currently_x_players_online'));
 								}
 
 							} else {
@@ -1005,15 +1032,17 @@ class Core_Module extends Module {
 			$cache->setCache('notices_cache');
 
 			// Email errors?
-			if($cache->isCached('email_errors')){
-				$email_errors = $cache->retrieve('email_errors');
-			} else {
-				$email_errors = $queries->getWhere('email_errors', array('id', '<>', 0));
-				$cache->store('email_errors', $email_errors, 120);
-			}
+			if($user->hasPermission('admincp.core.emails')){
+				if($cache->isCached('email_errors')){
+					$email_errors = $cache->retrieve('email_errors');
+				} else {
+					$email_errors = $queries->getWhere('email_errors', array('id', '<>', 0));
+					$cache->store('email_errors', $email_errors, 120);
+				}
 
-			if(count($email_errors))
-				self::addNotice(URL::build('/panel/core/emails/errors'), $language->get('admin', 'email_errors_logged'));
+				if(count($email_errors))
+					self::addNotice(URL::build('/panel/core/emails/errors'), $language->get('admin', 'email_errors_logged'));
+			}
 
 			if(defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard'){
 				// Dashboard graph

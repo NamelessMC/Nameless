@@ -22,7 +22,7 @@ if($user->isLoggedIn()){
 		die();
 	} else {
 		if(!$user->hasPermission('admincp.core.registration')){
-			require_once(ROOT_PATH . '/404.php');
+			require_once(ROOT_PATH . '/403.php');
 			die();
 		}
 	}
@@ -64,7 +64,7 @@ if(Input::exists()){
 			$verification_id = $queries->getWhere('settings', array('name', '=', 'email_verification'));
 			$verification_id = $verification_id[0]->id;
 
-			// reCAPCTHA enabled?
+			// reCAPTCHA enabled?
 			if(Input::get('enable_recaptcha') == 1){
 				$recaptcha = 'true';
 			} else {
@@ -75,12 +75,33 @@ if(Input::exists()){
 			$queries->update('settings', $recaptcha_id, array(
 				'value' => $recaptcha
 			));
+
+			// Login reCAPTCHA enabled?
+			if(Input::get('enable_recaptcha_login') == 1){
+				$recaptcha = 'true';
+			} else {
+				$recaptcha = 'false';
+			}
+			$recaptcha_login = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
+			$recaptcha_login = $recaptcha_login[0]->id;
+			$queries->update('settings', $recaptcha_login, array(
+				'value' => $recaptcha
+			));
+
+			// reCAPTCHA type
+			$recaptcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
+			$recaptcha_type = $recaptcha_type[0]->id;
+			$queries->update('settings', $recaptcha_type, array(
+				'value' => Input::get('captcha_type')
+			));
+
 			// reCAPTCHA key
 			$recaptcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
 			$recaptcha_id = $recaptcha_id[0]->id;
 			$queries->update('settings', $recaptcha_id, array(
 				'value' => htmlspecialchars(Input::get('recaptcha'))
 			));
+
 			// reCAPTCHA secret key
 			$recaptcha_secret_id = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
 			$recaptcha_secret_id = $recaptcha_secret_id[0]->id;
@@ -163,6 +184,8 @@ if($registration_enabled == 1){
 
 	// Recaptcha
 	$recaptcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha'));
+	$recaptcha_login = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
+	$recaptcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
 	$recaptcha_key = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
 	$recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
 	$registration_disabled_message = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
@@ -181,6 +204,10 @@ if($registration_enabled == 1){
 		'EMAIL_VERIFICATION_VALUE' => $emails,
 		'GOOGLE_RECAPTCHA' => $language->get('admin', 'google_recaptcha'),
 		'GOOGLE_RECAPTCHA_VALUE' => $recaptcha_id[0]->value,
+		'GOOGLE_RECAPTCHA_LOGIN' => $language->get('admin', 'google_recaptcha_login'),
+		'GOOGLE_RECAPTCHA_LOGIN_VALUE' => $recaptcha_login[0]->value,
+		'CAPTCHA_TYPE' => $language->get('admin', 'captcha_type'),
+		'CAPTCHA_TYPE_VALUE' => $recaptcha_type[0]->value,
 		'RECAPTCHA_SITE_KEY' => $language->get('admin', 'recaptcha_site_key'),
 		'RECAPTCHA_SITE_KEY_VALUE' => Output::getClean($recaptcha_key[0]->value),
 		'RECAPTCHA_SECRET_KEY' => $language->get('admin', 'recaptcha_secret_key'),

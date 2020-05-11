@@ -58,6 +58,7 @@ $language = array(
     'invalid_tfa' => 'Cod invalid, va rugam incercati din nou.',
     'tfa_successful' => 'Autentificarea în doi pași a fost configurată cu succes și de acum este activă. Acum trebuie ca de fiecare dată când vă autentificati să introduceți codul afișat în aplicație.',
     'active_language' => 'Limbă site',
+    'active_template' => 'Active Template',
     'timezone' => 'Fus orar',
     'upload_new_avatar' => 'Încărcați un nou avatar',
     'nickname_already_exists' => 'Numele ales este deja utilizat.',

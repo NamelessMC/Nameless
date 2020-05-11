@@ -410,3 +410,98 @@ NamelessMC version 2 Changelog
 - Fix incorrect last online date for users registered through the API
 - New default template
 - Only show PM suggested user list after 3 characters typed
+
+2.0.0 pr-7
+- Add Italian translation
+- Update Czech translation
+- Update Dutch translation
+- Update German translation
+- Update Lithuanian translation
+- Update Norwegian translation
+- Update Polish translation
+- Update Portuguese translation
+- Update Romanian translation
+- Update Spanish translation
+- Fix search bar showing in wrong place if no topics in forum
+- Default Revamp template CSS tweaks
+- Remove unused condition in Default Revamp navbar template file
+- Fix Default Revamp delete post button
+- Fix Default Revamp delete profile post button
+- Fix broken topic breadcrumb link
+- Add missing panel template creation to updater
+- Navbar icons updated to Font Awesome 5
+- Default Revamp navbar updates
+- Fix incorrect last online date for users registered through the legacy v1 API
+- Update Default Revamp remember me label
+- Update Default template thumbtack icon
+- Add support for custom plural forms in languages
+- Remove : appearing after server IP if port is empty
+- Prevent infinite parent forum configuration loop
+- Fix plural form not working in some cases for time phrases
+- Fix Default template broken edit button icon
+- Update Discord widget description
+- Fix pre setup widgets and banner on new installations
+- Fix Default Revamp alerts page title
+- Fix recaptcha not showing in Default Revamp template
+- Fix latest posts sometimes showing duplicates
+- Switch Default Revamp authme templates around
+- Remove API debug line
+- Switch registration validation around
+- Fix timezones for reports
+- Hide staff groups for "post validation group"
+- Add terms + conditions to complete signup
+- Allow redirect custom pages to be accessed directly
+- Fix guests not being able to view redirect pages directly
+- Add API method to return list of usernames + their UUIDs
+- Add banned and active to listUsers response
+- Allow use of forgot password in maintenance mode
+- Editor updates
+- Prevent editor modifying inserted URLs automatically
+- Assign logged-in user title
+- Add view all panel templates link variable
+- Add www to getSelfURL if force www is enabled and www is not in hostname
+- Allow editing root user's secondary groups
+- Fix non-friendly URL sitemap generation
+- Fix widget configuration alignment and text
+- Add multiple groups to the profile page
+- Prevent fatal error if Mojang API query returns null
+- Remove Default Revamp template credits
+- Add support for Twitter cards
+- Change topic cancellation buttons to yes/no
+- Redirect to StaffCP Forums overview when updating a forum
+- Bring forum search in line with forum title
+- Add categories to move topic dropdown
+- Change API URL to non-friendly URL
+- Add option to display IP address for each server on status page
+- Fixed fids and gids being too small in forum_topic_labels table
+- Add support for Twitter cards in Default Revamp template
+- Inline item content in online staff widget
+- Make avatar clickable in view topic template
+- Don't show topic count/latest topic info for redirect forums
+- Include subforums in move topic dropdown
+- Add UUID to forum post variables
+- Remove old code
+- Add ability to use multiple webhooks
+- Add last seen, online to view topic and subforum descriptions to view forum
+- Fix MentionsParser
+- Remove avatars with different extensions and add timestamp to prevent caching issues
+- Escape avatar updated variable just in case
+- Fix default group potentially breaking when creating a new group
+- Fix API verification issue
+- Prevent re-querying for permission checks
+- Fix Default Theme nav style issue
+- Fix names with special characters having no avatar
+- Sort groups in order
+- Add int check to DB Custom bind param
+- Allow explicitly setting pagination values
+- Only show email notice in StaffCP with permission
+- Stop cookie notice automatically closing
+- Add reCAPTCHA to login screen
+- Add 403 page
+- Add more variables to Statistics widget
+- Fix More dropdown only showing if a custom page is adding to it
+- Add ability for template to define a settings page
+- Add per-user template support
+- Prevent fatal error with insufficient forum permissions
+- Allow changing group username colour from text input
+- Add login link to maintenance mode page

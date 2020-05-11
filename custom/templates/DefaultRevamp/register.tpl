@@ -9,7 +9,7 @@
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
-      <div class="header">Error</div>
+      <div class="header">{$ERROR_TITLE}</div>
       <ul class="list">
         {foreach from=$REGISTRATION_ERROR item=error}
           <li>{$error}</li>
@@ -62,7 +62,7 @@
           </div>
           {if isset($RECAPTCHA)}
             <div class="field">
-              <div class="g-recaptcha" data-sitekey="{$RECAPTCHA}" tabindex="6"></div>
+              <div class="{$CAPTCHA_CLASS}" data-sitekey="{$RECAPTCHA}" tabindex="6"></div>
             </div>
           {/if}
           <div class="inline field">

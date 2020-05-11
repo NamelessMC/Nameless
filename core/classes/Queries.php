@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -129,6 +129,7 @@ class Queries {
 			$data = $this->_db->createTable("logs", " `id` int(11) NOT NULL AUTO_INCREMENT, `time` int(11) NOT NULL, `action` mediumtext NOT NULL, `ip` varchar(64) NOT NULL, `user_id` int(11) NOT NULL, `info` mediumtext, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			$data = $this->_db->createTable("mc_servers", " `id` int(11) NOT NULL AUTO_INCREMENT, `ip` varchar(64) NOT NULL, `query_ip` varchar(64) NOT NULL, `name` varchar(20) NOT NULL, `is_default` tinyint(1) NOT NULL DEFAULT '0', `display` tinyint(1) NOT NULL DEFAULT '1', `pre` tinyint(1) NOT NULL DEFAULT '0', `player_list` tinyint(1) NOT NULL DEFAULT '1', `parent_server` int(11) NOT NULL DEFAULT '0', `bungee` tinyint(1) NOT NULL DEFAULT '0', `port` int(11) DEFAULT NULL, `query_port` int(11) DEFAULT '25565', `banner_background` varchar(32) NOT NULL DEFAULT 'background.png', `show_ip` tinyint(1) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			$data = $this->_db->createTable("modules", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+			$data = $this->_db->createTable("online_guests", " `id` int(11) NOT NULL AUTO_INCREMENT, `ip` varchar(45) NOT NULL, `last_seen` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			$data = $this->_db->createTable("page_descriptions", " `id` int(11) NOT NULL AUTO_INCREMENT, `page` varchar(64) NOT NULL, `description` varchar(500) DEFAULT NULL, `tags` text, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			$data = $this->_db->createTable("panel_templates", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '0', `is_default` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			$data = $this->_db->createTable("posts", " `id` int(11) NOT NULL AUTO_INCREMENT, `forum_id` int(11) NOT NULL, `topic_id` int(11) NOT NULL, `post_creator` int(11) NOT NULL, `post_content` mediumtext NOT NULL, `post_date` datetime DEFAULT NULL, `last_edited` int(11) DEFAULT NULL, `ip_address` varchar(32) DEFAULT NULL, `deleted` tinyint(1) NOT NULL DEFAULT '0', `created` int(11) DEFAULT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
@@ -157,6 +158,8 @@ class Queries {
 			$data = $this->_db->createTable("user_profile_wall_posts_replies", " `id` int(11) NOT NULL AUTO_INCREMENT, `post_id` int(11) NOT NULL, `author_id` int(11) NOT NULL, `time` int(11) NOT NULL, `content` mediumtext NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			$data = $this->_db->createTable("uuid_cache", " `id` int(11) NOT NULL AUTO_INCREMENT, `mcname` varchar(20) NOT NULL, `uuid` varchar(64) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			$data = $this->_db->createTable("widgets", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '0', `pages` text, `order` int(11) NOT NULL DEFAULT '10', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+			
+			$data = $this->_db->createTable("hooks", " `id` int(11) NOT NULL AUTO_INCREMENT, `action` int(11) NOT NULL, `url` varchar(2048) NOT NULL, `events` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 
 			// Success
 			return true;

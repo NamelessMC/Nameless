@@ -43,7 +43,7 @@ class DB_Custom {
 			$x = 1;
 			if(count($params)) {
 				foreach($params as $param) {
-					$this->_query->bindValue($x, $param);
+					$this->_query->bindValue($x, $param, is_int($param) ? PDO::PARAM_INT : PDO::PARAM_STR);
 					$x++;
 				}
 			}

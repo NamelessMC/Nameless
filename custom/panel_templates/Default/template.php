@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -23,8 +23,8 @@ if(!class_exists('Default_Panel_Template')){
 
 			parent::__construct(
 				'Default',  // Template name
-				'2.0.0-pr6',  // Template version
-				'2.0.0-pr6',  // Nameless version template is made for
+				'2.0.0-pr7',  // Template version
+				'2.0.0-pr7',  // Nameless version template is made for
 				'<a href="https://namelessmc.com/">Samerton</a>'  // Author, you can use HTML here
 			);
 
@@ -268,6 +268,25 @@ if(!class_exists('Default_Panel_Template')){
 								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/mode/javascript/javascript.js' => array()
 							));
 						}
+
+						if(isset($_GET['action']) && $_GET['action'] == 'permissions'){
+							$this->addCSSFiles(array(
+								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.css' => array(),
+							));
+
+							$this->addJSFiles(array(
+								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.js' => array(),
+							));
+
+							$this->addJSScript('
+							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
+		
+							elems.forEach(function(html) {
+							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
+							});
+							');
+						}
+
 						break;
 
 					case 'custom_pages':

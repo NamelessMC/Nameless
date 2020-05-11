@@ -2,14 +2,14 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
  *  Base template class
  */
 abstract class TemplateBase {
-	protected $_name = '', $_version = '', $_nameless_version = '', $_author = '', $_css = array(), $_js = array();
+	protected $_name = '', $_version = '', $_nameless_version = '', $_author = '', $_settings = '', $_css = array(), $_js = array();
 
 	public function __construct($name, $version, $nameless_version, $author){
 		$this->_name = $name;
@@ -66,6 +66,10 @@ abstract class TemplateBase {
 
 	public function getAuthor(){
 		return $this->_author;
+	}
+
+	public function getSettings(){
+		return $this->_settings;
 	}
 
 	public function displayTemplate($template, $smarty){

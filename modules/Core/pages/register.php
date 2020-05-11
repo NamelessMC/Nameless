@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -127,6 +127,9 @@ if($minecraft == '1') {
 $recaptcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
 $recaptcha = $recaptcha[0]->value;
 
+$captcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
+$captcha_type= $captcha_type[0]->value;
+
 $recaptcha_key = $queries->getWhere("settings", array("name", "=", "recaptcha_key"));
 $recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
 
@@ -142,13 +145,12 @@ $api_verification = $api_verification[0]->value;
 if(Input::exists()){
 	if(Token::check(Input::get('token'))){
 		// Valid token
-		
 		if($recaptcha == 'true'){
 			// Check reCAPCTHA
-			$url = 'https://www.google.com/recaptcha/api/siteverify';
-			
-			$post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . Input::get('g-recaptcha-response');
-			
+			$url = $captcha_type === 'hCaptcha' ? 'https://hcaptcha.com/siteverify' : 'https://www.google.com/recaptcha/api/siteverify';
+
+			$post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . ($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
+
 			$ch = curl_init($url);
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
@@ -583,10 +585,6 @@ if($minecraft == 1){
 	$smarty->assign('MINECRAFT', true);
 }
 
-if($recaptcha == 'true'){
-	$smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value)); 
-}
-
 // Assign Smarty variables
 $smarty->assign(array(
 	'NICKNAME' => ($custom_usernames == 'false' && !MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
@@ -601,13 +599,23 @@ $smarty->assign(array(
 	'LOGIN_URL' => URL::build('/login'),
 	'TOKEN' => Token::get(),
 	'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
-	'ALREADY_REGISTERED' => $language->get('general', 'already_registered')
+	'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
+	'ERROR_TITLE' => $language->get('general', 'error'),
+	'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha'
 ));
 
-if($recaptcha === "true"){
-	$template->addJSFiles(array(
-		'https://www.google.com/recaptcha/api.js' => array()
-	));
+if($recaptcha === 'true'){
+	$smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
+
+	if($captcha_type === 'hCaptcha') {
+		$template->addJSFiles(array(
+			'https://hcaptcha.com/1/api.js' => array()
+		));
+	} else {
+		$template->addJSFiles(array(
+			'https://www.google.com/recaptcha/api.js' => array()
+		));
+	}
 }
 
 // Load modules + template
