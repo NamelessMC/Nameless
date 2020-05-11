@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -22,7 +22,7 @@ $language = array(
 	'guests' => 'Goście',
 
 	// UserCP
-	'user_cp' => 'UserCP',
+	'user_cp' => 'Panel',
 	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
 	'overview' => 'Przegląd',
 	'user_details' => 'Szczegóły użytkownika',
@@ -43,9 +43,9 @@ $language = array(
 	'change_password' => 'Zmień hasło',
 	'current_password' => 'Aktualne hasło',
 	'new_password' => 'Nowe hasło',
-	'confirm_new_password' => 'Powtóz nowe hasło',
+	'confirm_new_password' => 'Powtórz nowe hasło',
 	'incorrect_password' => 'Twoje hasło jest nieprawidłowe.',
-	'two_factor_auth' => 'Dwuetapowa weryfikacja',
+	'two_factor_auth' => 'Weryfikacja dwuetapowa',
 	'enabled' => 'Włączone',
 	'disabled' => 'Wyłączone',
 	'enable' => 'Włącz',
@@ -56,7 +56,7 @@ $language = array(
 	'invalid_tfa' => 'Zły kod, spróbuj ponownie.',
 	'tfa_successful' => 'Podwójna weryfikacja została włączona. Od teraz będziesz musiał zweryfikować się zawsze przy logowaniu.',
 	'active_language' => 'Język',
-	'active_template' => 'Active Template',
+	'active_template' => 'Aktywny Styl',
 	'timezone' => 'Strefa czasowa',
 	'upload_new_avatar' => 'Prześlij nowy awatar',
 	'nickname_already_exists' => 'Ktoś ma już nick który wybrałeś.',
@@ -64,9 +64,9 @@ $language = array(
 	'email_already_exists' => 'Konto zarejestrowane na adres email który podałeś już istnieje.',
 	'email_changed_successfully' => 'Adres email został zmieniony pomyślnie.',
 	'avatar' => 'Awatar',
-	'profile_banner' => 'Banner profilowy',
-	'upload_profile_banner' => 'Wgraj banner profilowy',
-	'upload' => 'Wgraj',
+	'profile_banner' => 'Baner profilowy',
+	'upload_profile_banner' => 'Dodaj baner profilowy',
+	'upload' => 'Zatwierdź',
 
 	// Alerts
 	'user_tag_info' => 'Zostałeś oznaczony w poście przez {x}.', // Don't replace {x}
@@ -126,7 +126,7 @@ $language = array(
 	'verification_failed' => 'Weryfikacja nie powiodła się. Spróbuj ponownie później.',
 	'verification_success' => 'Pomyślnie zweryfikowano konto minecraft.',
 	'authme_username_exists' => 'Twoje konto na serwerze jest już połączone ze stroną!',
-	'uuid_already_exists' => 'Twoje UUIC już istnieje. Oznacza to że to konto minecrft jest już zarejestrowane.',
+	'uuid_already_exists' => 'Twoje UUIC już istnieje. Oznacza to, że to konto minecrft jest już zarejestrowane.',
 
 	// Login
 	'successful_login' => 'Zostałeś zalogowany.',
@@ -156,8 +156,8 @@ $language = array(
 	'invalid_wall_post' => 'Twój post może mieć od 1 do 10000 znaków.',
 	'1_reaction' => '1 ocena',
 	'x_reactions' => '{x} ocen', // Don't replace {x}
-	'1_like' => '1 like',
-	'x_likes' => '{x} likeów', // Don't replace {x}
+	'1_like' => '1 polubienie',
+	'x_likes' => '{x} polubień', // Don't replace {x}
 	'1_reply' => '1 komentarz',
 	'x_replies' => '{x} komentarzy', // Don't replace {x}
 	'no_replies_yet' => 'Brak komentarzy',
@@ -221,7 +221,7 @@ $language = array(
 	/*
 	 *  Infractions area
 	 */
-	'you_have_been_banned' => 'Zostałeś zbannowany!',
+	'you_have_been_banned' => 'Zostałeś zbanowany!',
 	'you_have_received_a_warning' => 'Dostałeś ostrzeżenie!',
 	'acknowledge' => 'Uznaj winę',
 
