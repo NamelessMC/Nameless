@@ -60,6 +60,21 @@
                         <label>{$CONFIRM_PASSWORD}</label>
                         <input type="password" name="password_again" id="password_again" placeholder="{$CONFIRM_PASSWORD}" tabindex="5">
                     </div>
+                    {if $HAS_CUSTOM_FIELDS}
+                        <div class="ui horizontal divider">{$CUSTOM_FIELDS_TEXT}</div>
+                        {foreach $CUSTOM_FIELDS as $field}
+                            <div class="field">
+                            <label>{$field->name}{if $field->required eq 1}<super style="color: red;">*</super>{/if}</label>
+                                {if $field->type eq 1}
+                                <input type="text" name="{$field->name}" id="{$field->name}" placeholder="{$field->description}" tabindex="5">
+                                {elseif $field->type eq 2}
+                                <input type="textbox" name="{$field->name}" id="{$field->name}" placeholder="{$field->description}" tabindex="5">
+                                {elseif $field->type eq 3}
+                                <input type="date" name="{$field->name}" id="{$field->name}" tabindex="5">
+                                {/if}
+                            </div>
+                        {/foreach}
+                    {/if}
                     {if isset($RECAPTCHA)}
                     <div class="field">
                         <div class="{$CAPTCHA_CLASS}" data-sitekey="{$RECAPTCHA}" tabindex="6"></div>

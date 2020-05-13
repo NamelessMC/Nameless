@@ -7,6 +7,7 @@
  *  License: MIT
  *
  *  Registration page
+ * 	TODO: If validate fails, return back with input so they don't need to rewrite it all
  */
 
 // Ensure user isn't already logged in
@@ -240,6 +241,24 @@ if (Input::exists()) {
 				$nickname = Output::getClean(Input::get('username'));
 				$username = Output::getClean(Input::get('username'));
 			}
+
+			// Validate custom fields
+			$profile_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
+			if (count($profile_fields)) {
+				foreach ($profile_fields as $field) {
+					if ($field->required == "1") {
+						$to_validation[$field->name] = array(
+							'required' => true,
+							'max' => (is_null($field->length) ? 1024 : $field->length)
+						);
+					} else {
+						$to_validation[$field->name] = array(
+							'max' => (is_null($field->length) ? 1024 : $field->length)
+						);
+					}
+				}
+			}
+
 			// Valid, continue with validation
 			$validation = $validate->check($_POST, $to_validation); // Execute validation
 
@@ -359,6 +378,20 @@ if (Input::exists()) {
 
 								// Get user ID
 								$user_id = $queries->getLastId();
+
+								// Custom Fields
+								if (count($profile_fields)) {
+									foreach ($profile_fields as $field) {
+										if (!empty(Input::get($field->name))) {
+											// Insert custom field
+											$queries->create('users_profile_fields', array(
+												'user_id' => $user_id,
+												'field_id' => $field->id,
+												'value' => Input::get($field->name)
+											));
+										}
+									}
+								}
 
 								Log::getInstance()->log(Log::Action('user/register'), "", $user_id);
 
@@ -503,6 +536,8 @@ if (Input::exists()) {
 							case (strpos($validation_error, 't_and_c') !== false):
 								$errors[] = $language->get('user', 'accept_terms');
 								break;
+							default:
+								$errors[] = $validation_error . ".";
 						}
 					} else if (strpos($validation_error, 'minimum') !== false) {
 						// x must be a minimum of y characters long
@@ -565,6 +600,13 @@ if ($minecraft == 1) {
 	$smarty->assign('MINECRAFT', true);
 }
 
+
+$profile_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
+if ($profile_fields > 0) {
+	$smarty->assign('HAS_CUSTOM_FIELDS', true);
+	$smarty->assign('CUSTOM_FIELDS', $profile_fields);
+}
+
 // Assign Smarty variables
 $smarty->assign(array(
 	'NICKNAME' => ($custom_usernames == 'false' && !MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
@@ -580,6 +622,7 @@ $smarty->assign(array(
 	'TOKEN' => Token::get(),
 	'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
 	'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
+	'CUSTOM_FIELDS_TEXT' => $language->get('general', 'custom_fields'),
 	'ERROR_TITLE' => $language->get('general', 'error'),
 	'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha'
 ));

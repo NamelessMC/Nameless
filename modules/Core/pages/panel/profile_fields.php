@@ -7,6 +7,7 @@
  *  License: MIT
  *
  *  Panel profile fields page
+ * 	TODO: Add optional regex match section (Example: Discord)
  */
 
 // Can the user view the panel?

@@ -44,7 +44,7 @@
                   {elseif $field.type == "textarea"}
                     <textarea name="{$field.id}" id="input{$field.id}">{$field.value}</textarea>
                   {elseif $field.type == "date"}
-                    <input type="text" name="{$field.id}" id="input{$field.id}" value="{$field.value}">
+                    <input type="date" name="{$field.id}" id="input{$field.id}" value="{$field.value}">
                   {/if}
                 {/if}
               </div>
