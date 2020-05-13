@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -10,18 +10,18 @@
  */
 
 // Can the user view the panel?
-if($user->isLoggedIn()){
-	if(!$user->canViewACP()){
+if ($user->isLoggedIn()) {
+	if (!$user->canViewACP()) {
 		// No
 		Redirect::to(URL::build('/'));
 		die();
 	}
-	if(!$user->isAdmLoggedIn()){
+	if (!$user->isAdmLoggedIn()) {
 		// Needs to authenticate
 		Redirect::to(URL::build('/panel/auth'));
 		die();
 	} else {
-		if(!$user->hasPermission('admincp.core.fields')){
+		if (!$user->hasPermission('admincp.core.fields')) {
 			require_once(ROOT_PATH . '/403.php');
 			die();
 		}
@@ -41,12 +41,12 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(!isset($_GET['id']) && !isset($_GET['action'])){
+if (!isset($_GET['id']) && !isset($_GET['action'])) {
 	$profile_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
 	$template_fields = array();
 
-	foreach($profile_fields as $field){
-		switch($field->type){
+	foreach ($profile_fields as $field) {
+		switch ($field->type) {
 			case 1:
 				$type = $language->get('admin', 'text');
 				break;
@@ -66,7 +66,8 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
 			'type' => $type,
 			'required' => $field->required,
 			'editable' => $field->editable,
-			'public' => $field->public
+			'public' => $field->public,
+			'forum_posts' => $field->forum_posts
 		);
 	}
 
@@ -79,25 +80,25 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
 		'TYPE' => $language->get('admin', 'type'),
 		'REQUIRED' => $language->get('admin', 'required'),
 		'EDITABLE' => $language->get('admin', 'editable'),
-		'PUBLIC' => $language->get('admin', 'public')
+		'PUBLIC' => $language->get('admin', 'public'),
+		'FORUM_POSTS' => $language->get('admin', 'forum_posts')
 	));
-
 } else {
-	if(isset($_GET['id']) && !isset($_GET['action'])){
+	if (isset($_GET['id']) && !isset($_GET['action'])) {
 		$id = intval($_GET['id']);
 
 		$field = $queries->getWhere('profile_fields', array('id', '=', $id));
 
-		if(!count($field)){
+		if (!count($field)) {
 			Redirect::to(URL::build('/panel/core/profile_fields'));
 			die();
 		}
 		$field = $field[0];
 
-		if(Input::exists()){
+		if (Input::exists()) {
 			$errors = array();
 
-			if(Token::check(Input::get('token'))){
+			if (Token::check(Input::get('token'))) {
 				// Validate input
 				$validate = new Validate();
 
@@ -112,7 +113,7 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
 					)
 				));
 
-				if($validation->passed()){
+				if ($validation->passed()) {
 					// Update database
 					try {
 						// Get whether required/public/editable/forum post options are enabled or not
@@ -145,15 +146,13 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
 						Session::flash('profile_field_success', $language->get('admin', 'profile_field_updated_successfully'));
 						Redirect::to(URL::build('/panel/core/profile_fields'));
 						die();
-
-					} catch(Exception $e){
+					} catch (Exception $e) {
 						$errors[] = $e->getMessage();
 					}
 				} else {
 					// Error
 					$errors[] = $language->get('admin', 'profile_field_error');
 				}
-
 			} else {
 				$errors[] = $language->get('general', 'invalid_token');
 			}
@@ -193,22 +192,20 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
 			'PUBLIC_HELP' => $language->get('admin', 'profile_field_public_help'),
 			'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help')
 		));
-
 	} else {
-		if(isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'delete'){
+		if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'delete') {
 			// Delete field
 			$queries->delete('profile_fields', array('id', '=', intval($_GET['id'])));
 
 			Session::flash('profile_field_success', $language->get('admin', 'profile_field_deleted_successfully'));
 			Redirect::to(URL::build('/panel/core/profile_fields'));
 			die();
-
 		} else {
 			// New field
-			if(Input::exists()){
+			if (Input::exists()) {
 				$errors = array();
 
-				if(Token::check(Input::get('token'))){
+				if (Token::check(Input::get('token'))) {
 					// Validate input
 					$validate = new Validate();
 
@@ -223,7 +220,7 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
 						)
 					));
 
-					if($validation->passed()){
+					if ($validation->passed()) {
 						// Input into database
 						try {
 							// Get whether required/public/editable/forum post options are enabled or not
@@ -256,11 +253,9 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
 							Session::flash('profile_field_success', $language->get('admin', 'profile_field_created_successfully'));
 							Redirect::to(URL::build('/panel/core/profile_fields'));
 							die();
-
-						} catch(Exception $e){
+						} catch (Exception $e) {
 							$errors[] = $e->getMessage();
 						}
-
 					} else {
 						// Display errors
 						$errors[] = $language->get('admin', 'profile_field_error');
@@ -295,23 +290,20 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
 				'PUBLIC_HELP' => $language->get('admin', 'profile_field_public_help'),
 				'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help')
 			));
-
 		}
-
 	}
-
 }
 
-if(Session::exists('profile_field_success'))
+if (Session::exists('profile_field_success'))
 	$success = Session::flash('profile_field_success');
 
-if(isset($success))
+if (isset($success))
 	$smarty->assign(array(
 		'SUCCESS' => $success,
 		'SUCCESS_TITLE' => $language->get('general', 'success')
 	));
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
 	$smarty->assign(array(
 		'ERRORS' => $errors,
 		'ERRORS_TITLE' => $language->get('general', 'error')
@@ -333,13 +325,12 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-if(!isset($_GET['id']) && !isset($_GET['action']))
+if (!isset($_GET['id']) && !isset($_GET['action']))
 	$template->displayTemplate('core/profile_fields.tpl', $smarty);
 
 else {
-	if(isset($_GET['id']) && !isset($_GET['action']))
+	if (isset($_GET['id']) && !isset($_GET['action']))
 		$template->displayTemplate('core/profile_fields_edit.tpl', $smarty);
-	else if(isset($_GET['action']) && $_GET['action'] == 'new')
+	else if (isset($_GET['action']) && $_GET['action'] == 'new')
 		$template->displayTemplate('core/profile_fields_create.tpl', $smarty);
-
 }
