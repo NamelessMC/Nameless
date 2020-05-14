@@ -61,11 +61,6 @@ $user = new User();
 						} else {
 						?>
 							<h4><?php echo $language->get('errors', 'fatal_error_message_user'); ?></h4>
-							<div class="card card-default">
-								<div class="card-body">
-									<pre style="white-space:pre-wrap;"><?php echo Output::getClean($errstr); ?></pre>
-								</div>
-							</div>
 						<?php
 						}
 						?>
