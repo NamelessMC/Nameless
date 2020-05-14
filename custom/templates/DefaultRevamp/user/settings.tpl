@@ -38,7 +38,7 @@
             {foreach from=$PROFILE_FIELDS item=field}
               <div class="field">
                 {if !isset($field.disabled)}
-                  <label for="input{$field.id}">{$field.name}</label>
+                  <label for="input{$field.id}">{$field.name}{if $field.required}<super style="color: red;">*</super>{/if}</label>
                   {if $field.type == "text"}
                     <input type="text" name="{$field.id}" id="input{$field.id}" value="{$field.value}" placeholder="{$field.name}">
                   {elseif $field.type == "textarea"}
