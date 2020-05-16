@@ -14,7 +14,7 @@ $language = array(
 	 *  Admin Control Panel
 	 */
 	// Login
-	're-authenticate' => 'Prosím ověřte přihlášení',
+	're-authenticate' => 'Prosím znovu se přihlášte.',
 	
 	// Sidebar
 	'dashboard' => 'Nástěnka',
@@ -34,7 +34,7 @@ $language = array(
 	'users_and_groups' => 'Uživatelé a skupiny',
 	
 	// Overview
-	'running_nameless_version' => 'NamelessMC běží na verzi <strong>{x}</strong>', // Don't replace "{x}"
+	'running_nameless_version' => 'NamelessMC aktuálně běží na verzi <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => 'PHP verze <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Statistiky',
 	'registrations' => 'Registrace',
@@ -89,7 +89,7 @@ $language = array(
     'enable_debug_mode' => 'Povolit režim ladění?',
     'force_https' => 'Vynucené https?',
     'force_https_help' => 'Pokud je zapnuto, všechny požadavky na Váš web budou přesměrovány na https. Jestli chcete, aby to tato možnost fungovala správně, tak musíte mít platný a aktivovaný SSL certifikát.',
-    'force_www' => 'Povolit www?',
+    'force_www' => 'Vynutit www?',
     'contact_email_address' => 'Kontaktní e-mailová adresa',
     'emails' => 'E-maily',
     'email_errors' => 'Chyby s e-maily',
