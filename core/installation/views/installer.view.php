@@ -723,6 +723,11 @@
                 'is_default' => 0
             ));
 
+            $queries->create('languages', array(
+                'name' => 'Turkish',
+                'is_default' => 0
+            ));
+
             $cache->setCache('languagecache');
             $cache->store('language', 'EnglishUK');
 
@@ -2262,6 +2267,10 @@
                         ));
                         $queries->create('languages', array(
                             'name' => 'SwedishSE',
+                            'is_default' => 0
+                        ));
+                        $queries->create('languages', array(
+                            'name' => 'Turkish',
                             'is_default' => 0
                         ));
 						$cache->setCache('languagecache');
