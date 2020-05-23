@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -66,7 +66,8 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
 			'type' => $type,
 			'required' => $field->required,
 			'editable' => $field->editable,
-			'public' => $field->public
+			'public' => $field->public,
+			'forum_posts' => $field->forum_posts
 		);
 	}
 
@@ -79,7 +80,8 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
 		'TYPE' => $language->get('admin', 'type'),
 		'REQUIRED' => $language->get('admin', 'required'),
 		'EDITABLE' => $language->get('admin', 'editable'),
-		'PUBLIC' => $language->get('admin', 'public')
+		'PUBLIC' => $language->get('admin', 'public'),
+		'FORUM_POSTS' => $language->get('admin', 'forum_posts')
 	));
 
 } else {

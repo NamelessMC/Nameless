@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -174,13 +174,20 @@ if(isset($_GET['do'])){
 
 				// Get a list of required profile fields
 				$profile_fields = $queries->getWhere('profile_fields', array('required', '=', 1));
-				
-				if(count($profile_fields)){
-					foreach($profile_fields as $field){
-						$to_validate[$field->id] = array(
-							'required' => true,
-							'max' => (is_null($field->length) ? 1024 : $field->length)
-						);
+
+				if (count($profile_fields)) {
+					foreach ($profile_fields as $field) {
+						if ($field->required = "1") {
+							$to_validate[$field->id] = array(
+								'required' => true,
+								'max' => (is_null($field->length) ? 1024 : $field->length)
+							);
+						}
+						else {
+							$to_validate[$field->id] = array(
+								'max' => (is_null($field->length) ? 1024 : $field->length)
+							);
+						}
 					}
 				}
 				

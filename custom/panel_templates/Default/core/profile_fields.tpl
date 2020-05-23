@@ -83,6 +83,7 @@
                                                 <th>{$REQUIRED}</th>
                                                 <th>{$EDITABLE}</th>
                                                 <th>{$PUBLIC}</th>
+                                                <th>{$FORUM_POSTS}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -93,6 +94,7 @@
                                                     <td>{if $field.required eq 1}<i class="fa fa-check-circle text-success"></i>{else}<i class="fa fa-times-circle text-danger"></i>{/if}</td>
                                                     <td>{if $field.editable eq 1}<i class="fa fa-check-circle text-success"></i>{else}<i class="fa fa-times-circle text-danger"></i>{/if}</td>
                                                     <td>{if $field.public eq 1}<i class="fa fa-check-circle text-success"></i>{else}<i class="fa fa-times-circle text-danger"></i>{/if}</td>
+                                                    <td>{if $field.forum_posts eq 1}<i class="fa fa-check-circle text-success"></i>{else}<i class="fa fa-times-circle text-danger"></i>{/if}</td>
                                                 </tr>
                                             {/foreach}
                                         </tbody>

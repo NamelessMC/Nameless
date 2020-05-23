@@ -7,6 +7,8 @@
  *  License: MIT
  *
  *  Validate class
+ * 	
+ * 	TODO: Regex validation? Example: Discord
  */
 class Validate {
 
