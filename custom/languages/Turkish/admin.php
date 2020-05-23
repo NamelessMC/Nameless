@@ -178,6 +178,7 @@ $language = array(
 	'required' => 'Gereklidir.',
 	'editable' => 'Düzenlenebilir.',
 	'public' => 'Genel',
+	'forum_posts' => 'Display on Forum',
 	'text' => 'Metin',
 	'textarea' => 'Metin alanı',
 	'date' => 'Tarih',

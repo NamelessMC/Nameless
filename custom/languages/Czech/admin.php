@@ -178,6 +178,7 @@ $language = array(
 	'required' => 'Povinný',
 	'editable' => 'Upravitelné',
 	'public' => 'Veřejný',
+	'forum_posts' => 'Display on Forum',
 	'text' => 'Text',
 	'textarea' => 'Oblast textu',
 	'date' => 'Datum',

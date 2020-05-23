@@ -178,6 +178,7 @@ $language = array(
 	'required' => 'Wymagane',
 	'editable' => 'Edytowalne',
 	'public' => 'Publiczne',
+	'forum_posts' => 'Display on Forum',
 	'text' => 'Tekst',
 	'textarea' => 'Obszar tekstowy',
 	'date' => 'Data',

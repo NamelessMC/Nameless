@@ -176,6 +176,7 @@ $language = array(
 	'required' => 'Būtinas',
 	'editable' => 'Redaguojamas',
 	'public' => 'Viešas',
+	'forum_posts' => 'Display on Forum',
 	'text' => 'Tekstas',
 	'textarea' => 'Teksto plotas',
 	'date' => 'Data',

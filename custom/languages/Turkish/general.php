@@ -16,6 +16,7 @@ $language = array(
 	'submit' => 'Onayla',
 	'register' => 'Kayıt Ol',
 	'already_registered' => 'Zaten bir hesabın var mı?',
+	'custom_fields' => 'Custom Fields',
 	'not_registered_yet' => 'Hesabın yoksa kayıt ol',
 	'sign_in' => 'Giriş Yap',
 	'log_out' => 'Çıkış Yap',

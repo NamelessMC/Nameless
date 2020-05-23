@@ -180,6 +180,7 @@ $language = array(
 	'required' => 'Απαιτείται',
 	'editable' => 'Editable',
 	'public' => 'Δημόσιο',
+	'forum_posts' => 'Display on Forum',
 	'text' => 'Κείμενο',
 	'textarea' => 'Περιοχή κειμένου',
 	'date' => 'Ημερομηνία',

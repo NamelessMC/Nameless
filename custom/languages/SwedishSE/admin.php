@@ -179,6 +179,7 @@ $language = array(
 	'required' => 'Obligatorisk',
 	'editable' => 'Redigerbar',
 	'public' => 'Publik',
+	'forum_posts' => 'Display on Forum',
 	'text' => 'Text',
 	'textarea' => 'Text area',
 	'date' => 'Date',

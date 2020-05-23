@@ -178,6 +178,7 @@ $language = array(
 	'editable' => 'Redigerbar',
 	'required' => 'Påkrevd',
 	'public' => 'Synlig for offentligheten',
+	'forum_posts' => 'Display on Forum',
 	'text' => 'Tekst',
 	'textarea' => 'Tekstområde',
 	'date' => 'Dato',

@@ -181,6 +181,7 @@ $language = array(
 	'required' => '必須',
 	'editable' => '編集許可',
 	'public' => '全体公開',
+	'forum_posts' => 'Display on Forum',
 	'text' => 'テキスト',
 	'textarea' => 'テキスト エリア',
 	'date' => '日付',

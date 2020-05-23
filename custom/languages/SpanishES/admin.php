@@ -175,6 +175,7 @@ $language = array(
 	'new_field' => '<i class="fa fa-plus-circle"></i> Nuevo campo',
 	'required' => 'Requerido',
 	'public' => 'Publico',
+	'forum_posts' => 'Display on Forum',
 	'text' => 'Texto',
 	'textarea' => 'Área de texto',
 	'date' => 'Fecha',

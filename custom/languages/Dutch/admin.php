@@ -180,6 +180,7 @@ $language = array(
 	'required' => 'Verplicht',
 	'editable' => 'Aanpasbaar',
 	'public' => 'Openbaar',
+	'forum_posts' => 'Display on Forum',
 	'text' => 'Tekst',
 	'textarea' => 'Tekst gebied',
 	'date' => 'Datum',

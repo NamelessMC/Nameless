@@ -182,6 +182,7 @@ $language = array(
 	'required' => '必須',
 	'editable' => 'Editable',
 	'public' => '公開',
+	'forum_posts' => 'Display on Forum',
 	'text' => '文字',
 	'textarea' => '多行文字',
 	'date' => '日期',

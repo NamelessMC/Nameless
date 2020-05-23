@@ -68,7 +68,7 @@
                     {if $field->type eq 1}
                     <input type="text" name="{$field->name}" id="{$field->name}" placeholder="{$field->description}" tabindex="5">
                     {elseif $field->type eq 2}
-                    <input type="textbox" name="{$field->name}" id="{$field->name}" placeholder="{$field->description}" tabindex="5">
+                    <textarea name="{$field->name}" id="{$field->name}" placeholder="{$field->description}" tabindex="5"></textarea>
                     {elseif $field->type eq 3}
                     <input type="date" name="{$field->name}" id="{$field->name}" tabindex="5">
                     {/if}

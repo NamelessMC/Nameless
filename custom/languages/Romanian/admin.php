@@ -183,6 +183,7 @@ $language = array(
     'required' => 'Necesar',
     'editable' => 'Editabil',
     'public' => 'Public',
+    'forum_posts' => 'Display on Forum',
     'text' => 'Text',
     'textarea' => 'Zona Text',
     'date' => 'Dată',

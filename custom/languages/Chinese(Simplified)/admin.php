@@ -180,6 +180,7 @@ $language = array(
 	'required' => '必填的',
 	'editable' => '可编辑的',
 	'public' => '公开的',
+	'forum_posts' => 'Display on Forum',
 	'text' => '单行文本',
 	'textarea' => '文本框',
 	'date' => '日期',

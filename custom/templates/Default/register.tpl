@@ -68,7 +68,7 @@
 					{if $field->type eq 1}
 						<input type="text" name="{$field->name}" id="{$field->name}" placeholder="{$field->name}" class="form-control form-control-lg"  tabindex="3">
 					{elseif $field->type eq 2}
-						<input type="textbox" name="{$field->name}" id="{$field->name}" placeholder="{$field->name}" class="form-control form-control-lg"  tabindex="3">
+						<textarea name="{$field->name}" id="{$field->name}" placeholder="{$field->name}" class="form-control form-control-lg"  tabindex="3"></textarea>
 					{elseif $field->type eq 3}
 						<input type="text" name="{$field->name}" placeholder="{$field->name}" onfocus="(this.type='date')" onblur="(this.type='text')" id="{$field->name}" class="form-control form-control-lg" tabindex="3">
 					{/if}
