@@ -17,7 +17,7 @@ class User {
 			$_permissions;
 
 	// Construct User class
-	public function __construct($user = null) {
+	public function __construct($user = null, $field = 'id') {
 		$this->_db = DB::getInstance();
 		$this->_sessionName = Config::get('session/session_name');
 		$this->_cookieName = Config::get('remember/cookie_name');
@@ -26,7 +26,7 @@ class User {
 		if(!$user){
 			if(Session::exists($this->_sessionName)) {
 				$user = Session::get($this->_sessionName);
-				if($this->find($user)){
+				if($this->find($user, $field)){
 					$this->_isLoggedIn = true;
 				} else {
 					// process logout
@@ -34,14 +34,14 @@ class User {
 			}
 			if(Session::exists($this->_admSessionName)) {
 				$user = Session::get($this->_admSessionName);
-				if($user == $this->data()->id && $this->find($user)){
+				if($user == $this->data()->id && $this->find($user, $field)){
 					$this->_isAdmLoggedIn = true;
 				} else {
 					// process logout
 				}
 			}
 		} else {
-			$this->find($user);
+			$this->find($user, $field);
 		}
 
 	}

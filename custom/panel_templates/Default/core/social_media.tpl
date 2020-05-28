@@ -106,27 +106,6 @@
                                            placeholder="{$FACEBOOK_URL}"
                                            value="{$FACEBOOK_URL_VALUE}">
                                 </div>
-                                <h4>{$DISCORD_HOOKS}</h4>
-                                <div class="callout callout-info">
-                                    <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
-                                    {$DISCORD_HOOKS_INFO}
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputDiscordHookURL">{$DISCORD_HOOK_URL}</label>
-                                    <input type="text" class="form-control" name="discord_url"
-                                           placeholder="{$DISCORD_HOOK_URL}"
-                                           value="{$DISCORD_HOOK_URL_VALUE}"
-                                           id="InputDiscordHookURL">
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputDiscordHooks">{$DISCORD_HOOK_EVENTS}</label>
-                                    <select multiple class="form-control" name="discord_hooks[]"
-                                            id="InputDiscordHooks">
-                                        {foreach from=$DISCORD_ALL_HOOKS key=key item=item}
-                                            <option value="{$key|escape}"{if in_array($key|escape, $DISCORD_ENABLED_HOOKS)} selected{/if}>{$item|escape}</option>
-                                        {/foreach}
-                                    </select>
-                                </div>
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <input type="submit" class="btn btn-primary"
                                        value="{$SUBMIT}">

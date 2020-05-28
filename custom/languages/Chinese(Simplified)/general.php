@@ -18,6 +18,7 @@ $language = array(
 	'submit' => '提交',
 	'register' => '注册',
 	'already_registered' => '已经注册?',
+	'custom_fields' => 'Custom Fields',
 	'not_registered_yet' => '还没有账号?',
 	'sign_in' => '登录',
 	'log_out' => '登出',

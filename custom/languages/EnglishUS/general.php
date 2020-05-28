@@ -16,6 +16,7 @@ $language = array(
 	'submit' => 'Submit',
 	'register' => 'Register',
 	'already_registered' => 'Already Registered?',
+	'custom_fields' => 'Custom Fields',
 	'not_registered_yet' => 'Not registered yet?',
 	'sign_in' => 'Log In',
 	'log_out' => 'Log Out',

@@ -59,7 +59,22 @@
 				</div>
 			  </div>
 			</div>
-			
+			{if $HAS_CUSTOM_FIELDS}
+				<h2>{$CUSTOM_FIELDS_TEXT}</h2>
+				<hr class="colorgraph" />
+
+				{foreach $CUSTOM_FIELDS as $field}		
+					<div class="form-group">				
+					{if $field->type eq 1}
+						<input type="text" name="{$field->name}" id="{$field->name}" placeholder="{$field->name}" class="form-control form-control-lg"  tabindex="3">
+					{elseif $field->type eq 2}
+						<textarea name="{$field->name}" id="{$field->name}" placeholder="{$field->name}" class="form-control form-control-lg"  tabindex="3"></textarea>
+					{elseif $field->type eq 3}
+						<input type="text" name="{$field->name}" placeholder="{$field->name}" onfocus="(this.type='date')" onblur="(this.type='text')" id="{$field->name}" class="form-control form-control-lg" tabindex="3">
+					{/if}
+					</div>
+				{/foreach}
+			{/if}
 			{if isset($RECAPTCHA)}
 			<div class="form-group">
 			  <center>

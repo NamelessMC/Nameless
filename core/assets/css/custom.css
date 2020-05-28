@@ -290,9 +290,6 @@ body.installer {
   background-color: #1678c2 !important;
   border: none; 
 }
-* {
-  font-family: "Lato";
-}
 .step_back {
   position: absolute;
   left: 25px;

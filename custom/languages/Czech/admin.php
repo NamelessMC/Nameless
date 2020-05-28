@@ -14,7 +14,7 @@ $language = array(
 	 *  Admin Control Panel
 	 */
 	// Login
-	're-authenticate' => 'Prosím ověřte přihlášení',
+	're-authenticate' => 'Prosím znovu se přihlášte.',
 	
 	// Sidebar
 	'dashboard' => 'Nástěnka',
@@ -34,7 +34,7 @@ $language = array(
 	'users_and_groups' => 'Uživatelé a skupiny',
 	
 	// Overview
-	'running_nameless_version' => 'NamelessMC běží na verzi <strong>{x}</strong>', // Don't replace "{x}"
+	'running_nameless_version' => 'NamelessMC aktuálně běží na verzi <strong>{x}</strong>', // Don't replace "{x}"
 	'running_php_version' => 'PHP verze <strong>{x}</strong>', // Don't replace "{x}"
 	'statistics' => 'Statistiky',
 	'registrations' => 'Registrace',
@@ -89,7 +89,7 @@ $language = array(
     'enable_debug_mode' => 'Povolit režim ladění?',
     'force_https' => 'Vynucené https?',
     'force_https_help' => 'Pokud je zapnuto, všechny požadavky na Váš web budou přesměrovány na https. Jestli chcete, aby to tato možnost fungovala správně, tak musíte mít platný a aktivovaný SSL certifikát.',
-    'force_www' => 'Povolit www?',
+    'force_www' => 'Vynutit www?',
     'contact_email_address' => 'Kontaktní e-mailová adresa',
     'emails' => 'E-maily',
     'email_errors' => 'Chyby s e-maily',
@@ -178,6 +178,7 @@ $language = array(
 	'required' => 'Povinný',
 	'editable' => 'Upravitelné',
 	'public' => 'Veřejný',
+	'forum_posts' => 'Display on Forum',
 	'text' => 'Text',
 	'textarea' => 'Oblast textu',
 	'date' => 'Datum',
@@ -319,11 +320,11 @@ $language = array(
 	'deactivate' => 'Deaktivovat',
 	'activate' => 'Aktiovat',
 	'warning_editing_default_template' => 'Varování! Doporučuje se, abyste neupravovali výchozí šablonu.',
-	'images' => 'Obrázek',
+	'images' => 'Obrázky',
 	'upload_new_image' => 'Nahrát nový obrázek',
 	'reset_background' => 'Resetovat pozadí',
-	'install' => '<i class="fa fa-plus-circle"></i> nainstalován',
-	'template_updated' => 'Šablona úspěšně aktualizována.',
+	'install' => '<i class="fa fa-plus-circle"></i> Nainstalovat nové šablony',
+	'template_updated' => 'Šablona byla úspěšně aktualizována.',
 	'default' => 'Výchozí',
 	'make_default' => 'Nastavit jako výchozí',
 	'default_template_set' => 'Výchozí šablona {x} byla úspěšně nastavena.', // Don't replace {x}
@@ -571,10 +572,17 @@ $language = array(
 	'log_purged_successfully' => 'The log has been purged successfully.',
 
 	// Hooks
-	'discord_hooks' => 'Discord Hooks',
-	'discord_hooks_info' => 'Pokud se na vašem webu něco stane, odešlete zprávu do kanálu na Discord. Vytvořte Discord Webhook ve vašem nastavení serveru -> Webhook',
-	'discord_hook_url' => 'Discord webhook ODKAZ',
-	'discord_hook_events' => 'Povolit Discord Hook akce (Ctrl + klikněte pro výběr více událostí)',
+	'hooks' => 'Webhooks',
+	'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
+	'new_hook' => 'New Hook',
+	'creating_new_hook' => 'Creating New Webhook',
+	'editing_hook' => 'Editing Webhook',
+	'delete_hook' => 'Are you sure you want to delete this hook?',
+	'hook_url' => 'Webhook URL',
+	'hook_type' => 'Webhook Type',
+	'hook_events' => 'Events to trigger this webhook',
+	'invalid_hook_url' => 'Invalid webhook url',
+	'invalid_hook_events' => 'You must select at least 1 event',
 	'register_hook_info' => 'Registrace uživatele',
 	'validate_hook_info' => 'Ověření uživatele',
 	'delete_hook_info' => 'Smazání uživatele',
