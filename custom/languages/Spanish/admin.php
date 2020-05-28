@@ -236,8 +236,8 @@ $language = array(
     'server_query_information' => 'Con el fin de mostrar una lista de jugadores en línea en su sitio web, su servidor <strong>must</strong> debe tener el \'enable-query\' habilitado en el archivo <strong>server.properties</strong>.',
     'enable_status_query' => '¿Habilitar estado de consulta?',
     'status_query_help' => 'Si esta opción está activada, la página de estado mostrará este servidor en línea o fuera de línea.',
-    'show_ip_on_status_page' => 'Show IP on status page?',
-    'show_ip_on_status_page_info' => 'If this is enabled, users will be able to view and copy the IP address when viewing the Status page.',
+    'show_ip_on_status_page' => 'Quieres que la IP aparesca en la pagina de estado?',
+    'show_ip_on_status_page_info' => 'Si esto está habilitado, los usuarios podrán ver y copiar la dirección IP cuando vean la página Estado.',
     'enable_player_list' => '¿Activar la lista de jugadores?',
     'pre_1.7' => '¿La versión del servidor de Minecraft es anterior a la 1.7?',
     'player_list_help' => 'Si está activado, la página de estado mostrará una lista de jugadores en línea.',
@@ -290,7 +290,7 @@ $language = array(
     'query_information' => 'Información de la Consulta',
     'query_errors_purged_successfully' => 'Error de la consulta eliminado con correctamente.',
     'query_error_deleted_successfully' => 'Errores de consultas eliminados con correctamente.',
-    'banner_updated_successfully' => 'Banner updated successfully. It may take a while for your changes to take effect.',
+    'banner_updated_successfully' => 'Banner actualizado con éxito. Puede tomar un tiempo para que sus cambios surtan efecto.',
 
 	// Modules
 	'modules_installed_successfully' => 'Todos los nuevos módulos han sido instalados correctamente.',
@@ -454,7 +454,7 @@ $language = array(
 	'new_version_x' => 'Nueva versión: <strong>{x}</strong>', // Don't replace {x}
 	'new_update_available' => 'Hay una nueva actualización disponible',
 	'new_urgent_update_available' => 'Hay una actualización urgente disponible. ¡Por favor actualice tan pronto sea posible!',
-	'up_to_date' => '¡Estás en la ultima versión! (2.0.0-pr6)',
+	'up_to_date' => '¡Estás en la ultima versión! (2.0.0-pr7)',
 	'urgent' => 'Esta actualización es una actualización urgente',
 	'changelog' => 'Registro de cambios',
 	'update_check_error' => 'Se ha producido un error al comprobar si hay una actualización:',
@@ -510,11 +510,11 @@ $language = array(
     'page_icon_maximum_64' => 'El ícono de la página debe ser máximo de 64 carácteres',
     'page_url_maximum_20' => 'La ubicación del vínculo debe ser máximo de 20 carácteres.',
     'page_content_maximum_100000' => 'El contenido de la página debe ser máximo de 100000 carácteres.',
-    'page_redirect_link_maximum_512' => 'The page redirect link must be a maximum of 512 characters.',
+    'page_redirect_link_maximum_512' => 'El enlace de redireccionamiento de la página debe tener un máximo de 512 caracteres.',
     'confirm_delete_page' => '¿Estás seguro de que quieres eliminar esa página?',
-    'page_created_successfully' => 'Page created successfully.',
-    'page_updated_successfully' => 'Page updated successfully.',
-    'page_deleted_successfully' => 'Page deleted successfully.',
+    'page_created_successfully' => 'Pagina creada correctamente.',
+    'page_updated_successfully' => 'Pagina actualizada correctamente',
+    'page_deleted_successfully' => 'Pagina eliminada correctamente.',
 
     // API
     'api' => 'API',

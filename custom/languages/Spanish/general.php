@@ -15,9 +15,9 @@ $language = array(
 	 */
 	'submit' => 'Enviar',
 	'register' => 'Registro',
-	'already_registered' => 'Already Registered?',
-	'custom_fields' => 'Custom Fields',
-	'not_registered_yet' => 'Not registered yet?',
+	'already_registered' => 'Ya te encuentras registrado?',
+  'custom_fields' => 'Campos Personalizados',
+	'not_registered_yet' => 'No estas registrado?',
 	'sign_in' => 'Iniciar sesión',
 	'log_out' => 'Cerrar sesión',
 	'profile' => 'Perfil',
@@ -138,8 +138,8 @@ $language = array(
     'no_online_users' => 'No hay usuarios conectados.',
     'total_online_users' => 'Total de usuarios conectados: {x}',
     'discord_widget_disabled' => 'El widget está deshabilitado para el servidor de Discord especificado.. Vaya a la pestaña Widget en la configuración del servidor de Discord y asegúrese de que el widget de Discord esté habilitado y que la ID sea correcta..',
-    'online_guests' => 'Online Guests',
-    'total_online' => 'Total Online', // this is Online Users + Online Guests
+    'online_guests' => 'Invitados en linea',
+    'total_online' => 'Total en linea', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy
@@ -149,5 +149,5 @@ $language = array(
 	/*
 	 *  Custom page redirect
 	 */
-	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+	'redirecting_message' => 'Redireccionando...<br />Si la redireccion tarda mucho, puede hacer <a href="{x}" rel="nofollow noopener">Click aqui</a> para continuar.' // Don't replace {x} which is the redirect URL
 );

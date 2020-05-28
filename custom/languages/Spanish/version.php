@@ -2,7 +2,7 @@
 /*
  *	Made by TheSuperSkills (Edited by Ariuw and iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -10,5 +10,5 @@
  */
 
 // Which version of NamelessMC is this language file updated to?
-$language_version = '2.0.0-pr4';
+$language_version = '2.0.0-pr7';
 $language_html = 'es';
