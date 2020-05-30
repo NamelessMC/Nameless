@@ -39,6 +39,11 @@ if(is_file('pages/install.php')){
 	} else {
 		$page = 'install';
 
+		// Remove Nameless Installer file to avoid confusion
+		if (file_exists('./easy-install.php')) {
+    			unlink('./easy-install.php');
+		}
+
 		require('core/init.php');
 		require('pages/install.php');
 		die();
