@@ -108,7 +108,7 @@ if(Input::exists()){
                         $fromemail = Output::getClean(Input::get('email'));
 
                         $headers = 'From: ' . $siteemail . "\r\n" .
-                            'Reply-To: ' . $fromeemail . "\r\n" .
+                            'Reply-To: ' . $fromemail . "\r\n" .
                             'X-Mailer: PHP/' . phpversion() . "\r\n" .
                             'MIME-Version: 1.0' . "\r\n" . 
                             'Content-type: text/html; charset=UTF-8' . "\r\n";
