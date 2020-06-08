@@ -37,6 +37,7 @@ if($cache->isCached('news')){
 			'author_nickname' => Output::getClean($user->idToNickname($item['author'])),
 			'author_avatar' => $user->getAvatar($item["author"], "../", 64),
 			'author_group' => $user->getGroupName($user->getGroup($item['author'])),
+			'author_group_html' => $user->getGroup($item['author'], true),
 			'content' => Output::getPurified($item['content']),
 			'label' => $item['label']
 		);
