@@ -151,6 +151,7 @@ $language = array(
     'can_view_forum' => 'Kann dieses Forum gesehen werden?',
     'can_view_other_topics' => 'Können Nutzer andere Themen sehen?',
     'can_create_topic' => 'Können Themen erstellt werden?',
+    'can_edit_topic' => 'Can edit their topics?',
     'can_post_reply' => 'Können Antworten erstellt werden?',
     'can_moderate_forum' => 'Kann das Forum moderiert werden?',
     'display_topics_as_news' => 'Sollen Themen auf der Startseite angezeigt werden?',
