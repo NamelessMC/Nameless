@@ -323,7 +323,6 @@ if(Input::exists()) {
 					try {
 						$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'))[0]->value;
 						$contactemail = $queries->getWhere('settings', array('name', '=', 'incoming_email'))[0]->value;
-						ini_set('sendmail_path', '/usr/sbin/sendmail -t -i -f noreply@tadhgboyle.dev');
 						foreach ($users_following_info as $user_info) {
 							if ($php_mailer == '1') {
 
