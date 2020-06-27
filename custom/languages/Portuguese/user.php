@@ -226,6 +226,7 @@ $language = array(
     'email_greeting' => 'Olá,',
     'email_message' => 'Obrigado por se registrar! Para completar o seu cadastro, clique no link a seguir:',
     'forgot_password_email_message' => 'Para resetar sua senha, clique no seguinte link. Se você desconhece essa requisição, você pode excluir com segurança este e-mail.',
+    'forum_topic_reply_email_message' => '{x} has replied to a topic you follow. Content: <br> {y}',
     'email_thanks' => 'Obrigado,',  
     /*
      *  Hooks

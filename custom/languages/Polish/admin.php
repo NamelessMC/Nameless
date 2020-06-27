@@ -96,6 +96,7 @@ $language = array(
 	'registration_email' => 'Email rejestracyjny',
 	'contact_email' => 'Email kontaktowy',
 	'forgot_password_email' => 'Email przypominający hasło',
+	'forum_topic_reply_email' => 'Forum Topic Reply Email',
 	'unknown' => 'Nieznany',
 	'delete_email_error' => 'Usuń błąd',
 	'confirm_email_error_deletion' => 'Jesteś pewien że chcesz usunąć ten błąd?',

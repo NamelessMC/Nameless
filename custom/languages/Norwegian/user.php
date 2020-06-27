@@ -230,6 +230,7 @@ $language = array(
 	'email_greeting' => 'Hei!',
 	'email_message' => 'Takk for at du registrerte deg på vårt nettsted. For å fullføre registreringen må du følge denne lenken:',
 	'forgot_password_email_message' => 'For å resette passordet ditt, vennligst følg linken. Hvis du ikke har bedt om en resettelse, kan du trygt slette denne mailen.',
+	'forum_topic_reply_email_message' => '{x} has replied to a topic you follow. Content: <br> {y}',
 	'email_thanks' => 'Takk,',
 
 	/*

@@ -231,6 +231,7 @@ $language = array(
 	'email_greeting' => 'Hi,',
 	'email_message' => 'Thanks for registering! In order to complete your registration, please click the following link:',
 	'forgot_password_email_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
+	'forum_topic_reply_email_message' => '{x} has replied to a topic you follow. Content: <br> {y}',
 	'email_thanks' => 'Thanks,',
 
     /*

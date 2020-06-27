@@ -224,6 +224,7 @@ $language = array(
 	'email_greeting' => 'Labas,',
 	'email_message' => 'Dėkojame už registraciją! Norėdami užbaigti registraciją, spauskite šią nuorodą:',
 	'forgot_password_email_message' => 'Jei norite iš naujo nustatyti slaptažodį, spauskite šią nuorodą. Jei to neprašėte patys, galite saugiai ištrinti šį el. laišką.',
+	'forum_topic_reply_email_message' => '{x} has replied to a topic you follow. Content: <br> {y}',
 	'email_thanks' => 'Ačiū,',
 
 	// Hooks

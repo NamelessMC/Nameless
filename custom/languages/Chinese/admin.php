@@ -100,6 +100,7 @@ $language = array(
 	'registration_email' => '註冊電子郵件',
 	'contact_email' => '聯絡電子郵件',
 	'forgot_password_email' => '忘記密碼郵件',
+	'forum_topic_reply_email' => 'Forum Topic Reply Email',
 	'unknown' => '未知',
 	'delete_email_error' => '移除錯誤',
 	'confirm_email_error_deletion' => '確定移除錯誤?',

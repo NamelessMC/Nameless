@@ -232,6 +232,7 @@ $language = array(
 	'email_greeting' => 'Ciao,',
 	'email_message' => 'Grazie per esserti registrato! Per completare la registrazione, fare clic sul seguente collegamento:',
 	'forgot_password_email_message' => "Per reimpostare la password, fai clic sul seguente link. Se non l'hai richiesto tu, puoi tranquillamente cancellare questa email.",
+	'forum_topic_reply_email_message' => '{x} has replied to a topic you follow. Content: <br> {y}',
 	'email_thanks' => 'Grazie,',
 
 	/*

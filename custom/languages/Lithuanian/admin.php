@@ -94,6 +94,7 @@ $language = array(
 	'registration_email' => 'Registracijos el. pašto adresas',
 	'contact_email' => 'Kontaktinis El. Paštas',
 	'forgot_password_email' => 'Slaptažodžio Pamiršimo El. Paštas',
+	'forum_topic_reply_email' => 'Forum Topic Reply Email',
 	'unknown' => 'Nežinoma',
 	'delete_email_error' => 'Ištrinti klaidą',
 	'confirm_email_error_deletion' => 'Ar tikrai norite ištrinti šią klaidą?',

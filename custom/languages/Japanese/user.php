@@ -235,6 +235,7 @@ $language = array(
 	'email_greeting' => 'こんにちは！',
 	'email_message' => '登録ありがとうございます！ 登録を完了するには、次のリンクをクリックしてください:',
 	'forgot_password_email_message' => 'パスワードをリセットするには、次のリンクをクリックしてください。 これを自分でリクエストしていない場合は、このメールを安全に削除できます。',
+	'forum_topic_reply_email_message' => '{x} has replied to a topic you follow. Content: <br> {y}',
 	'email_thanks' => 'ありがとうございます。',
 
 	/*

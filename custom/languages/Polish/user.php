@@ -231,6 +231,7 @@ $language = array(
 	'email_greeting' => 'Hej,',
 	'email_message' => 'Dziękujemy za rejestrację na naszym portalu! Jeśli chcesz aktywować swoje konto kilknij w ten link:',
 	'forgot_password_email_message' => 'By zresetować swoje hasło kliknij w link poniżej. Jeśli nie chciałeś resetować hasła zignoruj i usuń ten email.',
+	'forum_topic_reply_email_message' => '{x} has replied to a topic you follow. Content: <br> {y}',
 	'email_thanks' => 'Dziękujemy',
 
 	/*

@@ -97,6 +97,7 @@ $language = array(
 	'registration_email' => 'Registrering E-post',
 	'contact_email' => 'Contact E-post',
 	'forgot_password_email' => 'Glömt lösenord E-post',
+	'forum_topic_reply_email' => 'Forum Topic Reply Email',
 	'unknown' => 'OKänd',
 	'delete_email_error' => 'Radera fel',
 	'confirm_email_error_deletion' => 'Är du säker på att du vill radera detta fel?',

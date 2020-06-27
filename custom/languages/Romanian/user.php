@@ -233,6 +233,7 @@ $language = array(
     'email_greeting' => 'Salut,',
     'email_message' => 'Vă mulțumim pentru înregistrare! Pentru a vă completa înregistrarea, faceți clic pe următorul link:',
     'forgot_password_email_message' => 'Pentru a vă reseta parola, faceți clic pe următorul link. Dacă nu ați solicitat acest lucru, puteți șterge în siguranță acest e-mail.',
+    'forum_topic_reply_email_message' => '{x} has replied to a topic you follow. Content: <br> {y}',
     'email_thanks' => 'Cu stimă,',
 
     /*

@@ -94,6 +94,7 @@ $language = array(
     'registration_email' => 'E-mail de inscrição',
     'contact_email' => 'Email de contato',
     'forgot_password_email' => 'Esqueceu o e-mail cadastrado',
+    'forum_topic_reply_email' => 'Forum Topic Reply Email',
     'unknown' => 'Desconhecido',
     'delete_email_error' => 'Erro de exclusão',
     'confirm_email_error_deletion' => 'Tem certeza de que deseja excluir esse erro?',

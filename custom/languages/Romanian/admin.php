@@ -101,6 +101,7 @@ $language = array(
     'registration_email' => 'E-mail de înregistre',
     'contact_email' => 'E-mail de contact',
     'forgot_password_email' => 'E-mail de resetare parolă',
+    'forum_topic_reply_email' => 'Forum Topic Reply Email',
     'unknown' => 'Necunoscut',
     'delete_email_error' => 'Ștergeți eroarea',
     'confirm_email_error_deletion' => 'Sigur doriți să ștergeți această eroare?',

@@ -284,8 +284,13 @@ if(Input::exists()) {
 				// Alerts
 				$users_following = $queries->getWhere('topics_following', array('topic_id', '=', $tid));
 				if(count($users_following)){
+					$users_following_info = array();
 					foreach($users_following as $user_following){
-						if($user_following->user_id != $user->data()->id && $user_following->existing_alerts == 0){
+						if ($user_following->existing_alerts ==0 && $user_following->user_id !== $user->data()->id) {
+							
+							$user_info = $queries->getWhere('users', array('id', '=', $user_following->user_id));
+							array_push($users_following_info, ['email' => $user_info[0]->email, 'username' => $user_info[0]->username]);
+
 							Alert::create(
 								$user_following->user_id,
 								'new_reply',
@@ -298,8 +303,83 @@ if(Input::exists()) {
 							));
 						}
 					}
-				}
 
+					$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html'));
+					$html = file_get_contents($path);
+
+					$message = str_replace(
+						array('[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'),
+						array(
+							SITE_NAME,
+							str_replace(array('{x}', '{y}'), array($user->data()->username, $topic->topic_title), $forum_language->get('forum', 'new_reply_in_topic')),
+							$language->get('user', 'email_greeting'),
+							str_replace(array('{x}', '{y}'), array($user->data()->username, html_entity_decode($content)), $language->get('user', 'forum_topic_reply_email_message')),
+							'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
+							$language->get('user', 'email_thanks')
+						),
+						$html
+					);
+
+					try {
+						$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'))[0]->value;
+						$contactemail = $queries->getWhere('settings', array('name', '=', 'incoming_email'))[0]->value;
+						ini_set('sendmail_path', '/usr/sbin/sendmail -t -i -f noreply@tadhgboyle.dev');
+						foreach ($users_following_info as $user_info) {
+							if ($php_mailer == '1') {
+
+									// PHP Mailer
+									$email = array(
+										'replyto' => array('email' => $contactemail, 'name' => Output::getClean(SITE_NAME)),
+										'to' => array('email' => Output::getClean($user_info['email']), 'name' => Output::getClean($user_info['username'])),
+										'subject' => SITE_NAME . ' - ' . str_replace(array('{x}', '{y}'), array($user->data()->username, $topic->topic_title), $forum_language->get('forum', 'new_reply_in_topic')),
+										'message' => $message
+									);
+
+									$sent = Email::send($email, 'mailer');
+
+									if (isset($sent['error'])) {
+										// Error, log it
+										$queries->create('email_errors', array(
+											'type' => 5, // 5 = forum topic reply
+											'content' => $sent['error'],
+											'at' => date('U'),
+											'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
+										));
+									}
+							} else {
+								// PHP mail function
+								$siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'))[0]->value;
+
+								$subject = SITE_NAME . ' - ' . $language->get('general', 'contact_email_subject');
+
+								$fromemail = $queries->getWhere('settings', array('name', '=', 'incoming_email'))[0]->value;
+
+								$headers = 'From: ' . $siteemail . "\r\n" .
+								'Reply-To: ' . $fromemail . "\r\n" .
+								'X-Mailer: PHP/' . phpversion() . "\r\n" .
+								'MIME-Version: 1.0' . "\r\n" .
+								'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+								$email = array('to' => $user_info['email'], 'subject' => $subject, 'message' => $message, 'headers' => $headers);
+
+								$sent = Email::send($email, 'php');
+
+								if (isset($sent['error'])) {
+									// Error, log it
+									$queries->create('email_errors', array(
+										'type' => 5, // 5 = forum topic reply
+										'content' => $sent['error'],
+										'at' => date('U'),
+										'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
+									));
+								}
+							}
+						}
+					} catch (Exception $e) {
+						// Error
+						$error = $e->getMessage();
+					}
+				}
 				Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
 				Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
 				die();
