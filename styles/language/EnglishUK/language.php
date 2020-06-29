@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  http://worldscapemc.co.uk
@@ -9,7 +9,7 @@
 /*
  *  English UK Language
  */
- 
+
 /*
  *  Admin Panel
  */
@@ -25,10 +25,10 @@ $admin_language = array(
 	'edit' => 'Edit',
 	'actions' => 'Actions',
 	'task_successful' => 'Task run successfully',
-	
+
 	// Admin login
 	're-authenticate' => 'Please re-authenticate',
-	
+
 	// Admin sidebar
 	'index' => 'Overview',
 	'announcements' => 'Announcements',
@@ -43,11 +43,11 @@ $admin_language = array(
 	'update' => 'Update',
 	'misc' => 'Misc',
 	'help' => 'Help',
-	
+
 	// Admin index page
 	'statistics' => 'Statistics',
 	'registrations_per_day' => 'Registrations per day (last 7 days)',
-	
+
 	// Admin announcements page
 	'current_announcements' => 'Current Announcements',
 	'create_announcement' => 'Create Announcement',
@@ -67,7 +67,7 @@ $admin_language = array(
 	'announcement_deleted' => 'Announcement successfully deleted',
 	'announcement_type' => 'Announcement Type',
 	'can_view_announcement' => 'Can view announcement?',
-	
+
 	// Admin core page
 	'general_settings' => 'General Settings',
 	'modules' => 'Modules',
@@ -144,7 +144,7 @@ $admin_language = array(
 	'question_deleted' => 'Question Deleted',
 	'use_followers' => 'Use followers?',
 	'use_followers_help' => 'If disabled, the friends system will be used.',
-	
+
 	// Admin custom pages page
 	'click_on_page_to_edit' => 'Click on a page to edit it.',
 	'page' => 'Page:',
@@ -172,7 +172,7 @@ $admin_language = array(
 	'redirect_page' => 'Redirect page?',
 	'redirect_link' => 'Redirect link',
 	'page_icon' => 'Page Icon',
-	
+
 	// Admin forum page
 	'labels' => 'Topic Labels',
 	'new_label' => 'New Label',
@@ -216,7 +216,7 @@ $admin_language = array(
 	'forum_description_maximum' => 'The forum description must be a maximum of 255 characters.',
 	'forum_type_forum' => 'Discussion Forum',
 	'forum_type_category' => 'Category',
-	
+
 	// Admin Users and Groups page
 	'users' => 'Users',
 	'new_user' => 'New User',
@@ -263,7 +263,7 @@ $admin_language = array(
 	'uuid_max_32' => 'The UUID must be a maximum of 32 characters.',
 	'cant_delete_root_user' => 'Can\'t delete the root user!',
 	'cant_modify_root_user' => 'Can\'t modify the root user\'s group.',
-	
+
 	// Admin Minecraft page
 	'minecraft_settings' => 'Minecraft Settings',
 	'use_plugin' => 'Enable Nameless API?',
@@ -320,7 +320,7 @@ $admin_language = array(
 	'mcassoc_instance_help' => 'Generate an instance code <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">here</a>',
 	'mcassoc_key_help' => 'Get your mcassoc key <a href="https://mcassoc.lukegb.com/" target="_blank">here</a>',
 	'enable_name_history' => 'Enable profile username history?',
-	
+
 	// Admin Themes, Templates and Addons
 	'themes' => 'Themes',
 	'templates' => 'Templates',
@@ -356,7 +356,7 @@ $admin_language = array(
 	'confirm_theme_deletion' => 'Are you sure you wish to delete the theme <strong>{x}</strong>?<br /><br />The theme will be deleted from your <strong>styles/themes</strong> directory.', // Don't replace {x}
 	'confirm_template_deletion' => 'Are you sure you wish to delete the template <strong>{x}</strong>?<br /><br />The template will be deleted from your <strong>styles/templates</strong> directory.', // Don't replace {x}
 	'unable_to_enable_addon' => 'Could not enable addon. Please ensure it is a valid NamelessMC addon.',
-	
+
 	// Admin Misc page
 	'other_settings' => 'Other Settings',
 	'enable_error_reporting' => 'Enable error reporting?',
@@ -366,7 +366,7 @@ $admin_language = array(
 	'reset_website' => 'Reset Website',
 	'reset_website_info' => 'This will reset your website settings. <strong>Addons will be disabled but not removed, and their settings will not change.</strong> Your defined Minecraft servers will also remain.',
 	'confirm_reset_website' => 'Are you sure you want to reset your website settings?',
-	
+
 	// Admin Update page
 	'installation_up_to_date' => 'Your installation is up to date.',
 	'update_check_error' => 'Unable to check for updates. Please try again later.',
@@ -389,7 +389,7 @@ $navbar_language = array(
 	'staff_apps' => 'Staff Applications',
 	'view_messages' => 'View Messages',
 	'view_alerts' => 'View Alerts',
-	
+
 	// Icons - will display before the text
 	'home_icon' => '',
 	'play_icon' => '',
@@ -461,7 +461,7 @@ $user_language = array(
 	'verification_success' => 'Successfully validated! You can now log in.',
 	'complete_signup' => 'Complete Signup',
 	'registration_disabled' => 'Website registration is currently disabled.',
-	
+
 	// UserCP
 	'user_cp' => 'UserCP',
 	'no_file_chosen' => 'No file chosen',
@@ -473,7 +473,7 @@ $user_language = array(
 	'reputation' => 'Reputation',
 	'friends' => 'Friends',
 	'alerts' => 'Alerts',
-	
+
 	// Messaging
 	'new_message' => 'New Message',
 	'no_messages' => 'No messages',
@@ -486,7 +486,7 @@ $user_language = array(
 	'viewing_message' => 'Viewing Message',
 	'delete_message' => 'Delete Message',
 	'confirm_message_deletion' => 'Are you sure you want to delete this message?',
-	
+
 	// Profile settings
 	'display_name' => 'Display name',
 	'upload_an_avatar' => 'Upload an avatar (.jpg, .png or .gif only):',
@@ -513,7 +513,7 @@ $user_language = array(
 	'tfa_disabled' => 'Two factor authentication disabled.',
 	'tfa_enter_email_code' => 'We have sent you a code within an email for verification. Please enter the code now:',
 	'tfa_email_contents' => 'A login attempt has been made to your account. If this was you, please input the following two factor authentication code when asked to do so. If this was not you, you can ignore this email, however a password reset is advised. The code is only valid for 10 minutes.',
-	
+
 	// Alerts
 	'viewing_unread_alerts' => 'Viewing unread alerts. Change to <a href="/user/alerts/?view=read"><span class="label label-success">read</span></a>.',
 	'viewing_read_alerts' => 'Viewing read alerts. Change to <a href="/user/alerts/"><span class="label label-warning">unread</span></a>.',
@@ -528,11 +528,11 @@ $user_language = array(
 	'tagged_in_post' => 'You have been tagged in a post',
 	'report' => 'Report',
 	'deleted_alert' => 'Alert successfully deleted',
-	
+
 	// Warnings
 	'you_have_received_a_warning' => 'You have received a warning from {x} dated {y}.', // Don't replace "{x}" or "{y}"
 	'acknowledge' => 'Acknowledge',
-	
+
 	// Forgot password
 	'password_reset' => 'Password Reset',
 	'email_body' => 'You are receiving this email because you requested a password reset. In order to reset your password, please use the following link:', // Body for the password reset email
@@ -541,7 +541,7 @@ $user_language = array(
 	'username_not_found' => 'That username does not exist.',
 	'change_password' => 'Change Password',
 	'your_password_has_been_changed' => 'Your password has been changed.',
-	
+
 	// Profile page
 	'profile' => 'Profile',
 	'player' => 'Player',
@@ -583,7 +583,7 @@ $user_language = array(
 	'changed_name_to' => 'Changed name to: {x} on {y}', // Don't replace {x} or {y}
 	'original_name' => 'Original name:',
 	'name_history_error' => 'Unable to retrieve username history.',
-	
+
 	// Staff applications
 	'staff_application' => 'Staff Application',
 	'application_submitted' => 'Application submitted successfully.',
@@ -602,7 +602,7 @@ $mod_language = array(
 	'reports' => 'Reports',
 	'punishments' => 'Punishments',
 	'staff_applications' => 'Staff Applications',
-	
+
 	// Punishments
 	'ban' => 'Ban',
 	'unban' => 'Unban',
@@ -615,7 +615,7 @@ $mod_language = array(
 	'cant_ban_root_user' => 'Can\'t punish the root user!',
 	'invalid_reason' => 'Please enter a valid reason between 2 and 256 characters long.',
 	'punished_successfully' => 'Punishment added successfully.',
-	
+
 	// Reports
 	'report_closed' => 'Report closed.',
 	'new_comment' => 'New comment',
@@ -634,7 +634,7 @@ $mod_language = array(
 	'comment_added' => 'Comment added.',
 	'new_report_submitted_alert' => 'New report submitted by {x} regarding user {y}', // Don't replace "{x}" or "{y}"
 	'ingame_report' => 'Ingame Report',
-	
+
 	// Staff applications
 	'comment_error' => 'Please ensure your comment is between 2 and 2048 characters long.',
 	'viewing_open_applications' => 'Viewing <span class="label label-info">open</span> applications. Change to <a href="/mod/applications/?view=accepted"><span class="label label-success">accepted</span></a> or <a href="/mod/applications/?view=declined"><span class="label label-danger">declined</span></a>.',
@@ -651,7 +651,7 @@ $mod_language = array(
 	'new_app_submitted_alert' => 'New application submitted by {x}' // Don't replace "{x}"
 );
 
-/* 
+/*
  *  General
  */
 $general_language = array(
@@ -659,7 +659,7 @@ $general_language = array(
 	'news' => 'News',
 	'social' => 'Social',
 	'join' => 'Join',
-	
+
 	// General terms
 	'submit' => 'Submit',
 	'close' => 'Close',
@@ -677,7 +677,7 @@ $general_language = array(
 	'view' => 'View',
 	'info' => 'Info',
 	'next' => 'Next',
-	
+
 	// Play page
 	'connect_with' => 'Connect to the server with the IP {x}', // Don't replace {x}
 	'online' => 'Online',
@@ -689,14 +689,14 @@ $general_language = array(
 	'no_players_online' => 'There are no players online.',
 	'1_player_online' => 'There is 1 player online.',
 	'x_players_online' => 'There are {x} players online.', // Don't replace {x}
-	
+
 	// Other
 	'page_loaded_in' => 'Page loaded in {x}s', // Don't replace {x}; 's' stands for 'seconds'
 	'none' => 'None',
 	'404' => 'Sorry, we couldn\'t find that page.'
 );
 
-/* 
+/*
  *  Forum
  */
 $forum_language = array(
@@ -723,7 +723,7 @@ $forum_language = array(
 	'no_topics' => 'No topics here yet',
 	'new_topic' => 'New Topic',
 	'subforums' => 'Subforums:',
-	
+
 	// View topic view
 	'home' => 'Home',
 	'topic_locked' => 'Topic Locked',
@@ -742,55 +742,55 @@ $forum_language = array(
 	'edit_post' => 'Edit Post',
 	'reputation' => 'reputation',
 	'confirm_post_deletion' => 'Are you sure you want to delete this post?',
-	'give_reputation' => 'Give reputation',
-	'remove_reputation' => 'Remove reputation',
+	'give_reputation' => 'Give Reputation',
+	'remove_reputation' => 'Remove Reputation',
 	'post_reputation' => 'Post Reputation',
 	'no_reputation' => 'No reputation for this post yet',
 	're' => 'RE:',
-	
+
 	// Create post view
 	'create_post' => 'Create post',
 	'post_submitted' => 'Post submitted',
 	'creating_post_in' => 'Creating post in: ',
 	'topic_locked_permission_post' => 'This topic is locked, however your permissions allow you to post',
-	
+
 	// Edit post view
 	'editing_post' => 'Editing post',
-	
+
 	// Sticky threads
 	'thread_is_' => 'Thread is ',
 	'now_sticky' => 'now a sticky thread',
 	'no_longer_sticky' => 'no longer a sticky thread',
-	
+
 	// Create topic
 	'topic_created' => 'Topic created.',
 	'creating_topic_in_' => 'Creating topic in forum ',
 	'thread_title' => 'Thread Title',
 	'confirm_cancellation' => 'Are you sure?',
 	'label' => 'Label',
-	
+
 	// Reports
 	'report_submitted' => 'Report submitted.',
 	'view_post_content' => 'View post content',
 	'report_reason' => 'Report Reason',
-	
+
 	// Move thread
 	'move_to' => 'Move to:',
-	
+
 	// Merge threads
 	'merge_instructions' => 'The thread to merge with <strong>must</strong> be within the same forum. Move a thread if necessary.',
 	'merge_with' => 'Merge with:',
-	
+
 	// Other
 	'forum_error' => 'Sorry, we couldn\'t find that forum or topic.',
 	'are_you_logged_in' => 'Are you logged in?',
 	'online_users' => 'Online Users',
 	'no_users_online' => 'There are no users online.',
-	
+
 	// Search
 	'search_error' => 'Please input a search query between 1 and 32 characters long.',
 	'no_search_results' => 'No search results have been found.',
-	
+
 	//Share on a social-media.
 	'sm-share' => 'Share',
 	'sm-share-facebook' => 'Share on Facebook',
@@ -825,7 +825,7 @@ $time_language = array(
 	'about_1_year' => 'about 1 year ago',
 	'over_x_years' => 'over {x} years ago'
 );
- 
+
 /*
  *  Table language; used for "DataTables" Javascript tables
  */
@@ -836,12 +836,12 @@ $table_language = array(
 	'no_records' => 'No records available',
 	'filtered' => '(filtered from _MAX_ total records)' // Don't replace "_MAX_"
 );
- 
+
 /*
  *  API language
  */
 $api_language = array(
 	'register' => 'Complete Registration'
 );
- 
+
 ?>
