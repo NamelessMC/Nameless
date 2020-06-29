@@ -1,27 +1,24 @@
-<?php 
+<?php
 /*
- *  Made by Sander Jochems
- *  http://www.sanderjochems.nl
+ *  Sander Jochems <http://www.sanderjochems.nl>
+ *  jesseke55/Headhunterz_/jessegeerts <http://jessegeerts.nl>
+ *  melerpe
+ *  DoraKlikOpDora/Besbos <http://minevibes.com>
+ *  Sander Lambrechts
  *
- *  Updated by jesseke55/Headhunterz_/jessegeerts
- *  http://jessegeerts.nl
- *
- *  Updated and removed syntax error by melerpe
- *
- *  Updated by DoraKlikOpDora/Besbos
- *  http://minevibes.com
- *
- *  Updated by Sander Lambrechts
- *  
+ *  License: MIT
+ */
+
+/*
  *  Dutch Language
  */
-  
+
 /*
  *  Admin Panel
  */
 $admin_language = array(
     // General terms
-    'admin_cp' => 'AdminCP', 
+    'admin_cp' => 'AdminCP',
     'infractions' => 'Straffen',
     'invalid_token' => 'Ongeldige token, probeer het opnieuw',
     'invalid_action' => 'Ongeldige Actie',
@@ -31,10 +28,10 @@ $admin_language = array(
     'edit' => 'Bewerk',
     'actions' => 'Acties',
     'task_successful' => 'Opdracht uitgevoerd',
-     
+
     // Admin login
     're-authenticate' => 'Log opnieuw in',
-     
+
     // Admin sidebar
     'index' => 'Overzicht',
     'announcements' => 'Aankondigingen',
@@ -49,7 +46,7 @@ $admin_language = array(
     'update' => 'Bijwerken',
     'misc' => 'Overig',
     'help' => 'Help',
-     
+
     // Admin index page
     'statistics' => 'Statistieken',
     'registrations_per_day' => 'Registraties per dag (Tot wel 7 dagen terug)',
@@ -150,7 +147,7 @@ $admin_language = array(
 	'question_maximum' => 'Vraag moet uit maximaal 16 karakters bestaan.',
     'use_followers' => 'Gebruik volgers?',
     'use_followers_help' => 'Als dit is uitgeschakeld dan wordt het vrienden systeem ingeschakeld',
-     
+
     // Admin custom pages page
     'click_on_page_to_edit' => 'Klik op een pagina om deze te bewerken.',
     'page' => 'Pagina:',
@@ -254,7 +251,7 @@ $admin_language = array(
     'group_html_lg' => 'Groep HTML Groote',
     'donor_group_id' => 'Donor Pakket ID',
     'donor_group_id_help' => '<p>Dit is het ID van het pakket van de groep van Buycraft, Minecraft Market of MCStock.</p><p>Dit kan leeg gelaten worden.</p>',
-    'donor_group_instructions' =>    '<p>Donor groepen moeten worden gecreëerd in de volgorde van de <strong>laagste naar hoogste prijs</ strong>.</p>
+    'donor_group_instructions' =>   '<p>Donor groepen moeten worden gecreëerd in de volgorde van de <strong>laagste naar hoogste prijs</ strong>.</p>
                                     <p>Zo zal een &euro; 10 pakket worden gemaakt boven een &euro; 20 pakket.</p>',
     'delete_group' => 'Verwijder Groep',
     'confirm_group_deletion' => 'Weet je zeker dat je de groep <b>{x}<b> verwijderen?', // Don't replace "{x}"
@@ -269,7 +266,7 @@ $admin_language = array(
     'uuid_max_32' => 'De UUID kan uit niet meer dan 32 tekens bestaan.',
     'cant_delete_root_user' => 'De administrator kan niet verwijderd worden!',
     'cant_modify_root_user' => 'Je kan de groep van de administrator niet bewerken!',
-     
+
     // Admin Minecraft page
     'minecraft_settings' => 'Minecraft Instellingen',
     'use_plugin' => 'Gebruik Nameless Minecraft plugin?',
@@ -362,7 +359,7 @@ $admin_language = array(
     'confirm_theme_deletion' => 'Weet je het zeker dat je thema <b>{x}</b> wil verwijderen?<br /><br />Het thema wordt verwijderd uit de <b>styles/themes</b> map.', // Don't replace {x}
     'confirm_template_deletion' => 'Weet je zeker dat je het sjabloon <b>{x}</b> wilt verwijderen?<br /><br />Het sjabloon wordt verwijderd uit de <b>styles/templates</b> map.', // Don't replace {x}
     'unable_to_enable_addon' => 'Kan addon niet inschakelen. Zorg ervoor dat het een geldige NamelessMC addon is.',
-	
+
     // Admin Misc page
     'other_settings' => 'Andere Instellingen',
     'enable_error_reporting' => 'Probleem rapportage inschakelen?',
@@ -372,7 +369,7 @@ $admin_language = array(
     'reset_website' => 'Reset Website',
     'reset_website_info' => 'Deze knop zal je website resetten <b>Addons worden uitgeschakeld, maar niet verwijderd uit de database en addons map, en de instellingen worden niet veranderd.</b> Ingestelde Minecraft servers blijven behouden',
     'confirm_reset_website' => 'Weet je zeker dat je je website wilt resetten?',
-	
+
     // Admin Update page
     'installation_up_to_date' => 'Je installatie is up to date',
     'update_check_error' => 'Helaas konden we niet controleren of er updates zijn. Probeer het later nog eens.',
@@ -382,7 +379,7 @@ $admin_language = array(
     'download' => 'Download',
     'update_warning' => 'Waarschuwing: Kijk even dubbel of je de zip hebt gedownloadet en de bestanden daarvan hebt geupload, voordat je de update start!'
 );
- 
+
 /*
  *  Navbar
  */
@@ -395,14 +392,14 @@ $navbar_language = array(
     'staff_apps' => 'Staff Sollicitaties',
     'view_messages' => 'Bekijk Berichten',
     'view_alerts' => 'Bekijk Meldingen',
-    
+
     // Icons - will display before the text
     'home_icon' => '',
     'play_icon' => '',
     'forum_icon' => '',
     'staff_apps_icon' => ''
 );
- 
+
 /*
  * User Related
  */
@@ -503,22 +500,22 @@ $user_language = array(
     'repeat_new_password' => 'Herhaal nieuw wachtwoord',
     'password_changed_successfully' => 'Wachtwoord succesvol veranderd',
     'incorrect_password' => 'Uw huidige wachtwoord is onjuist',
-    'update_minecraft_name_help' => 'Dit zal je website gebruikersnaam veranderen naar je Minecraft gebruikersnaam die je nu hebt. Je kan dit maar 1x per 30 dagen uitvoeren.',
+    'update_minecraft_name_help' => 'Dit zal je website gebruikersnaam veranderen naar je Minecraft gebruikersnaam die je nu hebt. Je kan dit maar eens in de 30 dagen uitvoeren.',
     'unable_to_update_mcname' => 'De Minecraft gebruikersnaam kan niet worden bijgewerkt.',
     'display_age_on_profile' => 'Laat je leeftijd zien op je profiel?',
-    'two_factor_authentication' => 'TwoFactor Authenticatie',
-    'enable_tfa' => 'Schakel TwoFactor Authenticatie in.',
-    'tfa_type' => 'TwoFactor Authenticate type:',
-    'authenticator_app' => 'Authenticate Applicatie',
+    'two_factor_authentication' => 'Authenticatie in 2 stappen',
+    'enable_tfa' => 'Schakel tweefactorauthenticatie in.',
+    'tfa_type' => 'Tweefactorauthenticatie type:',
+    'authenticator_app' => 'Authenticator app',
     'tfa_scan_code' => 'Scan de volgende code in je authenticate app:',
     'tfa_code' => ' Als je apparaat geen camera heeft, of je bent niet in staat om de QR code uit te lezen, vul dan de volgende code in de app:',
     'tfa_enter_code' => 'Vul de code in die je ziet in de authenticatie app:',
     'invalid_tfa' => 'Ongeldige code, probeer het nog eens.',
-    'tfa_successful' => 'TwoFactor authenticate is met success ingesteld. Iedere keer als je inlogd moet je jezelf verifieren met een code.',
-    'confirm_tfa_disable' => 'Weet je het zeker dat je TwoFactor Authenticatie wilt uitschakelen?',
-    'tfa_disabled' => 'TwoFactor Authenticate is uitgeschakeld.',
+    'tfa_successful' => 'Tweefactorauthenticatie is met success ingesteld. Iedere keer als je inlogd moet je jezelf verifieren met een code.',
+    'confirm_tfa_disable' => 'Weet je het zeker dat je tweefactorauthenticatie wilt uitschakelen?',
+    'tfa_disabled' => 'Tweefactorauthenticatie is uitgeschakeld.',
     'tfa_enter_email_code' => 'We hebben je een verificatie code gestuurd in een email. Vul de code in:',
-    'tfa_email_contents' => 'Er is  een login poging gemaakt tot je account. Als je dit bent, vul dan de volgende code in als dat word gevraagd. Als je dit niet bent dan kan je de email negeren, hoe dan ook een wachtwoord reset word aangeraden. De code is voor 10 minuten geldig.',
+    'tfa_email_contents' => 'Er is een login poging gemaakt tot je account. Als je dit bent, vul dan de volgende code in als dat word gevraagd. Als je dit niet bent dan kan je de email negeren, hoe dan ook een wachtwoord reset word aangeraden. De code is voor 10 minuten geldig.',
 
     // Alerts
     'viewing_unread_alerts' => 'Bekijk ongelezen meldingen. Verander naar <a href="/user/alerts/?view=read"><span class="label label-success">gelezen</span></a>.',
@@ -534,11 +531,11 @@ $user_language = array(
     'tagged_in_post' => 'Je bent getagd in een post',
     'report' => 'Rapporteer',
     'deleted_alert' => 'Melding is succesvol verwijderd',
-     
+
     // Warnings
     'you_have_received_a_warning' => 'Je hebt een waarschuwing ontvangen van {x} op {y}.', // Don't replace "{x}" or "{y}"
     'acknowledge' => 'Dit Klopt',
-     
+
     // Forgot password
     'password_reset' => 'Wachtwoord Reset',
     'email_body' => 'Je ontvangt deze e-mail omdat je om een wachtwoord reset hebt gevraagd. Om je wachtwoord te resetten, gebruik de volgende link:', // Body for the password reset email
@@ -547,7 +544,7 @@ $user_language = array(
     'username_not_found' => 'Die gebruikersnaam bestaat niet.',
     'change_password' => 'Verander Wachtwoord',
     'your_password_has_been_changed' => 'Je wachtwoord is succesvol gewijzigd.',
-     
+
     // Profile page
     'profile' => 'Profiel',
     'player' => 'Spelers',
@@ -598,7 +595,7 @@ $user_language = array(
     'application_accepted' => 'Je staff aanvraag is geaccepteerd, gefeliciteerd!',
     'application_rejected' => 'Je staff aanvraag is afgewezen.'
 );
- 
+
 /*
  *  Moderation related
  */
@@ -608,7 +605,7 @@ $mod_language = array(
     'reports' => 'Rapporten',
     'punishments' => 'Straffen',
     'staff_applications' => 'Solliciteren voor staff',
-     
+
     // Punishments
     'ban' => 'Ban',
     'unban' => 'Unban',
@@ -656,8 +653,8 @@ $mod_language = array(
     'decline' => 'Afwijzen',
     'new_app_submitted_alert' => 'Nieuwe applicatie ingediend door {x}' // Don't replace "{x}"
 );
- 
-/* 
+
+/*
  *  General
  */
 $general_language = array(
@@ -683,7 +680,7 @@ $general_language = array(
     'view' => 'Bekijk',
     'info' => 'Info',
     'next' => 'Volgende',
-     
+
     // Play page
     'connect_with' => 'Server IP: <b>{x}<b>', // Don't replace {x}
     'online' => 'Online',
@@ -695,14 +692,14 @@ $general_language = array(
     'no_players_online' => 'Er zijn geen spelers online!',
 	'1_player_online' => 'Er is 1 speler online.',
     'x_players_online' => 'Er zijn {x} spelers online.', // Don't replace {x}
-     
+
     // Other
     'page_loaded_in' => 'Pagina geladen in {x} seconden', // Don't replace {x}; 's' stands for 'seconds'
     'none' => 'Geen',
     '404' => 'Sorry, we kunnen de pagina niet vinden die je probeert te bezoeken. Controleer de URL en probeer het opnieuw, als het nog niet lukt neem dan contact op met de Administrator'
 );
- 
-/* 
+
+/*
  *  Forum
  */
 $forum_language = array(
@@ -729,7 +726,7 @@ $forum_language = array(
     'no_topics' => 'Nog geen onderwerpen hier',
     'new_topic' => 'Nieuw onderwerp',
     'subforums' => 'Subforums:',
-     
+
     // View topic view
     'home' => 'Home',
     'topic_locked' => 'Onderwerp gesloten',
@@ -753,40 +750,40 @@ $forum_language = array(
     'post_reputation' => 'Post Reputatie',
     'no_reputation' => 'Er zijn nog geen reputaties voor deze post',
     're' => 'RE:',
-     
+
     // Create post view
     'create_post' => 'Maak bericht',
     'post_submitted' => 'Bericht  geplaatst',
     'creating_post_in' => 'Maak bericht in: ',
     'topic_locked_permission_post' => 'Dit onderwerp is gesloten, maar je kan nog een bericht plaatsen',
-     
+
     // Edit post view
     'editing_post' => 'Bericht bewerken',
-     
+
     // Sticky threads
     'thread_is_' => 'Onderwerp is ',
     'now_sticky' => 'Is nu een vastgepind onderwerp',
     'no_longer_sticky' => 'Is niet langer meer een vastgepind onderwerp',
-     
+
     // Create topic
     'topic_created' => 'Onderwerp gemaakt.',
     'creating_topic_in_' => 'Maak onderwerp in forum ',
     'thread_title' => 'Onderwerp Titel',
     'confirm_cancellation' => 'Weet je het zeker?',
     'label' => 'Label',
-     
+
     // Reports
     'report_submitted' => 'Rapport ingediend.',
     'view_post_content' => 'Bekijk bericht inhoud',
     'report_reason' => 'Rapport Reden',
-     
+
     // Move thread
     'move_to' => 'Verplaats naar:',
-     
+
     // Merge threads
     'merge_instructions' => 'Het onderwerp <strong>moet</strong> binnen hetzelfde forum zijn. Het verplaatsen van het onderwerp is nodig.',
     'merge_with' => 'Samenvoegen met:',
-     
+
     // Other
     'forum_error' => 'Sorry, we konden dat forum of onderwerp niet vinden.',
     'are_you_logged_in' => 'Ben je ingelogd?',
@@ -796,13 +793,13 @@ $forum_language = array(
     // Search
     'search_error' => 'Voer een zoekopdracht in die tussen 1 en 32 tekens lang is.',
     'no_search_results' => 'Je zoekopdracht heeft niks opgeleverd.',
-    
+
     //Share on a social-media.
    'sm-share' => 'Delen',
    'sm-share-facebook' => 'Deel op Facebook',
    'sm-share-twitter' => 'Deel op Twitter',
 );
- 
+
 /*
  *  Emails
  */
@@ -812,7 +809,7 @@ $email_language = array(
     'message' => 'Bedankt voor het registreren! Om de registratie te voltooien, klik je op de volgende link:',
     'thanks' => 'Bedankt,'
 );
- 
+
 /*
  *  Time language, eg "1 minute ago"
  *  DON'T replace "{x}" in any translations
@@ -831,7 +828,7 @@ $time_language = array(
     'about_1_year' => 'ongeveer 1 jaar geleden',
     'over_x_years' => '{x} jaren geleden'
 );
-  
+
 /*
  *  Table language; used for "DataTables" Javascript tables
  */
@@ -849,5 +846,5 @@ $table_language = array(
 $api_language = array(
 	'register' => 'Registratie voltooien'
 );
-  
+
 ?>
