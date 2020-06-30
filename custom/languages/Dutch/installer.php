@@ -4,7 +4,7 @@
  *  en vertaald door Sander Lambrechts, Melerpe, Derkades, smessie en ItzRonaldLG
  *
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -77,7 +77,7 @@ $language = array(
 	'no' => 'Nee',
 	'converter' => 'Converter',
 	'back' => 'Back',
-	'unable_to_load_converter' => 'Unable to load converter!',
+	'unable_to_load_converter' => 'Kan converter niet laden!',
 	'finish' => 'Voltooien',
 	'finish_message' => 'Bedankt voor het installeren van NamelessMC! U kunt nu doorgaan naar het controle paneel, waar u uw website verder kunt configureren.',
 	'support_message' => 'Als je hulp nodig hebt, check onze website <a href="https://namelessmc.com" target="_blank">hier</a>, of je kan onze <a href="https://discord.gg/9vk93VR" target="_blank">Discord server</a> bezoeken of onze <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.',
