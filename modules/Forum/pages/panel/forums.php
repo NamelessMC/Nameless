@@ -759,7 +759,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 									'forum_id' => $_GET['forum'],
 									'view' => $view,
 									'create_topic' => $create,
-									'edit_topic' => $create,
+									'edit_topic' => $edit,
 									'create_post' => $post,
 									'view_other_topics' => $view_others,
 									'moderate' => $moderate
