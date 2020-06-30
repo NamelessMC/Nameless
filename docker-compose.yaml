@@ -1,0 +1,30 @@
+# Run:
+# export UID=$UID; export GID=$GID; docker-compose up
+
+version: '2'
+
+services:
+
+    web:
+        image: derkades/namelessmc-nginx
+        ports: ['80:80']
+        volumes: ['./:/data']
+        depends_on: [php]
+        environment:
+            PHP_FPM: php:9000
+
+    php:
+        build:
+            context: .
+            args:
+                USER_ID: ${UID}
+                GROUP_ID: ${GID}
+        volumes: ['./:/data']
+
+    db:
+        image: mariadb
+        environment:
+            MYSQL_ROOT_PASSWORD: nameless
+            MYSQL_USER: nameless
+            MYSQL_PASSWORD: nameless
+            MYSQL_DATABASE: nameless
