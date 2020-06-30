@@ -220,12 +220,6 @@ $language = array(
 	'you_have_received_a_warning' => 'Jūs gavote įspėjimą!',
 	'acknowledge' => 'Pripažinti',
 
-	// Emails
-	'email_greeting' => 'Labas,',
-	'email_message' => 'Dėkojame už registraciją! Norėdami užbaigti registraciją, spauskite šią nuorodą:',
-	'forgot_password_email_message' => 'Jei norite iš naujo nustatyti slaptažodį, spauskite šią nuorodą. Jei to neprašėte patys, galite saugiai ištrinti šį el. laišką.',
-	'email_thanks' => 'Ačiū,',
-
 	// Hooks
 	'user_x_has_registered' => '{x} prisijungė prie ' . SITE_NAME . '!'
 );

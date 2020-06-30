@@ -229,14 +229,6 @@ $language = array(
 	'you_have_been_banned' => '你已被封禁!',
 	'you_have_received_a_warning' => '你已收到警告!',
 	'acknowledge' => '確認',
-	
-	/*
-	 *  Emails
-	 */
-	'email_greeting' => '嗨,',
-	'email_message' => '感謝您的註冊，請點擊下列的網址來完成驗證:',
-	'forgot_password_email_message' => '點擊下列網址萊完成忘記密碼恢復，如果您沒有傳送忘記密碼，請移除本郵件.',
-	'email_thanks' => '謝謝,',
 
 	/*
 	 *  Hooks

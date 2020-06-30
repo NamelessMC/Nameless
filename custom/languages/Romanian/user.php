@@ -226,14 +226,6 @@ $language = array(
     'you_have_been_banned' => 'Ați fost banat!',
     'you_have_received_a_warning' => 'Ați primit un avertisment!',
     'acknowledge' => 'Am înțeles',
-    
-    /*
-     *  Emails
-     */
-    'email_greeting' => 'Salut,',
-    'email_message' => 'Vă mulțumim pentru înregistrare! Pentru a vă completa înregistrarea, faceți clic pe următorul link:',
-    'forgot_password_email_message' => 'Pentru a vă reseta parola, faceți clic pe următorul link. Dacă nu ați solicitat acest lucru, puteți șterge în siguranță acest e-mail.',
-    'email_thanks' => 'Cu stimă,',
 
     /*
      *  Hooks

@@ -3,3 +3,4 @@
 /core/email.php
 /cache
 /.vscode/
+.DS_STORE

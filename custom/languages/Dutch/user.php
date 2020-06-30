@@ -226,15 +226,6 @@ $language = array(
 	'you_have_been_banned' => 'Je bent verbannen!',
 	'you_have_received_a_warning' => 'Je hebt een waarschuwing gekregen!',
 	'acknowledge' => 'Begrepen',
-	
-	
-	/*
-	 *  Emails
-	 */
-	'email_greeting' => 'Hoi,',
-	'email_message' => 'Bedankt voor het registreren op onze website! Om je registratie te voltooien, klik je op deze link: ',
-	'forgot_password_email_message' => 'Om je wachtwoord te herstellen, klik op de volgende link. Als je dit niet hebt aangevraagd, kan je deze email negeren.',
-	'email_thanks' => 'Nogmaals bedankt,',
 
 	/*
 	 *  Hooks

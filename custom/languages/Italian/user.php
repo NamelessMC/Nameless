@@ -224,15 +224,6 @@ $language = array(
 	'you_have_been_banned' => 'Sei stato bannato!',
 	'you_have_received_a_warning' => 'Hai ricevuto un avvertimento!',
 	'acknowledge' => 'Acknowledge',
-	
-	
-	/*
-	 *  Emails
-	 */
-	'email_greeting' => 'Ciao,',
-	'email_message' => 'Grazie per esserti registrato! Per completare la registrazione, fare clic sul seguente collegamento:',
-	'forgot_password_email_message' => "Per reimpostare la password, fai clic sul seguente link. Se non l'hai richiesto tu, puoi tranquillamente cancellare questa email.",
-	'email_thanks' => 'Grazie,',
 
 	/*
 	 *  Hooks

@@ -38,21 +38,15 @@ if(!isset($_GET['c'])){
                     // Send an email
                     $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
                     $php_mailer = $php_mailer[0]->value;
+                    $link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/forgot_password/', 'c=' . $code);
 
                     if ($php_mailer == '1') {
+
                         // PHP Mailer
-                        // HTML to display in message
-                        $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'change_password.html'));
-                        $html = file_get_contents($path);
-
-                        $link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/forgot_password/', 'c=' . $code);
-
-                        $html = str_replace(array('[Sitename]', '[ChangePassword]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array(SITE_NAME, str_replace('?', '', $language->get('user', 'forgot_password')), $language->get('user', 'email_greeting'), $language->get('user', 'forgot_password_email_message'), $link, $language->get('user', 'email_thanks')), $html);
-
                         $email = array(
                             'to' => array('email' => Output::getClean($exists[0]->email), 'name' => Output::getClean($exists[0]->nickname)),
-                            'subject' => SITE_NAME . ' - ' . str_replace('?', '', $language->get('user', 'forgot_password')),
-                            'message' => $html
+                            'subject' => SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject'),
+                            'message' => str_replace('[Link]', $link, Email::formatEmail('change_password', $language))
                         );
 
                         $sent = Email::send($email, 'mailer');
@@ -75,13 +69,9 @@ if(!isset($_GET['c'])){
                         $siteemail = $siteemail[0]->value;
 
                         $to = $exists[0]->email;
-                        $subject = SITE_NAME . ' - ' . str_replace('?', '', $language->get('user', 'forgot_password'));
+                        $subject = SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject');
 
-                        $message = $language->get('user', 'email_greeting') . PHP_EOL .
-                            $language->get('user', 'forgot_password_email_message') . PHP_EOL . PHP_EOL .
-                            'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/forgot_password/', 'c=' . $code) . PHP_EOL . PHP_EOL .
-                            $language->get('user', 'email_thanks') . PHP_EOL .
-                            SITE_NAME;
+                        $message = str_replace('[Link]', $link, Email::formatEmail('change_password', $language));
 
                         $headers = 'From: ' . $siteemail . "\r\n" .
                             'Reply-To: ' . $siteemail . "\r\n" .

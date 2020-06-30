@@ -226,15 +226,6 @@ $language = array(
 	'you_have_been_banned' => '你已被封禁!',
 	'you_have_received_a_warning' => '你收到了一条警告!',
 	'acknowledge' => '承认错误',
-	
-	
-	/*
-	 *  Emails
-	 */
-	'email_greeting' => '您好,',
-	'email_message' => '感谢您的注册！为了完成您的注册，请点击以下链接:',
-	'forgot_password_email_message' => '要重置密码，请单击以下链接。如果您自己未提出要求，则可以安全删除此电子邮件。',
-	'email_thanks' => '致以敬意,',
 
 	/*
 	 *  Hooks

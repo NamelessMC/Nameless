@@ -225,15 +225,6 @@ $language = array(
 	'you_have_been_banned' => 'Byl Vám zakázán přístup k této stránce!',
 	'you_have_received_a_warning' => 'Dostal jste varování!',
 	'acknowledge' => 'Uznat',
-	
-	
-	/*
-	 *  Emails
-	 */
-	'email_greeting' => 'Zdravím,',
-	'email_message' => 'Děkujeme za registraci na našem webu! Pro dokončení registrace klikněte na odkaz níže:',
-	'forgot_password_email_message' => 'Pro obnovení Vašeho zapomenutého hesla klikněte prosím na následující odkaz. Pokud jste o obnovení zapomenutého hesla nepožádal sám, můžete e-mail bezpečně smazat.',
-	'email_thanks' => 'Přejeme příjemné hraní,',
 
 	/*
 	 *  Hooks

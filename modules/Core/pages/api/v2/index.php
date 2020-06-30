@@ -439,17 +439,15 @@ class Nameless2API
 
             // Get link + template
             $link =  Util::getSelfURL() . ltrim(URL::build('/complete_signup/', 'c=' . $code), '/');
-            $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'register.html'));
-            $html = file_get_contents($path);
 
-            $html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array(SITE_NAME, $this->_language->get('general', 'register'), $this->_language->get('user', 'email_greeting'), $this->_language->get('user', 'email_message'), $link, $this->_language->get('user', 'email_thanks')), $html);
+            $html = Email::formatEmail('register', $this->_language);
 
             if($mailer == '1'){
                 // PHP Mailer
                 $email = array(
                     'to' => array('email' => Output::getClean($email), 'name' => Output::getClean($username)),
-                    'subject' => SITE_NAME . ' - ' . $this->_language->get('general', 'register'),
-                    'message' => $html
+                    'subject' => SITE_NAME . ' - ' . $this->_language->get('emails', 'register_subject'),
+                    'message' => str_replace('[Link]', $link, $html)
                 );
 
                 $sent = Email::send($email, 'mailer');
@@ -472,7 +470,7 @@ class Nameless2API
                 $siteemail = $siteemail->first()->value;
 
                 $to      = $email;
-                $subject = SITE_NAME . ' - ' . $this->_language->get('general', 'register');
+                $subject = SITE_NAME . ' - ' . $this->_language->get('emails', 'register_subject');
 
                 $headers = 'From: ' . $siteemail . "\r\n" .
                     'Reply-To: ' . $siteemail . "\r\n" .
@@ -483,7 +481,7 @@ class Nameless2API
                 $email = array(
                     'to' => $to,
                     'subject' => $subject,
-                    'message' => $html,
+                    'message' => str_replace('[Link]', $link, $html),
                     'headers' => $headers
                 );
 

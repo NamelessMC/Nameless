@@ -103,6 +103,19 @@ class Language {
 			return 'Term ' . Output::getClean($term) . ' not set';
 		}
 	}
+
+	public function set(string $file, string $term, string $value){
+		$editing_file = (rtrim($this->_activeLanguageDirectory, $this->_activeLanguage) . DIRECTORY_SEPARATOR . $this->_activeLanguage . DIRECTORY_SEPARATOR . $file . '.php');
+		if (is_file($editing_file) && is_writable($editing_file)) {
+			return file_put_contents($editing_file, html_entity_decode(
+				str_replace(
+					htmlspecialchars("'" . $term . "'" . ' => ' . "'" . $this->get($file, $term) . "'"),
+					htmlspecialchars("'" . $term . "'" . ' => ' . "'" . $value . "'"),
+					htmlspecialchars(file_get_contents($editing_file))
+				)
+			));
+		} else return false;
+	}
 	
 	// Return the current time language
 	// No parameters
@@ -118,4 +131,9 @@ class Language {
 		return $this->_activeLanguage;
 	}
 
+	// Return the current active language directory
+	// No parameters
+	public function getActiveLanguageDirectory(){
+		return $this->_activeLanguageDirectory;
+	}
 }

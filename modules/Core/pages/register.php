@@ -406,19 +406,14 @@ if(Input::exists()){
 	                                    $php_mailer = $php_mailer[0]->value;
 
 	                                    if ($php_mailer == '1') {
+											
 	                                        // PHP Mailer
-	                                        // HTML to display in message
-	                                        $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'register.html'));
-	                                        $html = file_get_contents($path);
-
 	                                        $link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code);
-
-	                                        $html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array(SITE_NAME, $language->get('user', 'validate_account'), $language->get('user', 'email_greeting'), $language->get('user', 'email_message'), $link, $language->get('user', 'email_thanks')), $html);
 
 	                                        $email = array(
 	                                            'to' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('username'))),
-	                                            'subject' => SITE_NAME . ' - ' . $language->get('user', 'validate_account'),
-	                                            'message' => $html
+	                                            'subject' => SITE_NAME . ' - ' . $language->get('emails', 'register_subject'),
+	                                            'message' => str_replace('[Link]', $link, Email::formatEmail('register', $language))
 	                                        );
 
 	                                        $sent = Email::send($email, 'mailer');
@@ -438,15 +433,6 @@ if(Input::exists()){
 	                                        $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
 	                                        $siteemail = $siteemail[0]->value;
 
-	                                        $to = Input::get('email');
-	                                        $subject = SITE_NAME . ' - ' . $language->get('user', 'validate_account');
-
-	                                        $message = $language->get('user', 'email_greeting') . PHP_EOL .
-	                                            $language->get('user', 'email_message') . PHP_EOL . PHP_EOL .
-	                                            'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code) . PHP_EOL . PHP_EOL .
-	                                            $language->get('user', 'email_thanks') . PHP_EOL .
-	                                            SITE_NAME;
-
 	                                        $headers = 'From: ' . $siteemail . "\r\n" .
 	                                            'Reply-To: ' . $siteemail . "\r\n" .
 	                                            'X-Mailer: PHP/' . phpversion() . "\r\n" .
@@ -454,9 +440,9 @@ if(Input::exists()){
 	                                            'Content-type: text/html; charset=UTF-8' . "\r\n";
 
 	                                        $email = array(
-	                                            'to' => $to,
-	                                            'subject' => $subject,
-	                                            'message' => $message,
+	                                        	'to' => Input::get('email'),
+												'subject' => SITE_NAME . ' - ' . $language->get('emails', 'register_subject'),
+	                                            'message' => str_replace('[Link]', $link, Email::formatEmail('register', $language)),
 	                                            'headers' => $headers
 	                                        );
 

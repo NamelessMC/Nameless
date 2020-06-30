@@ -92,4 +92,12 @@ class Email {
             return array('error' => $e->getMessage());
         }
     }
+
+    public static function formatEmail(string $email, Language $viewing_language){
+        return str_replace(
+            ['[Sitename]', '[Greeting]', '[Message]', '[Thanks]'],
+            [SITE_NAME, $viewing_language->get('emails', 'greeting'), $viewing_language->get('emails', $email . '_message'), $viewing_language->get('emails', 'thanks')],
+            file_get_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
+        );
+    }
 }

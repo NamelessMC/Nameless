@@ -217,20 +217,13 @@ $language = array(
 	'confirm_leave' => '¿Seguro que quiere dejar esta conversación?',
 	'one_or_more_users_blocked' => 'No puede enviar mensajes privados a por lo menos un miembro de la conversación.',
 	'messages' => 'Mensajes',
+	
 	/*
 	 *  Infractions area
 	 */
 	'you_have_been_banned' => 'Ha sido baneado.',
 	'you_have_received_a_warning' => 'Ha recibido una advertencia.',
 	'acknowledge' => 'Reconocer',
-	
-	/*
-	 *  Emails
-	 */
-	'email_greeting' => 'Hola,',
-	'email_message' => '¡Gracias por registrarte! Para completar su registro, haga click en el siguiente enlace:',
-	'forgot_password_email_message' => 'Para restablecer su contraseña, haga click en el siguiente enlace. Si no lo ha solicitado usted mismo, puede eliminarlo de forma segura.',
-	'email_thanks' => 'Gracias,',
 
 	/*
 	 *  Hooks
