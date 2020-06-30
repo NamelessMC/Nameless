@@ -12,13 +12,13 @@
     </div>
     <div class="ui ten wide tablet twelve wide computer column">
       <div class="ui segment">
-        <h3 class="ui header" display="inline block">{$MESSAGING}</h3>
-        {if isset($NEW_MESSAGE)}
-          <div class="res right floated">
-            <a class="ui mini primary button" href="{$NEW_MESSAGE_LINK}">{$NEW_MESSAGE}</a>
-          </div>
-        {/if}
-        <br />
+        <h3 class="ui header">{$MESSAGING}
+          {if isset($NEW_MESSAGE)}
+            <div class="res right floated">
+              <a class="ui mini primary button" href="{$NEW_MESSAGE_LINK}">{$NEW_MESSAGE}</a>
+            </div>
+          {/if}
+        </h3>
         {nocache}
           {if count($MESSAGES)}
             <table class="ui fixed single line selectable unstackable small padded res table" >

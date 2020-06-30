@@ -151,6 +151,7 @@
                                             <th>{$GROUP}</th>
                                             <th>{$CAN_VIEW_FORUM}</th>
                                             <th>{$CAN_CREATE_TOPIC}</th>
+                                            <th>{$CAN_EDIT_TOPIC}</th>
                                             <th>{$CAN_POST_REPLY}</th>
                                             <th>{$CAN_VIEW_OTHER_TOPICS}</th>
                                             <th>{$CAN_MODERATE_FORUM}</th>
@@ -162,6 +163,7 @@
                                             <td><input type="hidden" name="perm-view-0" value="0" /><input onclick="colourUpdate(this);" name="perm-view-0" id="Input-view-0" value="1" type="checkbox"{if isset($GUEST_PERMISSIONS->view) && $GUEST_PERMISSIONS->view eq 1} checked{/if} /></td>
                                             <td></td>
                                             <td></td>
+                                            <td></td>                                            
                                             <td></td>
                                             <td></td>
                                         </tr>
@@ -169,7 +171,8 @@
                                             <tr>
                                                 <td onclick="toggleAll(this);">{$group->name|escape}</td>
                                                 <td><input type="hidden" name="perm-view-{$group->id|escape}" value="0" /> <input onclick="colourUpdate(this);" name="perm-view-{$group->id|escape}" id="Input-view-{$group->id|escape}" value="1" type="checkbox"{if isset($group->view) && $group->view eq 1} checked{/if} /></td>
-                                                <td><input type="hidden" name="perm-topic-{$group->id|escape}" value="0" /><input onclick="colourUpdate(this);" name="perm-topic-{$group->id|escape}" id="Input-topic-{$group->id|escape}" value="1" type="checkbox"{if isset($group->create_topic) && $group->create_topic eq 1} checked{/if} /></td>
+                                                <td><input type="hidden" name="perm-topic-{$group->id|escape}" value="0" /><input onclick="colourUpdate(this);" name="perm-topic-{$group->id|escape}" id="Input-topic-{$group->id|escape}" value="1" type="checkbox" {if isset($group->create_topic) && $group->create_topic eq 1} checked{/if} /></td>
+                                                <td><input type="hidden" name="perm-edit_topic-{$group->id|escape}" value="0" /><input onclick="colourUpdate(this);" name="perm-edit_topic-{$group->id|escape}" id="Input-edit_topic-{$group->id|escape}" value="1" type="checkbox" {if isset($group->edit_topic) && $group->edit_topic eq 1} checked{/if} /></td>                                                
                                                 <td><input type="hidden" name="perm-post-{$group->id|escape}" value="0" /><input onclick="colourUpdate(this);" name="perm-post-{$group->id|escape}" id="Input-post-{$group->id|escape}" value="1" type="checkbox"{if isset($group->create_post) && $group->create_post eq 1} checked{/if} /></td>
                                                 <td><input type="hidden" name="perm-view_others-{$group->id|escape}" value="0" /><input onclick="colourUpdate(this);" name="perm-view_others-{$group->id|escape}" id="Input-view_others-{$group->id|escape}" value="1" type="checkbox"{if isset($group->view_other_topics) && $group->view_other_topics eq 1} checked{/if} /></td>
                                                 <td><input type="hidden" name="perm-moderate-{$group->id|escape}" value="0" /><input onclick="colourUpdate(this);" name="perm-moderate-{$group->id|escape}" id="Input-moderate-{$group->id|escape}" value="1" type="checkbox"{if isset($group->moderate) && $group->moderate eq 1} checked{/if} /></td>
@@ -246,6 +249,11 @@
         } else {
             document.getElementById('Input-topic-' + group).checked = true;
         }
+        if(document.getElementById('Input-edit_topic-' + group).checked) {
+            document.getElementById('Input-edit_topic-' + group).checked = false;
+        } else {
+            document.getElementById('Input-edit_topic-' + group).checked = true;
+        }
         if(document.getElementById('Input-post-' + group).checked) {
             document.getElementById('Input-post-' + group).checked = false;
         } else {
@@ -263,7 +271,8 @@
         }
 
         colourUpdate(document.getElementById('Input-view-' + group));
-        colourUpdate(document.getElementById('Input-topic-' + group));
+        colourUpdate(document.getElementById('Input-topic-' + group));        
+        colourUpdate(document.getElementById('Input-edit_topic-' + group));
         colourUpdate(document.getElementById('Input-post-' + group));
         colourUpdate(document.getElementById('Input-view_others-' + group));
         colourUpdate(document.getElementById('Input-moderate-' + group));
@@ -272,6 +281,7 @@
         colourUpdate(document.getElementById('Input-view-' + groups[g]));
         if(groups[g] != "0") {
             colourUpdate(document.getElementById('Input-topic-' + groups[g]));
+            colourUpdate(document.getElementById('Input-edit_topic-' + groups[g]));
             colourUpdate(document.getElementById('Input-post-' + groups[g]));
             colourUpdate(document.getElementById('Input-view_others-' + groups[g]));
             colourUpdate(document.getElementById('Input-moderate-' + groups[g]));

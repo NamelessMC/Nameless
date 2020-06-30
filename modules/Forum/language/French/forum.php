@@ -145,6 +145,7 @@ $language = array(
 	'can_view_forum' => 'Peut voir le forum ?',
 	'can_view_other_topics' => 'Peut voir les sujets des autres joueurs ?',
 	'can_create_topic' => 'Peut créer des sujets',
+	'can_edit_topic' => 'Can edit their topics?',
 	'can_post_reply' => 'Peut répondre ?',
 	'can_moderate_forum' => 'Peut modérer ?',
 	'display_topics_as_news' => 'Mettre les sujet sur la page d\'accueil ?',
