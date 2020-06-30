@@ -93,15 +93,13 @@ if(!count($post_editing)){
 $forum_id = $post_editing[0]->forum_id;
 
 // Check permissions before proceeding
-$can_reply = $forum->canPostReply($forum_id, $user->data()->group_id, $user->data()->secondary_groups);
-if(!$can_reply){
-	Redirect::to(URL::build('/forum/view/' . $forum_id));
+if($user->data()->id === $post_editing[0]->post_creator && !$forum->canEditTopic($forum_id, $user->data()->group_id, $user->data()->secondary_groups) && !$forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->secondary_groups)){
+	Redirect::to(URL::build('/forum/topic/' . $post_id));
 	die();
 }
 
-
 if($user->data()->id !== $post_editing[0]->post_creator && !($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->secondary_groups))){
-	Redirect::to(URL::build('/forum/view/' . $forum_id));
+	Redirect::to(URL::build('/forum/topic/' . $post_id));
 	die();
 }
 

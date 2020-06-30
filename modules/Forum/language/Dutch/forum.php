@@ -144,6 +144,7 @@ $language = array(
 	'can_view_forum' => 'Kan het forum zien?',
 	'can_view_other_topics' => 'Kan onderwerpen zien van andere gebruikers?',
 	'can_create_topic' => 'Kan onderwerpen maken?',
+	'can_edit_topic' => 'Can edit their topics?',
 	'can_post_reply' => 'Kan antwoorden?',
 	'can_moderate_forum' => 'Kan forum beheren?',
 	'display_topics_as_news' => 'Laat onderwerpen zien als nieuws op de index pagina?',

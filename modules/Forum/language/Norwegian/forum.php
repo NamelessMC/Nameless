@@ -143,6 +143,7 @@ $language = array(
 	'can_view_forum' => 'Kan se forum?',
 	'can_view_other_topics' => 'Kan se andre brukere\' tråder?',
 	'can_create_topic' => 'kan lage tråder?',
+	'can_edit_topic' => 'Can edit their topics?',
 	'can_post_reply' => 'Kan svare på tråden?',
 	'can_moderate_forum' => 'Kan moderere tråden?',
 	'display_topics_as_news' => 'Skal denne tråden være synlig på forsiden?',
