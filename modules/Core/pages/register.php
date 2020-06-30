@@ -641,7 +641,6 @@ $smarty->assign(array(
 	'TOKEN' => Token::get(),
 	'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
 	'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
-	'CUSTOM_FIELDS_TEXT' => $language->get('general', 'custom_fields'),
 	'ERROR_TITLE' => $language->get('general', 'error'),
 	'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha'
 ));
