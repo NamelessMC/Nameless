@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -49,7 +49,7 @@ if(!isset($_GET['c'])){
 		Redirect::to(URL::build('/'));
 		die();
 	} else {
-		Session::flash('home', $language->get('user', 'validation_error'));
+		Session::flash('home_error', $language->get('user', 'validation_error'));
 		Redirect::to(URL::build('/'));
 		die();
 	}
