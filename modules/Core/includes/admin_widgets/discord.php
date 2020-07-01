@@ -21,21 +21,60 @@ if(Input::exists()){
         $discord_id = $discord_id[0]->id;
 
         if(isset($_POST['discord_api_key'])){
-            $discord_api_key = $_POST['discord_api_key'];
 
+            $validate = new Validate();
+            $validation = $validate->check($_POST, array(
+                'discord_api_key' => array(
+                    'min' => 18,
+                    'max' => 18,
+                    'numeric' => true
+                )
+            ));
+            
+            if ($validation->passed()) {
+                $discord_api_key = $_POST['discord_api_key'];
+            } else {
+                // Validation errors
+                foreach ($validation->errors() as $validation_error) {
+                    if (strpos($validation_error, 'minimum') !== false) {
+                        // x must be a minimum of y characters long
+                        switch ($validation_error) {
+                            case (strpos($validation_error, 'discord_api_key') !== false):
+                                $errors[] = str_replace('discord_api_key', 'Discord Server ID', $validation_error);
+                                break;
+                        }
+                    } else if (strpos($validation_error, 'maximum') !== false) {
+                        // x must be a maximum of y characters long
+                        switch ($validation_error) {
+                            case (strpos($validation_error, 'discord_api_key') !== false):
+                                $errors[] = str_replace('discord_api_key', 'Discord Server ID', $validation_error);
+                                break;
+                        }
+                    }
+                    else if (strpos($validation_error, 'numeric') !== false) {
+                        // x must be a maximum of y characters long
+                        switch ($validation_error) {
+                            case (strpos($validation_error, 'discord_api_key') !== false):
+                                $errors[] = str_replace('discord_api_key', 'Discord Server ID', $validation_error);
+                                break;
+                        }
+                    }
+                }
+            }
         } else {
             $discord_api_key = '';
-
         }
+        if (count($errors))
+            $smarty->assign('ERRORS', $errors);
+        else {
+            $queries->update('settings', $discord_id, array(
+                'value' => Output::getClean($discord_api_key)
+            ));
 
-        $queries->update('settings', $discord_id, array(
-            'value' => Output::getClean($discord_api_key)
-        ));
+            $cache->store('discord', Output::getClean($discord_api_key));
 
-        $cache->store('discord', Output::getClean($discord_api_key));
-
-        $success = $language->get('admin', 'widget_updated');
-
+            $success = $language->get('admin', 'widget_updated');
+        }
     } else {
         $errors = array($language->get('general', 'invalid_token'));
     }
