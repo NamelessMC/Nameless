@@ -632,5 +632,6 @@ $language = array(
 	'source' => 'Kaynak',
 	'support' => 'Destek',
 	'admin_dir_still_exists' => 'Uyarı! <strong> modules/Core/pages/admin</strong> dizini hala mevcut. Lütfen bu dizini kaldırın.',
-	'mod_dir_still_exists' => 'Uyarı! <strong> modules/Core/pages/mod </strong> dizini hala var. Lütfen bu dizini kaldırın.'
+	'mod_dir_still_exists' => 'Uyarı! <strong> modules/Core/pages/mod </strong> dizini hala var. Lütfen bu dizini kaldırın.',
+	'forum_topic_reply_email' => 'Forum Topic Reply',
 );

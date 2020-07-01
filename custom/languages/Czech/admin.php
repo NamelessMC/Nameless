@@ -631,5 +631,6 @@ $language = array(
 	'source' => 'Zdroj',
 	'support' => 'Podpora',
 	'admin_dir_still_exists' => 'Varování! The <strong>modules/Core/pages/admin</strong> adresář stále existuje. Odstraňte prosím tento adresář.',
-	'mod_dir_still_exists' => 'Varování! The <strong>modules/Core/pages/mod</strong> adresář stále existuje. Odstraňte prosím tento adresář.'
+	'mod_dir_still_exists' => 'Varování! The <strong>modules/Core/pages/mod</strong> adresář stále existuje. Odstraňte prosím tento adresář.',
+	'forum_topic_reply_email' => 'Forum Topic Reply',
 );

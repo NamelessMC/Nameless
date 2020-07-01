@@ -639,5 +639,6 @@ $language = array(
 	'source' => 'Source',
 	'support' => 'Support',
 	'admin_dir_still_exists' => 'Achtung! Das Verzeichnis <strong>modules/Core/pages/admin</strong> existiert. Bitte entferne dieses Verzeichnis.',
-	'mod_dir_still_exists' => 'Achtung! Das Verzeichnis <strong>modules/Core/pages/mod</strong> existiert. Bitte entferne dieses Verzeichnis.'
+	'mod_dir_still_exists' => 'Achtung! Das Verzeichnis <strong>modules/Core/pages/mod</strong> existiert. Bitte entferne dieses Verzeichnis.',
+	'forum_topic_reply_email' => 'Forum Topic Reply',
 );

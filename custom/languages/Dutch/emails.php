@@ -21,5 +21,9 @@ $language = array(
 
     // Change Password
     'change_password_subject' => 'Wachtwoord vergeten?',
-    'change_password_message' => 'Om je wachtwoord te herstellen, klik op de volgende link. Als je dit niet hebt aangevraagd, kan je deze email negeren.'
+    'change_password_message' => 'Om je wachtwoord te herstellen, klik op de volgende link. Als je dit niet hebt aangevraagd, kan je deze email negeren.',
+
+    // Forum Topic Replies
+    'forum_topic_reply_subject' => '{x} has replied to {y}', // Don't remove {x} or {y}
+    'forum_topic_reply_message' => '{x} has replied to a topic you follow. Content: {z}' // Don't remove {x} or {z}
 );

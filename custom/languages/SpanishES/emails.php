@@ -21,5 +21,9 @@ $language = array(
 
     // Change Password
     'change_password_subject' => '¿Ha olvidado su contraseña?',
-    'change_password_message' => 'Para restablecer su contraseña, haga click en el siguiente enlace. Si no lo ha solicitado usted mismo, puede eliminarlo de forma segura.'
+    'change_password_message' => 'Para restablecer su contraseña, haga click en el siguiente enlace. Si no lo ha solicitado usted mismo, puede eliminarlo de forma segura.',
+
+    // Forum Topic Replies
+    'forum_topic_reply_subject' => '{x} has replied to {y}', // Don't remove {x} or {y}
+    'forum_topic_reply_message' => '{x} has replied to a topic you follow. Content: {z}' // Don't remove {x} or {z}
 );

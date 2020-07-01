@@ -633,5 +633,6 @@ $language = array(
 	'source' => 'Bron',
 	'support' => 'Ondersteuning',
 	'admin_dir_still_exists' => 'Waarschuwing! De map <strong>modules/Core/pages/admin</strong> bestaat nog steeds. Gelieve deze te verwijderen.',
-	'mod_dir_still_exists' => 'Waarschuwing! De map <strong>modules/Core/pages/mod</strong> bestaat nog steeds. Gelieve deze te verwijderen.'
+	'mod_dir_still_exists' => 'Waarschuwing! De map <strong>modules/Core/pages/mod</strong> bestaat nog steeds. Gelieve deze te verwijderen.',
+	'forum_topic_reply_email' => 'Forum Topic Reply',
 );

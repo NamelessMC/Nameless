@@ -43,6 +43,7 @@ $editing_language = new Language(null, Session::get('editing_language') ?? $quer
 $emails = array(
 	['register', 'Registration', ['subject' => $editing_language->get('emails', 'register_subject'), 'message' => $editing_language->get('emails', 'register_message')]],
 	['change_password', 'Change Password', ['subject' => str_replace('?', '', $editing_language->get('emails', 'change_password_subject')), 'message' => $editing_language->get('emails', 'change_password_message')]],
+	['forum_topic_reply', 'Forum Topic Reply', ['subject' => $editing_language->get('emails', 'forum_topic_reply_subject'), 'message' => $editing_language->get('emails', 'forum_topic_reply_message')]]
 );
 
 if(isset($_GET['action'])){

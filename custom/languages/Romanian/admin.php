@@ -633,5 +633,6 @@ $language = array(
     'source' => 'Sursă',
     'support' => 'Asistenţă',
     'admin_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/admin</strong> directory still exists. Please remove this directory.',
-    'mod_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/mod</strong> directory still exists. Please remove this directory.'
+    'mod_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/mod</strong> directory still exists. Please remove this directory.',
+    'forum_topic_reply_email' => 'Forum Topic Reply',
 );

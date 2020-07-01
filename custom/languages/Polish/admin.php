@@ -631,4 +631,5 @@ $language = array(
 	'support' => 'Pomoc',
 	'admin_dir_still_exists' => 'Uwaga! Katalog <strong>modules/Core/pages/admin</strong> nadal istnieje. Możesz go usunąć, ponieważ nie jest już do niczego potrzebny.',
 	'mod_dir_still_exists' => 'Uwaga! Katalog <strong>modules/Core/pages/mod</strong> nadal istnieje. Możesz go usunąć, poniewać nie jest już do niczego potrzebny.',
+	'forum_topic_reply_email' => 'Forum Topic Reply',
 );

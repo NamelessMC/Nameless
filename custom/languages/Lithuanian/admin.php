@@ -629,5 +629,6 @@ $language = array(
 	'source' => 'Šaltinis',
 	'support' => 'Pagalba',
 	'admin_dir_still_exists' => 'Įspėjimas! <strong>modules/Core/pages/admin</strong> folderis dar egzistuoja. Prašuome pašalinti ši folderi.',
-	'mod_dir_still_exists' => 'Įspėjimas! <strong>modules/Core/pages/mod</strong> folderis dar egzistuoja. Prašuome pašalinti ši folderi.'
+	'mod_dir_still_exists' => 'Įspėjimas! <strong>modules/Core/pages/mod</strong> folderis dar egzistuoja. Prašuome pašalinti ši folderi.',
+	'forum_topic_reply_email' => 'Forum Topic Reply',
 );

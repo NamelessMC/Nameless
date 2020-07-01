@@ -634,5 +634,6 @@ $language = array(
 	'source' => 'ソース',
 	'support' => 'サポート',
 	'admin_dir_still_exists' => '【警告】 <strong> modules/Core/pages/admin </strong>ディレクトリがまだ存在しています。 ディレクトリを削除してください。 ',
-	'mod_dir_still_exists' => '【警告】 <strong> modules/Core/pages/mod </strong>ディレクトリがまだ存在しています。 ディレクトリを削除してください。'
+	'mod_dir_still_exists' => '【警告】 <strong> modules/Core/pages/mod </strong>ディレクトリがまだ存在しています。 ディレクトリを削除してください。',
+	'forum_topic_reply_email' => 'Forum Topic Reply',
 );

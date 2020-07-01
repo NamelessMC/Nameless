@@ -21,5 +21,9 @@ $language = array(
 
     // Change Password
     'change_password_subject' => 'パスワードを忘れましたか？',
-    'change_password_message' => 'パスワードをリセットするには、次のリンクをクリックしてください。 これを自分でリクエストしていない場合は、このメールを安全に削除できます。'
+    'change_password_message' => 'パスワードをリセットするには、次のリンクをクリックしてください。 これを自分でリクエストしていない場合は、このメールを安全に削除できます。',
+
+    // Forum Topic Replies
+    'forum_topic_reply_subject' => '{x} has replied to {y}', // Don't remove {x} or {y}
+    'forum_topic_reply_message' => '{x} has replied to a topic you follow. Content: {z}' // Don't remove {x} or {z}
 );

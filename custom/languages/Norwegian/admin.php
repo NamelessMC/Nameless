@@ -631,5 +631,6 @@ $language = array(
 	'source' => 'Kilde',
 	'support' => 'Support',
 	'admin_dir_still_exists' => 'Advarsel! <strong>modules/Core/pages/admin</strong> mappen eksisterer fortsatt. Vennligst slett denne mappen.',
-	'mod_dir_still_exists' => 'Advarsel! <strong>modules/Core/pages/mod</strong> mappen eksisterer fortsatt. Vennligst slett denne mappen.'
+	'mod_dir_still_exists' => 'Advarsel! <strong>modules/Core/pages/mod</strong> mappen eksisterer fortsatt. Vennligst slett denne mappen.',
+	'forum_topic_reply_email' => 'Forum Topic Reply',
 );

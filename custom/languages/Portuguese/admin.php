@@ -607,5 +607,6 @@ $language = array(
     'source' => 'Fonte',
     'support' => 'Suporte',
     'admin_dir_still_exists' => 'Aviso! O diretório <strong>modules/Core/pages/admin</strong> ainda existe. Por favor remova este diretório.',
-    'mod_dir_still_exists' => 'Aviso! O diretório <strong>modules/Core/pages/mod</strong> ainda existe. Por favor remova este diretório.'
+    'mod_dir_still_exists' => 'Aviso! O diretório <strong>modules/Core/pages/mod</strong> ainda existe. Por favor remova este diretório.',
+    'forum_topic_reply_email' => 'Forum Topic Reply',
 );

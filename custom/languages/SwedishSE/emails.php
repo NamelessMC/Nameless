@@ -21,5 +21,9 @@ $language = array(
 
     // Change Password
     'change_password_subject' => 'Glömt ditt lösenord?',
-    'change_password_message' => 'För att återställa ditt lösenord, klicka på följande länk. Om du inte begärt det själv kan du radera det här e-postmeddelandet.'
+    'change_password_message' => 'För att återställa ditt lösenord, klicka på följande länk. Om du inte begärt det själv kan du radera det här e-postmeddelandet.',
+
+    // Forum Topic Replies
+    'forum_topic_reply_subject' => '{x} has replied to {y}', // Don't remove {x} or {y}
+    'forum_topic_reply_message' => '{x} has replied to a topic you follow. Content: {z}' // Don't remove {x} or {z}
 );

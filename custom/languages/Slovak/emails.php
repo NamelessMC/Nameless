@@ -21,5 +21,9 @@ $language = array(
 
     // Change Password
     'change_password_subject' => 'Forgot password',
-    'change_password_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.'
+    'change_password_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
+
+    // Forum Topic Replies
+    'forum_topic_reply_subject' => '{x} has replied to {y}', // Don't remove {x} or {y}
+    'forum_topic_reply_message' => '{x} has replied to a topic you follow. Content: {z}' // Don't remove {x} or {z}
 );

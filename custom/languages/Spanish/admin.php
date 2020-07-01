@@ -628,5 +628,6 @@ $language = array(
 	'source' => 'Código fuente',
 	'support' => 'Soporte',
 	'admin_dir_still_exists' => '¡ALERTA! El directorio <strong>modules/Core/pages/admin</strong> ya existe. Por favor eliminelo.',
-	'mod_dir_still_exists' => '¡ALERTA! El directorio <strong>modules/Core/pages/mod</strong> ya existe. Por favor eliminelo.'
+	'mod_dir_still_exists' => '¡ALERTA! El directorio <strong>modules/Core/pages/mod</strong> ya existe. Por favor eliminelo.',
+	'forum_topic_reply_email' => 'Forum Topic Reply',
 );
