@@ -524,7 +524,7 @@ for($n = 0; $n < count($results->data); $n++){
 				'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
 				'TEXT' => $forum_language->get('forum', 'edit')
 			);
-		} else if($user->data()->id == $results->data[$n]->post_creator) {
+		} else if($user->data()->id == $results->data[$n]->post_creator && $forum->canEditTopic($forum_parent[0]->id, $group_id, $secondary_groups)) {
 			if($topic->locked != 1){ // Can't edit if topic is locked
 				$buttons['edit'] = array(
 					'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),

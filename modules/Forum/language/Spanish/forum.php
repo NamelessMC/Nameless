@@ -145,6 +145,7 @@ $language = array(
 	'can_view_forum' => '¿Puede ver el foro?',
 	'can_view_other_topics' => '¿Puede mirar los temas de los otros usuarios?',
 	'can_create_topic' => '¿Puede crear temas?',
+	'can_edit_topic' => 'Can edit their topics?',
 	'can_post_reply' => '¿Puede responder a los temas?',
 	'can_moderate_forum' => '¿Puede moderar el foro?',
 	'display_topics_as_news' => '¿Mostrar posts como Noticias en la página principal?',

@@ -147,6 +147,7 @@ $language = array(
 	'can_view_forum' => '可以查看論壇?',
 	'can_view_other_topics' => '可以查看其他人的文章?',
 	'can_create_topic' => '可以建立主題?',
+	'can_edit_topic' => 'Can edit their topics?',
 	'can_post_reply' => '可以建立回覆?',
 	'can_moderate_forum' => '可以審核論壇?',
 	'display_topics_as_news' => '顯示此主題的文章在首頁?',

@@ -348,6 +348,27 @@ class Forum {
 		return false;
 	}
 
+	public function canEditTopic($forum_id, $group_id = null, $secondary_groups = null){
+		if ($group_id == null) {
+			$group_id = 0; // Guest
+		} else {
+			if ($secondary_groups)
+				$secondary_groups = json_decode($secondary_groups, true);
+		}
+		// Get the forum's permissions
+		$permissions = $this->_db->get("forums_permissions", array("forum_id", "=", $forum_id))->results();
+		if (count($permissions)) {
+			foreach ($permissions as $permission) {
+				if ($permission->group_id == $group_id || (is_array($secondary_groups) && count($secondary_groups) && in_array($permission->group_id, $secondary_groups))) {
+					if ($permission->edit_topic == 1)
+						return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
 	// Updates the latest post column in all forums. Used when a reply/topic is deleted
 	public function updateForumLatestPosts(){
 		$forums = $this->_db->get('forums', array('id', '<>', 0))->results();

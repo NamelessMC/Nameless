@@ -146,6 +146,7 @@ $language = array(
 	'can_view_forum' => 'フォーラムの閲覧',
 	'can_view_other_topics' => 'ほかの人のトピックの閲覧',
 	'can_create_topic' => 'トピックの作成',
+	'can_edit_topic' => 'Can edit their topics?',
 	'can_post_reply' => '返信の投稿',
 	'can_moderate_forum' => 'フォーラム管理',
 	'display_topics_as_news' => 'トップページのお知らせにトピックを表示しますか？',
