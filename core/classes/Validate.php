@@ -158,7 +158,14 @@ class Validate {
 								// $value is not alphanumeric
 								$this->addError("{$item} must be alphanumeric.");
 							}
-							break;
+						break;
+
+						case 'numeric':
+							if(!is_numeric($value)){
+								// $value is not numeric
+								$this->addError("{$item} must be numeric.");
+							}
+						break;
 					}
 				}
 
