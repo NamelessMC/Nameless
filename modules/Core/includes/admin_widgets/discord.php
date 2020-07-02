@@ -36,29 +36,13 @@ if(Input::exists()){
             } else {
                 // Validation errors
                 foreach ($validation->errors() as $validation_error) {
-                    if (strpos($validation_error, 'minimum') !== false) {
-                        // x must be a minimum of y characters long
-                        switch ($validation_error) {
-                            case (strpos($validation_error, 'discord_api_key') !== false):
-                                $errors[] = str_replace('discord_api_key', 'Discord Server ID', $validation_error);
-                                break;
-                        }
-                    } else if (strpos($validation_error, 'maximum') !== false) {
-                        // x must be a maximum of y characters long
-                        switch ($validation_error) {
-                            case (strpos($validation_error, 'discord_api_key') !== false):
-                                $errors[] = str_replace('discord_api_key', 'Discord Server ID', $validation_error);
-                                break;
-                        }
+                    if (strpos($validation_error, 'minimum') !== false || strpos($validation_error, 'maximum') !== false) {
+                        $errors[] = $language->get('admin', 'discord_id_length');
                     }
                     else if (strpos($validation_error, 'numeric') !== false) {
-                        // x must be a maximum of y characters long
-                        switch ($validation_error) {
-                            case (strpos($validation_error, 'discord_api_key') !== false):
-                                $errors[] = str_replace('discord_api_key', 'Discord Server ID', $validation_error);
-                                break;
-                        }
+                        $errors[] = $language->get('admin', 'discord_id_numeric');
                     }
+                    break;
                 }
             }
         } else {
