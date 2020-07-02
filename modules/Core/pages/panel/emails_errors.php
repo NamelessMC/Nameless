@@ -84,6 +84,9 @@ if(isset($_GET['do'])){
 			case 4:
 				$type = $language->get('admin', 'api_registration_email');
 				break;
+			case 5:
+				$type = $language->get('admin', 'forum_topic_reply_email');
+				break;
 			default:
 				$type = $language->get('admin', 'unknown');
 				break;

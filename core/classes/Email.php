@@ -51,7 +51,7 @@ class Email {
     // Send an email using the PHPMailer library
     private static function sendMailer($email){
         require_once(ROOT_PATH . '/core/includes/phpmailer/PHPMailerAutoload.php');
-        require_once(ROOT_PATH . '/core/email.php');
+        require(ROOT_PATH . '/core/email.php');
 
         // Initialise PHPMailer
         $mail = new PHPMailer(true);
@@ -91,5 +91,13 @@ class Email {
         } catch(Exception $e){
             return array('error' => $e->getMessage());
         }
+    }
+
+    public static function formatEmail(string $email, Language $viewing_language){
+        return str_replace(
+            ['[Sitename]', '[Greeting]', '[Message]', '[Thanks]'],
+            [SITE_NAME, $viewing_language->get('emails', 'greeting'), $viewing_language->get('emails', $email . '_message'), $viewing_language->get('emails', 'thanks')],
+            file_get_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
+        );
     }
 }

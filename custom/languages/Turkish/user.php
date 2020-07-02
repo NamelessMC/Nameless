@@ -224,14 +224,6 @@ $language = array(
 	'you_have_been_banned' => 'Engellendiniz!',
 	'you_have_received_a_warning' => 'Bir uyarı aldınız!',
 	'acknowledge' => 'Kabul',
-	
-	/*
-	 *  Emails
-	 */
-	'email_greeting' => 'Merhaba,',
-	'email_message' => 'Kayıt olduğunuz için teşekkürler! Kaydınızı tamamlamak için lütfen aşağıdaki bağlantıyı tıklayın:',
-	'forgot_password_email_message' => 'Şifrenizi sıfırlamak için lütfen aşağıdaki bağlantıyı tıklayın. Bunu kendiniz istemediyseniz, bu e-postayı güvenle silebilirsiniz.',
-	'email_thanks' => 'Teşekkürler,',
 
     /*
      *  Hooks

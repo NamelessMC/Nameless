@@ -224,14 +224,6 @@ $language = array(
 	'you_have_been_banned' => 'You have been banned!',
 	'you_have_received_a_warning' => 'You have received a warning!',
 	'acknowledge' => 'Acknowledge',
-	
-	/*
-	 *  Emails
-	 */
-	'email_greeting' => 'Hi,',
-	'email_message' => 'Thanks for registering! In order to complete your registration, please click the following link:',
-	'forgot_password_email_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
-	'email_thanks' => 'Thanks,',
 
 	/*
 	 *  Hooks

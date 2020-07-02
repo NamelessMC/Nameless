@@ -228,15 +228,6 @@ $language = array(
 	'you_have_received_a_warning' => '指定されたアカウントは警告を受信しています。',
 	'acknowledge' => '承認する',
 
-
-	/*
-	 *  Emails
-	 */
-	'email_greeting' => 'こんにちは！',
-	'email_message' => '登録ありがとうございます！ 登録を完了するには、次のリンクをクリックしてください:',
-	'forgot_password_email_message' => 'パスワードをリセットするには、次のリンクをクリックしてください。 これを自分でリクエストしていない場合は、このメールを安全に削除できます。',
-	'email_thanks' => 'ありがとうございます。',
-
 	/*
 	 *  Hooks
 	 */

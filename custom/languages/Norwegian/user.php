@@ -225,14 +225,6 @@ $language = array(
 	'acknowledge' => 'Anerkjenne',
 	
 	/*
-	 *  Emails
-	 */
-	'email_greeting' => 'Hei!',
-	'email_message' => 'Takk for at du registrerte deg på vårt nettsted. For å fullføre registreringen må du følge denne lenken:',
-	'forgot_password_email_message' => 'For å resette passordet ditt, vennligst følg linken. Hvis du ikke har bedt om en resettelse, kan du trygt slette denne mailen.',
-	'email_thanks' => 'Takk,',
-
-	/*
 	 *  Hooks
 	 */
 	'user_x_has_registered' => '{x} har registert seg hos ' . SITE_NAME . '!'

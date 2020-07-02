@@ -224,15 +224,7 @@ $language = array(
 	'you_have_been_banned' => 'Zostałeś zbanowany!',
 	'you_have_received_a_warning' => 'Dostałeś ostrzeżenie!',
 	'acknowledge' => 'Uznaj winę',
-
-	/*
-	 *  Emails
-	 */
-	'email_greeting' => 'Hej,',
-	'email_message' => 'Dziękujemy za rejestrację na naszym portalu! Jeśli chcesz aktywować swoje konto kilknij w ten link:',
-	'forgot_password_email_message' => 'By zresetować swoje hasło kliknij w link poniżej. Jeśli nie chciałeś resetować hasła zignoruj i usuń ten email.',
-	'email_thanks' => 'Dziękujemy',
-
+	
 	/*
 	 *  Hooks
 	 */

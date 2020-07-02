@@ -247,21 +247,15 @@ class NamelessAPI {
                     'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean($_POST['username'])), '/'),
                     'language' => $this->_language
                 ));
+                $link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/complete_signup/', 'c=' . $code);
 
                 if($php_mailer == '1'){
+
                     // PHP Mailer
-                    // HTML to display in message
-                    $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', $this->_template, 'email', 'api_register.html'));
-                    $html = file_get_contents($path);
-
-                    $link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/complete_signup/', 'c=' . $code);
-
-                    $html = str_replace(array('[Sitename]', '[Register]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'), array(SITE_NAME, $this->_language->get('general', 'register'), $this->_language->get('user', 'email_greeting'), $this->_language->get('user', 'email_message'), $link, $this->_language->get('user', 'email_thanks')), $html);
-
                     $email = array(
                         'to' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('username'))),
-                        'subject' => SITE_NAME . ' - ' . $this->_language->get('general', 'register'),
-                        'message' => $html
+                        'subject' => SITE_NAME . ' - ' . $this->_language->get('emails', 'register_subject'),
+                        'message' => str_replace('[Link]', $link, Email::formatEmail('register', $this->_language))
                     );
 
                     $sent = Email::send($email, 'mailer');
@@ -281,15 +275,6 @@ class NamelessAPI {
                     $siteemail = $this->_db->get('settings', array('name', '=', 'outgoing_email'))->results();
                     $siteemail = $siteemail[0]->value;
 
-                    $to      = Input::get('email');
-                    $subject = SITE_NAME . ' - ' . $this->_language->get('general', 'register');
-
-                    $message = 	$this->_language->get('user', 'email_greeting') . PHP_EOL .
-                        $this->_language->get('user', 'email_message') . PHP_EOL . PHP_EOL .
-                        'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/complete_signup/', 'c=' . $code) . PHP_EOL . PHP_EOL .
-                        $this->_language->get('user', 'email_thanks') . PHP_EOL .
-                        SITE_NAME;
-
                     $headers = 'From: ' . $siteemail . "\r\n" .
                         'Reply-To: ' . $siteemail . "\r\n" .
                         'X-Mailer: PHP/' . phpversion() . "\r\n" .
@@ -297,9 +282,9 @@ class NamelessAPI {
                         'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                     $email = array(
-                        'to' => $to,
-                        'subject' => $subject,
-                        'message' => $message,
+                        'to' => Input::get('email'),
+                        'subject' => SITE_NAME . ' - ' . $this->_language->get('emails', 'register_subject'),
+                        'message' => str_replace('[Link]', $link, Email::formatEmail('register', $this->_language)),
                         'headers' => $headers
                     );
 

@@ -234,14 +234,6 @@ $language = array(
 	'acknowledge' => 'Bestätigen',
 
 	/*
-	 *  Emails
-	 */
-	'email_greeting' => 'Hey,',
-	'email_message' => 'Danke für deine Registration! Um deine Registration abzuschließen klicke auf folgenden Link:',
-	'forgot_password_email_message' => 'Um dein Passwort zurückzusetzen, klicke bitte auf den folgenden Link. Wenn du dies nicht selbst angefordert haben, kannst du diese E-Mail bedenkenlos löschen.',
-	'email_thanks' => 'Liebe Grüße,',
-
-	/*
 	 *  Hooks
 	 */
 	'user_x_has_registered' => '{x} ist beigetreten ' . SITE_NAME . '!'
