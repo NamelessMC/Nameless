@@ -42,7 +42,6 @@ if(Input::exists()){
                     else if (strpos($validation_error, 'numeric') !== false) {
                         $errors[] = $language->get('admin', 'discord_id_numeric');
                     }
-                    break;
                 }
             }
         } else {
