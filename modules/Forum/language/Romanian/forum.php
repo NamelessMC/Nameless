@@ -145,6 +145,7 @@ $language = array(
 	'can_view_forum' => 'Poate vizualiza forumul?',
 	'can_view_other_topics' => 'Poate vizualiza subiectele altor utilizatori?',
 	'can_create_topic' => 'Poate crea subiecte?',
+	'can_edit_topic' => 'Can edit their topics?',
 	'can_post_reply' => 'Poate răspunde la subiecte?',
 	'can_moderate_forum' => 'Poate modera forumul?',
 	'display_topics_as_news' => 'Afișați subiectele ca știri pe prima pagină?',
