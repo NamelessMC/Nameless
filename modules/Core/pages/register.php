@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -15,7 +15,7 @@ if($user->isLoggedIn()){
 	Redirect::to(URL::build('/'));
 	die();
 }
- 
+
 // Set page name for custom scripts
 $page = 'register';
 define('PAGE', 'register');
@@ -42,7 +42,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // Check if registration is enabled
 $registration_enabled = $queries->getWhere('settings', array('name', '=', 'registration_enabled'));
 $registration_enabled = $registration_enabled[0]->value;
- 
+
 if($registration_enabled == 0){
 	// Registration is disabled, display a message
 	$template->addCSSFiles(array(
@@ -82,7 +82,7 @@ if($registration_enabled == 0){
 
     die();
 }
- 
+
 // Registration page
 require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
 require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
@@ -94,15 +94,15 @@ $custom_usernames = $custom_usernames[0]->value;
 if(isset($_GET['step']) && isset($_SESSION['mcassoc'])){
 	// Get site details for MCAssoc
 	$mcassoc_site_id = SITE_NAME;
-	
+
 	$mcassoc_shared_secret = $queries->getWhere('settings', array('name', '=', 'mcassoc_key'));
 	$mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
-	
+
 	$mcassoc_instance_secret = $queries->getWhere('settings', array('name', '=', 'mcassoc_instance'));
 	$mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
-	
+
 	define('MCASSOC', true);
-	
+
 	// Initialise
 	$mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
 	$mcassoc->enableInsecureMode();
@@ -159,7 +159,7 @@ if(Input::exists()){
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 			$result = curl_exec($ch);
-			
+
 			$result = json_decode($result, true);
 		} else {
 			// reCAPTCHA is disabled
@@ -167,11 +167,11 @@ if(Input::exists()){
 				'success' => 'true'
 			);
 		}
-		
+
 		if(isset($result['success']) && $result['success'] == 'true'){
 			// Validate
 			$validate = new Validate();
-			
+
 			$to_validation = array( // Base field validation
 				'password' => array(
 					'required' => true,
@@ -191,7 +191,7 @@ if(Input::exists()){
 					'agree' => true
 				)
 			);
-			
+
 			if($recaptcha === "true"){ // check Recaptcha response
 				$to_validation['g-recaptcha-response'] = array(
 					'required' => true
@@ -264,7 +264,7 @@ if(Input::exists()){
 
 				// Valid, continue with validation
 				$validation = $validate->check($_POST, $to_validation); // Execute validation
-				
+
 				if($validation->passed()){
 					if(MINECRAFT && $uuid_linking == 1){
 						// Perform validation on Minecraft name
@@ -380,7 +380,7 @@ if(Input::exists()){
 	                                    'language_id' => $language_id,
 	                                    'active' => $active
 									));
-									
+
 	                                // Get user ID
 	                                $user_id = $queries->getLastId();
 
@@ -527,7 +527,7 @@ if(Input::exists()){
 					// Errors
 					$errors = array();
 					foreach($validation->errors() as $validation_error){
-						
+
 						if(strpos($validation_error, 'is required') !== false){
 							// x is required
 							switch($validation_error){
@@ -549,7 +549,7 @@ if(Input::exists()){
 								default:
 									$errors[] = $validation_error . ".";
 							}
-							
+
 						} else if(strpos($validation_error, 'minimum') !== false){
 							// x must be a minimum of y characters long
 							switch($validation_error){
@@ -563,7 +563,7 @@ if(Input::exists()){
 									$errors[] = $language->get('user', 'password_minimum_6');
 								break;
 							}
-							
+
 						} else if(strpos($validation_error, 'maximum') !== false){
 							// x must be a maximum of y characters long
 							switch($validation_error){
@@ -585,7 +585,7 @@ if(Input::exists()){
 						} else if(strpos($validation_error, 'must match') !== false){
 							// password must match password again
 							$errors[] = $language->get('user', 'passwords_dont_match');
-							
+
 						} else if(strpos($validation_error, 'already exists') !== false){
 							// already exists
                             if(!in_array($language->get('user', 'username_mcname_email_exists'), $errors))
@@ -594,20 +594,20 @@ if(Input::exists()){
 						} else if(strpos($validation_error, 'not a valid Minecraft account') !== false){
 							// Invalid Minecraft username
 							$errors[] = $language->get('user', 'invalid_mcname');
-							
+
 						} else if(strpos($validation_error, 'Mojang communication error') !== false){
 							// Mojang server error
 							$errors[] = $language->get('user', 'mcname_lookup_error');
-							
+
 						}
 					}
 				}
-		
+
 		} else {
 			// reCAPTCHA failed
 			$errors = array($language->get('user', 'invalid_recaptcha'));
 		}
-		
+
 	} else {
 		// Invalid token
 		$errors = array($language->get('general', 'invalid_token'));
@@ -624,7 +624,7 @@ if($minecraft == 1){
 }
 
 $profile_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
-if ($profile_fields > 0) {
+if ($profile_fields) {
 	$smarty->assign('HAS_CUSTOM_FIELDS', true);
 	$smarty->assign('CUSTOM_FIELDS', $profile_fields);
 }

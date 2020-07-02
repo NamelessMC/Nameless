@@ -1,8 +1,8 @@
-<?php 
+<?php
 /*
  *	Gemaakt door Samerton
  *  en vertaald door Sander Lambrechts, Derkades en smessie
- *  
+ *
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr3
  *
@@ -18,7 +18,7 @@ $language = array(
 	'submit' => 'Verstuur',
 	'register' => 'Registreren',
 	'already_registered' => 'Already Registered?',
-	'custom_fields' => 'Custom Fields',
+	'custom_fields' => 'Aangepaste Velden',
 	'not_registered_yet' => 'Not registered yet?',
 	'sign_in' => 'Inloggen',
 	'log_out' => 'Uitloggen',
@@ -57,15 +57,15 @@ $language = array(
 	'page_loaded_in' => 'Pagina geladen in {x}s', // Verander "{x}" niet, tijdseenheid is seconden
 	'page_x' => 'Pagina {x}',
    	'browse' => 'Doorzoek',
-	'bypass' => 'Bypass',
+	'bypass' => 'Omzeilen',
 	'yes' => 'Ja',
 	'no' => 'Nee',
-	'content' => 'Content',
-	'full_content' => 'Full Content',
+	'content' => 'Inhoud',
+	'full_content' => 'Volledige inhoud',
 	'url' => 'URL',
-	'success' => 'Success',
+	'success' => 'Succes',
 	'error' => 'Error',
-	'are_you_sure' => 'Are you sure?',
+	'are_you_sure' => 'Weet je het zeker?',
 	'spoiler' => 'Spoiler',
 	'invalid_timezone' => 'That timezone is invalid',
 
@@ -74,26 +74,26 @@ $language = array(
 	 */
 	'contact' => 'Contact',
 	'message' => 'Bericht',
-    'email_address' => 'Email Address',
+    'email_address' => 'E-mailadres',
 	'contact_email_subject' => 'Nieuw contactformulier indiening',
 	'contact_message_failed' => 'Kan bericht niet verzenden. Zorg ervoor dat je bericht tussen de 10 en 5000 karakters lang is.',
-    'contact_message_email' => 'The provided email is invalid.',
+    'contact_message_email' => 'Het opgegeven e-mailadres is ongeldig.',
 	'contact_message_sent' => 'Bericht succesvol verzonden.',
 	'contact_message_limit' => 'Je kan maar 1 bericht per uur versturen. Je kan pas weer over {x} minuten een nieuw bericht versturen.', // Vervang {x} niet
-	
-	/* 
+
+	/*
 	 *  Navigatiebalk
 	 */
 	'home' => 'Start',
 	'more' => 'Meer',
 	'status' => 'Status',
-	
+
 	/*
 	 *  Homepagina
 	 */
 	'social' => 'Sociaal',
-	
-	
+
+
 	/*
 	 *  Hulp dialogen
 	 */
@@ -107,8 +107,8 @@ $language = array(
 	'player_count' => '{x}/{y}', // Verander "{x}" of "{y}" niet
 	'ping' => 'Ping: {x}', // Verander "{x}" niet
 	'version' => 'Versie: {x}', // Verander "{x}" niet
-	'currently_1_player_online' => 'There is currently 1 player online.',
-	'currently_x_players_online' => 'Er zijn nu <strong>{x}</strong> spelers online.', // Verander "{x}" niet
+	'currently_1_player_online' => 'Er is momenteel 1 speler online.',
+	'currently_x_players_online' => 'Er zijn momenteel <strong>{x}</strong> spelers online.', // Verander "{x}" niet
 	'server_offline' => 'De server is nu offline.',
 	'connect_with_ip_x' => 'Verbind met dit IP adres: {x}', // Verander "{x}" niet
     'click_to_copy_tooltip' => 'Klik om te kopiëren',
@@ -128,26 +128,26 @@ $language = array(
     /*
      *  Widgets
      */
-    'statistics' => 'Statistics',
-    'users_registered' => 'Users Registered',
-    'latest_member' => 'Latest Member',
-    'forum_statistics' => 'Forum Statistics',
-    'total_threads' => 'Total Threads',
-    'total_posts' => 'Total Posts',
+    'statistics' => 'Statistieken',
+    'users_registered' => 'Geregistreerde Gebruikers',
+    'latest_member' => 'Nieuwste lid',
+    'forum_statistics' => 'Forum Statistieken',
+    'total_threads' => 'Totale Threads',
+    'total_posts' => 'Totale Posts',
     'online_staff' => 'Online Personeel',
     'no_online_staff' => 'Er zijn geen personeelsleden online.',
-    'total_online_staff' => 'Total online staff: {x}',
+    'total_online_staff' => 'Total online personeel: {x}',
     'online_users' => 'Online Gebruikers',
     'no_online_users' => 'Er zijn geen gebruikes online.',
-    'total_online_users' => 'Total online users: {x}',
+    'total_online_users' => 'Totaal online gebruikers: {x}',
     'discord_widget_disabled' => 'De widget is uitgeschakeld voor de opgegeven Discord server. Ga naar het tabblad \'Widget\' in uw Discord server instellingen, en zorg ervoor dat de Discord widget is ingeschakeld en dat de ID correct is.',
-    'online_guests' => 'Online Guests',
-    'total_online' => 'Total Online', // this is Online Users + Online Guests
+    'online_guests' => 'Online Gasten',
+    'total_online' => 'Totaal Online', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Privacy Verklaring',
+    'privacy_policy' => 'Privacyverklaring',
 
 	/*
 	 *  Custom page redirect
