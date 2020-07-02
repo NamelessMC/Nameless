@@ -286,8 +286,8 @@ if(Input::exists()) {
 				if(count($users_following)){
 					$users_following_info = array();
 					foreach($users_following as $user_following){
-						//if($user_following->user_id != $user->data()->id){
-							//if ($user_following->existing_alerts == 0) {
+						if($user_following->user_id != $user->data()->id){
+							if ($user_following->existing_alerts == 0) {
 								Alert::create(
 									$user_following->user_id,
 									'new_reply',
@@ -298,10 +298,10 @@ if(Input::exists()) {
 								$queries->update('topics_following', $user_following->id, array(
 									'existing_alerts' => 1
 								));
-							//}
+							}
 							$user_info = $queries->getWhere('users', array('id', '=', $user_following->user_id));
 							array_push($users_following_info, ['email' => $user_info[0]->email, 'username' => $user_info[0]->username]);
-						//}
+						}
 					}
 					$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html'));
 					$html = file_get_contents($path);

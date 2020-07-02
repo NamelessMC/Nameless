@@ -41,9 +41,9 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Since emails are sent in the user's language, they need to be able to pick which language's messages to edit
 $editing_language = new Language(null, Session::get('editing_language') ?? $queries->getWhere('languages', array('is_default', '=', 1))[0]->name);
 $emails = array(
-	['register', 'Registration', ['subject' => $editing_language->get('emails', 'register_subject'), 'message' => $editing_language->get('emails', 'register_message')]],
-	['change_password', 'Change Password', ['subject' => str_replace('?', '', $editing_language->get('emails', 'change_password_subject')), 'message' => $editing_language->get('emails', 'change_password_message')]],
-	['forum_topic_reply', 'Forum Topic Reply', ['subject' => $editing_language->get('emails', 'forum_topic_reply_subject'), 'message' => $editing_language->get('emails', 'forum_topic_reply_message')]]
+	['register', $language->get('admin', 'registration'), ['subject' => $editing_language->get('emails', 'register_subject'), 'message' => $editing_language->get('emails', 'register_message')]],
+	['change_password', $language->get('user', 'change_password'), ['subject' => str_replace('?', '', $editing_language->get('emails', 'change_password_subject')), 'message' => $editing_language->get('emails', 'change_password_message')]],
+	['forum_topic_reply', $language->get('admin', 'forum_topic_reply_email'), ['subject' => $editing_language->get('emails', 'forum_topic_reply_subject'), 'message' => $editing_language->get('emails', 'forum_topic_reply_message')]]
 );
 
 if(isset($_GET['action'])){
@@ -127,7 +127,7 @@ if(isset($_GET['action'])){
 		$languages = $queries->getWhere('languages', array('id', '<>', 0));
 		foreach ($languages as $language_db) {
 			$lang = new Language(null, $language_db->name);
-			$lang_file = (rtrim($lang->getActiveLanguageDirectory(), $lang->getActiveLanguage()) . $lang->getActiveLanguage() . DIRECTORY_SEPARATOR . 'emails.php');
+			$lang_file = ($lang->getActiveLanguageDirectory() . $lang->getActiveLanguage() . DIRECTORY_SEPARATOR . 'emails.php');
 			if (file_exists($lang_file) && is_writable($lang_file)) array_push($available_languages, $language_db);
 		}
 
