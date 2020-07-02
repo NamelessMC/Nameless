@@ -115,10 +115,15 @@ class Validate {
 						case 'email';
 							if(!filter_var($value, FILTER_VALIDATE_EMAIL)){
 								// Value is not a valid email
-								$this->addError("That is not a valid email.");
+								$this->addError("{$value} is not a valid email.");
 							}
 						break;
 
+						case 'timezone':
+							if (!in_array($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL))) {
+								$this->addError("The timezone {$item} is invalid.");
+							}
+						break;
 
 						// Check that the specified user account is set as active (ie validated)
 						case 'isactive';
@@ -153,7 +158,14 @@ class Validate {
 								// $value is not alphanumeric
 								$this->addError("{$item} must be alphanumeric.");
 							}
-							break;
+						break;
+
+						case 'numeric':
+							if(!is_numeric($value)){
+								// $value is not numeric
+								$this->addError("{$item} must be numeric.");
+							}
+						break;
 					}
 				}
 
