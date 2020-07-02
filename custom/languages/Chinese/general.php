@@ -69,6 +69,7 @@ $language = array(
 	'error' => 'Error',
 	'are_you_sure' => 'Are you sure?',
 	'spoiler' => 'Spoiler',
+	'invalid_timezone' => 'That timezone is invalid',
 
 	/*
 	 *  Contact form
