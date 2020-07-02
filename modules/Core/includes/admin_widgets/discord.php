@@ -21,21 +21,43 @@ if(Input::exists()){
         $discord_id = $discord_id[0]->id;
 
         if(isset($_POST['discord_api_key'])){
-            $discord_api_key = $_POST['discord_api_key'];
 
+            $validate = new Validate();
+            $validation = $validate->check($_POST, array(
+                'discord_api_key' => array(
+                    'min' => 18,
+                    'max' => 18,
+                    'numeric' => true
+                )
+            ));
+            
+            if ($validation->passed()) {
+                $discord_api_key = $_POST['discord_api_key'];
+            } else {
+                // Validation errors
+                foreach ($validation->errors() as $validation_error) {
+                    if (strpos($validation_error, 'minimum') !== false || strpos($validation_error, 'maximum') !== false) {
+                        $errors[] = $language->get('admin', 'discord_id_length');
+                    }
+                    else if (strpos($validation_error, 'numeric') !== false) {
+                        $errors[] = $language->get('admin', 'discord_id_numeric');
+                    }
+                }
+            }
         } else {
             $discord_api_key = '';
-
         }
+        if (count($errors))
+            $smarty->assign('ERRORS', $errors);
+        else {
+            $queries->update('settings', $discord_id, array(
+                'value' => Output::getClean($discord_api_key)
+            ));
 
-        $queries->update('settings', $discord_id, array(
-            'value' => Output::getClean($discord_api_key)
-        ));
+            $cache->store('discord', Output::getClean($discord_api_key));
 
-        $cache->store('discord', Output::getClean($discord_api_key));
-
-        $success = $language->get('admin', 'widget_updated');
-
+            $success = $language->get('admin', 'widget_updated');
+        }
     } else {
         $errors = array($language->get('general', 'invalid_token'));
     }

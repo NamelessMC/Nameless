@@ -183,8 +183,7 @@ if(Input::exists()){
 				),
 				'email' => array(
 					'required' => true,
-					'min' => 4,
-					'max' => 64,
+					'email' => true,
 					'unique' => 'users'
 				),
 				't_and_c' => array(
@@ -564,6 +563,10 @@ if(Input::exists()){
 									$errors[] = $language->get('user', 'password_maximum_30');
 								break;
 							}
+
+						} else if (strpos($validation_error, 'email') !== false) {
+							// Validate email
+							$errors[] = $language->get('general', 'contact_message_email');
 
 						} else if(strpos($validation_error, 'must match') !== false){
 							// password must match password again
