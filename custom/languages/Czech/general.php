@@ -64,7 +64,8 @@ $language = array(
 	'success' => 'úspěch',
 	'error' => 'Chyba',
 	'are_you_sure' => 'Jste si jisti?',
-	'spoiler' => 'Spoiler',
+    'spoiler' => 'Spoiler',
+    'invalid_timezone' => 'That timezone is invalid',
 
     /*
      *  Contact form

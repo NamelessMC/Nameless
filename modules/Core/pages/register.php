@@ -183,8 +183,7 @@ if(Input::exists()){
 				),
 				'email' => array(
 					'required' => true,
-					'min' => 4,
-					'max' => 64,
+					'email' => true,
 					'unique' => 'users'
 				),
 				't_and_c' => array(
@@ -579,6 +578,10 @@ if(Input::exists()){
 								break;
 							}
 							
+						} else if(strpos($validation_error, 'email') !== false){
+							// Validate email
+							$errors[] = $language->get('general', 'contact_message_email');
+
 						} else if(strpos($validation_error, 'must match') !== false){
 							// password must match password again
 							$errors[] = $language->get('user', 'passwords_dont_match');
@@ -641,7 +644,6 @@ $smarty->assign(array(
 	'TOKEN' => Token::get(),
 	'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
 	'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
-	'CUSTOM_FIELDS_TEXT' => $language->get('general', 'custom_fields'), 
 	'ERROR_TITLE' => $language->get('general', 'error'),
 	'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha'
 ));

@@ -61,7 +61,6 @@
             <input type="password" name="password_again" id="password_again" placeholder="{$CONFIRM_PASSWORD}" tabindex="5">
           </div>
           {if $HAS_CUSTOM_FIELDS}
-            <div class="ui horizontal divider">{$CUSTOM_FIELDS_TEXT}</div>
             {foreach $CUSTOM_FIELDS as $field}
                 <div class="field">
                 <label>{$field->name}{if $field->required eq 1}<super style="color: red;">*</super>{/if}</label>

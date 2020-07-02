@@ -157,7 +157,10 @@ if(isset($_GET['do'])){
 				$to_validate = array(
                     'signature' => array(
                         'max' => 900
-                    )
+					),
+					'timezone' => array(
+						'timezone' => true
+					)
                 );
 
 				// Permission to use nickname?
@@ -235,7 +238,7 @@ if(isset($_GET['do'])){
 	                        	$new_template = $user->data()->template_id;
 	                        }
 
-                            $timezone = Input::get('timezone');
+                            $timezone = Output::getClean(Input::get('timezone'));
 
                             if ($user->hasPermission('usercp.signature')) {
                                 $cache->setCache('post_formatting');
@@ -332,7 +335,9 @@ if(isset($_GET['do'])){
                             } else if(strpos($item, 'max') !== false){
                                 $error .= $language->get('user', 'username_maximum_20') . '<br />';
                             }
-                        } else {
+						} else if(strpos($item, 'timezone') !== false){
+							$error .= $language->get('general', 'invalid_timezone') . '<br />';
+						} else {
                             // Get field name
                             $id = explode(' ', $item);
                             $id = $id[0];
@@ -431,8 +436,7 @@ if(isset($_GET['do'])){
                     ),
                     'email' => array(
                         'required' => true,
-                        'min' => 4,
-                        'max' => 64
+						'email' => true
                     )
                 ));
 
@@ -485,7 +489,11 @@ if(isset($_GET['do'])){
                             // Field over 64 chars
                             $error .= $language->get('user', 'invalid_email') . '<br />';
 
-                        }
+						} else if(strpos($item, 'email') !== false){
+							// Validate email
+							$error .= $language->get('general', 'contact_message_email') . '<br />';
+
+						} 
                     }
                     Session::flash('settings_error', $error = rtrim($error, '<br />'));
                 }

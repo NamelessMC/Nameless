@@ -115,7 +115,7 @@ class Validate {
 						case 'email';
 							if(!filter_var($value, FILTER_VALIDATE_EMAIL)){
 								// Value is not a valid email
-								$this->addError("That is not a valid email.");
+								$this->addError("{$value} is not a valid email.");
 							}
 						break;
 
@@ -148,12 +148,18 @@ class Validate {
 							// Todo: Check if IP is banned
 						break;
 
+						case 'timezone': 
+							if(!in_array($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL))){
+								$this->addError("The timezone {$item} is invalid.");
+							}
+						break;
+
 						case 'alphanumeric':
 							if(!ctype_alnum($value)){
 								// $value is not alphanumeric
 								$this->addError("{$item} must be alphanumeric.");
 							}
-							break;
+						break;
 					}
 				}
 
