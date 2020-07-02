@@ -10,7 +10,7 @@
  */
 
 // Definitions
-if(!defined('PATH')){
+if (!defined('PATH')) {
     define('PATH', '/');
     define('ROOT_PATH', dirname(__FILE__));
 }
@@ -29,8 +29,10 @@ ini_set('display_errors', 0);
 date_default_timezone_set('Europe/London');
 
 // Select language
-if(isset($_SESSION['installer_language'])
-    && is_file('custom/languages/' . $_SESSION['installer_language'] . '/installer.php')) {
+if (
+    isset($_SESSION['installer_language'])
+    && is_file('custom/languages/' . $_SESSION['installer_language'] . '/installer.php')
+) {
     require(ROOT_PATH . '/custom/languages/' . $_SESSION['installer_language'] . '/version.php');
     require(ROOT_PATH . '/custom/languages/' . $_SESSION['installer_language'] . '/installer.php');
 } else {
@@ -42,10 +44,10 @@ if(isset($_SESSION['installer_language'])
 // Get installation path
 $install_path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))), 1);
 
-if(!isset($CONFIG['installed'])) {
-    if(isset($_GET['language'])){
+if (!isset($CONFIG['installed'])) {
+    if (isset($_GET['language'])) {
         // Set language
-        if(is_file('custom/languages/' . $_GET['language'] . '/installer.php')) {
+        if (is_file('custom/languages/' . $_GET['language'] . '/installer.php')) {
             $_SESSION['installer_language'] = $_GET['language'];
             die('OK');
         }

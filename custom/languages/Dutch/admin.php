@@ -182,13 +182,13 @@ $language = array(
 	'required' => 'Verplicht',
 	'editable' => 'Aanpasbaar',
 	'public' => 'Openbaar',
-	'forum_posts' => 'Display on Forum',
+	'forum_posts' => 'Toon op Forum',
 	'text' => 'Tekst',
 	'textarea' => 'Tekst gebied',
 	'date' => 'Datum',
 	'creating_profile_field' => 'Maak een profiel veld',
 	'editing_profile_field' => 'Profiel veld bewerken',
-	'field_name' => 'Veld naam',
+	'field_name' => 'Veldnaam',
 	'profile_field_required_help' => 'Verplichte velden moeten door de gebruiker worden ingevuld, en ze verschijnen tijden de registratie.',
 	'profile_field_public_help' => 'Openbare velden kunnen alle gebruikers zien, als dit uit staat kunnen alleen beheerders het zien.',
 	'profile_field_error' => 'Graag een veld naam invullen tussen de 2 en 16 karakters lang.',
@@ -202,7 +202,7 @@ $language = array(
 	'profile_field_deleted_successfully' => 'Het profielveld is met succes verwijderd.',
 
 	// Minecraft
-	'enable_minecraft_integration' => 'Minecraft integratie aan?',
+	'enable_minecraft_integration' => 'Minecraft integratie inschakelen?',
 	'mc_service_status' => 'Minecraft Dienst Status',
 	'service_query_error' => 'Kon de dienst status niet verkrijgen.',
 	'authme_integration' => 'AuthMe integratie',
@@ -330,7 +330,7 @@ $language = array(
 	'install' => '<i class="fa fa-plus-circle"></i> Installeren',
 	'template_updated' => 'Sjabloon succesvol bijgewerkt.',
 	'default' => 'Standaard',
-	'make_default' => 'Maak standaard',
+	'make_default' => 'Standaard maken',
 	'default_template_set' => 'Standaard sjabloon verzet naar {x} succesvol.', // Verander "{x}" niet
 	'template_deactivated' => 'Sjabloon gedeactiveerd.',
 	'template_activated' => 'Sjabloon geactiveerd.',
@@ -359,7 +359,7 @@ $language = array(
 	'editing_template_file_in_template' => 'Bestand {x} bewerken in sjabloon {y}', // Don't replace {x} or {y}
 	'cant_write_to_template' => 'Ik kan niet naar het sjabloonbestand schrijven! Controleer de bestandsrechten.',
 	'unable_to_delete_template' => 'Sjabloon kan niet volledig worden verwijderd. Controleer de bestandsrechten.',
-	'background_reset_successfully' => 'Achtergrondreset geslaagd.',
+	'background_reset_successfully' => 'Achtergrond verwijderd.',
 	'background_updated_successfully' => 'Achtergrond met succes bijgewerkt.',
 	'unable_to_enable_template' => 'Niet in staat om incompatibele sjablonen in te schakelen.',
 
@@ -577,13 +577,13 @@ $language = array(
 
 	// Hooks
 	'hooks' => 'Webhooks',
-	'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
-	'new_hook' => 'New Hook',
-	'creating_new_hook' => 'Creating New Webhook',
-	'editing_hook' => 'Editing Webhook',
-	'delete_hook' => 'Are you sure you want to delete this hook?',
+	'hooks_info' => 'Webhooks kunnen externe services informeren wanneer bepaalde gebeurtenissen plaatsvinden.',
+	'new_hook' => 'Nieuwe webhook',
+	'creating_new_hook' => 'Nieuwe webhook maken',
+	'editing_hook' => 'Webhook bewerken',
+	'delete_hook' => 'Weet je zeker dat je deze webhook wil verwijderen?',
 	'hook_url' => 'Webhook URL',
-	'hook_type' => 'Webhook Type',
+	'hook_type' => 'Webhooktype',
 	'hook_events' => 'Events to trigger this webhook',
 	'invalid_hook_url' => 'Invalid webhook url',
 	'invalid_hook_events' => 'You must select at least 1 event',

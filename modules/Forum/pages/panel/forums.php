@@ -666,6 +666,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 					// Guest forum permissions
 					$view = Input::get('perm-view-0');
 					$create = 0;
+					$edit = 0;
 					$post = 0;
 					$view_others = Input::get('perm-view-0');
 					$moderate = 0;
@@ -691,6 +692,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 							$queries->update('forums_permissions', $update_id, array(
 								'view' => $view,
 								'create_topic' => $create,
+								'edit_topic' => $edit,
 								'create_post' => $post,
 								'view_other_topics' => $view_others,
 								'moderate' => $moderate
@@ -701,6 +703,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 								'forum_id' => $_GET['forum'],
 								'view' => $view,
 								'create_topic' => $create,
+								'edit_topic' => $edit,
 								'create_post' => $post,
 								'view_other_topics' => $view_others,
 								'moderate' => $moderate
@@ -715,12 +718,14 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 					foreach($groups as $group){
 						$view = Input::get('perm-view-' . $group->id);
 						$create = Input::get('perm-topic-' . $group->id);
+						$edit = Input::get('perm-edit_topic-' . $group->id);
 						$post = Input::get('perm-post-' . $group->id);
 						$view_others = Input::get('perm-view_others-' . $group->id);
 						$moderate = Input::get('perm-moderate-' . $group->id);
 
 						if(!($view)) $view = 0;
 						if(!($create)) $create = 0;
+						if(!($edit)) $edit = 0;
 						if(!($post)) $post = 0;
 						if(!($view_others)) $view_others = 0;
 						if(!($moderate)) $moderate = 0;
@@ -743,6 +748,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 								$queries->update('forums_permissions', $update_id, array(
 									'view' => $view,
 									'create_topic' => $create,
+									'edit_topic' => $edit,
 									'create_post' => $post,
 									'view_other_topics' => $view_others,
 									'moderate' => $moderate
@@ -753,6 +759,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 									'forum_id' => $_GET['forum'],
 									'view' => $view,
 									'create_topic' => $create,
+									'edit_topic' => $edit,
 									'create_post' => $post,
 									'view_other_topics' => $view_others,
 									'moderate' => $moderate
@@ -828,7 +835,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 
 	// Get all forum permissions
 	$guest_query = DB::getInstance()->query('SELECT 0 AS id, `view` FROM nl2_forums_permissions WHERE group_id = 0 AND forum_id = ?', array($forum[0]->id))->results();
-	$group_query = DB::getInstance()->query('SELECT id, name, `view`, create_topic, create_post, view_other_topics, moderate FROM nl2_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, create_post, view_other_topics, moderate FROM nl2_forums_permissions WHERE forum_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', array($forum[0]->id))->results();
+	$group_query = DB::getInstance()->query('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_forums_permissions WHERE forum_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', array($forum[0]->id))->results();
 
 	$smarty->assign(array(
 		'CANCEL' => $language->get('general', 'cancel'),
@@ -866,6 +873,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 		'GROUP' => $forum_language->get('forum', 'group'),
 		'CAN_VIEW_FORUM' => $forum_language->get('forum', 'can_view_forum'),
 		'CAN_CREATE_TOPIC' => $forum_language->get('forum', 'can_create_topic'),
+		'CAN_EDIT_TOPIC' => $forum_language->get('forum', 'can_edit_topic'),
 		'CAN_POST_REPLY' => $forum_language->get('forum', 'can_post_reply'),
 		'CAN_VIEW_OTHER_TOPICS' => $forum_language->get('forum', 'can_view_other_topics'),
 		'CAN_MODERATE_FORUM' => $forum_language->get('forum', 'can_moderate_forum'),
