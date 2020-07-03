@@ -62,9 +62,8 @@
                             {/if}
                             {foreach from=$PROFILE_FIELDS item=field}
                                 <div class="form-group">
-
                                     {if !isset($field.disabled)}
-                                        <label for="input{$field.id}">{$field.name}</label>
+                                        <label for="input{$field.id}">{$field.name}{if $field.required}<super style="color: red;">*</super>{/if}</label>
                                         {if $field.type == "text"}
                                             <input type="text" class="form-control" name="{$field.id}"
                                                    id="input{$field.id}" value="{$field.value}"

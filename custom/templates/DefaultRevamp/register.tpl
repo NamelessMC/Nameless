@@ -63,9 +63,9 @@
           {if $HAS_CUSTOM_FIELDS}
             {foreach $CUSTOM_FIELDS as $field}
                 <div class="field">
-                <label>{$field->name}{if $field->required eq 1}<super style="color: red;">*</super>{/if}</label>
+                <label>{$field->name}{if $field->required}<super style="color: red;">*</super>{/if}</label>
                     {if $field->type eq 1}
-                    <input type="text" name="{$field->name}" id="{$field->name}" placeholder="{$field->description}" tabindex="5">
+                    <input type="text" name="{$field->name}" id="{$field->name}" placeholder="{$field->name}" tabindex="5">
                     {elseif $field->type eq 2}
                     <textarea name="{$field->name}" id="{$field->name}" placeholder="{$field->description}" tabindex="5"></textarea>
                     {elseif $field->type eq 3}
