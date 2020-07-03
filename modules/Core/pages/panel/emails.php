@@ -127,7 +127,7 @@ if(isset($_GET['action'])){
 		$languages = $queries->getWhere('languages', array('id', '<>', 0));
 		foreach ($languages as $language_db) {
 			$lang = new Language(null, $language_db->name);
-			$lang_file = ($lang->getActiveLanguageDirectory() . $lang->getActiveLanguage() . DIRECTORY_SEPARATOR . 'emails.php');
+			$lang_file = ($lang->getActiveLanguageDirectory() . DIRECTORY_SEPARATOR . 'emails.php');
 			if (file_exists($lang_file) && is_writable($lang_file)) array_push($available_languages, $language_db);
 		}
 
