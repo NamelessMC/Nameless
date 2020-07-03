@@ -623,7 +623,8 @@ if(isset($_GET['do'])){
 				'name' => Output::getClean($field->name),
 				'value' => $value,
 				'id' => $field->id,
-				'type' => $type
+				'type' => $type,
+				'required' => $field->required
 			);
 		}
 	}
