@@ -83,4 +83,8 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
-$template->displayTemplate('custom.tpl', $smarty);
+if ($custom_page->basic) {
+	$template->displayTemplate('custom_basic.tpl', $smarty);
+} else {
+	$template->displayTemplate('custom.tpl', $smarty);
+}

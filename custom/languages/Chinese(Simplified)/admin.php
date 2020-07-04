@@ -512,6 +512,7 @@ $language = array(
     'unsafe_html_warning' => '启用此选项意味着可以在页面上使用任何HTML，包括潜在危险的JavaScript。仅当您确定HTML安全时才启用此功能。',
     'include_in_sitemap' => '是否将其包含在站点地图里?',
     'sitemap_link' => '站点地图链接:',
+    'basic_page' => 'Basic page?',
     'page_permissions' => '页面权限',
     'view_page' => '预览页面?',
     'editing_page_x' => '编辑页面 {x} 中', // Don't replace {x}

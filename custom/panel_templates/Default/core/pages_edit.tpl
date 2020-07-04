@@ -98,6 +98,10 @@
                                     <textarea name="content" id="inputContent">{$PAGE_CONTENT_VALUE}</textarea>
                                 </div>
                                 <div class="form-group">
+                                    <label for="inputBasicPage">{$BASIC_PAGE}</label>
+                                    <input id="inputBasicPage" name="basic" type="checkbox" class="js-switch"{if $BASIC_PAGE_VALUE eq 1} checked{/if} />
+                                </div>
+                                <div class="form-group">
                                     <label for="inputRedirect">{$PAGE_REDIRECT}</label>
                                     <input id="inputRedirect" name="redirect_page" type="checkbox" class="js-switch"{if $PAGE_REDIRECT_VALUE eq 1} checked{/if} />
                                 </div>

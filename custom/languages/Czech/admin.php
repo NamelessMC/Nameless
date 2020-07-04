@@ -512,6 +512,7 @@ $language = array(
 	'unsafe_html_warning' => 'Povolením této možnosti, jakékoli HTML může být na této straně použito, včetně potenciálně nebezpečného jazyku JavaScript. Povolte to pouze v případě, zda jste si jist, že Váš HTML kód je bezpečný.',
 	'include_in_sitemap' => 'Zahrnout do souboru Sitemap?',
 	'sitemap_link' => 'Odkaz na soubor Sitemap:',
+	'basic_page' => 'Basic page?',
 	'page_permissions' => 'Oprávnění stránky',
 	'view_page' => 'Může tuto stránku vidět?',
 	'editing_page_x' => 'Upravování stránky {x}', // Don't replace {x}

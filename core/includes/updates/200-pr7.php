@@ -24,3 +24,10 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
+
+// Custom pages basic setting
+try {
+    $queries->alterTable('custom_pages', '`basic`', "tinyint(1) NOT NULL DEFAULT '0'");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}

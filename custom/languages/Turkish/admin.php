@@ -512,6 +512,7 @@ $language = array(
 	'unsafe_html_warning' => 'Bu seçeneğin etkinleştirilmesi, tehlikeli olabilecek JavaScript de dahil olmak üzere sayfada herhangi bir HTML\'nin kullanılabileceği anlamına gelir. Bunu yalnızca HTML\'nizin güvenli olduğundan eminseniz etkinleştirin.',
 	'include_in_sitemap' => 'Site haritasına eklensin mi?',
 	'sitemap_link' => 'Site harita linki:',
+	'basic_page' => 'Basic page?',
 	'page_permissions' => 'Sayfa yetkileri',
 	'view_page' => 'Sayfa gözüksün mü?',
 	'editing_page_x' => '{x} isimli sayfayı düzenleniyor..', // Don't replace {x}

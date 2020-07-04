@@ -129,6 +129,9 @@ if(!isset($_GET['action'])){
 							if(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') $sitemap = 1;
 							else $sitemap = 0;
 
+							if(isset($_POST['basic']) && $_POST['basic'] == 'on') $basic = 1;
+							else $basic = 0;
+
 							$queries->create('custom_pages', array(
 								'url' => Output::getClean(rtrim(Input::get('page_url'), '/')),
 								'title' => Output::getClean(Input::get('page_title')),
@@ -138,7 +141,8 @@ if(!isset($_GET['action'])){
 								'link' => Output::getClean($link),
 								'target' => ($redirect == 1) ? 1 : 0,
 								'all_html' => ($unsafe == 1) ? 1 : 0,
-								'sitemap' => ($sitemap == 1) ? 1 : 0
+								'sitemap' => ($sitemap == 1) ? 1 : 0,
+								'basic' => ($basic == 1) ? 1 : 0,
 							));
 
 							$last_id = $queries->getLastId();
@@ -329,6 +333,9 @@ if(!isset($_GET['action'])){
 							if(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') $sitemap = 1;
 							else $sitemap = 0;
 
+							if(isset($_POST['basic']) && $_POST['basic'] == 'on') $basic = 1;
+							else $basic = 0;
+
 							$queries->update('custom_pages', $page->id, array(
 								'url' => Output::getClean(rtrim(Input::get('page_url'), '/')),
 								'title' => Output::getClean(Input::get('page_title')),
@@ -338,7 +345,8 @@ if(!isset($_GET['action'])){
 								'link' => Output::getClean($link),
 								'target' => ($redirect == 1) ? 1 : 0,
 								'all_html' => ($unsafe == 1) ? 1 : 0,
-								'sitemap' => ($sitemap == 1) ? 1 : 0
+								'sitemap' => ($sitemap == 1) ? 1 : 0,
+								'basic' => ($basic == 1) ? 1 : 0
 							));
 
 							// Permissions
@@ -511,6 +519,8 @@ if(!isset($_GET['action'])){
 				'UNSAFE_HTML_WARNING' => $language->get('admin', 'unsafe_html_warning'),
 				'INCLUDE_IN_SITEMAP' => $language->get('admin', 'include_in_sitemap'),
 				'INCLUDE_IN_SITEMAP_VALUE' => $page->sitemap,
+				'BASIC_PAGE' => $language->get('admin', 'basic_page'),
+				'BASIC_PAGE_VALUE' => $page->basic,
 				'PAGE_PERMISSIONS' => $language->get('admin', 'page_permissions'),
 				'GROUP' => $language->get('admin', 'group'),
 				'VIEW_PAGE' => $language->get('admin', 'view_page'),

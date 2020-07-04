@@ -512,6 +512,7 @@ $language = array(
     'unsafe_html_warning' => 'Ved å aktivere denne funksjonen vil all HTML kunne bli brukt på siden, også skadelig JavaScript. Bruk kun om du er sikker på at det er trygt.',
     'include_in_sitemap' => 'Inkluder i sitemap?',
     'sitemap_link' => 'Sitemap link:',
+    'basic_page' => 'Basic page?',
     'page_permissions' => 'Siderettigheter',
     'view_page' => 'Se side?',
     'editing_page_x' => 'Redigerer side {x}', // Don't replace {x}

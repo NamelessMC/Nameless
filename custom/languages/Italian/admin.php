@@ -512,6 +512,7 @@ $language = array(
     'unsafe_html_warning' => "L'attivazione di questa opzione indica che qualsiasi codice HTML può essere utilizzato nella pagina, incluso il codice JavaScript potenzialmente pericoloso. Abilitalo solo se sei sicuro che il tuo codice HTML sia sicuro.",
     'include_in_sitemap' => 'Includere nella sitemap?',
     'sitemap_link' => 'Link Sitemap:',
+    'basic_page' => 'Basic page?',
     'page_permissions' => 'Permessi pagina',
     'view_page' => 'Visualizzare la Pagina?',
     'editing_page_x' => 'Modifica pagina {x}', // Don't replace {x}

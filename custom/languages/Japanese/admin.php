@@ -515,6 +515,7 @@ $language = array(
     'unsafe_html_warning' => 'このオプションを有効にすると、危険な JavaScript を含む HTML をページで使用することを許可します。 HTMLが安全であると確認できた場合のみ、有効にしてください。',
     'include_in_sitemap' => 'サイトマップを含めますか？',
     'sitemap_link' => 'Sitemap link:',
+    'basic_page' => 'Basic page?',
     'page_permissions' => 'ページのアクセス権利',
     'view_page' => 'ページを表示しますか？',
     'editing_page_x' => '編集ページ: {x}', // Don't replace {x}

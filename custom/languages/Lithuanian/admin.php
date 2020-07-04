@@ -510,6 +510,7 @@ $language = array(
   'unsafe_html_warning' => 'Įjungus šią parinktį, šiame puslapyje gali būti naudojamas bet koks HTML, įskaitant potencialiai pavojingą JavaScript. Įjunkite tik tai, jei esate tikri, kad jūsų HTML yra saugus.',
   'include_in_sitemap' => 'Įtraukti į svetainės schemą?',
   'sitemap_link' => 'Svetainės schemos nuoroda:',
+  'basic_page' => 'Basic page?',
   'page_permissions' => 'Puslapio Leidimai',
   'view_page' => 'Peržiūrėti Puslapį?',
   'editing_page_x' => 'Redaguoti puslapį {x}', // Don't replace {x}
