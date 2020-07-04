@@ -69,6 +69,7 @@ $language = array(
 	'profile_banner' => '个人资料背景',
 	'upload_profile_banner' => '上传个人资料背景',
 	'upload' => '上传',
+	'topic_updates' => 'Get emails for topics you follow',
 	
 	// Alerts
 	'user_tag_info' => '用户 {x} 在一个帖子中提及了您。', // Don't replace {x}

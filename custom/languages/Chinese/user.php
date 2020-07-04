@@ -72,6 +72,7 @@ $language = array(
 	'profile_banner' => 'Profile Banner',
 	'upload_profile_banner' => 'Upload Profile Banner',
 	'upload' => 'Upload',
+	'topic_updates' => 'Get emails for topics you follow',
 	
 	// Alerts
 	'user_tag_info' => '你被標註於 {x}.', // Don't replace {x}

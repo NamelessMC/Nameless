@@ -300,7 +300,7 @@ if(Input::exists()) {
 								));
 							}
 							$user_info = $queries->getWhere('users', array('id', '=', $user_following->user_id));
-							array_push($users_following_info, ['email' => $user_info[0]->email, 'username' => $user_info[0]->username]);
+							if($user_info[0]->topic_updates) array_push($users_following_info, ['email' => $user_info[0]->email, 'username' => $user_info[0]->username]);
 						}
 					}
 					$path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html'));

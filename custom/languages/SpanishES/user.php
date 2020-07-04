@@ -47,7 +47,7 @@ $language = array(
 	'incorrect_password' => 'La contraseña es incorrecta.',
 	'two_factor_auth' => 'Autenticación de dos factores',
 	'enabled' => 'Activado',
-  'disabled' => 'Desactivado',
+    'disabled' => 'Desactivado',
 	'enable' => 'Activar',
 	'disable' => 'Desactivar',
 	'tfa_scan_code' => 'Compruebe el siguiente código en su aplicación de autenticación:',
@@ -67,6 +67,7 @@ $language = array(
 	'profile_banner' => 'Banner del perfil',
 	'upload_profile_banner' => 'Subir banner del perfil',
 	'upload' => 'Subir',
+	'topic_updates' => 'Get emails for topics you follow',
 	
 	// Alerts
 	'user_tag_info' => 'Has sido etiquetado en un post por {x}.', // Don't replace {x}

@@ -68,6 +68,7 @@ $language = array(
 	'profile_banner' => 'Profile Banner',
 	'upload_profile_banner' => 'Upload Profile Banner',
 	'upload' => 'Upload',
+	'topic_updates' => 'Get emails for topics you follow',
 	
 	// Alerts
 	'user_tag_info' => 'Du har blivit taggat i ett inlägg av {x}.', // Don't replace {x}

@@ -251,6 +251,8 @@ if(isset($_GET['do'])){
                             } else
                                 $signature = '';
 
+							$topicUpdates = Output::getClean(Input::get('topicUpdates'));
+
                             // Private profiles enabled?
                             $private_profiles = $queries->getWhere('settings', array('name', '=', 'private_profile'));
                             if($private_profiles[0]->value == 1) {
@@ -265,7 +267,8 @@ if(isset($_GET['do'])){
                                 'language_id' => $new_language,
                                 'timezone' => $timezone,
                                 'signature' => $signature,
-                                'nickname' => $displayname,
+								'nickname' => $displayname,
+								'topic_updates' => $topicUpdates,
                                 'private_profile' => $privateProfile,
 	                            'theme_id' => $new_template
                             ));
@@ -656,7 +659,14 @@ if(isset($_GET['do'])){
             'SIGNATURE' => $language->get('user', 'signature'),
             'SIGNATURE_VALUE' => $signature
         ));
-    }
+	}
+
+	if($queries->getWhere('modules', array('name', '=', 'Forum'))[0]->enabled == 1){
+		$smarty->assign(array(
+			'TOPIC_UPDATES' => $language->get('user', 'topic_updates'),
+			'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', array('id', '=', $user->data()->id))->first()->topic_updates
+		));
+	}
 	
 	if($user->canPrivateProfile($user->data()->id)){
         $smarty->assign(array(

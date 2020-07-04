@@ -67,6 +67,7 @@ $language = array(
 	'profile_banner' => 'Profilbanner',
 	'upload_profile_banner' => 'Last opp et profilbanner',
 	'upload' => 'Last opp',
+	'topic_updates' => 'Get emails for topics you follow',
 	
 	// Alerts
 	'user_tag_info' => 'Du har blitt tagget i et innlegg av {x}.', // Don't replace {x}

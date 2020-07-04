@@ -69,6 +69,7 @@ $language = array(
 	'profile_banner' => 'Profile Banner',
 	'upload_profile_banner' => 'Upload Profile Banner',
 	'upload' => 'Upload',
+	'topic_updates' => 'Get emails for topics you follow',
 	
 	// Meldingen
 	'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet

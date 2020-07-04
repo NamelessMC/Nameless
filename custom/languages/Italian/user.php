@@ -67,6 +67,7 @@ $language = array(
 	'profile_banner' => 'Banner di profilo',
 	'upload_profile_banner' => 'Carica banner profilo',
 	'upload' => 'Carica',
+	'topic_updates' => 'Get emails for topics you follow',
 	
 	// Alerts
 	'user_tag_info' => 'Sei stato taggato in un post di {x}.', // Don't replace {x}

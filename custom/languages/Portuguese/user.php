@@ -66,6 +66,7 @@ $language = array(
     'profile_banner' => 'Banner de Perfil',
     'upload_profile_banner' => 'Enviar Banner de Perfil',
     'upload' => 'Upload',
+    'topic_updates' => 'Get emails for topics you follow',
     
     // Alerts
     'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}

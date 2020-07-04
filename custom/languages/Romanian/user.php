@@ -68,7 +68,8 @@ $language = array(
     'avatar' => 'Avatar',
 	'profile_banner' => 'Banner profil',
 	'upload_profile_banner' => 'Încărcați banner profil',
-	'upload' => 'Încărcați',
+    'upload' => 'Încărcați',
+    'topic_updates' => 'Get emails for topics you follow',
     
     // Alerts
     'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace {x}

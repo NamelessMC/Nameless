@@ -67,6 +67,7 @@ $language = array(
 	'profile_banner' => 'Banner',
 	'upload_profile_banner' => 'Nahrát banner',
 	'upload' => 'Nahrát',
+	'topic_updates' => 'Get emails for topics you follow',
 	
 	// Alerts
 	'user_tag_info' => 'Byl jste označen v příspěvku {x}.', // Don't replace {x}

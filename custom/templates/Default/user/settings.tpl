@@ -33,6 +33,7 @@
                                     {/foreach}
                                 </select>
                             </div>
+                            {if count($TEMPLATES)}
                             <div class="form-group">
                                 <label for="inputTemplate">{$ACTIVE_TEMPLATE}</label>
                                 <select name="template" id="inputTemplate" class="form-control">
@@ -41,6 +42,7 @@
                                     {/foreach}
                                 </select>
                             </div>
+                            {/if}
                             <div class="form-group">
                                 <label for="inputTimezone">{$TIMEZONE}</label>
                                 <select name="timezone" class="form-control" id="inputTimezone">
@@ -51,6 +53,15 @@
                                     {/foreach}
                                 </select>
                             </div>
+                            {if isset($TOPIC_UPDATES)}
+                            <div class="form-group">
+                                <label for="inputTopicUpdates">{$TOPIC_UPDATES}</label>
+                                <select name="topicUpdates" class="form-control" id="inputTopicUpdates">
+                                    <option value="1" {if ($TOPIC_UPDATES_ENABLED==true)} selected {/if}>{$ENABLED}</option>
+                                    <option value="0" {if ($TOPIC_UPDATES_ENABLED==false)} selected {/if}>{$DISABLED}</option>
+                                </select>
+                            </div>
+                            {/if}
 							{if isset($PRIVATE_PROFILE)}
                                 <div class="form-group">
                                     <label for="inputPrivateProfile">{$PRIVATE_PROFILE}</label>
