@@ -668,7 +668,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 					$create = 0;
 					$edit = 0;
 					$post = 0;
-					$view_others = Input::get('perm-view-0');
+					$view_others = Input::get('perm-view_others-0');
 					$moderate = 0;
 
 					if(!($view)) $view = 0;
@@ -834,7 +834,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 	}
 
 	// Get all forum permissions
-	$guest_query = DB::getInstance()->query('SELECT 0 AS id, `view` FROM nl2_forums_permissions WHERE group_id = 0 AND forum_id = ?', array($forum[0]->id))->results();
+	$guest_query = DB::getInstance()->query('SELECT 0 AS id, `view`, view_other_topics FROM nl2_forums_permissions WHERE group_id = 0 AND forum_id = ?', array($forum[0]->id))->results();
 	$group_query = DB::getInstance()->query('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_forums_permissions WHERE forum_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', array($forum[0]->id))->results();
 
 	$smarty->assign(array(

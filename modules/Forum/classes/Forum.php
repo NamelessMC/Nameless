@@ -62,7 +62,7 @@ class Forum {
                                 $return[$forum->id]['subforums'][$item->id]->posts = $posts;
 
                                 // Can the user view other topics
-                                if($group_id == 0 || $this->canViewOtherTopics($item->id, $group_id, $secondary_groups) || $item->last_user_posted == $user_id){
+                                if($this->canViewOtherTopics($item->id, $group_id, $secondary_groups) || $item->last_user_posted == $user_id){
                                     if($item->last_topic_posted){
                                         // Last reply
                                         $last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $item->last_topic_posted, 'created', 'DESC')->results();
@@ -617,14 +617,10 @@ class Forum {
 
 	// Can the user view other topics in a forum?
     // Params: $forum_id - forum ID (int), $group_id - group ID of user (int), $secondary_groups - array of group IDs user is in (array of ints)
-    public function canViewOtherTopics($forum_id, $group_id = null, $secondary_groups = null){
-        if($group_id == null){
-            // If guests have permission to view this forum, they can view all topics
-            return true;
-        } else {
-            if($secondary_groups)
-                $secondary_groups = json_decode($secondary_groups, true);
-        }
+    public function canViewOtherTopics($forum_id, $group_id = 0, $secondary_groups = null){
+        if($secondary_groups)
+            $secondary_groups = json_decode($secondary_groups, true);
+
         // Does the forum exist?
         $exists = $this->_db->get("forums", array("id", "=", $forum_id))->results();
         if(count($exists)){

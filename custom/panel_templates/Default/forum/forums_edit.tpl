@@ -164,7 +164,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>                                            
-                                            <td></td>
+                                            <td><input type="hidden" name="perm-view_others-0" value="0" /><input onclick="colourUpdate(this);" name="perm-view_others-0" id="Input-view_others-0" value="1" type="checkbox"{if isset($GUEST_PERMISSIONS->view_other_topics) && $GUEST_PERMISSIONS->view_other_topics eq 1} checked{/if} /></td>
                                             <td></td>
                                         </tr>
                                         {foreach from=$GROUP_PERMISSIONS item=group}
@@ -279,11 +279,11 @@
     }
     for(var g in groups) {
         colourUpdate(document.getElementById('Input-view-' + groups[g]));
+        colourUpdate(document.getElementById('Input-view_others-' + groups[g]));
         if(groups[g] != "0") {
             colourUpdate(document.getElementById('Input-topic-' + groups[g]));
             colourUpdate(document.getElementById('Input-edit_topic-' + groups[g]));
             colourUpdate(document.getElementById('Input-post-' + groups[g]));
-            colourUpdate(document.getElementById('Input-view_others-' + groups[g]));
             colourUpdate(document.getElementById('Input-moderate-' + groups[g]));
         }
     }
