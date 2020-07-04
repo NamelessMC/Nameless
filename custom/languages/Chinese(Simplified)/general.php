@@ -67,7 +67,7 @@ $language = array(
 	'error' => '错误',
 	'are_you_sure' => '您确定?',
 	'spoiler' => '展开',
-	'invalid_timezone' => 'That timezone is invalid',
+	'invalid_timezone' => '此时区不可用',
 
 	/*
 	 *  Contact form
