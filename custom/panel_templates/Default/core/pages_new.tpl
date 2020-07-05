@@ -131,17 +131,17 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td onclick="toggleAll(this);">{$GUESTS}</td>
-                                        <td><input type="hidden" name="perm-view-0" value="0" /><input onclick="colourUpdate(this);" name="perm-view-0" id="Input-view-0" value="1" type="checkbox"></td>
-                                    </tr>
-                                    {foreach from=$GROUPS item=item}
+                                        <tr>
+                                            <td onclick="toggleAll(this);">{$GUESTS}</td>
+                                            <td><input type="hidden" name="perm-view-0" value="0" /><input onclick="colourUpdate(this);" name="perm-view-0" id="Input-view-0" value="1" type="checkbox" {if $GUEST_PERMS eq 1} checked{/if} /></td>
+                                        </tr>
+                                        {foreach from=$GROUPS item=item}
                                         <tr>
                                             <td onclick="toggleAll(this);">{$item.name}</td>
-                                            <td><input type="hidden" name="perm-view-{$item.id}" value="0" /><input onclick="colourUpdate(this);" name="perm-view-{$item.id}" id="Input-view-{$item.id}" value="1" type="checkbox" /></td>
+                                            <td><input type="hidden" name="perm-view-{$item.id}" value="0" /><input onclick="colourUpdate(this);" name="perm-view-{$item.id}" id="Input-view-{$item.id}" value="1" type="checkbox" {if $item.view eq 1} checked{/if} /></td>
                                         </tr>
                                         <script>groups.push("{$item.id}");</script>
-                                    {/foreach}
+                                        {/foreach}
                                     </tbody>
                                 </table>
                                 <div class="form-group">

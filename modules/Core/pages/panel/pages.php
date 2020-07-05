@@ -216,8 +216,8 @@ if(!isset($_GET['action'])){
 				} else
 					$errors[] = $language->get('general', 'invalid_token');
 			}
-
-			$groups = $queries->getWhere('groups', array('id', '<>', 0));
+			
+			$groups = DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results();
 			$template_array = array();
 			foreach($groups as $group){
 				$template_array[Output::getClean($group->id)] = array(
@@ -472,7 +472,7 @@ if(!isset($_GET['action'])){
 					$errors[] = $language->get('general', 'invalid_token');
 			}
 
-			$group_permissions = DB::getInstance()->query('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id', array($page->id))->results();
+			$group_permissions = DB::getInstance()->query('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', array($page->id))->results();
 			$template_array = array();
 			foreach($group_permissions as $group){
 				$template_array[Output::getClean($group->id)] = array(
