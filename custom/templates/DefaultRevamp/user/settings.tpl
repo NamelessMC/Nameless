@@ -75,7 +75,7 @@
                  {/foreach}
               </select>
             </div>
-            {if count($TEMPLATES)}
+            {if count($TEMPLATES) > 1}
               <div class="field">
                 <label for="inputTemplate">{$ACTIVE_TEMPLATE}</label>
                 <select class="ui fluid dropdown" name="template" id="inputTemplate">
