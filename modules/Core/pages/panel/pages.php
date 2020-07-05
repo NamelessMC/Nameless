@@ -246,6 +246,7 @@ if(!isset($_GET['action'])){
 				'PAGE_LINK_NONE' => $language->get('admin', 'page_link_none'),
 				'PAGE_CONTENT' => $language->get('admin', 'page_content'),
 				'PAGE_CONTENT_VALUE' => Output::getClean(Input::get('content')),
+				'BASIC_PAGE' => $language->get('admin', 'basic_page'),
 				'PAGE_REDIRECT' => $language->get('admin', 'page_redirect'),
 				'PAGE_REDIRECT_TO' => $language->get('admin', 'page_redirect_to'),
 				'PAGE_REDIRECT_TO_VALUE' => Output::getClean(Input::get('redirect_link')),
