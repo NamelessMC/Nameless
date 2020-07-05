@@ -31,3 +31,10 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
+
+// Topic Updates 
+try {
+    $queries->alterTable('users', '`topic_updates`', "tinyint(1) NOT NULL DEFAULT '1'");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
