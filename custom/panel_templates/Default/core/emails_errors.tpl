@@ -71,6 +71,11 @@
                             {/if}
 
                             <a class="btn btn-primary" href="{$BACK_LINK}">{$BACK}</a>
+                            {if !isset($NO_ERRORS)}
+                                <div class="float-md-right">
+                                    <button type="button" class="btn btn-warning" onclick="showPurgeModal()">{$PURGE_BUTTON}</button>
+                                </div>
+                            {/if}
                             <hr />
 
                             {if isset($NO_ERRORS)}
@@ -115,6 +120,27 @@
         </section>
     </div>
 
+    <!-- Purge errors modal -->
+    <div class="modal fade" id="purgeModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {$CONFIRM_PURGE_ERRORS}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                    <a href="{$PURGE_LINK}" class="btn btn-primary">{$YES}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Delete error modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -144,6 +170,9 @@
 {include file='scripts.tpl'}
 
 <script type="text/javascript">
+    function showPurgeModal() {
+        $('#purgeModal').modal().show();
+    }
     function showDeleteModal(id){
         $('#deleteLink').attr('href', '{$DELETE_LINK}'.replace('{literal}{x}{/literal}', id));
         $('#deleteModal').modal().show();

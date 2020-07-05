@@ -194,6 +194,12 @@ if(isset($_GET['do'])){
 				case 3:
 					$type = $language->get('admin', 'forgot_password_email');
 					break;
+				case 4:
+					$type = $language->get('admin', 'api_registration_email');
+					break;
+				case 5:
+					$type = $language->get('admin', 'forum_topic_reply_email');
+					break;
 				default:
 					$type = $language->get('admin', 'unknown');
 					break;
@@ -212,6 +218,9 @@ if(isset($_GET['do'])){
 			'EMAIL_ERRORS_ARRAY' => $template_errors,
 			'DELETE_LINK' => URL::build('/panel/core/emails/errors/', 'do=delete&id={x}'),
 			'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
+			'PURGE_BUTTON' => $language->get('admin', 'purge_errors'),
+			'CONFIRM_PURGE_ERRORS' => $language->get('admin', 'confirm_purge_errors'),
+			'PURGE_LINK' => URL::build('/panel/core/emails/errors/', 'do=purge'),
 			'CONFIRM_DELETE_ERROR' => $language->get('admin', 'confirm_email_error_deletion'),
 			'YES' => $language->get('general', 'yes'),
 			'NO' => $language->get('general', 'no'),
