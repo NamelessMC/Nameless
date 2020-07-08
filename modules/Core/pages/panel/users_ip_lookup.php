@@ -79,7 +79,7 @@ if(isset($_GET['uid'])){
 		$template_file = 'core/users_ip_lookup_results.tpl';
 
 	} else {
-		$smarty->assign('NO_ACCOUNTS', $language->get('moderator', 'no_ips_with_username'));
+		$errors = array($language->get('moderator', 'no_ips_with_username'));
 
 		$template_file = 'core/users_ip_lookup.tpl';
 	}
@@ -90,9 +90,7 @@ if(isset($_GET['uid'])){
 	$ip_accounts = $queries->getWhere('users_ips', array('ip', '=', Output::getClean($_GET['ip'])));
 
 	if(!count($ip_accounts)){
-		$smarty->assign(array(
-			'NO_ACCOUNTS' => $language->get('moderator', 'no_accounts_with_that_ip')
-		));
+		$errors = array($language->get('moderator', 'no_accounts_with_that_ip'));
 
 		$template_file = 'core/users_ip_lookup.tpl';
 
