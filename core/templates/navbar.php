@@ -128,7 +128,8 @@ if($user->isLoggedIn()){
 				'target' => '',
 			),
 			'seperator_1' => array(
-				'seperator' => true
+				'separator' => true,
+				'seperator' => true // Support templates with this typo
 			),
 			'logout' => array(
 				'title' => $language->get('general', 'log_out'),
