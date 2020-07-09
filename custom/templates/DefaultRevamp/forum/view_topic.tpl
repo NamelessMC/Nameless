@@ -38,7 +38,7 @@
   </div>
 {/if}
 
-{if count($ERRORS)}
+{if isset($ERRORS)}
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
