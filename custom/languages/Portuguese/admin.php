@@ -14,8 +14,10 @@ $language = array(
     /*
      *  Admin Control Panel
      */
+    
     // Login
     're-authenticate' => 'Por favor, logue-se novamente',   
+
     // Sidebar
     'dashboard' => 'Painel',
     'configuration' => 'Configuração',
@@ -32,6 +34,7 @@ $language = array(
     'sitemap' => 'Sitemap',
     'styles' => 'Estilos',
     'users_and_groups' => 'Usuários & Grupos',  
+
     // Overview
     'running_nameless_version' => 'Versão do NamelessMC: <strong>{x}</strong>', // Don't replace "{x}"
     'running_php_version' => 'Versão do PHP: <strong>{x}</strong>', // Don't replace "{x}"
@@ -42,6 +45,7 @@ $language = array(
     'notices' => 'Notificações',
     'no_notices' => 'Sem notificações.',
     'email_errors_logged' => 'Erros de e-mail foram registrados',   
+
     // Core
     'settings' => 'Configurações',
     'general_settings' => 'Configurações Gerais',
@@ -160,6 +164,7 @@ $language = array(
     'validation_promote_group_info' => 'Este é o grupo para o qual um usuário será promovido depois de ter validado sua conta.',
     'login_method' => 'Método de login',
     'privacy_and_terms' => 'Termos & Privacidade',  
+
     // Reactions
     'icon' => 'Ícone',
     'type' => 'Tipo',
@@ -180,6 +185,7 @@ $language = array(
     'name_maximum_16' => 'O nome deve ter no máximo 16 caracteres',
     'html_maximum_255' => 'O HTML deve ter no máximo 255 caracteres',
     'confirm_delete_reaction' => 'Tem certeza de que deseja excluir essa reação?',  
+
     // Custom profile fields
     'custom_fields' => 'Campos Personalizados do Perfil',
     'new_field' => '<i class="fas fa-plus-circle"></i> Novo Campo',
@@ -204,6 +210,7 @@ $language = array(
     'profile_field_updated_successfully' => 'O campo de perfil foi atualizado com sucesso.',
     'profile_field_created_successfully' => 'O campo de perfil foi criado com sucesso.',
     'profile_field_deleted_successfully' => 'O campo do perfil foi excluído com sucesso.',  
+
     // Minecraft
     'enable_minecraft_integration' => 'Ativar a integração do Minecraft?',
     'mc_service_status' => 'Status do Minecraft Service',
@@ -301,6 +308,7 @@ $language = array(
     'query_errors_purged_successfully' => 'Erros de consulta removidos com sucesso.',
     'query_error_deleted_successfully' => 'Erro de consulta excluído com sucesso.',
     'banner_updated_successfully' => 'Banner atualizado com sucesso. Pode demorar um pouco até que suas alterações entrem em vigor.',   
+
     // Modules
     'modules_installed_successfully' => 'Todos os novos módulos foram instalados com êxito.',
     'enabled' => 'Ativado',
@@ -317,6 +325,7 @@ $language = array(
     'unable_to_retrieve_modules' => 'Não foi possível recuperar os módulos',
     'module' => 'Módulo',
     'unable_to_enable_module' => 'Não é possível habilitar o módulo incompatível.', 
+
     // Styles
     'templates' => 'Templates',
     'panel_templates' => 'Painel de Templates',
@@ -363,6 +372,7 @@ $language = array(
     'background_reset_successfully' => 'Background redefinido com sucesso.',
     'background_updated_successfully' => 'Background atualizado com sucesso.',
     'unable_to_enable_template' => 'Não foi possível ativar o template incompatível.',  
+
     // Users & groups
     'users' => 'Usuários',
     'groups' => 'Grupos',
@@ -420,6 +430,7 @@ $language = array(
     'user_updated_successfully' => 'Usuário atualizado com sucesso.',
     'editing_user_x' => 'Editando usuário {x}', // Don't replace {x}
     'details' => 'Detalhes',    
+
     // Permissions
     'select_all' => 'Selecionar Todos',
     'deselect_all' => 'Deselecionar Todos',
@@ -427,6 +438,7 @@ $language = array(
     'can_edit_own_group' => 'Pode editar as permissão do seu próprio grupo',
     'permissions_updated_successfully' => 'Permissões atualizada com sucesso.',
     'cant_edit_this_group' => 'Você pode editar as permissões destes grupos!',  
+
     // General Admin language
     'task_successful' => 'Tarefa bem-sucedida.',
     'invalid_action' => 'Ação inválida.',
@@ -435,12 +447,14 @@ $language = array(
     'view_site' => 'Ver Site',
     'signed_in_as_x' => 'Logado como {x}', // Don't replace {x}
     'warning' => 'Aviso',   
+
     // Maintenance
     'maintenance_mode' => 'Modo de manutenção',
     'maintenance_enabled' => 'O modo de manutenção está ativado no momento.',
     'enable_maintenance_mode' => 'Habilitar modo de manutenção?',
     'maintenance_mode_message' => 'Mensagem de modo de manutenção',
     'maintenance_message_max_1024' => 'Certifique-se de que sua mensagem de manutenção é de no máximo 1024 caracteres.',    
+
     // Security
     'acp_logins' => 'Logins do StaffCP',
     'please_select_logs' => 'Selecione o registro para visualizar',
@@ -450,6 +464,7 @@ $language = array(
     'all_logs' => 'Todos os Registros',
     'action' => 'Ação',
     'action_info' => 'Informação de Ação',  
+
     // Updates
     'update' => 'Atualizar',
     'current_version_x' => 'Versão atual: <strong>{x}</strong>', // Don't replaec {x}
@@ -464,6 +479,7 @@ $language = array(
     'download' => 'Download',
     'install_confirm' => 'Certifique-se de que transferiu o pacote e carregou os ficheiros contidos em primeiro lugar!',
     'check_again' => 'Verificar novamente', 
+
     // Widgets
     'widgets' => 'Widgets',
     'widget_enabled' => 'Widget ativado.',
@@ -472,9 +488,11 @@ $language = array(
     'editing_widget_x' => 'Editando o widget {x}', // Don't replace {x}
     'module_x' => 'Módulo: {x}', // Don't replace {x}
     'widget_order' => 'Ordenação dos Widgets',  
+
     // Online users widget
     'include_staff_in_user_widget' => 'Incluir membros da equipe no widget do usuário?',
     'show_nickname_instead_of_username' => 'Mostrar o apelido do usuário em vez do nome de usuário?',   
+
     // Custom Pages
     'pages' => 'Páginas',
     'custom_pages' => 'Páginas',
@@ -515,6 +533,7 @@ $language = array(
     'page_created_successfully' => 'Página criada com sucesso',
     'page_updated_successfully' => 'Página atualizada com sucesso.',
     'page_deleted_successfully' => 'Página excluída com sucesso.',  
+
     // API
     'api' => 'API',
     'enable_api' => 'Ativar a API?',
@@ -549,12 +568,14 @@ $language = array(
     'group_sync_rule_deleted_successfully' => 'A regra de sincronização do grupo foi excluída com sucesso.',
     'existing_rules' => 'Regras Existentes',
     'new_rule' => 'Nova Regra', 
+
     // File uploads
     'drag_files_here' => 'Arraste arquivos aqui para fazer o upload.',
     'invalid_file_type' => 'Tipo de arquivo inválido!',
     'file_too_big' => 'Arquivo muito grande! Seu arquivo possui {{filesize}} e o limite é {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
     'allowed_proxies' => 'Proxies permitidos',
     'allowed_proxies_info' => 'Lista separada por linha de IPs de proxy permitidos.',   
+
     // Error logs
     'error_logs' => 'Logs de erros',
     'notice_log' => 'Logs notices',
@@ -564,6 +585,7 @@ $language = array(
     'fatal_log' => 'Logs fatais',
     'log_file_not_found' => 'Arquivo de log não encontrado.',
     'log_purged_successfully' => 'O log foi removido com sucesso.', 
+
 	// Hooks
 	'hooks' => 'Webhooks',
 	'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
@@ -579,6 +601,7 @@ $language = array(
     'register_hook_info' => 'Registro do usuário',
     'validate_hook_info' => 'Validação do usuário',
     'delete_hook_info' => 'Exclusão do usuário',    
+
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Não foi possível carregar o arquivo do mapa do site {x}', // Don't replace {x}
     'sitemap_generated' => 'Mapa do site gerado com sucesso',
@@ -588,6 +611,7 @@ $language = array(
     'download_sitemap' => 'Baixar Mapa do Site',
     'sitemap_not_generated_yet' => 'O mapa do site não foi gerado ainda!',
     'sitemap_last_generated_x' => 'Último mapa do site gerado {x}', // Don't replace {x}    
+
     // Page metadata
     'page_metadata' => 'Metadados da Página',
     'metadata_page_x' => 'Visualizando metadados da página {x}', // Don't replace {x}
@@ -595,6 +619,7 @@ $language = array(
     'description_max_500' => 'A descrição deve ter no máximo 500 caracteres.',
     'page' => 'Página',
     'metadata_updated_successfully' => 'Metadados atualizados com sucesso.',    
+
     // Dashboard
     'total_users' => 'Total de Usuários',
     'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
@@ -605,11 +630,30 @@ $language = array(
     'unable_to_retrieve_nameless_news' => 'Não foi possível recuperar as últimas notícias',
     'confirm_leave_site' => 'Você está prestes a sair deste site! Tem a certeza que quer visitar <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
     'server_compatibility' => 'Compatibilidade do Servidor',
-    'issues' => 'Problemas',    
+    'issues' => 'Problemas',  
+
     // Other
     'source' => 'Fonte',
     'support' => 'Suporte',
     'admin_dir_still_exists' => 'Aviso! O diretório <strong>modules/Core/pages/admin</strong> ainda existe. Por favor remova este diretório.',
     'mod_dir_still_exists' => 'Aviso! O diretório <strong>modules/Core/pages/mod</strong> ainda existe. Por favor remova este diretório.',
     'forum_topic_reply_email' => 'Forum Topic Reply',
+
+    // Announcements
+    'new_announcement' => 'New Announcement',
+    'creating_announcement' => 'Creating Announcement',
+    'editing_announcement' => 'Editing Announcement',
+    'creating_announcement_success' => 'Announcement created successfully.',
+    'editing_announcement_success' => 'Announcement updated successfully.',
+    'creating_announcement_failure' => 'Announcement creation failed.',
+    'editing_announcement_failure' => 'Announcement updating failed.',
+    'announcement_icon_instructions' => 'You can also add an icon to each announcement here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
+    'header' => 'Header',
+    'message' => 'Message',
+    'pages' => 'Pages',
+    'text_colour' => 'Text Colour',
+    'background_colour' => 'Background Colour',
+    'closable' => 'Closable',
+    'can_view_announcement' => 'Can view Announcement',
+    'verify_delete_announcement' => 'Are you sure you want to delete this annoucement?'
 );

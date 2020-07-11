@@ -636,4 +636,22 @@ $language = array(
 	'admin_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/admin</strong> directory still exists. Please remove this directory.',
 	'mod_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/mod</strong> directory still exists. Please remove this directory.',
 	'forum_topic_reply_email' => 'Forum Topic Reply',
+
+	// Announcements
+	'new_announcement' => 'New Announcement',
+	'creating_announcement' => 'Creating Announcement',
+	'editing_announcement' => 'Editing Announcement',
+	'creating_announcement_success' => 'Announcement created successfully.',
+	'editing_announcement_success' => 'Announcement updated successfully.',
+	'creating_announcement_failure' => 'Announcement creation failed.',
+	'editing_announcement_failure' => 'Announcement updating failed.',
+	'announcement_icon_instructions' => 'You can also add an icon to each announcement here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
+	'header' => 'Header',
+	'message' => 'Message',
+	'pages' => 'Pages',
+	'text_colour' => 'Text Colour',
+	'background_colour' => 'Background Colour',
+	'closable' => 'Closable',
+	'can_view_announcement' => 'Can view Announcement',
+	'verify_delete_announcement' => 'Are you sure you want to delete this annoucement?'
 );
