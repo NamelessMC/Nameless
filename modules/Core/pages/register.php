@@ -7,7 +7,6 @@
  *  License: MIT
  *
  *  Registration page
- *  TODO: If validate fails, return back with input so they don't need to rewrite it all
  */
 
 // Ensure user isn't already logged in
@@ -628,8 +627,11 @@ if (count($profile_fields)) {
 // Assign Smarty variables
 $smarty->assign(array(
 	'NICKNAME' => ($custom_usernames == 'false' && !MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
+	'NICKNAME_VALUE' => ((isset($_POST['nickname']) && $_POST['nickname']) ? Output::getClean(Input::get('nickname')) : ''),
+	'USERNAME_VALUE' => ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : ''),
 	'MINECRAFT_USERNAME' => $language->get('user', 'minecraft_username'),
 	'EMAIL' => $language->get('user', 'email_address'),
+	'EMAIL_VALUE' => ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : ''),
 	'PASSWORD' => $language->get('user', 'password'),
 	'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
 	'I_AGREE' => $language->get('user', 'i_agree'),

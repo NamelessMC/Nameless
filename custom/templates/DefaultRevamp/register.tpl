@@ -27,30 +27,30 @@
           {if isset($NICKNAMES)}
             <div class="field">
               <label>{$NICKNAME}</label>
-              <input type="text" name="{if isset($MINECRAFT)}nickname{else}username{/if}" id="username" placeholder="{$NICKNAME}" tabindex="1">
+              <input type="text" name="{if isset($MINECRAFT)}nickname{else}username{/if}" id="username" value="{if isset($MINECRAFT)}{$NICKNAME_VALUE}{else}{$USERNAME_VALUE}{/if}" placeholder="{$NICKNAME}" tabindex="1">
             </div>
             {if isset($MINECRAFT)}
               <div class="field">
                 <label>{$MINECRAFT_USERNAME}</label>
-                <input type="text" name="username" id="mcname" placeholder="{$MINECRAFT_USERNAME}" tabindex="2">
+                <input type="text" name="username" id="mcname" value="{$USERNAME_VALUE}" placeholder="{$MINECRAFT_USERNAME}" tabindex="2">
               </div>
             {/if}
           {else}
             {if isset($MINECRAFT)}
               <div class="field">
                 <label>{$MINECRAFT_USERNAME}</label>
-                <input type="text" name="username" id="mcname" placeholder="{$MINECRAFT_USERNAME}" tabindex="1">
+                <input type="text" name="username" id="mcname" value="{$USERNAME_VALUE}" placeholder="{$MINECRAFT_USERNAME}" tabindex="1">
               </div>
             {else}
               <div class="field">
                 <label>{$MINECRAFT_USERNAME}</label>
-                <input type="text" name="username" id="mcname" placeholder="{$NICKNAME}" tabindex="1">
+                <input type="text" name="username" id="mcname" value="{$USERNAME_VALUE}" placeholder="{$NICKNAME}" tabindex="1">
               </div>
             {/if}
           {/if}
           <div class="field">
             <label>{$EMAIL}</label>
-            <input type="email" name="email" id="email" placeholder="{$EMAIL}" tabindex="3">
+            <input type="email" name="email" id="email" value="{$EMAIL_VALUE}" placeholder="{$EMAIL}" tabindex="3">
           </div>
           <div class="field">
             <label>{$PASSWORD}</label>
@@ -65,11 +65,11 @@
                 <div class="field">
                 <label>{$field.name}</label>
                     {if $field.type eq 1}
-                    <input type="text" name="{$field.name}" id="{$field.name}" placeholder="{$field.name}" tabindex="5">
+                    <input type="text" name="{$field.name}" id="{$field.name}" value="{$field.value}" placeholder="{$field.name}" tabindex="5">
                     {elseif $field.type eq 2}
                     <textarea name="{$field.name}" id="{$field.name}" placeholder="{$field.description}" tabindex="5"></textarea>
                     {elseif $field.type eq 3}
-                    <input type="date" name="{$field.name}" id="{$field.name}" tabindex="5">
+                    <input type="date" name="{$field.name}" id="{$field.name}" value="{$field.value}" tabindex="5">
                     {/if}
                 </div>
             {/foreach}
