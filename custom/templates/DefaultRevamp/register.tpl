@@ -5,7 +5,7 @@
   {$CREATE_AN_ACCOUNT}
 </h2>
 
-{if count($REGISTRATION_ERROR)}
+{if isset($REGISTRATION_ERROR)}
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
@@ -60,16 +60,16 @@
             <label>{$CONFIRM_PASSWORD}</label>
             <input type="password" name="password_again" id="password_again" placeholder="{$CONFIRM_PASSWORD}" tabindex="5">
           </div>
-          {if $HAS_CUSTOM_FIELDS}
+          {if count($CUSTOM_FIELDS)}
             {foreach $CUSTOM_FIELDS as $field}
                 <div class="field">
-                <label>{$field->name}{if $field->required}<super style="color: red;">*</super>{/if}</label>
-                    {if $field->type eq 1}
-                    <input type="text" name="{$field->name}" id="{$field->name}" placeholder="{$field->name}" tabindex="5">
-                    {elseif $field->type eq 2}
-                    <textarea name="{$field->name}" id="{$field->name}" placeholder="{$field->description}" tabindex="5"></textarea>
-                    {elseif $field->type eq 3}
-                    <input type="date" name="{$field->name}" id="{$field->name}" tabindex="5">
+                <label>{$field.name}</label>
+                    {if $field.type eq 1}
+                    <input type="text" name="{$field.name}" id="{$field.name}" placeholder="{$field.name}" tabindex="5">
+                    {elseif $field.type eq 2}
+                    <textarea name="{$field.name}" id="{$field.name}" placeholder="{$field.description}" tabindex="5"></textarea>
+                    {elseif $field.type eq 3}
+                    <input type="date" name="{$field.name}" id="{$field.name}" tabindex="5">
                     {/if}
                 </div>
             {/foreach}

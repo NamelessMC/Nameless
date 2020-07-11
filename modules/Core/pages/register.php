@@ -249,13 +249,9 @@ if(Input::exists()){
 				$profile_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
 				if (count($profile_fields)) {
 					foreach ($profile_fields as $field) {
-						if ($field->required == "1") {
+						if ($field->required == true) {
 							$to_validation[$field->name] = array(
 								'required' => true,
-								'max' => (is_null($field->length) ? 1024 : $field->length)
-							);
-						} else {
-							$to_validation[$field->name] = array(
 								'max' => (is_null($field->length) ? 1024 : $field->length)
 							);
 						}
@@ -387,12 +383,15 @@ if(Input::exists()){
 									// Custom Fields
 									if (count($profile_fields)) {
 										foreach ($profile_fields as $field) {
+											if ($field->required == false) {
+												continue;
+											}
 											if (!empty(Input::get($field->name))) {
 												// Insert custom field
 												$queries->create('users_profile_fields', array(
 													'user_id' => $user_id,
 													'field_id' => $field->id,
-													'value' => Input::get($field->name)
+													'value' => Output::getClean(Input::get($field->name))
 												));
 											}
 										}
@@ -609,12 +608,23 @@ if($minecraft == 1){
 	$smarty->assign('MINECRAFT', true);
 }
 
+$custom_fields = array();
 $profile_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
-if ($profile_fields) {
-	$smarty->assign('HAS_CUSTOM_FIELDS', true);
-	$smarty->assign('CUSTOM_FIELDS', $profile_fields);
+if (count($profile_fields)) {
+	foreach($profile_fields as $field){
+		if($field->required == false){
+			continue;
+		}
+		
+		$custom_fields[] = array(
+			'id' => $field->id,	
+			'name' => Output::getClean($field->name),
+			'description' => Output::getClean($field->description),
+			'type' => $field->type,
+			'required' => $field->required
+		);
+	}
 }
-
 // Assign Smarty variables
 $smarty->assign(array(
 	'NICKNAME' => ($custom_usernames == 'false' && !MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
@@ -631,7 +641,8 @@ $smarty->assign(array(
 	'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
 	'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
 	'ERROR_TITLE' => $language->get('general', 'error'),
-	'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha'
+	'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha',
+	'CUSTOM_FIELDS' => $custom_fields
 ));
 
 if($recaptcha === 'true'){
