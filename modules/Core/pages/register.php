@@ -401,12 +401,12 @@ if(Input::exists()){
 	                                if ($api_verification != '1' && $email_verification == '1') {
 	                                    $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
 	                                    $php_mailer = $php_mailer[0]->value;
-
+										
+										$link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code);
+										
 	                                    if ($php_mailer == '1') {
 											
 	                                        // PHP Mailer
-	                                        $link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code);
-
 	                                        $email = array(
 	                                            'to' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('username'))),
 	                                            'subject' => SITE_NAME . ' - ' . $language->get('emails', 'register_subject'),
