@@ -38,3 +38,21 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
+
+// Announcements
+try {
+    DB::getInstance()->query("CREATE TABLE `nl2_custom_announcements` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `pages` varchar(128) NOT NULL,
+        `groups` varchar(128) NOT NULL,
+        `text_colour` varchar(7) NOT NULL,
+        `background_colour` varchar(7) NOT NULL,
+        `icon` varchar(64) NOT NULL,
+        `closable` tinyint(1) NOT NULL DEFAULT '0',
+        `header` varchar(64) NOT NULL,
+        `message` varchar(255) NOT NULL,
+        PRIMARY KEY (`id`)
+        ) ENGINE=$db_engine AUTO_INCREMENT=17 DEFAULT CHARSET=$db_charset");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
