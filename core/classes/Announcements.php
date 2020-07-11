@@ -19,12 +19,26 @@ class Announcements {
         return (array) $cache->retrieve('custom_announcements');
     }
 
-    public static function getAvailable($page = null, $group_id = null, $secondary_groups = null) {
+    public static function getAvailable($page = null, $custom_page = null, $group_id = null, $secondary_groups = null) {
+        if ($group_id == null) $group_id = 0;
+        else {
+            if ($secondary_groups) $secondary_groups = json_decode($secondary_groups);
+        }
         $announcements = array();
         foreach(self::getAll() as $announcement) {
-            // TODO: Check secondary groups as well?
-            if (in_array($page, json_decode($announcement->pages, true)) && in_array($group_id, json_decode($announcement->groups, true))) {
-                $announcements[] = $announcement;
+            $pages = json_decode($announcement->pages, true);
+            $groups = json_decode($announcement->groups, true);
+            if (in_array($page, $pages) || in_array($custom_page, $pages)) {
+                if (in_array($group_id, $groups)) {
+                    $announcements[] = $announcement;
+                } else if (is_array($secondary_groups) && count($secondary_groups)) {
+                    foreach($secondary_groups as $secondary_group) {
+                        if(in_array($secondary_group, $groups)) {
+                            $announcements[] = $announcement;
+                            break;
+                        }
+                    }
+                }
             }
         }
         return $announcements;
@@ -54,7 +68,7 @@ class Announcements {
         return true;
     }
 
-    private static function resetCache(){
+    public static function resetCache(){
         $cache = new Cache();
         $cache->setCache('custom_announcements');
         if ($cache->isCached('custom_announcements')) $cache->erase('custom_announcements');

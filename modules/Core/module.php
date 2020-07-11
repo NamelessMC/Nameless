@@ -735,16 +735,6 @@ class Core_Module extends Module {
 					$navs[2]->addItemToDropdown('core_configuration', 'navigation', $language->get('admin', 'navigation'), URL::build('/panel/core/navigation'), 'top', $order, $icon);
 				}
 
-				if ($user->hasPermission('admincp.core.announcements')) {
-					if (!$cache->isCached('announcements_icon')) {
-						$icon = '<i class="nav-icon fas fa-bullhorn"></i>';
-						$cache->store('announcements_icon', $icon);
-					} else
-						$icon = $cache->retrieve('announcements_icon');
-
-					$navs[2]->addItemToDropdown('core_configuration', 'announcements', $language->get('admin', 'announcements'), URL::build('/panel/core/announcements'), 'top', $order, $icon);
-				}
-
 				if($user->hasPermission('admincp.core.terms')){
 					if(!$cache->isCached('privacy_and_terms_icon')){
 						$icon = '<i class="nav-icon fas fa-file-alt"></i>';
@@ -803,10 +793,27 @@ class Core_Module extends Module {
 				$navs[2]->add('groups', $language->get('admin', 'groups'), URL::build('/panel/core/groups'), 'top', null, $order, $icon);
 			}
 
+			if ($user->hasPermission('admincp.core.announcements')) {
+				if (!$cache->isCached('announcements_order')) {
+					$order = 4;
+					$cache->store('announcements_order', 4);
+				} else {
+					$order = $cache->retrieve('announcements_order');
+				}
+
+				if (!$cache->isCached('announcements_icon')) {
+					$icon = '<i class="nav-icon fas fa-bullhorn"></i>';
+					$cache->store('announcements_icon', $icon);
+				} else
+				$icon = $cache->retrieve('announcements_icon');
+
+				$navs[2]->add('announcements', $language->get('admin', 'announcements'), URL::build('/panel/core/announcements'), 'top', null, $order, $icon);
+			}
+
 			if($user->hasPermission('admincp.integrations')){
 				if(!$cache->isCached('integrations_order')){
-					$order = 4;
-					$cache->store('integrations_order', 4);
+					$order = 5;
+					$cache->store('integrations_order', 5);
 				} else {
 					$order = $cache->retrieve('integrations_order');
 				}
@@ -832,8 +839,8 @@ class Core_Module extends Module {
 
 			if($user->hasPermission('admincp.styles') || $user->hasPermission('admincp.sitemap') || $user->hasPermission('admincp.widgets')){
 				if(!$cache->isCached('layout_order')){
-					$order = 5;
-					$cache->store('layout_order', 5);
+					$order = 6;
+					$cache->store('layout_order', 6);
 				} else {
 					$order = $cache->retrieve('layout_order');
 				}
@@ -899,8 +906,8 @@ class Core_Module extends Module {
 
 			if($user->hasPermission('admincp.modules')){
 				if(!$cache->isCached('modules_order')){
-					$order = 6;
-					$cache->store('modules_order', 6);
+					$order = 7;
+					$cache->store('modules_order', 7);
 				} else {
 					$order = $cache->retrieve('modules_order');
 				}
@@ -916,8 +923,8 @@ class Core_Module extends Module {
 
 			if($user->hasPermission('admincp.pages') || $user->hasPermission('admincp.pages.metadata')){
 				if(!$cache->isCached('pages_order')){
-					$order = 7;
-					$cache->store('pages_order', 7);
+					$order = 8;
+					$cache->store('pages_order', 8);
 				} else {
 					$order = $cache->retrieve('pages_order');
 				}
@@ -953,8 +960,8 @@ class Core_Module extends Module {
 
 			if($user->hasPermission('admincp.security')){
 				if(!$cache->isCached('security_order')){
-					$order = 8;
-					$cache->store('security_order', 8);
+					$order = 9;
+					$cache->store('security_order', 9);
 				} else {
 					$order = $cache->retrieve('security_order');
 				}
@@ -970,8 +977,8 @@ class Core_Module extends Module {
 
 			if($user->hasPermission('admincp.update')){
 				if(!$cache->isCached('update_order')){
-					$order = 9;
-					$cache->store('update_order', 9);
+					$order = 10;
+					$cache->store('update_order', 10);
 				} else {
 					$order = $cache->retrieve('update_order');
 				}
@@ -987,8 +994,8 @@ class Core_Module extends Module {
 
 			if($user->hasPermission('admincp.users')){
 				if(!$cache->isCached('users_order')){
-					$order = 9;
-					$cache->store('users_order', 9);
+					$order = 11;
+					$cache->store('users_order', 11);
 				} else {
 					$order = $cache->retrieve('users_order');
 				}

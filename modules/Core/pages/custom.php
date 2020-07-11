@@ -56,7 +56,8 @@ if($custom_page->redirect) {
 }
 
 // Always define page name
-define('PAGE', $custom_page->title);
+define('PAGE', $custom_page->id);
+define('CUSTOM_PAGE', $custom_page->title);
 $page_title = Output::getClean($custom_page->title);
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

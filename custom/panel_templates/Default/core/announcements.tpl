@@ -15,7 +15,6 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
-                                <li class="breadcrumb-item active">{$CONFIGURATION}</li>
                                 <li class="breadcrumb-item active">{$PAGE}</li>
                             </ol>
                         </div>

@@ -33,7 +33,7 @@ if ($user->isLoggedIn()) {
 }
 
 define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
+define('PARENT_PAGE', 'announcements');
 define('PANEL_PAGE', 'announcements');
 $page_title = $language->get('admin', 'announcements');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
@@ -233,7 +233,8 @@ if (!isset($_GET['action'])) {
             } catch (Exception $e) {
                 die($e->getMessage());
             }
-
+            
+            Announcements::resetCache();
             Session::flash('announcement_success', 'Announcement deleted successfully.');
             Redirect::to(URL::build('/panel/core/announcements'));
             die();
@@ -263,7 +264,7 @@ $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'PAGE' => $language->get('admin', 'announcements'),
+    'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),

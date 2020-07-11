@@ -175,11 +175,11 @@
             $(function () {
                 $('.backgroundColour').colorpicker({
                     format: 'hex',
-                    'color': '007BFF'
+                    'color': {if $ANNOUNCEMENT->background_colour} '{$ANNOUNCEMENT->background_colour}' {else}false{/if}
                 });
                 $('.textColour').colorpicker({
                     format: 'hex',
-                    'color': 'FFFFFF'
+                    'color': {if $ANNOUNCEMENT->text_colour} '{$ANNOUNCEMENT->text_colour}' {else}false{/if}
                 });
             });
             function colourUpdate(that) {
