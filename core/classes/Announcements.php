@@ -19,9 +19,10 @@ class Announcements {
         return (array) $cache->retrieve('custom_announcements');
     }
 
-    public static function getAvailable(string $page = null, int $group_id = null, $secondary_groups = null) {
+    public static function getAvailable($page = null, $group_id = null, $secondary_groups = null) {
         $announcements = array();
         foreach(self::getAll() as $announcement) {
+            // TODO: Check secondary groups as well?
             if (in_array($page, json_decode($announcement->pages, true)) && in_array($group_id, json_decode($announcement->groups, true))) {
                 $announcements[] = $announcement;
             }
@@ -35,7 +36,7 @@ class Announcements {
         return $available_pages;
     }
 
-    public static function getPagesCsv(string $pages_json = null){
+    public static function getPagesCsv($pages_json = null){
         return implode(', ', array_map('ucfirst', json_decode($pages_json)));
     }
 
