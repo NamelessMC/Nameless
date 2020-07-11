@@ -32,6 +32,7 @@ $language = array(
 	'sitemap' => 'Sitemap',
 	'styles' => 'Styles',
 	'users_and_groups' => 'Users and Groups',
+	'announcements' => 'Announcements',
 
 	// Overview
 	'running_nameless_version' => 'Running NamelessMC version <strong>{x}</strong>', // Don't replace "{x}"
@@ -636,4 +637,22 @@ $language = array(
 	'admin_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/admin</strong> directory still exists. Please remove this directory.',
 	'mod_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/mod</strong> directory still exists. Please remove this directory.',
 	'forum_topic_reply_email' => 'Forum Topic Reply',
+
+	// Announcements
+	'new_announcement' => 'New Announcement',
+	'creating_announcement' => 'Creating Announcement',
+	'editing_announcement' => 'Editing Announcement',
+	'creating_announcement_success' => 'Successfully created Announcement',
+	'editing_announcement_success' => 'Successfully edited Announcement',
+	'creating_announcement_failure' => 'Failure creating Announcement',
+	'editing_announcement_failure' => 'Failure editing Announcement',
+	'announcement_icon_instructions' => 'You can also add an icon to each announcement here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
+	'header' => 'Header',
+	'message' => 'Message',
+	'pages' => 'Pages',
+	'text_colour' => 'Text Colour',
+	'background_colour' => 'Background Colour',
+	'closable' => 'Closable',
+	'can_view_announcement' => 'Can view Announcement',
+	'verify_delete_announcement' => 'Are you sure you want to delete this annoucement?'
 );

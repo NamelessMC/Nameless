@@ -73,6 +73,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/images', 'pages/panel/images.php');
 		$pages->add('Core', '/panel/core/panel_templates', 'pages/panel/panel_templates.php');
 		$pages->add('Core', '/panel/core/templates', 'pages/panel/templates.php');
+		$pages->add('Core', '/panel/core/announcements', 'pages/panel/announcements.php');
 		$pages->add('Core', '/panel/core/sitemap', 'pages/panel/sitemap.php');
 		$pages->add('Core', '/panel/core/widgets', 'pages/panel/widgets.php');
 		$pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
@@ -298,6 +299,7 @@ class Core_Module extends Module {
 			'admincp.core.social_media' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'social_media'),
 			'admincp.core.terms' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'privacy_and_terms'),
 			'admincp.core.hooks' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'hooks'),
+			'admincp.core.announcements' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'announcements'),
 			'admincp.integrations' => $language->get('admin', 'integrations'),
 			'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
 			'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
@@ -731,6 +733,16 @@ class Core_Module extends Module {
 						$icon = $cache->retrieve('navigation_icon');
 
 					$navs[2]->addItemToDropdown('core_configuration', 'navigation', $language->get('admin', 'navigation'), URL::build('/panel/core/navigation'), 'top', $order, $icon);
+				}
+
+				if ($user->hasPermission('admincp.core.announcements')) {
+					if (!$cache->isCached('announcements_icon')) {
+						$icon = '<i class="nav-icon fas fa-bullhorn"></i>';
+						$cache->store('announcements_icon', $icon);
+					} else
+						$icon = $cache->retrieve('announcements_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'announcements', $language->get('admin', 'announcements'), URL::build('/panel/core/announcements'), 'top', $order, $icon);
 				}
 
 				if($user->hasPermission('admincp.core.terms')){
