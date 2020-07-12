@@ -35,7 +35,7 @@ class OnlineStaffWidget extends WidgetBase {
 	    if($this->_cache->isCached('staff'))
 		    $online = $this->_cache->retrieve('staff');
 	    else {
-		    $online = DB::getInstance()->query('SELECT id, username, nickname, user_title FROM nl2_users WHERE last_online > ' . strtotime('-5 minutes') . ' AND group_id IN (SELECT id FROM nl2_groups WHERE staff = 1)', array())->results();
+		    $online = DB::getInstance()->query('SELECT id, username, nickname, user_title, group_id FROM nl2_users WHERE last_online > ' . strtotime('-5 minutes') . ' AND group_id IN (SELECT id FROM nl2_groups WHERE staff = 1)', array())->results();
 		    $this->_cache->store('staff', $online, 120);
 	    }
 	    // Generate HTML code for widget
@@ -53,8 +53,14 @@ class OnlineStaffWidget extends WidgetBase {
 				    'avatar' => $user->getAvatar($staff->id),
 				    'id' => Output::getClean($staff->id),
 				    'title' => Output::getClean($staff->user_title),
-				    'group' => $user->getGroup($staff->id, true)
-			    );
+					'group' => $user->getGroup($staff->id, true),
+					'group_order' => $user->getGroupOrder($staff->group_id)
+				);
+
+			// Sort by group
+			uasort($staff_members, function ($a, $b) {
+				return ($a['group_order'] > $b['group_order'] ? 1 : -1);
+			});
 
 		    $this->_smarty->assign(array(
 			    'ONLINE_STAFF' => $this->_language['title'],
