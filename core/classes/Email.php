@@ -93,7 +93,7 @@ class Email {
         }
     }
 
-    public static function formatEmail(string $email, Language $viewing_language){
+    public static function formatEmail($email, $viewing_language){
         return str_replace(
             ['[Sitename]', '[Greeting]', '[Message]', '[Thanks]'],
             [SITE_NAME, $viewing_language->get('emails', 'greeting'), $viewing_language->get('emails', $email . '_message'), $viewing_language->get('emails', 'thanks')],

@@ -104,7 +104,7 @@ class Language {
 		}
 	}
 
-	public function set(string $file, string $term, string $value){
+	public function set($file, $term, $value){
 		$editing_file = ($this->_activeLanguageDirectory . $this->_activeLanguage . DIRECTORY_SEPARATOR . $file . '.php');
 		if (is_file($editing_file) && is_writable($editing_file)) {
 			return file_put_contents($editing_file, html_entity_decode(
