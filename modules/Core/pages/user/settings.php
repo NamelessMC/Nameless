@@ -222,7 +222,7 @@ if(isset($_GET['do'])){
 	                        $new_template = $queries->getWhere('templates', array('id', '=', Input::get('template')));
 
 	                        if (count($new_template)) $new_template = $new_template[0]->id;
-	                        else $new_template = $user->data()->template_id;
+	                        else $new_template = $user->data()->theme_id;
 
 	                        // Check permissions
 	                        $available_templates = $user->getUserTemplates();
@@ -235,7 +235,7 @@ if(isset($_GET['do'])){
 	                        }
 
 	                        if(!isset($can_update)){
-	                        	$new_template = $user->data()->template_id;
+	                        	$new_template = $user->data()->theme_id;
 	                        }
 
 							$timezone = Output::getClean(Input::get('timezone'));
