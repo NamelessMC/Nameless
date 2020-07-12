@@ -583,6 +583,7 @@ $language = array(
 	'fatal_log' => '致命错误日志',
 	'log_file_not_found' => '日志文件未被找到。',
 	'log_purged_successfully' => '日志已被清除成功。',
+	'forum_topic_reply_email' => 'Forum Topic Reply',
 
 	// Hooks
 	'hooks' => 'Webhooks',
@@ -639,13 +640,14 @@ $language = array(
 	'mod_dir_still_exists' => '警告! <strong>modules/Core/pages/mod</strong> 目录仍不存在。请删除这个目录。',
 
 	// Announcements
+	'announcements' => 'Announcements',
 	'new_announcement' => 'New Announcement',
 	'creating_announcement' => 'Creating Announcement',
 	'editing_announcement' => 'Editing Announcement',
 	'creating_announcement_success' => 'Announcement created successfully.',
 	'editing_announcement_success' => 'Announcement updated successfully.',
 	'creating_announcement_failure' => 'Announcement creation failed.',
-	'editing_announcement_failure' => 'Announcement updating failed.',
+	'editing_announcement_failure' => 'Announcement update failed.',
 	'announcement_icon_instructions' => 'You can also add an icon to each announcement here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
 	'header' => 'Header',
 	'message' => 'Message',
@@ -654,7 +656,7 @@ $language = array(
 	'background_colour' => 'Background Colour',
 	'closable' => 'Closable',
 	'can_view_announcement' => 'Can view Announcement',
-	'verify_delete_announcement' => 'Are you sure you want to delete this annoucement?',
+	'verify_delete_announcement' => 'Are you sure you want to delete this announcement?',
 	'deleted_announcement_success' => 'Announcement deleted successfully.',
 	'header_required' => 'Header is required.',
 	'message_required' => 'Message is required',

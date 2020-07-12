@@ -182,7 +182,7 @@ $smarty->assign(array(
     'USER_AREA' => $user_area,
     'USER_DROPDOWN' => $user_area_left,
     'USER_SECTION' => $user_section,
-    'ANNOUNCEMENTS' => Announcements::getAvailable(PAGE, CUSTOM_PAGE, $user->data()->group_id, $user->data()->secondary_groups)
+    'ANNOUNCEMENTS' => Announcements::getAvailable(PAGE, CUSTOM_PAGE, is_null($user) ? 0 : $user->data()->group_id, $user->data()->secondary_groups)
 ));
 
 if ($user->isLoggedIn()) {
