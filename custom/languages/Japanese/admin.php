@@ -656,5 +656,10 @@ $language = array(
 	'background_colour' => 'Background Colour',
 	'closable' => 'Closable',
 	'can_view_announcement' => 'Can view Announcement',
-	'verify_delete_announcement' => 'Are you sure you want to delete this annoucement?'
+	'verify_delete_announcement' => 'Are you sure you want to delete this annoucement?',
+	'deleted_announcement_success' => 'Announcement deleted successfully.',
+	'header_required' => 'Header is required.',
+	'message_required' => 'Message is required',
+	'background_colour_required' => 'Background Colour is required',
+	'text_colour_required' => 'Text Colour is required',
 );
