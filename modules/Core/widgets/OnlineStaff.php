@@ -35,9 +35,10 @@ class OnlineStaffWidget extends WidgetBase {
 	    if($this->_cache->isCached('staff'))
 		    $online = $this->_cache->retrieve('staff');
 	    else {
-		    $online = DB::getInstance()->query('SELECT id, username, nickname, user_title, group_id FROM nl2_users WHERE last_online > ' . strtotime('-5 minutes') . ' AND group_id IN (SELECT id FROM nl2_groups WHERE staff = 1)', array())->results();
+		    $online = DB::getInstance()->query('SELECT nl2_users.id, nl2_users.username, nl2_users.nickname, nl2_users.user_title, nl2_users.group_id, g.order, g.group_username_css, g.group_html FROM nl2_users RIGHT JOIN (SELECT nl2_groups.id, nl2_groups.order, nl2_groups.group_username_css, nl2_groups.group_html FROM nl2_groups WHERE staff = 1) g ON nl2_users.group_id = g.id WHERE nl2_users.last_online > ' . strtotime('-5 minutes') . ' AND nl2_users.id IS NOT NULL ORDER BY g.order', array())->results();
 		    $this->_cache->store('staff', $online, 120);
 	    }
+
 	    // Generate HTML code for widget
 	    if(count($online)){
 		    $user = new User();
@@ -47,20 +48,15 @@ class OnlineStaffWidget extends WidgetBase {
 		    foreach($online as $staff)
 			    $staff_members[] = array(
 				    'profile' => URL::build('/profile/' . Output::getClean($staff->username)),
-				    'style' => $user->getGroupClass($staff->id),
+				    'style' => 'color: ' . Output::getClean($staff->group_username_css) . ';',
 				    'username' => Output::getClean($staff->username),
 				    'nickname' => Output::getClean($staff->nickname),
 				    'avatar' => $user->getAvatar($staff->id),
 				    'id' => Output::getClean($staff->id),
 				    'title' => Output::getClean($staff->user_title),
-					'group' => $user->getGroup($staff->id, true),
-					'group_order' => $user->getGroupOrder($staff->group_id)
+					'group' => $staff->group_html,
+					'group_order' => $staff->order
 				);
-
-			// Sort by group
-			uasort($staff_members, function ($a, $b) {
-				return ($a['group_order'] > $b['group_order'] ? 1 : -1);
-			});
 
 		    $this->_smarty->assign(array(
 			    'ONLINE_STAFF' => $this->_language['title'],
