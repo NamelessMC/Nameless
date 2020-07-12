@@ -178,7 +178,12 @@ if(Input::exists()){
 
 			// Get secondary groups
 			if(isset($_POST['secondary_groups']) && count($_POST['secondary_groups'])){
-				$secondary_groups = json_encode($_POST['secondary_groups']);
+				foreach($_POST['secondary_groups'] as $secondary_group) {
+					if($secondary_group != $group) {
+						$secondary_groups[] = $secondary_group;
+					}
+				}
+				$secondary_groups = json_encode($secondary_groups);
 			} else {
 				$secondary_groups = '';
 			}
