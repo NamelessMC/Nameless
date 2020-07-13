@@ -53,6 +53,10 @@ try {
         `message` varchar(1024) NOT NULL,
         PRIMARY KEY (`id`)
         ) ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+    
+    // Reset panel_sidebar cache so that the orders do not interfere on upgrade
+    $cache->setCache('panel_sidebar');
+    $cache->eraseAll();
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
