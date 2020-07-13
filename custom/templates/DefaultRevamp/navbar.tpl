@@ -31,7 +31,7 @@
               <div class="menu">
                 <div class="header">{$item.title}</div>
                 {foreach from=$item.items item=dropdown}
-                  {if isset($dropdown.seperator)}
+                  {if isset($dropdown.separator)}
                     <div class="divider"></div>
                   {else}
                     <a class="item" href="{$dropdown.link}" target="{$dropdown.target}">{$dropdown.icon} {$dropdown.title}</a>
@@ -58,7 +58,7 @@
                 <h4 class="ui header">{$item.title}</h4>
                 <div class="ui relaxed link list" id="list-{$name}">
                   {foreach from=$item.items item=dropdown}
-                    {if isset($dropdown.seperator)}
+                    {if isset($dropdown.separator)}
                       <div class="ui divider"></div>
                     {else}
                       <a class="item" href="{$dropdown.link}" target="{$dropdown.target}">{$dropdown.icon} {$dropdown.title}</a>

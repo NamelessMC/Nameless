@@ -41,7 +41,7 @@
         <div class="ui success icon message">
           <i class="check icon"></i>
           <div class="content">
-            <div class="header">{$SUCCESS_TITLE}/div>
+            <div class="header">{$SUCCESS_TITLE}</div>
             {$SUCCESS}
           </div>
         </div>

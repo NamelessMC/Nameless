@@ -21,30 +21,30 @@
 			{if isset($NICKNAMES)}
 			  {* Custom usernames are enabled *}
 			  <div class="form-group">
-				<input type="text" name="{if isset($MINECRAFT)}nickname{else}username{/if}" id="username" autocomplete="off" class="form-control form-control-lg" placeholder="{$NICKNAME}" tabindex="1">
+				<input type="text" name="{if isset($MINECRAFT)}nickname{else}username{/if}" id="username" value="{if isset($MINECRAFT)}{$NICKNAME_VALUE}{else}{$USERNAME_VALUE}{/if}" autocomplete="off" class="form-control form-control-lg" placeholder="{$NICKNAME}" tabindex="1">
 			  </div>
 			  
 			  {if isset($MINECRAFT)}
 				<div class="form-group">
-				  <input type="text" name="username" id="mcname" autocomplete="off" class="form-control form-control-lg" placeholder="{$MINECRAFT_USERNAME}" tabindex="2">
+				  <input type="text" name="username" id="mcname" value="{$USERNAME_VALUE}" autocomplete="off" class="form-control form-control-lg" placeholder="{$MINECRAFT_USERNAME}" tabindex="2">
 				</div>
 			  {/if}
 			{else}
 			  {if isset($MINECRAFT)}
 			    {* Minecraft username required *}
 				<div class="form-group">
-				  <input type="text" name="username" id="mcname" autocomplete="off" class="form-control form-control-lg" placeholder="{$MINECRAFT_USERNAME}" tabindex="1">
+				  <input type="text" name="username" id="mcname" value="{$USERNAME_VALUE}" autocomplete="off" class="form-control form-control-lg" placeholder="{$MINECRAFT_USERNAME}" tabindex="1">
 				</div>
 			  {else}
 			    {* Minecraft integration disabled, just ask for a username *}
 				<div class="form-group">
-				  <input type="text" name="username" id="mcname" autocomplete="off" class="form-control form-control-lg" placeholder="{$NICKNAME}" tabindex="2">
+				  <input type="text" name="username" id="mcname" value="{$USERNAME_VALUE}" autocomplete="off" class="form-control form-control-lg" placeholder="{$NICKNAME}" tabindex="2">
 				</div>
 			  {/if}
 			{/if}
 			
 			<div class="form-group">
-			  <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="{$EMAIL}" tabindex="3">
+			  <input type="email" name="email" id="email" value="{$EMAIL_VALUE}" class="form-control form-control-lg" placeholder="{$EMAIL}" tabindex="3">
 			</div>
 			
 			<div class="row">
@@ -59,18 +59,18 @@
 				</div>
 			  </div>
 			</div>
-			{if $HAS_CUSTOM_FIELDS}
+			{if count($CUSTOM_FIELDS)}
 				<h2>{$CUSTOM_FIELDS_TEXT}</h2>
 				<hr class="colorgraph" />
 
 				{foreach $CUSTOM_FIELDS as $field}		
 					<div class="form-group">				
-					{if $field->type eq 1}
-						<input type="text" name="{$field->name}" id="{$field->name}" placeholder="{$field->name}" class="form-control form-control-lg"  tabindex="3">
-					{elseif $field->type eq 2}
-						<textarea name="{$field->name}" id="{$field->name}" placeholder="{$field->name}" class="form-control form-control-lg"  tabindex="3"></textarea>
-					{elseif $field->type eq 3}
-						<input type="text" name="{$field->name}" placeholder="{$field->name}" onfocus="(this.type='date')" onblur="(this.type='text')" id="{$field->name}" class="form-control form-control-lg" tabindex="3">
+					{if $field.type eq 1}
+						<input type="text" name="{$field.name}" id="{$field.name}" value="{$field.value}" placeholder="{$field.name}" class="form-control form-control-lg"  tabindex="3">
+					{elseif $field.type eq 2}
+						<textarea name="{$field.name}" id="{$field.name}" placeholder="{$field.name}" class="form-control form-control-lg"  tabindex="3">{$field.value}</textarea>
+					{elseif $field.type eq 3}
+						<input type="text" name="{$field.name}" placeholder="{$field.name}" value="{$field.value}" onfocus="(this.type='date')" onblur="(this.type='text')" id="{$field.name}" class="form-control form-control-lg" tabindex="3">
 					{/if}
 					</div>
 				{/foreach}

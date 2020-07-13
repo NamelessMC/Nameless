@@ -5,7 +5,7 @@
   {$CREATING_TOPIC_IN}
 </h2>
 
-{if count($ERROR)}
+{if isset($ERROR)}
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">

@@ -486,13 +486,27 @@ if($page != 'install'){
             Redirect::to(URL::build('/'));
             die();
         }
-
-        // Update a user's IP
-        if(filter_var($ip, FILTER_VALIDATE_IP)){
-            $user->update(array(
-                'lastip' => $ip
-            ));
+		
+        // Is the IP address banned?
+        $ip_bans = $queries->getWhere('ip_bans', array('ip', '=', $ip));
+        if(count($ip_bans)){
+            $user->logout();
+            Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
+            Redirect::to(URL::build('/'));
+            die();
         }
+
+		// Update user last IP and last online
+		if(filter_var($ip, FILTER_VALIDATE_IP)){
+			$user->update(array(
+				'last_online' => date('U'),
+				'lastip' => $ip
+			));
+		} else {
+			$user->update(array(
+				'last_online' => date('U')
+			));
+		}
 
         // Insert it into the logs
         $user_ip_logged = $queries->getWhere('users_ips', array('ip', '=', $ip));
@@ -531,21 +545,6 @@ if($page != 'install'){
                 }
             }
         }
-
-        // Is the IP address banned?
-        $ip_bans = $queries->getWhere('ip_bans', array('ip', '=', $ip));
-        if(count($ip_bans)){
-            $user->logout();
-            Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
-            Redirect::to(URL::build('/'));
-            die();
-        }
-
-        // Update last online
-        // Update user last online
-        $queries->update('users', $user->data()->id, array(
-            'last_online' => date('U')
-        ));
 
         // Basic user variables
         $smarty->assign('LOGGED_IN_USER', array(

@@ -349,6 +349,11 @@ class User {
 		}
 	}
 
+	// Get the order of a specified group
+	public function getGroupOrder($group_id) {
+		return $this->_db->get('groups', array('id', '=', $group_id))->results()[0]->order;
+	}
+
 	// Get all of a user's groups from their ID. We can return their ID only or their HTML display code
     public function getAllGroups($id, $html = null) {
         $groups = array();

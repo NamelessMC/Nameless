@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr7
  *
  *  License: MIT
  *
@@ -94,7 +94,7 @@ if(!isset($_GET['c'])){
                                 'type' => 3, // 3 = forgot password
                                 'content' => $sent['error'],
                                 'at' => date('U'),
-                                'user_id' => $exists[0]->user_id
+                                'user_id' => $exists[0]->id
                             ));
 
                             $error = $language->get('user', 'unable_to_send_forgot_password_email');
@@ -170,7 +170,7 @@ if(!isset($_GET['c'])){
             ));
 
             if ($validation->passed()) {
-                if ($code->email == $_POST['email']) {
+		if (strcasecmp($code->email, $_POST['email']) == 0) {
                     $new_password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
                     try {
                         $queries->update('users', $code->id, array(

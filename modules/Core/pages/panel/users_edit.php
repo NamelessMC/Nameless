@@ -178,7 +178,12 @@ if(Input::exists()){
 
 			// Get secondary groups
 			if(isset($_POST['secondary_groups']) && count($_POST['secondary_groups'])){
-				$secondary_groups = json_encode($_POST['secondary_groups']);
+				foreach($_POST['secondary_groups'] as $secondary_group) {
+					if($secondary_group != $group) {
+						$secondary_groups[] = $secondary_group;
+					}
+				}
+				$secondary_groups = json_encode($secondary_groups);
 			} else {
 				$secondary_groups = '';
 			}
@@ -210,7 +215,7 @@ if(Input::exists()){
 					$new_template = $queries->getWhere('templates', array('id', '=', Input::get('template')));
 
 					if (count($new_template)) $new_template = $new_template[0]->id;
-					else $new_template = $user_query->template_id;
+					else $new_template = $user_query->theme_id;
 
 					// Nicknames?
 					$displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));

@@ -5,7 +5,7 @@
   {$CREATE_AN_ACCOUNT}
 </h2>
 
-{if count($REGISTRATION_ERROR)}
+{if isset($REGISTRATION_ERROR)}
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
@@ -27,30 +27,30 @@
           {if isset($NICKNAMES)}
             <div class="field">
               <label>{$NICKNAME}</label>
-              <input type="text" name="{if isset($MINECRAFT)}nickname{else}username{/if}" id="username" placeholder="{$NICKNAME}" tabindex="1">
+              <input type="text" name="{if isset($MINECRAFT)}nickname{else}username{/if}" id="username" value="{if isset($MINECRAFT)}{$NICKNAME_VALUE}{else}{$USERNAME_VALUE}{/if}" placeholder="{$NICKNAME}" tabindex="1">
             </div>
             {if isset($MINECRAFT)}
               <div class="field">
                 <label>{$MINECRAFT_USERNAME}</label>
-                <input type="text" name="username" id="mcname" placeholder="{$MINECRAFT_USERNAME}" tabindex="2">
+                <input type="text" name="username" id="mcname" value="{$USERNAME_VALUE}" placeholder="{$MINECRAFT_USERNAME}" tabindex="2">
               </div>
             {/if}
           {else}
             {if isset($MINECRAFT)}
               <div class="field">
                 <label>{$MINECRAFT_USERNAME}</label>
-                <input type="text" name="username" id="mcname" placeholder="{$MINECRAFT_USERNAME}" tabindex="1">
+                <input type="text" name="username" id="mcname" value="{$USERNAME_VALUE}" placeholder="{$MINECRAFT_USERNAME}" tabindex="1">
               </div>
             {else}
               <div class="field">
                 <label>{$MINECRAFT_USERNAME}</label>
-                <input type="text" name="username" id="mcname" placeholder="{$NICKNAME}" tabindex="1">
+                <input type="text" name="username" id="mcname" value="{$USERNAME_VALUE}" placeholder="{$NICKNAME}" tabindex="1">
               </div>
             {/if}
           {/if}
           <div class="field">
             <label>{$EMAIL}</label>
-            <input type="email" name="email" id="email" placeholder="{$EMAIL}" tabindex="3">
+            <input type="email" name="email" id="email" value="{$EMAIL_VALUE}" placeholder="{$EMAIL}" tabindex="3">
           </div>
           <div class="field">
             <label>{$PASSWORD}</label>
@@ -60,16 +60,16 @@
             <label>{$CONFIRM_PASSWORD}</label>
             <input type="password" name="password_again" id="password_again" placeholder="{$CONFIRM_PASSWORD}" tabindex="5">
           </div>
-          {if $HAS_CUSTOM_FIELDS}
+          {if count($CUSTOM_FIELDS)}
             {foreach $CUSTOM_FIELDS as $field}
                 <div class="field">
-                <label>{$field->name}{if $field->required}<super style="color: red;">*</super>{/if}</label>
-                    {if $field->type eq 1}
-                    <input type="text" name="{$field->name}" id="{$field->name}" placeholder="{$field->name}" tabindex="5">
-                    {elseif $field->type eq 2}
-                    <textarea name="{$field->name}" id="{$field->name}" placeholder="{$field->description}" tabindex="5"></textarea>
-                    {elseif $field->type eq 3}
-                    <input type="date" name="{$field->name}" id="{$field->name}" tabindex="5">
+                <label>{$field.name}</label>
+                    {if $field.type eq 1}
+                    <input type="text" name="{$field.name}" id="{$field.name}" value="{$field.value}" placeholder="{$field.name}" tabindex="5">
+                    {elseif $field.type eq 2}
+                    <textarea name="{$field.name}" id="{$field.name}" placeholder="{$field.description}" tabindex="5"></textarea>
+                    {elseif $field.type eq 3}
+                    <input type="date" name="{$field.name}" id="{$field.name}" value="{$field.value}" tabindex="5">
                     {/if}
                 </div>
             {/foreach}

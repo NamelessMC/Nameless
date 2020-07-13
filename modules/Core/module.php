@@ -774,6 +774,16 @@ class Core_Module extends Module {
 
 					$navs[2]->addItemToDropdown('core_configuration', 'social_media', $language->get('admin', 'social_media'), URL::build('/panel/core/social_media'), 'top', $order, $icon);
 				}
+				
+				if($user->hasPermission('admincp.core.hooks')){
+					if(!$cache->isCached('hooks_icon')){
+						$icon = '<i class="nav-icon fas fa-link"></i>';
+						$cache->store('hooks_icon', $icon);
+					} else
+						$icon = $cache->retrieve('hooks_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'hooks', $language->get('admin', 'hooks'), URL::build('/panel/core/hooks'), 'top', $order, $icon);
+				}
 			}
 
 			if($user->hasPermission('admincp.groups')){
