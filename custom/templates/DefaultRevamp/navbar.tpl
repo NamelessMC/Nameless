@@ -139,3 +139,16 @@
         </div>
       </div>
     {/if}
+
+    {if !empty($ANNOUNCEMENTS)}
+      {foreach from=$ANNOUNCEMENTS item=$ANNOUNCEMENT}
+        <div class="ui icon message" style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}">
+          {if $ANNOUNCEMENT->closable}<i class="close icon"></i>{/if}
+          {$ANNOUNCEMENT->icon}
+          <div class="content">
+            <div class="header">{$ANNOUNCEMENT->header}</div>
+            <p>{$ANNOUNCEMENT->message}</p>
+          </div>
+        </div>
+      {/foreach}
+    {/if}
