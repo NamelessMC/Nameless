@@ -641,7 +641,7 @@ class Nameless2API
         // Param: role_id = discord role id
     }
 
-    private function removeGroupFromDiscord(){
+    private function removeGroupFromDiscord() {
         // Param: id = discord user id
         // Param: role_id = discord role id
     }
