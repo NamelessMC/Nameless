@@ -511,10 +511,8 @@ if(isset($_GET['do'])){
 				if ($validation->passed()) {
 					
 					$discord_id = Input::get('discord_id');
-					if ($discord_id == $user->data()->discord_id) {
-						// no change, ignore
-					} else if ($discord_id == '') {
-						// unlink
+					if ($discord_id == $user->data()->discord_id) {} 
+					else if ($discord_id == '') {
 						$queries->update('users', $user->data()->id, array(
                     		'discord_id' => null
 						));
@@ -523,9 +521,6 @@ if(isset($_GET['do'])){
 						die();
 					}
 					else {
-						// Send request to bot with username + discord id
-						// then they need to dm bot with their username, and the bot checks if they match
-						// if they do, then the bot sends api request to here and updates the field
 						$bot_url = 'http://localhost:8001';
 						$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'))[0]->value;
 						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
@@ -539,24 +534,13 @@ if(isset($_GET['do'])){
 					}
 
 				} else {
-					$error = '';
-					foreach ($validation->errors() as $item) {
-						if (strpos($item, 'is required') !== false) {
-							// Empty field
-							if (strpos($item, 'password') !== false) {
-								$error .= $language->get('user', 'password_required') . '<br />';
-							} else {
-								$error .= $language->get('user', 'email_required') . '<br />';
-							}
-						} else if (strpos($item, 'minimum') !== false) {
-							// Field under 4 chars
-							$error .= $language->get('user', 'invalid_email') . '<br />';
-						} else if (strpos($item, 'maximum') !== false) {
-							// Field over 64 chars
-							$error .= $language->get('user', 'invalid_email') . '<br />';
+					foreach ($validation->errors() as $validation_error) {
+						if (strpos($validation_error, 'minimum') !== false || strpos($validation_error, 'maximum') !== false) {
+							$errors[] = $language->get('admin', 'discord_id_length');
+						} else if (strpos($validation_error, 'numeric') !== false) {
+							$errors[] = $language->get('admin', 'discord_id_numeric');
 						}
 					}
-					Session::flash('settings_error', $error = rtrim($error, '<br />'));
 				}
 			}
 		} else {
@@ -694,6 +678,12 @@ if(isset($_GET['do'])){
 	if(Session::exists('tfa_success')){
 		$success = Session::flash('tfa_success');
 	}
+
+	if (isset($errors) && count($errors))
+		$smarty->assign(array(
+			'ERRORS' => $errors,
+			'ERRORS_TITLE' => $language->get('general', 'error')
+		));
 
 	if($user->hasPermission('usercp.signature')){
         // Get post formatting type (HTML or Markdown)

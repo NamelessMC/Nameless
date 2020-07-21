@@ -15,14 +15,17 @@
   </div>
 {/if}
 
-{if !empty($ERROR)}
-  <div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-      <div class="header">{$ERROR_TITLE}</div>
-      {$ERROR}
-    </div>
+{if isset($ERRORS)}
+<div class="ui error icon message">
+  <i class="x icon"></i>
+  <div class="content">
+    <ul class="list">
+      {foreach from=$ERRORS item=error}
+      <li>{$error}</li>
+      {/foreach}
+    </ul>
   </div>
+</div>
 {/if}
 
 <div class="ui stackable grid" id="user-settings">
