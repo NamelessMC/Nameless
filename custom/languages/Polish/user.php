@@ -67,7 +67,7 @@ $language = array(
 	'profile_banner' => 'Baner profilowy',
 	'upload_profile_banner' => 'Dodaj baner profilowy',
 	'upload' => 'Zatwierdź',
-	'topic_updates' => 'Get emails for topics you follow',
+	'topic_updates' => 'Otrzymuj emaile z obserwowanych tematów',
 
 	// Alerts
 	'user_tag_info' => 'Zostałeś oznaczony w poście przez {x}.', // Don't replace {x}
