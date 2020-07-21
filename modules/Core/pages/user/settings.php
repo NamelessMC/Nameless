@@ -499,7 +499,66 @@ if(isset($_GET['do'])){
                     }
                     Session::flash('settings_error', $error = rtrim($error, '<br />'));
                 }
-            }
+            } else if(Input::get('action') == 'discord'){
+				$validation = new Validate;
+				$validation = $validation->check($_POST, array(
+					'discord_id' => array(
+						'min' => 18,
+						'max' => 18,
+						'numeric' => true
+					)
+				));
+				if ($validation->passed()) {
+					
+					$discord_id = Input::get('discord_id');
+					if ($discord_id == $user->data()->discord_id) {
+						// no change, ignore
+					} else if ($discord_id == '') {
+						// unlink
+						$queries->update('users', $user->data()->id, array(
+                    		'discord_id' => null
+						));
+						Session::flash('settings_success', $language->get('user', 'discord_id_unlinked'));
+						Redirect::to(URL::build('/user/settings'));
+						die();
+					}
+					else {
+						// Send request to bot with username + discord id
+						// then they need to dm bot with their username, and the bot checks if they match
+						// if they do, then the bot sends api request to here and updates the field
+						$bot_url = 'http://localhost:8001';
+						$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'))[0]->value;
+						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
+						file_get_contents($bot_url . '/verifyId?id=' . $discord_id . '&username=' . Output::getClean($user->data()->username) . '&site=' . $api_url);
+						$queries->update('users', $user->data()->id, array(
+							'discord_id' => 010
+						));
+						Session::flash('settings_success', $language->get('user', 'discord_id_confirm'));
+						Redirect::to(URL::build('/user/settings'));
+						die();
+					}
+
+				} else {
+					$error = '';
+					foreach ($validation->errors() as $item) {
+						if (strpos($item, 'is required') !== false) {
+							// Empty field
+							if (strpos($item, 'password') !== false) {
+								$error .= $language->get('user', 'password_required') . '<br />';
+							} else {
+								$error .= $language->get('user', 'email_required') . '<br />';
+							}
+						} else if (strpos($item, 'minimum') !== false) {
+							// Field under 4 chars
+							$error .= $language->get('user', 'invalid_email') . '<br />';
+						} else if (strpos($item, 'maximum') !== false) {
+							// Field over 64 chars
+							$error .= $language->get('user', 'invalid_email') . '<br />';
+						}
+					}
+					Session::flash('settings_error', $error = rtrim($error, '<br />'));
+				}
+			}
 		} else {
 			// Invalid form token
 			Session::flash('settings_error', $language->get('general', 'invalid_token'));
@@ -676,7 +735,9 @@ if(isset($_GET['do'])){
             'DISABLED' => $language->get('user', 'disabled')
 
         ));
-    }
+	}
+	
+	$discord_linked = $user->data()->discord_id == null || $user->data()->discord_id == 010 ? 0 : 1;
 
 	// Language values
 	$smarty->assign(array(
@@ -694,6 +755,9 @@ if(isset($_GET['do'])){
 		'CURRENT_PASSWORD' => $language->get('user', 'current_password'),
 		'NEW_PASSWORD' => $language->get('user', 'new_password'),
 		'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
+		'DISCORD_LINK' => $language->get('user', 'discord_link'),
+		'DISCORD_LINKED' => $discord_linked,
+		'DISCORD_ID' => $language->get('user', 'discord_id'),
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 		'TIMEZONE' => $language->get('user', 'timezone'),
 		'TIMEZONES' => Util::listTimezones(),
@@ -704,6 +768,23 @@ if(isset($_GET['do'])){
 		'SUCCESS_TITLE' => $language->get('general', 'success'),
 		'ERROR_TITLE' => $language->get('general', 'error')
 	));
+
+	if ($discord_linked) {
+		$smarty->assign(array(
+			'LINKED' => $language->get('user', 'linked'),
+			'DISCORD_ID_VALUE' => $user->data()->discord_id,
+		));
+	} else {
+		$smarty->assign(array(
+			'NOT_LINKED' => $language->get('user', 'not_linked'),
+		));
+		if ($user->data()->discord_id == 010) {
+			$smarty->assign(array(
+				'PENDING_LINK' => $language->get('user', 'pending_link'),
+				''
+			));
+		}
+	}
 
 	if(defined('CUSTOM_AVATARS')) {
       $smarty->assign(array(

@@ -447,6 +447,15 @@ $smarty->assign(array(
 	'TEMPLATES' => $templates
 ));
 
+$discord_id = $user_query->discord_id;
+
+if ($discord_id != null && $discord_id != 010) {
+	$smarty->assign(array(
+		'DISCORD_ID' => $language->get('user', 'discord_id'),
+		'DISCORD_ID_VALUE' => $discord_id
+	));
+}
+
 $cache->setCache('post_formatting');
 $formatting = $cache->retrieve('formatting');
 if($formatting == 'markdown'){

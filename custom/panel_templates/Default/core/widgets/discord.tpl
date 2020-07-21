@@ -1,7 +1,7 @@
 <form action="" method="post">
     <div class="form-group">
         <label for="inputDiscordId">{$DISCORD_ID}</label>
-        <input class="form-control" type="text" name="discord_api_key"
+        <input class="form-control" type="number" name="discord_api_key"
                id="inputDiscordId"
                value="{$DISCORD_ID_VALUE}">
     </div>

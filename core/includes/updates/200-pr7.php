@@ -38,3 +38,18 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
+
+// Discord Integration
+try {
+    $queries->create('settings', array(
+        'name' => 'discord_integration',
+        'value' => 0,
+    ));
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
+    $queries->alterTable('groups', '`discord_role_id`', "bigint(18) NULL DEFAULT NULL");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}

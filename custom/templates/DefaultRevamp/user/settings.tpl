@@ -148,6 +148,26 @@
         </form>
       </div>
       <div class="ui segment">
+        <h3 class="ui header">{$DISCORD_LINK}
+        {if $DISCORD_LINKED}
+          <span class="ui green label">{$LINKED}</span>
+        {else if isset($PENDING_LINK)}
+          <span class="ui orange label">{$PENDING_LINK}</span>
+        {else}
+          <span class="ui red label">{$NOT_LINKED}</span>
+        {/if}
+        </h3>
+        <form action="" method="post" class="ui form">
+          <div class="field">
+            <label for="discord_id">{$DISCORD_ID}</label>
+            <input type="number" name="discord_id" id="discord_id" class="form-control" value={$DISCORD_ID_VALUE}>
+          </div>
+          <input type="hidden" name="action" value="discord">
+          <input type="hidden" name="token" value="{$TOKEN}">
+          <input type="submit" value="{$SUBMIT}" class="ui primary button">
+        </form>
+      </div>
+      <div class="ui segment">
         <h3 class="ui header">{$TWO_FACTOR_AUTH}</h3>
         {if isset($ENABLE)}
           <a class="ui positive button" href="{$ENABLE_LINK}">{$ENABLE}</a>

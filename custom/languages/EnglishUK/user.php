@@ -229,5 +229,14 @@ $language = array(
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!'
+	'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!',
+	
+	// Discord
+	'discord_link' => 'Discord Link',
+	'linked' => 'Linked',
+	'not_linked' => 'Not Linked',
+	'discord_id' => 'Discord User ID',
+	'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
+	'discord_id_confirm' => 'Please send a private message containing only your username to "NamelessMC Bot#0761" to confirm your Discord User ID.',
+	'pending_link' => 'Pending'
 );

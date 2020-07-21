@@ -77,8 +77,8 @@ $language = array(
 	'twitter_dark_theme' => 'Use Twitter dark theme?',
 	'discord_id' => 'Discord Server ID',
 	'discord_widget_theme' => 'Discord Widget Theme',
-	'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
-	'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
+	'discord_id_length' => 'Please ensure your Discord Server ID is 18 characters long.',
+	'discord_id_numeric' => 'Please ensure your Discord Server ID is numeric (Numbers only).',
 	'dark' => 'Dark',
 	'light' => 'Light',
 	'google_plus_url' => 'Google Plus URL',
@@ -636,4 +636,13 @@ $language = array(
 	'admin_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/admin</strong> directory still exists. Please remove this directory.',
 	'mod_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/mod</strong> directory still exists. Please remove this directory.',
 	'forum_topic_reply_email' => 'Forum Topic Reply',
+
+	// Discord
+	'discord' => 'Discord',
+	'enable_discord_integration' => 'Enable Discord integration?',
+	'discord_role_id' => 'Discord Role ID',
+	'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
+	'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
+	'discord_guild_id_updated' => 'Discord Server ID was updated successfully.',
+	'discord_guild_id_required' => 'Please enter your Discord Server ID for Discord integration to work.',
 );

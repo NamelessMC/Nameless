@@ -142,6 +142,21 @@ class Nameless2API
                     $this->setGroup();
                     break;
 
+                case 'setDiscordId':
+                    // Upon validation in discord, set a user's discord id
+                    $this->setDiscordId();
+                    break;
+
+                case 'setGroupFromDiscord':
+                    // Update a user's group from a Discord Role ID
+                    $this->setGroupFromDiscord();
+                    break;
+
+                case 'removeGroupFromDiscord':
+                    // Update a user's group from a Discord Role ID
+                    $this->removeGroupFromDiscord();
+                    break;
+
                 case 'createReport':
                     // Create a new report
                     $this->createReport();
@@ -589,6 +604,48 @@ class Nameless2API
         } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
     }
 
+    private function setDiscordId() {
+        // Param: username
+        // Param: discord id
+        if ($this->_validated === true) {
+            if (!isset($_POST) || empty($_POST)) {
+                $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
+            }
+
+            $username = Output::getClean($_POST['username']);
+            $discord_id = $_POST['discord_id'];
+
+            try {
+                $this->_db = DB::getInstance();
+
+                // Error
+                $user = $this->_db->get('users', array('username', '=', $username));
+                if (!$user->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
+
+                $user = $user->first()->id;
+                $this->_db->update('users', $user, array(
+                    'discord_id' => $discord_id
+                ));
+
+                // Success
+                $this->returnArray(array('message' => $this->_language->get('api', 'discord_id_set')));
+            } catch (Exception $e) {
+                $this->throwError(23, $this->_language->get('api', 'unable_to_create_report'));
+            }
+        } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'
+        ));
+    }
+
+    private function setGroupFromDiscord() {
+        // Param: id = discord user id
+        // Param: role_id = discord role id
+    }
+
+    private function removeGroupFromDiscord(){
+        // Param: id = discord user id
+        // Param: role_id = discord role id
+    }
+    
     // Create a report
     private function createReport(){
         // Ensure the API key is valid
