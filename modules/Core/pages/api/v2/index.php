@@ -617,16 +617,12 @@ class Nameless2API
 
             $this->_db = DB::getInstance();
 
-            if ($this->_db->get('settings', array('name', '=', 'discord_integration'))->first()->value == '0') {
-                $this->throwError(33, $this->_language->get('api', 'discord_integration_disabled'));
-            }
-
             // Error
             $user = $this->_db->get('users', array('username', '=', $username));
             if (!$user->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
+            $user = $user->first()->id;
 
             try {
-                $user = $user->first()->id;
                 $this->_db->update('users', $user, array(
                     'discord_id' => $discord_id
                 ));
@@ -646,14 +642,14 @@ class Nameless2API
                 $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
             }
 
-            $discord_user_id = $_POST['discord_user_id'];
-            $discord_role_id = $_POST['discord_role_id'];
-
             $this->_db = DB::getInstance();
 
-            if ($this->_db->get('settings', array('name', '=', 'discord_integration'))->first()->value == '0') {
+            if (!$this->_db->get('settings', array('name', '=', 'discord_integration'))->first()->value) {
                 $this->throwError(33, $this->_language->get('api', 'discord_integration_disabled'));
             }
+
+            $discord_user_id = $_POST['discord_user_id'];
+            $discord_role_id = $_POST['discord_role_id'];
 
             $user = $this->_db->get('users', array('discord_id', '=', $discord_user_id));
             if (!$user->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
@@ -689,7 +685,37 @@ class Nameless2API
     private function removeGroupFromDiscord() {
         // Param: discord user id
         // Param: discord role id
-        // TODO: Decide what happens when a role is removed in discord. Does their group get set to the default post-validation group
+        if ($this->_validated === true) {
+            if (!isset($_POST) || empty($_POST)) {
+                $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
+            }
+
+            $this->_db = DB::getInstance();
+
+            if (!$this->_db->get('settings', array('name', '=', 'discord_integration'))->first()->value) {
+                $this->throwError(33, $this->_language->get('api', 'discord_integration_disabled'));
+            }
+
+            $discord_user_id = $_POST['discord_user_id'];
+            $discord_role_id = $_POST['discord_role_id'];
+
+            $user = $this->_db->get('users', array('discord_id', '=', $discord_user_id));
+            if (!$user->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
+            $user = $user->first()->id;
+
+            $group = $this->_db->get('groups', array('discord_role_id', '=', $discord_role_id));
+            if (!$group->count()) $this->throwError(17, $this->_language->get('api', 'unable_to_find_group'));
+
+            try {
+                $this->_db->update('users', $user, array(
+                    'group_id' => VALIDATED_DEFAULT
+                ));
+            } catch (Exception $e) {
+                $this->throwError(18, $this->_language->get('api', 'unable_to_update_group'));
+            }
+            // Success
+            $this->returnArray(array('message' => $this->_language->get('api', 'group_updated')));
+        } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
     }
     
     // Create a report
