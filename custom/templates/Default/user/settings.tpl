@@ -11,10 +11,12 @@
                 <div class="card-body">
                     <h2 class="card-title">{$SETTINGS}</h2>
 
-                    {if $ERROR}
-                        <div class="alert alert-danger">
-                            {$ERROR}
-                        </div>
+                    {if isset($ERRORS)}
+                        {foreach from=$ERRORS item=error}
+                            <div class="alert alert-danger">
+                                {$error}
+                            </div>                                
+                        {/foreach}
                     {/if}
 
                     {if $SUCCESS}
@@ -165,6 +167,27 @@
                             </div>
                         </form>
                     {/nocache}
+
+                    <hr/>
+
+                        <h4>{$DISCORD_LINK}
+                            {if $DISCORD_LINKED}
+                            <span class="badge badge-success">{$LINKED}</span>
+                            {else if isset($PENDING_LINK)}
+                            <span class="badge badge-warning">{$PENDING_LINK}</span>
+                            {else}
+                            <span class="badge badge-danger">{$NOT_LINKED}</span>
+                            {/if}
+                        </h4>
+                        <form action="" method="post">
+                            <div class="form-group">
+                                <label for="discord_id">{$DISCORD_ID}</label>
+                                <input type="number" name="discord_id" id="discord_id" class="form-control" value={$DISCORD_ID_VALUE}>
+                            </div>
+                            <input type="hidden" name="action" value="discord">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
+                        </form>
 
                     <hr/>
 

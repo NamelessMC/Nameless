@@ -535,13 +535,13 @@ if(isset($_GET['do'])){
 					}
 
 				} else {
-					// TODO: Finish these
-					// TODO: Default template form
 					foreach ($validation->errors() as $validation_error) {
 						if (strpos($validation_error, 'minimum') !== false || strpos($validation_error, 'maximum') !== false) {
 							$errors[] = $language->get('admin', 'discord_id_length');
 						} else if (strpos($validation_error, 'numeric') !== false) {
 							$errors[] = $language->get('admin', 'discord_id_numeric');
+						} else if (strpos($validation_error, 'already exists') !== false) {
+							$errors[] = $language->get('user', 'discord_id_taken');
 						}
 					}
 				}
