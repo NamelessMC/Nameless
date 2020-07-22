@@ -234,6 +234,10 @@ if(!class_exists('Default_Panel_Template')){
 
 						break;
 
+					case 'announcements':
+						$this->addJSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' => array(),
+						));
 					case 'groups':
 						$this->addCSSFiles(array(
 							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css' => array(),
