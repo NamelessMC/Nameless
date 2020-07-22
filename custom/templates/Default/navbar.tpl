@@ -135,14 +135,15 @@
   {/if}
 	{if !empty($ANNOUNCEMENTS)}
 		{foreach from=$ANNOUNCEMENTS item=$ANNOUNCEMENT}
-		<div class="ui icon message"
-			style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}">
-			{if $ANNOUNCEMENT->closable}<i class="close icon"></i>{/if}
+		<div class="alert" style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}">
+			{if $ANNOUNCEMENT->closable}
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			{/if}
 			{$ANNOUNCEMENT->icon}
-			<div class="content">
-				<div class="header">{$ANNOUNCEMENT->header}</div>
-				<p>{$ANNOUNCEMENT->message}</p>
-			</div>
+			<h5>{$ANNOUNCEMENT->header}</h5>
+			<p>{$ANNOUNCEMENT->message}</p>
 		</div>
 		{/foreach}
 	{/if}
