@@ -76,13 +76,6 @@
 
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover dataTable">
-                                    <colgroup>
-                                        {assign var=i value=0}
-                                        {while $i < $COLS}
-                                            <col span="1" style="width:{math equation="round(x / y)" x=100 y=$COLS}%">
-                                            {assign var=i value=$i+1}
-                                        {/while}
-                                    </colgroup>
                                     <thead>
                                     <tr>
                                         {foreach from=$COL_TITLES item=col_title}

@@ -657,7 +657,7 @@ class Nameless2API
 
             $group = $this->_db->get('groups', array('discord_role_id', '=', $discord_role_id));
             if (!$group->count()) $this->throwError(17, $this->_language->get('api', 'unable_to_find_group'));
-            $group = $group->first()->id;
+            $group = $group->first();
 
             // Set their secondary groups to all of their old secondary groups, except the new group - just incase
             $new_secondary_groups = array();
@@ -669,7 +669,7 @@ class Nameless2API
 
             try {
                 $this->_db->update('users', $user->id, array(
-                    'group_id' => $group
+                    'group_id' => $group->id
                 ));
                 $this->_db->update('users', $user->id, array(
                     'secondary_groups' => json_encode($new_secondary_groups)
@@ -677,6 +677,7 @@ class Nameless2API
             } catch (Exception $e) {
                 $this->throwError(18, $this->_language->get('api', 'unable_to_update_group'));
             }
+            Log::getInstance()->log(Log::action('discord/role_add'), 'Role changed to: ' . $group->name, $user->id);
             // Success
             $this->returnArray(array('message' => $this->_language->get('api', 'group_updated')));
         } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
@@ -713,6 +714,7 @@ class Nameless2API
             } catch (Exception $e) {
                 $this->throwError(18, $this->_language->get('api', 'unable_to_update_group'));
             }
+            Log::getInstance()->log(Log::action('discord/role_remove'), 'Role removed: ' . $group->first()->name, $user);
             // Success
             $this->returnArray(array('message' => $this->_language->get('api', 'group_updated')));
         } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));

@@ -163,6 +163,10 @@ class Log{
 		'api' => [
 			//TODO API STUFF
 		],
+		'discord' => [
+			'role_add' => 'discord_role_add',
+			'role_remove' => 'discord_role_remove'
+		]
 	];
 
 	private $_db;
