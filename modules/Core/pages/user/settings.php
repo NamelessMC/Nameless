@@ -522,7 +522,7 @@ if(isset($_GET['do'])){
 						die();
 					}
 					else {
-						$bot_url = 'http://bot.tadhgboyle.dev:8001';
+						$bot_url = BOT_URL;
 						$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'))[0]->value;
 						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
 						file_get_contents($bot_url . '/verifyId?id=' . $discord_id . '&username=' . Output::getClean($user->data()->username) . '&site=' . $api_url);

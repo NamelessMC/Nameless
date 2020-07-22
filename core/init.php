@@ -66,6 +66,9 @@ if($page != 'install'){
     // Friendly URLs?
     define('FRIENDLY_URLS', Config::get('core/friendly'));
 
+    // Define discord bot url for easy change if they choose to selfhost
+    define('BOT_URL', 'http://bot.tadhgboyle.dev:8001');
+
     // Set up cache
     $cache = new Cache(array('name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'));
 

@@ -26,7 +26,7 @@ class ValidateHook {
                 $group_discord_id = $queries->getWhere('groups', array('id', '=', VALIDATED_DEFAULT))[0]->discord_role_id;
 
                 if ($group_discord_id != null) {
-                    $bot_url = 'http://bot.tadhgboyle.dev:8001';
+                    $bot_url = BOT_URL;
                     $api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'))[0]->value;
                     $api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
                     $full_url = $bot_url . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&ole=' . $group_discord_id;
