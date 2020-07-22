@@ -904,6 +904,11 @@
 				'value' => 0
 			));
 
+			// TODO: verify i have all queries done.
+			// group discord id
+			// user discord id
+			// discord integration enabled
+
             $queries->create('settings', array(
                 'name' => 'avatar_type',
                 'value' => 'helmavatar'

@@ -645,4 +645,5 @@ $language = array(
 	'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
 	'discord_guild_id_updated' => 'Discord Server ID was updated successfully.',
 	'discord_guild_id_required' => 'Please enter your Discord Server ID for Discord integration to work.',
+	// TODO: All language files
 );

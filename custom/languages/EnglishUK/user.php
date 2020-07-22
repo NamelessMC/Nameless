@@ -237,6 +237,6 @@ $language = array(
 	'not_linked' => 'Not Linked',
 	'discord_id' => 'Discord User ID',
 	'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-	'discord_id_confirm' => 'Please send a private message containing only your username to "NamelessMC Bot#0761" to confirm your Discord User ID.',
+	'discord_id_confirm' => 'Please send a private message containing only your username to "Nameless Link#0761" to confirm your Discord User ID.',
 	'pending_link' => 'Pending'
 );

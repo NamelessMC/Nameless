@@ -632,18 +632,54 @@ class Nameless2API
             } catch (Exception $e) {
                 $this->throwError(23, $this->_language->get('api', 'unable_to_create_report'));
             }
-        } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'
-        ));
+        } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
     }
 
+    // TODO: If they turn off discord integration on website, but the bot is still active on server...
     private function setGroupFromDiscord() {
-        // Param: id = discord user id
-        // Param: role_id = discord role id
+        // Param: discord user id
+        // Param: discord role id
+        if ($this->_validated === true) {
+            if (!isset($_POST) || empty($_POST)) {
+                $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
+            }
+
+            $discord_user_id = $_POST['discord_user_id'];
+            $discord_role_id = $_POST['discord_role_id'];
+
+            try {
+                $this->_db = DB::getInstance();
+
+                // Error
+                $user = $this->_db->get('users', array('discord_id', '=', $discord_user_id));
+                if (!$user->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
+                $group = $this->_db->get('groups', array('discord_role_id', '=', $discord_role_id));
+                if (!$group->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_group'));
+
+                $user = $user->first()->id;
+                $group = $group->first()->id;
+
+                try {
+                    $this->_db->update('users', $user, array(
+                        'group_id' => $group
+                    ));
+                    // TODO: If their main group was set to a group which was previously a secondary group, remove from their secondary groups
+                } catch (Exception $e) {
+                    $this->throwError(18, $this->_language->get('api', 'unable_to_update_group'));
+                }
+
+                // Success
+                $this->returnArray(array('message' => $this->_language->get('api', 'group_updated')));
+            } catch (Exception $e) {
+                $this->throwError(23, $this->_language->get('api', 'unable_to_create_report'));
+            }
+        } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
     }
 
     private function removeGroupFromDiscord() {
-        // Param: id = discord user id
-        // Param: role_id = discord role id
+        // Param: discord user id
+        // Param: discord role id
+        // TODO: Decide what happens when a role is removed in discord. Does their group get set to the default post-validation group
     }
     
     // Create a report

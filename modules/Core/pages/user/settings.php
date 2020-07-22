@@ -505,7 +505,8 @@ if(isset($_GET['do'])){
 					'discord_id' => array(
 						'min' => 18,
 						'max' => 18,
-						'numeric' => true
+						'numeric' => true,
+						'unique' => 'users'
 					)
 				));
 				if ($validation->passed()) {
@@ -534,6 +535,8 @@ if(isset($_GET['do'])){
 					}
 
 				} else {
+					// TODO: Finish these
+					// TODO: Default template form
 					foreach ($validation->errors() as $validation_error) {
 						if (strpos($validation_error, 'minimum') !== false || strpos($validation_error, 'maximum') !== false) {
 							$errors[] = $language->get('admin', 'discord_id_length');
