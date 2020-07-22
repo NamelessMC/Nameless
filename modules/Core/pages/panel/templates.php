@@ -531,7 +531,7 @@ if(!isset($_GET['action'])){
 				die();
 			}
 
-			if($_GET['template'] == 1){
+			if($_GET['template'] == 1 || $_GET['template'] == 2){
 				$smarty->assign('DEFAULT_TEMPLATE_WARNING', $language->get('admin', 'warning_editing_default_template'));
 			}
 
@@ -619,7 +619,9 @@ if(!isset($_GET['action'])){
 					'TEMPLATE_FILES' => $template_files,
 					'TEMPLATE_DIRS' => $template_dirs,
 					'VIEW' => $language->get('general', 'view'),
-					'EDIT' => $language->get('general', 'edit')
+					'EDIT' => $language->get('general', 'edit'),
+					'PERMISSIONS' => $language->get('admin', 'permissions'),
+					'PERMISSIONS_LINK' => $user->hasPermission('admincp.groups') ? '/panel/core/templates/?template=' . Output::getClean($template_query->id) . '&action=permissions' : null,
 				));
 
 				$template_file = 'core/templates_list_files.tpl';
@@ -692,8 +694,14 @@ if(!isset($_GET['action'])){
 					$cancel_link = URL::build('/panel/core/templates/', 'action=edit&template=' . Output::getClean($_GET['template']). '&dir=' . Output::getClean($_GET['dir']));
 				else
 					$cancel_link = URL::build('/panel/core/templates/', 'action=edit&template=' . Output::getClean($_GET['template']));
+				
+				if(isset($_GET['dir']))
+					$template_path = Output::getClean($_GET['dir'] . DIRECTORY_SEPARATOR . $_GET['file']);
+				else
+					$template_path = Output::getClean($_GET['file']);
 
 				$smarty->assign(array(
+					'EDITING_FILE' => str_replace(array('{x}', '{y}'), array($template_path, Output::getClean($template_query->name)), $language->get('admin', 'editing_template_file_in_template')),
 					'CANCEL' => $language->get('general', 'cancel'),
 					'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
 					'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
@@ -708,14 +716,8 @@ if(!isset($_GET['action'])){
 
 			}
 
-			if(isset($_GET['dir']))
-				$template_path = Output::getClean($_GET['dir'] . DIRECTORY_SEPARATOR . $_GET['file']);
-			else
-				$template_path = Output::getClean($_GET['file']);
-
 			$smarty->assign(array(
-				'EDITING_TEMPLATE' => str_replace('{x}', Output::getClean($template_query->name), $language->get('admin', 'editing_template_x')),
-				'EDITING_FILE' => str_replace(array('{x}', '{y}'), array($template_path, Output::getClean($template_query->name)), $language->get('admin', 'editing_template_file_in_template'))
+				'EDITING_TEMPLATE' => str_replace('{x}', Output::getClean($template_query->name), $language->get('admin', 'editing_template_x'))
 			));
 
 			break;
