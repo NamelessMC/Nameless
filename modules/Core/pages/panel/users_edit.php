@@ -202,27 +202,27 @@ if(Input::exists()){
 								$group_discord_id = $queries->getWhere('groups', array('id', '=', $group))[0]->discord_role_id;
 								$old_group_discord_id = $queries->getWhere('groups', array('id', '=', $user_query->group_id))[0]->discord_role_id;
 
-								$bot_url = BOT_URL;
 								$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'))[0]->value;
 								$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
 								
 								// The bot can handle null roles, but it is better to deal with it here
 								if ($group_discord_id == null && $old_group_discord_id != null) {
-									$full_url = $bot_url . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&oldRole=' . $old_group_discord_id;
+									$full_url = BOT_URL . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&oldRole=' . $old_group_discord_id;
 								} else if ($group_discord_id != null && $old_group_discord_id == null) {
-									$full_url = $bot_url . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&role=' . $group_discord_id;
+									$full_url = BOT_URL . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&role=' . $group_discord_id;
 								} else if ($group_discord_id != null && $old_group_discord_id != null){
-									$full_url = $bot_url . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&role=' . $group_discord_id. '&oldRole=' . $old_group_discord_id;
+									$full_url = BOT_URL . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&role=' . $group_discord_id. '&oldRole=' . $old_group_discord_id;
 								} else $full_url = null;
 								$result = file_get_contents($full_url . '&api_url=' . $api_url . '/');
 								// TODO These errors
 								if ($result != 'success') {
 									switch($result) {
-										case 'failure-invalid-guild-api':
-											// Do things
+										case 'failure-invalid-api-url':
+											$errors[] = $language->get('admin', 'discord_invalid_api_url');
 										break;
 										default:
-											// This should never happen?
+											// This should never happen
+											$errors[] = $language->get('user', 'discord_unknown_error');
 										break;
 									}
 								}

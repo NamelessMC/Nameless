@@ -522,24 +522,23 @@ if(isset($_GET['do'])){
 						die();
 					}
 					else {
-						$bot_url = BOT_URL;
 						$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'))[0]->value;
 						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
-						$result = file_get_contents($bot_url . '/verifyId?id=' . $discord_id . '&username=' . Output::getClean($user->data()->username) . '&site=' . $api_url);
-						// TODO: These errors
+						$result = file_get_contents(BOT_URL . '/verifyId?id=' . $discord_id . '&username=' . Output::getClean($user->data()->username) . '&site=' . $api_url);
 						if ($result != 'success') {
 							switch($result) {
 								case 'failure-invalid-id':
-									// Do things
+									$errors[] = $language->get('user', 'discord_invalid_id');
 								break;
-								case 'failure-already-pending': 
-									// Do things
+								case 'failure-already-pending':
+									$errors[] = $language->get('user', 'discord_already_pending');
 								break;
-								case 'failure-unknown': 
-									// Do things
+								case 'failure-database':
+									$errors[] = $language->get('user', 'discord_database_error');
 								break;
-								default: 
-									// This should never happen?
+								default:
+									// This should never happen
+									$errors[] = $language->get('user', 'discord_unknown_error');
 								break;
 							}
 						} else {
@@ -547,11 +546,10 @@ if(isset($_GET['do'])){
 								'discord_id' => 010
 							));
 							Session::flash('settings_success', $language->get('user', 'discord_id_confirm'));
+							Redirect::to(URL::build('/user/settings'));
+							die();
 						}
-						Redirect::to(URL::build('/user/settings'));
-						die();
 					}
-
 				} else {
 					foreach ($validation->errors() as $validation_error) {
 						if (strpos($validation_error, 'minimum') !== false || strpos($validation_error, 'maximum') !== false) {

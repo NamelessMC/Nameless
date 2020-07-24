@@ -239,5 +239,9 @@ $language = array(
 	'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
 	'discord_id_confirm' => 'Please send a private message containing only your username to "Nameless Link#0761" to confirm your Discord User ID.',
 	'pending_link' => 'Pending',
-	'discord_id_taken' => 'That Discord User ID has already been taken.'
+	'discord_id_taken' => 'That Discord User ID has already been taken.',
+	'discord_invalid_id' => 'That Discord User ID is invalid.',
+	'discord_already_pending' => 'You already have a pending verification.',
+	'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
+	'discord_unknown_error' => 'There was an unknown error while communicating with the bot. Please contact an administrator.',
 );
