@@ -40,6 +40,7 @@ $language = array(
     'invalid_server_id' => 'Invalid server ID',
     'invalid_code' => 'Invalid code provided',
     'discord_integration_disabled' => 'Discord integration is disabled.',
+    'unable_to_set_discord_id' => 'Unable to set Discord ID.',
 
     // Success messages
     'finish_registration_link' => 'Please click on the following link to complete registration:',

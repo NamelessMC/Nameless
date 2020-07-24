@@ -626,9 +626,8 @@ class Nameless2API
                 $this->_db->update('users', $user, array(
                     'discord_id' => $discord_id
                 ));
-                // Success
             } catch (Exception $e) {
-                $this->throwError(23, $this->_language->get('api', 'unable_to_create_report'));
+                $this->throwError(23, $this->_language->get('api', 'unable_to_set_discord_id'));
             }
             $this->returnArray(array('message' => $this->_language->get('api', 'discord_id_set')));
         } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
