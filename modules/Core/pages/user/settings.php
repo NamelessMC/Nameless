@@ -524,7 +524,10 @@ if(isset($_GET['do'])){
 					else {
 						$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'))[0]->value;
 						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
-						$result = file_get_contents(BOT_URL . '/verifyId?id=' . $discord_id . '&username=' . Output::getClean($user->data()->username) . '&site=' . $api_url);
+						$discord_role_id = $queries->getWhere('groups', array('id', '=', $user->data()->group_id))[0]->discord_role_id;
+						$full_url = BOT_URL . '/verifyId?id=' . $discord_id . '&username=' . Output::getClean($user->data()->username . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value);
+						if ($discord_role_id != null && $queries->getWhere('settings', array('name', '=', 'discord_integration'))[0]->value) $full_url .= '&role=' . $discord_role_id;
+						$result = file_get_contents($full_url . '&site=' . $api_url);
 						if ($result != 'success') {
 							switch($result) {
 								case 'failure-invalid-id':

@@ -196,7 +196,7 @@ if(Input::exists()){
 					// The new group is not the same as their old group
 					if ($user_query->group_id != $group) {
 						// Discord integration is enabled
-						if ($queries->getWhere('settings', array('name', '=', 'discord_integration'))[0]->value == '1') {
+						if ($queries->getWhere('settings', array('name', '=', 'discord_integration'))[0]->value) {
 							// They have a valid discord Id
 							if ($user_query->discord_id != null && $user_query->discord_id != 010) {
 								$group_discord_id = $queries->getWhere('groups', array('id', '=', $group))[0]->discord_role_id;
@@ -214,7 +214,6 @@ if(Input::exists()){
 									$full_url = BOT_URL . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&role=' . $group_discord_id. '&oldRole=' . $old_group_discord_id;
 								} else $full_url = null;
 								$result = file_get_contents($full_url . '&api_url=' . $api_url . '/');
-								// TODO These errors
 								if ($result != 'success') {
 									switch($result) {
 										case 'failure-invalid-api-url':
