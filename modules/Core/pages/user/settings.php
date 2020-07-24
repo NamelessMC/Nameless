@@ -525,12 +525,29 @@ if(isset($_GET['do'])){
 						$bot_url = BOT_URL;
 						$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'))[0]->value;
 						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
-						// TODO: Check for "failure" and send user a message
-						file_get_contents($bot_url . '/verifyId?id=' . $discord_id . '&username=' . Output::getClean($user->data()->username) . '&site=' . $api_url);
-						$queries->update('users', $user->data()->id, array(
-							'discord_id' => 010
-						));
-						Session::flash('settings_success', $language->get('user', 'discord_id_confirm'));
+						$result = file_get_contents($bot_url . '/verifyId?id=' . $discord_id . '&username=' . Output::getClean($user->data()->username) . '&site=' . $api_url);
+						// TODO: These errors
+						if ($result != 'success') {
+							switch($result) {
+								case 'failure-invalid-id':
+									// Do things
+								break;
+								case 'failure-already-pending': 
+									// Do things
+								break;
+								case 'failure-unknown': 
+									// Do things
+								break;
+								default: 
+									// This should never happen?
+								break;
+							}
+						} else {
+							$queries->update('users', $user->data()->id, array(
+								'discord_id' => 010
+							));
+							Session::flash('settings_success', $language->get('user', 'discord_id_confirm'));
+						}
 						Redirect::to(URL::build('/user/settings'));
 						die();
 					}
