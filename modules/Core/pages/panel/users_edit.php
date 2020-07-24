@@ -226,7 +226,6 @@ if(Input::exists()){
 										break;
 									}
 								}
-								die();
 							}
 						}
 					}
