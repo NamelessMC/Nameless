@@ -214,7 +214,8 @@ if(Input::exists()){
 								} else if ($group_discord_id != null && $old_group_discord_id != null){
 									$full_url = $bot_url . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&role=' . $group_discord_id. '&oldRole=' . $old_group_discord_id;
 								} else $full_url = null;
-								file_get_contents($full_url);
+								// TODO: Check for "failure" and send user a message
+								file_get_contents($full_url . '&site=' . $api_url);
 							}
 						}
 					}
