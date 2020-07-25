@@ -80,13 +80,17 @@
 
                             {if $DISCORD_ENABLED eq 1}
                                 <hr>
-                                <form id="guildId" action="" method="post">
+                                <form id="settings" action="" method="post">
                                     <div class="form-group">
                                         <label for="inputGuildId">{$GUILD_ID}</label>
                                         <input type="number" name="guild_id" class="form-control" id="inputGuildId" value="{$GUILD_ID_VALUE}">
-                                        <input type="hidden" name="token" value="{$TOKEN}">
                                     </div>
                                     <div class="form-group">
+                                        <label for="inputBotUrl">{$BOT_URL} <span class="badge badge-warning" data-toggle="popover" data-title="{$INFO}" data-content="{$BOT_URL_INFO|escape}"><i class="fa fa-exclamation-triangle"></i></label>
+                                        <input type="text" name="bot_url" class="form-control" id="inputBotUrl" value="{$BOT_URL_VALUE}">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" name="token" value="{$TOKEN}">
                                         <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
                                     </div>
                                 </form>

@@ -243,5 +243,6 @@ $language = array(
 	'discord_invalid_id' => 'That Discord User ID is invalid.',
 	'discord_already_pending' => 'You already have a pending verification.',
 	'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-	'discord_unknown_error' => 'There was an unknown error while communicating with the bot. Please contact an administrator.',
+	'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
+	'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
 );

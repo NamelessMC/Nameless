@@ -49,6 +49,14 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
+    $queries->create('settings', array(
+        'name' => 'discord_bot_url',
+        'value' => 'http://bot.tadhgboyle.dev:8001'
+    ));
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
     $queries->alterTable('groups', '`discord_role_id`', "bigint(18) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';

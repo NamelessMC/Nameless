@@ -66,9 +66,6 @@ if($page != 'install'){
     // Friendly URLs?
     define('FRIENDLY_URLS', Config::get('core/friendly'));
 
-    // Define discord bot url for easy change if they choose to selfhost
-    define('BOT_URL', 'http://bot.tadhgboyle.dev:8001');
-
     // Set up cache
     $cache = new Cache(array('name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'));
 
@@ -158,8 +155,12 @@ if($page != 'install'){
     // Get the Nameless version
     $nameless_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
     $nameless_version = $nameless_version[0]->value;
-
     define('NAMELESS_VERSION', $nameless_version);
+
+    // Get the Bot URL
+    $bot_url = $queries->getWhere('settings', array('name', '=', 'discord_bot_url'));
+    $bot_url = $bot_url[0]->value;
+    define('BOT_URL', $bot_url);
 
     // User initialisation
     $user = new User();

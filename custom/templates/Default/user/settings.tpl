@@ -182,7 +182,7 @@
                         <form action="" method="post">
                             <div class="form-group">
                                 <label for="discord_id">{$DISCORD_ID}</label>
-                                <input type="number" name="discord_id" id="discord_id" class="form-control" value={$DISCORD_ID_VALUE}>
+                                <input type="number" name="discord_id" id="discord_id" class="form-control" value="{$DISCORD_ID_VALUE}">
                             </div>
                             <input type="hidden" name="action" value="discord">
                             <input type="hidden" name="token" value="{$TOKEN}">

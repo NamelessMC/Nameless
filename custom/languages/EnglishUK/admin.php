@@ -667,8 +667,11 @@ $language = array(
 	'discord_role_id' => 'Discord Role ID',
 	'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
 	'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
-	'discord_guild_id_updated' => 'Discord Server ID was updated successfully.',
+	'discord_settings_updated' => 'Your Discord settings were updated successfully.',
 	'discord_guild_id_required' => 'Please enter your Discord Server ID for Discord integration to work.',
-	'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.'
+	'discord_bot_url' => 'Discord Bot URL',
+	'discord_bot_url_info' => 'The location which your custom instance of the Nameless Link bot. Only change this value if you know what you are doing!',
+	'discord_bot_url_required' => 'Please enter your Bot URL for Discord integration to work.',
+	'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',
 	// TODO: All language files
 );

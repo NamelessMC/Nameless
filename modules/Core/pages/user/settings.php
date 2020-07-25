@@ -529,20 +529,26 @@ if(isset($_GET['do'])){
 						if ($discord_role_id != null && $queries->getWhere('settings', array('name', '=', 'discord_integration'))[0]->value) $full_url .= '&role=' . $discord_role_id;
 						$result = file_get_contents($full_url . '&site=' . $api_url);
 						if ($result != 'success') {
-							switch($result) {
-								case 'failure-invalid-id':
-									$errors[] = $language->get('user', 'discord_invalid_id');
-								break;
-								case 'failure-already-pending':
-									$errors[] = $language->get('user', 'discord_already_pending');
-								break;
-								case 'failure-database':
-									$errors[] = $language->get('user', 'discord_database_error');
-								break;
-								default:
-									// This should never happen
-									$errors[] = $language->get('user', 'discord_unknown_error');
-								break;
+							if ($result == false) {
+								// This happens when the url is invalid
+								$errors[] = $language->get('user', 'discord_communication_error');
+							}
+							else {
+								switch($result) {
+									case 'failure-invalid-id':
+										$errors[] = $language->get('user', 'discord_invalid_id');
+									break;
+									case 'failure-already-pending':
+										$errors[] = $language->get('user', 'discord_already_pending');
+									break;
+									case 'failure-database':
+										$errors[] = $language->get('user', 'discord_database_error');
+									break;
+									default:
+										// This should never happen
+										$errors[] = $language->get('user', 'discord_unknown_error');
+									break;
+								}
 							}
 						} else {
 							$queries->update('users', $user->data()->id, array(
@@ -792,8 +798,7 @@ if(isset($_GET['do'])){
 		));
 		if ($user->data()->discord_id == 010) {
 			$smarty->assign(array(
-				'PENDING_LINK' => $language->get('user', 'pending_link'),
-				''
+				'PENDING_LINK' => $language->get('user', 'pending_link')
 			));
 		}
 	}

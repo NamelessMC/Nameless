@@ -38,7 +38,8 @@ define('PANEL_PAGE', 'groups');
 $page_title = $language->get('admin', 'groups');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'))[0]->value;
+$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
+$discord_integration = $discord_integration[0]->value;
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
@@ -166,7 +167,7 @@ if(isset($_GET['action'])){
 			'NAME' => $language->get('admin', 'name'),
 			'GROUP_HTML' => $language->get('admin', 'group_html'),
 			'GROUP_USERNAME_COLOUR' => $language->get('admin', 'group_username_colour'),
-			'DISCORD_INTEGRATION' => false,
+			'DISCORD_INTEGRATION' => $discord_integration ? true : false,
 			'GROUP_ORDER' => $language->get('admin', 'group_order'),
 			'STAFF_GROUP' => $language->get('admin', 'group_staff'),
 			'STAFF_CP' => $language->get('admin', 'can_view_staffcp'),
@@ -175,7 +176,6 @@ if(isset($_GET['action'])){
 
 		if ($discord_integration) {
 			$smarty->assign(array(
-				'DISCORD_INTEGRATION' => true,
 				'DISCORD_ROLE_ID' => $language->get('admin', 'discord_role_id'),
 				'DISCORD_ROLE_ID_VALUE' => $group->discord_role_id
 			));
@@ -342,7 +342,7 @@ if(isset($_GET['action'])){
 			'GROUP_HTML_VALUE' => Output::getClean($group->group_html),
 			'GROUP_USERNAME_COLOUR' => $language->get('admin', 'group_username_colour'),
 			'GROUP_USERNAME_COLOUR_VALUE' => Output::getClean($group->group_username_css),
-			'DISCORD_INTEGRATION' => false,
+			'DISCORD_INTEGRATION' => $discord_integration ? true : false,
 			'STAFF_GROUP' => $language->get('admin', 'group_staff'),
 			'STAFF_GROUP_VALUE' => $group->staff,
 			'STAFF_CP' => $language->get('admin', 'can_view_staffcp'),
@@ -362,7 +362,6 @@ if(isset($_GET['action'])){
 
 		if ($discord_integration) {
 			$smarty->assign(array(
-				'DISCORD_INTEGRATION' => true,
 				'DISCORD_ROLE_ID' => $language->get('admin', 'discord_role_id'),
 				'DISCORD_ROLE_ID_VALUE' => $group->discord_role_id
 			));
