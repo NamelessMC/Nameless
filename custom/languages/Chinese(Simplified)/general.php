@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -14,7 +14,8 @@
 $language = array(
 	/*
 	 *  General terms
-	 */ 
+	 */
+	'help' => 'Help',
 	'submit' => '提交',
 	'register' => '注册',
 	'already_registered' => '已经注册?',

@@ -2,7 +2,7 @@
 /*
  *	Made by JozefSorokac
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -10,9 +10,10 @@
  */
 
 $language = array(
-	/*
+    /*
 	 *  General terms
-	 */ 
+	 */
+    'help' => 'Help',
 	'submit' => 'Potvrdiť',
 	'register' => 'Registrovať sa',
 	'already_registered' => 'Already Registered?',

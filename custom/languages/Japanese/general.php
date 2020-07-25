@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  Translation by SimplyRin( @SimplyRin_, https://www.simplyrin.net )
  *  Additional translation by Mari0914( @Mari0914_Main, https://mari0914.japanminigame.net )
@@ -13,9 +13,10 @@
  */
 
 $language = array(
-	/*
+    /*
 	 *  General terms
-	 */ 
+	 */
+    'help' => 'Help',
 	'submit' => '送信',
 	'register' => '登録',
 	'already_registered' => 'Already Registered?',

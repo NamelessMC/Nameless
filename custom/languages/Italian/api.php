@@ -2,7 +2,7 @@
 /*
  *	Made by alsoGAMER
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -39,6 +39,8 @@ $language = array(
     'unable_to_update_server_info' => 'Impossibile aggiornare le info del server',
     'invalid_server_id' => 'Server ID invalido',
     'invalid_code' => 'Il codice fornito è invalido',
+    'discord_integration_disabled' => 'Discord integration is disabled.',
+    'unable_to_set_discord_id' => 'Unable to set Discord ID.',
 
     // Success messages
     'finish_registration_link' => 'Per favore, clicca sul seguente link per completare la registrazione:',
@@ -48,5 +50,6 @@ $language = array(
     'new_private_message_from' => 'Nuovo messaggio privato da {x}', // Don't replace {x}
     'username_updated' => 'Username aggiornato con successo',
     'server_info_updated' => 'Info del server aggiornate con successo',
-	'account_validated' => 'Account validato con successo'
+	'account_validated' => 'Account validato con successo',
+    'discord_id_set' => 'Discord ID set successfully'
 );

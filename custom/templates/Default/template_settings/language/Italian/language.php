@@ -2,7 +2,7 @@
 /*
  *	Made by alsoGAMER
  *  https://github.com/alsoGAMER
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
