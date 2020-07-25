@@ -181,7 +181,7 @@
                         </h4>
                         <form action="" method="post">
                             <div class="form-group">
-                                <label for="discord_id">{$DISCORD_ID}</label>
+                                <label for="discord_id">{$DISCORD_ID} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
                                 <input type="number" name="discord_id" id="discord_id" class="form-control" value="{$DISCORD_ID_VALUE}">
                             </div>
                             <input type="hidden" name="action" value="discord">

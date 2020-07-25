@@ -784,7 +784,10 @@ if(isset($_GET['do'])){
         'CHANGE_EMAIL_ADDRESS' => $language->get('user', 'change_email_address'),
         'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
 		'SUCCESS_TITLE' => $language->get('general', 'success'),
-		'ERROR_TITLE' => $language->get('general', 'error')
+		'ERROR_TITLE' => $language->get('general', 'error'),
+		'HELP' => $language->get('general', 'help'),
+		'INFO' => $language->get('general', 'info'),
+		'ID_INFO' => $language->get('user', 'discord_id_help')
 	));
 
 	if ($discord_linked) {

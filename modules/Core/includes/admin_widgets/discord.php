@@ -20,11 +20,11 @@ if(Input::exists()){
         $discord_id = $queries->getWhere('settings', array('name', '=', 'discord'));
         $discord_id = $discord_id[0]->id;
 
-        if(isset($_POST['discord_api_key'])){
+        if(isset($_POST['discord_guild_id'])){
 
             $validate = new Validate();
             $validation = $validate->check($_POST, array(
-                'discord_api_key' => array(
+                'discord_guild_id' => array(
                     'min' => 18,
                     'max' => 18,
                     'numeric' => true
@@ -32,7 +32,7 @@ if(Input::exists()){
             ));
             
             if ($validation->passed()) {
-                $discord_api_key = $_POST['discord_api_key'];
+                $guild_id = $_POST['discord_guild_id'];
             } else {
                 // Validation errors
                 foreach ($validation->errors() as $validation_error) {
@@ -45,16 +45,16 @@ if(Input::exists()){
                 }
             }
         } else {
-            $discord_api_key = '';
+            $guild_id = '';
         }
         if (count($errors))
             $smarty->assign('ERRORS', $errors);
         else {
             $queries->update('settings', $discord_id, array(
-                'value' => Output::getClean($discord_api_key)
+                'value' => $guild_id
             ));
 
-            $cache->store('discord', Output::getClean($discord_api_key));
+            $cache->store('discord', $guild_id);
 
             $success = $language->get('admin', 'widget_updated');
         }
@@ -63,10 +63,8 @@ if(Input::exists()){
     }
 }
 
-if($cache->isCached('discord'))
-    $discord_api = $cache->retrieve('discord');
-else
-    $discord_api = '';
+$guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
+$guild_id = $guild_id[0]->value;
 
 if($cache->isCached('discord_widget_theme'))
     $discord_theme = $cache->retrieve('discord_widget_theme');
@@ -75,7 +73,9 @@ else
 
 $smarty->assign(array(
 	'DISCORD_ID' => $language->get('admin', 'discord_id'),
-	'DISCORD_ID_VALUE' => Output::getClean($discord_api),
+    'DISCORD_ID_VALUE' => $guild_id,
+    'INFO' => $language->get('general', 'info'),
+    'ID_INFO' => $language->get('user', 'discord_id_help'),
 	'DISCORD_THEME' => $language->get('admin', 'discord_widget_theme'),
 	'DISCORD_THEME_VALUE' => $discord_theme,
 	'SETTINGS_TEMPLATE' => 'core/widgets/discord.tpl',

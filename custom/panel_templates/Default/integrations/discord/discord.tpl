@@ -82,7 +82,7 @@
                                 <hr>
                                 <form id="settings" action="" method="post">
                                     <div class="form-group">
-                                        <label for="inputGuildId">{$GUILD_ID}</label>
+                                        <label for="inputGuildId">{$GUILD_ID} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
                                         <input type="number" name="guild_id" class="form-control" id="inputGuildId" value="{$GUILD_ID_VALUE}">
                                     </div>
                                     <div class="form-group">

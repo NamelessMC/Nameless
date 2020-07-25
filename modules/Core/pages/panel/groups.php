@@ -357,7 +357,7 @@ if(isset($_GET['action'])){
 			'CANCEL_LINK' => URL::build('/panel/core/groups'),
 			'GROUP_NAME' => Output::getClean($group->name),
 			'GROUP_ORDER' => $language->get('admin', 'group_order'),
-			'GROUP_ORDER_VALUE' => $group->order
+			'GROUP_ORDER_VALUE' => $group->order,
 		));
 
 		if ($discord_integration) {
@@ -476,7 +476,9 @@ $smarty->assign(array(
 	'GROUPS' => $language->get('admin', 'groups'),
 	'PAGE' => PANEL_PAGE,
 	'TOKEN' => Token::get(),
-	'SUBMIT' => $language->get('general', 'submit')
+	'SUBMIT' => $language->get('general', 'submit'),
+	'INFO' => $language->get('general', 'info'),
+	'ID_INFO' => $language->get('user', 'discord_id_help')
 ));
 
 $page_load = microtime(true) - $start;

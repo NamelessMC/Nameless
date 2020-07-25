@@ -137,6 +137,7 @@ $smarty->assign(array(
 if ($discord_enabled == 1) {
     $guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
     $smarty->assign(array(
+        'ID_INFO' => $language->get('user', 'discord_id_help'),
         'GUILD_ID' => $language->get('admin', 'discord_id'),
         'GUILD_ID_VALUE' => $guild_id[0]->value,
         'BOT_URL' => $language->get('admin', 'discord_bot_url'),

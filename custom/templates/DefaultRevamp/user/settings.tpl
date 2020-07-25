@@ -162,7 +162,7 @@
         </h3>
         <form action="" method="post" class="ui form">
           <div class="field">
-            <label for="discord_id">{$DISCORD_ID}</label>
+            <label for="discord_id">{$DISCORD_ID} <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">({$HELP})</a></label>
             <input type="number" name="discord_id" id="discord_id" class="form-control" value="{$DISCORD_ID_VALUE}">
           </div>
           <input type="hidden" name="action" value="discord">

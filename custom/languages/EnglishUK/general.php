@@ -13,6 +13,7 @@ $language = array(
 	/*
 	 *  General terms
 	 */ 
+	'help' => 'Help',
 	'submit' => 'Submit',
 	'register' => 'Register',
 	'already_registered' => 'Already Registered?',
