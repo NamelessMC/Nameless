@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr7
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -521,6 +521,38 @@ if(!class_exists('Default_Panel_Template')){
 
 						break;
 
+					case 'discord':
+						$this->addCSSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.css' => array()
+						));
+
+						$this->addJSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.js' => array()
+						));
+
+						$this->addJSScript('
+							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
+		
+							elems.forEach(function(html) {
+							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
+							});
+							
+							if($(\'.js-check-change-enable\').length) {
+						        var changeCheckbox = document.querySelector(\'.js-check-change-enable\');
+						
+						        changeCheckbox.onchange = function () {
+									$(\'#enableDiscord\').submit();
+						        };
+							}
+							if($(\'.js-check-change-force\').length) {
+						        var changeCheckbox = document.querySelector(\'.js-check-change-force\');
+						
+						        changeCheckbox.onchange = function () {
+									$(\'#forceDiscord\').submit();
+						        };
+						    }
+							');
+						break;
 					case 'security':
 						if(isset($_GET['view'])){
 							$this->addCSSFiles(array(

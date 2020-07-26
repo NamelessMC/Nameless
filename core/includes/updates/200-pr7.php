@@ -39,7 +39,39 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Discord Integration
+try {
+    $queries->create('settings', array(
+        'name' => 'discord_integration',
+        'value' => 0,
+    ));
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
+    $queries->create('settings', array(
+        'name' => 'discord_bot_url',
+        'value' => 'http://bot.tadhgboyle.dev:8001'
+    ));
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
+    $queries->alterTable('groups', '`discord_role_id`', "bigint(18) NULL DEFAULT NULL");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
+    $queries->alterTable('users', '`discord_id`', "bigint(18) NULL DEFAULT NULL");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Announcements
+
+// Reset panel_sidebar cache so that the orders do not interfere on upgrade
+$cache->setCache('panel_sidebar');
+$cache->eraseAll();
 try {
     DB::getInstance()->query("CREATE TABLE `nl2_custom_announcements` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -53,10 +85,6 @@ try {
         `message` varchar(1024) NOT NULL,
         PRIMARY KEY (`id`)
         ) ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
-    
-    // Reset panel_sidebar cache so that the orders do not interfere on upgrade
-    $cache->setCache('panel_sidebar');
-    $cache->eraseAll();
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }

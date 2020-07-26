@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -77,8 +77,8 @@ $language = array(
 	'twitter_dark_theme' => 'Użyć ciemnego stylu twitter?',
 	'discord_id' => 'ID Serwera Discord',
 	'discord_widget_theme' => 'Styl widgetu Doscord',
-	'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
-	'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
+	'discord_id_length' => 'Sprawdź czy twoje ID Serwera Discord ma 18 znaków.',
+	'discord_id_numeric' => 'Sprawdź czy twoje ID Discord ma odpowiednią ilość znaków (Tylko numery).',
 	'dark' => 'Ciemny',
 	'light' => 'Jasny',
 	'google_plus_url' => 'URL Google Plus',
@@ -250,8 +250,8 @@ $language = array(
    'server_query_information' => 'Aby wyświetlić listę graczy na twojej stronie, serwer <strong>musi</strong> mieć włączoną opcję \'enable-query\' w pliku <strong>server.properties</strong>',
    'enable_status_query' => 'Włączyć sprawdzanie statusu?',
    'status_query_help' => 'Gdy opcja jest włączona, na stronie statusu serwera będzie pokazane czy jest on online czy offline.',
-   'show_ip_on_status_page' => 'Show IP on status page?',
-   'show_ip_on_status_page_info' => 'If this is enabled, users will be able to view and copy the IP address when viewing the Status page.',
+   'show_ip_on_status_page' => 'Pokazać IP na stronie statusu?',
+   'show_ip_on_status_page_info' => 'Jeśli włączone użytkownicy będą mogli kopiować IP serwera na stronie statusu..',
    'enable_player_list' => 'Włączyć listę graczy?',
    'pre_1.7' => 'Wersja Minecraft starsza od 1.7?',
    'player_list_help' => 'Gdy włączone, strona statusu serwera będzie pokazywała listę graczy online.',
@@ -536,7 +536,7 @@ $language = array(
 	 'enable_api' => 'Włączyć API?',
 	 'api_info' => 'API pozwala pluginom i innym serwisom wchodzić w interakcje z twoją stroną, tak jak <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >oficjalny plugin NamelessMC</a>.',
 	 'enable_legacy_api' => 'Włączyć legacy API?',
-	 'legacy_api_info' => 'Legacy API pozwala pluginom które używają starej wersji 1 API Nameless współpracować z 2 wersją strony.',
+	 'legacy_api_info' => 'Legacy API pozwala pluginom, które używają starej wersji 1 API Nameless współpracować z 2 wersją strony.',
 	 'confirm_api_regen' => 'Jesteś pewny, że chcesz wygenerować ponownie klucz API?',
 	 'api_key' => 'Klucz API',
  	'api_url' => 'URL API',
@@ -561,7 +561,7 @@ $language = array(
  	'select_website_group' => 'Wybierz grupę na forum.',
  	'ingame_group_already_exists' => 'Zasada synchronizowania tej grupy w grze jest już utworzona.',
  	'group_sync_rule_created_successfully' => 'Zasada synchronizowania grupy została stworzona pomyślnie.',
- 	'group_sync_rules_updated_successfully' => 'asada synchronizowania grupy została zaktualizowana pomyślnie.',
+ 	'group_sync_rules_updated_successfully' => 'Zasada synchronizowania grupy została zaktualizowana pomyślnie.',
  	'group_sync_rule_deleted_successfully' => 'Zasada synchronizowania grupy została usunięta pomyślnie',
  	'existing_rules' => 'Istniejące zasady',
  	'new_rule' => 'Nowa zasada',
@@ -569,7 +569,7 @@ $language = array(
 	// File uploads
 	'drag_files_here' => 'Przeciągnij pliki tutaj, aby je przesłać.',
 	'invalid_file_type' => 'Zły typ pliku!',
-	'file_too_big' => 'Plik jest za duży! Twój plik ma {{filesize}} a limit wielkości wynosi {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
+	'file_too_big' => 'Plik jest za duży! Twój plik ma {{filesize}}, a limit wielkości wynosi {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
 	'allowed_proxies' => 'Dozwolone Proxy',
 	'allowed_proxies_info' => 'Rozdzielana wierszami lista dozwolonych IP Proxy.',
 
@@ -584,17 +584,17 @@ $language = array(
 	'log_purged_successfully' => 'Log został wyczyszczony pomyślnie.',
 
 	// Hooks
-	'hooks' => 'Webhooks',
-	'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
-	'new_hook' => 'New Hook',
-	'creating_new_hook' => 'Creating New Webhook',
-	'editing_hook' => 'Editing Webhook',
-	'delete_hook' => 'Are you sure you want to delete this hook?',
+	'hooks' => 'Webhooki',
+	'hooks_info' => 'Webhooki pozwalają wysyłać informacje zewnętrznym źródłom.',
+	'new_hook' => 'Nowy Hook',
+	'creating_new_hook' => 'Tworzenie Nowego Webhooka',
+	'editing_hook' => 'Edytowanie Webhooka',
+	'delete_hook' => 'Na pewno chcesz usunąć ten Webhook?',
 	'hook_url' => 'Webhook URL',
-	'hook_type' => 'Webhook Type',
-	'hook_events' => 'Events to trigger this webhook',
-	'invalid_hook_url' => 'Invalid webhook url',
-	'invalid_hook_events' => 'You must select at least 1 event',
+	'hook_type' => 'Typ Webhooka',
+	'hook_events' => 'Wydarzenia zasilające tego Webhooka',
+	'invalid_hook_url' => 'Nieprawidłowy URL Webhooka',
+	'invalid_hook_events' => 'Musisz wybrać minimum jedno wydarzenie',
 	'register_hook_info' => 'Rejestracja użytkownika',
 	'validate_hook_info' => 'Weryfikacja użytkownia',
 	'delete_hook_info' => 'Usunięcie użytkownika',
@@ -634,7 +634,7 @@ $language = array(
 	'support' => 'Pomoc',
 	'admin_dir_still_exists' => 'Uwaga! Katalog <strong>modules/Core/pages/admin</strong> nadal istnieje. Możesz go usunąć, ponieważ nie jest już do niczego potrzebny.',
 	'mod_dir_still_exists' => 'Uwaga! Katalog <strong>modules/Core/pages/mod</strong> nadal istnieje. Możesz go usunąć, poniewać nie jest już do niczego potrzebny.',
-	'forum_topic_reply_email' => 'Forum Topic Reply',
+	'forum_topic_reply_email' => 'Odpowiedź na temat w forum',
 
 	// Announcements
 	'announcements' => 'Announcements',
@@ -659,4 +659,17 @@ $language = array(
 	'message_required' => 'Message is required',
 	'background_colour_required' => 'Background Colour is required',
 	'text_colour_required' => 'Text Colour is required',
+
+	// Discord
+	'discord' => 'Discord',
+	'enable_discord_integration' => 'Enable Discord integration?',
+	'discord_role_id' => 'Discord Role ID',
+	'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
+	'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
+	'discord_settings_updated' => 'Your Discord settings were updated successfully.',
+	'discord_guild_id_required' => 'Please enter your Discord Server ID for Discord integration to work.',
+	'discord_bot_url' => 'Discord Bot URL',
+	'discord_bot_url_info' => 'The location which your custom instance of the Nameless Link bot. Only change this value if you know what you are doing!',
+	'discord_bot_url_required' => 'Please enter your Bot URL for Discord integration to work.',
+	'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',
 );

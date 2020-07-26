@@ -15,14 +15,17 @@
   </div>
 {/if}
 
-{if !empty($ERROR)}
-  <div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-      <div class="header">{$ERROR_TITLE}</div>
-      {$ERROR}
-    </div>
+{if isset($ERRORS)}
+<div class="ui error icon message">
+  <i class="x icon"></i>
+  <div class="content">
+    <ul class="list">
+      {foreach from=$ERRORS item=error}
+      <li>{$error}</li>
+      {/foreach}
+    </ul>
   </div>
+</div>
 {/if}
 
 <div class="ui stackable grid" id="user-settings">
@@ -143,6 +146,26 @@
             <input type="password" name="new_password_again" id="inputNewPasswordAgain">
           </div>
           <input type="hidden" name="action" value="password">
+          <input type="hidden" name="token" value="{$TOKEN}">
+          <input type="submit" value="{$SUBMIT}" class="ui primary button">
+        </form>
+      </div>
+      <div class="ui segment">
+        <h3 class="ui header">{$DISCORD_LINK}
+        {if $DISCORD_LINKED}
+          <span class="ui green label">{$LINKED}</span>
+        {else if isset($PENDING_LINK)}
+          <span class="ui orange label">{$PENDING_LINK}</span>
+        {else}
+          <span class="ui red label">{$NOT_LINKED}</span>
+        {/if}
+        </h3>
+        <form action="" method="post" class="ui form">
+          <div class="field">
+            <label for="discord_id">{$DISCORD_ID} <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">({$HELP})</a></label>
+            <input type="number" name="discord_id" id="discord_id" class="form-control" value="{$DISCORD_ID_VALUE}">
+          </div>
+          <input type="hidden" name="action" value="discord">
           <input type="hidden" name="token" value="{$TOKEN}">
           <input type="submit" value="{$SUBMIT}" class="ui primary button">
         </form>

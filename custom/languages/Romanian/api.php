@@ -2,7 +2,7 @@
 /*
  *    Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -41,6 +41,8 @@ $language = array(
     'unable_to_update_server_info' => 'Imposibil de actualizat informațiile serverului',
     'invalid_server_id' => 'ID de server invalid',
     'invalid_code' => 'Codul furnizat este invalid',
+    'discord_integration_disabled' => 'Discord integration is disabled.',
+    'unable_to_set_discord_id' => 'Unable to set Discord ID.',
 
     // Success messages
     'finish_registration_link' => 'Faceți clic pe următorul link pentru a finaliza înregistrarea:',
@@ -50,5 +52,6 @@ $language = array(
     'new_private_message_from' => 'Mesaj privat nou de la {x}', // Don't replace {x}
     'username_updated' => 'Numele de utilizator a fost actualizat cu succes',
     'server_info_updated' => 'Informațiile serverului s-au actualizat cu succes',
-    'account_validated' => 'Contul a fost validat cu succes'
+    'account_validated' => 'Contul a fost validat cu succes',
+    'discord_id_set' => 'Discord ID set successfully'
 );

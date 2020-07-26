@@ -4,7 +4,7 @@
  *  en vertaald door Sander Lambrechts, Derkades en smessie
  *
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -15,6 +15,7 @@ $language = array(
 	/*
 	 *  Algemene termen
 	 */
+	'help' => 'Help',
 	'submit' => 'Verstuur',
 	'register' => 'Registreren',
 	'already_registered' => 'Already Registered?',

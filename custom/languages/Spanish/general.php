@@ -2,7 +2,7 @@
 /*
  *	Made by TheSuperSkills (Edited by iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3/pr4
+ *  NamelessMC version 2.0.0-pr8/pr4
  *
  *  License: MIT
  *
@@ -13,6 +13,7 @@ $language = array(
 	/*
 	 *  General terms
 	 */
+	'help' => 'Help',
 	'submit' => 'Enviar',
 	'register' => 'Registro',
 	'already_registered' => 'Ya te encuentras registrado?',

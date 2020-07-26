@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr7
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -499,7 +499,78 @@ if(isset($_GET['do'])){
                     }
                     Session::flash('settings_error', $error = rtrim($error, '<br />'));
                 }
-            }
+            } else if(Input::get('action') == 'discord'){
+				$validation = new Validate;
+				$validation = $validation->check($_POST, array(
+					'discord_id' => array(
+						'min' => 18,
+						'max' => 18,
+						'numeric' => true,
+						'unique' => 'users'
+					)
+				));
+				if ($validation->passed()) {
+					
+					$discord_id = Input::get('discord_id');
+					if ($discord_id == $user->data()->discord_id) {} 
+					else if ($discord_id == '') {
+						$queries->update('users', $user->data()->id, array(
+                    		'discord_id' => null
+						));
+						Session::flash('settings_success', $language->get('user', 'discord_id_unlinked'));
+						Redirect::to(URL::build('/user/settings'));
+						die();
+					}
+					else {
+						$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'))[0]->value;
+						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
+						$discord_role_id = $queries->getWhere('groups', array('id', '=', $user->data()->group_id))[0]->discord_role_id;
+						$full_url = BOT_URL . '/verifyId?id=' . $discord_id . '&username=' . Output::getClean($user->data()->username . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value);
+						if ($discord_role_id != null && $queries->getWhere('settings', array('name', '=', 'discord_integration'))[0]->value) $full_url .= '&role=' . $discord_role_id;
+						$result = file_get_contents($full_url . '&site=' . $api_url);
+						if ($result != 'success') {
+							if ($result == false) {
+								// This happens when the url is invalid
+								$errors[] = $language->get('user', 'discord_communication_error');
+							}
+							else {
+								switch($result) {
+									case 'failure-invalid-id':
+										$errors[] = $language->get('user', 'discord_invalid_id');
+									break;
+									case 'failure-already-pending':
+										$errors[] = $language->get('user', 'discord_already_pending');
+									break;
+									case 'failure-database':
+										$errors[] = $language->get('user', 'discord_database_error');
+									break;
+									default:
+										// This should never happen
+										$errors[] = $language->get('user', 'discord_unknown_error');
+									break;
+								}
+							}
+						} else {
+							$queries->update('users', $user->data()->id, array(
+								'discord_id' => 010
+							));
+							Session::flash('settings_success', $language->get('user', 'discord_id_confirm'));
+							Redirect::to(URL::build('/user/settings'));
+							die();
+						}
+					}
+				} else {
+					foreach ($validation->errors() as $validation_error) {
+						if (strpos($validation_error, 'minimum') !== false || strpos($validation_error, 'maximum') !== false) {
+							$errors[] = $language->get('admin', 'discord_id_length');
+						} else if (strpos($validation_error, 'numeric') !== false) {
+							$errors[] = $language->get('admin', 'discord_id_numeric');
+						} else if (strpos($validation_error, 'already exists') !== false) {
+							$errors[] = $language->get('user', 'discord_id_taken');
+						}
+					}
+				}
+			}
 		} else {
 			// Invalid form token
 			Session::flash('settings_error', $language->get('general', 'invalid_token'));
@@ -636,6 +707,12 @@ if(isset($_GET['do'])){
 		$success = Session::flash('tfa_success');
 	}
 
+	if (isset($errors) && count($errors))
+		$smarty->assign(array(
+			'ERRORS' => $errors,
+			'ERRORS_TITLE' => $language->get('general', 'error')
+		));
+
 	if($user->hasPermission('usercp.signature')){
         // Get post formatting type (HTML or Markdown)
         $cache->setCache('post_formatting');
@@ -676,7 +753,9 @@ if(isset($_GET['do'])){
             'DISABLED' => $language->get('user', 'disabled')
 
         ));
-    }
+	}
+	
+	$discord_linked = $user->data()->discord_id == null || $user->data()->discord_id == 010 ? 0 : 1;
 
 	// Language values
 	$smarty->assign(array(
@@ -694,6 +773,9 @@ if(isset($_GET['do'])){
 		'CURRENT_PASSWORD' => $language->get('user', 'current_password'),
 		'NEW_PASSWORD' => $language->get('user', 'new_password'),
 		'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
+		'DISCORD_LINK' => $language->get('user', 'discord_link'),
+		'DISCORD_LINKED' => $discord_linked,
+		'DISCORD_ID' => $language->get('user', 'discord_id'),
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 		'TIMEZONE' => $language->get('user', 'timezone'),
 		'TIMEZONES' => Util::listTimezones(),
@@ -702,8 +784,27 @@ if(isset($_GET['do'])){
         'CHANGE_EMAIL_ADDRESS' => $language->get('user', 'change_email_address'),
         'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
 		'SUCCESS_TITLE' => $language->get('general', 'success'),
-		'ERROR_TITLE' => $language->get('general', 'error')
+		'ERROR_TITLE' => $language->get('general', 'error'),
+		'HELP' => $language->get('general', 'help'),
+		'INFO' => $language->get('general', 'info'),
+		'ID_INFO' => $language->get('user', 'discord_id_help')
 	));
+
+	if ($discord_linked) {
+		$smarty->assign(array(
+			'LINKED' => $language->get('user', 'linked'),
+			'DISCORD_ID_VALUE' => $user->data()->discord_id,
+		));
+	} else {
+		$smarty->assign(array(
+			'NOT_LINKED' => $language->get('user', 'not_linked'),
+		));
+		if ($user->data()->discord_id == 010) {
+			$smarty->assign(array(
+				'PENDING_LINK' => $language->get('user', 'pending_link')
+			));
+		}
+	}
 
 	if(defined('CUSTOM_AVATARS')) {
       $smarty->assign(array(

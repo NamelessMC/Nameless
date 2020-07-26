@@ -113,6 +113,12 @@
                                     <label for="InputTitle">{$USER_TITLE}</label>
                                     <input type="text" name="title" class="form-control" id="InputTitle" placeholder="{$USER_TITLE}" value="{$USER_TITLE_VALUE}">
                                 </div>
+                                {if isset($DISCORD_ID_VALUE)}
+                                <div class="form-group">
+                                    <label for="InputDiscordId">{$DISCORD_ID}</label>
+                                    <input type="text" class="form-control" id="InputDiscordId" value="{$DISCORD_ID_VALUE}" disabled>
+                                </div>
+                                {/if}
                                 {if $PRIVATE_PROFILE_ENABLED eq true}
                                     <div class="form-group">
                                         <label for="inputPrivateProfile">{$PRIVATE_PROFILE}</label>

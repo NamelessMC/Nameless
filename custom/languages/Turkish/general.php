@@ -1,7 +1,7 @@
 <?php 
 /*
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -12,7 +12,8 @@
 $language = array(
 	/*
 	 *  General terms
-	 */ 
+	 */
+	'help' => 'Help',
 	'submit' => 'Onayla',
 	'register' => 'Kayıt Ol',
 	'already_registered' => 'Zaten bir hesabın var mı?',

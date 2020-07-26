@@ -3,7 +3,7 @@
  *	Made by Samerton
  *  Translation by Locus
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -40,6 +40,8 @@ $language = array(
   'unable_to_update_server_info' => 'Nepavyko atnaujinti serverio informacijos',
   'invalid_server_id' => 'Neteisingas serverio ID',
   'invalid_code' => 'Pateiktas netinkamas kodas',
+  'discord_integration_disabled' => 'Discord integration is disabled.',
+  'unable_to_set_discord_id' => 'Unable to set Discord ID.',
 
   // Success messages
   'finish_registration_link' => 'Norėdami užpildyti registraciją, paspauskite šią nuorodą:',
@@ -49,5 +51,6 @@ $language = array(
   'new_private_message_from' => 'Nauja privati žinutė iš {x}', // Don't replace {x}
   'username_updated' => 'Vartotojo vardas atnaujintas sėkmingai',
   'server_info_updated' => 'Serverio informacija atnaujinta sėkmingai',
-	'account_validated' => 'Paskyra patvirtinta sėkmingai'
+	'account_validated' => 'Paskyra patvirtinta sėkmingai',
+    'discord_id_set' => 'Discord ID set successfully'
 );

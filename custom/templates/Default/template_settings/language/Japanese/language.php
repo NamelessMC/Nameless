@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/samerton
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *
  *  Translation by Mari0914( @Mari0914_Main, https://mari0914.japanminigame.net )
  *

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -140,6 +140,21 @@ class Nameless2API
                 case 'setGroup':
                     // Set a user's group
                     $this->setGroup();
+                    break;
+
+                case 'setDiscordId':
+                    // Upon validation in discord, set a user's discord id
+                    $this->setDiscordId();
+                    break;
+
+                case 'setGroupFromDiscordId':
+                    // Update a user's group from a Discord Role ID
+                    $this->setGroupFromDiscord();
+                    break;
+
+                case 'removeGroupFromDiscordId':
+                    // Update a user's group from a Discord Role ID
+                    $this->removeGroupFromDiscord();
                     break;
 
                 case 'createReport':
@@ -589,6 +604,121 @@ class Nameless2API
         } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
     }
 
+    private function setDiscordId() {
+        // Param: username
+        // Param: discord id
+        if ($this->_validated === true) {
+            if (!isset($_POST) || empty($_POST)) {
+                $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
+            }
+
+            $username = Output::getClean($_POST['username']);
+            $discord_id = $_POST['discord_id'];
+
+            $this->_db = DB::getInstance();
+
+            // Error
+            $user = $this->_db->get('users', array('username', '=', $username));
+            if (!$user->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
+            $user = $user->first()->id;
+
+            try {
+                $this->_db->update('users', $user, array(
+                    'discord_id' => $discord_id
+                ));
+            } catch (Exception $e) {
+                $this->throwError(23, $this->_language->get('api', 'unable_to_set_discord_id'));
+            }
+            $this->returnArray(array('message' => $this->_language->get('api', 'discord_id_set')));
+        } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
+    }
+
+    private function setGroupFromDiscord() {
+        // Param: discord user id
+        // Param: discord role id
+        if ($this->_validated === true) {
+            if (!isset($_POST) || empty($_POST)) {
+                $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
+            }
+
+            $this->_db = DB::getInstance();
+
+            if (!$this->_db->get('settings', array('name', '=', 'discord_integration'))->first()->value) {
+                $this->throwError(33, $this->_language->get('api', 'discord_integration_disabled'));
+            }
+
+            $discord_user_id = $_POST['discord_user_id'];
+            $discord_role_id = $_POST['discord_role_id'];
+
+            $user = $this->_db->get('users', array('discord_id', '=', $discord_user_id));
+            if (!$user->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
+            $user = $user->first();
+
+            $group = $this->_db->get('groups', array('discord_role_id', '=', $discord_role_id));
+            if (!$group->count()) $this->throwError(17, $this->_language->get('api', 'unable_to_find_group'));
+            $group = $group->first();
+
+            // Set their secondary groups to all of their old secondary groups, except the new group - just incase
+            $new_secondary_groups = array();
+            foreach ($user->secondary_groups as $secondary_group) {
+                if ($group != $secondary_group) {
+                    $new_secondary_groups[] = $secondary_group;
+                }
+            }
+
+            try {
+                $this->_db->update('users', $user->id, array(
+                    'group_id' => $group->id
+                ));
+                $this->_db->update('users', $user->id, array(
+                    'secondary_groups' => json_encode($new_secondary_groups)
+                ));
+            } catch (Exception $e) {
+                $this->throwError(18, $this->_language->get('api', 'unable_to_update_group'));
+            }
+            Log::getInstance()->log(Log::action('discord/role_add'), 'Role changed to: ' . $group->name, $user->id);
+            // Success
+            $this->returnArray(array('message' => $this->_language->get('api', 'group_updated')));
+        } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
+    }
+
+    private function removeGroupFromDiscord() {
+        // Param: discord user id
+        // Param: discord role id
+        if ($this->_validated === true) {
+            if (!isset($_POST) || empty($_POST)) {
+                $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
+            }
+
+            $this->_db = DB::getInstance();
+
+            if (!$this->_db->get('settings', array('name', '=', 'discord_integration'))->first()->value) {
+                $this->throwError(33, $this->_language->get('api', 'discord_integration_disabled'));
+            }
+
+            $discord_user_id = $_POST['discord_user_id'];
+            $discord_role_id = $_POST['discord_role_id'];
+
+            $user = $this->_db->get('users', array('discord_id', '=', $discord_user_id));
+            if (!$user->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
+            $user = $user->first()->id;
+
+            $group = $this->_db->get('groups', array('discord_role_id', '=', $discord_role_id));
+            if (!$group->count()) $this->throwError(17, $this->_language->get('api', 'unable_to_find_group'));
+
+            try {
+                $this->_db->update('users', $user, array(
+                    'group_id' => VALIDATED_DEFAULT
+                ));
+            } catch (Exception $e) {
+                $this->throwError(18, $this->_language->get('api', 'unable_to_update_group'));
+            }
+            Log::getInstance()->log(Log::action('discord/role_remove'), 'Role removed: ' . $group->first()->name, $user);
+            // Success
+            $this->returnArray(array('message' => $this->_language->get('api', 'group_updated')));
+        } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
+    }
+    
     // Create a report
     private function createReport(){
         // Ensure the API key is valid
