@@ -407,6 +407,7 @@ $language = array(
 	'group_html' => '权限组 HTML',
 	'group_html_lg' => '权限组 HTML 大小',
 	'group_username_colour' => '权限组用户名颜色',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => '这个权限组是否为工作人员组?',
 	'delete_group' => '删除权限组',
 	'confirm_group_deletion' => '你确定要删除权限组 {x}?', // Don't replace {x}

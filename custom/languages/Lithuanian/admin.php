@@ -405,6 +405,7 @@ $language = array(
 	'group_html' => 'Grupės HTML',
 	'group_html_lg' => 'Grupės HTML Didelis',
 	'group_username_colour' => 'Grupės Vartotojo Vardo Spalva',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => 'Ar grupė yra personalo grupė?',
 	'delete_group' => 'Ištrinti Grupę',
 	'confirm_group_deletion' => 'Ar tikrai norite ištrinti grupę {x}?', // Don't replace {x}

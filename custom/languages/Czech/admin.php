@@ -407,6 +407,7 @@ $language = array(
 	'group_html' => 'HTML skupiny',
 	'group_html_lg' => 'Velké HTML skupiny',
 	'group_username_colour' => 'Barva názvu skupiny',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => 'Bude tato skupina pracovní?',
 	'delete_group' => 'Smazat skupinu',
 	'confirm_group_deletion' => 'Opravdu chcete smazat tuto skupinu: {x}?', // Don't replace {x}

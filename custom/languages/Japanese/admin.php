@@ -410,6 +410,7 @@ $language = array(
 	'group_html' => 'グループ HTML',
 	'group_html_lg' => 'グループ HTML(大)',
 	'group_username_colour' => 'グループテーマカラー',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => 'スタッフグループに設定しますか？',
 	'delete_group' => 'グループ削除',
 	'confirm_group_deletion' => 'グループ {x} を削除してもよろしいですか？', // Don't replace {x}

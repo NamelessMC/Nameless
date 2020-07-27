@@ -407,6 +407,7 @@ $language = array(
 	'group_html' => 'Gruppe HTML',
 	'group_html_lg' => 'Gruppe HTML Stor',
 	'group_username_colour' => 'Gruppe brukernavnfarge',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => 'Er denne gruppa en staff gruppe?',
 	'delete_group' => 'Slett gruppe',
 	'confirm_group_deletion' => 'Er du sikker på at du vil slette gruppa {x}?', // Don't replace {x}

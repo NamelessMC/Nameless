@@ -409,6 +409,7 @@ $language = array(
     'group_html' => 'HTML grup',
     'group_html_lg' => 'HTML grup (mare) ',
     'group_username_colour' => 'Culoarea grupului',
+    'group_username_css' => 'Group Username CSS',
     'group_staff' => 'Grupul este un grup de personal (staff)?',
     'delete_group' => 'Ștergeți grupul',
     'confirm_group_deletion' => 'Sigur doriți să ștergeți grupul {x}?', // Don't replace {x}

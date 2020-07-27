@@ -409,6 +409,7 @@ $language = array(
 	'group_html' => 'Group HTML',
 	'group_html_lg' => 'Group HTML Large',
 	'group_username_colour' => 'Group Username Color',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => 'Is the group a staff group?',
 	'delete_group' => 'Διαγραφή ομάδας',
 	'confirm_group_deletion' => 'Είστε σίγουροι ότι θέλετε να διαγράψετε την ομάδα {x}?', // Don't replace {x}

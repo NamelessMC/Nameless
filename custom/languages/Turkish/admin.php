@@ -407,6 +407,7 @@ $language = array(
 	'group_html' => 'Grup HTML',
 	'group_html_lg' => 'Grup HTML Büyük',
 	'group_username_colour' => 'Grup Kullanıcı Adı Rengi',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => 'Grup bir personel grubu mu?',
 	'delete_group' => 'Grubu sil',
 	'confirm_group_deletion' => '{x} grubunu silmek istediğinizden emin misiniz?', // Don't replace {x}

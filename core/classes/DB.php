@@ -248,9 +248,10 @@ class DB {
 	public function alterTable($name, $column, $attributes) {
 		$name = $this->_prefix . $name;
 		$sql = "ALTER TABLE `{$name}` ADD {$column} {$attributes}";
-			if(!$this->createQuery($sql)->error()) {
-				return $this;
-			}
+
+		if(!$this->createQuery($sql)->error()) {
+			return $this;
+		}
 		return false;
 	}
 	

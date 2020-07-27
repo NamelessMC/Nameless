@@ -95,6 +95,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="InputCss">{$GROUP_USERNAME_CSS}</label>
+                                    <input type="text" name="username_css" class="form-control" id="InputCss" placeholder="{$GROUP_USERNAME_CSS}">
+                                </div>
+                                <div class="form-group">
                                     <label for="InputOrder">{$GROUP_ORDER}</label>
                                     <input type="number" min="1" class="form-control" id="InputOrder" name="order" value="5">
                                 </div>

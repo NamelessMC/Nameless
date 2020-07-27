@@ -88,3 +88,15 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
+
+// Group Username Colour + Group CSS
+try {
+    DB::getInstance()->query("ALTER TABLE `nl2_groups` CHANGE `group_username_css` `group_username_color` VARCHAR(256) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
+    $queries->alterTable('groups', '`group_username_css`', "varchar(256) NULL DEFAULT NULL");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}

@@ -415,6 +415,7 @@ $language = array(
 	'group_html' => 'Gruppen HTML',
 	'group_html_lg' => 'Gruppen HTML (Groß)',
 	'group_username_colour' => 'Benutzernamenfarbe der Gruppe',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => 'Ist diese Gruppe eine Teamgruppe?',
 	'delete_group' => 'Gruppe Löschen',
 	'confirm_group_deletion' => 'Möchtest du die Gruppe {x} wirklich löschen?', // Don't replace {x}

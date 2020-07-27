@@ -408,6 +408,7 @@ $language = array(
 	'group_html' => 'Gropp HTML',
 	'group_html_lg' => 'Gropp HTML Stor',
 	'group_username_colour' => 'Gropp Användrare Färg',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => 'Är gruppen en personal grupp?',
 	'delete_group' => 'Radera Grupp',
 	'confirm_group_deletion' => 'Är du säker på att du vill ta bort gruppen {x}?', // Don't replace {x}

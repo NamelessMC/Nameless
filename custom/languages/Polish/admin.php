@@ -406,6 +406,7 @@ $language = array(
 	'group_html' => 'HTML Grupy',
 	'group_html_lg' => 'HTML Grupy (duże)',
 	'group_username_colour' => 'Kolor nazwy użytkownika w grupie',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => 'Czy grupa jest grupą administarcji?',
 	'delete_group' => 'Usuń grupę',
 	'confirm_group_deletion' => 'Jesteś pewien że chcesz usunąć grupę {x}?', // Don't replace {x}

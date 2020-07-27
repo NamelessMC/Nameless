@@ -409,6 +409,7 @@ $language = array(
     'group_html' => 'HTML do Grupo',
     'group_html_lg' => 'HTML do Grupo Grande',
     'group_username_colour' => 'Cor do Grupo',
+    'group_username_css' => 'Group Username CSS',
     'group_staff' => 'O grupo é um grupo da Staff?',
     'delete_group' => 'Excluír Grupo',
     'confirm_group_deletion' => 'Você tem certeza de que deseja excluir o grupo {x}?', // Don't replace {x}

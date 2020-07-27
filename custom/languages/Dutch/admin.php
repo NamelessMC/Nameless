@@ -409,6 +409,7 @@ $language = array(
 	'group_html' => 'Groeps HTML code',
 	'group_html_lg' => 'Groeps grotere HTML code',
 	'group_username_colour' => 'Groep gebruikersnaam kleur',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => 'Is de groep voor personeel?',
 	'delete_group' => 'Verwijder groep',
 	'confirm_group_deletion' => 'Weet je zeker dat je de groep {x} wilt verwijderen?', // Verander "{x}" niet

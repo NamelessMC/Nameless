@@ -411,6 +411,7 @@ $language = array(
 	'group_html' => 'Group HTML',
 	'group_html_lg' => 'Group 大量HTML',
 	'group_username_colour' => '群組使用者顏色',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => '這是管理群組?',
 	'delete_group' => '移除群組',
 	'confirm_group_deletion' => '確定要移除群組 {x}?', // Don't replace {x}
