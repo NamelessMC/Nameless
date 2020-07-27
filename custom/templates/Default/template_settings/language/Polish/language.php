@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/samerton
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *  License: MIT
  *
  *  Translated by brzezinsky

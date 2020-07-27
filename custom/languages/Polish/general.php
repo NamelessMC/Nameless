@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr7
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -13,6 +13,7 @@ $language = array(
 	/*
 	 *  General terms
 	 */
+	'help' => 'Help',
 	'submit' => 'Zatwierdź',
 	'register' => 'Zarejestruj',
 	'already_registered' => 'Masz już konto?',
@@ -65,7 +66,7 @@ $language = array(
 	'error' => 'Błąd',
 	'are_you_sure' => 'Jesteś pewien?',
 	'spoiler' => 'Spoiler',
-	'invalid_timezone' => 'That timezone is invalid',
+	'invalid_timezone' => 'Ta strefa czasowa nie istnieje',
 
 	/*
 	 *  Contact form

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr8
  *
  *  User class
  */
@@ -70,7 +70,7 @@ class User {
 			$data = $this->_db->get('groups', array('id', '=', $group_id));
 			if($data->count()) {
 				$results = $data->results();
-				return 'color:' . htmlspecialchars($results[0]->group_username_css) . ';';
+				return 'color:' . htmlspecialchars($results[0]->group_username_color) . '; ' . htmlspecialchars($results[0]->group_username_css);
 			}
 		}
 

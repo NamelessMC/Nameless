@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -41,6 +41,8 @@ $language = array(
     'unable_to_update_server_info' => '未能更新服务器信息',
     'invalid_server_id' => '无效服务器名',
     'invalid_code' => '输入的密码无效',
+    'discord_integration_disabled' => 'Discord integration is disabled.',
+    'unable_to_set_discord_id' => 'Unable to set Discord ID.',
 
     // Success messages
     'finish_registration_link' => '请点击该链接以完成注册:',
@@ -50,5 +52,6 @@ $language = array(
     'new_private_message_from' => '来自 {x} 的私信', // Don't replace {x}
     'username_updated' => '用户名更新成功',
     'server_info_updated' => '服务器信息更新成功',
-	'account_validated' => '账号校验成功'
+	'account_validated' => '账号校验成功',
+    'discord_id_set' => 'Discord ID set successfully'
 );

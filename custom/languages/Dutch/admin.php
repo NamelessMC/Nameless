@@ -409,6 +409,7 @@ $language = array(
 	'group_html' => 'Groeps HTML code',
 	'group_html_lg' => 'Groeps grotere HTML code',
 	'group_username_colour' => 'Groep gebruikersnaam kleur',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => 'Is de groep voor personeel?',
 	'delete_group' => 'Verwijder groep',
 	'confirm_group_deletion' => 'Weet je zeker dat je de groep {x} wilt verwijderen?', // Verander "{x}" niet
@@ -661,5 +662,18 @@ $language = array(
 	'header_required' => 'Koptekst is vereist.',
 	'message_required' => 'Bericht is vereist.',
 	'background_colour_required' => 'Achtergrondkleur is vereist',
-	'text_colour_required' => 'Tekstkleur is vereist,
+	'text_colour_required' => 'Tekstkleur is vereist',
+
+	// Discord
+	'discord' => 'Discord',
+	'enable_discord_integration' => 'Enable Discord integration?',
+	'discord_role_id' => 'Discord Role ID',
+	'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
+	'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
+	'discord_settings_updated' => 'Your Discord settings were updated successfully.',
+	'discord_guild_id_required' => 'Please enter your Discord Server ID for Discord integration to work.',
+	'discord_bot_url' => 'Discord Bot URL',
+	'discord_bot_url_info' => 'The location which your custom instance of the Nameless Link bot. Only change this value if you know what you are doing!',
+	'discord_bot_url_required' => 'Please enter your Bot URL for Discord integration to work.',
+	'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',
 );

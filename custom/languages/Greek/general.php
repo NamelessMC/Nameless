@@ -12,9 +12,10 @@
  */
 
 $language = array(
-	/*
+    /*
 	 *  General terms
 	 */
+    'help' => 'Help',
 	'submit' => 'Υποβολή',
 	'register' => 'Εγγραφή',
 	'already_registered' => 'Already Registered?',

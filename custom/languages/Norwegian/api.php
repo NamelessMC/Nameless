@@ -39,6 +39,8 @@ $language = array(
     'unable_to_update_server_info' => 'Kunne ikke oppdatere serverinfo',
     'invalid_server_id' => 'Ugyldig server ID',
     'invalid_code' => 'Ugyldig kode oppgitt',
+    'discord_integration_disabled' => 'Discord integration is disabled.',
+    'unable_to_set_discord_id' => 'Unable to set Discord ID.',
 
     // Success messages
     'finish_registration_link' => 'Vennligst klikk på følgende lenke for å fullføre registeringen:',
@@ -48,5 +50,6 @@ $language = array(
     'new_private_message_from' => 'Ny privatmelding fra {x}', // Don't replace {x}
     'username_updated' => 'Brukernavn suksessfullt oppdatert',
     'server_info_updated' => 'Serverinfo suksessfullt oppdatert',
-	'account_validated' => 'Brukeren har blitt validert'
+	'account_validated' => 'Brukeren har blitt validert',
+    'discord_id_set' => 'Discord ID set successfully'
 );

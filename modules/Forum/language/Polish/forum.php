@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -93,8 +93,8 @@ $language = array(
 	'now_following_topic' => 'Obserwujesz teraz ten temat, będziesz dostawać powiadomienia o każdej nowej odpowiedzi w nim zamieszczonej.',
 	'no_longer_following_topic' => 'Nie obserwujesz już tego tematu, nie będziesz już dostawać powiadomień o nowych odpowiedziach w nim zamieszczonych.',
 	'new_reply_in_topic' => '{x} dodał odpowiedź do tematu {y}', // Don't replace {x} (username) or {y} (topic title)
-	'started_by_x' => 'Started by {x}', // Don't replace {x}
-	'sticky_topics' => 'Sticky Topics',
+	'started_by_x' => 'Zaczęte przez {x}', // Don't replace {x}
+	'sticky_topics' => 'Przyklejone Tematy',
 
 	// Homepage
 	'latest_announcements' => 'Najnowsze ogłoszenia',
@@ -142,7 +142,7 @@ $language = array(
 	'can_view_forum' => 'Może przeglądać forum?',
 	'can_view_other_topics' => 'Może przeglądać tematy innych użytkowników?',
 	'can_create_topic' => 'Może tworzyć tematy?',
-	'can_edit_topic' => 'Can edit their topics?',
+	'can_edit_topic' => 'Może edytować tematy?',
 	'can_post_reply' => 'Może tworzyć odpowiedzi?',
 	'can_moderate_forum' => 'Może zarządzać forum?',
 	'display_topics_as_news' => 'Wyświetlać tematy jako newsy na stronie głównej?',
@@ -171,7 +171,7 @@ $language = array(
 	'forum_deleted_successfully' => 'Forum zostało usunięte pomyślnie.',
 	'label_deleted_successfully' => 'Etykieta została usunięta pomyślnie.',
 	'label_type_deleted_successfully' => 'Typ etykiet został usunięty pomyślnie.',
-	'topic_placeholder' => 'Topic placeholder',
+	'topic_placeholder' => 'Tytuł',
 
 	 // Search
    'forum_search' => 'Szukaj na forum',

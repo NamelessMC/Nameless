@@ -1,7 +1,7 @@
 <?php
 /*
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -39,6 +39,8 @@ $language = array(
     'unable_to_update_server_info' => 'Sunucu bilgileri güncellenemiyor',
     'invalid_server_id' => 'Geçersiz sunucu kimliği',
     'invalid_code' => 'Geçersiz kod sağlandı',
+    'discord_integration_disabled' => 'Discord integration is disabled.',
+    'unable_to_set_discord_id' => 'Unable to set Discord ID.',
 
     // Success messages
     'finish_registration_link' => 'Kaydı tamamlamak için lütfen aşağıdaki bağlantıyı tıklayın:',
@@ -48,5 +50,6 @@ $language = array(
     'new_private_message_from' => '{x}\'dan yeni özel mesaj', // Don't replace {x}
     'username_updated' => 'Kullanıcı adı başarıyla güncellendi',
     'server_info_updated' => 'Sunucu bilgileri başarıyla güncellendi',
-	'account_validated' => 'Hesap başarıyla doğrulandı'
+	'account_validated' => 'Hesap başarıyla doğrulandı',
+    'discord_id_set' => 'Discord ID set successfully'
 );

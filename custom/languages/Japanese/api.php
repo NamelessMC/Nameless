@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  Translation by SimplyRin( @SimplyRin_, https://www.simplyrin.net )
  *  Additional translation by Mari0914( @Mari0914_Main, https://mari0914.japanminigame.net )
@@ -42,6 +42,8 @@ $language = array(
     'unable_to_update_server_info' => 'サーバー情報を更新できませんでした。',
     'invalid_server_id' => '無効なサーバーID',
     'invalid_code' => '指定されたコードは無効です。',
+    'discord_integration_disabled' => 'Discord integration is disabled.',
+    'unable_to_set_discord_id' => 'Unable to set Discord ID.',
 
     // Success messages
     'finish_registration_link' => '登録を完了するには次のリンクをクリックしてください:',
@@ -51,5 +53,6 @@ $language = array(
     'new_private_message_from' => '{x} から新しいプライベートメッセージが届いています。', // Don't replace {x}
     'username_updated' => 'ユーザー名が正常に更新されました。',
     'server_info_updated' => 'サーバー情報が正常に更新されました。',
-    'account_validated' => 'アカウントの検証が完了しました。'
+    'account_validated' => 'アカウントの検証が完了しました。',
+    'discord_id_set' => 'Discord ID set successfully'
 );

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr7
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -191,7 +191,56 @@ if(Input::exists()){
 			$validation = $validate->check($_POST, $to_validation);
 
 			if($validation->passed()){
+
 				try {
+					// The new group is not the same as their old group
+					if ($user_query->group_id != $group) {
+						// Discord integration is enabled
+						$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
+						if ($discord_integration[0]->value == '1') {
+							// They have a valid discord Id
+							if ($user_query->discord_id != null && $user_query->discord_id != 010) {
+								$group_discord_id = $queries->getWhere('groups', array('id', '=', $group));
+								$group_discord_id = $group_discord_id[0]->discord_role_id;
+								$old_group_discord_id = $queries->getWhere('groups', array('id', '=', $user_query->group_id));
+								$old_group_discord_id = $old_group_discord_id[0]->discord_role_id;
+								$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'));
+								$api_key = $api_key[0]->value;
+								$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
+								
+								// The bot can handle null roles, but it is better to deal with it here
+								// TODO: Probably a nicer way to do this
+								if ($group_discord_id == null && $old_group_discord_id != null) {
+									$full_url = BOT_URL . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&oldRole=' . $old_group_discord_id;
+								} else if ($group_discord_id != null && $old_group_discord_id == null) {
+									$full_url = BOT_URL . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&role=' . $group_discord_id;
+								} else if ($group_discord_id != null && $old_group_discord_id != null){
+									$full_url = BOT_URL . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&role=' . $group_discord_id. '&oldRole=' . $old_group_discord_id;
+								} else $full_url = null;
+								$result = file_get_contents($full_url . '&api_url=' . $api_url . '/');
+								if ($result != 'success') {
+									if ($result == false) {
+										// This happens when the url is invalid
+										$errors[] = $language->get('user', 'discord_communication_error');
+									} else {
+										switch($result) {
+											case 'failure-invalid-api-url':
+												$errors[] = $language->get('admin', 'discord_invalid_api_url');
+											break;
+											default:
+												// This should never happen 
+												$errors[] = $language->get('user', 'discord_unknown_error');
+											break;
+										}
+									}
+									Session::flash('edit_user_errors', $errors);
+									Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
+									die();
+								}
+							}
+						}
+					}
+
 					// Signature from Markdown -> HTML if needed
 					$cache->setCache('post_formatting');
 					$formatting = $cache->retrieve('formatting');
@@ -322,6 +371,9 @@ if(Input::exists()){
 if(Session::exists('edit_user_success'))
 	$success = Session::flash('edit_user_success');
 
+if(Session::exists('edit_user_errors'))
+	$errors = Session::flash('edit_user_errors');
+
 if(isset($success))
 	$smarty->assign(array(
 		'SUCCESS' => $success,
@@ -446,6 +498,15 @@ $smarty->assign(array(
 	'ACTIVE_TEMPLATE' => $language->get('user', 'active_template'),
 	'TEMPLATES' => $templates
 ));
+
+$discord_id = $user_query->discord_id;
+
+if ($discord_id != null && $discord_id != 010) {
+	$smarty->assign(array(
+		'DISCORD_ID' => $language->get('user', 'discord_id'),
+		'DISCORD_ID_VALUE' => $discord_id
+	));
+}
 
 $cache->setCache('post_formatting');
 $formatting = $cache->retrieve('formatting');

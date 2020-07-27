@@ -10,9 +10,10 @@
  */
 
 $language = array(
-	/*
+    /*
 	 *  General terms
-	 */ 
+	 */
+    'help' => 'Help',
 	'submit' => 'Gjør',
 	'register' => 'Registrer',
 	'already_registered' => 'Allerede registrert?',

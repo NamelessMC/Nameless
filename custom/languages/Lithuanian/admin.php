@@ -3,7 +3,7 @@
  *	Made by Samerton
  *  Translation by Locus
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -405,6 +405,7 @@ $language = array(
 	'group_html' => 'Grupės HTML',
 	'group_html_lg' => 'Grupės HTML Didelis',
 	'group_username_colour' => 'Grupės Vartotojo Vardo Spalva',
+	'group_username_css' => 'Group Username CSS',
 	'group_staff' => 'Ar grupė yra personalo grupė?',
 	'delete_group' => 'Ištrinti Grupę',
 	'confirm_group_deletion' => 'Ar tikrai norite ištrinti grupę {x}?', // Don't replace {x}
@@ -658,4 +659,17 @@ $language = array(
 	'message_required' => 'Message is required',
 	'background_colour_required' => 'Background Colour is required',
 	'text_colour_required' => 'Text Colour is required',
+
+	// Discord
+	'discord' => 'Discord',
+	'enable_discord_integration' => 'Enable Discord integration?',
+	'discord_role_id' => 'Discord Role ID',
+	'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
+	'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
+	'discord_settings_updated' => 'Your Discord settings were updated successfully.',
+	'discord_guild_id_required' => 'Please enter your Discord Server ID for Discord integration to work.',
+	'discord_bot_url' => 'Discord Bot URL',
+	'discord_bot_url_info' => 'The location which your custom instance of the Nameless Link bot. Only change this value if you know what you are doing!',
+	'discord_bot_url_required' => 'Please enter your Bot URL for Discord integration to work.',
+	'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',
 );

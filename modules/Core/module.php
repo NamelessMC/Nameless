@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr7
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -86,6 +86,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/minecraft/servers', 'pages/panel/minecraft_servers.php');
 		$pages->add('Core', '/panel/minecraft/query_errors', 'pages/panel/minecraft_query_errors.php');
 		$pages->add('Core', '/panel/minecraft/banners', 'pages/panel/minecraft_server_banners.php');
+		$pages->add('Core', '/panel/discord', 'pages/panel/discord.php');
 		$pages->add('Core', '/panel/security', 'pages/panel/security.php');
 		$pages->add('Core', '/panel/update', 'pages/panel/update.php');
 		$pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
@@ -302,6 +303,7 @@ class Core_Module extends Module {
 			'admincp.core.announcements' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'announcements'),
 			'admincp.integrations' => $language->get('admin', 'integrations'),
 			'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
+			'admincp.discord' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'discord'),
 			'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
 			'admincp.minecraft.verification' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
 			'admincp.minecraft.servers' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'minecraft_servers'),
@@ -845,6 +847,16 @@ class Core_Module extends Module {
 					$icon = $cache->retrieve('minecraft_icon');
 
 				$navs[2]->addItemToDropdown('integrations', 'minecraft', $language->get('admin', 'minecraft'), URL::build('/panel/minecraft'), 'top', $order, $icon);
+			}
+
+			if ($user->hasPermission('admincp.discord')) {
+				if (!$cache->isCached('discord_icon')) {
+					$icon = '<i class="nav-icon fab fa-discord"></i>';
+					$cache->store('discord_icon', $icon);
+				} else
+				$icon = $cache->retrieve('discord_icon');
+
+				$navs[2]->addItemToDropdown('integrations', 'discord', $language->get('admin', 'discord'), URL::build('/panel/discord'), 'top', $order, $icon);
 			}
 
 			if($user->hasPermission('admincp.styles') || $user->hasPermission('admincp.sitemap') || $user->hasPermission('admincp.widgets')){

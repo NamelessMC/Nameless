@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -38,6 +38,9 @@ $language = array(
     'unable_to_update_server_info' => 'Nelze aktualizovat informace o serveru',
     'invalid_server_id' => 'Neznámé ID serveru',
     'invalid_code' => 'Byl vložen neznámý kód',
+    'discord_integration_disabled' => 'Discord integration is disabled.',
+    'unable_to_set_discord_id' => 'Unable to set Discord ID.',
+    
     // Success messages
     'finish_registration_link' => 'Prosím klikněte na tento odkaz pro dokončení registrace:',
     'finish_registration_email' => 'Zkontrolujte email pro dokončení registrace.',
@@ -46,5 +49,6 @@ $language = array(
     'new_private_message_from' => 'Nová soukromá zpráva od {x}', // Don't replace {x}
     'username_updated' => 'Jméno úspěšně aktualizováno',
     'server_info_updated' => 'Informace o serveru aktualizovány',
-	'account_validated' => 'Účet úspěšně ověřen.'
+	'account_validated' => 'Účet úspěšně ověřen.',
+    'discord_id_set' => 'Discord ID set successfully'
 );

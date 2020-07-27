@@ -111,9 +111,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="InputCss">{$GROUP_USERNAME_CSS}</label>
+                                    <input type="text" name="username_css" class="form-control" id="InputCss" placeholder="{$GROUP_USERNAME_CSS}"
+                                        value="{$GROUP_USERNAME_CSS_VALUE}">
+                                </div>
+                                <div class="form-group">
                                     <label for="InputOrder">{$GROUP_ORDER}</label>
                                     <input type="number" min="1" class="form-control" id="InputOrder" name="order" value="{$GROUP_ORDER_VALUE}">
                                 </div>
+                                {if $DISCORD_INTEGRATION}
+                                <div class="form-group">
+                                    <label for="InputDiscordRoleID">{$DISCORD_ROLE_ID} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
+                                    <input type="number" min="1" class="form-control" id="InputDiscordRoleID" name="discord_role_id"
+                                        value="{$DISCORD_ROLE_ID_VALUE}">
+                                </div>
+                                {/if}
                                 <div class="form-group">
                                     <label for="InputStaff">{$STAFF_GROUP}</label>
                                     <input type="hidden" name="staff" value="0">

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -248,9 +248,10 @@ class DB {
 	public function alterTable($name, $column, $attributes) {
 		$name = $this->_prefix . $name;
 		$sql = "ALTER TABLE `{$name}` ADD {$column} {$attributes}";
-			if(!$this->createQuery($sql)->error()) {
-				return $this;
-			}
+
+		if(!$this->createQuery($sql)->error()) {
+			return $this;
+		}
 		return false;
 	}
 	
