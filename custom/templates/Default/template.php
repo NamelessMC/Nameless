@@ -56,7 +56,7 @@ class Default_Template extends TemplateBase {
 		$this->addCSSFiles(array(
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/css/' . Output::getClean($theme) . '.min.css' => array(),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/custom.css' => array(),
-			'https://use.fontawesome.com/releases/v5.7.2/css/all.css' => array('integrity' => 'sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr', 'crossorigin' => 'anonymous'),
+			'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css' => array('integrity' => 'sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==', 'crossorigin' => 'anonymous'),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => array(),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/Default/css/custom.css' => array()
 		));

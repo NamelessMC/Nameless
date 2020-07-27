@@ -29,7 +29,7 @@ if(!class_exists('Default_Panel_Template')){
 			);
 
 			$this->addCSSFiles(array(
-				'https://use.fontawesome.com/releases/v5.4.1/css/all.css' => array('integrity' => 'sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz', 'crossorigin' => 'anonymous'),
+				'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css' => array('integrity' => 'sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==', 'crossorigin' => 'anonymous'),
 				(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/adminlte.min.css' => array(),
 				'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700' => array(),
 				(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/custom.css' => array(),
