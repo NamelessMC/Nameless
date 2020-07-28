@@ -94,6 +94,7 @@
                                         <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
                                     </div>
                                 </form>
+                                <a class="btn btn-info" style="color: white;" href="{$TEST_URL}">{$TEST}</a>
                             {/if}
 
                         </div>

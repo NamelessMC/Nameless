@@ -101,6 +101,18 @@ if (Input::exists()) {
         // Invalid token
         $errors = array($language->get('general', 'invalid_token'));
     }
+} else {
+    if (isset($_GET['action'])) {
+        switch ($_GET['action']) {
+            case 'test': 
+                $result = Util::curlGetContents(BOT_URL);
+                if ($result == 'success') {
+                    $success = $language->get('admin', 'discord_bot_url_valid');
+                } else {
+                    $errors[] = $language->get('user', 'discord_communication_error');
+                }
+        }
+    }
 }
 
 // Load modules + template
@@ -132,7 +144,9 @@ $smarty->assign(array(
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'ENABLE_DISCORD_INTEGRATION' => $language->get('admin', 'enable_discord_integration'),
-    'DISCORD_ENABLED' => $discord_enabled
+    'DISCORD_ENABLED' => $discord_enabled,
+    'TEST' => $language->get('admin', 'test_bot_url'),
+    'TEST_URL' => URL::build('/panel/discord', 'action=test')
 ));
 
 if ($discord_enabled == 1) {

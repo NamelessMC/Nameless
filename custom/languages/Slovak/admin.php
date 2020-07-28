@@ -675,4 +675,6 @@ $language = array(
 	'discord_bot_url_info' => 'The location which your custom instance of the Nameless Link bot. Only change this value if you know what you are doing!',
 	'discord_bot_url_required' => 'Please enter your Bot URL for Discord integration to work.',
 	'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',
+	'test_bot_url' => 'Test Bot URL',
+	'discord_bot_url_valid' => 'Your Bot URL is valid.'
 );
