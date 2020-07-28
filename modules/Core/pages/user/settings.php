@@ -522,15 +522,20 @@ if(isset($_GET['do'])){
 						die();
 					}
 					else {
-						$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'))[0]->value;
+						$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'));
+						$api_key = $api_key[0]->value;
 						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
-						$discord_role_id = $queries->getWhere('groups', array('id', '=', $user->data()->group_id))[0]->discord_role_id;
-						$full_url = BOT_URL . '/verifyId?id=' . $discord_id . '&username=' . Output::getClean($user->data()->username . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value);
-						if ($discord_role_id != null && $queries->getWhere('settings', array('name', '=', 'discord_integration'))[0]->value) $full_url .= '&role=' . $discord_role_id;
-						$result = file_get_contents($full_url . '&site=' . $api_url);
+						$discord_role_id = $queries->getWhere('groups', array('id', '=', $user->data()->group_id));
+						$discord_role_id = $discord_role_id[0]->discord_role_id;
+						$guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
+						$guild_id = $guild_id[0]->value;
+						$full_url = BOT_URL . '/verifyId?id=' . $discord_id . '&username=' . Output::getClean($user->data()->username . '&guild_id=' . $guild_id);
+						$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
+						if ($discord_role_id != null && $discord_integration[0]->value) $full_url .= '&role=' . $discord_role_id;
+						$result = Util::curlGetContents($full_url . '&site=' . $api_url);
 						if ($result != 'success') {
-							if ($result == false) {
-								// This happens when the url is invalid
+							if ($result === false) {
+								// This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
 								$errors[] = $language->get('user', 'discord_communication_error');
 							}
 							else {
@@ -738,7 +743,8 @@ if(isset($_GET['do'])){
         ));
 	}
 
-	if($queries->getWhere('modules', array('name', '=', 'Forum'))[0]->enabled == 1){
+	$forum_enabled = $queries->getWhere('modules', array('name', '=', 'Forum'));
+	if($forum_enabled[0]->enabled == 1){
 		$smarty->assign(array(
 			'TOPIC_UPDATES' => $language->get('user', 'topic_updates'),
 			'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', array('id', '=', $user->data()->id))->first()->topic_updates

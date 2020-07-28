@@ -45,7 +45,8 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_discord'])) {
             // Either enable or disable Minecraft integration
-            $enable_discord_id = $queries->getWhere('settings', array('name', '=', 'discord_integration'))[0]->id;
+            $enable_discord_id = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
+            $enable_discord_id = $enable_discord_id[0]->id;
 
             $queries->update('settings', $enable_discord_id, array(
                 'value' => Input::get('enable_discord')

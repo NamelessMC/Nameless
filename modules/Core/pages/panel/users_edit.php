@@ -210,17 +210,23 @@ if(Input::exists()){
 								
 								// The bot can handle null roles, but it is better to deal with it here
 								// TODO: Probably a nicer way to do this
+								$guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
+								$guild_id = $guild_id[0]->value;
+
+								$full_url = BOT_URL . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $guild_id;
+
 								if ($group_discord_id == null && $old_group_discord_id != null) {
-									$full_url = BOT_URL . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&oldRole=' . $old_group_discord_id;
+									$full_url .= '&role=null' . '&oldRole=' . $old_group_discord_id;
 								} else if ($group_discord_id != null && $old_group_discord_id == null) {
-									$full_url = BOT_URL . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&role=' . $group_discord_id;
+									$full_url .= '&role=' . $group_discord_id . '&oldRole=null';
 								} else if ($group_discord_id != null && $old_group_discord_id != null){
-									$full_url = BOT_URL . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $queries->getWhere('settings', array('name', '=', 'discord'))[0]->value . '&role=' . $group_discord_id. '&oldRole=' . $old_group_discord_id;
+									$full_url .= '&role=' . $group_discord_id. '&oldRole=' . $old_group_discord_id;
 								} else $full_url = null;
-								$result = file_get_contents($full_url . '&api_url=' . $api_url . '/');
+
+								$result = Util::curlGetContents($full_url . '&api_url=' . $api_url . '/');
 								if ($result != 'success') {
-									if ($result == false) {
-										// This happens when the url is invalid
+									if ($result === false) {
+										// This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
 										$errors[] = $language->get('user', 'discord_communication_error');
 									} else {
 										switch($result) {

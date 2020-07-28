@@ -8,7 +8,7 @@
             <div class="item">
               <img class="ui mini circular image" src="{$user.avatar}" alt="{$user.username}">
               <div class="content">
-                <a class="header" href="{$user.profile}" data-poload="{$USER_INFO_URL}{$user.id}" style="{$user.style|replace:';':''}!important;">{$user.nickname}</a>
+                <a class="" href="{$user.profile}" data-poload="{$USER_INFO_URL}{$user.id}" style="{$user.style}">{$user.nickname}</a>
                 {if $user.title}{$user.title}{else}{$user.group}{/if}
               </div>
             </div>

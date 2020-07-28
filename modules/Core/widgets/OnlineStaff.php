@@ -48,7 +48,7 @@ class OnlineStaffWidget extends WidgetBase {
 		    foreach($online as $staff)
 			    $staff_members[] = array(
 				    'profile' => URL::build('/profile/' . Output::getClean($staff->username)),
-				    'style' => 'color: ' . Output::getClean($staff->group_username_css) . ';',
+				    'style' => $user->getGroupClass($staff->id),
 				    'username' => Output::getClean($staff->username),
 				    'nickname' => Output::getClean($staff->nickname),
 				    'avatar' => $user->getAvatar($staff->id),

@@ -320,10 +320,13 @@ if(Input::exists()) {
 						$html
 					);
 					$subject = SITE_NAME . ' - ' . str_replace(array('{x}', '{y}'), array($user->data()->username, $topic->topic_title), $language->get('emails', 'forum_topic_reply_subject'));
-					$siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'))[0]->value;
-					$contactemail = $queries->getWhere('settings', array('name', '=', 'incoming_email'))[0]->value;
+					$siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
+					$siteemail = $siteemail[0]->value;
+					$contactemail = $queries->getWhere('settings', array('name', '=', 'incoming_email'));
+					$contactemail = $contactemail[0]->value;
 					try {
-						$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'))[0]->value;
+						$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+						$php_mailer = $php_mailer[0]->value;
 						if ($php_mailer == '1') {
 							foreach ($users_following_info as $user_info) {
 								// PHP Mailer

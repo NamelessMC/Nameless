@@ -541,7 +541,18 @@ class Util {
 	    } else {
 		    return $news;
 	    }
-    }
+	}
+	
+	public static function curlGetContents($full_url) {
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_URL, $full_url);
+		$contents = curl_exec($ch);
+		curl_close($ch);
+
+		if ($contents) return $contents;
+		else return false;
+	}
 
     /*
      *  Add target and rel attributes to external links only

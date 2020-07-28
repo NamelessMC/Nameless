@@ -61,9 +61,11 @@ if(!isset($_GET['c'])){
 					$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
 					$guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
 					$full_url = $bot_url . '/roleChange?id=' . $user->data()->discord_id . '&guild_id=' . $guild_id[0]->value . '&role=' . $group_discord_id . '&api_url='. $api_url;
-					$result = file_get_contents($full_url);
+					$result = Util::curlGetContents($full_url);
 					// Purposely ignored checking for errors, but rather add a log instead
-					Log::getInstance()->log(Log::action('discord/upon_validation_error'), 'Request error: ' . $result, $user->data()->id);
+					if ($result != 'success') {
+						Log::getInstance()->log(Log::action('discord/upon_validation_error'), 'Request error: ' . $result, $user->data()->id);
+					}
 				} 
 			}
 		}
