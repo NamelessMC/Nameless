@@ -134,8 +134,8 @@ class Forum_Module extends Module {
 			if($user->hasPermission('admincp.forums')){
 				$cache->setCache('panel_sidebar');
 				if(!$cache->isCached('forum_order')){
-					$order = 10;
-					$cache->store('forum_order', 10);
+					$order = 12;
+					$cache->store('forum_order', 12);
 				} else {
 					$order = $cache->retrieve('forum_order');
 				}
