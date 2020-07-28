@@ -114,7 +114,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="icon">{$ICON} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ICON_INFO|escape}"><i class="fa fa-question"></i></label>
-                                        <input type="text" name="icon" id="icon" class="form-control" placeholder="<i class=&quot;fas fa-edit icon&quot;></i>" value="{$ANNOUNCEMENT->icon|escape}">
+                                        <input type="text" name="icon" id="icon" class="form-control" placeholder="fas fa-edit icon" value="{$ANNOUNCEMENT->icon|escape}">
                                     </div>
                                     <div class="form-group">
                                         <label for="closable">{$CLOSABLE}</label>

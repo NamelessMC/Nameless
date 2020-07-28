@@ -141,7 +141,9 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			{/if}
-			{$ANNOUNCEMENT->icon}
+			{if isset($ANNOUNCEMENT->icon)}
+				<i class="{$ANNOUNCEMENT->icon}"></i>
+			{/if}
 			<h5>{$ANNOUNCEMENT->header}</h5>
 			<p>{$ANNOUNCEMENT->message}</p>
 		</div>
