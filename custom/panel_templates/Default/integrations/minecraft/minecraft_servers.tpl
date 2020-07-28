@@ -96,7 +96,7 @@
 
                             <hr />
 
-                            <h6>{$QUERY_SETTINGS}</h6>
+                            <h4>{$QUERY_SETTINGS}</h4>
                             <form action="" method="post">
                                 <div class="form-group">
                                     <label for="inputDefaultServer">{$DEFAULT_SERVER}</label>

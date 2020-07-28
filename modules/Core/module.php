@@ -45,7 +45,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/privacy', 'pages/privacy.php');
 		$pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
 		$pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
-		$pages->add('Core', '/status', 'pages/status.php');
+		$pages->add('Core', '/status', 'pages/status.php', 'status');
 
 		$pages->add('Core', '/user', 'pages/user/index.php');
 		$pages->add('Core', '/user/settings', 'pages/user/settings.php');
