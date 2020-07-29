@@ -7,7 +7,7 @@
  *  License: MIT
  *
  *  Chinese Simplified Language - Admin
- *  Translation(Chinese Simplified) by ahdg,lian20,LingDong,NEWLY_1129514
+ *  Translation(Chinese Simplified) by ahdg,lian20,LingDong,NEWLY_1129514,Dreta (yangyang200)
  *  Translation progress(v2-pr6) : 99.9 %
  */
 
@@ -79,7 +79,7 @@ $language = array(
 	'twitter_dark_theme' => '使用 Twitter 暗色 主题?',
 	'discord_id' => 'Discord 服务器 ID',
 	'discord_widget_theme' => 'Discord Widget 主题',
-	'discord_id_length' => '请确保您的 Discord ID 是 18 位长。',
+	'discord_id_length' => '请确保您的 Discord ID 长 18 位。',
 	'discord_id_numeric' => '请确保您的 Discord ID 只包含数字。',
 	'dark' => '暗调',
 	'light' => '亮色',
@@ -588,7 +588,7 @@ $language = array(
 
 	// Hooks
 	'hooks' => 'Webhooks',
-	'hooks_info' => 'Webhooks 允许第三方服务在出现特定事件是被提醒。 指定的事件何时发生。',
+	'hooks_info' => 'Webhooks 允许第三方服务在出现特定事件时被提醒。 指定的事件何时发生。',
 	'new_hook' => '创建新 Webhook',
 	'creating_new_hook' => '正在创建新 Webhook',
 	'editing_hook' => '编辑 Webhook',
@@ -647,41 +647,41 @@ $language = array(
 	'mod_dir_still_exists' => '警告! <strong>modules/Core/pages/mod</strong> 目录仍不存在。请删除这个目录。',
 
 	// Announcements
-	'announcements' => 'Announcements',
-	'new_announcement' => 'New Announcement',
-	'creating_announcement' => 'Creating Announcement',
-	'editing_announcement' => 'Editing Announcement',
-	'creating_announcement_success' => 'Announcement created successfully.',
-	'editing_announcement_success' => 'Announcement updated successfully.',
-	'creating_announcement_failure' => 'Announcement creation failed.',
-	'editing_announcement_failure' => 'Announcement update failed.',
-	'announcement_icon_instructions' => 'You can also add an icon to each announcement here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
-	'header' => 'Header',
-	'message' => 'Message',
-	'pages' => 'Pages',
-	'text_colour' => 'Text Colour',
-	'background_colour' => 'Background Colour',
-	'closable' => 'Closable',
-	'can_view_announcement' => 'Can view Announcement',
-	'verify_delete_announcement' => 'Are you sure you want to delete this announcement?',
-	'deleted_announcement_success' => 'Announcement deleted successfully.',
-	'header_required' => 'Header is required.',
-	'message_required' => 'Message is required',
-	'background_colour_required' => 'Background Colour is required',
-	'text_colour_required' => 'Text Colour is required',
+	'announcements' => '公告',
+	'new_announcement' => '新公告',
+	'creating_announcement' => '创建公告',
+	'editing_announcement' => '编辑公告',
+	'creating_announcement_success' => '创建公告成功。',
+	'editing_announcement_success' => '更新公告成功。',
+	'creating_announcement_failure' => '创建公告失败。',
+	'editing_announcement_failure' => '更新公告失败。',
+	'announcement_icon_instructions' => '您也可以为公告添加图标，例如使用 <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a> 或 <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
+	'header' => '头部',
+	'message' => '信息',
+	'pages' => '页面',
+	'text_colour' => '文字颜色',
+	'background_colour' => '背景颜色',
+	'closable' => '可关闭',
+	'can_view_announcement' => '可查看公告',
+	'verify_delete_announcement' => '您确定要删除此公告吗?',
+	'deleted_announcement_success' => '公告删除成功。',
+	'header_required' => '头部为必填项',
+	'message_required' => '消息为必填项',
+	'background_colour_required' => '背景颜色为必填项',
+	'text_colour_required' => '文字颜色为必填项',
 
 	// Discord
 	'discord' => 'Discord',
-	'enable_discord_integration' => 'Enable Discord integration?',
-	'discord_role_id' => 'Discord Role ID',
-	'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
-	'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
-	'discord_settings_updated' => 'Your Discord settings were updated successfully.',
-	'discord_guild_id_required' => 'Please enter your Discord Server ID for Discord integration to work.',
-	'discord_bot_url' => 'Discord Bot URL',
-	'discord_bot_url_info' => 'The location which your custom instance of the Nameless Link bot. Only change this value if you know what you are doing!',
-	'discord_bot_url_required' => 'Please enter your Bot URL for Discord integration to work.',
-	'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',
-	'test_bot_url' => 'Test Bot URL',
-	'discord_bot_url_valid' => 'Your Bot URL is valid.'
+	'enable_discord_integration' => '启用 Discord 集成?',
+	'discord_role_id' => 'Discord 身份组 ID',
+	'discord_role_id_numeric' => 'Discord 身份组 ID 必须为数字。',
+	'discord_role_id_length' => 'Discord 身份组 ID 必须为 18 位长。',
+	'discord_settings_updated' => '已成功更新您的 Discord 设置。',
+	'discord_guild_id_required' => '请输入您的 Discord 服务器 ID:',
+	'discord_bot_url' => 'Discord 机器人链接',
+	'discord_bot_url_info' => '您的自定义 Nameless Link 机器人的链接。请您在理解此项的用途后更改。',
+	'discord_bot_url_required' => '请输入您 Nameless Link 机器人的链接。',
+	'discord_invalid_api_url' => '好像您的 API 链接变化了。请您联系服务器拥有者修改链接。',
+	'test_bot_url' => '测试机器人 URL',
+	'discord_bot_url_valid' => '您的机器人 URL 有效。'
 );
