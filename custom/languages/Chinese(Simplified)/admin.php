@@ -79,7 +79,7 @@ $language = array(
 	'twitter_dark_theme' => '使用 Twitter 暗色 主题?',
 	'discord_id' => 'Discord 服务器 ID',
 	'discord_widget_theme' => 'Discord Widget 主题',
-	'discord_id_length' => '请确保您的 Discord ID 是 18 位长。',
+	'discord_id_length' => '请确保您的 Discord ID 长 18 位。',
 	'discord_id_numeric' => '请确保您的 Discord ID 只包含数字。',
 	'dark' => '暗调',
 	'light' => '亮色',
@@ -588,7 +588,7 @@ $language = array(
 
 	// Hooks
 	'hooks' => 'Webhooks',
-	'hooks_info' => 'Webhooks 允许第三方服务在出现特定事件是被提醒。 指定的事件何时发生。',
+	'hooks_info' => 'Webhooks 允许第三方服务在出现特定事件时被提醒。 指定的事件何时发生。',
 	'new_hook' => '创建新 Webhook',
 	'creating_new_hook' => '正在创建新 Webhook',
 	'editing_hook' => '编辑 Webhook',
