@@ -213,35 +213,36 @@ if(Input::exists()){
 								$guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
 								$guild_id = $guild_id[0]->value;
 
-								$full_url = BOT_URL . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $guild_id;
+								$url = '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $guild_id;
 
 								if ($group_discord_id == null && $old_group_discord_id != null) {
-									$full_url .= '&role=null' . '&oldRole=' . $old_group_discord_id;
+									$url .= '&role=null' . '&oldRole=' . $old_group_discord_id;
 								} else if ($group_discord_id != null && $old_group_discord_id == null) {
-									$full_url .= '&role=' . $group_discord_id . '&oldRole=null';
+									$url .= '&role=' . $group_discord_id . '&oldRole=null';
 								} else if ($group_discord_id != null && $old_group_discord_id != null){
-									$full_url .= '&role=' . $group_discord_id. '&oldRole=' . $old_group_discord_id;
-								} else $full_url = null;
-
-								$result = Util::curlGetContents($full_url . '&api_url=' . $api_url . '/');
-								if ($result != 'success') {
-									if ($result === false) {
-										// This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
-										$errors[] = $language->get('user', 'discord_communication_error');
-									} else {
-										switch($result) {
-											case 'failure-invalid-api-url':
-												$errors[] = $language->get('admin', 'discord_invalid_api_url');
-											break;
-											default:
-												// This should never happen 
-												$errors[] = $language->get('user', 'discord_unknown_error');
-											break;
+									$url .= '&role=' . $group_discord_id. '&oldRole=' . $old_group_discord_id;
+								} else $url = null;
+								if ($url != null) {
+									$result = Util::discordBotRequest($url . '&api_url=' . $api_url . '/');
+									if ($result != 'success') {
+										if ($result === false) {
+											// This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
+											$errors[] = $language->get('user', 'discord_communication_error');
+										} else {
+											switch ($result) {
+												case 'failure-invalid-api-url':
+													$errors[] = $language->get('admin', 'discord_invalid_api_url');
+													break;
+												default:
+													// This should never happen 
+													$errors[] = $language->get('user', 'discord_unknown_error');
+													break;
+											}
 										}
+										Session::flash('edit_user_errors', $errors);
+										Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
+										die();
 									}
-									Session::flash('edit_user_errors', $errors);
-									Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
-									die();
 								}
 							}
 						}

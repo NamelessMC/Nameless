@@ -53,6 +53,10 @@ try {
         'name' => 'discord_bot_url',
         'value' => 'http://bot.tadhgboyle.dev:8001'
     ));
+    $queries->create('settings', array(
+        'name' => 'discord_bot_url_backup',
+        'value' => 'http://bot-2.namelessmc.com'
+    ));
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }

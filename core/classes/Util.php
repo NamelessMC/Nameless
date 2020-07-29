@@ -543,6 +543,12 @@ class Util {
 	    }
 	}
 	
+	public static function discordBotRequest($url) {
+		if (self::curlGetContents(BOT_URL . $url) == 'success') return 'success';
+		else if (self::curlGetContents(BOT_URL_BACKUP . $url) == 'success') return 'success';
+		else return false;
+	}
+
 	public static function curlGetContents($full_url) {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

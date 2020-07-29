@@ -28,16 +28,15 @@ class ValidateHook {
                 $group_discord_id = $group_discord_id[0]->discord_role_id;
 
                 if ($group_discord_id != null) {
-                    $bot_url = BOT_URL;
                     $api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'));
                     $api_key = $api_key[0]->value;
                     $api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
                     $guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
-                    $full_url = $bot_url . '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $guild_id[0]->value . '&role=' . $group_discord_id . '&api_url=' . $api_url;
-                    $result = Util::curlGetContents($full_url);
+                    $url = '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $guild_id[0]->value . '&role=' . $group_discord_id . '&api_url=' . $api_url;
+                    $result = Util::discordBotRequest($url);
                     // Purposely ignored checking for errors, but rather add a log instead
                     if ($result != 'success') {
-                        Log::getInstance()->log(Log::action('discord/upon_validation_error'), 'Request error: ' . $result, $user->data()->id);
+                        Log::getInstance()->log(Log::action('discord/upon_validation_error'), 'Request error: ' . $result, $params['user_id']);
                     }
                 }
             }

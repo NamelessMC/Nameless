@@ -672,5 +672,7 @@ $language = array(
 	'discord_bot_url_required' => 'Ingrese su URL de Bot para que la integración de Discord funcione.',
 	'discord_invalid_api_url' => 'Parece que su URL de API ha cambiado. Solicite al propietario del gremio que actualice la URL con el bot de Enlace sin nombre.',
 	'test_bot_url' => 'Probar URL del bot',
-	'discord_bot_url_valid' => 'Tu URL de bot es válida.'
+	'discord_bot_url_valid' => 'Tu URL de bot es válida.',
+	'discord_bot_url_backup' => 'Discord Bot URL (Backup)',
+	'discord_bot_url_backup_info' => 'A URL which points to a backup/second instance of the NamelessMC bot incase the first option fails. Only change this value if you know what you are doing!',
 );

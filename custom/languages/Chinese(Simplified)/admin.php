@@ -677,5 +677,7 @@ $language = array(
 	'discord_bot_url_required' => '请输入您 Nameless Link 机器人的链接。',
 	'discord_invalid_api_url' => '好像您的 API 链接变化了。请您联系服务器拥有者修改链接。',
 	'test_bot_url' => '测试机器人 URL',
-	'discord_bot_url_valid' => '您的机器人 URL 有效。'
+	'discord_bot_url_valid' => '您的机器人 URL 有效。',
+	'discord_bot_url_backup' => 'Discord Bot URL (Backup)',
+	'discord_bot_url_backup_info' => 'A URL which points to a backup/second instance of the NamelessMC bot incase the first option fails. Only change this value if you know what you are doing!',
 );

@@ -90,6 +90,10 @@
                                         <input type="text" name="bot_url" class="form-control" id="inputBotUrl" value="{$BOT_URL_VALUE}">
                                     </div>
                                     <div class="form-group">
+                                        <label for="inputBotUrlBackup">{$BOT_URL_BACKUP} <span class="badge badge-warning" data-toggle="popover" data-title="{$INFO}" data-content="{$BOT_URL_BACKUP_INFO|escape}"><i class="fa fa-exclamation-triangle"></i></label>
+                                        <input type="text" name="bot_url_backup" class="form-control" id="inputBotUrlBackup" value="{$BOT_URL_BACKUP_VALUE}">
+                                    </div>
+                                    <div class="form-group">
                                         <input type="hidden" name="token" value="{$TOKEN}">
                                         <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
                                     </div>

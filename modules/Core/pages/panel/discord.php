@@ -44,6 +44,7 @@ if (Input::exists()) {
         // Valid token
         // Process input
         if (isset($_POST['enable_discord'])) {
+            // TODO: Check that url works before enabling
             // Either enable or disable Minecraft integration
             $enable_discord_id = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
             $enable_discord_id = $enable_discord_id[0]->id;
@@ -65,6 +66,11 @@ if (Input::exists()) {
                     'required' => true,
                     'min' => 10,
                     'max' => 2048
+                ),
+                'bot_url_backup' => array(
+                    'required' => false,
+                    'min' => 10,
+                    'max' => 2048
                 )
             ));
 
@@ -78,6 +84,11 @@ if (Input::exists()) {
                 $bot_url = $bot_url[0]->id;
                 $queries->update('settings', $bot_url, array(
                     'value' => Output::getClean(Input::get('bot_url'))
+                ));
+                $bot_url_backup = $queries->getWhere('settings', array('name', '=', 'discord_bot_url_backup'));
+                $bot_url_backup = $bot_url_backup[0]->id;
+                $queries->update('settings', $bot_url_backup, array(
+                    'value' => Output::getClean(Input::get('bot_url_backup'))
                 ));
                 $success = $language->get('admin', 'discord_settings_updated');
             } else {
@@ -105,7 +116,7 @@ if (Input::exists()) {
     if (isset($_GET['action'])) {
         switch ($_GET['action']) {
             case 'test': 
-                $result = Util::curlGetContents(BOT_URL);
+                $result = Util::discordBotRequest('/');
                 if ($result == 'success') {
                     $success = $language->get('admin', 'discord_bot_url_valid');
                 } else {
@@ -157,7 +168,10 @@ if ($discord_enabled == 1) {
         'GUILD_ID_VALUE' => $guild_id[0]->value,
         'BOT_URL' => $language->get('admin', 'discord_bot_url'),
         'BOT_URL_VALUE' => BOT_URL,
-        'BOT_URL_INFO' => $language->get('admin', 'discord_bot_url_info')
+        'BOT_URL_INFO' => $language->get('admin', 'discord_bot_url_info'),
+        'BOT_URL_BACKUP' => $language->get('admin', 'discord_bot_url_backup'),
+        'BOT_URL_BACKUP_INFO' => $language->get('admin', 'discord_bot_url_backup_info'),
+        'BOT_URL_BACKUP_VALUE' => BOT_URL_BACKUP
     ));
 }
 

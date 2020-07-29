@@ -906,6 +906,11 @@
 			));
 
 			$queries->create('settings', array(
+				'name' => 'discord_bot_url_backup',
+				'value' => 'http://bot-2.namelessmc.com'
+			));
+
+			$queries->create('settings', array(
 				'name' => 'discord_integration',
 				'value' => 0
 			));
@@ -2521,6 +2526,11 @@
 						$queries->create('settings', array(
 							'name' => 'discord_bot_url',
 							'value' => 'http://bot.tadhgboyle.dev:8001'
+						));
+
+						$queries->create('settings', array(
+							'name' => 'discord_bot_url_backup',
+							'value' => 'http://bot-2.namelessmc.com'
 						));
 
 						// Templates
