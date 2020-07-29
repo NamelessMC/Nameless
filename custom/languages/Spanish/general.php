@@ -13,7 +13,7 @@ $language = array(
 	/*
 	 *  General terms
 	 */
-	'help' => 'Help',
+	'help' => 'Ayuda',
 	'submit' => 'Enviar',
 	'register' => 'Registro',
 	'already_registered' => 'Ya te encuentras registrado?',
@@ -66,7 +66,7 @@ $language = array(
 	'error' => 'Error',
 	'are_you_sure' => '¿Estás seguro?',
 	'spoiler' => 'Spoiler',
-	'invalid_timezone' => 'That timezone is invalid',
+	'invalid_timezone' => 'Esa zona horaria no es válida.',
 
 	/*
 	 *  Contact form
