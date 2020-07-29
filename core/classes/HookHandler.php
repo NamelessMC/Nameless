@@ -64,11 +64,17 @@ class HookHandler {
 		// Execute user made webhooks
 		foreach(self::$_hooks as $hook) {
 			if(in_array($event, $hook['events'])) {
-				$param['webhook'] = $hook['url'];
-				call_user_func($hook['action'], $param);
-				
-			}
-		}
+                if ($event == 'newTopic') {
+                    if (in_array($hook['id'], $param['available_hooks'])) {
+                        $param['webhook'] = $hook['url'];
+                        call_user_func($hook['action'], $param);
+                    }
+                } else {
+                    $param['webhook'] = $hook['url'];
+                    call_user_func($hook['action'], $param);
+                }
+            }
+        }
         return true;
     }
 

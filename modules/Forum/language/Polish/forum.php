@@ -194,13 +194,14 @@ $language = array(
     // Hooks
     'new_topic_hook_info' => 'Nowy temat',
     'new_topic_text' => 'Temat został stowrzony w {x} przez {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
-    'include_in_hook' => 'Pokazywać nowe tematy na tym forum w webhooku?',
+	'include_in_hook' => 'Include new topics from this forum in webhooks?',
+	'available_hooks' => 'Available Hooks',
 
-		// Panel statistics
-		'recent_topics' => 'Ostatnie tematy',
-		'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
-		'recent_posts' => 'Ostatnie posty',
-		'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
-		'topics_title' => 'Tematy',
-		'posts_title' => 'Posty',
+	// Panel statistics
+	'recent_topics' => 'Ostatnie tematy',
+	'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
+	'recent_posts' => 'Ostatnie posty',
+	'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
+	'topics_title' => 'Tematy',
+	'posts_title' => 'Posty',
 );

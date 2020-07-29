@@ -199,7 +199,8 @@ $language = array(
     // Hooks
     'new_topic_hook_info' => 'New topic',
     'new_topic_text' => 'Topic created in {x} by {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
-    'include_in_hook' => 'Include new topics from this forum in the webhook?',
+	'include_in_hook' => 'Include new topics from this forum in webhooks?',
+	'available_hooks' => 'Available Hooks',
 
 	// Panel statistics
 	'recent_topics' => 'Recent Topics',

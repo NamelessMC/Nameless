@@ -100,3 +100,21 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
+
+
+// Multiple webhooks
+try {
+    $queries->alterTable('hooks', '`name`', "varchar(128) NULL DEFAULT NULL");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
+    $queries->delete('settings', array('name', '=', 'forum_new_topic_hooks'));
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
+    $queries->alterTable('forums', '`hooks`', "varchar(512) NULL DEFAULT NULL");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}

@@ -139,25 +139,21 @@ if(Input::exists()) {
 
 					Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
 
-					// Execute hooks if necessary
-                    $forum_events = $queries->getWhere('settings', array('name', '=', 'forum_new_topic_hooks'));
-                    if(count($forum_events)){
-                        $forum_events = $forum_events[0]->value;
-                        $forum_events = json_decode($forum_events);
-                        if(count($forum_events) && in_array($fid, $forum_events)){
-                            HookHandler::executeEvent('newTopic', array(
-                                'event' => 'newTopic',
-                                'uuid' => Output::getClean($user->data()->uuid),
-                                'username' => Output::getClean($user->data()->username),
-                                'nickname' => Output::getClean($user->data()->nickname),
-                                'content' => str_replace(array('{x}', '{y}'), array($forum_title, Output::getClean($user->data()->nickname)), $forum_language->get('forum', 'new_topic_text')),
-                                'content_full' => strip_tags(Input::get('content')),
-                                'avatar_url' => $user->getAvatar($user->data()->id, null, 128, true),
-                                'title' => Input::get('title'),
-                                'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))), '/')
-                            ));
-                        }
-                    }
+					// Execute hooks and pass $available_hooks
+					$available_hooks = $queries->getWhere('forums', array('id', '=', $fid));
+					$available_hooks = json_decode($available_hooks[0]->hooks);
+					HookHandler::executeEvent('newTopic', array(
+						'event' => 'newTopic',
+						'uuid' => Output::getClean($user->data()->uuid),
+						'username' => Output::getClean($user->data()->username),
+						'nickname' => Output::getClean($user->data()->nickname),
+						'content' => str_replace(array('{x}', '{y}'), array($forum_title, Output::getClean($user->data()->nickname)), $forum_language->get('forum', 'new_topic_text')),
+						'content_full' => strip_tags(Input::get('content')),
+						'avatar_url' => $user->getAvatar($user->data()->id, null, 128, true),
+						'title' => Input::get('title'),
+						'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))), '/'),
+						'available_hooks' => $available_hooks
+					));
 
 					Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
 
