@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="core/assets/css/custom.css">
     <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.13.0/css/pro.min.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin">
+    <script src="core/assets/js/popper.min.js"></script>
 
     <style>
         html {
@@ -333,49 +334,49 @@
             <form class="install" action="" method="post">
             	<label for="inputDBAddress"><?php echo $language['database_address']; ?></label>
                 <div class="input-group">
-                	<span class="input-group-addon"><i class="fad fa-database"></i></span>
+                	<span class="input-group-prepend"><i class="input-group-text fad fa-database"></i></span>
                     <input type="text" class="form-control" name="db_address" id="inputDBAddress" placeholder="<?php echo $language['database_address']; ?>">
                 </div>
 
                 <label for="inputDBPort"><?php echo $language['database_port']; ?></label>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fad fa-ellipsis-h"></i></span>
+                    <span class="input-group-prepend"><i class="input-group-text fad fa-ellipsis-h"></i></span>
                     <input type="text" class="form-control" name="db_port" id="inputDBPort" placeholder="<?php echo $language['database_port']; ?>" value="3306">
                 </div>
 
                 <label for="inputDBUsername"><?php echo $language['database_username']; ?></label>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fad fa-user"></i></span>
+                    <span class="input-group-prepend"><i class="input-group-text fad fa-user"></i></span>
                     <input type="text" class="form-control" name="db_username" id="inputDBUsername" placeholder="<?php echo $language['database_username']; ?>">
                 </div>
 
                 <label for="inputDBPassword"><?php echo $language['database_password']; ?></label>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fad fa-key"></i></span>
+                    <span class="input-group-prepend"><i class="input-group-text fad fa-key"></i></span>
                     <input type="password" class="form-control" name="db_password" id="inputDBPassword" placeholder="<?php echo $language['database_password']; ?>">
                 </div>
 
                 <label for="inputDBName"><?php echo $language['database_name']; ?></label>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fad fa-stream"></i></span>
+                    <span class="input-group-prepend"><i class="input-group-text fad fa-stream"></i></span>
                     <input type="text" class="form-control" name="db_name" id="inputDBName" placeholder="<?php echo $language['database_name']; ?>">
                 </div>
 
                 <label for="inputHostname"><?php echo $language['host']; ?></label> <span class="badge badge-info" data-toggle="popover" data-placement="top" data-content="<?php echo $language['host_help']; ?>"><i class="fa fa-question"></i></span>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fad fa-globe"></i></span>
+                    <span class="input-group-prepend"><i class="input-group-text fad fa-globe"></i></span>
                     <input type="text" class="form-control" name="hostname" id="inputHostname" value="<?php echo Output::getClean($_SERVER['SERVER_NAME']); ?>" placeholder="<?php echo $language['host']; ?>">
                 </div>
 
                 <label for="inputPath"><?php echo $language['nameless_path']; ?></label> <span class="badge badge-info" data-toggle="popover" data-placement="top" data-content="<?php echo $language['nameless_path_info']; ?>"><i class="fa fa-question"></i></span>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fad fa-folders"></i></span>
+                    <span class="input-group-prepend"><i class="input-group-text fad fa-folders"></i></span>
                     <input type="text" class="form-control" name="install_path" id="inputPath" value="<?php echo Output::getClean($install_path); ?>" placeholder="<?php echo $language['nameless_path']; ?>">
                 </div>
                 
                 <label for="inputFriendly"><?php echo $language['friendly_urls']; ?></label> <span class="badge badge-info" data-toggle="popover" data-placement="top" data-content="<?php echo $language['friendly_urls_info']; ?>"><i class="fa fa-question"></i></span>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fad fa-slash"></i></span>
+                    <span class="input-group-prepend"><i class="input-group-text fad fa-slash"></i></span>
 				    <select class="form-control" name="friendly" id="inputFriendly">
 					    <option value="true"><?php echo $language['enabled']; ?></option>
 					    <option value="false" selected><?php echo $language['disabled']; ?></option>
@@ -384,7 +385,7 @@
 
                 <label for="inputCharset"><?php echo $language['character_set']; ?></label>
 				<div class="input-group">
-				    <span class="input-group-addon"><i class="fad fa-text"></i></span>
+				    <span class="input-group-prepend"><i class="input-group-text fad fa-text"></i></span>
 				    <select class="form-control" name="charset" id="inputCharset">
 					    <option value="latin1">latin1</option>
 					    <option value="utf8mb4" selected>Unicode</option>
@@ -393,7 +394,7 @@
 				
 				<label for="inputEngine"><?php echo $language['database_engine']; ?></label>
 				<div class="input-group">
-				    <span class="input-group-addon"><i class="fad fa-scrubber"></i></span>
+				    <span class="input-group-prepend"><i class="input-group-text fad fa-scrubber"></i></span>
 				    <select class="form-control" name="engine" id="inputEngine">
 					    <option value="InnoDB" selected>InnoDB</option>
 						<option value="MyISAM">MyISAM</option>
@@ -617,13 +618,13 @@
                 'name' => 'Admin',
                 'group_html' => '<span class="badge badge-danger">Admin</span>',
                 'group_html_lg' => '<span class="badge badge-danger">Admin</span>',
-                'group_username_color' => '#ff0000',
-                'group_username_css' => '',
+				'group_username_color' => '#ff0000',
+				'group_username_css' => 'background-image: url("https://resources.enjin.com/201906061149/themes/core/images/tag_fx/fire_red.gif");',
                 'mod_cp' => 1,
                 'admin_cp' => 1,
                 'permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1}',
-                'order' => 1,
-                'staff' => 1
+				'order' => 1,
+				'staff' => 1
             ));
 
             $queries->create('groups', array(
@@ -2788,23 +2789,23 @@
         			<p class="footerie">Thanks to all <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC contributors</a> since 2014</p>
         		</span>
         	</div><div class="i_3">
-            	<div class="dropup">
-              		<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            	<li class="dropup">
+              		<button href="#" class="dropdown-toggle btn btn-secondary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                			<i class="fa fa-globe" aria-hidden="true"></i>
               		</button>
-              		<div class="dropdown-menu">
+              		<ul class="dropdown-menu">
                   	<?php
                   	// Display all languages
                   	$languages = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
                   	foreach($languages as $item){
                       	$folders = explode(DIRECTORY_SEPARATOR, $item);
                   	?>
-                	<a class="dropdown-item" href="#" onclick="setLanguage($(this).text())"><?php echo Output::getClean($folders[2]); ?></a>
+                		<li><a class="dropdown-item" href="#" onclick="setLanguage($(this).text())"><?php echo Output::getClean($folders[2]); ?></a></li>
                   	<?php
                   	}
                   	?>
-                  	</div>
-        		</div>
+                  	</ul>
+        		</li>
             </div>
         </div>
     </footer>
