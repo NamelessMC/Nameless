@@ -342,3 +342,6 @@ form.install > .input-group {
   padding-right: 32px;
   padding-top: 12px;
 }
+.input-group-prepend > i {
+  padding-top: 1.35vh;
+}
