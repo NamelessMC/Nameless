@@ -69,38 +69,32 @@
                                 </div>
                             {/if}
 
-                            <form id="enableDiscord" action="" method="post">
+                            <form id="settings" action="" method="post">
                                 <div class="form-group">
                                     <label for="inputEnableDiscord">{$ENABLE_DISCORD_INTEGRATION}</label>
                                     <input type="hidden" name="enable_discord" value="0">
                                     <input id="inputEnableDiscord" name="enable_discord" type="checkbox" class="js-switch js-check-change-enable" {if $DISCORD_ENABLED eq 1} checked{/if} value="1"/>
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                 </div>
+                            <hr>
+                                <div class="form-group">
+                                    <label for="inputGuildId">{$GUILD_ID} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
+                                    <input type="number" name="guild_id" class="form-control" id="inputGuildId" value="{$GUILD_ID_VALUE}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputBotUrl">{$BOT_URL} <span class="badge badge-warning" data-toggle="popover" data-title="{$INFO}" data-content="{$BOT_URL_INFO|escape}"><i class="fa fa-exclamation-triangle"></i></label>
+                                    <input type="text" name="bot_url" class="form-control" id="inputBotUrl" value="{$BOT_URL_VALUE}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputBotUrlBackup">{$BOT_URL_BACKUP} <span class="badge badge-warning" data-toggle="popover" data-title="{$INFO}" data-content="{$BOT_URL_BACKUP_INFO|escape}"><i class="fa fa-exclamation-triangle"></i></label>
+                                    <input type="text" name="bot_url_backup" class="form-control" id="inputBotUrlBackup" value="{$BOT_URL_BACKUP_VALUE}">
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="token" value="{$TOKEN}">
+                                    <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
+                                </div>
                             </form>
-
-                            {if $DISCORD_ENABLED eq 1}
-                                <hr>
-                                <form id="settings" action="" method="post">
-                                    <div class="form-group">
-                                        <label for="inputGuildId">{$GUILD_ID} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
-                                        <input type="number" name="guild_id" class="form-control" id="inputGuildId" value="{$GUILD_ID_VALUE}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputBotUrl">{$BOT_URL} <span class="badge badge-warning" data-toggle="popover" data-title="{$INFO}" data-content="{$BOT_URL_INFO|escape}"><i class="fa fa-exclamation-triangle"></i></label>
-                                        <input type="text" name="bot_url" class="form-control" id="inputBotUrl" value="{$BOT_URL_VALUE}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputBotUrlBackup">{$BOT_URL_BACKUP} <span class="badge badge-warning" data-toggle="popover" data-title="{$INFO}" data-content="{$BOT_URL_BACKUP_INFO|escape}"><i class="fa fa-exclamation-triangle"></i></label>
-                                        <input type="text" name="bot_url_backup" class="form-control" id="inputBotUrlBackup" value="{$BOT_URL_BACKUP_VALUE}">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="hidden" name="token" value="{$TOKEN}">
-                                        <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
-                                    </div>
-                                </form>
-                                <a class="btn btn-info" style="color: white;" href="{$TEST_URL}">{$TEST}</a>
-                            {/if}
-
+                            <a class="btn btn-info" style="color: white;" href="{$TEST_URL}">{$TEST}</a>
                         </div>
                     </div>
 

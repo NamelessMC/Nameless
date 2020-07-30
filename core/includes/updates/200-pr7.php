@@ -51,7 +51,7 @@ try {
 try {
     $queries->create('settings', array(
         'name' => 'discord_bot_url',
-        'value' => 'http://bot.tadhgboyle.dev:8001'
+        'value' => 'https://bot.tadhgboyle.dev'
     ));
     $queries->create('settings', array(
         'name' => 'discord_bot_url_backup',

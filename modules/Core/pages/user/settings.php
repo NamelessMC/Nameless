@@ -762,7 +762,9 @@ if(isset($_GET['do'])){
 	}
 	
 	$discord_linked = $user->data()->discord_id == null || $user->data()->discord_id == 010 ? 0 : 1;
-
+	$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
+	$discord_integration = $discord_integration[0]->value;
+	
 	// Language values
 	$smarty->assign(array(
 		'SETTINGS' => $language->get('user', 'profile_settings'),
@@ -779,6 +781,7 @@ if(isset($_GET['do'])){
 		'CURRENT_PASSWORD' => $language->get('user', 'current_password'),
 		'NEW_PASSWORD' => $language->get('user', 'new_password'),
 		'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
+		'DISCORD_INTEGRATION' => $discord_integration,
 		'DISCORD_LINK' => $language->get('user', 'discord_link'),
 		'DISCORD_LINKED' => $discord_linked,
 		'DISCORD_ID' => $language->get('user', 'discord_id'),

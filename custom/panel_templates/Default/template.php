@@ -536,21 +536,6 @@ if(!class_exists('Default_Panel_Template')){
 							elems.forEach(function(html) {
 							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 							});
-							
-							if($(\'.js-check-change-enable\').length) {
-						        var changeCheckbox = document.querySelector(\'.js-check-change-enable\');
-						
-						        changeCheckbox.onchange = function () {
-									$(\'#enableDiscord\').submit();
-						        };
-							}
-							if($(\'.js-check-change-force\').length) {
-						        var changeCheckbox = document.querySelector(\'.js-check-change-force\');
-						
-						        changeCheckbox.onchange = function () {
-									$(\'#forceDiscord\').submit();
-						        };
-						    }
 							');
 						break;
 					case 'security':
