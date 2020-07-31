@@ -674,5 +674,5 @@ $language = array(
 	'test_bot_url' => 'Probar URL del bot',
 	'discord_bot_url_valid' => 'Tu URL de bot es válida.',
 	'discord_bot_url_backup' => 'Discord Bot URL (Backup)',
-	'discord_bot_url_backup_info' => 'A URL which points to a backup/second instance of the NamelessMC bot incase the first option fails. Only change this value if you know what you are doing!',
+	'discord_bot_url_backup_info' => 'Una URL que apunta a una copia de seguridad / segunda instancia del bot NamelessMC en caso de que falle la primera opción. ¡Solo cambie este valor si sabe lo que está haciendo!',
 );
