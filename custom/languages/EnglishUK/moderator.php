@@ -24,9 +24,9 @@ $language = array(
 	// IP Lookup
 	'ip_lookup' => 'IP Lookup',
 	'search_for_ip' => 'Search for a username or IP address',
-	'no_ips_with_username' => 'No IP addresses for that user found.',
-	'no_accounts_with_that_ip' => 'No accounts for that IP address found.',
-	'1_account_with_ip' => 'Found 1 account with the IP {y}', // Don't replace "{y}"
+	'no_ips_with_username' => 'The IP address of this user cannot be found!',
+	'no_accounts_with_that_ip' => 'No accounts found on the specified IP address.',
+	'1_account_with_ip' => 'Found 1 account on the IP {y}', // Don't replace "{y}"
 	'count_accounts_with_ip' => 'Found {x} accounts with the IP {y}', // Don't replace "{x}" or "{y}"
 	'1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
 	'count_ips_with_name' => 'Found {x} IP addresses for user {y}', // Don't replace "{x}" or "{y}"
@@ -34,7 +34,7 @@ $language = array(
 	
 	// Reports
 	'reports' => 'Reports',
-	'report_alert' => 'New report submitted',
+	'report_alert' => 'A new report has been submitted!',
 	'user_reported' => 'User Reported',
 	'comments' => 'Comments',
 	'updated_by' => 'Updated By',
@@ -56,11 +56,11 @@ $language = array(
 	'reported_by' => 'Reported by:',
 	'website' => 'Website',
 	'ingame' => 'Ingame',
-	'x_closed_report' => '{x} closed this report.', // Don't replace {x} (username)
-	'x_reopened_report' => '{x} reopened this report.', // Don't replace {x} (username)
-	'report_reopened' => 'Report reopened successfully.',
-	'report_closed' => 'Report closed successfully.',
-	'comment_created' => 'Comment created successfully.',
+	'x_closed_report' => 'This report has been closed by <strong>{x}</strong>.', // Don't replace {x} (username)
+	'x_reopened_report' => 'This report has been reopened by <strong>{x}</strong>.', // Don't replace {x} (username)
+	'report_reopened' => 'Report has been successfully reopened.',
+	'report_closed' => 'Report has been successfully closed.',
+	'comment_created' => 'Your comment has been created and posted successfully.',
 	
 	// Punishments
 	'punishments' => 'Punishments',
