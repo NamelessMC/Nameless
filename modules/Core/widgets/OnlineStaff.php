@@ -35,7 +35,7 @@ class OnlineStaffWidget extends WidgetBase {
 	    if($this->_cache->isCached('staff'))
 		    $online = $this->_cache->retrieve('staff');
 	    else {
-		    $online = DB::getInstance()->query('SELECT nl2_users.id, nl2_users.username, nl2_users.nickname, nl2_users.user_title, nl2_users.group_id, g.order, g.group_username_css, g.group_html FROM nl2_users RIGHT JOIN (SELECT nl2_groups.id, nl2_groups.order, nl2_groups.group_username_css, nl2_groups.group_html FROM nl2_groups WHERE staff = 1) g ON nl2_users.group_id = g.id WHERE nl2_users.last_online > ' . strtotime('-5 minutes') . ' AND nl2_users.id IS NOT NULL ORDER BY g.order', array())->results();
+		    $online = DB::getInstance()->query('SELECT nl2_users.id, nl2_users.username, nl2_users.nickname, nl2_users.user_title, nl2_users.group_id, g.order, g.group_html FROM nl2_users RIGHT JOIN (SELECT nl2_groups.id, nl2_groups.order, nl2_groups.group_html FROM nl2_groups WHERE staff = 1) g ON nl2_users.group_id = g.id WHERE nl2_users.last_online > ' . strtotime('-5 minutes') . ' AND nl2_users.id IS NOT NULL ORDER BY g.order', array())->results();
 		    $this->_cache->store('staff', $online, 120);
 	    }
 
