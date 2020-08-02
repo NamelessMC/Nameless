@@ -177,50 +177,48 @@ if(isset($errors) && count($errors))
 $registration_enabled = $queries->getWhere('settings', array('name', '=', 'registration_enabled'));
 $registration_enabled = $registration_enabled[0]->value;
 
-if($registration_enabled == 1){
-	// Is email verification enabled
-	$emails = $queries->getWhere('settings', array('name', '=', 'email_verification'));
-	$emails = $emails[0]->value;
+// Is email verification enabled
+$emails = $queries->getWhere('settings', array('name', '=', 'email_verification'));
+$emails = $emails[0]->value;
 
-	// Recaptcha
-	$recaptcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha'));
-	$recaptcha_login = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
-	$recaptcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
-	$recaptcha_key = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
-	$recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
-	$registration_disabled_message = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
+// Recaptcha
+$recaptcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha'));
+$recaptcha_login = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
+$recaptcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
+$recaptcha_key = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
+$recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
+$registration_disabled_message = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
 
-	// Validation group
-	$validation_group = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
-	$validation_group = $validation_group[0]->value;
-	$validation_group = json_decode($validation_group, true);
-	if(isset($validation_group['group']))
-		$validation_group = $validation_group['group'];
-	else
-		$validation_group = 1;
+// Validation group
+$validation_group = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
+$validation_group = $validation_group[0]->value;
+$validation_group = json_decode($validation_group, true);
+if(isset($validation_group['group']))
+	$validation_group = $validation_group['group'];
+else
+	$validation_group = 1;
 
-	$smarty->assign(array(
-		'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
-		'EMAIL_VERIFICATION_VALUE' => $emails,
-		'GOOGLE_RECAPTCHA' => $language->get('admin', 'google_recaptcha'),
-		'GOOGLE_RECAPTCHA_VALUE' => $recaptcha_id[0]->value,
-		'GOOGLE_RECAPTCHA_LOGIN' => $language->get('admin', 'google_recaptcha_login'),
-		'GOOGLE_RECAPTCHA_LOGIN_VALUE' => $recaptcha_login[0]->value,
-		'CAPTCHA_TYPE' => $language->get('admin', 'captcha_type'),
-		'CAPTCHA_TYPE_VALUE' => $recaptcha_type[0]->value,
-		'RECAPTCHA_SITE_KEY' => $language->get('admin', 'recaptcha_site_key'),
-		'RECAPTCHA_SITE_KEY_VALUE' => Output::getClean($recaptcha_key[0]->value),
-		'RECAPTCHA_SECRET_KEY' => $language->get('admin', 'recaptcha_secret_key'),
-		'RECAPTCHA_SECRET_KEY_VALUE' => Output::getClean($recaptcha_secret[0]->value),
-		'REGISTRATION_DISABLED_MESSAGE' => $language->get('admin', 'registration_disabled_message'),
-		'REGISTRATION_DISABLED_MESSAGE_VALUE' => Output::getPurified(Output::getDecoded($registration_disabled_message[0]->value)),
-		'VALIDATE_PROMOTE_GROUP' => $language->get('admin', 'validation_promote_group'),
-		'VALIDATE_PROMOTE_GROUP_INFO' => $language->get('admin', 'validation_promote_group_info'),
-		'INFO' => $language->get('general', 'info'),
-		'GROUPS' => $queries->getWhere('groups', array('staff', '=', 0)),
-		'VALIDATION_GROUP' => $validation_group
-	));
-}
+$smarty->assign(array(
+	'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
+	'EMAIL_VERIFICATION_VALUE' => $emails,
+	'GOOGLE_RECAPTCHA' => $language->get('admin', 'google_recaptcha'),
+	'GOOGLE_RECAPTCHA_VALUE' => $recaptcha_id[0]->value,
+	'GOOGLE_RECAPTCHA_LOGIN' => $language->get('admin', 'google_recaptcha_login'),
+	'GOOGLE_RECAPTCHA_LOGIN_VALUE' => $recaptcha_login[0]->value,
+	'CAPTCHA_TYPE' => $language->get('admin', 'captcha_type'),
+	'CAPTCHA_TYPE_VALUE' => $recaptcha_type[0]->value,
+	'RECAPTCHA_SITE_KEY' => $language->get('admin', 'recaptcha_site_key'),
+	'RECAPTCHA_SITE_KEY_VALUE' => Output::getClean($recaptcha_key[0]->value),
+	'RECAPTCHA_SECRET_KEY' => $language->get('admin', 'recaptcha_secret_key'),
+	'RECAPTCHA_SECRET_KEY_VALUE' => Output::getClean($recaptcha_secret[0]->value),
+	'REGISTRATION_DISABLED_MESSAGE' => $language->get('admin', 'registration_disabled_message'),
+	'REGISTRATION_DISABLED_MESSAGE_VALUE' => Output::getPurified(Output::getDecoded($registration_disabled_message[0]->value)),
+	'VALIDATE_PROMOTE_GROUP' => $language->get('admin', 'validation_promote_group'),
+	'VALIDATE_PROMOTE_GROUP_INFO' => $language->get('admin', 'validation_promote_group_info'),
+	'INFO' => $language->get('general', 'info'),
+	'GROUPS' => $queries->getWhere('groups', array('staff', '=', 0)),
+	'VALIDATION_GROUP' => $validation_group
+));
 
 $smarty->assign(array(
 	'PARENT_PAGE' => PARENT_PAGE,
