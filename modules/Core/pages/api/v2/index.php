@@ -676,7 +676,7 @@ class Nameless2API
             } catch (Exception $e) {
                 $this->throwError(18, $this->_language->get('api', 'unable_to_update_group'));
             }
-            Log::getInstance()->log(Log::action('discord/role_add'), 'Role changed to: ' . $group->name, $user->id);
+            Log::getInstance()->log(Log::Action('discord/role_add'), 'Role changed to: ' . $group->name, $user->id);
             // Success
             $this->returnArray(array('message' => $this->_language->get('api', 'group_updated')));
         } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
@@ -713,7 +713,7 @@ class Nameless2API
             } catch (Exception $e) {
                 $this->throwError(18, $this->_language->get('api', 'unable_to_update_group'));
             }
-            Log::getInstance()->log(Log::action('discord/role_remove'), 'Role removed: ' . $group->first()->name, $user);
+            Log::getInstance()->log(Log::Action('discord/role_remove'), 'Role removed: ' . $group->first()->name, $user);
             // Success
             $this->returnArray(array('message' => $this->_language->get('api', 'group_updated')));
         } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
