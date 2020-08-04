@@ -40,13 +40,11 @@ class ProfilePostsWidget extends WidgetBase {
         }
 
         if ($user_group) {
-            $cache_name = 'profile_posts_' . $user_group;
             $user_id = $this->_user->data()->id;
         } else {
-            $cache_name = 'profile_posts_guest';
             $user_id = 0;
         }
-        $this->_cache->setCache($cache_name);
+        $this->_cache->setCache('profile_posts_widget');
 
         $posts_array = array();
 
@@ -66,7 +64,7 @@ class ProfilePostsWidget extends WidgetBase {
                     'username' => $this->_user->idToNickname($post->author_id),
                     'username_style' => $this->_user->getGroupClass($post->author_id),
                     'content' => Util::truncate($post->content, 20),
-                    'link' => URL::build('/profile/' . $this->_user->idToName($post->author_id) . '/#post-' . $post->id),
+                    'link' => URL::build('/profile/' . $this->_user->idToName($post->user_id) . '/#post-' . $post->id),
                     'date_ago' => date('d M Y, H:i', $post->time),
                     'user_id' => $post->author_id,
                     'user_profile_link' => URL::build('/profile/' . $this->_user->idToName($post->author_id)),

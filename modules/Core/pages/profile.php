@@ -123,6 +123,9 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 									Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username)));
 								}
 
+								$cache->setCache('profile_posts_widget');
+								$cache->eraseAll();
+
 								// Redirect to clear input
 								Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
 								die();
