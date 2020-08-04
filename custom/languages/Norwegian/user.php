@@ -217,7 +217,9 @@ $language = array(
 	'confirm_leave' => 'Er du sikker på at du vil forlate denne samtalen?',
 	'one_or_more_users_blocked' => 'Du kan ikke sende private meldinger til minst en person i samtalen.',
 	'messages' => 'Meldinger',
-
+	'latest_profile_posts' => 'Latest Profile Posts',
+	'no_profile_posts' => 'No profile posts.',
+	
 	/*
 	 *  Infractions area
 	 */

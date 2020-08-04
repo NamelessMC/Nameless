@@ -217,7 +217,9 @@ $language = array(
 	'confirm_leave' => 'Bu görüşmeden ayrılmak istediğinizden emin misiniz?',
 	'one_or_more_users_blocked' => 'İleti dizisinin en az bir üyesine özel ileti gönderemezsiniz.',
 	'messages' => 'Özel Mesajlar',
-	
+	'latest_profile_posts' => 'Latest Profile Posts',
+	'no_profile_posts' => 'No profile posts.',
+
 	/*
 	 *  Infractions area
 	 */
@@ -228,7 +230,7 @@ $language = array(
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} katıldı '. SITE_NAME . '!',
+    'user_x_has_registered' => '{x} katıldı ' . SITE_NAME . '!',
 
 	// Discord
 	'discord_link' => 'Discord Link',

@@ -218,7 +218,9 @@ $language = array(
 	'confirm_leave' => 'Sei sicuro di voler abbandonare questa conversazione?',
 	'one_or_more_users_blocked' => 'Non è possibile inviare messaggi privati ​​ad almeno un membro della conversazione.',
 	'messages' => 'Messaggi',
-
+	'latest_profile_posts' => 'Latest Profile Posts',
+	'no_profile_posts' => 'No profile posts.',
+	
 	/*
 	 *  Infractions area
 	 */

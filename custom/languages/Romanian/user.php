@@ -219,7 +219,9 @@ $language = array(
     'leave_conversation' => 'Părăsește conversația',
     'confirm_leave' => 'Sunteți sigur că doriți să părăsiți această conversație?',
     'one_or_more_users_blocked' => 'Nu puteți trimite mesajul privat deoarece unul sau mai mulți destinatari sunt blocați.',
-	'messages' => 'Mesaje',
+    'messages' => 'Mesaje',
+    'latest_profile_posts' => 'Latest Profile Posts',
+    'no_profile_posts' => 'No profile posts.',
 
     /*
      *  Infractions area

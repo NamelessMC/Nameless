@@ -220,7 +220,9 @@ $language = array(
 	'confirm_leave' => '您确定要退出此对话吗?',
 	'one_or_more_users_blocked' => '您不能将私人讯息发送给对话中的任何一位成员。',
 	'messages' => '讯息',
-
+	'latest_profile_posts' => 'Latest Profile Posts',
+	'no_profile_posts' => 'No profile posts.',
+	
 	/*
 	 *  Infractions area
 	 */

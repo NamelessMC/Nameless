@@ -184,7 +184,7 @@ $language = array(
 	'new_wall_post_reply' => '{x} odpowiedział na twój post na profilu użytkownika {y}.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} odpowiedział na twój post na twoim profilu.', // Don't replace {x}
 	'no_about_fields' => 'Ten użytkownik nie dodał jeszcze żadnych informacji o sobie.',
-		'reply' => 'Odpowiedz',
+	'reply' => 'Odpowiedz',
 
 	// Reports
 	'invalid_report_content' => 'Nie można wysłać zgłoszenia. Upewnij się że treść zgłoszenia ma od 2 do 1024 znaków.',
@@ -217,8 +217,10 @@ $language = array(
 	'leave_conversation' => 'Opuść konwersację',
 	'confirm_leave' => 'Jesteś pewny że chcesz opuścić tą konwersację?',
 	'one_or_more_users_blocked' => 'Nie możesz wysyłać prywatnych wiadomości do co najmniej jednego członka rozmowy. (Jest on zablokowany)',
-		'messages' => 'Wiadomości',
-
+	'messages' => 'Wiadomości',
+	'latest_profile_posts' => 'Latest Profile Posts',
+	'no_profile_posts' => 'No profile posts.',
+	
 	/*
 	 *  Infractions area
 	 */

@@ -219,6 +219,8 @@ $language = array(
 	'confirm_leave' => 'Är du säker på att du vill lämna den här konversationen?',
 	'one_or_more_users_blocked' => 'Du kan inte skicka privata meddelanden till minst en medlem i samtalet.',
 	'messages' => 'Messages',
+	'latest_profile_posts' => 'Latest Profile Posts',
+	'no_profile_posts' => 'No profile posts.',
 
 	/*
 	 *  Infractions area

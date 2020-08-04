@@ -215,7 +215,9 @@ $language = array(
 	'confirm_leave' => 'Ar tikrai norite palikti šį pokalbį?',
 	'one_or_more_users_blocked' => 'Jūs negalite siųsti žinučių bent vienam pokalbio nariui.',
 	'messages' => 'Žinutės',
-
+	'latest_profile_posts' => 'Latest Profile Posts',
+	'no_profile_posts' => 'No profile posts.',
+	
 	// Infractions area
 	'you_have_been_banned' => 'Jūs buvot užblokuotas!',
 	'you_have_received_a_warning' => 'Jūs gavote įspėjimą!',

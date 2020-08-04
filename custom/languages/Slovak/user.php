@@ -218,6 +218,8 @@ $language = array(
 	'confirm_leave' => 'Are you sure you want to leave this conversation?',
 	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
 	'messages' => 'Messages',
+	'latest_profile_posts' => 'Latest Profile Posts',
+	'no_profile_posts' => 'No profile posts.',
 	
 	/*
 	 *  Infractions area

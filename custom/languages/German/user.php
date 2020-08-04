@@ -226,7 +226,9 @@ $language = array(
 	'confirm_leave' => 'Möchtest du die Konversation wirklich verlassen?',
 	'one_or_more_users_blocked' => 'Du kannst keine privaten Nachrichten an mindestens ein Mitglied der Konversation senden.',
 	'messages' => 'Nachrichten',
-
+	'latest_profile_posts' => 'Latest Profile Posts',
+	'no_profile_posts' => 'No profile posts.',
+	
 	/*
 	 *  Infractions area
 	 */

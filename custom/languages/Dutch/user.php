@@ -220,6 +220,8 @@ $language = array(
 	'confirm_leave' => 'Weet je zeker dat je dit gesprek wilt verlaten?',
 	'one_or_more_users_blocked' => 'Je kan geen privé bericht sturen naar een of meerdere leden van het gesprek.',
 	'messages' => 'Messages',
+	'latest_profile_posts' => 'Latest Profile Posts',
+	'no_profile_posts' => 'No profile posts.',
 	
 	/*
 	 *  Overtredingen gebied

@@ -223,6 +223,8 @@ $language = array(
 	'confirm_leave' => '你要離開對話嗎?',
 	'one_or_more_users_blocked' => '你無法傳送私人對話，因為有使用者封鎖你.',
 	'messages' => 'Messages',
+	'latest_profile_posts' => 'Latest Profile Posts',
+	'no_profile_posts' => 'No profile posts.',
 	
 	/*
 	 *  Infractions area

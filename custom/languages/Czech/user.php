@@ -219,6 +219,8 @@ $language = array(
 	'confirm_leave' => 'Opravdu chcete opustit konverzaci?',
 	'one_or_more_users_blocked' => 'Alespoň jednomu členovi konverzace nemůžete odeslat soukromé zprávy.',
 	'messages' => 'Zprávy',
+	'latest_profile_posts' => 'Latest Profile Posts',
+	'no_profile_posts' => 'No profile posts.',
 	
 	/*
 	 *  Infractions area
