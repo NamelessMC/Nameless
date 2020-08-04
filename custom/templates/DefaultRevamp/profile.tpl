@@ -232,9 +232,7 @@
   {foreach from=$WALL_POSTS item=post}
     {if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
       <div class="ui small modal" id="modal-edit-{$post.id}">
-        <div class="header">
-           Edit Post
-        </div>
+        <div class="header">{$EDIT_POST}</div>
         <div class="content">
           <form class="ui form" action="" method="post" id="form-edit-{$post.id}">
             <div class="field">

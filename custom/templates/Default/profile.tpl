@@ -100,7 +100,7 @@
 			  </div>
 
 			  <div class="card-body">
-				<div class="forum_post">
+				<div class="forum_post" id="post-{$post.id}/">
 				  {$post.content}
 				</div>
 			  </div>
@@ -126,6 +126,7 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
+								<h5>{$EDIT_POST}</h5>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
