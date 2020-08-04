@@ -387,6 +387,11 @@ class Core_Module extends Module {
 		$module_pages = $widgets->getPages('Discord');
 		$widgets->add(new DiscordWidget($module_pages, $language, $cache, $discord));
 
+		// Profile Posts
+		require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
+		$module_pages = $widgets->getPages('Latest Profile Posts');
+		$widgets->add(new ProfilePostsWidget($module_pages, $smarty, $language, $cache, $user, new Timeago(TIMEZONE)));
+
 		// Online staff
 		require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php');
 		$module_pages = $widgets->getPages('Online Staff');

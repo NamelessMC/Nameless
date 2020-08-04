@@ -87,7 +87,7 @@
                     <div class="metadata">
                       <span class="date" data-toggle="tooltip" data-content="{$post.date}">{$post.date_rough}</span>
                     </div>
-                    <div class="text forum_post">
+                    <div class="text forum_post" id="post-{$post.id}/" name="post-{$post.id}/">
                       {$post.content}
                     </div>
                     <div class="actions">

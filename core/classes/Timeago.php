@@ -23,7 +23,7 @@ THE SOFTWARE.
 */
 
 /*
- *  Modified by Samerton for NamelessMC (https://github.com/samerton/NamelessMC)
+ *  Modified by Samerton for NamelessMC (https://github.com/NamelessMC/Nameless)
  */
 
 
