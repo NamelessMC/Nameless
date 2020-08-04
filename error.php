@@ -42,6 +42,9 @@ $user = new User();
 					<div class="jumbotron">
 						<div style="text-align:center">
 							<h2><?php echo $language->get('errors', 'fatal_error_title'); ?></h2>
+							<?php
+							if($user->isLoggedIn() && $user->hasPermission('admincp.errors')){
+							?>
 							<h4><?php echo $language->get('errors', 'fatal_error_message_admin'); ?></h4>
 							<div class="card card-default">
 								<div class="card-body">
@@ -50,7 +53,11 @@ $user = new User();
               </div>
               <?php
                   echo '<div style="overflow-x: scroll;">' . str_replace('{x}', Output::getClean($errfile), $language->get('errors', 'in_file')) . '</div>' . str_replace('{x}', Output::getClean($errline), $language->get('errors', 'on_line')) . '<hr />';
-
+							} else {
+							?>
+							<h4><?php echo $language->get('errors', 'fatal_error_message_user'); ?></h4>
+							<?php
+							}
 							?>
 							<div class="btn-group" role="group" aria-label="...">
 								<button href="#" class="btn btn-primary btn-lg" onclick="javascript:history.go(-1)"><?php echo $language->get('general', 'back'); ?></button>
