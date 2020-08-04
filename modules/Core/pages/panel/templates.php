@@ -49,7 +49,15 @@ if(!isset($_GET['action'])){
 
 	$templates_template = array();
 
+	$loaded_templates = array();
+
 	foreach($templates as $item){
+		// Prevent the white screen error and delete template with duplicate name
+		if (in_array($item->name, $loaded_templates)) {
+			$queries->delete('templates', array('id', '=', $item->id));
+			continue;
+		} else $loaded_templates[] = $item->name;
+
 		$template_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($item->name), 'template.php'));
 
 		if(file_exists($template_path))
