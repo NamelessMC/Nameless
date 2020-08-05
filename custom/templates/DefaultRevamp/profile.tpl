@@ -78,7 +78,7 @@
           {if count($WALL_POSTS)}
             <div class="ui threaded comments" id="profile-posts">
               {foreach from=$WALL_POSTS item=post}
-                <div class="comment" id="post-{$post.id}" id="post-{$post.id}">
+                <div class="comment" id="post-{$post.id}">
                   <a class="ui circular image avatar">
                     <img src="{$post.avatar}" alt="{$post.nickname}">
                   </a>
