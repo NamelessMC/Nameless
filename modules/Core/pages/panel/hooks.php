@@ -46,6 +46,7 @@ if(!isset($_GET['action'])){
 	if(count($hooks_query)){
 		foreach($hooks_query as $hook){
 			$hooks_array[] = array(
+				'name' => Output::getClean($hook->name),
 				'url' => Output::getClean($hook->url),
 				'edit_link' => URL::build('/panel/core/hooks/', 'action=edit&id=' . Output::getClean($hook->id)),
 				'delete_link' => URL::build('/panel/core/hooks/', 'action=delete&id=' . Output::getClean($hook->id))
@@ -75,6 +76,11 @@ if(!isset($_GET['action'])){
 					// Validate input
 					$validate = new Validate();
 					$validation = $validate->check($_POST, array(
+						'hook_name' => array(
+							'required' => true,
+							'min' => 3,
+							'max' => 128
+						),
 						'hook_url' => array(
 							'required' => true,
 							'min' => 10,
@@ -91,6 +97,7 @@ if(!isset($_GET['action'])){
 							
 							// Save to database
 							$queries->create('hooks', array(
+								'name' => Output::getClean($_POST['hook_name']),
 								'action' => Output::getClean($_POST['hook_type']),
 								'url' => Output::getClean($_POST['hook_url']),
 								'events' => json_encode($events)
@@ -100,14 +107,21 @@ if(!isset($_GET['action'])){
 							if($cache->isCached('hooks')){
 								$cache->erase('hooks');
 							}
-							
+
+							Session::flash('admin_hooks', $language->get('admin', 'hook_created'));
 							Redirect::to(URL::build('/panel/core/hooks'));
 							die();
 						} else {
 							$errors[] = $language->get('admin', 'invalid_hook_events');
 						}
 					} else {
-						$errors[] = $language->get('admin', 'invalid_hook_url');
+						foreach ($validation->errors() as $error) {
+							if (strpos($error, 'url') !== false) {
+								$errors[] = $language->get('admin', 'invalid_hook_url');
+							} else if (strpos($error, 'name') !== false) {
+								$errors[] = $language->get('admin', 'invalid_hook_name');
+							}
+						}
 					}
 				} else {
 					// Invalid token
@@ -117,6 +131,7 @@ if(!isset($_GET['action'])){
 			
 			$smarty->assign(array(
 				'CREATING_NEW_HOOK' => $language->get('admin', 'creating_new_hook'),
+				'HOOK_NAME' => $language->get('admin', 'hook_name'),
 				'HOOK_URL' => $language->get('admin', 'hook_url'),
 				'HOOK_TYPE' => $language->get('admin', 'hook_type'),
 				'HOOK_EVENTS' => $language->get('admin', 'hook_events'),
@@ -150,6 +165,11 @@ if(!isset($_GET['action'])){
 					// Validate input
 					$validate = new Validate();
 					$validation = $validate->check($_POST, array(
+						'hook_name' => array(
+							'required' => true,
+							'min' => 3,
+							'max' => 128,
+						),
 						'hook_url' => array(
 							'required' => true,
 							'min' => 10,
@@ -166,6 +186,7 @@ if(!isset($_GET['action'])){
 							
 							// Save to database
 							$queries->update('hooks', $hook->id, array(
+								'name' => Output::getClean($_POST['hook_name']),
 								'action' => Output::getClean($_POST['hook_type']),
 								'url' => Output::getClean($_POST['hook_url']),
 								'events' => json_encode($events)
@@ -175,13 +196,20 @@ if(!isset($_GET['action'])){
 							if($cache->isCached('hooks')){
 								$cache->erase('hooks');
 							}
+							Session::flash('admin_hooks', $language->get('admin', 'hook_edited'));
 							Redirect::to(URL::build('/panel/core/hooks'));
 							die();
 						} else {
 							$errors[] = $language->get('admin', 'invalid_hook_events');
 						}
 					} else {
-						$errors[] = $language->get('admin', 'invalid_hook_url');
+						foreach ($validation->errors() as $error) {
+							if (strpos($error, 'url') !== false) {
+								$errors[] = $language->get('admin', 'invalid_hook_url');
+							} else if (strpos($error, 'name') !== false) {
+								$errors[] = $language->get('admin', 'invalid_hook_name');
+							}
+						}
 					}
 				} else {
 					// Invalid token
@@ -191,6 +219,8 @@ if(!isset($_GET['action'])){
 			
 			$smarty->assign(array(
 				'EDITING_HOOK' => $language->get('admin', 'editing_hook'),
+				'HOOK_NAME' => $language->get('admin', 'hook_name'),
+				'HOOK_NAME_VALUE' => Output::getClean($hook->name),
 				'HOOK_URL' => $language->get('admin', 'hook_url'),
 				'HOOK_URL_VALUE' => Output::getClean($hook->url),
 				'HOOK_TYPE' => $language->get('admin', 'hook_type'),
@@ -222,7 +252,7 @@ if(!isset($_GET['action'])){
 				die($e->getMessage());
 			}
 
-			Session::flash('staff_forms', $forms_language->get('forms', 'form_deleted_successfully'));
+			Session::flash('admin_hooks', $language->get('admin', 'hook_deleted'));
 			Redirect::to(URL::build('/panel/core/hooks'));
 			die();
 		break;

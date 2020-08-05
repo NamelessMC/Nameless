@@ -76,6 +76,10 @@
                             {/if}
 
                             <form role="form" action="" method="post">
+                              <div class="form-group">
+                                <label for="InputName">{$HOOK_NAME}</label>
+                              <input type="text" name="hook_name" class="form-control" id="InputName" value="{$HOOK_NAME_VALUE}" placeholder="{$HOOK_NAME}">
+                              </div>
 							  <div class="form-group">
 								<label for="InputURL">{$HOOK_URL}</label>
 								<input type="text" name="hook_url" class="form-control" id="InputURL" placeholder="https://example.com/examplelistener">

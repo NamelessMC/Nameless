@@ -520,7 +520,8 @@ if(!class_exists('Default_Panel_Template')){
 						}
 
 						break;
-
+					
+					case 'hooks':
 					case 'discord':
 						$this->addCSSFiles(array(
 							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.css' => array()

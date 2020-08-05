@@ -262,6 +262,9 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 								$redirect_url = null;
 							}
 
+							if (isset($_POST['hooks']) && count($_POST['hooks'])) $hooks = json_encode($_POST['hooks']);
+							else $hooks = null;
+
 							if(!isset($redirect_error)) {
 								if(isset($_POST['parent']))
 									$parent = $_POST['parent'];
@@ -272,27 +275,9 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 									'parent' => $parent,
 									'news' => Input::get('news_forum'),
 									'redirect_forum' => $redirect,
-									'redirect_url' => $redirect_url
-								));
-
-								$webhook_settings = $queries->getWhere('settings', array('name', '=', 'forum_new_topic_hooks'));
-								if(!count($webhook_settings)){
-									$val = array();
-									if($_POST['webhook'] == 1)
-										$val[] = $forum->id;
-
-									$queries->create('settings', array(
-										'name' => 'forum_new_topic_hooks',
-										'value' => json_encode($val)
-									));
-								} else if(Input::get('webhook') == 1) {
-									$enabled_hooks = $webhook_settings[0]->value;
-									$enabled_hooks = json_decode($enabled_hooks);
-									$enabled_hooks[] = $forum->id;
-									$queries->update('settings', $webhook_settings[0]->id, array(
-										'value' => json_encode($enabled_hooks)
-									));
-								}
+									'redirect_url' => $redirect_url,
+									'hooks' => $hooks
+								));								
 
 								Redirect::to(URL::build('/panel/forums/', 'forum=' . $forum->id));
 								die();
@@ -320,7 +305,18 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 						);
 					}
 				}
-
+				$hooks_query = $queries->orderAll('hooks', 'id', 'ASC');
+				$hooks_array = array();
+				if (count($hooks_query)) {
+					foreach ($hooks_query as $hook) {
+						if (in_array('newTopic', json_decode($hook->events))) {
+							$hooks_array[] = array(
+								'id' => $hook->id,
+								'name' => Output::getClean($hook->name),
+							);
+						}
+					}
+				}
 				$smarty->assign(array(
 					'SELECT_PARENT_FORUM' => $forum_language->get('forum', 'select_a_parent_forum'),
 					'PARENT_FORUMS' => $template_array,
@@ -328,7 +324,10 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 					'REDIRECT_FORUM' => $forum_language->get('forum', 'redirect_forum'),
 					'REDIRECT_URL' => $forum_language->get('forum', 'redirect_url'),
 					'REDIRECT_URL_VALUE' => Output::getClean(Input::get('redirect_url')),
-					'INCLUDE_IN_HOOK' => $forum_language->get('forum', 'include_in_hook')
+					'INCLUDE_IN_HOOK' => $forum_language->get('forum', 'include_in_hook'),
+					'HOOKS_ARRAY' => $hooks_array,
+					'INFO' => $language->get('general', 'info'),
+					'HOOK_SELECT_INFO' => $language->get('admin', 'hook_select_info')
 				));
 
 				$template_file = 'forum/forums_new_step_2.tpl';
@@ -613,6 +612,9 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 						else
 							$parent = 0;
 
+						if (isset($_POST['hooks']) && count($_POST['hooks'])) $hooks = json_encode($_POST['hooks']);
+						else $hooks = null;
+						
 						// Update the forum
 						$to_update = array(
 							'forum_title' => Output::getClean(Input::get('title')),
@@ -622,42 +624,14 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 							'redirect_forum' => $redirect,
 							'icon' => Output::getClean(Input::get('icon')),
 							'forum_type' => Output::getClean(Input::get('forum_type')),
-							'topic_placeholder' => Input::get('topic_placeholder')
+							'topic_placeholder' => Input::get('topic_placeholder'),
+							'hooks' => $hooks
 						);
 
 						if(!isset($redirect_error))
 							$to_update['redirect_url'] = $redirect_url;
 
 						$queries->update('forums', $_GET['forum'], $to_update);
-
-						$webhook_settings = $queries->getWhere('settings', array('name', '=', 'forum_new_topic_hooks'));
-						if(!count($webhook_settings)){
-							$val = array();
-							if($_POST['webhook'] == 1)
-								$val[] = $_GET['forum'];
-
-							$queries->create('settings', array(
-								'name' => 'forum_new_topic_hooks',
-								'value' => json_encode($val)
-							));
-						} else {
-							$enabled_hooks = $webhook_settings[0]->value;
-							$enabled_hooks = json_decode($enabled_hooks);
-
-							$new_hooks = array();
-
-							if($_POST['webhook'] == 1)
-								$new_hooks[] = $_GET['forum'];
-
-							foreach($enabled_hooks as $hook)
-								if($hook != $_GET['forum'])
-									$new_hooks[] = $hook;
-
-							$queries->update('settings', $webhook_settings[0]->id, array(
-								'value' => json_encode($new_hooks)
-							));
-
-						}
 
 					} catch(Exception $e) {
 						$errors[] = $e->getMessage();
@@ -810,17 +784,20 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 		}
 	}
 
-	$is_webhook_enabled = $queries->getWhere('settings', array('name', '=', 'forum_new_topic_hooks'));
-	if(!count($is_webhook_enabled)){
-		$queries->create('settings', array('name' => 'forum_new_topic_hooks', 'value' => json_encode(array())));
-		$is_webhook_enabled = false;
-	} else {
-		$webhook_forums = json_decode($is_webhook_enabled[0]->value, true);
-		if(count($webhook_forums) && in_array($_GET['forum'], $webhook_forums))
-			$is_webhook_enabled = true;
-		else
-			$is_webhook_enabled = false;
+	$hooks_query = $queries->orderAll('hooks', 'id', 'ASC');
+	$hooks_array = array();
+	if (count($hooks_query)) {
+		foreach ($hooks_query as $hook) {
+			if (in_array('newTopic', json_decode($hook->events))) {
+				$hooks_array[] = array(
+					'id' => $hook->id,
+					'name' => Output::getClean($hook->name),
+				);
+			}
+		}
 	}
+
+	$forum_hooks = $forum[0]->hooks;
 
 	$template_forums_array = array();
 	if(count($available_forums)){
@@ -865,7 +842,10 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 		'REDIRECT_URL' => $forum_language->get('forum', 'redirect_url'),
 		'REDIRECT_URL_VALUE' => Output::getClean(Output::getDecoded($forum[0]->redirect_url)),
 		'INCLUDE_IN_HOOK' => $forum_language->get('forum', 'include_in_hook'),
-		'INCLUDE_IN_HOOK_VALUE' => $is_webhook_enabled,
+		'HOOKS_ARRAY' => $hooks_array,
+		'FORUM_HOOKS' => json_decode($forum_hooks),
+		'INFO' => $language->get('general', 'info'),
+		'HOOK_SELECT_INFO' => $language->get('admin', 'hook_select_info'),
 		'FORUM_PERMISSIONS' => $forum_language->get('forum', 'forum_permissions'),
 		'GUESTS' => $language->get('user', 'guests'),
 		'GUEST_PERMISSIONS' => (count($guest_query) ? $guest_query[0] : array()),

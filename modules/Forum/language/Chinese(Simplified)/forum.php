@@ -196,7 +196,8 @@ $language = array(
     // Hooks
     'new_topic_hook_info' => '新的话题',
     'new_topic_text' => '话题创建于{x} 创建者 {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
-    'include_in_hook' => '是否将新话题包含进这个论坛的webhook?',
+	'include_in_hook' => '是否将新话题包含进这个论坛的webhook?',
+	'available_hooks' => 'Available Hooks',
 
 	// Panel statistics
 	'recent_topics' => '当前话题数',

@@ -253,6 +253,7 @@ class Core_Module extends Module {
 					}
 					
 					$hook_array[] = array(
+						'id' => $hook->id,
 						'url' => Output::getClean($hook->url),
 						'action' => $action,
 						'events' => json_decode($hook->events, true)

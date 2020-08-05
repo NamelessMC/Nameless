@@ -194,7 +194,8 @@ $language = array(
     // Hooks
     'new_topic_hook_info' => 'Yeni konu aç',
     'new_topic_text' => '{x} tarafından {y} tarafından oluşturulan konu', // Don't replace {x} (forum name), optional variable {y} (topic author)
-    'include_in_hook' => 'Web forumuna bu forumdan yeni konular eklensin mi?',
+	'include_in_hook' => 'Include new topics from this forum in webhooks?',
+	'available_hooks' => 'Available Hooks',
 
 	// Panel statistics
 	'recent_topics' => 'Son Konular',

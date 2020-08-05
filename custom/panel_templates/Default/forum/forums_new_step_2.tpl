@@ -99,9 +99,12 @@
                                     <input placeholder="{$REDIRECT_URL}" name="redirect_url" id="InputForumRedirectURL" type="text" class="form-control" value="{$REDIRECT_URL_VALUE}" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="InputForumWebhook">{$INCLUDE_IN_HOOK}</label>
-                                    <input type="hidden" name="webhook" value="0">
-                                    <input name="webhook" id="InputForumWebhook" type="checkbox" class="js-switch" value="1" />
+                                    <label for="InputHooks">{$INCLUDE_IN_HOOK} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$HOOK_SELECT_INFO}"><i class="fa fa-question"></i></label>
+                                    <select name="hooks[]" id="InputHooks" class="form-control" multiple>
+                                        {foreach from=$HOOKS_ARRAY item=hook}
+                                        <option value="{$hook.id}">{$hook.name|ucfirst}</option>
+                                        {/foreach}
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">

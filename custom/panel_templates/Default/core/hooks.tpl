@@ -75,10 +75,13 @@
 
                             {foreach from=$HOOKS_LIST item=hook name=hook_list}
                                 <div class="row">
+                                    <div class="col-md-1">
+                                        <b>{$hook.name}</b>
+                                    </div>
                                     <div class="col-md-9">
                                         <a href="{$hook.edit_link}">{$hook.url}</a>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="float-md-right">
                                             <a href="{$hook.edit_link}" class="btn btn-warning btn-sm"><i class="fas fa-edit fa-fw"></i></a>
 											<button class="btn btn-danger btn-sm" type="button" onclick="showDeleteModal('{$hook.delete_link}')"><i class="fas fa-trash fa-fw"></i></button>

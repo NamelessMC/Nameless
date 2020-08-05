@@ -195,8 +195,8 @@ $language = array(
     // Hooks
     'new_topic_hook_info' => 'Nové téma',
     'new_topic_text' => 'Téma vytvořené v {x} od {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
-    'include_in_hook' => 'Zahrnout nová témata z tohoto fóra do webhooku?',
-
+	'include_in_hook' => 'Include new topics from this forum in webhooks?',
+	'available_hooks' => 'Available Hooks',
 	// Panel statistics
 	'recent_topics' => 'Poslední témata',
 	'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
