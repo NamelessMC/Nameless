@@ -75,7 +75,7 @@ class ProfilePostsWidget extends WidgetBase {
         }
         if (count($posts_array) >= 1) {
             $this->_smarty->assign(array(
-                'POSTS' => $posts_array
+                'PROFILE_POSTS_ARRAY' => $posts_array
             ));
         }
         $this->_smarty->assign(array(

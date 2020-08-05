@@ -2,8 +2,8 @@
     <div class="content">
         <h4 class="ui header">{$LATEST_PROFILE_POSTS}</h4>
         <div class="description">
-            {if isset($POSTS)}
-                {foreach from=$POSTS name=latest_posts item=post}
+            {if isset($PROFILE_POSTS_ARRAY)}
+                {foreach from=$PROFILE_POSTS_ARRAY name=profile_posts item=post}
                 <div class="ui relaxed list">
                     <div class="item">
                         <img class="ui mini circular image" src="{$post.avatar}" alt="{$post.username}">
