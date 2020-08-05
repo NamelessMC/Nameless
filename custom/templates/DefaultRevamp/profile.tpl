@@ -78,7 +78,7 @@
           {if count($WALL_POSTS)}
             <div class="ui threaded comments" id="profile-posts">
               {foreach from=$WALL_POSTS item=post}
-                <div class="comment">
+                <div class="comment" id="post-{$post.id}" id="post-{$post.id}">
                   <a class="ui circular image avatar">
                     <img src="{$post.avatar}" alt="{$post.nickname}">
                   </a>
@@ -87,7 +87,7 @@
                     <div class="metadata">
                       <span class="date" data-toggle="tooltip" data-content="{$post.date}">{$post.date_rough}</span>
                     </div>
-                    <div class="text forum_post" id="post-{$post.id}/" name="post-{$post.id}/">
+                    <div class="text forum_post">
                       {$post.content}
                     </div>
                     <div class="actions">

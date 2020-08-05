@@ -53,6 +53,16 @@ if (page !== '') {
 				}
 			}).modal('show');
 		}
+		$(function () {
+			var postElem = window.location.hash;
+			postElem = $(postElem.slice(0, -1));
+			if (postElem) {
+				setTimeout(function () {
+					$('html, body').animate({ scrollTop: postElem.offset().top - 15 }, 800);
+				}, 100);
+				postElem.delay(600).effect('highlight', {}, 800);
+			}
+		});
 	} else if (page === 'cc_messaging') {
 		$('.ui.search').dropdown({
 			minCharacters: 3
