@@ -185,8 +185,7 @@ if(isset($_GET['do'])){
 								'required' => true,
 								'max' => (is_null($field->length) ? 1024 : $field->length)
 							);
-						}
-						else {
+						} else {
 							$to_validate[$field->id] = array(
 								'max' => (is_null($field->length) ? 1024 : $field->length)
 							);
@@ -326,21 +325,20 @@ if(isset($_GET['do'])){
 					
 				} else {
 					// Validation errors
-					$error = '';
 					foreach($validation->errors() as $item){
 					    if(strpos($item, 'signature') !== false){
-					        $error .= $language->get('user', 'signature_max_900') . '<br />';
+					        $errors[] = $language->get('user', 'signature_max_900') . '<br />';
                         } else if(strpos($item, 'nickname') !== false){
 					        if(strpos($item, 'required') !== false){
-					            $error .= $language->get('user', 'username_required') . '<br />';
+					            $errors[] = $language->get('user', 'username_required') . '<br />';
                             } else if(strpos($item, 'min')  !== false){
-                                $error .= $language->get('user', 'username_minimum_3') . '<br />';
+                                $errors[] = $language->get('user', 'username_minimum_3') . '<br />';
                             } else if(strpos($item, 'max') !== false){
-                                $error .= $language->get('user', 'username_maximum_20') . '<br />';
-							} else if (strpos($item, 'timezone') !== false) {
-								$error .= $language->get('general', 'invalid_timezone') . '<br />';
+                                $errors[] = $language->get('user', 'username_maximum_20') . '<br />';
 							}
-                        } else {
+						} else if (strpos($item, 'timezone') !== false) {
+							$errors[] = $language->get('general', 'invalid_timezone') . '<br />';
+						} else {
                             // Get field name
                             $id = explode(' ', $item);
                             $id = $id[0];
@@ -348,12 +346,10 @@ if(isset($_GET['do'])){
                             $field = $queries->getWhere('profile_fields', array('id', '=', $id));
                             if (count($field)) {
                                 $field = $field[0];
-                                $error .= str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required')) . '<br />';
+                                $errors[] = str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required')) . '<br />';
                             }
                         }
-					}
-					
-					Session::flash('settings_error', rtrim($error, '<br />'));
+					}					
 				}
 			} else if(Input::get('action') == 'password'){
 				// Change password
@@ -406,28 +402,27 @@ if(isset($_GET['do'])){
 							if(strpos($error, $language->get('user', 'password_required')) !== false){
 								// Only add error once
 							} else {
-								$error .= $language->get('user', 'password_required') . '<br />';
+								$errors[] = $language->get('user', 'password_required') . '<br />';
 							}
 						} else if(strpos($item, 'minimum') !== false){
 							// Field under 6 chars
 							if(strpos($error, $language->get('user', 'password_minimum_6')) !== false){
 								// Only add error once
 							} else {
-								$error .= $language->get('user', 'password_minimum_6') . '<br />';
+								$errors[] = $language->get('user', 'password_minimum_6') . '<br />';
 							}
 						} else if(strpos($item, 'maximum') !== false){
 							// Field under 6 chars
 							if(strpos($error, $language->get('user', 'password_maximum_30')) !== false){
 								// Only add error once
 							} else {
-								$error .= $language->get('user', 'password_maximum_30') . '<br />';
+								$errors[] = $language->get('user', 'password_maximum_30') . '<br />';
 							}
 						} else if(strpos($item, 'must match') !== false){
 							// Password must match password again
-							$error .= $language->get('user', 'passwords_dont_match') . '<br />';
+							$errors[] = $language->get('user', 'passwords_dont_match') . '<br />';
 						}
 					}
-					Session::flash('settings_error', $error = rtrim($error, '<br />'));
 				}
 			} else if(Input::get('action') == 'email'){
                 // Change password
@@ -480,24 +475,23 @@ if(isset($_GET['do'])){
                         if(strpos($item, 'is required') !== false){
                             // Empty field
                             if(strpos($item, 'password') !== false){
-                                $error .= $language->get('user', 'password_required') . '<br />';
+                                $errors[] = $language->get('user', 'password_required') . '<br />';
                             } else {
-                                $error .= $language->get('user', 'email_required') . '<br />';
+                                $errors[] = $language->get('user', 'email_required') . '<br />';
                             }
                         } else if(strpos($item, 'minimum') !== false){
                             // Field under 4 chars
-                            $error .= $language->get('user', 'invalid_email') . '<br />';
+                            $errors[] = $language->get('user', 'invalid_email') . '<br />';
 
                         } else if(strpos($item, 'maximum') !== false){
                             // Field over 64 chars
-                            $error .= $language->get('user', 'invalid_email') . '<br />';
+                            $errors[] = $language->get('user', 'invalid_email') . '<br />';
 
                         } else if(strpos($item, 'email') !== false){
 							// Validate email
-							$error .= $language->get('general', 'contact_message_email') . '<br />';
+							$errors[] = $language->get('general', 'contact_message_email') . '<br />';
 						} 
                     }
-                    Session::flash('settings_error', $error = rtrim($error, '<br />'));
                 }
             } else if(Input::get('action') == 'discord'){
 				$validation = new Validate;
@@ -626,7 +620,6 @@ if(isset($_GET['do'])){
 	}
 
 	// Error/success message?
-	if(Session::exists('settings_error')) $error = Session::flash('settings_error');
 	if(Session::exists('settings_success')) $success = Session::flash('settings_success');
 	
 	// Get languages
