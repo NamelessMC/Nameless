@@ -92,7 +92,9 @@
                     </div>
                     <div class="actions">
                       {if isset($LOGGED_IN_USER)}
-                        <a href="{if $post.reactions_link !== "#"}{$post.reactions_link}{else}#{/if}" data-toggle="popup">Like {if ($post.reactions.count|regex_replace:'/[^0-9]+/':'' != 0)}({$post.reactions.count|regex_replace:'/[^0-9]+/':''}){/if}</a>
+                        {if $post.user_id ne $VIEWER_ID}
+                          <a href="{if $post.reactions_link !== "#"}{$post.reactions_link}{else}#{/if}" data-toggle="popup">Like {if ($post.reactions.count|regex_replace:'/[^0-9]+/':'' != 0)}({$post.reactions.count|regex_replace:'/[^0-9]+/':''}){/if}</a>
+                       {/if}
                         <a data-toggle="modal" data-target="#modal-reply-{$post.id}">{$REPLY} {if ($post.replies.count|regex_replace:'/[^0-9]+/':'' != 0)}({$post.replies.count|regex_replace:'/[^0-9]+/':''}){/if}</a>
                       {/if}
                       {if (isset($CAN_MODERATE) && $CAN_MODERATE == 1) || $post.self == 1}
