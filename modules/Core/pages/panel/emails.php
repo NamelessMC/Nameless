@@ -39,7 +39,6 @@ $page_title = $language->get('admin', 'emails');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Since emails are sent in the user's language, they need to be able to pick which language's messages to edit
-$lang_name = '';
 if (Session::exists('editing_language')) $lang_name = Session::get('editing_language');
 else {
 	$default_lang = $queries->getWhere('languages', array('is_default', '=', 1));
@@ -184,10 +183,9 @@ if(isset($_GET['action'])){
 
 			// Handle email message updating
 			if(isset($_POST['greeting'])) {
-				$editing_lang = new Language(null, Output::getClean(Input::get('editing_language')));
-				$editing_file = (rtrim($editing_lang->getActiveLanguageDirectory(), $editing_lang->getActiveLanguage()) . $editing_lang->getActiveLanguage() . DIRECTORY_SEPARATOR . 'emails.php');
+				$editing_lang = new Language(null, $lang_name);
 
-				Session::put('editing_language', $editing_lang->getActiveLanguage());
+				Session::put('editing_language', Input::get('editing_language'));
 
 				$editing_lang->set('emails', 'greeting', Output::getClean(Input::get('greeting')));
 				$editing_lang->set('emails', 'thanks', Output::getClean(Input::get('thanks')));
