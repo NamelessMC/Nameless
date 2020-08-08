@@ -17,12 +17,12 @@ $language = array(
 	'submit' => 'Gjør',
 	'register' => 'Registrer',
 	'already_registered' => 'Allerede registrert?',
-	'custom_fields' => 'Custom Fields',
-	'not_registered_yet' => 'Not registered yet?',
+	'custom_fields' => 'Egendefinert felt',
+	'not_registered_yet' => 'Ikke registert?',
 	'sign_in' => 'Logg inn',
 	'log_out' => 'Logg ut',
 	'profile' => 'Profil',
-	'invalid_token' => 'Tok for lang tid, prøv igjen!',
+	'invalid_token' => 'Det tok for lang tid, prøv igjen!',
 	'close' => 'Lukk',
 	'back' => 'Tilbake',
 	'warning' => 'Advarsel',
@@ -32,7 +32,7 @@ $language = array(
 	'next' => 'Neste',
 	'previous' => 'Forrige',
 	'confirm_cancel' => 'Er du sikker på at du vil avslutte?',
-	'confirm_delete' => 'Aksepter avsluttelse',
+	'confirm_delete' => 'Bekreft',
 	'confirm_deletion' => 'Er du sikker på at du ønsker å slette dette?',
 	'cancel' => 'Avslutt',
 	'delete' => 'Slett',
@@ -66,18 +66,18 @@ $language = array(
 	'error' => 'Error',
 	'are_you_sure' => 'Er du sikker?',
 	'spoiler' => 'Spoiler',
-    'invalid_timezone' => 'That timezone is invalid',
+    'invalid_timezone' => 'Denne tidssonen er ugyldig.',
 
     /*
      *  Contact form
      */
     'contact' => 'Kontakt',
     'message' => 'Melding',
-    'email_address' => 'Emailadresse',
+    'email_address' => 'E-postadresse',
     'contact_email_subject' => 'Ny kontaktskjema',
     'contact_message_failed' => 'Kunne ikke sende melding. Pass på at meldingen er mellom 10 og 5000 tegn lang',
-    'contact_message_email' => 'Eposten er ugyldig.',
-    'contact_message_sent' => 'Melding suksessfullt sendt!',
+    'contact_message_email' => 'E-posten er ugyldig.',
+    'contact_message_sent' => 'Meldingen har blitt sendt!',
     'contact_message_limit' => 'Du kan kun sende èn melding hver time. Du kan sende en ny melding om {x} minutter.', // Don't replace {x}
 	
 	/* 
@@ -107,9 +107,9 @@ $language = array(
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Versjon: {x}', // Don't replace {x}
     'currently_1_player_online' => 'Det er for øyeblikket 1 spiller pålogget.',
-    'currently_x_players_online' => 'Det er for øyeblikket <strong>{x}</strong> påloggede spillere.', // Don't replace {x}
+    'currently_x_players_online' => 'Det er for øyeblikket <strong>{x}</strong> spillere pålogget.', // Don't replace {x}
     'server_offline' => 'Serveren er nede for øyeblikket.',
-    'connect_with_ip_x' => 'Koble til nå med IP {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'Koble til nå med IPen: {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Klikk for å kopiere',
     'ip' => 'IP',
     'copied' => 'Kopiert!',
@@ -130,7 +130,7 @@ $language = array(
     'statistics' => 'Statistikk',
     'users_registered' => 'Brukere registrert',
     'latest_member' => 'Siste bruker registrert',
-    'forum_statistics' => 'Forum statistikk',
+    'forum_statistics' => 'Forumstatistikk',
     'total_threads' => 'Totalt antall tråder',
     'total_posts' => 'Totalt antall poster',
     'online_staff' => 'Påloggede stabmedlemmer',
@@ -139,9 +139,9 @@ $language = array(
     'online_users' => 'Påloggede brukere',
     'no_online_users' => 'Det er ingen brukere pålogget',
     'total_online_users' => 'Totalt påloggede brukere: {x}',
-    'discord_widget_disabled' => 'Widget er deaktivert for denne Discord serveren. Gå til \'Widget\' i Discord serverinstillinger, og sjekk at widgets er aktivert og at IDen stemmer.',
-    'online_guests' => 'Online Guests',
-    'total_online' => 'Total Online', // this is Online Users + Online Guests
+    'discord_widget_disabled' => 'Widget er deaktivert for denne Discord-serveren. Gå til \'Widget\' i Discord-serverens innstillinger, og sjekk at widgets er aktivert og at IDen stemmer.',
+    'online_guests' => 'Gjester',
+    'total_online' => 'Totalt pålogget', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy
