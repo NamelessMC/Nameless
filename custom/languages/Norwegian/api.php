@@ -2,7 +2,7 @@
 /*
  *  Translations by Maiu
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr6
+ *  NamelessMC versjon 2.0.0-pr8
  *
  *  License: MIT
  *
