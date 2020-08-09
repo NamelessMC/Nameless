@@ -1,8 +1,8 @@
 <?php 
 /*
- *  Translations by Maiu#7777
+ *  Translations by Maiu
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr6
+ *  NamelessMC versjon 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -19,8 +19,8 @@ $language = array(
 	'404_home' => 'Hjem',
 	'404_error' => 'Hvis du mener dette er en feil, {x}ber vi deg kontakte en administrator{y}', // Don't replace {x} or {y}
 	'403_title' => 'Beklager!',
-	'403_content' => 'You do not have permission to view this page.',
-	'403_login' => 'Please log in to continue.',
+	'403_content' => 'Du har ikke tilgang til denne siden.',
+	'403_login' => 'Vennligst logg inn for å fortsette.',
 	'403_back' => 'Tilbake',
 	'403_home' => 'Hjem',
 	'maintenance_title' => 'Vedlikeholdsmodus',
