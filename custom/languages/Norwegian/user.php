@@ -70,18 +70,18 @@ $language = array(
 	'topic_updates' => 'Få e-poster om tråder du følger.',
 	
 	// Alerts
-	'user_tag_info' => 'Du har blitt tagget i et innlegg av {x}.', // Don't replace {x}
+	'user_tag_info' => 'Du har blitt tagget i et innlegg av {x}', // Don't replace {x}
 	'no_alerts' => 'Ingen nye viktige meldinger',
 	'view_alerts' => 'Vis meldinger',
 	'1_new_alert' => 'Du har 1 ny varsling',
-	'x_new_alerts' => 'Du har {x} nye viktige meldinger.', // Don't replace {x}
+	'x_new_alerts' => 'Du har {x} nye viktige meldinger', // Don't replace {x}
 	'no_alerts_usercp' => 'Du har ingen nye viktige meldinger',
 	
 	// Registraton
-	'registration_check_email' => 'Takk for at du registrerte deg! Sjekk e-posten din for en bekreftelseslenke. Husk å sjekke søppelpost.',
+	'registration_check_email' => 'Takk for at du registrerte deg! Sjekk e-posten din for en bekreftelseslenke. Husk også å sjekke søppelpost.',
 	'username' => 'Brukernavn',
 	'nickname' => 'Kallenavn',
-	'minecraft_username' => 'Minecraftbrukernavn',
+	'minecraft_username' => 'Minecraft-brukernavn',
 	'email_address' => 'E-postadresse',
 	'email' => 'E-post',
 	'password' => 'Passord',
