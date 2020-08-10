@@ -56,14 +56,14 @@ class Announcements {
 
     public static function edit($id = null, $pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null) {
         $queries = new Queries;
-        $queries->update('custom_announcements', $id, array('pages' => json_encode($pages), 'groups' => json_encode($groups), 'text_colour' => Output::getClean($text_colour), 'background_colour' => Output::getClean($background_colour), 'icon' => $icon, 'closable' => $closable ? 1 : 0, 'header' => Output::getClean($header), 'message' => Output::getClean($message)));
+        $queries->update('custom_announcements', $id, array('pages' => json_encode($pages), 'groups' => json_encode($groups), 'text_colour' => $text_colour, 'background_colour' => $background_colour, 'icon' => $icon, 'closable' => $closable ? 1 : 0, 'header' => $header, 'message' => $message));
         self::resetCache();
         return true;
     }
 
     public static function create($pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null) {
         $queries = new Queries;
-        $queries->create('custom_announcements', array('pages' => json_encode($pages), 'groups' => json_encode($groups), 'text_colour' => Output::getClean($text_colour), 'background_colour' => Output::getClean($background_colour), 'icon' => $icon, 'closable' => $closable ? 1 : 0, 'header' => Output::getClean($header), 'message' => Output::getClean($message)));
+        $queries->create('custom_announcements', array('pages' => json_encode($pages), 'groups' => json_encode($groups), 'text_colour' => $text_colour, 'background_colour' => $background_colour, 'icon' => $icon, 'closable' => $closable ? 1 : 0, 'header' => $header, 'message' => $message));
         self::resetCache();
         return true;
     }

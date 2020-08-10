@@ -94,7 +94,7 @@ if (!isset($_GET['action'])) {
                                 $all_groups[] = $group->id;
                             }
                         }
-                        if(!Announcements::create(Input::get('pages'), $all_groups, Input::get('text_colour'), Input::get('background_colour'), Input::get('icon'), Input::get('closable'), Input::get('header'), Input::get('message'))){
+                        if(!Announcements::create(Input::get('pages'), $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))){
                             Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
@@ -198,7 +198,7 @@ if (!isset($_GET['action'])) {
                                 $all_groups[] = $group->id;
                             }
                         }
-                        if (!Announcements::edit($announcement->id, Input::get('pages'), $all_groups, Input::get('text_colour'), Input::get('background_colour'), Input::get('icon'), Input::get('closable'), Input::get('header'), Input::get('message'))) {
+                        if (!Announcements::edit($announcement->id, Input::get('pages'), $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))) {
                             Session::flash('announcement_error', $language->get('admin', 'editing_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
