@@ -74,8 +74,11 @@ try {
 // Announcements
 
 // Reset panel_sidebar cache so that the orders do not interfere on upgrade
-$cache->setCache('panel_sidebar');
-$cache->eraseAll();
+try {
+    unlink($cache->getCachePath() . '/f068dd5fa2de0ad75c7380f550e12fbb6d0ac70e.cache');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
 try {
     DB::getInstance()->query("CREATE TABLE `nl2_custom_announcements` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
