@@ -8,15 +8,15 @@
  *
  *  Chinese Simplified Language - Time
  *  Translation(Chinese Simplified) by ahdg
- *  Translation progress(v2-pr6) : 100% 
+ *  Translation progress(v2-pr8) : 100% 
  */
 
 $language = array(
 	/*
 	 *  Time
 	 */
-	'time' => 'time', // Placeholder, no need to translate
-	'seconds_short' => '秒', // Shortened "seconds", eg "s"
+	'time' => 'time', // Placeholder, 无需翻译
+	'seconds_short' => '秒', // 单词 "seconds" 的缩写, 就像 "s"
 	'less_than_a_minute' => '1 分钟内',
 	'1_minute' => '1 分钟前',
 	'_minutes' => '{x} 分钟前',
