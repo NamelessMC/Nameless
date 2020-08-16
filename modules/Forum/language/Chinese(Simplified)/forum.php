@@ -26,12 +26,12 @@ $language = array(
 	'topics' => '话题数',
 	'views' => '浏览量',
 	'posts' => '帖子数',
-	'x_posts' => '{x} 个帖子', // Don't replace {x}
-	'x_topics' => '{x} 个话题', // Don't replace {x}
-	'registered_x' => '注册量: {x}', // Don't replace {x}
+	'x_posts' => '帖子数 {x}', // Don't replace {x}
+	'x_topics' => '话题数 {x} ', // Don't replace {x}
+	'registered_x' => '注册于: {x}', // Don't replace {x}
 	'by' => '发起者',
 	'in' => '于',
-	'last_reply' => '最后一次的回复',
+	'last_reply' => '最后一次回复于',
 	'latest_discussions' => '最近的讨论',
 	'users_registered' => '<strong>用户注册数:</strong> {x}', // Don't replace "{x}"
 	'latest_member' => '<strong>最近的成员:</strong> {x}', // Don't replace "{x}"
@@ -197,7 +197,7 @@ $language = array(
     'new_topic_hook_info' => '新的话题',
     'new_topic_text' => '话题创建于{x} 创建者 {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
 	'include_in_hook' => '是否将新话题包含进这个论坛的webhook?',
-	'available_hooks' => 'Available Hooks',
+	'available_hooks' => '可用的 Hooks',
 
 	// Panel statistics
 	'recent_topics' => '当前话题数',
