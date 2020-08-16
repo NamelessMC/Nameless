@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -29,6 +29,7 @@ $language = array(
 	'x_posts' => '帖子数 {x}', // Don't replace {x}
 	'x_topics' => '话题数 {x} ', // Don't replace {x}
 	'registered_x' => '注册于: {x}', // Don't replace {x}
+	
 	'by' => '发起者',
 	'in' => '于',
 	'last_reply' => '最后一次回复于',
@@ -119,7 +120,7 @@ $language = array(
 	'label_type_html_help' => 'HTML 必须包括 {x} 来为 标签名称 作为变量',
 	'label' => '标签',
 	'label_forums' => '标签论坛',
-    'label_groups' => '标签组',
+        'label_groups' => '标签组',
 	'no_forums' => '没有论坛',
 	'no_labels_defined' => '没有被定义的标签。',
 	'no_label_types_defined' => '没有被定义的标签种类。',
@@ -145,6 +146,7 @@ $language = array(
 	'can_view_forum' => '是否能访问论坛?',
 	'can_view_other_topics' => '是否能查看别的用户的话题?',
 	'can_create_topic' => '是否能创建话题?',
+	'can_edit_topic' => '是否可以编辑他们自己的话题?',
 	'can_post_reply' => '是否能创建回复?',
 	'can_moderate_forum' => '是否能管理论坛?',
 	'display_topics_as_news' => '是否将该论坛的话题作为新闻展示在首页?',
