@@ -8,7 +8,7 @@
  *
  *  Chinese Simplified Language - Language version
  *  Translation(Chinese Simplified) by ahdg,lian20,LingDong,NEWLY_1129514,Dreta (yangyang200)
- *  Translation progress(v2-pre6) : 100%  
+ *  Translation progress(v2-pr8) : 100%  
  */
 
 // Which version of NamelessMC is this language file updated to?
