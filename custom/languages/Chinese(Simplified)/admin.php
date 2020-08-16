@@ -16,7 +16,7 @@ $language = array(
 	 *  Admin Control Panel
 	 */
 	// Login
-	're-authenticate' => '请重新验证',
+	're-authenticate' => '请重新验证您的账户所有权',
 
 	// Sidebar
 	'dashboard' => '主控板',
@@ -602,7 +602,7 @@ $language = array(
 	'hook_type' => 'Webhook 种类(Type)',
 	'hook_events' => '可触发该 webhook 的事件',
 	'invalid_hook_url' => '无效的 Webhook 链接(URL)',
-	'invalid_hook_name' => '无限的 Webhook 名称(name)',
+	'invalid_hook_name' => '无效的 Webhook 名称(name)',
 	'invalid_hook_events' => '您必须至少选择 1 个事件',
 	'register_hook_info' => '用户注册',
 	'validate_hook_info' => '用户验证',
