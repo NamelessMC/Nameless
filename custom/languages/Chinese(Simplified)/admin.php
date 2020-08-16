@@ -8,7 +8,7 @@
  *
  *  Chinese Simplified Language - Admin
  *  Translation(Chinese Simplified) by ahdg,lian20,LingDong,NEWLY_1129514,Dreta (yangyang200)
- *  Translation progress(v2-pr6) : 99.9 %
+ *  Translation progress(v2-pr8) : 99.9 %
  */
 
 $language = array(
