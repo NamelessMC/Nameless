@@ -7,8 +7,8 @@
  *  License: MIT
  *
  *  Chinese Simplified Language - API
- *  Translation(Chinese Simplified) by ahdg,lian20
- *  Translation progress(v2-pr6) : 100%
+ *  Translation(Chinese Simplified) by ahdg,lian20,Dreta (yangyang200)
+ *  Translation progress(v2-pr8) : 100%
  */
 
 $language = array(
@@ -28,7 +28,7 @@ $language = array(
     'username_already_exists' => '用户名已存在',
     'uuid_already_exists' => 'UUID已存在',
     'unable_to_create_account' => '未能创建账号',
-    'unable_to_send_registration_email' => '未能发送注册邮件,请联系管理员激活您的h账号',
+    'unable_to_send_registration_email' => '未能发送注册邮件,请联系管理员激活您的账号',
     'unable_to_find_user' => '未能找到用户',
     'unable_to_find_group' => '未能找到权限组',
     'unable_to_update_group' => '未能找到用户的权限组',

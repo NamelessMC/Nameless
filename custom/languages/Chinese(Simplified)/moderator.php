@@ -8,7 +8,7 @@
  *
  *  Chinese Simplified Language - Moderator terms
  *  Translation(Chinese Simplified) by ahdg,lian20
- *  Translation progress(v2-pr6) : 100% 
+ *  Translation progress(v2-pr8) : 100% 
  */
 
 $language = array(

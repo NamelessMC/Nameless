@@ -8,7 +8,7 @@
  *
  *  Chinese Simplified Language - Errors
  *  Translation(Chinese Simplified) by ahdg,lian20
- *  Translation progress(v2-pr6) : 100%
+ *  Translation progress(v2-pr8) : 100%
  */
 
 $language = array(
@@ -20,7 +20,7 @@ $language = array(
 	'404_back' => '返回',
 	'404_home' => '主页',
 	'404_error' => '如果您认为这是个错误, {x}请联系管理员{y}', // Don't replace {x} or {y}
-	'403_title' => '非常抱歉,404了',
+	'403_title' => '非常抱歉,403了',
 	'403_content' => '很抱歉，您没有权限去查看这个页面。',
 	'403_login' => '登录以继续',
 	'403_back' => '返回',
