@@ -230,7 +230,7 @@
     $(function(){
         $('.groupColour').colorpicker({
             format: 'hex',
-            'color': {if $GROUP_USERNAME_COLOUR_VALUE}'{$GROUP_USERNAME_COLOUR_VALUE}'{else}false{/if}
+            'color': {if $GROUP_USERNAME_COLOUR_VALUE} '{$GROUP_USERNAME_COLOUR_VALUE}' {else} '#000000' {/if}
         });
 
         $('.groupColour').on('colorpickerChange', function(event) {
