@@ -8,18 +8,18 @@
  *
  *  Chinese Simplified Language - General terms
  *  Translation(Chinese Simplified) by ahdg,lian20
- *  Translation progress(v2-pre6) : 100% 
+ *  Translation progress(v2-pr8) : 100% 
  */
 
 $language = array(
 	/*
 	 *  General terms
 	 */
-	'help' => 'Help',
+	'help' => '帮助',
 	'submit' => '提交',
 	'register' => '注册',
 	'already_registered' => '已经注册?',
-	'custom_fields' => 'Custom Fields',
+	'custom_fields' => '自定义字段',
 	'not_registered_yet' => '还没有账号?',
 	'sign_in' => '登录',
 	'log_out' => '登出',
