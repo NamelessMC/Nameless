@@ -7,8 +7,8 @@
  *  License: MIT
  *
  *  Chinese Simplified Language - API
- *  Translation(Chinese Simplified) by ahdg,lian20
- *  Translation progress(v2-pr6) : 100%
+ *  Translation(Chinese Simplified) by ahdg,lian20,Dreta (yangyang200)
+ *  Translation progress(v2-pr8) : 100%
  */
 
 $language = array(
