@@ -69,7 +69,7 @@ $language = array(
 	'profile_banner' => '个人资料背景',
 	'upload_profile_banner' => '上传个人资料背景',
 	'upload' => '上传',
-	'topic_updates' => 'Get emails for topics you follow',
+	'topic_updates' => '从您关注的话题中获取更新邮件。',
 	
 	// Alerts
 	'user_tag_info' => '用户 {x} 在一个帖子中提及了您。', // Don't replace {x}
@@ -220,8 +220,8 @@ $language = array(
 	'confirm_leave' => '您确定要退出此对话吗?',
 	'one_or_more_users_blocked' => '您不能将私人讯息发送给对话中的任何一位成员。',
 	'messages' => '讯息',
-	'latest_profile_posts' => 'Latest Profile Posts',
-	'no_profile_posts' => 'No profile posts.',
+	'latest_profile_posts' => '最近的留言',
+	'no_profile_posts' => '目前没有人给您留言喔。',
 	
 	/*
 	 *  Infractions area
