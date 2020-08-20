@@ -26,6 +26,9 @@ class Announcements {
         }
         $announcements = array();
         foreach(self::getAll() as $announcement) {
+			if (Cookie::exists('announcement-' . $announcement->id)) {
+				continue;
+			}
             $pages = json_decode($announcement->pages, true);
             $groups = json_decode($announcement->groups, true);
             if (in_array($page, $pages) || in_array($custom_page, $pages)) {

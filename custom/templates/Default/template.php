@@ -353,6 +353,16 @@ class Default_Template extends TemplateBase {
 				      if($(\'div.show-punishment\').length){
 				        $(\'.show-punishment\').modal(\'show\');
 				      }
+				      
+					const announcements = document.querySelectorAll(\'[id^="announcement"]\');
+					announcements.forEach((announcement) => {
+						const closeButton = announcement.querySelector(\'.close\');
+						if (closeButton) {
+							closeButton.addEventListener(\'click\', () => {
+								document.cookie = announcement.id + \'=true; path=/\';
+							});
+						}
+					});
 				'
 			);
 		} else {

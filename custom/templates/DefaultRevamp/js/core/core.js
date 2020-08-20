@@ -83,3 +83,13 @@ $(function() {
         onShow: function(e) {this.html(cachedUsers[$(e).data('poload')].html)}
     });
 });
+
+const announcements = document.querySelectorAll('[id^="announcement"]');
+announcements.forEach((announcement) => {
+	const closeButton = announcement.querySelector('.close');
+	if (closeButton) {
+		closeButton.addEventListener('click', () => {
+			document.cookie = announcement.id + '=true; path=/';
+		});
+	}
+});
