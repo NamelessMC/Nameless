@@ -135,7 +135,7 @@
   {/if}
 	{if !empty($ANNOUNCEMENTS)}
 		{foreach from=$ANNOUNCEMENTS item=$ANNOUNCEMENT}
-		<div class="alert" style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}">
+		<div class="alert" id="announcement-{$ANNOUNCEMENT->id}" style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}">
 			{if $ANNOUNCEMENT->closable}
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
