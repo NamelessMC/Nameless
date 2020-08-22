@@ -13,12 +13,12 @@ $language = array(
     /*
 	 *  General terms
 	 */
-    'help' => 'Help',
+    'help' => 'Pomoc',
 	'submit' => 'Potvrdit',
 	'register' => 'Registrovat se',
-	'already_registered' => 'Již jste se registroval?',
-	'custom_fields' => 'Custom Fields',
-	'not_registered_yet' => 'Not registered yet?',
+	'already_registered' => 'Již jste se registrovali?',
+	'custom_fields' => 'Vlastní pole',
+	'not_registered_yet' => 'Ještě nejste zaregistrováni?',
 	'sign_in' => 'Přihlásit se',
 	'log_out' => 'Odhlásit se',
 	'profile' => 'Profil',
@@ -33,8 +33,8 @@ $language = array(
 	'previous' => 'Předchozí',
 	'confirm_cancel' => 'Opravdu to chcete zrušit?',
 	'confirm_delete' => 'Potvrdit smazání',
-	'confirm_deletion' => 'Opravdu toto chcete smazat?',
-	'cancel' => 'Zavřít',
+	'confirm_deletion' => 'Opravdu to chcete odstranit?',
+	'cancel' => 'Zrušit',
 	'delete' => 'Smazat',
 	'none' => 'žádný',
 	'view' => 'Zobrazit',
@@ -56,17 +56,17 @@ $language = array(
 	'page_loaded_in' => 'Stránka se načetla za {x} sekund', // Don't replace {x}, time unit is seconds
     'page_x' => 'Stran {x}',
     'browse' => 'Prohlížet',
-    'bypass' => 'Bypass',
+    'bypass' => 'Obejít',
     'yes' => 'Ano',
     'no' => 'Ne',
     'content' => 'Obash',
     'full_content' => 'Plný obsah',
     'url' => 'URL',
-	'success' => 'úspěch',
+	'success' => 'Úspěch',
 	'error' => 'Chyba',
 	'are_you_sure' => 'Jste si jisti?',
 	'spoiler' => 'Spoiler',
-    'invalid_timezone' => 'That timezone is invalid',
+    'invalid_timezone' => 'Tato časová zóna je neplatná',
 
     /*
      *  Contact form
@@ -75,9 +75,9 @@ $language = array(
     'message' => 'Zpráva',
     'email_address' => 'Emailová adresa',
     'contact_email_subject' => 'Nový kontaktní formulář ',
-    'contact_message_failed' => 'Nepodařilo se odeslat zprávu. Zajistěte, aby jste vložil zprávu mezi 10 a 5000 znaky dlouhou.',
-    'contact_message_email' => 'Zadaný email je nesprávný.',	
-    'contact_message_sent' => 'Zpráva byla úspěšně odeslana.',
+    'contact_message_failed' => 'Nepodařilo se odeslat zprávu. Ujistěte se, že jste zadali zprávu o délce 10 až 5000 znaků.',
+    'contact_message_email' => 'Zadaný e-mail je nesprávný.',	
+    'contact_message_sent' => 'Zpráva byla úspěšně odeslána.',
     'contact_message_limit' => 'Můžete odeslat pouze jednu zprávu za hodinu. Další můžete odeslat za {x} minut.', // Don't replace {x}
 	
 	/* 
@@ -85,7 +85,7 @@ $language = array(
 	 */
 	'home' => 'Domů',
 	'more' => 'Více',
-	'status' => 'Status',
+	'status' => 'Stav',
 	
 	/*
 	 *  Homepage
@@ -96,7 +96,7 @@ $language = array(
 	/*
 	 *  Help dialogues
 	 */
-	'markdown_help' => 'Formát můžete naformátovat pomocí značky Markdown. Další informace naleznete v části <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>zde</a>.',
+	'markdown_help' => 'Zprávu můžete naformátovat pomocí značek Markdown. Další informace naleznete <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>zde</a>.',
 
     /*
      *  Server query
@@ -107,20 +107,20 @@ $language = array(
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Verze: {x}', // Don't replace {x}
     'currently_1_player_online' => 'Na serveru hraje jeden hráč.',
-    'currently_x_players_online' => 'Aktuálně je na serveru <strong>{x}</strong> online hráčů.', // Don't replace {x}
-    'server_offline' => 'Server je aktuálně vypnut (offline).',
+    'currently_x_players_online' => 'Momentálně je na serveru <strong>{x}</strong> hráčů.', // Don't replace {x}
+    'server_offline' => 'Server je momentálně offline.',
     'connect_with_ip_x' => 'Připojte se na server pomocí {x}', // Don't replace {x}
-    'click_to_copy_tooltip' => 'Kliknutím zkopíruješ',
+    'click_to_copy_tooltip' => 'Kliknutím zkopírujete',
     'copied' => 'Zkopírováno!',
     'no_servers' => 'Není zde žádný server, který bychom mohli zobrazit!',
-    'bungee_instance' => 'Tento server je bungee.',
-    'no_players_online' => 'Nejsou žádní hráči online.',
-    'and_x_more' => 'a {x} více', // Don't replace {x}
+    'bungee_instance' => 'Tento server je Bungee.',
+    'no_players_online' => 'Žádní hráči nejsou online.',
+    'and_x_more' => 'a {x} dalších', // Don't replace {x}
 
     /*
      *  Cookie notice
      */
-    'cookie_notice' => 'Tento web používá cookies. S registrací na našem serveru souhlasíte s jejich použití..',
+    'cookie_notice' => 'Tento web používá cookies. S registrací na našem serveru souhlasíte s jejich použitím.',
     'cookie_agree' => 'Souhlasím',
 
     /*
@@ -132,15 +132,15 @@ $language = array(
     'forum_statistics' => 'Statistiky fóra',
     'total_threads' => 'Celkem všech příspěvků',
     'total_posts' => 'Celkem příspěvků',
-    'online_staff' => 'AdminTeam Online',
+    'online_staff' => 'Pracovníci Online',
     'no_online_staff' => 'Momentálně není žádný člen online.',
     'total_online_staff' => 'Celkem online členů: {x}',
-    'online_users' => 'Uživatelé Online',
-    'no_online_users' => 'Žádný uživatelé nejsou online.',
+    'online_users' => 'Uživatelé online',
+    'no_online_users' => 'Žádní uživatelé nejsou online.',
     'total_online_users' => 'Celkem online uživatelů: {x}',
-    'discord_widget_disabled' => 'Widget je momentálně mimo provoz, podívejte se do vašeho serverového nastavení, jestli jste Widget polivili.',
-    'online_guests' => 'Online Guests',
-    'total_online' => 'Total Online', // this is Online Users + Online Guests
+    'discord_widget_disabled' => 'Widget je momentálně mimo provoz, podívejte se do nastavení vašeho Discord serveru, zda jste povolili widget.',
+    'online_guests' => 'Online hosté',
+    'total_online' => 'Celkem online', // this is Online Users + Online Guests
 
     /*
      *  Privacy policy
