@@ -13,7 +13,7 @@ $language = array(
 	/*
 	 *  Change this for the account validation message
 	 */
-	'validate_account_command' => 'Chcete-li dokončit registraci, spusťte příkaz <strong> /validate {x} </strong> ve hře.', // Don't replace {x}
+	'validate_account_command' => 'Chcete-li dokončit registraci, zadejte příkaz <strong> /validate {x} </strong> ve hře.', // Don't replace {x}
 
 	/*
 	 *  User Related
@@ -22,12 +22,12 @@ $language = array(
 	'guests' => 'Hosté',
 	
 	// UserCP
-	'user_cp' => 'Ovládací panel uživatele',
+	'user_cp' => 'Možnosti',
 	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
 	'overview' => 'Přehled',
 	'user_details' => 'Informace o uživateli',
 	'profile_settings' => 'Nastavení profilu',
-	'successfully_logged_out' => 'Byl jste úspěšně odhlášen.',
+	'successfully_logged_out' => 'Byli jste úspěšně odhlášeni.',
 	'messaging' => 'Zprávy',
 	'click_here_to_view' => 'Klikněte pro zobrazení.',
 	'moderation' => 'Moderování',
@@ -37,8 +37,8 @@ $language = array(
 	'private_profile' => 'Soukromý profil',
 	
 	// Profile settings
-	'field_is_required' => '{x} je povinné.', // Don't replace {x}
-	'settings_updated_successfully' => 'Nastavení bylo úspěšně aktualizováno.',
+	'field_is_required' => 'Pole {x} je povinné.', // Don't replace {x}
+	'settings_updated_successfully' => 'Nastavení byla úspěšně aktualizována.',
 	'password_changed_successfully' => 'Změna hesla byla úspěšná.',
 	'change_password' => 'Změnit heslo',
 	'current_password' => 'Staré heslo',
@@ -50,27 +50,27 @@ $language = array(
     'disabled' => 'Zakázáno',
 	'enable' => 'Povolit',
 	'disable' => 'Zakázat',
-	'tfa_scan_code' => 'Prosím, naskenujte QR kód pomocí autentifikační aplikace:',
-	'tfa_code' => 'Jestli-že nemáte kameru, nebo nemůžete naskenovat QR kód, prosím vložte kód níže:',
-	'tfa_enter_code' => 'Prosím vložte kód pomocí autentifikační aplikace:',
+	'tfa_scan_code' => 'Naskenujte QR kód pomocí autentifikační aplikace:',
+	'tfa_code' => 'Jestliže nemáte kameru, nebo nemůžete naskenovat QR kód, zadejte do aplikace kód níže:',
+	'tfa_enter_code' => 'Zadejte kód z autentifikační aplikace:',
 	'invalid_tfa' => 'Špatný kód.',
-	'tfa_successful' => 'Dvoufázové ověření bylo úspěšně nastaveno. Nyní budete pokaždé vyzván pro ověření přihlášení.',
+	'tfa_successful' => 'Dvoufázové ověření bylo úspěšně nastaveno. Nyní budete pokaždé vyzváni pro ověření přihlášení.',
 	'active_language' => 'Aktivní jazyk',
-	'active_template' => 'Active Template',
+	'active_template' => 'Aktivní šablona',
 	'timezone' => 'Časová zóna',
 	'upload_new_avatar' => 'Nahrát nového avatara.',
 	'nickname_already_exists' => 'Zvolená přezdívka již existuje.',
-	'change_email_address' => 'Změnit Email',
-	'email_already_exists' => 'Email, který jste uvedl již existuje.',
-	'email_changed_successfully' => 'Email úspěšně změněn.',
+	'change_email_address' => 'Změnit e-mail',
+	'email_already_exists' => 'E-mail, který jste zadali, již existuje.',
+	'email_changed_successfully' => 'E-mail úspěšně změněn.',
 	'avatar' => 'Avatar',
 	'profile_banner' => 'Banner',
 	'upload_profile_banner' => 'Nahrát banner',
 	'upload' => 'Nahrát',
-	'topic_updates' => 'Get emails for topics you follow',
+	'topic_updates' => 'Získávejte e-maily o tématech, které sledujete',
 	
 	// Alerts
-	'user_tag_info' => 'Byl jste označen v příspěvku {x}.', // Don't replace {x}
+	'user_tag_info' => 'Byli jste označeni v příspěvku {x}.', // Don't replace {x}
 	'no_alerts' => 'Žádná nové upozornění.',
 	'view_alerts' => 'Zobrazit upozornění',
 	'1_new_alert' => 'Máte 1 nové upozornění',
@@ -78,30 +78,30 @@ $language = array(
 	'no_alerts_usercp' => 'Nemáte žádná upozornění.',
 	
 	// Registraton
-	'registration_check_email' => 'Děkujeme za registraci! Prosím, zkontrolujte si email, pro ověření emailu. Pokud ho nemůžete najít, zkuste složku SPAM. Pokud není ani tam, kontaktujte administrátora.',
+	'registration_check_email' => 'Děkujeme za registraci! Do e-mailové schránky by vám měl přijít odkaz pro ověření e-mailu. Pokud ho nemůžete najít, podívejte se do složek Hromadné a Spam. Pokud není ani tam, kontaktujte administrátora.',
 	'username' => 'Uživatelské jméno',
 	'nickname' => 'Přezdívka',
 	'minecraft_username' => 'Jméno v Minecraftu',
-	'email_address' => 'E-mailová Adresa',
+	'email_address' => 'E-mailová adresa',
 	'email' => 'E-mail',
 	'password' => 'Heslo',
 	'confirm_password' => 'Potvrďte heslo',
 	'i_agree' => 'Souhlasím',
-	'agree_t_and_c' => 'Kliknutím na <strong class="label label-primary">Registrovat</strong>, automaticky souhlasíte s našimi<a href="{x}" target="_blank"> pravidly a podmínkami</a>.',
+	'agree_t_and_c' => 'Kliknutím na <strong class="label label-primary">Registrovat</strong>, automaticky souhlasíte s našimi <a href="{x}" target="_blank">pravidly a podmínkami</a>.',
 	'create_an_account' => 'Vytvořit účet',
 	'terms_and_conditions' => 'Pravidla a podmínky',
-	'validation_complete' => 'Váš účet byl ověřen. Můžete se přihlásit :)',
+	'validation_complete' => 'Váš účet byl ověřen. Můžete se přihlásit.',
 	'validation_error' => 'Vznikl problém při ověřování účtu, prosím kontaktujte administrátora webu.',
 	'signature' => 'Podpis',
-	'signature_max_900' => 'Zajistěte, aby Váš popis byl maximálně 900 znaků dlouhý.',
+	'signature_max_900' => 'Podpis může být maximálně 900 znaků dlouhý.',
 
 	// Registration - Authme
-	'connect_with_authme' => 'Propojte Váš účet s AuthMe',
-	'authme_help' => 'Zadejte prosím Vaše herní AuthMe detaily účtu. Pokud ještě nemáte účet ve hře, připojte se na server nyní a postupujte podle uvedených pokynů.',
+	'connect_with_authme' => 'Propojte váš účet s AuthMe',
+	'authme_help' => 'Zadejte vaše herní AuthMe detaily účtu. Pokud ještě nemáte účet ve hře, připojte se na server nyní a postupujte podle uvedených pokynů.',
 	'unable_to_connect_to_authme_db' => 'Nepodařilo se připojit do AuthMe databáze. Pokud tato chyba přetrvává, obraťte se prosím na správce.',
 	'authme_account_linked' => 'Účet úspěšně propojen.',
 	'authme_email_help_1' => 'Nakonec prosím zadejte svou e-mailovou adresu.',
-	'authme_email_help_2' => 'Nakonec prosím zadejte svou e-mailovou adresu a také si vyberte zobrazované jméno pro Váš účet.',
+	'authme_email_help_2' => 'Nakonec prosím zadejte svou e-mailovou adresu a také si vyberte zobrazované jméno pro váš účet.',
 
 	// Registration errors
 	'username_required' => 'Je vyžadována přezdívka.',
@@ -123,16 +123,16 @@ $language = array(
 	'invalid_recaptcha' => 'Špatná reCAPTCHA.',
 	'verify_account' => 'Ověřit účet',
 	'verify_account_help' => 'Postupujte podle pokynů níže, abychom mohli ověřit, zda je tento Minecraft účet opravdu Váš.',
-	'validate_account' => 'Validate Account',
+	'validate_account' => 'Schválit účet',
 	'verification_failed' => 'Ověření selhalo, zkuste to prosím později.',
 	'verification_success' => 'Ověření úspěšné! Nyní se můžete přihlásit.',
 	'authme_username_exists' => 'Váš AuthMe účet byl právě připojen k webu!',
 	'uuid_already_exists' => 'Vaše UUID již existuje. To znamená, že tento Minecraft účet je již registrován.',
 	
 	// Login
-	'successful_login' => 'Úspěšně jste se přihlásil.',
+	'successful_login' => 'Úspěšně jste se přihlásili.',
 	'incorrect_details' => 'Zadal jste špatné údaje.',
-	'inactive_account' => 'Váš účet je deaktivován. Koukněte se na email pro získání ověřovacího odkazu.',
+	'inactive_account' => 'Váš účet je deaktivován. Podívejte se na e-mail pro získání ověřovacího odkazu.',
 	'account_banned' => 'Tento účet je zabanován.',
 	'forgot_password' => 'Zapomenuté heslo?',
 	'remember_me' => 'Pamatovat si mě',
@@ -141,8 +141,8 @@ $language = array(
 	'must_input_password' => 'Musíte vložit heslo.',
 
 	// Forgot password
-	'forgot_password_instructions' => 'Zadejte prosím svou e-mailovou adresu, abychom Vám mohli zaslat další pokyny pro obnovení hesla.',
-	'forgot_password_email_sent' => 'Pokud existuje účet s touto e-mailovou adresou, tak Vám právě byl odeslán e-mail s dalšími pokyny. Pokud jej nemůžete najít, zkuste zkontrolovat složku nevyžádané pošty (např. spam).',
+	'forgot_password_instructions' => 'Zadejte prosím svou e-mailovou adresu, abychom vám mohli zaslat další pokyny pro obnovení hesla.',
+	'forgot_password_email_sent' => 'Pokud existuje účet s touto e-mailovou adresou, tak vám právě byl odeslán e-mail s dalšími pokyny. Pokud jej nemůžete najít, zkuste zkontrolovat složku nevyžádané pošty (např. spam) či složku Hromadné.',
 	'unable_to_send_forgot_password_email' => 'Nepodařilo se odeslat e-mail se zapomenutým heslem. Kontaktujte prosím administrátora.',
 	'enter_new_password' => 'Potvrďte prosím svou e-mailovou adresu a zadejte níže nové heslo.',
 	'incorrect_email' => 'Vámi zadaná e-mailová adresa neodpovídá požadavku.',
@@ -152,9 +152,9 @@ $language = array(
 	'profile' => 'Profil',
 	'follow' => 'Sledovat',
 	'no_wall_posts' => 'Zde nejsou žádné příspevky.',
-	'change_banner' => 'Změnit Banner',
+	'change_banner' => 'Změnit banner',
 	'post_on_wall' => 'Vložit komentář na zeď hráče {x}', // Don't replace {x}
-	'invalid_wall_post' => 'Zajistěte, aby Váš příspěvek byl dlouhý mezi 1 a 10000 znaky.',
+	'invalid_wall_post' => 'Příspěvek musí být dlouhý 1 Zajistěte, aby Váš příspěvek byl dlouhý mezi 1 a 10000 znaky.',
 	'1_reaction' => '1 reakce',
 	'x_reactions' => '{x} reakce', // Don't replace {x}
 	'1_like' => '1 To se mi líbí',
@@ -175,8 +175,8 @@ $language = array(
 	'couldnt_find_that_user' => 'Nepodařilo se najít tohoto uživatele.',
 	'block_user' => 'Zablokovat uživatele',
 	'unblock_user' => 'Odblokovat uživatele',
-	'confirm_block_user' => 'Jste si jist, že chcete zablokovat tohoto uživatele? Blokovaní uživatelé Vám nebudou moci posílat soukromé zprávy nebo Vás označovat v příspěvcích.',
-	'confirm_unblock_user' => 'Jste si jist, že chcete odblokovat tohoto uživatele? Odblkovaní uživatelé Vám budou moci posílat soukromé zprávy a označovat Vás v příspěvcích.',
+	'confirm_block_user' => 'Jste si jisti, že chcete zablokovat tohoto uživatele? Blokovaní uživatelé vám nebudou moci posílat soukromé zprávy nebo vás označovat v příspěvcích.',
+	'confirm_unblock_user' => 'Jste si jisti, že chcete odblokovat tohoto uživatele? Odblkovaní uživatelé vám budou moci posílat soukromé zprávy a označovat vás v příspěvcích.',
 	'user_blocked' => 'Uživatel zablokován.',
 	'user_unblocked' => 'Uživatel odblokován.',
 	'views' => 'Zobrazení profilu:',
@@ -202,7 +202,7 @@ $language = array(
 	'to' => 'Pro',
 	'separate_users_with_commas' => 'Oddělujte více uživatelů pomocí čárky.',
 	'title_required' => 'Musíte zadat předmět',
-	'content_required' => 'Musíte vložit nějaký obsah',
+	'content_required' => 'Musíte zadat nějaký obsah',
 	'users_to_required' => 'Musíte zvolit aspoň jednoho příjemce',
 	'cant_send_to_self' => 'Nemůžete poslat zprávu sám sobě!',
 	'title_min_2' => 'Předmět musí mít mínimálně 2 znaky.',
@@ -225,7 +225,7 @@ $language = array(
 	/*
 	 *  Infractions area
 	 */
-	'you_have_been_banned' => 'Byl Vám zakázán přístup k této stránce!',
+	'you_have_been_banned' => 'Byl vám zakázán přístup k této stránce!',
 	'you_have_received_a_warning' => 'Dostal jste varování!',
 	'acknowledge' => 'Uznat',
 
@@ -235,12 +235,12 @@ $language = array(
 	'user_x_has_registered' => '{x} se přidal na ' . SITE_NAME . '!',
 
 	// Discord
-	'discord_link' => 'Discord Link',
-	'linked' => 'Linked',
-	'not_linked' => 'Not Linked',
-	'discord_id' => 'Discord User ID',
-	'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-	'discord_id_confirm' => 'Please send a private message containing only your username to "Nameless Link#0761" to confirm your Discord User ID.',
+	'discord_link' => 'Discord odkaz',
+	'linked' => 'Propojen',
+	'not_linked' => 'Nepropojen',
+	'discord_id' => 'Discord ID uživatele',
+	'discord_id_unlinked' => 'Úspěšně jste odpojili vaše Discord ID uživatele.',
+	'discord_id_confirm' => 'Pošlete soukromou zprávuPlease send a private message containing only your username to "Nameless Link#0761" to confirm your Discord User ID.',
 	'pending_link' => 'Pending',
 	'discord_id_taken' => 'That Discord User ID has already been taken.',
 	'discord_invalid_id' => 'That Discord User ID is invalid.',
