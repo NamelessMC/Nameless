@@ -14,13 +14,13 @@ $language = array(
 	 *  Errors
 	 */
 	'404_title' => 'Omlouváme se!',
-	'404_content' => 'Ale tuto stránku nemůžeme najít :(',
+	'404_content' => 'Tuto stránku nemůžeme najít.',
 	'404_back' => 'Vrátit zpět',
 	'404_home' => 'Domů',
 	'404_error' => 'Pokud se domníváte, že je to chyba, {x}kontaktujte prosím administrátora{y}', // Don't replace {x} or {y}
 	'403_title' => 'Omlouváme se!',
-	'403_content' => 'You do not have permission to view this page.',
-	'403_login' => 'Please log in to continue.',
+	'403_content' => 'Nemáte oprávnění na zobrazení této stránky.',
+	'403_login' => 'Přihlašte se pro pokračování.',
 	'403_back' => 'Vrátit zpět',
 	'403_home' => 'Domů',
 	'maintenance_title' => 'Údržba.',
