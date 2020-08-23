@@ -219,14 +219,14 @@ $language = array(
 	'confirm_leave' => 'Opravdu chcete opustit konverzaci?',
 	'one_or_more_users_blocked' => 'Alespoň jednomu členovi konverzace nemůžete odeslat soukromé zprávy.',
 	'messages' => 'Zprávy',
-	'latest_profile_posts' => 'Latest Profile Posts',
-	'no_profile_posts' => 'No profile posts.',
+	'latest_profile_posts' => 'Poslední profilové příspěvky',
+	'no_profile_posts' => 'Žádné profilové příspěvky.',
 	
 	/*
 	 *  Infractions area
 	 */
 	'you_have_been_banned' => 'Byl vám zakázán přístup k této stránce!',
-	'you_have_received_a_warning' => 'Dostal jste varování!',
+	'you_have_received_a_warning' => 'Dostali jste varování!',
 	'acknowledge' => 'Uznat',
 
 	/*
@@ -240,13 +240,13 @@ $language = array(
 	'not_linked' => 'Nepropojen',
 	'discord_id' => 'Discord ID uživatele',
 	'discord_id_unlinked' => 'Úspěšně jste odpojili vaše Discord ID uživatele.',
-	'discord_id_confirm' => 'Pošlete soukromou zprávuPlease send a private message containing only your username to "Nameless Link#0761" to confirm your Discord User ID.',
-	'pending_link' => 'Pending',
-	'discord_id_taken' => 'That Discord User ID has already been taken.',
-	'discord_invalid_id' => 'That Discord User ID is invalid.',
-	'discord_already_pending' => 'You already have a pending verification.',
-	'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-	'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-	'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-	'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
+	'discord_id_confirm' => 'Pošlete soukromou zprávu obsahující pouze vaše jméno botovi "Nameless Link#0761" pro potvrzení vašeho Discord uživatelského ID.',
+	'pending_link' => 'Čekání',
+	'discord_id_taken' => 'Toto Discord ID uživatele bylo již zabráno.',
+	'discord_invalid_id' => 'Toto Discord ID uživatele je neplatné.',
+	'discord_already_pending' => 'Již máte čekající ověření.',
+	'discord_database_error' => 'Databáze Nameless Link je momentálně offline. Zkuste to prosím znovu.',
+	'discord_communication_error' => 'Při komunikaci s Discord botem se vyskytla chyba. Ujistěte se, že bot běží, a vaše URL bota je správná.',
+	'discord_unknown_error' => 'Při synchronizaci Discord rolí se vyskytla chyba. Kontaktujte prosím administrátora.',
+	'discord_id_help' => 'Pro informaci, kde nalézt Discord ID, si přečtěte <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">toto</a> (anglicky).'
 );
