@@ -1,6 +1,6 @@
 <?php 
 /*
-  *	Made by Samerton, translated by Zemos, Renzotom, Ethxrnity and sad_mirai
+  *	Made by Samerton, translated by Zemos, Renzotom, Ethxrnity, sad_mirai and Fjuro
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -13,7 +13,7 @@ $language = array(
 	/*
 	 *  Change this for the account validation message
 	 */
-	'validate_account_command' => 'Chcete-li dokončit registraci, zadejte příkaz <strong> /validate {x} </strong> ve hře.', // Don't replace {x}
+	'validate_account_command' => 'Chcete-li dokončit registraci, zadejte ve hře příkaz <strong> /validate {x} </strong>.', // Don't replace {x}
 
 	/*
 	 *  User Related
@@ -54,7 +54,7 @@ $language = array(
 	'tfa_code' => 'Jestliže nemáte kameru, nebo nemůžete naskenovat QR kód, zadejte do aplikace kód níže:',
 	'tfa_enter_code' => 'Zadejte kód z autentifikační aplikace:',
 	'invalid_tfa' => 'Špatný kód.',
-	'tfa_successful' => 'Dvoufázové ověření bylo úspěšně nastaveno. Nyní budete pokaždé vyzváni pro ověření přihlášení.',
+	'tfa_successful' => 'Dvoufázové ověření bylo úspěšně nastaveno. Nyní budete pokaždé vyzváni k ověření přihlášení.',
 	'active_language' => 'Aktivní jazyk',
 	'active_template' => 'Aktivní šablona',
 	'timezone' => 'Časová zóna',
@@ -91,7 +91,7 @@ $language = array(
 	'create_an_account' => 'Vytvořit účet',
 	'terms_and_conditions' => 'Pravidla a podmínky',
 	'validation_complete' => 'Váš účet byl ověřen. Můžete se přihlásit.',
-	'validation_error' => 'Vznikl problém při ověřování účtu, prosím kontaktujte administrátora webu.',
+	'validation_error' => 'Vznikl problém při ověřování účtu, kontaktujte administrátora webu.',
 	'signature' => 'Podpis',
 	'signature_max_900' => 'Podpis může být maximálně 900 znaků dlouhý.',
 
