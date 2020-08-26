@@ -28,6 +28,13 @@
 	    {$ERROR}
 	  </div>
 	  {/if}
+	  {if isset($ERRORS)}
+	  <div class="alert alert-danger">
+		{foreach from=$ERRORS item=error}
+			{$error}
+		{/foreach}
+	  </div>
+	  {/if}
 	  
 	  <p>{$TFA_ENTER_CODE}</p>
 	  
