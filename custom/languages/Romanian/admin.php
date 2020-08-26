@@ -430,7 +430,8 @@ $language = array(
 	'user_validated_successfully' => 'Utilizatorul a fost validat cu succes.',
 	'user_updated_successfully' => 'Utilizatorul a fost actualizat cu succes.',
 	'editing_user_x' => 'Editare utilizator: {x}', // Don't replace {x}
-	'details' => 'Detalii',
+    'details' => 'Detalii',
+    'force_tfa' => 'Force Two Factor Authentication for group members?',
 
     // Permissions
     'select_all' => 'Selectează tot',

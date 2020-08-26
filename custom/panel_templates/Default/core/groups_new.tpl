@@ -110,6 +110,12 @@
                                 </div>
                                 {/if}
                                 <div class="form-group">
+                                    <label for="InputTfa">{$FORCE_TFA}</label>
+                                    <input type="hidden" name="tfa" value="0">
+                                    <input type="checkbox" name="tfa" class="js-switch" id="InputTfa"
+                                           value="1">
+                                </div>
+                                <div class="form-group">
                                     <label for="InputStaff">{$STAFF_GROUP}</label>
                                     <input type="hidden" name="staff" value="0">
                                     <input type="checkbox" name="staff" class="js-switch" id="InputStaff"

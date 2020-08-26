@@ -48,6 +48,11 @@ if(isset($_GET['do'])){
 				'tfa_secret' => $secret
 			));
 
+			if (Session::exists('force_tfa_alert')) {
+				$errors[] = Session::get('force_tfa_alert');
+				Session::delete('force_tfa_alert');
+			}
+
 			// Assign Smarty variables
 			$smarty->assign(array(
 				'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
@@ -59,7 +64,8 @@ if(isset($_GET['do'])){
 				'LINK' => URL::build('/user/settings/', 'do=enable_tfa&amp;s=2'),
 				'CANCEL' => $language->get('general', 'cancel'),
 				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
-				'ERROR_TITLE' => $language->get('general', 'error')
+				'ERROR_TITLE' => $language->get('general', 'error'),
+				'ERRORS' => $errors
 			));
 
 			// Load modules + template

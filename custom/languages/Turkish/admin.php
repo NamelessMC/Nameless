@@ -429,7 +429,11 @@ $language = array(
 	'user_updated_successfully' => 'Kullanıcı başarıyla güncellendi!',
 	'editing_user_x' => '{x} Isimli Kullanıcı Düzenleniyor...', // Don't replace {x}
 	'details' => 'Detaylar',
-
+	'force_tfa' => 'Force Two Factor Authentication for group members?',
+	'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
+	'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
+	
+	
 	// Permissions
 	'select_all' => 'Hepsini seç',
 	'deselect_all' => 'Tüm seçimleri kaldır',

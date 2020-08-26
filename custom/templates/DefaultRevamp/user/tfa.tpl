@@ -14,6 +14,18 @@
     </div>
   </div>
 {/if}
+{if isset($ERRORS)}
+<div class="ui error icon message">
+  <i class="x icon"></i>
+  <div class="content">
+    <ul class="list">
+      {foreach from=$ERRORS item=error}
+      <li>{$error}</li>
+      {/foreach}
+    </ul>
+  </div>
+</div>
+{/if}
 
 <div class="ui stackable grid" id="tfa-code">
   <div class="ui centered row">

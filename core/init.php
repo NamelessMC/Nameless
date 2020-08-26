@@ -553,6 +553,19 @@ if($page != 'install'){
             }
         }
 
+        // Does their group have TFA forced?
+        $group = $queries->getWhere('groups', array('id', '=', $user->data()->group_id));
+        if ($group[0]->force_tfa) {
+            // Do they have TFA configured?
+            if (!$user->data()->tfa_enabled) {
+                if (strpos($_SERVER[REQUEST_URI], 'do=enable_tfa') === false) {
+                    Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
+                    Redirect::to(URL::build('/user/settings', 'do=enable_tfa'));
+                    die();
+                }
+            }
+        }
+
         // Basic user variables
         $smarty->assign('LOGGED_IN_USER', array(
             'username' => Output::getClean($user->data()->username),

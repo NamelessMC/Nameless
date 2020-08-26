@@ -432,7 +432,11 @@ $language = array(
 	'user_updated_successfully' => 'ユーザーが正常に更新されました。',
 	'editing_user_x' => 'ユーザー編集 {x}', // Don't replace {x}
 	'details' => '詳細',
-
+	'force_tfa' => 'Force Two Factor Authentication for group members?',
+	'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
+	'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
+	
+	
 	// Permissions
 	'select_all' => 'すべて選択',
 	'deselect_all' => 'すべて選択を解除',

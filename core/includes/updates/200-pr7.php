@@ -51,7 +51,7 @@ try {
 try {
     $queries->create('settings', array(
         'name' => 'discord_bot_url',
-        'value' => 'https://bot.tadhgboyle.dev'
+        'value' => 'https://bot-1.namelessmc.com'
     ));
     $queries->create('settings', array(
         'name' => 'discord_bot_url_backup',
@@ -122,6 +122,13 @@ try {
 }
 try {
     $queries->alterTable('forums', '`hooks`', "varchar(512) NULL DEFAULT NULL");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+// Force group TFA
+try {
+    $queries->alterTable('groups', '`force_tfa`', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }

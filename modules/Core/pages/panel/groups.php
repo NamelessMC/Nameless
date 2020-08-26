@@ -99,7 +99,8 @@ if(isset($_GET['action'])){
 							'staff' => Input::get('staff'),
 							'default_group' => $default,
 							'order' => Input::get('order'),
-							'discord_role_id' => $role_id
+							'discord_role_id' => $role_id,
+							'force_tfa' => Input::get('tfa')
 						));
 
 						$group_id = $queries->getLastId();
@@ -173,7 +174,8 @@ if(isset($_GET['action'])){
 			'GROUP_ORDER' => $language->get('admin', 'group_order'),
 			'STAFF_GROUP' => $language->get('admin', 'group_staff'),
 			'STAFF_CP' => $language->get('admin', 'can_view_staffcp'),
-			'DEFAULT_GROUP' => $language->get('admin', 'default_group')
+			'DEFAULT_GROUP' => $language->get('admin', 'default_group'),
+			'FORCE_TFA' => $language->get('admin', 'force_tfa')
 		));
 
 		if ($discord_integration) {
@@ -273,7 +275,8 @@ if(isset($_GET['action'])){
 								'staff' => Input::get('staff'),
 								'default_group' => $default,
 								'`order`' => Input::get('order'),
-								'discord_role_id' => $role_id
+								'discord_role_id' => $role_id,
+								'force_tfa' => Input::get('tfa')
 							));
 
 							Session::flash('admin_groups', $language->get('admin', 'group_updated_successfully'));
@@ -363,6 +366,8 @@ if(isset($_GET['action'])){
 			'GROUP_NAME' => Output::getClean($group->name),
 			'GROUP_ORDER' => $language->get('admin', 'group_order'),
 			'GROUP_ORDER_VALUE' => $group->order,
+			'FORCE_TFA' => $language->get('admin', 'force_tfa'),
+			'FORCE_TFA_VALUE' => $group->force_tfa
 		));
 
 		if ($discord_integration) {
@@ -483,6 +488,8 @@ $smarty->assign(array(
 	'TOKEN' => Token::get(),
 	'SUBMIT' => $language->get('general', 'submit'),
 	'INFO' => $language->get('general', 'info'),
+	'WARNING' => $language->get('general', 'warning'),
+	'FORCE_TFA_WARNING' => $language->get('admin', 'force_tfa_warning'),
 	'ID_INFO' => $language->get('user', 'discord_id_help')
 ));
 

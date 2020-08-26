@@ -429,6 +429,11 @@ $language = array(
 	'user_updated_successfully' => '账号更新成功。',
 	'editing_user_x' => '编辑账号 {x} 中', // Don't replace {x}
 	'details' => '详细',
+	'force_tfa' => 'Force Two Factor Authentication for group members?',
+	'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
+	'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
+	
+	
 
 	// Permissions
 	'select_all' => '全选',

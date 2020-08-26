@@ -429,7 +429,11 @@ $language = array(
 	'user_updated_successfully' => 'Uživatel byl úspěšně aktualizován.',
 	'editing_user_x' => 'Úprava uživatele {x}', // Don't replace {x}
 	'details' => 'Podrobnosti',
-
+	'force_tfa' => 'Force Two Factor Authentication for group members?',
+	'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
+	'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
+	
+	
 	// Permissions
 	'select_all' => 'Vybrat vše',
 	'deselect_all' => 'Odznačit vše',

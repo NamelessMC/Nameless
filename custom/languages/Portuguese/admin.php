@@ -430,7 +430,8 @@ $language = array(
     'user_validated_successfully' => 'Usuário validado com sucesso.',
     'user_updated_successfully' => 'Usuário atualizado com sucesso.',
     'editing_user_x' => 'Editando usuário {x}', // Don't replace {x}
-    'details' => 'Detalhes',    
+    'details' => 'Detalhes',
+    'force_tfa' => 'Force Two Factor Authentication for group members?',
 
     // Permissions
     'select_all' => 'Selecionar Todos',

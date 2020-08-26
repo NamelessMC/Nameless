@@ -127,6 +127,12 @@
                                 </div>
                                 {/if}
                                 <div class="form-group">
+                                    <label for="InputTfa">{$FORCE_TFA} <span class="badge badge-warning" data-toggle="popover" data-title="{$WARNING}" data-content="{$FORCE_TFA_WARNING|escape}"><i class="fa fa-exclamation-triangle"></i></label>
+                                    <input type="hidden" name="tfa" value="0">
+                                    <input type="checkbox" name="tfa" class="js-switch" id="InputTfa"
+                                           value="1"{if $FORCE_TFA_VALUE eq 1} checked{/if} >
+                                </div>
+                                <div class="form-group">
                                     <label for="InputStaff">{$STAFF_GROUP}</label>
                                     <input type="hidden" name="staff" value="0">
                                     <input type="checkbox" name="staff" class="js-switch" id="InputStaff"
