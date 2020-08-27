@@ -554,8 +554,14 @@ if($page != 'install'){
         }
 
         // Does their group have TFA forced?
-        $group = $queries->getWhere('groups', array('id', '=', $user->data()->group_id));
-        if ($group[0]->force_tfa) {
+        $cache->setCache('groups_tfa_' . $user->data()->group_id);
+        if ($cache->isCached('enabled')) {
+            $forced = $cache->retrieve('enabled');
+        } else {
+            $group = $queries->getWhere('groups', array('id', '=', $user->data()->group_id));
+            $forced = $group[0]->force_tfa;
+        }
+        if ($forced) {
             // Do they have TFA configured?
             if (!$user->data()->tfa_enabled) {
                 if (strpos($_SERVER[REQUEST_URI], 'do=enable_tfa') === false) {

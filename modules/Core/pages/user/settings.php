@@ -50,7 +50,6 @@ if(isset($_GET['do'])){
 
 			if (Session::exists('force_tfa_alert')) {
 				$errors[] = Session::get('force_tfa_alert');
-				Session::delete('force_tfa_alert');
 			}
 
 			// Assign Smarty variables
@@ -95,7 +94,7 @@ if(isset($_GET['do'])){
 								'tfa_enabled' => 1,
 								'tfa_type' => 1
 							));
-
+							Session::delete('force_tfa_alert');
 							Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
 							Redirect::to(URL::build('/user/settings'));
 							die();

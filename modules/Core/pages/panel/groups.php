@@ -114,6 +114,9 @@ if(isset($_GET['action'])){
 
 							$cache->setCache('default_group');
 							$cache->store('default_group', $group_id);
+
+							$cache->setCache('groups_tfa_' . $group_id);
+							$cache->store('enabled', Input::get('tfa'));
 						}
 
 						Session::flash('admin_groups', $language->get('admin', 'group_created_successfully'));
@@ -278,6 +281,9 @@ if(isset($_GET['action'])){
 								'discord_role_id' => $role_id,
 								'force_tfa' => Input::get('tfa')
 							));
+
+							$cache->setCache('groups_tfa_' . $_GET['group']);
+							$cache->store('enabled', Input::get('tfa'));
 
 							Session::flash('admin_groups', $language->get('admin', 'group_updated_successfully'));
 							Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . Output::getClean($_GET['group'])));
