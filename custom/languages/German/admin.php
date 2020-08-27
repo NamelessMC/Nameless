@@ -170,6 +170,7 @@ $language = array(
     'validation_promote_group_info' => 'Diese Gruppe erhält der Spieler, wenn er sich verifiziert hat.',
     'login_method' => 'Login Methode',
     'privacy_and_terms' => 'Datenschutz & Geschäftsbedingungen',
+	'dropdown_name' => 'Dropdown Name',
 
 	// Reactions
 	'icon' => 'Icon',

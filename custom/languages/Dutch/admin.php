@@ -163,7 +163,8 @@ $language = array(
     'validation_promote_group' => 'Postvalidatie groep',
     'validation_promote_group_info' => 'Dit is de groep waartoe een gebruiker wordt gepromoveerd zodra hij zijn account heeft gevalideerd.',
     'login_method' => 'Login Methode',
-    'privacy_and_terms' => 'Privacy & Voorwaarden',
+	'privacy_and_terms' => 'Privacy & Voorwaarden',
+	'dropdown_name' => 'Dropdown Name',
 
 	// Reacties
 	'icon' => 'Icoon',
@@ -434,7 +435,6 @@ $language = array(
 	'force_tfa' => 'Force Two Factor Authentication for group members?',
 	'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
 	'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
-	
 	
 	// Permissies
 	'select_all' => 'Selecteer Allemaal',

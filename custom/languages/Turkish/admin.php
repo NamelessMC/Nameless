@@ -162,6 +162,7 @@ $language = array(
 	'validation_promote_group_info' => 'Bu, bir kullanıcının hesabını doğruladıktan sonra terfi edeceği gruptur.',
 	'login_method' => 'Giriş Yöntemi',
 	'privacy_and_terms' => 'Gizlilik ve Şartlar',
+	'dropdown_name' => 'Dropdown Name',
 
 	// Reactions
 	'icon' => 'Icon',
@@ -432,7 +433,6 @@ $language = array(
 	'force_tfa' => 'Force Two Factor Authentication for group members?',
 	'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
 	'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
-	
 	
 	// Permissions
 	'select_all' => 'Hepsini seç',

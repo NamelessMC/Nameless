@@ -162,6 +162,7 @@ $language = array(
 	'validation_promote_group_info' => 'Do této skupiny bude uživatel povýšen, jakmile si ověří svůj účet.',
 	'login_method' => 'Metoda přihlášení',
 	'privacy_and_terms' => 'Soukromí a podmínky',
+	'dropdown_name' => 'Dropdown Name',
 
 	// Reactions
 	'icon' => 'Ikona',

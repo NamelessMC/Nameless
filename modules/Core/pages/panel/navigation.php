@@ -71,6 +71,8 @@ if(Input::exists()){
 			}
 		}
 
+		$language->set('general', 'more', Output::getClean(Input::get('dropdown_name')));
+
 		// Reload to update info
 		Session::flash('navigation_success', $language->get('admin', 'navigation_settings_updated_successfully'));
 		Redirect::to(URL::build('/panel/core/navigation'));
@@ -110,7 +112,9 @@ $smarty->assign(array(
 	'NAV_ITEMS' => $navigation->returnNav('top'),
 	'NAVBAR_ORDER' => $language->get('admin', 'navbar_order'),
 	'NAVBAR_ICON' => $language->get('admin', 'navbar_icon'),
-	'DROPDOWN_ITEMS' => $language->get('admin', 'dropdown_items')
+	'DROPDOWN_ITEMS' => $language->get('admin', 'dropdown_items'),
+	'DROPDOWN_NAME' => $language->get('admin', 'dropdown_name'),
+	'DROPDOWN_NAME_VALUE' => $language->get('general', 'more')
 ));
 
 $page_load = microtime(true) - $start;

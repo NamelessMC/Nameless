@@ -165,6 +165,7 @@ $language = array(
     'validation_promote_group_info' => 'アカウントの検証が完了したユーザーが昇格されるグループです。',
     'login_method' => 'ログイン使用メゾット',
     'privacy_and_terms' => '規約設定',
+	'dropdown_name' => 'Dropdown Name',
 
 	// Reactions
 	'icon' => 'アイコン',
@@ -435,7 +436,6 @@ $language = array(
 	'force_tfa' => 'Force Two Factor Authentication for group members?',
 	'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
 	'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
-	
 	
 	// Permissions
 	'select_all' => 'すべて選択',

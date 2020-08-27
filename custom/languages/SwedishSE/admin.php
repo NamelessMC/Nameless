@@ -163,6 +163,7 @@ $language = array(
     'validation_promote_group_info' => 'Detta är gruppen användraren får när hen har bekräftat sin konto.',
     'login_method' => 'Inloggningsmetod',
     'privacy_and_terms' => 'Sekretesspolicy och Villkor',
+	'dropdown_name' => 'Dropdown Name',
 
 	// Reactions
 	'icon' => 'Ikon',
@@ -433,7 +434,6 @@ $language = array(
 	'force_tfa' => 'Force Two Factor Authentication for group members?',
 	'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
 	'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
-	
 	
 	// Permissions
 	'select_all' => 'Välj alla',

@@ -164,6 +164,7 @@ $language = array(
     'validation_promote_group_info' => 'This is the group a user will be promoted to once they have validated their account.',
     'login_method' => 'Login Method',
     'privacy_and_terms' => 'Privacy & Terms',
+	'dropdown_name' => 'Dropdown Name',
 
 	// Reactions
 	'icon' => 'Icon',
@@ -434,7 +435,6 @@ $language = array(
 	'force_tfa' => 'Force Two Factor Authentication for group members?',
 	'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
 	'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
-	
 	
 	// Permissions
 	'select_all' => 'Select All',

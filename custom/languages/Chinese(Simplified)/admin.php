@@ -163,7 +163,8 @@ $language = array(
     'validation_promote_group' => '邮箱验证后权限组',
     'validation_promote_group_info' => '这是用户验证帐户后将被提升到的组。',
     'login_method' => '登录方式',
-    'privacy_and_terms' => '隐私 & 条款',
+	'privacy_and_terms' => '隐私 & 条款',
+	'dropdown_name' => 'Dropdown Name',
 
 	// Reactions
 	'icon' => '图标',
@@ -433,8 +434,6 @@ $language = array(
 	'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
 	'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
 	
-	
-
 	// Permissions
 	'select_all' => '全选',
 	'deselect_all' => '取消全选',

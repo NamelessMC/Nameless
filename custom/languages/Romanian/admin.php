@@ -167,6 +167,7 @@ $language = array(
     'validation_promote_group_info' => 'Acesta este grupul în care un utilizator va fi promovat după ce și-a validat contul.',
     'login_method' => 'Metoda de conectare',
     'privacy_and_terms' => 'Politica de confidențialitate și termenii și condițiile',
+    'dropdown_name' => 'Dropdown Name',
 
     // Reactions
     'icon' => 'Iconiță',

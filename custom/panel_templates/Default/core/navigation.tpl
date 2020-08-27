@@ -98,6 +98,7 @@
                                     </div>
 
                                     {if isset($item.items) && count($item.items)}
+                                    <br>
                                         <strong>{$item.title|escape} &raquo; {$DROPDOWN_ITEMS}</strong><br />
 
                                         {foreach from=$item.items key=dropdown_key item=dropdown_item}
@@ -123,6 +124,11 @@
                                     {/if}
 
                                 {/foreach}
+                                <hr>
+                                <div class="form-group">
+                                    <label for="dropdown_name">{$DROPDOWN_NAME}</label>
+                                    <input type="text" class="form-control" id="dropdown_name" name="dropdown_name" value="{$DROPDOWN_NAME_VALUE}">
+                                </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" value="{$SUBMIT}" class="btn btn-primary">

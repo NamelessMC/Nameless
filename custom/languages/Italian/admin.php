@@ -162,6 +162,7 @@ $language = array(
     'validation_promote_group_info' => 'Questo è il gruppo a cui un utente verrà promosso dopo aver convalidato il proprio account.',
     'login_method' => 'Metodo di login',
     'privacy_and_terms' => 'Privacy & Termini',
+	'dropdown_name' => 'Dropdown Name',
 
 	// Reactions
 	'icon' => 'Icona',
