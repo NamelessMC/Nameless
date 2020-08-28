@@ -195,6 +195,8 @@
                     {nocache}
                         {if isset($ENABLE)}
                             <a href="{$ENABLE_LINK}" class="btn btn-success">{$ENABLE}</a>
+                        {elseif isset($FORCED)}
+                            <button class="btn btn-danger" disabled>{$DISABLE}</button>
                         {else}
                             <a href="{$DISABLE_LINK}" class="btn btn-danger">{$DISABLE}</a>
                         {/if}
