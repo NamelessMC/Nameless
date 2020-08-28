@@ -445,7 +445,7 @@ class User {
         // Default avatar
         if(defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom'){
             // Custom default avatar
-            return(($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE);
+            return (($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE);
         } else {
             // Minecraft avatar
 	        if(defined('DEFAULT_AVATAR_SOURCE')){
@@ -466,9 +466,9 @@ class User {
 			        case 'nameless':
 				        // Only supports face currently
 				        if(defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
-					        return URL::build('/avatar/' . Output::getClean($uuid));
+					        return (($full ? rtrim(Util::getSelfURL(), '/') : '') . URL::build('/avatar/' . Output::getClean($uuid)));
 				        else
-					        return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($uuid);
+					        return (($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($uuid));
 
 				        break;
 
