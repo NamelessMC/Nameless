@@ -176,9 +176,11 @@
         <h3 class="ui header">{$TWO_FACTOR_AUTH}</h3>
         {if isset($ENABLE)}
           <a class="ui positive button" href="{$ENABLE_LINK}">{$ENABLE}</a>
-         {else}
+        {elseif isset($FORCED)}
+          <button class="ui negative button" disabled>{$DISABLE}</button>
+        {else}
            <a class="ui negative button" href="{$DISABLE_LINK}">{$DISABLE}</a>
-         {/if}
+        {/if}
       </div>
       {if isset($CUSTOM_AVATARS)}
         <div class="ui segment">

@@ -823,9 +823,13 @@ if(isset($_GET['do'])){
 	}
 	
 	if($user->data()->tfa_enabled == 1){
-		// Disable
 		$smarty->assign('DISABLE', $language->get('user', 'disable'));
-		$smarty->assign('DISABLE_LINK', URL::build('/user/settings/', 'do=disable_tfa'));
+		$group = $queries->getWhere('groups', array('id', '=', $user->data()->group_id));
+		if ($group[0]->force_tfa) {
+			$smarty->assign('FORCED', true);
+		} else {
+			$smarty->assign('DISABLE_LINK', URL::build('/user/settings/', 'do=disable_tfa'));
+		}
 	} else {
 		// Enable
 		$smarty->assign('ENABLE', $language->get('user', 'enable'));
