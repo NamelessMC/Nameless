@@ -57,12 +57,12 @@ $forum_title = $forum->getForumTitle($fid);
 if(Input::exists()) {
 	if(Token::check(Input::get('token'))){
 		// Check post limits
-		$last_post = $queries->orderWhere('posts', 'post_creator = ' . $user->data()->id, 'post_date', 'DESC LIMIT 1');
-		if(count($last_post)){
-			if($last_post[0]->created > strtotime("-30 seconds")){
-				$spam_check = true;
-			}
-		}
+		// $last_post = $queries->orderWhere('posts', 'post_creator = ' . $user->data()->id, 'post_date', 'DESC LIMIT 1');
+		// if(count($last_post)){
+		// 	if($last_post[0]->created > strtotime("-30 seconds")){
+		// 		$spam_check = true;
+		// 	}
+		// }
 
 		if(!isset($spam_check)){
 			// Spam check passed
@@ -142,6 +142,7 @@ if(Input::exists()) {
 					// Execute hooks and pass $available_hooks
 					$available_hooks = $queries->getWhere('forums', array('id', '=', $fid));
 					$available_hooks = json_decode($available_hooks[0]->hooks);
+					if (count($available_hooks) < 1) $available_hooks = array();
 					HookHandler::executeEvent('newTopic', array(
 						'event' => 'newTopic',
 						'uuid' => Output::getClean($user->data()->uuid),
