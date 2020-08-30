@@ -288,7 +288,7 @@ $language = array(
 	'no_email_errors' => 'Ingen feilmeldinger har blitt logget.',
 	'email_settings_updated_successfully' => 'E-postinnstillingene har blitt oppdatert.',
 	'content' => 'Innhold',
-    'mcassoc_help' => 'mcassoc er en ekstern service som kan bli brukt for å verifisere deres Minecraft-bruker de har registrert med. For å bruke denne funksjonen må du registrere deg <a href="https://mcassoc.lukegb.com/" target="_blank">her</a> for å motta en delt nøkkel.',
+    'mcassoc_help' => 'mcassoc er en ekstern tjeneste som kan bli brukt for å verifisere deres Minecraft-bruker de har registrert med. For å bruke denne funksjonen må du registrere deg <a href="https://mcassoc.lukegb.com/" target="_blank">her</a> for å motta en delt nøkkel.',
     'mcassoc_key' => 'mcassoc delt nøkkel (Shared key)',
     'mcassoc_instance' => 'mcassoc Instance Key',
     'mcassoc_instance_help' => '<a href="#" onclick="generateInstance();">Klikk for å generere en instance-nøkkel</a>',
