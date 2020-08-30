@@ -546,7 +546,8 @@ if(!isset($_GET['action'])){
 			'MESSAGES' => $template_array,
 			'NEW_REPLY' => $language->get('user', 'new_reply'),
 			'TOKEN' => Token::get(),
-			'SUBMIT' => $language->get('general', 'submit')
+			'SUBMIT' => $language->get('general', 'submit'),
+			'SUCCESS_TITLE' => $language->get('general', 'success')
 		));
 
 		// Markdown or HTML?
