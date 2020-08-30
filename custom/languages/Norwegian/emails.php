@@ -18,11 +18,11 @@ $language = array(
 
     // Registration Email
     'register_subject' => 'Valider bruker',
-    'register_message' => 'Takk for at du registrerte deg på vårt nettsted. For å fullføre registreringen må du følge denne lenken:',
+    'register_message' => 'Takk for at du registrerte deg på vår nettside. For å fullføre registreringen må du følge denne lenken:',
 
     // Change Password
     'change_password_subject' => 'Glemt passord?',
-    'change_password_message' => 'Vennligst følg lenken for å resette passordet ditt. Hvis dette ikke var deg, kan du trygt slette denne e-posten.',
+    'change_password_message' => 'Vennligst følg denne lenken for å tilbakestille passordet ditt. Hvis dette ikke var deg, kan du trygt slette denne e-posten.',
 
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} har svart {y}', // Don't remove {x} or {y}
