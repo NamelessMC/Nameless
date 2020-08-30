@@ -22,7 +22,7 @@ $language = array(
 	'cant_ban_admin' => 'Du kan ikke bannlyse en administrator!',
 	
 	// IP Lookup
-	'ip_lookup' => 'IP Søker',
+	'ip_lookup' => 'IP-søking',
 	'search_for_ip' => 'Søk etter en bruker eller IP-adresse:',
 	'no_ips_with_username' => 'IP-adresse for denne spilleren ble ikke funnet.',
 	'no_accounts_with_that_ip' => 'IP-adresse for denne brukeren ble ikke funnet.',
@@ -50,8 +50,8 @@ $language = array(
 	'reopen_report' => 'Åpne rapport på nytt',
 	'1_open_report' => 'Det er kun <strong>1</strong> åpen rapport.',
 	'open_reports' => 'Det er foreløpig <strong>{x}</strong> åpne rapporter.', // Don't replace {x}
-	'no_open_reports' => 'Det er ingen åpne rapporter for øyeblikket.',
-	'no_closed_reports' => 'Det er ingen lukkede rapporter for øyeblikket.',
+	'no_open_reports' => 'Det er ingen rapporter åpen for øyeblikket.',
+	'no_closed_reports' => 'Det er ingen rapporter lukket for øyeblikket.',
 	'recent_reports' => 'Nylige rapporter',
 	'reported_by' => 'Rapportert av:',
 	'website' => 'Nettside',
@@ -75,7 +75,7 @@ $language = array(
 	'previous_punishments' => 'Tidligere straffer',
 	'no_previous_punishments' => 'Ingen tidligere straffer',
 	'warning' => 'Advarsel',
-	'ip_ban' => 'IP-Ban',
+	'ip_ban' => 'IP-bannlys',
 	'reason' => 'Grunn',
 	'warn_user' => 'Advar bruker',
 	'ban_user' => 'Bannlys bruker',
@@ -86,9 +86,9 @@ $language = array(
 	'revoked' => 'Angret',
 	'acknowledged' => 'Mottatt',
 	'confirm_revoke_warning' => 'Er du sikker på at du vil fjerne denne advarselen?',
-	'confirm_revoke_ban' => 'Er du sikker på at du vil fjerne denne bannlysningen?',
-	'punishment_revoked' => 'Straff fjernet.',
-	'punishment_revoked_alert' => '{x} har fjernet straffen til {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
+	'confirm_revoke_ban' => 'Er du sikker på at du vil oppheve denne bannlysningen?',
+	'punishment_revoked' => 'Straff opphevet.',
+	'punishment_revoked_alert' => '{x} har opphevet straffen til {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
 	'cant_punish_admin' => 'Du kan ikke straffe en administrator!',
     'viewing_all_punishments' => 'Ser på alle straffer',
     'no_punishments_found' => 'Ingen straffer funnet.',
@@ -103,6 +103,6 @@ $language = array(
 	
     // Users
     'recent_registrations' => 'Nylige registreringer',
-	'reset_profile_banner' => 'Resett profilbanner'
+	'reset_profile_banner' => 'Tilbakestill profilbanner'
 
 );
