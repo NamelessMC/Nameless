@@ -630,6 +630,7 @@ if(isset($_GET['do'])){
 	}
 
 	// Error/success message?
+	if(Session::exists('settings_error')) $error = Session::flash('settings_error');
 	if(Session::exists('settings_success')) $success = Session::flash('settings_success');
 	
 	// Get languages
