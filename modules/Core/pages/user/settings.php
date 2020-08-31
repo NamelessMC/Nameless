@@ -63,9 +63,13 @@ if(isset($_GET['do'])){
 				'LINK' => URL::build('/user/settings/', 'do=enable_tfa&amp;s=2'),
 				'CANCEL' => $language->get('general', 'cancel'),
 				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
-				'ERROR_TITLE' => $language->get('general', 'error'),
-				'ERRORS' => $errors
+				'ERROR_TITLE' => $language->get('general', 'error')
 			));
+			
+			if (isset($errors) && count($errors))
+				$smarty->assign(array(
+					'ERRORS' => $errors
+				));
 
 			// Load modules + template
 			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
@@ -117,7 +121,8 @@ if(isset($_GET['do'])){
 				'SUBMIT' => $language->get('general', 'submit'),
 				'TOKEN' => Token::get(),
 				'CANCEL' => $language->get('general', 'cancel'),
-				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa')
+				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
+				'ERROR_TITLE' => $language->get('general', 'error')
 			));
 
 			// Load modules + template
