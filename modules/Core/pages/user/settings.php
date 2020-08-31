@@ -752,10 +752,7 @@ if(isset($_GET['do'])){
 	if($user->canPrivateProfile($user->data()->id)){
         $smarty->assign(array(
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile'),
-            'PRIVATE_PROFILE_ENABLED' => $user->isPrivateProfile($user->data()->id),
-            'ENABLED' => $language->get('user', 'enabled'),
-            'DISABLED' => $language->get('user', 'disabled')
-
+            'PRIVATE_PROFILE_ENABLED' => $user->isPrivateProfile($user->data()->id)
         ));
 	}
 	
@@ -794,7 +791,9 @@ if(isset($_GET['do'])){
 		'ERROR_TITLE' => $language->get('general', 'error'),
 		'HELP' => $language->get('general', 'help'),
 		'INFO' => $language->get('general', 'info'),
-		'ID_INFO' => $language->get('user', 'discord_id_help')
+		'ID_INFO' => $language->get('user', 'discord_id_help'),
+		'ENABLED' => $language->get('user', 'enabled'),
+		'DISABLED' => $language->get('user', 'disabled')
 	));
 
 	if ($discord_linked) {
