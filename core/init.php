@@ -131,25 +131,26 @@ if($page != 'install'){
     define('PAGE_LOADING', $page_loading);
 
     // Error reporting
-    $cache->setCache('error_cache');
-    if($cache->isCached('error_reporting')){
-        if($cache->retrieve('error_reporting') == 1){
-            // Enabled
-            ini_set('display_startup_errors',1);
-            ini_set('display_errors',1);
-            error_reporting(-1);
+    if(!defined('DEBUGGING')){
+        $cache->setCache('error_cache');
+        if($cache->isCached('error_reporting')){
+            if($cache->retrieve('error_reporting') == 1){
+                // Enabled
+                ini_set('display_startup_errors',1);
+                ini_set('display_errors',1);
+                error_reporting(-1);
 
-            if(!defined('DEBUGGING'))
-            	define('DEBUGGING', 1);
+                define('DEBUGGING', 1);
+            } else {
+                // Disabled
+                error_reporting(0);
+                ini_set('display_errors', 0);
+            }
         } else {
-            // Disabled
+            // Disable by default
             error_reporting(0);
             ini_set('display_errors', 0);
         }
-    } else {
-        // Disable by default
-        error_reporting(0);
-        ini_set('display_errors', 0);
     }
 
     // Get the Nameless version
