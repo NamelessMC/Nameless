@@ -85,5 +85,22 @@ $language = array(
     'finish_message' => 'Ευχαριστώ για την εγκατάσταση NamelessMC! Μπορείτε τώρα να προχωρήσει στο StaffCP, όπου μπορείτε να ρυθμίσετε περαιτέρω την ιστοσελίδα σας.',
     'support_message' => 'Αν χρειάζεστε υποστήριξη, ελέγξτε την ιστοσελίδα μας <a href="https://namelessmc.com" target="_blank">here</a>, ή μπορείτε επίσης να επισκεφθείτε τον δικό μας <a href="https://discord.gg/9vk93VR" target="_blank">Discord server</a> η το δικό μας <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.',
     'credits' => 'Συντελεστές',
-    'credits_message' => 'Ένα τεράστιο ευχαριστώ σε όλους <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC contributors</a> από το 2014'
+    'credits_message' => 'Ένα τεράστιο ευχαριστώ σε όλους <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC contributors</a> από το 2014',
+
+	'step_home' => 'Home',
+	'step_requirements' => 'Requirements',
+	'step_general_config' => 'General Configuration',
+	'step_database_config' => 'Database Configuration',
+	'step_site_config' => 'Site Configuration',
+	'step_admin_account' => 'Admin Account',
+	'step_conversion' => 'Conversion',
+	'step_finish' => 'Finish',
+
+	'general_configuration' => 'General Configuration',
+	'reload' => 'Reload',
+	'reload_page' => 'Reload page',
+	'no_converters_available' => 'There are no converters available.',
+	'config_not_writable' => 'The config file is not writable.',
+
+	'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
 );

@@ -170,15 +170,15 @@ class Default_Template extends TemplateBase {
 			      toastr.success("' . $this->_language->get('general', 'copied') . '");
 			    }
 			    
-                            const announcements = document.querySelectorAll(\'[id^="announcement"]\');
-                              announcements.forEach((announcement) => {
-                                const closeButton = announcement.querySelector(\'.close\');
-                                if (closeButton) {
-                                  closeButton.addEventListener(\'click\', () => {
-                                  document.cookie = announcement.id + \'=true; path=/\';
-                                });
-                              }
-                            });
+			    var announcements = document.querySelectorAll(\'[id^="announcement"]\');
+			    announcements.forEach((announcement) => {
+			      var closeButton = announcement.querySelector(\'.close\');
+			      if (closeButton) {
+			        closeButton.addEventListener(\'click\', function() {
+			          document.cookie = announcement.id + \'=true; path=/\';
+			        });
+			      }
+			    });
 			'
 		);
 

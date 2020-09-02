@@ -16,7 +16,7 @@ Unfortunately it's only possible to view master branch contributions. Once the v
 - Greek: [ArisC](https://github.com/Ar1sC)
 - Italian: [alsoGAMER](https://github.com/alsoGAMER)
 - Japanese: [Mari0914](https://github.com/Mari0914), [SimplyRin](https://www.simplyrin.net)
-- Lithuanian: [Govindas](https://github.com/Govindass), [Justas](https://github.com/justaskarvovskis)
+- Lithuanian: [Govindas](https://github.com/Govindass), [Justas](https://github.com/madebyjustas)
 - Norwegian: [HeyImSushii](https://github.com/HeyImSushii), [Maiu](https://github.com/Maiu15), [OscarWoHA](https://github.com/OscarWoHA)
 - Polish: brzezinsky, Cubixor, [kacperleague9](https://github.com/kacperleague9)
 - Portuguese: [dasilvaj4](https://github.com/dasilvaj4), [Douglas Teles](https://github.com/dgateles)

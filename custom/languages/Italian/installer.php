@@ -83,5 +83,22 @@ $language = array(
     'finish_message' => 'Grazie per aver installato NamelessMC! È ora possibile accedere al pannello amministrativo, dove è possibile configurare ulteriormente il sito web.',
     'support_message' => 'Se hai bisogno di supporto, consulta il nostro sito <a href="https://namelessmc.com" target="_blank">qui</a>, oppure puoi anche visitare il nostro <a href="https://discord.gg/9vk93VR" target="_blank">Server Discord</a> o il nostro <a href="https://github.com/NamelessMC/Nameless/" target="_blank">Repository GitHub</a>.',
     'credits' => 'Crediti',
-    'credits_message' => 'Un enorme ringraziamento a tutti i <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">Collaboratori NamelessMC</a> dal 2014'
+    'credits_message' => 'Un enorme ringraziamento a tutti i <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">Collaboratori NamelessMC</a> dal 2014',
+
+	'step_home' => 'Home',
+	'step_requirements' => 'Requirements',
+	'step_general_config' => 'General Configuration',
+	'step_database_config' => 'Database Configuration',
+	'step_site_config' => 'Site Configuration',
+	'step_admin_account' => 'Admin Account',
+	'step_conversion' => 'Conversion',
+	'step_finish' => 'Finish',
+
+	'general_configuration' => 'General Configuration',
+	'reload' => 'Reload',
+	'reload_page' => 'Reload page',
+	'no_converters_available' => 'There are no converters available.',
+	'config_not_writable' => 'The config file is not writable.',
+
+	'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
 );

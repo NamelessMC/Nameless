@@ -85,5 +85,22 @@ $language = array(
     'finish_message' => 'Vă mulțumim pentru instalarea NamelessMC! Acum puteți trece în Panoul de Control, unde puteți configura în continuare site-ul Web.',
     'support_message' => 'Dacă aveți nevoie de asistență, consultați site-ul nostru web <a href="https://namelessmc.com" target="_blank">aici</a>, sau puteți vizita și serverul nostru de <a href="https://discord.gg/9vk93VR" target="_blank">Discord</a> sau pagina noastra de <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub</a>.',
     'credits' => 'Credite',
-    'credits_message' => 'O mulțime de mulțumiri tuturor <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">colaboratorilor NamelessMC</a> înca din 2014'
+    'credits_message' => 'O mulțime de mulțumiri tuturor <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">colaboratorilor NamelessMC</a> înca din 2014',
+
+	'step_home' => 'Home',
+	'step_requirements' => 'Requirements',
+	'step_general_config' => 'General Configuration',
+	'step_database_config' => 'Database Configuration',
+	'step_site_config' => 'Site Configuration',
+	'step_admin_account' => 'Admin Account',
+	'step_conversion' => 'Conversion',
+	'step_finish' => 'Finish',
+
+	'general_configuration' => 'General Configuration',
+	'reload' => 'Reload',
+	'reload_page' => 'Reload page',
+	'no_converters_available' => 'There are no converters available.',
+	'config_not_writable' => 'The config file is not writable.',
+
+	'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
 );

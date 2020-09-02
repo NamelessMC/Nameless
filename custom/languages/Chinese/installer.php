@@ -87,5 +87,22 @@ $language = array(
     'finish_message' => '感謝安裝 NamelessMC! 你現在可以造訪管理員後台，在後台進一步設定網站.',
     'support_message' => '如果需要支援，逛逛我們的 <a href="https://namelessmc.com" target="_blank">網站</a>, 或是加入我們的 <a href="https://discord.gg/9vk93VR" target="_blank">Discord伺服器</a> 或是 <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub 知識庫</a>.',
     'credits' => '貢獻歸功於',
-    'credits_message' => '從 2014年開始 非常感謝所有 <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC 貢獻者</a>'
+    'credits_message' => '從 2014年開始 非常感謝所有 <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC 貢獻者</a>',
+
+	'step_home' => 'Home',
+	'step_requirements' => 'Requirements',
+	'step_general_config' => 'General Configuration',
+	'step_database_config' => 'Database Configuration',
+	'step_site_config' => 'Site Configuration',
+	'step_admin_account' => 'Admin Account',
+	'step_conversion' => 'Conversion',
+	'step_finish' => 'Finish',
+
+	'general_configuration' => 'General Configuration',
+	'reload' => 'Reload',
+	'reload_page' => 'Reload page',
+	'no_converters_available' => 'There are no converters available.',
+	'config_not_writable' => 'The config file is not writable.',
+
+	'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
 );
