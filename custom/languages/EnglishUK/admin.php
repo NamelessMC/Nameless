@@ -21,7 +21,6 @@ $language = array(
 	'configuration' => 'Configuration',
 	'layout' => 'Layout',
 	'user_management' => 'User Management',
-	'admin_cp' => 'AdminCP',
 	'administration' => 'Administration',
 	'overview' => 'Overview',
 	'core' => 'Core',
@@ -31,7 +30,6 @@ $language = array(
 	'security' => 'Security',
 	'sitemap' => 'Sitemap',
 	'styles' => 'Styles',
-	'users_and_groups' => 'Users and Groups',
 
 	// Overview
 	'running_nameless_version' => 'Running NamelessMC version <strong>{x}</strong>', // Don't replace "{x}"
@@ -81,7 +79,6 @@ $language = array(
 	'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
 	'dark' => 'Dark',
 	'light' => 'Light',
-	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
 	'social_media_settings_updated' => 'Social media settings updated successfully.',
 	'successfully_updated' => 'Successfully updated',
@@ -198,7 +195,7 @@ $language = array(
 	'creating_profile_field' => 'Creating Profile Field',
 	'editing_profile_field' => 'Editing Profile Field',
 	'field_name' => 'Field Name',
-	'profile_field_required_help' => 'Required fields must be filled out by the user, and they will appear during registration.',
+	'profile_field_required_help' => 'Required fields must be filled out by the user, and will appear during registration.',
 	'profile_field_public_help' => 'Public fields will be displayed to all users, if this is disabled only moderators can view the values.',
 	'profile_field_error' => 'Please input a field name between 2 and 16 characters long.',
 	'description' => 'Description',
@@ -212,8 +209,6 @@ $language = array(
 
 	// Minecraft
 	'enable_minecraft_integration' => 'Enable Minecraft integration?',
-	'mc_service_status' => 'Minecraft Service Status',
-	'service_query_error' => 'Unable to retrieve service status.',
 	'authme_integration' => 'AuthMe Integration',
 	'authme_integration_info' => 'When AuthMe integration is enabled, users can only register ingame.',
 	'enable_authme' => 'Enable AuthMe integration?',
@@ -297,8 +292,6 @@ $language = array(
 	'force_premium_accounts' => 'Force premium Minecraft accounts?',
 	'banner_background' => 'Banner background',
 	'query_interval' => 'Query interval (in minutes, must be between 5 and 60)',
-	'player_graphs' => 'Player Graphs',
-	'player_count_cronjob_info' => 'You can set up a cron job to query your servers every {x} minutes with the following command:',
 	'status_page' => 'Enable status page?',
 	'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
 	'server_id_x' => 'Server ID: {x}', // Don't replace {x}
@@ -376,11 +369,7 @@ $language = array(
 	'users' => 'Users',
 	'groups' => 'Groups',
 	'group' => 'Group',
-	'new_user' => '<i class="fa fa-plus-circle"></i> New User',
-	'creating_new_user' => 'Creating new user',
 	'registered' => 'Registered',
-	'user_created' => 'User created successfully.',
-	'cant_delete_root_user' => 'Can\'t delete the root user!',
 	'cant_modify_root_user' => 'Can\'t modify this user\'s group!',
 	'user_deleted' => 'User deleted successfully.',
 	'confirm_user_deletion' => 'Are you sure you want to delete the user <strong>{x}</strong>?', // Don't replace {x}
@@ -391,8 +380,6 @@ $language = array(
 	'punish_user' => 'Punish User',
 	'delete_user' => 'Delete User',
 	'minecraft_uuid' => 'Minecraft UUID',
-	'other_actions' => 'Other Actions',
-	'disable_avatar' => 'Disable Avatar',
 	'select_user_group' => 'You must select a user\'s group.',
 	'uuid_max_32' => 'The UUID must be a maximum of 32 characters.',
 	'title_max_64' => 'The user title must be a maximum of 64 characters.',
@@ -404,7 +391,6 @@ $language = array(
 	'group_name_minimum' => 'Please ensure your group name is a minimum of 2 characters long.',
 	'group_name_maximum' => 'Please ensure your group name is a maximum of 20 characters long.',
 	'creating_group' => 'Creating new group',
-	'group_html_maximum' => 'Please ensure your group HTML is no longer than 1024 characters long.',
 	'group_html' => 'Group HTML',
 	'group_html_lg' => 'Group HTML Large',
 	'group_username_colour' => 'Group Username Colour',
@@ -412,7 +398,6 @@ $language = array(
 	'group_staff' => 'Is the group a staff group?',
 	'delete_group' => 'Delete Group',
 	'confirm_group_deletion' => 'Are you sure you want to delete the group {x}?', // Don't replace {x}
-	'group_not_exist' => 'That group doesn\'t exist.',
 	'secondary_groups' => 'Secondary Groups',
 	'secondary_groups_info' => 'The user will gain any additional permissions from these groups. Ctrl+click to select/deselect multiple groups.',
 	'unable_to_update_uuid' => 'Unable to update UUID.',
@@ -437,18 +422,12 @@ $language = array(
 	// Permissions
 	'select_all' => 'Select All',
 	'deselect_all' => 'Deselect All',
-	'background_image' => 'Background image',
 	'can_edit_own_group' => 'Can edit own group\'s permissions',
 	'permissions_updated_successfully' => 'Permissions updated successfully.',
 	'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
 
 	// General Admin language
-	'task_successful' => 'Task successful.',
-	'invalid_action' => 'Invalid action.',
-	'enable_night_mode' => 'Enable Night Mode',
-	'disable_night_mode' => 'Disable Night Mode',
 	'view_site' => 'View Site',
-	'signed_in_as_x' => 'Signed in as {x}', // Don't replace {x}
     'warning' => 'Warning',
 
     // Maintenance
@@ -634,12 +613,10 @@ $language = array(
 	'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
 	'recent_users' => 'New Users',
 	'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
-	'average_players' => 'Average Players',
 	'nameless_news' => 'NamelessMC News',
 	'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
 	'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
 	'server_compatibility' => 'Server Compatibility',
-	'issues' => 'Issues',
 
 	// Other
 	'source' => 'Source',

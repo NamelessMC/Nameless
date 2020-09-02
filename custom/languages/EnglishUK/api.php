@@ -13,7 +13,6 @@ $language = array(
     // Errors
     'unknown_error' => 'Unknown error',
     'invalid_api_key' => 'Invalid API key',
-    'invalid_language_file' => 'Invalid language file',
     'invalid_api_method' => 'Invalid API method',
     'no_unique_site_id' => 'No unique site ID available',
     'unable_to_check_for_updates' => 'Unable to check for updates',
@@ -47,7 +46,6 @@ $language = array(
     'finish_registration_email' => 'Please check your emails to complete registration.',
     'group_updated' => 'Group updated successfully',
     'report_created' => 'Report created successfully',
-    'new_private_message_from' => 'New private message from {x}', // Don't replace {x}
     'username_updated' => 'Username updated successfully',
     'server_info_updated' => 'Server info updated successfully',
     'account_validated' => 'Account validated successfully',

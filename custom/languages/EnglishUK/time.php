@@ -14,7 +14,6 @@ $language = array(
 	 *  Time
 	 */
 	'time' => 'time', // Placeholder, no need to translate
-	'seconds_short' => 's', // Shortened "seconds", eg "s"
 	'less_than_a_minute' => 'less than a minute ago',
 	'1_minute' => '1 minute ago',
 	'_minutes' => '{x} minutes ago',

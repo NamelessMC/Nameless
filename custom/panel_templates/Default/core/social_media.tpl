@@ -95,12 +95,6 @@
                                            value="{$DISCORD_SERVER_ID_VALUE}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="InputGPlus">{$GOOGLE_PLUS_URL}</label>
-                                    <input type="text" name="gplusurl" class="form-control" id="InputGPlus"
-                                           placeholder="{$GOOGLE_PLUS_URL}"
-                                           value="{$GOOGLE_PLUS_URL_VALUE}">
-                                </div>
-                                <div class="form-group">
                                     <label for="InputFacebook">{$FACEBOOK_URL}</label>
                                     <input type="text" name="fburl" class="form-control" id="InputFacebook"
                                            placeholder="{$FACEBOOK_URL}"

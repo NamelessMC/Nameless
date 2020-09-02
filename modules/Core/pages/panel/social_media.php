@@ -89,16 +89,6 @@ if(Input::exists()){
 
 		$cache->store('discord', Output::getClean(Input::get('discordid')));
 
-		// Google Plus URL
-		$gplus_url_id = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
-		$gplus_url_id = $gplus_url_id[0]->id;
-
-		$queries->update('settings', $gplus_url_id, array(
-			'value' => Output::getClean(Input::get('gplusurl'))
-		));
-
-		$cache->store('google_plus', Output::getClean(Input::get('gplusurl')));
-
 		// Facebook URL
 		$fb_url_id = $queries->getWhere('settings', array('name', '=', 'fb_url'));
 		$fb_url_id = $fb_url_id[0]->id;
@@ -136,7 +126,6 @@ $youtube_url = $queries->getWhere('settings', array('name', '=', 'youtube_url'))
 $twitter_url = $queries->getWhere('settings', array('name', '=', 'twitter_url'));
 $twitter_style = $queries->getWhere('settings', array('name', '=', 'twitter_style'));
 $discord = $queries->getWhere('settings', array('name', '=', 'discord'));
-$gplus_url = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
 $fb_url = $queries->getWhere('settings', array('name', '=', 'fb_url'));
 
 $smarty->assign(array(
@@ -155,8 +144,6 @@ $smarty->assign(array(
 	'TWITTER_STYLE_VALUE' => $twitter_style[0]->value,
 	'DISCORD_SERVER_ID' => $language->get('admin', 'discord_id'),
 	'DISCORD_SERVER_ID_VALUE' => Output::getClean($discord[0]->value),
-	'GOOGLE_PLUS_URL' => $language->get('admin', 'google_plus_url'),
-	'GOOGLE_PLUS_URL_VALUE' => Output::getClean($gplus_url[0]->value),
 	'FACEBOOK_URL' => $language->get('admin', 'facebook_url'),
 	'FACEBOOK_URL_VALUE' => Output::getClean($fb_url[0]->value),
 ));
