@@ -359,7 +359,6 @@ class Default_Template extends TemplateBase {
 						const closeButton = announcement.querySelector(\'.close\');
 						if (closeButton) {
 							closeButton.addEventListener(\'click\', () => {
-								console.log(\'hahha\');
 								document.cookie = announcement.id + \'=true; path=/\';
 							});
 						}
