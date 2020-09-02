@@ -154,7 +154,7 @@
           <h3 class="ui header">{$ABOUT}</h3>
           <div class="ui relaxed list">
             <div class="item">
-              <i class="angle right icon"></i>
+              <i class="middle aligned user add icon"></i>
               <div class="middle aligned content" data-toggle="popup">
                 <div class="header">{$ABOUT_FIELDS.registered.title}</div>
                 <div class="description">{$ABOUT_FIELDS.registered.value}</div>
@@ -166,7 +166,7 @@
               </div>
             </div>
             <div class="item">
-              <i class="angle right icon"></i>
+              <i class="middle aligned clock icon"></i>
               <div class="middle aligned content" data-toggle="popup">
                 <div class="header">{$ABOUT_FIELDS.last_seen.title}</div>
                 <div class="description">{$ABOUT_FIELDS.last_seen.value}</div>
@@ -178,7 +178,7 @@
               </div>
             </div>
             <div class="item">
-              <i class="angle right icon"></i>
+              <i class="middle aligned eye icon"></i>
               <div class="middle aligned content">
                 <div class="header">{$ABOUT_FIELDS.profile_views.title}</div>
                 <div class="description">{$ABOUT_FIELDS.profile_views.value}</div>
@@ -190,7 +190,7 @@
               {foreach from=$ABOUT_FIELDS key=key item=field}
                 {if is_numeric($key)}
                   <div class="item">
-                    <i class="angle right icon"></i>
+                    <i class="middle aligned dot circle icon"></i>
                     <div class="middle aligned content">
                       <div class="header">{$field.title}</div>
                       <div class="description">{$field.value}</div>
