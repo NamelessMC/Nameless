@@ -72,8 +72,8 @@ class Email {
 
             $mail->CharSet = "UTF-8";
 			$mail->Encoding = "base64";
-            $mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
-            $mail->From = $GLOBALS['email']['username'];
+            $mail->setFrom($GLOBALS['email']['email'], $GLOBALS['email']['name']);
+            $mail->From = $GLOBALS['email']['email'];
             $mail->FromName = $GLOBALS['email']['name'];
             $mail->addAddress($email['to']['email'], $email['to']['name']);
             $mail->Subject = $email['subject'];
