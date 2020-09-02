@@ -119,7 +119,7 @@ class Widgets {
      *  Is a widget enabled?
      */
     public function isEnabled($widget){
-        return (array_key_exists($widget->getName(), $this->_enabled));
+        return array_key_exists($widget->getName(), $this->_enabled);
     }
 
     /*

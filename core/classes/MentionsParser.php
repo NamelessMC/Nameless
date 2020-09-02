@@ -7,7 +7,7 @@
  *
  * Modified by Samerton for NamelessMC
  * https://github.com/NamelessMC/Nameless/
- * NamelessMC version 2.0.0-pr6
+ * NamelessMC version 2.0.0-pr7
  */
 class MentionsParser {
 	/*

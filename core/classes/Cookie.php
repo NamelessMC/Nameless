@@ -13,7 +13,7 @@ class Cookie {
 	// Check the specified cookie exists (returns true or false)
 	// Params: $name (string) - name of cookie to check
 	public static function exists($name){
-		return (isset($_COOKIE[$name])) ? true : false;
+		return isset($_COOKIE[$name]);
 	}
 	
 	// Return the value of the specified cookie
@@ -27,19 +27,13 @@ class Cookie {
 	//         $value (string) - value to store in cookie
 	//         $expiry (integer) - when does the cookie expire?
 	public static function put($name, $value, $expiry){
-		if(setcookie($name, $value, time() + $expiry, '/')) {
-			return true;
-		}
-		return false;
+		return setcookie($name, $value, time() + $expiry, '/');
 	}
 	
 	// Delete a cookie
 	// Params: $name (string) - name of cookie to delete
 	public static function delete($name){
-		if(setcookie($name, '', time() - 1, '/')){
-			return true;
-		}
-		return false;
+		return setcookie($name, '', time() - 1, '/');
 	}
 	
 }

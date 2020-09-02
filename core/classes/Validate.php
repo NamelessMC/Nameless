@@ -168,7 +168,6 @@ class Validate {
 						break;
 					}
 				}
-
 			}
 		}
 
