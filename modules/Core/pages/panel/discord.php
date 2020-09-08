@@ -46,7 +46,6 @@ if (Input::exists()) {
         $validate = new Validate();
         $validation = $validate->check($_POST, array(
             'guild_id' => array(
-                'required' => true,
                 'min' => 18,
                 'max' => 18,
                 'numeric' => true
@@ -63,13 +62,21 @@ if (Input::exists()) {
             $enable_discord_id = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
             $enable_discord_id = $enable_discord_id[0]->id;
             if ($_POST['enable_discord'] == '1') {
-                if (Util::curlGetContents($_POST['bot_url']) != 'success') {
-                    Session::flash('discord_error', $language->get('user', 'discord_communication_error'));
+                if (Input::get('guild_id') == '') {
+                    Session::flash('discord_error', $language->get('admin', 'discord_guild_id_required'));
                     Redirect::to(URL::build('/panel/discord'));
-                    die();
                     $queries->update('settings', $enable_discord_id, array(
                         'value' => 0
                     ));
+                    die();
+                }
+                if (Util::curlGetContents($_POST['bot_url']) != 'success') {
+                    Session::flash('discord_error', $language->get('user', 'discord_communication_error'));
+                    Redirect::to(URL::build('/panel/discord'));
+                    $queries->update('settings', $enable_discord_id, array(
+                        'value' => 0
+                    ));
+                    die();
                 } else {
                     $queries->update('settings', $enable_discord_id, array(
                         'value' => 1
@@ -105,11 +112,7 @@ if (Input::exists()) {
                 } else if (strpos($validation_error, 'numeric') !== false) {
                     $errors[] = $language->get('admin', 'discord_id_numeric');
                 } else if (strpos($validation_error, 'required') !== false) {
-                    if (strpos($validation_error, 'guild_id') !== false) {
-                        $errors[] = $language->get('admin', 'discord_guild_id_required');
-                    } else if (strpos($validation_error, 'bot_url') !== false) {
-                        $errors[] = $language->get('admin', 'discord_bot_url_required');
-                    }
+                    $errors[] = $language->get('admin', 'discord_bot_url_required');
                 }
             }
         }
@@ -121,8 +124,7 @@ if (Input::exists()) {
     if (isset($_GET['action'])) {
         switch ($_GET['action']) {
             case 'test': 
-                $result = Util::discordBotRequest('/');
-                if ($result == 'success') {
+                if (Util::discordBotRequest('/') == 'success') {
                     $success = $language->get('admin', 'discord_bot_url_valid');
                 } else {
                     $errors[] = $language->get('user', 'discord_communication_error');
