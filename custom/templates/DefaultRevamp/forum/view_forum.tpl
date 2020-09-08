@@ -53,7 +53,7 @@
               <tr>
                 <td>
                   <h5 class="ui header">
-                    {if empty($subforum->icon)}<i class="comment icon"></i>{else}{$subforum.icon}{/if}
+                    {if empty($subforum.icon)}<i class="comment icon"></i>{else}{$subforum.icon}{/if}
                     <div class="content">
                       <a href="{$subforum.link}" data-toggle="popup">{$subforum.title}</a>
                       <div class="ui wide popup">
