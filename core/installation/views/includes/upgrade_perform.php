@@ -1050,7 +1050,7 @@ switch($s) {
 		
 		$queries->create('settings', array(
 			'name' => 'discord_bot_url',
-			'value' => 'https://bot.tadhgboyle.dev'
+			'value' => 'https://bot-1.namelessmc.com'
 		));
 
 		$queries->create('settings', array(
