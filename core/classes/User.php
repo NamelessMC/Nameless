@@ -327,6 +327,21 @@ class User {
 
         return false;
     }
+	
+	
+	// Get displayname
+	// Params: $force - force username
+	public function getDisplayname($force = false) {
+		if($force == true) {
+			return Output::getClean($this->_data->username);
+		}
+		return Output::getClean($this->_data->nickname);
+	}
+	
+	// Build profile link
+	public function getProfileURL() {
+		return Output::getClean(URL::build("/profile/" . $this->data()->username)); 
+	}
 
 	// Get a user's group from their ID. We can either return their ID only, their normal HTML display code, or their large HTML display code
 	public function getGroup($id, $html = null, $large = null) {
