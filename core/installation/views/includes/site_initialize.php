@@ -424,11 +424,6 @@ $queries->create('settings', array(
 ));
 
 $queries->create('settings', array(
-	'name' => 'gplus_url',
-	'value' => null
-));
-
-$queries->create('settings', array(
 	'name' => 'fb_url',
 	'value' => null
 ));

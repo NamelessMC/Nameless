@@ -197,7 +197,9 @@ $smarty->assign(array(
 	'BACKGROUND_IMAGES_ARRAY' => $template_images,
 	'BANNER_IMAGES_ARRAY' => $template_banner_images,
 	'BANNER_IMAGE' => str_replace('{x}', $banner_img, $language->get('admin', 'banner_image_x')),
-	'ERRORS_TITLE' => $language->get('general', 'error')
+	'ERRORS_TITLE' => $language->get('general', 'error'),
+	'INFO' => $language->get('general', 'info'),
+	'BACKGROUND_IMAGE_INFO' => $language->get('admin', 'background_image_info')
 ));
 
 $page_load = microtime(true) - $start;

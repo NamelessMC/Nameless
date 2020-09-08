@@ -372,7 +372,8 @@ $language = array(
     'unable_to_delete_template' => 'Não é possível excluir totalmente o template. Por favor, verifique as permissões de arquivo.',
     'background_reset_successfully' => 'Background redefinido com sucesso.',
     'background_updated_successfully' => 'Background atualizado com sucesso.',
-    'unable_to_enable_template' => 'Não foi possível ativar o template incompatível.',  
+    'unable_to_enable_template' => 'Não foi possível ativar o template incompatível.',
+    'background_image_info' => 'Please note that this option may not be compatible with most templates.',
 
     // Users & groups
     'users' => 'Usuários',

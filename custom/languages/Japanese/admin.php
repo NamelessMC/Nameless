@@ -374,6 +374,7 @@ $language = array(
 	'background_reset_successfully' => '背景が正常にリセットされました。',
 	'background_updated_successfully' => '背景が正常に更新されました。',
 	'unable_to_enable_template' => '互換性のないテンプレートを有効にすることはできません。',
+	'background_image_info' => 'Please note that this option may not be compatible with most templates.',
 
 	// Users & groups
 	'users' => 'ユーザー',

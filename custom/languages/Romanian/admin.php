@@ -373,6 +373,7 @@ $language = array(
 	'background_reset_successfully' => 'Imaginea de fundal a fost resetată cu succes.',
 	'background_updated_successfully' => 'Imaginea de fundal a fost actualizată cu succes.',
 	'unable_to_enable_template' => 'Șabloanele incompatibile nu pot fi activate.',
+    'background_image_info' => 'Please note that this option may not be compatible with most templates.',
 
     // Users & groups
     'users' => 'Utilizatori',

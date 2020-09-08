@@ -371,6 +371,7 @@ $language = array(
 	'background_reset_successfully' => 'Background reset successfully.',
 	'background_updated_successfully' => 'Background updated successfully.',
 	'unable_to_enable_template' => 'Unable to enable incompatible template.',
+	'background_image_info' => 'Please note that this option may not be compatible with most templates.',
 
 	// Users & groups
 	'users' => 'Users',

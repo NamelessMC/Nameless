@@ -372,6 +372,8 @@ $language = array(
 	'background_reset_successfully' => '背景重置成功。',
 	'background_updated_successfully' => '背景更新成功。',
 	'unable_to_enable_template' => '无法启用不兼容的模板。',
+	'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+
 	// Users & groups
 	'users' => '账号',
 	'groups' => '权限组',

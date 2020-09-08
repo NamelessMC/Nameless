@@ -373,6 +373,7 @@ $language = array(
 	'background_reset_successfully' => 'Achtergrond verwijderd.',
 	'background_updated_successfully' => 'Achtergrond met succes bijgewerkt.',
 	'unable_to_enable_template' => 'Niet in staat om incompatibele sjablonen in te schakelen.',
+	'background_image_info' => 'Please note that this option may not be compatible with most templates.',
 
 	// Gebruikers & groepen
 	'users' => 'Gebruikers',

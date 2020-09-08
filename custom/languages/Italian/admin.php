@@ -371,6 +371,7 @@ $language = array(
 	'background_reset_successfully' => 'Sfondo ripristinato con successo.',
 	'background_updated_successfully' => 'Sfondo aggiornato con successo',
 	'unable_to_enable_template' => 'Impossibile abilitare il modello incompatibile.',
+	'background_image_info' => 'Please note that this option may not be compatible with most templates.',
 
 	// Users & groups
 	'users' => 'Utenti',

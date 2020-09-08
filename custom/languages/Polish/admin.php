@@ -370,6 +370,7 @@ $language = array(
 	'background_reset_successfully' => 'Tło zostało zresetowane pomyślnie.',
 	'background_updated_successfully' => 'Tło zostało zmienione pomyślnie.',
 	'unable_to_enable_template' => 'Nie możesz włączyć niekompatybilnego szablonu.',
+	'background_image_info' => 'Please note that this option may not be compatible with most templates.',
 
 	// Users & groups
 	'users' => 'Użytkownicy',

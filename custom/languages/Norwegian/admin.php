@@ -371,6 +371,7 @@ $language = array(
 	'background_reset_successfully' => 'Bakgrunnen har blitt tilbakestilt.',
 	'background_updated_successfully' => 'Bakgrunnen har blitt oppdatert.',
 	'unable_to_enable_template' => 'Kunne ikke aktivere malen.',
+	'background_image_info' => 'Please note that this option may not be compatible with most templates.',
 
 	// Users & groups
 	'users' => 'Brukere',

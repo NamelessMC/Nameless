@@ -73,7 +73,7 @@
                                 <div class="form-group">
                                     <label for="inputEnableDiscord">{$ENABLE_DISCORD_INTEGRATION}</label>
                                     <input type="hidden" name="enable_discord" value="0">
-                                    <input id="inputEnableDiscord" name="enable_discord" type="checkbox" class="js-switch js-check-change-enable" {if $DISCORD_ENABLED eq 1} checked{/if} value="1"/>
+                                    <input id="inputEnableDiscord" name="enable_discord" type="checkbox" class="js-switch" {if $DISCORD_ENABLED eq 1} checked{/if} value="1"/>
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                 </div>
                             <hr>

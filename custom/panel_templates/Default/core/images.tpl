@@ -84,7 +84,7 @@
                                 </div>
                             {/if}
 
-                            <p>{$BACKGROUND_IMAGE}</p>
+                            <p>{$BACKGROUND_IMAGE} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$BACKGROUND_IMAGE_INFO}"><i class="fa fa-question"></i></p>
 
                             <form action="" method="post" style="display:inline;" >
                                 <select name="bg" class="image-picker show-html">
