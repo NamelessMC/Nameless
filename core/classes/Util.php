@@ -544,9 +544,30 @@ class Util {
 	}
 	
 	public static function discordBotRequest($url) {
-		if (self::curlGetContents(BOT_URL . $url) == 'success') return 'success';
-		else if (self::curlGetContents(BOT_URL_BACKUP . $url) == 'success') return 'success';
-		else return false;
+
+		$bot_url_attempt = self::curlGetContents(BOT_URL . $url);
+
+		switch ($bot_url_attempt) {
+			case 'success':
+				return 'success';
+			case 'failure-cannot-interact':
+				return 'failure-cannot-interact';
+			case 'failure-invalid-api-url':
+				return 'failure-invalid-api-url';
+			default: {
+				$backup_bot_url_attempt = self::curlGetContents(BOT_URL_BACKUP . $url);
+				switch ($backup_bot_url_attempt) {
+					case 'success':
+						return 'success';
+					case 'failure-cannot-interact':
+						return 'failure-cannot-interact';
+					case 'failure-invalid-api-url':
+						return 'failure-invalid-api-url';
+					default:
+						return false;
+				}
+			}
+		}
 	}
 
 	public static function curlGetContents($full_url) {
