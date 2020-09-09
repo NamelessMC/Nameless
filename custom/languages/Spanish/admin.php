@@ -685,4 +685,6 @@ $language = array(
 	'discord_bot_url_valid' => 'Tu URL de bot es válida.',
 	'discord_bot_url_backup' => 'Discord Bot URL (Backup)',
 	'discord_bot_url_backup_info' => 'Una URL que apunta a una copia de seguridad / segunda instancia del bot NamelessMC en caso de que falle la primera opción. ¡Solo cambie este valor si sabe lo que está haciendo!',
+	'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?'
+
 );

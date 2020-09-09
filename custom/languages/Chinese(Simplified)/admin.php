@@ -692,4 +692,6 @@ $language = array(
 	'discord_bot_url_valid' => '您的机器人 URL 有效。',
 	'discord_bot_url_backup' => 'Discord Bot 链接 (备案)',
 	'discord_bot_url_backup_info' => '当指向第一个链接(URL)的备案失效时，所使用的第二个备案链接(URL),仅当您知道你在做什么时，再更改此值!',
+	'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?'
+
 );

@@ -689,4 +689,6 @@ $language = array(
 	'discord_bot_url_valid' => 'Din Bot-URL er gyldig.',
 	'discord_bot_url_backup' => 'Discord Bot-URL (backup)',
 	'discord_bot_url_backup_info' => 'En URL som peker til en backup/sekundær-instance av NamelessMC-boten i tilfellet det første alternativet feiler. Endre dette kun hvis du vet hva du gjør!',
+	'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?'
+
 );

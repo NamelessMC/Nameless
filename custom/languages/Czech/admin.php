@@ -690,4 +690,6 @@ $language = array(
 	'discord_bot_url_valid' => 'URL vašeho bota je platná.',
 	'discord_bot_url_backup' => 'URL Discord bota (záloha)',
 	'discord_bot_url_backup_info' => 'URL která odkazuje na záložní / druhou relaci Nameless Link bota v případě selhání první možnosti. Toto neměňte, pokud nevíte, co děláte!',
+	'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?'
+
 );
