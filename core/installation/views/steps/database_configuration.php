@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				'core' => array(
 					'hostname' => $_SESSION['hostname'],
 					'path' => $_SESSION['install_path'],
-					'friendly' => $_SESSION['friendly_urls'],
+					'friendly' => $_SESSION['friendly_urls'] === true ? true : false,
 				),
 				'allowedProxies' => '',
 			);
@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							create_field('text', $language['database_address'], 'db_address', 'inputDBAddress', '127.0.0.1');
 							create_field('text', $language['database_port'], 'db_port', 'inputDBPort', '3306');
 							create_field('text', $language['database_username'], 'db_username', 'inputDBUsername');
-							create_field('text', $language['database_password'], 'db_password', 'inputDBPassword');
+							create_field('password', $language['database_password'], 'db_password', 'inputDBPassword');
 							create_field('text', $language['database_name'], 'db_name', 'inputDBName');
 							create_field('select', $language['character_set'], 'charset', 'inputCharset', 'utf8mb4', array(
 								'utf8mb4' => 'Unicode (utf8mb4)',
