@@ -163,6 +163,7 @@ $language = array(
     'login_method' => 'Login Method',
     'privacy_and_terms' => 'Privacy & Terms',
 	'dropdown_name' => 'Dropdown Name',
+	'editing_messages' => 'Editing Messages',
 
 	// Reactions
 	'icon' => 'Ikonka',

@@ -141,6 +141,7 @@ if(isset($_GET['action'])){
 			'BACK' => $language->get('general', 'back'),
 			'BACK_LINK' => URL::build('/panel/core/emails'),
 			'EMAILS_MESSAGES' => $language->get('admin', 'edit_email_messages'),
+			'EDITING_MESSAGES' => $language->get('admin', 'editing_messages'),
 			'OPTIONS' => $language->get('admin', 'email_message_options'),
 			'SELECT_LANGUAGE' => $language->get('admin', 'editing_language'),
 			'EDITING_LANGUAGE' => $editing_language->getActiveLanguage(),

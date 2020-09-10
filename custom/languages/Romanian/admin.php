@@ -168,6 +168,7 @@ $language = array(
     'login_method' => 'Metoda de conectare',
     'privacy_and_terms' => 'Politica de confidențialitate și termenii și condițiile',
     'dropdown_name' => 'Dropdown Name',
+    'editing_messages' => 'Editing Messages',
 
     // Reactions
     'icon' => 'Iconiță',

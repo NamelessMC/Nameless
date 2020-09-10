@@ -165,6 +165,7 @@ $language = array(
     'login_method' => 'Método de login',
     'privacy_and_terms' => 'Termos & Privacidade',
     'dropdown_name' => 'Dropdown Name',
+    'editing_messages' => 'Editing Messages',
 
     // Reactions
     'icon' => 'Ícone',

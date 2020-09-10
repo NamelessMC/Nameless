@@ -163,6 +163,7 @@ $language = array(
 	'login_method' => 'Metoda přihlášení',
 	'privacy_and_terms' => 'Soukromí a podmínky',
 	'dropdown_name' => 'Dropdown Name',
+	'editing_messages' => 'Editing Messages',
 
 	// Reactions
 	'icon' => 'Ikona',

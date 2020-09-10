@@ -46,6 +46,7 @@
 
                         <div class="card">
                             <div class="card-body">
+                                <h5 style="display:inline;">{$EDITING_MESSAGES}</h5>
                                 {if isset($SUCCESS)}
                                 <div class="alert alert-success alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -70,7 +71,9 @@
                                 </div>
                                 {/if}
 
-                                <a class="btn btn-primary" href="{$BACK_LINK}">{$BACK}</a>
+                                <div class="float-md-right">
+                                    <a class="btn btn-warning" href="{$BACK_LINK}">{$BACK}</a>
+                                </div>
                                 <hr />
 
                                 <form action="{$BACK_LINK}" method="post">

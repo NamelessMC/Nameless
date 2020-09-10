@@ -161,6 +161,7 @@ $language = array(
 	'login_method' => 'Prisijungimo metodas',
 	'privacy_and_terms' => 'Privatumo Politika, Terminai ir Sąlygos',
 	'dropdown_name' => 'Dropdown Name',
+	'editing_messages' => 'Editing Messages',
 
 	// Reactions
 	'icon' => 'Piktograma',

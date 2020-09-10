@@ -171,6 +171,7 @@ $language = array(
     'login_method' => 'Login Methode',
     'privacy_and_terms' => 'Datenschutz & Geschäftsbedingungen',
 	'dropdown_name' => 'Dropdown Name',
+	'editing_messages' => 'Editing Messages',
 
 	// Reactions
 	'icon' => 'Icon',

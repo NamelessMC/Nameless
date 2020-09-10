@@ -164,6 +164,7 @@ $language = array(
     'login_method' => 'Inloggningsmetod',
     'privacy_and_terms' => 'Sekretesspolicy och Villkor',
 	'dropdown_name' => 'Dropdown Name',
+	'editing_messages' => 'Editing Messages',
 
 	// Reactions
 	'icon' => 'Ikon',

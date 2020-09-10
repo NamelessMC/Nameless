@@ -161,6 +161,7 @@ $language = array(
     'login_method' => 'Método de logueo',
     'privacy_and_terms' => 'Términos de Uso',
 	'dropdown_name' => 'Dropdown Name',
+	'editing_messages' => 'Editing Messages',
 
 	// Reactions
 	'icon' => 'Icono',

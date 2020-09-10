@@ -165,6 +165,7 @@ $language = array(
     'login_method' => '登录方式',
 	'privacy_and_terms' => '隐私 & 条款',
 	'dropdown_name' => 'Dropdown Name',
+	'editing_messages' => 'Editing Messages',
 
 	// Reactions
 	'icon' => '图标',

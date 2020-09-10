@@ -163,6 +163,7 @@ $language = array(
     'login_method' => 'Påloggingsmetode',
     'privacy_and_terms' => 'Personvern og vilkår',
 	'dropdown_name' => 'Dropdown-navn',
+	'editing_messages' => 'Editing Messages',
 
 	// Reactions
 	'icon' => 'Ikon',

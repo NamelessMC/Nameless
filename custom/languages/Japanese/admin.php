@@ -166,6 +166,7 @@ $language = array(
     'login_method' => 'ログイン使用メゾット',
     'privacy_and_terms' => '規約設定',
 	'dropdown_name' => 'Dropdown Name',
+	'editing_messages' => 'Editing Messages',
 
 	// Reactions
 	'icon' => 'アイコン',

@@ -165,6 +165,7 @@ $language = array(
     'login_method' => 'Login Methode',
 	'privacy_and_terms' => 'Privacy & Voorwaarden',
 	'dropdown_name' => 'Dropdown Name',
+	'editing_messages' => 'Editing Messages',
 
 	// Reacties
 	'icon' => 'Icoon',

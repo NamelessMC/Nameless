@@ -163,6 +163,7 @@ $language = array(
 	'login_method' => 'Giriş Yöntemi',
 	'privacy_and_terms' => 'Gizlilik ve Şartlar',
 	'dropdown_name' => 'Dropdown Name',
+	'editing_messages' => 'Editing Messages',
 
 	// Reactions
 	'icon' => 'Icon',
