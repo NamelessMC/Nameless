@@ -87,6 +87,9 @@ if(isset($_GET['do'])){
 			case 5:
 				$type = $language->get('admin', 'forum_topic_reply_email');
 				break;
+			case 6:
+				$type = $language->get('admin', 'emails_mass_message');
+				break;
 			default:
 				$type = $language->get('admin', 'unknown');
 				break;
@@ -199,6 +202,9 @@ if(isset($_GET['do'])){
 					break;
 				case 5:
 					$type = $language->get('admin', 'forum_topic_reply_email');
+					break;
+				case 6:
+					$type = $language->get('admin', 'emails_mass_message');
 					break;
 				default:
 					$type = $language->get('admin', 'unknown');

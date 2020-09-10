@@ -69,9 +69,12 @@
                                 </div>
                             {/if}
                             
+                            {if isset($MASS_MESSAGE_LINK)}
+                                <a href="{$MASS_MESSAGE_LINK}" class="btn btn-primary">{$MASS_MESSAGE}</a>
+                            {/if}
                             <a href="{$EDIT_EMAIL_MESSAGES_LINK}" class="btn btn-primary">{$EDIT_EMAIL_MESSAGES}</a>
                             <a href="{$EMAIL_ERRORS_LINK}" class="btn btn-primary">{$EMAIL_ERRORS}</a>
-                            <a href="{$SEND_TEST_EMAIL_LINK}" class="btn btn-primary">{$SEND_TEST_EMAIL}</a>
+                            <a href="{$SEND_TEST_EMAIL_LINK}" class="btn btn-info">{$SEND_TEST_EMAIL}</a>
 
                             <hr />
 

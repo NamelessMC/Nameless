@@ -100,6 +100,20 @@ class Queries {
 	public function tableExists($table){
 		return $this->_db->showTables($table);
 	}
+
+	public function addPermissionGroup($group_id, $permission) {
+		$permissions = $this->getWhere('groups', array('id', '=', $group_id));
+		if (count($permissions)) {
+			$permissions = $permissions[0]->permissions;
+			$permissions = json_decode($permissions, true);
+			echo print_r($permissions);
+			if (is_array($permissions)) {
+				$permissions[$permission] = 1;
+				$perms_json = json_encode($permissions);
+				$this->_db->update('groups', $group_id, array('permissions' => $perms_json));
+			}
+		}
+	}
 	
 	public function dbInitialise($charset = 'latin1', $engine = 'InnoDB'){
 		$data = $this->_db->showTables('settings');

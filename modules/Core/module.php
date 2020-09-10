@@ -64,6 +64,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/panel/core/errors', 'pages/panel/errors.php');
 		$pages->add('Core', '/panel/core/emails', 'pages/panel/emails.php');
 		$pages->add('Core', '/panel/core/emails/errors', 'pages/panel/emails_errors.php');
+		$pages->add('Core', '/panel/core/emails/mass_message', 'pages/panel/emails_mass_message.php');
 		$pages->add('Core', '/panel/core/navigation', 'pages/panel/navigation.php');
 		$pages->add('Core', '/panel/core/privacy_and_terms', 'pages/panel/privacy_and_terms.php');
 		$pages->add('Core', '/panel/core/reactions', 'pages/panel/reactions.php');
@@ -295,6 +296,7 @@ class Core_Module extends Module {
 			'admincp.core.debugging' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'debugging_and_maintenance'),
 			'admincp.errors' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'debugging_and_maintenance') . ' &raquo; ' . $language->get('admin', 'error_logs'),
 			'admincp.core.emails' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails'),
+			'admincp.core.emails_mass_message' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails_mass_message'),
 			'admincp.core.navigation' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'navigation'),
 			'admincp.core.reactions' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('user', 'reactions'),
 			'admincp.core.registration' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'registration'),

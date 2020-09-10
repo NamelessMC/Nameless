@@ -95,6 +95,11 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
+try {
+    $queries->addPermissionGroup(1, 'admincp.core.announcemenats');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
 
 // Group Username Colour + Group CSS
 try {
@@ -129,6 +134,13 @@ try {
 // Force group TFA
 try {
     $queries->alterTable('groups', '`force_tfa`', "tinyint(1) NOT NULL DEFAULT '0'");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+// Email Mass Message
+try {
+    $queries->addPermissionGroup(1, 'admincp.core.emails_mass_message');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }

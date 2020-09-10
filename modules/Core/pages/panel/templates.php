@@ -673,6 +673,7 @@ if(!isset($_GET['action'])){
 							fwrite($file, Input::get('code'));
 							fclose($file);
 
+							// TODO: make sure this is working as intended
 							Log::getInstance()->log(Log::Action('admin/template/update'), Output::getClean($file_path));
 
 							// Display session success message

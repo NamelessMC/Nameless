@@ -46,7 +46,7 @@
                     <div class="card">
                         <div class="card-body">
 							<p style="display:inline;">{$HOOKS_INFO}</p>
-							<span class="float-md-right"><a href="{$NEW_HOOK_LINK}" class="btn btn-primary">{$NEW_HOOK}</a></span>
+							<span class="float-md-right"><a href="{$NEW_HOOK_LINK}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {$NEW_HOOK}</a></span>
 							<hr />
 							
 							{if isset($SUCCESS)}

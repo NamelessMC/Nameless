@@ -164,7 +164,12 @@ $language = array(
     'privacy_and_terms' => 'Personvern og vilkår',
 	'dropdown_name' => 'Dropdown-navn',
 	'editing_messages' => 'Editing Messages',
-
+	'emails_mass_message' => 'Email Mass Message',
+	'sending_mass_message' => 'Sending Mass Message',
+	'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
+	'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
+	'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
+	
 	// Reactions
 	'icon' => 'Ikon',
 	'type' => 'Type',

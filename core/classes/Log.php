@@ -30,6 +30,7 @@ class Log{
 				'email' => [
 					'update' => 'acp_email_update',
 					'test' => 'acp_email_test',
+					'mass_message' => 'acp_email_mass_message'
 				],
 				'nav' => 'admin_nav_update',
 				'reaction' => [
