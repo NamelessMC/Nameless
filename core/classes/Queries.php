@@ -106,7 +106,6 @@ class Queries {
 		if (count($permissions)) {
 			$permissions = $permissions[0]->permissions;
 			$permissions = json_decode($permissions, true);
-			echo print_r($permissions);
 			if (is_array($permissions)) {
 				$permissions[$permission] = 1;
 				$perms_json = json_encode($permissions);
