@@ -660,6 +660,7 @@ $language = array(
 	// Announcements
 	'announcements' => 'Oznámení',
 	'new_announcement' => 'Nové oznámení',
+	'announcement_info' => 'Create announcements to display a message to specific groups on specific pages of your website.',
 	'creating_announcement' => 'Vytváření oznámení',
 	'editing_announcement' => 'Úprava oznámení',
 	'creating_announcement_success' => 'Oznámení úspěšně vytvořeno.',

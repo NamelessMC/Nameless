@@ -46,6 +46,9 @@
 
                         <div class="card">
                             <div class="card-body">
+                                <p style="display:inline;">{$ANNOUCEMENTS_INFO}</p>
+                                <span class="float-md-right"><a href="{$NEW_LINK}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {$NEW}</a></span>
+                                <hr />
                                 {if isset($SUCCESS)}
                                 <div class="alert alert-success alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -69,10 +72,8 @@
                                     </ul>
                                 </div>
                                 {/if}
-                                
-                                <a class="btn btn-primary" href="{$NEW_LINK}"><i class="fa fa-plus-circle"></i> {$NEW}</a>
-                                <hr />
 
+                                {if isset($ALL_ANNOUNCEMENTS)}
                                 <div class="table-responsive">
                                     <table class="table table-borderless table-striped">
                                         <thead>
@@ -100,6 +101,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                {/if}
 
                             </div>
                         </div>

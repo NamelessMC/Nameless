@@ -659,6 +659,7 @@ $language = array(
 	// Announcements
 	'announcements' => 'Kunngjøring',
 	'new_announcement' => 'Ny kunngjøring',
+	'announcement_info' => 'Create announcements to display a message to specific groups on specific pages of your website.',
 	'creating_announcement' => 'Oppretter kunngjøring',
 	'editing_announcement' => 'Redigerer kunngjøring',
 	'creating_announcement_success' => 'Kunngjøringen har blitt opprettet.',

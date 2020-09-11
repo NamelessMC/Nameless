@@ -662,6 +662,7 @@ $language = array(
 	// Announcements
 	'announcements' => '公告',
 	'new_announcement' => '新公告',
+	'announcement_info' => 'Create announcements to display a message to specific groups on specific pages of your website.',
 	'creating_announcement' => '创建公告',
 	'editing_announcement' => '编辑公告',
 	'creating_announcement_success' => '创建公告成功。',

@@ -661,6 +661,7 @@ $language = array(
 	// Announcements
 	'announcements' => 'Aankondigingen',
 	'new_announcement' => 'Nieuwe aankondiging',
+	'announcement_info' => 'Create announcements to display a message to specific groups on specific pages of your website.',
 	'creating_announcement' => 'Aankondiging Maken',
 	'editing_announcement' => 'Aankondiging Bewerken',
 	'creating_announcement_success' => 'Aankondiging gemaakt.',

@@ -658,6 +658,7 @@ $language = array(
 	// Announcements
 	'announcements' => 'Anuncios',
 	'new_announcement' => 'Nuevo anuncio',
+	'announcement_info' => 'Create announcements to display a message to specific groups on specific pages of your website.',
 	'creating_announcement' => 'Cuando un anuncio',
 	'editing_announcement' => 'Editando un anuncio',
 	'creating_announcement_success' => 'Anuncio creado correctamente.',
