@@ -35,6 +35,7 @@ $language = array(
 	'alerts' => 'Upozornění',
 	'delete_all' => 'Smazat vše',
 	'private_profile' => 'Soukromý profil',
+	'gif_avatar' => 'Upload .gif as custom avatar',
 	
 	// Profile settings
 	'field_is_required' => 'Pole {x} je povinné.', // Don't replace {x}

@@ -37,6 +37,7 @@ $language = array(
 	'alerts' => 'Meldingen',
 	'delete_all' => 'Verwijder alle meldingen',
 	'private_profile' => 'Privé profiel',
+	'gif_avatar' => 'Upload .gif as custom avatar',
 	
 	// Profiel instellingen
 	'field_is_required' => '{x} is nodig.', // Verander {x} niet

@@ -37,6 +37,7 @@ $language = array(
 	'alerts' => '通知',
 	'delete_all' => '清空',
 	'private_profile' => '私人资料(他人无法阅览)',
+	'gif_avatar' => 'Upload .gif as custom avatar',
 	
 	// Profile settings
 	'field_is_required' => '{x} 是必须要填写的。', // Don't replace {x}

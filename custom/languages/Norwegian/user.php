@@ -35,6 +35,7 @@ $language = array(
 	'alerts' => 'Viktige meldinger',
 	'delete_all' => 'Slett alle',
 	'private_profile' => 'Private profiler',
+	'gif_avatar' => 'Upload .gif as custom avatar',
 	
 	// Profile settings
 	'field_is_required' => '{x} er påkrevd.', // Don't replace {x}

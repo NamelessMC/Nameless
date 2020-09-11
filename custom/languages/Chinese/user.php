@@ -40,6 +40,7 @@ $language = array(
 	'alerts' => '提醒',
 	'delete_all' => '移除全部',
 	'private_profile' => 'Private profile',
+	'gif_avatar' => 'Upload .gif as custom avatar',
 	
 	// Profile settings
 	'field_is_required' => '需要 {x}.', // Don't replace {x}

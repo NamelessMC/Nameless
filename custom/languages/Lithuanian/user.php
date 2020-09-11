@@ -32,6 +32,7 @@ $language = array(
 	'alerts' => 'Perspėjimai',
 	'delete_all' => 'Ištrinti viską',
 	'private_profile' => 'Privatus Profilis',
+	'gif_avatar' => 'Upload .gif as custom avatar',
 
 	// Profile settings
 	'field_is_required' => 'Reikalingas {x}.', // Don't replace {x}

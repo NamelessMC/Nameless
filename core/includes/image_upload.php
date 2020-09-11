@@ -25,7 +25,11 @@ require(ROOT_PATH . '/core/includes/bulletproof/bulletproof.php');
 if(!$user->isLoggedIn())
     die();
 
-$image_extensions = array('jpg', 'png', 'gif', 'jpeg');
+$image_extensions = array('jpg', 'png', 'jpeg');
+
+if ($user->hasPermission('usercp.gif_avatar')) {
+	$image_extensions[] = 'gif';
+}
 
 // Deal with input
 if(Input::exists()){

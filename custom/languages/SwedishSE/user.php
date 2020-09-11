@@ -36,6 +36,7 @@ $language = array(
 	'alerts' => 'Alerts',
 	'delete_all' => 'Radera Alla',
 	'private_profile' => 'Privat profil',
+	'gif_avatar' => 'Upload .gif as custom avatar',
 	
 	// Profile settings
 	'field_is_required' => '{x} krävs', // Don't replace {x}

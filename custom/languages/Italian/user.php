@@ -35,6 +35,7 @@ $language = array(
 	'alerts' => 'Avvisi',
 	'delete_all' => 'Elimina tutto',
 	'private_profile' => 'Profilo privato',
+	'gif_avatar' => 'Upload .gif as custom avatar',
 	
 	// Profile settings
 	'field_is_required' => '{x} è richiesto.', // Don't replace {x}

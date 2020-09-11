@@ -38,6 +38,7 @@ $language = array(
 	'alerts' => 'アラート',
 	'delete_all' => 'すべて削除',
 	'private_profile' => 'プライベートプロフィール',
+	'gif_avatar' => 'Upload .gif as custom avatar',
 
 	// Profile settings
 	'field_is_required' => '{x} は必須です。', // Don't replace {x}

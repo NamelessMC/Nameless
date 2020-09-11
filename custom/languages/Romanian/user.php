@@ -37,6 +37,7 @@ $language = array(
     'alerts' => 'Notificări',
     'delete_all' => 'Şterge tot',
     'private_profile' => 'Profil privat',
+    'gif_avatar' => 'Upload .gif as custom avatar',
     
     // Profile settings
     'field_is_required' => 'Câmpul "{x}" este necesar.', // Don't replace {x}
