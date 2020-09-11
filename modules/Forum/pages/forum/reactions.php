@@ -50,7 +50,7 @@ if(Input::exists()){
 		die();
 	}
 	
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		// Check if the user has already reacted to this post
 		$user_reacted = $queries->getWhere('forums_reactions', array('post_id', '=', $post->id));
 		if(count($user_reacted)){

@@ -40,7 +40,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if(!isset($_GET['action']) && !isset($_GET['forum'])){
 	if(Input::exists()){
-		if(Token::check(Input::get('token'))){
+		if(Token::check()){
 			try {
 				// Get reactions value
 				if(isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
@@ -132,7 +132,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 				if(Input::exists()){
 					$errors = array();
 
-					if(Token::check(Input::get('token'))){
+					if(Token::check()){
 						// Validate input
 						$validate = new Validate();
 						$validation = $validate->check($_POST, array(
@@ -248,7 +248,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 				if(Input::exists()){
 					$errors = array();
 
-					if(Token::check(Input::get('token'))){
+					if(Token::check()){
 						try {
 							if(isset($_POST['redirect']) && $_POST['redirect'] == 1) {
 								$redirect = 1;
@@ -460,7 +460,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 			$forum = $forum[0];
 
 			if(Input::exists()){
-				if(Token::check(Input::get('token'))){
+				if(Token::check()){
 					if(Input::get('confirm') === 'true'){
 						$forum_perms = $queries->getWhere('forums_permissions', array('forum_id', '=', $_GET['fid'])); // Get permissions to be deleted
 						if(Input::get('move_forum') === 'none'){
@@ -574,7 +574,7 @@ if(!isset($_GET['action']) && !isset($_GET['forum'])){
 	if(Input::exists()){
 		$errors = array();
 
-		if(Token::check(Input::get('token'))){
+		if(Token::check()){
 			if(Input::get('action') == 'update'){
 				$validate = new Validate();
 				$validation = $validate->check($_POST, array(

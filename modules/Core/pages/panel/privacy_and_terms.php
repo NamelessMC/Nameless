@@ -41,7 +41,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if(Input::exists()){
 	$errors = array();
 
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		$validate = new Validate();
 		$validation = $validate->check($_POST, array(
 			'privacy' => array(

@@ -42,7 +42,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if(Input::exists()){
 	$errors = array();
 
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		// Update database values
 		// Youtube URL
 		$youtube_url_id = $queries->getWhere('settings', array('name', '=', 'youtube_url'));

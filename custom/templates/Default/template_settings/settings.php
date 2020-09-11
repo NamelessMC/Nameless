@@ -13,7 +13,7 @@
 $default_theme_language = new Language(ROOT_PATH . '/custom/templates/Default/template_settings/language', LANGUAGE);
 
 if(Input::exists()){
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		$cache->setCache('default_template');
 
 		if(isset($_POST['theme'])){

@@ -99,7 +99,7 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
 		if(Input::exists()){
 			$errors = array();
 
-			if(Token::check(Input::get('token'))){
+			if(Token::check()){
 				// Validate input
 				$validate = new Validate();
 
@@ -210,7 +210,7 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
 			if(Input::exists()){
 				$errors = array();
 
-				if(Token::check(Input::get('token'))){
+				if(Token::check()){
 					// Validate input
 					$validate = new Validate();
 

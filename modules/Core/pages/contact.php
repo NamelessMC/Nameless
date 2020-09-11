@@ -23,7 +23,7 @@ $recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha
 
 // Handle input
 if(Input::exists()){
-  if(Token::check(Input::get('token'))){
+  if(Token::check()){
     // Check last contact message sending time
     if(!isset($_SESSION['last_contact_sent']) || (isset($_SESSION['last_contact_sent']) && $_SESSION['last_contact_sent'] < strtotime('-1 hour'))){
         // Check recaptcha

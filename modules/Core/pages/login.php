@@ -42,7 +42,7 @@ $recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha
 // Deal with input
 if (Input::exists()) {
     // Check form token
-    if (Token::check(Input::get('token'))) {
+    if (Token::check()) {
         // Valid token
 	    if(!isset($_SESSION['tfa']) && $recaptcha == 'true'){
 		    // Check reCAPTCHA

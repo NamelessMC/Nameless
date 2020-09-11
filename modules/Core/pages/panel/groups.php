@@ -55,7 +55,7 @@ if(isset($_GET['action'])){
 	if($_GET['action'] == 'new'){
 		if(Input::exists()){
 			$errors = array();
-			if(Token::check(Input::get('token'))){
+			if(Token::check()){
 				$validate = new Validate();
 				$validation = $validate->check($_POST, array(
 					'groupname' => array(
@@ -221,7 +221,7 @@ if(isset($_GET['action'])){
 
 		if(Input::exists()){
 			$errors = array();
-			if(Token::check(Input::get('token'))){
+			if(Token::check()){
 				if(Input::get('action') == 'update'){
 					$validate = new Validate();
 					$validation = $validate->check($_POST, array(
@@ -406,7 +406,7 @@ if(isset($_GET['action'])){
 		if(Input::exists()){
 			$errors = array();
 
-			if(Token::check(Input::get('token'))){
+			if(Token::check()){
 				// Token valid
 				// Build new JSON object for permissions
 				$perms = array();

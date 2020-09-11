@@ -78,7 +78,7 @@ if(isset($_GET['do'])){
 
 // Deal with input
 if (Input::exists()) {
-	if (Token::check(Input::get('token'))) {
+	if (Token::check()) {
 		// Validate input
 		$validate = new Validate();
 

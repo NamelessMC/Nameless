@@ -143,7 +143,7 @@ $api_verification = $api_verification[0]->value;
 
 // Deal with any input
 if(Input::exists()){
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		// Valid token
 		if($recaptcha == 'true'){
 			// Check reCAPCTHA

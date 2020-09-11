@@ -71,7 +71,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 				switch ($_POST['action']){
 					case 'banner':
 						if($user->data()->username == $profile){
-							if(Token::check(Input::get('token'))){
+							if(Token::check()){
 								// Update banner
 								if(isset($_POST['banner'])){
 									// Check image specified actually exists
@@ -96,7 +96,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 					break;
 
 					case 'new_post':
-						if(Token::check(Input::get('token'))){
+						if(Token::check()){
 							// Valid token
 							$validate = new Validate();
 
@@ -120,7 +120,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 								if($query->id !== $user->data()->id){
 									// Alert user
-									Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username)));
+									Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username) . '/#post-' . $queries->getLastId()));
 								}
 
 								$cache->setCache('profile_posts_widget');
@@ -141,7 +141,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 					break;
 
 					case 'reply':
-						if(Token::check(Input::get('token'))){
+						if(Token::check()){
 							// Valid token
 							$validate = new Validate();
 
@@ -175,14 +175,14 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 								));
 
 								if($post[0]->author_id != $query->id && $query->id != $user->data()->id)
-									Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username)));
+									Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username) . '/#post-' . $_POST['post']));
 
 								else if($post[0]->author_id != $user->data()->id){
 									// Alert post author
 									if($post[0]->author_id == $query->id)
-										Alert::create($query->id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username)));
+										Alert::create($query->id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username) . '/#post-' . $_POST['post']));
 									else
-										Alert::create($post[0]->author_id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), URL::build('/profile/' . Output::getClean($query->username)));
+										Alert::create($post[0]->author_id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), URL::build('/profile/' . Output::getClean($query->username) . '/#post-' . $_POST['post']));
 								}
 
 								// Redirect to clear input
@@ -200,7 +200,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 					break;
 
 					case 'block':
-						if(Token::check(Input::get('token'))){
+						if(Token::check()){
 							if($user->isBlocked($user->data()->id, $query->id)){
 								// Unblock
 								$blocked_id = $queries->getWhere('blocked_users', array('user_id', '=', $user->data()->id));
@@ -232,7 +232,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 					case 'edit':
 						// Ensure user is mod or owner of post
-						if(Token::check(Input::get('token'))){
+						if(Token::check()){
 							if(isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
 								$post = $queries->getWhere('user_profile_wall_posts', array('id', '=', $_POST['post_id']));
 								if(count($post)) {
@@ -257,7 +257,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 					case 'delete':
 						// Ensure user is mod or owner of post
-						if(Token::check(Input::get('token'))){
+						if(Token::check()){
 							if(isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
 								$post = $queries->getWhere('user_profile_wall_posts', array('id', '=', $_POST['post_id']));
 								if(count($post)) {
@@ -279,7 +279,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 					/*
 					case 'editReply':
 						// Ensure user is mod or owner of reply
-						if(Token::check(Input::get('token'))){
+						if(Token::check()){
 							if(isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
 								$post = $queries->getWhere('user_profile_wall_posts_replies', array('id', '=', $_POST['post_id']));
 								if(count($post)) {
@@ -305,7 +305,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 					case 'deleteReply':
 						// Ensure user is mod or owner of reply
-						if(Token::check(Input::get('token'))){
+						if(Token::check()){
 							if(isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
 								$post = $queries->getWhere('user_profile_wall_posts_replies', array('id', '=', $_POST['post_id']));
 								if(count($post)) {

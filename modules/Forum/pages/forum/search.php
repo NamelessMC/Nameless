@@ -36,7 +36,7 @@ if($user->isLoggedIn()){
 
 if(!isset($_GET['s'])){
     if(Input::exists()){
-        if(Token::check(Input::get('token'))){
+        if(Token::check()){
             $validate = new Validate();
             $validation = $validate->check($_POST, array(
                 'forum_search' => array(

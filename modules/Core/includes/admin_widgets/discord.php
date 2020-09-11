@@ -13,7 +13,7 @@
 $cache->setCache('social_media');
 
 if(Input::exists()){
-    if(Token::check(Input::get('token'))){
+    if(Token::check()){
         if(isset($_POST['theme']))
             $cache->store('discord_widget_theme', $_POST['theme']);
 

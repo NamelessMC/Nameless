@@ -43,7 +43,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if(Input::exists()){
 	$errors = array();
 
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		if(isset($_POST['enable_authme'])){
 			// Either enable or disable Authme integration
 			$enable_authme_id = $queries->getWhere('settings', array('name', '=', 'authme'));

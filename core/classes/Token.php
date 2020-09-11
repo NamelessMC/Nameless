@@ -34,7 +34,8 @@ class Token {
 	
 	// Check a token in session matches 
 	// Params: $token (string) - contains the form token which will be checked against the session variable
-	public static function check($token){
+	public static function check($token = null){
+		if ($token == null) $token = Input::get('token');
 		$tokenName = Config::get('session/token_name');
 		
 		// Check the token matches

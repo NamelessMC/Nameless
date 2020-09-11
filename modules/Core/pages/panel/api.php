@@ -64,7 +64,7 @@ if(!isset($_GET['view'])){
 	if(Input::exists()){
 		$errors = array();
 
-		if(Token::check(Input::get('token'))){
+		if(Token::check()){
 			$plugin_id = $queries->getWhere('settings', array('name', '=', 'use_api'));
 			$plugin_id = $plugin_id[0]->id;
 			$queries->update('settings', $plugin_id, array(
@@ -151,7 +151,7 @@ if(!isset($_GET['view'])){
 	}
 
 	if(Input::exists()){
-		if(Token::check(Input::get('token'))){
+		if(Token::check()){
 			if($_POST['action'] == 'create'){
 				$validate = new Validate();
 				$validation = $validate->check($_POST, array(

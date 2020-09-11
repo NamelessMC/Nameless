@@ -40,7 +40,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if(Input::exists()){
 	// Check token
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		// Valid token
 		// Process input
 		if(isset($_POST['enable_minecraft'])){

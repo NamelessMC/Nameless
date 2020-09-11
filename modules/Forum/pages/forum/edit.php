@@ -106,7 +106,7 @@ if($user->data()->id !== $post_editing[0]->post_creator && !($forum->canModerate
 // Deal with input
 if(Input::exists()){
 	// Check token
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		// Valid token, check input
 		$validate = new Validate();
 		$validation = array(

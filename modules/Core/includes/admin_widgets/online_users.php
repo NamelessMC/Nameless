@@ -13,7 +13,7 @@
 $cache->setCache('online_members');
 
 if(Input::exists()){
-    if(Token::check(Input::get('token'))){
+    if(Token::check()){
         if(isset($_POST['staff']) && $_POST['staff'] == 1)
             $cache->store('include_staff_in_users', 1);
         else

@@ -40,7 +40,7 @@ $method = $method[0]->value;
 
 // Deal with any input
 if(Input::exists()){
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		// Validate input
 		$validate = new Validate();
 

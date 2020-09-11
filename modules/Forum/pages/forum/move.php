@@ -32,7 +32,7 @@ if(!isset($_GET["tid"]) || !is_numeric($_GET["tid"])){
 
 if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->secondary_groups)){
 	if(Input::exists()) {
-		if(Token::check(Input::get('token'))) {
+		if(Token::check()) {
 			$validate = new Validate();
 			$validation = $validate->check($_POST, array(
 				'forum' => array(

@@ -55,7 +55,7 @@ $forum_title = $forum->getForumTitle($fid);
 
 // Deal with any inputted data
 if(Input::exists()) {
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		// Check post limits
 		$last_post = $queries->orderWhere('posts', 'post_creator = ' . $user->data()->id, 'post_date', 'DESC LIMIT 1');
 		if(count($last_post)){

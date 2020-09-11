@@ -39,7 +39,7 @@ $forum_id = $post->forum_id;
 
 if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->secondary_groups)){
 	if(Input::exists()) {
-		if(Token::check(Input::get('token'))) {
+		if(Token::check()) {
 			if(isset($_POST['tid'])){
 				// Is it the OP?
 				if(isset($_POST['number']) && Input::get('number') == 10){

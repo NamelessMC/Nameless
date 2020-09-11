@@ -90,7 +90,7 @@ if(isset($_GET['do'])){
 		} else {
 			// Validate code to see if it matches the secret
 			if(Input::exists()){
-				if(Token::check(Input::get('token'))){
+				if(Token::check()){
 					if(isset($_POST['tfa_code'])){
 						if($tfa->verifyCode($user->data()->tfa_secret, $_POST['tfa_code']) === true){
 							$user->update(array(
@@ -159,7 +159,7 @@ if(isset($_GET['do'])){
 } else {
 	// Handle input
 	if(Input::exists()){
-		if(Token::check(Input::get('token'))){
+		if(Token::check()){
 			if(Input::get('action') == 'settings'){
 				// Validation
 				$validate = new Validate();

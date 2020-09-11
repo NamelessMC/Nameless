@@ -42,7 +42,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if(Input::exists()){
 	$errors = array();
 
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		// Valid token
 		// Update cache
 		$cache->setCache('navbar_order');

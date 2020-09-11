@@ -46,7 +46,7 @@ if(isset($_GET['action'])){
 			if(Input::exists()){
 				$errors = array();
 
-				if(Token::check(Input::get('token'))){
+				if(Token::check()){
 					// Validate input
 					$validate = new Validate();
 					$validation = $validate->check($_POST, array(
@@ -269,7 +269,7 @@ if(isset($_GET['action'])){
 
 			// Handle input
 			if(Input::exists()){
-				if(Token::check(Input::get('token'))){
+				if(Token::check()){
 					// Validate input
 					$validate = new Validate();
 					$validation = $validate->check($_POST, array(
@@ -508,7 +508,7 @@ if(isset($_GET['action'])){
 	if(Input::exists()){
 		$errors = array();
 
-		if(Token::check(Input::get('token'))){
+		if(Token::check()){
 			if(isset($_POST['default_server']) && is_numeric($_POST['default_server']))
 				$new_default = $_POST['default_server'];
 			else

@@ -113,7 +113,7 @@ if(isset($_GET['user'])){
 	if(Input::exists()){
 		$errors = array();
 
-		if(Token::check(Input::get('token'))){
+		if(Token::check()){
 			if(isset($_POST['type'])){
 				switch($_POST['type']){
 					case 'ban':
@@ -300,7 +300,7 @@ if(isset($_GET['user'])){
 
 } else {
 	if(Input::exists() && isset($_POST['username'])){
-		if(Token::check(Input::get('token'))){
+		if(Token::check()){
 			$check = DB::getInstance()->query('SELECT id FROM nl2_users WHERE username = ? OR nickname = ?', array($_POST['username'], $_POST['username']));
 
 			if($check->count()){

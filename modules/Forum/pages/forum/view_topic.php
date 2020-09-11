@@ -235,7 +235,7 @@ if(Input::exists()) {
 		Redirect::to(URL::build('/forum'));
 		die();
 	}
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		$validate = new Validate();
 		$validation = $validate->check($_POST, array(
 			'content' => array(

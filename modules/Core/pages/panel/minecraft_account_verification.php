@@ -42,7 +42,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Handle input
 if(Input::exists()){
 	$errors = array();
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		if(!isset($_POST['premium'])){
 			$use_mcassoc = $queries->getWhere('settings', array('name', '=', 'verify_accounts'));
 			$use_mcassoc = $use_mcassoc[0]->id;

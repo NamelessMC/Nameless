@@ -47,7 +47,7 @@ Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mo
 if(Input::exists()){
 	$errors = array();
 
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		require_once(ROOT_PATH . '/core/includes/sitemapphp/Sitemap.php');
 		$sitemap = new SitemapPHP\Sitemap(rtrim(Util::getSelfURL(), '/'));
 		$sitemap->setPath(ROOT_PATH . '/cache/sitemaps/');

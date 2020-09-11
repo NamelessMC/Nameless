@@ -62,7 +62,7 @@ if(!isset($_GET['id'])){
 	if(Input::exists()){
 		$errors = array();
 
-		if(Token::check(Input::get('token'))){
+		if(Token::check()){
 			if(isset($_POST['description'])){
 				if(strlen($_POST['description']) > 500){
 					$errors[] = $language->get('admin', 'description_max_500');

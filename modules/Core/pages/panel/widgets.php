@@ -143,7 +143,7 @@ if(!isset($_GET['action'])){
 		$active_pages = json_decode($widget->pages, true);
 
 		if(Input::exists()){
-			if(Token::check(Input::get('token'))){
+			if(Token::check()){
 				try {
 					// Updated pages list
 					if (isset($_POST['pages']) && count($_POST['pages']))

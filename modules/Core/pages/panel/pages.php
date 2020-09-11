@@ -76,7 +76,7 @@ if(!isset($_GET['action'])){
 			if(Input::exists()){
 				$errors = array();
 
-				if(Token::check(Input::get('token'))){
+				if(Token::check()){
 					$validate = new Validate();
 					$validation = $validate->check($_POST, array(
 						'page_title' => array(
@@ -281,7 +281,7 @@ if(!isset($_GET['action'])){
 			if(Input::exists()){
 				$errors = array();
 
-				if(Token::check(Input::get('token'))){
+				if(Token::check()){
 					$validate = new Validate();
 					$validation = $validate->check($_POST, array(
 						'page_title' => array(

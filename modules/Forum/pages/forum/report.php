@@ -37,7 +37,7 @@ if(!count($post)){
 $post = $post[0];
 
 // Check token
-if(Token::check(Input::get('token'))){
+if(Token::check()){
 	// Valid token
 	// Ensure user hasn't already submitted a report for this post
 	$reports = $queries->getWhere('reports', array('reported_post', '=', $_POST['post']));

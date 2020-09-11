@@ -128,7 +128,7 @@ if(isset($_GET['action'])){
 if(Input::exists()){
 	$errors = array();
 
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		if(Input::get('action') === 'update'){
 			// Update a user's settings
 			$signature = Input::get('signature');

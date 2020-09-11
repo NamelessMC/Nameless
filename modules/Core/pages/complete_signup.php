@@ -35,7 +35,7 @@ if(!isset($_GET['c'])){
         $check = $queries->getWhere('users', array('reset_code', '=', $_GET['c']));
         if(count($check)){
             if(Input::exists()){
-                if(Token::check(Input::get('token'))){
+                if(Token::check()){
                     // Validate input
                     $to_validation = array(
                         'password' => array(

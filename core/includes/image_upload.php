@@ -30,7 +30,7 @@ $image_extensions = array('jpg', 'png', 'gif', 'jpeg');
 // Deal with input
 if(Input::exists()){
 	// Check token
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		// Token valid
 		$image = new Bulletproof\Image($_FILES);
 		$image->setSize(1, 2097152); // between 1b and 2mb

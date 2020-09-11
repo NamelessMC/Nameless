@@ -170,7 +170,7 @@ if(!isset($_GET['action'])){
 		}
 		// New PM
 		if(Input::exists()){
-			if(Token::check(Input::get('token'))){
+			if(Token::check()){
 				// Validate input
 				$validate = new Validate();
 
@@ -419,7 +419,7 @@ if(!isset($_GET['action'])){
 		// Deal with input
 		if(Input::exists()){
 			// Check token
-			if(Token::check(Input::get('token'))){
+			if(Token::check()){
 				// Valid token
 				// Validate input
 				$validate = new Validate();

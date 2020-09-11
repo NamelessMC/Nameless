@@ -43,7 +43,7 @@ if(Input::exists()){
 	$errors = array();
 
 	// Check token
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		// Valid token
 		// Process input
 		if(isset($_POST['enable_registration'])){

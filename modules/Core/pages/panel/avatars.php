@@ -40,7 +40,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Input
 if(Input::exists()){
-	if(Token::check(Input::get('token'))){
+	if(Token::check()){
 		if(isset($_POST['avatar_source'])){
 			// Custom avatars?
 			if(isset($_POST['custom_avatars']) && $_POST['custom_avatars'] == 1)

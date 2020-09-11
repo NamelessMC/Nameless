@@ -96,7 +96,7 @@ if(!isset($_GET['server']) && !isset($_GET['edit'])){
 
 		if(Input::exists()){
 			// Check token
-			if(Token::check(Input::get('token'))){
+			if(Token::check()){
 				// Valid token
 				try {
 					if(file_exists(ROOT_PATH . '/uploads/banners/' . Input::get('banner'))){

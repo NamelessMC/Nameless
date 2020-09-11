@@ -26,7 +26,7 @@ $recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha
 // Deal with any input
 $errors = array();
 if(Input::exists()){
-    if(Token::check(Input::get('token'))){
+    if(Token::check()){
         // Valid token
         if(isset($_GET['step']) && $_GET['step'] == 2){
             // Step 2

@@ -180,7 +180,7 @@ if(isset($_GET['action'])){
 	if(Input::exists()){
 		$errors = array();
 
-		if(Token::check(Input::get('token'))){
+		if(Token::check()){
 
 			// Handle email message updating
 			if(isset($_POST['greeting'])) {

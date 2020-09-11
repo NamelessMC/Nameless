@@ -129,7 +129,7 @@ if(isset($_GET['uid'])){
 } else {
 	if(Input::exists()){
 		// Check token
-		if(Token::check(Input::get('token'))){
+		if(Token::check()){
 			// Search
 			$query = $queries->getWhere('users', array('username', '=', Output::getClean(Input::get('search'))));
 

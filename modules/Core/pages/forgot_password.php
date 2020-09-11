@@ -25,7 +25,7 @@ require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
 if(!isset($_GET['c'])){
     // Enter email address form
     if (Input::exists()) {
-        if (Token::check(Input::get('token'))) {
+        if (Token::check()) {
             if (!isset($_POST['email']) || empty($_POST['email']))
                 $error = $language->get('user', 'email_required');
             else {
@@ -153,7 +153,7 @@ if(!isset($_GET['c'])){
     $code = $code[0];
 
     if (Input::exists()) {
-        if (Token::check(Input::get('token'))) {
+        if (Token::check()) {
             $validate = new Validate();
             $validation = $validate->check($_POST, array(
                 'email' => array(

@@ -421,7 +421,7 @@ if(!isset($_GET['action'])){
 
 			// Handle input
 			if(Input::exists()){
-				if(Token::check(Input::get('token'))){
+				if(Token::check()){
 					// Guest template permissions
 					$can_use_template = Input::get('perm-use-0');
 
@@ -664,7 +664,7 @@ if(!isset($_GET['action'])){
 
 				// Deal with input
 				if(Input::exists()){
-					if(Token::check(Input::get('token'))){
+					if(Token::check()){
 						// Valid token
 						if(is_writable($file_path)){
 							// Can write to template file
@@ -673,7 +673,6 @@ if(!isset($_GET['action'])){
 							fwrite($file, Input::get('code'));
 							fclose($file);
 
-							// TODO: make sure this is working as intended
 							Log::getInstance()->log(Log::Action('admin/template/update'), Output::getClean($file_path));
 
 							// Display session success message

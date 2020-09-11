@@ -187,7 +187,7 @@ if(!isset($_GET['id'])){
 			$errors = array();
 
 			// Check token
-			if(Token::check(Input::get('token'))){
+			if(Token::check()){
 				// Valid token
 				$validate = new Validate();
 
