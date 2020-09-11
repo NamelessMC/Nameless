@@ -75,6 +75,11 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
+try {
+    $queries->addPermissionGroup(2, 'admincp.security.discord');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
 
 // Announcements
 
@@ -152,6 +157,11 @@ try {
 // Email Mass Message
 try {
     $queries->addPermissionGroup(2, 'admincp.core.emails_mass_message');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
+    $queries->addPermissionGroup(2, 'admincp.security.emails');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }

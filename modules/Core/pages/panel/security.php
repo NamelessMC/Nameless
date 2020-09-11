@@ -48,6 +48,20 @@ if(!isset($_GET['view'])){
 		);
 	}
 
+	if($user->hasPermission('admincp.security.emails')) {
+		$links[] = array(
+			'link' => URL::build('/panel/security/', 'view=emails'),
+			'title' => $language->get('admin', 'email_logs')
+		);
+	}
+
+	if($user->hasPermission('admincp.security.discord')) {
+		$links[] = array(
+			'link' => URL::build('/panel/security/', 'view=discord'),
+			'title' => $language->get('admin', 'discord_logs')
+		);
+	}
+
 	if($user->hasPermission('admincp.security.template')){
 		$links[] = array(
 			'link' => URL::build('/panel/security/', 'view=template_changes'),
@@ -141,6 +155,94 @@ if(!isset($_GET['view'])){
 				);
 			}
 
+			break;
+
+		case 'emails':
+			if (!$user->hasPermission('admincp.security.emails')) {
+				Redirect::to(URL::build('/panel/security'));
+				die();
+			}
+
+			$log_title = $language->get('admin', 'email_logs');
+			$logs = $queries->orderWhere('logs', 'action = \'acp_email_mass_message\'', 'time', 'DESC');
+
+			$cols = 3;
+			$col_titles = array(
+				$language->get('user', 'username'),
+				$language->get('admin', 'ip_address'),
+				$language->get('general', 'date'),
+			);
+			$rows = array();
+
+			foreach ($logs as $log) {
+				$rows[] = array(
+					0 => array(
+						'content' => '<a style="' . $user->getGroupClass($log->user_id) . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $user->idToName($log->user_id))) . '">' . Output::getClean($user->idToNickname($log->user_id)) . '</a>'
+					),
+					1 => array(
+						'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
+					),
+					2 => array(
+						'content' => date('d M Y, H:i', $log->time),
+						'order' => Output::getClean($log->time)
+					),
+				);
+			}
+			break;
+
+		case 'discord':
+			if (!$user->hasPermission('admincp.security.discord')) {
+				Redirect::to(URL::build('/panel/security'));
+				die();
+			}
+
+			$log_title = $language->get('admin', 'discord_logs');
+			$logs_remove = $queries->orderWhere('logs', 'action = \'discord_role_remove\'', 'time', 'DESC');
+			$logs_add = $queries->orderWhere('logs', 'action = \'discord_role_add\'', 'time', 'DESC');
+
+			$cols = 4;
+			$col_titles = array(
+				$language->get('user', 'username'),
+				$language->get('admin', 'ip_address'),
+				$language->get('general', 'date'),
+				$language->get('admin', 'action_info')
+			);
+			$rows = array();
+
+			foreach ($logs_remove as $log) {
+				$rows[] = array(
+					0 => array(
+						'content' => '<a style="' . $user->getGroupClass($log->user_id) . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $user->idToName($log->user_id))) . '">' . Output::getClean($user->idToNickname($log->user_id)) . '</a>'
+					),
+					1 => array(
+						'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
+					),
+					2 => array(
+						'content' => date('d M Y, H:i', $log->time),
+						'order' => Output::getClean($log->time)
+					),
+					3 => array(
+						'content' => Output::getClean($log->info)
+					)
+				);
+			}
+			foreach ($logs_add as $log) {
+				$rows[] = array(
+					0 => array(
+						'content' => '<a style="' . $user->getGroupClass($log->user_id) . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $user->idToName($log->user_id))) . '">' . Output::getClean($user->idToNickname($log->user_id)) . '</a>'
+					),
+					1 => array(
+						'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
+					),
+					2 => array(
+						'content' => date('d M Y, H:i', $log->time),
+						'order' => Output::getClean($log->time)
+					),
+					3 => array(
+						'content' => Output::getClean($log->info)
+					)
+				);
+			}
 			break;
 
 		case 'all':
