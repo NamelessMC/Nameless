@@ -132,17 +132,17 @@ $language = array(
     'forum_statistics' => 'Statistiky fóra',
     'total_threads' => 'Celkem všech příspěvků',
     'total_posts' => 'Celkem příspěvků',
-    'online_staff' => 'Pracovníci Online',
+    'online_staff' => 'Pracovníci online',
     'no_online_staff' => 'Momentálně není žádný člen online.',
     'total_online_staff' => 'Celkem online členů: {x}',
     'online_users' => 'Uživatelé online',
     'no_online_users' => 'Žádní uživatelé nejsou online.',
     'total_online_users' => 'Celkem online uživatelů: {x}',
-    'discord_widget_disabled' => 'Widget je momentálně mimo provoz, podívejte se do nastavení vašeho Discord serveru, zda jste povolili widget.',
+    'discord_widget_disabled' => 'Widget je momentálně nefunkční, podívejte se do nastavení vašeho Discord serveru, zda jste povolili widget.',
     'online_guests' => 'Online hosté',
     'total_online' => 'Celkem online', // this is Online Users + Online Guests
-    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
-    'server_status' => 'Server Status',
+    'no_default_server' => 'Není nastaven žádný výchozí server, nastavíte jej zde: Ovládací panel - Integrace - Minecraft.',
+    'server_status' => 'Stav serveru',
 
     /*
      *  Privacy policy
