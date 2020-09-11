@@ -69,12 +69,17 @@
                             {/if}
 
                             <p><strong>{$PLEASE_SELECT_LOGS}</strong></p>
-                            <ul>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
                                 {foreach from=$LINKS item=link}
-                                    <li><a href="{$link.link}">{$link.title}</a></li>
+                                    <tr>
+                                        <td>
+                                            <a href="{$link.link}">{$link.title}</a>
+                                        </td>
+                                    </tr>
                                 {/foreach}
-                            </ul>
-
+                                </table>
+                            </div>
                         </div>
                     </div>
 

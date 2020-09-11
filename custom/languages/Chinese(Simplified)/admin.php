@@ -490,7 +490,7 @@ $language = array(
 	'instructions' => '使用说明',
 	'download' => '下载',
 	'install_confirm' => '请确保你已下载更新包并上传了包含的文件!',
-	'check_again' => '复检',
+	'check_again' => '检查更新',
 
 	// Widgets
 	'widgets' => '小部件',

@@ -141,6 +141,8 @@ $language = array(
 	'discord_widget_disabled' => 'Ten serwer Discord ma wyłączoną opcję widżetu. Wejdź do sekcji \'Widget\' w ustawieniach serwera Discord, upewnij się że opcja \'Włącz widżet serwera\' jest włączona, i że podałeś w ustawieniach poprawne ID serwera Discord.',
 	'online_guests' => 'Goście Online',
 	'total_online' => 'Łącznie Online', // this is Online Users + Online Guests
+	'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+	'server_status' => 'Server Status',
 
     /*
      *  Privacy policy

@@ -142,6 +142,8 @@ $language = array(
     'discord_widget_disabled' => 'Widget er deaktivert for denne Discord-serveren. Gå til \'Widget\' i Discord-serverens innstillinger, og sjekk at widgets er aktivert og at IDen stemmer.',
     'online_guests' => 'Gjester',
     'total_online' => 'Totalt pålogget', // this is Online Users + Online Guests
+    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+    'server_status' => 'Server Status',
 
     /*
      *  Privacy policy

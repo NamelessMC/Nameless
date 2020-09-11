@@ -144,7 +144,9 @@ $language = array(
     'total_online_users' => '用户总在线数: {x}',
     'discord_widget_disabled' => '指定的Discord服务器的窗口小部件已禁用。请转到Discord服务器设置中的\'Widget \'标签，并确保Discord小部件已启用并且ID正确。',
     'online_guests' => '访客总在线数',
-    'total_online' => '总在线', // this is Online Users + Online Guests
+	'total_online' => '总在线', // this is Online Users + Online Guests
+	'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+	'server_status' => 'Server Status',
 
     /*
      *  Privacy policy

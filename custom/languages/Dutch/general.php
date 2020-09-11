@@ -143,7 +143,9 @@ $language = array(
     'total_online_users' => 'Totaal online gebruikers: {x}',
     'discord_widget_disabled' => 'De widget is uitgeschakeld voor de opgegeven Discord server. Ga naar het tabblad \'Widget\' in uw Discord server instellingen, en zorg ervoor dat de Discord widget is ingeschakeld en dat de ID correct is.',
     'online_guests' => 'Online Gasten',
-    'total_online' => 'Totaal Online', // this is Online Users + Online Guests
+	'total_online' => 'Totaal Online', // this is Online Users + Online Guests
+	'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+	'server_status' => 'Server Status',
 
     /*
      *  Privacy policy

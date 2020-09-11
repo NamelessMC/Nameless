@@ -42,7 +42,8 @@ class MCQuery {
                                 'player_count_max' => Output::getClean($query['players']['max']),
                                 'player_list' => (isset($query['players']['sample']) ? $query['players']['sample'] : array()),
                                 'x_players_online' => str_replace('{x}', Output::getClean($query['players']['online']), $language->get('general', 'currently_x_players_online')),
-                                'motd' => (isset($query['description']['text']) ? $query['description']['text'] : '')
+                                'motd' => (isset($query['description']['text']) ? $query['description']['text'] : ''),
+                                'version' => $query['version']['name']
                             );
                         else
                             $return = array(

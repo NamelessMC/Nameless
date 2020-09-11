@@ -141,6 +141,8 @@ $language = array(
     'discord_widget_disabled' => 'Widget je momentálně mimo provoz, podívejte se do nastavení vašeho Discord serveru, zda jste povolili widget.',
     'online_guests' => 'Online hosté',
     'total_online' => 'Celkem online', // this is Online Users + Online Guests
+    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+    'server_status' => 'Server Status',
 
     /*
      *  Privacy policy

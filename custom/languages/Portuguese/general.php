@@ -142,7 +142,9 @@ $language = array(
     'total_online_users' => 'Usuários online: {x}',
     'discord_widget_disabled' => 'O widget está desativado para o servidor Discord especificado. Por favor, vá para a aba \'Widget\' nas configurações do servidor Discord, e assegure-se de que o widget Discord esteja habilitado e que o ID esteja correto.',
     'online_guests' => 'Online Guests',
-    'total_online' => 'Total Online', // this is Online Users + Online Guests
+	'total_online' => 'Total Online', // this is Online Users + Online Guests
+	'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+	'server_status' => 'Server Status',
 
     /*
      *  Privacy policy

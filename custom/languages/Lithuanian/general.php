@@ -126,6 +126,8 @@ $language = array(
 	'discord_widget_disabled' => 'Valdiklis yra išjungtas nurodytam Discord serveriui. Prašome eikite į Discord serverio nustatymus skirtuke \'widget\' ir įsitikinkite, kad Discord valdiklis yra įjungtas ir kad ID yra teisingas.',
 	'online_guests' => 'Online Guests',
 	'total_online' => 'Total Online', // this is Online Users + Online Guests
+	'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+	'server_status' => 'Server Status',
 
 	// Privacy policy
 	'privacy_policy' => 'Privatumo Politika',
