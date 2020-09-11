@@ -334,6 +334,7 @@ $language = array(
 	// Styles
 	'templates' => 'Modelli',
 	'panel_templates' => 'Modelli Pannello',
+	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'Abbiamo rilevato che il tuo modello è destinato alla versione {x} di Nameless, ma tu stai usando la{y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Attivato',
 	'deactivate' => 'Disattivato',

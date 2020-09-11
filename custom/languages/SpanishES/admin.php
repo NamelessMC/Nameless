@@ -333,6 +333,7 @@ $language = array(
 	// Diseno
 	'templates' => 'Plantillas',
 	'panel_templates' => 'Plantillas del Panel',
+	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'Hey hemos detecto que esta plantilla es para NamelessMC {x} y usted tiene la version {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Activo',
 	'deactivate' => 'Desactivar',

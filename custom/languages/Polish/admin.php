@@ -333,6 +333,7 @@ $language = array(
 	// Styles
 	'templates' => 'Szablony',
 	'panel_templates' => 'Szablony panelu administracji',
+	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'Wykryliśmy że ten szablon jest przeznaczony do wersji Nameless {x}, a ty używasz wersji Nameless {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Aktywny',
 	'deactivate' => 'Dezaktywuj',

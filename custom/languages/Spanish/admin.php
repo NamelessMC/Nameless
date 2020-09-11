@@ -331,6 +331,7 @@ $language = array(
 	// Styles
 	'templates' => 'Temas',
 	'panel_templates' => 'Plantillas del Panel',
+	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'Hemos detectado que su plantilla está destinada a la versión Namelessmc {x}, pero estás ejecutando la versión Namelessmc {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Activo',
 	'deactivate' => 'Desactivar',

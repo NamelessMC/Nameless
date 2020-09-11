@@ -335,6 +335,7 @@ $language = array(
 	// Styles
 	'templates' => '模板',
 	'panel_templates' => '面板模板',
+	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => '我们检测到您的模板适用于 Nameless 版本 {x}, 但你正在运行 Nameless 版本 {y}', // Don't replace "{x}" or "{y}"
 	'active' => '应用中的',
 	'deactivate' => '停用',

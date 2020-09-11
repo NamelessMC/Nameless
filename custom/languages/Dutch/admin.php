@@ -336,6 +336,7 @@ $language = array(
 	// Stijlen
 	'templates' => 'Sjablonen',
 	'panel_templates' => 'Paneel Sjablonen',
+	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'We hebben ontdekt dat dit sjabloon voor versie {x} is, maar je gebruikt versie {y}', // Verander "{x}" of "{y}" niet
 	'active' => 'Actief',
 	'deactivate' => 'Deactiveer',

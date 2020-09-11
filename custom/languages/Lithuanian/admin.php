@@ -332,6 +332,7 @@ $language = array(
 	// Styles
 	'templates' => 'Šablonai',
 	'panel_templates' => 'Panel Templates',
+	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'Mes aptikome, kad jūsų šablonas skirtas NamelessMC versijai {x}, bet jūs naudojate NamelessMC versija {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Aktyvus',
 	'deactivate' => 'Deaktyvuoti',

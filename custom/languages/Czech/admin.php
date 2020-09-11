@@ -334,6 +334,7 @@ $language = array(
 	// Styles
 	'templates' => 'Šablony',
 	'panel_templates' => 'Šablony panelů',
+	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'Zjistili jsme, že šablona je určena pro NamelessMC verzi {x} , ale vy používáte verzi {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Povolená',
 	'deactivate' => 'Zakázat',

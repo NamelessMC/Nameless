@@ -241,26 +241,28 @@ class Core_Module extends Module {
 			$hook_array = $cache->retrieve('hooks');
 		} else {
 			$hook_array = array();
-			$hooks = $queries->getWhere('hooks', array('id', '<>', 0));
-			if(count($hooks)) {
-				foreach($hooks as $hook) {
-					switch($hook->action) {
-						case 2:
-							$action = 'DiscordHook::execute';
-						break;
-						default:
-							continue;
-						break;
+			if ($queries->tableExists('hooks')) {
+				$hooks = $queries->getWhere('hooks', array('id', '<>', 0));
+				if (count($hooks)) {
+					foreach ($hooks as $hook) {
+						switch ($hook->action) {
+							case 2:
+								$action = 'DiscordHook::execute';
+								break;
+							default:
+								continue;
+								break;
+						}
+
+						$hook_array[] = array(
+							'id' => $hook->id,
+							'url' => Output::getClean($hook->url),
+							'action' => $action,
+							'events' => json_decode($hook->events, true)
+						);
 					}
-					
-					$hook_array[] = array(
-						'id' => $hook->id,
-						'url' => Output::getClean($hook->url),
-						'action' => $action,
-						'events' => json_decode($hook->events, true)
-					);
+					$cache->store('hooks', $hook_array);
 				}
-				$cache->store('hooks', $hook_array);
 			}
 		}
 		HookHandler::registerHooks($hook_array);

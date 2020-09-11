@@ -20,7 +20,7 @@ if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1'))
 
 // Edit Topics forum permission
 try {
-    $queries->alterTable('forum_permissions', '`edit_topic`', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->alterTable('forums_permissions', '`edit_topic`', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -70,12 +70,17 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
+try {
+    $queries->addPermissionGroup(2, 'admincp.discord');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
 
 // Announcements
 
 // Reset panel_sidebar cache so that the orders do not interfere on upgrade
 try {
-    unlink($cache->getCachePath() . '/f068dd5fa2de0ad75c7380f550e12fbb6d0ac70e.cache');
+    unlink($cache->getCachePath() . 'f068dd5fa2de0ad75c7380f550e12fbb6d0ac70e.cache');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -96,7 +101,7 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->addPermissionGroup(1, 'admincp.core.announcemenats');
+    $queries->addPermissionGroup(2, 'admincp.core.announcements');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -113,9 +118,9 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
-
 // Multiple webhooks
 try {
+    $queries->createTable("hooks", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(128) NOT NULL, `action` int(11) NOT NULL, `url` varchar(2048) NOT NULL, `events` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "");
     $queries->alterTable('hooks', '`name`', "varchar(128) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
@@ -130,6 +135,12 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
+try {
+    $queries->addPermissionGroup(2, 'admincp.core.hooks');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 
 // Force group TFA
 try {
@@ -140,7 +151,31 @@ try {
 
 // Email Mass Message
 try {
-    $queries->addPermissionGroup(1, 'admincp.core.emails_mass_message');
+    $queries->addPermissionGroup(2, 'admincp.core.emails_mass_message');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
+
+// Update version number
+$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+
+if (count($version_number_id)) {
+    $version_number_id = $version_number_id[0]->id;
+    $queries->update('settings', $version_number_id, array(
+        'value' => '2.0.0-pr8'
+    ));
+} else {
+    $version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
+    $version_number_id = $version_number_id[0]->id;
+
+    $queries->update('settings', $version_number_id, array(
+        'value' => '2.0.0-pr8'
+    ));
+}
+
+$version_update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+$version_update_id = $version_update_id[0]->id;
+
+$queries->update('settings', $version_update_id, array(
+    'value' => 'false'
+));

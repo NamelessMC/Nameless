@@ -342,6 +342,7 @@ $language = array(
 	// Styles
 	'templates' => 'Vorlagen',
 	'panel_templates' => 'Panel Vorlagen',
+	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'Diese Vorlage ist nicht für die aktuell installierte NamelessMC Version',
 	'active' => 'Aktiv',
 	'deactivate' => 'Deaktivieren',
