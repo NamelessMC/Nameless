@@ -16,7 +16,7 @@ $language = array(
     'help' => 'Pomoc',
 	'submit' => 'Potvrdit',
 	'register' => 'Registrovat se',
-	'already_registered' => 'Již jste se registrovali?',
+	'already_registered' => 'Již jste zaregistrováni?',
 	'custom_fields' => 'Vlastní pole',
 	'not_registered_yet' => 'Ještě nejste zaregistrováni?',
 	'sign_in' => 'Přihlásit se',
@@ -73,7 +73,7 @@ $language = array(
      */
     'contact' => 'Kontakt',
     'message' => 'Zpráva',
-    'email_address' => 'Emailová adresa',
+    'email_address' => 'E-mailová adresa',
     'contact_email_subject' => 'Nový kontaktní formulář ',
     'contact_message_failed' => 'Nepodařilo se odeslat zprávu. Ujistěte se, že jste zadali zprávu o délce 10 až 5000 znaků.',
     'contact_message_email' => 'Zadaný e-mail je nesprávný.',	
