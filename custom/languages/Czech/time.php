@@ -15,15 +15,15 @@ $language = array(
 	 */
 	'time' => 'čas', // Placeholder, no need to translate
 	'seconds_short' => 's', // Shortened "seconds", eg "s"
-	'less_than_a_minute' => 'Před méně než minutou',
-	'1_minute' => 'Před 1 minutou',
-	'_minutes' => 'Před {x} minutami',
-	'about_1_hour' => 'Před 1 hodinou',
-	'_hours' => 'Před {x} hodinami',
-	'1_day' => 'Před 1 dnem',
-	'_days' => 'Před {x} dny',
-	'about_1_month' => 'Před 1 měsícem',
-	'_months' => 'Před {x} měsíci',
-	'about_1_year' => 'Před 1 rokem',
-	'over_x_years' => 'Před {x} lety',
+	'less_than_a_minute' => 'před méně než minutou',
+	'1_minute' => 'před 1 minutou',
+	'_minutes' => 'před {x} minutami',
+	'about_1_hour' => 'před 1 hodinou',
+	'_hours' => 'před {x} hodinami',
+	'1_day' => 'před 1 dnem',
+	'_days' => 'před {x} dny',
+	'about_1_month' => 'před 1 měsícem',
+	'_months' => 'před {x} měsíci',
+	'about_1_year' => 'před 1 rokem',
+	'over_x_years' => 'před {x} lety',
 );
