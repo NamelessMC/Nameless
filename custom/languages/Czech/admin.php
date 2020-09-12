@@ -22,7 +22,7 @@ $language = array(
 	'layout' => 'Rozložení',
 	'user_management' => 'Správce uživatelů',
 	'admin_cp' => 'Ovládací panel',
-	'administration' => 'Administration',
+	'administration' => 'Administrace',
 	'overview' => 'Přehled',
 	'core' => 'Základ',
 	'integrations' => 'Integrace',
@@ -162,13 +162,13 @@ $language = array(
 	'validation_promote_group_info' => 'Do této skupiny bude uživatel povýšen, jakmile si ověří svůj účet.',
 	'login_method' => 'Metoda přihlášení',
 	'privacy_and_terms' => 'Soukromí a podmínky',
-	'dropdown_name' => 'Dropdown Name',
-	'editing_messages' => 'Editing Messages',
-	'emails_mass_message' => 'Email Mass Message',
-	'sending_mass_message' => 'Sending Mass Message',
-	'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
-	'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
-	'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
+	'dropdown_name' => 'Název rozbalovací nabídky',
+	'editing_messages' => 'Úprava zpráv',
+	'emails_mass_message' => 'E-mailová hromadná zpráva',
+	'sending_mass_message' => 'Posílání hromadné zprávy',
+	'emails_mass_message_sent_successfully' => 'Hromadná zpráva byla úspěšně odeslána.',
+	'emails_mass_message_replacements' => 'Ve vaší e-mailové zprávě můžete použít proměnné. Podporované proměnné: {username}, {sitename}',
+	'emails_mass_message_loading' => 'Načítání... Nijak prosím neinteragujte se stránkou. Může to zabrat chvíli.',
 	
 	// Reactions
 	'icon' => 'Ikona',
@@ -316,7 +316,7 @@ $language = array(
 	
 	// Modules
 	'modules_installed_successfully' => 'Všechny nové doplňky byly nainstalovány.',
-	'enabled' => 'Zapnuto',
+	'enabled' => 'Povoleno',
 	'disabled' => 'Zakázáno',
 	'enable' => 'Povolit',
 	'disable' => 'Zakázat',
@@ -334,7 +334,7 @@ $language = array(
 	// Styles
 	'templates' => 'Šablony',
 	'panel_templates' => 'Šablony panelů',
-	'view_all_panel_templates' => 'View all panel templates',
+	'view_all_panel_templates' => 'Zobrazit všechny šablony panelu',
 	'template_outdated' => 'Zjistili jsme, že šablona je určena pro NamelessMC verzi {x} , ale vy používáte verzi {y}', // Don't replace "{x}" or "{y}"
 	'active' => 'Povolená',
 	'deactivate' => 'Zakázat',
@@ -357,9 +357,9 @@ $language = array(
 	'delete' => 'Odstranit',
 	'template_deleted_successfully' => 'Šablona úspěšně odstraněna.',
 	'background_image_x' => 'Obrázek na pozadí: <strong>{x}</strong>', // Don't replace {x}
-	'banner_image_x' => 'Banner obrázek: <strong>{x}</strong>', // Don't replace {x}
-	'background_directory_not_writable' => 'Adresář <strong> uploads/backgrounds </strong> nelze upravovat!',
-	'template_banners_directory_not_writable' => 'Adresář <strong> uploads/banner-templates </strong> nelze upravovat!',
+	'banner_image_x' => 'Bannerový obrázek: <strong>{x}</strong>', // Don't replace {x}
+	'background_directory_not_writable' => 'Adresář <strong>uploads/backgrounds</strong> nelze upravovat!',
+	'template_banners_directory_not_writable' => 'Adresář <strong>uploads/banner-templates</strong> nelze upravovat!',
 	'template_banner_reset_successfully' => 'Banner byl úspěšně obnoven.',
 	'template_banner_updated_successfully' => 'Banner byl úspěšně aktualizován.',
 	'reset_banner' => 'Obnovit banner',
@@ -378,7 +378,7 @@ $language = array(
 	'background_reset_successfully' => 'Pozadí bylo úspěšně obnoveno.',
 	'background_updated_successfully' => 'Pozadí bylo úspěšně aktualizováno.',
 	'unable_to_enable_template' => 'Nelze povolit nekompatibilní šablonu.',
-	'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+	'background_image_info' => 'Tato možnost nemusí být kompatibilní s většinou šablon.',
 
 	// Users & groups
 	'users' => 'Uživatel',
@@ -397,7 +397,7 @@ $language = array(
 	'update_mc_name' => 'Aktualizovat Minecraft jméno',
 	'reset_password' => 'Obnovit heslo',
 	'punish_user' => 'Potrestat uživatele',
-	'delete_user' => 'Smazat uživatele',
+	'delete_user' => 'Odstranit uživatele',
 	'minecraft_uuid' => 'Minecraft UUID',
 	'other_actions' => 'Další akce',
 	'disable_avatar' => 'Zakázat avatar',
@@ -438,9 +438,9 @@ $language = array(
 	'user_updated_successfully' => 'Uživatel byl úspěšně aktualizován.',
 	'editing_user_x' => 'Úprava uživatele {x}', // Don't replace {x}
 	'details' => 'Podrobnosti',
-	'force_tfa' => 'Force Two Factor Authentication for group members?',
-	'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
-	'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
+	'force_tfa' => 'Vynutit dvoufaktorové ověřování pro členy skupiny?',
+	'force_tfa_warning' => 'Ujistěte se, že víte, co děláte, jinak riskujete uzamčení sebe a všech členů vaší skupiny.',
+	'force_tfa_alert' => 'Vaše skupina musí mít zapnuté dvoufaktorové ověřování.',
 	
 	
 	// Permissions
@@ -500,9 +500,9 @@ $language = array(
 	'editing_widget_x' => 'Upravování widgetu {x}', // Don't replace {x}
 	'module_x' => 'Doplněk: {x}', // Don't replace {x}
 	'widget_order' => 'Pořadí widgetu',
-	'widget_location' => 'Widget Location',
-	'left' => 'Left',
-	'right' => 'Right',
+	'widget_location' => 'Umístění widgetu',
+	'left' => 'Vlevo',
+	'right' => 'Vpravo',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Zahrnout pracovníky do uživatelského widgetu?',
@@ -543,7 +543,7 @@ $language = array(
 	'page_icon_maximum_64' => 'Ikona stránky může být maximálně 64 znaků dlouhá.',
 	'page_url_maximum_20' => 'Cesta ke stránce může být maximálně 20 znaků dlouhá.',
 	'page_content_maximum_100000' => 'Obsah stránky může být maximálně 100 000 znaků dlouhý.',
-	'page_redirect_link_maximum_512' => 'může být maximálně 512 znaků dlouhýZajistětě, aby odkaz na přesměrování Vaší stránky byl maximálně 512 znaků dlouhý.',
+	'page_redirect_link_maximum_512' => 'Odkaz na přesměrování může být maximálně 512 znaků dlouhý.',
 	'confirm_delete_page' => 'Jste si jisti, že chcete odstranit tuto stránku?',
 	'page_created_successfully' => 'Stránka byla úspěšně vytvořena.',
 	'page_updated_successfully' => 'Stránka byla úspěšně aktualizována.',
@@ -634,7 +634,7 @@ $language = array(
 	'sitemap_last_generated_x' => 'Soubor mapy webu byl naposledy vygenerován {x}', // Don't replace {x}
 
 	// Page metadata
-	'page_metadata' => 'Metadata stránky',
+	'page_metadata' => 'Metadata stránek',
 	'metadata_page_x' => 'Zobrazení metadat stránky {x}', // Don't replace {x}
 	'keywords' => 'Klíčová slova',
 	'description_max_500' => 'Popis může být maximálně 500 znaků douhý.',
@@ -656,8 +656,8 @@ $language = array(
 	// Other
 	'source' => 'Zdroj',
 	'support' => 'Podpora',
-	'admin_dir_still_exists' => 'Varování! Adresář <strong>modules/Core/pages/admin</strong> stále existuje. Odstraňte prosím tento adresář.',
-	'mod_dir_still_exists' => 'Varování! Adresář <strong>modules/Core/pages/mod</strong> stále existuje. Odstraňte prosím tento adresář.',
+	'admin_dir_still_exists' => 'Varování! Adresář <strong>modules/core/pages/admin</strong> stále existuje. Odstraňte prosím tento adresář.',
+	'mod_dir_still_exists' => 'Varování! Adresář <strong>modules/core/pages/mod</strong> stále existuje. Odstraňte prosím tento adresář.',
 	'forum_topic_reply_email' => 'Odpověď na téma fóra',
 
 	// Announcements
@@ -701,6 +701,6 @@ $language = array(
 	'discord_bot_url_valid' => 'URL vašeho bota je platná.',
 	'discord_bot_url_backup' => 'URL Discord bota (záloha)',
 	'discord_bot_url_backup_info' => 'URL která odkazuje na záložní / druhou relaci Nameless Link bota v případě selhání první možnosti. Toto neměňte, pokud nevíte, co děláte!',
-	'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?'
+	'discord_cannot_interact' => 'Bot Nameless Link nemůže interagovat s tímto uživatelem Discordu. Není role uživatele výše než role Nameless Link?'
 
 );
