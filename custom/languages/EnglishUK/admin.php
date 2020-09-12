@@ -237,6 +237,7 @@ $language = array(
 	'no_servers_defined' => 'No servers have been defined yet',
 	'query_settings' => 'Query Settings',
 	'default_server' => 'Default Server',
+	'average_players' => 'Average Players',
 	'no_default_server' => 'No default server',
 	'external_query' => 'Use external query?',
 	'external_query_help' => 'If the default server query does not work, enable this option.',
@@ -480,6 +481,9 @@ $language = array(
 	'editing_widget_x' => 'Editing widget {x}', // Don't replace {x}
 	'module_x' => 'Module: {x}', // Don't replace {x}
 	'widget_order' => 'Widget Order',
+	'widget_location' => 'Widget Location',
+	'left' => 'Left',
+	'right' => 'Right',
 
 	// Online users widget
 	'include_staff_in_user_widget' => 'Include staff members in user widget?',

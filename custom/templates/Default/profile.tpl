@@ -42,9 +42,24 @@
   </div>
   
 {if $CAN_VIEW}
-  {if !empty($WIDGETS)}
-  <div class="row">
-    <div class="col-md-8">
+	{if count($WIDGETS_RIGHT) || count($WIDGETS_LEFT)}
+		    <div class="row">
+	{/if}
+	
+	{if count($WIDGETS_LEFT)}
+		<div class="col-md-3">
+			<br />
+			{foreach from=$WIDGETS_LEFT item=widget}
+				{$widget}
+				<br />
+			{/foreach}
+		</div>
+	{/if}
+
+  {if count($WIDGETS_RIGHT) && count($WIDGETS_LEFT)}
+    <div class="col-md-6">
+  {elseif count($WIDGETS_RIGHT) || count($WIDGETS_LEFT)}
+	<div class="col-md-9">
   {/if}
   <div class="card">
     <div class="card-body">
@@ -287,14 +302,14 @@
 	  </div>
     </div>
   </div>
-  {if !empty($WIDGETS)}
-  </div>
-  <div class="col-md-4">
-  {foreach from=$WIDGETS item=widget}
-    {$widget}<br /><br />
-  {/foreach}
-  </div>
-  </div>
+  {if isset($WIDGETS_RIGHT)}
+	</div>
+	<div class="col-md-3">
+		{foreach from=$WIDGETS_RIGHT item=widget}
+			{$widget}<br /><br />
+		{/foreach}
+	</div>
+	</div>
   {/if}
 {else}
 	<div class="alert alert-danger" role="alert">

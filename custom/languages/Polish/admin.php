@@ -498,6 +498,9 @@ $language = array(
 	'editing_widget_x' => 'Edytowanie widżetu: {x}', // Don't replace {x}
 	'module_x' => 'Moduł: {x}', // Don't replace {x}
 	'widget_order' => 'Kolejność widżetu',
+	'widget_location' => 'Widget Location',
+	'left' => 'Left',
+	'right' => 'Right',
 
 	// Online users widget
 	'include_staff_in_user_widget' => 'Pokazywać administrację w widżecie użytkownika?',

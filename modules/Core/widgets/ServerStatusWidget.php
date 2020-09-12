@@ -22,11 +22,13 @@ class ServerStatusWidget extends WidgetBase
 
         // Get order
         $order = DB::getInstance()->query('SELECT `order` FROM nl2_widgets WHERE `name` = ?', array('Server Status'))->first();
+        // Get location
+        $location = DB::getInstance()->query('SELECT `location` FROM nl2_widgets WHERE `name` = ?', array('Server Status'))->first();
 
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Server Status';
-        $this->_location = 'right';
+        $this->_location = $location->location;
         $this->_description = 'Display your Minecraft server status.';
         $this->_order = $order->order;
     }

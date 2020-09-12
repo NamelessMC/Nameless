@@ -499,6 +499,9 @@ $language = array(
 	'editing_widget_x' => 'Redigerer widget {x}', // Don't replace {x}
 	'module_x' => 'Modul: {x}', // Don't replace {x}
 	'widget_order' => 'Widget-rekkefølge',
+	'widget_location' => 'Widget Location',
+	'left' => 'Left',
+	'right' => 'Right',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Inkluder stabmedlemmer i bruker-widget?',

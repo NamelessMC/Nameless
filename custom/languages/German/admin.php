@@ -508,6 +508,9 @@ $language = array(
 	'editing_widget_x' => 'Bearbeite Widget {x}', // Don't replace {x}
 	'module_x' => 'Modul: {x}', // Don't replace {x}
 	'widget_order' => 'Widget Sortierung',
+	'widget_location' => 'Widget Location',
+	'left' => 'Left',
+	'right' => 'Right',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Teammitglieder in User-Widget aufnehmen?',

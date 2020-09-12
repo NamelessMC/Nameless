@@ -22,11 +22,13 @@ class ProfilePostsWidget extends WidgetBase {
 
         // Get order
         $order = DB::getInstance()->query('SELECT `order` FROM nl2_widgets WHERE `name` = ?', array('Latest Profile Posts'))->first();
+        // Get location
+        $location = DB::getInstance()->query('SELECT `location` FROM nl2_widgets WHERE `name` = ?', array('Latest Profile Posts'))->first();
 
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Latest Profile Posts';
-        $this->_location = 'right';
+        $this->_location = $location->location;
         $this->_description = 'Display the latest profile posts on your site.';
         $this->_order = $order->order;
     }

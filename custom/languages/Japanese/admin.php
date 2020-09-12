@@ -502,6 +502,9 @@ $language = array(
 	'editing_widget_x' => 'ウィジェット {x} の編集', // Don't replace {x}
 	'module_x' => 'モジュール: {x}', // Don't replace {x}
 	'widget_order' => 'ウィジェット順番',
+	'widget_location' => 'Widget Location',
+	'left' => 'Left',
+	'right' => 'Right',
 
     // Online users widget
     'include_staff_in_user_widget' => 'スタッフウィジェットをユーザーウィジェットに含めますか？',

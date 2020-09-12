@@ -455,14 +455,14 @@ $language = array(
 	'disable_night_mode' => 'Išjungti Naktinį Režimą',
 	'view_site' => 'Žiūrėti Svetainę',
 	'signed_in_as_x' => 'Prisijungęs kaip {x}', // Don't replace {x}
-  'warning' => 'Įspėjimas',
+	'warning' => 'Įspėjimas',
 
-  // Maintenance
-  'maintenance_mode' => 'Priežiūros Režimas',
-  'maintenance_enabled' => 'Priežiūros režimas šiuo metu yra įjungtas.',
-  'enable_maintenance_mode' => 'Įjungti priežiūros režimą?',
-  'maintenance_mode_message' => 'Priežiūros režimo žinutė',
-  'maintenance_message_max_1024' => 'Prašome įsitikinti, kad jūsų priežiūros žinutė yra ne ilgesne kaip 1024 simboliai.',
+	// Maintenance
+	'maintenance_mode' => 'Priežiūros Režimas',
+	'maintenance_enabled' => 'Priežiūros režimas šiuo metu yra įjungtas.',
+	'enable_maintenance_mode' => 'Įjungti priežiūros režimą?',
+	'maintenance_mode_message' => 'Priežiūros režimo žinutė',
+	'maintenance_message_max_1024' => 'Prašome įsitikinti, kad jūsų priežiūros žinutė yra ne ilgesne kaip 1024 simboliai.',
 
 	// Security
 	'acp_logins' => 'StaffCP prisijungimai',
@@ -497,6 +497,9 @@ $language = array(
 	'editing_widget_x' => 'Valdiklio redagavimas {x}', // Don't replace {x}
 	'module_x' => 'Modulis: {x}', // Don't replace {x}
 	'widget_order' => 'Valdiklių Tvarka',
+	'widget_location' => 'Widget Location',
+	'left' => 'Left',
+	'right' => 'Right',
 
 	// Online users widget
 	'include_staff_in_user_widget' => 'Įtraukti darbuotojus į naudotojo valdiklį?',

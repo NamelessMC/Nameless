@@ -111,6 +111,13 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="inputLocation">{$WIDGET_LOCATION}</label>
+                                    <select name="location" class="form-control" id="inputLocation">
+                                        <option value="right" {if $LOCATION eq 'right' } selected{/if}>{$RIGHT}</option>
+                                        <option value="left" {if $LOCATION eq 'left' } selected{/if}>{$LEFT}</option>                                    </select>
+                                </div>
+
+                                <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                                 </div>

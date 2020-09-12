@@ -500,6 +500,9 @@ $language = array(
 	'editing_widget_x' => '编辑小部件 {x} 中', // Don't replace {x}
 	'module_x' => '模块: {x}', // Don't replace {x}
 	'widget_order' => '小部件顺序',
+	'widget_location' => 'Widget Location',
+	'left' => 'Left',
+	'right' => 'Right',
 
     // Online users widget
     'include_staff_in_user_widget' => '是否在用户小部件中包含工作人员?',

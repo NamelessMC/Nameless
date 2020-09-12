@@ -500,6 +500,9 @@ $language = array(
 	'editing_widget_x' => 'Upravování widgetu {x}', // Don't replace {x}
 	'module_x' => 'Doplněk: {x}', // Don't replace {x}
 	'widget_order' => 'Pořadí widgetu',
+	'widget_location' => 'Widget Location',
+	'left' => 'Left',
+	'right' => 'Right',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Zahrnout pracovníky do uživatelského widgetu?',

@@ -5,7 +5,16 @@
 <div class="card">
   <div class="card-body">
 	  <div class="row">
-		<div class="col-md-9">
+	  	{if count($WIDGETS_LEFT)}
+			<div class="col-md-3">
+				<br />
+				{foreach from=$WIDGETS_LEFT item=widget}
+					{$widget}
+				<br />
+				{/foreach}
+			</div> 
+		{/if}
+		<div class="col-md-{if count($WIDGETS_LEFT)}6{else}9{/if}">
 		  <ol class="breadcrumb">
 		    <li class="breadcrumb-item active"><a href="{$BREADCRUMB_URL}">{$BREADCRUMB_TEXT}</a></li>
 		  </ol>
@@ -107,9 +116,9 @@
 		    </div>
 		  </form>
 
-		  {if count($WIDGETS)}
+		  {if count($WIDGETS_RIGHT)}
 		    <br />
-		    {foreach from=$WIDGETS item=widget}
+		    {foreach from=$WIDGETS_RIGHT item=widget}
 		    {$widget}
 		    <br />
 		    {/foreach}

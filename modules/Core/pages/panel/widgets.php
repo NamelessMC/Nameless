@@ -155,7 +155,10 @@ if(!isset($_GET['action'])){
 
 					$order = (isset($_POST['order']) ? $_POST['order'] : 10);
 
-					$queries->update('widgets', $widget->id, array('pages' => $active_pages_string, '`order`' => $order));
+					$location = Input::get('location');
+					if (!in_array($location, array('left', 'right'))) $location = 'right';
+
+					$queries->update('widgets', $widget->id, array('pages' => $active_pages_string, '`order`' => $order, '`location`' => $location));
 
 					Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
 					Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . $widget->id));
@@ -181,12 +184,19 @@ if(!isset($_GET['action'])){
 		$order = Output::getClean($widgets->getWidget($widget->name)->getOrder());
 		if(!$order) $order = 10;
 
+		$location = Output::getClean($widgets->getWidget($widget->name)->getLocation());
+		if (!in_array($location, array('left', 'right'))) $location = 'right';
+
 		$smarty->assign(array(
 			'EDITING_WIDGET' => str_replace('{x}', Output::getClean($widget->name), $language->get('admin', 'editing_widget_x')),
 			'BACK' => $language->get('general', 'back'),
 			'BACK_LINK' => URL::build('/panel/core/widgets'),
 			'ORDER' => $order,
 			'WIDGET_ORDER' => $language->get('admin', 'widget_order'),
+			'LOCATION' => $location,
+			'WIDGET_LOCATION' => $language->get('admin', 'widget_location'),
+			'LEFT' => $language->get('admin', 'left'),
+			'RIGHT' => $language->get('admin', 'right'),
 			'ACTIVE_PAGES' => $active_pages,
 			'POSSIBLE_PAGES' => $pages->returnWidgetPages(),
 			'MODULE' => $language->get('admin', 'module'),

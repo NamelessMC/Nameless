@@ -166,6 +166,13 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Widget Locations
+try {
+    $queries->alterTable('widgets', '`location`', "varchar(5) NOT NULL DEFAULT 'right'");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 

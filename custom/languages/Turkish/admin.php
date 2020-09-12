@@ -499,6 +499,9 @@ $language = array(
 	'editing_widget_x' => '{x} isimli widget düzenleniyor..', // Don't replace {x}
 	'module_x' => 'Modül: {x}', // Don't replace {x}
 	'widget_order' => 'Widget Sırası',
+	'widget_location' => 'Widget Location',
+	'left' => 'Left',
+	'right' => 'Right',
 
 	// Online users widget
 	'include_staff_in_user_widget' => 'Kullanıcı widget\'ı kullanıcı widget\'ına dahil edilsin mi?',

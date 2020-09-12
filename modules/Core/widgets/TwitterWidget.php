@@ -14,11 +14,13 @@ class TwitterWidget extends WidgetBase {
 
         // Get order
         $order = DB::getInstance()->query('SELECT `order` FROM nl2_widgets WHERE `name` = ?', array('Twitter'))->first();
+        // Get location
+        $location = DB::getInstance()->query('SELECT `location` FROM nl2_widgets WHERE `name` = ?', array('Twitter'))->first();
 
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Twitter';
-        $this->_location = 'right';
+        $this->_location = $location->location;
         $this->_description = 'Display your Twitter feed on your site. Make sure you have entered your Twitter URL in the AdminCP -> Core -> Social Media tab first!';
         $this->_order = $order->order;
 

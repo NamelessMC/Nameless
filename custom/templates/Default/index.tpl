@@ -43,9 +43,17 @@
         </div>
 	{/if}
 	<div class="row">
-
+	{if count($WIDGETS_LEFT)}
+		<div class="col-md-3">
+			<br />
+			{foreach from=$WIDGETS_LEFT item=widget}
+				{$widget}
+				<br />
+			{/foreach}
+		</div>
+	{/if}
 	  {if isset($NEWS)}
-	  <div class="col-md-9">
+		<div class="col-md-{if count($WIDGETS_LEFT)}6{else}9{/if}">
 	    <center><h2>{$LATEST_ANNOUNCEMENTS} <i class="fa fa-bullhorn"></i></h2></center>
 		<hr />
 		{foreach from=$NEWS item=item}
@@ -74,8 +82,8 @@
 
 	    <center><h2>{$SOCIAL} <i class="fa fa-users" aria-hidden="true"></i></h2></center>
 	    <hr />
-		{if count($WIDGETS)}
-		  {foreach from=$WIDGETS item=widget}
+		{if count($WIDGETS_RIGHT)}
+		  {foreach from=$WIDGETS_RIGHT item=widget}
 			{$widget}
 			<br />
 		  {/foreach}

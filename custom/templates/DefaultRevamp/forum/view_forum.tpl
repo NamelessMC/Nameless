@@ -39,7 +39,14 @@
 
 <div class="ui stackable padded grid" id="forum-view">
   <div class="ui centered row">
-    <div class="ui eleven wide tablet twelve wide computer column">
+    {if count($WIDGETS_LEFT)}
+      <div class="ui five wide tablet four wide computer column">
+          {foreach from=$WIDGETS_LEFT item=widget}
+              {$widget}
+          {/foreach}
+      </div>
+    {/if}
+    <div class="ui {if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT) }four wide tablet eight wide computer{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}ten wide tablet twelve wide computer{else}sixteen wide{/if} column">
       {if count($SUBFORUMS)}
         <table class="ui fixed single line selectable unstackable small padded res table" id="subforums-table">
           <thead>
@@ -188,13 +195,13 @@
       {/if}
       {$PAGINATION}
     </div>
+    {if count($WIDGETS_RIGHT)}
     <div class="ui five wide tablet four wide computer column">
-      {if count($WIDGETS)}
-        {foreach from=$WIDGETS item=widget}
+        {foreach from=$WIDGETS_RIGHT item=widget}
           {$widget}
         {/foreach}
-      {/if}
     </div>
+    {/if}
   </div>
 </div>
 

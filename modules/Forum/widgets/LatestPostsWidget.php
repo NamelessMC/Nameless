@@ -21,11 +21,13 @@ class LatestPostsWidget extends WidgetBase {
 
         // Get order
         $order = DB::getInstance()->query('SELECT `order` FROM nl2_widgets WHERE `name` = ?', array('Latest Posts'))->first();
+		// Get location
+		$location = DB::getInstance()->query('SELECT `location` FROM nl2_widgets WHERE `name` = ?', array('Latest Posts'))->first();
 
         // Set widget variables
         $this->_module = 'Forum';
         $this->_name = 'Latest Posts';
-        $this->_location = 'right';
+        $this->_location = $location->location;
         $this->_description = 'Display latest posts from your forum.';
         $this->_order = $order->order;
 

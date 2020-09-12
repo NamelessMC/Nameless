@@ -27,8 +27,14 @@
 
 <div class="ui stackable padded grid" id="forum-index">
     <div class="ui centered row">
-        <div class="ui eleven wide tablet twelve wide computer column">
-            {if isset($SPAM_INFO)}
+    {if count($WIDGETS_LEFT)}
+        <div class="ui five wide tablet four wide computer column">
+            {foreach from=$WIDGETS_LEFT item=widget}
+                {$widget}
+            {/foreach}
+        </div>
+    {/if}
+      <div class="ui {if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT) }four wide tablet eight wide computer{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}ten wide tablet twelve wide computer{else}sixteen wide{/if} column">            {if isset($SPAM_INFO)}
                 <div class="ui warning icon message">
                     <i class="exclamation icon"></i>
                     <div class="content">
@@ -143,8 +149,8 @@
             {/foreach}
         </div>
         <div class="ui five wide tablet four wide computer column">
-            {if count($WIDGETS)}
-                {foreach from=$WIDGETS item=widget}
+            {if count($WIDGETS_RIGHT)}
+                {foreach from=$WIDGETS_RIGHT item=widget}
                     {$widget}
                 {/foreach}
             {/if}

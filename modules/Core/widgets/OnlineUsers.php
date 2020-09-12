@@ -19,12 +19,14 @@ class OnlineUsersWidget extends WidgetBase {
         parent::__construct($pages);
 
         // Get order
-        $order = DB::getInstance()->query('SELECT `order` FROM nl2_widgets WHERE `name` = ?', array('Online Users'))->first();
+		$order = DB::getInstance()->query('SELECT `order` FROM nl2_widgets WHERE `name` = ?', array('Online Users'))->first();
+		// Get location
+		$location = DB::getInstance()->query('SELECT `location` FROM nl2_widgets WHERE `name` = ?', array('Online Users'))->first();
 
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Online Users';
-        $this->_location = 'right';
+        $this->_location = $location->location;
         $this->_description = 'Displays a list of online users on your website.';
         $this->_settings = ROOT_PATH . '/modules/Core/includes/admin_widgets/online_users.php';
         $this->_order = $order->order;

@@ -20,11 +20,13 @@ class OnlineStaffWidget extends WidgetBase {
 
         // Get order
         $order = DB::getInstance()->query('SELECT `order` FROM nl2_widgets WHERE `name` = ?', array('Online Staff'))->first();
+		// Get location
+		$location = DB::getInstance()->query('SELECT `location` FROM nl2_widgets WHERE `name` = ?', array('Online Staff'))->first();
 
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Online Staff';
-        $this->_location = 'right';
+        $this->_location = $location->location;
         $this->_description = 'Displays a list of online staff members on your website.';
         $this->_order = $order->order;
     }
