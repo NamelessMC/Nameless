@@ -78,6 +78,7 @@
                                             <th>{$GROUP_ID}</th>
                                             <th>{$NAME}</th>
                                             <th>{$USERS}</th>
+                                            <th>{$STAFF}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -86,6 +87,7 @@
                                                 <td>{$group.id}</td>
                                                 <td><a href="{$group.edit_link}">{$group.name}</a></td>
                                                 <td>{$group.users}</td>
+                                                <td><h4><span class="badge badge-{if $group.staff}success{else}danger{/if}">{if $group.staff}{$YES}{else}{$NO}{/if}</span></h4></td>
                                             </tr>
                                         {/foreach}
                                     </tbody>

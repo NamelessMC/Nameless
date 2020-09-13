@@ -457,7 +457,8 @@ if(isset($_GET['action'])){
 			'id' => Output::getClean($group->id),
 			'name' => Output::getClean($group->name),
 			'edit_link' => URL::build('/panel/core/groups/', 'action=edit&group=' . Output::getClean($group->id)),
-			'users' => $users
+			'users' => $users,
+			'staff' => $group->staff
 		);
 	}
 
@@ -468,6 +469,9 @@ if(isset($_GET['action'])){
 		'NEW_GROUP' => $language->get('admin', 'new_group'),
 		'NEW_GROUP_LINK' => URL::build('/panel/core/groups/', 'action=new'),
 		'GROUP_LIST' => $groups_template,
+		'STAFF' => $language->get('moderator', 'staff'),
+		'YES' => $language->get('general', 'yes'),
+		'NO' => $language->get('general', 'no'),
 		'EDIT' => $language->get('general', 'edit')
 	));
 

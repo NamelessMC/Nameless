@@ -85,7 +85,7 @@ try {
 
 // Reset panel_sidebar cache so that the orders do not interfere on upgrade
 try {
-    unlink($cache->getCachePath() . 'f068dd5fa2de0ad75c7380f550e12fbb6d0ac70e.cache');
+    unlink(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('panel_sidebar') . '.cache');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }

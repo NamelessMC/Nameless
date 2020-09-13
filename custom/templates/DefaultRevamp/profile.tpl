@@ -197,7 +197,7 @@
               {foreach from=$ABOUT_FIELDS key=key item=field}
                 {if is_numeric($key)}
                   <div class="item">
-                    <i class="middle aligned dot circle icon"></i>
+                  <i class="middle aligned {if $field.type eq 'date'}calendar alternate{else}dot circle{/if} icon"></i>
                     <div class="middle aligned content">
                       <div class="header">{$field.title}</div>
                       <div class="description">{$field.value}</div>

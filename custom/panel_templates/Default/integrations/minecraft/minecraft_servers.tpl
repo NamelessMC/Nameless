@@ -101,7 +101,9 @@
                                 <div class="form-group">
                                     <label for="inputDefaultServer">{$DEFAULT_SERVER}</label>
                                     <select id="inputDefaultServer" class="form-control" name="default_server">
-                                        <option value="none"{if $DEFAULT_SERVER_VALUE eq 0} selected{/if}>{$NO_DEFAULT_SERVER}</option>
+                                        {if $SERVERS|count > 1}
+                                            <option value="none"{if $DEFAULT_SERVER_VALUE eq 0} selected{/if}>{$NO_DEFAULT_SERVER}</option>
+                                        {/if}
                                         {if isset($SERVERS) && count($SERVERS)}
                                             {foreach from=$SERVERS item=server}
                                                 <option value="{$server.id}"{if $server.is_default eq 1} selected{/if}>{$server.name}</option>

@@ -83,7 +83,7 @@ class Widgets {
     /*
      *  Get code for all enabled widgets on the current page
      */
-    public function getWidgets($location){
+    public function getWidgets($location = 'right'){
         $ret = array();
 
         $widgets = $this->getAll();

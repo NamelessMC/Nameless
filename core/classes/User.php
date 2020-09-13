@@ -77,52 +77,6 @@ class User {
 		return false;
 	}
 
-
-
-    // Get a user's IP address
-    /*
-	public function getIP() {
-        $usingproxy = false;
-        $proxiedIp = null;
-        $ip = $_SERVER['REMOTE_ADDR'];
-
-		if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
-		    $proxiedIp = $_SERVER['HTTP_CLIENT_IP'];
-		    $usingproxy = true;
-		} else if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $proxiedIp = $_SERVER['HTTP_X_FORWARDED_FOR'];
-            $usingproxy = true;
-		}
-		if($usingproxy) {
-		    $proxyTextList = Config::get("allowedProxies");
-		    $hasRanges = false;
-            if ( strpos( $proxyTextList, '/' ) == true ) {
-                $hasRanges = true;
-            }
-            $proxyList = explode(',', $proxyTextList);
-
-            // Check if it's in the array at first for mixed lists
-            if (in_array($_SERVER['REMOTE_ADDR'], $proxyList)) {
-                // Return proxied ip if it's in the list and there's no ranges
-                return $proxiedIp;
-            }
-
-            if($hasRanges) { // Check if we're using ranges (needed for cloudflare)
-                foreach($proxyList as $proxy) {
-                    if ( strpos( $proxy, '/' ) == true ) { // check if it's an actual range (we're lazy so we just check for an / in it)
-                        if($this->ip_in_range($ip, $proxy)) {
-                            return $proxiedIp;
-                        }
-                    }
-                }
-            }
-            // Return normal ip if it's not in the list
-            return $ip;
-        }
-        // Return normal ip if not using proxy
-		return $ip;
-	}
-    */
     public function getIP() {
         if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
@@ -132,26 +86,6 @@ class User {
             $ip = $_SERVER['REMOTE_ADDR'];
         }
         return $ip;
-    }
-
-    /**
-     * Check if a given ip is in a network
-     * @param  string $ip    IP to check in IPV4 format eg. 127.0.0.1
-     * @param  string $range IP/CIDR netmask eg. 127.0.0.0/24, also 127.0.0.1 is accepted and /32 assumed
-     * @return boolean true if the ip is in this range / false if not.
-     * https://gist.github.com/tott/7684443
-     */
-    function ip_in_range( $ip, $range ) {
-        if ( strpos( $range, '/' ) == false ) {
-            $range .= '/32';
-        }
-        // $range is in IP/CIDR format eg 127.0.0.1/24
-        list( $range, $netmask ) = explode( '/', $range, 2 );
-        $range_decimal = ip2long( $range );
-        $ip_decimal = ip2long( $ip );
-        $wildcard_decimal = pow( 2, ( 32 - $netmask ) ) - 1;
-        $netmask_decimal = ~ $wildcard_decimal;
-        return ( ( $ip_decimal & $netmask_decimal ) == ( $range_decimal & $netmask_decimal ) );
     }
 
 	// Update a user's data
