@@ -52,10 +52,8 @@ require_once ROOT_PATH . '/core/includes/smarty/Smarty.class.php'; // Smarty
 
 // Normal autoloader
 spl_autoload_register(function($class) {
-    if(strpos($class, 'TeamSpeak3') === false){
-        $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', $class . '.php'));
-        if(file_exists($path)) require_once($path);
-    }
+    $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', $class . '.php'));
+    if(file_exists($path)) require_once($path);
 });
 
 if($page != 'install'){
