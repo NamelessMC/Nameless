@@ -13,7 +13,7 @@ $language = array(
     // Errors
     'unknown_error' => 'Unknown error',
     'invalid_api_key' => 'Invalid API key',
-    'invalid_api_method' => 'Invalid API method',
+    'invalid_api_method' => 'Invalid API method (if you are viewing this from a browser, this is not an error)',
     'no_unique_site_id' => 'No unique site ID available',
     'unable_to_check_for_updates' => 'Unable to check for updates',
     'invalid_post_contents' => 'Invalid POST contents',

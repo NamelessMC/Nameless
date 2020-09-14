@@ -111,7 +111,7 @@ class NamelessAPI {
     private function handleRequest($action = null){
         // Ensure the API key is valid
         if($this->_validated === true){
-            if(!($action)) $this->throwError('Invalid API method');
+            if(!($action)) $this->throwError('Invalid API method (if you are viewing this from a browser, this is not an error)');
             switch($action){
                 case 'register':
                     // Register a user
@@ -150,7 +150,7 @@ class NamelessAPI {
 
                 default:
                     // No method specified
-                    $this->throwError('Invalid API method');
+                    $this->throwError('Invalid API method (if you are viewing this from a browser, this is not an error)');
                     break;
             }
 
