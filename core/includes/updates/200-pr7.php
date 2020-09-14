@@ -41,6 +41,16 @@ try {
 
 // Discord Integration
 try {
+    DB::getInstance()->query("CREATE TABLE `nl2_discord_verifications` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `token` varchar(13) NOT NULL,
+        `user_id` int(11) NOT NULL,
+        PRIMARY KEY (`id`)
+        ) ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
     $queries->create('settings', array(
         'name' => 'discord_integration',
         'value' => 0,

@@ -605,20 +605,25 @@ class Nameless2API
     }
 
     private function setDiscordId() {
-        // Param: username
+        // Param: validation token
         // Param: discord id
         if ($this->_validated === true) {
             if (!isset($_POST) || empty($_POST)) {
                 $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
             }
 
-            $username = Output::getClean($_POST['username']);
+            $token = Output::getClean($_POST['token']);
             $discord_id = $_POST['discord_id'];
 
             $this->_db = DB::getInstance();
 
-            // Error
-            $user = $this->_db->get('users', array('username', '=', $username));
+            // Find their id 
+            $id = $this->_db->get('discord_verifications', array('token', '=', $token));
+            if (!$id->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
+            $id = $id->first()->user_id;
+
+            // Find the user with the id
+            $user = $this->_db->get('users', array('id', '=', $id));
             if (!$user->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
             $user = $user->first()->id;
 
