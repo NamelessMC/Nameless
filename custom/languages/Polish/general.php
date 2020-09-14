@@ -13,11 +13,11 @@ $language = array(
 	/*
 	 *  General terms
 	 */
-	'help' => 'Help',
+	'help' => 'Pomoc',
 	'submit' => 'Zatwierdź',
 	'register' => 'Zarejestruj',
 	'already_registered' => 'Masz już konto?',
-	'custom_fields' => 'Custom Fields',
+	'custom_fields' => 'Niestandardowe Pola',
 	'not_registered_yet' => 'Nie masz konta?',
 	'sign_in' => 'Zaloguj się',
 	'log_out' => 'Wyloguj się',
@@ -141,8 +141,8 @@ $language = array(
 	'discord_widget_disabled' => 'Ten serwer Discord ma wyłączoną opcję widżetu. Wejdź do sekcji \'Widget\' w ustawieniach serwera Discord, upewnij się że opcja \'Włącz widżet serwera\' jest włączona, i że podałeś w ustawieniach poprawne ID serwera Discord.',
 	'online_guests' => 'Goście Online',
 	'total_online' => 'Łącznie Online', // this is Online Users + Online Guests
-	'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
-	'server_status' => 'Server Status',
+	'no_default_server' => 'Brak domyślnego serwera, wybierz go w Integracje > Minecraft.',
+	'server_status' => 'Status Serwera',
 
     /*
      *  Privacy policy
