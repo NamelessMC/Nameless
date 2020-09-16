@@ -85,8 +85,17 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <label for="inputIngame">{$INGAME_GROUP_NAME}</label>
-                                                    <input class="form-control" name="ingame_group[{$group_sync.id}]" type="text" id="inputIngame" placeholder="{$INGAME_GROUP_NAME}" value="{$group_sync.ingame}">
+                                                    {if count($INGAME_GROUPS)}
+                                                        <select name="ingame_group[{$group_sync.id}]" class="form-control" id="inputIngame">
+                                                            {foreach from=$INGAME_GROUPS item=group}
+                                                                <option value="{$group}" {if {$group_sync.ingame} == $group} selected{/if}>{$group}</option>
+                                                            {/foreach}
+                                                        </select>
+                                                    {else}
+                                                        <input class="form-control" name="ingame_group[{$group_sync.id}]" type="text" id="inputIngame" placeholder="{$INGAME_GROUP_NAME}" value="{$group_sync.ingame}">
+                                                    {/if}
                                                 </div>
+
                                                 <div class="col-md-4">
                                                     <label for="inputWebsite">{$WEBSITE_GROUP}</label>
                                                     <select name="website_group[{$group_sync.id}]" class="form-control" id="inputWebsite">
@@ -124,7 +133,15 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label for="inputIngame">{$INGAME_GROUP_NAME}</label>
-                                            <input class="form-control" name="ingame_rank_name" type="text" id="inputIngame" placeholder="{$INGAME_GROUP_NAME}">
+                                            {if count($INGAME_GROUPS)}
+                                                <select name="ingame_rank_name" class="form-control" id="inputIngame">
+                                                    {foreach from=$INGAME_GROUPS item=group}
+                                                        <option value="{$group}">{$group}</option>
+                                                    {/foreach}
+                                                </select>
+                                            {else}
+                                                <input class="form-control" name="ingame_rank_name" type="text" id="inputIngame" placeholder="{$INGAME_GROUP_NAME}">
+                                            {/if}
                                         </div>
                                         <div class="col-md-4">
                                             <label for="inputWebsite">{$WEBSITE_GROUP}</label>

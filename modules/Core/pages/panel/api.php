@@ -343,13 +343,17 @@ if(!isset($_GET['view'])){
 } else {
 	// Get all groups
 	$groups = $queries->getWhere('groups', array('id', '<>', 0));
-	$template_array = array();
+	$website_groups = array();
 	foreach($groups as $group){
-		$template_array[] = array(
+		$website_groups[] = array(
 			'id' => Output::getClean($group->id),
 			'name' => Output::getClean($group->name)
 		);
 	}
+
+	// Get ingame groups
+	$ingame_groups = DB::getInstance()->query("SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1")->first();
+	$ingame_groups = json_decode($ingame_groups->groups, true);
 
 	// Get existing group sync configuration
 	$group_sync = $queries->getWhere('group_sync', array('id', '<>', 0));
@@ -376,13 +380,14 @@ if(!isset($_GET['view'])){
 		'BACK_LINK' => URL::build('/panel/core/api'),
 		'TOKEN' => Token::get(),
 		'SUBMIT' => $language->get('general', 'submit'),
+		'INGAME_GROUPS' => $ingame_groups,
 		'INGAME_GROUP_NAME' => $language->get('admin', 'ingame_group'),
 		'WEBSITE_GROUP' => $language->get('admin', 'website_group'),
 		'SET_AS_PRIMARY_GROUP' => $language->get('admin', 'set_as_primary_group'),
 		'SET_AS_PRIMARY_GROUP_INFO' => $language->get('admin', 'set_as_primary_group_info'),
 		'YES' => $language->get('general', 'yes'),
 		'NO' => $language->get('general', 'no'),
-		'GROUPS' => $template_array,
+		'GROUPS' => $website_groups,
 		'GROUP_SYNC_VALUES' => $template_groups,
 		'DELETE' => $language->get('general', 'delete'),
 		'NEW_RULE' => $language->get('admin', 'new_rule'),

@@ -7,7 +7,7 @@
  *  License: MIT
  *
  *  Version 2.0.0 API
- *  API version 1.0.5
+ *  API version 2.0.0
  */
 
 // Headers
@@ -26,19 +26,16 @@ if ($is_enabled[0]->value != '1') {
 }
 
 // Initialise
-$api = new Nameless2API($route, $language, TEMPLATE);
+$api = new Nameless2API($route, $language);
 
-class Nameless2API
-{
-    // Variables
-    private $_validated = false,
+class Nameless2API {
+
+    private 
+        $_validated = false,
         $_db,
-        $_language,
-        $_template;
+        $_language;
 
-    // Construct
-    public function __construct($route, $api_language, $template)
-    {
+    public function __construct($route, $api_language) {
         try {
             $explode = explode('/', $route);
 
@@ -72,8 +69,7 @@ class Nameless2API
     }
 
     // Display error message
-    private function throwError($code = null, $message = null)
-    {
+    private function throwError($code = null, $message = null) {
         if ($code && $message) {
             die(json_encode(array('error' => true, 'code' => $code, 'message' => $message), JSON_PRETTY_PRINT));
         } else {
@@ -82,8 +78,7 @@ class Nameless2API
     }
 
     // Return an array
-    private function returnArray($arr = null)
-    {
+    private function returnArray($arr = null) {
         if (!$arr)
             $arr = array();
 
@@ -92,8 +87,7 @@ class Nameless2API
     }
 
     // Validate API key
-    private function validateKey($api_key = null)
-    {
+    private function validateKey($api_key = null) {
         if ($api_key) {
             // Check cached key
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
@@ -182,22 +176,16 @@ class Nameless2API
                     $this->getNotifications();
                     break;
 
-                case 'validateUser':
+                case 'verifyMinecraft':
                     // Validate a user
-                    $this->validateUser();
+                    $this->verifyMinecraft();
                     break;
 
                 case 'listUsers':
                     // List registered usernames + their uuids
                     $this->listUsers();
                     break;
-
-                /*
-                case 'log':
-                    $this->log();
-                    break;
-                */
-
+                    
                 default:
                     $this->throwError(3, $this->_language->get('api', 'invalid_api_method'));
                     break;
@@ -900,7 +888,7 @@ class Nameless2API
             }
 
             $info = json_decode($_POST['info'], true);
-            if(!isset($info['server-id']) || !isset($info['max-memory']) || !isset($info['free-memory']) || !isset($info['allocated-memory']) || !isset($info['tps']) || !isset($info['players']))
+            if(!isset($info['server-id']) || !isset($info['max-memory']) || !isset($info['free-memory']) || !isset($info['allocated-memory']) || !isset($info['tps']) || !isset($info['players']) || !isset($info['groups']))
                 $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
 
             $this->_db = DB::getInstance();
@@ -914,7 +902,8 @@ class Nameless2API
                     'server_id' => $info['server-id'],
                     'queried_at' => date('U'),
                     'players_online' => count($info['players']),
-                    'extra' => $_POST['info']
+                    'extra' => $_POST['info'],
+                    'groups' => json_encode($info['groups'])
                 ));
 
                 if(file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {

@@ -183,6 +183,13 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Ingame group dropdown
+try {
+    $queries->alterTable('query_results', '`groups`', "varchar(256) NOT NULL DEFAULT '[]'");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 
