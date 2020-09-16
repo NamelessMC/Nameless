@@ -166,7 +166,7 @@ $language = array(
 	'editing_messages' => 'Edytowanie Wiadomości',
 	'emails_mass_message' => 'Masowa Wiadomość',
 	'sending_mass_message' => 'Wysyłanie wiadomości masowej',
-	'emails_mass_message_sent_successfully'=> 'Wysłano wiadomość pomyślnie.'
+	'emails_mass_message_sent_successfully'=> 'Wysłano wiadomość pomyślnie.',
 	'emails_mass_message_replacements' => 'Możesz użyć zmiennych w wiadomo. Przykłady:: {username}, {sitename}',
 	'emails_mass_message_loading' => 'Ładowanie. Nie odświeżaj strony. To trochę zajmie.',
 	
