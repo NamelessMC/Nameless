@@ -66,7 +66,7 @@ class Nameless2API
                 $this->handleRequest($request);
 
             } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
-        } catch(Exception $e){
+        } catch(Exception $e) {
             $this->throwError($e->getMessage());
         }
     }
@@ -117,11 +117,11 @@ class Nameless2API
     }
 
     // Handle the API request
-    private function handleRequest($action = null){
+    private function handleRequest($action = null) {
         // Ensure the API key is valid
-        if($this->_validated === true){
+        if($this->_validated === true) {
             if(!($action)) $this->throwError(3, $this->_language->get('api', 'invalid_api-method'));
-            switch($action){
+            switch($action) {
                 case 'info':
                     // Return website info
                     $this->returnInfo();
@@ -207,7 +207,7 @@ class Nameless2API
     }
 
     // Return info about the Nameless installation
-    private function returnInfo(){
+    private function returnInfo() {
         // Ensure the API key is valid
         if($this->_validated === true) {
             // Get version, update info and modules from database
@@ -237,9 +237,9 @@ class Nameless2API
                     $new_version = $item->value;
             }
 
-            if(isset($version_checked) && isset($version_update) && isset($current_version)){
+            if(isset($version_checked) && isset($version_update) && isset($current_version)) {
                 if($version_update == 'false') {
-                    if($version_checked < strtotime('-1 hour')){
+                    if($version_checked < strtotime('-1 hour')) {
                         // Check for update now
                         $ch = curl_init();
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -275,26 +275,22 @@ class Nameless2API
 
                             $ret['version_update'] = array('update' => true, 'version' => $update_check->new_version, 'urgent' => ($version_urgent == 'urgent'));
                         }
-                    } else {
-                        $ret['version_update'] = array('update' => false, 'version' => 'none', 'urgent' => false);
                     }
                 } else {
                     $ret['version_update'] = array('update' => true, 'version' => (isset($new_version) ? Output::getClean($new_version) : 'unknown'), 'urgent' => ($version_update == 'urgent'));
                 }
-            } else
-                $ret['version_update'] = array('update' => false, 'version' => 'none', 'urgent' => false);
-
+            }
             $modules_query = $this->_db->get('modules', array('enabled', '=', 1));
             $ret_modules = array();
             if($modules_query->count()) {
                 $modules_query = $modules_query->results();
-                foreach($modules_query as $module){
+                foreach($modules_query as $module) {
                     $ret_modules[] = $module->name;
                 }
             }
             $ret['modules'] = $ret_modules;
 
-            if(count($ret)){
+            if(count($ret)) {
                 $this->returnArray($ret);
             }
 
@@ -302,18 +298,32 @@ class Nameless2API
     }
 
     // Return latest announcements
-    private function getAnnouncements(){
+    private function getAnnouncements() {
         // Ensure the API key is valid
-        if($this->_validated === true){
-            // TODO
-            $this->returnArray(array('announcements' => array()));
+        if($this->_validated === true) {
+
+            $tempUser = null;
+
+            if (isset($_POST['id'])) {
+                $user_id = $_POST['id'];
+                $tempUser = new User();
+                $tempUser->find($user_id);
+            }
+
+            $announcements = array();
+
+            foreach(Announcements::getAvailable('api', null, !is_null($tempUser) ? $tempUser->data()->group_id : 0, !is_null($tempUser) ? $tempUser->data()->secondary_groups : null) as $announcement) {
+                $announcements[] = $announcement;
+            }
+
+            $this->returnArray(array('announcements' => $announcements));
         } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
     }
 
     // Register a user
-    private function registerUser(){
+    private function registerUser() {
         // Check POST fields
-        if(!isset($_POST) || empty($_POST)){
+        if(!isset($_POST) || empty($_POST)) {
             $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
         }
 
@@ -349,7 +359,7 @@ class Nameless2API
         if($registration_email->count()) $registration_email = $registration_email->first()->value;
         else $registration_email = 1;
 
-        if($registration_email == 1){
+        if($registration_email == 1) {
             // Send email
             $this->sendRegistrationEmail($_POST['username'], $_POST['uuid'], $_POST['email']);
 
@@ -363,7 +373,7 @@ class Nameless2API
     }
 
     // Create user
-    private function createUser($username, $uuid, $email, $code = null){
+    private function createUser($username, $uuid, $email, $code = null) {
         // Ensure API key is valid
         if($this->_validated === true) {
             try {
@@ -436,9 +446,9 @@ class Nameless2API
     }
 
     // Send registration email
-    private function sendRegistrationEmail($username, $uuid, $email){
+    private function sendRegistrationEmail($username, $uuid, $email) {
         // Ensure API key is valid
-        if($this->_validated === true){
+        if($this->_validated === true) {
             // Are we using PHPMailer or the PHP mail function?
             $this->_db = DB::getInstance();
 
@@ -457,7 +467,7 @@ class Nameless2API
 
             $html = Email::formatEmail('register', $this->_language);
 
-            if($mailer == '1'){
+            if($mailer == '1') {
                 // PHP Mailer
                 $email = array(
                     'to' => array('email' => Output::getClean($email), 'name' => Output::getClean($username)),
@@ -467,7 +477,7 @@ class Nameless2API
 
                 $sent = Email::send($email, 'mailer');
 
-                if(isset($sent['error'])){
+                if(isset($sent['error'])) {
                     // Error, log it
                     $this->_db->insert('email_errors', array(
                         'type' => 4, // 4 = API registration email
@@ -502,7 +512,7 @@ class Nameless2API
 
                 $sent = Email::send($email, 'php');
 
-                if(isset($sent['error'])){
+                if(isset($sent['error'])) {
                     // Error, log it
                     $this->_db->insert('email_errors', array(
                         'type' => 4,
@@ -532,13 +542,15 @@ class Nameless2API
     }
 
     // Get user info
-    private function getUserInfo(){
+    private function getUserInfo() {
         // Ensure the API key is valid
         if($this->_validated === true) {
-            if(isset($_GET['uuid']))
-                $query = str_replace('-', '', $_GET['uuid']);
+            if (isset($_GET['id']))
+                $query = $_GET['id'];
             else if(isset($_GET['username']))
                 $query = $_GET['username'];
+            else if(isset($_GET['uuid']))
+                $query = str_replace('-', '', $_GET['uuid']);
             else
                 $this->throwError(26, $this->_language->get('api', 'invalid_get_contents'));
 
@@ -546,9 +558,9 @@ class Nameless2API
             $this->_db = DB::getInstance();
 
             // Check UUID
-            $user = $this->_db->query('SELECT nl2_users.id, nl2_users.username, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.group_id, nl2_users.joined as registered, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as userTitle, nl2_groups.name as group_name FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id WHERE nl2_users.username = ? OR nl2_users.uuid = ?', array($query, $query));
+            $user = $this->_db->query('SELECT nl2_users.id, nl2_users.username, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.group_id, nl2_users.joined as registered, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as userTitle, nl2_groups.name as group_name FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id WHERE nl2_users.id = ? OR nl2_users.username = ? OR nl2_users.uuid = ?', array($query, $query, $query));
 
-            if(!$user->count()){
+            if(!$user->count()) {
                 $this->returnArray(array('exists' => false));
             }
             $user = $user->first();
@@ -561,26 +573,23 @@ class Nameless2API
 
             unset($user->id);
 
-            $this->returnArray((array)$user);
+            $this->returnArray((array) $user);
 
         } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
     }
 
     // Set a user's group
-    private function setGroup(){
+    private function setGroup() {
         // Ensure the API key is valid
         if($this->_validated === true) {
-            if(!isset($_POST) || empty($_POST) || !isset($_POST['uuid']) || empty($_POST['uuid']) || !isset($_POST['group_id']) || !is_numeric($_POST['group_id'])){
+            if(!isset($_POST) || empty($_POST) || !isset($_POST['id']) || empty($_POST['id']) || !isset($_POST['group_id']) || !is_numeric($_POST['group_id'])) {
                 $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
             }
-
-            // Remove -s from UUID (if present)
-            if(isset($_POST['uuid'])) $_POST['uuid'] = str_replace('-', '', $_POST['uuid']);
 
             $this->_db = DB::getInstance();
 
             // Ensure user exists
-            $user = $this->_db->get('users', array('uuid', '=', htmlspecialchars($_POST['uuid'])));
+            $user = $this->_db->get('users', array('id', '=', htmlspecialchars($_POST['id'])));
             if(!$user->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
 
             $user = $user->first()->id;
@@ -595,7 +604,7 @@ class Nameless2API
                 $this->_db->update('users', $user, array(
                     'group_id' => $group
                 ));
-            } catch(Exception $e){
+            } catch(Exception $e) {
                 $this->throwError(18, $this->_language->get('api', 'unable_to_update_group'));
             }
 
@@ -725,52 +734,45 @@ class Nameless2API
     }
     
     // Create a report
-    private function createReport(){
+    private function createReport() {
         // Ensure the API key is valid
         if($this->_validated === true) {
-            if(!isset($_POST) || empty($_POST)){
+            if(!isset($_POST) || empty($_POST)) {
                 $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
             }
 
             // Validate post request
-            // Player UUID, report content, reported player UUID and reported player username required
-            if((!isset($_POST['reporter_uuid']) || empty($_POST['reporter_uuid']))
-                || (!isset($_POST['reported_username']) || empty($_POST['reported_username']))
-                || (!isset($_POST['reported_uuid']) || empty($_POST['reported_uuid']))
-                || (!isset($_POST['content']) || empty($_POST['content']))){
+            // Player id, report content, reported player id and reported player username required
+            if((!isset($_POST['reporter']) || empty($_POST['reporter']))
+                || (!isset($_POST['reported']) || empty($_POST['reported']))
+                || (!isset($_POST['content']) || empty($_POST['content']))) {
                 $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
             }
 
-            // Remove -s from UUID (if present)
-            $_POST['reporter_uuid'] = str_replace('-', '', $_POST['reporter_uuid']);
-            $_POST['reported_uuid'] = str_replace('-', '', $_POST['reported_uuid']);
-
-            // Ensure UUIDs/usernames/content are correct lengths
-            if(strlen($_POST['reported_username']) > 20) $this->throwError(8, $this->_language->get('api', 'invalid_username'));
-            if(strlen($_POST['reported_uuid']) > 32 || strlen($_POST['reporter_uuid']) > 32) $this->throwError(9, $this->_language->get('api', 'invalid_uuid'));
+            // Ensure content is correct length
             if(strlen($_POST['content']) > 255) $this->throwError(19, $this->_language->get('api', 'report_content_too_long'));
 
             // Ensure user reporting has website account, and has not been banned
             $this->_db = DB::getInstance();
-            $user_reporting = $this->_db->get('users', array('uuid', '=', Output::getClean($_POST['reporter_uuid'])));
+            $user_reporting = $this->_db->get('users', array('id', '=', Output::getClean($_POST['reporter'])));
 
             if(!$user_reporting->count()) $this->throwError(20, $this->_language->get('api', 'you_must_register_to_report'));
             else $user_reporting = $user_reporting->first();
 
-            if($user_reporting->isbanned == 1) $this->throwError(21, $this->_language->get('api', 'you_have_been_banned_from_website'));
+            if($user_reporting->isbanned) $this->throwError(21, $this->_language->get('api', 'you_have_been_banned_from_website'));
 
             // Ensure user has not already reported the same player, and the report is open
             $user_reports = $this->_db->get('reports', array('reporter_id', '=', $user_reporting->id));
-            if(count($user_reports->results())){
-                foreach($user_reports->results() as $report){
-                    if($report->reported_uuid == $_POST['reported_uuid']){
+            if(count($user_reports->results())) {
+                foreach($user_reports->results() as $report) {
+                    if($report->reported_uuid == $_POST['reported']) {
                         if($report->status == 0) $this->throwError(22, $this->_language->get('api', 'you_have_open_report_already'));
                     }
                 }
             }
 
             // See if reported user exists
-            $user_reported = $this->_db->get('users', array('uuid', '=', Output::getClean($_POST['reported_uuid'])));
+            $user_reported = $this->_db->get('users', array('id', '=', Output::getClean($_POST['reported'])));
 
             if(!$user_reported->count()) $user_reported = 0;
             else $user_reported = $user_reported->first()->id;
@@ -793,7 +795,7 @@ class Nameless2API
                 // Success
                 $this->returnArray(array('message' => $this->_language->get('api', 'report_created')));
 
-            } catch(Exception $e){
+            } catch(Exception $e) {
                 $this->throwError(23, $this->_language->get('api', 'unable_to_create_report'));
             }
 
@@ -801,22 +803,18 @@ class Nameless2API
     }
 
     // Get notifications for a user
-    private function getNotifications(){
+    private function getNotifications() {
         // Ensure the API key is valid
         if($this->_validated === true) {
-            if(!isset($_GET['uuid']))
+            if(!isset($_GET['id']))
                 $this->throwError(26, $this->_language->get('api', 'invalid_get_contents'));
-
-            // Remove -s from UUID (if present)
-            $query = str_replace('-', '', $_GET['uuid']);
 
             // Ensure the user exists
             $this->_db = DB::getInstance();
 
-            // Check UUID
-            $user = $this->_db->query('SELECT id FROM nl2_users WHERE uuid = ?', array($query));
+            $user = $this->_db->query('SELECT id FROM nl2_users WHERE uuid = ?', array($_GET['id']));
 
-            if(!$user->count()){
+            if(!$user->count()) {
                 $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
             }
             $user = $user->first()->id;
@@ -825,8 +823,8 @@ class Nameless2API
 
             // Get unread alerts
             $alerts = $this->_db->query('SELECT id, type, url, content_short FROM nl2_alerts WHERE user_id = ? AND `read` = 0', array($user));
-            if($alerts->count()){
-                foreach($alerts->results() as $result){
+            if($alerts->count()) {
+                foreach($alerts->results() as $result) {
                     $return['notifications'][] = array(
                         'type' => $result->type,
                         'message_short' => $result->content_short,
@@ -839,8 +837,8 @@ class Nameless2API
             // Get unread messages
             $messages = $this->_db->query('SELECT nl2_private_messages.id, nl2_private_messages.title FROM nl2_private_messages WHERE nl2_private_messages.id IN (SELECT nl2_private_messages_users.pm_id as id FROM nl2_private_messages_users WHERE user_id = ? AND `read` = 0)', array($user));
 
-            if($messages->count()){
-                foreach($messages->results() as $result){
+            if($messages->count()) {
+                foreach($messages->results() as $result) {
                     $return['notifications'][] = array(
                         'type' => 'message',
                         'url' => Util::getSelfURL() . ltrim(URL::build('/user/messaging/', 'action=view&message=' . $result->id), '/'),
@@ -856,20 +854,17 @@ class Nameless2API
     }
 
     // Update a username, given a UUID
-    private function updateUsername(){
+    private function updateUsername() {
         // Ensure the API key is valid
         if($this->_validated === true) {
-            if(!isset($_POST) || empty($_POST) || !isset($_POST['uuid']) || empty($_POST['uuid']) || !isset($_POST['username']) || empty($_POST['username']) || strlen($_POST['username']) < 2 || strlen($_POST['username']) > 16){
+            if(!isset($_POST) || empty($_POST) || !isset($_POST['id']) || empty($_POST['id']) || !isset($_POST['username']) || empty($_POST['username']) || strlen($_POST['username']) < 2 || strlen($_POST['username']) > 16) {
                 $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
             }
-
-            // Remove -s from UUID (if present)
-            if(isset($_POST['uuid'])) $_POST['uuid'] = str_replace('-', '', $_POST['uuid']);
 
             $this->_db = DB::getInstance();
 
             // Ensure user exists
-            $user = $this->_db->get('users', array('uuid', '=', htmlspecialchars($_POST['uuid'])));
+            $user = $this->_db->get('users', array('id', '=', Output::getClean($_POST['id'])));
             if(!$user->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
 
             $user = $user->first()->id;
@@ -887,7 +882,7 @@ class Nameless2API
             try {
                 $this->_db->update('users', $user, $fields);
 
-            } catch(Exception $e){
+            } catch(Exception $e) {
                 $this->throwError(24, $this->_language->get('api', 'unable_to_update_username'));
             }
 
@@ -897,10 +892,10 @@ class Nameless2API
     }
 
     // Post server info
-    private function serverInfo(){
+    private function serverInfo() {
         // Ensure the API key is valid
         if($this->_validated === true) {
-            if(!isset($_POST) || empty($_POST) || !isset($_POST['info'])){
+            if(!isset($_POST) || empty($_POST) || !isset($_POST['info'])) {
                 $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
             }
 
@@ -947,7 +942,7 @@ class Nameless2API
                     file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache', json_encode($to_cache));
                 }
 
-            } catch(Exception $e){
+            } catch(Exception $e) {
                 $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
             }
 
@@ -956,17 +951,17 @@ class Nameless2API
                 $update_usernames = $this->_db->get('settings', array('name', '=', 'username_sync'))->results();
                 $update_usernames = $update_usernames[0]->value;
 
-                if($update_usernames == '1'){
-                    if(count($info['players'])){
+                if($update_usernames == '1') {
+                    if(count($info['players'])) {
                         // Update just Minecraft username, or displayname too?
                         $displaynames = $this->_db->get('settings', array('name', '=', 'displaynames'));
                         if(!$displaynames->count()) $displaynames = 'false';
                         else $displaynames = $displaynames->first()->value;
 
-                        foreach($info['players'] as $uuid => $player){
+                        foreach($info['players'] as $uuid => $player) {
                             $user = new User();
-                            if($user->find($uuid, 'uuid')){
-                                if($player['name'] != $user->data()->username){
+                            if($user->find($uuid, 'uuid')) {
+                                if($player['name'] != $user->data()->username) {
                                     // Update username
                                     if($displaynames == 'false') {
                                         $user->update(array(
@@ -983,7 +978,7 @@ class Nameless2API
                         }
                     }
                 }
-            } catch(Exception $e){
+            } catch(Exception $e) {
                 $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
             }
 
@@ -991,28 +986,28 @@ class Nameless2API
 	        try {
             	$group_sync = $this->_db->get('group_sync', array('id', '<>', 0));
 
-            	if($group_sync->count()){
+            	if($group_sync->count()) {
             		$group_sync = $group_sync->results();
             		$group_sync_updates = array();
-            		foreach($group_sync as $item){
+            		foreach($group_sync as $item) {
             			$group_sync_updates[strtolower($item->ingame_rank_name)] = array(
             				'website' => $item->website_group_id,
 				            'primary' => $item->primary
 			            );
 		            }
 
-		            if(count($info['players'])){
-			            foreach($info['players'] as $uuid => $player){
+		            if(count($info['players'])) {
+			            foreach($info['players'] as $uuid => $player) {
 				            $user = new User();
-				            if($user->find($uuid, 'uuid')){
-				            	if($user->data()->id != 1){
+				            if($user->find($uuid, 'uuid')) {
+				            	if($user->data()->id != 1) {
 				            		// Can't update root user
 						            $rank = strtolower($player['rank']);
 
-						            if(array_key_exists($rank, $group_sync_updates) && $user->data()->group_id != $group_sync_updates[$rank]['website']){
+						            if(array_key_exists($rank, $group_sync_updates) && $user->data()->group_id != $group_sync_updates[$rank]['website']) {
 						            	$new_rank = $group_sync_updates[$rank];
 
-						            	if($new_rank['primary']){
+						            	if($new_rank['primary']) {
 						            		$user->update(array(
 						            			'group_id' => $new_rank['website']
 								            ), $user->data()->id);
@@ -1022,7 +1017,7 @@ class Nameless2API
 						            		else
 						            			$secondary = array();
 
-						            		if(!in_array($new_rank['website'], $secondary)){
+						            		if(!in_array($new_rank['website'], $secondary)) {
 									            $secondary[] = $new_rank['website'];
 
 									            $user->update(array(
@@ -1037,7 +1032,7 @@ class Nameless2API
 		            }
 	            }
 
-	        } catch(Exception $e){
+	        } catch(Exception $e) {
 		        $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
 	        }
 
@@ -1047,19 +1042,19 @@ class Nameless2API
     }
 
     // Validate user
-    private function validateUser(){
+    private function verifyMinecraft() {
         // Ensure the API key is valid
-        if($this->_validated === true){
-            if(!isset($_POST) || empty($_POST) || !isset($_POST['uuid']) || !isset($_POST['code'])){
+        if($this->_validated === true) {
+            if(!isset($_POST) || empty($_POST) || !isset($_POST['id']) || !isset($_POST['code'])) {
                 $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
             }
 
 	        $this->_db = DB::getInstance();
-            $user_query = $this->_db->get('users', array('uuid', '=', str_replace('-', '', $_POST['uuid'])));
-            if($user_query->count()){
+            $user_query = $this->_db->get('users', array('id', '=', str_replace('-', '', $_POST['id'])));
+            if($user_query->count()) {
                 $user_query = $user_query->first();
 
-                if($user_query->reset_code == $_POST['code']){
+                if($user_query->reset_code == $_POST['code']) {
                     $this->_db->update('users', $user_query->id, array(
                         'reset_code' => '',
                         'active' => 1
@@ -1072,11 +1067,9 @@ class Nameless2API
 		                    'username' => Output::getClean($user_query->username),
 		                    'language' => $this->_language
 	                    ));
-                    } catch(Exception $e){
+                    } catch(Exception $e) {
                     	// Error
                     }
-
-	                $this->returnArray(array('message' => $this->_language->get('api', 'server_info_updated')));
 
                     $this->returnArray(array('message' => $this->_language->get('api', 'account_validated')));
 
@@ -1089,9 +1082,9 @@ class Nameless2API
     }
 
     // List registered users
-	private function listUsers(){
+	private function listUsers() {
 		// Ensure the API key is valid
-		if($this->_validated === true){
+		if($this->_validated === true) {
 			$this->_db = DB::getInstance();
 
 			$users = $this->_db->query('SELECT username, uuid, isbanned AS banned, active FROM nl2_users')->results();
@@ -1099,32 +1092,4 @@ class Nameless2API
 			$this->returnArray(array('users' => $users));
 		}
 	}
-
-    /*
-    private function log(){
-        //Ensures the API key is valid
-        if($this->_validated === true){
-            if(!isset($_POST) || empty($_POST) || !isset($_POST['action']) || !isset($_POST['uuid']) || !isset($_POST['userIP'])){
-                $this->throwError();
-            }
-            $user_query = $this->_db->get('users', array('uuid', '=', str_replace('-', '', $_POST['uuid'])));
-            if($user_query->count()){
-                $user_query = $user_query->first();
-
-                //TODO: Check if user have the permission
-                
-                //Check if it is an action
-                if(Log::Action(Output::getClean($_POST['action'])) !== null){
-
-                    //Log the action
-                    Log::getInstance()->log(Log::Action(Output::getClean($_POST['action'])), (isset($_POST['info'])?Output::getClean($_POST['info']):null, $user_query->id, Output::getClean($_POST['userIP']));
-                }else{
-                    $this->throwError();
-                }
-            } else{
-                $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
-            }
-        }
-    }
-    */
 }
