@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Get information about a NamelessMC user
- * 
  * @param int $id NamelessMC ID of user to view
  * @param string $username The NamelessMC username of the user to view
  * @param string $uuid The Minecraft UUID of the user
@@ -14,6 +12,7 @@ class UserInfoEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'userInfo';
         $this->_module = 'Core';
+        $this->_description = 'Get information about a NamelessMC user';
     }
     
     public function execute(Nameless2API $api) {

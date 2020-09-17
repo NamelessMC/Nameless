@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Update the Minecraft server information NamelessMC tracks
- * 
  * @param array $info Minecraft server info
  *
  * @return string JSON Array
@@ -12,6 +10,7 @@ class ServerInfoEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'serverInfo';
         $this->_module = 'Core';
+        $this->_description = 'Update the Minecraft server information NamelessMC tracks';
     }
 
     public function execute(Nameless2API $api) {

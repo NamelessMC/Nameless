@@ -406,7 +406,8 @@ if(!isset($_GET['view'])){
 		foreach($endpoints->getAll() as $endpoint) {
 			$endpoints_array[] = array(
 				'route' => $endpoint->getRoute(),
-				'module' => $endpoint->getModule()
+				'module' => $endpoint->getModule(),
+				'description' => $endpoint->getDescription()
 			);
 		};
 
@@ -419,6 +420,7 @@ if(!isset($_GET['view'])){
 			'BACK' => $language->get('general', 'back'),
 			'BACK_LINK' => URL::build('/panel/core/api'),
 			'ROUTE' => $language->get('admin', 'route'),
+			'DESCRIPTION' => $language->get('admin', 'description'),
 			'MODULE' => $language->get('admin', 'module'),
 			'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info'), 
 			'ENDPOINTS_ARRAY' => $endpoints_array

@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Set a NamelessMC user's primary group from a provided Discord role ID
- * 
  * @param int $discord_user_id The Discord ID of the NamelessMC user to edit
  * @param int $discord_id The Discord ID fo the NamelessMC group to apply as their primary group
  * 
@@ -13,6 +11,7 @@ class SetGroupFromDiscordIdEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'setGroupFromDiscordId';
         $this->_module = 'Core';
+        $this->_description = 'Set a NamelessMC user\'s primary group from a provided Discord role ID';
     }
 
     public function execute(Nameless2API $api) {

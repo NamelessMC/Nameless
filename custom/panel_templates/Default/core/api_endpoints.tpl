@@ -78,11 +78,15 @@
                                     <div class="table-responsive">
                                         <table class="table table-striped">
                                             <th>{$ROUTE}</th>
+                                            <th>{$DESCRIPTION}</th>
                                             <th>{$MODULE}</th>
                                             {foreach from=$ENDPOINTS_ARRAY item=endpoint}
                                                 <tr>
                                                     <td>
                                                         <div>/{$endpoint.route}</div>
+                                                    </td>
+                                                    <td>
+                                                        <div>{$endpoint.description}</div>    
                                                     </td>
                                                     <td>
                                                         <div>{$endpoint.module}</div>

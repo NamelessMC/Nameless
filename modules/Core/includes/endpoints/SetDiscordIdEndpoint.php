@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Set a NamelessMC user's Discord ID using their validation token
- * 
  * @param string $token The token of the user to update
  * @param int $discord_id The user's Discord user ID to set
  * 
@@ -13,6 +11,7 @@ class SetDiscordIdEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'setDiscordId';
         $this->_module = 'Core';
+        $this->_description = 'Set a NamelessMC user\'s Discord ID using their validation token';
     }
 
     public function execute(Nameless2API $api) {

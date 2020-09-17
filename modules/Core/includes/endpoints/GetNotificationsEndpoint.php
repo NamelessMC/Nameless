@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Get notifications for a user
- * 
  * @see Alert
  * 
  * @param int $id The NamelessMC user to get notifications for
@@ -14,6 +12,7 @@ class GetNotificationsEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'getNotifications';
         $this->_module = 'Core';
+        $this->_description = 'Get notifications for a user';
     }
 
     public function execute(Nameless2API $api) {

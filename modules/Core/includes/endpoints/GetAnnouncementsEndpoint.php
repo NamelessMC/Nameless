@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Return latest available announcements for the supplied user
- * 
  * @param int $id NamelessMC ID of the user whose announcements to view
  * 
  * @return string JSON Array of latest announcements
@@ -12,6 +10,7 @@ class GetAnnouncementsEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'getAnnouncements';
         $this->_module = 'Core';
+        $this->_description = 'Return latest available announcements for the supplied user';
     }
 
     public function execute(Nameless2API $api) {

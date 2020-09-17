@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Set a user's primary NamelessMC group
- * 
  * @param int $id NamelessMC ID of user to view
  * @param int $group_id ID of NamelessMC group
  * 
@@ -13,6 +11,7 @@ class SetGroupEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'setGroup';
         $this->_module = 'Core';
+        $this->_description = 'Set a user\'s primary NamelessMC group';
     }
 
     public function execute(Nameless2API $api) {

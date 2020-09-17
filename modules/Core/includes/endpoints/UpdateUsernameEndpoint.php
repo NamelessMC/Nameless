@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Update a username from a UUID
- * 
  * @param int $id The NamelessMC user to update
  * @param string $uuid The Minecraft UUID of the user
  * @param string $username The new username of the user
@@ -14,6 +12,7 @@ class UpdateUsernameEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'updateUsername';
         $this->_module = 'Core';
+        $this->_description = 'Update a username from a UUID';
     }
 
     public function execute(Nameless2API $api) {

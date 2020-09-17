@@ -1,10 +1,6 @@
 <?php
 
-/**
- * Remove a user's role from NamelessMC when it was removed from Discord
- * 
- * Sets their role to the VALIDATED_DEFAULT group (Editable from StaffCP)
- * 
+/** 
  * @param int $discord_user_id The NamelessMC user's Discord user ID to edit
  * @param int $discord_role_id The Discord role ID to verify exists on the site and to remove
  * 
@@ -15,6 +11,7 @@ class RemoveGroupFromDiscordIdEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'removeGroupFromDiscordId';
         $this->_module = 'Core';
+        $this->_description = 'Remove a user\'s role from NamelessMC when it was removed from Discord. Sets group to post validation group';
     }
 
     public function execute(Nameless2API $api) {

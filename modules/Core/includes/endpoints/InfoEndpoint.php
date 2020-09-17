@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Return info about the Nameless installation
- * 
  * No params
  * 
  * @return string JSON Array of NamelessMC information
@@ -12,6 +10,7 @@ class InfoEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'info';
         $this->_module = 'Core';
+        $this->_description = 'Return info about the Nameless installation';
     }
 
     public function execute(Nameless2API $api) {

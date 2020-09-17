@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Validate/Activate a NamelessMC account by confirming their reset code
- * 
  * @param int $id The NamelessMC user's ID
  * @param string $code The NamelessMC user's reset code, used to verify they own the account
  *
@@ -13,6 +11,7 @@ class VerifyMinecraftEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'verifyMinecraft';
         $this->_module = 'Core';
+        $this->_description = 'Validate/Activate a NamelessMC account by confirming their reset code';
     }
 
     public function execute(Nameless2API $api) {

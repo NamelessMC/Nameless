@@ -1,10 +1,6 @@
 <?php
 
 /**
- * Register a new user
- * 
- * Sends email verification if needed
- * 
  * @param string $username The username of the new user to create
  * @param string $uuid (optional) The Minecraft UUID of the new user
  * @param string $email The email of the new user
@@ -17,6 +13,7 @@ class RegisterEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'register';
         $this->_module = 'Core';
+        $this->_description = 'Register a new user, and send email verification if needed.';
     }
 
     public function execute(Nameless2API $api) {

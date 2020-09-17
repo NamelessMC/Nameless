@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Create a report
- * 
  * @param string $reporter The NamelessMC username of the user who is creating the report
  * @param string $reported The NamelessMC username of the user who is getting reported
  * @param string $content The content of the report
@@ -14,6 +12,7 @@ class CreateReportEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'createReport';
         $this->_module = 'Core';
+        $this->_description = 'Create a report';
     }
 
     public function execute(Nameless2API $api) {
