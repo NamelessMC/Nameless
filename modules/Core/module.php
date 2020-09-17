@@ -271,7 +271,7 @@ class Core_Module extends Module {
 		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/InfoEndpoint.php');
 		$endpoints->add(new InfoEndpoint());
 		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/GetAnnouncementsEndpoint.php');
-		$endpoints->add(new GetAnnoucementsEndpoint());
+		$endpoints->add(new GetAnnouncementsEndpoint());
 		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/SetGroupEndpoint.php');
 		$endpoints->add(new SetGroupEndpoint());
 		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/RegisterEndpoint.php');
@@ -280,8 +280,10 @@ class Core_Module extends Module {
 		$endpoints->add(new UserInfoEndpoint());
 		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/SetDiscordIdEndpoint.php');
 		$endpoints->add(new SetDiscordIdEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/RemoveGroupFromDiscordEndpoint.php');
-		$endpoints->add(new RemoveGroupFromEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/RemoveGroupFromDiscordIdEndpoint.php');
+		$endpoints->add(new RemoveGroupFromDiscordIdEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/SetGroupFromDiscordIdEndpoint.php');
+		$endpoints->add(new SetGroupFromDiscordIdEndpoint());
 		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/GetNotificationsEndpoint.php');
 		$endpoints->add(new GetNotificationsEndpoint());
 		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/UpdateUsernameEndpoint.php');

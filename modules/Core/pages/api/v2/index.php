@@ -64,12 +64,13 @@ class Nameless2API {
             // Set language
             if (!isset($api_language) || empty($api_language)) $this->throwError(2, 'Invalid language file');
             $this->_language = $api_language;
-            $this->_db = DB::getInstance();
-            $this->_endpoints = $endpoints;
 
             if (isset($api_key)) {
                 // API key specified
                 $this->_validated = true;
+                $this->_db = DB::getInstance();
+                $this->_endpoints = $endpoints;
+                
                 $request = explode('/', $route);
                 $request = $request[count($request) - 1];
 

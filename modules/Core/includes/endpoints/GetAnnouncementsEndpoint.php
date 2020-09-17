@@ -7,7 +7,7 @@
  * 
  * @return string JSON Array of latest announcements
  */
-class GetAnnouncements extends EndpointBase {
+class GetAnnouncementsEndpoint extends EndpointBase {
 
     public function __construct() {
         $this->_route = 'getAnnouncements';

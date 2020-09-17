@@ -7,7 +7,7 @@
  * 
  * @return string JSON Array of NamelessMC information
  */
-class Info extends EndpointBase {
+class InfoEndpoint extends EndpointBase {
 
     public function __construct() {
         $this->_route = 'info';

@@ -1,17 +1,19 @@
 <?php
 
 /**
- * Set a NamelessMC user's primary group from a provided Discord role ID
+ * Remove a user's role from NamelessMC when it was removed from Discord
  * 
- * @param int $discord_user_id The Discord ID of the NamelessMC user to edit
- * @param int $discord_id The Discord ID fo the NamelessMC group to apply as their primary group
+ * Sets their role to the VALIDATED_DEFAULT group (Editable from StaffCP)
+ * 
+ * @param int $discord_user_id The NamelessMC user's Discord user ID to edit
+ * @param int $discord_role_id The Discord role ID to verify exists on the site and to remove
  * 
  * @return string JSON Array
  */
-class SetGroupFromDiscordEndpoint extends EndpointBase {
+class RemoveGroupFromDiscordIdEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'setGroupFromDiscord';
+        $this->_route = 'removeGroupFromDiscordId';
         $this->_module = 'Core';
     }
 
@@ -27,31 +29,19 @@ class SetGroupFromDiscordEndpoint extends EndpointBase {
 
                 $user = $api->getDb()->get('users', array('discord_id', '=', $discord_user_id));
                 if (!$user->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
-                $user = $user->first();
+                $user = $user->first()->id;
 
                 $group = $api->getDb()->get('groups', array('discord_role_id', '=', $discord_role_id));
                 if (!$group->count()) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
-                $group = $group->first();
-
-                // Set their secondary groups to all of their old secondary groups, except the new group - just incase
-                $new_secondary_groups = array();
-                foreach ($user->secondary_groups as $secondary_group) {
-                    if ($group != $secondary_group) {
-                        $new_secondary_groups[] = $secondary_group;
-                    }
-                }
 
                 try {
-                    $api->getDb()->update('users', $user->id, array(
-                        'group_id' => $group->id
-                    ));
-                    $api->getDb()->update('users', $user->id, array(
-                        'secondary_groups' => json_encode($new_secondary_groups)
+                    $api->getDb()->update('users', $user, array(
+                        'group_id' => VALIDATED_DEFAULT
                     ));
                 } catch (Exception $e) {
                     $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
                 }
-                Log::getInstance()->log(Log::Action('discord/role_add'), 'Role changed to: ' . $group->name, $user->id);
+                Log::getInstance()->log(Log::Action('discord/role_remove'), 'Role removed: ' . $group->first()->name, $user);
                 // Success
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
             }

@@ -36,6 +36,7 @@ class SetDiscordIdEndpoint extends EndpointBase {
                     $api->getDb()->update('users', $user, array(
                         'discord_id' => $discord_id
                     ));
+                    $api->getDb()->delete('discord_verifications', array('user_id', '=', $user));
                 } catch (Exception $e) {
                     $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_set_discord_id'));
                 }
@@ -43,5 +44,4 @@ class SetDiscordIdEndpoint extends EndpointBase {
             }
         } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));
     }
-
 }
