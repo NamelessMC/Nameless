@@ -1,13 +1,13 @@
 <?php
 /*
  *	Made by Samerton
+ *  Additions by Aberdeener
+ * 
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
- *  Version 2.0.0 API
- *  API version 2.0.0
  */
 
 // Headers
@@ -51,6 +51,7 @@ class Nameless2API {
             // Set language
             if (!isset($api_language) || empty($api_language)) $this->throwError(2, 'Invalid language file');
             $this->_language = $api_language;
+            $this->_db = DB::getInstance();
 
             if (isset($api_key)) {
                 // API key specified
@@ -137,9 +138,8 @@ class Nameless2API {
      */
     private function info() {
         if ($this->_validated === true) {
-            // Get version, update info and modules from database
-            $this->_db = DB::getInstance();
 
+            // Get version, update info and modules from database
             $version_query = $this->_db->query('SELECT `name`, `value` FROM nl2_settings WHERE `name` = ? OR `name` = ? OR `name` = ? OR `name` = ?', array('nameless_version', 'version_checked', 'version_update', 'new_version'));
             if ($version_query->count())
                 $version_query = $version_query->results();
@@ -237,9 +237,7 @@ class Nameless2API {
             $tempUser = null;
 
             if (isset($_GET['id'])) {
-                $user_id = $_GET['id'];
-                $tempUser = new User();
-                $tempUser->find($user_id);
+                $tempUser = new User($_GET['id']);
             }
 
             $announcements = array();
@@ -277,8 +275,6 @@ class Nameless2API {
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) $this->throwError(7, $this->_language->get('api', 'invalid_email_address'));
 
             // Ensure user doesn't already exist
-            $this->_db = DB::getInstance();
-
             $username = $this->_db->get('users', array('username', '=', htmlspecialchars($_POST['username'])));
             if (count($username->results())) $this->throwError(11, $this->_language->get('api', 'username_already_exists'));
 
@@ -325,8 +321,6 @@ class Nameless2API {
                 // Get default group ID
                 if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
                     // Not cached, cache now
-                    $this->_db = DB::getInstance();
-
                     // Retrieve from database
                     $default_group = $this->_db->get('groups', array('default_group', '=', 1));
                     if (!$default_group->count())
@@ -369,7 +363,7 @@ class Nameless2API {
 	                'last_online' => date('U')
                 ));
 
-                $user_id = $this->_db->lastid();
+                $user_id = $this->_db->lastId();
 
                 $user = new User();
                 HookHandler::executeEvent('registerUser', array(
@@ -406,9 +400,6 @@ class Nameless2API {
     // TODO: Finish MC Integration checks etc
     private function sendRegistrationEmail($username, $uuid, $email) {
         if ($this->_validated === true) {
-
-            $this->_db = DB::getInstance();
-
             // Are we using PHPMailer or the PHP mail function?
             $mailer = $this->_db->get('settings', array('name', '=', 'phpmailer'));
             $mailer = $mailer->first()->value;
@@ -425,7 +416,7 @@ class Nameless2API {
 
             $html = Email::formatEmail('register', $this->_language);
 
-            if ($mailer == '1') {
+            if ($mailer) {
                 // PHP Mailer
                 $email = array(
                     'to' => array('email' => Output::getClean($email), 'name' => Output::getClean($username)),
@@ -520,8 +511,6 @@ class Nameless2API {
                 $this->throwError(26, $this->_language->get('api', 'invalid_get_contents'));
 
             // Ensure the user exists
-            $this->_db = DB::getInstance();
-
             // Check UUID
             $user = $this->_db->query('SELECT nl2_users.id, nl2_users.username, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.group_id, nl2_users.joined as registered, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as userTitle, nl2_groups.name as group_name FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id WHERE nl2_users.id = ? OR nl2_users.username = ? OR nl2_users.uuid = ?', array($query, $query, $query));
 
@@ -554,9 +543,6 @@ class Nameless2API {
     private function setGroup() {
         if ($this->_validated === true) {
             if ($this->validateParams($_POST, ['id', 'group_id'])) {
-
-                $this->_db = DB::getInstance();
-
                 // Ensure user exists
                 $user = $this->_db->get('users', array('id', '=', htmlspecialchars($_POST['id'])));
                 if (!$user->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
@@ -597,8 +583,6 @@ class Nameless2API {
                 $token = Output::getClean($_POST['token']);
                 $discord_id = $_POST['discord_id'];
 
-                $this->_db = DB::getInstance();
-
                 // Find their id 
                 $id = $this->_db->get('discord_verifications', array('token', '=', $token));
                 if (!$id->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
@@ -632,9 +616,6 @@ class Nameless2API {
     private function setGroupFromDiscord() {
         if ($this->_validated === true) {
             if ($this->validateParams($_POST, ['discord_user_id', 'discord_role_id'])) {
-
-                $this->_db = DB::getInstance();
-
                 if (!$this->_db->get('settings', array('name', '=', 'discord_integration'))->first()->value) {
                     $this->throwError(33, $this->_language->get('api', 'discord_integration_disabled'));
                 }
@@ -688,9 +669,6 @@ class Nameless2API {
     private function removeGroupFromDiscord() {
         if ($this->_validated === true) {
             if ($this->validateParams($_POST, ['discord_user_id', 'discord_role_id'])) {
-
-                $this->_db = DB::getInstance();
-
                 if (!$this->_db->get('settings', array('name', '=', 'discord_integration'))->first()->value) {
                     $this->throwError(33, $this->_language->get('api', 'discord_integration_disabled'));
                 }
@@ -736,7 +714,6 @@ class Nameless2API {
                 if (strlen($_POST['content']) > 255) $this->throwError(19, $this->_language->get('api', 'report_content_too_long'));
 
                 // Ensure user reporting has website account, and has not been banned
-                $this->_db = DB::getInstance();
                 $user_reporting = $this->_db->get('users', array('username', '=', Output::getClean($_POST['reporter'])));
 
                 if (!$user_reporting->count()) $this->throwError(20, $this->_language->get('api', 'you_must_register_to_report'));
@@ -800,8 +777,6 @@ class Nameless2API {
             if ($this->validateParams($_POST, ['id'])) {
 
                 // Ensure the user exists
-                $this->_db = DB::getInstance();
-
                 $user = $this->_db->query('SELECT id FROM nl2_users WHERE id = ?', array($_GET['id']));
 
                 if (!$user->count()) {
@@ -856,9 +831,6 @@ class Nameless2API {
     private function updateUsername() {
         if ($this->_validated === true) {
             if ($this->validateParams($_POST, ['id', 'username'])) {
-
-                $this->_db = DB::getInstance();
-
                 // Ensure user exists
                 $user = $this->_db->get('users', array('id', '=', Output::getClean($_POST['id'])));
                 if (!$user->count()) $this->throwError(16, $this->_language->get('api', 'unable_to_find_user'));
@@ -877,7 +849,6 @@ class Nameless2API {
 
                 try {
                     $this->_db->update('users', $user, $fields);
-
                 } catch(Exception $e) {
                     $this->throwError(24, $this->_language->get('api', 'unable_to_update_username'));
                 }
@@ -897,132 +868,130 @@ class Nameless2API {
     private function serverInfo() {
         if ($this->_validated === true) {
             if ($this->validateParams($_POST, ['info'])) {
+                if ($this->validateParams($_POST['info'], ['server-id', 'max-memory', 'free-memory', 'allocated-memory', 'tps', 'players', 'groups'])) {
 
-                $info = json_decode($_POST['info'], true);
-                if (!isset($info['server-id']) || !isset($info['max-memory']) || !isset($info['free-memory']) || !isset($info['allocated-memory']) || !isset($info['tps']) || !isset($info['players']) || !isset($info['groups']))
-                    $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
+                    $info = json_decode($_POST['info'], true);
 
-                $this->_db = DB::getInstance();
+                    // Ensure server exists
+                    $server_query = $this->_db->get('mc_servers', array('id', '=', $info['server-id']));
+                    if (!$server_query->count()) $this->throwError(27, $this->_language->get('api', 'invalid_server_id'));
 
-                // Ensure server exists
-                $server_query = $this->_db->get('mc_servers', array('id', '=', $info['server-id']));
-                if (!$server_query->count()) $this->throwError(27, $this->_language->get('api', 'invalid_server_id'));
+                    try {
+                        $this->_db->insert('query_results', array(
+                            'server_id' => $info['server-id'],
+                            'queried_at' => date('U'),
+                            'players_online' => count($info['players']),
+                            'extra' => $_POST['info'],
+                            'groups' => json_encode($info['groups'])
+                        ));
 
-                try {
-                    $this->_db->insert('query_results', array(
-                        'server_id' => $info['server-id'],
-                        'queried_at' => date('U'),
-                        'players_online' => count($info['players']),
-                        'extra' => $_POST['info'],
-                        'groups' => json_encode($info['groups'])
-                    ));
+                        if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
+                            $query_cache = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache');
+                            $query_cache = json_decode($query_cache);
+                            if (isset($query_cache->query_interval))
+                                $query_interval = unserialize($query_cache->query_interval->data);
+                            else
+                                $query_interval = 10;
 
-                    if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
-                        $query_cache = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache');
-                        $query_cache = json_decode($query_cache);
-                        if (isset($query_cache->query_interval))
-                            $query_interval = unserialize($query_cache->query_interval->data);
-                        else
-                            $query_interval = 10;
+                            $to_cache = array(
+                                'query_interval' => array(
+                                    'time' => date('U'),
+                                    'expire' => 0,
+                                    'data' => serialize($query_interval)
+                                ),
+                                'last_query' => array(
+                                    'time' => date('U'),
+                                    'expire' => 0,
+                                    'data' => serialize(date('U'))
+                                )
+                            );
 
-                        $to_cache = array(
-                            'query_interval' => array(
-                                'time' => date('U'),
-                                'expire' => 0,
-                                'data' => serialize($query_interval)
-                            ),
-                            'last_query' => array(
-                                'time' => date('U'),
-                                'expire' => 0,
-                                'data' => serialize(date('U'))
-                            )
-                        );
+                            // Store in cache file
+                            file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache', json_encode($to_cache));
+                        }
 
-                        // Store in cache file
-                        file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache', json_encode($to_cache));
+                    } catch(Exception $e) {
+                        $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
                     }
 
-                } catch(Exception $e) {
-                    $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
-                }
+                    // Update usernames
+                    try {
+                        $update_usernames = $this->_db->get('settings', array('name', '=', 'username_sync'))->results();
+                        $update_usernames = $update_usernames[0]->value;
 
-                // Update usernames
-                try {
-                    $update_usernames = $this->_db->get('settings', array('name', '=', 'username_sync'))->results();
-                    $update_usernames = $update_usernames[0]->value;
+                        if ($update_usernames == '1') {
+                            if (count($info['players'])) {
+                                // Update just Minecraft username, or displayname too?
+                                $displaynames = $this->_db->get('settings', array('name', '=', 'displaynames'));
+                                if (!$displaynames->count()) $displaynames = 'false';
+                                else $displaynames = $displaynames->first()->value;
 
-                    if ($update_usernames == '1') {
-                        if (count($info['players'])) {
-                            // Update just Minecraft username, or displayname too?
-                            $displaynames = $this->_db->get('settings', array('name', '=', 'displaynames'));
-                            if (!$displaynames->count()) $displaynames = 'false';
-                            else $displaynames = $displaynames->first()->value;
-
-                            foreach($info['players'] as $uuid => $player) {
-                                $user = new User();
-                                if ($user->find($uuid, 'uuid')) {
-                                    if ($player['name'] != $user->data()->username) {
-                                        // Update username
-                                        if ($displaynames == 'false') {
-                                            $user->update(array(
-                                                'username' => Output::getClean($player['name']),
-                                                'nickname' => Output::getClean($player['name'])
-                                            ), $user->data()->id);
-                                        } else {
-                                            $user->update(array(
-                                                'username' => Output::getClean($player['name'])
-                                            ), $user->data()->id);
+                                foreach($info['players'] as $uuid => $player) {
+                                    $user = new User();
+                                    if ($user->find($uuid, 'uuid')) {
+                                        if ($player['name'] != $user->data()->username) {
+                                            // Update username
+                                            if ($displaynames == 'false') {
+                                                $user->update(array(
+                                                    'username' => Output::getClean($player['name']),
+                                                    'nickname' => Output::getClean($player['name'])
+                                                ), $user->data()->id);
+                                            } else {
+                                                $user->update(array(
+                                                    'username' => Output::getClean($player['name'])
+                                                ), $user->data()->id);
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
+                    } catch(Exception $e) {
+                        $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
                     }
-                } catch(Exception $e) {
-                    $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
-                }
 
-                // Group sync
-                try {
-                    $group_sync = $this->_db->get('group_sync', array('id', '<>', 0));
+                    // Group sync
+                    try {
+                        $group_sync = $this->_db->get('group_sync', array('id', '<>', 0));
 
-                    if ($group_sync->count()) {
-                        $group_sync = $group_sync->results();
-                        $group_sync_updates = array();
-                        foreach($group_sync as $item) {
-                            $group_sync_updates[strtolower($item->ingame_rank_name)] = array(
-                                'website' => $item->website_group_id,
-                                'primary' => $item->primary
-                            );
-                        }
+                        if ($group_sync->count()) {
+                            $group_sync = $group_sync->results();
+                            $group_sync_updates = array();
+                            foreach($group_sync as $item) {
+                                $group_sync_updates[strtolower($item->ingame_rank_name)] = array(
+                                    'website' => $item->website_group_id,
+                                    'primary' => $item->primary
+                                );
+                            }
 
-                        if (count($info['players'])) {
-                            foreach($info['players'] as $uuid => $player) {
-                                $user = new User();
-                                if ($user->find($uuid, 'uuid')) {
-                                    if ($user->data()->id != 1) {
+                            if (count($info['players'])) {
+                                foreach($info['players'] as $uuid => $player) {
+                                    $user = new User();
+                                    if ($user->find($uuid, 'uuid')) {
                                         // Can't update root user
-                                        $rank = strtolower($player['rank']);
+                                        if ($user->data()->id != 1) {
+                                            $rank = strtolower($player['rank']);
 
-                                        if (array_key_exists($rank, $group_sync_updates) && $user->data()->group_id != $group_sync_updates[$rank]['website']) {
-                                            $new_rank = $group_sync_updates[$rank];
+                                            if (array_key_exists($rank, $group_sync_updates) && $user->data()->group_id != $group_sync_updates[$rank]['website']) {
+                                                $new_rank = $group_sync_updates[$rank];
 
-                                            if ($new_rank['primary']) {
-                                                $user->update(array(
-                                                    'group_id' => $new_rank['website']
-                                                ), $user->data()->id);
-                                            } else {
-                                                if ($user->data()->secondary_groups)
-                                                    $secondary = json_decode($user->data()->secondary_groups, true);
-                                                else
-                                                    $secondary = array();
-
-                                                if (!in_array($new_rank['website'], $secondary)) {
-                                                    $secondary[] = $new_rank['website'];
-
+                                                if ($new_rank['primary']) {
                                                     $user->update(array(
-                                                        'secondary_groups' => json_encode($secondary)
+                                                        'group_id' => $new_rank['website']
                                                     ), $user->data()->id);
+                                                } else {
+                                                    if ($user->data()->secondary_groups)
+                                                        $secondary = json_decode($user->data()->secondary_groups, true);
+                                                    else
+                                                        $secondary = array();
+
+                                                    if (!in_array($new_rank['website'], $secondary)) {
+                                                        $secondary[] = $new_rank['website'];
+
+                                                        $user->update(array(
+                                                            'secondary_groups' => json_encode($secondary)
+                                                        ), $user->data()->id);
+                                                    }
                                                 }
                                             }
                                         }
@@ -1030,14 +999,13 @@ class Nameless2API {
                                 }
                             }
                         }
+
+                    } catch(Exception $e) {
+                        $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
                     }
 
-                } catch(Exception $e) {
-                    $this->throwError(25, $this->_language->get('api', 'unable_to_update_server_info'));
+                    $this->returnArray(array('message' => $this->_language->get('api', 'server_info_updated')));
                 }
-
-                $this->returnArray(array('message' => $this->_language->get('api', 'server_info_updated')));
-
             } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
         }
     }
@@ -1053,7 +1021,6 @@ class Nameless2API {
     private function verifyMinecraft() {
         if ($this->_validated === true) {
             if ($this->validateParams($_POST, ['id', 'code'])) {
-                $this->_db = DB::getInstance();
                 $user_query = $this->_db->get('users', array('id', '=', $_POST['id']));
                 if ($user_query->count()) {
                     $user_query = $user_query->first();
@@ -1071,9 +1038,7 @@ class Nameless2API {
                                 'username' => Output::getClean($user_query->username),
                                 'language' => $this->_language
                             ));
-                        } catch(Exception $e) {
-                            // Error
-                        }
+                        } catch(Exception $e) {}
 
                         $this->returnArray(array('message' => $this->_language->get('api', 'account_validated')));
 
@@ -1094,8 +1059,6 @@ class Nameless2API {
 	private function listUsers() {
 		// Ensure the API key is valid
 		if ($this->_validated === true) {
-			$this->_db = DB::getInstance();
-
 			$users = $this->_db->query('SELECT username, uuid, isbanned AS banned, active FROM nl2_users')->results();
 
 			$this->returnArray(array('users' => $users));
@@ -1109,8 +1072,6 @@ class Nameless2API {
             // Check cached key
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
                 // Not cached, cache now
-                $this->_db = DB::getInstance();
-
                 // Retrieve from database
                 $correct_key = $this->_db->get('settings', array('name', '=', 'mc_api_key'));
                 $correct_key = $correct_key->results();

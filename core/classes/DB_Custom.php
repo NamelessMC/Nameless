@@ -242,7 +242,7 @@ class DB_Custom {
 		return $this->_count;
 	}
 
-	public function lastid() {
+	public function lastId() {
 		return $this->_pdo->lastInsertId();
 	}
 	
