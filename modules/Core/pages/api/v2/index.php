@@ -58,13 +58,68 @@ class Nameless2API {
                 $request = explode('/', $route);
                 $request = $request[count($request) - 1];
 
-                // Dynamically call the requested function, if it does not exist, throw an error.
-                if (method_exists($this, $request)) {
-                    call_user_func($request);
-                } else {
-                    $this->throwError(3, $this->_language->get('api', 'invalid_api-method'));
-                }
+                // TODO: Make this modular: each endpoint in own file + let modules register them
+                switch ($request) {
+                    case 'info':
+                        $this->info();
+                        break;
 
+                    case 'getAnnouncements':
+                        $this->getAnnouncements();
+                        break;
+
+                    case 'register':
+                        $this->register();
+                        break;
+
+                    case 'setGroup':
+                        $this->setGroup();
+                        break;
+
+                    case 'setDiscordId':
+                        $this->setDiscordId();
+                        break;
+
+                    case 'setGroupFromDiscordId':
+                        $this->setGroupFromDiscord();
+                        break;
+
+                    case 'removeGroupFromDiscordId':
+                        $this->removeGroupFromDiscord();
+                        break;
+
+                    case 'createReport':
+                        $this->createReport();
+                        break;
+
+                    case 'updateUsername':
+                        $this->updateUsername();
+                        break;
+
+                    case 'serverInfo':
+                        $this->serverInfo();
+                        break;
+
+                    case 'userInfo':
+                        $this->userInfo();
+                        break;
+
+                    case 'getNotifications':
+                        $this->getNotifications();
+                        break;
+
+                    case 'verifyMinecraft':
+                        $this->verifyMinecraft();
+                        break;
+
+                    case 'listUsers':
+                        $this->listUsers();
+                        break;
+
+                    default:
+                        $this->throwError(3, $this->_language->get('api', 'invalid_api_method'));
+                        break;
+                }
             } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
         } catch(Exception $e) {
             $this->throwError($e->getMessage());
@@ -81,7 +136,6 @@ class Nameless2API {
      * @return string JSON Array of NamelessMC information
      */
     private function info() {
-        // Ensure the API key is valid
         if ($this->_validated === true) {
             // Get version, update info and modules from database
             $this->_db = DB::getInstance();
