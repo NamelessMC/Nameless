@@ -270,6 +270,28 @@ class Core_Module extends Module {
 		// API Endpoints
 		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/InfoEndpoint.php');
 		$endpoints->add(new InfoEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/GetAnnouncementsEndpoint.php');
+		$endpoints->add(new GetAnnoucementsEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/SetGroupEndpoint.php');
+		$endpoints->add(new SetGroupEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/RegisterEndpoint.php');
+		$endpoints->add(new RegisterEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/UserInfoEndpoint.php');
+		$endpoints->add(new UserInfoEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/SetDiscordIdEndpoint.php');
+		$endpoints->add(new SetDiscordIdEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/RemoveGroupFromDiscordEndpoint.php');
+		$endpoints->add(new RemoveGroupFromEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/GetNotificationsEndpoint.php');
+		$endpoints->add(new GetNotificationsEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/UpdateUsernameEndpoint.php');
+		$endpoints->add(new UpdateUsernameEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/ServerInfoEndpoint.php');
+		$endpoints->add(new ServerInfoEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/VerifyMinecraftEndpoint.php');
+		$endpoints->add(new VerifyMinecraftEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/ListUsersEndpoint.php');
+		$endpoints->add(new ListUsersEndpoint());
 	}
 
 	public function onInstall(){
