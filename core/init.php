@@ -444,6 +444,9 @@ if($page != 'install'){
     // Widgets
     $widgets = new Widgets($cache);
 
+    // Endpoints
+    $endpoints = new Endpoints();
+    
     // Modules
     $cache->setCache('modulescache');
     if(!$cache->isCached('enabled_modules')){

@@ -13,7 +13,7 @@ class Core_Module extends Module {
 	private $_language;
 	private static $_dashboard_graph = array(), $_notices = array(), $_user_actions = array();
 
-	public function __construct($language, $pages, $user, $queries, $navigation, $cache){
+	public function __construct($language, $pages, $user, $queries, $navigation, $cache, $endpoints){
 		$this->_language = $language;
 
 		$name = 'Core';
@@ -266,6 +266,10 @@ class Core_Module extends Module {
 			}
 		}
 		HookHandler::registerHooks($hook_array);
+
+		// API Endpoints
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/InfoEndpoint.php');
+		$endpoints->add(new InfoEndpoint());
 	}
 
 	public function onInstall(){
