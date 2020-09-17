@@ -63,22 +63,14 @@ class ServerInfoEndpoint extends EndpointBase {
 
                     // Update usernames
                     try {
-                        $update_usernames = $api->getDb()->get('settings', array('name', '=', 'username_sync'))->results();
-                        $update_usernames = $update_usernames[0]->value;
-
-                        if ($update_usernames == '1') {
+                        if (Util::getSetting($api->getDb(), 'username_sync')) {
                             if (count($info['players'])) {
-                                // Update just Minecraft username, or displayname too?
-                                $displaynames = $api->getDb()->get('settings', array('name', '=', 'displaynames'));
-                                if (!$displaynames->count()) $displaynames = 'false';
-                                else $displaynames = $displaynames->first()->value;
-
                                 foreach ($info['players'] as $uuid => $player) {
                                     $user = new User();
                                     if ($user->find($uuid, 'uuid')) {
                                         if ($player['name'] != $user->data()->username) {
                                             // Update username
-                                            if ($displaynames == 'false') {
+                                            if (!Util::getSetting($api->getDb(), 'displaynames', false)) {
                                                 $user->update(array(
                                                     'username' => Output::getClean($player['name']),
                                                     'nickname' => Output::getClean($player['name'])

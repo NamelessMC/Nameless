@@ -17,10 +17,7 @@ class GetAnnouncementsEndpoint extends EndpointBase {
         if ($api->isValidated()) {
 
             $tempUser = null;
-
-            if (isset($_GET['id'])) {
-                $tempUser = new User($_GET['id']);
-            }
+            if (isset($_GET['id'])) $tempUser = new User($_GET['id']);
 
             $announcements = array();
 

@@ -24,22 +24,20 @@ class CreateReportEndpoint extends EndpointBase {
 
                 // Ensure user reporting has website account, and has not been banned
                 $user_reporting = $api->getDb()->get('users', array('username', '=', Output::getClean($_POST['reporter'])));
-
                 if (!$user_reporting->count()) $api->throwError(20, $api->getLanguage()->get('api', 'you_must_register_to_report'));
                 else $user_reporting = $user_reporting->first();
-
                 if ($user_reporting->isbanned) $api->throwError(21, $api->getLanguage()->get('api', 'you_have_been_banned_from_website'));
 
                 // See if reported user exists
                 $user_reported = $api->getDb()->get('users', array('username', '=', Output::getClean($_POST['reported'])));
-
-                if (!$user_reported->count()) $user_reported = 0;
-                else $user_reported = $user_reported->first()->id;
+                if (!$user_reported->count()) {
+                    $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
+                } else $user_reported = $user_reported->first()->id;
 
                 // Ensure user has not already reported the same player, and the report is open
-                $user_reports = $api->getDb()->get('reports', array('reporter_id', '=', $user_reporting->id));
-                if (count($user_reports->results())) {
-                    foreach ($user_reports->results() as $report) {
+                $user_reports = $api->getDb()->get('reports', array('reporter_id', '=', $user_reporting->id))->results();
+                if (count($user_reports)) {
+                    foreach ($user_reports as $report) {
                         if ($report->reported_id == $user_reported) {
                             if ($report->status == 0) $api->throwError(22, $api->getLanguage()->get('api', 'you_have_open_report_already'));
                         }
@@ -49,8 +47,6 @@ class CreateReportEndpoint extends EndpointBase {
                 // Create report
                 try {
                     $report = new Report();
-
-                    // Create report
                     $report->create(array(
                         'type' => 0,
                         'reporter_id' => $user_reporting->id,
@@ -61,7 +57,6 @@ class CreateReportEndpoint extends EndpointBase {
                         'updated_by' => $user_reporting->id
                     ));
 
-                    // Success
                     $api->returnArray(array('message' => $api->getLanguage()->get('api', 'report_created')));
                 } catch (Exception $e) {
                     $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'));

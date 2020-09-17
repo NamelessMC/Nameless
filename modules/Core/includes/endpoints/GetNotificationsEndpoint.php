@@ -21,10 +21,7 @@ class GetNotificationsEndpoint extends EndpointBase {
 
                 // Ensure the user exists
                 $user = $api->getDb()->query('SELECT id FROM nl2_users WHERE id = ?', array($_GET['id']));
-
-                if (!$user->count()) {
-                    $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
-                }
+                if (!$user->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
                 $user = $user->first()->id;
 
                 $return = array('notifications' => array());
@@ -44,7 +41,6 @@ class GetNotificationsEndpoint extends EndpointBase {
 
                 // Get unread messages
                 $messages = $api->getDb()->query('SELECT nl2_private_messages.id, nl2_private_messages.title FROM nl2_private_messages WHERE nl2_private_messages.id IN (SELECT nl2_private_messages_users.pm_id as id FROM nl2_private_messages_users WHERE user_id = ? AND `read` = 0)', array($user));
-
                 if ($messages->count()) {
                     foreach ($messages->results() as $result) {
                         $return['notifications'][] = array(

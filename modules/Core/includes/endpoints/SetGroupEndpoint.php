@@ -21,7 +21,7 @@ class SetGroupEndpoint extends EndpointBase {
                 $user = $api->getDb()->get('users', array('id', '=', htmlspecialchars($_POST['id'])));
                 if (!$user->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
 
-                $user = $user->first()->id;
+                $user = $user->first();
 
                 // Ensure group exists
                 $group = $api->getDb()->get('groups', array('id', '=', $_POST['group_id']));
@@ -29,9 +29,17 @@ class SetGroupEndpoint extends EndpointBase {
 
                 $group = $group->first()->id;
 
+                $new_secondary_groups = array();
+                foreach ($user->secondary_groups as $secondary_group) {
+                    if ($group != $secondary_group) {
+                        $new_secondary_groups[] = $secondary_group;
+                    }
+                }
+
                 try {
-                    $api->getDb()->update('users', $user, array(
-                        'group_id' => $group
+                    $api->getDb()->update('users', $user->id, array(
+                        'group_id' => $group,
+                        'secondary_groups' => $new_secondary_groups
                     ));
                 } catch (Exception $e) {
                     $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));

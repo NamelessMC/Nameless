@@ -594,4 +594,10 @@ class Util {
 		}, $data);
 		return $data;
 	}
+
+	public static function getSetting($db, $setting, $fallback = null) {
+		$value = $db->get('settings', array('name', '=', $setting));
+		if ($value->count()) return $value->first()->value;
+		else return $fallback != null ? $fallback : null;
+	}
 }

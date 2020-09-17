@@ -18,12 +18,10 @@ class InfoEndpoint extends EndpointBase {
 
             // Get version, update info and modules from database
             $version_query = $api->getDb()->query('SELECT `name`, `value` FROM nl2_settings WHERE `name` = ? OR `name` = ? OR `name` = ? OR `name` = ?', array('nameless_version', 'version_checked', 'version_update', 'new_version'));
-            if ($version_query->count())
-                $version_query = $version_query->results();
+            if ($version_query->count()) $version_query = $version_query->results();
 
-            $site_id = $api->getDb()->get('settings', array('name', '=', 'unique_id'));
-            if (!$site_id->count())
-                $api->throwError(4, $api->getLanguage()->get('api', 'no_unique_site_id'));
+            $site_id = Util::getSetting($api->getDb(), 'unique_id');
+            if ($site_id == null) $api->throwError(4, $api->getLanguage()->get('api', 'no_unique_site_id'));
 
             $site_id = $site_id->results();
             $site_id = $site_id[0]->value;
@@ -33,12 +31,11 @@ class InfoEndpoint extends EndpointBase {
                 if ($item->name == 'nameless_version') {
                     $ret[$item->name] = $item->value;
                     $current_version = $item->value;
-                } else if ($item->name == 'version_update')
+                } else if ($item->name == 'version_update') {
                     $version_update = $item->value;
-                else if ($item->name == 'version_checked')
+                } else if ($item->name == 'version_checked') {
                     $version_checked = (int) $item->value;
-                else
-                    $new_version = $item->value;
+                } else $new_version = $item->value;
             }
 
             if (isset($version_checked) && isset($version_update) && isset($current_version)) {
@@ -63,7 +60,7 @@ class InfoEndpoint extends EndpointBase {
                         curl_close($ch);
 
                         if ($update_check == 'None') {
-                            $ret['version_update'] = array('update' => false, 'version' => 'none', 'urgent' => false);
+                            $ret['version_update'] = array('update' => false);
                         } else {
                             $update_check = json_decode($update_check);
 

@@ -17,9 +17,7 @@ class SetGroupFromDiscordIdEndpoint extends EndpointBase {
     public function execute(Nameless2API $api) {
         if ($api->isValidated()) {
             if ($api->validateParams($_POST, ['discord_user_id', 'discord_role_id'])) {
-                if (!$api->getDb()->get('settings', array('name', '=', 'discord_integration'))->first()->value) {
-                    $api->throwError(33, $api->getLanguage()->get('api', 'discord_integration_disabled'));
-                }
+                if (!Util::getSetting($api->getDb(), 'discord_integration')) $api->throwError(33, $api->getLanguage()->get('api', 'discord_integration_disabled'));
 
                 $discord_user_id = $_POST['discord_user_id'];
                 $discord_role_id = $_POST['discord_role_id'];
@@ -42,16 +40,14 @@ class SetGroupFromDiscordIdEndpoint extends EndpointBase {
 
                 try {
                     $api->getDb()->update('users', $user->id, array(
-                        'group_id' => $group->id
-                    ));
-                    $api->getDb()->update('users', $user->id, array(
+                        'group_id' => $group->id,
                         'secondary_groups' => json_encode($new_secondary_groups)
                     ));
                 } catch (Exception $e) {
                     $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
                 }
+                
                 Log::getInstance()->log(Log::Action('discord/role_add'), 'Role changed to: ' . $group->name, $user->id);
-                // Success
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
             }
         } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));

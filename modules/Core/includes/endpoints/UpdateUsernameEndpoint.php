@@ -24,15 +24,9 @@ class UpdateUsernameEndpoint extends EndpointBase {
 
                 $user = $user->first()->id;
 
-                // Update just Minecraft username, or displayname too?
-                $displaynames = $api->getDb()->get('settings', array('name', '=', 'displaynames'));
-                if (!$displaynames->count()) $displaynames = 'false';
-                else $displaynames = $displaynames->first()->value;
-
                 $fields = array('username' => Output::getClean($_POST['username']));
 
-                if ($displaynames == 'false')
-                    $fields['nickname'] = Output::getClean($_POST['username']);
+                if (!Util::getSetting($api->getDb(), 'displaynames')) $fields['nickname'] = Output::getClean($_POST['username']);
 
                 try {
                     $api->getDb()->update('users', $user, $fields);

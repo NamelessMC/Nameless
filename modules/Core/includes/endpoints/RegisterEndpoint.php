@@ -39,11 +39,7 @@ class RegisterEndpoint extends EndpointBase {
             if (count($email->results())) $api->throwError(10, $api->getLanguage()->get('api', 'email_already_exists'));
 
             // Registration email enabled?
-            $registration_email = $api->getDb()->get('settings', array('name', '=', 'email_verification'));
-            if ($registration_email->count()) $registration_email = $registration_email->first()->value;
-            else $registration_email = 1;
-
-            if ($registration_email) {
+            if (Util::getSetting($api->getDb(), 'email_verification', true)) {
                 // Send email
                 $this->sendRegistrationEmail($api, $_POST['username'], $_POST['uuid'], $_POST['email']);
             } else {
@@ -70,10 +66,6 @@ class RegisterEndpoint extends EndpointBase {
     // TODO: Finish MC Integration checks etc
     private function sendRegistrationEmail(Nameless2API $api, $username, $uuid, $email) {
         if ($api->isValidated()) {
-            // Are we using PHPMailer or the PHP mail function?
-            $mailer = $api->getDb()->get('settings', array('name', '=', 'phpmailer'));
-            $mailer = $mailer->first()->value;
-
             // Generate random code
             $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
 
@@ -86,7 +78,7 @@ class RegisterEndpoint extends EndpointBase {
 
             $html = Email::formatEmail('register', $api->getLanguage());
 
-            if ($mailer) {
+            if (Util::getSetting($api->getDb(), 'mailer')) {
                 // PHP Mailer
                 $email = array(
                     'to' => array('email' => Output::getClean($email), 'name' => Output::getClean($username)),
@@ -109,8 +101,7 @@ class RegisterEndpoint extends EndpointBase {
                 }
             } else {
                 // PHP mail function
-                $siteemail = $api->getDb()->get('settings', array('name', '=', 'outgoing_email'));
-                $siteemail = $siteemail->first()->value;
+                $siteemail = Util::getSetting($api->getDb(), 'site_email');
 
                 $to      = $email;
                 $subject = SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject');

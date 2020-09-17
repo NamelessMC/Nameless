@@ -19,26 +19,24 @@ class SetDiscordIdEndpoint extends EndpointBase {
             if ($api->validateParams($_POST, ['token', 'discord_id'])) {
 
                 $token = Output::getClean($_POST['token']);
-                $discord_id = $_POST['discord_id'];
+                $discord_id = Output::getClean($_POST['discord_id']);
 
-                // Find their id 
+                // Find the user's NamelessMC id
                 $id = $api->getDb()->get('discord_verifications', array('token', '=', $token));
                 if (!$id->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
                 $id = $id->first()->user_id;
 
-                // Find the user with the id
+                // Ensure the user exists
                 $user = $api->getDb()->get('users', array('id', '=', $id));
                 if (!$user->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
-                $user = $user->first()->id;
 
                 try {
-                    $api->getDb()->update('users', $user, array(
-                        'discord_id' => $discord_id
-                    ));
-                    $api->getDb()->delete('discord_verifications', array('user_id', '=', $user));
+                    $api->getDb()->update('users', $id, array('discord_id' => $discord_id));
+                    $api->getDb()->delete('discord_verifications', array('user_id', '=', $id));
                 } catch (Exception $e) {
                     $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_set_discord_id'));
                 }
+
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'discord_id_set')));
             }
         } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));
