@@ -24,7 +24,7 @@ class Report {
 			throw new Exception('There was a problem creating the report.');
 		}
 		
-		$id = $this->_db->lastId();
+		$id = $this->_db->lastid();
 		
 		// Alert moderators
 		$moderator_groups = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.reports":1%\'')->results();

@@ -77,7 +77,7 @@ class Queries {
 	}
 	
 	public function getLastId() {
-		return $this->_db->lastId();
+		return $this->_db->lastid();
 	}
 	
 	public function alterTable($table, $column, $attributes){

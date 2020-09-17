@@ -223,7 +223,7 @@ class RegisterEndpoint extends EndpointBase {
                     'last_online' => date('U')
                 ));
 
-                $user_id = $api->getDb()->lastId();
+                $user_id = $api->getDb()->lastid();
 
                 $user = new User();
                 HookHandler::executeEvent('registerUser', array(
