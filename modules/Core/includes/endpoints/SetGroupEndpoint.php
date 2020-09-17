@@ -10,6 +10,11 @@
  */
 class SetGroupEndpoint extends EndpointBase {
 
+    public function __construct() {
+        $this->_route = 'setGroup';
+        $this->_module = 'Core';
+    }
+
     public function execute(Nameless2API $api) {
         if ($api->isValidated()) {
             if ($api->validateParams($_POST, ['id', 'group_id'])) {

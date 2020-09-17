@@ -584,6 +584,9 @@ $language = array(
 	'group_sync_rule_deleted_successfully' => 'De group synchronisatie regel is succesvol verwijderd.',
 	'existing_rules' => 'Bestaande Regels',
 	'new_rule' => 'Nieuwe Regel',
+	'api_endpoints' => 'API Endpoints',
+	'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
+	'route' => 'Route',
 
 	// Bestand uploads
 	'drag_files_here' => 'Sleep bestand(en) hier naartoe om te uploaden.',

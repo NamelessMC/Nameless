@@ -13,23 +13,14 @@ abstract class EndpointBase {
 
     protected
         $_route,
-        $_module,
-        $_enabled = false;
-
+        $_module;
+        
     public function getRoute() {
         return $this->_route;
     }
 
     public function getModule() {
         return $this->_module;
-    }
-
-    public function isEnabled() {
-        return $this->_enabled;
-    }
-
-    public function setEnabled() {
-        $this->_enabled = true;
     }
 
     public abstract function execute(Nameless2API $api);

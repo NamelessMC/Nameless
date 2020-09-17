@@ -583,6 +583,9 @@ $language = array(
 	'group_sync_rule_deleted_successfully' => 'Grup senkronizasyon kuralı başarıyla silindi.',
 	'available_rules' => 'Mevcut Kurallar',
 	'new_rule' => 'Yeni Kural',
+	'api_endpoints' => 'API Endpoints',
+	'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
+	'route' => 'Route',
 	
 	// File uploads
 	'drag_files_here' => 'Yüklemek için dosyaları buraya sürükleyin.',

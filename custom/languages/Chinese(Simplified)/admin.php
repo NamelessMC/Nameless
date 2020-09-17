@@ -583,6 +583,9 @@ $language = array(
 	'group_sync_rule_deleted_successfully' => '组同步规则已成功删除。',
 	'existing_rules' => '现有规则',
 	'new_rule' => '新规则',
+	'api_endpoints' => 'API Endpoints',
+	'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
+	'route' => 'Route',
 
 	// File uploads
 	'drag_files_here' => '将文件扔到这以上传',

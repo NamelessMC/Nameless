@@ -582,6 +582,9 @@ $language = array(
     'group_sync_rule_deleted_successfully' => 'Regula de sincronizare a grupului a fost ștearsă cu succes.',
     'existing_rules' => 'Reguli existente',
     'new_rule' => 'Regulă nouă',
+    'api_endpoints' => 'API Endpoints',
+    'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
+    'route' => 'Route',
 
     // File uploads
     'drag_files_here' => 'Trageți fișierele aici pentru a le încărca.',

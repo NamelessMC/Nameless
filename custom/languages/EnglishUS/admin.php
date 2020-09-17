@@ -582,6 +582,9 @@ $language = array(
 	'group_sync_rule_deleted_successfully' => 'The group sync rule has been deleted successfully.',
 	'existing_rules' => 'Existing Rules',
 	'new_rule' => 'New Rule',
+	'api_endpoints' => 'API Endpoints',
+	'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
+	'route' => 'Route',
 
 	// File uploads
 	'drag_files_here' => 'Drag files here to upload.',

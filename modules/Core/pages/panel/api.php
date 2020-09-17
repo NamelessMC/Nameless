@@ -335,66 +335,97 @@ if(!isset($_GET['view'])){
 		'SUBMIT' => $language->get('general', 'submit'),
 		'COPIED' => $language->get('general', 'copied'),
 		'GROUP_SYNC' => $language->get('admin', 'group_sync'),
-		'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync')
+		'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
+		'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
+		'API_ENDPOINTS_LINK' => URL::build('/panel/core/api/', 'view=api_endpoints')
 	));
 
 	$template_file = 'core/api.tpl';
 
 } else {
-	// Get all groups
-	$groups = $queries->getWhere('groups', array('id', '<>', 0));
-	$website_groups = array();
-	foreach($groups as $group){
-		$website_groups[] = array(
-			'id' => Output::getClean($group->id),
-			'name' => Output::getClean($group->name)
-		);
+
+	if ($_GET['view'] == 'group_sync') {
+		// Get all groups
+		$groups = $queries->getWhere('groups', array('id', '<>', 0));
+		$website_groups = array();
+		foreach ($groups as $group) {
+			$website_groups[] = array(
+				'id' => Output::getClean($group->id),
+				'name' => Output::getClean($group->name)
+			);
+		}
+
+		// Get ingame groups
+		$ingame_groups = DB::getInstance()->query("SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1")->first();
+		$ingame_groups = json_decode($ingame_groups->groups, true);
+
+		// Get existing group sync configuration
+		$group_sync = $queries->getWhere('group_sync', array('id', '<>', 0));
+		$template_groups = array();
+		foreach ($group_sync as $group) {
+			$template_groups[] = array(
+				'id' => Output::getClean($group->id),
+				'ingame' => Output::getClean($group->ingame_rank_name),
+				'website' => $group->website_group_id,
+				'primary' => $group->primary,
+				'delete_link' => URL::build('/panel/core/api/', 'view=group_sync&action=delete&id=' . Output::getClean($group->id))
+			);
+		}
+
+		$smarty->assign(array(
+			'PARENT_PAGE' => PARENT_PAGE,
+			'DASHBOARD' => $language->get('admin', 'dashboard'),
+			'CONFIGURATION' => $language->get('admin', 'configuration'),
+			'API' => $language->get('admin', 'api'),
+			'PAGE' => PANEL_PAGE,
+			'INFO' => $language->get('general', 'info'),
+			'GROUP_SYNC_INFO' => $language->get('admin', 'group_sync_info'),
+			'BACK' => $language->get('general', 'back'),
+			'BACK_LINK' => URL::build('/panel/core/api'),
+			'TOKEN' => Token::get(),
+			'SUBMIT' => $language->get('general', 'submit'),
+			'INGAME_GROUPS' => $ingame_groups,
+			'INGAME_GROUP_NAME' => $language->get('admin', 'ingame_group'),
+			'WEBSITE_GROUP' => $language->get('admin', 'website_group'),
+			'SET_AS_PRIMARY_GROUP' => $language->get('admin', 'set_as_primary_group'),
+			'SET_AS_PRIMARY_GROUP_INFO' => $language->get('admin', 'set_as_primary_group_info'),
+			'YES' => $language->get('general', 'yes'),
+			'NO' => $language->get('general', 'no'),
+			'GROUPS' => $website_groups,
+			'GROUP_SYNC_VALUES' => $template_groups,
+			'DELETE' => $language->get('general', 'delete'),
+			'NEW_RULE' => $language->get('admin', 'new_rule'),
+			'EXISTING_RULES' => $language->get('admin', 'existing_rules')
+		));
+
+		$template_file = 'core/api_group_sync.tpl';
+
+	} else if ($_GET['view'] == 'api_endpoints') {
+
+		$endpoints_array = array();
+		foreach($endpoints->getAll() as $endpoint) {
+			$endpoints_array[] = array(
+				'route' => $endpoint->getRoute(),
+				'module' => $endpoint->getModule()
+			);
+		};
+
+		$smarty->assign(array(
+			'PARENT_PAGE' => PARENT_PAGE,
+			'DASHBOARD' => $language->get('admin', 'dashboard'),
+			'CONFIGURATION' => $language->get('admin', 'configuration'),
+			'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
+			'PAGE' => PANEL_PAGE,
+			'BACK' => $language->get('general', 'back'),
+			'BACK_LINK' => URL::build('/panel/core/api'),
+			'ROUTE' => $language->get('admin', 'route'),
+			'MODULE' => $language->get('admin', 'module'),
+			'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info'), 
+			'ENDPOINTS_ARRAY' => $endpoints_array
+		));
+
+		$template_file = 'core/api_endpoints.tpl';
 	}
-
-	// Get ingame groups
-	$ingame_groups = DB::getInstance()->query("SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1")->first();
-	$ingame_groups = json_decode($ingame_groups->groups, true);
-
-	// Get existing group sync configuration
-	$group_sync = $queries->getWhere('group_sync', array('id', '<>', 0));
-	$template_groups = array();
-	foreach($group_sync as $group){
-		$template_groups[] = array(
-			'id' => Output::getClean($group->id),
-			'ingame' => Output::getClean($group->ingame_rank_name),
-			'website' => $group->website_group_id,
-			'primary' => $group->primary,
-			'delete_link' => URL::build('/panel/core/api/', 'view=group_sync&action=delete&id=' . Output::getClean($group->id))
-		);
-	}
-
-	$smarty->assign(array(
-		'PARENT_PAGE' => PARENT_PAGE,
-		'DASHBOARD' => $language->get('admin', 'dashboard'),
-		'CONFIGURATION' => $language->get('admin', 'configuration'),
-		'API' => $language->get('admin', 'api'),
-		'PAGE' => PANEL_PAGE,
-		'INFO' => $language->get('general', 'info'),
-		'GROUP_SYNC_INFO' => $language->get('admin', 'group_sync_info'),
-		'BACK' => $language->get('general', 'back'),
-		'BACK_LINK' => URL::build('/panel/core/api'),
-		'TOKEN' => Token::get(),
-		'SUBMIT' => $language->get('general', 'submit'),
-		'INGAME_GROUPS' => $ingame_groups,
-		'INGAME_GROUP_NAME' => $language->get('admin', 'ingame_group'),
-		'WEBSITE_GROUP' => $language->get('admin', 'website_group'),
-		'SET_AS_PRIMARY_GROUP' => $language->get('admin', 'set_as_primary_group'),
-		'SET_AS_PRIMARY_GROUP_INFO' => $language->get('admin', 'set_as_primary_group_info'),
-		'YES' => $language->get('general', 'yes'),
-		'NO' => $language->get('general', 'no'),
-		'GROUPS' => $website_groups,
-		'GROUP_SYNC_VALUES' => $template_groups,
-		'DELETE' => $language->get('general', 'delete'),
-		'NEW_RULE' => $language->get('admin', 'new_rule'),
-		'EXISTING_RULES' => $language->get('admin', 'existing_rules')
-	));
-
-	$template_file = 'core/api_group_sync.tpl';
 
 }
 

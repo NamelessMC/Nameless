@@ -583,6 +583,9 @@ $language = array(
 	'group_sync_rule_deleted_successfully' => 'Pravidlo synchronizace skupiny bylo úspěšně odstraněno.',
 	'existing_rules' => 'Stávající pravidla',
 	'new_rule' => 'Nové pravidlo',
+	'api_endpoints' => 'API Endpoints',
+	'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
+	'route' => 'Route',
 
 	// File uploads
 	'drag_files_here' => 'Sem přetáhněte soubory pr nahrání.',
