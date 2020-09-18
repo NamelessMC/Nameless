@@ -20,8 +20,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
 // Ensure API is actually enabled
-$is_enabled = $queries->getWhere('settings', array('name', '=', 'use_api'));
-if ($is_enabled[0]->value != '1') {
+if (!Util::getSetting(DB::getInstance(), 'use_api')) {
     die('API is disabled');
 }
 

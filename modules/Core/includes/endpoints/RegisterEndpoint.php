@@ -17,10 +17,18 @@ class RegisterEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        if ($api->validateParams($_POST, ['username', 'email'])) {
-            // Remove -s from UUID (if present)
-            $_POST['uuid'] = str_replace('-', '', $_POST['uuid']);
-            if (strlen($_POST['uuid']) > 32) $api->throwError(9, $api->getLanguage()->get('api', 'invalid_uuid'));
+
+        $params = ['username', 'email'];
+
+        $minecraft_integration = Util::getSetting($api->getDb(), 'mc_integration');
+        if ($minecraft_integration) $params[] = 'uuid';
+
+        if ($api->validateParams($_POST, $params)) {
+            
+            if ($minecraft_integration) {
+                $_POST['uuid'] = str_replace('-', '', $_POST['uuid']);
+                if (strlen($_POST['uuid']) > 32) $api->throwError(9, $api->getLanguage()->get('api', 'invalid_uuid'));
+            }
 
             if (strlen($_POST['username']) > 20) $api->throwError(8, $api->getLanguage()->get('api', 'invalid_username'));
             if (strlen($_POST['email']) > 64) $api->throwError(7, $api->getLanguage()->get('api', 'invalid_email_address'));
@@ -29,22 +37,26 @@ class RegisterEndpoint extends EndpointBase {
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) $api->throwError(7, $api->getLanguage()->get('api', 'invalid_email_address'));
 
             // Ensure user doesn't already exist
-            $username = $api->getDb()->get('users', array('username', '=', htmlspecialchars($_POST['username'])));
+            $username = $api->getDb()->get('users', array('username', '=', Output::getClean($_POST['username'])));
             if (count($username->results())) $api->throwError(11, $api->getLanguage()->get('api', 'username_already_exists'));
 
-            $uuid = $api->getDb()->get('users', array('uuid', '=', htmlspecialchars($_POST['uuid'])));
-            if (count($uuid->results())) $api->throwError(12, $api->getLanguage()->get('api', 'uuid_already_exists'));
+            if ($minecraft_integration) {
+                $uuid = $api->getDb()->get('users', array('uuid', '=', Output::getClean($_POST['uuid'])));
+                if (count($uuid->results())) $api->throwError(12, $api->getLanguage()->get('api', 'uuid_already_exists'));
+            }
 
-            $email = $api->getDb()->get('users', array('email', '=', htmlspecialchars($_POST['email'])));
+            $email = $api->getDb()->get('users', array('email', '=', Output::getClean($_POST['email'])));
             if (count($email->results())) $api->throwError(10, $api->getLanguage()->get('api', 'email_already_exists'));
+
+            $uuid = ($minecraft_integration) ? Output::getClean($_POST['uuid']) : 'none';
 
             // Registration email enabled?
             if (Util::getSetting($api->getDb(), 'email_verification', true)) {
                 // Send email
-                $this->sendRegistrationEmail($api, $_POST['username'], $_POST['uuid'], $_POST['email']);
+                $this->sendRegistrationEmail($api, $_POST['username'], $uuid, $_POST['email']);
             } else {
                 // Register user + send link
-                $code = $this->createUser($api, $_POST['username'], $_POST['uuid'], $_POST['email']);
+                $code = $this->createUser($api, $_POST['username'], $uuid, $_POST['email']);
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . $code['code'])));
             }
         }
@@ -63,7 +75,6 @@ class RegisterEndpoint extends EndpointBase {
      * 
      * @return string JSON Array
      */
-    // TODO: Finish MC Integration checks etc
     private function sendRegistrationEmail(Nameless2API $api, $username, $uuid, $email) {
         if ($api->isValidated()) {
             // Generate random code
@@ -163,7 +174,6 @@ class RegisterEndpoint extends EndpointBase {
      * 
      * @return string JSON Array
      */
-    // TODO: Finish MC Integration checks etc
     private function createUser(Nameless2API $api, $username, $uuid, $email, $code = null) {
         if ($api->isValidated()) {
             try {
@@ -195,13 +205,12 @@ class RegisterEndpoint extends EndpointBase {
                     $default_group = unserialize($default_group->default_group->data);
                 }
 
-                if (!$code)
-                    $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+                if (!$code) $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
 
                 $api->getDb()->insert('users', array(
                     'username' => Output::getClean($username),
                     'nickname' => Output::getClean($username),
-                    'uuid' => Output::getClean($uuid),
+                    'uuid' => $uuid,
                     'email' => Output::getClean($email),
                     'password' => md5($code), // temp code
                     'joined' => date('U'),

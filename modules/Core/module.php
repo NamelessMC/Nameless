@@ -278,8 +278,8 @@ class Core_Module extends Module {
 		$endpoints->add(new RegisterEndpoint());
 		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/UserInfoEndpoint.php');
 		$endpoints->add(new UserInfoEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/SetDiscordIdEndpoint.php');
-		$endpoints->add(new SetDiscordIdEndpoint());
+		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/VerifyDiscordEndpoint.php');
+		$endpoints->add(new VerifyDiscordEndpoint());
 		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/RemoveGroupFromDiscordIdEndpoint.php');
 		$endpoints->add(new RemoveGroupFromDiscordIdEndpoint());
 		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/SetGroupFromDiscordIdEndpoint.php');

@@ -6,12 +6,12 @@
  * 
  * @return string JSON Array
  */
-class SetDiscordIdEndpoint extends EndpointBase {
+class VerifyDiscordEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'setDiscordId';
+        $this->_route = 'verifyDiscord';
         $this->_module = 'Core';
-        $this->_description = 'Set a NamelessMC user\'s Discord ID using their validation token';
+        $this->_description = 'Verify and link a NamelessMC user\'s Discord account using their validation token';
     }
 
     public function execute(Nameless2API $api) {
