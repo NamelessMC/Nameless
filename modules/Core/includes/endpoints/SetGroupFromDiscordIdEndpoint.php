@@ -33,7 +33,7 @@ class SetGroupFromDiscordIdEndpoint extends EndpointBase {
                 // Set their secondary groups to all of their old secondary groups, except the new group - just incase
                 $new_secondary_groups = array();
                 foreach ($user->secondary_groups as $secondary_group) {
-                    if ($group != $secondary_group) {
+                    if ($group->id != $secondary_group) {
                         $new_secondary_groups[] = $secondary_group;
                     }
                 }
@@ -46,7 +46,7 @@ class SetGroupFromDiscordIdEndpoint extends EndpointBase {
                 } catch (Exception $e) {
                     $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
                 }
-                
+
                 Log::getInstance()->log(Log::Action('discord/role_add'), 'Role changed to: ' . $group->name, $user->id);
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
             }

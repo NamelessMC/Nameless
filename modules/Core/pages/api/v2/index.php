@@ -122,11 +122,13 @@ class Nameless2API {
     
     public function validateParams($input, $required_fields) {
         if (!isset($input) || empty($input)) {
-            $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
+            if (!empty($_GET)) $this->throwError(6, $this->_language->get('api', 'invalid_get_contents'));
+            else $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
         }
         foreach ($required_fields as $required) {
             if (!isset($input[$required]) || empty($input[$required])) {
-                $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
+                if (!empty($_GET)) $this->throwError(6, $this->_language->get('api', 'invalid_get_contents'));
+                else $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
             }
         }
         return true;

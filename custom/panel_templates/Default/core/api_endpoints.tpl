@@ -16,7 +16,7 @@
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
                                 <li class="breadcrumb-item active">{$CONFIGURATION}</li>
-                                <li class="breadcrumb-item active">{$API}</li>
+                                <li class="breadcrumb-item active">{$API_ENDPOINTS}</li>
                             </ol>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <p style="display:inline;">{$ENDPOINTS_INFO}</p>
-                                <span class="float-md-right"><a class="btn btn-primary" href="{$BACK_LINK}">{$BACK}</a></span>
+                                <span class="float-md-right"><a class="btn btn-warning" href="{$BACK_LINK}">{$BACK}</a></span>
                                 <hr />
 
                                 {if isset($SUCCESS)}

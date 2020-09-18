@@ -1,5 +1,14 @@
 <?php 
-
+/*
+ *	Made by Aberdeener
+ *
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
+ *
+ *  License: MIT
+ *
+ *  Endpoints class
+ */
 class Endpoints {
 
     private 
@@ -18,9 +27,10 @@ class Endpoints {
     }
 
     public function handle($request, $api) {
-        foreach ($this->_endpoints as $endpoint) {
+        foreach ($this->getAll() as $endpoint) {
             if ($endpoint->getRoute() == $request) {
                 $endpoint->execute($api);
+                return true;
             }
         }
         return false;

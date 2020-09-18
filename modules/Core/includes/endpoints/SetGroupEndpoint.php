@@ -17,16 +17,15 @@ class SetGroupEndpoint extends EndpointBase {
     public function execute(Nameless2API $api) {
         if ($api->isValidated()) {
             if ($api->validateParams($_POST, ['id', 'group_id'])) {
+                
                 // Ensure user exists
                 $user = $api->getDb()->get('users', array('id', '=', htmlspecialchars($_POST['id'])));
                 if (!$user->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
-
                 $user = $user->first();
 
                 // Ensure group exists
                 $group = $api->getDb()->get('groups', array('id', '=', $_POST['group_id']));
                 if (!$group->count()) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
-
                 $group = $group->first()->id;
 
                 $new_secondary_groups = array();

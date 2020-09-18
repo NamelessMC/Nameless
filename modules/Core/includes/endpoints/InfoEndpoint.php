@@ -23,9 +23,6 @@ class InfoEndpoint extends EndpointBase {
             $site_id = Util::getSetting($api->getDb(), 'unique_id');
             if ($site_id == null) $api->throwError(4, $api->getLanguage()->get('api', 'no_unique_site_id'));
 
-            $site_id = $site_id->results();
-            $site_id = $site_id[0]->value;
-
             $ret = array();
             foreach ($version_query as $item) {
                 if ($item->name == 'nameless_version') {

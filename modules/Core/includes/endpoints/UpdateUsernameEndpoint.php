@@ -12,7 +12,7 @@ class UpdateUsernameEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'updateUsername';
         $this->_module = 'Core';
-        $this->_description = 'Update a username from a UUID';
+        $this->_description = 'Update a users NamelessMC username from their Minecraft UUID';
     }
 
     public function execute(Nameless2API $api) {

@@ -7,7 +7,7 @@
  *
  *  License: MIT
  *
- *  API Endpoints class
+ *  EndpointsBase class
  */
 abstract class EndpointBase {
 
