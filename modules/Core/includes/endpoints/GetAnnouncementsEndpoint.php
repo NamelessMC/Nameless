@@ -5,7 +5,6 @@
  * 
  * @return string JSON Array of latest announcements
  */
-// TODO: add another layer of protection. What if anyone can enter a user id and read staff only announcements etc
 class GetAnnouncementsEndpoint extends EndpointBase {
 
     public function __construct() {

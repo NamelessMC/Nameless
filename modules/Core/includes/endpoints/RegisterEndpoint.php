@@ -7,7 +7,6 @@
  * 
  * @return string JSON Array
  */
-// TODO: Finish MC Integration checks etc
 class RegisterEndpoint extends EndpointBase {
 
     public function __construct() {
