@@ -558,6 +558,7 @@ $language = array(
 	'set_as_primary_group_info' => 'If enabled, the user\'s primary website group will be updated. If disabled, the ingame group will be added to the user\'s website secondary groups.',
 	'ingame_group_maximum' => 'Please ensure your group name is a maximum of 64 characters long.',
 	'select_website_group' => 'Please select a website group.',
+	'at_least_one_external' => 'Please enter at least 1 external group (Minecraft or Discord)',
 	'ingame_group_already_exists' => 'A rank sync rule has already been created for that ingame group.',
 	'group_sync_rule_created_successfully' => 'The group sync rule has been created successfully.',
 	'group_sync_rules_updated_successfully' => 'Group sync rules have been updated successfully.',

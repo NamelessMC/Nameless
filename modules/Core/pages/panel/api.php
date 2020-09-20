@@ -156,7 +156,6 @@ if(!isset($_GET['view'])){
 				$validate = new Validate();
 				$validation = $validate->check($_POST, array(
 					'ingame_rank_name' => array(
-						'required' => true,
 						'min' => 2,
 						'max' => 64,
 						'unique' => 'group_sync'
@@ -172,7 +171,14 @@ if(!isset($_GET['view'])){
 					)
 				));
 
-				if($validation->passed()){
+				$errors = array();
+
+				if (empty($_POST['ingame_rank_name']) && empty($_POST['discord_role_id'])) {
+					$errors[] = $language->get('admin', 'at_least_one_external');
+				}
+
+				else if($validation->passed()){
+
 					// Primary group?
 					if(isset($_POST['primary_group']) && $_POST['primary_group'] == 1)
 						$primary = 1;
@@ -192,7 +198,6 @@ if(!isset($_GET['view'])){
 					Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
 
 				} else {
-					$errors = array();
 					foreach($validation->errors() as $error){
 						if(strpos($error, 'ingame_rank') !== false){
 							if(strpos($error, 'required') !== false){
@@ -208,10 +213,12 @@ if(!isset($_GET['view'])){
 								$errors[] = $language->get('admin', 'ingame_group_already_exists');
 							}
 
-						} else if(strpos($error, 'discord')) {
-							$errors[] = $language->get('admin', 'discord_role_id_numeric');
-						} else {
-							$errors[] = $language->get('admin', 'select_website_group');
+						} else if(strpos($error, 'discord_role_id') !== false) {
+							if (strpos($error, 'numeric') !== false) {
+								$errors[] = $language->get('admin', 'discord_role_id_numeric');
+							} else {
+								$errors[] = $language->get('admin', 'discord_role_id_length');
+							}
 						}
 					}
 				}
@@ -223,7 +230,7 @@ if(!isset($_GET['view'])){
 					foreach($_POST['ingame_group'] as $key => $ingame_group){
 						if(isset($_POST['website_group'][$key]) && isset($_POST['primary_group'][$key])){
 							if(strlen(str_replace(' ', '', $ingame_group)) > 1 && strlen(str_replace(' ', '', $ingame_group)) < 65){
-								if (strlen($_POST['discord_role_id'][$key]) == 0 || strlen($_POST['discord_role_id'][$key]) == 18) {
+								if (strlen($_POST['discord_role'][$key]) == 0 || strlen($_POST['discord_role'][$key]) == 18) {
 									// OK to update
 									if ($_POST['primary_group'][$key] == 1)
 										$primary = 1;
@@ -252,7 +259,8 @@ if(!isset($_GET['view'])){
 					}
 				}
 
-				Session::flash('api_success', $language->get('admin', 'group_sync_rules_updated_successfully'));
+				if (!count($errors))
+					Session::flash('api_success', $language->get('admin', 'group_sync_rules_updated_successfully'));
 			}
 
 		} else
