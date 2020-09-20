@@ -26,28 +26,38 @@ class SetGroupFromDiscordIdEndpoint extends EndpointBase {
                 if (!$user->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
                 $user = $user->first();
 
-                $group = $api->getDb()->get('groups', array('discord_role_id', '=', $discord_role_id));
-                if (!$group->count()) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
-                $group = $group->first();
+                $group = Util::getWebsiteGroup(DB::getInstance(), $discord_role_id);
+                if ($group == null) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
 
-                // Set their secondary groups to all of their old secondary groups, except the new group - just incase
+                $fields = array();
+
                 $new_secondary_groups = array();
-                foreach ($user->secondary_groups as $secondary_group) {
-                    if ($group->id != $secondary_group) {
+
+                if ($group['primary']) {
+                    // If the group is supposed to be a primary group, set as their group_id and remove from secondary groups
+                    $fields['group_id'] = $group['group']->id;
+                    foreach ($user->secondary_groups as $secondary_group) {
+                        if ($group['group']->id != $secondary_group) {
+                            $new_secondary_groups[] = $secondary_group;
+                        }
+                    }
+                } else {
+                    // If its a secondary group, dont change their group_id, just add it to their secondary groups.
+                    $new_secondary_groups[] = $group['group']->id;
+                    foreach ($user->secondary_groups as $secondary_group) {
                         $new_secondary_groups[] = $secondary_group;
                     }
                 }
 
+                $fields['secondary_groups'] = json_encode($new_secondary_groups);
+
                 try {
-                    $api->getDb()->update('users', $user->id, array(
-                        'group_id' => $group->id,
-                        'secondary_groups' => json_encode($new_secondary_groups)
-                    ));
+                    $api->getDb()->update('users', $user->id, $fields);
                 } catch (Exception $e) {
                     $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
                 }
 
-                Log::getInstance()->log(Log::Action('discord/role_add'), 'Role changed to: ' . $group->name, $user->id);
+                Log::getInstance()->log(Log::Action('discord/role_add'), 'Role changed to: ' . $group['group']->name, $user->id);
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
             }
         } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));

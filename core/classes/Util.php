@@ -133,59 +133,6 @@ class Util {
 	   return preg_replace_callback($pattern, $callback, $text);
 	}
 	
-	// Parse text with Geshi
-	public static function parseGeshi($content = null){
-		if($content) {
-            require_once(ROOT_PATH . '/core/includes/geshi/geshi.php');
-
-            $dom = new DOMDocument;
-
-            $dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
-            $codeTags = $dom->getElementsByTagName('code');
-            $newCodeTags = array();
-            $ids = array();
-
-            $i = $codeTags->length - 1;
-
-            while ($i > -1) {
-                $code = $codeTags->item($i);
-                if ($code->hasAttributes()) {
-                    foreach ($code->attributes as $attribute) {
-                        if ($attribute->name == 'class') {
-                            $class = $attribute->value;
-
-                            if (substr($class, 0, 9) == 'language-') {
-                                // Parse with GeSHi
-                                $language = substr($class, 9);
-
-                                $geshi = new GeSHi($code->nodeValue, $language);
-                                $string = $geshi->parse_code();
-
-                                $newCodeTags[] = $string;
-
-                                $repl = $dom->createElement('span');
-
-                                $id = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 20);
-                                $ids[] = '<span id="' . $id . '"></span>';
-
-                                $repl->setAttribute('id', $id);
-
-                                $code->parentNode->replaceChild($repl, $code);
-                            }
-                        }
-                    }
-                }
-                $i--;
-            }
-
-            $content = $dom->saveHTML();
-
-            return str_replace($ids, $newCodeTags, $content);
-		}
-		return false;
-	}
-	
 	// Get a Minecraft avatar from a UUID
 	public static function getAvatarFromUUID($uuid, $size = 128){
 		if(defined('DEFAULT_AVATAR_SOURCE')){
@@ -595,9 +542,85 @@ class Util {
 		return $data;
 	}
 
-	public static function getSetting($db, $setting, $fallback = null) {
+	public static function getSetting(DB $db, $setting, $fallback = null) {
 		$value = $db->get('settings', array('name', '=', $setting));
 		if ($value->count()) return $value->first()->value;
 		else return $fallback != null ? $fallback : null;
+	}
+
+	public static function getDiscordRoleId(DB $db, $group_id) {
+		$discord_role_id = $db->get('group_sync', array('website_group_id', '=', $group_id));
+		if ($discord_role_id->count()) return $discord_role_id->first()->discord_role_id;
+		else return null;
+	}
+
+	public static function getWebsiteGroup(DB $db, $discord_role_id) {
+		$website_group_id = $db->get('group_sync', array('discord_role_id', '=', $discord_role_id));
+		if ($website_group_id->count()) {
+			$group = $db->get('groups', array('id', '=', $website_group_id->first()->website_group_id));
+			if ($group->count()) {
+				$group_array = array();
+				$group_array['group'] = $group->first();
+				$group_array['primary'] = $db->query('SELECT `primary` FROM nl2_group_sync WHERE discord_role_id = ?', array($discord_role_id))->first()->primary;
+				return $group_array;
+			}
+		}
+		return null;
+	}
+
+	public static function addDiscordRole($user_query, $group, $language) {
+		if (self::getSetting(DB::getInstance(), 'discord_integration')) {
+			// They have a valid discord Id
+			if ($user_query->discord_id != null && $user_query->discord_id != 010) {
+
+				$group_discord_id = self::getDiscordRoleId(DB::getInstance(), $group);
+
+				$old_group_discord_id = self::getDiscordRoleId(DB::getInstance(), $user_query->group_id);
+
+				$api_url = rtrim(self::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(self::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
+
+				// The bot can handle null roles, but it is better to deal with it here
+				// TODO: Probably a nicer way to do this
+				$url = '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . self::getSetting(DB::getInstance(), 'discord');
+
+				if ($group_discord_id == $old_group_discord_id) {
+					$url .= '&role=' . $group_discord_id;
+				} else {
+					if ($group_discord_id == null && $old_group_discord_id != null) {
+						$url .= '&role=null' . '&oldRole=' . $old_group_discord_id;
+					} else if ($group_discord_id != null && $old_group_discord_id == null) {
+						$url .= '&role=' . $group_discord_id . '&oldRole=null';
+					} else if ($group_discord_id != null && $old_group_discord_id != null) {
+						$url .= '&role=' . $group_discord_id . '&oldRole=' . $old_group_discord_id;
+					} else $url = null;
+				}
+
+				if ($url != null) {
+					$result = self::discordBotRequest($url . '&api_url=' . $api_url . '/');
+					if ($result != 'success') {
+						if ($result === false) {
+							// This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
+							$errors[] = $language->get('user', 'discord_communication_error');
+						} else {
+							switch ($result) {
+								case 'failure-cannot-interact':
+									$errors[] = $language->get('admin', 'discord_cannot_interact');
+									break;
+								case 'failure-invalid-api-url':
+									$errors[] = $language->get('admin', 'discord_invalid_api_url');
+									break;
+								default:
+									// This should never happen 
+									$errors[] = $language->get('user', 'discord_unknown_error');
+									break;
+							}
+						}
+						Session::flash('edit_user_errors', $errors);
+						Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
+						die();
+					}
+				}
+			}
+		}
 	}
 }

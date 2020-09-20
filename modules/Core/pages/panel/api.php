@@ -161,6 +161,12 @@ if(!isset($_GET['view'])){
 						'max' => 64,
 						'unique' => 'group_sync'
 					),
+					'discord_role_id' => array(
+						'min' => 18,
+						'max' => 18,
+						'numeric' => true,
+						'unique' => 'group_sync'
+					),
 					'website_group' => array(
 						'required' => true
 					)
@@ -173,8 +179,12 @@ if(!isset($_GET['view'])){
 					else
 						$primary = 0;
 
+					$discord_role_id = intval(Input::get('discord_role_id'));
+					if ($discord_role_id == 0) $discord_role_id = null;
+
 					$queries->create('group_sync', array(
 						'ingame_rank_name' => Output::getClean(Input::get('ingame_rank_name')),
+						'discord_role_id' => $discord_role_id,
 						'website_group_id' => intval(Input::get('website_group')),
 						'primary' => $primary
 					));
@@ -198,6 +208,8 @@ if(!isset($_GET['view'])){
 								$errors[] = $language->get('admin', 'ingame_group_already_exists');
 							}
 
+						} else if(strpos($error, 'discord')) {
+							$errors[] = $language->get('admin', 'discord_role_id_numeric');
 						} else {
 							$errors[] = $language->get('admin', 'select_website_group');
 						}
@@ -207,28 +219,34 @@ if(!isset($_GET['view'])){
 			} else if($_POST['action'] == 'update'){
 				$errors = array();
 
-				if(isset($_POST['ingame_group']) && isset($_POST['website_group']) && isset($_POST['primary_group'])){
+				if(isset($_POST['ingame_group']) && isset($_POST['discord_role']) && isset($_POST['website_group']) && isset($_POST['primary_group'])){
 					foreach($_POST['ingame_group'] as $key => $ingame_group){
 						if(isset($_POST['website_group'][$key]) && isset($_POST['primary_group'][$key])){
 							if(strlen(str_replace(' ', '', $ingame_group)) > 1 && strlen(str_replace(' ', '', $ingame_group)) < 65){
-								// OK to update
-								if($_POST['primary_group'][$key] == 1)
-									$primary = 1;
-								else
-									$primary = 0;
+								if (strlen($_POST['discord_role_id'][$key]) == 0 || strlen($_POST['discord_role_id'][$key]) == 18) {
+									// OK to update
+									if ($_POST['primary_group'][$key] == 1)
+										$primary = 1;
+									else
+										$primary = 0;
 
-								$group_id = intval($_POST['website_group'][$key]);
+									$website_group_id = intval($_POST['website_group'][$key]);
+									$discord_role_id = intval($_POST['discord_role'][$key]);
+									if ($discord_role_id == 0) $discord_role_id = null;
 
-								try {
-									$queries->update('group_sync', $key, array(
-										'ingame_rank_name' => $ingame_group,
-										'website_group_id' => $group_id,
-										'`primary`' => $primary
-									));
-								} catch(Exception $e){
-									$errors[] = $e->getMessage();
+									try {
+										$queries->update('group_sync', $key, array(
+											'ingame_rank_name' => $ingame_group,
+											'discord_role_id' => $discord_role_id,
+											'website_group_id' => $website_group_id,
+											'`primary`' => $primary
+										));
+									} catch (Exception $e) {
+										$errors[] = $e->getMessage();
+									}
+								} else {
+									$errors[] = $language->get('admin', 'discord_role_id_length');
 								}
-
 							}
 						}
 					}
@@ -238,7 +256,7 @@ if(!isset($_GET['view'])){
 			}
 
 		} else
-			$errors = array($language->get('general', 'invalid_token'));
+			$errors[] = array($language->get('general', 'invalid_token'));
 	}
 
 }
@@ -366,6 +384,7 @@ if(!isset($_GET['view'])){
 			$template_groups[] = array(
 				'id' => Output::getClean($group->id),
 				'ingame' => Output::getClean($group->ingame_rank_name),
+				'discord' => $group->discord_role_id,
 				'website' => $group->website_group_id,
 				'primary' => $group->primary,
 				'delete_link' => URL::build('/panel/core/api/', 'view=group_sync&action=delete&id=' . Output::getClean($group->id))
@@ -386,6 +405,7 @@ if(!isset($_GET['view'])){
 			'SUBMIT' => $language->get('general', 'submit'),
 			'INGAME_GROUPS' => $ingame_groups,
 			'INGAME_GROUP_NAME' => $language->get('admin', 'ingame_group'),
+			'DISCORD_ROLE_ID' => $language->get('admin', 'discord_role_id'),
 			'WEBSITE_GROUP' => $language->get('admin', 'website_group'),
 			'SET_AS_PRIMARY_GROUP' => $language->get('admin', 'set_as_primary_group'),
 			'SET_AS_PRIMARY_GROUP_INFO' => $language->get('admin', 'set_as_primary_group_info'),

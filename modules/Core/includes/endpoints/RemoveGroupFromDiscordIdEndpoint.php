@@ -26,19 +26,34 @@ class RemoveGroupFromDiscordIdEndpoint extends EndpointBase {
                 // Get the user's NamelessMC id
                 $user = $api->getDb()->get('users', array('discord_id', '=', $discord_user_id));
                 if (!$user->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
-                $user = $user->first()->id;
+                $user = $user->first();
 
-                // Ensure the group exists
-                $group = $api->getDb()->get('groups', array('discord_role_id', '=', $discord_role_id));
-                if (!$group->count()) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
+                $group = Util::getWebsiteGroup(DB::getInstance(), $discord_role_id);
+                if ($group == null) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
+
+                $fields = array();
+
+                if ($group['primary']) {
+                    // If role was primary, set as default post validated
+                    $fields['group_id'] = VALIDATED_DEFAULT;
+                } else {
+                    // if role was secondary, only remove from secondary groups
+                    $new_secondary_groups = array();
+                    foreach ($user->secondary_groups as $secondary_group) {
+                        if ($group['group']->id != $secondary_group) {
+                            $new_secondary_groups[] = $secondary_group;
+                        }
+                    }
+                    $fields['secondary_groups'] = json_encode($new_secondary_groups);
+                }
 
                 try {
-                    $api->getDb()->update('users', $user, array('group_id' => VALIDATED_DEFAULT));
+                    $api->getDb()->update('users', $user->id, $fields);
                 } catch (Exception $e) {
                     $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
                 }
 
-                Log::getInstance()->log(Log::Action('discord/role_remove'), 'Role removed: ' . $group->first()->name, $user);
+                Log::getInstance()->log(Log::Action('discord/role_remove'), 'Role removed: ' . $group['group']->name, $user->id);
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
             }
         } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));

@@ -526,15 +526,11 @@ if(isset($_GET['do'])){
 						die();
 					}
 					else {
-						$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'));
-						$api_key = $api_key[0]->value;
-						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
+						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
 
-						$discord_role_id = $queries->getWhere('groups', array('id', '=', $user->data()->group_id));
-						$discord_role_id = $discord_role_id[0]->discord_role_id;
+						$discord_role_id = Util::getDiscordRoleId(DB::getInstance(), $user->data()->group_id);
 
-						$guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
-						$guild_id = $guild_id[0]->value;
+						$guild_id = Util::getSetting(DB::getInstance(), 'discord');
 
 						$token = uniqid();
 						$queries->create('discord_verifications', [
@@ -771,9 +767,8 @@ if(isset($_GET['do'])){
         ));
 	}
 	
-	$discord_linked = $user->data()->discord_id == null || $user->data()->discord_id == 010 ? 0 : 1;
-	$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
-	$discord_integration = $discord_integration[0]->value;
+	$discord_linked = $user->data()->discord_id == null || $user->data()->discord_id == 010 ? false : true;
+	$discord_integration = Util::getSetting(DB::getInstance(), 'discord_integration');
 	
 	// Language values
 	$smarty->assign(array(

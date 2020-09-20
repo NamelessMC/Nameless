@@ -71,7 +71,7 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->alterTable('groups', '`discord_role_id`', "bigint(18) NULL DEFAULT NULL");
+    $queries->alterTable('group_sync', '`discord_role_id`', "bigint(18) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
