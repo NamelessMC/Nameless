@@ -24,7 +24,6 @@ class UserInfoEndpoint extends EndpointBase {
 
             // Ensure the user exists
             $user = $api->getDb()->query('SELECT nl2_users.id, nl2_users.username, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.group_id, nl2_users.joined as registered, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as userTitle, nl2_groups.name as group_name FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id WHERE nl2_users.id = ? OR nl2_users.username = ? OR nl2_users.uuid = ?', array($query, $query, $query));
-
             if (!$user->count()) $api->returnArray(array('exists' => false));
             
             $user = $user->first();
@@ -46,7 +45,7 @@ class UserInfoEndpoint extends EndpointBase {
                 $user->profile_fields[$profile_field->id]['value'] = $profile_field->value;
             }
 
-            $api->returnArray((array) $user);
+            $api->returnArray(array('exists' => true), (array) $user);
         } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));
     }
 }

@@ -11,7 +11,7 @@ class RemoveGroupFromDiscordIdEndpoint extends EndpointBase {
     public function __construct() {
         $this->_route = 'removeGroupFromDiscordId';
         $this->_module = 'Core';
-        $this->_description = 'Remove a user\'s role from NamelessMC when it was removed from Discord. Sets group to post validation group';
+        $this->_description = 'Remove a user\'s role from NamelessMC when it was removed from Discord. If the group is a primary group, it sets their group to post validation group';
     }
 
     public function execute(Nameless2API $api) {

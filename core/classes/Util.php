@@ -490,7 +490,7 @@ class Util {
 	    }
 	}
 	
-	public static function discordBotRequest($url) {
+	public static function discordBotRequest($url = '/') {
 
 		$bot_url_attempt = self::curlGetContents(BOT_URL . $url);
 
@@ -545,7 +545,7 @@ class Util {
 	public static function getSetting(DB $db, $setting, $fallback = null) {
 		$value = $db->get('settings', array('name', '=', $setting));
 		if ($value->count()) return $value->first()->value;
-		else return $fallback != null ? $fallback : null;
+		else return $fallback;
 	}
 
 	public static function getDiscordRoleId(DB $db, $group_id) {
@@ -584,7 +584,7 @@ class Util {
 				$url = '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . self::getSetting(DB::getInstance(), 'discord');
 
 				if ($group_discord_id == $old_group_discord_id) {
-					$url .= '&role=' . $group_discord_id;
+					$url .= '&role=' . $group_discord_id . '&oldRole=null';
 				} else {
 					if ($group_discord_id == null && $old_group_discord_id != null) {
 						$url .= '&role=null' . '&oldRole=' . $old_group_discord_id;

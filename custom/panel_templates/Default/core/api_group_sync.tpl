@@ -88,7 +88,7 @@
                                                     {if count($INGAME_GROUPS)}
                                                         <select name="ingame_group[{$group_sync.id}]" class="form-control" id="inputIngame">
                                                             {foreach from=$INGAME_GROUPS item=group}
-                                                                <option value="{$group}" {if {$group_sync.ingame} == $group} selected{/if}>{$group}</option>
+                                                                <option value="{$group}" {if {$group_sync.ingame} eq $group} selected{/if}>{$group}</option>
                                                             {/foreach}
                                                         </select>
                                                     {else}
@@ -103,15 +103,15 @@
                                                     <label for="inputWebsite">{$WEBSITE_GROUP}</label>
                                                     <select name="website_group[{$group_sync.id}]" class="form-control" id="inputWebsite">
                                                         {foreach from=$GROUPS item=group}
-                                                            <option value="{$group.id}"{if $group_sync.website == $group.id} selected{/if}>{$group.name}</option>
+                                                            <option value="{$group.id}"{if $group_sync.website eq $group.id} selected{/if}>{$group.name}</option>
                                                         {/foreach}
                                                     </select>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <label for="inputSetAsPrimary">{$SET_AS_PRIMARY_GROUP}</label> <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$SET_AS_PRIMARY_GROUP_INFO}"><i class="fas fa-question-circle"></i></span>
                                                     <select name="primary_group[{$group_sync.id}]" class="form-control" id="inputSetAsPrimary">
-                                                        <option value="0"{if $group_sync.primary == 0} selected{/if}>{$NO}</option>
-                                                        <option value="1"{if $group_sync.primary == 1} selected{/if}>{$YES}</option>
+                                                        <option value="0"{if $group_sync.primary eq 0} selected{/if}>{$NO}</option>
+                                                        <option value="1"{if $group_sync.primary eq 1} selected{/if}>{$YES}</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-1">

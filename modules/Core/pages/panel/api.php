@@ -216,8 +216,10 @@ if(!isset($_GET['view'])){
 						} else if(strpos($error, 'discord_role_id') !== false) {
 							if (strpos($error, 'numeric') !== false) {
 								$errors[] = $language->get('admin', 'discord_role_id_numeric');
-							} else {
+							} else if (strpos($error, 'length') !== false) {
 								$errors[] = $language->get('admin', 'discord_role_id_length');
+							} else {
+								$errors[] = $language->get('user', 'discord_id_taken');
 							}
 						}
 					}
@@ -226,6 +228,7 @@ if(!isset($_GET['view'])){
 			} else if($_POST['action'] == 'update'){
 				$errors = array();
 
+				// TODO: Change this so website group is main key. Dont force to have ingame MC group.
 				if(isset($_POST['ingame_group']) && isset($_POST['discord_role']) && isset($_POST['website_group']) && isset($_POST['primary_group'])){
 					foreach($_POST['ingame_group'] as $key => $ingame_group){
 						if(isset($_POST['website_group'][$key]) && isset($_POST['primary_group'][$key])){

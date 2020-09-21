@@ -169,12 +169,18 @@ if($user->hasPermission('admincp.core.debugging')){
 	// Permissions
 	if(!is_writable(ROOT_PATH . '/core/config.php')){
 		$compat_errors[] = $language->get('installer', 'config_writable');
+	} else {
+		$compat_success[] = $language->get('installer', 'config_writable');
 	}
 	if(!is_writable(ROOT_PATH . '/cache')){
 		$compat_errors[] = $language->get('installer', 'cache_writable');
+	} else {
+		$compat_success[] = $language->get('installer', 'cache_writable');
 	}
 	if(!is_writable(ROOT_PATH . '/cache/templates_c')){
 		$compat_errors[] = $language->get('installer', 'template_cache_writable');
+	} else {
+		$compat_success[] = $language->get('installer', 'template_cache_writable');
 	}
 
 	$smarty->assign(array(
