@@ -1,3 +1,5 @@
+# THIS FILE IS FOR DEVELOPMENT. For production, see https://github.com/NamelessMC/Nameless-Docker
+
 # Run:
 # export UID=$UID; export GID=$GID; docker-compose up
 
@@ -6,7 +8,7 @@ version: '2'
 services:
 
     web:
-        image: derkades/namelessmc-nginx
+        image: namelessmc/nginx
         ports: ['80:80']
         volumes: ['./:/data']
         depends_on: [php]
