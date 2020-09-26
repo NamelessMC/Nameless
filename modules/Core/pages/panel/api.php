@@ -188,20 +188,30 @@ if(!isset($_GET['view'])){
 					$discord_role_id = intval(Input::get('discord_role_id'));
 					if ($discord_role_id == 0) $discord_role_id = null;
 
-					if (!empty($_POST['ingame_rank_name'])) {
-						$ingame_rank_name = Output::getClean(Input::get('ingame_rank_name'));
-					} else {
-						$ingame_rank_name = '';
+					$fields = array();
+					$fields['website_group_id']  = intval($website_group);
+					$fields['primary'] = $primary;
+					$fields['discord_role_id'] = $discord_role_id;
+
+					$ingame_rank_name = $_POST['ingame_rank_name'];
+
+					if (!empty($ingame_rank_name)) {
+						if (strlen(str_replace(' ', '', $ingame_rank_name)) > 1 && strlen(str_replace(' ', '', $ingame_rank_name)) < 65) {
+							$fields['ingame_rank_name'] = $ingame_rank_name;
+						} else {
+							$errors[] = $language->get('admin', 'group_name_minimum');
+							$errors[] = $language->get('admin', 'ingame_group_maximum');
+						}
+					} else $fields['ingame_rank_name'] = '';
+
+					if ($discord_role_id == null && empty($ingame_rank_name)) {
+						$errors[] = $language->get('admin', 'at_least_one_external');
 					}
 
-					$queries->create('group_sync', array(
-						'ingame_rank_name' => $ingame_rank_name,
-						'discord_role_id' => $discord_role_id,
-						'website_group_id' => intval(Input::get('website_group')),
-						'primary' => $primary
-					));
-
-					Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
+					if (!count($errors)) {
+						$queries->create('group_sync', $fields);
+						Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
+					}
 
 				} else {
 					foreach($validation->errors() as $error){
