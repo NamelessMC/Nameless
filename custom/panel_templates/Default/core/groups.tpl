@@ -75,6 +75,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
+                                            <th>{$ORDER}</th>
                                             <th>{$GROUP_ID}</th>
                                             <th>{$NAME}</th>
                                             <th>{$USERS}</th>
@@ -84,6 +85,7 @@
                                     <tbody>
                                         {foreach from=$GROUP_LIST item=group}
                                             <tr>
+                                                <td>{$group.order}</td>
                                                 <td>{$group.id}</td>
                                                 <td><a href="{$group.edit_link}">{$group.name}</a></td>
                                                 <td>{$group.users}</td>
