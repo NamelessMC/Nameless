@@ -267,33 +267,15 @@ class Core_Module extends Module {
 		}
 		HookHandler::registerHooks($hook_array);
 
-		// API Endpoints
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/InfoEndpoint.php');
-		$endpoints->add(new InfoEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/GetAnnouncementsEndpoint.php');
-		$endpoints->add(new GetAnnouncementsEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/SetGroupEndpoint.php');
-		$endpoints->add(new SetGroupEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/RegisterEndpoint.php');
-		$endpoints->add(new RegisterEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/UserInfoEndpoint.php');
-		$endpoints->add(new UserInfoEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/VerifyDiscordEndpoint.php');
-		$endpoints->add(new VerifyDiscordEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/RemoveGroupFromDiscordIdEndpoint.php');
-		$endpoints->add(new RemoveGroupFromDiscordIdEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/SetGroupFromDiscordIdEndpoint.php');
-		$endpoints->add(new SetGroupFromDiscordIdEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/GetNotificationsEndpoint.php');
-		$endpoints->add(new GetNotificationsEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/UpdateUsernameEndpoint.php');
-		$endpoints->add(new UpdateUsernameEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/ServerInfoEndpoint.php');
-		$endpoints->add(new ServerInfoEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/VerifyMinecraftEndpoint.php');
-		$endpoints->add(new VerifyMinecraftEndpoint());
-		require_once(ROOT_PATH . '/modules/Core/includes/endpoints/ListUsersEndpoint.php');
-		$endpoints->add(new ListUsersEndpoint());
+		// Autoload API Endpoints
+		$classes = scandir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')));
+		foreach ($classes as $endpoint) {
+			if ($endpoint[0] == '.') continue; 
+			require(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints', $endpoint)));
+			$endpoint = str_replace('.php', '', $endpoint);
+			$instance = new $endpoint();
+			$endpoints->add($instance);
+		}
 	}
 
 	public function onInstall(){
