@@ -97,6 +97,7 @@ class ServerInfoEndpoint extends EndpointBase {
                             $group_sync = $group_sync->results();
                             $group_sync_updates = array();
                             foreach ($group_sync as $item) {
+                                if ($item->ingame_rank_name == '') continue;
                                 $group_sync_updates[strtolower($item->ingame_rank_name)] = array(
                                     'website' => $item->website_group_id,
                                     'primary' => $item->primary

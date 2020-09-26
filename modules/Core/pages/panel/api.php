@@ -188,8 +188,14 @@ if(!isset($_GET['view'])){
 					$discord_role_id = intval(Input::get('discord_role_id'));
 					if ($discord_role_id == 0) $discord_role_id = null;
 
+					if (!empty($_POST['ingame_rank_name'])) {
+						$ingame_rank_name = Output::getClean(Input::get('ingame_rank_name'));
+					} else {
+						$ingame_rank_name = '';
+					}
+
 					$queries->create('group_sync', array(
-						'ingame_rank_name' => Output::getClean(Input::get('ingame_rank_name')),
+						'ingame_rank_name' => $ingame_rank_name,
 						'discord_role_id' => $discord_role_id,
 						'website_group_id' => intval(Input::get('website_group')),
 						'primary' => $primary
@@ -228,36 +234,45 @@ if(!isset($_GET['view'])){
 			} else if($_POST['action'] == 'update'){
 				$errors = array();
 
-				// TODO: Change this so website group is main key. Dont force to have ingame MC group.
 				if(isset($_POST['ingame_group']) && isset($_POST['discord_role']) && isset($_POST['website_group']) && isset($_POST['primary_group'])){
-					foreach($_POST['ingame_group'] as $key => $ingame_group){
-						if(isset($_POST['website_group'][$key]) && isset($_POST['primary_group'][$key])){
-							if(strlen(str_replace(' ', '', $ingame_group)) > 1 && strlen(str_replace(' ', '', $ingame_group)) < 65){
-								if (strlen($_POST['discord_role'][$key]) == 0 || strlen($_POST['discord_role'][$key]) == 18) {
-									// OK to update
-									if ($_POST['primary_group'][$key] == 1)
-										$primary = 1;
-									else
-										$primary = 0;
 
-									$website_group_id = intval($_POST['website_group'][$key]);
-									$discord_role_id = intval($_POST['discord_role'][$key]);
-									if ($discord_role_id == 0) $discord_role_id = null;
+					foreach($_POST['website_group'] as $key => $website_group) {
+						if (isset($_POST['primary_group'][$key])) {
+							if (!empty($_POST['ingame_group'][$key]) || !empty($_POST['discord_role'][$key])) {
 
-									try {
-										$queries->update('group_sync', $key, array(
-											'ingame_rank_name' => $ingame_group,
-											'discord_role_id' => $discord_role_id,
-											'website_group_id' => $website_group_id,
-											'`primary`' => $primary
-										));
-									} catch (Exception $e) {
-										$errors[] = $e->getMessage();
+								if ($_POST['primary_group'][$key] == 1) $primary = 1;
+								else $primary = 0;
+
+								$ingame_group = $_POST['ingame_group'][$key];
+								$discord_role_id = intval($_POST['discord_role'][$key]);
+								if ($discord_role_id == 0) $discord_role_id = null;
+
+								$fields = array();
+								$fields['website_group_id']  = intval($website_group);
+								$fields['`primary`'] = $primary;
+
+								if (!empty($_POST['ingame_group'][$key])) {
+									if (strlen(str_replace(' ', '', $ingame_group)) > 1 && strlen(str_replace(' ', '', $ingame_group)) < 65) {
+										$fields['ingame_rank_name'] = $ingame_group;
+									} else {
+										$errors[] = $language->get('admin', 'group_name_minimum');
+										$errors[] = $language->get('admin', 'ingame_group_maximum');
 									}
+								} else $fields['ingame_rank_name'] = '';
+								if (strlen($discord_role_id) == 0 || strlen($discord_role_id) == 18) {
+									$fields['discord_role_id'] = $discord_role_id;
 								} else {
 									$errors[] = $language->get('admin', 'discord_role_id_length');
 								}
-							}
+
+								if (!count($errors)) {
+									try {
+										$queries->update('group_sync', $key, $fields);
+									} catch (Exception $e) {
+										$errors[] = $e->getMessage();
+									}
+								}
+							} else $errors[] = $language->get('admin', 'at_least_one_external');
 						}
 					}
 				}
