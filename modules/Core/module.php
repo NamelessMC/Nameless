@@ -271,10 +271,9 @@ class Core_Module extends Module {
 		$classes = scandir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')));
 		foreach ($classes as $endpoint) {
 			if ($endpoint[0] == '.') continue; 
-			require(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints', $endpoint)));
+			require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints', $endpoint)));
 			$endpoint = str_replace('.php', '', $endpoint);
-			$instance = new $endpoint();
-			$endpoints->add($instance);
+			$endpoints->add(new $endpoint());
 		}
 	}
 
