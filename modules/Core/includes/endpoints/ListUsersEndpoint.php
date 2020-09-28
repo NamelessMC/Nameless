@@ -34,8 +34,8 @@ class ListUsersEndpoint extends EndpointBase {
                 $users_array[$user->id]['id'] = intval($user->id);
                 $users_array[$user->id]['username'] = $user->username;
                 $users_array[$user->id]['uuid'] = $user->uuid;
-                $users_array[$user->id]['banned'] = boolval($user->banned);
-                $users_array[$user->id]['verified'] = boolval($user->active);
+                $users_array[$user->id]['banned'] = !!($user->banned);
+                $users_array[$user->id]['verified'] = !!($user->active);
             }
 
             $api->returnArray(array('users' => $users_array));
