@@ -567,8 +567,53 @@ class Util {
 		}
 		return null;
 	}
+	
+	public static function removeDiscordRole($user_query, $group, Language $language) {
+		if (self::getSetting(DB::getInstance(), 'discord_integration')) {
+			// They have a valid discord Id
+			if ($user_query->discord_id != null && $user_query->discord_id != 010) {
 
-	public static function addDiscordRole($user_query, $group, $language) {
+				$group_discord_id = self::getDiscordRoleId(DB::getInstance(), $group);
+
+				$api_url = rtrim(self::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(self::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
+
+				// TODO: Probably a nicer way to do this
+				$url = '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . self::getSetting(DB::getInstance(), 'discord');
+
+				if ($group_discord_id == null) return;
+				
+				$url .= '&role=null&oldRole=' . $group_discord_id;
+
+				if ($url != null) {
+					$result = self::discordBotRequest($url . '&api_url=' . $api_url . '/');
+					if ($result != 'success') {
+						if ($result === false) {
+							// This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
+							$errors[] = $language->get('user', 'discord_communication_error');
+						} else {
+							switch ($result) {
+								case 'failure-cannot-interact':
+									$errors[] = $language->get('admin', 'discord_cannot_interact');
+									break;
+								case 'failure-invalid-api-url':
+									$errors[] = $language->get('admin', 'discord_invalid_api_url');
+									break;
+								default:
+									// This should never happen 
+									$errors[] = $language->get('user', 'discord_unknown_error');
+									break;
+							}
+						}
+						Session::flash('edit_user_errors', $errors);
+						Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
+						die();
+					}
+				}
+			}
+		}
+	}
+
+	public static function addDiscordRole($user_query, $group, Language $language) {
 		if (self::getSetting(DB::getInstance(), 'discord_integration')) {
 			// They have a valid discord Id
 			if ($user_query->discord_id != null && $user_query->discord_id != 010) {

@@ -186,6 +186,10 @@ if(Input::exists()){
 				}
 				$secondary_groups = json_encode($secondary_groups);
 			} else {
+				$user_secondary_groups = json_decode($user_query->secondary_groups, true);
+				foreach ($user_secondary_groups as $secondary_group) {
+					Util::removeDiscordRole($user_query, $secondary_group, $language);
+				}
 				$secondary_groups = '';
 			}
 
