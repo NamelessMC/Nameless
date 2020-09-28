@@ -1,7 +1,7 @@
 <?php
 /**
  * No params
- * 
+ *
  * @return string JSON Array
  */
 class ListUsersEndpoint extends EndpointBase {
@@ -19,7 +19,7 @@ class ListUsersEndpoint extends EndpointBase {
             	$query .= ' WHERE `isbanned` = 1';
             	$filterBanned = true;
             }
-            
+
             if (isset($_GET['active']) && $_GET['active'] == 'true') {
                 if (isset($filterBanned)) {
                 	$query .= ' AND';
@@ -35,7 +35,7 @@ class ListUsersEndpoint extends EndpointBase {
                 $users_array[$user->id]['username'] = $user->username;
                 $users_array[$user->id]['uuid'] = $user->uuid;
                 $users_array[$user->id]['banned'] = ($user->banned) ? true : false;
-                $users_array[$user->id]['active'] = ($user->active) ? true : false;
+                $users_array[$user->id]['verified'] = ($user->active) ? true : false;
             }
 
             $api->returnArray(array('users' => $users_array));
