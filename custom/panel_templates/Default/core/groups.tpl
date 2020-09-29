@@ -87,7 +87,7 @@
                                                 <td>{$group.id}</td>
                                                 <td><a href="{$group.edit_link}">{$group.name}</a></td>
                                                 <td>{$group.users}</td>
-                                                <td><h4><span class="badge badge-{if $group.staff}success{else}danger{/if}">{if $group.staff}{$YES}{else}{$NO}{/if}</span></h4></td>
+                                                <td>{if $group.staff}<i class="fas fa-times-circle text-danger"></i>{else}<i class="fas fa-check-circle text-success"></i>{/if}"></td>
                                             </tr>
                                         {/foreach}
                                     </tbody>
