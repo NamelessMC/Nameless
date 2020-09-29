@@ -1,4 +1,6 @@
-FROM derkades/namelessmc-php
+# THIS FILE IS FOR DEVELOPMENT. For production, see https://github.com/NamelessMC/Nameless-Docker
+
+FROM namelessmc/php
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
