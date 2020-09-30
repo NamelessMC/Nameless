@@ -46,6 +46,6 @@ class SetGroupEndpoint extends EndpointBase {
 
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
             }
-        } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));
+        }
     }
 }

@@ -39,6 +39,6 @@ class VerifyDiscordEndpoint extends EndpointBase {
 
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'discord_id_set')));
             }
-        } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));
+        }
     }
 }

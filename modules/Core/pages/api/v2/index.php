@@ -36,7 +36,8 @@ class Nameless2API {
         $_endpoints;
 
     public function isValidated() {
-        return $this->_validated;
+        if ($this->_validated) return true;
+        else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
     }
 
     public function getDb() {
@@ -119,15 +120,13 @@ class Nameless2API {
         die(json_encode($arr, JSON_PRETTY_PRINT));
     }
     
-    public function validateParams($input, $required_fields) {
+    public function validateParams($input, $required_fields, $type = 'post') {
         if (!isset($input) || empty($input)) {
-            if (!empty($_GET)) $this->throwError(6, $this->_language->get('api', 'invalid_get_contents'));
-            else $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
+            $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'));
         }
         foreach ($required_fields as $required) {
             if (!isset($input[$required]) || empty($input[$required])) {
-                if (!empty($_GET)) $this->throwError(6, $this->_language->get('api', 'invalid_get_contents'));
-                else $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'));
+                $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'));
             }
         }
         return true;

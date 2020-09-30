@@ -91,7 +91,7 @@ class InfoEndpoint extends EndpointBase {
             if (count($ret)) {
                 $api->returnArray($ret);
             }
-        } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));
+        }
     }
 
 }

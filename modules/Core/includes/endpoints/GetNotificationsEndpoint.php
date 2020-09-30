@@ -17,7 +17,7 @@ class GetNotificationsEndpoint extends EndpointBase {
 
     public function execute(Nameless2API $api) {
         if ($api->isValidated()) {
-            if ($api->validateParams($_POST, ['id'])) {
+            if ($api->validateParams($_GET, ['id'], 'get')) {
 
                 // Ensure the user exists
                 $user = $api->getDb()->query('SELECT id FROM nl2_users WHERE id = ?', array($_GET['id']));
@@ -54,6 +54,6 @@ class GetNotificationsEndpoint extends EndpointBase {
 
                 $api->returnArray($return);
             }
-        } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));
+        }
     }
 }

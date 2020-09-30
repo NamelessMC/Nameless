@@ -29,6 +29,6 @@ class GetAnnouncementsEndpoint extends EndpointBase {
             }   
 
             $api->returnArray(array('announcements' => $announcements));
-        } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));
+        }
     }
 }

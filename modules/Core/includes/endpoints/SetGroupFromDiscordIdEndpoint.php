@@ -26,7 +26,7 @@ class SetGroupFromDiscordIdEndpoint extends EndpointBase {
                 if (!$user->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
                 $user = $user->first();
 
-                $group = Util::getWebsiteGroup(DB::getInstance(), $discord_role_id);
+                $group = Util::getWebsiteGroup($api->getDb(), $discord_role_id);
                 if ($group == null) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
 
                 $fields = array();
@@ -60,6 +60,6 @@ class SetGroupFromDiscordIdEndpoint extends EndpointBase {
                 Log::getInstance()->log(Log::Action('discord/role_add'), 'Role changed to: ' . $group['group']->name, $user->id);
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
             }
-        } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));
+        }
     }
 }

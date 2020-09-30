@@ -25,14 +25,13 @@ class CreateReportEndpoint extends EndpointBase {
                 // Ensure user reporting has website account, and has not been banned
                 $user_reporting = $api->getDb()->get('users', array('username', '=', Output::getClean($_POST['reporter'])));
                 if (!$user_reporting->count()) $api->throwError(20, $api->getLanguage()->get('api', 'you_must_register_to_report'));
-                else $user_reporting = $user_reporting->first();
+                $user_reporting = $user_reporting->first();
                 if ($user_reporting->isbanned) $api->throwError(21, $api->getLanguage()->get('api', 'you_have_been_banned_from_website'));
 
                 // See if reported user exists
                 $user_reported = $api->getDb()->get('users', array('username', '=', Output::getClean($_POST['reported'])));
-                if (!$user_reported->count()) {
-                    $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
-                } else $user_reported = $user_reported->first()->id;
+                if (!$user_reported->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
+                $user_reported = $user_reported->first()->id;
 
                 // Ensure user has not already reported the same player, and the report is open
                 $user_reports = $api->getDb()->get('reports', array('reporter_id', '=', $user_reporting->id))->results();
@@ -62,6 +61,6 @@ class CreateReportEndpoint extends EndpointBase {
                     $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'));
                 }
             }
-        } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));
+        }
     }
 }

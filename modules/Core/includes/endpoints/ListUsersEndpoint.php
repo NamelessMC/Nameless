@@ -23,6 +23,8 @@ class ListUsersEndpoint extends EndpointBase {
             if (isset($_GET['active']) && $_GET['active'] == 'true') {
                 if (isset($filterBanned)) {
                 	$query .= ' AND';
+                } else {
+                    $query .= ' WHERE';
                 }
                 $query .= ' `active` = 1';
             }

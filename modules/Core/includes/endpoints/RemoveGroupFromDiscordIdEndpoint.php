@@ -56,6 +56,6 @@ class RemoveGroupFromDiscordIdEndpoint extends EndpointBase {
                 Log::getInstance()->log(Log::Action('discord/role_remove'), 'Role removed: ' . $group['group']->name, $user->id);
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
             }
-        } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));
+        }
     }
 }

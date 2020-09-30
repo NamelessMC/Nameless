@@ -156,7 +156,7 @@ class RegisterEndpoint extends EndpointBase {
             ));
 
             $api->returnArray(array('message' => $api->getLanguage()->get('api', 'finish_registration_email')));
-        } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));
+        }
     }
 
     /**
@@ -236,6 +236,6 @@ class RegisterEndpoint extends EndpointBase {
             } catch (Exception $e) {
                 $api->throwError(13, $api->getLanguage()->get('api', 'unable_to_create_account'));
             }
-        } else $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'));
+        }
     }
 }
