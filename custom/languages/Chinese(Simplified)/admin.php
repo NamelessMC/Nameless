@@ -439,9 +439,9 @@ $language = array(
 	'user_updated_successfully' => '账号更新成功。',
 	'editing_user_x' => '编辑账号 {x} 中', // Don't replace {x}
 	'details' => '详细',
-	'force_tfa' => 'Force Two Factor Authentication for group members?',
-	'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
-	'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
+	'force_tfa' => '是否强制为该组成员开启二步验证？',
+	'force_tfa_warning' => '如果你不明白你在做什么，你可能会导致你自己和该组成员无法使用账户',
+	'force_tfa_alert' => '你所在的组必须要开启二步验证',
 	
 	// Permissions
 	'select_all' => '全选',
@@ -500,9 +500,9 @@ $language = array(
 	'editing_widget_x' => '编辑小部件 {x} 中', // Don't replace {x}
 	'module_x' => '模块: {x}', // Don't replace {x}
 	'widget_order' => '小部件顺序',
-	'widget_location' => 'Widget Location',
-	'left' => 'Left',
-	'right' => 'Right',
+	'widget_location' => '小部件位置',
+	'left' => '左',
+	'right' => '右',
 
     // Online users widget
     'include_staff_in_user_widget' => '是否在用户小部件中包含工作人员?',
@@ -529,7 +529,7 @@ $language = array(
     'unsafe_html_warning' => '启用此选项意味着可以在页面上使用任何HTML，包括潜在危险的JavaScript。仅当您确定HTML安全时才启用此功能。',
     'include_in_sitemap' => '是否将其包含在站点地图里?',
     'sitemap_link' => '站点地图链接:',
-    'basic_page' => 'Basic page?',
+    'basic_page' => '基本页面',
     'page_permissions' => '页面权限',
     'view_page' => '预览页面?',
     'editing_page_x' => '编辑页面 {x} 中', // Don't replace {x}
@@ -665,7 +665,7 @@ $language = array(
 	// Announcements
 	'announcements' => '公告',
 	'new_announcement' => '新公告',
-	'announcement_info' => 'Create announcements to display a message to specific groups on specific pages of your website.',
+	'announcement_info' => '创建公告来对所选定的组的所有成员在指定的页面上显示',
 	'creating_announcement' => '创建公告',
 	'editing_announcement' => '编辑公告',
 	'creating_announcement_success' => '创建公告成功。',

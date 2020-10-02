@@ -37,7 +37,7 @@ $language = array(
 	'alerts' => '通知',
 	'delete_all' => '清空',
 	'private_profile' => '私人资料(他人无法阅览)',
-	'gif_avatar' => 'Upload .gif as custom avatar',
+	'gif_avatar' => '上传gif文件作为头像',
 	
 	// Profile settings
 	'field_is_required' => '{x} 是必须要填写的。', // Don't replace {x}
@@ -242,7 +242,7 @@ $language = array(
 	'not_linked' => '未链接',
 	'discord_id' => 'Discord 用户 ID',
 	'discord_id_unlinked' => '成功取消了您的 Discord 链接。',
-	'discord_id_confirm' => 'Please send a private message containing only your token ({token}) to "Nameless Link#0761" to confirm your Discord User ID.',
+	'discord_id_confirm' => '请发送包含你的唯一秘钥 ({token}) 的私信到"Nameless Link#0761"来确认你的Discord用户ID',
 	'pending_link' => '待定',
 	'discord_id_taken' => '此 Discord 用户 ID 已被使用。',
 	'discord_invalid_id' => '此 Discord 用户 ID 不符合要求。',
