@@ -74,7 +74,7 @@ foreach ($languages_folders as $folder) {
 			padding-top: 0.5rem;
 			padding-bottom: 0.5rem;
 		}
-		
+
 		.ui.grid>.column:not(.row), .ui.grid>.row>.column {
 			padding-left: 0.5rem;
 			padding-right: 0.5rem;
@@ -89,7 +89,7 @@ foreach ($languages_folders as $folder) {
 		}
 
 	</style>
-	
+
 </head>
 
 <body>
@@ -99,7 +99,7 @@ foreach ($languages_folders as $folder) {
 		<div class="ui inverted vertical masthead very padded segment">
 			<div class="ui center aligned text container">
 				<h2 class="ui inverted icon header">
-					<img class="ui image" src="core/assets/img/namelessmc_logo.png">
+					<img class="ui image" src="core/assets/img/namelessmc_logo_small.png">
 					<div class="content">
 						NamelessMC Installer
 						<div class="sub header">
