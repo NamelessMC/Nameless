@@ -14,10 +14,10 @@ $language = array(
 	 *  General terms
 	 */
     'help' => 'Help',
-	'submit' => 'Gjør',
+	'submit' => 'Utfør',
 	'register' => 'Registrer',
 	'already_registered' => 'Allerede registrert?',
-	'custom_fields' => 'Egendefinert felt',
+	'custom_fields' => 'Egendefinerte felt',
 	'not_registered_yet' => 'Ikke registert?',
 	'sign_in' => 'Logg inn',
 	'log_out' => 'Logg ut',
@@ -34,7 +34,7 @@ $language = array(
 	'confirm_cancel' => 'Er du sikker på at du vil avslutte?',
 	'confirm_delete' => 'Bekreft',
 	'confirm_deletion' => 'Er du sikker på at du ønsker å slette dette?',
-	'cancel' => 'Avslutt',
+	'cancel' => 'Avbryt',
 	'delete' => 'Slett',
 	'none' => 'Ingen',
 	'view' => 'Vis',
@@ -63,7 +63,7 @@ $language = array(
     'full_content' => 'Hele innhold',
     'url' => 'URL',
 	'success' => 'Suksess',
-	'error' => 'Error',
+	'error' => 'Feilmelding',
 	'are_you_sure' => 'Er du sikker?',
 	'spoiler' => 'Spoiler',
     'invalid_timezone' => 'Denne tidssonen er ugyldig.',
@@ -114,7 +114,7 @@ $language = array(
     'ip' => 'IP',
     'copied' => 'Kopiert!',
     'no_servers' => 'Det finnes ingen servere å vise!',
-    'bungee_instance' => 'Dette er en Bungee server',
+    'bungee_instance' => 'Dette er en Bungee-server',
     'no_players_online' => 'Det er ingen spillere pålogget',
     'and_x_more' => 'og {x} flere', // Don't replace {x}
 
@@ -142,8 +142,8 @@ $language = array(
     'discord_widget_disabled' => 'Widget er deaktivert for denne Discord-serveren. Gå til \'Widget\' i Discord-serverens innstillinger, og sjekk at widgets er aktivert og at IDen stemmer.',
     'online_guests' => 'Gjester',
     'total_online' => 'Totalt pålogget', // this is Online Users + Online Guests
-    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
-    'server_status' => 'Server Status',
+    'no_default_server' => 'Det finnes ingen standardserver, vennligst velg en i StaffCP - Integreringer - Minecraft.',
+    'server_status' => 'Serverstatus',
 
     /*
      *  Privacy policy
