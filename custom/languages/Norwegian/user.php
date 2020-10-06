@@ -35,7 +35,7 @@ $language = array(
 	'alerts' => 'Viktige meldinger',
 	'delete_all' => 'Slett alle',
 	'private_profile' => 'Private profiler',
-	'gif_avatar' => 'Upload .gif as custom avatar',
+	'gif_avatar' => 'Last opp .gif som egendefinert avatar',
 	
 	// Profile settings
 	'field_is_required' => '{x} er påkrevd.', // Don't replace {x}
@@ -71,7 +71,7 @@ $language = array(
 	'topic_updates' => 'Få e-poster om tråder du følger.',
 	
 	// Alerts
-	'user_tag_info' => 'Du har blitt tagget i et innlegg av {x}', // Don't replace {x}
+	'user_tag_info' => 'Du har blitt omtalt i et innlegg av {x}', // Don't replace {x}
 	'no_alerts' => 'Ingen nye viktige meldinger',
 	'view_alerts' => 'Vis meldinger',
 	'1_new_alert' => 'Du har 1 ny varsling',
@@ -89,9 +89,9 @@ $language = array(
 	'confirm_password' => 'Bekreft passordet',
 	'i_agree' => 'Jeg godtar',
 	'agree_t_and_c' => 'Ved å klikke på <strong class="label label-primary">Registrer</strong> vedkjenner du at du aksepterer våre <a href="{x}" target="_blank">Vilkår for tjenesten</a>.',
-	'create_an_account' => 'Opprett ny brukerkonto',
+	'create_an_account' => 'Opprett ny konto',
 	'terms_and_conditions' => 'Vilkår for tjenesten',
-	'validation_complete' => 'Brukerkontoen er nå bekreftet.',
+	'validation_complete' => 'Kontoen er nå bekreftet.',
 	'validation_error' => 'Det oppstod en feil under bekreftelsen av kontoen din. Kontakt en administrator med en gang!',
 	'signature' => 'Signatur',
 	'signature_max_900' => 'Din signatur må inneholde maksimum 900 tegn.',
@@ -107,17 +107,17 @@ $language = array(
 	'username_required' => 'Fyll inn et brukeravn.',
 	'email_required' => 'Fyll inn en e-postadresse.',
 	'password_required' => 'Fyll inn et passord.',
-	'mcname_required' => 'Fyll inn et minecraft-brukernavn.',
+	'mcname_required' => 'Fyll inn et Minecraft-brukernavn.',
 	'accept_terms' => 'Du må akseptere vilkårene før du registrerer deg.',
 	'username_minimum_3' => 'Ditt brukernavn må inneholde minst 3 tegn.',
-	'mcname_minimum_3' => 'Ditt minecraft-brukernavn må inneholde minst 3 tegn.',
+	'mcname_minimum_3' => 'Ditt Minecraft-brukernavn må inneholde minst 3 tegn.',
 	'password_minimum_6' => 'Ditt passord må inneholde minst 6 tegn.',
 	'username_maximum_20' => 'Ditt brukernavn må inneholde maks 20 tegn.',
-	'mcname_maximum_20' => 'Ditt minecraft-brukernavn må inneholde minst 20 tegn.',
+	'mcname_maximum_20' => 'Ditt Minecraft-brukernavn må inneholde minst 20 tegn.',
 	'password_maximum_30' => 'Ditt passord må inneholde minst 30 tegn.',
 	'passwords_dont_match' => 'Passordene stemmer ikke.',
 	'username_mcname_email_exists' => 'Dette brukernavnet eller denne e-postadressen eksisterer allerede.',
-	'invalid_mcname' => 'Dette minecraft-brukernavnet er ugyldig.',
+	'invalid_mcname' => 'Dette Minecraft-brukernavnet er ugyldig.',
 	'invalid_email' => 'Denne e-postadressen er ugyldig',
 	'mcname_lookup_error' => 'Det oppstod en feil mens vi prøvde å verifisere brukernavnet ditt med Mojang, prøv igjen senere.',
 	'invalid_recaptcha' => 'Feil reCAPTCHA',
@@ -153,7 +153,7 @@ $language = array(
 	'follow' => 'Følg',
 	'no_wall_posts' => 'Ingen har lagt igjen en kommentar her enda.',
 	'change_banner' => 'Endre banner',
-	'post_on_wall' => 'Skriv en kommentar på {x}s vegg', // Don't replace {x}
+	'post_on_wall' => 'Skriv en kommentar på {x} sin vegg', // Don't replace {x}
 	'invalid_wall_post' => 'Sjekk at lengden på kommentaren ikke overskrider 10000 tegn.',
 	'1_reaction' => '1 reaksjon',
 	'x_reactions' => '{x} reaksjoner', // Don't replace {x}
@@ -175,7 +175,7 @@ $language = array(
 	'couldnt_find_that_user' => 'Kunne ikke finne den brukeren.',
 	'block_user' => 'Blokker bruker',
 	'unblock_user' => 'Fjern blokkering',
-	'confirm_block_user' => 'Er du sikker på at du vil blokkere denne personen? De vil ikke lenger ha muligheten til å sende deg private meldinger og omtale deg i innlegg.',
+	'confirm_block_user' => 'Er du sikker på at du vil blokkere denne brukeren? De vil ikke lenger ha muligheten til å sende deg private meldinger eller omtale deg i innlegg.',
 	'confirm_unblock_user' => 'Er du sikker på at du vil fjerne blokkeringen? De vil heretter ha muligheten til å sende deg private meldinger og omtale deg i innlegg igjen.',
 	'user_blocked' => 'Spiller blokkert.',
 	'user_unblocked' => 'Fjernet blokkering.',
@@ -183,7 +183,7 @@ $language = array(
 	'private_profile_page' => 'Dette er en privat profil!',
 	'new_wall_post_reply' => '{x} har svart på innlegget ditt på {y} sin profil.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} har svart på innlegget ditt på din profil', // Don't replace {x}
-	'no_about_fields' => 'Denne brukeren har ikke laget et om meg-felt enda.',
+	'no_about_fields' => 'Denne brukeren har ikke skrevet noe om seg selv enda.',
 	'reply' => 'Svar',
 	
 	// Reports
@@ -200,10 +200,10 @@ $language = array(
 	'new_message' => 'Ny melding',
 	'message_title' => 'Tittel',
 	'to' => 'Til',
-	'separate_users_with_commas' => 'Send til flere brukere ved å skrive \',\' i mellom dem',
-	'title_required' => 'Fyll inn en tittel',
-	'content_required' => 'Fyll inn en tekst',
-	'users_to_required' => 'Fyll inn minst én bruker i \'Til\'-feltet',
+	'separate_users_with_commas' => 'Send til flere brukere ved å skrive \',\' imellom dem',
+	'title_required' => 'Skriv inn en tittel',
+	'content_required' => 'Skriv inn et innhold',
+	'users_to_required' => 'Skriv inn minst én bruker i \'Til\'-feltet',
 	'cant_send_to_self' => 'Du kan ikke sende melding til deg selv!',
 	'title_min_2' => 'Tittelen må være maks 2 tegn!',
 	'content_min_2' => 'Innlegget må være minst 2 tegn!',
@@ -224,7 +224,7 @@ $language = array(
 	/*
 	 *  Infractions area
 	 */
-	'you_have_been_banned' => 'Du har blitt bannlyst!',
+	'you_have_been_banned' => 'Du har blitt utestengt!',
 	'you_have_received_a_warning' => 'Du har mottatt en advarsel!',
 	'acknowledge' => 'Anerkjenne',
 	
@@ -239,7 +239,7 @@ $language = array(
 	'not_linked' => 'Ikke tilkoblet',
 	'discord_id' => 'Discord bruker-ID',
 	'discord_id_unlinked' => 'Discord bruker-IDen din har blitt frakoblet.',
-	'discord_id_confirm' => 'Please send a private message containing only your token ({token}) to "Nameless Link#0761" to confirm your Discord User ID.',
+	'discord_id_confirm' => 'Vennligst send en privatmelding som kun inneholder ditt token til "Nameless Link#0761" for å bekrefte din Discord bruker-ID.',
 	'pending_link' => 'Venter',
 	'discord_id_taken' => 'Den oppgitte Discord bruker-IDen er allerede koblet til en annen bruker.',
 	'discord_invalid_id' => 'Den oppgitte Discord bruker-IDen er ikke gyldig.',

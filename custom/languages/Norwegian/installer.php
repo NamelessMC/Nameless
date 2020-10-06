@@ -85,20 +85,20 @@ $language = array(
     'credits' => 'Kontributører',
     'credits_message' => 'En stor takk til alle våre <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC-kontributører</a> siden 2014',
 
-	'step_home' => 'Home',
-	'step_requirements' => 'Requirements',
-	'step_general_config' => 'General Configuration',
-	'step_database_config' => 'Database Configuration',
-	'step_site_config' => 'Site Configuration',
-	'step_admin_account' => 'Admin Account',
-	'step_conversion' => 'Conversion',
-	'step_finish' => 'Finish',
+	'step_home' => 'Hjem',
+	'step_requirements' => 'Krav',
+	'step_general_config' => 'Generell konfigurering',
+	'step_database_config' => 'Databasekonfigurering',
+	'step_site_config' => 'Nettsidekonfigurering',
+	'step_admin_account' => 'Admin-konto',
+	'step_conversion' => 'Konvertering',
+	'step_finish' => 'Fullfør',
 
-	'general_configuration' => 'General Configuration',
-	'reload' => 'Reload',
-	'reload_page' => 'Reload page',
-	'no_converters_available' => 'There are no converters available.',
-	'config_not_writable' => 'The config file is not writable.',
+	'general_configuration' => 'Generell konfigurering',
+	'reload' => 'Last inn på nytt',
+	'reload_page' => 'Last inn siden på nytt',
+	'no_converters_available' => 'Ingen konverterere er tilgjengelige.',
+	'config_not_writable' => 'Konfigurasjonsfilen er ikke skrivbar.',
 
-	'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
+	'session_doesnt_exist' => 'Kunne ikke finne økt. Økt-lagring (Sessions Saving) er et krav for å kunne bruke Nameless. Vennligst prøv igjen, og hvis denne feilen fortsetter, ta kontakt med din webhost for hjelp.'
 );

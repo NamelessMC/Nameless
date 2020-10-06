@@ -17,7 +17,7 @@ $language = array(
     'thanks' => 'Takk,',
 
     // Registration Email
-    'register_subject' => 'Valider bruker',
+    'register_subject' => 'Validér bruker',
     'register_message' => 'Takk for at du registrerte deg på vår nettside. For å fullføre registreringen må du følge denne lenken:',
 
     // Change Password
