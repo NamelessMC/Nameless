@@ -140,11 +140,11 @@ $language = array(
     'face' => 'Ansikt',
     'head' => 'Hode',
     'bust' => 'Bryst',
-    'select_default_avatar' => 'Velg en ny standard avatar:',
+    'select_default_avatar' => 'Velg en ny standard-avatar:',
     'no_avatars_available' => 'Det finnes ingen avatarer for øyeblikket. Vennligst last opp et nytt bilde først.',
     'avatar_settings_updated_successfully' => 'Avatar-innstillingene har blitt oppdatert.',
     'navigation' => 'Navigasjon',
-    'navbar_order' => 'Navigasjonsbar rekkefølge',
+    'navbar_order' => 'Navigasjonsbar-rekkefølge',
     'navbar_order_instructions' => 'Du kan gi hvert element et tall over 0 for å plassere dem i rekkefølge. Tallet 1 vil være det første elementet, og høyere tall vil plasseres etter det.',
     'navbar_icon' => 'Navigasjonsbarikon',
     'navbar_icon_instructions' => 'Du kan også legge til ikoner med f.eks <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
@@ -163,12 +163,12 @@ $language = array(
     'login_method' => 'Påloggingsmetode',
     'privacy_and_terms' => 'Personvern og vilkår',
 	'dropdown_name' => 'Dropdown-navn',
-	'editing_messages' => 'Editing Messages',
-	'emails_mass_message' => 'Email Mass Message',
-	'sending_mass_message' => 'Sending Mass Message',
-	'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
-	'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
-	'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
+	'editing_messages' => 'Redigerer meldinger',
+	'emails_mass_message' => 'E-post-massemelding',
+	'sending_mass_message' => 'Sender massemelding',
+	'emails_mass_message_sent_successfully' => 'E-post-massemelding har blitt sendt.',
+	'emails_mass_message_replacements' => 'Du kan bruke variabler i din e-post-massemelding. Støttede variabler: {username}, {sitename}',
+	'emails_mass_message_loading' => 'Laster inn... Vennligst ikke last inn siden på nytt. Dette kan ta en stund.',
 	
 	// Reactions
 	'icon' => 'Ikon',
@@ -241,10 +241,10 @@ $language = array(
     'add_server' => '<i class="fa fa-plus-circle"></i> Legg til en server',
     'no_servers_defined' => 'Ingen servere har blitt definert.',
     'query_settings' => 'Query-innstillinger',
-    'default_server' => 'Standard server',
+    'default_server' => 'Standardserver',
     'no_default_server' => 'Ingen standardserver',
     'external_query' => 'Bruk ekstern query?',
-    'external_query_help' => 'Hvis standardserver query ikke funker, aktiver denne funksjonen.',
+    'external_query_help' => 'Hvis standardserver-query ikke funker, aktiver denne funksjonen.',
     'adding_server' => 'Legger til en server',
     'server_name' => 'Serverens navn',
     'server_address' => 'Serverens adresse',
@@ -275,12 +275,12 @@ $language = array(
     'server_port_minimum' => 'Porten må være minimum 2 tegn.',
     'server_port_maximum' => 'Porten må være maksimum 5 tegn.',
     'server_parent_required' => 'Velg en hovedserver',
-    'query_port_maximum' => 'Server query porten må være maksimum 5 tegn.',
-    'server_created' => 'Server suksessfullt lagd.',
+    'query_port_maximum' => 'Server query-porten må være maksimum 5 tegn.',
+    'server_created' => 'Serveren ble opprettet.',
     'confirm_delete_server' => 'Er du sikker på at du vil slette denne serveren?',
-    'server_updated' => 'Server suksessfullt oppdatert!',
+    'server_updated' => 'Serveren ble oppdatert!',
     'editing_server' => 'Endrer server',
-    'server_deleted' => 'Serveren ble suksessfullt slettet.',
+    'server_deleted' => 'Serveren ble slettet.',
     'unable_to_delete_server' => 'Kunne ikke slette server.',
     'leave_port_empty_for_srv' => 'Du kan la port-feltet stå tomt hvis den er 25565, eller hvis domenet bruker en SRV record.',
     'viewing_query_error' => 'Ser på Query-feilmelding',
@@ -307,7 +307,7 @@ $language = array(
     'player_count_cronjob_info' => 'Du kan sette opp et cron job for å sjekke serveren hvert {x} minutt med denne kommandoen:',
     'status_page' => 'Aktiver statusside?',
     'minecraft_settings_updated_successfully' => 'Innstillingene har blitt oppdatert.',
-    'server_id_x' => 'Server ID: {x}', // Don't replace {x}
+    'server_id_x' => 'Server-ID: {x}', // Don't replace {x}
     'server_information' => 'Serverinformasjon',
     'query_information' => 'Query-informasjon',
     'query_errors_purged_successfully' => 'Alle Query-feilmeldinger har blitt fjernet.',
@@ -378,7 +378,7 @@ $language = array(
 	'background_reset_successfully' => 'Bakgrunnen har blitt tilbakestilt.',
 	'background_updated_successfully' => 'Bakgrunnen har blitt oppdatert.',
 	'unable_to_enable_template' => 'Kunne ikke aktivere malen.',
-	'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+	'background_image_info' => 'Vennligst vær oppmerksom på at dette alternativet muligens ikke er kompatibel med de fleste maler.',
 
 	// Users & groups
 	'users' => 'Brukere',
@@ -439,7 +439,7 @@ $language = array(
 	'editing_user_x' => 'Redigerer bruker {x}', // Don't replace {x}
 	'details' => 'Detaljer',
 	'force_tfa' => 'Tving alle gruppemedlemmer til å bruke totrinnsbekreftelse?',
-	'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
+	'force_tfa_warning' => 'Vennligst pass på at du vet hva dette gjør, for ellers risikerer du å stenge deg selv og alle gruppemedlemmer ute.',
 	'force_tfa_alert' => 'Din gruppe krever at du har totrinnsbekreftelse aktivert.',
 	
 	// Permissions
@@ -492,16 +492,16 @@ $language = array(
 	'check_again' => 'Sjekk igjen',
 
 	// Widgets
-	'widgets' => 'Widgets',
+	'widgets' => 'Widgeter',
 	'widget_enabled' => 'Widget aktivert.',
 	'widget_disabled' => 'Widget deaktivert.',
 	'widget_updated' => 'Widget oppdatert.',
 	'editing_widget_x' => 'Redigerer widget {x}', // Don't replace {x}
 	'module_x' => 'Modul: {x}', // Don't replace {x}
 	'widget_order' => 'Widget-rekkefølge',
-	'widget_location' => 'Widget Location',
-	'left' => 'Left',
-	'right' => 'Right',
+	'widget_location' => 'Widget-plassering',
+	'left' => 'Venstre',
+	'right' => 'Høyre',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Inkluder stabmedlemmer i bruker-widget?',
@@ -662,7 +662,7 @@ $language = array(
 	// Announcements
 	'announcements' => 'Kunngjøring',
 	'new_announcement' => 'Ny kunngjøring',
-	'announcement_info' => 'Create announcements to display a message to specific groups on specific pages of your website.',
+	'announcement_info' => 'Opprett kunngjøringer for å vise en melding til spesifikke grupper på spesifikke sider på nettsiden din.',
 	'creating_announcement' => 'Oppretter kunngjøring',
 	'editing_announcement' => 'Redigerer kunngjøring',
 	'creating_announcement_success' => 'Kunngjøringen har blitt opprettet.',
@@ -700,6 +700,6 @@ $language = array(
 	'discord_bot_url_valid' => 'Din Bot-URL er gyldig.',
 	'discord_bot_url_backup' => 'Discord Bot-URL (backup)',
 	'discord_bot_url_backup_info' => 'En URL som peker til en backup/sekundær-instance av NamelessMC-boten i tilfellet det første alternativet feiler. Endre dette kun hvis du vet hva du gjør!',
-	'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?'
+	'discord_cannot_interact' => 'Nameless Link-boten kan ikke samhandle med denne brukeren på Discord. Er rollen deres høyere enn Nameless Link-boten sin?'
 
 );
