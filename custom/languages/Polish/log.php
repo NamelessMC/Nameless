@@ -6,7 +6,7 @@ $language = array(
 	'info_logout' => 'Użytkownik się wylogował!',
 	'info_register' => 'Użytkownik się zarejestrował!',
 	'info_mc_general' => 'Ogólne MC',
-	'info_user_tfa_key_sent' => 'Klucz wysłan',
+	'info_user_tfa_key_sent' => 'Klucz wysłany',
 	'info_user_tfa_key_success' => 'Klucz zaakceptowany',
 	'info_user_update_dtfa' => 'Wyłącz TFA',
 
