@@ -85,20 +85,20 @@ $language = array(
     'credits' => 'Podziękowania',
     'credits_message' => 'Podziękowania dla <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">współtwórców NamelessMC</a> od 2014',
 
-	'step_home' => 'Home',
-	'step_requirements' => 'Requirements',
-	'step_general_config' => 'General Configuration',
-	'step_database_config' => 'Database Configuration',
-	'step_site_config' => 'Site Configuration',
-	'step_admin_account' => 'Admin Account',
-	'step_conversion' => 'Conversion',
-	'step_finish' => 'Finish',
+	'step_home' => 'Strona Główna',
+	'step_requirements' => 'Wymagania',
+	'step_general_config' => 'Główna Konfiguracja',
+	'step_database_config' => 'Konfiguracja Bazy DAnych',
+	'step_site_config' => 'Konfiguracja Strony',
+	'step_admin_account' => 'Konto Administratora',
+	'step_conversion' => 'Konwersja',
+	'step_finish' => 'Zakończ',
 
-	'general_configuration' => 'General Configuration',
-	'reload' => 'Reload',
-	'reload_page' => 'Reload page',
-	'no_converters_available' => 'There are no converters available.',
-	'config_not_writable' => 'The config file is not writable.',
+	'general_configuration' => 'Główna Konfiguracja',
+	'reload' => 'Przeładuj',
+	'reload_page' => 'Przeładuj Stronę',
+	'no_converters_available' => 'Brak dostępnych konwersji.',
+	'config_not_writable' => 'Plik konfiguracyjny jest zablokowany.',
 
-	'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
+	'session_doesnt_exist' => 'Nie można zapisać sesji. Jest to wymagane to korzystania z NamelessMC. Spróbuj ponownie, jeśli problem się powtarza skontaktuj się ze swoim hostingiem.'
 );
