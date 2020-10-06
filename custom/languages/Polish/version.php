@@ -10,5 +10,5 @@
  */
 
 // Which version of NamelessMC is this language file updated to?
-$language_version = '2.0.0-pr6';
+$language_version = '2.0.0-pr8';
 $language_html = 'pl';
