@@ -604,17 +604,35 @@ class Forum {
 		}
 		return false;
 	}
-
+	
+	// Converting Cyrillic to Latin letters (https://en.wikipedia.org/wiki/ISO_9)
+	public function russianToLatin($string)
+	{
+		$curillic = [
+            'а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п',
+            'р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я',
+            'А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П',
+            'Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я'
+        ];
+        $latin = [
+            'a','b','v','g','d','e','io','zh','z','i','y','k','l','m','n','o','p',
+            'r','s','t','u','f','h','ts','ch','sh','sht','a','i','y','e','yu','ya',
+            'A','B','V','G','D','E','Io','Zh','Z','I','Y','K','L','M','N','O','P',
+            'R','S','T','U','F','H','Ts','Ch','Sh','Sht','A','I','Y','e','Yu','Ya'
+        ];
+        return str_replace($curillic, $latin, $string);
+	}
+	
 	// Transform a topic title to URL-ify it
 	public function titleToURL($topic = null){
 		if($topic){
-		    $topic = preg_replace("/[^A-Za-z0-9 ]/", '', $topic);
+		    $topic = preg_replace("/[^A-Za-z0-9 ]/", '', $this->russianToLatin($topic));
             return Output::getClean(strtolower(urlencode(str_replace(' ', '-', htmlspecialchars_decode($topic)))));
         }
 
 		return '';
 	}
-
+	
 	// Can the user view other topics in a forum?
     // Params: $forum_id - forum ID (int), $group_id - group ID of user (int), $secondary_groups - array of group IDs user is in (array of ints)
     public function canViewOtherTopics($forum_id, $group_id = 0, $secondary_groups = null){
