@@ -14,16 +14,16 @@ $language = array(
 	 *  Time
 	 */
 	'time' => 'time', // Placeholder, no need to translate
-	'seconds_short' => 'сек', // Shortened "seconds", eg "s"
+	'seconds_short' => 'сек.', // Shortened "seconds", eg "s"
 	'less_than_a_minute' => 'меньше минуты назад',
 	'1_minute' => '1 минуту назад',
-	'_minutes' => '{x} минут назад',
-	'about_1_hour' => 'около 1 часа назад',
-	'_hours' => '{x} часов назад',
+	'_minutes' => array('{x} минуту назад','{x} минуты назад','{x} минут назад'),
+	'about_1_hour' => 'около часа назад',
+	'_hours' => array('{x} час назад','{x} часа назад','{x} часов назад'),
 	'1_day' => '1 день назад',
-	'_days' => '{x} дней назад',
-	'about_1_month' => 'около 1 месяца назад',
-	'_months' => '{x} месяцев назад',
-	'about_1_year' => 'около 1 года назад',
-	'over_x_years' => 'более {x} лет назад'
+	'_days' => array('{x} день назад', '{x} дня назад', '{x} дней назад'),
+	'about_1_month' => 'около месяца назад',
+	'_months' => array('{x} месяц назад', '{x} месяца назад', '{x} месяцев назад'),
+	'about_1_year' => 'около года назад',
+	'over_x_years' => array('более {x} года назад', 'более {x} лет назад', 'более {x} лет назад')
 );
