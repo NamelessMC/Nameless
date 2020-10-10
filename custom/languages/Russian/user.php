@@ -95,12 +95,12 @@ $language = array(
 	'signature_max_900' => 'Ваше подпись не должна состоять более чем из 900 символов.',
 
     // Registration - Authme
-    'connect_with_authme' => 'Connect your account with AuthMe',
-    'authme_help' => 'Please enter your ingame AuthMe account details. If you don\'t already have an account ingame, join the server now and follow the instructions provided.',
-    'unable_to_connect_to_authme_db' => 'Unable to connect to the AuthMe database. If this error persists, please contact an administrator.',
-    'authme_account_linked' => 'Account linked successfully.',
-    'authme_email_help_1' => 'Finally, please enter your email address.',
-    'authme_email_help_2' => 'Finally, please enter your email address, and also choose a display name for your account.',
+    'connect_with_authme' => 'Подключите свой аккаунт к AuthMe',
+    'authme_help' => 'Пожалуйста, введите данные своей игровой учетной записи AuthMe. Если у вас еще нет учетной записи в игре, присоединяйтесь к серверу прямо сейчас и следуйте инструкциям.',
+    'unable_to_connect_to_authme_db' => 'Не удается подключиться к базе данных AuthMe. Если это постоянная ошибка, обратитесь к администратору.',
+    'authme_account_linked' => 'Учетная запись успешно связана.',
+    'authme_email_help_1' => 'Наконец, пожалуйста, введите свой адрес электронной почты.',
+    'authme_email_help_2' => 'Наконец, пожалуйста, введите свой адрес электронной почты, а также введите отображаемое имя для своей учетной записи.',
 
 	// Registration errors
 	'username_required' => 'Требуется указать имя пользователя.',
@@ -118,15 +118,15 @@ $language = array(
 	'username_mcname_email_exists' => 'Ваше имя пользователя или адрес электронной почты уже существуют.',
 	'invalid_mcname' => 'Ваше имя пользователя Minecraft недействительно.',
 	'invalid_email' => 'Ваш адрес электронной почты является недействительным.',
-	'mcname_lookup_error' => 'There has been an error communicating with Mojang\'s servers to verify your username. Please try again later.',
+	'mcname_lookup_error' => 'Произошла ошибка при попытке отправить запрос на сервер Mojang для проверки вашего имени пользователя. Пожалуйста, попробуйте еще раз позже.',
 	'invalid_recaptcha' => 'Неверный ответ reCAPTCHA.',
 	'verify_account' => 'Подтверждение аккаунта',
 	'verify_account_help' => 'Пожалуйста, следуйте приведенным ниже инструкциям, чтобы мы могли убедиться, что вы владеете учетной записью Minecraft.',
 	'validate_account' => 'Подтверждение аккаунта',
 	'verification_failed' => 'Проверка не удалась, пожалуйста, попробуйте еще раз.',
 	'verification_success' => 'Аккаунт успешно подтверждён! Теперь вы можете войти на сайт.',
-	'authme_username_exists' => 'Your Authme account has already been connected to the website!',
-	'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
+	'authme_username_exists' => 'Ваша учетная запись AuthMe уже подключена к веб-сайту!',
+	'uuid_already_exists' => 'Ваш UUID уже существует! Эта учетная запись Minecraft уже зарегистрирована.',
 	
 	// Login
 	'successful_login' => 'Вы успешно вошли.',
@@ -141,7 +141,7 @@ $language = array(
 
     // Forgot password
     'forgot_password_instructions' => 'Пожалуйста, введите свой адрес электронной почты, чтобы мы могли отправить вам дальнейшие инструкции по сбросу пароля.',
-    'forgot_password_email_sent' => 'If an account with the email address exists, an email has been sent containing further instructions. If you can\'t find it, try checking your junk folder.',
+    'forgot_password_email_sent' => 'Если учетная запись с указанным адресом электронной почты существует, то вам будет отправлено электронное письмо с дальнейшими инструкциями. Если вы не можете найти его, попробуйте проверить свою папку спама.',
     'unable_to_send_forgot_password_email' => 'Невозможно отправить забытый пароль по электронной почте. Пожалуйста, свяжитесь с администратором.',
     'enter_new_password' => 'Пожалуйста, подтвердите свой адрес электронной почты и введите новый пароль ниже.',
     'incorrect_email' => 'Указанный вами адрес электронной почты не соответствует запросу.',
@@ -165,17 +165,17 @@ $language = array(
 	'about' => 'О пользователе',
 	'reactions' => 'Реакции',
 	'replies' => 'Ответы',
-	'new_reply' => 'New Reply',
+	'new_reply' => 'Ответить',
 	'registered' => 'Дата регистрации:',
 	'registered_x' => 'Регистрация: {x}',
 	'last_seen' => 'Заходил:',
 	'last_seen_x' => 'Заходил: {x}', // Don't replace {x}
 	'new_wall_post' => '{x} оставил(а) пост в вашем профиле.',
-	'couldnt_find_that_user' => 'Couldn\'t find that user.',
-	'block_user' => 'Block User',
-	'unblock_user' => 'Unblock User',
-	'confirm_block_user' => 'Are you sure you want to block this user? They will not be able to send you private messages or tag you in posts.',
-	'confirm_unblock_user' => 'Are you sure you want to unblock this user? They will be able to send you private messages and tag you in posts.',
+	'couldnt_find_that_user' => 'Не удалось найти этого пользователя.',
+	'block_user' => 'Заблокировать пользователя',
+	'unblock_user' => 'Разблокировать пользователя',
+	'confirm_block_user' => 'Вы уверены, что хотите заблокировать этого пользователя? Он не сможет отправлять вам личные сообщения или упоминать вас.',
+	'confirm_unblock_user' => 'Вы уверены, что хотите разблокировать этого пользователя? Он сможет отправлять вам личные сообщения и упоминать вас.',
 	'user_blocked' => 'Пользователь заблокирован.',
 	'user_unblocked' => 'Пользователь разблокирован.',
 	'views' => 'Просмотров профиля:',
@@ -215,7 +215,7 @@ $language = array(
 	'by' => '',
 	'leave_conversation' => 'Покинуть переписку',
 	'confirm_leave' => 'Вы уверены, что хотите покинуть эту переписку?',
-	'one_or_more_users_blocked' => 'You cannot send private messages to at least one member of the conversation.',
+	'one_or_more_users_blocked' => 'Вы не можете отправлять личные сообщения хотя бы одному участнику беседы.',
 	'messages' => 'Сообщения',
 
 	/*

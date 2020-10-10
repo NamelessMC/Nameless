@@ -51,7 +51,7 @@ $language = array(
 	'x_new_messages' => 'У вас {x} новых сообщений.', // Don't replace {x}
 	'loading' => 'Загрузка...',
 	'report' => 'Пожаловаться',
-	'page_loaded_in' => 'Page loaded in {x}s', // Don't replace {x}, time unit is seconds
+	'page_loaded_in' => 'Скорость загрузки страницы: {x}с', // Don't replace {x}, time unit is seconds
 	'page_x' => 'Страница {x}',
 	'browse' => 'Обзор',
 	'bypass' => 'Bypass',
@@ -94,7 +94,7 @@ $language = array(
 	/*
 	 *  Help dialogues
 	 */
-	'markdown_help' => 'You can format your post using Markdown. For more information, see <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>here</a>.',
+	'markdown_help' => 'Вы можете отформатировать своё сообщение с помощью Markdown. Для получения дополнительной информации см. <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>здесь</a>.',
 
 	/*
 	 *  Server query
@@ -137,7 +137,7 @@ $language = array(
     'online_users' => 'Пользователи онлайн',
     'no_online_users' => 'Сейчас нет пользователей онлайн.',
     'total_online_users' => 'Всего пользователей онлайн: {x}',
-    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
+    'discord_widget_disabled' => 'Виджет отключен для указанного сервера Discord. Пожалуйста, перейдите на вкладку "Виджет" в настройках вашего сервера Discord и убедитесь, что виджет Discord включен и что ID правильный.',
     'online_guests' => 'Онлайн гостей',
     'total_online' => 'Всего онлайн', // this is Online Users + Online Guests
 
