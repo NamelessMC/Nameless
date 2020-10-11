@@ -604,17 +604,17 @@ class Forum {
 		}
 		return false;
 	}
-
+	
 	// Transform a topic title to URL-ify it
 	public function titleToURL($topic = null){
 		if($topic){
-		    $topic = preg_replace("/[^A-Za-z0-9 ]/", '', $topic);
+		    $topic = preg_replace("/[^A-Za-z0-9 ]/", '', Util::cyrillicToLatin($topic));
             return Output::getClean(strtolower(urlencode(str_replace(' ', '-', htmlspecialchars_decode($topic)))));
         }
 
 		return '';
 	}
-
+	
 	// Can the user view other topics in a forum?
     // Params: $forum_id - forum ID (int), $group_id - group ID of user (int), $secondary_groups - array of group IDs user is in (array of ints)
     public function canViewOtherTopics($forum_id, $group_id = 0, $secondary_groups = null){
