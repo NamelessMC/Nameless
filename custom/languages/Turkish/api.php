@@ -34,11 +34,13 @@ $language = array(
     'you_must_register_to_report' => 'Rapor oluşturabilmek için web sitemize kayıt olmalısınız',
     'you_have_been_banned_from_website' => 'Web sitesinden yasaklandınız',
     'you_have_open_report_already' => 'Bu oyuncu hakkında zaten açık bir raporun var',
+    'cannot_report_yourself' => 'You cannot report yourself.',
     'unable_to_create_report' => 'Rapor oluşturulamıyor',
     'unable_to_update_username' => 'Kullanıcı adı güncellenemedi',
     'unable_to_update_server_info' => 'Sunucu bilgileri güncellenemiyor',
     'invalid_server_id' => 'Geçersiz sunucu kimliği',
     'invalid_code' => 'Geçersiz kod sağlandı',
+    'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'Discord integration is disabled.',
     'unable_to_set_discord_id' => 'Unable to set Discord ID.',
 

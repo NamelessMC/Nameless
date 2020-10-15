@@ -34,6 +34,7 @@ $language = array(
     'unable_to_find_group' => '指定されたグループを見つけることができませんでした。',
     'unable_to_update_group' => 'ユーザーのグループを更新できませんでした。',
     'report_content_too_long' => 'レポートの内容は <strong>255文字</strong>　以内にする必要があります。',
+    'cannot_report_yourself' => 'You cannot report yourself.',
     'you_must_register_to_report' => 'レポートを送信するには、サイトにてアカウントを作成する必要があります。',
     'you_have_been_banned_from_website' => 'あなたはウェブサイトにてアカウントがロックされています。',
     'you_have_open_report_already' => '既に指定されたプレイヤーのレポートが存在します。',
@@ -42,6 +43,7 @@ $language = array(
     'unable_to_update_server_info' => 'サーバー情報を更新できませんでした。',
     'invalid_server_id' => '無効なサーバーID',
     'invalid_code' => '指定されたコードは無効です。',
+    'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'Discord integration is disabled.',
     'unable_to_set_discord_id' => 'Unable to set Discord ID.',
 

@@ -33,6 +33,7 @@ $language = array(
   'unable_to_update_group' => 'Nepavyko atnaujinti vartotojo grupės',
   'report_content_too_long' => 'Turinio ataskaita turi būti 255 ar mažiau simbolių',
   'you_must_register_to_report' => 'Jūs turite užsiregistruoti mūsų svetainėje, kad galėtumėte kurti ataskaitą',
+  'cannot_report_yourself' => 'You cannot report yourself.',
   'you_have_been_banned_from_website' => 'Jūs esate użblokuotas svetainėje',
   'you_have_open_report_already' => 'Jūs jau turite atvirą ataskaitą apie šį žaidėją',
   'unable_to_create_report' => 'Nepavyko sukurti ataskaitos',
@@ -40,6 +41,7 @@ $language = array(
   'unable_to_update_server_info' => 'Nepavyko atnaujinti serverio informacijos',
   'invalid_server_id' => 'Neteisingas serverio ID',
   'invalid_code' => 'Pateiktas netinkamas kodas',
+  'user_already_active' => 'Your account has already been activated.',
   'discord_integration_disabled' => 'Discord integration is disabled.',
   'unable_to_set_discord_id' => 'Unable to set Discord ID.',
 

@@ -32,6 +32,7 @@ $language = array(
     'unable_to_update_group' => 'Kon gebruikersgroep niet bijwerken',
     'report_content_too_long' => 'De inhoud van het rapport mag maximaal 255 karakters of minder bevatten',
     'you_must_register_to_report' => 'Je moet registreren via onze website om een rapport te kunnen maken',
+    'cannot_report_yourself' => 'You cannot report yourself.',
     'you_have_been_banned_from_website' => 'Je bent verbannen van de website',
     'you_have_open_report_already' => 'Je hebt al een rapport open staan over deze speler',
     'unable_to_create_report' => 'Kon rapport niet maken',
@@ -39,6 +40,7 @@ $language = array(
     'unable_to_update_server_info' => 'Kon server informatie niet bijwerken',
     'invalid_server_id' => 'Ongeldige server ID',
     'invalid_code' => 'Ongeldige code voorzien',
+    'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'Discord integration is disabled.',
     'unable_to_set_discord_id' => 'Unable to set Discord ID.',
     

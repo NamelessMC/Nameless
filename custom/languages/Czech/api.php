@@ -31,6 +31,7 @@ $language = array(
     'unable_to_update_group' => 'Nelze aktualizovat hráčovu skupinu',
     'report_content_too_long' => 'Nahlášení může být maximláně 255 znaků dlouhé',
     'you_must_register_to_report' => 'Musíte být registrováni a ověřeni pro poslání nahlášení',
+    'cannot_report_yourself' => 'You cannot report yourself.',
     'you_have_been_banned_from_website' => 'Byli jste zabanován z tohoto webu',
     'you_have_open_report_already' => 'Již jste otevřeli nahlášení na tohoto hráče',
     'unable_to_create_report' => 'Nelze vytvořit nahlášení',
@@ -38,6 +39,7 @@ $language = array(
     'unable_to_update_server_info' => 'Nelze aktualizovat informace o serveru',
     'invalid_server_id' => 'Neznámé ID serveru',
     'invalid_code' => 'Byl zadán neznámý kód',
+    'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'Integrace Discordu je zakázána.',
     'unable_to_set_discord_id' => 'Nepodařilo se nastavit Discord ID.',
     
