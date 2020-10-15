@@ -575,7 +575,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 		'SUCCESS_TITLE' => $language->get('general', 'success'),
 		'ERROR_TITLE' => $language->get('general', 'error'),
 		'REPLY' => $language->get('user', 'reply'),
-		'EDIT_POST' => $forum_language->get('forum', 'edit_post'),
+		'EDIT_POST' => $language->get('general', 'edit'),
 		'VIEWER_ID' => $user->data()->id
 	));
 

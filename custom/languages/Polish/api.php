@@ -26,23 +26,23 @@ $language = array(
     'username_already_exists' => 'Ta nazwa użytkownika już istnieje',
     'uuid_already_exists' => 'To UUID już istnieje',
     'unable_to_create_account' => 'Nie można utworzyć konta',
-    'unable_to_send_registration_email' => 'Nie można wysłać emaila rejestracyjnego. Skontaktuj się z administratorem aby aktywować twoje konto.',
+    'unable_to_send_registration_email' => 'Nie można wysłać emaila rejestracyjnego. Skontaktuj się z administratorem, aby aktywować twoje konto.',
     'unable_to_find_user' => 'Nie znaleziono użytkownika',
     'unable_to_find_group' => 'Nie znaleziono grupy',
     'unable_to_update_group' => 'Nie można zaktualizować grupy użytkownia',
     'report_content_too_long' => 'Treść zgłoszenia może mieć maksymalnie 255 znaków.',
     'you_must_register_to_report' => 'Musisz zarejestrować się nan naszej stronie internetowej aby mieć możliwość stworzenia zgłoszenia.',
     'you_have_been_banned_from_website' => 'Zostałeś zbanowany na naszej stronie internetowej.',
-    'you_have_open_report_already' => 'Napisałeś jusz zgłoszenie dotyczące tego gracza. Bądź cierpliwy - niebawem je sprawdzimy!',
     'cannot_report_yourself' => 'You cannot report yourself.',
+    'you_have_open_report_already' => 'Napisałeś już zgłoszenie dotyczące tego gracza. Bądź cierpliwy - niebawem je sprawdzimy!',
     'unable_to_create_report' => 'Nie można stworzyć zgłoszenia',
     'unable_to_update_username' => 'Nie można zaktualizować nazwy użytkownika',
     'unable_to_update_server_info' => 'Nie można zaktualizować informacji o serwerze',
     'invalid_server_id' => 'Niepoprawne ID serwera',
     'invalid_code' => 'Podano niepoprawny kod',
     'user_already_active' => 'Your account has already been activated.',
-    'discord_integration_disabled' => 'Discord integration is disabled.',
-    'unable_to_set_discord_id' => 'Unable to set Discord ID.',
+    'discord_integration_disabled' => 'Integracja Discord jest wyłączona.',
+    'unable_to_set_discord_id' => 'Nie można ustawić ID Discord.',
 
     // Success messages
     'finish_registration_link' => 'Kliknij poniższy link, aby ukończyć rejestrację:',
@@ -53,5 +53,5 @@ $language = array(
     'username_updated' => 'Nazwa użytkownika została zaktualizowana pomyślnie.',
     'server_info_updated' => 'Informacje o serwerze zostały zaktualizowane pomyślnie.',
     'account_validated' => 'Konto zostało zweryfikowane pomyślnie.',
-    'discord_id_set' => 'Discord ID set successfully'
+    'discord_id_set' => 'ID Discord ustawione pomyślnie'
 );

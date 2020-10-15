@@ -18,9 +18,9 @@ $language = array(
 	'help' => 'Help',
 	'submit' => 'Verstuur',
 	'register' => 'Registreren',
-	'already_registered' => 'Already Registered?',
+	'already_registered' => 'Reeds geregistreerd?',
 	'custom_fields' => 'Aangepaste Velden',
-	'not_registered_yet' => 'Not registered yet?',
+	'not_registered_yet' => 'Nog niet geregistreerd?',
 	'sign_in' => 'Inloggen',
 	'log_out' => 'Uitloggen',
 	'profile' => 'Profiel',
@@ -32,14 +32,14 @@ $language = array(
 	'search' => 'Zoek',
 	'edit' => 'Bewerk',
 	'next' => 'Volgende',
-	'previous' => 'Previous',
+	'previous' => 'Vorige',
 	'confirm_cancel' => 'Weet je zeker dat je het wilt annuleren?',
 	'confirm_delete' => 'Bevestig verwijdering',
 	'confirm_deletion' => 'Weet je zeker dat je dit wilt verwijderen?',
 	'cancel' => 'Annuleer',
 	'delete' => 'Verwijder',
 	'none' => 'Geen',
-	'view' => 'View',
+	'view' => 'Bekijk',
 	'change' => 'Verander',
 	'remove' => 'Verwijder',
 	'info' => 'Info',
@@ -68,7 +68,7 @@ $language = array(
 	'error' => 'Error',
 	'are_you_sure' => 'Weet je het zeker?',
 	'spoiler' => 'Spoiler',
-	'invalid_timezone' => 'That timezone is invalid',
+	'invalid_timezone' => 'Die tijdzone is ongeldig',
 
 	/*
 	 *  Contact formulier
@@ -116,7 +116,7 @@ $language = array(
     'ip' => 'IP',
     'copied' => 'Gekopieerd!',
     'no_servers' => 'Er zijn geen servers om weer te geven!',
-    'bungee_instance' => 'Deze server is een Bungee instance.',
+    'bungee_instance' => 'Deze server is een Bungee instantie.',
     'no_players_online' => 'Er zijn geen spelers online.',
     'and_x_more' => 'en {x} meer', // Don't replace {x}
 
@@ -144,7 +144,7 @@ $language = array(
     'discord_widget_disabled' => 'De widget is uitgeschakeld voor de opgegeven Discord server. Ga naar het tabblad \'Widget\' in uw Discord server instellingen, en zorg ervoor dat de Discord widget is ingeschakeld en dat de ID correct is.',
     'online_guests' => 'Online Gasten',
 	'total_online' => 'Totaal Online', // this is Online Users + Online Guests
-	'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+	'no_default_server' => 'Er is geen standaard server, kies er een in StaffCP - Integraties - Minecraft.',
 	'server_status' => 'Server Status',
 
     /*
@@ -155,5 +155,5 @@ $language = array(
 	/*
 	 *  Custom page redirect
 	 */
-	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+	'redirecting_message' => 'Doorsturen...<br />Als u niet automatisch wordt doorgestuurd, klik dan <a href="{x}" rel="nofollow noopener">hier</a>.' // Don't replace {x} which is the redirect URL
 );

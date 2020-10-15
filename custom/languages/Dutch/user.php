@@ -1,8 +1,8 @@
-<?php 
+<?php
 /*
  *	Gemaakt door Samerton
  *  en vertaald door Sander Lambrechts, Derkades en smessie
- *  
+ *
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -10,7 +10,7 @@
  *
  *  Nederlandse taal - Gebruikers
  */
- 
+
 $language = array(
 	/*
 	 *  Change this for the account validation message
@@ -22,7 +22,7 @@ $language = array(
 	 */
 	'guest' => 'Gast',
 	'guests' => 'Gasten',
-	
+
 	// Gebruikers paneel
 	'user_cp' => 'Gebruikers Paneel',
 	'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
@@ -38,7 +38,7 @@ $language = array(
 	'delete_all' => 'Verwijder alle meldingen',
 	'private_profile' => 'Privé profiel',
 	'gif_avatar' => 'Upload .gif as custom avatar',
-	
+
 	// Profiel instellingen
 	'field_is_required' => '{x} is nodig.', // Verander {x} niet
 	'settings_updated_successfully' => 'Instellingen succesvol bijgewerkt.',
@@ -63,27 +63,27 @@ $language = array(
 	'timezone' => 'Tijdzone',
 	'upload_new_avatar' => 'Upload een nieuwe avatar',
 	'nickname_already_exists' => 'Je gekozen nicknaam bestaat al.',
-	'change_email_address' => 'Change Email Address',
-	'email_already_exists' => 'The email address you have entered already exists.',
-	'email_changed_successfully' => 'Email address changed successfully.',
+	'change_email_address' => 'E-mailadres wijzigen',
+	'email_already_exists' => 'Het door u ingevoerde e-mailadres bestaat al.',
+	'email_changed_successfully' => 'E-mailadres met succes gewijzigd.',
 	'avatar' => 'Avatar',
-	'profile_banner' => 'Profile Banner',
-	'upload_profile_banner' => 'Upload Profile Banner',
+	'profile_banner' => 'Profiel Banner',
+	'upload_profile_banner' => 'Upload Profiel Banner',
 	'upload' => 'Upload',
-	'topic_updates' => 'Get emails for topics you follow',
-	
+	'topic_updates' => 'Ontvang e-mails voor onderwerpen die u volgt',
+
 	// Meldingen
 	'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet
 	'no_alerts' => 'Geen meldingen',
 	'view_alerts' => 'Bekijk meldingen',
-	'1_new_alert' => 'You have 1 new alert',
+	'1_new_alert' => 'U heeft 1 nieuwe melding',
 	'x_new_alerts' => 'Je hebt {x} nieuwe meldingen', // Verander {x} niet
 	'no_alerts_usercp' => 'Je hebt geen meldingen.',
-	
+
 	// Registratie
 	'registration_check_email' => 'Bedankt voor het registreren! Bekijk nu je email voor een bevestigingslink om je registratie te voltooien. Als je de email niet kan vinden, bekijk dan de spam/junk/ongewenste folder.',
 	'username' => 'Gebruikersnaam',
-	'nickname' => 'Gebruikersnaam',
+	'nickname' => 'Bijnaam',
 	'minecraft_username' => 'Minecraft gebruikersnaam',
 	'email_address' => 'Email Adres',
 	'email' => 'Email',
@@ -126,12 +126,12 @@ $language = array(
 	'invalid_recaptcha' => 'Ongeldig reCAPTCHA antwoord.',
 	'verify_account' => 'Controleer account',
 	'verify_account_help' => 'Graag de volgende instructies volgen zodat we kunnen valideren (controleren) of u de eigenaar bent van dit Minecraft account.',
-	'validate_account' => 'Validate Account',
+	'validate_account' => 'Account valideren',
 	'verification_failed' => 'Validatie gefaald, probeer het opnieuw.',
 	'verification_success' => 'Succesvol gevalideerd! Je kunt nu inloggen.',
 	'authme_username_exists' => 'Je Authme account is al verbonden met de website!',
 	'uuid_already_exists' => 'Je UUID bestaat al, wat betekent dat dit Minecraft account al geregistreerd is.',
-	
+
 	// Inloggen
 	'successful_login' => 'Je bent nu ingelogd.',
 	'incorrect_details' => 'Je hebt incorrecte gegevens ingevoerd.',
@@ -150,7 +150,7 @@ $language = array(
    	'enter_new_password' => 'Graag je email bevestigen en een nieuw wachtwoord invoeren.',
    	'incorrect_email' => 'Het email adres dat is ingevoerd komt niet overeen met het verzoek.',
    	'forgot_password_change_successful' => 'Je wachtwoord is succesvol veranderd. Je kan nu inloggen.',
-	
+
 	// Profiel paginas
 	'profile' => 'Profiel',
 	'follow' => 'Volg',
@@ -187,13 +187,13 @@ $language = array(
 	'new_wall_post_reply' => '{x} heeft gereageerd op jouw post op {y}\'s profiel.', // Don't replace {x} or {y}
 	'new_wall_post_reply_your_profile' => '{x} heeft gereageerd op jouw post op jouw eigen profiel.', // Don't replace {x}
 	'no_about_fields' => 'Deze gebruiker heeft nog geen over-velden toegevoegd.',
-	'reply' => 'Reply',
-	
+	'reply' => 'Antwoord',
+
 	// Rapporten
 	'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
 	'report_post_content' => 'Voer een reden in voor je rapport',
 	'report_created' => 'Rapport succesvol gemaakt',
-	
+
 	// Berichten
 	'no_messages' => 'Geen nieuwe berichten',
 	'no_messages_full' => 'Je hebt geen berichten.',
@@ -220,10 +220,10 @@ $language = array(
 	'leave_conversation' => 'Verlaat gesprek',
 	'confirm_leave' => 'Weet je zeker dat je dit gesprek wilt verlaten?',
 	'one_or_more_users_blocked' => 'Je kan geen privé bericht sturen naar een of meerdere leden van het gesprek.',
-	'messages' => 'Messages',
-	'latest_profile_posts' => 'Latest Profile Posts',
-	'no_profile_posts' => 'No profile posts.',
-	
+	'messages' => 'Berichten',
+	'latest_profile_posts' => 'Laatste Profielberichten',
+	'no_profile_posts' => 'Geen Profielberichten',
+
 	/*
 	 *  Overtredingen gebied
 	 */
@@ -238,17 +238,17 @@ $language = array(
 
 	// Discord
 	'discord_link' => 'Discord Link',
-	'linked' => 'Linked',
-	'not_linked' => 'Not Linked',
-	'discord_id' => 'Discord User ID',
-	'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-	'discord_id_confirm' => 'Please send a private message containing only your token ({token}) to "Nameless Link#0761" to confirm your Discord User ID.',
-	'pending_link' => 'Pending',
-	'discord_id_taken' => 'That Discord ID has already been taken.',
-	'discord_invalid_id' => 'That Discord User ID is invalid.',
-	'discord_already_pending' => 'You already have a pending verification.',
-	'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-	'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-	'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-	'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
+	'linked' => 'Gekoppeld',
+	'not_linked' => 'Niet Gekoppeld',
+	'discord_id' => 'Discord Gebruikers ID',
+	'discord_id_unlinked' => 'Succesvol ontkoppeld van uw Discord Gebruikers-ID.',
+	'discord_id_confirm' => 'Stuur een privé-bericht met alleen uw token ({token}) naar "Nameless Link#0761" om uw Discord Gebruikers-ID te bevestigen.',
+	'pending_link' => 'Wachtende',
+	'discord_id_taken' => 'Die Discord Gebruikers-ID is al ingenomen.',
+	'discord_invalid_id' => 'Dat Discord Gebruikers-ID is ongeldig.',
+	'discord_already_pending' => 'Je hebt al een lopende verificatie.',
+	'discord_database_error' => 'De Nameless Link database is op dit moment offline. Probeer het later nog eens.',
+	'discord_communication_error' => 'Er was een fout in de communicatie met de Discord Bot. Zorg ervoor dat de bot werkt en dat uw Bot-URL correct is.',
+	'discord_unknown_error' => 'Er was een onbekende fout bij het synchroniseren van de rollen van Discord. Neem contact op met een beheerder.',
+	'discord_id_help' => 'Voor informatie over waar je de Discord ID\'s kunt vinden, lees alsjeblieft <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">dit.</a>'
 );
