@@ -61,7 +61,12 @@ define('CUSTOM_PAGE', $custom_page->title);
 $page_title = Output::getClean($custom_page->title);
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+
 $smarty->assign(array(
+    'WIDGETS_LEFT' => $widgets->getWidgets('left'),
+    'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
 	'CONTENT' => (($custom_page->all_html == 0) ? Output::getPurified(htmlspecialchars_decode($custom_page->content)) : htmlspecialchars_decode($custom_page->content))
 ));
 
@@ -72,9 +77,6 @@ $template->addCSSFiles(array(
 $template->addJSFiles(array(
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array()
 ));
-
-// Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
