@@ -18,15 +18,14 @@ class UpdateUsernameEndpoint extends EndpointBase {
         if ($api->isValidated()) {
             if ($api->validateParams($_POST, ['id', 'username'])) {
                 // Ensure user exists
-                $user = $api->getDb()->get('users', array('id', '=', Output::getClean($_POST['id'])));
-                if (!$user->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
+                $user = $api->getUser('id', $_POST['id']);
 
                 $fields = array('username' => Output::getClean($_POST['username']));
 
                 if (!Util::getSetting($api->getDb(), 'displaynames')) $fields['nickname'] = Output::getClean($_POST['username']);
 
                 try {
-                    $api->getDb()->update('users', $user->first()->id, $fields);
+                    $api->getDb()->update('users', $user->data()->id, $fields);
                 } catch (Exception $e) {
                     $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_username'));
                 }

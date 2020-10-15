@@ -55,8 +55,7 @@ class RegisterEndpoint extends EndpointBase {
                 $this->sendRegistrationEmail($api, $_POST['username'], $uuid, $_POST['email']);
             } else {
                 // Register user + send link
-                $code = $this->createUser($api, $_POST['username'], $uuid, $_POST['email']);
-                $api->returnArray(array('message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . $code['code'])));
+                $this->createUser($api, $_POST['username'], $uuid, $_POST['email'], true);
             }
         }
     }
@@ -80,7 +79,7 @@ class RegisterEndpoint extends EndpointBase {
             $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
 
             // Create user
-            $user_id = $this->createUser($api, $username, $uuid, $email, $code);
+            $user_id = $this->createUser($api, $username, $uuid, $email, false, $code);
             $user_id = $user_id['user_id'];
 
             // Get link + template
@@ -88,7 +87,7 @@ class RegisterEndpoint extends EndpointBase {
 
             $html = Email::formatEmail('register', $api->getLanguage());
 
-            if (Util::getSetting($api->getDb(), 'mailer')) {
+            if (Util::getSetting($api->getDb(), 'phpmailer')) {
                 // PHP Mailer
                 $email = array(
                     'to' => array('email' => Output::getClean($email), 'name' => Output::getClean($username)),
@@ -173,7 +172,7 @@ class RegisterEndpoint extends EndpointBase {
      * 
      * @return string JSON Array
      */
-    private function createUser(Nameless2API $api, $username, $uuid, $email, $code = null) {
+    private function createUser(Nameless2API $api, $username, $uuid, $email, $return, $code = null) {
         if ($api->isValidated()) {
             try {
                 // Get default group ID
@@ -232,7 +231,9 @@ class RegisterEndpoint extends EndpointBase {
                     'language' => $api->getLanguage()
                 ));
 
-                $api->returnArray(array('user_id' => $user_id, 'code' => $code));
+                if ($return) $api->returnArray(array('message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . $code)));
+                else return array('user_id' => $user_id);
+
             } catch (Exception $e) {
                 $api->throwError(13, $api->getLanguage()->get('api', 'unable_to_create_account'));
             }

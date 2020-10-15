@@ -93,5 +93,4 @@ class InfoEndpoint extends EndpointBase {
             }
         }
     }
-
 }

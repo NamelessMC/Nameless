@@ -27,8 +27,7 @@ class VerifyDiscordEndpoint extends EndpointBase {
                 $id = $id->first()->user_id;
 
                 // Ensure the user exists
-                $user = $api->getDb()->get('users', array('id', '=', $id));
-                if (!$user->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
+                $user = $api->getUser('id', $id);
 
                 try {
                     $api->getDb()->update('users', $id, array('discord_id' => $discord_id));

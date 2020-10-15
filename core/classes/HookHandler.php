@@ -56,15 +56,17 @@ class HookHandler {
         if(!isset($param['event']))
         	$param['event'] = $event;
 
-		// Execute system hooks
-        foreach(self::$_events[$event]['hooks'] as $hook){
-            call_user_func($hook, $param);
+        // Execute system hooks
+        if (isset(self::$_events[$event]['hooks'])) {
+            foreach (self::$_events[$event]['hooks'] as $hook) {
+                call_user_func($hook, $param);
+            }
         }
 
 		// Execute user made webhooks
 		foreach(self::$_hooks as $hook) {
 			if(in_array($event, $hook['events'])) {
-                if (!is_null($param['available_hooks'])) {
+                if (isset($param['available_hooks'])) {
                     if (in_array($hook['id'], $param['available_hooks'])) {
                         $param['webhook'] = $hook['url'];
                         call_user_func($hook['action'], $param);

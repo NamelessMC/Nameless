@@ -34,10 +34,12 @@ $language = array(
     'you_have_been_banned_from_website' => 'You have been banned from the website',
     'you_have_open_report_already' => 'You already have an open report regarding this player',
     'unable_to_create_report' => 'Unable to create report',
+    'cannot_report_yourself' => 'You cannot report yourself.',
     'unable_to_update_username' => 'Unable to update username',
     'unable_to_update_server_info' => 'Unable to update server info',
     'invalid_server_id' => 'Invalid server ID',
     'invalid_code' => 'Invalid code provided',
+    'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'Discord integration is disabled.',
     'unable_to_set_discord_id' => 'Unable to set Discord ID.',
 
