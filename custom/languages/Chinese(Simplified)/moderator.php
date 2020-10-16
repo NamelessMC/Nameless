@@ -19,7 +19,7 @@ $language = array(
 	// Spam
 	'spam' => '垃圾账号 (灌水用户)',
 	'mark_as_spam' => '标记为垃圾账号',
-	'confirm_spam' => '<p>您确定要将此用户标记为垃圾账号吗？</p> <p>该用户将被 IP 封禁，其所有内容都将被删除。</p>',
+	'confirm_spam' => '<p>您确定要将此用户标记为垃圾账号吗？</ p> <p>该用户将被 IP 封禁，其所有内容都将被删除。</p>',
 	'user_marked_as_spam' => '用户已被成功标记为垃圾账号。',
 	'cant_ban_admin' => '你不能封禁一位管理员!',
 	
