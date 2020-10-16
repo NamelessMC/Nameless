@@ -24,7 +24,7 @@ $language = array(
 	'sign_in' => '登录',
 	'log_out' => '登出',
 	'profile' => '账号信息',
-	'invalid_token' => 'Token无效，请重试。',
+	'invalid_token' => 'Token 无效，请重试。',
 	'close' => '关闭',
 	'back' => '返回',
 	'warning' => '警告',
@@ -38,7 +38,7 @@ $language = array(
 	'confirm_deletion' => '您确定要删除吗?',
 	'cancel' => '取消',
 	'delete' => '删除',
-	'none' => '这里空无一物QAQ',
+	'none' => '这里空无一物 QAQ',
 	'view' => '查看',
 	'change' => '更改',
 	'remove' => '移除',
@@ -63,7 +63,7 @@ $language = array(
 	'no' => '否',
 	'content' => '正文',
 	'full_content' => '全文',
-	'url' => '链接(URL)',
+	'url' => '链接 (URL)',
 	'success' => '成功',
 	'error' => '错误',
 	'are_you_sure' => '您确定?',
@@ -77,7 +77,7 @@ $language = array(
 	'message' => '消息',
 	'email_address' => '请输入您的电子邮箱地址',
 	'contact_email_subject' => '提交新的联系方式',
-	'contact_message_failed' => '无法发送消息。请确保您输入的消息长度在10到5000个字符之间。',
+	'contact_message_failed' => '无法发送消息。请确保您输入的消息长度在 10 到 5000 个字符之间。',
 	'contact_message_email' => '提交的电子邮箱地址不可用。',
 	'contact_message_sent' => '消息发送成功。',
 	'contact_message_limit' => '您每小时只能发送一条消息。距您可再次发送还有 {x} 分钟。', // Don't replace {x}
@@ -99,7 +99,7 @@ $language = array(
 	/*
 	 *  Help dialogues
 	 */
-	'markdown_help' => '您可以使用Markdown设置帖子的格式。有关更多信息，请参见 <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>这里</a>.',
+	'markdown_help' => '您可以使用 Markdown 设置帖子的格式。有关更多信息，请参见 <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>这里</a>.',
 
 	/*
 	 *  Server query
@@ -112,19 +112,19 @@ $language = array(
 	'currently_1_player_online' => '目前只有一名玩家在线。',
 	'currently_x_players_online' => '目前有 <strong>{x}</strong> 名玩家在线。', // Don't replace {x}
 	'server_offline' => '服务器目前处于离线状态。',
-    'connect_with_ip_x' => '现在就通过IP地址来与服务器建立连接吧 {x}', // Don't replace {x}
+    'connect_with_ip_x' => '现在就通过 IP 地址来与服务器建立连接吧 {x}', // Don't replace {x}
     'click_to_copy_tooltip' => '点击以复制',
     'ip' => 'IP',
     'copied' => '已复制!',
     'no_servers' => '啊偶...这里目前没有可展示的服务器！',
-    'bungee_instance' => '这个服务器是一个Bungee服(群组服)。',
+    'bungee_instance' => '这个服务器是一个 BungeeCord 服(代理服)。',
     'no_players_online' => '目前没有任何玩家在线',
     'and_x_more' => '还有 {x} 更多', // Don't replace {x}
 
 	/*
 	 *  Cookie notice
 	 */
-	'cookie_notice' => '本网站使用cookie来增强您的浏览体验。通过在我们的网站上进行注册或关闭此通知，代表您同意它们的使用。',
+	'cookie_notice' => '本网站使用 Cookie 来增强您的浏览体验。通过在我们的网站上进行注册或关闭此通知，代表您同意它们的使用。',
 	'cookie_agree' => '同意',
 
     /*
@@ -142,10 +142,10 @@ $language = array(
     'online_users' => '在线用户数',
     'no_online_users' => '目前没有用户在线',
     'total_online_users' => '用户总在线数: {x}',
-    'discord_widget_disabled' => '指定的Discord服务器的窗口小部件已禁用。请转到Discord服务器设置中的\'Widget \'标签，并确保Discord小部件已启用并且ID正确。',
+    'discord_widget_disabled' => '指定的 Discord 服务器的窗口小部件已禁用。请转到 Discord 服务器设置中的\'Widget \'标签，并确保Discord小部件已启用并且ID正确。',
     'online_guests' => '访客总在线数',
 	'total_online' => '总在线', // this is Online Users + Online Guests
-	'no_default_server' => '未设置默认服务器，请前往管理面板 - 集成 - Minecraft来设置',
+	'no_default_server' => '未设置默认服务器，请前往管理面板 - 集成 - Minecraft 来设置',
 	'server_status' => '服务器状态',
 
     /*
