@@ -55,6 +55,7 @@ $language = array(
     'site_name' => 'Ονομα ιστοσελίδας',
     'contact_email' => 'Email Επικοινωνίας',
     'outgoing_email' => 'Εξερχόμενο Email',
+    'language' => 'Language',
     'initialising_database_and_cache' => 'Προετοιμασία της βάσης δεδομένων και προσωρινής μνήμης, Παρακαλώ περιμένετε...',
     'unable_to_login' => 'Αδύνατη η πρόσβαση.',
     'unable_to_create_account' => 'Δεν είναι δυνατή η δημιουργία του λογαριασμού',

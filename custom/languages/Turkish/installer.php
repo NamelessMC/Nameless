@@ -53,6 +53,7 @@ $language = array(
     'site_name' => 'Site Adı',
     'contact_email' => 'İletişim E-postası',
     'outgoing_email' => 'Giden E-posta',
+    'language' => 'Language',
     'initialising_database_and_cache' => 'Veritabanı ve önbellek başlatılıyor, lütfen bekleyin ...',
     'unable_to_login' => 'Giriş yapılamıyor.',
     'unable_to_create_account' => 'Hesap oluşturulamıyor',

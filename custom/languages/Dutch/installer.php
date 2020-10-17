@@ -52,6 +52,7 @@ $language = array(
 	'site_name' => 'Site Naam',
 	'contact_email' => 'Contact Email',
 	'outgoing_email' => 'Uitgaande Email',
+	'language' => 'Language',
 	'initialising_database_and_cache' => 'Initialiseren van de database en cache, even geduld...',
 	'unable_to_login' => 'Het is niet mogelijk om in te loggen.',
 	'unable_to_create_account' => 'Het is niet mogelijk om een account aan te maken.',

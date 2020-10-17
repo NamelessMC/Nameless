@@ -55,6 +55,7 @@ $language = array(
     'site_name' => 'Numele site-ului',
     'contact_email' => 'E-Mail contact',
     'outgoing_email' => 'E-Mail de iesire',
+    'language' => 'Language',
     'initialising_database_and_cache' => 'Inițializarea bazei de date și a memoriei cache, vă rugăm să așteptați ...',
     'unable_to_login' => 'Conectarea nu a putut fi efectuata.',
     'unable_to_create_account' => 'Nu am putut crea contul de utilizator',

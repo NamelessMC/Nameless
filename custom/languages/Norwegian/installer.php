@@ -53,6 +53,7 @@ $language = array(
     'site_name' => 'Nettsidenavn',
     'contact_email' => 'Kontakt e-post',
     'outgoing_email' => 'Utgående e-post',
+    'language' => 'Language',
     'initialising_database_and_cache' => 'Kobler til database og cache...',
     'unable_to_login' => 'Kunne ikke logge inn, prøv igjen.',
     'unable_to_create_account' => 'Kunne ikke registrere bruker, prøv igjen.',

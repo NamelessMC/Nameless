@@ -52,6 +52,7 @@ $language = array(
   'site_name' => 'Svetainės Pavadinimas',
   'contact_email' => 'Kontaktinis el. paštas',
   'outgoing_email' => 'Išeinamasis el. paštas',
+  'language' => 'Language',
   'initialising_database_and_cache' => 'Inicijuojama duomenų bazė ir "cache", palaukite...',
   'unable_to_login' => 'Negalima prisijungti.',
   'unable_to_create_account' => 'Neįmanoma sukurti paskyros',

@@ -52,6 +52,7 @@ $language = array(
     'configuration_error' => 'Bitte geben Sie einen gültigen Website-Namen zwischen 1 und 32 Zeichen lang und gültige E-Mail-Adressen zwischen 4 und 64 Zeichen lang ein.',
     'site_name' => 'Webseiten Name',
     'contact_email' => 'Kontakt Emailadresse',
+    'language' => 'Language',
     'outgoing_email' => 'Absender Emailadresse',
     'initialising_database_and_cache' => 'Initialisierung von Datenbank und Cache, bitte warten ...',
     'unable_to_login' => 'Anmeldung nicht möglich.',

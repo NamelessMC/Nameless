@@ -57,6 +57,7 @@ $language = array(
     'site_name' => '網站名稱',
     'contact_email' => '聯絡電子郵件',
     'outgoing_email' => '傳出電子郵件',
+    'language' => 'Language',
     'initialising_database_and_cache' => '初始化資料庫與緩存...',
     'unable_to_login' => '無法登入.',
     'unable_to_create_account' => '無法建立帳號',

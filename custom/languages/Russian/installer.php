@@ -53,6 +53,7 @@ $language = array(
     'site_name' => 'Название сайта',
     'contact_email' => 'Адрес электронной почты для контактов',
     'outgoing_email' => 'Исходящий адрес электронной почты',
+    'language' => 'Language',
     'initialising_database_and_cache' => 'Инициализация базы данных и кэша, пожалуйста, подождите...',
     'unable_to_login' => 'Не удалось войти.',
     'unable_to_create_account' => 'Невозможно создать учетную запись',

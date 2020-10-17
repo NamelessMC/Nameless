@@ -53,6 +53,7 @@ $language = array(
     'site_name' => 'Nazwa strony',
     'contact_email' => 'Email kontaktowy',
     'outgoing_email' => 'Email do wysyłania wiadomości do użytkowników',
+    'language' => 'Language',
     'initialising_database_and_cache' => 'Inicjowanie bazy danych i pamięci podręcznej, proszę czekać...',
     'unable_to_login' => 'Podczas logowania wystąpi błąd.',
     'unable_to_create_account' => 'Podczas tworzenia konta wystąpił błąd.',

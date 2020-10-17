@@ -53,6 +53,7 @@ $language = array(
     'site_name' => 'Název webu',
     'contact_email' => 'Kontaktní e-mail',
     'outgoing_email' => 'Odchozí e-mail',
+    'language' => 'Language',
     'initialising_database_and_cache' => 'Inicializace databáze a mezipaměti, počkejte prosím...',
     'unable_to_login' => 'Nepodařilo se přihlásit.',
     'unable_to_create_account' => 'Nepodařilo se vytvořit účet.',

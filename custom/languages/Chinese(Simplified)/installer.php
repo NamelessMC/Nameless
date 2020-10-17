@@ -55,6 +55,7 @@ $language = array(
     'site_name' => '网站名称',
     'contact_email' => '联系邮箱',
     'outgoing_email' => '发件箱',
+    'language' => 'Language',
     'initialising_database_and_cache' => '初始化数据库和缓存，请稍候...',
     'unable_to_login' => '无法登录。',
     'unable_to_create_account' => '无法创建新用户',
