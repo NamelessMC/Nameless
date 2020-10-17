@@ -16,7 +16,33 @@ $queries->create('forums', array(
 	'forum_description' => 'The first discussion forum!',
 	'forum_order' => 2,
 	'parent' => 1,
-	'forum_type' => 'forum'
+	'forum_type' => 'forum',
+	'news' => 1
+));
+
+$queries->create('topics', array(
+	'forum_id' => 2,
+	'topic_title' => 'Welcome to NamelessMC!',
+	'topic_creator' => 1,
+	'topic_last_user' => 1,
+	'topic_date' => date('U'),
+	'topic_reply_date' => date('U'),
+	'label' => null
+));
+
+$queries->create("posts", array(
+	'forum_id' => 2,
+	'topic_id' => 1,
+	'post_creator' => 1,
+	'post_content' => Output::getClean(
+		'&lt;p&gt;Welcome!&lt;/p&gt;
+		&lt;p&gt;To get started with NamelessMC, visit your StaffCP using the blue gear icon in the top right of your screen.&lt;/p&gt;
+		&lt;p&gt;If you need support, visit our Discord server: &lt;a href=&quot;https://discord.gg/QWdS9CB&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://discord.gg/QWdS9CB&lt;/a&gt;&lt;/p&gt;
+		&lt;p&gt;Thank you and enjoy,&lt;/p&gt;
+		&lt;p&gt;The NamelessMC Development team.&lt;/p&gt;'
+	),
+	'post_date' => date('Y-m-d H:i:s'),
+	'created' => date('U')
 ));
 
 // Permissions
