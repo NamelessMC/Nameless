@@ -59,6 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		try {
 
+			$queries = new Queries();
+
+			$language = $queries->getWhere('languages', array('is_default', '=', 1));
+
 			$ip = $user->getIP();
 			$user->create(array(
 				'username' => Output::getClean(Input::get('username')),
@@ -73,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				'active' => 1,
 				'last_online' => date('U'),
 				'theme_id' => 1,
-				'language_id' => 1,
+				'language_id' => $language[0]->id,
 			));
 
 			$login = $user->login(Input::get('email'), Input::get('password'), true);
@@ -86,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
 			$error = $language['unable_to_login'];
 			
-			$queries = new Queries();
 			$queries->delete('users', array('id', '=', 1));
 
 		} catch(Exception $e) {

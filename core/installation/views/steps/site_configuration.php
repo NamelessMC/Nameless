@@ -29,6 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			'min' => 4,
 			'max' => 64,
 		),
+		'language' => array(
+			'required' => true
+		)
 	));
 
 	if (!$validation->passed()) {
@@ -59,6 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				'value' => Output::getClean(Input::get('outgoing'))
 			));
 	
+			$_SESSION['default_language'] = Output::getClean(Input::get('language'));
+
 			Redirect::to('?step=site_initialization');
 			die();
 
@@ -95,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							<?php create_field('text', $language['site_name'], 'sitename', 'inputSitename'); ?>
 							<?php create_field('email', $language['contact_email'], 'incoming', 'contact_email'); ?>
 							<?php create_field('email', $language['outgoing_email'], 'outgoing', 'outgoing_email'); ?>
+							<?php create_field('select', $language['language'], 'language', 'inputLanguage', $installer_language, $languages, true) ?>
 						</div>
 					</div>
 				</div>
