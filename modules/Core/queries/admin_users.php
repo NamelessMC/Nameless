@@ -28,9 +28,6 @@ if (isset($_GET['order']) && count($_GET['order'])) {
 		$column = intval($_GET['order'][$i]['column']);
 		$requestColumn = $_GET['columns'][$column];
 
-		// TODO
-		// https://github.com/DataTables/DataTablesSrc/blob/master/examples/server_side/scripts/ssp.class.php
-		// https://datatables.net/examples/server_side/object_data.html
 		$column = array_search($requestColumn['data'], $sortColumns);
 
 		if ($column) {
