@@ -35,6 +35,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/profile', 'pages/profile.php', 'profile', true);
 		$pages->add('Core', '/register', 'pages/register.php');
 		$pages->add('Core', '/validate', 'pages/validate.php');
+		$pages->add('Core', '/queries/admin_users', 'queries/admin_users.php');
 		$pages->add('Core', '/queries/alerts', 'queries/alerts.php');
 		$pages->add('Core', '/queries/pms', 'queries/pms.php');
 		$pages->add('Core', '/queries/servers', 'queries/servers.php');
