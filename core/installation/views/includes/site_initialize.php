@@ -16,7 +16,33 @@ $queries->create('forums', array(
 	'forum_description' => 'The first discussion forum!',
 	'forum_order' => 2,
 	'parent' => 1,
-	'forum_type' => 'forum'
+	'forum_type' => 'forum',
+	'news' => 1
+));
+
+$queries->create('topics', array(
+	'forum_id' => 2,
+	'topic_title' => 'Welcome to NamelessMC!',
+	'topic_creator' => 1,
+	'topic_last_user' => 1,
+	'topic_date' => date('U'),
+	'topic_reply_date' => date('U'),
+	'label' => null
+));
+
+$queries->create("posts", array(
+	'forum_id' => 2,
+	'topic_id' => 1,
+	'post_creator' => 1,
+	'post_content' => Output::getClean(
+		'&lt;p&gt;Welcome!&lt;/p&gt;
+		&lt;p&gt;To get started with NamelessMC, visit your StaffCP using the blue gear icon in the top right of your screen.&lt;/p&gt;
+		&lt;p&gt;If you need support, visit our Discord server: &lt;a href=&quot;https://discord.gg/QWdS9CB&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://discord.gg/QWdS9CB&lt;/a&gt;&lt;/p&gt;
+		&lt;p&gt;Thank you and enjoy,&lt;/p&gt;
+		&lt;p&gt;The NamelessMC Development team.&lt;/p&gt;'
+	),
+	'post_date' => date('Y-m-d H:i:s'),
+	'created' => date('U')
 ));
 
 // Permissions
@@ -110,91 +136,112 @@ $queries->create('groups', array(
 // Languages
 $queries->create('languages', array(
 	'name' => 'EnglishUK',
-	'is_default' => 1
+	'is_default' => (Session::get('default_language') == 'EnglishUK') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'Chinese',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'Chinese') ? 1 : 0
+));
+
+$queries->create('languages', array(
+	'name' => 'Chinese(Simplified)',
+	'is_default' => (Session::get('default_language') == 'Chinese(Simplified)') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'Czech',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'Czech') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'EnglishUS',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'EnglishUS') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'Dutch',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'Dutch') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'German',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'German') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'Greek',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'Greek') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'Japanese',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'Japanese') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'Lithuanian',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'Lithuanian') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'Norwegian',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'Norwegian') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'Polish',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'Polish') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'Portuguese',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'Portuguese') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'Romanian',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'Romanian') ? 1 : 0
 ));
 
 $queries->create('languages', array(
+	'name' => 'Russian',
+	'is_default' => (Session::get('default_language') == 'Russian') ? 1 : 0
+));
+
+
+$queries->create('languages', array(
 	'name' => 'Slovak',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'Slovak') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'Spanish',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'Spanish') ? 1 : 0
+));
+
+$queries->create('languages', array(
+	'name' => 'Italian',
+	'is_default' => (Session::get('default_language') == 'Italian') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'SwedishSE',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'SwedishSE') ? 1 : 0
+));
+
+$queries->create('languages', array(
+	'name' => 'SwedishES',
+	'is_default' => (Session::get('default_language') == 'SwedishES') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'Turkish',
-	'is_default' => 0
+	'is_default' => (Session::get('default_language') == 'Turkish') ? 1 : 0
 ));
 
 $cache->setCache('languagecache');
-$cache->store('language', 'EnglishUK');
+$cache->store('language', Session::get('default_language'));
 
 // Modules
 $queries->create('modules', array(
@@ -296,7 +343,7 @@ $queries->create('settings', array(
 
 $queries->create('settings', array(
 	'name' => 't_and_c',
-	'value' => 'By registering on our website, you agree to the following:<p>This website uses "Nameless" website software. The "Nameless" software creators will not be held responsible for any content that may be experienced whilst browsing this site, nor are they responsible for any loss of data which may come about, for example a hacking attempt. The website is run independently from the software creators, and any content is the responsibility of the website administration.</p>'
+	'value' => 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>'
 ));
 
 $queries->create('privacy_terms', array(
@@ -306,7 +353,7 @@ $queries->create('privacy_terms', array(
 
 $queries->create('settings', array(
 	'name' => 'nameless_version',
-	'value' => '2.0.0-pr8'
+	'value' => '2.0.0-pr7'
 ));
 
 $queries->create('settings', array(

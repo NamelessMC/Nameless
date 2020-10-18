@@ -63,6 +63,9 @@ if(!class_exists('Default_Panel_Template')){
 					});
 				});
 			');
+
+			// Let the core module know this panel template supports ajax loading for the staff users list
+			define('PANEL_TEMPLATE_STAFF_USERS_AJAX', true);
 		}
 
 		public function onPageLoad(){
@@ -363,14 +366,23 @@ if(!class_exists('Default_Panel_Template')){
 
 							$this->addJSScript('
 							$(document).ready(function() {
-								$(\'.dataTables-users\').dataTable({
+								var usersTable = $(\'.dataTables-users\').DataTable({
 									columnDefs: [
-										{ "width": "30%", target: 0 },
-										{ "width": "30%", target: 1 },
-										{ "width": "20%", target: 2 },
-										{ "width": "20%", target: 3 }
+										{ targets: [0], sClass: "hide" },
+										{ "width": "50%", target: 1 },
+										{ "width": "25%", target: 2 },
+										{ "width": "25%", target: 3 }
 									],
 									responsive: true,
+									processing: true,
+									serverSide: true,
+									ajax: "' . URL::build('/queries/admin_users') . '",
+									columns: [
+										{ data: "id", hidden: true },
+										{ data: "username" },
+										{ data: "groupName" },
+										{ data: "joined" }
+									],
 									language: {
 										"lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
 										"zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
@@ -383,6 +395,10 @@ if(!class_exists('Default_Panel_Template')){
 										    "previous": "' . $this->_language->get('general', 'previous') . '"
 										}
 									}
+								});
+
+								$(\'.dataTables-users tbody\').on(\'click\', \'tr\', function(){
+									window.location.href = "' . URL::build('/panel/user/') . '" + usersTable.row(this).data().id;
 								});
 							});
 							');

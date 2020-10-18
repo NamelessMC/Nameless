@@ -70,36 +70,15 @@
                             {/if}
 
                             <div class="table-responsive">
-                                <table class="table table-striped dataTables-users" style="width:100%">
+                                <table class="table table-striped table-hover dataTables-users" style="width:100%">
                                     <thead>
                                     <tr>
+                                        <th></th>
                                         <th>{$USER}</th>
-                                        <th>{$GROUPS}</th>
+                                        <th>{$GROUP}</th>
                                         <th>{$REGISTERED}</th>
-                                        <th>{$ACTIONS}</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    {foreach from=$ALL_USERS item=item}
-                                        <tr>
-                                            <td><a href="{$item.panel_profile}" style="{$item.style}"><img src="{$item.avatar}" class="rounded" alt="{$item.username}" style="max-width:20px;max-height:20px;"> {$item.nickname}</a></td>
-                                            <td>{foreach from=$item.all_groups item=group}{$group} {/foreach}</td>
-                                            <td data-sort="{$item.registered_unix}">{$item.registered}</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        {$ACTIONS}
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        {foreach from=$ACTIONS_LIST item=action}
-                                                            <a class="dropdown-item" href="{($action.link|replace:'{id}':$item.id)|replace:'{username}':$item.username}">{$action.title}</a>
-                                                        {/foreach}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    {/foreach}
-                                    </tbody>
                                 </table>
                             </div>
 

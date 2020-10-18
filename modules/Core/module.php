@@ -35,6 +35,7 @@ class Core_Module extends Module {
 		$pages->add('Core', '/profile', 'pages/profile.php', 'profile', true);
 		$pages->add('Core', '/register', 'pages/register.php');
 		$pages->add('Core', '/validate', 'pages/validate.php');
+		$pages->add('Core', '/queries/admin_users', 'queries/admin_users.php');
 		$pages->add('Core', '/queries/alerts', 'queries/alerts.php');
 		$pages->add('Core', '/queries/pms', 'queries/pms.php');
 		$pages->add('Core', '/queries/servers', 'queries/servers.php');
@@ -135,7 +136,7 @@ class Core_Module extends Module {
 					if($custom_page->redirect == 1)
 						$redirect = Output::getClean($custom_page->link);
 
-					$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
+					$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
 					foreach($user_groups as $user_group){
 						$custom_page_permissions = $queries->getWhere('custom_pages_permissions', array('group_id', '=', $user_group));
@@ -183,7 +184,7 @@ class Core_Module extends Module {
 						if($custom_page->redirect == 1)
 							$redirect = Output::getClean($custom_page->link);
 
-						$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
+						$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
 						foreach($custom_page_permissions as $permission){
 							if($permission->page_id == $custom_page->id){

@@ -14,3 +14,6 @@
 .dropdown-menu-lg {
 	max-width: none;
 }
+.table-hover.dataTables-users tbody tr {
+	cursor: pointer;
+}

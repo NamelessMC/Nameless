@@ -56,23 +56,25 @@ if(isset($errors) && count($errors))
 		'ERRORS_TITLE' => $language->get('general', 'error')
 	));
 
-// Get all users
-$users = $queries->getWhere('users', array('id', '<>', 0));
 $output = array();
-foreach($users as $item){
-	$output[] = array(
-		'id' => Output::getClean($item->id),
-		'username' => Output::getClean($item->username),
-		'nickname' => Output::getClean($item->nickname),
-		'avatar' => $user->getAvatar($item->id, '', 128),
-		'style' => $user->getGroupClass($item->id),
-		'profile' => URL::build('/profile/' . Output::getClean($item->username)),
-		'panel_profile' => URL::build('/panel/user/' . Output::getClean($item->id . '-' . $item->username)),
-		'primary_group' => Output::getClean($user->getGroupName($item->group_id)),
-		'all_groups' => $user->getAllGroups($item->id, true),
-		'registered' => date('d M Y', $item->joined),
-		'registered_unix' => Output::getClean($item->joined)
-	);
+if (!defined('PANEL_TEMPLATE_STAFF_USERS_AJAX')) {
+	// Get all users
+	$users = $queries->getWhere('users', array('id', '<>', 0));
+	foreach ($users as $item) {
+		$output[] = array(
+			'id' => Output::getClean($item->id),
+			'username' => Output::getClean($item->username),
+			'nickname' => Output::getClean($item->nickname),
+			'avatar' => $user->getAvatar($item->id, '', 128),
+			'style' => $user->getGroupClass($item->id),
+			'profile' => URL::build('/profile/' . Output::getClean($item->username)),
+			'panel_profile' => URL::build('/panel/user/' . Output::getClean($item->id . '-' . $item->username)),
+			'primary_group' => Output::getClean($user->getGroupName($item->group_id)),
+			'all_groups' => $user->getAllGroups($item->id, true),
+			'registered' => date('d M Y', $item->joined),
+			'registered_unix' => Output::getClean($item->joined)
+		);
+	}
 }
 
 $smarty->assign(array(
@@ -84,6 +86,7 @@ $smarty->assign(array(
 	'TOKEN' => Token::get(),
 	'SUBMIT' => $language->get('general', 'submit'),
 	'USER' => $language->get('admin', 'user'),
+	'GROUP' => $language->get('admin', 'group'),
 	'GROUPS' => $language->get('admin', 'groups'),
 	'REGISTERED' => $language->get('admin', 'registered'),
 	'ACTIONS' => $language->get('general', 'actions'),
