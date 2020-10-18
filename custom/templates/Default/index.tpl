@@ -53,7 +53,7 @@
 		</div>
 	{/if}
 	  {if isset($NEWS)}
-		<div class="col-md-{if count($WIDGETS_LEFT)}6{else}9{/if}">
+		<div class="col-md-{if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}6{elseif count($WIDGETS_RIGHT) || count($WIDGETS_LEFT)}9{else}12{/if}">
 	    <center><h2>{$LATEST_ANNOUNCEMENTS} <i class="fa fa-bullhorn"></i></h2></center>
 		<hr />
 		{foreach from=$NEWS item=item}
@@ -80,9 +80,9 @@
 	  <div class="col-md-3 offset-md-6">
 	  {/if}
 
+		{if count($WIDGETS_RIGHT)}
 	    <center><h2>{$SOCIAL} <i class="fa fa-users" aria-hidden="true"></i></h2></center>
 	    <hr />
-		{if count($WIDGETS_RIGHT)}
 		  {foreach from=$WIDGETS_RIGHT item=widget}
 			{$widget}
 			<br />
