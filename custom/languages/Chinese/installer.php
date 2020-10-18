@@ -22,6 +22,7 @@ $language = array(
     'installer_welcome' => '歡迎使用 NamelessMC version 2.0 先行測試版.',
     'pre-release_warning' => '請注意! 此版本不適用於公共場所.',
     'installer_information' => '安裝程序將指導您安裝完成.',
+    'terms_and_conditions' => 'By continuing you agree to the terms and conditions.',
     'new_installation_question' => '首先，這是新的安裝?',
     'new_installation' => '新的安裝 &raquo;',
     'upgrading_from_v1' => '從 v1 升級 &raquo;',

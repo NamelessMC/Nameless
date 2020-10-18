@@ -343,7 +343,7 @@ $queries->create('settings', array(
 
 $queries->create('settings', array(
 	'name' => 't_and_c',
-	'value' => 'By registering on our website, you agree to the following:<p>This website uses "Nameless" website software. The "Nameless" software creators will not be held responsible for any content that may be experienced whilst browsing this site, nor are they responsible for any loss of data which may come about, for example a hacking attempt. The website is run independently from the software creators, and any content is the responsibility of the website administration.</p>'
+	'value' => 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>'
 ));
 
 $queries->create('privacy_terms', array(

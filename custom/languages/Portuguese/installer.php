@@ -20,6 +20,7 @@ $language = array(
     'installer_welcome' => 'Bem-vindo ao NamelessMC versão 2.0.',
     'pre-release_warning' => 'Por favor, note que esta pre-release não se destina ao uso em um site público.',
     'installer_information' => 'O instalador irá guiá-lo através do processo de instalação.',
+    'terms_and_conditions' => 'By continuing you agree to the terms and conditions.',
     'new_installation_question' => 'Em primeiro lugar, esta é uma nova instalação?',
     'new_installation' => 'Nova instalação &raquo;',
     'upgrading_from_v1' => 'Atualizando da v1 &raquo;',

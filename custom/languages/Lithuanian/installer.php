@@ -17,6 +17,7 @@ $language = array(
   'installer_welcome' => 'Sveiki atvykę į NamelessMC 2.0 išankstinio išleidimo versija.',
   'pre-release_warning' => 'Atkreipkite dėmesį, kad šis išankstinis leidimas nėra skirtas naudoti viešoje svetainėje.',
   'installer_information' => 'Montuotojas padės jums įdiegti.',
+  'terms_and_conditions' => 'By continuing you agree to the terms and conditions.',
   'new_installation_question' => 'Pirma, ar tai naujas diegimas?',
   'new_installation' => 'Naujas diegimas &raquo;',
   'upgrading_from_v1' => 'Atnaujinimas iš v1 &raquo;',

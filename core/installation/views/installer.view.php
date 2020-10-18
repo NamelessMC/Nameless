@@ -48,6 +48,9 @@ require(__DIR__ . '/includes/header.php');
 						</div>
 						<div class="ui segment">
 							<p><?php echo $language['installer_information']; ?></p>
+							<p><?php echo $language['terms_and_conditions']; ?></p>
+							<div class="ui message"><?php echo $nameless_terms; ?></div>
+							<div class="ui divider"></div>
 							<p><?php echo $language['new_installation_question']; ?></p>
 						</div>
 						<div class="ui right aligned secondary segment">

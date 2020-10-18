@@ -21,6 +21,7 @@ $language = array(
     'installer_welcome' => 'NamelessMC v2 プレリリース版インストーラへようこそ。',
     'pre-release_warning' => '<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>プレリリース版は公開サイト用には推奨していません。',
     'installer_information' => 'インストーラがインストール手順を案内いたします。',
+    'terms_and_conditions' => 'By continuing you agree to the terms and conditions.',
     'new_installation_question' => '<i class="fa fa-info-circle fa-fw" aria-hidden="true"></i>以下よりインストールの種類を選択してください。',
     'new_installation' => '<i class="fa fa-plus-circle fa-fw" aria-hidden="true"></i>新規インストール',
     'upgrading_from_v1' => '<i class="fa fa-refresh fa-fw" aria-hidden="true"></i>v1 からアップグレード',

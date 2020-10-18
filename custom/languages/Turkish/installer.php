@@ -18,6 +18,7 @@ $language = array(
     'installer_welcome' => 'NamelessMC sürüm 2.0 ön sürümüne hoş geldiniz.',
     'pre-release_warning' => 'Bu ön sürümün halka açık bir sitede kullanılmak üzere tasarlanmadığını lütfen unutmayın.',
     'installer_information' => 'Kurulum programı kurulum sürecinde size rehberlik edecektir.',
+    'terms_and_conditions' => 'By continuing you agree to the terms and conditions.',
     'new_installation_question' => 'Birincisi, bu yeni bir kurulum mu?',
     'new_installation' => 'Yeni kurulum(önerilir) &raquo;',
     'upgrading_from_v1' => 'V1 sürümünden yükseltme &raquo;',
