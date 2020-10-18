@@ -528,7 +528,7 @@ if(isset($_GET['do'])){
 					else {
 						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
 
-						$discord_role_id = Util::getDiscordRoleId(DB::getInstance(), $user->data()->group_id);
+						$discord_role_id = Discord::getDiscordRoleId(DB::getInstance(), $user->data()->group_id);
 
 						$guild_id = Util::getSetting(DB::getInstance(), 'discord');
 
@@ -541,7 +541,7 @@ if(isset($_GET['do'])){
 						$url = '/verifyId?id=' . $discord_id . '&token=' . $token . '&guild_id=' . $guild_id;
 						$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
 						if ($discord_role_id != null && $discord_integration[0]->value) $url .= '&role=' . $discord_role_id;
-						$result = Util::discordBotRequest($url . '&site=' . $api_url);
+						$result = Discord::discordBotRequest($url . '&site=' . $api_url);
 						if ($result != 'success') {
 							if ($result === false) {
 								// This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini

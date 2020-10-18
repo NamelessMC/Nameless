@@ -182,13 +182,13 @@ if(Input::exists()){
 				foreach($_POST['secondary_groups'] as $secondary_group) {
 					if($secondary_group != $group) {
 						$secondary_groups[] = $secondary_group;
-						Util::addDiscordRole($user_query, $secondary_group, $language);
+						Discord::addDiscordRole($user_query, $secondary_group, $language);
 					}
 				}
 				// Find secondary groups which the user had, but are not selected anymore, and remove them from Discord
 				foreach($user_query->secondary_groups as $secondary_group) {
 					if (!in_array($_POST['secondary_groups'], $secondary_group)) {
-						Util::removeDiscordRole($user_query, $secondary_group, $language);
+						Discord::removeDiscordRole($user_query, $secondary_group, $language);
 					}
 				}
 				$secondary_groups = json_encode($secondary_groups);
@@ -196,7 +196,7 @@ if(Input::exists()){
 				// Remove all old secondary groups from Discord when none are selected
 				$user_secondary_groups = json_decode($user_query->secondary_groups, true);
 				foreach ($user_secondary_groups as $secondary_group) {
-					Util::removeDiscordRole($user_query, $secondary_group, $language);
+					Discord::removeDiscordRole($user_query, $secondary_group, $language);
 				}
 				$secondary_groups = '';
 			}
@@ -206,7 +206,7 @@ if(Input::exists()){
 			if($validation->passed()){
 
 				try {
-					Util::addDiscordRole($user_query, $group, $language);
+					Discord::addDiscordRole($user_query, $group, $language);
 
 					// Signature from Markdown -> HTML if needed
 					$cache->setCache('post_formatting');

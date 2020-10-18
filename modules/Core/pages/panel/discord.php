@@ -124,7 +124,7 @@ if (Input::exists()) {
     if (isset($_GET['action'])) {
         switch ($_GET['action']) {
             case 'test': 
-                if (Util::discordBotRequest('/') == 'success') {
+                if (Discord::discordBotRequest('/') == 'success') {
                     $success = $language->get('admin', 'discord_bot_url_valid');
                 } else {
                     $errors[] = $language->get('user', 'discord_communication_error');

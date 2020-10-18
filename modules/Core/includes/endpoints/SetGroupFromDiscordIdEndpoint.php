@@ -26,7 +26,7 @@ class SetGroupFromDiscordIdEndpoint extends EndpointBase {
                 if (!$user->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
                 $user = $user->first();
 
-                $group = Util::getWebsiteGroup($api->getDb(), $discord_role_id);
+                $group = Discord::getWebsiteGroup($api->getDb(), $discord_role_id);
                 if ($group == null) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
 
                 $fields = array();
