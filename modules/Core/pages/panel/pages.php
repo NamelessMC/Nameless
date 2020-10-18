@@ -350,6 +350,46 @@ if(!isset($_GET['action'])){
 								'basic' => ($basic == 1) ? 1 : 0
 							));
 
+							// Update all widget and announcement page arrays with the custom pages' new name
+							$widget_query = $queries->getWhere('widgets', array('id', '<>', 0));
+							if (count($widget_query)) {
+								foreach ($widget_query as $widget_row) {
+									$pages = json_decode($widget_row->pages, true);
+									$new_pages = array();
+									if (count($pages)) {
+										foreach($pages as $widget_page) {
+											if ($page->title == $widget_page) {
+												$new_pages[] = Output::getClean(Input::get('page_title'));
+											} else {
+												$new_pages[] = $widget_page;
+											}
+										}
+										$queries->update('widgets', $widget_row->id, array(
+											'pages' => json_encode($new_pages)
+										));
+									}
+								}
+							}
+							$announcement_query = $queries->getWhere('custom_announcements', array('id', '<>', 0));
+							if (count($announcement_query)) {
+								foreach ($announcement_query as $announcement_row) {
+									$pages = json_decode($announcement_row->pages, true);
+									$new_pages = array();
+									if (count($pages)) {
+										foreach ($pages as $announcement_page) {
+											if ($page->title == $announcement_page) {
+												$new_pages[] = Output::getClean(Input::get('page_title'));
+											} else {
+												$new_pages[] = $announcement_page;
+											}
+										}
+										$queries->update('custom_announcements', $announcement_row->id, array(
+											'pages' => json_encode($new_pages)
+										));
+									}
+								}
+							}
+
 							// Permissions
 							// Guest first
 							$view = Input::get('perm-view-0');

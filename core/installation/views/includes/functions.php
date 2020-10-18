@@ -24,13 +24,14 @@ function create_step($name, $icon, $child_steps = array()) {
 
 }
 
-function create_field($type, $label, $name, $id, $value = '', $options = array()) {
+function create_field($type, $label, $name, $id, $value = '', $options = array(), $fallback = false) {
 
 	if ($type == 'select') {
 
 		$options_markup = '';
 		foreach ($options as $option_value => $option_label) {
-			$selected = ($value == $option_value ? ' selected' : '');
+			$selected = ($value == $option_value ? ' selected' : ($fallback ? ($value == $option_label ? ' selected' : '') : ''));
+			$option_value = ($fallback ? $option_label : $option_value);
 			$options_markup .= "<option value=\"$option_value\"$selected>$option_label</option>" . PHP_EOL;
 		}
 

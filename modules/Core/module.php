@@ -136,7 +136,7 @@ class Core_Module extends Module {
 					if($custom_page->redirect == 1)
 						$redirect = Output::getClean($custom_page->link);
 
-					$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
+					$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
 					foreach($user_groups as $user_group){
 						$custom_page_permissions = $queries->getWhere('custom_pages_permissions', array('group_id', '=', $user_group));
@@ -184,7 +184,7 @@ class Core_Module extends Module {
 						if($custom_page->redirect == 1)
 							$redirect = Output::getClean($custom_page->link);
 
-						$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), false);
+						$pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
 						foreach($custom_page_permissions as $permission){
 							if($permission->page_id == $custom_page->id){

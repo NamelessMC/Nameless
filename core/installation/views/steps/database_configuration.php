@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				'core' => array(
 					'hostname' => $_SESSION['hostname'],
 					'path' => $_SESSION['install_path'],
-					'friendly' => $_SESSION['friendly_urls'] === true ? true : false,
+					'friendly' => $_SESSION['friendly_urls'] == 'true' ? true : false,
 				),
 				'allowedProxies' => '',
 			);

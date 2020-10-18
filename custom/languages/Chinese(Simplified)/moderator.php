@@ -17,21 +17,21 @@ $language = array(
 	'overview' => '总览',
 	
 	// Spam
-	'spam' => '垃圾账号(灌水用户)',
+	'spam' => '垃圾账号 (灌水用户)',
 	'mark_as_spam' => '标记为垃圾账号',
-	'confirm_spam' => '<p>您确定要将此用户标记为垃圾账号吗？</ p> <p>该用户将被IP禁止，其所有内容都将被删除。</p>',
+	'confirm_spam' => '<p>您确定要将此用户标记为垃圾账号吗？</ p> <p>该用户将被 IP 封禁，其所有内容都将被删除。</p>',
 	'user_marked_as_spam' => '用户已被成功标记为垃圾账号。',
 	'cant_ban_admin' => '你不能封禁一位管理员!',
 	
 	// IP Lookup
 	'ip_lookup' => 'IP 查询',
-	'search_for_ip' => '搜索用户名或IP地址',
-	'no_ips_with_username' => '找不到该账号的IP地址。',
-	'no_accounts_with_that_ip' => '找不到该IP地址的帐号。',
-	'1_account_with_ip' => '找到IP地址为 {y} 的 1 个账号', // Don't replace "{y}"
-	'count_accounts_with_ip' => '找到IP为 {y} 的 {x} 个账号', // Don't replace "{x}" or "{y}"
-	'1_ip_with_name' => '找到账号 {y} 的 1 个IP', // Don't replace "{y}"
-	'count_ips_with_name' => '找到账号 {y} 的 {x} 个IP', // Don't replace "{x}" or "{y}"
+	'search_for_ip' => '搜索用户名或 IP 地址',
+	'no_ips_with_username' => '找不到该账号的 IP 地址。',
+	'no_accounts_with_that_ip' => '找不到该 IP 地址的帐号。',
+	'1_account_with_ip' => '找到 IP 地址为 {y} 的 1 个账号', // Don't replace "{y}"
+	'count_accounts_with_ip' => '找到 IP 为 {y} 的 {x} 个账号', // Don't replace "{x}" or "{y}"
+	'1_ip_with_name' => '找到账号 {y} 的 1 个 IP', // Don't replace "{y}"
+	'count_ips_with_name' => '找到账号 {y} 的 {x} 个 IP', // Don't replace "{x}" or "{y}"
 	'no_users_or_ips_found' => '没有账号或IP被找到。',
 	
 	// Reports
@@ -47,7 +47,7 @@ $language = array(
 	'view_content' => '查看反馈评论',
 	'no_comments' => '目前没有评论',
 	'new_comment' => '新的评论',
-	'report_comment_invalid' => '无效的评论内容。请确保您输入的评论介于1到10000个字符之间。',
+	'report_comment_invalid' => '无效的评论内容。请确保您输入的评论介于 1 到 10,000 个字符之间。',
 	'close_report' => '关闭这个反馈',
 	'reopen_report' => '重新开启这个反馈',
 	'1_open_report' => '目前有 <strong>1</strong> 个处于活跃状态的报告',
@@ -81,7 +81,7 @@ $language = array(
 	'reason' => '理由',
 	'warn_user' => '警告用户',
 	'ban_user' => '封禁用户',
-	'enter_valid_punishment_reason' => '请输入有效的惩处原因，长度在5到5000个字符之间。',
+	'enter_valid_punishment_reason' => '请输入有效的惩处原因，长度在 5 到 5000 个字符之间。',
 	'user_punished' => '用户所受惩罚已生效。',
 	'user_punished_alert' => '{x} 对 {y} 实行了处罚', // Don't replace {x} (staff member) or {y} (user punished)
 	'revoke' => '撤消惩罚',

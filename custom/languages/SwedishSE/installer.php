@@ -53,6 +53,7 @@ $language = array(
     'configuration_error' => 'Ange ett giltigt webbplatsnamn mellan 1 och 32 tecken långt och giltiga e-postadresser mellan 4 och 64 tecken långa.',
     'site_name' => 'Sido Namn',
     'contact_email' => 'Kontakt Email',
+    'language' => 'Language',
     'outgoing_email' => 'Utgående Email',
     'initialising_database_and_cache' => 'Initierar databasen och cachen, vänligen vänta...',
     'unable_to_login' => 'Det går inte att logga in.',

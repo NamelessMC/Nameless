@@ -188,7 +188,7 @@ if($forum_query->redirect_forum == 1){
 	$smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
 
 	// Any subforums?
-	$subforums = $queries->getWhere('forums', array('parent', '=', $fid));
+	$subforums = $queries->orderWhere('forums', 'parent = ' . $forum_query->id, 'forum_order', 'ASC');
 
 	$subforum_array = array();
 

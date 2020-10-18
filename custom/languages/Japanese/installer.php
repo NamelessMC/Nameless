@@ -56,6 +56,7 @@ $language = array(
     'site_name' => 'サイト名',
     'contact_email' => '連絡先メールアドレス',
     'outgoing_email' => '送信メールアドレス',
+    'language' => 'Language',
     'initialising_database_and_cache' => '<i class="fa fa-refresh fa-fw" aria-hidden="true"></i>現在データベースとキャッシュを初期化しています。数分かかる場合がございます。しばらくお待ちください...',
     'unable_to_login' => '<i class="fa fa-exclamation-circle fa-fw" aria-hidden="true"></i>ログインできませんでした。',
     'unable_to_create_account' => '<i class="fa fa-exclamation-circle fa-fw" aria-hidden="true"></i>アカウントを作成できませんでした。',

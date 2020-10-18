@@ -52,6 +52,7 @@ $language = array(
 	'site_name' => 'Site Naam',
 	'contact_email' => 'Contact Email',
 	'outgoing_email' => 'Uitgaande Email',
+	'language' => 'Language',
 	'initialising_database_and_cache' => 'Initialiseren van de database en cache, even geduld...',
 	'unable_to_login' => 'Het is niet mogelijk om in te loggen.',
 	'unable_to_create_account' => 'Het is niet mogelijk om een account aan te maken.',
@@ -76,7 +77,7 @@ $language = array(
 	'yes' => 'Ja',
 	'no' => 'Nee',
 	'converter' => 'Converter',
-	'back' => 'Back',
+	'back' => 'Terug',
 	'unable_to_load_converter' => 'Kan converter niet laden!',
 	'finish' => 'Voltooien',
 	'finish_message' => 'Bedankt voor het installeren van NamelessMC! U kunt nu doorgaan naar het controle paneel, waar u uw website verder kunt configureren.',
@@ -85,19 +86,19 @@ $language = array(
 	'credits_message' => 'Een grote dank aan alle <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC bijdragers</a> sinds 2014!',
 
 	'step_home' => 'Home',
-	'step_requirements' => 'Requirements',
-	'step_general_config' => 'General Configuration',
-	'step_database_config' => 'Database Configuration',
-	'step_site_config' => 'Site Configuration',
+	'step_requirements' => 'Vereisten',
+	'step_general_config' => 'Algemene Configuratie',
+	'step_database_config' => 'Database Configuratie',
+	'step_site_config' => 'Site Configuratie',
 	'step_admin_account' => 'Admin Account',
-	'step_conversion' => 'Conversion',
-	'step_finish' => 'Finish',
+	'step_conversion' => 'Conversie',
+	'step_finish' => 'Beëindig',
 
-	'general_configuration' => 'General Configuration',
-	'reload' => 'Reload',
-	'reload_page' => 'Reload page',
-	'no_converters_available' => 'There are no converters available.',
-	'config_not_writable' => 'The config file is not writable.',
+	'general_configuration' => 'Algemene Configuratie',
+	'reload' => 'Herlaad',
+	'reload_page' => 'Herlaad pagina',
+	'no_converters_available' => 'Er zijn geen converters beschikbaar.',
+	'config_not_writable' => 'Het configuratiebestand is niet beschrijfbaar.',
 
-	'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
+	'session_doesnt_exist' => 'Niet in staat om de sessie te detecteren. Sessies opslaan is een vereiste om Nameless te gebruiken. Probeer het opnieuw, en als het probleem blijft bestaan, neem dan contact op met uw webhost voor ondersteuning.'
 );

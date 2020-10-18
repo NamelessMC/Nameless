@@ -28,7 +28,7 @@ $language = array(
 	'fatal_error' => 'Alvorlig feil',
 	'fatal_error_title' => 'Beklager!',
 	'fatal_error_message_user' => 'Beklager, men det oppstod en feil. Vennligst kontakt en administrator.',
-	'fatal_error_message_admin' => 'Beklager, men det oppstod en feil. Errordetaljer:',
+	'fatal_error_message_admin' => 'Beklager, men det oppstod en feil. Feilmelding:',
 	'in_file' => 'i filen <strong>{x}</strong>', // Don't replace {x}
 	'on_line' => 'på linje <strong>{x}</strong>' // Don't replace {x}
 );

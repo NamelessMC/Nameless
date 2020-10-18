@@ -172,7 +172,7 @@ if(count($page_metadata)){
 	}
 }
 
-$page_title = ((strlen(Output::getClean($topic->topic_title)) > 20) ? Output::getClean(substr($topic->topic_title, 0, 20)) . '...' : Output::getClean($topic->topic_title)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
+$page_title = ((strlen(Output::getClean($topic->topic_title)) > 20) ? Output::getClean(mb_substr($topic->topic_title, 0, 20)) . '...' : Output::getClean($topic->topic_title)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Assign author + title to Smarty variables

@@ -55,6 +55,7 @@ $language = array(
     'site_name' => 'Nome do Site',
     'contact_email' => 'E-mail de Contato',
     'outgoing_email' => 'E-mail de envio',
+    'language' => 'Language',
     'initialising_database_and_cache' => 'Inicializando banco de dados e cache, por favor aguarde...',
     'unable_to_login' => 'Não é possível fazer login.',
     'unable_to_create_account' => 'Não é possível criar uma conta',
