@@ -135,8 +135,11 @@ try {
 
 // Multiple webhooks
 try {
-    $queries->createTable("hooks", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(128) NOT NULL, `action` int(11) NOT NULL, `url` varchar(2048) NOT NULL, `events` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "");
-    $queries->alterTable('hooks', '`name`', "varchar(128) NULL DEFAULT NULL");
+    if (!empty($queries->tableExists('hooks'))) {
+        $queries->alterTable('hooks', '`name`', "varchar(128) NULL DEFAULT NULL");
+    } else {
+        $queries->createTable("hooks", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(128) NOT NULL, `action` int(11) NOT NULL, `url` varchar(2048) NOT NULL, `events` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "");
+    }
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }

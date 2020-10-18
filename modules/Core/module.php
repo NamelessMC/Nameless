@@ -241,7 +241,7 @@ class Core_Module extends Module {
 			$hook_array = $cache->retrieve('hooks');
 		} else {
 			$hook_array = array();
-			if ($queries->tableExists('hooks')) {
+			if (!empty($queries->tableExists('hooks'))) {
 				$hooks = $queries->getWhere('hooks', array('id', '<>', 0));
 				if (count($hooks)) {
 					foreach ($hooks as $hook) {
