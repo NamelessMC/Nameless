@@ -79,6 +79,7 @@ $language = array(
 	'discord_widget_theme' => 'Discord Widget Thema',
 	'discord_id_length' => 'Zorg ervoor dat uw Discord ID 18 karakters lang is.',
 	'discord_id_numeric' => 'Zorg ervoor dat uw Discord ID numeriek is (alleen cijfers).',
+	'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
 	'dark' => 'Donker',
 	'light' => 'Licht',
 	'twitter_url' => 'Twitter URL',

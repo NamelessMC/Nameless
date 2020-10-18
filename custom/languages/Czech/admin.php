@@ -79,6 +79,7 @@ $language = array(
 	'discord_widget_theme' => 'Vzhled Discord widgetu',
 	'discord_id_length' => 'Ujistěte se, že ID vašeho Discord serveru je dlouhé 18 znaků.',
 	'discord_id_numeric' => 'Ujistěte se, že ID vašeho Discord serveru obsahuje pouze čísla.',
+	'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
 	'dark' => 'Tmavý',
 	'light' => 'Světlý',
 	'google_plus_url' => 'Google Plus URL',

@@ -170,6 +170,7 @@ $smarty->assign(array(
     'SUBMIT' => $language->get('general', 'submit'),
     'ENABLE_DISCORD_INTEGRATION' => $language->get('admin', 'enable_discord_integration'),
     'DISCORD_ENABLED' => $discord_enabled,
+    'INVITE_LINK' => $language->get('admin', 'discord_invite_info'),
     'TEST' => $language->get('admin', 'test_bot_url'),
     'TEST_URL' => URL::build('/panel/discord', 'action=test'),
     'ID_INFO' => $language->get('user', 'discord_id_help'),

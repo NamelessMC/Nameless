@@ -79,6 +79,7 @@ $language = array(
 	'discord_widget_theme' => 'Styl widgetu Discord',
 	'discord_id_length' => 'Sprawdź czy twoje ID Serwera Discord ma 18 znaków.',
 	'discord_id_numeric' => 'Sprawdź czy twoje ID Discord ma odpowiednią ilość znaków (Tylko numery).',
+	'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
 	'dark' => 'Ciemny',
 	'light' => 'Jasny',
 	'google_plus_url' => 'URL Google Plus',
