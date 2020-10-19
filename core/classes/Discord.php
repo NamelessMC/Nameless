@@ -102,7 +102,7 @@ class Discord {
         }
     }
 
-    public static function addDiscordRole($user_query, $group, Language $language) {
+    public static function addDiscordRole($user_query, $group, Language $language, $redirect = true) {
         if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
             // They have a valid discord Id
             if ($user_query->discord_id != null && $user_query->discord_id != 010) {
@@ -149,9 +149,11 @@ class Discord {
                                     break;
                             }
                         }
-                        Session::flash('edit_user_errors', $errors);
-                        Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
-                        die();
+                        if ($redirect) {
+                            Session::flash('edit_user_errors', $errors);
+                            Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
+                            die();
+                        } else return $errors;
                     }
                 }
             }
