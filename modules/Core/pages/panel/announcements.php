@@ -303,10 +303,10 @@ if (Session::exists('announcement_error'))
     ));
 
 $smarty->assign(array(
+    'PAGE' => PANEL_PAGE,
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'PAGE' => $language->get('admin', 'announcements'),
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
