@@ -77,18 +77,23 @@
                             {/if}
 
                             <div class="row">
+                                {if isset($RESET_AVATAR)}
+                                    <div class="col-md-3" style="text-align: center">
+                                <button data-toggle="modal" data-target="#resetAvatarModal" class="btn btn-warning" {if ($HAS_AVATAR != true)} disabled {/if}>{$RESET_AVATAR}</button>
+                                    </div>
+                                {/if}
                                 {if isset($WARN)}
-                                    <div class="col-md-4" style="text-align: center">
+                                    <div class="col-md-3" style="text-align: center">
                                         <a href="#" data-toggle="modal" data-target="#warnModal" class="btn btn-warning">{$WARN}</a>
                                     </div>
                                 {/if}
                                 {if isset($BAN)}
-                                    <div class="col-md-4" style="text-align: center">
+                                    <div class="col-md-3" style="text-align: center">
                                         <a href="#" data-toggle="modal" data-target="#banModal" class="btn btn-danger">{$BAN}</a>
                                     </div>
                                 {/if}
                                 {if isset($BAN_IP)}
-                                    <div class="col-md-4" style="text-align: center">
+                                    <div class="col-md-3" style="text-align: center">
                                         <a href="#" data-toggle="modal" data-target="#banIPModal" class="btn btn-danger">{$BAN_IP}</a>
                                     </div>
                                 {/if}
@@ -102,7 +107,7 @@
                                         <div class="card-header">
                                             {if $punishment.type_numeric == 1}
                                                 <span class="badge badge-danger">{$punishment.type}</span>
-                                            {elseif $punishment.type_numeric == 2}
+                                            {elseif $punishment.type_numeric == 2 || $punishment.type_numeric == 4}
                                                 <span class="badge badge-warning">{$punishment.type}</span>
                                             {elseif $punishment.type_numeric == 3}
                                                 <span class="badge badge-danger">{$punishment.type}</span>
@@ -141,6 +146,34 @@
         </section>
     </div>
 
+    {if isset($RESET_AVATAR)}
+        <div class="modal fade" id="resetAvatarModal" tabindex="-1" role="dialog" aria-labelledby="resetAvatarModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="warnModalLabel">{$RESET_AVATAR}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="" method="post">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="InputReason">{$REASON}</label>
+                                <textarea class="form-control" id="InputReason" name="reason"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">{$CANCEL}</button>
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <input type="hidden" name="type" value="reset_avatar">
+                            <input type="submit" class="btn btn-danger" value="{$SUBMIT}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {/if}
     {if isset($WARN)}
         <div class="modal fade" id="warnModal" tabindex="-1" role="dialog" aria-labelledby="warnModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
