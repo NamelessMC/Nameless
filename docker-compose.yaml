@@ -6,6 +6,10 @@
 #
 # Run:
 # docker-compose up
+#
+# Uninstall
+# docker-compose down
+# docker image prune -af
 
 version: '2'
 
