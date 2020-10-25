@@ -295,9 +295,9 @@ if (Session::exists('announcement_success'))
         'SUCCESS' => Session::flash('announcement_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
-if (Session::exists('announcement_error'))
+if (isset($errors) && count($errors))
     $smarty->assign(array(
-        'ERRORS' => Session::flash('announcement_error'),
+        'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
 
@@ -313,7 +313,6 @@ $smarty->assign(array(
     'ICON_INFO' => $language->get('admin', 'announcement_icon_instructions'),
     'YES' => $language->get('general', 'yes'),
     'NO' => $language->get('general', 'no'),
-    'ERRORS' => $errors,
     'HEADER' => $language->get('admin', 'header'),
     'MESSAGE' => $language->get('admin', 'message'),
     'BACK' => $language->get('general', 'back'),
