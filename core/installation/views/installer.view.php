@@ -15,6 +15,11 @@ if (isset($_GET['do'])) {
 
 }
 
+if (isset($step) && $step == 'ajax_initialise') {
+	require(__DIR__ . '/steps/' . $step . '.php');
+	die();
+}
+
 require(__DIR__ . '/includes/header.php');
 ?>
 
