@@ -116,6 +116,15 @@ if(isset($_GET['user'])){
 		if(Token::check()){
 			if(isset($_POST['type'])){
 				switch($_POST['type']){
+					case 'reset_avatar':
+						// Reset Avatar
+						if (!$user->hasPermission('modcp.punishments.reset_avatar')) {
+							Redirect::to(URL::build('/panel/users/punishments'));
+							die();
+						}
+						$type = 4;
+						break;
+
 					case 'ban':
 						// Ban
 						if(!$user->hasPermission('modcp.punishments.ban')){
@@ -186,6 +195,24 @@ if(isset($_GET['user'])){
 								}
 							}
 
+							else if ($type == 4) {
+								// Need to delete any other avatars
+								$diff_str = implode(',', array('jpg', 'png', 'jpeg', 'gif'));
+
+								$to_remove = glob(ROOT_PATH . '/uploads/avatars/' . $query->id . '.{' . $diff_str . '}', GLOB_BRACE);
+
+								if ($to_remove) {
+									foreach ($to_remove as $item) {
+										unlink($item);
+									}
+								}
+
+								$queries->update('users', $query->id, array(
+									'has_avatar' => 0,
+									'avatar_updated' => date('U')
+								));
+							}
+
 							// Send alerts
 							$groups = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\'');
 
@@ -237,6 +264,10 @@ if(isset($_GET['user'])){
 					// Warning
 					$type = $language->get('moderator', 'warning');
 					break;
+				case 4:
+					// Reset Avatar
+					$type = $language->get('moderator', 'reset_avatar');
+				break;
 				default:
 					// IP Ban
 					$type = $language->get('moderator', 'ip_ban');
@@ -255,11 +286,14 @@ if(isset($_GET['user'])){
 				'issued_by_avatar' => $user->getAvatar($punishment->staff, '', 128),
 				'date_full' => ($punishment->created ? date('d M Y, H:i', $punishment->created) : date('d M Y, H:i', strtotime($punishment->infraction_date))),
 				'date_friendly' => ($punishment->created ? $timeago->inWords(date('Y-m-d H:i:s', $punishment->created), $language->getTimeLanguage()) : $timeago->inWords($punishment->infraction_date, $language->getTimeLanguage())),
-				'revoke_link' => (($user->hasPermission('modcp.punishments.revoke')) ? URL::build('/panel/users/punishments/', 'user=' . $query->id . '&do=revoke&id=' . $punishment->id) : 'none'),
+				'revoke_link' => (($user->hasPermission('modcp.punishments.revoke') && $punishment->type != 4) ? URL::build('/panel/users/punishments/', 'user=' . $query->id . '&do=revoke&id=' . $punishment->id) : 'none'),
 				'confirm_revoke_punishment' => (($punishment->type == 2) ? $language->get('moderator', 'confirm_revoke_warning') : $language->get('moderator', 'confirm_revoke_ban'))
 			);
 		}
 	}
+
+	if ($user->hasPermission('modcp.punishments.reset_avatar'))
+		$smarty->assign('RESET_AVATAR', $language->get('moderator', 'reset_avatar'));
 
 	if($user->hasPermission('modcp.punishments.warn'))
 		$smarty->assign('WARN', $language->get('moderator', 'warn'));
@@ -274,6 +308,7 @@ if(isset($_GET['user'])){
 		$smarty->assign('REVOKE_PERMISSION', true);
 
 	$smarty->assign(array(
+		'HAS_AVATAR' => $query->has_avatar,
 		'BACK_LINK' => URL::build('/panel/users/punishments'),
 		'BACK' => $language->get('general', 'back'),
 		'VIEWING_USER' => str_replace('{x}', Output::getClean($query->nickname), $language->get('moderator', 'viewing_user_x')),

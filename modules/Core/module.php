@@ -343,6 +343,7 @@ class Core_Module extends Module {
 			'admincp.users' => $language->get('admin', 'user_management'),
 			'modcp.ip_lookup' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'ip_lookup'),
 			'modcp.punishments' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'punishments'),
+			'modcp.punishments.reset_avatar' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'reset_avatar'),
 			'modcp.punishments.warn' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'warn_user'),
 			'modcp.punishments.ban' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'ban_user'),
 			'modcp.punishments.banip' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'ban_ip'),

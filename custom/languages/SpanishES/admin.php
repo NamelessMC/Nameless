@@ -80,6 +80,7 @@ $language = array(
 	'discord_widget_theme' => 'Modo del Widget de discord',
 	'discord_id_length' => 'Asegúrate de que tu ID de Discord tenga 18 caracteres.',
 	'discord_id_numeric' => 'Asegúrese de que su ID de Discord sea numérico (solo números).',
+	'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
 	'dark' => 'Oscuro',
 	'light' => 'Claro',
 	'google_plus_url' => 'Enlace de Google Plus',

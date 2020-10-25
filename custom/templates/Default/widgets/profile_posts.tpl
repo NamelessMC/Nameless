@@ -1,8 +1,8 @@
 <div class="card">
     <div class="card-body">
         <h2>{$LATEST_PROFILE_POSTS}</h2>
-            {if isset($POSTS)}
-                {foreach from=$POSTS item=post name=latest_posts}
+            {if isset($PROFILE_POSTS_ARRAY)}
+                {foreach from=$PROFILE_POSTS_ARRAY name=profile_posts item=post}
                     <div class="row">
                         <div class="col-md-3">
                             <div class="frame">

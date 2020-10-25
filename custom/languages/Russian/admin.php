@@ -77,6 +77,7 @@ $language = array(
 	'twitter_dark_theme' => 'Использовать тёмную тему Твиттера?',
 	'discord_id' => 'Discord ID сервера',
 	'discord_widget_theme' => 'Discord тема виджета',
+	'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
 	'dark' => 'Тёмная',
 	'light' => 'Светлая',
 	'google_plus_url' => 'Google Plus URL',

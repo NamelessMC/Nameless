@@ -77,6 +77,12 @@
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                 </div>
                             <hr>
+
+                                <div class="callout callout-info">
+                                    <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                                    {$INVITE_LINK}
+                                </div>
+
                                 <div class="form-group">
                                     <label for="inputGuildId">{$GUILD_ID} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
                                     <input type="number" name="guild_id" class="form-control" id="inputGuildId" value="{$GUILD_ID_VALUE}">

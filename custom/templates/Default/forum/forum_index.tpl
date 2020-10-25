@@ -14,7 +14,7 @@
 				{/foreach}
 			</div> 
 		{/if}
-		<div class="col-md-{if count($WIDGETS_LEFT)}6{else}9{/if}">
+		<div class="col-md-{if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}6{elseif count($WIDGETS_RIGHT) || count($WIDGETS_LEFT)}9{else}12{/if}">
 		  <ol class="breadcrumb">
 		    <li class="breadcrumb-item active"><a href="{$BREADCRUMB_URL}">{$BREADCRUMB_TEXT}</a></li>
 		  </ol>

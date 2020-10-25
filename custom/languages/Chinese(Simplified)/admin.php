@@ -81,6 +81,7 @@ $language = array(
 	'discord_widget_theme' => 'Discord Widget 主题',
 	'discord_id_length' => '请确保您的 Discord ID 长 18 位。',
 	'discord_id_numeric' => '请确保您的 Discord ID 只包含数字。',
+	'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
 	'dark' => '暗调',
 	'light' => '亮色',
 	'google_plus_url' => 'Google Plus 链接(URL)',
