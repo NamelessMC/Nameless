@@ -22,7 +22,7 @@ Developer documentation is coming soon, both for module and template development
 Installing NamelessMC v2 is fairly straightforward, provided you already have a web host.
 
 #### Requirements
-- PHP 5.4+ (7.2+ recommended) with:
+- PHP 5.4+ (7.3+ recommended) with:
     - php-curl
     - php-exif (optional)
     - php-gd with png and jpeg support

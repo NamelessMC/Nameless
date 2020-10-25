@@ -6,6 +6,10 @@
 #
 # Run:
 # docker-compose up
+#
+# Uninstall
+# docker-compose down
+# docker image prune -af
 
 version: '2'
 
@@ -26,6 +30,18 @@ services:
                 USER_ID: ${USER_ID}
                 GROUP_ID: ${GROUP_ID}
         volumes: ['./:/data']
+        environment:
+            NAMELESS_HOSTNAME: localhost
+            NAMELESS_DATABASE_ADDRESS: db
+            NAMELESS_DATABASE_NAME: nameless
+            NAMELESS_DATABASE_USERNAME: nameless
+            NAMELESS_DATABASE_PASSWORD: nameless
+            NAMELESS_FRIENDLY_URLS: 'true'
+            NAMELESS_SITE_NAME: 'Development'
+            NAMELESS_SITE_CONTACT_EMAIL: admin@localhost
+            NAMELESS_SITE_OUTGOING_EMAIL: admin@localhost
+            NAMELESS_ADMIN_USERNAME: developer
+            NAMELESS_ADMIN_EMAIL: admin@localhost
 
     db:
         image: mariadb
