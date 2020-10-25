@@ -24,7 +24,7 @@ class UserInfoEndpoint extends EndpointBase {
             else $api->throwError(26, $api->getLanguage()->get('api', 'invalid_get_contents'));
 
             // Ensure the user exists
-            $user = $api->getDb()->query('SELECT nl2_users.id, nl2_users.username, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.group_id, nl2_users.joined as registered, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title, nl2_groups.name as group_name FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id WHERE nl2_users.id = ? OR nl2_users.username = ? OR nl2_users.uuid = ?', array($query, $query, $query));
+            $user = $api->getDb()->query('SELECT nl2_users.id, nl2_users.username, nl2_users.language_id, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.group_id, nl2_users.joined as registered, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title, nl2_groups.name as group_name FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id WHERE nl2_users.id = ? OR nl2_users.username = ? OR nl2_users.uuid = ?', array($query, $query, $query));
             if (!$user->count()) $api->returnArray(array('exists' => false));
             
             $user = $user->first();
@@ -34,6 +34,10 @@ class UserInfoEndpoint extends EndpointBase {
             $user->registered = intval($user->registered);
             $user->banned = (bool) $user->banned;
             $user->validated = (bool) $user->validated;
+            $language = $api->getDb()->query('SELECT name FROM nl2_languages WHERE id = ?', array($user->language_id));
+            if (!$language->count()) $language = 'EnglishUK';
+            else $language = $language->first()->name;
+            $user->language = $language;
 
             $custom_profile_fields = $api->getDb()->query('SELECT fields.id, fields.name, fields.type, fields.public, fields.required, fields.description, pf_values.value FROM nl2_users_profile_fields pf_values LEFT JOIN nl2_profile_fields fields ON pf_values.field_id = fields.id WHERE pf_values.user_id = ?', array($user->id));
             
