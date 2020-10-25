@@ -6,7 +6,7 @@ if (!isset($_SESSION['requirements_validated']) || $_SESSION['requirements_valid
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$_SESSION['hostname'] = (isset($_POST['hostname']) ? $_POST['hostname'] : $_SERVER['SERVER_NAME']);
-	$_SESSION['install_path'] = (isset($_POST['hostname']) ? $_POST['install_path'] : '');
+	$_SESSION['install_path'] = (isset($_POST['install_path']) ? $_POST['install_path'] : '');
 	$_SESSION['friendly_urls'] = (isset($_POST['friendly']) ? $_POST['friendly'] : false);
 		
 	Redirect::to('?step=database_configuration');
