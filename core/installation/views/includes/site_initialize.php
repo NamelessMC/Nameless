@@ -670,5 +670,7 @@ $cache->store('enabled', array(
 	'Statistics' => 1
 ));
 
+$config_path = Config::get('core/path');
+
 $cache->setCache('backgroundcache');
-$cache->store('banner_image', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg');
+$cache->store('banner_image', ($config_path ? $config_path : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg');
