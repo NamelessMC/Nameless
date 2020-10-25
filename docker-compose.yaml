@@ -1,7 +1,7 @@
 # THIS FILE IS FOR DEVELOPMENT. For production, see https://github.com/NamelessMC/Nameless-Docker
 
 # Run:
-# export UID=$UID; export GID=$GID; docker-compose up
+# export USER_ID=$(id -u); export GROUP_ID=$(id -g); docker-compose up
 
 version: '2'
 
@@ -19,8 +19,8 @@ services:
         build:
             context: .
             args:
-                USER_ID: ${UID}
-                GROUP_ID: ${GID}
+                USER_ID: ${USER_ID}
+                GROUP_ID: ${GROUP_ID}
         volumes: ['./:/data']
 
     db:
@@ -30,3 +30,13 @@ services:
             MYSQL_USER: nameless
             MYSQL_PASSWORD: nameless
             MYSQL_DATABASE: nameless
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports: ['8080:80']
+        depends_on: [db]
+        environment:
+            PMA_HOST: db
+            PMA_ABSOLUTE_URI: http://localhost:8080
+            PMA_USER: nameless
+            PMA_PASSWORD: nameless
