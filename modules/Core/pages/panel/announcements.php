@@ -152,7 +152,6 @@ if (!isset($_GET['action'])) {
             $smarty->assign(array(
                 'ANNOUNCEMENT_TITLE' => $language->get('admin', 'creating_announcement'),
                 'GROUPS' => $template_array,
-                'BACK_LINK' => URL::build('/panel/core/announcements'),
             ));
 
             $template_file = 'core/announcements_form.tpl';
@@ -318,6 +317,7 @@ $smarty->assign(array(
     'HEADER' => $language->get('admin', 'header'),
     'MESSAGE' => $language->get('admin', 'message'),
     'BACK' => $language->get('general', 'back'),
+    'BACK_LINK' => URL::build('/panel/core/announcements'),
     'PAGES' => $language->get('admin', 'pages'),
     'TEXT_COLOUR' => $language->get('admin', 'text_colour'),
     'BACKGROUND_COLOUR' => $language->get('admin', 'background_colour'),
