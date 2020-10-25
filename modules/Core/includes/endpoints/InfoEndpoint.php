@@ -35,6 +35,9 @@ class InfoEndpoint extends EndpointBase {
                 } else $new_version = $item->value;
             }
 
+            // Return default language
+            $ret['language'] = LANGUAGE;
+
             if (isset($version_checked) && isset($version_update) && isset($current_version)) {
                 if ($version_update == 'false') {
                     if ($version_checked < strtotime('-1 hour')) {
