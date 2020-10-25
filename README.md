@@ -25,7 +25,7 @@ Installing NamelessMC v2 is fairly straightforward, provided you already have a 
 - PHP 5.4+ (7.2+ recommended) with:
     - php-curl
     - php-exif (optional)
-    - php-gd
+    - php-gd with png and jpeg support
     - php-mbstring
     - php-mysql or php-mysqlnd
     - php-pdo
