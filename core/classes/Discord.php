@@ -13,27 +13,12 @@ class Discord {
     public static function discordBotRequest($url = '/') {
 
         $bot_url_attempt = Util::curlGetContents(BOT_URL . $url);
-
-        switch ($bot_url_attempt) {
-            case 'success':
-                return 'success';
-            case 'failure-cannot-interact':
-                return 'failure-cannot-interact';
-            case 'failure-invalid-api-url':
-                return 'failure-invalid-api-url';
-            default: {
-                    $backup_bot_url_attempt = Util::curlGetContents(BOT_URL_BACKUP . $url);
-                    switch ($backup_bot_url_attempt) {
-                        case 'success':
-                            return 'success';
-                        case 'failure-cannot-interact':
-                            return 'failure-cannot-interact';
-                        case 'failure-invalid-api-url':
-                            return 'failure-invalid-api-url';
-                        default:
-                            return false;
-                    }
-                }
+        $valid_responses = array('success', 'failure-cannot-interact', 'failure-invalid-api-url');
+        if (in_array($bot_url_attempt, $valid_responses)) return $bot_url_attempt;
+        else {
+            $backup_bot_url_attempt = Util::curlGetContents(BOT_URL_BACKUP . $url);
+            if (in_array($backup_bot_url_attempt, $valid_responses)) return $backup_bot_url_attempt;
+            else return false;
         }
     }
 
