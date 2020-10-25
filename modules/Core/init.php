@@ -17,4 +17,4 @@ if(!$module_installed){
 	die('Run the installer first!');
 }
 require_once(ROOT_PATH . '/modules/Core/module.php');
-$module = new Core_Module($language, $pages, $user, $queries, $navigation, $cache);
+$module = new Core_Module($language, $pages, $user, $queries, $navigation, $cache, $endpoints);

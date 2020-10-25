@@ -13,7 +13,7 @@ class Core_Module extends Module {
 	private $_language;
 	private static $_dashboard_graph = array(), $_notices = array(), $_user_actions = array();
 
-	public function __construct($language, $pages, $user, $queries, $navigation, $cache){
+	public function __construct($language, $pages, $user, $queries, $navigation, $cache, $endpoints){
 		$this->_language = $language;
 
 		$name = 'Core';
@@ -242,7 +242,7 @@ class Core_Module extends Module {
 			$hook_array = $cache->retrieve('hooks');
 		} else {
 			$hook_array = array();
-			if ($queries->tableExists('hooks')) {
+			if (!empty($queries->tableExists('hooks'))) {
 				$hooks = $queries->getWhere('hooks', array('id', '<>', 0));
 				if (count($hooks)) {
 					foreach ($hooks as $hook) {
@@ -267,6 +267,15 @@ class Core_Module extends Module {
 			}
 		}
 		HookHandler::registerHooks($hook_array);
+
+		// Autoload API Endpoints
+		$classes = scandir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')));
+		foreach ($classes as $endpoint) {
+			if ($endpoint[0] == '.') continue; 
+			require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints', $endpoint)));
+			$endpoint = str_replace('.php', '', $endpoint);
+			$endpoints->add(new $endpoint());
+		}
 	}
 
 	public function onInstall(){

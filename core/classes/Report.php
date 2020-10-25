@@ -46,6 +46,6 @@ class Report {
 				}
 			}
 		}
-		
+
 	}
 }

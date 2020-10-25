@@ -178,13 +178,26 @@ if(Input::exists()){
 
 			// Get secondary groups
 			if(isset($_POST['secondary_groups']) && count($_POST['secondary_groups'])){
+				// Add all new groups to Discord
 				foreach($_POST['secondary_groups'] as $secondary_group) {
 					if($secondary_group != $group) {
 						$secondary_groups[] = $secondary_group;
+						Discord::addDiscordRole($user_query, $secondary_group, $language);
+					}
+				}
+				// Find secondary groups which the user had, but are not selected anymore, and remove them from Discord
+				foreach($user_query->secondary_groups as $secondary_group) {
+					if (!in_array($_POST['secondary_groups'], $secondary_group)) {
+						Discord::removeDiscordRole($user_query, $secondary_group, $language);
 					}
 				}
 				$secondary_groups = json_encode($secondary_groups);
 			} else {
+				// Remove all old secondary groups from Discord when none are selected
+				$user_secondary_groups = json_decode($user_query->secondary_groups, true);
+				foreach ($user_secondary_groups as $secondary_group) {
+					Discord::removeDiscordRole($user_query, $secondary_group, $language);
+				}
 				$secondary_groups = '';
 			}
 
@@ -193,63 +206,7 @@ if(Input::exists()){
 			if($validation->passed()){
 
 				try {
-					// The new group is not the same as their old group
-					if ($user_query->group_id != $group) {
-						// Discord integration is enabled
-						$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
-						if ($discord_integration[0]->value == '1') {
-							// They have a valid discord Id
-							if ($user_query->discord_id != null && $user_query->discord_id != 010) {
-								$group_discord_id = $queries->getWhere('groups', array('id', '=', $group));
-								$group_discord_id = $group_discord_id[0]->discord_role_id;
-								$old_group_discord_id = $queries->getWhere('groups', array('id', '=', $user_query->group_id));
-								$old_group_discord_id = $old_group_discord_id[0]->discord_role_id;
-								$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'));
-								$api_key = $api_key[0]->value;
-								$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
-								
-								// The bot can handle null roles, but it is better to deal with it here
-								// TODO: Probably a nicer way to do this
-								$guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
-								$guild_id = $guild_id[0]->value;
-
-								$url = '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . $guild_id;
-
-								if ($group_discord_id == null && $old_group_discord_id != null) {
-									$url .= '&role=null' . '&oldRole=' . $old_group_discord_id;
-								} else if ($group_discord_id != null && $old_group_discord_id == null) {
-									$url .= '&role=' . $group_discord_id . '&oldRole=null';
-								} else if ($group_discord_id != null && $old_group_discord_id != null){
-									$url .= '&role=' . $group_discord_id. '&oldRole=' . $old_group_discord_id;
-								} else $url = null;
-								if ($url != null) {
-									$result = Util::discordBotRequest($url . '&api_url=' . $api_url . '/');
-									if ($result != 'success') {
-										if ($result === false) {
-											// This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
-											$errors[] = $language->get('user', 'discord_communication_error');
-										} else {
-											switch ($result) {
-												case 'failure-cannot-interact':
-													$errors[] = $language->get('admin', 'discord_cannot_interact');
-													break;
-												case 'failure-invalid-api-url':
-													$errors[] = $language->get('admin', 'discord_invalid_api_url');
-													break;
-												default:
-													// This should never happen 
-													$errors[] = $language->get('user', 'discord_unknown_error');
-													break;
-											}
-										}
-										Session::flash('edit_user_errors', $errors);
-										Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
-										die();
-									}
-								}
-							}
-						}
-					}
+					Discord::addDiscordRole($user_query, $group, $language);
 
 					// Signature from Markdown -> HTML if needed
 					$cache->setCache('post_formatting');

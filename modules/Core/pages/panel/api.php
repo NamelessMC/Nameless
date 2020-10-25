@@ -156,9 +156,14 @@ if(!isset($_GET['view'])){
 				$validate = new Validate();
 				$validation = $validate->check($_POST, array(
 					'ingame_rank_name' => array(
-						'required' => true,
 						'min' => 2,
 						'max' => 64,
+						'unique' => 'group_sync'
+					),
+					'discord_role_id' => array(
+						'min' => 18,
+						'max' => 18,
+						'numeric' => true,
 						'unique' => 'group_sync'
 					),
 					'website_group' => array(
@@ -166,23 +171,49 @@ if(!isset($_GET['view'])){
 					)
 				));
 
-				if($validation->passed()){
+				$errors = array();
+
+				if (empty($_POST['ingame_rank_name']) && empty($_POST['discord_role_id'])) {
+					$errors[] = $language->get('admin', 'at_least_one_external');
+				}
+
+				else if($validation->passed()){
+
 					// Primary group?
 					if(isset($_POST['primary_group']) && $_POST['primary_group'] == 1)
 						$primary = 1;
 					else
 						$primary = 0;
 
-					$queries->create('group_sync', array(
-						'ingame_rank_name' => Output::getClean(Input::get('ingame_rank_name')),
-						'website_group_id' => intval(Input::get('website_group')),
-						'primary' => $primary
-					));
+					$discord_role_id = intval(Input::get('discord_role_id'));
+					if ($discord_role_id == 0) $discord_role_id = null;
 
-					Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
+					$fields = array();
+					$fields['website_group_id']  = intval($website_group);
+					$fields['primary'] = $primary;
+					$fields['discord_role_id'] = $discord_role_id;
+
+					$ingame_rank_name = $_POST['ingame_rank_name'];
+
+					if (!empty($ingame_rank_name)) {
+						if (strlen(str_replace(' ', '', $ingame_rank_name)) > 1 && strlen(str_replace(' ', '', $ingame_rank_name)) < 65) {
+							$fields['ingame_rank_name'] = $ingame_rank_name;
+						} else {
+							$errors[] = $language->get('admin', 'group_name_minimum');
+							$errors[] = $language->get('admin', 'ingame_group_maximum');
+						}
+					} else $fields['ingame_rank_name'] = '';
+
+					if ($discord_role_id == null && empty($ingame_rank_name)) {
+						$errors[] = $language->get('admin', 'at_least_one_external');
+					}
+
+					if (!count($errors)) {
+						$queries->create('group_sync', $fields);
+						Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
+					}
 
 				} else {
-					$errors = array();
 					foreach($validation->errors() as $error){
 						if(strpos($error, 'ingame_rank') !== false){
 							if(strpos($error, 'required') !== false){
@@ -198,8 +229,14 @@ if(!isset($_GET['view'])){
 								$errors[] = $language->get('admin', 'ingame_group_already_exists');
 							}
 
-						} else {
-							$errors[] = $language->get('admin', 'select_website_group');
+						} else if(strpos($error, 'discord_role_id') !== false) {
+							if (strpos($error, 'numeric') !== false) {
+								$errors[] = $language->get('admin', 'discord_role_id_numeric');
+							} else if (strpos($error, 'length') !== false) {
+								$errors[] = $language->get('admin', 'discord_role_id_length');
+							} else {
+								$errors[] = $language->get('user', 'discord_id_taken');
+							}
 						}
 					}
 				}
@@ -207,38 +244,55 @@ if(!isset($_GET['view'])){
 			} else if($_POST['action'] == 'update'){
 				$errors = array();
 
-				if(isset($_POST['ingame_group']) && isset($_POST['website_group']) && isset($_POST['primary_group'])){
-					foreach($_POST['ingame_group'] as $key => $ingame_group){
-						if(isset($_POST['website_group'][$key]) && isset($_POST['primary_group'][$key])){
-							if(strlen(str_replace(' ', '', $ingame_group)) > 1 && strlen(str_replace(' ', '', $ingame_group)) < 65){
-								// OK to update
-								if($_POST['primary_group'][$key] == 1)
-									$primary = 1;
-								else
-									$primary = 0;
+				if(isset($_POST['ingame_group']) && isset($_POST['discord_role']) && isset($_POST['website_group']) && isset($_POST['primary_group'])){
 
-								$group_id = intval($_POST['website_group'][$key]);
+					foreach($_POST['website_group'] as $key => $website_group) {
+						if (isset($_POST['primary_group'][$key])) {
+							if (!empty($_POST['ingame_group'][$key]) || !empty($_POST['discord_role'][$key])) {
 
-								try {
-									$queries->update('group_sync', $key, array(
-										'ingame_rank_name' => $ingame_group,
-										'website_group_id' => $group_id,
-										'`primary`' => $primary
-									));
-								} catch(Exception $e){
-									$errors[] = $e->getMessage();
+								if ($_POST['primary_group'][$key] == 1) $primary = 1;
+								else $primary = 0;
+
+								$ingame_group = $_POST['ingame_group'][$key];
+								$discord_role_id = intval($_POST['discord_role'][$key]);
+								if ($discord_role_id == 0) $discord_role_id = null;
+
+								$fields = array();
+								$fields['website_group_id']  = intval($website_group);
+								$fields['`primary`'] = $primary;
+
+								if (!empty($_POST['ingame_group'][$key])) {
+									if (strlen(str_replace(' ', '', $ingame_group)) > 1 && strlen(str_replace(' ', '', $ingame_group)) < 65) {
+										$fields['ingame_rank_name'] = $ingame_group;
+									} else {
+										$errors[] = $language->get('admin', 'group_name_minimum');
+										$errors[] = $language->get('admin', 'ingame_group_maximum');
+									}
+								} else $fields['ingame_rank_name'] = '';
+								if (strlen($discord_role_id) == 0 || strlen($discord_role_id) == 18) {
+									$fields['discord_role_id'] = $discord_role_id;
+								} else {
+									$errors[] = $language->get('admin', 'discord_role_id_length');
 								}
 
-							}
+								if (!count($errors)) {
+									try {
+										$queries->update('group_sync', $key, $fields);
+									} catch (Exception $e) {
+										$errors[] = $e->getMessage();
+									}
+								}
+							} else $errors[] = $language->get('admin', 'at_least_one_external');
 						}
 					}
 				}
 
-				Session::flash('api_success', $language->get('admin', 'group_sync_rules_updated_successfully'));
+				if (!count($errors))
+					Session::flash('api_success', $language->get('admin', 'group_sync_rules_updated_successfully'));
 			}
 
 		} else
-			$errors = array($language->get('general', 'invalid_token'));
+			$errors[] = array($language->get('general', 'invalid_token'));
 	}
 
 }
@@ -335,61 +389,101 @@ if(!isset($_GET['view'])){
 		'SUBMIT' => $language->get('general', 'submit'),
 		'COPIED' => $language->get('general', 'copied'),
 		'GROUP_SYNC' => $language->get('admin', 'group_sync'),
-		'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync')
+		'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
+		'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
+		'API_ENDPOINTS_LINK' => URL::build('/panel/core/api/', 'view=api_endpoints')
 	));
 
 	$template_file = 'core/api.tpl';
 
 } else {
-	// Get all groups
-	$groups = $queries->getWhere('groups', array('id', '<>', 0));
-	$template_array = array();
-	foreach($groups as $group){
-		$template_array[] = array(
-			'id' => Output::getClean($group->id),
-			'name' => Output::getClean($group->name)
-		);
+
+	if ($_GET['view'] == 'group_sync') {
+		// Get all groups
+		$groups = $queries->getWhere('groups', array('id', '<>', 0));
+		$website_groups = array();
+		foreach ($groups as $group) {
+			$website_groups[] = array(
+				'id' => Output::getClean($group->id),
+				'name' => Output::getClean($group->name)
+			);
+		}
+
+		// Get ingame groups
+		$ingame_groups = DB::getInstance()->query("SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1")->first();
+		$ingame_groups = json_decode($ingame_groups->groups, true);
+
+		// Get existing group sync configuration
+		$group_sync = $queries->getWhere('group_sync', array('id', '<>', 0));
+		$template_groups = array();
+		foreach ($group_sync as $group) {
+			$template_groups[] = array(
+				'id' => Output::getClean($group->id),
+				'ingame' => Output::getClean($group->ingame_rank_name),
+				'discord' => $group->discord_role_id,
+				'website' => $group->website_group_id,
+				'primary' => $group->primary,
+				'delete_link' => URL::build('/panel/core/api/', 'view=group_sync&action=delete&id=' . Output::getClean($group->id))
+			);
+		}
+
+		$smarty->assign(array(
+			'PARENT_PAGE' => PARENT_PAGE,
+			'DASHBOARD' => $language->get('admin', 'dashboard'),
+			'CONFIGURATION' => $language->get('admin', 'configuration'),
+			'API' => $language->get('admin', 'api'),
+			'PAGE' => PANEL_PAGE,
+			'INFO' => $language->get('general', 'info'),
+			'GROUP_SYNC_INFO' => $language->get('admin', 'group_sync_info'),
+			'BACK' => $language->get('general', 'back'),
+			'BACK_LINK' => URL::build('/panel/core/api'),
+			'TOKEN' => Token::get(),
+			'SUBMIT' => $language->get('general', 'submit'),
+			'INGAME_GROUPS' => $ingame_groups,
+			'INGAME_GROUP_NAME' => $language->get('admin', 'ingame_group'),
+			'DISCORD_ROLE_ID' => $language->get('admin', 'discord_role_id'),
+			'WEBSITE_GROUP' => $language->get('admin', 'website_group'),
+			'SET_AS_PRIMARY_GROUP' => $language->get('admin', 'set_as_primary_group'),
+			'SET_AS_PRIMARY_GROUP_INFO' => $language->get('admin', 'set_as_primary_group_info'),
+			'YES' => $language->get('general', 'yes'),
+			'NO' => $language->get('general', 'no'),
+			'GROUPS' => $website_groups,
+			'GROUP_SYNC_VALUES' => $template_groups,
+			'DELETE' => $language->get('general', 'delete'),
+			'NEW_RULE' => $language->get('admin', 'new_rule'),
+			'EXISTING_RULES' => $language->get('admin', 'existing_rules')
+		));
+
+		$template_file = 'core/api_group_sync.tpl';
+
+	} else if ($_GET['view'] == 'api_endpoints') {
+
+		$endpoints_array = array();
+		foreach($endpoints->getAll() as $endpoint) {
+			$endpoints_array[] = array(
+				'route' => $endpoint->getRoute(),
+				'module' => $endpoint->getModule(),
+				'description' => $endpoint->getDescription()
+			);
+		};
+
+		$smarty->assign(array(
+			'PARENT_PAGE' => PARENT_PAGE,
+			'DASHBOARD' => $language->get('admin', 'dashboard'),
+			'CONFIGURATION' => $language->get('admin', 'configuration'),
+			'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
+			'PAGE' => PANEL_PAGE,
+			'BACK' => $language->get('general', 'back'),
+			'BACK_LINK' => URL::build('/panel/core/api'),
+			'ROUTE' => $language->get('admin', 'route'),
+			'DESCRIPTION' => $language->get('admin', 'description'),
+			'MODULE' => $language->get('admin', 'module'),
+			'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info'), 
+			'ENDPOINTS_ARRAY' => $endpoints_array
+		));
+
+		$template_file = 'core/api_endpoints.tpl';
 	}
-
-	// Get existing group sync configuration
-	$group_sync = $queries->getWhere('group_sync', array('id', '<>', 0));
-	$template_groups = array();
-	foreach($group_sync as $group){
-		$template_groups[] = array(
-			'id' => Output::getClean($group->id),
-			'ingame' => Output::getClean($group->ingame_rank_name),
-			'website' => $group->website_group_id,
-			'primary' => $group->primary,
-			'delete_link' => URL::build('/panel/core/api/', 'view=group_sync&action=delete&id=' . Output::getClean($group->id))
-		);
-	}
-
-	$smarty->assign(array(
-		'PARENT_PAGE' => PARENT_PAGE,
-		'DASHBOARD' => $language->get('admin', 'dashboard'),
-		'CONFIGURATION' => $language->get('admin', 'configuration'),
-		'API' => $language->get('admin', 'api'),
-		'PAGE' => PANEL_PAGE,
-		'INFO' => $language->get('general', 'info'),
-		'GROUP_SYNC_INFO' => $language->get('admin', 'group_sync_info'),
-		'BACK' => $language->get('general', 'back'),
-		'BACK_LINK' => URL::build('/panel/core/api'),
-		'TOKEN' => Token::get(),
-		'SUBMIT' => $language->get('general', 'submit'),
-		'INGAME_GROUP_NAME' => $language->get('admin', 'ingame_group'),
-		'WEBSITE_GROUP' => $language->get('admin', 'website_group'),
-		'SET_AS_PRIMARY_GROUP' => $language->get('admin', 'set_as_primary_group'),
-		'SET_AS_PRIMARY_GROUP_INFO' => $language->get('admin', 'set_as_primary_group_info'),
-		'YES' => $language->get('general', 'yes'),
-		'NO' => $language->get('general', 'no'),
-		'GROUPS' => $template_array,
-		'GROUP_SYNC_VALUES' => $template_groups,
-		'DELETE' => $language->get('general', 'delete'),
-		'NEW_RULE' => $language->get('admin', 'new_rule'),
-		'EXISTING_RULES' => $language->get('admin', 'existing_rules')
-	));
-
-	$template_file = 'core/api_group_sync.tpl';
 
 }
 

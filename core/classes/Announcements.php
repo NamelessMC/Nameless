@@ -31,7 +31,7 @@ class Announcements {
 			}
             $pages = json_decode($announcement->pages, true);
             $groups = json_decode($announcement->groups, true);
-            if (in_array($page, $pages) || in_array($custom_page, $pages)) {
+            if (in_array($page, $pages) || $page == 'api' || in_array($custom_page, $pages)) {
                 if (in_array($group_id, $groups)) {
                     $announcements[] = $announcement;
                 } else if (is_array($secondary_groups) && count($secondary_groups)) {

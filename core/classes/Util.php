@@ -150,59 +150,6 @@ class Util {
 	   return preg_replace_callback($pattern, $callback, $text);
 	}
 	
-	// Parse text with Geshi
-	public static function parseGeshi($content = null){
-		if($content) {
-            require_once(ROOT_PATH . '/core/includes/geshi/geshi.php');
-
-            $dom = new DOMDocument;
-
-            $dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
-            $codeTags = $dom->getElementsByTagName('code');
-            $newCodeTags = array();
-            $ids = array();
-
-            $i = $codeTags->length - 1;
-
-            while ($i > -1) {
-                $code = $codeTags->item($i);
-                if ($code->hasAttributes()) {
-                    foreach ($code->attributes as $attribute) {
-                        if ($attribute->name == 'class') {
-                            $class = $attribute->value;
-
-                            if (substr($class, 0, 9) == 'language-') {
-                                // Parse with GeSHi
-                                $language = substr($class, 9);
-
-                                $geshi = new GeSHi($code->nodeValue, $language);
-                                $string = $geshi->parse_code();
-
-                                $newCodeTags[] = $string;
-
-                                $repl = $dom->createElement('span');
-
-                                $id = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 20);
-                                $ids[] = '<span id="' . $id . '"></span>';
-
-                                $repl->setAttribute('id', $id);
-
-                                $code->parentNode->replaceChild($repl, $code);
-                            }
-                        }
-                    }
-                }
-                $i--;
-            }
-
-            $content = $dom->saveHTML();
-
-            return str_replace($ids, $newCodeTags, $content);
-		}
-		return false;
-	}
-	
 	// Get a Minecraft avatar from a UUID
 	public static function getAvatarFromUUID($uuid, $size = 128){
 		if(defined('DEFAULT_AVATAR_SOURCE')){
@@ -559,33 +506,6 @@ class Util {
 		    return $news;
 	    }
 	}
-	
-	public static function discordBotRequest($url) {
-
-		$bot_url_attempt = self::curlGetContents(BOT_URL . $url);
-
-		switch ($bot_url_attempt) {
-			case 'success':
-				return 'success';
-			case 'failure-cannot-interact':
-				return 'failure-cannot-interact';
-			case 'failure-invalid-api-url':
-				return 'failure-invalid-api-url';
-			default: {
-				$backup_bot_url_attempt = self::curlGetContents(BOT_URL_BACKUP . $url);
-				switch ($backup_bot_url_attempt) {
-					case 'success':
-						return 'success';
-					case 'failure-cannot-interact':
-						return 'failure-cannot-interact';
-					case 'failure-invalid-api-url':
-						return 'failure-invalid-api-url';
-					default:
-						return false;
-				}
-			}
-		}
-	}
 
 	public static function curlGetContents($full_url) {
 		$ch = curl_init();
@@ -610,5 +530,11 @@ class Util {
 				return '<a href="'.$m[1].'" target="_blank">'.$m[2].'</a>';
 		}, $data);
 		return $data;
+	}
+
+	public static function getSetting(DB $db, $setting, $fallback = null) {
+		$value = $db->get('settings', array('name', '=', $setting));
+		if ($value->count()) return $value->first()->value;
+		else return $fallback;
 	}
 }

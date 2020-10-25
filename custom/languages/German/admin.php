@@ -579,7 +579,7 @@ $language = array(
     'enable_username_sync_info' => 'Wenn diese Option aktiviert ist, werden die Nutzernamen der Website aktualisiert, damit sie mit den Benutzernamen im Spiel übereinstimmen.',
 	'api_settings_updated_successfully' => 'API Einstellungen wurden gespeichert.',
 	'group_sync' => 'Group Sync',
-	'group_sync_info' => 'You can configure the API to automatically update a user\'s website group when their ingame group is changed. Simply enter the ingame group name and the website group it should be synchronised with below.',
+	'group_sync_info' => 'You can configure the API to automatically update a user\'s website group when their integration group is changed. Simply enter the integration group name/ID and the website group it should be synchronised with below.',
 	'ingame_group' => 'Ingame Group Name',
 	'website_group' => 'Website Group',
 	'set_as_primary_group' => 'Set as primary group?',
@@ -592,6 +592,9 @@ $language = array(
 	'group_sync_rule_deleted_successfully' => 'The group sync rule has been deleted successfully.',
 	'existing_rules' => 'Existing Rules',
 	'new_rule' => 'New Rule',
+	'api_endpoints' => 'API Endpoints',
+	'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
+	'route' => 'Route',
 
 	// File uploads
 	'drag_files_here' => 'Ziehe ein Bild hierhin.',

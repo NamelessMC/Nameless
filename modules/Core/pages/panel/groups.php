@@ -38,9 +38,6 @@ define('PANEL_PAGE', 'groups');
 $page_title = $language->get('admin', 'groups');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
-$discord_integration = $discord_integration[0]->value;
-
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
@@ -65,11 +62,6 @@ if(isset($_GET['action'])){
 					),
 					'html' => array(
 						'max' => 1024
-					),
-					'discord_role_id' => array(
-						'min' => 18,
-						'max' => 18,
-						'numeric' => true
 					)
 				));
 
@@ -79,9 +71,6 @@ if(isset($_GET['action'])){
 							$default = 1;
 						else
 							$default = 0;
-						
-						$role_id = Input::get('discord_role_id');
-						if ($role_id == '') $role_id = null;
 
 						// If this is the new default group, update old default group
 						$default_group = $queries->getWhere('groups', array('default_group', '=', 1));
@@ -99,7 +88,6 @@ if(isset($_GET['action'])){
 							'staff' => Input::get('staff'),
 							'default_group' => $default,
 							'order' => Input::get('order'),
-							'discord_role_id' => $role_id,
 							'force_tfa' => Input::get('tfa')
 						));
 
@@ -136,9 +124,6 @@ if(isset($_GET['action'])){
 								case (strpos($error, 'groupname') !== false):
 									$errors[] = $language->get('admin', 'group_name_minimum') . '<br />';
 									break;
-								case (strpos($error, 'discord_role_id') !== false):
-									$errors[] = $language->get('admin', 'discord_role_id_length') . '<br />';
-									break;
 							}
 						} else if (strpos($error, 'maximum') !== false) {
 							switch ($error) {
@@ -148,12 +133,7 @@ if(isset($_GET['action'])){
 								case (strpos($error, 'html') !== false):
 									$errors[] = $language->get('admin', 'html_maximum') . '<br />';
 									break;
-								case (strpos($error, 'discord_role_id') !== false):
-									$errors[] = $language->get('admin', 'discord_role_id_length') . '<br />';
-									break;
 							}
-						} else if (strpos($error, 'numeric') !== false) {
-							$errors[] = $language->get('admin', 'discord_role_id_numeric');
 						}
 					}
 				}
@@ -173,20 +153,12 @@ if(isset($_GET['action'])){
 			'GROUP_HTML' => $language->get('admin', 'group_html'),
 			'GROUP_USERNAME_COLOUR' => $language->get('admin', 'group_username_colour'),
 			'GROUP_USERNAME_CSS' => $language->get('admin', 'group_username_css'),
-			'DISCORD_INTEGRATION' => $discord_integration ? true : false,
 			'GROUP_ORDER' => $language->get('admin', 'group_order'),
 			'STAFF_GROUP' => $language->get('admin', 'group_staff'),
 			'STAFF_CP' => $language->get('admin', 'can_view_staffcp'),
 			'DEFAULT_GROUP' => $language->get('admin', 'default_group'),
 			'FORCE_TFA' => $language->get('admin', 'force_tfa')
 		));
-
-		if ($discord_integration) {
-			$smarty->assign(array(
-				'DISCORD_ROLE_ID' => $language->get('admin', 'discord_role_id'),
-				'DISCORD_ROLE_ID_VALUE' => $group->discord_role_id
-			));
-		}
 
 		$template_file = 'core/groups_new.tpl';
 
@@ -232,11 +204,6 @@ if(isset($_GET['action'])){
 						),
 						'html' => array(
 							'max' => 1024
-						),
-						'discord_role_id' => array(
-							'min' => 18,
-							'max' => 18,
-							'numeric' => true
 						)
 					));
 
@@ -248,9 +215,6 @@ if(isset($_GET['action'])){
 								$cache->store('default_group', $_GET['group']);
 							} else
 								$default = 0;
-
-							$role_id = Input::get('discord_role_id');
-							if ($role_id == '') $role_id = null;
 
 							// If this is the new default group, update old default group
 							$default_group = $queries->getWhere('groups', array('default_group', '=', 1));
@@ -278,7 +242,6 @@ if(isset($_GET['action'])){
 								'staff' => Input::get('staff'),
 								'default_group' => $default,
 								'`order`' => Input::get('order'),
-								'discord_role_id' => $role_id,
 								'force_tfa' => Input::get('tfa')
 							));
 
@@ -302,9 +265,6 @@ if(isset($_GET['action'])){
 									case (strpos($error, 'groupname') !== false):
 										$errors[] = $language->get('admin', 'group_name_minimum') . '<br />';
 										break;
-									case (strpos($error, 'discord_role_id') !== false):
-										$errors[] = $language->get('admin', 'discord_role_id_length') . '<br />';
-										break;
 								}
 							} else if(strpos($error, 'maximum') !== false){
 								switch($error){
@@ -314,12 +274,7 @@ if(isset($_GET['action'])){
 									case (strpos($error, 'html') !== false):
 										$errors[] = $language->get('admin', 'html_maximum') . '<br />';
 										break;
-									case (strpos($error, 'discord_role_id') !== false):
-										$errors[] = $language->get('admin', 'discord_role_id_length') . '<br />';
-										break;
 								}
-							} else if(strpos($error, 'numeric') !== false) {
-								$errors[] = $language->get('admin', 'discord_role_id_numeric');
 							}
 						}
 					}
@@ -356,7 +311,6 @@ if(isset($_GET['action'])){
 			'GROUP_USERNAME_COLOUR_VALUE' => Output::getClean($group->group_username_color),
 			'GROUP_USERNAME_CSS' => $language->get('admin', 'group_username_css'),
 			'GROUP_USERNAME_CSS_VALUE' => Output::getClean($group->group_username_css),
-			'DISCORD_INTEGRATION' => $discord_integration ? true : false,
 			'STAFF_GROUP' => $language->get('admin', 'group_staff'),
 			'STAFF_GROUP_VALUE' => $group->staff,
 			'STAFF_CP' => $language->get('admin', 'can_view_staffcp'),
@@ -375,13 +329,6 @@ if(isset($_GET['action'])){
 			'FORCE_TFA' => $language->get('admin', 'force_tfa'),
 			'FORCE_TFA_VALUE' => $group->force_tfa
 		));
-
-		if ($discord_integration) {
-			$smarty->assign(array(
-				'DISCORD_ROLE_ID' => $language->get('admin', 'discord_role_id'),
-				'DISCORD_ROLE_ID_VALUE' => $group->discord_role_id
-			));
-		}
 
 		$template_file = 'core/groups_edit.tpl';
 
@@ -455,6 +402,7 @@ if(isset($_GET['action'])){
 
 		$groups_template[] = array(
 			'id' => Output::getClean($group->id),
+			'order' => $group->order,
 			'name' => Output::getClean($group->name),
 			'edit_link' => URL::build('/panel/core/groups/', 'action=edit&group=' . Output::getClean($group->id)),
 			'users' => $users,
@@ -469,6 +417,7 @@ if(isset($_GET['action'])){
 		'NEW_GROUP' => $language->get('admin', 'new_group'),
 		'NEW_GROUP_LINK' => URL::build('/panel/core/groups/', 'action=new'),
 		'GROUP_LIST' => $groups_template,
+		'ORDER' => $language->get('admin', 'group_order'),
 		'STAFF' => $language->get('moderator', 'staff'),
 		'YES' => $language->get('general', 'yes'),
 		'NO' => $language->get('general', 'no'),
@@ -500,7 +449,6 @@ $smarty->assign(array(
 	'INFO' => $language->get('general', 'info'),
 	'WARNING' => $language->get('general', 'warning'),
 	'FORCE_TFA_WARNING' => $language->get('admin', 'force_tfa_warning'),
-	'ID_INFO' => $language->get('user', 'discord_id_help')
 ));
 
 $page_load = microtime(true) - $start;

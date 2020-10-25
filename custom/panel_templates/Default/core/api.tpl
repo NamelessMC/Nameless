@@ -45,6 +45,7 @@
 
                     <div class="card">
                         <div class="card-body">
+                            <a class="btn btn-primary" href="{$API_ENDPOINTS_LINK}">{$API_ENDPOINTS}</a>
                             <a class="btn btn-primary" href="{$GROUP_SYNC_LINK}">{$GROUP_SYNC}</a>
                             <hr />
 

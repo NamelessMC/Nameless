@@ -34,11 +34,13 @@ $language = array(
     'you_must_register_to_report' => 'Du må registrere deg for å kunne rapportere',
     'you_have_been_banned_from_website' => 'Du har blitt bannlyst fra nettsiden',
     'you_have_open_report_already' => 'Du har allerede en åpen rapportering angående denne spilleren',
+    'cannot_report_yourself' => 'You cannot report yourself.',
     'unable_to_create_report' => 'Kunne ikke opprette rapportering',
     'unable_to_update_username' => 'Kunne ikke oppdatere brukernavn',
     'unable_to_update_server_info' => 'Kunne ikke oppdatere serverinfo',
     'invalid_server_id' => 'Ugyldig server-ID',
     'invalid_code' => 'Ugyldig kode oppgitt',
+    'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'Discord-integrering er deaktivert.',
     'unable_to_set_discord_id' => 'Kunne ikke oppdatere Discord-IDen.',
 

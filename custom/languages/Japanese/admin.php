@@ -586,6 +586,9 @@ $language = array(
 	'group_sync_rule_deleted_successfully' => 'グループ同期ルールが正常に削除されました。',
 	'existing_rules' => '既存のルール',
 	'new_rule' => '新しいルール',
+	'api_endpoints' => 'API Endpoints',
+	'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
+	'route' => 'Route',
 
 	// File uploads
 	'drag_files_here' => 'アップロードするファイルをここにドラッグします。',

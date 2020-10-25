@@ -34,6 +34,7 @@ $language = array(
     'unable_to_update_group' => 'Não é possível atualizar o grupo do usuário',
     'report_content_too_long' => 'O conteúdo do relatório deve ter 255 caracteres ou menos',
     'you_must_register_to_report' => 'Você deve registrar em nosso site para ser capaz de criar um relatório',
+    'cannot_report_yourself' => 'You cannot report yourself.',
     'you_have_been_banned_from_website' => 'Você foi banido do site',
     'you_have_open_report_already' => 'Você já tem um relatório aberto sobre este jogador',
     'unable_to_create_report' => 'Não é possível criar relatório',
@@ -41,6 +42,7 @@ $language = array(
     'unable_to_update_server_info' => 'Não é possível atualizar informações do servidor',
     'invalid_server_id' => 'ID de servidor inválido',
     'invalid_code' => 'Código inválido fornecido',
+    'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'Discord integration is disabled.',
     'unable_to_set_discord_id' => 'Unable to set Discord ID.',
 

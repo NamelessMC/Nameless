@@ -582,6 +582,9 @@ $language = array(
 	'group_sync_rule_deleted_successfully' => 'La regla de sincronización de grupos ha sido eliminada.',
 	'existing_rules' => 'Reglas Existentes',
 	'new_rule' => 'Nueva Regla',
+	'api_endpoints' => 'API Endpoints',
+	'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
+	'route' => 'Route',
 
 	// Archivos
 	'drag_files_here' => 'Arrastre los archivos aquí para cargarlos.',
