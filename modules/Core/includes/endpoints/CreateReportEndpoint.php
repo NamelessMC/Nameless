@@ -55,7 +55,9 @@ class CreateReportEndpoint extends EndpointBase {
                         'date_reported' => date('Y-m-d H:i:s'),
                         'date_updated' => date('Y-m-d H:i:s'),
                         'report_reason' => Output::getClean($_POST['content']),
-                        'updated_by' => $user_reporting->id
+                        'updated_by' => $user_reporting->id,
+	                    'reported' => date('U'),
+	                    'updated' => date('U')
                     ));
 
                     $api->returnArray(array('message' => $api->getLanguage()->get('api', 'report_created')));
