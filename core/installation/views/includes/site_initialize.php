@@ -671,4 +671,4 @@ $cache->store('enabled', array(
 ));
 
 $cache->setCache('backgroundcache');
-$cache->store('banner_image', '/uploads/template_banners/homepage_bg_trimmed.jpg');
+$cache->store('banner_image', CONFIG_PATH . '/uploads/template_banners/homepage_bg_trimmed.jpg');
