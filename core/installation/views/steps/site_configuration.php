@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			Redirect::to('?step=site_initialization');
 			die();
 
-		} catch (Excpetion $e) {
+		} catch (Exception $e) {
 
 			$error = $e->getMessage();
 
