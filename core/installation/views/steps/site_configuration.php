@@ -11,7 +11,7 @@ if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	
+
 	$validate = new Validate();
 	$validation = $validate->check($_POST, array(
 		'sitename' => array(
@@ -47,27 +47,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				'name' => 'sitename',
 				'value' => Output::getClean(Input::get('sitename'))
 			));
-	
+
 			$cache = new Cache();
 			$cache->setCache('sitenamecache');
 			$cache->store('sitename', Output::getClean(Input::get('sitename')));
-	
+
 			$queries->create('settings', array(
 				'name' => 'incoming_email',
 				'value' => Output::getClean(Input::get('incoming'))
 			));
-	
+
 			$queries->create('settings', array(
 				'name' => 'outgoing_email',
 				'value' => Output::getClean(Input::get('outgoing'))
 			));
-	
+
 			$_SESSION['default_language'] = Output::getClean(Input::get('language'));
 
 			Redirect::to('?step=site_initialization');
 			die();
 
-		} catch (Excpetion $e) {
+		} catch (Exception $e) {
 
 			$error = $e->getMessage();
 
@@ -97,9 +97,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				<div class="ui centered grid">
 					<div class="sixteen wide mobile twelve wide tablet ten wide computer column">
 						<div class="ui form">
-							<?php create_field('text', $language['site_name'], 'sitename', 'inputSitename'); ?>
-							<?php create_field('email', $language['contact_email'], 'incoming', 'contact_email'); ?>
-							<?php create_field('email', $language['outgoing_email'], 'outgoing', 'outgoing_email'); ?>
+							<?php create_field('text', $language['site_name'], 'sitename', 'inputSitename', getenv('NAMELESS_SITE_NAME') ?: ''); ?>
+							<?php create_field('email', $language['contact_email'], 'incoming', 'contact_email', getenv('NAMELESS_SITE_CONTACT_EMAIL') ?: ''); ?>
+							<?php create_field('email', $language['outgoing_email'], 'outgoing', 'outgoing_email', getenv('NAMELESS_SITE_OUTGOING_EMAIL') ?: ''); ?>
 							<?php create_field('select', $language['language'], 'language', 'inputLanguage', $installer_language, $languages, true) ?>
 						</div>
 					</div>

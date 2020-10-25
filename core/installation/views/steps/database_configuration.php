@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		} else {
 
 			$mysqli->close();
-			
+
 			$conf = array(
 				'mysql' => array(
 					'host' => $db_address,
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			} catch (Exception $e) {
 
 				$error = $e->getMessage();
-				
+
 			}
 
 		}
@@ -131,16 +131,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				<div class="sixteen wide mobile twelve wide tablet ten wide computer column">
 					<div class="ui form">
 						<?php
-							create_field('text', $language['database_address'], 'db_address', 'inputDBAddress', '127.0.0.1');
-							create_field('text', $language['database_port'], 'db_port', 'inputDBPort', '3306');
-							create_field('text', $language['database_username'], 'db_username', 'inputDBUsername');
-							create_field('password', $language['database_password'], 'db_password', 'inputDBPassword');
-							create_field('text', $language['database_name'], 'db_name', 'inputDBName');
-							create_field('select', $language['character_set'], 'charset', 'inputCharset', 'utf8mb4', array(
+							$default_addr = getenv('NAMELESS_DATABASE_ADDRESS') ?: '127.0.0.1';
+							$default_port = getenv('NAMELESS_DATABASE_PORT') ?: '3306';
+							$default_user = getenv('NAMELESS_DATABASE_USERNAME') ?: 'root';
+							$default_pass = getenv('NAMELESS_DATABASE_PASSWORD') ?: '';
+							$default_name = getenv('NAMELESS_DATABASE_NAME') ?: 'nameless';
+							$default_charset = getenv('NAMELESS_DATABASE_CHARSET') ?: 'utf8mb4';
+							$default_engine = getenv('NAMELESS_DATABASE_ENGINE') ?: 'InnoDB';
+							create_field('text', $language['database_address'], 'db_address', 'inputDBAddress', $default_addr);
+							create_field('text', $language['database_port'], 'db_port', 'inputDBPort', $default_port);
+							create_field('text', $language['database_username'], 'db_username', 'inputDBUsername', $default_user);
+							create_field('password', $language['database_password'], 'db_password', 'inputDBPassword', $default_pass);
+							create_field('text', $language['database_name'], 'db_name', 'inputDBName', $default_name);
+							create_field('select', $language['character_set'], 'charset', 'inputCharset', $default_charset, array(
 								'utf8mb4' => 'Unicode (utf8mb4)',
 								'latin1' => 'Latin (latin1)',
 							));
-							create_field('select', $language['database_engine'], 'engine', 'inputEngine', 'InnoDB', array(
+							create_field('select', $language['database_engine'], 'engine', 'inputEngine', $default_engine, array(
 								'InnoDB' => 'InnoDB',
 								'MyISAM' => 'MyISAM',
 							));

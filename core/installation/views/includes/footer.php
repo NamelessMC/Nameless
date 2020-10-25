@@ -48,6 +48,8 @@
 		}
 	</script>
 
+	<?php if($scripts) foreach($scripts as $script) echo $script; ?>
+
 </body>
 
 </html>

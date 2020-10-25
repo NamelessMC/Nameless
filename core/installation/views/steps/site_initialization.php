@@ -10,39 +10,28 @@ if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized
 	die();
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-	if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
-
-		try {
-
-			require(realpath(__DIR__ . '/../includes/site_initialize.php'));
-
-			$json = array(
-				'success' => true,
-				'redirect_url' => '?step=admin_account_setup',
-			);
-
-			$_SESSION['site_initialized'] = true;
-
-		} catch (Exception $e) {
-
-			$json = array(
-				'error' => true,
-				'message' => $e->getMessage(),
-			);
-
-		}
-
-		ob_clean();
-		header('Content-Type: application/json');
-		echo json_encode($json);
-		die();
-
-	}
-
-}
-
+$scripts = array(
+	'
+	<script>
+		$(document).ready(function() {
+			$.post("?step=ajax_initialise&initialise=site", {perform: "true"}, function(response) {
+				if (response.success) {
+					window.location.replace(response.redirect_url);
+				} else {
+					$("#info").html(response.message);
+					if (response.redirect_url) {
+						$("#continue-button").attr("href", response.redirect_url);
+						$("#continue-button").removeClass("disabled");
+					}
+					if (response.error) {
+						$("#continue-button").before("<button onclick=\"window.location.reload()\" class=\"ui small button\" id=\"reload-button\">' . $language['reload'] . '</button>");
+					}
+				}
+			});
+		});
+	</script>
+	'
+);
 ?>
 
 <div class="ui segments">
@@ -63,24 +52,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		</a>
 	</div>
 </div>
-
-<script>
-
-	window.addEventListener('load', function() {
-		$.post(window.location.href, {perform: 'true'}, function(response) {
-			if (!response.message) {
-				window.location.replace(response.redirect_url);
-			} else {
-				$('#info').html(response.message);
-				if (response.redirect_url) {
-					$('#continue-button').attr('href', response.redirect_url);
-					$('#continue-button').removeClass('disabled');
-				}
-				if (response.error) {
-					$('#continue-button').before('<button onclick="window.location.reload()" class="ui small button" id="reload-button"><?php echo $language['reload']; ?></button>');
-				}
-			}
-		});
-	});
-	
-</script>
