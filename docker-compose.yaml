@@ -1,7 +1,11 @@
 # THIS FILE IS FOR DEVELOPMENT. For production, see https://github.com/NamelessMC/Nameless-Docker
 
+# INSTRUCTIONS
+# Set up or update:
+# export USER_ID=$(id -u); export GROUP_ID=$(id -g); docker-compose build; docker-compose pull
+#
 # Run:
-# export USER_ID=$(id -u); export GROUP_ID=$(id -g); docker-compose up
+# docker-compose up
 
 version: '2'
 
