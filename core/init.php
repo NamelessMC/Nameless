@@ -271,7 +271,7 @@ if($page != 'install'){
 		$template = $cache->retrieve('default');
 
 		if(!$template){
-			define('TEMPLATE', 'Default');
+			define('TEMPLATE', 'DefaultRevamp');
 		} else {
 			define('TEMPLATE', $template);
 		}
@@ -284,7 +284,7 @@ if($page != 'install'){
 			$template = $cache->retrieve('default');
 
 			if(!$template){
-				define('TEMPLATE', 'Default');
+				define('TEMPLATE', 'DefaultRevamp');
 			} else {
 				define('TEMPLATE', $template);
 			}
@@ -311,7 +311,7 @@ if($page != 'install'){
 				$template = $cache->retrieve('default');
 
 				if(!$template){
-					define('TEMPLATE', 'Default');
+					define('TEMPLATE', 'DefaultRevamp');
 				} else {
 					define('TEMPLATE', $template);
 				}

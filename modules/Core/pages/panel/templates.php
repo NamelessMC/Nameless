@@ -284,7 +284,7 @@ if(!isset($_GET['action'])){
 				$template = $queries->getWhere('templates', array('id', '=', $item));
 				if(count($template)){
 					$template = $template[0];
-					if($template->name == 'Default' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1){
+					if($template->name == 'DefaultRevamp' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1){
 						Redirect::to(URL::build('/panel/core/templates'));
 						die();
 					}
