@@ -338,6 +338,7 @@ $language = array(
 	'panel_templates' => '面板模板',
 	'view_all_panel_templates' => '查看所有面板模版',
 	'template_outdated' => '我们检测到您的模板适用于 Nameless 版本 {x}, 但你正在运行 Nameless 版本 {y}', // Don't replace "{x}" or "{y}"
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => '应用中的',
 	'deactivate' => '停用',
 	'activate' => '启用',

@@ -334,6 +334,7 @@ $language = array(
 	'panel_templates' => 'Plantillas del Panel',
 	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'Hemos detectado que su plantilla está destinada a la versión Namelessmc {x}, pero estás ejecutando la versión Namelessmc {y}', // Don't replace "{x}" or "{y}"
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => 'Activo',
 	'deactivate' => 'Desactivar',
 	'activate' => 'Activar',

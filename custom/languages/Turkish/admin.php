@@ -337,6 +337,7 @@ $language = array(
 	'panel_templates' => 'Panel Tema',
 	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'Şablonunuzun {x} Nameless sürümü için tasarlandığını tespit ettik, ancak {y} Nameless sürümü çalıştırıyorsunuz', // Don't replace "{x}" or "{y}"
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => 'Aktif',
 	'deactivate' => 'De-Aktif',
 	'activate' => 'Aktif',

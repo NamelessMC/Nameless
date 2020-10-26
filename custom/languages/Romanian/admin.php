@@ -339,6 +339,7 @@ $language = array(
     'panel_templates' => 'Șabloane panou control',
     'view_all_panel_templates' => 'View all panel templates',
     'template_outdated' => 'Am detectat că șablonul dvs. este destinat versiunii NamelessMC {x}, dar executați versiunea NamelessMC {y}.', // Don't replace "{x}" or "{y}"
+    'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
     'active' => 'Activ',
     'deactivate' => 'Dezactivare',
     'activate' => 'Activare',

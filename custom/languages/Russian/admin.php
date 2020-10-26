@@ -315,6 +315,7 @@ $language = array(
 	'templates' => 'Шаблоны',
 	'panel_templates' => 'Шаблоны админ. панели',
 	'template_outdated' => 'Мы обнаружили, что ваш шаблон предназначен для Nameless версии {x}, но вы используете Nameless версии {y}', // Don't replace "{x}" or "{y}"
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => 'Активировать',
 	'deactivate' => 'Деактивировать',
 	'activate' => 'Активно',

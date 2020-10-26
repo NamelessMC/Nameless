@@ -337,6 +337,7 @@ $language = array(
 	'panel_templates' => 'Modelli Pannello',
 	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'Abbiamo rilevato che il tuo modello è destinato alla versione {x} di Nameless, ma tu stai usando la{y}', // Don't replace "{x}" or "{y}"
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => 'Attivato',
 	'deactivate' => 'Disattivato',
 	'activate' => 'Attiva',
