@@ -623,12 +623,6 @@ $queries->create('settings', array(
 
 // Templates
 $queries->create('templates', array(
-	'name' => 'Default',
-	'enabled' => 1,
-	'is_default' => 0
-));
-
-$queries->create('templates', array(
 	'name' => 'DefaultRevamp',
 	'enabled' => 1,
 	'is_default' => 1
