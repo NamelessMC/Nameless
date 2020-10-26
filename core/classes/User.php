@@ -319,33 +319,34 @@ class User {
 	}
 
 	// Get a user's avatar, based on user ID
-	public function getAvatar($id, $path = null, $size = 128, $full = false) {
-        $data = $this->_db->get('users', array('id', '=', $id))->results();
+	public function getAvatar($path = null, $size = 128, $full = false) {
+        $data = $this->data();
         if(empty($data)){
             // User doesn't exist
             return false;
         }
 
-        if($data[0]->uuid != null && $data[0]->uuid != 'none')
-            $uuid = Output::getClean($data[0]->uuid);
+        if($data->uuid != null && $data->uuid != 'none')
+            $uuid = Output::getClean($data->uuid);
         else {
-            $uuid = Output::getClean($data[0]->username);
+            $uuid = Output::getClean($data->username);
             //fix accounts with special characters in name having no avatar                                             
             if(preg_match("#[^][_A-Za-z0-9]#", $uuid)) 
                 $uuid = 'Steve';
-	}
+		}
+		
         // Get avatar type
         if(defined('CUSTOM_AVATARS')){
             // Custom avatars
-            if($data[0]->gravatar == 1){
+            if($data->gravatar == 1){
                 // Gravatar
-                return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $data[0]->email ) ) ) . "?d=" . urlencode( 'https://cravatar.eu/helmavatar/' . $uuid . '/200.png' ) . "&s=200";
+                return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $data->email ) ) ) . "?d=" . urlencode( 'https://cravatar.eu/helmavatar/' . $uuid . '/200.png' ) . "&s=200";
             } else if($data[0]->has_avatar == 1){
                 // Custom avatar
                 $exts = array('gif','png','jpg','jpeg');
                 foreach($exts as $ext) {
-                    if(file_exists(ROOT_PATH . "/uploads/avatars/" . $id . "." . $ext)){
-                        $avatar_path = ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . "uploads/avatars/" . $id . "." . $ext . '?v=' . Output::getClean($data[0]->avatar_updated);
+                    if(file_exists(ROOT_PATH . "/uploads/avatars/" . $data->id . "." . $ext)){
+                        $avatar_path = ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . "uploads/avatars/" . $data->id . "." . $ext . '?v=' . Output::getClean($data->avatar_updated);
                         break;
                     }
                 }
@@ -427,8 +428,8 @@ class User {
 	}
 
 	// Does the user have any infractions?
-	public function hasInfraction($user_id){
-		$data = $this->_db->get('infractions', array('punished', '=', $user_id))->results();
+	public function hasInfraction(){
+		$data = $this->_db->get('infractions', array('punished', '=', $this->data()->id))->results();
 		if(empty($data)){
 			return false;
 		} else {
@@ -835,10 +836,8 @@ class User {
     }
 
     // Is the profile page set to private?
-    public function isPrivateProfile($user_id = null) {
-        $cp_data = $this->_db->get('users', array('id', '=', $user_id));
-        $cp_results = $cp_data->results();
-        if($cp_results[0]->private_profile == 1){
+    public function isPrivateProfile() {
+        if($this->_data->private_profile == 1){
             // It's private
             return true;
         } else {
