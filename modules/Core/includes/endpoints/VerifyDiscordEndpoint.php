@@ -22,9 +22,12 @@ class VerifyDiscordEndpoint extends EndpointBase {
                 $discord_id = Output::getClean($_POST['discord_id']);
 
                 // Find the user's NamelessMC id
-                $id = $api->getDb()->get('discord_verifications', array('token', '=', $token));
-                if (!$id->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
-                $id = $id->first()->user_id;
+                $verification = $api->getDb()->get('discord_verifications', array('token', '=', $token));
+                if (!$verification->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
+                $id = $verification->first()->user_id;
+                // Make sure the user who sent the bot command matches the discord user id in namelessmc pending verifications
+                $discord_user_id = $verification->first()->discord_user_id;
+                if ($discord_id != $discord_user_id) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
 
                 // Ensure the user exists
                 $user = $api->getUser('id', $id);
