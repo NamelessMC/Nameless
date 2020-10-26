@@ -16,7 +16,8 @@ The following list is a brief summary of the features available in v2 pre-releas
 - Pretty URL option (requires mod_rewrite)
 
 #### Customising Nameless
-Developer documentation is coming soon, both for module and template development.
+- Check out [this wiki article](https://github.com/NamelessMC/Nameless/wiki/Nameless-2.0-Module-Developer-Documentation) for the Module Developer Documenation
+Developer documentation is coming soon for template development.
 
 ## Installation
 Installing NamelessMC v2 is fairly straightforward, provided you already have a web host.
