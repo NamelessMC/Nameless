@@ -17,7 +17,7 @@ The following list is a brief summary of the features available in v2 pre-releas
 
 #### Customising Nameless
 - Check out [this wiki article](https://github.com/NamelessMC/Nameless/wiki/Nameless-2.0-Module-Developer-Documentation) for the Module Developer Documenation
-Developer documentation is coming soon for template development.
+- Developer documentation is coming soon for template and widget development.
 
 ## Installation
 Installing NamelessMC v2 is fairly straightforward, provided you already have a web host.
