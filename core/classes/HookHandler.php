@@ -45,35 +45,35 @@ class HookHandler {
 
     // Execute an event
     // Params:  $event - event name to call
-    public static function executeEvent($event, $param = null){
+    public static function executeEvent($event, $params = null){
         if(!isset(self::$_events[$event]))
             return false;
 
-        if(!is_array($param)){
-        	$param = array();
+        if(!is_array($params)){
+        	$params = array();
         }
 
-        if(!isset($param['event']))
-        	$param['event'] = $event;
+        if(!isset($params['event']))
+        	$params['event'] = $event;
 
         // Execute system hooks
         if (isset(self::$_events[$event]['hooks'])) {
             foreach (self::$_events[$event]['hooks'] as $hook) {
-                call_user_func($hook, $param);
+                call_user_func($hook, $params);
             }
         }
 
 		// Execute user made webhooks
 		foreach(self::$_hooks as $hook) {
 			if(in_array($event, $hook['events'])) {
-                if (isset($param['available_hooks'])) {
-                    if (in_array($hook['id'], $param['available_hooks'])) {
-                        $param['webhook'] = $hook['url'];
-                        call_user_func($hook['action'], $param);
+                if (isset($params['available_hooks'])) {
+                    if (in_array($hook['id'], $params['available_hooks'])) {
+                        $params['webhook'] = $hook['url'];
+                        call_user_func($hook['action'], $params);
                     }
                 } else {
-                    $param['webhook'] = $hook['url'];
-                    call_user_func($hook['action'], $param);
+                    $params['webhook'] = $hook['url'];
+                    call_user_func($hook['action'], $params);
                 }
             }
         }
