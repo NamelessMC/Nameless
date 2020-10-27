@@ -61,7 +61,9 @@ class User {
 	public function getGroupClass() {
 		$groups = $this->_groups;
 		if(count($groups)) {
-			return 'color:' . htmlspecialchars($groups[0]->group_username_color) . '; ' . htmlspecialchars($groups[0]->group_username_css);
+			foreach($groups as $group) {
+				return 'color:' . htmlspecialchars($group->group_username_color) . '; ' . htmlspecialchars($group->group_username_css);
+			}
 		}
 
 		return false;
@@ -265,6 +267,7 @@ class User {
 	// Get displayname
 	// Params: $force - force username
 	public function getDisplayname($force = false) {
+		return 'Debug';
 		if($force == true) {
 			return Output::getClean($this->_data->username);
 		}
@@ -484,7 +487,9 @@ class User {
 	// Get the group with highest priority
 	public function getTopGroup(){
 		if(count($this->_groups)){
-			return $groups[0];
+			foreach($groups as $group) {
+				return $group;
+			}
         }
 		return false;
 	}
@@ -815,21 +820,19 @@ class User {
     }
 	
 	// Get a user's profile views, by user ID
-	public function getProfileViews($user_id = null) {
-		$data = $this->_db->get('users', array('id', '=', $user_id));
-		$results = $data->results();
-		if(!empty($results[0]->profile_views)){
-			return $results[0]->profile_views;
+	public function getProfileViews() {
+		if(count($this->data())) {
+			return $this->data()->profile_views;
 		} else {
 			return 0;
 		}
 	}
 
     // Is private profile enabled and does he have the permission to use it?
-    public function canPrivateProfile($user_id = null){
+    public function canPrivateProfile(){
         $settings_data = $this->_db->get('settings', array('name', '=', 'private_profile'));
         $settings_results = $settings_data->results();
-        if(($settings_results[0]->value == 1) && ($this->hasPermission('usercp.private_profile', $user_id)))
+        if(($settings_results[0]->value == 1) && ($this->hasPermission('usercp.private_profile')))
             return true;
         else
             return false;

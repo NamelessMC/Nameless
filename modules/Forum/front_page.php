@@ -22,6 +22,8 @@ if($cache->isCached('news')){
 	$news = array();
 
 	foreach($latest_news as $item){
+		$post_user = new User($item['author']);
+		
 		$news[] = array(
 			'id' => $item['topic_id'],
 			'url' => URL::build('/forum/topic/' . $item['topic_id'] . '-' . $forum->titleToURL($item['topic_title'])),
@@ -31,13 +33,13 @@ if($cache->isCached('news')){
 			'views' => $item['topic_views'],
 			'replies' => $item['replies'],
 			'author_id' => Output::getClean($item['author']),
-			'author_url' => URL::build('/profile/' . $user->idToName($item['author'])),
-			'author_style' => $user->getGroupClass($item['author']),
-			'author_name' => Output::getClean($user->idToName($item['author'])),
-			'author_nickname' => Output::getClean($user->idToNickname($item['author'])),
-			'author_avatar' => $user->getAvatar($item["author"], "../", 64),
-			'author_group' => $user->getGroupName($user->getGroup($item['author'])),
-			'author_group_html' => $user->getGroup($item['author'], true),
+			'author_url' => $post_user->getProfileURL(),
+			'author_style' => $post_user->getGroupClass(),
+			'author_name' => $post_user->getDisplayname(true),
+			'author_nickname' => $post_user->getDisplayname(),
+			'author_avatar' => $post_user->getAvatar("../", 64),
+			'author_group' => Output::getClean($post_user->getTopGroup()->name),
+			'author_group_html' => $post_user->getTopGroup()->group_html,
 			'content' => Output::getPurified($item['content']),
 			'label' => $item['label']
 		);

@@ -29,10 +29,10 @@ if ($user->isLoggedIn()) {
     $user_area_left['account'] = array(
         'target' => '',
         'link' => '',
-        'title' => Output::getClean($user->data()->nickname),
+        'title' => $user->getDisplayname(),
         'items' => array(
             'profile' => array(
-                'link' => URL::build('/profile/' . Output::getClean($user->data()->username)),
+                'link' => $user->getProfileURL(),
                 'target' => '',
                 'title' => $language->get('user', 'profile')
             ),
@@ -111,15 +111,15 @@ if ($user->isLoggedIn()) {
     }
 
     $user_section['account'] = array(
-        'title' => Output::getClean($user->data()->nickname),
-        'icon' => '<img src="' . $user->getAvatar($user->data()->id) . '">',
+        'title' => $user->getDisplayname(),
+        'icon' => '<img src="' . $user->getAvatar() . '">',
         'link' => '',
         'meta' => '',
         'target' => '',
         'items' => array(
             'profile' => array(
                 'title' => $language->get('user', 'profile'),
-                'link' => URL::build('/profile/' . Output::getClean($user->data()->username)),
+                'link' => $user->getProfileURL(),
                 'target' => '',
             ),
             'user' => array(
@@ -182,7 +182,7 @@ $smarty->assign(array(
     'USER_AREA' => $user_area,
     'USER_DROPDOWN' => $user_area_left,
     'USER_SECTION' => $user_section,
-    'ANNOUNCEMENTS' => Announcements::getAvailable(PAGE, CUSTOM_PAGE, is_null($user) ? 0 : $user->data()->group_id, $user->data()->secondary_groups)
+    'ANNOUNCEMENTS' => Announcements::getAvailable(PAGE, CUSTOM_PAGE, !$user->isLoggedIn() ? array(0) : $user->getAllGroupIds())
 ));
 
 if ($user->isLoggedIn()) {
