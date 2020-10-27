@@ -20,13 +20,14 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
 
-// Get user group ID
-if($user->isLoggedIn()){
-    $user_group = $user->data()->group_id;
-    $secondary_groups = $user->data()->secondary_groups;
+// Get user group IDs
+if($user->isLoggedIn() && count($user->getGroups())){
+	$groups = array();
+	foreach($user->getGroups() as $group){
+		$groups[$group->id] = $group->id;
+	}
 } else {
-    $user_group = null;
-    $secondary_groups = null;
+    $groups = array(0);
 }
 
 // Breadcrumbs and search bar - same for latest discussions view + table view
@@ -71,20 +72,14 @@ $smarty->assign('LATEST_DISCUSSIONS_TITLE', $forum_language->get('forum', 'lates
 $smarty->assign('NO_TOPICS', $forum_language->get('forum', 'no_topics_short'));
 
 // Get forums
-// Check cache per user's group
-if($user_group){
-	$cache_name = 'forum_forums_' . $user_group . '-' . $secondary_groups;
-} else {
-	$cache_name = 'forum_forums_guest';
-}
-
+$cache_name = 'forum_forums_' . rtrim(implode('-', $groups), '-');
 $cache->setCache($cache_name);
 
 if($cache->isCached('forums')){
 	$forums = $cache->retrieve('forums');
 
 } else {
-	$forums = $forum->listAllForums($user_group, $secondary_groups, ($user->isLoggedIn() ? $user->data()->id : 0));
+	$forums = $forum->listAllForums($groups, ($user->isLoggedIn() ? $user->data()->id : 0));
 
 	// Loop through to get last poster avatars and to format a date
 	if(count($forums)){

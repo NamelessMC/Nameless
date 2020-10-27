@@ -18,10 +18,9 @@ class Forum {
 	}
 
 	// Returns an array of forums a user can access, including topic information
-	// Params: $group_id (integer) - group id of the user, optional, $secondary_groups (json object) - any secondary groups for the user, optional
-	public function listAllForums($group_id = null, $secondary_groups = null, $user_id = null){
-		if($group_id == null) {
-            $group_id = 0; // Guest
+	// Params: $groups (array) - user groups
+	public function listAllForums($groups = array(0), $user_id = null){
+		if(in_array(0, $groups)) {
             $user_id = 0;
         }
 
@@ -35,7 +34,7 @@ class Forum {
 
 		if(count($parent_forums)){
 			foreach($parent_forums as $forum){
-				if($this->forumExist($forum->id, $group_id, $secondary_groups)){
+				if($this->forumExist($forum->id, $groups)){
 					$return[$forum->id]['description'] = Output::getClean($forum->forum_description);
 					$return[$forum->id]['title'] = Output::getClean($forum->forum_title);
 					$return[$forum->id]['icon'] = htmlspecialchars_decode($forum->icon);
@@ -44,7 +43,7 @@ class Forum {
 					$forums = $this->_db->orderWhere('forums', 'parent = ' . $forum->id, 'forum_order', 'ASC')->results();
 					if(count($forums)){
 						foreach($forums as $item){
-							if($this->forumExist($item->id, $group_id, $secondary_groups)){
+							if($this->forumExist($item->id, $groups)){
                                 $return[$forum->id]['subforums'][$item->id] = $item;
                                 $return[$forum->id]['subforums'][$item->id]->forum_title = Output::getClean($item->forum_title);
                                 $return[$forum->id]['subforums'][$item->id]->forum_description = Output::getClean($item->forum_description);
@@ -62,7 +61,7 @@ class Forum {
                                 $return[$forum->id]['subforums'][$item->id]->posts = $posts;
 
                                 // Can the user view other topics
-                                if($this->canViewOtherTopics($item->id, $group_id, $secondary_groups) || $item->last_user_posted == $user_id){
+                                if($this->canViewOtherTopics($item->id, $groups) || $item->last_user_posted == $user_id){
                                     if($item->last_topic_posted){
                                         // Last reply
                                         $last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $item->last_topic_posted, 'created', 'DESC')->results();
@@ -106,7 +105,7 @@ class Forum {
                                 $subforums = $this->_db->orderWhere('forums', 'parent = ' . $item->id, 'forum_order', 'ASC')->results();
                                 if(count($subforums)) {
                                     foreach ($subforums as $subforum) {
-                                        if ($this->forumExist($subforum->id, $group_id, $secondary_groups)) {
+                                        if ($this->forumExist($subforum->id, $groups)) {
                                             if(!isset($return[$forum->id]['subforums'][$item->id]->subforums))
                                                 $return[$forum->id]['subforums'][$item->id]->subforums = array();
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id] = new stdClass();
@@ -128,35 +127,12 @@ class Forum {
 	}
 
 	// Returns an array of forums a user can access, in order
-	// Params: $group_id (integer) - group id of the user, $secondary_groups (json object) - any secondary groups
-	public function orderAllForums($group_id = null, $secondary_groups = null){
-		if($group_id == null){
-			$group_id = 0; // Guest
-		} else {
-            if($secondary_groups)
-                $secondary_groups = json_decode($secondary_groups, true);
-        }
-		// Get the forums the user can view based on their group ID
-		$access = $this->_db->get("forums_permissions", array("group_id", "=", $group_id))->results();
+	// Params: $groups (array) - user groups
+	public function orderAllForums($groups = array(0)){
+		$return = array();
 
-		$return = array(); // Array to return containing forums
-
-		// Get the forum information as an array
-		foreach($access as $forum){
-			// Can they view it?
-			if($forum->view == 1){
-				// Get the name..
-				$forum_query = $this->_db->get("forums", array("id", "=", $forum->forum_id))->results();
-
-				// Is it a parent category?
-				if($forum_query[0]->parent != 0){ // No
-					$return[] = (array) $forum_query[0];
-				}
-			}
-		}
-
-		if(is_array($secondary_groups) && count($secondary_groups)){
-		    foreach($secondary_groups as $group_id){
+		if(is_array($groups) && count($groups)){
+		    foreach($groups as $group_id){
                 $access = $this->_db->get("forums_permissions", array("group_id", "=", $group_id))->results();
 
                 // Get the forum information as an array
@@ -185,25 +161,15 @@ class Forum {
 
 
 	// Returns an array of the latest 50 discussions a user can access
-	// Params: $group_id (integer) - group id of the user, $secondary_groups (json object) - any secondary groups the user is in
-	public function getLatestDiscussions($group_id = null, $secondary_groups = null, $user_id = null){
-		if($group_id == null){
-			$group_id = 0; // Guest
-		} else {
-			if($secondary_groups)
-				$secondary_groups = json_decode($secondary_groups, true);
-		}
-
-		if(!$secondary_groups)
-			$secondary_groups = array();
-
+	// Params: $groups (array) - user groups
+	public function getLatestDiscussions($groups = array(0), $user_id = null){
 		if(!$user_id)
 			$user_id = 0;
 
-		$all_topics_forums = DB::getInstance()->query("SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (" . rtrim($group_id . ',' . implode(',', $secondary_groups), ',') . ") AND `view` = 1 AND view_other_topics = 1")->results();
+		$all_topics_forums = DB::getInstance()->query("SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (" . rtrim($group_id . ',' . implode(',', $groups), ',') . ") AND `view` = 1 AND view_other_topics = 1")->results();
 
 		if($user_id > 0)
-			$own_topics_forums = DB::getInstance()->query("SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (" . rtrim($group_id . ',' . implode(',', $secondary_groups), ',') . ") AND `view` = 1 AND view_other_topics = 0")->results();
+			$own_topics_forums = DB::getInstance()->query("SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (" . rtrim($group_id . ',' . implode(',', $groups), ',') . ") AND `view` = 1 AND view_other_topics = 0")->results();
 		else
 			$own_topics_forums = array();
 
@@ -245,14 +211,8 @@ class Forum {
 	}
 
 	// Returns true/false, depending on whether the specified forum exists and whether the user can view it
-	// Params: $forum_id (integer) - forum id to check, $group_id (integer) - group id of the user, $secondary_groups - json object containing any secondary groups
-	public function forumExist($forum_id, $group_id = null, $secondary_groups = null){
-		if($group_id == null){
-			$group_id = 0; // Guest
-		} else {
-            if($secondary_groups)
-                $secondary_groups = json_decode($secondary_groups, true);
-        }
+	// Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
+	public function forumExist($forum_id, $groups = array(0)){
 		// Does the forum exist?
 		$exists = $this->_db->get("forums", array("id", "=", $forum_id))->results();
 		if(count($exists)){
@@ -260,7 +220,7 @@ class Forum {
 			$access = $this->_db->get("forums_permissions", array("forum_id", "=", $forum_id))->results();
 
 			foreach($access as $item){
-				if($item->group_id == $group_id || (is_array($secondary_groups) && count($secondary_groups) && in_array($item->group_id, $secondary_groups))){
+				if(in_array($item->group_id, $groups)){
 					if($item->view == 1){
 						return true;
 					}
@@ -272,7 +232,7 @@ class Forum {
 	}
 
 	// Returns true/false, depending on whether the specified topic exists
-	// Params: $topic_id (integer) - topic id to check, $group_id (integer) - group id of the user, $secondary_groups - json object containing any secondary groups
+	// Params: $topic_id (integer) - topic id to check
 	public function topicExist($topic_id) {
 		// Does the topic exist?
 		$exists = $this->_db->get("topics", array("id", "=", $topic_id))->results();
@@ -280,19 +240,12 @@ class Forum {
 	}
 
 	// Returns true/false depending on whether the current user can view a forum
-	// Params: $forum_id (integer) - forum id to check, $group_id (integer) - group id of the user, $secondary_groups - json object containing any secondary groups
-	public function canViewForum($forum_id, $group_id = null, $secondary_groups = null) {
-		if($group_id == null){
-			$group_id = 0; // Guest
-		} else {
-			if($secondary_groups)
-				$secondary_groups = json_decode($secondary_groups, true);
-		}
-
+	// Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
+	public function canViewForum($forum_id, $groups = array(0)) {
 		$access = $this->_db->get("forums_permissions", array("forum_id", "=", $forum_id))->results();
 
 		foreach($access as $item){
-			if($item->group_id == $group_id || (is_array($secondary_groups) && count($secondary_groups) && in_array($item->group_id, $secondary_groups))){
+			if(in_array($item->group_id, $groups)){
 				if($item->view == 1){
 					return true;
 				}
@@ -303,19 +256,13 @@ class Forum {
 	}
 
 	// Returns true/false, depending on whether the user's group can create a topic in a specified forum
-	// Params: $forum_id (integer) - forum id to check, $group_id (integer) - group id of the user, $secondary_groups - json object containing any secondary groups
-	public function canPostTopic($forum_id, $group_id = null, $secondary_groups = null) {
-		if($group_id == null){
-			$group_id = 0; // Guest
-		} else {
-            if($secondary_groups)
-                $secondary_groups = json_decode($secondary_groups, true);
-        }
+	// Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
+	public function canPostTopic($forum_id, $groups = array(0)) {
 		// Get the forum's permissions
 		$permissions = $this->_db->get("forums_permissions", array("forum_id", "=", $forum_id))->results();
 		if(count($permissions)){
 			foreach($permissions as $permission){
-				if($permission->group_id == $group_id || (is_array($secondary_groups) && count($secondary_groups) && in_array($permission->group_id, $secondary_groups))){
+				if(in_array($permission->group_id, $groups)){
 				    if($permission->create_topic == 1)
 					    return true;
 				}
@@ -326,19 +273,13 @@ class Forum {
 	}
 
 	// Returns true/false, depending on whether the user's group can create a reply to a topic in a specified forum
-	// Params: $forum_id (integer) - forum id to check, $group_id (integer) - group id of the user, $secondary_groups - json object containing any secondary groups
-	public function canPostReply($forum_id, $group_id = null, $secondary_groups = null) {
-		if($group_id == null){
-			$group_id = 0; // Guest
-		} else {
-            if($secondary_groups)
-                $secondary_groups = json_decode($secondary_groups, true);
-        }
+	// Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
+	public function canPostReply($forum_id, $groups = array(0)) {
 		// Get the forum's permissions
 		$permissions = $this->_db->get("forums_permissions", array("forum_id", "=", $forum_id))->results();
 		if(count($permissions)){
 			foreach($permissions as $permission){
-				if($permission->group_id == $group_id || (is_array($secondary_groups) && count($secondary_groups) && in_array($permission->group_id, $secondary_groups))){
+				if(in_array($permission->group_id, $groups)){
 				    if($permission->create_post == 1)
 					    return true;
 				}
@@ -348,18 +289,12 @@ class Forum {
 		return false;
 	}
 
-	public function canEditTopic($forum_id, $group_id = null, $secondary_groups = null){
-		if ($group_id == null) {
-			$group_id = 0; // Guest
-		} else {
-			if ($secondary_groups)
-				$secondary_groups = json_decode($secondary_groups, true);
-		}
+	public function canEditTopic($forum_id, $groups = array(0)){
 		// Get the forum's permissions
 		$permissions = $this->_db->get("forums_permissions", array("forum_id", "=", $forum_id))->results();
 		if (count($permissions)) {
 			foreach ($permissions as $permission) {
-				if ($permission->group_id == $group_id || (is_array($secondary_groups) && count($secondary_groups) && in_array($permission->group_id, $secondary_groups))) {
+				if(in_array($permission->group_id, $groups)){
 					if ($permission->edit_topic == 1)
 						return true;
 				}
@@ -563,20 +498,16 @@ class Forum {
 	}
 
 	// Can the user moderate the specified forum?
-	// Params:  $group_id (integer) - group ID of the user
-	//			$forum_id (integer) - forum ID to check
-    //          $secondary_groups (json object) - any secondary groups the user is in
-	public function canModerateForum($group_id = null, $forum_id = null, $secondary_groups = null){
-		if(!$group_id || !$forum_id) return false;
-
-        if($secondary_groups)
-            $secondary_groups = json_decode($secondary_groups, true);
+	// Params:  $forum_id (integer) - forum ID to check
+	//			$groups (array) - user groups
+	public function canModerateForum($forum_id = null, $groups = array(0)){
+		if(in_array(0, $groups) || !$forum_id) return false;
 
 		$permissions = $this->_db->get('forums_permissions', array('forum_id', '=', $forum_id))->results();
 
 		// Check the forum
 		foreach($permissions as $permission){
-			if($permission->group_id == $group_id || (is_array($secondary_groups) && count($secondary_groups) && in_array($permission->group_id, $secondary_groups))){
+			if(in_array($permission->group_id, $groups)){
 				if($permission->moderate == 1) return true;
 			}
 		}
@@ -616,13 +547,8 @@ class Forum {
 	}
 	
 	// Can the user view other topics in a forum?
-    // Params: $forum_id - forum ID (int), $group_id - group ID of user (int), $secondary_groups - array of group IDs user is in (array of ints)
-    public function canViewOtherTopics($forum_id, $group_id = 0, $secondary_groups = null){
-		if ($group_id == null) $group_id = 0;
-		 
-        if($secondary_groups)
-            $secondary_groups = json_decode($secondary_groups, true);
-
+    // Params: $forum_id - forum ID (int), $groups (array) - user groups
+    public function canViewOtherTopics($forum_id, $groups = array(0)){
         // Does the forum exist?
         $exists = $this->_db->get("forums", array("id", "=", $forum_id))->results();
         if(count($exists)){
@@ -630,7 +556,7 @@ class Forum {
             $access = $this->_db->get("forums_permissions", array("forum_id", "=", $forum_id))->results();
 
             foreach($access as $item){
-                if($item->group_id == $group_id || (is_array($secondary_groups) && count($secondary_groups) && in_array($item->group_id, $secondary_groups))){
+                if(in_array($item->group_id, $groups)){
                     if($item->view_other_topics == 1){
                         return true;
                     }
@@ -642,8 +568,8 @@ class Forum {
     }
 
     // Get any subforums at any level for a forum
-	// Params: $forum_id - forum ID (int), $group_id - group ID of user (int), $secondary_groups - array of group IDs user is in (array of ints)
-	public function getAnySubforums($forum_id, $group_id = null, $secondary_groups = null, $depth = 0){
+	// Params: $forum_id - forum ID (int), $groups (array) - user groups
+	public function getAnySubforums($forum_id, $groups = array(0), $depth = 0){
 		if($depth == 10){
 			return array();
 		}
@@ -657,14 +583,14 @@ class Forum {
 		}
 
 		foreach($subforums_query->results() as $result){
-			if($this->forumExist($result->id, $group_id, $secondary_groups)){
+			if($this->forumExist($result->id, $groups)){
 				$to_add = new stdClass();
 				$to_add->id = Output::getClean($result->id);
 				$to_add->forum_title = Output::getClean($result->forum_title);
 				$to_add->category = false;
 				$ret[] = $to_add;
 
-				$subforums = $this->getAnySubforums($result->id, $group_id, $secondary_groups, ++$depth);
+				$subforums = $this->getAnySubforums($result->id, $groups, ++$depth);
 
 				if(count($subforums)){
 					foreach($subforums as $subforum){
