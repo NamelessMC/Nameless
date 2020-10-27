@@ -21,8 +21,8 @@ $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $user_details = array(
-	$language->get('user', 'username') => $user->data()->username,
-	$language->get('admin', 'group') => $user->getGroupName($user->data()->group_id),
+	$language->get('user', 'username') => $user->getDisplayname(true),
+	$language->get('admin', 'group') => Output::getClean($user->getTopGroup()->name),
 	$language->get('admin', 'registered') => date('d M Y, H:i', $user->data()->joined)
 );
 

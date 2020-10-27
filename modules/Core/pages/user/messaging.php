@@ -111,16 +111,17 @@ if(!isset($_GET['action'])){
 		}
 		$participants = rtrim($participants, ', ');
 
+		$target_user = new User($results->data[$n]['user_updated']);
 		$template_array[] = array(
 			'id' => $results->data[$n]['id'],
 			'title' => Output::getClean($results->data[$n]['title']),
 			'participants' => $participants,
 			'link' => URL::build('/user/messaging/', 'action=view&amp;message=' . $results->data[$n]['id']),
 			'last_message_user_id' => Output::getClean($results->data[$n]['user_updated']),
-			'last_message_user' => Output::getClean($user->idToNickname($results->data[$n]['user_updated'])),
-			'last_message_user_profile' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]['user_updated']))),
-			'last_message_user_avatar' => $user->getAvatar($results->data[$n]['user_updated'], "../", 30),
-			'last_message_user_style' => $user->getGroupClass($results->data[$n]['user_updated']),
+			'last_message_user' => $target_user->getDisplayname(),
+			'last_message_user_profile' => $target_user->getProfileURL(),
+			'last_message_user_avatar' => $target_user->getAvatar("../", 30),
+			'last_message_user_style' => $target_user->getGroupClass(),
 			'last_message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]['updated']), $language->getTimeLanguage()),
 			'last_message_date_full' => date('d M Y, H:i', $results->data[$n]['updated'])
 		);
@@ -210,7 +211,7 @@ if(!isset($_GET['action'])){
 
 						$user_id = $user->NameToId($item);
 						if($user_id){
-							if($user->isBlocked($user_id, $user->data()->id) && !$user->canViewMCP() && !$user->canViewACP()){
+							if($user->isBlocked($user_id, $user->data()->id) && !$user->canViewACP()){
 								$blocked = true;
 								unset($users[$n]);
 								continue;
@@ -510,14 +511,16 @@ if(!isset($_GET['action'])){
 
 		// Display the correct number of messages
 		for($n = 0; $n < count($results->data); $n++){
+			$target_user = new User($results->data[$n]->author_id);
+			
 			$template_array[] = array(
 				'id' => $results->data[$n]->id,
 				'author_id' => $results->data[$n]->author_id,
-				'author_username' => Output::getClean($user->idToNickname($results->data[$n]->author_id)),
-				'author_profile' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]->author_id))),
-				'author_avatar' => $user->getAvatar($results->data[$n]->author_id, "../", 100),
-				'author_style' => $user->getGroupClass($results->data[$n]->author_id),
-				'author_groups' => $user->getAllGroups($results->data[$n]->author_id, 'true'),
+				'author_username' => $target_user->getDisplayname(),
+				'author_profile' => $target_user->getProfileURL(),
+				'author_avatar' => $target_user->getAvatar("../", 100),
+				'author_style' => $target_user->getGroupClass(),
+				'author_groups' => $target_user->getAllGroups('true'),
 				'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
 				'message_date_full' => date('d M Y, H:i', $results->data[$n]->created),
 				'content' => Output::getPurified($emojione->unicodeToImage(Output::getDecoded($results->data[$n]->content)))

@@ -487,7 +487,7 @@ class User {
 	// Get the group with highest priority
 	public function getTopGroup(){
 		if(count($this->_groups)){
-			foreach($groups as $group) {
+			foreach($this->_groups as $group) {
 				return $group;
 			}
         }

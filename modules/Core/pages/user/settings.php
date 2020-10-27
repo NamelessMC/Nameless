@@ -528,7 +528,7 @@ if(isset($_GET['do'])){
 					else {
 						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
 
-						$discord_role_id = Discord::getDiscordRoleId(DB::getInstance(), $user->data()->group_id);
+						$discord_role_id = Discord::getDiscordRoleId(DB::getInstance(), $user->getTopGroup->id);
 
 						$guild_id = Util::getSetting(DB::getInstance(), 'discord');
 
@@ -833,7 +833,7 @@ if(isset($_GET['do'])){
 	
 	if($user->data()->tfa_enabled == 1){
 		$smarty->assign('DISABLE', $language->get('user', 'disable'));
-		$group = $queries->getWhere('groups', array('id', '=', $user->data()->group_id));
+		$group = $queries->getWhere('groups', array('id', '=', $user->getTopGroup()->id));
 		if ($group[0]->force_tfa) {
 			$smarty->assign('FORCED', true);
 		} else {
