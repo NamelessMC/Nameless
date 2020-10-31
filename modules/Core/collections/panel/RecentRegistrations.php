@@ -55,14 +55,15 @@ class RecentRegistrationsItem extends CollectionItemBase {
 				$i = 0;
 
 				foreach($query as $item){
+					$target_user = new User($item->id);
 					$data[] = array(
 						'url' => URL::build('/panel/user/' . Output::getClean($item->id) . '-' . Output::getClean($item->username)),
-						'username' => Output::getClean($item->username),
-						'nickname' => Output::getClean($item->nickname),
-						'style' => $this->_user->getGroupClass($item->id),
-						'avatar' => $this->_user->getAvatar($item->id),
+						'username' => $target_user->getDisplayname(true),
+						'nickname' => $target_user->getDisplayname(),
+						'style' => $target_user->getGroupClass(),
+						'avatar' => $target_user->getAvatar(),
 						'uuid' => Output::getClean($item->uuid),
-						'groups' => $this->_user->getAllGroups($item->id, true),
+						'groups' => $target_user->getAllGroups(true),
 						'time' => $timeago->inWords(date('d M Y, H:i', $item->joined), $this->_language->getTimeLanguage()),
 						'time_full' => date('d M Y, H:i', $item->joined)
 					);
