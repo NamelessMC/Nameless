@@ -49,10 +49,11 @@ foreach($_POST['posts'] as $item){
 	}
 	
 	if($post['topic_id'] == $_POST['topic']){
+		$post_author = new User($post['creator']);
 		$posts[] = array(
 			'content' => Output::getPurified($content),
-			'author_username' => $user->idToName($post['creator']),
-			'author_nickname' => $user->idToNickname($post['creator']),
+			'author_username' => $post_author->getDisplayname(),
+			'author_nickname' => $post_author->getDisplayname(true),
 			'link' => URL::build('/forum/topic/' . $post['topic_id'], 'pid=' . htmlspecialchars($item))
 		);
 	}

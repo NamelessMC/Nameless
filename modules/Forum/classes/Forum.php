@@ -91,14 +91,6 @@ class Forum {
                                     $return[$forum->id]['subforums'][$item->id]->last_post = $last_reply[$n];
                                     $return[$forum->id]['subforums'][$item->id]->last_post->title = Output::getClean($last_topic[0]->topic_title);
                                     $return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/topic/' . $last_reply[$n]->topic_id . '-' . $this->titleToURL($last_topic[0]->topic_title), 'pid=' . $last_reply[0]->id);
-
-                                    // Last reply username, profile link and avatar
-                                    $last_reply_user = $this->_db->get('users', array('id', '=', $last_reply[$n]->post_creator))->results();
-                                    $return[$forum->id]['subforums'][$item->id]->last_post->username = Output::getClean($last_reply_user[0]->nickname);
-                                    $return[$forum->id]['subforums'][$item->id]->last_post->mcname = Output::getClean($last_reply_user[0]->username);
-                                    $return[$forum->id]['subforums'][$item->id]->last_post->profile = URL::build('/profile/' . Output::getClean($last_reply_user[0]->username));
-                                    $return[$forum->id]['subforums'][$item->id]->last_post->avatar = '';
-                                    $return[$forum->id]['subforums'][$item->id]->last_post->date_friendly = '';
                                 }
 
                                 // Get list of subforums (names + links)

@@ -164,49 +164,18 @@ if(Input::exists()){
 					'max' => 20
 				)
 			);
-
-			if($user_query->id != 1 && ($user_query->id != $user->data()->id || $user->hasPermission('admincp.groups.self'))){
-				$to_validation['group'] = array(
-					'required' => true
-				);
-				$group = Input::get('group');
-
+			
+			// Does user have any groups selected
+			$passed = false;
+			if(isset($_POST['groups']) && count($_POST['groups'])){
+				$passed = true;
 			} else {
-				$group = $user_query->group_id;
-			}
-
-			// Get secondary groups
-			if(isset($_POST['secondary_groups']) && count($_POST['secondary_groups'])){
-				// Add all new groups to Discord
-				foreach($_POST['secondary_groups'] as $secondary_group) {
-					if($secondary_group != $group) {
-						$secondary_groups[] = $secondary_group;
-						Discord::addDiscordRole($user_query, $secondary_group, $language);
-					}
-				}
-				// Find secondary groups which the user had, but are not selected anymore, and remove them from Discord
-				foreach($user_query->secondary_groups as $secondary_group) {
-					if (!in_array($_POST['secondary_groups'], $secondary_group)) {
-						Discord::removeDiscordRole($user_query, $secondary_group, $language);
-					}
-				}
-				$secondary_groups = json_encode($secondary_groups);
-			} else {
-				// Remove all old secondary groups from Discord when none are selected
-				$user_secondary_groups = json_decode($user_query->secondary_groups, true);
-				foreach ($user_secondary_groups as $secondary_group) {
-					Discord::removeDiscordRole($user_query, $secondary_group, $language);
-				}
-				$secondary_groups = '';
+				$errors[] = $language->get('admin', 'select_user_group');
 			}
 
 			$validation = $validate->check($_POST, $to_validation);
-
-			if($validation->passed()){
-
+			if($validation->passed() && $passed){
 				try {
-					Discord::addDiscordRole($user_query, $group, $language);
-
 					// Signature from Markdown -> HTML if needed
 					$cache->setCache('post_formatting');
 					$formatting = $cache->retrieve('formatting');
@@ -264,35 +233,27 @@ if(Input::exists()){
 					// Get groups
 					if($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
 						if(isset($_POST['groups']) && count($_POST['groups'])){
-							
 							// Any new groups?
 							foreach($_POST['groups'] as $group) {
 								if(!in_array($group, $user_groups)) {
 									$view_user->addGroup($group);
+									Discord::addDiscordRole($user_query, $group, $language);
 								}
 							}
 							
 							// Any groups to remove?
 							foreach($view_user->getGroups() as $group){
 								if(!in_array($group->id, $_POST['groups'])) {
+									// be sure root user keep the root group
+									if($group->id == 2 && $view_user->data()->id == 1) {
+										continue;
+									}
+									
 									$view_user->removeGroup($group->id);
+									Discord::removeDiscordRole($user_query, $group->id, $language);
 								}
 							}
 						}
-					}
-					
-					// Get groups
-					if($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
-						if(isset($_POST['groups']) && count($_POST['groups'])){
-							foreach($_POST['groups'] as $group) {
-								$groups[] = $group;
-							}
-							$groups = json_encode($groups);
-						} else {
-							$groups = '';
-						}
-					} else {
-						$groups = $view_user->data()->groups;
 					}
 
 					Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
@@ -316,9 +277,6 @@ if(Input::exists()){
 								break;
 							case (strpos($error, 'username') !== false):
 								$errors[] = $language->get('user', 'mcname_required');
-								break;
-							case (strpos($error, 'group') !== false):
-								$errors[] = $language->get('admin', 'select_user_group');
 								break;
 						}
 
@@ -461,7 +419,7 @@ if($formatting == 'markdown'){
 }
 
 $user_groups = array();
-foreach($user->getGroups() as $group){
+foreach($view_user->getGroups() as $group){
 	$user_groups[$group->id] = $group->id;
 }
 

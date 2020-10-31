@@ -22,17 +22,7 @@ $timeago = new Timeago(TIMEZONE);
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get user group ID
-if($user->isLoggedIn()){
-    $user_group = $user->data()->group_id;
-    $secondary_groups = $user->data()->secondary_groups;
-    $secondary_groups_array = json_decode($secondary_groups, true);
-    if(is_null($secondary_groups_array))
-        $secondary_groups_array = array();
-} else {
-    $user_group = 0;
-    $secondary_groups = null;
-    $secondary_groups_array = array();
-}
+$user_groups = $user->getAllGroupIds();
 
 if(!isset($_GET['s'])){
     if(Input::exists()){
@@ -72,7 +62,7 @@ if(!isset($_GET['s'])){
         die();
     }
 
-    $cache->setCache($search . '-' . $user_group . '-' . $secondary_groups);
+    $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));
     if(!$cache->isCached('result')){
         // Execute search
         $search_topics = $queries->getLike('topics', 'topic_title', '%' . $search . '%');
@@ -85,7 +75,7 @@ if(!isset($_GET['s'])){
             // Check permissions
             $perms = $queries->getWhere('forums_permissions', array('forum_id', '=', $result->forum_id));
             foreach($perms as $perm){
-                if(($perm->group_id == $user_group || in_array($perm->group_id, $secondary_groups_array)) && $perm->view == 1){
+                if(in_array($perm->group_id, $user_groups) && $perm->view == 1){
                     if(isset($result->topic_id)){
                         // Post
                         if(!isset($results[$result->id]) && $result->deleted == 0){
@@ -189,12 +179,13 @@ if(isset($_GET['s'])){
 			$content = $emojione->unicodeToImage($content);
 			$content = Output::getPurified($content);
 
+			$post_user = new User($results->data[$n]['post_author']);
 			$posts[$n] = array(
-				'post_author' => Output::getClean($user->idToNickname($results->data[$n]['post_author'])),
+				'post_author' => $post_user->getDisplayname(),
 				'post_author_id' => Output::getClean($results->data[$n]['post_author']),
-				'post_author_avatar' => $user->getAvatar($results->data[$n]['post_author'], '../', 25),
-				'post_author_profile' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]['post_author']))),
-				'post_author_style' => $user->getGroupClass($results->data[$n]['post_author']),
+				'post_author_avatar' => $post_user->getAvatar('../', 25),
+				'post_author_profile' => $post_user->getProfileURL(),
+				'post_author_style' => $post_user->getGroupClass(),
 				'post_date_full' => date('d M Y, H:i', strtotime($results->data[$n]['post_date'])),
 				'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language->getTimeLanguage()),
 				'content' => $content,

@@ -30,7 +30,7 @@ if(!isset($_GET["tid"]) || !is_numeric($_GET["tid"])){
 	$topic = $topic[0];
 }
 
-if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->secondary_groups)){
+if($forum->canModerateForum($forum_id, $user->getAllGroupIds())){
 	if(Input::exists()) {
 		if(Token::check()) {
 			$validate = new Validate();
@@ -91,7 +91,7 @@ $template_forums = array();
 
 $categories = $queries->orderWhere('forums', 'parent = 0', 'forum_order', 'ASC');
 foreach($categories as $category){
-	if(!$forum->forumExist($category->id, $user->data()->group_id, $user->data()->secondary_groups)) continue;
+	if(!$forum->forumExist($category->id, $user->getAllGroupIds())) continue;
 
 	$to_add = new stdClass();
 	$to_add->id = Output::getClean($category->id);
@@ -105,7 +105,7 @@ foreach($categories as $category){
 	if($forums->count()){
 		$forums = $forums->results();
 		foreach($forums as $item){
-			if(!$forum->forumExist($item->id, $user->data()->group_id, $user->data()->secondary_groups)) continue;
+			if(!$forum->forumExist($item->id, $user->getAllGroupIds())) continue;
 
 			if($item->id !== $forum_id){
 				$to_add = new stdClass();
@@ -116,7 +116,7 @@ foreach($categories as $category){
 			}
 
 			// Subforums
-			$subforums = $forum->getAnySubforums($item->id, $user->data()->group_id, $user->data()->secondary_groups);
+			$subforums = $forum->getAnySubforums($item->id, $user->getAllGroupIds());
 
 			if(count($subforums)){
 				foreach($subforums as $subforum){

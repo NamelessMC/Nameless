@@ -21,14 +21,7 @@ $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
 
 // Get user group IDs
-if($user->isLoggedIn() && count($user->getGroups())){
-	$groups = array();
-	foreach($user->getGroups() as $group){
-		$groups[$group->id] = $group->id;
-	}
-} else {
-    $groups = array(0);
-}
+$groups = $user->getAllGroupIds();
 
 // Breadcrumbs and search bar - same for latest discussions view + table view
 $smarty->assign('BREADCRUMB_URL', URL::build('/forum'));
@@ -87,7 +80,12 @@ if($cache->isCached('forums')){
 			if(count($item['subforums'])){
 				foreach($item['subforums'] as $subforum_id => $subforum){
 					if(isset($subforum->last_post)){
-						$forums[$key]['subforums'][$subforum_id]->last_post->avatar = $user->getAvatar($forums[$key]['subforums'][$subforum_id]->last_post->post_creator, '../', 64);
+						$last_post_user = new User($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
+						
+						$forums[$key]['subforums'][$subforum_id]->last_post->avatar = $last_post_user->getAvatar('../', 64);
+						$forums[$key]['subforums'][$subforum_id]->last_post->user_style = $last_post_user->getGroupClass();
+						$forums[$key]['subforums'][$subforum_id]->last_post->username = $last_post_user->getDisplayname();
+                        $forums[$key]['subforums'][$subforum_id]->last_post->profile = $last_post_user->getProfileURL();
 
 						if(is_null($forums[$key]['subforums'][$subforum_id]->last_post->created)){
 						  $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language->getTimeLanguage());
@@ -96,8 +94,6 @@ if($cache->isCached('forums')){
 						  $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords(date('d M Y, H:i', $forums[$key]['subforums'][$subforum_id]->last_post->created), $language->getTimeLanguage());
 						  $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', $forums[$key]['subforums'][$subforum_id]->last_post->created);
 						}
-
-						$forums[$key]['subforums'][$subforum_id]->last_post->user_style = $user->getGroupClass($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
 					}
 
 					if($forums[$key]['subforums'][$subforum_id]->redirect_forum == 1)

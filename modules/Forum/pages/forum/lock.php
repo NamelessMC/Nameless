@@ -30,7 +30,7 @@ if($user->isLoggedIn()){
 	
 	$forum_id = $topic[0]->forum_id;
 	
-	if($forum->canModerateForum($user->data()->group_id, $forum_id, $user->data()->secondary_groups)){
+	if($forum->canModerateForum($forum_id, $user->getAllGroupIds())){
 		$locked_status = $topic[0]->locked;
 		
 		if($locked_status == 1){

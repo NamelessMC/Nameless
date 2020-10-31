@@ -213,24 +213,30 @@ if(isset($_GET['user'])){
 							}
 
 							// Send alerts
-							$groups = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\'');
-
-							if($groups->count()){
-								$groups = $groups->results();
-
-								foreach($groups as $group){
-									// Get users in this group
-									$users = DB::getInstance()->query('SELECT DISTINCT(id) AS id FROM nl2_users WHERE id <> ? AND group_id = ?', array($user->data()->id, $group->id));
-
-									if($users->count()){
-										$users = $users->results();
-
-										foreach($users as $item){
-											// Send alert
-											Alert::create($item->id, 'punishment', array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), URL::build('/panel/users/punishments/', 'user=' . Output::getClean($query->id)));
-										}
+							$groups_query = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\'');
+							if($groups_query->count()){
+								$groups_query = $groups_query->results();
+								
+								$groups = '(';
+								foreach($groups_query as $group){
+									if(is_numeric($group->id)){
+										$groups .= ((int) $group->id) . ',';
 									}
 								}
+								$groups = rtrim($groups, ',') . ')';
+
+								// Get users in this group
+								$users = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups)->results();
+
+								if($users->count()){
+									$users = $users->results();
+
+									foreach($users as $item){
+										// Send alert
+										Alert::create($item->id, 'punishment', array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), URL::build('/panel/users/punishments/', 'user=' . Output::getClean($query->id)));
+									}
+								}
+
 							}
 
 						} else

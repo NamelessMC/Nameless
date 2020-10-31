@@ -40,15 +40,9 @@ if(!is_numeric($tid[0])){
 $tid = $tid[0];
 
 // Does the topic exist, and can the user view it?
-if($user->isLoggedIn()){
-	$group_id = $user->data()->group_id;
-	$secondary_groups = $user->data()->secondary_groups;
-} else {
-    $group_id = null;
-    $secondary_groups = null;
-}
+$user_groups = $user->getAllGroupIds();
 
-$list = $forum->topicExist($tid, $group_id, $secondary_groups);
+$list = $forum->topicExist($tid, $user_groups);
 if(!$list){
 	require_once(ROOT_PATH . '/404.php');
 	die();
@@ -63,7 +57,7 @@ if($topic->deleted == 1){
 	die();
 }
 
-$list = $forum->canViewForum($topic->forum_id, $group_id, $secondary_groups);
+$list = $forum->canViewForum($topic->forum_id, $user_groups);
 if(!$list){
 	require_once(ROOT_PATH . '/403.php');
 	die();
@@ -74,7 +68,7 @@ if($user->isLoggedIn())
 else
   $user_id = 0;
 
-if($topic->topic_creator != $user_id && !$forum->canViewOtherTopics($topic->forum_id, $group_id, $secondary_groups)){
+if($topic->topic_creator != $user_id && !$forum->canViewOtherTopics($topic->forum_id, $user_groups)){
     // Only allow viewing stickied topics
     if($topic->sticky == 0) {
 	    require_once(ROOT_PATH . '/403.php');
@@ -180,15 +174,14 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $first_post = $queries->orderWhere('posts', 'topic_id = ' . $tid, 'id', 'ASC LIMIT 1');
 $first_post = $first_post[0];
 
-$topic_author_username = Output::getClean($user->idToName($topic->topic_creator));
-$topic_author_nickname = Output::getClean($user->idToNickname($topic->topic_creator));
+$topic_user = new User($topic->topic_creator);
 
 $smarty->assign(array(
 	'TOPIC_TITLE' => Output::getClean($topic->topic_title),
-	'TOPIC_AUTHOR_USERNAME' => $topic_author_username,
-	'TOPIC_AUTHOR_MCNAME' => $topic_author_nickname,
-	'TOPIC_AUTHOR_PROFILE' => URL::build('/profile/' . Output::getClean($topic_author_username)),
-	'TOPIC_AUTHOR_STYLE' => $user->getGroupClass($topic->topic_creator),
+	'TOPIC_AUTHOR_USERNAME' => $topic_user->getDisplayname(),
+	'TOPIC_AUTHOR_MCNAME' => $topic_user->getDisplayname(true),
+	'TOPIC_AUTHOR_PROFILE' => $topic_user->getProfileURL(),
+	'TOPIC_AUTHOR_STYLE' => $topic_user->getGroupClass(),
 	'TOPIC_ID' => $topic->id,
 	'FORUM_ID' => $topic->forum_id,
 	'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords(date('d M Y, H:i', $first_post->last_edited), $language->getTimeLanguage()) : null),
@@ -220,8 +213,8 @@ $posts = $forum->getPosts($tid);
 // Can the user post a reply in this topic?
 if($user->isLoggedIn()){
 	// Topic locked?
-	if($topic->locked == 0 || $forum->canModerateForum($group_id, $topic->forum_id, $secondary_groups)){
-		$can_reply = $forum->canPostReply($topic->forum_id, $group_id, $secondary_groups);
+	if($topic->locked == 0 || $forum->canModerateForum($topic->forum_id, $user_groups)){
+		$can_reply = $forum->canPostReply($topic->forum_id, $user_groups);
 	} else {
 		$can_reply = false;
 	}
@@ -518,7 +511,7 @@ if($user->isLoggedIn() && $can_reply){
 	if($topic->locked != 1){ // Not locked
 		$smarty->assign('NEW_REPLY', $forum_language->get('forum', 'new_reply'));
 	} else { // Locked
-		if($forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups)){
+		if($forum->canModerateForum($forum_parent[0]->id, $user_groups)){
 			// Can post anyway
 			$smarty->assign('NEW_REPLY', $forum_language->get('forum', 'new_reply'));
 		} else {
@@ -532,7 +525,7 @@ if($topic->locked == 1)
 	$smarty->assign('LOCKED', true);
 
 // Is the user a moderator?
-if($user->isLoggedIn() && $forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups)){
+if($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_groups)){
 	$smarty->assign(array(
 		'CAN_MODERATE' => true,
 		'MOD_ACTIONS' => $forum_language->get('forum', 'mod_actions'),
@@ -578,19 +571,17 @@ $mc_integration = $queries->getWhere('settings', array('name', '=', 'mc_integrat
 $replies = array();
 // Display the correct number of posts
 for($n = 0; $n < count($results->data); $n++){
+	$post_creator = new User($results->data[$n]->post_creator);
+	
 	// Get user's group HTML formatting and their signature
-	$user_groups = $user->getAllGroups($results->data[$n]->post_creator, 'true');
-	$signature = $user->getSignature($results->data[$n]->post_creator);
+	$user_groups_html = $post_creator->getAllGroups('true');
+	$signature = $post_creator->getSignature();
 
 	// Panel heading content
 	$url = URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $results->data[$n]->id);
 
 	if($n != 0) $heading = $forum_language->get('forum', 're') . Output::getClean($topic->topic_title);
 	else $heading = Output::getClean($topic->topic_title);
-
-	// Avatar
-	$post_user = $queries->getWhere('users', array('id', '=', $results->data[$n]->post_creator));
-	$avatar = $user->getAvatar($results->data[$n]->post_creator, '../', 500);
 
 	// Which buttons do we need to display?
 	$buttons = array();
@@ -600,12 +591,12 @@ for($n = 0; $n < count($results->data); $n++){
 		$smarty->assign('TOKEN', $token);
 
 		// Edit button
-		if($forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups)){
+		if($forum->canModerateForum($forum_parent[0]->id, $user_groups)){
 			$buttons['edit'] = array(
 				'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
 				'TEXT' => $forum_language->get('forum', 'edit')
 			);
-		} else if($user->data()->id == $results->data[$n]->post_creator && $forum->canEditTopic($forum_parent[0]->id, $group_id, $secondary_groups)) {
+		} else if($user->data()->id == $results->data[$n]->post_creator && $forum->canEditTopic($forum_parent[0]->id, $user_groups)) {
 			if($topic->locked != 1){ // Can't edit if topic is locked
 				$buttons['edit'] = array(
 					'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
@@ -615,7 +606,7 @@ for($n = 0; $n < count($results->data); $n++){
 		}
 
 		// Delete button
-		if($forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups)){
+		if($forum->canModerateForum($forum_parent[0]->id, $user_groups)){
 			$buttons['delete'] = array(
 				'URL' => URL::build('/forum/delete_post/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
 				'TEXT' => $language->get('general', 'delete'),
@@ -636,7 +627,7 @@ for($n = 0; $n < count($results->data); $n++){
 
 		// Quote button
 		if($can_reply){
-			if($forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups) || $topic->locked != 1){
+			if($forum->canModerateForum($forum_parent[0]->id, $user_groups) || $topic->locked != 1){
 				$buttons['quote'] = array(
 					'TEXT' => $forum_language->get('forum', 'quote')
 				);
@@ -645,9 +636,9 @@ for($n = 0; $n < count($results->data); $n++){
 	}
 
 	// Profile fields
-	$fields = $user->getProfileFields($post_user[0]->id, true, true);
+	$fields = $post_creator->getProfileFields($post_creator->data()->id, true, true);
 
-	if($mc_integration[0]->value == '1') $fields[] = array('name' => 'IGN', 'value' => Output::getClean($post_user[0]->username));
+	if($mc_integration[0]->value == '1') $fields[] = array('name' => 'IGN', 'value' => $post_creator->getDisplayname(true));
 
 	// Get post reactions
 	$post_reactions = array();
@@ -670,12 +661,13 @@ for($n = 0; $n < count($results->data); $n++){
 					$post_reactions[$item->reaction_id]['count']++;
 				}
 
+				$reaction_user = new User($item->user_given);
 				$post_reactions[$item->reaction_id]['users'][] = array(
-					'username' => Output::getClean($user->idToName($item->user_given)),
-					'nickname' => Output::getClean($user->idToNickname($item->user_given)),
-					'style' => $user->getGroupClass($item->user_given),
-					'avatar' => $user->getAvatar($item->user_given, '../', 500),
-					'profile' => URL::build('/profile/' . Output::getClean($user->idToName($item->user_given)))
+					'username' => $reaction_user->getDisplayname(true),
+					'nickname' => $reaction_user->getDisplayname(),
+					'style' => $reaction_user->getGroupClass(),
+					'avatar' => $reaction_user->getAvatar('../', 500),
+					'profile' => $reaction_user->getProfileURL()
 				);
 			}
 		}
@@ -699,23 +691,23 @@ for($n = 0; $n < count($results->data); $n++){
 		'url' => $url,
 		'heading' => $heading,
 		'id' => $results->data[$n]->id,
-		'user_id' => $post_user[0]->id,
-		'avatar' => $avatar,
-		'uuid' => Output::getClean($post_user[0]->uuid),
-		'username' => Output::getClean($post_user[0]->nickname),
-		'mcname' => Output::getClean($post_user[0]->username),
-		'last_seen' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_user[0]->last_online), $language->getTimeLanguage()), $language->get('user', 'last_seen_x')),
-		'last_seen_full' => date('d M Y', $post_user[0]->last_online),
-		'online_now' => $post_user[0]->last_online > strtotime('5 minutes ago'),
-		'user_title' => Output::getClean($post_user[0]->user_title),
-		'profile' => URL::build('/profile/' . Output::getClean($post_user[0]->username)),
-		'user_style' => $user->getGroupClass($post_user[0]->id),
-		'user_groups' => $user_groups,
+		'user_id' => $post_creator->data()->id,
+		'avatar' => $post_creator->getAvatar('../', 500),
+		'uuid' => Output::getClean($post_creator->data()->uuid),
+		'username' => $post_creator->getDisplayname(),
+		'mcname' => $post_creator->getDisplayname(true),
+		'last_seen' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_creator->data()->last_online), $language->getTimeLanguage()), $language->get('user', 'last_seen_x')),
+		'last_seen_full' => date('d M Y', $post_creator->data()->last_online),
+		'online_now' => $post_creator->data()->last_online > strtotime('5 minutes ago'),
+		'user_title' => Output::getClean($post_creator->data()->user_title),
+		'profile' => $post_creator->getProfileURL(),
+		'user_style' => $post_creator->getGroupClass(),
+		'user_groups' => $user_groups_html,
 		'user_posts_count' => str_replace('{x}', count($queries->getWhere('posts', array('post_creator', '=', $results->data[$n]->post_creator))), $forum_language->get('forum', 'x_posts')),
 		'user_topics_count' => str_replace('{x}', count($queries->getWhere('topics', array('topic_creator', '=', $results->data[$n]->post_creator))), $forum_language->get('forum', 'x_topics')),
-		'user_registered' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_user[0]->joined), $language->getTimeLanguage()), $forum_language->get('forum', 'registered_x')),
-		'user_registered_full' => date('d M Y', $post_user[0]->joined),
-		'user_reputation' => $post_user[0]->reputation,
+		'user_registered' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_creator->data()->joined), $language->getTimeLanguage()), $forum_language->get('forum', 'registered_x')),
+		'user_registered_full' => date('d M Y', $post_creator->data()->joined),
+		'user_reputation' => $post_creator->data()->reputation,
 		'post_date_rough' => $post_date_rough,
 		'post_date' => $post_date,
 		'buttons' => $buttons,
@@ -769,7 +761,7 @@ $smarty->assign('REACTIONS_TEXT', $language->get('user', 'reactions'));
 
 // Quick reply
 if($user->isLoggedIn() && $can_reply){
-	if($forum->canModerateForum($group_id, $forum_parent[0]->id, $secondary_groups) || $topic->locked != 1){
+	if($forum->canModerateForum($forum_parent[0]->id, $user_groups) || $topic->locked != 1){
 		if($topic->locked == 1){
 			$smarty->assign('TOPIC_LOCKED_NOTICE', $forum_language->get('forum', 'topic_locked_notice'));
 		}

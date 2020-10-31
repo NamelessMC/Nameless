@@ -46,17 +46,6 @@ class User {
 
 	}
 
-	// Get name of group from an ID
-	public function getGroupName($group_id) {
-		$data = $this->_db->get('groups', array('id', '=', $group_id));
-		if($data->count()) {
-			$results = $data->results();
-			return htmlspecialchars($results[0]->name);
-		} else {
-			return false;
-		}
-	}
-
 	// Get a group's CSS class
 	public function getGroupClass() {
 		$groups = $this->_groups;
@@ -124,7 +113,7 @@ class User {
 	}
 
 	// Get username from ID
-	public function IdToName($id = null){
+	/*public function IdToName($id = null){
 		if($id){
 			$data = $this->_db->get('users', array('id', '=', $id));
 
@@ -147,7 +136,7 @@ class User {
 			}
 		}
 		return false;
-	}
+	}*/
 
 	// Log the user in
 	public function login($username = null, $password = null, $remember = false, $method = 'email') {
@@ -484,8 +473,8 @@ class User {
 		return $this->_groups;
 	}
 	
-	// Get the group with highest priority
-	public function getTopGroup(){
+	// Get the main group
+	public function getMainGroup(){
 		if(count($this->_groups)){
 			foreach($this->_groups as $group) {
 				return $group;
@@ -550,7 +539,7 @@ class User {
 	}
 
 	// Return an ID from a username
-	public function NameToId($name = null){
+	/*public function NameToId($name = null){
 		if($name){
 			$data = $this->_db->get('users', array('username', '=', $name));
 
@@ -573,7 +562,7 @@ class User {
             }
         }
         return false;
-    }
+    }*/
 
 	// Get a list of PMs a user has access to
 	public function listPMs($user_id = null){
