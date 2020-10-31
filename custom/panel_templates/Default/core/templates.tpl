@@ -84,6 +84,9 @@
                                         <tr>
                                             <td>
                                                 <strong>{$template.name}</strong> <small>{$template.version}</small>
+                                                {if $template.default_warning}
+                                                    &nbsp;<button role="button" class="btn btn-sm btn-danger" data-toggle="popover" data-title="{$WARNING}" data-content="{$template.default_warning}"><i class="fa fa-exclamation-triangle"></i></button>
+                                                {/if}
                                                 {if $template.version_mismatch}
                                                     &nbsp;<button role="button" class="btn btn-sm btn-warning" data-toggle="popover" data-title="{$WARNING}" data-content="{$template.version_mismatch}"><i class="fa fa-exclamation-triangle"></i></button>
                                                 {/if}

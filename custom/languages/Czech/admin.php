@@ -337,6 +337,7 @@ $language = array(
 	'panel_templates' => 'Šablony panelů',
 	'view_all_panel_templates' => 'Zobrazit všechny šablony panelu',
 	'template_outdated' => 'Zjistili jsme, že šablona je určena pro NamelessMC verzi {x} , ale vy používáte verzi {y}', // Don't replace "{x}" or "{y}"
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => 'Povolená',
 	'deactivate' => 'Zakázat',
 	'activate' => 'Povolit',

@@ -340,6 +340,7 @@ $language = array(
 	'panel_templates' => 'Panel Templates',
 	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => '選択したテンプレートは NamelessMC バージョン {x} に対応していますが、現在 NamelessMC バージョン {y} を実行しています。', // Don't replace "{x}" or "{y}"
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => 'アクティブ',
 	'deactivate' => '非アクティブ',
 	'activate' => 'アクティベート',

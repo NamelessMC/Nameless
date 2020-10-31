@@ -339,6 +339,7 @@ $language = array(
 	'panel_templates' => 'Paneel Sjablonen',
 	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'We hebben ontdekt dat dit sjabloon voor versie {x} is, maar je gebruikt versie {y}', // Verander "{x}" of "{y}" niet
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => 'Actief',
 	'deactivate' => 'Deactiveer',
 	'activate' => 'Activeer',

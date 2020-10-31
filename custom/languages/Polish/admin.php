@@ -336,6 +336,7 @@ $language = array(
 	'panel_templates' => 'Szablony panelu administracji',
 	'view_all_panel_templates' => 'Zobacz wszystkie szablony panelu',
 	'template_outdated' => 'Wykryliśmy że ten szablon jest przeznaczony do wersji Nameless {x}, a ty używasz wersji Nameless {y}', // Don't replace "{x}" or "{y}"
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => 'Aktywny',
 	'deactivate' => 'Dezaktywuj',
 	'activate' => 'Aktywuj',
