@@ -38,8 +38,8 @@ if($cache->isCached('news')){
 			'author_name' => $post_user->getDisplayname(true),
 			'author_nickname' => $post_user->getDisplayname(),
 			'author_avatar' => $post_user->getAvatar("../", 64),
-			'author_group' => Output::getClean($post_user->getTopGroup()->name),
-			'author_group_html' => $post_user->getTopGroup()->group_html,
+			'author_group' => Output::getClean($post_user->getMainGroup()->name),
+			'author_group_html' => $post_user->getMainGroup()->group_html,
 			'content' => Output::getPurified($item['content']),
 			'label' => $item['label']
 		);

@@ -22,7 +22,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $user_details = array(
 	$language->get('user', 'username') => $user->getDisplayname(true),
-	$language->get('admin', 'group') => Output::getClean($user->getTopGroup()->name),
+	$language->get('admin', 'group') => Output::getClean($user->getMainGroup()->name),
 	$language->get('admin', 'registered') => date('d M Y, H:i', $user->data()->joined)
 );
 

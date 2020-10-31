@@ -61,16 +61,18 @@ if (!defined('PANEL_TEMPLATE_STAFF_USERS_AJAX')) {
 	// Get all users
 	$users = $queries->getWhere('users', array('id', '<>', 0));
 	foreach ($users as $item) {
+		$target_user = new User($item->id);
+		
 		$output[] = array(
 			'id' => Output::getClean($item->id),
-			'username' => Output::getClean($item->username),
-			'nickname' => Output::getClean($item->nickname),
-			'avatar' => $user->getAvatar($item->id, '', 128),
-			'style' => $user->getGroupClass($item->id),
-			'profile' => URL::build('/profile/' . Output::getClean($item->username)),
+			'username' => $target_user->getDisplayname(true),
+			'nickname' => $target_user->getDisplayname(),
+			'avatar' => $target_user->getAvatar('', 128),
+			'style' => $target_user->getGroupClass(),
+			'profile' => $target_user->getProfileURL(),
 			'panel_profile' => URL::build('/panel/user/' . Output::getClean($item->id . '-' . $item->username)),
-			'primary_group' => Output::getClean($user->getGroupName($item->group_id)),
-			'all_groups' => $user->getAllGroups($item->id, true),
+			'primary_group' => Output::getClean($target_user->getMainGroup()->name),
+			'all_groups' => $target_user->getAllGroups(true),
 			'registered' => date('d M Y', $item->joined),
 			'registered_unix' => Output::getClean($item->joined)
 		);

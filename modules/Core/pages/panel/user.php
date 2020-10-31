@@ -42,12 +42,12 @@ if(!is_numeric($uid[0])){
 }
 $uid = $uid[0];
 
-$user_query = $queries->getWhere('users', array('id', '=', $uid));
-if(!count($user_query)){
+$view_user = new User($uid);
+if(!count($view_user->data())) {
 	Redirect::to(URL::build('/panel'));
 	die();
 }
-$user_query = $user_query[0];
+$user_query = $view_user->data();
 
 $timeago = new Timeago(TIMEZONE);
 
@@ -96,12 +96,12 @@ $smarty->assign(array(
 	'PAGE' => PANEL_PAGE,
 	'TOKEN' => Token::get(),
 	'SUBMIT' => $language->get('general', 'submit'),
-	'AVATAR' => $user->getAvatar($user_query->id, '', 256),
-	'NICKNAME' => Output::getClean($user_query->nickname),
-	'USERNAME' => Output::getClean($user_query->username),
-	'USER_STYLE' => $user->getGroupClass($user_query->id),
-	'USER_GROUP' => $user->getGroupName($user_query->group_id),
-	'USER_GROUPS' => $user->getAllGroups($user_query->id, true),
+	'AVATAR' => $view_user->getAvatar('', 256),
+	'NICKNAME' => $view_user->getDisplayname(),
+	'USERNAME' => $view_user->getDisplayname(true),
+	'USER_STYLE' => $view_user->getGroupClass(),
+	'USER_GROUP' => Output::getClean($view_user->getMainGroup()->name),
+	'USER_GROUPS' => $view_user->getAllGroups(true),
 	'USER_TITLE' => Output::getClean($user_query->user_title),
 	'UUID' => Output::getClean($user_query->uuid),
 	'LANGUAGE' => Output::getClean($user_language),

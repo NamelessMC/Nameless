@@ -110,13 +110,15 @@ if(!isset($_GET['id'])){
 			// Get comments count
 			$comments = $queries->getWhere('reports_comments', array('report_id', '=', $report->id));
 			$comments = count($comments);
+			
+			$target_user = new User($report->reported_id);
 
 			if($report->type == 0){
 				// Site report
-				$user_reported = Output::getClean($user->idToNickname($report->reported_id));
-				$user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $user->idToName($report->reported_id)));
-				$user_style = $user->getGroupClass($report->reported_id);
-				$user_avatar = $user->getAvatar($report->reported_id, '', 128);
+				$user_reported = $target_user->getDisplayname();
+				$user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $target_user->data()->username));
+				$user_style = $target_user->getGroupClass();
+				$user_avatar = $target_user->getAvatar('', 128);
 
 			} else {
 				// Ingame report
@@ -126,6 +128,8 @@ if(!isset($_GET['id'])){
 				$user_avatar = Util::getAvatarFromUUID($report->reported_uuid, 128);
 
 			}
+			
+			$updated_by_user = new User($report->updated_by);
 
 			$reports[] = array(
 				'id' => $report->id,
@@ -136,10 +140,10 @@ if(!isset($_GET['id'])){
 				'reported_at' => ($report->reported ? $timeago->inWords(date('Y-m-d H:i:s', $report->reported), $language->getTimeLanguage()) : $timeago->inWords($report->date_reported, $language->getTimeLanguage())),
 				'reported_at_full' => ($report->reported ? date('d M Y, H:i', $report->reported) : date('d M Y, H:i', strtotime($report->date_reported))),
 				'link' => URL::build('/panel/users/reports/', 'id=' . $report->id),
-				'updated_by' => Output::getClean($user->idToNickname($report->updated_by)),
-				'updated_by_profile' => URL::build('/panel/user/' . Output::getClean($report->updated_by . '-' . $user->idToName($report->updated_by))),
-				'updated_by_style' => $user->getGroupClass($report->updated_by),
-				'updated_by_avatar' => $user->getAvatar($report->updated_by, '', 128),
+				'updated_by' => $updated_by_user->getDisplayname(),
+				'updated_by_profile' => URL::build('/panel/user/' . Output::getClean($report->updated_by . '-' . $updated_by_user->data()->username)),
+				'updated_by_style' => $updated_by_user->getGroupClass(),
+				'updated_by_avatar' => $updated_by_user->getAvatar('', 128),
 				'updated_at' => ($report->updated ? $timeago->inWords(date('Y-m-d H:i:s', $report->updated), $language->getTimeLanguage()) : $timeago->inWords($report->date_updated, $language->getTimeLanguage())),
 				'updated_at_full' => ($report->updated ? date('d M Y, H:i', $report->updated) : date('d M Y, H:i', strtotime($report->date_updated))),
 				'comments' => $comments
@@ -230,11 +234,13 @@ if(!isset($_GET['id'])){
 		$comments = $queries->getWhere('reports_comments', array('report_id', '=', $report->id));
 		$smarty_comments = array();
 		foreach($comments as $comment){
+			$comment_user = new User($comment->commenter_id);
+			
 			$smarty_comments[] = array(
-				'username' => Output::getClean($user->idToNickname($comment->commenter_id)),
-				'profile' => URL::build('/panel/user/' . Output::getClean($comment->commenter_id . '-' . $user->idToName($comment->commenter_id))),
-				'style' => $user->getGroupClass($comment->commenter_id),
-				'avatar' => $user->getAvatar($comment->commenter_id),
+				'username' => $comment_user->getDisplayname(),
+				'profile' => URL::build('/panel/user/' . Output::getClean($comment->commenter_id . '-' . $comment_user->data()->username)),
+				'style' => $comment_user->getGroupClass(),
+				'avatar' => $comment_user->getAvatar(),
 				'content' => Output::getPurified(Output::getDecoded($comment->comment_content)),
 				'date' => ($comment->date ? date('d M Y, H:i', $comment->date) : date('d M Y, H:i', strtotime($comment->comment_date))),
 				'date_friendly' => ($comment->date ? $timeago->inWords(date('Y-m-d H:i:s', $comment->date), $language->getTimeLanguage()) : $timeago->inWords($comment->comment_date, $language->getTimeLanguage()))
@@ -242,32 +248,36 @@ if(!isset($_GET['id'])){
 		}
 
 		if(!$report->reported_id){
-			$reported_user_query = $queries->getWhere('users', array('uuid', '=', str_replace('-', '', $report->reported_uuid)));
-			if(count($reported_user_query)){
-				$reported_user_profile = URL::build('/panel/user/' . Output::getClean($reported_user_query[0]->id . '-' . $reported_user_query[0]->username));
-				$reported_user_style = $user->getGroupClass($reported_user_query[0]->id);
-				$reported_user_avatar = $user->getAvatar($reported_user_query[0]->id, '', 128);
+			$reported_user = new User($report->reported_uuid, 'uuid');
+			if(count($reported_user->data())){
+				$reported_user_profile = URL::build('/panel/user/' . Output::getClean($reported_user->data()->id . '-' . $reported_user->data()->username));
+				$reported_user_style = $reported_user->getGroupClass();
+				$reported_user_avatar = $reported_user->getAvatar('', 128);
 			} else {
 				$reported_user_profile = '#';
 				$reported_user_style = '';
 				$reported_user_avatar = Util::getAvatarFromUUID(Output::getClean($report->reported_uuid), 128);
 			}
 
-			$reported_user = Output::getClean($report->reported_mcname);
+			$reported_user_name = Output::getClean($report->reported_mcname);
 
 		} else {
-			$reported_user = Output::getClean($user->idToNickname($report->reported_id));
-			$reported_user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $user->idToName($report->reported_id)));
-			$reported_user_style = $user->getGroupClass($report->reported_id);
-			$reported_user_avatar = $user->getAvatar($report->reported_id);
+			$reported_user = new User($report->reported_id);
+			
+			$reported_user_name = $reported_user->getDisplayname();
+			$reported_user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $reported_user->data()->username));
+			$reported_user_style = $reported_user->getGroupClass();
+			$reported_user_avatar = $reported_user->getAvatar();
 		}
+		
+		$reporter_user = new User($report->reporter_id);
 
 		// Smarty variables
 		$smarty->assign(array(
 			'REPORTS_LINK' => URL::build('/panel/users/reports'),
 			'VIEWING_REPORT' => $language->get('moderator', 'viewing_report'),
 			'BACK' => $language->get('general', 'back'),
-			'REPORTED_USER' => $reported_user,
+			'REPORTED_USER' => $reported_use_name,
 			'REPORTED_USER_PROFILE' => $reported_user_profile,
 			'REPORTED_USER_STYLE' => $reported_user_style,
 			'REPORTED_USER_AVATAR' => $reported_user_avatar,
@@ -276,10 +286,10 @@ if(!isset($_GET['id'])){
 			'CONTENT_LINK' => $report->link,
 			'VIEW_CONTENT' => $language->get('moderator', 'view_content'),
 			'REPORT_CONTENT' => Output::getPurified(Output::getDecoded($report->report_reason)),
-			'REPORTER_USER' => Output::getClean($user->idToNickname($report->reporter_id)),
-			'REPORTER_USER_PROFILE' => URL::build('/panel/user/' . Output::getClean($report->reporter_id . '-' . $user->idToName($report->reporter_id))),
-			'REPORTER_USER_STYLE' => $user->getGroupClass($report->reporter_id),
-			'REPORTER_USER_AVATAR' => $user->getAvatar($report->reporter_id),
+			'REPORTER_USER' => $reporter_user->getDisplayname(),
+			'REPORTER_USER_PROFILE' => URL::build('/panel/user/' . Output::getClean($report->reporter_id . '-' . $reporter_user->data()->username)),
+			'REPORTER_USER_STYLE' => $reporter_user->getGroupClass(),
+			'REPORTER_USER_AVATAR' => $reporter_user->getAvatar(),
 			'COMMENTS' => $smarty_comments,
 			'COMMENTS_TEXT' => $language->get('moderator', 'comments'),
 			'NO_COMMENTS' => $language->get('moderator', 'no_comments'),
