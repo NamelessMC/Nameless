@@ -130,7 +130,7 @@ $language = array(
 	'verification_failed' => '验证失败，请重试。',
 	'verification_success' => '验证成功！您现在可以登录。',
 	'authme_username_exists' => '您的 AuthMe 帐户已连接到网站!',
-	'uuid_already_exists' => '您的UUID已经存在，这意味着该 Minecraft 帐户已经注册。',
+	'uuid_already_exists' => '您的 UUID 已经存在，这意味着该 Minecraft 帐户已经注册。',
 	
 	// Login
 	'successful_login' => '您已成功登录。',
@@ -242,7 +242,7 @@ $language = array(
 	'not_linked' => '未链接',
 	'discord_id' => 'Discord 用户 ID',
 	'discord_id_unlinked' => '成功取消了您的 Discord 链接。',
-	'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to "Nameless Link#0761" to confirm your Discord User ID.',
+	'discord_id_confirm' => '请您在 Discord 上向 "Nameless Link#0761" 发送 "!verify {服务器 ID}:{token} 来确认您的 Discord 用户 ID。',
 	'pending_link' => '待定',
 	'discord_id_taken' => '此 Discord 用户 ID 已被使用。',
 	'discord_invalid_id' => '此 Discord 用户 ID 不符合要求。',
