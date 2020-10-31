@@ -42,7 +42,7 @@ $language = array(
     'unable_to_update_server_info' => '未能更新服务器信息',
     'invalid_server_id' => '无效服务器名',
     'invalid_code' => '输入的密码无效',
-    'user_already_active' => 'Your account has already been activated.',
+    'user_already_active' => '您的帐号已经被激活过了。',
     'discord_integration_disabled' => '已关闭 Discord 集成。',
     'unable_to_set_discord_id' => '无法设置 Discord ID。',
 
