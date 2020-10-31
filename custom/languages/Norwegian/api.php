@@ -43,6 +43,7 @@ $language = array(
     'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'Discord-integrering er deaktivert.',
     'unable_to_set_discord_id' => 'Kunne ikke oppdatere Discord-IDen.',
+    'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
 
     // Success messages
     'finish_registration_link' => 'Vennligst klikk på følgende lenke for å fullføre registeringen:',
@@ -53,5 +54,6 @@ $language = array(
     'username_updated' => 'Brukernavnet har blitt oppdatert.',
     'server_info_updated' => 'Serverinfoen har blitt oppdatert',
     'account_validated' => 'Brukeren har blitt validert',
-    'discord_id_set' => 'Discord-IDen har blitt endret.'
+    'discord_id_set' => 'Discord-IDen har blitt endret.',
+    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
 );

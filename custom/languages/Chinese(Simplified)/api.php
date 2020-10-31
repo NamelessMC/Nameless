@@ -45,6 +45,7 @@ $language = array(
     'user_already_active' => '您的帐号已经被激活过了。',
     'discord_integration_disabled' => '已关闭 Discord 集成。',
     'unable_to_set_discord_id' => '无法设置 Discord ID。',
+    'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
 
     // Success messages
     'finish_registration_link' => '请点击该链接以完成注册:',
@@ -55,5 +56,6 @@ $language = array(
     'username_updated' => '用户名更新成功',
     'server_info_updated' => '服务器信息更新成功',
 	'account_validated' => '账号校验成功',
-    'discord_id_set' => 'Discord ID 更新成功'
+    'discord_id_set' => 'Discord ID 更新成功',
+    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
 );

@@ -43,6 +43,7 @@ $language = array(
     'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'Discord integration is disabled.',
     'unable_to_set_discord_id' => 'Unable to set Discord ID.',
+    'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
 
     // Success messages
     'finish_registration_link' => 'Per favore, clicca sul seguente link per completare la registrazione:',
@@ -53,5 +54,6 @@ $language = array(
     'username_updated' => 'Username aggiornato con successo',
     'server_info_updated' => 'Info del server aggiornate con successo',
 	'account_validated' => 'Account validato con successo',
-    'discord_id_set' => 'Discord ID set successfully'
+    'discord_id_set' => 'Discord ID set successfully',
+    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
 );
