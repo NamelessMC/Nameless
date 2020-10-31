@@ -22,8 +22,8 @@ $language = array(
 	'404_home' => 'ホーム',
 	'404_error' => 'URLを確認後再試行してみてください。<br>正常に指定されている場合、削除されている可能性があります。<br>詳しくは {x}管理者に連絡してください{y}', // Don't replace {x} or {y}
 	'403_title' => '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>',
-	'403_content' => 'You do not have permission to view this page.',
-	'403_login' => 'Please log in to continue.',
+	'403_content' => 'このページの閲覧は許可されていません。',
+	'403_login' => '続けるにはログインしてください。',
 	'403_back' => '戻る',
 	'403_home' => 'ホーム',
 	'maintenance_title' => 'メンテナンスモード',
