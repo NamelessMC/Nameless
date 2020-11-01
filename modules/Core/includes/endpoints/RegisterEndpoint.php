@@ -212,7 +212,6 @@ class RegisterEndpoint extends EndpointBase {
                     'email' => Output::getClean($email),
                     'password' => md5($code), // temp code
                     'joined' => date('U'),
-                    'group_id' => $default_group,
                     'lastip' => 'Unknown',
                     'reset_code' => $code,
                     'last_online' => date('U')
@@ -220,14 +219,16 @@ class RegisterEndpoint extends EndpointBase {
 
                 $user_id = $api->getDb()->lastid();
 
-                $user = new User();
+                $user = new User($user_id);
+				$user->setGroup($default_group);
+				
                 HookHandler::executeEvent('registerUser', array(
                     'event' => 'registerUser',
                     'user_id' => $user_id,
-                    'username' => Output::getClean($username),
-                    'content' => str_replace('{x}', Output::getClean($username), $api->getLanguage()->get('user', 'user_x_has_registered')),
-                    'avatar_url' => $user->getAvatar($user_id, null, 128, true),
-                    'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean($username)), '/'),
+                    'username' => $user->getDisplayname(),
+                    'content' => str_replace('{x}', $user->getDisplayname(), $api->getLanguage()->get('user', 'user_x_has_registered')),
+                    'avatar_url' => $user->getAvatar(null, 128, true),
+                    'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
                     'language' => $api->getLanguage()
                 ));
 

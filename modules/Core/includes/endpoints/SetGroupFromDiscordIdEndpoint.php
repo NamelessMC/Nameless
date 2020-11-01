@@ -22,37 +22,14 @@ class SetGroupFromDiscordIdEndpoint extends EndpointBase {
                 $discord_user_id = $_POST['discord_user_id'];
                 $discord_role_id = $_POST['discord_role_id'];
 
-                $user = $api->getDb()->get('users', array('discord_id', '=', $discord_user_id));
-                if (!$user->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
-                $user = $user->first();
+				$user = new User($discord_user_id, 'discord_id');
+                if (!count($user->data())) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
 
                 $group = Discord::getWebsiteGroup($api->getDb(), $discord_role_id);
                 if ($group == null) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
 
-                $fields = array();
-
-                $new_secondary_groups = array();
-
-                if ($group['primary']) {
-                    // If the group is supposed to be a primary group, set as their group_id and remove from secondary groups
-                    $fields['group_id'] = $group['group']->id;
-                    foreach ($user->secondary_groups as $secondary_group) {
-                        if ($group['group']->id != $secondary_group) {
-                            $new_secondary_groups[] = $secondary_group;
-                        }
-                    }
-                } else {
-                    // If its a secondary group, dont change their group_id, just add it to their secondary groups.
-                    $new_secondary_groups[] = $group['group']->id;
-                    foreach ($user->secondary_groups as $secondary_group) {
-                        $new_secondary_groups[] = $secondary_group;
-                    }
-                }
-
-                $fields['secondary_groups'] = json_encode($new_secondary_groups);
-
                 try {
-                    $api->getDb()->update('users', $user->id, $fields);
+                    $user->addGroup($group['group']->id);
                 } catch (Exception $e) {
                     $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
                 }

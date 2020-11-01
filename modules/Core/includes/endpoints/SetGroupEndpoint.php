@@ -19,30 +19,19 @@ class SetGroupEndpoint extends EndpointBase {
             if ($api->validateParams($_POST, ['id', 'group_id'])) {
                 
                 // Ensure user exists
-                $user = $api->getDb()->get('users', array('id', '=', htmlspecialchars($_POST['id'])));
-                if (!$user->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
-                $user = $user->first();
+				$user = new User(htmlspecialchars($_POST['id']));
+                if (!count($user->data())) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
 
                 // Ensure group exists
                 $group = $api->getDb()->get('groups', array('id', '=', $_POST['group_id']));
                 if (!$group->count()) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
                 $group = $group->first()->id;
 
-                $new_secondary_groups = array();
-                foreach ($user->secondary_groups as $secondary_group) {
-                    if ($group != $secondary_group) {
-                        $new_secondary_groups[] = $secondary_group;
-                    }
-                }
-
                 // Attempt to update their discord role as well, but ignore any output/errors
                 Discord::addDiscordRole($user, $group, $api->getLanguage(), false);
 
                 try {
-                    $api->getDb()->update('users', $user->id, array(
-                        'group_id' => $group,
-                        'secondary_groups' => $new_secondary_groups
-                    ));
+                    $user->addGroup($group);
                 } catch (Exception $e) {
                     $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
                 }
