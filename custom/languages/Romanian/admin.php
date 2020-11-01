@@ -175,7 +175,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
-	
+    
     // Reactions
     'icon' => 'Iconiță',
     'type' => 'Tip',
@@ -376,12 +376,12 @@ $language = array(
     'views_x' => 'Vizualizări: {x}',
     'rating_x' => 'Evaluare: {x}',
     'editing_template_x' => 'Editare șablon: {x}', // Don't replace {x}
-	'editing_template_file_in_template' => 'Editare fișier {x} din șablonul {y}', // Don't replace {x} or {y}
+    'editing_template_file_in_template' => 'Editare fișier {x} din șablonul {y}', // Don't replace {x} or {y}
     'cant_write_to_template' => 'Nu se poate scrie fișierul! Verificați permisiunile fișierelor.',
-	'unable_to_delete_template' => 'Nu se poate șterge complet șablonul. Verificați permisiunile fișierelor.',
-	'background_reset_successfully' => 'Imaginea de fundal a fost resetată cu succes.',
-	'background_updated_successfully' => 'Imaginea de fundal a fost actualizată cu succes.',
-	'unable_to_enable_template' => 'Șabloanele incompatibile nu pot fi activate.',
+    'unable_to_delete_template' => 'Nu se poate șterge complet șablonul. Verificați permisiunile fișierelor.',
+    'background_reset_successfully' => 'Imaginea de fundal a fost resetată cu succes.',
+    'background_updated_successfully' => 'Imaginea de fundal a fost actualizată cu succes.',
+    'unable_to_enable_template' => 'Șabloanele incompatibile nu pot fi activate.',
     'background_image_info' => 'Please note that this option may not be compatible with most templates.',
 
     // Users & groups
@@ -431,16 +431,16 @@ $language = array(
     'default_group' => 'Grupul este grupul implicit pentru utilizatorii noi?',
     'user_id' => 'ID utilizator',
     'uuid' => 'UUID',
-	'group_order' => 'Număr de ordine',
-	'group_created_successfully' => 'Grupul a fost creat cu succes.',
-	'group_updated_successfully' => 'Grupul a fost actualizat cu succes.',
-	'group_deleted_successfully' => 'Grupul a fost șters cu succes.',
-	'unable_to_delete_group' => 'Nu se poate șterge un grup prestabilit sau un grup care poate vedea StaffCP. Actualizați mai întâi setările grupului!',
-	'can_view_staffcp' => 'Grupul poate vizualiza StaffCP?',
-	'user' => 'Utilizator',
-	'user_validated_successfully' => 'Utilizatorul a fost validat cu succes.',
-	'user_updated_successfully' => 'Utilizatorul a fost actualizat cu succes.',
-	'editing_user_x' => 'Editare utilizator: {x}', // Don't replace {x}
+    'group_order' => 'Număr de ordine',
+    'group_created_successfully' => 'Grupul a fost creat cu succes.',
+    'group_updated_successfully' => 'Grupul a fost actualizat cu succes.',
+    'group_deleted_successfully' => 'Grupul a fost șters cu succes.',
+    'unable_to_delete_group' => 'Nu se poate șterge un grup prestabilit sau un grup care poate vedea StaffCP. Actualizați mai întâi setările grupului!',
+    'can_view_staffcp' => 'Grupul poate vizualiza StaffCP?',
+    'user' => 'Utilizator',
+    'user_validated_successfully' => 'Utilizatorul a fost validat cu succes.',
+    'user_updated_successfully' => 'Utilizatorul a fost actualizat cu succes.',
+    'editing_user_x' => 'Editare utilizator: {x}', // Don't replace {x}
     'details' => 'Detalii',
     'force_tfa' => 'Force Two Factor Authentication for group members?',
 
@@ -605,13 +605,13 @@ $language = array(
     'log_file_not_found' => 'Fișierul jurnalului nu a fost găsit.',
     'log_purged_successfully' => 'Jurnalul a fost curățat cu succes.',
 
-	// Hooks
-	'hooks' => 'Webhooks',
-	'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
-	'new_hook' => 'New Hook',
-	'creating_new_hook' => 'Creating New Webhook',
-	'editing_hook' => 'Editing Webhook',
-	'delete_hook' => 'Are you sure you want to delete this hook?',
+    // Hooks
+    'hooks' => 'Webhooks',
+    'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
+    'new_hook' => 'New Hook',
+    'creating_new_hook' => 'Creating New Webhook',
+    'editing_hook' => 'Editing Webhook',
+    'delete_hook' => 'Are you sure you want to delete this hook?',
     'hook_deleted' => 'Hook deleted successfully.',
     'hook_name' => 'Webhook Name',
     'hook_created' => 'Hook created successfully.',
@@ -622,7 +622,7 @@ $language = array(
     'hook_events' => 'Events to trigger this webhook',
     'invalid_hook_url' => 'Invalid Webhook URL',
     'invalid_hook_name' => 'Invalid Webhook name',
-	'invalid_hook_events' => 'You must select at least 1 event',
+    'invalid_hook_events' => 'You must select at least 1 event',
     'register_hook_info' => 'Înregistrare cont utilizator',
     'validate_hook_info' => 'Validare cont utilizator',
     'delete_hook_info' => 'Ştergere utilizator',

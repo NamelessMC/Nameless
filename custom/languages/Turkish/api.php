@@ -6,7 +6,7 @@
  *  License: MIT
  *
  *  Turkish Language - API
- * 	Turkish translation by xOrcun
+ *  Turkish translation by xOrcun
  */
 
 $language = array(

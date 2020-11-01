@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton, translated by Renzotom, Ethxrnity and Fjuro
+ *  Made by Samerton, translated by Renzotom, Ethxrnity and Fjuro
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -87,20 +87,20 @@ $language = array(
     'credits' => 'Poděkování',
     'credits_message' => 'Velké poděkování všem <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC přispěvatelům</a> od roku 2014',
 
-	'step_home' => 'Úvod',
-	'step_requirements' => 'Požadavky',
-	'step_general_config' => 'Základní konfigurace',
-	'step_database_config' => 'Konfigurace databáze',
-	'step_site_config' => 'Konfigurace webu',
-	'step_admin_account' => 'Účet správce',
-	'step_conversion' => 'Převod',
-	'step_finish' => 'Dokončení',
+    'step_home' => 'Úvod',
+    'step_requirements' => 'Požadavky',
+    'step_general_config' => 'Základní konfigurace',
+    'step_database_config' => 'Konfigurace databáze',
+    'step_site_config' => 'Konfigurace webu',
+    'step_admin_account' => 'Účet správce',
+    'step_conversion' => 'Převod',
+    'step_finish' => 'Dokončení',
 
-	'general_configuration' => 'Základní konfigurace',
-	'reload' => 'Znovu načíst',
-	'reload_page' => 'Znovu načíst stránku',
-	'no_converters_available' => 'Nejsou dostupné žádné konvertory.',
-	'config_not_writable' => 'Konfigurační soubor není zapisovatelný.',
+    'general_configuration' => 'Základní konfigurace',
+    'reload' => 'Znovu načíst',
+    'reload_page' => 'Znovu načíst stránku',
+    'no_converters_available' => 'Nejsou dostupné žádné konvertory.',
+    'config_not_writable' => 'Konfigurační soubor není zapisovatelný.',
 
-	'session_doesnt_exist' => 'Nepodařilo se detekovat relaci. Ukládání relací je nutné pro správnou funkci NamelessMC. Zkuste to prosím znovu. Ppokud se bude tato chyba opakovat, kontaktujte poskytovatele vašeho webhostingu pro podporu.'
+    'session_doesnt_exist' => 'Nepodařilo se detekovat relaci. Ukládání relací je nutné pro správnou funkci NamelessMC. Zkuste to prosím znovu. Ppokud se bude tato chyba opakovat, kontaktujte poskytovatele vašeho webhostingu pro podporu.'
 );

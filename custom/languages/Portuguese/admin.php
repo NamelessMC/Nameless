@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -172,7 +172,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
-	
+    
     // Reactions
     'icon' => 'Ícone',
     'type' => 'Tipo',
@@ -605,13 +605,13 @@ $language = array(
     'log_file_not_found' => 'Arquivo de log não encontrado.',
     'log_purged_successfully' => 'O log foi removido com sucesso.', 
 
-	// Hooks
-	'hooks' => 'Webhooks',
-	'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
-	'new_hook' => 'New Hook',
-	'creating_new_hook' => 'Creating New Webhook',
-	'editing_hook' => 'Editing Webhook',
-	'delete_hook' => 'Are you sure you want to delete this hook?',
+    // Hooks
+    'hooks' => 'Webhooks',
+    'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
+    'new_hook' => 'New Hook',
+    'creating_new_hook' => 'Creating New Webhook',
+    'editing_hook' => 'Editing Webhook',
+    'delete_hook' => 'Are you sure you want to delete this hook?',
     'hook_deleted' => 'Hook deleted successfully.',
     'hook_name' => 'Webhook Name',
     'hook_created' => 'Hook created successfully.',
@@ -622,7 +622,7 @@ $language = array(
     'hook_events' => 'Events to trigger this webhook',
     'invalid_hook_url' => 'Invalid Webhook URL',
     'invalid_hook_name' => 'Invalid Webhook name',
-	'invalid_hook_events' => 'You must select at least 1 event',
+    'invalid_hook_events' => 'You must select at least 1 event',
     'register_hook_info' => 'Registro do usuário',
     'validate_hook_info' => 'Validação do usuário',
     'delete_hook_info' => 'Exclusão do usuário',    

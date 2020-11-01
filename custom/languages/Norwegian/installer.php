@@ -87,20 +87,20 @@ $language = array(
     'credits' => 'Kontributører',
     'credits_message' => 'En stor takk til alle våre <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC-kontributører</a> siden 2014',
 
-	'step_home' => 'Hjem',
-	'step_requirements' => 'Krav',
-	'step_general_config' => 'Generell konfigurering',
-	'step_database_config' => 'Databasekonfigurering',
-	'step_site_config' => 'Nettsidekonfigurering',
-	'step_admin_account' => 'Admin-konto',
-	'step_conversion' => 'Konvertering',
-	'step_finish' => 'Fullfør',
+    'step_home' => 'Hjem',
+    'step_requirements' => 'Krav',
+    'step_general_config' => 'Generell konfigurering',
+    'step_database_config' => 'Databasekonfigurering',
+    'step_site_config' => 'Nettsidekonfigurering',
+    'step_admin_account' => 'Admin-konto',
+    'step_conversion' => 'Konvertering',
+    'step_finish' => 'Fullfør',
 
-	'general_configuration' => 'Generell konfigurering',
-	'reload' => 'Last inn på nytt',
-	'reload_page' => 'Last inn siden på nytt',
-	'no_converters_available' => 'Ingen konverterere er tilgjengelige.',
-	'config_not_writable' => 'Konfigurasjonsfilen er ikke skrivbar.',
+    'general_configuration' => 'Generell konfigurering',
+    'reload' => 'Last inn på nytt',
+    'reload_page' => 'Last inn siden på nytt',
+    'no_converters_available' => 'Ingen konverterere er tilgjengelige.',
+    'config_not_writable' => 'Konfigurasjonsfilen er ikke skrivbar.',
 
-	'session_doesnt_exist' => 'Kunne ikke finne økt. Økt-lagring (Sessions Saving) er et krav for å kunne bruke Nameless. Vennligst prøv igjen, og hvis denne feilen fortsetter, ta kontakt med din webhost for hjelp.'
+    'session_doesnt_exist' => 'Kunne ikke finne økt. Økt-lagring (Sessions Saving) er et krav for å kunne bruke Nameless. Vennligst prøv igjen, og hvis denne feilen fortsetter, ta kontakt med din webhost for hjelp.'
 );

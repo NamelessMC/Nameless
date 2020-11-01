@@ -1,11 +1,13 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
- *  Translation by SimplyRin( @SimplyRin_, https://www.simplyrin.net )
- *  Additional translation by Mari0914( @Mari0914_Main, https://mari0914.japanminigame.net )
+ *  Translator
+ *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
+ *  - Mari0914( @Mari0914_Main, https://mari0914.japanminigame.net )
+ *  - snake( @ViaSnake, https://github.com/ViaSnake )
  *
  *  License: MIT
  *
@@ -90,20 +92,20 @@ $language = array(
     'credits' => '<i class="fa fa-users fa-fw" aria-hidden="true"></i>クレジット',
     'credits_message' => '2014年以降にnamelessMCの製作に協力してくれたすべての <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMCの貢献者</a> に感謝します。',
 
-	'step_home' => 'ホーム',
-	'step_requirements' => '要件',
-	'step_general_config' => '一般設定',
-	'step_database_config' => 'データベース設定',
-	'step_site_config' => 'サイト設定',
-	'step_admin_account' => '管理者アカウント',
-	'step_conversion' => '変換',
-	'step_finish' => '終了',
+    'step_home' => 'ホーム',
+    'step_requirements' => '要件',
+    'step_general_config' => '一般設定',
+    'step_database_config' => 'データベース設定',
+    'step_site_config' => 'サイト設定',
+    'step_admin_account' => '管理者アカウント',
+    'step_conversion' => '変換',
+    'step_finish' => '終了',
 
-	'general_configuration' => '一般設定',
-	'reload' => '再読み込み',
-	'reload_page' => 'ページを再読み込み',
-	'no_converters_available' => 'コンバーターはありません。',
-	'config_not_writable' => '設定ファイルは書き込み可能ではありません。',
+    'general_configuration' => '一般設定',
+    'reload' => '再読み込み',
+    'reload_page' => 'ページを再読み込み',
+    'no_converters_available' => 'コンバーターはありません。',
+    'config_not_writable' => '設定ファイルは書き込み可能ではありません。',
 
-	'session_doesnt_exist' => 'セッションを検出できません。セッションの保存はNamelessを使用するための要件です。再度試してみて、問題が解決しない場合は、ウェブホストに連絡してください。'
+    'session_doesnt_exist' => 'セッションを検出できません。セッションの保存はNamelessを使用するための要件です。再度試してみて、問題が解決しない場合は、ウェブホストに連絡してください。'
 );
