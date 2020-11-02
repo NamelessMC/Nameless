@@ -83,7 +83,6 @@ if(isset($_GET['action'])){
 							'group_html_lg' => Input::get('html'),
 							'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
 							'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
-							'mod_cp' => Input::get('staffcp'),
 							'admin_cp' => Input::get('staffcp'),
 							'staff' => Input::get('staff'),
 							'default_group' => $default,
