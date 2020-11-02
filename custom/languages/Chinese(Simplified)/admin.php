@@ -706,8 +706,6 @@ $language = array(
 	'discord_invalid_api_url' => '好像您的 API 链接变化了。请您联系服务器拥有者修改链接。',
 	'test_bot_url' => '测试机器人 URL',
 	'discord_bot_url_valid' => '您的机器人 URL 有效。',
-	'discord_bot_url_backup' => 'Discord 机器人链接 (备案)',
-	'discord_bot_url_backup_info' => '当指向第一个链接 (URL) 的备案失效时，所使用的第二个备案链接 (URL)，仅当您知道你在做什么时才能更改此值!',
 	'discord_cannot_interact' => 'Nameless Link 机器人无法对此用户进行操作。它的权限组可能比 Nameless Link 权限组更高。'
 
 );

@@ -703,8 +703,6 @@ $language = array(
 	'discord_invalid_api_url' => 'Ser ut som API-urlen har blitt endret. Vennligst få servereieren til å oppdatere URLen med Nameless Link Bot.',
 	'test_bot_url' => 'Testbot-URL',
 	'discord_bot_url_valid' => 'Din Bot-URL er gyldig.',
-	'discord_bot_url_backup' => 'Discord Bot-URL (backup)',
-	'discord_bot_url_backup_info' => 'En URL som peker til en backup/sekundær-instance av NamelessMC-boten i tilfellet det første alternativet feiler. Endre dette kun hvis du vet hva du gjør!',
 	'discord_cannot_interact' => 'Nameless Link-boten kan ikke samhandle med denne brukeren på Discord. Er rollen deres høyere enn Nameless Link-boten sin?'
 
 );

@@ -160,9 +160,6 @@ if($page != 'install'){
     $bot_url = $queries->getWhere('settings', array('name', '=', 'discord_bot_url'));
     $bot_url = $bot_url[0]->value;
     define('BOT_URL', $bot_url);
-    $bot_url_backup = $queries->getWhere('settings', array('name', '=', 'discord_bot_url_backup'));
-    $bot_url_backup = $bot_url_backup[0]->value;
-    define('BOT_URL_BACKUP', $bot_url_backup);
 
     // User initialisation
     $user = new User();

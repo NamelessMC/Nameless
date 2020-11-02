@@ -422,11 +422,6 @@ $queries->create('settings', array(
 ));
 
 $queries->create('settings', array(
-	'name' => 'discord_bot_url_backup',
-	'value' => 'http://bot-2.namelessmc.com'
-));
-
-$queries->create('settings', array(
 	'name' => 'discord_integration',
 	'value' => 0
 ));

@@ -704,8 +704,6 @@ $language = array(
 	'discord_invalid_api_url' => 'Zdá se, že byla změněna URL vaší API. Oznamte majitelovi serveru, aby aktualizoval URL s Nameless Link botem.',
 	'test_bot_url' => 'URL testovacího bota',
 	'discord_bot_url_valid' => 'URL vašeho bota je platná.',
-	'discord_bot_url_backup' => 'URL Discord bota (záloha)',
-	'discord_bot_url_backup_info' => 'URL která odkazuje na záložní / druhou relaci Nameless Link bota v případě selhání první možnosti. Toto neměňte, pokud nevíte, co děláte!',
 	'discord_cannot_interact' => 'Bot Nameless Link nemůže interagovat s tímto uživatelem Discordu. Není role uživatele výše než role Nameless Link?'
 
 );

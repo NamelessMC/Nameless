@@ -706,8 +706,6 @@ $language = array(
 	'discord_invalid_api_url' => 'APIのURLが変更されたようです。ギルドオーナーにNameless Link ボットでURLを更新してもらってください。',
 	'test_bot_url' => 'テストボットURL',
 	'discord_bot_url_valid' => 'ボットのURLは有効です。',
-	'discord_bot_url_backup' => 'Discord ボットURL（バックアップ）',
-	'discord_bot_url_backup_info' => '最初のオプションが失敗した場合に備えて、NamelessMCボットのバックアップ/第２のインスタンスを指すURLです。何をしているか分かっている場合のみ、この値を変更してください！',
 	'discord_cannot_interact' => 'Nameless LinkボットはDiscordでこのユーザーと対話することはできません。彼らの役割はNameless Linkのロールよりも高い可能性があります。'
 
 );

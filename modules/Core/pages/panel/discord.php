@@ -154,9 +154,6 @@ $smarty->assign(array(
     'BOT_URL' => $language->get('admin', 'discord_bot_url'),
     'BOT_URL_VALUE' => BOT_URL,
     'BOT_URL_INFO' => $language->get('admin', 'discord_bot_url_info'),
-    'BOT_URL_BACKUP' => $language->get('admin', 'discord_bot_url_backup'),
-    'BOT_URL_BACKUP_INFO' => $language->get('admin', 'discord_bot_url_backup_info'),
-    'BOT_URL_BACKUP_VALUE' => BOT_URL_BACKUP
 ));
 
 $page_load = microtime(true) - $start;

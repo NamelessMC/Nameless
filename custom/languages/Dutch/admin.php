@@ -704,8 +704,6 @@ $language = array(
 	'discord_invalid_api_url' => 'Het lijkt erop dat uw API URL is veranderd. Laat de guild eigenaar de URL updaten met de Nameless Link bot.',
 	'test_bot_url' => 'Test Bot URL',
 	'discord_bot_url_valid' => 'Uw Bot-URL is geldig.',
-	'discord_bot_url_backup' => 'Discord Bot URL (Backup)',
-	'discord_bot_url_backup_info' => 'Een URL die wijst naar een backup/tweede instantie van de NamelessMC-bot indien de eerste optie mislukt. Verander deze waarde alleen als u weet wat u doet!',
 	'discord_cannot_interact' => 'De Nameless Link-bot kan niet communiceren met deze gebruiker in Discord. Is hun rol hoger dan die van de Nameless Link?'
 
 );
