@@ -175,6 +175,7 @@ switch($s) {
 						'name' => $item->name,
 						'group_html' => $item->group_html,
 						'group_html_lg' => $item->group_html_lg,
+						'admin_cp' => (($item->staff || $item->mod_cp) ? 1 : 0),
 						'default_group' => (($item->id == 1) ? 1 : 0)
 					));
 				}
