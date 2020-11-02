@@ -49,33 +49,20 @@ if (Input::exists()) {
                 'min' => 18,
                 'max' => 18,
                 'numeric' => true
-            ),
-            'bot_url' => array(
-                'required' => true,
-                'min' => 10,
-                'max' => 2048
             )
         ));
 
         if ($validation->passed()) {
-            // Either enable or disable Minecraft integration
+            // Either enable or disable Discord integration
             $enable_discord_id = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
             $enable_discord_id = $enable_discord_id[0]->id;
             if ($_POST['enable_discord'] == '1') {
                 if (Input::get('guild_id') == '') {
                     Session::flash('discord_error', $language->get('admin', 'discord_guild_id_required'));
-                    Redirect::to(URL::build('/panel/discord'));
                     $queries->update('settings', $enable_discord_id, array(
                         'value' => 0
                     ));
-                    die();
-                }
-                if (Util::curlGetContents($_POST['bot_url']) != 'success') {
-                    Session::flash('discord_error', $language->get('user', 'discord_communication_error'));
                     Redirect::to(URL::build('/panel/discord'));
-                    $queries->update('settings', $enable_discord_id, array(
-                        'value' => 0
-                    ));
                     die();
                 } else {
                     $queries->update('settings', $enable_discord_id, array(
@@ -93,16 +80,6 @@ if (Input::exists()) {
             $queries->update('settings', $discord_id, array(
                 'value' => Input::get('guild_id')
             ));
-            $bot_url = $queries->getWhere('settings', array('name', '=', 'discord_bot_url'));
-            $bot_url = $bot_url[0]->id;
-            $queries->update('settings', $bot_url, array(
-                'value' => Output::getClean(Input::get('bot_url'))
-            ));
-            $bot_url_backup = $queries->getWhere('settings', array('name', '=', 'discord_bot_url_backup'));
-            $bot_url_backup = $bot_url_backup[0]->id;
-            $queries->update('settings', $bot_url_backup, array(
-                'value' => Output::getClean(Input::get('bot_url_backup'))
-            ));
             $success = $language->get('admin', 'discord_settings_updated');
         } else {
             // Validation errors
@@ -111,8 +88,6 @@ if (Input::exists()) {
                     $errors[] = $language->get('admin', 'discord_id_length');
                 } else if (strpos($validation_error, 'numeric') !== false) {
                     $errors[] = $language->get('admin', 'discord_id_numeric');
-                } else if (strpos($validation_error, 'required') !== false) {
-                    $errors[] = $language->get('admin', 'discord_bot_url_required');
                 }
             }
         }
