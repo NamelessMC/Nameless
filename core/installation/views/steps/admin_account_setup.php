@@ -79,11 +79,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				'language_id' => $language[0]->id,
 			));
 			
-			$user->addGroup(2);
-
 			$login = $user->login(Input::get('email'), Input::get('password'), true);
 			if ($login) {
 				$_SESSION['admin_setup'] = true;
+				$user->addGroup(2);
 
 				Redirect::to('?step=conversion');
 				die();
