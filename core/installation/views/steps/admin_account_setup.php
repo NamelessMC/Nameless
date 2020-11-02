@@ -71,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				'pass_method' => 'default',
 				'uuid' => 'none',
 				'joined' => date('U'),
-				'group_id' => 2,
 				'email' => Output::getClean(Input::get('email')),
 				'lastip' => $ip,
 				'active' => 1,
@@ -79,6 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				'theme_id' => 1,
 				'language_id' => $language[0]->id,
 			));
+			
+			$user->addGroup(2);
 
 			$login = $user->login(Input::get('email'), Input::get('password'), true);
 			if ($login) {

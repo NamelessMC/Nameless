@@ -175,7 +175,7 @@ switch($s) {
 						'name' => $item->name,
 						'group_html' => $item->group_html,
 						'group_html_lg' => $item->group_html_lg,
-						'admin_cp' => (($item->staff || $item->mod_cp) ? 1 : 0),
+						'admin_cp' => (($item->staff) ? 1 : 0),
 						'default_group' => (($item->id == 1) ? 1 : 0)
 					));
 				}
@@ -506,7 +506,6 @@ switch($s) {
 						'pass_method' => $item->pass_method,
 						'uuid' => $item->uuid,
 						'joined' => $item->joined,
-						'group_id' => $item->group_id,
 						'email' => $item->email,
 						'isbanned' => $item->isbanned,
 						'lastip' => (is_null($item->lastip) ? 'none' : $item->lastip),
@@ -523,6 +522,11 @@ switch($s) {
 						'tfa_type' => $item->tfa_type,
 						'tfa_secret' => $item->tfa_secret,
 						'tfa_complete' => $item->tfa_complete
+					));
+					
+					$queries->create('users_groups', array(
+						'user_id' => $item->id,
+						'group_id' => $item->group_id
 					));
 				}
 			}
