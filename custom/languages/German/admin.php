@@ -345,6 +345,7 @@ $language = array(
 	'panel_templates' => 'Panel Vorlagen',
 	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'Diese Vorlage ist nicht für die aktuell installierte NamelessMC Version',
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => 'Aktiv',
 	'deactivate' => 'Deaktivieren',
 	'activate' => 'Aktivieren',
@@ -710,10 +711,7 @@ $language = array(
 	'discord_bot_url_required' => 'Please enter your Bot URL for Discord integration to work.',
 	'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',
 	'test_bot_url' => 'Test Bot URL',
-	'discord_bot_url_valid' =>
-	'Your Bot URL is valid.',
-	'discord_bot_url_backup' => 'Discord Bot URL (Backup)',
-	'discord_bot_url_backup_info' => 'A URL which points to a backup/second instance of the NamelessMC bot incase the first option fails. Only change this value if you know what you are doing!',
+	'discord_bot_url_valid' => 'Your Bot URL is valid.',
 	'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?'
 
 );

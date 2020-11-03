@@ -125,7 +125,7 @@ class Nameless2API {
         $arr['error'] = false;
         die(json_encode($arr, JSON_PRETTY_PRINT));
     }
-    
+
     public function validateParams($input, $required_fields, $type = 'post') {
         if (!isset($input) || empty($input)) {
             $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'));

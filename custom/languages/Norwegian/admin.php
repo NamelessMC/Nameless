@@ -79,7 +79,7 @@ $language = array(
 	'discord_widget_theme' => 'Discord Widget-Tema',
 	'discord_id_length' => 'Pass på at Discord-IDen inneholder 18 tegn.',
 	'discord_id_numeric' => 'Pass på at Discord-IDen er numerisk (kun tall).',
-	'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
+	'discord_invite_info' => 'For å invitere Nameless Link Bot til din Discord-server, klikk <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">her</a>.',
 	'dark' => 'Mørk',
 	'light' => 'Lys',
 	'google_plus_url' => 'Google+-URL',
@@ -337,6 +337,7 @@ $language = array(
 	'panel_templates' => 'Panel-mal',
 	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'Malen er kun kompatibel med NamelessMC versjon {x}, men du bruker versjon {y}', // Don't replace "{x}" or "{y}"
+	'template_not_supported' => 'Standardmalen er ikke støttet fra og med NamelessMC 2.0.0-pr8. For den beste brukeropplevelsen, vennligst bruk en støttet mal.',
 	'active' => 'Aktiv',
 	'deactivate' => 'Deaktiver',
 	'activate' => 'Aktiver',
@@ -583,9 +584,9 @@ $language = array(
 	'group_sync_rule_deleted_successfully' => 'Modifikasjonen har blitt fjernet.',
 	'existing_rules' => 'Eksisterende modifikasjoner',
 	'new_rule' => 'Ny modifikasjon',
-	'api_endpoints' => 'API Endpoints',
-	'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
-	'route' => 'Route',
+	'api_endpoints' => 'API-endepunkter',
+	'api_endpoints_info' => 'API-endepunkter gir moduler muligheten til å la eksterne programmer (som Minecraft og Discord) kommunisere med NamelessMC-nettsiden din.',
+	'route' => 'Dirigering',
 
 	// File uploads
 	'drag_files_here' => 'Dra filene hit for å laste opp.',
@@ -702,8 +703,6 @@ $language = array(
 	'discord_invalid_api_url' => 'Ser ut som API-urlen har blitt endret. Vennligst få servereieren til å oppdatere URLen med Nameless Link Bot.',
 	'test_bot_url' => 'Testbot-URL',
 	'discord_bot_url_valid' => 'Din Bot-URL er gyldig.',
-	'discord_bot_url_backup' => 'Discord Bot-URL (backup)',
-	'discord_bot_url_backup_info' => 'En URL som peker til en backup/sekundær-instance av NamelessMC-boten i tilfellet det første alternativet feiler. Endre dette kun hvis du vet hva du gjør!',
 	'discord_cannot_interact' => 'Nameless Link-boten kan ikke samhandle med denne brukeren på Discord. Er rollen deres høyere enn Nameless Link-boten sin?'
 
 );

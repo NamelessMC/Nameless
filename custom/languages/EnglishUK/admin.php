@@ -331,6 +331,7 @@ $language = array(
 	'panel_templates' => 'Panel Templates',
 	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'We have detected that your template is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => 'Active',
 	'deactivate' => 'Deactivate',
 	'activate' => 'Activate',
@@ -589,7 +590,7 @@ $language = array(
 	
 	// Hooks
 	'hooks' => 'Webhooks',
-	'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
+	'hooks_info' => 'Webhooks allow external services to be notified when certain events happen.',
 	'new_hook' => 'New Hook',
 	'creating_new_hook' => 'Creating New Webhook',
 	'editing_hook' => 'Editing Webhook',
@@ -678,8 +679,6 @@ $language = array(
 	'discord_settings_updated' => 'Your Discord settings were updated successfully.',
 	'discord_guild_id_required' => 'Please enter your Discord Server ID for Discord integration to work.',
 	'discord_bot_url' => 'Discord Bot URL',
-	'discord_bot_url_backup' => 'Discord Bot URL (Backup)',
-	'discord_bot_url_backup_info' => 'A URL which points to a backup/second instance of the NamelessMC bot incase the first option fails. Only change this value if you know what you are doing!',
 	'discord_bot_url_info' => 'The location which your custom instance of the Nameless Link bot. Only change this value if you know what you are doing!',
 	'discord_bot_url_required' => 'Please enter your Bot URL for Discord integration to work.',
 	'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',

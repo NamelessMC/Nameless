@@ -106,6 +106,6 @@ $language = array(
 
 	//ユーザー
 	'recent_registrations' => '最近の登録',
-	'reset_profile_banner' => 'Reset Profile Banner'
+	'reset_profile_banner' => 'プロフィールバナーをリセット'
 
 );

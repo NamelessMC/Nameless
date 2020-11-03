@@ -336,6 +336,7 @@ $language = array(
 	'panel_templates' => 'Plantillas del Panel',
 	'view_all_panel_templates' => 'View all panel templates',
 	'template_outdated' => 'Hey hemos detecto que esta plantilla es para NamelessMC {x} y usted tiene la version {y}', // Don't replace "{x}" or "{y}"
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => 'Activo',
 	'deactivate' => 'Desactivar',
 	'activate' => 'Activar',
@@ -701,8 +702,6 @@ $language = array(
 	'discord_invalid_api_url' => 'Parece que la URL de su API ha cambiado. Haz que el propietario del gremio actualice la URL con el bot Nameless Link.',
 	'test_bot_url' => 'Probar URL del bot',
 	'discord_bot_url_valid' => 'La URL de su bot es válida.',
-	'discord_bot_url_backup' => 'La URL de su bot es válida. (Backup)',
-	'discord_bot_url_backup_info' => 'Una URL que apunta a una copia de seguridad/segunda instancia del bot NamelessMC en caso de que falle la primera opción. ¡Cambie este valor solo si sabe lo que está haciendo!',
 	'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?'
 
 );

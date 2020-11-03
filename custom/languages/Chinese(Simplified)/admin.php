@@ -67,8 +67,8 @@ $language = array(
 	'post_formatting_type' => '公告样式',
 	'portal' => '传送门',
 	'private_profiles' => '个人资料',
-	'missing_sitename' => '请输入长度介于2到64个字符之间的网站名称。',
-	'missing_contact_address' => '请输入一个介于3到255个字符之间电子邮件地址。',
+	'missing_sitename' => '请输入长度介于 2 到 64 个字符之间的网站名称。',
+	'missing_contact_address' => '请输入一个介于 3 到 255 个字符之间电子邮件地址。',
 	'use_friendly_urls' => '友好 URLs',
 	'use_friendly_urls_help' => '提醒:你的运行环境必须被配置为 mod_rewrite 和 .htaccess 文件可写并可使用以使这项功能发挥作用',
 	'config_not_writable' => '你的 <strong>core/config.php</strong> 文件并不可写。请检查文件权限。',
@@ -81,11 +81,11 @@ $language = array(
 	'discord_widget_theme' => 'Discord Widget 主题',
 	'discord_id_length' => '请确保您的 Discord ID 长 18 位。',
 	'discord_id_numeric' => '请确保您的 Discord ID 只包含数字。',
-	'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
+	'discord_invite_info' => '您可点击<a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">此处</a>来将 Nameless Link 机器人添加到您的 Discord 服务器。',
 	'dark' => '暗调',
 	'light' => '亮色',
-	'google_plus_url' => 'Google Plus 链接(URL)',
-	'facebook_url' => 'Facebook 链接(URL)',
+	'google_plus_url' => 'Google Plus 链接 (URL)',
+	'facebook_url' => 'Facebook 链接 (URL)',
 	'social_media_settings_updated' => '社交媒体配置已更新成功。',
 	'successfully_updated' => '更新成功',
     'debugging_and_maintenance' => 'Debugging & 维护模式',
@@ -338,6 +338,7 @@ $language = array(
 	'panel_templates' => '面板模板',
 	'view_all_panel_templates' => '查看所有面板模版',
 	'template_outdated' => '我们检测到您的模板适用于 Nameless 版本 {x}, 但你正在运行 Nameless 版本 {y}', // Don't replace "{x}" or "{y}"
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => '应用中的',
 	'deactivate' => '停用',
 	'activate' => '启用',
@@ -584,9 +585,9 @@ $language = array(
 	'group_sync_rule_deleted_successfully' => '组同步规则已成功删除。',
 	'existing_rules' => '现有规则',
 	'new_rule' => '新规则',
-	'api_endpoints' => 'API Endpoints',
-	'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
-	'route' => 'Route',
+	'api_endpoints' => 'API 结点',
+	'api_endpoints_info' => 'API 结点允许模块添加第三方程序 (例如 Minecraft 和 Discord) 与您的 NamelessMC 网站互动的方法。',
+	'route' => '路径',
 
 	// File uploads
 	'drag_files_here' => '将文件扔到这以上传',
@@ -705,8 +706,6 @@ $language = array(
 	'discord_invalid_api_url' => '好像您的 API 链接变化了。请您联系服务器拥有者修改链接。',
 	'test_bot_url' => '测试机器人 URL',
 	'discord_bot_url_valid' => '您的机器人 URL 有效。',
-	'discord_bot_url_backup' => 'Discord 机器人链接 (备案)',
-	'discord_bot_url_backup_info' => '当指向第一个链接 (URL) 的备案失效时，所使用的第二个备案链接 (URL)，仅当您知道你在做什么时才能更改此值!',
 	'discord_cannot_interact' => 'Nameless Link 机器人无法对此用户进行操作。它的权限组可能比 Nameless Link 权限组更高。'
 
 );

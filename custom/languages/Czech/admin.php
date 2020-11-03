@@ -337,6 +337,7 @@ $language = array(
 	'panel_templates' => 'Šablony panelů',
 	'view_all_panel_templates' => 'Zobrazit všechny šablony panelu',
 	'template_outdated' => 'Zjistili jsme, že šablona je určena pro NamelessMC verzi {x} , ale vy používáte verzi {y}', // Don't replace "{x}" or "{y}"
+	'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
 	'active' => 'Povolená',
 	'deactivate' => 'Zakázat',
 	'activate' => 'Povolit',
@@ -703,8 +704,6 @@ $language = array(
 	'discord_invalid_api_url' => 'Zdá se, že byla změněna URL vaší API. Oznamte majitelovi serveru, aby aktualizoval URL s Nameless Link botem.',
 	'test_bot_url' => 'URL testovacího bota',
 	'discord_bot_url_valid' => 'URL vašeho bota je platná.',
-	'discord_bot_url_backup' => 'URL Discord bota (záloha)',
-	'discord_bot_url_backup_info' => 'URL která odkazuje na záložní / druhou relaci Nameless Link bota v případě selhání první možnosti. Toto neměňte, pokud nevíte, co děláte!',
 	'discord_cannot_interact' => 'Bot Nameless Link nemůže interagovat s tímto uživatelem Discordu. Není role uživatele výše než role Nameless Link?'
 
 );

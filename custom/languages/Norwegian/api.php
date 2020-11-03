@@ -34,15 +34,16 @@ $language = array(
     'you_must_register_to_report' => 'Du må registrere deg for å kunne rapportere',
     'you_have_been_banned_from_website' => 'Du har blitt bannlyst fra nettsiden',
     'you_have_open_report_already' => 'Du har allerede en åpen rapportering angående denne spilleren',
-    'cannot_report_yourself' => 'You cannot report yourself.',
+    'cannot_report_yourself' => 'Du kan ikke rapportere deg selv.',
     'unable_to_create_report' => 'Kunne ikke opprette rapportering',
     'unable_to_update_username' => 'Kunne ikke oppdatere brukernavn',
     'unable_to_update_server_info' => 'Kunne ikke oppdatere serverinfo',
     'invalid_server_id' => 'Ugyldig server-ID',
     'invalid_code' => 'Ugyldig kode oppgitt',
-    'user_already_active' => 'Your account has already been activated.',
+    'user_already_active' => 'Kontoen din har allerede blitt aktivert.',
     'discord_integration_disabled' => 'Discord-integrering er deaktivert.',
     'unable_to_set_discord_id' => 'Kunne ikke oppdatere Discord-IDen.',
+    'unable_to_set_discord_bot_url' => 'Kunne ikke sette Discord-bot-URLen',
 
     // Success messages
     'finish_registration_link' => 'Vennligst klikk på følgende lenke for å fullføre registeringen:',
@@ -53,5 +54,6 @@ $language = array(
     'username_updated' => 'Brukernavnet har blitt oppdatert.',
     'server_info_updated' => 'Serverinfoen har blitt oppdatert',
     'account_validated' => 'Brukeren har blitt validert',
-    'discord_id_set' => 'Discord-IDen har blitt endret.'
+    'discord_id_set' => 'Discord-IDen har blitt endret.',
+    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
 );

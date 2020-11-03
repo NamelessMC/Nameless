@@ -43,6 +43,7 @@ $language = array(
     'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'Discord integration is disabled.',
     'unable_to_set_discord_id' => 'Unable to set Discord ID.',
+    'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
 
     // Success messages
     'finish_registration_link' => 'Kaydı tamamlamak için lütfen aşağıdaki bağlantıyı tıklayın:',
@@ -52,6 +53,7 @@ $language = array(
     'new_private_message_from' => '{x}\'dan yeni özel mesaj', // Don't replace {x}
     'username_updated' => 'Kullanıcı adı başarıyla güncellendi',
     'server_info_updated' => 'Sunucu bilgileri başarıyla güncellendi',
-	'account_validated' => 'Hesap başarıyla doğrulandı',
-    'discord_id_set' => 'Discord ID set successfully'
+    'account_validated' => 'Hesap başarıyla doğrulandı',
+    'discord_id_set' => 'Discord ID set successfully',
+    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
 );

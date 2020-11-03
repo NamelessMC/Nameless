@@ -12,7 +12,9 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="fas fa-bell"></i>
-                <span class="badge badge-danger navbar-badge">{$NOTICES|count}</span>
+                {if $NOTICES|count > 0}
+                    <span class="badge badge-danger navbar-badge">{$NOTICES|count}</span>
+                {/if}
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 {if $NOTICES|count eq 0}

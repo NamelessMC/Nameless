@@ -11,15 +11,10 @@
 class Discord {
 
     public static function discordBotRequest($url = '/') {
-
         $bot_url_attempt = Util::curlGetContents(BOT_URL . $url);
         $valid_responses = array('success', 'failure-cannot-interact', 'failure-invalid-api-url');
         if (in_array($bot_url_attempt, $valid_responses)) return $bot_url_attempt;
-        else {
-            $backup_bot_url_attempt = Util::curlGetContents(BOT_URL_BACKUP . $url);
-            if (in_array($backup_bot_url_attempt, $valid_responses)) return $backup_bot_url_attempt;
-            else return false;
-        }
+        else return false;
     }
 
     public static function getDiscordRoleId(DB $db, $group_id) {
@@ -51,7 +46,7 @@ class Discord {
 
                 $api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
 
-                // TODO: Probably a nicer way to do this
+                // Probably a nicer way to do this
                 $url = '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . Util::getSetting(DB::getInstance(), 'discord');
 
                 if ($group_discord_id == null) return;

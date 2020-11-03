@@ -535,7 +535,8 @@ if(isset($_GET['do'])){
 						$token = uniqid();
 						$queries->create('discord_verifications', [
 							'token' => $token,
-							'user_id' => $user->data()->id
+							'user_id' => $user->data()->id,
+							'discord_user_id' => $discord_id
 						]);
 
 						$url = '/verifyId?id=' . $discord_id . '&token=' . $token . '&guild_id=' . $guild_id;
@@ -568,7 +569,7 @@ if(isset($_GET['do'])){
 							$user->update(array(
 								'discord_id' => 010
 							));
-							Session::flash('settings_success', str_replace('{token}', $token, $language->get('user', 'discord_id_confirm')));
+							Session::flash('settings_success', str_replace(array('{guild_id}', '{token}'), array(Util::getSetting(DB::getInstance(), 'discord'), $token), $language->get('user', 'discord_id_confirm')));
 							Redirect::to(URL::build('/user/settings'));
 							die();
 						}

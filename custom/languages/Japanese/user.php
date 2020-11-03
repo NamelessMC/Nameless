@@ -68,10 +68,10 @@ $language = array(
 	'email_already_exists' => '指定されたメールアドレスは既に登録されています。別のメールアドレスを指定してください。',
 	'email_changed_successfully' => 'メールアドレスが正常に更新されました。',
 	'avatar' => 'アバター',
-	'profile_banner' => 'Profile Banner',
-	'upload_profile_banner' => 'Upload Profile Banner',
-	'upload' => 'Upload',
-	'topic_updates' => 'Get emails for topics you follow',
+	'profile_banner' => 'プロフィールバナー',
+	'upload_profile_banner' => 'プロフィールバナーをアップロード',
+	'upload' => 'アップロード',
+	'topic_updates' => 'フォローしているトピックのメールを受け取る',
 
 	// Alerts
 	'user_tag_info' => '{x} の投稿にタグがつけられました。', // Don't replace {x}
@@ -221,9 +221,9 @@ $language = array(
 	'leave_conversation' => '会話から退出',
 	'confirm_leave' => '会話を退出しますか？',
 	'one_or_more_users_blocked' => '会話の少なくとも1人のメンバーにプライベートメッセージを送信することはできません。',
-	'messages' => 'Messages',
-	'latest_profile_posts' => 'Latest Profile Posts',
-	'no_profile_posts' => 'No profile posts.',
+	'messages' => 'メッセージ',
+	'latest_profile_posts' => '最新のプロフィール投稿',
+	'no_profile_posts' => 'プロフィール投稿はありません。',
 	
 	/*
 	 *  Infractions area
@@ -238,18 +238,18 @@ $language = array(
 	'user_x_has_registered' => '{x} が ' . SITE_NAME . ' に登録しました。',
 
 	// Discord
-	'discord_link' => 'Discord Link',
-	'linked' => 'Linked',
-	'not_linked' => 'Not Linked',
-	'discord_id' => 'Discord User ID',
-	'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-	'discord_id_confirm' => 'Please send this message (!verify {token}) to "Nameless Link#0761" to confirm your Discord User ID.',
-	'pending_link' => 'Pending',
-	'discord_id_taken' => 'That Discord ID has already been taken.',
-	'discord_invalid_id' => 'That Discord User ID is invalid.',
-	'discord_already_pending' => 'You already have a pending verification.',
-	'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-	'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-	'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-	'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
+	'discord_link' => 'Discord リンク',
+	'linked' => 'リンク済み',
+	'not_linked' => 'リンクされていません',
+	'discord_id' => 'Discord ユーザーID',
+	'discord_id_unlinked' => 'Discord ユーザーIDのリンクを解除することに成功しました。',
+	'discord_id_confirm' => 'このメッセージを送信してください: "!verify {guild_id}:{token}" を "Nameless Link#0761" に送信してDiscord ユーザーIDを確認します。',
+	'pending_link' => '保留中',
+	'discord_id_taken' => 'そのDiscord IDはすでに取られています。',
+	'discord_invalid_id' => 'そのDiscord ユーザーIDは無効です。',
+	'discord_already_pending' => 'すでに検証が保留されています。',
+	'discord_database_error' => 'Nameless Link データベースが現在ダウンしています。後でもう一度お試しください。',
+	'discord_communication_error' => 'Discordボットとの通信中にエラーが発生しました。ボットが動作しているかどうか、ボットのURLが正しいかどうかを確認してください。',
+	'discord_unknown_error' => 'Discordロールの同期中に不明なエラーが発生しました。管理者に連絡してください。',
+	'discord_id_help' => 'DiscordのIDがどこにあるかについては、<a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">こちら</a>をご確認ください。'
 );

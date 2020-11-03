@@ -1053,11 +1053,6 @@ switch($s) {
 			'value' => 'https://bot-1.namelessmc.com'
 		));
 
-		$queries->create('settings', array(
-			'name' => 'discord_bot_url_backup',
-			'value' => 'http://bot-2.namelessmc.com'
-		));
-
 		// Templates
 		$queries->create('templates', array(
 			'name' => 'Default',

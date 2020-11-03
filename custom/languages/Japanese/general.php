@@ -16,12 +16,12 @@ $language = array(
     /*
 	 *  General terms
 	 */
-    'help' => 'Help',
+    'help' => 'ヘルプ',
 	'submit' => '送信',
 	'register' => '登録',
-	'already_registered' => 'Already Registered?',
-	'custom_fields' => 'Custom Fields',
-	'not_registered_yet' => 'Not registered yet?',
+	'already_registered' => '登録済みですか？',
+	'custom_fields' => 'カスタムフィールド',
+	'not_registered_yet' => 'まだ登録されていませんか？',
 	'sign_in' => 'ログイン',
 	'log_out' => 'ログアウト',
 	'profile' => 'プロフィール',
@@ -69,7 +69,7 @@ $language = array(
 	'error' => 'エラー',
 	'are_you_sure' => '【情報】',
 	'spoiler' => 'Spoiler',
-    'invalid_timezone' => 'That timezone is invalid',
+    'invalid_timezone' => 'タイムゾーンが無効',
 
     /*
      *  Contact form
@@ -130,23 +130,23 @@ $language = array(
     /*
      *  Widgets
      */
-    'statistics' => 'Statistics',
-    'users_registered' => 'Users Registered',
-    'latest_member' => 'Latest Member',
-    'forum_statistics' => 'Forum Statistics',
-    'total_threads' => 'Total Threads',
-    'total_posts' => 'Total Posts',
+    'statistics' => '統計',
+    'users_registered' => '登録ユーザー',
+    'latest_member' => '最新メンバー',
+    'forum_statistics' => 'フォーラム統計',
+    'total_threads' => '累計スレッド',
+    'total_posts' => '累計投稿',
     'online_staff' => 'オンラインスタッフ',
     'no_online_staff' => 'オンラインのスタッフはいません。',
-    'total_online_staff' => 'Total online staff: {x}',
+    'total_online_staff' => '累計オンラインスタッフ: {x}',
     'online_users' => 'オンラインユーザー',
     'no_online_users' => 'オンラインのユーザーはいません。',
-    'total_online_users' => 'Total online users: {x}',
+    'total_online_users' => '累計オンラインユーザー: {x}',
     'discord_widget_disabled' => 'Discordウィジェットは、指定されたDiscordサーバーでは無効になっています。 Discordサーバー設定のウィジェットタブに移動し、Discordウィジェットが有効で、IDが正しいことを確認してください。',
-    'online_guests' => 'Online Guests',
-    'total_online' => 'Total Online', // this is Online Users + Online Guests
-    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
-    'server_status' => 'Server Status',
+    'online_guests' => 'オンラインゲスト',
+    'total_online' => '累計オンライン', // this is Online Users + Online Guests
+    'no_default_server' => 'デフォルトのサーバーがありません、StaffCP - Integrations - Minecraftで選択してください。',
+    'server_status' => 'サーバーステータス',
 
     /*
      *  Privacy policy
@@ -156,5 +156,5 @@ $language = array(
 	/*
 	 *  Custom page redirect
 	 */
-	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+	'redirecting_message' => 'リダイレクト...<br />自動的にリダイレクトされない場合は、<a href="{x}" rel="nofollow noopener">こちら</a>をクリックしてください。' // Don't replace {x} which is the redirect URL
 );

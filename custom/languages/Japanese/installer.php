@@ -90,20 +90,20 @@ $language = array(
     'credits' => '<i class="fa fa-users fa-fw" aria-hidden="true"></i>クレジット',
     'credits_message' => '2014年以降にnamelessMCの製作に協力してくれたすべての <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMCの貢献者</a> に感謝します。',
 
-	'step_home' => 'Home',
-	'step_requirements' => 'Requirements',
-	'step_general_config' => 'General Configuration',
-	'step_database_config' => 'Database Configuration',
-	'step_site_config' => 'Site Configuration',
-	'step_admin_account' => 'Admin Account',
-	'step_conversion' => 'Conversion',
-	'step_finish' => 'Finish',
+	'step_home' => 'ホーム',
+	'step_requirements' => '要件',
+	'step_general_config' => '一般設定',
+	'step_database_config' => 'データベース設定',
+	'step_site_config' => 'サイト設定',
+	'step_admin_account' => '管理者アカウント',
+	'step_conversion' => '変換',
+	'step_finish' => '終了',
 
-	'general_configuration' => 'General Configuration',
-	'reload' => 'Reload',
-	'reload_page' => 'Reload page',
-	'no_converters_available' => 'There are no converters available.',
-	'config_not_writable' => 'The config file is not writable.',
+	'general_configuration' => '一般設定',
+	'reload' => '再読み込み',
+	'reload_page' => 'ページを再読み込み',
+	'no_converters_available' => 'コンバーターはありません。',
+	'config_not_writable' => '設定ファイルは書き込み可能ではありません。',
 
-	'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
+	'session_doesnt_exist' => 'セッションを検出できません。セッションの保存はNamelessを使用するための要件です。再度試してみて、問題が解決しない場合は、ウェブホストに連絡してください。'
 );
