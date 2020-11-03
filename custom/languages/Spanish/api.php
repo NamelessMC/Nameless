@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton (Edited by iMaykolRD_)
+ *  Made by Samerton (Edited by iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *

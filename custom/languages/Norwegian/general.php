@@ -11,49 +11,49 @@
 
 $language = array(
     /*
-	 *  General terms
-	 */
+     *  General terms
+     */
     'help' => 'Help',
-	'submit' => 'Utfør',
-	'register' => 'Registrer',
-	'already_registered' => 'Allerede registrert?',
-	'custom_fields' => 'Egendefinerte felt',
-	'not_registered_yet' => 'Ikke registert?',
-	'sign_in' => 'Logg inn',
-	'log_out' => 'Logg ut',
-	'profile' => 'Profil',
-	'invalid_token' => 'Det tok for lang tid, prøv igjen!',
-	'close' => 'Lukk',
-	'back' => 'Tilbake',
-	'warning' => 'Advarsel',
-	'date' => 'Dato',
-	'search' => 'Søk',
-	'edit' => 'Rediger',
-	'next' => 'Neste',
-	'previous' => 'Forrige',
-	'confirm_cancel' => 'Er du sikker på at du vil avslutte?',
-	'confirm_delete' => 'Bekreft',
-	'confirm_deletion' => 'Er du sikker på at du ønsker å slette dette?',
-	'cancel' => 'Avbryt',
-	'delete' => 'Slett',
-	'none' => 'Ingen',
-	'view' => 'Vis',
-	'change' => 'Rediger',
-	'remove' => 'Fjern',
-	'info' => 'Info',
-	'confirm' => 'Aksepter',
-	'actions' => 'Valg',
-	'alerts' => 'Viktige meldinger',
-	'view_alerts' => 'Vis viktige meldinger',
-	'no_alerts' => 'Ingen viktige meldinger',
-	'x_new_alerts' => 'Du har {x} nye viktige meldinger', // Don't replace {x}
-	'messages' => 'Meldinger',
-	'view_messages' => 'Vis meldinger',
-	'no_messages' => 'Ingen meldinger',
-	'x_new_messages' => 'Du har {x} nye meldinger.', // Don't replace {x}
-	'loading' => 'Laster...',
-	'report' => 'Rapport',
-	'page_loaded_in' => 'Side lastet inn på {x}s', // Don't replace {x}, time unit is seconds
+    'submit' => 'Utfør',
+    'register' => 'Registrer',
+    'already_registered' => 'Allerede registrert?',
+    'custom_fields' => 'Egendefinerte felt',
+    'not_registered_yet' => 'Ikke registert?',
+    'sign_in' => 'Logg inn',
+    'log_out' => 'Logg ut',
+    'profile' => 'Profil',
+    'invalid_token' => 'Det tok for lang tid, prøv igjen!',
+    'close' => 'Lukk',
+    'back' => 'Tilbake',
+    'warning' => 'Advarsel',
+    'date' => 'Dato',
+    'search' => 'Søk',
+    'edit' => 'Rediger',
+    'next' => 'Neste',
+    'previous' => 'Forrige',
+    'confirm_cancel' => 'Er du sikker på at du vil avslutte?',
+    'confirm_delete' => 'Bekreft',
+    'confirm_deletion' => 'Er du sikker på at du ønsker å slette dette?',
+    'cancel' => 'Avbryt',
+    'delete' => 'Slett',
+    'none' => 'Ingen',
+    'view' => 'Vis',
+    'change' => 'Rediger',
+    'remove' => 'Fjern',
+    'info' => 'Info',
+    'confirm' => 'Aksepter',
+    'actions' => 'Valg',
+    'alerts' => 'Viktige meldinger',
+    'view_alerts' => 'Vis viktige meldinger',
+    'no_alerts' => 'Ingen viktige meldinger',
+    'x_new_alerts' => 'Du har {x} nye viktige meldinger', // Don't replace {x}
+    'messages' => 'Meldinger',
+    'view_messages' => 'Vis meldinger',
+    'no_messages' => 'Ingen meldinger',
+    'x_new_messages' => 'Du har {x} nye meldinger.', // Don't replace {x}
+    'loading' => 'Laster...',
+    'report' => 'Rapport',
+    'page_loaded_in' => 'Side lastet inn på {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Side {x}',
     'browse' => 'Utforsk',
     'bypass' => 'Hopp over',
@@ -62,10 +62,10 @@ $language = array(
     'content' => 'Innhold',
     'full_content' => 'Hele innhold',
     'url' => 'URL',
-	'success' => 'Suksess',
-	'error' => 'Feilmelding',
-	'are_you_sure' => 'Er du sikker?',
-	'spoiler' => 'Spoiler',
+    'success' => 'Suksess',
+    'error' => 'Feilmelding',
+    'are_you_sure' => 'Er du sikker?',
+    'spoiler' => 'Spoiler',
     'invalid_timezone' => 'Denne tidssonen er ugyldig.',
 
     /*
@@ -79,24 +79,24 @@ $language = array(
     'contact_message_email' => 'E-posten er ugyldig.',
     'contact_message_sent' => 'Meldingen har blitt sendt!',
     'contact_message_limit' => 'Du kan kun sende èn melding hver time. Du kan sende en ny melding om {x} minutter.', // Don't replace {x}
-	
-	/* 
-	 *  Navbar
-	 */
-	'home' => 'Hjem',
-	'more' => 'Mer',
-	'status' => 'Status',
-	
-	/*
-	 *  Homepage
-	 */
-	'social' => 'Sosiale medier',
-	
-	
-	/*
-	 *  Help dialogues
-	 */
-	'markdown_help' => 'Du kan formatere din post med markeringen. For mer informasjon, sjekk <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>her</a>.',
+    
+    /* 
+     *  Navbar
+     */
+    'home' => 'Hjem',
+    'more' => 'Mer',
+    'status' => 'Status',
+    
+    /*
+     *  Homepage
+     */
+    'social' => 'Sosiale medier',
+    
+    
+    /*
+     *  Help dialogues
+     */
+    'markdown_help' => 'Du kan formatere din post med markeringen. For mer informasjon, sjekk <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>her</a>.',
 
     /*
      *  Server query
@@ -150,8 +150,8 @@ $language = array(
      */
     'privacy_policy' => 'Personvern',
 
-	/*
-	 *  Custom page redirect
-	 */
-	'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke blir omdirigert automatisk, vennligst trykk <a href="{x}" rel="nofollow noopener">her</a>.' // Don't replace {x} which is the redirect URL
+    /*
+     *  Custom page redirect
+     */
+    'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke blir omdirigert automatisk, vennligst trykk <a href="{x}" rel="nofollow noopener">her</a>.' // Don't replace {x} which is the redirect URL
 );

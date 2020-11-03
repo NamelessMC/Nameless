@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by TheSuperSkills (Edited by iMaykolRD_ and zJerino)
+ *  Made by TheSuperSkills (Edited by iMaykolRD_ and zJerino)
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -87,20 +87,20 @@ $language = array(
     'credits' => 'Créditos',
     'credits_message' => 'Muchas gracias a todos los que han <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">Contribuido en NamelessMC</a> desde el 2014',
 
-	'step_home' => 'Inicio',
-	'step_requirements' => 'Requisitos',
-	'step_general_config' => 'Configuracion General',
-	'step_database_config' => 'Configuracion de Base de datos',
-	'step_site_config' => 'Configuracion de la pagina',
-	'step_admin_account' => 'Cuenta de administrador',
-	'step_conversion' => 'Convertir',
-	'step_finish' => 'Finalizar',
+    'step_home' => 'Inicio',
+    'step_requirements' => 'Requisitos',
+    'step_general_config' => 'Configuracion General',
+    'step_database_config' => 'Configuracion de Base de datos',
+    'step_site_config' => 'Configuracion de la pagina',
+    'step_admin_account' => 'Cuenta de administrador',
+    'step_conversion' => 'Convertir',
+    'step_finish' => 'Finalizar',
 
-	'general_configuration' => 'General Configuration',
-	'reload' => 'Recargar',
-	'reload_page' => 'Recargar pagina',
-	'no_converters_available' => 'No hay convertidores disponibles.',
-	'config_not_writable' => 'El archivo de configuracion no es writable',
+    'general_configuration' => 'General Configuration',
+    'reload' => 'Recargar',
+    'reload_page' => 'Recargar pagina',
+    'no_converters_available' => 'No hay convertidores disponibles.',
+    'config_not_writable' => 'El archivo de configuracion no es writable',
 
-	'session_doesnt_exist' => 'No se pudo detectar la sesión. El guardado de sesiones es un requisito para usar Nameless. Vuelva a intentarlo y, si el problema persiste, póngase en contacto con su proveedor de alojamiento web para obtener asistencia..'
+    'session_doesnt_exist' => 'No se pudo detectar la sesión. El guardado de sesiones es un requisito para usar Nameless. Vuelva a intentarlo y, si el problema persiste, póngase en contacto con su proveedor de alojamiento web para obtener asistencia..'
 );

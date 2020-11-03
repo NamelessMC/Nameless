@@ -6,96 +6,96 @@
  *  License: MIT
  *
  *  Turkish Language - General terms
- * 	Turkish translation by xOrcun
+ *  Turkish translation by xOrcun
  */
 
 $language = array(
-	/*
-	 *  General terms
-	 */
-	'help' => 'Help',
-	'submit' => 'Onayla',
-	'register' => 'Kayıt Ol',
-	'already_registered' => 'Zaten bir hesabın var mı?',
-	'custom_fields' => 'Custom Fields',
-	'not_registered_yet' => 'Hesabın yoksa kayıt ol',
-	'sign_in' => 'Giriş Yap',
-	'log_out' => 'Çıkış Yap',
-	'profile' => 'Profil',
-	'invalid_token' => 'Geçersiz token, lütfen tekrar deneyin.',
-	'close' => 'Kapat',
-	'back' => 'Geri',
-	'warning' => 'Uyarı',
-	'date' => 'Tarih',
-	'search' => 'Ara',
-	'edit' => 'Düzenle',
-	'next' => 'İleri',
-	'previous' => 'Geri',
-	'confirm_cancel' => 'İptal etmek istediğinizden emin misiniz?',
-	'confirm_delete' => 'Silmeyi onayla',
-	'confirm_deletion' => 'Bunu silmek istediğinizden emin misiniz?',
-	'cancel' => 'Iptal',
-	'delete' => 'Sil',
-	'none' => 'Yok',
-	'view' => 'Görüntüle',
-	'change' => 'Değiştir',
-	'remove' => 'Sil',
-	'info' => 'Bilgi',
-	'confirm' => 'Onayla',
-	'actions' => 'Eylemler',
-	'alerts' => 'Bildirimler',
-	'view_alerts' => 'Tümünü gör...',
-	'no_alerts' => 'Şu an hiç bildiriminiz yok.',
-	'x_new_alerts' => '<strong>{x}</strong> yeni bildiriminiz var.', // Don't replace {x}
-	'messages' => 'Özel konuşmalar',
-	'view_messages' => 'Tümünü gör...',
-	'no_messages' => 'Şu an hiç özel konuşmanız yok.',
-	'x_new_messages' => '<strong>{x}</strong> yeni özel konuşmanız var.', // Don't replace {x}
-	'loading' => 'Yükleniyor...',
-	'report' => 'Raporla',
-	'page_loaded_in' => 'Sayfa <strong>{x}</strong> saniye içinde yüklendi', // Don't replace {x}, time unit is seconds
-	'page_x' => 'Sayfa {x}',
-	'browse' => 'Araştır',
-	'bypass' => 'Bypass',
-	'yes' => 'Evet',
-	'no' => 'Hayır',
-	'content' => 'İçerik',
-	'full_content' => 'Tam İçerik',
-	'url' => 'URL',
-	'success' => 'Başarılı',
-	'error' => 'Hata',
-	'are_you_sure' => 'Emin misiniz?',
-	'spoiler' => 'Spoyler',
-	'invalid_timezone' => 'That timezone is invalid',
+    /*
+     *  General terms
+     */
+    'help' => 'Help',
+    'submit' => 'Onayla',
+    'register' => 'Kayıt Ol',
+    'already_registered' => 'Zaten bir hesabın var mı?',
+    'custom_fields' => 'Custom Fields',
+    'not_registered_yet' => 'Hesabın yoksa kayıt ol',
+    'sign_in' => 'Giriş Yap',
+    'log_out' => 'Çıkış Yap',
+    'profile' => 'Profil',
+    'invalid_token' => 'Geçersiz token, lütfen tekrar deneyin.',
+    'close' => 'Kapat',
+    'back' => 'Geri',
+    'warning' => 'Uyarı',
+    'date' => 'Tarih',
+    'search' => 'Ara',
+    'edit' => 'Düzenle',
+    'next' => 'İleri',
+    'previous' => 'Geri',
+    'confirm_cancel' => 'İptal etmek istediğinizden emin misiniz?',
+    'confirm_delete' => 'Silmeyi onayla',
+    'confirm_deletion' => 'Bunu silmek istediğinizden emin misiniz?',
+    'cancel' => 'Iptal',
+    'delete' => 'Sil',
+    'none' => 'Yok',
+    'view' => 'Görüntüle',
+    'change' => 'Değiştir',
+    'remove' => 'Sil',
+    'info' => 'Bilgi',
+    'confirm' => 'Onayla',
+    'actions' => 'Eylemler',
+    'alerts' => 'Bildirimler',
+    'view_alerts' => 'Tümünü gör...',
+    'no_alerts' => 'Şu an hiç bildiriminiz yok.',
+    'x_new_alerts' => '<strong>{x}</strong> yeni bildiriminiz var.', // Don't replace {x}
+    'messages' => 'Özel konuşmalar',
+    'view_messages' => 'Tümünü gör...',
+    'no_messages' => 'Şu an hiç özel konuşmanız yok.',
+    'x_new_messages' => '<strong>{x}</strong> yeni özel konuşmanız var.', // Don't replace {x}
+    'loading' => 'Yükleniyor...',
+    'report' => 'Raporla',
+    'page_loaded_in' => 'Sayfa <strong>{x}</strong> saniye içinde yüklendi', // Don't replace {x}, time unit is seconds
+    'page_x' => 'Sayfa {x}',
+    'browse' => 'Araştır',
+    'bypass' => 'Bypass',
+    'yes' => 'Evet',
+    'no' => 'Hayır',
+    'content' => 'İçerik',
+    'full_content' => 'Tam İçerik',
+    'url' => 'URL',
+    'success' => 'Başarılı',
+    'error' => 'Hata',
+    'are_you_sure' => 'Emin misiniz?',
+    'spoiler' => 'Spoyler',
+    'invalid_timezone' => 'That timezone is invalid',
 
-	/*
-	 *  Contact form
-	 */
+    /*
+     *  Contact form
+     */
     'contact' => 'İletişim',
     'message' => 'Mesaj',
     'email_address' => 'E-posta adresiniz',
-	'contact_email_subject' => 'Yeni iletişim formu gönderme',
-	'contact_message_failed' => 'Mesaj gönderilemedi. Lütfen 10 ila 5000 karakter uzunluğunda bir mesaj girdiğinizden emin olun.',
-	'contact_message_sent' => 'Mesaj başarıyla gönderildi!.',
+    'contact_email_subject' => 'Yeni iletişim formu gönderme',
+    'contact_message_failed' => 'Mesaj gönderilemedi. Lütfen 10 ila 5000 karakter uzunluğunda bir mesaj girdiğinizden emin olun.',
+    'contact_message_sent' => 'Mesaj başarıyla gönderildi!.',
     'contact_message_email' => 'Sağlanan e-posta geçersiz.',
-	'contact_message_limit' => 'Saatte yalnızca bir mesaj gönderebilirsiniz. {X} dakika içinde bir mesaj gönderebilirsiniz.', // Don't replace {x}
-	
-	/* 
-	 *  Navbar
-	 */
-	'home' => 'Ana Sayfa',
-	'more' => 'Daha',
-	'status' => 'Durum',
-	
-	/*
-	 *  Homepage
-	 */
-	'social' => 'Sosyal',
-	
-	/*
-	 *  Help dialogues
-	 */
-	'markdown_help' => 'Markdown\'u kullanarak yayınınızı biçimlendirebilirsiniz. Daha fazla bilgi için <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>buraya</a> bakın.',
+    'contact_message_limit' => 'Saatte yalnızca bir mesaj gönderebilirsiniz. {X} dakika içinde bir mesaj gönderebilirsiniz.', // Don't replace {x}
+    
+    /* 
+     *  Navbar
+     */
+    'home' => 'Ana Sayfa',
+    'more' => 'Daha',
+    'status' => 'Durum',
+    
+    /*
+     *  Homepage
+     */
+    'social' => 'Sosyal',
+    
+    /*
+     *  Help dialogues
+     */
+    'markdown_help' => 'Markdown\'u kullanarak yayınınızı biçimlendirebilirsiniz. Daha fazla bilgi için <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>buraya</a> bakın.',
 
     /*
      *  Server query
@@ -139,17 +139,17 @@ $language = array(
     'no_online_users' => 'Çevrimiçi üye bulunmuyor..',
     'total_online_users' => 'Toplam aktif üye: {x}',
     'discord_widget_disabled' => 'Widget, belirtilen Discord sunucusu için devre dışı bırakıldı. Lütfen Discord sunucu ayarlarınızdaki \'Widget \' sekmesine gidin ve Discord widget\'ının etkinleştirildiğinden ve kimliğin doğru olduğundan emin olun.',
-	'online_guests' => 'Çevrimiçi Ziyaretçi',
-	'total_online' => 'Toplam Çevrimiçi', // this is Online Users + Online Guests
-	'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
-	'server_status' => 'Server Status',
+    'online_guests' => 'Çevrimiçi Ziyaretçi',
+    'total_online' => 'Toplam Çevrimiçi', // this is Online Users + Online Guests
+    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+    'server_status' => 'Server Status',
 
     /*
      *  Privacy policy
      */
     'privacy_policy' => 'Gizlilik Politikası',
-	/*
-	 *  Custom page redirect
-	 */
-	'redirecting_message' => 'Yeniden yönlendiriliyor ... <br />Otomatik olarak yönlendirilmiyorsanız, lütfen <a href="{x}" rel="nofollow noopener">burayı</a> tıklayın.' // Don't replace {x} which is the redirect URL
+    /*
+     *  Custom page redirect
+     */
+    'redirecting_message' => 'Yeniden yönlendiriliyor ... <br />Otomatik olarak yönlendirilmiyorsanız, lütfen <a href="{x}" rel="nofollow noopener">burayı</a> tıklayın.' // Don't replace {x} which is the redirect URL
 );

@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -87,20 +87,20 @@ $language = array(
     'credits' => 'Podziękowania',
     'credits_message' => 'Podziękowania dla <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">współtwórców NamelessMC</a> od 2014',
 
-	'step_home' => 'Strona Główna',
-	'step_requirements' => 'Wymagania',
-	'step_general_config' => 'Główna Konfiguracja',
-	'step_database_config' => 'Konfiguracja Bazy DAnych',
-	'step_site_config' => 'Konfiguracja Strony',
-	'step_admin_account' => 'Konto Administratora',
-	'step_conversion' => 'Konwersja',
-	'step_finish' => 'Zakończ',
+    'step_home' => 'Strona Główna',
+    'step_requirements' => 'Wymagania',
+    'step_general_config' => 'Główna Konfiguracja',
+    'step_database_config' => 'Konfiguracja Bazy DAnych',
+    'step_site_config' => 'Konfiguracja Strony',
+    'step_admin_account' => 'Konto Administratora',
+    'step_conversion' => 'Konwersja',
+    'step_finish' => 'Zakończ',
 
-	'general_configuration' => 'Główna Konfiguracja',
-	'reload' => 'Przeładuj',
-	'reload_page' => 'Przeładuj Stronę',
-	'no_converters_available' => 'Brak dostępnych konwersji.',
-	'config_not_writable' => 'Plik konfiguracyjny jest zablokowany.',
+    'general_configuration' => 'Główna Konfiguracja',
+    'reload' => 'Przeładuj',
+    'reload_page' => 'Przeładuj Stronę',
+    'no_converters_available' => 'Brak dostępnych konwersji.',
+    'config_not_writable' => 'Plik konfiguracyjny jest zablokowany.',
 
-	'session_doesnt_exist' => 'Nie można zapisać sesji. Jest to wymagane to korzystania z NamelessMC. Spróbuj ponownie, jeśli problem się powtarza skontaktuj się ze swoim hostingiem.'
+    'session_doesnt_exist' => 'Nie można zapisać sesji. Jest to wymagane to korzystania z NamelessMC. Spróbuj ponownie, jeśli problem się powtarza skontaktuj się ze swoim hostingiem.'
 );

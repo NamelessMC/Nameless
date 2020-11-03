@@ -1,6 +1,6 @@
 <?php
 /*
- *	Gemaakt door Samerton
+ *  Gemaakt door Samerton
  *  en vertaald door Sander Lambrechts en Derkades
  *
  *  https://github.com/NamelessMC/Nameless/

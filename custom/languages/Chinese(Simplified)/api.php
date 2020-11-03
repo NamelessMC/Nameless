@@ -55,7 +55,7 @@ $language = array(
     'new_private_message_from' => '来自 {x} 的私信', // Don't replace {x}
     'username_updated' => '用户名更新成功',
     'server_info_updated' => '服务器信息更新成功',
-	'account_validated' => '账号校验成功',
+    'account_validated' => '账号校验成功',
     'discord_id_set' => 'Discord ID 更新成功',
     'discord_bot_url_updated' => 'Discord bot URL updated successfully'
 );

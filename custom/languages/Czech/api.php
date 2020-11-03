@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -52,7 +52,7 @@ $language = array(
     'new_private_message_from' => 'Nová soukromá zpráva od uživatele {x}', // Don't replace {x}
     'username_updated' => 'Jméno úspěšně aktualizováno',
     'server_info_updated' => 'Informace o serveru aktualizovány',
-	'account_validated' => 'Účet úspěšně ověřen.',
+    'account_validated' => 'Účet úspěšně ověřen.',
     'discord_id_set' => 'Discord ID úspěšně nastaveno',
     'discord_bot_url_updated' => 'Discord bot URL updated successfully'
 );

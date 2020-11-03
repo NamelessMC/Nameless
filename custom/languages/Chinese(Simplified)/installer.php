@@ -89,20 +89,20 @@ $language = array(
     'credits' => '开发人员',
     'credits_message' => '向所有自2014年以来的 <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC 代码贡献者</a> 致敬',
 
-	'step_home' => '开始',
-	'step_requirements' => '环境需求',
-	'step_general_config' => '基本配置',
-	'step_database_config' => '数据库配置',
-	'step_site_config' => '站点配置',
-	'step_admin_account' => '管理员账户',
-	'step_conversion' => 'Conversion',
-	'step_finish' => '完成',
+    'step_home' => '开始',
+    'step_requirements' => '环境需求',
+    'step_general_config' => '基本配置',
+    'step_database_config' => '数据库配置',
+    'step_site_config' => '站点配置',
+    'step_admin_account' => '管理员账户',
+    'step_conversion' => 'Conversion',
+    'step_finish' => '完成',
 
-	'general_configuration' => '基本配置',
-	'reload' => '刷新',
-	'reload_page' => '刷新页面',
-	'no_converters_available' => '没有可用的转换器',
-	'config_not_writable' => '配置文件无法写入',
+    'general_configuration' => '基本配置',
+    'reload' => '刷新',
+    'reload_page' => '刷新页面',
+    'no_converters_available' => '没有可用的转换器',
+    'config_not_writable' => '配置文件无法写入',
 
-	'session_doesnt_exist' => '无法检测会话。若想使用 Nameless，您必须启用会话。请您再试一次，若此问题始终存在，请咨询您的网页提供商。'
+    'session_doesnt_exist' => '无法检测会话。若想使用 Nameless，您必须启用会话。请您再试一次，若此问题始终存在，请咨询您的网页提供商。'
 );
