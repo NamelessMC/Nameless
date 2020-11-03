@@ -29,8 +29,7 @@ ini_set('display_errors', 0);
 date_default_timezone_set('Europe/London');
 
 // Select language
-if (
-    isset($_SESSION['installer_language'])
+if (isset($_SESSION['installer_language'])
     && is_file('custom/languages/' . $_SESSION['installer_language'] . '/installer.php')
 ) {
     require(ROOT_PATH . '/custom/languages/' . $_SESSION['installer_language'] . '/version.php');

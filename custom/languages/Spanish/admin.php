@@ -685,22 +685,20 @@ $language = array(
     'background_colour_required' => 'Se requiere color de fondo',
     'text_colour_required' => 'Se requiere color de texto',
 
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => '¿Habilitar la integración de Discord?',
-    'discord_role_id' => 'ID de rol de discord',
-    'discord_role_id_numeric' => 'El ID de rol de Discord debe ser numérico.',
-    'discord_role_id_length' => 'La ID del rol de discordia debe tener 18 dígitos.',
-    'discord_settings_updated' => 'La configuración de Discord se actualizó correctamente.',
-    'discord_guild_id_required' => 'Ingrese su ID de servidor Discord para que la integración de Discord funcione.',
-    'discord_bot_url' => 'URL de el bot de Discord',
-    'discord_bot_url_info' => 'La ubicación en la que se encuentra su instancia personalizada del bot Nameless Link. ¡Solo cambie este valor si sabe lo que está haciendo!',
-    'discord_bot_url_required' => 'Ingrese su URL de Bot para que la integración de Discord funcione.',
-    'discord_invalid_api_url' => 'Parece que su URL de API ha cambiado. Solicite al propietario del gremio que actualice la URL con el bot de Enlace sin nombre.',
-    'test_bot_url' => 'Probar URL del bot',
-    'discord_bot_url_valid' => 'Tu URL de bot es válida.',
-    'discord_bot_url_backup' => 'Discord Bot URL (Backup)',
-    'discord_bot_url_backup_info' => 'Una URL que apunta a una copia de seguridad / segunda instancia del bot NamelessMC en caso de que falle la primera opción. ¡Solo cambie este valor si sabe lo que está haciendo!',
-    'discord_cannot_interact' => 'El bot Nameless Link no puede interactuar con este usuario en Discord. ¿Su rol es más alto que el rol de Nameless Link?'
+	// Discord
+	'discord' => 'Discord',
+	'enable_discord_integration' => '¿Habilitar la integración de Discord?',
+	'discord_role_id' => 'ID de rol de discord',
+	'discord_role_id_numeric' => 'El ID de rol de Discord debe ser numérico.',
+	'discord_role_id_length' => 'La ID del rol de discordia debe tener 18 dígitos.',
+	'discord_settings_updated' => 'La configuración de Discord se actualizó correctamente.',
+	'discord_guild_id_required' => 'Ingrese su ID de servidor Discord para que la integración de Discord funcione.',
+	'discord_bot_url' => 'URL de el bot de Discord',
+	'discord_bot_url_info' => 'La ubicación en la que se encuentra su instancia personalizada del bot Nameless Link. ¡Solo cambie este valor si sabe lo que está haciendo!',
+	'discord_bot_url_required' => 'Ingrese su URL de Bot para que la integración de Discord funcione.',
+	'discord_invalid_api_url' => 'Parece que su URL de API ha cambiado. Solicite al propietario del gremio que actualice la URL con el bot de Enlace sin nombre.',
+	'test_bot_url' => 'Probar URL del bot',
+	'discord_bot_url_valid' => 'Tu URL de bot es válida.',
+	'discord_cannot_interact' => 'El bot Nameless Link no puede interactuar con este usuario en Discord. ¿Su rol es más alto que el rol de Nameless Link?'
 
 );
