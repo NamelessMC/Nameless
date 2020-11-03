@@ -10,11 +10,9 @@
  * NamelessMC version 2.0.0-pr7
  */
 class MentionsParser {
-	/*
-	 *  Private variable
-	 */
+
 	private $_db;
-	 
+
     /**
      * Create a new instance of MentionsParser.
      *
@@ -40,10 +38,10 @@ class MentionsParser {
     public function parse($author_id, $value, $link, $alert_short, $alert_full){
         if(preg_match_all("/\@([A-Za-z0-9\-_!\.]+)/", $value, $matches)){
             $matches = $matches[1];
-			
+
             foreach($matches as $possible_username){
                 $user = null;
-				
+
                 while((strlen($possible_username) > 0) && !$user){
                 	$user = $this->_db->query('SELECT nl2_users.id AS id, nl2_users.username AS username, nl2_groups.group_username_css AS group_username_css, nl2_groups.group_username_color AS group_username_color FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id WHERE nl2_users.nickname = ?', array($possible_username));
 

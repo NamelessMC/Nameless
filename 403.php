@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -30,16 +30,18 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Assign Smarty variables
-$smarty->assign(array(
-	'403_TITLE' => $language->get('errors', '403_title'),
-	'CONTENT' => $language->get('errors', '403_content'),
-	'CONTENT_LOGIN' => $language->get('errors', '403_login'),
-	'BACK' => $language->get('errors', '403_back'),
-	'HOME' => $language->get('errors', '403_home'),
-	'LOGIN' => $language->get('general', 'sign_in'),
-	'LOGIN_LINK' => URL::build('/login'),
-	'PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '')
-));
+$smarty->assign(
+    array(
+        '403_TITLE' => $language->get('errors', '403_title'),
+        'CONTENT' => $language->get('errors', '403_content'),
+        'CONTENT_LOGIN' => $language->get('errors', '403_login'),
+        'BACK' => $language->get('errors', '403_back'),
+        'HOME' => $language->get('errors', '403_home'),
+        'LOGIN' => $language->get('general', 'sign_in'),
+        'LOGIN_LINK' => URL::build('/login'),
+        'PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '')
+    )
+);
 
 // Display template
 $template->displayTemplate('403.tpl', $smarty);
