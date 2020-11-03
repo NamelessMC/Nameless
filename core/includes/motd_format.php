@@ -25,7 +25,7 @@ THE SOFTWARE.
 
 function MC_str_split( $string )
 {
-    return preg_split('/(?<!^)(?!$)/u', $string );
+    return preg_split('/(?<!^)(?!$)/u', $string);
 }
 
 function MC_parseMotdColors($motd)
@@ -35,8 +35,8 @@ function MC_parseMotdColors($motd)
     $coloredMotd = '';
     foreach (MC_str_split($motd) as $character) {
         if ($inColorSequence) {
-            // find color and insert span 
-			// edit: ` used for explode in banner generator
+            // find color and insert span
+            // edit: ` used for explode in banner generator
             switch ($character) {
             case '0':
                 $color = '`#000000';
