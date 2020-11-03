@@ -79,7 +79,7 @@ $language = array(
     'discord_widget_theme' => 'Styl widgetu Discord',
     'discord_id_length' => 'Sprawdź czy twoje ID Serwera Discord ma 18 znaków.',
     'discord_id_numeric' => 'Sprawdź czy twoje ID Discord ma odpowiednią ilość znaków (Tylko numery).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'dark' => 'Ciemny',
     'light' => 'Jasny',
     'google_plus_url' => 'URL Google Plus',
@@ -170,7 +170,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Wysłano wiadomość pomyślnie.',
     'emails_mass_message_replacements' => 'Możesz użyć zmiennych w wiadomo. Przykłady:: {username}, {sitename}',
     'emails_mass_message_loading' => 'Ładowanie... Nie odświeżaj strony. To trochę zajmie.',
-    
+
   // Reactions
     'icon' => 'Ikona',
     'type' => 'Typ',

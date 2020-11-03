@@ -15,7 +15,7 @@ $language = array(
      */
     // Login
     're-authenticate' => 'Prosím overte prihlásenie',
-    
+
     // Sidebar
     'dashboard' => 'Dashboard',
     'configuration' => 'Konfigurácia',
@@ -32,7 +32,7 @@ $language = array(
     'sitemap' => 'Sitemap',
     'styles' => 'Štýly',
     'users_and_groups' => 'Užívatelia a skupiny',
-    
+
     // Overview
     'running_nameless_version' => 'NamelessMC beží na verzií <strong>{x}</strong>', // Don't replace "{x}"
     'running_php_version' => 'PHP verzia <strong>{x}</strong>', // Don't replace "{x}"
@@ -43,7 +43,7 @@ $language = array(
     'notices' => 'Upozornenia',
     'no_notices' => 'Žiadné upozornenia.',
     'email_errors_logged' => 'Chyby s e-mailami boli zaznamenané',
-    
+
     // Core
     'settings' => 'Nastavenia',
     'general_settings' => 'Obecné nastavenia',
@@ -79,7 +79,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget Theme',
     'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
     'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'dark' => 'Dark',
     'light' => 'Light',
     'google_plus_url' => 'Google Plus URL',
@@ -170,7 +170,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
-    
+
     // Reactions
     'icon' => 'Ikonka',
     'type' => 'Typ',
@@ -191,7 +191,7 @@ $language = array(
     'name_maximum_16' => 'Tvoje meno môže mat maximálne 16 znakov',
     'html_maximum_255' => 'The HTML must be no more than 255 characters',
     'confirm_delete_reaction' => 'Naozaj chceš odstránit reakciu?',
-    
+
     // Custom profile fields
     'custom_fields' => 'Vlastné profilové polia',
     'new_field' => '<i class="fa fa-plus-circle"></i> nové pole',
@@ -216,7 +216,7 @@ $language = array(
     'profile_field_updated_successfully' => 'The profile field was updated successfully.',
     'profile_field_created_successfully' => 'The profile field was created successfully.',
     'profile_field_deleted_successfully' => 'The profile field was deleted successfully.',
-    
+
     // Minecraft
     'enable_minecraft_integration' => 'Povoliť Minecraft?',
     'mc_service_status' => 'Stav provozu Minecraftu',
@@ -314,7 +314,7 @@ $language = array(
     'query_errors_purged_successfully' => 'Query errors purged successfully.',
     'query_error_deleted_successfully' => 'Query error deleted successfully.',
     'banner_updated_successfully' => 'Banner updated successfully. It may take a while for your changes to take effect.',
-    
+
     // Modules
     'modules_installed_successfully' => 'Všetky nové moduly sa nainštalovali.',
     'enabled' => 'Zapnuté',
@@ -331,7 +331,7 @@ $language = array(
     'unable_to_retrieve_modules' => 'Unable to retrieve modules',
     'module' => 'Module',
     'unable_to_enable_module' => 'Unable to enable incompatible module.',
-    
+
     // Styles
     'templates' => 'Šablóny',
     'panel_templates' => 'Panel Templates',
@@ -443,7 +443,7 @@ $language = array(
     'force_tfa' => 'Force Two Factor Authentication for group members?',
     'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
     'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
-    
+
     // Permissions
     'select_all' => 'Vybrat všetko',
     'deselect_all' => 'Deselect All',
@@ -451,7 +451,7 @@ $language = array(
     'can_edit_own_group' => 'Can edit own group\'s permissions',
     'permissions_updated_successfully' => 'Permissions updated successfully.',
     'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
-    
+
     // General Admin language
     'task_successful' => 'Úkol úspěšný.',
     'invalid_action' => 'Neplatná akcia.',
@@ -477,7 +477,7 @@ $language = array(
     'all_logs' => 'All Logs',
     'action' => 'Action',
     'action_info' => 'Action Info',
-    
+
     // Updates
     'update' => 'Aktualizácia',
     'current_version_x' => 'Súčasná verzia: <strong>{x}</strong>', // Don't replaec {x}
@@ -688,7 +688,7 @@ $language = array(
     'message_required' => 'Message is required',
     'background_colour_required' => 'Background Colour is required',
     'text_colour_required' => 'Text Colour is required',
-  
+
 	// Discord
 	'discord' => 'Discord',
 	'enable_discord_integration' => 'Enable Discord integration?',

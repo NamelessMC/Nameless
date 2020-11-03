@@ -9,7 +9,7 @@
  *
  *  Chinese Language - Admin
  *  Translation progress : 93%
- *  翻譯有誤請使用GitHun回報issues 
+ *  翻譯有誤請使用GitHun回報issues
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 
@@ -83,7 +83,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget Theme',
     'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
     'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'dark' => 'Dark',
     'light' => 'Light',
     'google_plus_url' => 'Google+ URL',
@@ -174,7 +174,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
-    
+
     // Reactions
     'icon' => '圖標',
     'type' => '類型',
@@ -447,7 +447,7 @@ $language = array(
     'force_tfa' => 'Force Two Factor Authentication for group members?',
     'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
     'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
-    
+
         'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
 
     // Permissions
@@ -694,7 +694,7 @@ $language = array(
     'message_required' => 'Message is required',
     'background_colour_required' => 'Background Colour is required',
     'text_colour_required' => 'Text Colour is required',
-  
+
 	// Discord
 	'discord' => 'Discord',
 	'enable_discord_integration' => 'Enable Discord integration?',

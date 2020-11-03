@@ -14,9 +14,9 @@ $language = array(
     /*
      *  Admin Control Panel
      */
-    
+
     // Login
-    're-authenticate' => 'Por favor, logue-se novamente',   
+    're-authenticate' => 'Por favor, logue-se novamente',
 
     // Sidebar
     'dashboard' => 'Painel',
@@ -33,7 +33,7 @@ $language = array(
     'security' => 'Segurança',
     'sitemap' => 'Sitemap',
     'styles' => 'Estilos',
-    'users_and_groups' => 'Usuários & Grupos',  
+    'users_and_groups' => 'Usuários & Grupos',
 
     // Overview
     'running_nameless_version' => 'Versão do NamelessMC: <strong>{x}</strong>', // Don't replace "{x}"
@@ -44,7 +44,7 @@ $language = array(
     'posts' => 'Postagens',
     'notices' => 'Notificações',
     'no_notices' => 'Sem notificações.',
-    'email_errors_logged' => 'Erros de e-mail foram registrados',   
+    'email_errors_logged' => 'Erros de e-mail foram registrados',
 
     // Core
     'settings' => 'Configurações',
@@ -81,7 +81,7 @@ $language = array(
     'discord_widget_theme' => 'Tema do Widget do Discord',
     'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
     'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'dark' => 'Escuro',
     'light' => 'Claro',
     'google_plus_url' => 'URL do Google Plus',
@@ -172,7 +172,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
-    
+
     // Reactions
     'icon' => 'Ícone',
     'type' => 'Tipo',
@@ -192,7 +192,7 @@ $language = array(
     'type_required' => 'Um tipo é obrigatório',
     'name_maximum_16' => 'O nome deve ter no máximo 16 caracteres',
     'html_maximum_255' => 'O HTML deve ter no máximo 255 caracteres',
-    'confirm_delete_reaction' => 'Tem certeza de que deseja excluir essa reação?',  
+    'confirm_delete_reaction' => 'Tem certeza de que deseja excluir essa reação?',
 
     // Custom profile fields
     'custom_fields' => 'Campos Personalizados do Perfil',
@@ -217,7 +217,7 @@ $language = array(
     'no_custom_fields' => 'Ainda não há campos personalizados.',
     'profile_field_updated_successfully' => 'O campo de perfil foi atualizado com sucesso.',
     'profile_field_created_successfully' => 'O campo de perfil foi criado com sucesso.',
-    'profile_field_deleted_successfully' => 'O campo do perfil foi excluído com sucesso.',  
+    'profile_field_deleted_successfully' => 'O campo do perfil foi excluído com sucesso.',
 
     // Minecraft
     'enable_minecraft_integration' => 'Ativar a integração do Minecraft?',
@@ -315,7 +315,7 @@ $language = array(
     'query_information' => 'Informações de Consulta',
     'query_errors_purged_successfully' => 'Erros de consulta removidos com sucesso.',
     'query_error_deleted_successfully' => 'Erro de consulta excluído com sucesso.',
-    'banner_updated_successfully' => 'Banner atualizado com sucesso. Pode demorar um pouco até que suas alterações entrem em vigor.',   
+    'banner_updated_successfully' => 'Banner atualizado com sucesso. Pode demorar um pouco até que suas alterações entrem em vigor.',
 
     // Modules
     'modules_installed_successfully' => 'Todos os novos módulos foram instalados com êxito.',
@@ -332,7 +332,7 @@ $language = array(
     'view_all_modules' => 'Ver todos os módulos',
     'unable_to_retrieve_modules' => 'Não foi possível recuperar os módulos',
     'module' => 'Módulo',
-    'unable_to_enable_module' => 'Não é possível habilitar o módulo incompatível.', 
+    'unable_to_enable_module' => 'Não é possível habilitar o módulo incompatível.',
 
     // Styles
     'templates' => 'Templates',
@@ -450,7 +450,7 @@ $language = array(
     'background_image' => 'Imagem de Fundo',
     'can_edit_own_group' => 'Pode editar as permissão do seu próprio grupo',
     'permissions_updated_successfully' => 'Permissões atualizada com sucesso.',
-    'cant_edit_this_group' => 'Você pode editar as permissões destes grupos!',  
+    'cant_edit_this_group' => 'Você pode editar as permissões destes grupos!',
 
     // General Admin language
     'task_successful' => 'Tarefa bem-sucedida.',
@@ -459,14 +459,14 @@ $language = array(
     'disable_night_mode' => 'Desativar modo noturno',
     'view_site' => 'Ver Site',
     'signed_in_as_x' => 'Logado como {x}', // Don't replace {x}
-    'warning' => 'Aviso',   
+    'warning' => 'Aviso',
 
     // Maintenance
     'maintenance_mode' => 'Modo de manutenção',
     'maintenance_enabled' => 'O modo de manutenção está ativado no momento.',
     'enable_maintenance_mode' => 'Habilitar modo de manutenção?',
     'maintenance_mode_message' => 'Mensagem de modo de manutenção',
-    'maintenance_message_max_1024' => 'Certifique-se de que sua mensagem de manutenção é de no máximo 1024 caracteres.',    
+    'maintenance_message_max_1024' => 'Certifique-se de que sua mensagem de manutenção é de no máximo 1024 caracteres.',
 
     // Security
     'acp_logins' => 'Logins do StaffCP',
@@ -476,7 +476,7 @@ $language = array(
     'file_changed' => 'Arquivo Modificado',
     'all_logs' => 'Todos os Registros',
     'action' => 'Ação',
-    'action_info' => 'Informação de Ação',  
+    'action_info' => 'Informação de Ação',
 
     // Updates
     'update' => 'Atualizar',
@@ -491,7 +491,7 @@ $language = array(
     'instructions' => 'Instruções',
     'download' => 'Download',
     'install_confirm' => 'Certifique-se de que transferiu o pacote e carregou os ficheiros contidos em primeiro lugar!',
-    'check_again' => 'Verificar novamente', 
+    'check_again' => 'Verificar novamente',
 
     // Widgets
     'widgets' => 'Widgets',
@@ -507,7 +507,7 @@ $language = array(
 
     // Online users widget
     'include_staff_in_user_widget' => 'Incluir membros da equipe no widget do usuário?',
-    'show_nickname_instead_of_username' => 'Mostrar o apelido do usuário em vez do nome de usuário?',   
+    'show_nickname_instead_of_username' => 'Mostrar o apelido do usuário em vez do nome de usuário?',
 
     // Custom Pages
     'pages' => 'Páginas',
@@ -548,7 +548,7 @@ $language = array(
     'confirm_delete_page' => 'Você tem certeza que quer deletar está página?',
     'page_created_successfully' => 'Página criada com sucesso',
     'page_updated_successfully' => 'Página atualizada com sucesso.',
-    'page_deleted_successfully' => 'Página excluída com sucesso.',  
+    'page_deleted_successfully' => 'Página excluída com sucesso.',
 
     // API
     'api' => 'API',
@@ -593,7 +593,7 @@ $language = array(
     'invalid_file_type' => 'Tipo de arquivo inválido!',
     'file_too_big' => 'Arquivo muito grande! Seu arquivo possui {{filesize}} e o limite é {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
     'allowed_proxies' => 'Proxies permitidos',
-    'allowed_proxies_info' => 'Lista separada por linha de IPs de proxy permitidos.',   
+    'allowed_proxies_info' => 'Lista separada por linha de IPs de proxy permitidos.',
 
     // Error logs
     'error_logs' => 'Logs de erros',
@@ -603,7 +603,7 @@ $language = array(
     'other_log' => 'Outros logs',
     'fatal_log' => 'Logs fatais',
     'log_file_not_found' => 'Arquivo de log não encontrado.',
-    'log_purged_successfully' => 'O log foi removido com sucesso.', 
+    'log_purged_successfully' => 'O log foi removido com sucesso.',
 
     // Hooks
     'hooks' => 'Webhooks',
@@ -625,7 +625,7 @@ $language = array(
     'invalid_hook_events' => 'You must select at least 1 event',
     'register_hook_info' => 'Registro do usuário',
     'validate_hook_info' => 'Validação do usuário',
-    'delete_hook_info' => 'Exclusão do usuário',    
+    'delete_hook_info' => 'Exclusão do usuário',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Não foi possível carregar o arquivo do mapa do site {x}', // Don't replace {x}
@@ -635,7 +635,7 @@ $language = array(
     'generate_sitemap' => 'Gerar Mapa do Site',
     'download_sitemap' => 'Baixar Mapa do Site',
     'sitemap_not_generated_yet' => 'O mapa do site não foi gerado ainda!',
-    'sitemap_last_generated_x' => 'Último mapa do site gerado {x}', // Don't replace {x}    
+    'sitemap_last_generated_x' => 'Último mapa do site gerado {x}', // Don't replace {x}
 
     // Page metadata
     'page_metadata' => 'Metadados da Página',
@@ -643,7 +643,7 @@ $language = array(
     'keywords' => 'Palavras-chave',
     'description_max_500' => 'A descrição deve ter no máximo 500 caracteres.',
     'page' => 'Página',
-    'metadata_updated_successfully' => 'Metadados atualizados com sucesso.',    
+    'metadata_updated_successfully' => 'Metadados atualizados com sucesso.',
 
     // Dashboard
     'total_users' => 'Total de Usuários',
@@ -655,7 +655,7 @@ $language = array(
     'unable_to_retrieve_nameless_news' => 'Não foi possível recuperar as últimas notícias',
     'confirm_leave_site' => 'Você está prestes a sair deste site! Tem a certeza que quer visitar <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
     'server_compatibility' => 'Compatibilidade do Servidor',
-    'issues' => 'Problemas',  
+    'issues' => 'Problemas',
 
     // Other
     'source' => 'Fonte',

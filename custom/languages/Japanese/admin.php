@@ -84,7 +84,7 @@ $language = array(
     'discord_widget_theme' => 'Discord ウィジェットテーマ',
     'discord_id_length' => 'Discord IDは18文字以内にしてください。',
     'discord_id_numeric' => 'Discord IDが数字であることを確認してください（数字のみ）',
-    'discord_invite_info' => 'あなたのDiscordサーバーにNameless Link ボットを招待するには、<a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">こちら</a>をクリックしてください。',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'dark' => 'ダーク',
     'light' => 'ライト',
     'google_plus_url' => 'Google+ URL',
@@ -175,7 +175,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => '大量のメールメッセージの送信に成功しました。',
     'emails_mass_message_replacements' => 'メールメッセージでは、変数を使用することができます。サポートされている変数: {username}, {sitename}',
     'emails_mass_message_loading' => '読み込み中... ページを再読み込みしないでください。しばらく時間がかかる場合があります。',
-    
+
     // Reactions
     'icon' => 'アイコン',
     'type' => 'タイプ',
@@ -448,7 +448,7 @@ $language = array(
     'force_tfa' => 'グループメンバーに二要素認証を強制しますか？',
     'force_tfa_warning' => 'これが何をするのかを確認してください。そうでなければ、あなた自身とグループメンバー全員を締め出す危険があります。',
     'force_tfa_alert' => 'あなたのグループでは、二要素認証を有効にする必要があります。',
-    
+
     // Permissions
     'select_all' => 'すべて選択',
     'deselect_all' => 'すべて選択を解除',
@@ -693,7 +693,7 @@ $language = array(
     'message_required' => 'メッセージは必須です。',
     'background_colour_required' => '背景色は必須です。',
     'text_colour_required' => 'テキスト色は必須です。',
-  
+
 	// Discord
 	'discord' => 'Discord',
 	'enable_discord_integration' => 'Discordの連携を有効にしますか？',

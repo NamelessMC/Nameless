@@ -81,7 +81,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget 主题',
     'discord_id_length' => '请确保您的 Discord ID 长 18 位。',
     'discord_id_numeric' => '请确保您的 Discord ID 只包含数字。',
-    'discord_invite_info' => '您可点击<a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">此处</a>来将 Nameless Link 机器人添加到您的 Discord 服务器。',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'dark' => '暗调',
     'light' => '亮色',
     'google_plus_url' => 'Google Plus 链接 (URL)',
@@ -172,7 +172,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => '邮件广播发送成功。',
     'emails_mass_message_replacements' => '您可在信息中使用占位符。可用占位符: {username}（用户名）, {sitename}（网站名）',
     'emails_mass_message_loading' => '加载中... 请勿刷新此页面。这可能需要几分钟。',
-    
+
     // Reactions
     'icon' => '图标',
     'type' => '种类',
@@ -444,7 +444,7 @@ $language = array(
     'force_tfa' => '是否强制为该组成员开启二步验证？',
     'force_tfa_warning' => '如果你不明白你在做什么，你可能会导致你自己和该组成员无法使用账户',
     'force_tfa_alert' => '你所在的组必须要开启二步验证',
-    
+
     // Permissions
     'select_all' => '全选',
     'deselect_all' => '取消全选',

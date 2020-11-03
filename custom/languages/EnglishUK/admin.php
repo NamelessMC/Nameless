@@ -77,7 +77,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget Theme',
     'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
     'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'dark' => 'Dark',
     'light' => 'Light',
     'facebook_url' => 'Facebook URL',
@@ -116,7 +116,7 @@ $language = array(
     'email_preview_popup_message' => 'Click here to see a preview of the email.',
     'email_message_greeting' => 'Greeting',
     'email_message_thanks' => 'Thanks',
-    'email_message_options' => 'Options', 
+    'email_message_options' => 'Options',
     'email_message_subject' => 'Subject',
     'email_message_message' => 'Message',
     'send_test_email' => 'Send Test Email',
@@ -427,9 +427,9 @@ $language = array(
     'editing_user_x' => 'Editing user {x}', // Don't replace {x}
     'details' => 'Details',
     'force_tfa' => 'Force Two Factor Authentication for group members?',
-    'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',    
+    'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
     'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
-    
+
     // Permissions
     'select_all' => 'Select All',
     'deselect_all' => 'Deselect All',
@@ -459,7 +459,7 @@ $language = array(
     'all_logs' => 'All Logs',
     'action' => 'Action',
     'action_info' => 'Action Info',
-    
+
     // Updates
     'update' => 'Update',
     'current_version_x' => 'Current version: <strong>{x}</strong>', // Don't replace {x}
@@ -535,7 +535,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'Enable API?',
-    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>, and <a href="https://github.com/NamelessMC/Nameless-Link" target="_blank" >official NamelessMC Discord Bot</a>.',    
+    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>, and <a href="https://github.com/NamelessMC/Nameless-Link" target="_blank" >official NamelessMC Discord Bot</a>.',
     'enable_legacy_api' => 'Enable legacy API?',
     'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
     'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
@@ -587,7 +587,7 @@ $language = array(
     'fatal_log' => 'Fatal log',
     'log_file_not_found' => 'Log file not found.',
     'log_purged_successfully' => 'The log has been purged successfully.',
-    
+
     // Hooks
     'hooks' => 'Webhooks',
     'hooks_info' => 'Webhooks allow external services to be notified when certain events happen.',
@@ -669,7 +669,7 @@ $language = array(
 	'message_required' => 'Message is required',
 	'background_colour_required' => 'Background Colour is required',
 	'text_colour_required' => 'Text Colour is required',
-	
+
 	// Discord
 	'discord' => 'Discord',
 	'enable_discord_integration' => 'Enable Discord integration?',

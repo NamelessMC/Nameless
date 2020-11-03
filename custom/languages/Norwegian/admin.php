@@ -79,7 +79,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget-Tema',
     'discord_id_length' => 'Pass på at Discord-IDen inneholder 18 tegn.',
     'discord_id_numeric' => 'Pass på at Discord-IDen er numerisk (kun tall).',
-    'discord_invite_info' => 'For å invitere Nameless Link Bot til din Discord-server, klikk <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">her</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'dark' => 'Mørk',
     'light' => 'Lys',
     'google_plus_url' => 'Google+-URL',
@@ -170,7 +170,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'E-post-massemelding har blitt sendt.',
     'emails_mass_message_replacements' => 'Du kan bruke variabler i din e-post-massemelding. Støttede variabler: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laster inn... Vennligst ikke last inn siden på nytt. Dette kan ta en stund.',
-    
+
     // Reactions
     'icon' => 'Ikon',
     'type' => 'Type',
@@ -443,7 +443,7 @@ $language = array(
     'force_tfa' => 'Tving alle gruppemedlemmer til å bruke totrinnsbekreftelse?',
     'force_tfa_warning' => 'Vennligst pass på at du vet hva dette gjør, for ellers risikerer du å stenge deg selv og alle gruppemedlemmer ute.',
     'force_tfa_alert' => 'Din gruppe krever at du har totrinnsbekreftelse aktivert.',
-    
+
     // Permissions
     'select_all' => 'Velg alle',
     'deselect_all' => 'Fjern markering',

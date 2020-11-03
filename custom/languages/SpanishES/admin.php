@@ -80,7 +80,7 @@ $language = array(
     'discord_widget_theme' => 'Modo del Widget de discord',
     'discord_id_length' => 'Asegúrate de que tu ID de Discord tenga 18 caracteres.',
     'discord_id_numeric' => 'Asegúrese de que su ID de Discord sea numérico (solo números).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'dark' => 'Oscuro',
     'light' => 'Claro',
     'google_plus_url' => 'Enlace de Google Plus',
@@ -170,7 +170,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
-    
+
     // Reacciones
     'icon' => 'Icono',
     'type' => 'Tipo',
@@ -442,7 +442,7 @@ $language = array(
     'force_tfa' => 'Force Two Factor Authentication for group members?',
     'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
     'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
-    
+
     // Permisos
     'select_all' => 'Seleccionar todo',
     'deselect_all' => 'Deseleccionar todo',
@@ -687,7 +687,7 @@ $language = array(
     'message_required' => 'Nesecita agregar un mensaje',
     'background_colour_required' => 'Debes indicar el color de fondo',
     'text_colour_required' => 'Debes indicar el color del texto',
-  
+
 	// Discord
 	'discord' => 'Discord',
 	'enable_discord_integration' => 'Habilitar la integracion de discord?',

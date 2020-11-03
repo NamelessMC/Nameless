@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton, translated by Zemos, Renzotom, Ethxrnity, sad_mirai and Fjuro
  *  https://github.com/NamelessMC/Nameless/
@@ -79,7 +79,7 @@ $language = array(
     'discord_widget_theme' => 'Vzhled Discord widgetu',
     'discord_id_length' => 'Ujistěte se, že ID vašeho Discord serveru je dlouhé 18 znaků.',
     'discord_id_numeric' => 'Ujistěte se, že ID vašeho Discord serveru obsahuje pouze čísla.',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'dark' => 'Tmavý',
     'light' => 'Světlý',
     'google_plus_url' => 'Google Plus URL',
@@ -119,7 +119,7 @@ $language = array(
     'email_preview_popup_message' => 'Klikněte sem pro zobrazení náhledu e-mailu.',
     'email_message_greeting' => 'Pozdrav',
     'email_message_thanks' => 'Poděkování',
-    'email_message_options' => 'Možnosti', 
+    'email_message_options' => 'Možnosti',
     'email_message_subject' => 'Předmět',
     'email_message_message' => 'Zpráva',
     'send_test_email' => 'Odeslat zkušební e-mail',
@@ -170,7 +170,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Hromadná zpráva byla úspěšně odeslána.',
     'emails_mass_message_replacements' => 'Ve vaší e-mailové zprávě můžete použít proměnné. Podporované proměnné: {username}, {sitename}',
     'emails_mass_message_loading' => 'Načítání... Nijak prosím neinteragujte se stránkou. Může to zabrat chvíli.',
-    
+
     // Reactions
     'icon' => 'Ikona',
     'type' => 'Typ',
@@ -216,7 +216,7 @@ $language = array(
     'profile_field_updated_successfully' => 'Profilové pole bylo úspěšně aktualizováno.',
     'profile_field_created_successfully' => 'Profilové pole bylo úspěšně vytvořeno.',
     'profile_field_deleted_successfully' => 'Profilové pole bylo úspěšně odstraněno.',
-    
+
     // Minecraft
     'enable_minecraft_integration' => 'Povolit integraci Minecraftu?',
     'mc_service_status' => 'Stav Minecraftu',
@@ -314,7 +314,7 @@ $language = array(
     'query_errors_purged_successfully' => 'Chyby query byly úspěšně vymazány.',
     'query_error_deleted_successfully' => 'Chyba query byla úspěšně odstraněna.',
     'banner_updated_successfully' => 'Banner byl úspěšně aktualizován. Změny se projeví až za chvíli.',
-    
+
     // Modules
     'modules_installed_successfully' => 'Všechny nové doplňky byly nainstalovány.',
     'enabled' => 'Povoleno',
@@ -331,7 +331,7 @@ $language = array(
     'unable_to_retrieve_modules' => 'Nelze načíst doplňky',
     'module' => 'Doplněk',
     'unable_to_enable_module' => 'Nelze povolit nekompatibilní doplněk.',
-    
+
     // Styles
     'templates' => 'Šablony',
     'panel_templates' => 'Šablony panelů',
@@ -443,8 +443,8 @@ $language = array(
     'force_tfa' => 'Vynutit dvoufaktorové ověřování pro členy skupiny?',
     'force_tfa_warning' => 'Ujistěte se, že víte, co děláte, jinak riskujete uzamčení sebe a všech členů vaší skupiny.',
     'force_tfa_alert' => 'Vaše skupina musí mít zapnuté dvoufaktorové ověřování.',
-    
-    
+
+
     // Permissions
     'select_all' => 'Vybrat vše',
     'deselect_all' => 'Odznačit vše',
@@ -452,7 +452,7 @@ $language = array(
     'can_edit_own_group' => 'Může upravovat oprávnění vlastní skupiny',
     'permissions_updated_successfully' => 'Oprávnění byla úspěšně aktualizována.',
     'cant_edit_this_group' => 'Nelze upravit oprávnění této skupiny!',
-    
+
     // General Admin language
     'task_successful' => 'Akce byla úspěšná!',
     'invalid_action' => 'Neplatná akce.',
@@ -478,7 +478,7 @@ $language = array(
     'all_logs' => 'Všechny protokoly',
     'action' => 'Akce',
     'action_info' => 'Informace o akcích',
-    
+
     // Updates
     'update' => 'Aktualizace',
     'current_version_x' => 'Současná verze: <strong>{x}</strong>', // Don't replaec {x}
