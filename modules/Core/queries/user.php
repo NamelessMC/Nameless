@@ -19,20 +19,20 @@ if(!is_numeric($_GET['id'])){
 	$id = 0;
 
 } else {
-	$user_query = $queries->getWhere('users', array('id', '=', $_GET['id']));
-	if(!count($user_query)){
+	$target_user = new User($_GET['id']);
+	if(!count($target_user->data())){
 		die(json_encode(array('html' => 'User not found')));
 	} else {
 		$user_query = $user_query[0];
 	}
 
-	$username = Output::getClean($user_query->username);
-	$nickname = Output::getClean($user_query->nickname);
-	$profile = URL::build('/profile/' . $username);
-	$avatar = $user->getAvatar($user_query->id, '../', 128);
-	$style = $user->getGroupClass($user_query->id);
-	$groups = $user->getAllGroups($user_query->id, true);
-	$id = Output::getClean($user_query->id);
+	$username = $target_user->getDisplayname(true);
+	$nickname = $target_user->getDisplayname();
+	$profile = $target_user->getProfileURL;
+	$avatar = $target_user->getAvatar('../', 128);
+	$style = $target_user->getGroupClass();
+	$groups = $target_user->getAllGroups(true);
+	$id = Output::getClean($target_user->data()->id);
 }
 
 $smarty->assign(array(

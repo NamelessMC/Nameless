@@ -54,9 +54,9 @@ class OnlineUsersWidget extends WidgetBase {
 		    }
 
 		    if($include_staff){
-			    $online = DB::getInstance()->query('SELECT id, username, nickname, user_title FROM nl2_users WHERE last_online > ?', array(strtotime('-5 minutes')))->results();
+			    $online = DB::getInstance()->query('SELECT id FROM nl2_users WHERE last_online > ?', array(strtotime('-5 minutes')))->results();
 		    } else {
-			    $online = DB::getInstance()->query('SELECT id, username, nickname, user_title FROM nl2_users WHERE last_online > ? AND group_id IN (SELECT id FROM nl2_groups WHERE staff = 0)', array(strtotime('-5 minutes')))->results();
+			    $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 0', array())->results();
 		    }
 
 		    $this->_cache->store('users', $online, 120);
@@ -64,20 +64,19 @@ class OnlineUsersWidget extends WidgetBase {
 
 	    // Generate HTML code for widget
 	    if(count($online)){
-		    $user = new User();
-
 		    $users = array();
 
 		    foreach($online as $item)
+				$online_user = new User();
 			    $users[] = array(
-				    'profile' => URL::build('/profile/' . Output::getClean($item->username)),
-				    'style' => $user->getGroupClass($item->id),
-				    'username' => Output::getClean($item->username),
-				    'nickname' => Output::getClean($item->nickname),
-				    'avatar' => $user->getAvatar($item->id),
-				    'id' => Output::getClean($item->id),
-				    'title' => Output::getClean($item->user_title),
-				    'group' => $user->getGroup($item->id, true)
+				    'profile' => $online_user->getProfileURL,
+				    'style' => $online_user->getGroupClass(),
+				    'username' => $online_user->getDisplayname(true),
+				    'nickname' => $online_user->getDisplayname(),
+				    'avatar' => $online_user->getAvatar(),
+				    'id' => Output::getClean($online_user->data()->id),
+				    'title' => Output::getClean($online_user->data()->user_title),
+				    'group' => $online_user->getMainGroup()->group_html
 			    );
 
 		    $this->_smarty->assign(array(

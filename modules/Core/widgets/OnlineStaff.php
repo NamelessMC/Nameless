@@ -37,27 +37,26 @@ class OnlineStaffWidget extends WidgetBase {
 	    if($this->_cache->isCached('staff'))
 		    $online = $this->_cache->retrieve('staff');
 	    else {
-		    $online = DB::getInstance()->query('SELECT nl2_users.id, nl2_users.username, nl2_users.nickname, nl2_users.user_title, nl2_users.group_id, g.order, g.group_html FROM nl2_users RIGHT JOIN (SELECT nl2_groups.id, nl2_groups.order, nl2_groups.group_html FROM nl2_groups WHERE staff = 1) g ON nl2_users.group_id = g.id WHERE nl2_users.last_online > ' . strtotime('-5 minutes') . ' AND nl2_users.id IS NOT NULL ORDER BY g.order', array())->results();
+		    $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 1', array())->results();
 		    $this->_cache->store('staff', $online, 120);
 	    }
 
 	    // Generate HTML code for widget
 	    if(count($online)){
-		    $user = new User();
-
 		    $staff_members = array();
 
 		    foreach($online as $staff)
+				$staff_user = new User($staff->id);
 			    $staff_members[] = array(
-				    'profile' => URL::build('/profile/' . Output::getClean($staff->username)),
-				    'style' => $user->getGroupClass($staff->id),
-				    'username' => Output::getClean($staff->username),
-				    'nickname' => Output::getClean($staff->nickname),
-				    'avatar' => $user->getAvatar($staff->id),
-				    'id' => Output::getClean($staff->id),
-				    'title' => Output::getClean($staff->user_title),
-					'group' => $staff->group_html,
-					'group_order' => $staff->order
+				    'profile' => $staff_user->getProfileURL,
+				    'style' => $staff_user->getGroupClass(),
+				    'username' => $staff_user->getDisplayname(true),
+				    'nickname' => $staff_user->getDisplayname(),
+				    'avatar' => $staff_user->getAvatar(),
+				    'id' => Output::getClean($staff_user->data()->id),
+				    'title' => Output::getClean($staff_user->data()->user_title),
+					'group' => $staff_user->getMainGroup()->group_html,
+					'group_order' => $staff_user->getMainGroup()->order
 				);
 
 		    $this->_smarty->assign(array(
