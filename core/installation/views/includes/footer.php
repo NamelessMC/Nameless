@@ -5,7 +5,7 @@
                         <h4 class="ui inverted header">
                             Copyright &copy; NamelessMC <?php echo date('Y'); ?>
                             <div class="sub header">
-                                Thanks to all <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">
+                                Thanks to all <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">
                                 NamelessMC contributors</a> since 2014
                             </div>
                         </h4>
