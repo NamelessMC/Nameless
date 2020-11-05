@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  Additions by Aberdeener
- * 
+ *
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -29,7 +29,7 @@ $api = new Nameless2API($route, $language, $endpoints);
 
 class Nameless2API {
 
-    private 
+    private
         $_validated = false,
         $_db,
         $_language,
@@ -62,22 +62,27 @@ class Nameless2API {
             }
 
             // Set language
-            if (!isset($api_language) || empty($api_language)) $this->throwError(2, 'Invalid language file');
+            if (!isset($api_language) || empty($api_language)) {
+                $this->throwError(2, 'Invalid language file');
+            }
+
             $this->_language = $api_language;
 
-            if (isset($api_key)) {
-                // API key specified
-                $this->_validated = true;
-                $this->_db = DB::getInstance();
-                $this->_endpoints = $endpoints;
-                
-                $request = explode('/', $route);
-                $request = $request[count($request) - 1];
+            if (!isset($api_key)) {
+                $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
+            }
 
-                if ($this->_endpoints->handle($request, $this) == false) {
-                    $this->throwError(3, $this->_language->get('api', 'invalid_api_method'));
-                }   
-            } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
+            // API key specified
+            $this->_validated = true;
+            $this->_db = DB::getInstance();
+            $this->_endpoints = $endpoints;
+
+            $request = explode('/', $route);
+            $request = $request[count($request) - 1];
+
+            if (!$this->_endpoints->handle($request, $this)) {
+                $this->throwError(3, $this->_language->get('api', 'invalid_api_method'));
+            }
         } catch(Exception $e) {
             $this->throwError($e->getMessage());
         }
@@ -125,7 +130,7 @@ class Nameless2API {
         $arr['error'] = false;
         die(json_encode($arr, JSON_PRETTY_PRINT));
     }
-    
+
     public function validateParams($input, $required_fields, $type = 'post') {
         if (!isset($input) || empty($input)) {
             $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'));
