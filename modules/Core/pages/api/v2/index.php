@@ -50,6 +50,7 @@ class Nameless2API {
 
     public function __construct($route, $api_language, $endpoints) {
         try {
+            $this->_db = DB::getInstance();
             $explode = explode('/', $route);
 
             for ($i = count($explode) - 1; $i >= 0; $i--) {
@@ -68,7 +69,6 @@ class Nameless2API {
             if (isset($api_key)) {
                 // API key specified
                 $this->_validated = true;
-                $this->_db = DB::getInstance();
                 $this->_endpoints = $endpoints;
                 
                 $request = explode('/', $route);
