@@ -113,7 +113,7 @@ class User {
 	}
 
 	// Get username from ID
-	/*public function IdToName($id = null){
+	public function IdToName($id = null){
 		if($id){
 			$data = $this->_db->get('users', array('id', '=', $id));
 
@@ -136,7 +136,7 @@ class User {
 			}
 		}
 		return false;
-	}*/
+	}
 
 	// Log the user in
 	public function login($username = null, $password = null, $remember = false, $method = 'email') {
@@ -290,13 +290,14 @@ class User {
 	
 	// Get all of a user's groups id.
     public function getAllGroupIds() {
-        $groups = array();
-		if(count($this->_groups)) {
+		if($this->_isLoggedIn && count($this->_groups)) {
+			$groups = array();
 			foreach($this->_groups as $group){
 				$groups[$group->id] = $group->id;
 			}
+			return $groups;
 		}
-        return $groups;
+		return array(0);
     }
 
 	// Get a user's signature, by user ID
@@ -497,18 +498,26 @@ class User {
 	
 	// Add a group to the user
 	public function addGroup($group_id){
-		$this->_db->createQuery('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`) VALUES (?, ?)', array(
-			$this->data()->id,
-			$group_id
-		));
+		if(!array_key_exists($group_id, $this->_groups)) {
+			$this->_db->createQuery('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`) VALUES (?, ?)', array(
+				$this->data()->id,
+				$group_id
+			));
+		}
 	}
 	
 	// Remove a group from the user
 	public function removeGroup($group_id){
-		$this->_db->createQuery('DELETE FROM `nl2_users_groups` WHERE `user_id` = ? AND `group_id` = ?', array(
-			$this->data()->id,
-			$group_id
-		));
+		if(array_key_exists($group_id, $this->_groups)) {
+			if($group->id == 2 && $this->data()->id == 1) {
+				return false;
+			}
+									
+			$this->_db->createQuery('DELETE FROM `nl2_users_groups` WHERE `user_id` = ? AND `group_id` = ?', array(
+				$this->data()->id,
+				$group_id
+			));
+		}
 	}
 
 	// Returns true if the current user is logged in
@@ -539,7 +548,7 @@ class User {
 	}
 
 	// Return an ID from a username
-	/*public function NameToId($name = null){
+	public function NameToId($name = null){
 		if($name){
 			$data = $this->_db->get('users', array('username', '=', $name));
 
@@ -562,7 +571,7 @@ class User {
             }
         }
         return false;
-    }*/
+    }
 
 	// Get a list of PMs a user has access to
 	public function listPMs($user_id = null){
