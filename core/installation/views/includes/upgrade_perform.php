@@ -785,6 +785,10 @@ case 8:
         'is_default' => 0
     ));
     $queries->create('languages', array(
+        'name' => 'French',
+        'is_default' => 0
+    ));
+    $queries->create('languages', array(
         'name' => 'German',
         'is_default' => 0
     ));

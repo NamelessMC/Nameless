@@ -160,6 +160,11 @@ $queries->create('languages', array(
 ));
 
 $queries->create('languages', array(
+	'name' => 'French',
+	'is_default' => (Session::get('default_language') == 'French') ? 1 : 0
+));
+
+$queries->create('languages', array(
 	'name' => 'Dutch',
 	'is_default' => (Session::get('default_language') == 'Dutch') ? 1 : 0
 ));
