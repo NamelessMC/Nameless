@@ -15,23 +15,34 @@ class UserInfoEndpoint extends EndpointBase {
 
     public function execute(Nameless2API $api) {
         if ($api->isValidated()) {
-            if (isset($_GET['id'])) $query = $_GET['id'];
-            else if (isset($_GET['username'])) $query = $_GET['username'];
-            else if (isset($_GET['uuid'])) $query = str_replace('-', '', $_GET['uuid']);
-            else $api->throwError(26, $api->getLanguage()->get('api', 'invalid_get_contents'));
+			$query = 'SELECT nl2_users.id, nl2_users.username, nl2_users.language_id, nl2_languages.name as `language`, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.joined as registered_timestamp, nl2_users.last_online as last_online_timestamp, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title FROM nl2_users LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id';
+			$where = '';
+			$params = array();
+
+            if (isset($_GET['id'])) {
+				$where .= ' WHERE nl2_users.id = ?';
+				array_push($params, $_GET['id']);
+            } else if (isset($_GET['username'])) {
+				$where .= ' WHERE nl2_users.username = ?';
+				array_push($params, $_GET['username']);
+            } else if (isset($_GET['uuid'])) {
+				$where .= ' WHERE nl2_users.uuid = ?';
+				array_push($params, $_GET['uuid']);
+			} else $api->throwError(26, $api->getLanguage()->get('api', 'invalid_get_contents'));
 
             // Ensure the user exists
-            $user = $api->getDb()->query('SELECT nl2_users.id, nl2_users.username, nl2_users.language_id, nl2_languages.name as `language`, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.group_id, nl2_users.joined as registered, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title, nl2_groups.name as group_name FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id WHERE nl2_users.id = ? OR nl2_users.username = ? OR nl2_users.uuid = ?', array($query, $query, $query));
+            $user = $api->getDb()->query($query . $where, $params);
             if (!$user->count()) $api->returnArray(array('exists' => false));
 
             $user = $user->first();
             $user->exists = true;
             $user->id = intval($user->id);
-            $user->group_id = intval($user->group_id);
-            $user->registered = intval($user->registered);
+            $user->registered_timestamp = intval($user->registered_timestamp);
+            $user->last_online_timestamp = intval($user->last_online_timestamp);
             $user->banned = (bool) $user->banned;
             $user->validated = (bool) $user->validated;
 
+			// Get custom profile fields
             $custom_profile_fields = $api->getDb()->query('SELECT fields.id, fields.name, fields.type, fields.public, fields.required, fields.description, pf_values.value FROM nl2_users_profile_fields pf_values LEFT JOIN nl2_profile_fields fields ON pf_values.field_id = fields.id WHERE pf_values.user_id = ?', array($user->id));
 
             foreach($custom_profile_fields->results() as $profile_field) {
@@ -42,8 +53,22 @@ class UserInfoEndpoint extends EndpointBase {
                 $user->profile_fields[$profile_field->id]['description'] = $profile_field->description;
                 $user->profile_fields[$profile_field->id]['value'] = $profile_field->value;
             }
+			
+			// Get the groups the user has
+            $groups = $api->getDb()->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id=nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', array($user->id))->results();
+			
+			$groups_array = array();
+            foreach ($groups as $group) {
+				$groups_array[] = array(
+					'id' => intval($group->id),
+					'name' => $group->name,
+					'staff' => (bool) $group->staff,
+					'order' => intval($group->order)
+				);
+            }
+			$user->groups = $groups_array;
 
-            $api->returnArray(array('exists' => true, $user));
+            $api->returnArray((array)$user);
         }
     }
 }
