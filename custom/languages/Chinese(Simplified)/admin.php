@@ -7,8 +7,8 @@
  *  License: MIT
  *
  *  Chinese Simplified Language - Admin
- *  Translation(Chinese Simplified) by ahdg,lian20,LingDong,NEWLY_1129514,Dreta (yangyang200)
- *  Translation progress(v2-pr8) : 99.9 %
+ *  Translation(Chinese Simplified) by ahdg,lian20,LingDong,NEWLY_1129514,Dreta
+ *  Translation progress(v2-pr8) : 100%
  */
 
 $language = array(
@@ -81,7 +81,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget 主题',
     'discord_id_length' => '请确保您的 Discord ID 长 18 位。',
     'discord_id_numeric' => '请确保您的 Discord ID 只包含数字。',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
+    'discord_invite_info' => '您可点击<a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">此处</a>来将 Nameless Link 机器人邀请至您的 Discord 服务器. 随后，您需要向机器人发送包含 <code>!apiurl</code> 命令的消息来链接您的网站。或者，您也可以<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">自己部署机器人</a>。',
     'dark' => '暗调',
     'light' => '亮色',
     'google_plus_url' => 'Google Plus 链接 (URL)',
@@ -338,7 +338,7 @@ $language = array(
     'panel_templates' => '面板模板',
     'view_all_panel_templates' => '查看所有面板模版',
     'template_outdated' => '我们检测到您的模板适用于 Nameless 版本 {x}, 但你正在运行 Nameless 版本 {y}', // Don't replace "{x}" or "{y}"
-    'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
+    'template_not_supported' => '从 NamelessMC 2.0.0-pr8 开始，默认模板不再被支持。为了获得更好的体验，请您使用受支持的模板。',
     'active' => '应用中的',
     'deactivate' => '停用',
     'activate' => '启用',
