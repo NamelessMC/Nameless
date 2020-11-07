@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -10,7 +10,7 @@
  */
 
 /*
- *	Translation by BukkitTNT
+ *  Translation by BukkitTNT
  *
  *  http://BukkitTNT.de
  *  http://twitter.com/BukkitTNT
@@ -101,8 +101,8 @@ $language = array(
     'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
     'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
     'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
-	'started_by_x' => 'Started by {x}', // Don't replace {x}
-	'sticky_topics' => 'Sticky Topics',
+    'started_by_x' => 'Started by {x}', // Don't replace {x}
+    'sticky_topics' => 'Sticky Topics',
 
     // Homepage
     'latest_announcements' => 'Neueste Ankündigungen',
@@ -205,11 +205,11 @@ $language = array(
     'new_topic_text' => 'Topic created in {x} by {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
-	// Panel statistics
-	'recent_topics' => 'Recent Topics',
-	'recent_topics_statistic_icon' => '<i class="far fa-comment"></i>',
-	'recent_posts' => 'Recent Posts',
-	'recent_posts_statistic_icon' => '<i class="fas fa-comments"></i>',
-	'topics_title' => 'Topics',
-	'posts_title' => 'Posts',
+    // Panel statistics
+    'recent_topics' => 'Recent Topics',
+    'recent_topics_statistic_icon' => '<i class="far fa-comment"></i>',
+    'recent_posts' => 'Recent Posts',
+    'recent_posts_statistic_icon' => '<i class="fas fa-comments"></i>',
+    'topics_title' => 'Topics',
+    'posts_title' => 'Posts',
 );

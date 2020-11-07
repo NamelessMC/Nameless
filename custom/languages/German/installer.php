@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -87,20 +87,20 @@ $language = array(
     'credits' => 'Credits',
     'credits_message' => 'Ein großer Dank an alle <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC Mitwirkenden</a> die seid 2014 mitgeholfen haben.',
 
-	'step_home' => 'Home',
-	'step_requirements' => 'Requirements',
-	'step_general_config' => 'General Configuration',
-	'step_database_config' => 'Database Configuration',
-	'step_site_config' => 'Site Configuration',
-	'step_admin_account' => 'Admin Account',
-	'step_conversion' => 'Conversion',
-	'step_finish' => 'Finish',
+    'step_home' => 'Home',
+    'step_requirements' => 'Requirements',
+    'step_general_config' => 'General Configuration',
+    'step_database_config' => 'Database Configuration',
+    'step_site_config' => 'Site Configuration',
+    'step_admin_account' => 'Admin Account',
+    'step_conversion' => 'Conversion',
+    'step_finish' => 'Finish',
 
-	'general_configuration' => 'General Configuration',
-	'reload' => 'Reload',
-	'reload_page' => 'Reload page',
-	'no_converters_available' => 'There are no converters available.',
-	'config_not_writable' => 'The config file is not writable.',
+    'general_configuration' => 'General Configuration',
+    'reload' => 'Reload',
+    'reload_page' => 'Reload page',
+    'no_converters_available' => 'There are no converters available.',
+    'config_not_writable' => 'The config file is not writable.',
 
-	'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
 );

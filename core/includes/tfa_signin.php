@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -8,29 +8,31 @@
  *
  *  Two Factor Auth signin page
  */
- 
-// Two Factor Auth signin
-if(isset($_POST['username']))
-    $_SESSION['username'] = $_POST['username'];
 
-else if(isset($_POST['email']))
+// Two Factor Auth signin
+if (isset($_POST['username'])) {
+    $_SESSION['username'] = $_POST['username'];
+} else if (isset($_POST['email'])) {
     $_SESSION['email'] = $_POST['email'];
+}
 
 $_SESSION['password'] = $_POST['password'];
 $_SESSION['remember'] = $_POST['remember'];
 $_SESSION['tfa'] = true;
 
-if(Session::exists('tfa_signin')){
-	$smarty->assign('ERROR', Session::flash('tfa_signin'));
+if (Session::exists('tfa_signin')) {
+    $smarty->assign('ERROR', Session::flash('tfa_signin'));
 }
 
 // Smarty variables
-$smarty->assign(array(
-	'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
-	'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
-	'TOKEN' => Token::get(),
-	'SUBMIT' => $language->get('general', 'submit')
-));
+$smarty->assign(
+    array(
+        'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
+        'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
+        'TOKEN' => Token::get(),
+        'SUBMIT' => $language->get('general', 'submit')
+    )
+);
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);

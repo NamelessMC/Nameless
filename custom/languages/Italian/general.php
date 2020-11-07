@@ -1,6 +1,6 @@
 <?php 
 /*
- *	Made by alsoGAMER
+ *  Made by alsoGAMER
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -10,106 +10,106 @@
  */
 
 $language = array(
-	/*
-	 *  General terms
-	 */
-	'help' => 'Help',
-	'submit' => 'Invia',
-	'register' => 'Registrazione',
-	'already_registered' => 'Already Registered?',
-	'custom_fields' => 'Custom Fields',
-	'not_registered_yet' => 'Not registered yet?',
-	'sign_in' => 'Accesso',
-	'log_out' => 'Esci',
-	'profile' => 'Profilo',
-	'invalid_token' => 'Token invalido, per favore riprova di nuovo.',
-	'close' => 'Close',
-	'back' => 'Indietro',
-	'warning' => 'Avvertimento',
-	'date' => 'Data',
-	'search' => 'Cerca',
-	'edit' => 'Modifica',
-	'next' => 'Successivo',
-	'previous' => 'Precedente',
-	'confirm_cancel' => 'Sei sicuro di voler annullare?',
-	'confirm_delete' => 'Conferma eliminazione',
-	'confirm_deletion' => 'Sei sicuro di volerlo eliminare?',
-	'cancel' => 'Annulla',
-	'delete' => 'Elimina',
-	'none' => 'Nessuna',
-	'view' => 'View',
-	'change' => 'Cambia',
-	'remove' => 'Rimuovi',
-	'info' => 'Info',
-	'confirm' => 'Conferma',
-	'actions' => 'Azioni',
-	'alerts' => 'Avvisi',
-	'view_alerts' => 'Visualizza avvisi',
-	'no_alerts' => 'Nessun avviso',
-	'x_new_alerts' => 'Hai {x} nuovi avvisi.', // Don't replace {x}
-	'messages' => 'Messaggi',
-	'view_messages' => 'Visualizza messaggi',
-	'no_messages' => 'Nessun messaggio',
-	'x_new_messages' => 'Hai {x} nuovi messaggi.', // Don't replace {x}
-	'loading' => 'Caricamento...',
-	'report' => 'Segnala',
-	'page_loaded_in' => 'Pagina caricata in {x}s', // Don't replace {x}, time unit is seconds
-	'page_x' => 'Pagina {x}',
-	'browse' => 'Esplora',
-	'bypass' => 'Aggira',
-	'yes' => 'Si',
-	'no' => 'No',
-	'content' => 'Contenuto',
-	'full_content' => 'Contenuto Completo',
-	'url' => 'URL',
-	'success' => 'Successo',
-	'error' => 'Errore',
-	'are_you_sure' => 'Sei sicuro?',
-	'spoiler' => 'Spoiler',
-	'invalid_timezone' => 'That timezone is invalid',
+    /*
+     *  General terms
+     */
+    'help' => 'Help',
+    'submit' => 'Invia',
+    'register' => 'Registrazione',
+    'already_registered' => 'Already Registered?',
+    'custom_fields' => 'Custom Fields',
+    'not_registered_yet' => 'Not registered yet?',
+    'sign_in' => 'Accesso',
+    'log_out' => 'Esci',
+    'profile' => 'Profilo',
+    'invalid_token' => 'Token invalido, per favore riprova di nuovo.',
+    'close' => 'Close',
+    'back' => 'Indietro',
+    'warning' => 'Avvertimento',
+    'date' => 'Data',
+    'search' => 'Cerca',
+    'edit' => 'Modifica',
+    'next' => 'Successivo',
+    'previous' => 'Precedente',
+    'confirm_cancel' => 'Sei sicuro di voler annullare?',
+    'confirm_delete' => 'Conferma eliminazione',
+    'confirm_deletion' => 'Sei sicuro di volerlo eliminare?',
+    'cancel' => 'Annulla',
+    'delete' => 'Elimina',
+    'none' => 'Nessuna',
+    'view' => 'View',
+    'change' => 'Cambia',
+    'remove' => 'Rimuovi',
+    'info' => 'Info',
+    'confirm' => 'Conferma',
+    'actions' => 'Azioni',
+    'alerts' => 'Avvisi',
+    'view_alerts' => 'Visualizza avvisi',
+    'no_alerts' => 'Nessun avviso',
+    'x_new_alerts' => 'Hai {x} nuovi avvisi.', // Don't replace {x}
+    'messages' => 'Messaggi',
+    'view_messages' => 'Visualizza messaggi',
+    'no_messages' => 'Nessun messaggio',
+    'x_new_messages' => 'Hai {x} nuovi messaggi.', // Don't replace {x}
+    'loading' => 'Caricamento...',
+    'report' => 'Segnala',
+    'page_loaded_in' => 'Pagina caricata in {x}s', // Don't replace {x}, time unit is seconds
+    'page_x' => 'Pagina {x}',
+    'browse' => 'Esplora',
+    'bypass' => 'Aggira',
+    'yes' => 'Si',
+    'no' => 'No',
+    'content' => 'Contenuto',
+    'full_content' => 'Contenuto Completo',
+    'url' => 'URL',
+    'success' => 'Successo',
+    'error' => 'Errore',
+    'are_you_sure' => 'Sei sicuro?',
+    'spoiler' => 'Spoiler',
+    'invalid_timezone' => 'That timezone is invalid',
 
-	/*
-	 *  Contact form
-	 */
-	'contact' => 'Contattaci',
-	'message' => 'Messaggio',
-	'email_address' => 'Indirizzo Email',
-	'contact_email_subject' => 'Nuova richiesta di modulo di contatto',
-	'contact_message_failed' => 'Impossibile inviare il messaggio. Assicurati di aver inserito un messaggio tra 10 e 5000 caratteri.',
-	'contact_message_email' => "L'email fornita non è valida.",
-	'contact_message_sent' => 'Messaggio inviato con successo.',
-	'contact_message_limit' => "È possibile inviare solo un messaggio all'ora. Puoi inviare un messaggio tra {x} minuti.", // Don't replace {x}
-	
-	
-	/* 
-	 *  Navbar
-	 */
-	'home' => 'Home',
-	'more' => 'Altro',
-	'status' => 'Stato',
-	
-	/*
-	 *  Homepage
-	 */
-	'social' => 'Social',
-	
-	
-	/*
-	 *  Help dialogues
-	 */
-	'markdown_help' => 'Puoi formattare il tuo post utilizzando Markdown. Per ulteriori informazioni, consulta <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">qui</a>.',
+    /*
+     *  Contact form
+     */
+    'contact' => 'Contattaci',
+    'message' => 'Messaggio',
+    'email_address' => 'Indirizzo Email',
+    'contact_email_subject' => 'Nuova richiesta di modulo di contatto',
+    'contact_message_failed' => 'Impossibile inviare il messaggio. Assicurati di aver inserito un messaggio tra 10 e 5000 caratteri.',
+    'contact_message_email' => "L'email fornita non è valida.",
+    'contact_message_sent' => 'Messaggio inviato con successo.',
+    'contact_message_limit' => "È possibile inviare solo un messaggio all'ora. Puoi inviare un messaggio tra {x} minuti.", // Don't replace {x}
+    
+    
+    /* 
+     *  Navbar
+     */
+    'home' => 'Home',
+    'more' => 'Altro',
+    'status' => 'Stato',
+    
+    /*
+     *  Homepage
+     */
+    'social' => 'Social',
+    
+    
+    /*
+     *  Help dialogues
+     */
+    'markdown_help' => 'Puoi formattare il tuo post utilizzando Markdown. Per ulteriori informazioni, consulta <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">qui</a>.',
 
-	/*
-	 *  Server query
-	 */
-	'online' => 'Online',
-	'offline' => 'Offline',
-	'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-	'ping' => 'Ping: {x}', // Don't replace {x}
-	'version' => 'Versione: {x}', // Don't replace {x}
-	'currently_1_player_online' => "Attualmente c'è 1 giocatore online.",
-	'currently_x_players_online' => 'Al momento ci sono <strong>{x}</strong> giocatori online.', // Don't replace {x}
-	'server_offline' => 'Il server è attualmente offline.',
+    /*
+     *  Server query
+     */
+    'online' => 'Online',
+    'offline' => 'Offline',
+    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
+    'ping' => 'Ping: {x}', // Don't replace {x}
+    'version' => 'Versione: {x}', // Don't replace {x}
+    'currently_1_player_online' => "Attualmente c'è 1 giocatore online.",
+    'currently_x_players_online' => 'Al momento ci sono <strong>{x}</strong> giocatori online.', // Don't replace {x}
+    'server_offline' => 'Il server è attualmente offline.',
     'connect_with_ip_x' => "Connettiti ora usando l'IP {x}", // Don't replace {x}
     'click_to_copy_tooltip' => 'Clicca per copiare',
     'ip' => 'IP',
@@ -119,11 +119,11 @@ $language = array(
     'no_players_online' => 'Non ci sono giocatori online.',
     'and_x_more' => 'e {x} altri', // Don't replace {x}
 
-	/*
-	 *  Cookie notice
-	 */
-	'cookie_notice' => 'Questo sito web utilizza i cookie per migliorare la tua esperienza di navigazione. Registrandoti sul nostro sito web o chiudendo questo avviso accetti il ​​loro utilizzo.',
-	'cookie_agree' => 'Accetto',
+    /*
+     *  Cookie notice
+     */
+    'cookie_notice' => 'Questo sito web utilizza i cookie per migliorare la tua esperienza di navigazione. Registrandoti sul nostro sito web o chiudendo questo avviso accetti il ​​loro utilizzo.',
+    'cookie_agree' => 'Accetto',
 
     /*
      *  Widgets
@@ -142,17 +142,17 @@ $language = array(
     'total_online_users' => 'Totale utenti online: {x}',
     'discord_widget_disabled' => "Il widget è disabilitato per il server Discord specificato. Vai alla scheda 'Widget' nelle impostazioni del server Discord e assicurati che il widget Discord sia abilitato e che l'ID sia corretto.",
     'online_guests' => 'Online Guests',
-	'total_online' => 'Total Online', // this is Online Users + Online Guests
-	'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
-	'server_status' => 'Server Status',
+    'total_online' => 'Total Online', // this is Online Users + Online Guests
+    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+    'server_status' => 'Server Status',
 
     /*
      *  Privacy policy
      */
     'privacy_policy' => 'Privacy Policy',
 
-	/*
-	 *  Custom page redirect
-	 */
-	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+    /*
+     *  Custom page redirect
+     */
+    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

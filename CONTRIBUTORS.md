@@ -25,3 +25,4 @@ Unfortunately it's only possible to view master branch contributions. Once the v
 - Spanish: [Ariuw](https://github.com/Ariuw), [iMaykolRD_](https://namelessmc.com/profile/iMaykolRD_/), TheSuperSkills, [zJerino](https://namelessmc.com/profile/zJerino/)
 - Swedish: [IsS127](https://github.com/IsS127)
 - Turkish: xOrcun
+- French: [WhiteSkyAngel](https://github.com/WhiteSkyAngel)

@@ -1,6 +1,6 @@
 <?php 
 /*
- *	Made by TheSuperSkills (Edited by Ariuw and iMaykolRD_)
+ *  Made by TheSuperSkills (Edited by Ariuw and iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *

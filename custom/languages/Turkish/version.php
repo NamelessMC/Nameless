@@ -6,7 +6,7 @@
  *  License: MIT
  *
  *  Turkish Language - Language version
- * 	Turkish translation by xOrcun
+ *  Turkish translation by xOrcun
  */
 
 // Which version of NamelessMC is this language file updated to?

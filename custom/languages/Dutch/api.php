@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -43,6 +43,7 @@ $language = array(
     'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'Discord integration is disabled.',
     'unable_to_set_discord_id' => 'Kan geen Discord ID instellen.',
+    'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
 
     // Success messages
     'finish_registration_link' => 'Klik alstublieft op de volgende link om de registratie te voltooien:',
@@ -53,5 +54,6 @@ $language = array(
     'username_updated' => 'Gebruikersnaam succesvol bijgewerkt',
     'server_info_updated' => 'Server informatie succesvol bijgwerkt',
     'account_validated' => 'Account succesvol gevalideerd',
-    'discord_id_set' => 'Discord ID met succes ingesteld'
+    'discord_id_set' => 'Discord ID met succes ingesteld',
+    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
 );

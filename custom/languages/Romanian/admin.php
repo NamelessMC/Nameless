@@ -84,7 +84,7 @@ $language = array(
     'discord_widget_theme' => 'Temă Widget Discord',
     'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
     'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'dark' => 'Închisă',
     'light' => 'Deschisă',
     'google_plus_url' => 'Adresă Google Plus',
@@ -175,7 +175,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
-	
+
     // Reactions
     'icon' => 'Iconiță',
     'type' => 'Tip',
@@ -339,6 +339,7 @@ $language = array(
     'panel_templates' => 'Șabloane panou control',
     'view_all_panel_templates' => 'View all panel templates',
     'template_outdated' => 'Am detectat că șablonul dvs. este destinat versiunii NamelessMC {x}, dar executați versiunea NamelessMC {y}.', // Don't replace "{x}" or "{y}"
+    'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
     'active' => 'Activ',
     'deactivate' => 'Dezactivare',
     'activate' => 'Activare',
@@ -375,12 +376,12 @@ $language = array(
     'views_x' => 'Vizualizări: {x}',
     'rating_x' => 'Evaluare: {x}',
     'editing_template_x' => 'Editare șablon: {x}', // Don't replace {x}
-	'editing_template_file_in_template' => 'Editare fișier {x} din șablonul {y}', // Don't replace {x} or {y}
+    'editing_template_file_in_template' => 'Editare fișier {x} din șablonul {y}', // Don't replace {x} or {y}
     'cant_write_to_template' => 'Nu se poate scrie fișierul! Verificați permisiunile fișierelor.',
-	'unable_to_delete_template' => 'Nu se poate șterge complet șablonul. Verificați permisiunile fișierelor.',
-	'background_reset_successfully' => 'Imaginea de fundal a fost resetată cu succes.',
-	'background_updated_successfully' => 'Imaginea de fundal a fost actualizată cu succes.',
-	'unable_to_enable_template' => 'Șabloanele incompatibile nu pot fi activate.',
+    'unable_to_delete_template' => 'Nu se poate șterge complet șablonul. Verificați permisiunile fișierelor.',
+    'background_reset_successfully' => 'Imaginea de fundal a fost resetată cu succes.',
+    'background_updated_successfully' => 'Imaginea de fundal a fost actualizată cu succes.',
+    'unable_to_enable_template' => 'Șabloanele incompatibile nu pot fi activate.',
     'background_image_info' => 'Please note that this option may not be compatible with most templates.',
 
     // Users & groups
@@ -430,16 +431,16 @@ $language = array(
     'default_group' => 'Grupul este grupul implicit pentru utilizatorii noi?',
     'user_id' => 'ID utilizator',
     'uuid' => 'UUID',
-	'group_order' => 'Număr de ordine',
-	'group_created_successfully' => 'Grupul a fost creat cu succes.',
-	'group_updated_successfully' => 'Grupul a fost actualizat cu succes.',
-	'group_deleted_successfully' => 'Grupul a fost șters cu succes.',
-	'unable_to_delete_group' => 'Nu se poate șterge un grup prestabilit sau un grup care poate vedea StaffCP. Actualizați mai întâi setările grupului!',
-	'can_view_staffcp' => 'Grupul poate vizualiza StaffCP?',
-	'user' => 'Utilizator',
-	'user_validated_successfully' => 'Utilizatorul a fost validat cu succes.',
-	'user_updated_successfully' => 'Utilizatorul a fost actualizat cu succes.',
-	'editing_user_x' => 'Editare utilizator: {x}', // Don't replace {x}
+    'group_order' => 'Număr de ordine',
+    'group_created_successfully' => 'Grupul a fost creat cu succes.',
+    'group_updated_successfully' => 'Grupul a fost actualizat cu succes.',
+    'group_deleted_successfully' => 'Grupul a fost șters cu succes.',
+    'unable_to_delete_group' => 'Nu se poate șterge un grup prestabilit sau un grup care poate vedea StaffCP. Actualizați mai întâi setările grupului!',
+    'can_view_staffcp' => 'Grupul poate vizualiza StaffCP?',
+    'user' => 'Utilizator',
+    'user_validated_successfully' => 'Utilizatorul a fost validat cu succes.',
+    'user_updated_successfully' => 'Utilizatorul a fost actualizat cu succes.',
+    'editing_user_x' => 'Editare utilizator: {x}', // Don't replace {x}
     'details' => 'Detalii',
     'force_tfa' => 'Force Two Factor Authentication for group members?',
 
@@ -604,13 +605,13 @@ $language = array(
     'log_file_not_found' => 'Fișierul jurnalului nu a fost găsit.',
     'log_purged_successfully' => 'Jurnalul a fost curățat cu succes.',
 
-	// Hooks
-	'hooks' => 'Webhooks',
-	'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
-	'new_hook' => 'New Hook',
-	'creating_new_hook' => 'Creating New Webhook',
-	'editing_hook' => 'Editing Webhook',
-	'delete_hook' => 'Are you sure you want to delete this hook?',
+    // Hooks
+    'hooks' => 'Webhooks',
+    'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
+    'new_hook' => 'New Hook',
+    'creating_new_hook' => 'Creating New Webhook',
+    'editing_hook' => 'Editing Webhook',
+    'delete_hook' => 'Are you sure you want to delete this hook?',
     'hook_deleted' => 'Hook deleted successfully.',
     'hook_name' => 'Webhook Name',
     'hook_created' => 'Hook created successfully.',
@@ -621,7 +622,7 @@ $language = array(
     'hook_events' => 'Events to trigger this webhook',
     'invalid_hook_url' => 'Invalid Webhook URL',
     'invalid_hook_name' => 'Invalid Webhook name',
-	'invalid_hook_events' => 'You must select at least 1 event',
+    'invalid_hook_events' => 'You must select at least 1 event',
     'register_hook_info' => 'Înregistrare cont utilizator',
     'validate_hook_info' => 'Validare cont utilizator',
     'delete_hook_info' => 'Ştergere utilizator',
@@ -702,8 +703,6 @@ $language = array(
     'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',
     'test_bot_url' => 'Test Bot URL',
     'discord_bot_url_valid' => 'Your Bot URL is valid.',
-    'discord_bot_url_backup' => 'Discord Bot URL (Backup)',
-    'discord_bot_url_backup_info' => 'A URL which points to a backup/second instance of the NamelessMC bot incase the first option fails. Only change this value if you know what you are doing!',
     'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?'
 
 );

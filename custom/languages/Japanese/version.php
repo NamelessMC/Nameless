@@ -1,11 +1,13 @@
 <?php 
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
- *  Translation by SimplyRin( @SimplyRin_, https://www.simplyrin.net )
- *  Additional translation by Mari0914( @Mari0914_Main, https://mari0914.japanminigame.net )
+ *  Translator
+ *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
+ *  - Mari0914( @Mari0914_Main, https://mari0914.japanminigame.net )
+ *  - snake( @ViaSnake, https://github.com/ViaSnake )
  *
  *  License: MIT
  *
@@ -13,5 +15,5 @@
  */
 
 // Which version of NamelessMC is this language file updated to?
-$language_version = '2.0.0-pr5';
+$language_version = '2.0.0-pr8';
 $language_html = 'ja';

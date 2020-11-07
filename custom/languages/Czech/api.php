@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -42,7 +42,8 @@ $language = array(
     'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'Integrace Discordu je zakázána.',
     'unable_to_set_discord_id' => 'Nepodařilo se nastavit Discord ID.',
-    
+    'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
+
     // Success messages
     'finish_registration_link' => 'Klikněte na tento odkaz pro dokončení registrace:',
     'finish_registration_email' => 'Zkontrolujte email pro dokončení registrace.',
@@ -51,6 +52,7 @@ $language = array(
     'new_private_message_from' => 'Nová soukromá zpráva od uživatele {x}', // Don't replace {x}
     'username_updated' => 'Jméno úspěšně aktualizováno',
     'server_info_updated' => 'Informace o serveru aktualizovány',
-	'account_validated' => 'Účet úspěšně ověřen.',
-    'discord_id_set' => 'Discord ID úspěšně nastaveno'
+    'account_validated' => 'Účet úspěšně ověřen.',
+    'discord_id_set' => 'Discord ID úspěšně nastaveno',
+    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
 );

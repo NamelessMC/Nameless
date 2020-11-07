@@ -159,6 +159,11 @@ $queries->create('languages', array(
 ));
 
 $queries->create('languages', array(
+	'name' => 'French',
+	'is_default' => (Session::get('default_language') == 'French') ? 1 : 0
+));
+
+$queries->create('languages', array(
 	'name' => 'Dutch',
 	'is_default' => (Session::get('default_language') == 'Dutch') ? 1 : 0
 ));
@@ -421,11 +426,6 @@ $queries->create('settings', array(
 ));
 
 $queries->create('settings', array(
-	'name' => 'discord_bot_url_backup',
-	'value' => 'http://bot-2.namelessmc.com'
-));
-
-$queries->create('settings', array(
 	'name' => 'discord_integration',
 	'value' => 0
 ));
@@ -622,12 +622,6 @@ $queries->create('settings', array(
 
 // Templates
 $queries->create('templates', array(
-	'name' => 'Default',
-	'enabled' => 1,
-	'is_default' => 0
-));
-
-$queries->create('templates', array(
 	'name' => 'DefaultRevamp',
 	'enabled' => 1,
 	'is_default' => 1
@@ -669,7 +663,8 @@ $cache->store('enabled', array(
 	'Statistics' => 1
 ));
 
-$config_path = Config::get('core/path');
+$config_path = $conf['core']['path'];
+$config_path = ($config_path ? '/' . trim($config_path, '/') : '');
 
 $cache->setCache('backgroundcache');
-$cache->store('banner_image', ($config_path ? $config_path : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg');
+$cache->store('banner_image', $config_path . '/uploads/template_banners/homepage_bg_trimmed.jpg');

@@ -1,6 +1,6 @@
 <?php
 /*
- *	Translated by ManiaNetwork (Marck200 & Osiris)
+ *  Translated by ManiaNetwork (Marck200 & Osiris)
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -43,6 +43,7 @@ $language = array(
     'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'Discord integration is disabled.',
     'unable_to_set_discord_id' => 'Unable to set Discord ID.',
+    'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
 
     // Success messages
     'finish_registration_link' => 'Haga clic en el siguiente enlace para confirmar su registro:',
@@ -53,5 +54,6 @@ $language = array(
     'username_updated' => 'Nombre de usuario actualizado correctamente.',
     'server_info_updated' => 'Información del servidor actualizada correctamnete.',
     'account_validated' => 'Cuenta verificada correctamente.',
-    'discord_id_set' => 'Discord ID set successfully'
+    'discord_id_set' => 'Discord ID set successfully',
+    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
 );

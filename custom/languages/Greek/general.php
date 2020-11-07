@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by ArisC
+ *  Made by ArisC
  *  https://github.com/Ar1sC
  *  https://twitter.com/Ar1cC
  *  https://github.com/NamelessMC/Nameless/
@@ -13,49 +13,49 @@
 
 $language = array(
     /*
-	 *  General terms
-	 */
+     *  General terms
+     */
     'help' => 'Help',
-	'submit' => 'Υποβολή',
-	'register' => 'Εγγραφή',
-	'already_registered' => 'Already Registered?',
-	'custom_fields' => 'Custom Fields',
-	'not_registered_yet' => 'Not registered yet?',
-	'sign_in' => 'Σύνδεση',
-	'log_out' => 'Αποσυνδέση',
-	'profile' => 'Προφίλ',
-	'invalid_token' => 'Μη έγκυρο τρόπος, παρακαλώ προσπαθήστε ξανά.',
-	'close' => 'Κλείσιμο',
-	'back' => 'Πίσω',
-	'warning' => 'Προειδοποίηση',
-	'date' => 'Ημερομηνία',
-	'search' => 'Αναζήτηση',
-	'edit' => 'Επεξεργασία',
-	'next' => 'Επόμενο',
-	'previous' => 'Previous',
-	'confirm_cancel' => 'Είστε σίγουροι ότι θέλετε να ακυρώσετε?',
-	'confirm_delete' => 'Επιβεβαίωση διαγραφής',
-	'confirm_deletion' => 'Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό?',
-	'cancel' => 'Ακύρωση',
-	'delete' => 'Διαγραφεί',
-	'none' => 'Κανείς',
-	'view' => 'View',
-	'change' => 'Αλλαγή',
-	'remove' => 'Aφαιρώ',
-	'info' => 'Πληροφορίες',
-	'confirm' => 'Επιβεβαιώσει',
-	'actions' => 'Ενέργεια',
-	'alerts' => 'Ειδοποίηση',
-	'view_alerts' => 'Προβολή ειδοποιήσεων',
-	'no_alerts' => 'Δεν υπάρχουν ειδοποιήσεις',
-	'x_new_alerts' => 'Εχεις {x} νέες ειδοποιήσεις.', // Don't replace {x}
-	'messages' => 'Μηνύματα',
-	'view_messages' => 'Δείτε τα μηνύματα',
-	'no_messages' => 'Δεν υπάρχουν μηνύματα',
-	'x_new_messages' => 'Εχεις {x} νέα μηνύματα.', // Don't replace {x}
-	'loading' => 'Φόρτωση...',
-	'report' => 'Αναφορά',
-	'page_loaded_in' => 'Η σελίδα φορτώθηκε σε {x}s', // Don't replace {x}, time unit is seconds
+    'submit' => 'Υποβολή',
+    'register' => 'Εγγραφή',
+    'already_registered' => 'Already Registered?',
+    'custom_fields' => 'Custom Fields',
+    'not_registered_yet' => 'Not registered yet?',
+    'sign_in' => 'Σύνδεση',
+    'log_out' => 'Αποσυνδέση',
+    'profile' => 'Προφίλ',
+    'invalid_token' => 'Μη έγκυρο τρόπος, παρακαλώ προσπαθήστε ξανά.',
+    'close' => 'Κλείσιμο',
+    'back' => 'Πίσω',
+    'warning' => 'Προειδοποίηση',
+    'date' => 'Ημερομηνία',
+    'search' => 'Αναζήτηση',
+    'edit' => 'Επεξεργασία',
+    'next' => 'Επόμενο',
+    'previous' => 'Previous',
+    'confirm_cancel' => 'Είστε σίγουροι ότι θέλετε να ακυρώσετε?',
+    'confirm_delete' => 'Επιβεβαίωση διαγραφής',
+    'confirm_deletion' => 'Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό?',
+    'cancel' => 'Ακύρωση',
+    'delete' => 'Διαγραφεί',
+    'none' => 'Κανείς',
+    'view' => 'View',
+    'change' => 'Αλλαγή',
+    'remove' => 'Aφαιρώ',
+    'info' => 'Πληροφορίες',
+    'confirm' => 'Επιβεβαιώσει',
+    'actions' => 'Ενέργεια',
+    'alerts' => 'Ειδοποίηση',
+    'view_alerts' => 'Προβολή ειδοποιήσεων',
+    'no_alerts' => 'Δεν υπάρχουν ειδοποιήσεις',
+    'x_new_alerts' => 'Εχεις {x} νέες ειδοποιήσεις.', // Don't replace {x}
+    'messages' => 'Μηνύματα',
+    'view_messages' => 'Δείτε τα μηνύματα',
+    'no_messages' => 'Δεν υπάρχουν μηνύματα',
+    'x_new_messages' => 'Εχεις {x} νέα μηνύματα.', // Don't replace {x}
+    'loading' => 'Φόρτωση...',
+    'report' => 'Αναφορά',
+    'page_loaded_in' => 'Η σελίδα φορτώθηκε σε {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Page {x}',
     'browse' => 'Browse',
     'bypass' => 'Bypass',
@@ -64,10 +64,10 @@ $language = array(
     'content' => 'Content',
     'full_content' => 'Full Content',
     'url' => 'URL',
-	'success' => 'Success',
-	'error' => 'Error',
-	'are_you_sure' => 'Are you sure?',
-	'spoiler' => 'Spoiler',
+    'success' => 'Success',
+    'error' => 'Error',
+    'are_you_sure' => 'Are you sure?',
+    'spoiler' => 'Spoiler',
     'invalid_timezone' => 'That timezone is invalid',
 
     /*
@@ -82,23 +82,23 @@ $language = array(
     'contact_message_sent' => 'Message sent successfully.',
     'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {x} minutes.', // Don't replace {x}
 
-	/*
-	 *  Navbar
-	 */
-	'home' => 'Αρχική',
-	'more' => 'More',
-	'status' => 'Status',
+    /*
+     *  Navbar
+     */
+    'home' => 'Αρχική',
+    'more' => 'More',
+    'status' => 'Status',
 
-	/*
-	 *  Homepage
-	 */
-	'social' => 'Social',
+    /*
+     *  Homepage
+     */
+    'social' => 'Social',
 
 
-	/*
-	 *  Help dialogues
-	 */
-	'markdown_help' => 'Μπορείτε να διαμορφώσετε τα posts σας με τη χρήση Markdown. Για περισσότερες πληροφορίες, δές <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>εδώ</a>.',
+    /*
+     *  Help dialogues
+     */
+    'markdown_help' => 'Μπορείτε να διαμορφώσετε τα posts σας με τη χρήση Markdown. Για περισσότερες πληροφορίες, δές <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>εδώ</a>.',
 
     /*
      *  Server query
@@ -152,8 +152,8 @@ $language = array(
      */
     'privacy_policy' => 'Privacy Policy',
 
-	/*
-	 *  Custom page redirect
-	 */
-	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+    /*
+     *  Custom page redirect
+     */
+    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr5
  *
@@ -39,6 +39,7 @@ $language = array(
     'unable_to_update_server_info' => 'Не удалось обновить информацию о сервере',
     'invalid_server_id' => 'Неверный ID сервера',
     'invalid_code' => 'Неверный предоставленный код',
+    'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
 
     // Success messages
     'finish_registration_link' => 'Пожалуйста, нажмите на следующую ссылку, чтобы завершить регистрацию:',
@@ -48,5 +49,6 @@ $language = array(
     'new_private_message_from' => 'Новое личное сообщение от {x}', // Don't replace {x}
     'username_updated' => 'Имя пользователя успешно обновлено',
     'server_info_updated' => 'Информация о сервере успешно обновлена',
-	'account_validated' => 'Учетная запись успешно подтверждена'
+    'account_validated' => 'Учетная запись успешно подтверждена',
+    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
 );

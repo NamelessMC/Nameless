@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  Translation by Locus
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -44,6 +44,7 @@ $language = array(
   'user_already_active' => 'Your account has already been activated.',
   'discord_integration_disabled' => 'Discord integration is disabled.',
   'unable_to_set_discord_id' => 'Unable to set Discord ID.',
+  'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
 
   // Success messages
   'finish_registration_link' => 'Norėdami užpildyti registraciją, paspauskite šią nuorodą:',
@@ -53,6 +54,7 @@ $language = array(
   'new_private_message_from' => 'Nauja privati žinutė iš {x}', // Don't replace {x}
   'username_updated' => 'Vartotojo vardas atnaujintas sėkmingai',
   'server_info_updated' => 'Serverio informacija atnaujinta sėkmingai',
-	'account_validated' => 'Paskyra patvirtinta sėkmingai',
-    'discord_id_set' => 'Discord ID set successfully'
+  'account_validated' => 'Paskyra patvirtinta sėkmingai',
+  'discord_id_set' => 'Discord ID set successfully',
+  'discord_bot_url_updated' => 'Discord bot URL updated successfully'
 );

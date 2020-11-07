@@ -1,6 +1,6 @@
 <?php 
 /*
- *	Made by ArisC
+ *  Made by ArisC
  *  https://github.com/Ar1sC
  *  https://twitter.com/Ar1cC
  *  https://github.com/NamelessMC/Nameless/

@@ -50,6 +50,7 @@ class Nameless2API {
 
     public function __construct($route, $api_language, $endpoints) {
         try {
+            $this->_db = DB::getInstance();
             $explode = explode('/', $route);
 
             for ($i = count($explode) - 1; $i >= 0; $i--) {
@@ -68,21 +69,19 @@ class Nameless2API {
 
             $this->_language = $api_language;
 
-            if (!isset($api_key)) {
-                $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
-            }
+            if (isset($api_key)) {
+                // API key specified
+                $this->_validated = true;
+                $this->_endpoints = $endpoints;
 
-            // API key specified
-            $this->_validated = true;
-            $this->_db = DB::getInstance();
-            $this->_endpoints = $endpoints;
+                $request = explode('/', $route);
+                $this->_db = DB::getInstance();
+                $request = $request[count($request) - 1];
 
-            $request = explode('/', $route);
-            $request = $request[count($request) - 1];
-
-            if (!$this->_endpoints->handle($request, $this)) {
-                $this->throwError(3, $this->_language->get('api', 'invalid_api_method'));
-            }
+                if ($this->_endpoints->handle($request, $this) == false) {
+                    $this->throwError(3, $this->_language->get('api', 'invalid_api_method'));
+                }
+            } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
         } catch(Exception $e) {
             $this->throwError($e->getMessage());
         }

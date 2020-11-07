@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton (Edited by iMaykolRD_)
+ *  Made by Samerton (Edited by iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -43,6 +43,7 @@ $language = array(
     'user_already_active' => 'Your account has already been activated.',
     'discord_integration_disabled' => 'La integración de discord está deshabilitada.',
     'unable_to_set_discord_id' => 'No se puede establecer la identificación de Discord.',
+    'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
 
     // Success messages
     'finish_registration_link' => 'Clickea el siguiente link para confirmar el registro:',
@@ -52,6 +53,7 @@ $language = array(
     'new_private_message_from' => 'Nuevo mensaje privado de {x}', // Don't replace {x}
     'username_updated' => 'Nombre de usuario actualizado correctamente.',
     'server_info_updated' => 'Información del Servidor actualizada correctamnete.',
-	'account_validated' => 'Cuenta verificada exitosamente',
-    'discord_id_set' => 'ID de discord establecida correctamente.'
+    'account_validated' => 'Cuenta verificada exitosamente',
+    'discord_id_set' => 'ID de discord establecida correctamente.',
+    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
 );
