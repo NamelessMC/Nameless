@@ -25,7 +25,6 @@ class Core_Module extends Module {
 
 		// Define URLs which belong to this module
 		$pages->add('Core', '/', 'pages/index.php');
-		$pages->add('Core', '/api/v1', 'pages/api/v1/index.php');
 		$pages->add('Core', '/api/v2', 'pages/api/v2/index.php');
 		$pages->add('Core', '/contact', 'pages/contact.php');
 		$pages->add('Core', '/home', 'pages/home.php', 'index', true);
@@ -127,7 +126,7 @@ class Core_Module extends Module {
 
 			if($user->isLoggedIn()){
 				// Check all groups
-				$user_groups = $user->getAllGroups($user->data()->id);
+				$user_groups = $user->getAllGroupIds();
 
 				foreach($custom_pages as $custom_page){
 					$redirect = null;
