@@ -66,8 +66,8 @@ class ServerInfoEndpoint extends EndpointBase {
                         if (Util::getSetting($api->getDb(), 'username_sync')) {
                             if (count($info['players'])) {
                                 foreach ($info['players'] as $uuid => $player) {
-                                    $user = new User();
-                                    if ($user->find($uuid, 'uuid')) {
+                                    $user = new User($uuid, 'uuid');
+                                    if (count($user->data())) {
                                         if ($player['name'] != $user->data()->username) {
                                             // Update username
                                             if (!Util::getSetting($api->getDb(), 'displaynames', false)) {
@@ -99,42 +99,31 @@ class ServerInfoEndpoint extends EndpointBase {
                             foreach ($group_sync as $item) {
                                 if ($item->ingame_rank_name == '') continue;
                                 $group_sync_updates[strtolower($item->ingame_rank_name)] = array(
-                                    'website' => $item->website_group_id,
-                                    'primary' => $item->primary
+                                    'website' => $item->website_group_id
                                 );
                             }
 
                             if (count($info['players'])) {
                                 foreach ($info['players'] as $uuid => $player) {
-                                    $user = new User();
-                                    if ($user->find($uuid, 'uuid')) {
-                                        // Can't update root user
-                                        if ($user->data()->id != 1) {
-                                            $rank = strtolower($player['rank']);
-
-                                            if (array_key_exists($rank, $group_sync_updates) && $user->data()->group_id != $group_sync_updates[$rank]['website']) {
-                                                $new_rank = $group_sync_updates[$rank];
-
-                                                if ($new_rank['primary']) {
-                                                    $user->update(array(
-                                                        'group_id' => $new_rank['website']
-                                                    ), $user->data()->id);
-                                                } else {
-                                                    if ($user->data()->secondary_groups)
-                                                        $secondary = json_decode($user->data()->secondary_groups, true);
-                                                    else
-                                                        $secondary = array();
-
-                                                    if (!in_array($new_rank['website'], $secondary)) {
-                                                        $secondary[] = $new_rank['website'];
-
-                                                        $user->update(array(
-                                                            'secondary_groups' => json_encode($secondary)
-                                                        ), $user->data()->id);
-                                                    }
-                                                }
-                                            }
-                                        }
+                                    $user = new User($uuid, 'uuid');
+                                    if (count($user->data())) {
+										// Any synced groups to remove?
+										foreach($user->getGroups() as $group) {
+											$group_name = strtolower($group->name);
+											if (array_key_exists($group_name, $group_sync_updates) && in_array($group_name, $player['groups'])) {
+												$user->removeGroup($group->id);
+											}
+										}
+										
+										// Any synced groups to add?
+										foreach ($player['groups'] as $group) {
+											$group_name = strtolower($group);
+											if (array_key_exists($group_name, $group_sync_updates)) {
+												$group_info = $group_sync_updates[$group_name];
+												
+												$user->addGroup($group_sync_updates[$group_info]['website']);
+											}
+										}
                                     }
                                 }
                             }
