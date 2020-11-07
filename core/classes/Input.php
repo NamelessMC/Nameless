@@ -125,6 +125,8 @@ class Input {
 			$editor = '
 			tinymce.init({
 			  selector: \'#' . $name . '\',
+			  browser_spellcheck: true,
+  			  contextmenu: false,
 			  branding: false,
 			  menubar: false,
 			  convert_urls: false,
