@@ -286,6 +286,7 @@ if(isset($_GET['action'])){
 								Session::flash('admin_groups_error', $language->get('admin', 'unable_to_delete_group'));
 							} else {
 								$queries->delete('groups', array('id', '=', Input::get('id')));
+								$queries->delete('users_groups', array('group_id', '=', Input::get('id')));
 								Session::flash('admin_groups', $language->get('admin', 'group_deleted_successfully'));
 							}
 						}

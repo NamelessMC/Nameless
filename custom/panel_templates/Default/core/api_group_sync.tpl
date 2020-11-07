@@ -83,7 +83,7 @@
                                     {foreach from=$GROUP_SYNC_VALUES item=group_sync}
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <label for="inputIngame">{$INGAME_GROUP_NAME}</label>
                                                     {if count($INGAME_GROUPS)}
                                                         <select name="ingame_group[{$group_sync.id}]" class="form-control" id="inputIngame">
@@ -95,7 +95,7 @@
                                                         <input class="form-control" name="ingame_group[{$group_sync.id}]" type="text" id="inputIngame" placeholder="{$INGAME_GROUP_NAME}" value="{$group_sync.ingame}">
                                                     {/if}
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <label for="inputDiscord">{$DISCORD_ROLE_ID}</label>
                                                     <input class="form-control" name="discord_role[{$group_sync.id}]" type="number" maxlength="18" minlength="18" id="inputDiscord" placeholder="{$DISCORD_ROLE_ID}" value="{$group_sync.discord}">
                                                 </div>
@@ -105,13 +105,6 @@
                                                         {foreach from=$GROUPS item=group}
                                                             <option value="{$group.id}"{if $group_sync.website eq $group.id} selected{/if}>{$group.name}</option>
                                                         {/foreach}
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <label for="inputSetAsPrimary">{$SET_AS_PRIMARY_GROUP}</label> <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$SET_AS_PRIMARY_GROUP_INFO}"><i class="fas fa-question-circle"></i></span>
-                                                    <select name="primary_group[{$group_sync.id}]" class="form-control" id="inputSetAsPrimary">
-                                                        <option value="0"{if $group_sync.primary eq 0} selected{/if}>{$NO}</option>
-                                                        <option value="1"{if $group_sync.primary eq 1} selected{/if}>{$YES}</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-1">
@@ -134,7 +127,7 @@
                             <form action="" method="post">
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="inputIngame">{$INGAME_GROUP_NAME}</label>
                                             {if count($INGAME_GROUPS)}
                                                 <select name="ingame_rank_name" class="form-control" id="inputIngame">
@@ -146,23 +139,16 @@
                                                 <input class="form-control" name="ingame_rank_name" type="text" id="inputIngame" placeholder="{$INGAME_GROUP_NAME}">
                                             {/if}
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="inputDiscord">{$DISCORD_ROLE_ID}</label>
                                             <input class="form-control" name="discord_role_id" type="number" maxlength="18" minlength="18" id="inputDiscord" placeholder="{$DISCORD_ROLE_ID}">
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="inputWebsite">{$WEBSITE_GROUP}</label>
                                             <select name="website_group" class="form-control" id="inputWebsite">
                                                 {foreach from=$GROUPS item=group}
                                                     <option value="{$group.id}">{$group.name}</option>
                                                 {/foreach}
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="inputSetAsPrimary">{$SET_AS_PRIMARY_GROUP}</label> <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$SET_AS_PRIMARY_GROUP_INFO}"><i class="fas fa-question-circle"></i></span>
-                                            <select name="primary_group" class="form-control" id="inputSetAsPrimary">
-                                                <option value="0">{$NO}</option>
-                                                <option value="1">{$YES}</option>
                                             </select>
                                         </div>
                                     </div>
