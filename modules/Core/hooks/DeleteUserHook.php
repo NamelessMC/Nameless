@@ -15,6 +15,9 @@ class DeleteUserHook {
 
 			// Delete the user
 			$queries->delete('users', array('id', '=', $params['user_id']));
+			
+			// Groups
+			$queries->delete('users_groups', array('user_id', '=', $params['user_id']));
 
 			// IP logs
 			$queries->delete('users_ips', array('user_id', '=', $params['user_id']));
