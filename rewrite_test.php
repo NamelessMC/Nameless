@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
             <?php
-            if (isset($_GET['route']) && $_GET['route'] = '/rewrite_test') {
+            if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
                 echo '<div class="alert alert-success">Rewrite enabled!</div>';
 
             } else {
