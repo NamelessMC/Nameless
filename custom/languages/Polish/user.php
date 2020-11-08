@@ -221,14 +221,14 @@ $language = array(
     'messages' => 'Wiadomości',
     'latest_profile_posts' => 'Latest Profile Posts',
     'no_profile_posts' => 'No profile posts.',
-    
+
     /*
      *  Infractions area
      */
     'you_have_been_banned' => 'Zostałeś zbanowany!',
     'you_have_received_a_warning' => 'Dostałeś ostrzeżenie!',
     'acknowledge' => 'Uznaj winę',
-    
+
     /*
      *  Hooks
      */

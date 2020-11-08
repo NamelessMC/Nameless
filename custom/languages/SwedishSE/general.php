@@ -80,19 +80,19 @@ $language = array(
     'contact_message_email' => 'The provided email is invalid.',
     'contact_message_sent' => 'Meddelande sänt med framgång!',
     'contact_message_limit' => 'Du kan bara skicka ett meddelande per timme. Du kan sedan skicka ett meddelande om {x} minuter.', // Don't replace {x}
-    
-    /* 
+
+    /*
      *  Navbar
      */
     'home' => 'Hem',
     'more' => 'Mer',
     'status' => 'Status',
-    
+
     /*
      *  Homepage
      */
     'social' => 'Social',
-    
+
     /*
      *  Help dialogues
      */

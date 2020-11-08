@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -12,7 +12,7 @@
 $language = array(
     /*
      *  General terms
-     */ 
+     */
     'submit' => 'Подтвердить',
     'register' => 'Регистрация',
     'already_registered' => 'Уже зарегистрированы?',
@@ -76,21 +76,21 @@ $language = array(
     'contact_message_email' => 'Предоставленное электронное письмо является недействительным.',
     'contact_message_sent' => 'Сообщение успешно отправлено.',
     'contact_message_limit' => 'Вы можете отправлять только одно сообщение в час. Отправьте следующее сообщение через {x} минут.', // Don't replace {x}
-    
-    
-    /* 
+
+
+    /*
      *  Navbar
      */
     'home' => 'Главная',
     'more' => 'Больше',
     'status' => 'Серверы',
-    
+
     /*
      *  Homepage
      */
     'social' => 'Мы в социальных сетях',
-    
-    
+
+
     /*
      *  Help dialogues
      */

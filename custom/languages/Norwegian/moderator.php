@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Translations by Maiu
  *  https://github.com/NamelessMC/Nameless/
@@ -13,14 +13,14 @@ $language = array(
     'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
     'overview' => 'Oppsummering',
-    
+
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Marker som spam',
     'confirm_spam' => '<p>Er du sikker på at du vil markere denne spilleren som spam?</p><p>Denne personen vil bli IP-bannlyst.</p>',
     'user_marked_as_spam' => 'Bruker markert som spam!',
     'cant_ban_admin' => 'Du kan ikke bannlyse en administrator!',
-    
+
     // IP Lookup
     'ip_lookup' => 'IP-søking',
     'search_for_ip' => 'Søk etter en bruker eller IP-adresse:',
@@ -31,7 +31,7 @@ $language = array(
     '1_ip_with_name' => 'Fant 1 IP-adresse for brukeren {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Fant {x} IP-adresser for bruker {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Spillerens IP-adresse ble ikke funnet.',
-    
+
     // Reports
     'reports' => 'Rapporter',
     'report_alert' => 'Ny rapport sendt inn',
@@ -61,7 +61,7 @@ $language = array(
     'report_reopened' => 'Rapport har blitt åpnet på nytt.',
     'report_closed' => 'Rapport har blitt lukket.',
     'comment_created' => 'Kommentaren har blitt sendt.',
-    
+
     // Punishments
     'punishments' => 'Straffer',
     'view_punishments' => 'Se alle straffer',
@@ -100,7 +100,7 @@ $language = array(
     'created' => 'Opprettet:',
     'staff:' => 'Stabmedlem:',
     'reason:' => 'Grunn:',
-    
+
     // Users
     'recent_registrations' => 'Nylige registreringer',
     'reset_profile_banner' => 'Tilbakestill profilbanner'

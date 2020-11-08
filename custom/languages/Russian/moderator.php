@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -13,14 +13,14 @@ $language = array(
     'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
     'overview' => 'Overview',
-    
+
     // Spam
     'spam' => 'Спам',
     'mark_as_spam' => 'Пометить как спам',
     'confirm_spam' => '<p>Вы уверены, что хотите пометить это как спам?</p><p>Пользователь будет заблокирован по IP-адресу, и весь его контент будет удален.</p>',
     'user_marked_as_spam' => 'Пользователь успешно помечен как спам.',
     'cant_ban_admin' => 'Вы не можете заблокировать администратора!',
-    
+
     // IP Lookup
     'ip_lookup' => 'Просмотр IP',
     'search_for_ip' => 'Поиск имени пользователя или IP-адреса',
@@ -31,7 +31,7 @@ $language = array(
     '1_ip_with_name' => 'Найден 1 IP-адрес у пользователя {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Найдено {x} IP-адресов у пользователя {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Ни пользователей, ни IP-адресов не найдено.',
-    
+
     // Reports
     'reports' => 'Жалобы',
     'report_alert' => 'Поступила новая жалоба',
@@ -61,7 +61,7 @@ $language = array(
     'report_reopened' => 'Жалоба успешно переоткрыта.',
     'report_closed' => 'Жалоба успешно закрыта.',
     'comment_created' => 'Комментарий успешно оставлен.',
-    
+
     // Punishments
     'punishments' => 'Наказания',
     'view_punishments' => 'Просмотр наказаний',
@@ -100,7 +100,7 @@ $language = array(
     'created' => 'Создано:',
     'staff:' => 'Выдал:',
     'reason:' => 'Причина:',
-    
+
     // Users
     'recent_registrations' => 'Последние регистрации',
     'reset_profile_banner' => 'Сбросить баннер профиля'

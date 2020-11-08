@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -13,14 +13,14 @@ $language = array(
     'mod_cp' => 'Moderatör Panel',
     'staff_cp' => 'Yönetim Panel',
     'overview' => 'Görüntüle',
-    
+
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Spam olarak işaretle',
     'confirm_spam' => '<p>Bu kullanıcıyı spam olarak işaretlemek istediğinizden emin misiniz?</p><p> Kullanıcı IP yasaklanacak ve tüm içeriği kaldırılacak.</p>',
     'user_marked_as_spam' => 'Kullanıcı başarıyla spam olarak işaretlendi.',
     'cant_ban_admin' => 'Bir yöneticiyi yasaklayamazsınız!',
-    
+
     // IP Lookup
     'ip_lookup' => 'IP Arama',
     'search_for_ip' => 'Bir kullanıcı adı veya IP adresi arayın',
@@ -31,7 +31,7 @@ $language = array(
     '1_ip_with_name' => '{y} kullanıcısı için 1 IP adresi bulundu', // Don't replace "{y}"
     'count_ips_with_name' => '{y} kullanıcısı için {x} IP adresi bulundu', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Kullanıcı veya IP adresi bulunamadı.',
-    
+
     // Reports
     'reports' => 'Raporlar',
     'report_alert' => 'Yeni rapor gönderildi!',
@@ -61,7 +61,7 @@ $language = array(
     'report_reopened' => 'Rapor başarıyla yeniden açıldı.',
     'report_closed' => 'Rapor başarıyla kapatıldı.',
     'comment_created' => 'Yorum başarıyla oluşturuldu.',
-    
+
     // Punishments
     'punishments' => 'Cezalar',
     'view_punishments' => 'Cezaları görüntüle',

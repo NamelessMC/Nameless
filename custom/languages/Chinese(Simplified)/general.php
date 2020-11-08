@@ -8,7 +8,7 @@
  *
  *  Chinese Simplified Language - General terms
  *  Translation(Chinese Simplified) by ahdg,lian20
- *  Translation progress(v2-pr8) : 100% 
+ *  Translation progress(v2-pr8) : 100%
  */
 
 $language = array(
@@ -81,21 +81,21 @@ $language = array(
     'contact_message_email' => '提交的电子邮箱地址不可用。',
     'contact_message_sent' => '消息发送成功。',
     'contact_message_limit' => '您每小时只能发送一条消息。距您可再次发送还有 {x} 分钟。', // Don't replace {x}
-    
-    
-    /* 
+
+
+    /*
      *  Navbar
      */
     'home' => '主页',
     'more' => '更多',
     'status' => '服务器状态',
-    
+
     /*
      *  Homepage
      */
     'social' => '社区',
-    
-    
+
+
     /*
      *  Help dialogues
      */

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Translations by Maiu
  *  https://github.com/NamelessMC/Nameless/

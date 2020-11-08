@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by White.
  *  https://github.com/NamelessMC/Nameless/

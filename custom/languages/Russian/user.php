@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -20,7 +20,7 @@ $language = array(
      */
     'guest' => 'Гость',
     'guests' => 'Гости',
-    
+
     // UserCP
     'user_cp' => 'Аккаунт',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Аккаунт</span>',
@@ -35,7 +35,7 @@ $language = array(
     'alerts' => 'Уведомления',
     'delete_all' => 'Удалить все',
     'private_profile' => 'Приватность профиля',
-    
+
     // Profile settings
     'field_is_required' => '{x} обязательно.', // Don't replace {x}
     'settings_updated_successfully' => 'Настройки успешно обновлены.',
@@ -67,7 +67,7 @@ $language = array(
     'profile_banner' => 'Баннер профиля',
     'upload_profile_banner' => 'Загрузить баннер профиля',
     'upload' => 'Загрузить',
-    
+
     // Alerts
     'user_tag_info' => 'Вы были упомянуты в посте пользователем {x}.', // Don't replace {x}
     'no_alerts' => 'Нет новых уведомлений',
@@ -75,7 +75,7 @@ $language = array(
     '1_new_alert' => 'У вас 1 новое уведомление',
     'x_new_alerts' => 'У вас {x} новых уведомлений', // Don't replace {x}
     'no_alerts_usercp' => 'У вас нет никаких уведомлений.',
-    
+
     // Registraton
     'registration_check_email' => 'Спасибо за регистрацию! Пожалуйста, проверьте свою электронную почту на наличие подтверждающей ссылки, чтобы завершить регистрацию. Если вы не можете найти письмо, проверьте свою папку спама.',
     'username' => 'Имя пользователя',
@@ -127,7 +127,7 @@ $language = array(
     'verification_success' => 'Аккаунт успешно подтверждён! Теперь вы можете войти на сайт.',
     'authme_username_exists' => 'Ваша учетная запись AuthMe уже подключена к веб-сайту!',
     'uuid_already_exists' => 'Ваш UUID уже существует! Эта учетная запись Minecraft уже зарегистрирована.',
-    
+
     // Login
     'successful_login' => 'Вы успешно вошли.',
     'incorrect_details' => 'Вы ввели неверные данные.',
@@ -146,7 +146,7 @@ $language = array(
     'enter_new_password' => 'Пожалуйста, подтвердите свой адрес электронной почты и введите новый пароль ниже.',
     'incorrect_email' => 'Указанный вами адрес электронной почты не соответствует запросу.',
     'forgot_password_change_successful' => 'Ваш пароль был успешно изменен. Теперь вы можете войти в систему.',
-    
+
     // Profile pages
     'profile' => 'Профиль',
     'follow' => 'Подписаться',
@@ -184,12 +184,12 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} ответил(а) на сообщение в вашем профиле.', // Don't replace {x}
     'no_about_fields' => 'Этот пользователь еще не добавил никакой информации о себе.',
     'reply' => 'Ответить',
-    
+
     // Reports
     'invalid_report_content' => 'Не удалось создать жалобу. Пожалуйста, убедитесь, что причина вашей жалобы состоит из не менее 2-х и не более 1024-х символов.',
     'report_post_content' => 'Пожалуйста, укажите причину жалобы',
     'report_created' => 'Жалоба успешно отправлена.',
-    
+
     // Messaging
     'no_messages' => 'Нет новых сообщение',
     'no_messages_full' => 'У вас нет никаких сообщений.',
@@ -224,8 +224,8 @@ $language = array(
     'you_have_been_banned' => 'Вы были забанены!',
     'you_have_received_a_warning' => 'Вы получили предупреждение!',
     'acknowledge' => 'Acknowledge',
-    
-    
+
+
     /*
      *  Emails
      */

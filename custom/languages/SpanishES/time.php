@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Translated by ManiaNetwork (Marck200 & Osiris)
  *  https://github.com/NamelessMC/Nameless/

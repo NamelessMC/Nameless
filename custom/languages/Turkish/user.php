@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -20,7 +20,7 @@ $language = array(
      */
     'guest' => 'Ziyaretçi',
     'guests' => 'Ziyaretçiler',
-    
+
     // UserCP
     'user_cp' => 'Hesap',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Hesap</span>',
@@ -36,7 +36,7 @@ $language = array(
     'delete_all' => 'Tümünü Sil',
     'private_profile' => 'Özel Profil',
     'gif_avatar' => 'Upload .gif as custom avatar',
-    
+
     // Profile settings
     'field_is_required' => '{x} gerekli!', // Don't replace {x}
     'settings_updated_successfully' => 'Ayarlar başarıyla güncellendi.',
@@ -68,7 +68,7 @@ $language = array(
     'profile_banner' => 'Profil Banner(Afiş)',
     'upload_profile_banner' => 'Yeni banner(afiş) yükle',
     'upload' => 'Yükle',
-    
+
     // Alerts
     'user_tag_info' => 'Bir konuda {x} tarafından etiketlendiniz.', // Don't replace {x}
     'no_alerts' => 'Şu an hiç bildiriminiz yok.',
@@ -76,7 +76,7 @@ $language = array(
     '1_new_alert' => '1 yeni bildiriminiz var.',
     'x_new_alerts' => '{x} yeni bildiriminiz var.', // Don't replace {x}
     'no_alerts_usercp' => 'Şu an hiç bildiriminiz yok.',
-    
+
     // Registration
     'registration_check_email' => 'Kayıt olduğunuz için teşekkürler! Kaydınızı tamamlamak için lütfen bir doğrulama bağlantısı için e-postalarınızı kontrol edin. E-postayı bulamıyorsanız, önemsiz klasörünüzü kontrol edin.er.',
     'username' => 'İsim',
@@ -102,7 +102,7 @@ $language = array(
     'authme_account_linked' => 'Hesap başarıyla bağlandı',
     'authme_email_help_1' => 'Son olarak, lütfen e-posta adresinizi girin.',
     'authme_email_help_2' => 'Son olarak, lütfen e-posta adresinizi girin ve hesabınız için bir görünen ad seçin.',
-    
+
     // Registration errors
     'username_required' => 'Bir kullanıcı adı gerekmektedir',
     'email_required' => 'Bir e-posta gerekmektedir.',
@@ -128,7 +128,7 @@ $language = array(
     'verification_success' => 'Başarıyla doğrulandı! Şimdi giriş yapabilirsiniz.',
     'authme_username_exists' => 'Authme hesabınız zaten web sitesine bağlandı!',
     'uuid_already_exists' => 'UUID\'niz zaten var, yani bu Minecraft hesabı zaten kayıtlı.',
-    
+
     // Login
     'successful_login' => 'Başarıyla giriş yaptınız.',
     'incorrect_details' => 'Yanlış ayrıntı girdiniz.',
@@ -147,7 +147,7 @@ $language = array(
     'enter_new_password' => 'Lütfen e-posta adresinizi onaylayın ve aşağıya yeni bir şifre girin.',
     'incorrect_email' => 'Girdiğiniz e-posta adresi istekle eşleşmiyor.',
     'forgot_password_change_successful' => 'Şifreniz başarıyla değiştirildi. Şimdi giriş yapabilirsiniz.',
-    
+
     // Profile pages
     'profile' => 'Profil',
     'follow' => 'Takip et',
@@ -185,12 +185,12 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} profilinizdeki yayınınıza cevap verdi.', // Don't replace {x}
     'no_about_fields' => 'Bu kullanıcı henüz alanlarla ilgili herhangi bir bilgi eklemedi.',
     'reply' => 'cevap',
-    
+
     // Reports
     'invalid_report_content' => 'Rapor oluşturulamıyor. Lütfen rapor nedeninizin 2 ila 1024 karakter arasında olduğundan emin olun.',
     'report_post_content' => 'Lütfen raporunuz için bir neden girin!',
     'report_created' => 'Rapor başarıyla oluşturuldu',
-    
+
     // Messaging
     'no_messages' => 'Şu an hiç özel konuşmanız yok.',
     'no_messages_full' => 'Şu an hiç özel konuşmanız yok.',
@@ -239,7 +239,7 @@ $language = array(
     'not_linked' => 'Not Linked',
     'discord_id' => 'Discord User ID',
     'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to "Nameless Link#0761" to confirm your Discord User ID.',    
+    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to "Nameless Link#0761" to confirm your Discord User ID.',
     'pending_link' => 'Pending',
     'discord_id_taken' => 'That Discord ID has already been taken.',
     'discord_invalid_id' => 'That Discord User ID is invalid.',

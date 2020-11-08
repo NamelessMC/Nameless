@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton, translated by Zemos, Renzotom, Ethxrnity and Fjuro
  *  https://github.com/NamelessMC/Nameless/
@@ -13,14 +13,14 @@ $language = array(
     'mod_cp' => 'Moderátorský panel',
     'staff_cp' => 'Ovládací panel',
     'overview' => 'Přehled',
-    
+
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Označit jako spam',
     'confirm_spam' => '<p>Opravdu chcete označen tohoto uživatele za spam?</p><p>Uživatel bude zabanován a veškerý jeho obsah odebrán.</p>',
     'user_marked_as_spam' => 'Uživatel byl úpěšně označen za spam.',
     'cant_ban_admin' => 'Nemůžete zabanovat administrátora!',
-    
+
     // IP Lookup
     'ip_lookup' => 'Vyhledávání podle IP',
     'search_for_ip' => 'Vyhledejte uživatelské jméno nebo adresu IP:',
@@ -31,7 +31,7 @@ $language = array(
     '1_ip_with_name' => 'Nalezena 1 IP adresa pro uživatele {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Nalezeno {x} IP adres pro uživatele {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Žádný uživatel nebo IP adresa nenalezena.',
-    
+
     // Reports
     'reports' => 'Nahlášení',
     'report_alert' => 'Nahlášení odesláno',
@@ -61,7 +61,7 @@ $language = array(
     'report_reopened' => 'Nahlášení bylo úspěšně znovu otevřeno.',
     'report_closed' => 'Nahlášení bylo úspěšně uzavřeno.',
     'comment_created' => 'Komentář byl úspěšně vytvořen.',
-    
+
     // Punishments
     'punishments' => 'Tresty',
     'view_punishments' => 'Zobrazit tresty',
@@ -100,7 +100,7 @@ $language = array(
     'created' => 'Vytvořeno:',
     'staff:' => 'Pracovník:',
     'reason:' => 'Důvod:',
-    
+
     // Users
     'recent_registrations' => 'Nedávné registrace',
     'reset_profile_banner' => 'Resetovat banner profilu'

@@ -8,7 +8,7 @@
  *
  *  Chinese Simplified Language - Time
  *  Translation(Chinese Simplified) by ahdg
- *  Translation progress(v2-pr8) : 100% 
+ *  Translation progress(v2-pr8) : 100%
  */
 
 $language = array(

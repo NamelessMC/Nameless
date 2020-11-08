@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -22,7 +22,7 @@ $language = array(
      */
     'guest' => 'Vizitator',
     'guests' => 'Vizitatori',
-    
+
     // UserCP
     'user_cp' => 'Panou Utilizator',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Panou Utilizator</span>',
@@ -38,7 +38,7 @@ $language = array(
     'delete_all' => 'Şterge tot',
     'private_profile' => 'Profil privat',
     'gif_avatar' => 'Upload .gif as custom avatar',
-    
+
     // Profile settings
     'field_is_required' => 'Câmpul "{x}" este necesar.', // Don't replace {x}
     'settings_updated_successfully' => 'Setările s-au actualizat cu succes.',
@@ -71,7 +71,7 @@ $language = array(
     'upload_profile_banner' => 'Încărcați banner profil',
     'upload' => 'Încărcați',
     'topic_updates' => 'Get emails for topics you follow',
-    
+
     // Alerts
     'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace {x}
     'no_alerts' => 'Nu aveți notificări necitite.',
@@ -80,7 +80,7 @@ $language = array(
     'x_new_alerts' => 'Aveți {x} notificări noi.', // Don't replace {x}
     'no_alerts_usercp' => 'Momentan nu aveți notificări noi.',
     'new_wall_post' => '{x} a postat pe peretele tău.',
-    
+
     // Registraton
     'registration_check_email' => 'Vă mulțumim pentru înregistrare! Verificați e-mailurile pentru un link de validare pentru a vă completa înregistrarea. Dacă nu reușiți să găsiți e-mailul, verificați dosarul de spam.',
     'username' => 'Nume de utilizator',
@@ -132,7 +132,7 @@ $language = array(
     'verification_success' => 'Validat cu succes! Acum te poți loga.',
     'authme_username_exists' => 'Contul dvs. Authme a fost deja conectat la site-ul Web!',
     'uuid_already_exists' => 'UUID-ul dvs. există deja, ceea ce înseamnă că acest cont Minecraft este deja înregistrat.',
-    
+
     // Login
     'successful_login' => 'V-ați conectat cu succes.',
     'incorrect_details' => 'Ați introdus detalii incorecte.',
@@ -151,7 +151,7 @@ $language = array(
     'enter_new_password' => 'Confirmați adresa dvs. de e-mail și introduceți o nouă parolă mai jos.',
     'incorrect_email' => 'Adresa de e-mail pe care ați introdus-o nu corespunde solicitării.',
     'forgot_password_change_successful' => 'Parola dvs. a fost modificată cu succes. Acum te poți loga.',
-    
+
     // Profile pages
     'reactions' => 'Reacții',
     'profile' => 'Profil',
@@ -188,12 +188,12 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} a răspuns la postarea de pe profilul tău.', // Don't replace {x}
     'no_about_fields' => 'Acest utilizator nu și-a completat încă nici un câmp aici.',
     'reply' => 'Răspunde',
-    
+
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',
     'report_post_content' => 'Introduceți un motiv pentru raportul dvs.',
     'report_created' => 'Raportul a fost creat cu succes.',
-    
+
     // Messaging
     'no_messages' => 'Nu există mesaje noi.',
     'no_messages_full' => 'Momentan nu aveți mesaje.',

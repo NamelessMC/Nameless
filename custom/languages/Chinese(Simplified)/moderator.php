@@ -8,21 +8,21 @@
  *
  *  Chinese Simplified Language - Moderator terms
  *  Translation(Chinese Simplified) by ahdg,lian20
- *  Translation progress(v2-pr8) : 100% 
+ *  Translation progress(v2-pr8) : 100%
  */
 
 $language = array(
     'mod_cp' => '社区工作人员面板',
     'staff_cp' => '管理人员面板',
     'overview' => '总览',
-    
+
     // Spam
     'spam' => '垃圾账号 (灌水用户)',
     'mark_as_spam' => '标记为垃圾账号',
     'confirm_spam' => '<p>您确定要将此用户标记为垃圾账号吗？</ p> <p>该用户将被 IP 封禁，其所有内容都将被删除。</p>',
     'user_marked_as_spam' => '用户已被成功标记为垃圾账号。',
     'cant_ban_admin' => '你不能封禁一位管理员!',
-    
+
     // IP Lookup
     'ip_lookup' => 'IP 查询',
     'search_for_ip' => '搜索用户名或 IP 地址',
@@ -33,7 +33,7 @@ $language = array(
     '1_ip_with_name' => '找到账号 {y} 的 1 个 IP', // Don't replace "{y}"
     'count_ips_with_name' => '找到账号 {y} 的 {x} 个 IP', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => '没有账号或IP被找到。',
-    
+
     // Reports
     'reports' => '反馈',
     'report_alert' => '新的反馈已提交',
@@ -63,7 +63,7 @@ $language = array(
     'report_reopened' => '重开报告成功。',
     'report_closed' => '关闭报告成功。',
     'comment_created' => '评论创建成功。',
-    
+
     // Punishments
     'punishments' => '惩罚',
     'view_punishments' => '查看惩罚',
@@ -102,7 +102,7 @@ $language = array(
     'created' => '已建立:',
     'staff:' => '执行者:',
     'reason:' => '理由:',
-    
+
     // Users
     'recent_registrations' => '最近的注册',
     'reset_profile_banner' => '重置个人资料背景'

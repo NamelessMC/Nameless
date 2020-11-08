@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -14,14 +14,14 @@ $language = array(
     'mod_cp' => 'ModKP',
     'staff_cp' => 'StaffCP',
     'overview' => 'Översikt',
-    
+
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Markera som Spam',
     'confirm_spam' => '<p>Är du säker på att du vill markera den här användaren som spam?</p><p>Användaren kommer att vara IP bannat och allt innehåll kommer att tas bort.</p>',
     'user_marked_as_spam' => 'Användaren markerad som spam.',
     'cant_ban_admin' => 'Du kan inte banna en administrator',
-    
+
     // IP Lookup
     'ip_lookup' => 'IP Sökning',
     'search_for_ip' => 'Sök efter en användarnamn eller ett IP adress:',
@@ -32,7 +32,7 @@ $language = array(
     '1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Hittat {x} IP Adress(er) för användraren, {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Inga användare eller IP Adresser hittades.',
-    
+
     // Reports
     'reports' => 'Anmälningar',
     'report_alert' => 'Ny anmälning skickad',
@@ -62,7 +62,7 @@ $language = array(
     'report_reopened' => 'Report reopened successfully.',
     'report_closed' => 'Report closed successfully.',
     'comment_created' => 'Comment created successfully.',
-    
+
     // Punishments
     'punishments' => 'Straffar',
     'view_punishments' => 'Visa Straffar',
@@ -101,7 +101,7 @@ $language = array(
     'created' => 'Created:',
     'staff:' => 'Staff:',
     'reason:' => 'Reason:',
-    
+
     // Users
     'recent_registrations' => 'Recent Registrations',
     'reset_profile_banner' => 'Reset Profile Banner'

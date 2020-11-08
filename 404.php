@@ -19,7 +19,13 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
 $page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+define(
+    'PAGE_LOAD_TIME',
+    str_replace(
+        '{x}',
+        round($page_load, 3), $language->get('general', 'page_loaded_in')
+    )
+);
 
 $template->onPageLoad();
 

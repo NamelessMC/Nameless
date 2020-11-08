@@ -226,7 +226,7 @@ $language = array(
     'messages' => 'メッセージ',
     'latest_profile_posts' => '最新のプロフィール投稿',
     'no_profile_posts' => 'プロフィール投稿はありません。',
-    
+
     /*
      *  Infractions area
      */

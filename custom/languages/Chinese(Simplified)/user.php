@@ -1,4 +1,4 @@
- <?php
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -22,7 +22,7 @@ $language = array(
      */
     'guest' => '访客',
     'guests' => '访客',
-    
+
     // UserCP
     'user_cp' => '账号',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">账号</span>',
@@ -38,7 +38,7 @@ $language = array(
     'delete_all' => '清空',
     'private_profile' => '私人资料 (他人无法阅览)',
     'gif_avatar' => '上传 GIF 文件作为头像',
-    
+
     // Profile settings
     'field_is_required' => '{x} 是必须要填写的。', // Don't replace {x}
     'settings_updated_successfully' => '设置已成功更新。',
@@ -71,7 +71,7 @@ $language = array(
     'upload_profile_banner' => '上传个人资料背景',
     'upload' => '上传',
     'topic_updates' => '从您关注的话题中获取更新邮件。',
-    
+
     // Alerts
     'user_tag_info' => '用户 {x} 在一个帖子中提及了您。', // Don't replace {x}
     'no_alerts' => '没有新通知',
@@ -79,7 +79,7 @@ $language = array(
     '1_new_alert' => '您有 1 条新通知',
     'x_new_alerts' => '您有 {x} 条新通知', // Don't replace {x}
     'no_alerts_usercp' => '您没有任何可读的通知。',
-    
+
     // Registraton
     'registration_check_email' => '感谢您的注册！请检查您的电子邮箱以获取验证链接，以完成注册。如果找不到电子邮件，请检查垃圾邮箱。',
     'username' => '用户名',
@@ -131,7 +131,7 @@ $language = array(
     'verification_success' => '验证成功！您现在可以登录。',
     'authme_username_exists' => '您的 AuthMe 帐户已连接到网站!',
     'uuid_already_exists' => '您的 UUID 已经存在，这意味着该 Minecraft 帐户已经注册。',
-    
+
     // Login
     'successful_login' => '您已成功登录。',
     'incorrect_details' => '您输入了错误的安全信息。',
@@ -150,7 +150,7 @@ $language = array(
     'enter_new_password' => '请确认您的电子邮箱地址，然后在下面输入新密码。',
     'incorrect_email' => '您输入的电子邮箱地址不符合要求。',
     'forgot_password_change_successful' => '你已经成功更改密码。您现在可以登录。',
-    
+
     // Profile pages
     'profile' => '资料',
     'follow' => '关注',
@@ -188,12 +188,12 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} 已留言在您的留言板。', // Don't replace {x}
     'no_about_fields' => '该用户很懒，并没有填写个性签名。',
     'reply' => '回复',
-    
+
     // Reports
     'invalid_report_content' => '无法创建报告。请确保您的反馈内容在 2 到 1024 个字符之间。',
     'report_post_content' => '请输入反馈原因',
     'report_created' => '报告已创建成功',
-    
+
     // Messaging
     'no_messages' => '没有新讯息',
     'no_messages_full' => '您没有任何可读讯息。',
@@ -223,7 +223,7 @@ $language = array(
     'messages' => '讯息',
     'latest_profile_posts' => '最近的留言',
     'no_profile_posts' => '目前没有人给您留言喔。',
-    
+
     /*
      *  Infractions area
      */

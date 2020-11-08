@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Translations by Maiu
  *  https://github.com/NamelessMC/Nameless/
@@ -79,20 +79,20 @@ $language = array(
     'contact_message_email' => 'E-posten er ugyldig.',
     'contact_message_sent' => 'Meldingen har blitt sendt!',
     'contact_message_limit' => 'Du kan kun sende èn melding hver time. Du kan sende en ny melding om {x} minutter.', // Don't replace {x}
-    
-    /* 
+
+    /*
      *  Navbar
      */
     'home' => 'Hjem',
     'more' => 'Mer',
     'status' => 'Status',
-    
+
     /*
      *  Homepage
      */
     'social' => 'Sosiale medier',
-    
-    
+
+
     /*
      *  Help dialogues
      */

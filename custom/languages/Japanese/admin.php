@@ -694,20 +694,20 @@ $language = array(
     'background_colour_required' => '背景色は必須です。',
     'text_colour_required' => 'テキスト色は必須です。',
 
-	// Discord
-	'discord' => 'Discord',
-	'enable_discord_integration' => 'Discordの連携を有効にしますか？',
-	'discord_role_id' => 'Discord ロールID',
-	'discord_role_id_numeric' => 'Discord ロールID は数値でなければなりません。',
-	'discord_role_id_length' => 'Discord ロールID は 18桁の長さでなければなりません。',
-	'discord_settings_updated' => 'Discordの設定が更新されました。',
-	'discord_guild_id_required' => 'Discordの連携を利用するには、Discord サーバーIDを入力してください。',
-	'discord_bot_url' => 'Discord ボットURL',
-	'discord_bot_url_info' => 'あなたのカスタムインスタンスが存在する場所です。あなたが何をしているか分かっている場合のみ、この値を変更してください！',
-	'discord_bot_url_required' => 'Discordの連携を利用するには、ボットのURLを入力してください。',
-	'discord_invalid_api_url' => 'APIのURLが変更されたようです。ギルドオーナーにNameless Link ボットでURLを更新してもらってください。',
-	'test_bot_url' => 'テストボットURL',
-	'discord_bot_url_valid' => 'ボットのURLは有効です。',
-	'discord_cannot_interact' => 'Nameless LinkボットはDiscordでこのユーザーと対話することはできません。彼らの役割はNameless Linkのロールよりも高い可能性があります。'
+    // Discord
+    'discord' => 'Discord',
+    'enable_discord_integration' => 'Discordの連携を有効にしますか？',
+    'discord_role_id' => 'Discord ロールID',
+    'discord_role_id_numeric' => 'Discord ロールID は数値でなければなりません。',
+    'discord_role_id_length' => 'Discord ロールID は 18桁の長さでなければなりません。',
+    'discord_settings_updated' => 'Discordの設定が更新されました。',
+    'discord_guild_id_required' => 'Discordの連携を利用するには、Discord サーバーIDを入力してください。',
+    'discord_bot_url' => 'Discord ボットURL',
+    'discord_bot_url_info' => 'あなたのカスタムインスタンスが存在する場所です。あなたが何をしているか分かっている場合のみ、この値を変更してください！',
+    'discord_bot_url_required' => 'Discordの連携を利用するには、ボットのURLを入力してください。',
+    'discord_invalid_api_url' => 'APIのURLが変更されたようです。ギルドオーナーにNameless Link ボットでURLを更新してもらってください。',
+    'test_bot_url' => 'テストボットURL',
+    'discord_bot_url_valid' => 'ボットのURLは有効です。',
+    'discord_cannot_interact' => 'Nameless LinkボットはDiscordでこのユーザーと対話することはできません。彼らの役割はNameless Linkのロールよりも高い可能性があります。'
 
 );
