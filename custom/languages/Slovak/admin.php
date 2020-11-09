@@ -527,6 +527,7 @@ $language = array(
     'page_redirect' => 'Presměrovanie stránky?',
     'page_redirect_to' => 'Presmerovat
 ť odkaz (s predchadzajúcim http://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Povoliť nebezpečné HTML?',
     'unsafe_html_warning' => 'Povolením tejto možnosti, akékoľvek HTML môže byť na tejto strane použité, okrem potenciálne nebezpečného jazyka JavaScript. Povoľte to len v prípade, či ste si istý, že Váš HTML kód je bezpečný.',
     'include_in_sitemap' => 'Include in sitemap?',

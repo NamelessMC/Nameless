@@ -535,6 +535,7 @@ $language = array(
     'page_content' => 'Seiten Inhalt',
     'page_redirect' => 'Seiten weiterleitung?',
     'page_redirect_to' => 'Link umleiten (mit vorhergehendem http: //)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Erlaube unsicheres HTML?',
     'unsafe_html_warning' => 'Wenn Sie diese Option aktivieren, kann jeder HTML-Code auf der Seite verwendet werden, einschließlich potenziell gefährlichem JavaScript. Aktivieren Sie dies nur, wenn Sie sicher sind, dass Ihr HTML-Code sicher ist.',
     'include_in_sitemap' => 'Include in sitemap?',

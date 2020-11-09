@@ -526,6 +526,7 @@ $language = array(
     'page_content' => 'Sayfa içeriği',
     'page_redirect' => 'Sayfa Yönlendirme?',
     'page_redirect_to' => 'Yönlendirme Bağlantısı (önceki http:// ile)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Güvenli olmayan HTML\'ye izin verilsin mi? ',
     'unsafe_html_warning' => 'Bu seçeneğin etkinleştirilmesi, tehlikeli olabilecek JavaScript de dahil olmak üzere sayfada herhangi bir HTML\'nin kullanılabileceği anlamına gelir. Bunu yalnızca HTML\'nizin güvenli olduğundan eminseniz etkinleştirin.',
     'include_in_sitemap' => 'Site haritasına eklensin mi?',

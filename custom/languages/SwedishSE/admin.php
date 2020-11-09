@@ -527,6 +527,7 @@ $language = array(
     'page_content' => 'Sido Innehåll',
     'page_redirect' => 'Sido Omdirigera?',
     'page_redirect_to' => 'Omdirigerings Länk (med föregående http://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Tillåt osäker HTML?',
     'unsafe_html_warning' => 'Aktivering av det här alternativet innebär att alla HTML kan användas på sidan, inklusive potentiellt farlig JavaScript. Aktivera bara detta om du är säker på att din HTML är säker.',
     'include_in_sitemap' => 'Include in sitemap?',

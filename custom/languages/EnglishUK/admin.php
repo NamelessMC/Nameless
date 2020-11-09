@@ -508,6 +508,7 @@ $language = array(
     'page_content' => 'Page Content',
     'page_redirect' => 'Page Redirect?',
     'page_redirect_to' => 'Redirect Link (with preceding http://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Allow unsafe HTML?',
     'unsafe_html_warning' => 'Enabling this option means any HTML can be used on the page, including potentially dangerous JavaScript. Only enable this if you are sure your HTML is safe.',
     'include_in_sitemap' => 'Include in sitemap?',

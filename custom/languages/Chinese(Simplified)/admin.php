@@ -527,6 +527,7 @@ $language = array(
     'page_content' => '页面内容',
     'page_redirect' => '页面重定向？',
     'page_redirect_to' => '重定向链接 (前面带有 http://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => '是否允许不安全的 HTML?',
     'unsafe_html_warning' => '启用此选项意味着可以在页面上使用任何 HTML，包括有潜在危险的 JavaScript。仅当您确定 HTML 安全时才启用此功能。',
     'include_in_sitemap' => '是否将其包含在站点地图里?',

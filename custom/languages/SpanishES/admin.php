@@ -525,6 +525,7 @@ $language = array(
     'page_content' => 'Contenido de la página',
     'page_redirect' => '¿Redirigir página?',
     'page_redirect_to' => 'Redirigr a (con procedimiento http://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => '¿Permitir HTML inseguro?',
     'unsafe_html_warning' => 'Al habilitar esta opción, se puede usar cualquier HTML en la página, incluido un JavaScript potencialmente peligroso. Solo habilite esto si está seguro de que su HTML es seguro.',
     'include_in_sitemap' => '¿Incluir Mapa del Sitio?',

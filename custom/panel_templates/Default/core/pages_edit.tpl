@@ -109,6 +109,10 @@
                                     <label for="inputRedirectLink">{$PAGE_REDIRECT_TO}</label>
                                     <input type="text" class="form-control" id="inputRedirectLink" name="redirect_link" placeholder="{$PAGE_REDIRECT_TO}" value="{$PAGE_REDIRECT_TO_VALUE}">
                                 </div>
+								<div class="form-group">
+                                    <label for="inputTarget">{$TARGET}</label>
+                                    <input id="inputTarget" name="target" type="checkbox" class="js-switch"{if $TARGET_VALUE eq 1} checked{/if} />
+                                </div>
                                 <div class="form-group">
                                     <label for="inputUnsafeHTML">{$UNSAFE_HTML}</label> <span data-toggle="popover" data-content="{$UNSAFE_HTML_WARNING}" class="badge badge-warning"><i class="fas fa-exclamation-triangle"></i></span>
                                     <input id="inputUnsafeHTML" name="unsafe_html" type="checkbox" class="js-switch"{if $UNSAFE_HTML_VALUE eq 1} checked{/if} />

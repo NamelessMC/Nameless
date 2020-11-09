@@ -531,6 +531,7 @@ $language = array(
     'page_content' => 'ページ コンテンツ',
     'page_redirect' => 'ページをリダイレクトしますか？',
     'page_redirect_to' => 'リダイレクトリンク (http:// から入力してください。)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => '安全でない HTML を許可しますか？',
     'unsafe_html_warning' => 'このオプションを有効にすると、危険な JavaScript を含む HTML をページで使用することを許可します。 HTMLが安全であると確認できた場合のみ、有効にしてください。',
     'include_in_sitemap' => 'サイトマップを含めますか？',

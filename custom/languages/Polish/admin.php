@@ -525,6 +525,7 @@ $language = array(
     'page_content' => 'Zawartość strony',
     'page_redirect' => 'Przekierowanie strony?',
     'page_redirect_to' => 'Przekierowanie strony (poprzedzając http://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Zezwalać na niebezpieczne strony HTML?',
     'unsafe_html_warning' => 'Włączenie tej opcji oznacza, że na stronie można użyć dowolnego kodu HTML, w tym potencjalnie niebezpiecznego kodu JavaScript. Włącz to tylko, jeśli masz pewność, że Twój kod HTML jest bezpieczny.',
     'include_in_sitemap' => 'Uwzględnić w mapie strony?',

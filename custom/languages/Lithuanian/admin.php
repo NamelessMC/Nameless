@@ -524,6 +524,7 @@ $language = array(
     'page_content' => 'Puslapio Turinys',
     'page_redirect' => 'Puslapio Peradresavimas?',
     'page_redirect_to' => 'Nukreipti nuorodą (su ankstesniu http://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Leisti nesaugius HTML?',
     'unsafe_html_warning' => 'Įjungus šią parinktį, šiame puslapyje gali būti naudojamas bet koks HTML, įskaitant potencialiai pavojingą JavaScript. Įjunkite tik tai, jei esate tikri, kad jūsų HTML yra saugus.',
     'include_in_sitemap' => 'Įtraukti į svetainės schemą?',

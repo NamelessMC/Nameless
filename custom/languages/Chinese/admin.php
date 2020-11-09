@@ -532,6 +532,7 @@ $language = array(
     'page_content' => '自訂頁面內文',
     'page_redirect' => '自訂頁面轉址?',
     'page_redirect_to' => '轉址網址 (http://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => '允許使用不安全的 HTML?',
     'unsafe_html_warning' => '啟用此選項表示你可以使用任何的HTML標籤，包括未加密的JavaScript，確定HTML是安全的再開啟',
     'include_in_sitemap' => 'Include in sitemap?',

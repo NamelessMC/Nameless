@@ -528,6 +528,7 @@ $language = array(
     'page_content' => 'Pagina inhoud',
     'page_redirect' => 'Pagina doorsturing?',
     'page_redirect_to' => 'Doorstuur link (met vooraf http://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Toestaan van onveilige HTML?',
     'unsafe_html_warning' => 'Dit aanzetten betekent dat je HTML kan gebruiken op je pagina, inclusief potentieel gevaarlijke JavaScript. Alleen aanzetten als je weet dat je HTML veilig is.',
     'include_in_sitemap' => 'Op de sitemap opnemen?',
