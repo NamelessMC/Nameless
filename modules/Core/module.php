@@ -156,15 +156,15 @@ class Core_Module extends Module {
 										switch($custom_page->link_location){
 											case 1:
 												// Navbar
-												$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order, $custom_page->icon);
+												$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', $custom_page->target ? '_blank' : null, $page_order, $custom_page->icon);
 												break;
 											case 2:
 												// "More" dropdown
-												$more[] = array('id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'icon' => $custom_page->icon, 'order' => $page_order);
+												$more[] = array('id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'target' => $custom_page->target, 'icon' => $custom_page->icon, 'order' => $page_order);
 												break;
 											case 3:
 												// Footer
-												$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000, $custom_page->icon);
+												$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', $custom_page->target ? '_blank' : null, 2000, $custom_page->icon);
 												break;
 										}
 										break 2;
@@ -201,15 +201,15 @@ class Core_Module extends Module {
 									switch($custom_page->link_location){
 										case 1:
 											// Navbar
-											$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', (is_null($redirect)) ? null : '_blank', $page_order, $custom_page->icon);
+											$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', $custom_page->target ? '_blank' : null, $page_order, $custom_page->icon);
 											break;
 										case 2:
 											// "More" dropdown
-											$more[] = array('id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'icon' => $custom_page->icon, 'order' => $page_order);
+											$more[] = array('id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'target' => $custom_page->target, 'icon' => $custom_page->icon, 'order' => $page_order);
 											break;
 										case 3:
 											// Footer
-											$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', (is_null($redirect)) ? null : '_blank', 2000, $custom_page->icon);
+											$navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', $custom_page->target ? '_blank' : null, 2000, $custom_page->icon);
 											break;
 									}
 								}
@@ -223,7 +223,7 @@ class Core_Module extends Module {
 
 			if(count($more)){
 				foreach($more as $item)
-					$navigation->addItemToDropdown('more_dropdown', $item['id'], $item['title'], $item['url'], 'top', ($item['redirect']) ? '_blank' : null, $item['icon'], $item['order']);
+					$navigation->addItemToDropdown('more_dropdown', $item['id'], $item['title'], $item['url'], 'top', ($item['target']) ? '_blank' : null, $item['icon'], $item['order']);
 			}
 		}
 		$custom_pages = null;

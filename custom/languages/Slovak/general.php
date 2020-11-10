@@ -79,20 +79,20 @@ $language = array(
     'contact_message_email' => 'The provided email is invalid.',
     'contact_message_sent' => 'Správa bola úspešne odoslaná.',
     'contact_message_limit' => 'Můžete odeslat pouze jednu zprávu za hodinu. Další můžete odeslat za {x} minut.', // Don't replace {x}
-    
-    /* 
+
+    /*
      *  Navbar
      */
     'home' => 'Domov',
     'more' => 'Viac',
     'status' => 'Status',
-    
+
     /*
      *  Homepage
      */
     'social' => 'Sociálné siete',
-    
-    
+
+
     /*
      *  Help dialogues
      */

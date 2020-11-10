@@ -22,7 +22,7 @@ $language = array(
     // Change Password
     'change_password_subject' => '忘記密碼',
     'change_password_message' => '點擊下列網址萊完成忘記密碼恢復，如果您沒有傳送忘記密碼，請移除本郵件.',
-    
+
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} has replied to {y}', // Don't remove {x} or {y}
     'forum_topic_reply_message' => '{x} has replied to a topic you follow. Content: {z}' // Don't remove {x} or {z}

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -28,7 +28,7 @@ $language = array(
      */
     'guest' => 'Gast',
     'guests' => 'Gäste',
-    
+
     // UserCP
     'user_cp' => 'Konto',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
@@ -44,7 +44,7 @@ $language = array(
     'delete_all' => 'Alle Löschen',
     'private_profile' => 'Privates Profil',
     'gif_avatar' => 'Upload .gif as custom avatar',
-    
+
     // Profile settings
     'field_is_required' => '{x} wird benötigt.', // Don't replace {x}
     'settings_updated_successfully' => 'Einstellungen wurden erfolgreich geändert.',
@@ -77,7 +77,7 @@ $language = array(
     'upload_profile_banner' => 'Banner hochladen',
     'upload' => 'Hochladen',
     'topic_updates' => 'Get emails for topics you follow',
-    
+
     // Alerts
     'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace {x}
     'no_alerts' => 'Keine Benachrichtigungen',
@@ -85,7 +85,7 @@ $language = array(
     '1_new_alert' => 'Du hast 1 neue Benachrichtigung.',
     'x_new_alerts' => 'Du hast {x} neue Benachrichtigungen', // Don't replace {x}
     'no_alerts_usercp' => 'Du hast keine Benachrichtigungen.',
-    
+
     // Registraton
     'registration_check_email' => 'Registrierung erfolgreich abgeschlossen. Überprüfe bitte deine E-Mails. Falls du sie nicht finden kannst, überprüfen bitte deinen Spam-Ordner.',
     'username' => 'Benutzername',
@@ -137,7 +137,7 @@ $language = array(
     'verification_success' => 'Erfolgreich freigeschaltet.',
     'authme_username_exists' => 'Ihr Authme-Konto wurde bereits mit der Website verbunden!',
     'uuid_already_exists' => 'Deine UUID existiert bereits, was bedeutet, dass dieser Minecraft-Account bereits registriert ist.',
-    
+
     // Login
     'successful_login' => 'Du hast dich erfolgreich angemeldet.',
     'incorrect_details' => 'Du hast falsche Daten eingegeben.',
@@ -156,7 +156,7 @@ $language = array(
     'enter_new_password' => 'Bitte bestätige deine E-Mail-Adresse und erteile ein neues Passwort.',
     'incorrect_email' => 'Die eingegebene E-Mail-Adresse stimmt nicht mit der Anfrage überein.',
     'forgot_password_change_successful' => 'Dein Passwort wurde erfolgreich geändert. Du kannst dich jetzt anmelden.',
-    
+
     // Profile pages
     'profile' => 'Profil',
     'follow' => 'Folgen',
@@ -194,12 +194,12 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} hat auf deinen Beitrag in deinem Profil geantwortet.', // Don't replace {x}
     'no_about_fields' => 'Dieser Benutzer hat noch keine Felder hinzugefügt.',
     'reply' => 'Antworten',
-    
+
     // Reports
     'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
     'report_post_content' => 'Gib bitte einen Grund an.',
     'report_created' => 'Die Meldung wurde erfolgreich erstellt.',
-    
+
     // Messaging
     'no_messages' => 'Keine neuen Nachrichten',
     'no_messages_full' => 'Du hast keine neuen Nachrichten.',
@@ -229,7 +229,7 @@ $language = array(
     'messages' => 'Nachrichten',
     'latest_profile_posts' => 'Latest Profile Posts',
     'no_profile_posts' => 'No profile posts.',
-    
+
     /*
      *  Infractions area
      */

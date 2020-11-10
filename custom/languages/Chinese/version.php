@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -7,7 +7,7 @@
  *  License: MIT
  *
  *  Chinese Language - Version
- *  翻譯有誤請使用GitHun回報issues 
+ *  翻譯有誤請使用GitHun回報issues
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 

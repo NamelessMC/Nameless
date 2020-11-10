@@ -41,7 +41,7 @@ services:
             NAMELESS_SITE_CONTACT_EMAIL: admin@localhost
             NAMELESS_SITE_OUTGOING_EMAIL: admin@localhost
             NAMELESS_ADMIN_USERNAME: developer
-            NAMELESS_ADMIN_EMAIL: admin@localhost
+            NAMELESS_ADMIN_EMAIL: admin@namelessmc.com
 
     db:
         image: mariadb

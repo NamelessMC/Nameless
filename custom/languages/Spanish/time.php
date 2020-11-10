@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by TheSuperSkills
  *  https://github.com/NamelessMC/Nameless/

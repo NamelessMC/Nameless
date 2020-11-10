@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -13,13 +13,13 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Para completar o registo, por favor execute o comando <strong>/validate {x}</strong> no servidor.', // Don't replace {x} 
+    'validate_account_command' => 'Para completar o registo, por favor execute o comando <strong>/validate {x}</strong> no servidor.', // Don't replace {x}
     /*
      *  User Related
      */
     'guest' => 'Visitante',
     'guests' => 'Visitantes',
-    
+
     // UserCP
     'user_cp' => 'UserCP',
     'user_cp_icon' => '<i class="fas fa-cogs" aria-hidden="true"></i>',
@@ -35,7 +35,7 @@ $language = array(
     'delete_all' => 'Excluir Todos',
     'private_profile' => 'Perfil privado',
     'gif_avatar' => 'Upload .gif as custom avatar',
-    
+
     // Profile settings
     'field_is_required' => '{x} é requerido.', // Don't replace {x}
     'settings_updated_successfully' => 'Configurações atualizadas com sucesso.',
@@ -68,7 +68,7 @@ $language = array(
     'upload_profile_banner' => 'Enviar Banner de Perfil',
     'upload' => 'Upload',
     'topic_updates' => 'Get emails for topics you follow',
-    
+
     // Alerts
     'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}
     'no_alerts' => 'Sem novos alertas',
@@ -76,7 +76,7 @@ $language = array(
     '1_new_alert' => 'Você possui 1 novo alerta',
     'x_new_alerts' => 'Você possui {x} novos alertas', // Don't replace {x}
     'no_alerts_usercp' => 'Você não possui nenhum alerta.',
-    
+
     // Registraton
     'registration_check_email' => 'Obrigado por se registrar! Verifique os seus e-mails para obter um link de validação para concluir o seu registo. Se você não conseguir encontrar o e-mail, verifique sua pasta de lixo eletrônico.',
     'username' => 'Usuário',
@@ -93,14 +93,14 @@ $language = array(
     'validation_complete' => 'Sua conta foi validada, agora você pode fazer login.',
     'validation_error' => 'Ocorreu um erro desconhecido ao validar sua conta, entre em contato com um administrador.',
     'signature' => 'Assinatura',
-    'signature_max_900' => 'Sua assinatura deve ter no máximo 900 caracteres.', 
+    'signature_max_900' => 'Sua assinatura deve ter no máximo 900 caracteres.',
     // Registration - Authme
     'connect_with_authme' => 'Conecte sua conta com AuthMe',
     'authme_help' => 'Digite os detalhes da sua conta AuthMe. Se você ainda não possui uma conta no servidor, entre no servidor agora e siga as instruções fornecidas.',
     'unable_to_connect_to_authme_db' => 'Não é possível conectar-se ao banco de dados AuthMe. Se esse erro persistir, entre em contato com um administrador.',
     'authme_account_linked' => 'Conta vinculada com sucesso.',
     'authme_email_help_1' => 'Finalmente, insira seu endereço de e-mail.',
-    'authme_email_help_2' => 'Finalmente, digite seu endereço de e-mail e escolha um nome para sua conta.', 
+    'authme_email_help_2' => 'Finalmente, digite seu endereço de e-mail e escolha um nome para sua conta.',
     // Registration errors
     'username_required' => 'É necessário um nome de usuário.',
     'email_required' => 'É necessário um endereço de e-mail.',
@@ -126,7 +126,7 @@ $language = array(
     'verification_success' => 'Validado com sucesso! Agora você pode entrar.',
     'authme_username_exists' => 'Sua conta AuthMe já está conectada com o website!',
     'uuid_already_exists' => 'Seu UUID já existe, o que significa que esta conta Minecraft já está registrado.',
-    
+
     // Login
     'successful_login' => 'Você fez login com sucesso.',
     'incorrect_details' => 'Você inseriu detalhes incorretos.',
@@ -136,7 +136,7 @@ $language = array(
     'remember_me' => 'Lembrar-me',
     'must_input_email' => 'Você deve inserir um endereço de e-mail.',
     'must_input_username' => 'Você deve inserir um nome de usuário.',
-    'must_input_password' => 'Você deve inserir uma senha.',    
+    'must_input_password' => 'Você deve inserir uma senha.',
     // Forgot password
     'forgot_password_instructions' => 'Por favor, insira seu endereço de e-mail para que possamos enviar-lhe mais instruções sobre como redefinir sua senha.',
     'forgot_password_email_sent' => 'Se existe uma conta com o endereço de e-mail, um e-mail foi enviado contendo instruções adicionais. Se você não conseguir encontrá-lo, tente verificar sua pasta de spams.',
@@ -144,7 +144,7 @@ $language = array(
     'enter_new_password' => 'Confirme seu endereço de e-mail e insira uma nova senha abaixo.',
     'incorrect_email' => 'O endereço de e-mail digitado não corresponde à solicitação.',
     'forgot_password_change_successful' => 'Sua senha foi alterada com sucesso. Você já pode realizar o seu login.',
-    
+
     // Profile pages
     'profile' => 'Perfil',
     'follow' => 'Seguir',
@@ -182,12 +182,12 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} respondeu ao seu post no seu perfil.', // Don't replace {x}
     'no_about_fields' => 'Este usuário não adicionou nenhum campo sobre ele ainda.',
     'reply' => 'Responder',
-    
+
     // Reports
     'invalid_report_content' => 'Não foi possível criar o alerta. Certifique-se de que o motivo do alerta está entre 2 e 1024 caracteres.',
     'report_post_content' => 'Introduza uma razão para o seu alerta',
     'report_created' => 'Alerta criado com sucesso',
-    
+
     // Messaging
     'no_messages' => 'Sem novas mensagens',
     'no_messages_full' => 'Você não possui nenhuma mensagem.',
@@ -217,7 +217,7 @@ $language = array(
     'messages' => 'Mensagens',
     'latest_profile_posts' => 'Latest Profile Posts',
     'no_profile_posts' => 'No profile posts.',
-    
+
     /*
      *  Infractions area
      */

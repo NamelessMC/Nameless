@@ -526,6 +526,7 @@ $language = array(
     'page_content' => 'Conteúdo da Página',
     'page_redirect' => 'Página de Redirecionamento?',
     'page_redirect_to' => 'Link para o redirecionamento (com o http:// ou https://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Permitir tags HTML não seguras?',
     'unsafe_html_warning' => 'Ativando está opção, siginifica que qualquer HTML pode ser usada nesta página, incluindo JavaScript potencialmente perigosos. Somente ativa esta opção se você está ciente que o seu HTML é seguro.',
     'include_in_sitemap' => 'Incluir no sitemap?',

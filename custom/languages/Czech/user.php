@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton, translated by Zemos, Renzotom, Ethxrnity, sad_mirai and Fjuro
  *  https://github.com/NamelessMC/Nameless/
@@ -20,7 +20,7 @@ $language = array(
      */
     'guest' => 'Host',
     'guests' => 'Hosté',
-    
+
     // UserCP
     'user_cp' => 'Možnosti',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
@@ -36,7 +36,7 @@ $language = array(
     'delete_all' => 'Smazat vše',
     'private_profile' => 'Soukromý profil',
     'gif_avatar' => 'Nahrát .gif jako vlastní avatar',
-    
+
     // Profile settings
     'field_is_required' => 'Pole {x} je povinné.', // Don't replace {x}
     'settings_updated_successfully' => 'Nastavení byla úspěšně aktualizována.',
@@ -69,7 +69,7 @@ $language = array(
     'upload_profile_banner' => 'Nahrát banner',
     'upload' => 'Nahrát',
     'topic_updates' => 'Získávejte e-maily o tématech, které sledujete',
-    
+
     // Alerts
     'user_tag_info' => 'Byli jste označeni v příspěvku {x}.', // Don't replace {x}
     'no_alerts' => 'Žádná nové upozornění.',
@@ -77,7 +77,7 @@ $language = array(
     '1_new_alert' => 'Máte 1 nové upozornění',
     'x_new_alerts' => 'Nových upororněních: {x}', // Don't replace {x}
     'no_alerts_usercp' => 'Nemáte žádná upozornění.',
-    
+
     // Registraton
     'registration_check_email' => 'Děkujeme za registraci! Do e-mailové schránky by vám měl přijít odkaz pro ověření e-mailu. Pokud ho nemůžete najít, podívejte se do složek Hromadné a Spam. Pokud není ani tam, kontaktujte administrátora.',
     'username' => 'Uživatelské jméno',
@@ -129,7 +129,7 @@ $language = array(
     'verification_success' => 'Ověření úspěšné! Nyní se můžete přihlásit.',
     'authme_username_exists' => 'Váš AuthMe účet byl právě připojen k webu!',
     'uuid_already_exists' => 'Vaše UUID již existuje. To znamená, že tento Minecraft účet je již registrován.',
-    
+
     // Login
     'successful_login' => 'Úspěšně jste se přihlásili.',
     'incorrect_details' => 'Zadal jste špatné údaje.',
@@ -148,7 +148,7 @@ $language = array(
     'enter_new_password' => 'Potvrďte prosím svou e-mailovou adresu a zadejte níže nové heslo.',
     'incorrect_email' => 'Vámi zadaná e-mailová adresa neodpovídá požadavku.',
     'forgot_password_change_successful' => 'Vaše zapomenuté heslo bylo úspěšně změněno. Nyní se můžete přihlásit.',
-    
+
     // Profile pages
     'profile' => 'Profil',
     'follow' => 'Sledovat',
@@ -186,12 +186,12 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} odpověděl na váš příspěvek na vašem profilu.', // Don't replace {x}
     'no_about_fields' => 'Tento uživatel o sobě ještě nepřidal žádné údaje.',
     'reply' => 'Odpověď',
-    
+
     // Reports
     'invalid_report_content' => 'Nelze vytvořit nahlášení. Musíte zadat důvod v rozmezí 2 až 1024 znaků.',
     'report_post_content' => 'Zadejte, prosím důvod nahlášení.',
     'report_created' => 'Nahlášení úspěšně vytvořeno.',
-    
+
     // Messaging
     'no_messages' => 'Žádné nové zprávy.',
     'no_messages_full' => 'Nemáte žádné zprávy.',
@@ -222,7 +222,7 @@ $language = array(
     'messages' => 'Zprávy',
     'latest_profile_posts' => 'Poslední profilové příspěvky',
     'no_profile_posts' => 'Žádné profilové příspěvky.',
-    
+
     /*
      *  Infractions area
      */

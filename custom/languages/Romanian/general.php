@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -81,20 +81,20 @@ $language = array(
     'contact_message_email' => 'Adresa de email oferită nu este validă.',
     'contact_message_sent' => 'Mesaj trimis cu succes.',
     'contact_message_limit' => 'Puteți trimite doar un mesaj pe oră. Aveți posibilitatea să trimiteți un nou mesaj în {x} minute.', // Don't replace {x}
-    
-    /* 
+
+    /*
      *  Navbar
      */
     'home' => 'Acasă',
     'more' => 'Mai mult',
     'status' => 'Statistici',
-    
+
     /*
      *  Homepage
      */
     'social' => 'Social',
-    
-    
+
+
     /*
      *  Help dialogues
      */

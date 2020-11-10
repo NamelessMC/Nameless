@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -87,20 +87,20 @@ $language = array(
     'contact_message_email' => 'The provided email is invalid.',
     'contact_message_sent' => 'Nachricht erfolgreich gesendet.',
     'contact_message_limit' => 'Sie können nur eine Nachricht pro Stunde senden. Sie können als nächstes eine Nachricht in {x} Minuten senden.', // Don't replace {x}
-    
-    /* 
+
+    /*
      *  Navbar
      */
     'home' => 'Startseite',
     'more' => 'Mehr',
     'status' => 'Status',
-    
+
     /*
      *  Homepage
      */
     'social' => 'Soziale Medien',
-    
-    
+
+
     /*
      *  Help dialogues
      */

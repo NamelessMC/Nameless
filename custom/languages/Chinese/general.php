@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  Translation  by Hi_Michael
@@ -9,7 +9,7 @@
  *
  *  Chinese Language - General terms
  *  Translation progress : 98%
- *  翻譯有誤請使用GitHun回報issues 
+ *  翻譯有誤請使用GitHun回報issues
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 
@@ -83,19 +83,19 @@ $language = array(
     'contact_message_sent' => '訊息傳送成功.',
     'contact_message_email' => 'The provided email is invalid.',
     'contact_message_limit' => '你一小時可以提交一次. 請在 {x} 分鐘後重試.', // Don't replace {x}
-    
-    /* 
+
+    /*
      *  Navbar
      */
     'home' => '首頁',
     'more' => '更多',
     'status' => 'Status',
-    
+
     /*
      *  Homepage
      */
     'social' => '社交',
-    
+
     /*
      *  Help dialogues
      */

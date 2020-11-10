@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -21,7 +21,7 @@ $language = array(
      */
     'guest' => 'Gäst',
     'guests' => 'Gäster',
-    
+
     // UserCP
     'user_cp' => 'UserKP',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
@@ -37,7 +37,7 @@ $language = array(
     'delete_all' => 'Radera Alla',
     'private_profile' => 'Privat profil',
     'gif_avatar' => 'Upload .gif as custom avatar',
-    
+
     // Profile settings
     'field_is_required' => '{x} krävs', // Don't replace {x}
     'settings_updated_successfully' => 'Inställningarna uppdateras!',
@@ -70,7 +70,7 @@ $language = array(
     'upload_profile_banner' => 'Upload Profile Banner',
     'upload' => 'Upload',
     'topic_updates' => 'Get emails for topics you follow',
-    
+
     // Alerts
     'user_tag_info' => 'Du har blivit taggat i ett inlägg av {x}.', // Don't replace {x}
     'no_alerts' => 'Inga nya alerter.',
@@ -78,7 +78,7 @@ $language = array(
     '1_new_alert' => 'You have 1 new alert',
     'x_new_alerts' => 'Du har {x} nya alerter', // Don't replace {x}
     'no_alerts_usercp' => 'Du har inga nya alerter.',
-    
+
     // Registraton
     'registration_check_email' => 'Tack för att du registrerade! Vänligen kolla i din e-post för en valideringslänk för att slutföra din registrering. Om du inte hittar e-postmeddelandet, kolla i din skräppostmapp.',
     'username' => 'Användarnamn',
@@ -104,7 +104,7 @@ $language = array(
     'authme_account_linked' => 'Kontot har länktat!',
     'authme_email_help_1' => 'Slutligen, ange en e-postadress',
     'authme_email_help_2' => 'Slutligen, ange en e-postadress och ange ett smeknamn',
-    
+
     // Registration errors
     'username_required' => 'Ett användarnamn krävs.',
     'email_required' => 'En e-postadress krävs.',
@@ -130,7 +130,7 @@ $language = array(
     'verification_success' => 'Du har validerats! Nu kan du logga in.',
     'authme_username_exists' => 'Ditt Authme konto har redan anslutits till den här webbplatsen!',
     'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
-    
+
     // Login
     'successful_login' => 'Du har loggat in.',
     'incorrect_details' => 'Du har angivit felaktiga uppgifter.',
@@ -149,7 +149,7 @@ $language = array(
     'enter_new_password' => 'Vänligen bekräfta din e-postadress och ange ett nytt lösenord nedan.',
     'incorrect_email' => 'Den e-postadresseb du har angett matchar inte förfrågan.',
     'forgot_password_change_successful' => 'Ditt lösenord har ändrats! Nu kan du logga in.',
-    
+
     // Profile pages
     'profile' => 'Profil',
     'follow' => 'Följ',
@@ -187,12 +187,12 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
     'no_about_fields' => 'This user has not added any about fields yet.',
     'reply' => 'Reply',
-    
+
     // Reports
     'invalid_report_content' => 'Det gick inte att skapa en anmäla. Var god och se till att din anmälnings orsak är mellan 2 och 1024 tecken.',
     'report_post_content' => 'Vänligen ange en anledning till din anmälning',
     'report_created' => 'Din Anmäla har skapats!',
-    
+
     // Messaging
     'no_messages' => 'Inga nya meddelanden',
     'no_messages_full' => 'Du har inga meddelanden.',
@@ -241,7 +241,7 @@ $language = array(
     'not_linked' => 'Not Linked',
     'discord_id' => 'Discord User ID',
     'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to "Nameless Link#0761" to confirm your Discord User ID.',    
+    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to "Nameless Link#0761" to confirm your Discord User ID.',
     'pending_link' => 'Pending',
     'discord_id_taken' => 'That Discord ID has already been taken.',
     'discord_invalid_id' => 'That Discord User ID is invalid.',

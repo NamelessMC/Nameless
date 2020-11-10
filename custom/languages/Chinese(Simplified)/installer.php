@@ -87,7 +87,7 @@ $language = array(
     'finish_message' => '感谢安装 NamelessMC! 现在，您可以进入管理员面板，在那里可以进一步配置您的网站。',
     'support_message' => '如果你需要任何帮助，请在 <a href="https://namelessmc.com" target="_blank">我们的网站</a> 上查找 , 或者你可以访问我们的 <a href="https://discord.gg/9vk93VR" target="_blank">Discord 服务器</a> 或 <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub 资料库</a>.',
     'credits' => '开发人员',
-    'credits_message' => '向所有自2014年以来的 <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC 代码贡献者</a> 致敬',
+    'credits_message' => '向所有自 2014 年以来的 <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC 代码贡献者</a> 致敬',
 
     'step_home' => '开始',
     'step_requirements' => '环境需求',

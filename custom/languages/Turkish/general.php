@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -79,19 +79,19 @@ $language = array(
     'contact_message_sent' => 'Mesaj başarıyla gönderildi!.',
     'contact_message_email' => 'Sağlanan e-posta geçersiz.',
     'contact_message_limit' => 'Saatte yalnızca bir mesaj gönderebilirsiniz. {X} dakika içinde bir mesaj gönderebilirsiniz.', // Don't replace {x}
-    
-    /* 
+
+    /*
      *  Navbar
      */
     'home' => 'Ana Sayfa',
     'more' => 'Daha',
     'status' => 'Durum',
-    
+
     /*
      *  Homepage
      */
     'social' => 'Sosyal',
-    
+
     /*
      *  Help dialogues
      */

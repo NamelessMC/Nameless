@@ -1,4 +1,4 @@
-<?php 
+<?php
  /*
  *  Made by Samerton
  *  Translation  by Hi_Michael
@@ -9,7 +9,7 @@
  *
  *  Chinese Language - Moderator terms
  *  Translation progress : 100%
- *  翻譯有誤請使用GitHun回報issues 
+ *  翻譯有誤請使用GitHun回報issues
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 
@@ -17,14 +17,14 @@ $language = array(
     'mod_cp' => '控制者後台',
     'staff_cp' => 'StaffCP',
     'overview' => '總覽',
-    
+
     // Spam
     'spam' => '垃圾訊息',
     'mark_as_spam' => '標記為垃圾訊息',
     'confirm_spam' => '<p>你確定要標記使用者為垃圾訊息?</p><p>使用者的IP將會被封禁，內容將會被移除.</p>',
     'user_marked_as_spam' => '使用者標記為垃圾訊息成功.',
     'cant_ban_admin' => '你不能封禁管理者!',
-    
+
     // IP Lookup
     'ip_lookup' => 'IP查詢',
     'search_for_ip' => '使用IP查詢:',
@@ -35,7 +35,7 @@ $language = array(
     '1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
     'count_ips_with_name' => '在 {y} 紀錄中找到 {x} 個IP位置', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => '沒有使用者或IP位置記錄.',
-    
+
     // Reports
     'reports' => '回報',
     'report_alert' => '新回報',
@@ -65,7 +65,7 @@ $language = array(
     'report_reopened' => 'Report reopened successfully.',
     'report_closed' => 'Report closed successfully.',
     'comment_created' => 'Comment created successfully.',
-    
+
     // Punishments
     'punishments' => '懲罰',
     'view_punishments' => '查看懲罰',
@@ -104,7 +104,7 @@ $language = array(
     'created' => 'Created:',
     'staff:' => 'Staff:',
     'reason:' => 'Reason:',
-    
+
     // Users
     'recent_registrations' => 'Recent Registrations',
     'reset_profile_banner' => 'Reset Profile Banner'

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by alsoGAMER
  *  https://github.com/NamelessMC/Nameless/

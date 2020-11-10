@@ -7,8 +7,8 @@
  *  License: MIT
  *
  *  Chinese Simplified Language - Admin
- *  Translation(Chinese Simplified) by ahdg,lian20,LingDong,NEWLY_1129514,Dreta (yangyang200)
- *  Translation progress(v2-pr8) : 99.9 %
+ *  Translation(Chinese Simplified) by ahdg,lian20,LingDong,NEWLY_1129514,Dreta
+ *  Translation progress(v2-pr8) : 100%
  */
 
 $language = array(
@@ -81,7 +81,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget 主题',
     'discord_id_length' => '请确保您的 Discord ID 长 18 位。',
     'discord_id_numeric' => '请确保您的 Discord ID 只包含数字。',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
+    'discord_invite_info' => '您可点击<a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=734609142081388705&permissions=268435456&scope=bot">此处</a>来将 Nameless Link 机器人邀请至您的 Discord 服务器. 随后，您需要向机器人发送包含 <code>!apiurl</code> 命令的消息来链接您的网站。或者，您也可以<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">自己部署机器人</a>。',
     'dark' => '暗调',
     'light' => '亮色',
     'google_plus_url' => 'Google Plus 链接 (URL)',
@@ -338,7 +338,7 @@ $language = array(
     'panel_templates' => '面板模板',
     'view_all_panel_templates' => '查看所有面板模版',
     'template_outdated' => '我们检测到您的模板适用于 Nameless 版本 {x}, 但你正在运行 Nameless 版本 {y}', // Don't replace "{x}" or "{y}"
-    'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
+    'template_not_supported' => '从 NamelessMC 2.0.0-pr8 开始，默认模板不再被支持。为了获得更好的体验，请您使用受支持的模板。',
     'active' => '应用中的',
     'deactivate' => '停用',
     'activate' => '启用',
@@ -527,6 +527,7 @@ $language = array(
     'page_content' => '页面内容',
     'page_redirect' => '页面重定向？',
     'page_redirect_to' => '重定向链接 (前面带有 http://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => '是否允许不安全的 HTML?',
     'unsafe_html_warning' => '启用此选项意味着可以在页面上使用任何 HTML，包括有潜在危险的 JavaScript。仅当您确定 HTML 安全时才启用此功能。',
     'include_in_sitemap' => '是否将其包含在站点地图里?',
@@ -692,20 +693,20 @@ $language = array(
     'background_colour_required' => '背景颜色为必填项',
     'text_colour_required' => '文字颜色为必填项',
 
-	// Discord
-	'discord' => 'Discord',
-	'enable_discord_integration' => '启用 Discord 集成?',
-	'discord_role_id' => 'Discord 身份组 ID',
-	'discord_role_id_numeric' => 'Discord 身份组 ID 必须为数字。',
-	'discord_role_id_length' => 'Discord 身份组 ID 必须为 18 位长。',
-	'discord_settings_updated' => '已成功更新您的 Discord 设置。',
-	'discord_guild_id_required' => '请输入您的 Discord 服务器 ID:',
-	'discord_bot_url' => 'Discord 机器人链接',
-	'discord_bot_url_info' => '您的自定义 Nameless Link 机器人的链接。请您在理解此项的用途后更改。',
-	'discord_bot_url_required' => '请输入您 Nameless Link 机器人的链接。',
-	'discord_invalid_api_url' => '好像您的 API 链接变化了。请您联系服务器拥有者修改链接。',
-	'test_bot_url' => '测试机器人 URL',
-	'discord_bot_url_valid' => '您的机器人 URL 有效。',
-	'discord_cannot_interact' => 'Nameless Link 机器人无法对此用户进行操作。它的权限组可能比 Nameless Link 权限组更高。'
+    // Discord
+    'discord' => 'Discord',
+    'enable_discord_integration' => '启用 Discord 集成?',
+    'discord_role_id' => 'Discord 身份组 ID',
+    'discord_role_id_numeric' => 'Discord 身份组 ID 必须为数字。',
+    'discord_role_id_length' => 'Discord 身份组 ID 必须为 18 位长。',
+    'discord_settings_updated' => '已成功更新您的 Discord 设置。',
+    'discord_guild_id_required' => '请输入您的 Discord 服务器 ID:',
+    'discord_bot_url' => 'Discord 机器人链接',
+    'discord_bot_url_info' => '您的自定义 Nameless Link 机器人的链接。请您在理解此项的用途后更改。',
+    'discord_bot_url_required' => '请输入您 Nameless Link 机器人的链接。',
+    'discord_invalid_api_url' => '好像您的 API 链接变化了。请您联系服务器拥有者修改链接。',
+    'test_bot_url' => '测试机器人 URL',
+    'discord_bot_url_valid' => '您的机器人 URL 有效。',
+    'discord_cannot_interact' => 'Nameless Link 机器人无法对此用户进行操作。它的权限组可能比 Nameless Link 权限组更高。'
 
 );

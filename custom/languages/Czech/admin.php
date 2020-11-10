@@ -527,6 +527,7 @@ $language = array(
     'page_content' => 'Obsah stránky',
     'page_redirect' => 'Přesměrování stránky?',
     'page_redirect_to' => 'Přesměrovat odkaz (s předchozím http://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Povolit nebezpečné HTML?',
     'unsafe_html_warning' => 'Povolením této možnosti může být použito jakékoli HTML, včetně potenciálně nebezpečného jazyku JavaScript. Povolte pouze v případě, že jste si jisti, že je váš HTML kód bezpečný.',
     'include_in_sitemap' => 'Zahrnout do souboru mapy webu?',
@@ -690,20 +691,20 @@ $language = array(
     'background_colour_required' => 'Je vyžadována barva pozadí',
     'text_colour_required' => 'Je vyžadována barva textu',
 
-	// Discord
-	'discord' => 'Discord',
-	'enable_discord_integration' => 'Povolit integraci Discordu?',
-	'discord_role_id' => 'ID Discord role',
-	'discord_role_id_numeric' => 'ID Discord role musí být číselné.',
-	'discord_role_id_length' => 'ID Discord role musí být 18 číslic dlouhé.',
-	'discord_settings_updated' => 'Nastavení vašeho Discordu byla úspěšně aktualizována.',
-	'discord_guild_id_required' => 'Zadejte ID vašeho Discord serveru pro správnou funkčnost integrace Discordu.',
-	'discord_bot_url' => 'URL Discord bota',
-	'discord_bot_url_info' => 'Lokace vaší vlastní relace bota Nameless Link. Toto neměňte, pokud nevíte, co děláte!',
-	'discord_bot_url_required' => 'Zadejte URL vašeho bota pro správnou funkčnost integrace Discordu.',
-	'discord_invalid_api_url' => 'Zdá se, že byla změněna URL vaší API. Oznamte majitelovi serveru, aby aktualizoval URL s Nameless Link botem.',
-	'test_bot_url' => 'URL testovacího bota',
-	'discord_bot_url_valid' => 'URL vašeho bota je platná.',
-	'discord_cannot_interact' => 'Bot Nameless Link nemůže interagovat s tímto uživatelem Discordu. Není role uživatele výše než role Nameless Link?'
+    // Discord
+    'discord' => 'Discord',
+    'enable_discord_integration' => 'Povolit integraci Discordu?',
+    'discord_role_id' => 'ID Discord role',
+    'discord_role_id_numeric' => 'ID Discord role musí být číselné.',
+    'discord_role_id_length' => 'ID Discord role musí být 18 číslic dlouhé.',
+    'discord_settings_updated' => 'Nastavení vašeho Discordu byla úspěšně aktualizována.',
+    'discord_guild_id_required' => 'Zadejte ID vašeho Discord serveru pro správnou funkčnost integrace Discordu.',
+    'discord_bot_url' => 'URL Discord bota',
+    'discord_bot_url_info' => 'Lokace vaší vlastní relace bota Nameless Link. Toto neměňte, pokud nevíte, co děláte!',
+    'discord_bot_url_required' => 'Zadejte URL vašeho bota pro správnou funkčnost integrace Discordu.',
+    'discord_invalid_api_url' => 'Zdá se, že byla změněna URL vaší API. Oznamte majitelovi serveru, aby aktualizoval URL s Nameless Link botem.',
+    'test_bot_url' => 'URL testovacího bota',
+    'discord_bot_url_valid' => 'URL vašeho bota je platná.',
+    'discord_cannot_interact' => 'Bot Nameless Link nemůže interagovat s tímto uživatelem Discordu. Není role uživatele výše než role Nameless Link?'
 
 );

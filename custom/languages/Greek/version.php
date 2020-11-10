@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by ArisC
  *  https://github.com/Ar1sC

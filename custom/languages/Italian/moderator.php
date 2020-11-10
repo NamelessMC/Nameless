@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by alsoGAMER
  *  https://github.com/NamelessMC/Nameless/
@@ -13,14 +13,14 @@ $language = array(
     'mod_cp' => 'Pannello Moderatori',
     'staff_cp' => 'Pannello Staff',
     'overview' => 'Panoramica',
-    
+
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Segna come spam',
     'confirm_spam' => "<p>Sei sicuro di voler contrassegnare questo utente come spam?</p><p>L'utente verrà bannato via IP e tutto il suo contenuto verrà rimosso.</p>",
     'user_marked_as_spam' => 'Utente contrassegnato come spam con successo.',
     'cant_ban_admin' => 'Non puoi bannare un amministratore!',
-    
+
     // IP Lookup
     'ip_lookup' => 'Ricerca IP',
     'search_for_ip' => 'Cerca un nome utente o un indirizzo IP',
@@ -31,7 +31,7 @@ $language = array(
     '1_ip_with_name' => "Trovato 1 indirizzo IP per l'utente {y}", // Don't replace "{y}"
     'count_ips_with_name' => "Trovati {x} indirizzi IP per l'utente {y}", // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Nessun utente o indirizzo IP trovato.',
-    
+
     // Reports
     'reports' => 'Segnalazioni',
     'report_alert' => 'New report submitted',
@@ -61,7 +61,7 @@ $language = array(
     'report_reopened' => 'Segnalazione riaperta con successo.',
     'report_closed' => 'Segnalazione chiusa con successo.',
     'comment_created' => 'Commento creato con successo.',
-    
+
     // Punishments
     'punishments' => 'Punizioni',
     'view_punishments' => 'Visualizza le punizioni',
@@ -100,7 +100,7 @@ $language = array(
     'created' => 'Creato:',
     'staff:' => 'Staff:',
     'reason:' => 'Motivo:',
-    
+
     // Users
     'recent_registrations' => 'Registrazioni recenti',
     'reset_profile_banner' => 'Reimposta banner profilo'

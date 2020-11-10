@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -84,20 +84,20 @@ $language = array(
     'contact_message_email' => '指定されたメールアドレスは無効です。',
     'contact_message_sent' => '正常に送信されました。',
     'contact_message_limit' => '1 時間に 1 つのメッセージのみ送信できます。 {x} 分後に再試行してください。', // Don't replace {x}
-    
-    /* 
+
+    /*
      *  Navbar
      */
     'home' => 'ホーム',
     'more' => 'さらに',
     'status' => 'ステータス',
-    
+
     /*
      *  Homepage
      */
     'social' => 'ソーシャル',
-    
-    
+
+
     /*
      *  Help dialogues
      */

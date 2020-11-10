@@ -119,6 +119,9 @@ if(!isset($_GET['action'])){
 
 							if(isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') $redirect = 1;
 							else $redirect = 0;
+							
+							if(isset($_POST['target']) && $_POST['target'] == 'on') $target = 1;
+							else $target = 0;
 
 							if(isset($_POST['redirect_link'])) $link = $_POST['redirect_link'];
 							else $link = '';
@@ -139,7 +142,7 @@ if(!isset($_GET['action'])){
 								'link_location' => $location,
 								'redirect' => $redirect,
 								'link' => Output::getClean($link),
-								'target' => ($redirect == 1) ? 1 : 0,
+								'target' => ($target == 1) ? 1 : 0,
 								'all_html' => ($unsafe == 1) ? 1 : 0,
 								'sitemap' => ($sitemap == 1) ? 1 : 0,
 								'basic' => ($basic == 1) ? 1 : 0,
@@ -250,6 +253,7 @@ if(!isset($_GET['action'])){
 				'PAGE_REDIRECT' => $language->get('admin', 'page_redirect'),
 				'PAGE_REDIRECT_TO' => $language->get('admin', 'page_redirect_to'),
 				'PAGE_REDIRECT_TO_VALUE' => Output::getClean(Input::get('redirect_link')),
+				'TARGET' => $language->get('admin', 'page_target'),
 				'UNSAFE_HTML' => $language->get('admin', 'unsafe_html'),
 				'UNSAFE_HTML_WARNING' => $language->get('admin', 'unsafe_html_warning'),
 				'INCLUDE_IN_SITEMAP' => $language->get('admin', 'include_in_sitemap'),
@@ -324,6 +328,9 @@ if(!isset($_GET['action'])){
 
 							if(isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') $redirect = 1;
 							else $redirect = 0;
+							
+							if(isset($_POST['target']) && $_POST['target'] == 'on') $target = 1;
+							else $target = 0;
 
 							if(isset($_POST['redirect_link'])) $link = $_POST['redirect_link'];
 							else $link = '';
@@ -344,7 +351,7 @@ if(!isset($_GET['action'])){
 								'link_location' => $location,
 								'redirect' => $redirect,
 								'link' => Output::getClean($link),
-								'target' => ($redirect == 1) ? 1 : 0,
+								'target' => ($target == 1) ? 1 : 0,
 								'all_html' => ($unsafe == 1) ? 1 : 0,
 								'sitemap' => ($sitemap == 1) ? 1 : 0,
 								'basic' => ($basic == 1) ? 1 : 0
@@ -555,6 +562,8 @@ if(!isset($_GET['action'])){
 				'PAGE_REDIRECT_VALUE' => $page->redirect,
 				'PAGE_REDIRECT_TO' => $language->get('admin', 'page_redirect_to'),
 				'PAGE_REDIRECT_TO_VALUE' => (isset($_POST['redirect_link']) ? Output::getClean(Input::get('redirect_link')) : $page->link),
+				'TARGET' => $language->get('admin', 'page_target'),
+				'TARGET_VALUE' => $page->target,
 				'UNSAFE_HTML' => $language->get('admin', 'unsafe_html'),
 				'UNSAFE_HTML_VALUE' => $page->all_html,
 				'UNSAFE_HTML_WARNING' => $language->get('admin', 'unsafe_html_warning'),

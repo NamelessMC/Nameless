@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -21,14 +21,14 @@ $language = array(
     'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
     'overview' => 'Überblick',
-    
+
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Als Spam makieren',
     'confirm_spam' => '<p>Willst du diesen Benutzer als Spammer makieren?</p><p>Der Benutzer wird IP gebannt und all seine Beiträge werden gelöscht.</p>',
     'user_marked_as_spam' => 'Der Benutzer wurde als Spammer makiert.',
     'cant_ban_admin' => 'Du kannst keine Administratoren bannen!',
-    
+
     // IP Lookup
     'ip_lookup' => 'IP Suche',
     'search_for_ip' => 'Suche einen Nutzernamen oder eine IP Adesse:',
@@ -39,7 +39,7 @@ $language = array(
     '1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Es wurde(n) {x} Account(s) mit dem Namen {y} gefunden.', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Kein Benutzer oder IP Adresse gefunden.',
-    
+
     // Reports
     'reports' => 'Reports',
     'report_alert' => 'Es wurde ein neuer Report erstellt.',
@@ -69,7 +69,7 @@ $language = array(
     'report_reopened' => 'Report reopened successfully.',
     'report_closed' => 'Report closed successfully.',
     'comment_created' => 'Comment created successfully.',
-    
+
     // Punishments
     'punishments' => 'Strafen',
     'view_punishments' => 'Bans anzeigen',
@@ -108,7 +108,7 @@ $language = array(
     'created' => 'Erstellt:',
     'staff:' => 'Teammitglied:',
     'reason:' => 'Grund:',
-    
+
     // Users
     'recent_registrations' => 'Aktuelle Registrierungen',
     'reset_profile_banner' => 'Reset Profile Banner'

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by TheSuperSkills (Edited by Ariuw and iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
@@ -20,7 +20,7 @@ $language = array(
      */
     'guest' => 'Invitado',
     'guests' => 'Invitados',
-    
+
     // UserCP
     'user_cp' => 'Panel de Usuarios',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
@@ -36,7 +36,7 @@ $language = array(
     'delete_all' => 'Eliminar todos',
     'private_profile' => 'Perfil privado',
     'gif_avatar' => 'Upload .gif as custom avatar',
-    
+
     // Profile settings
     'field_is_required' => '{x} es requerido.', // Don't replace {x}
     'settings_updated_successfully' => 'Configuración actualizada correctamente.',
@@ -69,7 +69,7 @@ $language = array(
     'upload_profile_banner' => 'Subir Banner del Perfil',
     'upload' => 'Subir',
     'topic_updates' => 'Get emails for topics you follow',
-    
+
     // Alerts
     'user_tag_info' => 'Has sido etiquetado en un post por {x}.', // Don't replace {x}
     'no_alerts' => 'No hay nuevas alertas',
@@ -77,7 +77,7 @@ $language = array(
     '1_new_alert' => 'Tienes 1 nueva alerta.',
     'x_new_alerts' => 'Tienes {x} nuevas alertas', // Don't replace {x}
     'no_alerts_usercp' => 'No tienes alertas.',
-    
+
     // Registraton
     'registration_check_email' => '¡Gracias por registrarte! Por favor revise sus correos electrónicos para obtener un enlace de validación para completar su registro. Si no puede encontrar el correo electrónico, compruebe su carpeta correo basura.',
     'username' => 'Usuario',
@@ -129,7 +129,7 @@ $language = array(
     'verification_success' => '¡Con éxito validado! Ahora puede iniciar sesión.',
     'authme_username_exists' => 'Tu cuenta de AuthMe ya está conectada con nuestra web.',
     'uuid_already_exists' => 'Tu UUID ya existe, por lo tanto esa cuenta de Minecraft ya está registrada.',
-    
+
     // Login
     'successful_login' => 'Has iniciado sesión correctamente.',
     'incorrect_details' => 'Has introducido datos incorrectos.',
@@ -148,7 +148,7 @@ $language = array(
     'enter_new_password' => 'Confirme su dirección de correo electrónico e ingrese una nueva contraseña a continuación.',
     'incorrect_email' => 'La dirección de correo electrónico que ingresaste no coincide con la solicitud..',
     'forgot_password_change_successful' => 'Tu contraseña ha sido cambiada exitosamente. Ahora puede iniciar sesión.',
-    
+
     // Profile pages
     'profile' => 'Perfil',
     'follow' => 'Seguir',
@@ -186,12 +186,12 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} ha respondido a tu publicación en tu Perfil.', // Don't replace {x}
     'no_about_fields' => 'Este usuario todavía no ha agregado ningún campo sobre el.',
     'reply' => 'Responder',
-    
+
     // Reports
     'invalid_report_content' => 'No se puede crear el informe. Asegúrese de que la razón de su informe es entre 2 y 1024 caracteres.',
     'report_post_content' => 'Introduzca una razón para su reporte',
     'report_created' => 'Reporte creado correctamente',
-    
+
     // Messaging
     'no_messages' => 'No hay mensajes nuevos',
     'no_messages_full' => 'No tienes ningún mensaje.',
@@ -221,14 +221,14 @@ $language = array(
     'messages' => 'Mensajes',
     'latest_profile_posts' => 'Latest Profile Posts',
     'no_profile_posts' => 'No profile posts.',
-    
+
     /*
      *  Infractions area
      */
     'you_have_been_banned' => '¡HAS SIDO BANEADO!',
     'you_have_received_a_warning' => '¡Haz recibido una advertencia!',
     'acknowledge' => 'Reconocer',
-    
+
     /*
      *  Hooks
      */

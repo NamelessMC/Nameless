@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by JozefSorokac
  *  https://github.com/NamelessMC/Nameless/

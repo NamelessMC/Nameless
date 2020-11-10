@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Translations by Maiu and OscarWoHA
  *  https://github.com/NamelessMC/Nameless/
@@ -20,7 +20,7 @@ $language = array(
      */
     'guest' => 'Gjest',
     'guests' => 'Gjester',
-    
+
     // UserCP
     'user_cp' => 'BrukerCP',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
@@ -36,7 +36,7 @@ $language = array(
     'delete_all' => 'Slett alle',
     'private_profile' => 'Private profiler',
     'gif_avatar' => 'Last opp .gif som egendefinert avatar',
-    
+
     // Profile settings
     'field_is_required' => '{x} er påkrevd.', // Don't replace {x}
     'settings_updated_successfully' => 'Innstillingene har blitt oppdatert.',
@@ -69,7 +69,7 @@ $language = array(
     'upload_profile_banner' => 'Last opp et profilbanner',
     'upload' => 'Last opp',
     'topic_updates' => 'Få e-poster om tråder du følger.',
-    
+
     // Alerts
     'user_tag_info' => 'Du har blitt omtalt i et innlegg av {x}', // Don't replace {x}
     'no_alerts' => 'Ingen nye viktige meldinger',
@@ -77,7 +77,7 @@ $language = array(
     '1_new_alert' => 'Du har 1 ny varsling',
     'x_new_alerts' => 'Du har {x} nye viktige meldinger', // Don't replace {x}
     'no_alerts_usercp' => 'Du har ingen nye viktige meldinger',
-    
+
     // Registraton
     'registration_check_email' => 'Takk for at du registrerte deg! Sjekk e-posten din for en bekreftelseslenke. Husk også å sjekke søppelpost.',
     'username' => 'Brukernavn',
@@ -128,7 +128,7 @@ $language = array(
     'verification_success' => 'Verifisering fullført, du kan nå logge inn!',
     'authme_username_exists' => 'Din AuthMe-bruker har allerede blitt koblet til denne nettsiden!',
     'uuid_already_exists' => 'Din UUID eksisterer allerede, som betyr at denne brukeren allerede har blitt registrert.',
-    
+
     // Login
     'successful_login' => 'Du har nå logget inn.',
     'incorrect_details' => 'Du har skrevet inn feil brukernavn eller passord.',
@@ -147,7 +147,7 @@ $language = array(
     'enter_new_password' => 'Vennligst bekreft e-postadressen din og oppgi et nytt passord under.',
     'incorrect_email' => 'E-postadressen du har oppgitt passer ikke med forespørselen.',
     'forgot_password_change_successful' => 'Passordet ditt har blitt endret. Du kan nå logge inn.',
-    
+
     // Profile pages
     'profile' => 'Profil',
     'follow' => 'Følg',
@@ -185,12 +185,12 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} har svart på innlegget ditt på din profil', // Don't replace {x}
     'no_about_fields' => 'Denne brukeren har ikke skrevet noe om seg selv enda.',
     'reply' => 'Svar',
-    
+
     // Reports
     'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Pass på at den er mellom 2 og 1024 tegn.',
     'report_post_content' => 'Vennligst oppgi grunnlaget for rapporteringen.',
     'report_created' => 'Rapportert.',
-    
+
     // Messaging
     'no_messages' => 'Ingen nye meldinger.',
     'no_messages_full' => 'Du har ingen meldinger.',
@@ -220,14 +220,14 @@ $language = array(
     'messages' => 'Meldinger',
     'latest_profile_posts' => 'Siste profilmeldinger',
     'no_profile_posts' => 'Ingen profilmeldinger.',
-    
+
     /*
      *  Infractions area
      */
     'you_have_been_banned' => 'Du har blitt utestengt!',
     'you_have_received_a_warning' => 'Du har mottatt en advarsel!',
     'acknowledge' => 'Anerkjenne',
-    
+
     /*
      *  Hooks
      */

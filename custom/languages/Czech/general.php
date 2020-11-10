@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton, translated by Zemos, Renzotom, Ethxrnity and Fjuro
  *  https://github.com/NamelessMC/Nameless/
@@ -76,23 +76,23 @@ $language = array(
     'email_address' => 'E-mailová adresa',
     'contact_email_subject' => 'Nový kontaktní formulář ',
     'contact_message_failed' => 'Nepodařilo se odeslat zprávu. Ujistěte se, že jste zadali zprávu o délce 10 až 5000 znaků.',
-    'contact_message_email' => 'Zadaný e-mail je nesprávný.',    
+    'contact_message_email' => 'Zadaný e-mail je nesprávný.',
     'contact_message_sent' => 'Zpráva byla úspěšně odeslána.',
     'contact_message_limit' => 'Můžete odeslat pouze jednu zprávu za hodinu. Další můžete odeslat za {x} minut.', // Don't replace {x}
-    
-    /* 
+
+    /*
      *  Navbar
      */
     'home' => 'Domů',
     'more' => 'Více',
     'status' => 'Stav',
-    
+
     /*
      *  Homepage
      */
     'social' => 'Sociální sítě',
-    
-    
+
+
     /*
      *  Help dialogues
      */

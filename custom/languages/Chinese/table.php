@@ -1,4 +1,4 @@
-<?php 
+<?php
  /*
  *  Made by Samerton
  *  Translation  by Hi_Michael
@@ -9,7 +9,7 @@
  *
  *  Chinese Language - Table
  *  Translation progress : 100%
- *  翻譯有誤請使用GitHun回報issues 
+ *  翻譯有誤請使用GitHun回報issues
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 

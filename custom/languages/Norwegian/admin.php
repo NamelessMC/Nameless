@@ -526,6 +526,7 @@ $language = array(
     'page_content' => 'Sideinnhold',
     'page_redirect' => 'Side-omdirigering?',
     'page_redirect_to' => 'Omdirigeringslenke (med følgende start: http://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Tillatt usikker HTML?',
     'unsafe_html_warning' => 'Ved å aktivere denne funksjonen vil all HTML kunne bli brukt på siden, også potensielt skadelig JavaScript. Bruk kun om du er sikker på at det er trygt.',
     'include_in_sitemap' => 'Inkluder i sitemap?',

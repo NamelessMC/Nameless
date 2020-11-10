@@ -218,7 +218,7 @@ $language = array(
     'messages' => 'Žinutės',
     'latest_profile_posts' => 'Latest Profile Posts',
     'no_profile_posts' => 'No profile posts.',
-    
+
     // Infractions area
     'you_have_been_banned' => 'Jūs buvot užblokuotas!',
     'you_have_received_a_warning' => 'Jūs gavote įspėjimą!',

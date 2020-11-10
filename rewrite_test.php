@@ -10,8 +10,8 @@
  */
 ?>
 <html lang="en">
-  <head>
-    <!-- Page Title -->
+
+<head>
     <title>Rewrite Test &bull; NamelessMC</title>
 
     <!-- Global CSS -->
@@ -27,28 +27,28 @@
         background-color: #eceeef;
     }
     </style>
-  </head>
+</head>
 
-  <body>
-    <div style="text-align:center">
-      <br /><br /><br />
-      
-      <h1>NamelessMC v2 <sup><span style="font-size: small;">pre-release</span></sup></h1>
-      
-      <hr />
-      
-      <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <?php
-          if(isset($_GET['route']) && $_GET['route'] = '/rewrite_test'){
-              echo '<div class="alert alert-success">Rewrite enabled!</div>';
-        
-          } else {
-              echo '<div class="alert alert-danger">Rewrite disabled!</div>';
-          }
-          ?>
+<body>
+    <div style="text-align: center">
+        <br /><br /><br />
+
+        <h1>NamelessMC v2 <sup><span style="font-size: small;">pre-release</span></sup></h1>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+            <?php
+            if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
+                echo '<div class="alert alert-success">Rewrite enabled!</div>';
+
+            } else {
+                echo '<div class="alert alert-danger">Rewrite disabled!</div>';
+            }
+            ?>
+            </div>
         </div>
-      </div>
     </div>
-  </body>
+</body>
 </html>

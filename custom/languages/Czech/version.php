@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton, translated by Zemos, Renzotom and Ethxrnity
  *  https://github.com/NamelessMC/Nameless/

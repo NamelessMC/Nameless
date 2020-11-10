@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  /*
  *  Made by Samerton
@@ -10,7 +10,7 @@
  *
  *  Chinese Language - Users
  *  Translation progress : 97%
- *  翻譯有誤請使用GitHun回報issues 
+ *  翻譯有誤請使用GitHun回報issues
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 
@@ -25,7 +25,7 @@ $language = array(
      */
     'guest' => '遊客',
     'guests' => '遊客',
-    
+
     // UserCP
     'user_cp' => '使用者後台',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
@@ -41,7 +41,7 @@ $language = array(
     'delete_all' => '移除全部',
     'private_profile' => 'Private profile',
     'gif_avatar' => 'Upload .gif as custom avatar',
-    
+
     // Profile settings
     'field_is_required' => '需要 {x}.', // Don't replace {x}
     'settings_updated_successfully' => '設定更新成功.',
@@ -74,7 +74,7 @@ $language = array(
     'upload_profile_banner' => 'Upload Profile Banner',
     'upload' => 'Upload',
     'topic_updates' => 'Get emails for topics you follow',
-    
+
     // Alerts
     'user_tag_info' => '你被標註於 {x}.', // Don't replace {x}
     'no_alerts' => '沒有新提醒',
@@ -82,7 +82,7 @@ $language = array(
     '1_new_alert' => 'You have 1 new alert',
     'x_new_alerts' => '你有 {x} 個新提醒', // Don't replace {x}
     'no_alerts_usercp' => '你沒有任何提醒.',
-    
+
     // Registraton
     'registration_check_email' => '感謝您的註冊! 請檢查你的電子郵件來完成註冊動作. 如果你沒有收到信請檢查垃圾信箱.',
     'username' => '帳號',
@@ -108,7 +108,7 @@ $language = array(
     'authme_account_linked' => '帳戶連接成功.',
     'authme_email_help_1' => '完成，請輸入電子郵件.',
     'authme_email_help_2' => '完成，請輸入電子郵件和選取帳戶名.',
-    
+
     // Registration errors
     'username_required' => '帳號是必須的.',
     'email_required' => '電子郵件是必須的.',
@@ -134,7 +134,7 @@ $language = array(
     'verification_success' => '成功驗證，已可以登入.',
     'authme_username_exists' => '你的 AuthMe 帳號已存在，請直接登入',
     'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
-    
+
     // Login
     'successful_login' => '登入成功.',
     'incorrect_details' => '部分資料輸入錯誤.',
@@ -153,7 +153,7 @@ $language = array(
     'enter_new_password' => '請確認你的電子郵件並在下面輸入密碼.',
     'incorrect_email' => '電子郵件錯誤.',
     'forgot_password_change_successful' => '密碼變更成功，你可以登入了.',
-    
+
     // Profile pages
     'profile' => '個人檔',
     'follow' => '追隨',
@@ -191,12 +191,12 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
     'no_about_fields' => 'This user has not added any about fields yet.',
     'reply' => 'Reply',
-    
+
     // Reports
     'invalid_report_content' => '無法建立回報. 請確認你輸入的內容有在 2-1024 字元以內.',
     'report_post_content' => '請輸入內容',
     'report_created' => '回報建立成功',
-    
+
     // Messaging
     'no_messages' => '沒有新訊息',
     'no_messages_full' => '你沒有新訊息.',
@@ -226,7 +226,7 @@ $language = array(
     'messages' => 'Messages',
     'latest_profile_posts' => 'Latest Profile Posts',
     'no_profile_posts' => 'No profile posts.',
-    
+
     /*
      *  Infractions area
      */
@@ -238,7 +238,7 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!',
-    
+
     // Discord
     'discord_link' => 'Discord Link',
     'linked' => 'Linked',
