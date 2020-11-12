@@ -99,9 +99,13 @@
                             <h5>{$ACTIONS}</h5>
 
                             {if $TYPE_ID eq 1}
-                                <a class="btn btn-secondary" href="{$VALIDATE_USER_LINK}">{$VALIDATE_USER_TEXT}</a>
+                                {if isset($VALIDATE_USER_TEXT)} 
+                                    <a class="btn btn-secondary" href="{$VALIDATE_USER_LINK}">{$VALIDATE_USER_TEXT}</a>
+                                {/if}
                             {elseif $TYPE_ID eq 4}
-                                <button class="btn btn-secondary" type="button" onclick="showRegistrationModal()">{$SHOW_REGISTRATION_LINK}</button>
+                                {if isset($SHOW_REGISTRATION_LINK)}
+                                    <button class="btn btn-secondary" type="button" onclick="showRegistrationModal()">{$SHOW_REGISTRATION_LINK}</button>
+                                {/if}
                             {/if}
 
                             <a class="btn btn-danger" href="#" onclick="showDeleteModal()">{$DELETE_ERROR}</a>
