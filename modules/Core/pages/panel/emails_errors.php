@@ -123,7 +123,7 @@ if(isset($_GET['do'])){
 				$user_validated = $user_validated[0];
 				if($user_validated->active == 0){
 					$smarty->assign(array(
-						'VALIDATE_USER_LINK' => URL::build('/panel/core/users/', 'user=' . $error->user_id . '&amp;action=validate'), // TODO: update
+						'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . $error->user_id . '&amp;action=validate'),
 						'VALIDATE_USER_TEXT' => $language->get('admin', 'validate_user')
 					));
 				}
