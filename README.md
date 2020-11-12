@@ -6,7 +6,7 @@ NamelessMC version 2.0.0 is still a pre-release, and is not yet recommended for 
 The official project website, providing support and additional downloads such as modules and templates, can be found at [https://namelessmc.com/](https://namelessmc.com/).
 
 ## Features
-The following list is a brief summary of the features available in v2 pre-release 5.
+The following list is a brief summary of the features available in v2 pre-release 7.
 - API - if used in conjunction with the [Nameless Plugin for v2](https://www.spigotmc.org/resources/nameless-plugin-for-v2.59032/), integration with your Minecraft server can be provided
 - Custom page system - create your own HTML pages and even restrict access to them depending on rank
 - Forum system
@@ -14,6 +14,7 @@ The following list is a brief summary of the features available in v2 pre-releas
 - New powerful module system allowing for further NamelessMC integration
 - New template and language systems, allowing for total customisation
 - Pretty URL option (requires mod_rewrite)
+- Widget system - allows modules to create widgets which can be displayed on most user-facing pages and display almost anything
 
 #### Customising Nameless
 - Check out [this wiki article](https://github.com/NamelessMC/Nameless/wiki/Nameless-2.0-Module-Developer-Documentation) for the Module Developer Documenation
@@ -43,6 +44,8 @@ Please follow instructions in your v1 website's AdminCP -> Update tab on updatin
 
 #### Converting from other forum software
 Currently there are no conversion scripts available, however these are planned and will be available in the future.
+Planned scripts:
+- Xenforo
 
 ## Support
 Support can be found in one of the following places:
@@ -65,5 +68,5 @@ If you would like to assist with the NamelessMC development by providing an upda
 Translation credits can be found within CONTRIBUTORS.md
 
 ## Special Thanks
-- All NamelessMC contributors (CONTRIBUTORS.md)
+- All NamelessMC [contributors](https://github.com/NamelessMC/Nameless/graphs/contributors)
 - [JetBrains](https://www.jetbrains.com/), whose products are used to develop the NamelessMC project
