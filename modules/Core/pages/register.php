@@ -562,10 +562,6 @@ if(Input::exists()){
 								break;
 							}
 
-						} else if (strpos($validation_error, 'email') !== false) {
-							// Validate email
-							$errors[] = $language->get('general', 'contact_message_email');
-
 						} else if(strpos($validation_error, 'must match') !== false){
 							// password must match password again
 							$errors[] = $language->get('user', 'passwords_dont_match');
@@ -582,6 +578,10 @@ if(Input::exists()){
 						} else if(strpos($validation_error, 'Mojang communication error') !== false){
 							// Mojang server error
 							$errors[] = $language->get('user', 'mcname_lookup_error');
+
+						} else if (strpos($validation_error, 'valid email') !== false) {
+							// Validate email
+							$errors[] = $language->get('general', 'contact_message_email');
 
 						}
 					}
