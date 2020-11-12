@@ -151,9 +151,6 @@ $smarty->assign(array(
     'ID_INFO' => $language->get('user', 'discord_id_help'),
     'GUILD_ID' => $language->get('admin', 'discord_id'),
     'GUILD_ID_VALUE' => $guild_id[0]->value,
-    'BOT_URL' => $language->get('admin', 'discord_bot_url'),
-    'BOT_URL_VALUE' => BOT_URL,
-    'BOT_URL_INFO' => $language->get('admin', 'discord_bot_url_info'),
 ));
 
 $page_load = microtime(true) - $start;

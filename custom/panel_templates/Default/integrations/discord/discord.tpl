@@ -92,12 +92,6 @@
                                     <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
                                 </div>
                             </form>
-                            <hr>
-                            <div class="form-group">
-                                <label for="inputBotUrl">{$BOT_URL} <span class="badge badge-warning" data-toggle="popover" data-title="{$INFO}" data-content="{$BOT_URL_INFO|escape}"><i class="fa fa-exclamation-triangle"></i></label>
-                                <input type="text" name="bot_url" class="form-control" id="inputBotUrl" value="{$BOT_URL_VALUE}" readonly>
-                            </div>
-                            <a class="btn btn-info" style="color: white;" href="{$TEST_URL}">{$TEST}</a>
                         </div>
                     </div>
 
