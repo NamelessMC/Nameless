@@ -135,8 +135,14 @@ if(!isset($_GET['action'])){
 							if(isset($_POST['basic']) && $_POST['basic'] == 'on') $basic = 1;
 							else $basic = 0;
 
+							$page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
+
+							if (substr($page_url, 0, strlen($page_url)) !== '/') {
+								$page_url = '/' . $page_url;
+							}
+
 							$queries->create('custom_pages', array(
-								'url' => Output::getClean(rtrim(Input::get('page_url'), '/')),
+								'url' => $page_url,
 								'title' => Output::getClean(Input::get('page_title')),
 								'content' => Output::getClean(Input::get('content')),
 								'link_location' => $location,
@@ -344,8 +350,14 @@ if(!isset($_GET['action'])){
 							if(isset($_POST['basic']) && $_POST['basic'] == 'on') $basic = 1;
 							else $basic = 0;
 
+							$page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
+
+							if (substr($page_url, 0, strlen($page_url)) !== '/') {
+								$page_url = '/' . $page_url;
+							}
+
 							$queries->update('custom_pages', $page->id, array(
-								'url' => Output::getClean(rtrim(Input::get('page_url'), '/')),
+								'url' => $page_url,
 								'title' => Output::getClean(Input::get('page_title')),
 								'content' => Output::getClean(Input::get('content')),
 								'link_location' => $location,
