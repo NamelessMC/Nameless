@@ -35,16 +35,10 @@ if(!is_numeric($fid[0])){
 $fid = $fid[0];
 
 // Get user group ID
-if($user->isLoggedIn()) {
-    $user_group = $user->data()->group_id;
-    $secondary_groups = $user->data()->secondary_groups;
-} else {
-    $user_group = null;
-    $secondary_groups = null;
-}
+$user_groups = $user->getAllGroupIds();
 
 // Does the forum exist, and can the user view it?
-$list = $forum->canViewForum($fid, $user_group, $secondary_groups);
+$list = $forum->canViewForum($fid, $user_groups);
 if(!$list){
 	require_once(ROOT_PATH . '/403.php');
 	die();
@@ -115,7 +109,7 @@ if($forum_query->redirect_forum == 1){
 	else
 		$user_id = 0;
 
-	if ($forum->canViewOtherTopics($fid, $user_group, $secondary_groups))
+	if ($forum->canViewOtherTopics($fid, $user_groups))
 		$topics = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky = 0 AND deleted = 0", "topic_reply_date", "DESC");
 	else
 		$topics = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky = 0 AND deleted = 0 AND topic_creator = " . $user_id, "topic_reply_date", "DESC");
@@ -196,8 +190,8 @@ if($forum_query->redirect_forum == 1){
 		// append subforums to string
 		foreach ($subforums as $subforum) {
 			// Get number of topics
-			if ($forum->forumExist($subforum->id, $user_group, $secondary_groups)) {
-				if ($forum->canViewOtherTopics($subforum->id, $user_group, $secondary_groups))
+			if ($forum->forumExist($subforum->id, $user_groups)) {
+				if ($forum->canViewOtherTopics($subforum->id, $user_groups))
 					$latest_post = $queries->orderWhere('topics', 'forum_id = ' . $subforum->id . ' AND deleted = 0', 'topic_reply_date', 'DESC');
 				else
 					$latest_post = $queries->orderWhere('topics', 'forum_id = ' . $subforum->id . ' AND deleted = 0 AND topic_creator = ' . $user_id, 'topic_reply_date', 'DESC');
@@ -211,12 +205,13 @@ if($forum_query->redirect_forum == 1){
 						}
 					}
 
+					$latest_post_user = new User($latest_post->topic_last_user);
 					$latest_post_link = URL::build('/forum/topic/' . $latest_post->id . '-' . $forum->titleToURL($latest_post->topic_title));
-					$latest_post_avatar = $user->getAvatar($latest_post->topic_last_user, "../", 128);
+					$latest_post_avatar = $latest_post_user->getAvatar("../", 128);
 					$latest_post_title = Output::getClean($latest_post->topic_title);
-					$latest_post_user = Output::getClean($user->idToNickname($latest_post->topic_last_user));
-					$latest_post_user_link = URL::build('/profile/' . $user->idToName($latest_post->topic_last_user));
-					$latest_post_style = $user->getGroupClass($latest_post->topic_last_user);
+					$latest_post_user = $latest_post_user->getDisplayname();
+					$latest_post_user_link = $latest_post_user->getProfileURL();
+					$latest_post_style = $latest_post_user->getGroupClass();
 					$latest_post_date_timeago = $timeago->inWords(date('d M Y, H:i', $latest_post->topic_reply_date), $language->getTimeLanguage());
 					$latest_post_time = date('d M Y, H:i', $latest_post->topic_reply_date);
 					$latest_post_user_id = Output::getClean($latest_post->topic_last_user);
@@ -269,7 +264,7 @@ if($forum_query->redirect_forum == 1){
 	$smarty->assign('STICKY_TOPICS', $forum_language->get('forum', 'sticky_topics'));
 
 	// Can the user post here?
-	if ($user->isLoggedIn() && $forum->canPostTopic($fid, $user_group, $secondary_groups)) {
+	if ($user->isLoggedIn() && $forum->canPostTopic($fid, $user_groups)) {
 		$smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . $fid));
 	} else {
 		$smarty->assign('NEW_TOPIC_BUTTON', false);
@@ -282,7 +277,7 @@ if($forum_query->redirect_forum == 1){
 		// No topics yet
 		$smarty->assign('NO_TOPICS_FULL', $forum_language->get('forum', 'no_topics'));
 
-		if ($user->isLoggedIn() && $forum->canPostTopic($fid, $user_group, $secondary_groups)) {
+		if ($user->isLoggedIn() && $forum->canPostTopic($fid, $user_groups)) {
 			$smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . $fid));
 		} else {
 			$smarty->assign('NEW_TOPIC_BUTTON', false);
@@ -300,9 +295,6 @@ if($forum_query->redirect_forum == 1){
 			$replies = $queries->getWhere('posts', array('topic_id', '=', $sticky->id));
 			$replies = count($replies);
 
-			// Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
-			$last_reply_avatar = $user->getAvatar($sticky->topic_last_user, "../", 128);
-
 			// Is there a label?
 			if ($sticky->label != 0) { // yes
 				// Get label
@@ -319,6 +311,9 @@ if($forum_query->redirect_forum == 1){
 			} else { // no
 				$label = '';
 			}
+			
+			$topic_user = new User($sticky->topic_creator);
+			$last_reply_user = new User($sticky->topic_last_user);
 
 			// Add to array
 			$sticky_array[] = array(
@@ -326,24 +321,24 @@ if($forum_query->redirect_forum == 1){
 				'topic_id' => $sticky->id,
 				'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $sticky->topic_date), $language->getTimeLanguage()),
 				'topic_created' => date('d M Y, H:i', $sticky->topic_date),
-				'topic_created_username' => Output::getClean($user->idToNickname($sticky->topic_creator)),
-				'topic_created_mcname' => Output::getClean($user->idToName($sticky->topic_creator)),
-				'topic_created_style' => $user->getGroupClass($sticky->topic_creator),
+				'topic_created_username' => $topic_user->getDisplayname(),
+				'topic_created_mcname' => $topic_user->getDisplayname(true),
+				'topic_created_style' => $topic_user->getGroupClass(),
 				'topic_created_user_id' => Output::getClean($sticky->topic_creator),
 				'views' => $sticky->topic_views,
 				'locked' => $sticky->locked,
 				'posts' => $replies,
-				'last_reply_avatar' => $last_reply_avatar,
+				'last_reply_avatar' => $last_reply_user->getAvatar("../", 128),
 				'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $sticky->topic_reply_date), $language->getTimeLanguage()),
 				'last_reply' => date('d M Y, H:i', $sticky->topic_reply_date),
-				'last_reply_username' => Output::getClean($user->idToNickname($sticky->topic_last_user)),
-				'last_reply_mcname' => Output::getClean($user->idToName($sticky->topic_last_user)),
-				'last_reply_style' => $user->getGroupClass($sticky->topic_last_user),
+				'last_reply_username' => $last_reply_user->getDisplayname(),
+				'last_reply_mcname' => $last_reply_user->getDisplayname(true),
+				'last_reply_style' => $last_reply_user->getGroupClass(),
 				'last_reply_user_id' => Output::getClean($sticky->topic_last_user),
 				'label' => $label,
-				'author_link' => URL::build('/profile/' . Output::getClean($user->idToName($sticky->topic_creator))),
+				'author_link' => $topic_user->getProfileURL(),
 				'link' => URL::build('/forum/topic/' . $sticky->id . '-' . $forum->titleToURL($sticky->topic_title)),
-				'last_reply_link' => URL::build('/profile/' . Output::getClean($user->idToName($sticky->topic_last_user)))
+				'last_reply_link' => $last_reply_user->getProfileURL()
 			);
 		}
 		// Clear out variables
@@ -368,9 +363,6 @@ if($forum_query->redirect_forum == 1){
 			$replies = $queries->getWhere("posts", array("topic_id", "=", $results->data[$n]->id));
 			$replies = count($replies);
 
-			// Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
-			$last_reply_avatar = $user->getAvatar($results->data[$n]->topic_last_user, "../", 128);
-
 			// Is there a label?
 			if ($results->data[$n]->label != 0) { // yes
 				// Get label
@@ -387,6 +379,9 @@ if($forum_query->redirect_forum == 1){
 			} else { // no
 				$label = '';
 			}
+			
+			$topic_user = new User($results->data[$n]->topic_creator);
+			$last_reply_user = new User($results->data[$n]->topic_last_user);
 
 			// Add to array
 			$template_array[] = array(
@@ -394,23 +389,23 @@ if($forum_query->redirect_forum == 1){
 				'topic_id' => $results->data[$n]->id,
 				'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->topic_date), $language->getTimeLanguage()),
 				'topic_created' => date('d M Y, H:i', $results->data[$n]->topic_date),
-				'topic_created_username' => Output::getClean($user->idToNickname($results->data[$n]->topic_creator)),
-				'topic_created_mcname' => Output::getClean($user->idToName($results->data[$n]->topic_creator)),
-				'topic_created_style' => $user->getGroupClass($results->data[$n]->topic_creator),
+				'topic_created_username' => $topic_user->getDisplayname(),
+				'topic_created_mcname' => $topic_user->getDisplayname(true),
+				'topic_created_style' => $topic_user->getGroupClass(),
 				'topic_created_user_id' => Output::getClean($results->data[$n]->topic_creator),
 				'locked' => $results->data[$n]->locked,
 				'views' => $results->data[$n]->topic_views,
 				'posts' => $replies,
-				'last_reply_avatar' => $last_reply_avatar,
+				'last_reply_avatar' => $last_reply_user->getAvatar("../", 128),
 				'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->topic_reply_date), $language->getTimeLanguage()),
 				'last_reply' => date('d M Y, H:i', $results->data[$n]->topic_reply_date),
-				'last_reply_username' => Output::getClean($user->idToNickname($results->data[$n]->topic_last_user)),
-				'last_reply_mcname' => Output::getClean($user->idToName($results->data[$n]->topic_last_user)),
-				'last_reply_style' => $user->getGroupClass($results->data[$n]->topic_last_user),
+				'last_reply_username' => $last_reply_user->getDisplayname(),
+				'last_reply_mcname' => $last_reply_user->getDisplayname(true),
+				'last_reply_style' => $last_reply_user->getGroupClass(),
 				'label' => $label,
-				'author_link' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]->topic_creator))),
+				'author_link' => $topic_user->getProfileURL(),
 				'link' => URL::build('/forum/topic/' . $results->data[$n]->id . '-' . $forum->titleToURL($results->data[$n]->topic_title)),
-				'last_reply_link' => URL::build('/profile/' . Output::getClean($user->idToName($results->data[$n]->topic_last_user))),
+				'last_reply_link' => $last_reply_user->getProfileURL(),
 				'last_reply_user_id' => Output::getClean($results->data[$n]->topic_last_user)
 			);
 		}

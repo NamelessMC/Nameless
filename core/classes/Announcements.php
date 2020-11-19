@@ -19,11 +19,7 @@ class Announcements {
         return (array) $cache->retrieve('custom_announcements');
     }
 
-    public static function getAvailable($page = null, $custom_page = null, $group_id = null, $secondary_groups = null) {
-        if ($group_id == null) $group_id = 0;
-        else {
-            if ($secondary_groups) $secondary_groups = json_decode($secondary_groups);
-        }
+    public static function getAvailable($page = null, $custom_page = null, $user_groups = array(0)) {
         $announcements = array();
         foreach(self::getAll() as $announcement) {
 			if (Cookie::exists('announcement-' . $announcement->id)) {
@@ -32,16 +28,12 @@ class Announcements {
             $pages = json_decode($announcement->pages, true);
             $groups = json_decode($announcement->groups, true);
             if (in_array($page, $pages) || $page == 'api' || in_array($custom_page, $pages)) {
-                if (in_array($group_id, $groups)) {
-                    $announcements[] = $announcement;
-                } else if (is_array($secondary_groups) && count($secondary_groups)) {
-                    foreach($secondary_groups as $secondary_group) {
-                        if(in_array($secondary_group, $groups)) {
-                            $announcements[] = $announcement;
-                            break;
-                        }
-                    }
-                }
+				foreach($user_groups as $group) {
+					if (in_array($group, $groups)) {
+						$announcements[] = $announcement;
+						break;
+					}
+				}
             }
         }
         return $announcements;

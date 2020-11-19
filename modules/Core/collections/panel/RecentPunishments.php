@@ -60,10 +60,9 @@ class RecentPunishmentsItem extends CollectionItemBase {
 						$punished_user = $users[$item->punished];
 
 					} else {
-						$user_query = $queries->getWhere('users', array('id', '=', $item->punished));
-						if(!count($user_query))
+						$punished_user = new User($item->punished);
+						if(!count($punished_user->data()))
 							continue;
-						$punished_user = $user_query[0];
 						$users[$item->punished] = $punished_user;
 
 					}
@@ -72,10 +71,9 @@ class RecentPunishmentsItem extends CollectionItemBase {
 						$staff_user = $users[$item->staff];
 
 					} else {
-						$user_query = $queries->getWhere('users', array('id', '=', $item->staff));
-						if(!count($user_query))
+						$staff_user = new User($item->staff);
+						if(!count($staff_user->data()))
 							continue;
-						$staff_user = $user_query[0];
 						$users[$item->staff] = $staff_user;
 
 					}
@@ -86,10 +84,9 @@ class RecentPunishmentsItem extends CollectionItemBase {
 							$revoked_by_user = $users[$item->revoked_by_user];
 
 						} else {
-							$user_query = $queries->getWhere('users', array('id', '=', $item->revoked_by));
-							if(!count($user_query))
+							$revoked_by_user = new User($item->revoked_by);
+							if(!count($revoked_by_user->data()))
 								continue;
-							$revoked_by_user = $user_query[0];
 							$users[$item->revoked_by] = $revoked_by_user;
 
 						}
@@ -97,30 +94,30 @@ class RecentPunishmentsItem extends CollectionItemBase {
 
 					$data[] = array(
 						'url' => URL::build('/panel/users/punishments/', 'user=' . Output::getClean($punished_user->id)),
-						'punished_username' => Output::getClean($punished_user->username),
-						'punished_nickname' => Output::getClean($punished_user->nickname),
-						'punished_style' => $this->_user->getGroupClass($punished_user->id),
-						'punished_avatar' => $this->_user->getAvatar($punished_user->id),
-						'punished_uuid' => Output::getClean($punished_user->uuid),
-						'punished_profile' => URL::build('/panel/user/' . Output::getClean($punished_user->id) . '-' . Output::getClean($punished_user->username)),
-						'staff_username' => Output::getClean($staff_user->username),
-						'staff_nickname' => Output::getClean($staff_user->nickname),
-						'staff_style' => $this->_user->getGroupClass($staff_user->id),
-						'staff_avatar' => $this->_user->getAvatar($staff_user->id),
-						'staff_uuid' => Output::getClean($staff_user->uuid),
-						'staff_profile' => URL::build('/panel/user/' . Output::getClean($staff_user->id) . '-' . Output::getClean($staff_user->username)),
+						'punished_username' => $punished_user->getDisplayname(true),
+						'punished_nickname' => $punished_user->getDisplayname(),
+						'punished_style' => $punished_user->getGroupClass($punished_user->id),
+						'punished_avatar' => $punished_user->getAvatar($punished_user->id),
+						'punished_uuid' => Output::getClean($punished_user->data()->uuid),
+						'punished_profile' => URL::build('/panel/user/' . Output::getClean($punished_user->id) . '-' . Output::getClean($punished_user->data()->username)),
+						'staff_username' => $staff_user->getDisplayname(true),
+						'staff_nickname' => $staff_user->getDisplayname(),
+						'staff_style' => $staff_user->getGroupClass(),
+						'staff_avatar' => $staff_user->getAvatar(),
+						'staff_uuid' => Output::getClean($staff_user->data()->uuid),
+						'staff_profile' => URL::build('/panel/user/' . Output::getClean($staff_user->id) . '-' . Output::getClean($staff_user->data()->username)),
 						'time' => ($item->created ? $timeago->inWords(date('Y-m-d H:i:s', $item->created), $this->_language->getTimeLanguage()) : $timeago->inWords($item->infraction_date, $this->_language->getTimeLanguage())),
 						'time_full' => ($item->created ? date('d M Y, H:i', $item->created) : date('d M Y, H:i', strtotime($item->infraction_date))),
 						'type' => $item->type,
 						'reason' => Output::getPurified($item->reason),
 						'acknowledged' => $item->acknowledged,
 						'revoked' => $item->revoked,
-						'revoked_by_username' => ($revoked_by_user ? Output::getClean($revoked_by_user->username) : ''),
-						'revoked_by_nickname' => ($revoked_by_user ? Output::getClean($revoked_by_user->nickname) : ''),
-						'revoked_by_style' => ($revoked_by_user ? $this->_user->getGroupClass($revoked_by_user->id) : ''),
-						'revoked_by_avatar' => ($revoked_by_user ? $this->_user->getAvatar($revoked_by_user->id) : ''),
+						'revoked_by_username' => ($revoked_by_user ? $revoked_by_user->getDisplayname(true) : ''),
+						'revoked_by_nickname' => ($revoked_by_user ? $revoked_by_user->getDisplayname() : ''),
+						'revoked_by_style' => ($revoked_by_user ? $revoked_by_user->getGroupClass() : ''),
+						'revoked_by_avatar' => ($revoked_by_user ? $revoked_by_user->getAvatar() : ''),
 						'revoked_by_uuid' => ($revoked_by_user ? Output::getClean($revoked_by_user->uuid) : ''),
-						'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/' . Output::getClean($revoked_by_user->id) . '-' . Output::getClean($revoked_by_user->username)) : ''),
+						'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/' . Output::getClean($revoked_by_user->id) . '-' . Output::getClean($revoked_by_user->data()->username)) : ''),
 						'revoked_at' => $timeago->inWords(date('Y-m-d H:i:s', $item->revoked_at), $this->_language->getTimeLanguage())
 					);
 

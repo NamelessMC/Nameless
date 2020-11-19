@@ -45,13 +45,12 @@ Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mo
 
 if(isset($_GET['user'])){
 	// Viewing a certain user
-	$query = $queries->getWhere('users', array('id', '=', $_GET['user']));
-
-	if(!count($query)){
+	$view_user = new User($_GET['user']);
+	if(!count($view_user->data())) {
 		Redirect::to(URL::build('/panel/users/punishments'));
 		die();
 	}
-	$query = $query[0];
+	$query = $view_user->data();
 
 	if(isset($_GET['do']) && $_GET['do'] == 'revoke' && isset($_GET['id']) && is_numeric($_GET['id'])){
 		$infraction = $queries->getWhere('infractions', array('id', '=', $_GET['id']));
@@ -214,24 +213,30 @@ if(isset($_GET['user'])){
 							}
 
 							// Send alerts
-							$groups = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\'');
-
-							if($groups->count()){
-								$groups = $groups->results();
-
-								foreach($groups as $group){
-									// Get users in this group
-									$users = DB::getInstance()->query('SELECT DISTINCT(id) AS id FROM nl2_users WHERE id <> ? AND group_id = ?', array($user->data()->id, $group->id));
-
-									if($users->count()){
-										$users = $users->results();
-
-										foreach($users as $item){
-											// Send alert
-											Alert::create($item->id, 'punishment', array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), URL::build('/panel/users/punishments/', 'user=' . Output::getClean($query->id)));
-										}
+							$groups_query = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\'');
+							if($groups_query->count()){
+								$groups_query = $groups_query->results();
+								
+								$groups = '(';
+								foreach($groups_query as $group){
+									if(is_numeric($group->id)){
+										$groups .= ((int) $group->id) . ',';
 									}
 								}
+								$groups = rtrim($groups, ',') . ')';
+
+								// Get users in this group
+								$users = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups)->results();
+
+								if($users->count()){
+									$users = $users->results();
+
+									foreach($users as $item){
+										// Send alert
+										Alert::create($item->id, 'punishment', array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), URL::build('/panel/users/punishments/', 'user=' . Output::getClean($query->id)));
+									}
+								}
+
 							}
 
 						} else
@@ -274,16 +279,17 @@ if(isset($_GET['user'])){
 					break;
 			}
 
+			$issued_by_user = new User($punishment->staff);
 			$previous_punishments_array[] = array(
 				'type' => $type,
 				'type_numeric' => $punishment->type,
 				'revoked' => $punishment->revoked,
 				'acknowledged' => $punishment->acknowledged,
 				'reason' => Output::getClean($punishment->reason),
-				'issued_by_nickname' => Output::getClean($user->idToNickname($punishment->staff)),
-				'issued_by_profile' => URL::build('/panel/user/' . Output::getClean($punishment->staff . '-' . $user->idToName($punishment->staff))),
-				'issued_by_style' => $user->getGroupClass($punishment->staff),
-				'issued_by_avatar' => $user->getAvatar($punishment->staff, '', 128),
+				'issued_by_nickname' => $issued_by_user->getDisplayname(),
+				'issued_by_profile' => URL::build('/panel/user/' . Output::getClean($punishment->staff . '-' . $issued_by_user->data()->username)),
+				'issued_by_style' => $issued_by_user->getGroupClass(),
+				'issued_by_avatar' => $issued_by_user->getAvatar('', 128),
 				'date_full' => ($punishment->created ? date('d M Y, H:i', $punishment->created) : date('d M Y, H:i', strtotime($punishment->infraction_date))),
 				'date_friendly' => ($punishment->created ? $timeago->inWords(date('Y-m-d H:i:s', $punishment->created), $language->getTimeLanguage()) : $timeago->inWords($punishment->infraction_date, $language->getTimeLanguage())),
 				'revoke_link' => (($user->hasPermission('modcp.punishments.revoke') && $punishment->type != 4) ? URL::build('/panel/users/punishments/', 'user=' . $query->id . '&do=revoke&id=' . $punishment->id) : 'none'),
@@ -311,7 +317,7 @@ if(isset($_GET['user'])){
 		'HAS_AVATAR' => $query->has_avatar,
 		'BACK_LINK' => URL::build('/panel/users/punishments'),
 		'BACK' => $language->get('general', 'back'),
-		'VIEWING_USER' => str_replace('{x}', Output::getClean($query->nickname), $language->get('moderator', 'viewing_user_x')),
+		'VIEWING_USER' => str_replace('{x}', $view_user->getDisplayname(), $language->get('moderator', 'viewing_user_x')),
 		'PREVIOUS_PUNISHMENTS' => $language->get('moderator', 'previous_punishments'),
 		'PREVIOUS_PUNISHMENTS_LIST' => $previous_punishments_array,
 		'NO_PREVIOUS_PUNISHMENTS' => $language->get('moderator', 'no_previous_punishments'),
@@ -322,10 +328,10 @@ if(isset($_GET['user'])){
 		'REVOKED' => $language->get('moderator', 'revoked'),
 		'REVOKE' => $language->get('moderator', 'revoke'),
 		'ACKNOWLEDGED' => $language->get('moderator', 'acknowledged'),
-		'USERNAME' => Output::getClean($query->username),
-		'NICKNAME' => Output::getClean($query->nickname),
-		'USER_STYLE' => $user->getGroupClass($query->id),
-		'AVATAR' => $user->getAvatar($query->id, '', 128),
+		'USERNAME' => $view_user->getDisplayname(true),
+		'NICKNAME' => $view_user->getDisplayname(),
+		'USER_STYLE' => $view_user->getGroupClass(),
+		'AVATAR' => $view_user->getAvatar('', 128),
 		'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
 		'YES' => $language->get('general', 'yes'),
 		'NO' => $language->get('general', 'no')
@@ -397,17 +403,20 @@ if(isset($_GET['user'])){
 					break;
 			}
 
+			$target_user = new User($result->punished);
+			$staff_user = new User($result->staff);
+			
 			$smarty_results[] = array(
-				'username' => Output::getClean($user->idToName($result->punished)),
-				'nickname' => Output::getClean($user->idToNickname($result->punished)),
-				'profile' => URL::build('/panel/user/' . Output::getClean($result->punished . '-' . $user->idToName($result->punished))),
-				'style' => $user->getGroupClass($result->punished),
-				'avatar' => $user->getAvatar($result->punished, '', 128),
-				'staff_username' => Output::getClean($user->idToName($result->staff)),
-				'staff_nickname' => Output::getClean($user->idToNickname($result->staff)),
-				'staff_profile' => URL::build('/panel/user/' . Output::getClean($result->staff . '-' . $user->idToName($result->staff))),
-				'staff_style' => $user->getGroupClass($result->staff),
-				'staff_avatar' => $user->getAvatar($result->staff, '', 128),
+				'username' => $target_user->getDisplayname(true),
+				'nickname' => $target_user->getDisplayname(),
+				'profile' => URL::build('/panel/user/' . Output::getClean($result->punished . '-' . $target_user->data()->username)),
+				'style' => $target_user->getGroupClass(),
+				'avatar' => $target_user->getAvatar('', 128),
+				'staff_username' => $staff_user->getDisplayname(true),
+				'staff_nickname' => $staff_user->getDisplayname(),
+				'staff_profile' => URL::build('/panel/user/' . Output::getClean($result->staff . '-' . $staff_user->data()->username)),
+				'staff_style' => $staff_user->getGroupClass(),
+				'staff_avatar' => $staff_user->getAvatar('', 128),
 				'type' => $type,
 				'type_numeric' => $result->type,
 				'revoked' => $result->revoked,

@@ -36,14 +36,13 @@ if(!isset($_GET['id']) || !is_numeric($_GET['id'])){
 	Redirect::to(URL::build('/panel/users'));
 	die();
 }
-$user_id = $_GET['id'];
 
-$user_query = $queries->getWhere('users', array('id', '=', $user_id));
-if(!count($user_query)){
-	Redirect::to(URL::build('/panel/users'));
+$view_user = new User($_GET['id']);
+if(!count($view_user->data())) {
+	Redirect::to('/panel/users');
 	die();
 }
-$user_query = $user_query[0];
+$user_query = $view_user->data();
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'users');
@@ -165,49 +164,18 @@ if(Input::exists()){
 					'max' => 20
 				)
 			);
-
-			if($user_query->id != 1 && ($user_query->id != $user->data()->id || $user->hasPermission('admincp.groups.self'))){
-				$to_validation['group'] = array(
-					'required' => true
-				);
-				$group = Input::get('group');
-
+			
+			// Does user have any groups selected
+			$passed = false;
+			if(isset($_POST['groups']) && count($_POST['groups'])){
+				$passed = true;
 			} else {
-				$group = $user_query->group_id;
-			}
-
-			// Get secondary groups
-			if(isset($_POST['secondary_groups']) && count($_POST['secondary_groups'])){
-				// Add all new groups to Discord
-				foreach($_POST['secondary_groups'] as $secondary_group) {
-					if($secondary_group != $group) {
-						$secondary_groups[] = $secondary_group;
-						Discord::addDiscordRole($user_query, $secondary_group, $language);
-					}
-				}
-				// Find secondary groups which the user had, but are not selected anymore, and remove them from Discord
-				foreach($user_query->secondary_groups as $secondary_group) {
-					if (!in_array($_POST['secondary_groups'], $secondary_group)) {
-						Discord::removeDiscordRole($user_query, $secondary_group, $language);
-					}
-				}
-				$secondary_groups = json_encode($secondary_groups);
-			} else {
-				// Remove all old secondary groups from Discord when none are selected
-				$user_secondary_groups = json_decode($user_query->secondary_groups, true);
-				foreach ($user_secondary_groups as $secondary_group) {
-					Discord::removeDiscordRole($user_query, $secondary_group, $language);
-				}
-				$secondary_groups = '';
+				$errors[] = $language->get('admin', 'select_user_group');
 			}
 
 			$validation = $validate->check($_POST, $to_validation);
-
-			if($validation->passed()){
-
+			if($validation->passed() && $passed){
 				try {
-					Discord::addDiscordRole($user_query, $group, $language);
-
 					// Signature from Markdown -> HTML if needed
 					$cache->setCache('post_formatting');
 					$formatting = $cache->retrieve('formatting');
@@ -248,15 +216,45 @@ if(Input::exists()){
 					$queries->update('users', $user_query->id, array(
 						'nickname' => Output::getClean($nickname),
 						'email' => Output::getClean(Input::get('email')),
-						'group_id' => $group,
 						'username' => Output::getClean($username),
 						'user_title' => Output::getClean(Input::get('title')),
 						'uuid' => Output::getClean(Input::get('UUID')),
 						'signature' => $signature,
-						'secondary_groups' => $secondary_groups,
 						'private_profile' => $private_profile,
 						'theme_id' => $new_template
 					));
+					
+					// Get current group ids
+					$user_groups = array();
+					foreach($view_user->getGroups() as $group){
+						$user_groups[$group->id] = $group->id;
+					}
+					
+					// Get groups
+					if($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
+						if(isset($_POST['groups']) && count($_POST['groups'])){
+							// Any new groups?
+							foreach($_POST['groups'] as $group) {
+								if(!in_array($group, $user_groups)) {
+									$view_user->addGroup($group);
+									Discord::addDiscordRole($user_query, $group, $language);
+								}
+							}
+							
+							// Any groups to remove?
+							foreach($view_user->getGroups() as $group){
+								if(!in_array($group->id, $_POST['groups'])) {
+									// be sure root user keep the root group
+									if($group->id == 2 && $view_user->data()->id == 1) {
+										continue;
+									}
+									
+									$view_user->removeGroup($group->id);
+									Discord::removeDiscordRole($user_query, $group->id, $language);
+								}
+							}
+						}
+					}
 
 					Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
 					Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
@@ -279,9 +277,6 @@ if(Input::exists()){
 								break;
 							case (strpos($error, 'username') !== false):
 								$errors[] = $language->get('user', 'mcname_required');
-								break;
-							case (strpos($error, 'group') !== false):
-								$errors[] = $language->get('admin', 'select_user_group');
 								break;
 						}
 
@@ -423,6 +418,11 @@ if($formatting == 'markdown'){
 
 }
 
+$user_groups = array();
+foreach($view_user->getGroups() as $group){
+	$user_groups[$group->id] = $group->id;
+}
+
 $smarty->assign(array(
 	'PARENT_PAGE' => PARENT_PAGE,
 	'DASHBOARD' => $language->get('admin', 'dashboard'),
@@ -456,11 +456,9 @@ $smarty->assign(array(
 	'SIGNATURE' => $language->get('user', 'signature'),
 	'SIGNATURE_VALUE' => $signature,
 	'ALL_GROUPS' => $groups,
-	'GROUP' => $language->get('admin', 'group'),
-	'GROUP_ID' => $user_query->group_id,
-	'SECONDARY_GROUPS' => $language->get('admin', 'secondary_groups'),
-	'SECONDARY_GROUPS_INFO' => $language->get('admin', 'secondary_groups_info'),
-	'SECONDARY_GROUPS_VALUE' => ((($user_secondary_groups = json_decode($user_query->secondary_groups, true)) == null) ? array() : $user_secondary_groups),
+	'GROUPS' => $language->get('admin', 'groups'),
+	'GROUPS_INFO' => $language->get('admin', 'secondary_groups_info'),
+	'GROUPS_VALUE' => $user_groups,
 	'INFO' => $language->get('general', 'info'),
 	'ACTIVE_TEMPLATE' => $language->get('user', 'active_template'),
 	'TEMPLATES' => $templates

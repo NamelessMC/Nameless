@@ -107,13 +107,13 @@ if (Input::exists()) {
 			    else
 				    $username = Input::get('username');
 
-			    $user_query = $queries->getWhere('users', array($method, '=', $username));
-			    if (count($user_query)) {
-				    if ($user_query[0]->tfa_enabled == 1 && $user_query[0]->tfa_complete == 1) {
+			    $user_query = new User($username, $method);
+			    if (count($user_query->data())) {
+				    if ($user_query->data()->tfa_enabled == 1 && $user_query->data()->tfa_complete == 1) {
 					    // Verify password first
 					    if($user->checkCredentials($username, Input::get('password'), $method)) {
 						    if (!isset($_POST['tfa_code'])) {
-							    if ($user_query[0]->tfa_type == 0) {
+							    if ($user_query->data()->tfa_type == 0) {
 								    // Emails
 								    // TODO
 
@@ -124,11 +124,11 @@ if (Input::exists()) {
 							    }
 						    } else {
 							    // Validate code
-							    if ($user_query[0]->tfa_type == 1) {
+							    if ($user_query->data()->tfa_type == 1) {
 								    // App
 								    $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
 
-								    if ($tfa->verifyCode($user_query[0]->tfa_secret, $_POST['tfa_code']) !== true) {
+								    if ($tfa->verifyCode($user_query->data()->tfa_secret, $_POST['tfa_code']) !== true) {
 									    Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
 									    require(ROOT_PATH . '/core/includes/tfa_signin.php');
 									    die();

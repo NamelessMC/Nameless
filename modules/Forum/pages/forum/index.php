@@ -20,14 +20,8 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
 
-// Get user group ID
-if($user->isLoggedIn()){
-    $user_group = $user->data()->group_id;
-    $secondary_groups = $user->data()->secondary_groups;
-} else {
-    $user_group = null;
-    $secondary_groups = null;
-}
+// Get user group IDs
+$groups = $user->getAllGroupIds();
 
 // Breadcrumbs and search bar - same for latest discussions view + table view
 $smarty->assign('BREADCRUMB_URL', URL::build('/forum'));
@@ -71,20 +65,14 @@ $smarty->assign('LATEST_DISCUSSIONS_TITLE', $forum_language->get('forum', 'lates
 $smarty->assign('NO_TOPICS', $forum_language->get('forum', 'no_topics_short'));
 
 // Get forums
-// Check cache per user's group
-if($user_group){
-	$cache_name = 'forum_forums_' . $user_group . '-' . $secondary_groups;
-} else {
-	$cache_name = 'forum_forums_guest';
-}
-
+$cache_name = 'forum_forums_' . rtrim(implode('-', $groups), '-');
 $cache->setCache($cache_name);
 
 if($cache->isCached('forums')){
 	$forums = $cache->retrieve('forums');
 
 } else {
-	$forums = $forum->listAllForums($user_group, $secondary_groups, ($user->isLoggedIn() ? $user->data()->id : 0));
+	$forums = $forum->listAllForums($groups, ($user->isLoggedIn() ? $user->data()->id : 0));
 
 	// Loop through to get last poster avatars and to format a date
 	if(count($forums)){
@@ -92,7 +80,12 @@ if($cache->isCached('forums')){
 			if(count($item['subforums'])){
 				foreach($item['subforums'] as $subforum_id => $subforum){
 					if(isset($subforum->last_post)){
-						$forums[$key]['subforums'][$subforum_id]->last_post->avatar = $user->getAvatar($forums[$key]['subforums'][$subforum_id]->last_post->post_creator, '../', 64);
+						$last_post_user = new User($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
+						
+						$forums[$key]['subforums'][$subforum_id]->last_post->avatar = $last_post_user->getAvatar('../', 64);
+						$forums[$key]['subforums'][$subforum_id]->last_post->user_style = $last_post_user->getGroupClass();
+						$forums[$key]['subforums'][$subforum_id]->last_post->username = $last_post_user->getDisplayname();
+                        $forums[$key]['subforums'][$subforum_id]->last_post->profile = $last_post_user->getProfileURL();
 
 						if(is_null($forums[$key]['subforums'][$subforum_id]->last_post->created)){
 						  $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language->getTimeLanguage());
@@ -101,8 +94,6 @@ if($cache->isCached('forums')){
 						  $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords(date('d M Y, H:i', $forums[$key]['subforums'][$subforum_id]->last_post->created), $language->getTimeLanguage());
 						  $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', $forums[$key]['subforums'][$subforum_id]->last_post->created);
 						}
-
-						$forums[$key]['subforums'][$subforum_id]->last_post->user_style = $user->getGroupClass($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
 					}
 
 					if($forums[$key]['subforums'][$subforum_id]->redirect_forum == 1)

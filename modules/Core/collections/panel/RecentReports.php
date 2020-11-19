@@ -60,10 +60,9 @@ class RecentReportsItem extends CollectionItemBase {
 						$reporter_user = $users[$item->reporter_id];
 
 					} else {
-						$user_query = $queries->getWhere('users', array('id', '=', $item->reporter_id));
-						if(!count($user_query))
+						$reporter_user = new User($item->reporter_id);
+						if(!count($reporter_user->data()))
 							continue;
-						$reporter_user = $user_query[0];
 						$users[$item->reporter_id] = $reporter_user;
 
 					}
@@ -72,28 +71,27 @@ class RecentReportsItem extends CollectionItemBase {
 						$reported_user = $users[$item->reported_id];
 
 					} else {
-						$user_query = $queries->getWhere('users', array('id', '=', $item->reported_id));
-						if(!count($user_query))
+						$reported_user = new User($item->reported_id);
+						if(!count($reported_user->data()))
 							continue;
-						$reported_user = $user_query[0];
 						$users[$item->reported_id] = $reported_user;
 
 					}
 
 					$data[] = array(
 						'url' => URL::build('/panel/users/reports/', 'id=' . Output::getClean($item->id)),
-						'reporter_username' => Output::getClean($reporter_user->username),
-						'reporter_nickname' => Output::getClean($reporter_user->nickname),
-						'reporter_style' => $this->_user->getGroupClass($reporter_user->id),
-						'reporter_avatar' => $this->_user->getAvatar($reporter_user->id),
-						'reporter_uuid' => Output::getClean($reporter_user->uuid),
-						'reporter_profile' => URL::build('/panel/user/' . Output::getClean($reporter_user->id) . '-' . Output::getClean($reporter_user->username)),
-						'reported_username' => Output::getClean($reported_user->username),
-						'reported_nickname' => Output::getClean($reported_user->nickname),
-						'reported_style' => $this->_user->getGroupClass($reported_user->id),
-						'reported_avatar' => $this->_user->getAvatar($reported_user->id),
-						'reported_uuid' => Output::getClean($reported_user->uuid),
-						'reported_profile' => URL::build('/panel/user/' . Output::getClean($reported_user->id) . '-' . Output::getClean($reported_user->username)),
+						'reporter_username' => $reporter_user->getDisplayname(true),
+						'reporter_nickname' => $reporter_user->getDisplayname(),
+						'reporter_style' => $reporter_user->getGroupClass(),
+						'reporter_avatar' => $reporter_user->getAvatar(),
+						'reporter_uuid' => Output::getClean($reporter_user->data()->uuid),
+						'reporter_profile' => URL::build('/panel/user/' . Output::getClean($reporter_user->id) . '-' . Output::getClean($reporter_user->data()->username)),
+						'reported_username' => $reported_user->getDisplayname(true),
+						'reported_nickname' => $reported_user->getDisplayname(),
+						'reported_style' => $reported_user->getGroupClass(),
+						'reported_avatar' => $reported_user->getAvatar(),
+						'reported_uuid' => Output::getClean($reported_user->data()->uuid),
+						'reported_profile' => URL::build('/panel/user/' . Output::getClean($reported_user->id) . '-' . Output::getClean($reported_user->data()->username)),
 						'time' => $timeago->inWords($item->date_reported, $this->_language->getTimeLanguage()),
 						'time_full' => date('d M Y, H:i', strtotime($item->date_reported)),
 						'type' => $item->type,

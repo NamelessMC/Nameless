@@ -59,10 +59,12 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 	// User specified
 	$profile = $profile[count($profile) - 1];
 
-	$query = $queries->getWhere('users', array('username', '=', $profile));
-
-	if(!count($query)) Redirect::to(URL::build('/profile/', 'error=not_exist'));
-	$query = $query[0];
+	$profile_user = new User($profile, 'username');
+	if(!count($profile_user->data())) {
+		Redirect::to(URL::build('/profile/?error=not_exist'));
+		die();
+	}
+	$query = $profile_user->data();
 
 	// Deal with input
 	if(Input::exists()){
@@ -86,8 +88,8 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 											// Requery to update banner
 											$user = new User();
-											$query = $queries->getWhere('users', array('username', '=', $profile));
-											$query = $query[0];
+											$profile_user = new User($profile, 'username');
+											$query = $profile_user->data();
 										}
 									}
 								}
@@ -120,14 +122,14 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 								if($query->id !== $user->data()->id){
 									// Alert user
-									Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username) . '/#post-' . $queries->getLastId()));
+									Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()), URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $queries->getLastId()));
 								}
 
 								$cache->setCache('profile_posts_widget');
 								$cache->eraseAll();
 
 								// Redirect to clear input
-								Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
+								Redirect::to($profile_user->getProfileURL());
 								die();
 
 							} else {
@@ -162,7 +164,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 								// Ensure post exists
 								$post = $queries->getWhere('user_profile_wall_posts', array('id', '=', $_POST['post']));
 								if(!count($post)){
-									Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
+									Redirect::to($profile_user->getProfileURL());
 									die();
 								}
 
@@ -175,18 +177,18 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 								));
 
 								if($post[0]->author_id != $query->id && $query->id != $user->data()->id)
-									Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username) . '/#post-' . $_POST['post']));
+									Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()), URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
 
 								else if($post[0]->author_id != $user->data()->id){
 									// Alert post author
 									if($post[0]->author_id == $query->id)
-										Alert::create($query->id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)), URL::build('/profile/' . Output::getClean($query->username) . '/#post-' . $_POST['post']));
+										Alert::create($query->id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname), URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
 									else
-										Alert::create($post[0]->author_id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), URL::build('/profile/' . Output::getClean($query->username) . '/#post-' . $_POST['post']));
+										Alert::create($post[0]->author_id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => array('{x}', '{y}'), 'replace_with' => array($user->getDisplayname(), $profile_user->getDisplayname())), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => array('{x}', '{y}'), 'replace_with' => array($user->getDisplayname(), $profile_user->getDisplayname())), URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
 								}
 
 								// Redirect to clear input
-								Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
+								Redirect::to($profile_user->getProfileURL());
 								die();
 
 							} else {
@@ -237,7 +239,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 								$post = $queries->getWhere('user_profile_wall_posts', array('id', '=', $_POST['post_id']));
 								if(count($post)) {
 									$post = $post[0];
-									if($user->canViewMCP() || $post->author_id == $user->data()->id){
+									if($user->canViewACP() || $post->author_id == $user->data()->id){
 										if(isset($_POST['content']) && strlen($_POST['content']) < 10000 && strlen($_POST['content']) >= 1){
 											try {
 												$queries->update('user_profile_wall_posts', $_POST['post_id'], array(
@@ -262,7 +264,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 								$post = $queries->getWhere('user_profile_wall_posts', array('id', '=', $_POST['post_id']));
 								if(count($post)) {
 									$post = $post[0];
-									if($user->canViewMCP() || $post->author_id == $user->data()->id){
+									if($user->canViewACP() || $post->author_id == $user->data()->id){
 										try {
 											$queries->delete('user_profile_wall_posts', array('id', '=', $_POST['post_id']));
 											$queries->delete('user_profile_wall_posts_replies', array('post_id', '=', $_POST['post_id']));
@@ -284,7 +286,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 								$post = $queries->getWhere('user_profile_wall_posts_replies', array('id', '=', $_POST['post_id']));
 								if(count($post)) {
 									$post = $post[0];
-									if($user->canViewMCP() || $post->author_id == $user->data()->id){
+									if($user->canViewACP() || $post->author_id == $user->data()->id){
 										if(isset($_POST['content']) && strlen($_POST['content']) < 10000 && strlen($_POST['content']) >= 1){
 											try {
 												$queries->update('user_profile_wall_posts_replies', $_POST['post_id'], array(
@@ -310,7 +312,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 								$post = $queries->getWhere('user_profile_wall_posts_replies', array('id', '=', $_POST['post_id']));
 								if(count($post)) {
 									$post = $post[0];
-									if($user->canViewMCP() || $post->author_id == $user->data()->id){
+									if($user->canViewACP() || $post->author_id == $user->data()->id){
 										try {
 											$queries->delete('user_profile_wall_posts_replies', array('id', '=', $_POST['post_id']));
 										} catch(Exception $e){
@@ -333,20 +335,20 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 				case 'react':
 					if(!isset($_GET['post']) || !is_numeric($_GET['post'])){
 						// Post ID required
-						Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
+						Redirect::to($profile_user->getProfileURL());
 						die();
 					}
 
 					// Does the post exist?
 					$post = $queries->getWhere('user_profile_wall_posts', array('id', '=', $_GET['post']));
 					if(!count($post)){
-						Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
+						Redirect::to($profile_user->getProfileURL());
 						die();
 					}
 
 					// Can't like our own post
 					if($post[0]->author_id == $user->data()->id){
-						Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
+						Redirect::to($profile_user->getProfileURL());
 						die();
 					}
 
@@ -375,7 +377,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 					}
 
 					// Redirect
-					Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
+					Redirect::to($profile_user->getProfileURL());
 					die();
 
 					break;
@@ -387,7 +389,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 						));
 					}
 
-					Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
+					Redirect::to($profile_user->getProfileURL());
 					break;
 			}
 		}
@@ -396,12 +398,12 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 	// Get page
 	if(isset($_GET['p'])){
 		if(!is_numeric($_GET['p'])){
-			Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
+			Redirect::to($profile_user->getProfileURL());
 			die();
 		} else {
 			if($_GET['p'] == 1){
 				// Avoid bug in pagination class
-				Redirect::to(URL::build('/profile/' . Output::getClean($query->username)));
+				Redirect::to($profile_user->getProfileURL());
 				die();
 			}
 			$p = $_GET['p'];
@@ -425,7 +427,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 	}
 
 	// Set Can view
-	if($user->isPrivateProfile($query->id) && $user->canPrivateProfile($query->id)) {
+	if($user->isPrivateProfile() && $user->canPrivateProfile()) {
 		$smarty->assign(array(
 			'PRIVATE_PROFILE' => $language->get('user', 'private_profile_page'),
 			'CAN_VIEW' => false
@@ -444,7 +446,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 			'LOGGED_IN' => true,
 			'SUBMIT' => $language->get('general', 'submit'),
 			'CANCEL' => $language->get('general', 'cancel'),
-			'CAN_MODERATE' => ($user->canViewMCP() || $user->canViewACP())
+			'CAN_MODERATE' => $user->canViewACP()
 		));
 
 		if($user->hasPermission('profile.private.bypass')){
@@ -518,7 +520,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 				'MESSAGE_LINK' => URL::build('/user/messaging/', 'action=new&amp;uid=' . $query->id),
 				'FOLLOW_LINK' => URL::build('/user/follow/', 'user=' . $query->id),
 				'CONFIRM' => $language->get('general', 'confirm'),
-				'MOD_OR_ADMIN' => ($user->canViewMCP($query->id) || $user->canViewACP($query->id))
+				'MOD_OR_ADMIN' => $profile_user->canViewACP()
 			));
 
 			// Is the user blocked?
@@ -551,16 +553,16 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 	//$reactions = $queries->getWhere('reactions', array('enabled', '=', 1));
 
 	$smarty->assign(array(
-		'NICKNAME' => Output::getClean($query->nickname),
-		'USERNAME' => Output::getClean($query->username),
+		'NICKNAME' => $profile_user->getDisplayname(true),
+		'USERNAME' => $profile_user->getDisplayname(),
 		'GROUP' => Output::getPurified($group),
-		'GROUPS' => (isset($query) ? $user->getAllGroups($query->id, 'true') : array(Output::getPurified($group))),
-		'USERNAME_COLOUR' => $user->getGroupClass($query->id),
+		'GROUPS' => (isset($query) ? $profile_user->getAllGroups('true') : array(Output::getPurified($group))),
+		'USERNAME_COLOUR' => $profile_user->getGroupClass(),
 		'USER_TITLE' => Output::getClean($query->user_title),
 		'FOLLOW' => $language->get('user', 'follow'),
-		'AVATAR' => $user->getAvatar($query->id, '../', 500),
+		'AVATAR' => $profile_user->getAvatar('../', 500),
 		'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . (($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
-		'POST_ON_WALL' => str_replace('{x}', Output::getClean($query->nickname), $language->get('user', 'post_on_wall')),
+		'POST_ON_WALL' => str_replace('{x}', Output::getClean($profile_user->getDisplayname()), $language->get('user', 'post_on_wall')),
 		'FEED' => $language->get('user', 'feed'),
 		'ABOUT' => $language->get('user', 'about'),
 		'REACTIONS_TITLE' => $language->get('user', 'likes'),
@@ -619,13 +621,14 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 					$reaction_name = Output::getClean($reaction_name[0]->name);
 					*/
 
+					$target_user = new User($reply->author_id);
 					$reactions['reactions'][] = array(
 						'user_id' => Output::getClean($reaction->user_id),
-						'username' => Output::getClean($user->idToName($reaction->user_id)),
-						'nickname' => Output::getClean($user->idToNickname($reaction->user_id)),
-						'style' => $user->getGroupClass($reaction->user_id),
-						'profile' => URL::build('/profile/' . Output::getClean($user->idToName($reaction->user_id))),
-						'avatar' => $user->getAvatar($reaction->user_id, '../', 500),
+						'username' => $target_user->getDisplayname(true),
+						'nickname' => $target_user->getDisplayname(),
+						'style' => $target_user->getGroupClass(),
+						'profile' => $target_user->getProfileURL(),
+						'avatar' => $target_user->getAvatar('../', 500),
 						//'reaction_name' => $reaction_name,
 						//'reaction_html' => $reaction_html
 					);
@@ -641,13 +644,14 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 					$replies['count'] = str_replace('{x}', count($replies_query), $language->get('user', 'x_replies'));
 
 				foreach($replies_query as $reply){
+					$target_user = new User($reply->author_id);
 					$replies['replies'][] = array(
 						'user_id' => Output::getClean($reply->author_id),
-						'username' => Output::getClean($user->idToName($reply->author_id)),
-						'nickname' => Output::getClean($user->idToNickname($reply->author_id)),
-						'style' => $user->getGroupClass($reply->author_id),
-						'profile' => URL::build('/profile/' . Output::getClean($user->idToName($reply->author_id))),
-						'avatar' => $user->getAvatar($reply->author_id, '../', 500),
+						'username' => $target_user->getDisplayname(true),
+						'nickname' => $target_user->getDisplayname(),
+						'style' => $target_user->getGroupClass(),
+						'profile' => $target_user->getProfileURL(),
+						'avatar' => $target_user->getAvatar('../', 500),
 						'time_friendly' => $timeago->inWords(date('d M Y, H:i', $reply->time), $language->getTimeLanguage()),
 						'time_full' => date('d M Y, H:i', $reply->time),
 						'content' => Output::getPurified($reply->content),
@@ -658,14 +662,15 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 			} else $replies['count'] = str_replace('{x}', 0, $language->get('user', 'x_replies'));
 			$replies_query = null;
 
+			$target_user = new User($post_user[0]->id);
 			$wall_posts[] = array(
 				'id' => $results->data[$n]->id,
 				'user_id' => Output::getClean($post_user[0]->id),
-				'username' => Output::getClean($post_user[0]->username),
-				'nickname' => Output::getClean($post_user[0]->nickname),
-				'profile' => URL::build('/profile/' . Output::getClean($post_user[0]->username)),
-				'user_style' => $user->getGroupClass($post_user[0]->id),
-				'avatar' => $user->getAvatar($results->data[$n]->author_id, '../', 500),
+				'username' => $target_user->getDisplayname(true),
+				'nickname' => $target_user->getDisplayname(),
+				'profile' => $target_user->getProfileURL(),
+				'user_style' => $target_user->getGroupClass(),
+				'avatar' => $target_user->getAvatar('../', 500),
 				'content' => Output::getPurified(htmlspecialchars_decode($results->data[$n]->content)),
 				'date_rough' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->time), $language->getTimeLanguage()),
 				'date' => date('d M Y, H:i', $results->data[$n]->time),

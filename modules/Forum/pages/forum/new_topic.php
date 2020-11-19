@@ -34,18 +34,17 @@ if(!isset($_GET['fid']) || !is_numeric($_GET['fid'])){
 $fid = (int) $_GET['fid'];
 
 // Get user group ID
-$user_group = $user->data()->group_id;
-$secondary_groups = $user->data()->secondary_groups;
+$user_groups = $user->getAllGroupIds();
 
 // Does the forum exist, and can the user view it?
-$list = $forum->forumExist($fid, $user_group, $secondary_groups);
+$list = $forum->forumExist($fid, $user_groups);
 if(!$list){
 	Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 	die();
 }
 
 // Can the user post a topic in this forum?
-$can_reply = $forum->canPostTopic($fid, $user_group, $secondary_groups);
+$can_reply = $forum->canPostTopic($fid, $user_groups);
 if(!$can_reply){
 	Redirect::to(URL::build('/forum/view/' . $fid));
 	die();
@@ -84,8 +83,17 @@ if(Input::exists()) {
 					if(isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_numeric($_POST['topic_label'])){
                         $topic_label = $queries->getWhere('forums_topic_labels', array('id', '=', $_POST['topic_label']));
                         if(count($topic_label)){
-                            $groups = explode(',', $topic_label[0]->gids);
-                            if(in_array($user->data()->group_id, $groups))
+                            $lgroups = explode(',', $topic_label[0]->gids);
+							
+							$hasperm = false;
+							foreach($user_groups as $group_id) {
+								if (in_array($group_id, $lgroups)) {
+									$hasperm = true;
+									break;
+								}
+							}
+							
+                            if($hasperm)
                                 $label = Input::get('topic_label');
                             else
                                 $label = null;
@@ -146,11 +154,11 @@ if(Input::exists()) {
 					HookHandler::executeEvent('newTopic', array(
 						'event' => 'newTopic',
 						'uuid' => Output::getClean($user->data()->uuid),
-						'username' => Output::getClean($user->data()->username),
-						'nickname' => Output::getClean($user->data()->nickname),
-						'content' => str_replace(array('{x}', '{y}'), array($forum_title, Output::getClean($user->data()->nickname)), $forum_language->get('forum', 'new_topic_text')),
+						'username' => $user->getDisplayname(true),
+						'nickname' => $user->getDisplayname(),
+						'content' => str_replace(array('{x}', '{y}'), array($forum_title, $user->getDisplayname()), $forum_language->get('forum', 'new_topic_text')),
 						'content_full' => strip_tags(Input::get('content')),
-						'avatar_url' => $user->getAvatar($user->data()->id, null, 128, true),
+						'avatar_url' => $user->getAvatar(null, 128, true),
 						'title' => Input::get('title'),
 						'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))), '/'),
 						'available_hooks' => $available_hooks
@@ -241,9 +249,19 @@ if(count($forum_labels)){
 
 		if(in_array($fid, $forum_ids)){
 			// Check permissions
-			$groups = explode(',', $label->gids);
-			if (!in_array($user->data()->group_id, $groups))
+			$lgroups = explode(',', $label->gids);
+			
+			$hasperm = false;
+			foreach($user_groups as $group_id) {
+				if (in_array($group_id, $lgroups)) {
+					$hasperm = true;
+					break;
+				}
+			}
+			
+			if (!$hasperm)
 				continue;
+
 
 			// Get label HTML
 			$label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));

@@ -39,7 +39,7 @@ if(!count($topic)){
 
 $topic = $topic[0];
 
-if($forum->canModerateForum($user->data()->group_id, $topic->forum_id, $user->data()->secondary_groups)){
+if($forum->canModerateForum($topic->forum_id, $user->getAllGroupIds())){
 	try {
 		$queries->update('topics', $topic_id, array(
 			'deleted' => 1

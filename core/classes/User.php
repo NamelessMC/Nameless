@@ -9,12 +9,12 @@
 class User {
 	private $_db,
 			$_data,
+			$_groups,
 			$_sessionName,
 			$_cookieName,
 			$_isLoggedIn,
 			$_admSessionName,
-			$_isAdmLoggedIn,
-			$_permissions;
+			$_isAdmLoggedIn;
 
 	// Construct User class
 	public function __construct($user = null, $field = 'id') {
@@ -46,31 +46,12 @@ class User {
 
 	}
 
-	// Get name of group from an ID
-	public function getGroupName($group_id) {
-		$data = $this->_db->get('groups', array('id', '=', $group_id));
-		if($data->count()) {
-			$results = $data->results();
-			return htmlspecialchars($results[0]->name);
-		} else {
-			return false;
-		}
-	}
-
-	// Get a group's CSS class from an ID
-	public function getGroupClass($user_id) {
-		$user = $this->_db->get('users', array('id', '=', $user_id));
-
-		// Check the user exists..
-		if($user->count()){
-			// Get the user's group
-			$group_id = $user->results();
-			$group_id = $group_id[0]->group_id;
-
-			$data = $this->_db->get('groups', array('id', '=', $group_id));
-			if($data->count()) {
-				$results = $data->results();
-				return 'color:' . htmlspecialchars($results[0]->group_username_color) . '; ' . htmlspecialchars($results[0]->group_username_css);
+	// Get a group's CSS class
+	public function getGroupClass() {
+		$groups = $this->_groups;
+		if(count($groups)) {
+			foreach($groups as $group) {
+				return 'color:' . htmlspecialchars($group->group_username_color) . '; ' . htmlspecialchars($group->group_username_css);
 			}
 		}
 
@@ -116,6 +97,15 @@ class User {
 
 			if($data->count()) {
 				$this->_data = $data->first();
+				
+				// Get user groups
+				$groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id=nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', array($this->_data->id));
+				if($groups_query->count()) {
+					$groups_query = $groups_query->results();
+					foreach($groups_query as $item){
+						$this->_groups[$item->id] = $item;
+					}
+				}
 				return true;
 			}
 		}
@@ -266,6 +256,7 @@ class User {
 	// Get displayname
 	// Params: $force - force username
 	public function getDisplayname($force = false) {
+		return 'Debug';
 		if($force == true) {
 			return Output::getClean($this->_data->username);
 		}
@@ -277,70 +268,36 @@ class User {
 		return Output::getClean(URL::build("/profile/" . $this->data()->username)); 
 	}
 
-	// Get a user's group from their ID. We can either return their ID only, their normal HTML display code, or their large HTML display code
-	public function getGroup($id, $html = null, $large = null) {
-		$data = $this->_db->get('users', array('id', '=', $id));
-		if($html === null){
-			if($large === null){
-				$results = $data->results();
-				return $results[0]->group_id;
-			} else {
-				$results = $data->results();
-				$data = $this->_db->get('groups', array('id', '=', $results[0]->group_id));
-				$results = $data->results();
-				return $results[0]->group_html_lg;
-			}
-		} else {
-			$results = $data->results();
-			$data = $this->_db->get('groups', array('id', '=', $results[0]->group_id));
-			$results = $data->results();
-			return $results[0]->group_html;
-		}
-	}
-
 	// Get the order of a specified group
 	public function getGroupOrder($group_id) {
 		return $this->_db->get('groups', array('id', '=', $group_id))->results()[0]->order;
 	}
 
-	// Get all of a user's groups from their ID. We can return their ID only or their HTML display code
-    public function getAllGroups($id, $html = null) {
+	// Get all of a user's groups. We can return their ID only or their HTML display code
+    public function getAllGroups($html = null) {
         $groups = array();
-
-        $data = $this->_db->get('users', array('id', '=', $id));
-        if($data->count()){
-            $results = $data->results();
-
-            if(is_null($html)){
-                $groups[] = $results[0]->group_id;
-            } else {
-                $group = $this->_db->get('groups', array('id', '=', $results[0]->group_id));
-                if($group->count()){
-                    $group = $group->results();
-                    $groups[] = $group[0]->group_html;
-                }
-            }
-
-            $secondary = $results[0]->secondary_groups;
-            if($secondary){
-                $secondary = json_decode($secondary, true);
-                if(count($secondary)){
-                    foreach($secondary as $item){
-                        if(is_null($html)){
-                            $groups[] = $item;
-                        } else {
-                            $group = $this->_db->get('groups', array('id', '=', $item));
-                            if($group->count()){
-                                $group = $group->results();
-                                $groups[] = $group[0]->group_html;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
+		if(count($this->_groups)) {
+			foreach($this->_groups as $group){
+				if(is_null($html)){
+					$groups[] = $group->id;
+				} else {
+					$groups[] = $group->group_html;
+				}
+			}
+		}
         return $groups;
+    }
+	
+	// Get all of a user's groups id.
+    public function getAllGroupIds() {
+		if($this->_isLoggedIn && count($this->_groups)) {
+			$groups = array();
+			foreach($this->_groups as $group){
+				$groups[$group->id] = $group->id;
+			}
+			return $groups;
+		}
+		return array(0);
     }
 
 	// Get a user's signature, by user ID
@@ -355,33 +312,34 @@ class User {
 	}
 
 	// Get a user's avatar, based on user ID
-	public function getAvatar($id, $path = null, $size = 128, $full = false) {
-        $data = $this->_db->get('users', array('id', '=', $id))->results();
+	public function getAvatar($path = null, $size = 128, $full = false) {
+        $data = $this->data();
         if(empty($data)){
             // User doesn't exist
             return false;
         }
 
-        if($data[0]->uuid != null && $data[0]->uuid != 'none')
-            $uuid = Output::getClean($data[0]->uuid);
+        if($data->uuid != null && $data->uuid != 'none')
+            $uuid = Output::getClean($data->uuid);
         else {
-            $uuid = Output::getClean($data[0]->username);
+            $uuid = Output::getClean($data->username);
             //fix accounts with special characters in name having no avatar                                             
             if(preg_match("#[^][_A-Za-z0-9]#", $uuid)) 
                 $uuid = 'Steve';
-	}
+		}
+		
         // Get avatar type
         if(defined('CUSTOM_AVATARS')){
             // Custom avatars
-            if($data[0]->gravatar == 1){
+            if($data->gravatar == 1){
                 // Gravatar
-                return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $data[0]->email ) ) ) . "?d=" . urlencode( 'https://cravatar.eu/helmavatar/' . $uuid . '/200.png' ) . "&s=200";
+                return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $data->email ) ) ) . "?d=" . urlencode( 'https://cravatar.eu/helmavatar/' . $uuid . '/200.png' ) . "&s=200";
             } else if($data[0]->has_avatar == 1){
                 // Custom avatar
                 $exts = array('gif','png','jpg','jpeg');
                 foreach($exts as $ext) {
-                    if(file_exists(ROOT_PATH . "/uploads/avatars/" . $id . "." . $ext)){
-                        $avatar_path = ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . "uploads/avatars/" . $id . "." . $ext . '?v=' . Output::getClean($data[0]->avatar_updated);
+                    if(file_exists(ROOT_PATH . "/uploads/avatars/" . $data->id . "." . $ext)){
+                        $avatar_path = ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . "uploads/avatars/" . $data->id . "." . $ext . '?v=' . Output::getClean($data->avatar_updated);
                         break;
                     }
                 }
@@ -463,8 +421,8 @@ class User {
 	}
 
 	// Does the user have any infractions?
-	public function hasInfraction($user_id){
-		$data = $this->_db->get('infractions', array('punished', '=', $user_id))->results();
+	public function hasInfraction(){
+		$data = $this->_db->get('infractions', array('punished', '=', $this->data()->id))->results();
 		if(empty($data)){
 			return false;
 		} else {
@@ -509,6 +467,57 @@ class User {
 	// Returns the currently logged in user's data
 	public function data() {
 		return $this->_data;
+	}
+	
+	// Returns the currently logged in user's groups
+	public function getGroups() {
+		return $this->_groups;
+	}
+	
+	// Get the main group
+	public function getMainGroup(){
+		if(count($this->_groups)){
+			foreach($this->_groups as $group) {
+				return $group;
+			}
+        }
+		return false;
+	}
+	
+	// Set a group to user and remove all other groups
+	public function setGroup($group_id){
+		$this->_db->createQuery('DELETE FROM `nl2_users_groups` WHERE `user_id` = ?', array(
+			$this->data()->id
+		));
+		
+		$this->_db->createQuery('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`) VALUES (?, ?)', array(
+			$this->data()->id,
+			$group_id
+		));
+	}
+	
+	// Add a group to the user
+	public function addGroup($group_id){
+		if(!array_key_exists($group_id, $this->_groups)) {
+			$this->_db->createQuery('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`) VALUES (?, ?)', array(
+				$this->data()->id,
+				$group_id
+			));
+		}
+	}
+	
+	// Remove a group from the user
+	public function removeGroup($group_id){
+		if(array_key_exists($group_id, $this->_groups)) {
+			if($group->id == 2 && $this->data()->id == 1) {
+				return false;
+			}
+									
+			$this->_db->createQuery('DELETE FROM `nl2_users_groups` WHERE `user_id` = ? AND `group_id` = ?', array(
+				$this->data()->id,
+				$group_id
+			));
+		}
 	}
 
 	// Returns true if the current user is logged in
@@ -702,102 +711,14 @@ class User {
 		return false;
 	}
 
-	// Can the specified user view the AdminCP?
-	public function canViewACP($user_id = null){
-        if(is_null($user_id)){
-            $group_id = $this->data()->group_id;
-            if(is_null($this->data()->secondary_groups))
-                $secondary = array();
-            else
-                $secondary = json_decode($this->data()->secondary_groups, true);
-        } else {
-            // Get user
-            $user_query = $this->_db->get('users', array('id', '=', $user_id));
-            if($user_query->count()){
-                $user_query = $user_query->first();
-                $group_id = $user_query->group_id;
-                if(is_null($user_query->secondary_groups))
-                    $secondary = array();
-                else
-                    $secondary = json_decode($user_query->secondary_groups, true);
-
-            } else {
-                return false;
-            }
-        }
-
-        // Get whether the user can view the AdminCP from the groups table
-        $data = $this->_db->get('groups', array('id', '=', $group_id));
-        if($data->count()){
-            $data = $data->results();
-            if($data[0]->admin_cp == 1){
-                // Can view
-                return true;
-            } else {
-                // Check secondary groups
-                if(count($secondary)){
-                    foreach($secondary as $group) {
-                        $data = $this->_db->get('groups', array('id', '=', $group));
-                        if($data->count()){
-                            $data = $data->results();
-
-                            if($data[0]->admin_cp == 1){
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-		return false;
-	}
-
-	// Can the specified user view the ModCP?
-	public function canViewMCP($user_id = null){
-	    if(is_null($user_id)){
-	        $group_id = $this->data()->group_id;
-	        if(is_null($this->data()->secondary_groups))
-	            $secondary = array();
-	        else
-	            $secondary = json_decode($this->data()->secondary_groups, true);
-        } else {
-	        // Get user
-            $user_query = $this->_db->get('users', array('id', '=', $user_id));
-            if($user_query->count()){
-                $user_query = $user_query->first();
-                $group_id = $user_query->group_id;
-                if(is_null($user_query->secondary_groups))
-                    $secondary = array();
-                else
-                    $secondary = json_decode($user_query->secondary_groups, true);
-
-            } else {
-                return false;
-            }
-        }
-
-        // Get whether the user can view the ModCP from the groups table
-        $data = $this->_db->get('groups', array('id', '=', $group_id));
-        if($data->count()) {
-            $data = $data->results();
-            if ($data[0]->mod_cp == 1) {
-                // Can view
-                return true;
-            } else {
-                // Check secondary groups
-                if(count($secondary)){
-                    foreach ($secondary as $group) {
-                        $data = $this->_db->get('groups', array('id', '=', $group));
-                        if ($data->count()) {
-                            $data = $data->results();
-
-                            if($data[0]->mod_cp == 1){
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
+	// Can the specified user view the Panel?
+	public function canViewACP(){
+		if(count($this->_groups)){
+			foreach($this->_groups as $group) {
+				if($group->admin_cp == 1){
+					return true;
+				}
+			}
         }
 		return false;
 	}
@@ -881,66 +802,43 @@ class User {
     /*
      *  Does the user have a given permission?
      *  Params: $permission (string) - name of permission
-     *          $user_id (int) - user ID of user to check - optional, default to logged in user
      */
-    public function hasPermission($permission, $user_id = null){
-        if($this->_permissions != null) {
-            if(isset($this->_permissions[$permission]) && $this->_permissions[$permission] == 1){
-                return true;
-            }
-        }
-
-        if(!$user_id){
-            if($this->isLoggedIn())
-                $group = $this->_db->get('groups', array('id', '=', $this->data()->group_id));
-            else
-                return false;
-        } else {
-            $user = $this->_db->get('users', array('id', '=', $user_id));
-            if(!$user->count())
-                return false;
-
-            $user = $user->first();
-            $group = $this->_db->get('groups', array('id', '=', $user->group_id));
-        }
-
-        if($group->count()){
-            $group = $group->first();
-            $this->_permissions = json_decode($group->permissions, true);
-			
-            if(isset($this->_permissions[$permission]) && $this->_permissions[$permission] == 1){
-                return true;
-            }
+    public function hasPermission($permission){
+		$groups = $this->_groups;
+        if($this->isLoggedIn() && $groups){
+			foreach($groups as $group) {
+				$this->_permissions = json_decode($group->permissions, true);
+				
+				if(isset($this->_permissions[$permission]) && $this->_permissions[$permission] == 1){
+					return true;
+				}
+			}
         }
         return false;
     }
 	
 	// Get a user's profile views, by user ID
-	public function getProfileViews($user_id = null) {
-		$data = $this->_db->get('users', array('id', '=', $user_id));
-		$results = $data->results();
-		if(!empty($results[0]->profile_views)){
-			return $results[0]->profile_views;
+	public function getProfileViews() {
+		if(count($this->data())) {
+			return $this->data()->profile_views;
 		} else {
 			return 0;
 		}
 	}
 
     // Is private profile enabled and does he have the permission to use it?
-    public function canPrivateProfile($user_id = null){
+    public function canPrivateProfile(){
         $settings_data = $this->_db->get('settings', array('name', '=', 'private_profile'));
         $settings_results = $settings_data->results();
-        if(($settings_results[0]->value == 1) && ($this->hasPermission('usercp.private_profile', $user_id)))
+        if(($settings_results[0]->value == 1) && ($this->hasPermission('usercp.private_profile')))
             return true;
         else
             return false;
     }
 
     // Is the profile page set to private?
-    public function isPrivateProfile($user_id = null) {
-        $cp_data = $this->_db->get('users', array('id', '=', $user_id));
-        $cp_results = $cp_data->results();
-        if($cp_results[0]->private_profile == 1){
+    public function isPrivateProfile() {
+        if($this->_data->private_profile == 1){
             // It's private
             return true;
         } else {
@@ -950,34 +848,14 @@ class User {
     }
 
     // Get templates a user's group has access to
-	public function getUserTemplates($group_id = null, $secondary_groups = null) {
-    	if(!$group_id){
-    		if(!$this->isLoggedIn()){
-    			return [];
-		    }
-
-    		$group_id = $this->_data->group_id;
-	    }
-
-    	if(!$secondary_groups){
-    		if(!$this->isLoggedIn()){
-    			return [];
-		    }
-
-    		$secondary_groups = $this->_data->secondary_groups;
-	    }
-
-    	$decoded = json_decode($secondary_groups);
-    	$decoded[] = $group_id;
-
-    	$groups = '(';
-    	foreach($decoded as $item){
-    		if(is_numeric($item)){
-    			$groups .= ((int) $item) . ',';
-		    }
-	    }
-
-    	$groups = rtrim($groups, ',') . ')';
+	public function getUserTemplates() {
+		$groups = '(';
+		foreach($this->_groups as $group){
+			if(is_numeric($group->id)){
+				$groups .= ((int) $group->id) . ',';
+			}
+		}
+		$groups = rtrim($groups, ',') . ')';
 
     	return $this->_db->query('SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN ' . $groups . ')')->results();
 	}

@@ -32,8 +32,8 @@ if(!isset($_GET['c'])){
     }
 
     if(!$user->isLoggedIn()){
-        $check = $queries->getWhere('users', array('reset_code', '=', $_GET['c']));
-        if(count($check)){
+		$target_user = new User($_GET['c'], 'reset_code');
+        if (count($target_user->data())) {
             if(Input::exists()){
                 if(Token::check()){
                     // Validate input
@@ -57,13 +57,11 @@ if(!isset($_GET['c'])){
 
                     if($validation->passed()){
                         // Complete registration
-                        $check = $check[0];
-
                         // Hash password
                         $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
 
                         try {
-                            $queries->update('users', $check->id, array(
+                            $target_user->update(array(
                                 'password' => $password,
                                 'reset_code' => null,
                                 'last_online' => date('U'),

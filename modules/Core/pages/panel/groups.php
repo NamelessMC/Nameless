@@ -83,7 +83,6 @@ if(isset($_GET['action'])){
 							'group_html_lg' => Input::get('html'),
 							'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
 							'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
-							'mod_cp' => Input::get('staffcp'),
 							'admin_cp' => Input::get('staffcp'),
 							'staff' => Input::get('staff'),
 							'default_group' => $default,
@@ -175,7 +174,7 @@ if(isset($_GET['action'])){
 		}
 		$group = $group[0];
 
-		if($group->id == 2 || (($group->id == $user->data()->group_id || in_array($group->id, json_decode($user->data()->secondary_groups))) && !$user->hasPermission('admincp.groups.self'))){
+		if($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))){
 			$smarty->assign(array(
 				'OWN_GROUP' => $language->get('admin', 'cant_edit_this_group'),
 				'INFO' => $language->get('general', 'info')
@@ -237,7 +236,6 @@ if(isset($_GET['action'])){
 								'group_html_lg' => Input::get('html'),
 								'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
 								'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
-								'mod_cp' => $staff_cp,
 								'admin_cp' => $staff_cp,
 								'staff' => Input::get('staff'),
 								'default_group' => $default,
@@ -288,6 +286,7 @@ if(isset($_GET['action'])){
 								Session::flash('admin_groups_error', $language->get('admin', 'unable_to_delete_group'));
 							} else {
 								$queries->delete('groups', array('id', '=', Input::get('id')));
+								$queries->delete('users_groups', array('group_id', '=', Input::get('id')));
 								Session::flash('admin_groups', $language->get('admin', 'group_deleted_successfully'));
 							}
 						}
@@ -345,7 +344,7 @@ if(isset($_GET['action'])){
 		}
 		$group = $group[0];
 
-		if($group->id == 2 || (($group->id == $user->data()->group_id || in_array($group->id, json_decode($user->data()->secondary_groups))) && !$user->hasPermission('admincp.groups.self'))){
+		if($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))){
 			Redirect::to(URL::build('/panel/core/groups'));
 			die();
 		}
@@ -397,7 +396,7 @@ if(isset($_GET['action'])){
 
 	$groups_template = array();
 	foreach($groups as $group){
-		$users = $queries->getWhere('users', array('group_id', '=', $group->id));
+		$users = $queries->getWhere('users_groups', array('group_id', '=', $group->id));
 		$users = count($users);
 
 		$groups_template[] = array(

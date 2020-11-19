@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  Additions by Aberdeener
- * 
+ *
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -29,7 +29,7 @@ $api = new Nameless2API($route, $language, $endpoints);
 
 class Nameless2API {
 
-    private 
+    private
         $_validated = false,
         $_db,
         $_language,
@@ -63,20 +63,24 @@ class Nameless2API {
             }
 
             // Set language
-            if (!isset($api_language) || empty($api_language)) $this->throwError(2, 'Invalid language file');
+            if (!isset($api_language) || empty($api_language)) {
+                $this->throwError(2, 'Invalid language file');
+            }
+
             $this->_language = $api_language;
 
             if (isset($api_key)) {
                 // API key specified
                 $this->_validated = true;
                 $this->_endpoints = $endpoints;
-                
+
                 $request = explode('/', $route);
+                $this->_db = DB::getInstance();
                 $request = $request[count($request) - 1];
 
                 if ($this->_endpoints->handle($request, $this) == false) {
                     $this->throwError(3, $this->_language->get('api', 'invalid_api_method'));
-                }   
+                }
             } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
         } catch(Exception $e) {
             $this->throwError($e->getMessage());

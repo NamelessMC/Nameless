@@ -179,18 +179,11 @@ if(!isset($_GET['view'])){
 
 				else if($validation->passed()){
 
-					// Primary group?
-					if(isset($_POST['primary_group']) && $_POST['primary_group'] == 1)
-						$primary = 1;
-					else
-						$primary = 0;
-
 					$discord_role_id = intval(Input::get('discord_role_id'));
 					if ($discord_role_id == 0) $discord_role_id = null;
 
 					$fields = array();
 					$fields['website_group_id']  = intval($website_group);
-					$fields['primary'] = $primary;
 					$fields['discord_role_id'] = $discord_role_id;
 
 					$ingame_rank_name = $_POST['ingame_rank_name'];
@@ -244,46 +237,40 @@ if(!isset($_GET['view'])){
 			} else if($_POST['action'] == 'update'){
 				$errors = array();
 
-				if(isset($_POST['ingame_group']) && isset($_POST['discord_role']) && isset($_POST['website_group']) && isset($_POST['primary_group'])){
+				if(isset($_POST['ingame_group']) && isset($_POST['discord_role']) && isset($_POST['website_group'])){
 
 					foreach($_POST['website_group'] as $key => $website_group) {
-						if (isset($_POST['primary_group'][$key])) {
-							if (!empty($_POST['ingame_group'][$key]) || !empty($_POST['discord_role'][$key])) {
+						if (!empty($_POST['ingame_group'][$key]) || !empty($_POST['discord_role'][$key])) {
 
-								if ($_POST['primary_group'][$key] == 1) $primary = 1;
-								else $primary = 0;
+							$ingame_group = $_POST['ingame_group'][$key];
+							$discord_role_id = intval($_POST['discord_role'][$key]);
+							if ($discord_role_id == 0) $discord_role_id = null;
 
-								$ingame_group = $_POST['ingame_group'][$key];
-								$discord_role_id = intval($_POST['discord_role'][$key]);
-								if ($discord_role_id == 0) $discord_role_id = null;
+							$fields = array();
+							$fields['website_group_id']  = intval($website_group);
 
-								$fields = array();
-								$fields['website_group_id']  = intval($website_group);
-								$fields['`primary`'] = $primary;
-
-								if (!empty($_POST['ingame_group'][$key])) {
-									if (strlen(str_replace(' ', '', $ingame_group)) > 1 && strlen(str_replace(' ', '', $ingame_group)) < 65) {
-										$fields['ingame_rank_name'] = $ingame_group;
-									} else {
-										$errors[] = $language->get('admin', 'group_name_minimum');
-										$errors[] = $language->get('admin', 'ingame_group_maximum');
-									}
-								} else $fields['ingame_rank_name'] = '';
-								if (strlen($discord_role_id) == 0 || strlen($discord_role_id) == 18) {
-									$fields['discord_role_id'] = $discord_role_id;
+							if (!empty($_POST['ingame_group'][$key])) {
+								if (strlen(str_replace(' ', '', $ingame_group)) > 1 && strlen(str_replace(' ', '', $ingame_group)) < 65) {
+									$fields['ingame_rank_name'] = $ingame_group;
 								} else {
-									$errors[] = $language->get('admin', 'discord_role_id_length');
+									$errors[] = $language->get('admin', 'group_name_minimum');
+									$errors[] = $language->get('admin', 'ingame_group_maximum');
 								}
+							} else $fields['ingame_rank_name'] = '';
+							if (strlen($discord_role_id) == 0 || strlen($discord_role_id) == 18) {
+								$fields['discord_role_id'] = $discord_role_id;
+							} else {
+								$errors[] = $language->get('admin', 'discord_role_id_length');
+							}
 
-								if (!count($errors)) {
-									try {
-										$queries->update('group_sync', $key, $fields);
-									} catch (Exception $e) {
-										$errors[] = $e->getMessage();
-									}
+							if (!count($errors)) {
+								try {
+									$queries->update('group_sync', $key, $fields);
+								} catch (Exception $e) {
+									$errors[] = $e->getMessage();
 								}
-							} else $errors[] = $language->get('admin', 'at_least_one_external');
-						}
+							}
+						} else $errors[] = $language->get('admin', 'at_least_one_external');
 					}
 				}
 
@@ -422,7 +409,6 @@ if(!isset($_GET['view'])){
 				'ingame' => Output::getClean($group->ingame_rank_name),
 				'discord' => $group->discord_role_id,
 				'website' => $group->website_group_id,
-				'primary' => $group->primary,
 				'delete_link' => URL::build('/panel/core/api/', 'view=group_sync&action=delete&id=' . Output::getClean($group->id))
 			);
 		}
@@ -443,10 +429,6 @@ if(!isset($_GET['view'])){
 			'INGAME_GROUP_NAME' => $language->get('admin', 'ingame_group'),
 			'DISCORD_ROLE_ID' => $language->get('admin', 'discord_role_id'),
 			'WEBSITE_GROUP' => $language->get('admin', 'website_group'),
-			'SET_AS_PRIMARY_GROUP' => $language->get('admin', 'set_as_primary_group'),
-			'SET_AS_PRIMARY_GROUP_INFO' => $language->get('admin', 'set_as_primary_group_info'),
-			'YES' => $language->get('general', 'yes'),
-			'NO' => $language->get('general', 'no'),
 			'GROUPS' => $website_groups,
 			'GROUP_SYNC_VALUES' => $template_groups,
 			'DELETE' => $language->get('general', 'delete'),

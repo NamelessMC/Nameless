@@ -30,8 +30,8 @@ if(!isset($_GET['c'])){
                 $error = $language->get('user', 'email_required');
             else {
                 // Check to see if the email exists
-                $exists = $queries->getWhere('users', array('email', '=', Input::get('email')));
-                if (count($exists)) {
+				$target_user = new User(Input::get('email'), 'email');
+                if (count($target_user->data())) {
                     // Generate a code
                     $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
 
@@ -44,7 +44,7 @@ if(!isset($_GET['c'])){
 
                         // PHP Mailer
                         $email = array(
-                            'to' => array('email' => Output::getClean($exists[0]->email), 'name' => Output::getClean($exists[0]->nickname)),
+                            'to' => array('email' => Output::getClean($target_user->data()->email), 'name' => $target_user->getDisplayname()),
                             'subject' => SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject'),
                             'message' => str_replace('[Link]', $link, Email::formatEmail('change_password', $language))
                         );
@@ -57,7 +57,7 @@ if(!isset($_GET['c'])){
                                 'type' => 3, // 3 = forgot password
                                 'content' => $sent['error'],
                                 'at' => date('U'),
-                                'user_id' => $exists[0]->id
+                                'user_id' => $target_user->data()->id
                             ));
 
                             $error = $language->get('user', 'unable_to_send_forgot_password_email');
@@ -68,7 +68,7 @@ if(!isset($_GET['c'])){
                         $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
                         $siteemail = $siteemail[0]->value;
 
-                        $to = $exists[0]->email;
+                        $to = $target_user->data()->email;
                         $subject = SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject');
 
                         $message = str_replace('[Link]', $link, Email::formatEmail('change_password', $language));
@@ -94,7 +94,7 @@ if(!isset($_GET['c'])){
                                 'type' => 3, // 3 = forgot password
                                 'content' => $sent['error'],
                                 'at' => date('U'),
-                                'user_id' => $exists[0]->id
+                                'user_id' => $target_user->data()->id
                             ));
 
                             $error = $language->get('user', 'unable_to_send_forgot_password_email');
@@ -103,7 +103,7 @@ if(!isset($_GET['c'])){
                     }
 
                     if (!isset($error)) {
-                        $queries->update('users', $exists[0]->id, array(
+                        $target_user->update(array(
                             'reset_code' => $code
                         ));
                     }
@@ -144,13 +144,11 @@ if(!isset($_GET['c'])){
 
 } else {
     // Check code exists
-    $code = $queries->getWhere('users', array('reset_code', '=', $_GET['c']));
-    if (!count($code)) {
-        Redirect::to(URL::build('/forgot_password'));
+	$target_user = new User($_GET['c'], 'reset_code');
+    if (!count($target_user->data())) {
+        Redirect::to('/forgot_password');
         die();
     }
-
-    $code = $code[0];
 
     if (Input::exists()) {
         if (Token::check()) {
@@ -170,10 +168,10 @@ if(!isset($_GET['c'])){
             ));
 
             if ($validation->passed()) {
-		if (strcasecmp($code->email, $_POST['email']) == 0) {
+		if (strcasecmp($target_user->data()->email, $_POST['email']) == 0) {
                     $new_password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
                     try {
-                        $queries->update('users', $code->id, array(
+                        $target_user->update(array(
                             'password' => $new_password,
                             'reset_code' => null
                         ));

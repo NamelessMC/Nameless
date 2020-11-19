@@ -48,12 +48,14 @@ class StatsWidget extends WidgetBase {
 
     		$users_query = $queries->orderAll('users', 'joined', 'DESC');
     		$users_registered = count($users_query);
+			
+			$latest_user = new User($users_query[0]->id);
     		$latest_member = array(
-    			'style' => $user->getGroupClass($users_query[0]->id),
-    			'profile' => URL::build('/profile/' . Output::getClean($users_query[0]->username)),
-    			'avatar' => $user->getAvatar($users_query[0]->id),
-    			'username' => Output::getClean($users_query[0]->username),
-    			'nickname' => Output::getClean($users_query[0]->nickname),
+    			'style' => $latest_user->getGroupClass(),
+    			'profile' => $latest_user->getProfileURL(),
+    			'avatar' => $latest_user->getAvatar(),
+    			'username' => $latest_user->getDisplayname(true),
+    			'nickname' => $latest_user->getDisplayname(),
     			'id' => Output::getClean($users_query[0]->id)
     		);
     		

@@ -37,7 +37,7 @@ if(!count($post)){
 $post = $post[0];
 
 // Check the user can moderate the forum
-if($forum->canModerateForum($user->data()->group_id, $post->forum_id, $user->data()->secondary_groups)){
+if($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())){
 	// Check token
 	if(Token::check()){
 		// Valid token, go ahead and mark the user as spam

@@ -36,40 +36,35 @@ class ProfilePostsWidget extends WidgetBase {
     public function initialise() {
         // Generate HTML code for widget
         if ($this->_user->isLoggedIn()) {
-            $user_group = $this->_user->data()->group_id;
-        } else {
-            $user_group = null;
-        }
-
-        if ($user_group) {
             $user_id = $this->_user->data()->id;
         } else {
             $user_id = 0;
         }
+		
         $this->_cache->setCache('profile_posts_widget');
 
         $posts_array = array();
-
         if ($this->_cache->isCached('profile_posts_' . $user_id)) {
              $posts_array = $this->_cache->retrieve('profile_posts_' . $user_id);
          } else {
             $posts = DB::getInstance()->query('SELECT * FROM nl2_user_profile_wall_posts ORDER BY time DESC LIMIT 5')->results();
             foreach ($posts as $post) {
+				$post_author = new User($post->author_id);
 
-                if ($user_group) {
+                if ($this->_user->isLoggedIn()) {
                     if ($this->_user->isBlocked($post->author_id, $this->_user->data()->id)) continue;
-                    if ($this->_user->isPrivateProfile($post->author_id) && !$this->_user->hasPermission('profile.private.bypass')) continue;
-                } else if ($this->_user->isPrivateProfile($post->author_id)) continue;
+                    if ($post_author->isPrivateProfile() && !$this->_user->hasPermission('profile.private.bypass')) continue;
+                } else if ($post_author->isPrivateProfile()) continue;
 
                 $posts_array[] = array(
-                    'avatar' => $this->_user->getAvatar($post->author_id, "../", 64),
-                    'username' => $this->_user->idToNickname($post->author_id),
-                    'username_style' => $this->_user->getGroupClass($post->author_id),
+                    'avatar' => $post_author->getAvatar("../", 64),
+                    'username' => $post_author->getDisplayname(),
+                    'username_style' => $post_author->getGroupClass(),
                     'content' => Util::truncate($post->content, 20),
-                    'link' => URL::build('/profile/' . $this->_user->idToName($post->user_id) . '/#post-' . $post->id),
+                    'link' => $this->_user->getProfileURL() . '/#post-' . $post->id,
                     'date_ago' => date('d M Y, H:i', $post->time),
                     'user_id' => $post->author_id,
-                    'user_profile_link' => URL::build('/profile/' . $this->_user->idToName($post->author_id)),
+                    'user_profile_link' => $post_author->getProfileURL(),
                     'ago' => $this->_timeago->inWords(date('d M Y, H:i', $post->time), $this->_language->getTimeLanguage())
                 );
             }
