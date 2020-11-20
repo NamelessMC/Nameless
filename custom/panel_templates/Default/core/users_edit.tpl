@@ -142,30 +142,20 @@
                                     <label for="InputSignature">{$SIGNATURE}</label>
                                     <textarea style="width:100%" rows="10" name="signature" id="InputSignature">{$SIGNATURE_VALUE}</textarea>
                                 </div>
-                                <div class="form-group">
-                                    <label for="InputGroup">{$GROUP}</label>
-                                    <select class="form-control" id="InputGroup" name="group"{if isset($CANT_EDIT_GROUP)} disabled{/if}>
-                                        {foreach from=$ALL_GROUPS item=item}
-                                            <option value="{$item->id}"{if $item->id eq $GROUP_ID} selected{/if}>{$item->name|escape}</option>
-                                        {/foreach}
-                                    </select>
-                                </div>
                                 {if isset($CANT_EDIT_GROUP)}
                                     <div class="alert alert-warning">
                                         {$CANT_EDIT_GROUP}
                                     </div>
                                 {/if}
                                 <div class="form-group">
-                                    <label for="inputSecondaryGroups">{$SECONDARY_GROUPS}</label>
+                                    <label for="inputGroups">{$GROUPS}</label>
                                     <div class="callout callout-info">
                                         <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
-                                        {$SECONDARY_GROUPS_INFO}
+                                        {$GROUPS_INFO}
                                     </div>
-                                    <select class="form-control" name="secondary_groups[]" id="inputSecondaryGroups" multiple>
+                                    <select class="form-control" name="groups[]" id="inputGroups" multiple>
                                         {foreach from=$ALL_GROUPS item=item}
-                                            {if $item->id neq $GROUP_ID}
-                                                <option value="{$item->id}"{if in_array($item->id, $SECONDARY_GROUPS_VALUE)} selected{/if}>{$item->name|escape}</option>
-                                            {/if}
+                                        <option value="{$item->id}"{if in_array($item->id, $GROUPS_VALUE)} selected{/if}>{$item->name|escape}</option>
                                         {/foreach}
                                     </select>
                                 </div>
