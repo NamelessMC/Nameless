@@ -103,13 +103,13 @@
                                            value="1"{if $API_ENABLED eq 1} checked{/if} />
                                 </div>
 
-                                <div class="form-group">
+                                <!---<div class="form-group">
                                     <label for="enable_legacy_api">{$ENABLE_LEGACY_API}</label> <span class="badge badge-info" style="margin-right:10px" data-toggle="popover" data-title="{$INFO}" data-content="{$LEGACY_API_INFO}"><i class="fas fa-question-circle"></i></span>
                                     <input type="hidden" name="enable_legacy_api" value="0">
                                     <input id="enable_legacy_api" name="enable_legacy_api" type="checkbox"
                                            class="js-switch"
                                            value="1"{if $LEGACY_API_ENABLED eq 1} checked{/if} />
-                                </div>
+                                </div>--->
 
                                 <div class="form-group">
                                     <label for="verification" style="margin-right:10px">{$EMAIL_VERIFICATION}</label>

@@ -71,11 +71,11 @@ if(!isset($_GET['view'])){
 				'value' => Input::get('enable_api')
 			));
 
-			$legacy_plugin_id = $queries->getWhere('settings', array('name', '=', 'use_legacy_api'));
+			/*$legacy_plugin_id = $queries->getWhere('settings', array('name', '=', 'use_legacy_api'));
 			$legacy_plugin_id = $legacy_plugin_id[0]->id;
 			$queries->update('settings', $legacy_plugin_id, array(
 				'value' => Input::get('enable_legacy_api')
-			));
+			));*/
 
 			if(isset($_POST['verification']) && $_POST['verification'] == 'on')
 				$verification = 1;
@@ -313,7 +313,7 @@ if(!isset($_GET['view'])){
 	}
 
 	// Is the legacy API enabled?
-	$legacy_api_enabled = $queries->getWhere('settings', array('name', '=', 'use_legacy_api'));
+	/*$legacy_api_enabled = $queries->getWhere('settings', array('name', '=', 'use_legacy_api'));
 	if(count($legacy_api_enabled)){
 		$legacy_api_enabled = $legacy_api_enabled[0]->value;
 	} else {
@@ -322,7 +322,7 @@ if(!isset($_GET['view'])){
 			'value' => 0
 		));
 		$legacy_api_enabled = '0';
-	}
+	}*/
 
 	// Get API key
 	$plugin_api = $queries->getWhere('settings', array('name', '=', 'mc_api_key'));
@@ -362,8 +362,8 @@ if(!isset($_GET['view'])){
 		'API_URL_VALUE' => rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($plugin_api), '', 'non-friendly'), '/'),
 		'COPY' => $language->get('admin', 'copy'),
 		'ENABLE_LEGACY_API' => $language->get('admin', 'enable_legacy_api'),
-		'LEGACY_API_ENABLED' => $legacy_api_enabled,
-		'LEGACY_API_INFO' => $language->get('admin', 'legacy_api_info'),
+		//'LEGACY_API_ENABLED' => $legacy_api_enabled,
+		//'LEGACY_API_INFO' => $language->get('admin', 'legacy_api_info'),
 		'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
 		'EMAIL_VERIFICATION_VALUE' => $emails,
 		'API_VERIFICATION' => $language->get('admin', 'api_verification'),
