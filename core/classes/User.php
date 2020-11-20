@@ -256,7 +256,6 @@ class User {
 	// Get displayname
 	// Params: $force - force username
 	public function getDisplayname($force = false) {
-		return 'Debug';
 		if($force == true) {
 			return Output::getClean($this->_data->username);
 		}
@@ -485,23 +484,27 @@ class User {
 	}
 	
 	// Set a group to user and remove all other groups
-	public function setGroup($group_id){
+	public function setGroup($group_id, $expire = 0){
 		$this->_db->createQuery('DELETE FROM `nl2_users_groups` WHERE `user_id` = ?', array(
 			$this->data()->id
 		));
 		
-		$this->_db->createQuery('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`) VALUES (?, ?)', array(
+		$this->_db->createQuery('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', array(
 			$this->data()->id,
-			$group_id
+			$group_id,
+			date('U'),
+			$expire
 		));
 	}
 	
 	// Add a group to the user
-	public function addGroup($group_id){
+	public function addGroup($group_id, $expire = 0){
 		if(!array_key_exists($group_id, $this->_groups)) {
-			$this->_db->createQuery('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`) VALUES (?, ?)', array(
+			$this->_db->createQuery('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', array(
 				$this->data()->id,
-				$group_id
+				$group_id,
+				date('U'),
+				$expire
 			));
 		}
 	}
