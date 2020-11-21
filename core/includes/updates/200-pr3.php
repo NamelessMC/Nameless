@@ -68,18 +68,6 @@ try {
 }
 
 try {
-    $module_exists = $queries->getWhere('modules', array('name', '=', 'DefaultTheme'));
-    if(!count($module_exists)){
-        $queries->create('modules', array(
-            'name' => 'DefaultTheme',
-            'enabled' => 0
-        ));
-    }
-} catch(Exception $e){
-    // Error
-}
-
-try {
     $setting_exists = $queries->getWhere('settings', array('name', '=', 'private_profile'));
     if(!count($setting_exists)){
         $queries->create('settings', array(
