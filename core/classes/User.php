@@ -299,12 +299,10 @@ class User {
 		return array(0);
     }
 
-	// Get a user's signature, by user ID
-	public function getSignature($id) {
-		$data = $this->_db->get('users', array('id', '=', $id));
-		$results = $data->results();
-		if(!empty($results[0]->signature)){
-			return $results[0]->signature;
+	// Get a user's signature
+	public function getSignature() {
+		if(!empty($this->data()->signature)){
+			return $this->data()->signature;
 		} else {
 			return "";
 		}
