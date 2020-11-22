@@ -13,17 +13,17 @@ $language = array(
     /*
      *  General terms
      */
-    'help' => 'Help',
+    'help' => 'Aiuto',
     'submit' => 'Invia',
     'register' => 'Registrazione',
-    'already_registered' => 'Already Registered?',
-    'custom_fields' => 'Custom Fields',
-    'not_registered_yet' => 'Not registered yet?',
+    'already_registered' => 'Già registrato?',
+    'custom_fields' => 'Campi personalizzati',
+    'not_registered_yet' => 'Non sei ancora registrato?',
     'sign_in' => 'Accesso',
     'log_out' => 'Esci',
     'profile' => 'Profilo',
-    'invalid_token' => 'Token invalido, per favore riprova di nuovo.',
-    'close' => 'Close',
+    'invalid_token' => 'Token non valido, per favore riprova di nuovo.',
+    'close' => 'Chiudi',
     'back' => 'Indietro',
     'warning' => 'Avvertimento',
     'date' => 'Data',
@@ -37,7 +37,7 @@ $language = array(
     'cancel' => 'Annulla',
     'delete' => 'Elimina',
     'none' => 'Nessuna',
-    'view' => 'View',
+    'view' => 'Visualizza',
     'change' => 'Cambia',
     'remove' => 'Rimuovi',
     'info' => 'Info',
@@ -66,7 +66,7 @@ $language = array(
     'error' => 'Errore',
     'are_you_sure' => 'Sei sicuro?',
     'spoiler' => 'Spoiler',
-    'invalid_timezone' => 'That timezone is invalid',
+    'invalid_timezone' => 'Quel fuso orario non è valido',
 
     /*
      *  Contact form
@@ -141,18 +141,18 @@ $language = array(
     'no_online_users' => 'Non ci sono utenti online.',
     'total_online_users' => 'Totale utenti online: {x}',
     'discord_widget_disabled' => "Il widget è disabilitato per il server Discord specificato. Vai alla scheda 'Widget' nelle impostazioni del server Discord e assicurati che il widget Discord sia abilitato e che l'ID sia corretto.",
-    'online_guests' => 'Online Guests',
-    'total_online' => 'Total Online', // this is Online Users + Online Guests
-    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
-    'server_status' => 'Server Status',
+    'online_guests' => 'Ospiti online',
+    'total_online' => 'Totale Online', // this is Online Users + Online Guests
+    'no_default_server' => "Non c'è alcun server predefinito, selezionane uno in StaffCP - Integrazioni - Minecraft.",
+    'server_status' => 'Stato del server',
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Privacy Policy',
+    'privacy_policy' => 'Politica della privacy',
 
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Reindirizzamento...<br />Se non vieni reindirizzato automaticamente, clicca <a href="{x}" rel="nofollow noopener">qui</a>.' // Don't replace {x} which is the redirect URL
 );
