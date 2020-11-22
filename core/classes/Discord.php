@@ -40,14 +40,14 @@ class Discord {
     public static function removeDiscordRole($user_query, $group, Language $language) {
         if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
             // They have a valid discord Id
-            if ($user_query->discord_id != null && $user_query->discord_id != 010) {
+            if ($user_query->data()->discord_id != null && $user_query->data()->discord_id != 010) {
 
                 $group_discord_id = self::getDiscordRoleId(DB::getInstance(), $group);
 
                 $api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
 
                 // Probably a nicer way to do this
-                $url = '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . Util::getSetting(DB::getInstance(), 'discord');
+                $url = '/roleChange?id=' . $user_query->data()->discord_id . '&guild_id=' . Util::getSetting(DB::getInstance(), 'discord');
 
                 if ($group_discord_id == null) return;
 
@@ -74,7 +74,7 @@ class Discord {
                             }
                         }
                         Session::flash('edit_user_errors', $errors);
-                        Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
+                        Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
                         die();
                     }
                 }
@@ -85,17 +85,17 @@ class Discord {
     public static function addDiscordRole($user_query, $group, Language $language, $redirect = true) {
         if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
             // They have a valid discord Id
-            if ($user_query->discord_id != null && $user_query->discord_id != 010) {
+            if ($user_query->data()->discord_id != null && $user_query->data()->discord_id != 010) {
 
                 $group_discord_id = self::getDiscordRoleId(DB::getInstance(), $group);
 
-                $old_group_discord_id = self::getDiscordRoleId(DB::getInstance(), $user_query->group_id);
+                $old_group_discord_id = self::getDiscordRoleId(DB::getInstance(), $user_query->data()->group_id);
 
                 $api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
 
                 // The bot can handle null roles, but it is better to deal with it here
                 // TODO: Probably a nicer way to do this
-                $url = '/roleChange?id=' . $user_query->discord_id . '&guild_id=' . Util::getSetting(DB::getInstance(), 'discord');
+                $url = '/roleChange?id=' . $user_query->data()->discord_id . '&guild_id=' . Util::getSetting(DB::getInstance(), 'discord');
 
                 if ($group_discord_id == $old_group_discord_id) {
                     $url .= '&role=' . $group_discord_id . '&oldRole=null';
@@ -131,7 +131,7 @@ class Discord {
                         }
                         if ($redirect) {
                             Session::flash('edit_user_errors', $errors);
-                            Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
+                            Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
                             die();
                         } else return $errors;
                     }

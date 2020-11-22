@@ -31,7 +31,7 @@ class Report {
 		
 		if(count($moderator_groups)){
 			$groups = '(';
-			foreach($groups_query as $group){
+			foreach($moderator_groups as $group){
 				if(is_numeric($group->id)){
 					$groups .= ((int) $group->id) . ',';
 				}
