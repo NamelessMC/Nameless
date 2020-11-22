@@ -331,7 +331,7 @@ class User {
             if($data->gravatar == 1){
                 // Gravatar
                 return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $data->email ) ) ) . "?d=" . urlencode( 'https://cravatar.eu/helmavatar/' . $uuid . '/200.png' ) . "&s=200";
-            } else if($data[0]->has_avatar == 1){
+            } else if($data->has_avatar == 1){
                 // Custom avatar
                 $exts = array('gif','png','jpg','jpeg');
                 foreach($exts as $ext) {

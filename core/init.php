@@ -553,13 +553,13 @@ if($page != 'install'){
         }
 
         // Does their group have TFA forced?
-        $cache->setCache('groups_tfa_' . $user->data()->group_id);
-        if ($cache->isCached('enabled')) {
-            $forced = $cache->retrieve('enabled');
-        } else {
-            $group = $queries->getWhere('groups', array('id', '=', $user->data()->group_id));
-            $forced = $group[0]->force_tfa;
-        }
+		foreach($user->getGroups() as $group) {
+			if($group->force_tfa) {
+				$forced = true;
+				break;
+			}
+		}
+
         if ($forced) {
             // Do they have TFA configured?
             if (!$user->data()->tfa_enabled) {
@@ -573,13 +573,13 @@ if($page != 'install'){
 
         // Basic user variables
         $smarty->assign('LOGGED_IN_USER', array(
-            'username' => Output::getClean($user->data()->username),
-            'nickname' => Output::getClean($user->data()->nickname),
-            'profile' => URL::build('/profile/' . Output::getClean($user->data()->username)),
+            'username' => $user->getDisplayname(true),
+            'nickname' => $user->getDisplayname(),
+            'profile' => $user->getProfileURL(),
             'panel_profile' => URL::build('/panel/user/' . Output::getClean($user->data()->id) . '-' . Output::getClean($user->data()->username)),
-            'username_style' => $user->getGroupClass($user->data()->id),
+            'username_style' => $user->getGroupClass(),
             'user_title' => Output::getClean($user->data()->user_title),
-            'avatar' => $user->getAvatar($user->data()->id),
+            'avatar' => $user->getAvatar(),
             'uuid' => Output::getClean($user->data()->uuid)
         ));
 
