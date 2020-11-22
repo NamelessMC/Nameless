@@ -36,7 +36,7 @@ $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
 if(file_exists(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php'))
 	require(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php');
 else
-	require(ROOT_PATH . '/custom/templates/Default/template.php');
+	require(ROOT_PATH . '/custom/templates/DefaultRevamp/template.php');
 
 // User related actions
 if($user->isLoggedIn()){
