@@ -34,7 +34,7 @@ $language = array(
 
     // Reports
     'reports' => 'Segnalazioni',
-    'report_alert' => 'Nuovo report inviato',
+    'report_alert' => 'Nuova segnalazione inviata',
     'user_reported' => 'Utente segnalato',
     'comments' => 'Commenti',
     'updated_by' => 'Aggiornato Da',
