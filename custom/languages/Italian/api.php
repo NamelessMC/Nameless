@@ -56,5 +56,5 @@ $language = array(
     'server_info_updated' => 'Info del server aggiornate con successo',
     'account_validated' => 'Account validato con successo',
     'discord_id_set' => 'Discord ID set successfully',
-    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
+    'discord_settings_updated' => 'Discord settings updated successfully'
 );

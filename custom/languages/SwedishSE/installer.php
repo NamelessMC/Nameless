@@ -86,7 +86,7 @@ $language = array(
     'finish_message' => 'Tack för att du installerar NamelessMC! Nu kan du försätta till AdminKP, där du kan ytterligare konfigurera din hemsida.',
     'support_message' => 'Om du behöver hjälp, kolla in vår hemsida <a href="https://namelessmc.com" target="_blank">here</a>, eller kan du besöka vår <a href="https://discord.gg/J6QsVaP" target="_blank">Discord server</a> eller vår <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub förvaring</a>.',
     'credits' => 'Credits',
-    'credits_message' => 'Ett stort tack till alla <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC bidragsgivare</a> sedan 2014',
+    'credits_message' => 'Ett stort tack till alla <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">NamelessMC bidragsgivare</a> sedan 2014',
 
     'step_home' => 'Home',
     'step_requirements' => 'Requirements',

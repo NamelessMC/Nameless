@@ -49,6 +49,7 @@ $language = array(
     'discord_integration_disabled' => 'Discordの連携は無効になっています。',
     'unable_to_set_discord_id' => 'Discord IDを設定できません。',
     'unable_to_set_discord_bot_url' => 'DiscordボットのURLが設定できません。',
+    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
 
     // Success messages
     'finish_registration_link' => '登録を完了するには次のリンクをクリックしてください:',

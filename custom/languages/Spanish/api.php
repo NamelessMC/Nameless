@@ -44,6 +44,7 @@ $language = array(
     'discord_integration_disabled' => 'La integración de discord está deshabilitada.',
     'unable_to_set_discord_id' => 'No se puede establecer la identificación de Discord.',
     'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
+    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
 
     // Success messages
     'finish_registration_link' => 'Clickea el siguiente link para confirmar el registro:',
@@ -55,5 +56,5 @@ $language = array(
     'server_info_updated' => 'Información del Servidor actualizada correctamnete.',
     'account_validated' => 'Cuenta verificada exitosamente',
     'discord_id_set' => 'ID de discord establecida correctamente.',
-    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
+    'discord_settings_updated' => 'Discord settings updated successfully'
 );

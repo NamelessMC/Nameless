@@ -40,6 +40,7 @@ $language = array(
     'invalid_server_id' => 'Неверный ID сервера',
     'invalid_code' => 'Неверный предоставленный код',
     'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
+    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
 
     // Success messages
     'finish_registration_link' => 'Пожалуйста, нажмите на следующую ссылку, чтобы завершить регистрацию:',
@@ -50,5 +51,5 @@ $language = array(
     'username_updated' => 'Имя пользователя успешно обновлено',
     'server_info_updated' => 'Информация о сервере успешно обновлена',
     'account_validated' => 'Учетная запись успешно подтверждена',
-    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
+    'discord_settings_updated' => 'Discord settings updated successfully'
 );

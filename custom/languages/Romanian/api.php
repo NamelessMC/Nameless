@@ -46,6 +46,7 @@ $language = array(
     'discord_integration_disabled' => 'Discord integration is disabled.',
     'unable_to_set_discord_id' => 'Unable to set Discord ID.',
     'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
+    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
 
     // Success messages
     'finish_registration_link' => 'Faceți clic pe următorul link pentru a finaliza înregistrarea:',
@@ -57,5 +58,5 @@ $language = array(
     'server_info_updated' => 'Informațiile serverului s-au actualizat cu succes',
     'account_validated' => 'Contul a fost validat cu succes',
     'discord_id_set' => 'Discord ID set successfully',
-    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
+    'discord_settings_updated' => 'Discord settings updated successfully'
 );

@@ -43,6 +43,7 @@ $language = array(
     'discord_integration_disabled' => 'Integrace Discordu je zakázána.',
     'unable_to_set_discord_id' => 'Nepodařilo se nastavit Discord ID.',
     'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
+    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
 
     // Success messages
     'finish_registration_link' => 'Klikněte na tento odkaz pro dokončení registrace:',
@@ -54,5 +55,5 @@ $language = array(
     'server_info_updated' => 'Informace o serveru aktualizovány',
     'account_validated' => 'Účet úspěšně ověřen.',
     'discord_id_set' => 'Discord ID úspěšně nastaveno',
-    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
+    'discord_settings_updated' => 'Discord settings updated successfully'
 );

@@ -44,6 +44,7 @@ $language = array(
     'discord_integration_disabled' => 'Integracja Discord jest wyłączona.',
     'unable_to_set_discord_id' => 'Nie można ustawić ID Discord.',
     'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
+    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
 
     // Success messages
     'finish_registration_link' => 'Kliknij poniższy link, aby ukończyć rejestrację:',
@@ -55,5 +56,5 @@ $language = array(
     'server_info_updated' => 'Informacje o serwerze zostały zaktualizowane pomyślnie.',
     'account_validated' => 'Konto zostało zweryfikowane pomyślnie.',
     'discord_id_set' => 'ID Discord ustawione pomyślnie',
-    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
+    'discord_settings_updated' => 'Discord settings updated successfully'
 );

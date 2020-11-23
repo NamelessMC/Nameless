@@ -44,6 +44,7 @@ $language = array(
     'discord_integration_disabled' => 'Discord-integrering er deaktivert.',
     'unable_to_set_discord_id' => 'Kunne ikke oppdatere Discord-IDen.',
     'unable_to_set_discord_bot_url' => 'Kunne ikke sette Discord-bot-URLen',
+    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
 
     // Success messages
     'finish_registration_link' => 'Vennligst klikk på følgende lenke for å fullføre registeringen:',
@@ -55,5 +56,5 @@ $language = array(
     'server_info_updated' => 'Serverinfoen har blitt oppdatert',
     'account_validated' => 'Brukeren har blitt validert',
     'discord_id_set' => 'Discord-IDen har blitt endret.',
-    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
+    'discord_settings_updated' => 'Discord settings updated successfully'
 );

@@ -85,7 +85,7 @@ $language = array(
     'finish_message' => 'NamelessMC\'yi yüklediğiniz için teşekkürler! Artık web sitenizi daha fazla yapılandırabileceğiniz Yönetim Paneli\'ne geçebilirsiniz. <br>  <a href="https://minecraft-tr.cf/">xOrcun tarafıdan türkleştirilmiştir.</a>',
     'support_message' => 'Herhangi bir desteğe ihtiyacınız varsa, web sitemizi <a href="https://namelessmc.com" target="_blank">buradan</a> inceleyin veya <a href = "https://discord.gg/9vk93VR" target="_ blank">Discord sunucusu</a> veya <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub depomuz</a>. <br>Türkleştirmede sorun yaşıyorsanız <a href="https://orcunozturk.cf/">xOrcun</a> ile iletişime geçiniz.',
     'credits' => 'Hakkında',
-    'credits_message' => '2014\'ten bu yana tüm <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank"> NamelessMC katılımcılarına </a> çok teşekkür ederiz.',
+    'credits_message' => '2014\'ten bu yana tüm <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank"> NamelessMC katılımcılarına </a> çok teşekkür ederiz.',
 
     'step_home' => 'Home',
     'step_requirements' => 'Requirements',

@@ -44,6 +44,7 @@ $language = array(
     'discord_integration_disabled' => 'Discord integration is disabled.',
     'unable_to_set_discord_id' => 'Kan geen Discord ID instellen.',
     'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
+    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
 
     // Success messages
     'finish_registration_link' => 'Klik alstublieft op de volgende link om de registratie te voltooien:',
@@ -55,5 +56,5 @@ $language = array(
     'server_info_updated' => 'Server informatie succesvol bijgwerkt',
     'account_validated' => 'Account succesvol gevalideerd',
     'discord_id_set' => 'Discord ID met succes ingesteld',
-    'discord_bot_url_updated' => 'Discord bot URL updated successfully'
+    'discord_settings_updated' => 'Discord settings updated successfully'
 );
