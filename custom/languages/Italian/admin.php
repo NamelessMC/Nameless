@@ -618,7 +618,7 @@ $language = array(
     'hook_name' => 'Nome Webhook',
     'hook_created' => 'Hook creato con successo.',
     'hook_edited' => 'Hook modificato con successo',
-    'hook_select_info' => 'Sono mostrati solo gli Hook con \'Nuovo topic\' selezionato come evento.',
+    'hook_select_info' => 'Sono mostrati solo gli Hook con \'Nuovo argomento\' selezionato come evento.',
     'hook_url' => 'URL Webhook',
     'hook_type' => 'Tipo Webhook',
     'hook_events' => 'Eventi per attivare questo webhook',
@@ -664,7 +664,7 @@ $language = array(
     'support' => 'Supporto',
     'admin_dir_still_exists' => 'Attenzione! La directory <strong>modules/Core/pages/admin</strong> esiste ancora. Si prega di rimuovere questa directory.',
     'mod_dir_still_exists' => 'Attenzione! La directory <strong>modules/Core/pages/mod</strong> esiste ancora. Si prega di rimuovere questa directory.',
-    'forum_topic_reply_email' => 'Risposta al topic del forum',
+    'forum_topic_reply_email' => 'Risposta a un argomento del forum',
 
     // Announcements
     'announcements' => 'Annunci',
