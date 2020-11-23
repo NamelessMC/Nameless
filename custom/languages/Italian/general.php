@@ -143,7 +143,7 @@ $language = array(
     'discord_widget_disabled' => "Il widget è disabilitato per il server Discord specificato. Vai alla scheda 'Widget' nelle impostazioni del server Discord e assicurati che il widget Discord sia abilitato e che l'ID sia corretto.",
     'online_guests' => 'Ospiti online',
     'total_online' => 'Totale Online', // this is Online Users + Online Guests
-    'no_default_server' => "Non c'è alcun server predefinito, selezionane uno in StaffCP - Integrazioni - Minecraft.",
+    'no_default_server' => "Non c'è alcun server predefinito, selezionane uno in Pannello Staff - Integrazioni - Minecraft.",
     'server_status' => 'Stato del server',
 
     /*
