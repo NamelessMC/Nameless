@@ -48,7 +48,7 @@ class OnlineStaffWidget extends WidgetBase {
 		    foreach($online as $staff)
 				$staff_user = new User($staff->id);
 			    $staff_members[] = array(
-				    'profile' => $staff_user->getProfileURL,
+				    'profile' => $staff_user->getProfileURL(),
 				    'style' => $staff_user->getGroupClass(),
 				    'username' => $staff_user->getDisplayname(true),
 				    'nickname' => $staff_user->getDisplayname(),
