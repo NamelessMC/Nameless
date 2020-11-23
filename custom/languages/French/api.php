@@ -39,6 +39,7 @@ $language = array(
     'unable_to_update_server_info' => 'Unable to update server info',
     'invalid_server_id' => 'Invalid server ID',
     'invalid_code' => 'Invalid code provided',
+    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
 
     // Success messages
     'finish_registration_link' => 'Please click on the following link to complete registration:',
@@ -48,5 +49,5 @@ $language = array(
     'new_private_message_from' => 'New private message from {x}', // Don't replace {x}
     'username_updated' => 'Username updated successfully',
     'server_info_updated' => 'Server info updated successfully',
-	'account_validated' => 'Account validated successfully'
+    'discord_settings_updated' => 'Discord settings updated successfully'
 );

@@ -46,6 +46,7 @@ $language = array(
     'discord_integration_disabled' => '已关闭 Discord 集成。',
     'unable_to_set_discord_id' => '无法设置 Discord ID。',
     'unable_to_set_discord_bot_url' => '无法设置 Discord 机器人 URL',
+    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
 
     // Success messages
     'finish_registration_link' => '请点击该链接以完成注册:',
@@ -57,5 +58,5 @@ $language = array(
     'server_info_updated' => '服务器信息更新成功',
     'account_validated' => '账号校验成功',
     'discord_id_set' => 'Discord ID 更新成功',
-    'discord_bot_url_updated' => 'Discord 机器人 URL 更新成功'
+    'discord_settings_updated' => 'Discord settings updated successfully'
 );
