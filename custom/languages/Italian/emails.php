@@ -25,5 +25,5 @@ $language = array(
 
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} ha risposto a {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} ha risposto a un topic che segui. Contenuto: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_message' => '{x} ha risposto a un argomento che segui. Contenuto: {z}' // Don't remove {x} or {z}
 );

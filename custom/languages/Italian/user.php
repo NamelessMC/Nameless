@@ -68,7 +68,7 @@ $language = array(
     'profile_banner' => 'Banner di profilo',
     'upload_profile_banner' => 'Carica banner profilo',
     'upload' => 'Carica',
-    'topic_updates' => 'Get emails for topics you follow',
+    'topic_updates' => 'Ricevi email per gli argomenti che segui',
 
     // Alerts
     'user_tag_info' => 'Sei stato taggato in un post di {x}.', // Don't replace {x}
@@ -80,9 +80,9 @@ $language = array(
 
     // Registraton
     'registration_check_email' => "Grazie per esserti registrato! Si prega di controllare le e-mail per un link di convalida al fine di completare la registrazione. Se non riesci a trovare l'e-mail, controlla la tua cartella spam.",
-    'username' => 'Username',
+    'username' => 'Nome utente',
     'nickname' => 'Nickname',
-    'minecraft_username' => 'Username Minecraft',
+    'minecraft_username' => 'Nome utente di Minecraft',
     'email_address' => 'Indirizzo Email',
     'email' => 'Email',
     'password' => 'Password',
