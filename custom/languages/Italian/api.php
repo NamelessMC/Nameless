@@ -44,6 +44,7 @@ $language = array(
     'discord_integration_disabled' => 'Discord integration is disabled.',
     'unable_to_set_discord_id' => 'Unable to set Discord ID.',
     'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
+    'provide_one_discord_settings' => 'Fornisci almeno uno dei seguenti: "url", "guild_id"',
 
     // Success messages
     'finish_registration_link' => 'Per favore, clicca sul seguente link per completare la registrazione:',
