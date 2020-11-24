@@ -35,7 +35,7 @@ $language = array(
     'alerts' => 'Avvisi',
     'delete_all' => 'Elimina tutto',
     'private_profile' => 'Profilo privato',
-    'gif_avatar' => 'Upload .gif as custom avatar',
+    'gif_avatar' => 'Carica .gif come avatar personalizzato',
 
     // Profile settings
     'field_is_required' => '{x} è richiesto.', // Don't replace {x}
@@ -57,7 +57,7 @@ $language = array(
     'invalid_tfa' => 'Codice non valido, per favore riprovare.',
     'tfa_successful' => 'Autenticazione a due fattori impostata con successo. È necessario autenticarsi ogni volta che si accede da ora in poi.',
     'active_language' => 'Lingua attiva',
-    'active_template' => 'Active Template',
+    'active_template' => 'Template attivo',
     'timezone' => 'Fuso orario',
     'upload_new_avatar' => 'Carica un nuovo avatar',
     'nickname_already_exists' => 'Il tuo username scelto esiste già.',
@@ -68,7 +68,7 @@ $language = array(
     'profile_banner' => 'Banner di profilo',
     'upload_profile_banner' => 'Carica banner profilo',
     'upload' => 'Carica',
-    'topic_updates' => 'Get emails for topics you follow',
+    'topic_updates' => 'Ricevi email per gli argomenti che segui',
 
     // Alerts
     'user_tag_info' => 'Sei stato taggato in un post di {x}.', // Don't replace {x}
@@ -80,9 +80,9 @@ $language = array(
 
     // Registraton
     'registration_check_email' => "Grazie per esserti registrato! Si prega di controllare le e-mail per un link di convalida al fine di completare la registrazione. Se non riesci a trovare l'e-mail, controlla la tua cartella spam.",
-    'username' => 'Username',
+    'username' => 'Nome utente',
     'nickname' => 'Nickname',
-    'minecraft_username' => 'Username Minecraft',
+    'minecraft_username' => 'Nome utente di Minecraft',
     'email_address' => 'Indirizzo Email',
     'email' => 'Email',
     'password' => 'Password',
@@ -219,8 +219,8 @@ $language = array(
     'confirm_leave' => 'Sei sicuro di voler abbandonare questa conversazione?',
     'one_or_more_users_blocked' => 'Non è possibile inviare messaggi privati ​​ad almeno un membro della conversazione.',
     'messages' => 'Messaggi',
-    'latest_profile_posts' => 'Latest Profile Posts',
-    'no_profile_posts' => 'No profile posts.',
+    'latest_profile_posts' => 'Ultimi post del profilo',
+    'no_profile_posts' => 'Nessun post del profilo.',
 
     /*
      *  Infractions area
@@ -235,18 +235,18 @@ $language = array(
     'user_x_has_registered' => '{x} si è unito ' . SITE_NAME . '!',
 
     // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Linked',
-    'not_linked' => 'Not Linked',
-    'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to "Nameless Link#0761" to confirm your Discord User ID.',
-    'pending_link' => 'Pending',
-    'discord_id_taken' => 'That Discord ID has already been taken.',
-    'discord_invalid_id' => 'That Discord User ID is invalid.',
-    'discord_already_pending' => 'You already have a pending verification.',
-    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
+    'discord_link' => 'Collegamento Discord',
+    'linked' => 'Collegato',
+    'not_linked' => 'Non collegato',
+    'discord_id' => 'ID utente Discord',
+    'discord_id_unlinked' => 'Scollegato con successo il tuo ID utente Discord.',
+    'discord_id_confirm' => 'Invia questo messaggio: "!verify {guild_id}:{token}" a "Nameless Link#0761" per confermare il tuo ID utente Discord.',
+    'pending_link' => 'In attesa',
+    'discord_id_taken' => "Quell'ID Discord è già stato preso.",
+    'discord_invalid_id' => "Quell'ID utente Discord non è valido.",
+    'discord_already_pending' => 'Hai già una verifica in sospeso.',
+    'discord_database_error' => 'Il database dei collegamenti di Nameless è attualmente inattivo. Riprova più tardi.',
+    'discord_communication_error' => "Si è verificato un errore durante la comunicazione con il Bot di Discord. Assicurati che il bot sia in esecuzione e che l'URL del tuo Bot sia corretto.",
+    'discord_unknown_error' => 'Si è verificato un errore sconosciuto durante la sincronizzazione dei ruoli di Discord. Contatta un amministratore.',
+    'discord_id_help' => 'Per informazioni su dove trovare gli ID Discord, leggi <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">questo.</a>'
 );

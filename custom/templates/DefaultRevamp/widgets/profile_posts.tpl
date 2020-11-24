@@ -10,7 +10,6 @@
                         <div class="content">
                             <a class="header" href="{$post.link}">{$post.content}</a>
                             <div class="ui wide popup">
-                                <h4 class="ui header">{$post.topic_title}</h4>
                                 {$BY|capitalize} <a href="{$post.user_profile_link}" style="{$post.username_style}">{$post.username}</a> | {$post.last_reply}
                             </div>
                             <a href="{$post.user_profile_link}" style="{$post.username_style}}" data-poload="{$USER_INFO_URL}{$post.user_id}">{$post.username}</a>

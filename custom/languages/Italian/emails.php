@@ -6,24 +6,24 @@
  *
  *  License: MIT
  *
- *  Greek Language - Emails
+ *  Italian Language - Emails
  */
 
 $language = array(
 
     // General Options
-    'greeting' => 'Hi,',
-    'thanks' => 'Thanks,',
+    'greeting' => 'Ciao,',
+    'thanks' => 'Grazie,',
 
     // Registration Email
-    'register_subject' => 'Validate Account',
-    'register_message' => 'Thanks for registering! In order to complete your registration, please click the following link:',
+    'register_subject' => 'Convalida account',
+    'register_message' => 'Grazie per esserti registrato! Per completare la registrazione, fai clic sul seguente collegamento:',
 
     // Change Password
-    'change_password_subject' => 'Forgot password',
-    'change_password_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
+    'change_password_subject' => 'Password dimenticata',
+    'change_password_message' => 'Per reimpostare la tua password, fai clic sul seguente collegamento. Se non sei stato te a richiederlo, puoi tranquillamente eliminare questa email.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} has replied to {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} has replied to a topic you follow. Content: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{x} ha risposto a {y}', // Don't remove {x} or {y}
+    'forum_topic_reply_message' => '{x} ha risposto a un argomento che segui. Contenuto: {z}' // Don't remove {x} or {z}
 );
