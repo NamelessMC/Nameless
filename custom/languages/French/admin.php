@@ -77,6 +77,8 @@ $language = array(
     'twitter_dark_theme' => 'Utiliser le thème sombre de Twitter?',
     'discord_id' => 'ID du serveur discord',
     'discord_widget_theme' => 'Thème Discord Widget',
+    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">click here</a>.',
+    'discord_bot_setup' => 'Bot Setup',
     'dark' => 'Sombre',
     'light' => 'Eclairé',
     'google_plus_url' => 'URL Google Plus',
@@ -521,7 +523,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'Activer l\'API?',
-    'api_info' => 'L\'API permet aux plugins et autres services d\'interagir avec votre site web, tels que le <a href="https://namelessmc. com/resources/resource/5-namelessplugin/" target="_blank" >plugin officiel Nameless</a>.',
+    'api_info' => 'L\'API permet aux plugins et autres services d\'interagir avec votre site web, tels que le <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >plugin officiel Nameless</a>.',
     'enable_legacy_api' => 'Activer l\'API legacy?',
     'legacy_api_info' => 'L’ancienne API permet aux plugins qui utilisent l’ancienne API Nameless version 1 de travailler avec votre site web version 2..',
     'confirm_api_regen' => 'Voulez-vous vraiment régénérer votre clé API?',
