@@ -678,7 +678,7 @@ $language = array(
     'editing_announcement_success' => 'Annuncio aggiornato con successo.',
     'creating_announcement_failure' => "Creazione dell'annuncio non riuscita.",
     'editing_announcement_failure' => "Aggiornamento dell'annuncio non riuscito.",
-    'announcement_icon_instructions' => "Puoi anche aggiungere un'icona a ogni annuncio qui, per esempio usando <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.",
+    'announcement_icon_instructions' => 'Puoi anche aggiungere un\'icona a ogni annuncio qui, per esempio usando <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'Intestazione',
     'message' => 'Messaggio',
     'pages' => 'Pagine',
