@@ -74,14 +74,14 @@ $language = array(
     'social_media' => 'Social Media',
     'youtube_url' => 'URL di Youtube',
     'twitter_url' => 'URL di Twitter',
-    'twitter_dark_theme' => 'Usare il tema dark per Twitter?',
+    'twitter_dark_theme' => 'Usare il tema scuro per Twitter?',
     'discord_id' => 'ID Server Discord',
     'discord_widget_theme' => 'Tema Widget Discord',
-    'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
-    'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">click here</a>.',
-    'discord_bot_setup' => 'Bot Setup',
+    'discord_id_length' => 'Assicurati che il tuo ID Discord sia lungo 18 caratteri.',
+    'discord_id_numeric' => 'Assicurati che il tuo ID Discord sia numerico (solo numeri).',
+    'discord_invite_info' => 'Per invitare il bot Nameless Link al tuo server Discord, clicca <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Quindi, invia un messaggio diretto al bot con il comando <code>!apiurl</code> per collegare il bot al tuo sito web. In alternativa, puoi <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">ospitare tu stesso il bot</a>.',
+    'discord_bot_must_be_setup' => 'Non è possibile abilitare l\'integrazione con Discord fino a che il bot non sarà configurato. Per informazioni, <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">clicca qui</a>.',
+    'discord_bot_setup' => 'Configurazione del bot',
     'dark' => 'Scuro',
     'light' => 'Chiaro',
     'google_plus_url' => 'URL di Google Plus',
@@ -200,7 +200,7 @@ $language = array(
     'required' => 'Richiesto',
     'editable' => 'Modificabile',
     'public' => 'Pubblico',
-    'forum_posts' => 'Display on Forum',
+    'forum_posts' => 'Visualizza sul forum',
     'text' => 'Testo',
     'textarea' => 'Area di testo',
     'date' => 'Data',
@@ -229,7 +229,7 @@ $language = array(
     'authme_db_address' => 'Indrizzo Database AuthMe',
     'authme_db_port' => 'Porta Database AuthMe',
     'authme_db_name' => 'Nome Database AuthMe',
-    'authme_db_user' => 'Username Database AuthMe',
+    'authme_db_user' => 'Nome utente Database AuthMe',
     'authme_db_password' => 'Password Database AuthMe',
     'authme_db_password_hidden' => 'La password del database di AuthMe è nascosta per motivi di sicurezza.',
     'authme_hash_algorithm' => 'Algoritmo Hashing AuthMe',
@@ -337,7 +337,7 @@ $language = array(
     // Styles
     'templates' => 'Modelli',
     'panel_templates' => 'Modelli Pannello',
-    'view_all_panel_templates' => 'View all panel templates',
+    'view_all_panel_templates' => 'Visualizza tutti i modelli di pannello',
     'template_outdated' => 'Abbiamo rilevato che il tuo modello è destinato alla versione {x} di Nameless, ma tu stai usando la{y}', // Don't replace "{x}" or "{y}"
     'template_not_supported' => 'Per NamelessMC 2.0.0-pr8 il modello predefinito non è supportato. Per la migliore esperienza, usa un modello supportato.',
     'active' => 'Attivato',
@@ -389,7 +389,7 @@ $language = array(
     'groups' => 'Gruppi',
     'group' => 'Gruppo',
     'new_user' => '<i class="fa fa-plus-circle"></i> Nuovo Utente',
-    'creating_new_user' => 'Creating new user',
+    'creating_new_user' => 'Creazione di un nuovo utente',
     'registered' => 'Registrato',
     'user_created' => 'Utente creato con successo.',
     'cant_delete_root_user' => "Non è possibile eliminare l'utente root!",
@@ -419,8 +419,8 @@ $language = array(
     'group_html_maximum' => 'Assicurati che il codice HTML del tuo gruppo non sia più lungo di 1024 caratteri.',
     'group_html' => 'Codice HTML Gruppo',
     'group_html_lg' => 'Codice HTML Gruppo Largo',
-    'group_username_colour' => 'Colore username gruppo',
-    'group_username_css' => 'Group Username CSS',
+    'group_username_colour' => 'Colore del nome utente del gruppo',
+    'group_username_css' => 'CSS del nome utente del gruppo',
     'group_staff' => 'È un gruppo staff?',
     'delete_group' => 'Elimina gruppo',
     'confirm_group_deletion' => 'Sei sicuro di voler eliminare il gruppo {x}?', // Don't replace {x}
@@ -504,9 +504,9 @@ $language = array(
     'editing_widget_x' => 'Modifica del widget {x}', // Don't replace {x}
     'module_x' => 'Modulo: {x}', // Don't replace {x}
     'widget_order' => 'Ordine dei widget',
-    'widget_location' => 'Widget Location',
-    'left' => 'Left',
-    'right' => 'Right',
+    'widget_location' => 'Posizione widget',
+    'left' => 'Sinistra',
+    'right' => 'Destra',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Includere i membri dello staff nel widget utenti?',
@@ -556,7 +556,7 @@ $language = array(
 
     // API
     'api' => 'API',
-    'enable_api' => 'Abilitare API?',
+    'enable_api' => 'Abilitare l\'API?',
     'api_info' => 'L\'API consente ai plugin e ad altri servizi di interagire con il tuo sito web, come il <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank">plugin Nameless ufficiale</a>.',
     'enable_legacy_api' => "Abilita l'API legacy?",
     'legacy_api_info' => "L'API legacy consente ai plugin che utilizzano la vecchia API Nameless (versione 1) di funzionare anche con il tuo sito web che ha la versione 2.",
@@ -703,11 +703,11 @@ $language = array(
     'discord_settings_updated' => 'Le tue impostazioni di Discord sono state aggiornate correttamente.',
     'discord_guild_id_required' => "Inserisci il tuo ID server Discord affinché l'integrazione con Discord funzioni.",
     'discord_bot_url' => 'URL del bot di Discord',
-    'discord_bot_url_info' => "La posizione in cui si trova l'istanza personalizzata del bot di collegamento di Nameless. Modifica questo valore solo se sai cosa stai facendo!",
+    'discord_bot_url_info' => "La posizione in cui si trova l'istanza personalizzata del bot Nameless Link. Modifica questo valore solo se sai cosa stai facendo!",
     'discord_bot_url_required' => "Inserisci l'URL del tuo Bot affinché l'integrazione con Discord funzioni.",
-    'discord_invalid_api_url' => "Sembra che il tuo URL API sia cambiato. Chiedi al proprietario del server di aggiornare l'URL del bot di collegamento di Nameless.",
+    'discord_invalid_api_url' => "Sembra che il tuo URL API sia cambiato. Chiedi al proprietario del server di aggiornare l'URL del bot Nameless Link.",
     'test_bot_url' => 'URL del bot di prova',
     'discord_bot_url_valid' => "L'URL del tuo bot è valido.",
-    'discord_cannot_interact' => 'Il bot di collegamento di Nameless non può interagire con questo utente su Discord. Il suo ruolo è più alto del ruolo del bot di collegamento di Nameless?'
+    'discord_cannot_interact' => 'Il bot Nameless Link non può interagire con questo utente su Discord. Il suo ruolo è più alto del ruolo del bot Nameless Link?'
 
 );
