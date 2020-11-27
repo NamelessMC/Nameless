@@ -694,6 +694,7 @@ $language = array(
     'message_required' => '消息为必填项',
     'background_colour_required' => '背景颜色为必填项',
     'text_colour_required' => '文字颜色为必填项',
+    'no_announcements' => 'No announcements have been made yet.',
 
     // Discord
     'discord' => 'Discord',

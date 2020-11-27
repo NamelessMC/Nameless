@@ -692,6 +692,7 @@ $language = array(
     'message_required' => 'Je vyžadována zpráva',
     'background_colour_required' => 'Je vyžadována barva pozadí',
     'text_colour_required' => 'Je vyžadována barva textu',
+    'no_announcements' => 'No announcements have been made yet.',
 
     // Discord
     'discord' => 'Discord',

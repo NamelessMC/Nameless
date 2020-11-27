@@ -101,6 +101,8 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                {else}
+                                    {$NO_ANNOUNCEMENTS}
                                 {/if}
 
                             </div>

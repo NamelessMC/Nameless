@@ -691,6 +691,7 @@ $language = array(
     'message_required' => 'En melding er påkrevd.',
     'background_colour_required' => 'En bakgrunnsfarge er påkrevd',
     'text_colour_required' => 'En tekstfarge er påkrevd',
+    'no_announcements' => 'No announcements have been made yet.',
 
 	// Discord
 	'discord' => 'Discord',

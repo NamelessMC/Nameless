@@ -696,6 +696,7 @@ $language = array(
     'message_required' => 'メッセージは必須です。',
     'background_colour_required' => '背景色は必須です。',
     'text_colour_required' => 'テキスト色は必須です。',
+    'no_announcements' => 'No announcements have been made yet.',
 
     // Discord
     'discord' => 'Discord',

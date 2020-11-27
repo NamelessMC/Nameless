@@ -691,6 +691,7 @@ $language = array(
     'message_required' => 'Message is required',
     'background_colour_required' => 'Background Color is required',
     'text_colour_required' => 'Text Color is required',
+    'no_announcements' => 'No announcements have been made yet.',
 
     // Discord
     'discord' => 'Discord',
