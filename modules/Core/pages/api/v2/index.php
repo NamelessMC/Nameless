@@ -78,6 +78,8 @@ class Nameless2API {
                 $this->_db = DB::getInstance();
                 $request = $request[count($request) - 1];
 
+                $_POST = json_decode(file_get_contents('php://input'), true);
+
                 if ($this->_endpoints->handle($request, $this) == false) {
                     $this->throwError(3, $this->_language->get('api', 'invalid_api_method'));
                 }

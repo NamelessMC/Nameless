@@ -21,9 +21,8 @@ class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
 			}
 
 			if (isset($_POST['url'])) {
-				$url = json_decode($_POST['url'], true)['url'];
 				try {
-					$api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', array($url, 'discord_bot_url'));
+					$api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', array($_POST['url'], 'discord_bot_url'));
 				} catch (Exception $e) {
 					$api->throwError(30, $api->getLanguage()->get('api', 'unable_to_set_discord_bot_url'));
 				}
@@ -37,7 +36,7 @@ class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
 				}
 			}
 
-			$api->returnArray(array('message' => $api->getLanguage()->get('api', 'discord_bot_url_updated')));
+			$api->returnArray(array('message' => $api->getLanguage()->get('api', 'discord_settings_updated')));
 		}
 	}
 }
