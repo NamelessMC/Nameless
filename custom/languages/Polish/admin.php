@@ -610,6 +610,7 @@ $language = array(
     // Hooks
     'hooks' => 'Webhooki',
     'hooks_info' => 'Webhooki pozwalają wysyłać informacje zewnętrznym źródłom.',
+    'no_hooks_yet' => 'There are no webhooks yet.',
     'new_hook' => 'Nowy Hook',
     'creating_new_hook' => 'Tworzenie Nowego Webhooka',
     'editing_hook' => 'Edytowanie Webhooka',

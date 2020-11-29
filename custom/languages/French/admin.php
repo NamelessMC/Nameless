@@ -575,6 +575,7 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
 
     // Hooks
     'discord_hooks' => 'Discord Hooks',
+    'no_hooks_yet' => 'There are no webhooks yet.',
     'discord_hooks_info' => 'Envoyez un message à un canal Discord lorsque quelque chose se produit sur votre site. Créer un webhook Discord dans votre onglet Configuration du serveur Discord -> Webhooks.',
     'discord_hook_url' => 'URL Discord webhook',
     'discord_hook_events' => 'Activation des événements webhook Discord (Ctrl+clic pour sélectionner plusieurs événements)',

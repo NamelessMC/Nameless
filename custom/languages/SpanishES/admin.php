@@ -610,6 +610,7 @@ $language = array(
     // Hooks
     'hooks' => 'Webhooks',
     'hooks_info' => 'Los webhooks permiten que los servicios externos sean notificados cuando ocurren ciertos eventos. Cuando suceden los eventos especificados.',
+    'no_hooks_yet' => 'There are no webhooks yet.',
     'new_hook' => 'Nuevo WebHook',
     'creating_new_hook' => 'Creando un nuevo Webhook',
     'editing_hook' => 'Editando un Webhook',

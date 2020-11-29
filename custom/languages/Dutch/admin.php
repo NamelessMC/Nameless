@@ -613,6 +613,7 @@ $language = array(
     // Hooks
     'hooks' => 'Webhooks',
     'hooks_info' => 'Webhooks kunnen externe services informeren wanneer bepaalde gebeurtenissen plaatsvinden.',
+    'no_hooks_yet' => 'There are no webhooks yet.',
     'new_hook' => 'Nieuwe webhook',
     'creating_new_hook' => 'Nieuwe webhook maken',
     'editing_hook' => 'Webhook bewerken',

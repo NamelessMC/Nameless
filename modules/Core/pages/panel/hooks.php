@@ -285,6 +285,10 @@ if(isset($errors) && count($errors))
 	));
 
 $smarty->assign(array(
+	'NO_HOOKS' => $language->get('admin', 'no_hooks_yet'),
+	'NAME' => $language->get('admin', 'name'),
+	'LINK' => $language->get('general', 'url'),
+	'EDIT' => $language->get('general', 'edit'),
 	'PARENT_PAGE' => PARENT_PAGE,
 	'DASHBOARD' => $language->get('admin', 'dashboard'),
 	'CONFIGURATION' => $language->get('admin', 'configuration'),

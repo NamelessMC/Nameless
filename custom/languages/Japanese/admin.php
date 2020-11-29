@@ -616,6 +616,7 @@ $language = array(
     // Hooks
     'hooks' => 'ウェブフック',
     'hooks_info' => 'ウェブフックでは、特定のイベントが発生したときに外部サービスに通知することができます。指定したイベントが発生したとき',
+    'no_hooks_yet' => 'There are no webhooks yet.',
     'new_hook' => '新しいウェブフック',
     'creating_new_hook' => '新しいウェブフックの作成',
     'editing_hook' => 'ウェブフックの編集',

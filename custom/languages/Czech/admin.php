@@ -612,6 +612,7 @@ $language = array(
     // Hooks
     'hooks' => 'Webhooky',
     'hooks_info' => 'Webhooky umožňují oznámení externích služeb, když nastanou určité události.',
+    'no_hooks_yet' => 'There are no webhooks yet.',
     'new_hook' => 'Nový webhook',
     'creating_new_hook' => 'Vytváření nového webhooku',
     'editing_hook' => 'Úprava webhooku',

@@ -613,6 +613,7 @@ $language = array(
     // Hooks
     'hooks' => 'Webhooks',
     'hooks_info' => 'Webhooks 允许第三方服务在出现特定事件时被提醒。',
+    'no_hooks_yet' => 'There are no webhooks yet.',
     'new_hook' => '创建新 Webhook',
     'creating_new_hook' => '正在创建新 Webhook',
     'editing_hook' => '编辑 Webhook',

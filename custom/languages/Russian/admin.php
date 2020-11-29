@@ -577,6 +577,7 @@ $language = array(
     // Hooks
     'discord_hooks' => 'Discord Хук',
     'discord_hooks_info' => 'Отправляйте сообщение на канал Discord, когда что - то происходит на вашем сайте. Создайте Discord вебхук по пути: Настройки сервера -> Интеграция.',
+    'no_hooks_yet' => 'There are no webhooks yet.',
     'discord_hook_url' => 'URL вебхука',
     'discord_hook_events' => 'События для отправки (Ctrl+клик, чтобы выбрать несколько событий)',
     'register_hook_info' => 'Регистрация пользователей',

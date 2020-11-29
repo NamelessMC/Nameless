@@ -611,6 +611,7 @@ $language = array(
     // Hooks
     'hooks' => 'Webhooks',
     'hooks_info' => 'Webhooks tillater at eksterne tjenester blir varslet dersom det oppstår en hendelse.',
+    'no_hooks_yet' => 'There are no webhooks yet.',
     'new_hook' => 'Ny hook',
     'creating_new_hook' => 'Lager ny Webhook',
     'editing_hook' => 'Redigerer Webhook',
