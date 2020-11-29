@@ -109,8 +109,8 @@ $smarty->assign(array(
     'ENABLE_DISCORD_INTEGRATION' => $language->get('admin', 'enable_discord_integration'),
     'DISCORD_ENABLED' => $discord_enabled,
     'INVITE_LINK' => $language->get('admin', 'discord_invite_info'),
-    'GUILD_ID_SET' => ($guild_id == ''),
-    'BOT_URL_SET' => (BOT_URL == ''),
+    'GUILD_ID_SET' => ($guild_id != ''),
+    'BOT_URL_SET' => (BOT_URL != ''),
     'REQUIREMENTS' => rtrim($language->get('installer', 'requirements'), ':'),
     'BOT_SETUP' => $language->get('admin', 'discord_bot_setup')
 ));
