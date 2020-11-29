@@ -532,7 +532,7 @@ if(isset($_GET['do'])){
 
 						$guild_id = Util::getSetting(DB::getInstance(), 'discord');
 
-						$token = uniqid();
+						$token = uniqid('', true);
 						$queries->create('discord_verifications', [
 							'token' => $token,
 							'user_id' => $user->data()->id,

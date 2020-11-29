@@ -43,7 +43,7 @@ try {
 try {
     DB::getInstance()->query("CREATE TABLE `nl2_discord_verifications` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
-        `token` varchar(13) NOT NULL,
+        `token` varchar(23) NOT NULL,
         `user_id` int(11) NOT NULL,
         `discord_user_id` bigint(18) NOT NULL,
         PRIMARY KEY (`id`)
@@ -62,7 +62,7 @@ try {
 try {
     $queries->create('settings', array(
         'name' => 'discord_bot_url',
-        'value' => 'https://bot-1.namelessmc.com'
+        'value' => null
     ));
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';

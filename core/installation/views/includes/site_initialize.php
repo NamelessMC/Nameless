@@ -417,7 +417,7 @@ $queries->create('settings', array(
 
 $queries->create('settings', array(
 	'name' => 'discord_bot_url',
-	'value' => 'https://bot-1.namelessmc.com'
+	'value' => null
 ));
 
 $queries->create('settings', array(

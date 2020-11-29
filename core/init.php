@@ -159,6 +159,7 @@ if($page != 'install'){
     // Get the Bot URL(s)
     $bot_url = $queries->getWhere('settings', array('name', '=', 'discord_bot_url'));
     $bot_url = $bot_url[0]->value;
+    if ($bot_url == null) $bot_url = '';
     define('BOT_URL', $bot_url);
 
     // User initialisation

@@ -1044,7 +1044,7 @@ switch($s) {
 
         $queries->create('settings', array(
             'name' => 'discord_bot_url',
-            'value' => 'https://bot-1.namelessmc.com'
+            'value' => null
         ));
 
         // Templates
