@@ -92,18 +92,6 @@ try {
 }
 
 try {
-    $setting_exists = $queries->getWhere('settings', array('name', '=', 'discord_url'));
-    if(!count($setting_exists)){
-        $queries->create('settings', array(
-            'name' => 'discord_url',
-            'value' => null
-        ));
-    }
-} catch(Exception $e){
-    // Error
-}
-
-try {
     $setting_exists = $queries->getWhere('settings', array('name', '=', 'discord_hooks'));
     if(!count($setting_exists)){
         $queries->create('settings', array(

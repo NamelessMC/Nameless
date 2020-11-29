@@ -995,11 +995,6 @@ switch($s) {
         ));
 
         $queries->create('settings', array(
-            'name' => 'discord_url',
-            'value' => null
-        ));
-
-        $queries->create('settings', array(
             'name' => 'discord_hooks',
             'value' => '{}'
         ));
@@ -1050,11 +1045,6 @@ switch($s) {
         $queries->create('settings', array(
             'name' => 'discord_bot_url',
             'value' => 'https://bot-1.namelessmc.com'
-        ));
-
-        $queries->create('settings', array(
-            'name' => 'discord_bot_url_backup',
-            'value' => 'http://bot-2.namelessmc.com'
         ));
 
         // Templates

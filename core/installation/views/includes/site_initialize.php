@@ -576,11 +576,6 @@ $queries->create('settings', array(
 ));
 
 $queries->create('settings', array(
-	'name' => 'discord_url',
-	'value' => null
-));
-
-$queries->create('settings', array(
 	'name' => 'discord_hooks',
 	'value' => '{}'
 ));
