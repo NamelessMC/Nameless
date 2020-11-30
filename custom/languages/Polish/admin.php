@@ -586,7 +586,7 @@ $language = array(
     'group_sync_rule_deleted_successfully' => 'Zasada synchronizowania grupy została usunięta pomyślnie',
     'existing_rules' => 'Istniejące zasady',
     'new_rule' => 'Nowa zasada',
-    'api_endpoints' => 'API Endpoints',
+    'api_endpoints' => 'Punkty API',
     'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
     'route' => 'Route',
 
@@ -610,7 +610,7 @@ $language = array(
     // Hooks
     'hooks' => 'Webhooki',
     'hooks_info' => 'Webhooki pozwalają wysyłać informacje zewnętrznym źródłom.',
-    'no_hooks_yet' => 'There are no webhooks yet.',
+    'no_hooks_yet' => 'Jeszcze nie ma tutaj żadnego Webhooka.',
     'new_hook' => 'Nowy Hook',
     'creating_new_hook' => 'Tworzenie Nowego Webhooka',
     'editing_hook' => 'Edytowanie Webhooka',
@@ -691,22 +691,22 @@ $language = array(
     'message_required' => 'Wiadomość jest wymagana',
     'background_colour_required' => 'Kolor tła jest wymagany',
     'text_colour_required' => 'Kolor tekstu jest wymagany',
-    'no_announcements' => 'No announcements have been made yet.',
+    'no_announcements' => 'Nie ma jeszcze żadnych ogłoszeń.',
 
     // Discord
     'discord' => 'Discord',
-    'enable_discord_integration' => 'Enable Discord integration?',
-    'discord_role_id' => 'Discord Role ID',
-    'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
-    'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
-    'discord_settings_updated' => 'Your Discord settings were updated successfully.',
-    'discord_guild_id_required' => 'Please enter your Discord Server ID for Discord integration to work.',
-    'discord_bot_url' => 'Discord Bot URL',
-    'discord_bot_url_info' => 'The location which your custom instance of the Nameless Link bot. Only change this value if you know what you are doing!',
-    'discord_bot_url_required' => 'Please enter your Bot URL for Discord integration to work.',
-    'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',
-    'test_bot_url' => 'Test Bot URL',
-    'discord_bot_url_valid' => 'Your Bot URL is valid.',
-    'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?'
+    'enable_discord_integration' => 'Włączyć Integrację Discord?',
+    'discord_role_id' => 'ID Roli Discord',
+    'discord_role_id_numeric' => 'ID Roli musi być liczbą.',
+    'discord_role_id_length' => 'ID Roli musi mieć 18 znaków.',
+    'discord_settings_updated' => 'Twoje ustawienia Discord zostały zapisane',
+    'discord_guild_id_required' => 'Wpisz URL Serwera, aby integracja działała.',
+    'discord_bot_url' => 'URL Bota',
+    'discord_bot_url_info' => 'Położenie własnego bota. Zmień, jeśli wiesz co robisz!',
+    'discord_bot_url_required' => 'Wpisz URL Bota, aby integracja działała.',
+    'discord_invalid_api_url' => 'Wygląda na to, że twój API URL wygasł. Powiadom administratora, aby zaaktualizował URL API bota.',
+    'test_bot_url' => 'Przetestuj URL Bota',
+    'discord_bot_url_valid' => 'Adres URL Bota jest nieprawidłowy.',
+    'discord_cannot_interact' => 'Bot nie może integrować z rolami użytkowników. Sprawdź czy rola bota jest na pewno nad rolami użytkowników.'
 
 );
