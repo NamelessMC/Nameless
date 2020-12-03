@@ -1,72 +1,55 @@
 {include file='header.tpl'}
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    {include file='navbar.tpl'}
-    {include file='sidebar.tpl'}
 
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">{$PROFILE_FIELDS}</h1>
-                    </div>
-                    <div class="col-sm-6">
+<body id="page-top">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        {include file='sidebar.tpl'}
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                {include file='navbar.tpl'}
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">{$PROFILE_FIELDS}</h1>
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
                             <li class="breadcrumb-item active">{$CONFIGURATION}</li>
                             <li class="breadcrumb-item active">{$PROFILE_FIELDS}</li>
                         </ol>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                {if isset($NEW_UPDATE)}
-                {if $NEW_UPDATE_URGENT eq true}
-                <div class="alert alert-danger">
-                    {else}
-                    <div class="alert alert-primary alert-dismissible" id="updateAlert">
-                        <button type="button" class="close" id="closeUpdate" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {/if}
-                        {$NEW_UPDATE}
-                        <br />
-                        <a href="{$UPDATE_LINK}" class="btn btn-primary" style="text-decoration:none">{$UPDATE}</a>
-                        <hr />
-                        {$CURRENT_VERSION}<br />
-                        {$NEW_VERSION}
-                    </div>
-                    {/if}
+                    <!-- Update Notification -->
+                    {include file='update.tpl'}
 
-                    <div class="card">
+                    <div class="card shadow mb-4">
                         <div class="card-body">
 
-                            <h5 style="display:inline">{$CREATING_PROFILE_FIELD}</h5>
-
-                            <div class="float-md-right">
-                                <a class="btn btn-warning" onclick="showCancelModal()">{$CANCEL}</a>
+                            <div class="row" style="margin-bottom: 10px;">
+                                <div class="col-md-9">
+                                    <h5 style="margin-top: 7px; margin-bottom: 7px;">{$CREATING_PROFILE_FIELD}</h5>
+                                </div>
+                                <div class="col-md-3">
+                                    <span class="float-md-right">
+                                        <a class="btn btn-warning text-white" onclick="showCancelModal()">{$CANCEL}</a>
+                                    </span>
+                                </div>
                             </div>
-
                             <hr />
 
-                            {if isset($ERRORS) && count($ERRORS)}
-                                <div class="alert alert-danger alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
-                                    <ul>
-                                        {foreach from=$ERRORS item=error}
-                                            <li>{$error}</li>
-                                        {/foreach}
-                                    </ul>
-                                </div>
-                            {/if}
+                            <!-- Success and Error Alerts -->
+                            {include file='alerts.tpl'}
 
                             <form action="" method="post">
                                 <div class="form-group">
@@ -79,7 +62,7 @@
                                             <label for="inputFieldType">{$TYPE}</label>
                                             <select class="form-control" name="type" id="inputFieldType">
                                                 {foreach from=$TYPES key=key item=item}
-                                                    <option value="{$key}">{$item}</option>
+                                                <option value="{$key}">{$item}</option>
                                                 {/foreach}
                                             </select>
                                         </div>
@@ -94,15 +77,13 @@
                                 <div class="form-group">
                                     <label for="inputRequired">{$REQUIRED}</label>
                                     <span class="badge badge-info" style="margin-right:10px"><i class="fas fa-question-circle" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$REQUIRED_HELP}"></i></span>
-                                    <input type="checkbox" id="inputRequired" name="required"
-                                           class="js-switch" />
+                                    <input type="checkbox" id="inputRequired" name="required" class="js-switch" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="inputEditable">{$EDITABLE}</label>
                                     <span class="badge badge-info" style="margin-right:10px"><i class="fas fa-question-circle" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$EDITABLE_HELP}"></i></span>
-                                    <input type="checkbox" id="inputEditable" name="editable"
-                                           class="js-switch" />
+                                    <input type="checkbox" id="inputEditable" name="editable" class="js-switch" />
                                 </div>
 
                                 <div class="form-group">
@@ -129,42 +110,49 @@
                     <!-- Spacing -->
                     <div style="height:1rem;"></div>
 
+                    <!-- End Page Content -->
                 </div>
-        </section>
-    </div>
 
-    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {$CONFIRM_CANCEL}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                    <a href="{$CANCEL_LINK}" class="btn btn-primary">{$YES}</a>
+                <!-- End Main Content -->
+            </div>
+
+            {include file='footer.tpl'}
+
+            <!-- End Content Wrapper -->
+        </div>
+
+        <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {$CONFIRM_CANCEL}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                        <a href="{$CANCEL_LINK}" class="btn btn-primary">{$YES}</a>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- End Wrapper -->
     </div>
 
-    {include file='footer.tpl'}
+    {include file='scripts.tpl'}
 
-</div>
-<!-- ./wrapper -->
 
-{include file='scripts.tpl'}
-
-<script type="text/javascript">
-    function showCancelModal(){
-        $('#cancelModal').modal().show();
-    }
-</script>
+    <script type="text/javascript">
+        function showCancelModal() {
+            $('#cancelModal').modal().show();
+        }
+    </script>
 
 </body>
+
 </html>

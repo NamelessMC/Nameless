@@ -1,89 +1,63 @@
 {include file='header.tpl'}
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    {include file='navbar.tpl'}
-    {include file='sidebar.tpl'}
 
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">{$GROUPS}</h1>
-                    </div>
-                    <div class="col-sm-6">
+<body id="page-top">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        {include file='sidebar.tpl'}
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                {include file='navbar.tpl'}
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">{$GROUPS}</h1>
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
                             <li class="breadcrumb-item active">{$GROUPS}</li>
                         </ol>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                {if isset($NEW_UPDATE)}
-                {if $NEW_UPDATE_URGENT eq true}
-                <div class="alert alert-danger">
-                    {else}
-                    <div class="alert alert-primary alert-dismissible" id="updateAlert">
-                        <button type="button" class="close" id="closeUpdate" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {/if}
-                        {$NEW_UPDATE}
-                        <br />
-                        <a href="{$UPDATE_LINK}" class="btn btn-primary" style="text-decoration:none">{$UPDATE}</a>
-                        <hr />
-                        {$CURRENT_VERSION}<br />
-                        {$NEW_VERSION}
-                    </div>
-                    {/if}
+                    <!-- Update Notification -->
+                    {include file='update.tpl'}
 
-                    <div class="card">
+                    <div class="card shadow mb-4">
                         <div class="card-body">
-                            <h5 style="display:inline">{$CREATING_NEW_GROUP}</h5>
-                            <div class="float-md-right">
-                                <button role="button" class="btn btn-warning" onclick="showCancelModal()">{$CANCEL}</button>
+
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h5 style="margin-top: 7px; margin-bottom: 7px;">{$CREATING_NEW_GROUP}</h5>
+                                </div>
+                                <div class="col-md-3">
+                                    <span class="float-md-right">
+                                        <button role="button" class="btn btn-warning" onclick="showCancelModal()">{$CANCEL}</button>
+                                    </span>
+                                </div>
                             </div>
                             <hr />
 
-                            {if isset($SUCCESS)}
-                                <div class="alert alert-success alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
-                                    {$SUCCESS}
-                                </div>
-                            {/if}
-
-                            {if isset($ERRORS) && count($ERRORS)}
-                                <div class="alert alert-danger alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
-                                    <ul>
-                                        {foreach from=$ERRORS item=error}
-                                            <li>{$error}</li>
-                                        {/foreach}
-                                    </ul>
-                                </div>
-                            {/if}
+                            <!-- Success and Error Alerts -->
+                            {include file='alerts.tpl'}
 
                             <form role="form" action="" method="post">
                                 <div class="form-group">
                                     <label for="InputGroupname">{$NAME}</label>
-                                    <input type="text" name="groupname" class="form-control" id="InputGroupname"
-                                           placeholder="{$NAME}">
+                                    <input type="text" name="groupname" class="form-control" id="InputGroupname" placeholder="{$NAME}">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputHTML">{$GROUP_HTML}</label>
-                                    <input type="text" name="html" class="form-control" id="InputHTML"
-                                           placeholder="{$GROUP_HTML}">
+                                    <input type="text" name="html" class="form-control" id="InputHTML" placeholder="{$GROUP_HTML}">
                                 </div>
                                 <div class="form-group groupColour">
                                     <label for="InputColour">{$GROUP_USERNAME_COLOUR}</label>
@@ -105,39 +79,33 @@
                                 {if $DISCORD_INTEGRATION}
                                 <div class="form-group">
                                     <label for="InputDiscordRoleID">{$DISCORD_ROLE_ID} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
-                                    <input type="number" min="1" class="form-control" id="InputDiscordRoleID" name="discord_role_id"
-                                        value="{$DISCORD_ROLE_ID_VALUE}">
+                                    <input type="number" min="1" class="form-control" id="InputDiscordRoleID" name="discord_role_id" value="{$DISCORD_ROLE_ID_VALUE}">
                                 </div>
                                 {/if}
                                 <div class="form-group">
                                     <label for="InputTfa">{$FORCE_TFA}</label>
                                     <input type="hidden" name="tfa" value="0">
-                                    <input type="checkbox" name="tfa" class="js-switch" id="InputTfa"
-                                           value="1">
+                                    <input type="checkbox" name="tfa" class="js-switch" id="InputTfa" value="1">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputStaff">{$STAFF_GROUP}</label>
                                     <input type="hidden" name="staff" value="0">
-                                    <input type="checkbox" name="staff" class="js-switch" id="InputStaff"
-                                           value="1" >
+                                    <input type="checkbox" name="staff" class="js-switch" id="InputStaff" value="1">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputStaffCP">{$STAFF_CP}</label>
                                     <input type="hidden" name="staffcp" value="0">
-                                    <input type="checkbox" name="staffcp" class="js-switch" id="InputStaffCP"
-                                           value="1"{if $STAFF_CP_VALUE eq 1} checked{/if} >
+                                    <input type="checkbox" name="staffcp" class="js-switch" id="InputStaffCP" value="1" {if $STAFF_CP_VALUE eq 1} checked{/if}>
                                 </div>
                                 <div class="form-group">
                                     <label for="InputDefault">{$DEFAULT_GROUP}</label>
                                     <input type="hidden" name="default" value="0">
-                                    <input type="checkbox" name="default" class="js-switch" id="InputDefault"
-                                           value="1" >
+                                    <input type="checkbox" name="default" class="js-switch" id="InputDefault" value="1">
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="hidden" name="action" value="update">
-                                    <input type="submit" value="{$SUBMIT}"
-                                           class="btn btn-primary">
+                                    <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
                                 </div>
                             </form>
 
@@ -147,48 +115,54 @@
                     <!-- Spacing -->
                     <div style="height:1rem;"></div>
 
+                    <!-- End Page Content -->
                 </div>
-        </section>
-    </div>
 
-    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {$CONFIRM_CANCEL}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                    <a href="{$CANCEL_LINK}" class="btn btn-primary">{$YES}</a>
+                <!-- End Main Content -->
+            </div>
+
+            {include file='footer.tpl'}
+
+            <!-- End Content Wrapper -->
+        </div>
+
+        <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {$CONFIRM_CANCEL}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                        <a href="{$CANCEL_LINK}" class="btn btn-primary">{$YES}</a>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- End Wrapper -->
     </div>
 
-    {include file='footer.tpl'}
+    {include file='scripts.tpl'}
 
-</div>
-<!-- ./wrapper -->
-
-{include file='scripts.tpl'}
-
-<script type="text/javascript">
-    function showCancelModal(){
-        $('#cancelModal').modal().show();
-    }
-    $(function(){
-        $('.groupColour').colorpicker({
-            format: 'hex',
-            color: '#000000'
+    <script type="text/javascript">
+        function showCancelModal() {
+            $('#cancelModal').modal().show();
+        }
+        $(function() {
+            $('.groupColour').colorpicker({
+                format: 'hex',
+                color: '#000000'
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
+
 </html>
