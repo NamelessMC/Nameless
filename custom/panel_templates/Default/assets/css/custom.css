@@ -183,6 +183,11 @@ option:checked {
     }
 }*/
 
+.btn-user,
+.form-control-user {
+    border-radius: .35rem !important;
+}
+
 .dark-switch-text {
     padding-left: 10px
 }
