@@ -188,6 +188,15 @@ option:checked {
     border-radius: .35rem !important;
 }
 
+@media (min-width: 768px) {
+    .sidebar .nav-item .nav-link span {
+        font-size: .90rem;
+    }
+    .sidebar .nav-item .nav-link {
+        padding: .80rem 1rem;
+    }
+}
+
 .dark-switch-text {
     padding-left: 10px
 }
