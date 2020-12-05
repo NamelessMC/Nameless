@@ -183,6 +183,10 @@ option:checked {
     }
 }*/
 
+body {
+    color: #56575b
+}
+
 .btn-user,
 .form-control-user {
     border-radius: .35rem !important;
