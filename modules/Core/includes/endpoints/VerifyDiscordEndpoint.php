@@ -15,9 +15,10 @@ class VerifyDiscordEndpoint extends EndpointBase {
 
     public function execute(Nameless2API $api) {
         if ($api->isValidated()) {
-            if ($api->validateParams($_POST, ['token', 'discord_id'])) {
+            if ($api->validateParams($_POST, ['token', 'discord_id', 'discord_username'])) {
                 $token = Output::getClean($_POST['token']);
                 $discord_id = Output::getClean($_POST['discord_id']);
+                $discord_username = Output::getClean($_POST['discord_username']);
 
                 // Find the user's NamelessMC id
                 $verification = $api->getDb()->get('discord_verifications', array('token', '=', $token));

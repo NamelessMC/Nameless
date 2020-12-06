@@ -777,6 +777,7 @@ if(isset($_GET['do'])){
 		'DISCORD_INTEGRATION' => $discord_integration,
 		'DISCORD_LINK' => $language->get('user', 'discord_link'),
 		'DISCORD_LINKED' => $discord_linked,
+		'DISCORD_USERNAME' => $user->data()->discord_username,
 		'DISCORD_ID' => $language->get('user', 'discord_id'),
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 		'TIMEZONE' => $language->get('user', 'timezone'),

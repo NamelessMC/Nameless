@@ -77,6 +77,11 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
+    $queries->alterTable('users', '`discord_username` ', "varchar(128) NULL DEFAULT NULL");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
     $queries->addPermissionGroup(2, 'admincp.discord');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';

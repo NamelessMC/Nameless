@@ -161,6 +161,9 @@
             <span class="ui red label">{$NOT_LINKED}</span>
           {/if}
           </h3>
+          {if $DISCORD_LINKED}
+            <p>{$DISCORD_USERNAME}</p>
+          {/if}
           <form action="" method="post" class="ui form">
             <input type="hidden" name="action" value="discord">
             <input type="hidden" name="token" value="{$TOKEN}">
