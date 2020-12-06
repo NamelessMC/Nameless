@@ -185,7 +185,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} profilinizdeki yayınınıza cevap verdi.', // Don't replace {x}
     'no_about_fields' => 'Bu kullanıcı henüz alanlarla ilgili herhangi bir bilgi eklemedi.',
     'reply' => 'cevap',
-
+    'discord_username' => 'Discord Username',
+    
     // Reports
     'invalid_report_content' => 'Rapor oluşturulamıyor. Lütfen rapor nedeninizin 2 ila 1024 karakter arasında olduğundan emin olun.',
     'report_post_content' => 'Lütfen raporunuz için bir neden girin!',

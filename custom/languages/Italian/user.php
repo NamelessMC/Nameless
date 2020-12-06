@@ -186,7 +186,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} ha risposto al tuo post sul tuo profilo.', // Don't replace {x}
     'no_about_fields' => 'Questo utente non ha ancora aggiunto informazioni su se stesso',
     'reply' => 'Rispondi',
-
+    'discord_username' => 'Discord Username',
+    
     // Reports
     'invalid_report_content' => 'Impossibile creare una segnalazione. Assicurati che il motivo della segnalazione sia compreso tra 2 e 1024 caratteri.',
     'report_post_content' => 'Per favore, inserisci un motivo per la segnalazione',

@@ -188,7 +188,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} 已留言在您的留言板。', // Don't replace {x}
     'no_about_fields' => '该用户很懒，并没有填写个性签名。',
     'reply' => '回复',
-
+    'discord_username' => 'Discord Username',
+    
     // Reports
     'invalid_report_content' => '无法创建报告。请确保您的反馈内容在 2 到 1024 个字符之间。',
     'report_post_content' => '请输入反馈原因',

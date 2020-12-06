@@ -194,7 +194,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} hat auf deinen Beitrag in deinem Profil geantwortet.', // Don't replace {x}
     'no_about_fields' => 'Dieser Benutzer hat noch keine Felder hinzugefügt.',
     'reply' => 'Antworten',
-
+    'discord_username' => 'Discord Username',
+    
     // Reports
     'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
     'report_post_content' => 'Gib bitte einen Grund an.',

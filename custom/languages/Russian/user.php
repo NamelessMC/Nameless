@@ -184,7 +184,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} ответил(а) на сообщение в вашем профиле.', // Don't replace {x}
     'no_about_fields' => 'Этот пользователь еще не добавил никакой информации о себе.',
     'reply' => 'Ответить',
-
+    'discord_username' => 'Discord Username',
+    
     // Reports
     'invalid_report_content' => 'Не удалось создать жалобу. Пожалуйста, убедитесь, что причина вашей жалобы состоит из не менее 2-х и не более 1024-х символов.',
     'report_post_content' => 'Пожалуйста, укажите причину жалобы',

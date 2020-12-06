@@ -191,6 +191,7 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
     'no_about_fields' => 'This user has not added any about fields yet.',
     'reply' => 'Reply',
+    'discord_username' => 'Discord Username',
 
     // Reports
     'invalid_report_content' => '無法建立回報. 請確認你輸入的內容有在 2-1024 字元以內.',

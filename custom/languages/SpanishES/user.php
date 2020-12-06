@@ -186,7 +186,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} ha respondido a su publicación en su perfil.', // Don't replace {x}
     'no_about_fields' => 'Este usuario no ha aádido ningún campo de información todavía.',
     'reply' => 'Responder',
-
+    'discord_username' => 'Discord Username',
+    
     // Reports
     'invalid_report_content' => 'No se puede enviar el informe. Asegúrese de que la razón posee entre 2 y 1024 caracteres.',
     'report_post_content' => 'Introduzca una razón para su reporte',

@@ -184,7 +184,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} a répondu à votre poste sur votre profil.', // Don't replace {x}
     'no_about_fields' => 'Cet utilisateur n’a pas encore ajouté de champs.',
     'reply' => 'Répondre',
-
+    'discord_username' => 'Discord Username',
+    
     // Reports
     'invalid_report_content' => 'Impossible de créer un signalement. Veuillez vous assurer que le motif de votre signalement comporte entre 2 et 1024 caractères.',
     'report_post_content' => 'Veuillez saisir une raison de votre signalement',

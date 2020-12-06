@@ -726,9 +726,9 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 	$profile_user = new User($query->id);
 	if ($profile_user->data()->discord_username != null) {
 		$fields[] = array(
-			'title' => $language->get('user', 'discord_username'),
+			'title' => $language->get('user', 'discord_username') . ':',
 			'type' => 'text',
-			'value' => $profile_user->data()->discord_username . ':'
+			'value' => $profile_user->data()->discord_username
 		);
 	}
 

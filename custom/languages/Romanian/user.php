@@ -188,7 +188,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} a răspuns la postarea de pe profilul tău.', // Don't replace {x}
     'no_about_fields' => 'Acest utilizator nu și-a completat încă nici un câmp aici.',
     'reply' => 'Răspunde',
-
+    'discord_username' => 'Discord Username',
+    
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',
     'report_post_content' => 'Introduceți un motiv pentru raportul dvs.',
