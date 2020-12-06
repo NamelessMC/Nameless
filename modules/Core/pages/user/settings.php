@@ -515,64 +515,51 @@ if(isset($_GET['do'])){
 				));
 				if ($validation->passed()) {
 					
-					$discord_id = Input::get('discord_id');
-					if ($discord_id == $user->data()->discord_id) {} 
-					else if ($discord_id == '') {
+					$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
+
+					$discord_role_id = Discord::getDiscordRoleId(DB::getInstance(), $user->getTopGroup->id);
+
+					$guild_id = Util::getSetting(DB::getInstance(), 'discord');
+
+					$token = uniqid('', true);
+					$queries->create('discord_verifications', [
+						'token' => $token,
+						'user_id' => $user->data()->id,
+					]);
+
+					$url = '/verifyId?token=' . $token . '&guild_id=' . $guild_id;
+					$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
+					if ($discord_role_id != null && $discord_integration[0]->value) $url .= '&role=' . $discord_role_id;
+					$result = Discord::discordBotRequest($url . '&site=' . $api_url);
+					if ($result != 'success') {
+						if ($result === false) {
+							// This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
+							$errors[] = $language->get('user', 'discord_communication_error');
+						}
+						else {
+							switch($result) {
+								case 'failure-invalid-id':
+									$errors[] = $language->get('user', 'discord_invalid_id');
+								break;
+								case 'failure-already-pending':
+									$errors[] = $language->get('user', 'discord_already_pending');
+								break;
+								case 'failure-database':
+									$errors[] = $language->get('user', 'discord_database_error');
+								break;
+								default:
+									// This should never happen
+									$errors[] = $language->get('user', 'discord_unknown_error');
+								break;
+							}
+						}
+					} else {
 						$user->update(array(
-                    		'discord_id' => null
+							'discord_id' => 010
 						));
-						Session::flash('settings_success', $language->get('user', 'discord_id_unlinked'));
+						Session::flash('settings_success', str_replace(array('{guild_id}', '{token}'), array(Util::getSetting(DB::getInstance(), 'discord'), $token), $language->get('user', 'discord_id_confirm')));
 						Redirect::to(URL::build('/user/settings'));
 						die();
-					}
-					else {
-						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
-
-						$discord_role_id = Discord::getDiscordRoleId(DB::getInstance(), $user->getTopGroup->id);
-
-						$guild_id = Util::getSetting(DB::getInstance(), 'discord');
-
-						$token = uniqid('', true);
-						$queries->create('discord_verifications', [
-							'token' => $token,
-							'user_id' => $user->data()->id,
-							'discord_user_id' => $discord_id
-						]);
-
-						$url = '/verifyId?id=' . $discord_id . '&token=' . $token . '&guild_id=' . $guild_id;
-						$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
-						if ($discord_role_id != null && $discord_integration[0]->value) $url .= '&role=' . $discord_role_id;
-						$result = Discord::discordBotRequest($url . '&site=' . $api_url);
-						if ($result != 'success') {
-							if ($result === false) {
-								// This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
-								$errors[] = $language->get('user', 'discord_communication_error');
-							}
-							else {
-								switch($result) {
-									case 'failure-invalid-id':
-										$errors[] = $language->get('user', 'discord_invalid_id');
-									break;
-									case 'failure-already-pending':
-										$errors[] = $language->get('user', 'discord_already_pending');
-									break;
-									case 'failure-database':
-										$errors[] = $language->get('user', 'discord_database_error');
-									break;
-									default:
-										// This should never happen
-										$errors[] = $language->get('user', 'discord_unknown_error');
-									break;
-								}
-							}
-						} else {
-							$user->update(array(
-								'discord_id' => 010
-							));
-							Session::flash('settings_success', str_replace(array('{guild_id}', '{token}'), array(Util::getSetting(DB::getInstance(), 'discord'), $token), $language->get('user', 'discord_id_confirm')));
-							Redirect::to(URL::build('/user/settings'));
-							die();
-						}
 					}
 				} else {
 					foreach ($validation->errors() as $validation_error) {

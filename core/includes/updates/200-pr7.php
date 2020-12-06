@@ -45,7 +45,6 @@ try {
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `token` varchar(23) NOT NULL,
         `user_id` int(11) NOT NULL,
-        `discord_user_id` bigint(18) NOT NULL,
         PRIMARY KEY (`id`)
         ) ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
 } catch (Exception $e) {

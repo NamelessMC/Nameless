@@ -45,7 +45,6 @@ $language = array(
     'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
     'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
     'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
-    'discord_id_does_not_match' => 'Your Discord user ID does not match the one under the supplied token.',
     
     // Success messages
     'finish_registration_link' => 'Klikněte na tento odkaz pro dokončení registrace:',

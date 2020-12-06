@@ -24,10 +24,6 @@ class VerifyDiscordEndpoint extends EndpointBase {
                 if (!$verification->count()) $api->throwError(50, $api->getLanguage()->get('api', 'no_pending_verification_for_token'));
                 $id = $verification->first()->user_id;
 
-                // Make sure the user who sent the bot command matches the discord user id in namelessmc pending verifications
-                $discord_user_id = $verification->first()->discord_user_id;
-                if ($discord_id != $discord_user_id) $api->throwError(51, $api->getLanguage()->get('api', 'discord_id_does_not_match'));
-
                 // Ensure the user exists
                 $api->getUser('id', $id);
 
