@@ -153,6 +153,20 @@ option:checked {
     border-color: #585858;
 }
 
+    .dark .input-group-text.colorpicker-input-addon,
+    .dark .input-group-text.colorpicker-input-addon:focus {
+        border: none !important;
+        outline: none;
+    }
+    
+    .dark select option:hover,
+    .dark select option:focus,
+    .dark select option:active,
+    .dark select option:checked {
+        background: linear-gradient(#383838, #383838) !important;
+        background-color: #383838 !important/* IE Fallback */
+    }
+
 
 /* --------------- Other --------------- */
 
