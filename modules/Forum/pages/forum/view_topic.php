@@ -639,7 +639,7 @@ for($n = 0; $n < count($results->data); $n++){
 	$fields = $post_creator->getProfileFields($post_creator->data()->id, true, true);
 
 	if ($post_creator->data()->discord_username != null) {
-		$fields[] = array('name' => $language->get('user', 'discord_username'), 'value' => $post_creator->data()->discord_username);
+		$fields[] = array('name' => $language->get('admin', 'discord'), 'value' => $post_creator->data()->discord_username);
 	}
 
 	if($mc_integration[0]->value == '1') $fields[] = array('name' => 'IGN', 'value' => $post_creator->getDisplayname(true));
