@@ -30,6 +30,7 @@ class VerifyDiscordEndpoint extends EndpointBase {
 
                 try {
                     $api->getDb()->update('users', $id, array('discord_id' => $discord_id));
+                    $api->getDb()->update('users', $id, array('discord_username' => $discord_username));
                     $api->getDb()->delete('discord_verifications', array('user_id', '=', $id));
                 } catch (Exception $e) {
                     $api->throwError(29, $api->getLanguage()->get('api', 'unable_to_set_discord_id'));
