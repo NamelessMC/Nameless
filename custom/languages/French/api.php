@@ -41,6 +41,7 @@ $language = array(
     'invalid_code' => 'Invalid code provided',
     'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
     'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
+    'unable_to_update_discord_username' => 'Unable to update Discord username.',
     
     // Success messages
     'finish_registration_link' => 'Please click on the following link to complete registration:',
@@ -50,5 +51,6 @@ $language = array(
     'new_private_message_from' => 'New private message from {x}', // Don't replace {x}
     'username_updated' => 'Username updated successfully',
     'server_info_updated' => 'Server info updated successfully',
-    'discord_settings_updated' => 'Discord settings updated successfully'
+    'discord_settings_updated' => 'Discord settings updated successfully',
+    'discord_usernames_updated' => 'Discord usernames updated successfully'
 );

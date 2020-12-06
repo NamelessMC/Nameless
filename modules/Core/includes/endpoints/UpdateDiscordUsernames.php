@@ -28,7 +28,7 @@ class UpdateDiscordUsernames extends EndpointBase
                     }
                 }
                 
-                $api->returnArray(array('message' => $api->getLanguage()->get('api', 'discord_username_updated')));
+                $api->returnArray(array('message' => $api->getLanguage()->get('api', 'discord_usernames_updated')));
             }
         }
     }

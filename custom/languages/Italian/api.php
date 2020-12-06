@@ -46,6 +46,7 @@ $language = array(
     'unable_to_set_discord_bot_url' => "Impossibile impostare l'URL del bot Discord",
     'provide_one_discord_settings' => 'Fornisci almeno uno dei seguenti: "url", "guild_id"',
     'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
+    'unable_to_update_discord_username' => 'Unable to update Discord username.',
     
     // Success messages
     'finish_registration_link' => 'Clicca sul seguente link per completare la registrazione:',
@@ -57,5 +58,6 @@ $language = array(
     'server_info_updated' => 'Info del server aggiornate con successo',
     'account_validated' => 'Account validato con successo',
     'discord_id_set' => 'ID Discord impostato correttamente',
-    'discord_settings_updated' => 'Impostazioni di Discord aggiornate con successo'
+    'discord_settings_updated' => 'Impostazioni di Discord aggiornate con successo',
+    'discord_usernames_updated' => 'Discord usernames updated successfully'
 );

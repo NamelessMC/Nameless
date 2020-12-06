@@ -51,6 +51,7 @@ $language = array(
     'unable_to_set_discord_bot_url' => 'DiscordボットのURLが設定できません。',
     'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
     'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
+    'unable_to_update_discord_username' => 'Unable to update Discord username.',
     
     // Success messages
     'finish_registration_link' => '登録を完了するには次のリンクをクリックしてください:',
@@ -62,5 +63,6 @@ $language = array(
     'server_info_updated' => 'サーバー情報が更新されました。',
     'account_validated' => 'アカウントの検証が完了しました。',
     'discord_id_set' => 'Discord IDの設定に成功しました。',
-    'discord_bot_url_updated' => 'Discord botのURLが更新されました。'
+    'discord_bot_url_updated' => 'Discord botのURLが更新されました。',
+    'discord_usernames_updated' => 'Discord usernames updated successfully'
 );
