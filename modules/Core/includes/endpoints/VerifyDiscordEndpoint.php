@@ -6,6 +6,7 @@
  * @return string JSON Array
  */
 class VerifyDiscordEndpoint extends EndpointBase {
+    
     public function __construct() {
         $this->_route = 'verifyDiscord';
         $this->_module = 'Core';
@@ -20,12 +21,12 @@ class VerifyDiscordEndpoint extends EndpointBase {
 
                 // Find the user's NamelessMC id
                 $verification = $api->getDb()->get('discord_verifications', array('token', '=', $token));
-                if (!$verification->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
+                if (!$verification->count()) $api->throwError(50, $api->getLanguage()->get('api', 'no_pending_verification_for_token'));
                 $id = $verification->first()->user_id;
 
                 // Make sure the user who sent the bot command matches the discord user id in namelessmc pending verifications
                 $discord_user_id = $verification->first()->discord_user_id;
-                if ($discord_id != $discord_user_id) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
+                if ($discord_id != $discord_user_id) $api->throwError(51, $api->getLanguage()->get('api', 'discord_id_does_not_match'));
 
                 // Ensure the user exists
                 $api->getUser('id', $id);

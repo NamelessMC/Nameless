@@ -45,7 +45,9 @@ $language = array(
     'unable_to_set_discord_id' => 'Kan geen Discord ID instellen.',
     'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
     'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
-
+    'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
+    'discord_id_does_not_match' => 'Your Discord user ID does not match the one under the supplied token.',
+    
     // Success messages
     'finish_registration_link' => 'Klik alstublieft op de volgende link om de registratie te voltooien:',
     'finish_registration_email' => 'Bekijkt u alstublieft uw email om de registratie te voltooien.',
