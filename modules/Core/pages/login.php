@@ -218,7 +218,7 @@ if (Input::exists()) {
 										    if ($method == 'email')
 											    $user_id = $user->emailToId($username);
 										    else
-											    $user_id = $user->NameToId($username);
+											    $user_id = $user->nameToId($username);
 
 										    $queries->update('users', $user_id, array(
 											    'password' => $password,

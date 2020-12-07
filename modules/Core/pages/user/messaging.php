@@ -209,7 +209,7 @@ if(!isset($_GET['action'])){
 							continue;
 						}
 
-						$user_id = $user->NameToId($item);
+						$user_id = $user->nameToId($item);
 						if($user_id){
 							if($user->isBlocked($user_id, $user->data()->id) && !$user->canViewACP()){
 								$blocked = true;
@@ -269,7 +269,7 @@ if(!isset($_GET['action'])){
 								// Add users to conversation
 								foreach($users as $item){
 									// Get ID
-									$user_id = $user->NameToId($item);
+									$user_id = $user->nameToId($item);
 
 									if($user_id){
 										// Not the author
