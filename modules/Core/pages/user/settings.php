@@ -504,17 +504,19 @@ if(isset($_GET['do'])){
                     }
                 }
             } else if(Input::get('action') == 'discord'){
-				$validation = new Validate;
-				$validation = $validation->check($_POST, array(
-					'discord_id' => array(
-						'min' => 18,
-						'max' => 18,
-						'numeric' => true,
-						'unique' => 'users'
-					)
-				));
-				if ($validation->passed()) {
-					
+				
+				if (Input::get('unlink') == 'true') {
+
+					$user->update(array(
+						'discord_id' => null,
+						'discord_username' => null
+					));
+
+					Session::flash('settings_success', $language->get('user', 'discord_id_unlinked'));
+					Redirect::to(URL::build('/user/settings'));
+					die();
+
+				} else {
 					$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
 
 					$discord_role_id = Discord::getDiscordRoleId(DB::getInstance(), $user->getTopGroup->id);
@@ -535,22 +537,21 @@ if(isset($_GET['do'])){
 						if ($result === false) {
 							// This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
 							$errors[] = $language->get('user', 'discord_communication_error');
-						}
-						else {
-							switch($result) {
+						} else {
+							switch ($result) {
 								case 'failure-invalid-id':
 									$errors[] = $language->get('user', 'discord_invalid_id');
-								break;
+									break;
 								case 'failure-already-pending':
 									$errors[] = $language->get('user', 'discord_already_pending');
-								break;
+									break;
 								case 'failure-database':
 									$errors[] = $language->get('user', 'discord_database_error');
-								break;
+									break;
 								default:
 									// This should never happen
 									$errors[] = $language->get('user', 'discord_unknown_error');
-								break;
+									break;
 							}
 						}
 					} else {
@@ -560,16 +561,6 @@ if(isset($_GET['do'])){
 						Session::flash('settings_success', str_replace(array('{guild_id}', '{token}'), array(Util::getSetting(DB::getInstance(), 'discord'), $token), $language->get('user', 'discord_id_confirm')));
 						Redirect::to(URL::build('/user/settings'));
 						die();
-					}
-				} else {
-					foreach ($validation->errors() as $validation_error) {
-						if (strpos($validation_error, 'minimum') !== false || strpos($validation_error, 'maximum') !== false) {
-							$errors[] = $language->get('admin', 'discord_id_length');
-						} else if (strpos($validation_error, 'numeric') !== false) {
-							$errors[] = $language->get('admin', 'discord_id_numeric');
-						} else if (strpos($validation_error, 'already exists') !== false) {
-							$errors[] = $language->get('user', 'discord_id_taken');
-						}
 					}
 				}
 			}
@@ -777,7 +768,8 @@ if(isset($_GET['do'])){
 		'DISCORD_INTEGRATION' => $discord_integration,
 		'DISCORD_LINK' => $language->get('user', 'discord_link'),
 		'DISCORD_LINKED' => $discord_linked,
-		'DISCORD_USERNAME' => $user->data()->discord_username,
+		'DISCORD_USERNAME' => $language->get('user', 'discord_username'),
+		'DISCORD_USERNAME_VALUE' => $user->data()->discord_username,
 		'DISCORD_ID' => $language->get('user', 'discord_id'),
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 		'TIMEZONE' => $language->get('user', 'timezone'),
@@ -797,11 +789,13 @@ if(isset($_GET['do'])){
 
 	if ($discord_linked) {
 		$smarty->assign(array(
+			'UNLINK' => $language->get('general', 'unlink'),
 			'LINKED' => $language->get('user', 'linked'),
 			'DISCORD_ID_VALUE' => $user->data()->discord_id,
 		));
 	} else {
 		$smarty->assign(array(
+			'LINK' => $language->get('general', 'link'),
 			'NOT_LINKED' => $language->get('user', 'not_linked'),
 		));
 		if ($user->data()->discord_id == 010) {

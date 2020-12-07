@@ -153,21 +153,26 @@
       {if $DISCORD_INTEGRATION}
         <div class="ui segment">
           <h3 class="ui header">{$DISCORD_LINK}
+            {if $DISCORD_LINKED}
+              <span class="ui green label">{$LINKED}</span>
+            {else if isset($PENDING_LINK)}
+              <span class="ui orange label">{$PENDING_LINK}</span>
+            {else}
+              <span class="ui red label">{$NOT_LINKED}</span>
+            {/if}
+            </h3>
           {if $DISCORD_LINKED}
-            <span class="ui green label">{$LINKED}</span>
-          {else if isset($PENDING_LINK)}
-            <span class="ui orange label">{$PENDING_LINK}</span>
-          {else}
-            <span class="ui red label">{$NOT_LINKED}</span>
-          {/if}
-          </h3>
-          {if $DISCORD_LINKED}
-            <p>{$DISCORD_USERNAME}</p>
+            <p><strong>{$DISCORD_USERNAME}:</strong> {$DISCORD_USERNAME_VALUE}</p>
           {/if}
           <form action="" method="post" class="ui form">
             <input type="hidden" name="action" value="discord">
             <input type="hidden" name="token" value="{$TOKEN}">
-            <input type="submit" value="{$SUBMIT}" class="ui primary button">
+            {if $DISCORD_LINKED} 
+              <input type="hidden" name="unlink" value="true">
+              <input type="submit" value="{$UNLINK}" class="ui red button">
+            {else}
+              <input type="submit" value="{$LINK}" class="ui primary button">
+            {/if}
           </form>
         </div>
       {/if}
