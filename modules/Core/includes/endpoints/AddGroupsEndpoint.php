@@ -19,8 +19,7 @@ class AddGroupsEndpoint extends EndpointBase {
             if ($api->validateParams($_POST, ['user', 'groups'])) {
                 
                 // Ensure user exists
-				$user = new User(htmlspecialchars($_POST['user']));
-                if (!count($user->data())) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
+				$user = $api->getUser('id', $_POST['user']);
 
 				$groups = json_decode($_POST['groups'], true);
 				if ($groups == null || !count($groups)) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));

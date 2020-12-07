@@ -20,7 +20,7 @@ class VerifyMinecraftEndpoint extends EndpointBase {
             if ($api->validateParams($_POST, ['id', 'code'])) {
                 $user = $api->getUser('id', $_POST['id']);
 
-                if ($user->data()->active || $user->reset_code == '') $api->throwError(30, $api->getLanguage()->get('api', 'user_already_active'));
+                if ($user->data()->active || $user->reset_code == '') $api->throwError(32, $api->getLanguage()->get('api', 'user_already_active'));
 
                 if ($user->reset_code != $_POST['code']) $api->throwError(28, $api->getLanguage()->get('api', 'invalid_code'));
 

@@ -24,7 +24,7 @@ class UpdateDiscordUsernames extends EndpointBase
                     try {
                         $api->getDb()->update('users', $user->data()->id, array('discord_username' => $discord_username));
                     } catch (Exception $e) {
-                        $api->throwError(29, $api->getLanguage()->get('api', 'unable_to_update_discord_username'));
+                        $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_discord_username'));
                     }
                 }
                 

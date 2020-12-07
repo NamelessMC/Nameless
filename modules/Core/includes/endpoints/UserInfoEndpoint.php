@@ -31,7 +31,7 @@ class UserInfoEndpoint extends EndpointBase {
 			} else if (isset($_GET['discord'])) {
 				$where .= ' WHERE nl2_users.discord_id = ?';
 				array_push($params, $_GET['discord']);
-			} else $api->throwError(26, $api->getLanguage()->get('api', 'invalid_get_contents'));
+			} else $api->throwError(6, $api->getLanguage()->get('api', 'invalid_get_contents'));
 
             // Ensure the user exists
             $user = $api->getDb()->query($query . $where, $params);

@@ -17,7 +17,7 @@ class SetGroupFromDiscordIdEndpoint extends EndpointBase {
     public function execute(Nameless2API $api) {
         if ($api->isValidated()) {
             if ($api->validateParams($_POST, ['discord_user_id', 'discord_role_id'])) {
-                if (!Util::getSetting($api->getDb(), 'discord_integration')) $api->throwError(33, $api->getLanguage()->get('api', 'discord_integration_disabled'));
+                if (!Util::getSetting($api->getDb(), 'discord_integration')) $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
 
                 $discord_user_id = $_POST['discord_user_id'];
                 $discord_role_id = $_POST['discord_role_id'];

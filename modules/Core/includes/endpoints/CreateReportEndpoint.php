@@ -33,7 +33,7 @@ class CreateReportEndpoint extends EndpointBase {
                 if (!$user_reported->count()) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
                 $user_reported = $user_reported->first()->id;
 
-                if ($user_reporting->id == $user_reported) $api->throwError(18, $api->getLanguage()->get('api', 'cannot_report_yourself'));
+                if ($user_reporting->id == $user_reported) $api->throwError(26, $api->getLanguage()->get('api', 'cannot_report_yourself'));
 
                 // Ensure user has not already reported the same player, and the report is open
                 $user_reports = $api->getDb()->get('reports', array('reporter_id', '=', $user_reporting->id))->results();
