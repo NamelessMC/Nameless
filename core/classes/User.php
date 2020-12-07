@@ -510,7 +510,7 @@ class User {
 	// Remove a group from the user
 	public function removeGroup($group_id){
 		if(array_key_exists($group_id, $this->_groups)) {
-			if($group->id == 2 && $this->data()->id == 1) {
+			if($group_id == 2 && $this->data()->id == 1) {
 				return false;
 			}
 									
