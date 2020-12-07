@@ -67,7 +67,9 @@ $language = array(
     'are_you_sure' => 'Jste si jisti?',
     'spoiler' => 'Spoiler',
     'invalid_timezone' => 'Tato časová zóna je neplatná',
-
+    'link' => 'Link',
+    'unlink' => 'Unlink',
+    
     /*
      *  Contact form
      */

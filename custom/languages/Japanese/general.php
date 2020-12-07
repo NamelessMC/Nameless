@@ -72,7 +72,9 @@ $language = array(
     'are_you_sure' => '【情報】',
     'spoiler' => 'Spoiler',
     'invalid_timezone' => 'タイムゾーンが無効',
-
+    'link' => 'Link',
+    'unlink' => 'Unlink',
+    
     /*
      *  Contact form
      */
