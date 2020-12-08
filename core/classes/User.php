@@ -514,7 +514,11 @@ class User {
 
 	// Removes all groups this user has
 	public function removeGroups() {
-		$this->_db->createQuery('DELETE FROM `nl2_users_groups` WHERE `user_id` = ?', array(
+		$where = 'WHERE `user_id` = ?';
+		if ($this->data()->id == 1) {
+			$where .= ' AND `group_id` <> 2';
+		}
+		$this->_db->createQuery('DELETE FROM `nl2_users_groups` ' . $where, array(
 			$this->data()->id
 		));
 	}
