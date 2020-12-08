@@ -97,7 +97,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="inputDiscord">{$DISCORD_ROLE_ID}</label>
-                                                    <input class="form-control" name="discord_role[{$group_sync.id}]" type="number" maxlength="18" minlength="18" id="inputDiscord" placeholder="{$DISCORD_ROLE_ID}" value="{$group_sync.discord}">
+                                                    <input class="form-control" name="discord_role[{$group_sync.id}]" type="number" maxlength="18" minlength="18" min="0" id="inputDiscord" placeholder="{$DISCORD_ROLE_ID}" value="{$group_sync.discord}">
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="inputWebsite">{$WEBSITE_GROUP}</label>

@@ -158,10 +158,10 @@ class Forum {
 		if(!$user_id)
 			$user_id = 0;
 
-		$all_topics_forums = DB::getInstance()->query("SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (" . rtrim($group_id . ',' . implode(',', $groups), ',') . ") AND `view` = 1 AND view_other_topics = 1")->results();
+		$all_topics_forums = DB::getInstance()->query("SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (" . rtrim(implode(',', $groups), ',') . ") AND `view` = 1 AND view_other_topics = 1")->results();
 
 		if($user_id > 0)
-			$own_topics_forums = DB::getInstance()->query("SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (" . rtrim($group_id . ',' . implode(',', $groups), ',') . ") AND `view` = 1 AND view_other_topics = 0")->results();
+			$own_topics_forums = DB::getInstance()->query("SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (" . rtrim(implode(',', $groups), ',') . ") AND `view` = 1 AND view_other_topics = 0")->results();
 		else
 			$own_topics_forums = array();
 
