@@ -44,7 +44,9 @@ class UserInfoEndpoint extends EndpointBase {
             $user->last_online_timestamp = intval($user->last_online_timestamp);
             $user->banned = (bool) $user->banned;
             $user->validated = (bool) $user->validated;
-            $user->discord_id = intval($user->discord_id);
+            if ($user->discord_id != null) {
+                $user->discord_id = intval($user->discord_id);
+            }
 
 			// Get custom profile fields
             $custom_profile_fields = $api->getDb()->query('SELECT fields.id, fields.name, fields.type, fields.public, fields.required, fields.description, pf_values.value FROM nl2_users_profile_fields pf_values LEFT JOIN nl2_profile_fields fields ON pf_values.field_id = fields.id WHERE pf_values.user_id = ?', array($user->id));
