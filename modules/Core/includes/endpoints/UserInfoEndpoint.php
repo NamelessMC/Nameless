@@ -7,6 +7,7 @@
  * @return string JSON Array
  */
 class UserInfoEndpoint extends EndpointBase {
+
     public function __construct() {
         $this->_route = 'userInfo';
         $this->_module = 'Core';
@@ -28,9 +29,9 @@ class UserInfoEndpoint extends EndpointBase {
             } else if (isset($_GET['uuid'])) {
 				$where .= ' WHERE nl2_users.uuid = ?';
 				array_push($params, $_GET['uuid']);
-			} else if (isset($_GET['discord'])) {
+			} else if (isset($_GET['discord_id'])) {
 				$where .= ' WHERE nl2_users.discord_id = ?';
-				array_push($params, $_GET['discord']);
+				array_push($params, $_GET['discord_d']);
 			} else $api->throwError(6, $api->getLanguage()->get('api', 'invalid_get_contents'));
 
             // Ensure the user exists
