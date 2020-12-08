@@ -512,6 +512,13 @@ class User {
 		}
 	}
 
+	// Removes all groups this user has
+	public function removeGroups() {
+		$this->_db->createQuery('DELETE FROM `nl2_users_groups` WHERE `user_id` = ?', array(
+			$this->data()->id
+		));
+	}
+
 	// Returns true if the current user is logged in
 	public function isLoggedIn() {
 		return $this->_isLoggedIn;
