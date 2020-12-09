@@ -69,7 +69,7 @@ $language = array(
     'invalid_timezone' => 'Tato časová zóna je neplatná',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */
@@ -108,7 +108,7 @@ $language = array(
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Verze: {x}', // Don't replace {x}
-    'currently_1_player_online' => 'Na serveru hraje jeden hráč.',
+    'currently_1_player_online' => 'There is currently <strong>1</strong> player online.',
     'currently_x_players_online' => 'Momentálně je na serveru <strong>{x}</strong> hráčů.', // Don't replace {x}
     'server_offline' => 'Server je momentálně offline.',
     'connect_with_ip_x' => 'Připojte se na server pomocí {x}', // Don't replace {x}
