@@ -268,24 +268,7 @@ class Core_Module extends Module {
 		HookHandler::registerHooks($hook_array);
 
 		// Autoload API Endpoints
-		// TODO: better support sub folders for organization
-		$classes = scandir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')));
-		foreach ($classes as $endpoint) {
-			if ($endpoint[0] == '.') continue; 
-			if ($endpoint == 'discord') continue;
-			require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints', $endpoint)));
-			$endpoint = str_replace('.php', '', $endpoint);
-			$endpoints->add(new $endpoint());
-		}
-
-		$classes = scandir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints', 'discord')));
-		foreach ($classes as $endpoint) {
-			if ($endpoint[0] == '.') continue;
-			require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints', 'discord', $endpoint)));
-			$endpoint = str_replace('.php', '', $endpoint);
-			$endpoints->add(new $endpoint());
-		}
-
+		Util::loadEndpoints(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')), $endpoints);
 	}
 
 	public function onInstall(){

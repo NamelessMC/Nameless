@@ -47,7 +47,7 @@ class Validate {
 				$value = trim($source[$item]);
 
 				// Escape the item's contents just in case
-				$item = Util::escape($item);
+				$item = Output::getClean($item);
 
 				// Required rule
 				if($rule === 'required' && empty($value)){
