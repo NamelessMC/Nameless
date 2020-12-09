@@ -10,7 +10,9 @@
  */
 
 $language = array(
+
     // Errors
+    'api_disabled' => 'API is disabled',
     'unknown_error' => 'Ukjent feil',
     'invalid_api_key' => 'Ugyldig API-nøkkel',
     'invalid_language_file' => 'Ugyldig språkfil',

@@ -11,7 +11,9 @@
  */
 
 $language = array(
+
   // Errors
+  'api_disabled' => 'API is disabled',
   'unknown_error' => 'Nežinoma klaida',
   'invalid_api_key' => 'Netinkamas API raktas',
   'invalid_language_file' => 'Netinkamas kalbos failas',

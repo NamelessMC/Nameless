@@ -12,7 +12,9 @@
  */
 
 $language = array(
+
     // Errors
+    'api_disabled' => 'API is disabled',
     'unknown_error' => '未知错误',
     'invalid_api_key' => '无效 API 密钥',
     'invalid_language_file' => '语言文件无效',

@@ -15,7 +15,9 @@
  */
 
 $language = array(
+
     // Errors
+    'api_disabled' => 'API is disabled',
     'unknown_error' => '不明なエラー',
     'invalid_api_key' => '無効な API キー',
     'invalid_language_file' => '言語ファイルが無効です。',

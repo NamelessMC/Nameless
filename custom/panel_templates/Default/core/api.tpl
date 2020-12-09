@@ -90,8 +90,10 @@
                                 <div class="form-group">
                                     <label for="InputAPIURL">{$API_URL}</label>
                                     <div class="input-group">
-                                        <input type="text" name="api_url" id="InputAPIURL" class="form-control" readonly value="{$API_URL_VALUE}">
-                                        <span class="input-group-append"><a onclick="copyURL();" class="btn btn-info text-white">{$COPY}</a></span>
+                                        <input type="text" name="api_url" id="InputAPIURL" class="form-control" readonly value="{if $API_ENABLED} {$API_URL_VALUE} {else} {$ENABLE_API_FOR_URL} {/if}">
+                                        {if $API_ENABLED}
+                                            <span class="input-group-append"><a onclick="copyURL();" class="btn btn-info text-white">{$COPY}</a></span>
+                                        {/if}
                                     </div>
                                 </div>
 
@@ -175,17 +177,19 @@
         $('#regenModal').modal().show();
     }
 
-    function copyURL() {
-        let url = document.getElementById("InputAPIURL");
-        url.select();
-        document.execCommand("copy");
+    {if $API_ENABLED}
+        function copyURL() {
+            let url = document.getElementById("InputAPIURL");
+            url.select();
+            document.execCommand("copy");
 
-        // Toastr
-        toastr.options.progressBar = true;
-        toastr.options.closeButton = true;
-        toastr.options.positionClass = 'toast-bottom-left';
-        toastr.success("{$COPIED}");
-    }
+            // Toastr
+            toastr.options.progressBar = true;
+            toastr.options.closeButton = true;
+            toastr.options.positionClass = 'toast-bottom-left';
+            toastr.success("{$COPIED}");
+        }
+    {/if}
 </script>
 
 </body>

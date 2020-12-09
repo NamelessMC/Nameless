@@ -360,6 +360,7 @@ if(!isset($_GET['view'])){
 		'CHANGE' => $language->get('general', 'change'),
 		'API_URL' => $language->get('admin', 'api_url'),
 		'API_URL_VALUE' => rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($plugin_api), '', 'non-friendly'), '/'),
+		'ENABLE_API_FOR_URL' => $language->get('api', 'api_disabled'),
 		'COPY' => $language->get('admin', 'copy'),
 		'ENABLE_LEGACY_API' => $language->get('admin', 'enable_legacy_api'),
 		//'LEGACY_API_ENABLED' => $legacy_api_enabled,

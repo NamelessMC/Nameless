@@ -21,7 +21,7 @@ Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mo
 
 // Ensure API is actually enabled
 if (!Util::getSetting(DB::getInstance(), 'use_api')) {
-    die('API is disabled');
+    die($language->get('api', 'api_disabled'));
 }
 
 // Initialise

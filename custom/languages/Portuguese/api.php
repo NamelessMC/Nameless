@@ -12,7 +12,9 @@
  */
 
 $language = array(
+
     // Errors
+    'api_disabled' => 'API is disabled',
     'unknown_error' => 'Erro desconhecido',
     'invalid_api_key' => 'Chave de API inválido',
     'invalid_language_file' => 'Arquivo de idioma inválido',

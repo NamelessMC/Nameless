@@ -9,7 +9,9 @@
  *  Czech Language - API
  */
 $language = array(
+
     // Errors
+    'api_disabled' => 'API is disabled',
     'unknown_error' => 'Neznámá chyba',
     'invalid_api_key' => 'Neplatný klíč API',
     'invalid_language_file' => 'Neplatný jazykový soubor',

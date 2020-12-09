@@ -178,7 +178,7 @@ class Log{
 	}
 
 	public static function getInstance(){
-		if(!isset(self::$_instance)){
+		if (!isset(self::$_instance)) {
 			self::$_instance = new Log();
 		}
 		return self::$_instance;
@@ -192,8 +192,8 @@ class Log{
 	public static function Action($path){
 		$path = explode('/', $path);
 		$config = self::$ACTION;
-		foreach($path as $bit){
-			if(isset($config[$bit])) {
+		foreach ($path as $bit) {
+			if (isset($config[$bit])) {
 				$config = $config[$bit];
 			}
 		}
@@ -208,15 +208,15 @@ class Log{
 	 * @param  String $ip The ip of the user
 	 * @return boolean         Return true or false if inserted into the database.
 	 */
-	public function log($action, $info ="", $user = null, $ip=null){
+	public function log($action, $info ="", $user = null, $ip = null){
 		$userTemp = new User();
-		if(!$ip){
+		if (!$ip) {
 			$ip = $userTemp->getIP();
 		}
 		return $this->_db->insert('logs', array(
 			'time' => date('U'),
 			'action' => $action,
-			'user_id' => ($user)?$user:$userTemp->data()->id,
+			'user_id' => ($user) ? $user : $userTemp->data()->id,
 			'ip' => $ip,
 			'info' => $info,
 		));

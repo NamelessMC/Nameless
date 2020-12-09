@@ -24,11 +24,9 @@ class RemoveDiscordRolesEndpoint extends EndpointBase {
 
                 $user = $api->getUser('id', $user_id);
                 
-                $roles_array = json_decode($roles);
-
                 $message = '';
 
-                foreach ($roles_array as $role_id) {
+                foreach ($roles as $role_id) {
                     $group = Discord::getWebsiteGroup(DB::getInstance(), $role_id);
                     if ($group != null) {
                         if (in_array($group['group']->id, $user->data()->_groups)) {
