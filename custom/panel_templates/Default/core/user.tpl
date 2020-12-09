@@ -96,7 +96,7 @@
                                         <div class="card-header p-2">
                                             <ul class="nav nav-pills">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active">{$DETAILS}</a>
+                                                    <a class="nav-link active" style="color: white;">{$DETAILS}</a>
                                                 </li>
                                                 {foreach from=$LINKS item=item}
                                                     <li class="nav-item">
