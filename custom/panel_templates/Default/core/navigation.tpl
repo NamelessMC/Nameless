@@ -76,7 +76,7 @@
                                     <p>{$NAVBAR_ICON_INSTRUCTIONS}</p>
                                 </div>
                                 {foreach from=$NAV_ITEMS key=key item=item}
-                                    <strong>{$item.title|escape}</strong>
+                                    <h4>{$item.title|escape}</h4>
 
                                     <div class="form-group">
 										<div class="row">
@@ -123,8 +123,10 @@
                                         {/foreach}
                                     {/if}
 
+                                    <hr>
+
                                 {/foreach}
-                                <hr>
+
                                 <div class="form-group">
                                     <label for="dropdown_name">{$DROPDOWN_NAME}</label>
                                     <input type="text" class="form-control" id="dropdown_name" name="dropdown_name" value="{$DROPDOWN_NAME_VALUE}">
