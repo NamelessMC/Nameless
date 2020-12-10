@@ -104,7 +104,8 @@
                                                             {/foreach}
                                                         </select>
                                                     {else}
-                                                        <input class="form-control" name="discord_role[{$group_sync.id}]" type="number" maxlength="18" minlength="18" min="0" id="inputDiscord" placeholder="{$DISCORD_ROLE_ID}" value="{$group_sync.discord}"  readonly>
+                                                        <p><i>{$DISCORD_INTEGRATION_NOT_ENABLED}</i></p>
+                                                        <input class="form-control" name="discord_role[{$group_sync.id}]" type="hidden" id="inputDiscord" value="0">
                                                     {/if}
                                                 </div>
                                                 <div class="col-md-3">
@@ -156,7 +157,8 @@
                                                     {/foreach}
                                                 </select>
                                             {else}
-                                                <input class="form-control" name="discord_role_id" type="number" maxlength="18" minlength="18" min="0" id="inputDiscord" placeholder="{$DISCORD_ROLE_ID}" value="{$group_sync.discord}">
+                                                <p><i>Discord integration not setup</i></p>
+                                                <input class="form-control" name="discord_role_id" type="hidden" id="inputDiscord" value="0">
                                             {/if}
                                         </div>
                                         <div class="col-md-4">

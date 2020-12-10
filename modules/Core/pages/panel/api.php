@@ -402,7 +402,10 @@ if(!isset($_GET['view'])){
 		$ingame_groups = json_decode($ingame_groups->groups, true);
 
 		// Get Discord groups
-		$discord_groups = json_decode(Util::getSetting(DB::getInstance(), 'discord_roles'), true);
+		$discord_groups = array();
+		if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
+			$discord_groups = json_decode(Util::getSetting(DB::getInstance(), 'discord_roles'), true);
+		}
 
 		// Get existing group sync configuration
 		$group_sync = $queries->getWhere('group_sync', array('id', '<>', 0));
@@ -438,7 +441,8 @@ if(!isset($_GET['view'])){
 			'GROUP_SYNC_VALUES' => $template_groups,
 			'DELETE' => $language->get('general', 'delete'),
 			'NEW_RULE' => $language->get('admin', 'new_rule'),
-			'EXISTING_RULES' => $language->get('admin', 'existing_rules')
+			'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
+			'DISCORD_INTEGRATION_NOT_ENABLED' => $language->get('api', 'discord_integration_disabled')
 		));
 
 		$template_file = 'core/api_group_sync.tpl';
