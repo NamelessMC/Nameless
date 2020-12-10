@@ -236,28 +236,62 @@ if (Input::exists()) {
 					    $login = $user->login($username, Input::get('password'), $remember, $method);
 
 					    // Successful login?
-					    if ($login) {
-						    // Yes
-						    Log::getInstance()->log(Log::Action('user/login'));
+					    if (isset($_POST['ajax']) && $_POST['ajax'] == "true") {
+							header("Content-type: application/json; charset: UTF-8");
+							if ($login) {
+								// Yes
+								Log::getInstance()->log(Log::Action('user/login'));
 
-						    // Redirect to a certain page?
-						    if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
-							    Redirect::to($_SESSION['last_page']);
-							    die();
-
-						    } else {
-							    Session::flash('home', $language->get('user', 'successful_login'));
-							    Redirect::to(URL::build('/'));
-							    die();
-						    }
-					    } else {
-						    // No, output error
-						    $return_error = array($language->get('user', 'incorrect_details'));
-					    }
+								echo json_encode(array(
+									"approved" => "true",
+									"message" => $language->get('user', 'successful_login'),
+									"url" => (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') ? $_SESSION['last_page'] : URL::build('/'),
+								));
+							} else {
+								// No, output error
+								echo json_encode(array(
+									"approved" => "false",
+									"message" => $language->get('user', 'incorrect_details'),
+									"url" => null,
+								));
+							}
+							die();
+						} else {
+							if ($login) {
+								// Yes
+								Log::getInstance()->log(Log::Action('user/login'));
+	
+								// Redirect to a certain page?
+								if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
+									Redirect::to($_SESSION['last_page']);
+									die();
+	
+								} else {
+									Session::flash('home', $language->get('user', 'successful_login'));
+									Redirect::to(URL::build('/'));
+									die();
+								}
+							} else {
+								// No, output error
+								$return_error = array($language->get('user', 'incorrect_details'));
+							}
+						}
 
 				    }
 
-			    } else $return_error = array($language->get('user', 'incorrect_details'));
+			    } else {
+					if (isset($_POST['ajax']) && $_POST['ajax'] == "true") {
+						header("Content-type: application/json; charset: UTF-8");
+						echo json_encode(array(
+							"approved" => "false",
+							"message" => $language->get('user', 'incorrect_details'),
+							"url" => null,
+						));
+						die();
+					} else {
+						$return_error = array($language->get('user', 'incorrect_details'));
+					}
+				}
 
 
 		    } else {
@@ -284,17 +318,46 @@ if (Input::exists()) {
 					    // Account is banned
 					    $return_error[] = $language->get('user', 'account_banned');
 				    }
-			    }
+				}
+				
+				if (isset($_POST['ajax']) && $_POST['ajax'] == "true") {
+					header("Content-type: application/json; charset: UTF-8");
+					echo json_encode(array(
+						"approved" => "false",
+						"message" => $return_error[0],
+						"url" => null,
+					));
+					die();
+				}
 		    }
 
 	    } else {
-		    // reCAPTCHA failed
+			// reCAPTCHA failed
 		    $return_error = array($language->get('user', 'invalid_recaptcha'));
+
+			if (isset($_POST['ajax']) && $_POST['ajax'] == "true") {
+				header("Content-type: application/json; charset: UTF-8");
+				echo json_encode(array(
+					"approved" => "false",
+					"message" => $return_error,
+					"url" => null,
+				));
+				die();
+			}
 	    }
 
     } else {
         // Invalid token
-        $return_error = array($language->get('general', 'invalid_token'));
+		$return_error = array($language->get('general', 'invalid_token'));
+		if (isset($_POST['ajax']) && $_POST['ajax'] == "true") {
+			header("Content-type: application/json; charset: UTF-8");
+			echo json_encode(array(
+				"approved" => "false",
+				"message" => $return_error,
+				"url" => null,
+			));
+			die();
+		}
     }
 }
 
