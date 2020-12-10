@@ -41,7 +41,7 @@ try {
 }
 
 try {
-	$queries->createTable("group_sync", " `id` int(11) NOT NULL AUTO_INCREMENT, `ingame_rank_name` varchar(64) NOT NULL, `website_group_id` int(11) NOT NULL, `primary` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+	$queries->createTable("group_sync", " `id` int(11) NOT NULL AUTO_INCREMENT, `ingame_rank_name` varchar(64) NOT NULL, `website_group_id` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
 } catch(Exception $e){
 	// unable to create table
 	echo $e->getMessage() . '<br />';

@@ -97,7 +97,15 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="inputDiscord">{$DISCORD_ROLE_ID}</label>
-                                                    <input class="form-control" name="discord_role[{$group_sync.id}]" type="number" maxlength="18" minlength="18" min="0" id="inputDiscord" placeholder="{$DISCORD_ROLE_ID}" value="{$group_sync.discord}">
+                                                    {if count($DISCORD_GROUPS)}
+                                                        <select name="discord_role[{$group_sync.id}]" class="form-control" id="inputDiscord">
+                                                            {foreach from=$DISCORD_GROUPS item=group}
+                                                                <option value="{$group.id}" {if {$group_sync.discord} eq $group.id} selected{/if}>{$group.name} ({$group.id})</option>
+                                                            {/foreach}
+                                                        </select>
+                                                    {else}
+                                                        <input class="form-control" name="discord_role[{$group_sync.id}]" type="number" maxlength="18" minlength="18" min="0" id="inputDiscord" placeholder="{$DISCORD_ROLE_ID}" value="{$group_sync.discord}"  readonly>
+                                                    {/if}
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="inputWebsite">{$WEBSITE_GROUP}</label>
@@ -141,7 +149,15 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label for="inputDiscord">{$DISCORD_ROLE_ID}</label>
-                                            <input class="form-control" name="discord_role_id" type="number" maxlength="18" minlength="18" id="inputDiscord" placeholder="{$DISCORD_ROLE_ID}">
+                                            {if count($DISCORD_GROUPS)}
+                                                <select name="discord_role_id" class="form-control" id="inputDiscord">
+                                                    {foreach from=$DISCORD_GROUPS item=group}
+                                                        <option value="{$group.id}">{$group.name} ({$group.id})</option>
+                                                    {/foreach}
+                                                </select>
+                                            {else}
+                                                <input class="form-control" name="discord_role_id" type="number" maxlength="18" minlength="18" min="0" id="inputDiscord" placeholder="{$DISCORD_ROLE_ID}" value="{$group_sync.discord}">
+                                            {/if}
                                         </div>
                                         <div class="col-md-4">
                                             <label for="inputWebsite">{$WEBSITE_GROUP}</label>

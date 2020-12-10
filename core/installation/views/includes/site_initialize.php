@@ -426,6 +426,11 @@ $queries->create('settings', array(
 ));
 
 $queries->create('settings', array(
+	'name' => 'discord_roles',
+	'value' => '[]'
+));
+
+$queries->create('settings', array(
 	'name' => 'avatar_type',
 	'value' => 'helmavatar'
 ));

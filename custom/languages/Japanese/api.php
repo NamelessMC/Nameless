@@ -54,7 +54,8 @@ $language = array(
     'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
     'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
     'unable_to_update_discord_username' => 'Unable to update Discord username.',
-    
+    'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
+
     // Success messages
     'finish_registration_link' => '登録を完了するには次のリンクをクリックしてください:',
     'finish_registration_email' => '登録を完了するにはメールを確認して処理を完了してください。',

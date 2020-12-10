@@ -194,6 +194,12 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Discord role dropdown
+$queries->create('settings', array(
+    'name' => 'discord_roles',
+    'value' => '[]'
+));
+
 // Update version number
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 

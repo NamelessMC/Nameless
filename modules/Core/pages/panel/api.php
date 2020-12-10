@@ -183,7 +183,7 @@ if(!isset($_GET['view'])){
 					if ($discord_role_id == 0) $discord_role_id = null;
 
 					$fields = array();
-					$fields['website_group_id']  = intval($website_group);
+					$fields['website_group_id']  = intval(Input::get('website_group'));
 					$fields['discord_role_id'] = $discord_role_id;
 
 					$ingame_rank_name = $_POST['ingame_rank_name'];
@@ -401,6 +401,9 @@ if(!isset($_GET['view'])){
 		$ingame_groups = DB::getInstance()->query("SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1")->first();
 		$ingame_groups = json_decode($ingame_groups->groups, true);
 
+		// Get Discord groups
+		$discord_groups = json_decode(Util::getSetting(DB::getInstance(), 'discord_roles'), true);
+
 		// Get existing group sync configuration
 		$group_sync = $queries->getWhere('group_sync', array('id', '<>', 0));
 		$template_groups = array();
@@ -428,6 +431,7 @@ if(!isset($_GET['view'])){
 			'SUBMIT' => $language->get('general', 'submit'),
 			'INGAME_GROUPS' => $ingame_groups,
 			'INGAME_GROUP_NAME' => $language->get('admin', 'ingame_group'),
+			'DISCORD_GROUPS' => $discord_groups,
 			'DISCORD_ROLE_ID' => $language->get('admin', 'discord_role_id'),
 			'WEBSITE_GROUP' => $language->get('admin', 'website_group'),
 			'GROUPS' => $website_groups,
