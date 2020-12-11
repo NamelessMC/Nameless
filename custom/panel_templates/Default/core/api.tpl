@@ -82,8 +82,10 @@
                                 <div class="form-group">
                                     <label for="InputAPIKey">{$API_KEY}</label>
                                     <div class="input-group">
-                                        <input type="text" name="api_key" id="InputAPIKey" class="form-control" readonly value="{$API_KEY_VALUE}">
-                                        <span class="input-group-append"><a onclick="showRegenModal();" class="btn btn-info text-white">{$CHANGE}</a></span>
+                                        <input type="text" name="api_key" id="InputAPIKey" class="form-control" readonly value="{if $API_ENABLED} {$API_URL_VALUE} {else} {$ENABLE_API_FOR_URL} {/if}">
+                                        {if $API_ENABLED}
+                                            <span class="input-group-append"><a onclick="showRegenModal();" class="btn btn-info text-white">{$CHANGE}</a></span>
+                                        {/if}
                                     </div>
                                 </div>
 
