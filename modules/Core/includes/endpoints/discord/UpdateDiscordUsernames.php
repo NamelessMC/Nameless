@@ -1,7 +1,7 @@
 <?php
 /**
  * @param string $user JSON Array of user ID -> Discord username to update
- * 
+ *
  * @return string JSON Array
  */
 class UpdateDiscordUsernames extends EndpointBase {
@@ -16,7 +16,7 @@ class UpdateDiscordUsernames extends EndpointBase {
         if ($api->isValidated()) {
             if ($api->validateParams($_POST, ['users'])) {
                 foreach ($_POST['users'] as $row) {
-                    $user = $api->getUser('id', Output::getClean($row->id));
+                    $user = $api->getUser('discord_id', $row->id);
                     $discord_username = Output::getClean($row->name);
                     try {
                         $api->getDb()->update('users', $user->data()->id, array('discord_username' => $discord_username));
@@ -24,7 +24,7 @@ class UpdateDiscordUsernames extends EndpointBase {
                         $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_discord_username'));
                     }
                 }
-                
+
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'discord_usernames_updated')));
             }
         }
