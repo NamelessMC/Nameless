@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -10,7 +10,7 @@
  */
 
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
- 
+
 // Set the page name for the active link in navbar
 define('PAGE', 'forum');
 
@@ -18,7 +18,6 @@ $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
 $mentionsParser = new MentionsParser();
 
-require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of replies on a page
 require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
@@ -82,7 +81,7 @@ if(isset($_GET['p'])){
 		Redirect::to(URL::build('/forum'));
 		die();
 	} else {
-		if($_GET['p'] == 1){ 
+		if($_GET['p'] == 1){
 			// Avoid bug in pagination class
 			Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
 			die();
@@ -112,7 +111,7 @@ if(isset($_GET['pid'])){
 			Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)) . '#post-' . $_GET['pid']);
 			die();
 		}
-		
+
 	} else {
 		require_once(ROOT_PATH . '/404.php');
 		die();
@@ -241,12 +240,12 @@ if(Input::exists()) {
 			try {
 				$cache->setCache('post_formatting');
 				$formatting = $cache->retrieve('formatting');
-				
+
 				if($formatting == 'markdown'){
 					$content = Michelf\Markdown::defaultTransform(Input::get('content'));
 					$content = Output::getClean($content);
 				} else $content = Output::getClean(Input::get('content'));
-				
+
 				$queries->create("posts", array(
 					'forum_id' => $topic->forum_id,
 					'topic_id' => $tid,
@@ -255,7 +254,7 @@ if(Input::exists()) {
 					'post_date' => date('Y-m-d H:i:s'),
 					'created' => date('U')
 				));
-				
+
 				// Get last post ID
 				$last_post_id = $queries->getLastId();
 				$content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $tid, 'pid=' . $last_post_id), array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'), array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)));
@@ -263,7 +262,7 @@ if(Input::exists()) {
 				$queries->update("posts", $last_post_id, array(
 					'post_content' => $content
 				));
-				
+
 				$queries->update("forums", $topic->forum_id, array(
 					'last_topic_posted' => $tid,
 					'last_user_posted' => $user->data()->id,
@@ -353,7 +352,7 @@ if(Input::exists()) {
 								$email = array(
 									'to' => $user_info['email'],
 									'subject' => $subject,
-									'message' => $message, 
+									'message' => $message,
 									'headers' => $headers
 								);
 
@@ -378,7 +377,7 @@ if(Input::exists()) {
 				Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
 				Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
 				die();
-				
+
 			} catch(Exception $e){
 				die($e->getMessage());
 			}
@@ -572,7 +571,7 @@ $replies = array();
 // Display the correct number of posts
 for($n = 0; $n < count($results->data); $n++){
 	$post_creator = new User($results->data[$n]->post_creator);
-	
+
 	// Get user's group HTML formatting and their signature
 	$user_groups_html = $post_creator->getAllGroups('true');
 	$signature = $post_creator->getSignature();
@@ -838,7 +837,7 @@ if($user->isLoggedIn()){
 			$("#quoteButton").hide();
 		}
 	});
-	
+
 	// Add post to quoted posts array
 	function quote(post){
 		var index = quotedPosts.indexOf(post);
