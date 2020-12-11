@@ -100,7 +100,7 @@ class Language {
 			}
 		} else {
 			// Not set, display an error
-			return 'Term ' . Output::getClean($term) . ' not set';
+			return 'Term ' . Output::getClean($term) . ' not set (file: ' . $file . '.php)';
 		}
 	}
 

@@ -442,7 +442,7 @@ if(!isset($_GET['view'])){
 			'DELETE' => $language->get('general', 'delete'),
 			'NEW_RULE' => $language->get('admin', 'new_rule'),
 			'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
-			'DISCORD_INTEGRATION_NOT_ENABLED' => $language->get('api', 'discord_integration_disabled')
+			'DISCORD_INTEGRATION_NOT_SETUP' => $language->get('admin', 'discord_integration_not_setup')
 		));
 
 		$template_file = 'core/api_group_sync.tpl';

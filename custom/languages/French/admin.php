@@ -79,6 +79,7 @@ $language = array(
     'discord_widget_theme' => 'Thème Discord Widget',
     'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
+    'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => 'Sombre',
     'light' => 'Eclairé',
     'google_plus_url' => 'URL Google Plus',
