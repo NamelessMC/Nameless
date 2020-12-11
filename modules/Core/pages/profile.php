@@ -17,8 +17,6 @@ $timeago = new Timeago(TIMEZONE);
 require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
-require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of wall posts on a page
-
 $profile = explode('/', rtrim($_GET['route'], '/'));
 if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])){
 	// User specified
@@ -802,7 +800,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 	$smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
 	$smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
-	
+
 	require(ROOT_PATH . '/core/templates/navbar.php');
 	require(ROOT_PATH . '/core/templates/footer.php');
 
@@ -827,7 +825,7 @@ if(count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profi
 
 		$smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
 		$smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
-		
+
 		require(ROOT_PATH . '/core/templates/navbar.php');
 		require(ROOT_PATH . '/core/templates/footer.php');
 

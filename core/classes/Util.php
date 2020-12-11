@@ -26,7 +26,7 @@ class Util {
         ];
         return str_replace($cyrillic, $latin, $string);
 	}
-	
+
 	// Recursively remove a directory
 	// Params: $directory (string)	- path to directory to remove (required)
 	public static function recursiveRemoveDirectory($directory){
@@ -35,9 +35,9 @@ class Util {
 		} else {
 			return false;
 		}
-		
+
 		foreach(glob($directory . '/*') as $file){
-			if(is_dir($file)) { 
+			if(is_dir($file)) {
 				if(!self::recursiveRemoveDirectory($file))
 					return false;
 			} else {
@@ -48,45 +48,45 @@ class Util {
 		rmdir($directory);
 		return true;
 	}
-	
+
 	// Return an array containing all timezone lists
 	// No params
 	public static function listTimezones(){
 		// Array to contain timezones
 		$timezones = array();
-		
+
 		// Array to contain offsets
 		$offsets = array();
-		
+
 		// Get all PHP timezones
 		$all_timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
-		
+
 		// Get current UTC time to calculate offset
 		$current = new DateTime('now', new DateTimeZone('UTC'));
-		
+
 		foreach($all_timezones as $timezone){
 			// Get timezone offset
 			$current->setTimezone(new DateTimeZone($timezone));
-			
+
 			// Add offset to offset array
 			$offsets[] = $current->getOffset();
-			
+
 			// Format timezone offset
 			$offset = 'GMT ' . intval($current->getOffset() / 3600) . ':' . str_pad(abs(intval($current->getOffset() % 3600 / 60)), 2, 0);
-			
+
 			// Prettify timezone name
 			$name = Output::getClean(str_replace(array('/', '_'), array(', ', ' '), $timezone));
-			
+
 			// Add to timezones array
 			$timezones[$timezone] = array('offset' => $offset, 'name' => $name, 'time' => $current->format('H:i'));
-			
+
 		}
-		
+
 		array_multisort($offsets, $timezones);
-		
+
 		return $timezones;
 	}
-	
+
 	// Transform any plain-text URLs in a string to an HTML anchor tag with href attribute
 	// Regex pattern credit: https://daringfireball.net/2010/07/improved_regex_for_matching_urls
 	// "This pattern is free for anyone to use, no strings attached. Consider it public domain."
@@ -109,7 +109,7 @@ class Util {
 
 	   return preg_replace_callback($pattern, $callback, $text);
 	}
-	
+
 	// Get a Minecraft avatar from a UUID
 	public static function getAvatarFromUUID($uuid, $size = 128){
 		if(defined('DEFAULT_AVATAR_SOURCE')){

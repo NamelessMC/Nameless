@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -15,8 +15,6 @@ define('PAGE', 'forum');
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
-
-require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of topics on a page
 
 // Get forum ID
 $fid = explode('/', $route);
@@ -311,7 +309,7 @@ if($forum_query->redirect_forum == 1){
 			} else { // no
 				$label = '';
 			}
-			
+
 			$topic_user = new User($sticky->topic_creator);
 			$last_reply_user = new User($sticky->topic_last_user);
 
@@ -379,7 +377,7 @@ if($forum_query->redirect_forum == 1){
 			} else { // no
 				$label = '';
 			}
-			
+
 			$topic_user = new User($results->data[$n]->topic_creator);
 			$last_reply_user = new User($results->data[$n]->topic_last_user);
 
@@ -425,7 +423,7 @@ if($forum_query->redirect_forum == 1){
 
 	$smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
 	$smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
-	
+
 	require(ROOT_PATH . '/core/templates/navbar.php');
 	require(ROOT_PATH . '/core/templates/footer.php');
 
