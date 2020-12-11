@@ -16,8 +16,8 @@ class UpdateDiscordUsernames extends EndpointBase {
         if ($api->isValidated()) {
             if ($api->validateParams($_POST, ['users'])) {
                 foreach ($_POST['users'] as $row) {
-                    $user = $api->getUser('discord_id', $row->id);
-                    $discord_username = Output::getClean($row->name);
+                    $user = $api->getUser('discord_id', $row['id'] + 0);
+                    $discord_username = Output::getClean($row['name']);
                     try {
                         $api->getDb()->update('users', $user->data()->id, array('discord_username' => $discord_username));
                     } catch (Exception $e) {
