@@ -708,6 +708,15 @@ $language = array(
     'discord_invalid_api_url' => 'Parece que la URL de su API ha cambiado. Haz que el propietario del gremio actualice la URL con el bot Nameless Link.',
     'test_bot_url' => 'Probar URL del bot',
     'discord_bot_url_valid' => 'La URL de su bot es válida.',
-    'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?'
+    'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?',
+
+    // Discord bot Errors
+    'discord_bot_error_badparameter' => 'Invalid request body.',
+    'discord_bot_error_error' => 'An internal bot error occured.',
+    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
+    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
+    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
+    'discord_bot_error_unauthorized' => 'Website API key is invalid',
+    'discord_bot_error_invrole' => 'Provided Role ID is invalid.'
 
 );

@@ -2,7 +2,7 @@
 
 /**
  * @param int $user NamelessMC ID of user to view
- * @param json array $groups ID of group ids
+ * @param string array $groups ID of group ids
  * 
  * @return string JSON Array
  */

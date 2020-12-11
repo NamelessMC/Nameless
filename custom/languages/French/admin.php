@@ -644,5 +644,14 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'source' => 'Source',
     'support' => 'Support',
     'admin_dir_still_exists' => 'Attention ! Le répertoire <strong>modules/Core/pages/admin</strong> existe toujours. Veuillez supprimer ce répertoire.',
-    'mod_dir_still_exists' => 'Attention! Le répertoire <strong>modules/Core/pages/mod</strong> existe toujours. Veuillez supprimer ce répertoire.'
+    'mod_dir_still_exists' => 'Attention! Le répertoire <strong>modules/Core/pages/mod</strong> existe toujours. Veuillez supprimer ce répertoire.',
+
+    // Discord bot Errors
+    'discord_bot_error_badparameter' => 'Invalid request body.',
+    'discord_bot_error_error' => 'An internal bot error occured.',
+    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
+    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
+    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
+    'discord_bot_error_unauthorized' => 'Website API key is invalid',
+    'discord_bot_error_invrole' => 'Provided Role ID is invalid.'
 );
