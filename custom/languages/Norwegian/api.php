@@ -50,7 +50,8 @@ $language = array(
     'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
     'unable_to_update_discord_username' => 'Unable to update Discord username.',
     'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
-
+    'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
+    
     // Success messages
     'finish_registration_link' => 'Vennligst klikk på følgende lenke for å fullføre registeringen:',
     'finish_registration_email' => 'Vennligst sjekk inboksen din for å fullføre registeringen.',
