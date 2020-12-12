@@ -29,13 +29,11 @@ class RemoveDiscordRolesEndpoint extends EndpointBase {
                 foreach ($roles as $role_id) {
                     $group = Discord::getWebsiteGroup(DB::getInstance(), $role_id);
                     if ($group != null) {
-                        if (in_array($group['group']->id, $user->data()->_groups)) {
-                            try {
-                                $user->removeGroup($group['group']->id);
-                                $message .= $group['group']->name . ', ';
-                            } catch (Exception $e) {
-                                $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
-                            }
+                        try {
+                            $user->removeGroup($group['group']->id);
+                            $message .= $group['group']->name . ', ';
+                        } catch (Exception $e) {
+                            $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
                         }
                     }
                 }
