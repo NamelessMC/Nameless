@@ -207,7 +207,7 @@ if($forum_query->redirect_forum == 1){
 					$latest_post_link = URL::build('/forum/topic/' . $latest_post->id . '-' . $forum->titleToURL($latest_post->topic_title));
 					$latest_post_avatar = $latest_post_user->getAvatar("../", 128);
 					$latest_post_title = Output::getClean($latest_post->topic_title);
-					$latest_post_user = $latest_post_user->getDisplayname();
+					$latest_post_user_displayname = $latest_post_user->getDisplayname();
 					$latest_post_user_link = $latest_post_user->getProfileURL();
 					$latest_post_style = $latest_post_user->getGroupClass();
 					$latest_post_date_timeago = $timeago->inWords(date('d M Y, H:i', $latest_post->topic_reply_date), $language->getTimeLanguage());
@@ -218,7 +218,7 @@ if($forum_query->redirect_forum == 1){
 						'link' => $latest_post_link,
 						'title' => $latest_post_title,
 						'last_user_avatar' => $latest_post_avatar,
-						'last_user' => $latest_post_user,
+						'last_user' => $latest_post_user_displayname,
 						'last_user_style' => $latest_post_style,
 						'last_user_link' => $latest_post_user_link,
 						'timeago' => $latest_post_date_timeago,
