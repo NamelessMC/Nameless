@@ -237,7 +237,7 @@ if(Input::exists()){
 							foreach($_POST['groups'] as $group) {
 								if(!in_array($group, $user_groups)) {
 									$view_user->addGroup($group);
-									Discord::addDiscordRole($user_query, $group, $language);
+									Discord::addDiscordRole($view_user, $group, $language);
 								}
 							}
 							
@@ -250,7 +250,7 @@ if(Input::exists()){
 									}
 									
 									$view_user->removeGroup($group->id);
-									Discord::removeDiscordRole($user_query, $group->id, $language);
+									Discord::removeDiscordRole($view_user, $group->id, $language);
 								}
 							}
 						}
