@@ -93,7 +93,7 @@
 							  <label for="InputName">{$HOOK_EVENTS}</label>
 							  {foreach from=$ALL_HOOKS key=key item=item}
 							  <div class="form-group">
-								<input type="checkbox" name="events[{$key|escape}]" class="js-switch" value="1"> {$item|escape}
+								{$item|escape} <input type="checkbox" name="events[{$key|escape}]" class="js-switch" value="1">
 								</br>
 							  </div>
 							  {/foreach}
