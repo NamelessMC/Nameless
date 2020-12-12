@@ -136,11 +136,7 @@ if(!isset($_GET['action'])){
 							else $basic = 0;
 
 							$page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
-
-							if (substr($page_url, 0, strlen($page_url)) !== '/') {
-								$page_url = '/' . $page_url;
-							}
-
+							
 							$queries->create('custom_pages', array(
 								'url' => $page_url,
 								'title' => Output::getClean(Input::get('page_title')),
