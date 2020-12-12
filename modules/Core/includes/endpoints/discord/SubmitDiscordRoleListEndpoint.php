@@ -2,7 +2,7 @@
 
 /**
  * @param string $roles An array of Discord Roles with their name and ID
- * 
+ *
  * @return string JSON Array
  */
 class SubmitDiscordRoleListEndpoint extends EndpointBase {
@@ -21,7 +21,7 @@ class SubmitDiscordRoleListEndpoint extends EndpointBase {
                 $roles = json_encode($_POST['roles']);
 
                 try {
-                    $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', array($roles, 'discord_roles'));
+                    $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = "discord_roles"', array($roles));
                 } catch (Exception $e) {
                     $api->throwError(33, $api->getLanguage()->get('api', 'unable_to_update_discord_roles'));
                 }
