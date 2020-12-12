@@ -154,3 +154,9 @@
         </div>
       {/foreach}
     {/if}
+
+    {if isset($MUST_VALIDATE_ACCOUNT)}
+      <div class="ui message">
+        {$MUST_VALIDATE_ACCOUNT}
+      </div>
+    {/if}
