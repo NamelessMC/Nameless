@@ -105,7 +105,7 @@ if(!isset($_GET['c'])){
                     if (!isset($error)) {
                         $target_user->update(array(
                             'reset_code' => $code
-                        ));
+                        ), $target_user->data()->id);
                     }
 
                 }
