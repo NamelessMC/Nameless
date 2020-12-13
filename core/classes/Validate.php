@@ -10,7 +10,8 @@
  *
  * 	TODO: Regex validation? Example: Discord
  */
-class Validate {
+class Validate
+{
 
     // Variables
     private $_passed = false,
@@ -19,16 +20,16 @@ class Validate {
 
     // Construct Validate class
     // No parameters
-    public function __construct(){
+    public function __construct()
+    {
         // Connect to database in order to check whether user's data
         try {
             $host = Config::get('mysql/host');
-        }
-        catch(Exception $e) {
+        } catch(Exception $e) {
             $host = null;
         }
 
-        if(!empty($host)){
+        if (!empty($host)) {
             $this->_db = DB::getInstance();
         }
     }
@@ -36,7 +37,8 @@ class Validate {
     // Validate an array of inputs
     // Params: $source (array) - the array containing the form input (eg $_POST)
     //         $items (array)  - contains an array of items which need to be validated
-    public function check($source, $items = array()){
+    public function check($source, $items = array())
+    {
 
         // Loop through the items which need validating
         foreach($items as $item => $rules) {
@@ -50,128 +52,128 @@ class Validate {
                 $item = Output::getClean($item);
 
                 // Required rule
-                if($rule === 'required' && empty($value)){
+                if ($rule === 'required' && empty($value)) {
                     // The post array does not include this value, return an error
                     $this->addError("{$item} is required");
 
-                } else if(!empty($value)){
+                } else if (!empty($value)) {
                     // The post array does include this value, continue validating
                     switch($rule){
-                        // Minimum of $rule_value characters
-                        case 'min';
-                            if(strlen($value) < $rule_value){
-                                // Not a minumum of $rule_value characters, return an error
-                                $this->addError("{$item} must be a minimum of {$rule_value} characters.");
-                            }
+                    // Minimum of $rule_value characters
+                    case 'min';
+                        if (strlen($value) < $rule_value) {
+                            // Not a minumum of $rule_value characters, return an error
+                            $this->addError("{$item} must be a minimum of {$rule_value} characters.");
+                        }
                         break;
 
-                        // Maximum of $rule_value characters
-                        case 'max';
-                            if(strlen($value) > $rule_value) {
-                                // Above the maximum of $rule_value characters, return an error
-                                $this->addError("{$item} must be a maximum of {$rule_value} characters.");
-                            }
+                    // Maximum of $rule_value characters
+                    case 'max';
+                        if(strlen($value) > $rule_value) {
+                            // Above the maximum of $rule_value characters, return an error
+                            $this->addError("{$item} must be a maximum of {$rule_value} characters.");
+                        }
                         break;
 
-                        // Check value matches another value
-                        case 'matches';
-                            if($value != $source[$rule_value]){
-                                // Value does not match, return an error
-                                $this->addError("{$rule_value} must match {$item}.");
-                            }
+                    // Check value matches another value
+                    case 'matches';
+                        if($value != $source[$rule_value]){
+                            // Value does not match, return an error
+                            $this->addError("{$rule_value} must match {$item}.");
+                        }
                         break;
 
-                        // Check the user has agreed to the terms and conditions
-                        case 'agree';
-                            if($value != 1){
-                                // The user has not agreed, return an error
-                                $this->addError("You must agree to our terms and conditions in order to register.");
-                            }
+                    // Check the user has agreed to the terms and conditions
+                    case 'agree';
+                        if($value != 1){
+                            // The user has not agreed, return an error
+                            $this->addError("You must agree to our terms and conditions in order to register.");
+                        }
                         break;
 
-                        // Check the value has not already been inputted in the database
-                        case 'unique';
-                            $check = $this->_db->get($rule_value, array($item, '=', $value));
-                            if($check->count()){
-                                // The value has already been inputted, return an error
-                                $this->addError("The username/email {$item} already exists!");
-                            }
+                    // Check the value has not already been inputted in the database
+                    case 'unique';
+                        $check = $this->_db->get($rule_value, array($item, '=', $value));
+                        if($check->count()){
+                            // The value has already been inputted, return an error
+                            $this->addError("The username/email {$item} already exists!");
+                        }
                         break;
 
-                        /*
-                         * TODO: Fix isvalid
-                         *
-                        case 'isvalid';
-                            $username = escape($value);
-                            $username = str_replace(' ', '%20', $username);
-                            $check_mcUser = file_get_contents('http://www.minecraft.net/haspaid.jsp?user='.($username).'');
-                            if($check_mcUser == 'false'){
-                                $this->addError("Your Minecraft name is not a valid Minecraft account.");
-                            }
-                        break;
-                        */
+                    /*
+                        * TODO: Fix isvalid
+                        *
+                    case 'isvalid';
+                        $username = escape($value);
+                        $username = str_replace(' ', '%20', $username);
+                        $check_mcUser = file_get_contents('http://www.minecraft.net/haspaid.jsp?user='.($username).'');
+                        if($check_mcUser == 'false'){
+                            $this->addError("Your Minecraft name is not a valid Minecraft account.");
+                        }
+                    break;
+                    */
 
-                        // Check if email is valid
-                        case 'email';
-                            if(!filter_var($value, FILTER_VALIDATE_EMAIL)){
-                                // Value is not a valid email
-                                $this->addError("{$value} is not a valid email.");
-                            }
-                        break;
-
-                        case 'timezone':
-                            if (!in_array($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL))) {
-                                $this->addError("The timezone {$item} is invalid.");
-                            }
+                    // Check if email is valid
+                    case 'email';
+                        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                            // Value is not a valid email
+                            $this->addError("{$value} is not a valid email.");
+                        }
                         break;
 
-                        // Check that the specified user account is set as active (ie validated)
-                        case 'isactive';
-                            $check = $this->_db->get('users', array($item, '=', $value));
-                            if($check->count()){
-                                $isuseractive = $check->first()->active;
-                                if($isuseractive == 0) {
-                                    // Not active, return an error
-                                    $this->addError("That username is inactive. Have you validated your account or requested a password reset?");
-                                }
-                            }
+                    case 'timezone':
+                        if (!in_array($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL))) {
+                            $this->addError("The timezone {$item} is invalid.");
+                        }
                         break;
 
-                        // Check that the specified user account is not banned
-                        case 'isbanned';
-                            $check = $this->_db->get('users', array($item, '=', $value));
-                            if($check->count()){
-                                $isuserbanned = $check->first()->isbanned;
-                                if($isuserbanned == 1){
-                                    // The user is banned, return an error
-                                    $this->addError("The username {$item} is banned.");
-                                }
+                    // Check that the specified user account is set as active (ie validated)
+                    case 'isactive';
+                        $check = $this->_db->get('users', array($item, '=', $value));
+                        if ($check->count()) {
+                            $isuseractive = $check->first()->active;
+                            if ($isuseractive == 0) {
+                                // Not active, return an error
+                                $this->addError("That username is inactive. Have you validated your account or requested a password reset?");
                             }
+                        }
                         break;
 
-                        case 'isbannedip';
-                            // Todo: Check if IP is banned
+                    // Check that the specified user account is not banned
+                    case 'isbanned';
+                        $check = $this->_db->get('users', array($item, '=', $value));
+                        if ($check->count()) {
+                            $isuserbanned = $check->first()->isbanned;
+                            if ($isuserbanned == 1) {
+                                // The user is banned, return an error
+                                $this->addError("The username {$item} is banned.");
+                            }
+                        }
                         break;
 
-                        case 'alphanumeric':
-                            if(!ctype_alnum($value)){
-                                // $value is not alphanumeric
-                                $this->addError("{$item} must be alphanumeric.");
-                            }
+                    case 'isbannedip';
+                        // Todo: Check if IP is banned
                         break;
 
-                        case 'numeric':
-                            if(!is_numeric($value)){
-                                // $value is not numeric
-                                $this->addError("{$item} must be numeric.");
-                            }
+                    case 'alphanumeric':
+                        if (!ctype_alnum($value)) {
+                            // $value is not alphanumeric
+                            $this->addError("{$item} must be alphanumeric.");
+                        }
+                        break;
+
+                    case 'numeric':
+                        if (!is_numeric($value)) {
+                            // $value is not numeric
+                            $this->addError("{$item} must be numeric.");
+                        }
                         break;
                     }
                 }
             }
         }
 
-        if(empty($this->_errors)){
+        if(empty($this->_errors)) {
             // Only return true if there are no errors
             $this->_passed = true;
         }
@@ -182,19 +184,22 @@ class Validate {
 
     // Add an error to the error array
     // No parameters
-    private function addError($error){
+    private function addError($error)
+    {
         $this->_errors[] = $error;
     }
 
     // Return the array of errors
     // No parameters
-    public function errors(){
+    public function errors()
+    {
         return $this->_errors;
     }
 
     // Return whether the validation passed (true or false)
     // No parameters
-    public function passed(){
+    public function passed()
+    {
         return $this->_passed;
     }
 }
