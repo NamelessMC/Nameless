@@ -526,7 +526,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'Включить API?',
-    'api_info' => 'API позволяет плагинам и другим сервисам взаимодействовать с вашим сайтом. Например, это необходимо для <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >Nameless плагина</a>.',
+    'api_info' => 'API позволяет плагинам и другим сервисам взаимодействовать с вашим сайтом. Например, это необходимо для <a href="https://plugin.namelessmc.com" target="_blank" >Nameless плагина</a>.',
     'enable_legacy_api' => 'Включить устаревший API?',
     'legacy_api_info' => 'Устаревший API позволяет плагинам, использующим старый Nameless API версии 1, работать с вашим сайтом версии 2.',
     'confirm_api_regen' => 'Вы уверены, что хотите восстановить свой ключ API?',

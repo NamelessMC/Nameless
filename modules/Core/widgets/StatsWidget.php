@@ -19,17 +19,15 @@ class StatsWidget extends WidgetBase {
 
         parent::__construct($pages);
 
-        // Get order
-		$order = DB::getInstance()->query('SELECT `order` FROM nl2_widgets WHERE `name` = ?', array('Statistics'))->first();
-		// Get location
-		$location = DB::getInstance()->query('SELECT `location` FROM nl2_widgets WHERE `name` = ?', array('Statistics'))->first();
+        // Get widget
+        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Statistics'))->first();
 
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Statistics';
-		$this->_location = $location->location;
+		$this->_location = $widget_query->location;
         $this->_description = 'Displays the basic statistics of your website.';
-        $this->_order = $order->order;
+        $this->_order = $widget_query->order;
     }
 
     public function initialise(){

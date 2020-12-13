@@ -558,7 +558,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'Povolit API?',
-    'api_info' => 'Rozhraní API umožňuje interakci pluginů, jako je například <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >oficiální Nameless plugin</a>, a dalších služeb s vašimi webovými stránkami.',
+    'api_info' => 'Rozhraní API umožňuje interakci pluginů, jako je například <a href="https://plugin.namelessmc.com" target="_blank" >oficiální Nameless plugin</a>, a dalších služeb s vašimi webovými stránkami.',
     'enable_legacy_api' => 'Povolit staré rozhraní API?',
     'legacy_api_info' => 'Staré rozhraní API umožňuje používat pluginy, které používají staré rozhraní API NamelessMC verze 1 pro práci s webovými stránkami verze 2.',
     'confirm_api_regen' => 'Opravdu chcete obnovit klíč API?',

@@ -48,7 +48,7 @@ class HTMLPurifier_Printer_ConfigForm extends HTMLPurifier_Printer
         $this->compress = $compress;
         // initialize sub-printers
         $this->fields[0] = new HTMLPurifier_Printer_ConfigForm_default();
-        $this->fields[HTMLPurifier_VarParser::BOOL] = new HTMLPurifier_Printer_ConfigForm_bool();
+        $this->fields[HTMLPurifier_VarParser::C_BOOL] = new HTMLPurifier_Printer_ConfigForm_bool();
     }
 
     /**
@@ -327,6 +327,10 @@ class HTMLPurifier_Printer_ConfigForm_default extends HTMLPurifier_Printer
                 case HTMLPurifier_VarParser::HASH:
                     $nvalue = '';
                     foreach ($value as $i => $v) {
+                        if (is_array($v)) {
+                            // HACK
+                            $v = implode(";", $v);
+                        }
                         $nvalue .= "$i:$v" . PHP_EOL;
                     }
                     $value = $nvalue;
@@ -335,7 +339,7 @@ class HTMLPurifier_Printer_ConfigForm_default extends HTMLPurifier_Printer
                     $value = '';
             }
         }
-        if ($type === HTMLPurifier_VarParser::MIXED) {
+        if ($type === HTMLPurifier_VarParser::C_MIXED) {
             return 'Not supported';
             $value = serialize($value);
         }

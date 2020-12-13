@@ -561,7 +561,7 @@ if($page != 'install'){
 			}
 		}
 
-        if ($forced) {
+        if (isset($forced) && $forced) {
             // Do they have TFA configured?
             if (!$user->data()->tfa_enabled) {
                 if (strpos($_SERVER[REQUEST_URI], 'do=enable_tfa') === false) {

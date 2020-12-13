@@ -557,7 +557,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'Activare API?',
-    'api_info' => 'API permite ca pluginurile și alte servicii să interacționeze cu site-ul dvs. web, cum ar fi <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >pluginul oficial Nameless</a>.',
+    'api_info' => 'API permite ca pluginurile și alte servicii să interacționeze cu site-ul dvs. web, cum ar fi <a href="https://plugin.namelessmc.com" target="_blank" >pluginul oficial Nameless</a>.',
     'enable_legacy_api' => 'Activați API-ul vechi?',
     'legacy_api_info' => 'API-ul vechi permite pluginurilor care utilizează API-ul versiunii vechi Nameless 1 să lucreze cu site-ul dvs. Nameless versiunea 2.',
     'confirm_api_regen' => 'Sigur doriți să vă regenerați cheia API?',
