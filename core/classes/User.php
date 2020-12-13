@@ -581,6 +581,12 @@ class User
         return $this->_isAdmLoggedIn;
     }
 
+    // Returns whether this user has been validated/activated
+    public function isValidated()
+    {
+        return $this->data()->active;
+    }
+
     // Return a comma separated string of all users - this is for the new private message dropdown
     public function listAllUsers()
     {

@@ -454,6 +454,20 @@ class Core_Module extends Module {
 			define('VALIDATED_DEFAULT', $validate_action['group']);
 		}
 
+		// Define default group pre validation
+		$cache->setCache('pre_validation_default');
+		$group_id = null;
+
+		if ($cache->isCached('pre_validation_default')) {
+			$group_id = $cache->retrieve('pre_validation_default');
+
+		} else {
+			$group_id = $queries->getWhere('groups', array('default_group', '=', '1'));
+			$group_id = $group_id[0]->id;
+		}
+
+		define('PRE_VALIDATED_DEFAULT', $group_id);
+
 		// Check for updates
 		if($user->isLoggedIn()){
 			if($user->hasPermission('admincp.update')){

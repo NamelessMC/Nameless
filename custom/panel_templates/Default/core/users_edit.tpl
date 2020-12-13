@@ -86,6 +86,20 @@
                                 </div>
                             {/if}
 
+                            {if isset($WARNINGS) && count($WARNINGS)}
+                                <div class="alert alert-warning alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5><i class="icon fas fa-exclamation-triangle"></i> {$WARNINGS_TITLE}</h5>
+                                    <ul>
+                                        {foreach from=$WARNINGS item=warning}
+                                            <li>{$warning}</li>
+                                        {/foreach}
+                                    </ul>
+                                </div>
+                            {/if}
+
                             <form role="form" action="" method="post">
                                 <div class="form-group">
                                     <label for="InputMCUsername">{$USERNAME}</label>

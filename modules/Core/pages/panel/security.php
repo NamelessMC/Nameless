@@ -197,8 +197,7 @@ if(!isset($_GET['view'])){
 			}
 
 			$log_title = $language->get('admin', 'discord_logs');
-			$logs_remove = $queries->orderWhere('logs', 'action = \'discord_role_remove\'', 'time', 'DESC');
-			$logs_add = $queries->orderWhere('logs', 'action = \'discord_role_add\'', 'time', 'DESC');
+			$logs_set = $queries->orderWhere('logs', 'action = \'discord_role_set\'', 'time', 'DESC');
 
 			$cols = 4;
 			$col_titles = array(
@@ -209,24 +208,7 @@ if(!isset($_GET['view'])){
 			);
 			$rows = array();
 
-			foreach ($logs_remove as $log) {
-				$rows[] = array(
-					0 => array(
-						'content' => '<a style="' . $user->getGroupClass($log->user_id) . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $user->idToName($log->user_id))) . '">' . Output::getClean($user->idToNickname($log->user_id)) . '</a>'
-					),
-					1 => array(
-						'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
-					),
-					2 => array(
-						'content' => date('d M Y, H:i', $log->time),
-						'order' => Output::getClean($log->time)
-					),
-					3 => array(
-						'content' => Output::getClean($log->info)
-					)
-				);
-			}
-			foreach ($logs_add as $log) {
+			foreach ($logs_set as $log) {
 				$rows[] = array(
 					0 => array(
 						'content' => '<a style="' . $user->getGroupClass($log->user_id) . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $user->idToName($log->user_id))) . '">' . Output::getClean($user->idToNickname($log->user_id)) . '</a>'

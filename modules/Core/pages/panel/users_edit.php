@@ -336,6 +336,9 @@ if(Session::exists('edit_user_success'))
 if(Session::exists('edit_user_errors'))
 	$errors = Session::flash('edit_user_errors');
 
+if (Session::exists('edit_user_warnings'))
+	$warnings = Session::flash('edit_user_warnings');
+
 if(isset($success))
 	$smarty->assign(array(
 		'SUCCESS' => $success,
@@ -347,6 +350,13 @@ if(isset($errors) && count($errors))
 		'ERRORS' => $errors,
 		'ERRORS_TITLE' => $language->get('general', 'error')
 	));
+
+if (isset($warnings) && count($warnings)) {
+	$smarty->assign(array(
+		'WARNINGS' => $warnings,
+		'WARNINGS_TITLE' => $language->get('admin', 'warning')
+	));
+}
 
 if($user_query->active == 0){
 	$smarty->assign(array(

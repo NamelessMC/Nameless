@@ -166,8 +166,7 @@ class Log{
             //TODO API STUFF
         ],
         'discord' => [
-            'role_add' => 'discord_role_add',
-            'role_remove' => 'discord_role_remove',
+            'role_set' => 'discord_role_set',
             'upon_validation_error' => 'upon_validation_error'
         ]
     ];

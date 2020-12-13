@@ -10,11 +10,11 @@
  */
 class Discord {
 
-    private static $valid_responses = array('success', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
+    private const VALID_RESPONSES = array('success', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
 
     public static function discordBotRequest($url = '/', $body = null) {
-        $bot_url_attempt = Util::curlGetContents(BOT_URL . $url, $body);
-        if (in_array($bot_url_attempt, self::$valid_responses)) return $bot_url_attempt;
+        $response = Util::curlGetContents(BOT_URL . $url, $body);
+        if (in_array($response, self::VALID_RESPONSES)) return $response;
         else return false;
     }
 
@@ -42,11 +42,15 @@ class Discord {
                 $result = self::discordBotRequest('/roleChange', $json);
                 if ($result != 'success') {
 
-                    $errors = self::parseErrors($result, $language);
+                    if ($result != 'hierarchy') {
 
-                    Session::flash('edit_user_errors', $errors);
-                    Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
-                    die();
+                        Session::flash('edit_user_errors', self::parseErrors($result, $language));
+                        Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
+                        die();
+
+                    } else {
+                        Session::flash('edit_user_warnings', array($language->get('admin', 'discord_bot_error_hierarchy')));
+                    }
                 }
             }
         }
@@ -61,13 +65,21 @@ class Discord {
                 $result = self::discordBotRequest('/roleChange', $json);
                 if ($result != 'success') {
 
-                    $errors = self::parseErrors($result, $language);
+                    if ($result != 'hierarchy') {
 
-                    if ($redirect) {
-                        Session::flash('edit_user_errors', $errors);
-                        Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
-                        die();
-                    } else return $errors;
+                        $errors = self::parseErrors($result, $language);
+
+                        if ($redirect) {
+                            Session::flash('edit_user_errors', $errors);
+                            Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
+                            die();
+                        } else return $errors;
+
+                    } else {
+                        if ($redirect) {
+                            Session::flash('edit_user_warnings', array($language->get('admin', 'discord_bot_error_hierarchy')));
+                        }
+                    }
                 }
             }
         }
@@ -80,7 +92,7 @@ class Discord {
             // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
             $errors[] = $language->get('user', 'discord_communication_error');
         } else {
-            if (in_array($result, self::$valid_responses)) {
+            if (in_array($result, self::VALID_RESPONSES)) {
                 $errors[] = $language->get('admin', 'discord_bot_error_' . $result);
             } else {
                 // This should never happen

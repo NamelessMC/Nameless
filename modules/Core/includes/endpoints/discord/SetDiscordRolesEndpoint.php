@@ -44,13 +44,19 @@ class SetDiscordRolesEndpoint extends EndpointBase {
                     }
 
                     if ($message != '') {
-                        Log::getInstance()->log(Log::Action('discord/role_add'), 'Roles changed to: ' . rtrim($message, ', '), $user->data()->id);
+                        Log::getInstance()->log(Log::Action('discord/role_set'), 'Roles changed to: ' . rtrim($message, ', '), $user->data()->id);
                     }
 
                 } else {
 
                     foreach ($user->getAllGroupIds() as $group_id) {
                         $user->removeGroup($group_id);
+                    }
+
+                    if ($user->isValidated()) {
+                        $user->setGroup(VALIDATED_DEFAULT);
+                    } else {
+                        $user->setGroup(DEFAULT_GROUP);
                     }
 
                 }

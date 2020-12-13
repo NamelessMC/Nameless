@@ -653,5 +653,6 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
     'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
     'discord_bot_error_unauthorized' => 'Website API key is invalid',
-    'discord_bot_error_invrole' => 'Provided Role ID is invalid.'
+    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
 );
