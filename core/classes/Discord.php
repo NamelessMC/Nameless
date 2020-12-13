@@ -12,7 +12,7 @@ class Discord {
 
     public static function discordBotRequest($url = '/', $body = null) {
         $bot_url_attempt = Util::curlGetContents(BOT_URL . $url, $body);
-        $valid_responses = array('success', 'failure-cannot-interact', 'failure-invalid-api-url');
+        $valid_responses = array('success', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
         if (in_array($bot_url_attempt, $valid_responses)) return $bot_url_attempt;
         else return false;
     }
@@ -40,7 +40,7 @@ class Discord {
 
                 $result = self::discordBotRequest('/roleChange', $json);
                 if ($result != 'success') {
-                    
+
                     $errors = self::parseErrors($result, $language);
 
                     Session::flash('edit_user_errors', $errors);
