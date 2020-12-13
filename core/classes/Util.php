@@ -477,10 +477,16 @@ class Util {
 
         }
         $contents = curl_exec($ch);
-        curl_close($ch);
 
-        if ($contents) return $contents;
-        else return false;
+        if ($contents) {
+            curl_close($ch);
+            return $contents;
+        }
+        else {
+            Log::getInstance()->log(Log::Action('misc/curl_error'), curl_error($ch));
+            curl_close($ch);
+            return false;
+        }
     }
 
     /*
