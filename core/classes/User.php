@@ -72,7 +72,7 @@ class User {
     // Update a user's data
     public function update($fields = array(), $id = null) {
 
-        if (!$id && $this->isLoggedIn()) {
+        if (!$id) {
             $id = $this->data()->id;
         }
 
