@@ -38,7 +38,10 @@ class RemoveDiscordRolesEndpoint extends EndpointBase {
                     }
                 }
 
-                Log::getInstance()->log(Log::Action('discord/role_remove'), 'Roles removed: ' . rtrim($message, ', '), $user->data()->id);
+                if ($message != '') {
+                    Log::getInstance()->log(Log::Action('discord/role_remove'), 'Roles removed: ' . rtrim($message, ', '), $user->data()->id);
+                }
+
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
             }
         }
