@@ -40,27 +40,9 @@ class Discord {
 
                 $result = self::discordBotRequest('/roleChange', $json);
                 if ($result != 'success') {
-                    if ($result === false) {
-                        // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
-                        $errors[] = $language->get('user', 'discord_communication_error');
-                    } else {
-                        switch ($result) {
+                    
+                    $errors = self::parseErrors($result, $language);
 
-                            case 'badparameter':
-                            case 'error':
-                            case 'invguild':
-                            case 'invuser':
-                            case 'notlinked':
-                            case 'unauthorized':
-                            case 'invrole':
-                                $errors[] = $language->get('admin', 'discord_bot_error_' . $result);
-                            break;
-                            default:
-                                // This should never happen
-                                $errors[] = $language->get('user', 'discord_unknown_error');
-                                break;
-                        }
-                    }
                     Session::flash('edit_user_errors', $errors);
                     Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
                     die();
@@ -77,27 +59,9 @@ class Discord {
 
                 $result = self::discordBotRequest('/roleChange', $json);
                 if ($result != 'success') {
-                    if ($result === false) {
-                        // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
-                        $errors[] = $language->get('user', 'discord_communication_error');
-                    } else {
-                        switch ($result) {
 
-                            case 'badparameter':
-                            case 'error':
-                            case 'invguild':
-                            case 'invuser':
-                            case 'notlinked':
-                            case 'unauthorized':
-                            case 'invrole':
-                                $errors[] = $language->get('admin', 'discord_bot_error_' . $result);
-                                break;
-                            default:
-                                // This should never happen
-                                $errors[] = $language->get('user', 'discord_unknown_error');
-                                break;
-                        }
-                    }
+                    $errors = self::parseErrors($result, $language);
+
                     if ($redirect) {
                         Session::flash('edit_user_errors', $errors);
                         Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
@@ -108,6 +72,34 @@ class Discord {
         }
     }
 
+    private static function parseErrors($result, Language $language) {
+        $errors = array();
+
+        if ($result === false) {
+            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
+            $errors[] = $language->get('user', 'discord_communication_error');
+        } else {
+            switch ($result) {
+
+                case 'badparameter':
+                case 'error':
+                case 'invguild':
+                case 'invuser':
+                case 'notlinked':
+                case 'unauthorized':
+                case 'invrole':
+                    $errors[] = $language->get('admin', 'discord_bot_error_' . $result);
+                    break;
+                default:
+                    // This should never happen
+                    $errors[] = $language->get('user', 'discord_unknown_error');
+                    break;
+            }
+        }
+
+        return $errors;
+    }
+    
     private static function assembleJson($user_id, $action, $role_id) {
         // TODO cache or define() website api key and discord guild id
         $return = array();
