@@ -142,17 +142,17 @@
                                     <label for="InputSignature">{$SIGNATURE}</label>
                                     <textarea style="width:100%" rows="10" name="signature" id="InputSignature">{$SIGNATURE_VALUE}</textarea>
                                 </div>
-                                {if isset($CANT_EDIT_GROUP)}
-                                    <div class="alert alert-warning">
-                                        {$CANT_EDIT_GROUP}
-                                    </div>
-                                {/if}
                                 <div class="form-group">
                                     <label for="inputGroups">{$GROUPS}</label>
                                     <div class="callout callout-info">
                                         <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
                                         {$GROUPS_INFO}
                                     </div>
+                                    {if isset($CANT_EDIT_GROUP)}
+                                        <div class="alert alert-warning">
+                                            {$CANT_EDIT_GROUP}
+                                        </div>
+                                    {/if}
                                     <select class="form-control" name="groups[]" id="inputGroups" multiple>
                                         {foreach from=$ALL_GROUPS item=item}
                                         <option value="{$item->id}"{if in_array($item->id, $GROUPS_VALUE)} selected{/if}>{$item->name|escape}</option>
