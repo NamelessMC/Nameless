@@ -555,7 +555,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'Įjungti API?',
-    'api_info' => 'API leidžia papildiniams ir kitoms paslaugoms bendrauti su jūsų svetaine, pvz., <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >oficialus NamelessMC plugin</a>.',
+    'api_info' => 'API leidžia papildiniams ir kitoms paslaugoms bendrauti su jūsų svetaine, pvz., <a href="https://plugin.namelessmc.com" target="_blank" >oficialus NamelessMC plugin</a>.',
     'enable_legacy_api' => 'Įjungti senąjį API?',
     'legacy_api_info' => 'Senasis API leidžia papildintuvus, kurie naudoja seną NamelessMC 1 versijos API, dirbti su jūsų 2 versijos svetaine.',
     'confirm_api_regen' => 'Ar tikrai norite sugeneruoti savo API raktą iš naujo?',

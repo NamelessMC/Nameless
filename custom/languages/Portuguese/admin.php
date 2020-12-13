@@ -557,7 +557,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'Ativar a API?',
-    'api_info' => 'A API permite que plugins e outros serviços interajam com o seu site, como o <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >como o plugin Nameless oficial</a>.',
+    'api_info' => 'A API permite que plugins e outros serviços interajam com o seu site, como o <a href="https://plugin.namelessmc.com" target="_blank" >como o plugin Nameless oficial</a>.',
     'enable_legacy_api' => 'Ativar API legacy?',
     'legacy_api_info' => 'A API legacy permite que plugins que usam a API antiga do Nameless v1 funcionem com a versão atual do Nameless.',
     'confirm_api_regen' => 'Tem certeza de que deseja gerar uma nova chave para API?',

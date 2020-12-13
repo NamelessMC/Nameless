@@ -559,7 +559,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'API aanzetten?',
-    'api_info' => 'De API staat toe dat plugins en andere services mogen communiceren met je website, zoals de <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >officiële Nameless plugin</a>.',
+    'api_info' => 'De API staat toe dat plugins en andere services mogen communiceren met je website, zoals de <a href="https://plugin.namelessmc.com" target="_blank" >officiële Nameless plugin</a>.',
     'enable_legacy_api' => 'Legacy API aanzetten?',
     'legacy_api_info' => 'De legacy API staat toe dat plugins die de verouderde versie (1) API gebruiken werken met uw huidige versie (2).',
     'confirm_api_regen' => 'Weet je zeker dat jij jouw API key wilt vernieuwen?',

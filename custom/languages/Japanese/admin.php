@@ -562,7 +562,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'API を有効にしますか？',
-    'api_info' => 'API連携を有効にすると、Minecraftサーバーにインストールできる <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >Namelessプラグイン</a> とWebサイトが連携できるようになります。連携すると、Webサーバーのデータを読み込めたり、ゲーム内で登録できたり、アカウント検証ができるようになります。',
+    'api_info' => 'API連携を有効にすると、Minecraftサーバーにインストールできる <a href="https://plugin.namelessmc.com" target="_blank" >Namelessプラグイン</a> とWebサイトが連携できるようになります。連携すると、Webサーバーのデータを読み込めたり、ゲーム内で登録できたり、アカウント検証ができるようになります。',
     'enable_legacy_api' => '従来のAPI(v1)を使用しますか？',
     'legacy_api_info' => '従来のAPIを使用すると、 Nameless v1 APIを使用するプラグインを、 v2 のWebサイトと連携できるようにできます。',
     'confirm_api_regen' => 'APIキーを再生成してもよろしいですか？',
