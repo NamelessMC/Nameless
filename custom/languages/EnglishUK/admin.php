@@ -531,7 +531,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'Enable API?',
-    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>, and <a href="https://github.com/NamelessMC/Nameless-Link" target="_blank" >official NamelessMC Discord Bot</a>.',
+    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://plugin.namelessmc.com" target="_blank" >official Nameless plugin</a>, and <a href="https://github.com/NamelessMC/Nameless-Link" target="_blank" >official NamelessMC Discord Bot</a>.',
     'enable_legacy_api' => 'Enable legacy API?',
     'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
     'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
@@ -674,7 +674,7 @@ $language = array(
     'discord_role_id' => 'Discord Role ID',
     'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
     'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
-    'discord_settings_updated' => 'Your Discord settings were updated successfully.',    
+    'discord_settings_updated' => 'Your Discord settings were updated successfully.',
     'discord_id' => 'Discord Server ID',
     'discord_widget_theme' => 'Discord Widget Theme',
     'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',

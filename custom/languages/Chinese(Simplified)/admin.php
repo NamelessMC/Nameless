@@ -558,7 +558,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => '是否启用 API?',
-    'api_info' => '该 API 允许插件和其他服务与您的网站进行交互，例如 <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" > Nameless 官方插件</a>.',
+    'api_info' => '该 API 允许插件和其他服务与您的网站进行交互，例如 <a href="https://plugin.namelessmc.com" target="_blank" > Nameless 官方插件</a>.',
     'enable_legacy_api' => '是否启用旧版 API?',
     'legacy_api_info' => '旧版 API 允许使用旧的 Nameless v1 API 的插件与 v2 网站一起使用。',
     'confirm_api_regen' => '您确定要重新生成 API 密钥?',

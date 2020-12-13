@@ -558,7 +558,7 @@ $language = array(
 
     'api' => 'API',
     'enable_api' => 'API etkinleştirilsin mi?',
-    'api_info' => 'API, eklentilerin ve diğer hizmetlerin gibi web sitenizle etkileşime girmesine izin verir resmi <a href = "https://namelessmc.com/resources/resource/5-namelessplugin/" target = "_blank" > NameLessMC Plugin </a>. ',
+    'api_info' => 'API, eklentilerin ve diğer hizmetlerin gibi web sitenizle etkileşime girmesine izin verir resmi <a href = "https://plugin.namelessmc.com" target = "_blank" > NameLessMC Plugin </a>. ',
     'enable_legacy_api' => 'Eski API etkinleştirilsin mi?',
     'legacy_api_info' => 'Eski API, sürüm 2 web sitenizle çalışmak için eski Nameless sürüm 1 API\'sini kullanan eklentilere izin verir.',
     'confirm_api_regen' => 'API anahtarınızı yeniden oluşturmak istediğinizden emin misiniz?',
