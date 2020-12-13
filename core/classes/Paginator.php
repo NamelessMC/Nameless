@@ -108,9 +108,9 @@ class Paginator{
     }
 
     public function setValues($total, $limit, $page){
-    	$this->_total = $total;
-    	$this->_limit = $limit;
-    	$this->_page = $page;
+        $this->_total = $total;
+        $this->_limit = $limit;
+        $this->_page = $page;
     }
 
 }

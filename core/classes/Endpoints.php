@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Aberdeener
  *
@@ -11,7 +11,7 @@
  */
 class Endpoints {
 
-    private 
+    private
         $_endpoints = array();
 
     public function __construct() {}

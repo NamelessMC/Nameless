@@ -10,20 +10,20 @@
  */
 
 abstract class CollectionItemBase {
-	private $_order, $_enabled;
+    private $_order, $_enabled;
 
-	public function __construct($order, $enabled){
-		$this->_order = $order;
-		$this->_enabled = $enabled;
-	}
+    public function __construct($order, $enabled){
+        $this->_order = $order;
+        $this->_enabled = $enabled;
+    }
 
-	public function getOrder(){
-		return $this->_order;
-	}
+    public function getOrder(){
+        return $this->_order;
+    }
 
-	public function isEnabled(){
-		return $this->_enabled;
-	}
+    public function isEnabled(){
+        return $this->_enabled;
+    }
 
-	public abstract function getContent();
+    public abstract function getContent();
 }

@@ -94,8 +94,8 @@ class Widgets {
                 && $item->getLocation() == $location
                 && is_array($item->getPages())
                 && (
-                    in_array((defined('CUSTOM_PAGE') ? CUSTOM_PAGE : 'index'), $item->getPages()) 
-                    || 
+                    in_array((defined('CUSTOM_PAGE') ? CUSTOM_PAGE : 'index'), $item->getPages())
+                    ||
                     in_array((defined('PAGE') ? PAGE : 'index'), $item->getPages()))
             ) {
                 $item->initialise();
@@ -120,7 +120,7 @@ class Widgets {
      *  Get all enabled widget names
      */
     public function getAllEnabledNames(){
-    	return $this->_enabled;
+        return $this->_enabled;
     }
 
     /*
@@ -146,6 +146,6 @@ class Widgets {
      *  Get the name of this collection of widgets
      */
     public function getName(){
-    	return $this->_name;
+        return $this->_name;
     }
 }

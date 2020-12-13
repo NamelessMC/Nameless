@@ -51,17 +51,17 @@ class Discord {
                     } else {
                         switch ($result) {
 
-                            case 'badparameter': 
+                            case 'badparameter':
                             case 'error':
-                            case 'invguild': 
-                            case 'invuser': 
-                            case 'notlinked': 
-                            case 'unauthorized': 
+                            case 'invguild':
+                            case 'invuser':
+                            case 'notlinked':
+                            case 'unauthorized':
                             case 'invrole':
                                 $errors[] = $language->get('admin', 'discord_bot_error_' . $result);
                             break;
                             default:
-                                // This should never happen 
+                                // This should never happen
                                 $errors[] = $language->get('user', 'discord_unknown_error');
                                 break;
                         }
@@ -98,7 +98,7 @@ class Discord {
                                 $errors[] = $language->get('admin', 'discord_bot_error_' . $result);
                                 break;
                             default:
-                                // This should never happen 
+                                // This should never happen
                                 $errors[] = $language->get('user', 'discord_unknown_error');
                                 break;
                         }

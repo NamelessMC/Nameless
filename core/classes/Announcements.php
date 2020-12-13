@@ -22,18 +22,18 @@ class Announcements {
     public static function getAvailable($page = null, $custom_page = null, $user_groups = array(0)) {
         $announcements = array();
         foreach(self::getAll() as $announcement) {
-			if (Cookie::exists('announcement-' . $announcement->id)) {
-				continue;
-			}
+            if (Cookie::exists('announcement-' . $announcement->id)) {
+                continue;
+            }
             $pages = json_decode($announcement->pages, true);
             $groups = json_decode($announcement->groups, true);
             if (in_array($page, $pages) || $page == 'api' || in_array($custom_page, $pages)) {
-				foreach($user_groups as $group) {
-					if (in_array($group, $groups)) {
-						$announcements[] = $announcement;
-						break;
-					}
-				}
+                foreach($user_groups as $group) {
+                    if (in_array($group, $groups)) {
+                        $announcements[] = $announcement;
+                        break;
+                    }
+                }
             }
         }
         return $announcements;

@@ -11,7 +11,7 @@
  */
 class MentionsParser {
 
-	private $_db;
+    private $_db;
 
     /**
      * Create a new instance of MentionsParser.
@@ -19,8 +19,8 @@ class MentionsParser {
      */
     public function __construct()
     {
-		// Initialise database connection
-		$this->_db = DB::getInstance();
+        // Initialise database connection
+        $this->_db = DB::getInstance();
     }
 
     /**
@@ -43,7 +43,7 @@ class MentionsParser {
                 $user = null;
 
                 while((strlen($possible_username) > 0) && !$user){
-                	$user = new user($possible_username, 'nickname');
+                    $user = new user($possible_username, 'nickname');
 
                     if(count($user->data())){
                         $value = preg_replace("/".preg_quote("@{$possible_username}", "/")."/", "<a style=\"" . Output::getClean($user->getGroupClass()) . "\" href=\"" . $user->getProfileURL() . "\">@{$possible_username}</a>", $value);
@@ -64,7 +64,7 @@ class MentionsParser {
 
                         Alert::create($user->data()->id, 'tag', $alert_short, $alert_full, $link);
 
-						break;
+                        break;
                     }
 
                     // chop last word off of it

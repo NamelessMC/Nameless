@@ -9,12 +9,12 @@
 
 class HookHandler {
     private static $_events = array();
-	private static $_hooks = array();
+    private static $_hooks = array();
 
     // Register an event name
     // Params:  $event - name of event to add
     //          $description - human readable description
-	//          $params - array of available parameters and their descriptions
+    //          $params - array of available parameters and their descriptions
     public static function registerEvent($event, $description, $params = array()){
         if(!isset(self::$_events[$event]))
             self::$_events[$event] = array();
@@ -24,7 +24,7 @@ class HookHandler {
 
         return true;
     }
-	
+
     public static function registerHooks($hooks){
         self::$_hooks = $hooks;
 
@@ -50,11 +50,11 @@ class HookHandler {
             return false;
 
         if(!is_array($params)){
-        	$params = array();
+            $params = array();
         }
 
         if(!isset($params['event']))
-        	$params['event'] = $event;
+            $params['event'] = $event;
 
         // Execute system hooks
         if (isset(self::$_events[$event]['hooks'])) {
@@ -63,9 +63,9 @@ class HookHandler {
             }
         }
 
-		// Execute user made webhooks
-		foreach(self::$_hooks as $hook) {
-			if(in_array($event, $hook['events'])) {
+        // Execute user made webhooks
+        foreach(self::$_hooks as $hook) {
+            if(in_array($event, $hook['events'])) {
                 if (isset($params['available_hooks'])) {
                     if (in_array($hook['id'], $params['available_hooks'])) {
                         $params['webhook'] = $hook['url'];
@@ -89,21 +89,21 @@ class HookHandler {
         return $ret;
     }
 
-	// Get a certain hook
-	public static function getHook($hook){
-    	if(isset(self::$_events[$hook]))
-    		return self::$_events[$hook];
-    	else
-    		return null;
-	}
+    // Get a certain hook
+    public static function getHook($hook){
+        if(isset(self::$_events[$hook]))
+            return self::$_events[$hook];
+        else
+            return null;
+    }
 
-	// Get parameters
-	public static function getParameters($event){
-    	if(isset(self::$_events[$event]['parameters'])){
-    		return self::$_events[$event]['parameters'];
-	    } else {
-    		return null;
-	    }
-	}
+    // Get parameters
+    public static function getParameters($event){
+        if(isset(self::$_events[$event]['parameters'])){
+            return self::$_events[$event]['parameters'];
+        } else {
+            return null;
+        }
+    }
 
 }

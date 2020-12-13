@@ -9,15 +9,15 @@
  *  Util class
  */
 class Util {
-	// Converting Cyrillic to Latin letters (https://en.wikipedia.org/wiki/ISO_9)
-	public static function cyrillicToLatin($string)
-	{
-		$cyrillic = [
+    // Converting Cyrillic to Latin letters (https://en.wikipedia.org/wiki/ISO_9)
+    public static function cyrillicToLatin($string)
+    {
+        $cyrillic = [
             'а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п',
             'р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я',
             'А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П',
             'Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я'
-		];
+        ];
         $latin = [
             'a','b','v','g','d','e','io','zh','z','i','y','k','l','m','n','o','p',
             'r','s','t','u','f','h','ts','ch','sh','sht','a','i','y','e','yu','ya',
@@ -25,230 +25,230 @@ class Util {
             'R','S','T','U','F','H','Ts','Ch','Sh','Sht','A','I','Y','e','Yu','Ya'
         ];
         return str_replace($cyrillic, $latin, $string);
-	}
+    }
 
-	// Recursively remove a directory
-	// Params: $directory (string)	- path to directory to remove (required)
-	public static function recursiveRemoveDirectory($directory){
-		if((strpos($directory, 'custom') !== false)){ // safety precaution, only allow deleting files in "custom" directory
-			// alright to proceed
-		} else {
-			return false;
-		}
+    // Recursively remove a directory
+    // Params: $directory (string)	- path to directory to remove (required)
+    public static function recursiveRemoveDirectory($directory){
+        if((strpos($directory, 'custom') !== false)){ // safety precaution, only allow deleting files in "custom" directory
+            // alright to proceed
+        } else {
+            return false;
+        }
 
-		foreach(glob($directory . '/*') as $file){
-			if(is_dir($file)) {
-				if(!self::recursiveRemoveDirectory($file))
-					return false;
-			} else {
-				if(!unlink($file))
-					return false;
-			}
-		}
-		rmdir($directory);
-		return true;
-	}
+        foreach(glob($directory . '/*') as $file){
+            if(is_dir($file)) {
+                if(!self::recursiveRemoveDirectory($file))
+                    return false;
+            } else {
+                if(!unlink($file))
+                    return false;
+            }
+        }
+        rmdir($directory);
+        return true;
+    }
 
-	// Return an array containing all timezone lists
-	// No params
-	public static function listTimezones(){
-		// Array to contain timezones
-		$timezones = array();
+    // Return an array containing all timezone lists
+    // No params
+    public static function listTimezones(){
+        // Array to contain timezones
+        $timezones = array();
 
-		// Array to contain offsets
-		$offsets = array();
+        // Array to contain offsets
+        $offsets = array();
 
-		// Get all PHP timezones
-		$all_timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
+        // Get all PHP timezones
+        $all_timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
 
-		// Get current UTC time to calculate offset
-		$current = new DateTime('now', new DateTimeZone('UTC'));
+        // Get current UTC time to calculate offset
+        $current = new DateTime('now', new DateTimeZone('UTC'));
 
-		foreach($all_timezones as $timezone){
-			// Get timezone offset
-			$current->setTimezone(new DateTimeZone($timezone));
+        foreach($all_timezones as $timezone){
+            // Get timezone offset
+            $current->setTimezone(new DateTimeZone($timezone));
 
-			// Add offset to offset array
-			$offsets[] = $current->getOffset();
+            // Add offset to offset array
+            $offsets[] = $current->getOffset();
 
-			// Format timezone offset
-			$offset = 'GMT ' . intval($current->getOffset() / 3600) . ':' . str_pad(abs(intval($current->getOffset() % 3600 / 60)), 2, 0);
+            // Format timezone offset
+            $offset = 'GMT ' . intval($current->getOffset() / 3600) . ':' . str_pad(abs(intval($current->getOffset() % 3600 / 60)), 2, 0);
 
-			// Prettify timezone name
-			$name = Output::getClean(str_replace(array('/', '_'), array(', ', ' '), $timezone));
+            // Prettify timezone name
+            $name = Output::getClean(str_replace(array('/', '_'), array(', ', ' '), $timezone));
 
-			// Add to timezones array
-			$timezones[$timezone] = array('offset' => $offset, 'name' => $name, 'time' => $current->format('H:i'));
+            // Add to timezones array
+            $timezones[$timezone] = array('offset' => $offset, 'name' => $name, 'time' => $current->format('H:i'));
 
-		}
+        }
 
-		array_multisort($offsets, $timezones);
+        array_multisort($offsets, $timezones);
 
-		return $timezones;
-	}
+        return $timezones;
+    }
 
-	// Transform any plain-text URLs in a string to an HTML anchor tag with href attribute
-	// Regex pattern credit: https://daringfireball.net/2010/07/improved_regex_for_matching_urls
-	// "This pattern is free for anyone to use, no strings attached. Consider it public domain."
-	public static function urlToAnchorTag($text){
-	   $pattern = '#(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)/)(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’])|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)\b/?(?!@)))#';
-	   $callback = create_function('$matches', '
-		   $url = array_shift($matches);
-		   $url_parts = parse_url($url);
+    // Transform any plain-text URLs in a string to an HTML anchor tag with href attribute
+    // Regex pattern credit: https://daringfireball.net/2010/07/improved_regex_for_matching_urls
+    // "This pattern is free for anyone to use, no strings attached. Consider it public domain."
+    public static function urlToAnchorTag($text){
+       $pattern = '#(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)/)(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’])|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)\b/?(?!@)))#';
+       $callback = create_function('$matches', '
+           $url = array_shift($matches);
+           $url_parts = parse_url($url);
 
-		   $text = parse_url($url, PHP_URL_HOST) . parse_url($url, PHP_URL_PATH);
-		   $text = preg_replace("/^www./", "", $text);
+           $text = parse_url($url, PHP_URL_HOST) . parse_url($url, PHP_URL_PATH);
+           $text = preg_replace("/^www./", "", $text);
 
-		   $last = -(strlen(strrchr($text, "/"))) + 1;
-		   if($last < 0){
-		       $text = substr($text, 0, $last) . "&hellip;";
-		   }
+           $last = -(strlen(strrchr($text, "/"))) + 1;
+           if($last < 0){
+               $text = substr($text, 0, $last) . "&hellip;";
+           }
 
-		   return sprintf(\'<a rel="nofollow noopener" target="_blank" href="%s">%s</a>\', $url, $text);
-	   ');
+           return sprintf(\'<a rel="nofollow noopener" target="_blank" href="%s">%s</a>\', $url, $text);
+       ');
 
-	   return preg_replace_callback($pattern, $callback, $text);
-	}
+       return preg_replace_callback($pattern, $callback, $text);
+    }
 
-	// Get a Minecraft avatar from a UUID
-	public static function getAvatarFromUUID($uuid, $size = 128){
-		if(defined('DEFAULT_AVATAR_SOURCE')){
-			if(defined('DEFAULT_AVATAR_PERSPECTIVE'))
-				$perspective = DEFAULT_AVATAR_PERSPECTIVE;
-			else
-				$perspective = 'face';
+    // Get a Minecraft avatar from a UUID
+    public static function getAvatarFromUUID($uuid, $size = 128){
+        if(defined('DEFAULT_AVATAR_SOURCE')){
+            if(defined('DEFAULT_AVATAR_PERSPECTIVE'))
+                $perspective = DEFAULT_AVATAR_PERSPECTIVE;
+            else
+                $perspective = 'face';
 
-			switch(DEFAULT_AVATAR_SOURCE){
-				case 'crafatar':
-					if($perspective == 'face')
-						return 'https://crafatar.com/avatars/' . Output::getClean($uuid) . '?size=' . $size . '&amp;overlay';
-					else
-						return 'https://crafatar.com/renders/head/' . Output::getClean($uuid) . '?overlay';
+            switch(DEFAULT_AVATAR_SOURCE){
+                case 'crafatar':
+                    if($perspective == 'face')
+                        return 'https://crafatar.com/avatars/' . Output::getClean($uuid) . '?size=' . $size . '&amp;overlay';
+                    else
+                        return 'https://crafatar.com/renders/head/' . Output::getClean($uuid) . '?overlay';
 
-					break;
+                    break;
 
-				case 'nameless':
-					// Only supports face currently
-					if(defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
-						return URL::build('/avatar/' . Output::getClean($uuid));
-					else
-						return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($uuid);
+                case 'nameless':
+                    // Only supports face currently
+                    if(defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
+                        return URL::build('/avatar/' . Output::getClean($uuid));
+                    else
+                        return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($uuid);
 
-					break;
+                    break;
 
-				case 'mc-heads':
-					if($perspective == 'face')
-						return 'https://mc-heads.net/avatar/' . Output::getClean($uuid) . '/' . $size;
-					else
-						return 'https://mc-heads.net/head/' . Output::getClean($uuid) . '/' . $size;
+                case 'mc-heads':
+                    if($perspective == 'face')
+                        return 'https://mc-heads.net/avatar/' . Output::getClean($uuid) . '/' . $size;
+                    else
+                        return 'https://mc-heads.net/head/' . Output::getClean($uuid) . '/' . $size;
 
-					break;
+                    break;
 
-				case 'minotar':
-					if($perspective == 'face')
-						return 'https://minotar.net/helm/'.  Output::getClean($uuid) . '/' . $size . '.png';
-					else
-						return 'https://minotar.net/cube/'.  Output::getClean($uuid) . '/' . $size . '.png';
+                case 'minotar':
+                    if($perspective == 'face')
+                        return 'https://minotar.net/helm/'.  Output::getClean($uuid) . '/' . $size . '.png';
+                    else
+                        return 'https://minotar.net/cube/'.  Output::getClean($uuid) . '/' . $size . '.png';
 
-					break;
+                    break;
 
-				case 'visage':
-					if($perspective == 'face')
-						return 'https://visage.surgeplay.com/face/' . $size . '/' . Output::getClean($uuid);
-					else if($perspective == 'bust')
-						return 'https://visage.surgeplay.com/bust/' . $size . '/' . Output::getClean($uuid);
-					else
-						return 'https://visage.surgeplay.com/head/' . $size . '/' . Output::getClean($uuid);
+                case 'visage':
+                    if($perspective == 'face')
+                        return 'https://visage.surgeplay.com/face/' . $size . '/' . Output::getClean($uuid);
+                    else if($perspective == 'bust')
+                        return 'https://visage.surgeplay.com/bust/' . $size . '/' . Output::getClean($uuid);
+                    else
+                        return 'https://visage.surgeplay.com/head/' . $size . '/' . Output::getClean($uuid);
 
-					break;
+                    break;
 
-				case 'cravatar':
-				default:
-					if($perspective == 'face')
-						return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
-					else
-						return 'https://cravatar.eu/helmhead/' . Output::getClean($uuid) . '/' . $size . '.png';
-					break;
-			}
-		} else {
-			// Fall back to cravatar
-			return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
-		}
-	}
+                case 'cravatar':
+                default:
+                    if($perspective == 'face')
+                        return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
+                    else
+                        return 'https://cravatar.eu/helmhead/' . Output::getClean($uuid) . '/' . $size . '.png';
+                    break;
+            }
+        } else {
+            // Fall back to cravatar
+            return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
+        }
+    }
 
-	// Get avatar source with UUID as {x} and size as {y}
-	public static function getAvatarSource(){
-		if(defined('DEFAULT_AVATAR_SOURCE')){
-			if(defined('DEFAULT_AVATAR_PERSPECTIVE'))
-				$perspective = DEFAULT_AVATAR_PERSPECTIVE;
-			else
-				$perspective = 'face';
+    // Get avatar source with UUID as {x} and size as {y}
+    public static function getAvatarSource(){
+        if(defined('DEFAULT_AVATAR_SOURCE')){
+            if(defined('DEFAULT_AVATAR_PERSPECTIVE'))
+                $perspective = DEFAULT_AVATAR_PERSPECTIVE;
+            else
+                $perspective = 'face';
 
-			switch(DEFAULT_AVATAR_SOURCE){
-				case 'crafatar':
-					if($perspective == 'face')
-						return 'https://crafatar.com/avatars/{x}?size={y}&amp;overlay';
-					else
-						return 'https://crafatar.com/renders/head/{x}?overlay';
-					break;
-				case 'nameless':
-					// Only supports face currently
-					if(defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
-						return URL::build('/avatar/{x}');
-					else
-						return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={x}';
-					break;
-				case 'mc-heads':
-					if($perspective == 'face')
-						return 'https://mc-heads.net/avatar/{x}/{y}';
-					else
-						return 'https://mc-heads.net/head/{x}/{y}';
+            switch(DEFAULT_AVATAR_SOURCE){
+                case 'crafatar':
+                    if($perspective == 'face')
+                        return 'https://crafatar.com/avatars/{x}?size={y}&amp;overlay';
+                    else
+                        return 'https://crafatar.com/renders/head/{x}?overlay';
+                    break;
+                case 'nameless':
+                    // Only supports face currently
+                    if(defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
+                        return URL::build('/avatar/{x}');
+                    else
+                        return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={x}';
+                    break;
+                case 'mc-heads':
+                    if($perspective == 'face')
+                        return 'https://mc-heads.net/avatar/{x}/{y}';
+                    else
+                        return 'https://mc-heads.net/head/{x}/{y}';
 
-					break;
+                    break;
 
-				case 'minotar':
-					if($perspective == 'face')
-						return 'https://minotar.net/helm/{x}/{y}.png';
-					else
-						return 'https://minotar.net/cube/{x}/{y}.png';
+                case 'minotar':
+                    if($perspective == 'face')
+                        return 'https://minotar.net/helm/{x}/{y}.png';
+                    else
+                        return 'https://minotar.net/cube/{x}/{y}.png';
 
-					break;
+                    break;
 
-				case 'visage':
-					if($perspective == 'face')
-						return 'https://visage.surgeplay.com/face/{y}/{x}';
-					else if($perspective == 'bust')
-						return 'https://visage.surgeplay.com/bust/{y}/{x}';
-					else
-						return 'https://visage.surgeplay.com/head/{y}/{x}';
+                case 'visage':
+                    if($perspective == 'face')
+                        return 'https://visage.surgeplay.com/face/{y}/{x}';
+                    else if($perspective == 'bust')
+                        return 'https://visage.surgeplay.com/bust/{y}/{x}';
+                    else
+                        return 'https://visage.surgeplay.com/head/{y}/{x}';
 
-					break;
-				case 'cravatar':
-				default:
-					if($perspective == 'face')
-						return 'https://cravatar.eu/helmavatar/{x}/{y}.png';
-					else
-						return 'https://cravatar.eu/helmhead/{x}/{y}.png';
-					break;
-			}
-		} else {
-			// Fall back to cravatar
-			return 'https://cravatar.eu/helmavatar/{x}/{y}.png';
-		}
-	}
+                    break;
+                case 'cravatar':
+                default:
+                    if($perspective == 'face')
+                        return 'https://cravatar.eu/helmavatar/{x}/{y}.png';
+                    else
+                        return 'https://cravatar.eu/helmhead/{x}/{y}.png';
+                    break;
+            }
+        } else {
+            // Fall back to cravatar
+            return 'https://cravatar.eu/helmavatar/{x}/{y}.png';
+        }
+    }
 
-	/*
-	 *  Get the server name
-	 */
+    /*
+     *  Get the server name
+     */
     public static function getSelfURL(){
         $hostname = Config::get('core/hostname');
         if(is_array($hostname))
             $hostname = $_SERVER['SERVER_NAME'];
 
         if(strpos($hostname, 'www') === false && defined('FORCE_WWW') && FORCE_WWW){
-        	$www = 'www.';
+            $www = 'www.';
         } else {
-        	$www = '';
+            $www = '';
         }
 
         if($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443){
@@ -389,132 +389,132 @@ class Util {
      *  Returns JSON object with information about any updates
      */
     public static function updateCheck($current_version = null){
-    	$queries = new Queries();
+        $queries = new Queries();
 
-	    // Check for updates
-	    if(!$current_version){
-		    $current_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
-		    $current_version = $current_version[0]->value;
-	    }
+        // Check for updates
+        if(!$current_version){
+            $current_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+            $current_version = $current_version[0]->value;
+        }
 
-	    $uid = $queries->getWhere('settings', array('name', '=', 'unique_id'));
-	    $uid = $uid[0]->value;
+        $uid = $queries->getWhere('settings', array('name', '=', 'unique_id'));
+        $uid = $uid[0]->value;
 
-	    $ch = curl_init();
-	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	    curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(phpversion()));
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(phpversion()));
 
-	    $update_check = curl_exec($ch);
+        $update_check = curl_exec($ch);
 
-	    if(curl_error($ch)){
-		    $error = curl_error($ch);
-	    } else {
-		    if($update_check == 'Failed'){
-			    $error = 'Unknown error';
-		    }
-	    }
+        if(curl_error($ch)){
+            $error = curl_error($ch);
+        } else {
+            if($update_check == 'Failed'){
+                $error = 'Unknown error';
+            }
+        }
 
-	    curl_close($ch);
+        curl_close($ch);
 
-	    if(isset($error)){
-	    	return json_encode(array('error' => $error));
-	    } else {
-	    	if($update_check == 'None'){
-	    		return json_encode(array('no_update' => true));
-		    } else {
-	    		$info = json_decode($update_check);
+        if(isset($error)){
+            return json_encode(array('error' => $error));
+        } else {
+            if($update_check == 'None'){
+                return json_encode(array('no_update' => true));
+            } else {
+                $info = json_decode($update_check);
 
-			    if(!isset($info->error) && !isset($info->no_update) && isset($info->new_version)){
-			    	if(isset($info->urgent) && $info->urgent == 'true')
-			    		$to_db = 'urgent';
-			    	else
-			    		$to_db = 'true';
+                if(!isset($info->error) && !isset($info->no_update) && isset($info->new_version)){
+                    if(isset($info->urgent) && $info->urgent == 'true')
+                        $to_db = 'urgent';
+                    else
+                        $to_db = 'true';
 
-			    	$update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
-			    	$update_id = $update_id[0]->id;
-			    	$queries->update('settings', $update_id, array(
-			    		'value' => $to_db
-				    ));
-			    }
+                    $update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+                    $update_id = $update_id[0]->id;
+                    $queries->update('settings', $update_id, array(
+                        'value' => $to_db
+                    ));
+                }
 
-			    return $update_check;
-		    }
-	    }
+                return $update_check;
+            }
+        }
     }
 
     /*
      *  Get the latest Nameless news
      */
     public static function getLatestNews(){
-	    $ch = curl_init();
-	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	    curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/news');
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/news');
 
-	    $news = curl_exec($ch);
+        $news = curl_exec($ch);
 
-	    if(curl_error($ch)){
-		    $error = curl_error($ch);
-	    }
+        if(curl_error($ch)){
+            $error = curl_error($ch);
+        }
 
-	    curl_close($ch);
+        curl_close($ch);
 
-	    if(isset($error)){
-		    return json_encode(array('error' => $error));
-	    } else {
-		    return $news;
-	    }
-	}
+        if(isset($error)){
+            return json_encode(array('error' => $error));
+        } else {
+            return $news;
+        }
+    }
 
-	public static function curlGetContents($full_url, $body = null) {
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_URL, $full_url);
-		if ($body != null) {
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+    public static function curlGetContents($full_url, $body = null) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $full_url);
+        if ($body != null) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
 
-		}
-		$contents = curl_exec($ch);
-		curl_close($ch);
+        }
+        $contents = curl_exec($ch);
+        curl_close($ch);
 
-		if ($contents) return $contents;
-		else return false;
-	}
+        if ($contents) return $contents;
+        else return false;
+    }
 
     /*
      *  Add target and rel attributes to external links only
      *  From https://stackoverflow.com/a/53461987
      */
-	public static function replaceAnchorsWithText($data) {
-		$data = preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', function($m) {
-			if(strpos($m[1], self::getSelfURL()) === false)
-				return '<a href="'.$m[1].'" rel="nofollow noopener" target="_blank">'.$m[2].'</a>';
-			else
-				return '<a href="'.$m[1].'" target="_blank">'.$m[2].'</a>';
-		}, $data);
-		return $data;
-	}
+    public static function replaceAnchorsWithText($data) {
+        $data = preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', function($m) {
+            if(strpos($m[1], self::getSelfURL()) === false)
+                return '<a href="'.$m[1].'" rel="nofollow noopener" target="_blank">'.$m[2].'</a>';
+            else
+                return '<a href="'.$m[1].'" target="_blank">'.$m[2].'</a>';
+        }, $data);
+        return $data;
+    }
 
-	public static function getSetting(DB $db, $setting, $fallback = null) {
-		$value = $db->get('settings', array('name', '=', $setting));
-		if ($value->count()) return $value->first()->value;
-		else return $fallback;
-	}
+    public static function getSetting(DB $db, $setting, $fallback = null) {
+        $value = $db->get('settings', array('name', '=', $setting));
+        if ($value->count()) return $value->first()->value;
+        else return $fallback;
+    }
 
-	public static function loadEndpoints($path, $endpoints) {
-		$rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
+    public static function loadEndpoints($path, $endpoints) {
+        $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
 
-		foreach ($rii as $file) {
-			if ($file->isDir()) {
-				self::loadEndpoints($file, $endpoints);
-			} else {
-				$endpoint_file_name = $file->getPathName();
-				require_once($endpoint_file_name);
-				$endpoint_class_name = str_replace('.php', '', substr($endpoint_file_name, strrpos($endpoint_file_name, '/') + 1));
-				$endpoints->add(new $endpoint_class_name);
-			}
-		}
-	}
+        foreach ($rii as $file) {
+            if ($file->isDir()) {
+                self::loadEndpoints($file, $endpoints);
+            } else {
+                $endpoint_file_name = $file->getPathName();
+                require_once($endpoint_file_name);
+                $endpoint_class_name = str_replace('.php', '', substr($endpoint_file_name, strrpos($endpoint_file_name, '/') + 1));
+                $endpoints->add(new $endpoint_class_name);
+            }
+        }
+    }
 }
