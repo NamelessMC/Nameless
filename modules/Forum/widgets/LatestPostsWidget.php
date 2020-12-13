@@ -43,28 +43,16 @@ class LatestPostsWidget extends WidgetBase {
 	    $queries = new Queries();
 	    $timeago = new Timeago(TIMEZONE);
 
-	    if($this->_user->isLoggedIn()) {
-		    $user_group = $this->_user->data()->group_id;
-		    $secondary_groups = $this->_user->data()->secondary_groups;
-	    } else {
-		    $user_group = null;
-		    $secondary_groups = null;
-	    }
+		// Get user group IDs
+		$user_groups = $this->_user->getAllGroupIds();
 
-	    if($user_group){
-		    $cache_name = 'forum_discussions_' . $user_group . '-' . $secondary_groups;
-	    } else {
-		    $cache_name = 'forum_discussions_guest';
-	    }
-
-	    $this->_cache->setCache($cache_name);
-
+	    $this->_cache->setCache('forum_discussions_' . rtrim(implode('-', $user_groups), '-'));
 	    if($this->_cache->isCached('discussions')){
 		    $template_array = $this->_cache->retrieve('discussions');
 
 	    } else {
 		    // Generate latest posts
-		    $discussions = $forum->getLatestDiscussions($user_group, $secondary_groups, ($this->_user->isLoggedIn() ? $this->_user->data()->id : 0));
+		    $discussions = $forum->getLatestDiscussions($user_groups, ($this->_user->isLoggedIn() ? $this->_user->data()->id : 0));
 
 		    $n = 0;
 		    // Calculate the number of discussions to display (5 max)
@@ -86,9 +74,6 @@ class LatestPostsWidget extends WidgetBase {
 			    $posts = $queries->getWhere('posts', array('topic_id', '=', $discussions[$n]['id']));
 			    $posts = count($posts);
 
-			    // Get the last reply user's avatar
-			    $last_reply_avatar = $this->_user->getAvatar($discussions[$n]['topic_last_user'], "../", 64);
-
 			    // Is there a label?
 			    if($discussions[$n]['label'] != 0){ // yes
 				    // Get label
@@ -107,32 +92,34 @@ class LatestPostsWidget extends WidgetBase {
 			    }
 
 			    // Add to array
+				$topic_creator = new User($discussions[$n]['topic_creator']);
+				$last_reply_user = new User($discussions[$n]['topic_last_user']);
 			    $template_array[] = array(
 				    'topic_title' => Output::getClean($discussions[$n]['topic_title']),
 				    'topic_id' => $discussions[$n]['id'],
 				    'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $discussions[$n]['topic_date']), $this->_language->getTimeLanguage()),
 				    'topic_created' => date('d M Y, H:i', $discussions[$n]['topic_date']),
-				    'topic_created_username' => Output::getClean($this->_user->idToNickname($discussions[$n]['topic_creator'])),
-				    'topic_created_mcname' => Output::getClean($this->_user->idToName($discussions[$n]['topic_creator'])),
-				    'topic_created_style' => $this->_user->getGroupClass($discussions[$n]['topic_creator']),
+				    'topic_created_username' => $topic_creator->getDisplayname(),
+				    'topic_created_mcname' => $topic_creator->getDisplayname(true),
+				    'topic_created_style' => $topic_creator->getGroupClass(),
 				    'topic_created_user_id' => Output::getClean($discussions[$n]['topic_creator']),
 				    'locked' => $discussions[$n]['locked'],
 				    'forum_name' => $forum_name,
 				    'forum_id' => $discussions[$n]['forum_id'],
 				    'views' => $discussions[$n]['topic_views'],
 				    'posts' => $posts,
-				    'last_reply_avatar' => $last_reply_avatar,
+				    'last_reply_avatar' => $last_reply_user->getAvatar("../", 64),
 				    'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $discussions[$n]['topic_reply_date']), $this->_language->getTimeLanguage()),
 				    'last_reply' => date('d M Y, H:i', $discussions[$n]['topic_reply_date']),
-				    'last_reply_username' => Output::getClean($this->_user->idToNickname($discussions[$n]['topic_last_user'])),
-				    'last_reply_mcname' => Output::getClean($this->_user->idToName($discussions[$n]['topic_last_user'])),
-				    'last_reply_style' => $this->_user->getGroupClass($discussions[$n]['topic_last_user']),
+				    'last_reply_username' => $last_reply_user->getDisplayname(),
+				    'last_reply_mcname' => $last_reply_user->getDisplayname(true),
+				    'last_reply_style' => $last_reply_user->getGroupClass(),
 				    'last_reply_user_id' => Output::getClean($discussions[$n]['topic_last_user']),
 				    'label' => $label,
 				    'link' => URL::build('/forum/topic/' . $discussions[$n]['id'] . '-' . $forum->titleToURL($discussions[$n]['topic_title'])),
 				    'forum_link' => URL::build('/forum/forum/' . $discussions[$n]['forum_id']),
-				    'author_link' => URL::build('/profile/' . Output::getClean($this->_user->idToName($discussions[$n]['topic_creator']))),
-				    'last_reply_profile_link' => URL::build('/profile/' . Output::getClean($this->_user->idToName($discussions[$n]['topic_last_user']))),
+				    'author_link' => $topic_creator->getProfileURL(),
+				    'last_reply_profile_link' => $last_reply_user->getProfileURL(),
 				    'last_reply_link' => URL::build('/forum/topic/' . $discussions[$n]['id'] . '-' . $forum->titleToURL($discussions[$n]['topic_title']), 'pid=' . $discussions[$n]['last_post_id'])
 			    );
 
