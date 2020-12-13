@@ -19,14 +19,14 @@ class SetDiscordRolesEndpoint extends EndpointBase {
             if ($api->validateParams($_POST, ['user'])) {
                 if (!Util::getSetting($api->getDb(), 'discord_integration')) $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
 
-                if ($_POST['roles'] != null) {
+                $user_id = $_POST['user'];
 
-                    $user_id = $_POST['user'];
+                $user = $api->getUser('id', $user_id);
+
+                if ($_POST['roles'] != null) {
 
                     $roles = $_POST['roles'];
 
-                    $user = $api->getUser('id', $user_id);
-                    
                     $user->removeGroups();
 
                     $message = '';
@@ -46,7 +46,15 @@ class SetDiscordRolesEndpoint extends EndpointBase {
                     if ($message != '') {
                         Log::getInstance()->log(Log::Action('discord/role_add'), 'Roles changed to: ' . rtrim($message, ', '), $user->data()->id);
                     }
+
+                } else {
+
+                    foreach ($user->getAllGroupIds() as $group_id) {
+                        $user->removeGroup($group_id);
+                    }
+
                 }
+
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
             }
         }
