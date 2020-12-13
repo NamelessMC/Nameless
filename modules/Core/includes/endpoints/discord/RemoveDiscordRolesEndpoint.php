@@ -30,8 +30,8 @@ class RemoveDiscordRolesEndpoint extends EndpointBase {
                     $group = Discord::getWebsiteGroup(DB::getInstance(), $role_id);
                     if ($group != null) {
                         try {
-                            $user->removeGroup($group['group']->id);
-                            $message .= $group['group']->name . ', ';
+                            $user->removeGroup($group->id);
+                            $message .= $group->name . ', ';
                         } catch (Exception $e) {
                             $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
                         }

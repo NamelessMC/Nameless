@@ -27,12 +27,7 @@ class Discord {
         $website_group_id = $db->get('group_sync', array('discord_role_id', '=', $discord_role_id));
         if ($website_group_id->count()) {
             $group = $db->get('groups', array('id', '=', $website_group_id->first()->website_group_id));
-            if ($group->count()) {
-                $group_array = array();
-                $group_array['group'] = $group->first();
-                $group_array['primary'] = $db->query('SELECT `primary` FROM nl2_group_sync WHERE discord_role_id = ?', array($discord_role_id))->first()->primary;
-                return $group_array;
-            }
+            if ($group->count()) return $group->first();
         }
         return null;
     }

@@ -30,8 +30,8 @@ class AddDiscordRolesEndpoint extends EndpointBase {
                     $group = Discord::getWebsiteGroup(DB::getInstance(), $role_id);
                     if ($group != null) {
                         try {
-                            $user->addGroup($group['group']->id);
-                            $message .= $group['group']->name . ', ';
+                            $user->addGroup($group->id);
+                            $message .= $group->name . ', ';
                         } catch (Exception $e) {
                             $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
                         }
