@@ -18,7 +18,6 @@ class User
             $_admSessionName,
             $_isAdmLoggedIn;
 
-    // Construct User class
     public function __construct($user = null, $field = 'id')
     {
         $this->_db = DB::getInstance();
@@ -864,9 +863,12 @@ class User
         return false;
     }
 
-    /*
-     *  Does the user have a given permission?
-     *  Params: $permission (string) - name of permission
+    /**
+     * Does the user have a given permission?
+     *
+     * @param string $permission name of permission
+     *
+     * @return boolean
      */
     public function hasPermission($permission)
     {
@@ -883,7 +885,11 @@ class User
         return false;
     }
 
-    // Get a user's profile views, by user ID
+    /**
+     * Get a user's profile views, by user ID
+     *
+     * @return int
+     */
     public function getProfileViews()
     {
         if (count($this->data())) {
@@ -893,7 +899,11 @@ class User
         }
     }
 
-    // Is private profile enabled and does he have the permission to use it?
+    /**
+     * Is private profile enabled and does he have the permission to use it?
+     *
+     * @return boolean
+     */
     public function canPrivateProfile()
     {
         $settings_data = $this->_db->get('settings', array('name', '=', 'private_profile'));
@@ -901,7 +911,11 @@ class User
         return (($settings_results[0]->value == 1) && ($this->hasPermission('usercp.private_profile')));
     }
 
-    // Is the profile page set to private?
+    /**
+     * Is the profile page set to private?
+     *
+     * @return boolean
+     */
     public function isPrivateProfile()
     {
         if ($this->_data->private_profile == 1) {
@@ -913,7 +927,11 @@ class User
         }
     }
 
-    // Get templates a user's group has access to
+    /**
+     * Get templates a user's group has access to
+     *
+     * @return
+     */
     public function getUserTemplates()
     {
         $groups = '(';
