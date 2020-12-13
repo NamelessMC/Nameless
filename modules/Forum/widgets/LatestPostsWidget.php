@@ -19,17 +19,15 @@ class LatestPostsWidget extends WidgetBase {
 
         parent::__construct($pages);
 
-        // Get order
-        $order = DB::getInstance()->query('SELECT `order` FROM nl2_widgets WHERE `name` = ?', array('Latest Posts'))->first();
-		// Get location
-		$location = DB::getInstance()->query('SELECT `location` FROM nl2_widgets WHERE `name` = ?', array('Latest Posts'))->first();
+        // Get widget
+        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Latest Posts'))->first();
 
         // Set widget variables
         $this->_module = 'Forum';
         $this->_name = 'Latest Posts';
-        $this->_location = $location->location;
+        $this->_location = $widget_query->location;
         $this->_description = 'Display latest posts from your forum.';
-        $this->_order = $order->order;
+        $this->_order = $widget_query->order;
 
         $this->_smarty->assign(array(
         	'LATEST_POSTS' => $latest_posts_language,

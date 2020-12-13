@@ -12,17 +12,15 @@ class FacebookWidget extends WidgetBase {
     public function __construct($pages = array(), $fb_url = ''){
         parent::__construct($pages);
 
-        // Get order
-        $order = DB::getInstance()->query('SELECT `order` FROM nl2_widgets WHERE `name` = ?', array('Facebook'))->first();
-        // Get location
-        $location = DB::getInstance()->query('SELECT `location` FROM nl2_widgets WHERE `name` = ?', array('Facebook'))->first();
+        // Get widget
+        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Facebook'))->first();
 
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Facebook';
-        $this->_location = $location->location;
+        $this->_location = $widget_query->location;
         $this->_description = 'Display a feed from your Facebook page on your site. Make sure you have entered your Facebook URL in the AdminCP -> Core -> Social Media tab first!';
-        $this->_order = $order->order;
+        $this->_order = $widget_query->order;
 
         // Generate HTML code for widget
         $this->_content = '
