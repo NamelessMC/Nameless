@@ -23,11 +23,9 @@ if(!count($latest_posts)){
 	$n = 0;
 	
 	if(!$user->isLoggedIn()){
-        $group_id = 0;
-        $secondary_groups = null;
+        $groups = array(0);
     } else {
-	    $group_id = $user->data()->group_id;
-	    $secondary_groups = json_decode($user->data()->secondary_groups, true);
+	    $groups = $user->getAllGroups();
     }
 	
 	// Array to assign posts to
@@ -39,9 +37,9 @@ if(!count($latest_posts)){
 		// Is the post somewhere the user can view?
 		$permission = false;
 		$forum_permissions = $queries->getWhere('forums_permissions', array('forum_id', '=', $latest_post->forum_id));
-		foreach($forum_permissions as $forum_permission){
-			if($forum_permission->group_id == $group_id || (is_array($secondary_groups) && in_array($forum_permission->group_id, $secondary_groups))){
-				if($forum_permission->view == 1 && $forum_permission->view_other_topics == 1){
+		foreach ($forum_permissions as $forum_permission) {
+			if (in_array($forum_permission->group_id, $groups)) {
+				if ($forum_permission->view == 1 && $forum_permission->view_other_topics == 1) {
 					$permission = true;
 					break;
 				}
