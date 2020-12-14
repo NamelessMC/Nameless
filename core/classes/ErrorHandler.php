@@ -42,7 +42,9 @@ class ErrorHandler {
     public static function catchFatalError() {
         $error = error_get_last();
 
-        if($error['type'] === E_ERROR){
+        if ($error == null) return;
+
+        if ($error['type'] === E_ERROR) {
             $errstr = $error['message'];
             $errfile = $error['file'];
             $errline = $error['line'];

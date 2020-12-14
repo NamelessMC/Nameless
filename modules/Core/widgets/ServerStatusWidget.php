@@ -8,12 +8,13 @@
  *
  *  Profile Posts Widget
  */
-class ServerStatusWidget extends WidgetBase
-{
-    private $_cache, $_smarty, $_language;
+class ServerStatusWidget extends WidgetBase {
 
-    public function __construct($pages = array(), $smarty, $language, $cache)
-    {
+    private $_cache, 
+            $_smarty, 
+            $_language;
+
+    public function __construct($pages = array(), $smarty, $language, $cache) {
         $this->_language = $language;
         $this->_smarty = $smarty;
         $this->_cache = $cache;
@@ -26,13 +27,12 @@ class ServerStatusWidget extends WidgetBase
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Server Status';
-        $this->_location = $widget_query->location;
+        $this->_location = isset($widget_query->location) ? $widget_query->location : null;
         $this->_description = 'Display your Minecraft server status.';
-        $this->_order = $widget_query->order;
+        $this->_order = isset($widget_query->order) ? $widget_query->order : null;
     }
 
-    public function initialise()
-    {
+    public function initialise() {
         // Generate HTML code for widget
         $this->_cache->setCache('server_status_widget');
 

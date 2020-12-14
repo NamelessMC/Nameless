@@ -9,7 +9,12 @@
  *  Profile Posts Widget
  */
 class ProfilePostsWidget extends WidgetBase {
-    private $_cache, $_smarty, $_language, $_user, $_timeago;
+
+    private $_cache, 
+            $_smarty, 
+            $_language,
+            $_user, 
+            $_timeago;
 
     public function __construct($pages = array(), $smarty, $language, $cache, $user, $timeago) {
         $this->_language = $language;
@@ -26,9 +31,9 @@ class ProfilePostsWidget extends WidgetBase {
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Latest Profile Posts';
-        $this->_location = $widget_query->location;
+        $this->_location = isset($widget_query->location) ? $widget_query->location : null;
         $this->_description = 'Display the latest profile posts on your site.';
-        $this->_order = $widget_query->order;
+        $this->_order = isset($widget_query->order) ? $widget_query->order : null;
     }
 
     public function initialise() {

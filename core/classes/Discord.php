@@ -12,7 +12,7 @@ class Discord {
 
     private const VALID_RESPONSES = array('success', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
 
-    public static function discordBotRequest($url = '/', $body = null) {
+    public static function discordBotRequest($url = '/status', $body = null) {
         $response = Util::curlGetContents(BOT_URL . $url, $body);
         if (in_array($response, self::VALID_RESPONSES)) return $response;
         else return false;
@@ -37,19 +37,22 @@ class Discord {
         if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
             if ($user_query->data()->discord_id != null && $user_query->data()->discord_id != 010) {
 
-                $json = self::assembleJson($user_query->data()->discord_id, 'remove_role_id', self::getDiscordRoleId(DB::getInstance(), $group));
+                $role_id = self::getDiscordRoleId(DB::getInstance(), $group);
 
-                $result = self::discordBotRequest('/roleChange', $json);
-                if ($result != 'success') {
+                if ($role_id != null) {
+                    $json = self::assembleJson($user_query->data()->discord_id, 'remove_role_id', $role_id);
 
-                    if ($result != 'hierarchy') {
+                    $result = self::discordBotRequest('/roleChange', $json);
+                    if ($result != 'success') {
 
-                        Session::flash('edit_user_errors', self::parseErrors($result, $language));
-                        Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
-                        die();
+                        if ($result != 'hierarchy') {
 
-                    } else {
-                        Session::flash('edit_user_warnings', array($language->get('admin', 'discord_bot_error_hierarchy')));
+                            Session::flash('edit_user_errors', self::parseErrors($result, $language));
+                            Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
+                            die();
+                        } else {
+                            Session::flash('edit_user_warnings', array($language->get('admin', 'discord_bot_error_hierarchy')));
+                        }
                     }
                 }
             }
@@ -60,24 +63,27 @@ class Discord {
         if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
             if ($user_query->data()->discord_id != null && $user_query->data()->discord_id != 010) {
 
-                $json = self::assembleJson($user_query->data()->discord_id, 'add_role_id', self::getDiscordRoleId(DB::getInstance(), $group));
+                $role_id = self::getDiscordRoleId(DB::getInstance(), $group);
 
-                $result = self::discordBotRequest('/roleChange', $json);
-                if ($result != 'success') {
+                if ($role_id != null) {
+                    $json = self::assembleJson($user_query->data()->discord_id, 'add_role_id', $role_id);
 
-                    if ($result != 'hierarchy') {
+                    $result = self::discordBotRequest('/roleChange', $json);
+                    if ($result != 'success') {
 
-                        $errors = self::parseErrors($result, $language);
+                        if ($result != 'hierarchy') {
 
-                        if ($redirect) {
-                            Session::flash('edit_user_errors', $errors);
-                            Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
-                            die();
-                        } else return $errors;
+                            $errors = self::parseErrors($result, $language);
 
-                    } else {
-                        if ($redirect) {
-                            Session::flash('edit_user_warnings', array($language->get('admin', 'discord_bot_error_hierarchy')));
+                            if ($redirect) {
+                                Session::flash('edit_user_errors', $errors);
+                                Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
+                                die();
+                            } else return $errors;
+                        } else {
+                            if ($redirect) {
+                                Session::flash('edit_user_warnings', array($language->get('admin', 'discord_bot_error_hierarchy')));
+                            }
                         }
                     }
                 }

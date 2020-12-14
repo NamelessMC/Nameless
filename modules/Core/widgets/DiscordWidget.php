@@ -10,9 +10,12 @@
  *  Discord Widget
  */
 class DiscordWidget extends WidgetBase {
-	private $_language, $_cache, $_discord;
 
-    public function __construct($pages = array(), $language, $cache, $discord = ''){
+    private $_language, 
+            $_cache, 
+            $_discord;
+
+    public function __construct($pages = array(), $language, $cache, $discord = '') {
     	$this->_language = $language;
     	$this->_cache = $cache;
     	$this->_discord = $discord;
@@ -25,13 +28,13 @@ class DiscordWidget extends WidgetBase {
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Discord';
-        $this->_location = $widget_query->location;
+        $this->_location = isset($widget_query->location) ? $widget_query->location : null;
         $this->_description = 'Display your Discord channel on your site. Make sure you have entered your Discord widget details in the StaffCP -> Configuration -> Social Media tab first!';
         $this->_settings = ROOT_PATH . '/modules/Core/includes/admin_widgets/discord.php';
-        $this->_order = $widget_query->order;
+        $this->_order = isset($widget_query->order) ? $widget_query->order : null;
     }
 
-    public function initialise(){
+    public function initialise() {
 	    // Generate HTML code for widget
 	    // First, check to see if the Discord server has the widget enabled.
 	    $this->_cache->setCache('social_media');

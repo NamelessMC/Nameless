@@ -10,9 +10,12 @@
  */
  
 class StatsWidget extends WidgetBase {
-	private $_cache, $_smarty, $_language;
 
-    public function __construct($pages = array(), $smarty, $language, $cache){
+    private $_cache, 
+            $_smarty, 
+            $_language;
+
+    public function __construct($pages = array(), $smarty, $language, $cache) {
     	$this->_cache = $cache;
     	$this->_smarty = $smarty;
     	$this->_language = $language;
@@ -30,7 +33,7 @@ class StatsWidget extends WidgetBase {
         $this->_order = $widget_query->order;
     }
 
-    public function initialise(){
+    public function initialise() {
         $queries = new Queries();
         $user = new User();
         

@@ -9,7 +9,11 @@
  *  Latest Posts Widget
  */
 class LatestPostsWidget extends WidgetBase {
-	private $_smarty, $_language, $_cache, $_user;
+
+    private $_smarty, 
+            $_language, 
+            $_cache, 
+            $_user;
 
     public function __construct($pages = array(), $latest_posts_language, $by_language, $smarty, $cache, $user, $language){
     	$this->_smarty = $smarty;
@@ -25,9 +29,9 @@ class LatestPostsWidget extends WidgetBase {
         // Set widget variables
         $this->_module = 'Forum';
         $this->_name = 'Latest Posts';
-        $this->_location = $widget_query->location;
+        $this->_location = isset($widget_query->location) ? $widget_query->location : null;
         $this->_description = 'Display latest posts from your forum.';
-        $this->_order = $widget_query->order;
+        $this->_order = isset($widget_query->order) ? $widget_query->order : null;
 
         $this->_smarty->assign(array(
         	'LATEST_POSTS' => $latest_posts_language,
@@ -35,7 +39,7 @@ class LatestPostsWidget extends WidgetBase {
         ));
     }
 
-    public function initialise(){
+    public function initialise() {
 	    require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 	    $forum = new Forum();
 	    $queries = new Queries();
