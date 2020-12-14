@@ -536,17 +536,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 		}
 	}
 
-	// Get user's group
-	$group = $queries->getWhere('groups', array('id', '=', $query->group_id));
-	$group = $group[0]->group_html;
-
-	// Get list of reactions
-	//$reactions = $queries->getWhere('reactions', array('enabled', '=', 1));
-
 	$smarty->assign(array(
 		'NICKNAME' => $profile_user->getDisplayname(true),
 		'USERNAME' => $profile_user->getDisplayname(),
-		'GROUP' => Output::getPurified($group),
 		'GROUPS' => (isset($query) ? $profile_user->getAllGroups('true') : array(Output::getPurified($group))),
 		'USERNAME_COLOUR' => $profile_user->getGroupClass(),
 		'USER_TITLE' => Output::getClean($query->user_title),
