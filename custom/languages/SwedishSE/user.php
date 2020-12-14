@@ -188,7 +188,7 @@ $language = array(
     'no_about_fields' => 'This user has not added any about fields yet.',
     'reply' => 'Reply',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Det gick inte att skapa en anmäla. Var god och se till att din anmälnings orsak är mellan 2 och 1024 tecken.',
     'report_post_content' => 'Vänligen ange en anledning till din anmälning',

@@ -92,18 +92,18 @@ $language = array(
     'punishment_revoked' => 'Bausmė atšaukta.',
     'punishment_revoked_alert' => '{x} pašalino bausmę vartotojui {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
     'cant_punish_admin' => 'Jūs negalite nubausti administratoriaus!',
-  'viewing_all_punishments' => 'Peržiūrimos visos bausmės',
-  'no_punishments_found' => 'Nerasta jokių bausmių.',
-  'view_user' => 'Peržiūrėti Vartotoją',
-  'when' => 'Kada',
-  'staff' => 'Darbuotojas',
-  'type' => 'Tipas',
-  'recent_punishments' => 'Nesenos Bausmės',
-  'created' => 'Sukurta:',
-  'staff:' => 'Darbuotojas:',
-  'reason:' => 'Priežastis:',
+    'viewing_all_punishments' => 'Peržiūrimos visos bausmės',
+    'no_punishments_found' => 'Nerasta jokių bausmių.',
+    'view_user' => 'Peržiūrėti Vartotoją',
+    'when' => 'Kada',
+    'staff' => 'Darbuotojas',
+    'type' => 'Tipas',
+    'recent_punishments' => 'Nesenos Bausmės',
+    'created' => 'Sukurta:',
+    'staff:' => 'Darbuotojas:',
+    'reason:' => 'Priežastis:',
 
-  // Users
-  'recent_registrations' => 'Naujausios Registracijos',
-  'reset_profile_banner' => 'Reset Profile Banner'
+    // Users
+    'recent_registrations' => 'Naujausios Registracijos',
+    'reset_profile_banner' => 'Reset Profile Banner'
 );

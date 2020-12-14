@@ -69,7 +69,7 @@ $language = array(
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */

@@ -57,7 +57,7 @@ $language = array(
     'report' => 'Rapport',
     'page_loaded_in' => 'Pagina geladen in {x}s', // Verander "{x}" niet, tijdseenheid is seconden
     'page_x' => 'Pagina {x}',
-       'browse' => 'Doorzoek',
+    'browse' => 'Doorzoek',
     'bypass' => 'Omzeilen',
     'yes' => 'Ja',
     'no' => 'Nee',
@@ -71,7 +71,7 @@ $language = array(
     'invalid_timezone' => 'Die tijdzone is ongeldig',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact formulier
      */

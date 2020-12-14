@@ -96,13 +96,13 @@ $language = array(
     'signature' => 'Sygnatura',
     'signature_max_900' => 'Twoja sygnatura może mieć maksymalnie 900 znaków.',
 
-     // Registration - Authme
-   'connect_with_authme' => 'Połącz swoje konto z kontem na serwerze.',
-     'authme_help' => 'Wpisz dane którymi logujesz się na serwer. Jeśli nie masz jeszcze konta na serwerze wejdź na serwer i postępuj zgodnie z instrukcjami wyświetlanymi na ekranie.',
-     'unable_to_connect_to_authme_db' => 'Podczas łączenia z bazą danych wystąpił błąd. Jeśli problem będzie się powtarzał skontaktuj się z administratorem.',
-     'authme_account_linked' => 'Konto zostało połączone z kontem na serwerze.',
-     'authme_email_help_1' => 'Wpisz swój adres email.',
-     'authme_email_help_2' => 'Wpisz swója adres email i nick wyświetlany na stronie.',
+    // Registration - Authme
+    'connect_with_authme' => 'Połącz swoje konto z kontem na serwerze.',
+    'authme_help' => 'Wpisz dane którymi logujesz się na serwer. Jeśli nie masz jeszcze konta na serwerze wejdź na serwer i postępuj zgodnie z instrukcjami wyświetlanymi na ekranie.',
+    'unable_to_connect_to_authme_db' => 'Podczas łączenia z bazą danych wystąpił błąd. Jeśli problem będzie się powtarzał skontaktuj się z administratorem.',
+    'authme_account_linked' => 'Konto zostało połączone z kontem na serwerze.',
+    'authme_email_help_1' => 'Wpisz swój adres email.',
+    'authme_email_help_2' => 'Wpisz swója adres email i nick wyświetlany na stronie.',
 
     // Registration errors
     'username_required' => 'Musisz wpisać nazwę użytkownika.',
@@ -141,13 +141,13 @@ $language = array(
     'must_input_username' => 'Musisz podać nazwę użytkownika.',
     'must_input_password' => 'Musisz podać hasło.',
 
-     // Forgot password
-   'forgot_password_instructions' => 'Wprowadź swój adres e-mail, abyśmy mogli wysłać Ci dalsze instrukcje dotyczące resetowania hasła.',
-     'forgot_password_email_sent' => 'Jeśli istnieje konto z podanym przez ciebie adresem e-mail, wysłano na twój email wiadomość zawierającą dalsze instrukcje. Jeśli nie możesz znaleźć tej wiadomości sprawdź także folder junk i spam',
-     'unable_to_send_forgot_password_email' => 'Nie można wysłać wiadomości email dotyczącej resetowania hasła. Skontaktuj się z administratorem.',
-     'enter_new_password' => 'Potwierdź swój adres email i wpisz nowe hasło.',
-     'incorrect_email' => 'Wpisany email jest niepoprawny.',
-     'forgot_password_change_successful' => 'Twoje hasło zostało zmienione. Możesz się teraz zalogować.',
+    // Forgot password
+    'forgot_password_instructions' => 'Wprowadź swój adres e-mail, abyśmy mogli wysłać Ci dalsze instrukcje dotyczące resetowania hasła.',
+    'forgot_password_email_sent' => 'Jeśli istnieje konto z podanym przez ciebie adresem e-mail, wysłano na twój email wiadomość zawierającą dalsze instrukcje. Jeśli nie możesz znaleźć tej wiadomości sprawdź także folder junk i spam',
+    'unable_to_send_forgot_password_email' => 'Nie można wysłać wiadomości email dotyczącej resetowania hasła. Skontaktuj się z administratorem.',
+    'enter_new_password' => 'Potwierdź swój adres email i wpisz nowe hasło.',
+    'incorrect_email' => 'Wpisany email jest niepoprawny.',
+    'forgot_password_change_successful' => 'Twoje hasło zostało zmienione. Możesz się teraz zalogować.',
 
     // Profile pages
     'profile' => 'Profil',
@@ -187,7 +187,7 @@ $language = array(
     'no_about_fields' => 'Ten użytkownik nie dodał jeszcze żadnych informacji o sobie.',
     'reply' => 'Odpowiedz',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Nie można wysłać zgłoszenia. Upewnij się że treść zgłoszenia ma od 2 do 1024 znaków.',
     'report_post_content' => 'Wpisz powód zgłoszenia',
