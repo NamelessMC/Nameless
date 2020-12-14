@@ -8,8 +8,10 @@
  *
  *  Error handler class
  */
+
 class ErrorHandler {
-    public static function catchError($errno, $errstr, $errfile, $errline){
+
+    public static function catchError($errno, $errstr, $errfile, $errline) {
         if(!(error_reporting() & $errno))
             return false;
 
@@ -37,7 +39,7 @@ class ErrorHandler {
         return true;
     }
 
-    public static function catchFatalError(){
+    public static function catchFatalError() {
         $error = error_get_last();
 
         if($error['type'] === E_ERROR){
@@ -52,7 +54,7 @@ class ErrorHandler {
         }
     }
 
-    private static function logError($type, $contents){
+    private static function logError($type, $contents) {
         try {
             if(!is_dir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs')))){
                 if(is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache')) {
@@ -68,10 +70,5 @@ class ErrorHandler {
         } catch(Exception $e){
             // Unable to write to file, ignore for now
         }
-    }
-
-    // Log a custom error
-    public static function logCustomError($contents){
-        self::logError('other', $contents);
     }
 }

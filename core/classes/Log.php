@@ -9,9 +9,9 @@
  *
  *
  */
-class Log{
-    private static $_instance = null;
-    private static $ACTION = [
+class Log {
+    
+    private const ACTION = [
         'admin' => [
             'login' => 'acp_login',
             'core' => [
@@ -171,13 +171,15 @@ class Log{
         ]
     ];
 
+    private static $_instance = null;
+
     private $_db;
 
-    public function __construct(){
+    public function __construct() {
         $this->_db = DB::getInstance();
     }
 
-    public static function getInstance(){
+    public static function getInstance() {
         if (!isset(self::$_instance)) {
             self::$_instance = new Log();
         }
@@ -189,14 +191,15 @@ class Log{
      * @param  String $path the path to the action
      * @return String/Array       The keys
      */
-    public static function Action($path){
+    public static function Action($path) {
         $path = explode('/', $path);
-        $config = self::$ACTION;
+        $config = self::ACTION;
         foreach ($path as $bit) {
             if (isset($config[$bit])) {
                 $config = $config[$bit];
             }
         }
+
         return $config;
     }
 
@@ -208,7 +211,7 @@ class Log{
      * @param  String $ip The ip of the user
      * @return boolean         Return true or false if inserted into the database.
      */
-    public function log($action, $info ="", $user = null, $ip = null){
+    public function log($action, $info = '', $user = null, $ip = null) {
         $userTemp = new User();
         if (!$ip) {
             $ip = $userTemp->getIP();
@@ -227,7 +230,7 @@ class Log{
      * @param  String $action action
      * @return array         Database Listings
      */
-    public function getByAction($action){
+    public function getByAction($action) {
         return $this->_db->orderWhere('logs', "`action`=`{$action}`", "time", "DESC");
     }
 }

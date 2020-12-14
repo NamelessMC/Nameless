@@ -8,16 +8,11 @@
  *
  *  Navigation class
  */
+
 class Navigation {
 
-    // Variables
-    private $_topNavbar = array(),
+    private $_topNavbar,
             $_footerNav = array();
-
-    // Construct Navigation class
-    public function __construct(){
-
-    }
 
     // Add a simple item to the navigation
     // Params: 	$name (string)		- unique name for the navbar item, if the page name equals this the item will display as active (required)
@@ -27,9 +22,9 @@ class Navigation {
     //			$target (string)	- HTML target attribute (eg '_blank') (optional)
     //          $order (int)        - nav item order (default 10)
     //          $icon (string)      - icon to prepend to nav item (default '')
-    public function add($name, $title, $link, $location = 'top', $target = null, $order = 10, $icon = ''){
+    public function add($name, $title, $link, $location = 'top', $target = null, $order = 10, $icon = '') {
         // Add the link to the navigation
-        if($location == 'top'){
+        if ($location == 'top') {
             // Add to top navbar
             $this->_topNavbar[$name] = array(
                 'title' => $title,
@@ -38,7 +33,6 @@ class Navigation {
                 'order' => $order,
                 'icon' => $icon
             );
-
         } else {
             // Add to footer navigation
             $this->_footerNav[$name] = array(
@@ -57,9 +51,9 @@ class Navigation {
     //			$location (string)	- location to add item to, either 'top' or 'footer' (defaults to 'top'),
     //          $order (int)        - nav item order (default 10)
     //          $icon (string)      - icon to prepend to nav item (default '')
-    public function addDropdown($name, $title, $location = 'top', $order = 10, $icon = ''){
+    public function addDropdown($name, $title, $location = 'top', $order = 10, $icon = '') {
         // Add the dropdown
-        if($location == 'top'){
+        if ($location == 'top') {
             // Navbar
             $this->_topNavbar[$name] = array(
                 'type' => 'dropdown',
@@ -68,7 +62,6 @@ class Navigation {
                 'order' => $order,
                 'icon' => $icon
             );
-
         } else {
             // Footer
             $this->_footerNav[$name] = array(
@@ -78,7 +71,6 @@ class Navigation {
                 'order' => $order,
                 'icon' => $icon
             );
-
         }
     }
 
@@ -91,7 +83,7 @@ class Navigation {
     //			$target (string)	- HTML target attribute (eg '_blank') (optional)
     //          $icon (string)      - icon to prepend to nav item (default '')
     //          $order (int)        - nav item order (default 10)
-    public function addItemToDropdown($dropdown, $name, $title, $link, $location = 'top', $target = null, $icon = '', $order = 10){
+    public function addItemToDropdown($dropdown, $name, $title, $link, $location = 'top', $target = null, $icon = '', $order = 10) {
         // Add the item
         if ($location == 'top' && isset($this->_topNavbar[$dropdown])) {
             // Navbar
@@ -102,7 +94,6 @@ class Navigation {
                 'icon' => $icon,
                 'order' => $order
             );
-
         } else if (isset($this->_footerNav[$dropdown])) {
             // Footer
             $this->_footerNav[$dropdown]['items'][$name] = array(
@@ -112,7 +103,6 @@ class Navigation {
                 'icon' => $icon,
                 'order' => $order
             );
-
         }
 
         // Unable to add item to dropdown, might not have been initialised
@@ -123,9 +113,9 @@ class Navigation {
     // Params: $location (string) - either 'top' or 'footer' (defaults to 'top')
     public function returnNav($location = 'top') {
         $return = array(); // String to return
-        if ($location == 'top'){
-            if (count($this->_topNavbar)){
-                foreach ($this->_topNavbar as $key => $item){
+        if ($location == 'top') {
+            if (count($this->_topNavbar)) {
+                foreach ($this->_topNavbar as $key => $item) {
                     $return[$key] = $item;
                     if (defined('PAGE') && PAGE == $key) {
                         $return[$key]['active'] = true;
@@ -163,10 +153,10 @@ class Navigation {
                     if (isset($return[$key]['items']) && count($return[$key]['items'])) {
                         uasort(
                             $return[$key]['items'],
-                            function($a, $b){
-                                if($a['order'] > $b['order']){
+                            function ($a, $b) {
+                                if ($a['order'] > $b['order']) {
                                     return 1;
-                                } else if($a['order'] < $b['order']){
+                                } else if ($a['order'] < $b['order']) {
                                     return -1;
                                 }
                                 return 0;
@@ -177,11 +167,11 @@ class Navigation {
             }
         }
 
-        uasort($return, function($a, $b){
+        uasort($return, function ($a, $b) {
             $result = 0;
-            if($a['order'] > $b['order']){
+            if ($a['order'] > $b['order']) {
                 $result = 1;
-            } else if($a['order'] < $b['order']){
+            } else if ($a['order'] < $b['order']) {
                 $result = -1;
             }
             return $result;

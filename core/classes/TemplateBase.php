@@ -8,10 +8,12 @@
  *
  *  Base template class
  */
+
 abstract class TemplateBase {
+    
     protected $_name = '', $_version = '', $_nameless_version = '', $_author = '', $_settings = '', $_css = array(), $_js = array();
 
-    public function __construct($name, $version, $nameless_version, $author){
+    public function __construct($name, $version, $nameless_version, $author) {
         $this->_name = $name;
         $this->_version = $version;
         $this->_nameless_version = $nameless_version;
@@ -20,60 +22,63 @@ abstract class TemplateBase {
 
     public abstract function onPageLoad();
 
-    public function addCSSFiles($files){
-        if(is_array($files) && count($files)){
-            foreach($files as $href => $file)
+    public function addCSSFiles($files) {
+        if (is_array($files) && count($files)) {
+            foreach ($files as $href => $file) {
                 $this->_css[] = '<link rel="stylesheet" href="' . $href . '"' . (isset($file['integrity']) ? ' integrity="' . $file['integrity'] . '"' : '') . (isset($file['crossorigin']) ? ' crossorigin="' . $file['crossorigin'] . '"' : '') . '>';
+            }
         }
     }
 
-    public function addCSSStyle($style = null){
-        if($style)
+    public function addCSSStyle($style = null) {
+        if ($style) {
             $this->_css[] = '<style>' . $style . '</style>';
-    }
-
-    public function addJSFiles($files){
-        if(is_array($files) && count($files)){
-            foreach($files as $href => $file)
-                $this->_js[] = '<script type="text/javascript" src="' . $href . '"' . (isset($file['integrity']) ? ' integrity="' . $file['integrity'] . '"' : '') . (isset($file['crossorigin']) ? ' crossorigin="' . $file['crossorigin'] . '"' : '') . '></script>';
         }
     }
 
-    public function addJSScript($script = null){
-        if($script)
-            $this->_js[] = '<script type="text/javascript">' . $script . '</script>';
+    public function addJSFiles($files) {
+        if (is_array($files) && count($files)) {
+            foreach ($files as $href => $file) {
+                $this->_js[] = '<script type="text/javascript" src="' . $href . '"' . (isset($file['integrity']) ? ' integrity="' . $file['integrity'] . '"' : '') . (isset($file['crossorigin']) ? ' crossorigin="' . $file['crossorigin'] . '"' : '') . '></script>';
+            }
+        }
     }
 
-    public function getCSS(){
+    public function addJSScript($script = null) {
+        if ($script) {
+            $this->_js[] = '<script type="text/javascript">' . $script . '</script>';
+        }
+    }
+
+    public function getCSS() {
         return $this->_css;
     }
 
-    public function getJS(){
+    public function getJS() {
         return $this->_js;
     }
 
-    public function getName(){
+    public function getName() {
         return $this->_name;
     }
 
-    public function getVersion(){
+    public function getVersion() {
         return $this->_version;
     }
 
-    public function getNamelessVersion(){
+    public function getNamelessVersion() {
         return $this->_nameless_version;
     }
 
-    public function getAuthor(){
+    public function getAuthor() {
         return $this->_author;
     }
 
-    public function getSettings(){
+    public function getSettings() {
         return $this->_settings;
     }
 
-    public function displayTemplate($template, $smarty){
-        // Template Smarty variables
+    public function displayTemplate($template, $smarty) {
         $smarty->assign(array(
             'TEMPLATE_CSS' => $this->getCSS(),
             'TEMPLATE_JS' => $this->getJS()
@@ -81,13 +86,12 @@ abstract class TemplateBase {
         $smarty->display($template);
     }
 
-    public function getTemplate($template, $smarty){
-        // Template Smarty variables
+    public function getTemplate($template, $smarty) {
         $smarty->assign(array(
             'TEMPLATE_CSS' => $this->getCSS(),
             'TEMPLATE_JS' => $this->getJS()
         ));
+
         return $smarty->fetch($template);
     }
-
 }

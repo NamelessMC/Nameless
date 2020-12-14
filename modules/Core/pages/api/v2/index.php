@@ -29,11 +29,10 @@ $api = new Nameless2API($route, $language, $endpoints);
 
 class Nameless2API {
 
-    private
-        $_validated = false,
-        $_db,
-        $_language,
-        $_endpoints;
+    private $_validated = false,
+            $_db,
+            $_language,
+            $_endpoints;
 
     public function isValidated() {
         if ($this->_validated) return true;
@@ -83,7 +82,9 @@ class Nameless2API {
                 if ($this->_endpoints->handle($request, $this) == false) {
                     $this->throwError(3, $this->_language->get('api', 'invalid_api_method'));
                 }
-            } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
+            } else {
+                $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
+            }
         } catch(Exception $e) {
             $this->throwError($e->getMessage());
         }
@@ -111,7 +112,7 @@ class Nameless2API {
         return false;
     }
 
-    public function getUser($column, $value): User {
+    public function getUser($column, $value) {
         $tempUser = $this->getDb()->get('users', array($column, '=', Output::getClean($value)));
         if (!$tempUser->count()) $this->throwError(16, $this->getLanguage()->get('api', 'unable_to_find_user'));
         return new User($tempUser->first()->id);

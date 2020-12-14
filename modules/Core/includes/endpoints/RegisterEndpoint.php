@@ -217,7 +217,7 @@ class RegisterEndpoint extends EndpointBase {
                     'last_online' => date('U')
                 ));
 
-                $user_id = $api->getDb()->lastid();
+                $user_id = $api->getDb()->lastId();
 
                 $user = new User($user_id);
 				$user->setGroup($default_group);

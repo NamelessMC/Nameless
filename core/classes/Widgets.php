@@ -8,7 +8,9 @@
  *
  *  Widget class
  */
+
 class Widgets {
+
     private $_widgets = array(),
             $_enabled = array(),
             $_cache,
@@ -72,7 +74,7 @@ class Widgets {
     /*
      *  Get a single widget by name
      */
-    public function getWidget($name = null){
+    public function getWidget($name = null) {
         if($name)
             if(array_key_exists($name, $this->_widgets))
                 return $this->_widgets[$name];
@@ -99,6 +101,7 @@ class Widgets {
                 $ret[] = $item->display();
             }
         }
+
         return $ret;
     }
 
@@ -110,6 +113,7 @@ class Widgets {
         uasort($widgets, function($a, $b) {
             return $a->getOrder() - $b->getOrder();
         });
+
         return $widgets;
     }
 
@@ -132,10 +136,11 @@ class Widgets {
      */
     public function getPages($name) {
         $pages = $this->_db->get('widgets', array('name', '=', $name));
-        if($pages->count()){
+        if($pages->count()) {
             $pages = $pages->first();
             return json_decode($pages->pages, true);
         }
+
         return array();
     }
 

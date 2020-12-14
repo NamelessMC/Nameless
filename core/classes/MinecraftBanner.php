@@ -25,10 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-class MinecraftBanner
-{
-    public static function getBackgroundCanvas($width, $height, $background)
-    {
+class MinecraftBanner {
+
+    public static function getBackgroundCanvas($width, $height, $background) {
         $texture_size = 32;
 
         $canvas = imagecreatetruecolor($width, $height);
@@ -76,7 +75,7 @@ class MinecraftBanner
         return $canvas;
     }
 
-    public static function getColours(){
+    public static function getColours() {
         return array(
             '0' => array(0, 0, 0), //Black
             '1' => array(0, 0, 170), //Dark Blue
@@ -97,11 +96,11 @@ class MinecraftBanner
         );
     }
 
-    public static function getColourChar(){
+    public static function getColourChar() {
         return "§";
     }
 
-    public static function getFontFile(){
+    public static function getFontFile() {
         return ROOT_PATH . '/core/assets/fonts/minecraft.ttf';
     }
 

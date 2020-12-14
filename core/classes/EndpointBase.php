@@ -9,12 +9,12 @@
  *
  *  EndpointsBase class
  */
+
 abstract class EndpointBase {
 
-    protected
-        $_route,
-        $_module,
-        $_description;
+    protected $_route,
+              $_module,
+              $_description;
 
     public function getRoute() {
         return $this->_route;

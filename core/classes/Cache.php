@@ -56,7 +56,7 @@ class Cache {
      * @return void
      */
     public function __construct($config = null) {
-        if (true === isset($config)) {
+        if (isset($config)) {
             if (is_string($config)) {
                 $this->setCache($config);
             } else if (is_array($config)) {
@@ -74,15 +74,15 @@ class Cache {
      * @return boolean
      */
     public function isCached($key) {
-        if (false != $this->_loadCache()) {
+        if ($this->_loadCache()) {
             $cachedData = $this->_loadCache();
-            if(isset($cachedData[$key])){
-                    $entry = $cachedData[$key];
-                    if ($entry && true === $this->_checkExpired($entry['time'], $entry['expire'])) {
-                            return false;
-                    } else {
-                            return isset($cachedData[$key]['data']);
-                    }
+            if (isset($cachedData[$key])) {
+                $entry = $cachedData[$key];
+                if ($entry && $this->_checkExpired($entry['time'], $entry['expire'])) {
+                    return false;
+                } else {
+                    return isset($cachedData[$key]['data']);
+                }
             }
         }
     }
@@ -102,7 +102,7 @@ class Cache {
             'data'   => serialize($data)
         );
         $dataArray = $this->_loadCache();
-        if (true === is_array($dataArray)) {
+        if (is_array($dataArray)) {
             $dataArray[$key] = $storeData;
         } else {
             $dataArray = array($key => $storeData);
@@ -121,12 +121,13 @@ class Cache {
      */
     public function retrieve($key, $timestamp = false) {
         $cachedData = $this->_loadCache();
-        (false === $timestamp) ? $type = 'data' : $type = 'time';
+        (!$timestamp) ? $type = 'data' : $type = 'time';
         if (!isset($cachedData[$key][$type])) return null;
-        if (false === $timestamp){
+        if (!$timestamp) {
             $entry = $cachedData[$key];
-            if ($entry && true === $this->_checkExpired($entry['time'], $entry['expire']))
+            if ($entry && $this->_checkExpired($entry['time'], $entry['expire'])) {
                 return null;
+            }
         }
         return unserialize($cachedData[$key][$type]);
     }
@@ -138,7 +139,7 @@ class Cache {
      * @return array
      */
     public function retrieveAll($meta = false) {
-        if ($meta === false) {
+        if (!$meta) {
             $results = array();
             $cachedData = $this->_loadCache();
             if ($cachedData) {
@@ -160,8 +161,8 @@ class Cache {
      */
     public function erase($key) {
         $cacheData = $this->_loadCache();
-        if (true === is_array($cacheData)) {
-            if (true === isset($cacheData[$key])) {
+        if (is_array($cacheData)) {
+            if (isset($cacheData[$key])) {
                 unset($cacheData[$key]);
                 $cacheData = json_encode($cacheData);
                 file_put_contents($this->getCacheDir(), $cacheData);
@@ -179,10 +180,10 @@ class Cache {
      */
     public function eraseExpired() {
         $cacheData = $this->_loadCache();
-        if (true === is_array($cacheData)) {
+        if (is_array($cacheData)) {
             $counter = 0;
             foreach ($cacheData as $key => $entry) {
-                if (true === $this->_checkExpired($entry['time'], $entry['expire'])) {
+                if ($this->_checkExpired($entry['time'], $entry['expire'])) {
                     unset($cacheData[$key]);
                     $counter++;
                 }
@@ -202,7 +203,7 @@ class Cache {
      */
     public function eraseAll() {
         $cacheDir = $this->getCacheDir();
-        if (true === file_exists($cacheDir)) {
+        if (file_exists($cacheDir)) {
             $cacheFile = fopen($cacheDir, 'w');
             fclose($cacheFile);
         }
@@ -215,7 +216,7 @@ class Cache {
      * @return mixed
      */
     private function _loadCache() {
-        if (true === file_exists($this->getCacheDir())) {
+        if (file_exists($this->getCacheDir())) {
             $file = file_get_contents($this->getCacheDir());
             return json_decode($file, true);
         } else {
@@ -229,7 +230,7 @@ class Cache {
      * @return string
      */
     public function getCacheDir() {
-        if (true === $this->_checkCacheDir()) {
+        if ($this->_checkCacheDir()) {
             $filename = $this->getCache();
             $filename = preg_replace('/[^0-9a-z\.\_\-]/i', '', strtolower($filename));
             return $this->getCachePath() . $this->_getHash($filename) . $this->getExtension();
@@ -336,5 +337,4 @@ class Cache {
     public function getExtension() {
         return $this->_extension;
     }
-
 }

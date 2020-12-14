@@ -17,8 +17,7 @@ class MentionsParser {
      * Create a new instance of MentionsParser.
      *
      */
-    public function __construct()
-    {
+    public function __construct() {
         // Initialise database connection
         $this->_db = DB::getInstance();
     }
@@ -35,7 +34,7 @@ class MentionsParser {
      *
      * @return String parsed post content
      */
-    public function parse($author_id, $value, $link, $alert_short, $alert_full){
+    public function parse($author_id, $value, $link, $alert_short, $alert_full) {
         if(preg_match_all("/\@([A-Za-z0-9\-_!\.]+)/", $value, $matches)){
             $matches = $matches[1];
 
@@ -74,6 +73,7 @@ class MentionsParser {
                 }
             }
         }
+        
         return $value;
     }
 }

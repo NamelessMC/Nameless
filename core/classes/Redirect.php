@@ -12,12 +12,12 @@ class Redirect {
 
     // Redirect the user to the specified location
     // Params: $location (string) - path or URL to redirect to, or (int) 404 if the page is not found
-    public static function to($location = null){
+    public static function to($location = null) {
         // Check the location is actually set
-        if($location){
+        if ($location) {
             // It is set
-            if(is_numeric($location)){
-                switch($location){
+            if (is_numeric($location)) {
+                switch ($location) {
                     // 404 request?
                     case 404:
                         header('HTTP/1.0 404 Not Found');

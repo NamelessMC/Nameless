@@ -1,9 +1,20 @@
 <?php
-class Paginator{
+/*
+ *	Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
+ *
+ *  License: MIT
+ *
+ *  Paginator class
+ */
+
+class Paginator {
+
     private $_limit,
-        $_page,
-        $_total,
-        $_class;
+            $_page,
+            $_total,
+            $_class;
 
     public function __construct($class = array()){
         // Constructor

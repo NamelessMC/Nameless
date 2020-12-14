@@ -7,17 +7,17 @@ if ($s < 9) {
 $queries = new Queries();
 $cache = new Cache();
 
-switch($s) {
+switch ($s) {
 
     case 0:
         // Alerts -> custom page permissions
         // Alerts
         try {
             $old = $conn->get('nl1_alerts', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('alerts', array(
                         'id' => $item->id,
                         'user_id' => $item->user_id,
@@ -30,17 +30,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert alerts: ' . $e->getMessage();
         }
 
         // Custom pages
         try {
             $old = $conn->get('nl1_custom_pages', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('custom_pages', array(
                         'id' => $item->id,
                         'url' => $item->url,
@@ -52,17 +52,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert custom pages: ' . $e->getMessage();
         }
 
         // Custom page permissions
         try {
             $old = $conn->get('nl1_custom_pages_permissions', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('custom_pages_permissions', array(
                         'id' => $item->id,
                         'page_id' => $item->page_id,
@@ -71,7 +71,7 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert custom page permissions: ' . $e->getMessage();
         }
 
@@ -82,10 +82,10 @@ switch($s) {
         // Forums
         try {
             $old = $conn->get('nl1_forums', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('forums', array(
                         'id' => $item->id,
                         'forum_title' => $item->forum_title,
@@ -100,17 +100,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert forums: ' . $e->getMessage();
         }
 
         // Forum permissions
         try {
             $old = $conn->get('nl1_forums_permissions', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('forums_permissions', array(
                         'id' => $item->id,
                         'group_id' => $item->group_id,
@@ -122,17 +122,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert forum permissions: ' . $e->getMessage();
         }
 
         // Forum topic labels
         try {
             $old = $conn->get('nl1_forums_topic_labels', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('forums_topic_labels', array(
                         'id' => $item->id,
                         'fids' => $item->fids,
@@ -141,17 +141,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert forum topic labels: ' . $e->getMessage();
         }
 
         // Friends/followers
         try {
             $old = $conn->get('nl1_friends', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('friends', array(
                         'id' => $item->id,
                         'user_id' => $item->user_id,
@@ -159,17 +159,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert friends: ' . $e->getMessage();
         }
 
         // Groups
         try {
             $old = $conn->get('nl1_groups', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('groups', array(
                         'id' => $item->id,
                         'name' => $item->name,
@@ -184,7 +184,7 @@ switch($s) {
                 $queries->update('groups', 2, array('permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.pages.metadata":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.sitemap":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1,"admincp.core.emails_mass_message":1}'));
                 $queries->update('groups', 3, array('permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1}'));
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert groups: ' . $e->getMessage();
         }
 
@@ -195,10 +195,10 @@ switch($s) {
         // Infractions
         try {
             $old = $conn->get('nl1_infractions', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('infractions', array(
                         'id' => $item->id,
                         'type' => $item->type,
@@ -210,17 +210,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert site punishments: ' . $e->getMessage();
         }
 
         // Minecraft servers
         try {
             $old = $conn->get('nl1_mc_servers', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('mc_servers', array(
                         'id' => $item->id,
                         'ip' => $item->ip,
@@ -233,17 +233,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert Minecraft servers: ' . $e->getMessage();
         }
 
         // Posts
         try {
             $old = $conn->get('nl1_posts', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('posts', array(
                         'id' => $item->id,
                         'forum_id' => $item->forum_id,
@@ -255,7 +255,7 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert posts: ' . $e->getMessage();
         }
 
@@ -266,10 +266,10 @@ switch($s) {
         // Private messages
         try {
             $old = $conn->get('nl1_private_messages', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('private_messages', array(
                         'id' => $item->id,
                         'author_id' => $item->author_id,
@@ -280,7 +280,7 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert private messages: ' . $e->getMessage();
         }
 
@@ -288,21 +288,21 @@ switch($s) {
         $private_messages = array();
         try {
             $old = $conn->get('nl1_private_messages_replies', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
-                    if(!isset($private_messages[$item->pm_id])){
+                foreach ($old as $item) {
+                    if (!isset($private_messages[$item->pm_id])) {
                         $private_messages[$item->pm_id] = array(
                             'created' => $item->created,
                             'updated' => $item->created,
                             'last_reply_user' => $item->user_id
                         );
                     } else {
-                        if($private_messages[$item->pm_id]['created'] > $item->created)
+                        if ($private_messages[$item->pm_id]['created'] > $item->created)
                             $private_messages[$item->pm_id]['created'] = $item->created;
 
-                        else if($private_messages[$item->pm_id]['updated'] < $item->created){
+                        else if ($private_messages[$item->pm_id]['updated'] < $item->created) {
                             $private_messages[$item->pm_id]['updated'] = $item->created;
                             $private_messages[$item->pm_id]['last_reply_user'] = $item->user_id;
                         }
@@ -317,17 +317,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert private message replies: ' . $e->getMessage();
         }
 
         // Private message users
         try {
             $old = $conn->get('nl1_private_messages_users', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('private_messages_users', array(
                         'id' => $item->id,
                         'pm_id' => $item->pm_id,
@@ -336,18 +336,18 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert private message users: ' . $e->getMessage();
         }
 
         // Update private message columns
-        foreach($private_messages as $key => $message){
+        foreach ($private_messages as $key => $message) {
             try {
                 $queries->update('private_messages', $key, array(
                     'created' => $message['created'],
                     'last_reply_user' => $message['last_reply_user']
                 ));
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 $errors[] = 'Unable to convert update private message columns: ' . $e->getMessage();
             }
         }
@@ -359,10 +359,10 @@ switch($s) {
         // Query errors
         try {
             $old = $conn->get('nl1_query_errors', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('query_errors', array(
                         'id' => $item->id,
                         'date' => $item->date,
@@ -372,17 +372,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert query errors: ' . $e->getMessage();
         }
 
         // Reports
         try {
             $old = $conn->get('nl1_reports', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('reports', array(
                         'id' => $item->id,
                         'type' => $item->type,
@@ -399,17 +399,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert reports: ' . $e->getMessage();
         }
 
         // Report comments
         try {
             $old = $conn->get('nl1_reports_comments', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('reports_comments', array(
                         'id' => $item->id,
                         'report_id' => $item->report_id,
@@ -419,17 +419,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert report comments: ' . $e->getMessage();
         }
 
         // Reputation
         try {
             $old = $conn->get('nl1_reputation', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('forums_reactions', array(
                         'id' => $item->id,
                         'post_id' => $item->post_id,
@@ -440,17 +440,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert reputation: ' . $e->getMessage();
         }
 
         // Settings
         try {
             $old = $conn->get('nl1_settings', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('settings', array(
                         'id' => $item->id,
                         'name' => $item->name,
@@ -458,7 +458,7 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert settings: ' . $e->getMessage();
         }
 
@@ -468,10 +468,10 @@ switch($s) {
         // Topics -> users
         try {
             $old = $conn->get('nl1_topics', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('topics', array(
                         'id' => $item->id,
                         'forum_id' => $item->forum_id,
@@ -487,17 +487,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert topics: ' . $e->getMessage();
         }
 
         // Users
         try {
             $old = $conn->get('nl1_users', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('users', array(
                         'id' => $item->id,
                         'username' => $item->mcname,
@@ -530,7 +530,7 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert users: ' . $e->getMessage();
         }
 
@@ -541,10 +541,10 @@ switch($s) {
         // User admin sessions
         try {
             $old = $conn->get('nl1_users_admin_session', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('users_admin_session', array(
                         'id' => $item->id,
                         'user_id' => $item->user_id,
@@ -552,17 +552,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert user admin sessions: ' . $e->getMessage();
         }
 
         // User sessions
         try {
             $old = $conn->get('nl1_users_session', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('users_session', array(
                         'id' => $item->id,
                         'user_id' => $item->user_id,
@@ -570,17 +570,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert user sessions: ' . $e->getMessage();
         }
 
         // Username history
         try {
             $old = $conn->get('nl1_users_username_history', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('users_username_history', array(
                         'id' => $item->id,
                         'user_id' => $item->user_id,
@@ -590,17 +590,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert username history: ' . $e->getMessage();
         }
 
         // Profile wall posts
         try {
             $old = $conn->get('nl1_user_profile_wall_posts', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('user_profile_wall_posts', array(
                         'id' => $item->id,
                         'user_id' => $item->user_id,
@@ -610,17 +610,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert user profile wall posts: ' . $e->getMessage();
         }
 
         // Profile wall likes
         try {
             $old = $conn->get('nl1_user_profile_wall_posts_likes', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('user_profile_wall_posts_reactions', array(
                         'id' => $item->id,
                         'user_id' => $item->user_id,
@@ -630,17 +630,17 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert user profile wall likes: ' . $e->getMessage();
         }
 
         // Profile wall replies
         try {
             $old = $conn->get('nl1_user_profile_wall_posts_replies', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('user_profile_wall_posts_replies', array(
                         'id' => $item->id,
                         'post_id' => $item->post_id,
@@ -650,7 +650,7 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert user profile wall replies: ' . $e->getMessage();
         }
 
@@ -660,10 +660,10 @@ switch($s) {
         // UUID cache
         try {
             $old = $conn->get('nl1_uuid_cache', array('id', '<>', 0));
-            if($old->count()){
+            if ($old->count()) {
                 $old = $old->results();
 
-                foreach($old as $item){
+                foreach ($old as $item) {
                     $queries->create('uuid_cache', array(
                         'id' => $item->id,
                         'mcname' => $item->mcname,
@@ -671,7 +671,7 @@ switch($s) {
                     ));
                 }
             }
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $errors[] = 'Unable to convert UUID cache: ' . $e->getMessage();
         }
 
@@ -681,7 +681,7 @@ switch($s) {
         // New settings/initialise cache
         // Site name
         $sitename = $queries->getWhere('settings', array('name', '=', 'sitename'));
-        if(!count($sitename)){
+        if (!count($sitename)) {
             $cache->setCache('sitenamecache');
             $cache->store('sitename', 'NamelessMC');
         } else {
@@ -841,7 +841,7 @@ switch($s) {
         ));
 
         $version = $queries->getWhere('settings', array('name', '=', 'version'));
-        if(count($version)){
+        if (count($version)) {
             $queries->update('settings', $version[0]->id, array(
                 'name' => 'nameless_version',
                 'value' => '2.0.0-pr7'
@@ -854,7 +854,7 @@ switch($s) {
         }
 
         $version_update = $queries->getWhere('settings', array('name', '=', 'version_update'));
-        if(count($version_update)){
+        if (count($version_update)) {
             $queries->update('settings', $version_update[0]->id, array(
                 'value' => 'false'
             ));
@@ -866,7 +866,7 @@ switch($s) {
         }
 
         $mcassoc = $queries->getWhere('settings', array('name', '=', 'use_mcassoc'));
-        if(count($mcassoc)){
+        if (count($mcassoc)) {
             $queries->update('settings', $mcassoc[0]->id, array(
                 'name' => 'verify_accounts'
             ));
@@ -878,7 +878,7 @@ switch($s) {
         }
 
         $avatar_site = $queries->getWhere('settings', array('name', '=', 'avatar_api'));
-        if(count($avatar_site)){
+        if (count($avatar_site)) {
             $queries->update('settings', $avatar_site[0]->id, array(
                 'name' => 'avatar_site'
             ));
@@ -914,7 +914,7 @@ switch($s) {
         $cache->store('formatting', 'html');
 
         $error_reporting = $queries->getWhere('settings', array('name', '=', 'error_reporting'));
-        if(count($error_reporting)){
+        if (count($error_reporting)) {
             $cache->setCache('error_cache');
             $cache->store('error_reporting', $error_reporting[0]->value);
         } else {
@@ -934,7 +934,7 @@ switch($s) {
         $cache->store('page_load', 0);
 
         $use_plugin = $queries->getWhere('settings', array('name', '=', 'use_plugin'));
-        if(count($use_plugin)){
+        if (count($use_plugin)) {
             $queries->update('settings', $use_plugin[0]->id, array(
                 'name' => 'use_api'
             ));
@@ -1025,7 +1025,7 @@ switch($s) {
         ));
 
         $terms = $queries->getWhere('settings', array('name', '=', 't_and_c_site'));
-        if(count($terms)){
+        if (count($terms)) {
             $queries->create('privacy_terms', array(
                 'name' => 'terms',
                 'value' => $terms[0]->value
@@ -1111,5 +1111,4 @@ switch($s) {
         // Complete
         $message = 'Upgrade complete!';
         break;
-
 }

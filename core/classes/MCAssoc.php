@@ -1,13 +1,14 @@
 <?php
 
 class MCAssoc {
-    private $siteId;
-    private $sharedSecret;
-    private $instanceSecret;
-    private $timestampLeeway;
-    private $insecureMode = false;
 
-    public function __construct($siteId, $sharedSecret, $instanceSecret, $timestampLeeway=300) {
+    private $siteId,
+            $sharedSecret,
+            $instanceSecret,
+            $timestampLeeway,
+            $insecureMode = false;
+
+    public function __construct($siteId, $sharedSecret, $instanceSecret, $timestampLeeway = 300) {
         $this->siteId = $siteId;
         $this->sharedSecret = hex2bin($sharedSecret);
         $this->instanceSecret = $instanceSecret;
@@ -32,8 +33,7 @@ class MCAssoc {
         return base64_encode($data . $this->baseSign($data, $key));
     }
 
-    private static function constantCompare($str1, $str2)
-    {
+    private static function constantCompare($str1, $str2) {
         if (strlen($str1) != strlen($str2))
             return false;
 
@@ -76,7 +76,7 @@ class MCAssoc {
         return $this->verify($input, $this->instanceSecret);
     }
 
-    public function unwrapData($input, $time=null) {
+    public function unwrapData($input, $time = null) {
         if ($time === null) {
             $time = time();
         }
@@ -101,5 +101,4 @@ class MCAssoc {
 
         return $rdata;
     }
-
 }

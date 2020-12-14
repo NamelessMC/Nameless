@@ -27,7 +27,7 @@ THE SOFTWARE.
  */
 
 
-function timeAgoInWords($timestring, $timezone = NULL) {
+function timeAgoInWords($timestring, $timezone = null) {
     $timeAgo = new TimeAgo($timezone);
 
     return $timeAgo->inWords($timestring, "now");
@@ -47,6 +47,7 @@ function timeAgoInWords($timestring, $timezone = NULL) {
  * @site http://github.com/jimmiw/php-time-ago
  */
 class TimeAgo {
+    
     // defines the number of seconds per "unit"
     private $secondsPerMinute = 60;
     private $secondsPerHour = 3600;
@@ -55,10 +56,10 @@ class TimeAgo {
     private $secondsPerYear = 31104000;
     private $timezone;
 
-    public function __construct($timezone = NULL) {
+    public function __construct($timezone = null) {
         // if the $timezone is null, we take 'Europe/London' as the default
         // this was done, because the parent construct tossed an exception
-        if($timezone == NULL) {
+        if($timezone == null) {
             $timezone = 'Europe/London';
         }
 
