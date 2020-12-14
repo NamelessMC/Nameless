@@ -9,7 +9,8 @@
  *  Facebook Widget
  */
 class FacebookWidget extends WidgetBase {
-    public function __construct($pages = array(), $fb_url = ''){
+
+    public function __construct($pages = array(), $fb_url = '') {
         parent::__construct($pages);
 
         // Get widget
@@ -39,7 +40,7 @@ class FacebookWidget extends WidgetBase {
 		';
     }
 
-    public function initialise(){
+    public function initialise() {
     	// Do nothing
     }
 }

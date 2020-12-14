@@ -9,9 +9,12 @@
  *  Online users widget
  */
 class OnlineUsersWidget extends WidgetBase {
-	private $_smarty, $_cache, $_language;
 
-    public function __construct($pages = array(), $cache, $smarty, $language){
+    private $_smarty, 
+            $_cache, 
+            $_language;
+
+    public function __construct($pages = array(), $cache, $smarty, $language) {
     	$this->_smarty = $smarty;
     	$this->_cache = $cache;
     	$this->_language = $language;
@@ -30,7 +33,7 @@ class OnlineUsersWidget extends WidgetBase {
         $this->_order = $widget_query->order;
     }
 
-    public function initialise(){
+    public function initialise() {
 	    $this->_cache->setCache('online_members');
 
 	    if($this->_cache->isCached('users')){
