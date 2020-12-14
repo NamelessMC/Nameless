@@ -15,7 +15,6 @@ class SubmitDiscordRoleListEndpoint extends EndpointBase {
 
     public function execute(Nameless2API $api) {
         if ($api->isValidated()) {
-            if (!Util::getSetting($api->getDb(), 'discord_integration')) $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
 
             $roles = array();
 
