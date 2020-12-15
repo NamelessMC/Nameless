@@ -48,9 +48,9 @@ $language = array(
     'registrations' => 'Anmeldungen',
     'topics' => 'Themen',
     'posts' => 'Posts',
-    'notices' => 'Ereignisse',
-    'no_notices' => 'Keine Ereignisse.',
-    'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
+        'notices' => 'Ereignisse',
+        'no_notices' => 'Keine Ereignisse.',
+        'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
 
     // Core
     'settings' => 'Einstellungen',

@@ -187,7 +187,7 @@ $language = array(
     'no_about_fields' => 'This user has not added any about fields yet.',
     'reply' => 'Reply',
     'discord_username' => 'Discord Username',
-
+    
     // Reports
     'invalid_report_content' => 'Unable to create report. Please ensure your report reason is between 2 and 1024 characters.',
     'report_post_content' => 'Please enter a reason for your report',

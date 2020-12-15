@@ -185,7 +185,7 @@ $language = array(
     'no_about_fields' => 'Cet utilisateur n’a pas encore ajouté de champs.',
     'reply' => 'Répondre',
     'discord_username' => 'Discord Username',
-
+    
     // Reports
     'invalid_report_content' => 'Impossible de créer un signalement. Veuillez vous assurer que le motif de votre signalement comporte entre 2 et 1024 caractères.',
     'report_post_content' => 'Veuillez saisir une raison de votre signalement',

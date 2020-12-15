@@ -68,8 +68,8 @@ $language = array(
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
-
-    // Contact form
+    
+     // Contact form
     'contact' => 'Susisiekti',
     'message' => 'Žinutė',
     'email_address' => 'El. pašto adresas',
@@ -79,7 +79,7 @@ $language = array(
     'contact_message_sent' => 'Pranešimas sėkmingai išsiųstas.',
     'contact_message_limit' => 'Galite siųsti tik vieną pranešimą per valandą. Jūs galėsite išsiųsti kitą pranešimą po {x} minučių.', // Don't replace {x}
 
-    // Navbar
+  // Navbar
     'home' => 'Namai',
     'more' => 'Daugiau',
     'status' => 'Statusas',
@@ -87,7 +87,7 @@ $language = array(
     // Homepage
     'social' => 'Socialiniai',
 
-    // Help dialogues
+     // Help dialogues
     'markdown_help' => 'Jūs galite formatuoti savo įrašą naudodamiesi "Markdown". Del daugiau informacijos žiurėkite <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>čia</a>.',
 
     // Server query
