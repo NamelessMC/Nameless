@@ -14,7 +14,7 @@ if(!$user->isLoggedIn()){
 	Redirect::to(URL::build('/'));
 	die();
 }
- 
+
 // Always define page name for navbar
 define('PAGE', 'cc_messaging');
 $page_title = $language->get('user', 'user_cp');
@@ -56,7 +56,6 @@ if($formatting == 'markdown'){
 
 $timeago = new Timeago(TIMEZONE);
 
-require(ROOT_PATH . '/core/includes/paginate.php'); // Get number of topics on a page
 require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
@@ -71,7 +70,7 @@ if(isset($_GET['p'])){
 		Redirect::to(URL::build('/user/messaging'));
 		die();
 	} else {
-		if($_GET['p'] == 1){ 
+		if($_GET['p'] == 1){
 			// Avoid bug in pagination class
 			if(isset($_GET['message']))
 			    Redirect::to(URL::build('/user/messaging/', 'action=view&message=' . Output::getClean($_GET['message'])));
@@ -510,7 +509,7 @@ if(!isset($_GET['action'])){
 		// Display the correct number of messages
 		for($n = 0; $n < count($results->data); $n++){
 			$target_user = new User($results->data[$n]->author_id);
-			
+
 			$template_array[] = array(
 				'id' => $results->data[$n]->id,
 				'author_id' => $results->data[$n]->author_id,
