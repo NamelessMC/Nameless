@@ -335,26 +335,26 @@ if(!isset($_GET['action'])) {
                     $errors = array();
 
                     foreach ($validation->errors() as $item) {
-                        if (strpos($item, 'is required')) {
+                        if (strpos($item, 'is required') !== false) {
                             if (strpos($item, 'title')) {
                                 $errors[] = $language->get('user', 'title_required');
-                            } else if (strpos($item, 'content')) {
+                            } else if (strpos($item, 'content') !== false) {
                                 $errors[] = $language->get('user', 'content_required');
                                 break;
                             } else if (strpos($item, 'to')) {
                                 $errors[] = $language->get('user', 'users_to_required');
                             }
-                        } else if (strpos($item, 'minimum')) {
-                            if (strpos($item, 'title')) {
+                        } else if (strpos($item, 'minimum') !== false) {
+                            if (strpos($item, 'title') !== false) {
                                 $errors[] = $language->get('user', 'title_min_2');
-                            } else if (strpos($item, 'content')) {
+                            } else if (strpos($item, 'content') !== false) {
                                 $errors[] = $language->get('user', 'content_min_2');
                                 break;
                             }
-                        } else if (strpos($item, 'maximum')) {
-                            if (strpos($item, 'title')) {
+                        } else if (strpos($item, 'maximum') !== false) {
+                            if (strpos($item, 'title') !== false) {
                                 $errors[] = $language->get('user', 'title_max_64');
-                            } else if (strpos($item, 'content')) {
+                            } else if (strpos($item, 'content') !== false) {
                                 $errors[] = $language->get('user', 'content_max_20480');
                             }
                         }
@@ -515,11 +515,11 @@ if(!isset($_GET['action'])) {
                 } else {
                     // Errors
                     foreach ($validation->errors() as $item) {
-                        if (strpos($item, 'is required')) {
+                        if (strpos($item, 'is required') !== false) {
                             $error = $language->get('user', 'content_required');
-                        } else if (strpos($item, 'minimum')) {
+                        } else if (strpos($item, 'minimum') !== false) {
                             $error = $language->get('user', 'content_min_2');
-                        } else if (strpos($item, 'maximum')) {
+                        } else if (strpos($item, 'maximum') !== false) {
                             $error = $language->get('user', 'content_max_20480');
                         }
                     }
