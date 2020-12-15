@@ -16,14 +16,14 @@ $user = isset($_GET['u']) ? $_GET['u'] : '';
 $view = isset($_GET['v']) ? substr($_GET['v'], 0, 1) : 'f';
 $view = in_array($view, array('f', 'l', 'r', 'b')) ? $view : 'f';
 
-function get_skin($user, $cache)
-{
-	// Check cache
-	$cache->setCache('avatarCache_' . $user);
-	if($cache->isCached($user)){
-		return 'cached';
-	}
-	
+function get_skin($user, $cache) {
+    
+    // Check cache
+    $cache->setCache('avatarCache_' . $user);
+    if ($cache->isCached($user)) {
+        return 'cached';
+    }
+
     // Default Steve Skin: https://minecraft.net/images/steve.png
     $output = 'iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAFDUlEQVR42u2a20sUURzH97G0LKMotPuWbVpslj1olJ';
     $output .= 'XdjCgyisowsSjzgrB0gSKyC5UF1ZNQWEEQSBQ9dHsIe+zJ/+nXfM/sb/rN4ZwZ96LOrnPgyxzP/M7Z+X7OZc96JpE';
@@ -56,12 +56,12 @@ function get_skin($user, $cache)
 
         $json = json_decode($result);
 
-        if(isset($json->properties[0]->value)){
+        if (isset($json->properties[0]->value)) {
             $texture = base64_decode($json->properties[0]->value);
 
             $json_texture = json_decode($texture);
 
-            if(isset($json_texture->textures->SKIN->url)){
+            if (isset($json_texture->textures->SKIN->url)) {
                 $ch = curl_init($json_texture->textures->SKIN->url);
 
                 curl_setopt($ch, CURLOPT_TIMEOUT, 5);
@@ -72,41 +72,41 @@ function get_skin($user, $cache)
 
         curl_close($ch);
     }
-	
-	// Cache image
-	$cache->setCache('avatarCache_' . $user);
-	$cache->store($user, 'cached', 3600);
-	
+
+    // Cache image
+    $cache->setCache('avatarCache_' . $user);
+    $cache->store($user, 'cached', 3600);
+
     return $output;
 }
 
 $skin = get_skin($user, $cache);
 
-if($skin != 'cached'){
-	// Image not cached
-	$im = imagecreatefromstring($skin);
-	$av = imagecreatetruecolor($size, $size);
+if ($skin != 'cached') {
+    // Image not cached
+    $im = imagecreatefromstring($skin);
+    $av = imagecreatetruecolor($size, $size);
 
-	$x = array('f' => 8, 'l' => 16, 'r' => 0, 'b' => 24);
+    $x = array('f' => 8, 'l' => 16, 'r' => 0, 'b' => 24);
 
-	imagecopyresized($av, $im, 0, 0, $x[$view], 8, $size, $size, 8, 8);         // Face
-	imagecolortransparent($im, imagecolorat($im, 63, 0));                       // Black Hat Issue
-	imagecopyresized($av, $im, 0, 0, $x[$view] + 32, 8, $size, $size, 8, 8);    // Accessories
+    imagecopyresized($av, $im, 0, 0, $x[$view], 8, $size, $size, 8, 8);         // Face
+    imagecolortransparent($im, imagecolorat($im, 63, 0));                       // Black Hat Issue
+    imagecopyresized($av, $im, 0, 0, $x[$view] + 32, 8, $size, $size, 8, 8);    // Accessories
 
-	header('Content-type: image/png');
-	
-	// Output to screen
-	imagepng($av);
-	
-	// To file
-	imagepng($av, 'cache/' . $user . '.png');
-	
-	imagedestroy($im);
-	imagedestroy($av);
+    header('Content-type: image/png');
+
+    // Output to screen
+    imagepng($av);
+
+    // To file
+    imagepng($av, 'cache/' . $user . '.png');
+
+    imagedestroy($im);
+    imagedestroy($av);
 } else {
-	// Output - already cached
-	$im = imagecreatefrompng("cache/" . $user  . ".png");
-	header('Content-type: image/png');
-	imagepng($im);
-	imagedestroy($im);
+    // Output - already cached
+    $im = imagecreatefrompng("cache/" . $user  . ".png");
+    header('Content-type: image/png');
+    imagepng($im);
+    imagedestroy($im);
 }

@@ -224,14 +224,5 @@ class Log {
             'info' => $info,
         ));
     }
-
-    /**
-     * Get logs by an action
-     * @param  String $action action
-     * @return array         Database Listings
-     */
-    public function getByAction($action) {
-        return $this->_db->orderWhere('logs', "`action`=`{$action}`", "time", "DESC");
-    }
 }
 ?>

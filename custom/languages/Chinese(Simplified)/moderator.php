@@ -12,6 +12,7 @@
  */
 
 $language = array(
+    
     'mod_cp' => '社区工作人员面板',
     'staff_cp' => '管理人员面板',
     'overview' => '总览',

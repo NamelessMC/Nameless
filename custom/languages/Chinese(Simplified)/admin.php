@@ -42,9 +42,9 @@ $language = array(
     'registrations' => '注册量',
     'topics' => '话题数',
     'posts' => '帖子数',
-        'notices' => '消息',
-        'no_notices' => '无消息.',
-        'email_errors_logged' => '邮件错误已被记录',
+    'notices' => '消息',
+    'no_notices' => '无消息.',
+    'email_errors_logged' => '邮件错误已被记录',
 
     // Core
     'settings' => '设置',

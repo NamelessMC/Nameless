@@ -71,7 +71,7 @@ $language = array(
     'invalid_timezone' => '此时区不可用',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */

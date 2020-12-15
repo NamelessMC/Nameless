@@ -20,7 +20,7 @@ class TwitterWidget extends WidgetBase {
         $this->_module = 'Core';
         $this->_name = 'Twitter';
         $this->_location = $widget_query->location;
-        $this->_description = 'Display your Twitter feed on your site. Make sure you have entered your Twitter URL in the AdminCP -> Core -> Social Media tab first!';
+        $this->_description = 'Display your Twitter feed on your site. Make sure you have entered your Twitter URL in the StaffCP -> Core -> Social Media tab first!';
         $this->_order = $widget_query->order;
 
         // Generate HTML code for widget

@@ -187,7 +187,7 @@ $language = array(
     'no_about_fields' => 'Tento uživatel o sobě ještě nepřidal žádné údaje.',
     'reply' => 'Odpověď',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Nelze vytvořit nahlášení. Musíte zadat důvod v rozmezí 2 až 1024 znaků.',
     'report_post_content' => 'Zadejte, prosím důvod nahlášení.',

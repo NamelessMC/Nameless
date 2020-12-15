@@ -1236,17 +1236,17 @@ class Core_Module extends Module {
 				// Dashboard items
 				if($user->hasPermission('modcp.punishments')){
 					require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentPunishments.php');
-					CollectionManager::addItemToCollection('dashboard_main_items', new RecentPunishmentsItem($smarty, $language, $cache, $user));
+					CollectionManager::addItemToCollection('dashboard_main_items', new RecentPunishmentsItem($smarty, $language, $cache));
 				}
 
 				if($user->hasPermission('modcp.reports')){
 					require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentReports.php');
-					CollectionManager::addItemToCollection('dashboard_main_items', new RecentReportsItem($smarty, $language, $cache, $user));
+					CollectionManager::addItemToCollection('dashboard_main_items', new RecentReportsItem($smarty, $language, $cache));
 				}
 
 				if($user->hasPermission('admincp.users')){
 					require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentRegistrations.php');
-					CollectionManager::addItemToCollection('dashboard_main_items', new RecentRegistrationsItem($smarty, $language, $cache, $user));
+					CollectionManager::addItemToCollection('dashboard_main_items', new RecentRegistrationsItem($smarty, $language, $cache));
 				}
 			}
 

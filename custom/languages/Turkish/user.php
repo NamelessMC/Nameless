@@ -186,7 +186,7 @@ $language = array(
     'no_about_fields' => 'Bu kullanıcı henüz alanlarla ilgili herhangi bir bilgi eklemedi.',
     'reply' => 'cevap',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Rapor oluşturulamıyor. Lütfen rapor nedeninizin 2 ila 1024 karakter arasında olduğundan emin olun.',
     'report_post_content' => 'Lütfen raporunuz için bir neden girin!',

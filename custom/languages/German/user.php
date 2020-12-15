@@ -195,7 +195,7 @@ $language = array(
     'no_about_fields' => 'Dieser Benutzer hat noch keine Felder hinzugefügt.',
     'reply' => 'Antworten',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
     'report_post_content' => 'Gib bitte einen Grund an.',

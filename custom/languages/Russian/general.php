@@ -66,7 +66,7 @@ $language = array(
     'spoiler' => 'Спойлер',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */

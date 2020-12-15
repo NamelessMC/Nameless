@@ -12,15 +12,15 @@
 // Check input
 $cache->setCache('social_media');
 
-if(Input::exists()){
-    if(Token::check()){
-        if(isset($_POST['theme']))
+if (Input::exists()) {
+    if (Token::check()) {
+        if (isset($_POST['theme']))
             $cache->store('discord_widget_theme', $_POST['theme']);
 
         $discord_id = $queries->getWhere('settings', array('name', '=', 'discord'));
         $discord_id = $discord_id[0]->id;
 
-        if(isset($_POST['discord_guild_id'])){
+        if (isset($_POST['discord_guild_id'])) {
 
             $validate = new Validate();
             $validation = $validate->check($_POST, array(
@@ -30,7 +30,7 @@ if(Input::exists()){
                     'numeric' => true
                 )
             ));
-            
+
             if ($validation->passed()) {
                 $guild_id = $_POST['discord_guild_id'];
             } else {
@@ -38,8 +38,7 @@ if(Input::exists()){
                 foreach ($validation->errors() as $validation_error) {
                     if (strpos($validation_error, 'minimum') !== false || strpos($validation_error, 'maximum') !== false) {
                         $errors[] = $language->get('admin', 'discord_id_length');
-                    }
-                    else if (strpos($validation_error, 'numeric') !== false) {
+                    } else if (strpos($validation_error, 'numeric') !== false) {
                         $errors[] = $language->get('admin', 'discord_id_numeric');
                     }
                 }
@@ -66,19 +65,19 @@ if(Input::exists()){
 $guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
 $guild_id = $guild_id[0]->value;
 
-if($cache->isCached('discord_widget_theme'))
+if ($cache->isCached('discord_widget_theme'))
     $discord_theme = $cache->retrieve('discord_widget_theme');
 else
     $discord_theme = 'dark';
 
 $smarty->assign(array(
-	'DISCORD_ID' => $language->get('admin', 'discord_id'),
+    'DISCORD_ID' => $language->get('admin', 'discord_id'),
     'DISCORD_ID_VALUE' => $guild_id,
     'INFO' => $language->get('general', 'info'),
     'ID_INFO' => $language->get('user', 'discord_id_help'),
-	'DISCORD_THEME' => $language->get('admin', 'discord_widget_theme'),
-	'DISCORD_THEME_VALUE' => $discord_theme,
-	'SETTINGS_TEMPLATE' => 'core/widgets/discord.tpl',
-	'DARK' => $language->get('admin', 'dark'),
-	'LIGHT' => $language->get('admin', 'light')
+    'DISCORD_THEME' => $language->get('admin', 'discord_widget_theme'),
+    'DISCORD_THEME_VALUE' => $discord_theme,
+    'SETTINGS_TEMPLATE' => 'core/widgets/discord.tpl',
+    'DARK' => $language->get('admin', 'dark'),
+    'LIGHT' => $language->get('admin', 'light')
 ));

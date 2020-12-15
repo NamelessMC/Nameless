@@ -187,12 +187,12 @@ $language = array(
     'user_unblocked' => 'ユーザーのブロックを解除しました。',
     'views' => 'プロフィールビュー:',
     'private_profile_page' => '表示しているユーザはプライベートプロファイルに設定されています。',
-    'new_wall_post_reply' => '{x}さんが{y}のプロフィールの投稿に返信しました。',// {x}か{y}
-    'new_wall_post_reply_your_profile' => '{x}さんがプロフィールの投稿に返信しました。',// {x}を置き換えないでください
+    'new_wall_post_reply' => '{x}さんが{y}のプロフィールの投稿に返信しました。', // {x}か{y}
+    'new_wall_post_reply_your_profile' => '{x}さんがプロフィールの投稿に返信しました。', // {x}を置き換えないでください
     'no_about_fields' => 'フィールドの内容を追加していません。',
     'reply' => 'Reply',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'レポートを作成できません。 レポートの理由が 2~1024 文字であることを確認してください。',
     'report_post_content' => 'レポートの理由を入力してください。',

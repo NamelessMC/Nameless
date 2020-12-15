@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -10,7 +10,7 @@
  */
 
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
- 
+
 // Always define page name
 define('PAGE', 'forum');
 $page_title = $forum_language->get('forum', 'forum');
@@ -28,24 +28,23 @@ $smarty->assign('BREADCRUMB_URL', URL::build('/forum'));
 $smarty->assign('BREADCRUMB_TEXT', $forum_language->get('forum', 'forum_index'));
 // Search bar
 $smarty->assign(array(
-	'SEARCH_URL' => URL::build('/forum/search'),
-	'SEARCH' => $language->get('general', 'search'),
-	'TOKEN' => Token::get()
+    'SEARCH_URL' => URL::build('/forum/search'),
+    'SEARCH' => $language->get('general', 'search'),
+    'TOKEN' => Token::get()
 ));
 
 // Server status module
-if(isset($status_enabled->value) && $status_enabled->value == 'true'){
-	// Todo
-	$smarty->assign('SERVER_STATUS', '');
-
+if (isset($status_enabled->value) && $status_enabled->value == 'true') {
+    // Todo
+    $smarty->assign('SERVER_STATUS', '');
 } else {
-	// Module disabled, assign empty values
-	$smarty->assign('SERVER_STATUS', '');
+    // Module disabled, assign empty values
+    $smarty->assign('SERVER_STATUS', '');
 }
 
 // Check session
-if(Session::exists('spam_info')){
-	$smarty->assign('SPAM_INFO', Session::flash('spam_info'));
+if (Session::exists('spam_info')) {
+    $smarty->assign('SPAM_INFO', Session::flash('spam_info'));
 }
 
 // Assign language variables
@@ -68,42 +67,42 @@ $smarty->assign('NO_TOPICS', $forum_language->get('forum', 'no_topics_short'));
 $cache_name = 'forum_forums_' . rtrim(implode('-', $groups), '-');
 $cache->setCache($cache_name);
 
-if($cache->isCached('forums')){
-	$forums = $cache->retrieve('forums');
-
+if ($cache->isCached('forums')) {
+    $forums = $cache->retrieve('forums');
 } else {
-	$forums = $forum->listAllForums($groups, ($user->isLoggedIn() ? $user->data()->id : 0));
+    $forums = $forum->listAllForums($groups, ($user->isLoggedIn() ? $user->data()->id : 0));
 
-	// Loop through to get last poster avatars and to format a date
-	if(count($forums)){
-		foreach($forums as $key => $item){
-			if(count($item['subforums'])){
-				foreach($item['subforums'] as $subforum_id => $subforum){
-					if(isset($subforum->last_post)){
-						$last_post_user = new User($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
-						
-						$forums[$key]['subforums'][$subforum_id]->last_post->avatar = $last_post_user->getAvatar('../', 64);
-						$forums[$key]['subforums'][$subforum_id]->last_post->user_style = $last_post_user->getGroupClass();
-						$forums[$key]['subforums'][$subforum_id]->last_post->username = $last_post_user->getDisplayname();
+    // Loop through to get last poster avatars and to format a date
+    if (count($forums)) {
+        foreach ($forums as $key => $item) {
+            $forums[$key]['link'] = URL::build('/forum/view/' . $key . '-' . $forum->titleToURL($forums[$key]['title']));
+            if (count($item['subforums'])) {
+                foreach ($item['subforums'] as $subforum_id => $subforum) {
+                    if (isset($subforum->last_post)) {
+                        $last_post_user = new User($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
+
+                        $forums[$key]['subforums'][$subforum_id]->last_post->avatar = $last_post_user->getAvatar('../', 64);
+                        $forums[$key]['subforums'][$subforum_id]->last_post->user_style = $last_post_user->getGroupClass();
+                        $forums[$key]['subforums'][$subforum_id]->last_post->username = $last_post_user->getDisplayname();
                         $forums[$key]['subforums'][$subforum_id]->last_post->profile = $last_post_user->getProfileURL();
 
-						if(is_null($forums[$key]['subforums'][$subforum_id]->last_post->created)){
-						  $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language->getTimeLanguage());
-						  $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', strtotime($forums[$key]['subforums'][$subforum_id]->last_post->post_date));
-						} else {
-						  $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords(date('d M Y, H:i', $forums[$key]['subforums'][$subforum_id]->last_post->created), $language->getTimeLanguage());
-						  $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', $forums[$key]['subforums'][$subforum_id]->last_post->created);
-						}
-					}
+                        if (is_null($forums[$key]['subforums'][$subforum_id]->last_post->created)) {
+                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language->getTimeLanguage());
+                            $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', strtotime($forums[$key]['subforums'][$subforum_id]->last_post->post_date));
+                        } else {
+                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords(date('d M Y, H:i', $forums[$key]['subforums'][$subforum_id]->last_post->created), $language->getTimeLanguage());
+                            $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', $forums[$key]['subforums'][$subforum_id]->last_post->created);
+                        }
+                    }
 
-					if($forums[$key]['subforums'][$subforum_id]->redirect_forum == 1)
-						$forums[$key]['subforums'][$subforum_id]->redirect_confirm = str_replace('{x}', $forums[$key]['subforums'][$subforum_id]->redirect_to, $forum_language->get('forum', 'forum_redirect_warning'));
-				}
-			}
-		}
-	} else $forums = array();
+                    if ($forums[$key]['subforums'][$subforum_id]->redirect_forum == 1)
+                        $forums[$key]['subforums'][$subforum_id]->redirect_confirm = str_replace('{x}', $forums[$key]['subforums'][$subforum_id]->redirect_to, $forum_language->get('forum', 'forum_redirect_warning'));
+                }
+            }
+        }
+    } else $forums = array();
 
-	$cache->store('forums', $forums, 60);
+    $cache->store('forums', $forums, 60);
 }
 
 $smarty->assign('FORUMS', $forums);
