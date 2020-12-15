@@ -335,35 +335,27 @@ if(!isset($_GET['action'])) {
                     $errors = array();
 
                     foreach ($validation->errors() as $item) {
-                        if (strpos($item, 'is required') !== false) {
-                            switch($item){
-                            case (strpos($item, 'title') !== false):
+                        if (strpos($item, 'is required')) {
+                            if (strpos($item, 'title')) {
                                 $errors[] = $language->get('user', 'title_required');
-                                break;
-                            case (strpos($item, 'content') !== false):
+                            } else if (strpos($item, 'content')) {
                                 $errors[] = $language->get('user', 'content_required');
                                 break;
-                            case (strpos($item, 'to') !== false):
+                            } else if (strpos($item, 'to')) {
                                 $errors[] = $language->get('user', 'users_to_required');
-                                break;
                             }
-                        } else if (strpos($item, 'minimum') !== false) {
-                            switch($item){
-                            case (strpos($item, 'title') !== false):
+                        } else if (strpos($item, 'minimum')) {
+                            if (strpos($item, 'title')) {
                                 $errors[] = $language->get('user', 'title_min_2');
-                                break;
-                            case (strpos($item, 'content') !== false):
+                            } else if (strpos($item, 'content')) {
                                 $errors[] = $language->get('user', 'content_min_2');
                                 break;
                             }
-                        } else if (strpos($item, 'maximum') !== false) {
-                            switch($item){
-                            case (strpos($item, 'title') !== false):
+                        } else if (strpos($item, 'maximum')) {
+                            if (strpos($item, 'title')) {
                                 $errors[] = $language->get('user', 'title_max_64');
-                                break;
-                            case (strpos($item, 'content') !== false):
+                            } else if (strpos($item, 'content')) {
                                 $errors[] = $language->get('user', 'content_max_20480');
-                                break;
                             }
                         }
                     }
@@ -523,11 +515,11 @@ if(!isset($_GET['action'])) {
                 } else {
                     // Errors
                     foreach ($validation->errors() as $item) {
-                        if (strpos($item, 'is required') !== false) {
+                        if (strpos($item, 'is required')) {
                             $error = $language->get('user', 'content_required');
-                        } else if (strpos($item, 'minimum') !== false) {
+                        } else if (strpos($item, 'minimum')) {
                             $error = $language->get('user', 'content_min_2');
-                        } else if (strpos($item, 'maximum') !== false) {
+                        } else if (strpos($item, 'maximum')) {
                             $error = $language->get('user', 'content_max_20480');
                         }
                     }
@@ -629,18 +621,18 @@ if(!isset($_GET['action'])) {
         // Display template
         $template->displayTemplate('user/view_message.tpl', $smarty);
 
-    } else if($_GET['action'] == 'leave'){
+    } else if ($_GET['action'] == 'leave') {
         // Try to remove the user from the conversation
-        if(!isset($_GET['message']) || !is_numeric($_GET['message'])){
+        if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
             Redirect::to(URL::build('/user/messaging'));
             die();
         }
 
         $message = $queries->getWhere('private_messages_users', array('pm_id', '=', $_GET['message']));
 
-        if(count($message)){
-            foreach($message as $item){
-                if($item->user_id == $user->data()->id){
+        if (count($message)) {
+            foreach ($message as $item) {
+                if ($item->user_id == $user->data()->id) {
                     $queries->delete('private_messages_users', array('id', '=', $item->id));
                     break;
                 }
