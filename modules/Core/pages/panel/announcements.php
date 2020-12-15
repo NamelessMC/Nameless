@@ -235,7 +235,7 @@ if (!isset($_GET['action'])) {
                                     default:
                                         $errors[] = $validation_error . ".";
                                 }
-                            } 
+                            }
                         }
                     }
                 } else {
@@ -243,7 +243,7 @@ if (!isset($_GET['action'])) {
                     $errors[] = $language->get('general', 'invalid_token');
                 }
             }
-            
+
             $guest_permissions = in_array("0", json_decode($announcement->groups));
             $groups = array();
             foreach(DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {
@@ -275,7 +275,7 @@ if (!isset($_GET['action'])) {
             } catch (Exception $e) {
                 die($e->getMessage());
             }
-            
+
             Announcements::resetCache();
             Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));
             Redirect::to(URL::build('/panel/core/announcements'));

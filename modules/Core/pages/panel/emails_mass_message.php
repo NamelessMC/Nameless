@@ -66,7 +66,7 @@ if (Input::exists()) {
             $siteemail = $siteemail[0]->value;
             $contactemail = $queries->getWhere('settings', array('name', '=', 'incoming_email'));
             $contactemail = $contactemail[0]->value;
-            
+
             try {
                 $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
                 $php_mailer = $php_mailer[0]->value;
@@ -182,12 +182,12 @@ if ($formatting == 'markdown') {
     ));
 
     $template->addJSScript('
-	  $(document).ready(function() {
-		var el = $("#markdown").emojioneArea({
-			pickerPosition: "bottom"
-		});
-	  });
-	');
+      $(document).ready(function() {
+        var el = $("#markdown").emojioneArea({
+            pickerPosition: "bottom"
+        });
+      });
+    ');
 } else {
     $template->addJSFiles(array(
         (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => array(),
