@@ -8,8 +8,11 @@
  *
  *  Database class
  */
+
 class DB {
+
     private static $_instance = null;
+
     private $_pdo,
             $_query,
             $_error = false,
@@ -25,7 +28,6 @@ class DB {
         } catch(PDOException $e) {
             die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . "</div>Please check your database connection settings.");
         }
-
     }
 
     public static function getInstance() {
@@ -34,7 +36,6 @@ class DB {
         }
 
         return self::$_instance;
-
     }
 
     public function query($sql, $params = array(), $fetch_method = PDO::FETCH_OBJ) {
@@ -59,7 +60,6 @@ class DB {
         }
 
         return $this;
-
     }
 
     public function createQuery($sql, $params = array()) {
@@ -79,20 +79,19 @@ class DB {
                 print_r($this->_pdo->errorInfo());
                 $this->_error = true;
             }
-
-
         }
 
         return $this;
-
     }
 
     public function createTable($name, $table_data, $other){
         $name = $this->_prefix . $name;
         $sql = "CREATE TABLE `{$name}` ({$table_data}) {$other}";
-            if(!$this->createQuery($sql)->error()) {
-                return $this;
-            }
+
+        if(!$this->createQuery($sql)->error()) {
+            return $this;
+        }
+
         return false;
     }
 
@@ -114,6 +113,7 @@ class DB {
                 }
             }
         }
+
         return false;
     }
 
@@ -135,6 +135,7 @@ class DB {
                 }
             }
         }
+
         return false;
     }
 
@@ -149,6 +150,7 @@ class DB {
         if(!$this->query($sql)->error()) {
             return $this;
         }
+
         return false;
     }
 
@@ -157,32 +159,29 @@ class DB {
     }
 
     public function insert($table, $fields = array()) {
-            $keys = array_keys($fields);
-            $values = '';
-            $x = 1;
+        $keys = array_keys($fields);
+        $values = '';
+        $x = 1;
 
-            foreach($fields as $field) {
-                $values .= '?';
-                if ($x < count($fields)) {
-                    $values .= ', ';
-                }
-                $x++;
+        foreach($fields as $field) {
+            $values .= '?';
+            if ($x < count($fields)) {
+                $values .= ', ';
             }
+            $x++;
+        }
 
-            $table = $this->_prefix . $table;
-            $sql = "INSERT INTO {$table} (`" . implode('`,`', $keys) . "`) VALUES ({$values})";
+        $table = $this->_prefix . $table;
+        $sql = "INSERT INTO {$table} (`" . implode('`,`', $keys) . "`) VALUES ({$values})";
 
-            if(!$this->createQuery($sql, $fields)->error()){
-                return true;
-            }
-            return false;
+        return (!$this->createQuery($sql, $fields)->error());
     }
 
     public function update($table, $id, $fields) {
         $set = '';
         $x = 1;
 
-        foreach($fields as $name => $value){
+        foreach($fields as $name => $value) {
             $set .= "{$name} = ?";
 
             if($x < count($fields)) {
@@ -193,33 +192,21 @@ class DB {
         $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
 
-        if(!$this->createQuery($sql, $fields)->error()) {
-            return true;
-        }
-
-        return false;
+        return (!$this->createQuery($sql, $fields)->error());
     }
 
     public function increment($table, $id, $field) {
         $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$field} = {$field} + 1 WHERE id = ?";
 
-        if(!$this->createQuery($sql, array($id))->error()) {
-            return true;
-        }
-
-        return false;
+        return (!$this->createQuery($sql, array($id))->error());
     }
 
     public function decrement($table, $id, $field) {
         $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = ?";
 
-        if(!$this->createQuery($sql, array($id))->error()) {
-            return true;
-        }
-
-        return false;
+        return (!$this->createQuery($sql, array($id))->error());
     }
 
     public function results() {
@@ -229,8 +216,7 @@ class DB {
     public function first() {
         $results = $this->results();
 
-        if(isset($results[0])) return $results[0];
-        else return null;
+        return isset($results[0]) ? $results[0] : null;
     }
 
     public function error() {
@@ -249,7 +235,7 @@ class DB {
         $name = $this->_prefix . $name;
         $sql = "ALTER TABLE `{$name}` ADD {$column} {$attributes}";
 
-        if(!$this->createQuery($sql)->error()) {
+        if (!$this->createQuery($sql)->error()) {
             return $this;
         }
         return false;
@@ -257,7 +243,7 @@ class DB {
 
     public function orderAll($table, $order, $sort) {
         $table = $this->_prefix . $table;
-        if(isset($sort)){
+        if (isset($sort)) {
             $sql = "SELECT * FROM {$table} ORDER BY {$order} {$sort}";
         } else {
             $sql = "SELECT * FROM {$table} ORDER BY {$order}";
@@ -266,12 +252,13 @@ class DB {
         if(!$this->query($sql)->error()) {
             return $this;
         }
+
         return false;
     }
 
     public function orderWhere($table, $where, $order, $sort) {
         $table = $this->_prefix . $table;
-        if(isset($sort)){
+        if (isset($sort)) {
             $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order} {$sort}";
         } else {
             $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order}";
@@ -280,6 +267,7 @@ class DB {
         if(!$this->query($sql)->error()) {
             return $this;
         }
+
         return false;
     }
 
@@ -287,9 +275,10 @@ class DB {
         $showTable = $this->_prefix . $showTable;
         $sql = "SHOW TABLES LIKE '{$showTable}'";
 
-        if(!$this->query($sql)->error()) {
+        if (!$this->query($sql)->error()) {
             return $this->_query->rowCount();
         }
+
         return false;
     }
 }

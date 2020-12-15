@@ -10,9 +10,11 @@
  */
 
 class Forum_Module extends Module {
-	private $_language, $_forum_language;
 
-	public function __construct($language, $forum_language, $pages){
+    private $_language, 
+            $_forum_language;
+
+	public function __construct($language, $forum_language, $pages) {
 		$this->_language = $language;
 		$this->_forum_language = $forum_language;
 
@@ -53,23 +55,23 @@ class Forum_Module extends Module {
 		HookHandler::registerEvent('newTopic', $this->_forum_language->get('forum', 'new_topic_hook_info'), array('uuid' => $this->_language->get('admin', 'uuid'), 'username' => $this->_language->get('user', 'username'), 'nickname' => $this->_language->get('user', 'nickname'), 'content' => $this->_language->get('general', 'content'), 'content_full' => $this->_language->get('general', 'full_content'), 'avatar_url' => $this->_language->get('user', 'avatar'), 'title' => $this->_forum_language->get('forum', 'topic_title'), 'url' => $this->_language->get('general', 'url'), 'available_hooks' => $this->_forum_language->get('forum', 'available_hooks')));
 	}
 
-	public function onInstall(){
+	public function onInstall() {
 		// Not necessary for Forum
 	}
 
-	public function onUninstall(){
+	public function onUninstall() {
 
 	}
 
-	public function onEnable(){
+	public function onEnable() {
 		// No actions necessary
 	}
 
-	public function onDisable(){
+	public function onDisable() {
 		// No actions necessary
 	}
 
-	public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template){
+	public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template) {
 		// AdminCP
 		PermissionHandler::registerPermissions('Forum', array(
 			'admincp.forums' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_forum_language->get('forum', 'forum')

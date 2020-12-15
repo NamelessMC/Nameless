@@ -8,19 +8,18 @@
  */
 
 class ValidateHook {
-    public static function validatePromote($params = array()){
-        $db = DB::getInstance();
 
-        if(!defined('VALIDATED_DEFAULT'))
+    public static function validatePromote($params = array()) {
+        if (!defined('VALIDATED_DEFAULT'))
             define('VALIDATED_DEFAULT', 1);
 
         $validate_user = new User($params['user_id']);
-        if(!count($validate_user->data())) {
-			return false;
-		}
-		
+        if (!count($validate_user->data())) {
+            return false;
+        }
+
         $validate_user->setGroup(VALIDATED_DEFAULT);
-		$queries = new Queries;
+        $queries = new Queries;
 
         // Discord integration is enabled
         $setting = $queries->getWhere('settings', array('name', '=', 'discord_integration'));

@@ -54,7 +54,8 @@ if (Input::exists()) {
                 die();
             }
 
-            if (!is_dir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)))
+            if (
+                !is_dir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)))
                 && !mkdir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)))
             ) {
                 die('uploads/profile_images folder not writable! <a href="' . URL::build('/profile/' . Output::getClean($user->data()->username)) . '">Back</a>');
@@ -117,7 +118,7 @@ if (Input::exists()) {
                     echo $image["error"];
                     die();
                 }
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 // Error
                 http_response_code(400);
                 echo $e->getMessage();
@@ -131,7 +132,6 @@ if (Input::exists()) {
                 die('No image selected');
             }
         }
-
     } else {
         // Invalid token
         if (Input::get('type') == 'background') {
