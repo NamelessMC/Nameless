@@ -47,7 +47,7 @@
             {foreach from=$FORUMS key=category item=forum}
                 {if !empty($forum.subforums)}
                     <div class="ui padded segment" id="forum-node">
-                        <h3 class="ui header">{$forum.title}</h3>
+                        <h3 class="ui header"><a href="{$forum.link}">{$forum.title}</a></h3>
                         <div class="ui divider"></div>
                         <div class="ui middle aligned stackable grid">
                             {foreach from=$forum.subforums item=subforum}
