@@ -12,10 +12,10 @@ class PermissionHandler {
     private static $_permissions;
 
     /*
-     *  Register a permission for display in the AdminCP
+     *  Register a permission for display in the StaffCP
      *  Params: $section (string) - permission section to add permission to
      *          $permissions (string or array of strings) - module-unique name of permission(s)
-     *          $title (string) - permission title - displays when managing permissions in AdminCP
+     *          $title (string) - permission title - displays when managing permissions in StaffCP
      */
     public static function registerPermissions($section, $permissions) {
         if(!is_array($permissions)) {

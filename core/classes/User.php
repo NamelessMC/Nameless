@@ -166,7 +166,7 @@ class User {
         return false;
     }
 
-    // Handle AdminCP logins
+    // Handle StaffCP logins
     public function adminLogin($username = null, $password = null, $method = 'email') {
         if (!$username && !$password && $this->exists()) {
             Session::put($this->_admSessionName, $this->data()->id);
