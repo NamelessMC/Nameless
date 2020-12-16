@@ -217,7 +217,7 @@ $language = array(
     'display_field_on_forum' => 'Veld laten zien in het forum?',
     'profile_field_forum_help' => 'Als dit aan staat, wordt het veld weergegeven bij de gebruiker naast de forum berichten.',
     'profile_field_editable_help' => 'Indien ingeschakeld, hebben gebruikers toestemming om het veld in hun profielinstellingen te bewerken.',
-    'no_custom_fields' => 'Er zijn nog geen aangepaste velden.',
+     'no_custom_fields' => 'Er zijn nog geen aangepaste velden.',
     'profile_field_updated_successfully' => 'Het profielveld is met succes bijgewerkt.',
     'profile_field_created_successfully' => 'Het profielveld is met succes aangemaakt.',
     'profile_field_deleted_successfully' => 'Het profielveld is met succes verwijderd.',
@@ -498,7 +498,7 @@ $language = array(
     'install_confirm' => 'Zorg ervoor dat je het bestand hebt gedownload en de bestanden hebt geupload voordat je verder gaat!',
     'check_again' => 'Controleer opnieuw',
 
-    // Widgets
+     // Widgets
     'widgets' => 'Widgets',
     'widget_enabled' => 'Widget ingeschakeld.',
     'widget_disabled' => 'Widget uitgeschakeld.',

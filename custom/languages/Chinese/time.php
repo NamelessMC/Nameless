@@ -1,5 +1,5 @@
 <?php
-/*
+ /*
  *  Made by Samerton
  *  Translation  by Hi_Michael
  *  https://github.com/NamelessMC/Nameless/

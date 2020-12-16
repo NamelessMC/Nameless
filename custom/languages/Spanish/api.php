@@ -51,7 +51,7 @@ $language = array(
     'unable_to_update_discord_username' => 'Unable to update Discord username.',
     'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
     'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
-
+    
     // Success messages
     'finish_registration_link' => 'Clickea el siguiente link para confirmar el registro:',
     'finish_registration_email' => 'Chequea tu e-Mail para confirmar el registro.',

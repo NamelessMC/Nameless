@@ -183,7 +183,7 @@ $language = array(
     'no_about_fields' => 'Este usuário não adicionou nenhum campo sobre ele ainda.',
     'reply' => 'Responder',
     'discord_username' => 'Discord Username',
-
+    
     // Reports
     'invalid_report_content' => 'Não foi possível criar o alerta. Certifique-se de que o motivo do alerta está entre 2 e 1024 caracteres.',
     'report_post_content' => 'Introduza uma razão para o seu alerta',

@@ -144,12 +144,12 @@ $language = array(
     'must_input_password' => 'Je moet een wachtwoord invoeren.',
 
     // Forgot password
-    'forgot_password_instructions' => 'Graag je email adres invoeren zodat we verdere instructies kunnen sturen om je wachtwoord te herstellen.',
-    'forgot_password_email_sent' => 'Als een account met dit email adres bestaat, is er een email verstuurt met daarin verdere instructies. Als je hem niet kan vinden, bekijk dan ook de spam/junk/ongewenste map.',
-    'unable_to_send_forgot_password_email' => 'Kon vergeten wachtwoord email niet verzenden. Graag contact opnemen met een administrator.',
-    'enter_new_password' => 'Graag je email bevestigen en een nieuw wachtwoord invoeren.',
-    'incorrect_email' => 'Het email adres dat is ingevoerd komt niet overeen met het verzoek.',
-    'forgot_password_change_successful' => 'Je wachtwoord is succesvol veranderd. Je kan nu inloggen.',
+       'forgot_password_instructions' => 'Graag je email adres invoeren zodat we verdere instructies kunnen sturen om je wachtwoord te herstellen.',
+       'forgot_password_email_sent' => 'Als een account met dit email adres bestaat, is er een email verstuurt met daarin verdere instructies. Als je hem niet kan vinden, bekijk dan ook de spam/junk/ongewenste map.',
+       'unable_to_send_forgot_password_email' => 'Kon vergeten wachtwoord email niet verzenden. Graag contact opnemen met een administrator.',
+       'enter_new_password' => 'Graag je email bevestigen en een nieuw wachtwoord invoeren.',
+       'incorrect_email' => 'Het email adres dat is ingevoerd komt niet overeen met het verzoek.',
+       'forgot_password_change_successful' => 'Je wachtwoord is succesvol veranderd. Je kan nu inloggen.',
 
     // Profiel paginas
     'profile' => 'Profiel',
@@ -189,7 +189,7 @@ $language = array(
     'no_about_fields' => 'Deze gebruiker heeft nog geen over-velden toegevoegd.',
     'reply' => 'Antwoord',
     'discord_username' => 'Discord Username',
-
+    
     // Rapporten
     'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
     'report_post_content' => 'Voer een reden in voor je rapport',

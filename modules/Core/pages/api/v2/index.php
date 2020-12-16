@@ -113,9 +113,9 @@ class Nameless2API {
     }
 
     public function getUser($column, $value) {
-        $tempUser = $this->getDb()->get('users', array($column, '=', Output::getClean($value)));
-        if (!$tempUser->count()) $this->throwError(16, $this->getLanguage()->get('api', 'unable_to_find_user'));
-        return new User($tempUser->first()->id);
+        $user = new User(Output::getClean($value), Output::getClean($column));
+        if (!count($user->data())) $this->throwError(16, $this->getLanguage()->get('api', 'unable_to_find_user'));
+        return $user;
     }
 
     public function throwError($code = null, $message = null) {
