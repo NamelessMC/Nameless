@@ -26,51 +26,34 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                {if isset($NEW_UPDATE)}
-                {if $NEW_UPDATE_URGENT eq true}
-                <div class="alert alert-danger">
-                    {else}
-                    <div class="alert alert-primary alert-dismissible" id="updateAlert">
-                        <button type="button" class="close" id="closeUpdate" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {/if}
-                        {$NEW_UPDATE}
-                        <br />
-                        <a href="{$UPDATE_LINK}" class="btn btn-primary" style="text-decoration:none">{$UPDATE}</a>
-                        <hr />
-                        {$CURRENT_VERSION}<br />
-                        {$NEW_VERSION}
-                    </div>
-                    {/if}
+                {include file='includes/update.tpl'}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 style="display:inline">{$LOG_NAME}</h5>
 
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 style="display:inline">{$LOG_NAME}</h5>
-
-                            <div class="float-md-right">
-                                <a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a>
-                            </div>
-                            <hr />
-
-                            {if isset($LOG)}
-                                <pre class="error_log">
-                                    {$LOG}
-                                </pre>
-                                <hr />
-                                <h5>{$ACTIONS}</h5>
-                                <a class="btn btn-warning" onclick="showPurgeModal()">{$PURGE_LOG}</a>
-                            {else}
-                                {$NO_LOG_FOUND}
-                            {/if}
-
+                        <div class="float-md-right">
+                            <a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a>
                         </div>
+                        <hr />
+
+                        {if isset($LOG)}
+                            <pre class="error_log">
+                                {$LOG}
+                            </pre>
+                            <hr />
+                            <h5>{$ACTIONS}</h5>
+                            <a class="btn btn-warning" onclick="showPurgeModal()">{$PURGE_LOG}</a>
+                        {else}
+                            {$NO_LOG_FOUND}
+                        {/if}
+
                     </div>
-
-                    <!-- Spacing -->
-                    <div style="height:1rem;"></div>
-
                 </div>
+
+                <!-- Spacing -->
+                <div style="height:1rem;"></div>
+
+            </div>
         </section>
     </div>
 

@@ -25,93 +25,76 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    {if isset($NEW_UPDATE)}
-                    {if $NEW_UPDATE_URGENT eq true}
-                    <div class="alert alert-danger">
-                        {else}
-                        <div class="alert alert-primary alert-dismissible" id="updateAlert">
-                            <button type="button" class="close" id="closeUpdate" data-dismiss="alert"
-                                aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            {/if}
-                            {$NEW_UPDATE}
-                            <br />
-                            <a href="{$UPDATE_LINK}" class="btn btn-primary" style="text-decoration:none">{$UPDATE}</a>
+                    {include file='includes/update.tpl'}
+
+                    <div class="card">
+                        <div class="card-body">
+                            <p style="display:inline;">{$ANNOUCEMENTS_INFO}</p>
+                            <span class="float-md-right"><a href="{$NEW_LINK}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {$NEW}</a></span>
                             <hr />
-                            {$CURRENT_VERSION}<br />
-                            {$NEW_VERSION}
-                        </div>
-                        {/if}
-
-                        <div class="card">
-                            <div class="card-body">
-                                <p style="display:inline;">{$ANNOUCEMENTS_INFO}</p>
-                                <span class="float-md-right"><a href="{$NEW_LINK}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {$NEW}</a></span>
-                                <hr />
-                                {if isset($SUCCESS)}
-                                <div class="alert alert-success alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
-                                    {$SUCCESS}
-                                </div>
-                                {/if}
-
-                                {if isset($ERRORS) && count($ERRORS)}
-                                <div class="alert alert-danger alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
-                                    <ul>
-                                        {foreach from=$ERRORS item=error}
-                                        <li>{$error}</li>
-                                        {/foreach}
-                                    </ul>
-                                </div>
-                                {/if}
-
-                                {if isset($ALL_ANNOUNCEMENTS)}
-                                <div class="table-responsive">
-                                    <table class="table table-borderless table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>{$HEADER}</th>
-                                                <th>{$PAGES}</th>
-                                                <th>{$TEXT_COLOUR}</th>
-                                                <th>{$BACKGROUND_COLOUR}</th>
-                                                <th>{$ACTIONS}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {foreach from=$ALL_ANNOUNCEMENTS item=announcement}
-                                            <tr>
-                                                <td>{$announcement[0]->header}</td>
-                                                <td>{$announcement['pages']}</td>
-                                                <td><span class="badge border" style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->text_colour};" title="{$announcement[0]->text_colour}"></span></td>
-                                                <td><span class="badge border" style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->background_colour}; color:#ffffff;" title="{$announcement[0]->background_colour}"></span></td>
-                                                <td>
-                                                    <a href="{$EDIT_LINK}{$announcement[0]->id}" class="btn btn-warning btn-sm"><i class="fa fa-fw fa-edit"></i></a>
-                                                    <a href="#" onclick="showDeleteModal({$announcement[0]->id})" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></a>
-                                                </td>
-                                            </tr>
-                                            {/foreach}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                {else}
-                                    {$NO_ANNOUNCEMENTS}
-                                {/if}
-
+                            {if isset($SUCCESS)}
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
+                                {$SUCCESS}
                             </div>
+                            {/if}
+
+                            {if isset($ERRORS) && count($ERRORS)}
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
+                                <ul>
+                                    {foreach from=$ERRORS item=error}
+                                    <li>{$error}</li>
+                                    {/foreach}
+                                </ul>
+                            </div>
+                            {/if}
+
+                            {if isset($ALL_ANNOUNCEMENTS)}
+                            <div class="table-responsive">
+                                <table class="table table-borderless table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>{$HEADER}</th>
+                                            <th>{$PAGES}</th>
+                                            <th>{$TEXT_COLOUR}</th>
+                                            <th>{$BACKGROUND_COLOUR}</th>
+                                            <th>{$ACTIONS}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {foreach from=$ALL_ANNOUNCEMENTS item=announcement}
+                                        <tr>
+                                            <td>{$announcement[0]->header}</td>
+                                            <td>{$announcement['pages']}</td>
+                                            <td><span class="badge border" style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->text_colour};" title="{$announcement[0]->text_colour}"></span></td>
+                                            <td><span class="badge border" style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->background_colour}; color:#ffffff;" title="{$announcement[0]->background_colour}"></span></td>
+                                            <td>
+                                                <a href="{$EDIT_LINK}{$announcement[0]->id}" class="btn btn-warning btn-sm"><i class="fa fa-fw fa-edit"></i></a>
+                                                <a href="#" onclick="showDeleteModal({$announcement[0]->id})" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                        {/foreach}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {else}
+                                {$NO_ANNOUNCEMENTS}
+                            {/if}
+
                         </div>
-
-                        <!-- Spacing -->
-                        <div style="height:1rem;"></div>
-
                     </div>
+
+                    <!-- Spacing -->
+                    <div style="height:1rem;"></div>
+
+                </div>
             </section>
         </div>
 

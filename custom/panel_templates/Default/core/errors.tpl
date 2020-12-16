@@ -26,75 +26,59 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                {if isset($NEW_UPDATE)}
-                {if $NEW_UPDATE_URGENT eq true}
-                <div class="alert alert-danger">
-                    {else}
-                    <div class="alert alert-primary alert-dismissible" id="updateAlert">
-                        <button type="button" class="close" id="closeUpdate" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                {include file='includes/update.tpl'}
+
+                <div class="card">
+                    <div class="card-body">
+                        {if isset($SUCCESS)}
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
+                                {$SUCCESS}
+                            </div>
                         {/if}
-                        {$NEW_UPDATE}
-                        <br />
-                        <a href="{$UPDATE_LINK}" class="btn btn-primary" style="text-decoration:none">{$UPDATE}</a>
-                        <hr />
-                        {$CURRENT_VERSION}<br />
-                        {$NEW_VERSION}
-                    </div>
-                    {/if}
 
-                    <div class="card">
-                        <div class="card-body">
-                            {if isset($SUCCESS)}
-                                <div class="alert alert-success alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
-                                    {$SUCCESS}
-                                </div>
-                            {/if}
+                        <h5 style="display:inline">{$ERROR_LOGS}</h5>
 
-                            <h5 style="display:inline">{$ERROR_LOGS}</h5>
-
-                            <div class="float-md-right">
-                                <a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a>
-                            </div>
-                            <hr />
-
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <tr>
-                                        <td>
-                                            <a href="{$FATAL_LOG_LINK}">{$FATAL_LOG}</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="{$NOTICE_LOG_LINK}">{$NOTICE_LOG}</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="{$WARNING_LOG_LINK}">{$WARNING_LOG}</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="{$OTHER_LOG_LINK}">{$OTHER_LOG}</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-
+                        <div class="float-md-right">
+                            <a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a>
                         </div>
+                        <hr />
+
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tr>
+                                    <td>
+                                        <a href="{$FATAL_LOG_LINK}">{$FATAL_LOG}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="{$NOTICE_LOG_LINK}">{$NOTICE_LOG}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="{$WARNING_LOG_LINK}">{$WARNING_LOG}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="{$OTHER_LOG_LINK}">{$OTHER_LOG}</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
                     </div>
-
-                    <!-- Spacing -->
-                    <div style="height:1rem;"></div>
-
                 </div>
+
+                <!-- Spacing -->
+                <div style="height:1rem;"></div>
+
+            </div>
         </section>
     </div>
 

@@ -25,104 +25,88 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                {if isset($NEW_UPDATE)}
-                {if $NEW_UPDATE_URGENT eq true}
-                <div class="alert alert-danger">
-                    {else}
-                    <div class="alert alert-primary alert-dismissible" id="updateAlert">
-                        <button type="button" class="close" id="closeUpdate" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                {include file='includes/update.tpl'}
+
+                <div class="card">
+                    <div class="card-body">
+                        {if isset($SUCCESS)}
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
+                                {$SUCCESS}
+                            </div>
                         {/if}
-                        {$NEW_UPDATE}
-                        <br />
-                        <a href="{$UPDATE_LINK}" class="btn btn-primary" style="text-decoration:none">{$UPDATE}</a>
+
+                        {if isset($ERRORS) && count($ERRORS)}
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
+                                <ul>
+                                    {foreach from=$ERRORS item=error}
+                                        <li>{$error}</li>
+                                    {/foreach}
+                                </ul>
+                            </div>
+                        {/if}
+
+                        {if isset($BACKGROUNDS_NOT_WRITABLE) || isset($TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE)}
+                            <div class="alert alert-danger alert-dismissible">
+                                <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
+                                <ul>
+                                    {if isset($BACKGROUNDS_NOT_WRITABLE)}
+                                        <li>{$BACKGROUNDS_NOT_WRITABLE}</li>
+                                    {/if}
+
+                                    {if isset($TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE)}
+                                        <li>{$TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE}</li>
+                                    {/if}
+                                </ul>
+                            </div>
+                        {/if}
+
+                        <p>{$BACKGROUND_IMAGE} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$BACKGROUND_IMAGE_INFO}"><i class="fa fa-question"></i></p>
+
+                        <form action="" method="post" style="display:inline;" >
+                            <select name="bg" class="image-picker show-html">
+                                {foreach from=$BACKGROUND_IMAGES_ARRAY item=image}
+                                    <option data-img-src="{$image.src}" value="{$image.value}"{if $image.selected} selected{/if}>{$image.n}</option>
+                                {/foreach}
+                            </select>
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                        </form>
+
+                        <a href="{$RESET_LINK}" class="btn btn-danger">{$RESET}</a>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#uploadModal">{$UPLOAD_NEW_IMAGE}</button>
+
                         <hr />
-                        {$CURRENT_VERSION}<br />
-                        {$NEW_VERSION}
+
+                        <p>{$BANNER_IMAGE}</p>
+
+                        <form action="" method="post" style="display:inline;" >
+                            <select name="banner" class="image-picker show-html">
+                                {foreach from=$BANNER_IMAGES_ARRAY item=image}
+                                    <option data-img-src="{$image.src}" value="{$image.value}"{if $image.selected} selected{/if}>{$image.n}</option>
+                                {/foreach}
+                            </select>
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                        </form>
+
+                        <a href="{$RESET_BANNER_LINK}" class="btn btn-danger">{$RESET_BANNER}</a>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#uploadBannerModal">{$UPLOAD_NEW_IMAGE}</button>
+
                     </div>
-                    {/if}
-
-                    <div class="card">
-                        <div class="card-body">
-                            {if isset($SUCCESS)}
-                                <div class="alert alert-success alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
-                                    {$SUCCESS}
-                                </div>
-                            {/if}
-
-                            {if isset($ERRORS) && count($ERRORS)}
-                                <div class="alert alert-danger alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
-                                    <ul>
-                                        {foreach from=$ERRORS item=error}
-                                            <li>{$error}</li>
-                                        {/foreach}
-                                    </ul>
-                                </div>
-                            {/if}
-
-                            {if isset($BACKGROUNDS_NOT_WRITABLE) || isset($TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE)}
-                                <div class="alert alert-danger alert-dismissible">
-                                    <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
-                                    <ul>
-                                        {if isset($BACKGROUNDS_NOT_WRITABLE)}
-                                            <li>{$BACKGROUNDS_NOT_WRITABLE}</li>
-                                        {/if}
-
-                                        {if isset($TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE)}
-                                            <li>{$TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE}</li>
-                                        {/if}
-                                    </ul>
-                                </div>
-                            {/if}
-
-                            <p>{$BACKGROUND_IMAGE} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$BACKGROUND_IMAGE_INFO}"><i class="fa fa-question"></i></p>
-
-                            <form action="" method="post" style="display:inline;" >
-                                <select name="bg" class="image-picker show-html">
-                                    {foreach from=$BACKGROUND_IMAGES_ARRAY item=image}
-                                        <option data-img-src="{$image.src}" value="{$image.value}"{if $image.selected} selected{/if}>{$image.n}</option>
-                                    {/foreach}
-                                </select>
-                                <input type="hidden" name="token" value="{$TOKEN}">
-                                <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
-                            </form>
-
-                            <a href="{$RESET_LINK}" class="btn btn-danger">{$RESET}</a>
-                            <button class="btn btn-info" data-toggle="modal" data-target="#uploadModal">{$UPLOAD_NEW_IMAGE}</button>
-
-                            <hr />
-
-                            <p>{$BANNER_IMAGE}</p>
-
-                            <form action="" method="post" style="display:inline;" >
-                                <select name="banner" class="image-picker show-html">
-                                    {foreach from=$BANNER_IMAGES_ARRAY item=image}
-                                        <option data-img-src="{$image.src}" value="{$image.value}"{if $image.selected} selected{/if}>{$image.n}</option>
-                                    {/foreach}
-                                </select>
-                                <input type="hidden" name="token" value="{$TOKEN}">
-                                <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
-                            </form>
-
-                            <a href="{$RESET_BANNER_LINK}" class="btn btn-danger">{$RESET_BANNER}</a>
-                            <button class="btn btn-info" data-toggle="modal" data-target="#uploadBannerModal">{$UPLOAD_NEW_IMAGE}</button>
-
-                        </div>
-                    </div>
-
-                    <!-- Spacing -->
-                    <div style="height:1rem;"></div>
-
                 </div>
+
+                <!-- Spacing -->
+                <div style="height:1rem;"></div>
+
+            </div>
         </section>
     </div>
 

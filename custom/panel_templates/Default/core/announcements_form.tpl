@@ -26,141 +26,124 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    {if isset($NEW_UPDATE)}
-                        {if $NEW_UPDATE_URGENT eq true}
-                            <div class="alert alert-danger">
-                        {else}
-                            <div class="alert alert-primary alert-dismissible" id="updateAlert">
-                            <button type="button" class="close" id="closeUpdate" data-dismiss="alert"
-                                aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        {/if}
-                        {$NEW_UPDATE}
-                        <br />
-                        <a href="{$UPDATE_LINK}" class="btn btn-primary" style="text-decoration:none">{$UPDATE}</a>
-                        <hr />
-                        {$CURRENT_VERSION}<br />
-                        {$NEW_VERSION}
-                        </div>
-                    {/if}
+                    {include file='includes/update.tpl'}
 
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 style="display:inline">{$ANNOUNCEMENT_TITLE}</h5>
-                                <div class="float-md-right">
-                                    <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
-                                </div>
-                                <hr>
-
-                                {if isset($SUCCESS)}
-                                <div class="alert alert-success alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
-                                    {$SUCCESS}
-                                </div>
-                                {/if}
-
-                                {if isset($ERRORS) && count($ERRORS)}
-                                <div class="alert alert-danger alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
-                                    <ul>
-                                        {foreach from=$ERRORS item=error}
-                                        <li>{$error}</li>
-                                        {/foreach}
-                                    </ul>
-                                </div>
-                                {/if}
-
-                                <form role="form" action="" method="post">
-                                    <div class="form-group">
-                                        <label for="header">{$HEADER}</label>
-                                        <input type="text" name="header" class="form-control" id="header" value="{$ANNOUNCEMENT->header}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="message">{$MESSAGE}</label>
-                                        <textarea name="message" class="form-control" id="message">{$ANNOUNCEMENT->message}</textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="pages">{$PAGES}</label>
-                                        <select name="pages[]" id="pages" class="form-control" multiple>
-                                            {foreach from=$PAGES_ARRAY item=page}
-                                                <option value="{$page.name}"{if in_array($page.name, json_decode($ANNOUNCEMENT->pages))} selected {/if}>{$page.name|ucfirst}</option>
-                                            {/foreach}
-                                        </select>
-                                    </div>
-                                    <div class="form-group backgroundColour">
-                                        <label for="InputBackgroundColour">{$BACKGROUND_COLOUR}</label>
-                                        <div class="input-group">
-                                            <input type="text" name="background_colour" class="form-control" id="InputBackgroundColour" value="{$ANNOUNCEMENT->background_colour}">
-                                            <span class="input-group-append">
-                                                <span class="input-group-text colorpicker-input-addon"><i></i></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group textColour">
-                                        <label for="InputTextColour">{$TEXT_COLOUR}</label>
-                                        <div class="input-group">
-                                            <input type="text" name="text_colour" class="form-control" id="InputTextColour" value="{$ANNOUNCEMENT->text_colour}">
-                                            <span class="input-group-append">
-                                                <span class="input-group-text colorpicker-input-addon"><i></i></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="icon">{$ICON} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ICON_INFO|escape}"><i class="fa fa-question"></i></label>
-                                        <input type="text" name="icon" id="icon" class="form-control" placeholder="fas fa-edit icon" value="{$ANNOUNCEMENT->icon|escape}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="closable">{$CLOSABLE}</label>
-                                        <input id="closable" name="closable" type="checkbox" class="js-switch" value="1" {if $ANNOUNCEMENT->closable} checked{/if} />
-                                    </div>
-                                    <strong>Groups</strong>
-                                    <script>
-                                        var groups = [];
-                                        groups.push("0");
-                                    </script>
-                                    <table class="table table-responsive table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>{$NAME}</th>
-                                                <th>{$CAN_VIEW_ANNOUNCEMENT}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td onclick="toggleAll(this);">{$GUESTS}</td>
-                                                <td><input type="hidden" name="perm-view-0" value="0" /><input onclick="colourUpdate(this);"
-                                                        name="perm-view-0" id="Input-view-0" value="1" type="checkbox" {if $GUEST_PERMISSIONS} checked {/if} /></td>
-                                            </tr>
-                                            {foreach from=$GROUPS item=item}
-                                            <tr>
-                                                <td onclick="toggleAll(this);">{$item.name}</td>
-                                                <td><input type="hidden" name="perm-view-{$item.id}" value="0" /><input onclick="colourUpdate(this);"
-                                                        name="perm-view-{$item.id}" id="Input-view-{$item.id}" value="1" type="checkbox" {if $GROUPS[$item.id]['allowed'] } checked {/if} /></td>
-                                            </tr>
-                                            <script>groups.push("{$item.id}");</script>
-                                            {/foreach}
-                                        </tbody>
-                                    </table>
-                                    <div class="form-group">
-                                        <input type="hidden" name="token" value="{$TOKEN}">
-                                        <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
-                                    </div>
-                                </form>
-
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 style="display:inline">{$ANNOUNCEMENT_TITLE}</h5>
+                            <div class="float-md-right">
+                                <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
                             </div>
+                            <hr>
+
+                            {if isset($SUCCESS)}
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
+                                {$SUCCESS}
+                            </div>
+                            {/if}
+
+                            {if isset($ERRORS) && count($ERRORS)}
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
+                                <ul>
+                                    {foreach from=$ERRORS item=error}
+                                    <li>{$error}</li>
+                                    {/foreach}
+                                </ul>
+                            </div>
+                            {/if}
+
+                            <form role="form" action="" method="post">
+                                <div class="form-group">
+                                    <label for="header">{$HEADER}</label>
+                                    <input type="text" name="header" class="form-control" id="header" value="{$ANNOUNCEMENT->header}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">{$MESSAGE}</label>
+                                    <textarea name="message" class="form-control" id="message">{$ANNOUNCEMENT->message}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pages">{$PAGES}</label>
+                                    <select name="pages[]" id="pages" class="form-control" multiple>
+                                        {foreach from=$PAGES_ARRAY item=page}
+                                            <option value="{$page.name}"{if in_array($page.name, json_decode($ANNOUNCEMENT->pages))} selected {/if}>{$page.name|ucfirst}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                                <div class="form-group backgroundColour">
+                                    <label for="InputBackgroundColour">{$BACKGROUND_COLOUR}</label>
+                                    <div class="input-group">
+                                        <input type="text" name="background_colour" class="form-control" id="InputBackgroundColour" value="{$ANNOUNCEMENT->background_colour}">
+                                        <span class="input-group-append">
+                                            <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group textColour">
+                                    <label for="InputTextColour">{$TEXT_COLOUR}</label>
+                                    <div class="input-group">
+                                        <input type="text" name="text_colour" class="form-control" id="InputTextColour" value="{$ANNOUNCEMENT->text_colour}">
+                                        <span class="input-group-append">
+                                            <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="icon">{$ICON} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ICON_INFO|escape}"><i class="fa fa-question"></i></label>
+                                    <input type="text" name="icon" id="icon" class="form-control" placeholder="fas fa-edit icon" value="{$ANNOUNCEMENT->icon|escape}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="closable">{$CLOSABLE}</label>
+                                    <input id="closable" name="closable" type="checkbox" class="js-switch" value="1" {if $ANNOUNCEMENT->closable} checked{/if} />
+                                </div>
+                                <strong>Groups</strong>
+                                <script>
+                                    var groups = [];
+                                    groups.push("0");
+                                </script>
+                                <table class="table table-responsive table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>{$NAME}</th>
+                                            <th>{$CAN_VIEW_ANNOUNCEMENT}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td onclick="toggleAll(this);">{$GUESTS}</td>
+                                            <td><input type="hidden" name="perm-view-0" value="0" /><input onclick="colourUpdate(this);"
+                                                    name="perm-view-0" id="Input-view-0" value="1" type="checkbox" {if $GUEST_PERMISSIONS} checked {/if} /></td>
+                                        </tr>
+                                        {foreach from=$GROUPS item=item}
+                                        <tr>
+                                            <td onclick="toggleAll(this);">{$item.name}</td>
+                                            <td><input type="hidden" name="perm-view-{$item.id}" value="0" /><input onclick="colourUpdate(this);"
+                                                    name="perm-view-{$item.id}" id="Input-view-{$item.id}" value="1" type="checkbox" {if $GROUPS[$item.id]['allowed'] } checked {/if} /></td>
+                                        </tr>
+                                        <script>groups.push("{$item.id}");</script>
+                                        {/foreach}
+                                    </tbody>
+                                </table>
+                                <div class="form-group">
+                                    <input type="hidden" name="token" value="{$TOKEN}">
+                                    <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                                </div>
+                            </form>
+
                         </div>
-
-                        <!-- Spacing -->
-                        <div style="height:1rem;"></div>
-
                     </div>
+
+                    <!-- Spacing -->
+                    <div style="height:1rem;"></div>
+
+                </div>
             </section>
         </div>
 

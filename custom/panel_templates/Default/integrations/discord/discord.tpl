@@ -25,89 +25,73 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                {if isset($NEW_UPDATE)}
-                {if $NEW_UPDATE_URGENT eq true}
-                <div class="alert alert-danger">
-                    {else}
-                    <div class="alert alert-primary alert-dismissible" id="updateAlert">
-                        <button type="button" class="close" id="closeUpdate" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                {include file='includes/update.tpl'}
+
+                <div class="card">
+                    <div class="card-body">
+                        {if isset($SUCCESS)}
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
+                                {$SUCCESS}
+                            </div>
                         {/if}
-                        {$NEW_UPDATE}
-                        <br />
-                        <a href="{$UPDATE_LINK}" class="btn btn-primary" style="text-decoration:none">{$UPDATE}</a>
-                        <hr />
-                        {$CURRENT_VERSION}<br />
-                        {$NEW_VERSION}
-                    </div>
-                    {/if}
 
-                    <div class="card">
-                        <div class="card-body">
-                            {if isset($SUCCESS)}
-                                <div class="alert alert-success alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
-                                    {$SUCCESS}
-                                </div>
-                            {/if}
-
-                            {if isset($ERRORS) && count($ERRORS)}
-                                <div class="alert alert-danger alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
-                                    <ul>
-                                        {foreach from=$ERRORS item=error}
-                                            <li>{$error}</li>
-                                        {/foreach}
-                                    </ul>
-                                </div>
-                            {/if}
-
-                            <div class="callout callout-info">
-                                <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
-                                {$INVITE_LINK}
+                        {if isset($ERRORS) && count($ERRORS)}
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
+                                <ul>
+                                    {foreach from=$ERRORS item=error}
+                                        <li>{$error}</li>
+                                    {/foreach}
+                                </ul>
                             </div>
+                        {/if}
 
-                            <h4>{$REQUIREMENTS}</h4>
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <tbody>
-                                        <tr>
-                                            <td>{$BOT_SETUP}</td>
-                                            <td>{if $BOT_URL_SET && $GUILD_ID_SET}<i class="fas fa-check-circle text-success"></i>{else}<i class="fas fa-times-circle text-danger"></i>{/if}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <hr>
-
-                            <form id="settings" action="" method="post">
-                                <div class="form-group">
-                                    <label for="inputEnableDiscord">{$ENABLE_DISCORD_INTEGRATION}</label>
-                                    <input type="hidden" name="enable_discord" value="0">
-                                    <input id="inputEnableDiscord" name="enable_discord" type="checkbox" class="js-switch" {if $DISCORD_ENABLED eq 1} checked{/if} value="1"/>
-                                    <input type="hidden" name="token" value="{$TOKEN}">
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="hidden" name="token" value="{$TOKEN}">
-                                    <input type="submit" value="{$SUBMIT}" class="btn btn-primary" {if !$BOT_URL_SET || !$GUILD_ID_SET} disabled {/if}>
-                                </div>
-                            </form>
+                        <div class="callout callout-info">
+                            <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                            {$INVITE_LINK}
                         </div>
+
+                        <h4>{$REQUIREMENTS}</h4>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>{$BOT_SETUP}</td>
+                                        <td>{if $BOT_URL_SET && $GUILD_ID_SET}<i class="fas fa-check-circle text-success"></i>{else}<i class="fas fa-times-circle text-danger"></i>{/if}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <hr>
+
+                        <form id="settings" action="" method="post">
+                            <div class="form-group">
+                                <label for="inputEnableDiscord">{$ENABLE_DISCORD_INTEGRATION}</label>
+                                <input type="hidden" name="enable_discord" value="0">
+                                <input id="inputEnableDiscord" name="enable_discord" type="checkbox" class="js-switch" {if $DISCORD_ENABLED eq 1} checked{/if} value="1"/>
+                                <input type="hidden" name="token" value="{$TOKEN}">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="hidden" name="token" value="{$TOKEN}">
+                                <input type="submit" value="{$SUBMIT}" class="btn btn-primary" {if !$BOT_URL_SET || !$GUILD_ID_SET} disabled {/if}>
+                            </div>
+                        </form>
                     </div>
-
-                    <!-- Spacing -->
-                    <div style="height:1rem;"></div>
-
                 </div>
+
+                <!-- Spacing -->
+                <div style="height:1rem;"></div>
+
+            </div>
         </section>
     </div>
 

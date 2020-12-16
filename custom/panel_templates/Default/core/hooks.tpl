@@ -25,93 +25,77 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                {if isset($NEW_UPDATE)}
-                {if $NEW_UPDATE_URGENT eq true}
-                <div class="alert alert-danger">
-                    {else}
-                    <div class="alert alert-primary alert-dismissible" id="updateAlert">
-                        <button type="button" class="close" id="closeUpdate" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {/if}
-                        {$NEW_UPDATE}
-                        <br />
-                        <a href="{$UPDATE_LINK}" class="btn btn-primary" style="text-decoration:none">{$UPDATE}</a>
+                {include file='includes/update.tpl'}
+
+                <div class="card">
+                    <div class="card-body">
+                        <p style="display:inline;">{$HOOKS_INFO}</p>
+                        <span class="float-md-right"><a href="{$NEW_HOOK_LINK}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {$NEW_HOOK}</a></span>
                         <hr />
-                        {$CURRENT_VERSION}<br />
-                        {$NEW_VERSION}
-                    </div>
-                    {/if}
+                        
+                        {if isset($SUCCESS)}
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
+                                {$SUCCESS}
+                            </div>
+                        {/if}
 
-                    <div class="card">
-                        <div class="card-body">
-							<p style="display:inline;">{$HOOKS_INFO}</p>
-							<span class="float-md-right"><a href="{$NEW_HOOK_LINK}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {$NEW_HOOK}</a></span>
-							<hr />
-							
-							{if isset($SUCCESS)}
-                                <div class="alert alert-success alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
-                                    {$SUCCESS}
-                                </div>
-                            {/if}
+                        {if isset($ERRORS) && count($ERRORS)}
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
+                                <ul>
+                                    {foreach from=$ERRORS item=error}
+                                        <li>{$error}</li>
+                                    {/foreach}
+                                </ul>
+                            </div>
+                        {/if}
 
-                            {if isset($ERRORS) && count($ERRORS)}
-                                <div class="alert alert-danger alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
-                                    <ul>
-                                        {foreach from=$ERRORS item=error}
-                                            <li>{$error}</li>
-                                        {/foreach}
-                                    </ul>
-                                </div>
-                            {/if}
-
-                            {if count($HOOKS_LIST)}
-                                {foreach from=$HOOKS_LIST item=hook name=hook_list}
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless table-striped">
-                                            <thead>
+                        {if count($HOOKS_LIST)}
+                            {foreach from=$HOOKS_LIST item=hook name=hook_list}
+                                <div class="table-responsive">
+                                    <table class="table table-borderless table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>{$NAME}</th>
+                                                <th>{$LINK}</th>
+                                                <th class="float-md-right">{$EDIT}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {foreach from=$HOOKS_LIST item=item item=hook name=hook_list}
                                                 <tr>
-                                                    <th>{$NAME}</th>
-                                                    <th>{$LINK}</th>
-                                                    <th class="float-md-right">{$EDIT}</th>
+                                                    <td>{$hook.name}</td>
+                                                    <td><a href="{$hook.edit_link}">{$hook.url}</a></td>
+                                                    <td>
+                                                        <div class="float-md-right">
+                                                            <a href="{$hook.edit_link}" class="btn btn-warning btn-sm"><i class="fas fa-edit fa-fw"></i></a>
+                                                            <button class="btn btn-danger btn-sm" type="button" onclick="showDeleteModal('{$hook.delete_link}')"><i class="fas fa-trash fa-fw"></i></button>
+                                                        </div>
+                                                    </td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                {foreach from=$HOOKS_LIST item=item item=hook name=hook_list}
-                                                    <tr>
-                                                        <td>{$hook.name}</td>
-                                                        <td><a href="{$hook.edit_link}">{$hook.url}</a></td>
-                                                        <td>
-                                                            <div class="float-md-right">
-                                                                <a href="{$hook.edit_link}" class="btn btn-warning btn-sm"><i class="fas fa-edit fa-fw"></i></a>
-                                                                <button class="btn btn-danger btn-sm" type="button" onclick="showDeleteModal('{$hook.delete_link}')"><i class="fas fa-trash fa-fw"></i></button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                {/foreach}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                {/foreach}
-                            {else}
-                                {$NO_HOOKS}
-                            {/if}
+                                            {/foreach}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {/foreach}
+                        {else}
+                            {$NO_HOOKS}
+                        {/if}
 
-                        </div>
                     </div>
-
-                    <!-- Spacing -->
-                    <div style="height:1rem;"></div>
-
                 </div>
+
+                <!-- Spacing -->
+                <div style="height:1rem;"></div>
+
+            </div>
         </section>
     </div>
 	

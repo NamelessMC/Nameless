@@ -25,124 +25,108 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                {if isset($NEW_UPDATE)}
-                {if $NEW_UPDATE_URGENT eq true}
-                <div class="alert alert-danger">
-                    {else}
-                    <div class="alert alert-primary alert-dismissible" id="updateAlert">
-                        <button type="button" class="close" id="closeUpdate" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {/if}
-                        {$NEW_UPDATE}
-                        <br />
-                        <a href="{$UPDATE_LINK}" class="btn btn-primary" style="text-decoration:none">{$UPDATE}</a>
-                        <hr />
-                        {$CURRENT_VERSION}<br />
-                        {$NEW_VERSION}
-                    </div>
-                    {/if}
+                {include file='includes/update.tpl'}
 
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 style="display:inline">{$VIEWING_USER}</h5>
-                            <div class="float-md-right">
-                                <a href="{$BACK_LINK}" class="btn btn-info">{$BACK}</a>
-                            </div>
-
-                            <hr />
-
-                            {if isset($SUCCESS)}
-                                <div class="alert alert-success alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
-                                    {$SUCCESS}
-                                </div>
-                            {/if}
-
-                            {if isset($ERRORS) && count($ERRORS)}
-                                <div class="alert alert-danger alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
-                                    <ul>
-                                        {foreach from=$ERRORS item=error}
-                                            <li>{$error}</li>
-                                        {/foreach}
-                                    </ul>
-                                </div>
-                            {/if}
-
-                            <div class="row">
-                                {if isset($RESET_AVATAR)}
-                                    <div class="col-md-3" style="text-align: center">
-                                <button data-toggle="modal" data-target="#resetAvatarModal" class="btn btn-warning" {if ($HAS_AVATAR != true)} disabled {/if}>{$RESET_AVATAR}</button>
-                                    </div>
-                                {/if}
-                                {if isset($WARN)}
-                                    <div class="col-md-3" style="text-align: center">
-                                        <a href="#" data-toggle="modal" data-target="#warnModal" class="btn btn-warning">{$WARN}</a>
-                                    </div>
-                                {/if}
-                                {if isset($BAN)}
-                                    <div class="col-md-3" style="text-align: center">
-                                        <a href="#" data-toggle="modal" data-target="#banModal" class="btn btn-danger">{$BAN}</a>
-                                    </div>
-                                {/if}
-                                {if isset($BAN_IP)}
-                                    <div class="col-md-3" style="text-align: center">
-                                        <a href="#" data-toggle="modal" data-target="#banIPModal" class="btn btn-danger">{$BAN_IP}</a>
-                                    </div>
-                                {/if}
-                            </div>
-
-                            <hr />
-                            <h5>{$PREVIOUS_PUNISHMENTS}</h5>
-                            {if count($PREVIOUS_PUNISHMENTS_LIST)}
-                                {foreach from=$PREVIOUS_PUNISHMENTS_LIST item=punishment name=punishments}
-                                    <div class="card">
-                                        <div class="card-header">
-                                            {if $punishment.type_numeric == 1}
-                                                <span class="badge badge-danger">{$punishment.type}</span>
-                                            {elseif $punishment.type_numeric == 2 || $punishment.type_numeric == 4}
-                                                <span class="badge badge-warning">{$punishment.type}</span>
-                                            {elseif $punishment.type_numeric == 3}
-                                                <span class="badge badge-danger">{$punishment.type}</span>
-                                            {/if}
-                                            {if $punishment.revoked == 1}
-                                                <span class="badge badge-info">{$REVOKED}</span>
-                                            {/if}
-                                            {if $punishment.acknowledged == 1}
-                                                <span class="badge badge-success">{$ACKNOWLEDGED}</span>
-                                            {/if}
-                                            <a href="{$punishment.issued_by_profile}" style="{$punishment.issued_by_style}">{$punishment.issued_by_nickname}</a>
-                                            <span class="pull-right"><span data-toggle="tooltip" data-original-title="{$punishment.date_full}">{$punishment.date_friendly}</span></span>
-                                        </div>
-                                        <div class="card-body">
-                                            {$punishment.reason}
-                                            {if $punishment.revoked == 0 && $punishment.revoke_link != 'none'}
-                                                <hr />
-                                                <button class="btn btn-warning" onclick="showRevokeModal('{$punishment.revoke_link}', '{$punishment.confirm_revoke_punishment|replace:"'":"\'"}')">{$REVOKE}</button>
-                                            {/if}
-                                        </div>
-                                    </div>
-                                {/foreach}
-                            {else}
-                                <div class="alert alert-info">
-                                    {$NO_PREVIOUS_PUNISHMENTS}
-                                </div>
-                            {/if}
-
+                <div class="card">
+                    <div class="card-body">
+                        <h5 style="display:inline">{$VIEWING_USER}</h5>
+                        <div class="float-md-right">
+                            <a href="{$BACK_LINK}" class="btn btn-info">{$BACK}</a>
                         </div>
+
+                        <hr />
+
+                        {if isset($SUCCESS)}
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
+                                {$SUCCESS}
+                            </div>
+                        {/if}
+
+                        {if isset($ERRORS) && count($ERRORS)}
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
+                                <ul>
+                                    {foreach from=$ERRORS item=error}
+                                        <li>{$error}</li>
+                                    {/foreach}
+                                </ul>
+                            </div>
+                        {/if}
+
+                        <div class="row">
+                            {if isset($RESET_AVATAR)}
+                                <div class="col-md-3" style="text-align: center">
+                            <button data-toggle="modal" data-target="#resetAvatarModal" class="btn btn-warning" {if ($HAS_AVATAR != true)} disabled {/if}>{$RESET_AVATAR}</button>
+                                </div>
+                            {/if}
+                            {if isset($WARN)}
+                                <div class="col-md-3" style="text-align: center">
+                                    <a href="#" data-toggle="modal" data-target="#warnModal" class="btn btn-warning">{$WARN}</a>
+                                </div>
+                            {/if}
+                            {if isset($BAN)}
+                                <div class="col-md-3" style="text-align: center">
+                                    <a href="#" data-toggle="modal" data-target="#banModal" class="btn btn-danger">{$BAN}</a>
+                                </div>
+                            {/if}
+                            {if isset($BAN_IP)}
+                                <div class="col-md-3" style="text-align: center">
+                                    <a href="#" data-toggle="modal" data-target="#banIPModal" class="btn btn-danger">{$BAN_IP}</a>
+                                </div>
+                            {/if}
+                        </div>
+
+                        <hr />
+                        <h5>{$PREVIOUS_PUNISHMENTS}</h5>
+                        {if count($PREVIOUS_PUNISHMENTS_LIST)}
+                            {foreach from=$PREVIOUS_PUNISHMENTS_LIST item=punishment name=punishments}
+                                <div class="card">
+                                    <div class="card-header">
+                                        {if $punishment.type_numeric == 1}
+                                            <span class="badge badge-danger">{$punishment.type}</span>
+                                        {elseif $punishment.type_numeric == 2 || $punishment.type_numeric == 4}
+                                            <span class="badge badge-warning">{$punishment.type}</span>
+                                        {elseif $punishment.type_numeric == 3}
+                                            <span class="badge badge-danger">{$punishment.type}</span>
+                                        {/if}
+                                        {if $punishment.revoked == 1}
+                                            <span class="badge badge-info">{$REVOKED}</span>
+                                        {/if}
+                                        {if $punishment.acknowledged == 1}
+                                            <span class="badge badge-success">{$ACKNOWLEDGED}</span>
+                                        {/if}
+                                        <a href="{$punishment.issued_by_profile}" style="{$punishment.issued_by_style}">{$punishment.issued_by_nickname}</a>
+                                        <span class="pull-right"><span data-toggle="tooltip" data-original-title="{$punishment.date_full}">{$punishment.date_friendly}</span></span>
+                                    </div>
+                                    <div class="card-body">
+                                        {$punishment.reason}
+                                        {if $punishment.revoked == 0 && $punishment.revoke_link != 'none'}
+                                            <hr />
+                                            <button class="btn btn-warning" onclick="showRevokeModal('{$punishment.revoke_link}', '{$punishment.confirm_revoke_punishment|replace:"'":"\'"}')">{$REVOKE}</button>
+                                        {/if}
+                                    </div>
+                                </div>
+                            {/foreach}
+                        {else}
+                            <div class="alert alert-info">
+                                {$NO_PREVIOUS_PUNISHMENTS}
+                            </div>
+                        {/if}
+
                     </div>
-
-                    <!-- Spacing -->
-                    <div style="height:1rem;"></div>
-
                 </div>
+
+                <!-- Spacing -->
+                <div style="height:1rem;"></div>
+
+            </div>
         </section>
     </div>
 
