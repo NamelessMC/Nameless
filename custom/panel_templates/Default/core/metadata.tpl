@@ -29,24 +29,17 @@
 
                 <div class="card">
                     <div class="card-body">
-                        {if isset($SUCCESS)}
-                            <div class="alert alert-success alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
-                                {$SUCCESS}
-                            </div>
-                        {/if}
+
+                        {include file='includes/success.tpl'}
 
                         {include file='includes/errors.tpl'}
 
                         <div class="table-responsive">
                             <table class="table table-striped dataTables-pages">
                                 <thead>
-                                <tr>
-                                    <th>{$PAGE_TITLE}</th>
-                                </tr>
+                                    <tr>
+                                        <th>{$PAGE_TITLE}</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                 {foreach from=$PAGE_LIST key=key item=item}

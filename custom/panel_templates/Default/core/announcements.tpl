@@ -32,15 +32,8 @@
                             <p style="display:inline;">{$ANNOUCEMENTS_INFO}</p>
                             <span class="float-md-right"><a href="{$NEW_LINK}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {$NEW}</a></span>
                             <hr />
-                            {if isset($SUCCESS)}
-                            <div class="alert alert-success alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
-                                {$SUCCESS}
-                            </div>
-                            {/if}
+                            
+                            {include file='includes/success.tpl'}
 
                             {include file='includes/errors.tpl'}
 
