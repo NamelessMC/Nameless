@@ -25,7 +25,15 @@ abstract class TemplateBase {
     public function addCSSFiles($files) {
         if (is_array($files) && count($files)) {
             foreach ($files as $href => $file) {
-                $this->_css[] = '<link rel="stylesheet" href="' . $href . '"' . (isset($file['integrity']) ? ' integrity="' . $file['integrity'] . '"' : '') . (isset($file['crossorigin']) ? ' crossorigin="' . $file['crossorigin'] . '"' : '') . '>';
+                $this->_css[] = '
+                <link rel="stylesheet" 
+                href="' . $href . '"' .
+                    (isset($file['integrity']) ? ' integrity="' . $file['integrity'] . '"' : '') .
+                    (isset($file['crossorigin']) ? ' crossorigin="' . $file['crossorigin'] . '"' : '') .
+                    (isset($file['rel']) ? ' rel="' . $file['rel'] . '"' : '') .
+                    (isset($file['as']) ? ' as="' . $file['as'] . '"' : '') .
+                    (isset($file['onload']) ? ' onload="' . $file['onload'] . '"' : '') .
+                '>';
             }
         }
     }
@@ -39,7 +47,15 @@ abstract class TemplateBase {
     public function addJSFiles($files) {
         if (is_array($files) && count($files)) {
             foreach ($files as $href => $file) {
-                $this->_js[] = '<script type="text/javascript" src="' . $href . '"' . (isset($file['integrity']) ? ' integrity="' . $file['integrity'] . '"' : '') . (isset($file['crossorigin']) ? ' crossorigin="' . $file['crossorigin'] . '"' : '') . '></script>';
+            	echo '<pre>', print_r($file), '</pre>';
+                $this->_js[] = '
+                <script type="text/javascript" 
+                    src="' . $href . '"' .
+                    (isset($file['integrity']) ? ' integrity="' . $file['integrity'] . '"' : '') .
+                    (isset($file['crossorigin']) ? 'crossorigin="' . $file['crossorigin'] . '"' : '') .
+                    ((isset($file['defer']) && $file['defer']) ? ' defer' : '') .
+                    ((isset($file['async']) && $file['async']) ? ' async' : '') .
+                '></script>';
             }
         }
     }
