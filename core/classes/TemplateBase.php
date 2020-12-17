@@ -47,7 +47,6 @@ abstract class TemplateBase {
     public function addJSFiles($files) {
         if (is_array($files) && count($files)) {
             foreach ($files as $href => $file) {
-            	echo '<pre>', print_r($file), '</pre>';
                 $this->_js[] = '
                 <script type="text/javascript" 
                     src="' . $href . '"' .
