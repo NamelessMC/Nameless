@@ -67,6 +67,14 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
+    $queries->create('settings', array(
+        'name' => 'discord_bot_username',
+        'value' => null
+    ));
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
     $queries->alterTable('group_sync', '`discord_role_id`', "bigint(18) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';

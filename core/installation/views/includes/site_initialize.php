@@ -421,6 +421,11 @@ $queries->create('settings', array(
 ));
 
 $queries->create('settings', array(
+    'name' => 'discord_bot_username',
+    'value' => null
+));
+
+$queries->create('settings', array(
 	'name' => 'discord_integration',
 	'value' => 0
 ));
