@@ -220,6 +220,23 @@ $queries->create('settings', array(
     'value' => '[]'
 ));
 
+// Labels
+try {
+    DB::getInstance()->query("ALTER TABLE `nl2_forums_labels` CHANGE `html` `html` VARCHAR(1024) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
+	DB::getInstance()->query("ALTER TABLE `nl2_forums_labels` CHANGE `name` `name` VARCHAR(32) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+} catch (Exception $e) {
+	echo $e->getMessage() . '<br />';
+}
+try {
+    DB::getInstance()->query("ALTER TABLE `nl2_forums_topic_labels` CHANGE `gids` `gids` VARCHAR(256) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 
