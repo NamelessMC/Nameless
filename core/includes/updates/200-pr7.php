@@ -99,8 +99,15 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
+
+// New group system
 try {
     $queries->createTable("users_groups", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `group_id` int(11) NOT NULL, `received` int(11) NOT NULL DEFAULT '0', `expire` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
+    $queries->alterTable('groups', '`deleted`', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
