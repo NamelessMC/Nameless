@@ -239,7 +239,7 @@ class Util {
     /*
      *  Get the server name
      */
-    public static function getSelfURL() {
+    public static function getSelfURL($protocol = true) {
         $hostname = Config::get('core/hostname');
         if (is_array($hostname))
             $hostname = $_SERVER['SERVER_NAME'];
@@ -250,15 +250,34 @@ class Util {
             $www = '';
         }
 
-        if ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) {
-            $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . $www . Output::getClean($hostname);
+        if ($protocol) {
+            if ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) {
+                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . $www . Output::getClean($hostname);
+            } else {
+                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . $www . Output::getClean($hostname) . ":" . $_SERVER['SERVER_PORT'];
+            }
         } else {
-            $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . $www . Output::getClean($hostname) . ":" . $_SERVER['SERVER_PORT'];
+            $url = $www . Output::getClean($hostname);
         }
 
         if (substr($url, -1) !== '/') $url .= '/';
 
         return $url;
+    }
+
+    /**
+     * Is a URL internal or external? Accepts full URL and also just a path
+     * @param $url string URL/path to check
+     * @return boolean whether URL is external or not
+     */
+    public static function isExternalURL($url) {
+        if ($url[0] == '/' && $url[1] != '/') {
+            return false;
+        }
+
+        $parsed = parse_url($url);
+
+        return !(str_replace('www.', '', rtrim(Util::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
     }
 
     // URL-ify a string

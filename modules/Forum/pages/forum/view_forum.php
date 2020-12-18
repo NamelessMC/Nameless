@@ -75,6 +75,11 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Redirect forum?
 if ($forum_query->redirect_forum == 1) {
+    if (!Util::isExternalURL($forum_query->redirect_url)) {
+        Redirect::to(Output::getClean(Output::getDecoded($forum_query->redirect_url)));
+        die();
+    }
+
     $smarty->assign(array(
         'CONFIRM_REDIRECT' => str_replace('{x}', $forum_query->redirect_url, $forum_language->get('forum', 'forum_redirect_warning')),
         'YES' => $language->get('general', 'yes'),
