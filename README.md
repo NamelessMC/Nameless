@@ -59,10 +59,10 @@ Feature requests can be posted on the [forum](https://namelessmc.com/forum/view/
 For Minecraft integration, you can install the Nameless Plugin in your Spigot server. Currently the plugin is only available for spigot, but we're working on bringing it to different server software, such as Sponge and BungeeCord. You can find a list of features and installation instructions in the [plugin readme](https://github.com/NamelessMC/Nameless-Plugin/blob/master/README.md)
 
 ## Translations
-NamelessMC translations are kindly provided by the community. Currently available translations can be found [here](https://github.com/NamelessMC/Nameless/tree/v2/custom/languages). Please note, not all translations may be up to date.
+NamelessMC translations are kindly provided by the community. Currently available translations can be found [here](https://translate.namelessmc.com). Please note, not all translations may be up to date.
 
 #### Contributing translation updates
-If you would like to assist with the NamelessMC development by providing an updated translation, please feel free to fork the repository here on GitHub and create any pull requests. If you need help or want to discuss changes with fellow translators, visit the [NamelessMC Translators](https://discord.gg/7Dku3fE) discord server.
+If you would like to assist with the NamelessMC development by providing an updated translation, please feel free to create an account on our [translation panel](https://translate.namelessmc.com) and suggest it there. If you need help or want to discuss changes with fellow translators, visit the [NamelessMC Translators](https://discord.gg/7Dku3fE) Discord server.
 
 #### Translation credits
 Translation credits can be found within CONTRIBUTORS.md
