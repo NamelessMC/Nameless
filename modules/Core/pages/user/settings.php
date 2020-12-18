@@ -558,7 +558,7 @@ if(isset($_GET['do'])){
 						$user->update(array(
 							'discord_id' => 010
 						));
-						Session::flash('settings_success', str_replace(array('{guild_id}', '{token}'), array(Util::getSetting(DB::getInstance(), 'discord'), $token), $language->get('user', 'discord_id_confirm')));
+						Session::flash('settings_success', str_replace(array('{guild_id}', '{token}', '{bot_username}'), array(Util::getSetting(DB::getInstance(), 'discord'), $token, BOT_USERNAME), $language->get('user', 'discord_id_confirm')));
 						Redirect::to(URL::build('/user/settings'));
 						die();
 					}
