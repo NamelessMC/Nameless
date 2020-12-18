@@ -25,10 +25,15 @@ class DiscordHook {
                 'description' => str_replace('{x}', Output::getClean($params['username']), $params['language']->get('user', 'user_x_has_registered'))
             ));
         } else {
+            $content = html_entity_decode(str_replace(array('&nbsp;', '&bull;'), array(' ', ''), $params['content_full']));
+            if (mb_strlen($content) > 512) {
+                $content = mb_substr($content, 0, 512) . '...';
+            }
+
             $return['username'] = $params['username'] . ' | ' . SITE_NAME;
             $return['avatar_url'] = $params['avatar_url'];
             $return['embeds'] = array(array(
-                'description' => html_entity_decode(substr(str_replace(array('&nbsp;', '&bull;'), array(' ', ''), $params['content_full']), 0, 512)) . '...',
+                'description' =>  $content,
                 'title' => $params['title'],
                 'url' => $params['url'],
                 'footer' => array('text' => $params['content'])
