@@ -157,7 +157,7 @@ if (Input::exists()) {
                         'username' => $user->getDisplayname(true),
                         'nickname' => $user->getDisplayname(),
                         'content' => str_replace(array('{x}', '{y}'), array($forum_title, $user->getDisplayname()), $forum_language->get('forum', 'new_topic_text')),
-                        'content_full' => strip_tags(Input::get('content')),
+                        'content_full' => strip_tags(str_ireplace(array('<br />', '<br>', '<br/>'), "\r\n", Input::get('content'))),
                         'avatar_url' => $user->getAvatar(null, 128, true),
                         'title' => Input::get('title'),
                         'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))), '/'),
