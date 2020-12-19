@@ -10,10 +10,10 @@
  */
 class ProfilePostsWidget extends WidgetBase {
 
-    private $_cache, 
-            $_smarty, 
+    private $_cache,
+            $_smarty,
             $_language,
-            $_user, 
+            $_user,
             $_timeago;
 
     public function __construct($pages = array(), $smarty, $language, $cache, $user, $timeago) {
@@ -43,7 +43,7 @@ class ProfilePostsWidget extends WidgetBase {
         } else {
             $user_id = 0;
         }
-		
+
         $this->_cache->setCache('profile_posts_widget');
 
         $posts_array = array();
@@ -52,7 +52,7 @@ class ProfilePostsWidget extends WidgetBase {
          } else {
             $posts = DB::getInstance()->query('SELECT * FROM nl2_user_profile_wall_posts ORDER BY time DESC LIMIT 5')->results();
             foreach ($posts as $post) {
-				$post_author = new User($post->author_id);
+                $post_author = new User($post->author_id);
 
                 if ($this->_user->isLoggedIn()) {
                     if ($this->_user->isBlocked($post->author_id, $this->_user->data()->id)) continue;
