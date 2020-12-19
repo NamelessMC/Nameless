@@ -55,6 +55,10 @@ body.pushable>.pusher {
 	cursor: default !important;
 }
 
+.ui.vertical.inverted.sidebar.menu.left .item .header span.icon {
+	float: right;
+}
+
 /*
  *  [ HEADER ]
  */

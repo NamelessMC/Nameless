@@ -4,10 +4,9 @@
   </div>
   {foreach from=$NAV_LINKS key=name item=item}
     {if isset($item.items)}
-      <div class="ui pointing dropdown link item">
-        <span class="text">{$item.icon} {$item.title}</span> <i class="dropdown icon"></i>
+      <div class="item">
+        <div class="header">{$item.title} <span class="icon">{$item.icon}</span></div>
         <div class="menu">
-          <div class="header">{$item.title}</div>
           {foreach from=$item.items item=dropdown}
             <a class="item" href="{$dropdown.link}" target="{$dropdown.target}">{$dropdown.icon} {$dropdown.title}</a>
           {/foreach}
