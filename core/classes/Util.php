@@ -532,9 +532,10 @@ class Util {
             if ($file->isDir()) {
                 self::loadEndpoints($file, $endpoints);
             } else {
-                $endpoint_file_name = $file->getPathName();
-                require_once($endpoint_file_name);
-                $endpoint_class_name = str_replace('.php', '', substr($endpoint_file_name, strrpos($endpoint_file_name, '/') + 1));
+                $endpoint_path = $file->getPathName();
+                $endpoint_file_name = $file->getFilename();
+                require_once($endpoint_path);
+                $endpoint_class_name = str_replace('.php', '', $endpoint_file_name);
                 $endpoints->add(new $endpoint_class_name);
             }
         }
