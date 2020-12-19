@@ -264,6 +264,14 @@ body.pushable>.pusher {
 	margin-right: 1.3em;
 }
 
+.inline.fields.labels {
+	flex-wrap: wrap;
+}
+
+.ui.form .inline.fields.labels .field {
+	padding-bottom: 1em;
+}
+
 /*
  *  [ ACCOUNT MESSAGES ]
  */

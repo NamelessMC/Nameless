@@ -30,8 +30,7 @@
               <input type="text" name="title" value="{$TOPIC_TITLE}">
             </div>
             {if count($LABELS)}
-              <div class="inline fields">
-                <label>Label:</label>
+              <div class="inline fields labels">
                 {foreach from=$LABELS item=label}
                   <div class="field">
                     <div class="ui radio checkbox">
