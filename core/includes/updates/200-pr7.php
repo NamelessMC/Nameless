@@ -237,6 +237,25 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Convert user groups
+try {
+    $users = DB::getInstance()->query('SELECT id, group_id, secondary_groups FROM nl2_users')->results();
+    $query = 'INSERT INTO nl2_users_groups (user_id, group_id) VALUES ';
+    foreach ($users as $item) {
+        $inserts = array('(' . Output::getClean($item->id) . ',' . Output::getClean($item->group_id) . '),');
+        $groups = json_decode($item->secondary_groups);
+        if (count($groups)) {
+            foreach ($groups as $group) {
+                $inserts[] = '(' . Output::getClean($item->id) . ',' . Output::getClean($group) . '),';
+            }
+        }
+        $query .= implode('', $inserts);
+    }
+    DB::getInstance()->createQuery($query);
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 
