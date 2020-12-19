@@ -40,6 +40,9 @@ $front_page_modules[] = 'modules/Forum/front_page.php';
 if (!isset($profile_tabs)) $profile_tabs = array();
 $profile_tabs['forum'] = array('title' => $forum_language->get('forum', 'forum'), 'smarty_template' => 'forum/profile_tab.tpl', 'require' => ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Forum' . DIRECTORY_SEPARATOR . 'profile_tab.php');
 
+// Following topics UserCP sidebar
+$cc_nav->add('cc_following_topics', $forum_language->get('forum', 'following_topics'), URL::build('/user/following_topics'));
+
 // Initialise module
 require_once(ROOT_PATH . '/modules/Forum/module.php');
 $module = new Forum_Module($language, $forum_language, $pages);

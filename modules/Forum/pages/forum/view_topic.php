@@ -135,6 +135,10 @@ if (isset($_GET['action'])) {
             case 'unfollow':
                 $delete = DB::getInstance()->createQuery('DELETE FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
                 Session::flash('success_post', $forum_language->get('forum', 'no_longer_following_topic'));
+                if (isset($_GET['return']) && $_GET['return'] == 'list') {
+                    Redirect::to(URL::build('/user/following_topics'));
+                    die();
+                }
                 break;
         }
     }
@@ -780,7 +784,9 @@ $smarty->assign(array(
     'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id  : 0),
     'INSERT_QUOTES' => $forum_language->get('forum', 'insert_quotes'),
     'FORUM_TITLE' => Output::getClean($forum_parent[0]->forum_title),
-    'STARTED_BY' => $forum_language->get('forum', 'started_by_x')
+    'STARTED_BY' => $forum_language->get('forum', 'started_by_x'),
+    'SUCCESS' => $language->get('general', 'success'),
+    'ERROR' => $language->get('general', 'error')
 ));
 
 // Get post formatting type (HTML or Markdown)

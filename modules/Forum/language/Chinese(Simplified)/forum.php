@@ -194,6 +194,11 @@ $language = array(
     'your_posts' => '你发表的帖子数',
     'average_posts' => '平均用户帖子数',
     'total_posts' => '总帖子数',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => '新的话题',

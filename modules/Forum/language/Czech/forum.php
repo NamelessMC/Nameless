@@ -191,6 +191,11 @@ $language = array(
     'your_posts' => 'Tvůj počet příspěvků',
     'average_posts' => 'Průměrný počet příspěvků uživatele',
     'total_posts' => 'Celkový počet příspěvků',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => 'Nové téma',

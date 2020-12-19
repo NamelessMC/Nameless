@@ -47,6 +47,9 @@ class Forum_Module extends Module {
 		$pages->add('Forum', '/forum/reactions', 'pages/forum/reactions.php');
 		$pages->add('Forum', '/forum/search', 'pages/forum/search.php');
 
+		// UserCP
+		$pages->add('Forum', '/user/following_topics', 'pages/user/following_topics.php');
+
 		// Redirects
 		$pages->add('Forum', '/forum/view_topic', 'pages/forum/redirect.php');
 		$pages->add('Forum', '/forum/view_forum', 'pages/forum/redirect.php');
