@@ -69,7 +69,7 @@ if (!isset($_GET['view'])) {
                         'value' => $verification
                     )
                 );
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 $errors[] = $e->getMessage();
             }
 
@@ -84,7 +84,7 @@ if (!isset($_GET['view'])) {
                         'value' => $api_verification
                     )
                 );
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 $errors[] = $e->getMessage();
             }
 
@@ -99,7 +99,7 @@ if (!isset($_GET['view'])) {
                         'value' => $username_sync
                     )
                 );
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 $errors[] = $e->getMessage();
             }
 
@@ -110,7 +110,6 @@ if (!isset($_GET['view'])) {
             $errors[] = $language->get('general', 'invalid_token');
         }
     }
-
 } else {
     // Group sync
     if (isset($_GET['action']) && $_GET['action'] == 'delete') {
@@ -122,7 +121,7 @@ if (!isset($_GET['view'])) {
         try {
             $queries->delete('group_sync', array('id', '=', $_GET['id']));
             Session::flash('api_success', $language->get('admin', 'group_sync_rule_deleted_successfully'));
-        } catch(Exception $e){
+        } catch (Exception $e) {
             // Redirect anyway
         }
 
@@ -189,7 +188,6 @@ if (!isset($_GET['view'])) {
                         $queries->create('group_sync', $fields);
                         Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
                     }
-
                 } else {
                     foreach ($validation->errors() as $error) {
                         if (strpos($error, 'ingame_rank') !== false) {
@@ -202,7 +200,6 @@ if (!isset($_GET['view'])) {
                             } else {
                                 $errors[] = $language->get('admin', 'ingame_group_already_exists');
                             }
-
                         } else if (strpos($error, 'discord_role_id') !== false) {
                             if (strpos($error, 'numeric') !== false) {
                                 $errors[] = $language->get('admin', 'discord_role_id_numeric');
@@ -214,7 +211,6 @@ if (!isset($_GET['view'])) {
                         }
                     }
                 }
-
             } else if ($_POST['action'] == 'update') {
                 $errors = array();
 
@@ -261,12 +257,10 @@ if (!isset($_GET['view'])) {
                     Session::flash('api_success', $language->get('admin', 'group_sync_rules_updated_successfully'));
                 }
             }
-
         } else {
             $errors[] = array($language->get('general', 'invalid_token'));
         }
     }
-
 }
 
 // Load modules + template
@@ -367,7 +361,6 @@ if (!isset($_GET['view'])) {
     );
 
     $template_file = 'core/api.tpl';
-
 } else {
 
     if ($_GET['view'] == 'group_sync') {
@@ -432,7 +425,6 @@ if (!isset($_GET['view'])) {
         );
 
         $template_file = 'core/api_group_sync.tpl';
-
     } else if ($_GET['view'] == 'api_endpoints') {
 
         $endpoints_array = array();
@@ -463,7 +455,6 @@ if (!isset($_GET['view'])) {
 
         $template_file = 'core/api_endpoints.tpl';
     }
-
 }
 
 $page_load = microtime(true) - $start;

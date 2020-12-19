@@ -23,23 +23,22 @@ $timeago = new Timeago(TIMEZONE);
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
 // Deal with input
-if(Input::exists()){
+if (Input::exists()) {
     $errors = array();
 
-    if(Token::check()){
+    if (Token::check()) {
         require_once(ROOT_PATH . '/core/includes/sitemapphp/Sitemap.php');
         $sitemap = new SitemapPHP\Sitemap(rtrim(Util::getSelfURL(), '/'));
         $sitemap->setPath(ROOT_PATH . '/cache/sitemaps/');
 
         $methods = $pages->getSitemapMethods();
 
-        if(count($methods)){
-            foreach($methods as $file => $method){
-                if(file_exists($file)){
+        if (count($methods)) {
+            foreach ($methods as $file => $method) {
+                if (file_exists($file)) {
                     require_once($file);
 
                     call_user_func($method, $sitemap);
-
                 } else
                     $errors[] = str_replace('{x}', Output::getClean($file), $language->get('admin', 'unable_to_load_sitemap_file_x'));
             }
@@ -51,29 +50,26 @@ if(Input::exists()){
         $cache->store('updated', date('d M Y, H:i'));
 
         $success = $language->get('admin', 'sitemap_generated');
-
     } else {
         $errors[] = $language->get('general', 'invalid_token');
     }
 }
 
-if(!is_dir(ROOT_PATH . '/cache/sitemaps')){
-    if(!is_writable(ROOT_PATH . '/cache')){
+if (!is_dir(ROOT_PATH . '/cache/sitemaps')) {
+    if (!is_writable(ROOT_PATH . '/cache')) {
         $errors = array($language->get('admin', 'cache_not_writable'));
-
     } else {
         mkdir(ROOT_PATH . '/cache/sitemaps');
         file_put_contents(ROOT_PATH . '/cache/sitemaps/.htaccess', 'Allow from all');
     }
 }
 
-if(!is_writable(ROOT_PATH . '/cache/sitemaps')){
+if (!is_writable(ROOT_PATH . '/cache/sitemaps')) {
     $errors = array($language->get('admin', 'sitemap_not_writable'));
-
 } else {
-    if(file_exists(ROOT_PATH . '/cache/sitemaps/sitemap-index.xml')){
+    if (file_exists(ROOT_PATH . '/cache/sitemaps/sitemap-index.xml')) {
         $cache->setCache('sitemap_cache');
-        if($cache->isCached('updated')){
+        if ($cache->isCached('updated')) {
             $updated = $cache->retrieve('updated');
             $updated = $timeago->inWords($updated, $language->getTimeLanguage());
         } else
@@ -86,19 +82,18 @@ if(!is_writable(ROOT_PATH . '/cache/sitemaps')){
             'DOWNLOAD_SITEMAP' => $language->get('admin', 'download_sitemap'),
             'LINK' => $language->get('admin', 'sitemap_link')
         ));
-
     } else {
         $smarty->assign('SITEMAP_NOT_GENERATED', $language->get('admin', 'sitemap_not_generated_yet'));
     }
 }
 
-if(isset($success))
+if (isset($success))
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')

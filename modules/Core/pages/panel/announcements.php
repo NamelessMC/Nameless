@@ -22,7 +22,7 @@ if (!isset($_GET['action'])) {
     // View all announcements
 
     $announcements = array();
-    foreach(Announcements::getAll() as $announcement){
+    foreach (Announcements::getAll() as $announcement) {
         $announcements[] = array(
             $announcement,
             'pages' => Announcements::getPagesCsv($announcement->pages)
@@ -80,7 +80,7 @@ if (!isset($_GET['action'])) {
                                 $all_groups[] = $group->id;
                             }
                         }
-                        if(!Announcements::create(Input::get('pages'), $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))){
+                        if (!Announcements::create(Input::get('pages'), $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))) {
                             Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
@@ -113,7 +113,7 @@ if (!isset($_GET['action'])) {
                                 }
                             }
                         }
-                        }
+                    }
                 } else {
                     // Invalid token
                     $errors[] = $language->get('general', 'invalid_token');
@@ -225,7 +225,7 @@ if (!isset($_GET['action'])) {
 
             $guest_permissions = in_array("0", json_decode($announcement->groups));
             $groups = array();
-            foreach(DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {
+            foreach (DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {
                 $groups[$group->id] = array(
                     'name' => $group->name,
                     'id' => $group->id,

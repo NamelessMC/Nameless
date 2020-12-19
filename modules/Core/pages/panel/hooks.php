@@ -17,13 +17,13 @@ define('PANEL_PAGE', 'hooks');
 $page_title = $language->get('admin', 'hooks');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-if(!isset($_GET['action'])){
+if (!isset($_GET['action'])) {
     // View all hooks
 
     $hooks_query = $queries->orderAll('hooks', 'id', 'ASC');
     $hooks_array = array();
-    if(count($hooks_query)){
-        foreach($hooks_query as $hook){
+    if (count($hooks_query)) {
+        foreach ($hooks_query as $hook) {
             $hooks_array[] = array(
                 'name' => Output::getClean($hook->name),
                 'url' => Output::getClean($hook->url),
@@ -46,12 +46,12 @@ if(!isset($_GET['action'])){
 
     $template_file = 'core/hooks.tpl';
 } else {
-    switch($_GET['action']){
+    switch ($_GET['action']) {
         case 'new':
             // Create new hook
-            if(Input::exists()){
+            if (Input::exists()) {
                 $errors = array();
-                if(Token::check()){
+                if (Token::check()) {
                     // Validate input
                     $validate = new Validate();
                     $validation = $validate->check($_POST, array(
@@ -67,10 +67,10 @@ if(!isset($_GET['action'])){
                         )
                     ));
 
-                    if($validation->passed()){
+                    if ($validation->passed()) {
                         $events = array();
-                        if(isset($_POST['events']) && count($_POST['events'])){
-                            foreach($_POST['events'] as $event => $value){
+                        if (isset($_POST['events']) && count($_POST['events'])) {
+                            foreach ($_POST['events'] as $event => $value) {
                                 $events[] = $event;
                             }
 
@@ -83,7 +83,7 @@ if(!isset($_GET['action'])){
                             ));
 
                             $cache->setCache('hooks');
-                            if($cache->isCached('hooks')){
+                            if ($cache->isCached('hooks')) {
                                 $cache->erase('hooks');
                             }
 
@@ -120,10 +120,10 @@ if(!isset($_GET['action'])){
             ));
 
             $template_file = 'core/hooks_new.tpl';
-        break;
+            break;
         case 'edit':
             // Edit hook
-            if(!isset($_GET['id']) || !is_numeric($_GET['id'])){
+            if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 // Check the hook ID is valid
                 Redirect::to(URL::build('/panel/forms'));
                 die();
@@ -131,16 +131,16 @@ if(!isset($_GET['action'])){
 
             // Does the hook exist?
             $hook = $queries->getWhere('hooks', array('id', '=', $_GET['id']));
-            if(!count($hook)){
+            if (!count($hook)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/core/hooks'));
                 die();
             }
             $hook = $hook[0];
 
-            if(Input::exists()){
+            if (Input::exists()) {
                 $errors = array();
-                if(Token::check()){
+                if (Token::check()) {
                     // Validate input
                     $validate = new Validate();
                     $validation = $validate->check($_POST, array(
@@ -156,10 +156,10 @@ if(!isset($_GET['action'])){
                         )
                     ));
 
-                    if($validation->passed()){
+                    if ($validation->passed()) {
                         $events = array();
-                        if(isset($_POST['events']) && count($_POST['events'])){
-                            foreach($_POST['events'] as $event => $value){
+                        if (isset($_POST['events']) && count($_POST['events'])) {
+                            foreach ($_POST['events'] as $event => $value) {
                                 $events[] = $event;
                             }
 
@@ -172,7 +172,7 @@ if(!isset($_GET['action'])){
                             ));
 
                             $cache->setCache('hooks');
-                            if($cache->isCached('hooks')){
+                            if ($cache->isCached('hooks')) {
                                 $cache->erase('hooks');
                             }
                             Session::flash('admin_hooks', $language->get('admin', 'hook_edited'));
@@ -212,10 +212,10 @@ if(!isset($_GET['action'])){
             ));
 
             $template_file = 'core/hooks_edit.tpl';
-        break;
+            break;
         case 'delete':
             // Delete Form
-            if(!isset($_GET['id']) || !is_numeric($_GET['id'])){
+            if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/hooks'));
                 die();
             }
@@ -224,40 +224,40 @@ if(!isset($_GET['action'])){
                 $queries->delete('hooks', array('id', '=', $_GET['id']));
 
                 $cache->setCache('hooks');
-                if($cache->isCached('hooks')){
+                if ($cache->isCached('hooks')) {
                     $cache->erase('hooks');
                 }
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 die($e->getMessage());
             }
 
             Session::flash('admin_hooks', $language->get('admin', 'hook_deleted'));
             Redirect::to(URL::build('/panel/core/hooks'));
             die();
-        break;
+            break;
         default:
             Redirect::to(URL::build('/panel/core/hooks'));
             die();
-        break;
+            break;
     }
 }
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(Session::exists('admin_hooks'))
+if (Session::exists('admin_hooks'))
     $success = Session::flash('admin_hooks');
 
-if(Session::exists('admin_pages_error'))
+if (Session::exists('admin_pages_error'))
     $errors[] = Session::flash('admin_pages_error');
 
-if(isset($success))
+if (isset($success))
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')

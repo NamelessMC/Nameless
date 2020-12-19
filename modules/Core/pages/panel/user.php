@@ -14,20 +14,20 @@ $user->handlePanelPageLoad();
 $uid = explode('/', $route);
 $uid = $uid[count($uid) - 1];
 
-if(!isset($uid[count($uid) - 1])){
+if (!isset($uid[count($uid) - 1])) {
     Redirect::to(URL::build('/panel'));
     die();
 }
 
 $uid = explode('-', $uid);
-if(!is_numeric($uid[0])){
+if (!is_numeric($uid[0])) {
     Redirect::to(URL::build('/panel'));
     die();
 }
 $uid = $uid[0];
 
 $view_user = new User($uid);
-if(!count($view_user->data())) {
+if (!count($view_user->data())) {
     Redirect::to(URL::build('/panel'));
     die();
 }
@@ -43,13 +43,13 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(isset($success))
+if (isset($success))
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
@@ -58,7 +58,7 @@ if(isset($errors) && count($errors))
 $user_language = $queries->getWhere('languages', array('id', '=', $user_query->language_id));
 $user_language = $user_language[0]->name;
 
-if($user->hasPermission('admincp.users.edit')){
+if ($user->hasPermission('admincp.users.edit')) {
     // Email address
     $smarty->assign(array(
         'EMAIL_ADDRESS' => Output::getClean($user_query->email),
@@ -66,7 +66,7 @@ if($user->hasPermission('admincp.users.edit')){
     ));
 }
 
-if($user->hasPermission('modcp.ip_lookup')){
+if ($user->hasPermission('modcp.ip_lookup')) {
     // Last IP
     $smarty->assign(array(
         'LAST_IP' => Output::getClean($user_query->lastip),

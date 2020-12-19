@@ -18,11 +18,11 @@ $page_title = $language->get('admin', 'avatars');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Input
-if(Input::exists()){
-    if(Token::check()){
-        if(isset($_POST['avatar_source'])){
+if (Input::exists()) {
+    if (Token::check()) {
+        if (isset($_POST['avatar_source'])) {
             // Custom avatars?
-            if(isset($_POST['custom_avatars']) && $_POST['custom_avatars'] == 1)
+            if (isset($_POST['custom_avatars']) && $_POST['custom_avatars'] == 1)
                 $custom_avatars = 1;
             else
                 $custom_avatars = 0;
@@ -49,7 +49,6 @@ if(Input::exists()){
                 $cache->store('default_avatar_type', Input::get('default_avatar'));
                 $cache->store('avatar_source', Input::get('avatar_source'));
                 $cache->store('avatar_perspective', Input::get('avatar_perspective'));
-
             } catch (Exception $e) {
                 $errors = array($e->getMessage());
             }
@@ -62,7 +61,6 @@ if(Input::exists()){
 
                 $cache->setCache('avatar_settings_cache');
                 $cache->store('default_avatar_image', Input::get('avatar'));
-
             } catch (Exception $e) {
                 $errors = array($e->getMessage());
             }
@@ -78,13 +76,13 @@ if(Input::exists()){
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(isset($success))
+if (isset($success))
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
@@ -113,10 +111,10 @@ $template_images = array();
 // Only display jpeg, png, jpg, gif
 $allowed_exts = array('gif', 'png', 'jpg', 'jpeg');
 
-if(count($images)){
-    foreach($images as $image){
+if (count($images)) {
+    foreach ($images as $image) {
         $ext = pathinfo($image, PATHINFO_EXTENSION);
-        if(!in_array($ext, $allowed_exts)) {
+        if (!in_array($ext, $allowed_exts)) {
             continue;
         }
 

@@ -31,22 +31,22 @@ $emails = array(
     ['forum_topic_reply', $language->get('admin', 'forum_topic_reply_email'), ['subject' => $editing_language->get('emails', 'forum_topic_reply_subject'), 'message' => $editing_language->get('emails', 'forum_topic_reply_message')]]
 );
 
-if(isset($_GET['action'])){
+if (isset($_GET['action'])) {
 
-    if($_GET['action'] == 'test'){
+    if ($_GET['action'] == 'test') {
         $smarty->assign(array(
             'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),
             'BACK' => $language->get('general', 'back'),
             'BACK_LINK' => URL::build('/panel/core/emails')
         ));
 
-        if(isset($_GET['do']) && $_GET['do'] == 'send'){
+        if (isset($_GET['do']) && $_GET['do'] == 'send') {
             $errors = array();
 
             $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
             $php_mailer = $php_mailer[0]->value;
 
-            if($php_mailer == '1'){
+            if ($php_mailer == '1') {
 
                 // PHP Mailer
                 $email = array(
@@ -57,10 +57,9 @@ if(isset($_GET['action'])){
 
                 $sent = Email::send($email, 'mailer');
 
-                if(isset($sent['error']))
+                if (isset($sent['error']))
                     // Error
                     $errors[] = $sent['error'];
-
             } else {
                 // PHP mail function
                 $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
@@ -86,14 +85,13 @@ if(isset($_GET['action'])){
 
                 $sent = Email::send($email, 'php');
 
-                if(isset($sent['error']))
+                if (isset($sent['error']))
                     // Error
                     $errors[] = $sent['error'];
             }
 
-            if(!count($errors))
+            if (!count($errors))
                 $success = $language->get('admin', 'test_email_success');
-
         } else {
             $smarty->assign(array(
                 'SEND_TEST_EMAIL_INFO' => str_replace('{x}', Output::getClean($user->data()->email), $language->get('admin', 'send_test_email_info')),
@@ -104,7 +102,6 @@ if(isset($_GET['action'])){
         }
 
         $template_file = 'core/emails_test.tpl';
-
     } else if ($_GET['action'] == 'edit_messages') {
 
         $available_languages = array();
@@ -141,7 +138,6 @@ if(isset($_GET['action'])){
         ));
 
         $template_file = 'core/emails_edit_messages.tpl';
-
     } else if ($_GET['action'] == 'preview') {
 
         $viewing_language =  new Language(null, Session::get('editing_language'));
@@ -156,13 +152,13 @@ if(isset($_GET['action'])){
     }
 } else {
     // Handle input
-    if(Input::exists()){
+    if (Input::exists()) {
         $errors = array();
 
-        if(Token::check()){
+        if (Token::check()) {
 
             // Handle email message updating
-            if(isset($_POST['greeting'])) {
+            if (isset($_POST['greeting'])) {
                 $editing_lang = new Language(null, $lang_name);
 
                 Session::put('editing_language', Input::get('editing_language'));
@@ -182,7 +178,7 @@ if(isset($_GET['action'])){
                 }
             } else {
 
-                if(isset($_POST['enable_mailer']) && $_POST['enable_mailer'] == 1)
+                if (isset($_POST['enable_mailer']) && $_POST['enable_mailer'] == 1)
                     $mailer = '1';
                 else
                     $mailer = '0';
@@ -194,7 +190,7 @@ if(isset($_GET['action'])){
                     'value' => $mailer
                 ));
 
-                if(!empty($_POST['email'])){
+                if (!empty($_POST['email'])) {
                     $outgoing_email = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
                     $outgoing_email = $outgoing_email[0]->id;
 
@@ -205,8 +201,8 @@ if(isset($_GET['action'])){
 
                 // Update config
                 $config_path = ROOT_PATH . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'email.php';
-                if(file_exists($config_path)){
-                    if(is_writable($config_path)){
+                if (file_exists($config_path)) {
+                    if (is_writable($config_path)) {
                         require(ROOT_PATH . '/core/email.php');
 
                         // Build new email config
@@ -225,15 +221,13 @@ if(isset($_GET['action'])){
                         $file = fopen($config_path, 'w');
                         fwrite($file, $config);
                         fclose($file);
-
                     } else {
                         // Permissions incorrect
                         $errors[] = $language->get('admin', 'unable_to_write_email_config');
                     }
-
                 } else {
                     // Create one now
-                    if(is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'core')){
+                    if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'core')) {
                         // Build new email config
                         $config = '<?php' . PHP_EOL .
                             '$GLOBALS[\'email\'] = array(' . PHP_EOL .
@@ -249,13 +243,12 @@ if(isset($_GET['action'])){
                         $file = fopen($config_path, 'w');
                         fwrite($file, $config);
                         fclose($file);
-
                     } else {
                         $errors[] = $language->get('admin', 'unable_to_write_email_config');
                     }
                 }
 
-                if(!count($errors)){
+                if (!count($errors)) {
                     // Redirect to refresh config values
                     Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
                     Redirect::to(URL::build('/panel/core/emails'));
@@ -274,7 +267,7 @@ if(isset($_GET['action'])){
 
     require(ROOT_PATH . '/core/email.php');
 
-    if ($user->hasPermission('admincp.core.emails_mass_message')){
+    if ($user->hasPermission('admincp.core.emails_mass_message')) {
         $smarty->assign(array(
             'MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),
             'MASS_MESSAGE_LINK' => URL::build('/panel/core/emails/mass_message'),
@@ -313,22 +306,21 @@ if(isset($_GET['action'])){
     ));
 
     $template_file = 'core/emails.tpl';
-
 }
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(Session::exists('emails_success'))
+if (Session::exists('emails_success'))
     $success = Session::flash('emails_success');
 
-if(isset($success))
+if (isset($success))
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')

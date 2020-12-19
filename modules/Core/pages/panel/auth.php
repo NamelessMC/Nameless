@@ -9,7 +9,22 @@
  *  Panel auth page
  */
 
-$user->handlePanelPageLoad();
+if ($user->isLoggedIn()) {
+    if (!$user->canViewACP()) {
+        // No
+        Redirect::to(URL::build('/'));
+        die();
+    }
+    if ($user->isAdmLoggedIn()) {
+        // Already authenticated
+        Redirect::to(URL::build('/panel'));
+        die();
+    }
+} else {
+    // Not logged in
+    Redirect::to(URL::build('/login'));
+    die();
+}
 
 define('PAGE', 'panel');
 define('PANEL_PAGE', 'auth');
@@ -23,12 +38,12 @@ $method = $queries->getWhere('settings', array('name', '=', 'login_method'));
 $method = $method[0]->value;
 
 // Deal with any input
-if(Input::exists()){
-    if(Token::check()){
+if (Input::exists()) {
+    if (Token::check()) {
         // Validate input
         $validate = new Validate();
 
-        if($method == 'email')
+        if ($method == 'email')
             $to_validate = array(
                 'email' => array('required' => true, 'isbanned' => true, 'isactive' => true),
                 'password' => array('required' => true)
@@ -41,8 +56,8 @@ if(Input::exists()){
 
         $validation = $validate->check($_POST, $to_validate);
 
-        if($validation->passed()) {
-            if($method == 'email')
+        if ($validation->passed()) {
+            if ($method == 'email')
                 $username = Input::get('email');
             else
                 $username = Input::get('username');
@@ -50,7 +65,7 @@ if(Input::exists()){
             $user = new User();
             $login = $user->adminLogin($username, Input::get('password'), $method);
 
-            if($login){
+            if ($login) {
                 // Get IP
                 $ip = $user->getIP();
 
@@ -71,7 +86,7 @@ if(Input::exists()){
     }
 }
 
-if($method == 'email'){
+if ($method == 'email') {
     $smarty->assign(array(
         'EMAIL' => $language->get('user', 'email')
     ));
@@ -89,7 +104,7 @@ $smarty->assign(array(
     'CANCEL' => $language->get('general', 'cancel')
 ));
 
-if(Session::exists('adm_auth_error'))
+if (Session::exists('adm_auth_error'))
     $smarty->assign('ERROR', Session::flash('adm_auth_error'));
 
 // Load modules + template

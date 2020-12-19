@@ -18,14 +18,14 @@ $page_title = $language->get('admin', 'registration');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Deal with input
-if(Input::exists()){
+if (Input::exists()) {
     $errors = array();
 
     // Check token
-    if(Token::check()){
+    if (Token::check()) {
         // Valid token
         // Process input
-        if(isset($_POST['enable_registration'])){
+        if (isset($_POST['enable_registration'])) {
             // Either enable or disable registration
             $enable_registration_id = $queries->getWhere('settings', array('name', '=', 'registration_enabled'));
             $enable_registration_id = $enable_registration_id[0]->id;
@@ -35,7 +35,7 @@ if(Input::exists()){
             ));
         } else {
             // Registration settings
-            if(isset($_POST['verification']) && $_POST['verification'] == 'on')
+            if (isset($_POST['verification']) && $_POST['verification'] == 'on')
                 $verification = 1;
             else
                 $verification = 0;
@@ -44,7 +44,7 @@ if(Input::exists()){
             $verification_id = $verification_id[0]->id;
 
             // reCAPTCHA enabled?
-            if(Input::get('enable_recaptcha') == 1){
+            if (Input::get('enable_recaptcha') == 1) {
                 $recaptcha = 'true';
             } else {
                 $recaptcha = 'false';
@@ -56,7 +56,7 @@ if(Input::exists()){
             ));
 
             // Login reCAPTCHA enabled?
-            if(Input::get('enable_recaptcha_login') == 1){
+            if (Input::get('enable_recaptcha_login') == 1) {
                 $recaptcha = 'true';
             } else {
                 $recaptcha = 'false';
@@ -99,7 +99,7 @@ if(Input::exists()){
                 $queries->update('settings', $verification_id, array(
                     'value' => $verification
                 ));
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 $errors[] = $e->getMessage();
             }
 
@@ -107,7 +107,7 @@ if(Input::exists()){
             $validation_group_id = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
             $validation_action = $validation_group_id[0]->value;
             $validation_action = json_decode($validation_action, true);
-            if(isset($validation_action['action']))
+            if (isset($validation_action['action']))
                 $validation_action = $validation_action['action'];
             else
                 $validation_action = 'promote';
@@ -119,8 +119,7 @@ if(Input::exists()){
                 $queries->update('settings', $validation_group_id, array(
                     'value' => $new_value
                 ));
-
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 $errors[] = $e->getMessage();
             }
 
@@ -128,7 +127,7 @@ if(Input::exists()){
             $cache->store('validate_action', array('action' => $validation_action, 'group' => $_POST['promote_group']));
         }
 
-        if(!count($errors)){
+        if (!count($errors)) {
             $success = $language->get('admin', 'registration_settings_updated');
         }
     } else {
@@ -140,13 +139,13 @@ if(Input::exists()){
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(isset($success))
+if (isset($success))
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
@@ -172,7 +171,7 @@ $registration_disabled_message = $queries->getWhere('settings', array('name', '=
 $validation_group = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
 $validation_group = $validation_group[0]->value;
 $validation_group = json_decode($validation_group, true);
-if(isset($validation_group['group']))
+if (isset($validation_group['group']))
     $validation_group = $validation_group['group'];
 else
     $validation_group = 1;

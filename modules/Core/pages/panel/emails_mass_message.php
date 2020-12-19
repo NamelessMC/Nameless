@@ -74,10 +74,10 @@ if (Input::exists()) {
                     foreach ($users as $email_user) {
                         // PHP mail function
                         $headers = 'From: ' . $siteemail . "\r\n" .
-                        'Reply-To: ' . $contactemail . "\r\n" .
-                        'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                        'MIME-Version: 1.0' . "\r\n" .
-                        'Content-type: text/html; charset=UTF-8' . "\r\n";
+                            'Reply-To: ' . $contactemail . "\r\n" .
+                            'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                            'MIME-Version: 1.0' . "\r\n" .
+                            'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                         $email = array(
                             'to' => $email_user->email,
@@ -111,7 +111,6 @@ if (Input::exists()) {
                 Redirect::to(URL::build('/panel/core/emails'));
                 die();
             }
-
         } else {
             foreach ($validate->errors() as $error) {
                 $errors[] = $error;

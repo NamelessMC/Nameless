@@ -205,7 +205,7 @@ if (!isset($_GET['view'])) {
             }
             break;
 
-        // TODO: Forums section - get all records which action starts with "forum_"
+            // TODO: Forums section - get all records which action starts with "forum_"
 
         case 'all':
             if (!$user->hasPermission('admincp.security.all')) {

@@ -18,10 +18,10 @@ $page_title = $language->get('admin', 'debugging_and_maintenance');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Input
-if(Input::exists()){
+if (Input::exists()) {
     $errors = array();
 
-    if(Token::check()){
+    if (Token::check()) {
         // Valid token
         // Validate message
         $validate = new Validate();
@@ -31,7 +31,7 @@ if(Input::exists()){
             )
         ));
 
-        if($validation->passed()){
+        if ($validation->passed()) {
             // Update database and cache
             // Is debug mode enabled or not?
             if (isset($_POST['enable_debugging']) && $_POST['enable_debugging'] == 1) $enabled = 1;
@@ -93,7 +93,6 @@ if(Input::exists()){
             Session::flash('debugging_success', $language->get('admin', 'debugging_settings_updated_successfully'));
             Redirect::to(URL::build('/panel/core/debugging_and_maintenance'));
             die();
-
         } else $errors[] = $language->get('admin', 'maintenance_message_max_1024');
     } else {
         // Invalid token
@@ -104,13 +103,13 @@ if(Input::exists()){
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(Session::exists('debugging_success'))
+if (Session::exists('debugging_success'))
     $smarty->assign(array(
         'SUCCESS' => Session::flash('debugging_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
@@ -125,7 +124,7 @@ if ($cache->isCached('page_load'))
 else
     $page_loading = 0;
 
-if($user->hasPermission('admincp.errors')){
+if ($user->hasPermission('admincp.errors')) {
     $smarty->assign(array(
         'ERROR_LOGS' => $language->get('admin', 'error_logs'),
         'ERROR_LOGS_LINK' => URL::build('/panel/core/errors')

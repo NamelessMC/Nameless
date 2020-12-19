@@ -11,9 +11,9 @@
 
 $user->handlePanelPageLoad('admincp.update');
 
-if(isset($_GET['recheck'])){
+if (isset($_GET['recheck'])) {
     $cache->setCache('update_check');
-    if($cache->isCached('update_check')){
+    if ($cache->isCached('update_check')) {
         $cache->erase('update_check');
     }
 
@@ -30,20 +30,20 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(isset($success))
+if (isset($success))
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
 
 $cache->setCache('update_check');
-if($cache->isCached('update_check')){
+if ($cache->isCached('update_check')) {
     $update_check = $cache->retrieve('update_check');
 } else {
     $update_check = Util::updateCheck();
@@ -52,7 +52,7 @@ if($cache->isCached('update_check')){
 
 $update_check = json_decode($update_check);
 
-if(!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)){
+if (!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)) {
     // Unique ID + current version
     $uid = $queries->getWhere('settings', array('name', '=', 'unique_id'));
     $uid = $uid[0]->value;
@@ -68,10 +68,10 @@ if(!isset($update_check->error) && !isset($update_check->no_update) && isset($up
 
     $instructions = curl_exec($ch);
 
-    if(curl_error($ch)){
+    if (curl_error($ch)) {
         $instructions = curl_error($ch);
     } else {
-        if($instructions == 'Failed'){
+        if ($instructions == 'Failed') {
             $instructions = 'Unknown error';
         }
     }

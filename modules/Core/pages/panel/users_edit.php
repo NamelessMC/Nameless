@@ -11,13 +11,13 @@
 
 $user->handlePanelPageLoad('admincp.users.edit');
 
-if(!isset($_GET['id']) || !is_numeric($_GET['id'])){
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     Redirect::to(URL::build('/panel/users'));
     die();
 }
 
 $view_user = new User($_GET['id']);
-if(!count($view_user->data())) {
+if (!count($view_user->data())) {
     Redirect::to('/panel/users');
     die();
 }
@@ -34,10 +34,10 @@ require_once(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(isset($_GET['action'])){
-    if($_GET['action'] == 'validate'){
+if (isset($_GET['action'])) {
+    if ($_GET['action'] == 'validate') {
         // Validate the user
-        if($user_query->active == 0){
+        if ($user_query->active == 0) {
             $queries->update('users', $user_query->id, array(
                 'active' => 1,
                 'reset_code' => ''
@@ -53,18 +53,17 @@ if(isset($_GET['action'])){
 
             Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
         }
-
-    } else if($_GET['action'] == 'update_mcname'){
+    } else if ($_GET['action'] == 'update_mcname') {
         require_once(ROOT_PATH . '/core/integration/uuid.php');
         $uuid = $user_query->uuid;
 
         $profile = ProfileUtils::getProfile($uuid);
 
-        if($profile){
+        if ($profile) {
             $result = $profile->getUsername();
 
-            if(!empty($result)){
-                if($user_query->username == $user_query->nickname){
+            if (!empty($result)) {
+                if ($user_query->username == $user_query->nickname) {
                     $queries->update('users', $user_query->id, array(
                         'username' => Output::getClean($result),
                         'nickname' => Output::getClean($result)
@@ -76,25 +75,22 @@ if(isset($_GET['action'])){
                 }
 
                 Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-
             }
         }
-
-    } else if($_GET['action'] == 'update_uuid'){
+    } else if ($_GET['action'] == 'update_uuid') {
         require_once(ROOT_PATH . '/core/integration/uuid.php');
 
         $profile = ProfileUtils::getProfile($user_query->username);
 
-        if(!empty($profile)){
+        if (!empty($profile)) {
             $result = $profile->getProfileAsArray();
 
-            if(isset($result['uuid']) && !empty($result['uuid'])){
+            if (isset($result['uuid']) && !empty($result['uuid'])) {
                 $queries->update('users', $user_query->id, array(
                     'uuid' => Output::getClean($result['uuid'])
                 ));
 
                 Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-
             }
         }
     }
@@ -103,11 +99,11 @@ if(isset($_GET['action'])){
     die();
 }
 
-if(Input::exists()){
+if (Input::exists()) {
     $errors = array();
 
-    if(Token::check()){
-        if(Input::get('action') === 'update'){
+    if (Token::check()) {
+        if (Input::get('action') === 'update') {
             // Update a user's settings
             $signature = Input::get('signature');
             $_POST['signature'] = strip_tags(Input::get('signature'));
@@ -146,20 +142,20 @@ if(Input::exists()){
 
             // Does user have any groups selected
             $passed = false;
-            if(isset($_POST['groups']) && count($_POST['groups'])){
+            if (isset($_POST['groups']) && count($_POST['groups'])) {
                 $passed = true;
             } else {
                 $errors[] = $language->get('admin', 'select_user_group');
             }
 
             $validation = $validate->check($_POST, $to_validation);
-            if($validation->passed() && $passed){
+            if ($validation->passed() && $passed) {
                 try {
                     // Signature from Markdown -> HTML if needed
                     $cache->setCache('post_formatting');
                     $formatting = $cache->retrieve('formatting');
 
-                    if($formatting == 'markdown'){
+                    if ($formatting == 'markdown') {
                         $signature = Michelf\Markdown::defaultTransform($signature);
                         $signature = Output::getClean($signature);
                     } else {
@@ -170,7 +166,7 @@ if(Input::exists()){
                     $private_profile_active = $private_profile_active[0]->value == 1;
                     $private_profile = 0;
 
-                    if($private_profile_active){
+                    if ($private_profile_active) {
                         $private_profile = Input::get('privateProfile');
                     }
 
@@ -184,7 +180,7 @@ if(Input::exists()){
                     $displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
                     $displaynames = $displaynames[0]->value;
 
-                    if($displaynames == 'true'){
+                    if ($displaynames == 'true') {
                         $username = Input::get('username');
                         $nickname = Input::get('nickname');
                     } else {
@@ -205,26 +201,26 @@ if(Input::exists()){
 
                     // Get current group ids
                     $user_groups = array();
-                    foreach($view_user->getGroups() as $group){
+                    foreach ($view_user->getGroups() as $group) {
                         $user_groups[$group->id] = $group->id;
                     }
 
                     // Get groups
-                    if($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
-                        if(isset($_POST['groups']) && count($_POST['groups'])){
+                    if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
+                        if (isset($_POST['groups']) && count($_POST['groups'])) {
                             // Any new groups?
-                            foreach($_POST['groups'] as $group) {
-                                if(!in_array($group, $user_groups)) {
+                            foreach ($_POST['groups'] as $group) {
+                                if (!in_array($group, $user_groups)) {
                                     $view_user->addGroup($group);
                                     Discord::addDiscordRole($view_user, $group, $language);
                                 }
                             }
 
                             // Any groups to remove?
-                            foreach($view_user->getGroups() as $group){
-                                if(!in_array($group->id, $_POST['groups'])) {
+                            foreach ($view_user->getGroups() as $group) {
+                                if (!in_array($group->id, $_POST['groups'])) {
                                     // be sure root user keep the root group
-                                    if($group->id == 2 && $view_user->data()->id == 1) {
+                                    if ($group->id == 2 && $view_user->data()->id == 1) {
                                         continue;
                                     }
 
@@ -238,16 +234,14 @@ if(Input::exists()){
                     Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
                     Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
                     die();
-
-                } catch(Exception $e){
+                } catch (Exception $e) {
                     $errors[] = $e->getMessage();
                 }
-
             } else {
-                foreach($validation->errors() as $error){
-                    if(strpos($error, 'is required') !== false){
+                foreach ($validation->errors() as $error) {
+                    if (strpos($error, 'is required') !== false) {
                         // x is required
-                        switch($error){
+                        switch ($error) {
                             case (strpos($error, 'nickname') !== false):
                                 $errors[] = $language->get('user', 'username_required');
                                 break;
@@ -258,10 +252,9 @@ if(Input::exists()){
                                 $errors[] = $language->get('user', 'mcname_required');
                                 break;
                         }
-
-                    } else if(strpos($error, 'minimum') !== false){
+                    } else if (strpos($error, 'minimum') !== false) {
                         // x must be a minimum of y characters long
-                        switch($error){
+                        switch ($error) {
                             case (strpos($error, 'nickname') !== false):
                                 $errors[] = $language->get('user', 'username_minimum_3');
                                 break;
@@ -269,10 +262,9 @@ if(Input::exists()){
                                 $errors[] = $language->get('user', 'mcname_minimum_3');
                                 break;
                         }
-
-                    } else if(strpos($error, 'maximum') !== false){
+                    } else if (strpos($error, 'maximum') !== false) {
                         // x must be a maximum of y characters long
-                        switch($error){
+                        switch ($error) {
                             case (strpos($error, 'nickname') !== false):
                                 $errors[] = $language->get('user', 'username_maximum_20');
                                 break;
@@ -286,12 +278,11 @@ if(Input::exists()){
                                 $errors[] = $language->get('admin', 'title_max_64');
                                 break;
                         }
-
                     }
                 }
             }
-        } else if(Input::get('action') == 'delete'){
-            if($user_query->id > 1){
+        } else if (Input::get('action') == 'delete') {
+            if ($user_query->id > 1) {
                 HookHandler::executeEvent('deleteUser', array(
                     'user_id' => $user_query->id,
                     'username' => Output::getClean($user_query->username),
@@ -309,22 +300,22 @@ if(Input::exists()){
         $errors[] = $language->get('general', 'invalid_token');
 }
 
-if(Session::exists('edit_user_success'))
+if (Session::exists('edit_user_success'))
     $success = Session::flash('edit_user_success');
 
-if(Session::exists('edit_user_errors'))
+if (Session::exists('edit_user_errors'))
     $errors = Session::flash('edit_user_errors');
 
 if (Session::exists('edit_user_warnings'))
     $warnings = Session::flash('edit_user_warnings');
 
-if(isset($success))
+if (isset($success))
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
@@ -337,14 +328,14 @@ if (isset($warnings) && count($warnings)) {
     ));
 }
 
-if($user_query->active == 0){
+if ($user_query->active == 0) {
     $smarty->assign(array(
         'VALIDATE_USER' => $language->get('admin', 'validate_user'),
         'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=validate')
     ));
 }
 
-if(defined('MINECRAFT') && MINECRAFT === true){
+if (defined('MINECRAFT') && MINECRAFT === true) {
     $smarty->assign(array(
         'UPDATE_MINECRAFT_USERNAME' => $language->get('admin', 'update_mc_name'),
         'UPDATE_MINECRAFT_USERNAME_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=update_mcname'),
@@ -353,7 +344,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
     ));
 }
 
-if($user_query->id != 1 && !$user->canViewACP($user_query->id)){
+if ($user_query->id != 1 && !$user->canViewACP($user_query->id)) {
     $smarty->assign(array(
         'DELETE_USER' => $language->get('admin', 'delete_user'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -363,7 +354,7 @@ if($user_query->id != 1 && !$user->canViewACP($user_query->id)){
     ));
 }
 
-if($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->hasPermission('admincp.groups.self'))){
+if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->hasPermission('admincp.groups.self'))) {
     $smarty->assign(array(
         'CANT_EDIT_GROUP' => $language->get('admin', 'cant_modify_root_user')
     ));
@@ -381,7 +372,7 @@ $private_profile = $private_profile[0]->value;
 $templates = array();
 $templates_query = $queries->getWhere('templates', array('id', '<>', 0));
 
-foreach($templates_query as $item){
+foreach ($templates_query as $item) {
     $templates[] = array(
         'id' => Output::getClean($item->id),
         'name' => Output::getClean($item->name),
@@ -395,20 +386,18 @@ $groups = $queries->orderAll('groups', '`order`', 'ASC');
 $cache->setCache('post_formatting');
 $formatting = $cache->retrieve('formatting');
 
-if($formatting == 'markdown'){
+if ($formatting == 'markdown') {
     require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
     $converter = new League\HTMLToMarkdown\HtmlConverter(array('strip_tags' => true));
 
     $signature = $converter->convert(Output::getDecoded($user_query->signature));
     $signature = Output::getPurified($signature);
-
 } else {
     $signature = Output::getPurified(Output::getDecoded($user_query->signature));
-
 }
 
 $user_groups = array();
-foreach($view_user->getGroups() as $group){
+foreach ($view_user->getGroups() as $group) {
     $user_groups[$group->id] = $group->id;
 }
 
@@ -464,7 +453,7 @@ if ($discord_id != null && $discord_id != 010) {
 
 $cache->setCache('post_formatting');
 $formatting = $cache->retrieve('formatting');
-if($formatting == 'markdown'){
+if ($formatting == 'markdown') {
     $template->addJSFiles(array(
         (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
         (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => array()
@@ -477,7 +466,6 @@ if($formatting == 'markdown'){
                 });
             });
         ');
-
 } else {
     $template->addJSFiles(array(
         (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),

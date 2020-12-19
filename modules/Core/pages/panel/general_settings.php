@@ -18,18 +18,18 @@ $page_title = $language->get('admin', 'general_settings');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Handle input
-if(isset($_GET['do'])){
-    if($_GET['do'] == 'installLanguage'){
+if (isset($_GET['do'])) {
+    if ($_GET['do'] == 'installLanguage') {
         // Install new language
         $languages = glob(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
-        foreach($languages as $item){
-            if(file_exists($item . DIRECTORY_SEPARATOR . 'version.php')){
+        foreach ($languages as $item) {
+            if (file_exists($item . DIRECTORY_SEPARATOR . 'version.php')) {
                 $folders = explode(DIRECTORY_SEPARATOR, $item);
                 $folder_name = $folders[count($folders) - 1];
 
                 // Is it already in the database?
                 $exists = $queries->getWhere('languages', array('name', '=', Output::getClean($folder_name)));
-                if(!count($exists)){
+                if (!count($exists)) {
                     // No, add it now
                     $queries->create('languages', array(
                         'name' => Output::getClean($folder_name)
@@ -39,16 +39,14 @@ if(isset($_GET['do'])){
         }
 
         Session::flash('general_language', $language->get('admin', 'installed_languages'));
-
-    } else if($_GET['do'] == 'updateLanguages'){
+    } else if ($_GET['do'] == 'updateLanguages') {
         $active_language = $queries->getWhere('languages', array('is_default', '=', 1));
-        if(count($active_language)){
+        if (count($active_language)) {
             DB::getInstance()->createQuery('UPDATE nl2_users SET language_id = ?', array($active_language[0]->id));
             $language = new Language('core', $active_language[0]->name);
         }
 
         Session::flash('general_language', $language->get('admin', 'updated_user_languages'));
-
     }
 
     Redirect::to(URL::build('/panel/core/general_settings'));
@@ -132,7 +130,6 @@ if (Input::exists()) {
                 // Cache
                 $cache->setCache('timezone_cache');
                 $cache->store('timezone', Output::getClean($_POST['timezone']));
-
             } catch (Exception $e) {
                 $errors = array($e->getMessage());
             }
@@ -205,7 +202,6 @@ if (Input::exists()) {
 
                 // Make string to input
                 Config::set('core/friendly', $friendly);
-
             } else $errors = array($language->get('admin', 'config_not_writable'));
 
             // Force HTTPS?
@@ -288,17 +284,14 @@ if (Input::exists()) {
                 Redirect::to($redirect);
                 die();
             }
-
         } else {
             $errors = array();
 
-            foreach($validation->errors() as $error){
-                if(strpos($error, 'sitename') !== false){
+            foreach ($validation->errors() as $error) {
+                if (strpos($error, 'sitename') !== false) {
                     $errors[] = $language->get('admin', 'missing_sitename');
-
-                } else if(strpos($error, 'email') !== false){
+                } else if (strpos($error, 'email') !== false) {
                     $errors[] = $language->get('admin', 'missing_contact_address');
-
                 }
             }
         }
@@ -311,17 +304,17 @@ if (Input::exists()) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(Session::exists('general_language'))
+if (Session::exists('general_language'))
     $success = Session::flash('general_language');
 
-if(isset($success)){
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS_TITLE' => $language->get('general', 'success'),
         'SUCCESS' => $success
     ));
 }
 
-if(isset($errors) && count($errors)){
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS_TITLE' => $language->get('general', 'error'),
         'ERRORS' => $errors
@@ -335,9 +328,9 @@ $contact_email = Output::getClean($contact_email[0]->value);
 $languages = $queries->getWhere('languages', array('id', '<>', 0));
 $count = count($languages);
 
-for($i = 0; $i < $count; $i++){
+for ($i = 0; $i < $count; $i++) {
     $language_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'languages', $languages[$i]->name, 'version.php'));
-    if(!file_exists($language_path))
+    if (!file_exists($language_path))
         unset($languages[$i]);
 }
 

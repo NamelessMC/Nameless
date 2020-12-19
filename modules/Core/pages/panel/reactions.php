@@ -20,20 +20,20 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(Session::exists('api_reactions'))
+if (Session::exists('api_reactions'))
     $smarty->assign(array(
         'SUCCESS' => Session::flash('api_reactions'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
 
-if(!isset($_GET['id']) && !isset($_GET['action'])){
+if (!isset($_GET['id']) && !isset($_GET['action'])) {
     // Get all reactions
     $reactions = $queries->getWhere('reactions', array('id', '<>', 0));
 
     $template_reactions = array();
-    if(count($reactions)){
-        foreach($reactions as $reaction){
-            switch($reaction->type){
+    if (count($reactions)) {
+        foreach ($reactions as $reaction) {
+            switch ($reaction->type) {
                 case 1:
                     $type = $language->get('admin', 'neutral');
                     break;
@@ -66,17 +66,17 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
         'TYPE' => $language->get('admin', 'type'),
         'ENABLED' => $language->get('admin', 'enabled'),
         'REACTIONS_LIST' => $template_reactions,
-        'NO_REACTIONS' => $language->get('admin' ,'no_reactions')
+        'NO_REACTIONS' => $language->get('admin', 'no_reactions')
     ));
 
     $template_file = 'core/reactions.tpl';
 } else {
-    if(isset($_GET['action'])){
-        switch($_GET['action']){
+    if (isset($_GET['action'])) {
+        switch ($_GET['action']) {
             case 'new':
-                if(Input::exists()){
+                if (Input::exists()) {
                     $errors = array();
-                    if(Token::check()){
+                    if (Token::check()) {
                         // Validate input
                         $validate = new Validate();
                         $validation = $validate->check($_POST, array(
@@ -95,12 +95,12 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
                             )
                         ));
 
-                        if($validation->passed()){
+                        if ($validation->passed()) {
                             // Check enabled status
-                            if(isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
+                            if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
                             else $enabled = 0;
 
-                            switch(Input::get('type')){
+                            switch (Input::get('type')) {
                                 case 1:
                                     $type = 1;
                                     break;
@@ -123,35 +123,29 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
                             Session::flash('api_reactions', $language->get('admin', 'reaction_created_successfully'));
                             Redirect::to(URL::build('/panel/core/reactions'));
                             die();
-
                         } else {
                             // Validation error
-                            foreach($validation->errors() as $error){
-                                if(strpos($error, 'required') !== false){
+                            foreach ($validation->errors() as $error) {
+                                if (strpos($error, 'required') !== false) {
                                     // Required
-                                    if(strpos($error, 'name') !== false){
+                                    if (strpos($error, 'name') !== false) {
                                         // Name
                                         $errors[] = $language->get('admin', 'name_required');
-
-                                    } else if(strpos($error, 'html') !== false){
+                                    } else if (strpos($error, 'html') !== false) {
                                         // HTML
                                         $errors[] = $language->get('admin', 'html_required');
-
-                                    } else{
+                                    } else {
                                         // Type
                                         $errors[] = $language->get('admin', 'type_required');
                                     }
-
-                                } else if(strpos($error, 'maximum') !== false){
+                                } else if (strpos($error, 'maximum') !== false) {
                                     // Maximum
-                                    if(strpos($error, 'name') !== false){
+                                    if (strpos($error, 'name') !== false) {
                                         // Name
                                         $errors[] = $language->get('admin', 'name_maximum_16');
-
                                     } else {
                                         // HTML
                                         $errors[] = $language->get('admin', 'html_maximum_255');
-
                                     }
                                 }
                             }
@@ -187,7 +181,7 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
 
             case 'delete':
                 // Check reaction is specified
-                if(!isset($_GET['reaction']) || !is_numeric($_GET['reaction'])){
+                if (!isset($_GET['reaction']) || !is_numeric($_GET['reaction'])) {
                     Redirect::to(URL::build('/panel/core/reactions'));
                     die();
                 }
@@ -211,18 +205,17 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
     } else {
         // Get reaction
         $reaction = $queries->getWhere('reactions', array('id', '=', $_GET['id']));
-        if(!count($reaction)){
+        if (!count($reaction)) {
             // Reaction doesn't exist
             Redirect::to(URL::build('/panel/core/reactions'));
             die();
-
         } else $reaction = $reaction[0];
 
         // Deal with input
-        if(Input::exists()){
+        if (Input::exists()) {
             $errors = array();
 
-            if(Token::check()){
+            if (Token::check()) {
                 // Validate input
                 $validate = new Validate();
                 $validation = $validate->check($_POST, array(
@@ -241,12 +234,12 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
                     )
                 ));
 
-                if($validation->passed()){
+                if ($validation->passed()) {
                     // Check enabled status
-                    if(isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
+                    if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
                     else $enabled = 0;
 
-                    switch(Input::get('type')){
+                    switch (Input::get('type')) {
                         case 1:
                             $type = 1;
                             break;
@@ -269,35 +262,29 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
                     Session::flash('api_reactions', $language->get('admin', 'reaction_edited_successfully'));
                     Redirect::to(URL::build('/panel/core/reactions'));
                     die();
-
                 } else {
                     // Validation error
-                    foreach($validation->errors() as $error){
-                        if(strpos($error, 'required') !== false){
+                    foreach ($validation->errors() as $error) {
+                        if (strpos($error, 'required') !== false) {
                             // Required
-                            if(strpos($error, 'name') !== false){
+                            if (strpos($error, 'name') !== false) {
                                 // Name
                                 $errors[] = $language->get('admin', 'name_required');
-
-                            } else if(strpos($error, 'html') !== false){
+                            } else if (strpos($error, 'html') !== false) {
                                 // HTML
                                 $errors[] = $language->get('admin', 'html_required');
-
-                            } else{
+                            } else {
                                 // Type
                                 $errors[] = $language->get('admin', 'type_required');
                             }
-
-                        } else if(strpos($error, 'maximum') !== false){
+                        } else if (strpos($error, 'maximum') !== false) {
                             // Maximum
-                            if(strpos($error, 'name') !== false){
+                            if (strpos($error, 'name') !== false) {
                                 // Name
                                 $errors[] = $language->get('admin', 'name_maximum_16');
-
                             } else {
                                 // HTML
                                 $errors[] = $language->get('admin', 'html_maximum_255');
-
                             }
                         }
                     }
@@ -336,7 +323,7 @@ if(!isset($_GET['id']) && !isset($_GET['action'])){
     }
 }
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')

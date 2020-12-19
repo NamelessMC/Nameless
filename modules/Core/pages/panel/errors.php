@@ -17,7 +17,7 @@ define('PANEL_PAGE', 'debugging_and_maintenance');
 $page_title = $language->get('admin', 'error_logs');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-if(isset($_GET['log']) && isset($_GET['do']) && $_GET['do'] == 'purge'){
+if (isset($_GET['log']) && isset($_GET['do']) && $_GET['do'] == 'purge') {
     file_put_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log')), '');
     Session::flash('error_log_success', $language->get('admin', 'log_purged_successfully'));
     Redirect::to(URL::build('/panel/core/errors'));
@@ -27,14 +27,14 @@ if(isset($_GET['log']) && isset($_GET['do']) && $_GET['do'] == 'purge'){
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(Session::exists('error_log_success'))
+if (Session::exists('error_log_success'))
     $smarty->assign(array(
         'SUCCESS' => Session::flash('error_log_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
 
-if(isset($_GET['log'])){
-    switch($_GET['log']){
+if (isset($_GET['log'])) {
+    switch ($_GET['log']) {
         case 'fatal':
             $type = 'fatal';
             $title = $language->get('admin', 'fatal_log');
@@ -60,7 +60,7 @@ if(isset($_GET['log'])){
             break;
     }
 
-    if(file_exists(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log')))){
+    if (file_exists(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log')))) {
         $smarty->assign('LOG', nl2br(Output::getClean(file_get_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $type . '-log.log'))))));
     } else {
         $smarty->assign('NO_LOG_FOUND', $language->get('admin', 'log_file_not_found'));
@@ -109,7 +109,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-if(!isset($_GET['log']))
+if (!isset($_GET['log']))
     $template->displayTemplate('core/errors.tpl', $smarty);
 else
     $template->displayTemplate('core/errors_view.tpl', $smarty);
