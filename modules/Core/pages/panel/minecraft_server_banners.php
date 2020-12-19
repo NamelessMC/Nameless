@@ -9,26 +9,10 @@
  *  Panel Minecraft server banners page
  */
 
-// Can the user view the panel?
-if($user->isLoggedIn()){
-    if(!$user->canViewACP()){
-        // No
-        Redirect::to(URL::build('/'));
-        die();
-    }
-    if(!$user->isAdmLoggedIn()){
-        // Needs to authenticate
-        Redirect::to(URL::build('/panel/auth'));
-        die();
-    } else {
-        if(!$user->hasPermission('admincp.minecraft.banners') || !function_exists('exif_imagetype')){
-            require_once(ROOT_PATH . '/403.php');
-            die();
-        }
-    }
-} else {
-    // Not logged in
-    Redirect::to(URL::build('/login'));
+$user->handlePanelPageLoad('admincp.minecraft.banners');
+
+if (!function_exists('exif_imagetype')) {
+    require_once(ROOT_PATH . '/403.php');
     die();
 }
 

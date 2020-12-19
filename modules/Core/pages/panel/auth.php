@@ -9,23 +9,7 @@
  *  Panel auth page
  */
 
-// Can the user view the panel?
-if($user->isLoggedIn()){
-    if(!$user->canViewACP()){
-        // No
-        Redirect::to(URL::build('/'));
-        die();
-    }
-    if($user->isAdmLoggedIn()){
-        // Already authenticated
-        Redirect::to(URL::build('/panel'));
-        die();
-    }
-} else {
-    // Not logged in
-    Redirect::to(URL::build('/login'));
-    die();
-}
+$user->handlePanelPageLoad();
 
 define('PAGE', 'panel');
 define('PANEL_PAGE', 'auth');

@@ -749,6 +749,29 @@ class User {
         return false;
     }
 
+    // Can they view this staffcp page?
+    public function handlePanelPageLoad($permission = null) {
+        if (!$this->isLoggedIn()) {
+            Redirect::to(URL::build('/login'));
+            die();
+        }
+
+        if (!$this->canViewACP()) {
+            Redirect::to(URL::build('/'));
+            die();
+        }
+
+        if (!$this->isAdmLoggedIn()) {
+            Redirect::to(URL::build('/panel/auth'));
+            die();
+        }
+
+        if ($permission != null && !$this->hasPermission($permission)) {
+            require_once(ROOT_PATH . '/404.php');
+            die();
+        }
+    }
+
     // Return profile fields for specified user
     // Params:  $user_id (integer) - user id of user to retrieve fields from
     //			$public (boolean)  - whether to only return public fields or not (default true)

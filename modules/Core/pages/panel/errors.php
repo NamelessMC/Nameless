@@ -9,28 +9,7 @@
  *  Panel debugging + errors page
  */
 
-// Can the user view the panel?
-if($user->isLoggedIn()){
-    if(!$user->canViewACP()){
-        // No
-        Redirect::to(URL::build('/'));
-        die();
-    }
-    if(!$user->isAdmLoggedIn()){
-        // Needs to authenticate
-        Redirect::to(URL::build('/panel/auth'));
-        die();
-    } else {
-        if(!$user->hasPermission('admincp.errors')){
-            require_once(ROOT_PATH . '/403.php');
-            die();
-        }
-    }
-} else {
-    // Not logged in
-    Redirect::to(URL::build('/login'));
-    die();
-}
+$user->handlePanelPageLoad('admincp.errors');
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');

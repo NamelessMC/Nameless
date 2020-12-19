@@ -9,25 +9,7 @@
  *  Panel update execute page
  */
 
-// Can the user view the AdminCP?
-if($user->isLoggedIn()){
-    if(!$user->canViewACP()){
-        // No
-        Redirect::to(URL::build('/'));
-        die();
-    } else {
-        // Check the user has re-authenticated
-        if(!$user->isAdmLoggedIn()){
-            // They haven't, do so now
-            Redirect::to(URL::build('/panel/auth'));
-            die();
-        }
-    }
-} else {
-    // Not logged in
-    Redirect::to(URL::build('/login'));
-    die();
-}
+$user->handlePanelPageLoad();
 
 // Ensure an update is needed
 $update_needed = $queries->getWhere('settings', array('name', '=', 'version_update'));
