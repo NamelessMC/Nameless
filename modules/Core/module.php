@@ -234,7 +234,7 @@ class Core_Module extends Module {
 
 		// Discord hook
 		require_once(ROOT_PATH . '/modules/Core/hooks/DiscordHook.php');
-		
+
 		// Webhooks
 		$cache->setCache('hooks');
 		if($cache->isCached('hooks')){
@@ -245,13 +245,10 @@ class Core_Module extends Module {
 				$hooks = $queries->getWhere('hooks', array('id', '<>', 0));
 				if (count($hooks)) {
 					foreach ($hooks as $hook) {
-						switch ($hook->action) {
-							case 2:
-								$action = 'DiscordHook::execute';
-								break;
-							default:
-								continue;
-								break;
+						if ($hook->action == 2) {
+							$action = 'DiscordHook::execute';
+						} else {
+							continue;
 						}
 
 						$hook_array[] = array(
@@ -418,7 +415,7 @@ class Core_Module extends Module {
 		require_once(ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php');
 		$module_pages = $widgets->getPages('Server Status');
 		$widgets->add(new ServerStatusWidget($module_pages, $smarty, $language, $cache));
-		
+
 		// Statistics
 		require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
 		$module_pages = $widgets->getPages('Statistics');
@@ -433,7 +430,7 @@ class Core_Module extends Module {
 			'guests_online' => $language->get('general', 'online_guests'),
 			'total_online' => $language->get('general', 'total_online'),
 		), $cache));
-		
+
 		// Validate user hook
 		$cache->setCache('validate_action');
 		if($cache->isCached('validate_action')){
@@ -812,7 +809,7 @@ class Core_Module extends Module {
 
 					$navs[2]->addItemToDropdown('core_configuration', 'social_media', $language->get('admin', 'social_media'), URL::build('/panel/core/social_media'), 'top', $order, $icon);
 				}
-				
+
 				if($user->hasPermission('admincp.core.hooks')){
 					if(!$cache->isCached('hooks_icon')){
 						$icon = '<i class="nav-icon fas fa-link"></i>';
