@@ -10,14 +10,14 @@
  */
 class OnlineStaffWidget extends WidgetBase {
 
-    private $_cache, 
-            $_smarty, 
+    private $_cache,
+            $_smarty,
             $_language;
 
     public function __construct($pages = array(), $smarty, $language, $cache) {
-    	$this->_cache = $cache;
-    	$this->_smarty = $smarty;
-    	$this->_language = $language;
+        $this->_cache = $cache;
+        $this->_smarty = $smarty;
+        $this->_language = $language;
 
         parent::__construct($pages);
 
@@ -33,46 +33,46 @@ class OnlineStaffWidget extends WidgetBase {
     }
 
     public function initialise() {
-	    $this->_cache->setCache('online_members');
+        $this->_cache->setCache('online_members');
 
-	    if($this->_cache->isCached('staff'))
-		    $online = $this->_cache->retrieve('staff');
-	    else {
-		    $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 1', array())->results();
-		    $this->_cache->store('staff', $online, 120);
-	    }
+        if($this->_cache->isCached('staff'))
+            $online = $this->_cache->retrieve('staff');
+        else {
+            $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 1', array())->results();
+            $this->_cache->store('staff', $online, 120);
+        }
 
-	    // Generate HTML code for widget
-	    if(count($online)){
-		    $staff_members = array();
+        // Generate HTML code for widget
+        if(count($online)){
+            $staff_members = array();
 
-		    foreach($online as $staff)
-				$staff_user = new User($staff->id);
-			    $staff_members[] = array(
-				    'profile' => $staff_user->getProfileURL(),
-				    'style' => $staff_user->getGroupClass(),
-				    'username' => $staff_user->getDisplayname(true),
-				    'nickname' => $staff_user->getDisplayname(),
-				    'avatar' => $staff_user->getAvatar(),
-				    'id' => Output::getClean($staff_user->data()->id),
-				    'title' => Output::getClean($staff_user->data()->user_title),
-					'group' => $staff_user->getMainGroup()->group_html,
-					'group_order' => $staff_user->getMainGroup()->order
-				);
+            foreach($online as $staff)
+                $staff_user = new User($staff->id);
+                $staff_members[] = array(
+                    'profile' => $staff_user->getProfileURL(),
+                    'style' => $staff_user->getGroupClass(),
+                    'username' => $staff_user->getDisplayname(true),
+                    'nickname' => $staff_user->getDisplayname(),
+                    'avatar' => $staff_user->getAvatar(),
+                    'id' => Output::getClean($staff_user->data()->id),
+                    'title' => Output::getClean($staff_user->data()->user_title),
+                    'group' => $staff_user->getMainGroup()->group_html,
+                    'group_order' => $staff_user->getMainGroup()->order
+                );
 
-		    $this->_smarty->assign(array(
-			    'ONLINE_STAFF' => $this->_language['title'],
-			    'ONLINE_STAFF_LIST' => $staff_members,
-			    'TOTAL_ONLINE_STAFF' => str_replace('{x}', count($staff_members), $this->_language['total_online_staff'])
-		    ));
+            $this->_smarty->assign(array(
+                'ONLINE_STAFF' => $this->_language['title'],
+                'ONLINE_STAFF_LIST' => $staff_members,
+                'TOTAL_ONLINE_STAFF' => str_replace('{x}', count($staff_members), $this->_language['total_online_staff'])
+            ));
 
-	    } else
-		    $this->_smarty->assign(array(
-			    'ONLINE_STAFF' => $this->_language['title'],
-			    'NO_STAFF_ONLINE' => $this->_language['no_online_staff'],
-			    'TOTAL_ONLINE_STAFF' => str_replace('{x}', '0', $this->_language['total_online_staff'])
-		    ));
+        } else
+            $this->_smarty->assign(array(
+                'ONLINE_STAFF' => $this->_language['title'],
+                'NO_STAFF_ONLINE' => $this->_language['no_online_staff'],
+                'TOTAL_ONLINE_STAFF' => str_replace('{x}', '0', $this->_language['total_online_staff'])
+            ));
 
-	    $this->_content = $this->_smarty->fetch('widgets/online_staff.tpl');
+        $this->_content = $this->_smarty->fetch('widgets/online_staff.tpl');
     }
 }

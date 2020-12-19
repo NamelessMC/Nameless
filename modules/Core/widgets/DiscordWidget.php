@@ -11,14 +11,14 @@
  */
 class DiscordWidget extends WidgetBase {
 
-    private $_language, 
-            $_cache, 
+    private $_language,
+            $_cache,
             $_discord;
 
     public function __construct($pages = array(), $language, $cache, $discord = '') {
-    	$this->_language = $language;
-    	$this->_cache = $cache;
-    	$this->_discord = $discord;
+        $this->_language = $language;
+        $this->_cache = $cache;
+        $this->_discord = $discord;
 
         parent::__construct($pages);
 
@@ -35,42 +35,42 @@ class DiscordWidget extends WidgetBase {
     }
 
     public function initialise() {
-	    // Generate HTML code for widget
-	    // First, check to see if the Discord server has the widget enabled.
-	    $this->_cache->setCache('social_media');
-	    if($this->_cache->isCached('discord_widget_check')){
-		    $result = $this->_cache->retrieve('discord_widget_check');
+        // Generate HTML code for widget
+        // First, check to see if the Discord server has the widget enabled.
+        $this->_cache->setCache('social_media');
+        if ($this->_cache->isCached('discord_widget_check')) {
+            $result = $this->_cache->retrieve('discord_widget_check');
 
-	    } else {
-		    $ch = curl_init();
-		    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-		    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-		    curl_setopt($ch, CURLOPT_URL, "https://discordapp.com/api/servers/" . Output::getClean($this->_discord) . "/widget.json");
-		    $result = curl_exec($ch);
-		    $result = json_decode($result);
-		    curl_close($ch);
+        } else {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+            curl_setopt($ch, CURLOPT_URL, "https://discordapp.com/api/servers/" . Output::getClean($this->_discord) . "/widget.json");
+            $result = curl_exec($ch);
+            $result = json_decode($result);
+            curl_close($ch);
 
-		    // Cache for 60 seconds
-		    $this->_cache->store('discord_widget_check', $result, 60);
+            // Cache for 60 seconds
+            $this->_cache->store('discord_widget_check', $result, 60);
 
-	    }
+        }
 
-	    // Check if the widget is disabled.
-	    if (!isset($result->channels) || isset($result->code)) {
-		    // Yes, it is: display message
-		    $this->_content = $this->_language->get('general', 'discord_widget_disabled');
+        // Check if the widget is disabled.
+        if (!isset($result->channels) || isset($result->code)) {
+            // Yes, it is: display message
+            $this->_content = $this->_language->get('general', 'discord_widget_disabled');
 
-	    } else {
-		    // No, it isn't: display the widget
-		    // Check cache for theme
-		    $theme = 'dark';
-		    if($this->_cache->isCached('discord_widget_theme'))
-			    $theme = $this->_cache->retrieve('discord_widget_theme');
+        } else {
+            // No, it isn't: display the widget
+            // Check cache for theme
+            $theme = 'dark';
+            if($this->_cache->isCached('discord_widget_theme'))
+                $theme = $this->_cache->retrieve('discord_widget_theme');
 
-		    $this->_content = '<iframe src="https://discordapp.com/widget?id=' . Output::getClean($this->_discord) . '&theme=' . Output::getClean($theme) . '" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';
+            $this->_content = '<iframe src="https://discordapp.com/widget?id=' . Output::getClean($this->_discord) . '&theme=' . Output::getClean($theme) . '" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';
 
-	    }
+        }
     }
 }

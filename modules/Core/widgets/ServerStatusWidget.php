@@ -10,8 +10,8 @@
  */
 class ServerStatusWidget extends WidgetBase {
 
-    private $_cache, 
-            $_smarty, 
+    private $_cache,
+            $_smarty,
             $_language;
 
     public function __construct($pages = array(), $smarty, $language, $cache) {
@@ -52,18 +52,22 @@ class ServerStatusWidget extends WidgetBase {
        }
 
         if (count($server_array) >= 1) {
-            $this->_smarty->assign(array(
-                'SERVER' => $server_array,
-                'ONLINE' => $this->_language->get('general', 'online'),
-                'OFFLINE' => $this->_language->get('general', 'offline'),
-                'IP' => $this->_language->get('general', 'ip'),
-                'VERSION' => str_replace('{x}', '<strong>' . $server_array['version'] . '</strong>' , $this->_language->get('general', 'version'))
-            ));
+            $this->_smarty->assign(
+                array(
+                    'SERVER' => $server_array,
+                    'ONLINE' => $this->_language->get('general', 'online'),
+                    'OFFLINE' => $this->_language->get('general', 'offline'),
+                    'IP' => $this->_language->get('general', 'ip'),
+                    'VERSION' => str_replace('{x}', '<strong>' . $server_array['version'] . '</strong>' , $this->_language->get('general', 'version'))
+                )
+            );
         }
-        $this->_smarty->assign(array(
-            'SERVER_STATUS' => $this->_language->get('general', 'server_status'),
-            'NO_SERVERS' => $this->_language->get('general', 'no_default_server')
-        ));
+        $this->_smarty->assign(
+            array(
+                'SERVER_STATUS' => $this->_language->get('general', 'server_status'),
+                'NO_SERVERS' => $this->_language->get('general', 'no_default_server')
+            )
+        );
         $this->_content = $this->_smarty->fetch('widgets/server_status.tpl');;
     }
 }
