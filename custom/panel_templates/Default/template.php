@@ -48,11 +48,6 @@ if(!class_exists('Default_Panel_Template')){
 			));
 
 			$this->addJSScript('
-			
-				// Prevents light flicker on dark mode
-				$(document).ready(function() {
-					$("body").addClass("visible");
-				});
 
 				// Dark and light theme switch
 				var currentPanelTheme = localStorage.getItem("nmc_panel_theme");
@@ -67,6 +62,9 @@ if(!class_exists('Default_Panel_Template')){
 						}
 					}
 				}
+				
+				// Prevents light flicker on dark mode
+				$("body").addClass("visible");
 
 				if ($(".dark-switch").length) {
 					var changeCheckbox = document.querySelector(".dark-switch");
