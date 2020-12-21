@@ -3,10 +3,10 @@
 
     <!-- Sidebar - Brand -->
     <a href="{$PANEL_INDEX}" class="sidebar-brand d-flex align-items-center justify-content-center">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-chart-line"></i>
+        <div class="sidebar-brand-icon">
+            <img src="{$NAMELESS_LOGO}" style="height: 35px;">
         </div>
-        <div class="sidebar-brand-text mx-3">{$SITE_NAME}</div>
+        <div class="sidebar-brand-text mx-3" style="margin-top: 4px">{$SITE_NAME}</div>
     </a>
 
     <!-- Sidebar - Links -->
