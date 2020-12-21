@@ -141,6 +141,8 @@ if(!class_exists('Default_Panel_Template')){
 				}
 				
 			');
+			
+			$smarty->assign('NAMELESS_LOGO', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/img/nameless-logo.png');
 
 			// Let the core module know this panel template supports ajax loading for the staff users list
 			define('PANEL_TEMPLATE_STAFF_USERS_AJAX', true);
