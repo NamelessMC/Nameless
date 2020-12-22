@@ -1,12 +1,12 @@
 # NamelessMC v2 Contributors
 Please feel free to update this list along with any pull requests.
 
-Version 1 contributors can be found in the [v1 readme](https://github.com/NamelessMC/Nameless/blob/master/README.md).
+A full list of contributors for v2 can be found [here](https://github.com/NamelessMC/Nameless/graphs/contributors).
 
-#### Development
-Unfortunately it's only possible to view master branch contributions. Once the v2 branch is switched to master, the development contributors list will be updated.
+### v1
+Unfortunately it's only possible to view contributors for the default branch. For the previous version v1.x.x, contributors can be found in the [v1 readme](https://github.com/NamelessMC/Nameless/blob/master/README.md).
 
-#### Translations
+### Translations
 - Chinese: [ahdg](https://github.com/ahdg6), [Hi_Michael](https://github.com/haer0248)
 - Czech: Ethxrnity, [LukarioJapans](https://github.com/LucarioJapans), [Nekomitsuki](https://github.com/Nekomitsuki), [Renzotom](https://github.com/Renzotom), [Volgeop](https://github.com/Volgeop), Zemos
 - Dutch: [Akela](https://github.com/Akelah), [Derkades](https://github.com/Derkades), [Jesse Geerts](https://github.com/jesseke55), [Rody Molenaar](https://github.com/rodymolenaar), [Sander Lambrechts](https://github.com/TheSander562), [smessie](https://github.com/smessie)
