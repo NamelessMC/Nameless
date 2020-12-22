@@ -205,7 +205,7 @@ if(isset($_GET['user'])){
                                 $groups = rtrim($groups, ',') . ')';
 
                                 // Get users in this group
-                                $users = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups)->results();
+                                $users = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups);
 
                                 if($users->count()){
                                     $users = $users->results();
