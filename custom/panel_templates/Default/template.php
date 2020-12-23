@@ -245,7 +245,6 @@ if(!class_exists('Default_Panel_Template')){
 						');
 
 						$this->addJSFiles(array(
-							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
 							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array()
 						));
 
@@ -262,7 +261,6 @@ if(!class_exists('Default_Panel_Template')){
 
 					case 'privacy_and_terms':
 						$this->addJSFiles(array(
-							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
 							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array()
 						));
 
@@ -273,7 +271,6 @@ if(!class_exists('Default_Panel_Template')){
 					case 'registration':
 
 						$this->addJSFiles(array(
-							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
 							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array()
 						));
 
@@ -350,12 +347,8 @@ if(!class_exists('Default_Panel_Template')){
 
 					case 'custom_pages':
 						if(isset($_GET['action'])){
-							$this->addCSSFiles(array(
-								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
-							));
 
 							$this->addJSFiles(array(
-								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
 								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array()
 							));
 
@@ -656,12 +649,8 @@ if(!class_exists('Default_Panel_Template')){
 
 					case 'forums':
 						if(isset($_GET['forum'])){
-							$this->addCSSFiles(array(
-								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array()
-							));
 
 							$this->addJSFiles(array(
-								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
 								(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array()
 							));
 
