@@ -149,11 +149,97 @@
 
     {include file='scripts.tpl'}
 
-    {if count($GRAPHS)}
+        {if count($GRAPHS)}
     <script type="text/javascript">
         Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-        Chart.defaults.global.defaultFontColor = '#858796';
-        let graphs = [
+
+
+        if (currentPanelTheme == "dark") {
+
+        Chart.defaults.global.defaultFontColor = 'rgb(189,189,189)';
+
+        graphs = [
+            {foreach from=$GRAPHS item=graph}
+            {
+                type: 'line',
+                data: {
+                    labels: [{foreach from=$graph.keys key=key item=item}'{$item}',{/foreach}],
+                    datasets: [
+                        {foreach from=$graph.datasets item=dataset}
+                        {
+                            fill: false,
+                            borderColor: '{$dataset.colour}',
+                            label: '{$dataset.label}',
+                            yAxisID: '{$dataset.axis}',
+                            lineTension: 0.3,
+                            backgroundColor: "rgba(78, 115, 223, 0.05)",
+                            pointRadius: 3,
+                            pointBackgroundColor: "{$dataset.colour}",
+                            pointBorderColor: "{$dataset.colour}",
+                            pointHoverRadius: 3,
+                            pointHoverBackgroundColor: "{$dataset.colour}",
+                            pointHoverBorderColor: "{$dataset.colour}",
+                            pointHitRadius: 10,
+                            pointBorderWidth: 2,
+                            data: [ {foreach from=$dataset.data item=data name=ds} {$data}{if not $smarty.foreach.ds.last}, {/if}{/foreach} ]
+                        },
+                        {/foreach}
+                    ]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            type: 'time',
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            time: {
+                                tooltipFormat: 'MMM D',
+                                unit: 'day'
+                            }
+                        }],
+                        yAxes: [
+                            {foreach from=$graph.axes key=key item=axis}
+                            {
+                                id: '{$key}',
+                                type: 'linear',
+                                position: '{$axis}'
+                            },
+                            {/foreach}
+                            {
+                                gridLines: {
+                                    color: "rgb(189,189,189)",
+                                    zeroLineColor: "rgb(189,189,189)",
+                                    drawBorder: false,
+                                    borderDash: [2],
+                                    zeroLineBorderDash: [2]
+                                }
+                            }
+                        ]
+                    },
+                    tooltips: {
+                        backgroundColor: "#303030",
+                        bodyFontColor: "rgb(189,189,189)",
+                        titleMarginBottom: 10,
+                        titleFontColor: 'rgb(189,189,189)',
+                        titleFontSize: 14,
+                        borderColor: '#383838',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10
+                    }
+                }
+            },
+            {/foreach}
+        ];
+        } else {
+
+            Chart.defaults.global.defaultFontColor = '#858796';
+
+            graphs = [
             {foreach from=$GRAPHS item=graph}
             {
                 type: 'line',
@@ -230,6 +316,8 @@
             },
             {/foreach}
         ];
+
+        }
 
         function drawChart(i) {
             let canvas = document.getElementById('graphDiv');
