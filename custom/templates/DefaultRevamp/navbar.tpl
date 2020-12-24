@@ -141,7 +141,7 @@
 
     {if !empty($ANNOUNCEMENTS)}
       {foreach from=$ANNOUNCEMENTS item=$ANNOUNCEMENT}
-        <div class="ui icon message" id="announcement-{$ANNOUNCEMENT->id}" style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}">
+        <div class="ui icon message announcement" id="announcement-{$ANNOUNCEMENT->id}" style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}">
           {if $ANNOUNCEMENT->closable}<i class="close icon"></i>{/if}
           {if isset($ANNOUNCEMENT->icon)}
            <i class="{$ANNOUNCEMENT->icon}"></i>

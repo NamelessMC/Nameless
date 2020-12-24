@@ -931,3 +931,7 @@ img.emojione {
 	height: 24px;
 	width: 24px;
 }
+
+.ui.icon.message.announcement i {
+	padding-right: 20px;
+}

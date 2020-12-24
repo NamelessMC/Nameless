@@ -14,7 +14,7 @@ $user->handlePanelPageLoad();
 $uid = explode('/', $route);
 $uid = $uid[count($uid) - 1];
 
-if (!isset($uid[count($uid) - 1])) {
+if (!strlen($uid)) {
     Redirect::to(URL::build('/panel'));
     die();
 }
@@ -27,7 +27,7 @@ if (!is_numeric($uid[0])) {
 $uid = $uid[0];
 
 $view_user = new User($uid);
-if (!count($view_user->data())) {
+if (!$view_user->data()) {
     Redirect::to(URL::build('/panel'));
     die();
 }
@@ -36,7 +36,8 @@ $user_query = $view_user->data();
 $timeago = new Timeago(TIMEZONE);
 
 define('PAGE', 'panel');
-define('PARENT_PAGE', 'profile');
+define('PANEL_PAGE', 'users');
+define('PARENT_PAGE', 'users');
 $page_title = Output::getClean($user_query->username);
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

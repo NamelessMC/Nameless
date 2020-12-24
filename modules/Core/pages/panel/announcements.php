@@ -223,6 +223,9 @@ if (!isset($_GET['action'])) {
                 }
             }
 
+            $announcement_pages = json_decode($announcement->pages);
+            $announcement->pages = is_array($announcement_pages) ? $announcement_pages : [];
+
             $guest_permissions = in_array("0", json_decode($announcement->groups));
             $groups = array();
             foreach (DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {

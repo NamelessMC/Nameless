@@ -20,7 +20,7 @@ $timeago = new Timeago(TIMEZONE);
 $fid = explode('/', $route);
 $fid = $fid[count($fid) - 1];
 
-if (!isset($fid[count($fid) - 1])) {
+if (!strlen($fid)) {
     require_once(ROOT_PATH . '/404.php');
     die();
 }

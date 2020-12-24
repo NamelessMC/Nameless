@@ -12,6 +12,9 @@
 if(!defined('ERRORHANDLER'))
     die();
 
+if (!defined('LANGUAGE'))
+    define('LANGUAGE', 'EnglishUK');
+
 $language = new Language('core', LANGUAGE);
 $user = new User();
 ?>

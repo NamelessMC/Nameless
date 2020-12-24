@@ -46,18 +46,20 @@ class Announcements {
     }
 
     public static function getPagesCsv($pages_json = null){
-        return implode(', ', array_map('ucfirst', json_decode($pages_json)));
+        $pages = json_decode($pages_json);
+        if (!$pages) return null;
+        return implode(', ', array_map('ucfirst', $pages));
     }
 
     public static function edit($id = null, $pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null) {
-        $queries = new Queries;
+        $queries = new Queries();
         $queries->update('custom_announcements', $id, array('pages' => json_encode($pages), 'groups' => json_encode($groups), 'text_colour' => $text_colour, 'background_colour' => $background_colour, 'icon' => $icon, 'closable' => $closable ? 1 : 0, 'header' => $header, 'message' => $message));
         self::resetCache();
         return true;
     }
 
     public static function create($pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null) {
-        $queries = new Queries;
+        $queries = new Queries();
         $queries->create('custom_announcements', array('pages' => json_encode($pages), 'groups' => json_encode($groups), 'text_colour' => $text_colour, 'background_colour' => $background_colour, 'icon' => $icon, 'closable' => $closable ? 1 : 0, 'header' => $header, 'message' => $message));
         self::resetCache();
         return true;

@@ -26,7 +26,7 @@ $emojione = new Emojione\Client(new Emojione\Ruleset());
 $tid = explode('/', $route);
 $tid = $tid[count($tid) - 1];
 
-if (!isset($tid[count($tid) - 1])) {
+if (!strlen($tid)) {
     require_once(ROOT_PATH . '/404.php');
     die();
 }

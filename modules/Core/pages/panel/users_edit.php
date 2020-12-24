@@ -17,7 +17,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 
 $view_user = new User($_GET['id']);
-if (!count($view_user->data())) {
+if (!$view_user->data()) {
     Redirect::to('/panel/users');
     die();
 }
@@ -484,18 +484,18 @@ if ($formatting == 'markdown') {
         ');
 } else {
     $template->addJSFiles(array(
-        (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
-        (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
-        (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array()
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array()
     ));
 
     $template->addJSScript(Input::createEditor('InputSignature'));
 }
 
 $template->addCSSFiles(array(
-    (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
-    (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
-    (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array(),
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array(),
 ));
 
 $page_load = microtime(true) - $start;

@@ -493,7 +493,8 @@ class User {
 
     // Add a group to the user
     public function addGroup($group_id, $expire = 0) {
-        if (!array_key_exists($group_id, $this->_groups)) {
+        $groups = $this->_groups ? $this->_groups : [];
+        if (!array_key_exists($group_id, $groups)) {
             $this->_db->createQuery(
                 'INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)',
                 array(
@@ -508,7 +509,8 @@ class User {
 
     // Remove a group from the user
     public function removeGroup($group_id) {
-        if (array_key_exists($group_id, $this->_groups)) {
+        $groups = $this->_groups ? $this->_groups : [];
+        if (array_key_exists($group_id, $groups)) {
             if ($group_id == 2 && $this->data()->id == 1) {
                 return false;
             }
