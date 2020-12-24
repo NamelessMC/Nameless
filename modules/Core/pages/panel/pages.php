@@ -327,7 +327,7 @@ if(!isset($_GET['action'])){
 
                             $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
 
-                            if (substr($page_url, 0, strlen($page_url)) !== '/') {
+                            if ($page_url[0] != '/') {
                                 $page_url = '/' . $page_url;
                             }
 
@@ -350,7 +350,7 @@ if(!isset($_GET['action'])){
                                 foreach ($widget_query as $widget_row) {
                                     $pages = json_decode($widget_row->pages, true);
                                     $new_pages = array();
-                                    if (count($pages)) {
+                                    if (is_array($pages) && count($pages)) {
                                         foreach($pages as $widget_page) {
                                             if ($page->title == $widget_page) {
                                                 $new_pages[] = Output::getClean(Input::get('page_title'));
