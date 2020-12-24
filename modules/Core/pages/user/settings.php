@@ -529,39 +529,13 @@ if(isset($_GET['do'])){
 						'user_id' => $user->data()->id,
 					]);
 
-					$url = '/verifyId?token=' . $token . '&guild_id=' . $guild_id;
-					$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
-					if ($discord_role_id != null && $discord_integration[0]->value) $url .= '&role=' . $discord_role_id;
-					$result = Discord::discordBotRequest($url . '&site=' . $api_url);
-					if ($result != 'success') {
-						if ($result === false) {
-							// This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
-							$errors[] = $language->get('user', 'discord_communication_error');
-						} else {
-							switch ($result) {
-								case 'failure-invalid-id':
-									$errors[] = $language->get('user', 'discord_invalid_id');
-									break;
-								case 'failure-already-pending':
-									$errors[] = $language->get('user', 'discord_already_pending');
-									break;
-								case 'failure-database':
-									$errors[] = $language->get('user', 'discord_database_error');
-									break;
-								default:
-									// This should never happen
-									$errors[] = $language->get('user', 'discord_unknown_error');
-									break;
-							}
-						}
-					} else {
-						$user->update(array(
-							'discord_id' => 010
-						));
-						Session::flash('settings_success', str_replace(array('{guild_id}', '{token}', '{bot_username}'), array(Util::getSetting(DB::getInstance(), 'discord'), $token, BOT_USERNAME), $language->get('user', 'discord_id_confirm')));
-						Redirect::to(URL::build('/user/settings'));
-						die();
-					}
+                    $user->update(array(
+                        'discord_id' => 010
+                    ));
+                    
+                    Session::flash('settings_success', str_replace(array('{guild_id}', '{token}', '{bot_username}'), array(Util::getSetting(DB::getInstance(), 'discord'), $token, BOT_USERNAME), $language->get('user', 'discord_id_confirm')));
+                    Redirect::to(URL::build('/user/settings'));
+                    die();
 				}
 			}
 		} else {
