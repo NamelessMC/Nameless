@@ -51,7 +51,7 @@ if(!isset($_GET['c'])){
 		if ($discord_integration == '1') {
 			// They have a valid discord Id
 			if ($user->data()->discord_id != null && $user->data()->discord_id != 010) {
-				$group_discord_id = $queries->getWhere('groups', array('id', '=', $user->getTopGroup()->id));
+				$group_discord_id = $queries->getWhere('groups', array('id', '=', $user->getMainGroup()->id));
 				$group_discord_id = $group_discord_id[0]->discord_role_id;
 
 				if ($group_discord_id != null) {
