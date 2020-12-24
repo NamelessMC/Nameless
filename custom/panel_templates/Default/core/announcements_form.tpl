@@ -60,7 +60,7 @@
                                     <label for="pages">{$PAGES}</label>
                                     <select name="pages[]" id="pages" class="form-control" multiple>
                                         {foreach from=$PAGES_ARRAY item=page}
-                                        <option value="{$page.name}" {if in_array($page.name, json_decode($ANNOUNCEMENT->pages))} selected {/if}>{$page.name|ucfirst}</option>
+                                        <option value="{$page.name}"{if isset($ANNOUNCEMENT) && in_array($page.name, $ANNOUNCEMENT->pages)} selected {/if}>{$page.name|ucfirst}</option>
                                         {/foreach}
                                     </select>
                                 </div>
