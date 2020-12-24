@@ -58,11 +58,10 @@ if (!isset($_GET['action'])) {
     );
 
     $template_file = 'core/widgets.tpl';
-
 } else {
     if ($_GET['action'] == 'enable') {
         // Enable a widget
-        if(!isset($_GET['w']) || !is_numeric($_GET['w'])) die('Invalid widget!');
+        if (!isset($_GET['w']) || !is_numeric($_GET['w'])) die('Invalid widget!');
 
         // Get widget name
         $name = $queries->getWhere('widgets', array('id', '=', $_GET['w']));
@@ -88,7 +87,6 @@ if (!isset($_GET['action'])) {
 
         Redirect::to(URL::build('/panel/core/widgets'));
         die();
-
     } else if ($_GET['action'] == 'disable') {
         // Disable a widget
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
@@ -118,7 +116,6 @@ if (!isset($_GET['action'])) {
 
         Redirect::to(URL::build('/panel/core/widgets'));
         die();
-
     } else if ($_GET['action'] == 'edit') {
         // Ensure widget exists
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
@@ -157,8 +154,7 @@ if (!isset($_GET['action'])) {
                     Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
                     Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . $widget->id));
                     die();
-
-                } catch(Exception $e){
+                } catch (Exception $e) {
                     $errors = array($e->getMessage());
                 }
             } else {
@@ -208,7 +204,6 @@ if (!isset($_GET['action'])) {
         );
 
         $template_file = 'core/widgets_edit.tpl';
-
     } else if ($_GET['action'] == 'settings') {
         // Ensure widget exists
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
@@ -223,7 +218,8 @@ if (!isset($_GET['action'])) {
         }
         $widget = $widget[0];
 
-        if ($widgets->getWidget($widget->name)->getSettings() == null
+        if (
+            $widgets->getWidget($widget->name)->getSettings() == null
             || !file_exists($widgets->getWidget($widget->name)->getSettings())
         ) {
             Redirect::to(URL::build('/admin/widgets'));
@@ -241,7 +237,6 @@ if (!isset($_GET['action'])) {
         );
 
         $template_file = 'core/widget_settings.tpl';
-
     } else {
         Redirect::to('/panel/core/widgets');
         die();

@@ -19,58 +19,52 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 $timeago = new Timeago(TIMEZONE);
 
-if(!isset($_GET['id'])){
+if (!isset($_GET['id'])) {
     // Get all reports
     $reports = array();
 
-    if(!isset($_GET['view'])){
+    if (!isset($_GET['view'])) {
         // Get open reports
-        if(!isset($_GET['uid'])){
+        if (!isset($_GET['uid'])) {
             $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 ORDER BY date_updated DESC')->results();
             $url = URL::build('/panel/users/reports/', true);
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed');
-
         } else {
             $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', array(intval($_GET['uid'])))->results();
             $url = URL::build('/panel/users/reports/', 'uid=' . intval(Output::getClean($_GET['uid'])) . '&');
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed&uid=' . intval(Output::getClean($_GET['uid'])));
-
         }
 
         $smarty->assign(array(
             'CHANGE_VIEW' => $language->get('moderator', 'view_closed'),
             'CHANGE_VIEW_LINK' => $change_view_link
         ));
-
     } else {
         // Get closed reports
-        if(!isset($_GET['uid'])){
+        if (!isset($_GET['uid'])) {
             $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 1 ORDER BY date_updated DESC')->results();
             $url = URL::build('/panel/users/reports/', 'view=closed&');
             $change_view_link = URL::build('/panel/users/reports');
-
         } else {
             $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', array(intval($_GET['uid'])))->results();
             $url = URL::build('/panel/users/reports/', 'view=closed&uid=' . intval(Output::getClean($_GET['uid'])) . '&');
             $change_view_link = URL::build('/panel/users/reports/', 'uid=' . intval(Output::getClean($_GET['uid'])));
-
         }
 
         $smarty->assign(array(
             'CHANGE_VIEW' => $language->get('moderator', 'view_open'),
             'CHANGE_VIEW_LINK' => $change_view_link
         ));
-
     }
 
-    if(count($report_query)){
+    if (count($report_query)) {
         // Get page
-        if(isset($_GET['p'])){
-            if(!is_numeric($_GET['p'])){
+        if (isset($_GET['p'])) {
+            if (!is_numeric($_GET['p'])) {
                 Redirect::to($url);
                 die();
             } else {
-                if($_GET['p'] == 1){
+                if ($_GET['p'] == 1) {
                     // Avoid bug in pagination class
                     Redirect::to($url);
                     die();
@@ -85,27 +79,25 @@ if(!isset($_GET['id'])){
         $results = $paginator->getLimited($report_query, 10, $p, count($report_query));
         $pagination = $paginator->generate(7, $url);
 
-        foreach($results->data as $report){
+        foreach ($results->data as $report) {
             // Get comments count
             $comments = $queries->getWhere('reports_comments', array('report_id', '=', $report->id));
             $comments = count($comments);
 
             $target_user = new User($report->reported_id);
 
-            if($report->type == 0){
+            if ($report->type == 0) {
                 // Site report
                 $user_reported = $target_user->getDisplayname();
                 $user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $target_user->data()->username));
                 $user_style = $target_user->getGroupClass();
                 $user_avatar = $target_user->getAvatar('', 128);
-
             } else {
                 // Ingame report
                 $user_reported = Output::getClean($report->reported_mcname);
                 $user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $report->reported_mcname));
                 $user_style = '';
                 $user_avatar = Util::getAvatarFromUUID($report->reported_uuid, 128);
-
             }
 
             $updated_by_user = new User($report->updated_by);
@@ -130,16 +122,15 @@ if(!isset($_GET['id'])){
         }
 
         $smarty->assign('PAGINATION', $pagination);
-
     } else {
-        if(!isset($_GET['view'])){
+        if (!isset($_GET['view'])) {
             $smarty->assign('NO_REPORTS', $language->get('moderator', 'no_open_reports'));
         } else {
             $smarty->assign('NO_REPORTS', $language->get('moderator', 'no_closed_reports'));
         }
     }
 
-    if(isset($_GET['uid'])){
+    if (isset($_GET['uid'])) {
         $smarty->assign('VIEWING_USER', Output::getClean($user->idToNickname(intval($_GET['uid']))));
     }
 
@@ -154,23 +145,22 @@ if(!isset($_GET['id'])){
     ));
 
     $template_file = 'core/users_reports.tpl';
-
 } else {
     // Get report by ID
-    if(!isset($_GET['action'])){
+    if (!isset($_GET['action'])) {
         $report = $queries->getWhere('reports', array('id', '=', $_GET['id']));
-        if(!count($report)){
+        if (!count($report)) {
             Redirect::to(URL::build('/panel/users/reports'));
             die();
         }
         $report = $report[0];
 
         // Check input
-        if(Input::exists()){
+        if (Input::exists()) {
             $errors = array();
 
             // Check token
-            if(Token::check()){
+            if (Token::check()) {
                 // Valid token
                 $validate = new Validate();
 
@@ -182,7 +172,7 @@ if(!isset($_GET['id'])){
                     )
                 ));
 
-                if($validation->passed()){
+                if ($validation->passed()) {
                     $queries->create('reports_comments', array(
                         'report_id' => $report->id,
                         'commenter_id' => $user->data()->id,
@@ -198,7 +188,6 @@ if(!isset($_GET['id'])){
                     ));
 
                     $success = $language->get('moderator', 'comment_created');
-
                 } else {
                     // Display error
                     $errors[] = $language->get('moderator', 'report_comment_invalid');
@@ -212,7 +201,7 @@ if(!isset($_GET['id'])){
         // Get comments
         $comments = $queries->getWhere('reports_comments', array('report_id', '=', $report->id));
         $smarty_comments = array();
-        foreach($comments as $comment){
+        foreach ($comments as $comment) {
             $comment_user = new User($comment->commenter_id);
 
             $smarty_comments[] = array(
@@ -226,9 +215,9 @@ if(!isset($_GET['id'])){
             );
         }
 
-        if(!$report->reported_id){
+        if (!$report->reported_id) {
             $reported_user = new User($report->reported_uuid, 'uuid');
-            if(count($reported_user->data())){
+            if (count($reported_user->data())) {
                 $reported_user_profile = URL::build('/panel/user/' . Output::getClean($reported_user->data()->id . '-' . $reported_user->data()->username));
                 $reported_user_style = $reported_user->getGroupClass();
                 $reported_user_avatar = $reported_user->getAvatar('', 128);
@@ -239,7 +228,6 @@ if(!isset($_GET['id'])){
             }
 
             $reported_user_name = Output::getClean($report->reported_mcname);
-
         } else {
             $reported_user = new User($report->reported_id);
 
@@ -277,7 +265,7 @@ if(!isset($_GET['id'])){
         ));
 
         // Close/reopen link
-        if($report->status == 0){
+        if ($report->status == 0) {
             $smarty->assign(array(
                 'CLOSE_LINK' => URL::build('/panel/users/reports/', 'action=close&id=' . $report->id),
                 'CLOSE_REPORT' => $language->get('moderator', 'close_report')
@@ -290,14 +278,13 @@ if(!isset($_GET['id'])){
         }
 
         $template_file = 'core/users_reports_view.tpl';
-
     } else {
-        if($_GET['action'] == 'close'){
+        if ($_GET['action'] == 'close') {
             // Close report
-            if(is_numeric($_GET['id'])){
+            if (is_numeric($_GET['id'])) {
                 // Get report
                 $report = $queries->getWhere('reports', array('id', '=', $_GET['id']));
-                if(count($report)){
+                if (count($report)) {
                     $queries->update('reports', $report[0]->id, array(
                         'status' => 1,
                         'date_updated' => date('Y-m-d H:i:s'),
@@ -321,13 +308,12 @@ if(!isset($_GET['id'])){
 
             Redirect::to(URL::build('/panel/users/reports'));
             die();
-
-        } else if($_GET['action'] == 'open'){
+        } else if ($_GET['action'] == 'open') {
             // Reopen report
-            if(is_numeric($_GET['id'])){
+            if (is_numeric($_GET['id'])) {
                 // Get report
                 $report = $queries->getWhere('reports', array('id', '=', $_GET['id']));
-                if(count($report)){
+                if (count($report)) {
                     $queries->update('reports', $report[0]->id, array(
                         'status' => 0,
                         'date_updated' => date('Y-m-d H:i:s'),
@@ -351,7 +337,6 @@ if(!isset($_GET['id'])){
 
             Redirect::to(URL::build('/panel/users/reports'));
             die();
-
         } else {
             Redirect::to(URL::build('/panel/users/reports'));
             die();
@@ -362,16 +347,16 @@ if(!isset($_GET['id'])){
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(Session::exists('report_success'))
+if (Session::exists('report_success'))
     $success = Session::flash('report_success');
 
-if(isset($success))
+if (isset($success))
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
