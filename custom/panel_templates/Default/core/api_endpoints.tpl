@@ -53,7 +53,7 @@
                                         {foreach from=$ENDPOINTS_ARRAY item=endpoint}
                                             <tr>
                                                 <td>
-                                                    <div>/{$endpoint.route}</div>
+                                                    <div><code>/{$endpoint.route}</code></div>
                                                 </td>
                                                 <td>
                                                     <div>{$endpoint.description}</div>
