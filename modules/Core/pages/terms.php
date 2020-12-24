@@ -14,6 +14,14 @@ define('PAGE', 'terms');
 $page_title = $language->get('user', 'terms_and_conditions');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
+$template->addCSSFiles(array(
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array()
+));
+
+$template->addJSFiles(array(
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array()
+));
+
 // Retrieve terms from database
 $site_terms = $queries->getWhere('privacy_terms', array('name', '=', 'terms'));
 if(!count($site_terms)){
