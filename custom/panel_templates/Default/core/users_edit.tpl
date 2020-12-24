@@ -56,6 +56,20 @@
 
                             <!-- Success and Error Alerts -->
                             {include file='alerts.tpl'}
+                            
+                            {if isset($WARNINGS) && count($WARNINGS)}
+                            <div class="alert bg-warning text-white alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5><i class="icon fas fa-exclamation-triangle"></i> {$WARNINGS_TITLE}</h5>
+                                <ul>
+                                    {foreach from=$WARNINGS item=warning}
+                                        <li>{$warning}</li>
+                                    {/foreach}
+                                </ul>
+                            </div>
+                            {/if}
 
                             <form role="form" action="" method="post">
                                 <div class="form-group">
@@ -113,17 +127,13 @@
                                     <label for="InputSignature">{$SIGNATURE}</label>
                                     <textarea style="width:100%" rows="10" name="signature" id="InputSignature">{$SIGNATURE_VALUE}</textarea>
                                 </div>
-                                {if isset($CANT_EDIT_GROUP)}
-                                    <div class="alert alert-warning">
-                                        {$CANT_EDIT_GROUP}
-                                    </div>
-                                {/if}
                                 <div class="form-group">
                                     <label for="inputGroups">{$GROUPS}</label>
                                     <div class="callout callout-info">
                                         <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
                                         {$GROUPS_INFO}
                                     </div>
+                                    <p><strong>{$MAIN_GROUP_INFO}: </strong>{$MAIN_GROUP->name} {if isset($CANT_EDIT_GROUP)} <i>({$CANT_EDIT_GROUP})</i> {/if}</p>
                                     <select class="form-control" name="groups[]" id="inputGroups" multiple>
                                         {foreach from=$ALL_GROUPS item=item}
                                         <option value="{$item->id}"{if in_array($item->id, $GROUPS_VALUE)} selected{/if}>{$item->name|escape}</option>
