@@ -397,6 +397,7 @@ $language = array(
     'user_created' => 'Utilizatorul a fost creat cu succes.',
     'cant_delete_root_user' => 'Nu puteți șterge utilizatorul root (principal)!',
     'cant_modify_root_user' => 'Nu puteți modifica grupul de utilizatori al utilizatorului root (principal)!',
+    'main_group' => 'Main Group',
     'user_deleted' => 'Utilizatorul a fost șters cu succes.',
     'confirm_user_deletion' => 'Sigur doriți să ștergeți utilizatorul <strong>{x}</strong>?', // Don't replace {x}
     'validate_user' => 'Activați utilizatorul',

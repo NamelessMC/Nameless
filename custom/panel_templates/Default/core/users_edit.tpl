@@ -131,6 +131,7 @@
                                         {$CANT_EDIT_GROUP}
                                     </div>
                                 {/if}
+                                <p><strong>{$MAIN_GROUP_INFO}: </strong>{$MAIN_GROUP->name}</p>
                                 <select class="form-control" name="groups[]" id="inputGroups" multiple>
                                     {foreach from=$ALL_GROUPS item=item}
                                     <option value="{$item->id}"{if in_array($item->id, $GROUPS_VALUE)} selected{/if}>{$item->name|escape}</option>
