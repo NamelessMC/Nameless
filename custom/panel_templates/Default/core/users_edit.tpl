@@ -126,12 +126,7 @@
                                     <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
                                     {$GROUPS_INFO}
                                 </div>
-                                {if isset($CANT_EDIT_GROUP)}
-                                    <div class="alert alert-warning">
-                                        {$CANT_EDIT_GROUP}
-                                    </div>
-                                {/if}
-                                <p><strong>{$MAIN_GROUP_INFO}: </strong>{$MAIN_GROUP->name}</p>
+                                <p><strong>{$MAIN_GROUP_INFO}: </strong>{$MAIN_GROUP->name} {if isset($CANT_EDIT_GROUP)} <i>({$CANT_EDIT_GROUP})</i> {/if}</p>
                                 <select class="form-control" name="groups[]" id="inputGroups" multiple>
                                     {foreach from=$ALL_GROUPS item=item}
                                     <option value="{$item->id}"{if in_array($item->id, $GROUPS_VALUE)} selected{/if}>{$item->name|escape}</option>

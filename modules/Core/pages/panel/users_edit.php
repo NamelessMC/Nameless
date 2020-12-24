@@ -387,7 +387,11 @@ $filtered_groups = array();
 foreach ($groups as $group) {
     // Only show groups whose ID is not their main group and whose order is HIGHER than their main group. A main group simply means this $user's group with LOWEST order
     // TODO: Probably can make this into the mysql query
-    if ($limit_groups && (!($group->id == $user->getMainGroup()->id)) && ($user->getMainGroup()->order < $group->order)) {
+    if ($limit_groups) {
+        if ((!($group->id == $view_user->getMainGroup()->id)) && ($view_user->getMainGroup()->order < $group->order)) {
+            $filtered_groups[] = $group;
+        }
+    } else {
         $filtered_groups[] = $group;
     }
 }
@@ -447,7 +451,7 @@ $smarty->assign(array(
     'GROUPS' => $language->get('admin', 'groups'),
     'GROUPS_INFO' => $language->get('admin', 'secondary_groups_info'),
     'GROUPS_VALUE' => $user_groups,
-    'MAIN_GROUP' => $user->getMainGroup(),
+    'MAIN_GROUP' => $view_user->getMainGroup(),
     'MAIN_GROUP_INFO' => $language->get('admin', 'main_group'),
     'INFO' => $language->get('general', 'info'),
     'ACTIVE_TEMPLATE' => $language->get('user', 'active_template'),
