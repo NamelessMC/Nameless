@@ -11,7 +11,7 @@
  */
 class Log {
     
-    private const ACTION = [
+    const ACTION = [
         'admin' => [
             'login' => 'acp_login',
             'core' => [
