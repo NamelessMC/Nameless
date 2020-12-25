@@ -160,7 +160,7 @@ class Log {
         ],
         'misc' => [
             'report' => 'report',
-            'curl_error', 'curl_error'
+            'curl_error' => 'curl_error'
         ],
         'api' => [
             //TODO API STUFF
