@@ -16,7 +16,7 @@ define('PARENT_PAGE', 'announcements');
 define('PANEL_PAGE', 'announcements');
 $page_title = $language->get('admin', 'announcements');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
-$queries = new Queries;
+$queries = new Queries();
 
 if (!isset($_GET['action'])) {
     // View all announcements
