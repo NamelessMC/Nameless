@@ -10,7 +10,7 @@
  */
 class Discord {
 
-    private const VALID_RESPONSES = array('success', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
+    const VALID_RESPONSES = array('success', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
 
     public static function discordBotRequest($url = '/status', $body = null) {
         $response = Util::curlGetContents(BOT_URL . $url, $body);

@@ -19,7 +19,7 @@ if (!is_numeric($_GET['id'])) {
     $id = 0;
 } else {
     $target_user = new User($_GET['id']);
-    if (!count($target_user->data())) {
+    if (!$target_user->data()) {
         die(json_encode(array('html' => 'User not found')));
     } else {
         $user_query = $user_query[0];
@@ -27,8 +27,8 @@ if (!is_numeric($_GET['id'])) {
 
     $username = $target_user->getDisplayname(true);
     $nickname = $target_user->getDisplayname();
-    $profile = $target_user->getProfileURL;
-    $avatar = $target_user->getAvatar('../', 128);
+    $profile = $target_user->getProfileURL();
+    $avatar = $target_user->getAvatar();
     $style = $target_user->getGroupClass();
     $groups = $target_user->getAllGroups(true);
     $id = Output::getClean($target_user->data()->id);
