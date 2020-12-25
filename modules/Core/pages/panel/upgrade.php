@@ -20,7 +20,6 @@ if ($update_needed != 'true' && $update_needed != 'urgent') {
     die();
 }
 
-$queries =  new Queries();
 $cache = new Cache(array('name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'));
 
 // Get the current version
