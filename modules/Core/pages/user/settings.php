@@ -517,11 +517,6 @@ if(isset($_GET['do'])){
 					die();
 
 				} else {
-					$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
-
-					$discord_role_id = Discord::getDiscordRoleId(DB::getInstance(), $user->getMainGroup()->id);
-
-					$guild_id = Util::getSetting(DB::getInstance(), 'discord');
 
 					$token = uniqid('', true);
 					$queries->create('discord_verifications', [
