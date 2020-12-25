@@ -227,9 +227,9 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
-	DB::getInstance()->query("ALTER TABLE `nl2_forums_labels` CHANGE `name` `name` VARCHAR(32) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+    DB::getInstance()->query("ALTER TABLE `nl2_forums_labels` CHANGE `name` `name` VARCHAR(32) CHARACTER SET $db_charset NULL DEFAULT NULL;");
 } catch (Exception $e) {
-	echo $e->getMessage() . '<br />';
+    echo $e->getMessage() . '<br />';
 }
 try {
     DB::getInstance()->query("ALTER TABLE `nl2_forums_topic_labels` CHANGE `gids` `gids` VARCHAR(256) CHARACTER SET $db_charset NULL DEFAULT NULL;");
@@ -251,7 +251,7 @@ try {
         }
         $query .= implode('', $inserts);
     }
-    DB::getInstance()->createQuery($query);
+    DB::getInstance()->createQuery(rtrim($query, ','));
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }

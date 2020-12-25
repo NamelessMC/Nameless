@@ -9,8 +9,6 @@
  *  Panel update execute page
  */
 
-$user->handlePanelPageLoad();
-
 // Ensure an update is needed
 $update_needed = $queries->getWhere('settings', array('name', '=', 'version_update'));
 $update_needed = $update_needed[0]->value;
@@ -19,6 +17,9 @@ if ($update_needed != 'true' && $update_needed != 'urgent') {
     Redirect::to(URL::build('/panel/update'));
     die();
 }
+
+$queries =  new Queries();
+$cache = new Cache(array('name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'));
 
 // Get the current version
 $current_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));

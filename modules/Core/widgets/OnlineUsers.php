@@ -67,10 +67,10 @@ class OnlineUsersWidget extends WidgetBase {
         if(count($online)){
             $users = array();
 
-            foreach($online as $item)
-                $online_user = new User();
+            foreach($online as $item) {
+                $online_user = new User($item->id);
                 $users[] = array(
-                    'profile' => $online_user->getProfileURL,
+                    'profile' => $online_user->getProfileURL(),
                     'style' => $online_user->getGroupClass(),
                     'username' => $online_user->getDisplayname(true),
                     'nickname' => $online_user->getDisplayname(),
@@ -79,6 +79,7 @@ class OnlineUsersWidget extends WidgetBase {
                     'title' => Output::getClean($online_user->data()->user_title),
                     'group' => $online_user->getMainGroup()->group_html
                 );
+            }
 
             $this->_smarty->assign(array(
                 'SHOW_NICKNAME_INSTEAD' => $use_nickname_show,

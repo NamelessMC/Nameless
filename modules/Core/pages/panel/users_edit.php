@@ -142,7 +142,7 @@ if (Input::exists()) {
 
             // Does user have any groups selected
             $passed = false;
-            if (isset($_POST['groups']) && count($_POST['groups'])) {
+            if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
                 $passed = true;
             } else {
                 $errors[] = $language->get('admin', 'select_user_group');
@@ -207,7 +207,7 @@ if (Input::exists()) {
 
                     // Get groups
                     if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
-                        if (isset($_POST['groups']) && count($_POST['groups'])) {
+                        if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
                             // Any new groups?
                             foreach ($_POST['groups'] as $group) {
                                 if (!in_array($group, $user_groups)) {

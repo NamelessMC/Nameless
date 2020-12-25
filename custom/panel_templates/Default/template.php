@@ -395,7 +395,7 @@ if (!class_exists('Default_Panel_Template')) {
                                 columns: [
                                     { data: "id", hidden: true },
                                     { data: "username" },
-                                    { data: "groupName" },
+                                    { data: "groupName", "orderable": false },
                                     { data: "joined" }
                                 ],
                                 language: {

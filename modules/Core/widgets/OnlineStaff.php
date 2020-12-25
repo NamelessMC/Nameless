@@ -46,7 +46,7 @@ class OnlineStaffWidget extends WidgetBase {
         if(count($online)){
             $staff_members = array();
 
-            foreach($online as $staff)
+            foreach ($online as $staff) {
                 $staff_user = new User($staff->id);
                 $staff_members[] = array(
                     'profile' => $staff_user->getProfileURL(),
@@ -59,6 +59,7 @@ class OnlineStaffWidget extends WidgetBase {
                     'group' => $staff_user->getMainGroup()->group_html,
                     'group_order' => $staff_user->getMainGroup()->order
                 );
+            }
 
             $this->_smarty->assign(array(
                 'ONLINE_STAFF' => $this->_language['title'],
