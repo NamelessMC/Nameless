@@ -73,4 +73,9 @@ class ErrorHandler {
             // Unable to write to file, ignore for now
         }
     }
+
+    // Log a custom error
+    public static function logCustomError($contents){
+        self::logError('other', $contents);
+    }
 }
