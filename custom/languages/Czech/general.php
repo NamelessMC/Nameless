@@ -15,7 +15,7 @@ $language = array(
      */
     'help' => 'Podpora',
     'submit' => 'Potvrdit',
-    'register' => 'Registrovat se',
+    'register' => 'Zaregistrovat se',
     'already_registered' => 'Již jste zaregistrováni?',
     'custom_fields' => 'Vlastní pole',
     'not_registered_yet' => 'Ještě nejste zaregistrováni?',
