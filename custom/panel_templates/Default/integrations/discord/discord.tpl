@@ -45,7 +45,7 @@
                                 <tbody>
                                     <tr>
                                         <td>{$BOT_SETUP}</td>
-                                        <td>{if $BOT_URL_SET && $GUILD_ID_SET}<i class="fas fa-check-circle text-success"></i>{else}<i class="fas fa-times-circle text-danger"></i>{/if}</td>
+                                        <td>{if $BOT_URL_SET && $GUILD_ID_SET && $BOT_USERNAME_SET}<i class="fas fa-check-circle text-success"></i>{else}<i class="fas fa-times-circle text-danger"></i>{/if}</td>
                                     </tr>
                                 </tbody>
                             </table>

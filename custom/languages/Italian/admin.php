@@ -80,7 +80,7 @@ $language = array(
     'discord_id_length' => 'Assicurati che il tuo ID Discord sia lungo 18 caratteri.',
     'discord_id_numeric' => 'Assicurati che il tuo ID Discord sia numerico (solo numeri).',
     'discord_invite_info' => 'Per invitare il bot Nameless Link al tuo server Discord, clicca <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Quindi, invia un messaggio diretto al bot con il comando <code>!apiurl</code> per collegare il bot al tuo sito web. In alternativa, puoi <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">ospitare tu stesso il bot</a>.',
-    'discord_bot_must_be_setup' => 'Non è possibile abilitare l\'integrazione con Discord fino a che il bot non sarà configurato. Per informazioni, <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">clicca qui</a>.',
+    'discord_bot_must_be_setup' => 'Non è possibile abilitare l\'integrazione con Discord fino a che il bot non sarà configurato. Per informazioni, <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">clicca qui</a>.',
     'discord_bot_setup' => 'Configurazione del bot',
     'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => 'Scuro',

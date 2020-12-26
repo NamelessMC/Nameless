@@ -81,9 +81,11 @@ if (!isset($_GET['view'])) {
             $rows = array();
 
             foreach ($logs as $log) {
+                $target_user = new User($log->user_id);
+				
                 $rows[] = array(
                     0 => array(
-                        'content' => '<a style="' . $user->getGroupClass($log->user_id) . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $user->idToName($log->user_id))) . '">' . Output::getClean($user->idToNickname($log->user_id)) . '</a>'
+                        'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
                     ),
                     1 => array(
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
@@ -116,9 +118,11 @@ if (!isset($_GET['view'])) {
             $rows = array();
 
             foreach ($logs as $log) {
+                $target_user = new User($log->user_id);
+				
                 $rows[] = array(
                     0 => array(
-                        'content' => '<a style="' . $user->getGroupClass($log->user_id) . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $user->idToName($log->user_id))) . '">' . Output::getClean($user->idToNickname($log->user_id)) . '</a>'
+                        'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
                     ),
                     1 => array(
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
@@ -153,9 +157,11 @@ if (!isset($_GET['view'])) {
             $rows = array();
 
             foreach ($logs as $log) {
+                $target_user = new User($log->user_id);
+				
                 $rows[] = array(
                     0 => array(
-                        'content' => '<a style="' . $user->getGroupClass($log->user_id) . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $user->idToName($log->user_id))) . '">' . Output::getClean($user->idToNickname($log->user_id)) . '</a>'
+                        'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
                     ),
                     1 => array(
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
@@ -187,9 +193,11 @@ if (!isset($_GET['view'])) {
             $rows = array();
 
             foreach ($logs_set as $log) {
+                $target_user = new User($log->user_id);
+				
                 $rows[] = array(
                     0 => array(
-                        'content' => '<a style="' . $user->getGroupClass($log->user_id) . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $user->idToName($log->user_id))) . '">' . Output::getClean($user->idToNickname($log->user_id)) . '</a>'
+                        'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
                     ),
                     1 => array(
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
@@ -227,9 +235,11 @@ if (!isset($_GET['view'])) {
             $rows = array();
 
             foreach ($logs as $log) {
+                $target_user = new User($log->user_id);
+				
                 $rows[] = array(
                     0 => array(
-                        'content' => '<a style="' . $user->getGroupClass($log->user_id) . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $user->idToName($log->user_id))) . '">' . Output::getClean($user->idToNickname($log->user_id)) . '</a>'
+                        'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
                     ),
                     1 => array(
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'

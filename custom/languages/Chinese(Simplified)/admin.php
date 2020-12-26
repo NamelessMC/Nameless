@@ -82,7 +82,7 @@ $language = array(
     'discord_id_length' => '请确保您的 Discord ID 长 18 位。',
     'discord_id_numeric' => '请确保您的 Discord ID 只包含数字。',
     'discord_invite_info' => '您可点击<a target="_blank" href="https://namelessmc.com/discord-bot-invite">此处</a>来将 Nameless Link 机器人邀请至您的 Discord 服务器. 随后，您需要向机器人发送包含 <code>!apiurl</code> 命令的消息来链接您的网站。或者，您也可以<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">自己部署机器人</a>。',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">click here</a>.',
+    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
     'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => '暗调',
