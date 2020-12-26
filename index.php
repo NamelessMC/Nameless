@@ -68,6 +68,7 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
         require(ROOT_PATH . '/404.php');
     else
         // Homepage
+        $pages->setActivePage($pages->getPageByURL('/'));
         require(ROOT_PATH . '/modules/Core/pages/index.php');
 
 } else {
@@ -78,6 +79,7 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
 
     // Include the page
     if(array_key_exists($route, $modules)){
+        $pages->setActivePage($modules[$route]);
         if(!isset($modules[$route]['custom'])){
             $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']));
 
@@ -100,6 +102,7 @@ if(!isset($_GET['route']) || $_GET['route'] == '/'){
             if(array_key_exists($new_path, $modules)){
                 $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$new_path]['module'], $modules[$new_path]['file']));
                 if(file_exists($path)){
+                    $pages->setActivePage($modules[$new_path]);
                     require($path);
                     die();
                 }
