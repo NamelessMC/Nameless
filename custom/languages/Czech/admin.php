@@ -80,7 +80,7 @@ $language = array(
     'discord_id_length' => 'Ujistěte se, že ID vašeho Discord serveru je dlouhé 18 znaků.',
     'discord_id_numeric' => 'Ujistěte se, že ID vašeho Discord serveru obsahuje pouze čísla.',
     'discord_invite_info' => 'Pro pozvání bota Nameless Link na váš Discord server klikněte <a target="_blank" href="https://namelessmc.com/discord-bot-invite">sem</a>. Po jeho pozvání pošlete botovi soukromou zprávu s příkazem <code>!apiurl</code> pro propojení bota s vaším webem. Můžete také bota <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">sami hostovat</a>.',
-    'discord_bot_must_be_setup' => 'Nelze povolit integraci Discordu, dokud nenastavíte bota. Pro více informací <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">klikněte sem</a>.',
+    'discord_bot_must_be_setup' => 'Nelze povolit integraci Discordu, dokud nenastavíte bota. Pro více informací <a href="https://github.com/NamelessMC/Nameless-Linkk/wiki/Setup" target="_blank">klikněte sem</a>.',
     'discord_bot_setup' => 'Bot nastaven',
     'discord_integration_not_setup' => 'Integrace Discordu není nastavena',
     'dark' => 'Tmavý',
