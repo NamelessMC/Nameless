@@ -14,7 +14,7 @@ $language = array(
      *  Admin Control Panel
      */
     // Login
-    're-authenticate' => 'Znovu se přihlašte',
+    're-authenticate' => 'Znovu se přihlaste',
 
     // Sidebar
     'dashboard' => 'Nástěnka',
