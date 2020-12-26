@@ -18,7 +18,7 @@ $language = array(
     'installer_welcome' => 'Vítejte v předběžném vydání NamelessMC verze 2.0.',
     'pre-release_warning' => 'Upozorňujeme, že toto předběžné vydání není určeno k použití na veřejných stránkách.',
     'installer_information' => 'Instalátor vás provede procesem instalace.',
-    'terms_and_conditions' => 'By continuing you agree to the terms and conditions.',
+    'terms_and_conditions' => 'Pokračováním souhlasíte s pravidly a podmínkami.',
     'new_installation_question' => 'Jedná se o novou instalaci?',
     'new_installation' => 'Nová instalace &raquo;',
     'upgrading_from_v1' => 'Aktualizace z v1 &raquo;',
@@ -38,13 +38,13 @@ $language = array(
     'nameless_path' => 'Instalační cesta',
     'nameless_path_info' => 'Toto je cesta, na které je nainstalováno NamelessMC, relativní k vaší doméně. Například pokud je NamelessMC nainstalováno na priklad.cz/forum, musí to být <strong>forum</strong>. Nechte prázdné, pokud NamelessMC není v podsložce.',
     'friendly_urls' => 'Přátelské adresy URL',
-    'friendly_urls_info' => 'Přátelské adresy URL zlepší čitelnost adres URL ve vašem prohlížeči. <br /> Například z: <br /> priklad.cz/index.php?route=/forum <br /> by se stalo <br /> priklad.cz/forum . <br /> <strong> Důležité! </strong> <br /> Aby tato možnost fungovala, musí být váš server správně nakonfigurován. Zda tuto možnost můžete povolit zjistíte kliknutím <a href=\t./rewrite_test\t target=\_blank\'>sem</a>.',
+    'friendly_urls_info' => 'Přátelské adresy URL zlepší čitelnost adres URL ve vašem prohlížeči. <br/>Například z:<br/>priklad.cz/index.php?route=/forum<br/>by se stalo<br/>priklad.cz/forum.<br /><strong>Důležité!</strong><br/>Aby tato možnost fungovala, musí být váš server správně nakonfigurován. Zda tuto možnost můžete povolit zjistíte kliknutím <a href=\t./rewrite_test\t target=\_blank\'>sem</a>.',
     'enabled' => 'Povoleno',
     'disabled' => 'Zakázáno',
     'character_set' => 'Sada znaků',
     'database_engine' => 'Databázový úložný engine',
     'host' => 'Název hostitele',
-    'host_help' => 'Název hostitele je <strong> základní adresa URL </strong> pro vaše webové stránky. Sem nezahrnujte podsložky z pole Instalační cesta ani http(s)://!',
+    'host_help' => 'Název hostitele je <strong>základní adresa URL</strong> pro vaše webové stránky. Sem nezdadávejte podsložky z pole Instalační cesta ani http(s)://!',
     'database_error' => 'Ujistěte se, že jste vyplnili všechna pole.',
     'submit' => 'Potvrdit',
     'installer_now_initialising_database' => 'Instalátor nyní inicializuje databázi. Může to chvíli trvat...',
@@ -82,7 +82,7 @@ $language = array(
     'back' => 'Zpět',
     'unable_to_load_converter' => 'Nelze načíst konvertor!',
     'finish' => 'Dokončit',
-    'finish_message' => 'Děkujeme Vám za instalaci služby NamelessMC! Nyní můžete pokračovat do ovládacího panelu, kde můžete dále nakonfigurovat svůj web.',
+    'finish_message' => 'Děkujeme Vám za instalaci NamelessMC! Nyní můžete pokračovat do ovládacího panelu, kde můžete dále nakonfigurovat svůj web.',
     'support_message' => 'Pokud potřebujete nějakou pomoc, podívejte se <a href="https://namelessmc.com" target="_blank">na náš web</a>, navštivte náš <a href="https://discord.gg/9vk93VR" target="_blank">Discord server</a> nebo náš <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repozitář</a>.',
     'credits' => 'Poděkování',
     'credits_message' => 'Velké poděkování všem <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">NamelessMC přispěvatelům</a> od roku 2014',
@@ -102,5 +102,5 @@ $language = array(
     'no_converters_available' => 'Nejsou dostupné žádné konvertory.',
     'config_not_writable' => 'Konfigurační soubor není zapisovatelný.',
 
-    'session_doesnt_exist' => 'Nepodařilo se detekovat relaci. Ukládání relací je nutné pro správnou funkci NamelessMC. Zkuste to prosím znovu. Ppokud se bude tato chyba opakovat, kontaktujte poskytovatele vašeho webhostingu pro podporu.'
+    'session_doesnt_exist' => 'Nepodařilo se detekovat relaci. Ukládání relací je nutné pro správnou funkci NamelessMC. Zkuste to prosím znovu. Pokud se bude tato chyba opakovat, kontaktujte poskytovatele vašeho webhostingu pro podporu.'
 );
