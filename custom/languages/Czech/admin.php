@@ -69,7 +69,7 @@ $language = array(
     'missing_contact_address' => 'Zadejte kontaktní e-mailovou adresu o délce 3 až 255 znaků.',
     'use_friendly_urls' => 'Přátelské adresy URL',
     'use_friendly_urls_help' => 'DŮLEŽITÉ: Váš server musí být nakonfigurován, aby umožnil použití souborů mod_rewrite a .htaccess.',
-    'config_not_writable' => 'Váš soubor <strong>core/config.php</strong> není zapisovatelný. Zkontrolujte oprávnění souboru.',
+    'config_not_writable' => 'Soubor <strong>core/config.php</strong> není zapisovatelný. Zkontrolujte oprávnění souboru.',
     'settings_updated_successfully' => 'Obecná nastavení byla úspěšně aktualizována.',
     'social_media' => 'Sociální média',
     'youtube_url' => 'YouTube URL',
@@ -79,10 +79,10 @@ $language = array(
     'discord_widget_theme' => 'Vzhled Discord widgetu',
     'discord_id_length' => 'Ujistěte se, že ID vašeho Discord serveru je dlouhé 18 znaků.',
     'discord_id_numeric' => 'Ujistěte se, že ID vašeho Discord serveru obsahuje pouze čísla.',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">click here</a>.',
-    'discord_bot_setup' => 'Bot Setup',
-    'discord_integration_not_setup' => 'Discord Integration is not setup',
+    'discord_invite_info' => 'Pro pozvání bota Nameless Link na váš Discord server klikněte <a target="_blank" href="https://namelessmc.com/discord-bot-invite">sem</a>. Po jeho pozvání pošlete botovi soukromou zprávu s příkazem <code>!apiurl</code> pro propojení bota s vaším webem. Můžete také bota <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">sami hostovat</a>.',
+    'discord_bot_must_be_setup' => 'Nelze povolit integraci Discordu, dokud nenastavíte bota. Pro více informací <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">klikněte sem</a>.',
+    'discord_bot_setup' => 'Bot nastaven',
+    'discord_integration_not_setup' => 'Integrace Discordu není nastavena',
     'dark' => 'Tmavý',
     'light' => 'Světlý',
     'google_plus_url' => 'Google Plus URL',
@@ -168,11 +168,11 @@ $language = array(
     'privacy_and_terms' => 'Soukromí a podmínky',
     'dropdown_name' => 'Název rozbalovací nabídky',
     'editing_messages' => 'Úprava zpráv',
-    'emails_mass_message' => 'E-mailová hromadná zpráva',
+    'emails_mass_message' => 'Hromadná e-mailová zpráva',
     'sending_mass_message' => 'Posílání hromadné zprávy',
     'emails_mass_message_sent_successfully' => 'Hromadná zpráva byla úspěšně odeslána.',
     'emails_mass_message_replacements' => 'Ve vaší e-mailové zprávě můžete použít proměnné. Podporované proměnné: {username}, {sitename}',
-    'emails_mass_message_loading' => 'Načítání... Nijak prosím neinteragujte se stránkou. Může to zabrat chvíli.',
+    'emails_mass_message_loading' => 'Načítání... Nijak prosím neinteragujte se stránkou. Může to chvíli trvat.',
 
     // Reactions
     'icon' => 'Ikona',
@@ -262,7 +262,7 @@ $language = array(
     'server_query_information' => 'Chcete-li zobrazit seznam online hráčů na vašem webu, <strong>musí</strong> mít váš server povolenou možnost \'enable-query\' v serverovém souboru <strong>server.properties</strong>.',
     'enable_status_query' => 'Povolit stav query?',
     'status_query_help' => 'Pokud je toto povoleno, stránka se stavem zobrazí tento server jako online či offline.',
-    'show_ip_on_status_page' => 'Zobrazit IP na stráne se stavem?',
+    'show_ip_on_status_page' => 'Zobrazit IP na stránce se stavem?',
     'show_ip_on_status_page_info' => 'Pokud je tato možnost povolena, uživatelé budou moci zobrazit a kopírovat adresu IP při zobrazení stránky Stav',
     'enable_player_list' => 'Povolit seznam hráčů?',
     'pre_1.7' => 'Minecraft verze starší než 1.7?',
@@ -314,12 +314,12 @@ $language = array(
     'server_id_x' => 'ID serveru: {x}', // Don't replace {x}
     'server_information' => 'Informace o serveru',
     'query_information' => 'Informace o query',
-    'query_errors_purged_successfully' => 'Chyby query byly úspěšně vymazány.',
-    'query_error_deleted_successfully' => 'Chyba query byla úspěšně odstraněna.',
+    'query_errors_purged_successfully' => 'Chyby query úspěšně vymazány.',
+    'query_error_deleted_successfully' => 'Chyba query úspěšně vymazána.',
     'banner_updated_successfully' => 'Banner byl úspěšně aktualizován. Změny se projeví až za chvíli.',
 
     // Modules
-    'modules_installed_successfully' => 'Všechny nové doplňky byly nainstalovány.',
+    'modules_installed_successfully' => 'Seznam doplňků byl aktualizován.',
     'enabled' => 'Povoleno',
     'disabled' => 'Zakázáno',
     'enable' => 'Povolit',
@@ -328,7 +328,7 @@ $language = array(
     'module_disabled' => 'Doplněk zakázán.',
     'author' => 'Autor',
     'author_x' => 'Autor: {x}', // Don't replace {x}
-    'module_outdated' => 'Zjistili jsme, že tento doplněk je určen pro NamelessMC verzi {x}, ale vy používáte verzi {y}', // Don't replace "{x}" or "{y}"
+    'module_outdated' => 'Zjistili jsme, že tento doplněk je určen pro NamelessMC verze {x}, ale vy používáte verzi {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Najít doplňky',
     'view_all_modules' => 'Zobrazit všechny doplňky',
     'unable_to_retrieve_modules' => 'Nelze načíst doplňky',
@@ -339,8 +339,8 @@ $language = array(
     'templates' => 'Šablony',
     'panel_templates' => 'Šablony panelů',
     'view_all_panel_templates' => 'Zobrazit všechny šablony panelu',
-    'template_outdated' => 'Zjistili jsme, že šablona je určena pro NamelessMC verzi {x} , ale vy používáte verzi {y}', // Don't replace "{x}" or "{y}"
-    'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
+    'template_outdated' => 'Zjistili jsme, že tato šablona je určena pro NamelessMC verze {x} , ale vy používáte verzi {y}', // Don't replace "{x}" or "{y}"
+    'template_not_supported' => 'Od verze NamelessMC 2.0.0-pr8 není podporována šablona Default. Pro správnou funkčnost webu prosím použijte podporovanou šablonu.',
     'active' => 'Povolená',
     'deactivate' => 'Zakázat',
     'activate' => 'Povolit',
@@ -348,7 +348,7 @@ $language = array(
     'images' => 'Obrázky',
     'upload_new_image' => 'Nahrát nový obrázek',
     'reset_background' => 'Resetovat pozadí',
-    'install' => '<i class="fa fa-plus-circle"></i> Nainstalovat nové šablony',
+    'install' => '<i class="fa fa-plus-circle"></i> Aktualizovat seznam',
     'template_updated' => 'Šablona byla úspěšně aktualizována.',
     'default' => 'Výchozí',
     'make_default' => 'Nastavit jako výchozí',
@@ -357,7 +357,7 @@ $language = array(
     'template_activated' => 'Šablona aktivována.',
     'permissions' => 'Oprávnění',
     'setting_perms_for_x' => 'Nastavení oprávnění pro šablonu {x}', // Don't replace {x}
-    'templates_installed_successfully' => 'Všechny nové šablony byly úspěšně nainstalovány.',
+    'templates_installed_successfully' => 'Seznam šablon byl aktualizován.',
     'confirm_delete_template' => 'Jste si jisti, že chcete odstranit tuto šablonu?',
     'delete' => 'Odstranit',
     'template_deleted_successfully' => 'Šablona úspěšně odstraněna.',
@@ -394,8 +394,8 @@ $language = array(
     'registered' => 'Registrován',
     'user_created' => 'Uživatel úspěšně vytvořen',
     'cant_delete_root_user' => 'Nemůžete odstranit hlavního uživatele!',
-    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
-    'main_group' => 'Main Group',
+    'cant_modify_root_user' => 'Nelze upravit hlavní skupinu tohoto uživatele!',
+    'main_group' => 'Hlavní skupina',
     'user_deleted' => 'Uživatel úspěšně odstraněn.',
     'confirm_user_deletion' => 'Opravdu chcete odstranit uživatele <strong>{x}</strong>?', // Don't replace {x}
     'validate_user' => 'Ověřit uživatele',
@@ -423,7 +423,7 @@ $language = array(
     'group_html_lg' => 'Velké HTML skupiny',
     'group_username_colour' => 'Barva názvu skupiny',
     'group_username_css' => 'CSS uživatelských jmen skupiny',
-    'group_staff' => 'Bude tato skupina pro pracovníky?',
+    'group_staff' => 'Bude tato skupina pro tým?',
     'delete_group' => 'Odstranit skupinu',
     'confirm_group_deletion' => 'Opravdu chcete odstranit skupinu {x}?', // Don't replace {x}
     'group_not_exist' => 'Tato skupina neexistuje.',
@@ -488,7 +488,7 @@ $language = array(
     'current_version_x' => 'Současná verze: <strong>{x}</strong>', // Don't replaec {x}
     'new_version_x' => 'Nová verze: <strong>{x}</strong>', // Don't replace {x}
     'new_update_available' => 'K dispozici je nová aktualizace',
-    'new_urgent_update_available' => 'K dispozici je nová aktualizace NamelessMC. Aktualizujte jej co nejdříve!',
+    'new_urgent_update_available' => 'K dispozici je nová verze NamelessMC. Aktualizujte jej co nejdříve!',
     'up_to_date' => 'Používáte nejnovější verzi!',
     'urgent' => 'Tato aktualizace je důležitá!',
     'changelog' => 'Seznam změn',
@@ -511,7 +511,7 @@ $language = array(
     'right' => 'Vpravo',
 
     // Online users widget
-    'include_staff_in_user_widget' => 'Zahrnout pracovníky do uživatelského widgetu?',
+    'include_staff_in_user_widget' => 'Zahrnout tým do uživatelského widgetu?',
     'show_nickname_instead_of_username' => 'Zobrazit přezdívku uživatele namísto uživatelského jména?',
 
     // Custom Pages
@@ -590,9 +590,9 @@ $language = array(
     'group_sync_rule_deleted_successfully' => 'Pravidlo synchronizace skupiny bylo úspěšně odstraněno.',
     'existing_rules' => 'Stávající pravidla',
     'new_rule' => 'Nové pravidlo',
-    'api_endpoints' => 'API Endpoints',
-    'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
-    'route' => 'Route',
+    'api_endpoints' => 'Endpointy API',
+    'api_endpoints_info' => 'Endpointy API umožňují modulům vytvářet cesty k externím službám (jako je Minecraft a Discord) k interakci s vaším NamelessMC webem.',
+    'route' => 'Cesta',
 
     // File uploads
     'drag_files_here' => 'Sem přetáhněte soubory pr nahrání.',
@@ -614,7 +614,7 @@ $language = array(
     // Hooks
     'hooks' => 'Webhooky',
     'hooks_info' => 'Webhooky umožňují oznámení externích služeb, když nastanou určité události.',
-    'no_hooks_yet' => 'There are no webhooks yet.',
+    'no_hooks_yet' => 'Zatím jste nevytvořili žádné webhooky.',
     'new_hook' => 'Nový webhook',
     'creating_new_hook' => 'Vytváření nového webhooku',
     'editing_hook' => 'Úprava webhooku',
@@ -637,8 +637,8 @@ $language = array(
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Nelze načíst soubor mapy webu {x}', // Don't replace {x}
     'sitemap_generated' => 'Soubor mapy webu byl úspěšně vygenerován',
-    'sitemap_not_writable' => 'Adresář <strong> cache/sitemaps </strong> nelze upravovat.',
-    'cache_not_writable' => 'Adresář <strong> cache </strong> nelze upravovat.',
+    'sitemap_not_writable' => 'Adresář <strong>cache/sitemaps</strong> nelze upravovat.',
+    'cache_not_writable' => 'Adresář <strong>cache</strong> nelze upravovat.',
     'generate_sitemap' => 'Generovat soubor mapy webu',
     'download_sitemap' => 'Stáhnout soubor mapy webu',
     'sitemap_not_generated_yet' => 'Soubor mapy webu ještě nebyl vygenerován!',
@@ -695,7 +695,7 @@ $language = array(
     'message_required' => 'Je vyžadována zpráva',
     'background_colour_required' => 'Je vyžadována barva pozadí',
     'text_colour_required' => 'Je vyžadována barva textu',
-    'no_announcements' => 'No announcements have been made yet.',
+    'no_announcements' => 'Zatím jste nevytvořili žádná oznámení.',
 
     // Discord
     'discord' => 'Discord',
