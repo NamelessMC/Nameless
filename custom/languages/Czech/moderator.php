@@ -17,7 +17,7 @@ $language = array(
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Označit jako spam',
-    'confirm_spam' => '<p>Opravdu chcete označen tohoto uživatele za spam?</p><p>Uživatel bude zabanován a veškerý jeho obsah odebrán.</p>',
+    'confirm_spam' => '<p>Opravdu chcete nahlásit tohoto uživatele za spam?</p><p>Uživatel bude zabanován a veškerý jeho obsah odebrán.</p>',
     'user_marked_as_spam' => 'Uživatel byl úpěšně označen za spam.',
     'cant_ban_admin' => 'Nemůžete zabanovat administrátora!',
 
@@ -98,7 +98,7 @@ $language = array(
     'type' => 'Typ',
     'recent_punishments' => 'Nedávné tresty',
     'created' => 'Vytvořeno:',
-    'staff:' => 'Pracovník:',
+    'staff:' => 'Člen týmu:',
     'reason:' => 'Důvod:',
 
     // Users

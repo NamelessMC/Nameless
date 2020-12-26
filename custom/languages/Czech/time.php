@@ -14,7 +14,6 @@ $language = array(
      *  Time
      */
     'time' => 'čas', // Placeholder, no need to translate
-    'seconds_short' => 's', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'před méně než minutou',
     '1_minute' => 'před 1 minutou',
     '_minutes' => 'před {x} minutami',
