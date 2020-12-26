@@ -28,8 +28,11 @@ if (Input::exists()) {
         if ($_POST['enable_discord'] == '1') {
             $guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
             $guild_id = $guild_id[0]->value;
-            if (BOT_URL == '' || $guild_id == '') {
+            if (BOT_URL == '' || BOT_USERNAME == '' || $guild_id == '') {
                 $errors[] = $language->get('admin', 'discord_bot_must_be_setup');
+                $queries->update('settings', $enable_discord_id, array(
+                    'value' => 0
+                ));
             } else {
                 $queries->update('settings', $enable_discord_id, array(
                     'value' => 1
@@ -90,6 +93,7 @@ $smarty->assign(array(
     'INVITE_LINK' => $language->get('admin', 'discord_invite_info'),
     'GUILD_ID_SET' => ($guild_id != ''),
     'BOT_URL_SET' => (BOT_URL != ''),
+    'BOT_USERNAME_SET' => (BOT_USERNAME != ''),
     'REQUIREMENTS' => rtrim($language->get('installer', 'requirements'), ':'),
     'BOT_SETUP' => $language->get('admin', 'discord_bot_setup')
 ));
