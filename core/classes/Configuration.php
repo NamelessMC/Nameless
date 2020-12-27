@@ -52,9 +52,9 @@ class Configuration {
      *
      * @param string $module  Module name
      * @param string $setting Setting name
-     * @param mixed $value New value
+     * @param mixed  $value   New value
      *
-     * @return bool Success
+     * @return void
      */
     public function set($module, $setting, $value) {
         if ($module == null || $setting == null || $value == null ) {
@@ -73,6 +73,5 @@ class Configuration {
 
         $this->_cache->setCache($module . 'configuration');
         $this->_cache->store($setting, $value);
-        return true;
     }
 }
