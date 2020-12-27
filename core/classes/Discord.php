@@ -10,11 +10,11 @@
  */
 class Discord {
 
-    const VALID_RESPONSES = array('success', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
+    private static $_valid_responses = array('success', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
 
     public static function discordBotRequest($url = '/status', $body = null) {
         $response = Util::curlGetContents(BOT_URL . $url, $body);
-        if (in_array($response, self::VALID_RESPONSES)) return $response;
+        if (in_array($response, self::$_valid_responses)) return $response;
         else return false;
     }
 
@@ -110,7 +110,7 @@ class Discord {
             // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
             $errors[] = $language->get('user', 'discord_communication_error');
         } else {
-            if (in_array($result, self::VALID_RESPONSES)) {
+            if (in_array($result, self::$_valid_responses)) {
                 $errors[] = $language->get('admin', 'discord_bot_error_' . $result);
             } else {
                 // This should never happen
