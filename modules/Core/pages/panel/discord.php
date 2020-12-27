@@ -19,9 +19,10 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (Input::exists()) {
     // Check token
+    $errors = array();
+
     if (Token::check()) {
         // Valid token
-
         // Either enable or disable Discord integration
         $enable_discord_id = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
         $enable_discord_id = $enable_discord_id[0]->id;
@@ -69,7 +70,7 @@ if (isset($errors) && count($errors))
 
 if (Session::exists('discord_error'))
     $smarty->assign(array(
-        'ERRORS' => Session::flash('discord_error'),
+        'ERRORS' => array(Session::flash('discord_error')),
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
 
