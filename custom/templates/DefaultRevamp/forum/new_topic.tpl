@@ -32,8 +32,8 @@
             <div class="inline fields labels">
               {foreach from=$LABELS item=label}
                 <div class="field">
-                  <div class="ui radio checkbox">
-                    <input type="radio" name="topic_label" id="{$label.id}" value="{$label.id}" hidden>
+                  <div class="ui checkbox">
+                    <input type="checkbox" name="topic_label[]" id="{$label.id}" value="{$label.id}"{if $label.checked} checked{/if} hidden>
                     <label for="{$label.id}">{$label.html}</label>
                   </div>
                 </div>

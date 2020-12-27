@@ -176,6 +176,8 @@ $language = array(
     'label_deleted_successfully' => '标签删除成功。',
     'label_type_deleted_successfully' => '标签种类删除成功。',
     'topic_placeholder' => '话题变量',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => '论坛搜索',

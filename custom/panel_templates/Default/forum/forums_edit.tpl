@@ -102,6 +102,15 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="InputDefaultLabels">{$DEFAULT_LABELS} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$DEFAULT_LABELS_INFO}"><i class="fa fa-question"></i></label>
+                                <select name="default_labels[]" id="InputDefaultLabels" class="form-control" multiple>
+                                    {foreach from=$AVAILABLE_DEFAULT_LABELS item=label}
+                                        <option value="{$label.id}" {if $label.is_enabled} selected {/if}>{$label.name}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
                                 <label for="InputPlaceholder">{$TOPIC_PLACEHOLDER}</label>
                                 <textarea id="InputPlaceholder" name="topic_placeholder">{$TOPIC_PLACEHOLDER_VALUE}</textarea>
                             </div>

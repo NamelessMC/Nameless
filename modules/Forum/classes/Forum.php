@@ -351,7 +351,7 @@ class Forum {
     // Params: $number (integer) - number to return (max 10)
     public function getLatestNews($number = 5) {
         $return = array(); // Array to return containing news
-        $labels = array(); // Array to contain labels
+        $labels_cache = array(); // Array to contain labels
 
         $news_items = $this->_db->query("SELECT * FROM nl2_topics WHERE forum_id IN (SELECT id FROM nl2_forums WHERE news = 1) AND deleted = 0 ORDER BY topic_date DESC LIMIT 10")->results();
 
@@ -365,26 +365,33 @@ class Forum {
                 $post_date = date('d M Y, H:i', $news_post[0]->created);
             }
 
-            $label = null;
+            $labels = array();
 
-            if ($item->label) {
+            if ($item->labels) {
                 // Get label
-                if (isset($labels[$item->label])) {
-                    $label = $labels[$item->label];
-                } else {
-                    $label = $this->_db->get('forums_topic_labels', array('id', '=', $item->label));
-                    if ($label->count()) {
-                        $label = $label->first();
+                $label_ids = explode(',', $item->labels);
 
-                        $label_html = $this->_db->get('forums_labels', array('id', '=', $label->label));
+                if (count($label_ids)) {
+                    foreach ($label_ids as $label_id) {
+                        if (isset($labels_cache[$label_id])) {
+                            $labels[] = $labels_cache[$label_id];
+                        } else {
+                            $label = $this->_db->get('forums_topic_labels', array('id', '=', $label_id));
+                            if ($label->count()) {
+                                $label = $label->first();
 
-                        if ($label_html->count()) {
-                            $label_html = $label_html->first()->html;
-                            $label = str_replace('{x}', Output::getClean($label->name), $label_html);
-                        } else $label = '';
-                    } else $label = '';
+                                $label_html = $this->_db->get('forums_labels', array('id', '=', $label->label));
 
-                    $labels[$item->label] = $label;
+                                if ($label_html->count()) {
+                                    $label_html = $label_html->first()->html;
+                                    $label = str_replace('{x}', Output::getClean($label->name), $label_html);
+                                } else $label = '';
+                            } else $label = '';
+
+                            $labels_cache[$label_id] = $label;
+                            $labels[] = $label;
+                        }
+                    }
                 }
             }
 
@@ -397,7 +404,8 @@ class Forum {
                 "author" => $item->topic_creator,
                 "content" => Util::truncate(Output::getDecoded($post)),
                 "replies" => $posts,
-                'label' => $label
+                'label' => $labels[0],
+                'labels' => $labels
             );
         }
 

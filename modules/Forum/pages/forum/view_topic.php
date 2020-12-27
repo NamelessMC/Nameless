@@ -207,7 +207,26 @@ if ($topic->label != 0) { // yes
     $label = '';
 }
 
-$smarty->assign('TOPIC_LABEL', $label);
+$labels = array();
+if ($topic->labels) {
+    // Get labels
+    $topic_labels = explode(',', $topic->labels);
+
+    foreach ($topic_labels as $topic_label) {
+        $label_query = $queries->getWhere('forums_topic_labels', array('id', '=', $topic_label));
+        if (count($label_query)) {
+            $label_query = $label_query[0];
+
+            $label_html = $queries->getWhere('forums_labels', array('id', '=', $label_query->label));
+            if (count($label_html)) {
+                $label_html = $label_html[0]->html;
+                $labels[] = str_replace('{x}', Output::getClean($label_query->name), $label_html);
+            }
+        }
+    }
+}
+
+$smarty->assign(array('TOPIC_LABEL' => $label, 'TOPIC_LABELS' => $labels));
 
 // Get all posts in the topic
 $posts = $forum->getPosts($tid);

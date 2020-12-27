@@ -41,7 +41,8 @@ if ($cache->isCached('news')) {
             'author_group' => Output::getClean($post_user->getMainGroup()->name),
             'author_group_html' => $post_user->getMainGroup()->group_html,
             'content' => Output::getPurified($item['content']),
-            'label' => $item['label']
+            'label' => $item['label'],
+            'labels' => $item['labels']
         );
     }
 

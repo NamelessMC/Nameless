@@ -173,6 +173,8 @@ $language = array(
     'label_deleted_successfully' => 'Метка успешно удалена.',
     'label_type_deleted_successfully' => 'Тип метки успешно удалён.',
     'topic_placeholder' => 'Topic placeholder',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Поиск по форуму',

@@ -175,6 +175,8 @@ $language = array(
     'label_deleted_successfully' => 'Etiqueta eliminada con éxito.',
     'label_type_deleted_successfully' => 'Tipo de etiqueta eliminado correctamente.',
     'topic_placeholder' => 'Marcador de Tema',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Busqueda en el Foro',

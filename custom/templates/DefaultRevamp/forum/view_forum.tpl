@@ -117,7 +117,11 @@
                   <h5 class="ui header">
                     <i class="comment icon"></i>
                     <div class="content">
-                      {$discussion.label} <a href="{$discussion.link}" data-toggle="popup">{$discussion.topic_title}</a>
+                      {if isset($discussion.labels) && count($discussion.labels)}
+                        {foreach from=$discussion.labels item=label}
+                          {$label}
+                        {/foreach}
+                      {/if} <a href="{$discussion.link}" data-toggle="popup">{$discussion.topic_title}</a>
                       <div class="ui wide popup">
                         <h4 class="ui header">{$discussion.topic_title}</h4>
                         {$VIEWS|capitalize}: <b>{$discussion.views}</b> &middot; {$POSTS|capitalize}: <b>{$discussion.posts}</b><br />
@@ -163,7 +167,11 @@
                   <h5 class="ui header">
                     <i class="comment icon"></i>
                     <div class="content">
-                      {$discussion.label} <a href="{$discussion.link}" data-toggle="popup">{$discussion.topic_title}</a>
+                      {if isset($discussion.labels) && count($discussion.labels)}
+                        {foreach from=$discussion.labels item=label}
+                          {$label}
+                        {/foreach}
+                      {/if} <a href="{$discussion.link}" data-toggle="popup">{$discussion.topic_title}</a>
                       <div class="ui wide popup">
                         <h4 class="ui header">{$discussion.topic_title}</h4>
                         {$VIEWS|capitalize}: <b>{$discussion.views}</b> &middot; {$POSTS|capitalize}: <b>{$discussion.posts}</b><br />

@@ -601,6 +601,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         if (isset($_POST['hooks']) && count($_POST['hooks'])) $hooks = json_encode($_POST['hooks']);
                         else $hooks = null;
 
+                        if (isset($_POST['default_labels']) && count($_POST['default_labels'])) $default_labels = implode(',', $_POST['default_labels']);
+                        else $default_labels = null;
+
                         // Update the forum
                         $to_update = array(
                             'forum_title' => Output::getClean(Input::get('title')),
@@ -611,7 +614,8 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             'icon' => Output::getClean(Input::get('icon')),
                             'forum_type' => Output::getClean(Input::get('forum_type')),
                             'topic_placeholder' => Input::get('topic_placeholder'),
-                            'hooks' => $hooks
+                            'hooks' => $hooks,
+                            'default_labels' => $default_labels
                         );
 
                         if (!isset($redirect_error))
@@ -796,6 +800,24 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
     $guest_query = DB::getInstance()->query('SELECT 0 AS id, `view`, view_other_topics FROM nl2_forums_permissions WHERE group_id = 0 AND forum_id = ?', array($forum[0]->id))->results();
     $group_query = DB::getInstance()->query('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_forums_permissions WHERE forum_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', array($forum[0]->id))->results();
 
+    // Get default labels
+    $enabled_labels = $forum[0]->default_labels ? explode(',', $forum[0]->default_labels) : array();
+    $forum_labels = $queries->getWhere('forums_topic_labels', array('id', '<>', 0));
+    $available_labels = array();
+    if (count($forum_labels)) {
+        foreach ($forum_labels as $label) {
+            $forum_ids = explode(',', $label->fids);
+
+            if (in_array($forum[0]->id, $forum_ids)) {
+                $available_labels[] = array(
+                    'id' => Output::getClean($label->id),
+                    'name' => Output::getClean($label->name),
+                    'is_enabled' => in_array($label->id, $enabled_labels)
+                );
+            }
+        }
+    }
+
     $smarty->assign(array(
         'CANCEL' => $language->get('general', 'cancel'),
         'CANCEL_LINK' => URL::build('/panel/forums'),
@@ -840,7 +862,10 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         'CAN_VIEW_OTHER_TOPICS' => $forum_language->get('forum', 'can_view_other_topics'),
         'CAN_MODERATE_FORUM' => $forum_language->get('forum', 'can_moderate_forum'),
         'TOPIC_PLACEHOLDER' => $forum_language->get('forum', 'topic_placeholder'),
-        'TOPIC_PLACEHOLDER_VALUE' => Output::getPurified($forum[0]->topic_placeholder)
+        'TOPIC_PLACEHOLDER_VALUE' => Output::getPurified($forum[0]->topic_placeholder),
+        'DEFAULT_LABELS' => $forum_language->get('forum', 'default_labels'),
+        'DEFAULT_LABELS_INFO' => $forum_language->get('forum', 'default_labels_info'),
+        'AVAILABLE_DEFAULT_LABELS' => $available_labels
     ));
 
     $template_file = 'forum/forums_edit.tpl';

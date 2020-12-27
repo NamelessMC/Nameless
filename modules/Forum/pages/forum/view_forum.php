@@ -287,6 +287,7 @@ if ($forum_query->redirect_forum == 1) {
         $no_topics_exist = true;
     } else {
         // Topics/sticky topics exist
+        $labels_cache = array();
 
         $sticky_array = array();
         // Assign sticky threads to smarty variable
@@ -298,18 +299,49 @@ if ($forum_query->redirect_forum == 1) {
             // Is there a label?
             if ($sticky->label != 0) { // yes
                 // Get label
-                $label = $queries->getWhere('forums_topic_labels', array('id', '=', $sticky->label));
-                if (count($label)) {
-                    $label = $label[0];
+                if ($labels_cache[$sticky->label]) {
+                    $label = $labels_cache[$sticky->label];
+                } else {
+                    $label = $queries->getWhere('forums_topic_labels', array('id', '=', $sticky->label));
+                    if (count($label)) {
+                        $label = $label[0];
 
-                    $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
-                    if (count($label_html)) {
-                        $label_html = $label_html[0]->html;
-                        $label = str_replace('{x}', Output::getClean($label->name), $label_html);
+                        $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+                        if (count($label_html)) {
+                            $label_html = $label_html[0]->html;
+                            $label = str_replace('{x}', Output::getClean($label->name), $label_html);
+                        } else $label = '';
                     } else $label = '';
-                } else $label = '';
+
+                    $labels_cache[$sticky->label] = $label;
+                }
             } else { // no
                 $label = '';
+            }
+
+            $labels = array();
+            if ($sticky->labels) {
+                $topic_labels = explode(',', $sticky->labels);
+
+                foreach ($topic_labels as $item) {
+                    // Get label
+                    if ($labels_cache[$item]) {
+                        $labels[] = $labels_cache[$item];
+                    } else {
+                        $label_query = $queries->getWhere('forums_topic_labels', array('id', '=', $item));
+                        if (count($label_query)) {
+                            $label_query = $label_query[0];
+
+                            $label_html = $queries->getWhere('forums_labels', array('id', '=', $label_query->label));
+                            if (count($label_html)) {
+                                $label_html = $label_html[0]->html;
+                                $label_html = str_replace('{x}', Output::getClean($label_query->name), $label_html);
+                                $labels[] = $label_html;
+                                $labels_cache[$item] = $label_html;
+                            }
+                        }
+                    }
+                }
             }
 
             $topic_user = new User($sticky->topic_creator);
@@ -336,6 +368,7 @@ if ($forum_query->redirect_forum == 1) {
                 'last_reply_style' => $last_reply_user->getGroupClass(),
                 'last_reply_user_id' => Output::getClean($sticky->topic_last_user),
                 'label' => $label,
+                'labels' => $labels,
                 'author_link' => $topic_user->getProfileURL(),
                 'link' => URL::build('/forum/topic/' . $sticky->id . '-' . $forum->titleToURL($sticky->topic_title)),
                 'last_reply_link' => $last_reply_user->getProfileURL()
@@ -366,18 +399,49 @@ if ($forum_query->redirect_forum == 1) {
             // Is there a label?
             if ($results->data[$n]->label != 0) { // yes
                 // Get label
-                $label = $queries->getWhere('forums_topic_labels', array('id', '=', $results->data[$n]->label));
-                if (count($label)) {
-                    $label = $label[0];
+                if ($labels_cache[$results->data[$n]->label]) {
+                    $label = $labels_cache[$results->data[$n]->label];
+                } else {
+                    $label = $queries->getWhere('forums_topic_labels', array('id', '=', $results->data[$n]->label));
+                    if (count($label)) {
+                        $label = $label[0];
 
-                    $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
-                    if (count($label_html)) {
-                        $label_html = $label_html[0]->html;
-                        $label = str_replace('{x}', Output::getClean($label->name), $label_html);
+                        $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+                        if (count($label_html)) {
+                            $label_html = $label_html[0]->html;
+                            $label = str_replace('{x}', Output::getClean($label->name), $label_html);
+                        } else $label = '';
                     } else $label = '';
-                } else $label = '';
+
+                    $labels_cache[$results->data[$n]->label] = $label;
+                }
             } else { // no
                 $label = '';
+            }
+
+            $labels = array();
+            if ($results->data[$n]->labels) {
+                if ($labels_cache[$results->data[$n]->labels]) {
+                    $labels[] = $labels_cache[$results->data[$n]->labels];
+                } else {
+                    $topic_labels = explode(',', $results->data[$n]->labels);
+
+                    foreach ($topic_labels as $item) {
+                        // Get label
+                        $label_query = $queries->getWhere('forums_topic_labels', array('id', '=', $item));
+                        if (count($label_query)) {
+                            $label_query = $label_query[0];
+
+                            $label_html = $queries->getWhere('forums_labels', array('id', '=', $label_query->label));
+                            if (count($label_html)) {
+                                $label_html = $label_html[0]->html;
+                                $label_html = str_replace('{x}', Output::getClean($label_query->name), $label_html);
+                                $labels[] = $label_html;
+                                $labels_cache[$item] = $label_html;
+                            }
+                        }
+                    }
+                }
             }
 
             $topic_user = new User($results->data[$n]->topic_creator);
@@ -396,13 +460,14 @@ if ($forum_query->redirect_forum == 1) {
                 'locked' => $results->data[$n]->locked,
                 'views' => $results->data[$n]->topic_views,
                 'posts' => $replies,
-                'last_reply_avatar' => $last_reply_user->getAvatar("../", 128),
+                'last_reply_avatar' => $last_reply_user->getAvatar(),
                 'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->topic_reply_date), $language->getTimeLanguage()),
                 'last_reply' => date('d M Y, H:i', $results->data[$n]->topic_reply_date),
                 'last_reply_username' => $last_reply_user->getDisplayname(),
                 'last_reply_mcname' => $last_reply_user->getDisplayname(true),
                 'last_reply_style' => $last_reply_user->getGroupClass(),
                 'label' => $label,
+                'labels' => $labels,
                 'author_link' => $topic_user->getProfileURL(),
                 'link' => URL::build('/forum/topic/' . $results->data[$n]->id . '-' . $forum->titleToURL($results->data[$n]->topic_title)),
                 'last_reply_link' => $last_reply_user->getProfileURL(),

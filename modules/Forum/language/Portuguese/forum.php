@@ -175,6 +175,8 @@ $language = array(
     'label_deleted_successfully' => 'Label deleted successfully.',
     'label_type_deleted_successfully' => 'Label type deleted successfully.',
     'topic_placeholder' => 'Topic placeholder',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Pesquisa no Fórum',

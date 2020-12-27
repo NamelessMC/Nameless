@@ -173,6 +173,8 @@ $language = array(
     'label_deleted_successfully' => 'Etichetta eliminata con successo.',
     'label_type_deleted_successfully' => 'Tipo di etichetta eliminata con successo.',
     'topic_placeholder' => 'Topic segnaposto',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Ricerca nel forum',

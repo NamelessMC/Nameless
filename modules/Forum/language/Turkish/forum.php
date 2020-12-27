@@ -172,6 +172,8 @@ $language = array(
     'label_deleted_successfully' => 'Etiket başarıyla silindi.',
     'label_type_deleted_successfully' => 'Etiket türü başarıyla silindi.',
     'topic_placeholder' => 'Konu yer tutucusu',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Ara',

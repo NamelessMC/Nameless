@@ -940,6 +940,20 @@ img.emojione {
 	padding-right: 20px;
 }
 
+.ui.checkbox .box:before, .ui.checkbox label:before {
+	margin-top: 4px;
+}
+
+.ui.checkbox input:checked~.box:after, .ui.checkbox input:checked~label:after {
+	margin-top: 4px;
+}
+
+.ui.header .topic.title .label,
+.ui.header .topic.title .badge {
+	margin-top: -4px;
+	vertical-align: middle;
+}
+
 /*
  *  [ DARK MODE ]
  */
@@ -1111,6 +1125,12 @@ body.dark .ui.left.center.popup:before {
 	background: #222;
 	-webkit-box-shadow: 1px -1px 0 0 #444;
 	box-shadow: 1px -1px 0 0 #444;
+}
+
+body.dark .ui.bottom.left.popup:before {
+	background: #222;
+	-webkit-box-shadow: 1px 1px 0 0 #222;
+	box-shadow: 1px 1px 0 0 #222;
 }
 
 body.dark .ui.form textarea {

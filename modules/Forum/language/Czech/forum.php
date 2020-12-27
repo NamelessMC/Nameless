@@ -173,6 +173,8 @@ $language = array(
     'label_deleted_successfully' => 'Štítek byl úspěšně smazán.',
     'label_type_deleted_successfully' => 'Typ štítku byl úspěšně smazán.',
     'topic_placeholder' => 'Placeholder tématu',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Hledat ve fóru',

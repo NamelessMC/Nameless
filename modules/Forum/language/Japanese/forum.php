@@ -178,6 +178,8 @@ $language = array(
     'label_deleted_successfully' => 'ラベルが削除されました。',
     'label_type_deleted_successfully' => 'ラベルタイプが削除されました。',
     'topic_placeholder' => 'トピックのプレースホルダ',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'フォーラムの検索',

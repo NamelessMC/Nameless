@@ -50,7 +50,48 @@ if (!$can_reply) {
     die();
 }
 
-$forum_title = $forum->getForumTitle($fid);
+$current_forum = DB::getInstance()->query('SELECT * FROM nl2_forums WHERE id = ?', array($fid))->first();
+$forum_title = Output::getClean(Output::getDecoded($current_forum->forum_title));
+
+// Topic labels
+$smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
+$labels = array();
+
+$default_labels = $current_forum->default_labels ? explode(',', $current_forum->default_labels) : array();
+
+$forum_labels = $queries->getWhere('forums_topic_labels', array('id', '<>', 0));
+if (count($forum_labels)) {
+    foreach ($forum_labels as $label) {
+        $forum_ids = explode(',', $label->fids);
+
+        if (in_array($fid, $forum_ids)) {
+            // Check permissions
+            $lgroups = explode(',', $label->gids);
+
+            $hasperm = false;
+            foreach ($user_groups as $group_id) {
+                if (in_array($group_id, $lgroups)) {
+                    $hasperm = true;
+                    break;
+                }
+            }
+
+            if (!$hasperm)
+                continue;
+
+            // Get label HTML
+            $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+            if (!count($label_html)) continue;
+            else $label_html = str_replace('{x}', Output::getClean($label->name), $label_html[0]->html);
+
+            $labels[] = array(
+                'id' => $label->id,
+                'html' => $label_html,
+                'checked' => in_array($label->id, $default_labels)
+            );
+        }
+    }
+}
 
 // Deal with any inputted data
 if (Input::exists()) {
@@ -80,27 +121,28 @@ if (Input::exists()) {
             ));
             if ($validation->passed()) {
                 try {
-                    if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_numeric($_POST['topic_label'])) {
-                        $topic_label = $queries->getWhere('forums_topic_labels', array('id', '=', $_POST['topic_label']));
-                        if (count($topic_label)) {
-                            $lgroups = explode(',', $topic_label[0]->gids);
+                    $post_labels = array();
 
-                            $hasperm = false;
-                            foreach ($user_groups as $group_id) {
-                                if (in_array($group_id, $lgroups)) {
-                                    $hasperm = true;
-                                    break;
+                    if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label']) && count($_POST['topic_label'])) {
+                        foreach ($_POST['topic_label'] as $topic_label) {
+                            $label = $queries->getWhere('forums_topic_labels', array('id', '=', $topic_label));
+                            if (count($label)) {
+                                $lgroups = explode(',', $label[0]->gids);
+
+                                $hasperm = false;
+                                foreach ($user_groups as $group_id) {
+                                    if (in_array($group_id, $lgroups)) {
+                                        $hasperm = true;
+                                        break;
+                                    }
                                 }
-                            }
 
-                            if ($hasperm)
-                                $label = Input::get('topic_label');
-                            else
-                                $label = null;
-                        } else
-                            $label = null;
-                    } else
-                        $label = null;
+                                if ($hasperm) $post_labels[] = $label[0]->id;
+                            }
+                        }
+                    } else if (count($default_labels)) {
+                        $post_labels = $default_labels;
+                    }
 
                     $queries->create("topics", array(
                         'forum_id' => $fid,
@@ -109,7 +151,7 @@ if (Input::exists()) {
                         'topic_last_user' => $user->data()->id,
                         'topic_date' => date('U'),
                         'topic_reply_date' => date('U'),
-                        'label' => $label
+                        'labels' => implode(',', $post_labels)
                     ));
                     $topic_id = $queries->getLastId();
 
@@ -228,51 +270,8 @@ if (isset($error)) {
     $smarty->assign('ERROR', $error);
 }
 
-$creating_topic_in = str_replace('{x}', Output::getPurified(htmlspecialchars_decode($forum_title)), $forum_language->get('forum', 'creating_topic_in_x'));
+$creating_topic_in = str_replace('{x}', $forum_title, $forum_language->get('forum', 'creating_topic_in_x'));
 $smarty->assign('CREATING_TOPIC_IN', $creating_topic_in);
-
-// Topic labels
-$smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
-$labels = array();
-
-$forum_labels = $queries->getWhere('forums_topic_labels', array('id', '<>', 0));
-if (count($forum_labels)) {
-    $labels[] = array(
-        'id' => 0,
-        'html' => $forum_language->get('forum', 'no_label')
-    );
-
-    foreach ($forum_labels as $label) {
-        $forum_ids = explode(',', $label->fids);
-
-        if (in_array($fid, $forum_ids)) {
-            // Check permissions
-            $lgroups = explode(',', $label->gids);
-
-            $hasperm = false;
-            foreach ($user_groups as $group_id) {
-                if (in_array($group_id, $lgroups)) {
-                    $hasperm = true;
-                    break;
-                }
-            }
-
-            if (!$hasperm)
-                continue;
-
-
-            // Get label HTML
-            $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
-            if (!count($label_html)) continue;
-            else $label_html = str_replace('{x}', Output::getClean($label->name), $label_html[0]->html);
-
-            $labels[] = array(
-                'id' => $label->id,
-                'html' => $label_html
-            );
-        }
-    }
-}
 
 // Get info about forum
 $forum_query = $queries->getWhere('forums', array('id', '=', $fid));

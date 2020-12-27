@@ -68,7 +68,7 @@ if ($post_editing[0]->id == $post_id) {
 	 */
 
     $post_title = $queries->getWhere("topics", array("id", "=", $topic_id));
-    $post_label = $post_title[0]->label;
+    $post_labels = $post_title[0]->labels ? explode(',', $post_title[0]->labels) : array();
     $post_title = Output::getClean($post_title[0]->topic_title);
 }
 
@@ -145,31 +145,34 @@ if (Input::exists()) {
                 Log::getInstance()->log(Log::Action('forums/post/edit'), $post_id);
 
                 if (isset($edit_title)) {
-                    // Update title and label
-                    // Check a label has been set..
-                    if (!isset($_POST['topic_label']) || !is_numeric($_POST['topic_label'])) $topic_label = null;
-                    else {
-                        $topic_label = $queries->getWhere('forums_topic_labels', array('id', '=', $_POST['topic_label']));
-                        if (count($topic_label)) {
-                            $lgroups = explode(',', $topic_label[0]->gids);
+                    // Update title and labels
+                    $post_labels = array();
 
-                            $topic_label = null;
-                            foreach ($user_groups as $group) {
-                                if (in_array($group, $lgroups)) {
-                                    $topic_label = $_POST['topic_label'];
-                                    break;
+                    if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label']) && count($_POST['topic_label'])) {
+                        foreach ($_POST['topic_label'] as $topic_label) {
+                            $label = $queries->getWhere('forums_topic_labels', array('id', '=', $topic_label));
+                            if (count($label)) {
+                                $lgroups = explode(',', $label[0]->gids);
+
+                                $hasperm = false;
+                                foreach ($user_groups as $group_id) {
+                                    if (in_array($group_id, $lgroups)) {
+                                        $hasperm = true;
+                                        break;
+                                    }
                                 }
+
+                                if ($hasperm) $post_labels[] = $label[0]->id;
                             }
-                        } else
-                            $topic_label = null;
+                        }
                     }
 
                     $queries->update('topics', $topic_id, array(
-                        'topic_title' => htmlspecialchars_decode(Input::get('title')),
-                        'label' => $topic_label
+                        'topic_title' => Output::getDecoded(Input::get('title')),
+                        'labels' => implode(',', $post_labels)
                     ));
 
-                    Log::getInstance()->log(Log::Action('forums/topic/edit'), htmlspecialchars_decode(Input::get('title')));
+                    Log::getInstance()->log(Log::Action('forums/topic/edit'), Output::getDecoded(Input::get('title')));
                 }
 
                 // Display success message and redirect
@@ -228,7 +231,7 @@ if (isset($errors))
 
 $smarty->assign('EDITING_POST', $forum_language->get('forum', 'edit_post'));
 
-if (isset($edit_title)) {
+if (isset($edit_title) && isset($post_labels)) {
     $smarty->assign('EDITING_TOPIC', true);
 
     $smarty->assign('TOPIC_TITLE', $post_title);
@@ -239,12 +242,6 @@ if (isset($edit_title)) {
 
     $forum_labels = $queries->getWhere('forums_topic_labels', array('id', '<>', 0));
     if (count($forum_labels)) {
-        $labels[] = array(
-            'id' => 0,
-            'active' => (($post_label == 0 || is_null($post_label)) ? true : false),
-            'html' => $forum_language->get('forum', 'no_label')
-        );
-
         foreach ($forum_labels as $label) {
             $forum_ids = explode(',', $label->fids);
 
@@ -267,7 +264,7 @@ if (isset($edit_title)) {
 
                 $labels[] = array(
                     'id' => $label->id,
-                    'active' => (($post_label == $label->id) ? true : false),
+                    'active' => in_array($label->id, $post_labels),
                     'html' => $label_html
                 );
             }

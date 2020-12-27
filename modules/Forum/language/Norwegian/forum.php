@@ -173,6 +173,8 @@ $language = array(
     'label_deleted_successfully' => 'Etiketten har blitt slettet.',
     'label_type_deleted_successfully' => 'Etikettypen har blitt slettet.',
     'topic_placeholder' => 'Plassholder for tråd',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Søk i forumet',

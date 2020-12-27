@@ -176,6 +176,8 @@ $language = array(
     'label_type_deleted_successfully' => 'Tipul de etichetă a fost șters cu succes.',
     'topic_placeholder' => 'Placeholdere subiect',
     // mai e de lucru la asta cu "topic_placeholder"
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Căutare în forum',
