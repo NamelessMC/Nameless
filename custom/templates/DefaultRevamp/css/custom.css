@@ -1096,7 +1096,8 @@ body.dark .ui.pointing.dropdown>.menu>.item {
 }
 
 body.dark .ui.menu .ui.dropdown .menu>.item:hover,
-body.dark .ui.menu .ui.dropdown .menu>.item.active {
+body.dark .ui.menu .ui.dropdown .menu>.item.active,
+body.dark .ui.list>.item a.header {
 	color: #fff !important;
 }
 

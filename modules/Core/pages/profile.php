@@ -599,7 +599,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     $reaction_name = Output::getClean($reaction_name[0]->name);
                     */
 
-                    $target_user = new User($reply->author_id);
+                    $target_user = new User($reaction->user_id);
                     $reactions['reactions'][] = array(
                         'user_id' => Output::getClean($reaction->user_id),
                         'username' => $target_user->getDisplayname(true),

@@ -59,12 +59,14 @@ class ProfilePostsWidget extends WidgetBase {
                     if ($post_author->isPrivateProfile() && !$this->_user->hasPermission('profile.private.bypass')) continue;
                 } else if ($post_author->isPrivateProfile()) continue;
 
+                $link =  rtrim($post_author->getProfileURL(), '/');
+
                 $posts_array[] = array(
-                    'avatar' => $post_author->getAvatar("../", 64),
+                    'avatar' => $post_author->getAvatar(),
                     'username' => $post_author->getDisplayname(),
                     'username_style' => $post_author->getGroupClass(),
-                    'content' => Util::truncate($post->content, 20),
-                    'link' => $this->_user->getProfileURL() . '/#post-' . $post->id,
+                    'content' => Util::truncate(strip_tags(Output::getDecoded($post->content)), 20),
+                    'link' => $link . '/#post-' . $post->id,
                     'date_ago' => date('d M Y, H:i', $post->time),
                     'user_id' => $post->author_id,
                     'user_profile_link' => $post_author->getProfileURL(),
