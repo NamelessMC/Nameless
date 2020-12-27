@@ -21,11 +21,12 @@ class ServerInfoEndpoint extends EndpointBase {
 
         $info = json_decode($_POST, true);
 
+        $serverId = $info['server-id'];
         // Ensure server exists
-        $server_query = $api->getDb()->get('mc_servers', array('id', '=', $info['server-id']));
+        $server_query = $api->getDb()->get('mc_servers', array('id', '=', $serverId));
 
         if (!$server_query->count()) {
-            $api->throwError(27, $api->getLanguage()->get('api', 'invalid_server_id'));
+            $api->throwError(27, $api->getLanguage()->get('api', 'invalid_server_id') . ' - ' . $serverId);
         }
 
         try {
