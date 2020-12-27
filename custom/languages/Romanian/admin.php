@@ -449,6 +449,11 @@ $language = array(
     'editing_user_x' => 'Editare utilizator: {x}', // Don't replace {x}
     'details' => 'Detalii',
     'force_tfa' => 'Force Two Factor Authentication for group members?',
+    'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
+    'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => 'Selectează tot',

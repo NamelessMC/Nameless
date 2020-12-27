@@ -449,7 +449,9 @@ $language = array(
     'force_tfa' => 'Vynutit dvoufaktorové ověřování pro členy skupiny?',
     'force_tfa_warning' => 'Ujistěte se, že víte, co děláte, jinak riskujete uzamčení sebe a všech členů vaší skupiny.',
     'force_tfa_alert' => 'Vaše skupina musí mít zapnuté dvoufaktorové ověřování.',
-
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => 'Vybrat vše',

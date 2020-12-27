@@ -37,6 +37,7 @@ if ($minecraft == '1') {
 }
 
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
 
 // Check if registration is enabled
 $registration_enabled = $queries->getWhere('settings', array('name', '=', 'registration_enabled'));
@@ -396,7 +397,8 @@ if (Input::exists()) {
                                         if ($field->required == false) {
                                             continue;
                                         }
-                                        if (!empty(Input::get($field->name))) {
+                                        $value = Input::get($field->name);
+                                        if (!empty($value)) {
                                             // Insert custom field
                                             $queries->create(
                                                 'users_profile_fields',
@@ -413,69 +415,9 @@ if (Input::exists()) {
                                 Log::getInstance()->log(Log::Action('user/register'), "", $user_id);
 
                                 if ($api_verification != '1' && $email_verification == '1') {
-                                    $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
-                                    $php_mailer = $php_mailer[0]->value;
+                                    // Send registration email
+                                    sendRegisterEmail($queries, $language, Output::getClean(Input::get('email')), $username, $user_id, $code);
 
-                                    $link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . rtrim(Util::getSelfURL(), '/') . URL::build('/validate/', 'c=' . $code);
-
-                                    if ($php_mailer == '1') {
-
-                                        // PHP Mailer
-                                        $email = array(
-                                            'to' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('username'))),
-                                            'subject' => SITE_NAME . ' - ' . $language->get('emails', 'register_subject'),
-                                            'message' => str_replace('[Link]', $link, Email::formatEmail('register', $language))
-                                        );
-
-                                        $sent = Email::send($email, 'mailer');
-
-                                        if (isset($sent['error'])) {
-                                            // Error, log it
-                                            $queries->create(
-                                                'email_errors',
-                                                array(
-                                                    'type' => 1, // 1 = registration
-                                                    'content' => $sent['error'],
-                                                    'at' => date('U'),
-                                                    'user_id' => $user_id
-                                                )
-                                            );
-                                        }
-
-                                    } else {
-                                        // PHP mail function
-                                        $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
-                                        $siteemail = $siteemail[0]->value;
-
-                                        $headers = 'From: ' . $siteemail . "\r\n" .
-                                            'Reply-To: ' . $siteemail . "\r\n" .
-                                            'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                                            'MIME-Version: 1.0' . "\r\n" .
-                                            'Content-type: text/html; charset=UTF-8' . "\r\n";
-
-                                        $email = array(
-                                            'to' => Input::get('email'),
-                                            'subject' => SITE_NAME . ' - ' . $language->get('emails', 'register_subject'),
-                                            'message' => str_replace('[Link]', $link, Email::formatEmail('register', $language)),
-                                            'headers' => $headers
-                                        );
-
-                                        $sent = Email::send($email, 'php');
-
-                                        if (isset($sent['error'])) {
-                                            // Error, log it
-                                            $queries->create(
-                                                'email_errors',
-                                                array(
-                                                    'type' => 1, // 1 = registration
-                                                    'content' => $sent['error'],
-                                                    'at' => date('U'),
-                                                    'user_id' => $user_id
-                                                )
-                                            );
-                                        }
-
-                                    }
                                 } else if ($api_verification != '1') {
                                     // Email verification disabled
                                     HookHandler::executeEvent('registerUser', array(

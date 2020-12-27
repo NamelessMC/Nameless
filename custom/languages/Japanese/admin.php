@@ -454,6 +454,9 @@ $language = array(
     'force_tfa' => 'グループメンバーに二要素認証を強制しますか？',
     'force_tfa_warning' => 'これが何をするのかを確認してください。そうでなければ、あなた自身とグループメンバー全員を締め出す危険があります。',
     'force_tfa_alert' => 'あなたのグループでは、二要素認証を有効にする必要があります。',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => 'すべて選択',

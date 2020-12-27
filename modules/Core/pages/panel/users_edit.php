@@ -93,6 +93,13 @@ if (isset($_GET['action'])) {
                 Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
             }
         }
+    } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
+        require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
+        if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
+            Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
+        } else {
+            Session::flash('edit_user_errors', $language->get('admin', 'email_resend_failed'));
+        }
     }
 
     Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
@@ -331,7 +338,9 @@ if (isset($warnings) && count($warnings)) {
 if ($user_query->active == 0) {
     $smarty->assign(array(
         'VALIDATE_USER' => $language->get('admin', 'validate_user'),
-        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=validate')
+        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=validate'),
+        'RESEND_ACTIVATION_EMAIL' => $language->get('admin', 'resend_activation_email'),
+        'RESEND_ACTIVATION_EMAIL_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=resend_email')
     ));
 }
 

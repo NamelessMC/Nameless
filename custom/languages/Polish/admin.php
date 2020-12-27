@@ -448,6 +448,9 @@ $language = array(
     'force_tfa' => 'Wymusić weryfikację dwuetapową?',
     'force_tfa_warning' => 'Pamiętaj żeby nie zablokować siebie lub innych grup.',
     'force_tfa_alert' => 'Twoja grupa ma wymaganą weryfikację dwuetapową.',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => 'Zaznacz wszystko',

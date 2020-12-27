@@ -450,6 +450,9 @@ $language = array(
     'force_tfa' => '是否强制为该组成员开启二步验证？',
     'force_tfa_warning' => '如果你不明白你在做什么，你可能会导致你自己和该组成员无法使用账户',
     'force_tfa_alert' => '你所在的组必须要开启二步验证',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => '全选',

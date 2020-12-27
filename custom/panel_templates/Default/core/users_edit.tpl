@@ -36,6 +36,7 @@
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{$ACTIONS}</button>
                                 <div class="dropdown-menu">
                                     {if isset($DELETE_USER)}<a class="dropdown-item" href="#" onclick="showDeleteModal()">{$DELETE_USER}</a>{/if}
+                                    {if isset($RESEND_ACTIVATION_EMAIL)}<a class="dropdown-item" href="{$RESEND_ACTIVATION_EMAIL_LINK}">{$RESEND_ACTIVATION_EMAIL}</a>{/if}
                                     {if isset($UPDATE_MINECRAFT_USERNAME)}<a class="dropdown-item" href="{$UPDATE_MINECRAFT_USERNAME_LINK}">{$UPDATE_MINECRAFT_USERNAME}</a>{/if}
                                     {if isset($UPDATE_UUID)}<a class="dropdown-item" href="{$UPDATE_UUID_LINK}">{$UPDATE_UUID}</a>{/if}
                                     {if isset($VALIDATE_USER)}<a class="dropdown-item" href="{$VALIDATE_USER_LINK}">{$VALIDATE_USER}</a>{/if}

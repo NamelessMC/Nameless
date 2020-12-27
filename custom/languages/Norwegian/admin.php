@@ -449,6 +449,9 @@ $language = array(
     'force_tfa' => 'Tving alle gruppemedlemmer til å bruke totrinnsbekreftelse?',
     'force_tfa_warning' => 'Vennligst pass på at du vet hva dette gjør, for ellers risikerer du å stenge deg selv og alle gruppemedlemmer ute.',
     'force_tfa_alert' => 'Din gruppe krever at du har totrinnsbekreftelse aktivert.',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => 'Velg alle',

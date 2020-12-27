@@ -449,7 +449,9 @@ $language = array(
     'force_tfa' => "Forzare l'autenticazione a due fattori per i membri del gruppo?",
     'force_tfa_warning' => 'Assicurati di sapere cosa stai facendo, oppure rischi di chiudere fuori te stesso e tutti i membri del gruppo.',
     'force_tfa_alert' => "Il tuo gruppo richiede che l'autenticazione a due fattori sia abilitata.",
-
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => 'Seleziona tutto',
