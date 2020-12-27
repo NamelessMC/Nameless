@@ -14,7 +14,10 @@ class ServerInfoEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        $api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory', 'tps', 'players', 'groups']);
+        $api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory', 'tps', 'groups']);
+        if (!isset($_POST['players'])) {
+            $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'), 'players');
+        }
 
         $info = json_decode($_POST, true);
 
