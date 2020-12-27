@@ -118,11 +118,11 @@ class Nameless2API {
         return $user;
     }
 
-    public function throwError($code = null, $message = null) {
+    public function throwError($code = null, $message = null, $meta = null) {
         if ($code && $message) {
-            die(json_encode(array('error' => true, 'code' => $code, 'message' => $message), JSON_PRETTY_PRINT));
+            die(json_encode(array('error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta), JSON_PRETTY_PRINT));
         } else {
-            die(json_encode(array('error' => true, 'code' => 0, 'message' => $this->_language->get('api', 'unknown_error')), JSON_PRETTY_PRINT));
+            die(json_encode(array('error' => true, 'code' => 0, 'message' => $this->_language->get('api', 'unknown_error'), 'meta' => $meta), JSON_PRETTY_PRINT));
         }
     }
 
@@ -139,7 +139,7 @@ class Nameless2API {
         }
         foreach ($required_fields as $required) {
             if (!isset($input[$required]) || empty($input[$required])) {
-                $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'));
+                $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'), array('field' => $required));
             }
         }
         return true;
