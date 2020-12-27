@@ -383,6 +383,8 @@ $language = array(
     'background_updated_successfully' => 'Tło zostało zmienione pomyślnie.',
     'unable_to_enable_template' => 'Nie możesz włączyć niekompatybilnego szablonu.',
     'background_image_info' => 'Ta opcja może być niekompatybilna z większością szablonów.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'Użytkownicy',

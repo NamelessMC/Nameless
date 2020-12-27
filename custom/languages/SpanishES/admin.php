@@ -383,6 +383,8 @@ $language = array(
     'background_updated_successfully' => 'Fondo actualizado correctamente.',
     'unable_to_enable_template' => 'Imposible activar plantillas incompatibles.',
     'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Usuario y grupos
     'users' => 'Usuarios',

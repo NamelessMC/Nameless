@@ -359,6 +359,9 @@ $language = array(
     'background_reset_successfully' => 'Réinitialiser l’arrière-plan.',
     'background_updated_successfully' => 'Contexte mis à jour avec succès.',
     'unable_to_enable_template' => 'Impossible d’activer un modèle incompatible.',
+    'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'Utilisateurs',

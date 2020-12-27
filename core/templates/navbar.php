@@ -127,8 +127,8 @@ if ($user->isLoggedIn()) {
                 'link' => URL::build('/user'),
                 'target' => '',
             ),
-            'seperator_1' => array(
-                'seperator' => true
+            'separator_1' => array(
+                'separator' => true
             ),
             'logout' => array(
                 'title' => $language->get('general', 'log_out'),

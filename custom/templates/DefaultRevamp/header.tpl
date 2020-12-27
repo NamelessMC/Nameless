@@ -39,4 +39,4 @@
   
   </head>
 
-  <body id="page-{if is_numeric($smarty.const.PAGE)}{$TITLE}{else}{$smarty.const.PAGE}{/if}">
+  <body{if $DEFAULT_REVAMP_DARK_MODE} class="dark"{/if} id="page-{if is_numeric($smarty.const.PAGE)}{$TITLE}{else}{$smarty.const.PAGE}{/if}">

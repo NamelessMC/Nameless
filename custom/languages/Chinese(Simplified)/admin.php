@@ -385,6 +385,8 @@ $language = array(
     'background_updated_successfully' => '背景更新成功。',
     'unable_to_enable_template' => '无法启用不兼容的模板。',
     'background_image_info' => '注意：此选项与大部分模版都不兼容。',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => '账号',

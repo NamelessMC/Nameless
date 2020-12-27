@@ -384,6 +384,8 @@ $language = array(
     'background_updated_successfully' => 'Bakgrunnen har blitt oppdatert.',
     'unable_to_enable_template' => 'Kunne ikke aktivere malen.',
     'background_image_info' => 'Vennligst vær oppmerksom på at dette alternativet muligens ikke er kompatibel med de fleste maler.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'Brukere',

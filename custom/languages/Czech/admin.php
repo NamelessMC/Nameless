@@ -384,6 +384,8 @@ $language = array(
     'background_updated_successfully' => 'Pozadí bylo úspěšně aktualizováno.',
     'unable_to_enable_template' => 'Nelze povolit nekompatibilní šablonu.',
     'background_image_info' => 'Tato možnost nemusí být kompatibilní s většinou šablon.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'Uživatel',

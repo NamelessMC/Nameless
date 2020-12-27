@@ -386,6 +386,8 @@ $language = array(
     'background_updated_successfully' => 'Imaginea de fundal a fost actualizată cu succes.',
     'unable_to_enable_template' => 'Șabloanele incompatibile nu pot fi activate.',
     'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'Utilizatori',

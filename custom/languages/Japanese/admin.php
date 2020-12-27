@@ -389,6 +389,8 @@ $language = array(
     'background_updated_successfully' => '背景が正常に更新されました。',
     'unable_to_enable_template' => '互換性のないテンプレートを有効にすることはできません。',
     'background_image_info' => 'このオプションはほとんどのテンプレートと互換性がない可能性があるので、注意してください。',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'ユーザー',

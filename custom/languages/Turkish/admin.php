@@ -384,6 +384,8 @@ $language = array(
     'background_updated_successfully' => 'Arka plan başarıyla güncellendi!',
     'unable_to_enable_template' => 'Uyumsuz şablon etkinleştirilemedi.',
     'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'Kullanıcılar',

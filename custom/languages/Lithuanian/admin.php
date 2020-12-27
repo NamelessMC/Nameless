@@ -382,6 +382,8 @@ $language = array(
     'background_updated_successfully' => 'Fonas sėkmingai atnaujintas.',
     'unable_to_enable_template' => 'Neįmanoma įjungti nesuderinamojo šablono.',
     'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'Vartotojai',

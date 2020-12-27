@@ -386,6 +386,8 @@ $language = array(
     'background_updated_successfully' => 'Achtergrond met succes bijgewerkt.',
     'unable_to_enable_template' => 'Niet in staat om incompatibele sjablonen in te schakelen.',
     'background_image_info' => 'Houd er rekening mee dat deze optie mogelijk niet compatibel is met de meeste sjablonen.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Gebruikers & groepen
     'users' => 'Gebruikers',

@@ -25,6 +25,8 @@ class DefaultRevamp_Template extends TemplateBase {
 		
 		parent::__construct($template['name'], $template['version'], $template['nl_version'], $template['author']);
 
+		$this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
+
 		$this->addCSSFiles(array(
 			$template['path'] . 'css/semantic.min.css' => array(),
 			$template['path'] . 'css/toastr.min.css' => array(),
@@ -42,6 +44,32 @@ class DefaultRevamp_Template extends TemplateBase {
 
 		// Other variables
 		$smarty->assign('FORUM_SPAM_WARNING_TITLE', $language->get('general', 'warning'));
+
+		$cache->setCache('template_settings');
+		$smartyDarkMode = false;
+		$smartyNavbarColour = '';
+
+        if ($cache->isCached('darkMode')) {
+            $darkMode = $cache->retrieve('darkMode');
+
+            if ($darkMode == '1') {
+                $smartyDarkMode = true;
+                define('TEMPLATE_TINY_EDITOR_STYLE', 'default-revamp');
+            }
+        }
+
+        if ($cache->isCached('navbarColour')) {
+            $navbarColour = $cache->retrieve('navbarColour');
+
+            if ($navbarColour != 'white') {
+                $smartyNavbarColour = $navbarColour . ' inverted';
+            }
+        }
+
+        $smarty->assign(array(
+            'DEFAULT_REVAMP_DARK_MODE' => $smartyDarkMode,
+            'DEFAULT_REVAMP_NAVBAR_EXTRA_CLASSES' => $smartyNavbarColour
+        ));
 		
 		$this->_template = $template;
 		$this->_language = $language;

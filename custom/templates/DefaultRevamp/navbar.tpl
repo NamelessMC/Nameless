@@ -20,8 +20,7 @@
 
 <div class="pusher">
   <div id="wrapper">
-  
-    <div class="ui secondary small menu" id="navbar">
+    <div class="ui secondary {$DEFAULT_REVAMP_NAVBAR_EXTRA_CLASSES} small menu" id="navbar">
       <div class="ui container">
         {foreach from=$NAV_LINKS key=name item=item}
           {if isset($item.items)}

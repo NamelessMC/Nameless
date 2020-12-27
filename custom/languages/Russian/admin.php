@@ -361,6 +361,9 @@ $language = array(
     'background_reset_successfully' => 'Фон успешно сброшен.',
     'background_updated_successfully' => 'Фон успешно обновлён.',
     'unable_to_enable_template' => 'Невозможно включить несовместимый шаблон.',
+    'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'Пользователи',
