@@ -69,17 +69,17 @@ class InfoEndpoint extends EndpointBase {
                         $update_check = json_decode($update_check);
 
                         if (isset($update_check->urgent) && $update_check->urgent == 'true') {
-                            $version_urgent = 'urgent';
+                            $update_needed = 'urgent';
                         } else {
-                            $version_urgent = 'true';
+                            $update_needed = 'true';
                         }
 
                         // Update database values to say we need a version update
-                        $api->getDb()->createQuery('UPDATE nl2_settings SET `value`=\'' . $version_urgent . '\' WHERE `name` = \'version_update\'', array());
+                        $api->getDb()->createQuery('UPDATE nl2_settings SET `value`=\'' . $update_needed . '\' WHERE `name` = \'version_update\'', array());
                         $api->getDb()->createQuery('UPDATE nl2_settings SET `value`= ' . date('U') . ' WHERE `name` = \'version_checked\'', array());
                         $api->getDb()->createQuery('UPDATE nl2_settings SET `value`= ? WHERE `name` = \'new_version\'', array($update_check->new_version));
 
-                        $ret['version_update'] = array('update' => true, 'version' => $update_check->new_version, 'urgent' => ($version_urgent == 'urgent'));
+                        $ret['version_update'] = array('update' => true, 'version' => $update_check->new_version, 'urgent' => ($update_needed == 'urgent'));
                     }
                 }
             } else {
