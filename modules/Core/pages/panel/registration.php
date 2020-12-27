@@ -69,10 +69,17 @@ if (Input::exists()) {
 
             // reCAPTCHA type
             $recaptcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
-            $recaptcha_type = $recaptcha_type[0]->id;
-            $queries->update('settings', $recaptcha_type, array(
-                'value' => Input::get('captcha_type')
-            ));
+            if (!count($recaptcha_type)) {
+                $queries->create('settings', array(
+                    'name' => 'recaptcha_type',
+                    'value' => Input::get('captcha_type')
+                ));
+            } else {
+                $recaptcha_type = $recaptcha_type[0]->id;
+                $queries->update('settings', $recaptcha_type, array(
+                    'value' => Input::get('captcha_type')
+                ));
+            }
 
             // reCAPTCHA key
             $recaptcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
@@ -184,7 +191,7 @@ $smarty->assign(array(
     'GOOGLE_RECAPTCHA_LOGIN' => $language->get('admin', 'google_recaptcha_login'),
     'GOOGLE_RECAPTCHA_LOGIN_VALUE' => $recaptcha_login[0]->value,
     'CAPTCHA_TYPE' => $language->get('admin', 'captcha_type'),
-    'CAPTCHA_TYPE_VALUE' => $recaptcha_type[0]->value,
+    'CAPTCHA_TYPE_VALUE' => count($recaptcha_type) ? $recaptcha_type[0]->value : 'reCaptcha',
     'RECAPTCHA_SITE_KEY' => $language->get('admin', 'recaptcha_site_key'),
     'RECAPTCHA_SITE_KEY_VALUE' => Output::getClean($recaptcha_key[0]->value),
     'RECAPTCHA_SECRET_KEY' => $language->get('admin', 'recaptcha_secret_key'),
