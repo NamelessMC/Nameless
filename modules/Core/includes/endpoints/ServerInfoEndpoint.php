@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @param array $info Minecraft server info
- *
- * @return string JSON Array
- */
 class ServerInfoEndpoint extends EndpointBase {
 
     public function __construct() {
@@ -19,9 +14,7 @@ class ServerInfoEndpoint extends EndpointBase {
             $this->throwError(6, $this->_language->get('api', 'invalid_post_contents'), 'players');
         }
 
-        $info = json_decode($_POST, true);
-
-        $serverId = $info['server-id'];
+        $serverId = $_POST['server-id'];
         // Ensure server exists
         $server_query = $api->getDb()->get('mc_servers', array('id', '=', $serverId));
 
@@ -33,11 +26,11 @@ class ServerInfoEndpoint extends EndpointBase {
             $api->getDb()->insert(
                 'query_results',
                 array(
-                    'server_id' => $info['server-id'],
+                    'server_id' => $_POST['server-id'],
                     'queried_at' => date('U'),
-                    'players_online' => count($info['players']),
-                    'extra' => $_POST['info'],
-                    'groups' => isset($info['groups']) ? json_encode($info['groups']) : '[]'
+                    'players_online' => count($_POST['players']),
+                    'extra' => $_POST,
+                    'groups' => isset($_POST['groups']) ? json_encode($_POST['groups']) : '[]'
                 )
             );
 
@@ -72,8 +65,8 @@ class ServerInfoEndpoint extends EndpointBase {
         // Update usernames
         try {
             if (Util::getSetting($api->getDb(), 'username_sync')) {
-                if (count($info['players'])) {
-                    foreach ($info['players'] as $uuid => $player) {
+                if (count($_POST['players'])) {
+                    foreach ($_POST['players'] as $uuid => $player) {
                         $user = new User($uuid, 'uuid');
                         if (count($user->data())) {
                             if ($player['name'] != $user->data()->username) {
@@ -120,8 +113,8 @@ class ServerInfoEndpoint extends EndpointBase {
                     );
                 }
 
-                if (count($info['players'])) {
-                    foreach ($info['players'] as $uuid => $player) {
+                if (count($_POST['players'])) {
+                    foreach ($_POST['players'] as $uuid => $player) {
                         $user = new User($uuid, 'uuid');
                         if (count($user->data())) {
                             // Any synced groups to remove?
