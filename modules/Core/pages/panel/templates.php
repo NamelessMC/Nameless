@@ -521,7 +521,7 @@ if (!isset($_GET['action'])) {
                 $template_dirs = array();
 
                 foreach ($files as $file) {
-                    if ($file != '.' && $file != '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js')) {
+                    if ($file != '.' && $file != '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js' || pathinfo($file, PATHINFO_EXTENSION) == 'conf')) {
                         if (!is_dir($template_path . DIRECTORY_SEPARATOR . $file))
                             $template_files[] = array(
                                 'link' => URL::build('/panel/core/templates/', 'action=edit&template=' . Output::getClean($template_query->id) . '&file=' . htmlspecialchars($file)),
@@ -564,7 +564,7 @@ if (!isset($_GET['action'])) {
                 $template_dirs = array();
 
                 foreach ($files as $file) {
-                    if ($file != '.' && $file != '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js')) {
+                    if ($file != '.' && $file != '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js' || pathinfo($file, PATHINFO_EXTENSION) == 'conf')) {
                         if (!is_dir($template_path . DIRECTORY_SEPARATOR . $file))
                             $template_files[] = array(
                                 'link' => URL::build('/panel/core/templates/', 'action=edit&template=' . Output::getClean($template_query->id) . '&dir=' . htmlspecialchars($dir) . '&file=' . htmlspecialchars($file)),
@@ -616,7 +616,7 @@ if (!isset($_GET['action'])) {
                 } else
                     $file_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $file));
 
-                if (!file_exists($file_path) || !(pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js')) {
+                if (!file_exists($file_path) || !(pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js'|| pathinfo($file, PATHINFO_EXTENSION) == 'conf')) {
                     Redirect::to(URL::build('/panel/core/templates'));
                     die();
                 }
@@ -627,6 +627,8 @@ if (!isset($_GET['action'])) {
                     $file_type = 'css';
                 else if (pathinfo($file, PATHINFO_EXTENSION) == 'js')
                     $file_type = 'javascript';
+                else if (pathinfo($file, PATHINFO_EXTENSION) == 'conf')
+                    $file_type = 'properties';
 
                 // Deal with input
                 if (Input::exists()) {
