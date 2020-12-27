@@ -214,12 +214,6 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
-// Discord role dropdown
-$queries->create('settings', array(
-    'name' => 'discord_roles',
-    'value' => '[]'
-));
-
 // Labels
 try {
     DB::getInstance()->query("ALTER TABLE `nl2_forums_labels` CHANGE `html` `html` VARCHAR(1024) CHARACTER SET $db_charset NULL DEFAULT NULL;");

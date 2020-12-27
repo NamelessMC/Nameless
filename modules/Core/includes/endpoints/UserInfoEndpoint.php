@@ -27,7 +27,7 @@ class UserInfoEndpoint extends EndpointBase {
             array_push($params, $_GET['username']);
         } else if (isset($_GET['uuid'])) {
             $where .= ' WHERE nl2_users.uuid = ?';
-            array_push($params, $_GET['uuid']);
+            array_push($params, str_replace('-', '', $_GET['uuid']));
         } else if (isset($_GET['discord_id'])) {
             $where .= ' WHERE nl2_users.discord_id = ?';
             array_push($params, $_GET['discord_id']);
