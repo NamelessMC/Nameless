@@ -10,23 +10,18 @@
  */
 
 $cache->setCache('status_page');
-if($cache->isCached('enabled')){
-	$status_enabled = $cache->retrieve('enabled');
+if ($cache->isCached('enabled')) {
+    $status_enabled = $cache->retrieve('enabled');
 
 } else {
-	$status_enabled = $queries->getWhere('settings', array('name', '=', 'status_page'));
-	if($status_enabled[0]->value == 1)
-		$status_enabled = 1;
-	else
-		$status_enabled = 0;
-
-	$cache->store('enabled', $status_enabled);
-
+    $status_enabled = $queries->getWhere('settings', array('name', '=', 'status_page'));
+    $status_enabled = $status_enabled[0]->value == 1 ? 1 : 0;
+    $cache->store('enabled', $status_enabled);
 }
 
-if(!defined('MINECRAFT') || MINECRAFT !== true || $status_enabled != 1){
-	require_once(ROOT_PATH . '/403.php');
-	die();
+if (!defined('MINECRAFT') || MINECRAFT !== true || $status_enabled != 1) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
 }
 
 define('PAGE', 'status');
@@ -35,15 +30,17 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $servers = $queries->getWhere('mc_servers', array('display', '=', 1));
 
-$smarty->assign(array(
-	'STATUS' => $language->get('general', 'status'),
-	'IP' => $language->get('general', 'ip'),
-	'TABLE_STATUS' => $language->get('general', 'table_status'),
-	'DEFAULT_STATUS' => (isset($result) ? $result : null),
-	'SERVERS' => $servers,
-	'NO_SERVERS' => $language->get('general', 'no_servers'),
-	'BUNGEE' => $language->get('general', 'bungee_instance')
-));
+$smarty->assign(
+    array(
+        'STATUS' => $language->get('general', 'status'),
+        'IP' => $language->get('general', 'ip'),
+        'TABLE_STATUS' => $language->get('general', 'table_status'),
+        'DEFAULT_STATUS' => (isset($result) ? $result : null),
+        'SERVERS' => $servers,
+        'NO_SERVERS' => $language->get('general', 'no_servers'),
+        'BUNGEE' => $language->get('general', 'bungee_instance')
+    )
+);
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
