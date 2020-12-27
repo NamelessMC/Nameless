@@ -23,7 +23,7 @@ class GetNotificationsEndpoint extends EndpointBase {
         } else if (isset($_GET['username'])) {
             $user = $api->getUser('username', $_GET['username'])->data()->id;
         } else {
-            $api->throwError(6, $this->_language->get('api', 'invalid_get_contents'));
+            $api->throwError(6, $api->getLanguage()->get('api', 'invalid_get_contents'));
         }
 
         $return = array('notifications' => array());
