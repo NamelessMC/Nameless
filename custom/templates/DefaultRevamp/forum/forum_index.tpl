@@ -17,7 +17,7 @@
             <form class="ui form" method="post" action="{$SEARCH_URL}" name="searchForm">
                 <input type="hidden" name="token" value="{$TOKEN}">
                 <div class="ui fluid action input">
-                    <input type="text" name="forum_search" placeholder="{$SEARCH}">
+                    <input type="text" name="forum_search" placeholder="{$SEARCH}" minlength="3" maxlength="128">
                     <button type="submit" class="ui primary icon button"><i class="search icon"></i></button>
                 </div>
             </form>
