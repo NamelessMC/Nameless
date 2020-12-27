@@ -537,58 +537,40 @@ if (Input::exists()) {
 
                     if (strpos($validation_error, 'is required') !== false) {
                         // x is required
-                        switch($validation_error){
-                        case (strpos($validation_error, 'username') !== false):
+                        if (strpos($validation_error, 'username') !== false) {
                             $errors[] = $language->get('user', 'username_required');
-                            break;
-                        case (strpos($validation_error, 'email') !== false):
+                        } else if (strpos($validation_error, 'email') !== false) {
                             $errors[] = $language->get('user', 'email_required');
-                            break;
-                        case (strpos($validation_error, 'password') !== false):
+                        } else if (strpos($validation_error, 'password') !== false) {
                             $errors[] = $language->get('user', 'password_required');
-                            break;
-                        case (strpos($validation_error, 'mcname') !== false):
+                        } else if (strpos($validation_error, 'mcname') !== false) {
                             $errors[] = $language->get('user', 'mcname_required');
-                            break;
-                        case (strpos($validation_error, 't_and_c') !== false):
+                        } else if (strpos($validation_error, 't_and_c') !== false) {
                             $errors[] = $language->get('user', 'accept_terms');
-                            break;
-                        default:
+                        } else {
                             $errors[] = $validation_error . ".";
                         }
-
                     } else if (strpos($validation_error, 'minimum') !== false) {
                         // x must be a minimum of y characters long
-                        switch($validation_error){
-                        case (strpos($validation_error, 'username') !== false):
+                        if (strpos($validation_error, 'username') !== false) {
                             $errors[] = $language->get('user', 'username_minimum_3');
-                            break;
-                        case (strpos($validation_error, 'mcname') !== false):
+                        } else if (strpos($validation_error, 'mcname') !== false) {
                             $errors[] = $language->get('user', 'mcname_minimum_3');
-                            break;
-                        case (strpos($validation_error, 'password') !== false):
+                        } else if (strpos($validation_error, 'password') !== false) {
                             $errors[] = $language->get('user', 'password_minimum_6');
-                            break;
                         }
-
                     } else if (strpos($validation_error, 'maximum') !== false) {
                         // x must be a maximum of y characters long
-                        switch($validation_error){
-                        case (strpos($validation_error, 'username') !== false):
+                        if (strpos($validation_error, 'username') !== false) {
                             $errors[] = $language->get('user', 'username_maximum_20');
-                            break;
-                        case (strpos($validation_error, 'mcname') !== false):
+                        } else if (strpos($validation_error, 'mcname') !== false) {
                             $errors[] = $language->get('user', 'mcname_maximum_20');
-                            break;
-                        case (strpos($validation_error, 'password') !== false):
+                        } else if (strpos($validation_error, 'password') !== false) {
                             $errors[] = $language->get('user', 'password_maximum_30');
-                            break;
                         }
-
                     } else if (strpos($validation_error, 'must match') !== false) {
                         // password must match password again
                         $errors[] = $language->get('user', 'passwords_dont_match');
-
                     } else if (strpos($validation_error, 'already exists') !== false) {
                         // already exists
                         if (!in_array($language->get('user', 'username_mcname_email_exists'), $errors)) {
@@ -597,15 +579,12 @@ if (Input::exists()) {
                     } else if (strpos($validation_error, 'not a valid Minecraft account') !== false) {
                         // Invalid Minecraft username
                         $errors[] = $language->get('user', 'invalid_mcname');
-
                     } else if (strpos($validation_error, 'Mojang communication error') !== false) {
                         // Mojang server error
                         $errors[] = $language->get('user', 'mcname_lookup_error');
-
                     } else if (strpos($validation_error, 'valid email') !== false) {
                         // Validate email
                         $errors[] = $language->get('general', 'contact_message_email');
-
                     }
                 }
             }
