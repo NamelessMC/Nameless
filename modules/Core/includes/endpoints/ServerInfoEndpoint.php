@@ -30,7 +30,7 @@ class ServerInfoEndpoint extends EndpointBase {
                             'queried_at' => date('U'),
                             'players_online' => count($info['players']),
                             'extra' => $_POST['info'],
-                            'groups' => json_encode($info['groups'])
+                            'groups' => isset($info['groups']) ? json_encode($info['groups']) : '[]'
                         ));
 
                         if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
