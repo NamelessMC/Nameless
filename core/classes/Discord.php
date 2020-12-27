@@ -91,6 +91,18 @@ class Discord {
         }
     }
 
+    public static function saveRoles($roles) {
+        $roles = array(json_encode($roles));
+        file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache', $roles);
+    }
+
+    public static function getRoles() {
+        if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache')) {
+            return json_decode(file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache'), true);
+        }
+        return array();
+    }
+
     private static function parseErrors($result, Language $language) {
         $errors = array();
 

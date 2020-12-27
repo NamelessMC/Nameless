@@ -381,7 +381,7 @@ if (!isset($_GET['view'])) {
         // Get Discord groups
         $discord_groups = array();
         if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
-            $discord_groups = json_decode(Util::getSetting(DB::getInstance(), 'discord_roles'), true);
+            $discord_groups = Discord::getRoles();
         }
 
         // Get existing group sync configuration
