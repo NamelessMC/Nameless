@@ -148,7 +148,7 @@
           {/if}
           <div class="content">
             <div class="header">{$ANNOUNCEMENT->header}</div>
-            <p>{$ANNOUNCEMENT->message}</p>
+            <p>{$ANNOUNCEMENT->message|htmlspecialchars_decode}</p>
           </div>
         </div>
       {/foreach}
