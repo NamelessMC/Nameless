@@ -173,6 +173,11 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'E-post-massemelding har blitt sendt.',
     'emails_mass_message_replacements' => 'Du kan bruke variabler i din e-post-massemelding. Støttede variabler: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laster inn... Vennligst ikke last inn siden på nytt. Dette kan ta en stund.',
+    
+    // SEO
+    'seo' => 'SEO',
+    'google_analytics' => 'Google Analytics',
+    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
 
     // Reactions
     'icon' => 'Ikon',

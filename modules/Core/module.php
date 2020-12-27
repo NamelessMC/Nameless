@@ -58,6 +58,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/auth', 'pages/panel/auth.php');
         $pages->add('Core', '/panel/core/general_settings', 'pages/panel/general_settings.php');
         $pages->add('Core', '/panel/core/api', 'pages/panel/api.php');
+        $pages->add('Core', '/panel/core/seo', 'pages/panel/seo.php');
         $pages->add('Core', '/panel/core/avatars', 'pages/panel/avatars.php');
         $pages->add('Core', '/panel/core/profile_fields', 'pages/panel/profile_fields.php');
         $pages->add('Core', '/panel/core/debugging_and_maintenance', 'pages/panel/debugging_and_maintenance.php');
@@ -75,11 +76,9 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/panel_templates', 'pages/panel/panel_templates.php');
         $pages->add('Core', '/panel/core/templates', 'pages/panel/templates.php');
         $pages->add('Core', '/panel/core/announcements', 'pages/panel/announcements.php');
-        $pages->add('Core', '/panel/core/sitemap', 'pages/panel/sitemap.php');
         $pages->add('Core', '/panel/core/widgets', 'pages/panel/widgets.php');
         $pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
         $pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
-        $pages->add('Core', '/panel/core/metadata', 'pages/panel/metadata.php');
         $pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
         $pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
         $pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
@@ -292,6 +291,7 @@ class Core_Module extends Module {
         PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), array(
             'admincp.core' => $language->get('admin', 'core'),
             'admincp.core.api' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'api'),
+            'admincp.core.seo' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'seo'),
             'admincp.core.general' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'general_settings'),
             'admincp.core.avatars' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'avatars'),
             'admincp.core.fields' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'custom_fields'),
@@ -316,14 +316,12 @@ class Core_Module extends Module {
             'admincp.minecraft.banners' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'server_banners'),
             'admincp.modules' => $language->get('admin', 'modules'),
             'admincp.pages' => $language->get('admin', 'pages'),
-            'admincp.pages.metadata' => $language->get('admin', 'pages') . ' &raquo; ' . $language->get('admin', 'page_metadata'),
             'admincp.security' => $language->get('admin', 'security'),
             'admincp.security.acp_logins' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'acp_logins'),
             'admincp.security.template' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'template_changes'),
             'admincp.security.emails' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'email_logs'),
             'admincp.security.discord' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'discord_logs'),
             'admincp.security.all' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'all_logs'),
-            'admincp.sitemap' => $language->get('admin', 'sitemap'),
             'admincp.styles' => $language->get('admin', 'styles'),
             'admincp.styles.panel_templates' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'panel_templates'),
             'admincp.styles.templates' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'templates'),
@@ -719,6 +717,16 @@ class Core_Module extends Module {
 
                     $navs[2]->addItemToDropdown('core_configuration', 'api', $language->get('admin', 'api'), URL::build('/panel/core/api'), 'top', $order, $icon);
                 }
+                
+				if($user->hasPermission('admincp.core.seo')){
+					if(!$cache->isCached('sefo_icon')){
+						$icon = '<i class="nav-icon fas fa-code"></i>';
+						$cache->store('seo_icon', $icon);
+					} else
+						$icon = $cache->retrieve('seo_icon');
+
+					$navs[2]->addItemToDropdown('core_configuration', 'seo', $language->get('admin', 'seo'), '/panel/core/seo', 'top', $order, $icon);
+				}
 
                 if($user->hasPermission('admincp.core.avatars')){
                     if(!$cache->isCached('avatars_icon')){
@@ -928,16 +936,6 @@ class Core_Module extends Module {
                     $navs[2]->addItemToDropdown('layout', 'panel_templates', $language->get('admin', 'panel_templates'), URL::build('/panel/core/panel_templates'), 'top', $order, $icon);
                 }
 
-                if($user->hasPermission('admincp.sitemap')){
-                    if(!$cache->isCached('sitemap_icon')){
-                        $icon = '<i class="nav-icon fas fa-sitemap"></i>';
-                        $cache->store('sitemap_icon', $icon);
-                    } else
-                        $icon = $cache->retrieve('sitemap_icon');
-
-                    $navs[2]->addItemToDropdown('layout', 'sitemap', $language->get('admin', 'sitemap'), URL::build('/panel/core/sitemap'), 'top', $order, $icon);
-                }
-
                 if($user->hasPermission('admincp.styles')){
                     if(!$cache->isCached('templates_icon')){
                         $icon = '<i class="nav-icon fas fa-paint-brush"></i>';
@@ -976,42 +974,22 @@ class Core_Module extends Module {
                 $navs[2]->add('modules', $language->get('admin', 'modules'), URL::build('/panel/core/modules'), 'top', null, $order, $icon);
             }
 
-            if($user->hasPermission('admincp.pages') || $user->hasPermission('admincp.pages.metadata')){
+			if($user->hasPermission('admincp.pages')){
                 if(!$cache->isCached('pages_order')){
                     $order = 8;
                     $cache->store('pages_order', 8);
                 } else {
                     $order = $cache->retrieve('pages_order');
                 }
-
+                
                 if(!$cache->isCached('pages_icon')){
                     $icon = '<i class="nav-icon fas fa-file"></i>';
                     $cache->store('pages_icon', $icon);
                 } else
                     $icon = $cache->retrieve('pages_icon');
 
-                $navs[2]->addDropdown('pages', $language->get('admin', 'pages'), 'top', $order, $icon);
-
-                if($user->hasPermission('admincp.pages')){
-                    if(!$cache->isCached('custom_pages_icon')){
-                        $icon = '<i class="nav-icon fas fa-file-alt"></i>';
-                        $cache->store('custom_pages_icon', $icon);
-                    } else
-                        $icon = $cache->retrieve('custom_pages_icon');
-
-                    $navs[2]->addItemToDropdown('pages', 'custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/pages'), 'top', $order, $icon);
-                }
-
-                if($user->hasPermission('admincp.pages.metadata')){
-                    if(!$cache->isCached('page_metadata_icon')){
-                        $icon = '<i class="nav-icon fas fa-tag"></i>';
-                        $cache->store('page_metadata_icon', $icon);
-                    } else
-                        $icon = $cache->retrieve('page_metadata_icon');
-
-                    $navs[2]->addItemToDropdown('pages', 'page_metadata', $language->get('admin', 'page_metadata'), URL::build('/panel/core/metadata'), 'top', $order, $icon);
-                }
-            }
+				$navs[2]->add('custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/pages'), 'top', null, $order, $icon);
+			}
 
             if($user->hasPermission('admincp.security')){
                 if(!$cache->isCached('security_order')){

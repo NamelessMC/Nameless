@@ -9,12 +9,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">{$PAGE_METADATA}</h1>
+                        <h1 class="m-0 text-dark">{$SEO}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
-                            <li class="breadcrumb-item active">{$PAGES}</li>
+                            <li class="breadcrumb-item active">{$SEO}</li>
                             <li class="breadcrumb-item active">{$PAGE_METADATA}</li>
                         </ol>
                     </div>

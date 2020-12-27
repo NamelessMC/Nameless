@@ -152,6 +152,11 @@ $language = array(
     'validation_promote_group_info' => 'C’est le groupe auquel un utilisateur sera promu une fois qu’il aura validé son compte.',
     'login_method' => 'Méthode de connexion',
     'privacy_and_terms' => 'Confidentialité et conditions',
+    
+    // SEO
+    'seo' => 'SEO',
+    'google_analytics' => 'Google Analytics',
+    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
 
     // Reactions
     'icon' => 'Icône',

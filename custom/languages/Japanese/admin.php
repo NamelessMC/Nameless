@@ -178,6 +178,11 @@ $language = array(
     'emails_mass_message_sent_successfully' => '大量のメールメッセージの送信に成功しました。',
     'emails_mass_message_replacements' => 'メールメッセージでは、変数を使用することができます。サポートされている変数: {username}, {sitename}',
     'emails_mass_message_loading' => '読み込み中... ページを再読み込みしないでください。しばらく時間がかかる場合があります。',
+    
+    // SEO
+    'seo' => 'SEO',
+    'google_analytics' => 'Google Analytics',
+    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
 
     // Reactions
     'icon' => 'アイコン',
