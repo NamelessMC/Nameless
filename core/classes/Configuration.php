@@ -29,7 +29,7 @@ class Configuration {
      */
     public function get($module, $setting) {
         if ($module == null || $setting == null) {
-            return false;
+            throw new InvalidArgumentException('Parameter is null');
         }
 
         $module = ($module == 'Core' ? '' : $module . '_');
@@ -38,7 +38,7 @@ class Configuration {
         if ($this->_cache->isCached($setting)) {
             return $this->_cache->retrieve($setting);
         } else {
-            $data = $this->_db->query('SELECT value FROM `nl2_'. $module .'settings` WHERE `name` = ?', array($setting));
+            $data = $this->_db->query('SELECT value FROM `nl2_'. Output::getClean($module) .'settings` WHERE `name` = ?', array($setting));
             if ($data->count()) {
                 $results = $data->results();
                 $this->_cache->store($setting, $results[0]->value);
@@ -58,13 +58,13 @@ class Configuration {
      */
     public function set($module, $setting, $value) {
         if ($module == null || $setting == null || $value == null ) {
-            return false;
+            throw new InvalidArgumentException('Parameter is null');
         }
 
         $module = ($module == 'Core' ? '' : $module . '_');
 
         $this->_db->createQuery(
-            'UPDATE `nl2_'. $module .'settings` SET `value` = ? WHERE `name` = ?',
+            'UPDATE `nl2_'. Output::getClean($module) .'settings` SET `value` = ? WHERE `name` = ?',
             array(
                 $value,
                 $setting
