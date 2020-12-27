@@ -114,6 +114,21 @@ if(Input::exists()){
                 }
 
                 try {
+                    // Get default group ID
+                    $cache->setCache('default_group');
+                    if ($cache->isCached('default_group')) {
+                        $default_group = $cache->retrieve('default_group');
+                    } else {
+                        $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
+                        if (!count($default_group)) {
+                            $default_group = 1;
+                        } else {
+                            $default_group = $default_group[0]->id;
+                        }
+
+                        $cache->store('default_group', $default_group);
+                    }
+
                     $user->create(array(
                         'username' => $_SESSION['authme']['user'],
                         'nickname' => $nickname,
@@ -121,12 +136,17 @@ if(Input::exists()){
                         'pass_method' => $authme_hash['hash'],
                         'uuid' => $uuid,
                         'joined' => date('U'),
-                        'group_id' => 1,
                         'email' => Output::getClean(Input::get('email')),
                         'lastip' => $ip,
                         'active' => 1,
                         'last_online' => date('U')
                     ));
+
+                    // Get user ID
+                    $user_id = $queries->getLastId();
+
+                    $user = new User($user_id);
+                    $user->addGroup($default_group);
 
                     unset($_SESSION['authme']);
 
