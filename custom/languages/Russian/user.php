@@ -67,6 +67,8 @@ $language = array(
     'profile_banner' => 'Баннер профиля',
     'upload_profile_banner' => 'Загрузить баннер профиля',
     'upload' => 'Загрузить',
+    'topic_updates' => 'Get emails for topics you follow',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Вы были упомянуты в посте пользователем {x}.', // Don't replace {x}

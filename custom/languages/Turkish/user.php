@@ -68,6 +68,8 @@ $language = array(
     'profile_banner' => 'Profil Banner(Afiş)',
     'upload_profile_banner' => 'Yeni banner(afiş) yükle',
     'upload' => 'Yükle',
+    'topic_updates' => 'Get emails for topics you follow',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Bir konuda {x} tarafından etiketlendiniz.', // Don't replace {x}

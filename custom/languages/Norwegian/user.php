@@ -69,6 +69,7 @@ $language = array(
     'upload_profile_banner' => 'Last opp et profilbanner',
     'upload' => 'Last opp',
     'topic_updates' => 'Få e-poster om tråder du følger.',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Du har blitt omtalt i et innlegg av {x}', // Don't replace {x}

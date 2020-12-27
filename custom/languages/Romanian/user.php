@@ -71,6 +71,7 @@ $language = array(
     'upload_profile_banner' => 'Încărcați banner profil',
     'upload' => 'Încărcați',
     'topic_updates' => 'Get emails for topics you follow',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace {x}

@@ -71,6 +71,7 @@ $language = array(
     'upload_profile_banner' => 'Upload Profiel Banner',
     'upload' => 'Upload',
     'topic_updates' => 'Ontvang e-mails voor onderwerpen die u volgt',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Meldingen
     'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet

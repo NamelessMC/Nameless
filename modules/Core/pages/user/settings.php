@@ -265,12 +265,14 @@ if(isset($_GET['do'])){
                             // Private profiles enabled?
                             $private_profiles = $queries->getWhere('settings', array('name', '=', 'private_profile'));
                             if($private_profiles[0]->value == 1) {
-                                if ($user->canPrivateProfile($user->data()->id) && $_POST['privateProfile'] == 1)
+                                if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1)
                                     $privateProfile = 1;
                                 else
                                     $privateProfile = 0;
                             } else
                                 $privateProfile = $user->data()->private_profile;
+
+                            $gravatar = $_POST['gravatar'] == '1' ? 1 : 0;
 
                             $user->update(array(
                                 'language_id' => $new_language,
@@ -279,7 +281,8 @@ if(isset($_GET['do'])){
 								'nickname' => $displayname,
 								'topic_updates' => $topicUpdates,
                                 'private_profile' => $privateProfile,
-	                            'theme_id' => $new_template
+	                            'theme_id' => $new_template,
+                                'gravatar' => $gravatar
                             ));
 
                             Log::getInstance()->log(Log::Action('user/ucp/update'));
@@ -751,7 +754,9 @@ if(isset($_GET['do'])){
 		'INFO' => $language->get('general', 'info'),
 		'ID_INFO' => $language->get('user', 'discord_id_help'),
 		'ENABLED' => $language->get('user', 'enabled'),
-		'DISABLED' => $language->get('user', 'disabled')
+		'DISABLED' => $language->get('user', 'disabled'),
+        'GRAVATAR' => $language->get('user', 'gravatar'),
+        'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0'
 	));
 
 	if ($discord_linked) {

@@ -69,6 +69,7 @@ $language = array(
     'upload_profile_banner' => 'Dodaj baner profilowy',
     'upload' => 'Zatwierdź',
     'topic_updates' => 'Otrzymuj emaile z obserwowanych tematów',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Zostałeś oznaczony w poście przez {x}.', // Don't replace {x}

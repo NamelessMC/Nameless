@@ -69,6 +69,7 @@ $language = array(
     'upload_profile_banner' => 'Nahrát banner',
     'upload' => 'Nahrát',
     'topic_updates' => 'Získávejte e-maily o tématech, které sledujete',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Byli jste označeni v příspěvku {x}.', // Don't replace {x}

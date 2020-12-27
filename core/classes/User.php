@@ -320,7 +320,7 @@ class User {
             // Custom avatars
             if ($data->gravatar == 1) {
                 // Gravatar
-                return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($data->email))) . "&s=200";
+                return "https://secure.gravatar.com/avatar/" . md5(strtolower(trim($data->email))) . "?s=128";
             } else if ($data->has_avatar == 1) {
                 // Custom avatar
                 $exts = array('gif', 'png', 'jpg', 'jpeg');

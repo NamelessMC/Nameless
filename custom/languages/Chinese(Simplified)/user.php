@@ -71,6 +71,7 @@ $language = array(
     'upload_profile_banner' => '上传个人资料背景',
     'upload' => '上传',
     'topic_updates' => '从您关注的话题中获取更新邮件。',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => '用户 {x} 在一个帖子中提及了您。', // Don't replace {x}

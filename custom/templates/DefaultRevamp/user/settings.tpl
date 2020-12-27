@@ -71,6 +71,13 @@
               </div>
             {/if}
             <div class="field">
+              <label for="inputGravatar">{$GRAVATAR}</label>
+              <select class="ui fluid dropdown" name="gravatar" id="inputGravatar">
+                <option value="0"{if ($GRAVATAR_VALUE == '0')} selected {/if}>{$DISABLED}</option>
+                <option value="1"{if ($GRAVATAR_VALUE == '1')} selected {/if}>{$ENABLED}</option>
+              </select>
+            </div>
+            <div class="field">
               <label for="inputLanguage">{$ACTIVE_LANGUAGE}</label>
               <select class="ui fluid dropdown" name="language" id="inputLanguage">
                 {foreach from=$LANGUAGES item=language}

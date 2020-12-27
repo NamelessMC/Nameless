@@ -69,6 +69,7 @@ $language = array(
     'upload_profile_banner' => 'Upload Profile Banner',
     'upload' => 'Upload',
     'topic_updates' => 'Get emails for topics you follow',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'You have been tagged in a post by {x}.', // Don't replace {x}

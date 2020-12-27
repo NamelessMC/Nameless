@@ -66,6 +66,7 @@ $language = array(
     'upload_profile_banner' => 'Upload Profile Banner',
     'upload' => 'Upload',
     'topic_updates' => 'Get emails for topics you follow',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Jūs buvote pažymėtas {x} "post".', // Don't replace {x}

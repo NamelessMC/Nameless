@@ -74,6 +74,7 @@ $language = array(
     'upload_profile_banner' => 'プロフィールバナーをアップロード',
     'upload' => 'アップロード',
     'topic_updates' => 'フォローしているトピックのメールを受け取る',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => '{x} の投稿にタグがつけられました。', // Don't replace {x}

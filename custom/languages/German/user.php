@@ -77,6 +77,7 @@ $language = array(
     'upload_profile_banner' => 'Banner hochladen',
     'upload' => 'Hochladen',
     'topic_updates' => 'Get emails for topics you follow',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace {x}
