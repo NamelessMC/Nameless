@@ -237,9 +237,9 @@ $language = array(
     'user_x_has_registered' => '{x} se přidal na ' . SITE_NAME . '!',
 
     // Discord
-    'discord_link' => 'Discord odkaz',
-    'linked' => 'Propojen',
-    'not_linked' => 'Nepropojen',
+    'discord_link' => 'Propojení s Discordem',
+    'linked' => 'Propojeno',
+    'not_linked' => 'Nepropojeno',
     'discord_id' => 'Uživatelské Discord ID',
     'discord_id_unlinked' => 'Úspěšně jste odpojili vaše uživatelské ID.',
     'discord_id_confirm' => 'Pošlete prosím tuto zprávu: "!verify {guild_id}:{token}" do soukromých zpráv {bot_username} pro potvrzení vašeho uživatelského ID.',
