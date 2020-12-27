@@ -19,43 +19,57 @@ class RegisterEndpoint extends EndpointBase {
         $params = ['username', 'email'];
 
         $minecraft_integration = Util::getSetting($api->getDb(), 'mc_integration');
-        if ($minecraft_integration) $params[] = 'uuid';
+        if ($minecraft_integration) {
+            $params[] = 'uuid';
+        }
 
-        if ($api->validateParams($_POST, $params)) {
+        $api->validateParams($_POST, $params);
 
-            if ($minecraft_integration) {
-                $_POST['uuid'] = str_replace('-', '', $_POST['uuid']);
-                if (strlen($_POST['uuid']) > 32) $api->throwError(9, $api->getLanguage()->get('api', 'invalid_uuid'));
+        if ($minecraft_integration) {
+            $_POST['uuid'] = str_replace('-', '', $_POST['uuid']);
+            if (strlen($_POST['uuid']) > 32) {
+                $api->throwError(9, $api->getLanguage()->get('api', 'invalid_uuid'));
             }
+        }
 
-            if (strlen($_POST['username']) > 20) $api->throwError(8, $api->getLanguage()->get('api', 'invalid_username'));
-            if (strlen($_POST['email']) > 64) $api->throwError(7, $api->getLanguage()->get('api', 'invalid_email_address'));
+        if (strlen($_POST['username']) > 20) {
+            $api->throwError(8, $api->getLanguage()->get('api', 'invalid_username'));
+        }
 
-            // Validate email
-            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) $api->throwError(7, $api->getLanguage()->get('api', 'invalid_email_address'));
+        if (strlen($_POST['email']) > 64) {
+            $api->throwError(7, $api->getLanguage()->get('api', 'invalid_email_address'));
+        }
 
-            // Ensure user doesn't already exist
-            $username = $api->getDb()->get('users', array('username', '=', Output::getClean($_POST['username'])));
-            if (count($username->results())) $api->throwError(11, $api->getLanguage()->get('api', 'username_already_exists'));
+        // Validate email
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            $api->throwError(7, $api->getLanguage()->get('api', 'invalid_email_address'));
+        }
 
-            if ($minecraft_integration) {
-                $uuid = $api->getDb()->get('users', array('uuid', '=', Output::getClean($_POST['uuid'])));
-                if (count($uuid->results())) $api->throwError(12, $api->getLanguage()->get('api', 'uuid_already_exists'));
-            }
+        // Ensure user doesn't already exist
+        $username = $api->getDb()->get('users', array('username', '=', Output::getClean($_POST['username'])));
+        if (count($username->results())) {
+            $api->throwError(11, $api->getLanguage()->get('api', 'username_already_exists'));
+        }
 
-            $email = $api->getDb()->get('users', array('email', '=', Output::getClean($_POST['email'])));
-            if (count($email->results())) $api->throwError(10, $api->getLanguage()->get('api', 'email_already_exists'));
+        if ($minecraft_integration) {
+            $uuid = $api->getDb()->get('users', array('uuid', '=', Output::getClean($_POST['uuid'])));
+            if (count($uuid->results())) $api->throwError(12, $api->getLanguage()->get('api', 'uuid_already_exists'));
+        }
 
-            $uuid = ($minecraft_integration) ? Output::getClean($_POST['uuid']) : 'none';
+        $email = $api->getDb()->get('users', array('email', '=', Output::getClean($_POST['email'])));
+        if (count($email->results())) {
+            $api->throwError(10, $api->getLanguage()->get('api', 'email_already_exists'));
+        }
 
-            // Registration email enabled?
-            if (Util::getSetting($api->getDb(), 'email_verification', true)) {
-                // Send email
-                $this->sendRegistrationEmail($api, $_POST['username'], $uuid, $_POST['email']);
-            } else {
-                // Register user + send link
-                $this->createUser($api, $_POST['username'], $uuid, $_POST['email'], true);
-            }
+        $uuid = ($minecraft_integration) ? Output::getClean($_POST['uuid']) : 'none';
+
+        // Registration email enabled?
+        if (Util::getSetting($api->getDb(), 'email_verification', true)) {
+            // Send email
+            $this->sendRegistrationEmail($api, $_POST['username'], $uuid, $_POST['email']);
+        } else {
+            // Register user + send link
+            $this->createUser($api, $_POST['username'], $uuid, $_POST['email'], true);
         }
     }
 
@@ -97,12 +111,15 @@ class RegisterEndpoint extends EndpointBase {
 
             if (isset($sent['error'])) {
                 // Error, log it
-                $api->getDb()->insert('email_errors', array(
-                    'type' => 4, // 4 = API registration email
-                    'content' => $sent['error'],
-                    'at' => date('U'),
-                    'user_id' => $user_id
-                ));
+                $api->getDb()->insert(
+                    'email_errors',
+                    array(
+                        'type' => 4, // 4 = API registration email
+                        'content' => $sent['error'],
+                        'at' => date('U'),
+                        'user_id' => $user_id
+                    )
+                );
 
                 $api->throwError(14, $api->getLanguage()->get('api', 'unable_to_send_registration_email'));
             }
@@ -130,27 +147,33 @@ class RegisterEndpoint extends EndpointBase {
 
             if (isset($sent['error'])) {
                 // Error, log it
-                $api->getDb()->insert('email_errors', array(
-                    'type' => 4,
-                    'content' => $sent['error'],
-                    'at' => date('U'),
-                    'user_id' => $user_id
-                ));
+                $api->getDb()->insert(
+                    'email_errors',
+                    array(
+                        'type' => 4,
+                        'content' => $sent['error'],
+                        'at' => date('U'),
+                        'user_id' => $user_id
+                    )
+                );
 
                 $api->throwError(14, $api->getLanguage()->get('api', 'unable_to_send_registration_email'));
             }
         }
 
         $user = new User();
-        HookHandler::executeEvent('registerUser', array(
-            'event' => 'registerUser',
-            'user_id' => $user_id,
-            'username' => Output::getClean($username),
-            'content' => str_replace('{x}', Output::getClean($username), $api->getLanguage()->get('user', 'user_x_has_registered')),
-            'avatar_url' => $user->getAvatar($user_id, null, 128, true),
-            'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean($username)), '/'),
-            'language' => $api->getLanguage()
-        ));
+        HookHandler::executeEvent(
+            'registerUser',
+            array(
+                'event' => 'registerUser',
+                'user_id' => $user_id,
+                'username' => Output::getClean($username),
+                'content' => str_replace('{x}', Output::getClean($username), $api->getLanguage()->get('user', 'user_x_has_registered')),
+                'avatar_url' => $user->getAvatar($user_id, null, 128, true),
+                'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean($username)), '/'),
+                'language' => $api->getLanguage()
+            )
+        );
 
         $api->returnArray(array('message' => $api->getLanguage()->get('api', 'finish_registration_email')));
     }
@@ -176,9 +199,9 @@ class RegisterEndpoint extends EndpointBase {
                 // Not cached, cache now
                 // Retrieve from database
                 $default_group = $api->getDb()->get('groups', array('default_group', '=', 1));
-                if (!$default_group->count())
+                if (!$default_group->count()) {
                     $default_group = 1;
-                else {
+                } else {
                     $default_group = $default_group->results();
                     $default_group = $default_group[0]->id;
                 }
@@ -199,38 +222,48 @@ class RegisterEndpoint extends EndpointBase {
                 $default_group = unserialize($default_group->default_group->data);
             }
 
-            if (!$code) $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+            if (!$code) {
+                $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+            }
 
-            $api->getDb()->insert('users', array(
-                'username' => Output::getClean($username),
-                'nickname' => Output::getClean($username),
-                'uuid' => $uuid,
-                'email' => Output::getClean($email),
-                'password' => md5($code), // temp code
-                'joined' => date('U'),
-                'lastip' => 'Unknown',
-                'reset_code' => $code,
-                'last_online' => date('U')
-            ));
+            $api->getDb()->insert(
+                'users',
+                array(
+                    'username' => Output::getClean($username),
+                    'nickname' => Output::getClean($username),
+                    'uuid' => $uuid,
+                    'email' => Output::getClean($email),
+                    'password' => md5($code), // temp code
+                    'joined' => date('U'),
+                    'lastip' => 'Unknown',
+                    'reset_code' => $code,
+                    'last_online' => date('U')
+                )
+            );
 
             $user_id = $api->getDb()->lastId();
 
             $user = new User($user_id);
             $user->setGroup($default_group);
 
-            HookHandler::executeEvent('registerUser', array(
-                'event' => 'registerUser',
-                'user_id' => $user_id,
-                'username' => $user->getDisplayname(),
-                'content' => str_replace('{x}', $user->getDisplayname(), $api->getLanguage()->get('user', 'user_x_has_registered')),
-                'avatar_url' => $user->getAvatar(null, 128, true),
-                'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
-                'language' => $api->getLanguage()
-            ));
+            HookHandler::executeEvent(
+                'registerUser',
+                array(
+                    'event' => 'registerUser',
+                    'user_id' => $user_id,
+                    'username' => $user->getDisplayname(),
+                    'content' => str_replace('{x}', $user->getDisplayname(), $api->getLanguage()->get('user', 'user_x_has_registered')),
+                    'avatar_url' => $user->getAvatar(null, 128, true),
+                    'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+                    'language' => $api->getLanguage()
+                )
+            );
 
-            if ($return) $api->returnArray(array('message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . $code)));
-            else return array('user_id' => $user_id);
-
+            if ($return) {
+                $api->returnArray(array('message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . $code)));
+            } else {
+                return array('user_id' => $user_id);
+            }
         } catch (Exception $e) {
             $api->throwError(13, $api->getLanguage()->get('api', 'unable_to_create_account'));
         }

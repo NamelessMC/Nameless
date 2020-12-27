@@ -19,7 +19,9 @@ class GetAnnouncementsEndpoint extends EndpointBase {
             $tempUser = $api->getUser('id', $_GET['id']);
         } else if (isset($_GET['username'])) {
             $tempUser = $api->getUser('username', $_GET['username']);
-        } else $tempUser = null;
+        } else {
+            $tempUser = null;
+        }
 
         $announcements = array();
 

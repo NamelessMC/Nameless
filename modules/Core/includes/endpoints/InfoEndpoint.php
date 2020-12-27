@@ -16,10 +16,14 @@ class InfoEndpoint extends EndpointBase {
     public function execute(Nameless2API $api) {
         // Get version, update info and modules from database
         $version_query = $api->getDb()->query('SELECT `name`, `value` FROM nl2_settings WHERE `name` = ? OR `name` = ? OR `name` = ? OR `name` = ?', array('nameless_version', 'version_checked', 'version_update', 'new_version'));
-        if ($version_query->count()) $version_query = $version_query->results();
+        if ($version_query->count()) {
+            $version_query = $version_query->results();
+        }
 
         $site_id = Util::getSetting($api->getDb(), 'unique_id');
-        if ($site_id == null) $api->throwError(4, $api->getLanguage()->get('api', 'no_unique_site_id'));
+        if ($site_id == null) {
+            $api->throwError(4, $api->getLanguage()->get('api', 'no_unique_site_id'));
+        }
 
         $ret = array();
         foreach ($version_query as $item) {
@@ -30,7 +34,9 @@ class InfoEndpoint extends EndpointBase {
                 $version_update = $item->value;
             } else if ($item->name == 'version_checked') {
                 $version_checked = (int) $item->value;
-            } else $new_version = $item->value;
+            } else {
+                $new_version = $item->value;
+            }
         }
 
         // Return default language
@@ -62,10 +68,11 @@ class InfoEndpoint extends EndpointBase {
                     } else {
                         $update_check = json_decode($update_check);
 
-                        if (isset($update_check->urgent) && $update_check->urgent == 'true')
+                        if (isset($update_check->urgent) && $update_check->urgent == 'true') {
                             $version_urgent = 'urgent';
-                        else
+                        } else {
                             $version_urgent = 'true';
+                        }
 
                         // Update database values to say we need a version update
                         $api->getDb()->createQuery('UPDATE nl2_settings SET `value`=\'' . $version_urgent . '\' WHERE `name` = \'version_update\'', array());

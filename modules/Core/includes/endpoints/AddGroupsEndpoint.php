@@ -15,24 +15,28 @@ class AddGroupsEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        if ($api->validateParams($_POST, ['user', 'groups'])) {
+        $api->validateParams($_POST, ['user', 'groups']);
 
-            // Ensure user exists
-            $user = $api->getUser('id', $_POST['user']);
+        // Ensure user exists
+        $user = $api->getUser('id', $_POST['user']);
 
-            $groups = json_decode($_POST['groups'], true);
-            if ($groups == null || !count($groups)) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
-            foreach($groups as $group) {
-                $group_query = $api->getDb()->get('groups', array('id', '=', $group));
-                if (!$group_query->count()) continue;
+        $groups = json_decode($_POST['groups'], true);
+        if ($groups == null || !count($groups)) {
+            $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
+        }
 
-                $user->addGroup($group);
-
-                // Attempt to update their discord role as well, but ignore any output/errors
-                Discord::addDiscordRole($user, $group, $api->getLanguage(), false);
+        foreach ($groups as $group) {
+            $group_query = $api->getDb()->get('groups', array('id', '=', $group));
+            if (!$group_query->count()) {
+                continue;
             }
 
-            $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
+            $user->addGroup($group);
+
+            // Attempt to update their discord role as well, but ignore any output/errors
+            Discord::addDiscordRole($user, $group, $api->getLanguage(), false);
         }
+
+        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
     }
 }

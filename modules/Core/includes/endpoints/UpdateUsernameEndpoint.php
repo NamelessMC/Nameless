@@ -15,21 +15,23 @@ class UpdateUsernameEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        if ($api->validateParams($_POST, ['id', 'username'])) {
-            // Ensure user exists
-            $user = $api->getUser('id', $_POST['id']);
+        $api->validateParams($_POST, ['id', 'username']);
 
-            $fields = array('username' => Output::getClean($_POST['username']));
+        // Ensure user exists
+        $user = $api->getUser('id', $_POST['id']);
 
-            if (!Util::getSetting($api->getDb(), 'displaynames')) $fields['nickname'] = Output::getClean($_POST['username']);
+        $fields = array('username' => Output::getClean($_POST['username']));
 
-            try {
-                $api->getDb()->update('users', $user->data()->id, $fields);
-            } catch (Exception $e) {
-                $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_username'));
-            }
-
-            $api->returnArray(array('message' => $api->getLanguage()->get('api', 'username_updated')));
+        if (!Util::getSetting($api->getDb(), 'displaynames')) {
+            $fields['nickname'] = Output::getClean($_POST['username']);
         }
+
+        try {
+            $api->getDb()->update('users', $user->data()->id, $fields);
+        } catch (Exception $e) {
+            $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_username'));
+        }
+
+        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'username_updated')));
     }
 }

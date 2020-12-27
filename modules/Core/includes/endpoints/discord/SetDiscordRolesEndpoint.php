@@ -15,52 +15,54 @@ class SetDiscordRolesEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        if ($api->validateParams($_POST, ['user'])) {
-            if (!Util::getSetting($api->getDb(), 'discord_integration')) $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
+        $api->validateParams($_POST, ['user']);
 
-            $user_id = $_POST['user'];
+        if (!Util::getSetting($api->getDb(), 'discord_integration')) {
+            $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
+        }
 
-            $user = $api->getUser('id', $user_id);
+        $user_id = $_POST['user'];
 
-            if ($_POST['roles'] != null) {
+        $user = $api->getUser('id', $user_id);
 
-                $roles = $_POST['roles'];
+        if ($_POST['roles'] != null) {
 
-                $user->removeGroups();
+            $roles = $_POST['roles'];
 
-                $message = '';
+            $user->removeGroups();
 
-                foreach ($roles as $role) {
-                    $group = Discord::getWebsiteGroup($api->getDb(), $role);
-                    if ($group != null) {
-                        try {
-                            $user->addGroup($group->id);
-                            $message .= $group->name . ', ';
-                        } catch (Exception $e) {
-                            $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
-                        }
+            $message = '';
+
+            foreach ($roles as $role) {
+                $group = Discord::getWebsiteGroup($api->getDb(), $role);
+                if ($group != null) {
+                    try {
+                        $user->addGroup($group->id);
+                        $message .= $group->name . ', ';
+                    } catch (Exception $e) {
+                        $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
                     }
                 }
-
-                if ($message != '') {
-                    Log::getInstance()->log(Log::Action('discord/role_set'), 'Roles changed to: ' . rtrim($message, ', '), $user->data()->id);
-                }
-
-            } else {
-
-                foreach ($user->getAllGroupIds() as $group_id) {
-                    $user->removeGroup($group_id);
-                }
-
-                if ($user->isValidated()) {
-                    $user->setGroup(VALIDATED_DEFAULT);
-                } else {
-                    $user->setGroup(DEFAULT_GROUP);
-                }
-
             }
 
-            $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
+            if ($message != '') {
+                Log::getInstance()->log(Log::Action('discord/role_set'), 'Roles changed to: ' . rtrim($message, ', '), $user->data()->id);
+            }
+
+        } else {
+
+            foreach ($user->getAllGroupIds() as $group_id) {
+                $user->removeGroup($group_id);
+            }
+
+            if ($user->isValidated()) {
+                $user->setGroup(VALIDATED_DEFAULT);
+            } else {
+                $user->setGroup(DEFAULT_GROUP);
+            }
+
         }
+
+        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
     }
 }

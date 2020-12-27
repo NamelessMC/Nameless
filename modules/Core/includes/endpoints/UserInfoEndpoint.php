@@ -31,11 +31,16 @@ class UserInfoEndpoint extends EndpointBase {
         } else if (isset($_GET['discord_id'])) {
             $where .= ' WHERE nl2_users.discord_id = ?';
             array_push($params, $_GET['discord_id']);
-        } else $api->throwError(6, $api->getLanguage()->get('api', 'invalid_get_contents'));
+        } else {
+            $api->throwError(6, $api->getLanguage()->get('api', 'invalid_get_contents'));
+        }
 
         // Ensure the user exists
         $user = $api->getDb()->query($query . $where, $params);
-        if (!$user->count()) $api->returnArray(array('exists' => false));
+
+        if (!$user->count()) {
+            $api->returnArray(array('exists' => false));
+        }
 
         $user = $user->first();
         $user->exists = true;
@@ -51,7 +56,7 @@ class UserInfoEndpoint extends EndpointBase {
         // Get custom profile fields
         $custom_profile_fields = $api->getDb()->query('SELECT fields.id, fields.name, fields.type, fields.public, fields.required, fields.description, pf_values.value FROM nl2_users_profile_fields pf_values LEFT JOIN nl2_profile_fields fields ON pf_values.field_id = fields.id WHERE pf_values.user_id = ?', array($user->id));
 
-        foreach($custom_profile_fields->results() as $profile_field) {
+        foreach ($custom_profile_fields->results() as $profile_field) {
             $user->profile_fields[$profile_field->id]['name'] = $profile_field->name;
             $user->profile_fields[$profile_field->id]['type'] = intval($profile_field->type);
             $user->profile_fields[$profile_field->id]['public'] = (bool) $profile_field->public;

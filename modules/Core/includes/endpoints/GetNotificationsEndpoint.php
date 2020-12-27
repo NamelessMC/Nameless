@@ -18,9 +18,13 @@ class GetNotificationsEndpoint extends EndpointBase {
 
     public function execute(Nameless2API $api) {
         // Ensure the user exists
-        if (isset($_GET['id']) && is_numeric($_GET['id'])) $user = $api->getUser('id', $_GET['id'])->data()->id;
-        else if (isset($_GET['username'])) $user = $api->getUser('username', $_GET['username'])->data()->id;
-        else $api->throwError(6, $this->_language->get('api', 'invalid_get_contents'));
+        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+            $user = $api->getUser('id', $_GET['id'])->data()->id;
+        } else if (isset($_GET['username'])) {
+            $user = $api->getUser('username', $_GET['username'])->data()->id;
+        } else {
+            $api->throwError(6, $this->_language->get('api', 'invalid_get_contents'));
+        }
 
         $return = array('notifications' => array());
 
