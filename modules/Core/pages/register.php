@@ -377,7 +377,7 @@ if(Input::exists()){
 
 	                                // Get user ID
 	                                $user_id = $queries->getLastId();
-									
+
 									$user = new User($user_id);
 									$user->addGroup($default_group);
 
@@ -403,11 +403,11 @@ if(Input::exists()){
 	                                if ($api_verification != '1' && $email_verification == '1') {
 	                                    $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
 	                                    $php_mailer = $php_mailer[0]->value;
-										
-										$link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/validate/', 'c=' . $code);
-										
+
+										$link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . rtrim(Util::getSelfURL(), '/') . URL::build('/validate/', 'c=' . $code);
+
 	                                    if ($php_mailer == '1') {
-											
+
 	                                        // PHP Mailer
 	                                        $email = array(
 	                                            'to' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('username'))),
@@ -616,9 +616,9 @@ if (count($profile_fields)) {
 		if($field->required == false){
 			continue;
 		}
-		
+
 		$custom_fields[] = array(
-			'id' => $field->id,	
+			'id' => $field->id,
 			'name' => Output::getClean($field->name),
 			'description' => Output::getClean($field->description),
 			'type' => $field->type,
