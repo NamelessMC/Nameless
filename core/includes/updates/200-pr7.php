@@ -256,6 +256,13 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Delete "group_id" from nl2_users table to prevent issues of it not being set
+try {
+    DB::getInstance()->query('ALTER TABLE `nl2_users` DROP COLUMN `group_id`;');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 
