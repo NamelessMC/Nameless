@@ -2,11 +2,11 @@
 /**
  * @param string $token The token of the user to update
  * @param int $discord_id The user's Discord user ID to set
- * 
+ *
  * @return string JSON Array
  */
 class VerifyDiscordEndpoint extends EndpointBase {
-    
+
     public function __construct() {
         $this->_route = 'verifyDiscord';
         $this->_module = 'Core';
@@ -22,7 +22,9 @@ class VerifyDiscordEndpoint extends EndpointBase {
 
                 // Find the user's NamelessMC id
                 $verification = $api->getDb()->get('discord_verifications', array('token', '=', $token));
-                if (!$verification->count()) $api->throwError(50, $api->getLanguage()->get('api', 'no_pending_verification_for_token'));
+                if (!$verification->count()) {
+                    $api->throwError(28, $api->getLanguage()->get('api', 'no_pending_verification_for_token'));
+                }
                 $id = $verification->first()->user_id;
 
                 // Ensure the user exists
