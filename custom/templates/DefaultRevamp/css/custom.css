@@ -1101,7 +1101,9 @@ body.dark .ui.list .list>.item .header,
 body.dark .ui.list>.item .header,
 body.dark .ui.attached.tabular.menu .item,
 body.dark .ui.comments .comment .metadata,
-body.dark .ui.comments .comment .actions a {
+body.dark .ui.comments .comment .actions a,
+body.dark .ui.card>.extra a:not(.ui),
+body.dark .ui.cards>.card>.extra a:not(.ui){
 	color: rgba(255, 255, 255, 0.6);
 }
 
