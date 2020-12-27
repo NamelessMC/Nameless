@@ -11,7 +11,7 @@
  */
 class Log {
     
-    const ACTION = [
+    private static $_actions = [
         'admin' => [
             'login' => 'acp_login',
             'core' => [
@@ -193,7 +193,7 @@ class Log {
      */
     public static function Action($path) {
         $path = explode('/', $path);
-        $config = self::ACTION;
+        $config = self::$_actions;
         foreach ($path as $bit) {
             if (isset($config[$bit])) {
                 $config = $config[$bit];
