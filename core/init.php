@@ -157,6 +157,9 @@ if ($page != 'install') {
             ini_set('display_errors', 0);
         }
     }
+	
+	// Configurations
+	$configuration = new Configuration($cache);
 
     // Get the Nameless version
     $nameless_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
