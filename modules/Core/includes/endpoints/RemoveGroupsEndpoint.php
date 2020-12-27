@@ -3,7 +3,7 @@
 /**
  * @param int $user NamelessMC ID of user to view
  * @param json array $groups ID of group ids
- * 
+ *
  * @return string JSON Array
  */
 class RemoveGroupsEndpoint extends EndpointBase {
@@ -15,24 +15,22 @@ class RemoveGroupsEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        if ($api->isValidated()) {
-            if ($api->validateParams($_POST, ['user', 'groups'])) {
-                
-                // Ensure user exists
-				$user = new User(htmlspecialchars($_POST['user']));
-                if (!count($user->data())) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
+        if ($api->validateParams($_POST, ['user', 'groups'])) {
 
-				$groups = json_decode($_POST['groups'], true);
-				if ($groups == null || !count($groups)) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
-				foreach($groups as $group) {
-					$user->removeGroup($group);
-					
-					// Attempt to update their discord role as well, but ignore any output/errors
-					Discord::removeDiscordRole($user, $group, $api->getLanguage());
-				}
+            // Ensure user exists
+            $user = new User(htmlspecialchars($_POST['user']));
+            if (!count($user->data())) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
 
-                $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
+            $groups = json_decode($_POST['groups'], true);
+            if ($groups == null || !count($groups)) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
+            foreach($groups as $group) {
+                $user->removeGroup($group);
+
+                // Attempt to update their discord role as well, but ignore any output/errors
+                Discord::removeDiscordRole($user, $group, $api->getLanguage());
             }
+
+            $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
         }
     }
 }

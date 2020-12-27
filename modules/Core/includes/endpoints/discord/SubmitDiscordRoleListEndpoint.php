@@ -14,21 +14,18 @@ class SubmitDiscordRoleListEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        if ($api->isValidated()) {
+        $roles = array();
 
-            $roles = array();
-
-            if ($_POST['roles'] != null) {
-                $roles = array(json_encode($_POST['roles']));
-            }
-
-            try {
-                $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = "discord_roles"', $roles);
-            } catch (Exception $e) {
-                $api->throwError(33, $api->getLanguage()->get('api', 'unable_to_update_discord_roles'));
-            }
-
-            $api->returnArray(array('message' => $api->getLanguage()->get('api', 'discord_settings_updated')));
+        if ($_POST['roles'] != null) {
+            $roles = array(json_encode($_POST['roles']));
         }
+
+        try {
+            $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = "discord_roles"', $roles);
+        } catch (Exception $e) {
+            $api->throwError(33, $api->getLanguage()->get('api', 'unable_to_update_discord_roles'));
+        }
+
+        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'discord_settings_updated')));
     }
 }

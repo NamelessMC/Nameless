@@ -14,10 +14,6 @@ class ServerInfoEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        if (!$api->isValidated()) {
-            return;
-        }
-
         if (!$api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory', 'tps', 'players', 'groups'])) {
             return;
         }

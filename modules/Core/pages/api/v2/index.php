@@ -29,15 +29,9 @@ $api = new Nameless2API($route, $language, $endpoints);
 
 class Nameless2API {
 
-    private $_validated = false,
-            $_db,
+    private $_db,
             $_language,
             $_endpoints;
-
-    public function isValidated() {
-        if ($this->_validated) return true;
-        else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
-    }
 
     public function getDb() {
         return $this->_db;
@@ -70,7 +64,6 @@ class Nameless2API {
 
             if (isset($api_key)) {
                 // API key specified
-                $this->_validated = true;
                 $this->_endpoints = $endpoints;
 
                 $request = explode('/', $route);
