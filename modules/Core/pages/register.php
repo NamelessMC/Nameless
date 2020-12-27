@@ -509,10 +509,11 @@ if (Input::exists()) {
                                     )
                                 );
 
-                                if ($api_verification != '1')
+                                if ($api_verification != '1') {
                                     Session::flash('home', $language->get('user', 'registration_check_email'));
-                                else
+                                } else {
                                     Session::flash('home', $language->get('user', 'validation_complete'));
+                                }
 
                                 Redirect::to(URL::build('/'));
                                 die();
