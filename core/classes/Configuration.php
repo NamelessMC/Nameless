@@ -57,7 +57,7 @@ class Configuration {
      * @return void
      */
     public function set($module, $setting, $value) {
-        if ($module == null || $setting == null || $value == null ) {
+        if ($module == null || $setting == null || $value === null ) {
             throw new InvalidArgumentException('Parameter is null');
         }
 
