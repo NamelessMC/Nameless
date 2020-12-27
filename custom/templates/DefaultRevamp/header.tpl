@@ -36,7 +36,19 @@
     {foreach from=$TEMPLATE_CSS item=css}
       {$css}
     {/foreach}
-  
+
+	{if isset($ANALYTICS_ID)}
+	  {literal}
+		<script async src="https://www.googletagmanager.com/gtag/js?id={/literal}{$ANALYTICS_ID}{literal}"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', '{/literal}{$ANALYTICS_ID}{literal}');
+		</script>
+	  {/literal}
+    {/if}
   </head>
 
   <body{if $DEFAULT_REVAMP_DARK_MODE} class="dark"{/if} id="page-{if is_numeric($smarty.const.PAGE)}{$TITLE}{else}{$smarty.const.PAGE}{/if}">
