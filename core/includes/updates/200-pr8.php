@@ -49,6 +49,13 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Give root group gif avatars
+try {
+    $queries->addPermissionGroup(2, 'usercp.gif_avatar');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 
