@@ -667,6 +667,23 @@ if (!class_exists('Default_Panel_Template')) {
                                 console.log(response);
                             }
                         };
+                        
+                        Dropzone.options.upload_logo_dropzone = {
+                            maxFilesize: 2,
+                            dictDefaultMessage: "' . $this->_language->get('admin', 'drag_files_here') . '",
+                            dictInvalidFileType: "' . $this->_language->get('admin', 'invalid_file_type') . '",
+                            dictFileTooBig: "' . $this->_language->get('admin', 'file_too_big') . '",
+                            error: function(file, response) {
+                                console.log("ERROR");
+                                console.log(file);
+                                console.log(response);
+                            },
+                            success: function(file, response){
+                                console.log("ACCEPTED");
+                                console.log(file);
+                                console.log(response);
+                            }
+                        };
 
                         $(".image-picker").imagepicker();'
                     );
