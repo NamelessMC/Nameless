@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -974,7 +974,7 @@ class Core_Module extends Module {
                 $navs[2]->add('modules', $language->get('admin', 'modules'), URL::build('/panel/core/modules'), 'top', null, $order, $icon);
             }
 
-			if($user->hasPermission('admincp.pages')){
+            if($user->hasPermission('admincp.pages')){
                 if(!$cache->isCached('pages_order')){
                     $order = 8;
                     $cache->store('pages_order', 8);
@@ -988,8 +988,8 @@ class Core_Module extends Module {
                 } else
                     $icon = $cache->retrieve('pages_icon');
 
-				$navs[2]->add('custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/pages'), 'top', null, $order, $icon);
-			}
+                $navs[2]->add('custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/pages'), 'top', null, $order, $icon);
+            }
 
             if($user->hasPermission('admincp.security')){
                 if(!$cache->isCached('security_order')){
