@@ -19,7 +19,7 @@ class GetNotificationsEndpoint extends EndpointBase {
     public function execute(Nameless2API $api) {
         // Ensure the user exists
         if (isset($_GET['user']) && is_numeric($_GET['user'])) {
-            $user = $api->getUser('user', $_GET['user'])->data()->id;
+            $user = $api->getUser('id', $_GET['user'])->data()->id;
         } else {
             $api->throwError(6, $api->getLanguage()->get('api', 'invalid_get_contents'));
         }
