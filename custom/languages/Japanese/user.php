@@ -240,6 +240,7 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} が ' . SITE_NAME . ' に登録しました。',
+    'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
     'discord_link' => 'Discord リンク',

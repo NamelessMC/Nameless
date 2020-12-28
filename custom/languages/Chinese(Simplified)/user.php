@@ -237,6 +237,7 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} 加入了 ' . SITE_NAME . '!',
+    'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
     'discord_link' => 'Discord 链接',

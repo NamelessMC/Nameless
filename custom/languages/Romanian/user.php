@@ -237,6 +237,7 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} s-a alaturat comunităţii!',
+    'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
     'discord_link' => 'Discord Link',

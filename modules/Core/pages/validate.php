@@ -37,12 +37,15 @@ if(!isset($_GET['c'])){
 			'active' => 1
 		));
 
-		HookHandler::executeEvent('validateUser', array(
-			'event' => 'validateUser',
-			'user_id' => $user->data()->id,
-			'username' => $user->getDisplayname(),
-			'uuid' => Output::getClean($user->data()->uuid),
-			'language' => $language
+        HookHandler::executeEvent('validateUser', array(
+            'event' => 'validateUser',
+            'user_id' => $user->data()->id,
+            'username' => $user->getDisplayname(),
+            'uuid' => Output::getClean($user->data()->uuid),
+            'content' => str_replace('{x}', $user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
+            'avatar_url' => $user->getAvatar(null, 128, true),
+            'url' => Util::getSelfURL() . ltrim(URL::build('/profile/Samerton'), '/'),
+            'language' => $language
         ));
 
         Discord::addDiscordRole($user, $user->getMainGroup()->id, $language, false);
