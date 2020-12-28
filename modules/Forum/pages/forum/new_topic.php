@@ -192,7 +192,7 @@ if (Input::exists()) {
                     // Execute hooks and pass $available_hooks
                     $available_hooks = $queries->getWhere('forums', array('id', '=', $fid));
                     $available_hooks = json_decode($available_hooks[0]->hooks);
-                    if (count($available_hooks) < 1) $available_hooks = array();
+                    if ($available_hooks != null && count($available_hooks) < 1) $available_hooks = array();
                     HookHandler::executeEvent('newTopic', array(
                         'event' => 'newTopic',
                         'uuid' => Output::getClean($user->data()->uuid),
