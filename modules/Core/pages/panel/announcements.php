@@ -36,6 +36,7 @@ if (!isset($_GET['action'])) {
     }
 
     $smarty->assign(array(
+        'NONE' => $language->get('general', 'none'),
         'NO_ANNOUNCEMENTS' => $language->get('admin', 'no_announcements'),
         'ANNOUCEMENTS_INFO' => $language->get('admin', 'announcement_info'),
         'NEW_LINK' => URL::build('/panel/core/announcements', 'action=new'),
