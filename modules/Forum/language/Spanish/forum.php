@@ -128,7 +128,7 @@ $language = array(
     'label_creation_success' => 'Etiqueta creada correctamente.',
     'label_type_creation_success' => 'Tipo de etiqueta creada correctamente.',
     'label_creation_error' => 'Error al crear una etiqueta. Asegúrese de que el nombre no tenga más de 32 caracteres y de que haya especificado un tipo.',
-    'label_type_creation_error' => 'Error creando un tipo de etiqueta. Asegúrese de que el nombre no tenga más de 32 caracteres y que el HTML no tenga más de 64 caracteres.',
+    'label_type_creation_error' => 'Error creando un tipo de etiqueta. Asegúrese de que el nombre no tenga más de 32 caracteres y que el HTML no tenga más de 1024 caracteres.',
     'creating_forum' => 'Creando nuevo Foro',
     'forum_name' => 'Nombre del Foro',
     'forum_description' => 'Descripción del Foro',
@@ -175,6 +175,8 @@ $language = array(
     'label_deleted_successfully' => 'Etiqueta eliminada con éxito.',
     'label_type_deleted_successfully' => 'Tipo de etiqueta eliminado correctamente.',
     'topic_placeholder' => 'Marcador de Tema',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Busqueda en el Foro',
@@ -193,6 +195,11 @@ $language = array(
     'your_posts' => 'Tus publicaciones',
     'average_posts' => 'Publicaciones Promedio',
     'total_posts' => 'Publicaciones Totales',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => 'Nuevo Tema',

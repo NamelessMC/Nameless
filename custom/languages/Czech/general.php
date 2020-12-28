@@ -13,9 +13,9 @@ $language = array(
     /*
      *  General terms
      */
-    'help' => 'Pomoc',
+    'help' => 'Podpora',
     'submit' => 'Potvrdit',
-    'register' => 'Registrovat se',
+    'register' => 'Zaregistrovat se',
     'already_registered' => 'Již jste zaregistrováni?',
     'custom_fields' => 'Vlastní pole',
     'not_registered_yet' => 'Ještě nejste zaregistrováni?',
@@ -36,7 +36,7 @@ $language = array(
     'confirm_deletion' => 'Opravdu to chcete odstranit?',
     'cancel' => 'Zrušit',
     'delete' => 'Smazat',
-    'none' => 'žádný',
+    'none' => 'Žádný',
     'view' => 'Zobrazit',
     'change' => 'Změnit',
     'remove' => 'Odstranit',
@@ -67,6 +67,8 @@ $language = array(
     'are_you_sure' => 'Jste si jisti?',
     'spoiler' => 'Spoiler',
     'invalid_timezone' => 'Tato časová zóna je neplatná',
+    'link' => 'Propojit',
+    'unlink' => 'Odpojit',
 
     /*
      *  Contact form
@@ -106,11 +108,12 @@ $language = array(
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Verze: {x}', // Don't replace {x}
-    'currently_1_player_online' => 'Na serveru hraje jeden hráč.',
-    'currently_x_players_online' => 'Momentálně je na serveru <strong>{x}</strong> hráčů.', // Don't replace {x}
+    'currently_1_player_online' => 'Na serveru hraje <strong>1</strong> hráč.',
+    'currently_x_players_online' => 'Na serveru hraje <strong>{x}</strong> hráčů.', // Don't replace {x}
     'server_offline' => 'Server je momentálně offline.',
     'connect_with_ip_x' => 'Připojte se na server pomocí {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Kliknutím zkopírujete',
+    'ip' => 'IP',
     'copied' => 'Zkopírováno!',
     'no_servers' => 'Není zde žádný server, který bychom mohli zobrazit!',
     'bungee_instance' => 'Tento server je Bungee.',
@@ -132,13 +135,13 @@ $language = array(
     'forum_statistics' => 'Statistiky fóra',
     'total_threads' => 'Celkem všech příspěvků',
     'total_posts' => 'Celkem příspěvků',
-    'online_staff' => 'Pracovníci online',
+    'online_staff' => 'Tým online',
     'no_online_staff' => 'Momentálně není žádný člen online.',
     'total_online_staff' => 'Celkem online členů: {x}',
     'online_users' => 'Uživatelé online',
     'no_online_users' => 'Žádní uživatelé nejsou online.',
     'total_online_users' => 'Celkem online uživatelů: {x}',
-    'discord_widget_disabled' => 'Widget je momentálně nefunkční, podívejte se do nastavení vašeho Discord serveru, zda jste povolili widget.',
+    'discord_widget_disabled' => 'Widget je momentálně nefunkční. Podívejte se do nastavení vašeho Discord serveru, zda jste jej povolili.',
     'online_guests' => 'Online hosté',
     'total_online' => 'Celkem online', // this is Online Users + Online Guests
     'no_default_server' => 'Není nastaven žádný výchozí server, nastavíte jej zde: Ovládací panel - Integrace - Minecraft.',

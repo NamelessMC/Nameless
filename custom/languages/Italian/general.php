@@ -67,7 +67,9 @@ $language = array(
     'are_you_sure' => 'Sei sicuro?',
     'spoiler' => 'Spoiler',
     'invalid_timezone' => 'Quel fuso orario non è valido',
-
+    'link' => 'Link',
+    'unlink' => 'Unlink',
+    
     /*
      *  Contact form
      */

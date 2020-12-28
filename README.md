@@ -1,4 +1,4 @@
-# NamelessMC - v2 pre-release 7
+# NamelessMC - v2 pre-release 8
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
 NamelessMC version 2.0.0 is still a pre-release, and is not yet recommended for production use. Keep up to date with development in our [Spigot thread](https://www.spigotmc.org/threads/nameless-minecraft-website-software.34810) and our [Discord server](https://discord.gg/k8J97xf).
@@ -6,7 +6,7 @@ NamelessMC version 2.0.0 is still a pre-release, and is not yet recommended for 
 The official project website, providing support and additional downloads such as modules and templates, can be found at [https://namelessmc.com/](https://namelessmc.com/).
 
 ## Features
-The following list is a brief summary of the features available in v2 pre-release 7.
+The following list is a brief summary of the features available in v2 pre-release 8.
 - API - if used in conjunction with the [Nameless Plugin for v2](https://www.spigotmc.org/resources/nameless-plugin-for-v2.59032/), integration with your Minecraft server can be provided
 - Custom page system - create your own HTML pages and even restrict access to them depending on rank
 - Forum system
@@ -24,7 +24,7 @@ The following list is a brief summary of the features available in v2 pre-releas
 Installing NamelessMC v2 is fairly straightforward, provided you already have a web host.
 
 #### Requirements
-- PHP 5.4+ (7.3+ recommended) with:
+- PHP 5.4-7.4 (PHP 7.4 recommended) with:
     - php-curl
     - php-exif (optional)
     - php-gd with png and jpeg support

@@ -45,7 +45,6 @@ try {
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `token` varchar(23) NOT NULL,
         `user_id` int(11) NOT NULL,
-        `discord_user_id` bigint(18) NOT NULL,
         PRIMARY KEY (`id`)
         ) ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
 } catch (Exception $e) {
@@ -68,6 +67,14 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
+    $queries->create('settings', array(
+        'name' => 'discord_bot_username',
+        'value' => null
+    ));
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
     $queries->alterTable('group_sync', '`discord_role_id`', "bigint(18) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
@@ -78,12 +85,29 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
+    $queries->alterTable('users', '`discord_username` ', "varchar(128) NULL DEFAULT NULL");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
     $queries->addPermissionGroup(2, 'admincp.discord');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 try {
     $queries->addPermissionGroup(2, 'admincp.security.discord');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+// New group system
+try {
+    $queries->createTable("users_groups", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `group_id` int(11) NOT NULL, `received` int(11) NOT NULL DEFAULT '0', `expire` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
+    $queries->alterTable('groups', '`deleted`', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -186,6 +210,49 @@ try {
 // Ingame group dropdown
 try {
     $queries->alterTable('query_results', '`groups`', "varchar(256) NOT NULL DEFAULT '[]'");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+// Labels
+try {
+    DB::getInstance()->query("ALTER TABLE `nl2_forums_labels` CHANGE `html` `html` VARCHAR(1024) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
+    DB::getInstance()->query("ALTER TABLE `nl2_forums_labels` CHANGE `name` `name` VARCHAR(32) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+try {
+    DB::getInstance()->query("ALTER TABLE `nl2_forums_topic_labels` CHANGE `gids` `gids` VARCHAR(256) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+// Convert user groups
+try {
+    $users = DB::getInstance()->query('SELECT id, group_id, secondary_groups FROM nl2_users')->results();
+    $query = 'INSERT INTO nl2_users_groups (user_id, group_id) VALUES ';
+    foreach ($users as $item) {
+        $inserts = array('(' . Output::getClean($item->id) . ',' . Output::getClean($item->group_id) . '),');
+        $groups = json_decode($item->secondary_groups);
+        if (count($groups)) {
+            foreach ($groups as $group) {
+                $inserts[] = '(' . Output::getClean($item->id) . ',' . Output::getClean($group) . '),';
+            }
+        }
+        $query .= implode('', $inserts);
+    }
+    DB::getInstance()->createQuery(rtrim($query, ','));
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+// Delete "group_id" from nl2_users table to prevent issues of it not being set
+try {
+    DB::getInstance()->query('ALTER TABLE `nl2_users` DROP COLUMN `group_id`;');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }

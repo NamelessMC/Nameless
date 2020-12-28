@@ -127,7 +127,7 @@ $language = array(
     'label_creation_success' => 'Label succesvol gemaakt.',
     'label_type_creation_success' => 'Label type succesvol gemaakt.',
     'label_creation_error' => 'Probleem met het maken van label. Zorg ervoor dat de naam niet langer is dan 32 karakters en dat je een type hebt gespecificeerd.',
-    'label_type_creation_error' => 'Probleem met het maken van label type. Zorg ervoor dat de naam niet langer is dan 32 karakters en dat de HTML niet langer is dan 64 karakters.',
+    'label_type_creation_error' => 'Probleem met het maken van label type. Zorg ervoor dat de naam niet langer is dan 32 karakters en dat de HTML niet langer is dan 1024 karakters.',
     'creating_forum' => 'Maken van nieuw forum',
     'forum_name' => 'Forum naam',
     'forum_description' => 'Forum beschrijving',
@@ -174,6 +174,8 @@ $language = array(
     'label_deleted_successfully' => 'Label deleted successfully.',
     'label_type_deleted_successfully' => 'Label type deleted successfully.',
     'topic_placeholder' => 'Topic placeholder',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Forum Search',
@@ -192,6 +194,11 @@ $language = array(
     'your_posts' => 'Your post count',
     'average_posts' => 'Average user post count',
     'total_posts' => 'Total post count',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => 'New topic',

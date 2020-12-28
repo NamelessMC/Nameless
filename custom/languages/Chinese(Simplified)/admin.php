@@ -82,8 +82,9 @@ $language = array(
     'discord_id_length' => '请确保您的 Discord ID 长 18 位。',
     'discord_id_numeric' => '请确保您的 Discord ID 只包含数字。',
     'discord_invite_info' => '您可点击<a target="_blank" href="https://namelessmc.com/discord-bot-invite">此处</a>来将 Nameless Link 机器人邀请至您的 Discord 服务器. 随后，您需要向机器人发送包含 <code>!apiurl</code> 命令的消息来链接您的网站。或者，您也可以<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">自己部署机器人</a>。',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">click here</a>.',
+    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
+    'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => '暗调',
     'light' => '亮色',
     'google_plus_url' => 'Google Plus 链接 (URL)',
@@ -174,6 +175,11 @@ $language = array(
     'emails_mass_message_sent_successfully' => '邮件广播发送成功。',
     'emails_mass_message_replacements' => '您可在信息中使用占位符。可用占位符: {username}（用户名）, {sitename}（网站名）',
     'emails_mass_message_loading' => '加载中... 请勿刷新此页面。这可能需要几分钟。',
+    
+    // SEO
+    'seo' => 'SEO',
+    'google_analytics' => 'Google Analytics',
+    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
 
     // Reactions
     'icon' => '图标',
@@ -384,6 +390,8 @@ $language = array(
     'background_updated_successfully' => '背景更新成功。',
     'unable_to_enable_template' => '无法启用不兼容的模板。',
     'background_image_info' => '注意：此选项与大部分模版都不兼容。',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => '账号',
@@ -394,7 +402,8 @@ $language = array(
     'registered' => '注册过的',
     'user_created' => '账号创建成功。',
     'cant_delete_root_user' => '不能删除 root 账号!',
-    'cant_modify_root_user' => '无法更改这个账号的权限组!',
+    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
+    'main_group' => 'Main Group',
     'user_deleted' => '账号删除成功。',
     'confirm_user_deletion' => '你确定要删除账号 <strong>{x}</strong>?', // Don't replace {x}
     'validate_user' => '验证账号',
@@ -446,6 +455,9 @@ $language = array(
     'force_tfa' => '是否强制为该组成员开启二步验证？',
     'force_tfa_warning' => '如果你不明白你在做什么，你可能会导致你自己和该组成员无法使用账户',
     'force_tfa_alert' => '你所在的组必须要开启二步验证',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => '全选',
@@ -557,7 +569,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => '是否启用 API?',
-    'api_info' => '该 API 允许插件和其他服务与您的网站进行交互，例如 <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" > Nameless 官方插件</a>.',
+    'api_info' => '该 API 允许插件和其他服务与您的网站进行交互，例如 <a href="https://plugin.namelessmc.com" target="_blank" > Nameless 官方插件</a>.',
     'enable_legacy_api' => '是否启用旧版 API?',
     'legacy_api_info' => '旧版 API 允许使用旧的 Nameless v1 API 的插件与 v2 网站一起使用。',
     'confirm_api_regen' => '您确定要重新生成 API 密钥?',
@@ -711,6 +723,16 @@ $language = array(
     'discord_invalid_api_url' => '好像您的 API 链接变化了。请您联系服务器拥有者修改链接。',
     'test_bot_url' => '测试机器人 URL',
     'discord_bot_url_valid' => '您的机器人 URL 有效。',
-    'discord_cannot_interact' => 'Nameless Link 机器人无法对此用户进行操作。它的权限组可能比 Nameless Link 权限组更高。'
+    'discord_cannot_interact' => 'Nameless Link 机器人无法对此用户进行操作。它的权限组可能比 Nameless Link 权限组更高。',
+
+    // Discord bot Errors
+    'discord_bot_error_badparameter' => 'Invalid request body.',
+    'discord_bot_error_error' => 'An internal bot error occured.',
+    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
+    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
+    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
+    'discord_bot_error_unauthorized' => 'Website API key is invalid',
+    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
 
 );

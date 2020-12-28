@@ -17,7 +17,7 @@ $language = array(
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Označit jako spam',
-    'confirm_spam' => '<p>Opravdu chcete označen tohoto uživatele za spam?</p><p>Uživatel bude zabanován a veškerý jeho obsah odebrán.</p>',
+    'confirm_spam' => '<p>Opravdu chcete nahlásit tohoto uživatele za spam?</p><p>Uživatel bude zabanován a veškerý jeho obsah odebrán.</p>',
     'user_marked_as_spam' => 'Uživatel byl úpěšně označen za spam.',
     'cant_ban_admin' => 'Nemůžete zabanovat administrátora!',
 
@@ -75,7 +75,7 @@ $language = array(
     'previous_punishments' => 'Předchozí tresty',
     'no_previous_punishments' => 'Žádné předchozí tresty.',
     'warning' => 'Varování',
-    'ip_ban' => 'Zakázat přístup ke stránce na IP adresu',
+    'ip_ban' => 'Zakázat přístup ke stránce IP adrese',
     'reason' => 'Důvod',
     'warn_user' => 'Varovat uživatele',
     'ban_user' => 'Zakázat přístup ke stránce',
@@ -88,17 +88,17 @@ $language = array(
     'confirm_revoke_warning' => 'Jste si jisti, že chcete odvolat toto varování?',
     'confirm_revoke_ban' => 'Jste si jisti, že chcete odvolat zákaz přístupu ke stránce? Přístup ke stránce bude uživateli povolen, i když mají jiný zákaz k přístupu!',
     'punishment_revoked' => 'Trest odvolán.',
-    'punishment_revoked_alert' => 'Pracovník {x} odvolal trest uživateli {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
+    'punishment_revoked_alert' => 'Člen týmu {x} odvolal trest uživateli {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
     'cant_punish_admin' => 'Nemůžete potrestat administrátora!',
     'viewing_all_punishments' => 'Prohlížení všech trestů',
     'no_punishments_found' => 'Žádné tresty nenalezeny.',
     'view_user' => 'Prohlédnout hráče',
     'when' => 'Kdy',
-    'staff' => 'Pracovník',
+    'staff' => 'Tým',
     'type' => 'Typ',
     'recent_punishments' => 'Nedávné tresty',
     'created' => 'Vytvořeno:',
-    'staff:' => 'Pracovník:',
+    'staff:' => 'Člen týmu:',
     'reason:' => 'Důvod:',
 
     // Users

@@ -11,16 +11,15 @@
  */
 class MentionsParser {
 
-	private $_db;
+    private $_db;
 
     /**
      * Create a new instance of MentionsParser.
      *
      */
-    public function __construct()
-    {
-		// Initialise database connection
-		$this->_db = DB::getInstance();
+    public function __construct() {
+        // Initialise database connection
+        $this->_db = DB::getInstance();
     }
 
     /**
@@ -35,7 +34,7 @@ class MentionsParser {
      *
      * @return String parsed post content
      */
-    public function parse($author_id, $value, $link, $alert_short, $alert_full){
+    public function parse($author_id, $value, $link, $alert_short, $alert_full) {
         if(preg_match_all("/\@([A-Za-z0-9\-_!\.]+)/", $value, $matches)){
             $matches = $matches[1];
 
@@ -43,7 +42,7 @@ class MentionsParser {
                 $user = null;
 
                 while((strlen($possible_username) > 0) && !$user){
-                	$user = new user($possible_username, 'nickname');
+                    $user = new user($possible_username, 'nickname');
 
                     if(count($user->data())){
                         $value = preg_replace("/".preg_quote("@{$possible_username}", "/")."/", "<a style=\"" . Output::getClean($user->getGroupClass()) . "\" href=\"" . $user->getProfileURL() . "\">@{$possible_username}</a>", $value);
@@ -64,7 +63,7 @@ class MentionsParser {
 
                         Alert::create($user->data()->id, 'tag', $alert_short, $alert_full, $link);
 
-						break;
+                        break;
                     }
 
                     // chop last word off of it
@@ -74,6 +73,7 @@ class MentionsParser {
                 }
             }
         }
+        
         return $value;
     }
 }

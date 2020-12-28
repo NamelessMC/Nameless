@@ -127,7 +127,7 @@ $language = array(
     'label_creation_success' => 'Метка успешно создана.',
     'label_type_creation_success' => 'Тип метки успешно создан.',
     'label_creation_error' => 'Ошибка при создании метки. Пожалуйста, убедитесь, что вы указали тип метки и название метки не более чем из 32 символов.',
-    'label_type_creation_error' => 'Ошибка при создании типа метки. Пожалуйста, убедитесь, что название не длиннее 32 символов, а HTML-код не длиннее 64 символов.',
+    'label_type_creation_error' => 'Ошибка при создании типа метки. Пожалуйста, убедитесь, что название не длиннее 32 символов, а HTML-код не длиннее 1024 символов.',
     'creating_forum' => 'Создание нового форума',
     'forum_name' => 'Название форума',
     'forum_description' => 'Описание форума',
@@ -173,6 +173,8 @@ $language = array(
     'label_deleted_successfully' => 'Метка успешно удалена.',
     'label_type_deleted_successfully' => 'Тип метки успешно удалён.',
     'topic_placeholder' => 'Topic placeholder',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Поиск по форуму',
@@ -191,6 +193,11 @@ $language = array(
     'your_posts' => 'Ваше кол-во постов',
     'average_posts' => 'Среднее кол-во постов',
     'total_posts' => 'Общее кол-во постов',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => 'Новый топик',

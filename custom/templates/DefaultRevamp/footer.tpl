@@ -9,6 +9,9 @@
           <div class="ui inverted link list">
             <span class="item">&copy; {$SITE_NAME} {'Y'|date}</span>
             <span class="item">Powered By <a href="https://namelessmc.com">NamelessMC</a></span>
+            {if $PAGE_LOAD_TIME}
+              <span class="item" id="page_load"></span>
+            {/if}
           </div>
         </div>
         <div class="five wide column">

@@ -30,12 +30,11 @@
               <input type="text" name="title" value="{$TOPIC_TITLE}">
             </div>
             {if count($LABELS)}
-              <div class="inline fields">
-                <label>Label:</label>
+              <div class="inline fields labels">
                 {foreach from=$LABELS item=label}
                   <div class="field">
-                    <div class="ui radio checkbox">
-                      <input type="radio" name="topic_label" id="{$label.id}" value="{$label.id}"{if $label.active} checked="checked"{/if} hidden>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="topic_label[]" id="{$label.id}" value="{$label.id}"{if $label.active} checked="checked"{/if} hidden>
                       <label for="{$label.id}">{$label.html}</label>
                     </div>
                   </div>

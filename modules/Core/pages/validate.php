@@ -37,37 +37,18 @@ if(!isset($_GET['c'])){
 			'active' => 1
 		));
 
-		HookHandler::executeEvent('validateUser', array(
-			'event' => 'validateUser',
-			'user_id' => $user->data()->id,
-			'username' => $user->getDisplayname(),
-			'uuid' => Output::getClean($user->data()->uuid),
-			'language' => $language
-		));
+        HookHandler::executeEvent('validateUser', array(
+            'event' => 'validateUser',
+            'user_id' => $user->data()->id,
+            'username' => $user->getDisplayname(),
+            'uuid' => Output::getClean($user->data()->uuid),
+            'content' => str_replace('{x}', $user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
+            'avatar_url' => $user->getAvatar(null, 128, true),
+            'url' => Util::getSelfURL() . ltrim(URL::build('/profile/Samerton'), '/'),
+            'language' => $language
+        ));
 
-		// Discord integration is enabled
-		$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
-		$discord_integration = $discord_integration[0]->value;
-		if ($discord_integration == '1') {
-			// They have a valid discord Id
-			if ($user->data()->discord_id != null && $user->data()->discord_id != 010) {
-				$group_discord_id = $queries->getWhere('groups', array('id', '=', $user->getTopGroup()->id));
-				$group_discord_id = $group_discord_id[0]->discord_role_id;
-
-				if ($group_discord_id != null) {
-					$api_key = $queries->getWhere('settings', array('name', '=', 'mc_api_key'));
-					$api_key = $api_key[0]->value;
-					$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($api_key), '', 'non-friendly'), '/');
-					$guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
-					$url = '/roleChange?id=' . $user->data()->discord_id . '&guild_id=' . $guild_id[0]->value . '&role=' . $group_discord_id . '&api_url='. $api_url;
-					$result = Discord::discordBotRequest($url);
-					// Purposely ignored checking for errors, but rather add a log instead
-					if ($result != 'success') {
-						Log::getInstance()->log(Log::action('discord/upon_validation_error'), 'Request error: ' . $result, $user->data()->id);
-					}
-				} 
-			}
-		}
+        Discord::addDiscordRole($user, $user->getMainGroup()->id, $language, false);
 
 		Session::flash('home', $language->get('user', 'validation_complete'));
 		Redirect::to(URL::build('/'));

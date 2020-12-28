@@ -15,7 +15,9 @@
  */
 
 $language = array(
+
     // Errors
+    'api_disabled' => 'API is disabled',
     'unknown_error' => '不明なエラー',
     'invalid_api_key' => '無効な API キー',
     'invalid_language_file' => '言語ファイルが無効です。',
@@ -50,7 +52,11 @@ $language = array(
     'unable_to_set_discord_id' => 'Discord IDを設定できません。',
     'unable_to_set_discord_bot_url' => 'DiscordボットのURLが設定できません。',
     'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
-
+    'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
+    'unable_to_update_discord_username' => 'Unable to update Discord username.',
+    'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
+    'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
+    
     // Success messages
     'finish_registration_link' => '登録を完了するには次のリンクをクリックしてください:',
     'finish_registration_email' => '登録を完了するにはメールを確認して処理を完了してください。',
@@ -61,5 +67,6 @@ $language = array(
     'server_info_updated' => 'サーバー情報が更新されました。',
     'account_validated' => 'アカウントの検証が完了しました。',
     'discord_id_set' => 'Discord IDの設定に成功しました。',
-    'discord_bot_url_updated' => 'Discord botのURLが更新されました。'
+    'discord_bot_url_updated' => 'Discord botのURLが更新されました。',
+    'discord_usernames_updated' => 'Discord usernames updated successfully'
 );

@@ -181,6 +181,8 @@ $language = array(
     'label_deleted_successfully' => 'Label deleted successfully.',
     'label_type_deleted_successfully' => 'Label type deleted successfully.',
     'topic_placeholder' => 'Topic placeholder',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Forum Search',
@@ -199,6 +201,11 @@ $language = array(
     'your_posts' => 'Your post count',
     'average_posts' => 'Average user post count',
     'total_posts' => 'Total post count',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => 'New topic',

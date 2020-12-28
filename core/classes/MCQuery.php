@@ -10,13 +10,14 @@
  */
 
 class MCQuery {
+
     // Query a single server
     // Returns array containing query result
     // Params:  $ip - full server IP address with port (separated by :) to query
     //          $type - type of query to use (internal or external)
     //          $language - query language object
     //          $queries - Queries instance to pass through for error logging
-    public static function singleQuery($ip = null, $type = 'internal', $language, $queries){
+    public static function singleQuery($ip = null, $type = 'internal', $language, $queries) {
         if ($ip) {
             try {
                 if ($type == 'internal') {
@@ -59,7 +60,6 @@ class MCQuery {
 
                         return $return;
                     }
-
                 } else {
                     // External query
                     $query_ip = explode(':', $ip['ip']);
@@ -86,13 +86,14 @@ class MCQuery {
                         }
                     }
                 }
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 $error = $e->getMessage();
 
                 $query_ip = explode(':', $ip['ip']);
 
                 $queries->create(
-                    'query_errors', array(
+                    'query_errors',
+                    array(
                         'date' => date('U'),
                         'error' => $error,
                         'ip' => $query_ip[0],
@@ -140,14 +141,15 @@ class MCQuery {
                             } else {
                                 $query = $ping->Query();
                             }
-                        } catch(Exception $e){
+                        } catch (Exception $e) {
                             // Unable to query
                             $error = $e->getMessage();
 
                             $query = array();
 
                             $queries->create(
-                                'query_errors', array(
+                                'query_errors',
+                                array(
                                     'date' => date('U'),
                                     'error' => $error,
                                     'ip' => $query_ip[0],

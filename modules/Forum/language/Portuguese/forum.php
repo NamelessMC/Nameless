@@ -128,7 +128,7 @@ $language = array(
     'label_creation_success' => 'Label criado com êxito.',
     'label_type_creation_success' => 'Tipo de rótulo criado com êxito.',
     'label_creation_error' => 'Erro ao criar um rótulo. Por favor, certifique-se de que o nome não tem mais de 32 caracteres e que você especificou um tipo.',
-    'label_type_creation_error' => 'Erro ao criar um tipo de rótulo. Por favor, certifique-se de que o nome não tem mais de 32 caracteres e que o HTML não é mais de 64 caracteres.',
+    'label_type_creation_error' => 'Erro ao criar um tipo de rótulo. Por favor, certifique-se de que o nome não tem mais de 32 caracteres e que o HTML não é mais de 1024 caracteres.',
     'creating_forum' => 'Criando novo fórum',
     'forum_name' => 'Nome do fórum',
     'forum_description' => 'Descrição do fórum',
@@ -175,6 +175,8 @@ $language = array(
     'label_deleted_successfully' => 'Label deleted successfully.',
     'label_type_deleted_successfully' => 'Label type deleted successfully.',
     'topic_placeholder' => 'Topic placeholder',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Pesquisa no Fórum',
@@ -193,6 +195,11 @@ $language = array(
     'your_posts' => 'Quantidade de postagens',
     'average_posts' => 'Quantidade média de postagens de usuários',
     'total_posts' => 'Total de postagens',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => 'Novo tópico',

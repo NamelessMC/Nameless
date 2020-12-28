@@ -80,8 +80,9 @@ $language = array(
     'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
     'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
     'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">click here</a>.',
+    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
+    'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => 'Dark',
     'light' => 'Light',
     'google_plus_url' => 'Google Plus URL',
@@ -172,6 +173,11 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
+    
+    // SEO
+    'seo' => 'SEO',
+    'google_analytics' => 'Google Analytics',
+    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
 
     // Reactions
     'icon' => 'Ikonka',
@@ -383,6 +389,8 @@ $language = array(
     'background_updated_successfully' => 'Background updated successfully.',
     'unable_to_enable_template' => 'Unable to enable incompatible template.',
     'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'Užívateľ',
@@ -393,7 +401,8 @@ $language = array(
     'registered' => 'Registrovaný',
     'user_created' => 'Uživatel bol úspešne vytvorení!',
     'cant_delete_root_user' => 'Nemôžete zmazať hlavného užívateľa!',
-    'cant_modify_root_user' => 'Nemôžete zmeniť skupinu pre hlavného užívateľa!',
+    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
+    'main_group' => 'Main Group',
     'user_deleted' => 'Užívateľ úspešne zmazaný.',
     'confirm_user_deletion' => 'Určite chcete zmazať užívateľa <strong>{x}</strong>?', // Don't replace {x}
     'validate_user' => 'Overiť uživateľa',
@@ -445,6 +454,9 @@ $language = array(
     'force_tfa' => 'Force Two Factor Authentication for group members?',
     'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
     'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => 'Vybrat všetko',
@@ -557,7 +569,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'Povolit API?',
-    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >official Nameless plugin</a>, and <a href="https://github.com/NamelessMC/Nameless-Link" target="_blank" >official NamelessMC Discord Bot</a>.',    'enable_legacy_api' => 'Povolit zastaralú API?',
+    'api_info' => 'The API allows for plugins and other services to interact with your website, such as the <a href="https://plugin.namelessmc.com" target="_blank" >official Nameless plugin</a>, and <a href="https://github.com/NamelessMC/Nameless-Link" target="_blank" >official NamelessMC Discord Bot</a>.',    'enable_legacy_api' => 'Povolit zastaralú API?',
     'legacy_api_info' => 'The legacy API allows plugins which use the old Nameless version 1 API to work with your version 2 website.',
     'confirm_api_regen' => 'Are you sure you want to regenerate your API key?',
     'api_key' => 'API Klúč',
@@ -708,6 +720,16 @@ $language = array(
     'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',
     'test_bot_url' => 'Test Bot URL',
     'discord_bot_url_valid' => 'Your Bot URL is valid.',
-    'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?'
+    'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?',
+
+    // Discord bot Errors
+    'discord_bot_error_badparameter' => 'Invalid request body.',
+    'discord_bot_error_error' => 'An internal bot error occured.',
+    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
+    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
+    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
+    'discord_bot_error_unauthorized' => 'Website API key is invalid',
+    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
 
 );

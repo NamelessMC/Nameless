@@ -18,39 +18,39 @@ $language = array(
     /*
      *  User Related
      */
-    'guest' => 'Guest',
-    'guests' => 'Guests',
+    'guest' => 'Návštevník',
+    'guests' => 'Návštevníci',
 
     // UserCP
     'user_cp' => 'UserCP',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
-    'overview' => 'Overview',
+    'overview' => 'Informácie',
     'user_details' => 'User Details',
-    'profile_settings' => 'Profile Settings',
+    'profile_settings' => 'Nastavenia Profilu',
     'successfully_logged_out' => 'You have been logged out successfully.',
-    'messaging' => 'Messaging',
+    'messaging' => 'Správy',
     'click_here_to_view' => 'Click here to view.',
     'moderation' => 'Moderation',
-    'administration' => 'Administration',
-    'alerts' => 'Alerts',
-    'delete_all' => 'Delete All',
-    'private_profile' => 'Private profile',
-    'gif_avatar' => 'Upload .gif as custom avatar',
+    'administration' => 'Administrácia',
+    'alerts' => 'Upozornenia',
+    'delete_all' => 'Zmazat všetko',
+    'private_profile' => 'Súkromný Profil',
+    'gif_avatar' => 'Nahrat .gif ako vlastný avatar',
 
     // Profile settings
-    'field_is_required' => '{x} is required.', // Don't replace {x}
-    'settings_updated_successfully' => 'Settings updated successfully.',
-    'password_changed_successfully' => 'Password changed successfully.',
-    'change_password' => 'Change Password',
-    'current_password' => 'Current Password',
-    'new_password' => 'New Password',
-    'confirm_new_password' => 'Confirm New Password',
-    'incorrect_password' => 'Your password is incorrect.',
-    'two_factor_auth' => 'Two Factor Authentication',
-    'enabled' => 'Enabled',
-    'disabled' => 'Disabled',
-    'enable' => 'Enable',
-    'disable' => 'Disable',
+    'field_is_required' => 'Pole {x} je povinné.', // Don't replace {x}
+    'settings_updated_successfully' => 'Nastavenie bolo úspešne upravené.',
+    'password_changed_successfully' => 'Heslo bolo úspešne zmenené.',
+    'change_password' => 'Zmenit heslo',
+    'current_password' => 'Aktuálne heslo',
+    'new_password' => 'Nové heslo',
+    'confirm_new_password' => 'Potvrdit nové heslo',
+    'incorrect_password' => 'Tvoje heslo je nesprávne.',
+    'two_factor_auth' => 'Dvoj Faktorové Overenie',
+    'enabled' => 'Povolené',
+    'disabled' => 'Zakázané',
+    'enable' => 'Povolit',
+    'disable' => 'Zakázat',
     'tfa_scan_code' => 'Please scan the following code within your authentication app:',
     'tfa_code' => 'If your device does not have a camera, or you are unable to scan the QR code, please input the following code:',
     'tfa_enter_code' => 'Please enter the code displaying within your authentication app:',
@@ -69,6 +69,7 @@ $language = array(
     'upload_profile_banner' => 'Upload Profile Banner',
     'upload' => 'Upload',
     'topic_updates' => 'Get emails for topics you follow',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'You have been tagged in a post by {x}.', // Don't replace {x}
@@ -80,14 +81,14 @@ $language = array(
 
     // Registraton
     'registration_check_email' => 'Thanks for registering! Please check your emails for a validation link in order to complete your registration. If you are unable to find the email, check your junk folder.',
-    'username' => 'Username',
-    'nickname' => 'Nickname',
-    'minecraft_username' => 'Minecraft Username',
-    'email_address' => 'Email Address',
+    'username' => 'Uźivatelské meno',
+    'nickname' => 'Nick',
+    'minecraft_username' => 'Meno v Minecrafte',
+    'email_address' => 'Emailová adresa',
     'email' => 'Email',
-    'password' => 'Password',
-    'confirm_password' => 'Confirm Password',
-    'i_agree' => 'I Agree',
+    'password' => 'Heslo',
+    'confirm_password' => 'Potvrdit heslo',
+    'i_agree' => 'Súhlasím',
     'agree_t_and_c' => 'By clicking <strong class="label label-primary">Register</strong>, you agree to our <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Create an Account',
     'terms_and_conditions' => 'Terms and Conditions',
@@ -186,7 +187,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
     'no_about_fields' => 'This user has not added any about fields yet.',
     'reply' => 'Reply',
-
+    'discord_username' => 'Discord Username',
+    
     // Reports
     'invalid_report_content' => 'Unable to create report. Please ensure your report reason is between 2 and 1024 characters.',
     'report_post_content' => 'Please enter a reason for your report',
@@ -233,6 +235,7 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!',
+    'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
     'discord_link' => 'Discord Link',
@@ -240,7 +243,7 @@ $language = array(
     'not_linked' => 'Not Linked',
     'discord_id' => 'Discord User ID',
     'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to "Nameless Link#0761" to confirm your Discord User ID.',
+    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
     'pending_link' => 'Pending',
     'discord_id_taken' => 'That Discord ID has already been taken.',
     'discord_invalid_id' => 'That Discord User ID is invalid.',

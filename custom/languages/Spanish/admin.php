@@ -79,8 +79,9 @@ $language = array(
     'discord_id_length' => 'Asegúrate de que tu ID de Discord tenga 18 caracteres.',
     'discord_id_numeric' => 'Asegúrese de que su ID de Discord sea numérica (No debe contener letras).',
     'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">click here</a>.',
+    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
+    'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => 'Oscuro',
     'light' => 'Claro',
     'google_plus_url' => 'Enlace de Google Plus',
@@ -170,6 +171,11 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
+    
+    // SEO
+    'seo' => 'SEO',
+    'google_analytics' => 'Google Analytics',
+    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
 
     // Reactions
     'icon' => 'Icono',
@@ -258,7 +264,7 @@ $language = array(
     'server_query_information' => 'Con el fin de mostrar una lista de jugadores en línea en su sitio web, su servidor <strong>must</strong> debe tener el \'enable-query\' habilitado en el archivo <strong>server.properties</strong>.',
     'enable_status_query' => '¿Habilitar estado de consulta?',
     'status_query_help' => 'Si esta opción está activada, la página de estado mostrará este servidor en línea o fuera de línea.',
-    'show_ip_on_status_page' => 'Quieres que la IP aparesca en la pagina de estado?',
+    'show_ip_on_status_page' => '¿Quieres que la IP aparezca en la página de estado?',
     'show_ip_on_status_page_info' => 'Si esto está habilitado, los usuarios podrán ver y copiar la dirección IP cuando vean la página Estado.',
     'enable_player_list' => '¿Activar la lista de jugadores?',
     'pre_1.7' => '¿La versión del servidor de Minecraft es anterior a la 1.7?',
@@ -380,6 +386,8 @@ $language = array(
     'background_updated_successfully' => 'Fondo actualizado correctamente.',
     'unable_to_enable_template' => 'Imposible activar plantillas incompatibles.',
     'background_image_info' => 'Tenga en cuenta que esta opción puede no ser compatible con la mayoría de las plantillas.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'Usuarios',
@@ -390,7 +398,8 @@ $language = array(
     'registered' => 'Registrado',
     'user_created' => 'Usuario creado correctamente.',
     'cant_delete_root_user' => 'No se puede eliminar el usuario Raiz!',
-    'cant_modify_root_user' => 'No se puede modificar el grupo del usuario Raiz!',
+    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
+    'main_group' => 'Main Group',
     'user_deleted' => 'Usuario eliminado correctamente.',
     'confirm_user_deletion' => '¿Está seguro de que desea eliminar a el usuario <strong>{x}</strong>?', // Don't replace {x}
     'validate_user' => 'Validar usuario',
@@ -442,6 +451,9 @@ $language = array(
     'force_tfa' => '¿Forzar la autenticación de dos factores para los miembros del grupo?',
     'force_tfa_warning' => 'Asegúrese de saber lo que hace esto, o corre el riesgo de encerrarse a sí mismo y a todos los miembros del grupo.',
     'force_tfa_alert' => 'Su grupo requiere que tenga habilitada la autenticación de dos factores.',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => 'Seleccionar todo',
@@ -553,7 +565,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => '¿Habilitar API?',
-    'api_info' => 'La API permite que los complementos y otros servicios interactúen con su sitio web, como el <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >plugin oficial de NamelessMC</a>.',
+    'api_info' => 'La API permite que los complementos y otros servicios interactúen con su sitio web, como el <a href="https://plugin.namelessmc.com" target="_blank" >plugin oficial de NamelessMC</a>.',
     'enable_legacy_api' => '¿Habilitar API heredada?',
     'legacy_api_info' => 'La API heredada permite que los complementos que usan la antigua API de la versión 1 de Nameless funcionen con su sitio web versión 2.',
     'confirm_api_regen' => '¿Estás seguro de que quieres regenerar tu llave API?',
@@ -704,6 +716,16 @@ $language = array(
     'discord_invalid_api_url' => 'Parece que su URL de API ha cambiado. Solicite al propietario del gremio que actualice la URL con el bot de Enlace sin nombre.',
     'test_bot_url' => 'Probar URL del bot',
     'discord_bot_url_valid' => 'Tu URL de bot es válida.',
-    'discord_cannot_interact' => 'El bot Nameless Link no puede interactuar con este usuario en Discord. ¿Su rol es más alto que el rol de Nameless Link?'
+    'discord_cannot_interact' => 'El bot Nameless Link no puede interactuar con este usuario en Discord. ¿Su rol es más alto que el rol de Nameless Link?',
+
+    // Discord bot Errors
+    'discord_bot_error_badparameter' => 'Invalid request body.',
+    'discord_bot_error_error' => 'An internal bot error occured.',
+    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
+    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
+    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
+    'discord_bot_error_unauthorized' => 'Website API key is invalid',
+    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
 
 );

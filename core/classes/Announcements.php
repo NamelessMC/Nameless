@@ -22,18 +22,18 @@ class Announcements {
     public static function getAvailable($page = null, $custom_page = null, $user_groups = array(0)) {
         $announcements = array();
         foreach(self::getAll() as $announcement) {
-			if (Cookie::exists('announcement-' . $announcement->id)) {
-				continue;
-			}
-            $pages = json_decode($announcement->pages, true);
-            $groups = json_decode($announcement->groups, true);
+            if (Cookie::exists('announcement-' . $announcement->id)) {
+                continue;
+            }
+            $pages = (array) json_decode($announcement->pages, true);
+            $groups = (array) json_decode($announcement->groups, true);
             if (in_array($page, $pages) || $page == 'api' || in_array($custom_page, $pages)) {
-				foreach($user_groups as $group) {
-					if (in_array($group, $groups)) {
-						$announcements[] = $announcement;
-						break;
-					}
-				}
+                foreach($user_groups as $group) {
+                    if (in_array($group, $groups)) {
+                        $announcements[] = $announcement;
+                        break;
+                    }
+                }
             }
         }
         return $announcements;
@@ -46,18 +46,20 @@ class Announcements {
     }
 
     public static function getPagesCsv($pages_json = null){
-        return implode(', ', array_map('ucfirst', json_decode($pages_json)));
+        $pages = json_decode($pages_json);
+        if (!$pages) return null;
+        return implode(', ', array_map('ucfirst', $pages));
     }
 
     public static function edit($id = null, $pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null) {
-        $queries = new Queries;
+        $queries = new Queries();
         $queries->update('custom_announcements', $id, array('pages' => json_encode($pages), 'groups' => json_encode($groups), 'text_colour' => $text_colour, 'background_colour' => $background_colour, 'icon' => $icon, 'closable' => $closable ? 1 : 0, 'header' => $header, 'message' => $message));
         self::resetCache();
         return true;
     }
 
     public static function create($pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null) {
-        $queries = new Queries;
+        $queries = new Queries();
         $queries->create('custom_announcements', array('pages' => json_encode($pages), 'groups' => json_encode($groups), 'text_colour' => $text_colour, 'background_colour' => $background_colour, 'icon' => $icon, 'closable' => $closable ? 1 : 0, 'header' => $header, 'message' => $message));
         self::resetCache();
         return true;

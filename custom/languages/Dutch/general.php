@@ -69,7 +69,9 @@ $language = array(
     'are_you_sure' => 'Weet je het zeker?',
     'spoiler' => 'Spoiler',
     'invalid_timezone' => 'Die tijdzone is ongeldig',
-
+    'link' => 'Link',
+    'unlink' => 'Unlink',
+    
     /*
      *  Contact formulier
      */

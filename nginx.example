@@ -4,7 +4,7 @@
 # With thanks to @Pugabyte, @Zethrus and KentuckyFriedData
 
 location / {
-    try_files $uri $uri/ /index.php?route=$request_uri&$query_string;
+    try_files $uri $uri/ /index.php?route=$uri&$args;
 }
 
 location ~ \.(tpl|cache)$ {

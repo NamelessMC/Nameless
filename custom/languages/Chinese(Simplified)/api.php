@@ -12,7 +12,9 @@
  */
 
 $language = array(
+
     // Errors
+    'api_disabled' => 'API is disabled',
     'unknown_error' => '未知错误',
     'invalid_api_key' => '无效 API 密钥',
     'invalid_language_file' => '语言文件无效',
@@ -47,7 +49,11 @@ $language = array(
     'unable_to_set_discord_id' => '无法设置 Discord ID。',
     'unable_to_set_discord_bot_url' => '无法设置 Discord 机器人 URL',
     'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
-
+    'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
+    'unable_to_update_discord_username' => 'Unable to update Discord username.',
+    'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
+    'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
+    
     // Success messages
     'finish_registration_link' => '请点击该链接以完成注册:',
     'finish_registration_email' => '请检查电子邮箱地址以完成注册.',
@@ -58,5 +64,6 @@ $language = array(
     'server_info_updated' => '服务器信息更新成功',
     'account_validated' => '账号校验成功',
     'discord_id_set' => 'Discord ID 更新成功',
-    'discord_settings_updated' => 'Discord settings updated successfully'
+    'discord_settings_updated' => 'Discord settings updated successfully',
+    'discord_usernames_updated' => 'Discord usernames updated successfully'
 );

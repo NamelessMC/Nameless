@@ -25,11 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-class MinecraftBanner
-{
-    public static function getBackgroundCanvas($width, $height, $background)
-    {
-		$texture_size = 32;
+class MinecraftBanner {
+
+    public static function getBackgroundCanvas($width, $height, $background) {
+        $texture_size = 32;
 
         $canvas = imagecreatetruecolor($width, $height);
         if ($background == NULL) {
@@ -75,34 +74,34 @@ class MinecraftBanner
 
         return $canvas;
     }
-	
-	public static function getColours(){
-		return array(
-			'0' => array(0, 0, 0), //Black
-			'1' => array(0, 0, 170), //Dark Blue
-			'2' => array(0, 170, 0), //Dark Green
-			'3' => array(0, 170, 170), //Dark Aqua
-			'4' => array(170, 0, 0), //Dark Red
-			'5' => array(170, 0, 170), //Dark Purple
-			'6' => array(255, 170, 0), //Gold
-			'7' => array(170, 170, 170), //Gray
-			'8' => array(85, 85, 85), //Dark Gray
-			'9' => array(85, 85, 255), //Blue
-			'a' => array(85, 255, 85), //Green
-			'b' => array(85, 255, 255), //Aqua
-			'c' => array(255, 85, 85), //Red
-			'd' => array(255, 85, 85), //Light Purple
-			'e' => array(255, 255, 85), //Yellow
-			'f' => array(255, 255, 255), //White
-		);
-	}
-	
-	public static function getColourChar(){
-		return "§";
-	}
-	
-	public static function getFontFile(){
-		return ROOT_PATH . '/core/assets/fonts/minecraft.ttf';
-	}
+
+    public static function getColours() {
+        return array(
+            '0' => array(0, 0, 0), //Black
+            '1' => array(0, 0, 170), //Dark Blue
+            '2' => array(0, 170, 0), //Dark Green
+            '3' => array(0, 170, 170), //Dark Aqua
+            '4' => array(170, 0, 0), //Dark Red
+            '5' => array(170, 0, 170), //Dark Purple
+            '6' => array(255, 170, 0), //Gold
+            '7' => array(170, 170, 170), //Gray
+            '8' => array(85, 85, 85), //Dark Gray
+            '9' => array(85, 85, 255), //Blue
+            'a' => array(85, 255, 85), //Green
+            'b' => array(85, 255, 255), //Aqua
+            'c' => array(255, 85, 85), //Red
+            'd' => array(255, 85, 85), //Light Purple
+            'e' => array(255, 255, 85), //Yellow
+            'f' => array(255, 255, 255), //White
+        );
+    }
+
+    public static function getColourChar() {
+        return "§";
+    }
+
+    public static function getFontFile() {
+        return ROOT_PATH . '/core/assets/fonts/minecraft.ttf';
+    }
 
 }

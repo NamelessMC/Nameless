@@ -71,6 +71,13 @@
               </div>
             {/if}
             <div class="field">
+              <label for="inputGravatar">{$GRAVATAR}</label>
+              <select class="ui fluid dropdown" name="gravatar" id="inputGravatar">
+                <option value="0"{if ($GRAVATAR_VALUE == '0')} selected {/if}>{$DISABLED}</option>
+                <option value="1"{if ($GRAVATAR_VALUE == '1')} selected {/if}>{$ENABLED}</option>
+              </select>
+            </div>
+            <div class="field">
               <label for="inputLanguage">{$ACTIVE_LANGUAGE}</label>
               <select class="ui fluid dropdown" name="language" id="inputLanguage">
                 {foreach from=$LANGUAGES item=language}
@@ -153,22 +160,26 @@
       {if $DISCORD_INTEGRATION}
         <div class="ui segment">
           <h3 class="ui header">{$DISCORD_LINK}
+            {if $DISCORD_LINKED}
+              <span class="ui green label">{$LINKED}</span>
+            {else if isset($PENDING_LINK)}
+              <span class="ui orange label">{$PENDING_LINK}</span>
+            {else}
+              <span class="ui red label">{$NOT_LINKED}</span>
+            {/if}
+            </h3>
           {if $DISCORD_LINKED}
-            <span class="ui green label">{$LINKED}</span>
-          {else if isset($PENDING_LINK)}
-            <span class="ui orange label">{$PENDING_LINK}</span>
-          {else}
-            <span class="ui red label">{$NOT_LINKED}</span>
+            <p><strong>{$DISCORD_USERNAME}:</strong> {$DISCORD_USERNAME_VALUE}</p>
           {/if}
-          </h3>
           <form action="" method="post" class="ui form">
-            <div class="field">
-              <label for="discord_id">{$DISCORD_ID} <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">({$HELP})</a></label>
-              <input type="number" name="discord_id" id="discord_id" class="form-control" value="{$DISCORD_ID_VALUE}">
-            </div>
             <input type="hidden" name="action" value="discord">
             <input type="hidden" name="token" value="{$TOKEN}">
-            <input type="submit" value="{$SUBMIT}" class="ui primary button">
+            {if $DISCORD_LINKED} 
+              <input type="hidden" name="unlink" value="true">
+              <input type="submit" value="{$UNLINK}" class="ui red button">
+            {else}
+              <input type="submit" value="{$LINK}" class="ui primary button">
+            {/if}
           </form>
         </div>
       {/if}

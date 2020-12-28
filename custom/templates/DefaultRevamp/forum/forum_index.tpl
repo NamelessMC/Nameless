@@ -17,7 +17,7 @@
             <form class="ui form" method="post" action="{$SEARCH_URL}" name="searchForm">
                 <input type="hidden" name="token" value="{$TOKEN}">
                 <div class="ui fluid action input">
-                    <input type="text" name="forum_search" placeholder="{$SEARCH}">
+                    <input type="text" name="forum_search" placeholder="{$SEARCH}" minlength="3" maxlength="128">
                     <button type="submit" class="ui primary icon button"><i class="search icon"></i></button>
                 </div>
             </form>
@@ -47,11 +47,11 @@
             {foreach from=$FORUMS key=category item=forum}
                 {if !empty($forum.subforums)}
                     <div class="ui padded segment" id="forum-node">
-                        <h3 class="ui header">{$forum.title}</h3>
+                        <h3 class="ui header"><a href="{$forum.link}">{$forum.title}</a></h3>
                         <div class="ui divider"></div>
                         <div class="ui middle aligned stackable grid">
                             {foreach from=$forum.subforums item=subforum}
-                                {if !isset($subforum->redirect_confirm)}
+                                {if $subforum->redirect_forum neq 1}
                                     <div class="centered row">
                                         <div class="one wide column mobile hidden">{if empty($subforum->icon)}
                                                 <i class="ui large comment icon middle aligned"></i>
@@ -127,8 +127,13 @@
                                     <div class="centered row">
                                         <div class="one wide column mobile hidden">{if empty($subforum->icon)}<i class="ui large comment icon middle aligned"></i>{else}{$subforum->icon}{/if}</div>
                                         <div class="fifteen wide column">
-                                            <a class="header" data-toggle="modal" href="#"
-                                               data-target="#modal-redirect-{$subforum->id}">{$subforum->forum_title}</a>
+                                            <a class="header" data-toggle="modal"
+                                               {if isset($subforum->redirect_confirm)}
+                                                href="#"
+                                                data-target="#modal-redirect-{$subforum->id}"
+                                               {else}
+                                                href="{$subforum->redirect_url}"
+                                               {/if}>{$subforum->forum_title}</a>
                                         </div>
                                     </div>
                                     <div class="ui mini modal" id="modal-redirect-{$subforum->id}">

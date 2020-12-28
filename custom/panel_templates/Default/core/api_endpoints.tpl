@@ -31,7 +31,7 @@
                     </div>
 
                     <!-- Update Notification -->
-                    {include file='update.tpl'}
+                    {include file='includes/update.tpl'}
 
                     <div class="card shadow mb-4">
                         <div class="card-body">

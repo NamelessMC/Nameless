@@ -6,44 +6,23 @@
  *
  *  License: MIT
  *
- *  Panel hooks page
+ *  Panel announcements page
  */
 
-// Can the user view the panel?
-if ($user->isLoggedIn()) {
-    if (!$user->canViewACP()) {
-        // No
-        Redirect::to(URL::build('/'));
-        die();
-    }
-    if (!$user->isAdmLoggedIn()) {
-        // Needs to authenticate
-        Redirect::to(URL::build('/panel/auth'));
-        die();
-    } else {
-        if (!$user->hasPermission('admincp.core.announcements')) {
-            require_once(ROOT_PATH . '/404.php');
-            die();
-        }
-    }
-} else {
-    // Not logged in
-    Redirect::to(URL::build('/login'));
-    die();
-}
+$user->handlePanelPageLoad('admincp.core.announcements');
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'announcements');
 define('PANEL_PAGE', 'announcements');
 $page_title = $language->get('admin', 'announcements');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
-$queries = new Queries;
+$queries = new Queries();
 
 if (!isset($_GET['action'])) {
     // View all announcements
 
     $announcements = array();
-    foreach(Announcements::getAll() as $announcement){
+    foreach (Announcements::getAll() as $announcement) {
         $announcements[] = array(
             $announcement,
             'pages' => Announcements::getPagesCsv($announcement->pages)
@@ -57,6 +36,7 @@ if (!isset($_GET['action'])) {
     }
 
     $smarty->assign(array(
+        'NONE' => $language->get('general', 'none'),
         'NO_ANNOUNCEMENTS' => $language->get('admin', 'no_announcements'),
         'ANNOUCEMENTS_INFO' => $language->get('admin', 'announcement_info'),
         'NEW_LINK' => URL::build('/panel/core/announcements', 'action=new'),
@@ -101,7 +81,11 @@ if (!isset($_GET['action'])) {
                                 $all_groups[] = $group->id;
                             }
                         }
-                        if(!Announcements::create(Input::get('pages'), $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))){
+                        $pages = array();
+                        foreach (Input::get('pages') as $page) {
+                            $pages[] = $page;
+                        }
+                        if (!Announcements::create($pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))) {
                             Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
@@ -134,7 +118,7 @@ if (!isset($_GET['action'])) {
                                 }
                             }
                         }
-                        }
+                    }
                 } else {
                     // Invalid token
                     $errors[] = $language->get('general', 'invalid_token');
@@ -204,7 +188,11 @@ if (!isset($_GET['action'])) {
                                 $all_groups[] = $group->id;
                             }
                         }
-                        if (!Announcements::edit($announcement->id, Input::get('pages'), $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))) {
+                        $pages = array();
+                        foreach (Input::get('pages') as $page) {
+                            $pages[] = $page;
+                        }
+                        if (!Announcements::edit($announcement->id, $pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))) {
                             Session::flash('announcement_error', $language->get('admin', 'editing_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
@@ -235,7 +223,7 @@ if (!isset($_GET['action'])) {
                                     default:
                                         $errors[] = $validation_error . ".";
                                 }
-                            } 
+                            }
                         }
                     }
                 } else {
@@ -243,10 +231,13 @@ if (!isset($_GET['action'])) {
                     $errors[] = $language->get('general', 'invalid_token');
                 }
             }
-            
+
+            $announcement_pages = json_decode($announcement->pages);
+            $announcement->pages = is_array($announcement_pages) ? $announcement_pages : [];
+
             $guest_permissions = in_array("0", json_decode($announcement->groups));
             $groups = array();
-            foreach(DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {
+            foreach (DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {
                 $groups[$group->id] = array(
                     'name' => $group->name,
                     'id' => $group->id,
@@ -275,7 +266,7 @@ if (!isset($_GET['action'])) {
             } catch (Exception $e) {
                 die($e->getMessage());
             }
-            
+
             Announcements::resetCache();
             Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));
             Redirect::to(URL::build('/panel/core/announcements'));

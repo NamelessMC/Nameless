@@ -265,12 +265,14 @@ if(isset($_GET['do'])){
                             // Private profiles enabled?
                             $private_profiles = $queries->getWhere('settings', array('name', '=', 'private_profile'));
                             if($private_profiles[0]->value == 1) {
-                                if ($user->canPrivateProfile($user->data()->id) && $_POST['privateProfile'] == 1)
+                                if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1)
                                     $privateProfile = 1;
                                 else
                                     $privateProfile = 0;
                             } else
                                 $privateProfile = $user->data()->private_profile;
+
+                            $gravatar = $_POST['gravatar'] == '1' ? 1 : 0;
 
                             $user->update(array(
                                 'language_id' => $new_language,
@@ -279,7 +281,8 @@ if(isset($_GET['do'])){
 								'nickname' => $displayname,
 								'topic_updates' => $topicUpdates,
                                 'private_profile' => $privateProfile,
-	                            'theme_id' => $new_template
+	                            'theme_id' => $new_template,
+                                'gravatar' => $gravatar
                             ));
 
                             Log::getInstance()->log(Log::Action('user/ucp/update'));
@@ -504,86 +507,33 @@ if(isset($_GET['do'])){
                     }
                 }
             } else if(Input::get('action') == 'discord'){
-				$validation = new Validate;
-				$validation = $validation->check($_POST, array(
-					'discord_id' => array(
-						'min' => 18,
-						'max' => 18,
-						'numeric' => true,
-						'unique' => 'users'
-					)
-				));
-				if ($validation->passed()) {
-					
-					$discord_id = Input::get('discord_id');
-					if ($discord_id == $user->data()->discord_id) {} 
-					else if ($discord_id == '') {
-						$user->update(array(
-                    		'discord_id' => null
-						));
-						Session::flash('settings_success', $language->get('user', 'discord_id_unlinked'));
-						Redirect::to(URL::build('/user/settings'));
-						die();
-					}
-					else {
-						$api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
+				
+				if (Input::get('unlink') == 'true') {
 
-						$discord_role_id = Discord::getDiscordRoleId(DB::getInstance(), $user->getTopGroup->id);
+					$user->update(array(
+						'discord_id' => null,
+						'discord_username' => null
+					));
 
-						$guild_id = Util::getSetting(DB::getInstance(), 'discord');
+					Session::flash('settings_success', $language->get('user', 'discord_id_unlinked'));
+					Redirect::to(URL::build('/user/settings'));
+					die();
 
-						$token = uniqid('', true);
-						$queries->create('discord_verifications', [
-							'token' => $token,
-							'user_id' => $user->data()->id,
-							'discord_user_id' => $discord_id
-						]);
-
-						$url = '/verifyId?id=' . $discord_id . '&token=' . $token . '&guild_id=' . $guild_id;
-						$discord_integration = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
-						if ($discord_role_id != null && $discord_integration[0]->value) $url .= '&role=' . $discord_role_id;
-						$result = Discord::discordBotRequest($url . '&site=' . $api_url);
-						if ($result != 'success') {
-							if ($result === false) {
-								// This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
-								$errors[] = $language->get('user', 'discord_communication_error');
-							}
-							else {
-								switch($result) {
-									case 'failure-invalid-id':
-										$errors[] = $language->get('user', 'discord_invalid_id');
-									break;
-									case 'failure-already-pending':
-										$errors[] = $language->get('user', 'discord_already_pending');
-									break;
-									case 'failure-database':
-										$errors[] = $language->get('user', 'discord_database_error');
-									break;
-									default:
-										// This should never happen
-										$errors[] = $language->get('user', 'discord_unknown_error');
-									break;
-								}
-							}
-						} else {
-							$user->update(array(
-								'discord_id' => 010
-							));
-							Session::flash('settings_success', str_replace(array('{guild_id}', '{token}'), array(Util::getSetting(DB::getInstance(), 'discord'), $token), $language->get('user', 'discord_id_confirm')));
-							Redirect::to(URL::build('/user/settings'));
-							die();
-						}
-					}
 				} else {
-					foreach ($validation->errors() as $validation_error) {
-						if (strpos($validation_error, 'minimum') !== false || strpos($validation_error, 'maximum') !== false) {
-							$errors[] = $language->get('admin', 'discord_id_length');
-						} else if (strpos($validation_error, 'numeric') !== false) {
-							$errors[] = $language->get('admin', 'discord_id_numeric');
-						} else if (strpos($validation_error, 'already exists') !== false) {
-							$errors[] = $language->get('user', 'discord_id_taken');
-						}
-					}
+
+					$token = uniqid('', true);
+					$queries->create('discord_verifications', [
+						'token' => $token,
+						'user_id' => $user->data()->id,
+					]);
+
+                    $user->update(array(
+                        'discord_id' => 010
+                    ));
+                    
+                    Session::flash('settings_success', str_replace(array('{guild_id}', '{token}', '{bot_username}'), array(Util::getSetting(DB::getInstance(), 'discord'), $token, BOT_USERNAME), $language->get('user', 'discord_id_confirm')));
+                    Redirect::to(URL::build('/user/settings'));
+                    die();
 				}
 			}
 		} else {
@@ -594,7 +544,6 @@ if(isset($_GET['do'])){
 
 	$template->addCSSFiles(array(
 		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
 		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => array(),
 		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => array(),
 		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
@@ -626,7 +575,6 @@ if(isset($_GET['do'])){
 
 	} else {
 		$template->addJSFiles(array(
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => array(),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => array(),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => array()
@@ -790,6 +738,8 @@ if(isset($_GET['do'])){
 		'DISCORD_INTEGRATION' => $discord_integration,
 		'DISCORD_LINK' => $language->get('user', 'discord_link'),
 		'DISCORD_LINKED' => $discord_linked,
+		'DISCORD_USERNAME' => $language->get('user', 'discord_username'),
+		'DISCORD_USERNAME_VALUE' => $user->data()->discord_username,
 		'DISCORD_ID' => $language->get('user', 'discord_id'),
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 		'TIMEZONE' => $language->get('user', 'timezone'),
@@ -804,16 +754,20 @@ if(isset($_GET['do'])){
 		'INFO' => $language->get('general', 'info'),
 		'ID_INFO' => $language->get('user', 'discord_id_help'),
 		'ENABLED' => $language->get('user', 'enabled'),
-		'DISABLED' => $language->get('user', 'disabled')
+		'DISABLED' => $language->get('user', 'disabled'),
+        'GRAVATAR' => $language->get('user', 'gravatar'),
+        'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0'
 	));
 
 	if ($discord_linked) {
 		$smarty->assign(array(
+			'UNLINK' => $language->get('general', 'unlink'),
 			'LINKED' => $language->get('user', 'linked'),
 			'DISCORD_ID_VALUE' => $user->data()->discord_id,
 		));
 	} else {
 		$smarty->assign(array(
+			'LINK' => $language->get('general', 'link'),
 			'NOT_LINKED' => $language->get('user', 'not_linked'),
 		));
 		if ($user->data()->discord_id == 010) {
@@ -834,8 +788,14 @@ if(isset($_GET['do'])){
 	
 	if($user->data()->tfa_enabled == 1){
 		$smarty->assign('DISABLE', $language->get('user', 'disable'));
-		$group = $queries->getWhere('groups', array('id', '=', $user->getTopGroup()->id));
-		if ($group[0]->force_tfa) {
+		foreach($user->getGroups() as $group) {
+			if($group->force_tfa) {
+				$forced = true;
+				break;
+			}
+		}
+		
+		if (isset($forced) && $forced) {
 			$smarty->assign('FORCED', true);
 		} else {
 			$smarty->assign('DISABLE_LINK', URL::build('/user/settings/', 'do=disable_tfa'));

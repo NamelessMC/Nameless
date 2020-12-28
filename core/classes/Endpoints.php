@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *	Made by Aberdeener
  *
@@ -9,12 +9,10 @@
  *
  *  Endpoints class
  */
+
 class Endpoints {
 
-    private 
-        $_endpoints = array();
-
-    public function __construct() {}
+    private $_endpoints = array();
 
     public function getAll() {
         return $this->_endpoints;
@@ -26,13 +24,14 @@ class Endpoints {
         }
     }
 
-    public function handle($request, $api) {
+    public function handle($request, Nameless2API $api) {
         foreach ($this->getAll() as $endpoint) {
             if ($endpoint->getRoute() == $request) {
                 $endpoint->execute($api);
                 return true;
             }
         }
+
         return false;
     }
 }

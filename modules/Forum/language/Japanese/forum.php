@@ -131,7 +131,7 @@ $language = array(
     'label_creation_success' => 'ラベルを作成しました。',
     'label_type_creation_success' => 'ラベルタイプを作成しました。',
     'label_creation_error' => 'ラベルの作成中にエラーが発生しました。名前が32文字以内であり、タイプを指定していることを確認してください。',
-    'label_type_creation_error' => 'ラベルタイプの作成中にエラーが発生しました。名前が32文字以下であり、HTMLが64文字以下であることを確認してください。',
+    'label_type_creation_error' => 'ラベルタイプの作成中にエラーが発生しました。名前が32文字以下であり、HTMLが1024文字以下であることを確認してください。',
     'creating_forum' => '新しいフォーラムを作成',
     'forum_name' => 'フォーラム名',
     'forum_description' => 'フォーラムの説明',
@@ -178,6 +178,8 @@ $language = array(
     'label_deleted_successfully' => 'ラベルが削除されました。',
     'label_type_deleted_successfully' => 'ラベルタイプが削除されました。',
     'topic_placeholder' => 'トピックのプレースホルダ',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'フォーラムの検索',
@@ -196,6 +198,11 @@ $language = array(
     'your_posts' => '投稿数',
     'average_posts' => 'ユーザーの平均投稿数',
     'total_posts' => '累計投稿数',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => '新しいトピック',

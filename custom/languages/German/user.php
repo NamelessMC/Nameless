@@ -77,6 +77,7 @@ $language = array(
     'upload_profile_banner' => 'Banner hochladen',
     'upload' => 'Hochladen',
     'topic_updates' => 'Get emails for topics you follow',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace {x}
@@ -194,7 +195,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} hat auf deinen Beitrag in deinem Profil geantwortet.', // Don't replace {x}
     'no_about_fields' => 'Dieser Benutzer hat noch keine Felder hinzugefügt.',
     'reply' => 'Antworten',
-
+    'discord_username' => 'Discord Username',
+    
     // Reports
     'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
     'report_post_content' => 'Gib bitte einen Grund an.',
@@ -241,6 +243,7 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} ist beigetreten ' . SITE_NAME . '!',
+    'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
     'discord_link' => 'Discord Link',
@@ -248,7 +251,7 @@ $language = array(
     'not_linked' => 'Not Linked',
     'discord_id' => 'Discord User ID',
     'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to "Nameless Link#0761" to confirm your Discord User ID.',
+    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
     'pending_link' => 'Pending',
     'discord_id_taken' => 'That Discord ID has already been taken.',
     'discord_invalid_id' => 'That Discord User ID is invalid.',

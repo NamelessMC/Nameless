@@ -71,6 +71,7 @@ $language = array(
     'upload_profile_banner' => 'Upload Profiel Banner',
     'upload' => 'Upload',
     'topic_updates' => 'Ontvang e-mails voor onderwerpen die u volgt',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Meldingen
     'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet
@@ -188,7 +189,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} heeft gereageerd op jouw post op jouw eigen profiel.', // Don't replace {x}
     'no_about_fields' => 'Deze gebruiker heeft nog geen over-velden toegevoegd.',
     'reply' => 'Antwoord',
-
+    'discord_username' => 'Discord Username',
+    
     // Rapporten
     'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
     'report_post_content' => 'Voer een reden in voor je rapport',
@@ -235,6 +237,7 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} is lid geworden van ' . SITE_NAME . '!',
+    'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
     'discord_link' => 'Discord Link',
@@ -242,7 +245,7 @@ $language = array(
     'not_linked' => 'Niet Gekoppeld',
     'discord_id' => 'Discord Gebruikers ID',
     'discord_id_unlinked' => 'Succesvol ontkoppeld van uw Discord Gebruikers-ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to "Nameless Link#0761" to confirm your Discord User ID.',
+    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
     'pending_link' => 'Wachtende',
     'discord_id_taken' => 'Die Discord Gebruikers-ID is al ingenomen.',
     'discord_invalid_id' => 'Dat Discord Gebruikers-ID is ongeldig.',

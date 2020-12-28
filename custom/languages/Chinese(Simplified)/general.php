@@ -69,7 +69,9 @@ $language = array(
     'are_you_sure' => '您确定?',
     'spoiler' => '展开',
     'invalid_timezone' => '此时区不可用',
-
+    'link' => 'Link',
+    'unlink' => 'Unlink',
+    
     /*
      *  Contact form
      */

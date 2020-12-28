@@ -10,10 +10,11 @@
  */
 class Discord {
 
-    public static function discordBotRequest($url = '/') {
-        $bot_url_attempt = Util::curlGetContents(BOT_URL . $url);
-        $valid_responses = array('success', 'failure-cannot-interact', 'failure-invalid-api-url');
-        if (in_array($bot_url_attempt, $valid_responses)) return $bot_url_attempt;
+    private static $_valid_responses = array('success', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
+
+    public static function discordBotRequest($url = '/status', $body = null) {
+        $response = Util::curlGetContents(BOT_URL . $url, $body);
+        if (in_array($response, self::$_valid_responses)) return $response;
         else return false;
     }
 
@@ -27,55 +28,31 @@ class Discord {
         $website_group_id = $db->get('group_sync', array('discord_role_id', '=', $discord_role_id));
         if ($website_group_id->count()) {
             $group = $db->get('groups', array('id', '=', $website_group_id->first()->website_group_id));
-            if ($group->count()) {
-                $group_array = array();
-                $group_array['group'] = $group->first();
-                $group_array['primary'] = $db->query('SELECT `primary` FROM nl2_group_sync WHERE discord_role_id = ?', array($discord_role_id))->first()->primary;
-                return $group_array;
-            }
+            if ($group->count()) return $group->first();
         }
         return null;
     }
 
     public static function removeDiscordRole($user_query, $group, Language $language) {
         if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
-            // They have a valid discord Id
             if ($user_query->data()->discord_id != null && $user_query->data()->discord_id != 010) {
 
-                $group_discord_id = self::getDiscordRoleId(DB::getInstance(), $group);
+                $role_id = self::getDiscordRoleId(DB::getInstance(), $group);
 
-                $api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
+                if ($role_id != null) {
+                    $json = self::assembleJson($user_query->data()->discord_id, 'remove_role_id', $role_id);
 
-                // Probably a nicer way to do this
-                $url = '/roleChange?id=' . $user_query->data()->discord_id . '&guild_id=' . Util::getSetting(DB::getInstance(), 'discord');
-
-                if ($group_discord_id == null) return;
-
-                $url .= '&role=null&oldRole=' . $group_discord_id;
-
-                if ($url != null) {
-                    $result = self::discordBotRequest($url . '&api_url=' . $api_url . '/');
+                    $result = self::discordBotRequest('/roleChange', $json);
                     if ($result != 'success') {
-                        if ($result === false) {
-                            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
-                            $errors[] = $language->get('user', 'discord_communication_error');
+
+                        if ($result != 'hierarchy') {
+
+                            Session::flash('edit_user_errors', self::parseErrors($result, $language));
+                            Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
+                            die();
                         } else {
-                            switch ($result) {
-                                case 'failure-cannot-interact':
-                                    $errors[] = $language->get('admin', 'discord_cannot_interact');
-                                    break;
-                                case 'failure-invalid-api-url':
-                                    $errors[] = $language->get('admin', 'discord_invalid_api_url');
-                                    break;
-                                default:
-                                    // This should never happen 
-                                    $errors[] = $language->get('user', 'discord_unknown_error');
-                                    break;
-                            }
+                            Session::flash('edit_user_warnings', array($language->get('admin', 'discord_bot_error_hierarchy')));
                         }
-                        Session::flash('edit_user_errors', $errors);
-                        Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
-                        die();
                     }
                 }
             }
@@ -84,59 +61,73 @@ class Discord {
 
     public static function addDiscordRole($user_query, $group, Language $language, $redirect = true) {
         if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
-            // They have a valid discord Id
             if ($user_query->data()->discord_id != null && $user_query->data()->discord_id != 010) {
 
-                $group_discord_id = self::getDiscordRoleId(DB::getInstance(), $group);
+                $role_id = self::getDiscordRoleId(DB::getInstance(), $group);
 
-                $old_group_discord_id = self::getDiscordRoleId(DB::getInstance(), $user_query->data()->group_id);
+                if ($role_id != null) {
+                    $json = self::assembleJson($user_query->data()->discord_id, 'add_role_id', $role_id);
 
-                $api_url = rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')), '', 'non-friendly'), '/');
-
-                // The bot can handle null roles, but it is better to deal with it here
-                // TODO: Probably a nicer way to do this
-                $url = '/roleChange?id=' . $user_query->data()->discord_id . '&guild_id=' . Util::getSetting(DB::getInstance(), 'discord');
-
-                if ($group_discord_id == $old_group_discord_id) {
-                    $url .= '&role=' . $group_discord_id . '&oldRole=null';
-                } else {
-                    if ($group_discord_id == null && $old_group_discord_id != null) {
-                        $url .= '&role=null' . '&oldRole=' . $old_group_discord_id;
-                    } else if ($group_discord_id != null && $old_group_discord_id == null) {
-                        $url .= '&role=' . $group_discord_id . '&oldRole=null';
-                    } else if ($group_discord_id != null && $old_group_discord_id != null) {
-                        $url .= '&role=' . $group_discord_id . '&oldRole=' . $old_group_discord_id;
-                    } else $url = null;
-                }
-
-                if ($url != null) {
-                    $result = self::discordBotRequest($url . '&api_url=' . $api_url . '/');
+                    $result = self::discordBotRequest('/roleChange', $json);
                     if ($result != 'success') {
-                        if ($result === false) {
-                            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
-                            $errors[] = $language->get('user', 'discord_communication_error');
+
+                        if ($result != 'hierarchy') {
+
+                            $errors = self::parseErrors($result, $language);
+
+                            if ($redirect) {
+                                Session::flash('edit_user_errors', $errors);
+                                Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
+                                die();
+                            } else return $errors;
                         } else {
-                            switch ($result) {
-                                case 'failure-cannot-interact':
-                                    $errors[] = $language->get('admin', 'discord_cannot_interact');
-                                    break;
-                                case 'failure-invalid-api-url':
-                                    $errors[] = $language->get('admin', 'discord_invalid_api_url');
-                                    break;
-                                default:
-                                    // This should never happen 
-                                    $errors[] = $language->get('user', 'discord_unknown_error');
-                                    break;
+                            if ($redirect) {
+                                Session::flash('edit_user_warnings', array($language->get('admin', 'discord_bot_error_hierarchy')));
                             }
                         }
-                        if ($redirect) {
-                            Session::flash('edit_user_errors', $errors);
-                            Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
-                            die();
-                        } else return $errors;
                     }
                 }
             }
         }
+    }
+
+    public static function saveRoles($roles) {
+        $roles = array(json_encode($roles));
+        file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache', $roles);
+    }
+
+    public static function getRoles() {
+        if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache')) {
+            return json_decode(file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache'), true);
+        }
+        return array();
+    }
+
+    private static function parseErrors($result, Language $language) {
+        $errors = array();
+
+        if ($result === false) {
+            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
+            $errors[] = $language->get('user', 'discord_communication_error');
+        } else {
+            if (in_array($result, self::$_valid_responses)) {
+                $errors[] = $language->get('admin', 'discord_bot_error_' . $result);
+            } else {
+                // This should never happen
+                $errors[] = $language->get('user', 'discord_unknown_error');
+            }
+        }
+
+        return $errors;
+    }
+    
+    private static function assembleJson($user_id, $action, $role_id) {
+        // TODO cache or define() website api key and discord guild id
+        $return = array();
+        $return['guild_id'] = trim(Output::getClean(Util::getSetting(DB::getInstance(), 'discord')));
+        $return['user_id'] = $user_id;
+        $return['api_key'] = trim(Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')));
+        $return[$action] = $role_id;
+        return json_encode($return);
     }
 }

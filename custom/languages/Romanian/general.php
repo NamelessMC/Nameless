@@ -69,7 +69,9 @@ $language = array(
     'are_you_sure' => 'Esti sigur?',
     'spoiler' => 'Spoiler',
     'invalid_timezone' => 'That timezone is invalid',
-
+    'link' => 'Link',
+    'unlink' => 'Unlink',
+    
     /*
      *  Contact form
      */

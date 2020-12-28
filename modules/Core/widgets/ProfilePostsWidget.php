@@ -9,7 +9,12 @@
  *  Profile Posts Widget
  */
 class ProfilePostsWidget extends WidgetBase {
-    private $_cache, $_smarty, $_language, $_user, $_timeago;
+
+    private $_cache,
+            $_smarty,
+            $_language,
+            $_user,
+            $_timeago;
 
     public function __construct($pages = array(), $smarty, $language, $cache, $user, $timeago) {
         $this->_language = $language;
@@ -20,17 +25,15 @@ class ProfilePostsWidget extends WidgetBase {
 
         parent::__construct($pages);
 
-        // Get order
-        $order = DB::getInstance()->query('SELECT `order` FROM nl2_widgets WHERE `name` = ?', array('Latest Profile Posts'))->first();
-        // Get location
-        $location = DB::getInstance()->query('SELECT `location` FROM nl2_widgets WHERE `name` = ?', array('Latest Profile Posts'))->first();
+        // Get widget
+        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Latest Profile Posts'))->first();
 
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Latest Profile Posts';
-        $this->_location = $location->location;
+        $this->_location = isset($widget_query->location) ? $widget_query->location : null;
         $this->_description = 'Display the latest profile posts on your site.';
-        $this->_order = $order->order;
+        $this->_order = isset($widget_query->order) ? $widget_query->order : null;
     }
 
     public function initialise() {
@@ -40,7 +43,7 @@ class ProfilePostsWidget extends WidgetBase {
         } else {
             $user_id = 0;
         }
-		
+
         $this->_cache->setCache('profile_posts_widget');
 
         $posts_array = array();
@@ -49,19 +52,21 @@ class ProfilePostsWidget extends WidgetBase {
          } else {
             $posts = DB::getInstance()->query('SELECT * FROM nl2_user_profile_wall_posts ORDER BY time DESC LIMIT 5')->results();
             foreach ($posts as $post) {
-				$post_author = new User($post->author_id);
+                $post_author = new User($post->author_id);
 
                 if ($this->_user->isLoggedIn()) {
                     if ($this->_user->isBlocked($post->author_id, $this->_user->data()->id)) continue;
                     if ($post_author->isPrivateProfile() && !$this->_user->hasPermission('profile.private.bypass')) continue;
                 } else if ($post_author->isPrivateProfile()) continue;
 
+                $link =  rtrim($post_author->getProfileURL(), '/');
+
                 $posts_array[] = array(
-                    'avatar' => $post_author->getAvatar("../", 64),
+                    'avatar' => $post_author->getAvatar(),
                     'username' => $post_author->getDisplayname(),
                     'username_style' => $post_author->getGroupClass(),
-                    'content' => Util::truncate($post->content, 20),
-                    'link' => $this->_user->getProfileURL() . '/#post-' . $post->id,
+                    'content' => Util::truncate(strip_tags(Output::getDecoded($post->content)), 20),
+                    'link' => $link . '/#post-' . $post->id,
                     'date_ago' => date('d M Y, H:i', $post->time),
                     'user_id' => $post->author_id,
                     'user_profile_link' => $post_author->getProfileURL(),

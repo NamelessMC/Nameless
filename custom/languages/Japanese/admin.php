@@ -85,8 +85,9 @@ $language = array(
     'discord_id_length' => 'Discord IDは18文字以内にしてください。',
     'discord_id_numeric' => 'Discord IDが数字であることを確認してください（数字のみ）',
     'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">click here</a>.',
+    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
+    'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => 'ダーク',
     'light' => 'ライト',
     'google_plus_url' => 'Google+ URL',
@@ -177,6 +178,11 @@ $language = array(
     'emails_mass_message_sent_successfully' => '大量のメールメッセージの送信に成功しました。',
     'emails_mass_message_replacements' => 'メールメッセージでは、変数を使用することができます。サポートされている変数: {username}, {sitename}',
     'emails_mass_message_loading' => '読み込み中... ページを再読み込みしないでください。しばらく時間がかかる場合があります。',
+    
+    // SEO
+    'seo' => 'SEO',
+    'google_analytics' => 'Google Analytics',
+    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
 
     // Reactions
     'icon' => 'アイコン',
@@ -388,6 +394,8 @@ $language = array(
     'background_updated_successfully' => '背景が正常に更新されました。',
     'unable_to_enable_template' => '互換性のないテンプレートを有効にすることはできません。',
     'background_image_info' => 'このオプションはほとんどのテンプレートと互換性がない可能性があるので、注意してください。',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'ユーザー',
@@ -398,7 +406,8 @@ $language = array(
     'registered' => '登録',
     'user_created' => 'ユーザーが正常に作成されました。',
     'cant_delete_root_user' => 'Root ユーザーは削除できません。',
-    'cant_modify_root_user' => 'Root ユーザーのグループは変更できません。',
+    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
+    'main_group' => 'Main Group',
     'user_deleted' => 'ユーザーは正常に削除されました。',
     'confirm_user_deletion' => '<strong>{x}</strong> を削除してもよろしいですか？', // Don't replace {x}
     'validate_user' => 'ユーザー検証',
@@ -450,6 +459,9 @@ $language = array(
     'force_tfa' => 'グループメンバーに二要素認証を強制しますか？',
     'force_tfa_warning' => 'これが何をするのかを確認してください。そうでなければ、あなた自身とグループメンバー全員を締め出す危険があります。',
     'force_tfa_alert' => 'あなたのグループでは、二要素認証を有効にする必要があります。',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => 'すべて選択',
@@ -561,7 +573,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'API を有効にしますか？',
-    'api_info' => 'API連携を有効にすると、Minecraftサーバーにインストールできる <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >Namelessプラグイン</a> とWebサイトが連携できるようになります。連携すると、Webサーバーのデータを読み込めたり、ゲーム内で登録できたり、アカウント検証ができるようになります。',
+    'api_info' => 'API連携を有効にすると、Minecraftサーバーにインストールできる <a href="https://plugin.namelessmc.com" target="_blank" >Namelessプラグイン</a> とWebサイトが連携できるようになります。連携すると、Webサーバーのデータを読み込めたり、ゲーム内で登録できたり、アカウント検証ができるようになります。',
     'enable_legacy_api' => '従来のAPI(v1)を使用しますか？',
     'legacy_api_info' => '従来のAPIを使用すると、 Nameless v1 APIを使用するプラグインを、 v2 のWebサイトと連携できるようにできます。',
     'confirm_api_regen' => 'APIキーを再生成してもよろしいですか？',
@@ -713,6 +725,16 @@ $language = array(
     'discord_invalid_api_url' => 'APIのURLが変更されたようです。ギルドオーナーにNameless Link ボットでURLを更新してもらってください。',
     'test_bot_url' => 'テストボットURL',
     'discord_bot_url_valid' => 'ボットのURLは有効です。',
-    'discord_cannot_interact' => 'Nameless LinkボットはDiscordでこのユーザーと対話することはできません。彼らの役割はNameless Linkのロールよりも高い可能性があります。'
+    'discord_cannot_interact' => 'Nameless LinkボットはDiscordでこのユーザーと対話することはできません。彼らの役割はNameless Linkのロールよりも高い可能性があります。',
+
+    // Discord bot Errors
+    'discord_bot_error_badparameter' => 'Invalid request body.',
+    'discord_bot_error_error' => 'An internal bot error occured.',
+    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
+    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
+    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
+    'discord_bot_error_unauthorized' => 'Website API key is invalid',
+    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
 
 );

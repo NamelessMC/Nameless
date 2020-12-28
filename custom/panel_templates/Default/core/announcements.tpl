@@ -30,7 +30,7 @@
                     </div>
 
                     <!-- Update Notification -->
-                    {include file='update.tpl'}
+                    {include file='includes/update.tpl'}
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -46,7 +46,7 @@
                             <hr />{else}<br />{/if}
 
                             <!-- Success and Error Alerts -->
-                            {include file='alerts.tpl'}
+                            {include file='includes/alerts.tpl'}
 
                             {if isset($ALL_ANNOUNCEMENTS)}
                             <div class="table-responsive">
@@ -64,7 +64,7 @@
                                         {foreach from=$ALL_ANNOUNCEMENTS item=announcement}
                                         <tr>
                                             <td>{$announcement[0]->header}</td>
-                                            <td>{$announcement['pages']}</td>
+                                            <td>{if count($announcement['pages']) gt 0}{$announcement['pages']}{else}<i>{$NONE}</i>{/if}</td>
                                             <td><span class="badge border" style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->text_colour};" title="{$announcement[0]->text_colour}"></span></td>
                                             <td><span class="badge border" style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->background_colour}; color:#ffffff;" title="{$announcement[0]->background_colour}"></span></td>
                                             <td>

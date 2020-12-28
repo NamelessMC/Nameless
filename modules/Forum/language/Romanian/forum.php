@@ -128,7 +128,7 @@ $language = array(
     'label_creation_success' => 'Eticheta a fost creată cu succes.',
     'label_type_creation_success' => 'Tipul de etichetă a fost creat cu succes.',
     'label_creation_error' => 'Eroare la crearea unei etichete. Asigurați-vă că numele nu depășește 32 de caractere și că ați specificat un tip de etichetă.',
-    'label_type_creation_error' => 'Eroare la crearea unui tip de etichetă. Asigurați-vă că numele nu depășește 32 de caractere, iar codul HTML nu depășește 64 de caractere.',
+    'label_type_creation_error' => 'Eroare la crearea unui tip de etichetă. Asigurați-vă că numele nu depășește 32 de caractere, iar codul HTML nu depășește 1024 de caractere.',
     'creating_forum' => 'Creați un nou forum',
     'forum_name' => 'Numele forumului',
     'forum_description' => 'Descrierea forumului',
@@ -176,6 +176,8 @@ $language = array(
     'label_type_deleted_successfully' => 'Tipul de etichetă a fost șters cu succes.',
     'topic_placeholder' => 'Placeholdere subiect',
     // mai e de lucru la asta cu "topic_placeholder"
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Căutare în forum',
@@ -194,6 +196,11 @@ $language = array(
     'your_posts' => 'Numărul mesajelor tale',
     'average_posts' => 'Număr mediu de mesaje per utilizator',
     'total_posts' => 'Numărul total de mesaje',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => 'Subiect nou',

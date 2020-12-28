@@ -1,7 +1,7 @@
 <?php
 /*
  *	Made by Aberdeener
- * 
+ *
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -9,13 +9,13 @@
  *
  *  EndpointsBase class
  */
+
 abstract class EndpointBase {
 
-    protected
-        $_route,
-        $_module,
-        $_description;
-        
+    protected $_route,
+              $_module,
+              $_description;
+
     public function getRoute() {
         return $this->_route;
     }

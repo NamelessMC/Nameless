@@ -11,7 +11,7 @@
 </div>
 
 <h2 class="ui header">
-  {$TOPIC_LABEL} {$TOPIC_TITLE}
+  <div class="topic title">{if count($TOPIC_LABELS)}{foreach from=$TOPIC_LABELS item=label}{$label} {/foreach}{/if}{$TOPIC_TITLE}</div>
   <div class="sub header">
     {$started_by_val="<a href=\"`$TOPIC_AUTHOR_PROFILE`\" style=\"`$TOPIC_AUTHOR_STYLE`\">`$TOPIC_AUTHOR_USERNAME`</a>"}
     {$STARTED_BY|replace:'{x}':$started_by_val}
@@ -22,7 +22,7 @@
   <div class="ui success icon message">
     <i class="check icon"></i>
     <div class="content">
-      <div class="header">Success</div>
+      <div class="header">{$SUCCESS}</div>
       {$SESSION_SUCCESS_POST}
     </div>
   </div>
@@ -32,7 +32,7 @@
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
-      <div class="header">Error</div>
+      <div class="header">{$ERROR}</div>
       {$SESSION_FAILURE_POST}
     </div>
   </div>

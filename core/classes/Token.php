@@ -8,42 +8,38 @@
  *
  *  Token class
  */
+
 class Token {
-	
-	// Generate a form token and store in a session variable
-	// No parameters
-	public static function generate(){
-		// Generate random token using md5
-		return Session::put(Config::get('session/token_name'), md5(uniqid()));
-	}
-	
-	// Get the current form token
-	// No parameters
-	public static function get(){
-		$tokenName = Config::get('session/token_name');
 
-		// Return if it already exists
-		if(Session::exists($tokenName))
-			return Session::get($tokenName);
+    // Generate a form token and store in a session variable
+    // No parameters
+    public static function generate() {
+        // Generate random token using md5
+        return Session::put(Config::get('session/token_name'), md5(uniqid()));
+    }
 
-		else
-			// Otherwise generate a new one
-			return self::generate();
+    // Get the current form token
+    // No parameters
+    public static function get() {
+        $tokenName = Config::get('session/token_name');
 
-	}
-	
-	// Check a token in session matches 
-	// Params: $token (string) - contains the form token which will be checked against the session variable
-	public static function check($token = null){
-		if ($token == null) $token = Input::get('token');
-		$tokenName = Config::get('session/token_name');
-		
-		// Check the token matches
-		if(Session::exists($tokenName) && $token === Session::get($tokenName))
-			// Matches, return true
-			return true;
+        // Return if it already exists
+        if (Session::exists($tokenName)) {
+            return Session::get($tokenName);
+        }
+        else {
+            // Otherwise generate a new one
+            return self::generate();
+        }
+    }
 
-		// Doesn't match, return false
-		return false;
-	}
+    // Check a token in session matches
+    // Params: $token (string) - contains the form token which will be checked against the session variable
+    public static function check($token = null) {
+        if ($token == null) $token = Input::get('token');
+        $tokenName = Config::get('session/token_name');
+
+        // Check the token matches
+        return Session::exists($tokenName) && $token === Session::get($tokenName);
+    }
 }

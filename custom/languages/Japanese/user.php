@@ -74,6 +74,7 @@ $language = array(
     'upload_profile_banner' => 'プロフィールバナーをアップロード',
     'upload' => 'アップロード',
     'topic_updates' => 'フォローしているトピックのメールを受け取る',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => '{x} の投稿にタグがつけられました。', // Don't replace {x}
@@ -191,7 +192,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x}さんがプロフィールの投稿に返信しました。',// {x}を置き換えないでください
     'no_about_fields' => 'フィールドの内容を追加していません。',
     'reply' => 'Reply',
-
+    'discord_username' => 'Discord Username',
+    
     // Reports
     'invalid_report_content' => 'レポートを作成できません。 レポートの理由が 2~1024 文字であることを確認してください。',
     'report_post_content' => 'レポートの理由を入力してください。',
@@ -238,6 +240,7 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} が ' . SITE_NAME . ' に登録しました。',
+    'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
     'discord_link' => 'Discord リンク',
@@ -245,7 +248,7 @@ $language = array(
     'not_linked' => 'リンクされていません',
     'discord_id' => 'Discord ユーザーID',
     'discord_id_unlinked' => 'Discord ユーザーIDのリンクを解除することに成功しました。',
-    'discord_id_confirm' => 'このメッセージを送信してください: "!verify {guild_id}:{token}" を "Nameless Link#0761" に送信してDiscord ユーザーIDを確認します。',
+    'discord_id_confirm' => 'このメッセージを送信してください: "!verify {guild_id}:{token}" を {bot_username} に送信してDiscord ユーザーIDを確認します。',
     'pending_link' => '保留中',
     'discord_id_taken' => 'そのDiscord IDはすでに取られています。',
     'discord_invalid_id' => 'そのDiscord ユーザーIDは無効です。',

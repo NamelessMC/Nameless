@@ -126,7 +126,7 @@ $language = array(
     'label_creation_success' => 'Etykieta została pomyślnie stworzona.',
     'label_type_creation_success' => 'Typ etykiety został stwaorzony pomyślnie.',
     'label_creation_error' => 'Podczas tworzenia etykiety wystąpił błąd. Upewnij się, że jej nazwa jest nie dłuższa niż 32 znaki, i że wybrałeś jej typ.',
-    'label_type_creation_error' => 'Podczas tworzenia typu etykiety wystąpił błąd. Upewnij się, że nazwa typu etykiety jest nie dłuższa niż 32 znaki, i że kod HTML jest nie dłuższy niż 64 znaki.',
+    'label_type_creation_error' => 'Podczas tworzenia typu etykiety wystąpił błąd. Upewnij się, że nazwa typu etykiety jest nie dłuższa niż 32 znaki, i że kod HTML jest nie dłuższy niż 1024 znaki.',
     'creating_forum' => 'Tworzenie nowego forum',
     'forum_name' => 'Nazwa forum',
     'forum_description' => 'Opis forum',
@@ -172,6 +172,8 @@ $language = array(
     'label_deleted_successfully' => 'Etykieta została usunięta pomyślnie.',
     'label_type_deleted_successfully' => 'Typ etykiet został usunięty pomyślnie.',
     'topic_placeholder' => 'Tytuł',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
      // Search
    'forum_search' => 'Szukaj na forum',
@@ -190,6 +192,11 @@ $language = array(
     'your_posts' => 'Liczba twoich postów',
     'average_posts' => 'Średnia liczba postów użytkowników',
     'total_posts' => 'Liczba wszystkich postów',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => 'Nowy temat',

@@ -80,8 +80,9 @@ $language = array(
     'discord_id_length' => 'Zorg ervoor dat uw Discord ID 18 karakters lang is.',
     'discord_id_numeric' => 'Zorg ervoor dat uw Discord ID numeriek is (alleen cijfers).',
     'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">click here</a>.',
+    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
+    'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => 'Donker',
     'light' => 'Licht',
     'twitter_url' => 'Twitter URL',
@@ -174,6 +175,11 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Succesvol een massa e-mail bericht verstuurd.',
     'emails_mass_message_replacements' => 'U kunt variabelen gebruiken in uw e-mailbericht. Ondersteunde variabelen: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laden... Laad de pagina niet opnieuw. Dit kan een tijdje duren.',
+    
+    // SEO
+    'seo' => 'SEO',
+    'google_analytics' => 'Google Analytics',
+    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
 
     // Reacties
     'icon' => 'Icoon',
@@ -385,6 +391,8 @@ $language = array(
     'background_updated_successfully' => 'Achtergrond met succes bijgewerkt.',
     'unable_to_enable_template' => 'Niet in staat om incompatibele sjablonen in te schakelen.',
     'background_image_info' => 'Houd er rekening mee dat deze optie mogelijk niet compatibel is met de meeste sjablonen.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Gebruikers & groepen
     'users' => 'Gebruikers',
@@ -395,7 +403,8 @@ $language = array(
     'registered' => 'Aangemeld',
     'user_created' => 'Gebruiker succesvol aangemaakt.',
     'cant_delete_root_user' => 'Kan de hoofdgebruiker niet verwijderen!',
-    'cant_modify_root_user' => 'Kan de groep van de hoofdgebruiker niet wijzigen!',
+    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
+    'main_group' => 'Main Group',
     'user_deleted' => 'Gebruiker succesvol verwijderd.',
     'confirm_user_deletion' => 'Weet je zeker dat je <strong>{x}</strong> wilt verwijderen?', // Verander "{x}" niet
     'validate_user' => 'Valideer gebruiker',
@@ -558,7 +567,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'API aanzetten?',
-    'api_info' => 'De API staat toe dat plugins en andere services mogen communiceren met je website, zoals de <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >officiële Nameless plugin</a>.',
+    'api_info' => 'De API staat toe dat plugins en andere services mogen communiceren met je website, zoals de <a href="https://plugin.namelessmc.com" target="_blank" >officiële Nameless plugin</a>.',
     'enable_legacy_api' => 'Legacy API aanzetten?',
     'legacy_api_info' => 'De legacy API staat toe dat plugins die de verouderde versie (1) API gebruiken werken met uw huidige versie (2).',
     'confirm_api_regen' => 'Weet je zeker dat jij jouw API key wilt vernieuwen?',
@@ -709,6 +718,16 @@ $language = array(
     'discord_invalid_api_url' => 'Het lijkt erop dat uw API URL is veranderd. Laat de guild eigenaar de URL updaten met de Nameless Link bot.',
     'test_bot_url' => 'Test Bot URL',
     'discord_bot_url_valid' => 'Uw Bot-URL is geldig.',
-    'discord_cannot_interact' => 'De Nameless Link-bot kan niet communiceren met deze gebruiker in Discord. Is hun rol hoger dan die van de Nameless Link?'
+    'discord_cannot_interact' => 'De Nameless Link-bot kan niet communiceren met deze gebruiker in Discord. Is hun rol hoger dan die van de Nameless Link?',
+
+    // Discord bot Errors
+    'discord_bot_error_badparameter' => 'Invalid request body.',
+    'discord_bot_error_error' => 'An internal bot error occured.',
+    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
+    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
+    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
+    'discord_bot_error_unauthorized' => 'Website API key is invalid',
+    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
 
 );

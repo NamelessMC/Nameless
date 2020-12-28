@@ -15,14 +15,14 @@ $page_title = str_replace('?', '', $language->get('user', 'forgot_password'));
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Ensure user is not logged in
-if($user->isLoggedIn()){
+if ($user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
     die();
 }
 
 require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
 
-if(!isset($_GET['c'])){
+if (!isset($_GET['c'])) {
     // Enter email address form
     if (Input::exists()) {
         if (Token::check()) {
@@ -30,7 +30,7 @@ if(!isset($_GET['c'])){
                 $error = $language->get('user', 'email_required');
             else {
                 // Check to see if the email exists
-				$target_user = new User(Input::get('email'), 'email');
+                $target_user = new User(Input::get('email'), 'email');
                 if (count($target_user->data())) {
                     // Generate a code
                     $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
@@ -62,7 +62,6 @@ if(!isset($_GET['c'])){
 
                             $error = $language->get('user', 'unable_to_send_forgot_password_email');
                         }
-
                     } else {
                         // PHP mail function
                         $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
@@ -76,7 +75,7 @@ if(!isset($_GET['c'])){
                         $headers = 'From: ' . $siteemail . "\r\n" .
                             'Reply-To: ' . $siteemail . "\r\n" .
                             'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                            'MIME-Version: 1.0' . "\r\n" . 
+                            'MIME-Version: 1.0' . "\r\n" .
                             'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                         $email = array(
@@ -99,7 +98,6 @@ if(!isset($_GET['c'])){
 
                             $error = $language->get('user', 'unable_to_send_forgot_password_email');
                         }
-
                     }
 
                     if (!isset($error)) {
@@ -107,7 +105,6 @@ if(!isset($_GET['c'])){
                             'reset_code' => $code
                         ));
                     }
-
                 }
 
                 $success = $language->get('user', 'forgot_password_email_sent');
@@ -129,22 +126,21 @@ if(!isset($_GET['c'])){
         'SUBMIT' => $language->get('general', 'submit')
     ));
 
-	$page_load = microtime(true) - $start;
-	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+    $page_load = microtime(true) - $start;
+    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
-	// Load modules + template
-	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
-	$template->onPageLoad();
+    // Load modules + template
+    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+    $template->onPageLoad();
 
-	require(ROOT_PATH . '/core/templates/navbar.php');
-	require(ROOT_PATH . '/core/templates/footer.php');
+    require(ROOT_PATH . '/core/templates/navbar.php');
+    require(ROOT_PATH . '/core/templates/footer.php');
 
-	// Display template
-	$template->displayTemplate('forgot_password.tpl', $smarty);
-
+    // Display template
+    $template->displayTemplate('forgot_password.tpl', $smarty);
 } else {
     // Check code exists
-	$target_user = new User($_GET['c'], 'reset_code');
+    $target_user = new User($_GET['c'], 'reset_code');
     if (!count($target_user->data())) {
         Redirect::to('/forgot_password');
         die();
@@ -168,7 +164,7 @@ if(!isset($_GET['c'])){
             ));
 
             if ($validation->passed()) {
-		if (strcasecmp($target_user->data()->email, $_POST['email']) == 0) {
+                if (strcasecmp($target_user->data()->email, $_POST['email']) == 0) {
                     $new_password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
                     try {
                         $target_user->update(array(
@@ -184,7 +180,6 @@ if(!isset($_GET['c'])){
                     }
                 } else
                     $errors = array($language->get('user', 'incorrect_email'));
-
             } else {
                 $errors = array();
                 foreach ($validation->errors() as $validation_error) {
@@ -198,19 +193,15 @@ if(!isset($_GET['c'])){
                                 $errors[] = $language->get('user', 'password_required');
                                 break;
                         }
-
                     } else if (strpos($validation_error, 'minimum') !== false) {
                         // x must be a minimum of y characters long
                         $errors[] = $language->get('user', 'password_minimum_6');
-
                     } else if (strpos($validation_error, 'maximum') !== false) {
                         // x must be a maximum of y characters long
                         $errors[] = $language->get('user', 'password_maximum_30');
-
                     } else if (strpos($validation_error, 'must match') !== false) {
                         // password must match password again
                         $errors[] = $language->get('user', 'passwords_dont_match');
-
                     }
                 }
             }
@@ -231,17 +222,17 @@ if(!isset($_GET['c'])){
         'SUBMIT' => $language->get('general', 'submit')
     ));
 
-	// Load modules + template
-	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+    // Load modules + template
+    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
-	$page_load = microtime(true) - $start;
-	define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+    $page_load = microtime(true) - $start;
+    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
-	$template->onPageLoad();
+    $template->onPageLoad();
 
-	require(ROOT_PATH . '/core/templates/navbar.php');
-	require(ROOT_PATH . '/core/templates/footer.php');
+    require(ROOT_PATH . '/core/templates/navbar.php');
+    require(ROOT_PATH . '/core/templates/footer.php');
 
-	// Display template
-	$template->displayTemplate('change_password.tpl', $smarty);
+    // Display template
+    $template->displayTemplate('change_password.tpl', $smarty);
 }

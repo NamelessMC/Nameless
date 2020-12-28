@@ -15,32 +15,37 @@ class VerifyMinecraftEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        if ($api->isValidated()) {
+        $api->validateParams($_POST, ['id', 'code']);
 
-            if ($api->validateParams($_POST, ['id', 'code'])) {
-                $user = $api->getUser('id', $_POST['id']);
+        $user = $api->getUser('id', $_POST['id']);
 
-                if ($user->data()->active || $user->reset_code == '') $api->throwError(30, $api->getLanguage()->get('api', 'user_already_active'));
-
-                if ($user->reset_code != $_POST['code']) $api->throwError(28, $api->getLanguage()->get('api', 'invalid_code'));
-
-                $api->getDb()->update('users', $user->id, array(
-                    'reset_code' => '',
-                    'active' => 1
-                ));
-
-                try {
-                    HookHandler::executeEvent('validateUser', array(
-                        'event' => 'validateUser',
-                        'user_id' => $user->id,
-                        'username' => Output::getClean($user->username),
-                        'language' => $api->getLanguage()
-                    ));
-                } catch (Exception $e) {
-                }
-
-                $api->returnArray(array('message' => $api->getLanguage()->get('api', 'account_validated')));
-            }
+        if ($user->data()->active || $user->reset_code == '') {
+            $api->throwError(32, $api->getLanguage()->get('api', 'user_already_active'));
         }
+
+        if ($user->reset_code != $_POST['code']) {
+            $api->throwError(28, $api->getLanguage()->get('api', 'invalid_code'));
+        }
+
+        $api->getDb()->update(
+            'users',
+            $user->id,
+            array(
+                'reset_code' => '',
+                'active' => 1
+            )
+        );
+
+        try {
+            HookHandler::executeEvent('validateUser', array(
+                'event' => 'validateUser',
+                'user_id' => $user->id,
+                'username' => Output::getClean($user->username),
+                'language' => $api->getLanguage()
+            ));
+        } catch (Exception $e) {
+        }
+
+        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'account_validated')));
     }
 }

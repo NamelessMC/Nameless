@@ -69,6 +69,7 @@ $language = array(
     'upload_profile_banner' => 'Nahrát banner',
     'upload' => 'Nahrát',
     'topic_updates' => 'Získávejte e-maily o tématech, které sledujete',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Byli jste označeni v příspěvku {x}.', // Don't replace {x}
@@ -137,9 +138,9 @@ $language = array(
     'account_banned' => 'Tento účet je zabanován.',
     'forgot_password' => 'Zapomenuté heslo?',
     'remember_me' => 'Pamatovat si mě',
-    'must_input_email' => 'Musíte vložit email.',
-    'must_input_username' => 'Musíte vložit uživatelské jméno.',
-    'must_input_password' => 'Musíte vložit heslo.',
+    'must_input_email' => 'Musíte zadat email.',
+    'must_input_username' => 'Musíte zadat uživatelské jméno.',
+    'must_input_password' => 'Musíte zadat heslo.',
 
     // Forgot password
     'forgot_password_instructions' => 'Zadejte prosím svou e-mailovou adresu, abychom vám mohli zaslat další pokyny pro obnovení hesla.',
@@ -154,7 +155,7 @@ $language = array(
     'follow' => 'Sledovat',
     'no_wall_posts' => 'Zde nejsou žádné příspevky.',
     'change_banner' => 'Změnit banner',
-    'post_on_wall' => 'Vložit komentář na zeď hráče {x}', // Don't replace {x}
+    'post_on_wall' => 'Zadat komentář na zeď hráče {x}', // Don't replace {x}
     'invalid_wall_post' => 'Příspěvek musí být dlouhý 1 až 10 000 znaků.',
     '1_reaction' => '1 reakce',
     'x_reactions' => '{x} reakce', // Don't replace {x}
@@ -186,7 +187,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} odpověděl na váš příspěvek na vašem profilu.', // Don't replace {x}
     'no_about_fields' => 'Tento uživatel o sobě ještě nepřidal žádné údaje.',
     'reply' => 'Odpověď',
-
+    'discord_username' => 'Uživatelské jméno na Discordu',
+    
     // Reports
     'invalid_report_content' => 'Nelze vytvořit nahlášení. Musíte zadat důvod v rozmezí 2 až 1024 znaků.',
     'report_post_content' => 'Zadejte, prosím důvod nahlášení.',
@@ -234,17 +236,18 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} se přidal na ' . SITE_NAME . '!',
+    'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
-    'discord_link' => 'Discord odkaz',
-    'linked' => 'Propojen',
-    'not_linked' => 'Nepropojen',
-    'discord_id' => 'Discord ID uživatele',
-    'discord_id_unlinked' => 'Úspěšně jste odpojili vaše Discord ID uživatele.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to "Nameless Link#0761" to confirm your Discord User ID.',
+    'discord_link' => 'Propojení s Discordem',
+    'linked' => 'Propojeno',
+    'not_linked' => 'Nepropojeno',
+    'discord_id' => 'Uživatelské Discord ID',
+    'discord_id_unlinked' => 'Úspěšně jste odpojili vaše uživatelské ID.',
+    'discord_id_confirm' => 'Pošlete prosím tuto zprávu: "!verify {guild_id}:{token}" do soukromých zpráv {bot_username} pro potvrzení vašeho uživatelského ID.',
     'pending_link' => 'Čekání',
-    'discord_id_taken' => 'Toto Discord ID uživatele bylo již zabráno.',
-    'discord_invalid_id' => 'Toto Discord ID uživatele je neplatné.',
+    'discord_id_taken' => 'Toto uživatelské Discord ID bylo již zabráno.',
+    'discord_invalid_id' => 'Toto uživatelské Discord ID je neplatné.',
     'discord_already_pending' => 'Již máte čekající ověření.',
     'discord_database_error' => 'Databáze Nameless Link je momentálně offline. Zkuste to prosím znovu.',
     'discord_communication_error' => 'Při komunikaci s Discord botem se vyskytla chyba. Ujistěte se, že bot běží, a vaše URL bota je správná.',

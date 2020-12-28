@@ -126,7 +126,7 @@ $language = array(
     'label_creation_success' => 'Štítek byl úspěšně vytvořen.',
     'label_type_creation_success' => 'Typ štítku byl úspěšně vytvořen.',
     'label_creation_error' => 'Chyba při vytváření štítku. Ujistěte se, že jméno není delší než 32 znaků a že jste zadali typ.',
-    'label_type_creation_error' => 'Chyba při vytváření typu štítku. Ujistěte se, že název není delší než 32 znaků a že kód HTML není delší než 64 znaků.',
+    'label_type_creation_error' => 'Chyba při vytváření typu štítku. Ujistěte se, že název není delší než 32 znaků a že kód HTML není delší než 1024 znaků.',
     'creating_forum' => 'Vytvoření nového fóra',
     'forum_name' => 'Název fóra',
     'forum_description' => 'Popis fóra',
@@ -173,6 +173,8 @@ $language = array(
     'label_deleted_successfully' => 'Štítek byl úspěšně smazán.',
     'label_type_deleted_successfully' => 'Typ štítku byl úspěšně smazán.',
     'topic_placeholder' => 'Placeholder tématu',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Hledat ve fóru',
@@ -191,6 +193,11 @@ $language = array(
     'your_posts' => 'Tvůj počet příspěvků',
     'average_posts' => 'Průměrný počet příspěvků uživatele',
     'total_posts' => 'Celkový počet příspěvků',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => 'Nové téma',

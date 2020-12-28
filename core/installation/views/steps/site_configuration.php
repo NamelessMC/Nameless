@@ -37,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (!$validation->passed()) {
 
 		$error = $language['configuration_error'];
-
 	} else {
 
 		try {
@@ -66,15 +65,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 			Redirect::to('?step=site_initialization');
 			die();
-
 		} catch (Exception $e) {
 
 			$error = $e->getMessage();
-
 		}
-
 	}
-
 }
 
 ?>
@@ -94,22 +89,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		</div>
 		<div class="ui segment">
 			<p><?php echo $language['configuration_info']; ?></p>
-				<div class="ui centered grid">
-					<div class="sixteen wide mobile twelve wide tablet ten wide computer column">
-						<div class="ui form">
-							<?php create_field('text', $language['site_name'], 'sitename', 'inputSitename', getenv('NAMELESS_SITE_NAME') ?: ''); ?>
-							<?php create_field('email', $language['contact_email'], 'incoming', 'contact_email', getenv('NAMELESS_SITE_CONTACT_EMAIL') ?: ''); ?>
-							<?php create_field('email', $language['outgoing_email'], 'outgoing', 'outgoing_email', getenv('NAMELESS_SITE_OUTGOING_EMAIL') ?: ''); ?>
-							<?php create_field('select', $language['language'], 'language', 'inputLanguage', $installer_language, $languages, true) ?>
-						</div>
+			<div class="ui centered grid">
+				<div class="sixteen wide mobile twelve wide tablet ten wide computer column">
+					<div class="ui form">
+						<?php create_field('text', $language['site_name'], 'sitename', 'inputSitename', getenv('NAMELESS_SITE_NAME') ?: ''); ?>
+						<?php create_field('email', $language['contact_email'], 'incoming', 'contact_email', getenv('NAMELESS_SITE_CONTACT_EMAIL') ?: ''); ?>
+						<?php create_field('email', $language['outgoing_email'], 'outgoing', 'outgoing_email', getenv('NAMELESS_SITE_OUTGOING_EMAIL') ?: ''); ?>
+						<?php create_field('select', $language['language'], 'language', 'inputLanguage', $installer_language, $languages, true) ?>
 					</div>
 				</div>
-			</form>
-		</div>
-		<div class="ui right aligned secondary segment">
-			<button type="submit" class="ui small primary button">
-				<?php echo $language['proceed']; ?>
-			</button>
-		</div>
-	</div>
+			</div>
+</form>
+</div>
+<div class="ui right aligned secondary segment">
+	<button type="submit" class="ui small primary button">
+		<?php echo $language['proceed']; ?>
+	</button>
+</div>
+</div>
 </form>

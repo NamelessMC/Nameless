@@ -82,8 +82,9 @@ $language = array(
     'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
     'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
     'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">click here</a>.',
+    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
+    'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => 'Escuro',
     'light' => 'Claro',
     'google_plus_url' => 'URL do Google Plus',
@@ -174,6 +175,11 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
+    
+    // SEO
+    'seo' => 'SEO',
+    'google_analytics' => 'Google Analytics',
+    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
 
     // Reactions
     'icon' => 'Ícone',
@@ -385,6 +391,8 @@ $language = array(
     'background_updated_successfully' => 'Background atualizado com sucesso.',
     'unable_to_enable_template' => 'Não foi possível ativar o template incompatível.',
     'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'Usuários',
@@ -395,7 +403,8 @@ $language = array(
     'registered' => 'Cadastrado',
     'user_created' => 'Usuário criado com sucesso.',
     'cant_delete_root_user' => 'Não é possível excluir o usuário root!',
-    'cant_modify_root_user' => 'Não é possível modificar o grupo root!',
+    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
+    'main_group' => 'Main Group',
     'user_deleted' => 'Usuário excluído com sucesso.',
     'confirm_user_deletion' => 'Você tem certeza que deseja excluir o usuário <strong>{x}</strong>?', // Don't replace {x}
     'validate_user' => 'Validar Usuário',
@@ -445,6 +454,11 @@ $language = array(
     'editing_user_x' => 'Editando usuário {x}', // Don't replace {x}
     'details' => 'Detalhes',
     'force_tfa' => 'Force Two Factor Authentication for group members?',
+    'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
+    'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => 'Selecionar Todos',
@@ -556,7 +570,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'Ativar a API?',
-    'api_info' => 'A API permite que plugins e outros serviços interajam com o seu site, como o <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >como o plugin Nameless oficial</a>.',
+    'api_info' => 'A API permite que plugins e outros serviços interajam com o seu site, como o <a href="https://plugin.namelessmc.com" target="_blank" >como o plugin Nameless oficial</a>.',
     'enable_legacy_api' => 'Ativar API legacy?',
     'legacy_api_info' => 'A API legacy permite que plugins que usam a API antiga do Nameless v1 funcionem com a versão atual do Nameless.',
     'confirm_api_regen' => 'Tem certeza de que deseja gerar uma nova chave para API?',
@@ -708,6 +722,16 @@ $language = array(
     'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',
     'test_bot_url' => 'Test Bot URL',
     'discord_bot_url_valid' => 'Your Bot URL is valid.',
-    'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?'
+    'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?',
+
+    // Discord bot Errors
+    'discord_bot_error_badparameter' => 'Invalid request body.',
+    'discord_bot_error_error' => 'An internal bot error occured.',
+    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
+    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
+    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
+    'discord_bot_error_unauthorized' => 'Website API key is invalid',
+    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
 
 );

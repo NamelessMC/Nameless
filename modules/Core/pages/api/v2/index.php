@@ -21,7 +21,7 @@ Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mo
 
 // Ensure API is actually enabled
 if (!Util::getSetting(DB::getInstance(), 'use_api')) {
-    die('API is disabled');
+    die($language->get('api', 'api_disabled'));
 }
 
 // Initialise
@@ -29,16 +29,9 @@ $api = new Nameless2API($route, $language, $endpoints);
 
 class Nameless2API {
 
-    private
-        $_validated = false,
-        $_db,
-        $_language,
-        $_endpoints;
-
-    public function isValidated() {
-        if ($this->_validated) return true;
-        else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
-    }
+    private $_db,
+            $_language,
+            $_endpoints;
 
     public function getDb() {
         return $this->_db;
@@ -71,7 +64,6 @@ class Nameless2API {
 
             if (isset($api_key)) {
                 // API key specified
-                $this->_validated = true;
                 $this->_endpoints = $endpoints;
 
                 $request = explode('/', $route);
@@ -83,7 +75,9 @@ class Nameless2API {
                 if ($this->_endpoints->handle($request, $this) == false) {
                     $this->throwError(3, $this->_language->get('api', 'invalid_api_method'));
                 }
-            } else $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
+            } else {
+                $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
+            }
         } catch(Exception $e) {
             $this->throwError($e->getMessage());
         }
@@ -112,16 +106,16 @@ class Nameless2API {
     }
 
     public function getUser($column, $value) {
-        $tempUser = $this->getDb()->get('users', array($column, '=', Output::getClean($value)));
-        if (!$tempUser->count()) $this->throwError(16, $this->getLanguage()->get('api', 'unable_to_find_user'));
-        return new User($tempUser->first()->id);
+        $user = new User(Output::getClean($value), Output::getClean($column));
+        if (!count($user->data())) $this->throwError(16, $this->getLanguage()->get('api', 'unable_to_find_user'));
+        return $user;
     }
 
-    public function throwError($code = null, $message = null) {
+    public function throwError($code = null, $message = null, $meta = null) {
         if ($code && $message) {
-            die(json_encode(array('error' => true, 'code' => $code, 'message' => $message), JSON_PRETTY_PRINT));
+            die(json_encode(array('error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta), JSON_PRETTY_PRINT));
         } else {
-            die(json_encode(array('error' => true, 'code' => 0, 'message' => $this->_language->get('api', 'unknown_error')), JSON_PRETTY_PRINT));
+            die(json_encode(array('error' => true, 'code' => 0, 'message' => $this->_language->get('api', 'unknown_error'), 'meta' => $meta), JSON_PRETTY_PRINT));
         }
     }
 
@@ -138,7 +132,7 @@ class Nameless2API {
         }
         foreach ($required_fields as $required) {
             if (!isset($input[$required]) || empty($input[$required])) {
-                $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'));
+                $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'), array('field' => $required));
             }
         }
         return true;

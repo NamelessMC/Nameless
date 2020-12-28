@@ -69,6 +69,7 @@ $language = array(
     'upload_profile_banner' => 'Carica banner profilo',
     'upload' => 'Carica',
     'topic_updates' => 'Ricevi email per gli argomenti che segui',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Sei stato taggato in un post di {x}.', // Don't replace {x}
@@ -186,7 +187,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} ha risposto al tuo post sul tuo profilo.', // Don't replace {x}
     'no_about_fields' => 'Questo utente non ha ancora aggiunto informazioni su se stesso',
     'reply' => 'Rispondi',
-
+    'discord_username' => 'Discord Username',
+    
     // Reports
     'invalid_report_content' => 'Impossibile creare una segnalazione. Assicurati che il motivo della segnalazione sia compreso tra 2 e 1024 caratteri.',
     'report_post_content' => 'Per favore, inserisci un motivo per la segnalazione',
@@ -233,6 +235,7 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} si è unito ' . SITE_NAME . '!',
+    'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
     'discord_link' => 'Collegamento Discord',
@@ -240,7 +243,7 @@ $language = array(
     'not_linked' => 'Non collegato',
     'discord_id' => 'ID utente Discord',
     'discord_id_unlinked' => 'Scollegato con successo il tuo ID utente Discord.',
-    'discord_id_confirm' => 'Invia questo messaggio: "!verify {guild_id}:{token}" a "Nameless Link#0761" per confermare il tuo ID utente Discord.',
+    'discord_id_confirm' => 'Invia questo messaggio: "!verify {guild_id}:{token}" a {bot_username} per confermare il tuo ID utente Discord.',
     'pending_link' => 'In attesa',
     'discord_id_taken' => "Quell'ID Discord è già stato preso.",
     'discord_invalid_id' => "Quell'ID utente Discord non è valido.",

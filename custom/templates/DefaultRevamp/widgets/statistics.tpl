@@ -1,6 +1,6 @@
 <div class="ui fluid card" id="widget-statistics">
   <div class="content">
-    <h4 class="ui header">Statistics</h4>
+    <h4 class="ui header">{$STATISTICS}</h4>
     <div class="description">
       <div class="ui list">
         {if isset($FORUM_STATISTICS)}

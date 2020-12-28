@@ -2,8 +2,8 @@
 
 /**
  * @param int $user NamelessMC ID of user to view
- * @param json array $groups ID of group ids
- * 
+ * @param string array $groups ID of group ids
+ *
  * @return string JSON Array
  */
 class AddGroupsEndpoint extends EndpointBase {
@@ -15,27 +15,28 @@ class AddGroupsEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        if ($api->isValidated()) {
-            if ($api->validateParams($_POST, ['user', 'groups'])) {
-                
-                // Ensure user exists
-				$user = new User(htmlspecialchars($_POST['user']));
-                if (!count($user->data())) $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
+        $api->validateParams($_POST, ['user', 'groups']);
 
-				$groups = json_decode($_POST['groups'], true);
-				if ($groups == null || !count($groups)) $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
-				foreach($groups as $group) {
-					$group_query = $api->getDb()->get('groups', array('id', '=', $group));
-					if (!$group_query->count()) continue;
-				
-					$user->addGroup($group);
-					
-					// Attempt to update their discord role as well, but ignore any output/errors
-					Discord::addDiscordRole($user, $group, $api->getLanguage(), false);
-				}
+        // Ensure user exists
+        $user = $api->getUser('id', $_POST['user']);
 
-                $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
-            }
+        $groups = json_decode($_POST['groups'], true);
+        if ($groups == null || !count($groups)) {
+            $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
         }
+
+        foreach ($groups as $group) {
+            $group_query = $api->getDb()->get('groups', array('id', '=', $group));
+            if (!$group_query->count()) {
+                continue;
+            }
+
+            $user->addGroup($group);
+
+            // Attempt to update their discord role as well, but ignore any output/errors
+            Discord::addDiscordRole($user, $group, $api->getLanguage(), false);
+        }
+
+        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
     }
 }

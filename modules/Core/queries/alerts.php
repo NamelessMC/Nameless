@@ -1,6 +1,6 @@
 <?php
-if(!$user->isLoggedIn()){
-	die(json_encode(array("value" => 0)));
+if (!$user->isLoggedIn()) {
+    die(json_encode(array("value" => 0)));
 }
 
 $alerts = Alert::getAlerts($user->data()->id);

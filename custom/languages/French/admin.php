@@ -77,8 +77,9 @@ $language = array(
     'twitter_dark_theme' => 'Utiliser le thème sombre de Twitter?',
     'discord_id' => 'ID du serveur discord',
     'discord_widget_theme' => 'Thème Discord Widget',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">click here</a>.',
+    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
+    'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => 'Sombre',
     'light' => 'Eclairé',
     'google_plus_url' => 'URL Google Plus',
@@ -151,6 +152,11 @@ $language = array(
     'validation_promote_group_info' => 'C’est le groupe auquel un utilisateur sera promu une fois qu’il aura validé son compte.',
     'login_method' => 'Méthode de connexion',
     'privacy_and_terms' => 'Confidentialité et conditions',
+    
+    // SEO
+    'seo' => 'SEO',
+    'google_analytics' => 'Google Analytics',
+    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
 
     // Reactions
     'icon' => 'Icône',
@@ -358,6 +364,9 @@ $language = array(
     'background_reset_successfully' => 'Réinitialiser l’arrière-plan.',
     'background_updated_successfully' => 'Contexte mis à jour avec succès.',
     'unable_to_enable_template' => 'Impossible d’activer un modèle incompatible.',
+    'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'Utilisateurs',
@@ -368,7 +377,8 @@ $language = array(
     'registered' => 'Enregistré',
     'user_created' => 'Utilisateur créé avec succès.',
     'cant_delete_root_user' => 'Impossible de supprimer l’utilisateur root!',
-    'cant_modify_root_user' => 'Impossible de modifier le groupe de cet utilisateur!',
+    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
+    'main_group' => 'Main Group',
     'user_deleted' => 'Utilisateur supprimé avec succès.',
     'confirm_user_deletion' => 'Voulez-vous vraiment supprimer l’utilisateur <strong>{x}</strong>?', // Don't replace {x}
     'validate_user' => 'Valider l\'utilisateur',
@@ -416,6 +426,12 @@ $language = array(
     'user_updated_successfully' => 'Utilisateur mis à jour avec succès.',
     'editing_user_x' => 'Édition de l’utilisateur {x}', // Don't replace {x}
     'details' => 'Détails',
+    'force_tfa' => 'Force Two Factor Authentication for group members?',
+    'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
+    'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => 'Sélectionner tout',
@@ -523,7 +539,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'Activer l\'API?',
-    'api_info' => 'L\'API permet aux plugins et autres services d\'interagir avec votre site web, tels que le <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >plugin officiel Nameless</a>.',
+    'api_info' => 'L\'API permet aux plugins et autres services d\'interagir avec votre site web, tels que le <a href="https://plugin.namelessmc.com" target="_blank" >plugin officiel Nameless</a>.',
     'enable_legacy_api' => 'Activer l\'API legacy?',
     'legacy_api_info' => 'L’ancienne API permet aux plugins qui utilisent l’ancienne API Nameless version 1 de travailler avec votre site web version 2..',
     'confirm_api_regen' => 'Voulez-vous vraiment régénérer votre clé API?',
@@ -643,5 +659,15 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'source' => 'Source',
     'support' => 'Support',
     'admin_dir_still_exists' => 'Attention ! Le répertoire <strong>modules/Core/pages/admin</strong> existe toujours. Veuillez supprimer ce répertoire.',
-    'mod_dir_still_exists' => 'Attention! Le répertoire <strong>modules/Core/pages/mod</strong> existe toujours. Veuillez supprimer ce répertoire.'
+    'mod_dir_still_exists' => 'Attention! Le répertoire <strong>modules/Core/pages/mod</strong> existe toujours. Veuillez supprimer ce répertoire.',
+
+    // Discord bot Errors
+    'discord_bot_error_badparameter' => 'Invalid request body.',
+    'discord_bot_error_error' => 'An internal bot error occured.',
+    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
+    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
+    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
+    'discord_bot_error_unauthorized' => 'Website API key is invalid',
+    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
 );

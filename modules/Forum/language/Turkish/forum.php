@@ -126,7 +126,7 @@ $language = array(
     'label_creation_success' => 'Etiket başarıyla oluşturuldu.',
     'label_type_creation_success' => 'Etiket türü başarıyla oluşturuldu.',
     'label_creation_error' => 'Etiket oluşturma hatası. Lütfen adın 32 karakterden uzun olmadığından ve bir tür belirttiğinizden emin olun.',
-    'label_type_creation_error' => 'Etiket türü oluşturma hatası. Lütfen adın 32 karakterden uzun olmadığından ve HTML\'nin 64 karakterden uzun olmadığından emin olun.',
+    'label_type_creation_error' => 'Etiket türü oluşturma hatası. Lütfen adın 32 karakterden uzun olmadığından ve HTML\'nin 1024 karakterden uzun olmadığından emin olun.',
     'creating_forum' => 'Yeni forum oluşturma',
     'forum_name' => 'Forum Adı',
     'forum_description' => 'Forum Açıklaması',
@@ -172,6 +172,8 @@ $language = array(
     'label_deleted_successfully' => 'Etiket başarıyla silindi.',
     'label_type_deleted_successfully' => 'Etiket türü başarıyla silindi.',
     'topic_placeholder' => 'Konu yer tutucusu',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Ara',
@@ -190,6 +192,11 @@ $language = array(
     'your_posts' => 'Mesaj sayınız',
     'average_posts' => 'Ortalama kullanıcı konu sayısı',
     'total_posts' => 'Toplam konu sayısı',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => 'Yeni konu aç',

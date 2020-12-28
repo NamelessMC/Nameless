@@ -9,28 +9,7 @@
  *  Email Mass Message page
  */
 
-// Can the user view the panel?
-if ($user->isLoggedIn()) {
-    if (!$user->canViewACP()) {
-        // No
-        Redirect::to(URL::build('/'));
-        die();
-    }
-    if (!$user->isAdmLoggedIn()) {
-        // Needs to authenticate
-        Redirect::to(URL::build('/panel/auth'));
-        die();
-    } else {
-        if (!$user->hasPermission('admincp.core.emails_mass_message')) {
-            require_once(ROOT_PATH . '/403.php');
-            die();
-        }
-    }
-} else {
-    // Not logged in
-    Redirect::to(URL::build('/login'));
-    die();
-}
+$user->handlePanelPageLoad('admincp.core.emails_mass_message');
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
@@ -66,7 +45,7 @@ if (Input::exists()) {
             $siteemail = $siteemail[0]->value;
             $contactemail = $queries->getWhere('settings', array('name', '=', 'incoming_email'));
             $contactemail = $contactemail[0]->value;
-            
+
             try {
                 $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
                 $php_mailer = $php_mailer[0]->value;
@@ -95,10 +74,10 @@ if (Input::exists()) {
                     foreach ($users as $email_user) {
                         // PHP mail function
                         $headers = 'From: ' . $siteemail . "\r\n" .
-                        'Reply-To: ' . $contactemail . "\r\n" .
-                        'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                        'MIME-Version: 1.0' . "\r\n" .
-                        'Content-type: text/html; charset=UTF-8' . "\r\n";
+                            'Reply-To: ' . $contactemail . "\r\n" .
+                            'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                            'MIME-Version: 1.0' . "\r\n" .
+                            'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                         $email = array(
                             'to' => $email_user->email,
@@ -132,7 +111,6 @@ if (Input::exists()) {
                 Redirect::to(URL::build('/panel/core/emails'));
                 die();
             }
-
         } else {
             foreach ($validate->errors() as $error) {
                 $errors[] = $error;
@@ -182,12 +160,12 @@ if ($formatting == 'markdown') {
     ));
 
     $template->addJSScript('
-	  $(document).ready(function() {
-		var el = $("#markdown").emojioneArea({
-			pickerPosition: "bottom"
-		});
-	  });
-	');
+      $(document).ready(function() {
+        var el = $("#markdown").emojioneArea({
+            pickerPosition: "bottom"
+        });
+      });
+    ');
 } else {
     $template->addJSFiles(array(
         (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),

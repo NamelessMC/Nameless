@@ -66,7 +66,9 @@ $language = array(
     'are_you_sure' => 'Ar jūs esate tikri?',
     'spoiler' => 'Spoileris',
     'invalid_timezone' => 'That timezone is invalid',
-
+    'link' => 'Link',
+    'unlink' => 'Unlink',
+    
      // Contact form
     'contact' => 'Susisiekti',
     'message' => 'Žinutė',

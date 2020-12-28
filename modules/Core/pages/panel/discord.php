@@ -9,28 +9,7 @@
  *  Panel Discord page
  */
 
-// Can the user view the panel?
-if ($user->isLoggedIn()) {
-    if (!$user->canViewACP()) {
-        // No
-        Redirect::to(URL::build('/'));
-        die();
-    }
-    if (!$user->isAdmLoggedIn()) {
-        // Needs to authenticate
-        Redirect::to(URL::build('/panel/auth'));
-        die();
-    } else {
-        if (!$user->hasPermission('admincp.discord')) {
-            require_once(ROOT_PATH . '/403.php');
-            die();
-        }
-    }
-} else {
-    // Not logged in
-    Redirect::to(URL::build('/login'));
-    die();
-}
+$user->handlePanelPageLoad('admincp.discord');
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'integrations');
@@ -40,17 +19,21 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (Input::exists()) {
     // Check token
+    $errors = array();
+
     if (Token::check()) {
         // Valid token
-
         // Either enable or disable Discord integration
         $enable_discord_id = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
         $enable_discord_id = $enable_discord_id[0]->id;
         if ($_POST['enable_discord'] == '1') {
             $guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
             $guild_id = $guild_id[0]->value;
-            if (BOT_URL == '' || $guild_id == '') {
+            if (BOT_URL == '' || BOT_USERNAME == '' || $guild_id == '') {
                 $errors[] = $language->get('admin', 'discord_bot_must_be_setup');
+                $queries->update('settings', $enable_discord_id, array(
+                    'value' => 0
+                ));
             } else {
                 $queries->update('settings', $enable_discord_id, array(
                     'value' => 1
@@ -87,7 +70,7 @@ if (isset($errors) && count($errors))
 
 if (Session::exists('discord_error'))
     $smarty->assign(array(
-        'ERRORS' => Session::flash('discord_error'),
+        'ERRORS' => array(Session::flash('discord_error')),
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
 
@@ -111,6 +94,7 @@ $smarty->assign(array(
     'INVITE_LINK' => $language->get('admin', 'discord_invite_info'),
     'GUILD_ID_SET' => ($guild_id != ''),
     'BOT_URL_SET' => (BOT_URL != ''),
+    'BOT_USERNAME_SET' => (BOT_USERNAME != ''),
     'REQUIREMENTS' => rtrim($language->get('installer', 'requirements'), ':'),
     'BOT_SETUP' => $language->get('admin', 'discord_bot_setup')
 ));

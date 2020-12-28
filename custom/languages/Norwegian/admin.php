@@ -80,8 +80,9 @@ $language = array(
     'discord_id_length' => 'Pass på at Discord-IDen inneholder 18 tegn.',
     'discord_id_numeric' => 'Pass på at Discord-IDen er numerisk (kun tall).',
     'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link#setup" target="_blank">click here</a>.',
+    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
+    'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => 'Mørk',
     'light' => 'Lys',
     'google_plus_url' => 'Google+-URL',
@@ -172,6 +173,11 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'E-post-massemelding har blitt sendt.',
     'emails_mass_message_replacements' => 'Du kan bruke variabler i din e-post-massemelding. Støttede variabler: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laster inn... Vennligst ikke last inn siden på nytt. Dette kan ta en stund.',
+    
+    // SEO
+    'seo' => 'SEO',
+    'google_analytics' => 'Google Analytics',
+    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
 
     // Reactions
     'icon' => 'Ikon',
@@ -383,6 +389,8 @@ $language = array(
     'background_updated_successfully' => 'Bakgrunnen har blitt oppdatert.',
     'unable_to_enable_template' => 'Kunne ikke aktivere malen.',
     'background_image_info' => 'Vennligst vær oppmerksom på at dette alternativet muligens ikke er kompatibel med de fleste maler.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
 
     // Users & groups
     'users' => 'Brukere',
@@ -393,7 +401,8 @@ $language = array(
     'registered' => 'Registrert',
     'user_created' => 'Bruker opprettet.',
     'cant_delete_root_user' => 'Du kan ikke slette administrator-brukeren!',
-    'cant_modify_root_user' => 'Du kan ikke redigere administrator-gruppen!',
+    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
+    'main_group' => 'Main Group',
     'user_deleted' => 'Bruker slettet.',
     'confirm_user_deletion' => 'Er du sikker på at du vil slette brukeren <strong>{x}</strong>?', // Don't replace {x}
     'validate_user' => 'Gyldig bruker',
@@ -445,6 +454,9 @@ $language = array(
     'force_tfa' => 'Tving alle gruppemedlemmer til å bruke totrinnsbekreftelse?',
     'force_tfa_warning' => 'Vennligst pass på at du vet hva dette gjør, for ellers risikerer du å stenge deg selv og alle gruppemedlemmer ute.',
     'force_tfa_alert' => 'Din gruppe krever at du har totrinnsbekreftelse aktivert.',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => 'Velg alle',
@@ -556,7 +568,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'Aktiver API?',
-    'api_info' => 'APIen tillater plugins og andre tjenester å kommunisere med nettsiden din, for eksempel <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >den offisielle Nameless-pluginen</a>.',
+    'api_info' => 'APIen tillater plugins og andre tjenester å kommunisere med nettsiden din, for eksempel <a href="https://plugin.namelessmc.com" target="_blank" >den offisielle Nameless-pluginen</a>.',
     'enable_legacy_api' => 'Aktiver legacy-API?',
     'legacy_api_info' => 'Legacy-APIen tillatter plugins som bruker NamelessMC versjon 1-APIen til å fungere med din versjon 2-nettside.',
     'confirm_api_regen' => 'Er du sikker på at du vil regenerere API-nøkkelen din?',
@@ -708,6 +720,16 @@ $language = array(
 	'discord_invalid_api_url' => 'Ser ut som API-urlen har blitt endret. Vennligst få servereieren til å oppdatere URLen med Nameless Link Bot.',
 	'test_bot_url' => 'Testbot-URL',
 	'discord_bot_url_valid' => 'Din Bot-URL er gyldig.',
-	'discord_cannot_interact' => 'Nameless Link-boten kan ikke samhandle med denne brukeren på Discord. Er rollen deres høyere enn Nameless Link-boten sin?'
+	'discord_cannot_interact' => 'Nameless Link-boten kan ikke samhandle med denne brukeren på Discord. Er rollen deres høyere enn Nameless Link-boten sin?',
+
+    // Discord bot Errors
+    'discord_bot_error_badparameter' => 'Invalid request body.',
+    'discord_bot_error_error' => 'An internal bot error occured.',
+    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
+    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
+    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
+    'discord_bot_error_unauthorized' => 'Website API key is invalid',
+    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
 
 );

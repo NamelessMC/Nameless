@@ -69,6 +69,7 @@ $language = array(
     'upload_profile_banner' => 'Last opp et profilbanner',
     'upload' => 'Last opp',
     'topic_updates' => 'Få e-poster om tråder du følger.',
+    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Du har blitt omtalt i et innlegg av {x}', // Don't replace {x}
@@ -185,7 +186,8 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} har svart på innlegget ditt på din profil', // Don't replace {x}
     'no_about_fields' => 'Denne brukeren har ikke skrevet noe om seg selv enda.',
     'reply' => 'Svar',
-
+    'discord_username' => 'Discord Username',
+    
     // Reports
     'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Pass på at den er mellom 2 og 1024 tegn.',
     'report_post_content' => 'Vennligst oppgi grunnlaget for rapporteringen.',
@@ -232,6 +234,7 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} har registert seg hos ' . SITE_NAME . '!',
+    'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
     'discord_link' => 'Discord-lenke',
@@ -239,7 +242,7 @@ $language = array(
     'not_linked' => 'Ikke tilkoblet',
     'discord_id' => 'Discord bruker-ID',
     'discord_id_unlinked' => 'Discord bruker-IDen din har blitt frakoblet.',
-    'discord_id_confirm' => 'Vennligst send denne meldingen: "!verify {guild_id}:{token}" til "Nameless Link#0761" for å bekrefte din Discord-bruker-ID.',
+    'discord_id_confirm' => 'Vennligst send denne meldingen: "!verify {guild_id}:{token}" til {bot_username} for å bekrefte din Discord-bruker-ID.',
     'pending_link' => 'Venter',
     'discord_id_taken' => 'Den oppgitte Discord bruker-IDen er allerede koblet til en annen bruker.',
     'discord_invalid_id' => 'Den oppgitte Discord bruker-IDen er ikke gyldig.',

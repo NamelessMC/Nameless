@@ -129,7 +129,7 @@ $language = array(
     'label_creation_success' => '标签创建成功。',
     'label_type_creation_success' => '标签种类创建成功。',
     'label_creation_error' => '创建标签时遇到了错误。 请确保名称没有超过 32 个字符并且你已指定了一个种类。',
-    'label_type_creation_error' => '创建标签种类时遇到了错误。 请确保名称没有超过 32 个字符并且 HTML 没有超过 64 个字符。',
+    'label_type_creation_error' => '创建标签种类时遇到了错误。 请确保名称没有超过 32 个字符并且 HTML 没有超过 1024 个字符。',
     'creating_forum' => '创建新论坛中',
     'forum_name' => '论坛名称',
     'forum_description' => '论坛描述',
@@ -176,6 +176,8 @@ $language = array(
     'label_deleted_successfully' => '标签删除成功。',
     'label_type_deleted_successfully' => '标签种类删除成功。',
     'topic_placeholder' => '话题变量',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => '论坛搜索',
@@ -194,6 +196,11 @@ $language = array(
     'your_posts' => '你发表的帖子数',
     'average_posts' => '平均用户帖子数',
     'total_posts' => '总帖子数',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => '新的话题',

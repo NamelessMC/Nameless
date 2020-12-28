@@ -1,0 +1,62 @@
+/* spoiler */
+div.spoiler {
+	padding: 5px;
+	line-height: 1.6;
+}
+
+div.spoiler div.spoiler-title {
+	color: #000000;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 4px 7px;
+	border: 1px solid #bbbbbb;
+	border-bottom-color: #999999;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 0 2px rgba(255,255,255,.15) inset, 0 1px 0 rgba(255,255,255,.15) inset;
+	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 0 2px rgba(255,255,255,.15) inset, 0 1px 0 rgba(255,255,255,.15) inset;
+	box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 0 2px rgba(255,255,255,.15) inset, 0 1px 0 rgba(255,255,255,.15) inset;
+	background: #cfd1cf;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#cfd1cf));
+	background-image: -moz-linear-gradient(top, #f5f5f5, #e5e5e5);
+	background-image: -webkit-linear-gradient(top, #f5f5f5, #e5e5e5);
+	background-image: -o-linear-gradient(top, #f5f5f5, #e5e5e5);
+	background-image: -ms-linear-gradient(top, #f5f5f5, #e5e5e5);
+	background-image: linear-gradient(top, #f5f5f5, #e5e5e5);
+	filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#f5f5f5', endColorstr='#cfd1cf');
+	cursor: pointer;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+div.spoiler div.spoiler-title div.spoiler-toggle {
+	display: inline-block;
+	width: 11px;
+	height: 11px;
+	line-height: 14px;
+	margin-left: 4px;
+	margin-right: 6px;
+	cursor: pointer;
+	-webkit-user-modify: read-only;
+}
+
+div.spoiler div.spoiler-title div.hide-icon {
+	background: url('../images/minus.png') no-repeat scroll left center transparent;
+}
+
+div.spoiler div.spoiler-title div.show-icon {
+	background: url('../images/plus.png') no-repeat scroll left center transparent;
+}
+
+div.spoiler div.spoiler-content {
+	font-size: 13px;
+	border: 1px solid #bbbbbb;
+	border-top: 0px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background: none repeat scroll 0 0 #F5F5F5;
+	padding: 4px 10px;
+}
