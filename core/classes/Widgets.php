@@ -94,7 +94,7 @@ class Widgets {
             if (array_key_exists($item->getName(), $this->_enabled)
                 && $item->getLocation() == $location
                 && is_array($item->getPages())
-                && (in_array((defined('CUSTOM_PAGE') ? CUSTOM_PAGE : 'index'), $item->getPages())
+                && ((defined('CUSTOM_PAGE') && in_array(CUSTOM_PAGE, $item->getPages()))
                     || in_array((defined('PAGE') ? PAGE : 'index'), $item->getPages()))
             ) {
                 $item->initialise();
