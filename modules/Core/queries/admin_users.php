@@ -18,8 +18,8 @@ $limit = '';
 $params = array();
 
 if (isset($_GET['search']) && $_GET['search']['value'] != '') {
-    $where .= ' WHERE username LIKE ? OR nickname LIKE ?';
-    array_push($params, '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%');
+    $where .= ' WHERE username LIKE ? OR nickname LIKE ? OR email LIKE ?';
+    array_push($params, '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%');
 }
 
 if (isset($_GET['order']) && count($_GET['order'])) {

@@ -36,6 +36,7 @@ if (!isset($_GET['action'])) {
     }
 
     $smarty->assign(array(
+        'NONE' => $language->get('general', 'none'),
         'NO_ANNOUNCEMENTS' => $language->get('admin', 'no_announcements'),
         'ANNOUCEMENTS_INFO' => $language->get('admin', 'announcement_info'),
         'NEW_LINK' => URL::build('/panel/core/announcements', 'action=new'),
@@ -80,7 +81,11 @@ if (!isset($_GET['action'])) {
                                 $all_groups[] = $group->id;
                             }
                         }
-                        if (!Announcements::create(Input::get('pages'), $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))) {
+                        $pages = array();
+                        foreach (Input::get('pages') as $page) {
+                            $pages[] = $page;
+                        }
+                        if (!Announcements::create($pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))) {
                             Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
@@ -183,7 +188,11 @@ if (!isset($_GET['action'])) {
                                 $all_groups[] = $group->id;
                             }
                         }
-                        if (!Announcements::edit($announcement->id, Input::get('pages'), $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))) {
+                        $pages = array();
+                        foreach (Input::get('pages') as $page) {
+                            $pages[] = $page;
+                        }
+                        if (!Announcements::edit($announcement->id, $pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))) {
                             Session::flash('announcement_error', $language->get('admin', 'editing_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();

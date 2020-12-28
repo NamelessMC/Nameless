@@ -25,8 +25,8 @@ class Announcements {
             if (Cookie::exists('announcement-' . $announcement->id)) {
                 continue;
             }
-            $pages = json_decode($announcement->pages, true);
-            $groups = json_decode($announcement->groups, true);
+            $pages = (array) json_decode($announcement->pages, true);
+            $groups = (array) json_decode($announcement->groups, true);
             if (in_array($page, $pages) || $page == 'api' || in_array($custom_page, $pages)) {
                 foreach($user_groups as $group) {
                     if (in_array($group, $groups)) {
