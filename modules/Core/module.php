@@ -717,16 +717,16 @@ class Core_Module extends Module {
 
                     $navs[2]->addItemToDropdown('core_configuration', 'api', $language->get('admin', 'api'), URL::build('/panel/core/api'), 'top', $order, $icon);
                 }
-                
-				if($user->hasPermission('admincp.core.seo')){
-					if(!$cache->isCached('sefo_icon')){
-						$icon = '<i class="nav-icon fas fa-code"></i>';
-						$cache->store('seo_icon', $icon);
-					} else
-						$icon = $cache->retrieve('seo_icon');
 
-					$navs[2]->addItemToDropdown('core_configuration', 'seo', $language->get('admin', 'seo'), '/panel/core/seo', 'top', $order, $icon);
-				}
+                if($user->hasPermission('admincp.core.seo')){
+                    if(!$cache->isCached('seo_icon')){
+                        $icon = '<i class="nav-icon fas fa-globe"></i>';
+                        $cache->store('seo_icon', $icon);
+                    } else
+                        $icon = $cache->retrieve('seo_icon');
+
+                    $navs[2]->addItemToDropdown('core_configuration', 'seo', $language->get('admin', 'seo'), '/panel/core/seo', 'top', $order, $icon);
+                }
 
                 if($user->hasPermission('admincp.core.avatars')){
                     if(!$cache->isCached('avatars_icon')){
