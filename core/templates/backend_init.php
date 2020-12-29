@@ -36,4 +36,10 @@ if(file_exists(ROOT_PATH . '/custom/panel_templates/' . PANEL_TEMPLATE . '/templ
 else
 	require(ROOT_PATH . '/custom/panel_templates/Default/template.php');
 
+$cache->setCache('backgroundcache');
+$logo_image = $cache->retrieve('logo_image');
+
+if(!empty($logo_image))
+    $smarty->assign('PANEL_LOGO_IMAGE', Output::getClean($logo_image));
+
 $smarty->assign('TITLE', $page_title);

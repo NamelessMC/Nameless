@@ -121,6 +121,11 @@ $banner_image = $cache->retrieve('banner_image');
 if(!empty($banner_image))
 	$smarty->assign('BANNER_IMAGE', Output::getClean($banner_image));
 
+$logo_image = $cache->retrieve('logo_image');
+
+if(!empty($logo_image))
+    $smarty->assign('LOGO_IMAGE', Output::getClean($logo_image));
+
 $analytics_id = $configuration->get('Core', 'ga_script');
 if($analytics_id != null && !empty($analytics_id))
     $smarty->assign('ANALYTICS_ID', $analytics_id);
