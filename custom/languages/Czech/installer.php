@@ -38,7 +38,7 @@ $language = array(
     'nameless_path' => 'Instalační cesta',
     'nameless_path_info' => 'Toto je cesta, na které je nainstalováno NamelessMC, relativní k vaší doméně. Například pokud je NamelessMC nainstalováno na priklad.cz/forum, musí to být <strong>forum</strong>. Nechte prázdné, pokud NamelessMC není v podsložce.',
     'friendly_urls' => 'Přátelské adresy URL',
-    'friendly_urls_info' => 'Přátelské adresy URL zlepší čitelnost adres URL ve vašem prohlížeči. <br/>Například z:<br/>priklad.cz/index.php?route=/forum<br/>by se stalo<br/>priklad.cz/forum.<br /><strong>Důležité!</strong><br/>Aby tato možnost fungovala, musí být váš server správně nakonfigurován. Zda tuto možnost můžete povolit zjistíte kliknutím <a href=\t./rewrite_test\t target=\_blank\'>sem</a>.',
+    'friendly_urls_info' => 'Přátelské adresy URL zlepší čitelnost adres URL ve vašem prohlížeči. <br/>Například z:<br/><code>priklad.cz/index.php?route=/forum</code><br/>by se stalo<br/><code>priklad.cz/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Důležité!</strong><br/>Aby tato možnost fungovala, musí být váš server správně nakonfigurován. Zda tuto možnost můžete povolit zjistíte kliknutím <a href=\t./rewrite_test\t target=\_blank\' style="color:#2185D0">sem</a>.</div>',
     'enabled' => 'Povoleno',
     'disabled' => 'Zakázáno',
     'character_set' => 'Sada znaků',

@@ -725,7 +725,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('seo_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'seo', $language->get('admin', 'seo'), '/panel/core/seo', 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'seo', $language->get('admin', 'seo'), URL::build('/panel/core/seo'), 'top', $order, $icon);
                 }
 
                 if($user->hasPermission('admincp.core.avatars')){

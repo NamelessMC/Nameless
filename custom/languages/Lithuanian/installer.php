@@ -37,7 +37,7 @@ $language = array(
   'nameless_path' => 'Įrengimo Kelias',
   'nameless_path_info' => 'Tai yra "Nameless" kelias, kuris yra įdiegtas, palyginti su jūsų domenu. Pvz., Jei Nameless yra įdiegtas adresu example.com/forum, tai turi būti <strong>forumas</strong>. Palikite tuščią, jei Nameless nėra pakatalogyje.',
   'friendly_urls' => 'Draugiški URLs',
-  'friendly_urls_info' => 'Draugiški URL pagerins naršyklės URL skaitymo galimybes.<br />Pavyzdžiui: <br />example.com/index.php?route=/forum<br />taptų<br />example.com/forum.<br /><strong>Svarbu!</strong><br />Jūsų serveris turi būti tinkamai sukonfigūruotas, kad jis veiktų. Galite pamatyti, ar galite įjungti šią parinktį spausdami <a href=\'./rewrite_test\' target=\'_blank\'>čia</a>.',
+  'friendly_urls_info' => 'Draugiški URL pagerins naršyklės URL skaitymo galimybes.<br />Pavyzdžiui: <br /><code>example.com/index.php?route=/forum</code><br />taptų<br /><code>example.com/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Svarbu!</strong><br />Jūsų serveris turi būti tinkamai sukonfigūruotas, kad jis veiktų. Galite pamatyti, ar galite įjungti šią parinktį spausdami <a href=\'./rewrite_test\' target=\'_blank\' style="color:#2185D0">cia</a>.</div>',
   'enabled' => 'Įjungtas',
   'disabled' => 'Išjungtas',
   'character_set' => 'Simbolių Rinkinys',

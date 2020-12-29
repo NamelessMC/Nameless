@@ -38,7 +38,7 @@ $language = array(
     'nameless_path' => 'Plassering for installasjon',
     'nameless_path_info' => 'Dette er plasseringen NamelessMC er installert i. Hvis NamelessMC for eksempel er installert i eksempel.no/forum, må dette feltet være <strong>forum</strong>. La feltet være tomt hvis den ikke er installert i en undermappe.',
     'friendly_urls' => 'Forenklede URLs',
-    'friendly_urls_info' => 'Forenklede URLS vil gjøre URLen mer leselig.<br />For eksempel: <br />eksempel.no/index.php?route=/forum<br />vil bli<br />eksempel.no/forum.<br /><strong>Viktig!</strong><br />Serveren din må være konfigurert riktig for at dette skal fungere. Sjekk <a href=\'./rewrite_test\' target=\'_blank\'>her</a>.',
+    'friendly_urls_info' => 'Forenklede URLS vil gjøre URLen mer leselig.<br />For eksempel: <br /><code>eksempel.no/index.php?route=/forum</code><br />vil bli<br /><code>eksempel.no/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Viktig!</strong><br />Serveren din må være konfigurert riktig for at dette skal fungere. Sjekk <a href=\'./rewrite_test\' target=\'_blank\' style="color:#2185D0">her</a>.</div>',
     'enabled' => 'Aktivert',
     'disabled' => 'Deaktivert',
     'character_set' => 'Tegnsetting',

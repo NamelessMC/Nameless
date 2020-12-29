@@ -40,7 +40,7 @@ $language = array(
     'nameless_path' => '安装路径',
     'nameless_path_info' => '这是 Nameless 所安装的路径, 与您的域名产生联系. 打个比方, 如果 Nameless 安装在 example.com/forum, 这将要填写 <strong>forum</strong>。如果 Nameless 不在子文件夹中，请留空。',
     'friendly_urls' => '友好 URLs',
-    'friendly_urls_info' => '友好的 URL 将提高浏览器中 URL 的可读性。<br />打个比方: <br />example.com/index.php?route=/forum<br />将会变成<br />example.com/forum.<br /><strong>注意！</strong><br />您的服务器必须正确配置才能正常工作。您可以通过单击查看是否可以启用此选项 <a href=\'./rewrite_test\' target=\'_blank\'>查看</a>.',
+    'friendly_urls_info' => '友好的 URL 将提高浏览器中 URL 的可读性。<br />打个比方: <br /><code>example.com/index.php?route=/forum</code><br />将会变成<br /><code>example.com/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>注意！</strong><br />您的服务器必须正确配置才能正常工作。您可以通过单击查看是否可以启用此选项 <a href="./rewrite_test" target="_blank" style="color:#2185D0">查看</a>.</div>',
     'enabled' => '启用',
     'disabled' => '禁用',
     'character_set' => '字符集',
