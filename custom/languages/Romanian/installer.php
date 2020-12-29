@@ -40,7 +40,7 @@ $language = array(
     'nameless_path' => 'Calea de instalare',
     'nameless_path_info' => 'Aceasta este calea în care este instalat scriptul, în raport cu domeniul dvs. De exemplu, dacă Nameless este instalat la example.com/forum, acesta trebuie să fie <strong> forum </strong>. Lăsați goal dacă Nameless nu se află într-un subfolder.',
     'friendly_urls' => 'Adrese URL prietenoase',
-    'friendly_urls_info' => 'Adresele URL prietenoase vor îmbunătăți lizibilitatea adreselor URL din browserul dvs.<br />De exemplu: <br />example.com/index.php?route=/forum<br />ar deveni<br />example.com/forum.<br /><strong>Important!</strong><br />Serverul dvs. trebuie configurat corect pentru ca această funcție să funcționeze. Puteți vedea dacă puteți activa această opțiune făcând clic <a href=\'./rewrite_test\' target=\'_blank\'>aici</a>.',
+    'friendly_urls_info' => 'Adresele URL prietenoase vor îmbunătăți lizibilitatea adreselor URL din browserul dvs.<br />De exemplu: <br /><code>example.com/index.php?route=/forum</code><br />ar deveni<br /><code>example.com/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Important!</strong><br />Serverul dvs. trebuie configurat corect pentru ca această funcție să funcționeze. Puteți vedea dacă puteți activa această opțiune făcând clic <a href=\'./rewrite_test\' target=\'_blank\' style="color:#2185D0">aici</a>.</div>',
     'enabled' => 'Activat',
     'disabled' => 'Dezactivat',
     'character_set' => 'Set de caractere',

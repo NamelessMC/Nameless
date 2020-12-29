@@ -43,7 +43,7 @@ $language = array(
     'nameless_path' => 'インストール先パス',
     'nameless_path_info' => 'こちらの設定は、ドメイン(例:example.com)を基準にして、NamelessMCがインストールされているパスです。<br/>例:NamelessMCが<strong> 「example.com/forum」 (ルートディレクトリ/forum) </strong>にインストールされている場合設定する内容は<strong> 「forum」 </strong>になります。NamelessMCがサブディレクトリにない場合(ルートディレクトリにインストールしている場合やバーチャルホストを設定している場合)は空白のままで構いません。',
     'friendly_urls' => 'フレンドリーURL',
-    'friendly_urls_info' => 'フレンドリーURLはブラウザに表示されるURLがわかりやすくなります。<br/>例:<strong>「example.com/index.php?route=/forum」</strong> → <strong>「example.com/forum」</strong><br/><strong>【重要】</strong> フレンドリーURLを有効にするには、サーバーが正しく設定される必要があります。有効にできるかどうかは、<a href=\'./rewrite_test\' target=\'_blank\'>ここ</a>をクリックして確認できます。',
+    'friendly_urls_info' => 'フレンドリーURLはブラウザに表示されるURLがわかりやすくなります。<br/>例:<strong><code>「example.com/index.php?route=/forum」</code></strong> → <strong><code>「example.com/forum」</code></strong><br/><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>【重要】</strong> フレンドリーURLを有効にするには、サーバーが正しく設定される必要があります。有効にできるかどうかは、<a href=\'./rewrite_test\' target=\'_blank\' style="color:#2185D0">ここ</a>をクリックして確認できます。</a>.</div>',
     'enabled' => '有効',
     'disabled' => '無効',
     'character_set' => 'キャラクターセット',

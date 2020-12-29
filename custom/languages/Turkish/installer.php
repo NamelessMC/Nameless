@@ -38,7 +38,7 @@ $language = array(
     'nameless_path' => 'Kurulum Yolu',
     'nameless_path_info' => 'Alan adınıza göre, Adeless\'ın yüklendiği yoldur. Örneğin, Nameless example.com/forum adresine yüklenmişse, bunun <strong>forum</strong> olması gerekir. Nameless bir alt klasörde değilse boş bırakın.',
     'friendly_urls' => 'Kolay URL\'ler (önerilir)',
-    'friendly_urls_info' => 'Kolay URL\'ler, tarayıcınızdaki URL\'lerin okunabilirliğini artırır. <br />Örneğin:<br />example.com/index.php?route=/forum<br/><br/> example.com/forum olur.<br /><strong>Önemli!</strong><br/>Bunun çalışması için sunucunuzun doğru yapılandırılması gerekir. <a href=\'./rewrite_test\' target=\'_blank\'>burayı</a> tıklayarak bu seçeneği etkinleştirip etkinleştiremeyeceğinizi görebilirsiniz.',
+    'friendly_urls_info' => 'Kolay URL\'ler, tarayıcınızdaki URL\'lerin okunabilirliğini artırır. <br />Örneğin:<br /><code>example.com/index.php?route=/forum</code><br/><br/> <code>example.com/forum olur</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Önemli!</strong><br/>Bunun çalışması için sunucunuzun doğru yapılandırılması gerekir <a href=\'./rewrite_test\' target=\'_blank\' style="color:#2185D0">aqui</a> tıklayarak bu seçeneği etkinleştirip etkinleştiremeyeceğinizi görebilirsiniz.</div>',
     'enabled' => 'Etkin',
     'disabled' => 'Etkin değil',
     'character_set' => 'Karakter seti',
