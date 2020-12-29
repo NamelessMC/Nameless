@@ -25,6 +25,14 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+
+// Add order to nl2_mc_servers table
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_mc_servers` ADD `order` int(11) NOT NULL DEFAULT \'1\'');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Forum labels update
 try {
     DB::getInstance()->createQuery('ALTER TABLE `nl2_forums` ADD `default_labels` VARCHAR(128) NULL DEFAULT NULL');

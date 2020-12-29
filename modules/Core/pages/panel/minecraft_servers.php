@@ -474,6 +474,21 @@ if(isset($_GET['action'])){
             die();
 
             break;
+        case 'order':
+            // Get servers
+            if(isset($_GET['servers'])){
+                $servers = json_decode($_GET['servers'])->servers;
+
+                $i = 1;
+                foreach($servers as $item){
+                    $queries->update('mc_servers', $item, array(
+                        '`order`' => $i
+                    ));
+                    $i++;
+                }
+            }
+            die('Complete');
+            break;
 
         default:
             Redirect::to(URL::build('/panel/minecraft/servers'));
@@ -563,7 +578,7 @@ if(isset($_GET['action'])){
     }
 
     // List servers
-    $servers = $queries->getWhere('mc_servers', array('id', '<>', 0));
+    $servers = $queries->orderAll('mc_servers', '`order`', 'ASC');
     $default = 0;
 
     if(count($servers)){
@@ -634,7 +649,8 @@ if(isset($_GET['action'])){
         'EXTERNAL_QUERY_INFO' => $language->get('admin', 'external_query_help'),
         'EXTERNAL_QUERY_VALUE' => ($external_query == 1),
         'STATUS_PAGE' => $language->get('admin', 'status_page'),
-        'STATUS_PAGE_VALUE' => ($status_page == '1')
+        'STATUS_PAGE_VALUE' => ($status_page == '1'),
+        'REORDER_DRAG_URL' => URL::build('/panel/minecraft/servers')
     ));
 
     $template_file = 'integrations/minecraft/minecraft_servers.tpl';

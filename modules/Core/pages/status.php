@@ -28,7 +28,7 @@ define('PAGE', 'status');
 $page_title = $language->get('general', 'status');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$servers = $queries->getWhere('mc_servers', array('display', '=', 1));
+$servers = $queries->orderWhere('mc_servers', 'display = 1', '`order`', 'ASC');
 
 $smarty->assign(
     array(

@@ -49,11 +49,13 @@
                         {else}
                             <div class="table table-responsive">
                                 <table class="table table-striped">
+                                    <tbody id="sortable">
                                     {foreach from=$SERVERS item=server}
-                                        <tr>
+                                        <tr data-id="{$server.id}">
                                             <td><strong>{$server.name}</strong> ({$server.server_id})</td>
                                             <td>
                                                 <div class="float-md-right">
+                                                    <div class="btn btn-secondary"><i class="fas fa-arrows-alt"></i></div>
                                                     <a href="{$server.edit_link}" class="btn btn-info">{$EDIT}</a>
                                                     <button onclick="showDeleteModal('{$server.delete_link}')"
                                                             class="btn btn-danger">{$DELETE}</button>
@@ -61,6 +63,7 @@
                                             </td>
                                         </tr>
                                     {/foreach}
+                                    </tbody>
                                 </table>
                             </div>
                         {/if}
@@ -166,6 +169,40 @@
   }
 </script>
 
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#sortable").sortable({
+      start: function (event, ui) {
+        let start_pos = ui.item.index();
+        ui.item.data('startPos', start_pos);
+      },
+      update: function (event, ui) {
+        let servers = $("#sortable").children();
+        let toSubmit = [];
+        servers.each(function () {
+          toSubmit.push($(this).data().id);
+        });
+
+        $.ajax({
+          url: "{$REORDER_DRAG_URL}",
+          type: "GET",
+          data: {
+            action: "order",
+            {literal}servers: JSON.stringify({"servers": toSubmit}){/literal}
+          },
+          success: function (response) {
+            // Success
+          },
+          error: function (xhr) {
+            // Error
+            console.log(xhr);
+          }
+        });
+      }
+    });
+  });
+</script>
 
 </body>
 

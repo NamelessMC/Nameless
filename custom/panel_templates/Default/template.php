@@ -497,6 +497,9 @@ if (!class_exists('Default_Panel_Template')) {
 							');
 
                         } else if (MINECRAFT_PAGE == 'servers') {
+                            $this->addJSFiles(array(
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => array()
+                            ));
 
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
