@@ -336,8 +336,8 @@ if (!class_exists('Default_Panel_Template')) {
                     }
                     break;
 
-                case 'page_metadata':
-                    if(!isset($_GET['id'])){
+                case 'seo':
+                    if(!isset($_GET['metadata'])){
                         $this->addCSSFiles(array(
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => array()
                         ));
