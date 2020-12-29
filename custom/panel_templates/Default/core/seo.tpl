@@ -74,17 +74,22 @@
 				<div class="card">
 					<div class="card-body">
 						<h4 style="display:inline;">{$PAGE_METADATA}</h4>
-                            <div class="table-responsive">
-                                <table class="table table-striped dataTables-pages">
-                                    <tbody>
-                                    {foreach from=$PAGE_LIST key=key item=item}
-                                        <tr>
-                                            <td><a href="{$EDIT_LINK|replace:'{x}':$item.id}">{$key|escape}</a></td>
-                                        </tr>
-                                    {/foreach}
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped dataTables-pages">
+                                <thead>
+                                    <tr>
+                                        <th>{$PAGE_TITLE}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {foreach from=$PAGE_LIST key=key item=item}
+                                    <tr>
+                                        <td><a href="{$EDIT_LINK|replace:'{x}':$item.id}">{$key|escape}</a></td>
+                                    </tr>
+                                {/foreach}
+                                </tbody>
+                            </table>
+                        </div>
 					</div>
 				</div>
 
