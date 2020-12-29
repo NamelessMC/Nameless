@@ -1,48 +1,73 @@
 {include file='header.tpl'}
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    {include file='navbar.tpl'}
+
+<body id="page-top">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
     {include file='sidebar.tpl'}
 
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">{$WIDGETS}</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
-                            <li class="breadcrumb-item active">{$LAYOUT}</li>
-                            <li class="breadcrumb-item active">{$WIDGETS}</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main content -->
-        <section class="content">
+        <div id="content">
+
+            <!-- Topbar -->
+            {include file='navbar.tpl'}
+
+            <!-- Begin Page Content -->
             <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">{$WIDGETS}</h1>
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
+                        <li class="breadcrumb-item active">{$LAYOUT}</li>
+                        <li class="breadcrumb-item active">{$WIDGETS}</li>
+                    </ol>
+                </div>
+
+                <!-- Update Notification -->
                 {include file='includes/update.tpl'}
 
-                <div class="card">
+                <div class="card shadow mb-4">
                     <div class="card-body">
-                        <h5 style="display:inline">{$EDITING_WIDGET}</h5>
 
-                        <div class="float-md-right">
-                            {if isset($SETTINGS)}<a href="{$SETTINGS_LINK}" class="btn btn-primary">{$SETTINGS}</a>{/if}
-                            <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h5 style="margin-top: 7px; margin-bottom: 7px;">{$EDITING_WIDGET}</h5>
+                            </div>
+                            <div class="col-md-3">
+                                    <span class="float-md-right">
+                                        {if isset($SETTINGS)}<a href="{$SETTINGS_LINK}"
+                                                                class="btn btn-success">{$SETTINGS}</a>{/if}
+                                        <a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a>
+                                    </span>
+                            </div>
                         </div>
-
                         <hr />
 
-                        {include file='includes/success.tpl'}
-
-                        {include file='includes/errors.tpl'}
+                        <!-- Success and Error Alerts -->
+                        {include file='includes/alerts.tpl'}
 
                         <form action="" method="post">
+
+                            <div class="form-group">
+                                <label for="inputOrder">{$WIDGET_ORDER}</label>
+                                <input id="inputOrder" name="order" type="number" class="form-control" value="{$ORDER}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputLocation">{$WIDGET_LOCATION}</label>
+                                <select name="location" class="form-control" id="inputLocation">
+                                    <option value="right" {if $LOCATION eq 'right' } selected{/if}>{$RIGHT}</option>
+                                    <option value="left" {if $LOCATION eq 'left' } selected{/if}>{$LEFT}</option>
+                                </select>
+                            </div>
+
                             {foreach from=$POSSIBLE_PAGES key=module item=module_pages}
                                 {if count($module_pages)}
                                     <div class="table table-responsive">
@@ -56,9 +81,12 @@
                                             {foreach from=$module_pages key=page item=value}
                                                 <tr>
                                                     <td>
-                                                        <label for="{$page|escape}" style="font-weight: normal;">{($page|escape)|ucfirst}</label>
+                                                        <label for="{$page|escape}"
+                                                               style="font-weight: normal;">{($page|escape)|ucfirst}</label>
                                                         <div class="float-md-right">
-                                                            <input class="js-switch" type="checkbox" name="pages[]" id="{$page|escape}" value="{$page|escape}"{if in_array($page, $ACTIVE_PAGES)} checked{/if} >
+                                                            <input class="js-switch" type="checkbox" name="pages[]"
+                                                                   id="{$page|escape}"
+                                                                   value="{$page|escape}" {if in_array($page, $ACTIVE_PAGES)} checked{/if}>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -68,19 +96,6 @@
                                     </div>
                                 {/if}
                             {/foreach}
-
-                            <div class="form-group">
-                                <label for="inputOrder">{$WIDGET_ORDER}</label>
-                                <input id="inputOrder" name="order" type="number" class="form-control" value="{$ORDER}">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="inputLocation">{$WIDGET_LOCATION}</label>
-                                <select name="location" class="form-control" id="inputLocation">
-                                    <option value="right" {if $LOCATION eq 'right' } selected{/if}>{$RIGHT}</option>
-                                    <option value="left" {if $LOCATION eq 'left' } selected{/if}>{$LEFT}</option>                                    
-                                </select>
-                            </div>
 
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">
@@ -94,16 +109,22 @@
                 <!-- Spacing -->
                 <div style="height:1rem;"></div>
 
+                <!-- End Page Content -->
             </div>
-        </section>
+
+            <!-- End Main Content -->
+        </div>
+
+        {include file='footer.tpl'}
+
+        <!-- End Content Wrapper -->
     </div>
 
-    {include file='footer.tpl'}
-
+    <!-- End Wrapper -->
 </div>
-<!-- ./wrapper -->
 
 {include file='scripts.tpl'}
 
 </body>
+
 </html>

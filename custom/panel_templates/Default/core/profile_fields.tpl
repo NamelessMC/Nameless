@@ -1,66 +1,90 @@
 {include file='header.tpl'}
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    {include file='navbar.tpl'}
+
+<body id="page-top">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
     {include file='sidebar.tpl'}
 
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">{$PROFILE_FIELDS}</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
-                            <li class="breadcrumb-item active">{$CONFIGURATION}</li>
-                            <li class="breadcrumb-item active">{$PROFILE_FIELDS}</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main content -->
-        <section class="content">
+        <div id="content">
+
+            <!-- Topbar -->
+            {include file='navbar.tpl'}
+
+            <!-- Begin Page Content -->
             <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">{$PROFILE_FIELDS}</h1>
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
+                        <li class="breadcrumb-item active">{$CONFIGURATION}</li>
+                        <li class="breadcrumb-item active">{$PROFILE_FIELDS}</li>
+                    </ol>
+                </div>
+
+                <!-- Update Notification -->
                 {include file='includes/update.tpl'}
 
-                <div class="card">
+                <div class="card shadow mb-4">
                     <div class="card-body">
-                        <a class="btn btn-primary" href="{$NEW_FIELD_LINK}">{$NEW_FIELD}</a>
 
-                        <hr />
+                        <a class="btn btn-primary" {if count($FIELDS)}style="margin-bottom: 15px"
+                           {/if}href="{$NEW_FIELD_LINK}">{$NEW_FIELD}</a>
+                        {if !count($FIELDS)}
+                            <hr />
+                        {/if}
 
-                        {include file='includes/success.tpl'}
-
-                        {include file='includes/errors.tpl'}
+                        <!-- Success and Error Alerts -->
+                        {include file='includes/alerts.tpl'}
 
                         {if count($FIELDS)}
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
-                                        <tr>
-                                            <th>{$FIELD_NAME}</th>
-                                            <th>{$TYPE}</th>
-                                            <th>{$REQUIRED}</th>
-                                            <th>{$EDITABLE}</th>
-                                            <th>{$PUBLIC}</th>
-                                            <th>{$FORUM_POSTS}</th>
-                                        </tr>
+                                    <tr>
+                                        <th>{$FIELD_NAME}</th>
+                                        <th>{$TYPE}</th>
+                                        <th>{$REQUIRED}</th>
+                                        <th>{$EDITABLE}</th>
+                                        <th>{$PUBLIC}</th>
+                                        <th>{$FORUM_POSTS}</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        {foreach from=$FIELDS item=field}
-                                            <tr>
-                                                <td><a href="{$field.edit_link}">{$field.name}</a></td>
-                                                <td>{$field.type}</td>
-                                                <td>{if $field.required eq 1}<i class="fa fa-check-circle text-success"></i>{else}<i class="fa fa-times-circle text-danger"></i>{/if}</td>
-                                                <td>{if $field.editable eq 1}<i class="fa fa-check-circle text-success"></i>{else}<i class="fa fa-times-circle text-danger"></i>{/if}</td>
-                                                <td>{if $field.public eq 1}<i class="fa fa-check-circle text-success"></i>{else}<i class="fa fa-times-circle text-danger"></i>{/if}</td>
-                                                <td>{if $field.forum_posts eq 1}<i class="fa fa-check-circle text-success"></i>{else}<i class="fa fa-times-circle text-danger"></i>{/if}</td>
-                                            </tr>
-                                        {/foreach}
+                                    {foreach from=$FIELDS item=field}
+                                        <tr>
+                                            <td><a href="{$field.edit_link}">{$field.name}</a></td>
+                                            <td>{$field.type}</td>
+                                            <td>{if $field.required eq 1}
+                                                    <i class="fa fa-check-circle text-success"></i>
+                                                {else}
+                                                    <i class="fa fa-times-circle text-danger"></i>
+                                                {/if}</td>
+                                            <td>{if $field.editable eq 1}
+                                                    <i class="fa fa-check-circle text-success"></i>
+                                                {else}
+                                                    <i class="fa fa-times-circle text-danger"></i>
+                                                {/if}</td>
+                                            <td>{if $field.public eq 1}
+                                                    <i class="fa fa-check-circle text-success"></i>
+                                                {else}
+                                                    <i class="fa fa-times-circle text-danger"></i>
+                                                {/if}</td>
+                                            <td>{if $field.forum_posts eq 1}
+                                                    <i class="fa fa-check-circle text-success"></i>
+                                                {else}
+                                                    <i class="fa fa-times-circle text-danger"></i>
+                                                {/if}</td>
+                                        </tr>
+                                    {/foreach}
                                     </tbody>
                                 </table>
                             </div>
@@ -74,16 +98,22 @@
                 <!-- Spacing -->
                 <div style="height:1rem;"></div>
 
+                <!-- End Page Content -->
             </div>
-        </section>
+
+            <!-- End Main Content -->
+        </div>
+
+        {include file='footer.tpl'}
+
+        <!-- End Content Wrapper -->
     </div>
 
-    {include file='footer.tpl'}
-
+    <!-- End Wrapper -->
 </div>
-<!-- ./wrapper -->
 
 {include file='scripts.tpl'}
 
 </body>
+
 </html>

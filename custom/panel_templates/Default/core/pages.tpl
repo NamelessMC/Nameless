@@ -1,40 +1,45 @@
 {include file='header.tpl'}
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    {include file='navbar.tpl'}
+
+<body id="page-top">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
     {include file='sidebar.tpl'}
 
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">{$CUSTOM_PAGES}</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
-                            <li class="breadcrumb-item active">{$PAGES}</li>
-                            <li class="breadcrumb-item active">{$CUSTOM_PAGES}</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main content -->
-        <section class="content">
+        <div id="content">
+
+            <!-- Topbar -->
+            {include file='navbar.tpl'}
+
+            <!-- Begin Page Content -->
             <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">{$CUSTOM_PAGES}</h1>
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
+                        <li class="breadcrumb-item active">{$PAGES}</li>
+                        <li class="breadcrumb-item active">{$CUSTOM_PAGES}</li>
+                    </ol>
+                </div>
+
+                <!-- Update Notification -->
                 {include file='includes/update.tpl'}
 
-                <div class="card">
+                <div class="card shadow mb-4">
                     <div class="card-body">
-                        <a href="{$NEW_PAGE_LINK}" class="btn btn-primary">{$NEW_PAGE}</a>
-                        <hr />
 
-                        {include file='includes/success.tpl'}
+                        <a href="{$NEW_PAGE_LINK}" class="btn btn-primary" style="margin-bottom: 15px;">{$NEW_PAGE}</a>
 
-                        {include file='includes/errors.tpl'}
+                        <!-- Success and Error Alerts -->
+                        {include file='includes/alerts.tpl'}
 
                         {if count($CUSTOM_PAGE_LIST)}
                             <div class="table-responsive">
@@ -47,8 +52,11 @@
                                             </td>
                                             <td>
                                                 <div class="float-md-right">
-                                                    <a class="btn btn-warning btn-sm" href="{$custom_page.edit_link}"><i class="fas fa-edit fa-fw"></i></a>
-                                                    <button class="btn btn-danger btn-sm" type="button" onclick="showDeleteModal('{$custom_page.delete_link}')"><i class="fas fa-trash fa-fw"></i></button>
+                                                    <a class="btn btn-warning btn-sm" href="{$custom_page.edit_link}"><i
+                                                                class="fas fa-edit fa-fw"></i></a>
+                                                    <button class="btn btn-danger btn-sm" type="button"
+                                                            onclick="showDeleteModal('{$custom_page.delete_link}')"><i
+                                                                class="fas fa-trash fa-fw"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -66,8 +74,15 @@
                 <!-- Spacing -->
                 <div style="height:1rem;"></div>
 
+                <!-- End Page Content -->
             </div>
-        </section>
+
+            <!-- End Main Content -->
+        </div>
+
+        {include file='footer.tpl'}
+
+        <!-- End Content Wrapper -->
     </div>
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
@@ -90,19 +105,18 @@
         </div>
     </div>
 
-    {include file='footer.tpl'}
-
+    <!-- End Wrapper -->
 </div>
-<!-- ./wrapper -->
 
 {include file='scripts.tpl'}
 
 <script type="text/javascript">
-    function showDeleteModal(id){
-        $('#deleteLink').attr('href', id);
-        $('#deleteModal').modal().show();
-    }
+  function showDeleteModal(id) {
+    $('#deleteLink').attr('href', id);
+    $('#deleteModal').modal().show();
+  }
 </script>
 
 </body>
+
 </html>

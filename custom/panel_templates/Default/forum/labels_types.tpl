@@ -1,67 +1,69 @@
 {include file='header.tpl'}
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    {include file='navbar.tpl'}
+
+<body id="page-top">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
     {include file='sidebar.tpl'}
 
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">{$LABEL_TYPES}</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
-                            <li class="breadcrumb-item active">{$FORUM}</li>
-                            <li class="breadcrumb-item active">{$LABEL_TYPES}</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main content -->
-        <section class="content">
+        <div id="content">
+
+            <!-- Topbar -->
+            {include file='navbar.tpl'}
+
+            <!-- Begin Page Content -->
             <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">{$LABEL_TYPES}</h1>
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
+                        <li class="breadcrumb-item active">{$FORUM}</li>
+                        <li class="breadcrumb-item active">{$LABEL_TYPES}</li>
+                    </ol>
+                </div>
+
+                <!-- Update Notification -->
                 {include file='includes/update.tpl'}
 
-                <div class="card">
+                <div class="card shadow mb-4">
                     <div class="card-body">
+
                         <a href="{$NEW_LABEL_TYPE_LINK}" class="btn btn-primary">{$NEW_LABEL_TYPE}</a>
                         <a href="{$LABELS_LINK}" class="btn btn-info">{$LABELS}</a>
                         <hr />
 
-                        {include file='includes/success.tpl'}
+                        <!-- Success and Error Alerts -->
+                        {include file='includes/alerts.tpl'}
 
-                        {include file='includes/errors.tpl'}
-
-                        <div class="card">
-                            <div class="card-header">
-                                {$LABELS}
-                            </div>
-                            <div class="card-body">
-                                {if count($ALL_LABEL_TYPES)}
-                                    {foreach from=$ALL_LABEL_TYPES item=label_type name=label_list}
-                                        <div class="row">
-                                            <div class="col-md-9">
-                                                {$label_type.name}
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="float-md-right">
-                                                    <a href="{$label_type.edit_link}" class="btn btn-info">{$EDIT}</a>
-                                                    <button onclick="showDeleteModal('{$label_type.delete_link}')" class="btn btn-danger">{$DELETE}</button>
-                                                </div>
-                                            </div>
+                        {if count($ALL_LABEL_TYPES)}
+                            {foreach from=$ALL_LABEL_TYPES item=label_type name=label_list}
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        {$label_type.name}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="float-md-right">
+                                            <a href="{$label_type.edit_link}" class="btn btn-info btn-sm">{$EDIT}</a>
+                                            <button onclick="showDeleteModal('{$label_type.delete_link}')"
+                                                    class="btn btn-danger btn-sm">{$DELETE}</button>
                                         </div>
-                                        {if !$smarty.foreach.label_list.last}<hr />{/if}
-                                    {/foreach}
-                                {else}
-                                    <p>{$NO_LABEL_TYPES}</p>
+                                    </div>
+                                </div>
+                                {if !$smarty.foreach.label_list.last}
+                                    <hr />
                                 {/if}
-                            </div>
-                        </div>
+                            {/foreach}
+                        {else}
+                            <p>{$NO_LABEL_TYPES}</p>
+                        {/if}
 
                     </div>
                 </div>
@@ -69,8 +71,15 @@
                 <!-- Spacing -->
                 <div style="height:1rem;"></div>
 
+                <!-- End Page Content -->
             </div>
-        </section>
+
+            <!-- End Main Content -->
+        </div>
+
+        {include file='footer.tpl'}
+
+        <!-- End Content Wrapper -->
     </div>
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
@@ -93,18 +102,18 @@
         </div>
     </div>
 
-    {include file='footer.tpl'}
-
+    <!-- End Wrapper -->
 </div>
-<!-- ./wrapper -->
 
 {include file='scripts.tpl'}
+
 <script type="text/javascript">
-    function showDeleteModal(link){
-        $('#deleteLink').attr('href', link);
-        $('#deleteModal').modal().show();
-    }
+  function showDeleteModal(link) {
+    $('#deleteLink').attr('href', link);
+    $('#deleteModal').modal().show();
+  }
 </script>
 
 </body>
+
 </html>

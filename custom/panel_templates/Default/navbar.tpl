@@ -1,34 +1,54 @@
-<nav class="main-header navbar navbar-expand bg-primary navbar-light border-bottom">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{$SITE_HOME}" target="_blank" class="nav-link">{$VIEW_SITE}</a>
-        </li>
-    </ul>
+<!-- Topbar -->
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
+    <!-- Sidebar Toggle (Topbar) -->
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
+
+    <!-- View Site and Dark/Light Mode Buttons -->
+    <a href="{$SITE_HOME}" target="_blank" class="btn btn-primary" style="margin-right: 10px">{$VIEW_SITE}</a>
+
+    <input onclick="switchTheme()" type="hidden" name="dark_mode" value="0">
+    <input onclick="switchTheme()" id="dark_mode" name="dark_mode" type="checkbox" class="dark-switch" value="1" checked />
+    <span class="dark-switch-text">Dark/Light Mode</span>
+
+    <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="fas fa-bell"></i>
+
+        <!-- Nav Item - Alerts -->
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
                 {if $NOTICES|count > 0}
-                    <span class="badge badge-danger navbar-badge">{$NOTICES|count}</span>
+                <span class="badge badge-danger badge-counter">{$NOTICES|count}</span>
                 {/if}
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <!-- Dropdown - Alerts -->
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                 {if $NOTICES|count eq 0}
-                    <span class="dropdown-item dropdown-header">{$NO_NOTICES}</span>
-
+                <span class="dropdown-item d-flex align-items-center">{$NO_NOTICES}</span>
                 {else}
-                    {foreach from=$NOTICES key=url item=notice}
-                        <a href="{$url}" class="dropdown-item" style="color:#6c757d!important">
-                            {$notice}
-                        </a>
-                    {/foreach}
-
+                {foreach from=$NOTICES key=url item=notice}
+                <a href="{$url}" class="dropdown-item d-flex align-items-center" style="color:#6c757d!important">{$notice}</a>
+                {/foreach}
                 {/if}
             </div>
         </li>
+
+        <!-- Divider -->
+        <div class="topbar-divider d-none d-sm-block"></div>
+
+        <!-- Nav Item - User Information -->
+        <li class="nav-item dropdown no-arrow">
+            <a class="nav-link" href="{$LOGGED_IN_USER.panel_profile}">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{$LOGGED_IN_USER.nickname}</span>
+                <img class="img-profile rounded-circle" src="{$LOGGED_IN_USER.avatar}" alt="{$LOGGED_IN_USER.username}">
+            </a>
+        </li>
+
     </ul>
+
 </nav>
+<!-- End of Topbar -->

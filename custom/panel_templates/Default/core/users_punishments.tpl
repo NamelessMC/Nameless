@@ -1,41 +1,47 @@
 {include file='header.tpl'}
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    {include file='navbar.tpl'}
+
+<body id="page-top">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
     {include file='sidebar.tpl'}
 
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">{$PUNISHMENTS}</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
-                            <li class="breadcrumb-item active">{$USER_MANAGEMENT}</li>
-                            <li class="breadcrumb-item active">{$PUNISHMENTS}</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main content -->
-        <section class="content">
+        <div id="content">
+
+            <!-- Topbar -->
+            {include file='navbar.tpl'}
+
+            <!-- Begin Page Content -->
             <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">{$PUNISHMENTS}</h1>
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
+                        <li class="breadcrumb-item active">{$USER_MANAGEMENT}</li>
+                        <li class="breadcrumb-item active">{$PUNISHMENTS}</li>
+                    </ol>
+                </div>
+
+                <!-- Update Notification -->
                 {include file='includes/update.tpl'}
 
-                <div class="card">
+                <div class="card shadow mb-4">
                     <div class="card-body">
-                        <button onclick="showSearchModal()" class="btn btn-primary"><i class="fa fa-search"></i> {$SEARCH}</button>
 
+                        <button onclick="showSearchModal()" class="btn btn-primary"><i
+                                    class="fa fa-search"></i> {$SEARCH}</button>
                         <hr />
 
-                        {include file='includes/success.tpl'}
-
-                        {include file='includes/errors.tpl'}
+                        <!-- Success and Error Alerts -->
+                        {include file='includes/alerts.tpl'}
 
                         {if isset($RESULTS)}
                             <div class="table-responsive">
@@ -59,8 +65,14 @@
                                     <tbody>
                                     {foreach from=$RESULTS item=result}
                                         <tr>
-                                            <td><a href="{$result.profile}" style="{$result.style}"><img src="{$result.avatar}" class="rounded" style="max-width:25px;max-height:25px;"> {$result.nickname}</a></td>
-                                            <td><a href="{$result.staff_profile}" style="{$result.staff_style}"><img src="{$result.staff_avatar}" class="rounded" style="max-width:25px;max-height:25px;"> {$result.staff_nickname}</a></td>
+                                            <td><a href="{$result.profile}" style="{$result.style}"><img
+                                                            src="{$result.avatar}" class="rounded"
+                                                            style="max-width:25px;max-height:25px;"> {$result.nickname}
+                                                </a></td>
+                                            <td><a href="{$result.staff_profile}" style="{$result.staff_style}"><img
+                                                            src="{$result.staff_avatar}" class="rounded"
+                                                            style="max-width:25px;max-height:25px;"> {$result.staff_nickname}
+                                                </a></td>
                                             <td>
                                                 {if $result.type_numeric == 1}
                                                     <span class="badge badge-danger">{$result.type}</span>
@@ -76,7 +88,9 @@
                                                     <span class="badge badge-success">{$ACKNOWLEDGED}</span>
                                                 {/if}
                                             </td>
-                                            <td><span data-toggle="tooltip" data-original-title="{$result.time_full}">{$result.time}</span></td>
+                                            <td><span data-toggle="tooltip"
+                                                      data-original-title="{$result.time_full}">{$result.time}</span>
+                                            </td>
                                             <td><a href="{$result.link}" class="btn btn-info">{$VIEW_USER}</a></td>
                                         </tr>
                                     {/foreach}
@@ -95,11 +109,19 @@
                 <!-- Spacing -->
                 <div style="height:1rem;"></div>
 
+                <!-- End Page Content -->
             </div>
-        </section>
+
+            <!-- End Main Content -->
+        </div>
+
+        {include file='footer.tpl'}
+
+        <!-- End Content Wrapper -->
     </div>
 
-    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -112,7 +134,8 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="InputUsername">{$USERNAME}</label>
-                            <input type="text" placeholder="{$USERNAME}" class="form-control" id="InputUsername" name="username">
+                            <input type="text" placeholder="{$USERNAME}" class="form-control" id="InputUsername"
+                                   name="username">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -125,18 +148,17 @@
         </div>
     </div>
 
-    {include file='footer.tpl'}
-
+    <!-- End Wrapper -->
 </div>
-<!-- ./wrapper -->
 
 {include file='scripts.tpl'}
 
 <script type="text/javascript">
-    function showSearchModal(){
-        $('#searchModal').modal().show();
-    }
+  function showSearchModal() {
+    $('#searchModal').modal().show();
+  }
 </script>
 
 </body>
+
 </html>
