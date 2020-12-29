@@ -339,6 +339,8 @@ $language = array(
     'unable_to_retrieve_modules' => 'Modüller alınamıyor',
     'module' => 'Modül',
     'unable_to_enable_module' => 'Uyumsuz modül etkinleştirilemedi.',
+    'unable_to_enable_module_dependencies' => 'Unable to enable module since it depends on the module {x}, which is not enabled.', // Don't replace {x}
+    'unable_to_disable_module' => 'Unable to disable module - the module {x} depends on it.', // Don't replace {x}
 
     // Styles
     'templates' => 'Tema',

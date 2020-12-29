@@ -341,6 +341,9 @@ $language = array(
     'unable_to_retrieve_modules' => '无法检索模块',
     'module' => '模块',
     'unable_to_enable_module' => '无法启用不兼容的模块。',
+    'unable_to_enable_module_dependencies' => 'Unable to enable module since it depends on the module {x}, which is not enabled.', // Don't replace {x}
+    'unable_to_disable_module' => 'Unable to disable module - the module {x} depends on it.', // Don't replace {x}
+
     // Styles
     'templates' => '模板',
     'panel_templates' => '面板模板',

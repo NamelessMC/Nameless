@@ -339,6 +339,8 @@ $language = array(
     'unable_to_retrieve_modules' => 'Impossibile recuperare i moduli',
     'module' => 'Modulo',
     'unable_to_enable_module' => 'Impossibile abilitare il modulo incompatibile.',
+    'unable_to_enable_module_dependencies' => 'Unable to enable module since it depends on the module {x}, which is not enabled.', // Don't replace {x}
+    'unable_to_disable_module' => 'Unable to disable module - the module {x} depends on it.', // Don't replace {x}
 
     // Styles
     'templates' => 'Modelli',
