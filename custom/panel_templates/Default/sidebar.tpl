@@ -4,7 +4,7 @@
     <!-- Sidebar - Brand -->
     <a href="{$PANEL_INDEX}" class="sidebar-brand d-flex align-items-center justify-content-center">
         <div class="sidebar-brand-icon">
-            <img src="{$NAMELESS_LOGO}" style="height: 35px;">
+            <img src="{if isset($PANEL_LOGO_IMAGE)}{$PANEL_LOGO_IMAGE}{else}{$NAMELESS_LOGO}{/if}" style="height: 35px;">
         </div>
         <div class="sidebar-brand-text mx-3" style="margin-top: 4px">{$SITE_NAME}</div>
     </a>
