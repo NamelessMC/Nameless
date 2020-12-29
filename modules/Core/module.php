@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -717,16 +717,16 @@ class Core_Module extends Module {
 
                     $navs[2]->addItemToDropdown('core_configuration', 'api', $language->get('admin', 'api'), URL::build('/panel/core/api'), 'top', $order, $icon);
                 }
-                
-				if($user->hasPermission('admincp.core.seo')){
-					if(!$cache->isCached('sefo_icon')){
-						$icon = '<i class="nav-icon fas fa-code"></i>';
-						$cache->store('seo_icon', $icon);
-					} else
-						$icon = $cache->retrieve('seo_icon');
 
-					$navs[2]->addItemToDropdown('core_configuration', 'seo', $language->get('admin', 'seo'), '/panel/core/seo', 'top', $order, $icon);
-				}
+                if($user->hasPermission('admincp.core.seo')){
+                    if(!$cache->isCached('seo_icon')){
+                        $icon = '<i class="nav-icon fas fa-globe"></i>';
+                        $cache->store('seo_icon', $icon);
+                    } else
+                        $icon = $cache->retrieve('seo_icon');
+
+                    $navs[2]->addItemToDropdown('core_configuration', 'seo', $language->get('admin', 'seo'), '/panel/core/seo', 'top', $order, $icon);
+                }
 
                 if($user->hasPermission('admincp.core.avatars')){
                     if(!$cache->isCached('avatars_icon')){
@@ -974,7 +974,7 @@ class Core_Module extends Module {
                 $navs[2]->add('modules', $language->get('admin', 'modules'), URL::build('/panel/core/modules'), 'top', null, $order, $icon);
             }
 
-			if($user->hasPermission('admincp.pages')){
+            if($user->hasPermission('admincp.pages')){
                 if(!$cache->isCached('pages_order')){
                     $order = 8;
                     $cache->store('pages_order', 8);
@@ -988,8 +988,8 @@ class Core_Module extends Module {
                 } else
                     $icon = $cache->retrieve('pages_icon');
 
-				$navs[2]->add('custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/pages'), 'top', null, $order, $icon);
-			}
+                $navs[2]->add('custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/pages'), 'top', null, $order, $icon);
+            }
 
             if($user->hasPermission('admincp.security')){
                 if(!$cache->isCached('security_order')){

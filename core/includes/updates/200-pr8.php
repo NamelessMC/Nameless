@@ -56,6 +56,20 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+try {
+    $queries->addPermissionGroup(2, 'admincp.core.seo');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+// Clear template cache
+try {
+    Util::recursiveRemoveDirectory(ROOT_PATH . '/cache/templates_c');
+    mkdir(ROOT_PATH . '/cache/templates_c');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 

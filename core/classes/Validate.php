@@ -57,7 +57,7 @@ class Validate {
                     switch ($rule) {
                             // Minimum of $rule_value characters
                         case 'min';
-                            if (strlen($value) < $rule_value) {
+                            if (mb_strlen($value) < $rule_value) {
                                 // Not a minumum of $rule_value characters, return an error
                                 $this->addError("{$item} must be a minimum of {$rule_value} characters.");
                             }
@@ -65,7 +65,7 @@ class Validate {
 
                             // Maximum of $rule_value characters
                         case 'max';
-                            if (strlen($value) > $rule_value) {
+                            if (mb_strlen($value) > $rule_value) {
                                 // Above the maximum of $rule_value characters, return an error
                                 $this->addError("{$item} must be a maximum of {$rule_value} characters.");
                             }

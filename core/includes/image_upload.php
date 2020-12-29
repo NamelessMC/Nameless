@@ -27,6 +27,7 @@ if (!$user->isLoggedIn()) {
 }
 
 $image_extensions = array('jpg', 'png', 'jpeg');
+$delete_extensions = array_merge($image_extensions, array('gif'));
 
 if ($user->hasPermission('usercp.gif_avatar')) {
     $image_extensions[] = 'gif';
@@ -42,34 +43,49 @@ if (Input::exists()) {
         $image->setDimension(2000, 2000); // 2k x 2k pixel maximum
         $image->setMime($image_extensions);
 
-        if (Input::get('type') == 'background') {
-            $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'backgrounds')));
-        } else if (Input::get('type') == 'template_banner') {
-            $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'template_banners')));
-        } else if (Input::get('type') == 'default_avatar') {
-            $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'avatars', 'defaults')));
-        } else if (Input::get('type') == 'profile_banner') {
-            if (!$user->hasPermission('usercp.profile_banner')) {
-                Redirect::to(URL::build('/profile/' . Output::getClean($user->data()->username)));
-                die();
-            }
+        switch ($_POST['type']) {
+            case 'background':
+                $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'backgrounds')));
+                break;
 
-            if (
-                !is_dir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)))
-                && !mkdir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)))
-            ) {
-                die('uploads/profile_images folder not writable! <a href="' . URL::build('/profile/' . Output::getClean($user->data()->username)) . '">Back</a>');
-            }
+            case 'template_banner':
+                $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'template_banners')));
+                break;
 
-            $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)));
-        } else {
-            // Default to normal avatar upload
-            if (!defined('CUSTOM_AVATARS')) {
-                die('Custom avatar uploading is disabled');
-            }
+            case 'logo':
+                $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'logos')));
+                break;
 
-            $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'avatars')));
-            $image->setName($user->data()->id);
+            case 'default_avatar':
+                $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'avatars', 'defaults')));
+                break;
+
+            case 'profile_banner':
+                if (!$user->hasPermission('usercp.profile_banner')) {
+                    Redirect::to(URL::build('/profile/' . Output::getClean($user->data()->username)));
+                    die();
+                }
+
+                if (
+                    !is_dir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)))
+                    && !mkdir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)))
+                ) {
+                    die('uploads/profile_images folder not writable! <a href="' . URL::build('/profile/' . Output::getClean($user->data()->username)) . '">Back</a>');
+                }
+
+                $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)));
+                break;
+
+            default:
+                // Default to normal avatar upload
+                if (!defined('CUSTOM_AVATARS')) {
+                    die('Custom avatar uploading is disabled');
+                }
+
+                $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'avatars')));
+                $image->setName($user->data()->id);
+                break;
+
         }
 
         if ($image['file']) {
@@ -81,7 +97,7 @@ if (Input::exists()) {
                     // Avatar?
                     if (Input::get('type') == 'avatar') {
                         // Need to delete any other avatars
-                        $diff = array_diff($image_extensions, array(strtolower($upload->getMime())));
+                        $diff = array_diff($delete_extensions, array(strtolower($upload->getMime())));
                         $diff_str = rtrim(implode(',', $diff), ',');
 
                         $to_remove = glob(ROOT_PATH . '/uploads/avatars/' . $user->data()->id . '.{' . $diff_str . '}', GLOB_BRACE);
