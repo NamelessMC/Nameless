@@ -299,7 +299,8 @@ if (!class_exists('Default_Panel_Template')) {
                         ));
 
                         $this->addJSFiles(array(
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' => array()
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' => array(),
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => array()
                         ));
 
                         $this->addJSScript('
@@ -497,6 +498,9 @@ if (!class_exists('Default_Panel_Template')) {
 							');
 
                         } else if (MINECRAFT_PAGE == 'servers') {
+                            $this->addJSFiles(array(
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => array()
+                            ));
 
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
