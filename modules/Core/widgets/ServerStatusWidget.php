@@ -2,7 +2,7 @@
 /*
  *	Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -44,8 +44,8 @@ class ServerStatusWidget extends WidgetBase {
 
             if ($server != null) {
                 $server_array = json_decode(Util::curlGetContents(Util::getSelfURL() . URL::build('/queries/server/', 'id=' . $server->id)), true);
-                $server_array['name'] = $server->name;
-                $server_array['join_at'] = $server->ip;
+                $server_array['name'] = Output::getClean($server->name);
+                $server_array['join_at'] = Output::getClean($server->ip);
 
                 $this->_cache->store('server_status', $server_array, 120);
             }

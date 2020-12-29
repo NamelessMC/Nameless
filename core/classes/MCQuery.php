@@ -38,12 +38,15 @@ class MCQuery {
                         }
 
                         if (isset($query['players'])) {
+                            $player_list = isset($query['players']['sample']) ? $query['players']['sample'] : array();
+
                             $return = array(
                                 'status_value' => 1,
                                 'status' => $language->get('general', 'online'),
                                 'player_count' => Output::getClean($query['players']['online']),
                                 'player_count_max' => Output::getClean($query['players']['max']),
-                                'player_list' => (isset($query['players']['sample']) ? $query['players']['sample'] : array()),
+                                'player_list' => $player_list,
+                                'format_player_list' => self::formatPlayerList($player_list),
                                 'x_players_online' => str_replace('{x}', Output::getClean($query['players']['online']), $language->get('general', 'currently_x_players_online')),
                                 'motd' => (isset($query['description']['text']) ? $query['description']['text'] : ''),
                                 'version' => $query['version']['name']
@@ -68,12 +71,15 @@ class MCQuery {
                         $query = ExternalMCQuery::query($query_ip[0], (isset($query_ip[1]) ? $query_ip[1] : 25565));
 
                         if (!$query->error && isset($query->response)) {
+                            $player_list = isset($query->response->players->list) ? $query->response->players->list : array();
+
                             return array(
                                 'status_value' => 1,
                                 'status' => $language->get('general', 'online'),
                                 'player_count' => Output::getClean($query->response->players->online),
                                 'player_count_max' => Output::getClean($query->response->players->max),
-                                'player_list' => $query->response->players->list,
+                                'player_list' => $player_list,
+                                'format_player_list' => self::formatPlayerList($player_list),
                                 'x_players_online' => str_replace('{x}', Output::getClean($query->response->players->online), $language->get('general', 'currently_x_players_online')),
                                 'motd' => $query->response->description->text
                             );
@@ -118,6 +124,8 @@ class MCQuery {
      * @param $language   Query language object
      * @param $accumulate Whether to return as one accumulated result or not
      * @param $queries    Queries instance to pass through for error logging
+     *
+     * @throws Exception if not able to query the server
      *
      * @return array Array containing query result
      */
@@ -257,5 +265,42 @@ class MCQuery {
             }
         }
         return false;
+    }
+
+    /**
+     * Formats a list of players into something useful for the frontend
+
+     * @param $player_list array Unformatted array of players in format 'id' => string (UUID), 'name' => string (username)
+
+     * @return array Array of formatted players
+     **/
+    private static function formatPlayerList($player_list) {
+        $formatted = array();
+
+        if (count($player_list)) {
+            foreach ($player_list as $player) {
+                $user = new User($player['id'], 'uuid');
+                if (!$user->data()) {
+                    $user = new User($player['name'], 'username');
+                }
+
+                if (!$user->data()) {
+                    $avatar = Util::getAvatarFromUUID($player['id']);
+                    $profile = '#';
+                } else {
+                    $avatar = $user->getAvatar();
+                    $profile = $user->getProfileURL();
+                }
+
+                $formatted[] = array(
+                    'username' => Output::getClean($player['name']),
+                    'uuid' => Output::getClean($player['id']),
+                    'avatar' => $avatar,
+                    'profile' => $profile
+                );
+            }
+        }
+
+        return $formatted;
     }
 }
