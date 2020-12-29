@@ -55,6 +55,10 @@ if (isset($_GET['action'])) {
                         $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
                         if (!count($default_group) && $default == 0)
                             $default = 1;
+                        
+                        $last_group_order = DB::getInstance()->query('SELECT `order` FROM nl2_groups ORDER BY `order` DESC LIMIT 1')->results();
+                        if (count($last_group_order)) $last_group_order = $last_group_order[0]->order;
+                        else $last_group_order = 0;
 
                         $queries->create('groups', array(
                             'name' => Input::get('groupname'),
@@ -65,7 +69,7 @@ if (isset($_GET['action'])) {
                             'admin_cp' => Input::get('staffcp'),
                             'staff' => Input::get('staff'),
                             'default_group' => $default,
-                            'order' => Input::get('order'),
+                            'order' => (Input::get('order') == 5 ? $last_group_order + 1 : Input::get('order')),
                             'force_tfa' => Input::get('tfa')
                         ));
 

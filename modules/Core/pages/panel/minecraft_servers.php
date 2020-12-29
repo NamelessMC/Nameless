@@ -104,6 +104,10 @@ if(isset($_GET['action'])){
                                 $query_port = Input::get('query_port');
                             else
                                 $query_port = 25565;
+                            
+                            $last_server_order = DB::getInstance()->query('SELECT `order` FROM nl2_mc_servers ORDER BY `order` DESC LIMIT 1')->results();
+                            if (count($last_server_order)) $last_server_order = $last_server_order[0]->order;
+                            else $last_server_order = 0;
 
                             $queries->create('mc_servers', array(
                                 'ip' => Output::getClean(Input::get('server_address')),
@@ -116,7 +120,8 @@ if(isset($_GET['action'])){
                                 'bungee' => $bungee,
                                 'port' => $port,
                                 'query_port' => $query_port,
-                                'show_ip' => $show_ip
+                                'show_ip' => $show_ip,
+                                'order' => $last_server_order + 1
                             ));
 
                             Session::flash('admin_mc_servers_success', $language->get('admin', 'server_created'));
