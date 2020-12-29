@@ -36,7 +36,8 @@
                 <div class="card shadow mb-4">
                     <div class="card-body">
 
-                        <a href="{$NEW_PAGE_LINK}" class="btn btn-primary" style="margin-bottom: 15px;">{$NEW_PAGE}</a>
+                        <a href="{$NEW_PAGE_LINK}" class="btn btn-primary">{$NEW_PAGE}</a>
+                        <hr />
 
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
@@ -65,7 +66,7 @@
                                 </table>
                             </div>
                         {else}
-                            {$NO_CUSTOM_PAGES}
+                            <p>{$NO_CUSTOM_PAGES}</p>
                         {/if}
 
                     </div>
