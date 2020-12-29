@@ -397,6 +397,8 @@ $language = array(
     'background_image_info' => '注意：此选项与大部分模版都不兼容。',
     'dark_mode' => 'Dark Mode',
     'navbar_colour' => 'Navbar Colour',
+    'clear_cache' => 'Clear Template Cache',
+    'cache_cleared' => 'Template cache cleared',
 
     // Users & groups
     'users' => '账号',

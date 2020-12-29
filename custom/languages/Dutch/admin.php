@@ -398,6 +398,8 @@ $language = array(
     'background_image_info' => 'Houd er rekening mee dat deze optie mogelijk niet compatibel is met de meeste sjablonen.',
     'dark_mode' => 'Dark Mode',
     'navbar_colour' => 'Navbar Colour',
+    'clear_cache' => 'Clear Template Cache',
+    'cache_cleared' => 'Template cache cleared',
 
     // Gebruikers & groepen
     'users' => 'Gebruikers',

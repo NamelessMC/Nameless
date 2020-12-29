@@ -134,6 +134,8 @@ if(!isset($_GET['action'])){
         'TEMPLATE_LIST' => $templates_template,
         'INSTALL_TEMPLATE' => $language->get('admin', 'install'),
         'INSTALL_TEMPLATE_LINK' => URL::build('/panel/core/panel_templates/', 'action=install'),
+        'CLEAR_CACHE' => $language->get('admin', 'clear_cache'),
+        'CLEAR_CACHE_LINK' => URL::build('/panel/core/panel_templates/', 'action=clear_cache'),
         'FIND_TEMPLATES' => $language->get('admin', 'find_templates'),
         'WEBSITE_TEMPLATES' => $all_templates,
         'VIEW_ALL_TEMPLATES' => $language->get('admin', 'view_all_templates'),
@@ -319,6 +321,13 @@ if(!isset($_GET['action'])){
             Redirect::to(URL::build('/panel/core/panel_templates/'));
             die();
 
+            break;
+
+        case 'clear_cache':
+            $smarty->clearAllCache();
+            Session::flash('admin_templates', $language->get('admin', 'cache_cleared'));
+            Redirect::to(URL::build('/panel/core/panel_templates/'));
+            die();
             break;
 
         default:

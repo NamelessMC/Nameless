@@ -38,6 +38,8 @@
 
                         <a class="btn btn-primary" style="margin-bottom: 15px;"
                            href="{$INSTALL_TEMPLATE_LINK}">{$INSTALL_TEMPLATE}</a>
+                        <a class="btn btn-secondary" style="margin-bottom: 15px;"
+                           href="{$CLEAR_CACHE_LINK}">{$CLEAR_CACHE}</a>
 
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}

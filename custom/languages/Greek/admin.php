@@ -398,6 +398,8 @@ $language = array(
     'background_image_info' => 'Please note that this option may not be compatible with most templates.',
     'dark_mode' => 'Dark Mode',
     'navbar_colour' => 'Navbar Colour',
+    'clear_cache' => 'Clear Template Cache',
+    'cache_cleared' => 'Template cache cleared',
 
     // Users & groups
     'users' => 'Χρήστες',
