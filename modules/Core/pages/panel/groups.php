@@ -359,6 +359,20 @@ if (isset($_GET['action'])) {
         ));
 
         $template_file = 'core/groups_permissions.tpl';
+    } else if ($_GET['action'] == 'order') {
+        // Get groups
+        if(isset($_GET['groups'])){
+            $groups = json_decode($_GET['groups'])->groups;
+
+            $i = 1;
+            foreach($groups as $item){
+                $queries->update('groups', $item, array(
+                    '`order`' => $i
+                ));
+                $i++;
+            }
+        }
+        die('Complete');
     }
 } else {
     $groups = $queries->orderAll('groups', '`order`', 'ASC');
@@ -389,7 +403,8 @@ if (isset($_GET['action'])) {
         'STAFF' => $language->get('moderator', 'staff'),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
-        'EDIT' => $language->get('general', 'edit')
+        'EDIT' => $language->get('general', 'edit'),
+        'REORDER_DRAG_URL' => URL::build('/panel/core/groups')
     ));
 
     $template_file = 'core/groups.tpl';

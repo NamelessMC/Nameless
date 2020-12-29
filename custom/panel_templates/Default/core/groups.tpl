@@ -50,9 +50,9 @@
                                     <th>{$STAFF}</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="sortable">
                                 {foreach from=$GROUP_LIST item=group}
-                                    <tr>
+                                    <tr data-id="{$group.id}">
                                         <td>{$group.order}</td>
                                         <td>{$group.id}</td>
                                         <td><a href="{$group.edit_link}">{$group.name}</a></td>
@@ -62,6 +62,12 @@
                                             {else}
                                                 <i class="fas fa-times-circle text-danger"></i>
                                             {/if}</td>
+                                        <td>
+                                            <div class="float-md-right">
+                                                <div class="btn btn-secondary btn-sm"><i class="fas fa-arrows-alt"></i></div>
+                                                <a href="{$group.edit_link}" class="btn btn-warning btn-sm"><i class="fas fa-edit fa-fw"></i></a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 {/foreach}
                                 </tbody>
@@ -89,6 +95,40 @@
 </div>
 
 {include file='scripts.tpl'}
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#sortable").sortable({
+      start: function (event, ui) {
+        let start_pos = ui.item.index();
+        ui.item.data('startPos', start_pos);
+      },
+      update: function (event, ui) {
+        let groups = $("#sortable").children();
+        let toSubmit = [];
+        groups.each(function () {
+          toSubmit.push($(this).data().id);
+        });
+
+        $.ajax({
+          url: "{$REORDER_DRAG_URL}",
+          type: "GET",
+          data: {
+            action: "order",
+            {literal}groups: JSON.stringify({"groups": toSubmit}){/literal}
+          },
+          success: function (response) {
+            // Success
+          },
+          error: function (xhr) {
+            // Error
+            console.log(xhr);
+          }
+        });
+      }
+    });
+  });
+</script>
 
 </body>
 
