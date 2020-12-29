@@ -396,6 +396,8 @@ $language = array(
     'background_image_info' => 'Vennligst vær oppmerksom på at dette alternativet muligens ikke er kompatibel med de fleste maler.',
     'dark_mode' => 'Dark Mode',
     'navbar_colour' => 'Navbar Colour',
+    'clear_cache' => 'Clear Template Cache',
+    'cache_cleared' => 'Template cache cleared',
 
     // Users & groups
     'users' => 'Brukere',

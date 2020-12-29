@@ -401,6 +401,8 @@ $language = array(
     'background_image_info' => 'このオプションはほとんどのテンプレートと互換性がない可能性があるので、注意してください。',
     'dark_mode' => 'Dark Mode',
     'navbar_colour' => 'Navbar Colour',
+    'clear_cache' => 'Clear Template Cache',
+    'cache_cleared' => 'Template cache cleared',
 
     // Users & groups
     'users' => 'ユーザー',

@@ -393,6 +393,8 @@ $language = array(
     'background_image_info' => 'Tenga en cuenta que esta opción puede no ser compatible con la mayoría de las plantillas.',
     'dark_mode' => 'Dark Mode',
     'navbar_colour' => 'Navbar Colour',
+    'clear_cache' => 'Clear Template Cache',
+    'cache_cleared' => 'Template cache cleared',
 
     // Users & groups
     'users' => 'Usuarios',

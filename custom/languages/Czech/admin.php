@@ -396,6 +396,8 @@ $language = array(
     'background_image_info' => 'Tato možnost nemusí být kompatibilní s většinou šablon.',
     'dark_mode' => 'Dark Mode',
     'navbar_colour' => 'Navbar Colour',
+    'clear_cache' => 'Clear Template Cache',
+    'cache_cleared' => 'Template cache cleared',
 
     // Users & groups
     'users' => 'Uživatel',
