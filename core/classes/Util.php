@@ -495,13 +495,13 @@ class Util {
         }
         $contents = curl_exec($ch);
 
-        if ($contents) {
-            curl_close($ch);
-            return $contents;
-        } else {
+        if ($contents == false) {
             Log::getInstance()->log(Log::Action('misc/curl_error'), curl_error($ch));
             curl_close($ch);
             return false;
+        } else {
+            curl_close($ch);
+            return $contents;
         }
     }
 
