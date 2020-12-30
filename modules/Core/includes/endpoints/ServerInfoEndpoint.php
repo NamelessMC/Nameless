@@ -68,7 +68,7 @@ class ServerInfoEndpoint extends EndpointBase {
                 if (count($_POST['players'])) {
                     foreach ($_POST['players'] as $uuid => $player) {
                         $user = new User($uuid, 'uuid');
-                        if (count($user->data())) {
+                        if ($user->data()) {
                             if ($player['name'] != $user->data()->username) {
                                 // Update username
                                 if (!Util::getSetting($api->getDb(), 'displaynames', false)) {
@@ -116,7 +116,7 @@ class ServerInfoEndpoint extends EndpointBase {
                 if (count($_POST['players'])) {
                     foreach ($_POST['players'] as $uuid => $player) {
                         $user = new User($uuid, 'uuid');
-                        if (count($user->data())) {
+                        if ($user->data()) {
                             // Any synced groups to remove?
                             foreach ($user->getGroups() as $group) {
                                 $group_name = strtolower($group->name);
@@ -131,7 +131,7 @@ class ServerInfoEndpoint extends EndpointBase {
                                 if (array_key_exists($group_name, $group_sync_updates)) {
                                     $group_info = $group_sync_updates[$group_name];
 
-                                    $user->addGroup($group_sync_updates[$group_info]['website']);
+                                    $user->addGroup($group_info['website']);
                                 }
                             }
                         }
