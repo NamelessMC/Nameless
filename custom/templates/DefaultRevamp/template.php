@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton | Revamped by Xemah
  *	https://github.com/NamelessMC/Nameless/
- *	NamelessMC version 2.0.0-pr8
+ *	NamelessMC version 2.0.0-pr9
  *
  *	License: MIT
  *
@@ -16,8 +16,8 @@ class DefaultRevamp_Template extends TemplateBase {
 		
 		$template = array(
 			'name' => 'DefaultRevamp',
-			'version' => '2.0.0-pr8',
-			'nl_version' => "2.0.0-pr8",
+			'version' => '2.0.0-pr9',
+			'nl_version' => "2.0.0-pr9",
 			'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
 		);
 		
