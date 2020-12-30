@@ -117,7 +117,7 @@ $language = array(
     'label_type_html_help' => 'HTML etykiety musi zawierać {x} jako symbol zastępczy na nazwę etykiety.',
     'label' => 'Etykieta',
     'label_forums' => 'Fora z możliwością użycia tej etykiety',
-     'label_groups' => 'Grupy mogący używać tej etykiety',
+    'label_groups' => 'Grupy mogący używać tej etykiety',
     'no_forums' => 'Brak forów',
     'no_labels_defined' => 'Nie stworzono jeszcze żadnych etykiet.',
     'no_label_types_defined' => 'Nie stworzono jeszcze żadnych typów etykiet.',
@@ -175,13 +175,13 @@ $language = array(
     'default_labels' => 'Default Labels',
     'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
-     // Search
-   'forum_search' => 'Szukaj na forum',
-     'search_again_in_x_seconds' => 'Poczekaj {x} sekund przed ponownym szukaniem.',
-     'search_results' => 'Wyniki wyszukiwania',
-     'new_search' => 'Nowe wyszukiwanie',
-     'invalid_search_query' => 'Wpisz frazę mającą od 3 do 128 znaków.',
-     'no_results_found' => 'Brak wyników wyszukiwania.',
+    // Search
+    'forum_search' => 'Szukaj na forum',
+    'search_again_in_x_seconds' => 'Poczekaj {x} sekund przed ponownym szukaniem.',
+    'search_results' => 'Wyniki wyszukiwania',
+    'new_search' => 'Nowe wyszukiwanie',
+    'invalid_search_query' => 'Wpisz frazę mającą od 3 do 128 znaków.',
+    'no_results_found' => 'Brak wyników wyszukiwania.',
 
     // Profile tab
     'user_no_posts' => 'Użytkownik nie napisał jeszcze żadnych postów na forum.',
@@ -200,7 +200,7 @@ $language = array(
 
     // Hooks
     'new_topic_hook_info' => 'Nowy temat',
-    'new_topic_text' => 'Temat został stowrzony w {x} przez {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Temat został stworzony w {x} przez {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
 
