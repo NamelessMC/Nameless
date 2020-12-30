@@ -104,6 +104,17 @@ class User {
                     foreach ($groups_query as $item) {
                         $this->_groups[$item->id] = $item;
                     }
+                } else {
+                    // Get default group
+                    $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE default_group = 1', array())->first();
+                    if ($default_group) {
+                        $default_group_id = $default_group->id;
+                    } else {
+                        $default_group_id = 1; // default to 1
+                        $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE id = 1', array())->first();
+                    }
+                    $this->addGroup($default_group_id);
+                    $this->_groups[$default_group_id] = $default_group;
                 }
                 return true;
             }
