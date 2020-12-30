@@ -215,14 +215,14 @@ class Log {
         $userTemp = new User();
         if (!$ip) {
             $ip = $userTemp->getIP();
+            if (!$user) $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
         }
         return $this->_db->insert('logs', array(
             'time' => date('U'),
             'action' => $action,
-            'user_id' => ($user) ? $user : $userTemp->data()->id,
+            'user_id' => $user,
             'ip' => $ip,
             'info' => $info,
         ));
     }
 }
-?>
