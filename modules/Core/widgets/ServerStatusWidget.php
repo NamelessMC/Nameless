@@ -43,7 +43,7 @@ class ServerStatusWidget extends WidgetBase {
             $server = $server[0];
 
             if ($server != null) {
-                $server_array = json_decode(Util::curlGetContents(Util::getSelfURL() . URL::build('/queries/server/', 'id=' . $server->id)), true);
+                $server_array = json_decode(Util::curlGetContents(rtrim(Util::getSelfURL(), '/') . URL::build('/queries/server/', 'id=' . $server->id)), true);
                 $server_array['name'] = Output::getClean($server->name);
                 $server_array['join_at'] = Output::getClean($server->ip);
 
