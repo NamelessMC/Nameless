@@ -38,7 +38,7 @@ $language = array(
     'nameless_path' => 'Путь установки',
     'nameless_path_info' => 'Это путь, по которому устанавливается Nameless относительно вашего домена. Например, если Nameless устанавливается по пути example.com/forum, то вы должны написать <strong>forum</strong>. Оставьте поле пустым, если Nameless не находится в подпапке.',
     'friendly_urls' => 'Дружественные URL',
-    'friendly_urls_info' => 'Дружественные URL-адреса улучшают читабельность URL-адресов в вашем браузере.<br />Например: <br />example.com/index.php?route=/forum<br />станет<br />example.com/forum.<br /><strong>Важно!</strong><br />Ваш сервер должен быть правильно настроен. Вы можете увидеть, можно ли включить эту опцию, нажав на <a href=\'./rewrite_test\' target=\'_blank\'>эту ссылку</a>.',
+    'friendly_urls_info' => 'Дружественные URL-адреса улучшают читабельность URL-адресов в вашем браузере.<br />Например: <br /><code>example.com/index.php?route=/forum</code><br />станет<br /><code>example.com/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Важно!</strong><br />Ваш сервер должен быть правильно настроен. Вы можете увидеть, можно ли включить эту опцию, нажав на <a href=\'./rewrite_test\' target=\'_blank\' style="color:#2185D0">эту ссылку</a>.</div>',
     'enabled' => 'Включено',
     'disabled' => 'Выключено',
     'character_set' => 'Кодировка',

@@ -541,3 +541,34 @@ NamelessMC version 2 Changelog
 - Add ability to add CSS to group usernames
 - Allow specifying "Can view other users' topics" forum permission for guests
 - Add hCaptcha
+
+2.0.0 pr-9
+- Add new panel template
+- Add Default Revamp settings including dark mode
+- Add player heads to server status widget
+- Add ability to re-order servers in play tab
+- Add announcement HTML support
+- Add ability to search for users by email address in StaffCP
+- Add ability to resend validation email
+- Add ability to set default labels for forums
+- Add option to use Gravatar
+- Add concept of module dependencies
+- Add getActivePage method
+- Add new SEO page including Google Analytics integration
+- Add drag ordering for groups and Minecraft servers
+- Translation updates
+- Fix multibyte character string length checks
+- Fix widgets intended for homepage showing on all pages
+- Fix validateUser hook sending empty Discord message
+- Fix API endpoints
+- Fix latest profile posts widget profile links
+- Fix API URL adding two http prefixes
+- Fix StaffCP Registration settings not submitting
+- Fix webhooks listing twice
+- Fix API URL in StaffCP API tab having leading/trailing whitespace
+- Fix group_id column error upon registration and AuthMe linking
+- Fix StaffCP sidebar link conflicts
+- Fix error if user has no group
+- Make groups field in serverInfo endpoint optional
+- PHP 8 improvements
+- Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr8...v2.0.0-pr9

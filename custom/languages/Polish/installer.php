@@ -38,7 +38,7 @@ $language = array(
     'nameless_path' => 'Ścieżka instalacji',
     'nameless_path_info' => 'Wpisz tutaj ścieżkę do folderu w którym jest zainstalowany Nameless. Na przykład, jeśli Nameless jest zainstalowany w przyklad.pl/forum, musisz wpisać tu <strong>forum</strong>. Pozostaw to pole puste jeśli Nameless nie jest zainstalowany w subfolderze.',
     'friendly_urls' => 'Przyjazne adresy URL',
-    'friendly_urls_info' => 'Funkcja przyjazne adresy URL poprawia ich czytelność w przeglądarce.<br />Na przykład: <br />przyklad.pl/index.php?route=/forum<br />zostanie zamienione na<br />przyklad.pl/forum.<br /><strong>Uwaga!</strong><br />Twój serwer musi być odpowiednio skonfigurowany aby ta funkcja działała. Możesz sprawdzić czy możesz włączyć tę opcję klikając <a href=\'./rewrite_test\' target=\'_blank\'>tutaj</a>.',
+    'friendly_urls_info' => 'Funkcja przyjazne adresy URL poprawia ich czytelność w przeglądarce.<br />Na przykład: <br /><code>przyklad.pl/index.php?route=/forum</code><br />zostanie zamienione na<br /><code>przyklad.pl/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Uwaga!</strong><br />Twój serwer musi być odpowiednio skonfigurowany aby ta funkcja działała. Możesz sprawdzić czy możesz włączyć tę opcję klikając <a href=\'./rewrite_test\' target=\'_blank\' style="color:#2185D0">tutaj</a>.</div>',
     'enabled' => 'Włączone',
     'disabled' => 'Wyłączone',
     'character_set' => 'Zestaw znaków',

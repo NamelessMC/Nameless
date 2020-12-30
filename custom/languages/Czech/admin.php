@@ -155,8 +155,8 @@ $language = array(
     'navigation_settings_updated_successfully' => 'Nastavení navigace byla úspěšně aktualizována.',
     'dropdown_items' => 'Položky v rozbalovací liště',
     'enable_page_load_timer' => 'Povolit časovač načítání stránky?',
-    'google_recaptcha' => 'Povolit při Google reCAPTCHA při registraci?',
-    'google_recaptcha_login' => 'Povolit Google reCAPTCHA při přihlašování?',
+    'google_recaptcha' => 'Povolit při CAPTCHA při registraci?',
+    'google_recaptcha_login' => 'Povolit CAPTCHA při přihlašování?',
     'captcha_type' => 'Typ Captchy',
     'recaptcha_site_key' => 'reCAPTCHA klíč webu (Site Key)',
     'recaptcha_secret_key' => 'reCAPTCHA tajný klíč (Secret Key)',
@@ -177,7 +177,7 @@ $language = array(
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
-    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'google_analytics_help' => 'Přidejte na váš web Google Analytics pro sledování návštěvníků a pro statistiky. Pro použití této funkce si budete muset vytvořit účet Google Analytics. Zadejte ID měření služby Google Analytics. ID vypadá jako UA-XXXXA-X a lze jej nalézt v informacích o vašem účtu nebo ve sledovacím kódu poskytnutým Googlem.',
 
     // Reactions
     'icon' => 'Ikona',
@@ -339,6 +339,8 @@ $language = array(
     'unable_to_retrieve_modules' => 'Nelze načíst doplňky',
     'module' => 'Doplněk',
     'unable_to_enable_module' => 'Nelze povolit nekompatibilní doplněk.',
+    'unable_to_enable_module_dependencies' => 'Unable to enable module since it depends on the module {x}, which is not enabled.', // Don't replace {x}
+    'unable_to_disable_module' => 'Unable to disable module - the module {x} depends on it.', // Don't replace {x}
 
     // Styles
     'templates' => 'Šablony',
@@ -368,16 +370,16 @@ $language = array(
     'template_deleted_successfully' => 'Šablona úspěšně odstraněna.',
     'background_image_x' => 'Obrázek na pozadí: <strong>{x}</strong>', // Don't replace {x}
     'banner_image_x' => 'Bannerový obrázek: <strong>{x}</strong>', // Don't replace {x}
-    'logo_image_x' => 'Logo image: <strong>{x}</strong>', // Don't replace {x}
+    'logo_image_x' => 'Obrázek s logem: <strong>{x}</strong>', // Don't replace {x}
     'background_directory_not_writable' => 'Adresář <strong>uploads/backgrounds</strong> nelze upravovat!',
     'template_banners_directory_not_writable' => 'Adresář <strong>uploads/banner-templates</strong> nelze upravovat!',
-    'logos_directory_not_writable' => 'The <strong>uploads/logos</strong> directory is not writable!',
+    'logos_directory_not_writable' => 'Adresář <strong>uploads/logos</strong> nelze upravovat!',
     'template_banner_reset_successfully' => 'Banner byl úspěšně obnoven.',
     'template_banner_updated_successfully' => 'Banner byl úspěšně aktualizován.',
     'reset_banner' => 'Obnovit banner',
-    'logo_reset_successfully' => 'Logo reset successfully.',
-    'logo_updated_successfully' => 'Logo updated successfully.',
-    'reset_logo' => 'Reset Logo',
+    'logo_reset_successfully' => 'Logo úspěšně obnoveno.',
+    'logo_updated_successfully' => 'Logo úspěšně aktualizováno.',
+    'reset_logo' => 'Obnovit logo',
     'find_templates' => 'Najít šablonu',
     'view_all_templates' => 'Zobrazit všechny šablony',
     'unable_to_retrieve_templates' => 'Nelze načíst šablony',
@@ -394,10 +396,10 @@ $language = array(
     'background_updated_successfully' => 'Pozadí bylo úspěšně aktualizováno.',
     'unable_to_enable_template' => 'Nelze povolit nekompatibilní šablonu.',
     'background_image_info' => 'Tato možnost nemusí být kompatibilní s většinou šablon.',
-    'dark_mode' => 'Dark Mode',
-    'navbar_colour' => 'Navbar Colour',
-    'clear_cache' => 'Clear Template Cache',
-    'cache_cleared' => 'Template cache cleared',
+    'dark_mode' => 'Tmavý režim',
+    'navbar_colour' => 'Barva navigační lišty',
+    'clear_cache' => 'Vyčistit mezipaměť šablon',
+    'cache_cleared' => 'Mezipaměť šablon vyčištěna',
 
     // Users & groups
     'users' => 'Uživatel',
@@ -730,13 +732,13 @@ $language = array(
     'discord_cannot_interact' => 'Bot Nameless Link nemůže interagovat s tímto uživatelem Discordu. Není role uživatele výše než role Nameless Link?',
 
     // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Invalid request body.',
-    'discord_bot_error_error' => 'An internal bot error occured.',
-    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
-    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
-    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
-    'discord_bot_error_unauthorized' => 'Website API key is invalid',
-    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+    'discord_bot_error_badparameter' => 'Neplatné tělo (body) žádosti.',
+    'discord_bot_error_error' => 'Vyskytla se interní chyba.',
+    'discord_bot_error_invguild' => 'Zadané ID serveru je neplatné, nebo není v daném serveru bot.',
+    'discord_bot_error_invuser' => 'Zadané ID uživatele je neplatné, nebo není uživatel v daném serveru.',
+    'discord_bot_error_notlinked' => 'Bot není propojen s tímto webem u zadaného ID serveru.',
+    'discord_bot_error_unauthorized' => 'API klíč webu je neplatný',
+    'discord_bot_error_invrole' => 'Zadané ID role je neplatné.',
+    'discord_bot_error_hierarchy' => 'Bot nemůže upravit role tohoto uživatele.'
 
 );

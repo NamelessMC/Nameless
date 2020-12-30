@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -11,8 +11,14 @@
 
 class Navigation {
 
-    private $_topNavbar,
-            $_footerNav = array();
+    private $_topNavbar = array(),
+            $_footerNav = array(),
+            $_panel;
+
+    // Panel sidebars discard provided order for links
+    public function __construct($panel = false) {
+        $this->_panel = $panel;
+    }
 
     // Add a simple item to the navigation
     // Params: 	$name (string)		- unique name for the navbar item, if the page name equals this the item will display as active (required)
@@ -23,6 +29,19 @@ class Navigation {
     //          $order (int)        - nav item order (default 10)
     //          $icon (string)      - icon to prepend to nav item (default '')
     public function add($name, $title, $link, $location = 'top', $target = null, $order = 10, $icon = '') {
+        if ($this->_panel && $location == 'top') {
+            // Discard order
+            // TODO: only a temporary solution to the link conflict issue in the StaffCP
+            if (count($this->_topNavbar)) {
+                $key = array_keys($this->_topNavbar)[count($this->_topNavbar) - 1];
+                $previous_order = $this->_topNavbar[$key]['order'];
+            } else {
+                $previous_order = 0;
+            }
+
+            $order = $previous_order + 1;
+        }
+
         // Add the link to the navigation
         if ($location == 'top') {
             // Add to top navbar

@@ -425,7 +425,7 @@ if ($page != 'install') {
     // Navbar links
     $navigation = new Navigation();
     $cc_nav     = new Navigation();
-    $mod_nav    = new Navigation(); // $mod_nav = panel nav
+    $mod_nav    = new Navigation(true); // $mod_nav = panel nav
 
     // Add links to cc_nav
     $cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/user'));

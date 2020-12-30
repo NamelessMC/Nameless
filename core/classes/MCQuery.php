@@ -79,7 +79,7 @@ class MCQuery {
                                 'player_count' => Output::getClean($query->response->players->online),
                                 'player_count_max' => Output::getClean($query->response->players->max),
                                 'player_list' => $player_list,
-                                'format_player_list' => self::formatPlayerList($player_list),
+                                'format_player_list' => self::formatPlayerList((array)$player_list),
                                 'x_players_online' => str_replace('{x}', Output::getClean($query->response->players->online), $language->get('general', 'currently_x_players_online')),
                                 'motd' => $query->response->description->text
                             );
@@ -279,6 +279,7 @@ class MCQuery {
 
         if (count($player_list)) {
             foreach ($player_list as $player) {
+                $player = (array)$player;
                 $user = new User($player['id'], 'uuid');
                 if (!$user->data()) {
                     $user = new User($player['name'], 'username');

@@ -344,6 +344,8 @@ $language = array(
     'unable_to_retrieve_modules' => 'モジュールを取得できませんでした。',
     'module' => 'モジュール',
     'unable_to_enable_module' => '互換性のないモジュールを有効にすることはできません。',
+    'unable_to_enable_module_dependencies' => 'Unable to enable module since it depends on the module {x}, which is not enabled.', // Don't replace {x}
+    'unable_to_disable_module' => 'Unable to disable module - the module {x} depends on it.', // Don't replace {x}
 
     // Styles
     'templates' => 'テンプレート',
