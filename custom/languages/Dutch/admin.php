@@ -175,7 +175,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Succesvol een massa e-mail bericht verstuurd.',
     'emails_mass_message_replacements' => 'U kunt variabelen gebruiken in uw e-mailbericht. Ondersteunde variabelen: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laden... Laad de pagina niet opnieuw. Dit kan een tijdje duren.',
-    
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
@@ -202,8 +202,8 @@ $language = array(
     'html_maximum_255' => 'De HTML mag niet meer dan 255 karakters bevatten',
     'confirm_delete_reaction' => 'Weet u zeker dat u deze reactie wilt verwijderen?',
 
-    // Aangepaste profiel velden
-    'custom_fields' => 'Aangepaste profiel velden',
+    // Profielvelden
+    'custom_fields' => 'Profielvelden',
     'new_field' => '<i class="fa fa-plus-circle"></i> Nieuw veld',
     'required' => 'Verplicht',
     'editable' => 'Aanpasbaar',
