@@ -15,9 +15,9 @@ class VerifyMinecraftEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        $api->validateParams($_POST, ['id', 'code']);
+        $api->validateParams($_POST, ['user', 'code']);
 
-        $user = $api->getUser('id', $_POST['id']);
+        $user = $api->getUser('id', $_POST['user']);
 
         if ($user->data()->active || $user->reset_code == '') {
             $api->throwError(32, $api->getLanguage()->get('api', 'user_already_active'));
