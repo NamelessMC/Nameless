@@ -48,7 +48,7 @@ class UserInfoEndpoint extends EndpointBase {
         $user->registered_timestamp = intval($user->registered_timestamp);
         $user->last_online_timestamp = intval($user->last_online_timestamp);
         $user->banned = (bool) $user->banned;
-        $user->verified = (bool) $user->validated;
+        $user->validated = (bool) $user->validated;
         if ($user->discord_id != null) {
             $user->discord_id = intval($user->discord_id);
         }
