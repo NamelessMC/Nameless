@@ -308,3 +308,46 @@ i,
 .profile-user-img {
     max-width: 50%;
 }
+
+.sidebar {
+    position: fixed;
+    height: 100vh;
+    z-index: 999;
+    overflow-y: overlay !important;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+#content-wrapper {
+    margin-left: 6.5rem !important;
+}
+
+@media (min-width: 768px) {
+    #content-wrapper {
+        margin-left: 14rem !important;
+    }
+    .sidebar.toggled + #content-wrapper {
+        margin-left: 6.5rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar.toggled + #content-wrapper {
+        margin-left: 0 !important;
+    }
+}
