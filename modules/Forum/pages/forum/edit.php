@@ -280,7 +280,7 @@ $smarty->assign(array(
     'CANCEL' => $language->get('general', 'cancel'),
     'CANCEL_LINK' => URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'CONTENT' => Output::getClean(Output::getDecoded($post_editing[0]->post_content))
+    'CONTENT' => Output::getPurified(Output::getDecoded($post_editing[0]->post_content))
 ));
 
 // Get post formatting type (HTML or Markdown)
