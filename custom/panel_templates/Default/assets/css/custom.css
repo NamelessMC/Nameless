@@ -308,3 +308,7 @@ i,
 .profile-user-img {
     max-width: 50%;
 }
+
+#content-wrapper {
+    min-height: 100vh;
+}
