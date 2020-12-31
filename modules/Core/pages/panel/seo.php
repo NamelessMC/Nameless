@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -25,7 +25,7 @@ Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mo
 $errors = array();
 if (!is_dir(ROOT_PATH . '/cache/sitemaps')) {
     if (!is_writable(ROOT_PATH . '/cache')) {
-        $errors[] = array($language->get('admin', 'cache_not_writable'));
+        $errors[] = $language->get('admin', 'cache_not_writable');
     } else {
         mkdir(ROOT_PATH . '/cache/sitemaps');
         file_put_contents(ROOT_PATH . '/cache/sitemaps/.htaccess', 'Allow from all');
@@ -71,7 +71,7 @@ if(!isset($_GET['metadata'])){
     }
 
     if (!is_writable(ROOT_PATH . '/cache/sitemaps')) {
-        $errors[] = array($language->get('admin', 'sitemap_not_writable'));
+        $errors[] = $language->get('admin', 'sitemap_not_writable');
     } else {
         if (file_exists(ROOT_PATH . '/cache/sitemaps/sitemap-index.xml')) {
             $cache->setCache('sitemap_cache');
