@@ -311,7 +311,6 @@ i,
 
 .sidebar {
     position: fixed;
-    width: 16vh !important;
     height: 100vh;
     z-index: 999;
     overflow-y: scroll !important;
