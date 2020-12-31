@@ -334,6 +334,7 @@ i,
 }
 
 #content-wrapper {
+    min-height: 100vh;
     margin-left: 6.5rem !important;
 }
 
