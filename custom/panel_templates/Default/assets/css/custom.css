@@ -313,7 +313,8 @@ i,
     position: fixed;
     height: 100vh;
     z-index: 999;
-    overflow-y: overlay !important;
+    overflow-y: scroll !important;
+    overflow-x: hidden;
 }
 
 .sidebar::-webkit-scrollbar-track {
