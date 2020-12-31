@@ -43,7 +43,7 @@
               </div>
             {else}
               <div class="field">
-                <label>{$MINECRAFT_USERNAME}</label>
+                <label>{$USERNAME}</label>
                 <input type="text" name="username" id="mcname" value="{$USERNAME_VALUE}" placeholder="{$NICKNAME}" tabindex="1">
               </div>
             {/if}

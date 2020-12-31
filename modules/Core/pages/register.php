@@ -575,6 +575,7 @@ if (count($profile_fields)) {
 // Assign Smarty variables
 $smarty->assign(
     array(
+        'USERNAME' => $language->get('user', 'username'),
         'NICKNAME' => ($custom_usernames == 'false' && !MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
         'NICKNAME_VALUE' => ((isset($_POST['nickname']) && $_POST['nickname']) ? Output::getClean(Input::get('nickname')) : ''),
         'USERNAME_VALUE' => ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : ''),
