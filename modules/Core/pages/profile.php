@@ -730,7 +730,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     if ($minecraft_integration->value == '1') {
         $fields['minecraft'] = array(
-            'title' => $language->get('user', 'ign'),
+            'title' => 'IGN',
             'type' => 'text',
             'value' => Output::getClean($query->username),
             'image' => 'https://crafatar.com/renders/body/' . $query->uuid . '?overlay'
