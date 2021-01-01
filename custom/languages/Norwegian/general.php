@@ -98,7 +98,7 @@ $language = array(
     /*
      *  Help dialogues
      */
-    'markdown_help' => 'Du kan formatere din melding med markeringen. For mer informasjon, sjekk <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>her</a>.',
+    'markdown_help' => 'Du kan formatere ditt innlegg med markdown. For mer informasjon, sjekk <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>her</a>.',
 
     /*
      *  Server query
