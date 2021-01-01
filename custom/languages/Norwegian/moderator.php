@@ -27,13 +27,13 @@ $language = array(
     'no_ips_with_username' => 'IP-adresse for denne spilleren ble ikke funnet.',
     'no_accounts_with_that_ip' => 'IP-adresse for denne brukeren ble ikke funnet.',
     '1_account_with_ip' => 'Fant 1 bruker med IP {y}', // Don't replace "{y}"
-    'count_accounts_with_ip' => 'Fant {x} brukere med IPen {y}', // Don't replace "{x}" or "{y}"
+    'count_accounts_with_ip' => 'Fant {x} brukere med IP-en {y}', // Don't replace "{x}" or "{y}"
     '1_ip_with_name' => 'Fant 1 IP-adresse for brukeren {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Fant {x} IP-adresser for bruker {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Spillerens IP-adresse ble ikke funnet.',
 
     // Reports
-    'reports' => 'Rapporter',
+    'reports' => 'Rapporteringer',
     'report_alert' => 'Ny rapport sendt inn',
     'user_reported' => 'Bruker rapportert',
     'comments' => 'Kommentarer',
