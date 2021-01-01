@@ -67,8 +67,8 @@ $language = array(
     'are_you_sure' => 'Er du sikker?',
     'spoiler' => 'Spoiler',
     'invalid_timezone' => 'Denne tidssonen er ugyldig.',
-    'link' => 'Link',
-    'unlink' => 'Unlink',
+    'link' => 'Koble til',
+    'unlink' => 'Koble fra',
     
     /*
      *  Contact form
@@ -98,7 +98,7 @@ $language = array(
     /*
      *  Help dialogues
      */
-    'markdown_help' => 'Du kan formatere din post med markeringen. For mer informasjon, sjekk <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>her</a>.',
+    'markdown_help' => 'Du kan formatere din melding med markeringen. For mer informasjon, sjekk <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>her</a>.',
 
     /*
      *  Server query
@@ -111,7 +111,7 @@ $language = array(
     'currently_1_player_online' => 'Det er for øyeblikket <strong>1</strong> spiller pålogget.',
     'currently_x_players_online' => 'Det er for øyeblikket <strong>{x}</strong> spillere pålogget.', // Don't replace {x}
     'server_offline' => 'Serveren er nede for øyeblikket.',
-    'connect_with_ip_x' => 'Koble til nå med IPen: {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'Koble til nå med IP-en: {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Klikk for å kopiere',
     'ip' => 'IP',
     'copied' => 'Kopiert!',
@@ -141,7 +141,7 @@ $language = array(
     'online_users' => 'Påloggede brukere',
     'no_online_users' => 'Det er ingen brukere pålogget',
     'total_online_users' => 'Totalt påloggede brukere: {x}',
-    'discord_widget_disabled' => 'Widget er deaktivert for denne Discord-serveren. Gå til \'Widget\' i Discord-serverens innstillinger, og sjekk at widgets er aktivert og at IDen stemmer.',
+    'discord_widget_disabled' => 'Widget er deaktivert for denne Discord-serveren. Gå til \'Widget\' i Discord-serverens innstillinger, og sjekk at widgets er aktivert og at ID-en stemmer.',
     'online_guests' => 'Gjester',
     'total_online' => 'Totalt pålogget', // this is Online Users + Online Guests
     'no_default_server' => 'Det finnes ingen standardserver, vennligst velg en i StaffCP - Integreringer - Minecraft.',
@@ -150,7 +150,7 @@ $language = array(
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Personvern',
+    'privacy_policy' => 'Personvernerklæring',
 
     /*
      *  Custom page redirect
