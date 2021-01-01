@@ -12,7 +12,7 @@
 $language = array(
 
     // Errors
-    'api_disabled' => 'API is disabled',
+    'api_disabled' => 'API er deaktivert',
     'unknown_error' => 'Ukjent feil',
     'invalid_api_key' => 'Ugyldig API-nøkkel',
     'invalid_language_file' => 'Ugyldig språkfil',
@@ -46,22 +46,22 @@ $language = array(
     'discord_integration_disabled' => 'Discord-integrering er deaktivert.',
     'unable_to_set_discord_id' => 'Kunne ikke oppdatere Discord-IDen.',
     'unable_to_set_discord_bot_url' => 'Kunne ikke sette Discord-bot-URLen',
-    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
-    'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
-    'unable_to_update_discord_username' => 'Unable to update Discord username.',
-    'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
-    'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
+    'provide_one_discord_settings' => 'Vennligst oppgi minst ett av følgende: "url, "guild_id"',
+    'no_pending_verification_for_token' => 'Ingen verifiseringer venter for den medfølgende koden.',
+    'unable_to_update_discord_username' => 'Kunne ikke oppdatere Discord-brukernavn.',
+    'unable_to_update_discord_roles' => 'Kunne ikke oppdatere Discord-rolleliste.',
+    'unable_to_update_discord_bot_username' => 'Kunne ikke oppdatere Discord-botbrukernavn.',
     
     // Success messages
     'finish_registration_link' => 'Vennligst klikk på følgende lenke for å fullføre registeringen:',
-    'finish_registration_email' => 'Vennligst sjekk inboksen din for å fullføre registeringen.',
+    'finish_registration_email' => 'Vennligst sjekk innboksen din for å fullføre registeringen.',
     'group_updated' => 'Gruppen har blitt oppdatert',
     'report_created' => 'Rapporten har blitt opprettet',
     'new_private_message_from' => 'Ny privatmelding fra {x}', // Don't replace {x}
     'username_updated' => 'Brukernavnet har blitt oppdatert.',
     'server_info_updated' => 'Serverinfoen har blitt oppdatert',
     'account_validated' => 'Brukeren har blitt validert',
-    'discord_id_set' => 'Discord-IDen har blitt endret.',
-    'discord_settings_updated' => 'Discord settings updated successfully',
-    'discord_usernames_updated' => 'Discord usernames updated successfully'
+    'discord_id_set' => 'Discord-ID-en har blitt endret.',
+    'discord_settings_updated' => 'Discord-innstillinger har blitt oppdatert',
+    'discord_usernames_updated' => 'Discord-brukernavn har blitt oppdatert'
 );
