@@ -42,13 +42,13 @@ $language = array(
     'settings_updated_successfully' => 'Innstillingene har blitt oppdatert.',
     'password_changed_successfully' => 'Passordet har blitt endret.',
     'change_password' => 'Endre passord',
-    'current_password' => 'Ditt passord',
+    'current_password' => 'Nåværende passord',
     'new_password' => 'Nytt passord',
-    'confirm_new_password' => 'Bekreft ny passord',
+    'confirm_new_password' => 'Bekreft nytt passord',
     'incorrect_password' => 'Feil passord',
     'two_factor_auth' => 'Totrinnsbekreftelse',
     'enabled' => 'Aktivert',
-        'disabled' => 'Deaktivert',
+    'disabled' => 'Deaktivert',
     'enable' => 'Aktiver',
     'disable' => 'Deaktiver',
     'tfa_scan_code' => 'Vennligst skann denne koden med totrinnsbekreftelses-appen:',
@@ -57,7 +57,7 @@ $language = array(
     'invalid_tfa' => 'Ugyldig kode, prøv igjen.',
     'tfa_successful' => 'Totrinnsbekreftelse fullført.',
     'active_language' => 'Språk',
-    'active_template' => 'Aktive mal',
+    'active_template' => 'Aktiv mal',
     'timezone' => 'Tidssone',
     'upload_new_avatar' => 'Last opp en ny avatar',
     'nickname_already_exists' => 'Brukernavnet du har valgt er allerede i bruk.',
@@ -69,7 +69,7 @@ $language = array(
     'upload_profile_banner' => 'Last opp et profilbanner',
     'upload' => 'Last opp',
     'topic_updates' => 'Få e-poster om tråder du følger.',
-    'gravatar' => 'Use Gravatar as avatar',
+    'gravatar' => 'Bruk Gravatar som avatar',
 
     // Alerts
     'user_tag_info' => 'Du har blitt omtalt i et innlegg av {x}', // Don't replace {x}
@@ -99,7 +99,7 @@ $language = array(
 
     // Registration - Authme
     'connect_with_authme' => 'Koble til brukeren din med AuthMe.',
-    'authme_help' => 'Vennligst skriv inn dine ingame AuthMe-brukers påloggingsinformasjon. Hvis du ikke har en bruker ingame, logg inn på serveren og følg instruksjonene.',
+    'authme_help' => 'Vennligst skriv inn ditt ingame AuthMe-brukers påloggingsinformasjon. Hvis du ikke har en bruker ingame, logg inn på serveren og følg instruksjonene.',
        'unable_to_connect_to_authme_db' => 'En feil oppstod under tilkoblingen til AuthMe-databasen. Hvis denne feilen gjentar seg, vennligst kontakt en administrator.',
        'authme_account_linked' => 'Bruker suksessfullt tilkoblet.',
     'authme_email_help_1' => 'Til slutt, vennligst skriv inn din e-postadresse.',
@@ -142,7 +142,7 @@ $language = array(
     'must_input_password' => 'Du må skrive inn et passord.',
 
     // Forgot password
-    'forgot_password_instructions' => 'Vennligst oppgi e-postadressen din slik at vi kan sende deg en e-post med instruskjoner til hvordan du kan tilbakestille passordet ditt.',
+    'forgot_password_instructions' => 'Vennligst oppgi e-postadressen din slik at vi kan sende deg en e-post med instruksjoner til hvordan du kan tilbakestille passordet ditt.',
     'forgot_password_email_sent' => 'Hvis en bruker med denne e-postadressen er registrert her, vil den ha mottatt en e-post med mer informasjon. Husk å sjekke søppelpost hvis du ikke finner den.',
     'unable_to_send_forgot_password_email' => 'Kunne ikke sende e-post. Vennligst kontakt en administrator.',
     'enter_new_password' => 'Vennligst bekreft e-postadressen din og oppgi et nytt passord under.',
@@ -186,7 +186,7 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} har svart på innlegget ditt på din profil', // Don't replace {x}
     'no_about_fields' => 'Denne brukeren har ikke skrevet noe om seg selv enda.',
     'reply' => 'Svar',
-    'discord_username' => 'Discord Username',
+    'discord_username' => 'Discord-brukernavn',
     
     // Reports
     'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Pass på at den er mellom 2 og 1024 tegn.',
@@ -194,10 +194,10 @@ $language = array(
     'report_created' => 'Rapportert.',
 
     // Messaging
-    'no_messages' => 'Ingen nye meldinger.',
+    'no_messages' => 'Ingen nye meldinger',
     'no_messages_full' => 'Du har ingen meldinger.',
-    'view_messages' => 'Vis meldinger.',
-    '1_new_message' => 'Du har én ny melding.',
+    'view_messages' => 'Vis meldinger',
+    '1_new_message' => 'Du har én ny melding',
     'x_new_messages' => 'Du har {x} nye meldinger', // Don't replace {x}
     'new_message' => 'Ny melding',
     'message_title' => 'Tittel',
@@ -228,27 +228,27 @@ $language = array(
      */
     'you_have_been_banned' => 'Du har blitt utestengt!',
     'you_have_received_a_warning' => 'Du har mottatt en advarsel!',
-    'acknowledge' => 'Anerkjenne',
+    'acknowledge' => 'Anerkjennelse',
 
     /*
      *  Hooks
      */
     'user_x_has_registered' => '{x} har registert seg hos ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_validated' => '{x} har validert kontoen deres!',
 
     // Discord
     'discord_link' => 'Discord-lenke',
     'linked' => 'Tilkoblet',
     'not_linked' => 'Ikke tilkoblet',
-    'discord_id' => 'Discord bruker-ID',
-    'discord_id_unlinked' => 'Discord bruker-IDen din har blitt frakoblet.',
-    'discord_id_confirm' => 'Vennligst send denne meldingen: "!verify {guild_id}:{token}" til {bot_username} for å bekrefte din Discord-bruker-ID.',
+    'discord_id' => 'Discord-bruker-ID',
+    'discord_id_unlinked' => 'Discord-bruker-ID-en din har blitt frakoblet.',
+    'discord_id_confirm' => 'Vennligst send meldingen: "!verify {guild_id}:{token}" til {bot_username} for å bekrefte din Discord-bruker-ID.',
     'pending_link' => 'Venter',
-    'discord_id_taken' => 'Den oppgitte Discord bruker-IDen er allerede koblet til en annen bruker.',
-    'discord_invalid_id' => 'Den oppgitte Discord bruker-IDen er ikke gyldig.',
+    'discord_id_taken' => 'Den oppgitte Discord-bruker-ID-en er allerede koblet til en annen bruker.',
+    'discord_invalid_id' => 'Den oppgitte Discord-bruker-ID-en er ikke gyldig.',
     'discord_already_pending' => 'Du har allerede en verifiseringsforespørsel som venter.',
     'discord_database_error' => 'Nameless Link-databasen er nede for øyeblikket. Prøv igjen senere.',
-    'discord_communication_error' => 'Det oppstod en feil under kommuniseringen med Discord-boten. Sjekk om boten er oppe, og at bot-URLen er korrekt.',
+    'discord_communication_error' => 'Det oppstod en feil under kommuniseringen med Discord-boten. Sjekk om boten er oppe, og at bot-URL-en er korrekt.',
     'discord_unknown_error' => 'Det oppstod en ukjent feil under synkroniseringen av Discord-rollene. Vennligst kontakt en administrator.',
-    'discord_id_help' => 'For mer informasjon om hvordan man finner Discord bruker-ID, vennligst les <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">denne artikkelen.</a>'
+    'discord_id_help' => 'For mer informasjon om hvordan man finner Discord-bruker-ID, vennligst les <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">denne artikkelen.</a>'
 );
