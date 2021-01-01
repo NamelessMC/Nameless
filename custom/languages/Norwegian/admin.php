@@ -406,7 +406,6 @@ $language = array(
     'groups' => 'Grupper',
     'group' => 'Gruppe',
     'new_user' => '<i class="fa fa-plus-circle"></i> Ny bruker',
-    'creating_new_user' => 'Oppretter ny bruker.',
     'registered' => 'Registrert',
     'user_created' => 'Bruker opprettet.',
     'cant_delete_root_user' => 'Du kan ikke slette administrator-brukeren!',
