@@ -443,7 +443,7 @@ if(!isset($_GET['action'])){
 						'label_html' => array(
 							'required' => true,
 							'min' => 1,
-							'max' => 64
+							'max' => 1024
 						)
 					));
 
@@ -529,7 +529,7 @@ if(!isset($_GET['action'])){
 						'label_html' => array(
 							'required' => true,
 							'min' => 1,
-							'max' => 64
+							'max' => 1024
 						)
 					));
 
