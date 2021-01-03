@@ -14,18 +14,18 @@ $language = array(
      *  Installation
      */
     'install' => 'Установка',
-    'pre-release' => 'pre-release',
-    'installer_welcome' => 'Добро пожаловать в NamelessMC версии 2.0 pre-release.',
+    'pre-release' => 'пред-релиз',
+    'installer_welcome' => 'Добро пожаловать в NamelessMC пред-релизной версии 2.0.',
     'pre-release_warning' => 'Обратите внимание, что эта версия не предназначена для использования на общедоступном сайте.',
     'installer_information' => 'Установщик проведет вас через весь процесс установки.',
-    'terms_and_conditions' => 'By continuing you agree to the terms and conditions.',
+    'terms_and_conditions' => 'Продолжая установку, вы соглашаетесь с нашими условиями использования.',
     'new_installation_question' => 'Это новая установка?',
     'new_installation' => 'Новая установка &raquo;',
     'upgrading_from_v1' => 'Обновление с v1 &raquo;',
     'requirements' => 'Требования:',
     'config_writable' => 'core/config.php доступен для записи',
     'cache_writable' => 'Cache доступен для записи',
-    'template_cache_writable' => 'Template Cache доступен для записи',
+    'template_cache_writable' => 'Кеш стилей доступен для записи',
     'exif_imagetype_banners_disabled' => 'Без функции exif_imagetype баннеры сервера будут отключены.',
     'requirements_error' => 'Для продолжения установки необходимо установить все необходимые расширения и установить правильные разрешения.',
     'proceed' => 'Продолжить',
@@ -54,7 +54,7 @@ $language = array(
     'site_name' => 'Название сайта',
     'contact_email' => 'Адрес электронной почты для контактов',
     'outgoing_email' => 'Исходящий адрес электронной почты',
-    'language' => 'Language',
+    'language' => 'Язык',
     'initialising_database_and_cache' => 'Инициализация базы данных и кэша, пожалуйста, подождите...',
     'unable_to_login' => 'Не удалось войти.',
     'unable_to_create_account' => 'Невозможно создать учетную запись',
@@ -85,5 +85,22 @@ $language = array(
     'finish_message' => 'Спасибо за установку NamelessMC! Теперь вы можете перейти к панели администрации, где вы можете дополнительно настроить свой веб-сайт.',
     'support_message' => 'Если вам нужна какая-либо поддержка, посетите наш веб-сайт <a href="https://namelessmc.com" target="_blank">здесь</a>, или вы также можете посетить наш <a href="https://discord.gg/9vk93VR" target="_blank">Дискорд сервер</a>, или наш <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub репозиторий</a>.',
     'credits' => 'Список участников',
-    'credits_message' => 'Огромное спасибо всем <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">NamelessMC участникам</a> с 2014 года'
+    'credits_message' => 'Огромное спасибо всем <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">NamelessMC участникам</a> с 2014 года',
+
+    'step_home' => 'Приветствие',
+    'step_requirements' => 'Проверка требований',
+    'step_general_config' => 'Базовая настройка',
+    'step_database_config' => 'Настройка базы данных',
+    'step_site_config' => 'Настройка сайта',
+    'step_admin_account' => 'Создание аккаунта',
+    'step_conversion' => 'Переезд',
+    'step_finish' => 'Окончание',
+
+    'general_configuration' => 'Базовая настройка',
+    'reload' => 'Сброс',
+    'reload_page' => 'Перезагрузить страницу',
+    'no_converters_available' => 'Ничего не найдено для переноса.',
+    'config_not_writable' => 'Файл конфигурации недоступен для записи.',
+
+    'session_doesnt_exist' => 'Не определенасессия. Сессии используются при работе с NamelessMC. Свяжитесь с тех. поддержкой вашего провайдера.'
 );

@@ -30,11 +30,12 @@ $language = array(
     'successfully_logged_out' => 'Вы успешно вышли из системы.',
     'messaging' => 'Сообщения',
     'click_here_to_view' => 'Нажмите, чтобы посмотреть.',
-    'moderation' => 'Moderation',
-    'administration' => 'Administration',
+    'moderation' => 'Модераторы',
+    'administration' => 'Администраторы',
     'alerts' => 'Уведомления',
     'delete_all' => 'Удалить все',
     'private_profile' => 'Приватность профиля',
+    'gif_avatar' => 'Загрузить .gif файл для аватарки',
 
     // Profile settings
     'field_is_required' => '{x} обязательно.', // Don't replace {x}
@@ -67,8 +68,8 @@ $language = array(
     'profile_banner' => 'Баннер профиля',
     'upload_profile_banner' => 'Загрузить баннер профиля',
     'upload' => 'Загрузить',
-    'topic_updates' => 'Get emails for topics you follow',
-    'gravatar' => 'Use Gravatar as avatar',
+    'topic_updates' => 'Получать уведомления из ваших обсуждений на почту',
+    'gravatar' => 'Использовать Gravatar для аватара',
 
     // Alerts
     'user_tag_info' => 'Вы были упомянуты в посте пользователем {x}.', // Don't replace {x}
@@ -186,7 +187,7 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} ответил(а) на сообщение в вашем профиле.', // Don't replace {x}
     'no_about_fields' => 'Этот пользователь еще не добавил никакой информации о себе.',
     'reply' => 'Ответить',
-    'discord_username' => 'Discord Username',
+    'discord_username' => 'Ваш Discord',
     
     // Reports
     'invalid_report_content' => 'Не удалось создать жалобу. Пожалуйста, убедитесь, что причина вашей жалобы состоит из не менее 2-х и не более 1024-х символов.',
@@ -220,22 +221,15 @@ $language = array(
     'confirm_leave' => 'Вы уверены, что хотите покинуть эту переписку?',
     'one_or_more_users_blocked' => 'Вы не можете отправлять личные сообщения хотя бы одному участнику беседы.',
     'messages' => 'Сообщения',
+    'latest_profile_posts' => 'Последние записи в профиле',
+    'no_profile_posts' => 'Нету записей в профиле.',
 
     /*
      *  Infractions area
      */
     'you_have_been_banned' => 'Вы были забанены!',
     'you_have_received_a_warning' => 'Вы получили предупреждение!',
-    'acknowledge' => 'Acknowledge',
-
-
-    /*
-     *  Emails
-     */
-    'email_greeting' => 'Привет,',
-    'email_message' => 'Спасибо, что стали частью нашего проекта! Для того чтобы завершить регистрацию, пожалуйста, перейдите по следующей ссылке:',
-    'forgot_password_email_message' => 'Чтобы сбросить пароль, пожалуйста, перейдите по следующей ссылке. Если вы не просили об этом сами, вы можете безопасно удалить это письмо.',
-    'email_thanks' => 'Спасибо,',
+    'acknowledge' => 'База знаний',
 
     /*
      *  Hooks

@@ -13,9 +13,11 @@ $language = array(
     /*
      *  General terms
      */
+    'help' => 'Помощь',
     'submit' => 'Подтвердить',
     'register' => 'Регистрация',
     'already_registered' => 'Уже зарегистрированы?',
+    'custom_fields' => 'Дополнительные поля',
     'not_registered_yet' => 'Еще не зарегистрированы?',
     'sign_in' => 'Войти',
     'log_out' => 'Выйти',
@@ -54,7 +56,7 @@ $language = array(
     'page_loaded_in' => 'Скорость загрузки страницы: {x}с', // Don't replace {x}, time unit is seconds
     'page_x' => 'Страница {x}',
     'browse' => 'Обзор',
-    'bypass' => 'Bypass',
+    'bypass' => 'Игнор.',
     'yes' => 'Да',
     'no' => 'Нет',
     'content' => 'Контент',
@@ -64,8 +66,9 @@ $language = array(
     'error' => 'Ошибка',
     'are_you_sure' => 'Вы уверены?',
     'spoiler' => 'Спойлер',
-    'link' => 'Link',
-    'unlink' => 'Unlink',
+    'invalid_timezone' => 'Часовая зона недействительна',
+    'link' => 'Связать',
+    'unlink' => 'Отвязать',
     
     /*
      *  Contact form
@@ -73,7 +76,7 @@ $language = array(
     'contact' => 'Обратная связь',
     'message' => 'Сообщение',
     'email_address' => 'Email-адрес',
-    'contact_email_subject' => 'New contact form submission',
+    'contact_email_subject' => 'Отправить контактную информацию',
     'contact_message_failed' => 'Не удалось отправить сообщение. Пожалуйста, убедитесь, что вы ввели сообщение длиной от 10 до 5000 символов.',
     'contact_message_email' => 'Предоставленное электронное письмо является недействительным.',
     'contact_message_sent' => 'Сообщение успешно отправлено.',
@@ -114,7 +117,7 @@ $language = array(
     'ip' => 'IP',
     'copied' => 'Скопировано!',
     'no_servers' => 'Сейчас нет серверов для отображения!',
-    'bungee_instance' => 'This server is a Bungee instance.',
+    'bungee_instance' => 'Этот сервер построен на базе BungeeCord.',
     'no_players_online' => 'Сейчас нет игроков онлайн.',
     'and_x_more' => 'and {x} more', // Don't replace {x}
 
@@ -142,6 +145,8 @@ $language = array(
     'discord_widget_disabled' => 'Виджет отключен для указанного сервера Discord. Пожалуйста, перейдите на вкладку "Виджет" в настройках вашего сервера Discord и убедитесь, что виджет Discord включен и что ID правильный.',
     'online_guests' => 'Онлайн гостей',
     'total_online' => 'Всего онлайн', // this is Online Users + Online Guests
+    'no_default_server' => 'Нету сервера по умолчанию, сделать это можно в админ панели - Интеграции - Minecraft.',
+    'server_status' => 'Статус сервера',
 
     /*
      *  Privacy policy

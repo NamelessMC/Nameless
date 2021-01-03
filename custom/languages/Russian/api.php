@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -12,7 +12,7 @@
 $language = array(
 
     // Errors
-    'api_disabled' => 'API is disabled',
+    'api_disabled' => 'Возможности API отключены',
     'unknown_error' => 'Неизвестная ошибка',
     'invalid_api_key' => 'Недействительный API ключ',
     'invalid_language_file' => 'Недействительный языковой файл',
@@ -34,6 +34,7 @@ $language = array(
     'unable_to_update_group' => 'Невозможно обновить группу пользователей',
     'report_content_too_long' => 'Жалоба должна содержать не более 255 символов',
     'you_must_register_to_report' => 'Вы должны зарегистрироваться на нашем сайте, чтобы иметь возможность отправить жалобу',
+    'cannot_report_yourself' => 'Вы не можете пожаловаться на самого себя.',
     'you_have_been_banned_from_website' => 'Вы были забанены на сайте',
     'you_have_open_report_already' => 'У вас уже есть открытая жалоба на этого игрока',
     'unable_to_create_report' => 'Не удалось создать жалобу',
@@ -41,12 +42,15 @@ $language = array(
     'unable_to_update_server_info' => 'Не удалось обновить информацию о сервере',
     'invalid_server_id' => 'Неверный ID сервера',
     'invalid_code' => 'Неверный предоставленный код',
-    'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
+    'user_already_active' => 'Ваш аккаунт уже активирован.',
+    'discord_integration_disabled' => 'Интеграция с Discord отключена.',
+    'unable_to_set_discord_id' => 'Не удалось установить Discord ID.',
+    'unable_to_set_discord_bot_url' => 'Не удалось установить URL бота в Discord',
     'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
-    'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
-    'unable_to_update_discord_username' => 'Unable to update Discord username.',
-    'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
-    'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
+    'no_pending_verification_for_token' => 'По предоставленному токену нет ожидающих проверки регистрации.',
+    'unable_to_update_discord_username' => 'Не удалось обновить никнеймы в Discord.',
+    'unable_to_update_discord_roles' => 'Не удалось обновить роли в Discord.',
+    'unable_to_update_discord_bot_username' => 'Не удалось обновить никнейм бота в Discord.',
     
     // Success messages
     'finish_registration_link' => 'Пожалуйста, нажмите на следующую ссылку, чтобы завершить регистрацию:',
@@ -57,6 +61,7 @@ $language = array(
     'username_updated' => 'Имя пользователя успешно обновлено',
     'server_info_updated' => 'Информация о сервере успешно обновлена',
     'account_validated' => 'Учетная запись успешно подтверждена',
-    'discord_settings_updated' => 'Discord settings updated successfully',
-    'discord_usernames_updated' => 'Discord usernames updated successfully'
+    'discord_id_set' => 'Discord ID установлен',
+    'discord_settings_updated' => 'Настройки в Discord обновлены',
+    'discord_usernames_updated' => 'Никнеймы в Discord обновлены'
 );
