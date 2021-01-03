@@ -29,7 +29,7 @@ class ServerInfoEndpoint extends EndpointBase {
                     'server_id' => $_POST['server-id'],
                     'queried_at' => date('U'),
                     'players_online' => count($_POST['players']),
-                    'extra' => $_POST,
+                    'extra' => json_encode($_POST),
                     'groups' => isset($_POST['groups']) ? json_encode($_POST['groups']) : '[]'
                 )
             );
@@ -59,7 +59,7 @@ class ServerInfoEndpoint extends EndpointBase {
                 file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache', json_encode($to_cache));
             }
         } catch (Exception $e) {
-            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'));
+            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
         }
 
         // Update usernames
@@ -93,7 +93,7 @@ class ServerInfoEndpoint extends EndpointBase {
                 }
             }
         } catch (Exception $e) {
-            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'));
+            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
         }
 
         // Group sync
@@ -139,7 +139,7 @@ class ServerInfoEndpoint extends EndpointBase {
                 }
             }
         } catch (Exception $e) {
-            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'));
+            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
         }
 
         $api->returnArray(array('message' => $api->getLanguage()->get('api', 'server_info_updated')));
