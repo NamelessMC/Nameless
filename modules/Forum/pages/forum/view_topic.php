@@ -328,7 +328,7 @@ if (Input::exists()) {
                             str_replace(array('{x}', '{y}'), array($user->data()->username, $topic->topic_title), $language->get('emails', 'forum_topic_reply_subject')),
                             $language->get('emails', 'greeting'),
                             str_replace(array('{x}', '{z}'), array($user->data()->username, html_entity_decode($content)), $language->get('emails', 'forum_topic_reply_message')),
-                            'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
+                            rtrim(Util::getSelfURL(), '/') . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
                             $language->get('emails', 'thanks')
                         ),
                         $html
