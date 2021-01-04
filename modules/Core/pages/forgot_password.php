@@ -38,7 +38,7 @@ if (!isset($_GET['c'])) {
                     // Send an email
                     $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
                     $php_mailer = $php_mailer[0]->value;
-                    $link = 'http' . ((defined('FORCE_SSL') && FORCE_SSL === true) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . URL::build('/forgot_password/', 'c=' . $code);
+                    $link = rtrim(Util::getSelfURL(), '/') . URL::build('/forgot_password/', 'c=' . $code);
 
                     if ($php_mailer == '1') {
 
