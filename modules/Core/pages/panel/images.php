@@ -204,7 +204,7 @@ foreach ($images as $image) {
     $logo_images[] = array(
         'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/logos/' . $image,
         'value' => $image,
-        'selected' => ($banner_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/logos/' . $image),
+        'selected' => ($logo_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/logos/' . $image),
         'n' => $n
     );
     $n++;
