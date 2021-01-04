@@ -126,6 +126,11 @@ $logo_image = $cache->retrieve('logo_image');
 if(!empty($logo_image))
     $smarty->assign('LOGO_IMAGE', Output::getClean($logo_image));
 
+$favicon_image = $cache->retrieve('favicon_image');
+
+if(!empty($favicon_image))
+    $smarty->assign('FAVICON', Output::getClean($favicon_image));
+
 $analytics_id = $configuration->get('Core', 'ga_script');
 if($analytics_id != null && !empty($analytics_id))
     $smarty->assign('ANALYTICS_ID', $analytics_id);

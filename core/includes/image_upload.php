@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -33,6 +33,10 @@ if ($user->hasPermission('usercp.gif_avatar')) {
     $image_extensions[] = 'gif';
 }
 
+if ($_POST['type'] == 'favicon') {
+    $image_extensions[] = 'ico';
+}
+
 // Deal with input
 if (Input::exists()) {
     // Check token
@@ -54,6 +58,10 @@ if (Input::exists()) {
 
             case 'logo':
                 $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'logos')));
+                break;
+                
+            case 'favicon':
+                $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'favicons')));
                 break;
 
             case 'default_avatar':

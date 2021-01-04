@@ -41,6 +41,13 @@ if (isset($_GET['action'])) {
         Session::flash('panel_images_success', $language->get('admin', 'logo_reset_successfully'));
         Redirect::to(URL::build('/panel/core/images'));
         die();
+    } else if ($_GET['action'] == 'reset_favicon') {
+        $cache->setCache('backgroundcache');
+        $cache->store('favicon_image', '');
+
+        Session::flash('panel_images_success', $language->get('admin', 'favicon_reset_successfully'));
+        Redirect::to(URL::build('/panel/core/images'));
+        die();
     }
 }
 
@@ -65,6 +72,11 @@ if (Input::exists()) {
             $cache->store('logo_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/logos/' . Input::get('logo'));
 
             Session::flash('panel_images_success', $language->get('admin', 'logo_updated_successfully'));
+
+        } else if (isset($_POST['favicon'])) {
+            $cache->store('favicon_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/favicons/' . Input::get('favicon'));
+
+            Session::flash('panel_images_success', $language->get('admin', 'favicon_updated_successfully'));
 
         }
 
@@ -128,12 +140,20 @@ if ($logo_image == '') {
     $logo_img = Output::getClean($logo_image);
 }
 
+// Get favicon from cache
+$favicon_image = $cache->retrieve('favicon_image');
+
+if ($favicon_image == '') {
+    $favicon_img = $language->get('general', 'none');
+} else {
+    $favicon_img = Output::getClean($favicon_image);
+
 $image_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'backgrounds'));
 $images = scandir($image_path);
 $template_images = array();
 
 // Only display jpeg, png, jpg, gif
-$allowed_exts = array('gif', 'png', 'jpg', 'jpeg');
+$allowed_exts = array('gif', 'png', 'jpg', 'jpeg', 'ico');
 $n = 1;
 
 foreach ($images as $image) {
@@ -190,16 +210,40 @@ foreach ($images as $image) {
     $n++;
 }
 
+$image_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'favicons'));
+$images = scandir($image_path);
+$favicon_images = array();
+
+$n = 1;
+
+foreach ($images as $image) {
+    $ext = pathinfo($image, PATHINFO_EXTENSION);
+    if (!in_array($ext, $allowed_exts)) {
+        continue;
+    }
+    $favicon_images[] = array(
+        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/favicons/' . $image,
+        'value' => $image,
+        'selected' => ($favicon_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/favicons/' . $image),
+        'n' => $n
+    );
+    $n++;
+}
+
 if (!is_writable(ROOT_PATH . '/uploads/backgrounds')) {
-    $smarty->assign('BACKGROUNDS_NOT_WRITABLE', $language->get('admin', 'background_directory_not_writable'));
+    $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/backgrounds', $language->get('admin', 'x_directory_not_writable'));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/template_banners')) {
-    $smarty->assign('TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'template_banners_directory_not_writable'));
+    $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/template_banners', $language->get('admin', 'x_directory_not_writable'));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/logos')) {
-    $smarty->assign('LOGOS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'logos_directory_not_writable'));
+    $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/logos', $language->get('admin', 'x_directory_not_writable'));
+}
+
+if (!is_writable(ROOT_PATH . '/uploads/favicons')) {
+    $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/favicons', $language->get('admin', 'x_directory_not_writable'));
 }
 
 $smarty->assign(array(
@@ -220,11 +264,15 @@ $smarty->assign(array(
     'RESET_BANNER_LINK' => URL::build('/panel/core/images/', 'action=reset_banner'),
     'RESET_LOGO' => $language->get('admin', 'reset_logo'),
     'RESET_LOGO_LINK' => URL::build('/panel/core/images/', 'action=reset_logo'),
+    'RESET_FAVICON' => $language->get('admin', 'reset_favicon'),
+    'RESET_FAVICON_LINK' => URL::build('/panel/core/images/', 'action=reset_favicon'),
     'BACKGROUND_IMAGES_ARRAY' => $template_images,
     'BANNER_IMAGES_ARRAY' => $template_banner_images,
     'BANNER_IMAGE' => str_replace('{x}', $banner_img, $language->get('admin', 'banner_image_x')),
     'LOGO_IMAGES_ARRAY' => $logo_images,
     'LOGO_IMAGE' => str_replace('{x}', $logo_img, $language->get('admin', 'logo_image_x')),
+    'FAVICON_IMAGES_ARRAY' => $favicon_images,
+    'FAVICON_IMAGE' => str_replace('{x}', $favicon_img, $language->get('admin', 'favicon_image_x')),
     'ERRORS_TITLE' => $language->get('general', 'error'),
     'INFO' => $language->get('general', 'info'),
     'BACKGROUND_IMAGE_INFO' => $language->get('admin', 'background_image_info')

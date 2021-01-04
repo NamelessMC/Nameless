@@ -9,6 +9,10 @@
 
         <title>{$TITLE} &bull; {$smarty.const.SITE_NAME}</title>
 
+        {if isset($FAVICON)}
+        <link rel="shortcut icon" href="{$FAVICON}" type="image/x-icon" />
+        {/if}
+        
         {foreach from=$TEMPLATE_CSS item=css}
         {$css}
         {/foreach}
