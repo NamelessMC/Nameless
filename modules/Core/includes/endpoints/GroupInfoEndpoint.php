@@ -9,9 +9,9 @@
 class ListGroupsEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'listGroups';
+        $this->_route = 'groupInfo';
         $this->_module = 'Core';
-        $this->_description = 'List all groups';
+        $this->_description = 'Lists groups and provides group information';
     }
 
     public function execute(Nameless2API $api) {
