@@ -44,7 +44,7 @@ if(!isset($_GET['c'])){
             'uuid' => Output::getClean($user->data()->uuid),
             'content' => str_replace('{x}', $user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
             'avatar_url' => $user->getAvatar(null, 128, true),
-            'url' => Util::getSelfURL() . ltrim(URL::build('/profile/Samerton'), '/'),
+            'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'language' => $language
         ));
 
