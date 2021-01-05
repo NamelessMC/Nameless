@@ -20,9 +20,9 @@ class AddGroupsEndpoint extends EndpointBase {
         // Ensure user exists
         $user = $api->getUser('id', $_POST['user']);
 
-        $groups = json_decode($_POST['groups'], true);
+        $groups = $_POST['groups'];
         if ($groups == null || !count($groups)) {
-            $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
+            $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'), 'No groups provided');
         }
 
         foreach ($groups as $group) {
