@@ -18,7 +18,7 @@ class AddGroupsEndpoint extends EndpointBase {
         $api->validateParams($_POST, ['user', 'groups']);
 
         // Ensure user exists
-        $user = $api->getUser('id', $_POST['user']);
+        $user = new User($_POST['user']);
 
         $groups = $_POST['groups'];
         if ($groups == null || !count($groups)) {

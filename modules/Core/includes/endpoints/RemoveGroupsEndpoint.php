@@ -18,14 +18,14 @@ class RemoveGroupsEndpoint extends EndpointBase {
         $api->validateParams($_POST, ['user', 'groups']);
 
         // Ensure user exists
-        $user = new User(htmlspecialchars($_POST['user']));
+        $user = new User($_POST['user']);
         if (!count($user->data())) {
             $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
         }
 
-        $groups = json_decode($_POST['groups'], true);
-        if ($groups == null || !count($groups)) {
-            $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'));
+        $groups = $_POST['groups'];
+        if (!count($groups)) {
+            $api->throwError(6, $api->getLanguage()->get('api', 'invalid_post_contents'));
         }
 
         foreach ($groups as $group) {
