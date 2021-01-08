@@ -48,7 +48,7 @@
                             </div>
                             <input type="hidden" name="token" value="{$TOKEN}">
                             <input type="hidden" name="type" value="google_analytics">
-                            <input type="submit" class="btn btn-primary" value="Submit">
+                            <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                         </form>
 
                         <hr />

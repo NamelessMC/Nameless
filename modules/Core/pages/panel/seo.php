@@ -93,7 +93,7 @@ if(!isset($_GET['metadata'])){
             $smarty->assign('SITEMAP_NOT_GENERATED', $language->get('admin', 'sitemap_not_generated_yet'));
         }
     }
-    
+
     $template_file = 'core/seo.tpl';
 } else {
     $page = $pages->getPageById($_GET['metadata']);
@@ -193,6 +193,7 @@ $smarty->assign(array(
     'EDIT_LINK' => URL::build('/panel/core/seo/', 'metadata={x}'),
     'GOOGLE_ANALYTICS' => $language->get('admin', 'google_analytics'),
     'GOOGLE_ANALYTICS_HELP' => $language->get('admin', 'google_analytics_help'),
+    'SUBMIT' => $language->get('general', 'submit'),
     'SITEMAP' => $language->get('admin', 'sitemap'),
     'PAGE_METADATA' => $language->get('admin', 'page_metadata'),
 ));
