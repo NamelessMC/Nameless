@@ -72,11 +72,11 @@ $language = array(
     
     // Alerts
     'user_tag_info' => 'Byli jste označeni v příspěvku uživatelem {x}.', // Don't replace {x}
-    'no_alerts' => 'Žádná nová oznámení',
-    'view_alerts' => 'Zobrazit oznámení',
-    '1_new_alert' => 'Máte 1 nové oznámení',
-    'x_new_alerts' => 'Máte {x} nových oznámení', // Don't replace {x}
-    'no_alerts_usercp' => 'Nemáte žádná oznámení.',
+    'no_alerts' => 'Žádná nová upozornění',
+    'view_alerts' => 'Zobrazit upozornění',
+    '1_new_alert' => 'Máte 1 nové upozornění',
+    'x_new_alerts' => 'Máte {x} nových upozornění', // Don't replace {x}
+    'no_alerts_usercp' => 'Nemáte žádná upozornění.',
     
     // Registration
     'registration_check_email' => 'Děkujeme za registraci! Pro dokončení registrace se podívejte do vaší e-mailové schránky. Pokud nemůžete nalézt e-mail, zkontrolujte spam a hromadné.',
