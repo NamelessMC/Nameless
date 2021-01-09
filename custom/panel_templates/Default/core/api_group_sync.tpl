@@ -65,9 +65,9 @@
                                                         {/foreach}
                                                     </select>
                                                 {else}
-                                                    <input class="form-control" name="ingame_group[{$group_sync.id}]"
-                                                           type="text" id="inputIngame"
-                                                           placeholder="{$INGAME_GROUP_NAME}"
+                                                    <p class="text-muted" style="padding-top: 5px">{$GROUP_SYNC_PLUGIN_NOT_SET_UP}</p>
+                                                    <input name="ingame_group[{$group_sync.id}]"
+                                                           type="hidden" id="inputIngame"
                                                            value="{$group_sync.ingame}">
                                                 {/if}
                                             </div>
@@ -83,9 +83,10 @@
                                                         {/foreach}
                                                     </select>
                                                 {else}
-                                                    <p><i>{$DISCORD_INTEGRATION_NOT_SETUP}</i></p>
-                                                    <input class="form-control" name="discord_role[{$group_sync.id}]"
-                                                           type="hidden" id="inputDiscord" value="0">
+                                                    <p class="text-muted" style="padding-top: 5px">{$DISCORD_INTEGRATION_NOT_SETUP}</p>
+                                                    <input name="discord_role[{$group_sync.id}]"
+                                                           type="hidden" id="inputDiscord"
+                                                           value="0">
                                                 {/if}
                                             </div>
                                             <div class="col-md-3">
@@ -126,8 +127,8 @@
                                                 {/foreach}
                                             </select>
                                         {else}
-                                            <input class="form-control" name="ingame_rank_name" type="text"
-                                                   id="inputIngame" placeholder="{$INGAME_GROUP_NAME}">
+                                            <p class="text-muted" style="padding-top: 5px">{$GROUP_SYNC_PLUGIN_NOT_SET_UP}</p>
+                                            <input name="ingame_rank_name" type="hidden" id="inputIngame">
                                         {/if}
                                     </div>
                                     <div class="col-md-4">
@@ -139,7 +140,7 @@
                                                 {/foreach}
                                             </select>
                                         {else}
-                                            <p><i>{$DISCORD_INTEGRATION_NOT_SETUP}</i></p>
+                                            <p class="text-muted" style="padding-top: 5px">{$DISCORD_INTEGRATION_NOT_SETUP}</p>
                                             <input class="form-control" name="discord_role_id" type="hidden"
                                                    id="inputDiscord" value="0">
                                         {/if}

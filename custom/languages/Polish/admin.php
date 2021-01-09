@@ -173,7 +173,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Wysłano wiadomość pomyślnie.',
     'emails_mass_message_replacements' => 'Możesz użyć zmiennych w wiadomo. Przykłady:: {username}, {sitename}',
     'emails_mass_message_loading' => 'Ładowanie... Nie odświeżaj strony. To trochę zajmie.',
-    
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
@@ -607,6 +607,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'Zasada synchronizowania grupy została stworzona pomyślnie.',
     'group_sync_rules_updated_successfully' => 'Zasada synchronizowania grupy została zaktualizowana pomyślnie.',
     'group_sync_rule_deleted_successfully' => 'Zasada synchronizowania grupy została usunięta pomyślnie',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Istniejące zasady',
     'new_rule' => 'Nowa zasada',
     'api_endpoints' => 'Punkty API',

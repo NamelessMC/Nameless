@@ -173,7 +173,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'E-post-massemelding har blitt sendt.',
     'emails_mass_message_replacements' => 'Du kan bruke variabler i din e-post-massemelding. Støttede variabler: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laster inn... Vennligst ikke last inn siden på nytt. Dette kan ta en stund.',
-    
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
@@ -607,6 +607,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'Modifikasjonen har blitt laget.',
     'group_sync_rules_updated_successfully' => 'Modifikasjonen har blitt oppdatert.',
     'group_sync_rule_deleted_successfully' => 'Modifikasjonen har blitt fjernet.',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Eksisterende modifikasjoner',
     'new_rule' => 'Ny modifikasjon',
     'api_endpoints' => 'API-endepunkter',

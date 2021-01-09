@@ -173,7 +173,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Сообщения отправлены.',
     'emails_mass_message_replacements' => 'Вы можете использовать различные переменные в сообщениях. Поддерживаемые переменные: {username}, {sitename}',
     'emails_mass_message_loading' => 'Загрузка... Не перезагружайте страницу. Это займёт какое-то время.',
-    
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Аналитика',
@@ -608,6 +608,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'Правило синхронизации групп было успешно создано.',
     'group_sync_rules_updated_successfully' => 'Правило синхронизации групп было успешно обновлено.',
     'group_sync_rule_deleted_successfully' => 'Правило синхронизации групп было успешно удалено.',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Действующие правила',
     'new_rule' => 'Создать правило',
     'api_endpoints' => 'API комманды',

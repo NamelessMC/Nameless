@@ -171,7 +171,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
-    
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
@@ -606,6 +606,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'Grupės sinchronizavimo taisyklė sėkmingai sukurta.',
     'group_sync_rules_updated_successfully' => 'Grupės sinchronizavimo taisyklės buvo sėkmingai atnaujintos.',
     'group_sync_rule_deleted_successfully' => 'Grupės sinchronizavimo taisyklė buvo sėkmingai ištrinta.',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Esamos Taisyklės',
     'new_rule' => 'Nauja Taisyklė',
     'api_endpoints' => 'API Endpoints',

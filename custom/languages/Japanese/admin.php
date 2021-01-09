@@ -178,7 +178,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => '大量のメールメッセージの送信に成功しました。',
     'emails_mass_message_replacements' => 'メールメッセージでは、変数を使用することができます。サポートされている変数: {username}, {sitename}',
     'emails_mass_message_loading' => '読み込み中... ページを再読み込みしないでください。しばらく時間がかかる場合があります。',
-    
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
@@ -613,6 +613,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'グループ同期ルールが正常に作成されました。',
     'group_sync_rules_updated_successfully' => 'グループ同期ルールが正常に更新されました。',
     'group_sync_rule_deleted_successfully' => 'グループ同期ルールが正常に削除されました。',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => '既存のルール',
     'new_rule' => '新しいルール',
     'api_endpoints' => 'API エンドポイント',

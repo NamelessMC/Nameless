@@ -420,7 +420,8 @@ if (!isset($_GET['view'])) {
                 'DELETE' => $language->get('general', 'delete'),
                 'NEW_RULE' => $language->get('admin', 'new_rule'),
                 'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
-                'DISCORD_INTEGRATION_NOT_SETUP' => $language->get('admin', 'discord_integration_not_setup')
+                'DISCORD_INTEGRATION_NOT_SETUP' => $language->get('admin', 'discord_integration_not_setup'),
+                'GROUP_SYNC_PLUGIN_NOT_SET_UP' => $language->get('admin', 'group_sync_plugin_not_set_up')
             )
         );
 
