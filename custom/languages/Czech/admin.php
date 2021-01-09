@@ -141,7 +141,7 @@ $language = array (
     'navbar_order' => 'Pořadí v navigační liště',
     'navbar_order_instructions' => 'Každé položce můžete přiřadit číslo vyšší než 0 pro uspořádání položek v navigační liště. 1 bude první položka, vyšší čísla ji budou následovat.',
     'navbar_icon' => 'Ikona v navigační liště',
-    'navbar_icon_instructions' => 'Každé položce zde můžete také nastavit ikonu',
+    'navbar_icon_instructions' => 'Každé položce zde můžete také nastavit ikonu, například pomocí <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a> nebo <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'navigation_settings_updated_successfully' => 'Nastavení navigace úspěšně aktualizována.',
     'dropdown_items' => 'Položky rozbalovací nabídky',
     'enable_page_load_timer' => 'Povolit časovač načítání stránky?',
