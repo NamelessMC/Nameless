@@ -1,6 +1,7 @@
 <?php 
 /*
- *  Made by Samerton, translated by Ethxrnity
+ *  Made by Samerton
+ *  Translated by Ethxrnity and Fjuro
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -26,13 +27,13 @@ $language = array(
     'posts' => 'příspěvků',
     'x_posts' => '{x} příspěvků', // Don't replace {x}
     'x_topics' => '{x} témat', // Don't replace {x}
-    'registered_x' => 'Připojeno: {x}', // Don't replace {x}
+    'registered_x' => 'Zaregistrován: {x}', // Don't replace {x}
     'by' => 'od',
     'in' => 'v',
     'last_reply' => 'Poslední odpověď',
     'latest_discussions' => 'Nejnovější diskuse',
-    'users_registered' => '<strong> Registrovaní uživatelé: </strong> {x}', // Don't replace "{x}"
-    'latest_member' => '<strong> Nejnovější člen: </strong> {x}', // Don't replace "{x}"
+    'users_registered' => '<strong>Registrovaní uživatelé:</strong> {x}', // Don't replace "{x}"
+    'latest_member' => '<strong>Nejnovější člen:</strong> {x}', // Don't replace "{x}"
     'subforums' => 'Subfóra',
     'subforum' => 'Subfórum',
     'no_topics' => 'Zatím nebyla vytvořena žádná témata.',
@@ -40,8 +41,8 @@ $language = array(
     'new_topic' => 'Nové téma',
     'post_successful' => 'Příspěvek byl úspěšně přidán.',
     'post_edited_successfully' => 'Příspěvek byl úspěšně upraven.',
-    'user_tag' => 'Byl jste označen (a) v příspěvku.',
-    'user_tag_info' => '{x} Vás označil v příspěvku.', // Don't replace "{x}"
+    'user_tag' => 'Byli jste označeni v příspěvku.',
+    'user_tag_info' => '{x} vás označil v příspěvku.', // Don't replace "{x}"
     'creating_topic_in_x' => 'Vytvoření tématu v {x}', // Don't replace "{x}"
     'topic_title' => 'Název tématu',
     'new_reply' => 'Nová odpověď',
@@ -52,7 +53,7 @@ $language = array(
     'unlock_topic' => 'Odemknout téma',
     'merge_topic' => 'Sloučit téma',
     'merge_topics' => 'Sloučit témata',
-    'merge_instructions' => 'Podproces sloučení s <strong> musí být </strong> ve stejném fóru. V případě potřeby přesuňte vlákno.',
+    'merge_instructions' => 'Podproces sloučení s <strong>musí být</strong> ve stejném fóru. V případě potřeby přesuňte vlákno.',
     'confirm_delete_short' => 'Potvrdit vymazání',
     'confirm_delete_topic' => 'Opravdu chcete toto téma smazat?',
     'confirm_delete_post' => 'Opravdu chcete tento příspěvek smazat?',
@@ -131,13 +132,13 @@ $language = array(
     'forum_name' => 'Název fóra',
     'forum_description' => 'Popis fóra',
     'delete_forum' => 'Smazat fórum',
-    'move_topics_and_posts_to' => 'Move topics and posts do',
+    'move_topics_and_posts_to' => 'Přesunout témata a příspěvky do',
     'delete_topics_and_posts' => 'Smazat témata a příspěvky',
     'forum_permissions' => 'Oprávnění fóra',
-    'select_a_parent_forum' => 'Vyberte nadřadné fórum',
-    'parent_forum' => 'Nadřadné fórum',
-    'parent_forum_x' => 'Nadřané fórum: {x}', // Don't replace {x}
-    'has_no_parent' => 'Žádné nadřadné',
+    'select_a_parent_forum' => 'Vyberte nadřazené fórum',
+    'parent_forum' => 'Nadřazené fórum',
+    'parent_forum_x' => 'Nadřazené fórum: {x}', // Don't replace {x}
+    'has_no_parent' => 'Žádné nadřazené',
     'guests' => 'Hosté',
     'group' => 'Skupina',
     'can_view_forum' => 'Může zobrazit fórum?',
@@ -173,8 +174,8 @@ $language = array(
     'label_deleted_successfully' => 'Štítek byl úspěšně smazán.',
     'label_type_deleted_successfully' => 'Typ štítku byl úspěšně smazán.',
     'topic_placeholder' => 'Placeholder tématu',
-    'default_labels' => 'Default Labels',
-    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
+    'default_labels' => 'Výchozí štítky',
+    'default_labels_info' => 'Tyto štítky budou přiřazeny k novému tématu ve fóru, pokud nebudou přepsány při jeho vytváření. Více štítků dohromady vyberete pomocíCtrl+Kliknutí',
 
     // Search
     'forum_search' => 'Hledat ve fóru',
@@ -190,20 +191,20 @@ $language = array(
 
     // UserCP
     'last_7_days_posts' => 'Příspěvky ve fórech (posledních 7 dní)',
-    'your_posts' => 'Tvůj počet příspěvků',
+    'your_posts' => 'Váš počet příspěvků',
     'average_posts' => 'Průměrný počet příspěvků uživatele',
     'total_posts' => 'Celkový počet příspěvků',
-    'following_topics' => 'Followed Topics',
-    'unfollow_all_topics' => 'Unfollow All Topics',
-    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
-    'all_topics_unfollowed' => 'All topics have been unfollowed.',
-    'not_following_any_topics' => 'You are not following any topics.',
+    'following_topics' => 'Sledovaná témata',
+    'unfollow_all_topics' => 'Zrušit sledování všech témat',
+    'confirm_unfollow_all_topics' => 'Opravdu chcete zrušit sledování všech témat?',
+    'all_topics_unfollowed' => 'Bylo zrušeno sledování všech témat.',
+    'not_following_any_topics' => 'Nesledujete žádná témata.',
 
     // Hooks
     'new_topic_hook_info' => 'Nové téma',
-    'new_topic_text' => 'Téma vytvořené v {x} od {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
-    'include_in_hook' => 'Include new topics from this forum in webhooks?',
-    'available_hooks' => 'Available Hooks',
+    'new_topic_text' => 'Téma vytvořeno v {x} od {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'include_in_hook' => 'Zahrnout do webhooků nová témata z tohoto fóra?',
+    'available_hooks' => 'Dostupné webhooky',
     // Panel statistics
     'recent_topics' => 'Poslední témata',
     'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
