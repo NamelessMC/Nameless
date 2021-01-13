@@ -175,7 +175,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => '邮件广播发送成功。',
     'emails_mass_message_replacements' => '您可在信息中使用占位符。可用占位符: {username}（用户名）, {sitename}（网站名）',
     'emails_mass_message_loading' => '加载中... 请勿刷新此页面。这可能需要几分钟。',
-    
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
@@ -610,6 +610,7 @@ $language = array(
     'group_sync_rule_created_successfully' => '组同步规则已成功创建。',
     'group_sync_rules_updated_successfully' => '组同步规则已成功更新。',
     'group_sync_rule_deleted_successfully' => '组同步规则已成功删除。',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => '现有规则',
     'new_rule' => '新规则',
     'api_endpoints' => 'API 结点',

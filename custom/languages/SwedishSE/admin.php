@@ -174,7 +174,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
-    
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
@@ -609,6 +609,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'The group sync rule has been created successfully.',
     'group_sync_rules_updated_successfully' => 'Group sync rules have been updated successfully.',
     'group_sync_rule_deleted_successfully' => 'The group sync rule has been deleted successfully.',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Existing Rules',
     'new_rule' => 'New Rule',
     'api_endpoints' => 'API Endpoints',

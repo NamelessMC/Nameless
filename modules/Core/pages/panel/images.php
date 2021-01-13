@@ -147,6 +147,7 @@ if ($favicon_image == '') {
     $favicon_img = $language->get('general', 'none');
 } else {
     $favicon_img = Output::getClean($favicon_image);
+}
 
 $image_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'backgrounds'));
 $images = scandir($image_path);

@@ -173,7 +173,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Inviato con successo un messaggio di massa via email.',
     'emails_mass_message_replacements' => 'Puoi utilizzare variabili nel tuo messaggio di email. Variabili supportate: {username}, {sitename}',
     'emails_mass_message_loading' => "Caricamento in corso... Non ricaricare la pagina. Potrebbe volerci un po'.",
-    
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
@@ -608,6 +608,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'La regola di sincronizzazione del gruppo è stata creata con successo.',
     'group_sync_rules_updated_successfully' => 'La regola di sincronizzazione del gruppo è stata aggiornata con successo.',
     'group_sync_rule_deleted_successfully' => 'La regola di sincronizzazione del gruppo è stata eliminata con successo.',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Regole Esistenti',
     'new_rule' => 'Nuova Regola',
     'api_endpoints' => 'API Endpoints',

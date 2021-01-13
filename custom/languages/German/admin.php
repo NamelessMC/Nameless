@@ -181,7 +181,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
-    
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
@@ -456,7 +456,7 @@ $language = array(
     'secondary_groups' => 'Sekundärgruppen',
     'secondary_groups_info' => 'Der Benutzer erhält zusätzliche Berechtigungen aus diesen Gruppen',
     'unable_to_update_uuid' => 'Unmöglich die UUID zu aktualisieren.',
-    'default_group' => 'Ist diese Gruppe die Standard Gruppe (Für neue User)??',
+    'default_group' => 'Ist diese Gruppe die Standard Gruppe (Für neue User)?',
     'user_id' => 'User ID',
     'uuid' => 'UUID',
     'group_order' => 'Group Order',
@@ -601,7 +601,7 @@ $language = array(
     'link_to_complete_registration' => 'Link zur vollständigen Registrierung: {x}', // Don't replace {x}
     'api_verification' => 'API Verifizierung aktivieren?',
     'api_verification_info' => 'Wenn diese Option aktiviert ist, können Konten nur über die API überprüft werden, z. B. im Spiel mit dem offiziellen Nameless-Plugin. <strong> Diese Option überschreibt die E-Mail-Überprüfung, und die Konten werden automatisch aktiviert! </strong> <br /> Sie sollten Ihre Standardgruppe mit eingeschränkten Berechtigungen einrichten und anschließend die Post-Validierungsgruppe im StaffCP -> aktualisieren Core -> Registerkarte Registrierung für die vollständige Mitgliedergruppe mit normalen Berechtigungen.',
-    'enable_username_sync' => 'Username Synchronisation aktivieren??',
+    'enable_username_sync' => 'Username Synchronisation aktivieren?',
     'enable_username_sync_info' => 'Wenn diese Option aktiviert ist, werden die Nutzernamen der Website aktualisiert, damit sie mit den Benutzernamen im Spiel übereinstimmen.',
     'api_settings_updated_successfully' => 'API Einstellungen wurden gespeichert.',
     'group_sync' => 'Group Sync',
@@ -616,6 +616,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'The group sync rule has been created successfully.',
     'group_sync_rules_updated_successfully' => 'Group sync rules have been updated successfully.',
     'group_sync_rule_deleted_successfully' => 'The group sync rule has been deleted successfully.',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Existing Rules',
     'new_rule' => 'New Rule',
     'api_endpoints' => 'API Endpoints',

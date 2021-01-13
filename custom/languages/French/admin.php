@@ -152,7 +152,7 @@ $language = array(
     'validation_promote_group_info' => 'C’est le groupe auquel un utilisateur sera promu une fois qu’il aura validé son compte.',
     'login_method' => 'Méthode de connexion',
     'privacy_and_terms' => 'Confidentialité et conditions',
-    
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
@@ -580,6 +580,7 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'group_sync_rule_created_successfully' => 'La règle de synchronisation de groupe a été créée avec succès.',
     'group_sync_rules_updated_successfully' => 'Les règles de synchronisation des groupes ont été mises à jour avec succès.',
     'group_sync_rule_deleted_successfully' => 'La règle de synchronisation des groupes a été supprimée avec succès.',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Règles existantes',
     'new_rule' => 'Nouvelle règle',
 

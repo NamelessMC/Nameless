@@ -171,7 +171,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
-    
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
@@ -605,6 +605,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'La regla de sincronización de grupos ha sido creada.',
     'group_sync_rules_updated_successfully' => 'La regla de sincronización de grupos ha sido actualizada.',
     'group_sync_rule_deleted_successfully' => 'La regla de sincronización de grupos ha sido eliminada.',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Reglas Existentes',
     'new_rule' => 'Nueva Regla',
     'api_endpoints' => 'API Endpoints',
@@ -730,13 +731,13 @@ $language = array(
     'discord_cannot_interact' => 'El bot Nameless Link no puede interactuar con este usuario en Discord. ¿Su rol es más alto que el rol de Nameless Link?',
 
     // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Invalid request body.',
-    'discord_bot_error_error' => 'An internal bot error occured.',
-    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
-    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
-    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
-    'discord_bot_error_unauthorized' => 'Website API key is invalid',
-    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+    'discord_bot_error_badparameter' => 'Cuerpo de solicitud no válido.',
+    'discord_bot_error_error' => 'Ocurrió un error interno del bot.',
+    'discord_bot_error_invguild' => 'El ID del servidor proporcionado no es válido o el bot no está en él.',
+    'discord_bot_error_invuser' => 'El ID de usuario proporcionado no es válido o no pertenece al servidor especificado.',
+    'discord_bot_error_notlinked' => 'El bot no está vinculado a este sitio web para la identificación del servidor proporcionada.',
+    'discord_bot_error_unauthorized' => 'La clave de API del sitio web no es válida',
+    'discord_bot_error_invrole' => 'El ID del role proporcionado no es válido.',
+    'discord_bot_error_hierarchy' => 'El bot no puede editar los roles de este usuario.'
 
 );
