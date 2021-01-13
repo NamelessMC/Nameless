@@ -1,10 +1,10 @@
 <?php
 /*
  *  Gemaakt door Samerton
- *  en vertaald en bijgewerkt door Sander Lambrechts, Jesse Geerts, Derkades en smessie
+ *  en vertaald en bijgewerkt door Sander Lambrechts, Jesse Geerts, Derkades, smessie en Tin Xian
  *
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -378,11 +378,11 @@ $language = array(
     'template_banner_reset_successfully' => 'Banner is met succes gereset.',
     'template_banner_updated_successfully' => 'Banner is met succes aangepast.',
     'reset_banner' => 'Reset Banner',
-    'logo_reset_successfully' => 'Logo reset successfully.',
-    'logo_updated_successfully' => 'Logo updated successfully.',
+    'logo_reset_successfully' => 'Logo is met succes gereset.',
+    'logo_updated_successfully' => 'Logo is met succes aangepast.',
     'reset_logo' => 'Reset Logo',
-    'favicon_reset_successfully' => 'Favicon reset successfully.',
-    'favicon_updated_successfully' => 'Favicon updated successfully.',
+    'favicon_reset_successfully' => 'Favicon is met succes gereset.',
+    'favicon_updated_successfully' => 'Favicon is met succes aangepast.',
     'reset_favicon' => 'Reset Favicon',
     'find_templates' => 'Vind sjablonen',
     'view_all_templates' => 'Bekijk alle sjablonen',
@@ -733,12 +733,12 @@ $language = array(
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Invalid request body.',
-    'discord_bot_error_error' => 'An internal bot error occured.',
+    'discord_bot_error_error' => 'Er is een interne fout opgetreden.',
     'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
     'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
     'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
-    'discord_bot_error_unauthorized' => 'Website API key is invalid',
-    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+    'discord_bot_error_unauthorized' => 'Website API-sleutel is ongeldig',
+    'discord_bot_error_invrole' => 'Opgegeven rol-ID is ongeldig.',
+    'discord_bot_error_hierarchy' => 'De bot kan de rollen van deze gebruiker niet bewerken.'
 
 );
