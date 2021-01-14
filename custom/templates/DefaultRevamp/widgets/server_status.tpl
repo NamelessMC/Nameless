@@ -23,7 +23,9 @@
                                     {/foreach}
                                 </p>
                                 {/if}
-                                <p>{$VERSION}</p>
+                                {if isset($VERSION)}
+                                    <p>{$VERSION}</p>
+                                {/if}
                                 <p>{$IP}: <strong>{$SERVER.join_at}</strong></p>
                             {/if}
                         </div>

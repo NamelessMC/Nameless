@@ -44,8 +44,17 @@ class ServerStatusWidget extends WidgetBase {
 
             if ($server != null) {
                 $server_array = json_decode(Util::curlGetContents(rtrim(Util::getSelfURL(), '/') . URL::build('/queries/server/', 'id=' . $server->id)), true);
-                $server_array['name'] = Output::getClean($server->name);
-                $server_array['join_at'] = Output::getClean($server->ip);
+
+                foreach ($server_array as $key => $value) {
+                    // we have to NOT escape the player list or the formatted player list. luckily these are the only arrays
+                    if (is_array($value)) {
+                        $server_array[$key] = $value;
+                    } else {
+                        $server_array[$key] = Output::getClean($value);
+                    }
+                }
+                $server_array['name'] = $server->name;
+                $server_array['join_at'] = $server->ip;
 
                 $this->_cache->store('server_status', $server_array, 120);
             }
@@ -58,7 +67,7 @@ class ServerStatusWidget extends WidgetBase {
                     'ONLINE' => $this->_language->get('general', 'online'),
                     'OFFLINE' => $this->_language->get('general', 'offline'),
                     'IP' => $this->_language->get('general', 'ip'),
-                    'VERSION' => str_replace('{x}', '<strong>' . $server_array['version'] . '</strong>' , $this->_language->get('general', 'version'))
+                    'VERSION' => isset($server_array['version']) ? str_replace('{x}', '<strong>' . $server_array['version'] . '</strong>' , $this->_language->get('general', 'version')) : null
                 )
             );
         }
