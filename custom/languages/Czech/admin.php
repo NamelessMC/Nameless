@@ -584,6 +584,7 @@ $language = array (
     'group_sync_rule_created_successfully' => 'Synchronizační pravidlo',
     'group_sync_rules_updated_successfully' => 'Synchronizační pravidla byla úspěšně aktualizována.',
     'group_sync_rule_deleted_successfully' => 'Synchronizační pravidlo bylo úspěšně odstraněno.',
+    'group_sync_plugin_not_set_up' => 'Není nastaven herní plugin',
     'existing_rules' => 'Existující pravidla',
     'new_rule' => 'Nové pravidlo',
     'api_endpoints' => 'API endpointy',
