@@ -71,7 +71,7 @@ if($user->isLoggedIn()){
 
 		$cache->store('default_group', $default_group);
 	}
-	if(in_array($default_group, $user->getAllGroupIds()) && ($user->data()->reset_code) && !$user->data()->active) {
+	if(in_array($default_group, $user->getAllGroupIds()) && ($user->data()->reset_code)) {
 		// User needs to validate account
 		$smarty->assign('MUST_VALIDATE_ACCOUNT', str_replace('{x}', Output::getClean($user->data()->reset_code), $language->get('user', 'validate_account_command')));
 	}
