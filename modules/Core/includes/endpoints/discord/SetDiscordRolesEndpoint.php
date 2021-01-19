@@ -40,7 +40,7 @@ class SetDiscordRolesEndpoint extends EndpointBase {
                         $user->addGroup($group->id);
                         $message .= $group->name . ', ';
                     } catch (Exception $e) {
-                        $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'));
+                        $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'), $e->getMessage());
                     }
                 }
             }

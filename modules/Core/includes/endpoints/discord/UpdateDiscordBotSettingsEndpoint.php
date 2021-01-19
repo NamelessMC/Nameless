@@ -18,7 +18,7 @@ class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
             try {
                 $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', array($_POST['url'], 'discord_bot_url'));
             } catch (Exception $e) {
-                $api->throwError(30, $api->getLanguage()->get('api', 'unable_to_set_discord_bot_url'));
+                $api->throwError(30, $api->getLanguage()->get('api', 'unable_to_set_discord_bot_url'), $e->getMessage());
             }
         }
 
@@ -26,7 +26,7 @@ class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
             try {
                 $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', array($_POST['guild_id'], 'discord'));
             } catch (Exception $e) {
-                $api->throwError(33, $api->getLanguage()->get('api', 'unable_to_set_discord_id'));
+                $api->throwError(33, $api->getLanguage()->get('api', 'unable_to_set_discord_id'),  $e->getMessage());
             }
         }
 
@@ -34,7 +34,7 @@ class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
             try {
                 $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', array($_POST['bot_username'], 'discord_bot_username'));
             } catch (Exception $e) {
-                $api->throwError(33, $api->getLanguage()->get('api', 'unable_to_set_discord_bot_username'));
+                $api->throwError(33, $api->getLanguage()->get('api', 'unable_to_set_discord_bot_username'), $e->getMessage());
             }
         }
 

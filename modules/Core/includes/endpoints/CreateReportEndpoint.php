@@ -74,7 +74,7 @@ class CreateReportEndpoint extends EndpointBase {
 
             $api->returnArray(array('message' => $api->getLanguage()->get('api', 'report_created')));
         } catch (Exception $e) {
-            $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'));
+            $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'), $e->getMessage());
         }
     }
 }
