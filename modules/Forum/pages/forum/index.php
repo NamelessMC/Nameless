@@ -76,7 +76,7 @@ if ($cache->isCached('forums')) {
     if (count($forums)) {
         foreach ($forums as $key => $item) {
             $forums[$key]['link'] = URL::build('/forum/view/' . $key . '-' . $forum->titleToURL($forums[$key]['title']));
-            if (count($item['subforums'])) {
+            if (isset($item['subforums']) && count($item['subforums'])) {
                 foreach ($item['subforums'] as $subforum_id => $subforum) {
                     if (isset($subforum->last_post)) {
                         $last_post_user = new User($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
