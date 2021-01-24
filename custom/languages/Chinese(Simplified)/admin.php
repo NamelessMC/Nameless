@@ -42,11 +42,12 @@ $language = array(
     'registrations' => '注册量',
     'topics' => '话题数',
     'posts' => '帖子数',
-        'notices' => '消息',
-        'no_notices' => '无消息.',
-        'email_errors_logged' => '邮件错误已被记录',
+    'notices' => '消息',
+    'no_notices' => '无消息.',
+    'email_errors_logged' => '邮件错误已被记录',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => '设置',
     'general_settings' => '通用设置',
     'sitename' => '网站名称',

@@ -46,6 +46,7 @@ $language = array(
     'email_errors_logged' => 'E-post fel har blivit loggade',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Inställningar',
     'general_settings' => 'Allmänna Inställningar',
     'sitename' => 'Sido namn',

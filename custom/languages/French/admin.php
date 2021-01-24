@@ -45,6 +45,7 @@ $language = array(
     'email_errors_logged' => 'Des erreurs de messagerie ont été enregistrées',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Paramètres',
     'general_settings' => 'Paramètres généraux',
     'sitename' => 'Nom du site',

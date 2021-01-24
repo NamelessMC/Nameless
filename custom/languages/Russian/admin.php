@@ -45,6 +45,7 @@ $language = array(
     'email_errors_logged' => 'Были зарегистрированы ошибки электронной почты',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Настройки',
     'general_settings' => 'Общие настройки',
     'sitename' => 'Название сайта',

@@ -47,6 +47,7 @@ $language = array(
     'email_errors_logged' => 'Email errors have been logged',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Ρυθμίσης',
     'general_settings' => 'Γενικές Ρυθμίσεις',
     'sitename' => 'Ονομα ιστοσελίδας',

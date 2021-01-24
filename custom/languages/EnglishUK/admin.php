@@ -43,6 +43,7 @@ $language = array(
     'email_errors_logged' => 'Email errors have been logged',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Settings',
     'general_settings' => 'General Settings',
     'sitename' => 'Site Name',

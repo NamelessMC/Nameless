@@ -46,7 +46,8 @@ $language = array(
     'no_notices' => 'Geen berichten.',
     'email_errors_logged' => 'Email fouten zijn vastgesteld',
 
-    // Kern
+    // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Instellingen',
     'general_settings' => 'Algemene Instellingen',
     'sitename' => 'Site naam',

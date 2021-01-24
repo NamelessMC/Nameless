@@ -45,6 +45,7 @@ $language = array(
     'email_errors_logged' => 'E-posta hataları günlüğe kaydedildi!',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Ayarlar',
     'general_settings' => 'Genel Ayarlar',
     'sitename' => 'Site Adı',

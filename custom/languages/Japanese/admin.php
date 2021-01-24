@@ -50,6 +50,7 @@ $language = array(
     'email_errors_logged' => '電子メールエラーが検出されました。',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => '設定',
     'general_settings' => '一般設定',
     'sitename' => 'サイト名',

@@ -50,6 +50,7 @@ $language = array(
     'email_errors_logged' => 'Au fost înregistrate erori de e-mail',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Setări',
     'general_settings' => 'Setări generale',
     'sitename' => 'Nume site',

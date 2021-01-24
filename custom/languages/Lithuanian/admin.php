@@ -43,6 +43,7 @@ $language = array(
     'email_errors_logged' => 'El. pašto klaidos buvo užregistruotos.',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Nustatymai',
     'general_settings' => 'Bendrieji nustatymai',
     'sitename' => 'Svetainės pavadinimas',

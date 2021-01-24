@@ -45,6 +45,7 @@ $language = array(
     'email_errors_logged' => 'Chyby s e-mailami boli zaznamenané',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Nastavenia',
     'general_settings' => 'Obecné nastavenia',
     'sitename' => 'Názov stránky',

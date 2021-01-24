@@ -43,8 +43,9 @@ $language = array(
     'notices' => 'Avvisi',
     'no_notices' => 'Nessun avviso.',
     'email_errors_logged' => "Gli errori dell'email sono stati registrati",
-
+    
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Impostazioni',
     'general_settings' => 'Impostazioni Generali',
     'sitename' => 'Nome Sito',

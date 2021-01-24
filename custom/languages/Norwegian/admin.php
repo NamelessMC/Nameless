@@ -45,6 +45,7 @@ $language = array(
     'email_errors_logged' => 'En e-postfeil har blitt loggført',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Innstillinger',
     'general_settings' => 'Generelle innstillinger',
     'sitename' => 'Nettsidens navn',

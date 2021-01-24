@@ -11,7 +11,7 @@
 
     <input onclick="switchTheme()" type="hidden" name="dark_mode" value="0">
     <input onclick="switchTheme()" id="dark_mode" name="dark_mode" type="checkbox" class="dark-switch" value="1" checked />
-    <span class="dark-switch-text">Dark/Light Mode</span>
+    <span class="dark-switch-text">{$MODE_TOGGLE}</span>
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">

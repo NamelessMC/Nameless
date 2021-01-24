@@ -43,7 +43,9 @@ $language = array(
     'notices' => 'Noticias',
     'no_notices' => 'No hay noticias.',
     'email_errors_logged' => 'Se han registrado los errores de correo electrónico',
+    
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Ajustes',
     'general_settings' => 'Ajustes generales',
     'sitename' => 'Nombre del sitio',

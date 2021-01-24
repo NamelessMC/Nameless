@@ -45,6 +45,7 @@ $language = array(
     'email_errors_logged' => 'Błędy email zostały zapisane. Kliknij <a href="{x}">tutaj</a> aby je zobaczyć.', // Don't replace "{x}"
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Ustawienia',
     'general_settings' => 'Główne ustawienia',
     'sitename' => 'Nazwa strony',

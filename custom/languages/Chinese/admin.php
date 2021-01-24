@@ -49,6 +49,7 @@ $language = array(
     'email_errors_logged' => '電子郵件錯誤已被紀錄',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => '設置',
     'general_settings' => '基本設置',
     'sitename' => '網站名稱',
