@@ -30,15 +30,17 @@ class ListUsersEndpoint extends EndpointBase {
 
         $users = $api->getDb()->query($query)->results();
 
-        $users_array = array();
+        $users_json = array();
         foreach ($users as $user) {
-            $users_array[$user->id]['id'] = intval($user->id);
-            $users_array[$user->id]['username'] = $user->username;
-            $users_array[$user->id]['uuid'] = $user->uuid;
-            $users_array[$user->id]['banned'] = (bool) $user->banned;
-            $users_array[$user->id]['verified'] = (bool) $user->active;
+            $user_json = array();
+            $user_json['id'] = intval($user->id);
+            $user_json['username'] = $user->username;
+            $user_json['uuid'] = $user->uuid;
+            $user_json['banned'] = (bool) $user->banned;
+            $user_json['verified'] = (bool) $user->active;
+            $users_json[] = $user_json;
         }
 
-        $api->returnArray(array('users' => $users_array));
+        $api->returnArray(array('users' => $users_json));
     }
 }
