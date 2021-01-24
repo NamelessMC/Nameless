@@ -265,7 +265,7 @@ class RegisterEndpoint extends EndpointBase {
                 return array('user_id' => $user_id);
             }
         } catch (Exception $e) {
-            $api->throwError(13, $api->getLanguage()->get('api', 'unable_to_create_account'));
+            $api->throwError(13, $api->getLanguage()->get('api', 'unable_to_create_account'), $e->getMessage());
         }
     }
 }

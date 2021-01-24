@@ -213,10 +213,11 @@ class Log {
      */
     public function log($action, $info = '', $user = null, $ip = null) {
         $userTemp = new User();
-        if (!$ip) {
-            $ip = $userTemp->getIP();
-            if (!$user) $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
+        $ip = $userTemp->getIP();
+        if ($user == null) {
+            $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
         }
+
         return $this->_db->insert('logs', array(
             'time' => date('U'),
             'action' => $action,
