@@ -45,7 +45,7 @@ $language = array(
     'email_errors_logged' => 'Были зарегистрированы ошибки электронной почты',
 
     // Core
-    'mode_toggle' => 'Dark/Light Mode',
+    'mode_toggle' => 'Светлая тема',
     'settings' => 'Настройки',
     'general_settings' => 'Общие настройки',
     'sitename' => 'Название сайта',
@@ -349,9 +349,9 @@ $language = array(
     'view_all_panel_templates' => 'Выбрать новый шаблон',
     'template_outdated' => 'Мы обнаружили, что ваш шаблон предназначен для Nameless версии {x}, но вы используете Nameless версии {y}', // Don't replace "{x}" or "{y}"
     'template_not_supported' => 'В NamelessMC 2.0.0-pr8 удалён шаблон Default. Рекомендуем использовать шаблон, который был подготовлен к этому обновлению.',
-    'active' => 'Активировать',
-    'deactivate' => 'Деактивировать',
-    'activate' => 'Активный',
+    'active' => 'Активный',
+    'deactivate' => 'Отключить',
+    'activate' => 'Активировать',
     'warning_editing_default_template' => 'Внимание! Рекомендуется не редактировать шаблон по умолчанию.',
     'images' => 'Изображения',
     'upload_new_image' => 'Загрузить новое изображение',
