@@ -45,7 +45,7 @@ $language = array(
     'email_errors_logged' => 'Błędy email zostały zapisane. Kliknij <a href="{x}">tutaj</a> aby je zobaczyć.', // Don't replace "{x}"
 
     // Core
-    'mode_toggle' => 'Dark/Light Mode',
+    'mode_toggle' => 'Ciemny/Jasny Tryb',
     'settings' => 'Ustawienia',
     'general_settings' => 'Główne ustawienia',
     'sitename' => 'Nazwa strony',
@@ -80,14 +80,14 @@ $language = array(
     'discord_widget_theme' => 'Styl widgetu Discord',
     'discord_id_length' => 'Sprawdź czy twoje ID Serwera Discord ma 18 znaków.',
     'discord_id_numeric' => 'Sprawdź czy twoje ID Discord ma odpowiednią ilość znaków (Tylko numery).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
-    'discord_bot_setup' => 'Bot Setup',
-    'discord_integration_not_setup' => 'Discord Integration is not setup',
+    'discord_invite_info' => 'Aby zaprosić bota kliknij <a target="_blank" href="https://namelessmc.com/discord-bot-invite">tutaj</a>. Następnie napisz do Bota <code>!apiurl</code>. Możesz również <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">hostować bota samemu</a>.',
+    'discord_bot_must_be_setup' => 'Nie można włączyć integracji Discord dopóki dobrze jej nie skonfigurujesz, zobacz <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">ten artykuł</a>.',
+    'discord_bot_setup' => 'Konfiguracja Bota',
+    'discord_integration_not_setup' => 'Integracja Discord nie jest włączona',
     'dark' => 'Ciemny',
     'light' => 'Jasny',
     'google_plus_url' => 'URL Google Plus',
-    'facebook_url' => 'URL Facebook ',
+    'facebook_url' => 'URL Facebooka',
     'social_media_settings_updated' => 'Ustwanienia social mediów zostały zaktualizowane.',
     'successfully_updated' => 'Pomyślnie zaktualizowano',
     'debugging_and_maintenance' => 'Debugowanie i konserwacja',
