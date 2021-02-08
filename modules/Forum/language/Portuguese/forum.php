@@ -2,13 +2,13 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
- *  Portuguese Language for Forum module
- *  Translation By dasilvaj4
- *  Last Update: 11/04/2018
+ *  Portuguese language for Forum module
+ *  Fully translated by 1bproduções
+ *  Last update: 09/02/2021
  */
 
 $language = array(
@@ -19,32 +19,32 @@ $language = array(
     'forums' => 'Fóruns',
     'forum_index' => 'Início',
     'no_users_online' => 'Nenhum usuário online.',
-    'online_users' => 'Usuários on-line',
+    'online_users' => 'Usuários online',
     'discussion' => 'Discussão',
     'topic' => 'Tópico',
     'stats' => 'Estatísticas',
-    'topics' => 'tópicos',
-    'views' => 'visualizações',
-    'posts' => 'posts',
-    'x_posts' => '{x} posts', // Don't replace {x}
-    'x_topics' => '{x} tópicos', // Don't replace {x}
-    'registered_x' => 'Entrou: {x}', // Don't replace {x}
+    'topics' => 'Tópicos',
+    'views' => 'Visualizações',
+    'posts' => 'Postagens',
+    'x_posts' => '{x} postagens', // Não altere o valor: {x}
+    'x_topics' => '{x} tópicos', // Não altere o valor: {x}
+    'registered_x' => 'Entrou: {x}', // Não altere o valor: {x}
     'by' => 'por',
     'in' => 'em',
     'last_reply' => 'Última resposta',
     'latest_discussions' => 'Últimas discussões',
-    'users_registered' => '<strong>Usuários registrados:</strong> {x}', // Don't replace "{x}"
-    'latest_member' => '<strong>Membro mais recente:</strong> {x}', // Don't replace "{x}"
+    'users_registered' => '<strong>Usuários registrados:</strong> {x}', // Não altere o valor: "{x}"
+    'latest_member' => '<strong>Membro mais recente:</strong> {x}', // Não altere o valor: "{x}"
     'subforums' => 'Sub-fóruns',
     'subforum' => 'Sub-fórum',
     'no_topics' => 'Nenhum tópico foi criado ainda.',
     'no_topics_short' => 'Sem tópicos',
     'new_topic' => 'Novo tópico',
-    'post_successful' => 'Post bem sucedida.',
-    'post_edited_successfully' => 'Post editado com sucesso.',
-    'user_tag' => 'Você foi marcado em um post.',
-    'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace "{x}"
-    'creating_topic_in_x' => 'Criando tópico em {x}', // Don't replace "{x}"
+    'post_successful' => 'Postagem bem sucedida.',
+    'post_edited_successfully' => 'Postagem editada com sucesso.',
+    'user_tag' => 'Você foi marcado em uma publicação.',
+    'user_tag_info' => 'Você foi marcado em uma postagem por {x}.', // Não altere o valor: "{x}"
+    'creating_topic_in_x' => 'Criando tópico em {x}', // Não altere o valor: "{x}"
     'topic_title' => 'Título do tópico',
     'new_reply' => 'Nova resposta',
     're' => 'RE: ',
@@ -57,7 +57,7 @@ $language = array(
     'merge_instructions' => 'O thread para mesclar com outro <strong>deve</strong> estar dentro do mesmo fórum. Mova o thread, se necessário.',
     'confirm_delete_short' => 'Confirmar exclusão',
     'confirm_delete_topic' => 'Tem certeza de que deseja excluir este tópico?',
-    'confirm_delete_post' => 'Tem certeza de que deseja excluir este post?',
+    'confirm_delete_post' => 'Tem certeza de que deseja excluir esta postagem?',
     'delete_topic' => 'Excluir tópico',
     'move_topic' => 'Mover tópico',
     'move_topic_to' => 'Mover tópico para:',
@@ -68,7 +68,7 @@ $language = array(
     'share_facebook' => 'Compartilhe no Facebook',
     'edit' => 'Editar',
     'edit_post' => 'Editar post',
-    'last_edited' => 'Última edição: {x}', // Don't replace "{x}"
+    'last_edited' => 'Última edição: {x}', // Não altere o valor: "{x}"
     'quote' => 'Citar',
     'topic_locked_notice' => 'Este tópico está trancado, mas suas permissões permitem que você crie uma resposta.',
     'title_required' => 'Por favor insira um título no tópico',
@@ -78,31 +78,31 @@ $language = array(
     'content_min_2' => 'O conteúdo da sua postagem deve ter no mínimo dois caracteres',
     'content_max_50000' => 'O conteúdo da sua postagem não deve ter mais de 50000 caracteres',
     'post_already_reported' => 'Você já reportou esta postagem!',
-    'quoted_post' => 'Post adicionado aos posts citados.',
-    'removed_quoted_post' => 'Post removido de posts citados.',
+    'quoted_post' => 'Postagem adicionada aos posts citados.',
+    'removed_quoted_post' => 'Postagem removida dos posts citados.',
     'insert_quotes' => 'Insert Quotes',
     'quoting_posts' => 'Inserindo citações..',
-    'error_quoting_posts' => 'Desculpe, houve um erro citando esses posts.',
-    'error_rating_post' => 'Desculpe, houve um erro de classificação do post.',
+    'error_quoting_posts' => 'Desculpe, houve um erro citando essas postagens.',
+    'error_rating_post' => 'Desculpe, houve um erro de classificação da postagem.',
     'topic_stuck' => 'Tópico foi preso.',
     'topic_unstuck' => 'Tópico foi solto.',
     'spam_wait' => 'Aguarde {x} segundos antes de postar novamente.',
     'overview' => 'Visão geral',
     'no_label' => 'Nenhum rótulo',
     'forum_redirect_warning' => 'Aviso: você está prestes a sair deste site! Tem certeza de que deseja prosseguir para {x}?',
-    'follow' => 'Follow',
-    'unfollow' => 'Unfollow',
-    'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
-    'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
-    'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Started by {x}', // Don't replace {x}
-    'sticky_topics' => 'Sticky Topics',
+    'follow' => 'Seguir',
+    'unfollow' => 'Deixar de seguir',
+    'now_following_topic' => 'Agora você está seguindo este tópico e será notificado de qualquer nova resposta.',
+    'no_longer_following_topic' => 'Você não está mais seguindo este tópico e não será notificado de novas respostas.',
+    'new_reply_in_topic' => '{x} respondeu ao tópico {y}', // Não altere o valor: {x} (username) ou {y} (topic title)
+    'started_by_x' => 'Iniciado por {x}', // Não altere o valor: {x}
+    'sticky_topics' => 'Tópicos fixos',
     
-    // Homepage
+    // Página principal
     'latest_announcements' => 'Últimos anúncios',
-    'read_full_post' => 'Ler post completo',
+    'read_full_post' => 'Ler postagem completa',
     
-    // Admin tab
+    // Administração
     'labels' => 'Rótulos',
     'new_forum' => '<i class="fa fa-plus-circle"></i> Novo fórum',
     'new_label' => '<i class="fa fa-plus-circle"></i> Nova etiqueta',
@@ -125,10 +125,10 @@ $language = array(
     'no_label_types_defined' => 'Nenhum tipo de rótulo foi definido ainda.',
     'label_edit_success' => 'Rótulo com sucesso editado.',
     'label_type_edit_success' => 'Tipo de rótulo editado com êxito.',
-    'label_creation_success' => 'Label criado com êxito.',
+    'label_creation_success' => 'Rótulo criado com êxito.',
     'label_type_creation_success' => 'Tipo de rótulo criado com êxito.',
     'label_creation_error' => 'Erro ao criar um rótulo. Por favor, certifique-se de que o nome não tem mais de 32 caracteres e que você especificou um tipo.',
-    'label_type_creation_error' => 'Erro ao criar um tipo de rótulo. Por favor, certifique-se de que o nome não tem mais de 32 caracteres e que o HTML não é mais de 1024 caracteres.',
+    'label_type_creation_error' => 'Erro ao criar um tipo de rótulo. Por favor, certifique-se de que o nome não tem mais de 32 caracteres e que o HTML não possui mais de 1024 caracteres.',
     'creating_forum' => 'Criando novo fórum',
     'forum_name' => 'Nome do fórum',
     'forum_description' => 'Descrição do fórum',
@@ -136,16 +136,16 @@ $language = array(
     'move_topics_and_posts_to' => 'Mover tópicos e mensagens para',
     'delete_topics_and_posts' => 'Excluir tópicos e Posts',
     'forum_permissions' => 'Permissões do fórum',
-    'select_a_parent_forum' => 'Selecione um fórum pai',
-    'parent_forum' => 'Fórum pai',
-    'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
-    'has_no_parent' => 'Nenhum pai',
+    'select_a_parent_forum' => 'Selecione um fórum referência',
+    'parent_forum' => 'Fórum referência',
+    'parent_forum_x' => 'Fórum referência: {x}', // Não altere o valor: {x}
+    'has_no_parent' => 'Nenhuma referência',
     'guests' => 'Visitante',
     'group' => 'Grupo',
     'can_view_forum' => 'Pode ver Fórum?',
     'can_view_other_topics' => 'Pode ver os tópicos de outros usuários?',
     'can_create_topic' => 'Pode criar tópicos?',
-    'can_edit_topic' => 'Can edit their topics?',
+    'can_edit_topic' => 'Podem editar seus tópicos?',
     'can_post_reply' => 'Pode criar respostas?',
     'can_moderate_forum' => 'Pode moderar o forum?',
     'display_topics_as_news' => 'Exibir tópicos como notícias na primeira página?',
@@ -157,7 +157,7 @@ $language = array(
     'input_forum_description' => 'Por favor, insira uma descrição do fórum.',
     'forum_name_minimum' => 'O nome do fórum deve ter no mínimo 2 caracteres.',
     'forum_description_minimum' => 'A descrição do fórum deve ter no mínimo 2 caracteres.',
-    'forum_name_maximum' => 'O nome do fórum deve ser um máximo de 150 caracteres.',
+    'forum_name_maximum' => 'O nome do fórum deve ser um máximo 150 caracteres.',
     'forum_description_maximum' => 'A descrição do fórum deve ser um máximo de 255 caracteres.',
     'forum_type' => 'Tipo de fórum',
     'forum_type_forum' => 'Fórum',
@@ -167,51 +167,51 @@ $language = array(
     'redirect_forum' => 'Redirecionar Fórum?',
     'redirect_url' => 'URL de redirecionamento',
     'invalid_redirect_url' => 'Você habilitou o redirecionamento do fórum, mas você não digitou uma URL válida entre 1 e 512 caracteres.',
-    'forum_icon' => 'Forum Icon',
-    'forum_icon_maximum' => 'The forum icon must be a maximum of 256 characters.',
-    'settings_updated_successfully' => 'Settings updated successfully.',
-    'forum_updated_successfully' => 'Forum updated successfully.',
-    'forum_deleted_successfully' => 'Forum deleted successfully.',
-    'label_deleted_successfully' => 'Label deleted successfully.',
-    'label_type_deleted_successfully' => 'Label type deleted successfully.',
-    'topic_placeholder' => 'Topic placeholder',
-    'default_labels' => 'Default Labels',
-    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
+    'forum_icon' => 'Icone do fórum',
+    'forum_icon_maximum' => 'O ícone do fórum deve ter no máximo 256 caracteres.',
+    'settings_updated_successfully' => 'Configurações atualizadas com sucesso.',
+    'forum_updated_successfully' => 'Fórum atualizado com sucesso.',
+    'forum_deleted_successfully' => 'Fórum excluído com sucesso.',
+    'label_deleted_successfully' => 'Etiqueta excluída com sucesso.',
+    'label_type_deleted_successfully' => 'Tipo de etiqueta excluído com sucesso.',
+    'topic_placeholder' => 'Placeholder do tópico',
+    'default_labels' => 'Rótulos padrão',
+    'default_labels_info' => 'Eles serão atribuídos a um novo tópico no fórum, a menos que sejam substituídos durante a criação do tópico. Ctrl + Clique para selecionar vários.',
 
-    // Search
+    // Pesquisa
     'forum_search' => 'Pesquisa no Fórum',
-    'search_again_in_x_seconds' => 'Por favor, aguarde {x} segundos antes de pesquisar novamente.',
+    'search_again_in_x_seconds' => 'Por favor, aguarde {x} segundos para pesquisar novamente.',
     'search_results' => 'Resultados da pesquisa',
     'new_search' => 'Nova pesquisa',
     'invalid_search_query' => 'Por favor insira uma consulta de pesquisa entre 3 e 128 caracteres.',
     'no_results_found' => 'Nenhum resultado encontrado.',
     
-    // Profile tab
+    // Perfil
     'user_no_posts' => 'Este usuário ainda não fez nenhum post no fórum.',
-    'latest_posts' => 'Últimos posts',
+    'latest_posts' => 'Últimas postagens',
 
     // UserCP
-    'last_7_days_posts' => 'Posts no fórum (últimos 7 dias)',
+    'last_7_days_posts' => 'Postagens no fórum (últimos 7 dias)',
     'your_posts' => 'Quantidade de postagens',
     'average_posts' => 'Quantidade média de postagens de usuários',
     'total_posts' => 'Total de postagens',
-    'following_topics' => 'Followed Topics',
-    'unfollow_all_topics' => 'Unfollow All Topics',
-    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
-    'all_topics_unfollowed' => 'All topics have been unfollowed.',
-    'not_following_any_topics' => 'You are not following any topics.',
+    'following_topics' => 'Tópicos Seguidos',
+    'unfollow_all_topics' => 'Deixar de seguir todos os tópicos',
+    'confirm_unfollow_all_topics' => 'Tem certeza de que deseja parar de seguir todos os tópicos?',
+    'all_topics_unfollowed' => 'Todos os tópicos deixaram de ser seguidos.',
+    'not_following_any_topics' => 'Você não está seguindo nenhum tópico.',
 
     // Hooks
     'new_topic_hook_info' => 'Novo tópico',
-    'new_topic_text' => 'Tópico criado em {x} por {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
-    'include_in_hook' => 'Include new topics from this forum in webhooks?',
-    'available_hooks' => 'Available Hooks',
+    'new_topic_text' => 'Tópico criado em {x} por {y}', // Não altere o valor: {x} (forum name), optional variable {y} (topic author)
+    'include_in_hook' => 'Incluir novos tópicos deste fórum nas webhooks?',
+    'available_hooks' => 'Hooks disponíveis',
 
-    // Panel statistics
-    'recent_topics' => 'Recent Topics',
+    // Painel de estatisticas
+    'recent_topics' => 'Tópicos recentes',
     'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
-    'recent_posts' => 'Recent Posts',
+    'recent_posts' => 'Postagens recentes',
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
-    'topics_title' => 'Topics',
-    'posts_title' => 'Posts',
+    'topics_title' => 'Tópicos',
+    'posts_title' => 'Postagens',
 );
