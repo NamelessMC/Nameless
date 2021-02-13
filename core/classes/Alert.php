@@ -37,6 +37,21 @@ class Alert {
             }
         }
     }
+    
+    public static function createWithoutLanguage($user_id, $type, $text_short, $text, $link = '#') {
+        $db = DB::getInstance();
+        if (!$db->insert('alerts', array(
+           'user_id' => $user_id,
+           'type' => $type,
+           'url' => $link,
+           'content_short' => $text_short,
+           'content' => $text,
+           'created' => date('U')
+        ))) {
+            throw new Exception('There was a problem creating an alert.');
+      }
+    }
+
 
     // Get user alerts
     // Params: 	$user_id (int)		     - contains the ID of the user who we are getting alerts for
