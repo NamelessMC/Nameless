@@ -60,6 +60,8 @@ $language = array(
     'x_reopened_report' => '{x} a rouvert ce signalement.', // Don't replace {x} (username)
     'report_reopened' => 'Signalement rouvert avec succès.',
     'report_closed' => 'Signalement clos avec succès.',
+    'report_cannot_close' => 'You cannot close this report 2x',
+    'report_cannot_open' => 'You cannot open this report 2x',
     'comment_created' => 'Commentaire créer avec succès.',
 
     // Punishments
