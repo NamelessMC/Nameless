@@ -34,7 +34,6 @@ $language = array(
   'unable_to_find_group' => 'Nepavyko rasti grupės',
   'unable_to_update_group' => 'Nepavyko atnaujinti vartotojo grupės',
   'report_content_too_long' => 'Turinio ataskaita turi būti 255 ar mažiau simbolių',
-  'you_must_register_to_report' => 'Jūs turite užsiregistruoti mūsų svetainėje, kad galėtumėte kurti ataskaitą',
   'cannot_report_yourself' => 'You cannot report yourself.',
   'you_have_been_banned_from_website' => 'Jūs esate użblokuotas svetainėje',
   'you_have_open_report_already' => 'Jūs jau turite atvirą ataskaitą apie šį žaidėją',
@@ -52,7 +51,7 @@ $language = array(
   'unable_to_update_discord_username' => 'Unable to update Discord username.',
   'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
   'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
-    
+
   // Success messages
   'finish_registration_link' => 'Norėdami užpildyti registraciją, paspauskite šią nuorodą:',
   'finish_registration_email' => 'Patikrinkite savo el. paštą, kad užbaigtumėte registraciją.',

@@ -33,7 +33,6 @@ $language = array(
     'unable_to_find_group' => 'Kon groep niet vinden',
     'unable_to_update_group' => 'Kon gebruikersgroep niet bijwerken',
     'report_content_too_long' => 'De inhoud van het rapport mag maximaal 255 karakters of minder bevatten',
-    'you_must_register_to_report' => 'Je moet registreren via onze website om een rapport te kunnen maken',
     'cannot_report_yourself' => 'You cannot report yourself.',
     'you_have_been_banned_from_website' => 'Je bent verbannen van de website',
     'you_have_open_report_already' => 'Je hebt al een rapport open staan over deze speler',
@@ -51,7 +50,7 @@ $language = array(
     'unable_to_update_discord_username' => 'Unable to update Discord username.',
     'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
     'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
-    
+
     // Success messages
     'finish_registration_link' => 'Klik alstublieft op de volgende link om de registratie te voltooien:',
     'finish_registration_email' => 'Bekijkt u alstublieft uw email om de registratie te voltooien.',

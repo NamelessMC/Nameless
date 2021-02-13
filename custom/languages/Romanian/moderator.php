@@ -62,6 +62,8 @@ $language = array(
     'x_reopened_report' => '{x} a redeschis acest raport.', // Don't replace {x} (username)
     'report_reopened' => 'Raportul a fost redeschis cu succes.',
     'report_closed' => 'Raportul a fost închis cu succes.',
+    'report_cannot_close' => 'You cannot close this report 2x',
+    'report_cannot_open' => 'You cannot open this report 2x',
     'comment_created' => 'Comentariul a fost adăugat cu succes.',
 
     // Punishments

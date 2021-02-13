@@ -60,6 +60,8 @@ $language = array(
     'x_reopened_report' => '{x} переоткрыл эту жалобу.', // Don't replace {x} (username)
     'report_reopened' => 'Жалоба успешно переоткрыта.',
     'report_closed' => 'Жалоба успешно закрыта.',
+    'report_cannot_close' => 'You cannot close this report 2x',
+    'report_cannot_open' => 'You cannot open this report 2x',
     'comment_created' => 'Комментарий успешно оставлен.',
 
     // Punishments

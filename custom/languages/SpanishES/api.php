@@ -33,7 +33,6 @@ $language = array(
     'unable_to_find_group' => 'No se ha podido encontrar ese grupo.',
     'unable_to_update_group' => 'No se ha podido actualizar el grupo de ese usuario.',
     'report_content_too_long' => 'El contenido del reporte debe tener 255 carácteres o menos.',
-    'you_must_register_to_report' => 'Debe registrarse para poder reportar a un usuario.',
     'you_have_been_banned_from_website' => 'Ha sido baneado del foro.',
     'you_have_open_report_already' => 'Ya tiene un informe abierto con respecto a este usuario.',
     'cannot_report_yourself' => 'You cannot report yourself.',
@@ -51,7 +50,7 @@ $language = array(
     'unable_to_update_discord_username' => 'Unable to update Discord username.',
     'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
     'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
-    
+
     // Success messages
     'finish_registration_link' => 'Haga clic en el siguiente enlace para confirmar su registro:',
     'finish_registration_email' => 'Revise su correo electrónico para confirmar el registro.',

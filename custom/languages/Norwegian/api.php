@@ -33,7 +33,6 @@ $language = array(
     'unable_to_find_group' => 'Kunne ikke finne gruppe',
     'unable_to_update_group' => 'Kunne ikke oppdatere brukerens gruppe',
     'report_content_too_long' => 'Rapporten må inneholde mindre enn 255 tegn',
-    'you_must_register_to_report' => 'Du må registrere deg for å kunne rapportere',
     'you_have_been_banned_from_website' => 'Du har blitt bannlyst fra nettsiden',
     'you_have_open_report_already' => 'Du har allerede en åpen rapportering angående denne spilleren',
     'cannot_report_yourself' => 'Du kan ikke rapportere deg selv.',
@@ -51,7 +50,7 @@ $language = array(
     'unable_to_update_discord_username' => 'Kunne ikke oppdatere Discord-brukernavn.',
     'unable_to_update_discord_roles' => 'Kunne ikke oppdatere Discord-rolleliste.',
     'unable_to_update_discord_bot_username' => 'Kunne ikke oppdatere Discord-botbrukernavn.',
-    
+
     // Success messages
     'finish_registration_link' => 'Vennligst klikk på følgende lenke for å fullføre registeringen:',
     'finish_registration_email' => 'Vennligst sjekk innboksen din for å fullføre registeringen.',

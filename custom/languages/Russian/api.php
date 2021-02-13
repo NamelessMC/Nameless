@@ -33,7 +33,6 @@ $language = array(
     'unable_to_find_group' => 'Не удалось найти группу',
     'unable_to_update_group' => 'Невозможно обновить группу пользователей',
     'report_content_too_long' => 'Жалоба должна содержать не более 255 символов',
-    'you_must_register_to_report' => 'Вы должны зарегистрироваться на нашем сайте, чтобы иметь возможность отправить жалобу',
     'cannot_report_yourself' => 'Вы не можете пожаловаться на самого себя.',
     'you_have_been_banned_from_website' => 'Вы были забанены на сайте',
     'you_have_open_report_already' => 'У вас уже есть открытая жалоба на этого игрока',
@@ -51,7 +50,7 @@ $language = array(
     'unable_to_update_discord_username' => 'Не удалось обновить никнеймы в Discord.',
     'unable_to_update_discord_roles' => 'Не удалось обновить роли в Discord.',
     'unable_to_update_discord_bot_username' => 'Не удалось обновить никнейм бота в Discord.',
-    
+
     // Success messages
     'finish_registration_link' => 'Пожалуйста, нажмите на следующую ссылку, чтобы завершить регистрацию:',
     'finish_registration_email' => 'Пожалуйста, проверьте свою электронную почту, чтобы завершить регистрацию.',
