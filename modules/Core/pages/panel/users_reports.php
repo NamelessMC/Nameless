@@ -1,3 +1,4 @@
+
 <?php
 /*
  *	Made by Samerton
@@ -285,24 +286,29 @@ if (!isset($_GET['id'])) {
                 // Get report
                 $report = $queries->getWhere('reports', array('id', '=', $_GET['id']));
                 if (count($report)) {
-                    $queries->update('reports', $report[0]->id, array(
-                        'status' => 1,
-                        'date_updated' => date('Y-m-d H:i:s'),
-                        'updated' => date('U'),
-                        'updated_by' => $user->data()->id
-                    ));
+                    if($report[0]->status == 0){
+                        $queries->update('reports', $report[0]->id, array(
+                            'status' => 1,
+                            'date_updated' => date('Y-m-d H:i:s'),
+                            'updated' => date('U'),
+                            'updated_by' => $user->data()->id
+                        ));
 
-                    $queries->create('reports_comments', array(
-                        'report_id' => $report[0]->id,
-                        'commenter_id' => $user->data()->id,
-                        'comment_date' => date('Y-m-d H:i:s'),
-                        'date' => date('U'),
-                        'comment_content' => str_replace('{x}', Output::getClean($user->data()->username), $language->get('moderator', 'x_closed_report'))
-                    ));
+                        $queries->create('reports_comments', array(
+                            'report_id' => $report[0]->id,
+                            'commenter_id' => $user->data()->id,
+                            'comment_date' => date('Y-m-d H:i:s'),
+                            'date' => date('U'),
+                            'comment_content' => str_replace('{x}', Output::getClean($user->data()->username), $language->get('moderator', 'x_closed_report'))
+                        ));
+                        Session::flash('report_success', $language->get('moderator', 'report_closed'));
+                        Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
+                    } else {
+
+                        Session::flash('report_failure', "You cannot close this report 2x");
+                        Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
+                    }
                 }
-
-                Session::flash('report_success', $language->get('moderator', 'report_closed'));
-                Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
                 die();
             }
 
@@ -314,24 +320,29 @@ if (!isset($_GET['id'])) {
                 // Get report
                 $report = $queries->getWhere('reports', array('id', '=', $_GET['id']));
                 if (count($report)) {
-                    $queries->update('reports', $report[0]->id, array(
-                        'status' => 0,
-                        'date_updated' => date('Y-m-d H:i:s'),
-                        'updated' => date('U'),
-                        'updated_by' => $user->data()->id
-                    ));
+                    if($report[0]->status == 1){
+                        $queries->update('reports', $report[0]->id, array(
+                            'status' => 0,
+                            'date_updated' => date('Y-m-d H:i:s'),
+                            'updated' => date('U'),
+                            'updated_by' => $user->data()->id
+                        ));
 
-                    $queries->create('reports_comments', array(
-                        'report_id' => $report[0]->id,
-                        'commenter_id' => $user->data()->id,
-                        'comment_date' => date('Y-m-d H:i:s'),
-                        'date' => date('U'),
-                        'comment_content' => str_replace('{x}', Output::getClean($user->data()->username), $language->get('moderator', 'x_reopened_report'))
-                    ));
+                        $queries->create('reports_comments', array(
+                            'report_id' => $report[0]->id,
+                            'commenter_id' => $user->data()->id,
+                            'comment_date' => date('Y-m-d H:i:s'),
+                            'date' => date('U'),
+                            'comment_content' => str_replace('{x}', Output::getClean($user->data()->username), $language->get('moderator', 'x_reopened_report'))
+                        ));
+                        Session::flash('report_success', $language->get('moderator', 'report_reopened'));
+                        Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
+                    } else {
+
+                        Session::flash('report_failure', "You cannot open this report 2x");
+                        Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
+                    }
                 }
-
-                Session::flash('report_success', $language->get('moderator', 'report_reopened'));
-                Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
                 die();
             }
 
@@ -349,6 +360,15 @@ Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mo
 
 if (Session::exists('report_success'))
     $success = Session::flash('report_success');
+
+if (Session::exists('report_failure'))
+    $failure = Session::flash('report_failure');
+
+if (isset($failure))
+    $smarty->assign(array(
+        'ERRORS' => $failure,
+        'ERRORS_TITLE' => $language->get('general', 'error')
+    ));
 
 if (isset($success))
     $smarty->assign(array(
