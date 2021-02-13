@@ -305,7 +305,7 @@ if (!isset($_GET['id'])) {
                         Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
                     } else {
 
-                        Session::flash('report_failure', "You cannot close this report 2x");
+                        Session::flash('report_failure', $language->get('moderator', 'report_cannot_close'));
                         Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
                     }
                 }
@@ -339,7 +339,7 @@ if (!isset($_GET['id'])) {
                         Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
                     } else {
 
-                        Session::flash('report_failure', "You cannot open this report 2x");
+                        Session::flash('report_failure', $language->get('moderator', 'report_cannot_open'));
                         Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
                     }
                 }
