@@ -33,7 +33,6 @@ $language = array(
     'unable_to_find_group' => 'Grup bulunamadı!',
     'unable_to_update_group' => 'Kullanıcının grubu güncellenemiyor',
     'report_content_too_long' => 'Rapor içeriği 255 karakter veya daha az olmalıdır',
-    'you_must_register_to_report' => 'Rapor oluşturabilmek için web sitemize kayıt olmalısınız',
     'you_have_been_banned_from_website' => 'Web sitesinden yasaklandınız',
     'you_have_open_report_already' => 'Bu oyuncu hakkında zaten açık bir raporun var',
     'cannot_report_yourself' => 'You cannot report yourself.',
@@ -51,7 +50,7 @@ $language = array(
     'unable_to_update_discord_username' => 'Unable to update Discord username.',
     'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
     'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
-    
+
     // Success messages
     'finish_registration_link' => 'Kaydı tamamlamak için lütfen aşağıdaki bağlantıyı tıklayın:',
     'finish_registration_email' => 'Kaydı tamamlamak için lütfen e-postalarınızı kontrol edin.',

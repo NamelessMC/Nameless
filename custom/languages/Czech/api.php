@@ -33,7 +33,6 @@ $language = array (
     'unable_to_find_group' => 'Nepodařilo se nalézt skupinu',
     'unable_to_update_group' => 'Nepodařilo se aktualizovat skupinu uživatele',
     'report_content_too_long' => 'Obsah nahlášení může mít maximálně 255 znaků',
-    'you_must_register_to_report' => 'Pro vytvoření nahlášení musíte být zaregistrováni na našem webu',
     'you_have_been_banned_from_website' => 'Byli jste zabanováni z našeho webu',
     'you_have_open_report_already' => 'Již máte otevřené nahlášení ohledně tohoto hráče',
     'unable_to_create_report' => 'Nepodařilo se vytvořit nahlášení',

@@ -26,7 +26,7 @@ class CreateReportEndpoint extends EndpointBase {
         // Ensure user reporting has website account, and has not been banned
         $user_reporting = $api->getDb()->get('users', array('id', '=', Output::getClean($_POST['reporter'])));
         if (!$user_reporting->count()) {
-            $api->throwError(20, $api->getLanguage()->get('api', 'you_must_register_to_report'));
+            $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
         }
 
         $user_reporting = $user_reporting->first();
@@ -35,13 +35,13 @@ class CreateReportEndpoint extends EndpointBase {
         }
 
         // See if reported user exists
-        $user_reported = $api->getDb()->get('users', array('username', '=', Output::getClean($_POST['reported'])));
+        $user_reported = $api->getDb()->get('users', array('id', '=', Output::getClean($_POST['reported'])));
         if (!$user_reported->count()) {
             $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
         }
-        $user_reported = $user_reported->first()->id;
+        $user_reported = $user_reported->first();
 
-        if ($user_reporting->id == $user_reported) {
+        if ($user_reporting->id == $user_reported->id) {
             $api->throwError(26, $api->getLanguage()->get('api', 'cannot_report_yourself'));
         }
 
@@ -49,7 +49,7 @@ class CreateReportEndpoint extends EndpointBase {
         $user_reports = $api->getDb()->get('reports', array('reporter_id', '=', $user_reporting->id))->results();
         if (count($user_reports)) {
             foreach ($user_reports as $report) {
-                if ($report->reported_id == $user_reported && $report->status == 0) {
+                if ($report->reported_id == $user_reported->id && $report->status == 0) {
                     $api->throwError(22, $api->getLanguage()->get('api', 'you_have_open_report_already'));
                 }
             }
@@ -62,7 +62,7 @@ class CreateReportEndpoint extends EndpointBase {
                 array(
                     'type' => 0,
                     'reporter_id' => $user_reporting->id,
-                    'reported_id' => $user_reported,
+                    'reported_id' => $user_reported->id,
                     'date_reported' => date('Y-m-d H:i:s'),
                     'date_updated' => date('Y-m-d H:i:s'),
                     'report_reason' => Output::getClean($_POST['content']),

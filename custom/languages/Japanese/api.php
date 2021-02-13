@@ -39,7 +39,6 @@ $language = array(
     'unable_to_update_group' => 'ユーザーのグループを更新できませんでした。',
     'report_content_too_long' => 'レポートの内容は <strong>255文字</strong>　以内にする必要があります。',
     'cannot_report_yourself' => 'You cannot report yourself.',
-    'you_must_register_to_report' => 'レポートを送信するには、サイトにてアカウントを作成する必要があります。',
     'you_have_been_banned_from_website' => 'あなたはウェブサイトにてアカウントがロックされています。',
     'you_have_open_report_already' => '既に指定されたプレイヤーのレポートが存在します。',
     'unable_to_create_report' => 'レポートを作成できませんでした。',
@@ -56,7 +55,7 @@ $language = array(
     'unable_to_update_discord_username' => 'Unable to update Discord username.',
     'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
     'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
-    
+
     // Success messages
     'finish_registration_link' => '登録を完了するには次のリンクをクリックしてください:',
     'finish_registration_email' => '登録を完了するにはメールを確認して処理を完了してください。',

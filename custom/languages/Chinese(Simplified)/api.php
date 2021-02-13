@@ -35,7 +35,6 @@ $language = array(
     'unable_to_find_group' => '未能找到权限组',
     'unable_to_update_group' => '未能找到用户的权限组',
     'report_content_too_long' => '报告内容必须少于 255 个字符',
-    'you_must_register_to_report' => '您必须在我们的网站上注册才能反馈',
     'you_have_been_banned_from_website' => '您已被我们的网站封禁',
     'cannot_report_yourself' => '您不能举报您自己。',
     'you_have_open_report_already' => '您已经有一篇关于该玩家的公开反馈',
@@ -53,7 +52,7 @@ $language = array(
     'unable_to_update_discord_username' => 'Unable to update Discord username.',
     'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
     'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
-    
+
     // Success messages
     'finish_registration_link' => '请点击该链接以完成注册:',
     'finish_registration_email' => '请检查电子邮箱地址以完成注册.',

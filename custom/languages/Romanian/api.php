@@ -35,7 +35,6 @@ $language = array(
     'unable_to_find_group' => 'Grupul nu a putut fi găsit',
     'unable_to_update_group' => 'Imposibil de actualizat grupul utilizatorului',
     'report_content_too_long' => 'Conținutul raportului trebuie să fie de 255 de caractere sau mai puțin',
-    'you_must_register_to_report' => 'Trebuie să vă înregistrați pe site-ul nostru pentru a putea crea un raport',
     'cannot_report_yourself' => 'You cannot report yourself.',
     'you_have_been_banned_from_website' => 'Ați fost restrictionat de pe site',
     'you_have_open_report_already' => 'Aveți deja un raport deschis asupra acest jucător',
@@ -53,7 +52,7 @@ $language = array(
     'unable_to_update_discord_username' => 'Unable to update Discord username.',
     'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
     'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
-    
+
     // Success messages
     'finish_registration_link' => 'Faceți clic pe următorul link pentru a finaliza înregistrarea:',
     'finish_registration_email' => 'Verificați-vă e-mailurile pentru a finaliza înregistrarea.',
