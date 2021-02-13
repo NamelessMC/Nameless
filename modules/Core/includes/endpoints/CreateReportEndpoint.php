@@ -24,7 +24,7 @@ class CreateReportEndpoint extends EndpointBase {
         }
 
         // Ensure user reporting has website account, and has not been banned
-        $user_reporting = $api->getDb()->get('users', array('username', '=', Output::getClean($_POST['reporter'])));
+        $user_reporting = $api->getDb()->get('users', array('id', '=', Output::getClean($_POST['reporter'])));
         if (!$user_reporting->count()) {
             $api->throwError(20, $api->getLanguage()->get('api', 'you_must_register_to_report'));
         }
