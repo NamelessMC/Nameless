@@ -65,6 +65,8 @@ $language = array(
     'x_reopened_report' => '{x}がレポートを再開しました。',// {x}（ユーザー名）
     'report_reopened' => 'レポートが正常に再開されました。',
     'report_closed' => 'レポートが正常に閉鎖されました。',
+    'report_cannot_close' => 'You cannot close this report 2x',
+    'report_cannot_open' => 'You cannot open this report 2x',
     'comment_created' => 'コメントが正常に作成されました。',
 
     // Punishments
