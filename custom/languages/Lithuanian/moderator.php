@@ -62,6 +62,8 @@ $language = array(
     'x_reopened_report' => '{x} atnaujino šią ataskaitą.', // Don't replace {x} (username)
     'report_reopened' => 'Pranešimas sėkmingai atnaujintas.',
     'report_closed' => 'Ataskaita uždaryta sėkmingai.',
+    'report_cannot_close' => 'You cannot close this report 2x',
+    'report_cannot_open' => 'You cannot open this report 2x',
     'comment_created' => 'Komentaras sėkmingai sukurtas.',
 
     // Punishments
