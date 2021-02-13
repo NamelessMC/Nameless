@@ -60,6 +60,8 @@ $language = array(
     'x_reopened_report' => '{x} reabrió este reporte.', // Don't replace {x} (username)
     'report_reopened' => 'Reporte reabrierto correctamente.',
     'report_closed' => 'Reporte cerrado correctamente.',
+    'report_cannot_close' => 'You cannot close this report 2x',
+    'report_cannot_open' => 'You cannot open this report 2x',
     'comment_created' => 'Comentario publicado.',
 
     // Punishments
