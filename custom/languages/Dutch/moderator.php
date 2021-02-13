@@ -35,7 +35,8 @@ $language = array(
     'no_users_or_ips_found' => 'Geen gebruiker of IP adressen gevonden.',
 
     // Rapporten
-    'reports' => 'Rapporteringen',
+    '
+    s' => 'Rapporteringen',
     'report_alert' => 'Nieuw rapport ingediend',
     'user_reported' => 'Gebruiker rapporteren',
     'comments' => 'Opmerkingen',
@@ -62,6 +63,8 @@ $language = array(
     'x_reopened_report' => '{x} heeft dit rapport heropend.', // Don't replace {x} (username)
     'report_reopened' => 'Rapport succesvol heropend.',
     'report_closed' => 'Rapport succesvol gesloten.',
+    'report_cannot_close' => 'You cannot close this report 2x',
+    'report_cannot_open' => 'You cannot open this report 2x',
     'comment_created' => 'Commentaar succesvol gemaakt.',
 
     // Straffen
