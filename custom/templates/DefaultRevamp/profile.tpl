@@ -36,12 +36,19 @@
 
 <div class="ui stackable grid" id="profile">
   <div class="ui centered row">
-    <div class="ui {if count($WIDGETS)}ten wide tablet twelve wide computer{else}sixteen wide{/if} column">
-      {if isset($SUCCESS)}
+      {if count($WIDGETS_LEFT)}
+          <div class="ui six wide tablet four wide computer column">
+              {foreach from=$WIDGETS_LEFT item=widget}
+                  {$widget}
+              {/foreach}
+          </div>
+      {/if}
+      <div class="ui {if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT) }four wide tablet eight wide computer{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}ten wide tablet twelve wide computer{else}sixteen wide{/if} column">      
+        {if isset($SUCCESS)}
         <div class="ui success icon message">
           <i class="check icon"></i>
           <div class="content">
-            <div class="header">{$SUCCESS_TITLE}/div>
+            <div class="header">{$SUCCESS_TITLE}</div>
             {$SUCCESS}
           </div>
         </div>
@@ -78,7 +85,7 @@
           {if count($WALL_POSTS)}
             <div class="ui threaded comments" id="profile-posts">
               {foreach from=$WALL_POSTS item=post}
-                <div class="comment">
+                <div class="comment" id="post-{$post.id}">
                   <a class="ui circular image avatar">
                     <img src="{$post.avatar}" alt="{$post.nickname}">
                   </a>
@@ -92,7 +99,9 @@
                     </div>
                     <div class="actions">
                       {if isset($LOGGED_IN_USER)}
-                        <a href="{if $post.reactions_link !== "#"}{$post.reactions_link}{else}#{/if}" data-toggle="popup">Like {if ($post.reactions.count|regex_replace:'/[^0-9]+/':'' != 0)}({$post.reactions.count|regex_replace:'/[^0-9]+/':''}){/if}</a>
+                        {if $post.user_id ne $VIEWER_ID}
+                          <a href="{if $post.reactions_link !== "#"}{$post.reactions_link}{else}#{/if}" data-toggle="popup">Like {if ($post.reactions.count|regex_replace:'/[^0-9]+/':'' != 0)}({$post.reactions.count|regex_replace:'/[^0-9]+/':''}){/if}</a>
+                       {/if}
                         <a data-toggle="modal" data-target="#modal-reply-{$post.id}">{$REPLY} {if ($post.replies.count|regex_replace:'/[^0-9]+/':'' != 0)}({$post.replies.count|regex_replace:'/[^0-9]+/':''}){/if}</a>
                       {/if}
                       {if (isset($CAN_MODERATE) && $CAN_MODERATE == 1) || $post.self == 1}
@@ -152,7 +161,7 @@
           <h3 class="ui header">{$ABOUT}</h3>
           <div class="ui relaxed list">
             <div class="item">
-              <i class="angle right icon"></i>
+              <i class="middle aligned user add icon"></i>
               <div class="middle aligned content" data-toggle="popup">
                 <div class="header">{$ABOUT_FIELDS.registered.title}</div>
                 <div class="description">{$ABOUT_FIELDS.registered.value}</div>
@@ -164,7 +173,7 @@
               </div>
             </div>
             <div class="item">
-              <i class="angle right icon"></i>
+              <i class="middle aligned clock icon"></i>
               <div class="middle aligned content" data-toggle="popup">
                 <div class="header">{$ABOUT_FIELDS.last_seen.title}</div>
                 <div class="description">{$ABOUT_FIELDS.last_seen.value}</div>
@@ -176,7 +185,7 @@
               </div>
             </div>
             <div class="item">
-              <i class="angle right icon"></i>
+              <i class="middle aligned eye icon"></i>
               <div class="middle aligned content">
                 <div class="header">{$ABOUT_FIELDS.profile_views.title}</div>
                 <div class="description">{$ABOUT_FIELDS.profile_views.value}</div>
@@ -188,7 +197,7 @@
               {foreach from=$ABOUT_FIELDS key=key item=field}
                 {if is_numeric($key)}
                   <div class="item">
-                    <i class="angle right icon"></i>
+                  <i class="middle aligned {if $field.type eq 'date'}calendar alternate{else}dot circle{/if} icon"></i>
                     <div class="middle aligned content">
                       <div class="header">{$field.title}</div>
                       <div class="description">{$field.value}</div>
@@ -218,12 +227,12 @@
         </div>
       {/if}
     </div>
-    {if count($WIDGETS)}
-      <div class="ui six wide tablet four wide computer column">
-        {foreach from=$WIDGETS item=widget}
-          {$widget}
-        {/foreach}
-      </div>
+    {if count($WIDGETS_RIGHT)}
+        <div class="ui six wide tablet four wide computer column">
+            {foreach from=$WIDGETS_RIGHT item=widget}
+                {$widget}
+            {/foreach}
+        </div>
     {/if}
   </div>
 </div>
@@ -232,9 +241,7 @@
   {foreach from=$WALL_POSTS item=post}
     {if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
       <div class="ui small modal" id="modal-edit-{$post.id}">
-        <div class="header">
-           Edit Post
-        </div>
+        <div class="header">{$EDIT_POST}</div>
         <div class="content">
           <form class="ui form" action="" method="post" id="form-edit-{$post.id}">
             <div class="field">

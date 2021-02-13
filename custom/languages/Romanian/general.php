@@ -1,8 +1,8 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -14,7 +14,8 @@
 $language = array(
     /*
      *  General terms
-     */ 
+     */
+    'help' => 'Help',
     'submit' => 'Trimite',
     'register' => 'Înregistrează-te ',
     'already_registered' => 'Deja înregistrat?',
@@ -67,7 +68,10 @@ $language = array(
     'error' => 'Eroare',
     'are_you_sure' => 'Esti sigur?',
     'spoiler' => 'Spoiler',
-
+    'invalid_timezone' => 'That timezone is invalid',
+    'link' => 'Link',
+    'unlink' => 'Unlink',
+    
     /*
      *  Contact form
      */
@@ -79,20 +83,20 @@ $language = array(
     'contact_message_email' => 'Adresa de email oferită nu este validă.',
     'contact_message_sent' => 'Mesaj trimis cu succes.',
     'contact_message_limit' => 'Puteți trimite doar un mesaj pe oră. Aveți posibilitatea să trimiteți un nou mesaj în {x} minute.', // Don't replace {x}
-    
-    /* 
+
+    /*
      *  Navbar
      */
     'home' => 'Acasă',
     'more' => 'Mai mult',
     'status' => 'Statistici',
-    
+
     /*
      *  Homepage
      */
     'social' => 'Social',
-    
-    
+
+
     /*
      *  Help dialogues
      */
@@ -142,14 +146,16 @@ $language = array(
     'discord_widget_disabled' => 'Widgetul este dezactivat pentru serverul de Discord specificat. Accesați fila \'Widget\' din setările pentru serverul de Discord și asigurați-vă că widgetul Discord este activat și că ID-ul este corect.',
     'online_guests' => 'Online Guests',
     'total_online' => 'Total Online', // this is Online Users + Online Guests
+    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+    'server_status' => 'Server Status',
 
     /*
      *  Privacy policy
      */
     'privacy_policy' => 'Politica de confidentialitate',
 
-	/*
-	 *  Custom page redirect
-	 */
-	'redirecting_message' => 'În curs de redirecționare...<br />Dacă nu ești redirecționat automat, te rog <a href="{x}" rel="nofollow noopener">apasă aici</a>.' // Don't replace {x} which is the redirect URL
+    /*
+     *  Custom page redirect
+     */
+    'redirecting_message' => 'În curs de redirecționare...<br />Dacă nu ești redirecționat automat, te rog <a href="{x}" rel="nofollow noopener">apasă aici</a>.' // Don't replace {x} which is the redirect URL
 );

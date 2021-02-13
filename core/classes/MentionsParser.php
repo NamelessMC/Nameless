@@ -7,22 +7,19 @@
  *
  * Modified by Samerton for NamelessMC
  * https://github.com/NamelessMC/Nameless/
- * NamelessMC version 2.0.0-pr6
+ * NamelessMC version 2.0.0-pr7
  */
 class MentionsParser {
-	/*
-	 *  Private variable
-	 */
-	private $_db;
-	 
+
+    private $_db;
+
     /**
      * Create a new instance of MentionsParser.
      *
      */
-    public function __construct()
-    {
-		// Initialise database connection
-		$this->_db = DB::getInstance();
+    public function __construct() {
+        // Initialise database connection
+        $this->_db = DB::getInstance();
     }
 
     /**
@@ -37,24 +34,22 @@ class MentionsParser {
      *
      * @return String parsed post content
      */
-    public function parse($author_id, $value, $link, $alert_short, $alert_full){
+    public function parse($author_id, $value, $link, $alert_short, $alert_full) {
         if(preg_match_all("/\@([A-Za-z0-9\-_!\.]+)/", $value, $matches)){
             $matches = $matches[1];
-			
+
             foreach($matches as $possible_username){
                 $user = null;
-				
+
                 while((strlen($possible_username) > 0) && !$user){
-                	$user = $this->_db->query('SELECT nl2_users.id AS id, nl2_users.username AS username, nl2_groups.group_username_css AS group_username_css FROM nl2_users LEFT JOIN nl2_groups ON nl2_users.group_id = nl2_groups.id WHERE nl2_users.nickname = ?', array($possible_username));
+                    $user = new user($possible_username, 'nickname');
 
-                    if($user->count()){
-                    	$user = $user->first();
-
-                        $value = preg_replace("/".preg_quote("@{$possible_username}", "/")."/", "<a style=\"color:" . Output::getClean($user->group_username_css) . "\" href=\"" . URL::build('/profile/' . Output::getClean($user->username)) . "\">@{$possible_username}</a>", $value);
+                    if(count($user->data())){
+                        $value = preg_replace("/".preg_quote("@{$possible_username}", "/")."/", "<a style=\"" . Output::getClean($user->getGroupClass()) . "\" href=\"" . $user->getProfileURL() . "\">@{$possible_username}</a>", $value);
 
                         // Check if user is blocked by OP
                         if(isset($author_id)){
-                            $user_blocked = $this->_db->get('blocked_users', array('user_id', '=', $user->id));
+                            $user_blocked = $this->_db->get('blocked_users', array('user_id', '=', $user->data()->id));
                             if($user_blocked->count()){
                                 $user_blocked = $user_blocked->results();
 
@@ -66,9 +61,9 @@ class MentionsParser {
                             }
                         }
 
-                        Alert::create($user->id, 'tag', $alert_short, $alert_full, $link);
+                        Alert::create($user->data()->id, 'tag', $alert_short, $alert_full, $link);
 
-						break;
+                        break;
                     }
 
                     // chop last word off of it
@@ -78,6 +73,7 @@ class MentionsParser {
                 }
             }
         }
+        
         return $value;
     }
 }

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton | Revamped by Xemah
  *	https://github.com/NamelessMC/Nameless/
- *	NamelessMC version 2.0.0-pr7
+ *	NamelessMC version 2.0.0-pr9
  *
  *	License: MIT
  *
@@ -16,8 +16,8 @@ class DefaultRevamp_Template extends TemplateBase {
 		
 		$template = array(
 			'name' => 'DefaultRevamp',
-			'version' => '2.0.0-pr7',
-			'nl_version' => "2.0.0-pr7",
+			'version' => '2.0.0-pr9',
+			'nl_version' => "2.0.0-pr9",
 			'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
 		);
 		
@@ -25,10 +25,12 @@ class DefaultRevamp_Template extends TemplateBase {
 		
 		parent::__construct($template['name'], $template['version'], $template['nl_version'], $template['author']);
 
+		$this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
+
 		$this->addCSSFiles(array(
 			$template['path'] . 'css/semantic.min.css' => array(),
 			$template['path'] . 'css/toastr.min.css' => array(),
-			'https://use.fontawesome.com/releases/v5.7.2/css/all.css' => array('integrity' => 'sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr', 'crossorigin' => 'anonymous')
+			'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css' => array('integrity' => 'sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==', 'crossorigin' => 'anonymous')
 		));
 		
 		$this->addJSFiles(array(
@@ -42,6 +44,32 @@ class DefaultRevamp_Template extends TemplateBase {
 
 		// Other variables
 		$smarty->assign('FORUM_SPAM_WARNING_TITLE', $language->get('general', 'warning'));
+
+		$cache->setCache('template_settings');
+		$smartyDarkMode = false;
+		$smartyNavbarColour = '';
+
+        if ($cache->isCached('darkMode')) {
+            $darkMode = $cache->retrieve('darkMode');
+
+            if ($darkMode == '1') {
+                $smartyDarkMode = true;
+                define('TEMPLATE_TINY_EDITOR_STYLE', 'default-revamp');
+            }
+        }
+
+        if ($cache->isCached('navbarColour')) {
+            $navbarColour = $cache->retrieve('navbarColour');
+
+            if ($navbarColour != 'white') {
+                $smartyNavbarColour = $navbarColour . ' inverted';
+            }
+        }
+
+        $smarty->assign(array(
+            'DEFAULT_REVAMP_DARK_MODE' => $smartyDarkMode,
+            'DEFAULT_REVAMP_NAVBAR_EXTRA_CLASSES' => $smartyNavbarColour
+        ));
 		
 		$this->_template = $template;
 		$this->_language = $language;
@@ -83,7 +111,7 @@ class DefaultRevamp_Template extends TemplateBase {
 		    'route' => $route
 		);
 		
-	    if (strpos($route, '/forum/topic/') !== false) {
+	    if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
 			$this->addJSFiles(array(
 			    $this->_template['path'] . 'js/jquery-ui.min.js' => array()
 			));

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -14,6 +14,9 @@ define('PAGE', 'complete_signup');
 $page_title = $language->get('general', 'register');
 
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 // Validate code
 if(!isset($_GET['c'])){
@@ -32,10 +35,10 @@ if(!isset($_GET['c'])){
     }
 
     if(!$user->isLoggedIn()){
-        $check = $queries->getWhere('users', array('reset_code', '=', $_GET['c']));
-        if(count($check)){
+		$target_user = new User($_GET['c'], 'reset_code');
+        if (count($target_user->data())) {
             if(Input::exists()){
-                if(Token::check(Input::get('token'))){
+                if(Token::check()){
                     // Validate input
                     $to_validation = array(
                         'password' => array(
@@ -57,13 +60,11 @@ if(!isset($_GET['c'])){
 
                     if($validation->passed()){
                         // Complete registration
-                        $check = $check[0];
-
                         // Hash password
                         $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
 
                         try {
-                            $queries->update('users', $check->id, array(
+                            $target_user->update(array(
                                 'password' => $password,
                                 'reset_code' => null,
                                 'last_online' => date('U'),
@@ -72,6 +73,17 @@ if(!isset($_GET['c'])){
                         } catch(Exception $e){
                             die($e->getMessage());
                         }
+
+                        HookHandler::executeEvent('validateUser', array(
+                            'event' => 'validateUser',
+                            'user_id' => $target_user->data()->id,
+                            'username' => $target_user->getDisplayname(),
+                            'uuid' => Output::getClean($target_user->data()->uuid),
+                            'content' => str_replace('{x}', $target_user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
+                            'avatar_url' => $target_user->getAvatar(null, 128, true),
+                            'url' => Util::getSelfURL() . ltrim($target_user->getProfileURL(), '/'),
+                            'language' => $language
+                        ));
 
                         Session::flash('home', $language->get('user', 'validation_complete'));
                         Redirect::to(URL::build('/'));
@@ -135,9 +147,6 @@ $smarty->assign(array(
 	'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
 	'TOKEN' => Token::get()
 ));
-
-// Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

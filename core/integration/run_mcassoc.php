@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -94,12 +94,17 @@ if(!isset($_GET['step'])){
 				'password' => $password,
 				'pass_method' => 'default',
 				'joined' => date('U'),
-				'group_id' => 1,
 				'email' => htmlspecialchars($_SESSION['mcassoc']['email']),
 				'active' => 1,
 				'lastip' => htmlspecialchars($ip),
 				'last_online' => date('U')
-			));
+            ));
+            
+            $new_user = new User(DB::getInstance()->getLastId());
+            // TODO: which group should they be set to? 
+            // VALIDATED_DEFAULT
+            // PRE_VALIDATED_DEFAULT
+            $new_user->setGroup(1);
 
 			unset($_SESSION['mcassoc']);
 

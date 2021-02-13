@@ -1,6 +1,6 @@
-<?php 
+<?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-dev
  *
@@ -10,7 +10,7 @@
  */
 
 /*
- *	Translation by BukkitTNT
+ *  Translation by BukkitTNT
  *
  *  http://BukkitTNT.de
  *  http://twitter.com/BukkitTNT
@@ -18,49 +18,50 @@
  */
 
 $language = array(
-	/*
-	 *  General terms
-	 */ 
-	'submit' => 'Senden',
-	'register' => 'Registrieren',
-	'already_registered' => 'Already Registered?',
-	'custom_fields' => 'Custom Fields',
-	'not_registered_yet' => 'Not registered yet?',
-	'sign_in' => 'Einloggen',
-	'log_out' => 'Ausloggen',
-	'profile' => 'Profil',
-	'invalid_token' => 'Ungültiger Token.',
-	'close' => 'Schließen',
-	'back' => 'Zurück',
-	'warning' => 'Warnung',
-	'date' => 'Datum',
-	'search' => 'Suche',
-	'edit' => 'Editieren',
-	'next' => 'Nächste',
-	'previous' => 'Previous',
-	'confirm_cancel' => 'Willst du dies wirklich abbrechen?',
-	'confirm_delete' => 'Löschen bestätigen.',
-	'confirm_deletion' => 'Möchtest du dies wirklich löschen?',
-	'cancel' => 'Abbrechen',
-	'delete' => 'Löschen',
-	'none' => 'Nichts',
-	'view' => 'Ansehen',
-	'change' => 'Ändern',
-	'remove' => 'Entfernen',
-	'info' => 'Info',
-	'confirm' => 'Bestätigen',
-	'actions' => 'Aktionen',
-	'alerts' => 'Benachtichtigungen',
-	'view_alerts' => 'Benachtichtigungen ansehen',
-	'no_alerts' => 'Keine Benachtichtigungen',
-	'x_new_alerts' => 'Du hast {x} Benachtichtigungen.', // Don't replace {x}
-	'messages' => 'Nachrichten',
-	'view_messages' => 'Nachrichten ansehen',
-	'no_messages' => 'Keine Nachrichten',
-	'x_new_messages' => 'Du hast {x} neue Nachrichten', // Don't replace {x}
-	'loading' => 'Lädt...',
-	'report' => 'Melden',
-	'page_loaded_in' => 'Seite wurde in {x} Sekunden geladen.', // Don't replace {x}, time unit is seconds
+    /*
+     *  General terms
+     */
+    'help' => 'Help',
+    'submit' => 'Senden',
+    'register' => 'Registrieren',
+    'already_registered' => 'Already Registered?',
+    'custom_fields' => 'Custom Fields',
+    'not_registered_yet' => 'Not registered yet?',
+    'sign_in' => 'Einloggen',
+    'log_out' => 'Ausloggen',
+    'profile' => 'Profil',
+    'invalid_token' => 'Ungültiger Token.',
+    'close' => 'Schließen',
+    'back' => 'Zurück',
+    'warning' => 'Warnung',
+    'date' => 'Datum',
+    'search' => 'Suche',
+    'edit' => 'Editieren',
+    'next' => 'Nächste',
+    'previous' => 'Previous',
+    'confirm_cancel' => 'Willst du dies wirklich abbrechen?',
+    'confirm_delete' => 'Löschen bestätigen.',
+    'confirm_deletion' => 'Möchtest du dies wirklich löschen?',
+    'cancel' => 'Abbrechen',
+    'delete' => 'Löschen',
+    'none' => 'Nichts',
+    'view' => 'Ansehen',
+    'change' => 'Ändern',
+    'remove' => 'Entfernen',
+    'info' => 'Info',
+    'confirm' => 'Bestätigen',
+    'actions' => 'Aktionen',
+    'alerts' => 'Benachtichtigungen',
+    'view_alerts' => 'Benachtichtigungen ansehen',
+    'no_alerts' => 'Keine Benachtichtigungen',
+    'x_new_alerts' => 'Du hast {x} Benachtichtigungen.', // Don't replace {x}
+    'messages' => 'Nachrichten',
+    'view_messages' => 'Nachrichten ansehen',
+    'no_messages' => 'Keine Nachrichten',
+    'x_new_messages' => 'Du hast {x} neue Nachrichten', // Don't replace {x}
+    'loading' => 'Lädt...',
+    'report' => 'Melden',
+    'page_loaded_in' => 'Seite wurde in {x} Sekunden geladen.', // Don't replace {x}, time unit is seconds
     'page_x' => 'Seite {x}',
     'browse' => 'Blättern',
     'bypass' => 'Bypass',
@@ -69,11 +70,14 @@ $language = array(
     'content' => 'Content',
     'full_content' => 'Full Content',
     'url' => 'URL',
-	'success' => 'Erfolgreich',
-	'error' => 'Fehler',
-	'are_you_sure' => 'Bist du sicher?',
-	'spoiler' => 'Spoiler',
-
+    'success' => 'Erfolgreich',
+    'error' => 'Fehler',
+    'are_you_sure' => 'Bist du sicher?',
+    'spoiler' => 'Spoiler',
+    'invalid_timezone' => 'That timezone is invalid',
+    'link' => 'Link',
+    'unlink' => 'Unlink',
+    
     /*
      *  Contact form
      */
@@ -85,24 +89,24 @@ $language = array(
     'contact_message_email' => 'The provided email is invalid.',
     'contact_message_sent' => 'Nachricht erfolgreich gesendet.',
     'contact_message_limit' => 'Sie können nur eine Nachricht pro Stunde senden. Sie können als nächstes eine Nachricht in {x} Minuten senden.', // Don't replace {x}
-	
-	/* 
-	 *  Navbar
-	 */
-	'home' => 'Startseite',
-	'more' => 'Mehr',
-	'status' => 'Status',
-	
-	/*
-	 *  Homepage
-	 */
-	'social' => 'Soziale Medien',
-	
-	
-	/*
-	 *  Help dialogues
-	 */
-	'markdown_help' => 'Du kannst deine Beiträge formatieren. <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>Mehr Informationen</a>.',
+
+    /*
+     *  Navbar
+     */
+    'home' => 'Startseite',
+    'more' => 'Mehr',
+    'status' => 'Status',
+
+    /*
+     *  Homepage
+     */
+    'social' => 'Soziale Medien',
+
+
+    /*
+     *  Help dialogues
+     */
+    'markdown_help' => 'Du kannst deine Beiträge formatieren. <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>Mehr Informationen</a>.',
 
     /*
      *  Server query
@@ -112,7 +116,7 @@ $language = array(
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Version: {x}', // Don't replace {x}
-    'currently_1_player_online' => 'Es ist 1 Spieler online',
+    'currently_1_player_online' => 'Es ist <strong>1</strong> Spieler online',
     'currently_x_players_online' => 'Derzeit sind <strong>{x}</strong> Spieler online.', // Don't replace {x}
     'server_offline' => 'Der Server ist zurzeit Offline.',
     'connect_with_ip_x' => 'Verbinde dich jetzt mit folgender Adresse: {x}', // Don't replace {x}
@@ -148,14 +152,16 @@ $language = array(
     'discord_widget_disabled' => 'Das Widget ist für den angegebenen Discord-Server deaktiviert. Bitte gehen Sie auf die Registerkarte \"Widget\" in Ihren Discord-Server-Einstellungen und stellen Sie sicher, dass das Discord-Widget aktiviert ist und dass die ID korrekt ist.',
     'online_guests' => 'Online Guests',
     'total_online' => 'Total Online', // this is Online Users + Online Guests
+    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+    'server_status' => 'Server Status',
 
     /*
      *  Privacy policy
      */
     'privacy_policy' => 'Datenschutzerklärung',
 
-	/*
-	 *  Custom page redirect
-	 */
-	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+    /*
+     *  Custom page redirect
+     */
+    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );

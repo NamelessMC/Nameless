@@ -1,105 +1,104 @@
 <?php
 
 class MCAssoc {
-	private $siteId;
-	private $sharedSecret;
-	private $instanceSecret;
-	private $timestampLeeway;
-	private $insecureMode = false;
 
-	public function __construct($siteId, $sharedSecret, $instanceSecret, $timestampLeeway=300) {
-		$this->siteId = $siteId;
-		$this->sharedSecret = hex2bin($sharedSecret);
-		$this->instanceSecret = $instanceSecret;
-		$this->timestampLeeway = $timestampLeeway;
-	}
+    private $siteId,
+            $sharedSecret,
+            $instanceSecret,
+            $timestampLeeway,
+            $insecureMode = false;
 
-	public function enableInsecureMode() {
-		$this->insecureMode = true;
-	}
+    public function __construct($siteId, $sharedSecret, $instanceSecret, $timestampLeeway = 300) {
+        $this->siteId = $siteId;
+        $this->sharedSecret = hex2bin($sharedSecret);
+        $this->instanceSecret = $instanceSecret;
+        $this->timestampLeeway = $timestampLeeway;
+    }
 
-	private function baseSign($data, $key) {
-		if (!$key && !$this->insecureMode) {
-			throw new Exception("key must be provided");
-		} else if ($this->insecureMode) {
-			$key = "insecure";
-		}
+    public function enableInsecureMode() {
+        $this->insecureMode = true;
+    }
 
-		return hash_hmac('sha1', $data, $key, true);
-	}
+    private function baseSign($data, $key) {
+        if (!$key && !$this->insecureMode) {
+            throw new Exception("key must be provided");
+        } else if ($this->insecureMode) {
+            $key = "insecure";
+        }
 
-	private function sign($data, $key) {
-		return base64_encode($data . $this->baseSign($data, $key));
-	}
+        return hash_hmac('sha1', $data, $key, true);
+    }
 
-	private static function constantCompare($str1, $str2)
-	{
-		if (strlen($str1) != strlen($str2))
-			return false;
+    private function sign($data, $key) {
+        return base64_encode($data . $this->baseSign($data, $key));
+    }
 
-		$res = 0;
-		for ($i = 0; $i < strlen($str1); $i++) {
-			$res |= ord($str1[$i]) ^ ord($str2[$i]);
-		}
-		return ($res == 0);
-	}
+    private static function constantCompare($str1, $str2) {
+        if (strlen($str1) != strlen($str2))
+            return false;
 
-	private function verify($input, $key) {
-		$signed_data = base64_decode($input, true);
-		if ($signed_data === false) {
-			throw new Exception('bad base64 data');
-		}
+        $res = 0;
+        for ($i = 0; $i < strlen($str1); $i++) {
+            $res |= ord($str1[$i]) ^ ord($str2[$i]);
+        }
+        return ($res == 0);
+    }
 
-		if (strlen($signed_data) <= 20) {
-			throw new Exception('signed data too short to have signature');
-		}
+    private function verify($input, $key) {
+        $signed_data = base64_decode($input, true);
+        if ($signed_data === false) {
+            throw new Exception('bad base64 data');
+        }
 
-		$data = substr($signed_data, 0, -20);
+        if (strlen($signed_data) <= 20) {
+            throw new Exception('signed data too short to have signature');
+        }
 
-		if ($this->insecureMode)
-			return $data;
+        $data = substr($signed_data, 0, -20);
 
-		$signature = substr($signed_data, -20);
-		$my_signature = $this->baseSign($data, $key);
+        if ($this->insecureMode)
+            return $data;
 
-		if (!$this->constantCompare($my_signature, $signature)) {
-			throw new Exception('signature invalid');
-		}
-		return $data;
-	}
+        $signature = substr($signed_data, -20);
+        $my_signature = $this->baseSign($data, $key);
 
-	public function generateKey($data) {
-		return $this->sign($data, $this->instanceSecret);
-	}
+        if (!$this->constantCompare($my_signature, $signature)) {
+            throw new Exception('signature invalid');
+        }
+        return $data;
+    }
 
-	public function unwrapKey($input) {
-		return $this->verify($input, $this->instanceSecret);
-	}
+    public function generateKey($data) {
+        return $this->sign($data, $this->instanceSecret);
+    }
 
-	public function unwrapData($input, $time=null) {
-		if ($time === null) {
-			$time = time();
-		}
+    public function unwrapKey($input) {
+        return $this->verify($input, $this->instanceSecret);
+    }
 
-		$data = $this->verify($input, $this->sharedSecret);
-		$rdata = json_decode($data);
-		if ($rdata === null) {
-			throw new Exception('json data invalid');
-		}
+    public function unwrapData($input, $time = null) {
+        if ($time === null) {
+            $time = time();
+        }
 
-		$mintime = $time - $this->timestampLeeway;
-		$maxtime = $time + $this->timestampLeeway;
-		if (!(($mintime < $rdata->now) && ($rdata->now < $maxtime))) {
-			throw new Exception('timestamp stale');
-		}
+        $data = $this->verify($input, $this->sharedSecret);
+        $rdata = json_decode($data);
+        if ($rdata === null) {
+            throw new Exception('json data invalid');
+        }
 
-		try {
-			$key = $this->unwrapKey($rdata->key);
-		} catch (Exception $e) {
-			throw new Exception('key invalid');
-		}
+        $mintime = $time - $this->timestampLeeway;
+        $maxtime = $time + $this->timestampLeeway;
+        if (!(($mintime < $rdata->now) && ($rdata->now < $maxtime))) {
+            throw new Exception('timestamp stale');
+        }
 
-		return $rdata;
-	}
+        try {
+            $key = $this->unwrapKey($rdata->key);
+        } catch (Exception $e) {
+            throw new Exception('key invalid');
+        }
 
+        return $rdata;
+    }
 }

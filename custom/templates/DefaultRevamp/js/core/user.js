@@ -1,3 +1,6 @@
+if (!('Notification' in window))
+	window.Notification = null;
+
 if (loggedIn == 1) {
 
 	var countPms = 0;

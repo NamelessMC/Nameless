@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -78,7 +78,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
             if($query['status_value'] === 1)
                 $image = ServerBanner::server($display_ip, $query['motd'], $query['player_count'], $query['player_count_max'], $favicon, $server->banner_background, 5);
             else
-                $image = ServerBanner::server($display_ip, $query['motd'], '?', '?', $favicon, $server->background, 5);
+                $image = ServerBanner::server($display_ip, $query['motd'], '?', '?', $favicon, $server->banner_background, 5);
 
             header('Content-type: image/png');
 

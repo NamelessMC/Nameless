@@ -4,10 +4,9 @@
   </div>
   {foreach from=$NAV_LINKS key=name item=item}
     {if isset($item.items)}
-      <div class="ui pointing dropdown link item">
-        <span class="text">{$item.icon} {$item.title}</span> <i class="dropdown icon"></i>
+      <div class="item">
+        <div class="header">{$item.title} <span class="icon">{$item.icon}</span></div>
         <div class="menu">
-          <div class="header">{$item.title}</div>
           {foreach from=$item.items item=dropdown}
             <a class="item" href="{$dropdown.link}" target="{$dropdown.target}">{$dropdown.icon} {$dropdown.title}</a>
           {/foreach}
@@ -21,8 +20,7 @@
 
 <div class="pusher">
   <div id="wrapper">
-  
-    <div class="ui secondary small menu" id="navbar">
+    <div class="ui secondary {$DEFAULT_REVAMP_NAVBAR_EXTRA_CLASSES} small menu" id="navbar">
       <div class="ui container">
         {foreach from=$NAV_LINKS key=name item=item}
           {if isset($item.items)}
@@ -31,7 +29,7 @@
               <div class="menu">
                 <div class="header">{$item.title}</div>
                 {foreach from=$item.items item=dropdown}
-                  {if isset($dropdown.seperator)}
+                  {if isset($dropdown.separator)}
                     <div class="divider"></div>
                   {else}
                     <a class="item" href="{$dropdown.link}" target="{$dropdown.target}">{$dropdown.icon} {$dropdown.title}</a>
@@ -58,7 +56,7 @@
                 <h4 class="ui header">{$item.title}</h4>
                 <div class="ui relaxed link list" id="list-{$name}">
                   {foreach from=$item.items item=dropdown}
-                    {if isset($dropdown.seperator)}
+                    {if isset($dropdown.separator)}
                       <div class="ui divider"></div>
                     {else}
                       <a class="item" href="{$dropdown.link}" target="{$dropdown.target}">{$dropdown.icon} {$dropdown.title}</a>
@@ -137,5 +135,26 @@
             <li>{$NEW_VERSION}</li>
           </ul>
         </div>
+      </div>
+    {/if}
+
+    {if !empty($ANNOUNCEMENTS)}
+      {foreach from=$ANNOUNCEMENTS item=$ANNOUNCEMENT}
+        <div class="ui icon message announcement" id="announcement-{$ANNOUNCEMENT->id}" style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}">
+          {if $ANNOUNCEMENT->closable}<i class="close icon"></i>{/if}
+          {if isset($ANNOUNCEMENT->icon)}
+           <i class="{$ANNOUNCEMENT->icon}"></i>
+          {/if}
+          <div class="content">
+            <div class="header">{$ANNOUNCEMENT->header}</div>
+            <p>{$ANNOUNCEMENT->message|htmlspecialchars_decode}</p>
+          </div>
+        </div>
+      {/foreach}
+    {/if}
+
+    {if isset($MUST_VALIDATE_ACCOUNT)}
+      <div class="ui message">
+        {$MUST_VALIDATE_ACCOUNT}
       </div>
     {/if}

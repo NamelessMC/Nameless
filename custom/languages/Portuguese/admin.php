@@ -1,8 +1,8 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -14,8 +14,10 @@ $language = array(
     /*
      *  Admin Control Panel
      */
+
     // Login
-    're-authenticate' => 'Por favor, logue-se novamente',   
+    're-authenticate' => 'Por favor, logue-se novamente',
+
     // Sidebar
     'dashboard' => 'Painel',
     'configuration' => 'Configuração',
@@ -31,7 +33,8 @@ $language = array(
     'security' => 'Segurança',
     'sitemap' => 'Sitemap',
     'styles' => 'Estilos',
-    'users_and_groups' => 'Usuários & Grupos',  
+    'users_and_groups' => 'Usuários & Grupos',
+
     // Overview
     'running_nameless_version' => 'Versão do NamelessMC: <strong>{x}</strong>', // Don't replace "{x}"
     'running_php_version' => 'Versão do PHP: <strong>{x}</strong>', // Don't replace "{x}"
@@ -41,8 +44,10 @@ $language = array(
     'posts' => 'Postagens',
     'notices' => 'Notificações',
     'no_notices' => 'Sem notificações.',
-    'email_errors_logged' => 'Erros de e-mail foram registrados',   
+    'email_errors_logged' => 'Erros de e-mail foram registrados',
+
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Configurações',
     'general_settings' => 'Configurações Gerais',
     'sitename' => 'Nome do site',
@@ -75,6 +80,12 @@ $language = array(
     'twitter_dark_theme' => 'Utilizar tema escuro do Twitter?',
     'discord_id' => 'ID do Servidor Discord',
     'discord_widget_theme' => 'Tema do Widget do Discord',
+    'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
+    'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
+    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
+    'discord_bot_setup' => 'Bot Setup',
+    'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => 'Escuro',
     'light' => 'Claro',
     'google_plus_url' => 'URL do Google Plus',
@@ -112,6 +123,16 @@ $language = array(
     'send' => 'Enviar',
     'test_email_error' => 'Erro do e-mail de teste:',
     'test_email_success' => 'E-mail de teste enviado com sucesso!',
+    'edit_email_messages' => 'Email Messages',
+    'email_language_info' => 'Not seeing your language? Make sure \'emails.php\' is in your language directory and it is writable by your webserver.',
+    'editing_language' => 'Editing Language',
+    'email_preview_popup' => 'Preview',
+    'email_preview_popup_message' => 'Click here to see a preview of the email.',
+    'email_message_greeting' => 'Greeting',
+    'email_message_thanks' => 'Thanks',
+    'email_message_options' => 'Options',
+    'email_message_subject' => 'Subject',
+    'email_message_message' => 'Message',
     'terms_error' => 'Certifique-se de que seus termos e condições não passa dos 100000 caracteres.',
     'privacy_policy_error' => 'Por favor, insira uma política de privacidade com no máximo 100000 caracteres.',
     'terms_updated' => 'Termos atualizados com sucesso.',
@@ -147,7 +168,20 @@ $language = array(
     'validation_promote_group' => 'Grupo pós-validação',
     'validation_promote_group_info' => 'Este é o grupo para o qual um usuário será promovido depois de ter validado sua conta.',
     'login_method' => 'Método de login',
-    'privacy_and_terms' => 'Termos & Privacidade',  
+    'privacy_and_terms' => 'Termos & Privacidade',
+    'dropdown_name' => 'Dropdown Name',
+    'editing_messages' => 'Editing Messages',
+    'emails_mass_message' => 'Email Mass Message',
+    'sending_mass_message' => 'Sending Mass Message',
+    'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
+    'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
+    'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
+
+    // SEO
+    'seo' => 'SEO',
+    'google_analytics' => 'Google Analytics',
+    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+
     // Reactions
     'icon' => 'Ícone',
     'type' => 'Tipo',
@@ -167,7 +201,8 @@ $language = array(
     'type_required' => 'Um tipo é obrigatório',
     'name_maximum_16' => 'O nome deve ter no máximo 16 caracteres',
     'html_maximum_255' => 'O HTML deve ter no máximo 255 caracteres',
-    'confirm_delete_reaction' => 'Tem certeza de que deseja excluir essa reação?',  
+    'confirm_delete_reaction' => 'Tem certeza de que deseja excluir essa reação?',
+
     // Custom profile fields
     'custom_fields' => 'Campos Personalizados do Perfil',
     'new_field' => '<i class="fas fa-plus-circle"></i> Novo Campo',
@@ -191,7 +226,8 @@ $language = array(
     'no_custom_fields' => 'Ainda não há campos personalizados.',
     'profile_field_updated_successfully' => 'O campo de perfil foi atualizado com sucesso.',
     'profile_field_created_successfully' => 'O campo de perfil foi criado com sucesso.',
-    'profile_field_deleted_successfully' => 'O campo do perfil foi excluído com sucesso.',  
+    'profile_field_deleted_successfully' => 'O campo do perfil foi excluído com sucesso.',
+
     // Minecraft
     'enable_minecraft_integration' => 'Ativar a integração do Minecraft?',
     'mc_service_status' => 'Status do Minecraft Service',
@@ -288,7 +324,8 @@ $language = array(
     'query_information' => 'Informações de Consulta',
     'query_errors_purged_successfully' => 'Erros de consulta removidos com sucesso.',
     'query_error_deleted_successfully' => 'Erro de consulta excluído com sucesso.',
-    'banner_updated_successfully' => 'Banner atualizado com sucesso. Pode demorar um pouco até que suas alterações entrem em vigor.',   
+    'banner_updated_successfully' => 'Banner atualizado com sucesso. Pode demorar um pouco até que suas alterações entrem em vigor.',
+
     // Modules
     'modules_installed_successfully' => 'Todos os novos módulos foram instalados com êxito.',
     'enabled' => 'Ativado',
@@ -304,11 +341,16 @@ $language = array(
     'view_all_modules' => 'Ver todos os módulos',
     'unable_to_retrieve_modules' => 'Não foi possível recuperar os módulos',
     'module' => 'Módulo',
-    'unable_to_enable_module' => 'Não é possível habilitar o módulo incompatível.', 
+    'unable_to_enable_module' => 'Não é possível habilitar o módulo incompatível.',
+    'unable_to_enable_module_dependencies' => 'Unable to enable module since it depends on the module {x}, which is not enabled.', // Don't replace {x}
+    'unable_to_disable_module' => 'Unable to disable module - the module {x} depends on it.', // Don't replace {x}
+
     // Styles
     'templates' => 'Templates',
     'panel_templates' => 'Painel de Templates',
+    'view_all_panel_templates' => 'View all panel templates',
     'template_outdated' => 'Você está utilizando um template para a versão {x} do Nameless, porém sua versão do Nameless é {y}', // Don't replace "{x}" or "{y}"
+    'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
     'active' => 'Ativo',
     'deactivate' => 'Desativar',
     'activate' => 'Ativar',
@@ -331,11 +373,18 @@ $language = array(
     'template_deleted_successfully' => 'Template removido com sucesso.',
     'background_image_x' => 'Imagem de fundo: <strong>{x}</strong>', // Don't replace {x}
     'banner_image_x' => 'Banner image: <strong>{x}</strong>', // Don't replace {x}
-    'background_directory_not_writable' => 'O diretório <strong>uploads/backgrounds</strong> não é gravável!',
-    'template_banners_directory_not_writable' => 'O diretório <strong>uploads/template_banners</strong> não é gravável!',
+    'logo_image_x' => 'Logo image: <strong>{x}</strong>', // Don't replace {x}
+    'favicon_image_x' => 'Favicon image: <strong>{x}</strong>', // Don't replace {x}
+    'x_directory_not_writable' => 'O diretório <strong>{x}</strong> não é gravável!', // Don't replace {x}
     'template_banner_reset_successfully' => 'Banner redefinido com sucesso.',
     'template_banner_updated_successfully' => 'Banner atualizado com sucesso.',
     'reset_banner' => 'Redefinir Banner',
+    'logo_reset_successfully' => 'Logo reset successfully.',
+    'logo_updated_successfully' => 'Logo updated successfully.',
+    'reset_logo' => 'Reset Logo',
+    'favicon_reset_successfully' => 'Favicon reset successfully.',
+    'favicon_updated_successfully' => 'Favicon updated successfully.',
+    'reset_favicon' => 'Reset Favicon',
     'find_templates' => 'Encontrar Templates',
     'view_all_templates' => 'Ver todos os templates',
     'unable_to_retrieve_templates' => 'Não foi possível recuperar os templates',
@@ -350,7 +399,13 @@ $language = array(
     'unable_to_delete_template' => 'Não é possível excluir totalmente o template. Por favor, verifique as permissões de arquivo.',
     'background_reset_successfully' => 'Background redefinido com sucesso.',
     'background_updated_successfully' => 'Background atualizado com sucesso.',
-    'unable_to_enable_template' => 'Não foi possível ativar o template incompatível.',  
+    'unable_to_enable_template' => 'Não foi possível ativar o template incompatível.',
+    'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
+    'clear_cache' => 'Clear Template Cache',
+    'cache_cleared' => 'Template cache cleared',
+
     // Users & groups
     'users' => 'Usuários',
     'groups' => 'Grupos',
@@ -360,7 +415,8 @@ $language = array(
     'registered' => 'Cadastrado',
     'user_created' => 'Usuário criado com sucesso.',
     'cant_delete_root_user' => 'Não é possível excluir o usuário root!',
-    'cant_modify_root_user' => 'Não é possível modificar o grupo root!',
+    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
+    'main_group' => 'Main Group',
     'user_deleted' => 'Usuário excluído com sucesso.',
     'confirm_user_deletion' => 'Você tem certeza que deseja excluir o usuário <strong>{x}</strong>?', // Don't replace {x}
     'validate_user' => 'Validar Usuário',
@@ -387,6 +443,7 @@ $language = array(
     'group_html' => 'HTML do Grupo',
     'group_html_lg' => 'HTML do Grupo Grande',
     'group_username_colour' => 'Cor do Grupo',
+    'group_username_css' => 'Group Username CSS',
     'group_staff' => 'O grupo é um grupo da Staff?',
     'delete_group' => 'Excluír Grupo',
     'confirm_group_deletion' => 'Você tem certeza de que deseja excluir o grupo {x}?', // Don't replace {x}
@@ -407,14 +464,22 @@ $language = array(
     'user_validated_successfully' => 'Usuário validado com sucesso.',
     'user_updated_successfully' => 'Usuário atualizado com sucesso.',
     'editing_user_x' => 'Editando usuário {x}', // Don't replace {x}
-    'details' => 'Detalhes',    
+    'details' => 'Detalhes',
+    'force_tfa' => 'Force Two Factor Authentication for group members?',
+    'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
+    'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
+
     // Permissions
     'select_all' => 'Selecionar Todos',
     'deselect_all' => 'Deselecionar Todos',
     'background_image' => 'Imagem de Fundo',
     'can_edit_own_group' => 'Pode editar as permissão do seu próprio grupo',
     'permissions_updated_successfully' => 'Permissões atualizada com sucesso.',
-    'cant_edit_this_group' => 'Você pode editar as permissões destes grupos!',  
+    'cant_edit_this_group' => 'Você pode editar as permissões destes grupos!',
+
     // General Admin language
     'task_successful' => 'Tarefa bem-sucedida.',
     'invalid_action' => 'Ação inválida.',
@@ -422,13 +487,15 @@ $language = array(
     'disable_night_mode' => 'Desativar modo noturno',
     'view_site' => 'Ver Site',
     'signed_in_as_x' => 'Logado como {x}', // Don't replace {x}
-    'warning' => 'Aviso',   
+    'warning' => 'Aviso',
+
     // Maintenance
     'maintenance_mode' => 'Modo de manutenção',
     'maintenance_enabled' => 'O modo de manutenção está ativado no momento.',
     'enable_maintenance_mode' => 'Habilitar modo de manutenção?',
     'maintenance_mode_message' => 'Mensagem de modo de manutenção',
-    'maintenance_message_max_1024' => 'Certifique-se de que sua mensagem de manutenção é de no máximo 1024 caracteres.',    
+    'maintenance_message_max_1024' => 'Certifique-se de que sua mensagem de manutenção é de no máximo 1024 caracteres.',
+
     // Security
     'acp_logins' => 'Logins do StaffCP',
     'please_select_logs' => 'Selecione o registro para visualizar',
@@ -437,7 +504,8 @@ $language = array(
     'file_changed' => 'Arquivo Modificado',
     'all_logs' => 'Todos os Registros',
     'action' => 'Ação',
-    'action_info' => 'Informação de Ação',  
+    'action_info' => 'Informação de Ação',
+
     // Updates
     'update' => 'Atualizar',
     'current_version_x' => 'Versão atual: <strong>{x}</strong>', // Don't replaec {x}
@@ -451,7 +519,8 @@ $language = array(
     'instructions' => 'Instruções',
     'download' => 'Download',
     'install_confirm' => 'Certifique-se de que transferiu o pacote e carregou os ficheiros contidos em primeiro lugar!',
-    'check_again' => 'Verificar novamente', 
+    'check_again' => 'Verificar novamente',
+
     // Widgets
     'widgets' => 'Widgets',
     'widget_enabled' => 'Widget ativado.',
@@ -459,10 +528,15 @@ $language = array(
     'widget_updated' => 'Widget atualizado.',
     'editing_widget_x' => 'Editando o widget {x}', // Don't replace {x}
     'module_x' => 'Módulo: {x}', // Don't replace {x}
-    'widget_order' => 'Ordenação dos Widgets',  
+    'widget_order' => 'Ordenação dos Widgets',
+    'widget_location' => 'Widget Location',
+    'left' => 'Left',
+    'right' => 'Right',
+
     // Online users widget
     'include_staff_in_user_widget' => 'Incluir membros da equipe no widget do usuário?',
-    'show_nickname_instead_of_username' => 'Mostrar o apelido do usuário em vez do nome de usuário?',   
+    'show_nickname_instead_of_username' => 'Mostrar o apelido do usuário em vez do nome de usuário?',
+
     // Custom Pages
     'pages' => 'Páginas',
     'custom_pages' => 'Páginas',
@@ -480,10 +554,12 @@ $language = array(
     'page_content' => 'Conteúdo da Página',
     'page_redirect' => 'Página de Redirecionamento?',
     'page_redirect_to' => 'Link para o redirecionamento (com o http:// ou https://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Permitir tags HTML não seguras?',
     'unsafe_html_warning' => 'Ativando está opção, siginifica que qualquer HTML pode ser usada nesta página, incluindo JavaScript potencialmente perigosos. Somente ativa esta opção se você está ciente que o seu HTML é seguro.',
     'include_in_sitemap' => 'Incluir no sitemap?',
     'sitemap_link' => 'Link do sitemap:',
+    'basic_page' => 'Basic page?',
     'page_permissions' => 'Permisões da Página',
     'view_page' => 'Ver Página?',
     'editing_page_x' => 'Editando a Página {x}', // Don't replace {x}
@@ -501,11 +577,12 @@ $language = array(
     'confirm_delete_page' => 'Você tem certeza que quer deletar está página?',
     'page_created_successfully' => 'Página criada com sucesso',
     'page_updated_successfully' => 'Página atualizada com sucesso.',
-    'page_deleted_successfully' => 'Página excluída com sucesso.',  
+    'page_deleted_successfully' => 'Página excluída com sucesso.',
+
     // API
     'api' => 'API',
     'enable_api' => 'Ativar a API?',
-    'api_info' => 'A API permite que plugins e outros serviços interajam com o seu site, como o <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >como o plugin Nameless oficial</a>.',
+    'api_info' => 'A API permite que plugins e outros serviços interajam com o seu site, como o <a href="https://plugin.namelessmc.com" target="_blank" >como o plugin Nameless oficial</a>.',
     'enable_legacy_api' => 'Ativar API legacy?',
     'legacy_api_info' => 'A API legacy permite que plugins que usam a API antiga do Nameless v1 funcionem com a versão atual do Nameless.',
     'confirm_api_regen' => 'Tem certeza de que deseja gerar uma nova chave para API?',
@@ -534,14 +611,20 @@ $language = array(
     'group_sync_rule_created_successfully' => 'A regra de sincronização do grupo foi criada com sucesso.',
     'group_sync_rules_updated_successfully' => 'As regras de sincronização de grupo foram atualizadas com sucesso.',
     'group_sync_rule_deleted_successfully' => 'A regra de sincronização do grupo foi excluída com sucesso.',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Regras Existentes',
-    'new_rule' => 'Nova Regra', 
+    'new_rule' => 'Nova Regra',
+    'api_endpoints' => 'API Endpoints',
+    'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
+    'route' => 'Route',
+
     // File uploads
     'drag_files_here' => 'Arraste arquivos aqui para fazer o upload.',
     'invalid_file_type' => 'Tipo de arquivo inválido!',
     'file_too_big' => 'Arquivo muito grande! Seu arquivo possui {{filesize}} e o limite é {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
     'allowed_proxies' => 'Proxies permitidos',
-    'allowed_proxies_info' => 'Lista separada por linha de IPs de proxy permitidos.',   
+    'allowed_proxies_info' => 'Lista separada por linha de IPs de proxy permitidos.',
+
     // Error logs
     'error_logs' => 'Logs de erros',
     'notice_log' => 'Logs notices',
@@ -550,22 +633,31 @@ $language = array(
     'other_log' => 'Outros logs',
     'fatal_log' => 'Logs fatais',
     'log_file_not_found' => 'Arquivo de log não encontrado.',
-    'log_purged_successfully' => 'O log foi removido com sucesso.', 
-	// Hooks
-	'hooks' => 'Webhooks',
-	'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
-	'new_hook' => 'New Hook',
-	'creating_new_hook' => 'Creating New Webhook',
-	'editing_hook' => 'Editing Webhook',
-	'delete_hook' => 'Are you sure you want to delete this hook?',
-	'hook_url' => 'Webhook URL',
-	'hook_type' => 'Webhook Type',
-	'hook_events' => 'Events to trigger this webhook',
-	'invalid_hook_url' => 'Invalid webhook url',
-	'invalid_hook_events' => 'You must select at least 1 event',
+    'log_purged_successfully' => 'O log foi removido com sucesso.',
+
+    // Hooks
+    'hooks' => 'Webhooks',
+    'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
+    'no_hooks_yet' => 'There are no webhooks yet.',
+    'new_hook' => 'New Hook',
+    'creating_new_hook' => 'Creating New Webhook',
+    'editing_hook' => 'Editing Webhook',
+    'delete_hook' => 'Are you sure you want to delete this hook?',
+    'hook_deleted' => 'Hook deleted successfully.',
+    'hook_name' => 'Webhook Name',
+    'hook_created' => 'Hook created successfully.',
+    'hook_edited' => 'Hook edited successfully',
+    'hook_select_info' => 'Only Hooks with \'New topic\' selected as an event are shown.',
+    'hook_url' => 'Webhook URL',
+    'hook_type' => 'Webhook Type',
+    'hook_events' => 'Events to trigger this webhook',
+    'invalid_hook_url' => 'Invalid Webhook URL',
+    'invalid_hook_name' => 'Invalid Webhook name',
+    'invalid_hook_events' => 'You must select at least 1 event',
     'register_hook_info' => 'Registro do usuário',
     'validate_hook_info' => 'Validação do usuário',
-    'delete_hook_info' => 'Exclusão do usuário',    
+    'delete_hook_info' => 'Exclusão do usuário',
+
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Não foi possível carregar o arquivo do mapa do site {x}', // Don't replace {x}
     'sitemap_generated' => 'Mapa do site gerado com sucesso',
@@ -574,14 +666,16 @@ $language = array(
     'generate_sitemap' => 'Gerar Mapa do Site',
     'download_sitemap' => 'Baixar Mapa do Site',
     'sitemap_not_generated_yet' => 'O mapa do site não foi gerado ainda!',
-    'sitemap_last_generated_x' => 'Último mapa do site gerado {x}', // Don't replace {x}    
+    'sitemap_last_generated_x' => 'Último mapa do site gerado {x}', // Don't replace {x}
+
     // Page metadata
     'page_metadata' => 'Metadados da Página',
     'metadata_page_x' => 'Visualizando metadados da página {x}', // Don't replace {x}
     'keywords' => 'Palavras-chave',
     'description_max_500' => 'A descrição deve ter no máximo 500 caracteres.',
     'page' => 'Página',
-    'metadata_updated_successfully' => 'Metadados atualizados com sucesso.',    
+    'metadata_updated_successfully' => 'Metadados atualizados com sucesso.',
+
     // Dashboard
     'total_users' => 'Total de Usuários',
     'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
@@ -592,10 +686,65 @@ $language = array(
     'unable_to_retrieve_nameless_news' => 'Não foi possível recuperar as últimas notícias',
     'confirm_leave_site' => 'Você está prestes a sair deste site! Tem a certeza que quer visitar <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
     'server_compatibility' => 'Compatibilidade do Servidor',
-    'issues' => 'Problemas',    
+    'issues' => 'Problemas',
+
     // Other
     'source' => 'Fonte',
     'support' => 'Suporte',
     'admin_dir_still_exists' => 'Aviso! O diretório <strong>modules/Core/pages/admin</strong> ainda existe. Por favor remova este diretório.',
-    'mod_dir_still_exists' => 'Aviso! O diretório <strong>modules/Core/pages/mod</strong> ainda existe. Por favor remova este diretório.'
+    'mod_dir_still_exists' => 'Aviso! O diretório <strong>modules/Core/pages/mod</strong> ainda existe. Por favor remova este diretório.',
+    'forum_topic_reply_email' => 'Forum Topic Reply',
+
+    // Announcements
+    'announcements' => 'Announcements',
+    'new_announcement' => 'New Announcement',
+    'announcement_info' => 'Create announcements to display a message to specific groups on specific pages of your website.',
+    'creating_announcement' => 'Creating Announcement',
+    'editing_announcement' => 'Editing Announcement',
+    'creating_announcement_success' => 'Announcement created successfully.',
+    'editing_announcement_success' => 'Announcement updated successfully.',
+    'creating_announcement_failure' => 'Announcement creation failed.',
+    'editing_announcement_failure' => 'Announcement update failed.',
+    'announcement_icon_instructions' => 'You can also add an icon to each announcement here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
+    'header' => 'Header',
+    'message' => 'Message',
+    'pages' => 'Pages',
+    'text_colour' => 'Text Colour',
+    'background_colour' => 'Background Colour',
+    'closable' => 'Closable',
+    'can_view_announcement' => 'Can view Announcement',
+    'verify_delete_announcement' => 'Are you sure you want to delete this announcement?',
+    'deleted_announcement_success' => 'Announcement deleted successfully.',
+    'header_required' => 'Header is required.',
+    'message_required' => 'Message is required',
+    'background_colour_required' => 'Background Colour is required',
+    'text_colour_required' => 'Text Colour is required',
+    'no_announcements' => 'No announcements have been made yet.',
+
+    // Discord
+    'discord' => 'Discord',
+    'enable_discord_integration' => 'Enable Discord integration?',
+    'discord_role_id' => 'Discord Role ID',
+    'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
+    'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
+    'discord_settings_updated' => 'Your Discord settings were updated successfully.',
+    'discord_guild_id_required' => 'Please enter your Discord Server ID for Discord integration to work.',
+    'discord_bot_url' => 'Discord Bot URL',
+    'discord_bot_url_info' => 'The location which your custom instance of the Nameless Link bot. Only change this value if you know what you are doing!',
+    'discord_bot_url_required' => 'Please enter your Bot URL for Discord integration to work.',
+    'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',
+    'test_bot_url' => 'Test Bot URL',
+    'discord_bot_url_valid' => 'Your Bot URL is valid.',
+    'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?',
+
+    // Discord bot Errors
+    'discord_bot_error_badparameter' => 'Invalid request body.',
+    'discord_bot_error_error' => 'An internal bot error occured.',
+    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
+    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
+    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
+    'discord_bot_error_unauthorized' => 'Website API key is invalid',
+    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+
 );

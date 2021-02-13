@@ -1,8 +1,8 @@
 <?php
 /*
- *	Made by TheSuperSkills (Edited by iMaykolRD_)
+ *  Made by TheSuperSkills (Edited by iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -18,6 +18,7 @@ $language = array(
     'installer_welcome' => 'Bienvenido a NamelessMC versión 2.0 pre-release.',
     'pre-release_warning' => 'Tenga en cuenta que esta versión preliminar no está diseñada para su uso en sitios públicos.',
     'installer_information' => 'El instalador le guiará a través del proceso de instalación.',
+    'terms_and_conditions' => 'By continuing you agree to the terms and conditions.',
     'new_installation_question' => 'En primer lugar, ¿se trata de una nueva instalación?',
     'new_installation' => 'Nueva instalación &raquo;',
     'upgrading_from_v1' => 'Actualización de v1 &raquo;',
@@ -37,7 +38,7 @@ $language = array(
     'nameless_path' => 'Ruta de la instalacción',
     'nameless_path_info' => 'Esta será la ubicación donde Nameless se instalará. Por ejemplo: si Nameless se instala en example.com/forum, esto necesita ser un <strong>foro</strong>. Deja esto en blanco si Nameless no es una subcarpeta.',
     'friendly_urls' => 'URLs amistosas',
-    'friendly_urls_info' => 'Las URL amigables mejorarán la legibilidad de las URL en su navegador.<br />Por ejemplo: <br />example.com/index.php?route=/forum<br />se convertiría en<br />example.com/forum.<br /><strong>¡IMPORTANTE!</strong><br />Su servidor debe estar configurado correctamente para que esto funcione. Puede ver si puede habilitar esta opción haciendo clic <a href=\'./rewrite_test\' target=\'_blank\'>aquí</a>.',
+    'friendly_urls_info' => 'Las URL amigables mejorarán la legibilidad de las URL en su navegador. <br /><b>Por ejemplo:</b> <br /> <code>example.com/index.php?route=/forum</code><br/> se convertira en <br /><code>example.com/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>¡IMPORTANTE!</strong> Su servidor web debe estar configurado correctamente para que las url amigables funcione. Puede ver si puede habilitar esta opción haciendo clic <a href=\'./rewrite_test\' target=\'_blank\'style="color:#2185D0">aqui</a>.</div>',
     'enabled' => 'Activado',
     'disabled' => 'Desactivado',
     'character_set' => 'Conjunto de carácteres',
@@ -53,6 +54,7 @@ $language = array(
     'site_name' => 'Nombre del sitio',
     'contact_email' => 'Email de contacto',
     'outgoing_email' => 'Correo saliente',
+    'language' => 'Language',
     'initialising_database_and_cache' => 'Inicializando la base de datos y la caché, espere...',
     'unable_to_login' => 'Incapaz de iniciar sesión.',
     'unable_to_create_account' => 'No se puede crear una cuenta',
@@ -83,5 +85,22 @@ $language = array(
     'finish_message' => '¡Gracias por instalar NamelessMC! Ahora puede continuar con el Panel de Administración, donde podrá configurar su sitio web.',
     'support_message' => 'Si necesita ayuda, consulte nuestro sitio web <a href="https://namelessmc.com" target="_blank">here</a>, o también puede visitar nuestro <a href="https://discord.gg/9vk93VR" target="_blank">Servidor de Discord</a> o nuestro <a href="https://github.com/NamelessMC/Nameless/" target="_blank">Repositorio de GitHub</a>.',
     'credits' => 'Créditos',
-    'credits_message' => 'Muchas gracias a todos <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">Contribuidores de NamelessMC</a> desde el 2014'
+    'credits_message' => 'Muchas gracias a todos <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">Contribuidores de NamelessMC</a> desde el 2014',
+
+    'step_home' => 'Home',
+    'step_requirements' => 'Requirements',
+    'step_general_config' => 'General Configuration',
+    'step_database_config' => 'Database Configuration',
+    'step_site_config' => 'Site Configuration',
+    'step_admin_account' => 'Admin Account',
+    'step_conversion' => 'Conversion',
+    'step_finish' => 'Finish',
+
+    'general_configuration' => 'General Configuration',
+    'reload' => 'Reload',
+    'reload_page' => 'Reload page',
+    'no_converters_available' => 'There are no converters available.',
+    'config_not_writable' => 'The config file is not writable.',
+
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
 );

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr7
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -10,16 +10,18 @@
  */
 
 class Forum_Module extends Module {
-	private $_language, $_forum_language;
 
-	public function __construct($language, $forum_language, $pages){
+    private $_language, 
+            $_forum_language;
+
+	public function __construct($language, $forum_language, $pages) {
 		$this->_language = $language;
 		$this->_forum_language = $forum_language;
 
 		$name = 'Forum';
 		$author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-		$module_version = '2.0.0-pr7';
-		$nameless_version = '2.0.0-pr7';
+		$module_version = '2.0.0-pr9';
+		$nameless_version = '2.0.0-pr9';
 
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -45,31 +47,34 @@ class Forum_Module extends Module {
 		$pages->add('Forum', '/forum/reactions', 'pages/forum/reactions.php');
 		$pages->add('Forum', '/forum/search', 'pages/forum/search.php');
 
+		// UserCP
+		$pages->add('Forum', '/user/following_topics', 'pages/user/following_topics.php');
+
 		// Redirects
 		$pages->add('Forum', '/forum/view_topic', 'pages/forum/redirect.php');
 		$pages->add('Forum', '/forum/view_forum', 'pages/forum/redirect.php');
 
 		// Hooks
-		HookHandler::registerEvent('newTopic', $this->_forum_language->get('forum', 'new_topic_hook_info'), array('uuid' => $this->_language->get('admin', 'uuid'), 'username' => $this->_language->get('user', 'username'), 'nickname' => $this->_language->get('user', 'nickname'), 'content' => $this->_language->get('general', 'content'), 'content_full' => $this->_language->get('general', 'full_content'), 'avatar_url' => $this->_language->get('user', 'avatar'), 'title' => $this->_forum_language->get('forum', 'topic_title'), 'url' => $this->_language->get('general', 'url')));
+		HookHandler::registerEvent('newTopic', $this->_forum_language->get('forum', 'new_topic_hook_info'), array('uuid' => $this->_language->get('admin', 'uuid'), 'username' => $this->_language->get('user', 'username'), 'nickname' => $this->_language->get('user', 'nickname'), 'content' => $this->_language->get('general', 'content'), 'content_full' => $this->_language->get('general', 'full_content'), 'avatar_url' => $this->_language->get('user', 'avatar'), 'title' => $this->_forum_language->get('forum', 'topic_title'), 'url' => $this->_language->get('general', 'url'), 'available_hooks' => $this->_forum_language->get('forum', 'available_hooks')));
 	}
 
-	public function onInstall(){
+	public function onInstall() {
 		// Not necessary for Forum
 	}
 
-	public function onUninstall(){
+	public function onUninstall() {
 
 	}
 
-	public function onEnable(){
+	public function onEnable() {
 		// No actions necessary
 	}
 
-	public function onDisable(){
+	public function onDisable() {
 		// No actions necessary
 	}
 
-	public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template){
+	public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template) {
 		// AdminCP
 		PermissionHandler::registerPermissions('Forum', array(
 			'admincp.forums' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_forum_language->get('forum', 'forum')
@@ -134,8 +139,8 @@ class Forum_Module extends Module {
 			if($user->hasPermission('admincp.forums')){
 				$cache->setCache('panel_sidebar');
 				if(!$cache->isCached('forum_order')){
-					$order = 10;
-					$cache->store('forum_order', 10);
+					$order = 12;
+					$cache->store('forum_order', 12);
 				} else {
 					$order = $cache->retrieve('forum_order');
 				}

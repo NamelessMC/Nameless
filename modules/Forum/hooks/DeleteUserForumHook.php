@@ -2,14 +2,15 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  Delete user hook handler class for Forum module
  */
 
 class DeleteUserForumHook {
+
 	// Execute hook
-	public static function deleteUser($params = array()){
+	public static function deleteUser($params = array()) {
 		if(isset($params['user_id']) && $params['user_id'] > 1){
 			$queries = new Queries();
 

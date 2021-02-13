@@ -15,14 +15,17 @@
   </div>
 {/if}
 
-{if !empty($ERROR)}
-  <div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-      <div class="header">{$ERROR_TITLE}</div>
-      {$ERROR}
-    </div>
+{if isset($ERRORS)}
+<div class="ui error icon message">
+  <i class="x icon"></i>
+  <div class="content">
+    <ul class="list">
+      {foreach from=$ERRORS item=error}
+      <li>{$error}</li>
+      {/foreach}
+    </ul>
   </div>
+</div>
 {/if}
 
 <div class="ui stackable grid" id="user-settings">
@@ -49,6 +52,15 @@
                 {/if}
               </div>
             {/foreach}
+            {if isset($TOPIC_UPDATES)}
+              <div class="field">
+                <label for="inputTopicUpdates">{$TOPIC_UPDATES}</label>
+                <select class="ui fluid dropdown" name="topicUpdates" id="inputTopicUpdates">
+                  <option value="1" {if ($TOPIC_UPDATES_ENABLED==true)} selected {/if}>{$ENABLED}</option>
+                  <option value="0" {if ($TOPIC_UPDATES_ENABLED==false)} selected {/if}>{$DISABLED}</option>
+                </select>
+              </div>
+            {/if}
             {if isset($PRIVATE_PROFILE)}
               <div class="field">
                 <label for="inputPrivateProfile">{$PRIVATE_PROFILE}</label>
@@ -59,6 +71,13 @@
               </div>
             {/if}
             <div class="field">
+              <label for="inputGravatar">{$GRAVATAR}</label>
+              <select class="ui fluid dropdown" name="gravatar" id="inputGravatar">
+                <option value="0"{if ($GRAVATAR_VALUE == '0')} selected {/if}>{$DISABLED}</option>
+                <option value="1"{if ($GRAVATAR_VALUE == '1')} selected {/if}>{$ENABLED}</option>
+              </select>
+            </div>
+            <div class="field">
               <label for="inputLanguage">{$ACTIVE_LANGUAGE}</label>
               <select class="ui fluid dropdown" name="language" id="inputLanguage">
                 {foreach from=$LANGUAGES item=language}
@@ -66,7 +85,7 @@
                  {/foreach}
               </select>
             </div>
-            {if count($TEMPLATES)}
+            {if count($TEMPLATES) > 1}
               <div class="field">
                 <label for="inputTemplate">{$ACTIVE_TEMPLATE}</label>
                 <select class="ui fluid dropdown" name="template" id="inputTemplate">
@@ -138,13 +157,41 @@
           <input type="submit" value="{$SUBMIT}" class="ui primary button">
         </form>
       </div>
+      {if $DISCORD_INTEGRATION}
+        <div class="ui segment">
+          <h3 class="ui header">{$DISCORD_LINK}
+            {if $DISCORD_LINKED}
+              <span class="ui green label">{$LINKED}</span>
+            {else if isset($PENDING_LINK)}
+              <span class="ui orange label">{$PENDING_LINK}</span>
+            {else}
+              <span class="ui red label">{$NOT_LINKED}</span>
+            {/if}
+            </h3>
+          {if $DISCORD_LINKED}
+            <p><strong>{$DISCORD_USERNAME}:</strong> {$DISCORD_USERNAME_VALUE}</p>
+          {/if}
+          <form action="" method="post" class="ui form">
+            <input type="hidden" name="action" value="discord">
+            <input type="hidden" name="token" value="{$TOKEN}">
+            {if $DISCORD_LINKED} 
+              <input type="hidden" name="unlink" value="true">
+              <input type="submit" value="{$UNLINK}" class="ui red button">
+            {else}
+              <input type="submit" value="{$LINK}" class="ui primary button">
+            {/if}
+          </form>
+        </div>
+      {/if}
       <div class="ui segment">
         <h3 class="ui header">{$TWO_FACTOR_AUTH}</h3>
         {if isset($ENABLE)}
           <a class="ui positive button" href="{$ENABLE_LINK}">{$ENABLE}</a>
-         {else}
+        {elseif isset($FORCED)}
+          <button class="ui negative button" disabled>{$DISABLE}</button>
+        {else}
            <a class="ui negative button" href="{$DISABLE_LINK}">{$DISABLE}</a>
-         {/if}
+        {/if}
       </div>
       {if isset($CUSTOM_AVATARS)}
         <div class="ui segment">

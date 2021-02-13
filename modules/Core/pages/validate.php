@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr7
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -21,29 +21,34 @@ if(!isset($_GET['c'])){
 	Redirect::to(URL::build('/'));
 	die();
 } else {
-	$check = $queries->getWhere('users', array('reset_code', '=', $_GET['c']));
-	if(count($check)){
+	$user = new User($_GET['c'], 'reset_code');
+	if(count($user->data())){
         // API verification
         $api_verification = $queries->getWhere('settings', array('name', '=', 'api_verification'));
         $api_verification = $api_verification[0]->value;
 
         if($api_verification == '1')
-            $reset_code = $check[0]->reset_code;
+            $reset_code = $user->data()->reset_code;
         else
             $reset_code = null;
 
-		$queries->update('users', $check[0]->id, array(
+		$queries->update('users', $user->data()->id, array(
 			'reset_code' => $reset_code,
 			'active' => 1
 		));
 
-		HookHandler::executeEvent('validateUser', array(
-			'event' => 'validateUser',
-			'user_id' => $check[0]->id,
-			'username' => Output::getClean($check[0]->username),
-			'uuid' => Output::getClean($check[0]->uuid),
-			'language' => $language
-		));
+        HookHandler::executeEvent('validateUser', array(
+            'event' => 'validateUser',
+            'user_id' => $user->data()->id,
+            'username' => $user->getDisplayname(),
+            'uuid' => Output::getClean($user->data()->uuid),
+            'content' => str_replace('{x}', $user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
+            'avatar_url' => $user->getAvatar(null, 128, true),
+            'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'language' => $language
+        ));
+
+        Discord::addDiscordRole($user, $user->getMainGroup()->id, $language, false);
 
 		Session::flash('home', $language->get('user', 'validation_complete'));
 		Redirect::to(URL::build('/'));

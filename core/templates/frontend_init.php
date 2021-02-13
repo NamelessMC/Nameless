@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -36,7 +36,7 @@ $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
 if(file_exists(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php'))
 	require(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php');
 else
-	require(ROOT_PATH . '/custom/templates/Default/template.php');
+	require(ROOT_PATH . '/custom/templates/DefaultRevamp/template.php');
 
 // User related actions
 if($user->isLoggedIn()){
@@ -71,7 +71,7 @@ if($user->isLoggedIn()){
 
 		$cache->store('default_group', $default_group);
 	}
-	if($user->data()->group_id == $default_group && ($user->data()->reset_code)){
+	if(in_array($default_group, $user->getAllGroupIds()) && ($user->data()->reset_code)) {
 		// User needs to validate account
 		$smarty->assign('MUST_VALIDATE_ACCOUNT', str_replace('{x}', Output::getClean($user->data()->reset_code), $language->get('user', 'validate_account_command')));
 	}
@@ -120,3 +120,17 @@ $banner_image = $cache->retrieve('banner_image');
 
 if(!empty($banner_image))
 	$smarty->assign('BANNER_IMAGE', Output::getClean($banner_image));
+
+$logo_image = $cache->retrieve('logo_image');
+
+if(!empty($logo_image))
+    $smarty->assign('LOGO_IMAGE', Output::getClean($logo_image));
+
+$favicon_image = $cache->retrieve('favicon_image');
+
+if(!empty($favicon_image))
+    $smarty->assign('FAVICON', Output::getClean($favicon_image));
+
+$analytics_id = $configuration->get('Core', 'ga_script');
+if($analytics_id != null && !empty($analytics_id))
+    $smarty->assign('ANALYTICS_ID', $analytics_id);

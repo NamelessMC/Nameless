@@ -1,8 +1,8 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -22,7 +22,7 @@ $language = array(
      */
     'guest' => 'Vizitator',
     'guests' => 'Vizitatori',
-    
+
     // UserCP
     'user_cp' => 'Panou Utilizator',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Panou Utilizator</span>',
@@ -37,7 +37,8 @@ $language = array(
     'alerts' => 'Notificări',
     'delete_all' => 'Şterge tot',
     'private_profile' => 'Profil privat',
-    
+    'gif_avatar' => 'Upload .gif as custom avatar',
+
     // Profile settings
     'field_is_required' => 'Câmpul "{x}" este necesar.', // Don't replace {x}
     'settings_updated_successfully' => 'Setările s-au actualizat cu succes.',
@@ -66,10 +67,12 @@ $language = array(
     'email_already_exists' => 'Adresa de e-mail pe care ați introdus-o este deja utilizată.',
     'email_changed_successfully' => 'Adresa de e-mail a fost modificată cu succes.',
     'avatar' => 'Avatar',
-	'profile_banner' => 'Banner profil',
-	'upload_profile_banner' => 'Încărcați banner profil',
-	'upload' => 'Încărcați',
-    
+    'profile_banner' => 'Banner profil',
+    'upload_profile_banner' => 'Încărcați banner profil',
+    'upload' => 'Încărcați',
+    'topic_updates' => 'Get emails for topics you follow',
+    'gravatar' => 'Use Gravatar as avatar',
+
     // Alerts
     'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace {x}
     'no_alerts' => 'Nu aveți notificări necitite.',
@@ -78,7 +81,7 @@ $language = array(
     'x_new_alerts' => 'Aveți {x} notificări noi.', // Don't replace {x}
     'no_alerts_usercp' => 'Momentan nu aveți notificări noi.',
     'new_wall_post' => '{x} a postat pe peretele tău.',
-    
+
     // Registraton
     'registration_check_email' => 'Vă mulțumim pentru înregistrare! Verificați e-mailurile pentru un link de validare pentru a vă completa înregistrarea. Dacă nu reușiți să găsiți e-mailul, verificați dosarul de spam.',
     'username' => 'Nume de utilizator',
@@ -130,7 +133,7 @@ $language = array(
     'verification_success' => 'Validat cu succes! Acum te poți loga.',
     'authme_username_exists' => 'Contul dvs. Authme a fost deja conectat la site-ul Web!',
     'uuid_already_exists' => 'UUID-ul dvs. există deja, ceea ce înseamnă că acest cont Minecraft este deja înregistrat.',
-    
+
     // Login
     'successful_login' => 'V-ați conectat cu succes.',
     'incorrect_details' => 'Ați introdus detalii incorecte.',
@@ -149,7 +152,7 @@ $language = array(
     'enter_new_password' => 'Confirmați adresa dvs. de e-mail și introduceți o nouă parolă mai jos.',
     'incorrect_email' => 'Adresa de e-mail pe care ați introdus-o nu corespunde solicitării.',
     'forgot_password_change_successful' => 'Parola dvs. a fost modificată cu succes. Acum te poți loga.',
-    
+
     // Profile pages
     'reactions' => 'Reacții',
     'profile' => 'Profil',
@@ -185,13 +188,14 @@ $language = array(
     'new_wall_post_reply' => '{x} a răspuns la postarea ta pe profilul lui {y}.', // Don't replace {x} or {y}
     'new_wall_post_reply_your_profile' => '{x} a răspuns la postarea de pe profilul tău.', // Don't replace {x}
     'no_about_fields' => 'Acest utilizator nu și-a completat încă nici un câmp aici.',
-	'reply' => 'Răspunde',
+    'reply' => 'Răspunde',
+    'discord_username' => 'Discord Username',
     
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',
     'report_post_content' => 'Introduceți un motiv pentru raportul dvs.',
     'report_created' => 'Raportul a fost creat cu succes.',
-    
+
     // Messaging
     'no_messages' => 'Nu există mesaje noi.',
     'no_messages_full' => 'Momentan nu aveți mesaje.',
@@ -218,7 +222,9 @@ $language = array(
     'leave_conversation' => 'Părăsește conversația',
     'confirm_leave' => 'Sunteți sigur că doriți să părăsiți această conversație?',
     'one_or_more_users_blocked' => 'Nu puteți trimite mesajul privat deoarece unul sau mai mulți destinatari sunt blocați.',
-	'messages' => 'Mesaje',
+    'messages' => 'Mesaje',
+    'latest_profile_posts' => 'Latest Profile Posts',
+    'no_profile_posts' => 'No profile posts.',
 
     /*
      *  Infractions area
@@ -226,17 +232,26 @@ $language = array(
     'you_have_been_banned' => 'Ați fost banat!',
     'you_have_received_a_warning' => 'Ați primit un avertisment!',
     'acknowledge' => 'Am înțeles',
-    
-    /*
-     *  Emails
-     */
-    'email_greeting' => 'Salut,',
-    'email_message' => 'Vă mulțumim pentru înregistrare! Pentru a vă completa înregistrarea, faceți clic pe următorul link:',
-    'forgot_password_email_message' => 'Pentru a vă reseta parola, faceți clic pe următorul link. Dacă nu ați solicitat acest lucru, puteți șterge în siguranță acest e-mail.',
-    'email_thanks' => 'Cu stimă,',
 
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} s-a alaturat comunităţii!'
+    'user_x_has_registered' => '{x} s-a alaturat comunităţii!',
+    'user_x_has_validated' => '{x} has validated their account!',
+
+    // Discord
+    'discord_link' => 'Discord Link',
+    'linked' => 'Linked',
+    'not_linked' => 'Not Linked',
+    'discord_id' => 'Discord User ID',
+    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
+    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
+    'pending_link' => 'Pending',
+    'discord_id_taken' => 'That Discord ID has already been taken.',
+    'discord_invalid_id' => 'That Discord User ID is invalid.',
+    'discord_already_pending' => 'You already have a pending verification.',
+    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
+    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
+    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
+    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
 );

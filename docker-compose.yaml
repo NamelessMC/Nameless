@@ -1,0 +1,62 @@
+# THIS FILE IS FOR DEVELOPMENT. For production, see https://github.com/NamelessMC/Nameless-Docker
+
+# INSTRUCTIONS
+# Set up or update:
+# export USER_ID=$(id -u); export GROUP_ID=$(id -g); docker-compose build; docker-compose pull
+#
+# Run:
+# docker-compose up
+#
+# Uninstall
+# docker-compose down
+# docker image prune -af
+
+version: '2'
+
+services:
+
+    web:
+        image: namelessmc/nginx
+        ports: ['80:80']
+        volumes: ['./:/data']
+        depends_on: [php]
+        environment:
+            PHP_FPM: php:9000
+
+    php:
+        build:
+            context: .
+            args:
+                USER_ID: ${USER_ID}
+                GROUP_ID: ${GROUP_ID}
+        volumes: ['./:/data']
+        environment:
+            NAMELESS_HOSTNAME: localhost
+            NAMELESS_DATABASE_ADDRESS: db
+            NAMELESS_DATABASE_NAME: nameless
+            NAMELESS_DATABASE_USERNAME: nameless
+            NAMELESS_DATABASE_PASSWORD: nameless
+            NAMELESS_FRIENDLY_URLS: 'true'
+            NAMELESS_SITE_NAME: 'Development'
+            NAMELESS_SITE_CONTACT_EMAIL: admin@localhost
+            NAMELESS_SITE_OUTGOING_EMAIL: admin@localhost
+            NAMELESS_ADMIN_USERNAME: developer
+            NAMELESS_ADMIN_EMAIL: admin@namelessmc.com
+
+    db:
+        image: mariadb
+        environment:
+            MYSQL_ROOT_PASSWORD: nameless
+            MYSQL_USER: nameless
+            MYSQL_PASSWORD: nameless
+            MYSQL_DATABASE: nameless
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports: ['8080:80']
+        depends_on: [db]
+        environment:
+            PMA_HOST: db
+            PMA_ABSOLUTE_URI: http://localhost:8080
+            PMA_USER: nameless
+            PMA_PASSWORD: nameless

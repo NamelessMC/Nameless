@@ -1,8 +1,8 @@
-<?php 
+<?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -13,14 +13,14 @@ $language = array(
     'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
     'overview' => 'Visão Geral',
-    
+
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Marcar como Spam',
     'confirm_spam' => '<p>Tem certeza de que deseja marcar esse usuário como spam?</p><p>O IP do usuário será banido e todo seu conteúdo será removido.</p>',
     'user_marked_as_spam' => 'Usuário marcado como spam com sucesso.',
     'cant_ban_admin' => 'Você não pode banir um administrador!',
-    
+
     // IP Lookup
     'ip_lookup' => 'Pesquisar IP',
     'search_for_ip' => 'Procurar um nome de usuário ou um endereço IP:',
@@ -31,7 +31,7 @@ $language = array(
     '1_ip_with_name' => 'Encontrado 1 IP para o usuário {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Encontrados {x} endereços de IP para o usuário {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Não foram encontrados usuários ou endereços IP.',
-    
+
     // Reports
     'reports' => 'Denúncias',
     'report_alert' => 'Nova denúncia enviada',
@@ -61,7 +61,7 @@ $language = array(
     'report_reopened' => 'Denúncia reaberta com sucesso.',
     'report_closed' => 'Denúncia fechada com sucesso.',
     'comment_created' => 'Comentário adicionado com sucesso.',
-    
+
     // Punishments
     'punishments' => 'Punições',
     'view_punishments' => 'Ver Punições',
@@ -99,7 +99,7 @@ $language = array(
     'recent_punishments' => 'Punições Recentes',
     'created' => 'Criado:',
     'staff:' => 'Staff:',
-    
+
     // Users
     'recent_registrations' => 'Cadastros Recentes',
     'reset_profile_banner' => 'Redefinir Banner do Perfil'

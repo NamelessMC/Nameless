@@ -505,3 +505,70 @@ NamelessMC version 2 Changelog
 - Prevent fatal error with insufficient forum permissions
 - Allow changing group username colour from text input
 - Add login link to maintenance mode page
+
+2.0.0 pr-8
+- Many bugfixes
+- Add Discord rank sync
+- Add Chinese (Simplified), French, Russian, Spanish (ES) and Turkish translations
+- Update existing translations
+- New user/group systems - mostly backend changes
+- API rework - modules can now register custom endpoints
+- New widget location - can choose between left + right hand side
+- Remove legacy v1 API
+- Add basic custom page feature - no navbar/footer
+- Add ability to open custom page in new tab
+- Remove old Default template
+- Fix same-site redirect forums showing redirect warning
+- Add "topics following" page
+- Add email content editor
+- Add mass emailing
+- Add ability to receive emails for followed topic updates
+- Add required custom profile fields to registration page
+- Add announcement system
+- New installer
+- Update StaffCP users list table to be async
+- Add ability to specify rel, as, onload attributes for CSS and defer, async attributes for JS
+- Discord topic webhook improvements
+- Remove dropdowns from DefaultRevamp template mobile sidebar
+- Start PHP 8 compatibility - still a work in progress
+- Fix MCAssoc integration
+- Add server status widget
+- Add latest profile post widget
+- Add ability to change "More" dropdown message
+- Add force 2FA option
+- Multiple webhook support
+- Add highlighting to profile post links
+- Add ability to add CSS to group usernames
+- Allow specifying "Can view other users' topics" forum permission for guests
+- Add hCaptcha
+
+2.0.0 pr-9
+- Add new panel template
+- Add Default Revamp settings including dark mode
+- Add player heads to server status widget
+- Add ability to re-order servers in play tab
+- Add announcement HTML support
+- Add ability to search for users by email address in StaffCP
+- Add ability to resend validation email
+- Add ability to set default labels for forums
+- Add option to use Gravatar
+- Add concept of module dependencies
+- Add getActivePage method
+- Add new SEO page including Google Analytics integration
+- Add drag ordering for groups and Minecraft servers
+- Translation updates
+- Fix multibyte character string length checks
+- Fix widgets intended for homepage showing on all pages
+- Fix validateUser hook sending empty Discord message
+- Fix API endpoints
+- Fix latest profile posts widget profile links
+- Fix API URL adding two http prefixes
+- Fix StaffCP Registration settings not submitting
+- Fix webhooks listing twice
+- Fix API URL in StaffCP API tab having leading/trailing whitespace
+- Fix group_id column error upon registration and AuthMe linking
+- Fix StaffCP sidebar link conflicts
+- Fix error if user has no group
+- Make groups field in serverInfo endpoint optional
+- PHP 8 improvements
+- Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr8...v2.0.0-pr9

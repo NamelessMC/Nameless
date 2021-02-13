@@ -1,11 +1,13 @@
-<?php 
+<?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
- *  Translation by SimplyRin( @SimplyRin_, https://www.simplyrin.net )
- *  Additional translation by Mari0914( @Mari0914_Main, https://mari0914.japanminigame.net )
+ *  Translator
+ *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
+ *  - Mari0914( @Mari0914_Main, https://mari0914.japanminigame.net )
+ *  - snake( @ViaSnake, https://github.com/ViaSnake )
  *
  *  License: MIT
  *
@@ -13,49 +15,50 @@
  */
 
 $language = array(
-	/*
-	 *  General terms
-	 */ 
-	'submit' => '送信',
-	'register' => '登録',
-	'already_registered' => 'Already Registered?',
-	'custom_fields' => 'Custom Fields',
-	'not_registered_yet' => 'Not registered yet?',
-	'sign_in' => 'ログイン',
-	'log_out' => 'ログアウト',
-	'profile' => 'プロフィール',
-	'invalid_token' => 'トークンが無効です。再試行してください。',
-	'close' => '閉じる',
-	'back' => '戻る',
-	'warning' => '警告',
-	'date' => '日付',
-	'search' => '検索　',
-	'edit' => '編集',
-	'next' => '次へ',
-	'previous' => '前へ',
-	'confirm_cancel' => 'キャンセルしてもよろしいですか？',
-	'confirm_delete' => '削除確認',
-	'confirm_deletion' => '指定中のものを削除してもよろしいですか？',
-	'cancel' => 'キャンセル',
-	'delete' => '削除',
-	'none' => '無し',
-	'view' => 'ビュー',
-	'change' => '変更',
-	'remove' => '削除',
-	'info' => '情報',
-	'confirm' => '確認',
-	'actions' => 'アクション',
-	'alerts' => 'アラート',
-	'view_alerts' => 'アラートを表示',
-	'no_alerts' => 'アラートなし',
-	'x_new_alerts' => '{x} 件の新しいアラートがあります。', // Don't replace {x}
-	'messages' => 'メッセージ',
-	'view_messages' => 'メッセージを表示',
-	'no_messages' => 'メッセージなし',
-	'x_new_messages' => '{x} 件の新しいメッセージがあります。', // Don't replace {x}
-	'loading' => 'ロード中...',
-	'report' => 'レポート',
-	'page_loaded_in' => 'このページは {x} 秒で読み込まれました。', // Don't replace {x}, time unit is seconds
+    /*
+     *  General terms
+     */
+    'help' => 'ヘルプ',
+    'submit' => '送信',
+    'register' => '登録',
+    'already_registered' => '登録済みですか？',
+    'custom_fields' => 'カスタムフィールド',
+    'not_registered_yet' => 'まだ登録されていませんか？',
+    'sign_in' => 'ログイン',
+    'log_out' => 'ログアウト',
+    'profile' => 'プロフィール',
+    'invalid_token' => 'トークンが無効です。再試行してください。',
+    'close' => '閉じる',
+    'back' => '戻る',
+    'warning' => '警告',
+    'date' => '日付',
+    'search' => '検索　',
+    'edit' => '編集',
+    'next' => '次へ',
+    'previous' => '前へ',
+    'confirm_cancel' => 'キャンセルしてもよろしいですか？',
+    'confirm_delete' => '削除確認',
+    'confirm_deletion' => '指定中のものを削除してもよろしいですか？',
+    'cancel' => 'キャンセル',
+    'delete' => '削除',
+    'none' => '無し',
+    'view' => 'ビュー',
+    'change' => '変更',
+    'remove' => '削除',
+    'info' => '情報',
+    'confirm' => '確認',
+    'actions' => 'アクション',
+    'alerts' => 'アラート',
+    'view_alerts' => 'アラートを表示',
+    'no_alerts' => 'アラートなし',
+    'x_new_alerts' => '{x} 件の新しいアラートがあります。', // Don't replace {x}
+    'messages' => 'メッセージ',
+    'view_messages' => 'メッセージを表示',
+    'no_messages' => 'メッセージなし',
+    'x_new_messages' => '{x} 件の新しいメッセージがあります。', // Don't replace {x}
+    'loading' => 'ロード中...',
+    'report' => 'レポート',
+    'page_loaded_in' => 'このページは {x} 秒で読み込まれました。', // Don't replace {x}, time unit is seconds
     'page_x' => '{x} ページ',
     'browse' => 'ブラウズ',
     'bypass' => 'バイパス',
@@ -64,11 +67,14 @@ $language = array(
     'content' => 'コンテンツ',
     'full_content' => 'すべてのコンテンツ',
     'url' => 'URL',
-	'success' => '成功',
-	'error' => 'エラー',
-	'are_you_sure' => '【情報】',
-	'spoiler' => 'Spoiler',
-
+    'success' => '成功',
+    'error' => 'エラー',
+    'are_you_sure' => '【情報】',
+    'spoiler' => 'Spoiler',
+    'invalid_timezone' => 'タイムゾーンが無効',
+    'link' => 'Link',
+    'unlink' => 'Unlink',
+    
     /*
      *  Contact form
      */
@@ -80,24 +86,24 @@ $language = array(
     'contact_message_email' => '指定されたメールアドレスは無効です。',
     'contact_message_sent' => '正常に送信されました。',
     'contact_message_limit' => '1 時間に 1 つのメッセージのみ送信できます。 {x} 分後に再試行してください。', // Don't replace {x}
-	
-	/* 
-	 *  Navbar
-	 */
-	'home' => 'ホーム',
-	'more' => 'さらに',
-	'status' => 'ステータス',
-	
-	/*
-	 *  Homepage
-	 */
-	'social' => 'ソーシャル',
-	
-	
-	/*
-	 *  Help dialogues
-	 */
-	'markdown_help' => 'Markdownを使用して投稿できます。 詳しくは <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>ここ</a> を参照してください。',
+
+    /*
+     *  Navbar
+     */
+    'home' => 'ホーム',
+    'more' => 'さらに',
+    'status' => 'ステータス',
+
+    /*
+     *  Homepage
+     */
+    'social' => 'ソーシャル',
+
+
+    /*
+     *  Help dialogues
+     */
+    'markdown_help' => 'Markdownを使用して投稿できます。 詳しくは <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>ここ</a> を参照してください。',
 
     /*
      *  Server query
@@ -128,29 +134,31 @@ $language = array(
     /*
      *  Widgets
      */
-    'statistics' => 'Statistics',
-    'users_registered' => 'Users Registered',
-    'latest_member' => 'Latest Member',
-    'forum_statistics' => 'Forum Statistics',
-    'total_threads' => 'Total Threads',
-    'total_posts' => 'Total Posts',
+    'statistics' => '統計',
+    'users_registered' => '登録ユーザー',
+    'latest_member' => '最新メンバー',
+    'forum_statistics' => 'フォーラム統計',
+    'total_threads' => '累計スレッド',
+    'total_posts' => '累計投稿',
     'online_staff' => 'オンラインスタッフ',
     'no_online_staff' => 'オンラインのスタッフはいません。',
-    'total_online_staff' => 'Total online staff: {x}',
+    'total_online_staff' => '累計オンラインスタッフ: {x}',
     'online_users' => 'オンラインユーザー',
     'no_online_users' => 'オンラインのユーザーはいません。',
-    'total_online_users' => 'Total online users: {x}',
+    'total_online_users' => '累計オンラインユーザー: {x}',
     'discord_widget_disabled' => 'Discordウィジェットは、指定されたDiscordサーバーでは無効になっています。 Discordサーバー設定のウィジェットタブに移動し、Discordウィジェットが有効で、IDが正しいことを確認してください。',
-    'online_guests' => 'Online Guests',
-    'total_online' => 'Total Online', // this is Online Users + Online Guests
+    'online_guests' => 'オンラインゲスト',
+    'total_online' => '累計オンライン', // this is Online Users + Online Guests
+    'no_default_server' => 'デフォルトのサーバーがありません、StaffCP - Integrations - Minecraftで選択してください。',
+    'server_status' => 'サーバーステータス',
 
     /*
      *  Privacy policy
      */
     'privacy_policy' => 'プライバシーポリシー(個人情報保護方針)',
 
-	/*
-	 *  Custom page redirect
-	 */
-	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+    /*
+     *  Custom page redirect
+     */
+    'redirecting_message' => 'リダイレクト...<br />自動的にリダイレクトされない場合は、<a href="{x}" rel="nofollow noopener">こちら</a>をクリックしてください。' // Don't replace {x} which is the redirect URL
 );

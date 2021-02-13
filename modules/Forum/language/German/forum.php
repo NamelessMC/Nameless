@@ -1,8 +1,8 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -10,7 +10,7 @@
  */
 
 /*
- *	Translation by BukkitTNT
+ *  Translation by BukkitTNT
  *
  *  http://BukkitTNT.de
  *  http://twitter.com/BukkitTNT
@@ -101,8 +101,8 @@ $language = array(
     'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
     'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
     'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
-	'started_by_x' => 'Started by {x}', // Don't replace {x}
-	'sticky_topics' => 'Sticky Topics',
+    'started_by_x' => 'Started by {x}', // Don't replace {x}
+    'sticky_topics' => 'Sticky Topics',
 
     // Homepage
     'latest_announcements' => 'Neueste Ankündigungen',
@@ -151,6 +151,7 @@ $language = array(
     'can_view_forum' => 'Kann dieses Forum gesehen werden?',
     'can_view_other_topics' => 'Können Nutzer andere Themen sehen?',
     'can_create_topic' => 'Können Themen erstellt werden?',
+    'can_edit_topic' => 'Can edit their topics?',
     'can_post_reply' => 'Können Antworten erstellt werden?',
     'can_moderate_forum' => 'Kann das Forum moderiert werden?',
     'display_topics_as_news' => 'Sollen Themen auf der Startseite angezeigt werden?',
@@ -180,6 +181,8 @@ $language = array(
     'label_deleted_successfully' => 'Label deleted successfully.',
     'label_type_deleted_successfully' => 'Label type deleted successfully.',
     'topic_placeholder' => 'Topic placeholder',
+    'default_labels' => 'Default Labels',
+    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Forum Search',
@@ -198,17 +201,22 @@ $language = array(
     'your_posts' => 'Your post count',
     'average_posts' => 'Average user post count',
     'total_posts' => 'Total post count',
+    'following_topics' => 'Followed Topics',
+    'unfollow_all_topics' => 'Unfollow All Topics',
+    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
+    'all_topics_unfollowed' => 'All topics have been unfollowed.',
+    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => 'New topic',
     'new_topic_text' => 'Topic created in {x} by {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
-    'include_in_hook' => 'Include new topics from this forum in the webhook?',
-
-	// Panel statistics
-	'recent_topics' => 'Recent Topics',
-	'recent_topics_statistic_icon' => '<i class="far fa-comment"></i>',
-	'recent_posts' => 'Recent Posts',
-	'recent_posts_statistic_icon' => '<i class="fas fa-comments"></i>',
-	'topics_title' => 'Topics',
-	'posts_title' => 'Posts',
+    'include_in_hook' => 'Include new topics from this forum in webhooks?',
+    'available_hooks' => 'Available Hooks',
+    // Panel statistics
+    'recent_topics' => 'Recent Topics',
+    'recent_topics_statistic_icon' => '<i class="far fa-comment"></i>',
+    'recent_posts' => 'Recent Posts',
+    'recent_posts_statistic_icon' => '<i class="fas fa-comments"></i>',
+    'topics_title' => 'Topics',
+    'posts_title' => 'Posts',
 );

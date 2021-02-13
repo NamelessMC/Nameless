@@ -1,8 +1,8 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr4
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -15,14 +15,14 @@ $language = array(
     'mod_cp' => 'Panou Moderator',
     'staff_cp' => 'Panoul de Control',
     'overview' => 'Prezentare generală',
-    
+
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Marchează ca Spam',
     'confirm_spam' => '<p>Sunteți sigur că doriți să marcați acest utilizator ca fiind un autor de conținut spam?</p><p>Adresa IP a acestui utilizator se va bana, iar tot conținutul sau se va șterge.</p>',
     'user_marked_as_spam' => 'Utilizatorul a fost marcat cu succes ca fiind un autor de conținut spam!',
     'cant_ban_admin' => 'Nu puteți bana un administrator!',
-    
+
     // IP Lookup
     'ip_lookup' => 'Căutare IP',
     'search_for_ip' => 'Căutați un nume de utilizator sau o adresă IP:',
@@ -33,7 +33,7 @@ $language = array(
     'no_users_or_ips_found' => 'Nu a fost găsit nici un cont de utilizator sau adresă IP.',
     '1_account_with_ip' => 'Am găsit un cont de utilizatori pentru adresa IP {y}', // Don't replace "{y}"
     '1_ip_with_name' => 'Am găsit o adresă IP pentru utilizatorul {y}', // Don't replace "{y}"
-    
+
     // Reports
     'reports' => 'Rapoarte',
     'report_alert' => 'A fost adaugat un nou raport.',
@@ -63,7 +63,7 @@ $language = array(
     'report_reopened' => 'Raportul a fost redeschis cu succes.',
     'report_closed' => 'Raportul a fost închis cu succes.',
     'comment_created' => 'Comentariul a fost adăugat cu succes.',
-    
+
     // Punishments
     'punishments' => 'Sancțiuni',
     'view_punishments' => 'Vezi sancțiunile',
@@ -102,9 +102,9 @@ $language = array(
     'created' => 'Creat:',
     'staff:' => 'Moderator:',
     'reason:' => 'Motiv:',
-    
+
     // Users
     'recent_registrations' => 'Înregistrări recente',
-	'reset_profile_banner' => 'Resetaţi bannerul profilului'
+    'reset_profile_banner' => 'Resetaţi bannerul profilului'
 
 );

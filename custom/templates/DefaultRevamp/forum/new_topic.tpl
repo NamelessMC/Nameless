@@ -5,7 +5,7 @@
   {$CREATING_TOPIC_IN}
 </h2>
 
-{if count($ERROR)}
+{if isset($ERROR)}
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
@@ -29,12 +29,11 @@
             <input type="text" name="title" placeholder="{$TOPIC_TITLE}" maxlength="64">
           </div>
           {if count($LABELS)}
-            <div class="inline fields">
-              <label>Label:</label>
+            <div class="inline fields labels">
               {foreach from=$LABELS item=label}
                 <div class="field">
-                  <div class="ui radio checkbox">
-                    <input type="radio" name="topic_label" id="{$label.id}" value="{$label.id}" hidden>
+                  <div class="ui checkbox">
+                    <input type="checkbox" name="topic_label[]" id="{$label.id}" value="{$label.id}"{if $label.checked} checked{/if} hidden>
                     <label for="{$label.id}">{$label.html}</label>
                   </div>
                 </div>
@@ -44,12 +43,12 @@
           {if isset($MARKDOWN)}
             <div class="field">
               <label for="markdown">Content:</label>
-              <textarea name="content" id="markdown"></textarea>
+              <textarea name="content" id="markdown">{$CONTENT}</textarea>
             </div>
           {else}
             <div class="field">
               <label for="editor">Content:</label>
-              <textarea name="content" id="reply"></textarea>
+              <textarea name="content" id="reply">{$CONTENT}</textarea>
             </div>
           {/if}
           {$TOKEN}

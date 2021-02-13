@@ -25,8 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-class ServerBanner
-{
+class ServerBanner {
     /**
      *
      * @param string $address the server address
@@ -38,14 +37,13 @@ class ServerBanner
      * @param int $ping not implemented
      * @return resource the rendered banner
      */
-    public static function server($address, $motd = "§cOffline Server", $players = -1, $max_players = -1,
-            $favicon = NULL, $background = NULL, $ping = 150)
-    {
+    public static function server($address, $motd = "§cOffline Server", $players = -1, $max_players = -1, $favicon = null, $background = null, $ping = 150) {
         $canvas = MinecraftBanner::getBackgroundCanvas(650, 80, $background);
 
-        if ($favicon == NULL) {
+        if ($favicon == null) {
             $favicon = imagecreatefrompng(ROOT_PATH . '/core/assets/img/favicon.png');
         }
+
         //center the image in y-direction and add padding to the left side
         $favicon_posY = (80 - 64) / 2;
         imagecopy($canvas, $favicon, 3, $favicon_posY, 0, 0, 64, 64);
@@ -125,6 +123,7 @@ class ServerBanner
         $posX = $ping_posX - $text_width - 3 / 2;
 
         imagettftext($canvas, 14, 0, $posX, $posY, $white, MinecraftBanner::getFontFile(), $text);
+
         return $canvas;
     }
 }

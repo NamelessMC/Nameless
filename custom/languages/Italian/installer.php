@@ -1,8 +1,8 @@
 <?php
 /*
- *	Made by alsoGAMER
+ *  Made by alsoGAMER
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -18,6 +18,7 @@ $language = array(
     'installer_welcome' => 'Benvenuti nel pre-rilascio di NamelessMC versione 2.0.',
     'pre-release_warning' => "Si prega di notare che questo è un pre-rilascio e non è pensato per l'uso su un sito pubblico.",
     'installer_information' => 'Il programma di installazione ti guiderà attraverso il processo di installazione.',
+    'terms_and_conditions' => 'Continuando accetti i termini e le condizioni.',
     'new_installation_question' => 'Innanzitutto, si tratta di una nuova installazione?',
     'new_installation' => 'Nuova installazione &raquo;',
     'upgrading_from_v1' => 'Aggiornamento dalla versione 1 &raquo;',
@@ -37,12 +38,12 @@ $language = array(
     'nameless_path' => 'Percorso di installazione',
     'nameless_path_info' => 'Questo è il percorso in cui Nameless verrà installato, relativamente al tuo dominio. Ad esempio, se Nameless è installato su example.com/forum, questo deve essere <strong>forum</strong>. Lascia vuoto se Nameless non si trova in una sottocartella.',
     'friendly_urls' => 'URL amichevoli',
-    'friendly_urls_info' => 'Le URL amichevoli miglioreranno la leggibilità degli URL nel tuo browser. <br />Ad esempio: <br />example.com/index.php?route=/forum<br />diventerebbe<br />example.com/forum.<br /><strong>Importante!</strong><br /> Il tuo server deve essere configurato correttamente affinché ciò funzioni. Puoi controllare se puoi abilitare questa opzione cliccando <a href=\'./rewrite_test.php\' target=\'_blank\'>qui</a>.',
+    'friendly_urls_info' => 'Le URL amichevoli miglioreranno la leggibilità degli URL nel tuo browser. <br />Ad esempio: <br /><code>example.com/index.php?route=/forum</code><br />diventerebbe<br /><code>example.com/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Importante!</strong><br /> Il tuo server deve essere configurato correttamente affinché ciò funzioni. Puoi controllare se puoi abilitare questa opzione cliccando <a href=\'./rewrite_test.php\' target=\'_blank\'style="color:#2185D0">qui</a>.</div>',
     'enabled' => 'Abilitato',
     'disabled' => 'Disabilitato',
     'character_set' => 'Set di caratteri',
     'database_engine' => 'Motore di archiviazione del database',
-    'host' => 'Hostname',
+    'host' => 'Nome host',
     'host_help' => "L'hostname è <strong>URL di base</strong> per il tuo sito web. Non includere le sottocartelle dal campo 'Percorso di installazione' o http(s):// qui!",
     'database_error' => 'Assicurati che tutti i campi siano stati compilati.',
     'submit' => 'Invia',
@@ -53,6 +54,7 @@ $language = array(
     'site_name' => 'Nome del sito',
     'contact_email' => 'Email di contatto',
     'outgoing_email' => 'Email in uscita',
+    'language' => 'Lingua',
     'initialising_database_and_cache' => 'Inizializzazione del database e della cache, attendere...',
     'unable_to_login' => "Impossibile effettuare l'accesso.",
     'unable_to_create_account' => "Impossibile creare l'account",
@@ -63,7 +65,7 @@ $language = array(
     'passwords_must_match' => 'Le password devono corrispondere.',
     'creating_admin_account' => 'Creazione account amministratore',
     'enter_admin_details' => "Si prega di inserire i dettagli per l'account amministratore.",
-    'username' => 'Username',
+    'username' => 'Nome utente',
     'email_address' => 'Indirizzo email',
     'password' => 'Password',
     'confirm_password' => 'Conferma Password',
@@ -83,5 +85,22 @@ $language = array(
     'finish_message' => 'Grazie per aver installato NamelessMC! È ora possibile accedere al pannello amministrativo, dove è possibile configurare ulteriormente il sito web.',
     'support_message' => 'Se hai bisogno di supporto, consulta il nostro sito <a href="https://namelessmc.com" target="_blank">qui</a>, oppure puoi anche visitare il nostro <a href="https://discord.gg/9vk93VR" target="_blank">Server Discord</a> o il nostro <a href="https://github.com/NamelessMC/Nameless/" target="_blank">Repository GitHub</a>.',
     'credits' => 'Crediti',
-    'credits_message' => 'Un enorme ringraziamento a tutti i <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">Collaboratori NamelessMC</a> dal 2014'
+    'credits_message' => 'Un enorme ringraziamento a tutti i <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">Collaboratori NamelessMC</a> dal 2014',
+
+    'step_home' => 'Home',
+    'step_requirements' => 'Requisiti',
+    'step_general_config' => 'Configurazione generale',
+    'step_database_config' => 'Configurazione del database',
+    'step_site_config' => 'Configurazione del sito',
+    'step_admin_account' => 'Account Admin',
+    'step_conversion' => 'Conversione',
+    'step_finish' => 'Fine',
+
+    'general_configuration' => 'Configurazione generale',
+    'reload' => 'Ricarica',
+    'reload_page' => 'Ricarica la pagina',
+    'no_converters_available' => 'Non ci sono convertitori disponibili.',
+    'config_not_writable' => 'Il file di configurazione non è scrivibile.',
+
+    'session_doesnt_exist' => 'Impossibile rilevare la sessione. Il salvataggio delle sessioni è un requisito per utilizzare Nameless. Prova di nuovo, e se il problema persiste, contatta il tuo host web per assistenza.'
 );

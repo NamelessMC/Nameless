@@ -1,88 +1,73 @@
 {include file='header.tpl'}
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    {include file='navbar.tpl'}
+
+<body id="page-top">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
     {include file='sidebar.tpl'}
 
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">{$UPDATE}</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
-                            <li class="breadcrumb-item active">{$UPDATE}</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main content -->
-        <section class="content">
+        <div id="content">
+
+            <!-- Topbar -->
+            {include file='navbar.tpl'}
+
+            <!-- Begin Page Content -->
             <div class="container-fluid">
-                    <div class="card">
-                        <div class="card-body">
-                            {if isset($SUCCESS)}
-                                <div class="alert alert-success alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
-                                    {$SUCCESS}
-                                </div>
-                            {/if}
 
-                            {if isset($ERRORS) && count($ERRORS)}
-                                <div class="alert alert-danger alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
-                                    <ul>
-                                        {foreach from=$ERRORS item=error}
-                                            <li>{$error}</li>
-                                        {/foreach}
-                                    </ul>
-                                </div>
-                            {/if}
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">{$UPDATE}</h1>
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
+                        <li class="breadcrumb-item active">{$UPDATE}</li>
+                    </ol>
+                </div>
 
-                            {if isset($NEW_UPDATE)}
-                                {if $NEW_UPDATE_URGENT eq true}
-                                    <div class="alert alert-danger">
-                                {else}
-                                <div class="alert alert-primary">
-                                {/if}
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <!-- Success and Error Alerts -->
+                        {include file='includes/alerts.tpl'}
+
+                        {if isset($NEW_UPDATE)}
+                            <div class="alert {if $NEW_UPDATE_URGENT eq true}bg-danger{else}bg-primary{/if} text-white">
                                 {$NEW_UPDATE}
                                 <hr />
                                 {$CURRENT_VERSION}<br />
                                 {$NEW_VERSION}
-                                </div>
-
-                                <h4>{$INSTRUCTIONS}</h4>
-                                <p>{$INSTRUCTIONS_VALUE}</p>
-                                <hr />
-
-                                <a href="{$DOWNLOAD_LINK}" class="btn btn-primary">{$DOWNLOAD}</a>
-                                <button class="btn btn-primary" type="button" onclick="showConfirmModal()">{$UPDATE}</button>
-                            {else}
-                                <div class="alert alert-success">
-                                    <h5><i class="icon fa fa-check"></i> {$UP_TO_DATE}</h5>
-                                </div>
-                                <a href="{$CHECK_AGAIN_LINK}" class="btn btn-primary">{$CHECK_AGAIN}</a>
-                            {/if}
-
-                        </div>
+                            </div>
+                            <h4>{$INSTRUCTIONS}</h4>
+                            <p>{$INSTRUCTIONS_VALUE}</p>
+                            <hr />
+                            <a href="{$DOWNLOAD_LINK}" class="btn btn-primary">{$DOWNLOAD}</a>
+                            <button class="btn btn-primary" type="button"
+                                    onclick="showConfirmModal()">{$UPDATE}</button>
+                        {else}
+                            <div class="alert bg-success text-white">
+                                <span><i class="icon fa fa-check"></i>&nbsp;&nbsp;{$UP_TO_DATE}</span>
+                            </div>
+                            <a href="{$CHECK_AGAIN_LINK}" class="btn btn-primary">{$CHECK_AGAIN}</a>
+                        {/if}
                     </div>
-
-                    <!-- Spacing -->
-                    <div style="height:1rem;"></div>
-
                 </div>
-        </section>
+
+                <!-- Spacing -->
+                <div style="height:1rem;"></div>
+
+                <!-- End Page Content -->
+            </div>
+
+            <!-- End Main Content -->
+        </div>
+
+        {include file='footer.tpl'}
+
+        <!-- End Content Wrapper -->
     </div>
 
     <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog">
@@ -105,18 +90,17 @@
         </div>
     </div>
 
-    {include file='footer.tpl'}
-
+    <!-- End Wrapper -->
 </div>
-<!-- ./wrapper -->
 
 {include file='scripts.tpl'}
 
 <script type="text/javascript">
-    function showConfirmModal(){
-        $('#confirmModal').modal().show();
-    }
+  function showConfirmModal() {
+    $('#confirmModal').modal().show();
+  }
 </script>
 
 </body>
+
 </html>

@@ -1,8 +1,8 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -18,6 +18,7 @@ $language = array(
     'installer_welcome' => 'Witamy w wersji NamelessMc 2.0 pre-release.',
     'pre-release_warning' => 'Pamiętaj, że wersja pre-release nie jest przeznaczona do użytku publicznego.',
     'installer_information' => 'Instalator przeprowadzi Cię przez proces instalacji.',
+    'terms_and_conditions' => 'By continuing you agree to the terms and conditions.',
     'new_installation_question' => 'Po pierwsze, czy jest to nowa instalacja?',
     'new_installation' => 'Nowa instalacja &raquo;',
     'upgrading_from_v1' => 'Aktualizacja z v1 &raquo;',
@@ -37,7 +38,7 @@ $language = array(
     'nameless_path' => 'Ścieżka instalacji',
     'nameless_path_info' => 'Wpisz tutaj ścieżkę do folderu w którym jest zainstalowany Nameless. Na przykład, jeśli Nameless jest zainstalowany w przyklad.pl/forum, musisz wpisać tu <strong>forum</strong>. Pozostaw to pole puste jeśli Nameless nie jest zainstalowany w subfolderze.',
     'friendly_urls' => 'Przyjazne adresy URL',
-    'friendly_urls_info' => 'Funkcja przyjazne adresy URL poprawia ich czytelność w przeglądarce.<br />Na przykład: <br />przyklad.pl/index.php?route=/forum<br />zostanie zamienione na<br />przyklad.pl/forum.<br /><strong>Uwaga!</strong><br />Twój serwer musi być odpowiednio skonfigurowany aby ta funkcja działała. Możesz sprawdzić czy możesz włączyć tę opcję klikając <a href=\'./rewrite_test\' target=\'_blank\'>tutaj</a>.',
+    'friendly_urls_info' => 'Funkcja przyjazne adresy URL poprawia ich czytelność w przeglądarce.<br />Na przykład: <br /><code>przyklad.pl/index.php?route=/forum</code><br />zostanie zamienione na<br /><code>przyklad.pl/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Uwaga!</strong><br />Twój serwer musi być odpowiednio skonfigurowany aby ta funkcja działała. Możesz sprawdzić czy możesz włączyć tę opcję klikając <a href=\'./rewrite_test\' target=\'_blank\' style="color:#2185D0">tutaj</a>.</div>',
     'enabled' => 'Włączone',
     'disabled' => 'Wyłączone',
     'character_set' => 'Zestaw znaków',
@@ -53,6 +54,7 @@ $language = array(
     'site_name' => 'Nazwa strony',
     'contact_email' => 'Email kontaktowy',
     'outgoing_email' => 'Email do wysyłania wiadomości do użytkowników',
+    'language' => 'Language',
     'initialising_database_and_cache' => 'Inicjowanie bazy danych i pamięci podręcznej, proszę czekać...',
     'unable_to_login' => 'Podczas logowania wystąpi błąd.',
     'unable_to_create_account' => 'Podczas tworzenia konta wystąpił błąd.',
@@ -83,5 +85,22 @@ $language = array(
     'finish_message' => 'Dziękujemy za zainstalowanie NamelessMC! Możesz teraz przejść do panelu administartora, gdzie możesz dalej konfigurować swoją stronę.',
     'support_message' => 'Jeśli potrzebujesz pomocy, sprawdź naszą stronę internetową <a href="https://namelessmc.com" target="_blank">tutaj</a>. Możesz też odwiedzić nasz<a href="https://discord.gg/9vk93VR" target="_blank">serwer Discord</a> lub nasze <a href="https://github.com/NamelessMC/Nameless/" target="_blank">repozytorium GitHub</a>.',
     'credits' => 'Podziękowania',
-    'credits_message' => 'Podziękowania dla <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">współtwórców NamelessMC</a> od 2014',
+    'credits_message' => 'Podziękowania dla <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">współtwórców NamelessMC</a> od 2014',
+
+    'step_home' => 'Strona Główna',
+    'step_requirements' => 'Wymagania',
+    'step_general_config' => 'Główna Konfiguracja',
+    'step_database_config' => 'Konfiguracja Bazy DAnych',
+    'step_site_config' => 'Konfiguracja Strony',
+    'step_admin_account' => 'Konto Administratora',
+    'step_conversion' => 'Konwersja',
+    'step_finish' => 'Zakończ',
+
+    'general_configuration' => 'Główna Konfiguracja',
+    'reload' => 'Przeładuj',
+    'reload_page' => 'Przeładuj Stronę',
+    'no_converters_available' => 'Brak dostępnych konwersji.',
+    'config_not_writable' => 'Plik konfiguracyjny jest zablokowany.',
+
+    'session_doesnt_exist' => 'Nie można zapisać sesji. Jest to wymagane to korzystania z NamelessMC. Spróbuj ponownie, jeśli problem się powtarza skontaktuj się ze swoim hostingiem.'
 );

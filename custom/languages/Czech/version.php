@@ -1,8 +1,8 @@
-<?php 
+<?php
 /*
- *	Made by Samerton, translated by Zemos, Renzotom and Ethxrnity
+ *  Made by Samerton, translated by Zemos, Renzotom and Ethxrnity
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -10,5 +10,5 @@
  */
 
 // Which version of NamelessMC is this language file updated to?
-$language_version = '2.0.0-pr3';
+$language_version = '2.0.0-pr8';
 $language_html = 'cs';

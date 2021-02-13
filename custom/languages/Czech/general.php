@@ -1,147 +1,159 @@
-<?php 
+<?php
 /*
- *	Made by Samerton, translated by Zemos, Renzotom and Ethxrnity
+ *  Made by Samerton
+ *  Translated by Fjuro
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
  *  Czech Language - General terms
  */
 
-$language = array(
-	/*
-	 *  General terms
-	 */ 
-	'submit' => 'Potvrdit',
-	'register' => 'Registrovat se',
-	'already_registered' => 'Již jste se registroval?',
-	'custom_fields' => 'Custom Fields',
-	'not_registered_yet' => 'Not registered yet?',
-	'sign_in' => 'Přihlásit se',
-	'log_out' => 'Odhlásit se',
-	'profile' => 'Profil',
-	'invalid_token' => 'Chyba, zkuste to prosím znovu.',
-	'close' => 'Zavřít',
-	'back' => 'Zpět',
-	'warning' => 'Varování',
-	'date' => 'Datum',
-	'search' => 'Hledat',
-	'edit' => 'Upravit',
-	'next' => 'Další',
-	'previous' => 'Předchozí',
-	'confirm_cancel' => 'Opravdu to chcete zrušit?',
-	'confirm_delete' => 'Potvrdit smazání',
-	'confirm_deletion' => 'Opravdu toto chcete smazat?',
-	'cancel' => 'Zavřít',
-	'delete' => 'Smazat',
-	'none' => 'žádný',
-	'view' => 'Zobrazit',
-	'change' => 'Změnit',
-	'remove' => 'Odstranit',
-	'info' => 'Informace',
-	'confirm' => 'Potvrdit',
-	'actions' => 'Akce',
-	'alerts' => 'Upozornění',
-	'view_alerts' => 'Zobrazit upozornění',
-	'no_alerts' => 'Nemáte žádná upozornění',
-	'x_new_alerts' => 'Máte {x} nových upozornění.', // Don't replace {x}
-	'messages' => 'Zprávy',
-	'view_messages' => 'Zobrazit zprávy',
-	'no_messages' => 'Nemáte žádné zprávy',
-	'x_new_messages' => 'Máte {x} nových zpráv.', // Don't replace {x}
-	'loading' => 'Načítání...',
-	'report' => 'Nahlásit',
-	'page_loaded_in' => 'Stránka se načetla za {x} sekund', // Don't replace {x}, time unit is seconds
-    'page_x' => 'Stran {x}',
+$language = array (
+    /*
+     *  General terms
+     */
+    'help' => 'Podpora',
+    'submit' => 'Potvrdit',
+    'register' => 'Zaregistrovat se',
+    'already_registered' => 'Již jste zaregistrováni?',
+    'custom_fields' => 'Vlastní pole',
+    'not_registered_yet' => 'Ještě nejste zaregistrováni?',
+    'sign_in' => 'Přihlásit se',
+    'log_out' => 'Odhlásit se',
+    'profile' => 'Profil',
+    'invalid_token' => 'Neplatný token, zkuste to znovu',
+    'close' => 'Zavřít',
+    'back' => 'Zpět',
+    'warning' => 'Varování',
+    'date' => 'Datum',
+    'search' => 'Hledat',
+    'edit' => 'Upravit',
+    'next' => 'Další',
+    'previous' => 'Předchozí',
+    'confirm_cancel' => 'Opravdu chcete zrušit akci?',
+    'confirm_delete' => 'Potvrdit smazání',
+    'confirm_deletion' => 'Opravdu chcete smazat tuto položku?',
+    'cancel' => 'Zrušit',
+    'delete' => 'Smazat',
+    'none' => 'Žádný',
+    'view' => 'Zobrazit',
+    'change' => 'Změnit',
+    'remove' => 'Odebrat',
+    'info' => 'Informace',
+    'confirm' => 'Potvrdit',
+    'actions' => 'Akce',
+    'alerts' => 'Upozornění',
+    'view_alerts' => 'Zobrazit upozornění',
+    'no_alerts' => 'Žádná upozornění',
+    'x_new_alerts' => 'Máte {x} nových upozornění', // Don't replace {x}
+    'messages' => 'Zprávy',
+    'view_messages' => 'Zobrazit zprávy',
+    'no_messages' => 'Žádné zprávy',
+    'x_new_messages' => 'Máte {x} nových zpráv', // Don't replace {x}
+    'loading' => 'Načítání...',
+    'report' => 'Nahlásit',
+    'page_loaded_in' => 'Stránka se načetla za {x}s', // Don't replace {x}, time unit is seconds
+    'page_x' => 'Strana {x}',
     'browse' => 'Prohlížet',
-    'bypass' => 'Bypass',
+    'bypass' => 'Obejít',
     'yes' => 'Ano',
     'no' => 'Ne',
-    'content' => 'Obash',
-    'full_content' => 'Plný obsah',
+    'content' => 'Obsah',
+    'full_content' => 'Celý obsah',
     'url' => 'URL',
-	'success' => 'úspěch',
-	'error' => 'Chyba',
-	'are_you_sure' => 'Jste si jisti?',
-	'spoiler' => 'Spoiler',
+    'success' => 'Úspěch',
+    'error' => 'Chyba',
+    'are_you_sure' => 'Jste si jisti?',
+    'spoiler' => 'Spoiler',
+    'invalid_timezone' => 'Zadané časové pásmo je neplatné',
+    'link' => 'Propojit',
+    'unlink' => 'Odpojit',
 
     /*
      *  Contact form
      */
     'contact' => 'Kontakt',
     'message' => 'Zpráva',
-    'email_address' => 'Emailová adresa',
-    'contact_email_subject' => 'Nový kontaktní formulář ',
-    'contact_message_failed' => 'Nepodařilo se odeslat zprávu. Zajistěte, aby jste vložil zprávu mezi 10 a 5000 znaky dlouhou.',
-    'contact_message_email' => 'Zadaný email je nesprávný.',	
-    'contact_message_sent' => 'Zpráva byla úspěšně odeslana.',
-    'contact_message_limit' => 'Můžete odeslat pouze jednu zprávu za hodinu. Další můžete odeslat za {x} minut.', // Don't replace {x}
-	
-	/* 
-	 *  Navbar
-	 */
-	'home' => 'Domů',
-	'more' => 'Více',
-	'status' => 'Status',
-	
-	/*
-	 *  Homepage
-	 */
-	'social' => 'Sociální sítě',
-	
-	
-	/*
-	 *  Help dialogues
-	 */
-	'markdown_help' => 'Formát můžete naformátovat pomocí značky Markdown. Další informace naleznete v části <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>zde</a>.',
+    'email_address' => 'E-mailová adresa',
+    'contact_email_subject' => 'Nové vyplnění kontaktního formuláře',
+    'contact_message_failed' => 'Nepodařilo se odeslat zpráv. Ujistěte se, že zadaná zpráva má mezi 10 a 5000 znaky.',
+    'contact_message_sent' => 'Zpráva úspěšně odeslána.',
+    'contact_message_email' => 'Zadaný e-mail je neplatný.',
+    'contact_message_limit' => 'Můžete odeslat pouze jednu zprávu za hodinu. Další zprávu budete moct odeslat za {x} minut.', // Don't replace {x}
+
+    /*
+     *  Navbar
+     */
+    'home' => 'Domů',
+    'more' => 'Více',
+    'status' => 'Stav',
+
+    /*
+     *  Homepage
+     */
+    'social' => 'Sociální',
+
+    /*
+     *  Help dialogues
+     */
+    'markdown_help' => 'Váš příspěvek můžete naformátovat pomocí stylu Markdown. Pro více informací klikněte <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>sem</a>.',
+    'online' => 'Online',
 
     /*
      *  Server query
      */
-    'online' => 'Online',
     'offline' => 'Offline',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Verze: {x}', // Don't replace {x}
-    'currently_1_player_online' => 'Na serveru hraje jeden hráč.',
-    'currently_x_players_online' => 'Aktuálně je na serveru <strong>{x}</strong> online hráčů.', // Don't replace {x}
-    'server_offline' => 'Server je aktuálně vypnut (offline).',
-    'connect_with_ip_x' => 'Připojte se na server pomocí {x}', // Don't replace {x}
-    'click_to_copy_tooltip' => 'Kliknutím zkopíruješ',
+    'currently_1_player_online' => 'Na serveru hraje <strong>1</strong> hráč.',
+    'currently_x_players_online' => 'Na serveru hraje <strong>{x}</strong> hráčů.', // Don't replace {x}
+    'server_offline' => 'Server je offline.',
+    'connect_with_ip_x' => 'Připojte se pomocí IP {x}', // Don't replace {x}
+    'click_to_copy_tooltip' => 'Klikněte pro zkopírování',
+    'ip' => 'IP',
     'copied' => 'Zkopírováno!',
-    'no_servers' => 'Není zde žádný server, který bychom mohli zobrazit!',
-    'bungee_instance' => 'Tento server je bungee.',
-    'no_players_online' => 'Nejsou žádní hráči online.',
-    'and_x_more' => 'a {x} více', // Don't replace {x}
+    'no_servers' => 'Nejsou zde žádné servery k zobrazení!',
+    'bungee_instance' => 'Toto je Bungee server.',
+    'no_players_online' => 'Na serveru nehrají žádní hráči.',
+    'and_x_more' => 'a {x} dalších', // Don't replace {x}
 
     /*
      *  Cookie notice
      */
-    'cookie_notice' => 'Tento web používá cookies. S registrací na našem serveru souhlasíte s jejich použití..',
+    'cookie_notice' => 'Tento web používá cookies pro zlepšení uživatelského zážitku. Registrací nebo zavřením tohoto oznámení souhlasíte s jejich použitím.',
     'cookie_agree' => 'Souhlasím',
 
     /*
      *  Widgets
      */
     'statistics' => 'Statistiky',
-    'users_registered' => 'Dohromady uživatelů',
-    'latest_member' => 'Poslední reg. člen',
+    'users_registered' => 'Zaregistrovaní uživatelé',
+    'latest_member' => 'Poslední člen',
     'forum_statistics' => 'Statistiky fóra',
-    'total_threads' => 'Celkem všech příspěvků',
+    'total_threads' => 'Celkem vláken',
     'total_posts' => 'Celkem příspěvků',
-    'online_staff' => 'AdminTeam Online',
-    'no_online_staff' => 'Momentálně není žádný člen online.',
-    'total_online_staff' => 'Celkem online členů: {x}',
-    'online_users' => 'Uživatelé Online',
-    'no_online_users' => 'Žádný uživatelé nejsou online.',
+    'online_staff' => 'Tým online',
+    'no_online_staff' => 'Online není žádný člen týmu.',
+    'total_online_staff' => 'Celkem online členů týmu: {x}',
+    'online_users' => 'Uživatelé online',
+    'no_online_users' => 'Online nejsou žádní uživatelé.',
     'total_online_users' => 'Celkem online uživatelů: {x}',
-    'discord_widget_disabled' => 'Widget je momentálně mimo provoz, podívejte se do vašeho serverového nastavení, jestli jste Widget polivili.',
-    'online_guests' => 'Online Guests',
-    'total_online' => 'Total Online', // this is Online Users + Online Guests
+    'discord_widget_disabled' => 'Widget je u nastaveného Discord serveru zakázán. Jděte do karty \'Widget\' v nastavení vašeho Discord serveru a widget povolte. Ujistěte se, že jste zadali správné ID serveru.',
+    'online_guests' => 'Hosté online',
+    'total_online' => 'Celkem online', // this is Online Users + Online Guests
+    'no_default_server' => 'Není nastaven žádný výchozí server, vyberte jej v Panel - Integrace - Minecraft',
+    'server_status' => 'Stav serveru',
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Zásady ochrany osobních údajů'
+    'privacy_policy' => 'Zásady ochrany osobních údajů',
+
+    /*
+     *  Custom page redirect
+     */
+    'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.' // Don't replace {x} which is the redirect URL
 );

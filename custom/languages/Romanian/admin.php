@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -50,6 +50,7 @@ $language = array(
     'email_errors_logged' => 'Au fost înregistrate erori de e-mail',
 
     // Core
+    'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Setări',
     'general_settings' => 'Setări generale',
     'sitename' => 'Nume site',
@@ -82,6 +83,12 @@ $language = array(
     'twitter_dark_theme' => 'Utilizați tema închisă Twitter?',
     'discord_id' => 'ID Server Discord',
     'discord_widget_theme' => 'Temă Widget Discord',
+    'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
+    'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
+    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
+    'discord_bot_setup' => 'Bot Setup',
+    'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => 'Închisă',
     'light' => 'Deschisă',
     'google_plus_url' => 'Adresă Google Plus',
@@ -120,6 +127,16 @@ $language = array(
     'test_email_error' => 'Eroare e-mail de test:',
     'test_email_success' => 'Email-ul de test a fost trimis cu succes!',
     'terms_error' => 'Asigurați-vă că termenii și condițiile nu depășesc 100000 de caractere.',
+    'edit_email_messages' => 'Email Messages',
+    'email_language_info' => 'Not seeing your language? Make sure \'emails.php\' is in your language directory and it is writable by your webserver.',
+    'editing_language' => 'Editing Language',
+    'email_preview_popup' => 'Preview',
+    'email_preview_popup_message' => 'Click here to see a preview of the email.',
+    'email_message_greeting' => 'Greeting',
+    'email_message_thanks' => 'Thanks',
+    'email_message_options' => 'Options',
+    'email_message_subject' => 'Subject',
+    'email_message_message' => 'Message',
     'privacy_policy_error' => 'Asigurați-vă că politica de confidențialitate nu depășește 100000 de caractere.',
     'terms_updated' => 'Termenii și condițiile s-au actualizat cu succes.',
     'avatars' => 'Avatare',
@@ -155,6 +172,18 @@ $language = array(
     'validation_promote_group_info' => 'Acesta este grupul în care un utilizator va fi promovat după ce și-a validat contul.',
     'login_method' => 'Metoda de conectare',
     'privacy_and_terms' => 'Politica de confidențialitate și termenii și condițiile',
+    'dropdown_name' => 'Dropdown Name',
+    'editing_messages' => 'Editing Messages',
+    'emails_mass_message' => 'Email Mass Message',
+    'sending_mass_message' => 'Sending Mass Message',
+    'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
+    'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
+    'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
+
+    // SEO
+    'seo' => 'SEO',
+    'google_analytics' => 'Google Analytics',
+    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
 
     // Reactions
     'icon' => 'Iconiță',
@@ -313,11 +342,15 @@ $language = array(
     'unable_to_retrieve_modules' => 'Imposibil de obținut module',
     'module' => 'Modul',
     'unable_to_enable_module' => 'Modulele incompatibile nu pot fi activate.',
+    'unable_to_enable_module_dependencies' => 'Unable to enable module since it depends on the module {x}, which is not enabled.', // Don't replace {x}
+    'unable_to_disable_module' => 'Unable to disable module - the module {x} depends on it.', // Don't replace {x}
 
     // Styles
     'templates' => 'Șabloane',
     'panel_templates' => 'Șabloane panou control',
+    'view_all_panel_templates' => 'View all panel templates',
     'template_outdated' => 'Am detectat că șablonul dvs. este destinat versiunii NamelessMC {x}, dar executați versiunea NamelessMC {y}.', // Don't replace "{x}" or "{y}"
+    'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
     'active' => 'Activ',
     'deactivate' => 'Dezactivare',
     'activate' => 'Activare',
@@ -340,11 +373,18 @@ $language = array(
     'template_deleted_successfully' => 'Șablonul a fost șters cu succes.',
     'background_image_x' => 'Imagine de fundal: <strong>{x}</strong>', // Don't replace {x}
     'banner_image_x' => 'Imagine banner: <strong>{x}</strong>', // Don't replace {x}
-    'background_directory_not_writable' => 'Directorul <strong>uploads/backgrounds</strong> nu poate fi scris!',
-    'template_banners_directory_not_writable' => 'Directorul <strong>uploads/template_banners</strong> nu poate fi scris!',
+    'logo_image_x' => 'Logo image: <strong>{x}</strong>', // Don't replace {x}
+    'favicon_image_x' => 'Favicon image: <strong>{x}</strong>', // Don't replace {x}
+    'x_directory_not_writable' => 'Directorul <strong>{x}</strong> nu poate fi scris!', // Don't replace {x}
     'template_banner_reset_successfully' => 'Bannerul a fost resetat cu succes.',
     'template_banner_updated_successfully' => 'Bannerul a fost actualizat cu succes.',
     'reset_banner' => 'Resetați bannerul',
+    'logo_reset_successfully' => 'Logo reset successfully.',
+    'logo_updated_successfully' => 'Logo updated successfully.',
+    'reset_logo' => 'Reset Logo',
+    'favicon_reset_successfully' => 'Favicon reset successfully.',
+    'favicon_updated_successfully' => 'Favicon updated successfully.',
+    'reset_favicon' => 'Reset Favicon',
     'find_templates' => 'Găsiți șabloane',
     'view_all_templates' => 'Vizualizați toate șabloanele',
     'unable_to_retrieve_templates' => 'Nu s-au putut obține șabloanele',
@@ -354,12 +394,17 @@ $language = array(
     'views_x' => 'Vizualizări: {x}',
     'rating_x' => 'Evaluare: {x}',
     'editing_template_x' => 'Editare șablon: {x}', // Don't replace {x}
-	'editing_template_file_in_template' => 'Editare fișier {x} din șablonul {y}', // Don't replace {x} or {y}
+    'editing_template_file_in_template' => 'Editare fișier {x} din șablonul {y}', // Don't replace {x} or {y}
     'cant_write_to_template' => 'Nu se poate scrie fișierul! Verificați permisiunile fișierelor.',
-	'unable_to_delete_template' => 'Nu se poate șterge complet șablonul. Verificați permisiunile fișierelor.',
-	'background_reset_successfully' => 'Imaginea de fundal a fost resetată cu succes.',
-	'background_updated_successfully' => 'Imaginea de fundal a fost actualizată cu succes.',
-	'unable_to_enable_template' => 'Șabloanele incompatibile nu pot fi activate.',
+    'unable_to_delete_template' => 'Nu se poate șterge complet șablonul. Verificați permisiunile fișierelor.',
+    'background_reset_successfully' => 'Imaginea de fundal a fost resetată cu succes.',
+    'background_updated_successfully' => 'Imaginea de fundal a fost actualizată cu succes.',
+    'unable_to_enable_template' => 'Șabloanele incompatibile nu pot fi activate.',
+    'background_image_info' => 'Please note that this option may not be compatible with most templates.',
+    'dark_mode' => 'Dark Mode',
+    'navbar_colour' => 'Navbar Colour',
+    'clear_cache' => 'Clear Template Cache',
+    'cache_cleared' => 'Template cache cleared',
 
     // Users & groups
     'users' => 'Utilizatori',
@@ -371,6 +416,7 @@ $language = array(
     'user_created' => 'Utilizatorul a fost creat cu succes.',
     'cant_delete_root_user' => 'Nu puteți șterge utilizatorul root (principal)!',
     'cant_modify_root_user' => 'Nu puteți modifica grupul de utilizatori al utilizatorului root (principal)!',
+    'main_group' => 'Main Group',
     'user_deleted' => 'Utilizatorul a fost șters cu succes.',
     'confirm_user_deletion' => 'Sigur doriți să ștergeți utilizatorul <strong>{x}</strong>?', // Don't replace {x}
     'validate_user' => 'Activați utilizatorul',
@@ -397,6 +443,7 @@ $language = array(
     'group_html' => 'HTML grup',
     'group_html_lg' => 'HTML grup (mare) ',
     'group_username_colour' => 'Culoarea grupului',
+    'group_username_css' => 'Group Username CSS',
     'group_staff' => 'Grupul este un grup de personal (staff)?',
     'delete_group' => 'Ștergeți grupul',
     'confirm_group_deletion' => 'Sigur doriți să ștergeți grupul {x}?', // Don't replace {x}
@@ -407,17 +454,23 @@ $language = array(
     'default_group' => 'Grupul este grupul implicit pentru utilizatorii noi?',
     'user_id' => 'ID utilizator',
     'uuid' => 'UUID',
-	'group_order' => 'Număr de ordine',
-	'group_created_successfully' => 'Grupul a fost creat cu succes.',
-	'group_updated_successfully' => 'Grupul a fost actualizat cu succes.',
-	'group_deleted_successfully' => 'Grupul a fost șters cu succes.',
-	'unable_to_delete_group' => 'Nu se poate șterge un grup prestabilit sau un grup care poate vedea StaffCP. Actualizați mai întâi setările grupului!',
-	'can_view_staffcp' => 'Grupul poate vizualiza StaffCP?',
-	'user' => 'Utilizator',
-	'user_validated_successfully' => 'Utilizatorul a fost validat cu succes.',
-	'user_updated_successfully' => 'Utilizatorul a fost actualizat cu succes.',
-	'editing_user_x' => 'Editare utilizator: {x}', // Don't replace {x}
-	'details' => 'Detalii',
+    'group_order' => 'Număr de ordine',
+    'group_created_successfully' => 'Grupul a fost creat cu succes.',
+    'group_updated_successfully' => 'Grupul a fost actualizat cu succes.',
+    'group_deleted_successfully' => 'Grupul a fost șters cu succes.',
+    'unable_to_delete_group' => 'Nu se poate șterge un grup prestabilit sau un grup care poate vedea StaffCP. Actualizați mai întâi setările grupului!',
+    'can_view_staffcp' => 'Grupul poate vizualiza StaffCP?',
+    'user' => 'Utilizator',
+    'user_validated_successfully' => 'Utilizatorul a fost validat cu succes.',
+    'user_updated_successfully' => 'Utilizatorul a fost actualizat cu succes.',
+    'editing_user_x' => 'Editare utilizator: {x}', // Don't replace {x}
+    'details' => 'Detalii',
+    'force_tfa' => 'Force Two Factor Authentication for group members?',
+    'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
+    'force_tfa_alert' => 'Your group requires you to have Two Factor Authentication enabled.',
+    'resend_activation_email' => 'Resend Activation Email',
+    'email_resent_successfully' => 'Email resent successfully.',
+    'email_resend_failed' => 'Email resend failed, please check your email settings.',
 
     // Permissions
     'select_all' => 'Selectează tot',
@@ -476,6 +529,9 @@ $language = array(
     'editing_widget_x' => 'Modificare piesă: {x}', // Don't replace {x}
     'module_x' => 'Module: {x}', // Don't replace {x}
     'widget_order' => 'Ordinea piesei',
+    'widget_location' => 'Widget Location',
+    'left' => 'Left',
+    'right' => 'Right',
 
     // Online users widget
     'include_staff_in_user_widget' => 'Includeți membrii (staff) personalului în widget-ul utilizatorului?',
@@ -498,10 +554,12 @@ $language = array(
     'page_content' => 'Conținutul paginii',
     'page_redirect' => 'Redirecționează pagina?',
     'page_redirect_to' => 'Adresa pentru redirecționare (cu http://)',
+    'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Permiteți HTML (nesigur) ?',
     'unsafe_html_warning' => 'Activarea acestei opțiuni înseamnă că orice HTML poate fi folosit pe pagină, incluzând JavaScript potențial periculos. Activați acest lucru numai dacă sunteți sigur că codul dvs. HTML este sigur.',
     'include_in_sitemap' => 'Includeți în harta site-ului?',
     'sitemap_link' => 'Adresă hartă site:',
+    'basic_page' => 'Basic page?',
     'page_permissions' => 'Permisiuni pentru pagină',
     'view_page' => 'Vizualizare pagină?',
     'editing_page_x' => 'Editare pagină: {x}', // Don't replace {x}
@@ -524,7 +582,7 @@ $language = array(
     // API
     'api' => 'API',
     'enable_api' => 'Activare API?',
-    'api_info' => 'API permite ca pluginurile și alte servicii să interacționeze cu site-ul dvs. web, cum ar fi <a href="https://namelessmc.com/resources/resource/5-namelessplugin/" target="_blank" >pluginul oficial Nameless</a>.',
+    'api_info' => 'API permite ca pluginurile și alte servicii să interacționeze cu site-ul dvs. web, cum ar fi <a href="https://plugin.namelessmc.com" target="_blank" >pluginul oficial Nameless</a>.',
     'enable_legacy_api' => 'Activați API-ul vechi?',
     'legacy_api_info' => 'API-ul vechi permite pluginurilor care utilizează API-ul versiunii vechi Nameless 1 să lucreze cu site-ul dvs. Nameless versiunea 2.',
     'confirm_api_regen' => 'Sigur doriți să vă regenerați cheia API?',
@@ -553,8 +611,12 @@ $language = array(
     'group_sync_rule_created_successfully' => 'Regula de sincronizare a grupului a fost creată cu succes.',
     'group_sync_rules_updated_successfully' => 'Regula de sincronizare a grupului a fost actualizată cu succes.',
     'group_sync_rule_deleted_successfully' => 'Regula de sincronizare a grupului a fost ștearsă cu succes.',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Reguli existente',
     'new_rule' => 'Regulă nouă',
+    'api_endpoints' => 'API Endpoints',
+    'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
+    'route' => 'Route',
 
     // File uploads
     'drag_files_here' => 'Trageți fișierele aici pentru a le încărca.',
@@ -573,18 +635,25 @@ $language = array(
     'log_file_not_found' => 'Fișierul jurnalului nu a fost găsit.',
     'log_purged_successfully' => 'Jurnalul a fost curățat cu succes.',
 
-	// Hooks
-	'hooks' => 'Webhooks',
-	'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
-	'new_hook' => 'New Hook',
-	'creating_new_hook' => 'Creating New Webhook',
-	'editing_hook' => 'Editing Webhook',
-	'delete_hook' => 'Are you sure you want to delete this hook?',
-	'hook_url' => 'Webhook URL',
-	'hook_type' => 'Webhook Type',
-	'hook_events' => 'Events to trigger this webhook',
-	'invalid_hook_url' => 'Invalid webhook url',
-	'invalid_hook_events' => 'You must select at least 1 event',
+    // Hooks
+    'hooks' => 'Webhooks',
+    'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
+    'no_hooks_yet' => 'There are no webhooks yet.',
+    'new_hook' => 'New Hook',
+    'creating_new_hook' => 'Creating New Webhook',
+    'editing_hook' => 'Editing Webhook',
+    'delete_hook' => 'Are you sure you want to delete this hook?',
+    'hook_deleted' => 'Hook deleted successfully.',
+    'hook_name' => 'Webhook Name',
+    'hook_created' => 'Hook created successfully.',
+    'hook_edited' => 'Hook edited successfully',
+    'hook_select_info' => 'Only Hooks with \'New topic\' selected as an event are shown.',
+    'hook_url' => 'Webhook URL',
+    'hook_type' => 'Webhook Type',
+    'hook_events' => 'Events to trigger this webhook',
+    'invalid_hook_url' => 'Invalid Webhook URL',
+    'invalid_hook_name' => 'Invalid Webhook name',
+    'invalid_hook_events' => 'You must select at least 1 event',
     'register_hook_info' => 'Înregistrare cont utilizator',
     'validate_hook_info' => 'Validare cont utilizator',
     'delete_hook_info' => 'Ştergere utilizator',
@@ -623,5 +692,59 @@ $language = array(
     'source' => 'Sursă',
     'support' => 'Asistenţă',
     'admin_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/admin</strong> directory still exists. Please remove this directory.',
-    'mod_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/mod</strong> directory still exists. Please remove this directory.'
+    'mod_dir_still_exists' => 'Warning! The <strong>modules/Core/pages/mod</strong> directory still exists. Please remove this directory.',
+    'forum_topic_reply_email' => 'Forum Topic Reply',
+
+    // Announcements
+    'announcements' => 'Announcements',
+    'new_announcement' => 'New Announcement',
+    'announcement_info' => 'Create announcements to display a message to specific groups on specific pages of your website.',
+    'creating_announcement' => 'Creating Announcement',
+    'editing_announcement' => 'Editing Announcement',
+    'creating_announcement_success' => 'Announcement created successfully.',
+    'editing_announcement_success' => 'Announcement updated successfully.',
+    'creating_announcement_failure' => 'Announcement creation failed.',
+    'editing_announcement_failure' => 'Announcement update failed.',
+    'announcement_icon_instructions' => 'You can also add an icon to each announcement here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
+    'header' => 'Header',
+    'message' => 'Message',
+    'pages' => 'Pages',
+    'text_colour' => 'Text Colour',
+    'background_colour' => 'Background Colour',
+    'closable' => 'Closable',
+    'can_view_announcement' => 'Can view Announcement',
+    'verify_delete_announcement' => 'Are you sure you want to delete this announcement?',
+    'deleted_announcement_success' => 'Announcement deleted successfully.',
+    'header_required' => 'Header is required.',
+    'message_required' => 'Message is required',
+    'background_colour_required' => 'Background Colour is required',
+    'text_colour_required' => 'Text Colour is required',
+    'no_announcements' => 'No announcements have been made yet.',
+
+    // Discord
+    'discord' => 'Discord',
+    'enable_discord_integration' => 'Enable Discord integration?',
+    'discord_role_id' => 'Discord Role ID',
+    'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
+    'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
+    'discord_settings_updated' => 'Your Discord settings were updated successfully.',
+    'discord_guild_id_required' => 'Please enter your Discord Server ID for Discord integration to work.',
+    'discord_bot_url' => 'Discord Bot URL',
+    'discord_bot_url_info' => 'The location which your custom instance of the Nameless Link bot. Only change this value if you know what you are doing!',
+    'discord_bot_url_required' => 'Please enter your Bot URL for Discord integration to work.',
+    'discord_invalid_api_url' => 'Looks like your API URL has changed. Please get the guild owner to update the URL with the Nameless Link bot.',
+    'test_bot_url' => 'Test Bot URL',
+    'discord_bot_url_valid' => 'Your Bot URL is valid.',
+    'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?',
+
+    // Discord bot Errors
+    'discord_bot_error_badparameter' => 'Invalid request body.',
+    'discord_bot_error_error' => 'An internal bot error occured.',
+    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
+    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
+    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
+    'discord_bot_error_unauthorized' => 'Website API key is invalid',
+    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+
 );

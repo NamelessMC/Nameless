@@ -1,8 +1,8 @@
 <?php
 /*
- *	Made by JozefSorokac
+ *  Made by JozefSorokac
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -10,49 +10,50 @@
  */
 
 $language = array(
-	/*
-	 *  General terms
-	 */ 
-	'submit' => 'Potvrdiť',
-	'register' => 'Registrovať sa',
-	'already_registered' => 'Already Registered?',
-	'custom_fields' => 'Custom Fields',
-	'not_registered_yet' => 'Not registered yet?',
-	'sign_in' => 'Prihlásiť sa',
-	'log_out' => 'Odhlásiť sa',
-	'profile' => 'Profil',
-	'invalid_token' => 'Chyba, skuste to prosím znovu.',
-	'close' => 'Zavrieť',
-	'back' => 'Späť',
-	'warning' => 'Varovanie',
-	'date' => 'Dátum',
-	'search' => 'Hľadať',
-	'edit' => 'Upraviť',
-	'next' => 'Ďalšie',
-	'previous' => 'Previous',
-	'confirm_cancel' => 'Naozaj to chcete zrušiť?',
-	'confirm_delete' => 'Potvrdiť zmazanie',
-	'confirm_deletion' => 'Naozaj toto chcete zmazať?',
-	'cancel' => 'Zavrieť',
-	'delete' => 'Zmazať',
-	'none' => 'Žiadný',
-	'view' => 'Zobraziť',
-	'change' => 'Zmeniť',
-	'remove' => 'Odstrániť',
-	'info' => 'Informácia',
-	'confirm' => 'Potvrdiť',
-	'actions' => 'Akcia',
-	'alerts' => 'Upozornenie',
-	'view_alerts' => 'Zobraziť upozornenia',
-	'no_alerts' => 'Nemáte žiadné upozornenia',
-	'x_new_alerts' => 'Máte {x} nových upozornění.', // Don't replace {x}
-	'messages' => 'Správy',
-	'view_messages' => 'Zobraziť správy',
-	'no_messages' => 'Nemáte žiadné správy',
-	'x_new_messages' => 'Máte {x} nových zpráv.', // Don't replace {x}
-	'loading' => 'Načítavanie...',
-	'report' => 'Nahlásiť',
-	'page_loaded_in' => 'Stránka se načetla za {x} sekund', // Don't replace {x}, time unit is seconds
+    /*
+     *  General terms
+     */
+    'help' => 'Help',
+    'submit' => 'Potvrdiť',
+    'register' => 'Registrovať sa',
+    'already_registered' => 'Already Registered?',
+    'custom_fields' => 'Custom Fields',
+    'not_registered_yet' => 'Not registered yet?',
+    'sign_in' => 'Prihlásiť sa',
+    'log_out' => 'Odhlásiť sa',
+    'profile' => 'Profil',
+    'invalid_token' => 'Chyba, skuste to prosím znovu.',
+    'close' => 'Zavrieť',
+    'back' => 'Späť',
+    'warning' => 'Varovanie',
+    'date' => 'Dátum',
+    'search' => 'Hľadať',
+    'edit' => 'Upraviť',
+    'next' => 'Ďalšie',
+    'previous' => 'Previous',
+    'confirm_cancel' => 'Naozaj to chcete zrušiť?',
+    'confirm_delete' => 'Potvrdiť zmazanie',
+    'confirm_deletion' => 'Naozaj toto chcete zmazať?',
+    'cancel' => 'Zavrieť',
+    'delete' => 'Zmazať',
+    'none' => 'Žiadný',
+    'view' => 'Zobraziť',
+    'change' => 'Zmeniť',
+    'remove' => 'Odstrániť',
+    'info' => 'Informácia',
+    'confirm' => 'Potvrdiť',
+    'actions' => 'Akcia',
+    'alerts' => 'Upozornenie',
+    'view_alerts' => 'Zobraziť upozornenia',
+    'no_alerts' => 'Nemáte žiadné upozornenia',
+    'x_new_alerts' => 'Máte {x} nových upozornění.', // Don't replace {x}
+    'messages' => 'Správy',
+    'view_messages' => 'Zobraziť správy',
+    'no_messages' => 'Nemáte žiadné správy',
+    'x_new_messages' => 'Máte {x} nových zpráv.', // Don't replace {x}
+    'loading' => 'Načítavanie...',
+    'report' => 'Nahlásiť',
+    'page_loaded_in' => 'Stránka se načetla za {x} sekund', // Don't replace {x}, time unit is seconds
     'page_x' => 'Strán {x}',
     'browse' => 'Prehliadať',
     'bypass' => 'Bypass',
@@ -61,11 +62,14 @@ $language = array(
     'content' => 'Content',
     'full_content' => 'Full Content',
     'url' => 'URL',
-	'success' => 'Success',
-	'error' => 'Error',
-	'are_you_sure' => 'Are you sure?',
-	'spoiler' => 'Spoiler',
-
+    'success' => 'Success',
+    'error' => 'Error',
+    'are_you_sure' => 'Are you sure?',
+    'spoiler' => 'Spoiler',
+    'invalid_timezone' => 'That timezone is invalid',
+    'link' => 'Link',
+    'unlink' => 'Unlink',
+    
     /*
      *  Contact form
      */
@@ -77,24 +81,24 @@ $language = array(
     'contact_message_email' => 'The provided email is invalid.',
     'contact_message_sent' => 'Správa bola úspešne odoslaná.',
     'contact_message_limit' => 'Můžete odeslat pouze jednu zprávu za hodinu. Další můžete odeslat za {x} minut.', // Don't replace {x}
-	
-	/* 
-	 *  Navbar
-	 */
-	'home' => 'Domov',
-	'more' => 'Viac',
-	'status' => 'Status',
-	
-	/*
-	 *  Homepage
-	 */
-	'social' => 'Sociálné siete',
-	
-	
-	/*
-	 *  Help dialogues
-	 */
-	'markdown_help' => 'Formát môžete naformátovať pomocou značky Markdown. Dalšie informácie nájdete v časti <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>Tu</a>.',
+
+    /*
+     *  Navbar
+     */
+    'home' => 'Domov',
+    'more' => 'Viac',
+    'status' => 'Status',
+
+    /*
+     *  Homepage
+     */
+    'social' => 'Sociálné siete',
+
+
+    /*
+     *  Help dialogues
+     */
+    'markdown_help' => 'Formát môžete naformátovať pomocou značky Markdown. Dalšie informácie nájdete v časti <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>Tu</a>.',
 
     /*
      *  Server query
@@ -104,7 +108,7 @@ $language = array(
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Verzia: {x}', // Don't replace {x}
-    'currently_1_player_online' => 'There is currently 1 player online.',
+    'currently_1_player_online' => 'There is currently <strong>1</strong> player online.',
     'currently_x_players_online' => 'Aktuálne je na serveri <strong>{x}</strong> online hráčov.', // Don't replace {x}
     'server_offline' => 'Server je aktuálne vypnutý (offline).',
     'connect_with_ip_x' => 'Pripojte sa teraz pomocou IP adresy {x}', // Don't replace {x}
@@ -140,15 +144,17 @@ $language = array(
     'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
     'online_guests' => 'Online Guests',
     'total_online' => 'Total Online', // this is Online Users + Online Guests
+    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+    'server_status' => 'Server Status',
 
     /*
      *  Privacy policy
      */
     'privacy_policy' => 'Privacy Policy',
 
-	/*
-	 *  Custom page redirect
-	 */
-	'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+    /*
+     *  Custom page redirect
+     */
+    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );
 

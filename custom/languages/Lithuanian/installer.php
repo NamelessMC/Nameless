@@ -1,9 +1,9 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  Translation by Locus
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -17,6 +17,7 @@ $language = array(
   'installer_welcome' => 'Sveiki atvykę į NamelessMC 2.0 išankstinio išleidimo versija.',
   'pre-release_warning' => 'Atkreipkite dėmesį, kad šis išankstinis leidimas nėra skirtas naudoti viešoje svetainėje.',
   'installer_information' => 'Montuotojas padės jums įdiegti.',
+  'terms_and_conditions' => 'By continuing you agree to the terms and conditions.',
   'new_installation_question' => 'Pirma, ar tai naujas diegimas?',
   'new_installation' => 'Naujas diegimas &raquo;',
   'upgrading_from_v1' => 'Atnaujinimas iš v1 &raquo;',
@@ -36,7 +37,7 @@ $language = array(
   'nameless_path' => 'Įrengimo Kelias',
   'nameless_path_info' => 'Tai yra "Nameless" kelias, kuris yra įdiegtas, palyginti su jūsų domenu. Pvz., Jei Nameless yra įdiegtas adresu example.com/forum, tai turi būti <strong>forumas</strong>. Palikite tuščią, jei Nameless nėra pakatalogyje.',
   'friendly_urls' => 'Draugiški URLs',
-  'friendly_urls_info' => 'Draugiški URL pagerins naršyklės URL skaitymo galimybes.<br />Pavyzdžiui: <br />example.com/index.php?route=/forum<br />taptų<br />example.com/forum.<br /><strong>Svarbu!</strong><br />Jūsų serveris turi būti tinkamai sukonfigūruotas, kad jis veiktų. Galite pamatyti, ar galite įjungti šią parinktį spausdami <a href=\'./rewrite_test\' target=\'_blank\'>čia</a>.',
+  'friendly_urls_info' => 'Draugiški URL pagerins naršyklės URL skaitymo galimybes.<br />Pavyzdžiui: <br /><code>example.com/index.php?route=/forum</code><br />taptų<br /><code>example.com/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Svarbu!</strong><br />Jūsų serveris turi būti tinkamai sukonfigūruotas, kad jis veiktų. Galite pamatyti, ar galite įjungti šią parinktį spausdami <a href=\'./rewrite_test\' target=\'_blank\' style="color:#2185D0">cia</a>.</div>',
   'enabled' => 'Įjungtas',
   'disabled' => 'Išjungtas',
   'character_set' => 'Simbolių Rinkinys',
@@ -52,6 +53,7 @@ $language = array(
   'site_name' => 'Svetainės Pavadinimas',
   'contact_email' => 'Kontaktinis el. paštas',
   'outgoing_email' => 'Išeinamasis el. paštas',
+  'language' => 'Language',
   'initialising_database_and_cache' => 'Inicijuojama duomenų bazė ir "cache", palaukite...',
   'unable_to_login' => 'Negalima prisijungti.',
   'unable_to_create_account' => 'Neįmanoma sukurti paskyros',
@@ -82,5 +84,22 @@ $language = array(
   'finish_message' => 'Dėkojame, kad įdiegėte NamelessMC! Dabar galite pereiti prie StaffCP, kur galite toliau konfigūruoti savo svetainę.',
   'support_message' => 'Jei jums reikia pagalbos, apsilankykite mūsų tinklalapyje <a href="https://namelessmc.com" target="_blank">čia</a>, ar taip pat galite apsilankyti mūsų <a href="https://discord.gg/9vk93VR" target="_blank">Discord serveryje</a> arba mūsų <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub</a>.',
   'credits' => 'Kreditai',
-  'credits_message' => 'Labai ačiū visiems <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMC tiems, kas prisidėjo</a> nuo 2014.'
+  'credits_message' => 'Labai ačiū visiems <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">NamelessMC tiems, kas prisidėjo</a> nuo 2014.',
+
+  'step_home' => 'Home',
+  'step_requirements' => 'Requirements',
+  'step_general_config' => 'General Configuration',
+  'step_database_config' => 'Database Configuration',
+  'step_site_config' => 'Site Configuration',
+  'step_admin_account' => 'Admin Account',
+  'step_conversion' => 'Conversion',
+  'step_finish' => 'Finish',
+
+  'general_configuration' => 'General Configuration',
+  'reload' => 'Reload',
+  'reload_page' => 'Reload page',
+  'no_converters_available' => 'There are no converters available.',
+  'config_not_writable' => 'The config file is not writable.',
+
+  'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
 );

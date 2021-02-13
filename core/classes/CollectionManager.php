@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -10,53 +10,60 @@
  */
 
 class CollectionManager {
-	private static $_collections = array();
 
-	public static function addItemToCollection($collection, $item){
-		if(!isset(self::$_collections[$collection]))
-			self::$_collections[$collection] = new Collection();
+    private static $_collections = array();
 
-		self::$_collections[$collection]->addItem($item);
-	}
+    public static function addItemToCollection($collection, $item) {
+        if (!isset(self::$_collections[$collection])) {
+            self::$_collections[$collection] = new Collection();
+        }
 
-	public static function getFullCollection($collection){
-		return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getAllItems() : array());
-	}
+        self::$_collections[$collection]->addItem($item);
+    }
 
-	public static function getEnabledCollection($collection){
-		return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getEnabledItems() : array());
-	}
+    public static function getFullCollection($collection) {
+        return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getAllItems() : array());
+    }
+
+    public static function getEnabledCollection($collection) {
+        return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getEnabledItems() : array());
+    }
 }
 
 class Collection {
-	private $_items;
 
-	public function __construct(){
-		$this->_items = array();
-	}
+    private $_items;
 
-	public function addItem($item){
-		$this->_items[] = $item;
-	}
+    public function __construct() {
+        $this->_items = array();
+    }
 
-	public function getEnabledItems(){
-		$items = array();
+    public function addItem($item) {
+        $this->_items[] = $item;
+    }
 
-		foreach($this->_items as $item)
-			if($item->isEnabled())
-				$items[]= $item;
+    public function getEnabledItems() {
+        $items = array();
 
-		uasort($items, function($a, $b){
-			return $a->getOrder() - $b->getOrder();
-		});
-		return $items;
-	}
+        foreach ($this->_items as $item) {
+            if ($item->isEnabled()) {
+                $items[] = $item;
+            }
+        }
 
-	public function getAllItems(){
-		$items = $this->_items;
-		uasort($items, function($a, $b){
-			return $a->getOrder() - $b->getOrder();
-		});
-		return $items;
-	}
+        uasort($items, function ($a, $b) {
+            return $a->getOrder() - $b->getOrder();
+        });
+
+        return $items;
+    }
+
+    public function getAllItems() {
+        $items = $this->_items;
+        uasort($items, function ($a, $b) {
+            return $a->getOrder() - $b->getOrder();
+        });
+        
+        return $items;
+    }
 }

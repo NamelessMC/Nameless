@@ -1,11 +1,13 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
- *  Translation by SimplyRin( @SimplyRin_, https://www.simplyrin.net )
- *  Additional translation by Mari0914( @Mari0914_Main, https://mari0914.japanminigame.net )
+ *  Translator
+ *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
+ *  - Mari0914( @Mari0914_Main, https://mari0914.japanminigame.net )
+ *  - snake( @ViaSnake, https://github.com/ViaSnake )
  *
  *  License: MIT
  *
@@ -21,6 +23,7 @@ $language = array(
     'installer_welcome' => 'NamelessMC v2 プレリリース版インストーラへようこそ。',
     'pre-release_warning' => '<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>プレリリース版は公開サイト用には推奨していません。',
     'installer_information' => 'インストーラがインストール手順を案内いたします。',
+    'terms_and_conditions' => 'By continuing you agree to the terms and conditions.',
     'new_installation_question' => '<i class="fa fa-info-circle fa-fw" aria-hidden="true"></i>以下よりインストールの種類を選択してください。',
     'new_installation' => '<i class="fa fa-plus-circle fa-fw" aria-hidden="true"></i>新規インストール',
     'upgrading_from_v1' => '<i class="fa fa-refresh fa-fw" aria-hidden="true"></i>v1 からアップグレード',
@@ -40,7 +43,7 @@ $language = array(
     'nameless_path' => 'インストール先パス',
     'nameless_path_info' => 'こちらの設定は、ドメイン(例:example.com)を基準にして、NamelessMCがインストールされているパスです。<br/>例:NamelessMCが<strong> 「example.com/forum」 (ルートディレクトリ/forum) </strong>にインストールされている場合設定する内容は<strong> 「forum」 </strong>になります。NamelessMCがサブディレクトリにない場合(ルートディレクトリにインストールしている場合やバーチャルホストを設定している場合)は空白のままで構いません。',
     'friendly_urls' => 'フレンドリーURL',
-    'friendly_urls_info' => 'フレンドリーURLはブラウザに表示されるURLがわかりやすくなります。<br/>例:<strong>「example.com/index.php?route=/forum」</strong> → <strong>「example.com/forum」</strong><br/><strong>【重要】</strong> フレンドリーURLを有効にするには、サーバーが正しく設定される必要があります。有効にできるかどうかは、<a href=\'./rewrite_test\' target=\'_blank\'>ここ</a>をクリックして確認できます。',
+    'friendly_urls_info' => 'フレンドリーURLはブラウザに表示されるURLがわかりやすくなります。<br/>例:<strong><code>「example.com/index.php?route=/forum」</code></strong> → <strong><code>「example.com/forum」</code></strong><br/><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>【重要】</strong> フレンドリーURLを有効にするには、サーバーが正しく設定される必要があります。有効にできるかどうかは、<a href=\'./rewrite_test\' target=\'_blank\' style="color:#2185D0">ここ</a>をクリックして確認できます。</a>.</div>',
     'enabled' => '有効',
     'disabled' => '無効',
     'character_set' => 'キャラクターセット',
@@ -56,6 +59,7 @@ $language = array(
     'site_name' => 'サイト名',
     'contact_email' => '連絡先メールアドレス',
     'outgoing_email' => '送信メールアドレス',
+    'language' => 'Language',
     'initialising_database_and_cache' => '<i class="fa fa-refresh fa-fw" aria-hidden="true"></i>現在データベースとキャッシュを初期化しています。数分かかる場合がございます。しばらくお待ちください...',
     'unable_to_login' => '<i class="fa fa-exclamation-circle fa-fw" aria-hidden="true"></i>ログインできませんでした。',
     'unable_to_create_account' => '<i class="fa fa-exclamation-circle fa-fw" aria-hidden="true"></i>アカウントを作成できませんでした。',
@@ -86,5 +90,22 @@ $language = array(
     'finish_message' => '<i class="fa fa-info-circle fa-fw" aria-hidden="true"></i>NamelessMCのインストールが完了しました。StaffCPにログインするとさらに詳細な設定が可能です。',
     'support_message' => '不明な点がございましたら、当社のウェブサイト <a href="https://namelessmc.com" target="_blank">こちら</a> をご覧いただくか、 <a href="https://discord.gg/9vk93VR" target="_blank">Discord サーバー</a> または <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHubリポジトリ</a> をご確認ください。',
     'credits' => '<i class="fa fa-users fa-fw" aria-hidden="true"></i>クレジット',
-    'credits_message' => '2014年以降にnamelessMCの製作に協力してくれたすべての <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank">NamelessMCの貢献者</a> に感謝します。'
+    'credits_message' => '2014年以降にnamelessMCの製作に協力してくれたすべての <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">NamelessMCの貢献者</a> に感謝します。',
+
+    'step_home' => 'ホーム',
+    'step_requirements' => '要件',
+    'step_general_config' => '一般設定',
+    'step_database_config' => 'データベース設定',
+    'step_site_config' => 'サイト設定',
+    'step_admin_account' => '管理者アカウント',
+    'step_conversion' => '変換',
+    'step_finish' => '終了',
+
+    'general_configuration' => '一般設定',
+    'reload' => '再読み込み',
+    'reload_page' => 'ページを再読み込み',
+    'no_converters_available' => 'コンバーターはありません。',
+    'config_not_writable' => '設定ファイルは書き込み可能ではありません。',
+
+    'session_doesnt_exist' => 'セッションを検出できません。セッションの保存はNamelessを使用するための要件です。再度試してみて、問題が解決しない場合は、ウェブホストに連絡してください。'
 );

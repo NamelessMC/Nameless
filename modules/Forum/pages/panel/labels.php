@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -90,7 +90,7 @@ if(!isset($_GET['action'])){
 			// Deal with input
 			if(Input::exists()){
 				// Check token
-				if(Token::check(Input::get('token'))){
+				if(Token::check()){
 					// Valid token
 					// Validate input
 					$validate = new Validate();
@@ -235,7 +235,7 @@ if(!isset($_GET['action'])){
 			// Deal with input
 			if(Input::exists()){
 				// Check token
-				if(Token::check(Input::get('token'))){
+				if(Token::check()){
 					// Valid token
 					// Validate input
 					$validate = new Validate();
@@ -429,7 +429,7 @@ if(!isset($_GET['action'])){
 			// Deal with input
 			if(Input::exists()){
 				// Check token
-				if(Token::check(Input::get('token'))){
+				if(Token::check()){
 					// Valid token
 					// Validate input
 					$validate = new Validate();
@@ -443,7 +443,7 @@ if(!isset($_GET['action'])){
 						'label_html' => array(
 							'required' => true,
 							'min' => 1,
-							'max' => 64
+							'max' => 1024
 						)
 					));
 
@@ -515,7 +515,7 @@ if(!isset($_GET['action'])){
 			// Deal with input
 			if(Input::exists()){
 				// Check token
-				if(Token::check(Input::get('token'))){
+				if(Token::check()){
 					// Valid token
 					// Validate input
 					$validate = new Validate();
@@ -529,7 +529,7 @@ if(!isset($_GET['action'])){
 						'label_html' => array(
 							'required' => true,
 							'min' => 1,
-							'max' => 64
+							'max' => 1024
 						)
 					));
 

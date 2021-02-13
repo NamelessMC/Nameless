@@ -1,12 +1,12 @@
 <?php
 /*
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
  *  Turkish Language - Installation
- * 	Turkish translation by xOrcun
+ *  Turkish translation by xOrcun
  */
 
 $language = array(
@@ -18,6 +18,7 @@ $language = array(
     'installer_welcome' => 'NamelessMC sürüm 2.0 ön sürümüne hoş geldiniz.',
     'pre-release_warning' => 'Bu ön sürümün halka açık bir sitede kullanılmak üzere tasarlanmadığını lütfen unutmayın.',
     'installer_information' => 'Kurulum programı kurulum sürecinde size rehberlik edecektir.',
+    'terms_and_conditions' => 'By continuing you agree to the terms and conditions.',
     'new_installation_question' => 'Birincisi, bu yeni bir kurulum mu?',
     'new_installation' => 'Yeni kurulum(önerilir) &raquo;',
     'upgrading_from_v1' => 'V1 sürümünden yükseltme &raquo;',
@@ -37,7 +38,7 @@ $language = array(
     'nameless_path' => 'Kurulum Yolu',
     'nameless_path_info' => 'Alan adınıza göre, Adeless\'ın yüklendiği yoldur. Örneğin, Nameless example.com/forum adresine yüklenmişse, bunun <strong>forum</strong> olması gerekir. Nameless bir alt klasörde değilse boş bırakın.',
     'friendly_urls' => 'Kolay URL\'ler (önerilir)',
-    'friendly_urls_info' => 'Kolay URL\'ler, tarayıcınızdaki URL\'lerin okunabilirliğini artırır. <br />Örneğin:<br />example.com/index.php?route=/forum<br/><br/> example.com/forum olur.<br /><strong>Önemli!</strong><br/>Bunun çalışması için sunucunuzun doğru yapılandırılması gerekir. <a href=\'./rewrite_test\' target=\'_blank\'>burayı</a> tıklayarak bu seçeneği etkinleştirip etkinleştiremeyeceğinizi görebilirsiniz.',
+    'friendly_urls_info' => 'Kolay URL\'ler, tarayıcınızdaki URL\'lerin okunabilirliğini artırır. <br />Örneğin:<br /><code>example.com/index.php?route=/forum</code><br/><br/> <code>example.com/forum olur</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Önemli!</strong><br/>Bunun çalışması için sunucunuzun doğru yapılandırılması gerekir <a href=\'./rewrite_test\' target=\'_blank\' style="color:#2185D0">aqui</a> tıklayarak bu seçeneği etkinleştirip etkinleştiremeyeceğinizi görebilirsiniz.</div>',
     'enabled' => 'Etkin',
     'disabled' => 'Etkin değil',
     'character_set' => 'Karakter seti',
@@ -53,6 +54,7 @@ $language = array(
     'site_name' => 'Site Adı',
     'contact_email' => 'İletişim E-postası',
     'outgoing_email' => 'Giden E-posta',
+    'language' => 'Language',
     'initialising_database_and_cache' => 'Veritabanı ve önbellek başlatılıyor, lütfen bekleyin ...',
     'unable_to_login' => 'Giriş yapılamıyor.',
     'unable_to_create_account' => 'Hesap oluşturulamıyor',
@@ -83,5 +85,22 @@ $language = array(
     'finish_message' => 'NamelessMC\'yi yüklediğiniz için teşekkürler! Artık web sitenizi daha fazla yapılandırabileceğiniz Yönetim Paneli\'ne geçebilirsiniz. <br>  <a href="https://minecraft-tr.cf/">xOrcun tarafıdan türkleştirilmiştir.</a>',
     'support_message' => 'Herhangi bir desteğe ihtiyacınız varsa, web sitemizi <a href="https://namelessmc.com" target="_blank">buradan</a> inceleyin veya <a href = "https://discord.gg/9vk93VR" target="_ blank">Discord sunucusu</a> veya <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub depomuz</a>. <br>Türkleştirmede sorun yaşıyorsanız <a href="https://orcunozturk.cf/">xOrcun</a> ile iletişime geçiniz.',
     'credits' => 'Hakkında',
-    'credits_message' => '2014\'ten bu yana tüm <a href="https://github.com/NamelessMC/Nameless#full-contributor-list" target="_blank"> NamelessMC katılımcılarına </a> çok teşekkür ederiz.'
+    'credits_message' => '2014\'ten bu yana tüm <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank"> NamelessMC katılımcılarına </a> çok teşekkür ederiz.',
+
+    'step_home' => 'Home',
+    'step_requirements' => 'Requirements',
+    'step_general_config' => 'General Configuration',
+    'step_database_config' => 'Database Configuration',
+    'step_site_config' => 'Site Configuration',
+    'step_admin_account' => 'Admin Account',
+    'step_conversion' => 'Conversion',
+    'step_finish' => 'Finish',
+
+    'general_configuration' => 'General Configuration',
+    'reload' => 'Reload',
+    'reload_page' => 'Reload page',
+    'no_converters_available' => 'There are no converters available.',
+    'config_not_writable' => 'The config file is not writable.',
+
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
 );

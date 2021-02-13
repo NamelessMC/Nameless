@@ -1,108 +1,109 @@
-<?php 
+<?php
 /*
- *	Made by Samerton, translated by Zemos, Renzotom and Ethxrnity
+ *  Made by Samerton
+ *  Translated by Fjuro
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
  *  Czech Language - Moderator terms
  */
 
-$language = array(
-	'mod_cp' => 'Ovládací panel moderátora',
-	'staff_cp' => 'AdminPanel',
-	'overview' => 'Přehled',
-	
-	// Spam
-	'spam' => 'Spam',
-	'mark_as_spam' => 'Označit jako spam',
-	'confirm_spam' => '<p>Opravdu chcete označit tohohle uživatele za spam?</p><p>Uživatel bude zabanován a veškerý jeho obsah odebrán..</p>',
-	'user_marked_as_spam' => 'Uživatel byl úpěšně označen za spam.',
-	'cant_ban_admin' => 'Nemůžete zabanovat administrátora!',
-	
-	// IP Lookup
-	'ip_lookup' => 'Vyhledávání podle IP',
-	'search_for_ip' => 'Vyhledejte uživatelské jméno nebo adresu IP:',
-	'no_ips_with_username' => 'Pro daného uživatele nebyly nalezeny žádné IP adresy.',
-	'no_accounts_with_that_ip' => 'Pro danou IP adresu nebyl nalezen žádný uživatel.',
-	'1_account_with_ip' => 'Nalezen 1 účet s IP {y}', // Don't replace "{y}"
-	'count_accounts_with_ip' => 'Nalezl jsem {x} účtů pro IP {y}', // Don't replace "{x}" or "{y}"
-	'1_ip_with_name' => 'Nalezena 1 IP adresa pro uživatele {y}', // Don't replace "{y}"
-	'count_ips_with_name' => 'Nalezl jsem {x} IP adres  pro uživatele {y}', // Don't replace "{x}" or "{y}"
-	'no_users_or_ips_found' => 'Žádný uživatel nebo IP adresa nenalezena.',
-	
-	// Reports
-	'reports' => 'Nahlášení',
-	'report_alert' => 'Nahlášení odesláno',
-	'user_reported' => 'Nahlášený uživatel',
-	'comments' => 'Komentář',
-	'updated_by' => 'Aktualizováno',
-	'actions' => 'Akce',
-	'view_closed' => 'Zobrazit zavřené',
-	'view_open' => 'Zobrazit otevřené',
-	'viewing_report' => 'Zobrazení nahlášení',
-	'view_content' => 'Zobrazit nahlášený příspěvek',
-	'no_comments' => 'Žádné komentáře',
-	'new_comment' => 'Nový komentář',
-	'report_comment_invalid' => 'Nezadal jste komentář. Zajistěte, aby jste zadal komentář s minimálně 5 znaky.',
-	'close_report' => 'Zavřít nahlášení',
-	'reopen_report' => 'Znovu otevřít náhlášení',
-	'1_open_report' => 'V současné době je otevřeno <strong> 1 </strong> nahlášení.',
-	'open_reports' => 'V současné době je <strong>{x}</strong> otevřených nahlášení.', // Don't replace {x}
-	'no_open_reports' => 'V současné době nejsou otevřené žádné nahlášení.',
-	'no_closed_reports' => 'V současné době není uzavřeno žádné nahlášení.',
-	'recent_reports' => 'Nedávná Nahlášení',
-	'reported_by' => 'Nahlášen od:',
-	'website' => 'Webová stránka',
-	'ingame' => 'Ve hře',
-	'x_closed_report' => '{x} uzavřel toto nahlášení.', // Don't replace {x} (username)
-	'x_reopened_report' => '{x} toto nahlášení znovu otevřel.', // Don't replace {x} (username)
-	'report_reopened' => 'Nahlášení bylo úspěšně znovu otevřeno.',
-	'report_closed' => 'Nahlášení bylo úspěšně uzavřeno.',
-	'comment_created' => 'Komentář byl úspěšně vytvořen.',
-	
-	// Punishments
-	'punishments' => 'Tresty',
-	'view_punishments' => 'Zobrazit tresty',
-	'banned' => 'Zabanovaní',
-	'groups' => 'Skupiny',
-	'punish' => 'Trest',
-	'ban' => 'Zakázání přístupu ke stránce',
-	'warn' => 'Varování',
-	'ban_ip' => 'Zakázání přístupu ke stránce na IP adresu',
-	'viewing_user_x' => 'Prohlížení uživatele {x}', // Don't replace {x}
-	'previous_punishments' => 'Předchozí tresty',
-	'no_previous_punishments' => 'Žádné předchozí tresty.',
-	'warning' => 'Varování',
-	'ip_ban' => 'Zakázat přístup ke stránce na IP adresu',
-	'reason' => 'Důvod',
-	'warn_user' => 'Varovat uživatele',
-	'ban_user' => 'Zakázat přístup ke stránce',
-	'enter_valid_punishment_reason' => 'Zadejte prosím platný důvod Vašeho trestu, musí být mezi 5 a 5000 znaky.',
-	'user_punished' => 'Uživatel potrestán.',
-	'user_punished_alert' => 'Člen AT {x} potrestal uživatele {y}', // Don't replace {x} (staff member) or {y} (user punished)
-	'revoke' => 'Odvolat trest',
-	'revoked' => 'Trest odvolán',
-	'acknowledged' => 'Uznáno.',
-	'confirm_revoke_warning' => 'Jste si jist, že chcete odvolat toto varování?',
-	'confirm_revoke_ban' => 'Jste si jist, že chcete odvolat zákaz přístupu ke stránce? Přístup ke stránce bude uživateli povolen, i když mají jiný zákaz k přístupu!',
-	'punishment_revoked' => 'Trest odvolán.',
-	'punishment_revoked_alert' => 'Člen AT {x} odvolal trest uživateli {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
-	'cant_punish_admin' => 'Nemůžete potrestat administrátora!',
+$language = array (
+    'staff_cp' => 'Panel',
+    'overview' => 'Nástěnka',
+
+    // Spam
+    'spam' => 'Spam',
+    'mark_as_spam' => 'Označit jako spam',
+    'confirm_spam' => '<p>Opravdu chcete označit tohoto uživatele za spam?</p><p>Uživatelova IP bude zabanována a všechen jeho obsah odstraněn.</p>',
+    'user_marked_as_spam' => 'Uživatel úspěšně označen za spam.',
+    'cant_ban_admin' => 'Nemůžete zabanovat správce!',
+
+    // IP Lookup
+    'ip_lookup' => 'Vyhledávání IP',
+    'search_for_ip' => 'Hledat uživatelské jméno nebo IP adresu',
+    'no_ips_with_username' => 'U tohoto uživatele nebyly nalezeny žádné IP adresy.',
+    'no_accounts_with_that_ip' => 'U této IP adresy nebyly nalezeny žádné účty.',
+    '1_account_with_ip' => 'Byl nalezen 1 účet s IP adresou {y}', // Don't replace "{y}"
+    'count_accounts_with_ip' => 'Bylo nalezeno {x} účtů s IP adresou {y}', // Don't replace "{x}" "{y}"
+    '1_ip_with_name' => 'U uživatele {y} byla nalezena 1 IP adresa', // Don't replace "{y}"
+    'count_ips_with_name' => 'U uživatele {y} bylo nalezeno {x} IP adres', // Don't replace "{x}" "{y}"
+    'no_users_or_ips_found' => 'Nebyly nalezeny žádné IP adresy ani uživatelé.',
+
+    // Reports
+    'reports' => 'Nahlášení',
+    'report_alert' => 'Bylo odesláno nové nahlášení',
+    'user_reported' => 'Nahlášený uživatel',
+    'comments' => 'Komentáře',
+    'updated_by' => 'Aktualizoval',
+    'actions' => 'Akce',
+    'view_closed' => 'Zobrazit uzavřené',
+    'view_open' => 'Zobrazit otevřené',
+    'viewing_report' => 'Prohlížení nahlášení',
+    'view_content' => 'Prohlížení nahlášeného obsahu',
+    'no_comments' => 'Žádné komentáře',
+    'new_comment' => 'Nový komentář',
+    'report_comment_invalid' => 'Neplatný obsah komentáře. Ujistěte se, že jste zadali komentář o délce 1 až 10 000 znaků.',
+    'close_report' => 'Uzavřít nahlášení',
+    'reopen_report' => 'Znovu otevřít nahlášení',
+    '1_open_report' => 'Momentálně je otevřeno <strong>1</strong> nahlášení.',
+    'open_reports' => 'Momentálně je otevřeno <strong>{x}</strong> nahlášení.', // Don't replace {x}
+    'no_open_reports' => 'Zatím nebyla otevřena žádná nahlášení.',
+    'no_closed_reports' => 'Zatím nebyla uzavřena žádná nahlášení.',
+    'recent_reports' => 'Poslední nahlášení',
+    'reported_by' => 'Nahlásil:',
+    'website' => 'Web',
+    'ingame' => 'Ve hře',
+    'x_closed_report' => '{x} uzavřel toto nahlášení.', // Don't replace {x} (username)
+    'x_reopened_report' => '{x} znovu otevřel toto nahlášení.', // Don't replace {x} (username)
+    'report_reopened' => 'Nahlášení úspěšně znovu otevřeno.',
+    'report_closed' => 'Nahlášení úspěšně uzavřeno.',
+    'comment_created' => 'Komentář úspěšně vytvořen.',
+
+    // Punishments
+    'punishments' => 'Tresty',
+    'view_punishments' => 'Zobrazit tresty',
+    'banned' => 'Zabanován',
+    'groups' => 'Skupiny',
+    'punish' => 'Potrestat',
+    'ban' => 'Zabanovat',
+    'warn' => 'Varovat',
+    'ban_ip' => 'Zabanovat IP',
+    'viewing_user_x' => 'Prohlížení uživatele {x}', // Don't replace {x}
+    'previous_punishments' => 'Předchozí tresty',
+    'no_previous_punishments' => 'Žádné předchozí tresty',
+    'reset_avatar' => 'Obnovit avatar',
+    'warning' => 'Varování',
+    'ip_ban' => 'IP ban',
+    'reason' => 'Důvod',
+    'warn_user' => 'Varovat uživatele',
+    'ban_user' => 'Zabanovat uživatele',
+    'enter_valid_punishment_reason' => 'Zadejte platný důvod vašeho trestu, o délce 5 až 5000 znaků.',
+    'user_punished' => 'Uživatel potrestán.',
+    'user_punished_alert' => '{x} potrestal uživatele {y}', // Don't replace {x} (staff member) or {y} (user punished)
+    'revoke' => 'Odvolat',
+    'revoked' => 'Odvolán',
+    'acknowledged' => 'Uznáno',
+    'confirm_revoke_warning' => 'Opravdu chcete odvolat toto varování?',
+    'confirm_revoke_ban' => 'Opravdu chcete odvolat tento ban? Uživatel bude odbanován, i když má novější ban!',
+    'punishment_revoked' => 'Trest odvolán.',
+    'punishment_revoked_alert' => '{x} odvolal trest uživateli {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
+    'cant_punish_admin' => 'Nemůžete potrestat správce!',
     'viewing_all_punishments' => 'Prohlížení všech trestů',
-    'no_punishments_found' => 'Žádné tresty nenalezeny.',
-    'view_user' => 'Prohlédnout hráče',
+    'no_punishments_found' => 'Nebyly nalezeny žádné tresty.',
+    'view_user' => 'Zobrazit uživatele',
     'when' => 'Kdy',
-    'staff' => 'Člen AT',
+    'staff' => 'Člen týmu',
     'type' => 'Typ',
-    'recent_punishments' => 'Nedávné tresty',
+    'recent_punishments' => 'Poslední tresty',
     'created' => 'Vytvořeno:',
-    'staff:' => 'Admin:',
+    'staff:' => 'Člen týmu:',
     'reason:' => 'Důvod:',
-	
+
     // Users
-    'recent_registrations' => 'Nedávné registrace',
-	'reset_profile_banner' => 'Resetovat Banner profilu'
+    'recent_registrations' => 'Poslední registrace',
+    'reset_profile_banner' => 'Obnovit profilový obrázek'
 
 );

@@ -1,8 +1,8 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -10,7 +10,9 @@
  */
 
 $language = array(
+
     // Errors
+    'api_disabled' => 'API is disabled',
     'unknown_error' => 'Unknown error',
     'invalid_api_key' => 'Invalid API key',
     'invalid_language_file' => 'Invalid language file',
@@ -31,7 +33,7 @@ $language = array(
     'unable_to_find_group' => 'Unable to find group',
     'unable_to_update_group' => 'Unable to update user\'s group',
     'report_content_too_long' => 'The report content must be 255 characters or less',
-    'you_must_register_to_report' => 'You must register on our website to be able to create a report',
+    'cannot_report_yourself' => 'You cannot report yourself.',
     'you_have_been_banned_from_website' => 'You have been banned from the website',
     'you_have_open_report_already' => 'You already have an open report regarding this player',
     'unable_to_create_report' => 'Unable to create report',
@@ -39,6 +41,15 @@ $language = array(
     'unable_to_update_server_info' => 'Unable to update server info',
     'invalid_server_id' => 'Invalid server ID',
     'invalid_code' => 'Invalid code provided',
+    'user_already_active' => 'Your account has already been activated.',
+    'discord_integration_disabled' => 'Discord integration is disabled.',
+    'unable_to_set_discord_id' => 'Unable to set Discord ID.',
+    'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
+    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
+    'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
+    'unable_to_update_discord_username' => 'Unable to update Discord username.',
+    'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
+    'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
 
     // Success messages
     'finish_registration_link' => 'Please click on the following link to complete registration:',
@@ -48,5 +59,8 @@ $language = array(
     'new_private_message_from' => 'New private message from {x}', // Don't replace {x}
     'username_updated' => 'Username updated successfully',
     'server_info_updated' => 'Server info updated successfully',
-	'account_validated' => 'Account validated successfully'
+    'account_validated' => 'Account validated successfully',
+    'discord_id_set' => 'Discord ID set successfully',
+    'discord_settings_updated' => 'Discord settings updated successfully',
+    'discord_usernames_updated' => 'Discord usernames updated successfully'
 );

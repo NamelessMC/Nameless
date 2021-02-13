@@ -2,7 +2,7 @@
 /*
 *	Made by Samerton
 *  https://github.com/NamelessMC/Nameless/
-*  NamelessMC version 2.0.0-pr2
+*  NamelessMC version 2.0.0-pr8
 *
 *  License: MIT
 *
@@ -10,16 +10,20 @@
 */
 
 class Email {
+
     // Send an email
     // Params:  $email - array containing all necessary email information to send as per the sendPHP and sendMailer functions
     //          $method - email sending method to use (php or mailer)
-    public static function send($email, $method = 'php'){
-        if($method == 'php')
+    public static function send($email, $method = 'php') {
+        if ($method == 'php') {
             return self::sendPHP($email);
-        else if($method == 'mailer')
+        } 
+        else if ($method == 'mailer') {
             return self::sendMailer($email);
-        else
+        }
+        else {
             return false;
+        }
     }
 
     // Send an email using PHP's sendmail() function
@@ -28,20 +32,19 @@ class Email {
     //                  - subject = subject line
     //                  - message = email contents
     //                  - headers = email headers
-    private static function sendPHP($email){
+    private static function sendPHP($email) {
         try {
             $mail = mail($email['to'], $email['subject'], $email['message'], $email['headers']);
-            if($mail)
+            if ($mail)
                 return true;
             else {
                 $error = error_get_last();
-                if(isset($error['message']))
+                if (isset($error['message']))
                     return array('error' => $error['message']);
                 else
                     return array('error' => 'Unknown');
             }
-
-        } catch(Exception $e){
+        } catch (Exception $e) {
             // Error
             return array('error' => $e->getMessage());
         }
@@ -49,9 +52,9 @@ class Email {
     }
 
     // Send an email using the PHPMailer library
-    private static function sendMailer($email){
+    private static function sendMailer($email) {
         require_once(ROOT_PATH . '/core/includes/phpmailer/PHPMailerAutoload.php');
-        require_once(ROOT_PATH . '/core/email.php');
+        require(ROOT_PATH . '/core/email.php');
 
         // Initialise PHPMailer
         $mail = new PHPMailer(true);
@@ -67,13 +70,14 @@ class Email {
             $mail->Username = $GLOBALS['email']['username'];
             $mail->Password = $GLOBALS['email']['password'];
 
-            if(isset($email['replyto']))
+            if (isset($email['replyto'])) {
                 $mail->AddReplyTo($email['replyto']['email'], $email['replyto']['name']);
+            }
 
             $mail->CharSet = "UTF-8";
-			$mail->Encoding = "base64";
-            $mail->setFrom($GLOBALS['email']['username'], $GLOBALS['email']['name']);
-            $mail->From = $GLOBALS['email']['username'];
+            $mail->Encoding = "base64";
+            $mail->setFrom($GLOBALS['email']['email'], $GLOBALS['email']['name']);
+            $mail->From = $GLOBALS['email']['email'];
             $mail->FromName = $GLOBALS['email']['name'];
             $mail->addAddress($email['to']['email'], $email['to']['name']);
             $mail->Subject = $email['subject'];
@@ -81,15 +85,21 @@ class Email {
             $mail->msgHTML($email['message']);
             $mail->Body = $email['message'];
 
-            if(!$mail->send()){
+            if (!$mail->send()) {
                 return array('error' => $mail->ErrorInfo);
             } else {
                 return true;
             }
-        } catch(phpmailerException $e){
-            return array('error' => $e->getMessage());
-        } catch(Exception $e){
+        } catch (Exception $e) {
             return array('error' => $e->getMessage());
         }
+    }
+
+    public static function formatEmail($email, $viewing_language) {
+        return str_replace(
+            ['[Sitename]', '[Greeting]', '[Message]', '[Thanks]'],
+            [SITE_NAME, $viewing_language->get('emails', 'greeting'), $viewing_language->get('emails', $email . '_message'), $viewing_language->get('emails', 'thanks')],
+            file_get_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
+        );
     }
 }
