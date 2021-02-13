@@ -35,8 +35,7 @@ $language = array(
     'no_users_or_ips_found' => 'Geen gebruiker of IP adressen gevonden.',
 
     // Rapporten
-    '
-    s' => 'Rapporteringen',
+    'reports' => 'Rapporteringen',
     'report_alert' => 'Nieuw rapport ingediend',
     'user_reported' => 'Gebruiker rapporteren',
     'comments' => 'Opmerkingen',
