@@ -100,7 +100,7 @@ if(!isset($_GET['step'])){
 				'last_online' => date('U')
             ));
             
-            $new_user = new User(DB::getInstance()->getLastId());
+            $new_user = new User(DB::getInstance()->lastId());
             // TODO: which group should they be set to? 
             // VALIDATED_DEFAULT
             // PRE_VALIDATED_DEFAULT
