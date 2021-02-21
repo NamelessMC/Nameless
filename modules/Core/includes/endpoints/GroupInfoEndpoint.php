@@ -12,6 +12,7 @@ class GroupInfoEndpoint extends EndpointBase {
         $this->_route = 'groupInfo';
         $this->_module = 'Core';
         $this->_description = 'Lists groups and provides group information';
+        $this->_method = 'GET';
     }
 
     public function execute(Nameless2API $api) {

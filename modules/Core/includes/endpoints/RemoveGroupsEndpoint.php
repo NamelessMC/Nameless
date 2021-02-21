@@ -12,6 +12,7 @@ class RemoveGroupsEndpoint extends EndpointBase {
         $this->_route = 'removeGroups';
         $this->_module = 'Core';
         $this->_description = 'Remove groups from user';
+        $this->_method = 'POST';
     }
 
     public function execute(Nameless2API $api) {

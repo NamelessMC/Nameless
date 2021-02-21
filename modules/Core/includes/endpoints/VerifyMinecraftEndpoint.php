@@ -12,6 +12,7 @@ class VerifyMinecraftEndpoint extends EndpointBase {
         $this->_route = 'verifyMinecraft';
         $this->_module = 'Core';
         $this->_description = 'Validate/Activate a NamelessMC account by confirming their reset code';
+        $this->_method = 'POST';
     }
 
     public function execute(Nameless2API $api) {

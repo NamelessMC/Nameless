@@ -11,6 +11,7 @@ class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
         $this->_route = 'updateDiscordBotSettings';
         $this->_module = 'Core';
         $this->_description = 'Updates the Discord Bot URL and/or Guild ID setting';
+        $this->_method = 'POST';
     }
 
     public function execute(Nameless2API $api) {

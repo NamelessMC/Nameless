@@ -50,6 +50,7 @@
                                         <th>{$ROUTE}</th>
                                         <th>{$DESCRIPTION}</th>
                                         <th>{$MODULE}</th>
+                                        <th>Method</th>
                                         {foreach from=$ENDPOINTS_ARRAY item=endpoint}
                                             <tr>
                                                 <td>
@@ -60,6 +61,9 @@
                                                 </td>
                                                 <td>
                                                     <div>{$endpoint.module}</div>
+                                                </td>
+                                                <td>
+                                                    <div><kbd>{$endpoint.method}</kbd></div>
                                                 </td>
                                             </tr>
                                         {/foreach}

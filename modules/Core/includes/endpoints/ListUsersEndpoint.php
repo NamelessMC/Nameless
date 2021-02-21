@@ -9,6 +9,7 @@ class ListUsersEndpoint extends EndpointBase {
         $this->_route = 'listUsers';
         $this->_module = 'Core';
         $this->_description = 'List all users on the NamelessMC site';
+        $this->_method = 'GET';
     }
 
     public function execute(Nameless2API $api) {

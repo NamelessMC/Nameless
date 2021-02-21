@@ -12,6 +12,7 @@ class UpdateUsernameEndpoint extends EndpointBase {
         $this->_route = 'updateUsername';
         $this->_module = 'Core';
         $this->_description = 'Update a users NamelessMC username to a new username';
+        $this->_method = 'POST';
     }
 
     public function execute(Nameless2API $api) {

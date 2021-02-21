@@ -14,7 +14,8 @@ abstract class EndpointBase {
 
     protected $_route,
               $_module,
-              $_description;
+              $_description,
+              $_method;
 
     public function getRoute() {
         return $this->_route;
@@ -26,6 +27,10 @@ abstract class EndpointBase {
 
     public function getDescription() {
         return $this->_description;
+    }
+
+    public function getMethod() {
+        return $this->_method;
     }
 
     public abstract function execute(Nameless2API $api);

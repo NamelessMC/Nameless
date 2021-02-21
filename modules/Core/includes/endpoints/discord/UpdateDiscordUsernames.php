@@ -10,6 +10,7 @@ class UpdateDiscordUsernames extends EndpointBase {
         $this->_route = 'updateDiscordUsernames';
         $this->_module = 'Core';
         $this->_description = 'Bulk update many user\'s Discord usernames to display on their settings page.';
+        $this->_method = 'POST';
     }
 
     public function execute(Nameless2API $api) {

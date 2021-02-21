@@ -6,6 +6,7 @@ class ServerInfoEndpoint extends EndpointBase {
         $this->_route = 'serverInfo';
         $this->_module = 'Core';
         $this->_description = 'Update the Minecraft server information NamelessMC tracks';
+        $this->_method = 'POST';
     }
 
     public function execute(Nameless2API $api) {

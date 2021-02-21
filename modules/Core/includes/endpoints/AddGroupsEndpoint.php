@@ -12,6 +12,7 @@ class AddGroupsEndpoint extends EndpointBase {
         $this->_route = 'addGroups';
         $this->_module = 'Core';
         $this->_description = 'Add groups to user';
+        $this->_method = 'POST';
     }
 
     public function execute(Nameless2API $api) {

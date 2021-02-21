@@ -12,6 +12,7 @@ class UserInfoEndpoint extends EndpointBase {
         $this->_route = 'userInfo';
         $this->_module = 'Core';
         $this->_description = 'Get information about a NamelessMC user';
+        $this->_method = 'GET';
     }
 
     public function execute(Nameless2API $api) {

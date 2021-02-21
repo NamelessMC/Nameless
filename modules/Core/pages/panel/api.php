@@ -433,7 +433,8 @@ if (!isset($_GET['view'])) {
             $endpoints_array[] = array(
                 'route' => $endpoint->getRoute(),
                 'module' => $endpoint->getModule(),
-                'description' => $endpoint->getDescription()
+                'description' => $endpoint->getDescription(),
+                'method' => $endpoint->getMethod()
             );
         };
 

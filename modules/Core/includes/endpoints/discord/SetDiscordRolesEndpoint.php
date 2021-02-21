@@ -12,6 +12,7 @@ class SetDiscordRolesEndpoint extends EndpointBase {
         $this->_route = 'setDiscordRoles';
         $this->_module = 'Core';
         $this->_description = 'Set a NamelessMC user\'s according to the supplied Discord Role ID list';
+        $this->_method = 'POST';
     }
 
     public function execute(Nameless2API $api) {

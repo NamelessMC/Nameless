@@ -11,6 +11,7 @@ class InfoEndpoint extends EndpointBase {
         $this->_route = 'info';
         $this->_module = 'Core';
         $this->_description = 'Return info about the Nameless installation';
+        $this->_method = 'GET';
     }
 
     public function execute(Nameless2API $api) {

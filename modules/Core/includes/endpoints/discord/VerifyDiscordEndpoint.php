@@ -11,6 +11,7 @@ class VerifyDiscordEndpoint extends EndpointBase {
         $this->_route = 'verifyDiscord';
         $this->_module = 'Core';
         $this->_description = 'Verify and link a NamelessMC user\'s Discord account using their validation token';
+        $this->_method = 'POST';
     }
 
     public function execute(Nameless2API $api) {

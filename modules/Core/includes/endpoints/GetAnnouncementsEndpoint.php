@@ -12,6 +12,7 @@ class GetAnnouncementsEndpoint extends EndpointBase {
         $this->_route = 'getAnnouncements';
         $this->_module = 'Core';
         $this->_description = 'Return latest available announcements for the supplied user';
+        $this->_method = 'GET';
     }
 
     public function execute(Nameless2API $api) {

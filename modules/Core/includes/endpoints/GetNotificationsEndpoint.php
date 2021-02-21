@@ -14,6 +14,7 @@ class GetNotificationsEndpoint extends EndpointBase {
         $this->_route = 'getNotifications';
         $this->_module = 'Core';
         $this->_description = 'Get notifications for a user';
+        $this->_method = 'GET';
     }
 
     public function execute(Nameless2API $api) {

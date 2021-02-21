@@ -13,6 +13,7 @@ class RegisterEndpoint extends EndpointBase {
         $this->_route = 'register';
         $this->_module = 'Core';
         $this->_description = 'Register a new user, and send email verification if needed.';
+        $this->_method = 'POST';
     }
 
     public function execute(Nameless2API $api) {

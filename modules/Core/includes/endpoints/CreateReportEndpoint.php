@@ -13,6 +13,7 @@ class CreateReportEndpoint extends EndpointBase {
         $this->_route = 'createReport';
         $this->_module = 'Core';
         $this->_description = 'Create a report';
+        $this->_method = 'POST';
     }
 
     public function execute(Nameless2API $api) {
