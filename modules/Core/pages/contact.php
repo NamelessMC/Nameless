@@ -18,6 +18,9 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $recaptcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
 $recaptcha = $recaptcha[0]->value;
 
+$captcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
+$captcha_type = $captcha_type[0]->value;
+
 $recaptcha_key = $queries->getWhere("settings", array("name", "=", "recaptcha_key"));
 $recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
 
@@ -28,10 +31,10 @@ if(Input::exists()){
     if(!isset($_SESSION['last_contact_sent']) || (isset($_SESSION['last_contact_sent']) && $_SESSION['last_contact_sent'] < strtotime('-1 hour'))){
         // Check recaptcha
         if($recaptcha == 'true'){
-            // Check reCAPCTHA
-            $url = 'https://www.google.com/recaptcha/api/siteverify';
+			// Check captcha
+			$url = $captcha_type === 'hCaptcha' ? 'https://hcaptcha.com/siteverify' : 'https://www.google.com/recaptcha/api/siteverify';
 
-            $post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . Input::get('g-recaptcha-response');
+			$post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . ($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
 
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_POST, 1);
@@ -157,6 +160,7 @@ if(Input::exists()){
             // Invalid recaptcha
             $error = $language->get('user', 'invalid_recaptcha');
     } else {
+        // TODO: This seems to never go down
       $error = str_replace('{x}', round((date('U') - strtotime('- 1 hour')) / 60), $language->get('general', 'contact_message_limit'));
     }
   } else {
@@ -166,11 +170,18 @@ if(Input::exists()){
 }
 
 // Smarty variables
-if($recaptcha == 'true'){
-	$smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
-	$template->addJSFiles(array(
-		'https://www.google.com/recaptcha/api.js' => array()
-	));
+if ($recaptcha === 'true') {
+    $smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
+
+    if ($captcha_type === 'hCaptcha') {
+        $template->addJSFiles(array(
+            'https://hcaptcha.com/1/api.js' => array()
+        ));
+    } else {
+        $template->addJSFiles(array(
+            'https://www.google.com/recaptcha/api.js' => array()
+        ));
+    }
 }
 
 if(isset($error))
@@ -192,7 +203,8 @@ $smarty->assign(array(
 	'TOKEN' => Token::get(),
 	'SUBMIT' => $language->get('general', 'submit'),
 	'ERROR_TITLE' => $language->get('general', 'error'),
-	'SUCCESS_TITLE' => $language->get('general', 'success')
+	'SUCCESS_TITLE' => $language->get('general', 'success'),
+    'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha'
 ));
 
 // Load modules + template

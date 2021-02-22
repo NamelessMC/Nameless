@@ -57,16 +57,16 @@
                                        class="js-switch" {if $EMAIL_VERIFICATION_VALUE eq 1} checked{/if} />
                             </div>
                             <div class="form-group">
-                                <label for="InputEnableRecaptcha">{$GOOGLE_RECAPTCHA}</label>
+                                <label for="InputEnableRecaptcha">{$CAPTCHA_GENERAL}</label>
                                 <input id="InputEnableRecaptcha" name="enable_recaptcha" type="checkbox"
                                        class="js-switch"
-                                       value="1" {if $GOOGLE_RECAPTCHA_VALUE eq 'true' } checked{/if} />
+                                       value="1" {if $CAPTCHA_GENERAL_VALUE eq 'true' } checked{/if} />
                             </div>
                             <div class="form-group">
-                                <label for="InputEnableRecaptchaLogin">{$GOOGLE_RECAPTCHA_LOGIN}</label>
+                                <label for="InputEnableRecaptchaLogin">{$CAPTCHA_LOGIN}</label>
                                 <input id="InputEnableRecaptchaLogin" name="enable_recaptcha_login" type="checkbox"
                                        class="js-switch"
-                                       value="1" {if $GOOGLE_RECAPTCHA_LOGIN_VALUE eq 'true' } checked{/if} />
+                                       value="1" {if $CAPTCHA_LOGIN_VALUE eq 'true' } checked{/if} />
                             </div>
                             <div class="form-group">
                                 <label for="InputCaptchaType">{$CAPTCHA_TYPE}</label>
@@ -80,15 +80,15 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="InputRecaptcha">{$RECAPTCHA_SITE_KEY}</label>
+                                <label for="InputRecaptcha">{$CAPTCHA_SITE_KEY}</label>
                                 <input type="text" name="recaptcha" class="form-control" id="InputRecaptcha"
-                                       placeholder="{$RECAPTCHA_SITE_KEY}" value="{$RECAPTCHA_SITE_KEY_VALUE}">
+                                       placeholder="{$CAPTCHA_SITE_KEY}" value="{$CAPTCHA_SITE_KEY_VALUE}">
                             </div>
                             <div class="form-group">
-                                <label for="InputRecaptchaSecret">{$RECAPTCHA_SECRET_KEY}</label>
+                                <label for="InputRecaptchaSecret">{$CAPTCHA_SECRET_KEY}</label>
                                 <input type="text" name="recaptcha_secret" class="form-control"
-                                       id="InputRecaptchaSecret" placeholder="{$RECAPTCHA_SECRET_KEY}"
-                                       value="{$RECAPTCHA_SECRET_KEY_VALUE}">
+                                       id="InputRecaptchaSecret" placeholder="{$CAPTCHA_SECRET_KEY}"
+                                       value="{$CAPTCHA_SECRET_KEY_VALUE}">
                             </div>
                             <div class="form-group">
                                 <label for="InputRegistrationDisabledMessage">{$REGISTRATION_DISABLED_MESSAGE}</label>

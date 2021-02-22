@@ -60,7 +60,7 @@
           </div>
           {if isset($RECAPTCHA)}
             <div class="field">
-              <div class="g-recaptcha" data-sitekey="{$RECAPTCHA}"></div>
+              <div class="{$CAPTCHA_CLASS}" data-sitekey="{$RECAPTCHA}"></div>
             </div>
           {/if}
           <div class="field">

@@ -45,7 +45,7 @@ if (Input::exists()) {
 	if (Token::check()) {
 		// Valid token
 		if (!isset($_SESSION['tfa']) && $recaptcha == 'true') {
-			// Check reCAPTCHA
+			// Check captcha
 			$url = $captcha_type === 'hCaptcha' ? 'https://hcaptcha.com/siteverify' : 'https://www.google.com/recaptcha/api/siteverify';
 
 			$post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . ($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
