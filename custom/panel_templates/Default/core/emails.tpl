@@ -49,15 +49,6 @@
 
                         <form action="" method="post">
                             <div class="form-group">
-                                <label for="inputMailer">{$ENABLE_MAILER}</label>
-                                <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body"
-                                                                  data-toggle="popover" title="{$INFO}"
-                                                                  data-content="{$ENABLE_MAILER_HELP}"></i></span>
-                                <input type="hidden" name="enable_mailer" value="0">
-                                <input id="inputMailer" name="enable_mailer" type="checkbox" class="js-switch"
-                                       value="1" {if $ENABLE_MAILER_VALUE eq 1} checked{/if} />
-                            </div>
-                            <div class="form-group">
                                 <label for="InputOutgoingEmail">{$OUTGOING_EMAIL}</label>
                                 <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body"
                                                                   data-toggle="popover" title="{$INFO}"
@@ -73,6 +64,15 @@
                                 </div>
                             </div>
                             <br />
+                            <div class="form-group">
+                                <label for="inputMailer">{$ENABLE_MAILER}</label>
+                                <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body"
+                                                                  data-toggle="popover" title="{$INFO}"
+                                                                  data-content="{$ENABLE_MAILER_HELP}"></i></span>
+                                <input type="hidden" name="enable_mailer" value="0">
+                                <input id="inputMailer" name="enable_mailer" type="checkbox" class="js-switch"
+                                       value="1" {if $ENABLE_MAILER_VALUE eq 1} checked{/if} />
+                            </div>
                             <div class="form-group">
                                 <label for="inputUsername">{$USERNAME}</label>
                                 <input class="form-control" type="text" name="username" value="{$USERNAME_VALUE}"
