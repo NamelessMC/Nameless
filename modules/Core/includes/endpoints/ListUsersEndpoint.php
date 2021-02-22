@@ -15,28 +15,28 @@ class ListUsersEndpoint extends EndpointBase {
     public function execute(Nameless2API $api) {
         $query = 'SELECT id, username, uuid, isbanned, discord_id AS banned, active FROM nl2_users';
 
-        if (isset($_GET['banned']) && $_GET['banned'] == 'true') {
-            $query .= ' WHERE `isbanned` = 1';
+        if (isset($_GET['banned'])) {
+            $query .= ' WHERE `isbanned` = ' . ($_GET['banned'] == 'true' ? '1' : '0');
             $filterBanned = true;
         }
 
-        if (isset($_GET['active']) && $_GET['active'] == 'true') {
+        if (isset($_GET['active'])) {
             if (isset($filterBanned)) {
                 $query .= ' AND';
             } else {
                 $query .= ' WHERE';
             }
-            $query .= ' `active` = 1';
+            $query .= ' `active` = ' . ($_GET['active'] == 'true' ? '1' : '0');
             $filterActive = true;
         }
 
-        if (isset($_GET['discord_linked']) && $_GET['discord_linked'] == 'true') {
+        if (isset($_GET['discord_linked'])) {
             if (isset($filterBanned) || isset($filterActive)) {
                 $query .= ' AND';
             } else {
                 $query .= ' WHERE';
             }
-            $query .= ' `discord_id` IS NOT NULL';
+            $query .= ' `discord_id` IS ' . ($_GET['discord_linked'] == 'true' ? 'NOT' : '') . ' NULL';
         }
 
         $users = $api->getDb()->query($query)->results();
