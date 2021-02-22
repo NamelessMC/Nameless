@@ -13,7 +13,7 @@ class ListUsersEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        $query = 'SELECT id, username, uuid, isbanned AS banned, active FROM nl2_users';
+        $query = 'SELECT id, username, uuid, isbanned, discord_id AS banned, active FROM nl2_users';
 
         if (isset($_GET['banned']) && $_GET['banned'] == 'true') {
             $query .= ' WHERE `isbanned` = 1';
@@ -27,6 +27,16 @@ class ListUsersEndpoint extends EndpointBase {
                 $query .= ' WHERE';
             }
             $query .= ' `active` = 1';
+            $filterActive = true;
+        }
+
+        if (isset($_GET['discord_linked']) && $_GET['discord_linked'] == 'true') {
+            if (isset($filterBanned) || isset($filterActive)) {
+                $query .= ' AND';
+            } else {
+                $query .= ' WHERE';
+            }
+            $query .= ' `discord_id` IS NOT NULL';
         }
 
         $users = $api->getDb()->query($query)->results();
@@ -39,6 +49,7 @@ class ListUsersEndpoint extends EndpointBase {
             $user_json['uuid'] = $user->uuid;
             $user_json['banned'] = (bool) $user->banned;
             $user_json['verified'] = (bool) $user->active;
+            $user_json['discord_id'] = intval($user->discord_id);
             $users_json[] = $user_json;
         }
 
