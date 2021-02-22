@@ -37,7 +37,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <h5 style="margin-top: 7px; margin-bottom: 7px;">{$ENDPOINTS_INFO}</h5>
+                                    <p style="margin-top: 7px; margin-bottom: 7px;">{$ENDPOINTS_INFO}</p>
                                 </div>
                                 <div class="col-md-3">
                                     <span class="float-md-right"><a class="btn btn-warning" href="{$BACK_LINK}">{$BACK}</a></span>

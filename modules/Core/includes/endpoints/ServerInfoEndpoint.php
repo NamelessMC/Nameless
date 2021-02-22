@@ -110,31 +110,54 @@ class ServerInfoEndpoint extends EndpointBase {
                     }
 
                     $group_sync_updates[strtolower($item->ingame_rank_name)] = array(
-                        'website' => $item->website_group_id
+                        'website' => $item->website_group_id,
+                        'discord' => $item->discord_role_id
                     );
                 }
 
-                if (count($_POST['players'])) {
-                    foreach ($_POST['players'] as $uuid => $player) {
-                        $user = new User($uuid, 'uuid');
-                        if ($user->data()) {
-                            // Any synced groups to remove?
-                            foreach ($user->getGroups() as $group) {
-                                $group_name = strtolower($group->name);
-                                if (array_key_exists($group_name, $group_sync_updates) && in_array($group_name, $player['groups'])) {
-                                    $user->removeGroup($group->id);
-                                }
+                foreach ($_POST['players'] as $uuid => $player) {
+                    $user = new User($uuid, 'uuid');
+                    if ($user->data()) {
+
+                        // Never edit root user
+                        if ($user->data()->id == 1) {
+                            continue;
+                        }
+
+                        // Any synced groups to remove?
+                        foreach ($user->getGroups() as $group) {
+                            // Convert user group ID to minecraft group name. exit if this isnt set
+                            $ingame_rank_name = Util::getIngameRankName($group->id);
+                            if ($ingame_rank_name == null) {
+                                continue;
                             }
 
-                            // Any synced groups to add?
-                            foreach ($player['groups'] as $group) {
-                                $group_name = strtolower($group);
-                                if (array_key_exists($group_name, $group_sync_updates)) {
-                                    $group_info = $group_sync_updates[$group_name];
-
-                                    $user->addGroup($group_info['website']);
-                                }
+                            // Check that this website group is setup to sync
+                            if (!array_key_exists($ingame_rank_name, $group_sync_updates)) {
+                                continue;
                             }
+
+                            // If they currently have this rank ingame, dont remove it
+                            if (in_array($ingame_rank_name, $player['groups'])) {
+                                continue;
+                            }
+
+                            $user->removeGroup($group->id);
+                            Discord::removeDiscordRole($user, $group->id, $api->getLanguage(), false);
+                        }
+
+                        // Any synced groups to add?
+                        foreach ($player['groups'] as $group) {
+                            $ingame_rank_name = strtolower($group);
+                            // Check that this ingame group is setup to sync
+                            if (!array_key_exists($ingame_rank_name, $group_sync_updates)) {
+                                continue;
+                            }
+                            
+                            $group_info = $group_sync_updates[$ingame_rank_name];
+
+                            $user->addGroup($group_info['website']);
+                            Discord::addDiscordRole($user, $group_info['discord'], $api->getLanguage(), false);
                         }
                     }
                 }

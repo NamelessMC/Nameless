@@ -35,6 +35,7 @@
                 <div class="card shadow mb-4">
                     <div class="card-body">
                         <a class="btn btn-primary" style="margin-bottom: 10px" href="{$NEW_GROUP_LINK}">{$NEW_GROUP}</a>
+                        <a class="btn btn-primary" style="margin-bottom: 10px" href="{$GROUP_SYNC_LINK}"><i class="fas fa-external-link-alt"></i> {$GROUP_SYNC}</a>
 
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
@@ -48,6 +49,7 @@
                                     <th>{$NAME}</th>
                                     <th>{$USERS}</th>
                                     <th>{$STAFF}</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody id="sortable">

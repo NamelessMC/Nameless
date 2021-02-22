@@ -436,6 +436,8 @@ $smarty->assign(array(
     'INFO' => $language->get('general', 'info'),
     'WARNING' => $language->get('general', 'warning'),
     'FORCE_TFA_WARNING' => $language->get('admin', 'force_tfa_warning'),
+    'GROUP_SYNC' => $language->get('admin', 'group_sync'),
+    'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync')
 ));
 
 $page_load = microtime(true) - $start;

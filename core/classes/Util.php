@@ -540,4 +540,12 @@ class Util {
             }
         }
     }
+
+    public static function getIngameRankName($website_group_id) {
+        $data = DB::getInstance()->get('group_sync', array('website_group_id', '=', $website_group_id));
+        if ($data->count()) {
+            return $data->first()->ingame_rank_name;
+        }
+        return null;
+    }
 }
