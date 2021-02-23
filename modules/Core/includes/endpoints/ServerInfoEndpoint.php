@@ -110,11 +110,11 @@ class ServerInfoEndpoint extends EndpointBase {
                     }
 
                     $group_sync_updates[strtolower($item->ingame_rank_name)] = array(
-                        'website' => $item->website_group_id,
-                        'discord' => $item->discord_role_id
+                        'website' => $item->website_group_id
                     );
                 }
 
+                // TODO logging
                 foreach ($_POST['players'] as $uuid => $player) {
                     $user = new User($uuid, 'uuid');
                     if ($user->data()) {
@@ -157,7 +157,7 @@ class ServerInfoEndpoint extends EndpointBase {
                             $group_info = $group_sync_updates[$ingame_rank_name];
 
                             $user->addGroup($group_info['website']);
-                            Discord::addDiscordRole($user, $group_info['discord'], $api->getLanguage(), false);
+                            Discord::addDiscordRole($user, $group_info['website'], $api->getLanguage(), false);
                         }
                     }
                 }
@@ -166,6 +166,7 @@ class ServerInfoEndpoint extends EndpointBase {
             $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
         }
 
+        // TODO 'meta' with changed user list + their added/removed roles
         $api->returnArray(array('message' => $api->getLanguage()->get('api', 'server_info_updated')));
     }
 }
