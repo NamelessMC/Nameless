@@ -503,7 +503,9 @@ $language = array(
     'all_logs' => 'All Logs',
     'action' => 'Action',
     'action_info' => 'Action Info',
-
+    'groups_removed' => 'Groups Removed',
+    'groups_added' => 'Groups Added',
+    
     // Updates
     'update' => 'Aktualizácia',
     'current_version_x' => 'Súčasná verzia: <strong>{x}</strong>', // Don't replaec {x}
@@ -551,8 +553,7 @@ $language = array(
     'page_link_none' => 'Žiadný odkaz',
     'page_content' => 'Obsah stránky',
     'page_redirect' => 'Presměrovanie stránky?',
-    'page_redirect_to' => 'Presmerovat
-ť odkaz (s predchadzajúcim http://)',
+    'page_redirect_to' => 'Presmerovatť odkaz (s predchadzajúcim http://)',
     'page_target' => 'Open page in a new tab?',
     'unsafe_html' => 'Povoliť nebezpečné HTML?',
     'unsafe_html_warning' => 'Povolením tejto možnosti, akékoľvek HTML môže byť na tejto strane použité, okrem potenciálne nebezpečného jazyka JavaScript. Povoľte to len v prípade, či ste si istý, že Váš HTML kód je bezpečný.',

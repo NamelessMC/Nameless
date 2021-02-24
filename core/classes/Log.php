@@ -168,6 +168,9 @@ class Log {
         'discord' => [
             'role_set' => 'discord_role_set',
             'upon_validation_error' => 'upon_validation_error'
+        ],
+        'mc_group_sync' => [
+            'role_set' => 'mc_group_sync_set'
         ]
     ];
 

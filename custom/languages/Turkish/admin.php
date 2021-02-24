@@ -503,7 +503,9 @@ $language = array(
     'all_logs' => 'Tüm günlükler',
     'action' => 'Eylem',
     'action_info' => 'Eylem Bilgisi',
-
+    'groups_removed' => 'Groups Removed',
+    'groups_added' => 'Groups Added',
+    
     // Updates
     'update' => 'Güncelle',
     'current_version_x' => 'Şimdiki versiyonu: <strong>{x}</strong>', // Don't replace {x}

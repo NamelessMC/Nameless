@@ -478,7 +478,9 @@ $language = array(
     'all_logs' => 'Tout les logs',
     'action' => 'Action',
     'action_info' => 'Infos actions',
-
+    'groups_removed' => 'Groups Removed',
+    'groups_added' => 'Groups Added',
+    
     // Updates
     'update' => 'Mise à jour',
     'current_version_x' => 'Version actuelle: <strong>{x}</strong>', // Don't replace {x}

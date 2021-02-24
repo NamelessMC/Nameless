@@ -472,11 +472,13 @@ $language = array(
     'ip_address' => 'IP Address',
     'template_changes' => 'Template Changes',
     'email_logs' => 'Mass Emails',
-    'discord_logs' => 'Discord Role Changes',
+    'group_sync_logs' => 'Group Sync Changes',
     'file_changed' => 'File Changed',
     'all_logs' => 'All Logs',
     'action' => 'Action',
     'action_info' => 'Action Info',
+    'groups_removed' => 'Groups Removed',
+    'groups_added' => 'Groups Added',
 
     // Updates
     'update' => 'Update',

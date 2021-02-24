@@ -505,7 +505,9 @@ $language = array(
     'all_logs' => '所有日志',
     'action' => '操作',
     'action_info' => '操作信息',
-
+    'groups_removed' => 'Groups Removed',
+    'groups_added' => 'Groups Added',
+    
     // Updates
     'update' => '更新',
     'current_version_x' => '当前版本: <strong>{x}</strong>', // Don't replace {x}

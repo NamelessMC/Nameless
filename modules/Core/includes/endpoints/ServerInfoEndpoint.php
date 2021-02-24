@@ -98,6 +98,7 @@ class ServerInfoEndpoint extends EndpointBase {
         }
 
         // Group sync
+        $log_array = array();
         try {
             $group_sync = $api->getDb()->get('group_sync', array('id', '<>', 0));
 
@@ -114,10 +115,11 @@ class ServerInfoEndpoint extends EndpointBase {
                     );
                 }
 
-                // TODO logging
                 foreach ($_POST['players'] as $uuid => $player) {
                     $user = new User($uuid, 'uuid');
                     if ($user->data()) {
+
+                        $should_log = false;
 
                         // Never edit root user
                         if ($user->data()->id == 1) {
@@ -142,7 +144,12 @@ class ServerInfoEndpoint extends EndpointBase {
                                 continue;
                             }
 
-                            $user->removeGroup($group->id);
+                            // Only create a log entry if at least one new group was added/removed
+                            if ($user->removeGroup($group->id)) {
+                                $should_log = true;
+                                $log_array['removed'][] = $group->name;
+                            }
+
                             Discord::removeDiscordRole($user, $group->id, $api->getLanguage(), false);
                         }
 
@@ -156,9 +163,19 @@ class ServerInfoEndpoint extends EndpointBase {
                             
                             $group_info = $group_sync_updates[$ingame_rank_name];
 
-                            $user->addGroup($group_info['website']);
+                            // Only create a log entry if at least one new group was added/removed
+                            if ($user->addGroup($group_info['website'])) {
+                                // TODO: this without another query for name. we cant loop their groups because that would require remaking the $user var
+                                $should_log = true;
+                                $log_array['added'][] = Util::getGroupNameFromId($group_info['website']);
+                            }
+
                             Discord::addDiscordRole($user, $group_info['website'], $api->getLanguage(), false);
                         }
+
+                        if ($should_log) {
+                            Log::getInstance()->log(Log::Action('mc_group_sync/role_set'), json_encode($log_array), $user->data()->id);
+                       }
                     }
                 }
             }
@@ -166,7 +183,6 @@ class ServerInfoEndpoint extends EndpointBase {
             $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
         }
 
-        // TODO 'meta' with changed user list + their added/removed roles
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'server_info_updated')));
+        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'server_info_updated'), 'meta' => json_encode($log_array)));
     }
 }

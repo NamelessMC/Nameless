@@ -502,7 +502,9 @@ $language = array(
     'all_logs' => 'Wszystkie Logi',
     'action' => 'Akcja',
     'action_info' => 'Informacje o Akcji',
-
+    'groups_removed' => 'Groups Removed',
+    'groups_added' => 'Groups Added',
+    
     // Updates
     'update' => 'Zaktualizuj',
     'current_version_x' => 'Aktualna wersja: <strong>{x}</strong>', // Don't replaec {x}

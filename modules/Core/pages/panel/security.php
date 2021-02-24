@@ -14,6 +14,8 @@ $user->handlePanelPageLoad('admincp.security');
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'security');
 define('PANEL_PAGE', 'security');
+// Define the sort column #, as for group_sync we dont show IP (since its from MC server or Discord bot)
+define('SORT', (isset($_GET['view']) && $_GET['view'] == 'group_sync') ? 1 : 2);
 $page_title = $language->get('admin', 'security');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
@@ -34,10 +36,10 @@ if (!isset($_GET['view'])) {
         );
     }
 
-    if ($user->hasPermission('admincp.security.discord')) {
+    if ($user->hasPermission('admincp.security.group_sync')) {
         $links[] = array(
-            'link' => URL::build('/panel/security/', 'view=discord'),
-            'title' => $language->get('admin', 'discord_logs')
+            'link' => URL::build('/panel/security/', 'view=group_sync'),
+            'title' => $language->get('admin', 'group_sync_logs')
         );
     }
 
@@ -174,40 +176,56 @@ if (!isset($_GET['view'])) {
             }
             break;
 
-        case 'discord':
-            if (!$user->hasPermission('admincp.security.discord')) {
+        case 'group_sync':
+            if (!$user->hasPermission('admincp.security.group_sync')) {
                 Redirect::to(URL::build('/panel/security'));
                 die();
             }
+            
+            $log_title = $language->get('admin', 'group_sync_logs');
+            $logs_set = $queries->orderWhere('logs', 'action = \'discord_role_set\' OR action = \'mc_group_sync_set\' ', 'time', 'DESC');
 
-            $log_title = $language->get('admin', 'discord_logs');
-            $logs_set = $queries->orderWhere('logs', 'action = \'discord_role_set\'', 'time', 'DESC');
-
-            $cols = 4;
+            $cols = 5;
             $col_titles = array(
                 $language->get('user', 'username'),
-                $language->get('admin', 'ip_address'),
                 $language->get('general', 'date'),
-                $language->get('admin', 'action_info')
+                $language->get('admin', 'action'),
+                $language->get('admin', 'groups_removed'),
+                $language->get('admin', 'groups_added')
             );
             $rows = array();
 
             foreach ($logs_set as $log) {
                 $target_user = new User($log->user_id);
-				
+
+                $removed = '';
+                foreach (json_decode($log->info, true)['removed'] as $r) {
+                    $removed .= $r . ', ';
+                }
+                $removed = rtrim($removed, ', ');
+
+                $added = '';
+                foreach (json_decode($log->info, true)['added'] as $a) {
+                    $added .= $a . ', ';
+                }
+                $added = rtrim($added, ', ');
+
                 $rows[] = array(
                     0 => array(
                         'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
                     ),
                     1 => array(
-                        'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
-                    ),
-                    2 => array(
                         'content' => date('d M Y, H:i', $log->time),
                         'order' => Output::getClean($log->time)
                     ),
+                    2 => array(
+                        'content' => Output::getClean($log->action)
+                    ),
                     3 => array(
-                        'content' => Output::getClean($log->info)
+                        'content' => Output::getClean($removed)
+                    ),
+                    4 => array(
+                        'content' => Output::getClean($added)
                     )
                 );
             }

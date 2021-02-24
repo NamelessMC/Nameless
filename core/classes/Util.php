@@ -548,4 +548,12 @@ class Util {
         }
         return null;
     }
+
+    public static function getGroupNameFromId($group_id) {
+        $data = DB::getInstance()->get('groups', array('id', '=', $group_id));
+        if ($data->count()) {
+            return $data->first()->name;
+        }
+        return null;
+    }
 }

@@ -290,7 +290,7 @@ class User {
 
     // Get all of a user's groups id.
     public function getAllGroupIds() {
-        if ($this->_isLoggedIn && count($this->_groups)) {
+        if (count($this->_groups)) {
             $groups = array();
             foreach ($this->_groups as $group) {
                 $groups[$group->id] = $group->id;
@@ -503,6 +503,7 @@ class User {
     }
 
     // Add a group to the user
+    // Returns false if they already had this group
     public function addGroup($group_id, $expire = 0) {
         $groups = $this->_groups ? $this->_groups : [];
         if (!array_key_exists($group_id, $groups)) {
@@ -515,10 +516,15 @@ class User {
                     $expire
                 )
             );
+
+            return true;
         }
+
+        return false;
     }
 
     // Remove a group from the user
+    // Returns false if they did not have this group or the admin group is being removed from root user
     public function removeGroup($group_id) {
         $groups = $this->_groups ? $this->_groups : [];
         if (array_key_exists($group_id, $groups)) {
@@ -533,7 +539,11 @@ class User {
                     $group_id
                 )
             );
+
+            return true;
         }
+
+        return false;
     }
 
     // Removes all groups this user has

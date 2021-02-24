@@ -511,7 +511,9 @@ $language = array(
     'all_logs' => 'Alle Logs',
     'action' => 'Aktion',
     'action_info' => 'Aktion Info',
-
+    'groups_removed' => 'Groups Removed',
+    'groups_added' => 'Groups Added',
+    
     // Updates
     'update' => 'Update',
     'current_version_x' => 'Aktuelle Version: <strong>{x}</strong>', // Don't replaec {x}

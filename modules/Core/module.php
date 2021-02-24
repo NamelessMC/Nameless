@@ -320,7 +320,7 @@ class Core_Module extends Module {
             'admincp.security.acp_logins' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'acp_logins'),
             'admincp.security.template' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'template_changes'),
             'admincp.security.emails' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'email_logs'),
-            'admincp.security.discord' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'discord_logs'),
+            'admincp.security.group_sync' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'group_sync_logs'),
             'admincp.security.all' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'all_logs'),
             'admincp.styles' => $language->get('admin', 'styles'),
             'admincp.styles.panel_templates' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'panel_templates'),

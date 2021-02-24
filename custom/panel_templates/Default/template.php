@@ -585,7 +585,7 @@ if (!class_exists('Default_Panel_Template')) {
 										    "previous": "' . $this->_language->get('general', 'previous') . '"
 										}
 									},
-									order: [[ 2, \'desc\']]
+									order: [[ ' . SORT . ', \'desc\']]
 								});
 							});
 							');

@@ -18,52 +18,88 @@ class SetDiscordRolesEndpoint extends EndpointBase {
     public function execute(Nameless2API $api) {
         $api->validateParams($_POST, ['user']);
 
-        if (!Util::getSetting($api->getDb(), 'discord_integration')) {
-            $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
-        }
+        // if (!Util::getSetting($api->getDb(), 'discord_integration')) {
+        //     $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
+        // }
 
         $user_id = $_POST['user'];
 
         $user = $api->getUser('id', $user_id);
 
+        $should_log = false;
+        $log_array = array();
+
         if ($_POST['roles'] != null) {
 
             $roles = $_POST['roles'];
 
-            $user->removeGroups();
+            $original_group_ids = $user->getAllGroupIds();
+            $added_groups_ids = array();
 
-            $message = '';
+            $user->removeGroups();
 
             foreach ($roles as $role) {
                 $group = Discord::getWebsiteGroup($api->getDb(), $role);
-                if ($group != null) {
-                    try {
-                        $user->addGroup($group->id);
-                        $message .= $group->name . ', ';
-                    } catch (Exception $e) {
-                        $api->throwError(18, $api->getLanguage()->get('api', 'unable_to_update_group'), $e->getMessage());
+                if ($group == null) {
+                    continue;
+                }
+
+                if ($user->addGroup($group->id)) {
+                    // Don't log if we are just giving back a group
+                    if (in_array($group->id, $original_group_ids)) {
+                        continue;
                     }
+
+                    $should_log = true;
+                    $log_array['added'][] = Util::getGroupNameFromId($group->name);
+                    $added_groups_ids[] = $group->id;
                 }
             }
 
-            if ($message != '') {
-                Log::getInstance()->log(Log::Action('discord/role_set'), 'Roles changed to: ' . rtrim($message, ', '), $user->data()->id);
+            foreach ($original_group_ids as $group_id) {
+                // If this original group was added back, ignore it
+                if (in_array($group_id, $added_groups_ids)) {
+                    continue;
+                }
+
+                $log_array['removed'][] = Util::getGroupNameFromId($group_id);
             }
 
         } else {
 
-            foreach ($user->getAllGroupIds() as $group_id) {
-                $user->removeGroup($group_id);
-            }
+            $original_group_ids = $user->getAllGroupIds();
+            $added_group_id = 0;
 
             if ($user->isValidated()) {
                 $user->setGroup(VALIDATED_DEFAULT);
+                $added_group_id = VALIDATED_DEFAULT;
             } else {
-                $user->setGroup(DEFAULT_GROUP);
+                $user->setGroup(PRE_VALIDATED_DEFAULT);
+                $added_group_id = PRE_VALIDATED_DEFAULT;
+            }
+
+            // If the new group they got was not in their original groups, log it
+            if (!in_array($added_group_id, $original_group_ids)) {
+                $should_log = true;
+                $log_array['added'][] = Util::getGroupNameFromId($added_group_id);
+            }
+
+            // Log all removed groups, but dont count the added group as removed
+            foreach ($original_group_ids as $group_id) {
+                if ($group_id == $added_group_id) {
+                    continue;
+                }
+
+                $should_log = true;
+                $log_array['removed'][] = Util::getGroupNameFromId($group_id);
             }
 
         }
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
+        if ($should_log) {
+            Log::getInstance()->log(Log::Action('discord/role_set'), json_encode($log_array), $user->data()->id);
+        }
+
+        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated'), 'meta' => json_encode($log_array)));
     }
 }

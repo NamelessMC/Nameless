@@ -478,7 +478,9 @@ $language = array (
     'all_logs' => 'Všechny protokoly',
     'action' => 'Akce',
     'action_info' => 'Informace o akci',
-
+    'groups_removed' => 'Groups Removed',
+    'groups_added' => 'Groups Added',
+    
     // Updates
     'update' => 'Aktualizovat',
     'current_version_x' => 'Současná verze: <strong>{x}</strong>', // Don't replace {x}

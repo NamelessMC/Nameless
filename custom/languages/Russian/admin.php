@@ -501,7 +501,9 @@ $language = array(
     'all_logs' => 'Все логи',
     'action' => 'Действие',
     'action_info' => 'Информация о действии',
-
+    'groups_removed' => 'Groups Removed',
+    'groups_added' => 'Groups Added',
+    
     // Updates
     'update' => 'Обновление',
     'current_version_x' => 'Текущая версия: <strong>{x}</strong>', // Don't replace {x}

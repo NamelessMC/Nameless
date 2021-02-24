@@ -502,7 +502,9 @@ $language = array(
     'all_logs' => 'Alle Logboeken',
     'action' => 'Actie',
     'action_info' => 'Actie Info',
-
+    'groups_removed' => 'Groups Removed',
+    'groups_added' => 'Groups Added',
+    
     // Updates
     'update' => 'Bijwerken',
     'current_version_x' => 'Huidige versie: <strong>{x}</strong>', // Verander "{x}" niet
