@@ -18,9 +18,9 @@ class SetDiscordRolesEndpoint extends EndpointBase {
     public function execute(Nameless2API $api) {
         $api->validateParams($_POST, ['user']);
 
-        // if (!Util::getSetting($api->getDb(), 'discord_integration')) {
-        //     $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
-        // }
+        if (!Util::getSetting($api->getDb(), 'discord_integration')) {
+            $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
+        }
 
         $user_id = $_POST['user'];
 
