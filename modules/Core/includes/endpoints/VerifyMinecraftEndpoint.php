@@ -30,7 +30,7 @@ class VerifyMinecraftEndpoint extends EndpointBase {
 
         $api->getDb()->update(
             'users',
-            $user->id,
+            $user->data()->id,
             array(
                 'reset_code' => '',
                 'active' => 1
@@ -40,7 +40,7 @@ class VerifyMinecraftEndpoint extends EndpointBase {
         try {
             HookHandler::executeEvent('validateUser', array(
                 'event' => 'validateUser',
-                'user_id' => $user->id,
+                'user_id' => $user->data()->id,
                 'username' => Output::getClean($user->username),
                 'language' => $api->getLanguage()
             ));

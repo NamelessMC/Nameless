@@ -89,19 +89,19 @@ class RecentPunishmentsItem extends CollectionItemBase {
                     }
 
                     $data[] = array(
-                        'url' => URL::build('/panel/users/punishments/', 'user=' . Output::getClean($punished_user->id)),
+                        'url' => URL::build('/panel/users/punishments/', 'user=' . Output::getClean($punished_user->data()->id)),
                         'punished_username' => $punished_user->getDisplayname(true),
                         'punished_nickname' => $punished_user->getDisplayname(),
                         'punished_style' => $punished_user->getGroupClass(),
                         'punished_avatar' => $punished_user->getAvatar(),
                         'punished_uuid' => Output::getClean($punished_user->data()->uuid),
-                        'punished_profile' => URL::build('/panel/user/' . Output::getClean($punished_user->id) . '-' . Output::getClean($punished_user->data()->username)),
+                        'punished_profile' => URL::build('/panel/user/' . Output::getClean($punished_user->data()->id) . '-' . Output::getClean($punished_user->data()->username)),
                         'staff_username' => $staff_user->getDisplayname(true),
                         'staff_nickname' => $staff_user->getDisplayname(),
                         'staff_style' => $staff_user->getGroupClass(),
                         'staff_avatar' => $staff_user->getAvatar(),
                         'staff_uuid' => Output::getClean($staff_user->data()->uuid),
-                        'staff_profile' => URL::build('/panel/user/' . Output::getClean($staff_user->id) . '-' . Output::getClean($staff_user->data()->username)),
+                        'staff_profile' => URL::build('/panel/user/' . Output::getClean($staff_user->data()->id) . '-' . Output::getClean($staff_user->data()->username)),
                         'time' => ($item->created ? $timeago->inWords(date('Y-m-d H:i:s', $item->created), $this->_language->getTimeLanguage()) : $timeago->inWords($item->infraction_date, $this->_language->getTimeLanguage())),
                         'time_full' => ($item->created ? date('d M Y, H:i', $item->created) : date('d M Y, H:i', strtotime($item->infraction_date))),
                         'type' => $item->type,
@@ -113,7 +113,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         'revoked_by_style' => ($revoked_by_user ? $revoked_by_user->getGroupClass() : ''),
                         'revoked_by_avatar' => ($revoked_by_user ? $revoked_by_user->getAvatar() : ''),
                         'revoked_by_uuid' => ($revoked_by_user ? Output::getClean($revoked_by_user->uuid) : ''),
-                        'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/' . Output::getClean($revoked_by_user->id) . '-' . Output::getClean($revoked_by_user->data()->username)) : ''),
+                        'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/' . Output::getClean($revoked_by_user->data()->id) . '-' . Output::getClean($revoked_by_user->data()->username)) : ''),
                         'revoked_at' => $timeago->inWords(date('Y-m-d H:i:s', $item->revoked_at), $this->_language->getTimeLanguage())
                     );
 
