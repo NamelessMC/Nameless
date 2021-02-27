@@ -1,32 +1,25 @@
 <?php
 /*
  *  Made by Samerton
+ *  Translation by BukkitTNT, M_Viper
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  German Language - General terms
  */
 
-/*
- *  Translation by BukkitTNT
- *
- *  http://BukkitTNT.de
- *  http://twitter.com/BukkitTNT
- *
- */
-
 $language = array(
     /*
      *  General terms
      */
-    'help' => 'Help',
+    'help' => 'Hilfe',
     'submit' => 'Senden',
     'register' => 'Registrieren',
-    'already_registered' => 'Already Registered?',
-    'custom_fields' => 'Custom Fields',
-    'not_registered_yet' => 'Not registered yet?',
+    'already_registered' => 'Bereits registriert?',
+    'custom_fields' => 'Benutzerdefinierte Felder',
+    'not_registered_yet' => 'Noch nicht registriert?',
     'sign_in' => 'Einloggen',
     'log_out' => 'Ausloggen',
     'profile' => 'Profil',
@@ -38,7 +31,7 @@ $language = array(
     'search' => 'Suche',
     'edit' => 'Editieren',
     'next' => 'Nächste',
-    'previous' => 'Previous',
+    'previous' => 'Bisherige',
     'confirm_cancel' => 'Willst du dies wirklich abbrechen?',
     'confirm_delete' => 'Löschen bestätigen.',
     'confirm_deletion' => 'Möchtest du dies wirklich löschen?',
@@ -65,19 +58,19 @@ $language = array(
     'page_x' => 'Seite {x}',
     'browse' => 'Blättern',
     'bypass' => 'Bypass',
-    'yes' => 'Yes',
-    'no' => 'No',
-    'content' => 'Content',
-    'full_content' => 'Full Content',
+    'yes' => 'Ja',
+    'no' => 'Nein',
+    'content' => 'Inhalt',
+    'full_content' => 'Voller Inhalt',
     'url' => 'URL',
     'success' => 'Erfolgreich',
     'error' => 'Fehler',
     'are_you_sure' => 'Bist du sicher?',
     'spoiler' => 'Spoiler',
-    'invalid_timezone' => 'That timezone is invalid',
+    'invalid_timezone' => 'Diese Zeitzone ist ungültig',
     'link' => 'Link',
-    'unlink' => 'Unlink',
-    
+    'unlink' => 'Verknüpfung aufheben',
+
     /*
      *  Contact form
      */
@@ -86,7 +79,7 @@ $language = array(
     'email_address' => 'Email Address',
     'contact_email_subject' => 'Neue Kontaktformulareinreichung',
     'contact_message_failed' => 'Nachricht konnte nicht gesendet werden. Bitte stellen Sie sicher, dass Sie eine Nachricht zwischen 10 und 5000 Zeichen lang eingegeben haben.',
-    'contact_message_email' => 'The provided email is invalid.',
+    'contact_message_email' => 'Die angegebene E-Mail ist ungültig.',
     'contact_message_sent' => 'Nachricht erfolgreich gesendet.',
     'contact_message_limit' => 'Sie können nur eine Nachricht pro Stunde senden. Sie können als nächstes eine Nachricht in {x} Minuten senden.', // Don't replace {x}
 
@@ -137,22 +130,22 @@ $language = array(
     /*
      *  Widgets
      */
-    'statistics' => 'Statistics',
-    'users_registered' => 'Users Registered',
-    'latest_member' => 'Latest Member',
-    'forum_statistics' => 'Forum Statistics',
-    'total_threads' => 'Total Threads',
-    'total_posts' => 'Total Posts',
-    'online_staff' => 'Aktivere Teammitglieder',
+    'statistics' => 'Statistiken',
+    'users_registered' => 'Benutzer registriert',
+    'latest_member' => 'Letztes Mitglied',
+    'forum_statistics' => 'Forum Statistiken',
+    'total_threads' => 'Gesamtanzahl der Threads',
+    'total_posts' => 'Beiträge insgesamt',
+    'online_staff' => 'Aktive Teammitglieder',
     'no_online_staff' => 'Derzeit sind keine Teammitglieder online',
-    'total_online_staff' => 'Total online staff: {x}',
+    'total_online_staff' => 'Insgesamt Online-Mitarbeiter: {x}',
     'online_users' => 'Aktive User',
     'no_online_users' => 'Es sind keine User online',
     'total_online_users' => 'Total online users: {x}',
     'discord_widget_disabled' => 'Das Widget ist für den angegebenen Discord-Server deaktiviert. Bitte gehen Sie auf die Registerkarte \"Widget\" in Ihren Discord-Server-Einstellungen und stellen Sie sicher, dass das Discord-Widget aktiviert ist und dass die ID korrekt ist.',
-    'online_guests' => 'Online Guests',
-    'total_online' => 'Total Online', // this is Online Users + Online Guests
-    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+    'online_guests' => 'Online Gäste',
+    'total_online' => 'Insgesamt online', // this is Online Users + Online Guests
+    'no_default_server' => 'Es gibt keinen Standardserver, bitte wählen Sie einen aus StaffCP - Integrations - Minecraft.',
     'server_status' => 'Server Status',
 
     /*
@@ -163,5 +156,5 @@ $language = array(
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Umleiten...<br />Wenn Sie nicht automatisch umgeleitet werden, klicken Sie bitte auf <a href="{x}" rel="nofollow noopener">Hier</a>.' // Don't replace {x} which is the redirect URL
 );

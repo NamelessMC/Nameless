@@ -1,20 +1,13 @@
 <?php
 /*
  *  Made by Samerton
+ *  Translation by BukkitTNT, M_Viper
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pre6
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  German Language - Users
- */
-
-/*
- *  Translation by BukkitTNT
- *
- *  http://BukkitTNT.de
- *  http://twitter.com/BukkitTNT
- *
  */
 
 $language = array(
@@ -43,7 +36,7 @@ $language = array(
     'alerts' => 'Benachrichtigungen',
     'delete_all' => 'Alle Löschen',
     'private_profile' => 'Privates Profil',
-    'gif_avatar' => 'Upload .gif as custom avatar',
+    'gif_avatar' => 'Laden Sie .gif als benutzerdefinierten Avatar hoch',
 
     // Profile settings
     'field_is_required' => '{x} wird benötigt.', // Don't replace {x}
@@ -76,8 +69,8 @@ $language = array(
     'profile_banner' => 'Profile Banner',
     'upload_profile_banner' => 'Banner hochladen',
     'upload' => 'Hochladen',
-    'topic_updates' => 'Get emails for topics you follow',
-    'gravatar' => 'Use Gravatar as avatar',
+    'topic_updates' => 'Erhalten Sie E-Mails zu Themen, denen Sie folgen',
+    'gravatar' => 'Verwenden Sie Gravatar als Avatar',
 
     // Alerts
     'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace {x}
@@ -196,7 +189,7 @@ $language = array(
     'no_about_fields' => 'Dieser Benutzer hat noch keine Felder hinzugefügt.',
     'reply' => 'Antworten',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
     'report_post_content' => 'Gib bitte einen Grund an.',
@@ -229,8 +222,8 @@ $language = array(
     'confirm_leave' => 'Möchtest du die Konversation wirklich verlassen?',
     'one_or_more_users_blocked' => 'Du kannst keine privaten Nachrichten an mindestens ein Mitglied der Konversation senden.',
     'messages' => 'Nachrichten',
-    'latest_profile_posts' => 'Latest Profile Posts',
-    'no_profile_posts' => 'No profile posts.',
+    'latest_profile_posts' => 'Neueste Profilbeiträge',
+    'no_profile_posts' => 'Keine Profilbeiträge.',
 
     /*
      *  Infractions area
@@ -243,21 +236,21 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} ist beigetreten ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_validated' => '{x} hat das Konto validiert!',
 
     // Discord
     'discord_link' => 'Discord Link',
-    'linked' => 'Linked',
-    'not_linked' => 'Not Linked',
+    'linked' => 'Verbunden',
+    'not_linked' => 'Nicht verbunden',
     'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
-    'pending_link' => 'Pending',
-    'discord_id_taken' => 'That Discord ID has already been taken.',
-    'discord_invalid_id' => 'That Discord User ID is invalid.',
-    'discord_already_pending' => 'You already have a pending verification.',
-    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
+    'discord_id_unlinked' => 'Die Verknüpfung Ihrer Discord-Benutzer-ID wurde erfolgreich aufgehoben.',
+    'discord_id_confirm' => 'Bitte senden Sie diese Nachricht: "!verify {guild_id}:{token}" an {bot_username} um Ihre Discord-Benutzer-ID zu bestätigen.',
+    'pending_link' => 'steht aus',
+    'discord_id_taken' => 'Diese Discord ID wurde bereits vergeben.',
+    'discord_invalid_id' => 'Diese Discord-Benutzer-ID ist ungültig.',
+    'discord_already_pending' => 'Sie haben bereits eine ausstehende Überprüfung.',
+    'discord_database_error' => 'Die Nameless Link-Datenbank ist derzeit nicht verfügbar. Bitte versuchen Sie es später noch einmal.',
+    'discord_communication_error' => 'Bei der Kommunikation mit dem Discord Bot ist ein Fehler aufgetreten. Bitte stellen Sie sicher, dass der Bot ausgeführt wird und Ihre Bot-URL korrekt ist.',
+    'discord_unknown_error' => 'Beim Synchronisieren der Discord-Rollen ist ein unbekannter Fehler aufgetreten. Bitte wenden Sie sich an einen Administrator.',
+    'discord_id_help' => 'Informationen dazu, wo Discord IDs zu finden sind, finden Sie unter <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
 );
