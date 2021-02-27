@@ -7,7 +7,7 @@
  *
  * Modified by Samerton for NamelessMC
  * https://github.com/NamelessMC/Nameless/
- * NamelessMC version 2.0.0-pr7
+ * NamelessMC version 2.0.0-pr9
  */
 class MentionsParser {
 
@@ -44,7 +44,7 @@ class MentionsParser {
                 while((strlen($possible_username) > 0) && !$user){
                     $user = new user($possible_username, 'nickname');
 
-                    if(count($user->data())){
+                    if($user->data()){
                         $value = preg_replace("/".preg_quote("@{$possible_username}", "/")."/", "<a style=\"" . Output::getClean($user->getGroupClass()) . "\" href=\"" . $user->getProfileURL() . "\">@{$possible_username}</a>", $value);
 
                         // Check if user is blocked by OP

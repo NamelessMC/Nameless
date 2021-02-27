@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -62,7 +62,7 @@ class RecentReportsItem extends CollectionItemBase {
                         $reporter_user = $users[$item->reporter_id];
                     } else {
                         $reporter_user = new User($item->reporter_id);
-                        if (!count($reporter_user->data()))
+                        if (!$reporter_user->data())
                             continue;
                         $users[$item->reporter_id] = $reporter_user;
                     }
@@ -71,7 +71,7 @@ class RecentReportsItem extends CollectionItemBase {
                         $reported_user = $users[$item->reported_id];
                     } else {
                         $reported_user = new User($item->reported_id);
-                        if (!count($reported_user->data()))
+                        if (!$reported_user->data())
                             continue;
                         $users[$item->reported_id] = $reported_user;
                     }

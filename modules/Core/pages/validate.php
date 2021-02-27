@@ -22,7 +22,7 @@ if(!isset($_GET['c'])){
 	die();
 } else {
 	$user = new User($_GET['c'], 'reset_code');
-	if(count($user->data())){
+	if($user->data()){
         // API verification
         $api_verification = $queries->getWhere('settings', array('name', '=', 'api_verification'));
         $api_verification = $api_verification[0]->value;

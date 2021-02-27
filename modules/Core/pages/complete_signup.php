@@ -36,7 +36,7 @@ if(!isset($_GET['c'])){
 
     if(!$user->isLoggedIn()){
 		$target_user = new User($_GET['c'], 'reset_code');
-        if (count($target_user->data())) {
+        if ($target_user->data()) {
             if(Input::exists()){
                 if(Token::check()){
                     // Validate input
