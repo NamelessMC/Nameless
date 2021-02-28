@@ -1,8 +1,9 @@
 <?php
 /*
  *  Made by Samerton
+ *  Translated by Я научу тебя шить XIMI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -188,7 +189,7 @@ $language = array(
     'no_about_fields' => 'Этот пользователь еще не добавил никакой информации о себе.',
     'reply' => 'Ответить',
     'discord_username' => 'Ваш Discord',
-    
+
     // Reports
     'invalid_report_content' => 'Не удалось создать жалобу. Пожалуйста, убедитесь, что причина вашей жалобы состоит из не менее 2-х и не более 1024-х символов.',
     'report_post_content' => 'Пожалуйста, укажите причину жалобы',

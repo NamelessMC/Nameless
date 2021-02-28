@@ -1,8 +1,9 @@
 <?php
 /*
  *  Made by Samerton
+ *  Translated by Я научу тебя шить XIMI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -10,9 +11,9 @@
  */
 
 $language = array(
-    'mod_cp' => 'ModCP',
-    'staff_cp' => 'StaffCP',
-    'overview' => 'Overview',
+    'mod_cp' => 'Панель модератора',
+    'staff_cp' => 'Админ панель',
+    'overview' => 'Обзор',
 
     // Spam
     'spam' => 'Спам',

@@ -1,6 +1,7 @@
 <?php
 /*
  *  Made by Samerton
+ *  Translated by Я научу тебя шить XIMI
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -156,11 +157,11 @@ $language = array(
     'navigation_settings_updated_successfully' => 'Настройки навигации успешно обновлены.',
     'dropdown_items' => 'Выпадающие элементы',
     'enable_page_load_timer' => 'Включить таймер загрузки страницы?',
-    'captcha_general' => 'Enable Captcha on registration and contact page?',
-    'captcha_login' => 'Enable Captcha on login page?',
+    'captcha_general' => 'Включить капчу для регистрации или при связи с администрацией?',
+    'captcha_login' => 'Включить капчу при авторизации?',
     'captcha_type' => 'Тип капчи',
-    'captcha_site_key' => 'Captcha Site Key',
-    'captcha_secret_key' => 'Captcha Secret Key',
+    'captcha_site_key' => 'Ключ сайта для капчи',
+    'captcha_secret_key' => 'Секретный ключ от сервиса капчи',
     'registration_disabled_message' => 'Сообщение об отключенной регистрации',
     'enable_nicknames_on_registration' => 'Включить ники при регистрации пользователей?',
     'validation_promote_group' => 'Группа после подтверждения',
@@ -174,7 +175,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Сообщения отправлены.',
     'emails_mass_message_replacements' => 'Вы можете использовать различные переменные в сообщениях. Поддерживаемые переменные: {username}, {sitename}',
     'emails_mass_message_loading' => 'Загрузка... Не перезагружайте страницу. Это займёт какое-то время.',
-    
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Аналитика',
@@ -501,9 +502,9 @@ $language = array(
     'all_logs' => 'Все логи',
     'action' => 'Действие',
     'action_info' => 'Информация о действии',
-    'groups_removed' => 'Groups Removed',
-    'groups_added' => 'Groups Added',
-    
+    'groups_removed' => 'Группы удалены',
+    'groups_added' => 'Группы добавлены',
+
     // Updates
     'update' => 'Обновление',
     'current_version_x' => 'Текущая версия: <strong>{x}</strong>', // Don't replace {x}
