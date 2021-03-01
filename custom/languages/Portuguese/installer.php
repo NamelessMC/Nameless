@@ -7,8 +7,8 @@
  *  License: MIT
  *
  *  Portuguese Language - Installation
- *  Translation By Douglas Teles & dasilvaj4
- *  Last Update: 23/04/2019
+ *  Translation By Douglas Teles, dasilvaj4 and Mansffer
+ *  Last Update: 01/03/2021
  */
 
 $language = array(
@@ -20,7 +20,7 @@ $language = array(
     'installer_welcome' => 'Bem-vindo ao NamelessMC versão 2.0.',
     'pre-release_warning' => 'Por favor, note que esta pre-release não se destina ao uso em um site público.',
     'installer_information' => 'O instalador irá guiá-lo através do processo de instalação.',
-    'terms_and_conditions' => 'By continuing you agree to the terms and conditions.',
+    'terms_and_conditions' => 'Ao continuar, você concorda com os termos e condições.',
     'new_installation_question' => 'Em primeiro lugar, esta é uma nova instalação?',
     'new_installation' => 'Nova instalação &raquo;',
     'upgrading_from_v1' => 'Atualizando da v1 &raquo;',
@@ -52,23 +52,23 @@ $language = array(
     'installer_now_initialising_database' => 'O instalador agora está inicializando o banco de dados. Isto pode demorar um pouco...',
     'configuration' => 'Configuração',
     'configuration_info' => 'Por favor, insira informações básicas sobre seu site. Esses valores podem ser alterados posteriormente no painel de administração.',
-    'configuration_error' => 'Digite um nome de site válido entre 1 e 32 caracteres e endereços de e-mail válidos entre 4 e 64 caracteres.',
+    'configuration_error' => 'Digite um nome de site válido entre 1 e 32 caracteres e endereços de email válidos entre 4 e 64 caracteres.',
     'site_name' => 'Nome do Site',
-    'contact_email' => 'E-mail de Contato',
-    'outgoing_email' => 'E-mail de envio',
+    'contact_email' => 'Email de Contato',
+    'outgoing_email' => 'Email de envio',
     'language' => 'Idioma',
     'initialising_database_and_cache' => 'Inicializando banco de dados e cache, por favor aguarde...',
     'unable_to_login' => 'Não é possível fazer login.',
     'unable_to_create_account' => 'Não é possível criar uma conta',
-    'input_required' => 'Digite um nome de usuário, endereço de e-mail e senha válidos.',
-    'input_minimum' => 'Certifique-se de que seu nome de usuário seja um mínimo de 3 caracteres, seu endereço de e-mail é de no mínimo 4 caracteres e sua senha tem no mínimo 6 caracteres.',
-    'input_maximum' => 'Certifique-se de que seu nome de usuário tenha no máximo 20 caracteres e seu endereço de e-mail e senha tenham no máximo 64 caracteres.',
+    'input_required' => 'Digite um nome de usuário, endereço de email e senha válidos.',
+    'input_minimum' => 'Certifique-se de que seu nome de usuário tenha no mínimo 3 caracteres, o seu endereço de email deve ter no mínimo 4 caracteres e sua senha deve ter no mínimo 6 caracteres.',
+    'input_maximum' => 'Certifique-se de que seu nome de usuário tenha no máximo 20 caracteres e seu endereço de email e senha tenham no máximo 64 caracteres.',
     'email_invalid' => 'O seu email não é válido.',
     'passwords_must_match' => 'Suas senhas devem corresponder.',
     'creating_admin_account' => 'Criando conta de administrador',
     'enter_admin_details' => 'Digite os detalhes da conta de administrador.',
     'username' => 'Usuário',
-    'email_address' => 'Endereço de E-mail',
+    'email_address' => 'Endereço de email',
     'password' => 'Senha',
     'confirm_password' => 'Confirmar Senha',
     'upgrade' => 'Atualizar',
