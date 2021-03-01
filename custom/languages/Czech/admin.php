@@ -478,8 +478,8 @@ $language = array (
     'all_logs' => 'Všechny protokoly',
     'action' => 'Akce',
     'action_info' => 'Informace o akci',
-    'groups_removed' => 'Groups Removed',
-    'groups_added' => 'Groups Added',
+    'groups_removed' => 'Skupiny odebrány',
+    'groups_added' => 'Skupiny přidány',
     
     // Updates
     'update' => 'Aktualizovat',
