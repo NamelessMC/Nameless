@@ -7,19 +7,19 @@
  *  License: MIT
  *
  *  Portuguese Language - General
- *  Translation by Douglas Teles
- *  Last Update: 24/04/2019
+ *  Translation by Douglas Teles & Mansffer
+ *  Last Update: 01/03/2021
  */
 $language = array(
     /*
      *  General terms
      */
-    'help' => 'Help',
+    'help' => 'Ajuda',
     'submit' => 'Enviar',
-    'register' => 'Cadastrar',
-    'already_registered' => 'Já possui cadastro?',
-    'custom_fields' => 'Custom Fields',
-    'not_registered_yet' => 'Not registered yet?',
+    'register' => 'Registrar',
+    'already_registered' => 'Já possui registro?',
+    'custom_fields' => 'Campo personalizado',
+    'not_registered_yet' => 'Ainda não possui registro?',
     'sign_in' => 'Entrar',
     'log_out' => 'Sair',
     'profile' => 'Perfil',
@@ -31,7 +31,7 @@ $language = array(
     'search' => 'Procurar',
     'edit' => 'Editar',
     'next' => 'Próximo',
-    'previous' => 'Previous',
+    'previous' => 'Anterior',
     'confirm_cancel' => 'Tem certeza de que deseja cancelar?',
     'confirm_delete' => 'Confirmar exclusão',
     'confirm_deletion' => 'Tem certeza de que deseja excluir isso?',
@@ -53,7 +53,7 @@ $language = array(
     'no_messages' => 'Sem mensagens',
     'x_new_messages' => 'Você possuí {x} novas mensagens.', // Don't replace {x}
     'loading' => 'Carregando...',
-    'report' => 'Relatório',
+    'report' => 'Denúncia',
     'page_loaded_in' => 'Página gerada em {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Página {x}',
     'browse' => 'Navegar',
@@ -67,19 +67,19 @@ $language = array(
     'error' => 'Erro',
     'are_you_sure' => 'Você tem certeza?',
     'spoiler' => 'Spoiler',
-    'invalid_timezone' => 'That timezone is invalid',
+    'invalid_timezone' => 'Esse fuso horário é inválido',
     'link' => 'Link',
-    'unlink' => 'Unlink',
+    'unlink' => 'Desvincular',
     
     /*
     *  Contact form
     */
     'contact' => 'Contato',
     'message' => 'Mensagem',
-    'email_address' => 'Endereço de e-mail',
+    'email_address' => 'Endereço de email',
     'contact_email_subject' => 'Novo formulário de contato',
-    'contact_message_failed' => 'Não foi possível a mensagem. Certifique-se de ter inserido uma mensagem entre 10 e 5000 caracteres.',
-    'contact_message_email' => 'O e-mail fornecido é inválido.',
+    'contact_message_failed' => 'Não foi possível enviar a mensagem. Certifique-se de ter inserido uma mensagem entre 10 e 5000 caracteres.',
+    'contact_message_email' => 'O email fornecido é inválido.',
     'contact_message_sent' => 'Mensagem enviada com sucesso.',
     'contact_message_limit' => 'Você só pode enviar uma mensagem por hora. Você pode enviar uma mensagem em {x} minutos.', // Don't replace {x}
 
@@ -143,10 +143,10 @@ $language = array(
     'no_online_users' => 'Não há usuários online.',
     'total_online_users' => 'Usuários online: {x}',
     'discord_widget_disabled' => 'O widget está desativado para o servidor Discord especificado. Por favor, vá para a aba \'Widget\' nas configurações do servidor Discord, e assegure-se de que o widget Discord esteja habilitado e que o ID esteja correto.',
-    'online_guests' => 'Online Guests',
+    'online_guests' => 'Convidados Online',
     'total_online' => 'Total Online', // this is Online Users + Online Guests
-    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
-    'server_status' => 'Server Status',
+    'no_default_server' => 'Não há servidor padrão, selecione um em StaffCP - Integrações - Minecraft.',
+    'server_status' => 'Status do servidor',
 
     /*
      *  Privacy policy
