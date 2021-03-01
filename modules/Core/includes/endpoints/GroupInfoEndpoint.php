@@ -53,7 +53,9 @@ class GroupInfoEndpoint extends EndpointBase {
                 'id' => intval($group->id),
                 'name' => $group->name,
                 'staff' => (bool) $group->staff,
-                'order' => intval($group->order)
+                'order' => intval($group->order),
+                'ingame_rank_name' => Util::getIngameRankName($group->id),
+                'discord_role_id' => intval(Discord::getDiscordRoleId($api->getDb(), $group->id))
             );
         }
 

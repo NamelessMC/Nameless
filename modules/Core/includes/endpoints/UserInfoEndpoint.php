@@ -67,7 +67,7 @@ class UserInfoEndpoint extends EndpointBase {
         }
 
         // Get the groups the user has
-        $groups = $api->getDb()->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id=nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', array($user->id))->results();
+        $groups = $api->getDb()->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', array($user->id))->results();
 
         $groups_array = array();
         foreach ($groups as $group) {
@@ -75,7 +75,9 @@ class UserInfoEndpoint extends EndpointBase {
                 'id' => intval($group->id),
                 'name' => $group->name,
                 'staff' => (bool) $group->staff,
-                'order' => intval($group->order)
+                'order' => intval($group->order),
+                'ingame_rank_name' => Util::getIngameRankName($group->id),
+                'discord_role_id' => intval(Discord::getDiscordRoleId($api->getDb(), $group->id))
             );
         }
         $user->groups = $groups_array;
