@@ -89,14 +89,14 @@ $language = array(
     'credits' => 'Créditos',
     'credits_message' => 'Um grande agradecimento a todos os <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">colaboradores do NamelessMC</a> desde 2014',
 
-    'step_home' => 'Home',
-    'step_requirements' => 'Requirements',
+    'step_home' => 'Inicio',
+    'step_requirements' => 'Requisitos',
     'step_general_config' => 'General Configuration',
     'step_database_config' => 'Database Configuration',
-    'step_site_config' => 'Site Configuration',
+    'step_site_config' => 'Configuração do Site',
     'step_admin_account' => 'Admin Account',
     'step_conversion' => 'Conversion',
-    'step_finish' => 'Finish',
+    'step_finish' => 'Finalizar',
 
     'general_configuration' => 'General Configuration',
     'reload' => 'Reload',
