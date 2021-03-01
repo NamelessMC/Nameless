@@ -725,9 +725,9 @@ $language = array(
 
     // Discord
     'discord' => 'Discord',
-    'enable_discord_integration' => 'Enable Discord integration?',
+    'enable_discord_integration' => 'Ativar integração com o Discord?',
     'discord_role_id' => 'Discord Role ID',
-    'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
+    'discord_role_id_numeric' => 'O ID da função discord deve ser numérico.',
     'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
     'discord_settings_updated' => 'Your Discord settings were updated successfully.',
     'discord_guild_id_required' => 'Please enter your Discord Server ID for Discord integration to work.',
@@ -740,13 +740,13 @@ $language = array(
     'discord_cannot_interact' => 'The Nameless Link bot cannot interact with this user in Discord. Is their role higher than the Nameless Link role?',
 
     // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Invalid request body.',
-    'discord_bot_error_error' => 'An internal bot error occured.',
-    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
-    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
-    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
-    'discord_bot_error_unauthorized' => 'Website API key is invalid',
-    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+    'discord_bot_error_badparameter' => 'Corpo de solicitação inválido.',
+    'discord_bot_error_error' => 'Ocorreu um erro do bot interno.',
+    'discord_bot_error_invguild' => 'O Guild ID fornecido é inválido ou o bot não está nele.',
+    'discord_bot_error_invuser' => 'A ID de usuário fornecida é inválida ou não está na Guilda especificada.',
+    'discord_bot_error_notlinked' => 'O bot não está vinculado a este site para fornecer a Guild ID.',
+    'discord_bot_error_unauthorized' => 'A chave da API do site é inválida',
+    'discord_bot_error_invrole' => 'A Role ID fornecida é inválida.',
+    'discord_bot_error_hierarchy' => 'O bot não pode editar as funções deste usuário.'
 
 );
