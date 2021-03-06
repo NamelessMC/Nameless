@@ -48,13 +48,16 @@ class ErrorHandler {
         require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.php');
     }
 
-    private static function parseFile($file, $line) {
+    private static function parseFile($file, $error_line) {
         $return = '';
         $lines = file($file);
         $line_num = 1;
 
         foreach ($lines as $line) {
-            $return .= Output::getClean($line);
+            if (($error_line - 20) <= $line_num && $line_num <= ($error_line + 20)) {
+                $return .= Output::getClean($line);
+            }
+            
             $line_num++;
         }
 

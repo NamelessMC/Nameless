@@ -23,21 +23,17 @@
 
 
 <body>
-    <br /><br /><br />
+    <br /><br />
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="jumbotron">
                     <div style="text-align:center">
-                        <h2>
-                            {$FATAL_ERROR_TITLE}
-                        </h2>
+                        <h2>{$FATAL_ERROR_TITLE}</h2>
 
                         {if $DETAILED_ERROR}
 
-                            <h4>
-                                {$FATAL_ERROR_MESSAGE_ADMIN}
-                            </h4>
+                            <h4>{$FATAL_ERROR_MESSAGE_ADMIN}</h4>
 
                             <kbd>{$ERROR_STRING}</kbd>
                             <br /><br/>
@@ -61,7 +57,7 @@
                                             <div id="frame-{$frame['number']}" class="tabcontent">
                                                 <h4>{$frame['file']}</h4>
 
-                                                <pre data-line="{$frame['line']}">
+                                                <pre data-line="21" data-start="{($frame['line'] - 20)}">
                                                     <code class="language-php line-numbers">{$frame['code']}</code>
                                                 </pre>
 

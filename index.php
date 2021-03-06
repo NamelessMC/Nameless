@@ -45,18 +45,13 @@ try {
     $directories = explode("/", $directory);
     $lim = count($directories);
 
-    if(isset($_GET['route']) && $_GET['route'] == '/rewrite_test'){
+    if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test'){
         require_once('rewrite_test.php');
         die();
     }
 
-    try {
-        // Start initialising the page
-        require(ROOT_PATH . '/core/init.php');
-    }
-    catch(Exception $e) {
-        die($e->getMessage());
-    }
+    // Start initialising the page
+    require(ROOT_PATH . '/core/init.php');
 
     if(!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
         Redirect::to('install.php');
@@ -84,7 +79,12 @@ try {
             if(!isset($modules[$route]['custom'])){
                 $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']));
 
-                if(!file_exists($path)) require(ROOT_PATH . '/404.php'); else require($path);
+                if(!file_exists($path)) {
+                    require(ROOT_PATH . '/404.php');
+                } else { 
+                    require($path);
+                }
+                
                 die();
             } else {
                 require(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php')));

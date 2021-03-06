@@ -11,6 +11,8 @@
  *  Error page
  */
 
+// TODO: Ignore empty files (valet server.php, etc) + truncate to +- 20 lines + make look nice
+
 if(!defined('ERRORHANDLER'))
     die();
 
@@ -41,7 +43,7 @@ $smarty->assign(array(
     'LANG' => defined('HTML_LANG') ? HTML_LANG : 'en',
     'RTL' => defined('HTML_RTL') && HTML_RTL === true ? ' dir="rtl"' : '',
     'LANG_CHARSET' => defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8',
-    'TITLE' => $language->get('errors', 'fatal_error') . $language->get('errors', 'fatal_error') . ' - ' . SITE_NAME,
+    'TITLE' => $language->get('errors', 'fatal_error') . ' - ' . SITE_NAME,
     'SITE_NAME' => SITE_NAME,
     'BOOTSTRAP' => $boostrap,
     'CUSTOM' => $custom,
