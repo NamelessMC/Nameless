@@ -55,9 +55,9 @@
                                         {foreach from=$FRAMES item=frame}
 
                                             <div id="frame-{$frame['number']}" class="tabcontent">
-                                                <h4>{$frame['file']}</h4>
+                                                <h5>File: <strong>{$frame['file']}</strong></h5>
 
-                                                <pre data-line="21" data-start="{($frame['line'] - 20)}">
+                                                <pre data-line="{$frame['highlight_line']}" data-start="{($frame['line'] - 20)}">
                                                     <code class="language-php line-numbers">{$frame['code']}</code>
                                                 </pre>
 
@@ -89,48 +89,50 @@
 
 <style>
 {literal}
-* {box-sizing: border-box}
+* {
+    box-sizing: border-box
+}
 
 /* Style the tab */
 .tab {
-  float: left;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-  width: 30%;
-  height: 300px;
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 30%;
+    height: 300px;
 }
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-  display: block;
-  background-color: inherit;
-  color: black;
-  padding: 22px 16px;
-  width: 100%;
-  border: none;
-  outline: none;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.3s;
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 15px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-  background-color: #ddd;
+    background-color: #ddd;
 }
 
 /* Create an active/current "tab button" class */
 .tab button.active {
-  background-color: #ccc;
+    background-color: #ccc;
 }
 
 /* Style the tab content */
 .tabcontent {
-  float: left;
-  padding: 0px 12px;
-  width: 70%;
-  border-left: none;
-  height: 300px;
+    float: left;
+    padding: 0px 12px;
+    width: 70%;
+    border-left: none;
+    height: 300px;
 }
 {/literal}
 </style>

@@ -28,12 +28,12 @@ if (defined('CONFIG_PATH')) {
     $path = '/';
 }
 
-$boostrap = $path . 'core/assets/css/bootstrap.min.css';
-$custom = $path . 'core/assets/css/custom.css';
-$font_awesome = $path . 'core/assets/css/font-awesome.min.css';
-$jquery = $path . 'core/assets/js/jquery.min.js';
-$prism_css = $path . 'core/assets/css/prism.css';
-$prism_js = $path . 'core/assets/js/prism.js';
+$boostrap = $path . 'core/assets/css/bootstrap.min.css?' . time();
+$custom = $path . 'core/assets/css/custom.css?' . time();
+$font_awesome = $path . 'core/assets/css/font-awesome.min.css?' . time();
+$jquery = $path . 'core/assets/js/jquery.min.js?' . time();
+$prism_css = $path . 'core/assets/css/prism.css?' . time();
+$prism_js = $path . 'core/assets/js/prism.js?' . time();
 
 $smarty = new Smarty();
 
