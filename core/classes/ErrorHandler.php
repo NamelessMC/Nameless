@@ -11,6 +11,56 @@
 
 class ErrorHandler {
 
+    public static function catchThrowable(Error $e) {
+        // echo '<b>Error:</b> ' . $e->getMessage() . '<br>';
+
+        // echo '<b>Frame #' . (count($e->getTrace()) + 1) . '</b> ' . $e->getFile() . ' - <b>Line: ' . $e->getLine() . '</b><br>';
+        // $i = count($e->getTrace()) - 1;
+        // foreach ($e->getTrace() as $frame) {
+        //     echo '<b>Frame #' . ($i + 1) . '</b> ' . $frame['file'] . ' - <b>Line: ' . $frame['line'] . '</b><br>';
+        //     $i--;
+        // }
+
+        $frames = array();
+        $code = self::parseFile($e->getFile(), $e->getLine());
+        $frames[] = [
+            'number' => count($e->getTrace()) + 1,
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+            'code' => $code
+        ];
+
+        $i = count($e->getTrace()) - 1;
+        foreach ($e->getTrace() as $frame) {
+            $code = self::parseFile($frame['file'], $frame['line']);
+            $frames[] = [
+                'number' => $i + 1,
+                'file'=> $frame['file'],
+                'line' => $frame['line'],
+                'code' => $code
+            ];
+            $i--;
+        }
+
+        $errstr = $e->getMessage();
+
+        define('ERRORHANDLER', true);
+        require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.php');
+    }
+
+    private static function parseFile($file, $line) {
+        $return = '';
+        $lines = file($file);
+        $line_num = 1;
+
+        foreach ($lines as $line) {
+            $return .= Output::getClean($line);
+            $line_num++;
+        }
+
+        return $return;
+    }
+
     public static function catchError($errno, $errstr, $errfile, $errline) {
         if(!(error_reporting() & $errno))
             return false;
