@@ -132,8 +132,6 @@
     float: left;
     padding: 0px 12px;
     width: 70%;
-    border-left: none;
-    height: 300px;
 }
 {/literal}
 </style>

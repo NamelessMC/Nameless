@@ -34,6 +34,8 @@ pre[class*="language-"] {
     margin: .5em 0;
     overflow: visible;
     padding: 0;
+    max-height: inherit;
+    height: inherit;
 }
 
 pre[class*="language-"]>code {
