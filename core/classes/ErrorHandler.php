@@ -11,16 +11,16 @@
 
 class ErrorHandler {
 
-    public static function catchThrowable(Error $e) {
+    private const LINE_BUFFER = 20;
 
-        // TODO: dont hardcode line 21 - what if whole file is shorter than 21 lines
+    public static function catchThrowable(Error $e) {
         $frames = array();
         $code = self::parseFile($e->getFile(), $e->getLine());
         $frames[] = [
             'number' => count($e->getTrace()) + 1,
             'file' => $e->getFile(),
             'line' => $e->getLine(),
-            'highlight_line' => 21,
+            'highlight_line' => count(file($e->getFile())) > self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $e->getLine(),
             'code' => $code
         ];
 
@@ -31,7 +31,7 @@ class ErrorHandler {
                 'number' => $i + 1,
                 'file'=> $frame['file'],
                 'line' => $frame['line'],
-                'highlight_line' => 21,
+                'highlight_line' => count(file($frame['file'])) > self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $frame['line'],
                 'code' => $code
             ];
             $i--;
@@ -49,7 +49,7 @@ class ErrorHandler {
         $line_num = 1;
 
         foreach ($lines as $line) {
-            if (($error_line - 20) <= $line_num && $line_num <= ($error_line + 20)) {
+            if (($error_line - self::LINE_BUFFER) <= $line_num && $line_num <= ($error_line + self::LINE_BUFFER)) {
                 $return .= Output::getClean($line);
             }
 
