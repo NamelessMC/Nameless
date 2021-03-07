@@ -3,6 +3,7 @@
 <meta charset="{$LANG_CHARSET}">
 
 <head>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{$TITLE}">
@@ -38,7 +39,7 @@
                             <kbd>{$ERROR_STRING}</kbd>
                             <br /><br/>
 
-                            <div class="card card-default">
+                            <div class="card">
                                 <div class="card-body">
                                     <div class="tab">
                                         {foreach from=$FRAMES item=frame}
@@ -51,7 +52,7 @@
                                         {/foreach}
                                     </div>
 
-                                    <div>
+                                    <div class="code">
                                         {foreach from=$FRAMES item=frame}
 
                                             <div id="frame-{$frame['number']}" class="tabcontent">
@@ -99,7 +100,7 @@
     border: 1px solid #ccc;
     background-color: #f1f1f1;
     width: 30%;
-    height: 300px;
+    max-height: inherit;
 }
 
 /* Style the buttons that are used to open the tab content */

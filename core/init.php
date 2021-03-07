@@ -57,7 +57,7 @@ spl_autoload_register(function ($class) {
 });
 
 // If we're accessing the upgrade script don't initialise further
-if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
+if (isst($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
     $pages = new Pages();
     $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
     return;

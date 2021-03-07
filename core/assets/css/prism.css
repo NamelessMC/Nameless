@@ -8,7 +8,6 @@ https://prismjs.com/download.html#themes=prism-coy&languages=markup+markup-templ
  */
 
 code[class*="language-"], pre[class*="language-"] {
-    max-height: 35em;
     color: black;
     background: none;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;

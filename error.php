@@ -11,7 +11,9 @@
  *  Error page
  */
 
-// TODO: Ignore empty files (valet server.php, etc) + truncate to +- 20 lines + make look nice
+// TODO: Ignore empty files (valet server.php, etc) + make look nice
+// TODO: MAke it more consistent - if an error happens in index.php it wont catch
+// TODO: Catch parseErrors?
 
 if(!defined('ERRORHANDLER'))
     die();
