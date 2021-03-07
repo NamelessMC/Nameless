@@ -14,6 +14,7 @@
 // TODO: Ignore empty files (valet server.php, etc) + make look nice
 // TODO: MAke it more consistent - if an error happens in index.php it wont catch
 // TODO: Catch parseErrors?
+// TODO: If file is smaller than 20 lines, the line number prismjs starts at negative
 
 if(!defined('ERRORHANDLER'))
     die();
@@ -64,6 +65,4 @@ $smarty->assign(array(
     'HOME_URL' => URL::build('/')
 ));
 
-$smarty->display(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.tpl')
-
-?>
+$smarty->display(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.tpl');

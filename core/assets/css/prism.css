@@ -181,8 +181,7 @@ pre[data-line] {
     padding: inherit 0;
     margin-top: 1em;
     /* Same as .prism’s padding-top */
-    background: hsla(24, 20%, 50%, .08);
-    background: linear-gradient(to right, hsla(24, 20%, 50%, .1) 70%, hsla(24, 20%, 50%, 0));
+    background: linear-gradient(to right, rgba(211, 88, 6, 0.1) 70%, hsla(108, 70%, 36%, 0));
     pointer-events: none;
     line-height: inherit;
     white-space: pre;
