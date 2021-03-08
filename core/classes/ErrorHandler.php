@@ -15,27 +15,38 @@ class ErrorHandler {
 
     public static function catchThrowable(Error $e) {
         $frames = array();
-        $code = self::parseFile($e->getFile(), $e->getLine());
+
+        $lines = file($e->getFile());
+        $code = self::parseFile($lines, $e->getLine());
         $frames[] = [
-            'number' => count($e->getTrace()) + 1,
+            'number' => count($e->getTrace()),
             'file' => $e->getFile(),
             'line' => $e->getLine(),
-            'start_line' => count(file($e->getFile())) >= self::LINE_BUFFER ? ($e->getLine() - self::LINE_BUFFER) : 1,
-            'highlight_line' => count(file($e->getFile())) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $e->getLine(),
+            'start_line' => count($lines) >= self::LINE_BUFFER ? ($e->getLine() - self::LINE_BUFFER) : 1,
+            'highlight_line' => count($lines) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $e->getLine(),
             'code' => $code
         ];
 
-        $i = count($e->getTrace()) - 1;
+        $ignored_frames = 1;
+        $i = count($e->getTrace()) - $ignored_frames;
         foreach ($e->getTrace() as $frame) {
-            $code = self::parseFile($frame['file'], $frame['line']);
+            $lines = file($frame['file']);
+
+            if (!$lines) {
+                $ignored_frames++;
+                continue;
+            }
+
+            $code = self::parseFile($lines, $frame['line']);
             $frames[] = [
-                'number' => $i + 1,
+                'number' => $i,
                 'file'=> $frame['file'],
                 'line' => $frame['line'],
-                'start_line' => count(file($frame['file'])) >= self::LINE_BUFFER ? ($frame['line'] - self::LINE_BUFFER) : 1,
-                'highlight_line' => count(file($frame['file'])) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $frame['line'],
+                'start_line' => count($lines) >= self::LINE_BUFFER ? ($frame['line'] - self::LINE_BUFFER) : 1,
+                'highlight_line' => count($lines) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $frame['line'],
                 'code' => $code
             ];
+            
             $i--;
         }
 
@@ -45,9 +56,8 @@ class ErrorHandler {
         require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.php');
     }
 
-    private static function parseFile($file, $error_line) {
+    private static function parseFile($lines, $error_line) {
         $return = '';
-        $lines = file($file);
         $line_num = 1;
 
         foreach ($lines as $line) {

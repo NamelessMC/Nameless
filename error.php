@@ -11,7 +11,7 @@
  *  Error page
  */
 
-// TODO: Ignore empty files (valet server.php, etc) + make look nice
+// TODO: Show invalid/empty/unknown frames (valet.php) but dont make them clickable?
 // TODO: MAke it more consistent - if an error happens in index.php it wont catch
 // TODO: Catch parseErrors?
 
