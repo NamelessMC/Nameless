@@ -18,7 +18,6 @@ if(defined('DEBUGGING') && DEBUGGING){
     error_reporting(-1);
 }
 
-try {
     // Ensure PHP version >= 5.4
     if(version_compare(phpversion(), '5.4', '<')){
         die('NamelessMC is not compatible with PHP versions older than 5.4');
@@ -115,8 +114,4 @@ try {
         }
 
     }
-
-} catch (Throwable $e) {
-    ErrorHandler::catchThrowable($e);
-}
 

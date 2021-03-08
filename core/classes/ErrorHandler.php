@@ -54,6 +54,7 @@ class ErrorHandler {
 
         define('ERRORHANDLER', true);
         require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.php');
+        die();
     }
 
     private static function parseFile($lines, $error_line) {
