@@ -12,8 +12,7 @@
  */
 
 // TODO: Show invalid/empty/unknown frames (valet.php) but dont make them clickable?
-// TODO: MAke it more consistent - if an error happens in index.php it wont catch
-// TODO: Catch parseErrors?
+// TODO: Test/move error logging here
 
 if(!defined('ERRORHANDLER'))
     die();
@@ -30,6 +29,7 @@ if (defined('CONFIG_PATH')) {
     $path = '/';
 }
 
+// TODO: remember to remove the time() (only here to stop browser from caching)
 $boostrap = $path . 'core/assets/css/bootstrap.min.css?' . time();
 $custom = $path . 'core/assets/css/custom.css?' . time();
 $font_awesome = $path . 'core/assets/css/font-awesome.min.css?' . time();

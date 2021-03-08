@@ -68,10 +68,11 @@
                                     </div>
                                 </div>
                             </div>
+
                         {else}
-                            <h4>
-                                {$FATAL_ERROR_MESSAGE_USER}
-                            </h4>
+
+                            <h4>{$FATAL_ERROR_MESSAGE_USER}</h4>
+                            
                             <div class="btn-group" role="group" aria-label="...">
                                 <button href="#" class="btn btn-primary btn-lg" onclick="javascript:history.go(-1)">
                                     {$BACK}
@@ -80,6 +81,7 @@
                                     {$HOME}
                                 </a>
                             </div>
+                            
                         {/if}
                     </div>
                 </div>

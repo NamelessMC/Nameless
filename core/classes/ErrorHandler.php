@@ -13,7 +13,8 @@ class ErrorHandler {
 
     private const LINE_BUFFER = 20;
 
-    public static function catchThrowable(Error $e) {
+    // TODO: dont ignore empty/unreadable -> just display "Cannot open file"
+    public static function catchException($e) {
         $frames = array();
 
         $lines = file($e->getFile());
@@ -30,7 +31,13 @@ class ErrorHandler {
         $ignored_frames = 1;
         $i = count($e->getTrace()) - $ignored_frames;
         foreach ($e->getTrace() as $frame) {
-            $lines = file($frame['file']);
+
+            try {
+                $lines = file($frame['file']);
+            } catch (Exception $e) {
+                $ignored_frames++;
+                continue;
+            }
 
             if (!$lines) {
                 $ignored_frames++;
@@ -130,7 +137,7 @@ class ErrorHandler {
             if(isset($dir_exists))
                 file_put_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $type . '-log.log')), $contents . PHP_EOL, FILE_APPEND);
 
-        } catch(Exception $e){
+        } catch (Exception $e) {
             // Unable to write to file, ignore for now
         }
     }
