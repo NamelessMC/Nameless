@@ -20,7 +20,7 @@ class ErrorHandler {
             'number' => count($e->getTrace()) + 1,
             'file' => $e->getFile(),
             'line' => $e->getLine(),
-            'start_line' => $e->getLine() - 20,
+            'start_line' => count(file($e->getFile())) >= self::LINE_BUFFER ? ($e->getLine() - self::LINE_BUFFER) : 1,
             'highlight_line' => count(file($e->getFile())) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $e->getLine(),
             'code' => $code
         ];
@@ -32,7 +32,7 @@ class ErrorHandler {
                 'number' => $i + 1,
                 'file'=> $frame['file'],
                 'line' => $frame['line'],
-                'start_line' => $frame['line'] - 20,
+                'start_line' => count(file($frame['file'])) >= self::LINE_BUFFER ? ($frame['line'] - self::LINE_BUFFER) : 1,
                 'highlight_line' => count(file($frame['file'])) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $frame['line'],
                 'code' => $code
             ];
