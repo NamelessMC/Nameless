@@ -11,12 +11,18 @@
 
 class ErrorHandler {
 
+    /*
+     * Definec for easy changing.
+     * This constant indicates how many LOC from each frame's PHP file to show before and after the highlighted line
+     */
     private const LINE_BUFFER = 20;
 
     // TODO: dont ignore empty/unreadable -> just display "Cannot open file"
     public static function catchException($e) {
+
         $frames = array();
 
+        // Most recent frame is not included in getTrace(), so deal with it individually
         $lines = file($e->getFile());
         $code = self::parseFile($lines, $e->getLine());
         $frames[] = [
@@ -28,6 +34,7 @@ class ErrorHandler {
             'code' => $code
         ];
 
+        // Loop all frames in the exception trace & get relevent information
         $ignored_frames = 1;
         $i = count($e->getTrace()) - $ignored_frames;
         foreach ($e->getTrace() as $frame) {
@@ -56,8 +63,6 @@ class ErrorHandler {
             
             $i--;
         }
-
-        $errstr = $e->getMessage();
 
         define('ERRORHANDLER', true);
         require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.php');

@@ -13,12 +13,15 @@
 
 // TODO: Show invalid/empty/unknown frames (valet.php) but dont make them clickable?
 // TODO: Test/move error logging here
+// TODO: start_line is negative when issue LOC is less than line_buffer
 
-if(!defined('ERRORHANDLER'))
+if(!defined('ERRORHANDLER')) {
     die();
+}
 
-if (!defined('LANGUAGE'))
+if (!defined('LANGUAGE')) {
     define('LANGUAGE', 'EnglishUK');
+}
 
 $language = new Language('core', LANGUAGE);
 $user = new User();
@@ -36,6 +39,11 @@ $font_awesome = $path . 'core/assets/css/font-awesome.min.css?' . time();
 $jquery = $path . 'core/assets/js/jquery.min.js?' . time();
 $prism_css = $path . 'core/assets/css/prism.css?' . time();
 $prism_js = $path . 'core/assets/js/prism.js?' . time();
+
+$reflect = new ReflectionClass($e);
+$error_type = $reflect->getName();
+
+$current_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s" : "") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 $smarty = new Smarty();
 
@@ -57,7 +65,10 @@ $smarty->assign(array(
     'FATAL_ERROR_TITLE' => $language->get('errors', 'fatal_error_title'),
     'FATAL_ERROR_MESSAGE_ADMIN' => $language->get('errors', 'fatal_error_message_admin'),
     'FATAL_ERROR_MESSAGE_USER' => $language->get('errors', 'fatal_error_message_user'),
-    'ERROR_STRING' => Output::getClean($errstr),
+    'ERROR_TYPE' => $error_type,
+    'ERROR_STRING' => $e->getMessage(),
+    'ERROR_FILE' => $e->getFile(),
+    'CURRENT_URL' => $current_url,
     'FRAMES' => $frames,
     'BACK' => $language->get('general', 'back'),
     'HOME' => $language->get('general', 'home'),

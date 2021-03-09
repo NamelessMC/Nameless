@@ -22,23 +22,53 @@
 
 </head>
 
-
 <body>
+
     <br /><br />
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+        
+            <div class="col-md-{if $DETAILED_ERROR}12{else}6 offset-md-3{/if}">
                 <div class="jumbotron">
-                    <div style="text-align:center">
-                        <h2>{$FATAL_ERROR_TITLE}</h2>
+                    <div style="text-align:{if $DETAILED_ERROR} left {else} center {/if};">
 
                         {if $DETAILED_ERROR}
 
-                            <h4>{$FATAL_ERROR_MESSAGE_ADMIN}</h4>
+                            <h4>Uncaught <i>{$ERROR_TYPE}</i></h4>
+                            <h2><kbd>{$ERROR_STRING}</kbd></h2>
+                            <h3>(File: {$ERROR_FILE})</h3>
+                            <a href="{$CURRENT_URL}">{$CURRENT_URL}</a>
 
-                            <kbd>{$ERROR_STRING}</kbd>
-                            <br /><br/>
+                        {else}
 
+                            <h2>{$FATAL_ERROR_TITLE}</h2>
+
+                            <h4>{$FATAL_ERROR_MESSAGE_USER}</h4>
+
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button href="#" class="btn btn-primary btn-lg" onclick="javascript:history.go(-1)">
+                                    {$BACK}
+                                </button>
+                                <a href="{$HOME_URL}" class="btn btn-success btn-lg">
+                                    {$HOME}
+                                </a>
+                            </div>
+
+                        {/if}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {if $DETAILED_ERROR}
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron">
+                        <div style="text-align:center">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="tab">
@@ -68,25 +98,13 @@
                                     </div>
                                 </div>
                             </div>
-
-                        {else}
-
-                            <h4>{$FATAL_ERROR_MESSAGE_USER}</h4>
-                            
-                            <div class="btn-group" role="group" aria-label="...">
-                                <button href="#" class="btn btn-primary btn-lg" onclick="javascript:history.go(-1)">
-                                    {$BACK}
-                                </button>
-                                <a href="{$HOME_URL}" class="btn btn-success btn-lg">
-                                    {$HOME}
-                                </a>
-                            </div>
-                            
-                        {/if}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+        {/if}
+
     </div>
 </body>
 
