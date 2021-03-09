@@ -482,7 +482,7 @@ if ($page != 'install') {
         ));
         $cache->store('module_core', true);
     }
-    $enabled_modules = $cache->retrieve('enabled_modules');
+    $enabled_modules = (array) $cache->retrieve('enabled_modules');
 
     foreach ($enabled_modules as $module) {
         if ($module['name'] == 'Core') {
@@ -506,8 +506,9 @@ if ($page != 'install') {
     });
 
     foreach ($enabled_modules as $module) {
-        if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php'))
+        if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
             require(ROOT_PATH . '/modules/' . $module['name'] . '/init.php');
+        }
     }
 
     // Get IP

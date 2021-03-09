@@ -88,9 +88,19 @@
                                             <div id="frame-{$frame['number']}" class="tabcontent">
                                                 <h5>File: <strong>{$frame['file']}</strong></h5>
 
-                                                <pre data-line="{$frame['highlight_line']}" data-start="{($frame['start_line'])}">
-                                                    <code class="language-php line-numbers">{$frame['code']}</code>
-                                                </pre>
+                                                <hr>
+
+                                                {if $frame['code'] != ''}
+
+                                                    <pre data-line="{$frame['highlight_line']}" data-start="{($frame['start_line'])}">
+                                                        <code class="language-php line-numbers">{$frame['code']}</code>
+                                                    </pre>
+
+                                                {else}
+
+                                                    <pre>Cannot read file.</pre>
+
+                                                {/if}
 
                                             </div>
 

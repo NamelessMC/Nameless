@@ -15,7 +15,7 @@
 // TODO: Test/move error logging here
 // TODO: start_line is negative when issue LOC is less than line_buffer
 
-if(!defined('ERRORHANDLER')) {
+if (!defined('ERRORHANDLER')) {
     die();
 }
 
