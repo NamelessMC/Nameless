@@ -23,13 +23,14 @@ class ErrorHandler {
      * If this is called manually, the error_string, error_file and error_line must be manually provided,
      * and a single trace frame will be generated for it.
      */
-    public static function catchException($e, $error_string = null, $error_file = null, $error_line = null) {
+    public static function catchException($exception, $error_string = null, $error_file = null, $error_line = null) {
 
         // Define variables based on if a Throwable was caught by the compiler, or if this was called manually
-        $error_string = is_null($e) ? $error_string : $e->getMessage();
-        $error_file = is_null($e) ? $error_file : $e->getFile();
-        $error_line = is_null($e) ? intval($error_line) : $e->getLine();
+        $error_string = is_null($exception) ? $error_string : $exception->getMessage();
+        $error_file = is_null($exception) ? $error_file : $exception->getFile();
+        $error_line = is_null($exception) ? intval($error_line) : $exception->getLine();
 
+        // Create a log entry for viewing in staffcp
         self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . '): ' . $error_string);
 
         $frames = array();
@@ -38,7 +39,7 @@ class ErrorHandler {
         $lines = file($error_file);
         $code = self::parseFile($lines, $error_line);
         $frames[] = [
-            'number' => count(is_null($e) ? 1 : ($e->getTrace()) + 1),
+            'number' => is_null($exception) ? 1 : count($exception->getTrace()) + 1,
             'file' => $error_file,
             'line' => $error_line,
             'start_line' => count($lines) >= self::LINE_BUFFER ? ($error_line - self::LINE_BUFFER) : 1,
@@ -47,9 +48,9 @@ class ErrorHandler {
         ];
 
         // Loop all frames in the exception trace & get relevent information
-        if ($e != null) {
-            $i = count($e->getTrace());
-            foreach ($e->getTrace() as $frame) {
+        if ($exception != null) {
+            $i = count($exception->getTrace());
+            foreach ($exception->getTrace() as $frame) {
 
                 $lines = file($frame['file']);
 
@@ -142,7 +143,7 @@ class ErrorHandler {
                 file_put_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $type . '-log.log')), $contents . PHP_EOL, FILE_APPEND);
             }
 
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             // Unable to write to file, ignore for now
         }
     }
