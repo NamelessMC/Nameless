@@ -12,22 +12,21 @@
 // Nameless error handling
 require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', 'ErrorHandler.php')));
 set_exception_handler("ErrorHandler::catchException");
-// TODO: Do we need these below?
+// catchError() used for throw_error or any exceptions which may be missed by catchException()
 set_error_handler("ErrorHandler::catchError");
-register_shutdown_function("ErrorHandler::catchFatalError");
 
 session_start();
 
 // Page variable must be set
 if (!isset($page)) {
-    die();
+    die('$page variable is unset. Cannot continue.');
 }
 
 if (!file_exists(ROOT_PATH . '/core/config.php')) {
     if (is_writable(ROOT_PATH . '/core')) {
         fopen(ROOT_PATH . '/core/config.php', 'w');
     } else {
-        die('Your <strong>core</strong> directory is not writable, please check your file permissions.');
+        die('Your <strong>/core</strong> directory is not writable, please check your file permissions.');
     }
 }
 
@@ -35,7 +34,7 @@ if (!file_exists(ROOT_PATH . '/cache/templates_c')) {
     try {
         mkdir(ROOT_PATH . '/cache/templates_c', 0777, true);
     } catch (Exception $e) {
-        die('Unable to create /cache directories, please check your file permissions.');
+        die('Unable to create <strong>/cache</strong> directories, please check your file permissions.');
     }
 }
 
@@ -51,10 +50,9 @@ if (isset($conf) && is_array($conf)) {
 /*
  *  Autoload classes
  */
-require_once ROOT_PATH . '/core/includes/smarty/Smarty.class.php'; // Smarty
+require_once ROOT_PATH . '/core/includes/smarty/Smarty.class.php';
 
-// Normal autoloader
-// Any errors thrown now will not be caught by the error handler
+// Any errors thrown now will not be caught by the error handler, as they require some classes be preloaded
 spl_autoload_register(function ($class) {
     $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', $class . '.php'));
     if (file_exists($path)) {

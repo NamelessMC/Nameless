@@ -1,8 +1,9 @@
 <?php
 /*
  *	Made by Samerton
+ *  Additions by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -17,39 +18,53 @@ class ErrorHandler {
      */
     private const LINE_BUFFER = 20;
 
-    public static function catchException($e) {
+    /*
+     * Used to neatly display exceptions and the trace/frames leading up to it.
+     * If this is called manually, the error_string, error_file and error_line must be manually provided,
+     * and a single trace frame will be generated for it.
+     */
+    public static function catchException($e, $error_string = null, $error_file = null, $error_line = null) {
+
+        // Define variables based on if a Throwable was caught by the compiler, or if this was called manually
+        $error_string = is_null($e) ? $error_string : $e->getMessage();
+        $error_file = is_null($e) ? $error_file : $e->getFile();
+        $error_line = is_null($e) ? intval($error_line) : $e->getLine();
+
+        self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . '): ' . $error_string);
 
         $frames = array();
 
         // Most recent frame is not included in getTrace(), so deal with it individually
-        $lines = file($e->getFile());
-        $code = self::parseFile($lines, $e->getLine());
+        $lines = file($error_file);
+        $code = self::parseFile($lines, $error_line);
         $frames[] = [
-            'number' => count($e->getTrace()) + 1,
-            'file' => $e->getFile(),
-            'line' => $e->getLine(),
-            'start_line' => count($lines) >= self::LINE_BUFFER ? ($e->getLine() - self::LINE_BUFFER) : 1,
-            'highlight_line' => count($lines) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $e->getLine(),
+            'number' => count(is_null($e) ? 1 : ($e->getTrace()) + 1),
+            'file' => $error_file,
+            'line' => $error_line,
+            'start_line' => count($lines) >= self::LINE_BUFFER ? ($error_line - self::LINE_BUFFER) : 1,
+            'highlight_line' => count($lines) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $error_line,
             'code' => $code
         ];
 
         // Loop all frames in the exception trace & get relevent information
-        $i = count($e->getTrace());
-        foreach ($e->getTrace() as $frame) {
+        if ($e != null) {
+            $i = count($e->getTrace());
+            foreach ($e->getTrace() as $frame) {
 
-            $lines = file($frame['file']);
+                $lines = file($frame['file']);
 
-            $code = self::parseFile($lines, $frame['line']);
-            $frames[] = [
-                'number' => $i,
-                'file'=> $frame['file'],
-                'line' => $frame['line'],
-                'start_line' => count($lines) >= self::LINE_BUFFER ? ($frame['line'] - self::LINE_BUFFER) : 1,
-                'highlight_line' => count($lines) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $frame['line'],
-                'code' => $code
-            ];
-            
-            $i--;
+                $code = self::parseFile($lines, $frame['line']);
+                $frames[] = [
+                    'number' => $i,
+                    'file' => $frame['file'],
+                    'line' => $frame['line'],
+                    'start_line' => count($lines) >= self::LINE_BUFFER ? ($frame['line'] - self::LINE_BUFFER) : 1,
+                    'highlight_line' => count($lines) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $frame['line'],
+                    'code' => $code
+                ];
+
+                $i--;
+            }
         }
 
         define('ERRORHANDLER', true);
@@ -79,15 +94,17 @@ class ErrorHandler {
     }
 
     public static function catchError($errno, $errstr, $errfile, $errline) {
-        if(!(error_reporting() & $errno))
-            return false;
 
-        switch($errno){
+        if(!(error_reporting() & $errno)) {
+            return false;
+        }
+
+        switch($errno) {
             case E_USER_ERROR:
-                define('ERRORHANDLER', true);
-                require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.php');
-                self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
-                die(1);
+                // Pass execution to new error handler
+                // Since we registered an exception handler, I dont think this will ever be called,
+                // simply a precaution.
+                self::catchException(null, $errstr, $errfile, $errline);
                 break;
 
             case E_USER_WARNING:
@@ -106,35 +123,24 @@ class ErrorHandler {
         return true;
     }
 
-    public static function catchFatalError() {
-        $error = error_get_last();
-
-        if ($error == null) return;
-
-        if ($error['type'] === E_ERROR) {
-            $errstr = $error['message'];
-            $errfile = $error['file'];
-            $errline = $error['line'];
-
-            define('ERRORHANDLER', true);
-            require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.php');
-            self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . '): ' . $errstr);
-            die(1);
-        }
-    }
-
     private static function logError($type, $contents) {
+
+        $dir_exists = false;
+
         try {
-            if(!is_dir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs')))){
-                if(is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache')) {
+
+            if (!is_dir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs')))) {
+                if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache')) {
                     mkdir(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'logs');
                     $dir_exists = true;
                 }
-            } else
+            } else {
                 $dir_exists = true;
+            }
 
-            if(isset($dir_exists))
+            if($dir_exists) {
                 file_put_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $type . '-log.log')), $contents . PHP_EOL, FILE_APPEND);
+            }
 
         } catch (Exception $e) {
             // Unable to write to file, ignore for now
@@ -142,7 +148,8 @@ class ErrorHandler {
     }
 
     // Log a custom error
-    public static function logCustomError($contents){
+    // Not used internally. Only for modules
+    public static function logCustomError($contents) {
         self::logError('other', $contents);
     }
 }

@@ -11,9 +11,8 @@
  *  Error page
  */
 
-// TODO: Show invalid/empty/unknown frames (valet.php) but dont make them clickable?
-// TODO: Test/move error logging here
-// TODO: start_line is negative when issue LOC is less than line_buffer
+// TODO: Test
+// TODO: Translations in tpl
 
 if (!defined('ERRORHANDLER')) {
     die();
@@ -27,21 +26,18 @@ $language = new Language('core', LANGUAGE);
 $user = new User();
 
 if (defined('CONFIG_PATH')) {
-    $path = CONFIG_PATH . '/'; 
+    $path = CONFIG_PATH . '/core/assets/'; 
 } else {
-    $path = '/';
+    $path = '/core/assets/';
 }
 
 // TODO: remember to remove the time() (only here to stop browser from caching)
-$boostrap = $path . 'core/assets/css/bootstrap.min.css?' . time();
-$custom = $path . 'core/assets/css/custom.css?' . time();
-$font_awesome = $path . 'core/assets/css/font-awesome.min.css?' . time();
-$jquery = $path . 'core/assets/js/jquery.min.js?' . time();
-$prism_css = $path . 'core/assets/css/prism.css?' . time();
-$prism_js = $path . 'core/assets/js/prism.js?' . time();
-
-$reflect = new ReflectionClass($e);
-$error_type = $reflect->getName();
+$boostrap = $path . 'css/bootstrap.min.css?' . time();
+$custom = $path . 'css/custom.css?' . time();
+$font_awesome = $path . 'css/font-awesome.min.css?' . time();
+$jquery = $path . 'js/jquery.min.js?' . time();
+$prism_css = $path . 'css/prism.css?' . time();
+$prism_js = $path . 'js/prism.js?' . time();
 
 $current_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s" : "") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
@@ -65,9 +61,9 @@ $smarty->assign(array(
     'FATAL_ERROR_TITLE' => $language->get('errors', 'fatal_error_title'),
     'FATAL_ERROR_MESSAGE_ADMIN' => $language->get('errors', 'fatal_error_message_admin'),
     'FATAL_ERROR_MESSAGE_USER' => $language->get('errors', 'fatal_error_message_user'),
-    'ERROR_TYPE' => $error_type,
-    'ERROR_STRING' => $e->getMessage(),
-    'ERROR_FILE' => $e->getFile(),
+    'ERROR_TYPE' => is_null($e) ? 'Error' : (new ReflectionClass($e))->getName(),
+    'ERROR_STRING' => $error_string,
+    'ERROR_FILE' => $error_file,
     'CURRENT_URL' => $current_url,
     'FRAMES' => $frames,
     'BACK' => $language->get('general', 'back'),

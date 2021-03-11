@@ -10,6 +10,7 @@
  */
 
 // Uncomment to enable debugging
+// TODO: Recomment
 define('DEBUGGING', 1);
 
 if(defined('DEBUGGING') && DEBUGGING){

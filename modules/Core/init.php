@@ -19,4 +19,7 @@ if (!$module_installed) {
 
 require_once(ROOT_PATH . '/modules/Core/module.php');
 
+// TODO: start_line is negative when issue LOC is less than line_buffer
+//ErrorHandler::catchException(null, 'idk', 'modules/Core/module.php', 19);
+
 $module = new Core_Module($language, $pages, $user, $queries, $navigation, $cache, $endpoints);
