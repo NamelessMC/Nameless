@@ -74,26 +74,17 @@ if (Input::exists()) {
                     'name' => 'recaptcha_type',
                     'value' => Input::get('captcha_type')
                 ));
+                $cache->setCache('configuration');
+                $cache->store('recaptcha_type', Input::get('captcha_type'));
             } else {
-                $captcha_type = $captcha_type[0]->id;
-                $queries->update('settings', $captcha_type, array(
-                    'value' => Input::get('captcha_type')
-                ));
+                $configuration->set('Core', 'recaptcha_type', Input::get('captcha_type'));
             }
 
             // reCAPTCHA key
-            $captcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
-            $captcha_id = $captcha_id[0]->id;
-            $queries->update('settings', $captcha_id, array(
-                'value' => htmlspecialchars(Input::get('recaptcha'))
-            ));
+            $configuration->set('Core', 'recaptcha_key', Input::get('recaptcha'));
 
             // reCAPTCHA secret key
-            $captcha_secret_id = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
-            $captcha_secret_id = $captcha_secret_id[0]->id;
-            $queries->update('settings', $captcha_secret_id, array(
-                'value' => htmlspecialchars(Input::get('recaptcha_secret'))
-            ));
+            $configuration->set('Core', 'recaptcha_secret', Input::get('recaptcha_secret'));
 
             // Registration disabled message
             $registration_disabled_id = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
@@ -183,6 +174,18 @@ if (isset($validation_group['group']))
 else
     $validation_group = 1;
 
+$all_captcha_options = CaptchaBase::getAllProviders();
+$captcha_options = array();
+$active_option = $configuration->get('Core', 'recaptcha_type');
+$active_option_name = $active_option ? $active_option : '';
+
+foreach ($all_captcha_options as $option) {
+    $captcha_options[] = array(
+        'value' => $option->getName(),
+        'active' => $option->getName() == $active_option_name
+    );
+}
+
 $smarty->assign(array(
     'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
     'EMAIL_VERIFICATION_VALUE' => $emails,
@@ -191,7 +194,7 @@ $smarty->assign(array(
     'CAPTCHA_LOGIN' => $language->get('admin', 'captcha_login'),
     'CAPTCHA_LOGIN_VALUE' => $captcha_login[0]->value,
     'CAPTCHA_TYPE' => $language->get('admin', 'captcha_type'),
-    'CAPTCHA_TYPE_VALUE' => count($captcha_type) ? $captcha_type[0]->value : 'reCaptcha',
+    'CAPTCHA_TYPE_VALUE' => count($captcha_type) ? $captcha_type[0]->value : 'Recaptcha2',
     'CAPTCHA_SITE_KEY' => $language->get('admin', 'captcha_site_key'),
     'CAPTCHA_SITE_KEY_VALUE' => Output::getClean($captcha_key[0]->value),
     'CAPTCHA_SECRET_KEY' => $language->get('admin', 'captcha_secret_key'),
@@ -202,7 +205,8 @@ $smarty->assign(array(
     'VALIDATE_PROMOTE_GROUP_INFO' => $language->get('admin', 'validation_promote_group_info'),
     'INFO' => $language->get('general', 'info'),
     'GROUPS' => $queries->getWhere('groups', array('staff', '=', 0)),
-    'VALIDATION_GROUP' => $validation_group
+    'VALIDATION_GROUP' => $validation_group,
+    'CAPTCHA_OPTIONS' => $captcha_options
 ));
 
 $smarty->assign(array(

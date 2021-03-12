@@ -29,44 +29,22 @@ if ($user->isLoggedIn()) {
 $method = $queries->getWhere('settings', array('name', '=', 'login_method'));
 $method = $method[0]->value;
 
-// Use recaptcha?
-$recaptcha = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
-$recaptcha = count($recaptcha) ? $recaptcha[0]->value : 'false';
-
-$captcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
-$captcha_type = $captcha_type[0]->value;
-
-$recaptcha_key = $queries->getWhere("settings", array("name", "=", "recaptcha_key"));
-$recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
+// Use captcha?
+$captcha = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
+$captcha = count($captcha) ? $captcha[0]->value : 'false';
 
 // Deal with input
 if (Input::exists()) {
 	// Check form token
 	if (Token::check()) {
 		// Valid token
-		if (!isset($_SESSION['tfa']) && $recaptcha == 'true') {
-			// Check captcha
-			$url = $captcha_type === 'hCaptcha' ? 'https://hcaptcha.com/siteverify' : 'https://www.google.com/recaptcha/api/siteverify';
-
-			$post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . ($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
-
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-			curl_setopt($ch, CURLOPT_HEADER, 0);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-			$result = curl_exec($ch);
-
-			$result = json_decode($result, true);
+		if (!isset($_SESSION['tfa']) && $captcha == 'true') {
+            $captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
 		} else {
-			// reCAPTCHA is disabled
-			$result = array(
-				'success' => 'true'
-			);
+			$captcha_passed = true;
 		}
 
-		if (isset($result['success']) && $result['success'] == 'true') {
+		if ($captcha_passed) {
 			if (isset($_SESSION['password'])) {
 				if (isset($_SESSION['username'])) {
 					$_POST['username'] = $_SESSION['username'];
@@ -311,8 +289,7 @@ $smarty->assign(array(
 	'REGISTER' => $language->get('general', 'register'),
 	'ERROR_TITLE' => $language->get('general', 'error'),
 	'ERROR' => (isset($return_error) ? $return_error : array()),
-	'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
-	'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha'
+	'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet')
 ));
 
 if (isset($return_error)) {
@@ -324,18 +301,19 @@ if (isset($return_error)) {
 if (Session::exists('login_success'))
 	$smarty->assign('SUCCESS', Session::flash('login_success'));
 
-if ($recaptcha === 'true') {
-	$smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
+if ($captcha === 'true') {
+    $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
+    $template->addJSFiles(array(CaptchaBase::getActiveProvider()->getJavascriptSource() => array()));
 
-	if ($captcha_type === 'hCaptcha') {
-		$template->addJSFiles(array(
-			'https://hcaptcha.com/1/api.js' => array()
-		));
-	} else {
-		$template->addJSFiles(array(
-			'https://www.google.com/recaptcha/api.js' => array()
-		));
-	}
+    $submitScript = CaptchaBase::getActiveProvider()->getJavascriptSubmit('form-login');
+    if ($submitScript) {
+        $template->addJSScript('
+            $("#form-login").submit(function(e) {
+                e.preventDefault();
+                ' . $submitScript . '
+            });
+        ');
+    }
 }
 
 // Load modules + template

@@ -45,9 +45,9 @@
               <label for="remember">{$REMEMBER_ME}</label>
             </div>
           </div>
-          {if isset($RECAPTCHA)}
+          {if $CAPTCHA}
             <div class="field">
-              <div class="{$CAPTCHA_CLASS}" data-sitekey="{$RECAPTCHA}" tabindex="4"></div>
+              {$CAPTCHA}
             </div>
           {/if}
           <input type="hidden" name="token" value="{$FORM_TOKEN}">

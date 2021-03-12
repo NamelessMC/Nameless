@@ -58,9 +58,9 @@
             <label>{$MESSAGE}</label>
             <textarea id="inputMessage" name="content" placeholder="{$MESSAGE}" tabindex="2"></textarea>
           </div>
-          {if isset($RECAPTCHA)}
+          {if $CAPTCHA}
             <div class="field">
-              <div class="{$CAPTCHA_CLASS}" data-sitekey="{$RECAPTCHA}"></div>
+              {$CAPTCHA}
             </div>
           {/if}
           <div class="field">
