@@ -9,8 +9,6 @@ class Recaptcha2 extends CaptchaBase {
         $this->_name = 'Recaptcha2';
         $this->_privateKey = $privateKey;
         $this->_publicKey = $publicKey;
-
-        CaptchaBase::addProvider($this);
     }
 
     public function validateToken($post) {

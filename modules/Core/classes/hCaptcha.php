@@ -9,8 +9,6 @@ class hCaptcha extends CaptchaBase {
         $this->_name = 'hCaptcha';
         $this->_privateKey = $privateKey;
         $this->_publicKey = $publicKey;
-
-        CaptchaBase::addProvider($this);
     }
 
     public function validateToken($post) {
