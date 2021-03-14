@@ -36,34 +36,15 @@ class ErrorHandler {
         $frames = array();
 
         // Most recent frame is not included in getTrace(), so deal with it individually
-        $lines = file($error_file);
-        $code = self::parseFile($lines, $error_line);
-        $frames[] = [
-            'number' => is_null($exception) ? 1 : count($exception->getTrace()) + 1,
-            'file' => $error_file,
-            'line' => $error_line,
-            'start_line' => count($lines) >= self::LINE_BUFFER ? ($error_line - self::LINE_BUFFER) : 1,
-            'highlight_line' => count($lines) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $error_line,
-            'code' => $code
-        ];
+        $frames[] = self::parseFrame($exception, $error_file, $error_line);
 
         // Loop all frames in the exception trace & get relevent information
         if ($exception != null) {
+
             $i = count($exception->getTrace());
+
             foreach ($exception->getTrace() as $frame) {
-
-                $lines = file($frame['file']);
-
-                $code = self::parseFile($lines, $frame['line']);
-                $frames[] = [
-                    'number' => $i,
-                    'file' => $frame['file'],
-                    'line' => $frame['line'],
-                    'start_line' => count($lines) >= self::LINE_BUFFER ? ($frame['line'] - self::LINE_BUFFER) : 1,
-                    'highlight_line' => count($lines) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $frame['line'],
-                    'code' => $code
-                ];
-
+                $frames[] = self::parseFrame($exception, $frame['file'], $frame['line'], $i);
                 $i--;
             }
         }
@@ -71,6 +52,23 @@ class ErrorHandler {
         define('ERRORHANDLER', true);
         require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.php');
         die();
+    }
+
+    /*
+     * Returns frame array from specified information.
+     * Leaving number as null will use Exception trace count + 1 (for most recent frame)
+     */
+    private static function parseFrame($exception, $error_file, $error_line, $number = null) {
+        $lines = file($error_file);
+
+        return [
+            'number' => is_null($number) ? (is_null($exception) ? 1 : count($exception->getTrace()) + 1) : $number,
+            'file' => $error_file,
+            'line' => $error_line,
+            'start_line' => count($lines) >= self::LINE_BUFFER ? ($error_line - self::LINE_BUFFER) : 1,
+            'highlight_line' => count($lines) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $error_line,
+            'code' => self::parseFile($lines, $error_line)
+        ];
     }
 
     private static function parseFile($lines, $error_line) {
@@ -96,13 +94,13 @@ class ErrorHandler {
 
     public static function catchError($errno, $errstr, $errfile, $errline) {
 
-        if(!(error_reporting() & $errno)) {
+        if (!(error_reporting() & $errno)) {
             return false;
         }
 
         switch($errno) {
             case E_USER_ERROR:
-                // Pass execution to new error handler
+                // Pass execution to new error handler.
                 // Since we registered an exception handler, I dont think this will ever be called,
                 // simply a precaution.
                 self::catchException(null, $errstr, $errfile, $errline);
@@ -139,7 +137,7 @@ class ErrorHandler {
                 $dir_exists = true;
             }
 
-            if($dir_exists) {
+            if ($dir_exists) {
                 file_put_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $type . '-log.log')), $contents . PHP_EOL, FILE_APPEND);
             }
 

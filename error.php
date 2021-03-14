@@ -30,12 +30,12 @@ if (defined('CONFIG_PATH')) {
     $path = '/core/assets/';
 }
 
-$boostrap = $path . 'css/bootstrap.min.css?';
-$custom = $path . 'css/custom.css?';
-$font_awesome = $path . 'css/font-awesome.min.css?';
-$jquery = $path . 'js/jquery.min.js?';
-$prism_css = $path . 'css/prism.css?';
-$prism_js = $path . 'js/prism.js?';
+$boostrap = $path . 'css/bootstrap.min.css';
+$custom = $path . 'css/custom.css';
+$font_awesome = $path . 'css/font-awesome.min.css';
+$jquery = $path . 'js/jquery.min.js';
+$prism_css = $path . 'css/prism.css';
+$prism_js = $path . 'js/prism.js';
 
 $current_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s" : "") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
