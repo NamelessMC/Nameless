@@ -14,6 +14,7 @@ require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', 'Erro
 set_exception_handler([ErrorHandler::class, 'catchException']);
 // catchError() used for throw_error or any exceptions which may be missed by catchException()
 set_error_handler([ErrorHandler::class, 'catchError']);
+register_shutdown_function([ErrorHandler::class, 'catchShutdownError']);
 
 session_start();
 

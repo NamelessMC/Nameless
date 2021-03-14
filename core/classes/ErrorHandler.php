@@ -122,6 +122,18 @@ class ErrorHandler {
         return true;
     }
 
+    private static function catchShutdownError() {
+        $error = error_get_last();
+
+        if ($error == null) {
+            return;
+        }
+
+        if ($error['type'] === E_ERROR) {
+            self::catchException(null, $error['message'], $error['file'], $error['line']);
+        }
+    }
+
     private static function logError($type, $contents) {
 
         $dir_exists = false;
