@@ -71,6 +71,10 @@ class ErrorHandler {
         ];
     }
 
+    /*
+     * Create purified and truncated string from a file
+     * for use with error source code preview.
+     */
     private static function parseFile($lines, $error_line) {
 
         $return = '';
@@ -92,30 +96,30 @@ class ErrorHandler {
         return $return;
     }
 
-    public static function catchError($errno, $errstr, $errfile, $errline) {
+    public static function catchError($error_number, $error_string, $error_file, $error_line) {
 
-        if (!(error_reporting() & $errno)) {
+        if (!(error_reporting() & $error_number)) {
             return false;
         }
 
-        switch($errno) {
+        switch($error_number) {
             case E_USER_ERROR:
                 // Pass execution to new error handler.
                 // Since we registered an exception handler, I dont think this will ever be called,
                 // simply a precaution.
-                self::catchException(null, $errstr, $errfile, $errline);
+                self::catchException(null, $error_string, $error_file, $error_line);
                 break;
 
             case E_USER_WARNING:
-                self::logError('warning', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
+                self::logError('warning', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
                 break;
 
             case E_USER_NOTICE:
-                self::logError('notice', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
+                self::logError('notice', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
                 break;
 
             default:
-                self::logError('other', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
+                self::logError('other', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
                 break;
         }
 
