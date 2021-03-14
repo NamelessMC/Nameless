@@ -59,7 +59,7 @@ spl_autoload_register(function ($class) {
         require_once($path);
     }
 });
-    
+
 // If we're accessing the upgrade script don't initialise further
 if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
     $pages = new Pages();
@@ -69,8 +69,8 @@ if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
 
 if ($page != 'install') {
     /*
-    *  Initialise
-    */
+     * Initialise
+     */
 
     // Friendly URLs?
     define('FRIENDLY_URLS', Config::get('core/friendly'));
@@ -163,7 +163,7 @@ if ($page != 'install') {
             ini_set('display_errors', 0);
         }
     }
-    
+
     // Configurations
     $configuration = new Configuration($cache);
 
