@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="{$LANG}" {$RTL}>
-<meta charset="{$LANG_CHARSET}">
 
 <head>
 
+    <meta charset="{$LANG_CHARSET}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{$TITLE}">
