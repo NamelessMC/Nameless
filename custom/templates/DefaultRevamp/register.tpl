@@ -74,9 +74,9 @@
                 </div>
             {/foreach}
           {/if}
-          {if isset($RECAPTCHA)}
+          {if $CAPTCHA}
             <div class="field">
-              <div class="{$CAPTCHA_CLASS}" data-sitekey="{$RECAPTCHA}" tabindex="6"></div>
+              {$CAPTCHA}
             </div>
           {/if}
           <div class="inline field">

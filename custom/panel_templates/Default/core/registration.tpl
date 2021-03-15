@@ -71,12 +71,11 @@
                             <div class="form-group">
                                 <label for="InputCaptchaType">{$CAPTCHA_TYPE}</label>
                                 <select name="captcha_type" id="InputCaptchaType" class="form-control">
-                                    <option value="reCaptcha" {if $CAPTCHA_TYPE_VALUE eq 'reCaptcha' } selected{/if}>
-                                        Google reCAPTCHA
-                                    </option>
-                                    <option value="hCaptcha" {if $CAPTCHA_TYPE_VALUE eq 'hCaptcha' } selected{/if}>
-                                        hCaptcha
-                                    </option>
+                                    {foreach from=$CAPTCHA_OPTIONS item=option}
+                                        <option value="{$option.value}" {if $option.active} selected{/if}>
+                                            {$option.value}
+                                        </option>
+                                    {/foreach}
                                 </select>
                             </div>
                             <div class="form-group">

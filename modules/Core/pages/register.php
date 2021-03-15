@@ -127,15 +127,9 @@ if ($minecraft == '1') {
     $uuid_linking = '0';
 }
 
-// Use recaptcha?
-$recaptcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
-$recaptcha = $recaptcha[0]->value;
-
-$captcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
-$captcha_type= $captcha_type[0]->value;
-
-$recaptcha_key = $queries->getWhere("settings", array("name", "=", "recaptcha_key"));
-$recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
+// Use captcha?
+$captcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
+$captcha = $captcha[0]->value;
 
 // Is email verification enabled?
 $email_verification = $queries->getWhere('settings', array('name', '=', 'email_verification'));
@@ -149,29 +143,13 @@ $api_verification = $api_verification[0]->value;
 if (Input::exists()) {
     if (Token::check()) {
         // Valid token
-        if ($recaptcha == 'true') {
-            // Check reCAPCTHA
-            $url = $captcha_type === 'hCaptcha' ? 'https://hcaptcha.com/siteverify' : 'https://www.google.com/recaptcha/api/siteverify';
-
-            $post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . ($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
-
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-            $result = curl_exec($ch);
-
-            $result = json_decode($result, true);
+        if ($captcha == 'true') {
+            $captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
         } else {
-            // reCAPTCHA is disabled
-            $result = array(
-                'success' => 'true'
-            );
+            $captcha_passed = true;
         }
 
-        if (isset($result['success']) && $result['success'] == 'true') {
+        if ($captcha_passed) {
             // Validate
             $validate = new Validate();
 
@@ -194,12 +172,6 @@ if (Input::exists()) {
                     'agree' => true
                 )
             );
-
-            if ($recaptcha === "true") { // check Recaptcha response
-                $to_validation['g-recaptcha-response'] = array(
-                    'required' => true
-                );
-            }
 
             // Minecraft username?
             if (MINECRAFT) {
@@ -593,26 +565,22 @@ $smarty->assign(
         'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
         'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
         'ERROR_TITLE' => $language->get('general', 'error'),
-        'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha',
         'CUSTOM_FIELDS' => $custom_fields
     )
 );
 
-if ($recaptcha === 'true') {
-    $smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
+if ($captcha === 'true') {
+    $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
+    $template->addJSFiles(array(CaptchaBase::getActiveProvider()->getJavascriptSource() => array()));
 
-    if ($captcha_type === 'hCaptcha') {
-        $template->addJSFiles(
-            array(
-                'https://hcaptcha.com/1/api.js' => array()
-            )
-        );
-    } else {
-        $template->addJSFiles(
-            array(
-                'https://www.google.com/recaptcha/api.js' => array()
-            )
-        );
+    $submitScript = CaptchaBase::getActiveProvider()->getJavascriptSubmit('form-register');
+    if ($submitScript) {
+        $template->addJSScript('
+            $("#form-register").submit(function(e) {
+                e.preventDefault();
+                ' . $submitScript . '
+            });
+        ');
     }
 }
 

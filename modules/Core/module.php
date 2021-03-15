@@ -10,11 +10,12 @@
  */
 
 class Core_Module extends Module {
-    private $_language;
+    private $_language, $_configuration;
     private static $_dashboard_graph = array(), $_notices = array(), $_user_actions = array();
 
     public function __construct($language, $pages, $user, $queries, $navigation, $cache, $endpoints){
         $this->_language = $language;
+        $this->_configuration = new Configuration($cache);
 
         $name = 'Core';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
@@ -240,7 +241,8 @@ class Core_Module extends Module {
             $hook_array = $cache->retrieve('hooks');
         } else {
             $hook_array = array();
-            if (!empty($queries->tableExists('hooks'))) {
+            $hooks = $queries->tableExists('hooks');
+            if (!empty($hooks)) {
                 $hooks = $queries->getWhere('hooks', array('id', '<>', 0));
                 if (count($hooks)) {
                     foreach ($hooks as $hook) {
@@ -262,6 +264,16 @@ class Core_Module extends Module {
             }
         }
         HookHandler::registerHooks($hook_array);
+
+        // Captcha
+        $captchaPublicKey = $this->_configuration->get('Core', 'recaptcha_key');
+        $captchaPrivateKey = $this->_configuration->get('Core', 'recaptcha_secret');
+        $activeCaptcha = $this->_configuration->get('Core', 'recaptcha_type');
+
+        CaptchaBase::addProvider(new hCaptcha($captchaPrivateKey, $captchaPublicKey));
+        CaptchaBase::addProvider(new Recaptcha2($captchaPrivateKey, $captchaPublicKey));
+        CaptchaBase::addProvider(new Recaptcha3($captchaPrivateKey, $captchaPublicKey));
+        CaptchaBase::setActiveProvider($activeCaptcha);
 
         // Autoload API Endpoints
         Util::loadEndpoints(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')), $endpoints);

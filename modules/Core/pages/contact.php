@@ -14,45 +14,22 @@ define('PAGE', 'contact');
 $page_title = $language->get('general', 'contact');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-// Use recaptcha?
-$recaptcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
-$recaptcha = $recaptcha[0]->value;
-
-$captcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
-$captcha_type = $captcha_type[0]->value;
-
-$recaptcha_key = $queries->getWhere("settings", array("name", "=", "recaptcha_key"));
-$recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
+// Use captcha?
+$captcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
+$captcha = $captcha[0]->value;
 
 // Handle input
-if(Input::exists()){
-  if(Token::check()){
+if (Input::exists()) {
+  if (Token::check()) {
     // Check last contact message sending time
-    if(!isset($_SESSION['last_contact_sent']) || (isset($_SESSION['last_contact_sent']) && $_SESSION['last_contact_sent'] < strtotime('-1 hour'))){
-        // Check recaptcha
-        if($recaptcha == 'true'){
-			// Check captcha
-			$url = $captcha_type === 'hCaptcha' ? 'https://hcaptcha.com/siteverify' : 'https://www.google.com/recaptcha/api/siteverify';
-
-			$post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . ($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
-
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-            $result = curl_exec($ch);
-
-            $result = json_decode($result, true);
+    if (!isset($_SESSION['last_contact_sent']) || (isset($_SESSION['last_contact_sent']) && $_SESSION['last_contact_sent'] < strtotime('-1 hour'))) {
+        if ($captcha == 'true') {
+            $captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
         } else {
-            // reCAPTCHA is disabled
-            $result = array(
-                'success' => 'true'
-            );
+            $captcha_passed = true;
         }
 
-        if(isset($result['success']) && $result['success'] == 'true'){
+        if ($captcha_passed) {
             // Validate input
             $validate = new Validate();
             $validation = $validate->check($_POST, array(
@@ -68,7 +45,7 @@ if(Input::exists()){
                 )
             ));
 
-            if($validation->passed()){
+            if ($validation->passed()) {
                 try {
                     $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
                     $php_mailer = $php_mailer[0]->value;
@@ -170,17 +147,18 @@ if(Input::exists()){
 }
 
 // Smarty variables
-if ($recaptcha === 'true') {
-    $smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
+if ($captcha === 'true') {
+    $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
+    $template->addJSFiles(array(CaptchaBase::getActiveProvider()->getJavascriptSource() => array()));
 
-    if ($captcha_type === 'hCaptcha') {
-        $template->addJSFiles(array(
-            'https://hcaptcha.com/1/api.js' => array()
-        ));
-    } else {
-        $template->addJSFiles(array(
-            'https://www.google.com/recaptcha/api.js' => array()
-        ));
+    $submitScript = CaptchaBase::getActiveProvider()->getJavascriptSubmit('form-contact');
+    if ($submitScript) {
+        $template->addJSScript('
+            $("#form-contact").submit(function(e) {
+                e.preventDefault();
+                ' . $submitScript . '
+            });
+        ');
     }
 }
 
@@ -203,8 +181,7 @@ $smarty->assign(array(
 	'TOKEN' => Token::get(),
 	'SUBMIT' => $language->get('general', 'submit'),
 	'ERROR_TITLE' => $language->get('general', 'error'),
-	'SUCCESS_TITLE' => $language->get('general', 'success'),
-    'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha'
+	'SUCCESS_TITLE' => $language->get('general', 'success')
 ));
 
 // Load modules + template

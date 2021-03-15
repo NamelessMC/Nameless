@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -17,6 +17,9 @@ if (!$module_installed) {
     die('Run the installer first!');
 }
 
+require_once(ROOT_PATH . '/modules/Core/classes/hCaptcha.php');
+require_once(ROOT_PATH . '/modules/Core/classes/Recaptcha2.php');
+require_once(ROOT_PATH . '/modules/Core/classes/Recaptcha3.php');
 require_once(ROOT_PATH . '/modules/Core/module.php');
 
 $module = new Core_Module($language, $pages, $user, $queries, $navigation, $cache, $endpoints);
