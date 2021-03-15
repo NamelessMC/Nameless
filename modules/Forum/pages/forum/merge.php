@@ -43,23 +43,21 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             ));
             $posts_to_move = $queries->getWhere('posts', array('topic_id', '=', $topic_id));
             if ($validation->passed()) {
-                try {
-                    foreach ($posts_to_move as $post_to_move) {
-                        $queries->update('posts', $post_to_move->id, array(
-                            'topic_id' => Input::get('merge')
-                        ));
-                    }
-                    $queries->delete('topics', array('id', '=', $topic_id));
-                    Log::getInstance()->log(Log::Action('forums/merge'));
-                    // Update latest posts in categories
-                    $forum->updateForumLatestPosts();
-                    $forum->updateTopicLatestPosts();
 
-                    Redirect::to(URL::build('/forum/topic/' . Input::get('merge')));
-                    die();
-                } catch (Exception $e) {
-                    die($e->getMessage());
+                foreach ($posts_to_move as $post_to_move) {
+                    $queries->update('posts', $post_to_move->id, array(
+                        'topic_id' => Input::get('merge')
+                    ));
                 }
+                $queries->delete('topics', array('id', '=', $topic_id));
+                Log::getInstance()->log(Log::Action('forums/merge'));
+                // Update latest posts in categories
+                $forum->updateForumLatestPosts();
+                $forum->updateTopicLatestPosts();
+
+                Redirect::to(URL::build('/forum/topic/' . Input::get('merge')));
+                die();
+
             } else {
                 echo 'Error processing that action. <a href="' . URL::build('/forum') . '">Forum index</a>';
                 die();

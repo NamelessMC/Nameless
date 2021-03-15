@@ -276,7 +276,7 @@ if(!isset($_GET['action'])){
                 Redirect::to(URL::build('/panel/core/panel_templates'));
                 die();
 
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 Session::flash('admin_templates_error', $e->getMessage());
                 Redirect::to(URL::build('/panel/core/panel_templates'));
                 die();

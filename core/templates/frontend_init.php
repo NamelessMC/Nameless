@@ -65,7 +65,7 @@ if($user->isLoggedIn()){
 		try {
 			$default_group = $queries->getWhere('groups', array('default_group', '=', 1));
 			$default_group = $default_group[0]->id;
-		} catch(Exception $e){
+		} catch (Exception $e) {
 			$default_group = 1;
 		}
 

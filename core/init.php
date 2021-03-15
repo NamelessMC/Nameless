@@ -230,22 +230,18 @@ if ($page != 'install') {
     }
 
     // Set timezone
-    try {
-        if ($user->isLoggedIn()) {
-            define('TIMEZONE', $user->data()->timezone);
+    if ($user->isLoggedIn()) {
+        define('TIMEZONE', $user->data()->timezone);
+    } else {
+        $cache->setCache('timezone_cache');
+        if ($cache->isCached('timezone')) {
+            define('TIMEZONE', $cache->retrieve('timezone'));
         } else {
-            $cache->setCache('timezone_cache');
-            if ($cache->isCached('timezone')) {
-                define('TIMEZONE', $cache->retrieve('timezone'));
-            } else {
-                define('TIMEZONE', 'Europe/London');
-            }
+            define('TIMEZONE', 'Europe/London');
         }
-
-        date_default_timezone_set(TIMEZONE);
-    } catch (Exception $e) {
-        throw new Exception('Unable to set timezone: ' . $e->getMessage());
     }
+
+    date_default_timezone_set(TIMEZONE);
 
     // Language
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {

@@ -138,7 +138,7 @@ if(!isset($_GET['action'])){
 							Session::flash('forum_labels', $forum_language->get('forum', 'label_creation_success'));
 							Redirect::to(URL::build('/panel/forums/labels'));
 							die();
-						} catch(Exception $e){
+						} catch (Exception $e) {
 							$errors = array($e->getMessage());
 						}
 
@@ -283,7 +283,7 @@ if(!isset($_GET['action'])){
 							Session::flash('forum_labels', $forum_language->get('forum', 'label_edit_success'));
 							Redirect::to(URL::build('/panel/forums/labels', 'action=edit&lid=' . Output::getClean($label->id)));
 							die();
-						} catch(Exception $e){
+						} catch (Exception $e) {
 							$errors = array($e->getMessage());
 						}
 
@@ -376,14 +376,9 @@ if(!isset($_GET['action'])){
 				die();
 			}
 
-			try {
-				// Delete the label
-				$queries->delete('forums_topic_labels', array('id', '=', $_GET['lid']));
-				Session::flash('forum_labels', $forum_language->get('forum', 'label_deleted_successfully'));
-
-			} catch(Exception $e){
-				// Error, redirect anyway
-			}
+            // Delete the label
+            $queries->delete('forums_topic_labels', array('id', '=', $_GET['lid']));
+            Session::flash('forum_labels', $forum_language->get('forum', 'label_deleted_successfully'));
 
 			Redirect::to(URL::build('/panel/forums/labels'));
 			die();
@@ -458,7 +453,7 @@ if(!isset($_GET['action'])){
 							Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
 							die();
 
-						} catch(Exception $e){
+						} catch (Exception $e) {
 							$errors = array($e->getMessage());
 						}
 
@@ -543,7 +538,7 @@ if(!isset($_GET['action'])){
 							Session::flash('forum_labels', $forum_language->get('forum', 'label_type_edit_success'));
 							Redirect::to(URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)));
 							die();
-						} catch(Exception $e){
+						} catch (Exception $e) {
 							$errors = array($e->getMessage());
 						}
 
@@ -586,14 +581,10 @@ if(!isset($_GET['action'])){
 				Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
 				die();
 			}
-			try {
-				// Delete the label
-				$queries->delete('forums_labels', array('id', '=', $_GET['lid']));
-				Session::flash('forum_labels', $forum_language->get('forum', 'label_type_deleted_successfully'));
 
-			} catch(Exception $e){
-				// Error, redirect anyway
-			}
+            // Delete the label
+            $queries->delete('forums_labels', array('id', '=', $_GET['lid']));
+            Session::flash('forum_labels', $forum_language->get('forum', 'label_type_deleted_successfully'));
 
 			Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
 			die();

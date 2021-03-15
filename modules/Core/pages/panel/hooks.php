@@ -121,6 +121,7 @@ if (!isset($_GET['action'])) {
 
             $template_file = 'core/hooks_new.tpl';
             break;
+            
         case 'edit':
             // Edit hook
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -213,6 +214,7 @@ if (!isset($_GET['action'])) {
 
             $template_file = 'core/hooks_edit.tpl';
             break;
+
         case 'delete':
             // Delete Form
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -220,21 +222,18 @@ if (!isset($_GET['action'])) {
                 die();
             }
 
-            try {
-                $queries->delete('hooks', array('id', '=', $_GET['id']));
+            $queries->delete('hooks', array('id', '=', $_GET['id']));
 
-                $cache->setCache('hooks');
-                if ($cache->isCached('hooks')) {
-                    $cache->erase('hooks');
-                }
-            } catch (Exception $e) {
-                die($e->getMessage());
+            $cache->setCache('hooks');
+            if ($cache->isCached('hooks')) {
+                $cache->erase('hooks');
             }
 
             Session::flash('admin_hooks', $language->get('admin', 'hook_deleted'));
             Redirect::to(URL::build('/panel/core/hooks'));
             die();
             break;
+
         default:
             Redirect::to(URL::build('/panel/core/hooks'));
             die();

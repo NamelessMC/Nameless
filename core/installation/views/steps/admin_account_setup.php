@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 			$queries->delete('users', array('id', '=', 1));
 
-		} catch(Exception $e) {
+		} catch (Exception $e) {
 			$error = $language['unable_to_create_account'] . ': ' . $e->getMessage();
 		}
 	}
