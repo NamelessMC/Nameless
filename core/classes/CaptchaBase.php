@@ -19,7 +19,7 @@ abstract class CaptchaBase {
      * @param CaptchaBase $provider Provider instance to register
      */
     public static function addProvider(CaptchaBase $provider) {
-        CaptchaBase::$_providers[$provider->_name] = $provider;
+        self::$_providers[$provider->_name] = $provider;
     }
 
     /**

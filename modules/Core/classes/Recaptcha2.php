@@ -1,4 +1,14 @@
 <?php
+/*
+ *	Made by Samerton
+ *
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr10
+ *
+ *  License: MIT
+ *
+ *  Recaptcha2 class
+ */
 class Recaptcha2 extends CaptchaBase {
     /**
      * Recaptcha2 constructor

@@ -39,7 +39,7 @@ if (Input::exists()) {
 	if (Token::check()) {
 		// Valid token
 		if (!isset($_SESSION['tfa']) && $captcha == 'true') {
-            $captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
+			$captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
 		} else {
 			$captcha_passed = true;
 		}
