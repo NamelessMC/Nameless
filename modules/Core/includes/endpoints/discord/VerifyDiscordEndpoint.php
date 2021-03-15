@@ -38,6 +38,26 @@ class VerifyDiscordEndpoint extends EndpointBase {
         } catch (Exception $e) {
             $api->throwError(29, $api->getLanguage()->get('api', 'unable_to_set_discord_id'), $e->getMessage());
         }
+        
+        $api->validateParams($_POST, ['user', 'groups']);
+
+        // Ensure user exists
+        $user = new User($_POST['user']);
+
+        $groups = $_POST['groups'];
+        if ($groups == null || !count($groups)) {
+            $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'), 'No groups provided');
+        }
+
+        foreach ($groups as $group) {
+            $group_query = $api->getDb()->get('groups', array('id', '=', $group));
+            if (!$group_query->count()) {
+                continue;
+            }
+
+            // Attempt to update their discord role as well, but ignore any output/errors
+            Discord::addDiscordRole($user, $group, $api->getLanguage(), false);
+        }
 
         $api->returnArray(array('message' => $api->getLanguage()->get('api', 'discord_id_set')));
     }
