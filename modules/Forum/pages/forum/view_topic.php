@@ -251,13 +251,18 @@ if (Input::exists()) {
     }
     if (Token::check()) {
         $validate = new Validate();
-        $validation = $validate->check($_POST, array(
-            'content' => array(
-                'required' => true,
-                'min' => 2,
-                'max' => 50000
-            )
-        ));
+        
+        $validation = $validate->check($_POST, [
+            'content' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => 2,
+                Validate::MAX => 50000
+            ]
+        ])->messages([
+            // Having one single string will use this no matter the cause of the error
+            'content' => 'Content is required and must be between 2 and 50000 chars.',
+        ]);
+
         if ($validation->passed()) {
             try {
                 $cache->setCache('post_formatting');
