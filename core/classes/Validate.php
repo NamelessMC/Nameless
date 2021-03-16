@@ -14,6 +14,7 @@
 class Validate {
 
 <<<<<<< update/japanese
+<<<<<<< update/japanese
     private $_message = null;
     private $_messages = array();
     private $_passed = false;
@@ -24,6 +25,9 @@ class Validate {
     private $_db = null;
     
 =======
+=======
+    private $_message = null;
+>>>>>>> add generic message() function + add support for it
     private $_messages = array();
     private $_passed = false;
     private $_errors = array();
@@ -93,6 +97,7 @@ class Validate {
     const MAX = 'max';
 
     /**
+<<<<<<< update/japanese
      * Ensure provided value matches another
      */
     const MATCHES = 'matches';
@@ -139,6 +144,9 @@ class Validate {
 
     /**
      * Create new `Validate` instance
+=======
+     * Create new Validate instance
+>>>>>>> add generic message() function + add support for it
      */
     public function __construct() {
         // Connect to database for rules which need DB access
@@ -156,9 +164,15 @@ class Validate {
     /**
      * Validate an array of inputs.
      * 
+<<<<<<< update/japanese
      * @param array $source inputs (eg: $_POST)
      * @param array $items subset of inputs to be validated
      * @return Validate This instance of Validate.
+=======
+     * **Must** be called after messages() or message() for custom messages to apply
+     * @param array $source inputs (eg: $_POST)
+     * @param array $items subset of inputs to be validated
+>>>>>>> add generic message() function + add support for it
      */
     public function check(array $source, array $items = array()) {
 
@@ -167,8 +181,6 @@ class Validate {
 
             // Loop through each validation rule for the set item
             foreach ($rules as $rule => $rule_value) {
-
-                // TODO: could $rule_value also be an array, value 0 is the rule and value 1 is the message?
 
                 $value = trim($source[$item]);
 
@@ -179,11 +191,15 @@ class Validate {
                 if ($rule === Validate::REQUIRED && empty($value)) {
                     // The post array does not include this value, return an error
 <<<<<<< update/japanese
+<<<<<<< update/japanese
                     $this->addError([
                         'field' => $item,
                         'rule' => Validate::REQUIRED,
                         'fallback' => "{$item} is required."
                     ]);
+=======
+                    $this->addError($this->getMessage($item, Validate::REQUIRED, "{$item} is required"));
+>>>>>>> add generic message() function + add support for it
                     continue;
                 } 
                 
@@ -196,72 +212,101 @@ class Validate {
 
                     case Validate::MIN:
                         if (mb_strlen($value) < $rule_value) {
+<<<<<<< update/japanese
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::MIN,
                                 'fallback' => "{$item} must be a minimum of {$rule_value} characters."
                             ]);
+=======
+                            $this->addError($this->getMessage($item, Validate::MIN, "{$item} must be a minimum of {$rule_value} characters."));
+>>>>>>> add generic message() function + add support for it
                         }
                         break;
 
                     case Validate::MAX:
                         if (mb_strlen($value) > $rule_value) {
+<<<<<<< update/japanese
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::MAX,
                                 'fallback' => "{$item} must be a maximum of {$rule_value} characters."
                             ]);
+=======
+                            $this->addError($this->getMessage($item, Validate::MAX, "{$item} must be a maximum of {$rule_value} characters."));
+>>>>>>> add generic message() function + add support for it
                         }
                         break;
 
                     case Validate::MATCHES:
                         if ($value != $source[$rule_value]) {
+<<<<<<< update/japanese
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::MATCHES,
                                 'fallback' => "{$rule_value} must match {$item}."
                             ]);
+=======
+                            $this->addError($this->getMessage($item, Validate::MATCHES, "{$rule_value} must match {$item}."));
+>>>>>>> add generic message() function + add support for it
                         }
                         break;
 
                     case Validate::AGREE:
                         if ($value != 1) {
+<<<<<<< update/japanese
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::AGREE,
                                 'fallback' => "You must agree to our terms and conditions in order to register."
                             ]);
+=======
+                            $this->addError($this->getMessage($item, Validate::AGREE, "You must agree to our terms and conditions in order to register."));
+>>>>>>> add generic message() function + add support for it
                         }
                         break;
 
                     case Validate::UNIQUE:
                         $check = $this->_db->get($rule_value, array($item, '=', $value));
                         if ($check->count()) {
+<<<<<<< update/japanese
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::UNIQUE,
                                 'fallback' => "The {$rule_value}.{$item} {$value} already exists!"
                             ]);
+=======
+                            $this->addError($this->getMessage($item, Validate::UNIQUE, "The username/email {$item} already exists!"));
+>>>>>>> add generic message() function + add support for it
                         }
                         break;
 
                     case Validate::EMAIL:
                         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+<<<<<<< update/japanese
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::EMAIL,
                                 'fallback' => "{$value} is not a valid email."
                             ]);
+=======
+                            $this->addError($this->getMessage($item, Validate::EMAIL, "{$value} is not a valid email."));
+>>>>>>> add generic message() function + add support for it
                         }
                         break;
 
                     case Validate::TIMEZONE:
+<<<<<<< update/japanese
                         if (!in_array($value, DateTimeZone::listIdentifiers())) {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::TIMEZONE,
                                 'fallback' => "The timezone {$value} is invalid."
                             ]);
+=======
+                        if (!in_array($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL))) {
+                            $this->addError($this->getMessage($item, Validate::TIMEZONE, "The timezone {$item} is invalid."));
+>>>>>>> add generic message() function + add support for it
                         }
                         break;
 
@@ -273,11 +318,15 @@ class Validate {
 
                         $isuseractive = $check->first()->active;
                         if ($isuseractive == 0) {
+<<<<<<< update/japanese
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::IS_ACTIVE,
                                 'fallback' => "That {$item} is inactive. Have you validated your account or requested a password reset?"
                             ]);
+=======
+                            $this->addError($this->getMessage($item, Validate::IS_ACTIVE, "That username is inactive. Have you validated your account or requested a password reset?"));
+>>>>>>> add generic message() function + add support for it
                         }
                         break;
 
@@ -289,26 +338,35 @@ class Validate {
 
                         $isuserbanned = $check->first()->isbanned;
                         if ($isuserbanned == 1) {
+<<<<<<< update/japanese
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::IS_BANNED,
                                 'fallback' => "The username {$value} is banned."
                             ]);
+=======
+                            $this->addError($this->getMessage($item, Validate::IS_BANNED, "The username {$item} is banned."));
+>>>>>>> add generic message() function + add support for it
                         }
                         break;
 
                     case Validate::ALPHANUMERIC:
                         if (!ctype_alnum($value)) {
+<<<<<<< update/japanese
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::ALPHANUMERIC,
                                 'fallback' => "{$item} must be alphanumeric."
                             ]);
+=======
+                            $this->addError($this->getMessage($item, Validate::ALPHANUMERIC, "{$item} must be alphanumeric."));
+>>>>>>> add generic message() function + add support for it
                         }
                         break;
 
                     case Validate::NUMERIC:
                         if (!is_numeric($value)) {
+<<<<<<< update/japanese
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::NUMERIC,
@@ -403,6 +461,11 @@ class Validate {
                             break;
                     }
 >>>>>>> initial work (not working or tested)
+=======
+                            $this->addError($this->getMessage($item, Validate::NUMERIC, "{$item} must be numeric."));
+                        }
+                        break;
+>>>>>>> add generic message() function + add support for it
                 }
             }
         }
@@ -417,10 +480,15 @@ class Validate {
 
     /**
 <<<<<<< update/japanese
+<<<<<<< update/japanese
      * Add generic message for any failures, specific `messages()` will override this.
      * 
      * @param string $message message to show if any failures occur.
      * @return Validate This instance of Validate.
+=======
+     * Add generic message for any failures, specific messages() will override this
+     * @param string $message message to show if any failures occur
+>>>>>>> add generic message() function + add support for it
      */
     public function message($message) {
         $this->_message = $message;
@@ -428,6 +496,7 @@ class Validate {
     }
 
     /**
+<<<<<<< update/japanese
      * Add custom messages to this `Validate` instance.
      * 
      * @param array $messages array of input names and strings or arrays to use as messages.
@@ -440,6 +509,12 @@ class Validate {
      */
     public function messages($messages) {
 >>>>>>> initial work (not working or tested)
+=======
+     * Add custom messages to this Validator
+     * @param array $messages array of input names and strings or arrays to use as messages
+     */
+    public function messages(array $messages) {
+>>>>>>> add generic message() function + add support for it
         $this->_messages = $messages;
         return $this;
     }
@@ -493,20 +568,30 @@ class Validate {
      * @param string $error message to add to error array
      */
     private function addError($error) {
-        $this->_errors[] = $error;
+
+        // If there is no generic message() set, no need to worry about duplications
+        if ($this->_message == null) {
+            $this->_errors[] = $error;
+            return;
+        }
+
+        // If this new error is the generic message AND it has not already been added, add it
+        if ($error == $this->_message && !array_key_exists($this->_message, $this->_errors)) {
+            $this->_errors[] = $this->_message;
+        }
     }
 
     /**
-     * Get message for provided field
+     * Get message for provided field, returning fallback message unless generic message is supplied
      * @param string $field name of field to search for 
      * @param string $rule rule which check failed. should be from the constants defined above
-     * @param string $fallback fallback default message if custom message is not supplied
+     * @param string $fallback fallback default message if custom message and generic message are not supplied
      */
     private function getMessage($field, $rule, $fallback) {
 
         // No custom messages defined for this field
         if (!isset($this->_messages[$field])) {
-            return $fallback;
+            return $this->_message != null ? $this->_message : $fallback;
         }
 
         // Generic custom message supplied
@@ -516,7 +601,7 @@ class Validate {
 
         // Array of custom messages supplied, but none of their rules matches this rule
         if (!array_key_exists($rule, $this->_messages[$field])) {
-            return $fallback;
+            return $this->_message != null ? $this->_message : $fallback;
         }
 
         // Rule-specific custom message was supplied
