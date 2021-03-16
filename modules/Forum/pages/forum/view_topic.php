@@ -251,14 +251,20 @@ if (Input::exists()) {
     }
     if (Token::check()) {
         $validate = new Validate();
+<<<<<<< update/japanese
 
         $validate->check($_POST, [
+=======
+        
+        $validation = $validate->check($_POST, [
+>>>>>>> initial work (not working or tested)
             'content' => [
                 Validate::REQUIRED => true,
                 Validate::MIN => 2,
                 Validate::MAX => 50000
             ]
         ])->messages([
+<<<<<<< update/japanese
             'content' => [
                 Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
                 Validate::MIN => $forum_language->get('forum', 'content_min_2'),
@@ -267,6 +273,13 @@ if (Input::exists()) {
         ]);
 
         if ($validate->passed()) {
+=======
+            // Having one single string will use this no matter the cause of the error
+            'content' => 'Content is required and must be between 2 and 50000 chars.',
+        ]);
+
+        if ($validation->passed()) {
+>>>>>>> initial work (not working or tested)
             try {
                 $cache->setCache('post_formatting');
                 $formatting = $cache->retrieve('formatting');
