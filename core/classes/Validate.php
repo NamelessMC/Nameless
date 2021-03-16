@@ -8,7 +8,7 @@
  *
  *  Validate class
  *
- * 	TODO: Regex validation? Example: Discord
+ * 	TODO: Regex, Check IP Ban, "isvalid" MC username check
  */
 
 class Validate {
@@ -93,6 +93,8 @@ class Validate {
             // Loop through each validation rule for the set item
             foreach ($rules as $rule => $rule_value) {
 
+                // TODO: could $rule_value also be an array, value 0 is the rule and value 1 is the message?
+
                 $value = trim($source[$item]);
 
                 // Escape the item's contents just in case
@@ -106,94 +108,83 @@ class Validate {
                 } else if (!empty($value)) {
                     // The post array does include this value, continue validating
                     switch ($rule) {
-                        case Validate::MIN;
+
+                        case Validate::MIN:
                             if (mb_strlen($value) < $rule_value) {
-                                $this->addError($this->getMessage($item, "{$item} must be a minimum of {$rule_value} characters."));
+                                $this->addError($this->getMessage($item, Validate::MIN, "{$item} must be a minimum of {$rule_value} characters."));
                             }
                             break;
 
-                        case Validate::MAX;
+                        case Validate::MAX:
                             if (mb_strlen($value) > $rule_value) {
-                                $this->addError($this->getMessage($item, "{$item} must be a maximum of {$rule_value} characters."));
+                                $this->addError($this->getMessage($item, Validate::MAX, "{$item} must be a maximum of {$rule_value} characters."));
                             }
                             break;
 
-                        case Validate::MATCHES;
+                        case Validate::MATCHES:
                             if ($value != $source[$rule_value]) {
-                                $this->addError($this->getMessage($item, "{$rule_value} must match {$item}."));
+                                $this->addError($this->getMessage($item, Validate::MATCHES, "{$rule_value} must match {$item}."));
                             }
                             break;
 
-                        case Validate::AGREE;
+                        case Validate::AGREE:
                             if ($value != 1) {
-                                $this->addError($this->getMessage($item, "You must agree to our terms and conditions in order to register."));
+                                $this->addError($this->getMessage($item, Validate::AGREE, "You must agree to our terms and conditions in order to register."));
                             }
                             break;
 
-                        case Validate::UNIQUE;
+                        case Validate::UNIQUE:
                             $check = $this->_db->get($rule_value, array($item, '=', $value));
                             if ($check->count()) {
-                                $this->addError($this->getMessage($item, "The username/email {$item} already exists!"));
+                                $this->addError($this->getMessage($item, Validate::UNIQUE, "The username/email {$item} already exists!"));
                             }
                             break;
 
-                        // TODO: Fix isvalid
-                        /*
-                        case 'isvalid';
-                            $username = escape($value);
-                            $username = str_replace(' ', '%20', $username);
-                            $check_mcUser = file_get_contents('http://www.minecraft.net/haspaid.jsp?user='.($username).'');
-                            if($check_mcUser == 'false'){
-                                $this->addError("Your Minecraft name is not a valid Minecraft account.");
-                            }
-                        break;
-                        */
-
-                        case Validate::EMAIL;
+                        case Validate::EMAIL:
                             if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                                $this->addError($this->getMessage($item, "{$value} is not a valid email."));
+                                $this->addError($this->getMessage($item, Validate::EMAIL, "{$value} is not a valid email."));
                             }
                             break;
 
                         case Validate::TIMEZONE:
                             if (!in_array($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL))) {
-                                $this->addError($this->getMessage($item, "The timezone {$item} is invalid."));
+                                $this->addError($this->getMessage($item, Validate::TIMEZONE, "The timezone {$item} is invalid."));
                             }
                             break;
 
-                        case Validate::IS_ACTIVE;
+                        case Validate::IS_ACTIVE:
                             $check = $this->_db->get('users', array($item, '=', $value));
-                            if ($check->count()) {
-                                $isuseractive = $check->first()->active;
-                                if ($isuseractive == 0) {
-                                    $this->addError($this->getMessage($item, "That username is inactive. Have you validated your account or requested a password reset?"));
-                                }
+                            if (!$check->count()) {
+                                continue;
+                            }
+
+                            $isuseractive = $check->first()->active;
+                            if ($isuseractive == 0) {
+                                $this->addError($this->getMessage($item, Validate::IS_ACTIVE, "That username is inactive. Have you validated your account or requested a password reset?"));
                             }
                             break;
 
-                        case Validate::IS_BANNED;
+                        case Validate::IS_BANNED: 
                             $check = $this->_db->get('users', array($item, '=', $value));
-                            if ($check->count()) {
-                                $isuserbanned = $check->first()->isbanned;
-                                if ($isuserbanned == 1) {
-                                    $this->addError($this->getMessage($item, "The username {$item} is banned."));
-                                }
+                            if (!$check->count()) {
+                                continue;
+                            }
+
+                            $isuserbanned = $check->first()->isbanned;
+                            if ($isuserbanned == 1) {
+                                $this->addError($this->getMessage($item, Validate::IS_BANNED, "The username {$item} is banned."));
                             }
                             break;
-
-                        // case 'isbannedip';
-                        //     TODO: Check if IP is banned
-                        //     break;
 
                         case Validate::ALPHANUMERIC:
                             if (!ctype_alnum($value)) {
-                                $this->addError($this->getMessage($item, "{$item} must be alphanumeric."));
+                                $this->addError($this->getMessage($item, Validate::ALPHANUMERIC, "{$item} must be alphanumeric."));
                             }
                             break;
 
                         case Validate::NUMERIC:
                             if (!is_numeric($value)) {
-                                $this->addError($this->getMessage($item, "{$item} must be numeric."));
+                                $this->addError($this->getMessage($item, Validate::NUMERIC, "{$item} must be numeric."));
                             }
                             break;
                     }
@@ -229,10 +220,28 @@ class Validate {
     /**
      * Get message for provided field
      * @param string $field name of field to search for 
+     * @param string $rule rule which check failed. should be from the constants defined above
      * @param string $fallback fallback default message if custom message is not supplied
      */
-    private function getMessage($field, $fallback) {
+    private function getMessage($field, $rule, $fallback) {
 
+        // No custom messages defined for this field
+        if (!isset($this->_messages[$field])) {
+            return $fallback;
+        }
+
+        // Generic custom message supplied
+        if (!is_array($this->_messages[$field])) {
+            return $this->_messages[$field];
+        }
+
+        // Array of custom messages supplied, but none of their rules matches this rule
+        if (!array_key_exists($rule, $this->_messages[$field])) {
+            return $fallback;
+        }
+
+        // Rule-specific custom message was supplied
+        return $this->_messages[$field][$rule];
     }
 
     /**

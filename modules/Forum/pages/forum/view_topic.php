@@ -251,13 +251,24 @@ if (Input::exists()) {
     }
     if (Token::check()) {
         $validate = new Validate();
-        $validation = $validate->check($_POST, array(
-            'content' => array(
-                'required' => true,
-                'min' => 2,
-                'max' => 50000
-            )
-        ));
+
+        // testing location - will be messy until complete :)
+        $validation = $validate->check($_POST, [
+            'content' => [
+                Validate::REQUIRED => [
+                    true,
+                    $forum_language->get('forum', 'content_required')
+                ],
+                Validate::MIN => 2,
+                Validate::MAX => 50000
+            ]
+        ])->messages([
+            'content' => [
+                Validate::MIN => $forum_language->get('forum', 'content_min_2'),
+                Validate::MAX => $forum_language->get('forum', 'content_max_50000')
+            ]
+        ]);
+
         if ($validation->passed()) {
             try {
                 $cache->setCache('post_formatting');
@@ -403,16 +414,7 @@ if (Input::exists()) {
                 die($e->getMessage());
             }
         } else {
-            $error = array();
-            foreach ($validation->errors() as $item) {
-                if (strpos($item, 'is required') !== false) {
-                    $error[] = $forum_language->get('forum', 'content_required');
-                } else if (strpos($item, 'minimum') !== false) {
-                    $error[] = $forum_language->get('forum', 'content_min_2');
-                } else if (strpos($item, 'maximum') !== false) {
-                    $error[] = $forum_language->get('forum', 'content_max_50000');
-                }
-            }
+            $error = $validation->errors();
         }
     } else {
         $error = array($language->get('general', 'invalid_token'));
