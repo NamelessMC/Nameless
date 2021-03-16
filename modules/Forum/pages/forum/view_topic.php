@@ -252,6 +252,7 @@ if (Input::exists()) {
     if (Token::check()) {
         $validate = new Validate();
 <<<<<<< update/japanese
+<<<<<<< update/japanese
 
         $validate->check($_POST, [
 =======
@@ -278,6 +279,15 @@ if (Input::exists()) {
             'content' => 'Content is required and must be between 2 and 50000 chars.',
         ]);
 
+=======
+        $validation = $validate->check($_POST, array(
+            'content' => array(
+                'required' => true,
+                'min' => 2,
+                'max' => 50000
+            )
+        ));
+>>>>>>> undo view_topic changes
         if ($validation->passed()) {
 >>>>>>> initial work (not working or tested)
             try {
