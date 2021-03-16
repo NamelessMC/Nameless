@@ -253,6 +253,7 @@ if (Input::exists()) {
         $validate = new Validate();
 <<<<<<< update/japanese
 <<<<<<< update/japanese
+<<<<<<< update/japanese
 
         $validate->check($_POST, [
 =======
@@ -261,18 +262,33 @@ if (Input::exists()) {
 >>>>>>> initial work (not working or tested)
             'content' => [
                 Validate::REQUIRED => true,
+=======
+
+        // testing location - will be messy until complete :)
+        $validation = $validate->check($_POST, [
+            'content' => [
+                Validate::REQUIRED => [
+                    true,
+                    $forum_language->get('forum', 'content_required')
+                ],
+>>>>>>> add getMessage logic + clean
                 Validate::MIN => 2,
                 Validate::MAX => 50000
             ]
         ])->messages([
 <<<<<<< update/japanese
+<<<<<<< update/japanese
             'content' => [
                 Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
+=======
+            'content' => [
+>>>>>>> add getMessage logic + clean
                 Validate::MIN => $forum_language->get('forum', 'content_min_2'),
                 Validate::MAX => $forum_language->get('forum', 'content_max_50000')
             ]
         ]);
 
+<<<<<<< update/japanese
         if ($validate->passed()) {
 =======
             // Having one single string will use this no matter the cause of the error
@@ -288,6 +304,8 @@ if (Input::exists()) {
             )
         ));
 >>>>>>> undo view_topic changes
+=======
+>>>>>>> add getMessage logic + clean
         if ($validation->passed()) {
 >>>>>>> initial work (not working or tested)
             try {
@@ -434,7 +452,11 @@ if (Input::exists()) {
                 die($e->getMessage());
             }
         } else {
+<<<<<<< update/japanese
             $error = $validate->errors();
+=======
+            $error = $validation->errors();
+>>>>>>> add getMessage logic + clean
         }
     } else {
         $error = array($language->get('general', 'invalid_token'));
