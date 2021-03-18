@@ -19,6 +19,7 @@ class Validate {
     private $_messages = array();
     private $_passed = false;
     private $_to_convert = array();
+<<<<<<< update/japanese
     private $_errors = array();
     
     /** @var DB */
@@ -30,6 +31,8 @@ class Validate {
 >>>>>>> add generic message() function + add support for it
     private $_messages = array();
     private $_passed = false;
+=======
+>>>>>>> allow messages() defined after check() function
     private $_errors = array();
     private $_db = null;
 
@@ -133,6 +136,7 @@ class Validate {
     const IS_BANNED = 'isbanned';
 
     /**
+<<<<<<< update/japanese
      * Check that the value is alphanumeric
      */
     const ALPHANUMERIC = 'alphanumeric';
@@ -147,6 +151,9 @@ class Validate {
 =======
      * Create new Validate instance
 >>>>>>> add generic message() function + add support for it
+=======
+     * Create new `Validate` instance
+>>>>>>> allow messages() defined after check() function
      */
     public function __construct() {
         // Connect to database for rules which need DB access
@@ -165,11 +172,15 @@ class Validate {
      * Validate an array of inputs.
      * 
 <<<<<<< update/japanese
+<<<<<<< update/japanese
      * @param array $source inputs (eg: $_POST)
      * @param array $items subset of inputs to be validated
      * @return Validate This instance of Validate.
 =======
      * **Must** be called after messages() or message() for custom messages to apply
+=======
+     * **Must** be called after `messages()` or `message()` for custom messages to apply
+>>>>>>> allow messages() defined after check() function
      * @param array $source inputs (eg: $_POST)
      * @param array $items subset of inputs to be validated
 >>>>>>> add generic message() function + add support for it
@@ -192,14 +203,20 @@ class Validate {
                     // The post array does not include this value, return an error
 <<<<<<< update/japanese
 <<<<<<< update/japanese
+<<<<<<< update/japanese
+=======
+>>>>>>> allow messages() defined after check() function
                     $this->addError([
                         'field' => $item,
                         'rule' => Validate::REQUIRED,
                         'fallback' => "{$item} is required."
                     ]);
+<<<<<<< update/japanese
 =======
                     $this->addError($this->getMessage($item, Validate::REQUIRED, "{$item} is required"));
 >>>>>>> add generic message() function + add support for it
+=======
+>>>>>>> allow messages() defined after check() function
                     continue;
                 } 
                 
@@ -213,56 +230,80 @@ class Validate {
                     case Validate::MIN:
                         if (mb_strlen($value) < $rule_value) {
 <<<<<<< update/japanese
+<<<<<<< update/japanese
+=======
+>>>>>>> allow messages() defined after check() function
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::MIN,
                                 'fallback' => "{$item} must be a minimum of {$rule_value} characters."
                             ]);
+<<<<<<< update/japanese
 =======
                             $this->addError($this->getMessage($item, Validate::MIN, "{$item} must be a minimum of {$rule_value} characters."));
 >>>>>>> add generic message() function + add support for it
+=======
+>>>>>>> allow messages() defined after check() function
                         }
                         break;
 
                     case Validate::MAX:
                         if (mb_strlen($value) > $rule_value) {
 <<<<<<< update/japanese
+<<<<<<< update/japanese
+=======
+>>>>>>> allow messages() defined after check() function
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::MAX,
                                 'fallback' => "{$item} must be a maximum of {$rule_value} characters."
                             ]);
+<<<<<<< update/japanese
 =======
                             $this->addError($this->getMessage($item, Validate::MAX, "{$item} must be a maximum of {$rule_value} characters."));
 >>>>>>> add generic message() function + add support for it
+=======
+>>>>>>> allow messages() defined after check() function
                         }
                         break;
 
                     case Validate::MATCHES:
                         if ($value != $source[$rule_value]) {
 <<<<<<< update/japanese
+<<<<<<< update/japanese
+=======
+>>>>>>> allow messages() defined after check() function
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::MATCHES,
                                 'fallback' => "{$rule_value} must match {$item}."
                             ]);
+<<<<<<< update/japanese
 =======
                             $this->addError($this->getMessage($item, Validate::MATCHES, "{$rule_value} must match {$item}."));
 >>>>>>> add generic message() function + add support for it
+=======
+>>>>>>> allow messages() defined after check() function
                         }
                         break;
 
                     case Validate::AGREE:
                         if ($value != 1) {
 <<<<<<< update/japanese
+<<<<<<< update/japanese
+=======
+>>>>>>> allow messages() defined after check() function
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::AGREE,
                                 'fallback' => "You must agree to our terms and conditions in order to register."
                             ]);
+<<<<<<< update/japanese
 =======
                             $this->addError($this->getMessage($item, Validate::AGREE, "You must agree to our terms and conditions in order to register."));
 >>>>>>> add generic message() function + add support for it
+=======
+>>>>>>> allow messages() defined after check() function
                         }
                         break;
 
@@ -270,28 +311,40 @@ class Validate {
                         $check = $this->_db->get($rule_value, array($item, '=', $value));
                         if ($check->count()) {
 <<<<<<< update/japanese
+<<<<<<< update/japanese
+=======
+>>>>>>> allow messages() defined after check() function
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::UNIQUE,
                                 'fallback' => "The {$rule_value}.{$item} {$value} already exists!"
                             ]);
+<<<<<<< update/japanese
 =======
                             $this->addError($this->getMessage($item, Validate::UNIQUE, "The username/email {$item} already exists!"));
 >>>>>>> add generic message() function + add support for it
+=======
+>>>>>>> allow messages() defined after check() function
                         }
                         break;
 
                     case Validate::EMAIL:
                         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
 <<<<<<< update/japanese
+<<<<<<< update/japanese
+=======
+>>>>>>> allow messages() defined after check() function
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::EMAIL,
                                 'fallback' => "{$value} is not a valid email."
                             ]);
+<<<<<<< update/japanese
 =======
                             $this->addError($this->getMessage($item, Validate::EMAIL, "{$value} is not a valid email."));
 >>>>>>> add generic message() function + add support for it
+=======
+>>>>>>> allow messages() defined after check() function
                         }
                         break;
 
@@ -305,8 +358,16 @@ class Validate {
                             ]);
 =======
                         if (!in_array($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL))) {
+<<<<<<< update/japanese
                             $this->addError($this->getMessage($item, Validate::TIMEZONE, "The timezone {$item} is invalid."));
 >>>>>>> add generic message() function + add support for it
+=======
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::TIMEZONE,
+                                'fallback' => "The timezone {$value} is invalid."
+                            ]);
+>>>>>>> allow messages() defined after check() function
                         }
                         break;
 
@@ -319,14 +380,20 @@ class Validate {
                         $isuseractive = $check->first()->active;
                         if ($isuseractive == 0) {
 <<<<<<< update/japanese
+<<<<<<< update/japanese
+=======
+>>>>>>> allow messages() defined after check() function
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::IS_ACTIVE,
                                 'fallback' => "That {$item} is inactive. Have you validated your account or requested a password reset?"
                             ]);
+<<<<<<< update/japanese
 =======
                             $this->addError($this->getMessage($item, Validate::IS_ACTIVE, "That username is inactive. Have you validated your account or requested a password reset?"));
 >>>>>>> add generic message() function + add support for it
+=======
+>>>>>>> allow messages() defined after check() function
                         }
                         break;
 
@@ -339,39 +406,55 @@ class Validate {
                         $isuserbanned = $check->first()->isbanned;
                         if ($isuserbanned == 1) {
 <<<<<<< update/japanese
+<<<<<<< update/japanese
+=======
+>>>>>>> allow messages() defined after check() function
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::IS_BANNED,
                                 'fallback' => "The username {$value} is banned."
                             ]);
+<<<<<<< update/japanese
 =======
                             $this->addError($this->getMessage($item, Validate::IS_BANNED, "The username {$item} is banned."));
 >>>>>>> add generic message() function + add support for it
+=======
+>>>>>>> allow messages() defined after check() function
                         }
                         break;
 
                     case Validate::ALPHANUMERIC:
                         if (!ctype_alnum($value)) {
 <<<<<<< update/japanese
+<<<<<<< update/japanese
+=======
+>>>>>>> allow messages() defined after check() function
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::ALPHANUMERIC,
                                 'fallback' => "{$item} must be alphanumeric."
                             ]);
+<<<<<<< update/japanese
 =======
                             $this->addError($this->getMessage($item, Validate::ALPHANUMERIC, "{$item} must be alphanumeric."));
 >>>>>>> add generic message() function + add support for it
+=======
+>>>>>>> allow messages() defined after check() function
                         }
                         break;
 
                     case Validate::NUMERIC:
                         if (!is_numeric($value)) {
 <<<<<<< update/japanese
+<<<<<<< update/japanese
+=======
+>>>>>>> allow messages() defined after check() function
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::NUMERIC,
                                 'fallback' => "{$item} must be numeric."
                             ]);
+<<<<<<< update/japanese
                         }
                         break;
 =======
@@ -463,6 +546,8 @@ class Validate {
 >>>>>>> initial work (not working or tested)
 =======
                             $this->addError($this->getMessage($item, Validate::NUMERIC, "{$item} must be numeric."));
+=======
+>>>>>>> allow messages() defined after check() function
                         }
                         break;
 >>>>>>> add generic message() function + add support for it
@@ -481,12 +566,16 @@ class Validate {
     /**
 <<<<<<< update/japanese
 <<<<<<< update/japanese
+<<<<<<< update/japanese
      * Add generic message for any failures, specific `messages()` will override this.
      * 
      * @param string $message message to show if any failures occur.
      * @return Validate This instance of Validate.
 =======
      * Add generic message for any failures, specific messages() will override this
+=======
+     * Add generic message for any failures, specific `messages()` will override this
+>>>>>>> allow messages() defined after check() function
      * @param string $message message to show if any failures occur
 >>>>>>> add generic message() function + add support for it
      */
@@ -496,6 +585,7 @@ class Validate {
     }
 
     /**
+<<<<<<< update/japanese
 <<<<<<< update/japanese
      * Add custom messages to this `Validate` instance.
      * 
@@ -511,6 +601,9 @@ class Validate {
 >>>>>>> initial work (not working or tested)
 =======
      * Add custom messages to this Validator
+=======
+     * Add custom messages to this `Validate` instance
+>>>>>>> allow messages() defined after check() function
      * @param array $messages array of input names and strings or arrays to use as messages
      */
     public function messages(array $messages) {
@@ -520,6 +613,7 @@ class Validate {
     }
 
     /**
+<<<<<<< update/japanese
 <<<<<<< update/japanese
      * Add an array of information to generate an error message to the $_to_convert array.
      * These errors will be translated in the `errors()` function later.
@@ -565,20 +659,15 @@ class Validate {
      * @return array Any and all errors for this `Validate` instance.
 =======
      * Add an error to the error array
+=======
+     * Add an array of information to generate an error message to the $_to_convert array
+     * 
+     * These errors will be translated in the `errors()` function later.
+>>>>>>> allow messages() defined after check() function
      * @param string $error message to add to error array
      */
-    private function addError($error) {
-
-        // If there is no generic message() set, no need to worry about duplications
-        if ($this->_message == null) {
-            $this->_errors[] = $error;
-            return;
-        }
-
-        // If this new error is the generic message AND it has not already been added, add it
-        if ($error == $this->_message && !array_key_exists($this->_message, $this->_errors)) {
-            $this->_errors[] = $this->_message;
-        }
+    private function addError(array $error) {
+        $this->_to_convert[] = $error;
     }
 
     /**
@@ -594,7 +683,7 @@ class Validate {
             return $this->_message != null ? $this->_message : $fallback;
         }
 
-        // Generic custom message supplied
+        // Generic custom message for this field supplied - but not rule specific
         if (!is_array($this->_messages[$field])) {
             return $this->_messages[$field];
         }
@@ -609,9 +698,14 @@ class Validate {
     }
 
     /**
+<<<<<<< update/japanese
      * Get current errors, if any
      * @return array Any and all errors for this Validator
 >>>>>>> initial work (not working or tested)
+=======
+     * Translate temp error information to their specific or generic or fallback messages and return
+     * @return array Any and all errors for this `Validate` instance
+>>>>>>> allow messages() defined after check() function
      */
     public function errors() {
 
@@ -627,7 +721,11 @@ class Validate {
 
             // If there is no generic `message()` set or the translated message is not equal to generic message
             // we can continue without worrying about duplications
+<<<<<<< update/japanese
             if ($this->_message == null || $message != $this->_message && !in_array($message, $this->_errors)) {
+=======
+            if ($this->_message == null || $message != $this->_message) {
+>>>>>>> allow messages() defined after check() function
                 $this->_errors[] = $message;
                 continue;
             }
@@ -644,11 +742,15 @@ class Validate {
 
     /**
 <<<<<<< update/japanese
+<<<<<<< update/japanese
      * Get if this `Validate` instance passed.
      * 
      * @return bool whether this Validate passed or not.
 =======
      * Get if this Validator passed
+=======
+     * Get if this `Validate` instance passed
+>>>>>>> allow messages() defined after check() function
      * @return bool whether this Validator passed or not
 >>>>>>> initial work (not working or tested)
      */

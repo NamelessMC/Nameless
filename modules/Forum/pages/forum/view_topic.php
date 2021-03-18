@@ -265,13 +265,17 @@ if (Input::exists()) {
 =======
 
         // testing location - will be messy until complete :)
-        $validation = $validate->check($_POST, [
+        $validate->check($_POST, [
             'content' => [
+<<<<<<< update/japanese
                 Validate::REQUIRED => [
                     true,
                     $forum_language->get('forum', 'content_required')
                 ],
 >>>>>>> add getMessage logic + clean
+=======
+                Validate::REQUIRED => true,
+>>>>>>> allow messages() defined after check() function
                 Validate::MIN => 2,
                 Validate::MAX => 50000
             ]
@@ -282,12 +286,17 @@ if (Input::exists()) {
                 Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
 =======
             'content' => [
+<<<<<<< update/japanese
 >>>>>>> add getMessage logic + clean
+=======
+                Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
+>>>>>>> allow messages() defined after check() function
                 Validate::MIN => $forum_language->get('forum', 'content_min_2'),
                 Validate::MAX => $forum_language->get('forum', 'content_max_50000')
             ]
         ]);
 
+<<<<<<< update/japanese
 <<<<<<< update/japanese
         if ($validate->passed()) {
 =======
@@ -308,6 +317,9 @@ if (Input::exists()) {
 >>>>>>> add getMessage logic + clean
         if ($validation->passed()) {
 >>>>>>> initial work (not working or tested)
+=======
+        if ($validate->passed()) {
+>>>>>>> allow messages() defined after check() function
             try {
                 $cache->setCache('post_formatting');
                 $formatting = $cache->retrieve('formatting');
@@ -453,10 +465,14 @@ if (Input::exists()) {
             }
         } else {
 <<<<<<< update/japanese
+<<<<<<< update/japanese
             $error = $validate->errors();
 =======
             $error = $validation->errors();
 >>>>>>> add getMessage logic + clean
+=======
+            $error = $validate->errors();
+>>>>>>> allow messages() defined after check() function
         }
     } else {
         $error = array($language->get('general', 'invalid_token'));
