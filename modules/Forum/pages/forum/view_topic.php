@@ -253,23 +253,21 @@ if (Input::exists()) {
         $validate = new Validate();
 
         // testing location - will be messy until complete :)
-        $validation = $validate->check($_POST, [
+        $validate->check($_POST, [
             'content' => [
-                Validate::REQUIRED => [
-                    true,
-                    $forum_language->get('forum', 'content_required')
-                ],
+                Validate::REQUIRED => true,
                 Validate::MIN => 2,
                 Validate::MAX => 50000
             ]
         ])->messages([
             'content' => [
+                Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
                 Validate::MIN => $forum_language->get('forum', 'content_min_2'),
                 Validate::MAX => $forum_language->get('forum', 'content_max_50000')
             ]
         ]);
 
-        if ($validation->passed()) {
+        if ($validate->passed()) {
             try {
                 $cache->setCache('post_formatting');
                 $formatting = $cache->retrieve('formatting');
@@ -414,7 +412,7 @@ if (Input::exists()) {
                 die($e->getMessage());
             }
         } else {
-            $error = $validation->errors();
+            $error = $validate->errors();
         }
     } else {
         $error = array($language->get('general', 'invalid_token'));

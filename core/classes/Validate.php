@@ -16,6 +16,7 @@ class Validate {
     private $_message = null;
     private $_messages = array();
     private $_passed = false;
+    private $_to_convert = array();
     private $_errors = array();
     private $_db = null;
 
@@ -69,7 +70,7 @@ class Validate {
     const NUMERIC = 'numeric';
 
     /**
-     * Create new Validate instance
+     * Create new `Validate` instance
      */
     public function __construct() {
         // Connect to database for rules which need DB access
@@ -87,7 +88,7 @@ class Validate {
     /**
      * Validate an array of inputs.
      * 
-     * **Must** be called after messages() or message() for custom messages to apply
+     * **Must** be called after `messages()` or `message()` for custom messages to apply
      * @param array $source inputs (eg: $_POST)
      * @param array $items subset of inputs to be validated
      */
@@ -107,7 +108,11 @@ class Validate {
                 // Required rule
                 if ($rule === Validate::REQUIRED && empty($value)) {
                     // The post array does not include this value, return an error
-                    $this->addError($this->getMessage($item, Validate::REQUIRED, "{$item} is required"));
+                    $this->addError([
+                        'field' => $item,
+                        'rule' => Validate::REQUIRED,
+                        'fallback' => "{$item} is required."
+                    ]);
                     continue;
                 } 
                 
@@ -120,44 +125,72 @@ class Validate {
 
                     case Validate::MIN:
                         if (mb_strlen($value) < $rule_value) {
-                            $this->addError($this->getMessage($item, Validate::MIN, "{$item} must be a minimum of {$rule_value} characters."));
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::MIN,
+                                'fallback' => "{$item} must be a minimum of {$rule_value} characters."
+                            ]);
                         }
                         break;
 
                     case Validate::MAX:
                         if (mb_strlen($value) > $rule_value) {
-                            $this->addError($this->getMessage($item, Validate::MAX, "{$item} must be a maximum of {$rule_value} characters."));
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::MAX,
+                                'fallback' => "{$item} must be a maximum of {$rule_value} characters."
+                            ]);
                         }
                         break;
 
                     case Validate::MATCHES:
                         if ($value != $source[$rule_value]) {
-                            $this->addError($this->getMessage($item, Validate::MATCHES, "{$rule_value} must match {$item}."));
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::MATCHES,
+                                'fallback' => "{$rule_value} must match {$item}."
+                            ]);
                         }
                         break;
 
                     case Validate::AGREE:
                         if ($value != 1) {
-                            $this->addError($this->getMessage($item, Validate::AGREE, "You must agree to our terms and conditions in order to register."));
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::AGREE,
+                                'fallback' => "You must agree to our terms and conditions in order to register."
+                            ]);
                         }
                         break;
 
                     case Validate::UNIQUE:
                         $check = $this->_db->get($rule_value, array($item, '=', $value));
                         if ($check->count()) {
-                            $this->addError($this->getMessage($item, Validate::UNIQUE, "The username/email {$item} already exists!"));
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::UNIQUE,
+                                'fallback' => "The {$rule_value}.{$item} {$value} already exists!"
+                            ]);
                         }
                         break;
 
                     case Validate::EMAIL:
                         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                            $this->addError($this->getMessage($item, Validate::EMAIL, "{$value} is not a valid email."));
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::EMAIL,
+                                'fallback' => "{$value} is not a valid email."
+                            ]);
                         }
                         break;
 
                     case Validate::TIMEZONE:
                         if (!in_array($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL))) {
-                            $this->addError($this->getMessage($item, Validate::TIMEZONE, "The timezone {$item} is invalid."));
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::TIMEZONE,
+                                'fallback' => "The timezone {$value} is invalid."
+                            ]);
                         }
                         break;
 
@@ -169,7 +202,11 @@ class Validate {
 
                         $isuseractive = $check->first()->active;
                         if ($isuseractive == 0) {
-                            $this->addError($this->getMessage($item, Validate::IS_ACTIVE, "That username is inactive. Have you validated your account or requested a password reset?"));
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::IS_ACTIVE,
+                                'fallback' => "That {$item} is inactive. Have you validated your account or requested a password reset?"
+                            ]);
                         }
                         break;
 
@@ -181,26 +218,38 @@ class Validate {
 
                         $isuserbanned = $check->first()->isbanned;
                         if ($isuserbanned == 1) {
-                            $this->addError($this->getMessage($item, Validate::IS_BANNED, "The username {$item} is banned."));
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::IS_BANNED,
+                                'fallback' => "The username {$value} is banned."
+                            ]);
                         }
                         break;
 
                     case Validate::ALPHANUMERIC:
                         if (!ctype_alnum($value)) {
-                            $this->addError($this->getMessage($item, Validate::ALPHANUMERIC, "{$item} must be alphanumeric."));
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::ALPHANUMERIC,
+                                'fallback' => "{$item} must be alphanumeric."
+                            ]);
                         }
                         break;
 
                     case Validate::NUMERIC:
                         if (!is_numeric($value)) {
-                            $this->addError($this->getMessage($item, Validate::NUMERIC, "{$item} must be numeric."));
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::NUMERIC,
+                                'fallback' => "{$item} must be numeric."
+                            ]);
                         }
                         break;
                 }
             }
         }
 
-        if (empty($this->_errors)) {
+        if (empty($this->_to_convert)) {
             // Only return true if there are no errors
             $this->_passed = true;
         }
@@ -209,7 +258,7 @@ class Validate {
     }
 
     /**
-     * Add generic message for any failures, specific messages() will override this
+     * Add generic message for any failures, specific `messages()` will override this
      * @param string $message message to show if any failures occur
      */
     public function message($message) {
@@ -218,7 +267,7 @@ class Validate {
     }
 
     /**
-     * Add custom messages to this Validator
+     * Add custom messages to this `Validate` instance
      * @param array $messages array of input names and strings or arrays to use as messages
      */
     public function messages(array $messages) {
@@ -227,21 +276,13 @@ class Validate {
     }
 
     /**
-     * Add an error to the error array
+     * Add an array of information to generate an error message to the $_to_convert array
+     * 
+     * These errors will be translated in the `errors()` function later.
      * @param string $error message to add to error array
      */
-    private function addError($error) {
-
-        // If there is no generic message() set, no need to worry about duplications
-        if ($this->_message == null) {
-            $this->_errors[] = $error;
-            return;
-        }
-
-        // If this new error is the generic message AND it has not already been added, add it
-        if ($error == $this->_message && !array_key_exists($this->_message, $this->_errors)) {
-            $this->_errors[] = $this->_message;
-        }
+    private function addError(array $error) {
+        $this->_to_convert[] = $error;
     }
 
     /**
@@ -257,7 +298,7 @@ class Validate {
             return $this->_message != null ? $this->_message : $fallback;
         }
 
-        // Generic custom message supplied
+        // Generic custom message for this field supplied - but not rule specific
         if (!is_array($this->_messages[$field])) {
             return $this->_messages[$field];
         }
@@ -272,15 +313,40 @@ class Validate {
     }
 
     /**
-     * Get current errors, if any
-     * @return array Any and all errors for this Validator
+     * Translate temp error information to their specific or generic or fallback messages and return
+     * @return array Any and all errors for this `Validate` instance
      */
     public function errors() {
+
+        // If errors have already been translated, dont waste time redoing it
+        if (!empty($this->_errors)) {
+            return $this->_errors;
+        }
+
+        // Loop all errors to convert and get their custom messages
+        foreach ($this->_to_convert as $error) {
+
+            $message = $this->getMessage($error['field'], $error['rule'], $error['fallback']);
+
+            // If there is no generic `message()` set or the translated message is not equal to generic message
+            // we can continue without worrying about duplications
+            if ($this->_message == null || $message != $this->_message) {
+                $this->_errors[] = $message;
+                continue;
+            }
+        
+            // If this new error is the generic message AND it has not already been added, add it
+            if ($message == $this->_message && !in_array($this->_message, $this->_errors)) {
+                $this->_errors[] = $this->_message;
+                continue;
+            }
+        }
+
         return $this->_errors;
     }
 
     /**
-     * Get if this Validator passed
+     * Get if this `Validate` instance passed
      * @return bool whether this Validator passed or not
      */
     public function passed() {

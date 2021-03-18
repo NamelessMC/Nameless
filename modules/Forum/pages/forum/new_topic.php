@@ -107,19 +107,32 @@ if (Input::exists()) {
         if (!isset($spam_check)) {
             // Spam check passed
             $validate = new Validate();
-            $validation = $validate->check($_POST, array(
-                'title' => array(
-                    'required' => true,
-                    'min' => 2,
-                    'max' => 64
-                ),
-                'content' => array(
-                    'required' => true,
-                    'min' => 2,
-                    'max' => 50000
-                )
-            ));
-            if ($validation->passed()) {
+
+            $validate->check($_POST, [
+                'title' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 2,
+                    Validate::MAX => 64
+                ],
+                'content' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 2,
+                    Validate::MAX => 50000
+                ]
+            ])->messages([
+                'title' => [
+                    Validate::REQUIRED => $forum_language->get('forum', 'title_required'),
+                    Validate::MIN => $forum_language->get('forum', 'title_min_2'),
+                    Validate::MAX => $forum_language->get('forum', 'title_max_64')
+                ],
+                'content' => [
+                    Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
+                    Validate::MIN => $forum_language->get('forum', 'content_min_2'),
+                    Validate::MAX => $forum_language->get('forum', 'content_max_50000')
+                ]
+            ]);
+
+            if ($validate->passed()) {
                 try {
                     $post_labels = array();
 
@@ -215,37 +228,7 @@ if (Input::exists()) {
                     die($e->getMessage());
                 }
             } else {
-                $error = array();
-                foreach ($validation->errors() as $item) {
-                    if (strpos($item, 'is required') !== false) {
-                        switch ($item) {
-                            case (strpos($item, 'title') !== false):
-                                $error[] = $forum_language->get('forum', 'title_required');
-                                break;
-                            case (strpos($item, 'content') !== false):
-                                $error[] = $forum_language->get('forum', 'content_required');
-                                break;
-                        }
-                    } else if (strpos($item, 'minimum') !== false) {
-                        switch ($item) {
-                            case (strpos($item, 'title') !== false):
-                                $error[] = $forum_language->get('forum', 'title_min_2');
-                                break;
-                            case (strpos($item, 'content') !== false):
-                                $error[] = $forum_language->get('forum', 'content_min_2');
-                                break;
-                        }
-                    } else if (strpos($item, 'maximum') !== false) {
-                        switch ($item) {
-                            case (strpos($item, 'title') !== false):
-                                $error[] = $forum_language->get('forum', 'title_max_64');
-                                break;
-                            case (strpos($item, 'content') !== false):
-                                $error[] = $forum_language->get('forum', 'content_max_50000');
-                                break;
-                        }
-                    }
-                }
+                $error = $validate->errors();
             }
         } else {
             $error = array(str_replace('{x}', (strtotime($last_post[0]->post_date) - strtotime("-30 seconds")), $forum_language->get('forum', 'spam_wait')));
