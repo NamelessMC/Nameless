@@ -63,16 +63,12 @@ if(!isset($_GET['c'])){
                         // Hash password
                         $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
 
-                        try {
-                            $target_user->update(array(
-                                'password' => $password,
-                                'reset_code' => null,
-                                'last_online' => date('U'),
-                                'active' => 1
-                            ));
-                        } catch(Exception $e){
-                            die($e->getMessage());
-                        }
+                        $target_user->update(array(
+                            'password' => $password,
+                            'reset_code' => null,
+                            'last_online' => date('U'),
+                            'active' => 1
+                        ));
 
                         HookHandler::executeEvent('validateUser', array(
                             'event' => 'validateUser',

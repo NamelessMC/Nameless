@@ -33,7 +33,7 @@ class ExternalMCQuery {
 
             return $result;
 
-        } catch(Exception $e){
+        } catch (Exception $e) {
             return array(
                 'error' => true,
                 'value' => $e->getMessage()
@@ -75,8 +75,7 @@ class ExternalMCQuery {
                 if(!$result->error && $result->response->description->favicon)
                     return $result->response->description->favicon;
 
-            } catch(Exception $e){
-
+            } catch (Exception $e) {
             }
         }
         return false;

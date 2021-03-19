@@ -20,21 +20,15 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (isset($_GET['do'])) {
     if ($_GET['do'] == 'purge') {
         // Purge all errors
-        try {
-            $queries->delete('email_errors', array('id', '<>', 0));
-        } catch (Exception $e) {
-            // Error
-        }
+
+         $queries->delete('email_errors', array('id', '<>', 0));
 
         Session::flash('emails_errors_success', $language->get('admin', 'email_errors_purged_successfully'));
         Redirect::to(URL::build('/panel/core/emails/errors'));
         die();
     } else if ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
-        try {
-            $queries->delete('email_errors', array('id', '=', $_GET['id']));
-        } catch (Exception $e) {
-            // Error
-        }
+
+        $queries->delete('email_errors', array('id', '=', $_GET['id']));
 
         Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
         Redirect::to(URL::build('/panel/core/emails/errors'));

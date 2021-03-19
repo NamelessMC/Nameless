@@ -237,6 +237,7 @@ if (!isset($_GET['action'])) {
 
             $guest_permissions = in_array("0", json_decode($announcement->groups));
             $groups = array();
+            
             foreach (DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {
                 $groups[$group->id] = array(
                     'name' => $group->name,
@@ -254,6 +255,7 @@ if (!isset($_GET['action'])) {
 
             $template_file = 'core/announcements_form.tpl';
             break;
+
         case 'delete':
             // Delete Announcement
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -261,17 +263,14 @@ if (!isset($_GET['action'])) {
                 die();
             }
 
-            try {
-                $queries->delete('custom_announcements', array('id', '=', $_GET['id']));
-            } catch (Exception $e) {
-                die($e->getMessage());
-            }
+            $queries->delete('custom_announcements', array('id', '=', $_GET['id']));
 
             Announcements::resetCache();
             Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));
             Redirect::to(URL::build('/panel/core/announcements'));
             die();
             break;
+
         default:
             Redirect::to(URL::build('/panel/core/announcements'));
             die();
