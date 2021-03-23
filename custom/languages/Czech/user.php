@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  Translated by Fjuro
@@ -21,7 +21,7 @@ $language = array(
      */
     'guest' => 'Host',
     'guests' => 'Hosté',
-    
+
     // UserCP
     'user_cp' => 'Účet',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Účet</span>',
@@ -35,7 +35,7 @@ $language = array(
     'delete_all' => 'Smazat všecny',
     'private_profile' => 'Soukromý profil',
     'gif_avatar' => 'Nahrát .gif jako vlastní avatar',
-    
+
     // Profile settings
     'field_is_required' => 'Pole {x} je vyžadováno.', // Don't replace {x}
     'settings_updated_successfully' => 'Nastavení úspěšně aktualizována.',
@@ -69,7 +69,7 @@ $language = array(
     'upload' => 'Nahrát',
     'topic_updates' => 'Dostávat e-maily o tématech, které sledujete',
     'gravatar' => 'Použít Gravatar jako avatar',
-    
+
     // Alerts
     'user_tag_info' => 'Byli jste označeni v příspěvku uživatelem {x}.', // Don't replace {x}
     'no_alerts' => 'Žádná nová upozornění',
@@ -77,7 +77,7 @@ $language = array(
     '1_new_alert' => 'Máte 1 nové upozornění',
     'x_new_alerts' => 'Máte {x} nových upozornění', // Don't replace {x}
     'no_alerts_usercp' => 'Nemáte žádná upozornění.',
-    
+
     // Registration
     'registration_check_email' => 'Děkujeme za registraci! Pro dokončení registrace se podívejte do vaší e-mailové schránky. Pokud nemůžete nalézt e-mail, zkontrolujte spam a hromadné.',
     'username' => 'Uživatelské jméno',
@@ -88,7 +88,7 @@ $language = array(
     'password' => 'Heslo',
     'confirm_password' => 'Potvrdit heslo',
     'i_agree' => 'Souhlasím',
-    'agree_t_and_c' => 'Kliknutím na <strong class="label label-primary">Zaregistrovat se</strong>, souhlasíte s našimi <a href="{x}" target="_blank">pravidly a podmínkami</a>.',
+    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Vytvořit účet',
     'terms_and_conditions' => 'Pravidla a podmínky',
     'validation_complete' => 'Váš účet byl ověřen, nyní se můžete přihlásit.',
@@ -103,7 +103,7 @@ $language = array(
     'authme_account_linked' => 'Účet úspěšně propojen.',
     'authme_email_help_1' => 'Zadejte vaší e-mailovou adresu.',
     'authme_email_help_2' => 'Zadejte prosím vaší e-mailovou adresu a vyberte si zobrazované jméno na profilu.',
-    
+
     // Registration errors
     'username_required' => 'Je vyžadováno uživatelské jméno.',
     'email_required' => 'Je vyžadována e-mailová adresa.',
@@ -129,7 +129,7 @@ $language = array(
     'verification_success' => 'Úspěšně ověřeno! Nyní se můžete přihlásit.',
     'authme_username_exists' => 'Váš AuthMe účet již je propojen s webem!',
     'uuid_already_exists' => 'Vaše UUID již existuje, což znamená, že je tento Minecraft účet již zaregistrován.',
-    
+
     // Login
     'successful_login' => 'Úspěšně jste se přihlásili.',
     'incorrect_details' => 'Zadali jste nesprávné údaje.',
@@ -148,7 +148,7 @@ $language = array(
     'enter_new_password' => 'Potvrďte vaší e-mailovou adresu a zadejte níže nové heslo.',
     'incorrect_email' => 'Zadaná e-mailová adresa se neshoduje s našimi záznamy.',
     'forgot_password_change_successful' => 'Vaše heslo bylo úspěšně změněno. Nyní se můžete přihlásit.',
-    
+
     // Profile pages
     'profile' => 'Profil',
     'follow' => 'Sledovat',
@@ -192,7 +192,7 @@ $language = array(
     'invalid_report_content' => 'Nepodařilo se vytvořit nahlášení. Ujistěte se, že váš důvod nahlášení obsahuje mezi 2 a 1024 znaky.',
     'report_post_content' => 'Zadejte důvod vašeho nahlášení',
     'report_created' => 'Nahlášení úspěšně vytvořeno',
-    
+
     // Messaging
     'no_messages' => 'Žádné nové zprávy',
     'no_messages_full' => 'Nemáte žádné zprávy.',
@@ -235,7 +235,7 @@ $language = array(
      */
     'user_x_has_registered' => '{x} se připojil na ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} ověřil svůj účet!',
-    
+
     // Discord
     'discord_link' => 'Propojení s Discordem',
     'linked' => 'Propojeno',

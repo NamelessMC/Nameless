@@ -92,7 +92,7 @@ $language = array(
     'password' => 'Parolă',
     'confirm_password' => 'Confirmă parola',
     'i_agree' => 'Sunt de acord',
-    'agree_t_and_c' => 'Înainte de bifare vă rugam să citiți <a href="{x}" target="_blank">Termenii și condițiile</a> noastre, după care să bifați căsuța alaturată.',
+    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Creează un cont',
     'terms_and_conditions' => 'Termeni si conditii',
     'validation_complete' => 'Contul dvs. a fost validat, acum vă puteți conecta.',
@@ -190,7 +190,7 @@ $language = array(
     'no_about_fields' => 'Acest utilizator nu și-a completat încă nici un câmp aici.',
     'reply' => 'Răspunde',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Nu s-a putut crea un raport. Asigurați-vă că motivul pentru raport este între 2 și 1024 de caractere.',
     'report_post_content' => 'Introduceți un motiv pentru raportul dvs.',

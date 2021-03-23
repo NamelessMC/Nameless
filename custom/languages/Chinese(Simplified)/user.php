@@ -91,7 +91,7 @@ $language = array(
     'password' => '密码',
     'confirm_password' => '二次确认密码',
     'i_agree' => '我同意',
-    'agree_t_and_c' => '通过点击 <strong class="label label-primary">注册</strong>, 代表您同意我们的 <a href="{x}" target="_blank">服务条款与相关条件</a>.',
+    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => '创建一个帐号',
     'terms_and_conditions' => '服务条款与相关条件',
     'validation_complete' => '您的帐号已通过验证，现在您可以进行登录等操作。',
@@ -190,7 +190,7 @@ $language = array(
     'no_about_fields' => '该用户很懒，并没有填写个性签名。',
     'reply' => '回复',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => '无法创建报告。请确保您的反馈内容在 2 到 1024 个字符之间。',
     'report_post_content' => '请输入反馈原因',

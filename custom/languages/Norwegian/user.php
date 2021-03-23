@@ -89,7 +89,7 @@ $language = array(
     'password' => 'Passord',
     'confirm_password' => 'Bekreft passordet',
     'i_agree' => 'Jeg godtar',
-    'agree_t_and_c' => 'Ved å klikke på <strong class="label label-primary">Registrer</strong> vedkjenner du at du aksepterer våre <a href="{x}" target="_blank">Vilkår for tjenesten</a>.',
+    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Opprett ny konto',
     'terms_and_conditions' => 'Vilkår for tjenesten',
     'validation_complete' => 'Kontoen er nå bekreftet.',
@@ -187,7 +187,7 @@ $language = array(
     'no_about_fields' => 'Denne brukeren har ikke skrevet noe om seg selv enda.',
     'reply' => 'Svar',
     'discord_username' => 'Discord-brukernavn',
-    
+
     // Reports
     'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Pass på at den er mellom 2 og 1024 tegn.',
     'report_post_content' => 'Vennligst oppgi grunnlaget for rapporteringen.',

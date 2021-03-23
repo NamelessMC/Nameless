@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -20,7 +20,7 @@ $language = array(
      */
     'guest' => 'Guest',
     'guests' => 'Guests',
-    
+
     // UserCP
     'user_cp' => 'Account',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Account</span>',
@@ -34,7 +34,7 @@ $language = array(
     'delete_all' => 'Delete All',
     'private_profile' => 'Private profile',
     'gif_avatar' => 'Upload .gif as custom avatar',
-    
+
     // Profile settings
     'field_is_required' => '{x} is required.', // Don't replace {x}
     'settings_updated_successfully' => 'Settings updated successfully.',
@@ -68,7 +68,7 @@ $language = array(
     'upload' => 'Upload',
     'topic_updates' => 'Get emails for topics you follow',
     'gravatar' => 'Use Gravatar as avatar',
-    
+
     // Alerts
     'user_tag_info' => 'You have been tagged in a post by {x}.', // Don't replace {x}
     'no_alerts' => 'No new alerts',
@@ -76,7 +76,7 @@ $language = array(
     '1_new_alert' => 'You have 1 new alert',
     'x_new_alerts' => 'You have {x} new alerts', // Don't replace {x}
     'no_alerts_usercp' => 'You do not have any alerts.',
-    
+
     // Registration
     'registration_check_email' => 'Thanks for registering! Please check your emails for a validation link in order to complete your registration. If you are unable to find the email, check your junk folder.',
     'username' => 'Username',
@@ -87,7 +87,7 @@ $language = array(
     'password' => 'Password',
     'confirm_password' => 'Confirm Password',
     'i_agree' => 'I Agree',
-    'agree_t_and_c' => 'By clicking <strong class="label label-primary">Register</strong>, you agree to our <a href="{x}" target="_blank">Terms and Conditions</a>.',
+    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Create an Account',
     'terms_and_conditions' => 'Terms and Conditions',
     'validation_complete' => 'Your account has been validated, you can now log in.',
@@ -102,7 +102,7 @@ $language = array(
     'authme_account_linked' => 'Account linked successfully.',
     'authme_email_help_1' => 'Finally, please enter your email address.',
     'authme_email_help_2' => 'Finally, please enter your email address, and also choose a display name for your account.',
-    
+
     // Registration errors
     'username_required' => 'A username is required.',
     'email_required' => 'An email address is required.',
@@ -128,7 +128,7 @@ $language = array(
     'verification_success' => 'Successfully validated! You can now log in.',
     'authme_username_exists' => 'Your Authme account has already been connected to the website!',
     'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
-    
+
     // Login
     'successful_login' => 'You have successfully logged in.',
     'incorrect_details' => 'You have entered incorrect details.',
@@ -147,7 +147,7 @@ $language = array(
     'enter_new_password' => 'Please confirm your email address and enter a new password below.',
     'incorrect_email' => 'The email address you have entered does not match the request.',
     'forgot_password_change_successful' => 'Your password has been changed successfully. You can now log in.',
-    
+
     // Profile pages
     'profile' => 'Profile',
     'follow' => 'Follow',
@@ -191,7 +191,7 @@ $language = array(
     'invalid_report_content' => 'Unable to create report. Please ensure your report reason is between 2 and 1024 characters.',
     'report_post_content' => 'Please enter a reason for your report',
     'report_created' => 'Report created successfully',
-    
+
     // Messaging
     'no_messages' => 'No new messages',
     'no_messages_full' => 'You do not have any messages.',
@@ -234,7 +234,7 @@ $language = array(
      */
     'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
-    
+
     // Discord
     'discord_link' => 'Discord Link',
     'linked' => 'Linked',
