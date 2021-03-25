@@ -81,16 +81,16 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                 // Validate input
                 $validate = new Validate();
 
-                $validation = $validate->check($_POST, array(
-                    'name' => array(
-                        'required' => true,
-                        'min' => 2,
-                        'max' => 16
-                    ),
-                    'type' => array(
-                        'required' => true
-                    )
-                ));
+                $validation = $validate->check($_POST, [
+                    'name' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 2,
+                        Validate::MAX => 16
+                    ],
+                    'type' => [
+                        Validate::REQUIRED => true
+                    ]
+                ])->message($language->get('admin', 'profile_field_error'));
 
                 if ($validation->passed()) {
                     // Update database
@@ -130,7 +130,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     }
                 } else {
                     // Error
-                    $errors[] = $language->get('admin', 'profile_field_error');
+                    $errors = $validation->errors();
                 }
             } else {
                 $errors[] = $language->get('general', 'invalid_token');
@@ -188,16 +188,16 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     // Validate input
                     $validate = new Validate();
 
-                    $validation = $validate->check($_POST, array(
-                        'name' => array(
-                            'required' => true,
-                            'min' => 2,
-                            'max' => 16
-                        ),
-                        'type' => array(
-                            'required' => true
-                        )
-                    ));
+                    $validation = $validate->check($_POST, [
+                        'name' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 2,
+                            Validate::MAX => 16
+                        ],
+                        'type' => [
+                            Validate::REQUIRED => true
+                        ]
+                    ])->message($language->get('admin', 'profile_field_error'));
 
                     if ($validation->passed()) {
                         // Input into database
@@ -237,7 +237,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                         }
                     } else {
                         // Display errors
-                        $errors[] = $language->get('admin', 'profile_field_error');
+                        $errors = $validation->errors();
                     }
                 } else {
                     // Invalid token

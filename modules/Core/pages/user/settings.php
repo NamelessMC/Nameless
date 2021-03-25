@@ -368,20 +368,31 @@ if(isset($_GET['do'])){
 				// Change password
 				$validate = new Validate();
 				
-				$validation = $validate->check($_POST, array(
-					'old_password' => array(
-						'required' => true
-					),
-					'new_password' => array(
-						'required' => true,
-						'min' => 6,
-						'max' => 30
-					),
-					'new_password_again' => array(
-						'required' => true,
-						'matches' => 'new_password'
-					)
-				));
+				$validation = $validate->check($_POST, [
+					'old_password' => [
+						Validate::REQUIRED => true
+                    ],
+					'new_password' => [
+						Validate::REQUIRED => true,
+						Validate::MIN => 6,
+						Validate::MAX => 30
+                    ],
+					'new_password_again' => [
+                        Validate::REQUIRED => true,
+						Validate::MATCHES => 'new_password'
+                    ]
+                ])->messages([
+                    'old_password' => $language->get('user', 'password_required') . '<br />',
+                    'new_password' => [
+                        Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
+                        Validate::MIN => $language->get('user', 'password_minimum_6') . '<br />',
+                        Validate::MAX => $language->get('user', 'password_maximum_30') . '<br />'
+                    ],
+                    'new_password_again' => [
+                        Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
+                        Validate::MATCHES => $language->get('user', 'passwords_dont_match') . '<br />'
+                    ]
+                ]);
 				
 				if($validation->passed()){
 					// Update password
@@ -408,48 +419,29 @@ if(isset($_GET['do'])){
 						Session::flash('settings_error', $language->get('user', 'incorrect_password'));
 					}
 				} else {
-					$error = '';
-					foreach($validation->errors() as $item){
-						if(strpos($item, 'is required') !== false){
-							// Empty field
-							if(strpos($error, $language->get('user', 'password_required')) !== false){
-								// Only add error once
-							} else {
-								$errors[] = $language->get('user', 'password_required') . '<br />';
-							}
-						} else if(strpos($item, 'minimum') !== false){
-							// Field under 6 chars
-							if(strpos($error, $language->get('user', 'password_minimum_6')) !== false){
-								// Only add error once
-							} else {
-								$errors[] = $language->get('user', 'password_minimum_6') . '<br />';
-							}
-						} else if(strpos($item, 'maximum') !== false){
-							// Field under 6 chars
-							if(strpos($error, $language->get('user', 'password_maximum_30')) !== false){
-								// Only add error once
-							} else {
-								$errors[] = $language->get('user', 'password_maximum_30') . '<br />';
-							}
-						} else if(strpos($item, 'must match') !== false){
-							// Password must match password again
-							$errors[] = $language->get('user', 'passwords_dont_match') . '<br />';
-						}
-					}
+					$errors = $validation->errors();
 				}
 			} else if(Input::get('action') == 'email'){
                 // Change password
                 $validate = new Validate();
 
-                $validation = $validate->check($_POST, array(
-                    'password' => array(
-                        'required' => true
-                    ),
-                    'email' => array(
-                        'required' => true,
-						'email' => true,
-                    )
-                ));
+                $validation = $validate->check($_POST, [
+                    'password' => [
+                        Validate::REQUIRED => true
+                    ],
+                    'email' => [
+                        Validate::REQUIRED => true,
+						Validate::EMAIL => true,
+                    ]
+                ])->messages([
+                    'password' => [
+                        Validate::REQUIRED => $language->get('user', 'password_required') . '<br />'
+                    ],
+                    'email' => [
+                        Validate::REQUIRED => $language->get('user', 'email_required') . '<br />',
+                        Validate::EMAIL => $language->get('general', 'contact_message_email') . '<br />'
+                    ]
+                ]);
 
                 if($validation->passed()){
                     // Check email doesn't exist
@@ -483,28 +475,7 @@ if(isset($_GET['do'])){
                         }
                     }
                 } else {
-                    $error = '';
-                    foreach($validation->errors() as $item){
-                        if(strpos($item, 'is required') !== false){
-                            // Empty field
-                            if(strpos($item, 'password') !== false){
-                                $errors[] = $language->get('user', 'password_required') . '<br />';
-                            } else {
-                                $errors[] = $language->get('user', 'email_required') . '<br />';
-                            }
-                        } else if(strpos($item, 'minimum') !== false){
-                            // Field under 4 chars
-                            $errors[] = $language->get('user', 'invalid_email') . '<br />';
-
-                        } else if(strpos($item, 'maximum') !== false){
-                            // Field over 64 chars
-                            $errors[] = $language->get('user', 'invalid_email') . '<br />';
-
-                        } else if(strpos($item, 'email') !== false){
-							// Validate email
-							$errors[] = $language->get('general', 'contact_message_email') . '<br />';
-						} 
-                    }
+                    $errors = $validation->errors();
                 }
             } else if(Input::get('action') == 'discord'){
 				

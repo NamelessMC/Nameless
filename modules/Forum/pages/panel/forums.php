@@ -132,19 +132,27 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     if (Token::check()) {
                         // Validate input
                         $validate = new Validate();
-                        $validation = $validate->check($_POST, array(
-                            'forumname' => array(
-                                'required' => true,
-                                'min' => 2,
-                                'max' => 150
-                            ),
-                            'forumdesc' => array(
-                                'max' => 255
-                            ),
-                            'forum_icon' => array(
-                                'max' => 256
-                            )
-                        ));
+                        $validation = $validate->check($_POST, [
+                            'forumname' => [
+                                Validate::REQUIRED => true,
+                                Validate::MIN => 2,
+                                Validate::MAX => 150
+                            ],
+                            'forumdesc' => [
+                                Validate::MAX => 255
+                            ],
+                            'forum_icon' => [
+                                Validate::MAX => 256
+                            ]
+                        ])->messages([
+                            'forumname' => [
+                                Validate::REQUIRED => $forum_language->get('forum', 'input_forum_title'),
+                                Validate::MIN => $forum_language->get('forum', 'forum_name_minimum'),
+                                Validate::MAX => $forum_language->get('forum', 'forum_name_maximum')
+                            ],
+                            'forumdesc' => $forum_language->get('forum', 'forum_description_maximum'),
+                            'forum_icon' => $forum_language->get('forum', 'forum_icon_maximum')
+                        ]);
 
                         if ($validation->passed()) {
                             // Create the forum
@@ -171,33 +179,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 $errors[] = $e->getMessage();
                             }
                         } else {
-                            foreach ($validation->errors() as $item) {
-                                if (strpos($item, 'is required') !== false) {
-                                    switch ($item) {
-                                        case (strpos($item, 'forumname') !== false):
-                                            $errors[] = $forum_language->get('forum', 'input_forum_title');
-                                            break;
-                                    }
-                                } else if (strpos($item, 'minimum') !== false) {
-                                    switch ($item) {
-                                        case (strpos($item, 'forumname') !== false):
-                                            $errors[] = $forum_language->get('forum', 'forum_name_minimum');
-                                            break;
-                                    }
-                                } else if (strpos($item, 'maximum') !== false) {
-                                    switch ($item) {
-                                        case (strpos($item, 'forumname') !== false):
-                                            $errors[] = $forum_language->get('forum', 'forum_name_maximum');
-                                            break;
-                                        case (strpos($item, 'forumdesc') !== false):
-                                            $errors[] = $forum_language->get('forum', 'forum_description_maximum');
-                                            break;
-                                        case (strpos($item, 'forum_icon') !== false):
-                                            $errors[] = $forum_language->get('forum', 'forum_icon_maximum');
-                                            break;
-                                    }
-                                }
-                            }
+                            $errors = $validation->errors();
                         }
                     } else {
                         // Invalid token
@@ -563,19 +545,27 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         if (Token::check()) {
             if (Input::get('action') == 'update') {
                 $validate = new Validate();
-                $validation = $validate->check($_POST, array(
-                    'title' => array(
-                        'required' => true,
-                        'min' => 2,
-                        'max' => 150
-                    ),
-                    'description' => array(
-                        'max' => 255
-                    ),
-                    'icon' => array(
-                        'max' => 256
-                    )
-                ));
+                $validation = $validate->check($_POST, [
+                    'title' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 2,
+                        Validate::MAX => 150
+                    ],
+                    'description' => [
+                        Validate::MAX => 255
+                    ],
+                    'icon' => [
+                        Validate::MAX => 256
+                    ]
+                ])->messages([
+                    'title' => [
+                        Validate::REQUIRED => $forum_language->get('forum', 'input_forum_title'),
+                        Validate::MIN => $forum_language->get('forum', 'forum_name_minimum'),
+                        Validate::MAX => $forum_language->get('forum', 'forum_name_maximum')
+                    ],
+                    'description' => $forum_language->get('forum', 'forum_description_maximum'),
+                    'icon' => $forum_language->get('forum', 'forum_icon_maximum')
+                ]);
 
                 if ($validation->passed()) {
                     try {
@@ -736,33 +726,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     Redirect::to(URL::build('/panel/forums'));
                     die();
                 } else {
-                    foreach ($validation->errors() as $error) {
-                        if (strpos($error, 'is required') !== false) {
-                            switch ($error) {
-                                case (strpos($error, 'title') !== false):
-                                    $errors[] = $forum_language->get('forum', 'input_forum_title');
-                                    break;
-                            }
-                        } else if (strpos($error, 'minimum') !== false) {
-                            switch ($error) {
-                                case (strpos($error, 'title') !== false):
-                                    $errors[] = $forum_language->get('forum', 'forum_name_minimum');
-                                    break;
-                            }
-                        } else if (strpos($error, 'maximum') !== false) {
-                            switch ($error) {
-                                case (strpos($error, 'title') !== false):
-                                    $errors[] = $forum_language->get('forum', 'forum_name_maximum');
-                                    break;
-                                case (strpos($error, 'description') !== false):
-                                    $errors[] = $forum_language->get('forum', 'forum_description_maximum');
-                                    break;
-                                case (strpos($error, 'icon') !== false):
-                                    $errors[] = $forum_language->get('forum', 'forum_icon_maximum');
-                                    break;
-                            }
-                        }
-                    }
+                    $errors = $validation->errors();
                 }
             }
         } else {

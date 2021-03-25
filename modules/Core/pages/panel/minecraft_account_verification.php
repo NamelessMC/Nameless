@@ -27,18 +27,19 @@ if(Input::exists()){
             $use_mcassoc = $use_mcassoc[0]->id;
 
             if(isset($_POST['use_mcassoc']) && $_POST['use_mcassoc'] == 'on'){
+
                 $validate = new Validate();
-                $validation = $validate->check($_POST, array(
-                    'mcassoc_key' => array(
-                        'required' => true,
-                        'max' => 128
-                    ),
-                    'mcassoc_instance' => array(
-                        'required' => true,
-                        'min' => 32,
-                        'max' => 32
-                    )
-                ));
+                $validation = $validate->check($_POST, [
+                    'mcassoc_key' => [
+                        Validate::REQUIRED => true,
+                        Validate::MAX => 128
+                    ],
+                    'mcassoc_instance' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 32,
+                        Validate::MAX => 32
+                    ]
+                ])->message($language->get('admin', 'mcassoc_error'));
 
                 if($validation->passed()){
                     // Update settings
@@ -55,7 +56,7 @@ if(Input::exists()){
                     $success = $language->get('admin', 'updated_mcassoc_successfully');
 
                 } else {
-                    $errors[] = $language->get('admin', 'mcassoc_error');
+                    $errors = $validation->errors();
                 }
 
             } else {

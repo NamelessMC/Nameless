@@ -149,19 +149,27 @@ if (!isset($_GET['c'])) {
     if (Input::exists()) {
         if (Token::check()) {
             $validate = new Validate();
-            $validation = $validate->check($_POST, array(
-                'email' => array(
-                    'required' => true
-                ),
-                'password' => array(
-                    'required' => true,
-                    'min' => 6,
-                    'max' => 30
-                ),
-                'password_again' => array(
-                    'matches' => 'password'
-                )
-            ));
+            $validation = $validate->check($_POST, [
+                'email' => [
+                    Validate::REQUIRED => true
+                ],
+                'password' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 6,
+                    Validate::MAX => 30
+                ],
+                'password_again' => [
+                    Validate::MATCHES => 'password'
+                ]
+            ])->messages([
+                'email' => $language->get('user', 'email_required'),
+                'password' => [
+                    Validate::REQUIRED => $language->get('user', 'password_required'),
+                    Validate::MIN => $language->get('user', 'password_minimum_6'),
+                    Validate::MAX => $language->get('user', 'password_maximum_30')
+                ],
+                'password_again' => $language->get('user', 'passwords_dont_match')
+            ]);
 
             if ($validation->passed()) {
                 if (strcasecmp($target_user->data()->email, $_POST['email']) == 0) {
@@ -181,29 +189,7 @@ if (!isset($_GET['c'])) {
                 } else
                     $errors = array($language->get('user', 'incorrect_email'));
             } else {
-                $errors = array();
-                foreach ($validation->errors() as $validation_error) {
-                    if (strpos($validation_error, 'is required') !== false) {
-                        // x is required
-                        switch ($validation_error) {
-                            case (strpos($validation_error, 'email') !== false):
-                                $errors[] = $language->get('user', 'email_required');
-                                break;
-                            case (strpos($validation_error, 'password') !== false):
-                                $errors[] = $language->get('user', 'password_required');
-                                break;
-                        }
-                    } else if (strpos($validation_error, 'minimum') !== false) {
-                        // x must be a minimum of y characters long
-                        $errors[] = $language->get('user', 'password_minimum_6');
-                    } else if (strpos($validation_error, 'maximum') !== false) {
-                        // x must be a maximum of y characters long
-                        $errors[] = $language->get('user', 'password_maximum_30');
-                    } else if (strpos($validation_error, 'must match') !== false) {
-                        // password must match password again
-                        $errors[] = $language->get('user', 'passwords_dont_match');
-                    }
-                }
+                $errors = $validation->errors();
             }
         } else
             $errors = array($language->get('general', 'invalid_token'));

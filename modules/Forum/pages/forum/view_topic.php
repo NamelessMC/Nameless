@@ -252,7 +252,6 @@ if (Input::exists()) {
     if (Token::check()) {
         $validate = new Validate();
 
-        // testing location - will be messy until complete :)
         $validate->check($_POST, [
             'content' => [
                 Validate::REQUIRED => true,

@@ -106,23 +106,34 @@ if (Input::exists()) {
     if (Token::check()) {
         // Valid token, check input
         $validate = new Validate();
-        $validation = array(
-            'content' => array(
-                'required' => true,
-                'min' => 2,
-                'max' => 50000
-            )
-        );
+        $validation = [
+            'content' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => 2,
+                Validate::MAX => 50000
+            ]
+        ];
         // Add title to validation if we need to
         if (isset($edit_title)) {
             $validation['title'] = array(
-                'required' => true,
-                'min' => 2,
-                'max' => 64
+                Validate::REQUIRED => true,
+                Validate::MIN => 2,
+                Validate::MAX => 64
             );
         }
 
-        $validation = $validate->check($_POST, $validation);
+        $validation = $validate->check($_POST, $validation)->messages([
+            'content' => [
+                Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
+                Validate::MIN => $forum_language->get('forum', 'content_min_2'),
+                Validate::MAX => $forum_language->get('forum', 'content_max_50000')
+            ],
+            'title' => [
+                Validate::REQUIRED => $forum_language->get('forum', 'title_required'),
+                Validate::MIN => $forum_language->get('forum', 'title_min_2'),
+                Validate::MAX => $forum_language->get('forum', 'title_max_64')
+            ]
+        ]);
 
         if ($validation->passed()) {
             // Valid post content
@@ -184,38 +195,7 @@ if (Input::exists()) {
             }
         } else {
             // Error handling
-            $errors = array();
-
-            foreach ($validation->errors() as $item) {
-                if (strpos($item, 'is required') !== false) {
-                    switch ($item) {
-                        case (strpos($item, 'title') !== false):
-                            $errors[] = $forum_language->get('forum', 'title_required');
-                            break;
-                        case (strpos($item, 'content') !== false):
-                            $errors[] = $forum_language->get('forum', 'content_required');
-                            break;
-                    }
-                } else if (strpos($item, 'minimum') !== false) {
-                    switch ($item) {
-                        case (strpos($item, 'title') !== false):
-                            $errors[] = $forum_language->get('forum', 'title_min_2');
-                            break;
-                        case (strpos($item, 'content') !== false):
-                            $errors[] = $forum_language->get('forum', 'content_min_2');
-                            break;
-                    }
-                } else if (strpos($item, 'maximum') !== false) {
-                    switch ($item) {
-                        case (strpos($item, 'title') !== false):
-                            $errors[] = $forum_language->get('forum', 'title_max_64');
-                            break;
-                        case (strpos($item, 'content') !== false):
-                            $errors[] = $forum_language->get('forum', 'content_max_50000');
-                            break;
-                    }
-                }
-            }
+            $errors = $validation->errors();
         }
     } else {
         // Bad token

@@ -56,20 +56,26 @@ if (!isset($_GET['action'])) {
                 if (Token::check()) {
                     // Validate input
                     $validate = new Validate();
-                    $validation = $validate->check($_POST, array(
-                        'header' => array(
-                            'required' => true
-                        ),
-                        'message' => array(
-                            'required' => true
-                        ),
-                        'background_colour' => array(
-                            'required' => true
-                        ),
-                        'text_colour' => array(
-                            'required' => true
-                        ),
-                    ));
+                    $validation = $validate->check($_POST, [
+                        'header' => [
+                            Validate::REQUIRED => true
+                        ],
+                        'message' => [
+                            Validate::REQUIRED => true
+                        ],
+                        'background_colour' => [
+                            Validate::REQUIRED => true
+                        ],
+                        'text_colour' => [
+                            Validate::REQUIRED => true
+                        ],
+                    ])->messages([
+                        'header' => $language->get('admin', 'header_required'),
+                        'message' => $language->get('admin', 'message_required'),
+                        'background_colour' => $language->get('admin', 'background_colour_required'),
+                        'text_colour' => $language->get('admin', 'text_colour_required')
+                    ]);
+
                     if ($validation->passed()) {
                         $groups = $queries->getWhere('groups', array('id', '<>', '0'));
                         $all_groups = array();
@@ -97,27 +103,7 @@ if (!isset($_GET['action'])) {
                             break;
                         }
                     } else {
-                        foreach ($validation->errors() as $validation_error) {
-                            if (strpos($validation_error, 'is required') !== false) {
-                                // x is required
-                                switch ($validation_error) {
-                                    case (strpos($validation_error, 'header') !== false):
-                                        $errors[] = $language->get('admin', 'header_required');
-                                        break;
-                                    case (strpos($validation_error, 'message') !== false):
-                                        $errors[] = $language->get('admin', 'message_required');
-                                        break;
-                                    case (strpos($validation_error, 'background_colour') !== false):
-                                        $errors[] = $language->get('admin', 'background_colour_required');
-                                        break;
-                                    case (strpos($validation_error, 'text_colour') !== false):
-                                        $errors[] = $language->get('admin', 'text_colour_required');
-                                        break;
-                                    default:
-                                        $errors[] = $validation_error . ".";
-                                }
-                            }
-                        }
+                        $errors = $validation->errors();
                     }
                 } else {
                     // Invalid token
@@ -163,20 +149,25 @@ if (!isset($_GET['action'])) {
                 if (Token::check()) {
                     // Validate input
                     $validate = new Validate();
-                    $validation = $validate->check($_POST, array(
-                        'header' => array(
-                            'required' => true
-                        ),
-                        'message' => array(
-                            'required' => true
-                        ),
-                        'background_colour' => array(
-                            'required' => true
-                        ),
-                        'text_colour' => array(
-                            'required' => true
-                        ),
-                    ));
+                    $validation = $validate->check($_POST, [
+                        'header' => [
+                            Validate::REQUIRED => true
+                        ],
+                        'message' => [
+                            Validate::REQUIRED => true
+                        ],
+                        'background_colour' => [
+                            Validate::REQUIRED => true
+                        ],
+                        'text_colour' => [
+                            Validate::REQUIRED => true
+                        ],
+                    ])->messages([
+                        'header' => $language->get('admin', 'header_required'),
+                        'message' => $language->get('admin', 'message_required'),
+                        'background_colour' => $language->get('admin', 'background_colour_required'),
+                        'text_colour' => $language->get('admin', 'text_colour_required')
+                    ]);
 
                     if ($validation->passed()) {
                         $all_groups = array();
@@ -204,27 +195,7 @@ if (!isset($_GET['action'])) {
                             break;
                         }
                     } else {
-                        foreach ($validation->errors() as $validation_error) {
-                            if (strpos($validation_error, 'is required') !== false) {
-                                // x is required
-                                switch ($validation_error) {
-                                    case (strpos($validation_error, 'header') !== false):
-                                        $errors[] = $language->get('admin', 'header_required');
-                                        break;
-                                    case (strpos($validation_error, 'message') !== false):
-                                        $errors[] = $language->get('admin', 'message_required');
-                                        break;
-                                    case (strpos($validation_error, 'background_colour') !== false):
-                                        $errors[] = $language->get('admin', 'background_colour_required');
-                                        break;
-                                    case (strpos($validation_error, 'text_colour') !== false):
-                                        $errors[] = $language->get('admin', 'text_colour_required');
-                                        break;
-                                    default:
-                                        $errors[] = $validation_error . ".";
-                                }
-                            }
-                        }
+                        $errors = $validation->errors();
                     }
                 } else {
                     // Invalid token

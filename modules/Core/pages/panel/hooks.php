@@ -54,18 +54,21 @@ if (!isset($_GET['action'])) {
                 if (Token::check()) {
                     // Validate input
                     $validate = new Validate();
-                    $validation = $validate->check($_POST, array(
-                        'hook_name' => array(
-                            'required' => true,
-                            'min' => 3,
-                            'max' => 128
-                        ),
-                        'hook_url' => array(
-                            'required' => true,
-                            'min' => 10,
-                            'max' => 2048
-                        )
-                    ));
+                    $validation = $validate->check($_POST, [
+                        'hook_name' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 3,
+                            Validate::MAX => 128
+                        ],
+                        'hook_url' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 10,
+                            Validate::MAX => 2048
+                        ]
+                    ])->messages([
+                        'hook_name' => $language->get('admin', 'invalid_hook_name'),
+                        'hook_url' => $language->get('admin', 'invalid_hook_url')
+                    ]);
 
                     if ($validation->passed()) {
                         $events = array();
@@ -94,13 +97,7 @@ if (!isset($_GET['action'])) {
                             $errors[] = $language->get('admin', 'invalid_hook_events');
                         }
                     } else {
-                        foreach ($validation->errors() as $error) {
-                            if (strpos($error, 'url') !== false) {
-                                $errors[] = $language->get('admin', 'invalid_hook_url');
-                            } else if (strpos($error, 'name') !== false) {
-                                $errors[] = $language->get('admin', 'invalid_hook_name');
-                            }
-                        }
+                        $errors = $validation->errors();
                     }
                 } else {
                     // Invalid token
@@ -143,18 +140,21 @@ if (!isset($_GET['action'])) {
                 if (Token::check()) {
                     // Validate input
                     $validate = new Validate();
-                    $validation = $validate->check($_POST, array(
-                        'hook_name' => array(
-                            'required' => true,
-                            'min' => 3,
-                            'max' => 128,
-                        ),
-                        'hook_url' => array(
-                            'required' => true,
-                            'min' => 10,
-                            'max' => 2048
-                        )
-                    ));
+                    $validation = $validate->check($_POST, [
+                        'hook_name' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 3,
+                            Validate::MAX => 128
+                        ],
+                        'hook_url' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 10,
+                            Validate::MAX => 2048
+                        ]
+                    ])->messages([
+                        'hook_name' => $language->get('admin', 'invalid_hook_name'),
+                        'hook_url' => $language->get('admin', 'invalid_hook_url')
+                    ]);
 
                     if ($validation->passed()) {
                         $events = array();
@@ -182,13 +182,7 @@ if (!isset($_GET['action'])) {
                             $errors[] = $language->get('admin', 'invalid_hook_events');
                         }
                     } else {
-                        foreach ($validation->errors() as $error) {
-                            if (strpos($error, 'url') !== false) {
-                                $errors[] = $language->get('admin', 'invalid_hook_url');
-                            } else if (strpos($error, 'name') !== false) {
-                                $errors[] = $language->get('admin', 'invalid_hook_name');
-                            }
-                        }
+                        $errors = $validation->errors();
                     }
                 } else {
                     // Invalid token

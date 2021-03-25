@@ -133,25 +133,35 @@ if (!isset($_GET['view'])) {
         if (Token::check()) {
             if ($_POST['action'] == 'create') {
                 $validate = new Validate();
-                $validation = $validate->check(
-                    $_POST,
-                    array(
-                        'ingame_rank_name' => array(
-                            'min' => 2,
-                            'max' => 64,
-                            'unique' => 'group_sync'
-                        ),
-                        'discord_role_id' => array(
-                            'min' => 18,
-                            'max' => 18,
-                            'numeric' => true,
-                            'unique' => 'group_sync'
-                        ),
-                        'website_group' => array(
-                            'required' => true
-                        )
-                    )
-                );
+                $validation = $validate->check($_POST, [
+                        'ingame_rank_name' => [
+                            Validate::MIN => 2,
+                            Validate::MAX => 64,
+                            Validate::UNIQUE => 'group_sync'
+                        ],
+                        'discord_role_id' => [
+                            Validate::MIN => 18,
+                            Validate::MAX => 18,
+                            Validate::NUMERIC => true,
+                            Validate::UNIQUE => 'group_sync'
+                        ],
+                        'website_group' => [
+                            Validate::REQUIRED => true
+                        ]
+                    ]
+                )->messages([
+                    'ingame_rank_name' => [
+                        Validate::MIN => $language->get('admin', 'group_name_minimum'),
+                        Validate::MAX => $language->get('admin', 'ingame_group_maximum'),
+                        Validate::UNIQUE => $language->get('admin', 'ingame_group_already_exists')
+                    ],
+                    'discord_role_id' => [
+                        Validate::MIN => $language->get('admin', 'discord_role_id_length'),
+                        Validate::MAX => $language->get('admin', 'discord_role_id_length'),
+                        Validate::NUMERIC => $language->get('admin', 'discord_role_id_numeric'),
+                        Validate::UNIQUE => $language->get('user', 'discord_id_taken')
+                    ]
+                ]);
 
                 $errors = array();
 
@@ -189,27 +199,7 @@ if (!isset($_GET['view'])) {
                         Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
                     }
                 } else {
-                    foreach ($validation->errors() as $error) {
-                        if (strpos($error, 'ingame_rank') !== false) {
-                            if (strpos($error, 'required') !== false) {
-                                $errors[] = $language->get('admin', 'group_name_required');
-                            } else if (strpos($error, 'minimum') !== false) {
-                                $errors[] = $language->get('admin', 'group_name_minimum');
-                            } else if (strpos($error, 'maximum') !== false) {
-                                $errors[] = $language->get('admin', 'ingame_group_maximum');
-                            } else {
-                                $errors[] = $language->get('admin', 'ingame_group_already_exists');
-                            }
-                        } else if (strpos($error, 'discord_role_id') !== false) {
-                            if (strpos($error, 'numeric') !== false) {
-                                $errors[] = $language->get('admin', 'discord_role_id_numeric');
-                            } else if (strpos($error, 'length') !== false) {
-                                $errors[] = $language->get('admin', 'discord_role_id_length');
-                            } else {
-                                $errors[] = $language->get('user', 'discord_id_taken');
-                            }
-                        }
-                    }
+                    $errors = $validation->errors();
                 }
             } else if ($_POST['action'] == 'update') {
                 $errors = array();

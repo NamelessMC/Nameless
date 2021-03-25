@@ -25,17 +25,17 @@ if (Input::exists()) {
 
         $validate = new Validate();
 
-        $validate->check($_POST, array(
-            'subject' => array(
-                'required' => true,
-                'min' => 1,
-            ),
-            'content' => array(
-                'required' => true,
-                'min' => 1,
-                'max' => 75000
-            )
-        ));
+        $validate->check($_POST, [
+            'subject' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => 1,
+            ],
+            'content' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => 1,
+                Validate::MAX => 75000
+            ]
+        ]);
 
         if ($validate->passed()) {
 
@@ -112,9 +112,7 @@ if (Input::exists()) {
                 die();
             }
         } else {
-            foreach ($validate->errors() as $error) {
-                $errors[] = $error;
-            }
+            $errors = $validate->errors();
         }
     } else
         $errors[] = $language->get('general', 'invalid_token');

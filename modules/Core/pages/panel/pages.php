@@ -57,27 +57,43 @@ if(!isset($_GET['action'])){
 
                 if(Token::check()){
                     $validate = new Validate();
-                    $validation = $validate->check($_POST, array(
-                        'page_title' => array(
-                            'required' => true,
-                            'min' => 2,
-                            'max' => 30
-                        ),
-                        'page_url' => array(
-                            'required' => true,
-                            'min' => 2,
-                            'max' => 20
-                        ),
-                        'content' => array(
-                            'max' => 100000
-                        ),
-                        'link_location' => array(
-                            'required' => true
-                        ),
-                        'redirect_link' => array(
-                            'max' => 512
-                        )
-                    ));
+                    $validation = $validate->check($_POST, [
+                        'page_title' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 2,
+                            Validate::MAX => 30
+                        ],
+                        'page_url' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 2,
+                            Validate::MAX => 20
+                        ],
+                        'content' => [
+                            Validate::MAX => 100000
+                        ],
+                        'link_location' => [
+                            Validate::REQUIRED => true
+                        ],
+                        'redirect_link' => [
+                            Validate::MAX => 512
+                        ]
+                    ])->messages([
+                        'page_title' => [
+                            Validate::REQUIRED => $language->get('admin', 'page_title_required'),
+                            Validate::MIN => $language->get('admin', 'page_title_minimum_2'),
+                            Validate::MAX => $language->get('admin', 'page_title_maximum_30')
+                        ],
+                        'page_url' => [
+                            Validate::REQUIRED => $language->get('admin', 'page_url_required'),
+                            Validate::MIN => $language->get('admin', 'page_url_minimum_2'),
+                            Validate::MAX => $language->get('admin', 'page_url_maximum_20')
+                        ],
+                        'content' => $language->get('admin', 'page_content_maximum_100000'),
+                        'link_location' => [
+                            Validate::REQUIRED => $language->get('admin', 'link_location_required')
+                        ],
+                        'redirect_link' => $language->get('admin', 'page_redirect_link_maximum_512')
+                    ]);
 
                     if($validation->passed()){
                         try {
@@ -163,39 +179,7 @@ if(!isset($_GET['action'])){
                         }
 
                     } else {
-                        foreach($validation->errors() as $item){
-                            if(strpos($item, 'is required') !== false){
-                                if(strpos($item, 'page_title') !== false)
-                                    $errors[] = $language->get('admin', 'page_title_required');
-
-                                else if(strpos($item, 'page_url') !== false)
-                                    $errors[] = $language->get('admin', 'page_url_required');
-
-                                else if(strpos($item, 'link_location') !== false)
-                                    $errors[] = $language->get('admin', 'link_location_required');
-
-                            } else if(strpos($item, 'minimum') !== false){
-                                if(strpos($item, 'page_title') !== false)
-                                    $errors[] = $language->get('admin', 'page_title_minimum_2');
-
-                                else if(strpos($item, 'page_url') !== false)
-                                    $errors[] = $language->get('admin', 'page_url_minimum_2');
-
-                            } else if(strpos($item, 'maximum') !== false){
-                                if(strpos($item, 'page_title') !== false)
-                                    $errors[] = $language->get('admin', 'page_title_maximum_30');
-
-                                else if(strpos($item, 'page_url') !== false)
-                                    $errors[] = $language->get('admin', 'page_url_maximum_20');
-
-                                else if(strpos($item, 'content') !== false)
-                                    $errors[] = $language->get('admin', 'page_content_maximum_100000');
-
-                                else if(strpos($item, 'redirect_link') !== false)
-                                    $errors[] = $language->get('admin', 'page_redirect_link_maximum_512');
-
-                            }
-                        }
+                        $errors = $validation->errors();
                     }
                 } else
                     $errors[] = $language->get('general', 'invalid_token');
@@ -268,27 +252,43 @@ if(!isset($_GET['action'])){
 
                 if(Token::check()){
                     $validate = new Validate();
-                    $validation = $validate->check($_POST, array(
-                        'page_title' => array(
-                            'required' => true,
-                            'min' => 2,
-                            'max' => 30
-                        ),
-                        'page_url' => array(
-                            'required' => true,
-                            'min' => 2,
-                            'max' => 20
-                        ),
-                        'content' => array(
-                            'max' => 100000
-                        ),
-                        'link_location' => array(
-                            'required' => true
-                        ),
-                        'redirect_link' => array(
-                            'max' => 512
-                        )
-                    ));
+                    $validation = $validate->check($_POST, [
+                        'page_title' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 2,
+                            Validate::MAX => 30
+                        ],
+                        'page_url' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 2,
+                            Validate::MAX => 20
+                        ],
+                        'content' => [
+                            Validate::MAX => 100000
+                        ],
+                        'link_location' => [
+                            Validate::REQUIRED => true
+                        ],
+                        'redirect_link' => [
+                            Validate::MAX => 512
+                        ]
+                    ])->messages([
+                        'page_title' => [
+                            Validate::REQUIRED => $language->get('admin', 'page_title_required'),
+                            Validate::MIN => $language->get('admin', 'page_title_minimum_2'),
+                            Validate::MAX => $language->get('admin', 'page_title_maximum_30')
+                        ],
+                        'page_url' => [
+                            Validate::REQUIRED => $language->get('admin', 'page_url_required'),
+                            Validate::MIN => $language->get('admin', 'page_url_minimum_2'),
+                            Validate::MAX => $language->get('admin', 'page_url_maximum_20')
+                        ],
+                        'content' => $language->get('admin', 'page_content_maximum_100000'),
+                        'link_location' => [
+                            Validate::REQUIRED => $language->get('admin', 'link_location_required')
+                        ],
+                        'redirect_link' => $language->get('admin', 'page_redirect_link_maximum_512')
+                    ]);
 
                     if($validation->passed()){
                         try {
@@ -464,39 +464,7 @@ if(!isset($_GET['action'])){
                         }
 
                     } else {
-                        foreach($validation->errors() as $item){
-                            if(strpos($item, 'is required') !== false){
-                                if(strpos($item, 'page_title') !== false)
-                                    $errors[] = $language->get('admin', 'page_title_required');
-
-                                else if(strpos($item, 'page_url') !== false)
-                                    $errors[] = $language->get('admin', 'page_url_required');
-
-                                else if(strpos($item, 'link_location') !== false)
-                                    $errors[] = $language->get('admin', 'link_location_required');
-
-                            } else if(strpos($item, 'minimum') !== false){
-                                if(strpos($item, 'page_title') !== false)
-                                    $errors[] = $language->get('admin', 'page_title_minimum_2');
-
-                                else if(strpos($item, 'page_url') !== false)
-                                    $errors[] = $language->get('admin', 'page_url_minimum_2');
-
-                            } else if(strpos($item, 'maximum') !== false){
-                                if(strpos($item, 'page_title') !== false)
-                                    $errors[] = $language->get('admin', 'page_title_maximum_30');
-
-                                else if(strpos($item, 'page_url') !== false)
-                                    $errors[] = $language->get('admin', 'page_url_maximum_20');
-
-                                else if(strpos($item, 'content') !== false)
-                                    $errors[] = $language->get('admin', 'page_content_maximum_100000');
-
-                                else if(strpos($item, 'redirect_link') !== false)
-                                    $errors[] = $language->get('admin', 'page_redirect_link_maximum_512');
-
-                            }
-                        }
+                        $errors = $validation->errors();
                     }
                 } else
                     $errors[] = $language->get('general', 'invalid_token');

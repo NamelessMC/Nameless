@@ -22,16 +22,19 @@ if (Input::exists()) {
 
     if (Token::check()) {
         $validate = new Validate();
-        $validation = $validate->check($_POST, array(
-            'privacy' => array(
-                'required' => true,
-                'max' => 100000
-            ),
-            'terms' => array(
-                'required' => true,
-                'max' => 100000
-            )
-        ));
+        $validation = $validate->check($_POST, [
+            'privacy' => [
+                Validate::REQUIRED => true,
+                Validate::MAX => 100000
+            ],
+            'terms' => [
+                Validate::REQUIRED => true,
+                Validate::MAX => 100000
+            ]
+        ])->messages([
+            'privacy' => $language->get('admin', 'privacy_policy_error'),
+            'terms' => $language->get('admin', 'terms_error')
+        ]);
 
         if ($validation->passed()) {
             try {
@@ -68,13 +71,7 @@ if (Input::exists()) {
                 $errors[] = $e->getMessage();
             }
         } else {
-            foreach ($validation->errors() as $error) {
-                if (strpos($error, 'terms') !== false) {
-                    $errors[] = $language->get('admin', 'terms_error');
-                } else {
-                    $errors[] = $language->get('admin', 'privacy_policy_error');
-                }
-            }
+            $errors = $validation->errors();
         }
     } else
         $errors[] = $language->get('general', 'invalid_token');

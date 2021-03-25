@@ -25,17 +25,20 @@ if (Input::exists()) {
         // Valid token
         // Validate message
         $validate = new Validate();
-        $validation = $validate->check($_POST, array(
-            'message' => array(
-                'max' => 1024
-            )
-        ));
+        $validation = $validate->check($_POST, [
+            'message' => [
+                Validate::MAX => 1024
+            ]
+        ])->message($language->get('admin', 'maintenance_message_max_1024'));
 
         if ($validation->passed()) {
             // Update database and cache
             // Is debug mode enabled or not?
-            if (isset($_POST['enable_debugging']) && $_POST['enable_debugging'] == 1) $enabled = 1;
-            else $enabled = 0;
+            if (isset($_POST['enable_debugging']) && $_POST['enable_debugging'] == 1) {
+                $enabled = 1;
+            } else {
+                $enabled = 0;
+            }
 
             $debug_id = $queries->getWhere('settings', array('name', '=', 'error_reporting'));
             $debug_id = $debug_id[0]->id;
@@ -93,7 +96,9 @@ if (Input::exists()) {
             Session::flash('debugging_success', $language->get('admin', 'debugging_settings_updated_successfully'));
             Redirect::to(URL::build('/panel/core/debugging_and_maintenance'));
             die();
-        } else $errors[] = $language->get('admin', 'maintenance_message_max_1024');
+        } else {
+            $errors = $validation->errors();
+        }
     } else {
         // Invalid token
         $errors[] = $language->get('general', 'invalid_token');

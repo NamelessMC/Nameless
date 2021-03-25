@@ -13,30 +13,31 @@ if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$validate = new Validate();
-	$validation = $validate->check($_POST, array(
-		'sitename' => array(
-			'required' => true,
-			'min' => 1,
-			'max' => 32,
-		),
-		'incoming' => array(
-			'required' => true,
-			'min' => 4,
-			'max' => 64,
-		),
-		'outgoing' => array(
-			'required' => true,
-			'min' => 4,
-			'max' => 64,
-		),
-		'language' => array(
-			'required' => true
-		)
-	));
+	$validation = $validate->check($_POST, [
+		'sitename' => [
+            Validate::REQUIRED => true,
+            Validate::MIN => 1,
+            Validate::MAX => 32,
+        ],
+		'incoming' => [
+            Validate::REQUIRED => true,
+            Validate::MIN => 4,
+            Validate::MAX => 64,
+        ],
+		'outgoing' => [
+            Validate::REQUIRED => true,
+            Validate::MIN => 4,
+			Validate::MAX => 64,
+        ],
+		'language' => [
+            Validate::REQUIRED => true,
+		]
+    ]);
 
 	if (!$validation->passed()) {
 
 		$error = $language['configuration_error'];
+        
 	} else {
 
 		try {

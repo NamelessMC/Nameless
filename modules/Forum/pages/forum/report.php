@@ -55,13 +55,13 @@ if (Token::check()) {
 
     $validate = new Validate();
 
-    $validation = $validate->check($_POST, array(
-        'reason' => array(
-            'required' => true,
-            'min' => 2,
-            'max' => 1024
-        )
-    ));
+    $validation = $validate->check($_POST, [
+        'reason' => [
+            Validate::REQUIRED => true,
+            Validate::MIN => 2,
+            Validate::MAX => 1024
+        ]
+    ]);
 
     if ($validation->passed()) {
         try {
