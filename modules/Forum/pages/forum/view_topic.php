@@ -264,7 +264,6 @@ if (Input::exists()) {
                 Validate::REQUIRED => true,
 =======
 
-        // testing location - will be messy until complete :)
         $validate->check($_POST, [
             'content' => [
 <<<<<<< update/japanese

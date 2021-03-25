@@ -30,7 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		'password' => [
             Validate::REQUIRED => true,
             Validate::MIN => 6,
+<<<<<<< update/japanese
             Validate::MAX => 30,
+=======
+            Validate::MAX => 64,
+>>>>>>> utilize new validation functions and consts
         ],
 		'password_again' => [
             Validate::REQUIRED => true,

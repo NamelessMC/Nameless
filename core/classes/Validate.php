@@ -42,47 +42,61 @@ class Validate {
      */
     const REQUIRED = 'required';
 <<<<<<< update/japanese
+<<<<<<< update/japanese
 =======
+=======
+
+>>>>>>> utilize new validation functions and consts
     /**
      * Define minimum characters
      */
     const MIN = 'min';
+
     /**
      * Define max characters
      */
     const MAX = 'max';
+
     /**
      * Ensure provided value matches another
      */
     const MATCHES = 'matches';
+
     /**
      * Check the user has agreed to the terms and conditions
      */
     const AGREE = 'agree';
+
     /**
      * Check the value has not already been inputted in the database
      */
     const UNIQUE = 'unique';
+
     /**
      * Check if email is valid
      */
     const EMAIL = 'email';
+
     /**
      * Check that timezone is valid
      */
     const TIMEZONE = 'timezone';
+
     /**
      * Check that the specified user account is set as active (ie validated)
      */
     const IS_ACTIVE = 'isactive';
+
     /**
      * Check that the specified user account is not banned
      */
     const IS_BANNED = 'isbanned';
+
     /**
      * Check that the value is alphanumeric
      */
     const ALPHANUMERIC = 'alphanumeric';
+    
     /**
      * Check that the value is numeric
      */
@@ -170,6 +184,7 @@ class Validate {
 
     /**
      * Validate an array of inputs.
+<<<<<<< update/japanese
      * 
 <<<<<<< update/japanese
 <<<<<<< update/japanese
@@ -181,6 +196,8 @@ class Validate {
 =======
      * **Must** be called after `messages()` or `message()` for custom messages to apply
 >>>>>>> allow messages() defined after check() function
+=======
+>>>>>>> utilize new validation functions and consts
      * @param array $source inputs (eg: $_POST)
      * @param array $items subset of inputs to be validated
 >>>>>>> add generic message() function + add support for it
@@ -350,6 +367,7 @@ class Validate {
 
                     case Validate::TIMEZONE:
 <<<<<<< update/japanese
+<<<<<<< update/japanese
                         if (!in_array($value, DateTimeZone::listIdentifiers())) {
                             $this->addError([
                                 'field' => $item,
@@ -362,6 +380,9 @@ class Validate {
                             $this->addError($this->getMessage($item, Validate::TIMEZONE, "The timezone {$item} is invalid."));
 >>>>>>> add generic message() function + add support for it
 =======
+=======
+                        if (!in_array($value, DateTimeZone::listIdentifiers())) {
+>>>>>>> utilize new validation functions and consts
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::TIMEZONE,
@@ -722,10 +743,14 @@ class Validate {
             // If there is no generic `message()` set or the translated message is not equal to generic message
             // we can continue without worrying about duplications
 <<<<<<< update/japanese
+<<<<<<< update/japanese
             if ($this->_message == null || $message != $this->_message && !in_array($message, $this->_errors)) {
 =======
             if ($this->_message == null || $message != $this->_message) {
 >>>>>>> allow messages() defined after check() function
+=======
+            if ($this->_message == null || $message != $this->_message && !in_array($message, $this->_errors)) {
+>>>>>>> utilize new validation functions and consts
                 $this->_errors[] = $message;
                 continue;
             }
