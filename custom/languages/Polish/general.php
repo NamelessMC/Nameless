@@ -21,6 +21,7 @@ $language = array(
     'not_registered_yet' => 'Nie masz konta?',
     'sign_in' => 'Zaloguj się',
     'log_out' => 'Wyloguj się',
+    'legal' => 'Legal',
     'profile' => 'Profil',
     'invalid_token' => 'Wystąpił błąd, spróbuj ponownie później.',
     'close' => 'Zamknij',
@@ -69,7 +70,7 @@ $language = array(
     'invalid_timezone' => 'Ta strefa czasowa nie istnieje',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */

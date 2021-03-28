@@ -22,6 +22,7 @@ $language = array(
     'not_registered_yet' => 'Not registered yet?',
     'sign_in' => 'Logga In',
     'log_out' => 'Logga Ut',
+    'legal' => 'Legal',
     'profile' => 'Profil',
     'invalid_token' => 'Ogiltigt token, försök igen.',
     'close' => 'Stäng',
@@ -70,7 +71,7 @@ $language = array(
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */

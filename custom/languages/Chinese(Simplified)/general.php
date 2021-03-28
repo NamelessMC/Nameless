@@ -23,6 +23,7 @@ $language = array(
     'not_registered_yet' => '还没有账号?',
     'sign_in' => '登录',
     'log_out' => '登出',
+    'legal' => 'Legal',
     'profile' => '账号信息',
     'invalid_token' => 'Token 无效，请重试。',
     'close' => '关闭',
@@ -71,7 +72,7 @@ $language = array(
     'invalid_timezone' => '此时区不可用',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */

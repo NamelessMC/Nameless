@@ -21,6 +21,7 @@ $language = array(
     'not_registered_yet' => 'Not registered yet?',
     'sign_in' => 'Prihlásiť sa',
     'log_out' => 'Odhlásiť sa',
+    'legal' => 'Legal',
     'profile' => 'Profil',
     'invalid_token' => 'Chyba, skuste to prosím znovu.',
     'close' => 'Zavrieť',
@@ -69,7 +70,7 @@ $language = array(
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */
@@ -157,4 +158,3 @@ $language = array(
      */
     'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
 );
-

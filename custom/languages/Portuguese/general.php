@@ -22,6 +22,7 @@ $language = array(
     'not_registered_yet' => 'Ainda não possui registro?',
     'sign_in' => 'Entrar',
     'log_out' => 'Sair',
+    'legal' => 'Legal',
     'profile' => 'Perfil',
     'invalid_token' => 'Token inválido, tente novamente.',
     'close' => 'Fechar',
@@ -70,7 +71,7 @@ $language = array(
     'invalid_timezone' => 'Esse fuso horário é inválido',
     'link' => 'Link',
     'unlink' => 'Desvincular',
-    
+
     /*
     *  Contact form
     */

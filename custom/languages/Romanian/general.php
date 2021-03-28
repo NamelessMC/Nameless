@@ -23,6 +23,7 @@ $language = array(
     'not_registered_yet' => 'Not registered yet?',
     'sign_in' => 'Conectează-te',
     'log_out' => 'Deconectează-te',
+    'legal' => 'Legal',
     'profile' => 'Profil',
     'invalid_token' => 'Token invalid, încercați din nou.',
     'close' => 'Închide',
@@ -71,7 +72,7 @@ $language = array(
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */

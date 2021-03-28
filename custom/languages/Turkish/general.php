@@ -21,6 +21,7 @@ $language = array(
     'not_registered_yet' => 'Hesabın yoksa kayıt ol',
     'sign_in' => 'Giriş Yap',
     'log_out' => 'Çıkış Yap',
+    'legal' => 'Legal',
     'profile' => 'Profil',
     'invalid_token' => 'Geçersiz token, lütfen tekrar deneyin.',
     'close' => 'Kapat',
@@ -69,7 +70,7 @@ $language = array(
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */

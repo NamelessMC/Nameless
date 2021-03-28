@@ -22,6 +22,7 @@ $language = array (
     'not_registered_yet' => 'Ještě nejste zaregistrováni?',
     'sign_in' => 'Přihlásit se',
     'log_out' => 'Odhlásit se',
+    'legal' => 'Legal',
     'profile' => 'Profil',
     'invalid_token' => 'Neplatný token, zkuste to znovu',
     'close' => 'Zavřít',

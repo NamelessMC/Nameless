@@ -21,6 +21,7 @@ $language = array(
     'not_registered_yet' => 'Not registered yet?',
     'sign_in' => 'Log In',
     'log_out' => 'Log Out',
+    'legal' => 'Legal',
     'profile' => 'Profile',
     'invalid_token' => 'Invalid token, please try again.',
     'close' => 'Close',

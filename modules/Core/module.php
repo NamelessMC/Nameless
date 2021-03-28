@@ -29,9 +29,9 @@ class Core_Module extends Module {
         $pages->add('Core', '/api/v2', 'pages/api/v2/index.php');
         $pages->add('Core', '/contact', 'pages/contact.php');
         $pages->add('Core', '/home', 'pages/home.php', 'index', true);
-
         $pages->add('Core', '/login', 'pages/login.php');
         $pages->add('Core', '/logout', 'pages/logout.php');
+        $pages->add('Core', '/namelessmc_legal', 'pages/namelessmc_legal.php');
         $pages->add('Core', '/profile', 'pages/profile.php', 'profile', true);
         $pages->add('Core', '/register', 'pages/register.php');
         $pages->add('Core', '/validate', 'pages/validate.php');
@@ -993,7 +993,7 @@ class Core_Module extends Module {
                 } else {
                     $order = $cache->retrieve('pages_order');
                 }
-                
+
                 if(!$cache->isCached('pages_icon')){
                     $icon = '<i class="nav-icon fas fa-file"></i>';
                     $cache->store('pages_icon', $icon);

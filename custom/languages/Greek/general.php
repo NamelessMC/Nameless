@@ -23,6 +23,7 @@ $language = array(
     'not_registered_yet' => 'Not registered yet?',
     'sign_in' => 'Σύνδεση',
     'log_out' => 'Αποσυνδέση',
+    'legal' => 'Legal',
     'profile' => 'Προφίλ',
     'invalid_token' => 'Μη έγκυρο τρόπος, παρακαλώ προσπαθήστε ξανά.',
     'close' => 'Κλείσιμο',
@@ -71,7 +72,7 @@ $language = array(
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */

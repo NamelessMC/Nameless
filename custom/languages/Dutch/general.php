@@ -23,6 +23,7 @@ $language = array(
     'not_registered_yet' => 'Nog niet geregistreerd?',
     'sign_in' => 'Inloggen',
     'log_out' => 'Uitloggen',
+    'legal' => 'Legal',
     'profile' => 'Profiel',
     'invalid_token' => 'Ongeldige token, probeer opnieuw.',
     'close' => 'Sluit',
@@ -71,7 +72,7 @@ $language = array(
     'invalid_timezone' => 'Die tijdzone is ongeldig',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact formulier
      */

@@ -19,6 +19,7 @@ $language = array(
     'not_registered_yet' => 'Pas enregistré?',
     'sign_in' => 'Se connecter',
     'log_out' => 'Se déconnecter',
+    'legal' => 'Legal',
     'profile' => 'Profil',
     'invalid_token' => 'Token invalide, veuillez réessayer.',
     'close' => 'Fermer',
@@ -66,7 +67,7 @@ $language = array(
     'spoiler' => 'Spoiler',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */

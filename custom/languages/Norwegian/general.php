@@ -21,6 +21,7 @@ $language = array(
     'not_registered_yet' => 'Ikke registert?',
     'sign_in' => 'Logg inn',
     'log_out' => 'Logg ut',
+    'legal' => 'Legal',
     'profile' => 'Profil',
     'invalid_token' => 'Det tok for lang tid, prøv igjen!',
     'close' => 'Lukk',
@@ -69,7 +70,7 @@ $language = array(
     'invalid_timezone' => 'Denne tidssonen er ugyldig.',
     'link' => 'Koble til',
     'unlink' => 'Koble fra',
-    
+
     /*
      *  Contact form
      */

@@ -20,6 +20,7 @@ $language = array(
     'not_registered_yet' => 'Not registered yet?',
     'sign_in' => 'Prisijungti',
     'log_out' => 'Atsijungti',
+    'legal' => 'Legal',
     'profile' => 'Profilis',
     'invalid_token' => 'Netinkamas raktas, bandykite dar kartą.',
     'close' => 'Uždaryti',
@@ -68,7 +69,7 @@ $language = array(
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
      // Contact form
     'contact' => 'Susisiekti',
     'message' => 'Žinutė',

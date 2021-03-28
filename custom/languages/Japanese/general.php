@@ -26,6 +26,7 @@ $language = array(
     'not_registered_yet' => 'まだ登録されていませんか？',
     'sign_in' => 'ログイン',
     'log_out' => 'ログアウト',
+    'legal' => 'Legal',
     'profile' => 'プロフィール',
     'invalid_token' => 'トークンが無効です。再試行してください。',
     'close' => '閉じる',
@@ -74,7 +75,7 @@ $language = array(
     'invalid_timezone' => 'タイムゾーンが無効',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */
