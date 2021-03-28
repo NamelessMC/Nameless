@@ -16,7 +16,7 @@ version: '2'
 services:
 
     web:
-        image: namelessmc/nginx
+        image: namelessmc/nginx:dev
         ports: ['80:80']
         volumes: ['./:/data']
         depends_on: [php]
