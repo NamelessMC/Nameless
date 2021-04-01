@@ -1,4 +1,5 @@
 # NamelessMC v2 Contributors
+
 Please feel free to update this list along with any pull requests.
 
 A full list of contributors for v2 can be found [here](https://github.com/NamelessMC/Nameless/graphs/contributors).
