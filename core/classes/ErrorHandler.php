@@ -16,7 +16,7 @@ class ErrorHandler {
      * Defined for easy changing.
      * This constant indicates how many LOC from each frame's PHP file to show before and after the highlighted line
      */
-    private const LINE_BUFFER = 20;
+    const LINE_BUFFER = 20;
 
     /*
      * Used to neatly display exceptions and the trace/frames leading up to it.
