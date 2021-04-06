@@ -227,14 +227,16 @@ if (Input::exists()) {
                     // Get groups
                     if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
                         if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
+                            $added = array();
                             // Any new groups?
                             foreach ($_POST['groups'] as $group) {
                                 if (!in_array($group, $user_groups)) {
                                     $view_user->addGroup($group);
-                                    Discord::addDiscordRole($view_user, $group, $language);
+                                    $added[] = $group;
                                 }
                             }
 
+                            $removed = array();
                             // Any groups to remove?
                             foreach ($view_user->getGroups() as $group) {
                                 if (!in_array($group->id, $_POST['groups'])) {
@@ -244,9 +246,11 @@ if (Input::exists()) {
                                     }
 
                                     $view_user->removeGroup($group->id);
-                                    Discord::removeDiscordRole($view_user, $group->id, $language);
+                                    $removed[] = $group->id;
                                 }
                             }
+
+                            Discord::updateDiscordRoles($view_user, $added, $removed, $language);
                         }
                     }
 

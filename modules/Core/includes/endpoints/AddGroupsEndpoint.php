@@ -35,7 +35,7 @@ class AddGroupsEndpoint extends EndpointBase {
             $user->addGroup($group);
 
             // Attempt to update their discord role as well, but ignore any output/errors
-            Discord::addDiscordRole($user, $group, $api->getLanguage(), false);
+            Discord::updateDiscordRoles($user, [$group], [], $api->getLanguage(), false);
         }
 
         $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));

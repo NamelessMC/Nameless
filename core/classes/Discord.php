@@ -10,7 +10,7 @@
  */
 class Discord {
 
-    private static $_valid_responses = array('success', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
+    private static $_valid_responses = array('fullsuccess', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
 
     public static function discordBotRequest($url = '/status', $body = null) {
         $response = Util::curlGetContents(BOT_URL . $url, $body);
@@ -33,62 +33,49 @@ class Discord {
         return null;
     }
 
-    public static function removeDiscordRole($user_query, $group, Language $language) {
-        if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
-            if ($user_query->data()->discord_id != null && $user_query->data()->discord_id != 010) {
-
-                $role_id = self::getDiscordRoleId(DB::getInstance(), $group);
-
-                if ($role_id != null) {
-                    $json = self::assembleJson($user_query->data()->discord_id, 'remove_role_id', $role_id);
-
-                    $result = self::discordBotRequest('/roleChange', $json);
-                    if ($result != 'success') {
-
-                        if ($result != 'hierarchy') {
-
-                            Session::flash('edit_user_errors', self::parseErrors($result, $language));
-                            Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
-                            die();
-                        } else {
-                            Session::flash('edit_user_warnings', array($language->get('admin', 'discord_bot_error_hierarchy')));
-                        }
-                    }
-                }
-            }
+    public static function updateDiscordRoles(User $user_query, $added, $removed, Language $language, $redirect = true) {
+        
+        if (!Util::getSetting(DB::getInstance(), 'discord_integration')) {
+            return;
         }
-    }
 
-    public static function addDiscordRole($user_query, $group, Language $language, $redirect = true) {
-        if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
-            if ($user_query->data()->discord_id != null && $user_query->data()->discord_id != 010) {
-
-                $role_id = self::getDiscordRoleId(DB::getInstance(), $group);
-
-                if ($role_id != null) {
-                    $json = self::assembleJson($user_query->data()->discord_id, 'add_role_id', $role_id);
-
-                    $result = self::discordBotRequest('/roleChange', $json);
-                    if ($result != 'success') {
-
-                        if ($result != 'hierarchy') {
-
-                            $errors = self::parseErrors($result, $language);
-
-                            if ($redirect) {
-                                Session::flash('edit_user_errors', $errors);
-                                Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
-                                die();
-                            } else return $errors;
-                        } else {
-                            if ($redirect) {
-                                Session::flash('edit_user_warnings', array($language->get('admin', 'discord_bot_error_hierarchy')));
-                            }
-                        }
-                    }
-                }
-            }
+        if ($user_query->data()->discord_id == null || $user_query->data()->discord_id == 010) {
+            return;
         }
+
+        $added_json = self::assembleGroupJson($added, 'add');
+        $removed_json = self::assembleGroupJson($removed, 'remove');
+
+        if (!count($added_json) && !count($removed_json)) {
+            return;
+        }
+
+        $json = self::assembleJson($user_query->data()->discord_id, $added_json, $removed_json);
+
+        $result = self::discordBotRequest('/roleChange', $json);
+
+        if ($result == 'fullsuccess') {
+            return;
+        }
+
+        // TODO: Add logging of this, as most people will want to be aware if this is an issue
+        if ($result == 'partsuccess') {
+            if ($redirect) {
+                Session::flash('edit_user_warnings', array($language->get('admin', 'discord_bot_error_hierarchy')));
+            }
+
+            return;
+        }
+
+        $errors = self::parseErrors($result, $language);
+
+        if ($redirect) {
+            Session::flash('edit_user_errors', $errors);
+            Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
+            die();
+        }
+
+        return $errors;
     }
 
     public static function saveRoles($roles) {
@@ -120,14 +107,33 @@ class Discord {
 
         return $errors;
     }
+
+    private static function assembleGroupJson($groups, $action) {
+        $return = array();
+
+        foreach ($groups as $group) {
+            $discord_id = self::getDiscordRoleId(DB::getInstance(), $group);
+
+            if ($discord_id == null) {
+                continue;
+            }
+
+            $return[] = [
+                'id' => $discord_id,
+                'action' => $action
+            ];
+        }
+
+        return $return;
+    }
     
-    private static function assembleJson($user_id, $action, $role_id) {
+    private static function assembleJson($user_id, $added_json, $removed_json) {
         // TODO cache or define() website api key and discord guild id
         $return = array();
         $return['guild_id'] = trim(Output::getClean(Util::getSetting(DB::getInstance(), 'discord')));
         $return['user_id'] = $user_id;
         $return['api_key'] = trim(Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')));
-        $return[$action] = $role_id;
+        $return['roles'] = json_encode(array_merge($added_json, $removed_json));
         return json_encode($return);
     }
 }

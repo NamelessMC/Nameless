@@ -48,7 +48,7 @@ if(!isset($_GET['c'])){
             'language' => $language
         ));
 
-        Discord::addDiscordRole($user, $user->getMainGroup()->id, $language, false);
+        Discord::updateDiscordRoles($user, [$user->getMainGroup()->id], [], $language, false);
 
 		Session::flash('home', $language->get('user', 'validation_complete'));
 		Redirect::to(URL::build('/'));
