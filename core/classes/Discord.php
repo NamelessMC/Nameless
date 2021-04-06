@@ -45,16 +45,37 @@ class Discord {
         return null;
     }
 
+<<<<<<< refs/remotes/upstream/v2
     public static function updateDiscordRoles(User $user_query, $added, $removed, Language $language, $redirect = true) {
 
         if (!Util::getSetting(DB::getInstance(), 'discord_integration')) {
             return;
         }
+=======
+<<<<<<< update/japanese
+    // no doc blocks as these are getting yeeted soon
+    public static function removeDiscordRole($user_query, $group, Language $language) {
+        if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
+            if ($user_query->data()->discord_id != null && $user_query->data()->discord_id != 010) {
+
+                $role_id = self::getDiscordRoleId(DB::getInstance(), $group);
+
+                if ($role_id != null) {
+                    $json = self::assembleJson($user_query->data()->discord_id, 'remove_role_id', $role_id);
+=======
+    public static function updateDiscordRoles(User $user_query, $added, $removed, Language $language, $redirect = true) {
+        
+        if (!Util::getSetting(DB::getInstance(), 'discord_integration')) {
+            return;
+        }
+>>>>>>> initial commit (untested)
+>>>>>>> initial commit (untested)
 
         if ($user_query->data()->discord_id == null || $user_query->data()->discord_id == 010) {
             return;
         }
 
+<<<<<<< refs/remotes/upstream/v2
         $added_arr = self::assembleGroupArray($added, 'add');
         $removed_arr = self::assembleGroupArray($removed, 'remove');
 
@@ -63,6 +84,16 @@ class Discord {
         }
 
         $json = self::assembleJson($user_query->data()->discord_id, $added_arr, $removed_arr);
+=======
+        $added_json = self::assembleGroupJson($added, 'add');
+        $removed_json = self::assembleGroupJson($removed, 'remove');
+
+        if (!count($added_json) && !count($removed_json)) {
+            return;
+        }
+
+        $json = self::assembleJson($user_query->data()->discord_id, $added_json, $removed_json);
+>>>>>>> initial commit (untested)
 
         $result = self::discordBotRequest('/roleChange', $json);
 
@@ -122,7 +153,11 @@ class Discord {
         return $errors;
     }
 
+<<<<<<< refs/remotes/upstream/v2
     private static function assembleGroupArray($groups, $action) {
+=======
+    private static function assembleGroupJson($groups, $action) {
+>>>>>>> initial commit (untested)
         $return = array();
 
         foreach ($groups as $group) {
@@ -141,13 +176,26 @@ class Discord {
         return $return;
     }
     
+<<<<<<< refs/remotes/upstream/v2
     private static function assembleJson($user_id, $added_arr, $removed_arr) {
+=======
+<<<<<<< update/japanese
+    // no docblock as this is revamped in PR
+    private static function assembleJson($user_id, $action, $role_id) {
+=======
+    private static function assembleJson($user_id, $added_json, $removed_json) {
+>>>>>>> initial commit (untested)
+>>>>>>> initial commit (untested)
         // TODO cache or define() website api key and discord guild id
         $return = array();
         $return['guild_id'] = trim(Output::getClean(Util::getSetting(DB::getInstance(), 'discord')));
         $return['user_id'] = $user_id;
         $return['api_key'] = trim(Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')));
+<<<<<<< refs/remotes/upstream/v2
         $return['roles'] = array_merge($added_arr, $removed_arr);
+=======
+        $return['roles'] = json_encode(array_merge($added_json, $removed_json));
+>>>>>>> initial commit (untested)
         return json_encode($return);
     }
 }
